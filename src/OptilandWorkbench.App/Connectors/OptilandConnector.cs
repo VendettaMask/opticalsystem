@@ -1,8 +1,11 @@
 using System.Collections.ObjectModel;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
@@ -42,6 +45,42 @@ public sealed class OptilandConnector
     public IReadOnlyList<string> AnalysisNames => CurrentOptic.Analyses.Names;
 
     public IReadOnlyList<string> OptimizerNames => OptimizerCatalog.Names;
+
+    public IReadOnlyList<string> GeometryKinds { get; } = new[]
+    {
+        "Plane",
+        "Standard",
+        "Even Asphere",
+        "Odd Asphere",
+        "Biconic",
+        "Toroidal",
+        "Polynomial"
+    };
+
+    public IReadOnlyList<string> MaterialNames => CurrentOptic.Materials.Names.OrderBy(name => name).ToArray();
+
+    public IReadOnlyList<string> CoatingKinds { get; } = new[]
+    {
+        "None",
+        "MgF2",
+        "Quarter-wave Stack"
+    };
+
+    public IReadOnlyList<string> InteractionKinds { get; } = new[]
+    {
+        "Refractive",
+        "Reflective",
+        "Thin Lens",
+        "Diffractive",
+        "Phase"
+    };
+
+    public IReadOnlyList<string> PhysicalApertureKinds { get; } = new[]
+    {
+        "Circular",
+        "Rectangular",
+        "None"
+    };
 
     public string BuildAnalysisReport()
     {
@@ -103,6 +142,30 @@ public sealed class OptilandConnector
         CaptureCurrentState();
         CurrentOptic.SurfaceGroup.Remove(surface);
         SetStatus("Surface removed.");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ApplySurfaceComponents(
+        OpticalSurface? surface,
+        string geometryKind,
+        string materialName,
+        string coatingKind,
+        string interactionKind,
+        string physicalApertureKind)
+    {
+        if (surface is null)
+        {
+            return;
+        }
+
+        CaptureCurrentState();
+        ApplyGeometry(surface, geometryKind);
+        ApplyMaterial(surface, materialName);
+        ApplyCoating(surface, coatingKind);
+        ApplyInteraction(surface, interactionKind);
+        ApplyPhysicalAperture(surface, physicalApertureKind);
+        SetStatus($"Surface {surface.Number} components updated.");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -240,6 +303,94 @@ public sealed class OptilandConnector
         surface.Geometry = Math.Abs(surface.Radius) < 1e-9
             ? new PlaneGeometry()
             : new StandardGeometry(surface.Radius, surface.Conic);
+    }
+
+    private static void ApplyGeometry(OpticalSurface surface, string geometryKind)
+    {
+        var radius = Math.Abs(surface.Radius) < 1e-9 ? 40 : surface.Radius;
+        switch (geometryKind)
+        {
+            case "Plane":
+                surface.Radius = 0;
+                surface.Geometry = new PlaneGeometry();
+                break;
+            case "Even Asphere":
+                surface.Radius = radius;
+                surface.Geometry = new EvenAsphereGeometry(radius, surface.Conic, new[] { 0.0, 0.0 });
+                break;
+            case "Odd Asphere":
+                surface.Radius = radius;
+                surface.Geometry = new OddAsphereGeometry(radius, surface.Conic, new[] { 0.0, 0.0 });
+                break;
+            case "Biconic":
+                surface.Radius = radius;
+                surface.Geometry = new BiconicGeometry(radius, radius, surface.Conic, surface.Conic);
+                break;
+            case "Toroidal":
+                surface.Radius = radius;
+                surface.Geometry = new ToroidalGeometry(radius, radius);
+                break;
+            case "Polynomial":
+                surface.Radius = radius;
+                surface.Geometry = new PolynomialGeometry(new Dictionary<(int X, int Y), double>
+                {
+                    [(2, 0)] = Math.Abs(radius) < 1e-9 ? 0 : 1.0 / (2.0 * radius)
+                });
+                break;
+            default:
+                surface.Radius = radius;
+                surface.Geometry = new StandardGeometry(radius, surface.Conic);
+                break;
+        }
+    }
+
+    private void ApplyMaterial(OpticalSurface surface, string materialName)
+    {
+        var selectedMaterial = string.IsNullOrWhiteSpace(materialName) ? "Air" : materialName;
+        surface.Material = selectedMaterial;
+        surface.MaterialAfter = CurrentOptic.Materials.Resolve(selectedMaterial);
+    }
+
+    private static void ApplyCoating(OpticalSurface surface, string coatingKind)
+    {
+        switch (coatingKind)
+        {
+            case "MgF2":
+                surface.Coating = "MgF2";
+                surface.CoatingModel = new ThinFilmStackCoating(new[] { new ThinFilmLayer("MgF2", 120) });
+                break;
+            case "Quarter-wave Stack":
+                surface.Coating = "Quarter-wave Stack";
+                surface.CoatingModel = new NeedleSynthesisDesigner().DesignQuarterWaveStack(new[] { "MgF2", "TiO2" }, 587.6, 4);
+                break;
+            default:
+                surface.Coating = "None";
+                surface.CoatingModel = new NoneCoatingModel();
+                break;
+        }
+    }
+
+    private static void ApplyInteraction(OpticalSurface surface, string interactionKind)
+    {
+        surface.IsReflective = interactionKind == "Reflective";
+        surface.InteractionModel = interactionKind switch
+        {
+            "Reflective" => new RefractiveReflectiveInteractionModel(true),
+            "Thin Lens" => new ThinLensInteractionModel(50),
+            "Diffractive" => new DiffractiveInteractionModel(1),
+            "Phase" => new PhaseInteractionModel((_, _) => (0, 0)),
+            _ => new RefractiveReflectiveInteractionModel(false)
+        };
+    }
+
+    private static void ApplyPhysicalAperture(OpticalSurface surface, string physicalApertureKind)
+    {
+        surface.PhysicalAperture = physicalApertureKind switch
+        {
+            "Rectangular" => new RectangularAperture(surface.SemiDiameter, surface.SemiDiameter),
+            "None" => null,
+            _ => new CircularAperture(surface.SemiDiameter)
+        };
     }
 
     private void SetPrimaryWavelengthGuard()
