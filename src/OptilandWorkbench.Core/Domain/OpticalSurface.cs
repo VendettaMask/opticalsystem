@@ -1,3 +1,11 @@
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Coordinates;
+using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Scattering;
+
 namespace OptilandWorkbench.Core.Domain;
 
 public sealed class OpticalSurface : NotifyObject
@@ -11,6 +19,13 @@ public sealed class OpticalSurface : NotifyObject
     private double _semiDiameter = 10.0;
     private double _conic;
     private bool _isStop;
+    private bool _isReflective;
+    private IGeometry _geometry = new PlaneGeometry();
+    private IMaterial _materialBefore = new AirMaterial();
+    private IMaterial _materialAfter = new AirMaterial();
+    private ICoatingModel _coatingModel = new NoneCoatingModel();
+    private IInteractionModel _interactionModel = new RefractiveReflectiveInteractionModel();
+    private CoordinateSystem _coordinateSystem = CoordinateSystem.Global;
 
     public int Number
     {
@@ -66,7 +81,73 @@ public sealed class OpticalSurface : NotifyObject
         set => SetProperty(ref _isStop, value);
     }
 
+    public bool IsReflective
+    {
+        get => _isReflective;
+        set
+        {
+            if (SetProperty(ref _isReflective, value))
+            {
+                InteractionModel = new RefractiveReflectiveInteractionModel(value);
+            }
+        }
+    }
+
     public bool IsPlane => Math.Abs(Radius) < 1e-9;
+
+    public IGeometry Geometry
+    {
+        get => _geometry;
+        set => SetProperty(ref _geometry, value);
+    }
+
+    public IMaterial MaterialBefore
+    {
+        get => _materialBefore;
+        set => SetProperty(ref _materialBefore, value);
+    }
+
+    public IMaterial MaterialAfter
+    {
+        get => _materialAfter;
+        set => SetProperty(ref _materialAfter, value);
+    }
+
+    public string MaterialAfterName => MaterialAfter.Name == "Air" && Material != "Air" ? Material : MaterialAfter.Name;
+
+    public ICoatingModel CoatingModel
+    {
+        get => _coatingModel;
+        set => SetProperty(ref _coatingModel, value);
+    }
+
+    public IInteractionModel InteractionModel
+    {
+        get => _interactionModel;
+        set => SetProperty(ref _interactionModel, value);
+    }
+
+    public IPhysicalAperture? PhysicalAperture { get; set; }
+
+    public IScatteringModel? ScatteringModel { get; set; }
+
+    public CoordinateSystem CoordinateSystem
+    {
+        get => _coordinateSystem;
+        set => SetProperty(ref _coordinateSystem, value);
+    }
+
+    public void SyncCompositionFromLegacyProperties(double zPosition)
+    {
+        Geometry = IsPlane ? new PlaneGeometry() : new StandardGeometry(Radius, Conic);
+        MaterialAfter = new MaterialRegistry().Resolve(Material);
+        CoatingModel = Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
+            ? new NoneCoatingModel()
+            : new ThinFilmStackCoating(new[] { new ThinFilmLayer(Coating, 120) });
+        InteractionModel = new RefractiveReflectiveInteractionModel(IsReflective);
+        PhysicalAperture = new CircularAperture(SemiDiameter);
+        CoordinateSystem = new CoordinateSystem(new Backend.Vector3D(0, 0, zPosition));
+    }
 
     public OpticalSurface Clone()
     {
@@ -80,7 +161,16 @@ public sealed class OpticalSurface : NotifyObject
             Coating = Coating,
             SemiDiameter = SemiDiameter,
             Conic = Conic,
-            IsStop = IsStop
+            IsStop = IsStop,
+            IsReflective = IsReflective,
+            Geometry = Geometry.Clone(),
+            MaterialBefore = MaterialBefore.Clone(),
+            MaterialAfter = MaterialAfter.Clone(),
+            CoatingModel = CoatingModel.Clone(),
+            InteractionModel = InteractionModel.Clone(),
+            PhysicalAperture = PhysicalAperture?.Clone(),
+            ScatteringModel = ScatteringModel?.Clone(),
+            CoordinateSystem = CoordinateSystem
         };
     }
 

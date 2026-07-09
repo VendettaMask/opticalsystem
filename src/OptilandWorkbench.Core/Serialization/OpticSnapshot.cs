@@ -1,10 +1,17 @@
 namespace OptilandWorkbench.Core.Serialization;
 
 public sealed record OpticSnapshot(
+    int SchemaVersion,
     string Name,
+    ApertureSnapshot? Aperture,
+    string? BackendName,
     List<FieldPointSnapshot> Fields,
     List<WavelengthSnapshot> Wavelengths,
     List<SurfaceSnapshot> Surfaces);
+
+public sealed record ApertureSnapshot(
+    string Kind,
+    double Value);
 
 public sealed record FieldPointSnapshot(
     string Label,
@@ -27,4 +34,15 @@ public sealed record SurfaceSnapshot(
     string Coating,
     double SemiDiameter,
     double Conic,
-    bool IsStop);
+    bool IsStop,
+    bool IsReflective = false,
+    SurfaceComponentSnapshot? Components = null);
+
+public sealed record SurfaceComponentSnapshot(
+    string GeometryKind,
+    string MaterialBefore,
+    string MaterialAfter,
+    string CoatingKind,
+    string InteractionKind,
+    string? PhysicalApertureKind,
+    string? ScatteringKind);

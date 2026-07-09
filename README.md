@@ -1,13 +1,14 @@
 # Optiland Workbench
 
-A cross-platform .NET desktop prototype inspired by the Optiland architecture guide.
+A cross-platform .NET desktop implementation inspired by the Optiland architecture guide.
 
 The project mirrors the documented Optiland shape:
 
 - `Optic` is the central container for fields, wavelengths, surfaces, ray tracing, paraxial data, aberration estimates, pickups, and solves.
 - `SurfaceGroup` owns optical interfaces and renumbers them as users edit the lens data.
-- `RealRayTracer`, `AnalysisRunner`, and `SimpleOptimizer` operate against the current `Optic`.
+- `RealRayTracer`, `SequentialRayTracer`, `AnalysisRunner`, and optimization/tolerancing services operate against the current `Optic`.
 - The Avalonia GUI talks to the model through `OptilandConnector`, so panels do not mutate backend state directly.
+- The new parity foundation adds Optiland-equivalent module boundaries for backend, rays, ray tracing, geometry, materials, coatings, interactions, propagation, apertures, sources, tolerancing, multi-configuration, file IO, plugins, and visualization.
 
 ## Requirements
 
@@ -36,6 +37,8 @@ src/OptilandWorkbench.App    Avalonia desktop GUI and connector layer
 tests/OptilandWorkbench.Tests
 ```
 
+See [docs/PARITY_MATRIX.md](docs/PARITY_MATRIX.md) for the implementation map against the Optiland documentation.
+
 ## Notes
 
-The ray tracer and optimizer are intentionally lightweight approximations. They are written behind the same component boundaries that the Optiland guide describes, so replacing them with higher-fidelity models later should not force a GUI rewrite.
+This repository is being built in milestones toward a pure .NET/C# Optiland-style implementation. The current milestone establishes the architecture and representative CPU implementations; advanced freeform, diffraction, wavefront, thin-film, GPU/autograd, and commercial-format fidelity remain staged follow-up work.

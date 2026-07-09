@@ -61,9 +61,12 @@ public sealed class SurfaceGroup
 
     public void Renumber()
     {
+        var z = 0.0;
         for (var index = 0; index < Items.Count; index++)
         {
             Items[index].Number = index;
+            Items[index].SyncCompositionFromLegacyProperties(z);
+            z += Items[index].Thickness;
         }
     }
 }

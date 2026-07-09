@@ -1,7 +1,13 @@
 using System.Collections.ObjectModel;
+using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
+using OptilandWorkbench.Core.Tolerancing;
 
 namespace OptilandWorkbench.Core;
 
@@ -11,13 +17,21 @@ public sealed class Optic
     {
         Name = name;
         RealRayTracer = new RealRayTracer(this);
+        SequentialRayTracer = new SequentialRayTracer(this);
         Paraxial = new Paraxial(this);
         Aberrations = new Aberrations(this);
         Pickups = new PickupManager(this);
         Solves = new SolveManager(this);
+        Analyses = new AnalysisCatalog(this);
     }
 
     public string Name { get; set; }
+
+    public NumericBackendProvider Backend { get; } = new();
+
+    public SystemAperture Aperture { get; } = new();
+
+    public MaterialRegistry Materials { get; } = new();
 
     public ObservableCollection<FieldPoint> Fields { get; } = new();
 
@@ -27,6 +41,8 @@ public sealed class Optic
 
     public RealRayTracer RealRayTracer { get; }
 
+    public SequentialRayTracer SequentialRayTracer { get; }
+
     public Paraxial Paraxial { get; }
 
     public Aberrations Aberrations { get; }
@@ -34,6 +50,18 @@ public sealed class Optic
     public PickupManager Pickups { get; }
 
     public SolveManager Solves { get; }
+
+    public AnalysisCatalog Analyses { get; }
+
+    public Optimization.OptimizationProblem CreateOptimizationProblem()
+    {
+        return new Optimization.OptimizationProblem();
+    }
+
+    public Tolerancing.Tolerancing CreateTolerancing()
+    {
+        return new Tolerancing.Tolerancing();
+    }
 
     public static Optic CreateDemo()
     {
@@ -118,7 +146,10 @@ public sealed class Optic
     public OpticSnapshot ToSnapshot()
     {
         return new OpticSnapshot(
+            SchemaVersion: 2,
             Name,
+            new ApertureSnapshot(Aperture.Kind.ToString(), Aperture.Value),
+            Backend.Current.Name,
             Fields.Select(field => new FieldPointSnapshot(
                 field.Label,
                 field.XAngleDegrees,
@@ -138,15 +169,38 @@ public sealed class Optic
                 surface.Coating,
                 surface.SemiDiameter,
                 surface.Conic,
-                surface.IsStop)).ToList());
+                surface.IsStop,
+                surface.IsReflective,
+                new SurfaceComponentSnapshot(
+                    surface.Geometry.Kind,
+                    surface.MaterialBefore.Name,
+                    surface.MaterialAfter.Name,
+                    surface.CoatingModel.Kind,
+                    surface.InteractionModel.Kind,
+                    surface.PhysicalAperture?.Kind,
+                    surface.ScatteringModel?.Kind))).ToList());
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
     {
         Name = snapshot.Name;
+        if (snapshot.Aperture is not null)
+        {
+            if (Enum.TryParse<ApertureKind>(snapshot.Aperture.Kind, out var apertureKind))
+            {
+                Aperture.Kind = apertureKind;
+            }
+
+            Aperture.Value = snapshot.Aperture.Value;
+        }
+
+        if (!string.IsNullOrWhiteSpace(snapshot.BackendName) && Backend.Names.Contains(snapshot.BackendName))
+        {
+            Backend.SetBackend(snapshot.BackendName);
+        }
 
         Fields.Clear();
-        foreach (var field in snapshot.Fields)
+        foreach (var field in snapshot.Fields ?? new List<FieldPointSnapshot>())
         {
             Fields.Add(new FieldPoint
             {
@@ -158,7 +212,7 @@ public sealed class Optic
         }
 
         Wavelengths.Clear();
-        foreach (var wavelength in snapshot.Wavelengths)
+        foreach (var wavelength in snapshot.Wavelengths ?? new List<WavelengthSnapshot>())
         {
             Wavelengths.Add(new Wavelength
             {
@@ -169,7 +223,7 @@ public sealed class Optic
             });
         }
 
-        SurfaceGroup.Replace(snapshot.Surfaces.Select(surface => new OpticalSurface
+        SurfaceGroup.Replace((snapshot.Surfaces ?? new List<SurfaceSnapshot>()).Select(surface => new OpticalSurface
         {
             Number = surface.Number,
             Label = surface.Label,
@@ -179,7 +233,8 @@ public sealed class Optic
             Coating = surface.Coating,
             SemiDiameter = surface.SemiDiameter,
             Conic = surface.Conic,
-            IsStop = surface.IsStop
+            IsStop = surface.IsStop,
+            IsReflective = surface.IsReflective
         }));
     }
 
