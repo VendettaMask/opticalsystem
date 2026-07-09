@@ -12,6 +12,16 @@ public sealed class SystemPropertiesPanel : UserControl
     private readonly OptilandConnector _connector;
     private readonly DataGrid _fieldsGrid;
     private readonly DataGrid _wavelengthsGrid;
+    private readonly ComboBox _backendPicker = new() { MinWidth = 150 };
+    private readonly ComboBox _apertureKindPicker = new() { MinWidth = 190 };
+    private readonly NumericUpDown _apertureValue = new()
+    {
+        Minimum = 0.001m,
+        Maximum = 1_000_000m,
+        Increment = 1m,
+        Value = 14m,
+        Width = 110
+    };
 
     public SystemPropertiesPanel(OptilandConnector connector)
     {
@@ -28,17 +38,20 @@ public sealed class SystemPropertiesPanel : UserControl
         var root = new Grid
         {
             Margin = new Avalonia.Thickness(12),
-            RowDefinitions = new RowDefinitions("Auto,*,Auto,*")
+            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto,*")
         };
 
+        var systemControls = BuildSystemControls();
         var fieldHeader = BuildHeader("Fields", addField);
         var wavelengthHeader = BuildHeader("Wavelengths", addWavelength);
 
-        Grid.SetRow(fieldHeader, 0);
-        Grid.SetRow(_fieldsGrid, 1);
-        Grid.SetRow(wavelengthHeader, 2);
-        Grid.SetRow(_wavelengthsGrid, 3);
+        Grid.SetRow(systemControls, 0);
+        Grid.SetRow(fieldHeader, 1);
+        Grid.SetRow(_fieldsGrid, 2);
+        Grid.SetRow(wavelengthHeader, 3);
+        Grid.SetRow(_wavelengthsGrid, 4);
 
+        root.Children.Add(systemControls);
         root.Children.Add(fieldHeader);
         root.Children.Add(_fieldsGrid);
         root.Children.Add(wavelengthHeader);
@@ -48,6 +61,42 @@ public sealed class SystemPropertiesPanel : UserControl
         _connector.OpticLoaded += (_, _) => Refresh();
         _connector.OpticChanged += (_, _) => Refresh();
         Refresh();
+    }
+
+    private WrapPanel BuildSystemControls()
+    {
+        _backendPicker.ItemsSource = _connector.BackendNames;
+        _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
+
+        var applyButton = new Button { Content = "Apply", MinWidth = 74 };
+        applyButton.Click += (_, _) => ApplySystemControls();
+
+        return new WrapPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Margin = new Avalonia.Thickness(0, 0, 0, 10),
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "Backend",
+                    FontWeight = FontWeight.SemiBold,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Avalonia.Thickness(0, 0, 8, 0)
+                },
+                _backendPicker,
+                new TextBlock
+                {
+                    Text = "Aperture",
+                    FontWeight = FontWeight.SemiBold,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
+                },
+                _apertureKindPicker,
+                _apertureValue,
+                applyButton
+            }
+        };
     }
 
     private static StackPanel BuildHeader(string title, Button button)
@@ -109,7 +158,28 @@ public sealed class SystemPropertiesPanel : UserControl
 
     private void Refresh()
     {
+        _backendPicker.ItemsSource = _connector.BackendNames;
+        _backendPicker.SelectedItem = _connector.CurrentOptic.Backend.Current.Name;
+        _apertureKindPicker.SelectedItem = _connector.CurrentOptic.Aperture.Kind.ToString();
+        _apertureValue.Value = (decimal)_connector.CurrentOptic.Aperture.Value;
         _fieldsGrid.ItemsSource = _connector.Fields;
         _wavelengthsGrid.ItemsSource = _connector.Wavelengths;
+    }
+
+    private void ApplySystemControls()
+    {
+        var backendName = _backendPicker.SelectedItem as string;
+        var apertureKind = _apertureKindPicker.SelectedItem as string
+            ?? _connector.CurrentOptic.Aperture.Kind.ToString();
+        var value = _apertureValue.Value.HasValue
+            ? decimal.ToDouble(_apertureValue.Value.Value)
+            : _connector.CurrentOptic.Aperture.Value;
+
+        if (backendName is not null)
+        {
+            _connector.SetBackend(backendName);
+        }
+
+        _connector.SetSystemAperture(apertureKind, value);
     }
 }

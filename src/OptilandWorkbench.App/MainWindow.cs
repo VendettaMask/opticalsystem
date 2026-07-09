@@ -10,11 +10,23 @@ namespace OptilandWorkbench.App;
 
 public sealed class MainWindow : Window
 {
-    private static readonly FilePickerFileType OpticFileType = new("Optic JSON")
+    private static readonly FilePickerFileType NativeOpticFileType = new("Optiland JSON")
     {
-        Patterns = new[] { "*.optic.json", "*.json" },
+        Patterns = new[] { "*.optiland.json", "*.optic.json", "*.json", "*.optiland" },
         AppleUniformTypeIdentifiers = new[] { "public.json" },
         MimeTypes = new[] { "application/json" }
+    };
+
+    private static readonly FilePickerFileType CommercialOpticFileType = new("Sequential lens formats")
+    {
+        Patterns = new[] { "*.zmx", "*.seq", "*.len" },
+        MimeTypes = new[] { "text/plain" }
+    };
+
+    private static readonly FilePickerFileType PlainSequentialFileType = new("Plain sequential text")
+    {
+        Patterns = new[] { "*.lens", "*.dat", "*.txt" },
+        MimeTypes = new[] { "text/plain" }
     };
 
     private readonly OptilandConnector _connector;
@@ -161,7 +173,7 @@ public sealed class MainWindow : Window
         {
             Title = "Open optic",
             AllowMultiple = false,
-            FileTypeFilter = new[] { OpticFileType }
+            FileTypeFilter = new[] { NativeOpticFileType, CommercialOpticFileType, PlainSequentialFileType }
         });
 
         if (files.Count > 0)
@@ -175,8 +187,8 @@ public sealed class MainWindow : Window
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = "Save optic",
-            SuggestedFileName = "optiland-workbench.optic.json",
-            FileTypeChoices = new[] { OpticFileType }
+            SuggestedFileName = "optiland-workbench.optiland.json",
+            FileTypeChoices = new[] { NativeOpticFileType, CommercialOpticFileType, PlainSequentialFileType }
         });
 
         if (file is not null)

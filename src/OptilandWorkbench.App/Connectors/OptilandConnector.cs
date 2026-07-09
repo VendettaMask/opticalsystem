@@ -4,6 +4,7 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Optimization;
@@ -46,6 +47,10 @@ public sealed class OptilandConnector
 
     public IReadOnlyList<string> OptimizerNames => OptimizerCatalog.Names;
 
+    public IReadOnlyList<string> BackendNames => CurrentOptic.Backend.Names.OrderBy(name => name).ToArray();
+
+    public IReadOnlyList<string> ApertureKindNames { get; } = Enum.GetNames<ApertureKind>();
+
     public IReadOnlyList<string> GeometryKinds { get; } = new[]
     {
         "Plane",
@@ -81,6 +86,19 @@ public sealed class OptilandConnector
         "Rectangular",
         "None"
     };
+
+    public static bool IsNativeJsonPath(string path)
+    {
+        return path.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+            || path.EndsWith(".optiland", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static string FormatNameForPath(string path)
+    {
+        return IsNativeJsonPath(path)
+            ? "native-json"
+            : OpticalFormatCatalog.FindImporter(Path.GetExtension(path)).FormatName;
+    }
 
     public string BuildAnalysisReport()
     {
@@ -198,6 +216,32 @@ public sealed class OptilandConnector
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void SetSystemAperture(string apertureKindName, double value)
+    {
+        if (!Enum.TryParse<ApertureKind>(apertureKindName, out var kind))
+        {
+            return;
+        }
+
+        CaptureCurrentState();
+        CurrentOptic.Aperture.Kind = kind;
+        CurrentOptic.Aperture.Value = Math.Max(0.001, value);
+        SetStatus("System aperture updated.");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetBackend(string backendName)
+    {
+        if (string.IsNullOrWhiteSpace(backendName) || !CurrentOptic.Backend.Names.Contains(backendName))
+        {
+            return;
+        }
+
+        CurrentOptic.Backend.SetBackend(backendName);
+        SetStatus($"Backend set to {backendName}.");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public OptimizationResult OptimizeRadius(OpticalSurface surface)
     {
         CaptureCurrentState();
@@ -272,16 +316,34 @@ public sealed class OptilandConnector
 
     public async Task SaveAsync(string path)
     {
-        await OpticJsonStore.SaveAsync(CurrentOptic, path);
+        if (IsNativeJsonPath(path))
+        {
+            await OpticJsonStore.SaveAsync(CurrentOptic, path);
+        }
+        else
+        {
+            var text = OpticalFormatCatalog.Export(CurrentOptic, Path.GetExtension(path));
+            await File.WriteAllTextAsync(path, text);
+        }
+
         SetStatus($"Saved {Path.GetFileName(path)}.");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public async Task LoadAsync(string path)
     {
-        CurrentOptic = await OpticJsonStore.LoadAsync(path);
+        if (IsNativeJsonPath(path))
+        {
+            CurrentOptic = await OpticJsonStore.LoadAsync(path);
+        }
+        else
+        {
+            var text = await File.ReadAllTextAsync(path);
+            CurrentOptic = OpticalFormatCatalog.Import(text, Path.GetExtension(path));
+        }
+
         _undoRedo.Clear();
-        SetStatus($"Loaded {Path.GetFileName(path)}.");
+        SetStatus($"Loaded {Path.GetFileName(path)} ({FormatNameForPath(path)}).");
         OpticLoaded?.Invoke(this, EventArgs.Empty);
     }
 
