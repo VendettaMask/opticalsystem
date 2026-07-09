@@ -16,12 +16,12 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe/catalog registry |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | Base analysis, spot, ray fan, first-order, catalog placeholders for full suite |
-| Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, Glass Expert scaffold |
-| Tolerancing | `Tolerancing` | Perturbations, samplers, sensitivity, Monte Carlo scaffold |
+| Analysis | `Analysis` | Base analysis plus documented analysis catalog with concrete proxy data outputs |
+| Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
+| Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
-| File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus commercial-format importer/exporter scaffold |
-| Plugins | `Plugins` | `IOptilandPlugin` assembly discovery with warning isolation |
+| File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
+| Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme and primitive scene DTOs for 2D/3D renderers |
 | GUI | `OptilandWorkbench.App` | Avalonia shell, connector, editor/viewer/analysis/optimization/system panels; startup fix retained |
 

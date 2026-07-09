@@ -27,6 +27,8 @@ public sealed class PluginRegistry
 
     public void RegisterGeometry(string key, Func<IGeometry> factory) => _geometries[key] = factory;
 
+    public void RegisterMaterial(IMaterial material) => Materials.Register(material);
+
     public void RegisterAnalysis(string key, Func<Optic, BaseAnalysis> factory) => _analyses[key] = factory;
 }
 
@@ -45,13 +47,7 @@ public sealed class PluginLoader
             try
             {
                 var assembly = Assembly.LoadFrom(file);
-                foreach (var type in assembly.GetTypes().Where(type => typeof(IOptilandPlugin).IsAssignableFrom(type) && !type.IsAbstract))
-                {
-                    if (Activator.CreateInstance(type) is IOptilandPlugin plugin)
-                    {
-                        plugin.Register(registry);
-                    }
-                }
+                LoadFromAssembly(assembly, registry);
             }
             catch (Exception ex)
             {
@@ -60,5 +56,50 @@ public sealed class PluginLoader
         }
 
         return registry;
+    }
+
+    public PluginRegistry LoadFromAssembly(Assembly assembly, PluginRegistry? registry = null)
+    {
+        registry ??= new PluginRegistry();
+        foreach (var type in GetPluginTypes(assembly, registry))
+        {
+            try
+            {
+                if (Activator.CreateInstance(type) is IOptilandPlugin plugin)
+                {
+                    plugin.Register(registry);
+                }
+            }
+            catch (Exception ex)
+            {
+                registry.Warnings.Add($"{assembly.GetName().Name}/{type.FullName}: {ex.GetBaseException().Message}");
+            }
+        }
+
+        return registry;
+    }
+
+    private static IEnumerable<Type> GetPluginTypes(Assembly assembly, PluginRegistry registry)
+    {
+        try
+        {
+            return assembly
+                .GetTypes()
+                .Where(type => typeof(IOptilandPlugin).IsAssignableFrom(type)
+                    && type is { IsAbstract: false, IsInterface: false }
+                    && type.GetConstructor(Type.EmptyTypes) is not null)
+                .ToArray();
+        }
+        catch (ReflectionTypeLoadException ex)
+        {
+            registry.Warnings.Add($"{assembly.GetName().Name}: {ex.Message}");
+            return ex.Types
+                .Where(type => type is not null
+                    && typeof(IOptilandPlugin).IsAssignableFrom(type)
+                    && type is { IsAbstract: false, IsInterface: false }
+                    && type.GetConstructor(Type.EmptyTypes) is not null)
+                .Cast<Type>()
+                .ToArray();
+        }
     }
 }

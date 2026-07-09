@@ -3,11 +3,13 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Plugins;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
@@ -298,5 +300,58 @@ public sealed class OptilandParityTests
                 File.Delete(path);
             }
         }
+    }
+
+    [Fact]
+    public void CommercialFormatCatalogRoundTripsCommonSequentialSubset()
+    {
+        var optic = Optic.CreateDemo();
+
+        foreach (var extension in new[] { ".zmx", ".seq", ".len" })
+        {
+            var text = OpticalFormatCatalog.Export(optic, extension);
+            var restored = OpticalFormatCatalog.Import(text, extension);
+
+            Assert.Equal(optic.SurfaceGroup.Items.Count, restored.SurfaceGroup.Items.Count);
+            Assert.Equal("Imported", restored.Name[..8]);
+            Assert.Equal(optic.SurfaceGroup.Items[1].IsStop, restored.SurfaceGroup.Items[1].IsStop);
+            Assert.Equal(optic.SurfaceGroup.Items[2].Radius, restored.SurfaceGroup.Items[2].Radius, precision: 5);
+            Assert.Equal(optic.SurfaceGroup.Items[2].Thickness, restored.SurfaceGroup.Items[2].Thickness, precision: 12);
+            Assert.Equal(optic.SurfaceGroup.Items[2].Material, restored.SurfaceGroup.Items[2].Material);
+            Assert.Equal(optic.SurfaceGroup.Items[2].SemiDiameter, restored.SurfaceGroup.Items[2].SemiDiameter, precision: 12);
+        }
+    }
+
+    [Fact]
+    public void PluginLoaderRegistersGoodPluginsAndWarnsForFailingPlugins()
+    {
+        var registry = new PluginLoader().LoadFromAssembly(typeof(OptilandParityTests).Assembly);
+
+        Assert.Contains("test-plane", registry.Geometries.Keys);
+        Assert.Contains("test-analysis", registry.Analyses.Keys);
+        Assert.Equal(1.42, registry.Materials.Resolve("TEST-N").RefractiveIndex(587.6), precision: 12);
+        Assert.Contains(registry.Warnings, warning => warning.Contains(nameof(FailingOptilandPlugin), StringComparison.Ordinal));
+    }
+}
+
+public sealed class TestOptilandPlugin : IOptilandPlugin
+{
+    public string Name => "test-plugin";
+
+    public void Register(PluginRegistry registry)
+    {
+        registry.RegisterGeometry("test-plane", () => new PlaneGeometry());
+        registry.RegisterMaterial(new ConstantIndexMaterial("TEST-N", 1.42));
+        registry.RegisterAnalysis("test-analysis", optic => new PlaceholderAnalysis(optic, "Plugin Analysis"));
+    }
+}
+
+public sealed class FailingOptilandPlugin : IOptilandPlugin
+{
+    public string Name => "failing-plugin";
+
+    public void Register(PluginRegistry registry)
+    {
+        throw new InvalidOperationException("plugin failure for test");
     }
 }
