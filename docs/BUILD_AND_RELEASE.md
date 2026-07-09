@@ -25,6 +25,15 @@ VSTest opens a local socket. Some sandboxes need elevated permission for that te
 
 ## Run Desktop App
 
+One-click launchers from the repository root:
+
+- macOS: `Run-Optiland.command`
+- Windows: `Run-Optiland.cmd`
+
+Both launchers set `AVALONIA_TELEMETRY_OPTOUT=1` and run the Avalonia app project.
+
+Terminal equivalent:
+
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj
 ```

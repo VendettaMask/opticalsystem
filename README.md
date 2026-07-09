@@ -23,6 +23,15 @@ The implementation is being built in small git milestones. The current codebase 
 
 ## Run
 
+One-click launchers:
+
+- macOS: double-click `Run-Optiland.command`.
+- Windows: double-click `Run-Optiland.cmd`.
+
+First launch may take a moment because `dotnet run` restores and builds the project.
+
+Terminal:
+
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj
 ```
