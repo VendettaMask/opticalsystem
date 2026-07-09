@@ -38,9 +38,18 @@ public sealed class OptilandConnector
 
     public bool CanRedo => _undoRedo.CanRedo;
 
+    public IReadOnlyList<string> AnalysisNames => CurrentOptic.Analyses.Names;
+
     public string BuildAnalysisReport()
     {
-        return new AnalysisRunner(CurrentOptic).BuildTextReport();
+        return BuildAnalysisReport("Prescription Report");
+    }
+
+    public string BuildAnalysisReport(string analysisName)
+    {
+        var analysis = CurrentOptic.Analyses.Create(analysisName);
+        var data = analysis.GenerateData();
+        return data.ExportText();
     }
 
     public void NewDemo()

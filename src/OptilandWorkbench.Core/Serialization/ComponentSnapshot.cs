@@ -1,0 +1,279 @@
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Scattering;
+
+namespace OptilandWorkbench.Core.Serialization;
+
+public sealed record ComponentSnapshot(
+    string Kind,
+    Dictionary<string, double> Numbers,
+    Dictionary<string, string> Text)
+{
+    public static ComponentSnapshot Empty(string kind) => new(kind, new Dictionary<string, double>(), new Dictionary<string, string>());
+}
+
+public static class ComponentSnapshotFactory
+{
+    public static ComponentSnapshot FromGeometry(IGeometry geometry)
+    {
+        return geometry switch
+        {
+            PlaneGeometry => ComponentSnapshot.Empty("plane"),
+            StandardGeometry standard => new ComponentSnapshot("standard", new Dictionary<string, double>
+            {
+                ["radius"] = standard.Radius,
+                ["conic"] = standard.Conic
+            }, new Dictionary<string, string>()),
+            EvenAsphereGeometry even => new ComponentSnapshot("even_asphere", Coefficients(even.Coefficients, new Dictionary<string, double>
+            {
+                ["radius"] = even.Base.Radius,
+                ["conic"] = even.Base.Conic
+            }), new Dictionary<string, string>()),
+            OddAsphereGeometry odd => new ComponentSnapshot("odd_asphere", Coefficients(odd.Coefficients, new Dictionary<string, double>
+            {
+                ["radius"] = odd.Base.Radius,
+                ["conic"] = odd.Base.Conic
+            }), new Dictionary<string, string>()),
+            BiconicGeometry biconic => new ComponentSnapshot("biconic", new Dictionary<string, double>
+            {
+                ["radiusX"] = biconic.RadiusX,
+                ["radiusY"] = biconic.RadiusY,
+                ["conicX"] = biconic.ConicX,
+                ["conicY"] = biconic.ConicY
+            }, new Dictionary<string, string>()),
+            ToroidalGeometry toroidal => new ComponentSnapshot("toroidal", new Dictionary<string, double>
+            {
+                ["tangentialRadius"] = toroidal.TangentialRadius,
+                ["sagittalRadius"] = toroidal.SagittalRadius
+            }, new Dictionary<string, string>()),
+            PolynomialGeometry polynomial => new ComponentSnapshot("polynomial", polynomial.Coefficients.ToDictionary(
+                item => $"c_{item.Key.X}_{item.Key.Y}",
+                item => item.Value), new Dictionary<string, string>()),
+            PlaceholderFreeformGeometry placeholder => ComponentSnapshot.Empty(placeholder.Kind),
+            _ => ComponentSnapshot.Empty(geometry.Kind)
+        };
+    }
+
+    public static IGeometry ToGeometry(ComponentSnapshot? snapshot, double fallbackRadius, double fallbackConic)
+    {
+        if (snapshot is null)
+        {
+            return Math.Abs(fallbackRadius) < 1e-12 ? new PlaneGeometry() : new StandardGeometry(fallbackRadius, fallbackConic);
+        }
+
+        var n = snapshot.Numbers;
+        return snapshot.Kind switch
+        {
+            "plane" => new PlaneGeometry(),
+            "standard" => new StandardGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic)),
+            "even_asphere" => new EvenAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
+            "odd_asphere" => new OddAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
+            "biconic" => new BiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
+            "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius)),
+            "polynomial" => new PolynomialGeometry(ReadPolynomial(n)),
+            _ => new PlaceholderFreeformGeometry(snapshot.Kind)
+        };
+    }
+
+    public static ComponentSnapshot FromMaterial(IMaterial material)
+    {
+        return material switch
+        {
+            AirMaterial => ComponentSnapshot.Empty("air"),
+            ConstantIndexMaterial constant => new ComponentSnapshot("constant", new Dictionary<string, double>
+            {
+                ["index"] = constant.Index,
+                ["extinction"] = constant.Extinction
+            }, new Dictionary<string, string> { ["name"] = constant.Name }),
+            CauchyMaterial cauchy => new ComponentSnapshot("cauchy", new Dictionary<string, double>
+            {
+                ["a"] = cauchy.A,
+                ["b"] = cauchy.B,
+                ["c"] = cauchy.C
+            }, new Dictionary<string, string> { ["name"] = cauchy.Name }),
+            SellmeierMaterial sellmeier => new ComponentSnapshot("sellmeier", Coefficients(sellmeier.B, new Dictionary<string, double>(), "b")
+                .Concat(Coefficients(sellmeier.C, new Dictionary<string, double>(), "c"))
+                .ToDictionary(item => item.Key, item => item.Value), new Dictionary<string, string> { ["name"] = sellmeier.Name }),
+            AbbeMaterial abbe => new ComponentSnapshot("abbe", new Dictionary<string, double>
+            {
+                ["nd"] = abbe.Nd,
+                ["vd"] = abbe.Vd
+            }, new Dictionary<string, string> { ["name"] = abbe.Name }),
+            _ => new ComponentSnapshot("catalog", new Dictionary<string, double>(), new Dictionary<string, string> { ["name"] = material.Name })
+        };
+    }
+
+    public static IMaterial ToMaterial(ComponentSnapshot? snapshot, string fallbackName, MaterialRegistry registry)
+    {
+        if (snapshot is null)
+        {
+            return registry.Resolve(fallbackName);
+        }
+
+        var name = snapshot.Text.TryGetValue("name", out var storedName) ? storedName : fallbackName;
+        return snapshot.Kind switch
+        {
+            "air" => new AirMaterial(),
+            "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
+            "cauchy" => new CauchyMaterial(name, Get(snapshot.Numbers, "a", 1.5), Get(snapshot.Numbers, "b", 0), Get(snapshot.Numbers, "c", 0)),
+            "sellmeier" => new SellmeierMaterial(name, ReadCoefficients(snapshot.Numbers, "b"), ReadCoefficients(snapshot.Numbers, "c")),
+            "abbe" => new AbbeMaterial(name, Get(snapshot.Numbers, "nd", 1.5), Get(snapshot.Numbers, "vd", 50)),
+            _ => registry.Resolve(name)
+        };
+    }
+
+    public static ComponentSnapshot FromCoating(ICoatingModel coating)
+    {
+        if (coating is ThinFilmStackCoating stack)
+        {
+            var numbers = new Dictionary<string, double> { ["count"] = stack.Layers.Count };
+            var text = new Dictionary<string, string>();
+            for (var index = 0; index < stack.Layers.Count; index++)
+            {
+                numbers[$"thickness_{index}"] = stack.Layers[index].ThicknessNanometers;
+                text[$"material_{index}"] = stack.Layers[index].MaterialName;
+            }
+
+            return new ComponentSnapshot("thin_film_stack", numbers, text);
+        }
+
+        return ComponentSnapshot.Empty("none");
+    }
+
+    public static ICoatingModel ToCoating(ComponentSnapshot? snapshot)
+    {
+        if (snapshot?.Kind != "thin_film_stack")
+        {
+            return new NoneCoatingModel();
+        }
+
+        var count = (int)Get(snapshot.Numbers, "count", 0);
+        var layers = Enumerable.Range(0, count)
+            .Select(index => new ThinFilmLayer(
+                snapshot.Text.TryGetValue($"material_{index}", out var material) ? material : "N-BK7",
+                Get(snapshot.Numbers, $"thickness_{index}", 100)))
+            .ToArray();
+        return new ThinFilmStackCoating(layers);
+    }
+
+    public static ComponentSnapshot FromInteraction(IInteractionModel interaction)
+    {
+        return interaction switch
+        {
+            RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
+            ThinLensInteractionModel thinLens => new ComponentSnapshot("thin_lens", new Dictionary<string, double> { ["focalLength"] = thinLens.FocalLength }, new Dictionary<string, string>()),
+            DiffractiveInteractionModel diffractive => new ComponentSnapshot("diffractive", new Dictionary<string, double>
+            {
+                ["grooveFrequency"] = diffractive.GrooveFrequencyLinesPerMillimeter,
+                ["order"] = diffractive.Order
+            }, new Dictionary<string, string>()),
+            PhaseInteractionModel => ComponentSnapshot.Empty("phase"),
+            _ => ComponentSnapshot.Empty(interaction.Kind)
+        };
+    }
+
+    public static IInteractionModel ToInteraction(ComponentSnapshot? snapshot, bool isReflective)
+    {
+        return snapshot?.Kind switch
+        {
+            "reflective" => new RefractiveReflectiveInteractionModel(true),
+            "refractive" => new RefractiveReflectiveInteractionModel(false),
+            "thin_lens" => new ThinLensInteractionModel(Get(snapshot.Numbers, "focalLength", 50)),
+            "diffractive" => new DiffractiveInteractionModel(Get(snapshot.Numbers, "grooveFrequency", 1), (int)Get(snapshot.Numbers, "order", 1)),
+            "phase" => new PhaseInteractionModel((_, _) => (0, 0)),
+            _ => new RefractiveReflectiveInteractionModel(isReflective)
+        };
+    }
+
+    public static ComponentSnapshot? FromAperture(IPhysicalAperture? aperture)
+    {
+        return aperture switch
+        {
+            null => null,
+            CircularAperture circular => new ComponentSnapshot("circular", new Dictionary<string, double> { ["radius"] = circular.Radius }, new Dictionary<string, string>()),
+            RectangularAperture rectangular => new ComponentSnapshot("rectangular", new Dictionary<string, double>
+            {
+                ["halfWidth"] = rectangular.HalfWidth,
+                ["halfHeight"] = rectangular.HalfHeight
+            }, new Dictionary<string, string>()),
+            _ => ComponentSnapshot.Empty(aperture.Kind)
+        };
+    }
+
+    public static IPhysicalAperture? ToAperture(ComponentSnapshot? snapshot, double fallbackRadius)
+    {
+        return snapshot?.Kind switch
+        {
+            "circular" => new CircularAperture(Get(snapshot.Numbers, "radius", fallbackRadius)),
+            "rectangular" => new RectangularAperture(Get(snapshot.Numbers, "halfWidth", fallbackRadius), Get(snapshot.Numbers, "halfHeight", fallbackRadius)),
+            null => new CircularAperture(fallbackRadius),
+            _ => new CircularAperture(fallbackRadius)
+        };
+    }
+
+    public static ComponentSnapshot? FromScattering(IScatteringModel? scattering)
+    {
+        return scattering switch
+        {
+            null => null,
+            LambertianScatteringModel lambertian => new ComponentSnapshot("lambertian", new Dictionary<string, double> { ["scatterFraction"] = lambertian.ScatterFraction }, new Dictionary<string, string>()),
+            MeasuredBsdfScatteringModel measured => new ComponentSnapshot("measured_bsdf", new Dictionary<string, double>
+            {
+                ["sampleCount"] = measured.Samples.Count
+            }, new Dictionary<string, string>()),
+            _ => ComponentSnapshot.Empty(scattering.Kind)
+        };
+    }
+
+    public static IScatteringModel? ToScattering(ComponentSnapshot? snapshot)
+    {
+        return snapshot?.Kind switch
+        {
+            "lambertian" => new LambertianScatteringModel(Get(snapshot.Numbers, "scatterFraction", 0.02)),
+            "measured_bsdf" => new MeasuredBsdfScatteringModel(Array.Empty<(double AngleDegrees, double Value)>()),
+            _ => null
+        };
+    }
+
+    private static double Get(IReadOnlyDictionary<string, double> values, string key, double fallback)
+    {
+        return values.TryGetValue(key, out var value) ? value : fallback;
+    }
+
+    private static Dictionary<string, double> Coefficients(IReadOnlyList<double> coefficients, Dictionary<string, double> seed, string prefix = "c")
+    {
+        for (var index = 0; index < coefficients.Count; index++)
+        {
+            seed[$"{prefix}{index}"] = coefficients[index];
+        }
+
+        return seed;
+    }
+
+    private static IReadOnlyList<double> ReadCoefficients(IReadOnlyDictionary<string, double> values, string prefix = "c")
+    {
+        return values
+            .Where(item => item.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) && int.TryParse(item.Key[prefix.Length..], out _))
+            .OrderBy(item => int.Parse(item.Key[prefix.Length..]))
+            .Select(item => item.Value)
+            .ToArray();
+    }
+
+    private static IReadOnlyDictionary<(int X, int Y), double> ReadPolynomial(IReadOnlyDictionary<string, double> values)
+    {
+        var result = new Dictionary<(int X, int Y), double>();
+        foreach (var item in values)
+        {
+            var parts = item.Key.Split('_');
+            if (parts.Length == 3 && parts[0] == "c" && int.TryParse(parts[1], out var x) && int.TryParse(parts[2], out var y))
+            {
+                result[(x, y)] = item.Value;
+            }
+        }
+
+        return result;
+    }
+}

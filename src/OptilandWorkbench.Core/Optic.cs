@@ -178,7 +178,14 @@ public sealed class Optic
                     surface.CoatingModel.Kind,
                     surface.InteractionModel.Kind,
                     surface.PhysicalAperture?.Kind,
-                    surface.ScatteringModel?.Kind))).ToList());
+                    surface.ScatteringModel?.Kind,
+                    ComponentSnapshotFactory.FromGeometry(surface.Geometry),
+                    ComponentSnapshotFactory.FromMaterial(surface.MaterialBefore),
+                    ComponentSnapshotFactory.FromMaterial(surface.MaterialAfter),
+                    ComponentSnapshotFactory.FromCoating(surface.CoatingModel),
+                    ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
+                    ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
+                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)))).ToList());
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -223,19 +230,35 @@ public sealed class Optic
             });
         }
 
-        SurfaceGroup.Replace((snapshot.Surfaces ?? new List<SurfaceSnapshot>()).Select(surface => new OpticalSurface
+        SurfaceGroup.Replace((snapshot.Surfaces ?? new List<SurfaceSnapshot>()).Select(surface =>
         {
-            Number = surface.Number,
-            Label = surface.Label,
-            Radius = surface.Radius,
-            Thickness = surface.Thickness,
-            Material = surface.Material,
-            Coating = surface.Coating,
-            SemiDiameter = surface.SemiDiameter,
-            Conic = surface.Conic,
-            IsStop = surface.IsStop,
-            IsReflective = surface.IsReflective
-        }));
+            var opticalSurface = new OpticalSurface
+            {
+                Number = surface.Number,
+                Label = surface.Label,
+                Radius = surface.Radius,
+                Thickness = surface.Thickness,
+                Material = surface.Material,
+                Coating = surface.Coating,
+                SemiDiameter = surface.SemiDiameter,
+                Conic = surface.Conic,
+                IsStop = surface.IsStop,
+                IsReflective = surface.IsReflective
+            };
+
+            if (surface.Components is not null)
+            {
+                opticalSurface.Geometry = ComponentSnapshotFactory.ToGeometry(surface.Components.Geometry, surface.Radius, surface.Conic);
+                opticalSurface.MaterialBefore = ComponentSnapshotFactory.ToMaterial(surface.Components.MaterialBeforeComponent, surface.Components.MaterialBefore, Materials);
+                opticalSurface.MaterialAfter = ComponentSnapshotFactory.ToMaterial(surface.Components.MaterialAfterComponent, surface.Components.MaterialAfter, Materials);
+                opticalSurface.CoatingModel = ComponentSnapshotFactory.ToCoating(surface.Components.Coating);
+                opticalSurface.InteractionModel = ComponentSnapshotFactory.ToInteraction(surface.Components.Interaction, surface.IsReflective);
+                opticalSurface.PhysicalAperture = ComponentSnapshotFactory.ToAperture(surface.Components.PhysicalAperture, surface.SemiDiameter);
+                opticalSurface.ScatteringModel = ComponentSnapshotFactory.ToScattering(surface.Components.Scattering);
+            }
+
+            return opticalSurface;
+        }), syncComposition: false);
     }
 
     public static Optic FromSnapshot(OpticSnapshot snapshot)

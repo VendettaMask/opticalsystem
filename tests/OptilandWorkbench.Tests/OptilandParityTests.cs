@@ -1,11 +1,16 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Scattering;
+using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Tolerancing;
 
 namespace OptilandWorkbench.Tests;
@@ -148,5 +153,83 @@ public sealed class OptilandParityTests
         Assert.NotNull(snapshot.Aperture);
         Assert.NotNull(snapshot.BackendName);
         Assert.All(snapshot.Surfaces, surface => Assert.NotNull(surface.Components));
+    }
+
+    [Fact]
+    public void AnalysisCatalogGeneratesDataForEveryRegisteredName()
+    {
+        var optic = Optic.CreateDemo();
+
+        foreach (var name in optic.Analyses.Names)
+        {
+            var data = optic.Analyses.Create(name).GenerateData();
+
+            Assert.Equal(name, data.Name);
+            Assert.NotEmpty(data.Values);
+            Assert.False(string.IsNullOrWhiteSpace(data.ExportText()));
+        }
+    }
+
+    [Fact]
+    public async Task JsonStoreRoundTripsRichSurfaceComponents()
+    {
+        var optic = Optic.CreateDemo();
+        var surface = optic.SurfaceGroup.Items[2];
+        surface.Geometry = new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 });
+        surface.MaterialBefore = new ConstantIndexMaterial("custom-before", 1.23);
+        surface.MaterialAfter = new CauchyMaterial("custom-after", 1.49, 0.004, 1e-5);
+        surface.CoatingModel = new ThinFilmStackCoating(new[]
+        {
+            new ThinFilmLayer("TiO2", 120),
+            new ThinFilmLayer("SiO2", 95)
+        });
+        surface.InteractionModel = new ThinLensInteractionModel(75);
+        surface.PhysicalAperture = new RectangularAperture(3, 4);
+        surface.ScatteringModel = new LambertianScatteringModel(0.17);
+
+        var path = Path.Combine(Path.GetTempPath(), $"optiland-roundtrip-{Guid.NewGuid():N}.optiland.json");
+        try
+        {
+            await OpticJsonStore.SaveAsync(optic, path);
+            var restored = await OpticJsonStore.LoadAsync(path);
+            var roundTrippedSurface = restored.SurfaceGroup.Items[2];
+
+            var geometry = Assert.IsType<EvenAsphereGeometry>(roundTrippedSurface.Geometry);
+            Assert.Equal(44, geometry.Base.Radius, precision: 12);
+            Assert.Equal(-0.7, geometry.Base.Conic, precision: 12);
+            Assert.Equal(new[] { 1e-5, -2e-8 }, geometry.Coefficients);
+
+            var materialBefore = Assert.IsType<ConstantIndexMaterial>(roundTrippedSurface.MaterialBefore);
+            Assert.Equal("custom-before", materialBefore.Name);
+            Assert.Equal(1.23, materialBefore.Index, precision: 12);
+
+            var materialAfter = Assert.IsType<CauchyMaterial>(roundTrippedSurface.MaterialAfter);
+            Assert.Equal("custom-after", materialAfter.Name);
+            Assert.Equal(1.49, materialAfter.A, precision: 12);
+            Assert.Equal(0.004, materialAfter.B, precision: 12);
+
+            var coating = Assert.IsType<ThinFilmStackCoating>(roundTrippedSurface.CoatingModel);
+            Assert.Equal(2, coating.Layers.Count);
+            Assert.Equal("TiO2", coating.Layers[0].MaterialName);
+            Assert.Equal(120, coating.Layers[0].ThicknessNanometers, precision: 12);
+
+            var interaction = Assert.IsType<ThinLensInteractionModel>(roundTrippedSurface.InteractionModel);
+            Assert.Equal(75, interaction.FocalLength, precision: 12);
+
+            var aperture = Assert.IsType<RectangularAperture>(roundTrippedSurface.PhysicalAperture);
+            Assert.Equal(3, aperture.HalfWidth, precision: 12);
+            Assert.Equal(4, aperture.HalfHeight, precision: 12);
+
+            var scattering = Assert.IsType<LambertianScatteringModel>(roundTrippedSurface.ScatteringModel);
+            Assert.Equal(0.17, scattering.ScatterFraction, precision: 12);
+            Assert.Equal(22, roundTrippedSurface.CoordinateSystem.Origin.Z, precision: 12);
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
     }
 }

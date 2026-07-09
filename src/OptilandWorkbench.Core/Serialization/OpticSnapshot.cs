@@ -45,4 +45,11 @@ public sealed record SurfaceComponentSnapshot(
     string CoatingKind,
     string InteractionKind,
     string? PhysicalApertureKind,
-    string? ScatteringKind);
+    string? ScatteringKind,
+    ComponentSnapshot? Geometry = null,
+    ComponentSnapshot? MaterialBeforeComponent = null,
+    ComponentSnapshot? MaterialAfterComponent = null,
+    ComponentSnapshot? Coating = null,
+    ComponentSnapshot? Interaction = null,
+    ComponentSnapshot? PhysicalAperture = null,
+    ComponentSnapshot? Scattering = null);

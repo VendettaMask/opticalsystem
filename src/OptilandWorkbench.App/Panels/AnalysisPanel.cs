@@ -8,6 +8,11 @@ namespace OptilandWorkbench.App.Panels;
 public sealed class AnalysisPanel : UserControl
 {
     private readonly OptilandConnector _connector;
+    private readonly ComboBox _analysisPicker = new()
+    {
+        MinWidth = 220,
+        SelectedIndex = 0
+    };
     private readonly TextBox _report = new()
     {
         IsReadOnly = true,
@@ -19,6 +24,7 @@ public sealed class AnalysisPanel : UserControl
     public AnalysisPanel(OptilandConnector connector)
     {
         _connector = connector;
+        _analysisPicker.ItemsSource = _connector.AnalysisNames;
 
         var runButton = new Button
         {
@@ -28,9 +34,21 @@ public sealed class AnalysisPanel : UserControl
         };
         runButton.Click += (_, _) => Refresh();
 
+        var toolbar = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8,
+            Margin = new Avalonia.Thickness(0, 0, 0, 8),
+            Children =
+            {
+                _analysisPicker,
+                runButton
+            }
+        };
+
         var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
-        DockPanel.SetDock(runButton, Dock.Top);
-        root.Children.Add(runButton);
+        DockPanel.SetDock(toolbar, Dock.Top);
+        root.Children.Add(toolbar);
         root.Children.Add(_report);
         Content = root;
 
@@ -41,6 +59,7 @@ public sealed class AnalysisPanel : UserControl
 
     private void Refresh()
     {
-        _report.Text = _connector.BuildAnalysisReport();
+        var name = _analysisPicker.SelectedItem as string ?? _connector.AnalysisNames.FirstOrDefault() ?? "Prescription Report";
+        _report.Text = _connector.BuildAnalysisReport(name);
     }
 }
