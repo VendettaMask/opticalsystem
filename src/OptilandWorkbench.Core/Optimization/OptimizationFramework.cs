@@ -9,6 +9,12 @@ public interface IOptimizationVariable
     double LowerBound { get; }
 
     double UpperBound { get; }
+
+    double StepHint { get; }
+
+    IVariableScaler Scaler { get; }
+
+    double ScaledValue { get; set; }
 }
 
 public sealed class DelegateVariable : IOptimizationVariable
@@ -16,13 +22,24 @@ public sealed class DelegateVariable : IOptimizationVariable
     private readonly Func<double> _getter;
     private readonly Action<double> _setter;
 
-    public DelegateVariable(string name, Func<double> getter, Action<double> setter, double lowerBound, double upperBound)
+    public DelegateVariable(
+        string name,
+        Func<double> getter,
+        Action<double> setter,
+        double lowerBound,
+        double upperBound,
+        double? stepHint = null,
+        IVariableScaler? scaler = null)
     {
         Name = name;
         _getter = getter;
         _setter = setter;
         LowerBound = lowerBound;
         UpperBound = upperBound;
+        Scaler = scaler ?? new LinearScaler();
+        StepHint = stepHint is > 0
+            ? stepHint.Value
+            : Math.Max(1e-6, Math.Abs(upperBound - lowerBound) * 0.05);
     }
 
     public string Name { get; }
@@ -36,6 +53,16 @@ public sealed class DelegateVariable : IOptimizationVariable
     public double LowerBound { get; }
 
     public double UpperBound { get; }
+
+    public double StepHint { get; }
+
+    public IVariableScaler Scaler { get; }
+
+    public double ScaledValue
+    {
+        get => Scaler.ToScaled(Value);
+        set => Value = Scaler.FromScaled(value);
+    }
 }
 
 public sealed record Operand(string Name, double Target, double Weight, Func<double> Evaluate)
@@ -63,6 +90,31 @@ public sealed class LinearScaler : IVariableScaler
     public double FromScaled(double value) => value;
 }
 
+public sealed class UnitRangeScaler : IVariableScaler
+{
+    private readonly double _lowerBound;
+    private readonly double _upperBound;
+
+    public UnitRangeScaler(double lowerBound, double upperBound)
+    {
+        _lowerBound = lowerBound;
+        _upperBound = upperBound;
+    }
+
+    public string Name => "unit-range";
+
+    public double ToScaled(double value)
+    {
+        var span = _upperBound - _lowerBound;
+        return Math.Abs(span) < 1e-12 ? 0 : (value - _lowerBound) / span;
+    }
+
+    public double FromScaled(double value)
+    {
+        return _lowerBound + (value * (_upperBound - _lowerBound));
+    }
+}
+
 public sealed class OptimizationProblem
 {
     private readonly List<IOptimizationVariable> _variables = new();
@@ -85,6 +137,26 @@ public sealed class OptimizationProblem
     public double[] ResidualVector() => _operands.Select(operand => operand.Residual()).ToArray();
 
     public double SumSquared() => _operands.Sum(operand => operand.Squared());
+
+    public double[] VariableVector() => _variables.Select(variable => variable.Value).ToArray();
+
+    public double[] ScaledVariableVector() => _variables.Select(variable => variable.ScaledValue).ToArray();
+
+    public void SetVariableVector(IReadOnlyList<double> values)
+    {
+        for (var index = 0; index < Math.Min(values.Count, _variables.Count); index++)
+        {
+            _variables[index].Value = values[index];
+        }
+    }
+
+    public void SetScaledVariableVector(IReadOnlyList<double> values)
+    {
+        for (var index = 0; index < Math.Min(values.Count, _variables.Count); index++)
+        {
+            _variables[index].ScaledValue = values[index];
+        }
+    }
 }
 
 public sealed class OptimizerResult
@@ -98,6 +170,10 @@ public sealed class OptimizerResult
     public double FinalMerit { get; init; }
 
     public int Iterations { get; init; }
+
+    public IReadOnlyList<double> BestVariables { get; init; } = Array.Empty<double>();
+
+    public IReadOnlyList<double> MeritHistory { get; init; } = Array.Empty<double>();
 }
 
 public interface IOptimizer
@@ -115,12 +191,19 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
     {
         var initial = problem.SumSquared();
         var best = initial;
+        var bestVector = problem.VariableVector();
+        var stepByVariable = problem.Variables.ToDictionary(
+            variable => variable,
+            variable => Math.Max(1e-9, variable.StepHint));
+        var history = new List<double> { initial };
+
         for (var iteration = 0; iteration < maxIterations; iteration++)
         {
+            var improved = false;
             foreach (var variable in problem.Variables)
             {
                 var original = variable.Value;
-                var step = Math.Max(1e-6, Math.Abs(original) * 0.05);
+                var step = stepByVariable[variable];
                 foreach (var candidate in new[] { original - step, original + step })
                 {
                     variable.Value = candidate;
@@ -129,19 +212,34 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
                     {
                         best = merit;
                         original = variable.Value;
+                        bestVector = problem.VariableVector();
+                        improved = true;
                     }
                 }
 
                 variable.Value = original;
             }
+
+            if (!improved)
+            {
+                foreach (var variable in problem.Variables)
+                {
+                    stepByVariable[variable] *= 0.5;
+                }
+            }
+
+            history.Add(best);
         }
 
+        problem.SetVariableVector(bestVector);
         return new OptimizerResult
         {
             Success = best <= initial,
             InitialMerit = initial,
             FinalMerit = best,
             Iterations = maxIterations,
+            BestVariables = bestVector,
+            MeritHistory = history,
             Message = $"Optimized with {Name}"
         };
     }
@@ -160,15 +258,7 @@ public sealed class NamedOptimizer : IOptimizer
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
-        var result = _fallback.Optimize(problem, maxIterations);
-        return new OptimizerResult
-        {
-            Success = result.Success,
-            InitialMerit = result.InitialMerit,
-            FinalMerit = result.FinalMerit,
-            Iterations = result.Iterations,
-            Message = $"Optimized with {Name} using orthogonal descent fallback"
-        };
+        return _fallback.Optimize(problem, maxIterations).WithMessage($"Optimized with {Name} using orthogonal descent fallback");
     }
 }
 
@@ -191,7 +281,21 @@ public static class OptimizerCatalog
 
     public static IOptimizer Create(string name)
     {
-        return name == "Orthogonal Descent" ? new OrthogonalDescentOptimizer() : new NamedOptimizer(name);
+        return name switch
+        {
+            "Least Squares" => new LeastSquaresOptimizer(),
+            "Nelder-Mead" => new NelderMeadOptimizer(),
+            "Powell" => new PowellOptimizer(),
+            "BFGS" => new GradientOptimizer("BFGS", useMomentum: true),
+            "L-BFGS-B" => new GradientOptimizer("L-BFGS-B", useMomentum: true),
+            "COBYLA" => new PowellOptimizer("COBYLA"),
+            "Orthogonal Descent" => new OrthogonalDescentOptimizer(),
+            "Differential Evolution" => new PopulationSearchOptimizer("Differential Evolution"),
+            "Dual Annealing" => new PopulationSearchOptimizer("Dual Annealing"),
+            "Basin Hopping" => new PopulationSearchOptimizer("Basin Hopping"),
+            "Glass Expert" => new NamedOptimizer("Glass Expert"),
+            _ => new NamedOptimizer(name)
+        };
     }
 }
 
@@ -200,5 +304,22 @@ public sealed class GlassExpert
     public OptimizerResult Run(OptimizationProblem problem, IReadOnlyList<string> candidateGlasses, int maxIterations = 25)
     {
         return OptimizerCatalog.Create("Orthogonal Descent").Optimize(problem, maxIterations);
+    }
+}
+
+internal static class OptimizerResultExtensions
+{
+    public static OptimizerResult WithMessage(this OptimizerResult result, string message)
+    {
+        return new OptimizerResult
+        {
+            Success = result.Success,
+            InitialMerit = result.InitialMerit,
+            FinalMerit = result.FinalMerit,
+            Iterations = result.Iterations,
+            BestVariables = result.BestVariables,
+            MeritHistory = result.MeritHistory,
+            Message = message
+        };
     }
 }

@@ -111,6 +111,36 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void LeastSquaresOptimizerReducesMeritAndHonorsBounds()
+    {
+        var value = 0.0;
+        var variable = new DelegateVariable(
+            "x",
+            () => value,
+            next => value = next,
+            -2,
+            5,
+            stepHint: 1,
+            scaler: new UnitRangeScaler(-2, 5));
+        var problem = new OptimizationProblem();
+        problem.AddVariable(variable);
+        problem.AddOperand(new Operand("target", 9, 1, () => value));
+
+        Assert.Equal(2.0 / 7.0, problem.ScaledVariableVector()[0], precision: 12);
+        problem.SetScaledVariableVector(new[] { 0.0 });
+        Assert.Equal(-2, value, precision: 12);
+        value = 0;
+
+        var result = OptimizerCatalog.Create("Least Squares").Optimize(problem, maxIterations: 40);
+
+        Assert.True(result.FinalMerit < result.InitialMerit);
+        Assert.InRange(value, -2, 5);
+        Assert.True(value > 4.8);
+        Assert.NotEmpty(result.BestVariables);
+        Assert.NotEmpty(result.MeritHistory);
+    }
+
+    [Fact]
     public void TolerancingPerturbationRevertsAfterSensitivity()
     {
         var optic = Optic.CreateDemo();
@@ -126,6 +156,43 @@ public sealed class OptilandParityTests
 
         Assert.Single(results);
         Assert.Equal(original, optic.SurfaceGroup.Items[2].Radius);
+    }
+
+    [Fact]
+    public void MonteCarloUsesSeedAndRestoresPerturbedVariables()
+    {
+        var value = 10.0;
+        var optic = new Optic();
+        var variable = new DelegateVariable("x", () => value, next => value = next, 0, 20, stepHint: 1);
+        var tolerancing = optic.CreateTolerancing();
+        tolerancing.AddOperand(new Operand("target", 10, 1, () => value));
+        tolerancing.AddPerturbation(new VariablePerturbation("normal x", variable, new NormalSampler(0, 1)));
+
+        var first = new MonteCarlo(optic, tolerancing).RunDetailed(5, seed: 99).Select(result => result.Merit).ToArray();
+        var second = new MonteCarlo(optic, tolerancing).RunDetailed(5, seed: 99).Select(result => result.Merit).ToArray();
+
+        Assert.Equal(first, second);
+        Assert.Equal(10, value, precision: 12);
+    }
+
+    [Fact]
+    public void MonteCarloCompensatorsReducePerturbedMerit()
+    {
+        var value = 0.0;
+        var optic = new Optic();
+        var variable = new DelegateVariable("x", () => value, next => value = next, -10, 10, stepHint: 1);
+        var tolerancing = optic.CreateTolerancing();
+        tolerancing.AddOperand(new Operand("target", 0, 1, () => value));
+        tolerancing.AddPerturbation(new VariablePerturbation("constant x", variable, new ConstantSampler(5)));
+        tolerancing.AddCompensator(variable);
+
+        var result = new MonteCarlo(optic, tolerancing)
+            .RunDetailed(1, seed: 7, compensationIterations: 12)
+            .Single();
+
+        Assert.Equal(25, result.Merit, precision: 12);
+        Assert.True(result.CompensatedMerit < result.Merit);
+        Assert.Equal(0, value, precision: 12);
     }
 
     [Fact]

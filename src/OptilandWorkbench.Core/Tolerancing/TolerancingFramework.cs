@@ -12,6 +12,11 @@ public interface IPerturbation
     void Revert(Optic optic);
 }
 
+public interface ISampledPerturbation : IPerturbation
+{
+    void Apply(Optic optic, Random random);
+}
+
 public sealed class DelegatePerturbation : IPerturbation
 {
     private readonly Action<Optic> _apply;
@@ -56,6 +61,68 @@ public sealed class NormalSampler : ISampler
     }
 }
 
+public sealed class UniformSampler : ISampler
+{
+    public UniformSampler(double minimum, double maximum)
+    {
+        Minimum = minimum;
+        Maximum = maximum;
+    }
+
+    public double Minimum { get; }
+
+    public double Maximum { get; }
+
+    public double Sample(Random random)
+    {
+        return Minimum + ((Maximum - Minimum) * random.NextDouble());
+    }
+}
+
+public sealed class ConstantSampler : ISampler
+{
+    public ConstantSampler(double value)
+    {
+        Value = value;
+    }
+
+    public double Value { get; }
+
+    public double Sample(Random random) => Value;
+}
+
+public sealed class VariablePerturbation : ISampledPerturbation
+{
+    private readonly IOptimizationVariable _variable;
+    private readonly ISampler _sampler;
+    private double _previousValue;
+
+    public VariablePerturbation(string name, IOptimizationVariable variable, ISampler sampler)
+    {
+        Name = name;
+        _variable = variable;
+        _sampler = sampler;
+    }
+
+    public string Name { get; }
+
+    public void Apply(Optic optic)
+    {
+        Apply(optic, new Random(1234));
+    }
+
+    public void Apply(Optic optic, Random random)
+    {
+        _previousValue = _variable.Value;
+        _variable.Value = _previousValue + _sampler.Sample(random);
+    }
+
+    public void Revert(Optic optic)
+    {
+        _variable.Value = _previousValue;
+    }
+}
+
 public sealed class Tolerancing
 {
     private readonly List<IPerturbation> _perturbations = new();
@@ -73,6 +140,24 @@ public sealed class Tolerancing
     public void AddOperand(Operand operand) => _operands.Add(operand);
 
     public void AddCompensator(IOptimizationVariable variable) => _compensators.Add(variable);
+
+    public double Merit() => _operands.Sum(operand => operand.Squared());
+
+    public OptimizationProblem CreateCompensationProblem()
+    {
+        var problem = new OptimizationProblem();
+        foreach (var compensator in _compensators)
+        {
+            problem.AddVariable(compensator);
+        }
+
+        foreach (var operand in _operands)
+        {
+            problem.AddOperand(operand);
+        }
+
+        return problem;
+    }
 }
 
 public sealed record SensitivityResult(string Perturbation, double DeltaMerit);
@@ -88,21 +173,51 @@ public sealed class SensitivityAnalysis
         _tolerancing = tolerancing;
     }
 
-    public IReadOnlyList<SensitivityResult> Run()
+    public IReadOnlyList<SensitivityResult> Run(int compensationIterations = 0)
     {
-        var baseline = _tolerancing.Operands.Sum(operand => operand.Squared());
+        var baseline = _tolerancing.Merit();
         var results = new List<SensitivityResult>();
         foreach (var perturbation in _tolerancing.Perturbations)
         {
-            perturbation.Apply(_optic);
-            var perturbed = _tolerancing.Operands.Sum(operand => operand.Squared());
-            perturbation.Revert(_optic);
-            results.Add(new SensitivityResult(perturbation.Name, perturbed - baseline));
+            var snapshot = _optic.ToSnapshot();
+            try
+            {
+                perturbation.Apply(_optic);
+                var perturbed = CompensatedMerit(compensationIterations);
+                results.Add(new SensitivityResult(perturbation.Name, perturbed - baseline));
+            }
+            finally
+            {
+                try
+                {
+                    perturbation.Revert(_optic);
+                }
+                finally
+                {
+                    _optic.ApplySnapshot(snapshot);
+                }
+            }
         }
 
-        return results;
+        return results
+            .OrderByDescending(result => Math.Abs(result.DeltaMerit))
+            .ToArray();
+    }
+
+    private double CompensatedMerit(int compensationIterations)
+    {
+        if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
+        {
+            return _tolerancing.Merit();
+        }
+
+        var problem = _tolerancing.CreateCompensationProblem();
+        new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        return problem.SumSquared();
     }
 }
+
+public sealed record TolerancingTrialResult(int Trial, double Merit, double CompensatedMerit);
 
 public sealed class MonteCarlo
 {
@@ -117,19 +232,71 @@ public sealed class MonteCarlo
 
     public IReadOnlyList<double> Run(int trials, int seed = 1234)
     {
-        var results = new List<double>();
+        return RunDetailed(trials, seed)
+            .Select(result => result.CompensatedMerit)
+            .ToArray();
+    }
+
+    public IReadOnlyList<TolerancingTrialResult> RunDetailed(
+        int trials,
+        int seed = 1234,
+        int compensationIterations = 0)
+    {
+        var random = new Random(seed);
+        var results = new List<TolerancingTrialResult>();
         for (var trial = 0; trial < Math.Max(1, trials); trial++)
         {
             var snapshot = _optic.ToSnapshot();
-            foreach (var perturbation in _tolerancing.Perturbations)
+            try
             {
-                perturbation.Apply(_optic);
-            }
+                foreach (var perturbation in _tolerancing.Perturbations)
+                {
+                    ApplyPerturbation(perturbation, random);
+                }
 
-            results.Add(_tolerancing.Operands.Sum(operand => operand.Squared()));
-            _optic.ApplySnapshot(snapshot);
+                var merit = _tolerancing.Merit();
+                var compensated = CompensatedMerit(compensationIterations);
+                results.Add(new TolerancingTrialResult(trial, merit, compensated));
+            }
+            finally
+            {
+                try
+                {
+                    foreach (var perturbation in _tolerancing.Perturbations.Reverse())
+                    {
+                        perturbation.Revert(_optic);
+                    }
+                }
+                finally
+                {
+                    _optic.ApplySnapshot(snapshot);
+                }
+            }
         }
 
         return results;
+    }
+
+    private void ApplyPerturbation(IPerturbation perturbation, Random random)
+    {
+        if (perturbation is ISampledPerturbation sampled)
+        {
+            sampled.Apply(_optic, random);
+            return;
+        }
+
+        perturbation.Apply(_optic);
+    }
+
+    private double CompensatedMerit(int compensationIterations)
+    {
+        if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
+        {
+            return _tolerancing.Merit();
+        }
+
+        var problem = _tolerancing.CreateCompensationProblem();
+        new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        return problem.SumSquared();
     }
 }
