@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
@@ -39,6 +40,8 @@ public sealed class OptilandConnector
     public bool CanRedo => _undoRedo.CanRedo;
 
     public IReadOnlyList<string> AnalysisNames => CurrentOptic.Analyses.Names;
+
+    public IReadOnlyList<string> OptimizerNames => OptimizerCatalog.Names;
 
     public string BuildAnalysisReport()
     {
@@ -136,7 +139,43 @@ public sealed class OptilandConnector
     {
         CaptureCurrentState();
         var result = new SimpleOptimizer(CurrentOptic).OptimizeRadius(surface);
+        SyncSurfaceGeometry(surface);
         SetStatus(result.Message);
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return result;
+    }
+
+    public OptimizerResult OptimizeSurfaceRadius(OpticalSurface surface, string optimizerName, int maxIterations)
+    {
+        CaptureCurrentState();
+        if (surface.IsPlane)
+        {
+            SetSurfaceRadius(surface, 40);
+        }
+
+        var initialRadius = surface.Radius;
+        var span = Math.Max(10, Math.Abs(initialRadius) * 1.5);
+        var lower = Math.Max(-1_000_000, initialRadius - span);
+        var upper = Math.Min(1_000_000, initialRadius + span);
+        var problem = CurrentOptic.CreateOptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            $"Surface {surface.Number} radius",
+            () => surface.Radius,
+            next => SetSurfaceRadius(surface, next),
+            lower,
+            upper,
+            stepHint: Math.Max(0.25, span * 0.1),
+            scaler: new UnitRangeScaler(lower, upper)));
+        problem.AddOperand(new Operand(
+            "RMS spot radius",
+            0,
+            1,
+            () => new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius));
+
+        var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
+        SetSurfaceRadius(surface, surface.Radius);
+        SetStatus($"{result.Message}. Radius {initialRadius:0.###} -> {surface.Radius:0.###}.");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
         return result;
@@ -186,6 +225,21 @@ public sealed class OptilandConnector
     private void SetStatus(string status)
     {
         Status = status;
+    }
+
+    private static void SetSurfaceRadius(OpticalSurface surface, double radius)
+    {
+        surface.Radius = Math.Abs(radius) < 1e-9
+            ? Math.CopySign(1e-9, radius == 0 ? 1 : radius)
+            : radius;
+        SyncSurfaceGeometry(surface);
+    }
+
+    private static void SyncSurfaceGeometry(OpticalSurface surface)
+    {
+        surface.Geometry = Math.Abs(surface.Radius) < 1e-9
+            ? new PlaneGeometry()
+            : new StandardGeometry(surface.Radius, surface.Conic);
     }
 
     private void SetPrimaryWavelengthGuard()
