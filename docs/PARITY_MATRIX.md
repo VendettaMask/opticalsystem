@@ -27,4 +27,12 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 
 ## Milestone Notes
 
-This milestone establishes module boundaries and representative implementations. Advanced numerical fidelity still needs targeted follow-up work for high-order freeforms, diffraction efficiency, full thin-film TMM, PSF/MTF/wavefront math, commercial format fidelity, and optional GPU/autograd backend.
+The current milestone has moved beyond module scaffolding into a usable workbench shell:
+
+- Native JSON round-trip preserves rich surface components.
+- ZMX/SEQ/LEN import/export covers a common sequential lens subset.
+- The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
+- Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
+- Plugin discovery supports geometry, material, and analysis registration with warning isolation.
+
+Advanced numerical fidelity still needs targeted follow-up work for high-order freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, commercial format breadth, and optional GPU/autograd backend.
