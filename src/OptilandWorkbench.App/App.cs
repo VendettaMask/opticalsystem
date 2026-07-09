@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Themes.Fluent;
+using Avalonia.Controls;
 
 namespace OptilandWorkbench.App;
 
@@ -20,8 +21,8 @@ public sealed class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
             desktop.MainWindow = new MainWindow();
-            desktop.MainWindow.Show();
         }
 
         base.OnFrameworkInitializationCompleted();
