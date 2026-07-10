@@ -22,7 +22,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
 | File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
-| Visualization | `Visualization` | Theme and primitive scene DTOs for 2D/3D renderers |
+| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D YZ layout scene: sag-sampled surfaces, lens edge connections, sequential ray histories, vignetting truncation |
 | GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/viewer/analysis/optimization/tolerancing/multi-configuration/system panels, command palette, light/dark theme persistence, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
@@ -38,6 +38,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
+- The 2D viewer now follows the Optiland visualization model more closely: surfaces are sampled from geometry sag in the YZ projection, glass spans are connected at the aperture edges, and rays are drawn from sequential trace histories instead of the old paraxial sketch path.
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 

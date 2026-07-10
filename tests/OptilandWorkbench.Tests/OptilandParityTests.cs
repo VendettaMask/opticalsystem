@@ -14,6 +14,7 @@ using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Tolerancing;
+using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.Tests;
 
@@ -126,6 +127,24 @@ public sealed class OptilandParityTests
 
         Assert.NotEmpty(trace.RayHistories);
         Assert.Contains(trace.RayHistories, history => history.Count > 0);
+    }
+
+    [Fact]
+    public void Layout2DBuilderSamplesSaggedSurfacesAndSequentialRays()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
+        optic.SequentialRayTracer.RayGenerator.Settings.Sampling = PupilSampling.Hexapolar;
+
+        var scene = new Layout2DBuilder(optic).Build(surfaceSamples: 9);
+        var curvedSurface = scene.Surfaces.First(surface => surface.SurfaceNumber == 2);
+        var zRange = curvedSurface.Points.Max(point => point.Z) - curvedSurface.Points.Min(point => point.Z);
+
+        Assert.True(zRange > 0.01);
+        Assert.NotEmpty(scene.LensEdges);
+        Assert.Contains(scene.Rays, ray => ray.Points.Count > 2);
+        Assert.True(scene.ZMax > scene.ZMin);
+        Assert.True(scene.YExtent > 0);
     }
 
     [Fact]
