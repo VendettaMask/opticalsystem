@@ -7,19 +7,24 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
+using OptilandWorkbench.Core.Tolerancing;
 
 namespace OptilandWorkbench.App.Connectors;
 
 public sealed class OptilandConnector
 {
     private readonly UndoRedoManager _undoRedo = new();
+    private MultiConfiguration _multiConfiguration;
+    private int _activeConfigurationIndex;
 
     public OptilandConnector(Optic optic)
     {
         CurrentOptic = optic;
+        _multiConfiguration = new MultiConfiguration(optic);
         Status = "就绪";
     }
 
@@ -133,6 +138,8 @@ public sealed class OptilandConnector
     public void NewDemo()
     {
         CurrentOptic = Optic.CreateDemo();
+        _multiConfiguration = new MultiConfiguration(CurrentOptic);
+        _activeConfigurationIndex = 0;
         _undoRedo.Clear();
         SetStatus("已创建演示光学系统。");
         OpticLoaded?.Invoke(this, EventArgs.Empty);
@@ -361,13 +368,198 @@ public sealed class OptilandConnector
         }
 
         _undoRedo.Clear();
+        _multiConfiguration = new MultiConfiguration(CurrentOptic);
+        _activeConfigurationIndex = 0;
         SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}）。");
         OpticLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public TolerancingView RunTolerancing(
+        OpticalSurface? surface,
+        double radiusSigma,
+        double thicknessSigma,
+        int trials,
+        int seed,
+        int compensationIterations)
+    {
+        surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();
+        if (surface is null)
+        {
+            return TolerancingView.Empty("没有可用于公差分析的表面。");
+        }
+
+        var tolerancing = BuildDefaultTolerancing(surface.Number, radiusSigma, thicknessSigma, compensationIterations);
+        if (tolerancing.Perturbations.Count == 0)
+        {
+            return TolerancingView.Empty("请至少设置一个非零扰动 sigma。");
+        }
+
+        var sensitivity = new SensitivityAnalysis(CurrentOptic, tolerancing)
+            .Run(compensationIterations)
+            .Select(result => new TolerancingSensitivityRow(result.Perturbation, result.DeltaMerit.ToString("0.######")))
+            .ToArray();
+        var monteCarlo = new MonteCarlo(CurrentOptic, tolerancing)
+            .RunDetailed(Math.Clamp(trials, 1, 10_000), seed, compensationIterations)
+            .Select(result => new TolerancingTrialRow(
+                result.Trial + 1,
+                result.Merit.ToString("0.######"),
+                result.CompensatedMerit.ToString("0.######")))
+            .ToArray();
+
+        SetStatus($"公差分析完成：表面 {surface.Number}，{monteCarlo.Length} 次 Monte Carlo。");
+        return new TolerancingView(
+            $"表面 {surface.Number} 公差分析",
+            sensitivity,
+            monteCarlo,
+            $"扰动数：{tolerancing.Perturbations.Count}    Monte Carlo：{monteCarlo.Length}    补偿迭代：{Math.Max(0, compensationIterations)}");
+    }
+
+    public IReadOnlyList<MultiConfigurationRow> GetMultiConfigurationRows()
+    {
+        SyncActiveConfigurationFromCurrent();
+        return _multiConfiguration.Configurations
+            .Select((optic, index) => new MultiConfigurationRow(
+                index,
+                index == 0 ? "Base" : $"Config {index}",
+                index == _activeConfigurationIndex,
+                optic.SurfaceGroup.Items.Count,
+                optic.SurfaceGroup.TotalTrack.ToString("0.###"),
+                optic.Paraxial.EstimateEffectiveFocalLength().ToString("0.###")))
+            .ToArray();
+    }
+
+    public int AddMultiConfiguration()
+    {
+        SyncActiveConfigurationFromCurrent();
+        var index = _multiConfiguration.AddConfiguration(_activeConfigurationIndex);
+        SetStatus($"已添加配置 {index}。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return index;
+    }
+
+    public void ActivateMultiConfiguration(int configIndex)
+    {
+        if (configIndex < 0 || configIndex >= _multiConfiguration.Configurations.Count)
+        {
+            return;
+        }
+
+        SyncActiveConfigurationFromCurrent();
+        _activeConfigurationIndex = configIndex;
+        CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
+        _undoRedo.Clear();
+        SetStatus($"已激活配置 {configIndex}。");
+        OpticLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetMultiConfigurationThickness(int configIndex, int surfaceNumber, double thickness)
+    {
+        if (configIndex < 0 || configIndex >= _multiConfiguration.Configurations.Count)
+        {
+            return;
+        }
+
+        SyncActiveConfigurationFromCurrent();
+        _multiConfiguration.SetThickness(configIndex, surfaceNumber, Math.Max(0, thickness));
+        if (configIndex == 0)
+        {
+            _multiConfiguration.PropagateBaseLinks();
+        }
+
+        if (configIndex == _activeConfigurationIndex)
+        {
+            CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
+            _undoRedo.Clear();
+            SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
+            OpticLoaded?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
+            OpticChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void SetStatus(string status)
     {
         Status = status;
+    }
+
+    private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigma, double thicknessSigma, int compensationIterations)
+    {
+        var tolerancing = CurrentOptic.CreateTolerancing();
+        var baselineRms = new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius;
+        tolerancing.AddOperand(new Operand(
+            "RMS spot radius",
+            baselineRms,
+            1,
+            () => new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius));
+
+        var target = GetSurfaceByNumber(surfaceNumber);
+        if (Math.Abs(radiusSigma) > 1e-12)
+        {
+            var span = Math.Max(Math.Abs(target.Radius) * 3, Math.Abs(radiusSigma) * 10);
+            tolerancing.AddPerturbation(new VariablePerturbation(
+                $"表面 {surfaceNumber} 半径 N(0,{Math.Abs(radiusSigma):0.###})",
+                new DelegateVariable(
+                    $"表面 {surfaceNumber} 半径",
+                    () => GetSurfaceByNumber(surfaceNumber).Radius,
+                    value => SetSurfaceRadius(GetSurfaceByNumber(surfaceNumber), value),
+                    -Math.Max(1, span),
+                    Math.Max(1, span),
+                    Math.Max(1e-6, Math.Abs(radiusSigma))),
+                new NormalSampler(0, Math.Abs(radiusSigma))));
+        }
+
+        if (Math.Abs(thicknessSigma) > 1e-12)
+        {
+            tolerancing.AddPerturbation(new VariablePerturbation(
+                $"表面 {surfaceNumber} 厚度 N(0,{Math.Abs(thicknessSigma):0.###})",
+                new DelegateVariable(
+                    $"表面 {surfaceNumber} 厚度",
+                    () => GetSurfaceByNumber(surfaceNumber).Thickness,
+                    value =>
+                    {
+                        GetSurfaceByNumber(surfaceNumber).Thickness = value;
+                        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                    },
+                    0,
+                    Math.Max(1, target.Thickness * 4),
+                    Math.Max(1e-6, Math.Abs(thicknessSigma))),
+                new NormalSampler(0, Math.Abs(thicknessSigma))));
+        }
+
+        if (compensationIterations > 0 && Surfaces.Count > 0)
+        {
+            var imageSurfaceNumber = Surfaces[^1].Number;
+            var imageThickness = GetSurfaceByNumber(imageSurfaceNumber).Thickness;
+            tolerancing.AddCompensator(new DelegateVariable(
+                $"表面 {imageSurfaceNumber} 像面厚度补偿",
+                () => GetSurfaceByNumber(imageSurfaceNumber).Thickness,
+                value =>
+                {
+                    GetSurfaceByNumber(imageSurfaceNumber).Thickness = value;
+                    CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                },
+                0,
+                Math.Max(1, imageThickness + 100),
+                0.5));
+        }
+
+        return tolerancing;
+    }
+
+    private OpticalSurface GetSurfaceByNumber(int surfaceNumber)
+    {
+        return Surfaces.First(surface => surface.Number == surfaceNumber);
+    }
+
+    private void SyncActiveConfigurationFromCurrent()
+    {
+        if (_activeConfigurationIndex >= 0 && _activeConfigurationIndex < _multiConfiguration.Configurations.Count)
+        {
+            _multiConfiguration.Configurations[_activeConfigurationIndex].ApplySnapshot(CurrentOptic.ToSnapshot());
+        }
     }
 
     private static void SetSurfaceRadius(OpticalSurface surface, double radius)
@@ -711,3 +903,21 @@ public sealed class OptilandConnector
 public sealed record AnalysisView(string Name, IReadOnlyList<AnalysisRow> Rows, string ReportText);
 
 public sealed record AnalysisRow(string Metric, string Value);
+
+public sealed record TolerancingView(
+    string Summary,
+    IReadOnlyList<TolerancingSensitivityRow> SensitivityRows,
+    IReadOnlyList<TolerancingTrialRow> TrialRows,
+    string Details)
+{
+    public static TolerancingView Empty(string message)
+    {
+        return new TolerancingView(message, Array.Empty<TolerancingSensitivityRow>(), Array.Empty<TolerancingTrialRow>(), message);
+    }
+}
+
+public sealed record TolerancingSensitivityRow(string Perturbation, string DeltaMerit);
+
+public sealed record TolerancingTrialRow(int Trial, string Merit, string CompensatedMerit);
+
+public sealed record MultiConfigurationRow(int Index, string Name, bool Active, int SurfaceCount, string TotalTrack, string EffectiveFocalLength);

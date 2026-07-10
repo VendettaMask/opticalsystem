@@ -109,6 +109,8 @@ MainWindow
     ViewerPanel
     AnalysisPanel
     OptimizationPanel
+    TolerancingPanel
+    MultiConfigurationPanel
 ```
 
 Panels should not directly replace the active `Optic`; they call connector methods that trigger status updates and change events.
@@ -116,6 +118,8 @@ Panels should not directly replace the active `Optic`; they call connector metho
 `ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. `AppSettings` persists theme, window size, split-pane width, and selected panel tabs under the user's application data folder.
 
 The analysis panel now consumes structured connector data. It shows a metric table, keeps a text report view, and provides copy/export affordances while preserving the same analysis data generation path used by tests and future file exports.
+
+The tolerancing panel exposes the current CPU tolerancing framework through sensitivity and Monte Carlo tables. The first GUI workflow perturbs selected surface radius/thickness, uses RMS spot radius as the merit proxy, and can compensate with image-surface thickness. The multi-configuration panel exposes configuration creation, activation, and linked/unlinked thickness edits through the existing `MultiConfiguration` model.
 
 ## Persistence
 

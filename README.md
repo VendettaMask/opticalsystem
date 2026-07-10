@@ -14,7 +14,7 @@ The implementation is being built in small git milestones. The current codebase 
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
-- Chinese Avalonia GUI panels for lens editing, component editing, 2D layout viewing, structured analysis, optimization, and system properties.
+- Chinese Avalonia GUI panels for lens editing, component editing, 2D layout viewing, structured analysis, optimization, tolerancing, multi-configuration, and system properties.
 - GUI infrastructure for command palette actions, light/dark theme selection, split-pane layout persistence, and analysis report copy/export.
 
 ## Requirements

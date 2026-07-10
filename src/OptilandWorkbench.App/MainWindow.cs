@@ -82,6 +82,8 @@ public sealed class MainWindow : Window
         _actions.Register("show-viewer", "显示二维视图", "面板", () => SelectPanel(rightIndex: 0));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => SelectPanel(rightIndex: 1));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => SelectPanel(rightIndex: 2));
+        _actions.Register("show-tolerancing", "显示公差面板", "面板", () => SelectPanel(rightIndex: 3));
+        _actions.Register("show-multiconfig", "显示多配置面板", "面板", () => SelectPanel(rightIndex: 4));
         _actions.Register("theme-light", "浅色主题", "视图", () => SetTheme("Light"));
         _actions.Register("theme-dark", "深色主题", "视图", () => SetTheme("Dark"));
         _actions.Register("reset-layout", "恢复默认布局", "视图", ResetLayout);
@@ -144,6 +146,8 @@ public sealed class MainWindow : Window
                 MenuItem(_actions.Find("show-viewer")),
                 MenuItem(_actions.Find("show-analysis")),
                 MenuItem(_actions.Find("show-optimization")),
+                MenuItem(_actions.Find("show-tolerancing")),
+                MenuItem(_actions.Find("show-multiconfig")),
                 new Separator(),
                 MenuItem(_actions.Find("theme-light")),
                 MenuItem(_actions.Find("theme-dark")),
@@ -230,12 +234,14 @@ public sealed class MainWindow : Window
 
         var rightTabs = new TabControl
         {
-            SelectedIndex = Math.Clamp(_settings.RightTabIndex, 0, 2),
+            SelectedIndex = Math.Clamp(_settings.RightTabIndex, 0, 4),
             ItemsSource = new object[]
             {
                 new TabItem { Header = "二维视图", Content = new ViewerPanel(_connector) },
                 new TabItem { Header = "分析", Content = new AnalysisPanel(_connector) },
-                new TabItem { Header = "优化", Content = new OptimizationPanel(_connector) }
+                new TabItem { Header = "优化", Content = new OptimizationPanel(_connector) },
+                new TabItem { Header = "公差", Content = new TolerancingPanel(_connector) },
+                new TabItem { Header = "多配置", Content = new MultiConfigurationPanel(_connector) }
             }
         };
         _rightTabs = rightTabs;
