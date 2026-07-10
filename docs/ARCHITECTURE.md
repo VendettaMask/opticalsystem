@@ -101,6 +101,8 @@ The Avalonia application is localized for Chinese display and remains intentiona
 
 ```text
 MainWindow
+  ActionManager
+  AppSettings
   OptilandConnector
     LensEditorPanel
     SystemPropertiesPanel
@@ -110,6 +112,10 @@ MainWindow
 ```
 
 Panels should not directly replace the active `Optic`; they call connector methods that trigger status updates and change events.
+
+`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. `AppSettings` persists theme, window size, split-pane width, and selected panel tabs under the user's application data folder.
+
+The analysis panel now consumes structured connector data. It shows a metric table, keeps a text report view, and provides copy/export affordances while preserving the same analysis data generation path used by tests and future file exports.
 
 ## Persistence
 

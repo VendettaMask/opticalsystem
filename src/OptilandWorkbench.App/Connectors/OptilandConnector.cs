@@ -117,9 +117,17 @@ public sealed class OptilandConnector
 
     public string BuildAnalysisReport(string analysisName)
     {
+        return BuildAnalysisView(analysisName).ReportText;
+    }
+
+    public AnalysisView BuildAnalysisView(string analysisName)
+    {
         var analysis = CurrentOptic.Analyses.Create(CanonicalAnalysisName(analysisName));
         var data = analysis.GenerateData();
-        return FormatAnalysisData(data);
+        var rows = data.Values
+            .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
+            .ToArray();
+        return new AnalysisView(DisplayAnalysisName(data.Name), rows, FormatAnalysisData(data));
     }
 
     public void NewDemo()
@@ -699,3 +707,7 @@ public sealed class OptilandConnector
         ["Status"] = "状态"
     };
 }
+
+public sealed record AnalysisView(string Name, IReadOnlyList<AnalysisRow> Rows, string ReportText);
+
+public sealed record AnalysisRow(string Metric, string Value);

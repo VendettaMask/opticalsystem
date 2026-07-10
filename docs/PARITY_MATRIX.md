@@ -23,7 +23,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme and primitive scene DTOs for 2D/3D renderers |
-| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/viewer/analysis/optimization/system panels; startup fix retained |
+| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/viewer/analysis/optimization/system panels, command palette, light/dark theme persistence, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
 
@@ -33,6 +33,8 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - ZMX/SEQ/LEN import/export covers a common sequential lens subset.
 - The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
 - The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.
+- Menu, toolbar, and command palette actions are registered through a shared action manager.
+- Analysis output is now shown as both a structured metric table and exportable text report.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.

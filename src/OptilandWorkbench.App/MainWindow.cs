@@ -1,9 +1,13 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Avalonia.Styling;
 using OptilandWorkbench.App.Connectors;
 using OptilandWorkbench.App.Panels;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 
 namespace OptilandWorkbench.App;
@@ -30,22 +34,58 @@ public sealed class MainWindow : Window
     };
 
     private readonly OptilandConnector _connector;
+    private readonly AppSettings _settings;
+    private readonly ActionManager _actions = new();
     private readonly TextBlock _statusText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private Grid? _workspaceGrid;
+    private TabControl? _leftTabs;
+    private TabControl? _rightTabs;
 
     public MainWindow()
     {
+        _settings = AppSettings.Load();
         _connector = new OptilandConnector(Optic.CreateDemo());
+        RegisterActions();
 
         Title = "Optiland 光学工作台";
-        Width = 1280;
-        Height = 820;
+        Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
+        Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
         MinWidth = 980;
         MinHeight = 640;
         Content = BuildShell();
+        SetTheme(_settings.Theme, save: false);
 
         _connector.OpticLoaded += (_, _) => RefreshStatus();
         _connector.OpticChanged += (_, _) => RefreshStatus();
+        Closed += (_, _) => SaveLayout();
+        KeyDown += async (_, args) =>
+        {
+            if (args.Key == Key.P && args.KeyModifiers.HasFlag(KeyModifiers.Meta))
+            {
+                args.Handled = true;
+                await ShowCommandPaletteAsync();
+            }
+        };
         RefreshStatus();
+    }
+
+    private void RegisterActions()
+    {
+        _actions.Register("new-demo", "新建演示系统", "文件", () => _connector.NewDemo());
+        _actions.Register("open", "打开光学系统", "文件", OpenAsync);
+        _actions.Register("save-as", "另存为", "文件", SaveAsAsync);
+        _actions.Register("exit", "退出", "文件", Close);
+        _actions.Register("undo", "撤销", "编辑", () => _connector.Undo());
+        _actions.Register("redo", "重做", "编辑", () => _connector.Redo());
+        _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => SelectPanel(leftIndex: 0));
+        _actions.Register("show-system", "显示系统属性", "面板", () => SelectPanel(leftIndex: 1));
+        _actions.Register("show-viewer", "显示二维视图", "面板", () => SelectPanel(rightIndex: 0));
+        _actions.Register("show-analysis", "显示分析面板", "面板", () => SelectPanel(rightIndex: 1));
+        _actions.Register("show-optimization", "显示优化面板", "面板", () => SelectPanel(rightIndex: 2));
+        _actions.Register("theme-light", "浅色主题", "视图", () => SetTheme("Light"));
+        _actions.Register("theme-dark", "深色主题", "视图", () => SetTheme("Dark"));
+        _actions.Register("reset-layout", "恢复默认布局", "视图", ResetLayout);
+        _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
     }
 
     private Control BuildShell()
@@ -70,29 +110,59 @@ public sealed class MainWindow : Window
 
     private Menu BuildMenu()
     {
-        var newItem = MenuItem("新建演示系统", (_, _) => _connector.NewDemo());
-        var openItem = MenuItem("打开", async (_, _) => await OpenAsync());
-        var saveItem = MenuItem("另存为", async (_, _) => await SaveAsAsync());
-        var exitItem = MenuItem("退出", (_, _) => Close());
-
-        var undoItem = MenuItem("撤销", (_, _) => _connector.Undo());
-        var redoItem = MenuItem("重做", (_, _) => _connector.Redo());
-
         var fileMenu = new MenuItem
         {
             Header = "文件",
-            ItemsSource = new object[] { newItem, openItem, saveItem, new Separator(), exitItem }
+            ItemsSource = new object[]
+            {
+                MenuItem(_actions.Find("new-demo")),
+                MenuItem(_actions.Find("open")),
+                MenuItem(_actions.Find("save-as")),
+                new Separator(),
+                MenuItem(_actions.Find("exit"))
+            }
         };
 
         var editMenu = new MenuItem
         {
             Header = "编辑",
-            ItemsSource = new object[] { undoItem, redoItem }
+            ItemsSource = new object[]
+            {
+                MenuItem(_actions.Find("undo")),
+                MenuItem(_actions.Find("redo"))
+            }
+        };
+
+        var viewMenu = new MenuItem
+        {
+            Header = "视图",
+            ItemsSource = new object[]
+            {
+                MenuItem(_actions.Find("show-lens-editor")),
+                MenuItem(_actions.Find("show-system")),
+                new Separator(),
+                MenuItem(_actions.Find("show-viewer")),
+                MenuItem(_actions.Find("show-analysis")),
+                MenuItem(_actions.Find("show-optimization")),
+                new Separator(),
+                MenuItem(_actions.Find("theme-light")),
+                MenuItem(_actions.Find("theme-dark")),
+                MenuItem(_actions.Find("reset-layout"))
+            }
+        };
+
+        var toolsMenu = new MenuItem
+        {
+            Header = "工具",
+            ItemsSource = new object[]
+            {
+                MenuItem(_actions.Find("command-palette"))
+            }
         };
 
         return new Menu
         {
-            ItemsSource = new object[] { fileMenu, editMenu }
+            ItemsSource = new object[] { fileMenu, editMenu, viewMenu, toolsMenu }
         };
     }
 
@@ -110,11 +180,14 @@ public sealed class MainWindow : Window
             Spacing = 8,
             Children =
             {
-                Button("新建", (_, _) => _connector.NewDemo()),
-                Button("打开", async (_, _) => await OpenAsync()),
-                Button("保存", async (_, _) => await SaveAsAsync()),
-                Button("撤销", (_, _) => _connector.Undo()),
-                Button("重做", (_, _) => _connector.Redo())
+                Button(_actions.Find("new-demo"), "新建"),
+                Button(_actions.Find("open"), "打开"),
+                Button(_actions.Find("save-as"), "保存"),
+                Button(_actions.Find("undo"), "撤销"),
+                Button(_actions.Find("redo"), "重做"),
+                Button(_actions.Find("command-palette"), "命令"),
+                Button(_actions.Find("theme-light"), "浅色"),
+                Button(_actions.Find("theme-dark"), "深色")
             }
         };
 
@@ -124,22 +197,40 @@ public sealed class MainWindow : Window
 
     private Control BuildWorkspace()
     {
+        var leftPaneWidth = Math.Clamp(_settings.LeftPaneWidth, 360, 900);
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("520,*")
+            ColumnDefinitions = new ColumnDefinitions($"{leftPaneWidth},6,*")
         };
+        _workspaceGrid = grid;
 
         var leftTabs = new TabControl
         {
+            SelectedIndex = Math.Clamp(_settings.LeftTabIndex, 0, 1),
             ItemsSource = new object[]
             {
                 new TabItem { Header = "镜头编辑器", Content = new LensEditorPanel(_connector) },
                 new TabItem { Header = "系统属性", Content = new SystemPropertiesPanel(_connector) }
             }
         };
+        _leftTabs = leftTabs;
+        leftTabs.SelectionChanged += (_, _) =>
+        {
+            _settings.LeftTabIndex = Math.Max(0, leftTabs.SelectedIndex);
+            _settings.Save();
+        };
+
+        var splitter = new GridSplitter
+        {
+            Width = 6,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            Background = new SolidColorBrush(Color.FromRgb(210, 218, 228))
+        };
 
         var rightTabs = new TabControl
         {
+            SelectedIndex = Math.Clamp(_settings.RightTabIndex, 0, 2),
             ItemsSource = new object[]
             {
                 new TabItem { Header = "二维视图", Content = new ViewerPanel(_connector) },
@@ -147,10 +238,18 @@ public sealed class MainWindow : Window
                 new TabItem { Header = "优化", Content = new OptimizationPanel(_connector) }
             }
         };
+        _rightTabs = rightTabs;
+        rightTabs.SelectionChanged += (_, _) =>
+        {
+            _settings.RightTabIndex = Math.Max(0, rightTabs.SelectedIndex);
+            _settings.Save();
+        };
 
         Grid.SetColumn(leftTabs, 0);
-        Grid.SetColumn(rightTabs, 1);
+        Grid.SetColumn(splitter, 1);
+        Grid.SetColumn(rightTabs, 2);
         grid.Children.Add(leftTabs);
+        grid.Children.Add(splitter);
         grid.Children.Add(rightTabs);
         return grid;
     }
@@ -202,17 +301,84 @@ public sealed class MainWindow : Window
         _statusText.Text = $"{_connector.CurrentOptic.Name}    {_connector.Status}    撤销: {(_connector.CanUndo ? "可用" : "不可用")}    重做: {(_connector.CanRedo ? "可用" : "不可用")}";
     }
 
-    private static MenuItem MenuItem(string header, EventHandler<Avalonia.Interactivity.RoutedEventArgs> handler)
+    private void SelectPanel(int? leftIndex = null, int? rightIndex = null)
     {
-        var item = new MenuItem { Header = header };
-        item.Click += handler;
+        if (leftIndex.HasValue && _leftTabs is not null)
+        {
+            _leftTabs.SelectedIndex = leftIndex.Value;
+        }
+
+        if (rightIndex.HasValue && _rightTabs is not null)
+        {
+            _rightTabs.SelectedIndex = rightIndex.Value;
+        }
+    }
+
+    private void SetTheme(string theme, bool save = true)
+    {
+        var normalized = theme.Equals("Dark", StringComparison.OrdinalIgnoreCase) ? "Dark" : "Light";
+        Application.Current!.RequestedThemeVariant = normalized == "Dark"
+            ? ThemeVariant.Dark
+            : ThemeVariant.Light;
+        _settings.Theme = normalized;
+        if (save)
+        {
+            _settings.Save();
+        }
+    }
+
+    private void ResetLayout()
+    {
+        Width = 1280;
+        Height = 820;
+        SelectPanel(leftIndex: 0, rightIndex: 0);
+        if (_workspaceGrid?.ColumnDefinitions.Count > 0)
+        {
+            _workspaceGrid.ColumnDefinitions[0].Width = new GridLength(520);
+        }
+
+        SaveLayout();
+    }
+
+    private async Task ShowCommandPaletteAsync()
+    {
+        var palette = new CommandPaletteWindow(_actions);
+        await palette.ShowDialog(this);
+    }
+
+    private void SaveLayout()
+    {
+        _settings.WindowWidth = Math.Max(MinWidth, Width);
+        _settings.WindowHeight = Math.Max(MinHeight, Height);
+        if (_workspaceGrid?.ColumnDefinitions.Count > 0)
+        {
+            _settings.LeftPaneWidth = Math.Clamp(_workspaceGrid.ColumnDefinitions[0].ActualWidth, 360, 900);
+        }
+
+        if (_leftTabs is not null)
+        {
+            _settings.LeftTabIndex = Math.Max(0, _leftTabs.SelectedIndex);
+        }
+
+        if (_rightTabs is not null)
+        {
+            _settings.RightTabIndex = Math.Max(0, _rightTabs.SelectedIndex);
+        }
+
+        _settings.Save();
+    }
+
+    private static MenuItem MenuItem(AppAction action)
+    {
+        var item = new MenuItem { Header = action.Text };
+        item.Click += async (_, _) => await action.ExecuteAsync();
         return item;
     }
 
-    private static Button Button(string content, EventHandler<Avalonia.Interactivity.RoutedEventArgs> handler)
+    private static Button Button(AppAction action, string content)
     {
         var button = new Button { Content = content, MinWidth = 72 };
-        button.Click += handler;
+        button.Click += async (_, _) => await action.ExecuteAsync();
         return button;
     }
 }
