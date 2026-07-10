@@ -38,13 +38,13 @@ public sealed class LensEditorPanel : UserControl
         _interactionPicker.ItemsSource = _connector.InteractionKinds;
         _aperturePicker.ItemsSource = _connector.PhysicalApertureKinds;
 
-        var addButton = new Button { Content = "Add", MinWidth = 74 };
+        var addButton = new Button { Content = "添加", MinWidth = 74 };
         addButton.Click += (_, _) => _connector.AddSurface();
 
-        var removeButton = new Button { Content = "Remove", MinWidth = 74 };
+        var removeButton = new Button { Content = "删除", MinWidth = 74 };
         removeButton.Click += (_, _) => _connector.RemoveSurface(_grid.SelectedItem as OpticalSurface);
 
-        var applyComponentsButton = new Button { Content = "Apply components", MinWidth = 132 };
+        var applyComponentsButton = new Button { Content = "应用组件", MinWidth = 112 };
         applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
         var toolbar = new StackPanel
@@ -61,15 +61,15 @@ public sealed class LensEditorPanel : UserControl
             Margin = new Avalonia.Thickness(0, 0, 0, 8),
             Children =
             {
-                new TextBlock { Text = "Geometry", VerticalAlignment = VerticalAlignment.Center },
+                new TextBlock { Text = "几何", VerticalAlignment = VerticalAlignment.Center },
                 _geometryPicker,
-                new TextBlock { Text = "Material", VerticalAlignment = VerticalAlignment.Center },
+                new TextBlock { Text = "材料", VerticalAlignment = VerticalAlignment.Center },
                 _materialPicker,
-                new TextBlock { Text = "Coating", VerticalAlignment = VerticalAlignment.Center },
+                new TextBlock { Text = "镀膜", VerticalAlignment = VerticalAlignment.Center },
                 _coatingPicker,
-                new TextBlock { Text = "Interaction", VerticalAlignment = VerticalAlignment.Center },
+                new TextBlock { Text = "相互作用", VerticalAlignment = VerticalAlignment.Center },
                 _interactionPicker,
-                new TextBlock { Text = "Aperture", VerticalAlignment = VerticalAlignment.Center },
+                new TextBlock { Text = "物理孔径", VerticalAlignment = VerticalAlignment.Center },
                 _aperturePicker,
                 applyComponentsButton,
                 _componentSummary
@@ -104,18 +104,18 @@ public sealed class LensEditorPanel : UserControl
         };
 
         grid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(OpticalSurface.Number)), IsReadOnly = true, Width = new DataGridLength(52) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Label", Binding = new Binding(nameof(OpticalSurface.Label)), Width = new DataGridLength(140) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Radius", Binding = new Binding(nameof(OpticalSurface.Radius)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Thickness", Binding = new Binding(nameof(OpticalSurface.Thickness)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Material", Binding = new Binding(nameof(OpticalSurface.Material)), Width = new DataGridLength(96) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Coating", Binding = new Binding(nameof(OpticalSurface.Coating)), Width = new DataGridLength(90) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Semi Dia.", Binding = new Binding(nameof(OpticalSurface.SemiDiameter)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Conic", Binding = new Binding(nameof(OpticalSurface.Conic)), Width = new DataGridLength(78) });
-        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "Stop", Binding = new Binding(nameof(OpticalSurface.IsStop)), Width = new DataGridLength(64) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Geometry Kind", Binding = new Binding("Geometry.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Coating Kind", Binding = new Binding("CoatingModel.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Interaction Kind", Binding = new Binding("InteractionModel.Kind"), IsReadOnly = true, Width = new DataGridLength(132) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Aperture Kind", Binding = new Binding("PhysicalAperture.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(OpticalSurface.Label)), Width = new DataGridLength(140) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "半径", Binding = new Binding(nameof(OpticalSurface.Radius)), Width = new DataGridLength(92) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "厚度", Binding = new Binding(nameof(OpticalSurface.Thickness)), Width = new DataGridLength(92) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "材料", Binding = new Binding(nameof(OpticalSurface.Material)), Width = new DataGridLength(96) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "镀膜", Binding = new Binding(nameof(OpticalSurface.Coating)), Width = new DataGridLength(90) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "半口径", Binding = new Binding(nameof(OpticalSurface.SemiDiameter)), Width = new DataGridLength(92) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "圆锥系数", Binding = new Binding(nameof(OpticalSurface.Conic)), Width = new DataGridLength(86) });
+        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "光阑", Binding = new Binding(nameof(OpticalSurface.IsStop)), Width = new DataGridLength(64) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "几何类型", Binding = new Binding("Geometry.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "镀膜类型", Binding = new Binding("CoatingModel.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "作用类型", Binding = new Binding("InteractionModel.Kind"), IsReadOnly = true, Width = new DataGridLength(132) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "孔径类型", Binding = new Binding("PhysicalAperture.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
 
         grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
         grid.CellEditEnded += (_, _) => _connector.CommitSurfaceEdit();
@@ -139,7 +139,7 @@ public sealed class LensEditorPanel : UserControl
     {
         if (_grid.SelectedItem is not OpticalSurface surface)
         {
-            _componentSummary.Text = "No surface selected";
+            _componentSummary.Text = "未选择表面";
             return;
         }
 
@@ -153,7 +153,7 @@ public sealed class LensEditorPanel : UserControl
             _coatingPicker.SelectedItem = CoatingKindFor(surface);
             _interactionPicker.SelectedItem = InteractionKindFor(surface);
             _aperturePicker.SelectedItem = ApertureKindFor(surface);
-            _componentSummary.Text = $"S{surface.Number}: {surface.Geometry.Kind}, {surface.MaterialAfterName}";
+            _componentSummary.Text = $"表面 {surface.Number}: {surface.Geometry.Kind}, {surface.MaterialAfterName}";
         }
         finally
         {
@@ -170,24 +170,27 @@ public sealed class LensEditorPanel : UserControl
 
         _connector.ApplySurfaceComponents(
             surface,
-            _geometryPicker.SelectedItem as string ?? "Standard",
+            _geometryPicker.SelectedItem as string ?? "标准球面/圆锥",
             _materialPicker.SelectedItem as string ?? surface.Material,
-            _coatingPicker.SelectedItem as string ?? "None",
-            _interactionPicker.SelectedItem as string ?? "Refractive",
-            _aperturePicker.SelectedItem as string ?? "Circular");
+            _coatingPicker.SelectedItem as string ?? "无镀膜",
+            _interactionPicker.SelectedItem as string ?? "折射",
+            _aperturePicker.SelectedItem as string ?? "圆形");
     }
 
     private static string GeometryKindFor(OpticalSurface surface)
     {
         return surface.Geometry switch
         {
-            PlaneGeometry => "Plane",
-            EvenAsphereGeometry => "Even Asphere",
-            OddAsphereGeometry => "Odd Asphere",
-            BiconicGeometry => "Biconic",
-            ToroidalGeometry => "Toroidal",
-            PolynomialGeometry => "Polynomial",
-            _ => "Standard"
+            PlaneGeometry => "平面",
+            EvenAsphereGeometry => "偶次非球面",
+            OddAsphereGeometry => "奇次非球面",
+            BiconicGeometry => "双圆锥",
+            ToroidalGeometry => "环形面",
+            PolynomialGeometry => "XY 多项式",
+            ChebyshevGeometry => "Chebyshev 曲面",
+            ZernikeGeometry => "Zernike 曲面",
+            ForbesQGeometry => "Forbes Q 曲面",
+            _ => "标准球面/圆锥"
         };
     }
 
@@ -195,21 +198,21 @@ public sealed class LensEditorPanel : UserControl
     {
         if (surface.CoatingModel is ThinFilmStackCoating stack)
         {
-            return stack.Layers.Count > 1 ? "Quarter-wave Stack" : "MgF2";
+            return stack.Layers.Count > 1 ? "四分之一波堆栈" : "MgF2 单层";
         }
 
-        return "None";
+        return "无镀膜";
     }
 
     private static string InteractionKindFor(OpticalSurface surface)
     {
         return surface.InteractionModel switch
         {
-            ThinLensInteractionModel => "Thin Lens",
-            DiffractiveInteractionModel => "Diffractive",
-            PhaseInteractionModel => "Phase",
-            RefractiveReflectiveInteractionModel model when model.IsReflective => "Reflective",
-            _ => "Refractive"
+            ThinLensInteractionModel => "薄透镜",
+            DiffractiveInteractionModel => "衍射",
+            PhaseInteractionModel => "相位",
+            RefractiveReflectiveInteractionModel model when model.IsReflective => "反射",
+            _ => "折射"
         };
     }
 
@@ -217,9 +220,9 @@ public sealed class LensEditorPanel : UserControl
     {
         return surface.PhysicalAperture switch
         {
-            RectangularAperture => "Rectangular",
-            null => "None",
-            _ => "Circular"
+            RectangularAperture => "矩形",
+            null => "无",
+            _ => "圆形"
         };
     }
 }

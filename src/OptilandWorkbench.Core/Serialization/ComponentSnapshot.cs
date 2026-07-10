@@ -52,6 +52,22 @@ public static class ComponentSnapshotFactory
             PolynomialGeometry polynomial => new ComponentSnapshot("polynomial", polynomial.Coefficients.ToDictionary(
                 item => $"c_{item.Key.X}_{item.Key.Y}",
                 item => item.Value), new Dictionary<string, string>()),
+            ChebyshevGeometry chebyshev => new ComponentSnapshot("chebyshev", PairCoefficients(
+                chebyshev.Coefficients,
+                new Dictionary<string, double>
+                {
+                    ["normalizationX"] = chebyshev.NormalizationX,
+                    ["normalizationY"] = chebyshev.NormalizationY
+                }), new Dictionary<string, string>()),
+            ZernikeGeometry zernike => new ComponentSnapshot("zernike", PairCoefficients(
+                zernike.Coefficients,
+                new Dictionary<string, double> { ["pupilRadius"] = zernike.PupilRadius }), new Dictionary<string, string>()),
+            ForbesQGeometry forbes => new ComponentSnapshot("forbes_q", Coefficients(forbes.QCoefficients, new Dictionary<string, double>
+            {
+                ["radius"] = forbes.Base.Radius,
+                ["conic"] = forbes.Base.Conic,
+                ["normalizationRadius"] = forbes.NormalizationRadius
+            }, "q"), new Dictionary<string, string>()),
             PlaceholderFreeformGeometry placeholder => ComponentSnapshot.Empty(placeholder.Kind),
             _ => ComponentSnapshot.Empty(geometry.Kind)
         };
@@ -74,6 +90,9 @@ public static class ComponentSnapshotFactory
             "biconic" => new BiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
             "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius)),
             "polynomial" => new PolynomialGeometry(ReadPolynomial(n)),
+            "chebyshev" => new ChebyshevGeometry(ReadPairCoefficients(n), Get(n, "normalizationX", 1), Get(n, "normalizationY", 1)),
+            "zernike" => new ZernikeGeometry(ReadPairCoefficients(n), Get(n, "pupilRadius", 1)),
+            "forbes_q" => new ForbesQGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), Get(n, "normalizationRadius", 1), ReadCoefficients(n, "q")),
             _ => new PlaceholderFreeformGeometry(snapshot.Kind)
         };
     }
@@ -275,5 +294,20 @@ public static class ComponentSnapshotFactory
         }
 
         return result;
+    }
+
+    private static Dictionary<string, double> PairCoefficients(IReadOnlyDictionary<(int X, int Y), double> coefficients, Dictionary<string, double> seed)
+    {
+        foreach (var item in coefficients)
+        {
+            seed[$"c_{item.Key.X}_{item.Key.Y}"] = item.Value;
+        }
+
+        return seed;
+    }
+
+    private static IReadOnlyDictionary<(int X, int Y), double> ReadPairCoefficients(IReadOnlyDictionary<string, double> values)
+    {
+        return ReadPolynomial(values);
     }
 }

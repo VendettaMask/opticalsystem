@@ -10,20 +10,20 @@ namespace OptilandWorkbench.App;
 
 public sealed class MainWindow : Window
 {
-    private static readonly FilePickerFileType NativeOpticFileType = new("Optiland JSON")
+    private static readonly FilePickerFileType NativeOpticFileType = new("Optiland JSON 光学系统")
     {
         Patterns = new[] { "*.optiland.json", "*.optic.json", "*.json", "*.optiland" },
         AppleUniformTypeIdentifiers = new[] { "public.json" },
         MimeTypes = new[] { "application/json" }
     };
 
-    private static readonly FilePickerFileType CommercialOpticFileType = new("Sequential lens formats")
+    private static readonly FilePickerFileType CommercialOpticFileType = new("序列光学格式")
     {
         Patterns = new[] { "*.zmx", "*.seq", "*.len" },
         MimeTypes = new[] { "text/plain" }
     };
 
-    private static readonly FilePickerFileType PlainSequentialFileType = new("Plain sequential text")
+    private static readonly FilePickerFileType PlainSequentialFileType = new("序列光学文本")
     {
         Patterns = new[] { "*.lens", "*.dat", "*.txt" },
         MimeTypes = new[] { "text/plain" }
@@ -36,7 +36,7 @@ public sealed class MainWindow : Window
     {
         _connector = new OptilandConnector(Optic.CreateDemo());
 
-        Title = "Optiland Workbench";
+        Title = "Optiland 光学工作台";
         Width = 1280;
         Height = 820;
         MinWidth = 980;
@@ -70,23 +70,23 @@ public sealed class MainWindow : Window
 
     private Menu BuildMenu()
     {
-        var newItem = MenuItem("New demo", (_, _) => _connector.NewDemo());
-        var openItem = MenuItem("Open", async (_, _) => await OpenAsync());
-        var saveItem = MenuItem("Save as", async (_, _) => await SaveAsAsync());
-        var exitItem = MenuItem("Exit", (_, _) => Close());
+        var newItem = MenuItem("新建演示系统", (_, _) => _connector.NewDemo());
+        var openItem = MenuItem("打开", async (_, _) => await OpenAsync());
+        var saveItem = MenuItem("另存为", async (_, _) => await SaveAsAsync());
+        var exitItem = MenuItem("退出", (_, _) => Close());
 
-        var undoItem = MenuItem("Undo", (_, _) => _connector.Undo());
-        var redoItem = MenuItem("Redo", (_, _) => _connector.Redo());
+        var undoItem = MenuItem("撤销", (_, _) => _connector.Undo());
+        var redoItem = MenuItem("重做", (_, _) => _connector.Redo());
 
         var fileMenu = new MenuItem
         {
-            Header = "_File",
+            Header = "文件",
             ItemsSource = new object[] { newItem, openItem, saveItem, new Separator(), exitItem }
         };
 
         var editMenu = new MenuItem
         {
-            Header = "_Edit",
+            Header = "编辑",
             ItemsSource = new object[] { undoItem, redoItem }
         };
 
@@ -110,11 +110,11 @@ public sealed class MainWindow : Window
             Spacing = 8,
             Children =
             {
-                Button("New", (_, _) => _connector.NewDemo()),
-                Button("Open", async (_, _) => await OpenAsync()),
-                Button("Save", async (_, _) => await SaveAsAsync()),
-                Button("Undo", (_, _) => _connector.Undo()),
-                Button("Redo", (_, _) => _connector.Redo())
+                Button("新建", (_, _) => _connector.NewDemo()),
+                Button("打开", async (_, _) => await OpenAsync()),
+                Button("保存", async (_, _) => await SaveAsAsync()),
+                Button("撤销", (_, _) => _connector.Undo()),
+                Button("重做", (_, _) => _connector.Redo())
             }
         };
 
@@ -133,8 +133,8 @@ public sealed class MainWindow : Window
         {
             ItemsSource = new object[]
             {
-                new TabItem { Header = "Lens editor", Content = new LensEditorPanel(_connector) },
-                new TabItem { Header = "System", Content = new SystemPropertiesPanel(_connector) }
+                new TabItem { Header = "镜头编辑器", Content = new LensEditorPanel(_connector) },
+                new TabItem { Header = "系统属性", Content = new SystemPropertiesPanel(_connector) }
             }
         };
 
@@ -142,9 +142,9 @@ public sealed class MainWindow : Window
         {
             ItemsSource = new object[]
             {
-                new TabItem { Header = "2D viewer", Content = new ViewerPanel(_connector) },
-                new TabItem { Header = "Analysis", Content = new AnalysisPanel(_connector) },
-                new TabItem { Header = "Optimization", Content = new OptimizationPanel(_connector) }
+                new TabItem { Header = "二维视图", Content = new ViewerPanel(_connector) },
+                new TabItem { Header = "分析", Content = new AnalysisPanel(_connector) },
+                new TabItem { Header = "优化", Content = new OptimizationPanel(_connector) }
             }
         };
 
@@ -171,7 +171,7 @@ public sealed class MainWindow : Window
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Open optic",
+            Title = "打开光学系统",
             AllowMultiple = false,
             FileTypeFilter = new[] { NativeOpticFileType, CommercialOpticFileType, PlainSequentialFileType }
         });
@@ -186,7 +186,7 @@ public sealed class MainWindow : Window
     {
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save optic",
+            Title = "保存光学系统",
             SuggestedFileName = "optiland-workbench.optiland.json",
             FileTypeChoices = new[] { NativeOpticFileType, CommercialOpticFileType, PlainSequentialFileType }
         });
@@ -199,7 +199,7 @@ public sealed class MainWindow : Window
 
     private void RefreshStatus()
     {
-        _statusText.Text = $"{_connector.CurrentOptic.Name}    {_connector.Status}    Undo: {(_connector.CanUndo ? "yes" : "no")}    Redo: {(_connector.CanRedo ? "yes" : "no")}";
+        _statusText.Text = $"{_connector.CurrentOptic.Name}    {_connector.Status}    撤销: {(_connector.CanUndo ? "可用" : "不可用")}    重做: {(_connector.CanRedo ? "可用" : "不可用")}";
     }
 
     private static MenuItem MenuItem(string header, EventHandler<Avalonia.Interactivity.RoutedEventArgs> handler)

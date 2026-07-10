@@ -24,11 +24,11 @@ public sealed class AnalysisPanel : UserControl
     public AnalysisPanel(OptilandConnector connector)
     {
         _connector = connector;
-        _analysisPicker.ItemsSource = _connector.AnalysisNames;
+        _analysisPicker.ItemsSource = _connector.AnalysisDisplayNames;
 
         var runButton = new Button
         {
-            Content = "Run analysis",
+            Content = "运行分析",
             HorizontalAlignment = HorizontalAlignment.Left,
             MinWidth = 120
         };
@@ -59,7 +59,13 @@ public sealed class AnalysisPanel : UserControl
 
     private void Refresh()
     {
-        var name = _analysisPicker.SelectedItem as string ?? _connector.AnalysisNames.FirstOrDefault() ?? "Prescription Report";
+        _analysisPicker.ItemsSource = _connector.AnalysisDisplayNames;
+        if (_analysisPicker.SelectedItem is null && _connector.AnalysisDisplayNames.Count > 0)
+        {
+            _analysisPicker.SelectedIndex = 0;
+        }
+
+        var name = _analysisPicker.SelectedItem as string ?? _connector.AnalysisDisplayNames.FirstOrDefault() ?? "处方报告";
         _report.Text = _connector.BuildAnalysisReport(name);
     }
 }

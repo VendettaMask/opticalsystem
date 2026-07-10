@@ -11,7 +11,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Ray generation | `Raytrace` | Grid, hexapolar, random, Sobol-like pupil sampling with apodization/telecentric options |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
-| Geometry | `Geometries` | Plane, standard, even/odd asphere, biconic, toroidal, polynomial, placeholders for named freeforms |
+| Geometry | `Geometries` | Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
 | Propagation | `Propagation` | Homogeneous and GRIN models |
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe/catalog registry |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
@@ -23,7 +23,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme and primitive scene DTOs for 2D/3D renderers |
-| GUI | `OptilandWorkbench.App` | Avalonia shell, connector, editor/viewer/analysis/optimization/system panels; startup fix retained |
+| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/viewer/analysis/optimization/system panels; startup fix retained |
 
 ## Milestone Notes
 
@@ -32,7 +32,9 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Native JSON round-trip preserves rich surface components.
 - ZMX/SEQ/LEN import/export covers a common sequential lens subset.
 - The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
+- The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.
+- Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 
-Advanced numerical fidelity still needs targeted follow-up work for high-order freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, commercial format breadth, and optional GPU/autograd backend.
+Advanced numerical fidelity still needs targeted follow-up work for NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, commercial format breadth, and optional GPU/autograd backend.

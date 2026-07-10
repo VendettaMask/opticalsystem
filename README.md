@@ -8,13 +8,13 @@ The implementation is being built in small git milestones. The current codebase 
 - A composition-based surface model: `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + optional Scattering + CoordinateSystem`, while retaining GUI-compatible legacy table fields.
 - Managed CPU backend abstraction through `INumericBackend`.
 - Sequential real-ray tracing with local coordinates, aperture clipping, refraction/reflection, coating hooks, and scattering hooks.
-- Plane, standard, even/odd asphere, biconic, toroidal, polynomial, and placeholder freeform geometry models.
+- Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, Abbe, and catalog material support.
 - Analysis catalog entries for spot, ray fan, distortion, grid distortion, field curvature, encircled energy, pupil aberration, RMS vs field, through focus, Y-Ybar, PSF, MTF, wavefront, Zernike, image simulation, Jones pupil, first order, and prescription report.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
-- Avalonia GUI panels for lens editing, component editing, 2D layout viewing, analysis, optimization, and system properties.
+- Chinese Avalonia GUI panels for lens editing, component editing, 2D layout viewing, analysis, optimization, and system properties.
 
 ## Requirements
 
@@ -83,4 +83,4 @@ See:
 
 ## Notes
 
-This repository is a clean-room .NET implementation shaped by the Optiland documentation. Advanced numerical fidelity still needs staged follow-up work for high-order freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, broader commercial format compatibility, and optional GPU/autograd backend support.
+This repository is a clean-room .NET implementation shaped by the Optiland documentation. Advanced numerical fidelity still needs staged follow-up work for NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, broader commercial format compatibility, and optional GPU/autograd backend support.

@@ -33,6 +33,6 @@ public sealed class ViewerPanel : UserControl
 
         var focalLength = _connector.CurrentOptic.Paraxial.EstimateEffectiveFocalLength();
         var fNumber = _connector.CurrentOptic.Paraxial.EstimateFNumber();
-        _summary.Text = $"EFL {focalLength:0.###} mm    F/# {fNumber:0.###}    Track {_connector.CurrentOptic.SurfaceGroup.TotalTrack:0.###} mm";
+        _summary.Text = $"有效焦距 {focalLength:0.###} mm    F 数 {fNumber:0.###}    系统总长 {_connector.CurrentOptic.SurfaceGroup.TotalTrack:0.###} mm";
     }
 }

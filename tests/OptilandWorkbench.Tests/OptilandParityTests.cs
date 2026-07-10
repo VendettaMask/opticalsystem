@@ -56,13 +56,52 @@ public sealed class OptilandParityTests
             new OddAsphereGeometry(50, 0, new[] { 1e-6 }),
             new BiconicGeometry(40, 60),
             new ToroidalGeometry(80, 30),
-            new PolynomialGeometry(new Dictionary<(int X, int Y), double> { [(2, 0)] = 1e-3 })
+            new PolynomialGeometry(new Dictionary<(int X, int Y), double> { [(2, 0)] = 1e-3 }),
+            new ChebyshevGeometry(new Dictionary<(int XOrder, int YOrder), double> { [(2, 0)] = 1e-3, [(0, 2)] = -2e-4 }, 5, 5),
+            new ZernikeGeometry(new Dictionary<(int RadialOrder, int AzimuthalFrequency), double> { [(2, 0)] = 1e-3, [(3, 1)] = 2e-4 }, 5),
+            new ForbesQGeometry(50, -0.5, 5, new[] { 1e-4, -2e-5 })
         };
 
         foreach (var geometry in geometries)
         {
             Assert.True(double.IsFinite(geometry.Sag(1, 1)));
             Assert.NotNull(geometry.DistanceToIntersection(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)));
+        }
+    }
+
+    [Fact]
+    public async Task JsonStoreRoundTripsHighOrderFreeformGeometries()
+    {
+        IGeometry[] geometries =
+        {
+            new ChebyshevGeometry(new Dictionary<(int XOrder, int YOrder), double> { [(2, 0)] = 1e-3, [(0, 2)] = -2e-4 }, 5, 7),
+            new ZernikeGeometry(new Dictionary<(int RadialOrder, int AzimuthalFrequency), double> { [(2, 0)] = 1e-3, [(3, -1)] = 2e-4 }, 6),
+            new ForbesQGeometry(42, -0.6, 8, new[] { 1e-4, -2e-5, 3e-6 })
+        };
+
+        foreach (var geometry in geometries)
+        {
+            var optic = Optic.CreateDemo();
+            optic.SurfaceGroup.Items[2].Geometry = geometry;
+            var expectedSag = geometry.Sag(1.2, -0.7);
+            var path = Path.Combine(Path.GetTempPath(), $"optiland-freeform-{Guid.NewGuid():N}.optiland.json");
+
+            try
+            {
+                await OpticJsonStore.SaveAsync(optic, path);
+                var restored = await OpticJsonStore.LoadAsync(path);
+                var restoredGeometry = restored.SurfaceGroup.Items[2].Geometry;
+
+                Assert.Equal(geometry.Kind, restoredGeometry.Kind);
+                Assert.Equal(expectedSag, restoredGeometry.Sag(1.2, -0.7), precision: 12);
+            }
+            finally
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
         }
     }
 

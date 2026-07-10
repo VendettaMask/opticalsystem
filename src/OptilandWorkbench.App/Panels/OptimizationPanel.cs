@@ -34,7 +34,7 @@ public sealed class OptimizationPanel : UserControl
         _connector = connector;
         _optimizerPicker.ItemsSource = _connector.OptimizerNames;
 
-        var runButton = new Button { Content = "Run", MinWidth = 86 };
+        var runButton = new Button { Content = "运行", MinWidth = 86 };
         runButton.Click += (_, _) => Run();
 
         var row = new StackPanel
@@ -50,7 +50,7 @@ public sealed class OptimizationPanel : UserControl
             Spacing = 10,
             Children =
             {
-                new TextBlock { Text = "Radius variable", FontWeight = FontWeight.SemiBold },
+                new TextBlock { Text = "半径变量优化", FontWeight = FontWeight.SemiBold },
                 row,
                 _result
             }
@@ -81,7 +81,7 @@ public sealed class OptimizationPanel : UserControl
     {
         if (_surfacePicker.SelectedItem is not OpticalSurface surface)
         {
-            _result.Text = "Select a surface first.";
+            _result.Text = "请先选择一个表面。";
             return;
         }
 
@@ -94,9 +94,9 @@ public sealed class OptimizationPanel : UserControl
         var initialRadius = surface.Radius;
         var result = _connector.OptimizeSurfaceRadius(surface, optimizerName, iterations);
         _result.Text =
-            $"{result.Message}{Environment.NewLine}" +
-            $"Merit: {result.InitialMerit:0.######} -> {result.FinalMerit:0.######}{Environment.NewLine}" +
-            $"Radius: {initialRadius:0.###} -> {surface.Radius:0.###}{Environment.NewLine}" +
-            $"Iterations: {result.Iterations}";
+            $"{OptilandConnector.DisplayOptimizerMessage(result.Message)}{Environment.NewLine}" +
+            $"评价函数: {result.InitialMerit:0.######} -> {result.FinalMerit:0.######}{Environment.NewLine}" +
+            $"半径: {initialRadius:0.###} -> {surface.Radius:0.###}{Environment.NewLine}" +
+            $"迭代次数: {result.Iterations}";
     }
 }

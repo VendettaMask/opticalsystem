@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.App.Panels;
@@ -29,10 +30,10 @@ public sealed class SystemPropertiesPanel : UserControl
         _fieldsGrid = CreateFieldsGrid();
         _wavelengthsGrid = CreateWavelengthsGrid();
 
-        var addField = new Button { Content = "Add field", MinWidth = 96 };
+        var addField = new Button { Content = "添加视场", MinWidth = 96 };
         addField.Click += (_, _) => _connector.AddField();
 
-        var addWavelength = new Button { Content = "Add wavelength", MinWidth = 128 };
+        var addWavelength = new Button { Content = "添加波长", MinWidth = 112 };
         addWavelength.Click += (_, _) => _connector.AddWavelength();
 
         var root = new Grid
@@ -42,8 +43,8 @@ public sealed class SystemPropertiesPanel : UserControl
         };
 
         var systemControls = BuildSystemControls();
-        var fieldHeader = BuildHeader("Fields", addField);
-        var wavelengthHeader = BuildHeader("Wavelengths", addWavelength);
+        var fieldHeader = BuildHeader("视场", addField);
+        var wavelengthHeader = BuildHeader("波长", addWavelength);
 
         Grid.SetRow(systemControls, 0);
         Grid.SetRow(fieldHeader, 1);
@@ -68,7 +69,7 @@ public sealed class SystemPropertiesPanel : UserControl
         _backendPicker.ItemsSource = _connector.BackendNames;
         _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
 
-        var applyButton = new Button { Content = "Apply", MinWidth = 74 };
+        var applyButton = new Button { Content = "应用", MinWidth = 74 };
         applyButton.Click += (_, _) => ApplySystemControls();
 
         return new WrapPanel
@@ -79,7 +80,7 @@ public sealed class SystemPropertiesPanel : UserControl
             {
                 new TextBlock
                 {
-                    Text = "Backend",
+                    Text = "计算后端",
                     FontWeight = FontWeight.SemiBold,
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Avalonia.Thickness(0, 0, 8, 0)
@@ -87,7 +88,7 @@ public sealed class SystemPropertiesPanel : UserControl
                 _backendPicker,
                 new TextBlock
                 {
-                    Text = "Aperture",
+                    Text = "系统孔径",
                     FontWeight = FontWeight.SemiBold,
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Avalonia.Thickness(16, 0, 8, 0)
@@ -122,20 +123,20 @@ public sealed class SystemPropertiesPanel : UserControl
     private DataGrid CreateFieldsGrid()
     {
         var grid = BaseGrid();
-        grid.Columns.Add(new DataGridTextColumn { Header = "Label", Binding = new Binding(nameof(FieldPoint.Label)), Width = new DataGridLength(110) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "X deg", Binding = new Binding(nameof(FieldPoint.XAngleDegrees)), Width = new DataGridLength(76) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Y deg", Binding = new Binding(nameof(FieldPoint.YAngleDegrees)), Width = new DataGridLength(76) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Weight", Binding = new Binding(nameof(FieldPoint.Weight)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(FieldPoint.Label)), Width = new DataGridLength(110) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "X 角度", Binding = new Binding(nameof(FieldPoint.XAngleDegrees)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "Y 角度", Binding = new Binding(nameof(FieldPoint.YAngleDegrees)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(FieldPoint.Weight)), Width = new DataGridLength(76) });
         return grid;
     }
 
     private DataGrid CreateWavelengthsGrid()
     {
         var grid = BaseGrid();
-        grid.Columns.Add(new DataGridTextColumn { Header = "Label", Binding = new Binding(nameof(Wavelength.Label)), Width = new DataGridLength(84) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(Wavelength.Label)), Width = new DataGridLength(84) });
         grid.Columns.Add(new DataGridTextColumn { Header = "nm", Binding = new Binding(nameof(Wavelength.Nanometers)), Width = new DataGridLength(88) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Weight", Binding = new Binding(nameof(Wavelength.Weight)), Width = new DataGridLength(76) });
-        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "Primary", Binding = new Binding(nameof(Wavelength.IsPrimary)), Width = new DataGridLength(84) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(Wavelength.Weight)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "主波长", Binding = new Binding(nameof(Wavelength.IsPrimary)), Width = new DataGridLength(84) });
         return grid;
     }
 
@@ -160,7 +161,12 @@ public sealed class SystemPropertiesPanel : UserControl
     {
         _backendPicker.ItemsSource = _connector.BackendNames;
         _backendPicker.SelectedItem = _connector.CurrentOptic.Backend.Current.Name;
-        _apertureKindPicker.SelectedItem = _connector.CurrentOptic.Aperture.Kind.ToString();
+        _apertureKindPicker.SelectedIndex = _connector.CurrentOptic.Aperture.Kind switch
+        {
+            ApertureKind.FNumber => 1,
+            ApertureKind.NumericalAperture => 2,
+            _ => 0
+        };
         _apertureValue.Value = (decimal)_connector.CurrentOptic.Aperture.Value;
         _fieldsGrid.ItemsSource = _connector.Fields;
         _wavelengthsGrid.ItemsSource = _connector.Wavelengths;

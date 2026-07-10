@@ -36,6 +36,18 @@ OpticalSurface
 
 Legacy table fields are synchronized into composition objects for normal table edits. JSON load can restore rich component snapshots without losing component-specific fields.
 
+## Geometry Coverage
+
+Geometry implementations expose the same `IGeometry` contract:
+
+```csharp
+double Sag(double x, double y);
+double? DistanceToIntersection(Vector3D origin, Vector3D direction);
+Vector3D SurfaceNormal(Vector3D localPoint);
+```
+
+Analytic surfaces and freeforms share Newton intersection fallback for consistent sequential tracing. Current freeform coverage includes Chebyshev, Zernike, and Forbes Q models with schema-versioned JSON round-trip. Remaining NURBS/grating work can be added behind the same contract without changing the tracer or GUI connector.
+
 ## Backend Layer
 
 `INumericBackend` is the only supported abstraction for backend-aware numeric operations. `ManagedCpuBackend` is the default implementation. The provider is intentionally extensible for a later TorchSharp/GPU/autograd backend, but the current implementation is CPU-only.
@@ -85,7 +97,7 @@ Tolerancing reuses optimization variables and operands through:
 
 ## GUI Layer
 
-The Avalonia application is intentionally connector-centered:
+The Avalonia application is localized for Chinese display and remains intentionally connector-centered:
 
 ```text
 MainWindow
