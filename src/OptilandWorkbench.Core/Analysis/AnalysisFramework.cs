@@ -247,13 +247,24 @@ public sealed class WavefrontAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        var wavefront = new AnalysisRunner(Optic).EvaluateWavefront();
         var aberrations = Optic.Aberrations.Estimate();
         var rms = Math.Sqrt((aberrations.Spherical * aberrations.Spherical) + (aberrations.Coma * aberrations.Coma) + (aberrations.Astigmatism * aberrations.Astigmatism));
+        var primaryWavelength = Optic.Wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)?.Nanometers
+            ?? Optic.Wavelengths.FirstOrDefault()?.Nanometers
+            ?? 587.6;
+        var wavelengthMillimeters = primaryWavelength * 1e-6;
         return new AnalysisData(Name, new Dictionary<string, object>
         {
+            ["RayCount"] = wavefront.RayCount,
+            ["VignettedRayCount"] = wavefront.VignettedRayCount,
+            ["ReferenceOpticalPathLength"] = wavefront.ReferenceOpticalPathLength,
+            ["MeanOpticalPathDifference"] = wavefront.MeanOpticalPathDifference,
+            ["RmsOpticalPathDifference"] = wavefront.RmsOpticalPathDifference,
+            ["PeakToValleyOpticalPathDifference"] = wavefront.PeakToValleyOpticalPathDifference,
+            ["RmsWaves"] = wavelengthMillimeters <= 1e-12 ? 0 : wavefront.RmsOpticalPathDifference / wavelengthMillimeters,
             ["RmsWavefrontProxy"] = rms,
-            ["PeakToValleyProxy"] = rms * 4,
-            ["Reference"] = "chief-ray"
+            ["Reference"] = "mean-final-opl"
         });
     }
 }

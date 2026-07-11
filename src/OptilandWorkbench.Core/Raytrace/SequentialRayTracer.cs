@@ -46,6 +46,8 @@ public sealed class SequentialRayTracer
         {
             var ray = sourceRay.Normalize();
             var currentIndex = 1.0;
+            var cumulativePathLength = 0.0;
+            var cumulativeOpticalPathLength = 0.0;
             var history = new List<RayTraceSample>();
 
             foreach (var surface in _optic.SurfaceGroup.Items)
@@ -55,18 +57,40 @@ public sealed class SequentialRayTracer
                 var distance = surface.Geometry.DistanceToIntersection(localOrigin, localDirection);
                 if (distance is null)
                 {
-                    history.Add(new RayTraceSample(surface.Number, surface.Label, ray.Origin, ray.Direction, 0, true));
+                    history.Add(new RayTraceSample(
+                        surface.Number,
+                        surface.Label,
+                        ray.Origin,
+                        ray.Direction,
+                        0,
+                        true,
+                        CumulativePathLength: cumulativePathLength,
+                        CumulativeOpticalPathLength: cumulativeOpticalPathLength));
                     ray = ray with { Intensity = 0 };
                     break;
                 }
 
                 var localHit = localOrigin + (localDirection * distance.Value);
                 var globalHit = surface.CoordinateSystem.ToGlobalPoint(localHit);
+                var segmentLength = Math.Max(0, distance.Value);
+                var segmentOpticalPathLength = segmentLength * currentIndex;
+                cumulativePathLength += segmentLength;
+                cumulativeOpticalPathLength += segmentOpticalPathLength;
                 var vignetted = surface.PhysicalAperture is not null && !surface.PhysicalAperture.Contains(localHit);
                 if (vignetted)
                 {
                     ray = ray with { Origin = globalHit, Intensity = 0 };
-                    history.Add(new RayTraceSample(surface.Number, surface.Label, globalHit, ray.Direction, 0, true));
+                    history.Add(new RayTraceSample(
+                        surface.Number,
+                        surface.Label,
+                        globalHit,
+                        ray.Direction,
+                        0,
+                        true,
+                        segmentLength,
+                        segmentOpticalPathLength,
+                        cumulativePathLength,
+                        cumulativeOpticalPathLength));
                     break;
                 }
 
@@ -85,7 +109,17 @@ public sealed class SequentialRayTracer
                 ray = surface.CoatingModel.Apply(ray, context);
                 ray = surface.ScatteringModel?.Scatter(ray, normal) ?? ray;
                 currentIndex = nextIndex;
-                history.Add(new RayTraceSample(surface.Number, surface.Label, ray.Origin, ray.Direction, ray.Intensity, false));
+                history.Add(new RayTraceSample(
+                    surface.Number,
+                    surface.Label,
+                    ray.Origin,
+                    ray.Direction,
+                    ray.Intensity,
+                    false,
+                    segmentLength,
+                    segmentOpticalPathLength,
+                    cumulativePathLength,
+                    cumulativeOpticalPathLength));
 
                 if (!ray.IsAlive)
                 {
@@ -96,11 +130,35 @@ public sealed class SequentialRayTracer
             histories.Add(history);
         }
 
-        return new SequentialTrace(histories);
+        return new SequentialTrace(NormalizeOpticalPathDifference(histories));
     }
 
     private IMaterial ResolveMaterial(string material)
     {
         return _optic.Materials.Resolve(material);
+    }
+
+    private static IReadOnlyList<IReadOnlyList<RayTraceSample>> NormalizeOpticalPathDifference(
+        IReadOnlyList<IReadOnlyList<RayTraceSample>> histories)
+    {
+        var finalSamples = histories
+            .Where(history => history.Count > 0)
+            .Select(history => history[^1])
+            .Where(sample => !sample.Vignetted && sample.Intensity > 0)
+            .ToArray();
+        if (finalSamples.Length == 0)
+        {
+            return histories;
+        }
+
+        var referenceOpticalPathLength = finalSamples.Average(sample => sample.CumulativeOpticalPathLength);
+        return histories
+            .Select(history => history
+                .Select(sample => sample with
+                {
+                    OpticalPathDifference = sample.CumulativeOpticalPathLength - referenceOpticalPathLength
+                })
+                .ToArray())
+            .ToArray();
     }
 }

@@ -127,6 +127,25 @@ public sealed class OptilandParityTests
 
         Assert.NotEmpty(trace.RayHistories);
         Assert.Contains(trace.RayHistories, history => history.Count > 0);
+        Assert.Contains(trace.RayHistories, history =>
+            history.Count > 1
+            && history.Zip(history.Skip(1), (left, right) => right.CumulativeOpticalPathLength >= left.CumulativeOpticalPathLength).All(item => item)
+            && history[^1].CumulativeOpticalPathLength > 0
+            && double.IsFinite(history[^1].OpticalPathDifference));
+    }
+
+    [Fact]
+    public void WavefrontAnalysisUsesSequentialOpticalPathDifference()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
+
+        var data = optic.Analyses.Create("Wavefront").GenerateData();
+
+        Assert.Contains("RmsOpticalPathDifference", data.Values.Keys);
+        Assert.Contains("PeakToValleyOpticalPathDifference", data.Values.Keys);
+        Assert.True((double)data.Values["ReferenceOpticalPathLength"] > 0);
+        Assert.True(double.IsFinite((double)data.Values["RmsOpticalPathDifference"]));
     }
 
     [Fact]

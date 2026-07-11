@@ -36,7 +36,12 @@ public sealed record RayTraceSample(
     Vector3D Position,
     Vector3D Direction,
     double Intensity,
-    bool Vignetted);
+    bool Vignetted,
+    double SegmentLength = 0,
+    double SegmentOpticalPathLength = 0,
+    double CumulativePathLength = 0,
+    double CumulativeOpticalPathLength = 0,
+    double OpticalPathDifference = 0);
 
 public sealed class RealRayBundle
 {

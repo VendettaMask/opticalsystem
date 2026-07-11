@@ -9,6 +9,14 @@ public sealed record SpotDiagramSummary(
     double RmsSpotRadius,
     double MaxSpotRadius);
 
+public sealed record WavefrontSummary(
+    int RayCount,
+    int VignettedRayCount,
+    double ReferenceOpticalPathLength,
+    double MeanOpticalPathDifference,
+    double RmsOpticalPathDifference,
+    double PeakToValleyOpticalPathDifference);
+
 public sealed class AnalysisRunner
 {
     private readonly Optic _optic;
@@ -56,9 +64,43 @@ public sealed class AnalysisRunner
             .ToArray();
     }
 
+    public WavefrontSummary EvaluateWavefront()
+    {
+        var trace = _optic.SequentialRayTracer.Trace();
+        var finalSamples = trace.RayHistories
+            .Where(history => history.Count > 0)
+            .Select(history => history[^1])
+            .ToArray();
+        var validSamples = finalSamples
+            .Where(sample => !sample.Vignetted && sample.Intensity > 0)
+            .ToArray();
+
+        if (finalSamples.Length == 0 || validSamples.Length == 0)
+        {
+            return new WavefrontSummary(0, 0, 0, 0, 0, 0);
+        }
+
+        var reference = validSamples.Average(sample => sample.CumulativeOpticalPathLength);
+        var differences = validSamples
+            .Select(sample => sample.CumulativeOpticalPathLength - reference)
+            .ToArray();
+        var mean = differences.Average();
+        var rms = Math.Sqrt(differences.Select(difference => difference * difference).Average());
+        var peakToValley = differences.Max() - differences.Min();
+
+        return new WavefrontSummary(
+            RayCount: finalSamples.Length,
+            VignettedRayCount: finalSamples.Count(sample => sample.Vignetted || sample.Intensity <= 0),
+            ReferenceOpticalPathLength: reference,
+            MeanOpticalPathDifference: mean,
+            RmsOpticalPathDifference: rms,
+            PeakToValleyOpticalPathDifference: peakToValley);
+    }
+
     public string BuildTextReport()
     {
         var spot = EvaluateSpotDiagram();
+        var wavefront = EvaluateWavefront();
         var focalLength = _optic.Paraxial.EstimateEffectiveFocalLength();
         var fNumber = _optic.Paraxial.EstimateFNumber();
         var aberrations = _optic.Aberrations.Estimate();
@@ -74,6 +116,7 @@ public sealed class AnalysisRunner
             $"RMS spot radius: {spot.RmsSpotRadius:0.###} mm",
             $"Max spot radius: {spot.MaxSpotRadius:0.###} mm",
             $"Vignetted rays: {spot.VignettedRayCount}/{spot.RayCount}",
+            $"RMS OPD: {wavefront.RmsOpticalPathDifference:0.####} mm",
             $"Aberration proxy S/C/A/Ch: {aberrations.Spherical:0.####} / {aberrations.Coma:0.####} / {aberrations.Astigmatism:0.####} / {aberrations.Chromatic:0.####}"
         });
     }
