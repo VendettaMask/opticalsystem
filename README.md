@@ -78,6 +78,7 @@ docs                         Architecture, parity, file format, plugin, and rele
 See:
 
 - [Architecture](docs/ARCHITECTURE.md)
+- [Python Optiland parity audit](docs/PYTHON_PARITY_AUDIT.md)
 - [Parity matrix](docs/PARITY_MATRIX.md)
 - [File formats and plugins](docs/FILE_FORMATS_AND_PLUGINS.md)
 - [Build and release](docs/BUILD_AND_RELEASE.md)
