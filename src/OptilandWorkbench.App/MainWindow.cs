@@ -79,7 +79,7 @@ public sealed class MainWindow : Window
         _actions.Register("redo", "重做", "编辑", () => _connector.Redo());
         _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => SelectPanel(leftIndex: 0));
         _actions.Register("show-system", "显示系统属性", "面板", () => SelectPanel(leftIndex: 1));
-        _actions.Register("show-viewer", "显示二维视图", "面板", () => SelectPanel(rightIndex: 0));
+        _actions.Register("show-viewer", "显示系统视图", "面板", () => SelectPanel(rightIndex: 0));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => SelectPanel(rightIndex: 1));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => SelectPanel(rightIndex: 2));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => SelectPanel(rightIndex: 3));
@@ -237,7 +237,7 @@ public sealed class MainWindow : Window
             SelectedIndex = Math.Clamp(_settings.RightTabIndex, 0, 4),
             ItemsSource = new object[]
             {
-                new TabItem { Header = "二维视图", Content = new ViewerPanel(_connector) },
+                new TabItem { Header = "系统视图", Content = new ViewerPanel(_connector) },
                 new TabItem { Header = "分析", Content = new AnalysisPanel(_connector) },
                 new TabItem { Header = "优化", Content = new OptimizationPanel(_connector) },
                 new TabItem { Header = "公差", Content = new TolerancingPanel(_connector) },

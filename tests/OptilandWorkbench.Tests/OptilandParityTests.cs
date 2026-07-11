@@ -141,9 +141,27 @@ public sealed class OptilandParityTests
         var zRange = curvedSurface.Points.Max(point => point.Z) - curvedSurface.Points.Min(point => point.Z);
 
         Assert.True(zRange > 0.01);
+        Assert.NotEmpty(scene.LensElements);
+        Assert.All(scene.LensElements, element => Assert.True(element.Boundary.Count > 6));
         Assert.NotEmpty(scene.LensEdges);
         Assert.Contains(scene.Rays, ray => ray.Points.Count > 2);
+        Assert.Contains(scene.Rays, ray => ray.FieldIndex > 0);
         Assert.True(scene.ZMax > scene.ZMin);
+        Assert.True(scene.YExtent > 0);
+    }
+
+    [Fact]
+    public void Layout2DBuilderCreates3DViewerPrimitives()
+    {
+        var optic = Optic.CreateDemo();
+        var scene = new Layout2DBuilder(optic).Build3D(surfaceSamples: 9, rimSamples: 16);
+
+        Assert.NotEmpty(scene.Surfaces);
+        Assert.NotEmpty(scene.LensElements);
+        Assert.Contains(scene.Surfaces, surface => surface.Rim.Count >= 16);
+        Assert.Contains(scene.Rays, ray => ray.Points.Any(point => Math.Abs(point.X) > 0.01));
+        Assert.True(scene.ZMax > scene.ZMin);
+        Assert.True(scene.XExtent > 0);
         Assert.True(scene.YExtent > 0);
     }
 

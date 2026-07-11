@@ -6,22 +6,48 @@ using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.App.Controls;
 
+public enum OpticSceneViewMode
+{
+    TwoDimensional,
+    ThreeDimensional
+}
+
 public sealed class OpticSceneControl : Control
 {
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
+    private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(92, 154, 162, 170));
+    private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
     private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(134, 146, 166)), 1);
     private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
     private static readonly Pen SurfacePen = new(new SolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
     private static readonly Pen LensEdgePen = new(new SolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
     private static readonly Pen VignettedRayPen = new(new SolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
-    private static readonly Pen[] RayPens =
+    private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(92, 105, 118)), 1.2);
+    private static readonly Pen ThreeDLensEdgePen = new(new SolidColorBrush(Color.FromRgb(55, 68, 78)), 1.5);
+    private static readonly Color[] RayColors =
     {
-        new(new SolidColorBrush(Color.FromRgb(50, 114, 179)), 1.1),
-        new(new SolidColorBrush(Color.FromRgb(61, 145, 108)), 1.1),
-        new(new SolidColorBrush(Color.FromRgb(171, 107, 45)), 1.1)
+        Color.FromRgb(24, 113, 188),
+        Color.FromRgb(209, 106, 26),
+        Color.FromRgb(31, 145, 94),
+        Color.FromRgb(202, 62, 53)
     };
 
+    private OpticSceneViewMode _viewMode;
+
     public Optic? Optic { get; set; }
+
+    public OpticSceneViewMode ViewMode
+    {
+        get => _viewMode;
+        set
+        {
+            if (_viewMode != value)
+            {
+                _viewMode = value;
+                InvalidateVisual();
+            }
+        }
+    }
 
     public override void Render(DrawingContext context)
     {
@@ -33,7 +59,17 @@ public sealed class OpticSceneControl : Control
             return;
         }
 
-        var scene = new Layout2DBuilder(Optic).Build();
+        if (ViewMode == OpticSceneViewMode.ThreeDimensional)
+        {
+            Draw3D(context, new Layout2DBuilder(Optic).Build3D());
+            return;
+        }
+
+        Draw2D(context, new Layout2DBuilder(Optic).Build());
+    }
+
+    private void Draw2D(DrawingContext context, Layout2DScene scene)
+    {
         var padding = 28.0;
         var width = Math.Max(1, Bounds.Width - (padding * 2));
         var height = Math.Max(1, Bounds.Height - (padding * 2));
@@ -46,9 +82,40 @@ public sealed class OpticSceneControl : Control
 
         context.DrawLine(AxisPen, new Point(MapZ(scene.ZMin), centerY), new Point(MapZ(scene.ZMax), centerY));
 
+        DrawLensElements(context, scene.LensElements, MapZ, MapY);
+        DrawRays(context, scene.Rays, MapZ, MapY);
         DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY);
-        DrawRays(context, scene.Rays, MapZ, MapY);
+    }
+
+    private void Draw3D(DrawingContext context, Layout3DScene scene)
+    {
+        var padding = 34.0;
+        var width = Math.Max(1, Bounds.Width - (padding * 2));
+        var height = Math.Max(1, Bounds.Height - (padding * 2));
+        var centerX = padding + (width / 2.0);
+        var centerY = padding + (height / 2.0);
+        var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
+        var projectedWidth = zSpan + (scene.XExtent * 0.72);
+        var projectedHeight = (scene.YExtent * 2.0) + (scene.XExtent * 0.55);
+        var scale = 0.88 * Math.Min(width / Math.Max(1, projectedWidth), height / Math.Max(1, projectedHeight));
+        var zCenter = scene.ZMin + (zSpan / 2.0);
+
+        Point Project(Layout3DPoint point)
+        {
+            var projectedX = (point.Z - zCenter) + (point.X * 0.36);
+            var projectedY = point.Y - (point.X * 0.24);
+            return new Point(centerX + (projectedX * scale), centerY - (projectedY * scale));
+        }
+
+        context.DrawLine(
+            AxisPen,
+            Project(new Layout3DPoint(0, 0, scene.ZMin)),
+            Project(new Layout3DPoint(0, 0, scene.ZMax)));
+
+        Draw3DLensElements(context, scene.LensElements, Project);
+        Draw3DSurfaces(context, scene.Surfaces, Project);
+        Draw3DRays(context, scene.Rays, Project);
     }
 
     private static void DrawSurfaces(
@@ -59,8 +126,20 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var surface in surfaces)
         {
-            var pen = surface.IsStop ? StopPen : SurfacePen;
+            var pen = SurfacePenFor(surface);
             DrawPolyline(context, pen, surface.Points, mapZ, mapY);
+        }
+    }
+
+    private static void DrawLensElements(
+        DrawingContext context,
+        IReadOnlyList<Layout2DLensElement> elements,
+        Func<double, double> mapZ,
+        Func<double, double> mapY)
+    {
+        foreach (var element in elements)
+        {
+            DrawFilledPolygon(context, LensFillBrush, LensEdgePen, element.Boundary, mapZ, mapY);
         }
     }
 
@@ -87,9 +166,113 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var path in rays)
         {
-            var pen = path.Vignetted ? VignettedRayPen : RayPens[path.RayNumber % RayPens.Length];
+            var pen = RayPenFor(path.FieldIndex, path.Vignetted, 1.25);
             DrawPolyline(context, pen, path.Points, mapZ, mapY);
         }
+    }
+
+    private static void Draw3DLensElements(
+        DrawingContext context,
+        IReadOnlyList<Layout3DLensElement> elements,
+        Func<Layout3DPoint, Point> project)
+    {
+        foreach (var element in elements)
+        {
+            DrawPolyline3D(context, ThreeDLensEdgePen, element.FrontRim, project);
+            DrawPolyline3D(context, ThreeDLensEdgePen, element.BackRim, project);
+
+            var count = Math.Min(element.FrontRim.Count, element.BackRim.Count);
+            if (count <= 1)
+            {
+                continue;
+            }
+
+            var quarter = Math.Max(1, (count - 1) / 4);
+            for (var index = 0; index < count - 1; index += quarter)
+            {
+                context.DrawLine(ThreeDWirePen, project(element.FrontRim[index]), project(element.BackRim[index]));
+            }
+        }
+    }
+
+    private static void Draw3DSurfaces(
+        DrawingContext context,
+        IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
+        Func<Layout3DPoint, Point> project)
+    {
+        foreach (var surface in surfaces)
+        {
+            var pen = surface.IsStop
+                ? StopPen
+                : surface.IsReferencePlane
+                    ? ReferencePlanePen
+                    : ThreeDWirePen;
+            DrawPolyline3D(context, pen, surface.Rim, project);
+            if (!surface.IsReferencePlane)
+            {
+                DrawPolyline3D(context, ThreeDWirePen, surface.MeridianY, project);
+                DrawPolyline3D(context, ThreeDWirePen, surface.MeridianX, project);
+            }
+        }
+    }
+
+    private static void Draw3DRays(
+        DrawingContext context,
+        IReadOnlyList<Layout3DRayPath> rays,
+        Func<Layout3DPoint, Point> project)
+    {
+        foreach (var ray in rays)
+        {
+            DrawPolyline3D(context, RayPenFor(ray.FieldIndex, ray.Vignetted, 1.35), ray.Points, project);
+        }
+    }
+
+    private static Pen SurfacePenFor(Layout2DSurfaceCurve surface)
+    {
+        if (surface.IsStop)
+        {
+            return StopPen;
+        }
+
+        return surface.IsReferencePlane ? ReferencePlanePen : SurfacePen;
+    }
+
+    private static Pen RayPenFor(int fieldIndex, bool vignetted, double thickness)
+    {
+        if (vignetted)
+        {
+            return VignettedRayPen;
+        }
+
+        return new Pen(new SolidColorBrush(RayColors[Math.Abs(fieldIndex) % RayColors.Length]), thickness);
+    }
+
+    private static void DrawFilledPolygon(
+        DrawingContext context,
+        IBrush fill,
+        Pen outline,
+        IReadOnlyList<Layout2DPoint> points,
+        Func<double, double> mapZ,
+        Func<double, double> mapY)
+    {
+        if (points.Count < 3)
+        {
+            return;
+        }
+
+        var geometry = new StreamGeometry();
+        using (var stream = geometry.Open())
+        {
+            stream.BeginFigure(new Point(mapZ(points[0].Z), mapY(points[0].Y)), true);
+            for (var index = 1; index < points.Count; index++)
+            {
+                stream.LineTo(new Point(mapZ(points[index].Z), mapY(points[index].Y)));
+            }
+
+            stream.EndFigure(true);
+        }
+
+        context.DrawGeometry(fill, outline, geometry);
     }
 
     private static void DrawPolyline(
@@ -107,6 +290,18 @@ public sealed class OpticSceneControl : Control
                 pen,
                 new Point(mapZ(previous.Z), mapY(previous.Y)),
                 new Point(mapZ(current.Z), mapY(current.Y)));
+        }
+    }
+
+    private static void DrawPolyline3D(
+        DrawingContext context,
+        Pen pen,
+        IReadOnlyList<Layout3DPoint> points,
+        Func<Layout3DPoint, Point> project)
+    {
+        for (var index = 1; index < points.Count; index++)
+        {
+            context.DrawLine(pen, project(points[index - 1]), project(points[index]));
         }
     }
 }

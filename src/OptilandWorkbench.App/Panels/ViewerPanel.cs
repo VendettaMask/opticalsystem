@@ -8,7 +8,8 @@ namespace OptilandWorkbench.App.Panels;
 public sealed class ViewerPanel : UserControl
 {
     private readonly OptilandConnector _connector;
-    private readonly OpticSceneControl _scene = new() { MinHeight = 320 };
+    private readonly OpticSceneControl _scene2D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.TwoDimensional };
+    private readonly OpticSceneControl _scene3D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.ThreeDimensional };
     private readonly TextBlock _summary = new() { Margin = new Avalonia.Thickness(0, 8, 0, 0) };
 
     public ViewerPanel(OptilandConnector connector)
@@ -18,7 +19,14 @@ public sealed class ViewerPanel : UserControl
         var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
         DockPanel.SetDock(_summary, Dock.Bottom);
         root.Children.Add(_summary);
-        root.Children.Add(_scene);
+        root.Children.Add(new TabControl
+        {
+            ItemsSource = new object[]
+            {
+                new TabItem { Header = "二维视图", Content = _scene2D },
+                new TabItem { Header = "三维视图", Content = _scene3D }
+            }
+        });
         Content = root;
 
         _connector.OpticLoaded += (_, _) => Refresh();
@@ -28,8 +36,10 @@ public sealed class ViewerPanel : UserControl
 
     private void Refresh()
     {
-        _scene.Optic = _connector.CurrentOptic;
-        _scene.InvalidateVisual();
+        _scene2D.Optic = _connector.CurrentOptic;
+        _scene3D.Optic = _connector.CurrentOptic;
+        _scene2D.InvalidateVisual();
+        _scene3D.InvalidateVisual();
 
         var focalLength = _connector.CurrentOptic.Paraxial.EstimateEffectiveFocalLength();
         var fNumber = _connector.CurrentOptic.Paraxial.EstimateFNumber();
