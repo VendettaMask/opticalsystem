@@ -5,7 +5,10 @@ public enum PupilSampling
     UniformGrid,
     Hexapolar,
     Random,
-    Sobol
+    Sobol,
+    LineX,
+    LineY,
+    Ring
 }
 
 public sealed record PupilSample(double X, double Y, double Weight);
@@ -20,6 +23,9 @@ public static class ApertureSampler
             PupilSampling.Hexapolar => Hexapolar(sampleCount),
             PupilSampling.Random => Random(sampleCount, seed),
             PupilSampling.Sobol => SobolLike(sampleCount),
+            PupilSampling.LineX => LineX(sampleCount),
+            PupilSampling.LineY => LineY(sampleCount),
+            PupilSampling.Ring => Ring(sampleCount),
             _ => UniformGrid(sampleCount)
         };
     }
@@ -85,6 +91,41 @@ public static class ApertureSampler
                 var radius = Math.Sqrt(u);
                 var angle = 2 * Math.PI * v;
                 return new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
+            })
+            .ToArray();
+    }
+
+    private static IReadOnlyList<PupilSample> LineX(int sampleCount)
+    {
+        if (sampleCount == 1)
+        {
+            return new[] { new PupilSample(0, 0, 1) };
+        }
+
+        return Enumerable.Range(0, sampleCount)
+            .Select(index => new PupilSample(-1 + (2.0 * index / (sampleCount - 1)), 0, 1))
+            .ToArray();
+    }
+
+    private static IReadOnlyList<PupilSample> LineY(int sampleCount)
+    {
+        if (sampleCount == 1)
+        {
+            return new[] { new PupilSample(0, 0, 1) };
+        }
+
+        return Enumerable.Range(0, sampleCount)
+            .Select(index => new PupilSample(0, -1 + (2.0 * index / (sampleCount - 1)), 1))
+            .ToArray();
+    }
+
+    private static IReadOnlyList<PupilSample> Ring(int sampleCount)
+    {
+        return Enumerable.Range(0, sampleCount)
+            .Select(index =>
+            {
+                var angle = 2 * Math.PI * index / sampleCount;
+                return new PupilSample(Math.Cos(angle), Math.Sin(angle), 1);
             })
             .ToArray();
     }

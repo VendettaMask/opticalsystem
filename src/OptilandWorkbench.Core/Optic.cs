@@ -53,6 +53,36 @@ public sealed class Optic
 
     public AnalysisCatalog Analyses { get; }
 
+    public SequentialTrace Trace(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double wavelengthMicrometers,
+        int sampleCount = 100,
+        string distribution = "hexapolar")
+    {
+        return SequentialRayTracer.TraceNormalized(
+            normalizedFieldX,
+            normalizedFieldY,
+            wavelengthMicrometers,
+            sampleCount,
+            distribution);
+    }
+
+    public SequentialTrace TraceGeneric(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers)
+    {
+        return SequentialRayTracer.TraceGeneric(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers);
+    }
+
     public Optimization.OptimizationProblem CreateOptimizationProblem()
     {
         return new Optimization.OptimizationProblem();

@@ -19,6 +19,12 @@ public sealed class Wavelength : NotifyObject
         set => SetProperty(ref _nanometers, Math.Max(1, value));
     }
 
+    public double Micrometers
+    {
+        get => Nanometers / 1000.0;
+        set => Nanometers = value * 1000.0;
+    }
+
     public double Weight
     {
         get => _weight;

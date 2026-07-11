@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Domain;
 
@@ -20,6 +21,8 @@ public sealed class SurfaceGroup
     }
 
     public ObservableCollection<OpticalSurface> Items { get; } = new();
+
+    public SurfaceTraceData RecordedTrace { get; private set; } = SurfaceTraceData.Empty;
 
     public double TotalTrack => Items.Sum(surface => surface.Thickness);
 
@@ -75,6 +78,11 @@ public sealed class SurfaceGroup
         }
 
         return Items.Count == 0 ? 5 : Math.Max(1, Items.Max(surface => surface.SemiDiameter));
+    }
+
+    public void RecordTrace(SurfaceTraceData trace)
+    {
+        RecordedTrace = trace;
     }
 
     public void Renumber(bool syncComposition = true)

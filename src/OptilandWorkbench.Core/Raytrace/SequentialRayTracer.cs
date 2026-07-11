@@ -5,7 +5,9 @@ using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Raytrace;
 
-public sealed record SequentialTrace(IReadOnlyList<IReadOnlyList<RayTraceSample>> RayHistories);
+public sealed record SequentialTrace(
+    IReadOnlyList<IReadOnlyList<RayTraceSample>> RayHistories,
+    SurfaceTraceData SurfaceTraceData);
 
 public sealed class SequentialRayTracer
 {
@@ -35,6 +37,38 @@ public sealed class SequentialRayTracer
     public SequentialTrace Trace()
     {
         var bundle = RayGenerator.Generate();
+        return Trace(bundle);
+    }
+
+    public SequentialTrace TraceNormalized(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double wavelengthMicrometers,
+        int sampleCount = 100,
+        string distribution = "hexapolar")
+    {
+        var bundle = RayGenerator.GenerateNormalized(
+            normalizedFieldX,
+            normalizedFieldY,
+            wavelengthMicrometers,
+            sampleCount,
+            distribution);
+        return Trace(bundle);
+    }
+
+    public SequentialTrace TraceGeneric(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers)
+    {
+        var bundle = RayGenerator.GenerateGeneric(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers);
         return Trace(bundle);
     }
 
@@ -130,7 +164,10 @@ public sealed class SequentialRayTracer
             histories.Add(history);
         }
 
-        return new SequentialTrace(NormalizeOpticalPathDifference(histories));
+        var normalizedHistories = NormalizeOpticalPathDifference(histories);
+        var surfaceTraceData = BuildSurfaceTraceData(_optic.SurfaceGroup.Items, normalizedHistories);
+        _optic.SurfaceGroup.RecordTrace(surfaceTraceData);
+        return new SequentialTrace(normalizedHistories, surfaceTraceData);
     }
 
     private IMaterial ResolveMaterial(string material)
@@ -160,5 +197,39 @@ public sealed class SequentialRayTracer
                 })
                 .ToArray())
             .ToArray();
+    }
+
+    private static SurfaceTraceData BuildSurfaceTraceData(
+        IReadOnlyList<OpticalSurface> surfaces,
+        IReadOnlyList<IReadOnlyList<RayTraceSample>> histories)
+    {
+        if (surfaces.Count == 0)
+        {
+            return SurfaceTraceData.Empty;
+        }
+
+        var records = surfaces
+            .Select(surface =>
+            {
+                var samples = histories
+                    .Select(history => history.FirstOrDefault(sample => sample.SurfaceNumber == surface.Number))
+                    .ToArray();
+
+                return new SurfaceTraceRecord(
+                    surface.Number,
+                    surface.Label,
+                    samples.Select(sample => sample?.Position.X ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Position.Y ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Position.Z ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Direction.X ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Direction.Y ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Direction.Z ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.Intensity ?? 0.0).ToArray(),
+                    samples.Select(sample => sample?.OpticalPathDifference ?? double.NaN).ToArray(),
+                    samples.Select(sample => sample?.CumulativeOpticalPathLength ?? double.NaN).ToArray());
+            })
+            .ToArray();
+
+        return new SurfaceTraceData(records);
     }
 }

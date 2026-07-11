@@ -185,7 +185,23 @@ The old plan should be narrowed. The next milestones should be:
 - Stop labeling simplified analyses as parity complete.
 - Add `PythonParityTests` that compare DTO shapes and simple trace outputs against checked-in golden JSON generated from Python Optiland.
 - Replace current `AnalysisRunner.EvaluateSpotDiagram()` with a real `SpotDiagram` data object.
-- Add normalized field and pupil coordinate APIs before modifying more analysis code.
-- Add explicit unit conversion tests for micrometers vs nanometers.
+- Add normalized field and pupil coordinate APIs before modifying more analysis code. Initial .NET entry points now exist as `Optic.Trace(...)` and `Optic.TraceGeneric(...)`.
+- Add explicit unit conversion tests for micrometers vs nanometers. Initial `Wavelength.Micrometers` and conversion tests now exist.
 - Update visualization tests to check lens closure against Python `Lens2D._extend_surface` behavior.
 
+## Repair Progress
+
+### 2026-07-11 Trace API Foundation
+
+Implemented the first compatibility layer:
+
+- `Optic.Trace(Hx, Hy, wavelengthMicrometers, sampleCount, distribution)`
+- `Optic.TraceGeneric(Hx, Hy, Px, Py, wavelengthMicrometers)`
+- normalized coordinate validation for field and pupil inputs
+- micrometer/nanometer conversion helpers
+- `Wavelength.Micrometers`
+- `SurfaceTraceData` and `SurfaceTraceRecord`, matching Python's surface-major recorded array shape
+- `SurfaceGroup.RecordedTrace` as the latest per-surface trace record
+- distributions for `line_x`, `line_y`, and `ring` in addition to existing grid/hexapolar/random/Sobol-like sampling
+
+This is still an adapter over the current simplified sequential tracer. It fixes the public trace shape and unit boundary first; the underlying physics kernel still needs to be replaced with Python-equivalent `Surface.Trace`, propagation model, reference OPD, and backend-array behavior.

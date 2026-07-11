@@ -3,6 +3,7 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
@@ -197,6 +198,55 @@ public sealed class OptilandParityTests
             (double)data.Values["Plus1StepRms"],
             (double)data.Values["Plus2StepRms"]
         }.Max() + 1e-12);
+    }
+
+    [Fact]
+    public void PythonStyleTraceRecordsSurfaceMajorArrays()
+    {
+        var optic = Optic.CreateDemo();
+
+        var trace = optic.Trace(0, 0.5, 0.5876, sampleCount: 5, distribution: "line_y");
+
+        Assert.Equal(optic.SurfaceGroup.Items.Count, trace.SurfaceTraceData.SurfaceCount);
+        Assert.Equal(5, trace.SurfaceTraceData.RayCount);
+        Assert.Equal(trace.SurfaceTraceData, optic.SurfaceGroup.RecordedTrace);
+        Assert.All(trace.SurfaceTraceData.Surfaces, surface =>
+        {
+            Assert.Equal(5, surface.X.Count);
+            Assert.Equal(5, surface.Y.Count);
+            Assert.Equal(5, surface.Z.Count);
+            Assert.Equal(5, surface.L.Count);
+            Assert.Equal(5, surface.M.Count);
+            Assert.Equal(5, surface.N.Count);
+            Assert.Equal(5, surface.Intensity.Count);
+            Assert.Equal(5, surface.OpticalPathDifference.Count);
+        });
+        Assert.Contains(trace.SurfaceTraceData.ImageSurface.Intensity, intensity => intensity > 0);
+    }
+
+    [Fact]
+    public void PythonStyleTraceGenericUsesMicrometerWavelengthAndValidatesNormalizedCoordinates()
+    {
+        var optic = Optic.CreateDemo();
+
+        var trace = optic.TraceGeneric(0, 0, 0, 0, 0.5876);
+
+        Assert.Equal(1, trace.SurfaceTraceData.RayCount);
+        Assert.Contains(trace.RayHistories, history => history.Count == optic.SurfaceGroup.Items.Count);
+        Assert.Equal(587.6, RayGenerator.MicrometersToNanometers(0.5876), precision: 12);
+        Assert.Equal(0.5876, RayGenerator.NanometersToMicrometers(587.6), precision: 12);
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Trace(1.1, 0, 0.5876));
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.TraceGeneric(0, 0, 1, 1, 0.5876));
+    }
+
+    [Fact]
+    public void WavelengthExposesPythonCompatibleMicrometerUnit()
+    {
+        var wavelength = new Wavelength { Nanometers = 550 };
+
+        Assert.Equal(0.55, wavelength.Micrometers, precision: 12);
+        wavelength.Micrometers = 0.4861;
+        Assert.Equal(486.1, wavelength.Nanometers, precision: 12);
     }
 
     [Fact]
