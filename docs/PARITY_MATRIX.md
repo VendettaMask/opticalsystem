@@ -22,7 +22,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
 | File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
-| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, filled lens elements, 3D rims/meridians, sequential ray histories, vignetting truncation |
+| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation |
 | GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, 2D/3D viewer tabs, command palette, light/dark theme persistence, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
@@ -38,7 +38,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
-- The system viewer now follows the Optiland visualization model more closely: 2D surfaces are sampled from geometry sag in the YZ projection, glass spans are filled as lens bodies, rays use viewer-specific stop-aimed sequential traces, and the GUI includes a 3D projection tab with surface rims, meridians, lens connectors, and 3D ray paths.
+- The system viewer now follows the Optiland visualization model more closely: 2D surfaces are sampled from geometry sag in the YZ projection, glass spans are grouped as lens bodies, smaller half-diameter faces are extended to the lens group's maximum extent before closure, rays use viewer-specific stop-aimed sequential traces, and the GUI includes a 3D projection tab with surface rims, meridians, lens connectors, and 3D ray paths.
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 

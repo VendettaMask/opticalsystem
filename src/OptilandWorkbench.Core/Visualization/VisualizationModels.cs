@@ -132,8 +132,8 @@ public sealed class Layout2DBuilder
         surfaceSamples = NormalizeSampleCount(surfaceSamples);
 
         var surfaces = BuildSurfaceCurves(surfaceSamples);
-        var lensElements = BuildLensElements(surfaces);
-        var lensEdges = BuildLensEdges(surfaces);
+        var lensElements = BuildLensElements(surfaceSamples);
+        var lensEdges = BuildLensEdges(surfaceSamples);
         var rays = BuildRayPaths(includeDepth: false)
             .Select(path => new Layout2DRayPath(
                 path.RayNumber,
@@ -163,7 +163,7 @@ public sealed class Layout2DBuilder
         rimSamples = Math.Max(12, rimSamples);
 
         var surfaces = Build3DSurfaces(surfaceSamples, rimSamples);
-        var lensElements = Build3DLensElements(surfaces);
+        var lensElements = Build3DLensElements(rimSamples);
         var rays = BuildRayPaths(includeDepth: true);
         var extents = Calculate3DExtents(surfaces, rays);
 
@@ -184,79 +184,66 @@ public sealed class Layout2DBuilder
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
-            var points = new List<Layout2DPoint>(surfaceSamples);
-            var vertexZ = surface.CoordinateSystem.Origin.Z;
-            var semiDiameter = Math.Max(0.1, surface.SemiDiameter);
-
-            for (var index = 0; index < surfaceSamples; index++)
-            {
-                var t = index / (double)(surfaceSamples - 1);
-                var y = -semiDiameter + (2.0 * semiDiameter * t);
-                points.Add(new Layout2DPoint(vertexZ + SafeSag(surface, 0, y), y));
-            }
-
             curves.Add(new Layout2DSurfaceCurve(
                 surface.Number,
                 surface.Label,
                 surface.IsStop,
                 IsReferencePlane(surface, surfaceCount),
-                points));
+                BuildSurfaceCurvePoints(surface, surfaceSamples, SurfaceExtent(surface))));
         }
 
         return curves;
     }
 
-    private IReadOnlyList<Layout2DLensElement> BuildLensElements(IReadOnlyList<Layout2DSurfaceCurve> curves)
+    private IReadOnlyList<Layout2DLensElement> BuildLensElements(int surfaceSamples)
     {
         var elements = new List<Layout2DLensElement>();
-        var surfaces = _optic.SurfaceGroup.Items;
 
-        for (var index = 0; index < curves.Count - 1; index++)
+        foreach (var group in BuildLensGroups())
         {
-            var surface = surfaces[index];
-            var next = surfaces[index + 1];
-            if (!ShouldConnectAsLensElement(surface, next, surfaces.Count))
-            {
-                continue;
-            }
+            var maxExtent = group.Max(SurfaceExtent);
+            var curves = group
+                .Select(surface => BuildExtendedSurfaceCurve(surface, surfaceSamples, maxExtent))
+                .ToList();
 
-            var boundary = new List<Layout2DPoint>(curves[index].Points.Count + curves[index + 1].Points.Count);
-            boundary.AddRange(curves[index].Points);
-            for (var pointIndex = curves[index + 1].Points.Count - 1; pointIndex >= 0; pointIndex--)
+            for (var index = 0; index < curves.Count - 1; index++)
             {
-                boundary.Add(curves[index + 1].Points[pointIndex]);
-            }
+                var surface = group[index];
+                var next = group[index + 1];
+                var boundary = new List<Layout2DPoint>(curves[index].Count + curves[index + 1].Count);
+                boundary.AddRange(curves[index]);
+                for (var pointIndex = curves[index + 1].Count - 1; pointIndex >= 0; pointIndex--)
+                {
+                    boundary.Add(curves[index + 1][pointIndex]);
+                }
 
-            elements.Add(new Layout2DLensElement(
-                surface.Number,
-                next.Number,
-                surface.MaterialAfterName,
-                boundary));
+                elements.Add(new Layout2DLensElement(
+                    surface.Number,
+                    next.Number,
+                    surface.MaterialAfterName,
+                    boundary));
+            }
         }
 
         return elements;
     }
 
-    private IReadOnlyList<Layout2DLensEdge> BuildLensEdges(IReadOnlyList<Layout2DSurfaceCurve> curves)
+    private IReadOnlyList<Layout2DLensEdge> BuildLensEdges(int surfaceSamples)
     {
         var edges = new List<Layout2DLensEdge>();
-        var surfaces = _optic.SurfaceGroup.Items;
-        if (curves.Count < 2)
-        {
-            return edges;
-        }
 
-        for (var index = 0; index < curves.Count - 1; index++)
+        foreach (var group in BuildLensGroups())
         {
-            var surface = surfaces[index];
-            var next = surfaces[index + 1];
-            if (!ShouldConnectAsLensElement(surface, next, surfaces.Count))
+            var maxExtent = group.Max(SurfaceExtent);
+            var curves = group
+                .Select(surface => BuildExtendedSurfaceCurve(surface, surfaceSamples, maxExtent))
+                .ToList();
+
+            for (var index = 0; index < curves.Count - 1; index++)
             {
-                continue;
+                edges.Add(new Layout2DLensEdge(curves[index][0], curves[index + 1][0]));
+                edges.Add(new Layout2DLensEdge(curves[index][^1], curves[index + 1][^1]));
             }
-
-            edges.Add(new Layout2DLensEdge(curves[index].Points[0], curves[index + 1].Points[0]));
-            edges.Add(new Layout2DLensEdge(curves[index].Points[^1], curves[index + 1].Points[^1]));
         }
 
         return edges;
@@ -269,17 +256,8 @@ public sealed class Layout2DBuilder
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
-            var semiDiameter = Math.Max(0.1, surface.SemiDiameter);
-            var rim = new List<Layout3DPoint>(rimSamples + 1);
-            for (var index = 0; index <= rimSamples; index++)
-            {
-                var angle = (2.0 * Math.PI * index) / rimSamples;
-                var x = Math.Cos(angle) * semiDiameter;
-                var y = Math.Sin(angle) * semiDiameter;
-                rim.Add(ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
-                    new Vector3D(x, y, SafeSag(surface, x, y)))));
-            }
-
+            var semiDiameter = SurfaceExtent(surface);
+            var rim = BuildSurfaceRim(surface, semiDiameter, rimSamples);
             var meridianY = new List<Layout3DPoint>(surfaceSamples);
             var meridianX = new List<Layout3DPoint>(surfaceSamples);
             for (var index = 0; index < surfaceSamples; index++)
@@ -306,26 +284,28 @@ public sealed class Layout2DBuilder
         return primitives;
     }
 
-    private IReadOnlyList<Layout3DLensElement> Build3DLensElements(IReadOnlyList<Layout3DSurfacePrimitive> surfaces)
+    private IReadOnlyList<Layout3DLensElement> Build3DLensElements(int rimSamples)
     {
         var elements = new List<Layout3DLensElement>();
-        var opticalSurfaces = _optic.SurfaceGroup.Items;
 
-        for (var index = 0; index < surfaces.Count - 1; index++)
+        foreach (var group in BuildLensGroups())
         {
-            var surface = opticalSurfaces[index];
-            var next = opticalSurfaces[index + 1];
-            if (!ShouldConnectAsLensElement(surface, next, opticalSurfaces.Count))
-            {
-                continue;
-            }
+            var maxExtent = group.Max(SurfaceExtent);
+            var rims = group
+                .Select(surface => BuildSurfaceRim(surface, maxExtent, rimSamples))
+                .ToList();
 
-            elements.Add(new Layout3DLensElement(
-                surface.Number,
-                next.Number,
-                surface.MaterialAfterName,
-                surfaces[index].Rim,
-                surfaces[index + 1].Rim));
+            for (var index = 0; index < rims.Count - 1; index++)
+            {
+                var surface = group[index];
+                var next = group[index + 1];
+                elements.Add(new Layout3DLensElement(
+                    surface.Number,
+                    next.Number,
+                    surface.MaterialAfterName,
+                    rims[index],
+                    rims[index + 1]));
+            }
         }
 
         return elements;
@@ -442,20 +422,120 @@ public sealed class Layout2DBuilder
         return specs;
     }
 
-    private static bool ShouldConnectAsLensElement(OpticalSurface surface, OpticalSurface next, int surfaceCount)
+    private IReadOnlyList<IReadOnlyList<OpticalSurface>> BuildLensGroups()
     {
-        if (surface.Number <= 0 || next.Number >= surfaceCount - 1)
+        var surfaces = _optic.SurfaceGroup.Items;
+        var groups = new List<IReadOnlyList<OpticalSurface>>();
+        var lensSurfaces = new List<OpticalSurface>();
+
+        for (var index = 1; index < surfaces.Count - 1; index++)
         {
-            return false;
+            var surface = surfaces[index];
+            if (surface.IsStop)
+            {
+                continue;
+            }
+
+            if (surface.IsReflective)
+            {
+                if (lensSurfaces.Count > 0)
+                {
+                    lensSurfaces.Add(surface);
+                    groups.Add(lensSurfaces.ToArray());
+                    lensSurfaces.Clear();
+                }
+
+                continue;
+            }
+
+            var currentIsGlass = HasOpticalMaterialAfter(surface);
+            var previousIsGlass = index > 0 && HasOpticalMaterialAfter(surfaces[index - 1]);
+            if (currentIsGlass)
+            {
+                lensSurfaces.Add(surface);
+            }
+            else if (previousIsGlass && lensSurfaces.Count > 0)
+            {
+                lensSurfaces.Add(surface);
+                groups.Add(lensSurfaces.ToArray());
+                lensSurfaces.Clear();
+            }
         }
 
-        if (surface.IsStop || surface.Thickness <= 1e-9)
+        if (lensSurfaces.Count > 1)
         {
-            return false;
+            groups.Add(lensSurfaces.ToArray());
         }
 
-        return !surface.MaterialAfterName.Equals("Air", StringComparison.OrdinalIgnoreCase)
-            || !surface.MaterialAfterName.Equals(surface.MaterialBefore.Name, StringComparison.OrdinalIgnoreCase);
+        return groups;
+    }
+
+    private IReadOnlyList<Layout2DPoint> BuildExtendedSurfaceCurve(
+        OpticalSurface surface,
+        int surfaceSamples,
+        double targetExtent)
+    {
+        var surfaceExtent = SurfaceExtent(surface);
+        var points = BuildSurfaceCurvePoints(surface, surfaceSamples, surfaceExtent);
+        if (targetExtent <= surfaceExtent + 1e-9)
+        {
+            return points;
+        }
+
+        var extended = new List<Layout2DPoint>(points.Count + 2)
+        {
+            new(points[0].Z, -targetExtent)
+        };
+        extended.AddRange(points);
+        extended.Add(new Layout2DPoint(points[^1].Z, targetExtent));
+        return extended;
+    }
+
+    private static IReadOnlyList<Layout2DPoint> BuildSurfaceCurvePoints(
+        OpticalSurface surface,
+        int surfaceSamples,
+        double extent)
+    {
+        var points = new List<Layout2DPoint>(surfaceSamples);
+        var vertexZ = surface.CoordinateSystem.Origin.Z;
+
+        for (var index = 0; index < surfaceSamples; index++)
+        {
+            var t = index / (double)(surfaceSamples - 1);
+            var y = -extent + (2.0 * extent * t);
+            points.Add(new Layout2DPoint(vertexZ + SafeSag(surface, 0, y), y));
+        }
+
+        return points;
+    }
+
+    private static IReadOnlyList<Layout3DPoint> BuildSurfaceRim(
+        OpticalSurface surface,
+        double extent,
+        int rimSamples)
+    {
+        var rim = new List<Layout3DPoint>(rimSamples + 1);
+        for (var index = 0; index <= rimSamples; index++)
+        {
+            var angle = (2.0 * Math.PI * index) / rimSamples;
+            var x = Math.Cos(angle) * extent;
+            var y = Math.Sin(angle) * extent;
+            rim.Add(ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
+                new Vector3D(x, y, SafeSag(surface, x, y)))));
+        }
+
+        return rim;
+    }
+
+    private bool HasOpticalMaterialAfter(OpticalSurface surface)
+    {
+        var material = _optic.Materials.Resolve(surface.MaterialAfterName);
+        return material.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
+    }
+
+    private static double SurfaceExtent(OpticalSurface surface)
+    {
+        return Math.Max(0.1, surface.SemiDiameter);
     }
 
     private static bool IsReferencePlane(OpticalSurface surface, int surfaceCount)

@@ -151,6 +151,25 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void Layout2DBuilderExtendsUnequalLensAperturesBeforeClosingBody()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SurfaceGroup.Items[3].SemiDiameter = 8;
+        optic.SurfaceGroup.Renumber();
+
+        var scene = new Layout2DBuilder(optic).Build(surfaceSamples: 9);
+        var element = scene.LensElements.First(lens => lens.FrontSurfaceNumber == 2 && lens.BackSurfaceNumber == 3);
+        var pairs = element.Boundary.Zip(element.Boundary.Skip(1), (A, B) => (A, B)).ToList();
+        pairs.Add((element.Boundary[^1], element.Boundary[0]));
+
+        Assert.Equal(13, element.Boundary.Max(point => Math.Abs(point.Y)), precision: 12);
+        Assert.Contains(pairs, pair => Close(pair.A.Y, 13) && Close(pair.B.Y, 13) && Math.Abs(pair.A.Z - pair.B.Z) > 1e-6);
+        Assert.Contains(pairs, pair => Close(pair.A.Y, -13) && Close(pair.B.Y, -13) && Math.Abs(pair.A.Z - pair.B.Z) > 1e-6);
+        Assert.Contains(pairs, pair => Close(pair.A.Y, 13) && Close(pair.B.Y, 8) && Close(pair.A.Z, pair.B.Z));
+        Assert.Contains(pairs, pair => Close(pair.A.Y, -8) && Close(pair.B.Y, -13) && Close(pair.A.Z, pair.B.Z));
+    }
+
+    [Fact]
     public void Layout2DBuilderCreates3DViewerPrimitives()
     {
         var optic = Optic.CreateDemo();
@@ -163,6 +182,11 @@ public sealed class OptilandParityTests
         Assert.True(scene.ZMax > scene.ZMin);
         Assert.True(scene.XExtent > 0);
         Assert.True(scene.YExtent > 0);
+    }
+
+    private static bool Close(double left, double right)
+    {
+        return Math.Abs(left - right) < 1e-9;
     }
 
     [Fact]

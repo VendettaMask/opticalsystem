@@ -66,7 +66,7 @@ Ray tracing is sequential:
 
 The current tracer favors deterministic, testable behavior over production optical accuracy.
 
-Visualization layout is generated in core before Avalonia rendering. `Layout2DBuilder` samples each surface with `Sag(0, y)` in the YZ projection, fills material-bearing lens spans as 2D bodies, builds 3D surface rims/meridians from the same geometry, and draws ray paths from `SequentialRayTracer` histories so clipped or vignetted rays stop at the recorded failure point. The GUI maps those scene primitives to pixels and owns only pens, colors, projection, and interaction.
+Visualization layout is generated in core before Avalonia rendering. `Layout2DBuilder` samples each surface with `Sag(0, y)` in the YZ projection, groups lens surfaces by material transitions, extends smaller-aperture lens faces to the group's maximum extent before closing the 2D body, builds 3D surface rims/meridians from the same geometry, and draws ray paths from `SequentialRayTracer` histories so clipped or vignetted rays stop at the recorded failure point. The GUI maps those scene primitives to pixels and owns only pens, colors, projection, and interaction.
 
 ## Analysis
 
