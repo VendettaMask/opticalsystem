@@ -76,7 +76,7 @@ All analyses inherit from `BaseAnalysis` and implement:
 AnalysisData GenerateData();
 ```
 
-`AnalysisData.ExportText()` provides a simple export path for the current GUI. Several analysis classes currently produce proxy data; their class boundaries are in place so rigorous numerical methods can replace proxy formulas without changing GUI wiring.
+`AnalysisData.ExportText()` provides a simple export path for the current GUI. Spot, encircled energy, RMS vs field, through focus, and wavefront analyses now consume `SequentialRayTracer` histories, weighted image samples, and OPD records. Some higher-order analyses still produce proxy data; their class boundaries are in place so rigorous numerical methods can replace proxy formulas without changing GUI wiring.
 
 ## Optimization And Tolerancing
 

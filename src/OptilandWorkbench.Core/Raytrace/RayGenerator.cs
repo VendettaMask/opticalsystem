@@ -28,13 +28,38 @@ public sealed class RayGenerator
 
     public RealRayBundle Generate()
     {
+        return GenerateFor(_optic.Fields, _optic.Wavelengths);
+    }
+
+    public RealRayBundle GenerateFor(
+        FieldPoint field,
+        bool applyFieldWeight = true,
+        bool applyWavelengthWeight = true)
+    {
+        return GenerateFor(new[] { field }, _optic.Wavelengths, applyFieldWeight, applyWavelengthWeight);
+    }
+
+    public RealRayBundle GenerateFor(
+        Wavelength wavelength,
+        bool applyFieldWeight = true,
+        bool applyWavelengthWeight = true)
+    {
+        return GenerateFor(_optic.Fields, new[] { wavelength }, applyFieldWeight, applyWavelengthWeight);
+    }
+
+    public RealRayBundle GenerateFor(
+        IEnumerable<FieldPoint> fields,
+        IEnumerable<Wavelength> wavelengths,
+        bool applyFieldWeight = true,
+        bool applyWavelengthWeight = true)
+    {
         var apertureRadius = _optic.SurfaceGroup.ApertureRadius();
         var samples = ApertureSampler.Generate(Settings.SamplesPerField, Settings.Sampling);
         var rays = new List<RealRay>();
 
-        foreach (var field in _optic.Fields)
+        foreach (var field in fields)
         {
-            foreach (var wavelength in _optic.Wavelengths)
+            foreach (var wavelength in wavelengths)
             {
                 var fieldAngle = DegreesToRadians(field.YAngleDegrees);
                 foreach (var sample in samples)
@@ -47,8 +72,10 @@ public sealed class RayGenerator
                     var apodization = Settings.ApodizationPower <= 0
                         ? 1.0
                         : Math.Pow(Math.Max(0, 1 - (radius * radius)), Settings.ApodizationPower);
+                    var fieldWeight = applyFieldWeight ? field.Weight : 1.0;
+                    var wavelengthWeight = applyWavelengthWeight ? wavelength.Weight : 1.0;
 
-                    rays.Add(new RealRay(origin, direction, wavelength.Nanometers, wavelength.Weight * field.Weight * apodization));
+                    rays.Add(new RealRay(origin, direction, wavelength.Nanometers, fieldWeight * wavelengthWeight * sample.Weight * apodization));
                 }
             }
         }

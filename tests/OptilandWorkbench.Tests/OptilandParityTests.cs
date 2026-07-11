@@ -149,6 +149,57 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void EncircledEnergyUsesWeightedSequentialImageSamples()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 5;
+
+        var data = optic.Analyses.Create("Encircled Energy").GenerateData();
+
+        Assert.True((int)data.Values["RayCount"] > 0);
+        Assert.True((double)data.Values["TotalWeight"] > 0);
+        Assert.True((double)data.Values["Radius80"] >= (double)data.Values["Radius50"]);
+        Assert.True((double)data.Values["Radius95"] >= (double)data.Values["Radius80"]);
+    }
+
+    [Fact]
+    public void RmsVsFieldRetainsZeroWeightFieldsButExcludesThemFromAggregate()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
+        optic.Fields[0].Weight = 0;
+        var zeroWeightFieldKey = $"Field {optic.Fields[0].Label}";
+
+        var data = optic.Analyses.Create("RMS vs Field").GenerateData();
+
+        Assert.Contains(zeroWeightFieldKey, data.Values.Keys);
+        Assert.True(double.IsFinite((double)data.Values[zeroWeightFieldKey]));
+        Assert.Equal(optic.Fields.Skip(1).Sum(field => field.Weight), (double)data.Values["IncludedFieldWeight"], precision: 12);
+        Assert.True(double.IsFinite((double)data.Values["WeightedMean"]));
+    }
+
+    [Fact]
+    public void ThroughFocusReportsBestSequentialFocusSample()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
+
+        var data = optic.Analyses.Create("Through Focus").GenerateData();
+
+        Assert.True((double)data.Values["FocusStep"] > 0);
+        Assert.True(double.IsFinite((double)data.Values["NominalRms"]));
+        Assert.True(double.IsFinite((double)data.Values["BestRmsSpotRadius"]));
+        Assert.True((double)data.Values["BestRmsSpotRadius"] <= new[]
+        {
+            (double)data.Values["Minus2StepRms"],
+            (double)data.Values["Minus1StepRms"],
+            (double)data.Values["NominalRms"],
+            (double)data.Values["Plus1StepRms"],
+            (double)data.Values["Plus2StepRms"]
+        }.Max() + 1e-12);
+    }
+
+    [Fact]
     public void Layout2DBuilderSamplesSaggedSurfacesAndSequentialRays()
     {
         var optic = Optic.CreateDemo();

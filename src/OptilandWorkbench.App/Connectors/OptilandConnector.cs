@@ -754,6 +754,11 @@ public sealed class OptilandConnector
             return "表面 " + key["Surface ".Length..];
         }
 
+        if (key.StartsWith("Field ", StringComparison.OrdinalIgnoreCase))
+        {
+            return "视场 " + key["Field ".Length..];
+        }
+
         return AnalysisKeyDisplayNames.TryGetValue(key, out var display) ? display : key;
     }
 
@@ -855,6 +860,8 @@ public sealed class OptilandConnector
         ["RayCount"] = "光线数",
         ["VignettedRayCount"] = "渐晕光线数",
         ["Centroid"] = "质心",
+        ["CentroidX"] = "质心 X",
+        ["CentroidY"] = "质心 Y",
         ["RmsSpotRadius"] = "RMS 点半径",
         ["MaxSpotRadius"] = "最大点半径",
         ["Samples"] = "采样数",
@@ -872,14 +879,21 @@ public sealed class OptilandConnector
         ["Radius50"] = "50% 半径",
         ["Radius80"] = "80% 半径",
         ["Radius95"] = "95% 半径",
+        ["TotalWeight"] = "总权重",
         ["ApertureRadius"] = "孔径半径",
         ["EntrancePupilEstimate"] = "入瞳估计",
         ["ChiefRayPupilShiftProxy"] = "主光线瞳移近似",
         ["WeightedMean"] = "加权平均",
-        ["FocusMinus"] = "负离焦",
-        ["FocusNominal"] = "名义焦点",
-        ["FocusPlus"] = "正离焦",
+        ["IncludedFieldWeight"] = "参与聚合视场权重",
+        ["FocusStep"] = "离焦步长",
+        ["Minus2StepRms"] = "-2 步 RMS",
+        ["Minus1StepRms"] = "-1 步 RMS",
+        ["NominalRms"] = "名义焦点 RMS",
+        ["Plus1StepRms"] = "+1 步 RMS",
+        ["Plus2StepRms"] = "+2 步 RMS",
         ["BestFocusShift"] = "最佳焦移",
+        ["BestRmsSpotRadius"] = "最佳 RMS 点半径",
+        ["Radius80AtBest"] = "最佳 80% 半径",
         ["ReferenceOpticalPathLength"] = "参考光程",
         ["MeanOpticalPathDifference"] = "平均光程差",
         ["RmsOpticalPathDifference"] = "RMS 光程差",

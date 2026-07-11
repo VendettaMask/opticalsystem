@@ -10,7 +10,7 @@ The implementation is being built in small git milestones. The current codebase 
 - Sequential real-ray tracing with local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, and per-surface geometric path, optical path, and OPD records.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, Abbe, and catalog material support.
-- Analysis catalog entries for spot, ray fan, distortion, grid distortion, field curvature, encircled energy, pupil aberration, RMS vs field, through focus, Y-Ybar, PSF, MTF, wavefront, Zernike, image simulation, Jones pupil, first order, and prescription report.
+- Analysis catalog entries for spot, ray fan, distortion, grid distortion, field curvature, encircled energy, pupil aberration, RMS vs field, through focus, Y-Ybar, PSF, MTF, wavefront, Zernike, image simulation, Jones pupil, first order, and prescription report; spot, encircled energy, RMS vs field, through focus, and wavefront now consume sequential ray histories and weighted image samples.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.

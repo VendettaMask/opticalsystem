@@ -140,12 +140,17 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var spot = new AnalysisRunner(Optic).EvaluateSpotDiagram();
+        var energy = new AnalysisRunner(Optic).EvaluateEncircledEnergy();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["Radius50"] = spot.RmsSpotRadius * 0.6745,
-            ["Radius80"] = spot.RmsSpotRadius * 1.2816,
-            ["Radius95"] = spot.RmsSpotRadius * 1.96
+            ["RayCount"] = energy.RayCount,
+            ["VignettedRayCount"] = energy.VignettedRayCount,
+            ["TotalWeight"] = energy.TotalWeight,
+            ["CentroidX"] = energy.CentroidX,
+            ["CentroidY"] = energy.CentroidY,
+            ["Radius50"] = energy.Radius50,
+            ["Radius80"] = energy.Radius80,
+            ["Radius95"] = energy.Radius95
         });
     }
 }
@@ -181,11 +186,16 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var baseRms = new AnalysisRunner(Optic).EvaluateSpotDiagram().RmsSpotRadius;
-        var values = Optic.Fields.ToDictionary(
-            field => field.Label,
-            field => (object)(baseRms * (1.0 + Math.Abs(field.YAngleDegrees) / 20.0)));
-        values["WeightedMean"] = values.Values.OfType<double>().DefaultIfEmpty(0).Average();
+        var fields = new AnalysisRunner(Optic).EvaluateRmsByField();
+        var values = fields.ToDictionary(
+            field => $"Field {field.FieldLabel}",
+            field => (object)field.RmsSpotRadius);
+        var totalWeight = fields.Where(field => field.FieldWeight > 0).Sum(field => field.FieldWeight);
+        values["WeightedMean"] = totalWeight <= 1e-12
+            ? 0
+            : fields.Where(field => field.FieldWeight > 0).Sum(field => field.RmsSpotRadius * field.FieldWeight) / totalWeight;
+        values["IncludedFieldWeight"] = totalWeight;
+        values["FieldCount"] = fields.Count;
         return new AnalysisData(Name, values);
     }
 }
@@ -200,13 +210,19 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var rms = new AnalysisRunner(Optic).EvaluateSpotDiagram().RmsSpotRadius;
+        var focus = new AnalysisRunner(Optic).EvaluateThroughFocus();
+        var points = focus.Points.ToArray();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["FocusMinus"] = rms * 1.2,
-            ["FocusNominal"] = rms,
-            ["FocusPlus"] = rms * 1.2,
-            ["BestFocusShift"] = 0.0
+            ["FocusStep"] = focus.FocusStep,
+            ["Minus2StepRms"] = points.ElementAtOrDefault(0)?.RmsSpotRadius ?? 0,
+            ["Minus1StepRms"] = points.ElementAtOrDefault(1)?.RmsSpotRadius ?? 0,
+            ["NominalRms"] = points.ElementAtOrDefault(2)?.RmsSpotRadius ?? 0,
+            ["Plus1StepRms"] = points.ElementAtOrDefault(3)?.RmsSpotRadius ?? 0,
+            ["Plus2StepRms"] = points.ElementAtOrDefault(4)?.RmsSpotRadius ?? 0,
+            ["BestFocusShift"] = focus.BestFocusShift,
+            ["BestRmsSpotRadius"] = focus.BestRmsSpotRadius,
+            ["Radius80AtBest"] = points.OrderBy(point => point.RmsSpotRadius).FirstOrDefault()?.Radius80 ?? 0
         });
     }
 }
