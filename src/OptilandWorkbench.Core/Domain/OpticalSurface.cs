@@ -1,9 +1,11 @@
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Scattering;
 
 namespace OptilandWorkbench.Core.Domain;
@@ -137,6 +139,106 @@ public sealed class OpticalSurface : NotifyObject
         set => SetProperty(ref _coordinateSystem, value);
     }
 
+    public SurfaceRayTraceResult TraceRay(
+        RealRay inputRay,
+        double refractiveIndexBefore,
+        double refractiveIndexAfter,
+        double cumulativePathLength,
+        double cumulativeOpticalPathLength)
+    {
+        var ray = inputRay.Normalize();
+        var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
+        var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
+        var distance = Geometry.DistanceToIntersection(localOrigin, localDirection);
+        if (distance is null)
+        {
+            var stoppedRay = ray with { Intensity = 0 };
+            var sample = new RayTraceSample(
+                Number,
+                Label,
+                ray.Origin,
+                ray.Direction,
+                0,
+                true,
+                CumulativePathLength: cumulativePathLength,
+                CumulativeOpticalPathLength: cumulativeOpticalPathLength);
+            return new SurfaceRayTraceResult(
+                stoppedRay,
+                sample,
+                refractiveIndexBefore,
+                cumulativePathLength,
+                cumulativeOpticalPathLength,
+                StopTracing: true);
+        }
+
+        var localHit = localOrigin + (localDirection * distance.Value);
+        var globalHit = CoordinateSystem.ToGlobalPoint(localHit);
+        var segmentLength = Math.Max(0, distance.Value);
+        var segmentOpticalPathLength = segmentLength * refractiveIndexBefore;
+        var nextCumulativePathLength = cumulativePathLength + segmentLength;
+        var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;
+        var propagatedRay = ray with
+        {
+            Origin = globalHit,
+            OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength
+        };
+
+        var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localHit);
+        if (vignetted)
+        {
+            var stoppedRay = propagatedRay with { Intensity = 0 };
+            var sample = new RayTraceSample(
+                Number,
+                Label,
+                globalHit,
+                ray.Direction,
+                0,
+                true,
+                segmentLength,
+                segmentOpticalPathLength,
+                nextCumulativePathLength,
+                nextCumulativeOpticalPathLength);
+            return new SurfaceRayTraceResult(
+                stoppedRay,
+                sample,
+                refractiveIndexBefore,
+                nextCumulativePathLength,
+                nextCumulativeOpticalPathLength,
+                StopTracing: true);
+        }
+
+        var normal = CoordinateSystem.ToGlobalDirection(Geometry.SurfaceNormal(localHit));
+        var context = new SurfaceInteractionContext(
+            normal,
+            refractiveIndexBefore,
+            refractiveIndexAfter,
+            ray.WavelengthNanometers,
+            IsReflective);
+
+        var tracedRay = InteractionModel.Interact(propagatedRay, context);
+        tracedRay = CoatingModel.Apply(tracedRay, context);
+        tracedRay = ScatteringModel?.Scatter(tracedRay, normal) ?? tracedRay;
+
+        var tracedSample = new RayTraceSample(
+            Number,
+            Label,
+            tracedRay.Origin,
+            tracedRay.Direction,
+            tracedRay.Intensity,
+            false,
+            segmentLength,
+            segmentOpticalPathLength,
+            nextCumulativePathLength,
+            nextCumulativeOpticalPathLength);
+        return new SurfaceRayTraceResult(
+            tracedRay,
+            tracedSample,
+            refractiveIndexAfter,
+            nextCumulativePathLength,
+            nextCumulativeOpticalPathLength,
+            StopTracing: !tracedRay.IsAlive);
+    }
+
     public void SyncCompositionFromLegacyProperties(double zPosition)
     {
         Geometry = IsPlane ? new PlaneGeometry() : new StandardGeometry(Radius, Conic);
@@ -179,3 +281,11 @@ public sealed class OpticalSurface : NotifyObject
         return $"{Number}: {Label}";
     }
 }
+
+public sealed record SurfaceRayTraceResult(
+    RealRay Ray,
+    RayTraceSample Sample,
+    double RefractiveIndexAfter,
+    double CumulativePathLength,
+    double CumulativeOpticalPathLength,
+    bool StopTracing);

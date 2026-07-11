@@ -3,6 +3,7 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
@@ -12,6 +13,7 @@ using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Plugins;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Tolerancing;
@@ -133,6 +135,38 @@ public sealed class OptilandParityTests
             && history.Zip(history.Skip(1), (left, right) => right.CumulativeOpticalPathLength >= left.CumulativeOpticalPathLength).All(item => item)
             && history[^1].CumulativeOpticalPathLength > 0
             && double.IsFinite(history[^1].OpticalPathDifference));
+    }
+
+    [Fact]
+    public void OpticalSurfaceTraceRayOwnsSingleSurfaceKernel()
+    {
+        var surface = new OpticalSurface
+        {
+            Number = 4,
+            Label = "Kernel plane",
+            Geometry = new PlaneGeometry(),
+            PhysicalAperture = new CircularAperture(2),
+            InteractionModel = new RefractiveReflectiveInteractionModel(),
+            CoatingModel = new NoneCoatingModel(),
+            CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
+        };
+        var ray = new RealRay(new Vector3D(0, 1, 0), new Vector3D(0, 0, 1), 587.6);
+
+        var result = surface.TraceRay(ray, refractiveIndexBefore: 1.0, refractiveIndexAfter: 1.5, 0, 0);
+
+        Assert.False(result.StopTracing);
+        Assert.Equal(4, result.Sample.SurfaceNumber);
+        Assert.Equal(10, result.Sample.Position.Z, precision: 12);
+        Assert.Equal(10, result.Sample.SegmentLength, precision: 12);
+        Assert.Equal(10, result.Sample.CumulativeOpticalPathLength, precision: 12);
+        Assert.Equal(1.5, result.RefractiveIndexAfter, precision: 12);
+
+        var clippedRay = new RealRay(new Vector3D(3, 0, 0), new Vector3D(0, 0, 1), 587.6);
+        var clipped = surface.TraceRay(clippedRay, refractiveIndexBefore: 1.0, refractiveIndexAfter: 1.5, 0, 0);
+
+        Assert.True(clipped.StopTracing);
+        Assert.True(clipped.Sample.Vignetted);
+        Assert.Equal(0, clipped.Sample.Intensity);
     }
 
     [Fact]

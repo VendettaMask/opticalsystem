@@ -86,76 +86,22 @@ public sealed class SequentialRayTracer
 
             foreach (var surface in _optic.SurfaceGroup.Items)
             {
-                var localOrigin = surface.CoordinateSystem.ToLocalPoint(ray.Origin);
-                var localDirection = surface.CoordinateSystem.ToLocalDirection(ray.Direction);
-                var distance = surface.Geometry.DistanceToIntersection(localOrigin, localDirection);
-                if (distance is null)
-                {
-                    history.Add(new RayTraceSample(
-                        surface.Number,
-                        surface.Label,
-                        ray.Origin,
-                        ray.Direction,
-                        0,
-                        true,
-                        CumulativePathLength: cumulativePathLength,
-                        CumulativeOpticalPathLength: cumulativeOpticalPathLength));
-                    ray = ray with { Intensity = 0 };
-                    break;
-                }
-
-                var localHit = localOrigin + (localDirection * distance.Value);
-                var globalHit = surface.CoordinateSystem.ToGlobalPoint(localHit);
-                var segmentLength = Math.Max(0, distance.Value);
-                var segmentOpticalPathLength = segmentLength * currentIndex;
-                cumulativePathLength += segmentLength;
-                cumulativeOpticalPathLength += segmentOpticalPathLength;
-                var vignetted = surface.PhysicalAperture is not null && !surface.PhysicalAperture.Contains(localHit);
-                if (vignetted)
-                {
-                    ray = ray with { Origin = globalHit, Intensity = 0 };
-                    history.Add(new RayTraceSample(
-                        surface.Number,
-                        surface.Label,
-                        globalHit,
-                        ray.Direction,
-                        0,
-                        true,
-                        segmentLength,
-                        segmentOpticalPathLength,
-                        cumulativePathLength,
-                        cumulativeOpticalPathLength));
-                    break;
-                }
-
-                var normal = surface.CoordinateSystem.ToGlobalDirection(surface.Geometry.SurfaceNormal(localHit));
                 var nextMaterial = ResolveMaterial(surface.MaterialAfterName);
                 var nextIndex = nextMaterial.RefractiveIndex(ray.WavelengthNanometers);
-                var context = new Interactions.SurfaceInteractionContext(
-                    normal,
+                var result = surface.TraceRay(
+                    ray,
                     currentIndex,
                     nextIndex,
-                    ray.WavelengthNanometers,
-                    surface.IsReflective);
-
-                ray = ray with { Origin = globalHit };
-                ray = surface.InteractionModel.Interact(ray, context);
-                ray = surface.CoatingModel.Apply(ray, context);
-                ray = surface.ScatteringModel?.Scatter(ray, normal) ?? ray;
-                currentIndex = nextIndex;
-                history.Add(new RayTraceSample(
-                    surface.Number,
-                    surface.Label,
-                    ray.Origin,
-                    ray.Direction,
-                    ray.Intensity,
-                    false,
-                    segmentLength,
-                    segmentOpticalPathLength,
                     cumulativePathLength,
-                    cumulativeOpticalPathLength));
+                    cumulativeOpticalPathLength);
 
-                if (!ray.IsAlive)
+                ray = result.Ray;
+                currentIndex = result.RefractiveIndexAfter;
+                cumulativePathLength = result.CumulativePathLength;
+                cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
+                history.Add(result.Sample);
+
+                if (result.StopTracing)
                 {
                     break;
                 }
