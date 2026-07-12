@@ -22,4 +22,12 @@
     <ProjectReference Include="..\..\src\OptilandWorkbench.Core\OptilandWorkbench.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Fixtures\optiland-0.5.8-cooke.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\optiland-0.5.8-tessar.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\optiland-0.5.8-cooke-native.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\optiland-0.5.8-tessar-native.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\optiland-0.5.8-analysis-reference.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

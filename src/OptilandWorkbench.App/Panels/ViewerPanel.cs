@@ -17,6 +17,36 @@ public sealed class ViewerPanel : UserControl
         _connector = connector;
 
         var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
+        var showRays = new CheckBox
+        {
+            Content = "显示光线",
+            IsChecked = true,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        showRays.IsCheckedChanged += (_, _) =>
+        {
+            var visible = showRays.IsChecked == true;
+            _scene2D.ShowRays = visible;
+            _scene3D.ShowRays = visible;
+        };
+        var resetView = new Button { Content = "重置视图", MinWidth = 92 };
+        resetView.Click += (_, _) =>
+        {
+            _scene2D.ResetView();
+            _scene3D.ResetView();
+        };
+        var toolbar = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 10,
+            Margin = new Avalonia.Thickness(0, 0, 0, 8),
+            Children = { showRays, resetView }
+        };
+        ToolTip.SetTip(_scene2D, "滚轮缩放，拖动平移");
+        ToolTip.SetTip(_scene3D, "滚轮缩放，拖动旋转，Shift+拖动平移");
+
+        DockPanel.SetDock(toolbar, Dock.Top);
+        root.Children.Add(toolbar);
         DockPanel.SetDock(_summary, Dock.Bottom);
         root.Children.Add(_summary);
         root.Children.Add(new TabControl

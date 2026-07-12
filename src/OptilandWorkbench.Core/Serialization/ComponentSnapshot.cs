@@ -115,7 +115,16 @@ public static class ComponentSnapshotFactory
             }, new Dictionary<string, string> { ["name"] = cauchy.Name }),
             SellmeierMaterial sellmeier => new ComponentSnapshot("sellmeier", Coefficients(sellmeier.B, new Dictionary<string, double>(), "b")
                 .Concat(Coefficients(sellmeier.C, new Dictionary<string, double>(), "c"))
+                .Concat(Coefficients(sellmeier.ExtinctionWavelengthsNanometers, new Dictionary<string, double>(), "kw"))
+                .Concat(Coefficients(sellmeier.ExtinctionCoefficients, new Dictionary<string, double>(), "k"))
                 .ToDictionary(item => item.Key, item => item.Value), new Dictionary<string, string> { ["name"] = sellmeier.Name }),
+            PolynomialDispersionMaterial polynomial => new ComponentSnapshot(
+                "polynomial_dispersion",
+                Coefficients(polynomial.Coefficients, new Dictionary<string, double>())
+                    .Concat(Coefficients(polynomial.ExtinctionWavelengthsNanometers, new Dictionary<string, double>(), "kw"))
+                    .Concat(Coefficients(polynomial.ExtinctionCoefficients, new Dictionary<string, double>(), "k"))
+                    .ToDictionary(item => item.Key, item => item.Value),
+                new Dictionary<string, string> { ["name"] = polynomial.Name }),
             AbbeMaterial abbe => new ComponentSnapshot("abbe", new Dictionary<string, double>
             {
                 ["nd"] = abbe.Nd,
@@ -138,7 +147,17 @@ public static class ComponentSnapshotFactory
             "air" => new AirMaterial(),
             "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
             "cauchy" => new CauchyMaterial(name, Get(snapshot.Numbers, "a", 1.5), Get(snapshot.Numbers, "b", 0), Get(snapshot.Numbers, "c", 0)),
-            "sellmeier" => new SellmeierMaterial(name, ReadCoefficients(snapshot.Numbers, "b"), ReadCoefficients(snapshot.Numbers, "c")),
+            "sellmeier" => new SellmeierMaterial(
+                name,
+                ReadCoefficients(snapshot.Numbers, "b"),
+                ReadCoefficients(snapshot.Numbers, "c"),
+                extinctionWavelengthsNanometers: ReadCoefficients(snapshot.Numbers, "kw"),
+                extinctionCoefficients: ReadCoefficients(snapshot.Numbers, "k")),
+            "polynomial_dispersion" => new PolynomialDispersionMaterial(
+                name,
+                ReadCoefficients(snapshot.Numbers),
+                extinctionWavelengthsNanometers: ReadCoefficients(snapshot.Numbers, "kw"),
+                extinctionCoefficients: ReadCoefficients(snapshot.Numbers, "k")),
             "abbe" => new AbbeMaterial(name, Get(snapshot.Numbers, "nd", 1.5), Get(snapshot.Numbers, "vd", 50)),
             _ => registry.Resolve(name)
         };

@@ -9,13 +9,14 @@ The implementation is being built in small git milestones. The current codebase 
 - Managed CPU backend abstraction through `INumericBackend`.
 - Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
-- Air/vacuum, constant-index, Cauchy, Sellmeier, Abbe, and catalog material support.
+- Air/vacuum, constant-index, Cauchy, Sellmeier, polynomial-dispersion, Abbe, catalog extinction, and absorption support.
+- Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance pupil, per-surface real rays, intensity, and line-bundle RMS spot results.
 - Analysis catalog entries for spot, ray fan, distortion, grid distortion, field curvature, encircled energy, pupil aberration, RMS vs field, through focus, Y-Ybar, PSF, MTF, wavefront, Zernike, image simulation, Jones pupil, first order, and prescription report; spot, encircled energy, RMS vs field, through focus, and wavefront now consume sequential ray histories and weighted image samples.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
-- Native JSON snapshot round-trip and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
+- Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
-- Chinese Avalonia GUI panels for lens editing, component editing, 2D/3D system viewing, structured analysis, optimization, tolerancing, multi-configuration, and system properties.
-- GUI infrastructure for command palette actions, light/dark theme selection, split-pane layout persistence, and analysis report copy/export.
+- Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, graphical multi-page analysis, optimization, tolerancing, multi-configuration, and system properties.
+- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, light/dark theme selection, split-pane layout slots, and analysis report copy/export.
 
 ## Requirements
 
@@ -82,6 +83,10 @@ See:
 - [Parity matrix](docs/PARITY_MATRIX.md)
 - [File formats and plugins](docs/FILE_FORMATS_AND_PLUGINS.md)
 - [Build and release](docs/BUILD_AND_RELEASE.md)
+- [GUI Quickstart comparison and refactor](docs/GUI_QUICKSTART_REFACTOR.md)
+- [Optiland 0.5.8 numerical parity](docs/NUMERICAL_PARITY.md)
+- [Python Optiland JSON interoperability](docs/PYTHON_JSON_INTEROP.md)
+- [Python analysis and plot parity](docs/PYTHON_ANALYSIS_PARITY.md)
 
 ## Notes
 

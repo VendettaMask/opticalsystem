@@ -79,8 +79,9 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 The .NET analyses are currently mixed:
 
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
-- They still do not match Python defaults, data shapes, reference choices, normalized coordinates, or physical methods.
-- PSF, MTF, Zernike, distortion, field curvature, pupil aberration, image simulation, and Jones pupil are still proxies or partial placeholders.
+- Spot diagram, encircled energy, RMS spot size versus field, ray fan, pupil aberration, through-focus spot diagram, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, and FFT MTF now match Python 0.5.8 numerical algorithms and default data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, PSF pixel, and MTF point.
+- The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
+- Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Alternative wavefront strategies and non-FFT diffraction methods remain separate follow-up work.
 
 Required fix:
 

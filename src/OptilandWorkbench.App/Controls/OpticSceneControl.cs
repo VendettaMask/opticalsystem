@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Visualization;
@@ -33,6 +34,19 @@ public sealed class OpticSceneControl : Control
     };
 
     private OpticSceneViewMode _viewMode;
+    private double _zoom = 1;
+    private Vector _pan;
+    private double _yaw = -0.34;
+    private double _pitch = 0.2;
+    private bool _dragging;
+    private bool _rotating;
+    private Point _lastPointer;
+    private bool _showRays = true;
+
+    public OpticSceneControl()
+    {
+        Focusable = true;
+    }
 
     public Optic? Optic { get; set; }
 
@@ -47,6 +61,87 @@ public sealed class OpticSceneControl : Control
                 InvalidateVisual();
             }
         }
+    }
+
+    public bool ShowRays
+    {
+        get => _showRays;
+        set
+        {
+            if (_showRays != value)
+            {
+                _showRays = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public void ResetView()
+    {
+        _zoom = 1;
+        _pan = default;
+        _yaw = -0.34;
+        _pitch = 0.2;
+        InvalidateVisual();
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        var point = e.GetCurrentPoint(this);
+        if (!point.Properties.IsLeftButtonPressed)
+        {
+            return;
+        }
+
+        Focus();
+        _dragging = true;
+        _rotating = ViewMode == OpticSceneViewMode.ThreeDimensional
+            && !e.KeyModifiers.HasFlag(KeyModifiers.Shift);
+        _lastPointer = point.Position;
+        e.Pointer.Capture(this);
+        e.Handled = true;
+    }
+
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        if (!_dragging)
+        {
+            return;
+        }
+
+        var position = e.GetPosition(this);
+        var delta = position - _lastPointer;
+        _lastPointer = position;
+        if (_rotating)
+        {
+            _yaw += delta.X * 0.01;
+            _pitch = Math.Clamp(_pitch + (delta.Y * 0.01), -1.25, 1.25);
+        }
+        else
+        {
+            _pan += delta;
+        }
+
+        InvalidateVisual();
+        e.Handled = true;
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+        _dragging = false;
+        e.Pointer.Capture(null);
+        e.Handled = true;
+    }
+
+    protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+    {
+        base.OnPointerWheelChanged(e);
+        _zoom = Math.Clamp(_zoom * Math.Pow(1.15, e.Delta.Y), 0.2, 12);
+        InvalidateVisual();
+        e.Handled = true;
     }
 
     public override void Render(DrawingContext context)
@@ -77,13 +172,18 @@ public sealed class OpticSceneControl : Control
         var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
         var aperture = Math.Max(1, scene.YExtent);
 
-        double MapZ(double z) => padding + ((z - scene.ZMin) / zSpan * width);
-        double MapY(double y) => centerY - (y / aperture * height / 2.0);
+        double MapZ(double z) => ((padding + ((z - scene.ZMin) / zSpan * width) - (Bounds.Width / 2)) * _zoom)
+            + (Bounds.Width / 2) + _pan.X;
+        double MapY(double y) => ((centerY - (y / aperture * height / 2.0) - (Bounds.Height / 2)) * _zoom)
+            + (Bounds.Height / 2) + _pan.Y;
 
         context.DrawLine(AxisPen, new Point(MapZ(scene.ZMin), centerY), new Point(MapZ(scene.ZMax), centerY));
 
         DrawLensElements(context, scene.LensElements, MapZ, MapY);
-        DrawRays(context, scene.Rays, MapZ, MapY);
+        if (ShowRays)
+        {
+            DrawRays(context, scene.Rays, MapZ, MapY);
+        }
         DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY);
     }
@@ -96,16 +196,24 @@ public sealed class OpticSceneControl : Control
         var centerX = padding + (width / 2.0);
         var centerY = padding + (height / 2.0);
         var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
-        var projectedWidth = zSpan + (scene.XExtent * 0.72);
-        var projectedHeight = (scene.YExtent * 2.0) + (scene.XExtent * 0.55);
+        var projectedWidth = zSpan + (scene.XExtent * 1.4);
+        var projectedHeight = (scene.YExtent * 2.0) + (scene.XExtent * 1.4);
         var scale = 0.88 * Math.Min(width / Math.Max(1, projectedWidth), height / Math.Max(1, projectedHeight));
         var zCenter = scene.ZMin + (zSpan / 2.0);
 
         Point Project(Layout3DPoint point)
         {
-            var projectedX = (point.Z - zCenter) + (point.X * 0.36);
-            var projectedY = point.Y - (point.X * 0.24);
-            return new Point(centerX + (projectedX * scale), centerY - (projectedY * scale));
+            var z = point.Z - zCenter;
+            var cosYaw = Math.Cos(_yaw);
+            var sinYaw = Math.Sin(_yaw);
+            var screenX = (z * cosYaw) + (point.X * sinYaw);
+            var depth = (-z * sinYaw) + (point.X * cosYaw);
+            var cosPitch = Math.Cos(_pitch);
+            var sinPitch = Math.Sin(_pitch);
+            var screenY = (point.Y * cosPitch) - (depth * sinPitch);
+            return new Point(
+                centerX + (screenX * scale * _zoom) + _pan.X,
+                centerY - (screenY * scale * _zoom) + _pan.Y);
         }
 
         context.DrawLine(
@@ -115,7 +223,10 @@ public sealed class OpticSceneControl : Control
 
         Draw3DLensElements(context, scene.LensElements, Project);
         Draw3DSurfaces(context, scene.Surfaces, Project);
-        Draw3DRays(context, scene.Rays, Project);
+        if (ShowRays)
+        {
+            Draw3DRays(context, scene.Rays, Project);
+        }
     }
 
     private static void DrawSurfaces(

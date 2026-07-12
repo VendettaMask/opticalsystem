@@ -18,6 +18,11 @@ public static class OpticJsonStore
     public static async Task<Optic> LoadAsync(string path, CancellationToken cancellationToken = default)
     {
         var json = await File.ReadAllTextAsync(path, cancellationToken);
+        if (PythonOptilandJsonStore.LooksLike(json))
+        {
+            return PythonOptilandJsonStore.Deserialize(json, Path.GetFileNameWithoutExtension(path));
+        }
+
         var snapshot = JsonSerializer.Deserialize<OpticSnapshot>(json, Options)
             ?? throw new InvalidDataException("The selected file is not a valid optic JSON document.");
 

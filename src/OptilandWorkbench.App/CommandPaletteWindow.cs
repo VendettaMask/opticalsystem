@@ -33,8 +33,37 @@ public sealed class CommandPaletteWindow : Window
         _search.TextChanged += (_, _) => Refresh();
         _search.KeyDown += async (_, args) =>
         {
-            if (args.Key == Key.Enter)
+            if (args.Key == Key.Escape)
             {
+                args.Handled = true;
+                Close();
+            }
+            else if (args.Key == Key.Down && _list.ItemCount > 0)
+            {
+                args.Handled = true;
+                _list.SelectedIndex = Math.Min(_list.ItemCount - 1, _list.SelectedIndex + 1);
+            }
+            else if (args.Key == Key.Up && _list.ItemCount > 0)
+            {
+                args.Handled = true;
+                _list.SelectedIndex = Math.Max(0, _list.SelectedIndex - 1);
+            }
+            else if (args.Key == Key.Enter)
+            {
+                args.Handled = true;
+                await RunSelectedAsync();
+            }
+        };
+        _list.KeyDown += async (_, args) =>
+        {
+            if (args.Key == Key.Escape)
+            {
+                args.Handled = true;
+                Close();
+            }
+            else if (args.Key == Key.Enter)
+            {
+                args.Handled = true;
                 await RunSelectedAsync();
             }
         };

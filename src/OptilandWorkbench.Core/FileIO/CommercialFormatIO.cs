@@ -1,4 +1,5 @@
 using System.Globalization;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.FileIO;
@@ -68,6 +69,19 @@ public sealed record SequentialLensDocument(string Name, IReadOnlyList<Sequentia
             IsStop = surface.IsStop,
             IsReflective = surface.IsReflective
         }));
+        var stop = optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.IsStop);
+        var pupilReference = stop?.SemiDiameter
+            ?? optic.SurfaceGroup.Items.Skip(1).SkipLast(1).Select(surface => surface.SemiDiameter).DefaultIfEmpty(5).Min();
+        optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
+        optic.Aperture.Value = Math.Max(0.2, pupilReference * 2.0);
+        optic.Fields.Add(new FieldPoint { Label = "On axis", Weight = 1 });
+        optic.Wavelengths.Add(new Wavelength
+        {
+            Label = "d",
+            Nanometers = 587.5618,
+            Weight = 1,
+            IsPrimary = true
+        });
         return optic;
     }
 }

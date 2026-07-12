@@ -15,6 +15,24 @@ public sealed record PupilSample(double X, double Y, double Weight);
 
 public static class ApertureSampler
 {
+    public static IReadOnlyList<PupilSample> GenerateHexapolarRings(int numRings)
+    {
+        numRings = Math.Max(0, numRings);
+        var samples = new List<PupilSample> { new(0, 0, 1) };
+        for (var ring = 1; ring <= numRings; ring++)
+        {
+            var radius = ring / (double)numRings;
+            var points = ring * 6;
+            for (var index = 0; index < points; index++)
+            {
+                var angle = 2 * Math.PI * index / points;
+                samples.Add(new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1));
+            }
+        }
+
+        return samples;
+    }
+
     public static IReadOnlyList<PupilSample> Generate(int sampleCount, PupilSampling sampling, int seed = 1234)
     {
         sampleCount = Math.Max(1, sampleCount);
@@ -53,19 +71,7 @@ public static class ApertureSampler
     private static IReadOnlyList<PupilSample> Hexapolar(int sampleCount)
     {
         var rings = Math.Max(1, (int)Math.Ceiling(Math.Sqrt(sampleCount / 6.0)));
-        var samples = new List<PupilSample> { new(0, 0, 1) };
-        for (var ring = 1; ring <= rings; ring++)
-        {
-            var radius = ring / (double)rings;
-            var points = ring * 6;
-            for (var index = 0; index < points; index++)
-            {
-                var angle = 2 * Math.PI * index / points;
-                samples.Add(new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1));
-            }
-        }
-
-        return samples.Take(sampleCount).ToArray();
+        return GenerateHexapolarRings(rings).Take(sampleCount).ToArray();
     }
 
     private static IReadOnlyList<PupilSample> Random(int sampleCount, int seed)

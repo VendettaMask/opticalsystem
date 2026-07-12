@@ -58,15 +58,51 @@ public sealed class StandardGeometry : IGeometry
             return new PlaneGeometry().DistanceToIntersection(origin, direction);
         }
 
-        return NewtonSolveDistance(origin, direction, Sag);
+        var conicFactor = 1.0 + Conic;
+        var a = (direction.X * direction.X)
+            + (direction.Y * direction.Y)
+            + (conicFactor * direction.Z * direction.Z);
+        var b = 2.0 * (
+            (origin.X * direction.X)
+            + (origin.Y * direction.Y)
+            - (Radius * direction.Z)
+            + (conicFactor * origin.Z * direction.Z));
+        var c = (origin.X * origin.X)
+            + (origin.Y * origin.Y)
+            - (2.0 * Radius * origin.Z)
+            + (conicFactor * origin.Z * origin.Z);
+
+        if (Math.Abs(a) < 1e-15)
+        {
+            if (Math.Abs(b) < 1e-15)
+            {
+                return null;
+            }
+
+            var linearDistance = -c / b;
+            return linearDistance >= -1e-12 ? Math.Max(0, linearDistance) : null;
+        }
+
+        var discriminant = (b * b) - (4.0 * a * c);
+        if (discriminant < 0)
+        {
+            return null;
+        }
+
+        var root = Math.Sqrt(discriminant);
+        var first = (-b - root) / (2.0 * a);
+        var second = (-b + root) / (2.0 * a);
+        var valid = new[] { first, second }.Where(value => value >= -1e-12).Select(value => Math.Max(0, value)).ToArray();
+        return valid.Length == 0 ? null : valid.Min();
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
-        const double step = 1e-5;
-        var dzdx = (Sag(localPoint.X + step, localPoint.Y) - Sag(localPoint.X - step, localPoint.Y)) / (2 * step);
-        var dzdy = (Sag(localPoint.X, localPoint.Y + step) - Sag(localPoint.X, localPoint.Y - step)) / (2 * step);
-        return new Vector3D(-dzdx, -dzdy, 1) / new Vector3D(-dzdx, -dzdy, 1).Length;
+        var normal = new Vector3D(
+            -localPoint.X,
+            -localPoint.Y,
+            Radius - ((1.0 + Conic) * localPoint.Z));
+        return normal / normal.Length;
     }
 
     public IGeometry Clone() => new StandardGeometry(Radius, Conic);

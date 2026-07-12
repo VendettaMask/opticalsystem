@@ -54,7 +54,7 @@ public sealed class RayGenerator
         bool applyFieldWeight = true,
         bool applyWavelengthWeight = true)
     {
-        var apertureRadius = _optic.SurfaceGroup.ApertureRadius();
+        var apertureRadius = EntrancePupilRadius();
         var samples = ApertureSampler.Generate(Settings.SamplesPerField, Settings.Sampling);
         var rays = new List<RealRay>();
 
@@ -66,10 +66,13 @@ public sealed class RayGenerator
                 foreach (var sample in samples)
                 {
                     var xFieldAngle = DegreesToRadians(field.XAngleDegrees);
-                    var origin = PupilToOrigin(sample.X, sample.Y, apertureRadius);
-                    var direction = Settings.Telecentric
-                        ? new Vector3D(0, 0, 1)
-                        : FieldAnglesToDirection(xFieldAngle, fieldAngle);
+                    var rayGeometry = CreateInfiniteConjugateRay(
+                        xFieldAngle,
+                        fieldAngle,
+                        sample.X,
+                        sample.Y,
+                        apertureRadius);
+                    var direction = Settings.Telecentric ? new Vector3D(0, 0, 1) : rayGeometry.Direction;
                     var radius = Math.Sqrt((sample.X * sample.X) + (sample.Y * sample.Y));
                     var apodization = Settings.ApodizationPower <= 0
                         ? 1.0
@@ -77,7 +80,7 @@ public sealed class RayGenerator
                     var fieldWeight = applyFieldWeight ? field.Weight : 1.0;
                     var wavelengthWeight = applyWavelengthWeight ? wavelength.Weight : 1.0;
 
-                    rays.Add(new RealRay(origin, direction, wavelength.Nanometers, fieldWeight * wavelengthWeight * sample.Weight * apodization));
+                    rays.Add(new RealRay(rayGeometry.Origin, direction, wavelength.Nanometers, fieldWeight * wavelengthWeight * sample.Weight * apodization));
                 }
             }
         }
@@ -95,7 +98,7 @@ public sealed class RayGenerator
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var sampling = ParseSampling(distribution);
-        var apertureRadius = _optic.SurfaceGroup.ApertureRadius();
+        var apertureRadius = EntrancePupilRadius();
         var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
         var rays = ApertureSampler.Generate(sampleCount, sampling)
@@ -121,7 +124,7 @@ public sealed class RayGenerator
             throw new ArgumentOutOfRangeException(nameof(normalizedPupilX), "Normalized pupil coordinates must lie inside the unit pupil.");
         }
 
-        var apertureRadius = _optic.SurfaceGroup.ApertureRadius();
+        var apertureRadius = EntrancePupilRadius();
         var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
         var ray = CreateRay(
             field.XAngleDegrees,
@@ -132,6 +135,38 @@ public sealed class RayGenerator
             MicrometersToNanometers(wavelengthMicrometers),
             intensity: 1.0);
         return new RealRayBundle(new[] { ray });
+    }
+
+    public RealRayBundle GenerateNormalizedPupilSamples(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double wavelengthMicrometers,
+        IEnumerable<PupilSample> pupilSamples)
+    {
+        ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
+        ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
+        var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
+        var apertureRadius = EntrancePupilRadius();
+        var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
+        var rays = pupilSamples.Select(sample =>
+        {
+            ValidateNormalized(sample.X, nameof(sample.X));
+            ValidateNormalized(sample.Y, nameof(sample.Y));
+            if ((sample.X * sample.X) + (sample.Y * sample.Y) > 1.0 + NormalizedCoordinateTolerance)
+            {
+                throw new ArgumentOutOfRangeException(nameof(pupilSamples), "Normalized pupil coordinates must lie inside the unit pupil.");
+            }
+
+            return CreateRay(
+                field.XAngleDegrees,
+                field.YAngleDegrees,
+                sample.X,
+                sample.Y,
+                apertureRadius,
+                wavelengthNanometers,
+                sample.Weight);
+        }).ToArray();
+        return new RealRayBundle(rays);
     }
 
     public static PupilSampling ParseSampling(string distribution)
@@ -188,7 +223,7 @@ public sealed class RayGenerator
         return (normalizedFieldX * maxX, normalizedFieldY * maxY);
     }
 
-    private static RealRay CreateRay(
+    private RealRay CreateRay(
         double xAngleDegrees,
         double yAngleDegrees,
         double normalizedPupilX,
@@ -197,9 +232,13 @@ public sealed class RayGenerator
         double wavelengthNanometers,
         double intensity)
     {
-        var origin = PupilToOrigin(normalizedPupilX, normalizedPupilY, apertureRadius);
-        var direction = FieldAnglesToDirection(DegreesToRadians(xAngleDegrees), DegreesToRadians(yAngleDegrees));
-        return new RealRay(origin, direction, wavelengthNanometers, intensity);
+        var geometry = CreateInfiniteConjugateRay(
+            DegreesToRadians(xAngleDegrees),
+            DegreesToRadians(yAngleDegrees),
+            normalizedPupilX,
+            normalizedPupilY,
+            apertureRadius);
+        return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity);
     }
 
     private static Vector3D Normalize(Vector3D vector)
@@ -213,9 +252,44 @@ public sealed class RayGenerator
         return degrees * Math.PI / 180.0;
     }
 
-    private static Vector3D PupilToOrigin(double normalizedPupilX, double normalizedPupilY, double apertureRadius)
+    private double EntrancePupilRadius()
     {
-        return new Vector3D(normalizedPupilX * apertureRadius, normalizedPupilY * apertureRadius, 0);
+        return _optic.Paraxial.EstimateEntrancePupilDiameter() / 2.0;
+    }
+
+    private (Vector3D Origin, Vector3D Direction) CreateInfiniteConjugateRay(
+        double xFieldAngleRadians,
+        double yFieldAngleRadians,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double apertureRadius)
+    {
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (objectSurface is not null && objectSurface.Thickness > 1e-12)
+        {
+            return (
+                new Vector3D(
+                    normalizedPupilX * apertureRadius,
+                    normalizedPupilY * apertureRadius,
+                    objectSurface.CoordinateSystem.Origin.Z),
+                FieldAnglesToDirection(xFieldAngleRadians, yFieldAngleRadians));
+        }
+
+        var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
+        var firstSurfaceZ = physicalSurfaces.FirstOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
+        var minimumSurfaceZ = physicalSurfaces.Select(surface => surface.CoordinateSystem.Origin.Z).DefaultIfEmpty(firstSurfaceZ).Min();
+        var entrancePupilDiameter = apertureRadius * 2.0;
+        var offset = entrancePupilDiameter - minimumSurfaceZ;
+        var startZ = firstSurfaceZ - offset;
+        var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
+        var pupilX = normalizedPupilX * apertureRadius;
+        var pupilY = normalizedPupilY * apertureRadius;
+        var origin = new Vector3D(
+            pupilX - (Math.Tan(xFieldAngleRadians) * (offset + entrancePupilZ)),
+            pupilY - (Math.Tan(yFieldAngleRadians) * (offset + entrancePupilZ)),
+            startZ);
+        var pupilPoint = new Vector3D(pupilX, pupilY, entrancePupilZ);
+        return (origin, Normalize(pupilPoint - origin));
     }
 
     private static Vector3D FieldAnglesToDirection(double xFieldAngleRadians, double yFieldAngleRadians)

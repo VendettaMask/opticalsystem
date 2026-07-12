@@ -141,12 +141,14 @@ public sealed class OpticalSurface : NotifyObject
 
     public SurfaceRayTraceResult TraceRay(
         RealRay inputRay,
-        double refractiveIndexBefore,
-        double refractiveIndexAfter,
+        IMaterial materialBefore,
+        IMaterial materialAfter,
         double cumulativePathLength,
         double cumulativeOpticalPathLength)
     {
         var ray = inputRay.Normalize();
+        var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
+        var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
         var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
         var distance = Geometry.DistanceToIntersection(localOrigin, localDirection);
@@ -172,15 +174,19 @@ public sealed class OpticalSurface : NotifyObject
         }
 
         var localHit = localOrigin + (localDirection * distance.Value);
-        var globalHit = CoordinateSystem.ToGlobalPoint(localHit);
         var segmentLength = Math.Max(0, distance.Value);
-        var segmentOpticalPathLength = segmentLength * refractiveIndexBefore;
+        var segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
         var nextCumulativePathLength = cumulativePathLength + segmentLength;
         var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;
-        var propagatedRay = ray with
+        var extinctionCoefficient = materialBefore.ExtinctionCoefficient(ray.WavelengthNanometers);
+        var wavelengthMicrometers = ray.WavelengthNanometers / 1000.0;
+        var attenuation = extinctionCoefficient <= 0
+            ? 1.0
+            : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * segmentLength * 1000.0) / wavelengthMicrometers);
+        var propagatedRay = materialBefore.PropagationModel.Propagate(ray, segmentLength) with
         {
-            Origin = globalHit,
-            OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength
+            OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength,
+            Intensity = ray.Intensity * attenuation
         };
 
         var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localHit);
@@ -190,7 +196,7 @@ public sealed class OpticalSurface : NotifyObject
             var sample = new RayTraceSample(
                 Number,
                 Label,
-                globalHit,
+                propagatedRay.Origin,
                 ray.Direction,
                 0,
                 true,
@@ -247,7 +253,9 @@ public sealed class OpticalSurface : NotifyObject
             ? new NoneCoatingModel()
             : new ThinFilmStackCoating(new[] { new ThinFilmLayer(Coating, 120) });
         InteractionModel = new RefractiveReflectiveInteractionModel(IsReflective);
-        PhysicalAperture = new CircularAperture(SemiDiameter);
+        // Optiland's semi_aperture controls the drawn/mechanical envelope only.
+        // Rays are clipped only when an explicit physical aperture is configured.
+        PhysicalAperture = null;
         CoordinateSystem = new CoordinateSystem(new Backend.Vector3D(0, 0, zPosition));
     }
 

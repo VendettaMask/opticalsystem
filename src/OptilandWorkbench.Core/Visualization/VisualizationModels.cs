@@ -1,5 +1,7 @@
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Visualization;
@@ -201,20 +203,18 @@ public sealed class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
-            var maxExtent = group.Max(SurfaceExtent);
-            var curves = group
-                .Select(surface => BuildExtendedSurfaceCurve(surface, surfaceSamples, maxExtent))
-                .ToList();
-
-            for (var index = 0; index < curves.Count - 1; index++)
+            for (var index = 0; index < group.Count - 1; index++)
             {
                 var surface = group[index];
                 var next = group[index + 1];
-                var boundary = new List<Layout2DPoint>(curves[index].Count + curves[index + 1].Count);
-                boundary.AddRange(curves[index]);
-                for (var pointIndex = curves[index + 1].Count - 1; pointIndex >= 0; pointIndex--)
+                var extent = ElementExtent(surface, next);
+                var frontCurve = BuildExtendedSurfaceCurve(surface, surfaceSamples, extent);
+                var backCurve = BuildExtendedSurfaceCurve(next, surfaceSamples, extent);
+                var boundary = new List<Layout2DPoint>(frontCurve.Count + backCurve.Count);
+                boundary.AddRange(frontCurve);
+                for (var pointIndex = backCurve.Count - 1; pointIndex >= 0; pointIndex--)
                 {
-                    boundary.Add(curves[index + 1][pointIndex]);
+                    boundary.Add(backCurve[pointIndex]);
                 }
 
                 elements.Add(new Layout2DLensElement(
@@ -234,15 +234,13 @@ public sealed class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
-            var maxExtent = group.Max(SurfaceExtent);
-            var curves = group
-                .Select(surface => BuildExtendedSurfaceCurve(surface, surfaceSamples, maxExtent))
-                .ToList();
-
-            for (var index = 0; index < curves.Count - 1; index++)
+            for (var index = 0; index < group.Count - 1; index++)
             {
-                edges.Add(new Layout2DLensEdge(curves[index][0], curves[index + 1][0]));
-                edges.Add(new Layout2DLensEdge(curves[index][^1], curves[index + 1][^1]));
+                var extent = ElementExtent(group[index], group[index + 1]);
+                var frontCurve = BuildExtendedSurfaceCurve(group[index], surfaceSamples, extent);
+                var backCurve = BuildExtendedSurfaceCurve(group[index + 1], surfaceSamples, extent);
+                edges.Add(new Layout2DLensEdge(frontCurve[0], backCurve[0]));
+                edges.Add(new Layout2DLensEdge(frontCurve[^1], backCurve[^1]));
             }
         }
 
@@ -290,21 +288,17 @@ public sealed class Layout2DBuilder
 
         foreach (var group in BuildLensGroups())
         {
-            var maxExtent = group.Max(SurfaceExtent);
-            var rims = group
-                .Select(surface => BuildSurfaceRim(surface, maxExtent, rimSamples))
-                .ToList();
-
-            for (var index = 0; index < rims.Count - 1; index++)
+            for (var index = 0; index < group.Count - 1; index++)
             {
                 var surface = group[index];
                 var next = group[index + 1];
+                var extent = ElementExtent(surface, next);
                 elements.Add(new Layout3DLensElement(
                     surface.Number,
                     next.Number,
                     surface.MaterialAfterName,
-                    rims[index],
-                    rims[index + 1]));
+                    BuildSurfaceRim(surface, extent, rimSamples),
+                    BuildSurfaceRim(next, extent, rimSamples)));
             }
         }
 
@@ -325,7 +319,7 @@ public sealed class Layout2DBuilder
         for (var rayIndex = 0; rayIndex < trace.RayHistories.Count; rayIndex++)
         {
             var history = trace.RayHistories[rayIndex];
-            var points = new List<Layout3DPoint>();
+            var points = new List<Layout3DPoint> { ToLayoutPoint(specs[rayIndex].Ray.Origin) };
             var vignetted = false;
             var finalIntensity = 0.0;
 
@@ -359,38 +353,28 @@ public sealed class Layout2DBuilder
 
     private IReadOnlyList<ViewerRaySpec> BuildViewerRays(bool includeDepth)
     {
-        var surfaces = _optic.SurfaceGroup.Items;
-        if (surfaces.Count == 0)
+        if (_optic.SurfaceGroup.Items.Count == 0)
         {
             return Array.Empty<ViewerRaySpec>();
         }
 
-        var first = surfaces[0];
-        var stop = surfaces.FirstOrDefault(surface => surface.IsStop)
-            ?? surfaces.Skip(1).FirstOrDefault()
-            ?? first;
-        var firstZ = first.CoordinateSystem.Origin.Z;
-        var stopZ = stop.CoordinateSystem.Origin.Z;
-        var deltaZ = stopZ - firstZ;
-        if (Math.Abs(deltaZ) < 1e-6)
-        {
-            deltaZ = Math.Max(1, _optic.SurfaceGroup.TotalTrack * 0.2);
-            stopZ = firstZ + deltaZ;
-        }
-
-        var stopRadius = Math.Max(0.5, stop.SemiDiameter);
         var wavelength = PrimaryWavelengthNanometers();
         var pupilSamples = includeDepth ? ThreeDimensionalPupilSamples : TwoDimensionalPupilSamples;
-        var fields = new List<(double AngleDegrees, double Weight)>();
+        var fields = new List<(double NormalizedX, double NormalizedY, double Weight)>();
+        var maxX = _optic.Fields.Select(field => Math.Abs(field.XAngleDegrees)).DefaultIfEmpty(0).Max();
+        var maxY = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
         if (_optic.Fields.Count == 0)
         {
-            fields.Add((0, 1));
+            fields.Add((0, 0, 1));
         }
         else
         {
             foreach (var field in _optic.Fields)
             {
-                fields.Add((field.YAngleDegrees, Math.Max(0.05, field.Weight)));
+                fields.Add((
+                    maxX <= 1e-12 ? 0 : field.XAngleDegrees / maxX,
+                    maxY <= 1e-12 ? 0 : field.YAngleDegrees / maxY,
+                    Math.Max(0.05, field.Weight)));
             }
         }
         var specs = new List<ViewerRaySpec>();
@@ -398,22 +382,21 @@ public sealed class Layout2DBuilder
         for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
         {
             var field = fields[fieldIndex];
-            var tangent = Math.Tan(DegreesToRadians(field.AngleDegrees));
 
             for (var pupilIndex = 0; pupilIndex < pupilSamples.Length; pupilIndex++)
             {
                 var sample = pupilSamples[pupilIndex];
-                var target = new Vector3D(
-                    sample.X * stopRadius,
-                    sample.Y * stopRadius,
-                    stopZ);
-                var origin = new Vector3D(
-                    target.X,
-                    target.Y - (tangent * deltaZ),
-                    firstZ);
-                var direction = Normalize(target - origin);
+                var ray = _optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                    field.NormalizedX,
+                    field.NormalizedY,
+                    sample.X,
+                    sample.Y,
+                    RayGenerator.NanometersToMicrometers(wavelength)).Rays.Single() with
+                {
+                    Intensity = field.Weight
+                };
                 specs.Add(new ViewerRaySpec(
-                    new RealRay(origin, direction, wavelength, field.Weight),
+                    ray,
                     fieldIndex,
                     pupilIndex));
             }
@@ -431,11 +414,6 @@ public sealed class Layout2DBuilder
         for (var index = 1; index < surfaces.Count - 1; index++)
         {
             var surface = surfaces[index];
-            if (surface.IsStop)
-            {
-                continue;
-            }
-
             if (surface.IsReflective)
             {
                 if (lensSurfaces.Count > 0)
@@ -497,13 +475,12 @@ public sealed class Layout2DBuilder
         double extent)
     {
         var points = new List<Layout2DPoint>(surfaceSamples);
-        var vertexZ = surface.CoordinateSystem.Origin.Z;
-
         for (var index = 0; index < surfaceSamples; index++)
         {
             var t = index / (double)(surfaceSamples - 1);
             var y = -extent + (2.0 * extent * t);
-            points.Add(new Layout2DPoint(vertexZ + SafeSag(surface, 0, y), y));
+            var global = surface.CoordinateSystem.ToGlobalPoint(new Vector3D(0, y, SafeSag(surface, 0, y)));
+            points.Add(new Layout2DPoint(global.Z, global.Y));
         }
 
         return points;
@@ -535,7 +512,66 @@ public sealed class Layout2DBuilder
 
     private static double SurfaceExtent(OpticalSurface surface)
     {
-        return Math.Max(0.1, surface.SemiDiameter);
+        var extent = Math.Max(0.1, surface.SemiDiameter);
+        if (surface.Geometry is StandardGeometry standard && 1.0 + standard.Conic > 0)
+        {
+            var realDomain = Math.Abs(standard.Radius) / Math.Sqrt(1.0 + standard.Conic);
+            extent = Math.Min(extent, realDomain * 0.98);
+        }
+
+        return extent;
+    }
+
+    private static double ElementExtent(OpticalSurface front, OpticalSurface back)
+    {
+        var target = Math.Max(SurfaceExtent(front), SurfaceExtent(back));
+        var previous = 0.0;
+        const int searchSteps = 256;
+        const double minimumGap = 1e-6;
+
+        for (var index = 1; index <= searchSteps; index++)
+        {
+            var current = target * index / searchSteps;
+            if (ElementGap(front, back, current) > minimumGap)
+            {
+                previous = current;
+                continue;
+            }
+
+            var low = previous;
+            var high = current;
+            for (var iteration = 0; iteration < 48; iteration++)
+            {
+                var middle = (low + high) / 2.0;
+                if (ElementGap(front, back, middle) > minimumGap)
+                {
+                    low = middle;
+                }
+                else
+                {
+                    high = middle;
+                }
+            }
+
+            return Math.Max(0.1, low * 0.995);
+        }
+
+        return target;
+    }
+
+    private static double ElementGap(OpticalSurface front, OpticalSurface back, double y)
+    {
+        return Math.Min(
+            SurfaceZ(back, y) - SurfaceZ(front, y),
+            SurfaceZ(back, -y) - SurfaceZ(front, -y));
+    }
+
+    private static double SurfaceZ(OpticalSurface surface, double y)
+    {
+        var extent = SurfaceExtent(surface);
+        var sampledY = Math.Clamp(y, -extent, extent);
+        return surface.CoordinateSystem.ToGlobalPoint(
+            new Vector3D(0, sampledY, SafeSag(surface, 0, sampledY))).Z;
     }
 
     private static bool IsReferencePlane(OpticalSurface surface, int surfaceCount)
@@ -566,11 +602,6 @@ public sealed class Layout2DBuilder
     {
         var length = vector.Length;
         return length <= 1e-12 ? new Vector3D(0, 0, 1) : vector / length;
-    }
-
-    private static double DegreesToRadians(double degrees)
-    {
-        return degrees * Math.PI / 180.0;
     }
 
     private static Layout3DPoint ToLayoutPoint(Vector3D point)

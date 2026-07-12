@@ -108,9 +108,17 @@ public sealed class OptilandConnector
             || path.EndsWith(".optiland", StringComparison.OrdinalIgnoreCase);
     }
 
+    public static bool IsPythonOptilandJsonPath(string path)
+    {
+        return path.EndsWith(".optiland-python.json", StringComparison.OrdinalIgnoreCase)
+            || path.EndsWith(".python-optiland.json", StringComparison.OrdinalIgnoreCase);
+    }
+
     public static string FormatNameForPath(string path)
     {
-        return IsNativeJsonPath(path)
+        return IsPythonOptilandJsonPath(path)
+            ? "python-optiland-json"
+            : IsNativeJsonPath(path)
             ? "native-json"
             : OpticalFormatCatalog.FindImporter(Path.GetExtension(path)).FormatName;
     }
@@ -132,16 +140,45 @@ public sealed class OptilandConnector
         var rows = data.Values
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
             .ToArray();
-        return new AnalysisView(DisplayAnalysisName(data.Name), rows, FormatAnalysisData(data));
+        var fallback = BuildFallbackSeries(data.Values);
+        var plotSeries = data.PlotSeries.Count > 0
+            ? data.PlotSeries
+            : fallback is null
+                ? Array.Empty<AnalysisSeries>()
+                : new[] { fallback };
+        return new AnalysisView(
+            DisplayAnalysisName(data.Name),
+            rows,
+            FormatAnalysisData(data),
+            plotSeries.FirstOrDefault(),
+            plotSeries,
+            data.PlotOptions ?? new AnalysisPlotOptions(),
+            data.PlotPanes ?? Array.Empty<AnalysisPlotPane>(),
+            data.PlotPaneColumns);
+    }
+
+    public void NewBlank()
+    {
+        ReplaceOptic(Optic.CreateBlank(), "已创建空白光学系统。");
     }
 
     public void NewDemo()
     {
-        CurrentOptic = Optic.CreateDemo();
+        ReplaceOptic(Optic.CreateCookeTriplet(), "已创建与 Optiland 官方样例一致的 Cooke 三片式镜头。");
+    }
+
+    public void NewTessar()
+    {
+        ReplaceOptic(Optic.CreateTessarLens(), "已创建 Optiland 官方 Tessar F/4.5 四片式镜头。");
+    }
+
+    private void ReplaceOptic(Optic optic, string status)
+    {
+        CurrentOptic = optic;
         _multiConfiguration = new MultiConfiguration(CurrentOptic);
         _activeConfigurationIndex = 0;
         _undoRedo.Clear();
-        SetStatus("已创建演示光学系统。");
+        SetStatus(status);
         OpticLoaded?.Invoke(this, EventArgs.Empty);
     }
 
@@ -341,7 +378,11 @@ public sealed class OptilandConnector
 
     public async Task SaveAsync(string path)
     {
-        if (IsNativeJsonPath(path))
+        if (IsPythonOptilandJsonPath(path))
+        {
+            await PythonOptilandJsonStore.SaveAsync(CurrentOptic, path);
+        }
+        else if (IsNativeJsonPath(path))
         {
             await OpticJsonStore.SaveAsync(CurrentOptic, path);
         }
@@ -716,6 +757,36 @@ public sealed class OptilandConnector
         };
     }
 
+    private static AnalysisSeries? BuildFallbackSeries(IReadOnlyDictionary<string, object> values)
+    {
+        var points = values
+            .Select(item => (item.Key, Value: TryConvertFiniteNumber(item.Value)))
+            .Where(item => item.Value.HasValue)
+            .Select((item, index) => new AnalysisPoint(index, item.Value!.Value, DisplayAnalysisKey(item.Key)))
+            .ToArray();
+        return points.Length == 0
+            ? null
+            : new AnalysisSeries("Metric", "Value", points, AnalysisSeriesKind.Bar);
+    }
+
+    private static double? TryConvertFiniteNumber(object value)
+    {
+        if (value is not IConvertible || value is string or bool or char)
+        {
+            return null;
+        }
+
+        try
+        {
+            var number = Convert.ToDouble(value);
+            return double.IsFinite(number) ? number : null;
+        }
+        catch (Exception exception) when (exception is FormatException or InvalidCastException or OverflowException)
+        {
+            return null;
+        }
+    }
+
     public static string DisplayOptimizerMessage(string message)
     {
         const string optimizedWith = "Optimized with ";
@@ -905,21 +976,68 @@ public sealed class OptilandConnector
         ["Method"] = "方法",
         ["Sigma"] = "Sigma",
         ["PeakNormalized"] = "归一化峰值",
-        ["BlurKernelRadius"] = "模糊核半径",
-        ["LateralColorProxy"] = "横向色差近似",
-        ["DistortionProxy"] = "畸变近似",
-        ["PolarizationState"] = "偏振状态",
+        ["Pipeline"] = "仿真流程",
+        ["OutputShape"] = "输出形状",
+        ["WavelengthsMicrometers"] = "仿真波长 (µm)",
+        ["PsfGridShape"] = "PSF 视场网格",
+        ["PsfSize"] = "PSF 尺寸",
+        ["EigenPsfComponents"] = "EigenPSF 分量数",
+        ["DistortionGridSize"] = "畸变采样网格",
+        ["DistortionPolynomialDegree"] = "畸变拟合阶数",
+        ["MeanAbsoluteChange"] = "平均绝对变化",
+        ["MaximumOutputValue"] = "最大输出值",
+        ["Field"] = "视场",
+        ["ValidRayCount"] = "有效光线数",
+        ["CoatingMode"] = "镀膜模式",
+        ["Layout"] = "图形布局",
         ["Name"] = "名称",
         ["SurfaceCount"] = "表面数",
         ["FieldCount"] = "视场数",
         ["WavelengthCount"] = "波长数",
+        ["WavelengthMicrometers"] = "分析波长 (µm)",
+        ["DistortionType"] = "畸变模型",
+        ["MaximumAbsoluteDistortionPercent"] = "最大绝对畸变 (%)",
+        ["MaximumDistortionPercent"] = "最大网格畸变 (%)",
+        ["MaximumAbsoluteImagePlaneDelta"] = "最大像面偏移 (mm)",
+        ["GridSize"] = "网格尺寸",
+        ["Samples"] = "采样点数",
+        ["NumRings"] = "六角采样环数",
+        ["NumRays"] = "光线数",
+        ["Distribution"] = "瞳孔采样分布",
+        ["PlotPointCount"] = "曲线采样点数",
+        ["MaximumGeometricSpotRadius"] = "最大几何点半径 (mm)",
+        ["MaximumRmsSpotSize"] = "最大 RMS 点尺寸 (mm)",
+        ["FocusPlaneCount"] = "焦面数量",
+        ["ParaxialStopRadius"] = "近轴停光面半径 (mm)",
+        ["MinimumPupilAberration"] = "最小光瞳像差 (%)",
+        ["MaximumPupilAberration"] = "最大光瞳像差 (%)",
+        ["MinimumRayAberration"] = "最小光线像差 (mm)",
+        ["MaximumRayAberration"] = "最大光线像差 (mm)",
+        ["PupilSampling"] = "瞳面采样数",
+        ["WorkingFNumber"] = "工作 F/#",
+        ["StrehlRatio"] = "斯特列尔比",
+        ["CutoffFrequency"] = "截止频率 (cycles/mm)",
+        ["ReferenceSphereRadius"] = "参考球半径 (mm)",
+        ["ZernikeType"] = "Zernike 类型",
+        ["FieldHx"] = "归一化视场 Hx",
+        ["FieldHy"] = "归一化视场 Hy",
+        ["ParabasalDelta"] = "近轴光线间隔",
+        ["MaxFieldDegrees"] = "最大视场 (deg)",
         ["EFL"] = "有效焦距",
         ["WeightedMetric"] = "加权指标",
         ["Status"] = "状态"
     };
 }
 
-public sealed record AnalysisView(string Name, IReadOnlyList<AnalysisRow> Rows, string ReportText);
+public sealed record AnalysisView(
+    string Name,
+    IReadOnlyList<AnalysisRow> Rows,
+    string ReportText,
+    AnalysisSeries? Series,
+    IReadOnlyList<AnalysisSeries> SeriesList,
+    AnalysisPlotOptions PlotOptions,
+    IReadOnlyList<AnalysisPlotPane> PlotPanes,
+    int PlotPaneColumns);
 
 public sealed record AnalysisRow(string Metric, string Value);
 

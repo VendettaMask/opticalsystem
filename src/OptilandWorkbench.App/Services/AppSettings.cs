@@ -16,6 +16,28 @@ public sealed class AppSettings
 
     public int RightTabIndex { get; set; }
 
+    public Dictionary<int, WorkspaceLayoutState> LayoutSlots { get; set; } = new();
+
+    public WorkspaceLayoutState CurrentLayout => new(LeftPaneWidth, LeftTabIndex, RightTabIndex);
+
+    public void ApplyLayout(WorkspaceLayoutState layout)
+    {
+        LeftPaneWidth = layout.LeftPaneWidth;
+        LeftTabIndex = layout.LeftTabIndex;
+        RightTabIndex = layout.RightTabIndex;
+    }
+
+    public void SaveLayoutSlot(int slot, WorkspaceLayoutState layout)
+    {
+        LayoutSlots[slot] = layout;
+        Save();
+    }
+
+    public WorkspaceLayoutState? LoadLayoutSlot(int slot)
+    {
+        return LayoutSlots.TryGetValue(slot, out var layout) ? layout : null;
+    }
+
     public static AppSettings Load()
     {
         try
@@ -58,3 +80,8 @@ public sealed class AppSettings
         }
     }
 }
+
+public sealed record WorkspaceLayoutState(
+    double LeftPaneWidth = 520,
+    int LeftTabIndex = 0,
+    int RightTabIndex = 0);

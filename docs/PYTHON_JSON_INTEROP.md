@@ -1,0 +1,56 @@
+# Python Optiland JSON Interoperability
+
+## Formats
+
+Workbench JSON and Python Optiland JSON are different schemas:
+
+- Workbench native JSON uses `SchemaVersion`, rich component snapshots, and is the preferred lossless project format.
+- Python Optiland 0.5.8 JSON is the recursive dictionary returned by `Optic.to_dict()` and uses `version`, `aperture`, `fields`, `wavelengths`, and `surface_group`.
+
+`OpticJsonStore` detects the schema from document content. Python's standard JSON encoder emits bare `Infinity` for infinite object and plane coordinates; the importer normalizes those tokens without changing string content.
+
+## GUI Workflow
+
+- Open an official Python dictionary JSON through **File > Open**.
+- Export the active supported system through **File > Export Python Optiland JSON**.
+- Continue using ordinary **Save As** with `.optiland.json` when Workbench-specific components must round-trip losslessly.
+
+The explicit Python export suffix is `.optiland-python.json`.
+
+## Validated Subset
+
+| Area | Supported |
+| --- | --- |
+| System aperture | EPD, image F-number, object NA |
+| Fields | AngleField |
+| Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
+| Geometry | Plane, StandardGeometry |
+| Materials | Python catalog material, IdealMaterial, AbbeMaterial |
+| Physical aperture | RadialAperture, RectangularAperture |
+| Interaction | RefractiveReflectiveModel, including mirrors |
+| Sequential data | Thickness, stop, coordinate position and rotation |
+
+Unsupported geometry, material, aperture, coating, or interaction types fail with `NotSupportedException`. Export never silently replaces an unsupported optical component.
+
+## Numerical Validation
+
+The official Optiland 0.5.8 Cooke Triplet and Tessar Lens dictionaries are imported directly and checked against committed per-surface golden data.
+
+The reverse direction is checked outside the .NET process:
+
+```python
+import json
+from optiland.optic import Optic
+
+with open("optic.optiland-python.json") as stream:
+    optic = Optic.from_dict(json.load(stream))
+```
+
+For both validated samples, Python-loaded C# exports reproduce EFL, F-number, entrance pupil diameter, entrance pupil location, and representative real-ray results exactly.
+
+## Not Yet Supported
+
+- Freeform and polynomial geometries beyond StandardGeometry.
+- Coatings, BSDFs, phase and diffractive interactions.
+- Pickups, solves, apodization, polarization, and telecentric field modes.
+- Lossless conversion of Workbench plugins or custom propagation models.

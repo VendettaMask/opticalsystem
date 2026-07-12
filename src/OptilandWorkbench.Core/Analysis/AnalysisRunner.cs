@@ -10,6 +10,8 @@ public sealed record SpotDiagramSummary(
     double RmsSpotRadius,
     double MaxSpotRadius);
 
+public sealed record SpotSample(double X, double Y, double Intensity, bool Vignetted);
+
 public sealed record WavefrontSummary(
     int RayCount,
     int VignettedRayCount,
@@ -66,6 +68,11 @@ public sealed class AnalysisRunner
             Centroid: moments.CentroidY,
             RmsSpotRadius: moments.RmsRadius,
             MaxSpotRadius: moments.MaxRadius);
+    }
+
+    public IReadOnlyList<SpotSample> EvaluateSpotSamples()
+    {
+        return CollectFinalImageSamples();
     }
 
     public IReadOnlyList<double> BuildRayFan(int samples = 9)
@@ -188,7 +195,7 @@ public sealed class AnalysisRunner
         });
     }
 
-    private IReadOnlyList<ImageSample> CollectFinalImageSamples(RealRayBundle? bundle = null, double imagePlaneOffset = 0)
+    private IReadOnlyList<SpotSample> CollectFinalImageSamples(RealRayBundle? bundle = null, double imagePlaneOffset = 0)
     {
         var trace = bundle is null ? _optic.SequentialRayTracer.Trace() : _optic.SequentialRayTracer.Trace(bundle);
         return trace.RayHistories
@@ -202,12 +209,12 @@ public sealed class AnalysisRunner
                     position += sample.Direction * (imagePlaneOffset / sample.Direction.Z);
                 }
 
-                return new ImageSample(position.X, position.Y, sample.Intensity, sample.Vignetted);
+                return new SpotSample(position.X, position.Y, sample.Intensity, sample.Vignetted);
             })
             .ToArray();
     }
 
-    private static ImageMoments SummarizeImageSamples(IReadOnlyList<ImageSample> samples)
+    private static ImageMoments SummarizeImageSamples(IReadOnlyList<SpotSample> samples)
     {
         var valid = samples.Where(sample => !sample.Vignetted && sample.Intensity > 0).ToArray();
         if (samples.Count == 0 || valid.Length == 0)
@@ -263,8 +270,6 @@ public sealed class AnalysisRunner
 
         return weightedRadii.Count == 0 ? 0 : weightedRadii[^1].Radius;
     }
-
-    private sealed record ImageSample(double X, double Y, double Intensity, bool Vignetted);
 
     private sealed record WeightedRadius(double Radius, double Weight);
 

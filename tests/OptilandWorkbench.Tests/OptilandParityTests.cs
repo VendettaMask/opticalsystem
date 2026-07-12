@@ -12,6 +12,7 @@ using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Plugins;
+using OptilandWorkbench.Core.Propagation;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Scattering;
@@ -151,8 +152,10 @@ public sealed class OptilandParityTests
             CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
         };
         var ray = new RealRay(new Vector3D(0, 1, 0), new Vector3D(0, 0, 1), 587.6);
+        var air = new AirMaterial();
+        var glass = new ConstantIndexMaterial("n=1.5", 1.5);
 
-        var result = surface.TraceRay(ray, refractiveIndexBefore: 1.0, refractiveIndexAfter: 1.5, 0, 0);
+        var result = surface.TraceRay(ray, air, glass, 0, 0);
 
         Assert.False(result.StopTracing);
         Assert.Equal(4, result.Sample.SurfaceNumber);
@@ -162,11 +165,37 @@ public sealed class OptilandParityTests
         Assert.Equal(1.5, result.RefractiveIndexAfter, precision: 12);
 
         var clippedRay = new RealRay(new Vector3D(3, 0, 0), new Vector3D(0, 0, 1), 587.6);
-        var clipped = surface.TraceRay(clippedRay, refractiveIndexBefore: 1.0, refractiveIndexAfter: 1.5, 0, 0);
+        var clipped = surface.TraceRay(clippedRay, air, glass, 0, 0);
 
         Assert.True(clipped.StopTracing);
         Assert.True(clipped.Sample.Vignetted);
         Assert.Equal(0, clipped.Sample.Intensity);
+    }
+
+    [Fact]
+    public void MaterialsOwnPropagationModelsUsedBySurfaceKernel()
+    {
+        var material = new ConstantIndexMaterial("GRIN test", 1.2, propagationModel: new GrinPropagationModel(0.02));
+        var clone = material.Clone();
+
+        Assert.Equal("grin", clone.PropagationModel.Kind);
+
+        var surface = new OpticalSurface
+        {
+            Number = 2,
+            Label = "GRIN surface",
+            Geometry = new PlaneGeometry(),
+            PhysicalAperture = new CircularAperture(10),
+            InteractionModel = new RefractiveReflectiveInteractionModel(),
+            CoatingModel = new NoneCoatingModel(),
+            CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5))
+        };
+        var ray = new RealRay(new Vector3D(1, 0, 0), new Vector3D(0, 0, 1), 587.6);
+
+        var result = surface.TraceRay(ray, clone, new AirMaterial(), 0, 0);
+
+        Assert.True(result.Sample.CumulativeOpticalPathLength > result.Sample.SegmentLength);
+        Assert.NotEqual(0, result.Ray.Direction.X, precision: 6);
     }
 
     [Fact]
@@ -338,6 +367,162 @@ public sealed class OptilandParityTests
         Assert.True(scene.YExtent > 0);
     }
 
+    [Fact]
+    public void TessarViewerBuildsFourBoundedLensElementsAndEntrancePupilRays()
+    {
+        var optic = Optic.CreateTessarLens();
+        var scene2D = new Layout2DBuilder(optic).Build(surfaceSamples: 33);
+        var scene3D = new Layout2DBuilder(optic).Build3D(surfaceSamples: 17, rimSamples: 24);
+        var expectedPairs = new[] { (1, 2), (3, 4), (6, 7), (7, 8) };
+
+        Assert.Equal(expectedPairs, scene2D.LensElements.Select(element => (element.FrontSurfaceNumber, element.BackSurfaceNumber)));
+        Assert.Equal(expectedPairs, scene3D.LensElements.Select(element => (element.FrontSurfaceNumber, element.BackSurfaceNumber)));
+        Assert.All(scene2D.LensElements, element =>
+        {
+            Assert.All(element.Boundary, point =>
+            {
+                Assert.True(double.IsFinite(point.Z));
+                Assert.True(double.IsFinite(point.Y));
+                Assert.InRange(Math.Abs(point.Y), 0, 0.731);
+            });
+            Assert.InRange(element.Boundary.Max(point => point.Z) - element.Boundary.Min(point => point.Z), 0, 1.0);
+        });
+        Assert.InRange(scene2D.YExtent, 0, 2.5);
+        Assert.InRange(scene2D.ZMax - scene2D.ZMin, 0, 7.0);
+        Assert.NotEmpty(scene2D.Rays);
+        Assert.All(scene2D.Rays, ray =>
+        {
+            Assert.False(ray.Vignetted);
+            Assert.True(ray.Points.Count >= optic.SurfaceGroup.Items.Count);
+            Assert.True(ray.Points[0].Z < 0);
+        });
+    }
+
+    [Fact]
+    public async Task ViewerGeometryRemainsValidAcrossFactoriesAndImportedFiles()
+    {
+        var temporaryDirectory = Path.Combine(Path.GetTempPath(), $"optiland-viewer-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(temporaryDirectory);
+        try
+        {
+            var tessar = Optic.CreateTessarLens();
+            var systems = new List<(string Name, Optic Optic)>
+            {
+                ("legacy-demo", Optic.CreateDemo()),
+                ("cooke", Optic.CreateCookeTriplet()),
+                ("tessar", tessar)
+            };
+
+            var jsonPath = Path.Combine(temporaryDirectory, "tessar.optiland.json");
+            await OpticJsonStore.SaveAsync(tessar, jsonPath);
+            systems.Add(("tessar-json", await OpticJsonStore.LoadAsync(jsonPath)));
+
+            foreach (var extension in new[] { ".zmx", ".seq", ".len" })
+            {
+                var path = Path.Combine(temporaryDirectory, $"tessar{extension}");
+                await File.WriteAllTextAsync(path, OpticalFormatCatalog.Export(tessar, extension));
+                systems.Add(($"tessar-{extension[1..]}", OpticalFormatCatalog.Import(await File.ReadAllTextAsync(path), extension)));
+            }
+
+            foreach (var system in systems)
+            {
+                AssertViewerGeometry(system.Name, system.Optic);
+            }
+        }
+        finally
+        {
+            Directory.Delete(temporaryDirectory, recursive: true);
+        }
+    }
+
+    private static void AssertViewerGeometry(string name, Optic optic)
+    {
+        var scene2D = new Layout2DBuilder(optic).Build(surfaceSamples: 33);
+        var scene3D = new Layout2DBuilder(optic).Build3D(surfaceSamples: 17, rimSamples: 24);
+        var maximumSemiDiameter = optic.SurfaceGroup.Items.Max(surface => surface.SemiDiameter);
+        var expectedZScale = Math.Max(10, optic.SurfaceGroup.TotalTrack * 3.0);
+        var expectedYScale = Math.Max(5, maximumSemiDiameter * 3.0);
+
+        Assert.True(scene2D.ZMax > scene2D.ZMin, $"{name}: invalid 2D z extent");
+        Assert.True(scene2D.ZMax - scene2D.ZMin < expectedZScale, $"{name}: unbounded 2D z extent");
+        Assert.True(scene2D.YExtent > 0 && scene2D.YExtent < expectedYScale, $"{name}: invalid 2D y extent");
+        Assert.NotEmpty(scene2D.LensElements);
+        Assert.NotEmpty(scene2D.Rays);
+
+        foreach (var surface in scene2D.Surfaces)
+        {
+            Assert.All(surface.Points, point => AssertFinite(name, point.Z, point.Y));
+        }
+
+        foreach (var element in scene2D.LensElements)
+        {
+            Assert.Equal(element.FrontSurfaceNumber + 1, element.BackSurfaceNumber);
+            Assert.All(element.Boundary, point => AssertFinite(name, point.Z, point.Y));
+            Assert.False(HasProperSelfIntersection(element.Boundary), $"{name}: lens {element.FrontSurfaceNumber}-{element.BackSurfaceNumber} self-intersects");
+        }
+
+        foreach (var ray in scene2D.Rays)
+        {
+            Assert.All(ray.Points, point => AssertFinite(name, point.Z, point.Y));
+        }
+
+        Assert.True(scene3D.ZMax > scene3D.ZMin, $"{name}: invalid 3D z extent");
+        Assert.True(scene3D.XExtent > 0 && scene3D.YExtent > 0, $"{name}: invalid 3D transverse extent");
+        Assert.Equal(scene2D.LensElements.Count, scene3D.LensElements.Count);
+        foreach (var surface in scene3D.Surfaces)
+        {
+            Assert.All(surface.Rim.Concat(surface.MeridianX).Concat(surface.MeridianY), point => AssertFinite(name, point.X, point.Y, point.Z));
+        }
+
+        foreach (var ray in scene3D.Rays)
+        {
+            Assert.All(ray.Points, point => AssertFinite(name, point.X, point.Y, point.Z));
+        }
+    }
+
+    private static bool HasProperSelfIntersection(IReadOnlyList<Layout2DPoint> polygon)
+    {
+        for (var first = 0; first < polygon.Count; first++)
+        {
+            var firstNext = (first + 1) % polygon.Count;
+            for (var second = first + 1; second < polygon.Count; second++)
+            {
+                var secondNext = (second + 1) % polygon.Count;
+                if (firstNext == second || secondNext == first)
+                {
+                    continue;
+                }
+
+                if (SegmentsProperlyIntersect(polygon[first], polygon[firstNext], polygon[second], polygon[secondNext]))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static bool SegmentsProperlyIntersect(Layout2DPoint a, Layout2DPoint b, Layout2DPoint c, Layout2DPoint d)
+    {
+        static double Orientation(Layout2DPoint p, Layout2DPoint q, Layout2DPoint r)
+        {
+            return ((q.Z - p.Z) * (r.Y - p.Y)) - ((q.Y - p.Y) * (r.Z - p.Z));
+        }
+
+        var first = Orientation(a, b, c);
+        var second = Orientation(a, b, d);
+        var third = Orientation(c, d, a);
+        var fourth = Orientation(c, d, b);
+        const double tolerance = 1e-12;
+        return first * second < -tolerance && third * fourth < -tolerance;
+    }
+
+    private static void AssertFinite(string name, params double[] values)
+    {
+        Assert.True(values.All(double.IsFinite), $"{name}: viewer contains a non-finite coordinate");
+    }
+
     private static bool Close(double left, double right)
     {
         return Math.Abs(left - right) < 1e-9;
@@ -352,6 +537,46 @@ public sealed class OptilandParityTests
         Assert.Contains("MTF", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
+    }
+
+    [Fact]
+    public void BlankOpticStartsWithEditableReferenceSurfaces()
+    {
+        var optic = Optic.CreateBlank();
+
+        Assert.Single(optic.Fields);
+        Assert.Single(optic.Wavelengths);
+        Assert.True(optic.Wavelengths[0].IsPrimary);
+        Assert.Equal(2, optic.SurfaceGroup.Items.Count);
+        Assert.Equal("Object", optic.SurfaceGroup.Items[0].Label);
+        Assert.Equal("Image", optic.SurfaceGroup.Items[1].Label);
+        Assert.True(optic.SurfaceGroup.TotalTrack > 0);
+    }
+
+    [Theory]
+    [InlineData("Spot Diagram", AnalysisSeriesKind.Scatter)]
+    [InlineData("Ray Fan", AnalysisSeriesKind.Line)]
+    [InlineData("Encircled Energy", AnalysisSeriesKind.Line)]
+    [InlineData("RMS vs Field", AnalysisSeriesKind.Line)]
+    [InlineData("Through Focus", AnalysisSeriesKind.Line)]
+    [InlineData("Y-Ybar", AnalysisSeriesKind.Line)]
+    [InlineData("Zernike", AnalysisSeriesKind.Bar)]
+    [InlineData("MTF", AnalysisSeriesKind.Line)]
+    public void GraphicalAnalysesExposeStructuredFiniteSeries(string analysisName, AnalysisSeriesKind kind)
+    {
+        var optic = Optic.CreateDemo();
+        optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
+
+        var data = optic.Analyses.Create(analysisName).GenerateData();
+
+        Assert.NotNull(data.Series);
+        Assert.Equal(kind, data.Series.Kind);
+        Assert.NotEmpty(data.Series.Points);
+        Assert.All(data.Series.Points, point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
     }
 
     [Fact]

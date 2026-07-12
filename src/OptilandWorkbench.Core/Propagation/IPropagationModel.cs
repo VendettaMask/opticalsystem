@@ -19,8 +19,7 @@ public sealed class HomogeneousPropagationModel : IPropagationModel
     {
         return ray with
         {
-            Origin = ray.Origin + (ray.Direction * distance),
-            OpticalPathDifference = ray.OpticalPathDifference + distance
+            Origin = ray.Origin + (ray.Direction * distance)
         };
     }
 
@@ -45,8 +44,7 @@ public sealed class GrinPropagationModel : IPropagationModel
         return ray with
         {
             Origin = ray.Origin + (bentDirection * distance),
-            Direction = bentDirection,
-            OpticalPathDifference = ray.OpticalPathDifference + distance
+            Direction = bentDirection
         };
     }
 

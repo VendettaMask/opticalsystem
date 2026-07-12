@@ -93,6 +93,36 @@ public sealed class Optic
         return new Tolerancing.Tolerancing();
     }
 
+    public static Optic CreateBlank(string name = "Untitled optic")
+    {
+        var optic = new Optic(name);
+        optic.Fields.Add(new FieldPoint { Label = "On axis", Weight = 1 });
+        optic.Wavelengths.Add(new Wavelength
+        {
+            Label = "d",
+            Nanometers = 587.6,
+            Weight = 1,
+            IsPrimary = true
+        });
+        optic.SurfaceGroup.Replace(new[]
+        {
+            new OpticalSurface
+            {
+                Label = "Object",
+                Thickness = 100,
+                Material = "Air",
+                SemiDiameter = 10
+            },
+            new OpticalSurface
+            {
+                Label = "Image",
+                Material = "Air",
+                SemiDiameter = 10
+            }
+        });
+        return optic;
+    }
+
     public static Optic CreateDemo()
     {
         var optic = new Optic("Cooke-style triplet starter");
@@ -168,6 +198,123 @@ public sealed class Optic
                 Material = "Air",
                 SemiDiameter = 16
             }
+        });
+
+        return optic;
+    }
+
+    public static Optic CreateCookeTriplet()
+    {
+        var optic = new Optic("Optiland Cooke Triplet");
+        optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
+        optic.Aperture.Value = 10.0;
+
+        optic.Fields.Add(new FieldPoint { Label = "On axis", YAngleDegrees = 0, Weight = 1 });
+        optic.Fields.Add(new FieldPoint { Label = "14 deg", YAngleDegrees = 14, Weight = 1 });
+        optic.Fields.Add(new FieldPoint { Label = "20 deg", YAngleDegrees = 20, Weight = 1 });
+
+        optic.Wavelengths.Add(new Wavelength { Label = "F", Nanometers = 480, Weight = 1, IsPrimary = false });
+        optic.Wavelengths.Add(new Wavelength { Label = "d", Nanometers = 550, Weight = 1, IsPrimary = true });
+        optic.Wavelengths.Add(new Wavelength { Label = "C", Nanometers = 650, Weight = 1, IsPrimary = false });
+
+        optic.SurfaceGroup.Replace(new[]
+        {
+            new OpticalSurface
+            {
+                Label = "Object",
+                Radius = 0,
+                Thickness = 0,
+                Material = "Air",
+                SemiDiameter = 9.85
+            },
+            new OpticalSurface
+            {
+                Label = "Crown front",
+                Radius = 22.01359,
+                Thickness = 3.25896,
+                Material = "SK16",
+                SemiDiameter = 9.85
+            },
+            new OpticalSurface
+            {
+                Label = "Crown back",
+                Radius = -435.76044,
+                Thickness = 6.00755,
+                Material = "Air",
+                SemiDiameter = 9.85
+            },
+            new OpticalSurface
+            {
+                Label = "Flint front",
+                Radius = -22.21328,
+                Thickness = 0.99997,
+                Material = "F2",
+                SemiDiameter = 4.6
+            },
+            new OpticalSurface
+            {
+                Label = "Flint back / stop",
+                Radius = 20.29192,
+                Thickness = 4.75041,
+                Material = "Air",
+                SemiDiameter = 4.6,
+                IsStop = true
+            },
+            new OpticalSurface
+            {
+                Label = "Rear crown front",
+                Radius = 79.68360,
+                Thickness = 2.95208,
+                Material = "SK16",
+                SemiDiameter = 8.4
+            },
+            new OpticalSurface
+            {
+                Label = "Rear crown back",
+                Radius = -18.39533,
+                Thickness = 42.20778,
+                Material = "Air",
+                SemiDiameter = 8.4
+            },
+            new OpticalSurface
+            {
+                Label = "Image",
+                Radius = 0,
+                Thickness = 0,
+                Material = "Air",
+                SemiDiameter = 20.9
+            }
+        });
+
+        return optic;
+    }
+
+    public static Optic CreateTessarLens()
+    {
+        var optic = new Optic("Optiland Tessar Lens f/4.5");
+        optic.Aperture.Kind = ApertureKind.FNumber;
+        optic.Aperture.Value = 4.5;
+
+        optic.Fields.Add(new FieldPoint { Label = "On axis", YAngleDegrees = 0, Weight = 1 });
+        optic.Fields.Add(new FieldPoint { Label = "10 deg", YAngleDegrees = 10, Weight = 1 });
+        optic.Fields.Add(new FieldPoint { Label = "20.5 deg", YAngleDegrees = 20.5, Weight = 1 });
+
+        optic.Wavelengths.Add(new Wavelength { Label = "F", Nanometers = 486.1327, Weight = 1, IsPrimary = false });
+        optic.Wavelengths.Add(new Wavelength { Label = "d", Nanometers = 587.5618, Weight = 1, IsPrimary = true });
+        optic.Wavelengths.Add(new Wavelength { Label = "C", Nanometers = 656.2725, Weight = 1, IsPrimary = false });
+
+        optic.SurfaceGroup.Replace(new[]
+        {
+            new OpticalSurface { Label = "Object", Thickness = 0, Material = "Air", SemiDiameter = 0.73 },
+            new OpticalSurface { Label = "Front crown", Radius = 1.3329, Thickness = 0.2791, Material = "N-SK15", SemiDiameter = 0.73 },
+            new OpticalSurface { Label = "Front crown back", Radius = -9.9754, Thickness = 0.2054, Material = "Air", SemiDiameter = 0.73 },
+            new OpticalSurface { Label = "Flint front", Radius = -2.0917, Thickness = 0.09, Material = "F2", SemiDiameter = 0.48 },
+            new OpticalSurface { Label = "Flint back", Radius = 1.2123, Thickness = 0.0709, Material = "Air", SemiDiameter = 0.48 },
+            new OpticalSurface { Label = "Aperture stop", Thickness = 0.1534, Material = "Air", SemiDiameter = 0.42, IsStop = true },
+            new OpticalSurface { Label = "Rear crown front", Radius = -7.5205, Thickness = 0.09, Material = "K10", SemiDiameter = 0.63 },
+            new OpticalSurface { Label = "Cemented interface", Radius = 1.3010, Thickness = 0.3389, Material = "N-SK15", SemiDiameter = 0.63 },
+            new OpticalSurface { Label = "Rear crown back", Radius = -1.5218, Thickness = 3.4025, Material = "Air", SemiDiameter = 0.63 },
+            new OpticalSurface { Label = "Image", Thickness = 0, Material = "Air", SemiDiameter = 1.72 }
         });
 
         return optic;
