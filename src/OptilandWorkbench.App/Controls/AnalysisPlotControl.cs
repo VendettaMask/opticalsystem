@@ -236,7 +236,7 @@ public sealed class AnalysisPlotControl : Control
         var pen = new Pen(brush, series.LineWidth, DashFor(series.LineStyle));
         if (series.Kind == AnalysisSeriesKind.Heatmap)
         {
-            DrawHeatmap(context, points, mapX, mapY, series.ColorMap);
+            DrawHeatmap(context, series, points, mapX, mapY);
             return;
         }
 
@@ -296,10 +296,10 @@ public sealed class AnalysisPlotControl : Control
 
     private static void DrawHeatmap(
         DrawingContext context,
+        AnalysisSeries series,
         IReadOnlyList<AnalysisPoint> points,
         Func<double, double> mapX,
-        Func<double, double> mapY,
-        AnalysisColorMap colorMap)
+        Func<double, double> mapY)
     {
         var valued = points.Where(point => IsFinite(point) && point.Value.HasValue && double.IsFinite(point.Value.Value)).ToArray();
         if (valued.Length == 0)
@@ -308,8 +308,8 @@ public sealed class AnalysisPlotControl : Control
         }
 
         var values = valued.Select(point => point.Value!.Value).ToArray();
-        var minimum = values.Min();
-        var maximum = values.Max();
+        var minimum = series.ValueMinimum ?? values.Min();
+        var maximum = series.ValueMaximum ?? values.Max();
         var xValues = valued.Select(point => point.X).Distinct().Order().ToArray();
         var yValues = valued.Select(point => point.Y).Distinct().Order().ToArray();
         var xStep = xValues.Length > 1 ? xValues.Zip(xValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
@@ -317,7 +317,7 @@ public sealed class AnalysisPlotControl : Control
         foreach (var point in valued)
         {
             var normalized = Math.Abs(maximum - minimum) <= 1e-30 ? 0.5 : (point.Value!.Value - minimum) / (maximum - minimum);
-            var brush = new SolidColorBrush(ColorFor(colorMap, normalized));
+            var brush = new SolidColorBrush(ColorFor(series.ColorMap, normalized));
             var left = mapX(point.X - (xStep / 2));
             var right = mapX(point.X + (xStep / 2));
             var top = mapY(point.Y + (yStep / 2));
@@ -446,9 +446,44 @@ public sealed class AnalysisPlotControl : Control
             Mix(lower.Color.B, high.Color.B));
     }
 
+    private static Color Jet(double value)
+    {
+        value = Math.Clamp(value, 0, 1);
+        var red = Segment(value, new[] { (0.0, 0.0), (0.35, 0.0), (0.66, 1.0), (0.89, 1.0), (1.0, 0.5) });
+        var green = Segment(value, new[] { (0.0, 0.0), (0.125, 0.0), (0.375, 1.0), (0.64, 1.0), (0.91, 0.0), (1.0, 0.0) });
+        var blue = Segment(value, new[] { (0.0, 0.5), (0.11, 1.0), (0.34, 1.0), (0.65, 0.0), (1.0, 0.0) });
+        return Color.FromRgb(
+            (byte)Math.Round(red * 255),
+            (byte)Math.Round(green * 255),
+            (byte)Math.Round(blue * 255));
+    }
+
+    private static double Segment(double value, IReadOnlyList<(double Position, double Value)> points)
+    {
+        for (var index = 1; index < points.Count; index++)
+        {
+            if (value > points[index].Position)
+            {
+                continue;
+            }
+
+            var left = points[index - 1];
+            var right = points[index];
+            var fraction = (value - left.Position) / (right.Position - left.Position);
+            return left.Value + ((right.Value - left.Value) * fraction);
+        }
+
+        return points[^1].Value;
+    }
+
     private static Color ColorFor(AnalysisColorMap colorMap, double value)
     {
-        return colorMap == AnalysisColorMap.Inferno ? Inferno(value) : Viridis(value);
+        return colorMap switch
+        {
+            AnalysisColorMap.Inferno => Inferno(value),
+            AnalysisColorMap.Jet => Jet(value),
+            _ => Viridis(value)
+        };
     }
 
     private static void DrawColorbar(DrawingContext context, AnalysisSeries series, Rect plot)
@@ -462,8 +497,8 @@ public sealed class AnalysisPlotControl : Control
             return;
         }
 
-        var minimum = values.Min();
-        var maximum = values.Max();
+        var minimum = series.ValueMinimum ?? values.Min();
+        var maximum = series.ValueMaximum ?? values.Max();
         const double width = 14;
         var height = Math.Min(220, plot.Height * 0.7);
         var left = plot.Right + 24;

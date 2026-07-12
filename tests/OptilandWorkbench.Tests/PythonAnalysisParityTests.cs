@@ -343,6 +343,104 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    public void RadiantIntensityMatchesPythonOptilandPixelForPixel(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("radiant_intensity");
+        var data = new RadiantIntensityAnalysis(
+            createOptic(),
+            binsX: 15,
+            binsY: 13,
+            angleXMinimum: -30,
+            angleXMaximum: 30,
+            angleYMinimum: -30,
+            angleYMaximum: 30,
+            useAbsoluteUnits: true,
+            numRays: 3,
+            distribution: "hexapolar").GenerateData();
+
+        Assert.NotNull(data.PlotPanes);
+        Assert.Equal(18, data.PlotPanes.Count);
+        Assert.Equal(6, data.PlotPaneColumns);
+        var xCenters = expected.GetProperty("x_centers");
+        var yCenters = expected.GetProperty("y_centers");
+        var expectedMaps = expected.GetProperty("intensity");
+        var expectedPeak = expected.GetProperty("peaks").EnumerateArray()
+            .SelectMany(field => field.EnumerateArray())
+            .Max(value => value.GetDouble());
+        for (var field = 0; field < 3; field++)
+        {
+            for (var wavelength = 0; wavelength < 3; wavelength++)
+            {
+                var paneIndex = ((field * 3) + wavelength) * 2;
+                var map = data.PlotPanes[paneIndex].Series.Single();
+                var crossSection = data.PlotPanes[paneIndex + 1].Series.Single();
+                Assert.Equal(AnalysisSeriesKind.Heatmap, map.Kind);
+                Assert.Equal(AnalysisColorMap.Jet, map.ColorMap);
+                Assert.Equal(0, map.ValueMinimum);
+                AssertClose(expectedPeak, map.ValueMaximum!.Value);
+                Assert.Equal("Radiant Intensity (W/sr)", map.ValueLabel);
+                Assert.Equal(15 * 13, map.Points.Count);
+                for (var x = 0; x < 15; x++)
+                {
+                    for (var y = 0; y < 13; y++)
+                    {
+                        var point = map.Points[(x * 13) + y];
+                        AssertClose(xCenters[x].GetDouble(), point.X);
+                        AssertClose(yCenters[y].GetDouble(), point.Y);
+                        AssertClose(expectedMaps[field][wavelength][x][y].GetDouble(), point.Value!.Value);
+                    }
+
+                    AssertClose(xCenters[x].GetDouble(), crossSection.Points[x].X);
+                    AssertClose(expectedMaps[field][wavelength][x][6].GetDouble(), crossSection.Points[x].Y);
+                }
+
+                Assert.Equal("Central Cross-Section", data.PlotPanes[paneIndex + 1].Title);
+                Assert.True(data.PlotPanes[paneIndex].PlotOptions.DottedGrid);
+            }
+        }
+
+        AssertClose(expectedPeak, Convert.ToDouble(data.Values["PeakRadiantIntensity"]));
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void GeometricMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("geometric_mtf");
+        var data = new GeometricMtfAnalysis(
+            createOptic(),
+            numRays: 9,
+            distribution: "uniform",
+            numPoints: 33).GenerateData();
+
+        Assert.Equal(6, data.PlotSeries.Count);
+        for (var field = 0; field < 3; field++)
+        {
+            var tangential = data.PlotSeries[field * 2];
+            var sagittal = data.PlotSeries[(field * 2) + 1];
+            Assert.Equal(AnalysisLineStyle.Solid, tangential.LineStyle);
+            Assert.Equal(AnalysisLineStyle.Dashed, sagittal.LineStyle);
+            Assert.Equal(tangential.ColorIndex, sagittal.ColorIndex);
+            Assert.Equal(expected.GetProperty("frequency").GetArrayLength(), tangential.Points.Count);
+            for (var index = 0; index < tangential.Points.Count; index++)
+            {
+                AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
+                AssertClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
+                AssertClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
+            }
+        }
+
+        AssertClose(expected.GetProperty("max_frequency").GetDouble(), data.PlotOptions!.XMaximum!.Value);
+        Assert.Equal(0, data.PlotOptions.YMinimum);
+        Assert.Equal(1, data.PlotOptions.YMaximum);
+        Assert.True(data.PlotOptions.ShowLegend);
+        Assert.Equal("Geometric", data.Values["Method"]);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
     public void RayFanMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();

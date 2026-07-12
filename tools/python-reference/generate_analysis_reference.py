@@ -25,12 +25,14 @@ from optiland.analysis.ray_fan import RayFan
 from optiland.analysis.through_focus_spot_diagram import ThroughFocusSpotDiagram
 from optiland.analysis.through_focus_mtf import ThroughFocusMTF
 from optiland.analysis.irradiance import IncoherentIrradiance
+from optiland.analysis.intensity import RadiantIntensity
 from optiland.analysis.pupil_aberration import PupilAberration
 from optiland.analysis.y_ybar import YYbar
 from optiland.wavefront.opd import OPD
 from optiland.wavefront.zernike_opd import ZernikeOPD
 from optiland.psf.fft import FFTPSF
 from optiland.mtf.fft import FFTMTF
+from optiland.mtf.geometric import GeometricMTF
 from optiland.rays import PolarizationState
 from optiland.physical_apertures import RectangularAperture
 from optiland.samples.objectives import CookeTriplet, TessarLens
@@ -652,6 +654,74 @@ def analyze(name, optic, plot_dir):
         "presentation": [[plot_metadata(axes[f, w]) for w in range(axes.shape[1])] for f in range(axes.shape[0])],
     }
     save_plot(figure, plot_dir, f"{name}-incoherent-irradiance.png")
+
+    radiant_intensity = RadiantIntensity(
+        optic,
+        num_angular_bins_X=15,
+        num_angular_bins_Y=13,
+        angle_X_min=-30,
+        angle_X_max=30,
+        angle_Y_min=-30,
+        angle_Y_max=30,
+        use_absolute_units=True,
+        reference_surface_index=-1,
+        num_rays=3,
+        distribution="hexapolar",
+    )
+    figure, axes = radiant_intensity.view(normalize=False)
+    radiant_intensity_result = {
+        "fields": [list(field) for field in radiant_intensity.fields],
+        "wavelengths": array(radiant_intensity.wavelengths),
+        "x_edges": array(radiant_intensity.data[0][0][1]),
+        "y_edges": array(radiant_intensity.data[0][0][2]),
+        "x_centers": array(radiant_intensity.data[0][0][3]),
+        "y_centers": array(radiant_intensity.data[0][0][4]),
+        "intensity": [
+            [array(entry[0]) for entry in field_block]
+            for field_block in radiant_intensity.data
+        ],
+        "peaks": [
+            [float(value) for value in field]
+            for field in radiant_intensity.peak_intensity_values()
+        ],
+        "map_titles": [
+            [axes[f, w][0].get_title() for w in range(axes.shape[1])]
+            for f in range(axes.shape[0])
+        ],
+        "cross_titles": [
+            [axes[f, w][1].get_title() for w in range(axes.shape[1])]
+            for f in range(axes.shape[0])
+        ],
+        "map_presentation": [
+            [plot_metadata(axes[f, w][0]) for w in range(axes.shape[1])]
+            for f in range(axes.shape[0])
+        ],
+        "cross_presentation": [
+            [plot_metadata(axes[f, w][1]) for w in range(axes.shape[1])]
+            for f in range(axes.shape[0])
+        ],
+    }
+    save_plot(figure, plot_dir, f"{name}-radiant-intensity.png")
+
+    geometric_mtf = GeometricMTF(
+        optic,
+        num_rays=9,
+        distribution="uniform",
+        num_points=33,
+    )
+    figure, axes = geometric_mtf.view()
+    geometric_mtf_result = {
+        "fields": [list(field) for field in geometric_mtf.fields],
+        "wavelength": float(geometric_mtf.wavelengths[0]),
+        "max_frequency": float(geometric_mtf.max_freq),
+        "frequency": array(geometric_mtf.freq),
+        "tangential": [array(item[0]) for item in geometric_mtf.mtf],
+        "sagittal": [array(item[1]) for item in geometric_mtf.mtf],
+        "diffraction_limit": array(geometric_mtf.diff_limited_mtf),
+        "line_labels": [line.get_label() for line in axes.lines],
+        "presentation": plot_metadata(axes),
+    }
+    save_plot(figure, plot_dir, f"{name}-geometric-mtf.png")
     jones_result = jones_pupil_data(optic)
 
     return {
@@ -678,6 +748,8 @@ def analyze(name, optic, plot_dir):
         "jones_pupil": jones_result,
         "image_simulation": image_simulation_result,
         "incoherent_irradiance": irradiance_result,
+        "radiant_intensity": radiant_intensity_result,
+        "geometric_mtf": geometric_mtf_result,
     }
 
 

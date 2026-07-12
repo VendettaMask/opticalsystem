@@ -79,7 +79,7 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 The .NET analyses are currently mixed:
 
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
-- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, and FFT MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, heatmap pixel, PSF pixel, and MTF point.
+- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, FFT MTF, and geometric MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, heatmap pixel, PSF pixel, and MTF point.
 - The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
 - Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Alternative wavefront strategies and non-FFT diffraction methods remain separate follow-up work.
 
@@ -228,3 +228,9 @@ Added source-derived implementations and Cooke/Tessar golden tests for:
 - incoherent irradiance on an explicit circular or rectangular detector aperture
 
 The plot contract now includes value-colored curves, per-series viridis/inferno color maps, and colorbars for both heatmaps and colored lines. Incoherent irradiance intentionally preserves Python's requirement for an explicit detector physical aperture; the GUI reports that requirement instead of substituting the visual semi-diameter.
+
+### 2026-07-12 Radiometric And Geometric MTF Expansion
+
+- Added radiant-intensity angle-space histograms at a selectable reference surface, Python's W/sr solid-angle conversion, shared absolute color limits, jet heatmaps, and central cross-sections.
+- Added Python-compatible uniform pupil grids and geometric MTF from spot-histogram Fourier integrals with optional diffraction-limit scaling.
+- Cooke and Tessar golden tests compare all radiant-intensity pixels, cross-section points, and geometric tangential/sagittal MTF samples.

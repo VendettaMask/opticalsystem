@@ -16,11 +16,13 @@ The current validated set is:
 - `ThroughFocusMTF`, with physical image-surface shifts, sampled tangential/sagittal MTF, and Python-compatible cubic display interpolation.
 - `PupilIncidentAngleVsHeight` and `FieldIncidentAngleVsHeight`, with pupil- or field-colored incident-angle curves at a selected surface.
 - `IncoherentIrradiance`, with detector-aperture extents, intensity-weighted two-dimensional binning, per-pane normalization, and field-by-wavelength heatmaps.
+- `RadiantIntensity`, with surface direction-cosine angle projection, solid-angle normalization, shared absolute color limits, and central angular cross-sections.
 - `YYbar`, with per-surface paraxial marginal and chief ray heights.
 - `OPD/Wavefront`, with chief-ray exit-pupil reference sphere data in waves.
 - `ZernikeOPD`, with Fringe indexing and least-squares coefficients.
 - `FFTPSF`, with complex pupil phase, zero padding, two-dimensional FFT, and diffraction-limited normalization.
 - `FFTMTF`, with field-paired tangential/sagittal curves and on-axis working-F-number frequency scaling.
+- `GeometricMTF`, with spot-histogram Fourier integration and the diffraction-limited modulation envelope.
 - `Distortion`, with 17-point `f-tan` and `f-theta` sweeps at every configured wavelength.
 - `GridDistortion`, with 10 by 10 `f-tan` and `f-theta` chief-ray grids at the primary wavelength.
 - `FieldCurvature`, with 17-point tangential and sagittal parabasal intersections at every configured wavelength.
@@ -53,11 +55,13 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | Through-focus MTF | Image geometry moved and restored at each focus position; sampled MTF evaluated at one spatial frequency for tangential and sagittal axes |
 | Angle versus image height | Generic-ray pupil or field scan with local surface height and incident direction angle, colored by normalized scan coordinate |
 | Incoherent irradiance | Final local detector coordinates binned with `histogram2d` boundary semantics and weighted by ray intensity per physical pixel area |
+| Radiant intensity | Selected-surface direction cosines projected with `atan2(L,N)` / `atan2(M,N)`, intensity-weighted angle bins, and W/sr solid-angle scaling |
 | Y-Ybar | Python-compatible per-surface paraxial refraction of the marginal and maximum-field chief rays |
 | Wavefront | Image rays traced backward to the chief-ray exit-pupil sphere, object-plane angular tilt correction, and OPD conversion to waves |
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
 | FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
+| Geometric MTF | One-dimensional spot histograms transformed with cosine/sine integrals and optionally multiplied by the circular-pupil diffraction limit |
 | Distortion | Chief ray at each normalized Y field; ideal height from the `f-tan` or `f-theta` model; percent difference at every wavelength |
 | Grid distortion | Chief-point-centered real grid against the ideal grid over `[-sqrt(2)/2, +sqrt(2)/2]` in X and Y |
 | Field curvature | Paired `+/-1e-5` normalized pupil rays; direct tangential and sagittal line intersections from final position and direction cosines |
@@ -70,7 +74,7 @@ The tests compare every generated point for both official lenses. The normal tol
 
 The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno heatmaps, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
 
-The twenty-one views mirror Python's presentation:
+The twenty-three views mirror Python's presentation:
 
 - Spot diagram: up to three square field subplots per row, shared limits, field-coordinate titles, wavelength colors and circle/square/triangle markers, low-opacity grids, and a shared legend below the panes.
 - Encircled energy: one field curve per normalized field coordinate, radius and dimensionless-energy axes, primary wavelength title, nonnegative axes, and external legend.
@@ -82,11 +86,13 @@ The twenty-one views mirror Python's presentation:
 - Through-focus MTF: field-colored tangential solid and sagittal dashed pairs, defocus in millimeters, dotted grid, and external legend.
 - Angle versus image height: viridis-colored incident-angle curves with a scan-coordinate colorbar for pupil and field scan modes.
 - Incoherent irradiance: one row per field and one column per wavelength, equal detector axes, per-pane peak normalization, inferno heatmaps, and normalized-irradiance colorbars.
+- Radiant intensity: one angle-space jet heatmap and one central X-angle cross-section per field/wavelength pair, shared absolute W/sr color limits, dotted grids, and fixed cross-section limits.
 - Y-Ybar: one marked segment per adjacent surface pair, named first/stop/image segments, marginal-versus-chief axes, title wavelength, and thin zero references.
 - Wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, and OPD colorbar in waves.
 - Zernike: unit-circle Fringe-fit heatmap with pupil axes and OPD colorbar.
 - FFT PSF: threshold-centered image crop, physical micrometer axes, relative-intensity heatmap, title, and colorbar.
 - FFT MTF: field-colored tangential solid and sagittal dashed pairs, cycles/mm axis, nonnegative modulation range, cutoff limit, and external legend.
+- Geometric MTF: the same field-paired solid/dashed MTF presentation with geometric spot-histogram data and a paraxial diffraction cutoff.
 - Distortion: distortion percent on X, field on Y, one line per wavelength, a dashed vertical zero line, symmetric X range, Y starting at zero, and an external right-side legend.
 - Grid distortion: orange solid ideal grid, blue dashed distorted grid, equal image-plane scale, dotted grid, hidden top/right axes, maximum distortion in the title, and the repeated per-line legend entries produced by Python's two-dimensional `Axes.plot` call.
 - Field curvature: image-plane delta on X, field on Y, same-color tangential solid and sagittal dashed pairs, a thin solid vertical zero line, symmetric X range, title, and external legend.
@@ -97,6 +103,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the twenty-one analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated for the through-focus path and nominal exit-pupil geometry. Centroid-sphere/best-fit-sphere wavefronts, Huygens/MMDFT PSF, and geometric/Huygens MTF require separate source-derived contracts.
+This parity statement applies to the twenty-three analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated for the through-focus path and nominal exit-pupil geometry, and geometric MTF has its own spot-based contract. Centroid-sphere/best-fit-sphere wavefronts and Huygens/MMDFT PSF/MTF require separate source-derived contracts.
 
 The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmap currently uses local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

@@ -45,7 +45,8 @@ public enum AnalysisMarkerStyle
 public enum AnalysisColorMap
 {
     Viridis,
-    Inferno
+    Inferno,
+    Jet
 }
 
 public sealed record AnalysisPoint(
@@ -71,7 +72,9 @@ public sealed record AnalysisSeries(
     double MarkerSize = 3.2,
     double Opacity = 1,
     string ValueLabel = "",
-    AnalysisColorMap ColorMap = AnalysisColorMap.Viridis);
+    AnalysisColorMap ColorMap = AnalysisColorMap.Viridis,
+    double? ValueMinimum = null,
+    double? ValueMaximum = null);
 
 public sealed record AnalysisPlotOptions(
     string Title = "",
@@ -2149,11 +2152,24 @@ internal static class SpotAnalysisEngine
             : Math.Sqrt(rays.Average(ray => (ray.X * ray.X) + (ray.Y * ray.Y)));
     }
 
-    private static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)
+    public static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)
     {
-        return string.Equals(distribution, "hexapolar", StringComparison.OrdinalIgnoreCase)
-            ? ApertureSampler.GenerateHexapolarRings(sampleParameter)
-            : ApertureSampler.Generate(sampleParameter, RayGenerator.ParseSampling(distribution));
+        if (string.Equals(distribution, "hexapolar", StringComparison.OrdinalIgnoreCase))
+        {
+            return ApertureSampler.GenerateHexapolarRings(sampleParameter);
+        }
+
+        if (string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase))
+        {
+            var axis = Enumerable.Range(0, sampleParameter)
+                .Select(index => sampleParameter == 1 ? 0 : -1 + (2.0 * index / (sampleParameter - 1)))
+                .ToArray();
+            return axis.SelectMany(y => axis.Select(x => new PupilSample(x, y, 1)))
+                .Where(sample => (sample.X * sample.X) + (sample.Y * sample.Y) <= 1)
+                .ToArray();
+        }
+
+        return ApertureSampler.Generate(sampleParameter, RayGenerator.ParseSampling(distribution));
     }
 }
 
@@ -2216,7 +2232,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
         var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
         var pixelArea = xStep * yStep;
-        var pupilSamples = CreatePupilSamples(_numRays, _distribution);
+        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(_numRays, _distribution);
         var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
         var peaks = new List<double>(fields.Count * wavelengths.Length);
         var validRayCount = 0;
@@ -2281,7 +2297,9 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                     points,
                     AnalysisSeriesKind.Heatmap,
                     ValueLabel: _normalize ? "Normalized Irradiance" : "Irradiance (W/mm\u00B2)",
-                    ColorMap: AnalysisColorMap.Inferno);
+                    ColorMap: AnalysisColorMap.Inferno,
+                    ValueMinimum: _normalize ? 0 : null,
+                    ValueMaximum: _normalize ? 1 : null);
                 panes.Add(new AnalysisPlotPane(title, new[] { series }, new AnalysisPlotOptions(
                     Title: title,
                     EqualAspect: true,
@@ -2334,26 +2352,6 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                 extent = default;
                 return false;
         }
-    }
-
-    private static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)
-    {
-        if (string.Equals(distribution, "hexapolar", StringComparison.OrdinalIgnoreCase))
-        {
-            return ApertureSampler.GenerateHexapolarRings(sampleParameter);
-        }
-
-        if (string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase))
-        {
-            var axis = Enumerable.Range(0, sampleParameter)
-                .Select(index => sampleParameter == 1 ? 0 : -1 + (2.0 * index / (sampleParameter - 1)))
-                .ToArray();
-            return axis.SelectMany(y => axis.Select(x => new PupilSample(x, y, 1)))
-                .Where(sample => (sample.X * sample.X) + (sample.Y * sample.Y) <= 1)
-                .ToArray();
-        }
-
-        return ApertureSampler.Generate(sampleParameter, RayGenerator.ParseSampling(distribution));
     }
 
     private static int BinIndex(double value, double minimum, double maximum, int count)
@@ -2418,9 +2416,11 @@ public sealed class AnalysisCatalog
         "Angle vs Image Height - Through Pupil",
         "Angle vs Image Height - Through Field",
         "Incoherent Irradiance",
+        "Radiant Intensity",
         "Y-Ybar",
         "PSF",
         "MTF",
+        "Geometric MTF",
         "Wavefront",
         "Zernike",
         "Image Simulation",
@@ -2447,9 +2447,11 @@ public sealed class AnalysisCatalog
             "Angle vs Image Height - Through Pupil" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughPupil),
             "Angle vs Image Height - Through Field" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughField),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(_optic),
+            "Radiant Intensity" => new RadiantIntensityAnalysis(_optic, numRays: 2048),
             "Y-Ybar" => new YYbarAnalysis(_optic),
             "PSF" => new PsfAnalysis(_optic),
             "MTF" => new MtfAnalysis(_optic),
+            "Geometric MTF" => new GeometricMtfAnalysis(_optic, numRays: 32, numPoints: 128),
             "Wavefront" => new WavefrontAnalysis(_optic),
             "Zernike" => new ZernikeAnalysis(_optic),
             "Image Simulation" => new ImageSimulationAnalysis(_optic),
