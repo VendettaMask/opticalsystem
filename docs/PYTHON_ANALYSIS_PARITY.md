@@ -11,6 +11,7 @@ The current validated set is:
 - `RmsSpotSizeVsField`, with a normalized Y-field sweep and one RMS curve per wavelength.
 - `RmsWavefrontErrorVsField`, with a normalized Y-field sweep and one wavefront RMS curve per wavelength.
 - `RayFan`, with odd line-pupil sampling, primary-chief-ray recentering, and paired X/Y fans for every field.
+- `BestFitRayFan`, with a three-dimensional least-squares reference sphere fitted from tilt-corrected wavefront points.
 - `PupilAberration`, with real-versus-paraxial stop intersections normalized by the on-axis paraxial stop radius.
 - `ThroughFocusSpotDiagram`, with image-plane shifts, field-by-focus panes, and shared centered spot limits.
 - `ThroughFocusMTF`, with physical image-surface shifts, sampled tangential/sagittal MTF, and Python-compatible cubic display interpolation.
@@ -23,6 +24,7 @@ The current validated set is:
 - `FFTPSF`, with complex pupil phase, zero padding, two-dimensional FFT, and diffraction-limited normalization.
 - `FFTMTF`, with field-paired tangential/sagittal curves and on-axis working-F-number frequency scaling.
 - `GeometricMTF`, with spot-histogram Fourier integration and the diffraction-limited modulation envelope.
+- `SampledMTF`, with a 37-term Fringe wavefront fit and shifted-pupil overlap evaluation over tangential/sagittal frequency scans.
 - `Distortion`, with 17-point `f-tan` and `f-theta` sweeps at every configured wavelength.
 - `GridDistortion`, with 10 by 10 `f-tan` and `f-theta` chief-ray grids at the primary wavelength.
 - `FieldCurvature`, with 17-point tangential and sagittal parabasal intersections at every configured wavelength.
@@ -41,7 +43,7 @@ python tools/python-reference/generate_analysis_reference.py \
 
 ## Numerical Contract
 
-The C# implementations use Python's normalized field and pupil coordinates and the final traced image-plane sample. They no longer use EFL, Petzval, or three-ray summary proxies.
+The C# implementations use Python's normalized field and pupil coordinates and the final traced image-plane sample. Angle fields are normalized by the maximum radial field `sqrt(x²+y²)`, matching `FieldGroup.max_field`, rather than scaling X and Y independently. The analyses no longer use EFL, Petzval, or three-ray summary proxies.
 
 | Analysis | Python-compatible calculation |
 | --- | --- |
@@ -50,6 +52,7 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | RMS versus field | 64-point normalized Y-field sweep and unweighted geometric RMS radius for every wavelength |
 | RMS wavefront versus field | Normalized Y-field sweep and chief-ray-reference RMS OPD in waves for every wavelength |
 | Ray fan | Orthogonal line-pupil traces with invalid-ray gaps and primary-wavelength center-ray distortion removal |
+| Best-fit ray fan | Tilt-corrected wavefront points, four-parameter least-squares sphere fit, and line-pupil image intersections referenced to the fitted center |
 | Pupil aberration | Real stop-surface intersections minus the normalized paraxial stop trace, reported as stop-radius percent |
 | Through-focus spot | Final rays projected onto each shifted image plane, then centered on the primary-wavelength centroid |
 | Through-focus MTF | Image geometry moved and restored at each focus position; sampled MTF evaluated at one spatial frequency for tangential and sagittal axes |
@@ -62,6 +65,7 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
 | Geometric MTF | One-dimensional spot histograms transformed with cosine/sine integrals and optionally multiplied by the circular-pupil diffraction limit |
+| Sampled MTF | Complex pupil overlap against a frequency-shifted 37-term Fringe Zernike fit, normalized by zero-frequency intensity |
 | Distortion | Chief ray at each normalized Y field; ideal height from the `f-tan` or `f-theta` model; percent difference at every wavelength |
 | Grid distortion | Chief-point-centered real grid against the ideal grid over `[-sqrt(2)/2, +sqrt(2)/2]` in X and Y |
 | Field curvature | Paired `+/-1e-5` normalized pupil rays; direct tangential and sagittal line intersections from final position and direction cosines |
@@ -72,15 +76,16 @@ The tests compare every generated point for both official lenses. The normal tol
 
 ## Plot Contract
 
-The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno heatmaps, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
+The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno/jet heatmaps, fixed or automatic color limits, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
 
-The twenty-three views mirror Python's presentation:
+The twenty-five views mirror Python's presentation:
 
 - Spot diagram: up to three square field subplots per row, shared limits, field-coordinate titles, wavelength colors and circle/square/triangle markers, low-opacity grids, and a shared legend below the panes.
 - Encircled energy: one field curve per normalized field coordinate, radius and dimensionless-energy axes, primary wavelength title, nonnegative axes, and external legend.
 - RMS versus field: one line per wavelength, normalized Y field from 0 to 1, nonnegative RMS axis, and external legend.
 - RMS wavefront versus field: one line per wavelength, normalized Y field from 0 to 1, RMS wavefront error in waves, and external legend.
 - Ray fan: two panes per field for Y and X pupil fans, shared limits, horizontal and vertical zero references, and a shared wavelength legend.
+- Best-fit ray fan: the same paired fan layout, referenced to the primary-wave best-fit sphere center without chief-ray distortion removal.
 - Pupil aberration: the same two-pane field layout with percent axes and stop-normalized errors.
 - Through-focus spot: one row per field and one column per focus plane, shared square limits, defocus titles on the first row, and a shared wavelength legend.
 - Through-focus MTF: field-colored tangential solid and sagittal dashed pairs, defocus in millimeters, dotted grid, and external legend.
@@ -93,6 +98,7 @@ The twenty-three views mirror Python's presentation:
 - FFT PSF: threshold-centered image crop, physical micrometer axes, relative-intensity heatmap, title, and colorbar.
 - FFT MTF: field-colored tangential solid and sagittal dashed pairs, cycles/mm axis, nonnegative modulation range, cutoff limit, and external legend.
 - Geometric MTF: the same field-paired solid/dashed MTF presentation with geometric spot-histogram data and a paraxial diffraction cutoff.
+- Sampled MTF: field-colored tangential solid and sagittal dashed frequency curves using the sampled-pupil numerical method.
 - Distortion: distortion percent on X, field on Y, one line per wavelength, a dashed vertical zero line, symmetric X range, Y starting at zero, and an external right-side legend.
 - Grid distortion: orange solid ideal grid, blue dashed distorted grid, equal image-plane scale, dotted grid, hidden top/right axes, maximum distortion in the title, and the repeated per-line legend entries produced by Python's two-dimensional `Axes.plot` call.
 - Field curvature: image-plane delta on X, field on Y, same-color tangential solid and sagittal dashed pairs, a thin solid vertical zero line, symmetric X range, title, and external legend.
@@ -103,6 +109,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the twenty-three analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated for the through-focus path and nominal exit-pupil geometry, and geometric MTF has its own spot-based contract. Centroid-sphere/best-fit-sphere wavefronts and Huygens/MMDFT PSF/MTF require separate source-derived contracts.
+This parity statement applies to the twenty-five analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. The best-fit sphere center/radius is validated for BestFitRayFan, while complete centroid/best-fit wavefront maps and Huygens/MMDFT PSF/MTF still require separate source-derived contracts.
 
 The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmap currently uses local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

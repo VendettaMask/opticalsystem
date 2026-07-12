@@ -86,6 +86,7 @@ Native series are currently produced for:
 
 - Spot Diagram: image-plane scatter points.
 - Ray Fan: ordered line samples.
+- Best Fit Ray Fan: paired fans referenced to a fitted wavefront sphere.
 - Encircled Energy: radius versus energy.
 - RMS vs Field: field angle versus RMS spot radius.
 - Through Focus: focus shift versus RMS spot radius.
@@ -98,6 +99,7 @@ Native series are currently produced for:
 - Incoherent irradiance: field-by-wavelength inferno detector heatmaps.
 - Radiant intensity: field-by-wavelength jet angle maps paired with central cross-sections.
 - Geometric MTF: field-colored tangential/sagittal curves from geometric spot data.
+- Sampled MTF: field-colored tangential/sagittal curves from shifted-pupil wavefront overlap.
 
 Analyses without a dedicated series receive a numeric metric bar chart in the connector. This keeps old analyses visible while allowing rigorous series to replace the fallback incrementally.
 
@@ -142,7 +144,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 ### Priority 0: Compatibility And Numerical Trust
 
 - Extend Python Optiland JSON interoperability beyond the current validated sequential subset to freeforms, coatings, BSDFs, phase models, pickups, solves, telecentric systems, polarization, and apodization.
-- Continue with alternative Huygens/MMDFT PSF/MTF methods and non-chief-ray wavefront reference strategies; FFT and geometric MTF, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
+- Continue with alternative Huygens/MMDFT PSF/MTF methods and complete non-chief-ray wavefront maps; FFT, geometric and sampled MTF, best-fit ray fan, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
 - Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
 
 ### Priority 1: GUI Parity

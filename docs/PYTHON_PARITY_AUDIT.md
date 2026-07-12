@@ -79,7 +79,7 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 The .NET analyses are currently mixed:
 
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
-- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, FFT MTF, and geometric MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, heatmap pixel, PSF pixel, and MTF point.
+- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, best-fit ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, FFT MTF, geometric MTF, and sampled MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, fitted sphere parameter, coefficient, heatmap pixel, PSF pixel, and MTF point.
 - The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
 - Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Alternative wavefront strategies and non-FFT diffraction methods remain separate follow-up work.
 
@@ -234,3 +234,11 @@ The plot contract now includes value-colored curves, per-series viridis/inferno 
 - Added radiant-intensity angle-space histograms at a selectable reference surface, Python's W/sr solid-angle conversion, shared absolute color limits, jet heatmaps, and central cross-sections.
 - Added Python-compatible uniform pupil grids and geometric MTF from spot-histogram Fourier integrals with optional diffraction-limit scaling.
 - Cooke and Tessar golden tests compare all radiant-intensity pixels, cross-section points, and geometric tangential/sagittal MTF samples.
+
+### 2026-07-12 Best-Fit Sphere And Sampled MTF Expansion
+
+- Added Python's tilt-corrected three-dimensional wavefront point construction and four-parameter least-squares best-fit sphere.
+- Added BestFitRayFan with primary-wavelength fitted centers and no chief-ray distortion recentering.
+- Added an efficient reusable sampled-MTF evaluator and a full tangential/sagittal frequency-sweep analysis.
+- Golden tests compare all sphere centers/radii, ray-fan points, and sampled-MTF values for Cooke and Tessar.
+- Corrected normalized angle-field conversion across tracing, analysis field selection, and wavefront tilt removal to use Python's maximum radial field magnitude.

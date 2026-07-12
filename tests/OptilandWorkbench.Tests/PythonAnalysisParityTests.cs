@@ -479,6 +479,107 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    public void BestFitRayFanMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("best_fit_ray_fan");
+        var optic = createOptic();
+        var maxField = optic.Fields.Select(field => Math.Sqrt(
+                (field.XAngleDegrees * field.XAngleDegrees)
+                + (field.YAngleDegrees * field.YAngleDegrees)))
+            .DefaultIfEmpty(0)
+            .Max();
+        var fields = optic.Fields.Select(field => (
+            Hx: maxField <= 1e-12 ? 0 : field.XAngleDegrees / maxField,
+            Hy: maxField <= 1e-12 ? 0 : field.YAngleDegrees / maxField)).ToArray();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        for (var field = 0; field < fields.Length; field++)
+        {
+            var sphere = BestFitSphereEngine.Calculate(optic, fields[field], wavelength, numRings: 5);
+            AssertClose(expected.GetProperty("centers")[field][0].GetDouble(), sphere.CenterX);
+            AssertClose(expected.GetProperty("centers")[field][1].GetDouble(), sphere.CenterY);
+            AssertClose(expected.GetProperty("centers")[field][2].GetDouble(), sphere.CenterZ);
+            AssertClose(expected.GetProperty("radii")[field].GetDouble(), sphere.Radius);
+        }
+
+        var data = new BestFitRayFanAnalysis(optic, numPoints: 17, numRingsForFit: 5).GenerateData();
+        Assert.NotNull(data.PlotPanes);
+        Assert.Equal(6, data.PlotPanes.Count);
+        Assert.Equal(2, data.PlotPaneColumns);
+        for (var field = 0; field < fields.Length; field++)
+        {
+            var yPane = data.PlotPanes[field * 2];
+            var xPane = data.PlotPanes[(field * 2) + 1];
+            for (var wave = 0; wave < optic.Wavelengths.Count; wave++)
+            {
+                for (var index = 0; index < 17; index++)
+                {
+                    AssertClose(expected.GetProperty("px")[index].GetDouble(), xPane.Series[wave].Points[index].X);
+                    AssertClose(expected.GetProperty("py")[index].GetDouble(), yPane.Series[wave].Points[index].X);
+                    var expectedX = expected.GetProperty("x")[field][wave][index].GetDouble();
+                    var expectedY = expected.GetProperty("y")[field][wave][index].GetDouble();
+                    var validX = expected.GetProperty("intensity_x")[field][wave][index].GetDouble() > 0;
+                    var validY = expected.GetProperty("intensity_y")[field][wave][index].GetDouble() > 0;
+                    if (validX)
+                    {
+                        AssertClose(expectedX, xPane.Series[wave].Points[index].Y);
+                    }
+                    else
+                    {
+                        Assert.True(double.IsNaN(xPane.Series[wave].Points[index].Y));
+                    }
+
+                    if (validY)
+                    {
+                        AssertClose(expectedY, yPane.Series[wave].Points[index].Y);
+                    }
+                    else
+                    {
+                        Assert.True(double.IsNaN(yPane.Series[wave].Points[index].Y));
+                    }
+                }
+            }
+
+            AssertClose(expected.GetProperty("panes")[field * 2].GetProperty("y_lim")[0].GetDouble(), yPane.PlotOptions.YMinimum!.Value);
+            AssertClose(expected.GetProperty("panes")[field * 2].GetProperty("y_lim")[1].GetDouble(), yPane.PlotOptions.YMaximum!.Value);
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void SampledMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("sampled_mtf");
+        var data = new SampledMtfAnalysis(
+            createOptic(),
+            pupilSampling: 16,
+            zernikeTerms: 37,
+            numPoints: 33).GenerateData();
+
+        Assert.Equal(6, data.PlotSeries.Count);
+        for (var field = 0; field < 3; field++)
+        {
+            var tangential = data.PlotSeries[field * 2];
+            var sagittal = data.PlotSeries[(field * 2) + 1];
+            Assert.Equal(AnalysisLineStyle.Solid, tangential.LineStyle);
+            Assert.Equal(AnalysisLineStyle.Dashed, sagittal.LineStyle);
+            for (var index = 0; index < 33; index++)
+            {
+                AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
+                AssertClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
+                AssertClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
+            }
+        }
+
+        AssertClose(expected.GetProperty("frequency")[32].GetDouble(), data.PlotOptions!.XMaximum!.Value);
+        Assert.Equal(0, data.PlotOptions.YMinimum);
+        Assert.Equal(1, data.PlotOptions.YMaximum);
+        Assert.Equal("Sampled", data.Values["Method"]);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
     public void ThroughFocusSpotMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();

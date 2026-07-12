@@ -21,7 +21,7 @@ from optiland.analysis.angle_vs_height import (
     PupilIncidentAngleVsHeight,
 )
 from optiland.analysis.spot_diagram import SpotDiagram
-from optiland.analysis.ray_fan import RayFan
+from optiland.analysis.ray_fan import RayFan, BestFitRayFan
 from optiland.analysis.through_focus_spot_diagram import ThroughFocusSpotDiagram
 from optiland.analysis.through_focus_mtf import ThroughFocusMTF
 from optiland.analysis.irradiance import IncoherentIrradiance
@@ -33,6 +33,9 @@ from optiland.wavefront.zernike_opd import ZernikeOPD
 from optiland.psf.fft import FFTPSF
 from optiland.mtf.fft import FFTMTF
 from optiland.mtf.geometric import GeometricMTF
+from optiland.mtf.sampled import SampledMTF
+from optiland.distribution import create_distribution
+from optiland.wavefront.strategy import BestFitSphereStrategy
 from optiland.rays import PolarizationState
 from optiland.physical_apertures import RectangularAperture
 from optiland.samples.objectives import CookeTriplet, TessarLens
@@ -462,6 +465,53 @@ def analyze(name, optic, plot_dir):
     ]
     save_plot(figure, plot_dir, f"{name}-ray-fan.png")
 
+    best_fit_ray_fan = BestFitRayFan(optic, num_points=17, num_rays_for_fit=5)
+    fit_distribution = create_distribution("hexapolar")
+    fit_distribution.generate_points(5)
+    best_fit_centers = []
+    best_fit_radii = []
+    for field in best_fit_ray_fan.fields:
+        strategy = BestFitSphereStrategy(optic, fit_distribution)
+        wavefront_data = strategy.compute_wavefront_data(field, optic.primary_wavelength)
+        best_fit_centers.append(list(strategy.center))
+        best_fit_radii.append(float(wavefront_data.radius))
+    figure, axes = best_fit_ray_fan.view()
+    best_fit_ray_fan_result = {
+        "fields": [list(field) for field in best_fit_ray_fan.fields],
+        "wavelengths": array(best_fit_ray_fan.wavelengths),
+        "px": array(best_fit_ray_fan.data["Px"]),
+        "py": array(best_fit_ray_fan.data["Py"]),
+        "centers": best_fit_centers,
+        "radii": best_fit_radii,
+        "x": [
+            [array(best_fit_ray_fan.data[f"{field}"][f"{wavelength}"]["x"]) for wavelength in best_fit_ray_fan.wavelengths]
+            for field in best_fit_ray_fan.fields
+        ],
+        "y": [
+            [array(best_fit_ray_fan.data[f"{field}"][f"{wavelength}"]["y"]) for wavelength in best_fit_ray_fan.wavelengths]
+            for field in best_fit_ray_fan.fields
+        ],
+        "intensity_x": [
+            [array(best_fit_ray_fan.data[f"{field}"][f"{wavelength}"]["intensity_x"]) for wavelength in best_fit_ray_fan.wavelengths]
+            for field in best_fit_ray_fan.fields
+        ],
+        "intensity_y": [
+            [array(best_fit_ray_fan.data[f"{field}"][f"{wavelength}"]["intensity_y"]) for wavelength in best_fit_ray_fan.wavelengths]
+            for field in best_fit_ray_fan.fields
+        ],
+        "panes": [
+            {
+                "title": axes[index].get_title(),
+                "x_label": axes[index].get_xlabel(),
+                "y_label": axes[index].get_ylabel(),
+                "x_lim": list(axes[index].get_xlim()),
+                "y_lim": list(axes[index].get_ylim()),
+            }
+            for index in range(len(axes))
+        ],
+    }
+    save_plot(figure, plot_dir, f"{name}-best-fit-ray-fan.png")
+
     spot = SpotDiagram(optic, num_rings=6, distribution="hexapolar")
     centered_spot = spot._center_spots(spot.data)
     figure, axes = spot.view()
@@ -722,6 +772,33 @@ def analyze(name, optic, plot_dir):
         "presentation": plot_metadata(axes),
     }
     save_plot(figure, plot_dir, f"{name}-geometric-mtf.png")
+
+    sampled_frequency = np.linspace(
+        0,
+        1 / (optic.primary_wavelength * 1e-3 * optic.paraxial.FNO()),
+        33,
+    )
+    sampled_tangential = []
+    sampled_sagittal = []
+    for field in optic.fields.get_field_coords():
+        sampled = SampledMTF(
+            optic,
+            field,
+            optic.primary_wavelength,
+            num_rays=16,
+            distribution="uniform",
+            zernike_terms=37,
+            zernike_type="fringe",
+        )
+        sampled_tangential.append(array(sampled.calculate_mtf([(value, 0.0) for value in sampled_frequency])))
+        sampled_sagittal.append(array(sampled.calculate_mtf([(0.0, value) for value in sampled_frequency])))
+    sampled_mtf_result = {
+        "fields": [list(field) for field in optic.fields.get_field_coords()],
+        "wavelength": float(optic.primary_wavelength),
+        "frequency": array(sampled_frequency),
+        "tangential": sampled_tangential,
+        "sagittal": sampled_sagittal,
+    }
     jones_result = jones_pupil_data(optic)
 
     return {
@@ -734,6 +811,7 @@ def analyze(name, optic, plot_dir):
         "through_focus_spot": through_focus_result,
         "through_focus_mtf": through_focus_mtf_result,
         "ray_fan": ray_fan_result,
+        "best_fit_ray_fan": best_fit_ray_fan_result,
         "spot_diagram": spot_result,
         "encircled_energy": encircled_result,
         "rms_vs_field": rms_result,
@@ -750,6 +828,7 @@ def analyze(name, optic, plot_dir):
         "incoherent_irradiance": irradiance_result,
         "radiant_intensity": radiant_intensity_result,
         "geometric_mtf": geometric_mtf_result,
+        "sampled_mtf": sampled_mtf_result,
     }
 
 

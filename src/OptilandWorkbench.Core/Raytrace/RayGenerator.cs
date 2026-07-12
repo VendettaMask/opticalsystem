@@ -206,21 +206,17 @@ public sealed class RayGenerator
 
     private (double XAngleDegrees, double YAngleDegrees) NormalizedFieldToAngles(double normalizedFieldX, double normalizedFieldY)
     {
-        var maxX = _optic.Fields.Select(field => Math.Abs(field.XAngleDegrees)).DefaultIfEmpty(0).Max();
-        var maxY = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
-        maxX = maxX <= 1e-12 ? maxY : maxX;
-        maxY = maxY <= 1e-12 ? maxX : maxY;
-        if (maxX <= 1e-12)
+        var maxField = _optic.Fields.Select(field => Math.Sqrt(
+                (field.XAngleDegrees * field.XAngleDegrees)
+                + (field.YAngleDegrees * field.YAngleDegrees)))
+            .DefaultIfEmpty(0)
+            .Max();
+        if (maxField <= 1e-12)
         {
-            maxX = 1.0;
+            maxField = 1.0;
         }
 
-        if (maxY <= 1e-12)
-        {
-            maxY = 1.0;
-        }
-
-        return (normalizedFieldX * maxX, normalizedFieldY * maxY);
+        return (normalizedFieldX * maxField, normalizedFieldY * maxField);
     }
 
     private RealRay CreateRay(

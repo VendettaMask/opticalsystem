@@ -2067,11 +2067,14 @@ internal static class SpotAnalysisEngine
 {
     public static IReadOnlyList<(double Hx, double Hy)> DefinedFields(Optic optic)
     {
-        var maxX = optic.Fields.Select(field => Math.Abs(field.XAngleDegrees)).DefaultIfEmpty(0).Max();
-        var maxY = optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
+        var maxField = optic.Fields.Select(field => Math.Sqrt(
+                (field.XAngleDegrees * field.XAngleDegrees)
+                + (field.YAngleDegrees * field.YAngleDegrees)))
+            .DefaultIfEmpty(0)
+            .Max();
         return optic.Fields.Select(field => (
-            Hx: maxX <= 1e-12 ? 0 : field.XAngleDegrees / maxX,
-            Hy: maxY <= 1e-12 ? 0 : field.YAngleDegrees / maxY)).ToArray();
+            Hx: maxField <= 1e-12 ? 0 : field.XAngleDegrees / maxField,
+            Hy: maxField <= 1e-12 ? 0 : field.YAngleDegrees / maxField)).ToArray();
     }
 
     public static SpotAnalysisResult Generate(
@@ -2404,6 +2407,7 @@ public sealed class AnalysisCatalog
         "First Order",
         "Spot Diagram",
         "Ray Fan",
+        "Best Fit Ray Fan",
         "Distortion",
         "Grid Distortion",
         "Field Curvature",
@@ -2421,6 +2425,7 @@ public sealed class AnalysisCatalog
         "PSF",
         "MTF",
         "Geometric MTF",
+        "Sampled MTF",
         "Wavefront",
         "Zernike",
         "Image Simulation",
@@ -2435,6 +2440,7 @@ public sealed class AnalysisCatalog
             "First Order" => new FirstOrderAnalysis(_optic),
             "Spot Diagram" => new SpotDiagramAnalysis(_optic),
             "Ray Fan" => new RayFanAnalysis(_optic),
+            "Best Fit Ray Fan" => new BestFitRayFanAnalysis(_optic, numRingsForFit: 8),
             "Distortion" => new DistortionAnalysis(_optic),
             "Grid Distortion" => new GridDistortionAnalysis(_optic),
             "Field Curvature" => new FieldCurvatureAnalysis(_optic),
@@ -2452,6 +2458,7 @@ public sealed class AnalysisCatalog
             "PSF" => new PsfAnalysis(_optic),
             "MTF" => new MtfAnalysis(_optic),
             "Geometric MTF" => new GeometricMtfAnalysis(_optic, numRays: 32, numPoints: 128),
+            "Sampled MTF" => new SampledMtfAnalysis(_optic, pupilSampling: 32, numPoints: 128),
             "Wavefront" => new WavefrontAnalysis(_optic),
             "Zernike" => new ZernikeAnalysis(_optic),
             "Image Simulation" => new ImageSimulationAnalysis(_optic),

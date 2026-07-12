@@ -303,6 +303,21 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void NormalizedAngleFieldsUsePythonRadialMaximum()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { XAngleDegrees = 3, YAngleDegrees = 4 });
+
+        var ray = optic.SequentialRayTracer.RayGenerator
+            .GenerateGeneric(0.6, 0.8, 0, 0, 0.55)
+            .Rays.Single();
+
+        Assert.Equal(Math.Tan(3 * Math.PI / 180), ray.Direction.X / ray.Direction.Z, precision: 12);
+        Assert.Equal(Math.Tan(4 * Math.PI / 180), ray.Direction.Y / ray.Direction.Z, precision: 12);
+    }
+
+    [Fact]
     public void WavelengthExposesPythonCompatibleMicrometerUnit()
     {
         var wavelength = new Wavelength { Nanometers = 550 };

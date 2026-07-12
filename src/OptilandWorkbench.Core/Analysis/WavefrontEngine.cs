@@ -101,7 +101,11 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             pupilSamples);
         var trace = optic.SequentialRayTracer.Trace(bundle);
-        var maxFieldDegrees = optic.Fields.Select(item => Math.Abs(item.YAngleDegrees)).DefaultIfEmpty(0).Max();
+        var maxFieldDegrees = optic.Fields.Select(item => Math.Sqrt(
+                (item.XAngleDegrees * item.XAngleDegrees)
+                + (item.YAngleDegrees * item.YAngleDegrees)))
+            .DefaultIfEmpty(0)
+            .Max();
         var tx = Math.Tan(field.Hx * maxFieldDegrees * Math.PI / 180.0);
         var ty = Math.Tan(field.Hy * maxFieldDegrees * Math.PI / 180.0);
         var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
