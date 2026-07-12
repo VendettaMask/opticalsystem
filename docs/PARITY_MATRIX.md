@@ -16,7 +16,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe/catalog registry |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | 27 catalog entries; 25 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
+| Analysis | `Analysis` | 29 catalog entries; 27 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
@@ -35,7 +35,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.
 - Menu, toolbar, and command palette actions are registered through a shared action manager.
 - Analysis output includes metric, graphical, and exportable report views, Python-style multi-pane layouts, legends, fixed color scales, and viridis/inferno/jet heatmaps.
-- Python golden fixtures validate 25 analysis views point-for-point or pixel-for-pixel, including best-fit sphere parameters, FFT/geometric/sampled MTF, FFT PSF, radiometry, Jones pupil, and image simulation.
+- Python golden fixtures validate 27 analysis views point-for-point or pixel-for-pixel, including chief-ray and centroid/best-fit reference-sphere wavefronts, FFT/geometric/sampled MTF, FFT PSF, radiometry, Jones pupil, and image simulation.
 - Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
@@ -43,4 +43,4 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 
-The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, Huygens/MMDFT methods, complete non-chief-ray wavefront maps, non-sequential tracing, Python JSON/commercial-format breadth, dynamic analysis settings, and optional GPU/autograd backends.
+The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, Huygens/MMDFT methods, non-sequential tracing, Python JSON/commercial-format breadth, dynamic analysis settings, and optional GPU/autograd backends.

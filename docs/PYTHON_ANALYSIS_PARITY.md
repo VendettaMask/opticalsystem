@@ -20,6 +20,8 @@ The current validated set is:
 - `RadiantIntensity`, with surface direction-cosine angle projection, solid-angle normalization, shared absolute color limits, and central angular cross-sections.
 - `YYbar`, with per-surface paraxial marginal and chief ray heights.
 - `OPD/Wavefront`, with chief-ray exit-pupil reference sphere data in waves.
+- `CentroidSphereWavefront`, with Optiland's centroid-sphere OPD strategy, 5-ring/91-ray hexapolar sampling, tilt-corrected sphere center/radius, pupil intersections, intensity, OPD, and RMS.
+- `BestFitSphereWavefront`, with Optiland's best-fit-sphere OPD strategy, 5-ring/91-ray hexapolar sampling, tilt-corrected least-squares sphere center/radius, pupil intersections, intensity, OPD, and RMS.
 - `ZernikeOPD`, with Fringe indexing and least-squares coefficients.
 - `FFTPSF`, with complex pupil phase, zero padding, two-dimensional FFT, and diffraction-limited normalization.
 - `FFTMTF`, with field-paired tangential/sagittal curves and on-axis working-F-number frequency scaling.
@@ -61,6 +63,8 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | Radiant intensity | Selected-surface direction cosines projected with `atan2(L,N)` / `atan2(M,N)`, intensity-weighted angle bins, and W/sr solid-angle scaling |
 | Y-Ybar | Python-compatible per-surface paraxial refraction of the marginal and maximum-field chief rays |
 | Wavefront | Image rays traced backward to the chief-ray exit-pupil sphere, object-plane angular tilt correction, and OPD conversion to waves |
+| Centroid sphere wavefront | Python `centroid_sphere` OPD strategy with tilt-corrected reference-sphere center/radius, pupil intersections, intensity, OPD, and RMS |
+| Best-fit sphere wavefront | Python `best_fit_sphere` OPD strategy with four-parameter sphere fit, pupil intersections, intensity, OPD, and RMS |
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
 | FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
@@ -74,13 +78,13 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
-Repository validation as of 2026-07-12 is a zero-warning solution build and `131/131` passing tests.
+Repository validation as of 2026-07-13 is a zero-warning solution build and `139/139` passing tests.
 
 ## Plot Contract
 
 The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno/jet heatmaps, fixed or automatic color limits, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
 
-The twenty-five views mirror Python's presentation:
+The twenty-seven views mirror Python's presentation:
 
 - Spot diagram: up to three square field subplots per row, shared limits, field-coordinate titles, wavelength colors and circle/square/triangle markers, low-opacity grids, and a shared legend below the panes.
 - Encircled energy: one field curve per normalized field coordinate, radius and dimensionless-energy axes, primary wavelength title, nonnegative axes, and external legend.
@@ -96,6 +100,8 @@ The twenty-five views mirror Python's presentation:
 - Radiant intensity: one angle-space jet heatmap and one central X-angle cross-section per field/wavelength pair, shared absolute W/sr color limits, dotted grids, and fixed cross-section limits.
 - Y-Ybar: one marked segment per adjacent surface pair, named first/stop/image segments, marginal-versus-chief axes, title wavelength, and thin zero references.
 - Wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, and OPD colorbar in waves.
+- Centroid sphere wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, centroid reference-sphere metrics, and OPD colorbar in waves.
+- Best-fit sphere wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, best-fit reference-sphere metrics, and OPD colorbar in waves.
 - Zernike: unit-circle Fringe-fit heatmap with pupil axes and OPD colorbar.
 - FFT PSF: threshold-centered image crop, physical micrometer axes, relative-intensity heatmap, title, and colorbar.
 - FFT MTF: field-colored tangential solid and sagittal dashed pairs, cycles/mm axis, nonnegative modulation range, cutoff limit, and external legend.
@@ -111,6 +117,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the twenty-five analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. The best-fit sphere center/radius is validated for BestFitRayFan, while complete centroid/best-fit wavefront maps and Huygens/MMDFT PSF/MTF still require separate source-derived contracts.
+This parity statement applies to the twenty-seven analyses above on the validated sequential refractive path and chief-ray, centroid-sphere, and best-fit-sphere wavefront strategies. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. Huygens/MMDFT PSF/MTF still require separate source-derived contracts.
 
-The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmap currently uses local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.
+The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmaps currently use local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

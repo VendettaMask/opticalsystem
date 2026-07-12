@@ -146,7 +146,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 ### Priority 0: Compatibility And Numerical Trust
 
 - Extend Python Optiland JSON interoperability beyond the current validated sequential subset to freeforms, coatings, BSDFs, phase models, pickups, solves, telecentric systems, polarization, and apodization.
-- Continue with alternative Huygens/MMDFT PSF/MTF methods and complete non-chief-ray wavefront maps; FFT, geometric and sampled MTF, best-fit ray fan, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
+- Continue with alternative Huygens/MMDFT PSF/MTF methods; FFT, geometric and sampled MTF, best-fit ray fan, chief-ray and centroid/best-fit wavefronts, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
 - Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
 
 ### Priority 1: GUI Parity
@@ -171,4 +171,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-12, the solution builds with zero warnings and all `131/131` tests pass. Coverage includes finite structured plots for every catalog entry plus Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
+As of 2026-07-13, the solution builds with zero warnings and all `139/139` tests pass. Coverage includes finite structured plots for every catalog entry plus Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.

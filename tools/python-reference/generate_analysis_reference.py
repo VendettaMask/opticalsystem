@@ -192,6 +192,43 @@ def bilinear_warp(image, grid):
     return output
 
 
+def reference_sphere_wavefront_data(name, optic, strategy_name, plot_dir):
+    field = (0, 1)
+    opd = OPD(
+        optic,
+        field=field,
+        wavelength="primary",
+        num_rays=5,
+        distribution="hexapolar",
+        strategy=strategy_name,
+    )
+    wavelength = opd.wavelengths[0]
+    data = opd.get_data(field, wavelength)
+
+    rays = optic.trace(*field, wavelength, None, opd.distribution)
+    rays.opd = opd.strategy._correct_tilt(field, rays.opd)
+    center_x, center_y, center_z, radius = opd.strategy._calculate_reference_sphere(rays)
+
+    figure, axes = opd.view(num_points=33)
+    result = {
+        "field": list(field),
+        "wavelength": float(wavelength),
+        "normalized_pupil_x": array(opd.distribution.x),
+        "normalized_pupil_y": array(opd.distribution.y),
+        "pupil_x": array(data.pupil_x),
+        "pupil_y": array(data.pupil_y),
+        "pupil_z": array(data.pupil_z),
+        "opd": array(data.opd),
+        "intensity": array(data.intensity),
+        "center": [float(center_x), float(center_y), float(center_z)],
+        "radius": float(radius),
+        "rms": float(opd.rms()),
+        "presentation": plot_metadata(axes),
+    }
+    save_plot(figure, plot_dir, f"{name}-{strategy_name.replace('_', '-')}-wavefront.png")
+    return result
+
+
 def image_simulation_data(optic):
     wavelengths = [0.65, 0.55, 0.45]
     source = image_test_chart()
@@ -267,6 +304,18 @@ def analyze(name, optic, plot_dir):
         "radius": float(opd_data.radius),
         "rms": float(opd.rms()),
     }
+    centroid_sphere_wavefront_result = reference_sphere_wavefront_data(
+        name,
+        optic,
+        "centroid_sphere",
+        plot_dir,
+    )
+    best_fit_sphere_wavefront_result = reference_sphere_wavefront_data(
+        name,
+        optic,
+        "best_fit_sphere",
+        plot_dir,
+    )
     zernike = ZernikeOPD(
         optic,
         field=(0, 1),
@@ -806,6 +855,8 @@ def analyze(name, optic, plot_dir):
         "fft_mtf": mtf_result,
         "zernike": zernike_result,
         "wavefront": wavefront_result,
+        "centroid_sphere_wavefront": centroid_sphere_wavefront_result,
+        "best_fit_sphere_wavefront": best_fit_sphere_wavefront_result,
         "pupil_aberration": pupil_result,
         "yybar": yybar_result,
         "through_focus_spot": through_focus_result,

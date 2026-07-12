@@ -13,6 +13,46 @@ public sealed class PythonAnalysisParityTests
         yield return new object[] { "tessar", (Func<Optic>)Optic.CreateTessarLens };
     }
 
+    public static IEnumerable<object[]> ReferenceSphereWavefrontCases()
+    {
+        yield return new object[]
+        {
+            "cooke",
+            (Func<Optic>)Optic.CreateCookeTriplet,
+            "centroid_sphere_wavefront",
+            ReferenceSphereStrategy.CentroidSphere,
+            "centroid_sphere",
+            "Centroid Sphere Wavefront"
+        };
+        yield return new object[]
+        {
+            "cooke",
+            (Func<Optic>)Optic.CreateCookeTriplet,
+            "best_fit_sphere_wavefront",
+            ReferenceSphereStrategy.BestFitSphere,
+            "best_fit_sphere",
+            "Best Fit Sphere Wavefront"
+        };
+        yield return new object[]
+        {
+            "tessar",
+            (Func<Optic>)Optic.CreateTessarLens,
+            "centroid_sphere_wavefront",
+            ReferenceSphereStrategy.CentroidSphere,
+            "centroid_sphere",
+            "Centroid Sphere Wavefront"
+        };
+        yield return new object[]
+        {
+            "tessar",
+            (Func<Optic>)Optic.CreateTessarLens,
+            "best_fit_sphere_wavefront",
+            ReferenceSphereStrategy.BestFitSphere,
+            "best_fit_sphere",
+            "Best Fit Sphere Wavefront"
+        };
+    }
+
     [Theory]
     [MemberData(nameof(OfficialSamples))]
     public void DistortionMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
@@ -765,6 +805,47 @@ public sealed class PythonAnalysisParityTests
     }
 
     [Theory]
+    [MemberData(nameof(ReferenceSphereWavefrontCases))]
+    public void ReferenceSphereWavefrontMatchesPythonOptilandRayForRay(
+        string sampleName,
+        Func<Optic> createOptic,
+        string referenceKey,
+        ReferenceSphereStrategy strategy,
+        string referenceName,
+        string analysisName)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty(referenceKey);
+        var optic = createOptic();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var actual = ReferenceSphereWavefrontEngine.Generate(optic, (0, 1), wavelength, numRings: 5, strategy);
+        Assert.Equal(expected.GetProperty("opd").GetArrayLength(), actual.Samples.Count);
+        Assert.Equal(strategy == ReferenceSphereStrategy.CentroidSphere ? "centroid_sphere" : "best_fit_sphere", referenceName);
+        Assert.Equal(strategy == ReferenceSphereStrategy.CentroidSphere ? "Centroid Sphere Wavefront" : "Best Fit Sphere Wavefront", analysisName);
+
+        AssertClose(expected.GetProperty("field")[0].GetDouble(), 0);
+        AssertClose(expected.GetProperty("field")[1].GetDouble(), 1);
+        AssertClose(expected.GetProperty("wavelength").GetDouble(), wavelength.Micrometers);
+        AssertClose(expected.GetProperty("center")[0].GetDouble(), actual.CenterX);
+        AssertClose(expected.GetProperty("center")[1].GetDouble(), actual.CenterY);
+        AssertClose(expected.GetProperty("center")[2].GetDouble(), actual.CenterZ);
+        AssertClose(expected.GetProperty("radius").GetDouble(), actual.Radius);
+        AssertClose(expected.GetProperty("rms").GetDouble(), actual.Rms);
+
+        for (var index = 0; index < actual.Samples.Count; index++)
+        {
+            var sample = actual.Samples[index];
+            AssertClose(expected.GetProperty("normalized_pupil_x")[index].GetDouble(), sample.NormalizedPupilX);
+            AssertClose(expected.GetProperty("normalized_pupil_y")[index].GetDouble(), sample.NormalizedPupilY);
+            AssertClose(expected.GetProperty("pupil_x")[index].GetDouble(), sample.PupilX);
+            AssertClose(expected.GetProperty("pupil_y")[index].GetDouble(), sample.PupilY);
+            AssertClose(expected.GetProperty("pupil_z")[index].GetDouble(), sample.PupilZ);
+            AssertClose(expected.GetProperty("opd")[index].GetDouble(), sample.OpdWaves);
+            AssertClose(expected.GetProperty("intensity")[index].GetDouble(), sample.Intensity);
+        }
+    }
+
+    [Theory]
     [MemberData(nameof(OfficialSamples))]
     public void FringeZernikeFitMatchesPythonOptiland(string sampleName, Func<Optic> createOptic)
     {
@@ -837,6 +918,41 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal("OPD (waves)", data.PlotSeries[0].ValueLabel);
         AssertClose(expected.GetProperty("rms").GetDouble(), Convert.ToDouble(data.Values["RmsWaves"]));
         Assert.Equal($"OPD Map: RMS={expected.GetProperty("rms").GetDouble():0.000} waves", data.PlotOptions?.Title);
+    }
+
+    [Theory]
+    [MemberData(nameof(ReferenceSphereWavefrontCases))]
+    public void ReferenceSphereWavefrontAnalysisUsesPythonOpdMapContract(
+        string sampleName,
+        Func<Optic> createOptic,
+        string referenceKey,
+        ReferenceSphereStrategy strategy,
+        string referenceName,
+        string analysisName)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty(referenceKey);
+        var data = new ReferenceSphereWavefrontAnalysis(createOptic(), strategy, numRings: 5, mapSize: 33).GenerateData();
+        Assert.Equal(analysisName, data.Name);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
+        Assert.Equal("Pupil X", data.PlotSeries[0].XAxisLabel);
+        Assert.Equal("Pupil Y", data.PlotSeries[0].YAxisLabel);
+        Assert.Equal("OPD (waves)", data.PlotSeries[0].ValueLabel);
+        Assert.Equal(referenceName, data.Values["Reference"]);
+        Assert.Equal(expected.GetProperty("opd").GetArrayLength(), Convert.ToInt32(data.Values["RayCount"]));
+        Assert.Equal(0, Convert.ToInt32(data.Values["VignettedRayCount"]));
+        AssertClose(expected.GetProperty("rms").GetDouble(), Convert.ToDouble(data.Values["RmsWaves"]));
+        AssertClose(expected.GetProperty("radius").GetDouble(), Convert.ToDouble(data.Values["ReferenceSphereRadius"]));
+        AssertClose(expected.GetProperty("field")[0].GetDouble(), Convert.ToDouble(data.Values["FieldHx"]));
+        AssertClose(expected.GetProperty("field")[1].GetDouble(), Convert.ToDouble(data.Values["FieldHy"]));
+        AssertClose(expected.GetProperty("wavelength").GetDouble(), Convert.ToDouble(data.Values["WavelengthMicrometers"]));
+        Assert.Equal($"OPD Map: RMS={expected.GetProperty("rms").GetDouble():0.000} waves", data.PlotOptions?.Title);
+        Assert.True(data.PlotOptions?.EqualAspect);
+        Assert.Equal(-1, data.PlotOptions?.XMinimum);
+        Assert.Equal(1, data.PlotOptions?.XMaximum);
+        Assert.Equal(-1, data.PlotOptions?.YMinimum);
+        Assert.Equal(1, data.PlotOptions?.YMaximum);
+        Assert.StartsWith("(", Assert.IsType<string>(data.Values["ReferenceSphereCenter"]));
     }
 
     [Theory]

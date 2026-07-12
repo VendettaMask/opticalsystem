@@ -1423,7 +1423,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             YMaximum: 1));
     }
 
-    private static IReadOnlyList<AnalysisPoint> BuildWavefrontMap(
+    internal static IReadOnlyList<AnalysisPoint> BuildWavefrontMap(
         IReadOnlyList<WavefrontSample> samples,
         int mapSize)
     {
@@ -2427,6 +2427,8 @@ public sealed class AnalysisCatalog
         "Geometric MTF",
         "Sampled MTF",
         "Wavefront",
+        "Centroid Sphere Wavefront",
+        "Best Fit Sphere Wavefront",
         "Zernike",
         "Image Simulation",
         "Jones Pupil",
@@ -2460,6 +2462,14 @@ public sealed class AnalysisCatalog
             "Geometric MTF" => new GeometricMtfAnalysis(_optic, numRays: 32, numPoints: 128),
             "Sampled MTF" => new SampledMtfAnalysis(_optic, pupilSampling: 32, numPoints: 128),
             "Wavefront" => new WavefrontAnalysis(_optic),
+            "Centroid Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
+                _optic,
+                ReferenceSphereStrategy.CentroidSphere,
+                numRings: 8),
+            "Best Fit Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
+                _optic,
+                ReferenceSphereStrategy.BestFitSphere,
+                numRings: 8),
             "Zernike" => new ZernikeAnalysis(_optic),
             "Image Simulation" => new ImageSimulationAnalysis(_optic),
             "Jones Pupil" => new JonesPupilAnalysis(_optic),

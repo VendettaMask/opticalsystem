@@ -551,6 +551,9 @@ public sealed class OptilandParityTests
         Assert.Contains("PSF", optic.Analyses.Names);
         Assert.Contains("MTF", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
+        Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
+        Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
+        Assert.Equal(29, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 
