@@ -21,6 +21,21 @@ Preferred extensions:
 
 The JSON path is strict round-trip oriented. It should be used for internal work and regression fixtures.
 
+## Python Optiland JSON Subset
+
+`OpticJsonStore` also detects the recursive dictionary schema emitted by Python Optiland 0.5.8 `Optic.to_dict()`. The validated bidirectional subset covers:
+
+- EPD, image-F-number, and object-NA system apertures
+- angle fields and weighted primary/non-primary wavelengths
+- plane and standard centered surfaces with coordinate transforms
+- catalog, ideal, and Abbe materials
+- radial and rectangular physical apertures
+- refractive and reflective interactions
+
+Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON remains the lossless format for Workbench-only geometry, plugin, optimization, tolerancing, solve, pickup, and GUI state.
+
+See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema and external Python round-trip validation.
+
 ## Commercial Sequential Subset
 
 The commercial format layer intentionally starts with a common sequential lens subset. Supported extensions:
@@ -51,7 +66,7 @@ await connector.LoadAsync(path);
 await connector.SaveAsync(path);
 ```
 
-The connector picks native JSON or `OpticalFormatCatalog` automatically.
+The connector detects Workbench JSON, Python Optiland JSON, or an `OpticalFormatCatalog` adapter automatically.
 
 ## Plugin Model
 

@@ -83,4 +83,18 @@ The current local baseline is:
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
-The test suite covers architecture entry points, geometry/material behavior, tracing history, analysis catalog generation, optimization, tolerancing, JSON round-trip, rich component snapshots, commercial format round-trip, and plugin discovery.
+Expected result as of 2026-07-12:
+
+- solution build: 0 warnings, 0 errors
+- tests: 131 passed, 0 failed, 0 skipped
+
+The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 25 Python-referenced analysis views, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
+
+Regenerate the Python analysis fixture only when intentionally updating the pinned `optiland==0.5.8` contract:
+
+```bash
+python tools/python-reference/generate_analysis_reference.py \
+  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-analysis-reference.json
+```
+
+Review and run the full suite before committing regenerated fixture data.

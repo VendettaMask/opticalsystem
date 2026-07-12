@@ -1,18 +1,21 @@
 # Python Optiland Parity Audit
 
-Date: 2026-07-11
+Initial audit: 2026-07-11
+
+Current status update: 2026-07-12
 
 Baseline checked:
 
 - Python package: `optiland 0.6.0` source distribution from PyPI.
 - Source repository provenance: `optiland/optiland`, tag `v0.6.0`, commit `f854a0bf5145f7931a40a3da77191c2b3e955745`.
 - Documentation cross-check: ReadTheDocs latest developer guide, currently labeled `0.5.8`.
+- Executable numerical/analysis golden baseline: pinned `optiland==0.5.8` Cooke Triplet and Tessar Lens fixtures.
 
 ## Verdict
 
-The current .NET implementation is not numerically or behaviorally equivalent to Python Optiland.
+The .NET implementation is not a complete numerical or behavioral replacement for Python Optiland.
 
-It has a useful Optiland-shaped skeleton: central `Optic`, surface composition, basic ray tracing, analyses, JSON, GUI panels, optimization and tolerancing placeholders. But many implementations are simplified approximations. Some class and feature names match Python Optiland, but the underlying data model, algorithms, default parameters, and GUI behavior do not yet match.
+It is now substantially beyond the original skeleton: the standard Cooke/Tessar sequential path, Python JSON subset, and 25 analysis views have source-derived golden contracts. Optimization, tolerancing, visualization, and the Chinese Avalonia workbench are functional but do not match Python's full breadth. Parity is therefore claimed per documented method and fixture, never for the repository as a whole.
 
 Going forward, features should not be marked as "parity" until they pass source-derived parity tests against Python Optiland behavior.
 
@@ -32,14 +35,14 @@ Python `Optic` owns:
 
 The .NET `Optic` has similar entry points but not the same model:
 
-- Fields are only simple angle records, not Python's selectable field types and normalized field coordinate model.
-- Wavelengths are stored in nanometers, while Python APIs use micrometers internally.
+- Fields are angle records with Python-compatible maximum-radial-field normalization, but object-height, paraxial-image-height, and real-image-height field types are not implemented.
+- Wavelengths are stored in nanometers internally with explicit micrometer API conversion boundaries.
 - There is no equivalent `OpticUpdater` layer that updates paraxial data, surface normalization, pickups, solves, and geometry-derived fields in one route.
 - Polarization and apodization exist only partially or as placeholders.
 
 Required fix:
 
-Create true equivalents of `FieldGroup`, `WavelengthGroup`, `OpticUpdater`, aperture classes, and explicit unit conversion boundaries.
+Add the remaining field types and group behavior, then introduce an `OpticUpdater`-equivalent route for coordinated paraxial, solve, pickup, and geometry refresh.
 
 ### 2. Ray Tracing
 
@@ -52,18 +55,17 @@ Python tracing flow:
 5. Each surface localizes rays, computes geometry distance, propagates through the pre-surface material, updates OPD, clips by physical aperture, applies interaction/coating/scattering, globalizes rays, and records x/y/z/L/M/N/intensity/opd arrays.
 6. Rays propagate to the image surface through the final material.
 
-The .NET tracing currently does not match this:
+The .NET tracing matches the validated sequential sample path but not Python's execution model:
 
 - It traces per `RealRay` list rather than backend arrays.
-- It does not expose Python-style `trace(Hx, Hy, Px, Py, wavelength)` or `trace_generic`.
-- Field and pupil coordinates are not normalized like Python.
-- Surface recording is per ray history, not per-surface arrays matching `surfaces.x/y/z/L/M/N/intensity/opd`.
-- Propagation is simplified and not delegated through `material_pre.propagation_model`.
-- OPD is mean-final-OPL normalized, while Python wavefront OPD is strategy based and reference-geometry based.
+- `Optic.Trace` and `TraceGeneric` expose normalized field/pupil coordinates and micrometer wavelengths; field normalization uses Python's maximum radial field.
+- Per-ray histories are adapted into surface-major `x/y/z/L/M/N/intensity/opd/OPL` records rather than being native backend arrays.
+- Homogeneous propagation is material-owned, but GRIN intersection still starts from a straight-line surface distance.
+- Chief-ray reference OPD and best-fit sphere parameters are validated; complete centroid/best-fit wavefront strategies are not yet exposed.
 
 Required fix:
 
-Rebuild tracing around Python-compatible `RealRays` arrays, `SurfaceGroup.Trace`, `Surface.Trace`, `trace`, and `trace_generic`. Keep the current history model only as an adapter for GUI visualization.
+Retain the validated public trace contract while adding backend-array execution, complete field/vignetting behavior, GRIN curved-ray intersection, and the remaining reference strategies.
 
 ### 3. Analysis Framework
 
@@ -121,8 +123,8 @@ Python GUI source contains:
 
 The .NET Avalonia GUI currently covers only part of that:
 
-- It has Chinese panels and basic connector signals.
-- It does not yet have equivalent dynamic analysis settings, multi-page analysis plotting, clone/save/load analysis pages, scripting terminal behavior, toast/command registry depth, or true VTK-like 3D interaction.
+- It has Chinese panels, connector change signals, metric/graph/report analysis views, numbered multi-analysis pages, and clone/close behavior.
+- It does not yet have dynamic analysis parameter editors, analysis settings save/load, detachable docking, scripting terminal behavior, toast/command registry depth, or true VTK-like 3D interaction.
 - Some Python GUI panels are service-driven; our connector still contains too much mixed domain/UI logic.
 
 Required fix:
@@ -155,40 +157,29 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET JSON snapshot is schema-oriented and useful, but not Python-compatible:
-
-- Field/wavelength/aperture structures differ.
-- Surface type and geometry dictionaries differ.
-- Materials, coatings, interaction models, apertures, polarization, apodization, pickups, solves, and multi-config are incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard surfaces, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, and refractive/reflective interactions. Freeforms, coatings, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
-Add a Python-compatible JSON DTO path beside the .NET schema, with round-trip tests using Python-generated sample files.
+Extend the existing Python DTO path component by component, keeping unsupported types explicit rather than silently replacing them.
 
-## Corrected Implementation Order
+## Current Next Milestones
 
-The old plan should be narrowed. The next milestones should be:
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 25 source-validated analysis views, and Cooke/Tessar golden suites.
 
-1. Build a source-derived parity matrix from Python `optiland 0.6.0`, including exact file/class/function mapping.
-2. Rebuild `Optic`, `FieldGroup`, `WavelengthGroup`, `SurfaceGroup`, `OpticUpdater`, and unit conventions.
-3. Rebuild `RealRays`, `PolarizedRays`, `ParaxialRays`, `RayGenerator`, ray aiming, `trace`, and `trace_generic`.
-4. Rebuild `Surface.Trace` and per-surface recorded arrays.
-5. Rebuild geometry intersection and propagation to match Python algorithms.
-6. Port `SpotDiagram` exactly, including nested field/wavelength data, references, distributions, local/global coordinates, and Airy disk.
-7. Port encircled energy, RMS vs field, through-focus, and wavefront on top of the exact spot/tracing data.
-8. Replace current proxy PSF/MTF/Zernike with Python-equivalent physical implementations.
-9. Rework visualization to consume canonical traced arrays and mirror Python `OpticalSystem`, `Lens`, `Surface`, and `Rays` classes.
-10. Rework GUI services and panels to match Python GUI behavior within Avalonia.
-11. Add Python-vs-.NET golden parity tests using small public sample systems.
+The next implementation order is:
 
-## Immediate Code Tasks
+1. Complete centroid-sphere and best-fit-sphere wavefront/PSF/MTF strategies beyond the already validated best-fit ray-fan center.
+2. Add Huygens-Fresnel and MMDFT PSF/MTF contracts with bounded public fixtures.
+3. Add dynamic analysis parameter editors and analysis settings persistence in the GUI.
+4. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
+5. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
+6. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
+7. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
+8. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
+9. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
 
-- Stop labeling simplified analyses as parity complete.
-- Add `PythonParityTests` that compare DTO shapes and simple trace outputs against checked-in golden JSON generated from Python Optiland.
-- Replace current `AnalysisRunner.EvaluateSpotDiagram()` with a real `SpotDiagram` data object.
-- Add normalized field and pupil coordinate APIs before modifying more analysis code. Initial .NET entry points now exist as `Optic.Trace(...)` and `Optic.TraceGeneric(...)`.
-- Add explicit unit conversion tests for micrometers vs nanometers. Initial `Wavelength.Micrometers` and conversion tests now exist.
-- Update visualization tests to check lens closure against Python `Lens2D._extend_surface` behavior.
+Every new parity claim must add a pinned Python generator output and a .NET point/pixel/parameter comparison before this list is updated.
 
 ## Repair Progress
 
@@ -227,7 +218,7 @@ Added source-derived implementations and Cooke/Tessar golden tests for:
 - incident angle versus image height through pupil and through field
 - incoherent irradiance on an explicit circular or rectangular detector aperture
 
-The plot contract now includes value-colored curves, per-series viridis/inferno color maps, and colorbars for both heatmaps and colored lines. Incoherent irradiance intentionally preserves Python's requirement for an explicit detector physical aperture; the GUI reports that requirement instead of substituting the visual semi-diameter.
+The plot contract now includes value-colored curves, per-series viridis/inferno/jet color maps, fixed or automatic color limits, and colorbars for both heatmaps and colored lines. Incoherent irradiance intentionally preserves Python's requirement for an explicit detector physical aperture; the GUI reports that requirement instead of substituting the visual semi-diameter.
 
 ### 2026-07-12 Radiometric And Geometric MTF Expansion
 

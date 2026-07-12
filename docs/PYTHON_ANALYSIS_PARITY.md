@@ -74,6 +74,8 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
+Repository validation as of 2026-07-12 is a zero-warning solution build and `131/131` passing tests.
+
 ## Plot Contract
 
 The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno/jet heatmaps, fixed or automatic color limits, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.

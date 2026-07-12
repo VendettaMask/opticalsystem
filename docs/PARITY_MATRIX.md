@@ -8,7 +8,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
 | Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model added while retaining GUI-compatible legacy fields |
 | Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
-| Ray generation | `Raytrace` | Grid, hexapolar, random, Sobol-like pupil sampling with apodization/telecentric options |
+| Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling with apodization/telecentric options |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
 | Geometry | `Geometries` | Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
@@ -16,11 +16,11 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe/catalog registry |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | Base analysis plus documented analysis catalog with concrete proxy data outputs |
+| Analysis | `Analysis` | 27 catalog entries; 25 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
-| File format | `Serialization`, `FileIO` | Schema version 2 JSON snapshot plus ZMX/SEQ/LEN common sequential subset import/export |
+| File format | `Serialization`, `FileIO` | Schema version 2 native JSON, validated Python Optiland 0.5.8 JSON adapter subset, plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation |
 | GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, 2D/3D viewer tabs, command palette, light/dark theme persistence, split-pane layout persistence; startup fix retained |
@@ -34,7 +34,8 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
 - The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.
 - Menu, toolbar, and command palette actions are registered through a shared action manager.
-- Analysis output is now shown as both a structured metric table and exportable text report.
+- Analysis output includes metric, graphical, and exportable report views, Python-style multi-pane layouts, legends, fixed color scales, and viridis/inferno/jet heatmaps.
+- Python golden fixtures validate 25 analysis views point-for-point or pixel-for-pixel, including best-fit sphere parameters, FFT/geometric/sampled MTF, FFT PSF, radiometry, Jones pupil, and image simulation.
 - Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
@@ -42,4 +43,4 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 
-Advanced numerical fidelity still needs targeted follow-up work for NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, commercial format breadth, and optional GPU/autograd backend.
+The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, Huygens/MMDFT methods, complete non-chief-ray wavefront maps, non-sequential tracing, Python JSON/commercial-format breadth, dynamic analysis settings, and optional GPU/autograd backends.

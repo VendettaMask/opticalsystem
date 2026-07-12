@@ -10,8 +10,8 @@ The implementation is being built in small git milestones. The current codebase 
 - Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, polynomial-dispersion, Abbe, catalog extinction, and absorption support.
-- Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance pupil, per-surface real rays, intensity, and line-bundle RMS spot results.
-- Analysis catalog entries for spot, ray fan, distortion, grid distortion, field curvature, encircled energy, pupil aberration, RMS vs field, through focus, Y-Ybar, PSF, MTF, wavefront, Zernike, image simulation, Jones pupil, first order, and prescription report; spot, encircled energy, RMS vs field, through focus, and wavefront now consume sequential ray histories and weighted image samples.
+- Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
+- A 27-entry analysis catalog. Twenty-five numerical/graphical views have source-derived Python contracts, including spot and ray fans, best-fit ray fan, distortion/field curvature, RMS field sweeps, through-focus spot/MTF, wavefront/Zernike, FFT/geometric/sampled MTF, FFT PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. First-order and prescription reports complete the catalog.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
@@ -47,7 +47,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 131 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -72,7 +72,7 @@ Use `osx-x64`, `osx-arm64`, `win-x64`, or `win-arm64` depending on the target ma
 ```text
 src/OptilandWorkbench.Core   Backend model, tracing, analysis, optimization, tolerancing, JSON/file IO, plugins
 src/OptilandWorkbench.App    Avalonia desktop GUI and connector layer
-tests/OptilandWorkbench.Tests Core, serialization, file format, plugin, optimization, and tolerancing tests
+tests/OptilandWorkbench.Tests Core, Python parity, analysis, visualization, serialization, file format, plugin, optimization, and tolerancing tests
 docs                         Architecture, parity, file format, plugin, and release notes
 ```
 
@@ -90,4 +90,4 @@ See:
 
 ## Notes
 
-This repository is a clean-room .NET implementation shaped by the Optiland documentation. Advanced numerical fidelity still needs staged follow-up work for NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, rigorous PSF/MTF/wavefront math, broader commercial format compatibility, and optional GPU/autograd backend support.
+This repository is a clean-room .NET implementation shaped by the Optiland documentation. The parity claim is intentionally limited to the source-derived Cooke/Tessar contracts documented under `docs/`. Remaining work includes NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, Huygens/MMDFT diffraction methods, complete centroid/best-fit wavefront maps, broader commercial-format and Python-JSON coverage, non-sequential tracing, and optional GPU/autograd backends.

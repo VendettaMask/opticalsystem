@@ -68,18 +68,20 @@ Important differences remain:
 | Surface model | Geometry, interaction, material, coating, aperture, propagation | Equivalent composition shape plus GUI-compatible legacy columns |
 | Sequential trace | Production Optiland trace stack | Deterministic C# implementation with recorded per-surface histories |
 | GRIN propagation | Dedicated propagation framework | Material-owned propagation model; current integration is simplified |
-| Polarization | Rich polarization/Jones behavior | Jones pupil placeholder and limited coating behavior |
+| Polarization | Rich polarization/Jones behavior | Source-validated Jones pupil analysis on the sequential sample path; broader polarization state/coating behavior remains limited |
 | Non-sequential tracing | Not the Quickstart focus; broader roadmap item | Not implemented |
 
 ### Analysis Contract
 
 Before the refactor, `AnalysisData` exposed only a dictionary. The GUI converted every value to text, so plots could not be implemented without parsing display strings.
 
-`AnalysisData` now has two independent outputs:
+`AnalysisData` now separates report data from one or more graphical layouts:
 
 ```text
 Values -> metric table, text export, automation
-Series -> plot kind, axis names, numeric points, point labels
+Series / SeriesList -> ordered typed curves, points, heatmaps, and rasters
+PlotPanes -> field/wavelength/focus/component/cross-section layouts
+PlotOptions -> limits, aspect, legends, grids, zero lines, and axis visibility
 ```
 
 Native series are currently produced for:
@@ -169,4 +171,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-Core tests cover blank-system creation and finite structured plot series in addition to the existing tracing, serialization, optimization, tolerancing, plugin, visualization, and format tests.
+As of 2026-07-12, the solution builds with zero warnings and all `131/131` tests pass. Coverage includes finite structured plots for every catalog entry plus Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
