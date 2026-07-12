@@ -80,6 +80,15 @@ public sealed class Paraxial
         return Math.Abs(finalSlope) <= 1e-12 ? 0 : -finalHeight / finalSlope;
     }
 
+    public double EstimateExitPupilDiameter()
+    {
+        var wavelengthMicrometers = PrimaryWavelengthNanometers() / 1000.0;
+        var marginal = MarginalRay(wavelengthMicrometers);
+        var imageHeight = marginal.Heights[^1][0];
+        var imageSlope = marginal.Slopes[^1][0];
+        return 2 * (imageHeight + (imageSlope * EstimateExitPupilLocation()));
+    }
+
     public ParaxialTrace TraceNormalizedPupil(
         double normalizedFieldY,
         IReadOnlyList<double> normalizedPupilY,
@@ -176,15 +185,9 @@ public sealed class Paraxial
 
     private IReadOnlyList<double> SurfacePositions()
     {
-        var position = 0.0;
-        var positions = new double[_optic.SurfaceGroup.Items.Count];
-        for (var index = 0; index < positions.Length; index++)
-        {
-            positions[index] = position;
-            position += _optic.SurfaceGroup.Items[index].Thickness;
-        }
-
-        return positions;
+        return _optic.SurfaceGroup.Items
+            .Select(surface => surface.CoordinateSystem.Origin.Z)
+            .ToArray();
     }
 
     private RayMatrix TraceSystemMatrix(double wavelengthNanometers)

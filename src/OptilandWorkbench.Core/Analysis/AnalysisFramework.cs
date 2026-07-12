@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -23,7 +24,8 @@ public enum AnalysisSeriesKind
     Scatter,
     Bar,
     Heatmap,
-    Raster
+    Raster,
+    ColoredLine
 }
 
 public enum AnalysisLineStyle
@@ -38,6 +40,12 @@ public enum AnalysisMarkerStyle
     Circle,
     Square,
     Triangle
+}
+
+public enum AnalysisColorMap
+{
+    Viridis,
+    Inferno
 }
 
 public sealed record AnalysisPoint(
@@ -62,7 +70,8 @@ public sealed record AnalysisSeries(
     AnalysisMarkerStyle MarkerStyle = AnalysisMarkerStyle.Circle,
     double MarkerSize = 3.2,
     double Opacity = 1,
-    string ValueLabel = "");
+    string ValueLabel = "",
+    AnalysisColorMap ColorMap = AnalysisColorMap.Viridis);
 
 public sealed record AnalysisPlotOptions(
     string Title = "",
@@ -820,6 +829,147 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
     }
 }
 
+public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
+{
+    private readonly int _numFields;
+    private readonly int _numRings;
+
+    public RmsWavefrontVsFieldAnalysis(Optic optic, int numFields = 32, int numRings = 12) : base(optic)
+    {
+        _numFields = Math.Max(2, numFields);
+        _numRings = Math.Max(1, numRings);
+    }
+
+    public override string Name => "RMS Wavefront vs Field";
+
+    public override AnalysisData GenerateData()
+    {
+        var fields = Enumerable.Range(0, _numFields)
+            .Select(index => index / (double)(_numFields - 1))
+            .ToArray();
+        var series = Optic.Wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
+            "Normalized Y Field Coordinate",
+            "RMS Wavefront Error (waves)",
+            fields.Select(field =>
+            {
+                var wavefront = WavefrontEngine.GenerateChiefRay(Optic, (0, field), wavelength, _numRings);
+                return new AnalysisPoint(field, wavefront.Rms);
+            }).ToArray(),
+            Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
+            ColorIndex: wavelengthIndex)).ToArray();
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["FieldCount"] = fields.Length,
+            ["WavelengthCount"] = Optic.Wavelengths.Count,
+            ["NumRings"] = _numRings,
+            ["MaximumRmsWavefrontError"] = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max()
+        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            XMinimum: 0,
+            XMaximum: 1,
+            YMinimum: 0,
+            ShowLegend: true,
+            GridOpacity: 0.25));
+    }
+}
+
+public enum AngleScanMode
+{
+    ThroughPupil,
+    ThroughField
+}
+
+public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
+{
+    private readonly AngleScanMode _mode;
+    private readonly int _surfaceIndex;
+    private readonly int _axis;
+    private readonly int _numPoints;
+    private readonly (double X, double Y) _fixedCoordinate;
+
+    public IncidentAngleVsHeightAnalysis(
+        Optic optic,
+        AngleScanMode mode,
+        int surfaceIndex = -1,
+        int axis = 1,
+        int numPoints = 128,
+        (double X, double Y)? fixedCoordinate = null) : base(optic)
+    {
+        _mode = mode;
+        _surfaceIndex = surfaceIndex;
+        _axis = axis == 0 ? 0 : 1;
+        _numPoints = Math.Max(2, numPoints);
+        _fixedCoordinate = fixedCoordinate ?? (0, 0);
+    }
+
+    public override string Name => _mode == AngleScanMode.ThroughPupil
+        ? "Angle vs Image Height - Through Pupil"
+        : "Angle vs Image Height - Through Field";
+
+    public override AnalysisData GenerateData()
+    {
+        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? Optic.Wavelengths.FirstOrDefault();
+        if (wavelength is null || Optic.SurfaceGroup.Items.Count == 0)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+        }
+
+        var surfaceIndex = _surfaceIndex < 0
+            ? Optic.SurfaceGroup.Items.Count + _surfaceIndex
+            : _surfaceIndex;
+        surfaceIndex = Math.Clamp(surfaceIndex, 0, Optic.SurfaceGroup.Items.Count - 1);
+        var scan = Enumerable.Range(0, _numPoints)
+            .Select(index => -1 + (2.0 * index / (_numPoints - 1)))
+            .ToArray();
+        var points = new List<AnalysisPoint>(_numPoints);
+        foreach (var coordinate in scan)
+        {
+            var hx = _mode == AngleScanMode.ThroughField && _axis == 0 ? coordinate : _fixedCoordinate.X;
+            var hy = _mode == AngleScanMode.ThroughField && _axis == 1 ? coordinate : _fixedCoordinate.Y;
+            var px = _mode == AngleScanMode.ThroughPupil && _axis == 0 ? coordinate : _fixedCoordinate.X;
+            var py = _mode == AngleScanMode.ThroughPupil && _axis == 1 ? coordinate : _fixedCoordinate.Y;
+            var history = Optic.TraceGeneric(hx, hy, px, py, wavelength.Micrometers).RayHistories.Single();
+            if (history.Count <= surfaceIndex)
+            {
+                points.Add(new AnalysisPoint(double.NaN, double.NaN, Value: coordinate));
+                continue;
+            }
+
+            var sample = history[surfaceIndex];
+            var height = _axis == 1 ? sample.Position.Y : sample.Position.X;
+            var directionCosine = _axis == 1 ? sample.Direction.Y : sample.Direction.X;
+            var angle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;
+            points.Add(new AnalysisPoint(height, angle, Value: coordinate));
+        }
+
+        var fixedLabel = _mode == AngleScanMode.ThroughPupil
+            ? $"Hx={_fixedCoordinate.X:0.####} Hy={_fixedCoordinate.Y:0.####}"
+            : $"Px={_fixedCoordinate.X:0.####} Py={_fixedCoordinate.Y:0.####}";
+        var valueLabel = _mode == AngleScanMode.ThroughPupil
+            ? $"Normalized Pupil Coordinate ({(_axis == 0 ? "Px" : "Py")})"
+            : $"Normalized Field Coordinate ({(_axis == 0 ? "Hx" : "Hy")})";
+        var series = new AnalysisSeries(
+            "Image Height in Millimeters",
+            "Incident Angle in Degrees",
+            points,
+            AnalysisSeriesKind.ColoredLine,
+            $"{fixedLabel}, {wavelength.Micrometers:0.0000} \u00B5m",
+            LineWidth: 3,
+            ValueLabel: valueLabel);
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["ScanMode"] = _mode.ToString(),
+            ["SurfaceIndex"] = surfaceIndex,
+            ["Axis"] = _axis == 0 ? "X" : "Y",
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["PointCount"] = points.Count,
+            ["FixedCoordinates"] = fixedLabel
+        }, series, new[] { series }, new AnalysisPlotOptions(
+            Title: $"Incident Angle vs Image Height{(_axis == 0 ? " (x-axis)" : string.Empty)}",
+            GridOpacity: 0.25));
+    }
+}
+
 public sealed class ThroughFocusAnalysis : BaseAnalysis
 {
     private readonly double _deltaFocus;
@@ -920,6 +1070,231 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             ["BestRmsSpotRadius"] = legacy.BestRmsSpotRadius,
             ["Radius80AtBest"] = points.OrderBy(point => point.RmsSpotRadius).FirstOrDefault()?.Radius80 ?? 0
         }, legacySeries, new[] { legacySeries }, PlotPanes: panes, PlotPaneColumns: _numSteps);
+    }
+}
+
+public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
+{
+    private readonly double _spatialFrequency;
+    private readonly double _deltaFocus;
+    private readonly int _numSteps;
+    private readonly int _pupilSampling;
+
+    public ThroughFocusMtfAnalysis(
+        Optic optic,
+        double spatialFrequency = 20,
+        double deltaFocus = 0.1,
+        int numSteps = 5,
+        int pupilSampling = 128) : base(optic)
+    {
+        _spatialFrequency = Math.Max(0, spatialFrequency);
+        _deltaFocus = Math.Abs(deltaFocus);
+        _numSteps = Math.Clamp(numSteps % 2 == 0 ? numSteps + 1 : numSteps, 1, 15);
+        _pupilSampling = Math.Max(8, pupilSampling);
+    }
+
+    public override string Name => "Through Focus MTF";
+
+    public override AnalysisData GenerateData()
+    {
+        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? Optic.Wavelengths.FirstOrDefault();
+        var imageSurface = Optic.SurfaceGroup.Items.LastOrDefault();
+        if (wavelength is null || imageSurface is null)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+        }
+
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var defocus = Enumerable.Range(0, _numSteps)
+            .Select(index => (index - (_numSteps / 2)) * _deltaFocus)
+            .ToArray();
+        var tangential = fields.Select(_ => new double[_numSteps]).ToArray();
+        var sagittal = fields.Select(_ => new double[_numSteps]).ToArray();
+        var originalCoordinateSystem = imageSurface.CoordinateSystem;
+        try
+        {
+            for (var step = 0; step < _numSteps; step++)
+            {
+                imageSurface.CoordinateSystem = originalCoordinateSystem with
+                {
+                    Origin = originalCoordinateSystem.Origin with
+                    {
+                        Z = originalCoordinateSystem.Origin.Z + defocus[step]
+                    }
+                };
+                for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+                {
+                    tangential[fieldIndex][step] = SampledMtfEngine.Calculate(
+                        Optic, fields[fieldIndex], wavelength, _spatialFrequency, 0, _pupilSampling);
+                    sagittal[fieldIndex][step] = SampledMtfEngine.Calculate(
+                        Optic, fields[fieldIndex], wavelength, 0, _spatialFrequency, _pupilSampling);
+                }
+            }
+        }
+        finally
+        {
+            imageSurface.CoordinateSystem = originalCoordinateSystem;
+        }
+
+        var smoothDefocus = _numSteps < 2
+            ? defocus
+            : Enumerable.Range(0, 256)
+                .Select(index => defocus[0] + ((defocus[^1] - defocus[0]) * index / 255.0))
+                .ToArray();
+        var series = new List<AnalysisSeries>(fields.Count * 2);
+        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        {
+            var field = fields[fieldIndex];
+            var tangentialSmooth = Interpolate(defocus, tangential[fieldIndex], smoothDefocus);
+            var sagittalSmooth = Interpolate(defocus, sagittal[fieldIndex], smoothDefocus);
+            series.Add(new AnalysisSeries(
+                "Defocus (mm)",
+                "MTF",
+                smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(tangentialSmooth[index], 0, 1))).ToArray(),
+                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
+                ColorIndex: fieldIndex));
+            series.Add(new AnalysisSeries(
+                "Defocus (mm)",
+                "MTF",
+                smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(sagittalSmooth[index], 0, 1))).ToArray(),
+                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: fieldIndex));
+        }
+
+        var values = new Dictionary<string, object>
+        {
+            ["SpatialFrequency"] = _spatialFrequency,
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["FocusPlaneCount"] = _numSteps,
+            ["FocusStep"] = _deltaFocus,
+            ["PupilSampling"] = _pupilSampling,
+            ["RawTangential"] = tangential,
+            ["RawSagittal"] = sagittal
+        };
+        return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            Title: $"Through-Focus MTF at {_spatialFrequency:0.###} cycles/mm, \u03BB={wavelength.Micrometers:0.000} \u00B5m",
+            XMinimum: defocus[0],
+            XMaximum: defocus[^1],
+            YMinimum: 0,
+            YMaximum: 1.05,
+            ShowLegend: true,
+            DottedGrid: true,
+            GridOpacity: 0.5));
+    }
+
+    private static double[] Interpolate(IReadOnlyList<double> x, IReadOnlyList<double> y, IReadOnlyList<double> target)
+    {
+        if (x.Count == 1)
+        {
+            return target.Select(_ => y[0]).ToArray();
+        }
+
+        if (x.Count < 4)
+        {
+            return target.Select(value => LinearInterpolate(x, y, value)).ToArray();
+        }
+
+        var intervals = x.Count - 1;
+        var unknowns = intervals * 4;
+        var matrix = new double[unknowns, unknowns];
+        var rightHandSide = new double[unknowns];
+        var equation = 0;
+        for (var interval = 0; interval < intervals; interval++)
+        {
+            var h = x[interval + 1] - x[interval];
+            matrix[equation, (interval * 4)] = 1;
+            rightHandSide[equation++] = y[interval];
+            matrix[equation, (interval * 4)] = 1;
+            matrix[equation, (interval * 4) + 1] = h;
+            matrix[equation, (interval * 4) + 2] = h * h;
+            matrix[equation, (interval * 4) + 3] = h * h * h;
+            rightHandSide[equation++] = y[interval + 1];
+        }
+
+        for (var knot = 1; knot < x.Count - 1; knot++)
+        {
+            var leftInterval = knot - 1;
+            var h = x[knot] - x[knot - 1];
+            matrix[equation, (leftInterval * 4) + 1] = 1;
+            matrix[equation, (leftInterval * 4) + 2] = 2 * h;
+            matrix[equation, (leftInterval * 4) + 3] = 3 * h * h;
+            matrix[equation, (knot * 4) + 1] = -1;
+            equation++;
+            matrix[equation, (leftInterval * 4) + 2] = 2;
+            matrix[equation, (leftInterval * 4) + 3] = 6 * h;
+            matrix[equation, (knot * 4) + 2] = -2;
+            equation++;
+        }
+
+        matrix[equation, 3] = 1;
+        matrix[equation++, 7] = -1;
+        matrix[equation, ((intervals - 2) * 4) + 3] = 1;
+        matrix[equation, ((intervals - 1) * 4) + 3] = -1;
+        var coefficients = Solve(matrix, rightHandSide);
+        return target.Select(value =>
+        {
+            var interval = Math.Clamp(x.ToList().FindLastIndex(item => item <= value), 0, intervals - 1);
+            var t = value - x[interval];
+            return coefficients[interval * 4]
+                + (coefficients[(interval * 4) + 1] * t)
+                + (coefficients[(interval * 4) + 2] * t * t)
+                + (coefficients[(interval * 4) + 3] * t * t * t);
+        }).ToArray();
+    }
+
+    private static double LinearInterpolate(IReadOnlyList<double> x, IReadOnlyList<double> y, double value)
+    {
+        var interval = Math.Clamp(x.ToList().FindLastIndex(item => item <= value), 0, x.Count - 2);
+        var fraction = (value - x[interval]) / (x[interval + 1] - x[interval]);
+        return y[interval] + ((y[interval + 1] - y[interval]) * fraction);
+    }
+
+    private static double[] Solve(double[,] matrix, double[] rightHandSide)
+    {
+        var size = rightHandSide.Length;
+        var augmented = new double[size, size + 1];
+        for (var row = 0; row < size; row++)
+        {
+            for (var column = 0; column < size; column++)
+            {
+                augmented[row, column] = matrix[row, column];
+            }
+
+            augmented[row, size] = rightHandSide[row];
+        }
+
+        for (var pivot = 0; pivot < size; pivot++)
+        {
+            var best = Enumerable.Range(pivot, size - pivot).MaxBy(row => Math.Abs(augmented[row, pivot]));
+            for (var column = pivot; column <= size; column++)
+            {
+                (augmented[pivot, column], augmented[best, column]) = (augmented[best, column], augmented[pivot, column]);
+            }
+
+            var divisor = augmented[pivot, pivot];
+            for (var column = pivot; column <= size; column++)
+            {
+                augmented[pivot, column] /= divisor;
+            }
+
+            for (var row = 0; row < size; row++)
+            {
+                if (row == pivot)
+                {
+                    continue;
+                }
+
+                var factor = augmented[row, pivot];
+                for (var column = pivot; column <= size; column++)
+                {
+                    augmented[row, column] -= factor * augmented[pivot, column];
+                }
+            }
+        }
+
+        return Enumerable.Range(0, size).Select(row => augmented[row, size]).ToArray();
     }
 }
 
@@ -1782,6 +2157,221 @@ internal static class SpotAnalysisEngine
     }
 }
 
+public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
+{
+    private readonly int _numRays;
+    private readonly int _resolutionX;
+    private readonly int _resolutionY;
+    private readonly int _detectorSurfaceIndex;
+    private readonly string _distribution;
+    private readonly bool _normalize;
+
+    public IncoherentIrradianceAnalysis(
+        Optic optic,
+        int numRays = 5,
+        int resolutionX = 128,
+        int resolutionY = 128,
+        int detectorSurfaceIndex = -1,
+        string distribution = "random",
+        bool normalize = true) : base(optic)
+    {
+        _numRays = Math.Max(1, numRays);
+        _resolutionX = Math.Max(1, resolutionX);
+        _resolutionY = Math.Max(1, resolutionY);
+        _detectorSurfaceIndex = detectorSurfaceIndex;
+        _distribution = distribution;
+        _normalize = normalize;
+    }
+
+    public override string Name => "Incoherent Irradiance";
+
+    public override AnalysisData GenerateData()
+    {
+        if (Optic.SurfaceGroup.Items.Count == 0)
+        {
+            return Status("No detector surface");
+        }
+
+        var detectorIndex = _detectorSurfaceIndex < 0
+            ? Optic.SurfaceGroup.Items.Count + _detectorSurfaceIndex
+            : _detectorSurfaceIndex;
+        if (detectorIndex < 0 || detectorIndex >= Optic.SurfaceGroup.Items.Count)
+        {
+            return Status("Detector surface index is out of range");
+        }
+
+        var detector = Optic.SurfaceGroup.Items[detectorIndex];
+        if (!TryGetExtent(detector.PhysicalAperture, out var extent))
+        {
+            return Status("Detector surface has no supported physical aperture");
+        }
+
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var wavelengths = Optic.Wavelengths.ToArray();
+        if (fields.Count == 0 || wavelengths.Length == 0)
+        {
+            return Status("No fields or wavelengths");
+        }
+
+        var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
+        var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
+        var pixelArea = xStep * yStep;
+        var pupilSamples = CreatePupilSamples(_numRays, _distribution);
+        var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
+        var peaks = new List<double>(fields.Count * wavelengths.Length);
+        var validRayCount = 0;
+
+        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        {
+            var field = fields[fieldIndex];
+            for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
+            {
+                var wavelength = wavelengths[wavelengthIndex];
+                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                    field.Hx,
+                    field.Hy,
+                    wavelength.Micrometers,
+                    pupilSamples);
+                var trace = Optic.SequentialRayTracer.Trace(bundle);
+                var irradiance = new double[_resolutionX, _resolutionY];
+                foreach (var history in trace.RayHistories)
+                {
+                    if (history.Count <= detectorIndex)
+                    {
+                        continue;
+                    }
+
+                    var sample = history[detectorIndex];
+                    if (sample.Intensity <= 0 || sample.Vignetted)
+                    {
+                        continue;
+                    }
+
+                    var local = detector.CoordinateSystem.ToLocalPoint(sample.Position);
+                    var xBin = BinIndex(local.X, extent.XMinimum, extent.XMaximum, _resolutionX);
+                    var yBin = BinIndex(local.Y, extent.YMinimum, extent.YMaximum, _resolutionY);
+                    if (xBin < 0 || yBin < 0)
+                    {
+                        continue;
+                    }
+
+                    irradiance[xBin, yBin] += sample.Intensity / pixelArea;
+                    validRayCount++;
+                }
+
+                var peak = irradiance.Cast<double>().DefaultIfEmpty(0).Max();
+                peaks.Add(peak);
+                var points = new List<AnalysisPoint>(_resolutionX * _resolutionY);
+                for (var x = 0; x < _resolutionX; x++)
+                {
+                    var xCenter = extent.XMinimum + ((x + 0.5) * xStep);
+                    for (var y = 0; y < _resolutionY; y++)
+                    {
+                        var yCenter = extent.YMinimum + ((y + 0.5) * yStep);
+                        var value = _normalize && peak > 0 ? irradiance[x, y] / peak : irradiance[x, y];
+                        points.Add(new AnalysisPoint(xCenter, yCenter, Value: value));
+                    }
+                }
+
+                var title = $"Field {fieldIndex} ({field.Hx:0.0###}, {field.Hy:0.0###}), "
+                    + $"\u03BB{wavelengthIndex} = {wavelength.Micrometers:0.000} \u00B5m";
+                var series = new AnalysisSeries(
+                    "X (mm)",
+                    "Y (mm)",
+                    points,
+                    AnalysisSeriesKind.Heatmap,
+                    ValueLabel: _normalize ? "Normalized Irradiance" : "Irradiance (W/mm\u00B2)",
+                    ColorMap: AnalysisColorMap.Inferno);
+                panes.Add(new AnalysisPlotPane(title, new[] { series }, new AnalysisPlotOptions(
+                    Title: title,
+                    EqualAspect: true,
+                    XMinimum: extent.XMinimum,
+                    XMaximum: extent.XMaximum,
+                    YMinimum: extent.YMinimum,
+                    YMaximum: extent.YMaximum,
+                    GridOpacity: 0)));
+            }
+        }
+
+        var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["DetectorSurfaceIndex"] = detectorIndex,
+            ["DetectorExtent"] = $"[{extent.XMinimum:R}, {extent.XMaximum:R}] x [{extent.YMinimum:R}, {extent.YMaximum:R}] mm",
+            ["Resolution"] = $"{_resolutionX} x {_resolutionY}",
+            ["NumRays"] = _numRays,
+            ["Distribution"] = _distribution,
+            ["Normalized"] = _normalize,
+            ["ValidRayCount"] = validRayCount,
+            ["PeakIrradiance"] = peaks.DefaultIfEmpty(0).Max(),
+            ["FieldCount"] = fields.Count,
+            ["WavelengthCount"] = wavelengths.Length
+        }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes, PlotPaneColumns: wavelengths.Length);
+    }
+
+    private AnalysisData Status(string message)
+    {
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Status"] = message,
+            ["PythonRequirement"] = "Set a physical aperture on the detector surface"
+        });
+    }
+
+    private static bool TryGetExtent(
+        IPhysicalAperture? aperture,
+        out (double XMinimum, double XMaximum, double YMinimum, double YMaximum) extent)
+    {
+        switch (aperture)
+        {
+            case CircularAperture circular:
+                extent = (-circular.Radius, circular.Radius, -circular.Radius, circular.Radius);
+                return true;
+            case RectangularAperture rectangular:
+                extent = (-rectangular.HalfWidth, rectangular.HalfWidth, -rectangular.HalfHeight, rectangular.HalfHeight);
+                return true;
+            default:
+                extent = default;
+                return false;
+        }
+    }
+
+    private static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)
+    {
+        if (string.Equals(distribution, "hexapolar", StringComparison.OrdinalIgnoreCase))
+        {
+            return ApertureSampler.GenerateHexapolarRings(sampleParameter);
+        }
+
+        if (string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase))
+        {
+            var axis = Enumerable.Range(0, sampleParameter)
+                .Select(index => sampleParameter == 1 ? 0 : -1 + (2.0 * index / (sampleParameter - 1)))
+                .ToArray();
+            return axis.SelectMany(y => axis.Select(x => new PupilSample(x, y, 1)))
+                .Where(sample => (sample.X * sample.X) + (sample.Y * sample.Y) <= 1)
+                .ToArray();
+        }
+
+        return ApertureSampler.Generate(sampleParameter, RayGenerator.ParseSampling(distribution));
+    }
+
+    private static int BinIndex(double value, double minimum, double maximum, int count)
+    {
+        if (!double.IsFinite(value) || value < minimum || value > maximum)
+        {
+            return -1;
+        }
+
+        if (value == maximum)
+        {
+            return count - 1;
+        }
+
+        return Math.Clamp((int)Math.Floor((value - minimum) / (maximum - minimum) * count), 0, count - 1);
+    }
+}
+
 public class PlaceholderAnalysis : BaseAnalysis
 {
     public PlaceholderAnalysis(Optic optic, string name) : base(optic)
@@ -1822,7 +2412,12 @@ public sealed class AnalysisCatalog
         "Encircled Energy",
         "Pupil Aberration",
         "RMS vs Field",
+        "RMS Wavefront vs Field",
         "Through Focus",
+        "Through Focus MTF",
+        "Angle vs Image Height - Through Pupil",
+        "Angle vs Image Height - Through Field",
+        "Incoherent Irradiance",
         "Y-Ybar",
         "PSF",
         "MTF",
@@ -1846,7 +2441,12 @@ public sealed class AnalysisCatalog
             "Encircled Energy" => new EncircledEnergyAnalysis(_optic),
             "Pupil Aberration" => new PupilAberrationAnalysis(_optic),
             "RMS vs Field" => new RmsVsFieldAnalysis(_optic),
+            "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(_optic),
             "Through Focus" => new ThroughFocusAnalysis(_optic),
+            "Through Focus MTF" => new ThroughFocusMtfAnalysis(_optic),
+            "Angle vs Image Height - Through Pupil" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughPupil),
+            "Angle vs Image Height - Through Field" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughField),
+            "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(_optic),
             "Y-Ybar" => new YYbarAnalysis(_optic),
             "PSF" => new PsfAnalysis(_optic),
             "MTF" => new MtfAnalysis(_optic),

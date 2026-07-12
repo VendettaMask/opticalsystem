@@ -15,10 +15,16 @@ from optiland.analysis.distortion import Distortion
 from optiland.analysis.field_curvature import FieldCurvature
 from optiland.analysis.grid_distortion import GridDistortion
 from optiland.analysis.encircled_energy import EncircledEnergy
-from optiland.analysis.rms_vs_field import RmsSpotSizeVsField
+from optiland.analysis.rms_vs_field import RmsSpotSizeVsField, RmsWavefrontErrorVsField
+from optiland.analysis.angle_vs_height import (
+    FieldIncidentAngleVsHeight,
+    PupilIncidentAngleVsHeight,
+)
 from optiland.analysis.spot_diagram import SpotDiagram
 from optiland.analysis.ray_fan import RayFan
 from optiland.analysis.through_focus_spot_diagram import ThroughFocusSpotDiagram
+from optiland.analysis.through_focus_mtf import ThroughFocusMTF
+from optiland.analysis.irradiance import IncoherentIrradiance
 from optiland.analysis.pupil_aberration import PupilAberration
 from optiland.analysis.y_ybar import YYbar
 from optiland.wavefront.opd import OPD
@@ -26,6 +32,7 @@ from optiland.wavefront.zernike_opd import ZernikeOPD
 from optiland.psf.fft import FFTPSF
 from optiland.mtf.fft import FFTMTF
 from optiland.rays import PolarizationState
+from optiland.physical_apertures import RectangularAperture
 from optiland.samples.objectives import CookeTriplet, TessarLens
 
 
@@ -388,6 +395,35 @@ def analyze(name, optic, plot_dir):
     }
     save_plot(figure, plot_dir, f"{name}-through-focus-spot.png")
 
+    through_focus_mtf = ThroughFocusMTF(
+        optic,
+        spatial_frequency=20,
+        delta_focus=0.1,
+        num_steps=5,
+        fields="all",
+        wavelength="primary",
+        num_rays=16,
+    )
+    figure, axes = through_focus_mtf.view()
+    through_focus_mtf_result = {
+        "fields": [list(field) for field in through_focus_mtf.fields],
+        "wavelength": float(through_focus_mtf.wavelength),
+        "defocus": array(np.asarray(through_focus_mtf.positions) - through_focus_mtf.nominal_focus),
+        "tangential": [
+            [float(through_focus_mtf.results[step][field]["tangential"]) for step in range(through_focus_mtf.num_steps)]
+            for field in range(len(through_focus_mtf.fields))
+        ],
+        "sagittal": [
+            [float(through_focus_mtf.results[step][field]["sagittal"]) for step in range(through_focus_mtf.num_steps)]
+            for field in range(len(through_focus_mtf.fields))
+        ],
+        "series_x": [array(line.get_xdata()) for line in axes.lines],
+        "series_y": [array(line.get_ydata()) for line in axes.lines],
+        "line_labels": [line.get_label() for line in axes.lines],
+        "presentation": plot_metadata(axes),
+    }
+    save_plot(figure, plot_dir, f"{name}-through-focus-mtf.png")
+
     ray_fan = RayFan(optic, num_points=17)
     ray_fan_result = {
         "fields": [list(field) for field in ray_fan.fields],
@@ -478,6 +514,50 @@ def analyze(name, optic, plot_dir):
     }
     save_plot(figure, plot_dir, f"{name}-rms-vs-field.png")
 
+    rms_wavefront = RmsWavefrontErrorVsField(
+        optic,
+        num_fields=9,
+        num_rays=5,
+        distribution="hexapolar",
+    )
+    rms_wavefront_result = {
+        "field": array(rms_wavefront._field[:, 1]),
+        "wavelengths": array(rms_wavefront.wavelengths),
+        "wavefront_error": array(rms_wavefront._wavefront_error),
+    }
+
+    angle_pupil = PupilIncidentAngleVsHeight(
+        optic,
+        surface_idx=-1,
+        axis=1,
+        wavelength="primary",
+        field=(0, 0),
+        num_points=17,
+    )
+    angle_pupil_data = next(iter(angle_pupil.data.values()))
+    angle_pupil_result = {
+        "height": array(angle_pupil_data["height"]),
+        "angle_radians": array(angle_pupil_data["angle"]),
+        "scan_range": array(angle_pupil_data["scan_range"]),
+        "fixed_coordinates": angle_pupil_data["fixed_coordinates"],
+    }
+
+    angle_field = FieldIncidentAngleVsHeight(
+        optic,
+        surface_idx=-1,
+        axis=1,
+        wavelength="primary",
+        pupil=(0, 0),
+        num_points=17,
+    )
+    angle_field_data = next(iter(angle_field.data.values()))
+    angle_field_result = {
+        "height": array(angle_field_data["height"]),
+        "angle_radians": array(angle_field_data["angle"]),
+        "scan_range": array(angle_field_data["scan_range"]),
+        "fixed_coordinates": angle_field_data["fixed_coordinates"],
+    }
+
     distortion = Distortion(optic, num_points=17, distortion_type="f-tan")
     figure, axes = distortion.view()
     distortion_result = {
@@ -530,6 +610,48 @@ def analyze(name, optic, plot_dir):
     save_plot(figure, plot_dir, f"{name}-field-curvature.png")
 
     image_simulation_result = image_simulation_data(optic)
+
+    detector_half_width = 21.0 if name == "cooke" else 1.75
+    detector_half_height = detector_half_width
+    optic.surface_group.surfaces[-1].aperture = RectangularAperture(
+        -detector_half_width,
+        detector_half_width,
+        -detector_half_height,
+        detector_half_height,
+    )
+    irradiance = IncoherentIrradiance(
+        optic,
+        num_rays=3,
+        res=(15, 13),
+        fields="all",
+        wavelengths="all",
+        distribution="hexapolar",
+    )
+    figure, axes = irradiance.view(normalize=True)
+    irradiance_result = {
+        "detector_half_width": detector_half_width,
+        "fields": [list(field) for field in irradiance.fields],
+        "wavelengths": array(irradiance.wavelengths),
+        "x_edges": array(irradiance.data[0][0][1]),
+        "y_edges": array(irradiance.data[0][0][2]),
+        "irradiance": [
+            [array(entry[0]) for entry in field_block]
+            for field_block in irradiance.data
+        ],
+        "normalized": [
+            [
+                array(entry[0] / float(np.max(entry[0])))
+                if float(np.max(entry[0])) > 0
+                else array(entry[0])
+                for entry in field_block
+            ]
+            for field_block in irradiance.data
+        ],
+        "peaks": [[float(value) for value in field] for field in irradiance.peak_irradiance()],
+        "titles": [[axes[f, w].get_title() for w in range(axes.shape[1])] for f in range(axes.shape[0])],
+        "presentation": [[plot_metadata(axes[f, w]) for w in range(axes.shape[1])] for f in range(axes.shape[0])],
+    }
+    save_plot(figure, plot_dir, f"{name}-incoherent-irradiance.png")
     jones_result = jones_pupil_data(optic)
 
     return {
@@ -540,10 +662,14 @@ def analyze(name, optic, plot_dir):
         "pupil_aberration": pupil_result,
         "yybar": yybar_result,
         "through_focus_spot": through_focus_result,
+        "through_focus_mtf": through_focus_mtf_result,
         "ray_fan": ray_fan_result,
         "spot_diagram": spot_result,
         "encircled_energy": encircled_result,
         "rms_vs_field": rms_result,
+        "rms_wavefront_vs_field": rms_wavefront_result,
+        "angle_vs_height_pupil": angle_pupil_result,
+        "angle_vs_height_field": angle_field_result,
         "distortion": distortion_result,
         "distortion_f_theta": distortion_f_theta_result,
         "grid_distortion": grid_result,
@@ -551,6 +677,7 @@ def analyze(name, optic, plot_dir):
         "field_curvature": curvature_result,
         "jones_pupil": jones_result,
         "image_simulation": image_simulation_result,
+        "incoherent_irradiance": irradiance_result,
     }
 
 

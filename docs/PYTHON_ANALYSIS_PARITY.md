@@ -9,9 +9,13 @@ The current validated set is:
 - `SpotDiagram`, with all configured fields and wavelengths, 6-ring/127-ray hexapolar sampling, primary-wavelength centroid reference, and centered image-plane points.
 - `EncircledEnergy`, with field-separated energy accumulation. Golden tests use a deterministic 3-ring hexapolar distribution because Python's default random distribution intentionally has no fixed seed.
 - `RmsSpotSizeVsField`, with a normalized Y-field sweep and one RMS curve per wavelength.
+- `RmsWavefrontErrorVsField`, with a normalized Y-field sweep and one wavefront RMS curve per wavelength.
 - `RayFan`, with odd line-pupil sampling, primary-chief-ray recentering, and paired X/Y fans for every field.
 - `PupilAberration`, with real-versus-paraxial stop intersections normalized by the on-axis paraxial stop radius.
 - `ThroughFocusSpotDiagram`, with image-plane shifts, field-by-focus panes, and shared centered spot limits.
+- `ThroughFocusMTF`, with physical image-surface shifts, sampled tangential/sagittal MTF, and Python-compatible cubic display interpolation.
+- `PupilIncidentAngleVsHeight` and `FieldIncidentAngleVsHeight`, with pupil- or field-colored incident-angle curves at a selected surface.
+- `IncoherentIrradiance`, with detector-aperture extents, intensity-weighted two-dimensional binning, per-pane normalization, and field-by-wavelength heatmaps.
 - `YYbar`, with per-surface paraxial marginal and chief ray heights.
 - `OPD/Wavefront`, with chief-ray exit-pupil reference sphere data in waves.
 - `ZernikeOPD`, with Fringe indexing and least-squares coefficients.
@@ -42,9 +46,13 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | Spot diagram | Nested field/wavelength traces, intensity filtering, and centering all wavelengths on the primary-wavelength geometric centroid |
 | Encircled energy | Radius sweep to 1.2 times the global geometric spot radius and direct sum of ray intensity inside each radius |
 | RMS versus field | 64-point normalized Y-field sweep and unweighted geometric RMS radius for every wavelength |
+| RMS wavefront versus field | Normalized Y-field sweep and chief-ray-reference RMS OPD in waves for every wavelength |
 | Ray fan | Orthogonal line-pupil traces with invalid-ray gaps and primary-wavelength center-ray distortion removal |
 | Pupil aberration | Real stop-surface intersections minus the normalized paraxial stop trace, reported as stop-radius percent |
 | Through-focus spot | Final rays projected onto each shifted image plane, then centered on the primary-wavelength centroid |
+| Through-focus MTF | Image geometry moved and restored at each focus position; sampled MTF evaluated at one spatial frequency for tangential and sagittal axes |
+| Angle versus image height | Generic-ray pupil or field scan with local surface height and incident direction angle, colored by normalized scan coordinate |
+| Incoherent irradiance | Final local detector coordinates binned with `histogram2d` boundary semantics and weighted by ray intensity per physical pixel area |
 | Y-Ybar | Python-compatible per-surface paraxial refraction of the marginal and maximum-field chief rays |
 | Wavefront | Image rays traced backward to the chief-ray exit-pupil sphere, object-plane angular tilt correction, and OPD conversion to waves |
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
@@ -60,16 +68,20 @@ The tests compare every generated point for both official lenses. The normal tol
 
 ## Plot Contract
 
-The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
+The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno heatmaps, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
 
-The sixteen views mirror Python's presentation:
+The twenty-one views mirror Python's presentation:
 
 - Spot diagram: up to three square field subplots per row, shared limits, field-coordinate titles, wavelength colors and circle/square/triangle markers, low-opacity grids, and a shared legend below the panes.
 - Encircled energy: one field curve per normalized field coordinate, radius and dimensionless-energy axes, primary wavelength title, nonnegative axes, and external legend.
 - RMS versus field: one line per wavelength, normalized Y field from 0 to 1, nonnegative RMS axis, and external legend.
+- RMS wavefront versus field: one line per wavelength, normalized Y field from 0 to 1, RMS wavefront error in waves, and external legend.
 - Ray fan: two panes per field for Y and X pupil fans, shared limits, horizontal and vertical zero references, and a shared wavelength legend.
 - Pupil aberration: the same two-pane field layout with percent axes and stop-normalized errors.
 - Through-focus spot: one row per field and one column per focus plane, shared square limits, defocus titles on the first row, and a shared wavelength legend.
+- Through-focus MTF: field-colored tangential solid and sagittal dashed pairs, defocus in millimeters, dotted grid, and external legend.
+- Angle versus image height: viridis-colored incident-angle curves with a scan-coordinate colorbar for pupil and field scan modes.
+- Incoherent irradiance: one row per field and one column per wavelength, equal detector axes, per-pane peak normalization, inferno heatmaps, and normalized-irradiance colorbars.
 - Y-Ybar: one marked segment per adjacent surface pair, named first/stop/image segments, marginal-versus-chief axes, title wavelength, and thin zero references.
 - Wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, and OPD colorbar in waves.
 - Zernike: unit-circle Fringe-fit heatmap with pupil axes and OPD colorbar.
@@ -85,6 +97,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the sixteen analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Centroid-sphere/best-fit-sphere wavefronts, Huygens/MMDFT PSF, and geometric/sampled/Huygens MTF require separate source-derived contracts.
+This parity statement applies to the twenty-one analyses above on the validated sequential refractive path and chief-ray wavefront strategy. Sampled MTF is validated for the through-focus path and nominal exit-pupil geometry. Centroid-sphere/best-fit-sphere wavefronts, Huygens/MMDFT PSF, and geometric/Huygens MTF require separate source-derived contracts.
 
 The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmap currently uses local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

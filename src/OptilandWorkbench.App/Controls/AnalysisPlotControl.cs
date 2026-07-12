@@ -65,11 +65,11 @@ public sealed class AnalysisPlotControl : Control
 
         var legendItems = visibleSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
         var legendWidth = PlotOptions.ShowLegend && legendItems.Length > 0 ? Math.Min(190, Bounds.Width * 0.28) : 0;
-        var heatmapSeries = visibleSeries
-            .Where(item => item.Series.Kind == AnalysisSeriesKind.Heatmap)
+        var valueSeries = visibleSeries
+            .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
             .FirstOrDefault();
-        var colorbarWidth = heatmapSeries is not null && !string.IsNullOrWhiteSpace(heatmapSeries.ValueLabel) ? 92 : 0;
+        var colorbarWidth = valueSeries is not null && !string.IsNullOrWhiteSpace(valueSeries.ValueLabel) ? 92 : 0;
         var top = PlotOptions.HideAxes ? (string.IsNullOrWhiteSpace(PlotOptions.Title) ? 8.0 : 38.0) : (string.IsNullOrWhiteSpace(PlotOptions.Title) ? 22.0 : 46.0);
         var left = PlotOptions.HideAxes ? 8 : 76;
         var bottom = PlotOptions.HideAxes ? 8 : 62;
@@ -136,9 +136,9 @@ public sealed class AnalysisPlotControl : Control
         {
             DrawAxisLabels(context, visibleSeries[0].Series, plot);
         }
-        if (colorbarWidth > 0 && heatmapSeries is not null)
+        if (colorbarWidth > 0 && valueSeries is not null)
         {
-            DrawColorbar(context, heatmapSeries, plot);
+            DrawColorbar(context, valueSeries, plot);
         }
 
         if (legendWidth > 0)
@@ -236,13 +236,19 @@ public sealed class AnalysisPlotControl : Control
         var pen = new Pen(brush, series.LineWidth, DashFor(series.LineStyle));
         if (series.Kind == AnalysisSeriesKind.Heatmap)
         {
-            DrawHeatmap(context, points, mapX, mapY);
+            DrawHeatmap(context, points, mapX, mapY, series.ColorMap);
             return;
         }
 
         if (series.Kind == AnalysisSeriesKind.Raster)
         {
             DrawRaster(context, points, mapX, mapY);
+            return;
+        }
+
+        if (series.Kind == AnalysisSeriesKind.ColoredLine)
+        {
+            DrawColoredLine(context, points, mapX, mapY, series.LineWidth, series.ColorMap);
             return;
         }
 
@@ -292,7 +298,8 @@ public sealed class AnalysisPlotControl : Control
         DrawingContext context,
         IReadOnlyList<AnalysisPoint> points,
         Func<double, double> mapX,
-        Func<double, double> mapY)
+        Func<double, double> mapY,
+        AnalysisColorMap colorMap)
     {
         var valued = points.Where(point => IsFinite(point) && point.Value.HasValue && double.IsFinite(point.Value.Value)).ToArray();
         if (valued.Length == 0)
@@ -310,7 +317,7 @@ public sealed class AnalysisPlotControl : Control
         foreach (var point in valued)
         {
             var normalized = Math.Abs(maximum - minimum) <= 1e-30 ? 0.5 : (point.Value!.Value - minimum) / (maximum - minimum);
-            var brush = new SolidColorBrush(Viridis(normalized));
+            var brush = new SolidColorBrush(ColorFor(colorMap, normalized));
             var left = mapX(point.X - (xStep / 2));
             var right = mapX(point.X + (xStep / 2));
             var top = mapY(point.Y + (yStep / 2));
@@ -351,6 +358,39 @@ public sealed class AnalysisPlotControl : Control
         }
     }
 
+    private static void DrawColoredLine(
+        DrawingContext context,
+        IReadOnlyList<AnalysisPoint> points,
+        Func<double, double> mapX,
+        Func<double, double> mapY,
+        double lineWidth,
+        AnalysisColorMap colorMap)
+    {
+        var values = points.Where(point => point.Value.HasValue && double.IsFinite(point.Value.Value))
+            .Select(point => point.Value!.Value).ToArray();
+        if (values.Length == 0)
+        {
+            return;
+        }
+
+        var minimum = values.Min();
+        var maximum = values.Max();
+        for (var index = 1; index < points.Count; index++)
+        {
+            var left = points[index - 1];
+            var right = points[index];
+            if (!IsFinite(left) || !IsFinite(right) || !left.Value.HasValue || !right.Value.HasValue)
+            {
+                continue;
+            }
+
+            var value = (left.Value.Value + right.Value.Value) / 2;
+            var normalized = Math.Abs(maximum - minimum) <= 1e-30 ? 0.5 : (value - minimum) / (maximum - minimum);
+            var pen = new Pen(new SolidColorBrush(ColorFor(colorMap, normalized)), lineWidth);
+            context.DrawLine(pen, new Point(mapX(left.X), mapY(left.Y)), new Point(mapX(right.X), mapY(right.Y)));
+        }
+    }
+
     private static Color Viridis(double value)
     {
         value = Math.Clamp(value, 0, 1);
@@ -378,6 +418,39 @@ public sealed class AnalysisPlotControl : Control
             Mix(lower.Color.B, high.Color.B));
     }
 
+    private static Color Inferno(double value)
+    {
+        value = Math.Clamp(value, 0, 1);
+        var anchors = new[]
+        {
+            (T: 0.0, Color: Color.FromRgb(0, 0, 4)),
+            (T: 0.2, Color: Color.FromRgb(66, 10, 104)),
+            (T: 0.4, Color: Color.FromRgb(147, 38, 103)),
+            (T: 0.6, Color: Color.FromRgb(221, 81, 58)),
+            (T: 0.8, Color: Color.FromRgb(252, 165, 10)),
+            (T: 1.0, Color: Color.FromRgb(252, 255, 164))
+        };
+        var upper = Array.FindIndex(anchors, anchor => anchor.T >= value);
+        if (upper <= 0)
+        {
+            return anchors[0].Color;
+        }
+
+        var lower = anchors[upper - 1];
+        var high = anchors[upper];
+        var fraction = (value - lower.T) / (high.T - lower.T);
+        byte Mix(byte left, byte right) => (byte)Math.Round(left + ((right - left) * fraction));
+        return Color.FromRgb(
+            Mix(lower.Color.R, high.Color.R),
+            Mix(lower.Color.G, high.Color.G),
+            Mix(lower.Color.B, high.Color.B));
+    }
+
+    private static Color ColorFor(AnalysisColorMap colorMap, double value)
+    {
+        return colorMap == AnalysisColorMap.Inferno ? Inferno(value) : Viridis(value);
+    }
+
     private static void DrawColorbar(DrawingContext context, AnalysisSeries series, Rect plot)
     {
         var values = series.Points
@@ -401,7 +474,7 @@ public sealed class AnalysisPlotControl : Control
             var fraction = index / (double)(steps - 1);
             var y = top + (height * (1 - fraction));
             context.DrawRectangle(
-                new SolidColorBrush(Viridis(fraction)),
+                new SolidColorBrush(ColorFor(series.ColorMap, fraction)),
                 null,
                 new Rect(left, y, width, (height / steps) + 1));
         }

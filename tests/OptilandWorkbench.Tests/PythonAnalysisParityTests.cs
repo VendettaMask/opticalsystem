@@ -1,6 +1,7 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
 
 namespace OptilandWorkbench.Tests;
 
@@ -219,6 +220,129 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    public void RmsWavefrontVsFieldMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("rms_wavefront_vs_field");
+        var data = new RmsWavefrontVsFieldAnalysis(createOptic(), numFields: 9, numRings: 5).GenerateData();
+        Assert.Equal(expected.GetProperty("wavelengths").GetArrayLength(), data.PlotSeries.Count);
+        for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
+        {
+            for (var field = 0; field < data.PlotSeries[wavelength].Points.Count; field++)
+            {
+                AssertClose(expected.GetProperty("field")[field].GetDouble(), data.PlotSeries[wavelength].Points[field].X);
+                AssertClose(
+                    expected.GetProperty("wavefront_error")[field][wavelength].GetDouble(),
+                    data.PlotSeries[wavelength].Points[field].Y);
+            }
+        }
+
+        Assert.Equal("Normalized Y Field Coordinate", data.PlotSeries[0].XAxisLabel);
+        Assert.Equal("RMS Wavefront Error (waves)", data.PlotSeries[0].YAxisLabel);
+        Assert.Equal(0, data.PlotOptions?.XMinimum);
+        Assert.Equal(1, data.PlotOptions?.XMaximum);
+        Assert.Equal(0, data.PlotOptions?.YMinimum);
+        Assert.True(data.PlotOptions?.ShowLegend);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void IncidentAngleVsHeightMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        foreach (var item in new[]
+        {
+            (Mode: AngleScanMode.ThroughPupil, Key: "angle_vs_height_pupil", Fixed: "Field"),
+            (Mode: AngleScanMode.ThroughField, Key: "angle_vs_height_field", Fixed: "Pupil")
+        })
+        {
+            var expected = reference.RootElement.GetProperty(sampleName).GetProperty(item.Key);
+            var data = new IncidentAngleVsHeightAnalysis(createOptic(), item.Mode, numPoints: 17).GenerateData();
+            var series = Assert.Single(data.PlotSeries);
+            Assert.Equal(AnalysisSeriesKind.ColoredLine, series.Kind);
+            Assert.Equal(expected.GetProperty("height").GetArrayLength(), series.Points.Count);
+            Assert.Equal(item.Fixed, expected.GetProperty("fixed_coordinates").GetString());
+            for (var index = 0; index < series.Points.Count; index++)
+            {
+                AssertClose(expected.GetProperty("height")[index].GetDouble(), series.Points[index].X);
+                AssertClose(
+                    expected.GetProperty("angle_radians")[index].GetDouble(),
+                    series.Points[index].Y * Math.PI / 180);
+                AssertClose(expected.GetProperty("scan_range")[index].GetDouble(), series.Points[index].Value!.Value);
+            }
+
+            Assert.Equal("Image Height in Millimeters", series.XAxisLabel);
+            Assert.Equal("Incident Angle in Degrees", series.YAxisLabel);
+            Assert.Contains("Normalized", series.ValueLabel);
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void IncoherentIrradianceMatchesPythonOptilandPixelForPixel(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("incoherent_irradiance");
+        var optic = createOptic();
+        var detectorHalfWidth = expected.GetProperty("detector_half_width").GetDouble();
+        optic.SurfaceGroup.Items[^1].PhysicalAperture = new RectangularAperture(detectorHalfWidth, detectorHalfWidth);
+        var data = new IncoherentIrradianceAnalysis(
+            optic,
+            numRays: 3,
+            resolutionX: 15,
+            resolutionY: 13,
+            distribution: "hexapolar").GenerateData();
+
+        Assert.NotNull(data.PlotPanes);
+        Assert.Equal(9, data.PlotPanes.Count);
+        Assert.Equal(3, data.PlotPaneColumns);
+        Assert.Equal(AnalysisColorMap.Inferno, data.PlotPanes[0].Series.Single().ColorMap);
+        Assert.Equal("Normalized Irradiance", data.PlotPanes[0].Series.Single().ValueLabel);
+        var xEdges = expected.GetProperty("x_edges");
+        var yEdges = expected.GetProperty("y_edges");
+        var expectedMaps = expected.GetProperty("normalized");
+        for (var field = 0; field < 3; field++)
+        {
+            for (var wavelength = 0; wavelength < 3; wavelength++)
+            {
+                var pane = data.PlotPanes[(field * 3) + wavelength];
+                var points = pane.Series.Single().Points;
+                Assert.Equal(15 * 13, points.Count);
+                Assert.True(pane.PlotOptions.EqualAspect);
+                for (var x = 0; x < 15; x++)
+                {
+                    for (var y = 0; y < 13; y++)
+                    {
+                        var point = points[(x * 13) + y];
+                        AssertClose((xEdges[x].GetDouble() + xEdges[x + 1].GetDouble()) / 2, point.X);
+                        AssertClose((yEdges[y].GetDouble() + yEdges[y + 1].GetDouble()) / 2, point.Y);
+                        var expectedValue = expectedMaps[field][wavelength][x][y].GetDouble();
+                        var tolerance = 2e-8 * Math.Max(1, Math.Abs(expectedValue));
+                        Assert.True(
+                            Math.Abs(expectedValue - point.Value!.Value) <= tolerance,
+                            $"Field {field}, wavelength {wavelength}, pixel ({x}, {y}): expected {expectedValue:R}, actual {point.Value.Value:R}.");
+                    }
+                }
+            }
+        }
+
+        var expectedPeak = expected.GetProperty("peaks").EnumerateArray()
+            .SelectMany(field => field.EnumerateArray())
+            .Max(value => value.GetDouble());
+        AssertClose(expectedPeak, Convert.ToDouble(data.Values["PeakIrradiance"]));
+    }
+
+    [Fact]
+    public void IncoherentIrradianceReportsPythonDetectorApertureRequirement()
+    {
+        var data = new IncoherentIrradianceAnalysis(Optic.CreateCookeTriplet()).GenerateData();
+        Assert.Empty(data.PlotSeries);
+        Assert.Contains("physical aperture", data.Values["Status"].ToString(), StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("Set a physical aperture on the detector surface", data.Values["PythonRequirement"]);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
     public void RayFanMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -297,6 +421,63 @@ public sealed class PythonAnalysisParityTests
                 Assert.True(pane.PlotOptions.EqualAspect);
             }
         }
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void ThroughFocusMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("through_focus_mtf");
+        var data = new ThroughFocusMtfAnalysis(
+            createOptic(),
+            spatialFrequency: 20,
+            deltaFocus: 0.1,
+            numSteps: 5,
+            pupilSampling: 16).GenerateData();
+        var tangential = Assert.IsType<double[][]>(data.Values["RawTangential"]);
+        var sagittal = Assert.IsType<double[][]>(data.Values["RawSagittal"]);
+        Assert.Equal(expected.GetProperty("fields").GetArrayLength() * 2, data.PlotSeries.Count);
+        for (var field = 0; field < tangential.Length; field++)
+        {
+            for (var step = 0; step < tangential[field].Length; step++)
+            {
+                AssertClose(expected.GetProperty("tangential")[field][step].GetDouble(), tangential[field][step]);
+                AssertClose(expected.GetProperty("sagittal")[field][step].GetDouble(), sagittal[field][step]);
+            }
+        }
+
+        for (var series = 0; series < data.PlotSeries.Count; series++)
+        {
+            var expectedX = expected.GetProperty("series_x")[series];
+            var expectedY = expected.GetProperty("series_y")[series];
+            Assert.Equal(256, data.PlotSeries[series].Points.Count);
+            Assert.Equal(expected.GetProperty("line_labels")[series].GetString(), data.PlotSeries[series].Name);
+            for (var index = 0; index < data.PlotSeries[series].Points.Count; index++)
+            {
+                AssertClose(expectedX[index].GetDouble(), data.PlotSeries[series].Points[index].X);
+                AssertClose(expectedY[index].GetDouble(), data.PlotSeries[series].Points[index].Y);
+            }
+        }
+
+        Assert.Equal(AnalysisLineStyle.Solid, data.PlotSeries[0].LineStyle);
+        Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[1].LineStyle);
+        Assert.Equal(0, data.PlotOptions?.YMinimum);
+        Assert.Equal(1.05, data.PlotOptions?.YMaximum);
+        Assert.True(data.PlotOptions?.ShowLegend);
+        Assert.True(data.PlotOptions?.DottedGrid);
+    }
+
+    [Theory]
+    [InlineData("cooke", -50.961347703805274, 10.233729452318345, 0.8782847343828784)]
+    [InlineData("tessar", -3.9168450744779424, 0.8740223235625226, 0.9410197321397179)]
+    public void ExitPupilGeometryMatchesPythonOptiland(string sampleName, double expectedLocation, double expectedDiameter, double expectedMtf)
+    {
+        var optic = sampleName == "cooke" ? Optic.CreateCookeTriplet() : Optic.CreateTessarLens();
+        AssertClose(expectedLocation, optic.Paraxial.EstimateExitPupilLocation());
+        AssertClose(expectedDiameter, optic.Paraxial.EstimateExitPupilDiameter());
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        AssertClose(expectedMtf, SampledMtfEngine.Calculate(optic, (0, 0), wavelength, 20, 0, 16));
     }
 
     [Theory]

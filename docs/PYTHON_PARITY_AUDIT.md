@@ -79,7 +79,7 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 The .NET analyses are currently mixed:
 
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
-- Spot diagram, encircled energy, RMS spot size versus field, ray fan, pupil aberration, through-focus spot diagram, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, and FFT MTF now match Python 0.5.8 numerical algorithms and default data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, PSF pixel, and MTF point.
+- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, Y-Ybar, distortion, grid distortion, field curvature, chief-ray wavefront, Fringe Zernike, FFT PSF, and FFT MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, coefficient, heatmap pixel, PSF pixel, and MTF point.
 - The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
 - Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Alternative wavefront strategies and non-FFT diffraction methods remain separate follow-up work.
 
@@ -217,3 +217,14 @@ Moved the single-surface real-ray kernel into `OpticalSurface.TraceRay(...)`:
 - tests cover single-surface intersection, cumulative OPL, refractive-index state handoff, and aperture clipping
 
 This is structurally closer to Python `Surface.trace()` / `_trace_real()`. Remaining gaps: material-owned propagation models, backend-array tracing, exact per-surface recorder arrays during propagation, polarization-dependent coatings, and Python reference OPD strategies.
+
+### 2026-07-12 Analysis And Display Parity Expansion
+
+Added source-derived implementations and Cooke/Tessar golden tests for:
+
+- RMS wavefront error versus normalized field
+- sampled through-focus tangential and sagittal MTF, including exit-pupil geometry and cubic plot interpolation
+- incident angle versus image height through pupil and through field
+- incoherent irradiance on an explicit circular or rectangular detector aperture
+
+The plot contract now includes value-colored curves, per-series viridis/inferno color maps, and colorbars for both heatmaps and colored lines. Incoherent irradiance intentionally preserves Python's requirement for an explicit detector physical aperture; the GUI reports that requirement instead of substituting the visual semi-diameter.

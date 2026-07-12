@@ -92,6 +92,10 @@ Native series are currently produced for:
 - Y-Ybar: surface number versus mean ray height.
 - Zernike: coefficient bars.
 - MTF: spatial frequency samples.
+- RMS wavefront versus field: one curve per wavelength.
+- Through-focus MTF: tangential/sagittal field pairs.
+- Incident angle versus image height: pupil and field scan modes with value-colored lines.
+- Incoherent irradiance: field-by-wavelength inferno detector heatmaps.
 
 Analyses without a dedicated series receive a numeric metric bar chart in the connector. This keeps old analyses visible while allowing rigorous series to replace the fallback incrementally.
 
@@ -136,7 +140,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 ### Priority 0: Compatibility And Numerical Trust
 
 - Extend Python Optiland JSON interoperability beyond the current validated sequential subset to freeforms, coatings, BSDFs, phase models, pickups, solves, telecentric systems, polarization, and apodization.
-- Continue with alternative PSF/MTF methods and non-chief-ray wavefront reference strategies; FFT PSF/MTF, Zernike, distortion, field curvature, Jones pupil, and image simulation now have validated numerical implementations.
+- Continue with alternative Huygens/MMDFT PSF/MTF methods and non-chief-ray wavefront reference strategies; FFT PSF/MTF, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance, Jones pupil, and image simulation now have validated numerical implementations.
 - Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
 
 ### Priority 1: GUI Parity
