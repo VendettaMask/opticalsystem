@@ -183,7 +183,14 @@ public sealed class CookeTripletGoldenTests
                 [(0, 2)] = 1e-3,
                 [(1, 1)] = 2e-4,
                 [(3, 0)] = -3e-6
-            }, 5, 7)
+            }, 5, 7),
+            new ZernikeGeometry(new Dictionary<(int RadialOrder, int AzimuthalFrequency), double>
+            {
+                [(0, 0)] = 1e-3,
+                [(1, -1)] = 2e-4,
+                [(2, 0)] = -3e-6,
+                [(3, 1)] = 4e-7
+            }, 6)
         };
 
         foreach (var geometry in geometries)
@@ -245,6 +252,28 @@ public sealed class CookeTripletGoldenTests
 
         Assert.Contains("ChebyshevPolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonJsonImportRejectsUnsupportedZernikeBaseExplicitly()
+    {
+        var json = PythonJsonWithZernikeGeometry("42.0", "fringe");
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("ZernikePolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonJsonImportRejectsUnsupportedZernikeTypeExplicitly()
+    {
+        var json = PythonJsonWithZernikeGeometry("Infinity", "standard");
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("ZernikePolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("standard", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -338,6 +367,11 @@ public sealed class CookeTripletGoldenTests
                 AssertClose(chebyshev.NormalizationX, actualChebyshev.NormalizationX, ScalarTolerance);
                 AssertClose(chebyshev.NormalizationY, actualChebyshev.NormalizationY, ScalarTolerance);
                 AssertPairCoefficientsEqual(chebyshev.Coefficients, actualChebyshev.Coefficients);
+                break;
+            case ZernikeGeometry zernike:
+                var actualZernike = Assert.IsType<ZernikeGeometry>(actual);
+                AssertClose(zernike.PupilRadius, actualZernike.PupilRadius, ScalarTolerance);
+                AssertPairCoefficientsEqual(zernike.Coefficients, actualZernike.Coefficients);
                 break;
             default:
                 throw new NotSupportedException($"No test assertion for geometry '{expected.Kind}'.");
@@ -450,6 +484,39 @@ public sealed class CookeTripletGoldenTests
           ],
           "norm_x": 5.0,
           "norm_y": 7.0
+        }
+        """);
+    }
+
+    private static string PythonJsonWithZernikeGeometry(string radius, string zernikeType)
+    {
+        return PythonJsonWithSurfaceGeometry($$"""
+        {
+          "type": "ZernikePolynomialGeometry",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": {{radius}},
+          "conic": 0.0,
+          "tol": 1e-10,
+          "max_iter": 100,
+          "coefficients": [
+            0.001,
+            0.0,
+            0.0002,
+            -0.000003,
+            0.0,
+            0.0,
+            0.0000004
+          ],
+          "zernike_type": "{{zernikeType}}",
+          "norm_radius": 6.0
         }
         """);
     }

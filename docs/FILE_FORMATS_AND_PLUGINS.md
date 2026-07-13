@@ -27,7 +27,7 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 
 - EPD, image-F-number, and object-NA system apertures
 - angle fields and weighted primary/non-primary wavelengths
-- plane, standard, biconic, representable toroidal, pure polynomial/Chebyshev, and representable high-order even/odd asphere surfaces with coordinate transforms
+- plane, standard, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
 - catalog, ideal, and Abbe materials
 - radial and rectangular physical apertures
 - refractive and reflective interactions

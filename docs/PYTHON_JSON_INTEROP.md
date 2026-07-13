@@ -24,7 +24,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | System aperture | EPD, image F-number, object NA |
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
+| Geometry | Plane, StandardGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
 | Materials | Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture, RectangularAperture |
 | Interaction | RefractiveReflectiveModel, including mirrors |
@@ -53,11 +53,12 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 
 ## Not Yet Supported
 
-- Zernike, Forbes, NURBS, grid-sag, and grating geometries.
+- Forbes, NURBS, grid-sag, and grating geometries.
 - Python EvenAsphere/OddAsphere files with a nonzero first departure coefficient that cannot be represented by the current Workbench high-order asphere model.
 - Python ToroidalGeometry files with nonzero `conic_yz` or `coeffs_poly_y` terms that cannot be represented by the current Workbench toroidal model.
 - Python PolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure polynomial model.
 - Python ChebyshevPolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure Chebyshev model.
+- Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, phase and diffractive interactions.
 - Pickups, solves, apodization, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.

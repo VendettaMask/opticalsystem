@@ -309,6 +309,7 @@ public static class PythonOptilandJsonStore
             "ToroidalGeometry" => ReadToroidalGeometry(geometry),
             "PolynomialGeometry" => ReadPolynomialGeometry(geometry),
             "ChebyshevPolynomialGeometry" => ReadChebyshevGeometry(geometry),
+            "ZernikePolynomialGeometry" => ReadZernikeGeometry(geometry),
             var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
         };
     }
@@ -359,6 +360,27 @@ public static class PythonOptilandJsonStore
             ReadPolynomialCoefficients(geometry),
             GetDouble(geometry, "norm_x", 1),
             GetDouble(geometry, "norm_y", 1));
+    }
+
+    private static ZernikeGeometry ReadZernikeGeometry(JsonElement geometry)
+    {
+        var radius = GetDouble(geometry, "radius", double.NaN);
+        if (double.IsFinite(radius))
+        {
+            throw new NotSupportedException(
+                "Python Optiland ZernikePolynomialGeometry with a finite base radius is not supported yet.");
+        }
+
+        var zernikeType = GetString(geometry, "zernike_type", "standard");
+        if (!zernikeType.Equals("fringe", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NotSupportedException(
+                $"Python Optiland ZernikePolynomialGeometry zernike_type '{zernikeType}' is not supported yet.");
+        }
+
+        return new ZernikeGeometry(
+            ReadFringeZernikeCoefficients(geometry),
+            GetDouble(geometry, "norm_radius", 1));
     }
 
     private static string ReadMaterial(Optic optic, JsonElement material)
@@ -611,6 +633,18 @@ public static class PythonOptilandJsonStore
                 ["coefficients"] = WritePolynomialCoefficients(chebyshev.Coefficients),
                 ["norm_x"] = chebyshev.NormalizationX,
                 ["norm_y"] = chebyshev.NormalizationY
+            },
+            ZernikeGeometry zernike => new Dictionary<string, object?>
+            {
+                ["type"] = "ZernikePolynomialGeometry",
+                ["cs"] = cs,
+                ["radius"] = PositiveInfinitySentinel,
+                ["conic"] = 0.0,
+                ["tol"] = 1e-10,
+                ["max_iter"] = 100,
+                ["coefficients"] = WriteFringeZernikeCoefficients(zernike.Coefficients),
+                ["zernike_type"] = "fringe",
+                ["norm_radius"] = zernike.PupilRadius
             },
             _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
@@ -941,6 +975,109 @@ public static class PythonOptilandJsonStore
         return matrix;
     }
 
+    private static IReadOnlyDictionary<(int RadialOrder, int AzimuthalFrequency), double> ReadFringeZernikeCoefficients(JsonElement geometry)
+    {
+        var coefficients = ReadDoubleArray(geometry, "coefficients");
+        var indices = FringeZernikeIndices(coefficients.Length);
+        var result = new Dictionary<(int RadialOrder, int AzimuthalFrequency), double>();
+        for (var index = 0; index < coefficients.Length; index++)
+        {
+            if (Math.Abs(coefficients[index]) > 0)
+            {
+                result[(indices[index].RadialOrder, indices[index].AzimuthalFrequency)] = coefficients[index];
+            }
+        }
+
+        return result;
+    }
+
+    private static double[] WriteFringeZernikeCoefficients(
+        IReadOnlyDictionary<(int RadialOrder, int AzimuthalFrequency), double> coefficients)
+    {
+        if (coefficients.Count == 0)
+        {
+            return Array.Empty<double>();
+        }
+
+        var numbered = coefficients
+            .Select(item => new
+            {
+                Number = FringeZernikeNumber(item.Key.RadialOrder, item.Key.AzimuthalFrequency),
+                item.Value
+            })
+            .ToArray();
+        if (numbered.Any(item => item.Number is null))
+        {
+            throw new NotSupportedException("Invalid Zernike coefficient indices cannot be exported to Python Optiland JSON yet.");
+        }
+
+        var values = new double[numbered.Max(item => item.Number!.Value)];
+        foreach (var item in numbered)
+        {
+            values[item.Number!.Value - 1] = item.Value;
+        }
+
+        return values;
+    }
+
+    private static (int RadialOrder, int AzimuthalFrequency)[] FringeZernikeIndices(int count)
+    {
+        if (count == 0)
+        {
+            return Array.Empty<(int RadialOrder, int AzimuthalFrequency)>();
+        }
+
+        var numbersPresent = new bool[count + 1];
+        numbersPresent[0] = true;
+        var indices = new List<(int Number, int RadialOrder, int AzimuthalFrequency)>();
+        var radialOrder = 0;
+        var azimuthalFrequency = 0;
+        while (numbersPresent.Any(present => !present))
+        {
+            var number = FringeZernikeNumber(radialOrder, azimuthalFrequency);
+            if (number is not null)
+            {
+                indices.Add((number.Value, radialOrder, azimuthalFrequency));
+                if (number.Value <= count)
+                {
+                    numbersPresent[number.Value] = true;
+                }
+            }
+
+            if (azimuthalFrequency == radialOrder)
+            {
+                radialOrder++;
+                azimuthalFrequency = -radialOrder;
+            }
+            else
+            {
+                azimuthalFrequency++;
+            }
+        }
+
+        return indices
+            .OrderBy(item => item.Number)
+            .Take(count)
+            .Select(item => (item.RadialOrder, item.AzimuthalFrequency))
+            .ToArray();
+    }
+
+    private static int? FringeZernikeNumber(int radialOrder, int azimuthalFrequency)
+    {
+        if (radialOrder < 0
+            || Math.Abs(azimuthalFrequency) > radialOrder
+            || ((radialOrder - azimuthalFrequency) % 2) != 0)
+        {
+            return null;
+        }
+
+        var absoluteM = Math.Abs(azimuthalFrequency);
+        return (int)(
+            Math.Pow(1 + ((radialOrder + absoluteM) / 2.0), 2)
+            - (2 * absoluteM)
+            + ((1 - Math.Sign(azimuthalFrequency)) / 2.0));
+    }
+
     private static double ReadDoubleValue(JsonElement value, double fallback)
     {
         if (value.ValueKind == JsonValueKind.Number && value.TryGetDouble(out var number))
@@ -975,6 +1112,7 @@ public static class PythonOptilandJsonStore
             ToroidalGeometry toroidal => toroidal.SagittalRadius,
             PolynomialGeometry => double.PositiveInfinity,
             ChebyshevGeometry => double.PositiveInfinity,
+            ZernikeGeometry => double.PositiveInfinity,
             _ => 0
         };
     }
