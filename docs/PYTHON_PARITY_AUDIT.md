@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial surfaces, representable high-order even/odd aspheres, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, refractive/reflective interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Chebyshev/Zernike/Forbes/NURBS/grating freeforms, Python polynomial finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial and Chebyshev surfaces, representable high-order even/odd aspheres, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, refractive/reflective interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Zernike/Forbes/NURBS/grating freeforms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,7 +165,7 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial geometry, representable high-order aspheres, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev geometry, representable high-order aspheres, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
@@ -244,7 +244,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Extended the Python Optiland JSON adapter beyond Plane/StandardGeometry to import and export BiconicGeometry.
 - Added lossless Workbench-to-Python JSON round-trips for high-order EvenAsphere/OddAsphere coefficients by reserving Python's first departure term, which the current Workbench asphere model does not represent.
-- Kept unsupported geometries explicit: Forbes, polynomial, Chebyshev, Zernike, NURBS, grid-sag, and grating geometries still fail rather than being silently flattened.
+- Kept still-unsupported geometries explicit: Forbes, Zernike, NURBS, grid-sag, and grating geometries still fail rather than being silently flattened.
 - Regression coverage now verifies non-standard geometry round-trips and keeps unsupported geometry rejection in place.
 
 ### 2026-07-13 Python JSON Toroidal Geometry Expansion
@@ -259,6 +259,13 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Export writes an infinite base radius so Python's conic base term contributes zero sag.
 - Kept Python finite base-radius polynomial geometries explicit: imports reject them instead of silently dropping the conic base.
 - Regression coverage now verifies pure polynomial round-trips and unsupported polynomial base rejection.
+
+### 2026-07-13 Python JSON Chebyshev Geometry Expansion
+
+- Added Python `ChebyshevPolynomialGeometry` dictionary import/export for the pure normalized Chebyshev subset represented by Workbench coefficient pairs and X/Y normalization radii.
+- Export writes an infinite base radius so Python's conic base term contributes zero sag.
+- Kept Python finite base-radius Chebyshev geometries explicit: imports reject them instead of silently dropping the conic base.
+- Regression coverage now verifies pure Chebyshev round-trips and unsupported Chebyshev base rejection.
 
 ### 2026-07-13 Python JSON Simple Coating Expansion
 

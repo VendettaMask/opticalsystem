@@ -177,7 +177,13 @@ public sealed class CookeTripletGoldenTests
                 [(0, 2)] = 1e-3,
                 [(1, 1)] = 2e-4,
                 [(3, 0)] = -3e-6
-            })
+            }),
+            new ChebyshevGeometry(new Dictionary<(int XOrder, int YOrder), double>
+            {
+                [(0, 2)] = 1e-3,
+                [(1, 1)] = 2e-4,
+                [(3, 0)] = -3e-6
+            }, 5, 7)
         };
 
         foreach (var geometry in geometries)
@@ -227,6 +233,17 @@ public sealed class CookeTripletGoldenTests
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
 
         Assert.Contains("PolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonJsonImportRejectsUnsupportedChebyshevBaseExplicitly()
+    {
+        var json = PythonJsonWithChebyshevGeometry("42.0");
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("ChebyshevPolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -314,16 +331,28 @@ public sealed class CookeTripletGoldenTests
                 break;
             case PolynomialGeometry polynomial:
                 var actualPolynomial = Assert.IsType<PolynomialGeometry>(actual);
-                Assert.Equal(polynomial.Coefficients.Count, actualPolynomial.Coefficients.Count);
-                foreach (var coefficient in polynomial.Coefficients)
-                {
-                    Assert.True(actualPolynomial.Coefficients.TryGetValue(coefficient.Key, out var actualCoefficient));
-                    AssertClose(coefficient.Value, actualCoefficient, ScalarTolerance);
-                }
-
+                AssertPairCoefficientsEqual(polynomial.Coefficients, actualPolynomial.Coefficients);
+                break;
+            case ChebyshevGeometry chebyshev:
+                var actualChebyshev = Assert.IsType<ChebyshevGeometry>(actual);
+                AssertClose(chebyshev.NormalizationX, actualChebyshev.NormalizationX, ScalarTolerance);
+                AssertClose(chebyshev.NormalizationY, actualChebyshev.NormalizationY, ScalarTolerance);
+                AssertPairCoefficientsEqual(chebyshev.Coefficients, actualChebyshev.Coefficients);
                 break;
             default:
                 throw new NotSupportedException($"No test assertion for geometry '{expected.Kind}'.");
+        }
+    }
+
+    private static void AssertPairCoefficientsEqual(
+        IReadOnlyDictionary<(int X, int Y), double> expected,
+        IReadOnlyDictionary<(int X, int Y), double> actual)
+    {
+        Assert.Equal(expected.Count, actual.Count);
+        foreach (var coefficient in expected)
+        {
+            Assert.True(actual.TryGetValue(coefficient.Key, out var actualCoefficient));
+            AssertClose(coefficient.Value, actualCoefficient, ScalarTolerance);
         }
     }
 
@@ -391,6 +420,36 @@ public sealed class CookeTripletGoldenTests
             [],
             [-0.000003]
           ]
+        }
+        """);
+    }
+
+    private static string PythonJsonWithChebyshevGeometry(string radius)
+    {
+        return PythonJsonWithSurfaceGeometry($$"""
+        {
+          "type": "ChebyshevPolynomialGeometry",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": {{radius}},
+          "conic": 0.0,
+          "tol": 1e-10,
+          "max_iter": 100,
+          "coefficients": [
+            [0.0, 0.0, 0.001],
+            [0.0, 0.0002],
+            [],
+            [-0.000003]
+          ],
+          "norm_x": 5.0,
+          "norm_y": 7.0
         }
         """);
     }

@@ -308,6 +308,7 @@ public static class PythonOptilandJsonStore
                 GetDouble(geometry, "conic_y", conic)),
             "ToroidalGeometry" => ReadToroidalGeometry(geometry),
             "PolynomialGeometry" => ReadPolynomialGeometry(geometry),
+            "ChebyshevPolynomialGeometry" => ReadChebyshevGeometry(geometry),
             var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
         };
     }
@@ -343,6 +344,21 @@ public static class PythonOptilandJsonStore
         }
 
         return new PolynomialGeometry(ReadPolynomialCoefficients(geometry));
+    }
+
+    private static ChebyshevGeometry ReadChebyshevGeometry(JsonElement geometry)
+    {
+        var radius = GetDouble(geometry, "radius", double.NaN);
+        if (double.IsFinite(radius))
+        {
+            throw new NotSupportedException(
+                "Python Optiland ChebyshevPolynomialGeometry with a finite base radius is not supported yet.");
+        }
+
+        return new ChebyshevGeometry(
+            ReadPolynomialCoefficients(geometry),
+            GetDouble(geometry, "norm_x", 1),
+            GetDouble(geometry, "norm_y", 1));
     }
 
     private static string ReadMaterial(Optic optic, JsonElement material)
@@ -583,6 +599,18 @@ public static class PythonOptilandJsonStore
                 ["tol"] = 1e-10,
                 ["max_iter"] = 100,
                 ["coefficients"] = WritePolynomialCoefficients(polynomial.Coefficients)
+            },
+            ChebyshevGeometry chebyshev => new Dictionary<string, object?>
+            {
+                ["type"] = "ChebyshevPolynomialGeometry",
+                ["cs"] = cs,
+                ["radius"] = PositiveInfinitySentinel,
+                ["conic"] = 0.0,
+                ["tol"] = 1e-10,
+                ["max_iter"] = 100,
+                ["coefficients"] = WritePolynomialCoefficients(chebyshev.Coefficients),
+                ["norm_x"] = chebyshev.NormalizationX,
+                ["norm_y"] = chebyshev.NormalizationY
             },
             _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
@@ -946,6 +974,7 @@ public static class PythonOptilandJsonStore
             BiconicGeometry biconic => biconic.RadiusX,
             ToroidalGeometry toroidal => toroidal.SagittalRadius,
             PolynomialGeometry => double.PositiveInfinity,
+            ChebyshevGeometry => double.PositiveInfinity,
             _ => 0
         };
     }

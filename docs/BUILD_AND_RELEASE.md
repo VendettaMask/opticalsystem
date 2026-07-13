@@ -86,7 +86,7 @@ The current local baseline is:
 Expected result as of 2026-07-13:
 
 - solution build: 0 warnings, 0 errors
-- tests: 162 passed, 0 failed, 0 skipped
+- tests: 163 passed, 0 failed, 0 skipped
 
 The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
 
