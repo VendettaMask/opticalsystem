@@ -214,12 +214,14 @@ public sealed class OpticalSurface : NotifyObject
         }
 
         var normal = CoordinateSystem.ToGlobalDirection(Geometry.SurfaceNormal(localHit));
+        var isReflectiveInteraction = IsReflective
+            || (InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true });
         var context = new SurfaceInteractionContext(
             normal,
             refractiveIndexBefore,
             refractiveIndexAfter,
             ray.WavelengthNanometers,
-            IsReflective);
+            isReflectiveInteraction);
 
         var tracedRay = InteractionModel.Interact(propagatedRay, context);
         tracedRay = CoatingModel.Apply(tracedRay, context);

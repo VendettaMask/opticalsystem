@@ -1,5 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Serialization;
@@ -193,6 +194,37 @@ public sealed class CookeTripletGoldenTests
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(optic));
 
         Assert.Contains("forbes_q", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonJsonAdapterRoundTripsSimpleCoatingDictionary()
+    {
+        var optic = Optic.CreateTessarLens();
+        optic.SurfaceGroup.Items[1].CoatingModel = new SimpleCoatingModel(0.82, 0.07);
+
+        var json = PythonOptilandJsonStore.Serialize(optic);
+        var restored = PythonOptilandJsonStore.Deserialize(json);
+        var restoredCoating = Assert.IsType<SimpleCoatingModel>(restored.SurfaceGroup.Items[1].CoatingModel);
+
+        Assert.Contains("\"type\": \"SimpleCoating\"", json, StringComparison.Ordinal);
+        Assert.Contains("\"transmittance\": 0.82", json, StringComparison.Ordinal);
+        Assert.Contains("\"reflectance\": 0.07", json, StringComparison.Ordinal);
+        Assert.Equal(0.82, restoredCoating.Transmittance, precision: 12);
+        Assert.Equal(0.07, restoredCoating.Reflectance, precision: 12);
+    }
+
+    [Fact]
+    public void PythonJsonExportRejectsUnsupportedCoatingExplicitly()
+    {
+        var optic = Optic.CreateTessarLens();
+        optic.SurfaceGroup.Items[1].CoatingModel = new ThinFilmStackCoating(new[]
+        {
+            new ThinFilmLayer("MgF2", 120)
+        });
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(optic));
+
+        Assert.Contains("thin_film_stack", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     private static void AssertSample(string traceName, JsonElement expected, RayTraceSample actual)

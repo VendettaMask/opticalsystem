@@ -21,6 +21,29 @@ public sealed class NoneCoatingModel : ICoatingModel
     public ICoatingModel Clone() => new NoneCoatingModel();
 }
 
+public sealed class SimpleCoatingModel : ICoatingModel
+{
+    public SimpleCoatingModel(double transmittance, double reflectance = 0)
+    {
+        Transmittance = transmittance;
+        Reflectance = reflectance;
+    }
+
+    public string Kind => "simple";
+
+    public double Transmittance { get; }
+
+    public double Reflectance { get; }
+
+    public RealRay Apply(RealRay ray, SurfaceInteractionContext context)
+    {
+        var factor = context.IsReflective ? Reflectance : Transmittance;
+        return ray with { Intensity = ray.Intensity * factor };
+    }
+
+    public ICoatingModel Clone() => new SimpleCoatingModel(Transmittance, Reflectance);
+}
+
 public sealed record ThinFilmLayer(string MaterialName, double ThicknessNanometers);
 
 public sealed class ThinFilmStackCoating : ICoatingModel

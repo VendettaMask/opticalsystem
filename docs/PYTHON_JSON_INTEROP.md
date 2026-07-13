@@ -28,9 +28,12 @@ The explicit Python export suffix is `.optiland-python.json`.
 | Materials | Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture, RectangularAperture |
 | Interaction | RefractiveReflectiveModel, including mirrors |
+| Coating | SimpleCoating dictionaries in Workbench import/export |
 | Sequential data | Thickness, stop, coordinate position and rotation |
 
 Unsupported geometry, material, aperture, coating, or interaction types fail with `NotSupportedException`. Export never silently replaces an unsupported optical component.
+
+Python Optiland 0.5.8 can emit `SimpleCoating.to_dict()` with the same fields. Its `Optic.from_dict()` surface-linking path can relink arbitrary surface coatings to Fresnel coatings, so external Python retention of `SimpleCoating` is not part of the validated bidirectional contract yet.
 
 ## Numerical Validation
 
@@ -52,6 +55,6 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 
 - Polynomial, Chebyshev, Zernike, Forbes, toroidal, NURBS, grid-sag, and grating geometries.
 - Python EvenAsphere/OddAsphere files with a nonzero first departure coefficient that cannot be represented by the current Workbench high-order asphere model.
-- Coatings, BSDFs, phase and diffractive interactions.
+- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, phase and diffractive interactions.
 - Pickups, solves, apodization, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.

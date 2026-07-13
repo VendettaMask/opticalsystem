@@ -137,7 +137,7 @@ Workbench: select **RMS-Field**, press **Run**, and inspect the Graph tab. Addit
 
 ## Persistence And Interoperability
 
-The Workbench native JSON remains the lossless format for Workbench-specific components. Python Optiland 0.5.8 recursive JSON dictionaries are now detected on open and can be exported explicitly through **File > Export Python Optiland JSON**. The validated interoperability subset covers angle fields, EPD/image F-number/object NA, wavelengths, centered Plane, StandardGeometry, BiconicGeometry, and representable high-order EvenAsphere/OddAsphere surfaces, catalog/ideal/Abbe materials, radial/rectangular apertures, and refractive or reflective interaction.
+The Workbench native JSON remains the lossless format for Workbench-specific components. Python Optiland 0.5.8 recursive JSON dictionaries are now detected on open and can be exported explicitly through **File > Export Python Optiland JSON**. The validated interoperability subset covers angle fields, EPD/image F-number/object NA, wavelengths, centered Plane, StandardGeometry, BiconicGeometry, and representable high-order EvenAsphere/OddAsphere surfaces, catalog/ideal/Abbe materials, radial/rectangular apertures, refractive or reflective interaction, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet.
 
 Commercial format support is intentionally a common sequential subset. ZMX, SEQ, and LEN files can lose unsupported freeform, coating, solve, polarization, or multi-configuration data. The UI should not claim lossless commercial compatibility.
 
@@ -145,7 +145,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 
 ### Priority 0: Compatibility And Numerical Trust
 
-- Extend Python Optiland JSON interoperability beyond the current validated sequential subset to the remaining freeforms, coatings, BSDFs, phase models, pickups, solves, telecentric systems, polarization, and apodization.
+- Extend Python Optiland JSON interoperability beyond the current validated sequential subset to the remaining freeforms, Python-preserved coating models, BSDFs, phase models, pickups, solves, telecentric systems, polarization, and apodization.
 - Continue with vectorial diffraction and broader analysis defaults; FFT/MMDFT/Huygens PSF, FFT/Huygens/geometric/sampled MTF, best-fit ray fan, chief-ray and centroid/best-fit wavefronts, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
 - Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
 
@@ -170,4 +170,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-13, the solution builds with zero warnings and all `157/157` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
+As of 2026-07-13, the solution builds with zero warnings and all `159/159` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.

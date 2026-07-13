@@ -165,6 +165,15 @@ public static class ComponentSnapshotFactory
 
     public static ComponentSnapshot FromCoating(ICoatingModel coating)
     {
+        if (coating is SimpleCoatingModel simple)
+        {
+            return new ComponentSnapshot("simple", new Dictionary<string, double>
+            {
+                ["transmittance"] = simple.Transmittance,
+                ["reflectance"] = simple.Reflectance
+            }, new Dictionary<string, string>());
+        }
+
         if (coating is ThinFilmStackCoating stack)
         {
             var numbers = new Dictionary<string, double> { ["count"] = stack.Layers.Count };
@@ -183,6 +192,13 @@ public static class ComponentSnapshotFactory
 
     public static ICoatingModel ToCoating(ComponentSnapshot? snapshot)
     {
+        if (snapshot?.Kind == "simple")
+        {
+            return new SimpleCoatingModel(
+                Get(snapshot.Numbers, "transmittance", 1),
+                Get(snapshot.Numbers, "reflectance", 0));
+        }
+
         if (snapshot?.Kind != "thin_film_stack")
         {
             return new NoneCoatingModel();

@@ -31,8 +31,11 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 - catalog, ideal, and Abbe materials
 - radial and rectangular physical apertures
 - refractive and reflective interactions
+- simple Python coating dictionaries on the Workbench adapter path
 
 Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON remains the lossless format for Workbench-only geometry, plugin, optimization, tolerancing, solve, pickup, and GUI state.
+
+Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
 
 See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema and external Python round-trip validation.
 
