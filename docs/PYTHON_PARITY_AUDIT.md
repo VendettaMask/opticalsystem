@@ -195,7 +195,7 @@ Implemented the first compatibility layer:
 - `SurfaceGroup.RecordedTrace` as the latest per-surface trace record
 - distributions for `line_x`, `line_y`, and `ring` in addition to existing grid/hexapolar/random/Sobol-like sampling
 
-This is still an adapter over the current simplified sequential tracer. It fixes the public trace shape and unit boundary first; the underlying physics kernel still needs to be replaced with Python-equivalent `Surface.Trace`, propagation model, reference OPD, and backend-array behavior.
+This is still an adapter over the current simplified sequential tracer. It fixes the public trace shape and unit boundary first; the underlying physics kernel still needs to be replaced with Python-equivalent `Surface.Trace`, material-owned propagation, and backend-array behavior.
 
 ### 2026-07-11 Surface Trace Kernel Split
 
@@ -206,7 +206,7 @@ Moved the single-surface real-ray kernel into `OpticalSurface.TraceRay(...)`:
 - `SequentialRayTracer` now iterates surfaces and delegates the per-surface physics instead of owning the whole kernel
 - tests cover single-surface intersection, cumulative OPL, refractive-index state handoff, and aperture clipping
 
-This is structurally closer to Python `Surface.trace()` / `_trace_real()`. Remaining gaps: material-owned propagation models, backend-array tracing, exact per-surface recorder arrays during propagation, polarization-dependent coatings, and Python reference OPD strategies.
+This is structurally closer to Python `Surface.trace()` / `_trace_real()`. Remaining gaps: material-owned propagation models, backend-array tracing, exact per-surface recorder arrays during propagation, and polarization-dependent coatings.
 
 ### 2026-07-12 Analysis And Display Parity Expansion
 
