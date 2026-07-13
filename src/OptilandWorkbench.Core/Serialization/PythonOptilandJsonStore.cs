@@ -81,6 +81,7 @@ public static class PythonOptilandJsonStore
             var parsed = parsedSurfaces[index];
             var surface = optic.SurfaceGroup.Items[index];
             surface.Geometry = parsed.Geometry;
+            surface.InteractionModel = parsed.Interaction;
             surface.CoatingModel = parsed.Coating;
             surface.PhysicalAperture = parsed.Aperture;
             if (parsed.CoordinateSystem is not null && index > 0)
@@ -240,27 +241,11 @@ public static class PythonOptilandJsonStore
             RectangularAperture rectangular => Math.Max(rectangular.HalfWidth, rectangular.HalfHeight),
             _ => 1.0
         };
-        var hasInteraction = source.TryGetProperty("interaction_model", out var interaction)
-            && interaction.ValueKind == JsonValueKind.Object;
-        if (hasInteraction)
-        {
-            var interactionType = GetString(interaction, "type", "RefractiveReflectiveModel");
-            if (!interactionType.Equals("RefractiveReflectiveModel", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new NotSupportedException($"Python Optiland interaction model '{interactionType}' is not supported yet.");
-            }
-
-            if (interaction.TryGetProperty("bsdf", out var bsdf)
-                && bsdf.ValueKind is not JsonValueKind.Null and not JsonValueKind.Undefined)
-            {
-                throw new NotSupportedException("Python Optiland BSDF import is not supported yet.");
-            }
-        }
-
-        var reflective = hasInteraction && GetBoolean(interaction, "is_reflective");
-        var coating = hasInteraction && interaction.TryGetProperty("coating", out var coatingElement)
-            ? ReadCoating(coatingElement)
-            : new NoneCoatingModel();
+        var hasInteraction = source.TryGetProperty("interaction_model", out var interactionElement)
+            && interactionElement.ValueKind == JsonValueKind.Object;
+        var parsedInteraction = hasInteraction
+            ? ReadInteractionModel(interactionElement)
+            : new ParsedInteraction(new RefractiveReflectiveInteractionModel(), false, new NoneCoatingModel());
         var label = GetString(source, "comment", string.Empty);
         if (string.IsNullOrWhiteSpace(label))
         {
@@ -277,11 +262,18 @@ public static class PythonOptilandJsonStore
             SemiDiameter = semiDiameter,
             Conic = conic,
             IsStop = GetBoolean(source, "is_stop"),
-            IsReflective = reflective
+            IsReflective = parsedInteraction.IsReflective
         };
         surface.Geometry = parsedGeometry;
-        surface.CoatingModel = coating;
-        return new ParsedSurface(surface, parsedGeometry, coating, aperture, ReadCoordinateSystem(geometry));
+        surface.InteractionModel = parsedInteraction.Interaction;
+        surface.CoatingModel = parsedInteraction.Coating;
+        return new ParsedSurface(
+            surface,
+            parsedGeometry,
+            parsedInteraction.Interaction,
+            parsedInteraction.Coating,
+            aperture,
+            ReadCoordinateSystem(geometry));
     }
 
     private static IGeometry ReadGeometry(JsonElement geometry)
@@ -417,6 +409,47 @@ public static class PythonOptilandJsonStore
         throw new NotSupportedException($"Python Optiland material '{type}' is not supported yet.");
     }
 
+    private static ParsedInteraction ReadInteractionModel(JsonElement interaction)
+    {
+        var type = GetString(interaction, "type", "RefractiveReflectiveModel");
+        var isReflective = GetBoolean(interaction, "is_reflective");
+        if (interaction.TryGetProperty("bsdf", out var bsdf)
+            && bsdf.ValueKind is not JsonValueKind.Null and not JsonValueKind.Undefined)
+        {
+            throw new NotSupportedException("Python Optiland BSDF import is not supported yet.");
+        }
+
+        var coating = interaction.TryGetProperty("coating", out var coatingElement)
+            ? ReadCoating(coatingElement)
+            : new NoneCoatingModel();
+        return type switch
+        {
+            "RefractiveReflectiveModel" => new ParsedInteraction(
+                new RefractiveReflectiveInteractionModel(isReflective),
+                isReflective,
+                coating),
+            "ThinLensInteractionModel" => ReadThinLensInteraction(interaction, isReflective, coating),
+            _ => throw new NotSupportedException($"Python Optiland interaction model '{type}' is not supported yet.")
+        };
+    }
+
+    private static ParsedInteraction ReadThinLensInteraction(
+        JsonElement interaction,
+        bool isReflective,
+        ICoatingModel coating)
+    {
+        if (isReflective)
+        {
+            throw new NotSupportedException(
+                "Python Optiland reflective ThinLensInteractionModel is not supported yet.");
+        }
+
+        return new ParsedInteraction(
+            new ThinLensInteractionModel(GetDouble(interaction, "focal_length", 50)),
+            false,
+            coating);
+    }
+
     private static ICoatingModel ReadCoating(JsonElement coating)
     {
         if (coating.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
@@ -523,11 +556,6 @@ public static class PythonOptilandJsonStore
 
     private static object WriteSurface(Optic optic, OpticalSurface surface, int index)
     {
-        if (surface.InteractionModel is not RefractiveReflectiveInteractionModel interaction)
-        {
-            throw new NotSupportedException($"Interaction '{surface.InteractionModel.Kind}' cannot be exported to Python Optiland JSON yet.");
-        }
-
         if (surface.ScatteringModel is not null)
         {
             throw new NotSupportedException("BSDF/scattering surfaces cannot be exported to Python Optiland JSON yet.");
@@ -554,14 +582,35 @@ public static class PythonOptilandJsonStore
             ["material_post"] = material,
             ["is_stop"] = surface.IsStop,
             ["aperture"] = WritePhysicalAperture(surface.PhysicalAperture),
-            ["interaction_model"] = new Dictionary<string, object?>
+            ["interaction_model"] = WriteInteractionModel(surface),
+            ["comment"] = surface.Label
+        };
+    }
+
+    private static object WriteInteractionModel(OpticalSurface surface)
+    {
+        var coating = WriteCoating(surface.CoatingModel);
+        return surface.InteractionModel switch
+        {
+            RefractiveReflectiveInteractionModel interaction => new Dictionary<string, object?>
             {
                 ["type"] = "RefractiveReflectiveModel",
                 ["is_reflective"] = interaction.IsReflective || surface.IsReflective,
-                ["coating"] = WriteCoating(surface.CoatingModel),
+                ["coating"] = coating,
                 ["bsdf"] = null
             },
-            ["comment"] = surface.Label
+            ThinLensInteractionModel thinLens when !surface.IsReflective => new Dictionary<string, object?>
+            {
+                ["type"] = "ThinLensInteractionModel",
+                ["is_reflective"] = false,
+                ["coating"] = coating,
+                ["bsdf"] = null,
+                ["focal_length"] = thinLens.FocalLength
+            },
+            ThinLensInteractionModel => throw new NotSupportedException(
+                "Reflective ThinLensInteractionModel cannot be exported to Python Optiland JSON yet."),
+            _ => throw new NotSupportedException(
+                $"Interaction '{surface.InteractionModel.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
     }
 
@@ -1160,7 +1209,13 @@ public static class PythonOptilandJsonStore
     private sealed record ParsedSurface(
         OpticalSurface Surface,
         IGeometry Geometry,
+        IInteractionModel Interaction,
         ICoatingModel Coating,
         IPhysicalAperture? Aperture,
         CoordinateSystem? CoordinateSystem);
+
+    private sealed record ParsedInteraction(
+        IInteractionModel Interaction,
+        bool IsReflective,
+        ICoatingModel Coating);
 }

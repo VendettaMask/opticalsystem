@@ -2,6 +2,7 @@ using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Serialization;
 
@@ -294,6 +295,32 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    public void PythonJsonAdapterRoundTripsThinLensInteractionDictionary()
+    {
+        var optic = Optic.CreateTessarLens();
+        optic.SurfaceGroup.Items[1].InteractionModel = new ThinLensInteractionModel(75);
+
+        var json = PythonOptilandJsonStore.Serialize(optic);
+        var restored = PythonOptilandJsonStore.Deserialize(json);
+        var restoredInteraction = Assert.IsType<ThinLensInteractionModel>(restored.SurfaceGroup.Items[1].InteractionModel);
+
+        Assert.Contains("\"type\": \"ThinLensInteractionModel\"", json, StringComparison.Ordinal);
+        Assert.Contains("\"focal_length\": 75", json, StringComparison.Ordinal);
+        Assert.Equal(75, restoredInteraction.FocalLength, precision: 12);
+    }
+
+    [Fact]
+    public void PythonJsonImportRejectsReflectiveThinLensInteractionExplicitly()
+    {
+        var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), PythonThinLensInteraction("75.0", "true"));
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("ThinLensInteractionModel", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("reflective", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void PythonJsonExportRejectsUnsupportedCoatingExplicitly()
     {
         var optic = Optic.CreateTessarLens();
@@ -521,8 +548,53 @@ public sealed class CookeTripletGoldenTests
         """);
     }
 
-    private static string PythonJsonWithSurfaceGeometry(string geometryJson)
+    private static string PythonPlaneGeometry()
     {
+        return """
+        {
+          "type": "Plane",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": Infinity
+        }
+        """;
+    }
+
+    private static string PythonThinLensInteraction(string focalLength, string isReflective)
+    {
+        return $$"""
+        {
+          "type": "ThinLensInteractionModel",
+          "is_reflective": {{isReflective}},
+          "coating": null,
+          "bsdf": null,
+          "focal_length": {{focalLength}}
+        }
+        """;
+    }
+
+    private static string PythonRefractiveReflectiveInteraction()
+    {
+        return """
+        {
+          "type": "RefractiveReflectiveModel",
+          "is_reflective": false,
+          "coating": null,
+          "bsdf": null
+        }
+        """;
+    }
+
+    private static string PythonJsonWithSurfaceGeometry(string geometryJson, string? interactionJson = null)
+    {
+        interactionJson ??= PythonRefractiveReflectiveInteraction();
         return $$"""
         {
           "version": 1.0,
@@ -590,12 +662,7 @@ public sealed class CookeTripletGoldenTests
                 },
                 "is_stop": false,
                 "aperture": null,
-                "interaction_model": {
-                  "type": "RefractiveReflectiveModel",
-                  "is_reflective": false,
-                  "coating": null,
-                  "bsdf": null
-                },
+                "interaction_model": {{interactionJson}},
                 "comment": ""
               }
             ]

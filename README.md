@@ -47,7 +47,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 165 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 167 passing tests with a zero-warning solution build.
 
 ## Publish
 

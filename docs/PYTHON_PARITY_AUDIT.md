@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, refractive/reflective interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, refractive/reflective and non-reflective thin-lens interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,7 +165,7 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, non-reflective thin-lens interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
@@ -280,3 +280,9 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Preserved the richer Workbench thin-film stack model as unsupported in Python JSON instead of flattening it into a simple transmittance.
 - Verified against Python Optiland 0.5.8 that the raw `SimpleCoating.to_dict()` shape matches, while `Optic.from_dict()` can relink surface coatings to Fresnel during surface-group reconstruction.
 - Regression coverage now verifies simple coating round-trips and keeps unsupported coating rejection in place.
+
+### 2026-07-13 Python JSON Thin Lens Interaction Expansion
+
+- Added Python `ThinLensInteractionModel` dictionary import/export for non-reflective thin-lens surfaces, including focal length and existing raw coating dictionary support.
+- Preserved reflective thin-lens behavior as unsupported because the current Workbench thin-lens interaction has no independent reflective flag.
+- Regression coverage now verifies thin-lens interaction round-trips and unsupported reflective thin-lens rejection.
