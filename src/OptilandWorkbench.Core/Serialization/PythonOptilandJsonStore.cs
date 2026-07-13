@@ -306,8 +306,30 @@ public static class PythonOptilandJsonStore
                 GetDouble(geometry, "radius_y", radius),
                 GetDouble(geometry, "conic_x", conic),
                 GetDouble(geometry, "conic_y", conic)),
+            "ToroidalGeometry" => ReadToroidalGeometry(geometry),
             var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
         };
+    }
+
+    private static ToroidalGeometry ReadToroidalGeometry(JsonElement geometry)
+    {
+        var conicYz = GetDouble(geometry, "conic_yz", 0);
+        if (Math.Abs(conicYz) > 1e-14)
+        {
+            throw new NotSupportedException(
+                "Python Optiland ToroidalGeometry with nonzero conic_yz is not supported yet.");
+        }
+
+        var polynomialY = ReadDoubleArray(geometry, "coeffs_poly_y");
+        if (polynomialY.Any(coefficient => Math.Abs(coefficient) > 1e-14))
+        {
+            throw new NotSupportedException(
+                "Python Optiland ToroidalGeometry with coeffs_poly_y terms is not supported yet.");
+        }
+
+        return new ToroidalGeometry(
+            GetDouble(geometry, "radius_x", GetDouble(geometry, "radius", 0)),
+            GetDouble(geometry, "radius_y", GetDouble(geometry, "radius", 0)));
     }
 
     private static string ReadMaterial(Optic optic, JsonElement material)
@@ -524,6 +546,20 @@ public static class PythonOptilandJsonStore
                 ["radius_y"] = biconic.RadiusY,
                 ["conic_x"] = biconic.ConicX,
                 ["conic_y"] = biconic.ConicY
+            },
+            ToroidalGeometry toroidal => new Dictionary<string, object?>
+            {
+                ["type"] = "ToroidalGeometry",
+                ["cs"] = cs,
+                ["radius"] = toroidal.SagittalRadius,
+                ["conic"] = 0.0,
+                ["tol"] = 1e-10,
+                ["max_iter"] = 100,
+                ["geometry_type"] = "Toroidal",
+                ["radius_x"] = toroidal.TangentialRadius,
+                ["radius_y"] = toroidal.SagittalRadius,
+                ["conic_yz"] = 0.0,
+                ["coeffs_poly_y"] = Array.Empty<double>()
             },
             _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
@@ -813,6 +849,7 @@ public static class PythonOptilandJsonStore
             EvenAsphereGeometry even => even.Base.Radius,
             OddAsphereGeometry odd => odd.Base.Radius,
             BiconicGeometry biconic => biconic.RadiusX,
+            ToroidalGeometry toroidal => toroidal.SagittalRadius,
             _ => 0
         };
     }

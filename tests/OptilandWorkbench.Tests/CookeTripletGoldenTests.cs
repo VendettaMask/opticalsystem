@@ -170,7 +170,8 @@ public sealed class CookeTripletGoldenTests
         {
             new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 }),
             new OddAsphereGeometry(42, -0.2, new[] { 2e-4, -3e-6 }),
-            new BiconicGeometry(1.3, 1.4, -0.1, -0.2)
+            new BiconicGeometry(1.3, 1.4, -0.1, -0.2),
+            new ToroidalGeometry(80, 30)
         };
 
         foreach (var geometry in geometries)
@@ -194,6 +195,22 @@ public sealed class CookeTripletGoldenTests
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(optic));
 
         Assert.Contains("forbes_q", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData("0.25", "[]", "conic_yz")]
+    [InlineData("0.0", "[1e-6]", "coeffs_poly_y")]
+    public void PythonJsonImportRejectsUnsupportedToroidalTermsExplicitly(
+        string conicYz,
+        string coeffsPolyY,
+        string expectedTerm)
+    {
+        var json = PythonJsonWithToroidalGeometry(conicYz, coeffsPolyY);
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("ToroidalGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -273,6 +290,11 @@ public sealed class CookeTripletGoldenTests
                 AssertClose(biconic.ConicX, actualBiconic.ConicX, ScalarTolerance);
                 AssertClose(biconic.ConicY, actualBiconic.ConicY, ScalarTolerance);
                 break;
+            case ToroidalGeometry toroidal:
+                var actualToroidal = Assert.IsType<ToroidalGeometry>(actual);
+                AssertClose(toroidal.TangentialRadius, actualToroidal.TangentialRadius, ScalarTolerance);
+                AssertClose(toroidal.SagittalRadius, actualToroidal.SagittalRadius, ScalarTolerance);
+                break;
             default:
                 throw new NotSupportedException($"No test assertion for geometry '{expected.Kind}'.");
         }
@@ -292,6 +314,106 @@ public sealed class CookeTripletGoldenTests
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Fixtures", $"optiland-0.5.8-{sampleName}.json");
         return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static string PythonJsonWithToroidalGeometry(string conicYz, string coeffsPolyY)
+    {
+        return $$"""
+        {
+          "version": 1.0,
+          "aperture": {
+            "type": "EPD",
+            "value": 1.0,
+            "object_space_telecentric": false
+          },
+          "fields": {
+            "fields": [
+              {
+                "x": 0.0,
+                "y": 0.0,
+                "vx": 0.0,
+                "vy": 0.0
+              }
+            ],
+            "field_definition": {
+              "field_type": "AngleField"
+            }
+          },
+          "wavelengths": {
+            "wavelengths": [
+              {
+                "value": 0.5875618,
+                "is_primary": true,
+                "unit": "um",
+                "weight": 1.0
+              }
+            ],
+            "polarization": "ignore"
+          },
+          "surface_group": {
+            "surfaces": [
+              {
+                "type": "ObjectSurface",
+                "geometry": {
+                  "type": "Plane",
+                  "cs": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "rx": 0.0,
+                    "ry": 0.0,
+                    "rz": 0.0,
+                    "reference_cs": null
+                  },
+                  "radius": 0.0
+                },
+                "material_post": {
+                  "type": "IdealMaterial",
+                  "index": 1.0,
+                  "absorp": 0.0
+                },
+                "comment": ""
+              },
+              {
+                "type": "Surface",
+                "thickness": 1.0,
+                "geometry": {
+                  "type": "ToroidalGeometry",
+                  "cs": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0,
+                    "rx": 0.0,
+                    "ry": 0.0,
+                    "rz": 0.0,
+                    "reference_cs": null
+                  },
+                  "radius": 30.0,
+                  "conic": 0.0,
+                  "radius_x": 80.0,
+                  "radius_y": 30.0,
+                  "conic_yz": {{conicYz}},
+                  "coeffs_poly_y": {{coeffsPolyY}}
+                },
+                "material_post": {
+                  "type": "IdealMaterial",
+                  "index": 1.0,
+                  "absorp": 0.0
+                },
+                "is_stop": false,
+                "aperture": null,
+                "interaction_model": {
+                  "type": "RefractiveReflectiveModel",
+                  "is_reflective": false,
+                  "coating": null,
+                  "bsdf": null
+                },
+                "comment": ""
+              }
+            ]
+          }
+        }
+        """;
     }
 
     private static void AssertClose(
