@@ -80,6 +80,7 @@ public static class PythonOptilandJsonStore
         {
             var parsed = parsedSurfaces[index];
             var surface = optic.SurfaceGroup.Items[index];
+            surface.Geometry = parsed.Geometry;
             surface.PhysicalAperture = parsed.Aperture;
             if (parsed.CoordinateSystem is not null && index > 0)
             {
@@ -224,15 +225,11 @@ public static class PythonOptilandJsonStore
     {
         var type = GetString(source, "type", number == 0 ? "ObjectSurface" : "Surface");
         var geometry = source.GetProperty("geometry");
-        var geometryType = GetString(geometry, "type", "Plane");
-        if (geometryType is not "Plane" and not "StandardGeometry")
-        {
-            throw new NotSupportedException($"Python Optiland geometry '{geometryType}' is not supported yet.");
-        }
+        var parsedGeometry = ReadGeometry(geometry);
 
         var materialName = ReadMaterial(optic, source.GetProperty("material_post"));
-        var radius = geometryType == "Plane" ? 0 : GetDouble(geometry, "radius", 0);
-        var conic = GetDouble(geometry, "conic", 0);
+        var radius = GeometryRadius(parsedGeometry);
+        var conic = GeometryConic(parsedGeometry);
         var aperture = source.TryGetProperty("aperture", out var apertureElement)
             ? ReadPhysicalAperture(apertureElement)
             : null;
@@ -262,7 +259,34 @@ public static class PythonOptilandJsonStore
             IsStop = GetBoolean(source, "is_stop"),
             IsReflective = reflective
         };
-        return new ParsedSurface(surface, aperture, ReadCoordinateSystem(geometry));
+        surface.Geometry = parsedGeometry;
+        return new ParsedSurface(surface, parsedGeometry, aperture, ReadCoordinateSystem(geometry));
+    }
+
+    private static IGeometry ReadGeometry(JsonElement geometry)
+    {
+        var geometryType = GetString(geometry, "type", "Plane");
+        var radius = GetDouble(geometry, "radius", 0);
+        var conic = GetDouble(geometry, "conic", 0);
+        return geometryType switch
+        {
+            "Plane" => new PlaneGeometry(),
+            "StandardGeometry" => new StandardGeometry(radius, conic),
+            "EvenAsphere" => new EvenAsphereGeometry(
+                radius,
+                conic,
+                ReadHighOrderAsphereCoefficients(geometry, geometryType)),
+            "OddAsphere" => new OddAsphereGeometry(
+                radius,
+                conic,
+                ReadHighOrderAsphereCoefficients(geometry, geometryType)),
+            "BiconicGeometry" => new BiconicGeometry(
+                GetDouble(geometry, "radius_x", radius),
+                GetDouble(geometry, "radius_y", radius),
+                GetDouble(geometry, "conic_x", conic),
+                GetDouble(geometry, "conic_y", conic)),
+            var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
+        };
     }
 
     private static string ReadMaterial(Optic optic, JsonElement material)
@@ -387,11 +411,6 @@ public static class PythonOptilandJsonStore
 
     private static object WriteSurface(Optic optic, OpticalSurface surface, int index)
     {
-        if (surface.Geometry is not PlaneGeometry and not StandardGeometry)
-        {
-            throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.");
-        }
-
         if (surface.InteractionModel is not RefractiveReflectiveInteractionModel interaction)
         {
             throw new NotSupportedException($"Interaction '{surface.InteractionModel.Kind}' cannot be exported to Python Optiland JSON yet.");
@@ -436,8 +455,44 @@ public static class PythonOptilandJsonStore
 
     private static object WriteGeometry(OpticalSurface surface, bool isObject)
     {
-        var coordinate = surface.CoordinateSystem;
-        var cs = new Dictionary<string, object?>
+        var cs = WriteCoordinateSystem(surface.CoordinateSystem, isObject);
+        return surface.Geometry switch
+        {
+            PlaneGeometry => new Dictionary<string, object?>
+            {
+                ["type"] = "Plane",
+                ["cs"] = cs,
+                ["radius"] = PositiveInfinitySentinel
+            },
+            StandardGeometry standard => WriteConicGeometry("StandardGeometry", cs, standard.Radius, standard.Conic),
+            EvenAsphereGeometry even => WriteConicGeometry(
+                "EvenAsphere",
+                cs,
+                even.Base.Radius,
+                even.Base.Conic,
+                WithLeadingZero(even.Coefficients)),
+            OddAsphereGeometry odd => WriteConicGeometry(
+                "OddAsphere",
+                cs,
+                odd.Base.Radius,
+                odd.Base.Conic,
+                WithLeadingZero(odd.Coefficients)),
+            BiconicGeometry biconic => new Dictionary<string, object?>
+            {
+                ["type"] = "BiconicGeometry",
+                ["cs"] = cs,
+                ["radius_x"] = biconic.RadiusX,
+                ["radius_y"] = biconic.RadiusY,
+                ["conic_x"] = biconic.ConicX,
+                ["conic_y"] = biconic.ConicY
+            },
+            _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
+        };
+    }
+
+    private static Dictionary<string, object?> WriteCoordinateSystem(CoordinateSystem coordinate, bool isObject)
+    {
+        return new Dictionary<string, object?>
         {
             ["x"] = isObject ? 0 : coordinate.Origin.X,
             ["y"] = isObject ? 0 : coordinate.Origin.Y,
@@ -447,24 +502,28 @@ public static class PythonOptilandJsonStore
             ["rz"] = DegreesToRadians(coordinate.RotationZDegrees),
             ["reference_cs"] = null
         };
-        if (surface.Geometry is PlaneGeometry)
+    }
+
+    private static Dictionary<string, object?> WriteConicGeometry(
+        string type,
+        Dictionary<string, object?> coordinateSystem,
+        double radius,
+        double conic,
+        IReadOnlyList<double>? coefficients = null)
+    {
+        var geometry = new Dictionary<string, object?>
         {
-            return new Dictionary<string, object?>
-            {
-                ["type"] = "Plane",
-                ["cs"] = cs,
-                ["radius"] = PositiveInfinitySentinel
-            };
+            ["type"] = type,
+            ["cs"] = coordinateSystem,
+            ["radius"] = radius,
+            ["conic"] = conic
+        };
+        if (coefficients is not null)
+        {
+            geometry["coefficients"] = coefficients;
         }
 
-        var standard = (StandardGeometry)surface.Geometry;
-        return new Dictionary<string, object?>
-        {
-            ["type"] = "StandardGeometry",
-            ["cs"] = cs,
-            ["radius"] = standard.Radius,
-            ["conic"] = standard.Conic
-        };
+        return geometry;
     }
 
     private static object WriteMaterial(IMaterial material)
@@ -655,6 +714,67 @@ public static class PythonOptilandJsonStore
         return !beforeIsIdentifier && !afterIsIdentifier;
     }
 
+    private static IReadOnlyList<double> WithLeadingZero(IReadOnlyList<double> coefficients)
+    {
+        return new[] { 0.0 }.Concat(coefficients).ToArray();
+    }
+
+    private static IReadOnlyList<double> ReadHighOrderAsphereCoefficients(JsonElement geometry, string geometryType)
+    {
+        var coefficients = ReadDoubleArray(geometry, "coefficients");
+        if (coefficients.Length == 0)
+        {
+            return Array.Empty<double>();
+        }
+
+        if (Math.Abs(coefficients[0]) > 1e-14)
+        {
+            throw new NotSupportedException(
+                $"Python Optiland geometry '{geometryType}' with a nonzero first asphere coefficient is not supported yet.");
+        }
+
+        return coefficients.Skip(1).ToArray();
+    }
+
+    private static double[] ReadDoubleArray(JsonElement source, string propertyName)
+    {
+        if (!source.TryGetProperty(propertyName, out var array) || array.ValueKind != JsonValueKind.Array)
+        {
+            return Array.Empty<double>();
+        }
+
+        return array.EnumerateArray()
+            .Select(item => item.ValueKind == JsonValueKind.Number && item.TryGetDouble(out var number)
+                ? number
+                : 0.0)
+            .ToArray();
+    }
+
+    private static double GeometryRadius(IGeometry geometry)
+    {
+        return geometry switch
+        {
+            PlaneGeometry => 0,
+            StandardGeometry standard => standard.Radius,
+            EvenAsphereGeometry even => even.Base.Radius,
+            OddAsphereGeometry odd => odd.Base.Radius,
+            BiconicGeometry biconic => biconic.RadiusX,
+            _ => 0
+        };
+    }
+
+    private static double GeometryConic(IGeometry geometry)
+    {
+        return geometry switch
+        {
+            StandardGeometry standard => standard.Conic,
+            EvenAsphereGeometry even => even.Base.Conic,
+            OddAsphereGeometry odd => odd.Base.Conic,
+            BiconicGeometry biconic => biconic.ConicX,
+            _ => 0
+        };
+    }
+
     private static double GetDouble(JsonElement source, string propertyName, double fallback)
     {
         if (!source.TryGetProperty(propertyName, out var value))
@@ -702,6 +822,7 @@ public static class PythonOptilandJsonStore
 
     private sealed record ParsedSurface(
         OpticalSurface Surface,
+        IGeometry Geometry,
         IPhysicalAperture? Aperture,
         CoordinateSystem? CoordinateSystem);
 }

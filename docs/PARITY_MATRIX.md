@@ -43,4 +43,4 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 
-The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, non-sequential tracing, Python JSON/commercial-format breadth, dynamic analysis settings, and optional GPU/autograd backends.
+The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating/freeform JSON breadth, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, non-sequential tracing, commercial-format breadth, GUI automation breadth, and optional GPU/autograd backends.

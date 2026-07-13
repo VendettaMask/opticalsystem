@@ -24,7 +24,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | System aperture | EPD, image F-number, object NA |
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry |
+| Geometry | Plane, StandardGeometry, BiconicGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
 | Materials | Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture, RectangularAperture |
 | Interaction | RefractiveReflectiveModel, including mirrors |
@@ -50,7 +50,8 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 
 ## Not Yet Supported
 
-- Freeform and polynomial geometries beyond StandardGeometry.
+- Polynomial, Chebyshev, Zernike, Forbes, toroidal, NURBS, grid-sag, and grating geometries.
+- Python EvenAsphere/OddAsphere files with a nonzero first departure coefficient that cannot be represented by the current Workbench high-order asphere model.
 - Coatings, BSDFs, phase and diffractive interactions.
 - Pickups, solves, apodization, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.

@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard surfaces, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, and refractive/reflective interactions. Freeforms, coatings, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including system apertures, wavelengths, plane/standard/biconic surfaces, representable high-order even/odd aspheres, catalog/ideal/Abbe materials, radial/rectangular apertures, transforms, and refractive/reflective interactions. Polynomial/Chebyshev/Zernike/Forbes/toroidal/NURBS/grating freeforms, coatings, BSDFs, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,11 +165,11 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry and representable high-order aspheres, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
-1. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
+1. Extend Python JSON interoperability to the remaining freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
 2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
 3. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
 4. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
@@ -239,3 +239,10 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Registered MMDFT PSF, Huygens PSF, and Huygens MTF as structured analysis catalog entries.
 - Golden tests compare every bounded Cooke/Tessar PSF pixel, Huygens MTF point, working F-number, pixel pitch, and Strehl convention.
 - Corrected odd-size `fftshift` behavior so Huygens MTF matches NumPy for 9 by 9 reference grids.
+
+### 2026-07-13 Python JSON Geometry Expansion
+
+- Extended the Python Optiland JSON adapter beyond Plane/StandardGeometry to import and export BiconicGeometry.
+- Added lossless Workbench-to-Python JSON round-trips for high-order EvenAsphere/OddAsphere coefficients by reserving Python's first departure term, which the current Workbench asphere model does not represent.
+- Kept unsupported geometries explicit: Forbes, polynomial, Chebyshev, Zernike, toroidal, NURBS, grid-sag, and grating geometries still fail rather than being silently flattened.
+- Regression coverage now verifies non-standard geometry round-trips and keeps unsupported geometry rejection in place.

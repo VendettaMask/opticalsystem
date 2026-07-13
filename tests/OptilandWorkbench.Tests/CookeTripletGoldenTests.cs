@@ -163,14 +163,36 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    public void PythonJsonExportRoundTripsSupportedNonStandardGeometries()
+    {
+        IGeometry[] geometries =
+        {
+            new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 }),
+            new OddAsphereGeometry(42, -0.2, new[] { 2e-4, -3e-6 }),
+            new BiconicGeometry(1.3, 1.4, -0.1, -0.2)
+        };
+
+        foreach (var geometry in geometries)
+        {
+            var optic = Optic.CreateTessarLens();
+            optic.SurfaceGroup.Items[1].Geometry = geometry;
+
+            var json = PythonOptilandJsonStore.Serialize(optic);
+            var restored = PythonOptilandJsonStore.Deserialize(json);
+
+            AssertGeometryEquivalent(geometry, restored.SurfaceGroup.Items[1].Geometry);
+        }
+    }
+
+    [Fact]
     public void PythonJsonExportRejectsUnsupportedGeometryExplicitly()
     {
         var optic = Optic.CreateTessarLens();
-        optic.SurfaceGroup.Items[1].Geometry = new BiconicGeometry(1.3, 1.4);
+        optic.SurfaceGroup.Items[1].Geometry = new ForbesQGeometry(42, -0.6, 8, new[] { 1e-4, -2e-5 });
 
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(optic));
 
-        Assert.Contains("biconic", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("forbes_q", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     private static void AssertSample(string traceName, JsonElement expected, RayTraceSample actual)
@@ -194,6 +216,34 @@ public sealed class CookeTripletGoldenTests
             traceCase.GetProperty("pupil_x").GetDouble(),
             traceCase.GetProperty("pupil_y").GetDouble(),
             traceCase.GetProperty("wavelength_micrometers").GetDouble()).RayHistories.Single();
+    }
+
+    private static void AssertGeometryEquivalent(IGeometry expected, IGeometry actual)
+    {
+        switch (expected)
+        {
+            case EvenAsphereGeometry even:
+                var actualEven = Assert.IsType<EvenAsphereGeometry>(actual);
+                AssertClose(even.Base.Radius, actualEven.Base.Radius, ScalarTolerance);
+                AssertClose(even.Base.Conic, actualEven.Base.Conic, ScalarTolerance);
+                Assert.Equal(even.Coefficients, actualEven.Coefficients);
+                break;
+            case OddAsphereGeometry odd:
+                var actualOdd = Assert.IsType<OddAsphereGeometry>(actual);
+                AssertClose(odd.Base.Radius, actualOdd.Base.Radius, ScalarTolerance);
+                AssertClose(odd.Base.Conic, actualOdd.Base.Conic, ScalarTolerance);
+                Assert.Equal(odd.Coefficients, actualOdd.Coefficients);
+                break;
+            case BiconicGeometry biconic:
+                var actualBiconic = Assert.IsType<BiconicGeometry>(actual);
+                AssertClose(biconic.RadiusX, actualBiconic.RadiusX, ScalarTolerance);
+                AssertClose(biconic.RadiusY, actualBiconic.RadiusY, ScalarTolerance);
+                AssertClose(biconic.ConicX, actualBiconic.ConicX, ScalarTolerance);
+                AssertClose(biconic.ConicY, actualBiconic.ConicY, ScalarTolerance);
+                break;
+            default:
+                throw new NotSupportedException($"No test assertion for geometry '{expected.Kind}'.");
+        }
     }
 
     private static Optic CreateSample(string sampleName)
