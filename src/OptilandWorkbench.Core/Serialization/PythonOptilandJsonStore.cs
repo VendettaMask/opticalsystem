@@ -477,13 +477,38 @@ public static class PythonOptilandJsonStore
 
         return GetString(aperture, "type", string.Empty) switch
         {
-            "RadialAperture" => new CircularAperture(GetDouble(aperture, "r_max", 1)),
-            "RectangularAperture" => new RectangularAperture(
-                Math.Max(Math.Abs(GetDouble(aperture, "x_min", -1)), Math.Abs(GetDouble(aperture, "x_max", 1))),
-                Math.Max(Math.Abs(GetDouble(aperture, "y_min", -1)), Math.Abs(GetDouble(aperture, "y_max", 1)))),
+            "RadialAperture" => ReadRadialAperture(aperture),
+            "RectangularAperture" => ReadRectangularAperture(aperture),
             "" => null,
             var type => throw new NotSupportedException($"Python Optiland physical aperture '{type}' is not supported yet.")
         };
+    }
+
+    private static CircularAperture ReadRadialAperture(JsonElement aperture)
+    {
+        var innerRadius = GetDouble(aperture, "r_min", 0);
+        if (Math.Abs(innerRadius) > 1e-14)
+        {
+            throw new NotSupportedException(
+                "Python Optiland RadialAperture with nonzero r_min is not supported yet.");
+        }
+
+        return new CircularAperture(GetDouble(aperture, "r_max", 1));
+    }
+
+    private static RectangularAperture ReadRectangularAperture(JsonElement aperture)
+    {
+        var xMin = GetDouble(aperture, "x_min", -1);
+        var xMax = GetDouble(aperture, "x_max", 1);
+        var yMin = GetDouble(aperture, "y_min", -1);
+        var yMax = GetDouble(aperture, "y_max", 1);
+        if (Math.Abs(xMin + xMax) > 1e-14 || Math.Abs(yMin + yMax) > 1e-14)
+        {
+            throw new NotSupportedException(
+                "Python Optiland asymmetric RectangularAperture is not supported yet.");
+        }
+
+        return new RectangularAperture(Math.Abs(xMax), Math.Abs(yMax));
     }
 
     private static CoordinateSystem? ReadCoordinateSystem(JsonElement geometry)

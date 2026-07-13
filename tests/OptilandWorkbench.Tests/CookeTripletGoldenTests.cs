@@ -1,5 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
@@ -310,6 +311,56 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    public void PythonJsonAdapterRoundTripsSupportedPhysicalApertures()
+    {
+        IPhysicalAperture[] apertures =
+        {
+            new CircularAperture(2.5),
+            new RectangularAperture(3, 4)
+        };
+
+        foreach (var aperture in apertures)
+        {
+            var optic = Optic.CreateTessarLens();
+            optic.SurfaceGroup.Items[1].PhysicalAperture = aperture;
+
+            var json = PythonOptilandJsonStore.Serialize(optic);
+            var restored = PythonOptilandJsonStore.Deserialize(json);
+
+            AssertPhysicalApertureEquivalent(aperture, restored.SurfaceGroup.Items[1].PhysicalAperture);
+        }
+    }
+
+    [Theory]
+    [InlineData("""
+        {
+          "type": "RadialAperture",
+          "r_max": 4.0,
+          "r_min": 1.0
+        }
+        """, "r_min")]
+    [InlineData("""
+        {
+          "type": "RectangularAperture",
+          "x_min": -2.0,
+          "x_max": 4.0,
+          "y_min": -3.0,
+          "y_max": 3.0
+        }
+        """, "asymmetric")]
+    public void PythonJsonImportRejectsUnsupportedPhysicalAperturesExplicitly(
+        string apertureJson,
+        string expectedTerm)
+    {
+        var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), apertureJson: apertureJson);
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("Aperture", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void PythonJsonImportRejectsReflectiveThinLensInteractionExplicitly()
     {
         var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), PythonThinLensInteraction("75.0", "true"));
@@ -414,6 +465,24 @@ public sealed class CookeTripletGoldenTests
         {
             Assert.True(actual.TryGetValue(coefficient.Key, out var actualCoefficient));
             AssertClose(coefficient.Value, actualCoefficient, ScalarTolerance);
+        }
+    }
+
+    private static void AssertPhysicalApertureEquivalent(IPhysicalAperture expected, IPhysicalAperture? actual)
+    {
+        switch (expected)
+        {
+            case CircularAperture circular:
+                var actualCircular = Assert.IsType<CircularAperture>(actual);
+                AssertClose(circular.Radius, actualCircular.Radius, ScalarTolerance);
+                break;
+            case RectangularAperture rectangular:
+                var actualRectangular = Assert.IsType<RectangularAperture>(actual);
+                AssertClose(rectangular.HalfWidth, actualRectangular.HalfWidth, ScalarTolerance);
+                AssertClose(rectangular.HalfHeight, actualRectangular.HalfHeight, ScalarTolerance);
+                break;
+            default:
+                throw new NotSupportedException($"No test assertion for aperture '{expected.Kind}'.");
         }
     }
 
@@ -592,9 +661,13 @@ public sealed class CookeTripletGoldenTests
         """;
     }
 
-    private static string PythonJsonWithSurfaceGeometry(string geometryJson, string? interactionJson = null)
+    private static string PythonJsonWithSurfaceGeometry(
+        string geometryJson,
+        string? interactionJson = null,
+        string? apertureJson = null)
     {
         interactionJson ??= PythonRefractiveReflectiveInteraction();
+        apertureJson ??= "null";
         return $$"""
         {
           "version": 1.0,
@@ -661,7 +734,7 @@ public sealed class CookeTripletGoldenTests
                   "absorp": 0.0
                 },
                 "is_stop": false,
-                "aperture": null,
+                "aperture": {{apertureJson}},
                 "interaction_model": {{interactionJson}},
                 "comment": ""
               }
