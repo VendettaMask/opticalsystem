@@ -171,7 +171,13 @@ public sealed class CookeTripletGoldenTests
             new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 }),
             new OddAsphereGeometry(42, -0.2, new[] { 2e-4, -3e-6 }),
             new BiconicGeometry(1.3, 1.4, -0.1, -0.2),
-            new ToroidalGeometry(80, 30)
+            new ToroidalGeometry(80, 30),
+            new PolynomialGeometry(new Dictionary<(int X, int Y), double>
+            {
+                [(0, 2)] = 1e-3,
+                [(1, 1)] = 2e-4,
+                [(3, 0)] = -3e-6
+            })
         };
 
         foreach (var geometry in geometries)
@@ -211,6 +217,17 @@ public sealed class CookeTripletGoldenTests
 
         Assert.Contains("ToroidalGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonJsonImportRejectsUnsupportedPolynomialBaseExplicitly()
+    {
+        var json = PythonJsonWithPolynomialGeometry("42.0");
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("PolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -295,6 +312,16 @@ public sealed class CookeTripletGoldenTests
                 AssertClose(toroidal.TangentialRadius, actualToroidal.TangentialRadius, ScalarTolerance);
                 AssertClose(toroidal.SagittalRadius, actualToroidal.SagittalRadius, ScalarTolerance);
                 break;
+            case PolynomialGeometry polynomial:
+                var actualPolynomial = Assert.IsType<PolynomialGeometry>(actual);
+                Assert.Equal(polynomial.Coefficients.Count, actualPolynomial.Coefficients.Count);
+                foreach (var coefficient in polynomial.Coefficients)
+                {
+                    Assert.True(actualPolynomial.Coefficients.TryGetValue(coefficient.Key, out var actualCoefficient));
+                    AssertClose(coefficient.Value, actualCoefficient, ScalarTolerance);
+                }
+
+                break;
             default:
                 throw new NotSupportedException($"No test assertion for geometry '{expected.Kind}'.");
         }
@@ -317,6 +344,58 @@ public sealed class CookeTripletGoldenTests
     }
 
     private static string PythonJsonWithToroidalGeometry(string conicYz, string coeffsPolyY)
+    {
+        return PythonJsonWithSurfaceGeometry($$"""
+        {
+          "type": "ToroidalGeometry",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": 30.0,
+          "conic": 0.0,
+          "radius_x": 80.0,
+          "radius_y": 30.0,
+          "conic_yz": {{conicYz}},
+          "coeffs_poly_y": {{coeffsPolyY}}
+        }
+        """);
+    }
+
+    private static string PythonJsonWithPolynomialGeometry(string radius)
+    {
+        return PythonJsonWithSurfaceGeometry($$"""
+        {
+          "type": "PolynomialGeometry",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": {{radius}},
+          "conic": 0.0,
+          "tol": 1e-10,
+          "max_iter": 100,
+          "coefficients": [
+            [0.0, 0.0, 0.001],
+            [0.0, 0.0002],
+            [],
+            [-0.000003]
+          ]
+        }
+        """);
+    }
+
+    private static string PythonJsonWithSurfaceGeometry(string geometryJson)
     {
         return $$"""
         {
@@ -377,24 +456,7 @@ public sealed class CookeTripletGoldenTests
               {
                 "type": "Surface",
                 "thickness": 1.0,
-                "geometry": {
-                  "type": "ToroidalGeometry",
-                  "cs": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0,
-                    "rx": 0.0,
-                    "ry": 0.0,
-                    "rz": 0.0,
-                    "reference_cs": null
-                  },
-                  "radius": 30.0,
-                  "conic": 0.0,
-                  "radius_x": 80.0,
-                  "radius_y": 30.0,
-                  "conic_yz": {{conicYz}},
-                  "coeffs_poly_y": {{coeffsPolyY}}
-                },
+                "geometry": {{geometryJson}},
                 "material_post": {
                   "type": "IdealMaterial",
                   "index": 1.0,

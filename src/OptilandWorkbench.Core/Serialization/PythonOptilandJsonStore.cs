@@ -307,6 +307,7 @@ public static class PythonOptilandJsonStore
                 GetDouble(geometry, "conic_x", conic),
                 GetDouble(geometry, "conic_y", conic)),
             "ToroidalGeometry" => ReadToroidalGeometry(geometry),
+            "PolynomialGeometry" => ReadPolynomialGeometry(geometry),
             var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
         };
     }
@@ -330,6 +331,18 @@ public static class PythonOptilandJsonStore
         return new ToroidalGeometry(
             GetDouble(geometry, "radius_x", GetDouble(geometry, "radius", 0)),
             GetDouble(geometry, "radius_y", GetDouble(geometry, "radius", 0)));
+    }
+
+    private static PolynomialGeometry ReadPolynomialGeometry(JsonElement geometry)
+    {
+        var radius = GetDouble(geometry, "radius", double.NaN);
+        if (double.IsFinite(radius))
+        {
+            throw new NotSupportedException(
+                "Python Optiland PolynomialGeometry with a finite base radius is not supported yet.");
+        }
+
+        return new PolynomialGeometry(ReadPolynomialCoefficients(geometry));
     }
 
     private static string ReadMaterial(Optic optic, JsonElement material)
@@ -560,6 +573,16 @@ public static class PythonOptilandJsonStore
                 ["radius_y"] = toroidal.SagittalRadius,
                 ["conic_yz"] = 0.0,
                 ["coeffs_poly_y"] = Array.Empty<double>()
+            },
+            PolynomialGeometry polynomial => new Dictionary<string, object?>
+            {
+                ["type"] = "PolynomialGeometry",
+                ["cs"] = cs,
+                ["radius"] = PositiveInfinitySentinel,
+                ["conic"] = 0.0,
+                ["tol"] = 1e-10,
+                ["max_iter"] = 100,
+                ["coefficients"] = WritePolynomialCoefficients(polynomial.Coefficients)
             },
             _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
@@ -834,10 +857,82 @@ public static class PythonOptilandJsonStore
         }
 
         return array.EnumerateArray()
-            .Select(item => item.ValueKind == JsonValueKind.Number && item.TryGetDouble(out var number)
-                ? number
-                : 0.0)
+            .Select(item => ReadDoubleValue(item, 0.0))
             .ToArray();
+    }
+
+    private static IReadOnlyDictionary<(int X, int Y), double> ReadPolynomialCoefficients(JsonElement geometry)
+    {
+        var coefficients = new Dictionary<(int X, int Y), double>();
+        if (!geometry.TryGetProperty("coefficients", out var rows) || rows.ValueKind != JsonValueKind.Array)
+        {
+            return coefficients;
+        }
+
+        var xOrder = 0;
+        foreach (var row in rows.EnumerateArray())
+        {
+            if (row.ValueKind == JsonValueKind.Array)
+            {
+                var yOrder = 0;
+                foreach (var item in row.EnumerateArray())
+                {
+                    var coefficient = ReadDoubleValue(item, 0.0);
+                    if (Math.Abs(coefficient) > 0)
+                    {
+                        coefficients[(xOrder, yOrder)] = coefficient;
+                    }
+
+                    yOrder++;
+                }
+            }
+
+            xOrder++;
+        }
+
+        return coefficients;
+    }
+
+    private static double[][] WritePolynomialCoefficients(IReadOnlyDictionary<(int X, int Y), double> coefficients)
+    {
+        if (coefficients.Count == 0)
+        {
+            return Array.Empty<double[]>();
+        }
+
+        var maxX = coefficients.Keys.Max(key => key.X);
+        var maxY = coefficients.Keys.Max(key => key.Y);
+        var matrix = Enumerable.Range(0, maxX + 1)
+            .Select(_ => new double[maxY + 1])
+            .ToArray();
+        foreach (var item in coefficients)
+        {
+            matrix[item.Key.X][item.Key.Y] = item.Value;
+        }
+
+        return matrix;
+    }
+
+    private static double ReadDoubleValue(JsonElement value, double fallback)
+    {
+        if (value.ValueKind == JsonValueKind.Number && value.TryGetDouble(out var number))
+        {
+            return number;
+        }
+
+        if (value.ValueKind == JsonValueKind.String)
+        {
+            return value.GetString() switch
+            {
+                "Infinity" => double.PositiveInfinity,
+                "-Infinity" => double.NegativeInfinity,
+                "NaN" => double.NaN,
+                var text when double.TryParse(text, out var parsed) => parsed,
+                _ => fallback
+            };
+        }
+
+        return fallback;
     }
 
     private static double GeometryRadius(IGeometry geometry)
@@ -850,6 +945,7 @@ public static class PythonOptilandJsonStore
             OddAsphereGeometry odd => odd.Base.Radius,
             BiconicGeometry biconic => biconic.RadiusX,
             ToroidalGeometry toroidal => toroidal.SagittalRadius,
+            PolynomialGeometry => double.PositiveInfinity,
             _ => 0
         };
     }
@@ -873,24 +969,7 @@ public static class PythonOptilandJsonStore
             return fallback;
         }
 
-        if (value.ValueKind == JsonValueKind.Number && value.TryGetDouble(out var number))
-        {
-            return number;
-        }
-
-        if (value.ValueKind == JsonValueKind.String)
-        {
-            return value.GetString() switch
-            {
-                "Infinity" => double.PositiveInfinity,
-                "-Infinity" => double.NegativeInfinity,
-                "NaN" => double.NaN,
-                var text when double.TryParse(text, out var parsed) => parsed,
-                _ => fallback
-            };
-        }
-
-        return fallback;
+        return ReadDoubleValue(value, fallback);
     }
 
     private static string GetString(JsonElement source, string propertyName, string fallback)
