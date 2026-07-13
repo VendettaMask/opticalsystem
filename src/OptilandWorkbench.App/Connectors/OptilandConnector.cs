@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
@@ -135,7 +136,12 @@ public sealed class OptilandConnector
 
     public AnalysisView BuildAnalysisView(string analysisName)
     {
-        var analysis = CurrentOptic.Analyses.Create(CanonicalAnalysisName(analysisName));
+        return BuildAnalysisView(analysisName, null);
+    }
+
+    public AnalysisView BuildAnalysisView(string analysisName, IReadOnlyDictionary<string, string>? settings)
+    {
+        var analysis = CreateAnalysis(CanonicalAnalysisName(analysisName), settings ?? new Dictionary<string, string>());
         var data = analysis.GenerateData();
         var rows = data.Values
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
@@ -155,6 +161,344 @@ public sealed class OptilandConnector
             data.PlotOptions ?? new AnalysisPlotOptions(),
             data.PlotPanes ?? Array.Empty<AnalysisPlotPane>(),
             data.PlotPaneColumns);
+    }
+
+    public string CanonicalAnalysisKey(string analysisName)
+    {
+        return CanonicalAnalysisName(analysisName);
+    }
+
+    public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string analysisName)
+    {
+        var distributionChoices = new[] { "hexapolar", "uniform", "random", "line_x", "line_y", "ring" };
+        return CanonicalAnalysisName(analysisName) switch
+        {
+            "Spot Diagram" => new[]
+            {
+                IntParameter("NumRings", "六角采样环数", "6", 1, 32),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
+            },
+            "Ray Fan" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
+            "Best Fit Ray Fan" => new[]
+            {
+                IntParameter("NumPoints", "采样点数", "256", 3, 1024),
+                IntParameter("FitRings", "拟合球六角采样环数", "8", 2, 32)
+            },
+            "Distortion" => DistortionParameters("128"),
+            "Grid Distortion" => DistortionParameters("10"),
+            "Field Curvature" => new[]
+            {
+                IntParameter("NumPoints", "采样点数", "128", 3, 1024),
+                DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001)
+            },
+            "Encircled Energy" => new[]
+            {
+                IntParameter("NumRays", "光线数", "100000", 1, 200000),
+                IntParameter("NumPoints", "曲线采样点数", "256", 2, 2048),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices)
+            },
+            "Pupil Aberration" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
+            "RMS vs Field" => new[]
+            {
+                IntParameter("NumFields", "视场数", "64", 2, 256),
+                IntParameter("NumRings", "六角采样环数", "6", 1, 32),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
+            },
+            "RMS Wavefront vs Field" => new[]
+            {
+                IntParameter("NumFields", "视场数", "32", 2, 256),
+                IntParameter("NumRings", "六角采样环数", "12", 1, 32)
+            },
+            "Through Focus" => new[]
+            {
+                DoubleParameter("FocusStep", "焦移步长 (mm)", "0.1", 0, 10, 0.01),
+                IntParameter("FocusPlaneCount", "焦面数量", "5", 1, 7),
+                IntParameter("NumRings", "六角采样环数", "6", 1, 32),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
+            },
+            "Through Focus MTF" => new[]
+            {
+                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 1000, 1),
+                DoubleParameter("FocusStep", "焦移步长 (mm)", "0.1", 0, 10, 0.01),
+                IntParameter("FocusPlaneCount", "焦面数量", "5", 1, 15),
+                IntParameter("PupilSampling", "瞳面采样数", "128", 8, 512)
+            },
+            "Angle vs Image Height - Through Pupil" or "Angle vs Image Height - Through Field" => new[]
+            {
+                IntParameter("SurfaceIndex", "测量表面序号", "-1", -128, 128),
+                ChoiceParameter("Axis", "测量轴", "Y", new[] { "Y", "X" }),
+                IntParameter("NumPoints", "采样点数", "128", 2, 1024)
+            },
+            "Incoherent Irradiance" => new[]
+            {
+                IntParameter("NumRays", "光线数", "5", 1, 100000),
+                IntParameter("ResolutionX", "X 分辨率", "128", 1, 1024),
+                IntParameter("ResolutionY", "Y 分辨率", "128", 1, 1024),
+                IntParameter("DetectorSurfaceIndex", "探测器表面序号", "-1", -128, 128),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices),
+                BoolParameter("Normalized", "归一化显示", "true")
+            },
+            "Radiant Intensity" => new[]
+            {
+                IntParameter("AngularBinsX", "X 角度分箱", "101", 1, 1024),
+                IntParameter("AngularBinsY", "Y 角度分箱", "101", 1, 1024),
+                IntParameter("NumRays", "光线数", "2048", 1, 200000),
+                IntParameter("ReferenceSurfaceIndex", "参考表面序号", "-1", -128, 128),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices),
+                BoolParameter("UseAbsoluteUnits", "使用绝对单位", "true")
+            },
+            "PSF" or "MTF" => new[]
+            {
+                IntParameter("NumRays", "光线数", "128", 2, 512),
+                IntParameter("GridSize", "网格尺寸（0=自动）", "0", 0, 2048)
+            },
+            "MMDFT PSF" => new[]
+            {
+                IntParameter("NumRays", "光线数", "16", 2, 256),
+                IntParameter("ImageSize", "图像尺寸", "32", 1, 512),
+                DoubleParameter("PixelPitchMicrometers", "像素间距 µm（0=自动）", "0", 0, 1000, 0.1)
+            },
+            "Huygens PSF" or "Huygens MTF" => new[]
+            {
+                IntParameter("NumRays", "光线数", "9", 2, 128),
+                IntParameter("ImageSize", "图像尺寸", "32", 1, 256),
+                DoubleParameter("PixelPitchMillimeters", "像素间距 (mm)", "0.005", 1e-6, 10, 0.001)
+            },
+            "Geometric MTF" => new[]
+            {
+                IntParameter("NumRays", "光线数", "32", 2, 10000),
+                IntParameter("PlotPointCount", "曲线采样点数", "128", 2, 2048),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "uniform", distributionChoices),
+                DoubleParameter("MaximumFrequency", "最大频率（0=截止）", "0", 0, 10000, 10),
+                BoolParameter("ScaleByDiffractionLimit", "乘以衍射极限包络", "true")
+            },
+            "Sampled MTF" => new[]
+            {
+                IntParameter("PupilSampling", "瞳面采样数", "32", 8, 512),
+                IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
+                IntParameter("PlotPointCount", "曲线采样点数", "128", 2, 2048),
+                DoubleParameter("MaximumFrequency", "最大频率（0=截止）", "0", 0, 10000, 10)
+            },
+            "Wavefront" => new[]
+            {
+                IntParameter("NumRings", "六角采样环数", "15", 1, 32),
+                IntParameter("MapSize", "波前图尺寸", "65", 17, 257)
+            },
+            "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront" => new[]
+            {
+                IntParameter("NumRings", "六角采样环数", "8", 2, 32),
+                IntParameter("MapSize", "波前图尺寸", "65", 17, 257),
+                DoubleParameter("RobustTrimStandardDeviations", "鲁棒裁剪 sigma", "3", 0, 10, 0.5)
+            },
+            "Zernike" => new[]
+            {
+                IntParameter("NumRings", "六角采样环数", "15", 1, 32),
+                IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
+                IntParameter("MapSize", "波前图尺寸", "65", 17, 257)
+            },
+            "Image Simulation" => new[]
+            {
+                IntParameter("PsfSize", "PSF 尺寸", "32", 8, 256),
+                IntParameter("NumRays", "光线数", "16", 2, 256),
+                IntParameter("EigenPsfComponents", "EigenPSF 分量数", "3", 1, 12),
+                IntParameter("DistortionGridSize", "畸变采样网格", "9", 3, 33),
+                IntParameter("DistortionPolynomialDegree", "畸变拟合阶数", "5", 1, 9)
+            },
+            "Jones Pupil" => new[] { IntParameter("GridSize", "网格尺寸", "65", 3, 257) },
+            _ => Array.Empty<AnalysisParameterDescriptor>()
+        };
+    }
+
+    public Dictionary<string, string> MergeAnalysisSettings(
+        string analysisName,
+        IReadOnlyDictionary<string, string>? saved)
+    {
+        var merged = GetAnalysisParameters(analysisName)
+            .ToDictionary(parameter => parameter.Key, parameter => parameter.DefaultValue);
+        if (saved is not null)
+        {
+            foreach (var item in saved)
+            {
+                if (merged.ContainsKey(item.Key))
+                {
+                    merged[item.Key] = item.Value;
+                }
+            }
+        }
+
+        return merged;
+    }
+
+    private BaseAnalysis CreateAnalysis(
+        string name,
+        IReadOnlyDictionary<string, string> settings)
+    {
+        int Int(string key, int fallback)
+        {
+            return TryReadInt(settings, key, fallback);
+        }
+
+        double Double(string key, double fallback)
+        {
+            return TryReadDouble(settings, key, fallback);
+        }
+
+        bool Bool(string key, bool fallback)
+        {
+            return TryReadBool(settings, key, fallback);
+        }
+
+        string Text(string key, string fallback)
+        {
+            return settings.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value)
+                ? value
+                : fallback;
+        }
+
+        int? OptionalGridSize()
+        {
+            var gridSize = Int("GridSize", 0);
+            return gridSize <= 0 ? null : gridSize;
+        }
+
+        double? OptionalFrequency()
+        {
+            var frequency = Double("MaximumFrequency", 0);
+            return frequency <= 0 ? null : frequency;
+        }
+
+        var axis = Text("Axis", "Y").Equals("X", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
+        return name switch
+        {
+            "First Order" => new FirstOrderAnalysis(CurrentOptic),
+            "Spot Diagram" => new SpotDiagramAnalysis(CurrentOptic, Int("NumRings", 6), Text("Distribution", "hexapolar")),
+            "Ray Fan" => new RayFanAnalysis(CurrentOptic, Int("NumPoints", 256)),
+            "Best Fit Ray Fan" => new BestFitRayFanAnalysis(CurrentOptic, Int("NumPoints", 256), Int("FitRings", 8)),
+            "Distortion" => new DistortionAnalysis(CurrentOptic, Int("NumPoints", 128), Text("DistortionType", "f-tan")),
+            "Grid Distortion" => new GridDistortionAnalysis(CurrentOptic, Int("NumPoints", 10), Text("DistortionType", "f-tan")),
+            "Field Curvature" => new FieldCurvatureAnalysis(CurrentOptic, Int("NumPoints", 128), Double("ParabasalDelta", 1e-5)),
+            "Encircled Energy" => new EncircledEnergyAnalysis(
+                CurrentOptic,
+                Int("NumRays", 100_000),
+                Text("Distribution", "random"),
+                Int("NumPoints", 256)),
+            "Pupil Aberration" => new PupilAberrationAnalysis(CurrentOptic, Int("NumPoints", 256)),
+            "RMS vs Field" => new RmsVsFieldAnalysis(
+                CurrentOptic,
+                Int("NumFields", 64),
+                Int("NumRings", 6),
+                Text("Distribution", "hexapolar")),
+            "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(
+                CurrentOptic,
+                Int("NumFields", 32),
+                Int("NumRings", 12)),
+            "Through Focus" => new ThroughFocusAnalysis(
+                CurrentOptic,
+                Double("FocusStep", 0.1),
+                Int("FocusPlaneCount", 5),
+                Int("NumRings", 6),
+                Text("Distribution", "hexapolar")),
+            "Through Focus MTF" => new ThroughFocusMtfAnalysis(
+                CurrentOptic,
+                Double("SpatialFrequency", 20),
+                Double("FocusStep", 0.1),
+                Int("FocusPlaneCount", 5),
+                Int("PupilSampling", 128)),
+            "Angle vs Image Height - Through Pupil" => new IncidentAngleVsHeightAnalysis(
+                CurrentOptic,
+                AngleScanMode.ThroughPupil,
+                Int("SurfaceIndex", -1),
+                axis,
+                Int("NumPoints", 128)),
+            "Angle vs Image Height - Through Field" => new IncidentAngleVsHeightAnalysis(
+                CurrentOptic,
+                AngleScanMode.ThroughField,
+                Int("SurfaceIndex", -1),
+                axis,
+                Int("NumPoints", 128)),
+            "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(
+                CurrentOptic,
+                Int("NumRays", 5),
+                Int("ResolutionX", 128),
+                Int("ResolutionY", 128),
+                Int("DetectorSurfaceIndex", -1),
+                Text("Distribution", "random"),
+                Bool("Normalized", true)),
+            "Radiant Intensity" => new RadiantIntensityAnalysis(
+                CurrentOptic,
+                Int("AngularBinsX", 101),
+                Int("AngularBinsY", 101),
+                useAbsoluteUnits: Bool("UseAbsoluteUnits", true),
+                referenceSurfaceIndex: Int("ReferenceSurfaceIndex", -1),
+                numRays: Int("NumRays", 2048),
+                distribution: Text("Distribution", "random")),
+            "Y-Ybar" => new YYbarAnalysis(CurrentOptic),
+            "PSF" => new PsfAnalysis(CurrentOptic, Int("NumRays", 128), OptionalGridSize()),
+            "MMDFT PSF" => new MmdftPsfAnalysis(
+                CurrentOptic,
+                Int("NumRays", 16),
+                Int("ImageSize", 32),
+                Double("PixelPitchMicrometers", 0) <= 0 ? null : Double("PixelPitchMicrometers", 0)),
+            "Huygens PSF" => new HuygensPsfAnalysis(
+                CurrentOptic,
+                Int("NumRays", 9),
+                Int("ImageSize", 32),
+                Double("PixelPitchMillimeters", 0.005)),
+            "MTF" => new MtfAnalysis(CurrentOptic, Int("NumRays", 128), OptionalGridSize()),
+            "Huygens MTF" => new HuygensMtfAnalysis(
+                CurrentOptic,
+                Int("NumRays", 9),
+                Int("ImageSize", 32),
+                Double("PixelPitchMillimeters", 0.005)),
+            "Geometric MTF" => new GeometricMtfAnalysis(
+                CurrentOptic,
+                Int("NumRays", 32),
+                Text("Distribution", "uniform"),
+                Int("PlotPointCount", 128),
+                OptionalFrequency(),
+                Bool("ScaleByDiffractionLimit", true)),
+            "Sampled MTF" => new SampledMtfAnalysis(
+                CurrentOptic,
+                Int("PupilSampling", 32),
+                Int("ZernikeTerms", 37),
+                Int("PlotPointCount", 128),
+                OptionalFrequency()),
+            "Wavefront" => new WavefrontAnalysis(
+                CurrentOptic,
+                Int("NumRings", 15),
+                Int("MapSize", 65)),
+            "Centroid Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
+                CurrentOptic,
+                ReferenceSphereStrategy.CentroidSphere,
+                Int("NumRings", 8),
+                Int("MapSize", 65),
+                Double("RobustTrimStandardDeviations", 3)),
+            "Best Fit Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
+                CurrentOptic,
+                ReferenceSphereStrategy.BestFitSphere,
+                Int("NumRings", 8),
+                Int("MapSize", 65),
+                Double("RobustTrimStandardDeviations", 3)),
+            "Zernike" => new ZernikeAnalysis(
+                CurrentOptic,
+                Int("NumRings", 15),
+                Int("ZernikeTerms", 37),
+                Int("MapSize", 65)),
+            "Image Simulation" => new ImageSimulationAnalysis(CurrentOptic, new ImageSimulationConfig
+            {
+                PsfSize = Int("PsfSize", 32),
+                NumRays = Int("NumRays", 16),
+                Components = Int("EigenPsfComponents", 3),
+                DistortionGridSize = Int("DistortionGridSize", 9),
+                DistortionPolynomialDegree = Int("DistortionPolynomialDegree", 5),
+                PsfGridRows = 3,
+                PsfGridColumns = 3,
+                Padding = 16
+            }),
+            "Jones Pupil" => new JonesPupilAnalysis(CurrentOptic, Int("GridSize", 65)),
+            "Prescription Report" => new PrescriptionReportAnalysis(CurrentOptic),
+            _ => CurrentOptic.Analyses.Create(name)
+        };
     }
 
     public void NewBlank()
@@ -747,6 +1091,99 @@ public sealed class OptilandConnector
         return string.Join(Environment.NewLine, lines);
     }
 
+    private static AnalysisParameterDescriptor IntParameter(
+        string key,
+        string displayName,
+        string defaultValue,
+        double minimum,
+        double maximum)
+    {
+        return new AnalysisParameterDescriptor(
+            key,
+            displayName,
+            AnalysisParameterKind.Integer,
+            defaultValue,
+            minimum,
+            maximum,
+            1);
+    }
+
+    private static AnalysisParameterDescriptor DoubleParameter(
+        string key,
+        string displayName,
+        string defaultValue,
+        double minimum,
+        double maximum,
+        double increment)
+    {
+        return new AnalysisParameterDescriptor(
+            key,
+            displayName,
+            AnalysisParameterKind.Double,
+            defaultValue,
+            minimum,
+            maximum,
+            increment);
+    }
+
+    private static AnalysisParameterDescriptor ChoiceParameter(
+        string key,
+        string displayName,
+        string defaultValue,
+        IReadOnlyList<string> choices)
+    {
+        return new AnalysisParameterDescriptor(
+            key,
+            displayName,
+            AnalysisParameterKind.Choice,
+            defaultValue,
+            Choices: choices);
+    }
+
+    private static AnalysisParameterDescriptor BoolParameter(
+        string key,
+        string displayName,
+        string defaultValue)
+    {
+        return new AnalysisParameterDescriptor(
+            key,
+            displayName,
+            AnalysisParameterKind.Boolean,
+            defaultValue);
+    }
+
+    private static AnalysisParameterDescriptor[] DistortionParameters(string defaultPoints)
+    {
+        return new[]
+        {
+            IntParameter("NumPoints", "采样点数", defaultPoints, 3, 1024),
+            ChoiceParameter("DistortionType", "畸变模型", "f-tan", new[] { "f-tan", "f-theta" })
+        };
+    }
+
+    private static int TryReadInt(IReadOnlyDictionary<string, string> settings, string key, int fallback)
+    {
+        return settings.TryGetValue(key, out var value)
+            && int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var number)
+            ? number
+            : fallback;
+    }
+
+    private static double TryReadDouble(IReadOnlyDictionary<string, string> settings, string key, double fallback)
+    {
+        return settings.TryGetValue(key, out var value)
+            && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var number)
+            ? number
+            : fallback;
+    }
+
+    private static bool TryReadBool(IReadOnlyDictionary<string, string> settings, string key, bool fallback)
+    {
+        return settings.TryGetValue(key, out var value) && bool.TryParse(value, out var flag)
+            ? flag
+            : fallback;
+    }
+
     private static string FormatAnalysisValue(object value)
     {
         return value switch
@@ -1084,6 +1521,24 @@ public sealed record AnalysisView(
     int PlotPaneColumns);
 
 public sealed record AnalysisRow(string Metric, string Value);
+
+public enum AnalysisParameterKind
+{
+    Integer,
+    Double,
+    Choice,
+    Boolean
+}
+
+public sealed record AnalysisParameterDescriptor(
+    string Key,
+    string DisplayName,
+    AnalysisParameterKind Kind,
+    string DefaultValue,
+    double Minimum = 0,
+    double Maximum = 1,
+    double Increment = 1,
+    IReadOnlyList<string>? Choices = null);
 
 public sealed record TolerancingView(
     string Summary,

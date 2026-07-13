@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -8,6 +9,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using OptilandWorkbench.App.Connectors;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core.Analysis;
 
 namespace OptilandWorkbench.App.Panels;
@@ -15,14 +17,23 @@ namespace OptilandWorkbench.App.Panels;
 public sealed class AnalysisPanel : UserControl
 {
     private readonly OptilandConnector _connector;
+    private readonly AppSettings _settings;
     private readonly ComboBox _analysisPicker = new() { MinWidth = 220, SelectedIndex = 0 };
+    private readonly WrapPanel _parameterPanel = new()
+    {
+        Orientation = Orientation.Horizontal,
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly ObservableCollection<TabItem> _pages = new();
     private readonly Dictionary<TabItem, AnalysisView> _views = new();
+    private readonly Dictionary<string, Control> _parameterControls = new();
     private readonly TabControl _pageTabs;
+    private bool _syncingSelection;
 
-    public AnalysisPanel(OptilandConnector connector)
+    public AnalysisPanel(OptilandConnector connector, AppSettings settings)
     {
         _connector = connector;
+        _settings = settings;
         _analysisPicker.ItemsSource = _connector.AnalysisDisplayNames;
         _pageTabs = new TabControl { ItemsSource = _pages };
 
@@ -39,6 +50,7 @@ public sealed class AnalysisPanel : UserControl
             Children =
             {
                 _analysisPicker,
+                _parameterPanel,
                 runButton,
                 newPageButton,
                 cloneButton,
@@ -54,9 +66,17 @@ public sealed class AnalysisPanel : UserControl
         root.Children.Add(_pageTabs);
         Content = root;
 
+        _analysisPicker.SelectionChanged += (_, _) =>
+        {
+            if (!_syncingSelection)
+            {
+                RebuildParameterPanel();
+            }
+        };
         _pageTabs.SelectionChanged += (_, _) => SyncPickerToSelectedPage();
         _connector.OpticLoaded += (_, _) => RefreshPages();
         _connector.OpticChanged += (_, _) => RefreshPages();
+        RebuildParameterPanel();
         RunSelected(createPage: true);
     }
 
@@ -71,17 +91,20 @@ public sealed class AnalysisPanel : UserControl
         var name = _analysisPicker.SelectedItem as string
             ?? _connector.AnalysisDisplayNames.FirstOrDefault()
             ?? "处方报告";
-        var view = _connector.BuildAnalysisView(name);
+        var settings = CaptureParameterSettings(name);
+        SaveAnalysisSettings(name, settings);
+        var view = _connector.BuildAnalysisView(name, settings);
+        var state = new AnalysisPageState(name, settings);
         if (createPage || _pageTabs.SelectedItem is not TabItem selected)
         {
-            var page = new TabItem { Tag = name };
+            var page = new TabItem { Tag = state };
             _pages.Add(page);
             SetPageView(page, view);
             _pageTabs.SelectedItem = page;
         }
         else
         {
-            selected.Tag = name;
+            selected.Tag = state;
             SetPageView(selected, view);
         }
 
@@ -95,7 +118,8 @@ public sealed class AnalysisPanel : UserControl
             return;
         }
 
-        var clone = new TabItem { Tag = selected.Tag };
+        var state = PageState(selected);
+        var clone = new TabItem { Tag = state with { Settings = new Dictionary<string, string>(state.Settings) } };
         _pages.Add(clone);
         SetPageView(clone, view);
         _pageTabs.SelectedItem = clone;
@@ -120,8 +144,8 @@ public sealed class AnalysisPanel : UserControl
     {
         foreach (var page in _pages.ToArray())
         {
-            var name = page.Tag as string ?? _connector.AnalysisDisplayNames.FirstOrDefault() ?? "处方报告";
-            SetPageView(page, _connector.BuildAnalysisView(name));
+            var state = PageState(page);
+            SetPageView(page, _connector.BuildAnalysisView(state.Name, state.Settings));
         }
 
         RenumberPages();
@@ -265,9 +289,13 @@ public sealed class AnalysisPanel : UserControl
 
     private void SyncPickerToSelectedPage()
     {
-        if (_pageTabs.SelectedItem is TabItem page && page.Tag is string analysisName)
+        if (_pageTabs.SelectedItem is TabItem page)
         {
-            _analysisPicker.SelectedItem = analysisName;
+            var state = PageState(page);
+            _syncingSelection = true;
+            _analysisPicker.SelectedItem = state.Name;
+            _syncingSelection = false;
+            RebuildParameterPanel(state.Settings);
         }
     }
 
@@ -278,6 +306,145 @@ public sealed class AnalysisPanel : UserControl
             var viewName = _views.TryGetValue(_pages[index], out var view) ? view.Name : "分析";
             _pages[index].Header = $"{index + 1}. {viewName}";
         }
+    }
+
+    private void RebuildParameterPanel(IReadOnlyDictionary<string, string>? pageSettings = null)
+    {
+        _parameterPanel.Children.Clear();
+        _parameterControls.Clear();
+        var name = _analysisPicker.SelectedItem as string
+            ?? _connector.AnalysisDisplayNames.FirstOrDefault()
+            ?? "处方报告";
+        var settings = _connector.MergeAnalysisSettings(name, pageSettings ?? SavedAnalysisSettings(name));
+        foreach (var descriptor in _connector.GetAnalysisParameters(name))
+        {
+            _parameterPanel.Children.Add(Label(descriptor.DisplayName));
+            var value = settings.TryGetValue(descriptor.Key, out var saved)
+                ? saved
+                : descriptor.DefaultValue;
+            var control = CreateParameterControl(descriptor, value);
+            _parameterControls[descriptor.Key] = control;
+            _parameterPanel.Children.Add(control);
+        }
+    }
+
+    private Control CreateParameterControl(AnalysisParameterDescriptor descriptor, string value)
+    {
+        return descriptor.Kind switch
+        {
+            AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
+            AnalysisParameterKind.Boolean => BooleanInput(value),
+            _ => NumericInput(descriptor, value)
+        };
+    }
+
+    private static NumericUpDown NumericInput(AnalysisParameterDescriptor descriptor, string value)
+    {
+        var input = new NumericUpDown
+        {
+            Minimum = (decimal)descriptor.Minimum,
+            Maximum = (decimal)descriptor.Maximum,
+            Increment = (decimal)descriptor.Increment,
+            Width = descriptor.Kind == AnalysisParameterKind.Double ? 108 : 92
+        };
+        if (decimal.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed))
+        {
+            input.Value = Math.Clamp(parsed, input.Minimum, input.Maximum);
+        }
+        else if (decimal.TryParse(descriptor.DefaultValue, NumberStyles.Float, CultureInfo.InvariantCulture, out var fallback))
+        {
+            input.Value = Math.Clamp(fallback, input.Minimum, input.Maximum);
+        }
+
+        return input;
+    }
+
+    private static ComboBox ChoiceInput(AnalysisParameterDescriptor descriptor, string value)
+    {
+        var choices = descriptor.Choices?.ToArray() ?? Array.Empty<string>();
+        return new ComboBox
+        {
+            ItemsSource = choices,
+            SelectedItem = choices.Contains(value) ? value : descriptor.DefaultValue,
+            MinWidth = 104
+        };
+    }
+
+    private static CheckBox BooleanInput(string value)
+    {
+        return new CheckBox
+        {
+            IsChecked = bool.TryParse(value, out var flag) ? flag : false,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+    }
+
+    private static TextBlock Label(string text)
+    {
+        return new TextBlock
+        {
+            Text = text,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Avalonia.Thickness(10, 0, 4, 0)
+        };
+    }
+
+    private Dictionary<string, string> CaptureParameterSettings(string name)
+    {
+        var settings = _connector.MergeAnalysisSettings(name, null);
+        foreach (var descriptor in _connector.GetAnalysisParameters(name))
+        {
+            if (!_parameterControls.TryGetValue(descriptor.Key, out var control))
+            {
+                continue;
+            }
+
+            settings[descriptor.Key] = control switch
+            {
+                NumericUpDown numeric when numeric.Value.HasValue => numeric.Value.Value.ToString(CultureInfo.InvariantCulture),
+                ComboBox combo when combo.SelectedItem is string selected => selected,
+                CheckBox check => (check.IsChecked == true).ToString(CultureInfo.InvariantCulture),
+                _ => settings[descriptor.Key]
+            };
+        }
+
+        return settings;
+    }
+
+    private IReadOnlyDictionary<string, string>? SavedAnalysisSettings(string name)
+    {
+        var key = _connector.CanonicalAnalysisKey(name);
+        return _settings.AnalysisSettings.TryGetValue(key, out var settings)
+            ? settings
+            : null;
+    }
+
+    private void SaveAnalysisSettings(string name, Dictionary<string, string> settings)
+    {
+        var key = _connector.CanonicalAnalysisKey(name);
+        if (settings.Count == 0)
+        {
+            _settings.AnalysisSettings.Remove(key);
+        }
+        else
+        {
+            _settings.AnalysisSettings[key] = settings;
+        }
+
+        _settings.Save();
+    }
+
+    private AnalysisPageState PageState(TabItem page)
+    {
+        if (page.Tag is AnalysisPageState state)
+        {
+            return state;
+        }
+
+        var name = page.Tag as string
+            ?? _connector.AnalysisDisplayNames.FirstOrDefault()
+            ?? "处方报告";
+        return new AnalysisPageState(name, _connector.MergeAnalysisSettings(name, SavedAnalysisSettings(name)));
     }
 
     private async Task CopyReportAsync()
@@ -338,4 +505,6 @@ public sealed class AnalysisPanel : UserControl
         button.Click += async (_, _) => await action();
         return button;
     }
+
+    private sealed record AnalysisPageState(string Name, Dictionary<string, string> Settings);
 }

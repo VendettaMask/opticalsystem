@@ -15,8 +15,8 @@ The implementation is being built in small git milestones. The current codebase 
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
-- Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, graphical multi-page analysis, optimization, tolerancing, multi-configuration, and system properties.
-- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, light/dark theme selection, split-pane layout slots, and analysis report copy/export.
+- Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical multi-page analysis, optimization, tolerancing, multi-configuration, and system properties.
+- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, light/dark theme selection, split-pane layout slots, persisted analysis settings, and analysis report copy/export.
 
 ## Requirements
 
@@ -47,7 +47,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 154 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 156 passing tests with a zero-warning solution build.
 
 ## Publish
 

@@ -123,8 +123,8 @@ Python GUI source contains:
 
 The .NET Avalonia GUI currently covers only part of that:
 
-- It has Chinese panels, connector change signals, metric/graph/report analysis views, numbered multi-analysis pages, and clone/close behavior.
-- It does not yet have dynamic analysis parameter editors, analysis settings save/load, detachable docking, scripting terminal behavior, toast/command registry depth, or true VTK-like 3D interaction.
+- It has Chinese panels, connector change signals, metric/graph/report analysis views, generated per-analysis parameter editors, persisted analysis settings, numbered multi-analysis pages, and clone/close behavior.
+- It does not yet have detachable docking, scripting terminal behavior, toast/command registry depth, true VTK-like 3D interaction, or broad UI automation for those workflows.
 - Some Python GUI panels are service-driven; our connector still contains too much mixed domain/UI logic.
 
 Required fix:
@@ -165,18 +165,18 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 30 source-validated analysis views, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
-1. Add dynamic analysis parameter editors and analysis settings persistence in the GUI.
-2. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
-3. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
-4. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
-5. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
-6. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
-7. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
-8. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
+1. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
+2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
+3. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
+4. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
+5. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
+6. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
+7. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
+8. Add broad GUI automation for generated analysis parameters, persistence, detachable layout behavior, file dialogs, edits, themes, and command-palette navigation.
 
 Every new parity claim must add a pinned Python generator output and a .NET point/pixel/parameter comparison before this list is updated.
 

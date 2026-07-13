@@ -18,6 +18,8 @@ public sealed class AppSettings
 
     public Dictionary<int, WorkspaceLayoutState> LayoutSlots { get; set; } = new();
 
+    public Dictionary<string, Dictionary<string, string>> AnalysisSettings { get; set; } = new();
+
     public WorkspaceLayoutState CurrentLayout => new(LeftPaneWidth, LeftTabIndex, RightTabIndex);
 
     public void ApplyLayout(WorkspaceLayoutState layout)

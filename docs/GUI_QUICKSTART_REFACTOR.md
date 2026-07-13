@@ -22,7 +22,7 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
 | 2D viewer | Lens and rays with pan/zoom | Static rendering | Wheel zoom, drag pan, ray visibility, reset |
 | 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Drag rotation, Shift-drag pan, wheel zoom, reset; still not VTK |
-| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Structured plots, table/report views, numbered multi-analysis pages, clone/close |
+| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Structured plots, table/report views, generated parameter editors, persisted settings, numbered multi-analysis pages, clone/close |
 | Analysis refresh | Connector signals update consumers | Connector events already used | Retained for every open analysis page |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
 | Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Stable panel IDs, persisted split/tabs, save/load slots 1 and 2 |
@@ -54,7 +54,7 @@ MainWindow
     Optic
 ```
 
-Panels continue to receive only `OptilandConnector`. They do not replace the active `Optic` and refresh through `OpticLoaded`, `OpticChanged`, and `SurfaceDataChanged`.
+Panels receive `OptilandConnector`, plus `AppSettings` only when they own persisted UI state. They do not replace the active `Optic` and refresh through `OpticLoaded`, `OpticChanged`, and `SurfaceDataChanged`.
 
 ### Core Object Model
 
@@ -151,9 +151,8 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 
 ### Priority 1: GUI Parity
 
-- Add dynamic parameter editors per analysis rather than one default configuration per analysis type.
 - Add true detachable/dockable panels. The current `PanelManager` provides stable ownership and layout IDs, but the visual layout is still a two-pane tab workspace.
-- Add analysis settings save/load.
+- Broaden UI automation around generated analysis parameter editors, settings persistence, file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
 - Decide whether advanced scripting should use embedded Python interoperability or a native C# scripting host. A terminal must not be labeled Python-compatible without an actual Optiland Python object.
 
 ### Priority 2: Platform And Performance
@@ -171,4 +170,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-13, the solution builds with zero warnings and all `154/154` tests pass. Coverage includes finite structured plots for every catalog entry plus Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
+As of 2026-07-13, the solution builds with zero warnings and all `156/156` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.

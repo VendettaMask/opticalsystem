@@ -44,7 +44,7 @@ public sealed class PanelManager
             new(WorkspacePanelId.LensEditor, "镜头编辑器", WorkspacePane.Left, () => new LensEditorPanel(connector)),
             new(WorkspacePanelId.SystemProperties, "系统属性", WorkspacePane.Left, () => new SystemPropertiesPanel(connector)),
             new(WorkspacePanelId.Viewer, "系统视图", WorkspacePane.Right, () => new ViewerPanel(connector)),
-            new(WorkspacePanelId.Analysis, "分析", WorkspacePane.Right, () => new AnalysisPanel(connector)),
+            new(WorkspacePanelId.Analysis, "分析", WorkspacePane.Right, () => new AnalysisPanel(connector, settings)),
             new(WorkspacePanelId.Optimization, "优化", WorkspacePane.Right, () => new OptimizationPanel(connector)),
             new(WorkspacePanelId.Tolerancing, "公差", WorkspacePane.Right, () => new TolerancingPanel(connector)),
             new(WorkspacePanelId.MultiConfiguration, "多配置", WorkspacePane.Right, () => new MultiConfigurationPanel(connector))

@@ -129,9 +129,9 @@ Panels should not directly replace the active `Optic`; they call connector metho
 
 `PanelManager` owns panel construction, stable panel identifiers, pane selection, and layout capture/application. `MainWindow` owns only application commands, menus, file dialogs, theme selection, and top-level window lifecycle.
 
-`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. `AppSettings` persists theme, window size, split-pane width, and selected panel tabs under the user's application data folder.
+`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. `AppSettings` persists theme, window size, split-pane width, selected panel tabs, and per-analysis GUI settings under the user's application data folder.
 
-The analysis panel consumes structured connector data. Metric, graph, and report views are built without parsing display strings. Multiple numbered analysis pages can be created, cloned, closed, and refreshed from the same connector events; dynamic per-analysis parameter editors and settings persistence remain future work.
+The analysis panel consumes structured connector data. Metric, graph, and report views are built without parsing display strings. Multiple numbered analysis pages can be created, cloned, closed, and refreshed from the same connector events. Per-analysis parameter editors are generated from connector descriptors, and saved settings are merged back into analysis construction.
 
 The tolerancing panel exposes the current CPU tolerancing framework through sensitivity and Monte Carlo tables. The first GUI workflow perturbs selected surface radius/thickness, uses RMS spot radius as the merit proxy, and can compensate with image-surface thickness. The multi-configuration panel exposes configuration creation, activation, and linked/unlinked thickness edits through the existing `MultiConfiguration` model.
 
