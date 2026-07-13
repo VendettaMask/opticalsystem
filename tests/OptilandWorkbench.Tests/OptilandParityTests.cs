@@ -549,11 +549,14 @@ public sealed class OptilandParityTests
         var optic = Optic.CreateDemo();
 
         Assert.Contains("PSF", optic.Analyses.Names);
+        Assert.Contains("MMDFT PSF", optic.Analyses.Names);
+        Assert.Contains("Huygens PSF", optic.Analyses.Names);
         Assert.Contains("MTF", optic.Analyses.Names);
+        Assert.Contains("Huygens MTF", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
-        Assert.Equal(29, optic.Analyses.Names.Count);
+        Assert.Equal(32, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 
@@ -579,7 +582,10 @@ public sealed class OptilandParityTests
     [InlineData("Through Focus", AnalysisSeriesKind.Line)]
     [InlineData("Y-Ybar", AnalysisSeriesKind.Line)]
     [InlineData("Zernike", AnalysisSeriesKind.Bar)]
+    [InlineData("MMDFT PSF", AnalysisSeriesKind.Heatmap)]
+    [InlineData("Huygens PSF", AnalysisSeriesKind.Heatmap)]
     [InlineData("MTF", AnalysisSeriesKind.Line)]
+    [InlineData("Huygens MTF", AnalysisSeriesKind.Line)]
     public void GraphicalAnalysesExposeStructuredFiniteSeries(string analysisName, AnalysisSeriesKind kind)
     {
         var optic = Optic.CreateDemo();

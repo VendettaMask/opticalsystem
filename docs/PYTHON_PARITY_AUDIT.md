@@ -15,7 +15,7 @@ Baseline checked:
 
 The .NET implementation is not a complete numerical or behavioral replacement for Python Optiland.
 
-It is now substantially beyond the original skeleton: the standard Cooke/Tessar sequential path, Python JSON subset, and 27 analysis views have source-derived golden contracts. Optimization, tolerancing, visualization, and the Chinese Avalonia workbench are functional but do not match Python's full breadth. Parity is therefore claimed per documented method and fixture, never for the repository as a whole.
+It is now substantially beyond the original skeleton: the standard Cooke/Tessar sequential path, Python JSON subset, and 30 analysis views have source-derived golden contracts. Optimization, tolerancing, visualization, and the Chinese Avalonia workbench are functional but do not match Python's full breadth. Parity is therefore claimed per documented method and fixture, never for the repository as a whole.
 
 Going forward, features should not be marked as "parity" until they pass source-derived parity tests against Python Optiland behavior.
 
@@ -81,9 +81,9 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 The .NET analyses are currently mixed:
 
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
-- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, best-fit ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray/centroid-sphere/best-fit-sphere wavefronts, Fringe Zernike, FFT PSF, FFT MTF, geometric MTF, and sampled MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, fitted sphere parameter, coefficient, heatmap pixel, PSF pixel, and MTF point.
+- Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, best-fit ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray/centroid-sphere/best-fit-sphere wavefronts, Fringe Zernike, FFT/MMDFT/Huygens PSF, FFT/Huygens MTF, geometric MTF, and sampled MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, fitted sphere parameter, coefficient, heatmap pixel, PSF pixel, and MTF point.
 - The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
-- Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Alternative wavefront strategies and non-FFT diffraction methods remain separate follow-up work.
+- Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Vectorial diffraction and broader analysis defaults remain separate follow-up work.
 
 Required fix:
 
@@ -165,16 +165,16 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 27 source-validated analysis views, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips, Python-compatible field/pupil distributions, 30 source-validated analysis views, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
-1. Add Huygens-Fresnel and MMDFT PSF/MTF contracts with bounded public fixtures.
-2. Add dynamic analysis parameter editors and analysis settings persistence in the GUI.
-3. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
-4. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
-5. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
-6. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
+1. Add dynamic analysis parameter editors and analysis settings persistence in the GUI.
+2. Extend Python JSON interoperability to freeforms, coatings, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
+3. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
+4. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
+5. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
+6. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
 7. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
 8. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
 
@@ -232,3 +232,10 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added an efficient reusable sampled-MTF evaluator and a full tangential/sagittal frequency-sweep analysis.
 - Golden tests compare all sphere centers/radii, ray-fan points, and sampled-MTF values for Cooke and Tessar.
 - Corrected normalized angle-field conversion across tracing, analysis field selection, and wavefront tilt removal to use Python's maximum radial field magnitude.
+
+### 2026-07-13 Huygens And MMDFT Diffraction Expansion
+
+- Added Python source-derived MMDFT PSF, Huygens-Fresnel PSF, and Huygens-derived MTF engines.
+- Registered MMDFT PSF, Huygens PSF, and Huygens MTF as structured analysis catalog entries.
+- Golden tests compare every bounded Cooke/Tessar PSF pixel, Huygens MTF point, working F-number, pixel pitch, and Strehl convention.
+- Corrected odd-size `fftshift` behavior so Huygens MTF matches NumPy for 9 by 9 reference grids.

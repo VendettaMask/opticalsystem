@@ -907,6 +907,73 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
+    public void MmdftPsfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("mmdft_psf");
+        var optic = createOptic();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var actual = DiffractionEngine.ComputeMmdftPsf(
+            optic,
+            (0, 1),
+            wavelength,
+            expected.GetProperty("num_rays").GetInt32(),
+            expected.GetProperty("image_size").GetInt32());
+        AssertClose(expected.GetProperty("wavelength").GetDouble(), wavelength.Micrometers);
+        AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), actual.SampleSpacingMicrometers);
+        AssertClose(expected.GetProperty("working_fno").GetDouble(), actual.WorkingFNumber);
+        AssertClose(expected.GetProperty("strehl").GetDouble(), actual.PeakStrehlRatio);
+        AssertPsfValues(expected.GetProperty("psf"), actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void HuygensPsfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_psf");
+        var optic = createOptic();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var actual = DiffractionEngine.ComputeHuygensPsf(
+            optic,
+            (0, 1),
+            wavelength,
+            expected.GetProperty("num_rays").GetInt32(),
+            expected.GetProperty("image_size").GetInt32(),
+            expected.GetProperty("pixel_pitch").GetDouble());
+        AssertClose(expected.GetProperty("wavelength").GetDouble(), wavelength.Micrometers);
+        AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), actual.SampleSpacingMicrometers / 1000.0);
+        AssertClose(expected.GetProperty("working_fno").GetDouble(), actual.WorkingFNumber);
+        AssertClose(expected.GetProperty("strehl").GetDouble(), actual.StrehlRatio);
+        AssertPsfValues(expected.GetProperty("psf"), actual);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void HuygensMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_mtf");
+        var optic = createOptic();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var psf = DiffractionEngine.ComputeHuygensPsf(
+            optic,
+            (0, 1),
+            wavelength,
+            5,
+            expected.GetProperty("image_size").GetInt32(),
+            expected.GetProperty("pixel_pitch").GetDouble());
+        var actual = DiffractionEngine.ComputePsfMtf(psf);
+        for (var index = 0; index < actual.Frequency.Count; index++)
+        {
+            AssertClose(expected.GetProperty("frequency")[index].GetDouble(), actual.Frequency[index]);
+            AssertClose(expected.GetProperty("tangential")[index].GetDouble(), actual.Tangential[index]);
+            AssertClose(expected.GetProperty("sagittal")[index].GetDouble(), actual.Sagittal[index]);
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
     public void WavefrontAnalysisUsesPythonOpdMapContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
@@ -1006,6 +1073,77 @@ public sealed class PythonAnalysisParityTests
         AssertClose(expected.GetProperty("cutoff").GetDouble(), data.PlotOptions!.XMaximum!.Value);
         Assert.Equal(0, data.PlotOptions.YMinimum);
         Assert.Equal(1, data.PlotOptions.YMaximum);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void MmdftPsfAnalysisUsesPythonHeatmapContract(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("mmdft_psf");
+        var data = new MmdftPsfAnalysis(
+            createOptic(),
+            numRays: expected.GetProperty("num_rays").GetInt32(),
+            imageSize: expected.GetProperty("image_size").GetInt32()).GenerateData();
+        Assert.Equal("MMDFT PSF", data.Name);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
+        Assert.Equal("Relative Intensity (%)", data.PlotSeries[0].ValueLabel);
+        Assert.Equal("MMDFT PSF", data.PlotOptions?.Title);
+        Assert.Equal("MMDFT", data.Values["Method"]);
+        AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), Convert.ToDouble(data.Values["PixelPitchMicrometers"]));
+        AssertClose(expected.GetProperty("working_fno").GetDouble(), Convert.ToDouble(data.Values["WorkingFNumber"]));
+        AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
+        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0]);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void HuygensPsfAnalysisUsesPythonHeatmapContract(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_psf");
+        var data = new HuygensPsfAnalysis(
+            createOptic(),
+            numRays: expected.GetProperty("num_rays").GetInt32(),
+            imageSize: expected.GetProperty("image_size").GetInt32(),
+            pixelPitchMillimeters: expected.GetProperty("pixel_pitch").GetDouble()).GenerateData();
+        Assert.Equal("Huygens PSF", data.Name);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
+        Assert.Equal("Relative Intensity (%)", data.PlotSeries[0].ValueLabel);
+        Assert.Equal("Huygens PSF", data.PlotOptions?.Title);
+        Assert.Equal("Huygens-Fresnel", data.Values["Method"]);
+        AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), Convert.ToDouble(data.Values["PixelPitchMicrometers"]) / 1000.0);
+        AssertClose(expected.GetProperty("working_fno").GetDouble(), Convert.ToDouble(data.Values["WorkingFNumber"]));
+        AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
+        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0]);
+    }
+
+    [Theory]
+    [MemberData(nameof(OfficialSamples))]
+    public void HuygensMtfAnalysisUsesPythonSeriesContract(string sampleName, Func<Optic> createOptic)
+    {
+        using var reference = LoadReference();
+        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_mtf");
+        var data = new HuygensMtfAnalysis(
+            createOptic(),
+            numRays: 5,
+            imageSize: expected.GetProperty("image_size").GetInt32(),
+            pixelPitchMillimeters: expected.GetProperty("pixel_pitch").GetDouble(),
+            fields: new[] { (0.0, 1.0) }).GenerateData();
+        Assert.Equal("Huygens MTF", data.Name);
+        Assert.Equal("Huygens MTF", data.PlotOptions?.Title);
+        Assert.Equal("Huygens-Fresnel", data.Values["Method"]);
+        Assert.Equal(2, data.PlotSeries.Count);
+        var tangential = data.PlotSeries[0];
+        var sagittal = data.PlotSeries[1];
+        Assert.Equal(AnalysisLineStyle.Solid, tangential.LineStyle);
+        Assert.Equal(AnalysisLineStyle.Dashed, sagittal.LineStyle);
+        for (var index = 0; index < tangential.Points.Count; index++)
+        {
+            AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
+            AssertClose(expected.GetProperty("tangential")[index].GetDouble(), tangential.Points[index].Y);
+            AssertClose(expected.GetProperty("sagittal")[index].GetDouble(), sagittal.Points[index].Y);
+        }
     }
 
     [Theory]
@@ -1330,6 +1468,34 @@ public sealed class PythonAnalysisParityTests
         {
             AssertClose(expectedValues[index].GetDouble(), actual.Points[index].X);
             AssertClose(expectedField[index].GetDouble(), actual.Points[index].Y);
+        }
+    }
+
+    private static void AssertPsfValues(JsonElement expectedPsf, PsfResult actual)
+    {
+        Assert.Equal(expectedPsf.GetArrayLength(), actual.GridSize);
+        for (var row = 0; row < actual.GridSize; row++)
+        {
+            Assert.Equal(expectedPsf[row].GetArrayLength(), actual.GridSize);
+            for (var column = 0; column < actual.GridSize; column++)
+            {
+                AssertClose(expectedPsf[row][column].GetDouble(), actual.Values[row, column]);
+            }
+        }
+    }
+
+    private static void AssertPsfSeriesValues(JsonElement expectedPsf, AnalysisSeries actual)
+    {
+        var size = expectedPsf.GetArrayLength();
+        Assert.Equal(size * size, actual.Points.Count);
+        for (var row = 0; row < size; row++)
+        {
+            for (var column = 0; column < size; column++)
+            {
+                var value = actual.Points[(row * size) + column].Value;
+                Assert.True(value.HasValue);
+                AssertClose(expectedPsf[row][column].GetDouble(), value.Value);
+            }
         }
     }
 

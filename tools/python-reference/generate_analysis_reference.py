@@ -1,6 +1,12 @@
 import argparse
 import json
+import os
+import sys
+import types
 from pathlib import Path
+
+os.environ.setdefault("MPLCONFIGDIR", "/private/tmp/matplotlib-optiland-reference")
+sys.modules.setdefault("vtk", types.ModuleType("vtk"))
 
 import matplotlib
 
@@ -31,6 +37,8 @@ from optiland.analysis.y_ybar import YYbar
 from optiland.wavefront.opd import OPD
 from optiland.wavefront.zernike_opd import ZernikeOPD
 from optiland.psf.fft import FFTPSF
+from optiland.psf.huygens_fresnel import HuygensPSF
+from optiland.psf.mmdft import MMDFTPSF
 from optiland.mtf.fft import FFTMTF
 from optiland.mtf.geometric import GeometricMTF
 from optiland.mtf.sampled import SampledMTF
@@ -229,6 +237,84 @@ def reference_sphere_wavefront_data(name, optic, strategy_name, plot_dir):
     return result
 
 
+def psf_mtf_from_psf(psf, pixel_pitch_mm):
+    image_size = psf.shape[0]
+    otf = np.fft.fftshift(np.fft.fft2(psf))
+    mtf_abs = np.abs(otf)
+    center = image_size // 2
+    dc = mtf_abs[center, center]
+    tangential = mtf_abs[center:, center][: image_size // 2]
+    sagittal = mtf_abs[center, center:][: image_size // 2]
+    if dc == 0:
+        tangential = np.zeros_like(tangential)
+        sagittal = np.zeros_like(sagittal)
+    else:
+        tangential = np.clip(tangential / dc, 0, 1)
+        sagittal = np.clip(sagittal / dc, 0, 1)
+    frequency = np.arange(image_size // 2) / (image_size * pixel_pitch_mm)
+    return {
+        "frequency": array(frequency),
+        "tangential": array(tangential),
+        "sagittal": array(sagittal),
+    }
+
+
+def alternate_psf_data(optic):
+    field = (0, 1)
+    wavelength = float(optic.primary_wavelength)
+    mmdft = MMDFTPSF(
+        optic,
+        field=field,
+        wavelength=wavelength,
+        num_rays=16,
+        image_size=16,
+        strategy="chief_ray",
+        remove_tilt=False,
+    )
+    huygens = HuygensPSF(
+        optic,
+        field=field,
+        wavelength=wavelength,
+        num_rays=5,
+        image_size=9,
+        strategy="chief_ray",
+        remove_tilt=False,
+        pixel_pitch=0.005,
+    )
+    huygens_mtf = psf_mtf_from_psf(np.asarray(huygens.psf), huygens.pixel_pitch)
+    return {
+        "mmdft_psf": {
+            "field": list(field),
+            "wavelength": wavelength,
+            "num_rays": int(mmdft.num_rays),
+            "image_size": int(mmdft.image_size),
+            "pixel_pitch": float(mmdft.pixel_pitch),
+            "working_fno": float(mmdft._get_working_FNO()),
+            "psf": array(mmdft.psf),
+            "strehl": float(mmdft.strehl_ratio()),
+        },
+        "huygens_psf": {
+            "field": list(field),
+            "wavelength": wavelength,
+            "num_rays": int(huygens.num_rays),
+            "image_size": int(huygens.image_size),
+            "pixel_pitch": float(huygens.pixel_pitch),
+            "working_fno": float(huygens._get_working_FNO()),
+            "psf": array(huygens.psf),
+            "strehl": float(huygens.strehl_ratio()),
+        },
+        "huygens_mtf": {
+            "field": list(field),
+            "wavelength": wavelength,
+            "image_size": int(huygens.image_size),
+            "pixel_pitch": float(huygens.pixel_pitch),
+            "frequency": huygens_mtf["frequency"],
+            "tangential": huygens_mtf["tangential"],
+            "sagittal": huygens_mtf["sagittal"],
+        },
+    }
+
+
 def image_simulation_data(optic):
     wavelengths = [0.65, 0.55, 0.45]
     source = image_test_chart()
@@ -366,6 +452,7 @@ def analyze(name, optic, plot_dir):
         "sagittal": array(fft_mtf.mtf[0][1]),
         "cutoff": float(fft_mtf.max_freq),
     }
+    alternate_psf_result = alternate_psf_data(optic)
 
     pupil_aberration = PupilAberration(optic, num_points=17)
     pupil_result = {
@@ -853,6 +940,9 @@ def analyze(name, optic, plot_dir):
     return {
         "fft_psf": psf_result,
         "fft_mtf": mtf_result,
+        "mmdft_psf": alternate_psf_result["mmdft_psf"],
+        "huygens_psf": alternate_psf_result["huygens_psf"],
+        "huygens_mtf": alternate_psf_result["huygens_mtf"],
         "zernike": zernike_result,
         "wavefront": wavefront_result,
         "centroid_sphere_wavefront": centroid_sphere_wavefront_result,

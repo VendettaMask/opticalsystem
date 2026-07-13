@@ -24,7 +24,10 @@ The current validated set is:
 - `BestFitSphereWavefront`, with Optiland's best-fit-sphere OPD strategy, 5-ring/91-ray hexapolar sampling, tilt-corrected least-squares sphere center/radius, pupil intersections, intensity, OPD, and RMS.
 - `ZernikeOPD`, with Fringe indexing and least-squares coefficients.
 - `FFTPSF`, with complex pupil phase, zero padding, two-dimensional FFT, and diffraction-limited normalization.
+- `MMDFTPSF`, with source-matched matrix-multiply DFT kernels, image-plane pixel pitch, peak Strehl, and bounded 16 by 16 reference grids.
+- `HuygensPSF`, with Huygens-Fresnel direct summation, image-surface coordinates, ideal on-axis normalization, center Strehl, and bounded 9 by 9 reference grids.
 - `FFTMTF`, with field-paired tangential/sagittal curves and on-axis working-F-number frequency scaling.
+- `HuygensMTF`, with two-dimensional FFT of the Huygens PSF and DC-normalized tangential/sagittal slices.
 - `GeometricMTF`, with spot-histogram Fourier integration and the diffraction-limited modulation envelope.
 - `SampledMTF`, with a 37-term Fringe wavefront fit and shifted-pupil overlap evaluation over tangential/sagittal frequency scans.
 - `Distortion`, with 17-point `f-tan` and `f-theta` sweeps at every configured wavelength.
@@ -67,7 +70,10 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 | Best-fit sphere wavefront | Python `best_fit_sphere` OPD strategy with four-parameter sphere fit, pupil intersections, intensity, OPD, and RMS |
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
 | FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
+| MMDFT PSF | Uniform pupil complex amplitude/phase propagated with Python's non-unitary matrix-multiply DFT kernels and ideal-pupil peak normalization |
+| Huygens PSF | Huygens-Fresnel direct summation over chief-ray exit-pupil points, image-surface sag coordinates, obliquity factor, and ideal on-axis normalization |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
+| Huygens MTF | Two-dimensional FFT of the Huygens PSF, NumPy-compatible odd-size `fftshift`, DC normalization, and pixel-pitch frequency step |
 | Geometric MTF | One-dimensional spot histograms transformed with cosine/sine integrals and optionally multiplied by the circular-pupil diffraction limit |
 | Sampled MTF | Complex pupil overlap against a frequency-shifted 37-term Fringe Zernike fit, normalized by zero-frequency intensity |
 | Distortion | Chief ray at each normalized Y field; ideal height from the `f-tan` or `f-theta` model; percent difference at every wavelength |
@@ -78,13 +84,13 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
-Repository validation as of 2026-07-13 is a zero-warning solution build and `139/139` passing tests.
+Repository validation as of 2026-07-13 is a zero-warning solution build and `154/154` passing tests.
 
 ## Plot Contract
 
 The Avalonia plot model now supports multiple ordered series, named legends, Matplotlib C0-C9 colors, solid/dashed/dotted styles, value-colored lines, viridis/inferno/jet heatmaps, fixed or automatic color limits, per-series line widths, symmetric X limits, fixed or automatic axis limits, equal aspect, title text, zero reference lines, and hidden top/right axes.
 
-The twenty-seven views mirror Python's presentation:
+The thirty views mirror Python's presentation:
 
 - Spot diagram: up to three square field subplots per row, shared limits, field-coordinate titles, wavelength colors and circle/square/triangle markers, low-opacity grids, and a shared legend below the panes.
 - Encircled energy: one field curve per normalized field coordinate, radius and dimensionless-energy axes, primary wavelength title, nonnegative axes, and external legend.
@@ -104,7 +110,10 @@ The twenty-seven views mirror Python's presentation:
 - Best-fit sphere wavefront: square pupil heatmap, RMS title, pupil axes, viridis scale, best-fit reference-sphere metrics, and OPD colorbar in waves.
 - Zernike: unit-circle Fringe-fit heatmap with pupil axes and OPD colorbar.
 - FFT PSF: threshold-centered image crop, physical micrometer axes, relative-intensity heatmap, title, and colorbar.
+- MMDFT PSF: full source-bounded image heatmap, physical micrometer axes from the MMDFT pixel pitch, relative-intensity scale, title, and colorbar-ready value label.
+- Huygens PSF: full source-bounded image heatmap, physical micrometer axes from the Huygens pixel pitch, relative-intensity scale, title, and colorbar-ready value label.
 - FFT MTF: field-colored tangential solid and sagittal dashed pairs, cycles/mm axis, nonnegative modulation range, cutoff limit, and external legend.
+- Huygens MTF: field-colored tangential solid and sagittal dashed pairs generated from Huygens PSF data, cycles/mm axis, nonnegative modulation range, and external legend.
 - Geometric MTF: the same field-paired solid/dashed MTF presentation with geometric spot-histogram data and a paraxial diffraction cutoff.
 - Sampled MTF: field-colored tangential solid and sagittal dashed frequency curves using the sampled-pupil numerical method.
 - Distortion: distortion percent on X, field on Y, one line per wavelength, a dashed vertical zero line, symmetric X range, Y starting at zero, and an external right-side legend.
@@ -117,6 +126,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the twenty-seven analyses above on the validated sequential refractive path and chief-ray, centroid-sphere, and best-fit-sphere wavefront strategies. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. Huygens/MMDFT PSF/MTF still require separate source-derived contracts.
+This parity statement applies to the thirty analyses above on the validated sequential refractive path and chief-ray, centroid-sphere, and best-fit-sphere wavefront strategies. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. MMDFT and Huygens-Fresnel diffraction are validated on bounded Cooke/Tessar fixtures; vectorial PSF/MTF remains outside this contract.
 
 The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmaps currently use local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

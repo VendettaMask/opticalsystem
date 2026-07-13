@@ -86,9 +86,9 @@ The current local baseline is:
 Expected result as of 2026-07-13:
 
 - solution build: 0 warnings, 0 errors
-- tests: 139 passed, 0 failed, 0 skipped
+- tests: 154 passed, 0 failed, 0 skipped
 
-The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 27 Python-referenced analysis views, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
+The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
 
 Regenerate the Python analysis fixture only when intentionally updating the pinned `optiland==0.5.8` contract:
 

@@ -89,7 +89,7 @@ C# exports were additionally loaded by real Optiland 0.5.8 using `json.load` and
 
 ### Analysis Results
 
-The separate `optiland-0.5.8-analysis-reference.json` fixture validates 27 numerical/graphical views for both Cooke and Tessar. Coverage includes spot and standard/best-fit ray fans, encircled energy, RMS spot/wavefront field sweeps, pupil aberration, through-focus spot and sampled MTF, Y-Ybar, both incident-angle scans, `f-tan`/`f-theta` distortion and grid distortion, field curvature, chief-ray and centroid/best-fit reference-sphere wavefronts, Fringe Zernike, FFT PSF/MTF, geometric and sampled MTF, incoherent irradiance, radiant intensity, Jones pupil, and spatially variable image simulation.
+The separate `optiland-0.5.8-analysis-reference.json` fixture validates 30 numerical/graphical views for both Cooke and Tessar. Coverage includes spot and standard/best-fit ray fans, encircled energy, RMS spot/wavefront field sweeps, pupil aberration, through-focus spot and sampled MTF, Y-Ybar, both incident-angle scans, `f-tan`/`f-theta` distortion and grid distortion, field curvature, chief-ray and centroid/best-fit reference-sphere wavefronts, Fringe Zernike, FFT/MMDFT/Huygens PSF, FFT/Huygens/geometric/sampled MTF, incoherent irradiance, radiant intensity, Jones pupil, and spatially variable image simulation.
 
 Tests compare deterministic output at its native level: traced samples and fitted sphere parameters, curve points, wavefront/Zernike values, heatmap and PSF pixels, MTF values, distortion coordinates, and final RGB image pixels. They also verify the presentation contract for pane order, labels, line pairing, marker/style choices, zero lines, aspect, legends, limits, and colorbars. The normal analysis tolerance is `2e-8 * max(1, abs(expected))`; image-simulation pixels use `5e-5` because different symmetric eigensolvers accumulate slightly different rounding through convolution.
 
@@ -103,6 +103,6 @@ See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numeric
 - Position, direction, cumulative optical path, and intensity at every physical surface for eight rays.
 - Weighted image centroid and RMS spot radius for 9-ray line bundles at normalized fields 0, 0.7, and 1.0.
 
-The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, Huygens/MMDFT diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
+The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, vectorial diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
 
-As of 2026-07-13, the complete solution builds with zero warnings and the repository test suite passes `139/139` tests.
+As of 2026-07-13, the complete solution builds with zero warnings and the repository test suite passes `154/154` tests.

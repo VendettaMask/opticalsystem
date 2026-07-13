@@ -1701,6 +1701,232 @@ public sealed class MtfAnalysis : BaseAnalysis
     }
 }
 
+public sealed class MmdftPsfAnalysis : BaseAnalysis
+{
+    private readonly int _numRays;
+    private readonly int _imageSize;
+    private readonly double? _pixelPitchMicrometers;
+
+    public MmdftPsfAnalysis(
+        Optic optic,
+        int numRays = 16,
+        int imageSize = 32,
+        double? pixelPitchMicrometers = null) : base(optic)
+    {
+        _numRays = Math.Max(2, numRays);
+        _imageSize = Math.Max(1, imageSize);
+        _pixelPitchMicrometers = pixelPitchMicrometers;
+    }
+
+    public override string Name => "MMDFT PSF";
+
+    public override AnalysisData GenerateData()
+    {
+        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? Optic.Wavelengths.FirstOrDefault();
+        if (wavelength is null)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+        }
+
+        var field = SpotAnalysisEngine.DefinedFields(Optic).LastOrDefault();
+        var psf = DiffractionEngine.ComputeMmdftPsf(
+            Optic,
+            field,
+            wavelength,
+            _numRays,
+            _imageSize,
+            _pixelPitchMicrometers);
+        return DiffractionAnalysisPresentation.CreatePsfData(
+            Name,
+            "MMDFT",
+            "MMDFT PSF",
+            psf,
+            field,
+            wavelength,
+            psf.PeakStrehlRatio);
+    }
+}
+
+public sealed class HuygensPsfAnalysis : BaseAnalysis
+{
+    private readonly int _numRays;
+    private readonly int _imageSize;
+    private readonly double _pixelPitchMillimeters;
+
+    public HuygensPsfAnalysis(
+        Optic optic,
+        int numRays = 9,
+        int imageSize = 32,
+        double pixelPitchMillimeters = 0.005) : base(optic)
+    {
+        _numRays = Math.Max(2, numRays);
+        _imageSize = Math.Max(1, imageSize);
+        _pixelPitchMillimeters = Math.Max(1e-9, pixelPitchMillimeters);
+    }
+
+    public override string Name => "Huygens PSF";
+
+    public override AnalysisData GenerateData()
+    {
+        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? Optic.Wavelengths.FirstOrDefault();
+        if (wavelength is null)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+        }
+
+        var field = SpotAnalysisEngine.DefinedFields(Optic).LastOrDefault();
+        var psf = DiffractionEngine.ComputeHuygensPsf(
+            Optic,
+            field,
+            wavelength,
+            _numRays,
+            _imageSize,
+            _pixelPitchMillimeters);
+        return DiffractionAnalysisPresentation.CreatePsfData(
+            Name,
+            "Huygens-Fresnel",
+            "Huygens PSF",
+            psf,
+            field,
+            wavelength,
+            psf.StrehlRatio);
+    }
+}
+
+public sealed class HuygensMtfAnalysis : BaseAnalysis
+{
+    private readonly int _numRays;
+    private readonly int _imageSize;
+    private readonly double _pixelPitchMillimeters;
+    private readonly IReadOnlyList<(double Hx, double Hy)>? _fields;
+
+    public HuygensMtfAnalysis(
+        Optic optic,
+        int numRays = 9,
+        int imageSize = 32,
+        double pixelPitchMillimeters = 0.005,
+        IReadOnlyList<(double Hx, double Hy)>? fields = null) : base(optic)
+    {
+        _numRays = Math.Max(2, numRays);
+        _imageSize = Math.Max(1, imageSize);
+        _pixelPitchMillimeters = Math.Max(1e-9, pixelPitchMillimeters);
+        _fields = fields;
+    }
+
+    public override string Name => "Huygens MTF";
+
+    public override AnalysisData GenerateData()
+    {
+        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? Optic.Wavelengths.FirstOrDefault();
+        if (wavelength is null)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+        }
+
+        var fields = _fields ?? SpotAnalysisEngine.DefinedFields(Optic);
+        var series = new List<AnalysisSeries>();
+        var maximumFrequency = 0.0;
+        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        {
+            var field = fields[fieldIndex];
+            var psf = DiffractionEngine.ComputeHuygensPsf(
+                Optic,
+                field,
+                wavelength,
+                _numRays,
+                _imageSize,
+                _pixelPitchMillimeters);
+            var mtf = DiffractionEngine.ComputePsfMtf(psf);
+            maximumFrequency = Math.Max(maximumFrequency, mtf.Frequency.DefaultIfEmpty(0).Max());
+            series.Add(new AnalysisSeries(
+                "Frequency (cycles/mm)",
+                "Modulation",
+                mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
+                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
+                ColorIndex: fieldIndex));
+            series.Add(new AnalysisSeries(
+                "Frequency (cycles/mm)",
+                "Modulation",
+                mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
+                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: fieldIndex));
+        }
+
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Method"] = "Huygens-Fresnel",
+            ["NumRays"] = _numRays,
+            ["ImageSize"] = _imageSize,
+            ["PixelPitchMillimeters"] = _pixelPitchMillimeters,
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["FieldCount"] = fields.Count
+        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            Title: "Huygens MTF",
+            XMinimum: 0,
+            XMaximum: maximumFrequency,
+            YMinimum: 0,
+            YMaximum: 1,
+            ShowLegend: true,
+            GridOpacity: 0.25));
+    }
+}
+
+internal static class DiffractionAnalysisPresentation
+{
+    public static AnalysisData CreatePsfData(
+        string name,
+        string method,
+        string title,
+        PsfResult psf,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        double strehlRatio)
+    {
+        var extent = psf.GridSize * psf.SampleSpacingMicrometers;
+        var points = new List<AnalysisPoint>(psf.GridSize * psf.GridSize);
+        for (var row = 0; row < psf.GridSize; row++)
+        {
+            var y = -extent / 2 + ((row + 0.5) * psf.SampleSpacingMicrometers);
+            for (var column = 0; column < psf.GridSize; column++)
+            {
+                var x = -extent / 2 + ((column + 0.5) * psf.SampleSpacingMicrometers);
+                points.Add(new AnalysisPoint(x, y, Value: psf.Values[row, column]));
+            }
+        }
+
+        var series = new AnalysisSeries(
+            "X (\u00B5m)",
+            "Y (\u00B5m)",
+            points,
+            AnalysisSeriesKind.Heatmap,
+            ValueLabel: "Relative Intensity (%)");
+        return new AnalysisData(name, new Dictionary<string, object>
+        {
+            ["Method"] = method,
+            ["PupilSampling"] = psf.PupilSampling,
+            ["ImageSize"] = psf.GridSize,
+            ["GridSize"] = psf.GridSize,
+            ["PixelPitchMicrometers"] = psf.SampleSpacingMicrometers,
+            ["WorkingFNumber"] = psf.WorkingFNumber,
+            ["StrehlRatio"] = strehlRatio,
+            ["PeakStrehlRatio"] = psf.PeakStrehlRatio,
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["FieldHx"] = field.Hx,
+            ["FieldHy"] = field.Hy
+        }, series, new[] { series }, new AnalysisPlotOptions(
+            Title: title,
+            EqualAspect: true,
+            XMinimum: -extent / 2,
+            XMaximum: extent / 2,
+            YMinimum: -extent / 2,
+            YMaximum: extent / 2));
+    }
+}
+
 public sealed class ImageSimulationAnalysis : BaseAnalysis
 {
     private readonly ImageSimulationConfig _config;
@@ -2423,7 +2649,10 @@ public sealed class AnalysisCatalog
         "Radiant Intensity",
         "Y-Ybar",
         "PSF",
+        "MMDFT PSF",
+        "Huygens PSF",
         "MTF",
+        "Huygens MTF",
         "Geometric MTF",
         "Sampled MTF",
         "Wavefront",
@@ -2458,7 +2687,10 @@ public sealed class AnalysisCatalog
             "Radiant Intensity" => new RadiantIntensityAnalysis(_optic, numRays: 2048),
             "Y-Ybar" => new YYbarAnalysis(_optic),
             "PSF" => new PsfAnalysis(_optic),
+            "MMDFT PSF" => new MmdftPsfAnalysis(_optic),
+            "Huygens PSF" => new HuygensPsfAnalysis(_optic),
             "MTF" => new MtfAnalysis(_optic),
+            "Huygens MTF" => new HuygensMtfAnalysis(_optic),
             "Geometric MTF" => new GeometricMtfAnalysis(_optic, numRays: 32, numPoints: 128),
             "Sampled MTF" => new SampledMtfAnalysis(_optic, pupilSampling: 32, numPoints: 128),
             "Wavefront" => new WavefrontAnalysis(_optic),
