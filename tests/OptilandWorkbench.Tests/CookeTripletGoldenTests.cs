@@ -427,6 +427,28 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    public void PythonJsonImportRejectsUnsupportedMaterialPropagationExplicitly()
+    {
+        var json = PythonJsonWithSurfaceGeometry(
+            PythonPlaneGeometry(),
+            materialPostJson: """
+            {
+              "type": "IdealMaterial",
+              "propagation_model": {
+                "class": "GRINPropagation"
+              },
+              "index": 1.5,
+              "absorp": 0.0
+            }
+            """);
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("propagation", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("GRINPropagation", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void PythonJsonImportRejectsReflectiveThinLensInteractionExplicitly()
     {
         var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), PythonThinLensInteraction("75.0", "true"));
@@ -738,6 +760,7 @@ public sealed class CookeTripletGoldenTests
         string wavelengthPolarizationJson = "\"ignore\"",
         string apodizationJson = "null",
         string pickupsJson = "[]",
+        string? materialPostJson = null,
         string solvesJson = """
         {
           "solves": []
@@ -746,6 +769,13 @@ public sealed class CookeTripletGoldenTests
     {
         interactionJson ??= PythonRefractiveReflectiveInteraction();
         apertureJson ??= "null";
+        materialPostJson ??= """
+        {
+          "type": "IdealMaterial",
+          "index": 1.0,
+          "absorp": 0.0
+        }
+        """;
         return $$"""
         {
           "version": 1.0,
@@ -811,11 +841,7 @@ public sealed class CookeTripletGoldenTests
                 "type": "Surface",
                 "thickness": 1.0,
                 "geometry": {{geometryJson}},
-                "material_post": {
-                  "type": "IdealMaterial",
-                  "index": 1.0,
-                  "absorp": 0.0
-                },
+                "material_post": {{materialPostJson}},
                 "is_stop": false,
                 "aperture": {{apertureJson}},
                 "interaction_model": {{interactionJson}},

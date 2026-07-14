@@ -25,7 +25,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
 | Geometry | Plane, StandardGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
-| Materials | Python catalog material, IdealMaterial, AbbeMaterial |
+| Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | Centered RadialAperture with zero `r_min`; centered RectangularAperture |
 | Interaction | RefractiveReflectiveModel, including mirrors, and non-reflective ThinLensInteractionModel |
 | Coating | SimpleCoating dictionaries in Workbench import/export |
@@ -60,6 +60,7 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 - Python ChebyshevPolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure Chebyshev model.
 - Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python annular/offset/boolean physical apertures and asymmetric RectangularAperture bounds that cannot be represented by the current Workbench centered aperture models.
+- Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
 - Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase, and diffractive interactions.
 - Pickups, solves, apodization, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.

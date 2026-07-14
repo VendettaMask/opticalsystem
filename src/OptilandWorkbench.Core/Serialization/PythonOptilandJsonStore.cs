@@ -444,6 +444,7 @@ public static class PythonOptilandJsonStore
     private static string ReadMaterial(Optic optic, JsonElement material)
     {
         var type = GetString(material, "type", "IdealMaterial");
+        ValidateHomogeneousPropagation(material);
         if (type == "Material")
         {
             return GetString(material, "name", "Air");
@@ -473,6 +474,22 @@ public static class PythonOptilandJsonStore
         }
 
         throw new NotSupportedException($"Python Optiland material '{type}' is not supported yet.");
+    }
+
+    private static void ValidateHomogeneousPropagation(JsonElement material)
+    {
+        if (!material.TryGetProperty("propagation_model", out var propagation)
+            || propagation.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+        {
+            return;
+        }
+
+        var propagationClass = GetString(propagation, "class", string.Empty);
+        if (!propagationClass.Equals("HomogeneousPropagation", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NotSupportedException(
+                $"Python Optiland propagation model '{propagationClass}' is not supported yet.");
+        }
     }
 
     private static ParsedInteraction ReadInteractionModel(JsonElement interaction)
