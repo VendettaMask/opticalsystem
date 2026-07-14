@@ -360,6 +360,72 @@ public sealed class CookeTripletGoldenTests
         Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Theory]
+    [InlineData("apodization", "apodization")]
+    [InlineData("pickups", "pickups")]
+    [InlineData("solves", "solves")]
+    [InlineData("apertureTelecentric", "telecentric")]
+    [InlineData("fieldTelecentric", "telecentric")]
+    [InlineData("fieldObjectSpaceTelecentric", "telecentric")]
+    [InlineData("polarization", "polarization")]
+    public void PythonJsonImportRejectsUnsupportedRootContractsExplicitly(
+        string contract,
+        string expectedTerm)
+    {
+        var json = contract switch
+        {
+            "apodization" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                apodizationJson: """
+                {
+                  "type": "GaussianApodization"
+                }
+                """),
+            "pickups" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                pickupsJson: """
+                [
+                  {
+                    "source_surface_idx": 1,
+                    "target_surface_idx": 2,
+                    "attribute": "radius",
+                    "scale": 1.0,
+                    "offset": 0.0
+                  }
+                ]
+                """),
+            "solves" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                solvesJson: """
+                {
+                  "solves": [
+                    {
+                      "type": "QuickFocusSolve"
+                    }
+                  ]
+                }
+                """),
+            "apertureTelecentric" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                systemApertureType: "objectNA",
+                apertureObjectSpaceTelecentric: "true"),
+            "fieldTelecentric" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                fieldsTelecentric: "true"),
+            "fieldObjectSpaceTelecentric" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                fieldsObjectSpaceTelecentric: "true"),
+            "polarization" => PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                wavelengthPolarizationJson: "\"linear_x\""),
+            _ => throw new ArgumentOutOfRangeException(nameof(contract))
+        };
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     [Fact]
     public void PythonJsonImportRejectsReflectiveThinLensInteractionExplicitly()
     {
@@ -664,7 +730,19 @@ public sealed class CookeTripletGoldenTests
     private static string PythonJsonWithSurfaceGeometry(
         string geometryJson,
         string? interactionJson = null,
-        string? apertureJson = null)
+        string? apertureJson = null,
+        string systemApertureType = "EPD",
+        string apertureObjectSpaceTelecentric = "false",
+        string fieldsTelecentric = "false",
+        string fieldsObjectSpaceTelecentric = "false",
+        string wavelengthPolarizationJson = "\"ignore\"",
+        string apodizationJson = "null",
+        string pickupsJson = "[]",
+        string solvesJson = """
+        {
+          "solves": []
+        }
+        """)
     {
         interactionJson ??= PythonRefractiveReflectiveInteraction();
         apertureJson ??= "null";
@@ -672,9 +750,9 @@ public sealed class CookeTripletGoldenTests
         {
           "version": 1.0,
           "aperture": {
-            "type": "EPD",
+            "type": "{{systemApertureType}}",
             "value": 1.0,
-            "object_space_telecentric": false
+            "object_space_telecentric": {{apertureObjectSpaceTelecentric}}
           },
           "fields": {
             "fields": [
@@ -685,9 +763,11 @@ public sealed class CookeTripletGoldenTests
                 "vy": 0.0
               }
             ],
+            "telecentric": {{fieldsTelecentric}},
             "field_definition": {
               "field_type": "AngleField"
-            }
+            },
+            "object_space_telecentric": {{fieldsObjectSpaceTelecentric}}
           },
           "wavelengths": {
             "wavelengths": [
@@ -698,8 +778,11 @@ public sealed class CookeTripletGoldenTests
                 "weight": 1.0
               }
             ],
-            "polarization": "ignore"
+            "polarization": {{wavelengthPolarizationJson}}
           },
+          "apodization": {{apodizationJson}},
+          "pickups": {{pickupsJson}},
+          "solves": {{solvesJson}},
           "surface_group": {
             "surfaces": [
               {

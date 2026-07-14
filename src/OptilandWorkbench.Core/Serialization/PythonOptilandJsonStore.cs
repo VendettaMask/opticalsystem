@@ -59,6 +59,7 @@ public static class PythonOptilandJsonStore
         }
 
         var optic = new Optic(name);
+        ValidateUnsupportedRootContracts(root);
         ReadAperture(root, optic);
         ReadFields(root, optic);
         ReadWavelengths(root, optic);
@@ -130,11 +131,63 @@ public static class PythonOptilandJsonStore
         await File.WriteAllTextAsync(path, Serialize(optic), cancellationToken);
     }
 
+    private static void ValidateUnsupportedRootContracts(JsonElement root)
+    {
+        if (root.TryGetProperty("apodization", out var apodization)
+            && apodization.ValueKind is not JsonValueKind.Null and not JsonValueKind.Undefined)
+        {
+            throw new NotSupportedException("Python Optiland apodization import is not supported yet.");
+        }
+
+        if (root.TryGetProperty("pickups", out var pickups) && IsNonEmptyCollection(pickups))
+        {
+            throw new NotSupportedException("Python Optiland pickups import is not supported yet.");
+        }
+
+        if (root.TryGetProperty("solves", out var solves) && HasNonEmptySolves(solves))
+        {
+            throw new NotSupportedException("Python Optiland solves import is not supported yet.");
+        }
+    }
+
+    private static bool IsNonEmptyCollection(JsonElement value)
+    {
+        return value.ValueKind switch
+        {
+            JsonValueKind.Null or JsonValueKind.Undefined => false,
+            JsonValueKind.Array => value.GetArrayLength() > 0,
+            JsonValueKind.Object => value.EnumerateObject().Any(),
+            _ => true
+        };
+    }
+
+    private static bool HasNonEmptySolves(JsonElement solves)
+    {
+        if (solves.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+        {
+            return false;
+        }
+
+        if (solves.ValueKind == JsonValueKind.Object
+            && solves.TryGetProperty("solves", out var solveArray)
+            && solveArray.ValueKind == JsonValueKind.Array)
+        {
+            return solveArray.GetArrayLength() > 0;
+        }
+
+        return IsNonEmptyCollection(solves);
+    }
+
     private static void ReadAperture(JsonElement root, Optic optic)
     {
         if (!root.TryGetProperty("aperture", out var aperture) || aperture.ValueKind == JsonValueKind.Null)
         {
             return;
+        }
+
+        if (GetBoolean(aperture, "object_space_telecentric"))
+        {
+            throw new NotSupportedException("Python Optiland object-space telecentric aperture import is not supported yet.");
         }
 
         var type = GetString(aperture, "type", "EPD");
@@ -164,6 +217,11 @@ public static class PythonOptilandJsonStore
             }
         }
 
+        if (GetBoolean(fields, "telecentric") || GetBoolean(fields, "object_space_telecentric"))
+        {
+            throw new NotSupportedException("Python Optiland telecentric fields are not supported yet.");
+        }
+
         if (fields.TryGetProperty("fields", out var fieldArray))
         {
             var index = 0;
@@ -191,6 +249,14 @@ public static class PythonOptilandJsonStore
         if (root.TryGetProperty("wavelengths", out var wavelengths)
             && wavelengths.TryGetProperty("wavelengths", out var wavelengthArray))
         {
+            if (wavelengths.TryGetProperty("polarization", out var polarization)
+                && polarization.ValueKind is not JsonValueKind.Null and not JsonValueKind.Undefined
+                && (polarization.ValueKind != JsonValueKind.String
+                    || !string.Equals(polarization.GetString(), "ignore", StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new NotSupportedException("Python Optiland polarization import is not supported yet.");
+            }
+
             var index = 0;
             foreach (var wavelength in wavelengthArray.EnumerateArray())
             {

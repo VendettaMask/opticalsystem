@@ -291,3 +291,8 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Added regression coverage for Python centered `RadialAperture` and `RectangularAperture` dictionary round-trips.
 - Kept Python annular radial apertures and asymmetric rectangular bounds explicit: imports reject them instead of silently dropping `r_min` or expanding asymmetric bounds into a centered aperture.
+
+### 2026-07-14 Python JSON Root Contract Guardrails
+
+- Kept unsupported root-level Python contracts explicit: nonempty `pickups`, nonempty `solves`, non-null `apodization`, non-ignored `polarization`, object-space telecentric apertures, and telecentric field groups now fail during import instead of being ignored.
+- Regression coverage verifies every guardrail while preserving import of the empty/default Python Optiland 0.5.8 root dictionaries used by the Cooke and Tessar fixtures.
