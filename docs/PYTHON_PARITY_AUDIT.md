@@ -306,3 +306,8 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Kept unsupported system aperture types explicit: Python aperture dictionaries outside the supported `EPD`, `imageFNO`, `objectNA`, and `float_by_stop_size` set now fail during import instead of being silently mapped to EPD.
 - Regression coverage verifies unknown aperture-type rejection while preserving the validated Python Optiland 0.5.8 aperture modes.
+
+### 2026-07-15 Python JSON Field Definition Guardrails
+
+- Added source-validated regressions for Optiland 0.5.8 `ObjectHeightField` and `ParaxialImageHeightField` definitions.
+- Both field definitions remain explicitly outside the angle-field adapter contract instead of risking a silent import as `AngleField`.

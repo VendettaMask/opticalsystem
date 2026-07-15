@@ -374,6 +374,21 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Theory]
+    [InlineData("ObjectHeightField")]
+    [InlineData("ParaxialImageHeightField")]
+    public void PythonJsonImportRejectsUnsupportedFieldDefinitionsExplicitly(string fieldType)
+    {
+        var json = PythonJsonWithSurfaceGeometry(
+            PythonPlaneGeometry(),
+            fieldType: fieldType);
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("field type", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(fieldType, error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
     [InlineData("apodization", "apodization")]
     [InlineData("pickups", "pickups")]
     [InlineData("solves", "solves")]
@@ -770,6 +785,7 @@ public sealed class CookeTripletGoldenTests
         string apertureObjectSpaceTelecentric = "false",
         string fieldsTelecentric = "false",
         string fieldsObjectSpaceTelecentric = "false",
+        string fieldType = "AngleField",
         string wavelengthPolarizationJson = "\"ignore\"",
         string apodizationJson = "null",
         string pickupsJson = "[]",
@@ -808,7 +824,7 @@ public sealed class CookeTripletGoldenTests
             ],
             "telecentric": {{fieldsTelecentric}},
             "field_definition": {
-              "field_type": "AngleField"
+              "field_type": "{{fieldType}}"
             },
             "object_space_telecentric": {{fieldsObjectSpaceTelecentric}}
           },
