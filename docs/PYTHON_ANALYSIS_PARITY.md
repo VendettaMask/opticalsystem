@@ -84,7 +84,7 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
-Repository validation as of 2026-07-14 is a zero-warning solution build and `178/178` passing tests.
+Repository validation as of 2026-07-15 is a zero-warning solution build and `179/179` passing tests.
 
 ## Plot Contract
 

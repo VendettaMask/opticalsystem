@@ -360,6 +360,19 @@ public sealed class CookeTripletGoldenTests
         Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void PythonJsonImportRejectsUnsupportedSystemApertureExplicitly()
+    {
+        var json = PythonJsonWithSurfaceGeometry(
+            PythonPlaneGeometry(),
+            systemApertureType: "chief_ray_height");
+
+        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+
+        Assert.Contains("aperture", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("chief_ray_height", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     [Theory]
     [InlineData("apodization", "apodization")]
     [InlineData("pickups", "pickups")]

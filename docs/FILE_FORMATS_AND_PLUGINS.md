@@ -25,7 +25,7 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 
 `OpticJsonStore` also detects the recursive dictionary schema emitted by Python Optiland 0.5.8 `Optic.to_dict()`. The validated bidirectional subset covers:
 
-- EPD, image-F-number, and object-NA system apertures
+- EPD, image-F-number, object-NA, and float-by-stop-size system apertures
 - angle fields and weighted primary/non-primary wavelengths
 - plane, standard, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
 - homogeneous catalog, ideal, and Abbe materials

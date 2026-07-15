@@ -193,9 +193,10 @@ public static class PythonOptilandJsonStore
         var type = GetString(aperture, "type", "EPD");
         optic.Aperture.Kind = type.ToLowerInvariant() switch
         {
+            "epd" or "float_by_stop_size" => ApertureKind.EntrancePupilDiameter,
             "imagefno" => ApertureKind.FNumber,
             "objectna" => ApertureKind.NumericalAperture,
-            _ => ApertureKind.EntrancePupilDiameter
+            _ => throw new NotSupportedException($"Python Optiland system aperture '{type}' is not supported yet.")
         };
         optic.Aperture.Value = GetDouble(aperture, "value", optic.Aperture.Value);
     }
