@@ -29,6 +29,19 @@ public sealed class ViewerPanel : UserControl
             _scene2D.ShowRays = visible;
             _scene3D.ShowRays = visible;
         };
+        var renderMode = new ComboBox
+        {
+            ItemsSource = new[] { "实体", "框架" },
+            SelectedIndex = 0,
+            MinWidth = 96,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        renderMode.SelectionChanged += (_, _) =>
+        {
+            _scene3D.RenderMode = renderMode.SelectedIndex == 1
+                ? OpticSceneRenderMode.Wireframe
+                : OpticSceneRenderMode.Solid;
+        };
         var resetView = new Button { Content = "重置视图", MinWidth = 92 };
         resetView.Click += (_, _) =>
         {
@@ -40,9 +53,10 @@ public sealed class ViewerPanel : UserControl
             Orientation = Orientation.Horizontal,
             Spacing = 10,
             Margin = new Avalonia.Thickness(0, 0, 0, 8),
-            Children = { showRays, resetView }
+            Children = { showRays, renderMode, resetView }
         };
-        ToolTip.SetTip(_scene2D, "滚轮缩放，拖动平移");
+        ToolTip.SetTip(renderMode, "三维渲染模式");
+        ToolTip.SetTip(_scene2D, "滚轮以指针为中心缩放，拖动平移");
         ToolTip.SetTip(_scene3D, "滚轮缩放，拖动旋转，Shift+拖动平移");
 
         DockPanel.SetDock(toolbar, Dock.Top);

@@ -20,8 +20,8 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | New system | Create from scratch | Always opened the Cooke-style demo | Starts blank; blank and Cooke demo are separate commands |
 | Lens editor | Editable sequential surface table | Present, including component editors | Retained |
 | System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
-| 2D viewer | Lens and rays with pan/zoom | Static rendering | Wheel zoom, drag pan, ray visibility, reset |
-| 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Drag rotation, Shift-drag pan, wheel zoom, reset; still not VTK |
+| 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
+| 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
 | Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Structured plots, table/report views, generated parameter editors, persisted settings, numbered multi-analysis pages, clone/close |
 | Analysis refresh | Connector signals update consumers | Connector events already used | Retained for every open analysis page |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
@@ -119,8 +119,8 @@ Reference: use Matplotlib and VTK navigation controls.
 
 Workbench: the renderer remains Avalonia-native. The refactor adds the missing interaction contract while avoiding a VTK dependency:
 
-- 2D: drag to pan, wheel to zoom.
-- 3D: drag to rotate, Shift-drag to pan, wheel to zoom.
+- 2D: drag to pan the full physical scene, including the optical axis; wheel to zoom around the pointer.
+- 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
 - Both: toggle rays and reset the camera.
 
 ### Change Surface Radius
@@ -158,7 +158,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 ### Priority 2: Platform And Performance
 
 - Add optional GPU/autograd backends behind `INumericBackend`.
-- Add a higher-performance 3D renderer if large systems outgrow the Avalonia wireframe view.
+- Add a higher-performance 3D renderer if large systems outgrow the Avalonia solid/wireframe view.
 - Add application-level UI automation tests for file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
 
 ## Validation
@@ -170,4 +170,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-15, the solution builds with zero warnings and all `181/181` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
+As of 2026-07-15, the solution builds with zero warnings and all `183/183` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.

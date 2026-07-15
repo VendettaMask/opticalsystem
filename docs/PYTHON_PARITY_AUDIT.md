@@ -311,3 +311,9 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Added source-validated regressions for Optiland 0.5.8 `ObjectHeightField` and `ParaxialImageHeightField` definitions.
 - Both field definitions remain explicitly outside the angle-field adapter contract instead of risking a silent import as `AngleField`.
+
+### 2026-07-15 Viewer Interaction And Rendering Alignment
+
+- Aligned the 2D YZ viewport with Python's `axis("image")` behavior by using one physical scale for Z and Y, and moved the optical axis through the same pan/zoom transform as lenses and rays.
+- Changed wheel zoom to preserve the world point under the pointer in both viewer tabs.
+- Added selectable translucent-solid and wireframe rendering for the lightweight 3D projection, following Python's solid VTK lens actor as the default while retaining the diagnostic framework view.
