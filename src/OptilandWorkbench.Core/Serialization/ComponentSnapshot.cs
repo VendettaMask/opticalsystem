@@ -248,10 +248,31 @@ public static class ComponentSnapshotFactory
         {
             null => null,
             CircularAperture circular => new ComponentSnapshot("circular", new Dictionary<string, double> { ["radius"] = circular.Radius }, new Dictionary<string, string>()),
+            AnnularAperture annular => new ComponentSnapshot("annular", new Dictionary<string, double>
+            {
+                ["outerRadius"] = annular.OuterRadius,
+                ["innerRadius"] = annular.InnerRadius
+            }, new Dictionary<string, string>()),
+            OffsetRadialAperture offset => new ComponentSnapshot("offset_radial", new Dictionary<string, double>
+            {
+                ["outerRadius"] = offset.OuterRadius,
+                ["innerRadius"] = offset.InnerRadius,
+                ["offsetX"] = offset.OffsetX,
+                ["offsetY"] = offset.OffsetY
+            }, new Dictionary<string, string>()),
             RectangularAperture rectangular => new ComponentSnapshot("rectangular", new Dictionary<string, double>
             {
                 ["halfWidth"] = rectangular.HalfWidth,
-                ["halfHeight"] = rectangular.HalfHeight
+                ["halfHeight"] = rectangular.HalfHeight,
+                ["centerX"] = rectangular.CenterX,
+                ["centerY"] = rectangular.CenterY
+            }, new Dictionary<string, string>()),
+            EllipticalAperture elliptical => new ComponentSnapshot("elliptical", new Dictionary<string, double>
+            {
+                ["semiAxisX"] = elliptical.SemiAxisX,
+                ["semiAxisY"] = elliptical.SemiAxisY,
+                ["offsetX"] = elliptical.OffsetX,
+                ["offsetY"] = elliptical.OffsetY
             }, new Dictionary<string, string>()),
             _ => ComponentSnapshot.Empty(aperture.Kind)
         };
@@ -262,7 +283,24 @@ public static class ComponentSnapshotFactory
         return snapshot?.Kind switch
         {
             "circular" => new CircularAperture(Get(snapshot.Numbers, "radius", fallbackRadius)),
-            "rectangular" => new RectangularAperture(Get(snapshot.Numbers, "halfWidth", fallbackRadius), Get(snapshot.Numbers, "halfHeight", fallbackRadius)),
+            "annular" => new AnnularAperture(
+                Get(snapshot.Numbers, "outerRadius", fallbackRadius),
+                Get(snapshot.Numbers, "innerRadius", 0)),
+            "offset_radial" => new OffsetRadialAperture(
+                Get(snapshot.Numbers, "outerRadius", fallbackRadius),
+                Get(snapshot.Numbers, "innerRadius", 0),
+                Get(snapshot.Numbers, "offsetX", 0),
+                Get(snapshot.Numbers, "offsetY", 0)),
+            "rectangular" => new RectangularAperture(
+                Get(snapshot.Numbers, "halfWidth", fallbackRadius),
+                Get(snapshot.Numbers, "halfHeight", fallbackRadius),
+                Get(snapshot.Numbers, "centerX", 0),
+                Get(snapshot.Numbers, "centerY", 0)),
+            "elliptical" => new EllipticalAperture(
+                Get(snapshot.Numbers, "semiAxisX", fallbackRadius),
+                Get(snapshot.Numbers, "semiAxisY", fallbackRadius),
+                Get(snapshot.Numbers, "offsetX", 0),
+                Get(snapshot.Numbers, "offsetY", 0)),
             null => new CircularAperture(fallbackRadius),
             _ => new CircularAperture(fallbackRadius)
         };

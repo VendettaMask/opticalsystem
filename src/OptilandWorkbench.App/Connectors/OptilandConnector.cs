@@ -99,7 +99,10 @@ public sealed class OptilandConnector
     public IReadOnlyList<string> PhysicalApertureKinds { get; } = new[]
     {
         "圆形",
+        "环形",
+        "偏心圆",
         "矩形",
+        "椭圆",
         "无"
     };
 
@@ -1065,7 +1068,12 @@ public sealed class OptilandConnector
     {
         surface.PhysicalAperture = CanonicalPhysicalApertureKind(physicalApertureKind) switch
         {
+            "Annular" => new AnnularAperture(surface.SemiDiameter, surface.SemiDiameter * 0.5),
+            "Offset Radial" => new OffsetRadialAperture(
+                surface.SemiDiameter * 0.8,
+                offsetX: surface.SemiDiameter * 0.2),
             "Rectangular" => new RectangularAperture(surface.SemiDiameter, surface.SemiDiameter),
+            "Elliptical" => new EllipticalAperture(surface.SemiDiameter, surface.SemiDiameter * 0.75),
             "None" => null,
             _ => new CircularAperture(surface.SemiDiameter)
         };
@@ -1335,7 +1343,10 @@ public sealed class OptilandConnector
         return value switch
         {
             "圆形" => "Circular",
+            "环形" => "Annular",
+            "偏心圆" => "Offset Radial",
             "矩形" => "Rectangular",
+            "椭圆" => "Elliptical",
             "无" => "None",
             _ => value
         };

@@ -1,0 +1,191 @@
+{
+  "optiland_version": "0.5.8",
+  "apertures": [
+    {
+      "name": "annular_radial",
+      "dictionary": {
+        "type": "RadialAperture",
+        "r_max": 3.0,
+        "r_min": 1.0
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": false
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "offset_radial",
+      "dictionary": {
+        "type": "OffsetRadialAperture",
+        "r_max": 2.5,
+        "r_min": 0.5,
+        "offset_x": 1.25,
+        "offset_y": -0.75
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": false
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": false
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "asymmetric_rectangular",
+      "dictionary": {
+        "type": "RectangularAperture",
+        "x_min": -2.0,
+        "x_max": 4.0,
+        "y_min": -3.0,
+        "y_max": 1.0
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "offset_elliptical",
+      "dictionary": {
+        "type": "EllipticalAperture",
+        "a": 4.0,
+        "b": 2.0,
+        "offset_x": 0.5,
+        "offset_y": -0.25
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    }
+  ]
+}

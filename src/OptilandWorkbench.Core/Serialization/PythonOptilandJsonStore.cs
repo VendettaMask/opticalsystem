@@ -305,7 +305,20 @@ public static class PythonOptilandJsonStore
         var semiDiameter = aperture switch
         {
             CircularAperture circular => circular.Radius,
-            RectangularAperture rectangular => Math.Max(rectangular.HalfWidth, rectangular.HalfHeight),
+            AnnularAperture annular => annular.OuterRadius,
+            OffsetRadialAperture offset => Math.Max(
+                Math.Abs(offset.OffsetX) + offset.OuterRadius,
+                Math.Abs(offset.OffsetY) + offset.OuterRadius),
+            RectangularAperture rectangular => new[]
+            {
+                Math.Abs(rectangular.XMinimum),
+                Math.Abs(rectangular.XMaximum),
+                Math.Abs(rectangular.YMinimum),
+                Math.Abs(rectangular.YMaximum)
+            }.Max(),
+            EllipticalAperture elliptical => Math.Max(
+                Math.Abs(elliptical.OffsetX) + elliptical.SemiAxisX,
+                Math.Abs(elliptical.OffsetY) + elliptical.SemiAxisY),
             _ => 1.0
         };
         var hasInteraction = source.TryGetProperty("interaction_model", out var interactionElement)
@@ -562,22 +575,29 @@ public static class PythonOptilandJsonStore
         return GetString(aperture, "type", string.Empty) switch
         {
             "RadialAperture" => ReadRadialAperture(aperture),
+            "OffsetRadialAperture" => new OffsetRadialAperture(
+                GetDouble(aperture, "r_max", 1),
+                GetDouble(aperture, "r_min", 0),
+                GetDouble(aperture, "offset_x", 0),
+                GetDouble(aperture, "offset_y", 0)),
             "RectangularAperture" => ReadRectangularAperture(aperture),
+            "EllipticalAperture" => new EllipticalAperture(
+                GetDouble(aperture, "a", 1),
+                GetDouble(aperture, "b", 1),
+                GetDouble(aperture, "offset_x", 0),
+                GetDouble(aperture, "offset_y", 0)),
             "" => null,
             var type => throw new NotSupportedException($"Python Optiland physical aperture '{type}' is not supported yet.")
         };
     }
 
-    private static CircularAperture ReadRadialAperture(JsonElement aperture)
+    private static IPhysicalAperture ReadRadialAperture(JsonElement aperture)
     {
         var innerRadius = GetDouble(aperture, "r_min", 0);
-        if (Math.Abs(innerRadius) > 1e-14)
-        {
-            throw new NotSupportedException(
-                "Python Optiland RadialAperture with nonzero r_min is not supported yet.");
-        }
-
-        return new CircularAperture(GetDouble(aperture, "r_max", 1));
+        var outerRadius = GetDouble(aperture, "r_max", 1);
+        return innerRadius > 0
+            ? new AnnularAperture(outerRadius, innerRadius)
+            : new CircularAperture(outerRadius);
     }
 
     private static RectangularAperture ReadRectangularAperture(JsonElement aperture)
@@ -586,13 +606,11 @@ public static class PythonOptilandJsonStore
         var xMax = GetDouble(aperture, "x_max", 1);
         var yMin = GetDouble(aperture, "y_min", -1);
         var yMax = GetDouble(aperture, "y_max", 1);
-        if (Math.Abs(xMin + xMax) > 1e-14 || Math.Abs(yMin + yMax) > 1e-14)
-        {
-            throw new NotSupportedException(
-                "Python Optiland asymmetric RectangularAperture is not supported yet.");
-        }
-
-        return new RectangularAperture(Math.Abs(xMax), Math.Abs(yMax));
+        return new RectangularAperture(
+            Math.Abs(xMax - xMin) / 2.0,
+            Math.Abs(yMax - yMin) / 2.0,
+            (xMin + xMax) / 2.0,
+            (yMin + yMax) / 2.0);
     }
 
     private static CoordinateSystem? ReadCoordinateSystem(JsonElement geometry)
@@ -913,13 +931,35 @@ public static class PythonOptilandJsonStore
                 ["r_max"] = circular.Radius,
                 ["r_min"] = 0.0
             },
+            AnnularAperture annular => new Dictionary<string, object?>
+            {
+                ["type"] = "RadialAperture",
+                ["r_max"] = annular.OuterRadius,
+                ["r_min"] = annular.InnerRadius
+            },
+            OffsetRadialAperture offset => new Dictionary<string, object?>
+            {
+                ["type"] = "OffsetRadialAperture",
+                ["r_max"] = offset.OuterRadius,
+                ["r_min"] = offset.InnerRadius,
+                ["offset_x"] = offset.OffsetX,
+                ["offset_y"] = offset.OffsetY
+            },
             RectangularAperture rectangular => new Dictionary<string, object?>
             {
                 ["type"] = "RectangularAperture",
-                ["x_min"] = -rectangular.HalfWidth,
-                ["x_max"] = rectangular.HalfWidth,
-                ["y_min"] = -rectangular.HalfHeight,
-                ["y_max"] = rectangular.HalfHeight
+                ["x_min"] = rectangular.XMinimum,
+                ["x_max"] = rectangular.XMaximum,
+                ["y_min"] = rectangular.YMinimum,
+                ["y_max"] = rectangular.YMaximum
+            },
+            EllipticalAperture elliptical => new Dictionary<string, object?>
+            {
+                ["type"] = "EllipticalAperture",
+                ["a"] = elliptical.SemiAxisX,
+                ["b"] = elliptical.SemiAxisY,
+                ["offset_x"] = elliptical.OffsetX,
+                ["offset_y"] = elliptical.OffsetY
             },
             _ => throw new NotSupportedException($"Physical aperture '{aperture.Kind}' cannot be exported to Python Optiland JSON yet.")
         };

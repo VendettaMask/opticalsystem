@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, centered radial/rectangular apertures, transforms, refractive/reflective and non-reflective thin-lens interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, annular/offset/boolean/asymmetric physical apertures, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, and offset elliptical physical apertures, transforms, refractive/reflective and non-reflective thin-lens interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, polygon/file/boolean physical apertures, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,7 +165,7 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, centered radial/rectangular physical apertures, non-reflective thin-lens interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, radial/annular/offset-radial, rectangular, and elliptical physical apertures, non-reflective thin-lens interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
@@ -290,7 +290,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 ### 2026-07-13 Python JSON Physical Aperture Guardrails
 
 - Added regression coverage for Python centered `RadialAperture` and `RectangularAperture` dictionary round-trips.
-- Kept Python annular radial apertures and asymmetric rectangular bounds explicit: imports reject them instead of silently dropping `r_min` or expanding asymmetric bounds into a centered aperture.
+- Kept Python annular radial apertures and asymmetric rectangular bounds explicit until equivalent Workbench models were added.
 
 ### 2026-07-14 Python JSON Root Contract Guardrails
 
@@ -317,3 +317,9 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Aligned the 2D YZ viewport with Python's `axis("image")` behavior by using one physical scale for Z and Y, and moved the optical axis through the same pan/zoom transform as lenses and rays.
 - Changed wheel zoom to preserve the world point under the pointer in both viewer tabs.
 - Added selectable translucent-solid and wireframe rendering for the lightweight 3D projection, following Python's solid VTK lens actor as the default while retaining the diagnostic framework view.
+
+### 2026-07-17 Python JSON Physical Aperture Expansion
+
+- Added lossless models and Python dictionary import/export for annular `RadialAperture`, `OffsetRadialAperture`, asymmetric `RectangularAperture`, and offset `EllipticalAperture`.
+- Added a pinned Optiland 0.5.8 generator fixture that compares every dictionary field and 28 Python `contains()` decisions against Workbench clipping.
+- Extended native component snapshots and incoherent detector extents so offsets and inner radii survive beyond the Python adapter path.

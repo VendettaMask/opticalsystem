@@ -2574,8 +2574,25 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
             case CircularAperture circular:
                 extent = (-circular.Radius, circular.Radius, -circular.Radius, circular.Radius);
                 return true;
+            case AnnularAperture annular:
+                extent = (-annular.OuterRadius, annular.OuterRadius, -annular.OuterRadius, annular.OuterRadius);
+                return true;
+            case OffsetRadialAperture offset:
+                extent = (
+                    offset.OffsetX - offset.OuterRadius,
+                    offset.OffsetX + offset.OuterRadius,
+                    offset.OffsetY - offset.OuterRadius,
+                    offset.OffsetY + offset.OuterRadius);
+                return true;
             case RectangularAperture rectangular:
-                extent = (-rectangular.HalfWidth, rectangular.HalfWidth, -rectangular.HalfHeight, rectangular.HalfHeight);
+                extent = (rectangular.XMinimum, rectangular.XMaximum, rectangular.YMinimum, rectangular.YMaximum);
+                return true;
+            case EllipticalAperture elliptical:
+                extent = (
+                    elliptical.OffsetX - elliptical.SemiAxisX,
+                    elliptical.OffsetX + elliptical.SemiAxisX,
+                    elliptical.OffsetY - elliptical.SemiAxisY,
+                    elliptical.OffsetY + elliptical.SemiAxisY);
                 return true;
             default:
                 extent = default;

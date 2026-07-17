@@ -83,10 +83,10 @@ The current local baseline is:
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
-Expected result as of 2026-07-15:
+Expected result as of 2026-07-17:
 
 - solution build: 0 warnings, 0 errors
-- tests: 183 passed, 0 failed, 0 skipped
+- tests: 186 passed, 0 failed, 0 skipped
 
 The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
 

@@ -220,7 +220,10 @@ public sealed class LensEditorPanel : UserControl
     {
         return surface.PhysicalAperture switch
         {
+            AnnularAperture => "环形",
+            OffsetRadialAperture => "偏心圆",
             RectangularAperture => "矩形",
+            EllipticalAperture => "椭圆",
             null => "无",
             _ => "圆形"
         };

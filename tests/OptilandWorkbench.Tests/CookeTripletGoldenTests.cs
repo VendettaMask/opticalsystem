@@ -1,6 +1,7 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
@@ -316,7 +317,10 @@ public sealed class CookeTripletGoldenTests
         IPhysicalAperture[] apertures =
         {
             new CircularAperture(2.5),
-            new RectangularAperture(3, 4)
+            new AnnularAperture(3, 1),
+            new OffsetRadialAperture(2.5, 0.5, 1.25, -0.75),
+            new RectangularAperture(3, 2, 1, -1),
+            new EllipticalAperture(4, 2, 0.5, -0.25)
         };
 
         foreach (var aperture in apertures)
@@ -331,33 +335,65 @@ public sealed class CookeTripletGoldenTests
         }
     }
 
-    [Theory]
-    [InlineData("""
-        {
-          "type": "RadialAperture",
-          "r_max": 4.0,
-          "r_min": 1.0
-        }
-        """, "r_min")]
-    [InlineData("""
-        {
-          "type": "RectangularAperture",
-          "x_min": -2.0,
-          "x_max": 4.0,
-          "y_min": -3.0,
-          "y_max": 3.0
-        }
-        """, "asymmetric")]
-    public void PythonJsonImportRejectsUnsupportedPhysicalAperturesExplicitly(
-        string apertureJson,
-        string expectedTerm)
+    [Fact]
+    public void PythonJsonAdapterMatchesExtendedPhysicalApertureReference()
     {
-        var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), apertureJson: apertureJson);
+        using var reference = LoadApertureReference();
+        Assert.Equal("0.5.8", reference.RootElement.GetProperty("optiland_version").GetString());
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        foreach (var apertureCase in reference.RootElement.GetProperty("apertures").EnumerateArray())
+        {
+            var expectedDictionary = apertureCase.GetProperty("dictionary");
+            var json = PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                apertureJson: expectedDictionary.GetRawText());
+            var optic = PythonOptilandJsonStore.Deserialize(json);
+            var aperture = Assert.IsAssignableFrom<IPhysicalAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
 
-        Assert.Contains("Aperture", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+            foreach (var sample in apertureCase.GetProperty("samples").EnumerateArray())
+            {
+                var point = new Vector3D(
+                    sample.GetProperty("x").GetDouble(),
+                    sample.GetProperty("y").GetDouble(),
+                    0);
+                Assert.Equal(
+                    sample.GetProperty("inside").GetBoolean(),
+                    aperture.Contains(point));
+            }
+
+            var strictExport = PythonOptilandJsonStore.Serialize(optic)
+                .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+                .Replace("Infinity", "1e308", StringComparison.Ordinal);
+            using var exported = JsonDocument.Parse(strictExport);
+            var actualDictionary = exported.RootElement
+                .GetProperty("surface_group")
+                .GetProperty("surfaces")[1]
+                .GetProperty("aperture");
+            AssertJsonObjectEquivalent(expectedDictionary, actualDictionary);
+        }
+    }
+
+    [Theory]
+    [InlineData("annular")]
+    [InlineData("offset_radial")]
+    [InlineData("asymmetric_rectangular")]
+    [InlineData("elliptical")]
+    public void NativeSnapshotRoundTripsExtendedPhysicalApertures(string kind)
+    {
+        IPhysicalAperture expected = kind switch
+        {
+            "annular" => new AnnularAperture(3, 1),
+            "offset_radial" => new OffsetRadialAperture(2.5, 0.5, 1.25, -0.75),
+            "asymmetric_rectangular" => new RectangularAperture(3, 2, 1, -1),
+            "elliptical" => new EllipticalAperture(4, 2, 0.5, -0.25),
+            _ => throw new ArgumentOutOfRangeException(nameof(kind))
+        };
+        var optic = Optic.CreateTessarLens();
+        optic.SurfaceGroup.Items[1].PhysicalAperture = expected;
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        AssertPhysicalApertureEquivalent(expected, restored.SurfaceGroup.Items[1].PhysicalAperture);
     }
 
     [Fact]
@@ -592,10 +628,31 @@ public sealed class CookeTripletGoldenTests
                 var actualCircular = Assert.IsType<CircularAperture>(actual);
                 AssertClose(circular.Radius, actualCircular.Radius, ScalarTolerance);
                 break;
+            case AnnularAperture annular:
+                var actualAnnular = Assert.IsType<AnnularAperture>(actual);
+                AssertClose(annular.OuterRadius, actualAnnular.OuterRadius, ScalarTolerance);
+                AssertClose(annular.InnerRadius, actualAnnular.InnerRadius, ScalarTolerance);
+                break;
+            case OffsetRadialAperture offset:
+                var actualOffset = Assert.IsType<OffsetRadialAperture>(actual);
+                AssertClose(offset.OuterRadius, actualOffset.OuterRadius, ScalarTolerance);
+                AssertClose(offset.InnerRadius, actualOffset.InnerRadius, ScalarTolerance);
+                AssertClose(offset.OffsetX, actualOffset.OffsetX, ScalarTolerance);
+                AssertClose(offset.OffsetY, actualOffset.OffsetY, ScalarTolerance);
+                break;
             case RectangularAperture rectangular:
                 var actualRectangular = Assert.IsType<RectangularAperture>(actual);
                 AssertClose(rectangular.HalfWidth, actualRectangular.HalfWidth, ScalarTolerance);
                 AssertClose(rectangular.HalfHeight, actualRectangular.HalfHeight, ScalarTolerance);
+                AssertClose(rectangular.CenterX, actualRectangular.CenterX, ScalarTolerance);
+                AssertClose(rectangular.CenterY, actualRectangular.CenterY, ScalarTolerance);
+                break;
+            case EllipticalAperture elliptical:
+                var actualElliptical = Assert.IsType<EllipticalAperture>(actual);
+                AssertClose(elliptical.SemiAxisX, actualElliptical.SemiAxisX, ScalarTolerance);
+                AssertClose(elliptical.SemiAxisY, actualElliptical.SemiAxisY, ScalarTolerance);
+                AssertClose(elliptical.OffsetX, actualElliptical.OffsetX, ScalarTolerance);
+                AssertClose(elliptical.OffsetY, actualElliptical.OffsetY, ScalarTolerance);
                 break;
             default:
                 throw new NotSupportedException($"No test assertion for aperture '{expected.Kind}'.");
@@ -616,6 +673,34 @@ public sealed class CookeTripletGoldenTests
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Fixtures", $"optiland-0.5.8-{sampleName}.json");
         return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static JsonDocument LoadApertureReference()
+    {
+        var path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-aperture-reference.json");
+        return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static void AssertJsonObjectEquivalent(JsonElement expected, JsonElement actual)
+    {
+        var expectedProperties = expected.EnumerateObject().ToArray();
+        var actualProperties = actual.EnumerateObject().ToArray();
+        Assert.Equal(expectedProperties.Length, actualProperties.Length);
+        foreach (var property in expectedProperties)
+        {
+            Assert.True(actual.TryGetProperty(property.Name, out var actualValue));
+            if (property.Value.ValueKind == JsonValueKind.Number)
+            {
+                AssertClose(property.Value.GetDouble(), actualValue.GetDouble(), ScalarTolerance);
+            }
+            else
+            {
+                Assert.Equal(property.Value.GetString(), actualValue.GetString());
+            }
+        }
     }
 
     private static string PythonJsonWithToroidalGeometry(string conicYz, string coeffsPolyY)
