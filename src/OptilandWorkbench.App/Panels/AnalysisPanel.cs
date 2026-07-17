@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Collections.ObjectModel;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -26,9 +27,21 @@ public sealed class AnalysisPanel : UserControl
     };
     private readonly ObservableCollection<TabItem> _pages = new();
     private readonly Dictionary<TabItem, AnalysisView> _views = new();
+    private readonly Dictionary<TabItem, Window> _floatingWindows = new();
     private readonly Dictionary<string, Control> _parameterControls = new();
     private readonly TabControl _pageTabs;
+    private readonly TextBlock _emptyState = new()
+    {
+        Text = "请从顶部“分析”分类中选择需要运行的分析。",
+        FontSize = 18,
+        Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115)),
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+    private readonly Button _rerunButton;
     private bool _syncingSelection;
+    private bool _floatingMode;
+    private bool _dockingFloatingWindows;
 
     public AnalysisPanel(OptilandConnector connector, AppSettings settings)
     {
@@ -37,33 +50,82 @@ public sealed class AnalysisPanel : UserControl
         _analysisPicker.ItemsSource = _connector.AnalysisDisplayNames;
         _pageTabs = new TabControl { ItemsSource = _pages };
 
-        var runButton = Button("运行", () => RunSelected(createPage: false), 82);
-        var newPageButton = Button("新分析页", () => RunSelected(createPage: true), 96);
-        var cloneButton = Button("复制页", CloneSelectedPage, 82);
-        var closeButton = Button("关闭页", CloseSelectedPage, 82);
-        var copyButton = Button("复制报告", CopyReportAsync, 96);
-        var exportButton = Button("导出文本", ExportReportAsync, 96);
-        var toolbar = new WrapPanel
+        _rerunButton = IconButton("⟳", "同步当前设置并重新运行", () => RunSelected(createPage: false));
+        _rerunButton.IsEnabled = false;
+        var copyButton = Button("⧉  复制报告", CopyReportAsync, 104);
+        var exportButton = Button("⇧  导出文本", ExportReportAsync, 104);
+        var settingsArrow = new TextBlock
+        {
+            Text = "›",
+            Width = 16,
+            FontSize = 16,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var settingsButton = new Button
+        {
+            MinWidth = 86,
+            Height = 30,
+            Padding = new Avalonia.Thickness(8, 2),
+            Content = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Children =
+                {
+                    settingsArrow,
+                    new TextBlock
+                    {
+                        Text = "设置",
+                        VerticalAlignment = VerticalAlignment.Center
+                    }
+                }
+            }
+        };
+        var settingsHost = new Border
+        {
+            IsVisible = false,
+            Margin = new Avalonia.Thickness(0, 6, 0, 0),
+            Padding = new Avalonia.Thickness(12, 10),
+            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(1),
+            CornerRadius = new Avalonia.CornerRadius(6),
+            BoxShadow = BoxShadows.Parse("0 3 10 0 #16000000"),
+            Child = _parameterPanel
+        };
+        settingsButton.Click += (_, _) =>
+        {
+            settingsHost.IsVisible = !settingsHost.IsVisible;
+            settingsArrow.Text = settingsHost.IsVisible ? "⌄" : "›";
+        };
+        ToolTip.SetTip(settingsButton, "展开或收起当前分析的绘图设置");
+
+        var commandRow = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(0, 0, 0, 8),
             Children =
             {
-                _analysisPicker,
-                _parameterPanel,
-                runButton,
-                newPageButton,
-                cloneButton,
-                closeButton,
+                settingsButton,
+                _rerunButton,
                 copyButton,
                 exportButton
             }
+        };
+        _rerunButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
+        copyButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
+        exportButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
+        var toolbar = new StackPanel
+        {
+            Margin = new Avalonia.Thickness(0, 0, 0, 8),
+            Children = { commandRow, settingsHost }
         };
 
         var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
         DockPanel.SetDock(toolbar, Dock.Top);
         root.Children.Add(toolbar);
-        root.Children.Add(_pageTabs);
+        root.Children.Add(new Grid
+        {
+            Children = { _pageTabs, _emptyState }
+        });
         Content = root;
 
         _analysisPicker.SelectionChanged += (_, _) =>
@@ -76,8 +138,123 @@ public sealed class AnalysisPanel : UserControl
         _pageTabs.SelectionChanged += (_, _) => SyncPickerToSelectedPage();
         _connector.OpticLoaded += (_, _) => RefreshPages();
         _connector.OpticChanged += (_, _) => RefreshPages();
-        RebuildParameterPanel();
-        RunSelected(createPage: true);
+    }
+
+    public void OpenAnalysis(string analysisName)
+    {
+        var canonicalName = _connector.CanonicalAnalysisKey(analysisName);
+        var displayName = _connector.AnalysisDisplayNames.FirstOrDefault(name =>
+                _connector.CanonicalAnalysisKey(name).Equals(canonicalName, StringComparison.Ordinal))
+            ?? analysisName;
+        var existingPage = _pages.FirstOrDefault(page =>
+            _connector.CanonicalAnalysisKey(PageState(page).Name).Equals(canonicalName, StringComparison.Ordinal));
+
+        _syncingSelection = true;
+        _analysisPicker.SelectedItem = displayName;
+        _syncingSelection = false;
+        _rerunButton.IsEnabled = true;
+
+        if (existingPage is not null)
+        {
+            _pageTabs.SelectedItem = existingPage;
+            RebuildParameterPanel(PageState(existingPage).Settings);
+            RunSelected(createPage: false);
+        }
+        else
+        {
+            RebuildParameterPanel(SavedAnalysisSettings(displayName));
+            RunSelected(createPage: true);
+        }
+
+        _emptyState.IsVisible = false;
+        if (_floatingMode && _pageTabs.SelectedItem is TabItem selectedPage)
+        {
+            FloatPage(selectedPage);
+        }
+    }
+
+    public void DockAllWindows()
+    {
+        _floatingMode = false;
+        _dockingFloatingWindows = true;
+        var windows = _floatingWindows.Values.ToArray();
+        _floatingWindows.Clear();
+        foreach (var window in windows)
+        {
+            window.Close();
+        }
+
+        _dockingFloatingWindows = false;
+        _pageTabs.IsVisible = true;
+        _emptyState.Text = "请从顶部“分析”分类中选择需要运行的分析。";
+        _emptyState.IsVisible = _pages.Count == 0;
+    }
+
+    public void FloatAllWindows()
+    {
+        _floatingMode = true;
+        foreach (var page in _pages.ToArray())
+        {
+            FloatPage(page);
+        }
+
+        _pageTabs.IsVisible = false;
+        _emptyState.Text = "分析结果已浮动，可拖动和调整每个独立窗口。";
+        _emptyState.IsVisible = true;
+    }
+
+    public void TileAllWindows()
+    {
+        FloatAllWindows();
+        var windows = FloatingWindowsInPageOrder();
+        if (windows.Count == 0)
+        {
+            return;
+        }
+
+        var owner = TopLevel.GetTopLevel(this) as Window;
+        var columns = (int)Math.Ceiling(Math.Sqrt(windows.Count));
+        var rows = (int)Math.Ceiling(windows.Count / (double)columns);
+        var availableWidth = Math.Max(900, owner?.Width ?? 1440);
+        var availableHeight = Math.Max(620, owner?.Height ?? 900);
+        var cellWidth = Math.Max(360, (availableWidth - 32) / columns);
+        var cellHeight = Math.Max(280, (availableHeight - 56) / rows);
+        var origin = owner?.Position ?? new PixelPoint(80, 80);
+
+        for (var index = 0; index < windows.Count; index++)
+        {
+            var column = index % columns;
+            var row = index / columns;
+            var window = windows[index];
+            window.Width = cellWidth;
+            window.Height = cellHeight;
+            window.Position = new PixelPoint(
+                origin.X + 16 + (int)(column * cellWidth),
+                origin.Y + 36 + (int)(row * cellHeight));
+        }
+    }
+
+    public void CascadeAllWindows()
+    {
+        FloatAllWindows();
+        var windows = FloatingWindowsInPageOrder();
+        if (windows.Count == 0)
+        {
+            return;
+        }
+
+        var owner = TopLevel.GetTopLevel(this) as Window;
+        var origin = owner?.Position ?? new PixelPoint(80, 80);
+        var width = Math.Max(680, (owner?.Width ?? 1200) * 0.72);
+        var height = Math.Max(480, (owner?.Height ?? 800) * 0.72);
+        for (var index = 0; index < windows.Count; index++)
+        {
+            var window = windows[index];
+            window.Width = width;
+            window.Height = height;
+            window.Position = new PixelPoint(origin.X + 32 + (index * 30), origin.Y + 48 + (index * 28));
+            window.Activate();
+        }
     }
 
     private void RunSelected(bool createPage)
@@ -111,32 +288,24 @@ public sealed class AnalysisPanel : UserControl
         RenumberPages();
     }
 
-    private void CloneSelectedPage()
+    private void ClosePage(TabItem page, bool closeFloatingWindow = true)
     {
-        if (_pageTabs.SelectedItem is not TabItem selected || !_views.TryGetValue(selected, out var view))
+        if (closeFloatingWindow && _floatingWindows.Remove(page, out var floatingWindow))
+        {
+            floatingWindow.Close();
+        }
+
+        var index = _pages.IndexOf(page);
+        if (index < 0)
         {
             return;
         }
 
-        var state = PageState(selected);
-        var clone = new TabItem { Tag = state with { Settings = new Dictionary<string, string>(state.Settings) } };
-        _pages.Add(clone);
-        SetPageView(clone, view);
-        _pageTabs.SelectedItem = clone;
-        RenumberPages();
-    }
-
-    private void CloseSelectedPage()
-    {
-        if (_pages.Count <= 1 || _pageTabs.SelectedItem is not TabItem selected)
-        {
-            return;
-        }
-
-        var index = _pages.IndexOf(selected);
-        _views.Remove(selected);
-        _pages.Remove(selected);
-        _pageTabs.SelectedIndex = Math.Clamp(index, 0, _pages.Count - 1);
+        _views.Remove(page);
+        _pages.Remove(page);
+        _pageTabs.SelectedIndex = _pages.Count == 0 ? -1 : Math.Clamp(index, 0, _pages.Count - 1);
+        _emptyState.Text = "请从顶部“分析”分类中选择需要运行的分析。";
+        _emptyState.IsVisible = _pages.Count == 0 || _floatingMode;
         RenumberPages();
     }
 
@@ -155,6 +324,11 @@ public sealed class AnalysisPanel : UserControl
     {
         _views[page] = view;
         page.Content = BuildResultContent(view);
+        if (_floatingWindows.TryGetValue(page, out var floatingWindow))
+        {
+            floatingWindow.Title = view.Name;
+            floatingWindow.Content = BuildResultContent(view);
+        }
     }
 
     private static Control BuildResultContent(AnalysisView view)
@@ -197,11 +371,12 @@ public sealed class AnalysisPanel : UserControl
         };
         return new TabControl
         {
+            TabStripPlacement = Dock.Bottom,
             ItemsSource = new object[]
             {
-                new TabItem { Header = "图形", Content = plotRoot },
-                new TabItem { Header = "结果表", Content = resultsGrid },
-                new TabItem { Header = "报告文本", Content = report }
+                new TabItem { Header = "绘图", Content = plotRoot },
+                new TabItem { Header = "数据", Content = resultsGrid },
+                new TabItem { Header = "文本", Content = report }
             }
         };
     }
@@ -304,8 +479,92 @@ public sealed class AnalysisPanel : UserControl
         for (var index = 0; index < _pages.Count; index++)
         {
             var viewName = _views.TryGetValue(_pages[index], out var view) ? view.Name : "分析";
-            _pages[index].Header = $"{index + 1}. {viewName}";
+            _pages[index].Header = BuildPageHeader(_pages[index], index + 1, viewName);
         }
+    }
+
+    private Control BuildPageHeader(TabItem page, int number, string viewName)
+    {
+        var closeButton = new Button
+        {
+            Content = "×",
+            Width = 22,
+            Height = 22,
+            MinWidth = 0,
+            MinHeight = 0,
+            Padding = new Avalonia.Thickness(0),
+            Margin = new Avalonia.Thickness(5, 0, 0, 0),
+            Background = Brushes.Transparent,
+            BorderThickness = new Avalonia.Thickness(0),
+            FontSize = 14,
+            CornerRadius = new Avalonia.CornerRadius(11)
+        };
+        closeButton.Click += (_, _) => ClosePage(page);
+        ToolTip.SetTip(closeButton, "关闭分析");
+        return new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = $"{number}. {viewName}",
+                    VerticalAlignment = VerticalAlignment.Center
+                },
+                closeButton
+            }
+        };
+    }
+
+    private void FloatPage(TabItem page)
+    {
+        if (_floatingWindows.TryGetValue(page, out var existingWindow))
+        {
+            existingWindow.Activate();
+            return;
+        }
+
+        if (!_views.TryGetValue(page, out var view))
+        {
+            return;
+        }
+
+        var window = new Window
+        {
+            Title = view.Name,
+            Width = 920,
+            Height = 680,
+            MinWidth = 520,
+            MinHeight = 360,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Content = BuildResultContent(view)
+        };
+        window.Closed += (_, _) =>
+        {
+            _floatingWindows.Remove(page);
+            if (!_dockingFloatingWindows)
+            {
+                ClosePage(page, closeFloatingWindow: false);
+            }
+        };
+        _floatingWindows[page] = window;
+        if (TopLevel.GetTopLevel(this) is Window owner)
+        {
+            window.Show(owner);
+        }
+        else
+        {
+            window.Show();
+        }
+    }
+
+    private IReadOnlyList<Window> FloatingWindowsInPageOrder()
+    {
+        return _pages
+            .Where(page => _floatingWindows.ContainsKey(page))
+            .Select(page => _floatingWindows[page])
+            .ToArray();
     }
 
     private void RebuildParameterPanel(IReadOnlyDictionary<string, string>? pageSettings = null)
@@ -503,6 +762,23 @@ public sealed class AnalysisPanel : UserControl
     {
         var button = new Button { Content = text, MinWidth = minWidth };
         button.Click += async (_, _) => await action();
+        return button;
+    }
+
+    private static Button IconButton(string glyph, string tooltip, Action action)
+    {
+        var button = new Button
+        {
+            Content = glyph,
+            Width = 34,
+            Height = 30,
+            MinWidth = 0,
+            MinHeight = 0,
+            Padding = new Avalonia.Thickness(0),
+            FontSize = 17
+        };
+        ToolTip.SetTip(button, tooltip);
+        button.Click += (_, _) => action();
         return button;
     }
 

@@ -16,16 +16,16 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | Area | Optiland 0.5.8 reference | Workbench before refactor | Workbench after refactor |
 | --- | --- | --- | --- |
 | Runtime | Python, PySide6, Optiland backend | .NET 10, Avalonia, managed C# core | Intentionally unchanged |
-| Main shell | Main window, action manager, panel manager | Main window and action manager; panel creation hard-coded in `MainWindow` | `MainWindow`, `ActionManager`, and `PanelManager` have separate ownership |
+| Main shell | Main window, action manager, panel manager | Main window and action manager; panel creation hard-coded in `MainWindow` | `MainWindow`, `ActionManager`, and `PanelManager` have separate ownership; the top category selection drives one linked large-command Ribbon |
 | New system | Create from scratch | Always opened the Cooke-style demo | Starts blank; blank and Cooke demo are separate commands |
 | Lens editor | Editable sequential surface table | Present, including component editors | Retained |
 | System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
-| 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
-| 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
-| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Structured plots, table/report views, generated parameter editors, persisted settings, numbered multi-analysis pages, clone/close |
+| 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, outlined elements, split aperture-stop blades, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
+| 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Light-background translucent lens solids, colored ray bundles, drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
+| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | All 32 analyses are grouped in the top Analysis Ribbon; selecting one runs it into a closable page with bottom Plot/Data/Text tabs, collapsed graph settings, persisted parameters, and interactive plots |
 | Analysis refresh | Connector signals update consumers | Connector events already used | Retained for every open analysis page |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
-| Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Stable panel IDs, persisted split/tabs, save/load slots 1 and 2 |
+| Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Stable panel IDs plus analysis pages that can be docked as tabs or arranged as independent floating, tiled, or cascaded windows |
 | Theme | Light and dark | Present | Retained |
 | Help | Help menu and About dialog | Missing | Added |
 | Native JSON | Python Optiland nested JSON | Workbench-specific schema-versioned JSON | Architecture retained; Python JSON adapter is still required |
@@ -123,6 +123,8 @@ Workbench: the renderer remains Avalonia-native. The refactor adds the missing i
 - 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
 - Both: toggle rays and reset the camera.
 
+The two viewer modes are opened from separate commands in the top **View** Ribbon. The central viewer does not repeat a second 2D/3D selector.
+
 ### Change Surface Radius
 
 Reference: edit Surface 1 radius and immediately update viewers.
@@ -133,7 +135,9 @@ Workbench: `LensEditorPanel` captures undo state at edit start, commits through 
 
 Reference: select the analysis, press Run, and inspect a plot.
 
-Workbench: select **RMS-Field**, press **Run**, and inspect the Graph tab. Additional analyses can be opened as numbered pages and cloned or closed independently.
+Workbench: open the top **Analysis** category and choose **RMS-Field**. Choosing the icon runs the analysis and opens its result in a closable page. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
+
+Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. The **Window** Ribbon can return all results to tabs or arrange them as independent floating, tiled, or cascaded windows; the native small close button closes the corresponding analysis page.
 
 ## Persistence And Interoperability
 
@@ -151,7 +155,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 
 ### Priority 1: GUI Parity
 
-- Add true detachable/dockable panels. The current `PanelManager` provides stable ownership and layout IDs, but the visual layout is still a two-pane tab workspace.
+- Extend the detachable/dockable window model beyond analysis results. Analysis pages already support tabbed, independent floating, tiled, and cascaded layouts; the remaining editor and property panels still use the managed workspace layout.
 - Broaden UI automation around generated analysis parameter editors, settings persistence, file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
 - Decide whether advanced scripting should use embedded Python interoperability or a native C# scripting host. A terminal must not be labeled Python-compatible without an actual Optiland Python object.
 

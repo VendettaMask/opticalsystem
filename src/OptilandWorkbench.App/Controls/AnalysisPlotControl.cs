@@ -1,6 +1,7 @@
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
 using OptilandWorkbench.Core.Analysis;
 
@@ -29,6 +30,18 @@ public sealed class AnalysisPlotControl : Control
 
     private IReadOnlyList<AnalysisSeries> _series = Array.Empty<AnalysisSeries>();
     private AnalysisPlotOptions _plotOptions = new();
+    private PlotViewport? _viewport;
+    private Rect _lastPlot;
+    private PlotViewport _lastRenderedViewport;
+    private bool _panning;
+    private Point _lastPointer;
+    private Point? _hoverPointer;
+
+    public AnalysisPlotControl()
+    {
+        ClipToBounds = true;
+        Focusable = true;
+    }
 
     public IReadOnlyList<AnalysisSeries> Series
     {
@@ -36,6 +49,7 @@ public sealed class AnalysisPlotControl : Control
         set
         {
             _series = value ?? Array.Empty<AnalysisSeries>();
+            ResetView();
             InvalidateVisual();
         }
     }
@@ -46,6 +60,99 @@ public sealed class AnalysisPlotControl : Control
         set
         {
             _plotOptions = value ?? new AnalysisPlotOptions();
+            ResetView();
+            InvalidateVisual();
+        }
+    }
+
+    public void ResetView()
+    {
+        _viewport = null;
+        _hoverPointer = null;
+        InvalidateVisual();
+    }
+
+    protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
+    {
+        base.OnPointerWheelChanged(e);
+        var position = e.GetPosition(this);
+        if (!_lastPlot.Contains(position) || !HasValidViewport(_lastRenderedViewport))
+        {
+            return;
+        }
+
+        var factor = Math.Pow(0.82, e.Delta.Y);
+        var dataX = UnmapX(position.X, _lastPlot, _lastRenderedViewport);
+        var dataY = UnmapY(position.Y, _lastPlot, _lastRenderedViewport);
+        _viewport = new PlotViewport(
+            dataX - ((dataX - _lastRenderedViewport.XMinimum) * factor),
+            dataX + ((_lastRenderedViewport.XMaximum - dataX) * factor),
+            dataY - ((dataY - _lastRenderedViewport.YMinimum) * factor),
+            dataY + ((_lastRenderedViewport.YMaximum - dataY) * factor));
+        _hoverPointer = position;
+        InvalidateVisual();
+        e.Handled = true;
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        var point = e.GetCurrentPoint(this);
+        if (!point.Properties.IsLeftButtonPressed || !_lastPlot.Contains(point.Position))
+        {
+            return;
+        }
+
+        if (e.ClickCount >= 2)
+        {
+            ResetView();
+            e.Handled = true;
+            return;
+        }
+
+        Focus();
+        _panning = true;
+        _lastPointer = point.Position;
+        e.Pointer.Capture(this);
+        e.Handled = true;
+    }
+
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        var position = e.GetPosition(this);
+        _hoverPointer = _lastPlot.Contains(position) ? position : null;
+        if (_panning && HasValidViewport(_lastRenderedViewport))
+        {
+            var delta = position - _lastPointer;
+            _lastPointer = position;
+            var xShift = -(delta.X / Math.Max(1, _lastPlot.Width)) * _lastRenderedViewport.XSpan;
+            var yShift = (delta.Y / Math.Max(1, _lastPlot.Height)) * _lastRenderedViewport.YSpan;
+            _viewport = new PlotViewport(
+                _lastRenderedViewport.XMinimum + xShift,
+                _lastRenderedViewport.XMaximum + xShift,
+                _lastRenderedViewport.YMinimum + yShift,
+                _lastRenderedViewport.YMaximum + yShift);
+        }
+
+        InvalidateVisual();
+        e.Handled = _panning;
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+        _panning = false;
+        e.Pointer.Capture(null);
+        e.Handled = true;
+    }
+
+    protected override void OnPointerExited(PointerEventArgs e)
+    {
+        base.OnPointerExited(e);
+        if (!_panning)
+        {
+            _hoverPointer = null;
             InvalidateVisual();
         }
     }
@@ -105,6 +212,17 @@ public sealed class AnalysisPlotControl : Control
             MakeEqualAspect(plot, ref xMin, ref xMax, ref yMin, ref yMax);
         }
 
+        if (_viewport is { } viewport && HasValidViewport(viewport))
+        {
+            xMin = viewport.XMinimum;
+            xMax = viewport.XMaximum;
+            yMin = viewport.YMinimum;
+            yMax = viewport.YMaximum;
+        }
+
+        _lastPlot = plot;
+        _lastRenderedViewport = new PlotViewport(xMin, xMax, yMin, yMax);
+
         double MapX(double value) => plot.Left + ((value - xMin) / (xMax - xMin) * plot.Width);
         double MapY(double value) => plot.Bottom - ((value - yMin) / (yMax - yMin) * plot.Height);
 
@@ -145,6 +263,100 @@ public sealed class AnalysisPlotControl : Control
         {
             DrawLegend(context, legendItems, plot);
         }
+
+        DrawInteractionOverlay(context, visibleSeries, plot, MapX, MapY);
+    }
+
+    private void DrawInteractionOverlay(
+        DrawingContext context,
+        IReadOnlyList<(AnalysisSeries Series, AnalysisPoint[] Points)> visibleSeries,
+        Rect plot,
+        Func<double, double> mapX,
+        Func<double, double> mapY)
+    {
+        if (_hoverPointer is not Point pointer || !plot.Contains(pointer))
+        {
+            var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", 10.5, new SolidColorBrush(Color.FromRgb(110, 110, 115)));
+            context.DrawText(hint, new Point(plot.Right - hint.Width - 8, plot.Bottom - hint.Height - 6));
+            return;
+        }
+
+        HoverSample? nearest = null;
+        var nearestDistance = double.PositiveInfinity;
+        foreach (var item in visibleSeries)
+        {
+            var stride = Math.Max(1, item.Points.Length / 5000);
+            for (var index = 0; index < item.Points.Length; index += stride)
+            {
+                var point = item.Points[index];
+                var screenPoint = new Point(mapX(point.X), mapY(point.Y));
+                if (!plot.Contains(screenPoint))
+                {
+                    continue;
+                }
+
+                var deltaX = screenPoint.X - pointer.X;
+                var deltaY = screenPoint.Y - pointer.Y;
+                var distance = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
+                if (distance >= nearestDistance)
+                {
+                    continue;
+                }
+
+                nearestDistance = distance;
+                nearest = new HoverSample(item.Series, point, screenPoint);
+            }
+        }
+
+        if (nearest is null || nearestDistance > 24)
+        {
+            return;
+        }
+
+        var sample = nearest.Value;
+        var guidePen = new Pen(new SolidColorBrush(Color.FromArgb(115, 110, 110, 115)), 1, DashStyle.Dash);
+        context.DrawLine(guidePen, new Point(sample.ScreenPoint.X, plot.Top), new Point(sample.ScreenPoint.X, plot.Bottom));
+        context.DrawLine(guidePen, new Point(plot.Left, sample.ScreenPoint.Y), new Point(plot.Right, sample.ScreenPoint.Y));
+        var color = Palette[Math.Abs(sample.Series.ColorIndex) % Palette.Length];
+        context.DrawEllipse(
+            Brushes.White,
+            new Pen(new SolidColorBrush(color), 2),
+            sample.ScreenPoint,
+            4,
+            4);
+
+        var xLabel = string.IsNullOrWhiteSpace(sample.Series.XAxisLabel) ? "X" : sample.Series.XAxisLabel;
+        var yLabel = string.IsNullOrWhiteSpace(sample.Series.YAxisLabel) ? "Y" : sample.Series.YAxisLabel;
+        var lines = new List<string>();
+        if (!string.IsNullOrWhiteSpace(sample.Series.Name))
+        {
+            lines.Add(sample.Series.Name);
+        }
+
+        lines.Add($"{xLabel}: {FormatTick(sample.Point.X)}");
+        lines.Add($"{yLabel}: {FormatTick(sample.Point.Y)}");
+        if (sample.Point.Value.HasValue)
+        {
+            lines.Add($"值: {FormatTick(sample.Point.Value.Value)}");
+        }
+        else if (sample.Point.Red.HasValue && sample.Point.Green.HasValue && sample.Point.Blue.HasValue)
+        {
+            lines.Add($"RGB: {sample.Point.Red:0.###}, {sample.Point.Green:0.###}, {sample.Point.Blue:0.###}");
+        }
+
+        var text = CreateText(string.Join(Environment.NewLine, lines), 11, Brushes.White, FontWeight.SemiBold);
+        var tooltipWidth = text.Width + 16;
+        var tooltipHeight = text.Height + 12;
+        var tooltipX = Math.Min(plot.Right - tooltipWidth - 4, pointer.X + 14);
+        var tooltipY = Math.Min(plot.Bottom - tooltipHeight - 4, pointer.Y + 14);
+        tooltipX = Math.Max(plot.Left + 4, tooltipX);
+        tooltipY = Math.Max(plot.Top + 4, tooltipY);
+        var tooltip = new Rect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
+        context.DrawRectangle(
+            new SolidColorBrush(Color.FromArgb(226, 35, 35, 38)),
+            new Pen(new SolidColorBrush(Color.FromArgb(150, 255, 255, 255)), 1),
+            tooltip);
+        context.DrawText(text, new Point(tooltip.Left + 8, tooltip.Top + 6));
     }
 
     private void DrawGridAndTicks(
@@ -667,6 +879,26 @@ public sealed class AnalysisPlotControl : Control
         return double.IsFinite(point.X) && double.IsFinite(point.Y);
     }
 
+    private static bool HasValidViewport(PlotViewport viewport)
+    {
+        return double.IsFinite(viewport.XMinimum)
+            && double.IsFinite(viewport.XMaximum)
+            && double.IsFinite(viewport.YMinimum)
+            && double.IsFinite(viewport.YMaximum)
+            && viewport.XSpan > 1e-18
+            && viewport.YSpan > 1e-18;
+    }
+
+    private static double UnmapX(double value, Rect plot, PlotViewport viewport)
+    {
+        return viewport.XMinimum + (((value - plot.Left) / Math.Max(1, plot.Width)) * viewport.XSpan);
+    }
+
+    private static double UnmapY(double value, Rect plot, PlotViewport viewport)
+    {
+        return viewport.YMinimum + (((plot.Bottom - value) / Math.Max(1, plot.Height)) * viewport.YSpan);
+    }
+
     private static void MakeEqualAspect(
         Rect plot,
         ref double xMin,
@@ -730,4 +962,20 @@ public sealed class AnalysisPlotControl : Control
             maximum += padding;
         }
     }
+
+    private readonly record struct PlotViewport(
+        double XMinimum,
+        double XMaximum,
+        double YMinimum,
+        double YMaximum)
+    {
+        public double XSpan => XMaximum - XMinimum;
+
+        public double YSpan => YMaximum - YMinimum;
+    }
+
+    private readonly record struct HoverSample(
+        AnalysisSeries Series,
+        AnalysisPoint Point,
+        Point ScreenPoint);
 }

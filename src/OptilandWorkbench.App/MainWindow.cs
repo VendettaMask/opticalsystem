@@ -6,6 +6,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 
@@ -39,11 +40,51 @@ public sealed class MainWindow : Window
         MimeTypes = new[] { "text/plain" }
     };
 
+    private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
+    {
+        new("analysis-first-order", "一级像差/一阶量", "一阶量", "Ⅰ", "基础"),
+        new("analysis-prescription", "处方报告", "处方报告", "≡", "基础"),
+        new("analysis-spot", "点列图", "点列图", "⁙", "几何像质"),
+        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "⌁", "几何像质"),
+        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "≈", "几何像质"),
+        new("analysis-distortion", "畸变", "畸变", "↝", "几何像质"),
+        new("analysis-grid-distortion", "网格畸变", "网格畸变", "▦", "几何像质"),
+        new("analysis-field-curvature", "场曲", "场曲", "⌒", "几何像质"),
+        new("analysis-encircled-energy", "包围能量", "包围能量", "◎", "几何像质"),
+        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "◉", "几何像质"),
+        new("analysis-rms-field", "RMS-视场", "RMS-视场", "R", "几何像质"),
+        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "W", "几何像质"),
+        new("analysis-through-focus", "离焦扫描", "离焦扫描", "↔", "扫描"),
+        new("analysis-through-focus-mtf", "离焦 MTF", "离焦 MTF", "M", "扫描"),
+        new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "∠", "扫描"),
+        new("analysis-angle-field", "入射角-像高（扫描视场）", "像高-扫描视场", "∢", "扫描"),
+        new("analysis-psf", "点扩散函数 PSF", "PSF", "✦", "PSF / MTF"),
+        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "▦", "PSF / MTF"),
+        new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "◌", "PSF / MTF"),
+        new("analysis-mtf", "调制传递函数 MTF", "MTF", "≋", "PSF / MTF"),
+        new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "〰", "PSF / MTF"),
+        new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "▥", "PSF / MTF"),
+        new("analysis-sampled-mtf", "采样 MTF", "采样 MTF", "▤", "PSF / MTF"),
+        new("analysis-wavefront", "波前", "波前", "∿", "波前"),
+        new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "◯", "波前"),
+        new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "◉", "波前"),
+        new("analysis-zernike", "Zernike 系数", "Zernike", "Z", "波前"),
+        new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "J", "波前"),
+        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "☼", "照明与成像"),
+        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "✺", "照明与成像"),
+        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "Y", "照明与成像"),
+        new("analysis-image-simulation", "成像仿真", "成像仿真", "▣", "照明与成像")
+    };
+
     private readonly OptilandConnector _connector;
     private readonly AppSettings _settings;
     private readonly ActionManager _actions = new();
     private readonly PanelManager _panels;
     private readonly TextBlock _statusText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly TextBlock _eflText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly TextBlock _fNumberText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly TextBlock _apertureText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly TextBlock _trackText = new() { VerticalAlignment = VerticalAlignment.Center };
 
     public MainWindow()
     {
@@ -55,7 +96,7 @@ public sealed class MainWindow : Window
         Title = "Optiland 光学工作台";
         Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
         Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
-        MinWidth = 980;
+        MinWidth = 1100;
         MinHeight = 640;
         Content = BuildShell();
         SetTheme(_settings.Theme, save: false);
@@ -93,6 +134,8 @@ public sealed class MainWindow : Window
         _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => _panels.Show(WorkspacePanelId.LensEditor));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
+        _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));
+        _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
@@ -104,20 +147,28 @@ public sealed class MainWindow : Window
         _actions.Register("save-layout-2", "保存布局到槽位 2", "布局", () => SaveLayoutSlot(2));
         _actions.Register("load-layout-1", "加载布局槽位 1", "布局", () => LoadLayoutSlot(1));
         _actions.Register("load-layout-2", "加载布局槽位 2", "布局", () => LoadLayoutSlot(2));
+        _actions.Register("analysis-dock-all", "分析窗口排列为标签", "窗口", _panels.DockAnalysisWindows);
+        _actions.Register("analysis-float-all", "浮动所有分析窗口", "窗口", _panels.FloatAnalysisWindows);
+        _actions.Register("analysis-tile-all", "平铺所有分析窗口", "窗口", _panels.TileAnalysisWindows);
+        _actions.Register("analysis-cascade-all", "层叠所有分析窗口", "窗口", _panels.CascadeAnalysisWindows);
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
         _actions.Register("about", "关于 Optiland Workbench", "帮助", ShowAboutAsync);
+        foreach (var analysis in AnalysisRibbonCommands)
+        {
+            _actions.Register(
+                analysis.Id,
+                analysis.Name,
+                "分析",
+                () => _panels.ShowAnalysis(analysis.Name));
+        }
     }
 
     private Control BuildShell()
     {
         var root = new DockPanel();
-        var menu = BuildMenu();
-        DockPanel.SetDock(menu, Dock.Top);
-        root.Children.Add(menu);
-
-        var toolbar = BuildToolbar();
-        DockPanel.SetDock(toolbar, Dock.Top);
-        root.Children.Add(toolbar);
+        var ribbon = BuildRibbon();
+        DockPanel.SetDock(ribbon, Dock.Top);
+        root.Children.Add(ribbon);
 
         var status = BuildStatusBar();
         DockPanel.SetDock(status, Dock.Bottom);
@@ -133,12 +184,9 @@ public sealed class MainWindow : Window
             Header = "文件",
             ItemsSource = new object[]
             {
-                MenuItem(_actions.Find("new")),
                 MenuItem(_actions.Find("new-demo")),
                 MenuItem(_actions.Find("new-tessar")),
                 new Separator(),
-                MenuItem(_actions.Find("open")),
-                MenuItem(_actions.Find("save-as")),
                 MenuItem(_actions.Find("export-python-json")),
                 new Separator(),
                 MenuItem(_actions.Find("exit"))
@@ -153,36 +201,33 @@ public sealed class MainWindow : Window
                 MenuItem(_actions.Find("redo"))
             }
         };
-        var viewMenu = new MenuItem
+        var designMenu = new MenuItem
         {
-            Header = "视图",
+            Header = "设计",
             ItemsSource = new object[]
             {
-                MenuItem(_actions.Find("show-lens-editor")),
-                MenuItem(_actions.Find("show-system")),
-                new Separator(),
-                MenuItem(_actions.Find("show-viewer")),
-                MenuItem(_actions.Find("show-analysis")),
                 MenuItem(_actions.Find("show-optimization")),
-                MenuItem(_actions.Find("show-tolerancing")),
-                MenuItem(_actions.Find("show-multiconfig")),
-                new Separator(),
-                MenuItem(_actions.Find("theme-light")),
-                MenuItem(_actions.Find("theme-dark"))
+                MenuItem(_actions.Find("show-tolerancing"))
             }
         };
-        var toolsMenu = new MenuItem
+        var layoutMenu = new MenuItem
         {
-            Header = "工具",
+            Header = "布局",
             ItemsSource = new object[]
             {
-                MenuItem(_actions.Find("command-palette")),
-                new Separator(),
                 MenuItem(_actions.Find("save-layout-1")),
                 MenuItem(_actions.Find("save-layout-2")),
                 MenuItem(_actions.Find("load-layout-1")),
-                MenuItem(_actions.Find("load-layout-2")),
-                MenuItem(_actions.Find("reset-layout"))
+                MenuItem(_actions.Find("load-layout-2"))
+            }
+        };
+        var appearanceMenu = new MenuItem
+        {
+            Header = "外观",
+            ItemsSource = new object[]
+            {
+                MenuItem(_actions.Find("theme-light")),
+                MenuItem(_actions.Find("theme-dark"))
             }
         };
         var helpMenu = new MenuItem
@@ -190,45 +235,238 @@ public sealed class MainWindow : Window
             Header = "帮助",
             ItemsSource = new object[] { MenuItem(_actions.Find("about")) }
         };
-        return new Menu { ItemsSource = new object[] { fileMenu, editMenu, viewMenu, toolsMenu, helpMenu } };
-    }
-
-    private Control BuildToolbar()
-    {
-        var bar = new Border
+        return new Menu
         {
-            Background = new SolidColorBrush(Color.FromRgb(238, 242, 247)),
-            Padding = new Thickness(10, 8)
-        };
-        bar.Child = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 8,
-            Children =
+            Background = Brushes.White,
+            ItemsSource = new object[]
             {
-                Button(_actions.Find("new"), "新建"),
-                Button(_actions.Find("open"), "打开"),
-                Button(_actions.Find("save-as"), "保存"),
-                Button(_actions.Find("undo"), "撤销"),
-                Button(_actions.Find("redo"), "重做"),
-                Button(_actions.Find("command-palette"), "命令"),
-                Button(_actions.Find("load-layout-1"), "1", 40),
-                Button(_actions.Find("load-layout-2"), "2", 40)
+                fileMenu, editMenu, designMenu, layoutMenu, appearanceMenu, helpMenu
             }
         };
-        return bar;
+    }
+
+    private Control BuildRibbon()
+    {
+        var analysisGroups = AnalysisRibbonCommands
+            .GroupBy(command => command.Group)
+            .Select(group => RibbonGroup(
+                group.Key,
+                group.Select(command => RibbonButton(command.Id, command.Glyph, command.Label)).ToArray()))
+            .ToArray();
+        var tabs = new TabControl
+        {
+            SelectedIndex = 1,
+            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
+            ItemsSource = new object[]
+            {
+                RibbonTab("文件", BuildRibbonPage(
+                    RibbonGroup("文件",
+                        RibbonButton("new", "□", "新建"),
+                        RibbonButton("open", "▣", "打开"),
+                        RibbonButton("save-as", "▤", "保存"),
+                        RibbonButton("export-python-json", "⇧", "导出")),
+                    RibbonGroup("示例",
+                        RibbonButton("new-demo", "◫", "Cooke 示例"),
+                        RibbonButton("new-tessar", "◩", "Tessar 示例")))),
+                RibbonTab("设置", BuildRibbonPage(
+                    RibbonGroup("系统",
+                        RibbonButton("show-system", "⚙", "系统选项"),
+                        RibbonButton("show-lens-editor", "▦", "镜头数据"),
+                        RibbonButton("show-multiconfig", "▥", "多配置")),
+                    RibbonGroup("外观",
+                        RibbonButton("theme-light", "☀", "浅色"),
+                        RibbonButton("theme-dark", "◐", "深色")))),
+                RibbonTab("视图", BuildRibbonPage(
+                    RibbonGroup("系统布局",
+                        RibbonButton("show-viewer-2d", "▱", "二维布局"),
+                        RibbonButton("show-viewer-3d", "◇", "三维布局")))),
+                RibbonTab("分析", BuildRibbonPage(analysisGroups)),
+                RibbonTab("优化", BuildRibbonPage(
+                    RibbonGroup("评价函数",
+                        RibbonButton("show-optimization", "↗", "评价函数"),
+                        RibbonButton("show-optimization", "◎", "执行优化")))),
+                RibbonTab("公差", BuildRibbonPage(
+                    RibbonGroup("公差分析",
+                        RibbonButton("show-tolerancing", "±", "灵敏度"),
+                        RibbonButton("show-tolerancing", "∿", "蒙特卡洛")))),
+                RibbonTab("数据与零件", BuildRibbonPage(
+                    RibbonGroup("数据",
+                        RibbonButton("show-system", "▦", "材料与系统")),
+                    RibbonGroup("零件",
+                        RibbonButton("show-lens-editor", "◫", "表面与组件")))),
+                RibbonTab("编程与工具", BuildRibbonPage(
+                    RibbonGroup("编辑",
+                        RibbonButton("undo", "↶", "撤销"),
+                        RibbonButton("redo", "↷", "重做")),
+                    RibbonGroup("命令",
+                        RibbonButton("command-palette", "⌘", "命令面板")),
+                    RibbonGroup("布局",
+                        RibbonButton("load-layout-1", "1", "布局 1"),
+                        RibbonButton("load-layout-2", "2", "布局 2"),
+                        RibbonButton("reset-layout", "▧", "恢复布局")))),
+                RibbonTab("窗口", BuildRibbonPage(
+                    RibbonGroup("分析窗口布局",
+                        RibbonButton("analysis-dock-all", "▤", "标签排列"),
+                        RibbonButton("analysis-float-all", "▣", "浮动全部"),
+                        RibbonButton("analysis-tile-all", "▦", "平铺全部"),
+                        RibbonButton("analysis-cascade-all", "▱", "层叠全部")))),
+                RibbonTab("STAR", BuildRibbonPage(
+                    RibbonGroup("结构热分析",
+                        RibbonButton("show-analysis", "✦", "STAR 工作区")))),
+                RibbonTab("帮助", BuildRibbonPage(
+                    RibbonGroup("支持",
+                        RibbonButton("about", "?", "关于"))))
+            }
+        };
+        return new Border
+        {
+            Height = 132,
+            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Thickness(0, 0, 0, 1),
+            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
+            Child = tabs
+        };
+    }
+
+    private static TabItem RibbonTab(string title, Control content)
+    {
+        return new TabItem
+        {
+            Header = title,
+            Content = content,
+            FontSize = 13,
+            Padding = new Thickness(14, 7)
+        };
+    }
+
+    private static Control BuildRibbonPage(params Control[] groups)
+    {
+        var panel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 2,
+            Margin = new Thickness(4, 2, 4, 0)
+        };
+        foreach (var group in groups)
+        {
+            panel.Children.Add(group);
+        }
+
+        return new ScrollViewer
+        {
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            Content = panel
+        };
+    }
+
+    private static Control RibbonGroup(string title, params Control[] commands)
+    {
+        var commandPanel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 2,
+            Margin = new Thickness(5, 2, 5, 0)
+        };
+        foreach (var command in commands)
+        {
+            commandPanel.Children.Add(command);
+        }
+
+        var grid = new Grid { RowDefinitions = new RowDefinitions("*,20") };
+        var caption = new TextBlock
+        {
+            Text = title,
+            FontSize = 11,
+            Foreground = new SolidColorBrush(Color.FromRgb(76, 86, 98)),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        Grid.SetRow(commandPanel, 0);
+        Grid.SetRow(caption, 1);
+        grid.Children.Add(commandPanel);
+        grid.Children.Add(caption);
+
+        return new Border
+        {
+            BorderBrush = new SolidColorBrush(Color.FromRgb(205, 211, 218)),
+            BorderThickness = new Thickness(0, 0, 1, 0),
+            Child = grid
+        };
+    }
+
+    private Button RibbonButton(string actionId, string glyph, string label)
+    {
+        var button = new Button
+        {
+            Width = 78,
+            Height = 76,
+            Padding = new Thickness(4),
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Content = new StackPanel
+            {
+                Spacing = 2,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Children =
+                {
+                    new TextBlock
+                    {
+                        Text = glyph,
+                        FontSize = 25,
+                        Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = label,
+                        FontSize = 11,
+                        TextWrapping = TextWrapping.Wrap,
+                        TextAlignment = TextAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    }
+                }
+            }
+        };
+        var action = _actions.Find(actionId);
+        ToolTip.SetTip(button, action.Text);
+        button.Click += async (_, _) => await action.ExecuteAsync();
+        return button;
     }
 
     private Control BuildStatusBar()
     {
+        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto,Auto") };
+        grid.Children.Add(StatusCell(_statusText, 0, 0));
+        grid.Children.Add(StatusCell(_eflText, 1, 128));
+        grid.Children.Add(StatusCell(_fNumberText, 2, 116));
+        grid.Children.Add(StatusCell(_apertureText, 3, 130));
+        grid.Children.Add(StatusCell(_trackText, 4, 120));
+
         return new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(248, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(218, 226, 235)),
+            Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 1, 0, 0),
-            Padding = new Thickness(10, 6),
-            Child = _statusText
+            Child = grid
         };
+    }
+
+    private static Border StatusCell(TextBlock text, int column, double width)
+    {
+        text.FontSize = 11;
+        text.Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74));
+        var border = new Border
+        {
+            MinWidth = width,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Thickness(column == 0 ? 0 : 1, 0, 0, 0),
+            Padding = new Thickness(9, 4),
+            Child = text
+        };
+        Grid.SetColumn(border, column);
+        return border;
     }
 
     private async Task OpenAsync()
@@ -317,7 +555,18 @@ public sealed class MainWindow : Window
 
     private void RefreshStatus()
     {
-        _statusText.Text = $"{_connector.CurrentOptic.Name}    {_connector.Status}    撤销: {(_connector.CanUndo ? "可用" : "不可用")}    重做: {(_connector.CanRedo ? "可用" : "不可用")}";
+        var optic = _connector.CurrentOptic;
+        Title = $"{optic.Name} - Optiland 光学工作台";
+        _statusText.Text = $"{_connector.Status}   |   {optic.SurfaceGroup.Items.Count} 个表面   |   {optic.Fields.Count} 个视场   |   {optic.Wavelengths.Count} 个波长";
+        _eflText.Text = $"EFFL: {FormatMetric(optic.Paraxial.EstimateEffectiveFocalLength())}";
+        _fNumberText.Text = $"F/#: {FormatMetric(optic.Paraxial.EstimateFNumber())}";
+        _apertureText.Text = $"APER: {optic.Aperture.Value:0.####}";
+        _trackText.Text = $"TOTR: {FormatMetric(optic.SurfaceGroup.TotalTrack)}";
+    }
+
+    private static string FormatMetric(double value)
+    {
+        return double.IsFinite(value) ? value.ToString("0.####") : "∞";
     }
 
     private void SetTheme(string theme, bool save = true)
@@ -333,8 +582,8 @@ public sealed class MainWindow : Window
 
     private void ResetLayout()
     {
-        Width = 1280;
-        Height = 820;
+        Width = 1440;
+        Height = 900;
         _panels.ResetLayout();
         SaveLayout();
     }
@@ -374,10 +623,11 @@ public sealed class MainWindow : Window
         return item;
     }
 
-    private static Button Button(AppAction action, string content, double minWidth = 72)
-    {
-        var button = new Button { Content = content, MinWidth = minWidth };
-        button.Click += async (_, _) => await action.ExecuteAsync();
-        return button;
-    }
+    private sealed record AnalysisRibbonCommand(
+        string Id,
+        string Name,
+        string Label,
+        string Glyph,
+        string Group);
+
 }

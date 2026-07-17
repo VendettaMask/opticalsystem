@@ -10,7 +10,7 @@ public sealed class AppSettings
 
     public double WindowHeight { get; set; } = 820;
 
-    public double LeftPaneWidth { get; set; } = 520;
+    public double LeftPaneWidth { get; set; } = 286;
 
     public int LeftTabIndex { get; set; }
 
@@ -74,6 +74,12 @@ public sealed class AppSettings
     {
         get
         {
+            var settingsDirectory = Environment.GetEnvironmentVariable("OPTILAND_SETTINGS_DIRECTORY");
+            if (!string.IsNullOrWhiteSpace(settingsDirectory))
+            {
+                return Path.Combine(settingsDirectory, "settings.json");
+            }
+
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var root = string.IsNullOrWhiteSpace(appData)
                 ? AppContext.BaseDirectory
@@ -84,6 +90,6 @@ public sealed class AppSettings
 }
 
 public sealed record WorkspaceLayoutState(
-    double LeftPaneWidth = 520,
+    double LeftPaneWidth = 286,
     int LeftTabIndex = 0,
     int RightTabIndex = 0);

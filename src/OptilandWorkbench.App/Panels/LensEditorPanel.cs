@@ -95,15 +95,33 @@ public sealed class LensEditorPanel : UserControl
         var toolbar = new StackPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 8,
-            Margin = new Avalonia.Thickness(0, 0, 0, 8),
-            Children = { addButton, removeButton }
+            Spacing = 6,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "更新: 所有窗口  ▾",
+                    FontSize = 12,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Avalonia.Thickness(0, 0, 8, 0)
+                },
+                addButton,
+                removeButton,
+                new TextBlock
+                {
+                    Text = "  ◀   ▶   ⟳   ⊕   ⊖   ⇄   ?",
+                    FontSize = 15,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+                    VerticalAlignment = VerticalAlignment.Center
+                }
+            }
         };
 
         var componentEditor = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(0, 0, 0, 8),
+            Margin = new Avalonia.Thickness(8),
             Children =
             {
                 new TextBlock { Text = "几何", VerticalAlignment = VerticalAlignment.Center },
@@ -131,11 +149,31 @@ public sealed class LensEditorPanel : UserControl
             }
         };
 
-        var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
-        DockPanel.SetDock(toolbar, Dock.Top);
-        root.Children.Add(toolbar);
-        DockPanel.SetDock(componentEditor, Dock.Top);
-        root.Children.Add(componentEditor);
+        var commandBar = new Border
+        {
+            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
+            Padding = new Avalonia.Thickness(10, 5),
+            BoxShadow = BoxShadows.Parse("0 2 6 0 #12000000"),
+            Child = toolbar
+        };
+        var componentExpander = new Expander
+        {
+            Header = "表面属性与组件",
+            IsExpanded = false,
+            Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
+            Content = componentEditor
+        };
+
+        var root = new DockPanel
+        {
+            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247))
+        };
+        DockPanel.SetDock(commandBar, Dock.Top);
+        root.Children.Add(commandBar);
+        DockPanel.SetDock(componentExpander, Dock.Top);
+        root.Children.Add(componentExpander);
         root.Children.Add(_grid);
         Content = root;
 
@@ -155,17 +193,24 @@ public sealed class LensEditorPanel : UserControl
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
             IsReadOnly = false,
-            RowBackground = Brushes.White
+            RowBackground = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(199, 199, 204)),
+            BorderThickness = new Avalonia.Thickness(1, 0, 1, 1),
+            HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234)),
+            VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(218, 218, 223)),
+            RowHeight = 28,
+            ColumnHeaderHeight = 30,
+            FrozenColumnCount = 2
         };
 
-        grid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(OpticalSurface.Number)), IsReadOnly = true, Width = new DataGridLength(52) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(OpticalSurface.Label)), Width = new DataGridLength(140) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "半径", Binding = new Binding(nameof(OpticalSurface.Radius)), Width = new DataGridLength(92) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(OpticalSurface.Number)), IsReadOnly = true, Width = new DataGridLength(44) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "表面类型", Binding = new Binding(nameof(OpticalSurface.Label)), Width = new DataGridLength(132) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "曲率半径", Binding = new Binding(nameof(OpticalSurface.Radius)), Width = new DataGridLength(102) });
         grid.Columns.Add(new DataGridTextColumn { Header = "厚度", Binding = new Binding(nameof(OpticalSurface.Thickness)), Width = new DataGridLength(92) });
         grid.Columns.Add(new DataGridTextColumn { Header = "材料", Binding = new Binding(nameof(OpticalSurface.Material)), Width = new DataGridLength(96) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "镀膜", Binding = new Binding(nameof(OpticalSurface.Coating)), Width = new DataGridLength(90) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "半口径", Binding = new Binding(nameof(OpticalSurface.SemiDiameter)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "圆锥系数", Binding = new Binding(nameof(OpticalSurface.Conic)), Width = new DataGridLength(86) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "膜层", Binding = new Binding(nameof(OpticalSurface.Coating)), Width = new DataGridLength(90) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "净口径", Binding = new Binding(nameof(OpticalSurface.SemiDiameter)), Width = new DataGridLength(92) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "圆锥系数", Binding = new Binding(nameof(OpticalSurface.Conic)), Width = new DataGridLength(92) });
         grid.Columns.Add(new DataGridCheckBoxColumn { Header = "光阑", Binding = new Binding(nameof(OpticalSurface.IsStop)), Width = new DataGridLength(64) });
         grid.Columns.Add(new DataGridTextColumn { Header = "几何类型", Binding = new Binding("Geometry.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
         grid.Columns.Add(new DataGridTextColumn { Header = "镀膜类型", Binding = new Binding("CoatingModel.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });

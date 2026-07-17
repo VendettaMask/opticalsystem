@@ -19,33 +19,50 @@ public enum OpticSceneRenderMode
     Wireframe
 }
 
+public enum OpticSceneViewPreset
+{
+    Isometric,
+    Side,
+    Top,
+    End,
+    Reverse
+}
+
 public sealed class OpticSceneControl : Control
 {
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
+    private static readonly IBrush ThreeDBackgroundBrush = new SolidColorBrush(Color.FromRgb(238, 242, 247));
     private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(92, 154, 162, 170));
     private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
     private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(134, 146, 166)), 1);
     private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
+    private static readonly Pen ApertureStopPen = new(new SolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
     private static readonly Pen SurfacePen = new(new SolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
     private static readonly Pen LensEdgePen = new(new SolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
     private static readonly Pen VignettedRayPen = new(new SolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
-    private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(92, 105, 118)), 1.2);
-    private static readonly Pen ThreeDLensEdgePen = new(new SolidColorBrush(Color.FromRgb(55, 68, 78)), 1.5);
-    private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(52, 174, 197, 216));
-    private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(72, 125, 158, 184));
+    private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
+    private static readonly Pen ThreeDLensEdgePen = new(new SolidColorBrush(Color.FromRgb(24, 58, 142)), 1.7);
+    private static readonly Pen ThreeDLensHighlightPen = new(new SolidColorBrush(Color.FromArgb(155, 128, 174, 245)), 0.9);
+    private static readonly Pen GridPen = new(new SolidColorBrush(Color.FromArgb(88, 145, 159, 179)), 0.8);
+    private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
+    private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(86, 43, 91, 205));
+    private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(112, 29, 69, 169));
     private static readonly Color[] RayColors =
     {
-        Color.FromRgb(24, 113, 188),
-        Color.FromRgb(209, 106, 26),
-        Color.FromRgb(31, 145, 94),
-        Color.FromRgb(202, 62, 53)
+        Color.FromRgb(220, 55, 48),
+        Color.FromRgb(36, 156, 86),
+        Color.FromRgb(34, 111, 202),
+        Color.FromRgb(232, 137, 29),
+        Color.FromRgb(197, 57, 157),
+        Color.FromRgb(15, 158, 177),
+        Color.FromRgb(164, 174, 25)
     };
 
     private readonly SceneViewport _viewport = new();
     private OpticSceneViewMode _viewMode;
     private OpticSceneRenderMode _renderMode = OpticSceneRenderMode.Solid;
-    private double _yaw = -0.34;
-    private double _pitch = 0.2;
+    private double _yaw = -0.52;
+    private double _pitch = 0.28;
     private bool _dragging;
     private bool _rotating;
     private Point _lastPointer;
@@ -101,8 +118,22 @@ public sealed class OpticSceneControl : Control
     public void ResetView()
     {
         _viewport.Reset();
-        _yaw = -0.34;
-        _pitch = 0.2;
+        _yaw = -0.52;
+        _pitch = 0.28;
+        InvalidateVisual();
+    }
+
+    public void SetViewPreset(OpticSceneViewPreset preset)
+    {
+        (_yaw, _pitch) = preset switch
+        {
+            OpticSceneViewPreset.Side => (0, 0),
+            OpticSceneViewPreset.Top => (0, 1.16),
+            OpticSceneViewPreset.End => (Math.PI / 2.0, 0),
+            OpticSceneViewPreset.Reverse => (Math.PI, 0),
+            _ => (-0.52, 0.28)
+        };
+        _viewport.Reset();
         InvalidateVisual();
     }
 
@@ -168,7 +199,10 @@ public sealed class OpticSceneControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(BackgroundBrush, null, Bounds);
+        context.DrawRectangle(
+            ViewMode == OpticSceneViewMode.ThreeDimensional ? ThreeDBackgroundBrush : BackgroundBrush,
+            null,
+            Bounds);
 
         if (Optic is null || Optic.SurfaceGroup.Items.Count == 0)
         {
@@ -252,6 +286,7 @@ public sealed class OpticSceneControl : Control
             return (point.Y * Math.Sin(_pitch)) + (depth * Math.Cos(_pitch));
         }
 
+        DrawSceneGrid(context, scene, Project);
         context.DrawLine(
             AxisPen,
             Project(new Layout3DPoint(0, 0, scene.ZMin)),
@@ -268,6 +303,9 @@ public sealed class OpticSceneControl : Control
         {
             Draw3DRays(context, scene.Rays, Project);
         }
+
+        DrawObjectTarget(context, Project(new Layout3DPoint(0, 0, scene.ZMin)));
+        DrawOrientationGizmo(context);
     }
 
     private static void DrawSurfaces(
@@ -278,9 +316,54 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var surface in surfaces)
         {
+            if (surface.IsStop)
+            {
+                DrawApertureStop(context, surface, mapZ, mapY);
+                continue;
+            }
+
             var pen = SurfacePenFor(surface);
             DrawPolyline(context, pen, surface.Points, mapZ, mapY);
         }
+    }
+
+    private static void DrawApertureStop(
+        DrawingContext context,
+        Layout2DSurfaceCurve surface,
+        Func<double, double> mapZ,
+        Func<double, double> mapY)
+    {
+        if (surface.Points.Count == 0)
+        {
+            return;
+        }
+
+        var center = surface.Points.MinBy(point => Math.Abs(point.Y))!;
+        var upper = surface.Points.MaxBy(point => point.Y)!;
+        var lower = surface.Points.MinBy(point => point.Y)!;
+        var x = mapZ(center.Z);
+        var upperY = Math.Min(mapY(upper.Y), mapY(lower.Y));
+        var lowerY = Math.Max(mapY(upper.Y), mapY(lower.Y));
+        var apertureHeight = Math.Max(1, lowerY - upperY);
+        var bladeLength = Math.Clamp(apertureHeight * 0.14, 11, 30);
+        const double capHalfWidth = 5;
+
+        context.DrawLine(
+            ApertureStopPen,
+            new Point(x, upperY),
+            new Point(x, upperY - bladeLength));
+        context.DrawLine(
+            ApertureStopPen,
+            new Point(x - capHalfWidth, upperY),
+            new Point(x + capHalfWidth, upperY));
+        context.DrawLine(
+            ApertureStopPen,
+            new Point(x, lowerY),
+            new Point(x, lowerY + bladeLength));
+        context.DrawLine(
+            ApertureStopPen,
+            new Point(x - capHalfWidth, lowerY),
+            new Point(x + capHalfWidth, lowerY));
     }
 
     private static void DrawLensElements(
@@ -333,6 +416,7 @@ public sealed class OpticSceneControl : Control
         {
             DrawPolyline3D(context, ThreeDLensEdgePen, element.FrontRim, project);
             DrawPolyline3D(context, ThreeDLensEdgePen, element.BackRim, project);
+            DrawPolyline3D(context, ThreeDLensHighlightPen, element.FrontRim, project);
 
             if (!showConnectors)
             {
@@ -417,17 +501,75 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var ray in rays)
         {
-            DrawPolyline3D(context, RayPenFor(ray.FieldIndex, ray.Vignetted, 1.35), ray.Points, project);
+            DrawPolyline3D(
+                context,
+                RayPenFor((ray.FieldIndex * 3) + ray.PupilIndex, ray.Vignetted, 1.25),
+                ray.Points,
+                project);
         }
+    }
+
+    private static void DrawSceneGrid(
+        DrawingContext context,
+        Layout3DScene scene,
+        Func<Layout3DPoint, Point> project)
+    {
+        var xExtent = Math.Max(1, scene.XExtent * 1.15);
+        var floor = -Math.Max(1, scene.YExtent * 1.18);
+        var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
+        const int divisions = 8;
+
+        for (var index = 0; index <= divisions; index++)
+        {
+            var ratio = index / (double)divisions;
+            var z = scene.ZMin + (zSpan * ratio);
+            context.DrawLine(
+                GridPen,
+                project(new Layout3DPoint(-xExtent, floor, z)),
+                project(new Layout3DPoint(xExtent, floor, z)));
+        }
+
+        for (var index = -3; index <= 3; index++)
+        {
+            var x = xExtent * index / 3.0;
+            context.DrawLine(
+                GridPen,
+                project(new Layout3DPoint(x, floor, scene.ZMin)),
+                project(new Layout3DPoint(x, floor, scene.ZMax)));
+        }
+    }
+
+    private static void DrawObjectTarget(DrawingContext context, Point center)
+    {
+        context.DrawEllipse(null, TargetPen, center, 8, 8);
+        context.DrawLine(TargetPen, center + new Vector(-13, 0), center + new Vector(13, 0));
+        context.DrawLine(TargetPen, center + new Vector(0, -13), center + new Vector(0, 13));
+    }
+
+    private void DrawOrientationGizmo(DrawingContext context)
+    {
+        var origin = new Point(48, Math.Max(48, Bounds.Height - 48));
+        var red = new Pen(new SolidColorBrush(Color.FromRgb(210, 60, 52)), 2.2);
+        var green = new Pen(new SolidColorBrush(Color.FromRgb(43, 154, 82)), 2.2);
+        var blue = new Pen(new SolidColorBrush(Color.FromRgb(38, 102, 196)), 2.2);
+        context.DrawLine(red, origin, origin + new Vector(23, 7));
+        context.DrawLine(green, origin, origin + new Vector(-6, -24));
+        context.DrawLine(blue, origin, origin + new Vector(-18, 12));
+        context.DrawEllipse(Brushes.White, new Pen(new SolidColorBrush(Color.FromRgb(108, 122, 140)), 1), origin, 4, 4);
+
+        var cube = new Rect(Math.Max(8, Bounds.Width - 66), Math.Max(8, Bounds.Height - 66), 46, 46);
+        context.DrawRectangle(
+            new SolidColorBrush(Color.FromArgb(214, 255, 255, 255)),
+            new Pen(new SolidColorBrush(Color.FromRgb(120, 132, 147)), 1),
+            cube);
+        var cubeCenter = cube.Center;
+        context.DrawLine(red, cubeCenter, cubeCenter + new Vector(15, 5));
+        context.DrawLine(green, cubeCenter, cubeCenter + new Vector(-4, -16));
+        context.DrawLine(blue, cubeCenter, cubeCenter + new Vector(-12, 9));
     }
 
     private static Pen SurfacePenFor(Layout2DSurfaceCurve surface)
     {
-        if (surface.IsStop)
-        {
-            return StopPen;
-        }
-
         return surface.IsReferencePlane ? ReferencePlanePen : SurfacePen;
     }
 

@@ -27,6 +27,7 @@ public sealed class SystemPropertiesPanel : UserControl
     private readonly TextBlock _secondApodizationLabel = ParameterLabel("p");
     private readonly NumericUpDown _firstApodizationParameter = ParameterInput(1m);
     private readonly NumericUpDown _secondApodizationParameter = ParameterInput(1m);
+    private StackPanel? _apodizationParameterRow;
     private bool _refreshing;
     private readonly NumericUpDown _apertureValue = new()
     {
@@ -42,6 +43,7 @@ public sealed class SystemPropertiesPanel : UserControl
         _connector = connector;
         _fieldsGrid = CreateFieldsGrid();
         _wavelengthsGrid = CreateWavelengthsGrid();
+        ConfigurePickers();
 
         var addField = new Button { Content = "添加视场", MinWidth = 96 };
         addField.Click += (_, _) => _connector.AddField();
@@ -49,35 +51,39 @@ public sealed class SystemPropertiesPanel : UserControl
         var addWavelength = new Button { Content = "添加波长", MinWidth = 112 };
         addWavelength.Click += (_, _) => _connector.AddWavelength();
 
-        var root = new Grid
+        var sections = new StackPanel
         {
-            Margin = new Avalonia.Thickness(12),
-            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto,*")
+            Spacing = 1,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Children =
+            {
+                Section("系统孔径", BuildApertureSection()),
+                Section("视场", BuildFieldSection(addField)),
+                Section("波长", BuildWavelengthSection(addWavelength)),
+                Section("环境", Placeholder("温度、压力和环境介质设置将在这里集中管理。")),
+                Section("偏振", Placeholder("偏振参考、Jones 设置和镀膜偏振选项将在这里显示。")),
+                Section("高级", BuildAdvancedSection()),
+                Section("光线瞄准", Placeholder("光线瞄准方法与迭代参数。")),
+                Section("材料库", Placeholder("材料目录和玻璃替换设置。")),
+                Section("标题/注释", Placeholder("系统标题、作者与设计说明。")),
+                Section("文件", Placeholder("文件关联、自动保存和导入导出设置。")),
+                Section("单位", Placeholder("长度、角度和波长显示单位。")),
+                Section("成本估计", Placeholder("制造成本与材料成本估计。"))
+            }
         };
-
-        var systemControls = BuildSystemControls();
-        var fieldHeader = BuildHeader("视场", addField);
-        var wavelengthHeader = BuildHeader("波长", addWavelength);
-
-        Grid.SetRow(systemControls, 0);
-        Grid.SetRow(fieldHeader, 1);
-        Grid.SetRow(_fieldsGrid, 2);
-        Grid.SetRow(wavelengthHeader, 3);
-        Grid.SetRow(_wavelengthsGrid, 4);
-
-        root.Children.Add(systemControls);
-        root.Children.Add(fieldHeader);
-        root.Children.Add(_fieldsGrid);
-        root.Children.Add(wavelengthHeader);
-        root.Children.Add(_wavelengthsGrid);
-        Content = root;
+        Content = new ScrollViewer
+        {
+            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)),
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            Content = sections
+        };
 
         _connector.OpticLoaded += (_, _) => Refresh();
         _connector.OpticChanged += (_, _) => Refresh();
         Refresh();
     }
 
-    private WrapPanel BuildSystemControls()
+    private void ConfigurePickers()
     {
         _backendPicker.ItemsSource = _connector.BackendNames;
         _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
@@ -98,56 +104,227 @@ public sealed class SystemPropertiesPanel : UserControl
                 ConfigureApodizationParameters(_apodizationPicker.SelectedItem as string, useDefaults: true);
             }
         };
+    }
 
-        var applyButton = new Button { Content = "应用", MinWidth = 74 };
+    private Control BuildApertureSection()
+    {
+        _apertureValue.Width = double.NaN;
+        _apertureValue.HorizontalAlignment = HorizontalAlignment.Stretch;
+        _apertureKindPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
+        _apodizationPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
+
+        var applyButton = new Button
+        {
+            Content = "应用系统设置",
+            MinWidth = 116,
+            Height = 32,
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
         applyButton.Click += (_, _) => ApplySystemControls();
 
-        return new WrapPanel
+        var apodizationParameters = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(0, 0, 0, 10),
+            Children =
+            {
+                _firstApodizationLabel,
+                _firstApodizationParameter,
+                _secondApodizationLabel,
+                _secondApodizationParameter
+            }
+        };
+
+        var form = Form(
+            ("孔径类型", _apertureKindPicker),
+            ("孔径值", _apertureValue),
+            ("光瞳切趾", _apodizationPicker));
+        _apodizationParameterRow = LabeledRow("切趾参数", apodizationParameters);
+        form.Children.Add(_apodizationParameterRow);
+        form.Children.Add(applyButton);
+        return form;
+    }
+
+    private Control BuildFieldSection(Button addField)
+    {
+        _fieldDefinitionPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
+        _fieldsGrid.Height = 210;
+        return new StackPanel
+        {
+            Spacing = 10,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Children =
+            {
+                Form(
+                    ("视场类型", _fieldDefinitionPicker),
+                    (string.Empty, _objectSpaceTelecentric)),
+                BuildHeader("视场数据", addField),
+                _fieldsGrid
+            }
+        };
+    }
+
+    private Control BuildWavelengthSection(Button addWavelength)
+    {
+        _wavelengthsGrid.Height = 190;
+        return new StackPanel
+        {
+            Spacing = 10,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Children =
+            {
+                BuildHeader("波长数据", addWavelength),
+                _wavelengthsGrid
+            }
+        };
+    }
+
+    private Control BuildAdvancedSection()
+    {
+        _backendPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
+        var applyButton = new Button
+        {
+            Content = "应用高级设置",
+            MinWidth = 116,
+            Height = 32,
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
+        applyButton.Click += (_, _) => ApplySystemControls();
+        return Form(
+            ("计算后端", _backendPicker),
+            (string.Empty, applyButton));
+    }
+
+    private static StackPanel Form(params (string Label, Control Input)[] rows)
+    {
+        var panel = new StackPanel
+        {
+            Spacing = 8,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
+        foreach (var row in rows)
+        {
+            if (string.IsNullOrWhiteSpace(row.Label))
+            {
+                panel.Children.Add(row.Input);
+                continue;
+            }
+
+            panel.Children.Add(LabeledRow(row.Label, row.Input));
+        }
+
+        return panel;
+    }
+
+    private static StackPanel LabeledRow(string label, Control input)
+    {
+        input.HorizontalAlignment = HorizontalAlignment.Stretch;
+        return new StackPanel
+        {
+            Spacing = 4,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
                 new TextBlock
                 {
-                    Text = "计算后端",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Avalonia.Thickness(0, 0, 8, 0)
+                    Text = label,
+                    FontSize = 12,
+                    FontWeight = FontWeight.SemiBold
                 },
-                _backendPicker,
-                new TextBlock
-                {
-                    Text = "系统孔径",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
-                },
-                _apertureKindPicker,
-                _apertureValue,
-                new TextBlock
-                {
-                    Text = "视场类型",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
-                },
-                _fieldDefinitionPicker,
-                _objectSpaceTelecentric,
-                new TextBlock
-                {
-                    Text = "光瞳切趾",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
-                },
-                _apodizationPicker,
-                _firstApodizationLabel,
-                _firstApodizationParameter,
-                _secondApodizationLabel,
-                _secondApodizationParameter,
-                applyButton
+                input
             }
+        };
+    }
+
+    private static Control Section(string title, Control content, bool expanded = false)
+    {
+        var arrow = new TextBlock
+        {
+            Width = 18,
+            FontSize = 13,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var titleText = new TextBlock
+        {
+            Text = title,
+            FontSize = 12,
+            FontWeight = FontWeight.SemiBold,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        Grid.SetColumn(titleText, 1);
+        var headerContent = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("18,*"),
+            Children = { arrow, titleText }
+        };
+        var contentHost = new Border
+        {
+            Background = Brushes.White,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(1),
+            CornerRadius = new Avalonia.CornerRadius(6),
+            Margin = new Avalonia.Thickness(6, 0, 6, 6),
+            Padding = new Avalonia.Thickness(28, 11, 12, 12),
+            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Child = content
+        };
+        var header = new Button
+        {
+            Height = 31,
+            Padding = new Avalonia.Thickness(10, 0),
+            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
+            BorderThickness = new Avalonia.Thickness(0),
+            CornerRadius = new Avalonia.CornerRadius(0),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            Content = headerContent
+        };
+
+        void SetExpanded(bool value)
+        {
+            contentHost.IsVisible = value;
+            arrow.Text = value ? "⌄" : "›";
+            arrow.Foreground = new SolidColorBrush(value
+                ? Color.FromRgb(0, 122, 255)
+                : Color.FromRgb(110, 110, 115));
+            titleText.Foreground = new SolidColorBrush(value
+                ? Color.FromRgb(0, 102, 204)
+                : Color.FromRgb(29, 29, 31));
+            header.Background = new SolidColorBrush(value
+                ? Color.FromRgb(242, 247, 253)
+                : Color.FromRgb(250, 250, 252));
+        }
+
+        var isExpanded = expanded;
+        SetExpanded(isExpanded);
+        header.Click += (_, _) =>
+        {
+            isExpanded = !isExpanded;
+            SetExpanded(isExpanded);
+        };
+
+        return new Border
+        {
+            Background = Brushes.White,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Child = new StackPanel
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Children = { header, contentHost }
+            }
+        };
+    }
+
+    private static Control Placeholder(string text)
+    {
+        return new TextBlock
+        {
+            Text = text,
+            Foreground = new SolidColorBrush(Color.FromRgb(104, 113, 125)),
+            TextWrapping = TextWrapping.Wrap,
+            HorizontalAlignment = HorizontalAlignment.Stretch
         };
     }
 
@@ -202,7 +379,13 @@ public sealed class SystemPropertiesPanel : UserControl
             CanUserResizeColumns = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
-            RowBackground = Brushes.White
+            RowBackground = Brushes.White,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(1),
+            HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234)),
+            VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(218, 218, 223)),
+            RowHeight = 28,
+            ColumnHeaderHeight = 30
         };
 
         grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
@@ -293,10 +476,18 @@ public sealed class SystemPropertiesPanel : UserControl
             "Tukey" => ("R", "α", 1.0, 0.5),
             _ => (string.Empty, string.Empty, 1.0, 1.0)
         };
+        var firstVisible = configuration.Item1.Length > 0;
+        var secondVisible = configuration.Item2.Length > 0;
         _firstApodizationLabel.Text = configuration.Item1;
         _secondApodizationLabel.Text = configuration.Item2;
-        _firstApodizationParameter.IsEnabled = configuration.Item1.Length > 0;
-        _secondApodizationParameter.IsEnabled = configuration.Item2.Length > 0;
+        _firstApodizationLabel.IsVisible = firstVisible;
+        _firstApodizationParameter.IsVisible = firstVisible;
+        _secondApodizationLabel.IsVisible = secondVisible;
+        _secondApodizationParameter.IsVisible = secondVisible;
+        if (_apodizationParameterRow is not null)
+        {
+            _apodizationParameterRow.IsVisible = firstVisible;
+        }
         if (useDefaults)
         {
             _firstApodizationParameter.Value = (decimal)configuration.Item3;
