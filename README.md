@@ -47,7 +47,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 200 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 205 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -90,4 +90,4 @@ See:
 
 ## Notes
 
-This repository is a clean-room .NET implementation shaped by the Optiland documentation. The parity claim is intentionally limited to the source-derived Cooke/Tessar contracts documented under `docs/`. Remaining work includes NURBS/grating freeforms, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, broader commercial-format and Python-JSON coverage, non-sequential tracing, and optional GPU/autograd backends.
+This repository is a clean-room .NET implementation shaped by the Optiland documentation. The parity claim is intentionally limited to the source-derived Cooke/Tessar contracts documented under `docs/`. Remaining work includes Forbes/NURBS/grid-sag freeform JSON, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, broader commercial-format and Python-JSON coverage, non-sequential tracing, and optional GPU/autograd backends.

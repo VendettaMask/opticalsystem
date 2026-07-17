@@ -568,9 +568,9 @@ public sealed class CookeTripletGoldenTests
                     ray.WavelengthNanometers,
                     interaction.IsReflective));
 
-                AssertClose(sample.GetProperty("output_direction_x").GetDouble(), actual.Direction.X, TraceTolerance);
-                AssertClose(sample.GetProperty("output_direction_y").GetDouble(), actual.Direction.Y, TraceTolerance);
-                AssertClose(sample.GetProperty("output_direction_z").GetDouble(), actual.Direction.Z, TraceTolerance);
+                AssertPythonFloat(sample.GetProperty("output_direction_x"), actual.Direction.X);
+                AssertPythonFloat(sample.GetProperty("output_direction_y"), actual.Direction.Y);
+                AssertPythonFloat(sample.GetProperty("output_direction_z"), actual.Direction.Z);
                 AssertClose(sample.GetProperty("output_intensity").GetDouble(), actual.Intensity, TraceTolerance);
                 AssertClose(sample.GetProperty("opd").GetDouble(), actual.OpticalPathDifference, TraceTolerance);
             }
@@ -618,6 +618,236 @@ public sealed class CookeTripletGoldenTests
         AssertClose(0, result.Ray.Direction.X, TraceTolerance);
         Assert.True(result.Ray.Direction.Y > 0.15);
         Assert.True(result.Ray.Direction.Z > 0.9);
+    }
+
+    [Fact]
+    public void PythonDiffractiveInteractionsMatchReferenceRayForRay()
+    {
+        using var reference = LoadDiffractiveReference();
+        Assert.Equal("0.5.8", reference.RootElement.GetProperty("optiland_version").GetString());
+        foreach (var diffractionCase in reference.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var geometry = CreateGratingGeometry(diffractionCase);
+            var interaction = new DiffractiveInteractionModel(
+                diffractionCase.GetProperty("is_reflective").GetBoolean());
+            var indexBefore = diffractionCase.GetProperty("refractive_index_before").GetDouble();
+            var indexAfter = diffractionCase.GetProperty("refractive_index_after").GetDouble();
+
+            foreach (var sample in diffractionCase.GetProperty("real_samples").EnumerateArray())
+            {
+                var origin = new Vector3D(
+                    sample.GetProperty("x").GetDouble(),
+                    sample.GetProperty("y").GetDouble(),
+                    sample.GetProperty("z").GetDouble());
+                var gratingVector = geometry.GratingVector(origin);
+                AssertClose(sample.GetProperty("grating_vector_x").GetDouble(), gratingVector.X, TraceTolerance);
+                AssertClose(sample.GetProperty("grating_vector_y").GetDouble(), gratingVector.Y, TraceTolerance);
+                AssertClose(sample.GetProperty("grating_vector_z").GetDouble(), gratingVector.Z, TraceTolerance);
+
+                var ray = new RealRay(
+                    origin,
+                    new Vector3D(
+                        sample.GetProperty("direction_x").GetDouble(),
+                        sample.GetProperty("direction_y").GetDouble(),
+                        sample.GetProperty("direction_z").GetDouble()),
+                    sample.GetProperty("wavelength_micrometers").GetDouble() * 1000);
+                var actual = interaction.Interact(ray, new SurfaceInteractionContext(
+                    geometry.SurfaceNormal(origin),
+                    indexBefore,
+                    indexAfter,
+                    ray.WavelengthNanometers,
+                    interaction.IsReflective,
+                    geometry));
+
+                AssertPythonFloat(sample.GetProperty("output_direction_x"), actual.Direction.X);
+                AssertPythonFloat(sample.GetProperty("output_direction_y"), actual.Direction.Y);
+                AssertPythonFloat(sample.GetProperty("output_direction_z"), actual.Direction.Z);
+            }
+
+            foreach (var sample in diffractionCase.GetProperty("paraxial_samples").EnumerateArray())
+            {
+                var wavelengthNanometers = sample.GetProperty("wavelength_micrometers").GetDouble() * 1000;
+                var ray = new ParaxialRay(
+                    sample.GetProperty("height").GetDouble(),
+                    sample.GetProperty("slope").GetDouble(),
+                    0,
+                    wavelengthNanometers);
+                var actual = interaction.Interact(ray, new SurfaceInteractionContext(
+                    new Vector3D(0, 0, 1),
+                    indexBefore,
+                    indexAfter,
+                    wavelengthNanometers,
+                    interaction.IsReflective,
+                    geometry));
+                AssertClose(sample.GetProperty("output_slope").GetDouble(), actual.Angle, TraceTolerance);
+            }
+        }
+    }
+
+    [Fact]
+    public void PythonJsonRoundTripsDiffractiveGratingSubset()
+    {
+        using var reference = LoadDiffractiveReference();
+        foreach (var diffractionCase in reference.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var optic = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonGratingGeometry(diffractionCase),
+                interactionJson: diffractionCase.GetProperty("interaction_dictionary").GetRawText(),
+                materialPostJson: $$"""
+                {
+                  "type": "IdealMaterial",
+                  "index": {{diffractionCase.GetProperty("refractive_index_after").GetRawText()}},
+                  "absorp": 0.0
+                }
+                """));
+            var surface = optic.SurfaceGroup.Items[1];
+            var geometry = Assert.IsAssignableFrom<IGratingGeometry>(surface.Geometry);
+            Assert.Equal(diffractionCase.GetProperty("order").GetInt32(), geometry.GratingOrder);
+            AssertPythonDouble(
+                diffractionCase.GetProperty("period_micrometers"),
+                geometry.GratingPeriodMicrometers,
+                ScalarTolerance);
+            AssertClose(
+                diffractionCase.GetProperty("groove_orientation_angle_radians").GetDouble(),
+                geometry.GrooveOrientationAngleRadians,
+                ScalarTolerance);
+            Assert.Equal(
+                diffractionCase.GetProperty("is_reflective").GetBoolean(),
+                Assert.IsType<DiffractiveInteractionModel>(surface.InteractionModel).IsReflective);
+
+            var strictExport = PythonOptilandJsonStore.Serialize(optic)
+                .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+                .Replace("Infinity", "1e308", StringComparison.Ordinal);
+            using var exported = JsonDocument.Parse(strictExport);
+            var exportedSurface = exported.RootElement.GetProperty("surface_group").GetProperty("surfaces")[1];
+            var exportedGeometry = exportedSurface.GetProperty("geometry");
+            Assert.Equal(geometry.GratingOrder, exportedGeometry.GetProperty("order").GetInt32());
+            if (double.IsPositiveInfinity(geometry.GratingPeriodMicrometers))
+            {
+                Assert.Equal(1e308, exportedGeometry.GetProperty("period").GetDouble());
+            }
+            else
+            {
+                AssertClose(geometry.GratingPeriodMicrometers, exportedGeometry.GetProperty("period").GetDouble(), ScalarTolerance);
+            }
+            AssertClose(geometry.GrooveOrientationAngleRadians, exportedGeometry.GetProperty("angle").GetDouble(), ScalarTolerance);
+            AssertJsonObjectEquivalent(
+                diffractionCase.GetProperty("interaction_dictionary"),
+                exportedSurface.GetProperty("interaction_model"));
+        }
+
+        var planeCase = reference.RootElement.GetProperty("cases")[0];
+        var missingPlaneData = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                planeCase.GetProperty("geometry_dictionary").GetRawText(),
+                interactionJson: planeCase.GetProperty("interaction_dictionary").GetRawText())));
+        Assert.Contains("order/period/angle", missingPlaneData.Message, StringComparison.OrdinalIgnoreCase);
+
+        var invalidPeriodGeometry = PythonGratingGeometry(planeCase)
+            .Replace("\"period\": 1.2", "\"period\": 0", StringComparison.Ordinal);
+        var invalidPeriod = Assert.Throws<InvalidDataException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                invalidPeriodGeometry,
+                interactionJson: PythonDiffractiveInteraction(false))));
+        Assert.Contains("period", invalidPeriod.Message, StringComparison.OrdinalIgnoreCase);
+
+        var invalidOrderGeometry = PythonGratingGeometry(planeCase)
+            .Replace("\"order\": 1", "\"order\": 1.5", StringComparison.Ordinal);
+        var invalidOrder = Assert.Throws<InvalidDataException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                invalidOrderGeometry,
+                interactionJson: PythonDiffractiveInteraction(false))));
+        Assert.Contains("integer", invalidOrder.Message, StringComparison.OrdinalIgnoreCase);
+
+        var nonGrating = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: PythonDiffractiveInteraction(false))));
+        Assert.Contains("grating geometry", nonGrating.Message, StringComparison.OrdinalIgnoreCase);
+
+        var nonDiffractive = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonGratingGeometry(planeCase),
+                interactionJson: PythonRefractiveReflectiveInteraction())));
+        Assert.Contains("DiffractiveInteractionModel", nonDiffractive.Message, StringComparison.OrdinalIgnoreCase);
+
+        var objectGrating = Optic.CreateTessarLens();
+        objectGrating.SurfaceGroup.Items[0].Geometry = new PlaneGratingGeometry(1, 1, 0);
+        objectGrating.SurfaceGroup.Items[0].InteractionModel = new DiffractiveInteractionModel();
+        var objectExport = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Serialize(objectGrating));
+        Assert.Contains("object surfaces", objectExport.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void NativeSnapshotRoundTripsDiffractiveGratingComponents()
+    {
+        using var reference = LoadDiffractiveReference();
+        foreach (var diffractionCase in reference.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var optic = Optic.CreateTessarLens();
+            var surface = optic.SurfaceGroup.Items[1];
+            surface.Geometry = CreateGratingGeometry(diffractionCase);
+            surface.InteractionModel = new DiffractiveInteractionModel(
+                diffractionCase.GetProperty("is_reflective").GetBoolean());
+
+            var restored = Optic.FromSnapshot(optic.ToSnapshot()).SurfaceGroup.Items[1];
+            var geometry = Assert.IsAssignableFrom<IGratingGeometry>(restored.Geometry);
+            Assert.Equal(surface.Geometry.GetType(), restored.Geometry.GetType());
+            Assert.Equal(diffractionCase.GetProperty("order").GetInt32(), geometry.GratingOrder);
+            AssertPythonDouble(
+                diffractionCase.GetProperty("period_micrometers"),
+                geometry.GratingPeriodMicrometers,
+                ScalarTolerance);
+            AssertClose(
+                diffractionCase.GetProperty("groove_orientation_angle_radians").GetDouble(),
+                geometry.GrooveOrientationAngleRadians,
+                ScalarTolerance);
+            Assert.Equal(
+                diffractionCase.GetProperty("is_reflective").GetBoolean(),
+                Assert.IsType<DiffractiveInteractionModel>(restored.InteractionModel).IsReflective);
+        }
+
+        var legacy = ComponentSnapshotFactory.ToInteraction(
+            new ComponentSnapshot(
+                "diffractive",
+                new Dictionary<string, double> { ["grooveFrequency"] = 1200, ["order"] = 2 },
+                new Dictionary<string, string>()),
+            false);
+        var legacyDiffractive = Assert.IsType<DiffractiveInteractionModel>(legacy);
+        Assert.Equal(1200, legacyDiffractive.GrooveFrequencyLinesPerMillimeter);
+        Assert.Equal(2, legacyDiffractive.Order);
+        var legacyRay = new RealRay(Vector3D.Zero, new Vector3D(0, 0, 1), 500);
+        var legacyOutput = legacyDiffractive.Interact(legacyRay, new SurfaceInteractionContext(
+            new Vector3D(0, 0, 1),
+            1,
+            1,
+            500,
+            false));
+        var legacyDelta = 2 * 500e-6 * 1200;
+        var legacyLength = Math.Sqrt(1 + (legacyDelta * legacyDelta));
+        AssertClose(legacyDelta / legacyLength, legacyOutput.Direction.X, TraceTolerance);
+        AssertClose(0, legacyOutput.Direction.Y, TraceTolerance);
+        AssertClose(1 / legacyLength, legacyOutput.Direction.Z, TraceTolerance);
+    }
+
+    [Fact]
+    public void DiffractiveInteractionUsesSurfaceLocalCoordinates()
+    {
+        var surface = new OpticalSurface
+        {
+            Geometry = new PlaneGratingGeometry(1, 2, -Math.PI / 2),
+            MaterialAfter = new AirMaterial(),
+            InteractionModel = new DiffractiveInteractionModel(),
+            CoordinateSystem = new CoordinateSystem(Vector3D.Zero, RotationZDegrees: 90)
+        };
+        var ray = new RealRay(new Vector3D(0, 0, -1), new Vector3D(0, 0, 1), 1000);
+
+        var result = surface.TraceRay(ray, new AirMaterial(), new AirMaterial(), 0, 0);
+
+        AssertClose(0, result.Ray.Direction.X, TraceTolerance);
+        Assert.True(result.Ray.Direction.Y > 0.4);
+        Assert.True(result.Ray.Direction.Z > 0.8);
     }
 
     [Theory]
@@ -971,6 +1201,30 @@ public sealed class CookeTripletGoldenTests
         return JsonDocument.Parse(File.ReadAllText(path));
     }
 
+    private static JsonDocument LoadDiffractiveReference()
+    {
+        var path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-diffractive-reference.json");
+        return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static IGratingGeometry CreateGratingGeometry(JsonElement diffractionCase)
+    {
+        var order = diffractionCase.GetProperty("order").GetInt32();
+        var period = ReadPythonDouble(diffractionCase.GetProperty("period_micrometers"));
+        var angle = diffractionCase.GetProperty("groove_orientation_angle_radians").GetDouble();
+        return diffractionCase.GetProperty("name").GetString()!.StartsWith("plane", StringComparison.Ordinal)
+            ? new PlaneGratingGeometry(order, period, angle)
+            : new StandardGratingGeometry(
+                diffractionCase.GetProperty("radius").GetDouble(),
+                diffractionCase.GetProperty("conic").GetDouble(),
+                order,
+                period,
+                angle);
+    }
+
     private static void AssertPhaseSamples(JsonElement profileCase, IPhaseProfile profile)
     {
         foreach (var sample in profileCase.GetProperty("samples").EnumerateArray())
@@ -1273,6 +1527,33 @@ public sealed class CookeTripletGoldenTests
         """;
     }
 
+    private static string PythonGratingGeometry(JsonElement diffractionCase)
+    {
+        var isPlane = diffractionCase.GetProperty("name").GetString()!
+            .StartsWith("plane", StringComparison.Ordinal);
+        var radius = isPlane ? "Infinity" : diffractionCase.GetProperty("radius").GetRawText();
+        var type = isPlane ? "PlaneGrating" : "StandardGratingGeometry";
+        return $$"""
+        {
+          "type": "{{type}}",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": {{radius}},
+          "conic": {{diffractionCase.GetProperty("conic").GetRawText()}},
+          "order": {{diffractionCase.GetProperty("order").GetRawText()}},
+          "period": {{PythonNumberText(diffractionCase.GetProperty("period_micrometers"))}},
+          "angle": {{diffractionCase.GetProperty("groove_orientation_angle_radians").GetRawText()}}
+        }
+        """;
+    }
+
     private static string PythonThinLensInteraction(string focalLength, string isReflective)
     {
         return $$"""
@@ -1295,6 +1576,18 @@ public sealed class CookeTripletGoldenTests
           "coating": null,
           "bsdf": null,
           "phase_profile": {{profileJson}}
+        }
+        """;
+    }
+
+    private static string PythonDiffractiveInteraction(bool isReflective)
+    {
+        return $$"""
+        {
+          "type": "DiffractiveInteractionModel",
+          "is_reflective": {{isReflective.ToString().ToLowerInvariant()}},
+          "coating": null,
+          "bsdf": null
         }
         """;
     }
@@ -1430,4 +1723,44 @@ public sealed class CookeTripletGoldenTests
             $"{traceName ?? "paraxial"} surface {surfaceNumber?.ToString() ?? "-"} {quantity ?? "value"}: "
             + $"expected {expected:R}, actual {actual:R}, difference {difference:E3}, tolerance {tolerance:E3}");
     }
+
+    private static void AssertPythonFloat(JsonElement expected, double actual)
+    {
+        if (expected.ValueKind == JsonValueKind.Number)
+        {
+            AssertClose(expected.GetDouble(), actual, TraceTolerance);
+            return;
+        }
+
+        Assert.Equal("NaN", expected.GetString());
+        Assert.True(double.IsNaN(actual));
+    }
+
+    private static void AssertPythonDouble(JsonElement expected, double actual, double tolerance)
+    {
+        var expectedValue = ReadPythonDouble(expected);
+        if (double.IsInfinity(expectedValue) || double.IsNaN(expectedValue))
+        {
+            Assert.Equal(expectedValue, actual);
+            return;
+        }
+
+        AssertClose(expectedValue, actual, tolerance);
+    }
+
+    private static double ReadPythonDouble(JsonElement value)
+    {
+        return value.ValueKind == JsonValueKind.Number
+            ? value.GetDouble()
+            : value.GetString() switch
+            {
+                "Infinity" => double.PositiveInfinity,
+                "-Infinity" => double.NegativeInfinity,
+                "NaN" => double.NaN,
+                var text => double.Parse(text!)
+            };
+    }
+
+    private static string PythonNumberText(JsonElement value) =>
+        value.ValueKind == JsonValueKind.Number ? value.GetRawText() : value.GetString()!;
 }

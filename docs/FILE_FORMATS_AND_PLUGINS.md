@@ -27,16 +27,18 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 
 - EPD, image-F-number, object-NA, and float-by-stop-size system apertures
 - angle fields and weighted primary/non-primary wavelengths
-- plane, standard, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
+- plane, standard, planar/standard grating, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
 - homogeneous catalog, ideal, and Abbe materials
 - centered/annular/offset radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures
 - uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization
-- refractive/reflective, non-reflective thin-lens, and plane-surface phase interactions with constant, linear-grating, radial, or grid profiles
+- refractive/reflective, non-reflective thin-lens, plane-surface phase interactions with constant, linear-grating, radial, or grid profiles, and transmissive/reflective diffractive interactions on grating geometry
 - simple Python coating dictionaries on the Workbench adapter path
 
 Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON remains the lossless format for Workbench-only geometry, plugin, optimization, tolerancing, solve, pickup, and GUI state.
 
 Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
+
+Python Optiland 0.5.8 also emits incomplete planar-grating dictionaries and has broken grating `from_dict()` constructors. Workbench preserves order, period, and groove angle in its adapter and native snapshots, but external Python reload of grating exports is not part of the validated contract.
 
 See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema and external Python round-trip validation.
 

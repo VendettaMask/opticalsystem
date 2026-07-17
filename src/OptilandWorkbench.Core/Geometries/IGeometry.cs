@@ -14,3 +14,16 @@ public interface IGeometry
 
     IGeometry Clone();
 }
+
+public interface IGratingGeometry : IGeometry
+{
+    int GratingOrder { get; }
+
+    double GratingPeriodMicrometers { get; }
+
+    double GrooveOrientationAngleRadians { get; }
+
+    double ParaxialRadius { get; }
+
+    Vector3D GratingVector(Vector3D localPoint);
+}

@@ -4,6 +4,7 @@ using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Phase;
 
@@ -97,6 +98,34 @@ public sealed class AnalysisGuiContractTests
         var restored = Optic.FromSnapshot(connector.CurrentOptic.ToSnapshot());
         var restoredPhase = Assert.IsType<PhaseInteractionModel>(restored.SurfaceGroup.Items[1].InteractionModel);
         Assert.IsType<ConstantPhaseProfile>(restoredPhase.Profile);
+    }
+
+    [Fact]
+    public void ConnectorCreatesDiffractiveInteractionWithGratingGeometry()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
+
+        connector.ApplySurfaceComponents(
+            surface,
+            "平面光栅",
+            "Air",
+            "无镀膜",
+            "反射衍射",
+            "无",
+            gratingOrder: -2,
+            gratingPeriodMicrometers: 0.85,
+            grooveOrientationAngleDegrees: 30);
+
+        Assert.True(Assert.IsType<DiffractiveInteractionModel>(surface.InteractionModel).IsReflective);
+        var grating = Assert.IsType<PlaneGratingGeometry>(surface.Geometry);
+        Assert.Equal(-2, grating.GratingOrder);
+        Assert.Equal(0.85, grating.GratingPeriodMicrometers, precision: 12);
+        Assert.Equal(Math.PI / 6, grating.GrooveOrientationAngleRadians, precision: 12);
+        var restored = Optic.FromSnapshot(connector.CurrentOptic.ToSnapshot());
+        Assert.True(Assert.IsType<DiffractiveInteractionModel>(restored.SurfaceGroup.Items[1].InteractionModel).IsReflective);
+        var restoredGrating = Assert.IsType<PlaneGratingGeometry>(restored.SurfaceGroup.Items[1].Geometry);
+        Assert.Equal(-2, restoredGrating.GratingOrder);
     }
 
     private static void AssertRow(AnalysisView view, string metric, string value)

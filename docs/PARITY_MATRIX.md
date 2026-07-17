@@ -6,12 +6,12 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | --- | --- | --- |
 | Configurable backend | `Backend` | `INumericBackend`, managed CPU backend, backend registry |
 | Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
-| Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model with source-validated plane phase profiles and local-coordinate interactions while retaining GUI-compatible legacy fields |
+| Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model with source-validated phase and diffractive interactions in surface-local coordinates while retaining native snapshot compatibility |
 | Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
 | Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven source-validated apodization profiles; telecentric generation option |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
-| Geometry | `Geometries` | Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
+| Geometry | `Geometries` | Plane, standard, planar/standard grating, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
 | Propagation | `Propagation` | Homogeneous and GRIN models |
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe/catalog registry |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
@@ -43,4 +43,4 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 
-The matrix does not imply full Optiland equivalence. Remaining high-value gaps are NURBS/grating/freeform JSON breadth, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, non-sequential tracing, commercial-format breadth, GUI automation breadth, and optional GPU/autograd backends.
+The matrix does not imply full Optiland equivalence. Remaining high-value gaps are Forbes/NURBS/grid-sag freeform JSON breadth, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, non-sequential tracing, commercial-format breadth, GUI automation breadth, and optional GPU/autograd backends.

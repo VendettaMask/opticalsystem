@@ -24,17 +24,19 @@ The explicit Python export suffix is `.optiland-python.json`.
 | System aperture | EPD, image F-number, object NA, float by stop size |
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
+| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
 | Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
 | Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |
-| Interaction | RefractiveReflectiveModel including mirrors; non-reflective ThinLensInteractionModel; transmissive or reflective plane-surface PhaseInteractionModel with constant, linear-grating, radial, or grid profiles |
+| Interaction | RefractiveReflectiveModel including mirrors; non-reflective ThinLensInteractionModel; transmissive or reflective plane-surface PhaseInteractionModel with constant, linear-grating, radial, or grid profiles; transmissive or reflective DiffractiveInteractionModel paired with grating geometry |
 | Coating | SimpleCoating dictionaries in Workbench import/export |
 | Sequential data | Thickness, stop, coordinate position and rotation |
 
 Unsupported geometry, material, system aperture, physical aperture, coating, or interaction types fail with `NotSupportedException`. Export never silently replaces an unsupported optical component.
 
 Python Optiland 0.5.8 can emit `SimpleCoating.to_dict()` with the same fields. Its `Optic.from_dict()` surface-linking path can relink arbitrary surface coatings to Fresnel coatings, so external Python retention of `SimpleCoating` is not part of the validated bidirectional contract yet.
+
+Python Optiland 0.5.8 has a separate grating serialization defect: `PlaneGrating.to_dict()` omits order, period, and angle, while the `from_dict()` implementations for both grating geometries cannot reconstruct their own emitted dictionaries. The Workbench adapter writes and requires all three grating fields, so its dictionaries are lossless inside Workbench; external Python `Optic.from_dict()` reload of grating exports is not claimed until that upstream defect is fixed.
 
 ## Numerical Validation
 
@@ -54,14 +56,14 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 
 ## Not Yet Supported
 
-- Forbes, NURBS, grid-sag, and grating geometries.
+- Forbes, NURBS, and grid-sag geometries.
 - Python EvenAsphere/OddAsphere files with a nonzero first departure coefficient that cannot be represented by the current Workbench high-order asphere model.
 - Python ToroidalGeometry files with nonzero `conic_yz` or `coeffs_poly_y` terms that cannot be represented by the current Workbench toroidal model.
 - Python PolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure polynomial model.
 - Python ChebyshevPolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure Chebyshev model.
 - Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
-- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, and diffractive interactions.
+- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, and reflective thin-lens.
 - Pickups, solves, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.
 

@@ -345,6 +345,14 @@ public static class PythonOptilandJsonStore
         {
             throw new NotSupportedException("Python Optiland phase interactions require Plane geometry.");
         }
+        if (parsedInteraction.Interaction is DiffractiveInteractionModel && parsedGeometry is not IGratingGeometry)
+        {
+            throw new NotSupportedException("Python Optiland diffractive interactions require grating geometry.");
+        }
+        if (parsedGeometry is IGratingGeometry && parsedInteraction.Interaction is not DiffractiveInteractionModel)
+        {
+            throw new NotSupportedException("Python Optiland grating geometry requires DiffractiveInteractionModel.");
+        }
         var label = GetString(source, "comment", string.Empty);
         if (string.IsNullOrWhiteSpace(label))
         {
@@ -383,6 +391,8 @@ public static class PythonOptilandJsonStore
         return geometryType switch
         {
             "Plane" => new PlaneGeometry(),
+            "PlaneGrating" => ReadPlaneGratingGeometry(geometry),
+            "StandardGratingGeometry" => ReadStandardGratingGeometry(geometry),
             "StandardGeometry" => new StandardGeometry(radius, conic),
             "EvenAsphere" => new EvenAsphereGeometry(
                 radius,
@@ -403,6 +413,60 @@ public static class PythonOptilandJsonStore
             "ZernikePolynomialGeometry" => ReadZernikeGeometry(geometry),
             var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
         };
+    }
+
+    private static PlaneGratingGeometry ReadPlaneGratingGeometry(JsonElement geometry)
+    {
+        var settings = ReadGratingSettings(geometry, "PlaneGrating");
+        return new PlaneGratingGeometry(
+            settings.Order,
+            settings.Period,
+            settings.Angle);
+    }
+
+    private static StandardGratingGeometry ReadStandardGratingGeometry(JsonElement geometry)
+    {
+        var settings = ReadGratingSettings(geometry, "StandardGratingGeometry");
+        return new StandardGratingGeometry(
+            GetDouble(geometry, "radius", double.PositiveInfinity),
+            GetDouble(geometry, "conic", 0),
+            settings.Order,
+            settings.Period,
+            settings.Angle);
+    }
+
+    private static (int Order, double Period, double Angle) ReadGratingSettings(
+        JsonElement geometry,
+        string geometryType)
+    {
+        if (!geometry.TryGetProperty("order", out _)
+            || !geometry.TryGetProperty("period", out _)
+            || !geometry.TryGetProperty("angle", out _))
+        {
+            throw new NotSupportedException(
+                $"Python Optiland {geometryType} dictionary omits required order/period/angle grating data.");
+        }
+
+        var order = GetDouble(geometry, "order", double.NaN);
+        var period = GetDouble(geometry, "period", double.NaN);
+        var angle = GetDouble(geometry, "angle", double.NaN);
+        if (!double.IsFinite(order)
+            || Math.Abs(order - Math.Round(order)) > 1e-12
+            || order < int.MinValue
+            || order > int.MaxValue)
+        {
+            throw new InvalidDataException($"Python Optiland {geometryType} order must be a finite integer.");
+        }
+        if (double.IsNaN(period) || period <= 0)
+        {
+            throw new InvalidDataException($"Python Optiland {geometryType} period must be positive.");
+        }
+        if (!double.IsFinite(angle))
+        {
+            throw new InvalidDataException($"Python Optiland {geometryType} angle must be finite.");
+        }
+
+        return ((int)order, period, angle);
     }
 
     private static ToroidalGeometry ReadToroidalGeometry(JsonElement geometry)
@@ -546,6 +610,10 @@ public static class PythonOptilandJsonStore
                 coating),
             "ThinLensInteractionModel" => ReadThinLensInteraction(interaction, isReflective, coating),
             "PhaseInteractionModel" => ReadPhaseInteraction(interaction, isReflective, coating),
+            "DiffractiveInteractionModel" => new ParsedInteraction(
+                new DiffractiveInteractionModel(isReflective),
+                isReflective,
+                coating),
             _ => throw new NotSupportedException($"Python Optiland interaction model '{type}' is not supported yet.")
         };
     }
@@ -789,6 +857,15 @@ public static class PythonOptilandJsonStore
         {
             throw new NotSupportedException("BSDF/scattering surfaces cannot be exported to Python Optiland JSON yet.");
         }
+        if ((surface.Geometry is IGratingGeometry) != (surface.InteractionModel is DiffractiveInteractionModel))
+        {
+            throw new NotSupportedException(
+                "Python Optiland grating geometry and DiffractiveInteractionModel must be used together.");
+        }
+        if (index == 0 && surface.Geometry is IGratingGeometry)
+        {
+            throw new NotSupportedException("Python Optiland object surfaces cannot preserve diffractive interaction data.");
+        }
 
         var geometry = WriteGeometry(surface, index == 0);
         var material = WriteMaterial(optic.Materials.Resolve(surface.MaterialAfterName));
@@ -848,6 +925,16 @@ public static class PythonOptilandJsonStore
             },
             PhaseInteractionModel => throw new NotSupportedException(
                 "PhaseInteractionModel can only be exported on Plane geometry."),
+            DiffractiveInteractionModel diffractive when surface.Geometry is IGratingGeometry =>
+                new Dictionary<string, object?>
+                {
+                    ["type"] = "DiffractiveInteractionModel",
+                    ["is_reflective"] = diffractive.IsReflective || surface.IsReflective,
+                    ["coating"] = coating,
+                    ["bsdf"] = null
+                },
+            DiffractiveInteractionModel => throw new NotSupportedException(
+                "DiffractiveInteractionModel can only be exported with grating geometry."),
             _ => throw new NotSupportedException(
                 $"Interaction '{surface.InteractionModel.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
@@ -898,6 +985,18 @@ public static class PythonOptilandJsonStore
                 ["cs"] = cs,
                 ["radius"] = PositiveInfinitySentinel
             },
+            PlaneGratingGeometry grating => WriteGratingGeometry(
+                "PlaneGrating",
+                cs,
+                double.PositiveInfinity,
+                0,
+                grating),
+            StandardGratingGeometry grating => WriteGratingGeometry(
+                "StandardGratingGeometry",
+                cs,
+                grating.Base.Radius,
+                grating.Base.Conic,
+                grating),
             StandardGeometry standard => WriteConicGeometry("StandardGeometry", cs, standard.Radius, standard.Conic),
             EvenAsphereGeometry even => WriteConicGeometry(
                 "EvenAsphere",
@@ -969,6 +1068,27 @@ public static class PythonOptilandJsonStore
                 ["norm_radius"] = zernike.PupilRadius
             },
             _ => throw new NotSupportedException($"Geometry '{surface.Geometry.Kind}' cannot be exported to Python Optiland JSON yet.")
+        };
+    }
+
+    private static Dictionary<string, object?> WriteGratingGeometry(
+        string type,
+        Dictionary<string, object?> coordinateSystem,
+        double radius,
+        double conic,
+        IGratingGeometry grating)
+    {
+        return new Dictionary<string, object?>
+        {
+            ["type"] = type,
+            ["cs"] = coordinateSystem,
+            ["radius"] = double.IsPositiveInfinity(radius) ? PositiveInfinitySentinel : radius,
+            ["conic"] = conic,
+            ["order"] = grating.GratingOrder,
+            ["period"] = double.IsPositiveInfinity(grating.GratingPeriodMicrometers)
+                ? PositiveInfinitySentinel
+                : grating.GratingPeriodMicrometers,
+            ["angle"] = grating.GrooveOrientationAngleRadians
         };
     }
 
@@ -1573,6 +1693,8 @@ public static class PythonOptilandJsonStore
         return geometry switch
         {
             PlaneGeometry => 0,
+            PlaneGratingGeometry => 0,
+            StandardGratingGeometry grating => grating.Base.Radius,
             StandardGeometry standard => standard.Radius,
             EvenAsphereGeometry even => even.Base.Radius,
             OddAsphereGeometry odd => odd.Base.Radius,
@@ -1590,6 +1712,7 @@ public static class PythonOptilandJsonStore
         return geometry switch
         {
             StandardGeometry standard => standard.Conic,
+            StandardGratingGeometry grating => grating.Base.Conic,
             EvenAsphereGeometry even => even.Base.Conic,
             OddAsphereGeometry odd => odd.Base.Conic,
             BiconicGeometry biconic => biconic.ConicX,

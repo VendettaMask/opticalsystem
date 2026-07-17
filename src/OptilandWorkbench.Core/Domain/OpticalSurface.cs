@@ -217,13 +217,15 @@ public sealed class OpticalSurface : NotifyObject
         var normal = CoordinateSystem.ToGlobalDirection(localNormal);
         var isReflectiveInteraction = IsReflective
             || InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+            || InteractionModel is DiffractiveInteractionModel { IsReflective: true }
             || InteractionModel is PhaseInteractionModel { IsReflective: true };
         var context = new SurfaceInteractionContext(
             localNormal,
             refractiveIndexBefore,
             refractiveIndexAfter,
             ray.WavelengthNanometers,
-            isReflectiveInteraction);
+            isReflectiveInteraction,
+            Geometry);
 
         var localRay = propagatedRay with
         {

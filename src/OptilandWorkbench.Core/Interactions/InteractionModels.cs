@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Rays;
 
@@ -110,33 +111,132 @@ public sealed class ThinLensInteractionModel : IInteractionModel
 
 public sealed class DiffractiveInteractionModel : IInteractionModel
 {
+    public DiffractiveInteractionModel(bool isReflective = false)
+    {
+        IsReflective = isReflective;
+    }
+
     public DiffractiveInteractionModel(double grooveFrequencyLinesPerMillimeter, int order = 1)
     {
+        if (!double.IsFinite(grooveFrequencyLinesPerMillimeter) || grooveFrequencyLinesPerMillimeter <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(grooveFrequencyLinesPerMillimeter));
+        }
+
         GrooveFrequencyLinesPerMillimeter = grooveFrequencyLinesPerMillimeter;
         Order = order;
     }
 
     public string Kind => "diffractive";
 
-    public double GrooveFrequencyLinesPerMillimeter { get; }
+    public bool IsReflective { get; }
 
-    public int Order { get; }
+    public double? GrooveFrequencyLinesPerMillimeter { get; }
+
+    public int? Order { get; }
 
     public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
     {
-        var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
-        var delta = Order * wavelengthMillimeters * GrooveFrequencyLinesPerMillimeter;
-        var direction = new Vector3D(ray.Direction.X + delta, ray.Direction.Y, ray.Direction.Z);
-        return ray with { Direction = direction / direction.Length };
+        if (context.Geometry is not IGratingGeometry
+            && GrooveFrequencyLinesPerMillimeter is double legacyFrequency)
+        {
+            var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
+            var delta = (Order ?? 1) * wavelengthMillimeters * legacyFrequency;
+            return ray with { Direction = Normalize(new Vector3D(
+                ray.Direction.X + delta,
+                ray.Direction.Y,
+                ray.Direction.Z)) };
+        }
+
+        var geometry = ResolveGeometry(context);
+        var normal = context.SurfaceNormal;
+        if (Dot(ray.Direction, normal) < 0)
+        {
+            normal = -normal;
+        }
+
+        var gratingVector = geometry.GratingVector(ray.Origin);
+        var horizontalProjection = Math.Sqrt(
+            (gratingVector.X * gratingVector.X) + (gratingVector.Y * gratingVector.Y));
+        var period = geometry.GratingPeriodMicrometers / horizontalProjection;
+        var wavelength = context.WavelengthNanometers / 1000.0;
+        var scaledIncident = ray.Direction * (period * context.RefractiveIndexBefore);
+        var gratingShift = gratingVector * (geometry.GratingOrder * wavelength);
+        var combined = scaledIncident + gratingShift;
+        var tangential = combined - (Dot(combined, normal) * normal);
+        var refractiveIndexAfter = context.RefractiveIndexAfter;
+        var radicand = (period * period * refractiveIndexAfter * refractiveIndexAfter)
+            - Dot(tangential, tangential);
+        if (radicand < 0 || !double.IsFinite(radicand))
+        {
+            return ray with { Direction = new Vector3D(double.NaN, double.NaN, double.NaN) };
+        }
+
+        var reflective = IsReflective || context.IsReflective;
+        var signedIndexAfter = reflective ? -refractiveIndexAfter : refractiveIndexAfter;
+        var normalTerm = normal * (reflective ? -Math.Sqrt(radicand) : Math.Sqrt(radicand));
+        var direction = (tangential + normalTerm) / (period * signedIndexAfter);
+        return ray with { Direction = Normalize(direction) };
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
     {
-        var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
-        return ray with { Angle = ray.Angle + (Order * wavelengthMillimeters * GrooveFrequencyLinesPerMillimeter) };
+        if (context.Geometry is not IGratingGeometry
+            && GrooveFrequencyLinesPerMillimeter is double legacyFrequency)
+        {
+            var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
+            return ray with
+            {
+                Angle = ray.Angle + ((Order ?? 1) * wavelengthMillimeters * legacyFrequency)
+            };
+        }
+
+        var geometry = ResolveGeometry(context);
+        var wavelength = context.WavelengthNanometers / 1000.0;
+        var radius = geometry.ParaxialRadius;
+        var reflective = IsReflective || context.IsReflective;
+        if (reflective)
+        {
+            return ray with
+            {
+                Angle = -ray.Angle
+                    - (2 * context.RefractiveIndexBefore * ray.Height / radius)
+                    + (geometry.GratingOrder * wavelength / geometry.GratingPeriodMicrometers)
+            };
+        }
+
+        var power = (context.RefractiveIndexAfter - context.RefractiveIndexBefore) / radius;
+        return ray with
+        {
+            Angle = (context.RefractiveIndexBefore / context.RefractiveIndexAfter * ray.Angle)
+                - (ray.Height * power / context.RefractiveIndexAfter)
+                - (geometry.GratingOrder * wavelength
+                    / (geometry.GratingPeriodMicrometers * context.RefractiveIndexAfter))
+        };
     }
 
-    public IInteractionModel Clone() => new DiffractiveInteractionModel(GrooveFrequencyLinesPerMillimeter, Order);
+    public IInteractionModel Clone() => GrooveFrequencyLinesPerMillimeter is double frequency
+        ? new DiffractiveInteractionModel(frequency, Order ?? 1)
+        : new DiffractiveInteractionModel(IsReflective);
+
+    private IGratingGeometry ResolveGeometry(SurfaceInteractionContext context)
+    {
+        if (context.Geometry is IGratingGeometry grating)
+        {
+            return grating;
+        }
+
+        throw new InvalidOperationException("DiffractiveInteractionModel requires grating geometry.");
+    }
+
+    private static double Dot(Vector3D left, Vector3D right) =>
+        (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
+
+    private static Vector3D Normalize(Vector3D vector)
+    {
+        var length = vector.Length;
+        return length <= 1e-15 ? new Vector3D(double.NaN, double.NaN, double.NaN) : vector / length;
+    }
 }
 
 public sealed class PhaseInteractionModel : IInteractionModel

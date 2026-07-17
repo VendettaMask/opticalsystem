@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Interactions;
@@ -19,4 +20,5 @@ public sealed record SurfaceInteractionContext(
     double RefractiveIndexBefore,
     double RefractiveIndexAfter,
     double WavelengthNanometers,
-    bool IsReflective);
+    bool IsReflective,
+    IGeometry? Geometry = null);

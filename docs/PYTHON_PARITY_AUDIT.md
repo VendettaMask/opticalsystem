@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, all seven apodization profiles, transforms, refractive/reflective, non-reflective thin-lens, and plane-surface phase interactions with all four Python profiles, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, diffractive models, polarization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/planar-grating/standard-grating/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, all seven apodization profiles, transforms, refractive/reflective, non-reflective thin-lens, plane-surface phase interactions with all four Python profiles, transmissive/reflective diffractive interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, and its grating geometry dictionaries cannot reconstruct themselves, so those external Python retention paths are not claimed yet. Forbes/NURBS/grid-sag freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, polarization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,11 +165,11 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, radial/annular/offset-radial, rectangular, elliptical, polygon/file-backed, and recursive boolean physical apertures, all seven apodization profiles, non-reflective thin-lens and plane-surface phase interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including planar/standard grating, BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, radial/annular/offset-radial, rectangular, elliptical, polygon/file-backed, and recursive boolean physical apertures, all seven apodization profiles, non-reflective thin-lens, plane-surface phase, and diffractive interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
-1. Extend Python JSON interoperability to the remaining freeforms, Python-preserved coating models, BSDFs, diffractive models, solves, pickups, and polarization.
+1. Extend Python JSON interoperability to the remaining freeforms, Python-preserved coating models, BSDFs, solves, pickups, and polarization.
 2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
 3. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
 4. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
@@ -244,7 +244,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Extended the Python Optiland JSON adapter beyond Plane/StandardGeometry to import and export BiconicGeometry.
 - Added lossless Workbench-to-Python JSON round-trips for high-order EvenAsphere/OddAsphere coefficients by reserving Python's first departure term, which the current Workbench asphere model does not represent.
-- Kept still-unsupported geometries explicit: Forbes, NURBS, grid-sag, and grating geometries still fail rather than being silently flattened.
+- Kept still-unsupported geometries explicit: Forbes, NURBS, and grid-sag geometries still fail rather than being silently flattened. The former grating guardrail was superseded by the validated expansion below.
 - Regression coverage now verifies non-standard geometry round-trips and keeps unsupported geometry rejection in place.
 
 ### 2026-07-13 Python JSON Toroidal Geometry Expansion
@@ -345,3 +345,11 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Implemented tensor-product not-a-knot cubic splines for grid phase, matching Python's SciPy `RectBivariateSpline` phase and gradient values.
 - Moved surface interaction into local coordinates before globalizing the outgoing ray, which also corrects transformed thin-lens and diffractive axes.
 - Added a pinned Optiland 0.5.8 fixture comparing profile values, gradients, paraxial gradients, transmissive/reflective direction cosines, intensity, and OPD ray by ray.
+
+### 2026-07-17 Python JSON Diffractive Interaction Expansion
+
+- Added planar and standard grating geometries with order, micrometer period, groove orientation, sag/intersection, surface normal, grating vector, editable GUI controls including reflective diffraction, and native snapshot support.
+- Replaced the frequency-only placeholder with Optiland 0.5.8 real-ray grating diffraction and paraxial equations, including refractive indices, reflective mode, curved-surface projection, local coordinates, and non-propagating orders.
+- Added Python dictionary import/export for `DiffractiveInteractionModel`, `PlaneGrating`, and `StandardGratingGeometry`, with strict geometry/interaction pairing and compatibility reads for legacy native `grooveFrequency/order` snapshots.
+- Recorded the upstream 0.5.8 defect where planar dictionaries omit grating parameters and both grating `from_dict()` implementations fail to reconstruct emitted dictionaries; Workbench writes all required fields and does not claim external Python reload for this subset.
+- Added a pinned Optiland 0.5.8 fixture comparing six plane/curved transmissive/reflective/default/evanescent cases ray by ray, including grating vectors, real direction cosines, and paraxial slopes.

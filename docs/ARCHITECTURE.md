@@ -46,7 +46,7 @@ double? DistanceToIntersection(Vector3D origin, Vector3D direction);
 Vector3D SurfaceNormal(Vector3D localPoint);
 ```
 
-Analytic surfaces and freeforms share Newton intersection fallback for consistent sequential tracing. Current freeform coverage includes Chebyshev, Zernike, and Forbes Q models with schema-versioned JSON round-trip. Remaining NURBS/grating work can be added behind the same contract without changing the tracer or GUI connector.
+Analytic surfaces and freeforms share Newton intersection fallback for consistent sequential tracing. Current coverage includes Chebyshev, Zernike, Forbes Q, and planar/standard grating models with schema-versioned JSON round-trip. Remaining NURBS and grid-sag work can be added behind the same contract without changing the tracer or GUI connector.
 
 ## Backend Layer
 

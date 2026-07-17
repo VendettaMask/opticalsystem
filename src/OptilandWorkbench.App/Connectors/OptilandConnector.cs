@@ -82,6 +82,8 @@ public sealed class OptilandConnector
     {
         "平面",
         "标准球面/圆锥",
+        "平面光栅",
+        "标准曲面光栅",
         "偶次非球面",
         "奇次非球面",
         "双圆锥",
@@ -107,6 +109,7 @@ public sealed class OptilandConnector
         "反射",
         "薄透镜",
         "衍射",
+        "反射衍射",
         "相位"
     };
 
@@ -595,7 +598,10 @@ public sealed class OptilandConnector
         string materialName,
         string coatingKind,
         string interactionKind,
-        string physicalApertureKind)
+        string physicalApertureKind,
+        int gratingOrder = 1,
+        double gratingPeriodMicrometers = 1,
+        double grooveOrientationAngleDegrees = 0)
     {
         if (surface is null)
         {
@@ -607,6 +613,11 @@ public sealed class OptilandConnector
         ApplyMaterial(surface, materialName);
         ApplyCoating(surface, coatingKind);
         ApplyInteraction(surface, interactionKind);
+        ApplyGratingParameters(
+            surface,
+            gratingOrder,
+            gratingPeriodMicrometers,
+            grooveOrientationAngleDegrees);
         ApplyPhysicalAperture(surface, physicalApertureKind);
         SetStatus($"表面 {surface.Number} 组件已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
@@ -1002,9 +1013,22 @@ public sealed class OptilandConnector
 
     private static void SyncSurfaceGeometry(OpticalSurface surface)
     {
-        surface.Geometry = Math.Abs(surface.Radius) < 1e-9
-            ? new PlaneGeometry()
-            : new StandardGeometry(surface.Radius, surface.Conic);
+        surface.Geometry = surface.Geometry switch
+        {
+            IGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 =>
+                new PlaneGratingGeometry(
+                    grating.GratingOrder,
+                    grating.GratingPeriodMicrometers,
+                    grating.GrooveOrientationAngleRadians),
+            IGratingGeometry grating => new StandardGratingGeometry(
+                surface.Radius,
+                surface.Conic,
+                grating.GratingOrder,
+                grating.GratingPeriodMicrometers,
+                grating.GrooveOrientationAngleRadians),
+            _ when Math.Abs(surface.Radius) < 1e-9 => new PlaneGeometry(),
+            _ => new StandardGeometry(surface.Radius, surface.Conic)
+        };
     }
 
     private static void ApplyGeometry(OpticalSurface surface, string geometryKind)
@@ -1016,6 +1040,14 @@ public sealed class OptilandConnector
             case "Plane":
                 surface.Radius = 0;
                 surface.Geometry = new PlaneGeometry();
+                break;
+            case "Plane Grating":
+                surface.Radius = 0;
+                surface.Geometry = new PlaneGratingGeometry(1, 1, 0);
+                break;
+            case "Standard Grating":
+                surface.Radius = radius;
+                surface.Geometry = new StandardGratingGeometry(radius, surface.Conic, 1, 1, 0);
                 break;
             case "Even Asphere":
                 surface.Radius = radius;
@@ -1095,14 +1127,67 @@ public sealed class OptilandConnector
     private static void ApplyInteraction(OpticalSurface surface, string interactionKind)
     {
         interactionKind = CanonicalInteractionKind(interactionKind);
-        surface.IsReflective = interactionKind == "Reflective";
+        if (interactionKind is "Diffractive" or "Reflective Diffractive")
+        {
+            surface.Geometry = surface.Geometry switch
+            {
+                IGratingGeometry grating => grating,
+                PlaneGeometry => new PlaneGratingGeometry(1, 1, 0),
+                StandardGeometry standard => new StandardGratingGeometry(
+                    standard.Radius,
+                    standard.Conic,
+                    1,
+                    1,
+                    0),
+                _ when Math.Abs(surface.Radius) < 1e-9 => new PlaneGratingGeometry(1, 1, 0),
+                _ => new StandardGratingGeometry(surface.Radius, surface.Conic, 1, 1, 0)
+            };
+        }
+        else
+        {
+            surface.Geometry = surface.Geometry switch
+            {
+                PlaneGratingGeometry => new PlaneGeometry(),
+                StandardGratingGeometry grating => new StandardGeometry(grating.Base.Radius, grating.Base.Conic),
+                _ => surface.Geometry
+            };
+        }
+
+        surface.IsReflective = interactionKind is "Reflective" or "Reflective Diffractive";
         surface.InteractionModel = interactionKind switch
         {
             "Reflective" => new RefractiveReflectiveInteractionModel(true),
             "Thin Lens" => new ThinLensInteractionModel(50),
-            "Diffractive" => new DiffractiveInteractionModel(1),
+            "Diffractive" => new DiffractiveInteractionModel(),
+            "Reflective Diffractive" => new DiffractiveInteractionModel(true),
             "Phase" => new PhaseInteractionModel(new ConstantPhaseProfile()),
             _ => new RefractiveReflectiveInteractionModel(false)
+        };
+    }
+
+    private static void ApplyGratingParameters(
+        OpticalSurface surface,
+        int order,
+        double periodMicrometers,
+        double angleDegrees)
+    {
+        if (surface.Geometry is not IGratingGeometry grating)
+        {
+            return;
+        }
+
+        periodMicrometers = Math.Max(1e-6, periodMicrometers);
+        var angleRadians = angleDegrees * Math.PI / 180.0;
+        surface.Geometry = grating switch
+        {
+            PlaneGratingGeometry => new PlaneGratingGeometry(order, periodMicrometers, angleRadians),
+            StandardGratingGeometry standard => new StandardGratingGeometry(
+                standard.Base.Radius,
+                standard.Base.Conic,
+                order,
+                periodMicrometers,
+                angleRadians),
+            _ => surface.Geometry
         };
     }
 
@@ -1354,6 +1439,8 @@ public sealed class OptilandConnector
         {
             "平面" => "Plane",
             "标准球面/圆锥" => "Standard",
+            "平面光栅" => "Plane Grating",
+            "标准曲面光栅" => "Standard Grating",
             "偶次非球面" => "Even Asphere",
             "奇次非球面" => "Odd Asphere",
             "双圆锥" => "Biconic",
@@ -1385,6 +1472,7 @@ public sealed class OptilandConnector
             "反射" => "Reflective",
             "薄透镜" => "Thin Lens",
             "衍射" => "Diffractive",
+            "反射衍射" => "Reflective Diffractive",
             "相位" => "Phase",
             _ => value
         };

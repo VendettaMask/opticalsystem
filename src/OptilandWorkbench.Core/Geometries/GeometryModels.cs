@@ -24,6 +24,127 @@ public sealed class PlaneGeometry : IGeometry
     public IGeometry Clone() => new PlaneGeometry();
 }
 
+public sealed class PlaneGratingGeometry : IGratingGeometry
+{
+    private readonly PlaneGeometry _plane = new();
+
+    public PlaneGratingGeometry(int gratingOrder, double gratingPeriodMicrometers, double grooveOrientationAngleRadians)
+    {
+        if (double.IsNaN(gratingPeriodMicrometers) || gratingPeriodMicrometers <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(gratingPeriodMicrometers));
+        }
+
+        GratingOrder = gratingOrder;
+        GratingPeriodMicrometers = gratingPeriodMicrometers;
+        GrooveOrientationAngleRadians = grooveOrientationAngleRadians;
+    }
+
+    public string Kind => "plane_grating";
+
+    public int GratingOrder { get; }
+
+    public double GratingPeriodMicrometers { get; }
+
+    public double GrooveOrientationAngleRadians { get; }
+
+    public double ParaxialRadius => double.PositiveInfinity;
+
+    public double Sag(double x, double y) => _plane.Sag(x, y);
+
+    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+        _plane.DistanceToIntersection(origin, direction);
+
+    public Vector3D SurfaceNormal(Vector3D localPoint) => _plane.SurfaceNormal(localPoint);
+
+    public Vector3D GratingVector(Vector3D localPoint) => new(
+        -Math.Sin(GrooveOrientationAngleRadians),
+        Math.Cos(GrooveOrientationAngleRadians),
+        0);
+
+    public IGeometry Clone() => new PlaneGratingGeometry(
+        GratingOrder,
+        GratingPeriodMicrometers,
+        GrooveOrientationAngleRadians);
+}
+
+public sealed class StandardGratingGeometry : IGratingGeometry
+{
+    public StandardGratingGeometry(
+        double radius,
+        double conic,
+        int gratingOrder,
+        double gratingPeriodMicrometers,
+        double grooveOrientationAngleRadians)
+    {
+        if (double.IsNaN(gratingPeriodMicrometers) || gratingPeriodMicrometers <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(gratingPeriodMicrometers));
+        }
+
+        Base = new StandardGeometry(radius, conic);
+        GratingOrder = gratingOrder;
+        GratingPeriodMicrometers = gratingPeriodMicrometers;
+        GrooveOrientationAngleRadians = grooveOrientationAngleRadians;
+    }
+
+    public string Kind => "standard_grating";
+
+    public StandardGeometry Base { get; }
+
+    public int GratingOrder { get; }
+
+    public double GratingPeriodMicrometers { get; }
+
+    public double GrooveOrientationAngleRadians { get; }
+
+    public double ParaxialRadius => Base.Radius;
+
+    public double Sag(double x, double y) => Base.Sag(x, y);
+
+    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+        Base.DistanceToIntersection(origin, direction);
+
+    public Vector3D SurfaceNormal(Vector3D localPoint) => Base.SurfaceNormal(localPoint);
+
+    public Vector3D GratingVector(Vector3D localPoint)
+    {
+        var radius = Base.Radius;
+        var radialSquared = (localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y);
+        var root = Math.Sqrt(1 - ((1 + Base.Conic) * radialSquared / (radius * radius)));
+        var denominator = radius * root;
+        var rawNormal = Normalize(new Vector3D(
+            localPoint.X / denominator,
+            localPoint.Y / denominator,
+            -1));
+        var cosine = Math.Cos(GrooveOrientationAngleRadians);
+        var sine = Math.Sin(GrooveOrientationAngleRadians);
+        var tangent = Normalize(new Vector3D(
+            cosine,
+            sine,
+            ((localPoint.X * cosine) + (localPoint.Y * sine)) / denominator));
+        return -Normalize(Cross(rawNormal, tangent));
+    }
+
+    public IGeometry Clone() => new StandardGratingGeometry(
+        Base.Radius,
+        Base.Conic,
+        GratingOrder,
+        GratingPeriodMicrometers,
+        GrooveOrientationAngleRadians);
+
+    private static Vector3D Cross(Vector3D left, Vector3D right) => new(
+        (left.Y * right.Z) - (left.Z * right.Y),
+        (left.Z * right.X) - (left.X * right.Z),
+        (left.X * right.Y) - (left.Y * right.X));
+
+    private static Vector3D Normalize(Vector3D vector)
+    {
+        var length = vector.Length;
+        return length <= 1e-15 ? new Vector3D(double.NaN, double.NaN, double.NaN) : vector / length;
+    }
+}
+
 public sealed class StandardGeometry : IGeometry
 {
     public StandardGeometry(double radius, double conic = 0)

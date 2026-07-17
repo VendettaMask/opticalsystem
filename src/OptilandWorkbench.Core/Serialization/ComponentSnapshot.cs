@@ -93,6 +93,20 @@ public static class ComponentSnapshotFactory
         return geometry switch
         {
             PlaneGeometry => ComponentSnapshot.Empty("plane"),
+            PlaneGratingGeometry grating => new ComponentSnapshot("plane_grating", new Dictionary<string, double>
+            {
+                ["order"] = grating.GratingOrder,
+                ["periodMicrometers"] = grating.GratingPeriodMicrometers,
+                ["angleRadians"] = grating.GrooveOrientationAngleRadians
+            }, new Dictionary<string, string>()),
+            StandardGratingGeometry grating => new ComponentSnapshot("standard_grating", new Dictionary<string, double>
+            {
+                ["radius"] = grating.Base.Radius,
+                ["conic"] = grating.Base.Conic,
+                ["order"] = grating.GratingOrder,
+                ["periodMicrometers"] = grating.GratingPeriodMicrometers,
+                ["angleRadians"] = grating.GrooveOrientationAngleRadians
+            }, new Dictionary<string, string>()),
             StandardGeometry standard => new ComponentSnapshot("standard", new Dictionary<string, double>
             {
                 ["radius"] = standard.Radius,
@@ -155,6 +169,16 @@ public static class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "plane" => new PlaneGeometry(),
+            "plane_grating" => new PlaneGratingGeometry(
+                (int)Get(n, "order", 1),
+                Get(n, "periodMicrometers", 1),
+                Get(n, "angleRadians", 0)),
+            "standard_grating" => new StandardGratingGeometry(
+                Get(n, "radius", fallbackRadius),
+                Get(n, "conic", fallbackConic),
+                (int)Get(n, "order", 1),
+                Get(n, "periodMicrometers", 1),
+                Get(n, "angleRadians", 0)),
             "standard" => new StandardGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic)),
             "even_asphere" => new EvenAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
             "odd_asphere" => new OddAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
@@ -290,11 +314,10 @@ public static class ComponentSnapshotFactory
         {
             RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
             ThinLensInteractionModel thinLens => new ComponentSnapshot("thin_lens", new Dictionary<string, double> { ["focalLength"] = thinLens.FocalLength }, new Dictionary<string, string>()),
-            DiffractiveInteractionModel diffractive => new ComponentSnapshot("diffractive", new Dictionary<string, double>
-            {
-                ["grooveFrequency"] = diffractive.GrooveFrequencyLinesPerMillimeter,
-                ["order"] = diffractive.Order
-            }, new Dictionary<string, string>()),
+            DiffractiveInteractionModel diffractive => new ComponentSnapshot(
+                "diffractive",
+                DiffractiveNumbers(diffractive),
+                new Dictionary<string, string>()),
             PhaseInteractionModel phase => new ComponentSnapshot(
                 "phase",
                 new Dictionary<string, double> { ["isReflective"] = phase.IsReflective ? 1 : 0 },
@@ -314,7 +337,11 @@ public static class ComponentSnapshotFactory
             "reflective" => new RefractiveReflectiveInteractionModel(true),
             "refractive" => new RefractiveReflectiveInteractionModel(false),
             "thin_lens" => new ThinLensInteractionModel(Get(snapshot.Numbers, "focalLength", 50)),
-            "diffractive" => new DiffractiveInteractionModel(Get(snapshot.Numbers, "grooveFrequency", 1), (int)Get(snapshot.Numbers, "order", 1)),
+            "diffractive" when snapshot.Numbers.ContainsKey("grooveFrequency") =>
+                new DiffractiveInteractionModel(
+                    Get(snapshot.Numbers, "grooveFrequency", 1),
+                    (int)Get(snapshot.Numbers, "order", 1)),
+            "diffractive" => new DiffractiveInteractionModel(Get(snapshot.Numbers, "isReflective", 0) != 0),
             "phase" => new PhaseInteractionModel(
                 snapshot.Children is not null
                     && snapshot.Children.TryGetValue("profile", out var profile)
@@ -323,6 +350,21 @@ public static class ComponentSnapshotFactory
                 Get(snapshot.Numbers, "isReflective", 0) != 0),
             _ => new RefractiveReflectiveInteractionModel(isReflective)
         };
+    }
+
+    private static Dictionary<string, double> DiffractiveNumbers(DiffractiveInteractionModel model)
+    {
+        var numbers = new Dictionary<string, double>
+        {
+            ["isReflective"] = model.IsReflective ? 1 : 0
+        };
+        if (model.GrooveFrequencyLinesPerMillimeter is double frequency)
+        {
+            numbers["grooveFrequency"] = frequency;
+            numbers["order"] = model.Order ?? 1;
+        }
+
+        return numbers;
     }
 
     private static ComponentSnapshot FromPhaseProfile(IPhaseProfile profile)

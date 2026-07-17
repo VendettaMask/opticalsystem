@@ -20,6 +20,34 @@ public sealed class LensEditorPanel : UserControl
     private readonly ComboBox _coatingPicker = new() { MinWidth = 140 };
     private readonly ComboBox _interactionPicker = new() { MinWidth = 120 };
     private readonly ComboBox _aperturePicker = new() { MinWidth = 110 };
+    private readonly NumericUpDown _gratingOrder = new()
+    {
+        Width = 72,
+        Minimum = -100,
+        Maximum = 100,
+        Value = 1
+    };
+    private readonly NumericUpDown _gratingPeriod = new()
+    {
+        Width = 94,
+        Minimum = 0.000001m,
+        Maximum = 1000000,
+        Increment = 0.1m,
+        Value = 1
+    };
+    private readonly CheckBox _infiniteGratingPeriod = new()
+    {
+        Content = "∞",
+        VerticalAlignment = VerticalAlignment.Center
+    };
+    private readonly NumericUpDown _gratingAngle = new()
+    {
+        Width = 88,
+        Minimum = -360,
+        Maximum = 360,
+        Increment = 1,
+        Value = 0
+    };
     private readonly TextBlock _componentSummary = new()
     {
         MinWidth = 160,
@@ -37,6 +65,8 @@ public sealed class LensEditorPanel : UserControl
         _coatingPicker.ItemsSource = _connector.CoatingKinds;
         _interactionPicker.ItemsSource = _connector.InteractionKinds;
         _aperturePicker.ItemsSource = _connector.PhysicalApertureKinds;
+        _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
+            _gratingPeriod.IsEnabled = _infiniteGratingPeriod.IsChecked != true;
 
         var addButton = new Button { Content = "添加", MinWidth = 74 };
         addButton.Click += (_, _) => _connector.AddSurface();
@@ -71,6 +101,13 @@ public sealed class LensEditorPanel : UserControl
                 _interactionPicker,
                 new TextBlock { Text = "物理孔径", VerticalAlignment = VerticalAlignment.Center },
                 _aperturePicker,
+                new TextBlock { Text = "级次", VerticalAlignment = VerticalAlignment.Center },
+                _gratingOrder,
+                new TextBlock { Text = "周期 (μm)", VerticalAlignment = VerticalAlignment.Center },
+                _gratingPeriod,
+                _infiniteGratingPeriod,
+                new TextBlock { Text = "槽角 (°)", VerticalAlignment = VerticalAlignment.Center },
+                _gratingAngle,
                 applyComponentsButton,
                 _componentSummary
             }
@@ -153,6 +190,19 @@ public sealed class LensEditorPanel : UserControl
             _coatingPicker.SelectedItem = CoatingKindFor(surface);
             _interactionPicker.SelectedItem = InteractionKindFor(surface);
             _aperturePicker.SelectedItem = ApertureKindFor(surface);
+            if (surface.Geometry is IGratingGeometry grating)
+            {
+                _gratingOrder.Value = grating.GratingOrder;
+                _infiniteGratingPeriod.IsChecked = double.IsPositiveInfinity(grating.GratingPeriodMicrometers);
+                if (double.IsFinite(grating.GratingPeriodMicrometers))
+                {
+                    _gratingPeriod.Value = (decimal)Math.Clamp(
+                        grating.GratingPeriodMicrometers,
+                        (double)_gratingPeriod.Minimum,
+                        (double)_gratingPeriod.Maximum);
+                }
+                _gratingAngle.Value = (decimal)(grating.GrooveOrientationAngleRadians * 180.0 / Math.PI);
+            }
             _componentSummary.Text = $"表面 {surface.Number}: {surface.Geometry.Kind}, {surface.MaterialAfterName}";
         }
         finally
@@ -174,7 +224,12 @@ public sealed class LensEditorPanel : UserControl
             _materialPicker.SelectedItem as string ?? surface.Material,
             _coatingPicker.SelectedItem as string ?? "无镀膜",
             _interactionPicker.SelectedItem as string ?? "折射",
-            _aperturePicker.SelectedItem as string ?? "圆形");
+            _aperturePicker.SelectedItem as string ?? "圆形",
+            (int)(_gratingOrder.Value ?? 1),
+            _infiniteGratingPeriod.IsChecked == true
+                ? double.PositiveInfinity
+                : (double)(_gratingPeriod.Value ?? 1),
+            (double)(_gratingAngle.Value ?? 0));
     }
 
     private static string GeometryKindFor(OpticalSurface surface)
@@ -182,6 +237,8 @@ public sealed class LensEditorPanel : UserControl
         return surface.Geometry switch
         {
             PlaneGeometry => "平面",
+            PlaneGratingGeometry => "平面光栅",
+            StandardGratingGeometry => "标准曲面光栅",
             EvenAsphereGeometry => "偶次非球面",
             OddAsphereGeometry => "奇次非球面",
             BiconicGeometry => "双圆锥",
@@ -209,6 +266,7 @@ public sealed class LensEditorPanel : UserControl
         return surface.InteractionModel switch
         {
             ThinLensInteractionModel => "薄透镜",
+            DiffractiveInteractionModel model when model.IsReflective => "反射衍射",
             DiffractiveInteractionModel => "衍射",
             PhaseInteractionModel => "相位",
             RefractiveReflectiveInteractionModel model when model.IsReflective => "反射",

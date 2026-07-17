@@ -1,0 +1,797 @@
+{
+  "optiland_version": "0.5.8",
+  "cases": [
+    {
+      "name": "plane_transmitted",
+      "radius": "Infinity",
+      "conic": 0.0,
+      "order": 1,
+      "period_micrometers": 1.2,
+      "groove_orientation_angle_radians": 0.3,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.5,
+      "is_reflective": false,
+      "geometry_dictionary": {
+        "type": "PlaneGrating",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": "Infinity"
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.29552020666133955,
+          "grating_vector_y": 0.955336489125606,
+          "grating_vector_z": 0.0,
+          "output_direction_x": -0.05696450759096488,
+          "output_direction_y": 0.3052417050106019,
+          "output_direction_z": 0.9505695905072599
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": 0.0,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.29552020666133955,
+          "grating_vector_y": 0.955336489125606,
+          "grating_vector_z": 0.0,
+          "output_direction_x": -0.17850673555377986,
+          "output_direction_y": 0.3717788297085353,
+          "output_direction_z": 0.9109971718630552
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": 0.0,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.29552020666133955,
+          "grating_vector_y": 0.955336489125606,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.05452794489030946,
+          "output_direction_y": 0.18808973043349492,
+          "output_direction_z": 0.9806370156849551
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": 0.0,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.29552020666133955,
+          "grating_vector_y": 0.955336489125606,
+          "grating_vector_z": 0.0,
+          "output_direction_x": -0.10671563018326148,
+          "output_direction_y": 0.4449826210731354,
+          "output_direction_z": 0.8891581643428078
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": -0.2922222222222223
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": -0.36000000000000004
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": -0.21333333333333332
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": -0.4411111111111111
+        }
+      ]
+    },
+    {
+      "name": "plane_reflected",
+      "radius": "Infinity",
+      "conic": 0.0,
+      "order": -1,
+      "period_micrometers": 0.82,
+      "groove_orientation_angle_radians": -0.45,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.62,
+      "is_reflective": true,
+      "geometry_dictionary": {
+        "type": "PlaneGrating",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": "Infinity"
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": true,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": 0.43496553411123023,
+          "grating_vector_y": 0.9004471023526769,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.14922541686327662,
+          "output_direction_y": 0.36046816191958164,
+          "output_direction_z": 0.9207575572344219
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": 0.0,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": 0.43496553411123023,
+          "grating_vector_y": 0.9004471023526769,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.2705354715949549,
+          "output_direction_y": 0.35732329223999254,
+          "output_direction_z": 0.8939410626163607
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": 0.0,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": 0.43496553411123023,
+          "grating_vector_y": 0.9004471023526769,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.03371232789324788,
+          "output_direction_y": 0.3870932016932286,
+          "output_direction_z": 0.9214240783433564
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": 0.0,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": 0.43496553411123023,
+          "grating_vector_y": 0.9004471023526769,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.21283318064762097,
+          "output_direction_y": 0.3480055830542307,
+          "output_direction_z": 0.9130137739259481
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": -0.6907317073170732
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": -0.6917073170731707
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": -0.6653658536585365
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": -0.6726829268292683
+        }
+      ]
+    },
+    {
+      "name": "standard_transmitted",
+      "radius": 45.0,
+      "conic": -0.2,
+      "order": 2,
+      "period_micrometers": 1.4,
+      "groove_orientation_angle_radians": -0.35,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.7,
+      "is_reflective": false,
+      "geometry_dictionary": {
+        "type": "StandardGratingGeometry",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": 45.0,
+        "conic": -0.2,
+        "order": 2.0,
+        "period": 1.4,
+        "angle": -0.35
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": -1.0,
+          "grating_vector_x": 0.34289780745545134,
+          "grating_vector_y": 0.9393727128473789,
+          "grating_vector_z": 0.0,
+          "output_direction_x": 0.18789394462226747,
+          "output_direction_y": 0.4459285647613937,
+          "output_direction_z": 0.8751248943460171
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": 0.0005555582990668771,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": 0.004444433470548188,
+          "normal_y": -0.002222216735274094,
+          "normal_z": -0.9999876543057455,
+          "grating_vector_x": 0.3429003663498473,
+          "grating_vector_y": 0.9393716097631141,
+          "grating_vector_z": -0.0005634964033427701,
+          "output_direction_x": 0.1011223517230178,
+          "output_direction_y": 0.5212816560272661,
+          "output_direction_z": 0.8473722352493486
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": 0.003611227030761491,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": -0.009999839510036477,
+          "normal_y": 0.007777652952250592,
+          "normal_z": -0.9999197524423287,
+          "grating_vector_x": 0.3429391563985078,
+          "grating_vector_y": 0.9393496178623737,
+          "grating_vector_z": 0.0038769099154224045,
+          "output_direction_x": 0.2593468058033113,
+          "output_direction_y": 0.3174479800098866,
+          "output_direction_z": 0.9121217102488364
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": 0.009659718312514462,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": 0.01622152587309729,
+          "normal_y": 0.012888335625200587,
+          "normal_z": -0.9997853534150021,
+          "grating_vector_x": 0.34266467953298935,
+          "grating_vector_y": 0.9392916217144428,
+          "grating_vector_z": 0.01766824206325746,
+          "output_direction_x": 0.1840864338398367,
+          "output_direction_y": 0.5987870855959427,
+          "output_direction_z": 0.779465336624823
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": -0.45042016806722696
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": -0.5300186741363212
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": -0.3526423902894491
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": -0.6232119514472456
+        }
+      ]
+    },
+    {
+      "name": "standard_reflected",
+      "radius": -60.0,
+      "conic": 0.35,
+      "order": 1,
+      "period_micrometers": 0.95,
+      "groove_orientation_angle_radians": 0.6,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.48,
+      "is_reflective": true,
+      "geometry_dictionary": {
+        "type": "StandardGratingGeometry",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": -60.0,
+        "conic": 0.35,
+        "order": 1.0,
+        "period": 0.95,
+        "angle": 0.6
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": true,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": -0.0,
+          "normal_y": -0.0,
+          "normal_z": -1.0,
+          "grating_vector_x": -0.5646424733950354,
+          "grating_vector_y": 0.8253356149096782,
+          "grating_vector_z": -0.0,
+          "output_direction_x": 0.18709342842622298,
+          "output_direction_y": -0.3363688394027903,
+          "output_direction_z": 0.9229583159160233
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": -0.0004166686198099775,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": -0.0033333414352147237,
+          "normal_y": 0.0016666707176073619,
+          "normal_z": -0.9999930554976847,
+          "grating_vector_x": -0.5646346104866201,
+          "grating_vector_y": 0.8253345648937858,
+          "grating_vector_z": 0.003257703517558683,
+          "output_direction_x": 0.3271067626981708,
+          "output_direction_y": -0.4087942255403804,
+          "output_direction_z": 0.8519908725813693
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": -0.0027084158578935,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": 0.007500118492391364,
+          "normal_y": -0.005833425494082171,
+          "normal_z": -0.9999548586659325,
+          "grating_vector_x": -0.564597720166709,
+          "grating_vector_y": 0.825316619898319,
+          "grating_vector_z": -0.009049381314133924,
+          "output_direction_x": 0.045357053555585995,
+          "output_direction_y": -0.20465111960405216,
+          "output_direction_z": 0.977783542987692
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": -0.007244757139859341,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": -0.012167180833864618,
+          "normal_y": -0.009667075183070516,
+          "normal_z": -0.9998792463932639,
+          "grating_vector_x": -0.5646563073040861,
+          "grating_vector_y": 0.8253254062498758,
+          "grating_vector_z": -0.0011083411889607833,
+          "output_direction_x": 0.279365712440617,
+          "output_direction_y": -0.4683448729054782,
+          "output_direction_z": 0.8382170832998442
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": 0.5589473684210526
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": 0.6799122807017544
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": 0.41192982456140353
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": 0.8275438596491228
+        }
+      ]
+    },
+    {
+      "name": "plane_evanescent",
+      "radius": "Infinity",
+      "conic": 0.0,
+      "order": 10,
+      "period_micrometers": 0.2,
+      "groove_orientation_angle_radians": 0.15,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.3,
+      "is_reflective": false,
+      "geometry_dictionary": {
+        "type": "PlaneGrating",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": "Infinity"
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.14943813247359922,
+          "grating_vector_y": 0.9887710779360422,
+          "grating_vector_z": 0.0,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": 0.0,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.14943813247359922,
+          "grating_vector_y": 0.9887710779360422,
+          "grating_vector_z": 0.0,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": 0.0,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.14943813247359922,
+          "grating_vector_y": 0.9887710779360422,
+          "grating_vector_z": 0.0,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": 0.0,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": 1.0,
+          "grating_vector_x": -0.14943813247359922,
+          "grating_vector_y": 0.9887710779360422,
+          "grating_vector_z": 0.0,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": -21.138461538461538
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": -23.107692307692307
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": -18.4
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": -25.092307692307692
+        }
+      ]
+    },
+    {
+      "name": "standard_default_period",
+      "radius": 35.0,
+      "conic": 0.0,
+      "order": 0,
+      "period_micrometers": "Infinity",
+      "groove_orientation_angle_radians": 0.0,
+      "refractive_index_before": 1.0,
+      "refractive_index_after": 1.5,
+      "is_reflective": false,
+      "geometry_dictionary": {
+        "type": "StandardGratingGeometry",
+        "cs": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "rx": 0.0,
+          "ry": 0.0,
+          "rz": 0.0,
+          "reference_cs": null
+        },
+        "radius": 35.0,
+        "conic": 0.0,
+        "order": 0.0,
+        "period": "Infinity",
+        "angle": 0.0
+      },
+      "interaction_dictionary": {
+        "type": "DiffractiveInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null
+      },
+      "real_samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "normal_x": 0.0,
+          "normal_y": 0.0,
+          "normal_z": -1.0,
+          "grating_vector_x": -0.0,
+          "grating_vector_y": 1.0,
+          "grating_vector_z": -0.0,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "z": 0.0007142930030642035,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "normal_x": 0.005714285714285715,
+          "normal_y": -0.0028571428571428576,
+          "normal_z": -0.9999795916284839,
+          "grating_vector_x": 1.6326597251553358e-05,
+          "grating_vector_y": 0.9999959183590171,
+          "grating_vector_z": -0.002857096209150934,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "z": 0.0046431651283201265,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "normal_x": -0.012857142857142859,
+          "normal_y": 0.009999999999999998,
+          "normal_z": -0.9998673381391908,
+          "grating_vector_x": 0.0001285778576250402,
+          "grating_vector_y": 0.9999499987499376,
+          "grating_vector_z": 0.009999173352559128,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "z": 0.01242077536658153,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "normal_x": 0.020857142857142852,
+          "normal_y": 0.016571428571428567,
+          "normal_z": -0.9996451207038118,
+          "grating_vector_x": -0.000345680120317149,
+          "grating_vector_y": 0.9998626844497709,
+          "grating_vector_z": 0.016567822734215157,
+          "output_direction_x": "NaN",
+          "output_direction_y": "NaN",
+          "output_direction_z": "NaN"
+        }
+      ],
+      "paraxial_samples": [
+        {
+          "height": 0.0,
+          "slope": 0.02,
+          "wavelength_micrometers": 0.55,
+          "output_slope": 0.013333333333333332
+        },
+        {
+          "height": 0.25,
+          "slope": -0.04,
+          "wavelength_micrometers": 0.6,
+          "output_slope": -0.029047619047619044
+        },
+        {
+          "height": -0.4,
+          "slope": 0.08,
+          "wavelength_micrometers": 0.48,
+          "output_slope": 0.05714285714285714
+        },
+        {
+          "height": 0.7,
+          "slope": -0.12,
+          "wavelength_micrometers": 0.65,
+          "output_slope": -0.08666666666666666
+        }
+      ]
+    }
+  ]
+}
