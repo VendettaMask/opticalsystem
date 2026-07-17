@@ -2569,35 +2569,14 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         IPhysicalAperture? aperture,
         out (double XMinimum, double XMaximum, double YMinimum, double YMaximum) extent)
     {
-        switch (aperture)
+        if (PhysicalApertureBoundsCalculator.TryGetBounds(aperture, out var bounds))
         {
-            case CircularAperture circular:
-                extent = (-circular.Radius, circular.Radius, -circular.Radius, circular.Radius);
-                return true;
-            case AnnularAperture annular:
-                extent = (-annular.OuterRadius, annular.OuterRadius, -annular.OuterRadius, annular.OuterRadius);
-                return true;
-            case OffsetRadialAperture offset:
-                extent = (
-                    offset.OffsetX - offset.OuterRadius,
-                    offset.OffsetX + offset.OuterRadius,
-                    offset.OffsetY - offset.OuterRadius,
-                    offset.OffsetY + offset.OuterRadius);
-                return true;
-            case RectangularAperture rectangular:
-                extent = (rectangular.XMinimum, rectangular.XMaximum, rectangular.YMinimum, rectangular.YMaximum);
-                return true;
-            case EllipticalAperture elliptical:
-                extent = (
-                    elliptical.OffsetX - elliptical.SemiAxisX,
-                    elliptical.OffsetX + elliptical.SemiAxisX,
-                    elliptical.OffsetY - elliptical.SemiAxisY,
-                    elliptical.OffsetY + elliptical.SemiAxisY);
-                return true;
-            default:
-                extent = default;
-                return false;
+            extent = (bounds.XMinimum, bounds.XMaximum, bounds.YMinimum, bounds.YMaximum);
+            return true;
         }
+
+        extent = default;
+        return false;
     }
 
     private static int BinIndex(double value, double minimum, double maximum, int count)

@@ -10,7 +10,8 @@ namespace OptilandWorkbench.Core.Serialization;
 public sealed record ComponentSnapshot(
     string Kind,
     Dictionary<string, double> Numbers,
-    Dictionary<string, string> Text)
+    Dictionary<string, string> Text,
+    Dictionary<string, ComponentSnapshot>? Children = null)
 {
     public static ComponentSnapshot Empty(string kind) => new(kind, new Dictionary<string, double>(), new Dictionary<string, string>());
 }
@@ -274,6 +275,32 @@ public static class ComponentSnapshotFactory
                 ["offsetX"] = elliptical.OffsetX,
                 ["offsetY"] = elliptical.OffsetY
             }, new Dictionary<string, string>()),
+            FileAperture file => new ComponentSnapshot(
+                "file",
+                PolygonNumbers(file.Vertices, new Dictionary<string, double>
+                {
+                    ["skipHeader"] = file.SkipHeader
+                }),
+                file.Delimiter is null
+                    ? new Dictionary<string, string> { ["filePath"] = file.FilePath }
+                    : new Dictionary<string, string>
+                    {
+                        ["filePath"] = file.FilePath,
+                        ["delimiter"] = file.Delimiter
+                    }),
+            PolygonAperture polygon => new ComponentSnapshot(
+                "polygon",
+                PolygonNumbers(polygon.Vertices, new Dictionary<string, double>()),
+                new Dictionary<string, string>()),
+            BooleanAperture boolean => new ComponentSnapshot(
+                boolean.Kind,
+                new Dictionary<string, double>(),
+                new Dictionary<string, string>(),
+                new Dictionary<string, ComponentSnapshot>
+                {
+                    ["left"] = FromAperture(boolean.Left)!,
+                    ["right"] = FromAperture(boolean.Right)!
+                }),
             _ => ComponentSnapshot.Empty(aperture.Kind)
         };
     }
@@ -301,6 +328,15 @@ public static class ComponentSnapshotFactory
                 Get(snapshot.Numbers, "semiAxisY", fallbackRadius),
                 Get(snapshot.Numbers, "offsetX", 0),
                 Get(snapshot.Numbers, "offsetY", 0)),
+            "polygon" => new PolygonAperture(ReadPolygonVertices(snapshot.Numbers)),
+            "file" => new FileAperture(
+                ReadPolygonVertices(snapshot.Numbers),
+                snapshot.Text.TryGetValue("filePath", out var filePath) ? filePath : string.Empty,
+                snapshot.Text.TryGetValue("delimiter", out var delimiter) ? delimiter : null,
+                (int)Get(snapshot.Numbers, "skipHeader", 0)),
+            "union" => ReadBooleanAperture(snapshot, (left, right) => new UnionAperture(left, right), fallbackRadius),
+            "intersection" => ReadBooleanAperture(snapshot, (left, right) => new IntersectionAperture(left, right), fallbackRadius),
+            "difference" => ReadBooleanAperture(snapshot, (left, right) => new DifferenceAperture(left, right), fallbackRadius),
             null => new CircularAperture(fallbackRadius),
             _ => new CircularAperture(fallbackRadius)
         };
@@ -333,6 +369,46 @@ public static class ComponentSnapshotFactory
     private static double Get(IReadOnlyDictionary<string, double> values, string key, double fallback)
     {
         return values.TryGetValue(key, out var value) ? value : fallback;
+    }
+
+    private static Dictionary<string, double> PolygonNumbers(
+        IReadOnlyList<(double X, double Y)> vertices,
+        Dictionary<string, double> seed)
+    {
+        seed["vertexCount"] = vertices.Count;
+        for (var index = 0; index < vertices.Count; index++)
+        {
+            seed[$"x{index}"] = vertices[index].X;
+            seed[$"y{index}"] = vertices[index].Y;
+        }
+
+        return seed;
+    }
+
+    private static IReadOnlyList<(double X, double Y)> ReadPolygonVertices(
+        IReadOnlyDictionary<string, double> numbers)
+    {
+        var count = Math.Max(0, (int)Get(numbers, "vertexCount", 0));
+        return Enumerable.Range(0, count)
+            .Select(index => (Get(numbers, $"x{index}", 0), Get(numbers, $"y{index}", 0)))
+            .ToArray();
+    }
+
+    private static IPhysicalAperture ReadBooleanAperture(
+        ComponentSnapshot snapshot,
+        Func<IPhysicalAperture, IPhysicalAperture, IPhysicalAperture> factory,
+        double fallbackRadius)
+    {
+        if (snapshot.Children is null
+            || !snapshot.Children.TryGetValue("left", out var leftSnapshot)
+            || !snapshot.Children.TryGetValue("right", out var rightSnapshot))
+        {
+            return new CircularAperture(fallbackRadius);
+        }
+
+        return factory(
+            ToAperture(leftSnapshot, fallbackRadius)!,
+            ToAperture(rightSnapshot, fallbackRadius)!);
     }
 
     private static Dictionary<string, double> Coefficients(IReadOnlyList<double> coefficients, Dictionary<string, double> seed, string prefix = "c")

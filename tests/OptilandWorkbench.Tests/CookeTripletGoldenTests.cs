@@ -320,7 +320,12 @@ public sealed class CookeTripletGoldenTests
             new AnnularAperture(3, 1),
             new OffsetRadialAperture(2.5, 0.5, 1.25, -0.75),
             new RectangularAperture(3, 2, 1, -1),
-            new EllipticalAperture(4, 2, 0.5, -0.25)
+            new EllipticalAperture(4, 2, 0.5, -0.25),
+            CreateExtendedPhysicalAperture("polygon"),
+            CreateExtendedPhysicalAperture("file"),
+            CreateExtendedPhysicalAperture("union"),
+            CreateExtendedPhysicalAperture("intersection"),
+            CreateExtendedPhysicalAperture("difference")
         };
 
         foreach (var aperture in apertures)
@@ -378,6 +383,11 @@ public sealed class CookeTripletGoldenTests
     [InlineData("offset_radial")]
     [InlineData("asymmetric_rectangular")]
     [InlineData("elliptical")]
+    [InlineData("polygon")]
+    [InlineData("file")]
+    [InlineData("union")]
+    [InlineData("intersection")]
+    [InlineData("difference")]
     public void NativeSnapshotRoundTripsExtendedPhysicalApertures(string kind)
     {
         IPhysicalAperture expected = kind switch
@@ -386,7 +396,7 @@ public sealed class CookeTripletGoldenTests
             "offset_radial" => new OffsetRadialAperture(2.5, 0.5, 1.25, -0.75),
             "asymmetric_rectangular" => new RectangularAperture(3, 2, 1, -1),
             "elliptical" => new EllipticalAperture(4, 2, 0.5, -0.25),
-            _ => throw new ArgumentOutOfRangeException(nameof(kind))
+            _ => CreateExtendedPhysicalAperture(kind)
         };
         var optic = Optic.CreateTessarLens();
         optic.SurfaceGroup.Items[1].PhysicalAperture = expected;
@@ -654,6 +664,23 @@ public sealed class CookeTripletGoldenTests
                 AssertClose(elliptical.OffsetX, actualElliptical.OffsetX, ScalarTolerance);
                 AssertClose(elliptical.OffsetY, actualElliptical.OffsetY, ScalarTolerance);
                 break;
+            case FileAperture file:
+                var actualFile = Assert.IsType<FileAperture>(actual);
+                Assert.Equal(file.FilePath, actualFile.FilePath);
+                Assert.Equal(file.Delimiter, actualFile.Delimiter);
+                Assert.Equal(file.SkipHeader, actualFile.SkipHeader);
+                AssertVerticesEqual(file.Vertices, actualFile.Vertices);
+                break;
+            case PolygonAperture polygon:
+                var actualPolygon = Assert.IsType<PolygonAperture>(actual);
+                AssertVerticesEqual(polygon.Vertices, actualPolygon.Vertices);
+                break;
+            case BooleanAperture boolean:
+                var actualBoolean = Assert.IsAssignableFrom<BooleanAperture>(actual);
+                Assert.Equal(boolean.GetType(), actualBoolean.GetType());
+                AssertPhysicalApertureEquivalent(boolean.Left, actualBoolean.Left);
+                AssertPhysicalApertureEquivalent(boolean.Right, actualBoolean.Right);
+                break;
             default:
                 throw new NotSupportedException($"No test assertion for aperture '{expected.Kind}'.");
         }
@@ -686,20 +713,93 @@ public sealed class CookeTripletGoldenTests
 
     private static void AssertJsonObjectEquivalent(JsonElement expected, JsonElement actual)
     {
+        Assert.Equal(expected.ValueKind, actual.ValueKind);
+        if (expected.ValueKind != JsonValueKind.Object)
+        {
+            AssertJsonValueEquivalent(expected, actual);
+            return;
+        }
+
         var expectedProperties = expected.EnumerateObject().ToArray();
         var actualProperties = actual.EnumerateObject().ToArray();
         Assert.Equal(expectedProperties.Length, actualProperties.Length);
         foreach (var property in expectedProperties)
         {
             Assert.True(actual.TryGetProperty(property.Name, out var actualValue));
-            if (property.Value.ValueKind == JsonValueKind.Number)
-            {
-                AssertClose(property.Value.GetDouble(), actualValue.GetDouble(), ScalarTolerance);
-            }
-            else
-            {
-                Assert.Equal(property.Value.GetString(), actualValue.GetString());
-            }
+            AssertJsonValueEquivalent(property.Value, actualValue);
+        }
+    }
+
+    private static void AssertJsonValueEquivalent(JsonElement expected, JsonElement actual)
+    {
+        Assert.Equal(expected.ValueKind, actual.ValueKind);
+        switch (expected.ValueKind)
+        {
+            case JsonValueKind.Object:
+                AssertJsonObjectEquivalent(expected, actual);
+                break;
+            case JsonValueKind.Array:
+                Assert.Equal(expected.GetArrayLength(), actual.GetArrayLength());
+                for (var index = 0; index < expected.GetArrayLength(); index++)
+                {
+                    AssertJsonValueEquivalent(expected[index], actual[index]);
+                }
+                break;
+            case JsonValueKind.Number:
+                AssertClose(expected.GetDouble(), actual.GetDouble(), ScalarTolerance);
+                break;
+            case JsonValueKind.String:
+                Assert.Equal(expected.GetString(), actual.GetString());
+                break;
+            case JsonValueKind.True or JsonValueKind.False:
+                Assert.Equal(expected.GetBoolean(), actual.GetBoolean());
+                break;
+            case JsonValueKind.Null:
+                break;
+            default:
+                throw new NotSupportedException($"No JSON assertion for {expected.ValueKind}.");
+        }
+    }
+
+    private static IPhysicalAperture CreateExtendedPhysicalAperture(string kind)
+    {
+        var vertices = new (double X, double Y)[]
+        {
+            (-3, -1),
+            (2, -2),
+            (3, 1),
+            (0, 3)
+        };
+        return kind switch
+        {
+            "polygon" => new PolygonAperture(vertices),
+            "file" => new FileAperture(
+                vertices,
+                "tools/python-reference/aperture_vertices.txt",
+                " ",
+                0),
+            "union" => new UnionAperture(
+                new CircularAperture(2),
+                new OffsetRadialAperture(1.5, offsetX: 2)),
+            "intersection" => new IntersectionAperture(
+                new RectangularAperture(2.5, 1),
+                new EllipticalAperture(3, 2)),
+            "difference" => new DifferenceAperture(
+                new CircularAperture(3),
+                new RectangularAperture(0.5, 4)),
+            _ => throw new ArgumentOutOfRangeException(nameof(kind))
+        };
+    }
+
+    private static void AssertVerticesEqual(
+        IReadOnlyList<(double X, double Y)> expected,
+        IReadOnlyList<(double X, double Y)> actual)
+    {
+        Assert.Equal(expected.Count, actual.Count);
+        for (var index = 0; index < expected.Count; index++)
+        {
+            AssertClose(expected[index].X, actual[index].X, ScalarTolerance);
+            AssertClose(expected[index].Y, actual[index].Y, ScalarTolerance);
         }
     }
 

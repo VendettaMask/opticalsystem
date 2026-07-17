@@ -186,6 +186,286 @@
           "inside": false
         }
       ]
+    },
+    {
+      "name": "polygon",
+      "dictionary": {
+        "type": "PolygonAperture",
+        "x": [
+          -3.0,
+          2.0,
+          3.0,
+          0.0
+        ],
+        "y": [
+          -1.0,
+          -2.0,
+          1.0,
+          3.0
+        ]
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "file_polygon",
+      "dictionary": {
+        "type": "FileAperture",
+        "x": [
+          -3.0,
+          2.0,
+          3.0,
+          0.0
+        ],
+        "y": [
+          -1.0,
+          -2.0,
+          1.0,
+          3.0
+        ],
+        "filepath": "tools/python-reference/aperture_vertices.txt",
+        "delimiter": " ",
+        "skip_header": 0
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "union",
+      "dictionary": {
+        "type": "UnionAperture",
+        "a": {
+          "type": "RadialAperture",
+          "r_max": 2.0,
+          "r_min": 0
+        },
+        "b": {
+          "type": "OffsetRadialAperture",
+          "r_max": 1.5,
+          "r_min": 0,
+          "offset_x": 2.0,
+          "offset_y": 0
+        }
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": false
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "intersection",
+      "dictionary": {
+        "type": "IntersectionAperture",
+        "a": {
+          "type": "RectangularAperture",
+          "x_min": -2.5,
+          "x_max": 2.5,
+          "y_min": -1.0,
+          "y_max": 1.0
+        },
+        "b": {
+          "type": "EllipticalAperture",
+          "a": 3.0,
+          "b": 2.0,
+          "offset_x": 0,
+          "offset_y": 0
+        }
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
+    },
+    {
+      "name": "difference",
+      "dictionary": {
+        "type": "DifferenceAperture",
+        "a": {
+          "type": "RadialAperture",
+          "r_max": 3.0,
+          "r_min": 0
+        },
+        "b": {
+          "type": "RectangularAperture",
+          "x_min": -0.5,
+          "x_max": 0.5,
+          "y_min": -4.0,
+          "y_max": 4.0
+        }
+      },
+      "samples": [
+        {
+          "x": -4.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": -2.0,
+          "y": -1.0,
+          "inside": true
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "inside": false
+        },
+        {
+          "x": 0.75,
+          "y": -0.5,
+          "inside": true
+        },
+        {
+          "x": 1.25,
+          "y": -0.75,
+          "inside": true
+        },
+        {
+          "x": 2.5,
+          "y": 0.0,
+          "inside": true
+        },
+        {
+          "x": 4.0,
+          "y": 2.0,
+          "inside": false
+        }
+      ]
     }
   ]
 }

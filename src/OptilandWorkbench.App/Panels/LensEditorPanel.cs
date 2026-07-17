@@ -224,6 +224,9 @@ public sealed class LensEditorPanel : UserControl
             OffsetRadialAperture => "偏心圆",
             RectangularAperture => "矩形",
             EllipticalAperture => "椭圆",
+            FileAperture => "多边形",
+            PolygonAperture => "多边形",
+            BooleanAperture => "组合孔径",
             null => "无",
             _ => "圆形"
         };

@@ -302,25 +302,15 @@ public static class PythonOptilandJsonStore
         var aperture = source.TryGetProperty("aperture", out var apertureElement)
             ? ReadPhysicalAperture(apertureElement)
             : null;
-        var semiDiameter = aperture switch
-        {
-            CircularAperture circular => circular.Radius,
-            AnnularAperture annular => annular.OuterRadius,
-            OffsetRadialAperture offset => Math.Max(
-                Math.Abs(offset.OffsetX) + offset.OuterRadius,
-                Math.Abs(offset.OffsetY) + offset.OuterRadius),
-            RectangularAperture rectangular => new[]
+        var semiDiameter = PhysicalApertureBoundsCalculator.TryGetBounds(aperture, out var apertureBounds)
+            ? new[]
             {
-                Math.Abs(rectangular.XMinimum),
-                Math.Abs(rectangular.XMaximum),
-                Math.Abs(rectangular.YMinimum),
-                Math.Abs(rectangular.YMaximum)
-            }.Max(),
-            EllipticalAperture elliptical => Math.Max(
-                Math.Abs(elliptical.OffsetX) + elliptical.SemiAxisX,
-                Math.Abs(elliptical.OffsetY) + elliptical.SemiAxisY),
-            _ => 1.0
-        };
+                Math.Abs(apertureBounds.XMinimum),
+                Math.Abs(apertureBounds.XMaximum),
+                Math.Abs(apertureBounds.YMinimum),
+                Math.Abs(apertureBounds.YMaximum)
+            }.Max()
+            : 1.0;
         var hasInteraction = source.TryGetProperty("interaction_model", out var interactionElement)
             && interactionElement.ValueKind == JsonValueKind.Object;
         var parsedInteraction = hasInteraction
@@ -586,6 +576,15 @@ public static class PythonOptilandJsonStore
                 GetDouble(aperture, "b", 1),
                 GetDouble(aperture, "offset_x", 0),
                 GetDouble(aperture, "offset_y", 0)),
+            "PolygonAperture" => ReadPolygonAperture(aperture),
+            "FileAperture" => ReadFileAperture(aperture),
+            "UnionAperture" => ReadBooleanAperture(aperture, (left, right) => new UnionAperture(left, right)),
+            "IntersectionAperture" => ReadBooleanAperture(
+                aperture,
+                (left, right) => new IntersectionAperture(left, right)),
+            "DifferenceAperture" => ReadBooleanAperture(
+                aperture,
+                (left, right) => new DifferenceAperture(left, right)),
             "" => null,
             var type => throw new NotSupportedException($"Python Optiland physical aperture '{type}' is not supported yet.")
         };
@@ -611,6 +610,42 @@ public static class PythonOptilandJsonStore
             Math.Abs(yMax - yMin) / 2.0,
             (xMin + xMax) / 2.0,
             (yMin + yMax) / 2.0);
+    }
+
+    private static PolygonAperture ReadPolygonAperture(JsonElement aperture)
+    {
+        return new PolygonAperture(ReadPolygonVertices(aperture));
+    }
+
+    private static FileAperture ReadFileAperture(JsonElement aperture)
+    {
+        var delimiter = aperture.TryGetProperty("delimiter", out var delimiterElement)
+            && delimiterElement.ValueKind == JsonValueKind.String
+                ? delimiterElement.GetString()
+                : null;
+        return new FileAperture(
+            ReadPolygonVertices(aperture),
+            GetString(aperture, "filepath", string.Empty),
+            delimiter,
+            (int)GetDouble(aperture, "skip_header", 0));
+    }
+
+    private static IReadOnlyList<(double X, double Y)> ReadPolygonVertices(JsonElement aperture)
+    {
+        var x = ReadDoubleArray(aperture, "x");
+        var y = ReadDoubleArray(aperture, "y");
+        return x.Zip(y, (xValue, yValue) => (xValue, yValue)).ToArray();
+    }
+
+    private static IPhysicalAperture ReadBooleanAperture(
+        JsonElement aperture,
+        Func<IPhysicalAperture, IPhysicalAperture, IPhysicalAperture> factory)
+    {
+        return factory(
+            ReadPhysicalAperture(aperture.GetProperty("a"))
+                ?? throw new NotSupportedException("Python Optiland boolean aperture operand 'a' is missing."),
+            ReadPhysicalAperture(aperture.GetProperty("b"))
+                ?? throw new NotSupportedException("Python Optiland boolean aperture operand 'b' is missing."));
     }
 
     private static CoordinateSystem? ReadCoordinateSystem(JsonElement geometry)
@@ -961,7 +996,45 @@ public static class PythonOptilandJsonStore
                 ["offset_x"] = elliptical.OffsetX,
                 ["offset_y"] = elliptical.OffsetY
             },
+            FileAperture file => WriteFileAperture(file),
+            PolygonAperture polygon => WritePolygonAperture("PolygonAperture", polygon),
+            UnionAperture union => WriteBooleanAperture("UnionAperture", union),
+            IntersectionAperture intersection => WriteBooleanAperture("IntersectionAperture", intersection),
+            DifferenceAperture difference => WriteBooleanAperture("DifferenceAperture", difference),
             _ => throw new NotSupportedException($"Physical aperture '{aperture.Kind}' cannot be exported to Python Optiland JSON yet.")
+        };
+    }
+
+    private static Dictionary<string, object?> WritePolygonAperture(
+        string type,
+        PolygonAperture aperture)
+    {
+        return new Dictionary<string, object?>
+        {
+            ["type"] = type,
+            ["x"] = aperture.Vertices.Select(vertex => vertex.X).ToArray(),
+            ["y"] = aperture.Vertices.Select(vertex => vertex.Y).ToArray()
+        };
+    }
+
+    private static Dictionary<string, object?> WriteFileAperture(FileAperture aperture)
+    {
+        var output = WritePolygonAperture("FileAperture", aperture);
+        output["filepath"] = aperture.FilePath;
+        output["delimiter"] = aperture.Delimiter;
+        output["skip_header"] = aperture.SkipHeader;
+        return output;
+    }
+
+    private static Dictionary<string, object?> WriteBooleanAperture(
+        string type,
+        BooleanAperture aperture)
+    {
+        return new Dictionary<string, object?>
+        {
+            ["type"] = type,
+            ["a"] = WritePhysicalAperture(aperture.Left),
+            ["b"] = WritePhysicalAperture(aperture.Right)
         };
     }
 

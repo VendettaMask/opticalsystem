@@ -103,6 +103,8 @@ public sealed class OptilandConnector
         "偏心圆",
         "矩形",
         "椭圆",
+        "多边形",
+        "组合孔径",
         "无"
     };
 
@@ -1074,6 +1076,16 @@ public sealed class OptilandConnector
                 offsetX: surface.SemiDiameter * 0.2),
             "Rectangular" => new RectangularAperture(surface.SemiDiameter, surface.SemiDiameter),
             "Elliptical" => new EllipticalAperture(surface.SemiDiameter, surface.SemiDiameter * 0.75),
+            "Polygon" => new PolygonAperture(new[]
+            {
+                (-surface.SemiDiameter, -surface.SemiDiameter),
+                (surface.SemiDiameter, -surface.SemiDiameter),
+                (surface.SemiDiameter, surface.SemiDiameter),
+                (-surface.SemiDiameter, surface.SemiDiameter)
+            }),
+            "Boolean" => new DifferenceAperture(
+                new CircularAperture(surface.SemiDiameter),
+                new CircularAperture(surface.SemiDiameter * 0.5)),
             "None" => null,
             _ => new CircularAperture(surface.SemiDiameter)
         };
@@ -1347,6 +1359,8 @@ public sealed class OptilandConnector
             "偏心圆" => "Offset Radial",
             "矩形" => "Rectangular",
             "椭圆" => "Elliptical",
+            "多边形" => "Polygon",
+            "组合孔径" => "Boolean",
             "无" => "None",
             _ => value
         };
