@@ -17,10 +17,11 @@ public sealed class HomogeneousPropagationModel : IPropagationModel
 
     public RealRay Propagate(RealRay ray, double distance)
     {
-        return ray with
+        var propagated = ray with
         {
             Origin = ray.Origin + (ray.Direction * distance)
         };
+        return propagated.IsNormalized ? propagated : propagated.Normalize();
     }
 
     public IPropagationModel Clone() => new HomogeneousPropagationModel();
@@ -39,12 +40,17 @@ public sealed class GrinPropagationModel : IPropagationModel
 
     public RealRay Propagate(RealRay ray, double distance)
     {
-        var bentDirection = ray.Direction + new Backend.Vector3D(-ray.Origin.X * RadialGradient, -ray.Origin.Y * RadialGradient, 0);
+        var normalizedRay = ray.IsNormalized ? ray : ray.Normalize();
+        var bentDirection = normalizedRay.Direction + new Backend.Vector3D(
+            -normalizedRay.Origin.X * RadialGradient,
+            -normalizedRay.Origin.Y * RadialGradient,
+            0);
         bentDirection = bentDirection / bentDirection.Length;
-        return ray with
+        return normalizedRay with
         {
-            Origin = ray.Origin + (bentDirection * distance),
-            Direction = bentDirection
+            Origin = normalizedRay.Origin + (bentDirection * distance),
+            Direction = bentDirection,
+            IsNormalized = true
         };
     }
 

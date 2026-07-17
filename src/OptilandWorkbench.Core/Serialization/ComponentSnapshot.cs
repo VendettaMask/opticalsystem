@@ -313,7 +313,11 @@ public static class ComponentSnapshotFactory
         return interaction switch
         {
             RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
-            ThinLensInteractionModel thinLens => new ComponentSnapshot("thin_lens", new Dictionary<string, double> { ["focalLength"] = thinLens.FocalLength }, new Dictionary<string, string>()),
+            ThinLensInteractionModel thinLens => new ComponentSnapshot("thin_lens", new Dictionary<string, double>
+            {
+                ["focalLength"] = thinLens.FocalLength,
+                ["isReflective"] = thinLens.IsReflective ? 1 : 0
+            }, new Dictionary<string, string>()),
             DiffractiveInteractionModel diffractive => new ComponentSnapshot(
                 "diffractive",
                 DiffractiveNumbers(diffractive),
@@ -336,7 +340,9 @@ public static class ComponentSnapshotFactory
         {
             "reflective" => new RefractiveReflectiveInteractionModel(true),
             "refractive" => new RefractiveReflectiveInteractionModel(false),
-            "thin_lens" => new ThinLensInteractionModel(Get(snapshot.Numbers, "focalLength", 50)),
+            "thin_lens" => new ThinLensInteractionModel(
+                Get(snapshot.Numbers, "focalLength", 50),
+                Get(snapshot.Numbers, "isReflective", 0) != 0),
             "diffractive" when snapshot.Numbers.ContainsKey("grooveFrequency") =>
                 new DiffractiveInteractionModel(
                     Get(snapshot.Numbers, "grooveFrequency", 1),

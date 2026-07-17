@@ -146,7 +146,7 @@ public sealed class OpticalSurface : NotifyObject
         double cumulativePathLength,
         double cumulativeOpticalPathLength)
     {
-        var ray = inputRay.Normalize();
+        var ray = inputRay.IsNormalized ? inputRay.Normalize() : inputRay;
         var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
         var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
@@ -217,6 +217,7 @@ public sealed class OpticalSurface : NotifyObject
         var normal = CoordinateSystem.ToGlobalDirection(localNormal);
         var isReflectiveInteraction = IsReflective
             || InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+            || InteractionModel is ThinLensInteractionModel { IsReflective: true }
             || InteractionModel is DiffractiveInteractionModel { IsReflective: true }
             || InteractionModel is PhaseInteractionModel { IsReflective: true };
         var context = new SurfaceInteractionContext(

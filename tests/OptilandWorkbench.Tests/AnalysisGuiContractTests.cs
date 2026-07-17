@@ -128,6 +128,31 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(-2, restoredGrating.GratingOrder);
     }
 
+    [Fact]
+    public void ConnectorCreatesReflectiveThinLensWithEditableFocalLength()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
+
+        connector.ApplySurfaceComponents(
+            surface,
+            "平面",
+            "Air",
+            "无镀膜",
+            "反射薄透镜",
+            "无",
+            thinLensFocalLength: -72.5);
+
+        var thinLens = Assert.IsType<ThinLensInteractionModel>(surface.InteractionModel);
+        Assert.True(thinLens.IsReflective);
+        Assert.Equal(-72.5, thinLens.FocalLength, precision: 12);
+        var restored = Optic.FromSnapshot(connector.CurrentOptic.ToSnapshot());
+        var restoredThinLens = Assert.IsType<ThinLensInteractionModel>(
+            restored.SurfaceGroup.Items[1].InteractionModel);
+        Assert.True(restoredThinLens.IsReflective);
+        Assert.Equal(-72.5, restoredThinLens.FocalLength, precision: 12);
+    }
+
     private static void AssertRow(AnalysisView view, string metric, string value)
     {
         var row = Assert.Single(view.Rows, item => item.Metric == metric);

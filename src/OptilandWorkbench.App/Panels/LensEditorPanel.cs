@@ -48,6 +48,19 @@ public sealed class LensEditorPanel : UserControl
         Increment = 1,
         Value = 0
     };
+    private readonly NumericUpDown _thinLensFocalLength = new()
+    {
+        Width = 92,
+        Minimum = -1000000,
+        Maximum = 1000000,
+        Increment = 1,
+        Value = 50
+    };
+    private readonly CheckBox _infiniteThinLensFocalLength = new()
+    {
+        Content = "∞",
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly TextBlock _componentSummary = new()
     {
         MinWidth = 160,
@@ -67,6 +80,8 @@ public sealed class LensEditorPanel : UserControl
         _aperturePicker.ItemsSource = _connector.PhysicalApertureKinds;
         _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
             _gratingPeriod.IsEnabled = _infiniteGratingPeriod.IsChecked != true;
+        _infiniteThinLensFocalLength.IsCheckedChanged += (_, _) =>
+            _thinLensFocalLength.IsEnabled = _infiniteThinLensFocalLength.IsChecked != true;
 
         var addButton = new Button { Content = "添加", MinWidth = 74 };
         addButton.Click += (_, _) => _connector.AddSurface();
@@ -108,6 +123,9 @@ public sealed class LensEditorPanel : UserControl
                 _infiniteGratingPeriod,
                 new TextBlock { Text = "槽角 (°)", VerticalAlignment = VerticalAlignment.Center },
                 _gratingAngle,
+                new TextBlock { Text = "焦距 (mm)", VerticalAlignment = VerticalAlignment.Center },
+                _thinLensFocalLength,
+                _infiniteThinLensFocalLength,
                 applyComponentsButton,
                 _componentSummary
             }
@@ -203,6 +221,28 @@ public sealed class LensEditorPanel : UserControl
                 }
                 _gratingAngle.Value = (decimal)(grating.GrooveOrientationAngleRadians * 180.0 / Math.PI);
             }
+            else
+            {
+                _infiniteGratingPeriod.IsChecked = false;
+            }
+            if (surface.InteractionModel is ThinLensInteractionModel thinLens
+                && double.IsFinite(thinLens.FocalLength))
+            {
+                _infiniteThinLensFocalLength.IsChecked = false;
+                _thinLensFocalLength.Value = (decimal)Math.Clamp(
+                    thinLens.FocalLength,
+                    (double)_thinLensFocalLength.Minimum,
+                    (double)_thinLensFocalLength.Maximum);
+            }
+            else if (surface.InteractionModel is ThinLensInteractionModel infiniteThinLens)
+            {
+                _infiniteThinLensFocalLength.IsChecked = true;
+                _thinLensFocalLength.Value = double.IsNegativeInfinity(infiniteThinLens.FocalLength) ? -1 : 1;
+            }
+            else
+            {
+                _infiniteThinLensFocalLength.IsChecked = false;
+            }
             _componentSummary.Text = $"表面 {surface.Number}: {surface.Geometry.Kind}, {surface.MaterialAfterName}";
         }
         finally
@@ -229,7 +269,12 @@ public sealed class LensEditorPanel : UserControl
             _infiniteGratingPeriod.IsChecked == true
                 ? double.PositiveInfinity
                 : (double)(_gratingPeriod.Value ?? 1),
-            (double)(_gratingAngle.Value ?? 0));
+            (double)(_gratingAngle.Value ?? 0),
+            _infiniteThinLensFocalLength.IsChecked == true
+                ? Math.CopySign(
+                    double.PositiveInfinity,
+                    (double)(_thinLensFocalLength.Value ?? 1))
+                : (double)(_thinLensFocalLength.Value ?? 50));
     }
 
     private static string GeometryKindFor(OpticalSurface surface)
@@ -265,6 +310,7 @@ public sealed class LensEditorPanel : UserControl
     {
         return surface.InteractionModel switch
         {
+            ThinLensInteractionModel model when model.IsReflective => "反射薄透镜",
             ThinLensInteractionModel => "薄透镜",
             DiffractiveInteractionModel model when model.IsReflective => "反射衍射",
             DiffractiveInteractionModel => "衍射",

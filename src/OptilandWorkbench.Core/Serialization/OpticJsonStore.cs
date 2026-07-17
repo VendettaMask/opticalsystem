@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OptilandWorkbench.Core.Serialization;
 
@@ -6,7 +7,8 @@ public static class OpticJsonStore
 {
     private static readonly JsonSerializerOptions Options = new()
     {
-        WriteIndented = true
+        WriteIndented = true,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
     };
 
     public static async Task SaveAsync(Optic optic, string path, CancellationToken cancellationToken = default)

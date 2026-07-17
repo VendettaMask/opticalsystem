@@ -623,15 +623,9 @@ public static class PythonOptilandJsonStore
         bool isReflective,
         ICoatingModel coating)
     {
-        if (isReflective)
-        {
-            throw new NotSupportedException(
-                "Python Optiland reflective ThinLensInteractionModel is not supported yet.");
-        }
-
         return new ParsedInteraction(
-            new ThinLensInteractionModel(GetDouble(interaction, "focal_length", 50)),
-            false,
+            new ThinLensInteractionModel(GetDouble(interaction, "focal_length", 50), isReflective),
+            isReflective,
             coating);
     }
 
@@ -905,16 +899,18 @@ public static class PythonOptilandJsonStore
                 ["coating"] = coating,
                 ["bsdf"] = null
             },
-            ThinLensInteractionModel thinLens when !surface.IsReflective => new Dictionary<string, object?>
+            ThinLensInteractionModel thinLens => new Dictionary<string, object?>
             {
                 ["type"] = "ThinLensInteractionModel",
-                ["is_reflective"] = false,
+                ["is_reflective"] = thinLens.IsReflective || surface.IsReflective,
                 ["coating"] = coating,
                 ["bsdf"] = null,
-                ["focal_length"] = thinLens.FocalLength
+                ["focal_length"] = double.IsPositiveInfinity(thinLens.FocalLength)
+                    ? PositiveInfinitySentinel
+                    : double.IsNegativeInfinity(thinLens.FocalLength)
+                        ? NegativeInfinitySentinel
+                        : thinLens.FocalLength
             },
-            ThinLensInteractionModel => throw new NotSupportedException(
-                "Reflective ThinLensInteractionModel cannot be exported to Python Optiland JSON yet."),
             PhaseInteractionModel phase when surface.Geometry is PlaneGeometry => new Dictionary<string, object?>
             {
                 ["type"] = "PhaseInteractionModel",

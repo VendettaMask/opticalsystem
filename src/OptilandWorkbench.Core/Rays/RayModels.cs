@@ -8,12 +8,15 @@ public sealed record RealRay(
     double WavelengthNanometers,
     double Intensity = 1,
     double OpticalPathDifference = 0,
-    Matrix3x3? PolarizationMatrix = null)
+    Matrix3x3? PolarizationMatrix = null,
+    bool IsNormalized = true)
 {
     public RealRay Normalize()
     {
         var length = Direction.Length;
-        return length <= 1e-12 ? this with { Direction = new Vector3D(0, 0, 1) } : this with { Direction = Direction / length };
+        return length <= 1e-12
+            ? this with { Direction = new Vector3D(0, 0, 1), IsNormalized = true }
+            : this with { Direction = Direction / length, IsNormalized = true };
     }
 
     public bool IsAlive => Intensity > 0;

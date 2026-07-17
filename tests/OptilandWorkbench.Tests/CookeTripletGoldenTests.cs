@@ -10,6 +10,7 @@ using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Phase;
+using OptilandWorkbench.Core.Propagation;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
@@ -621,6 +622,151 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
+    public void PythonThinLensInteractionsMatchReferenceRayForRay()
+    {
+        using var reference = LoadThinLensReference();
+        Assert.Equal("0.5.8", reference.RootElement.GetProperty("optiland_version").GetString());
+        foreach (var thinLensCase in reference.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var interaction = new ThinLensInteractionModel(
+                thinLensCase.GetProperty("focal_length_millimeters").GetDouble(),
+                thinLensCase.GetProperty("is_reflective").GetBoolean());
+            var imported = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: thinLensCase.GetProperty("dictionary").GetRawText(),
+                materialPostJson: $$"""
+                {
+                  "type": "IdealMaterial",
+                  "index": {{thinLensCase.GetProperty("material_index_after").GetRawText()}},
+                  "absorp": 0.0
+                }
+                """));
+            var importedInteraction = Assert.IsType<ThinLensInteractionModel>(
+                imported.SurfaceGroup.Items[1].InteractionModel);
+            Assert.Equal(interaction.IsReflective, importedInteraction.IsReflective);
+            AssertClose(interaction.FocalLength, importedInteraction.FocalLength, ScalarTolerance);
+            var nativeRestored = Optic.FromSnapshot(imported.ToSnapshot());
+            var nativeInteraction = Assert.IsType<ThinLensInteractionModel>(
+                nativeRestored.SurfaceGroup.Items[1].InteractionModel);
+            Assert.Equal(interaction.IsReflective, nativeInteraction.IsReflective);
+            AssertClose(interaction.FocalLength, nativeInteraction.FocalLength, ScalarTolerance);
+            var strictExport = PythonOptilandJsonStore.Serialize(imported)
+                .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+                .Replace("Infinity", "1e308", StringComparison.Ordinal);
+            using var exported = JsonDocument.Parse(strictExport);
+            AssertJsonObjectEquivalent(
+                thinLensCase.GetProperty("dictionary"),
+                exported.RootElement.GetProperty("surface_group").GetProperty("surfaces")[1]
+                    .GetProperty("interaction_model"));
+            var propagationDistance = thinLensCase
+                .GetProperty("propagation_distance_millimeters")
+                .GetDouble();
+
+            foreach (var sample in thinLensCase.GetProperty("real_samples").EnumerateArray())
+            {
+                var ray = ThinLensRay(sample);
+                var indexBefore = sample.GetProperty("refractive_index_before").GetDouble();
+                var indexAfter = sample.GetProperty("refractive_index_after").GetDouble();
+                var actual = interaction.Interact(ray, new SurfaceInteractionContext(
+                    new Vector3D(0, 0, 1),
+                    indexBefore,
+                    indexAfter,
+                    ray.WavelengthNanometers,
+                    interaction.IsReflective,
+                    new PlaneGeometry()));
+
+                AssertClose(sample.GetProperty("thin_direction_x").GetDouble(), actual.Direction.X, TraceTolerance);
+                AssertClose(sample.GetProperty("thin_direction_y").GetDouble(), actual.Direction.Y, TraceTolerance);
+                AssertClose(sample.GetProperty("thin_direction_z").GetDouble(), actual.Direction.Z, TraceTolerance);
+                AssertClose(sample.GetProperty("thin_opd").GetDouble(), actual.OpticalPathDifference, TraceTolerance);
+                Assert.Equal(sample.GetProperty("thin_is_normalized").GetBoolean(), actual.IsNormalized);
+                AssertClose(sample.GetProperty("input_intensity").GetDouble(), actual.Intensity, TraceTolerance);
+
+                var propagated = new HomogeneousPropagationModel().Propagate(actual, propagationDistance) with
+                {
+                    OpticalPathDifference = actual.OpticalPathDifference + (propagationDistance * indexAfter)
+                };
+                AssertClose(sample.GetProperty("propagated_x").GetDouble(), propagated.Origin.X, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_y").GetDouble(), propagated.Origin.Y, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_z").GetDouble(), propagated.Origin.Z, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_direction_x").GetDouble(), propagated.Direction.X, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_direction_y").GetDouble(), propagated.Direction.Y, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_direction_z").GetDouble(), propagated.Direction.Z, TraceTolerance);
+                AssertClose(sample.GetProperty("propagated_opd").GetDouble(), propagated.OpticalPathDifference, TraceTolerance);
+                Assert.True(propagated.IsNormalized);
+            }
+
+            foreach (var sample in thinLensCase.GetProperty("paraxial_samples").EnumerateArray())
+            {
+                var wavelengthNanometers = sample.GetProperty("wavelength_micrometers").GetDouble() * 1000;
+                var actual = interaction.Interact(
+                    new ParaxialRay(
+                        sample.GetProperty("height").GetDouble(),
+                        sample.GetProperty("slope").GetDouble(),
+                        0,
+                        wavelengthNanometers),
+                    new SurfaceInteractionContext(
+                        new Vector3D(0, 0, 1),
+                        sample.GetProperty("refractive_index_before").GetDouble(),
+                        sample.GetProperty("refractive_index_after").GetDouble(),
+                        wavelengthNanometers,
+                        interaction.IsReflective,
+                        new PlaneGeometry()));
+                AssertClose(sample.GetProperty("output_slope").GetDouble(), actual.Angle, TraceTolerance);
+            }
+        }
+    }
+
+    [Fact]
+    public void ThinLensSlopeStatePropagatesAcrossSurfacesLikePython()
+    {
+        using var reference = LoadThinLensReference();
+        foreach (var thinLensCase in reference.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var sample = thinLensCase.GetProperty("real_samples")[1];
+            var indexBefore = sample.GetProperty("refractive_index_before").GetDouble();
+            var indexAfter = sample.GetProperty("refractive_index_after").GetDouble();
+            var distance = thinLensCase.GetProperty("propagation_distance_millimeters").GetDouble();
+            var beforeMaterial = new ConstantIndexMaterial("Before", indexBefore);
+            var afterMaterial = new ConstantIndexMaterial("After", indexAfter);
+            var thinSurface = new OpticalSurface
+            {
+                Geometry = new PlaneGeometry(),
+                MaterialAfter = afterMaterial,
+                InteractionModel = new ThinLensInteractionModel(
+                    thinLensCase.GetProperty("focal_length_millimeters").GetDouble(),
+                    thinLensCase.GetProperty("is_reflective").GetBoolean()),
+                CoordinateSystem = new CoordinateSystem(Vector3D.Zero)
+            };
+            var nextSurface = new OpticalSurface
+            {
+                Geometry = new PlaneGeometry(),
+                MaterialAfter = afterMaterial,
+                InteractionModel = new RefractiveReflectiveInteractionModel(),
+                CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, distance))
+            };
+
+            var thinResult = thinSurface.TraceRay(ThinLensRay(sample), beforeMaterial, afterMaterial, 0, 0);
+            Assert.False(thinResult.Ray.IsNormalized);
+            var nextResult = nextSurface.TraceRay(
+                thinResult.Ray,
+                afterMaterial,
+                afterMaterial,
+                thinResult.CumulativePathLength,
+                thinResult.CumulativeOpticalPathLength);
+
+            AssertClose(sample.GetProperty("propagated_x").GetDouble(), nextResult.Ray.Origin.X, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_y").GetDouble(), nextResult.Ray.Origin.Y, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_z").GetDouble(), nextResult.Ray.Origin.Z, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_direction_x").GetDouble(), nextResult.Ray.Direction.X, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_direction_y").GetDouble(), nextResult.Ray.Direction.Y, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_direction_z").GetDouble(), nextResult.Ray.Direction.Z, TraceTolerance);
+            AssertClose(sample.GetProperty("propagated_opd").GetDouble(), nextResult.Ray.OpticalPathDifference, TraceTolerance);
+            Assert.True(nextResult.Ray.IsNormalized);
+        }
+    }
+
+    [Fact]
     public void PythonDiffractiveInteractionsMatchReferenceRayForRay()
     {
         using var reference = LoadDiffractiveReference();
@@ -995,14 +1141,59 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
-    public void PythonJsonImportRejectsReflectiveThinLensInteractionExplicitly()
+    public void PythonJsonImportSupportsReflectiveThinLensInteraction()
     {
         var json = PythonJsonWithSurfaceGeometry(PythonPlaneGeometry(), PythonThinLensInteraction("75.0", "true"));
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var interaction = Assert.IsType<ThinLensInteractionModel>(optic.SurfaceGroup.Items[1].InteractionModel);
+        Assert.True(interaction.IsReflective);
+        Assert.Equal(75, interaction.FocalLength, precision: 12);
 
-        Assert.Contains("ThinLensInteractionModel", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("reflective", error.Message, StringComparison.OrdinalIgnoreCase);
+        var exported = PythonOptilandJsonStore.Serialize(optic);
+        Assert.Contains("\"is_reflective\": true", exported, StringComparison.Ordinal);
+
+        var infinite = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+            PythonPlaneGeometry(),
+            PythonThinLensInteraction("Infinity", "false")));
+        Assert.True(double.IsPositiveInfinity(
+            Assert.IsType<ThinLensInteractionModel>(infinite.SurfaceGroup.Items[1].InteractionModel)
+                .FocalLength));
+        Assert.Contains(
+            "\"focal_length\": Infinity",
+            PythonOptilandJsonStore.Serialize(infinite),
+            StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task NativeJsonPreservesInfiniteGratingAndThinLensValues()
+    {
+        var optic = Optic.CreateTessarLens();
+        optic.SurfaceGroup.Items[1].Geometry = new PlaneGratingGeometry(0, double.PositiveInfinity, 0);
+        optic.SurfaceGroup.Items[1].InteractionModel = new DiffractiveInteractionModel();
+        optic.SurfaceGroup.Items[2].InteractionModel = new ThinLensInteractionModel(
+            double.NegativeInfinity,
+            true);
+        var path = Path.Combine(Path.GetTempPath(), $"infinite-components-{Guid.NewGuid():N}.optiland.json");
+        try
+        {
+            await OpticJsonStore.SaveAsync(optic, path);
+            var restored = await OpticJsonStore.LoadAsync(path);
+            Assert.True(double.IsPositiveInfinity(
+                Assert.IsType<PlaneGratingGeometry>(restored.SurfaceGroup.Items[1].Geometry)
+                    .GratingPeriodMicrometers));
+            var thinLens = Assert.IsType<ThinLensInteractionModel>(
+                restored.SurfaceGroup.Items[2].InteractionModel);
+            Assert.True(double.IsNegativeInfinity(thinLens.FocalLength));
+            Assert.True(thinLens.IsReflective);
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
     }
 
     [Fact]
@@ -1209,6 +1400,27 @@ public sealed class CookeTripletGoldenTests
             "optiland-0.5.8-diffractive-reference.json");
         return JsonDocument.Parse(File.ReadAllText(path));
     }
+
+    private static JsonDocument LoadThinLensReference()
+    {
+        var path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-thin-lens-reference.json");
+        return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static RealRay ThinLensRay(JsonElement sample) => new(
+        new Vector3D(
+            sample.GetProperty("x").GetDouble(),
+            sample.GetProperty("y").GetDouble(),
+            0),
+        new Vector3D(
+            sample.GetProperty("direction_x").GetDouble(),
+            sample.GetProperty("direction_y").GetDouble(),
+            sample.GetProperty("direction_z").GetDouble()),
+        sample.GetProperty("wavelength_micrometers").GetDouble() * 1000,
+        sample.GetProperty("input_intensity").GetDouble());
 
     private static IGratingGeometry CreateGratingGeometry(JsonElement diffractionCase)
     {

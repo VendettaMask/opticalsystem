@@ -108,6 +108,7 @@ public sealed class OptilandConnector
         "折射",
         "反射",
         "薄透镜",
+        "反射薄透镜",
         "衍射",
         "反射衍射",
         "相位"
@@ -601,7 +602,8 @@ public sealed class OptilandConnector
         string physicalApertureKind,
         int gratingOrder = 1,
         double gratingPeriodMicrometers = 1,
-        double grooveOrientationAngleDegrees = 0)
+        double grooveOrientationAngleDegrees = 0,
+        double thinLensFocalLength = 50)
     {
         if (surface is null)
         {
@@ -612,7 +614,7 @@ public sealed class OptilandConnector
         ApplyGeometry(surface, geometryKind);
         ApplyMaterial(surface, materialName);
         ApplyCoating(surface, coatingKind);
-        ApplyInteraction(surface, interactionKind);
+        ApplyInteraction(surface, interactionKind, thinLensFocalLength);
         ApplyGratingParameters(
             surface,
             gratingOrder,
@@ -1124,7 +1126,10 @@ public sealed class OptilandConnector
         }
     }
 
-    private static void ApplyInteraction(OpticalSurface surface, string interactionKind)
+    private static void ApplyInteraction(
+        OpticalSurface surface,
+        string interactionKind,
+        double thinLensFocalLength)
     {
         interactionKind = CanonicalInteractionKind(interactionKind);
         if (interactionKind is "Diffractive" or "Reflective Diffractive")
@@ -1153,11 +1158,12 @@ public sealed class OptilandConnector
             };
         }
 
-        surface.IsReflective = interactionKind is "Reflective" or "Reflective Diffractive";
+        surface.IsReflective = interactionKind is "Reflective" or "Reflective Thin Lens" or "Reflective Diffractive";
         surface.InteractionModel = interactionKind switch
         {
             "Reflective" => new RefractiveReflectiveInteractionModel(true),
-            "Thin Lens" => new ThinLensInteractionModel(50),
+            "Thin Lens" => new ThinLensInteractionModel(thinLensFocalLength),
+            "Reflective Thin Lens" => new ThinLensInteractionModel(thinLensFocalLength, true),
             "Diffractive" => new DiffractiveInteractionModel(),
             "Reflective Diffractive" => new DiffractiveInteractionModel(true),
             "Phase" => new PhaseInteractionModel(new ConstantPhaseProfile()),
@@ -1471,6 +1477,7 @@ public sealed class OptilandConnector
             "折射" => "Refractive",
             "反射" => "Reflective",
             "薄透镜" => "Thin Lens",
+            "反射薄透镜" => "Reflective Thin Lens",
             "衍射" => "Diffractive",
             "反射衍射" => "Reflective Diffractive",
             "相位" => "Phase",

@@ -73,40 +73,53 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
 
 public sealed class ThinLensInteractionModel : IInteractionModel
 {
-    public ThinLensInteractionModel(double focalLength)
+    public ThinLensInteractionModel(double focalLength, bool isReflective = false)
     {
         FocalLength = focalLength;
+        IsReflective = isReflective;
     }
 
     public string Kind => "thin_lens";
 
     public double FocalLength { get; set; }
 
+    public bool IsReflective { get; }
+
     public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
     {
-        if (Math.Abs(FocalLength) < 1e-12)
+        var reflective = IsReflective || context.IsReflective;
+        var indexBefore = context.RefractiveIndexBefore;
+        var indexAfter = reflective ? -indexBefore : context.RefractiveIndexAfter;
+        var inputSlopeX = ray.Direction.X / ray.Direction.Z;
+        var inputSlopeY = ray.Direction.Y / ray.Direction.Z;
+        var outputSlopeX = ((indexBefore * inputSlopeX) - (ray.Origin.X / FocalLength)) / indexAfter;
+        var outputSlopeY = ((indexBefore * inputSlopeY) - (ray.Origin.Y / FocalLength)) / indexAfter;
+        var opd = ray.OpticalPathDifference
+            - (((ray.Origin.X * ray.Origin.X) + (ray.Origin.Y * ray.Origin.Y)) / (2 * FocalLength));
+        return ray with
         {
-            return ray;
-        }
-
-        var target = new Vector3D(0, 0, FocalLength);
-        return ray with { Direction = Normalize(target - ray.Origin) };
+            Direction = new Vector3D(outputSlopeX, outputSlopeY, 1),
+            OpticalPathDifference = opd,
+            IsNormalized = false
+        };
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
     {
-        return Math.Abs(FocalLength) < 1e-12
-            ? ray
-            : ray with { Angle = ray.Angle - (ray.Height / FocalLength) };
+        var reflective = IsReflective || context.IsReflective;
+        return reflective
+            ? ray with
+            {
+                Angle = (ray.Height / (FocalLength * context.RefractiveIndexBefore)) - ray.Angle
+            }
+            : ray with
+            {
+                Angle = ((context.RefractiveIndexBefore * ray.Angle) - (ray.Height / FocalLength))
+                    / context.RefractiveIndexAfter
+            };
     }
 
-    public IInteractionModel Clone() => new ThinLensInteractionModel(FocalLength);
-
-    private static Vector3D Normalize(Vector3D vector)
-    {
-        var length = vector.Length;
-        return length <= 1e-12 ? new Vector3D(0, 0, 1) : vector / length;
-    }
+    public IInteractionModel Clone() => new ThinLensInteractionModel(FocalLength, IsReflective);
 }
 
 public sealed class DiffractiveInteractionModel : IInteractionModel
