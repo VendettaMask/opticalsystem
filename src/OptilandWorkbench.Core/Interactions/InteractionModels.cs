@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Interactions;
@@ -140,26 +141,72 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
 
 public sealed class PhaseInteractionModel : IInteractionModel
 {
-    public PhaseInteractionModel(Func<double, double, (double Dx, double Dy)> gradient)
+    public PhaseInteractionModel(IPhaseProfile profile, bool isReflective = false)
     {
-        Gradient = gradient;
+        Profile = profile;
+        IsReflective = isReflective;
     }
 
     public string Kind => "phase";
 
-    public Func<double, double, (double Dx, double Dy)> Gradient { get; }
+    public IPhaseProfile Profile { get; }
+
+    public bool IsReflective { get; }
 
     public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
     {
-        var gradient = Gradient(ray.Origin.X, ray.Origin.Y);
-        var direction = new Vector3D(ray.Direction.X + gradient.Dx, ray.Direction.Y + gradient.Dy, ray.Direction.Z);
-        return ray with { Direction = direction / direction.Length };
+        var normal = context.SurfaceNormal;
+        var reflective = IsReflective || context.IsReflective;
+        var wavelengthMicrometers = context.WavelengthNanometers / 1000.0;
+        var waveNumber = 2 * Math.PI / wavelengthMicrometers;
+        var refractiveIndexAfter = reflective ? context.RefractiveIndexBefore : context.RefractiveIndexAfter;
+        var incidentWaveVector = ray.Direction * (context.RefractiveIndexBefore * waveNumber);
+        var gradient = Profile.Gradient(ray.Origin.X, ray.Origin.Y, context.WavelengthNanometers);
+        var ambientGradient = new Vector3D(gradient.Dx, gradient.Dy, 0);
+        var surfaceGradient = ambientGradient - (Dot(ambientGradient, normal) * normal);
+        var incidentTangential = incidentWaveVector - (Dot(incidentWaveVector, normal) * normal);
+        var outgoingTangential = incidentTangential + surfaceGradient;
+        var normalMagnitudeSquared = (refractiveIndexAfter * waveNumber * refractiveIndexAfter * waveNumber)
+            - Dot(outgoingTangential, outgoingTangential);
+        var intensity = ray.Intensity;
+        if (normalMagnitudeSquared < 0)
+        {
+            intensity = 0;
+        }
+
+        var normalMagnitude = Math.Sqrt(Math.Max(0, normalMagnitudeSquared));
+        var outgoingWaveVector = outgoingTangential
+            + ((reflective ? -normalMagnitude : normalMagnitude) * normal);
+        var outgoingLength = outgoingWaveVector.Length;
+        var phase = Profile.Phase(ray.Origin.X, ray.Origin.Y, context.WavelengthNanometers);
+        return ray with
+        {
+            Direction = outgoingLength <= 1e-12 ? ray.Direction : outgoingWaveVector / outgoingLength,
+            Intensity = intensity * Profile.Efficiency,
+            OpticalPathDifference = ray.OpticalPathDifference - (phase / waveNumber)
+        };
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
     {
-        return ray;
+        var wavelengthMicrometers = context.WavelengthNanometers / 1000.0;
+        var waveNumber = 2 * Math.PI / wavelengthMicrometers;
+        var gradientDeflection = Profile.ParaxialGradient(
+            ray.Height,
+            context.WavelengthNanometers) / waveNumber;
+        return IsReflective || context.IsReflective
+            ? ray with { Angle = ray.Angle + (gradientDeflection / context.RefractiveIndexBefore) }
+            : ray with
+            {
+                Angle = (context.RefractiveIndexBefore / context.RefractiveIndexAfter * ray.Angle)
+                    - (gradientDeflection / context.RefractiveIndexAfter)
+            };
     }
 
-    public IInteractionModel Clone() => new PhaseInteractionModel(Gradient);
+    public IInteractionModel Clone() => new PhaseInteractionModel(Profile.Clone(), IsReflective);
+
+    private static double Dot(Vector3D left, Vector3D right)
+    {
+        return (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
+    }
 }

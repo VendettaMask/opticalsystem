@@ -9,6 +9,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Phase;
 
 namespace OptilandWorkbench.Core.Serialization;
 
@@ -340,6 +341,10 @@ public static class PythonOptilandJsonStore
         var parsedInteraction = hasInteraction
             ? ReadInteractionModel(interactionElement)
             : new ParsedInteraction(new RefractiveReflectiveInteractionModel(), false, new NoneCoatingModel());
+        if (parsedInteraction.Interaction is PhaseInteractionModel && parsedGeometry is not PlaneGeometry)
+        {
+            throw new NotSupportedException("Python Optiland phase interactions require Plane geometry.");
+        }
         var label = GetString(source, "comment", string.Empty);
         if (string.IsNullOrWhiteSpace(label))
         {
@@ -540,6 +545,7 @@ public static class PythonOptilandJsonStore
                 isReflective,
                 coating),
             "ThinLensInteractionModel" => ReadThinLensInteraction(interaction, isReflective, coating),
+            "PhaseInteractionModel" => ReadPhaseInteraction(interaction, isReflective, coating),
             _ => throw new NotSupportedException($"Python Optiland interaction model '{type}' is not supported yet.")
         };
     }
@@ -559,6 +565,43 @@ public static class PythonOptilandJsonStore
             new ThinLensInteractionModel(GetDouble(interaction, "focal_length", 50)),
             false,
             coating);
+    }
+
+    private static ParsedInteraction ReadPhaseInteraction(
+        JsonElement interaction,
+        bool isReflective,
+        ICoatingModel coating)
+    {
+        if (!interaction.TryGetProperty("phase_profile", out var profile)
+            || profile.ValueKind != JsonValueKind.Object)
+        {
+            throw new NotSupportedException("Python Optiland PhaseInteractionModel requires a phase_profile dictionary.");
+        }
+
+        return new ParsedInteraction(
+            new PhaseInteractionModel(ReadPhaseProfile(profile), isReflective),
+            isReflective,
+            coating);
+    }
+
+    private static IPhaseProfile ReadPhaseProfile(JsonElement profile)
+    {
+        return GetString(profile, "phase_type", string.Empty) switch
+        {
+            "constant" => new ConstantPhaseProfile(GetDouble(profile, "phase", 0)),
+            "linear_grating" => new LinearGratingPhaseProfile(
+                GetDouble(profile, "period", 1),
+                GetDouble(profile, "angle", 0),
+                (int)GetDouble(profile, "order", 1),
+                GetDouble(profile, "efficiency", 1)),
+            "radial" => new RadialPhaseProfile(ReadDoubleArray(profile, "coefficients")),
+            "grid" => new GridPhaseProfile(
+                ReadDoubleArray(profile, "x_coords"),
+                ReadDoubleArray(profile, "y_coords"),
+                ReadDoubleMatrix(profile, "phase_grid")),
+            var type => throw new NotSupportedException(
+                $"Python Optiland phase profile '{type}' is not supported yet.")
+        };
     }
 
     private static ICoatingModel ReadCoating(JsonElement coating)
@@ -795,8 +838,52 @@ public static class PythonOptilandJsonStore
             },
             ThinLensInteractionModel => throw new NotSupportedException(
                 "Reflective ThinLensInteractionModel cannot be exported to Python Optiland JSON yet."),
+            PhaseInteractionModel phase when surface.Geometry is PlaneGeometry => new Dictionary<string, object?>
+            {
+                ["type"] = "PhaseInteractionModel",
+                ["is_reflective"] = phase.IsReflective || surface.IsReflective,
+                ["coating"] = coating,
+                ["bsdf"] = null,
+                ["phase_profile"] = WritePhaseProfile(phase.Profile)
+            },
+            PhaseInteractionModel => throw new NotSupportedException(
+                "PhaseInteractionModel can only be exported on Plane geometry."),
             _ => throw new NotSupportedException(
                 $"Interaction '{surface.InteractionModel.Kind}' cannot be exported to Python Optiland JSON yet.")
+        };
+    }
+
+    private static object WritePhaseProfile(IPhaseProfile profile)
+    {
+        return profile switch
+        {
+            ConstantPhaseProfile constant => new Dictionary<string, object?>
+            {
+                ["phase_type"] = "constant",
+                ["phase"] = constant.PhaseValue
+            },
+            LinearGratingPhaseProfile linear => new Dictionary<string, object?>
+            {
+                ["phase_type"] = "linear_grating",
+                ["period"] = linear.Period,
+                ["angle"] = linear.Angle,
+                ["order"] = linear.Order,
+                ["efficiency"] = linear.Efficiency
+            },
+            RadialPhaseProfile radial => new Dictionary<string, object?>
+            {
+                ["phase_type"] = "radial",
+                ["coefficients"] = radial.Coefficients
+            },
+            GridPhaseProfile grid => new Dictionary<string, object?>
+            {
+                ["phase_type"] = "grid",
+                ["x_coords"] = grid.XCoordinates,
+                ["y_coords"] = grid.YCoordinates,
+                ["phase_grid"] = WriteDoubleMatrix(grid.PhaseGrid)
+            },
+            _ => throw new NotSupportedException(
+                $"Phase profile '{profile.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
     }
 
@@ -1262,6 +1349,45 @@ public static class PythonOptilandJsonStore
 
         return array.EnumerateArray()
             .Select(item => ReadDoubleValue(item, 0.0))
+            .ToArray();
+    }
+
+    private static double[,] ReadDoubleMatrix(JsonElement source, string propertyName)
+    {
+        if (!source.TryGetProperty(propertyName, out var rows) || rows.ValueKind != JsonValueKind.Array)
+        {
+            return new double[0, 0];
+        }
+
+        var parsedRows = rows.EnumerateArray()
+            .Select(row => row.ValueKind == JsonValueKind.Array
+                ? row.EnumerateArray().Select(item => ReadDoubleValue(item, 0)).ToArray()
+                : Array.Empty<double>())
+            .ToArray();
+        var columns = parsedRows.Length == 0 ? 0 : parsedRows[0].Length;
+        if (parsedRows.Any(row => row.Length != columns))
+        {
+            throw new InvalidDataException("Python Optiland phase_grid rows must have equal lengths.");
+        }
+
+        var output = new double[parsedRows.Length, columns];
+        for (var row = 0; row < parsedRows.Length; row++)
+        {
+            for (var column = 0; column < columns; column++)
+            {
+                output[row, column] = parsedRows[row][column];
+            }
+        }
+
+        return output;
+    }
+
+    private static double[][] WriteDoubleMatrix(double[,] matrix)
+    {
+        return Enumerable.Range(0, matrix.GetLength(0))
+            .Select(row => Enumerable.Range(0, matrix.GetLength(1))
+                .Select(column => matrix[row, column])
+                .ToArray())
             .ToArray();
     }
 

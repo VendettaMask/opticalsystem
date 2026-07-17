@@ -11,6 +11,7 @@ using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
@@ -1100,7 +1101,7 @@ public sealed class OptilandConnector
             "Reflective" => new RefractiveReflectiveInteractionModel(true),
             "Thin Lens" => new ThinLensInteractionModel(50),
             "Diffractive" => new DiffractiveInteractionModel(1),
-            "Phase" => new PhaseInteractionModel((_, _) => (0, 0)),
+            "Phase" => new PhaseInteractionModel(new ConstantPhaseProfile()),
             _ => new RefractiveReflectiveInteractionModel(false)
         };
     }

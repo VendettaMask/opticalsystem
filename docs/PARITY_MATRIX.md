@@ -6,7 +6,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | --- | --- | --- |
 | Configurable backend | `Backend` | `INumericBackend`, managed CPU backend, backend registry |
 | Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
-| Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model added while retaining GUI-compatible legacy fields |
+| Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model with source-validated plane phase profiles and local-coordinate interactions while retaining GUI-compatible legacy fields |
 | Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
 | Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven source-validated apodization profiles; telecentric generation option |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |

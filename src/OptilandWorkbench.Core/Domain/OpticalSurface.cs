@@ -173,7 +173,6 @@ public sealed class OpticalSurface : NotifyObject
                 StopTracing: true);
         }
 
-        var localHit = localOrigin + (localDirection * distance.Value);
         var segmentLength = Math.Max(0, distance.Value);
         var segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
         var nextCumulativePathLength = cumulativePathLength + segmentLength;
@@ -188,8 +187,9 @@ public sealed class OpticalSurface : NotifyObject
             OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength,
             Intensity = ray.Intensity * attenuation
         };
+        var localPropagatedHit = CoordinateSystem.ToLocalPoint(propagatedRay.Origin);
 
-        var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localHit);
+        var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localPropagatedHit);
         if (vignetted)
         {
             var stoppedRay = propagatedRay with { Intensity = 0 };
@@ -213,18 +213,30 @@ public sealed class OpticalSurface : NotifyObject
                 StopTracing: true);
         }
 
-        var normal = CoordinateSystem.ToGlobalDirection(Geometry.SurfaceNormal(localHit));
+        var localNormal = Geometry.SurfaceNormal(localPropagatedHit);
+        var normal = CoordinateSystem.ToGlobalDirection(localNormal);
         var isReflectiveInteraction = IsReflective
-            || (InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true });
+            || InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+            || InteractionModel is PhaseInteractionModel { IsReflective: true };
         var context = new SurfaceInteractionContext(
-            normal,
+            localNormal,
             refractiveIndexBefore,
             refractiveIndexAfter,
             ray.WavelengthNanometers,
             isReflectiveInteraction);
 
-        var tracedRay = InteractionModel.Interact(propagatedRay, context);
-        tracedRay = CoatingModel.Apply(tracedRay, context);
+        var localRay = propagatedRay with
+        {
+            Origin = localPropagatedHit,
+            Direction = CoordinateSystem.ToLocalDirection(propagatedRay.Direction)
+        };
+        var interactedLocalRay = InteractionModel.Interact(localRay, context);
+        interactedLocalRay = CoatingModel.Apply(interactedLocalRay, context);
+        var tracedRay = interactedLocalRay with
+        {
+            Origin = CoordinateSystem.ToGlobalPoint(interactedLocalRay.Origin),
+            Direction = CoordinateSystem.ToGlobalDirection(interactedLocalRay.Direction)
+        };
         tracedRay = ScatteringModel?.Scatter(tracedRay, normal) ?? tracedRay;
 
         var tracedSample = new RayTraceSample(

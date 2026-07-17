@@ -31,7 +31,7 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 - homogeneous catalog, ideal, and Abbe materials
 - centered/annular/offset radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures
 - uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization
-- refractive/reflective and non-reflective thin-lens interactions
+- refractive/reflective, non-reflective thin-lens, and plane-surface phase interactions with constant, linear-grating, radial, or grid profiles
 - simple Python coating dictionaries on the Workbench adapter path
 
 Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON remains the lossless format for Workbench-only geometry, plugin, optimization, tolerancing, solve, pickup, and GUI state.

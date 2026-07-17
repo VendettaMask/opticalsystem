@@ -28,7 +28,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
 | Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |
-| Interaction | RefractiveReflectiveModel, including mirrors, and non-reflective ThinLensInteractionModel |
+| Interaction | RefractiveReflectiveModel including mirrors; non-reflective ThinLensInteractionModel; transmissive or reflective plane-surface PhaseInteractionModel with constant, linear-grating, radial, or grid profiles |
 | Coating | SimpleCoating dictionaries in Workbench import/export |
 | Sequential data | Thickness, stop, coordinate position and rotation |
 
@@ -61,7 +61,7 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 - Python ChebyshevPolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure Chebyshev model.
 - Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
-- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase, and diffractive interactions.
+- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, and diffractive interactions.
 - Pickups, solves, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.
 

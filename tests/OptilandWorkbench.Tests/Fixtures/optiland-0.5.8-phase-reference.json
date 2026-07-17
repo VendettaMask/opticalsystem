@@ -1,0 +1,569 @@
+{
+  "optiland_version": "0.5.8",
+  "profiles": [
+    {
+      "name": "constant",
+      "dictionary": {
+        "phase_type": "constant",
+        "phase": 0.35
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "phase": 0.35,
+          "gradient_x": 0.0,
+          "gradient_y": 0.0,
+          "paraxial_gradient": 0.0
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "phase": 0.35,
+          "gradient_x": 0.0,
+          "gradient_y": 0.0,
+          "paraxial_gradient": 0.0
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "phase": 0.35,
+          "gradient_x": 0.0,
+          "gradient_y": 0.0,
+          "paraxial_gradient": 0.0
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "phase": 0.35,
+          "gradient_x": 0.0,
+          "gradient_y": 0.0,
+          "paraxial_gradient": 0.0
+        }
+      ]
+    },
+    {
+      "name": "linear_grating",
+      "dictionary": {
+        "phase_type": "linear_grating",
+        "period": 0.8,
+        "angle": 0.3,
+        "order": 1,
+        "efficiency": 0.75
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "phase": 0.0,
+          "gradient_x": 7.503195239858172,
+          "gradient_y": 2.3210102755865045,
+          "paraxial_gradient": 2.3210102755865045
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "phase": 1.2685380204129841,
+          "gradient_x": 7.503195239858172,
+          "gradient_y": 2.3210102755865045,
+          "paraxial_gradient": 2.3210102755865045
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "phase": -2.564084261480901,
+          "gradient_x": 7.503195239858172,
+          "gradient_y": 2.3210102755865045,
+          "paraxial_gradient": 2.3210102755865045
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "phase": 6.823518484936638,
+          "gradient_x": 7.503195239858172,
+          "gradient_y": 2.3210102755865045,
+          "paraxial_gradient": 2.3210102755865045
+        }
+      ]
+    },
+    {
+      "name": "radial",
+      "dictionary": {
+        "phase_type": "radial",
+        "coefficients": [
+          0.4,
+          -0.08,
+          0.015
+        ]
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "phase": 0.0,
+          "gradient_x": 0.0,
+          "gradient_y": 0.0,
+          "paraxial_gradient": 0.0
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "phase": 0.019801875000000004,
+          "gradient_x": 0.15684500000000004,
+          "gradient_y": -0.07842250000000002,
+          "paraxial_gradient": -0.07968090000000001
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "phase": 0.12206492187500001,
+          "gradient_x": -0.3174778125,
+          "gradient_y": 0.24692718749999998,
+          "paraxial_gradient": 0.266752696875
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "phase": 0.297119122628355,
+          "gradient_x": 0.430579859593,
+          "gradient_y": 0.342104545978,
+          "paraxial_gradient": 0.407471370912
+        }
+      ]
+    },
+    {
+      "name": "grid",
+      "dictionary": {
+        "phase_type": "grid",
+        "x_coords": [
+          -1.0,
+          -0.3,
+          0.4,
+          1.2,
+          2.0
+        ],
+        "y_coords": [
+          -1.5,
+          -0.4,
+          0.2,
+          0.9,
+          1.7
+        ],
+        "phase_grid": [
+          [
+            0.42,
+            -0.18,
+            0.31,
+            0.75,
+            1.12
+          ],
+          [
+            0.08,
+            0.22,
+            -0.14,
+            0.48,
+            0.91
+          ],
+          [
+            -0.35,
+            0.12,
+            0.44,
+            -0.21,
+            0.53
+          ],
+          [
+            0.16,
+            -0.27,
+            0.38,
+            0.82,
+            -0.09
+          ],
+          [
+            0.67,
+            0.05,
+            -0.33,
+            0.29,
+            1.04
+          ]
+        ]
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "phase": 0.3019126027613827,
+          "gradient_x": 0.220699069087938,
+          "gradient_y": 0.4695529520269683,
+          "paraxial_gradient": 0.4695529520269683
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "phase": 0.23021638205126918,
+          "gradient_x": -0.1576210020525993,
+          "gradient_y": 0.9842584135080805,
+          "paraxial_gradient": 0.629276624654357
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "phase": -0.10253867790966462,
+          "gradient_x": 0.9154909415679282,
+          "gradient_y": -0.5745627919699585,
+          "paraxial_gradient": -0.33190195357155117
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "phase": 0.4981470092346519,
+          "gradient_x": -0.35568133837772004,
+          "gradient_y": 0.7160875857582377,
+          "paraxial_gradient": -0.6842972939710066
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "name": "constant_transmissive",
+      "dictionary": {
+        "type": "PhaseInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null,
+        "phase_profile": {
+          "phase_type": "constant",
+          "phase": 0.35
+        }
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "input_intensity": 0.9,
+          "output_direction_x": 0.03333333333333334,
+          "output_direction_y": 0.013333333333333334,
+          "output_direction_z": 0.9993553477673051,
+          "output_intensity": 0.9,
+          "opd": -0.030637326545189855
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "input_intensity": 0.8,
+          "output_direction_x": -0.08,
+          "output_direction_y": 0.05333333333333334,
+          "output_direction_z": 0.9953670456447489,
+          "output_intensity": 0.8,
+          "opd": -0.03342253804929802
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "input_intensity": 0.7,
+          "output_direction_x": 0.13333333333333336,
+          "output_direction_y": -0.06666666666666668,
+          "output_direction_z": 0.9888264649460885,
+          "output_intensity": 0.7,
+          "opd": -0.026738030439438412
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "input_intensity": 0.6,
+          "output_direction_x": 0.0,
+          "output_direction_y": 0.10000000000000002,
+          "output_direction_z": 0.99498743710662,
+          "output_intensity": 0.6,
+          "opd": -0.03620774955340619
+        }
+      ]
+    },
+    {
+      "name": "linear_transmissive",
+      "dictionary": {
+        "type": "PhaseInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null,
+        "phase_profile": {
+          "phase_type": "linear_grating",
+          "period": 0.8,
+          "angle": 0.3,
+          "order": 1,
+          "efficiency": 0.75
+        }
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "input_intensity": 0.9,
+          "output_direction_x": 0.47119589084923613,
+          "output_direction_y": 0.14878009471978065,
+          "output_direction_z": 0.8693899676566137,
+          "output_intensity": 0.675,
+          "opd": 0.0
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "input_intensity": 0.8,
+          "output_direction_x": 0.397668244562803,
+          "output_direction_y": 0.20109343666400312,
+          "output_direction_z": 0.895221423446177,
+          "output_intensity": 0.6000000000000001,
+          "opd": -0.12113645786924043
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "input_intensity": 0.7,
+          "output_direction_x": 0.5154679289835757,
+          "output_direction_y": 0.05154141599786914,
+          "output_direction_z": 0.8553574087048746,
+          "output_intensity": 0.5249999999999999,
+          "opd": 0.1958816086650323
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "input_intensity": 0.6,
+          "output_direction_x": 0.5174739316097032,
+          "output_direction_y": 0.2600734452748923,
+          "output_direction_z": 0.815219315992478,
+          "output_intensity": 0.44999999999999996,
+          "opd": -0.7058978525017814
+        }
+      ]
+    },
+    {
+      "name": "radial_reflective",
+      "dictionary": {
+        "type": "PhaseInteractionModel",
+        "is_reflective": true,
+        "coating": null,
+        "bsdf": null,
+        "phase_profile": {
+          "phase_type": "radial",
+          "coefficients": [
+            0.4,
+            -0.08,
+            0.015
+          ]
+        }
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "input_intensity": 0.9,
+          "output_direction_x": 0.05,
+          "output_direction_y": 0.02,
+          "output_direction_z": -0.9985489472229191,
+          "output_intensity": 0.9,
+          "opd": 0.0
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "input_intensity": 0.8,
+          "output_direction_x": -0.105022405770451,
+          "output_direction_y": 0.0725112028852255,
+          "output_direction_z": -0.9918227763780808,
+          "output_intensity": 0.8,
+          "opd": -0.0018909397732426953
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "input_intensity": 0.7,
+          "output_direction_x": 0.1757464816729391,
+          "output_direction_y": -0.08113615241228597,
+          "output_direction_z": -0.9810861832435077,
+          "output_intensity": 0.7,
+          "opd": -0.009325073133375493
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "input_intensity": 0.6,
+          "output_direction_x": 0.044543793482526135,
+          "output_direction_y": 0.18539095920529472,
+          "output_direction_z": -0.9816547472034793,
+          "output_intensity": 0.6,
+          "opd": -0.030737185084729318
+        }
+      ]
+    },
+    {
+      "name": "grid_transmissive",
+      "dictionary": {
+        "type": "PhaseInteractionModel",
+        "is_reflective": false,
+        "coating": null,
+        "bsdf": null,
+        "phase_profile": {
+          "phase_type": "grid",
+          "x_coords": [
+            -1.0,
+            -0.3,
+            0.4,
+            1.2,
+            2.0
+          ],
+          "y_coords": [
+            -1.5,
+            -0.4,
+            0.2,
+            0.9,
+            1.7
+          ],
+          "phase_grid": [
+            [
+              0.42,
+              -0.18,
+              0.31,
+              0.75,
+              1.12
+            ],
+            [
+              0.08,
+              0.22,
+              -0.14,
+              0.48,
+              0.91
+            ],
+            [
+              -0.35,
+              0.12,
+              0.44,
+              -0.21,
+              0.53
+            ],
+            [
+              0.16,
+              -0.27,
+              0.38,
+              0.82,
+              -0.09
+            ],
+            [
+              0.67,
+              0.05,
+              -0.33,
+              0.29,
+              1.04
+            ]
+          ]
+        }
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "direction_x": 0.05,
+          "direction_y": 0.02,
+          "direction_z": 0.9985489472229191,
+          "wavelength_micrometers": 0.55,
+          "input_intensity": 0.9,
+          "output_direction_x": 0.046212627519745864,
+          "output_direction_y": 0.04073494689811066,
+          "output_direction_z": 0.9981007249566195,
+          "output_intensity": 0.9,
+          "opd": -0.02642798571116763
+        },
+        {
+          "x": 0.2,
+          "y": -0.1,
+          "direction_x": -0.12,
+          "direction_y": 0.08,
+          "direction_z": 0.9895453501482385,
+          "wavelength_micrometers": 0.6,
+          "input_intensity": 0.8,
+          "output_direction_x": -0.09003446464470757,
+          "output_direction_y": 0.11599317004917244,
+          "output_direction_z": 0.9891609473074059,
+          "output_intensity": 0.8,
+          "opd": -0.02198404511051507
+        },
+        {
+          "x": -0.45,
+          "y": 0.35,
+          "direction_x": 0.2,
+          "direction_y": -0.1,
+          "direction_z": 0.9746794344808963,
+          "wavelength_micrometers": 0.48,
+          "input_intensity": 0.7,
+          "output_direction_x": 0.17995890411937793,
+          "output_direction_y": -0.09592890937345044,
+          "output_direction_z": 0.978985412135734,
+          "output_intensity": 0.7,
+          "opd": 0.007833377974766811
+        },
+        {
+          "x": 0.73,
+          "y": 0.58,
+          "direction_x": 0.0,
+          "direction_y": 0.15,
+          "direction_z": 0.9886859966642595,
+          "wavelength_micrometers": 0.65,
+          "input_intensity": 0.6,
+          "output_direction_x": -0.024530325372953923,
+          "output_direction_y": 0.14938651421607152,
+          "output_direction_z": 0.9884745482345352,
+          "output_intensity": 0.6,
+          "opd": -0.051533663288990283
+        }
+      ]
+    }
+  ]
+}

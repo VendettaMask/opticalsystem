@@ -4,6 +4,8 @@ using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
+using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Phase;
 
 namespace OptilandWorkbench.Tests;
 
@@ -80,6 +82,21 @@ public sealed class AnalysisGuiContractTests
 
         connector.SetApodization("无", 1, 1);
         Assert.Null(connector.CurrentOptic.Apodization);
+    }
+
+    [Fact]
+    public void ConnectorCreatesPhaseInteractionWithSerializableProfile()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
+
+        connector.ApplySurfaceComponents(surface, "平面", "Air", "无镀膜", "相位", "无");
+
+        var phase = Assert.IsType<PhaseInteractionModel>(surface.InteractionModel);
+        Assert.IsType<ConstantPhaseProfile>(phase.Profile);
+        var restored = Optic.FromSnapshot(connector.CurrentOptic.ToSnapshot());
+        var restoredPhase = Assert.IsType<PhaseInteractionModel>(restored.SurfaceGroup.Items[1].InteractionModel);
+        Assert.IsType<ConstantPhaseProfile>(restoredPhase.Profile);
     }
 
     private static void AssertRow(AnalysisView view, string metric, string value)

@@ -4,8 +4,12 @@ using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Coordinates;
+using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
@@ -378,6 +382,7 @@ public sealed class CookeTripletGoldenTests
                 .GetProperty("aperture");
             AssertJsonObjectEquivalent(expectedDictionary, actualDictionary);
         }
+
     }
 
     [Fact]
@@ -484,6 +489,135 @@ public sealed class CookeTripletGoldenTests
         var history = Assert.Single(zeroIntensityTrace.RayHistories);
         Assert.Equal(optic.SurfaceGroup.Items.Count, history.Count);
         Assert.All(history, sample => Assert.Equal(0, sample.Intensity, precision: 12));
+    }
+
+    [Fact]
+    public void PythonPhaseProfilesMatchReference()
+    {
+        using var reference = LoadPhaseReference();
+        Assert.Equal("0.5.8", reference.RootElement.GetProperty("optiland_version").GetString());
+        foreach (var profileCase in reference.RootElement.GetProperty("profiles").EnumerateArray())
+        {
+            var expectedDictionary = profileCase.GetProperty("dictionary");
+            var optic = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: PythonPhaseInteraction(expectedDictionary.GetRawText(), false)));
+            var interaction = Assert.IsType<PhaseInteractionModel>(optic.SurfaceGroup.Items[1].InteractionModel);
+
+            AssertPhaseSamples(profileCase, interaction.Profile);
+
+            var strictExport = PythonOptilandJsonStore.Serialize(optic)
+                .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+                .Replace("Infinity", "1e308", StringComparison.Ordinal);
+            using var exported = JsonDocument.Parse(strictExport);
+            var actualDictionary = exported.RootElement
+                .GetProperty("surface_group")
+                .GetProperty("surfaces")[1]
+                .GetProperty("interaction_model")
+                .GetProperty("phase_profile");
+            AssertJsonObjectEquivalent(expectedDictionary, actualDictionary);
+        }
+
+        var unsupportedProfile = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: PythonPhaseInteraction("""{ "phase_type": "unsupported" }""", false))));
+        Assert.Contains("phase profile", unsupportedProfile.Message, StringComparison.OrdinalIgnoreCase);
+
+        var nonPlane = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonStandardGeometry(),
+                interactionJson: PythonPhaseInteraction("""{ "phase_type": "constant" }""", false))));
+        Assert.Contains("Plane", nonPlane.Message, StringComparison.OrdinalIgnoreCase);
+
+        var workbenchOnly = Optic.CreateTessarLens();
+        workbenchOnly.SurfaceGroup.Items[1].Geometry = new PlaneGeometry();
+        workbenchOnly.SurfaceGroup.Items[1].InteractionModel = new PhaseInteractionModel(
+            new PolynomialPhaseProfile(new Dictionary<(int X, int Y), double> { [(1, 0)] = 1 }));
+        var unsupportedExport = Assert.Throws<NotSupportedException>(() =>
+            PythonOptilandJsonStore.Serialize(workbenchOnly));
+        Assert.Contains("phase profile", unsupportedExport.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PythonPhaseInteractionsMatchReferenceRayForRay()
+    {
+        using var reference = LoadPhaseReference();
+        foreach (var interactionCase in reference.RootElement.GetProperty("interactions").EnumerateArray())
+        {
+            var dictionary = interactionCase.GetProperty("dictionary");
+            var optic = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: dictionary.GetRawText()));
+            var interaction = Assert.IsType<PhaseInteractionModel>(optic.SurfaceGroup.Items[1].InteractionModel);
+
+            foreach (var sample in interactionCase.GetProperty("samples").EnumerateArray())
+            {
+                var ray = new RealRay(
+                    new Vector3D(sample.GetProperty("x").GetDouble(), sample.GetProperty("y").GetDouble(), 0),
+                    new Vector3D(
+                        sample.GetProperty("direction_x").GetDouble(),
+                        sample.GetProperty("direction_y").GetDouble(),
+                        sample.GetProperty("direction_z").GetDouble()),
+                    sample.GetProperty("wavelength_micrometers").GetDouble() * 1000,
+                    sample.GetProperty("input_intensity").GetDouble());
+                var actual = interaction.Interact(ray, new SurfaceInteractionContext(
+                    new Vector3D(0, 0, 1),
+                    1,
+                    1.5,
+                    ray.WavelengthNanometers,
+                    interaction.IsReflective));
+
+                AssertClose(sample.GetProperty("output_direction_x").GetDouble(), actual.Direction.X, TraceTolerance);
+                AssertClose(sample.GetProperty("output_direction_y").GetDouble(), actual.Direction.Y, TraceTolerance);
+                AssertClose(sample.GetProperty("output_direction_z").GetDouble(), actual.Direction.Z, TraceTolerance);
+                AssertClose(sample.GetProperty("output_intensity").GetDouble(), actual.Intensity, TraceTolerance);
+                AssertClose(sample.GetProperty("opd").GetDouble(), actual.OpticalPathDifference, TraceTolerance);
+            }
+        }
+    }
+
+    [Fact]
+    public void NativeSnapshotRoundTripsPhaseProfiles()
+    {
+        using var reference = LoadPhaseReference();
+        foreach (var interactionCase in reference.RootElement.GetProperty("interactions").EnumerateArray())
+        {
+            var optic = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                interactionJson: interactionCase.GetProperty("dictionary").GetRawText()));
+            var expected = Assert.IsType<PhaseInteractionModel>(optic.SurfaceGroup.Items[1].InteractionModel);
+
+            var restored = Optic.FromSnapshot(optic.ToSnapshot());
+            var actual = Assert.IsType<PhaseInteractionModel>(restored.SurfaceGroup.Items[1].InteractionModel);
+
+            Assert.Equal(expected.IsReflective, actual.IsReflective);
+            var profileCase = Assert.Single(
+                reference.RootElement.GetProperty("profiles").EnumerateArray(),
+                item => item.GetProperty("dictionary").GetProperty("phase_type").GetString() == actual.Profile.Kind);
+            AssertPhaseSamples(profileCase, actual.Profile);
+        }
+    }
+
+    [Fact]
+    public void PhaseInteractionUsesSurfaceLocalCoordinates()
+    {
+        var surface = new OpticalSurface
+        {
+            Geometry = new PlaneGeometry(),
+            MaterialAfter = new AirMaterial(),
+            InteractionModel = new PhaseInteractionModel(new LinearGratingPhaseProfile(2 * Math.PI)),
+            CoordinateSystem = new CoordinateSystem(
+                Vector3D.Zero,
+                RotationZDegrees: 90)
+        };
+        var ray = new RealRay(new Vector3D(0, 0, -1), new Vector3D(0, 0, 1), 1000);
+
+        var result = surface.TraceRay(ray, new AirMaterial(), new AirMaterial(), 0, 0);
+
+        AssertClose(0, result.Ray.Direction.X, TraceTolerance);
+        Assert.True(result.Ray.Direction.Y > 0.15);
+        Assert.True(result.Ray.Direction.Z > 0.9);
     }
 
     [Theory]
@@ -828,6 +962,32 @@ public sealed class CookeTripletGoldenTests
         return JsonDocument.Parse(File.ReadAllText(path));
     }
 
+    private static JsonDocument LoadPhaseReference()
+    {
+        var path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-phase-reference.json");
+        return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static void AssertPhaseSamples(JsonElement profileCase, IPhaseProfile profile)
+    {
+        foreach (var sample in profileCase.GetProperty("samples").EnumerateArray())
+        {
+            var x = sample.GetProperty("x").GetDouble();
+            var y = sample.GetProperty("y").GetDouble();
+            var gradient = profile.Gradient(x, y, 550);
+            AssertClose(sample.GetProperty("phase").GetDouble(), profile.Phase(x, y, 550), TraceTolerance);
+            AssertClose(sample.GetProperty("gradient_x").GetDouble(), gradient.Dx, TraceTolerance);
+            AssertClose(sample.GetProperty("gradient_y").GetDouble(), gradient.Dy, TraceTolerance);
+            AssertClose(
+                sample.GetProperty("paraxial_gradient").GetDouble(),
+                profile.ParaxialGradient(y, 550),
+                TraceTolerance);
+        }
+    }
+
     private static void AssertApodizationEquivalent(
         IApodizationModel expected,
         IApodizationModel? actual)
@@ -1093,6 +1253,26 @@ public sealed class CookeTripletGoldenTests
         """;
     }
 
+    private static string PythonStandardGeometry()
+    {
+        return """
+        {
+          "type": "StandardGeometry",
+          "cs": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "rx": 0.0,
+            "ry": 0.0,
+            "rz": 0.0,
+            "reference_cs": null
+          },
+          "radius": 10.0,
+          "conic": 0.0
+        }
+        """;
+    }
+
     private static string PythonThinLensInteraction(string focalLength, string isReflective)
     {
         return $$"""
@@ -1102,6 +1282,19 @@ public sealed class CookeTripletGoldenTests
           "coating": null,
           "bsdf": null,
           "focal_length": {{focalLength}}
+        }
+        """;
+    }
+
+    private static string PythonPhaseInteraction(string profileJson, bool isReflective)
+    {
+        return $$"""
+        {
+          "type": "PhaseInteractionModel",
+          "is_reflective": {{isReflective.ToString().ToLowerInvariant()}},
+          "coating": null,
+          "bsdf": null,
+          "phase_profile": {{profileJson}}
         }
         """;
     }

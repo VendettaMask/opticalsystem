@@ -4,6 +4,7 @@ using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Scattering;
 
 namespace OptilandWorkbench.Core.Serialization;
@@ -294,7 +295,14 @@ public static class ComponentSnapshotFactory
                 ["grooveFrequency"] = diffractive.GrooveFrequencyLinesPerMillimeter,
                 ["order"] = diffractive.Order
             }, new Dictionary<string, string>()),
-            PhaseInteractionModel => ComponentSnapshot.Empty("phase"),
+            PhaseInteractionModel phase => new ComponentSnapshot(
+                "phase",
+                new Dictionary<string, double> { ["isReflective"] = phase.IsReflective ? 1 : 0 },
+                new Dictionary<string, string>(),
+                new Dictionary<string, ComponentSnapshot>
+                {
+                    ["profile"] = FromPhaseProfile(phase.Profile)
+                }),
             _ => ComponentSnapshot.Empty(interaction.Kind)
         };
     }
@@ -307,8 +315,64 @@ public static class ComponentSnapshotFactory
             "refractive" => new RefractiveReflectiveInteractionModel(false),
             "thin_lens" => new ThinLensInteractionModel(Get(snapshot.Numbers, "focalLength", 50)),
             "diffractive" => new DiffractiveInteractionModel(Get(snapshot.Numbers, "grooveFrequency", 1), (int)Get(snapshot.Numbers, "order", 1)),
-            "phase" => new PhaseInteractionModel((_, _) => (0, 0)),
+            "phase" => new PhaseInteractionModel(
+                snapshot.Children is not null
+                    && snapshot.Children.TryGetValue("profile", out var profile)
+                    ? ToPhaseProfile(profile)
+                    : new ConstantPhaseProfile(),
+                Get(snapshot.Numbers, "isReflective", 0) != 0),
             _ => new RefractiveReflectiveInteractionModel(isReflective)
+        };
+    }
+
+    private static ComponentSnapshot FromPhaseProfile(IPhaseProfile profile)
+    {
+        return profile switch
+        {
+            ConstantPhaseProfile constant => new ComponentSnapshot(
+                "constant",
+                new Dictionary<string, double> { ["phase"] = constant.PhaseValue },
+                new Dictionary<string, string>()),
+            LinearGratingPhaseProfile linear => new ComponentSnapshot(
+                "linear_grating",
+                new Dictionary<string, double>
+                {
+                    ["period"] = linear.Period,
+                    ["angle"] = linear.Angle,
+                    ["order"] = linear.Order,
+                    ["efficiency"] = linear.Efficiency
+                },
+                new Dictionary<string, string>()),
+            RadialPhaseProfile radial => new ComponentSnapshot(
+                "radial",
+                Coefficients(radial.Coefficients, new Dictionary<string, double>()),
+                new Dictionary<string, string>()),
+            GridPhaseProfile grid => new ComponentSnapshot(
+                "grid",
+                GridPhaseNumbers(grid),
+                new Dictionary<string, string>()),
+            PolynomialPhaseProfile polynomial => new ComponentSnapshot(
+                "polynomial_phase",
+                PairCoefficients(polynomial.Coefficients, new Dictionary<string, double>()),
+                new Dictionary<string, string>()),
+            _ => ComponentSnapshot.Empty(profile.Kind)
+        };
+    }
+
+    private static IPhaseProfile ToPhaseProfile(ComponentSnapshot snapshot)
+    {
+        return snapshot.Kind switch
+        {
+            "constant" => new ConstantPhaseProfile(Get(snapshot.Numbers, "phase", 0)),
+            "linear_grating" => new LinearGratingPhaseProfile(
+                Get(snapshot.Numbers, "period", 1),
+                Get(snapshot.Numbers, "angle", 0),
+                (int)Get(snapshot.Numbers, "order", 1),
+                Get(snapshot.Numbers, "efficiency", 1)),
+            "radial" => new RadialPhaseProfile(ReadCoefficients(snapshot.Numbers)),
+            "grid" => ReadGridPhaseProfile(snapshot.Numbers),
+            "polynomial_phase" => new PolynomialPhaseProfile(ReadPairCoefficients(snapshot.Numbers)),
+            _ => new ConstantPhaseProfile()
         };
     }
 
@@ -478,6 +542,52 @@ public static class ComponentSnapshotFactory
         return factory(
             ToAperture(leftSnapshot, fallbackRadius)!,
             ToAperture(rightSnapshot, fallbackRadius)!);
+    }
+
+    private static Dictionary<string, double> GridPhaseNumbers(GridPhaseProfile grid)
+    {
+        var numbers = new Dictionary<string, double>
+        {
+            ["xCount"] = grid.XCoordinates.Count,
+            ["yCount"] = grid.YCoordinates.Count
+        };
+        for (var x = 0; x < grid.XCoordinates.Count; x++)
+        {
+            numbers[$"x{x}"] = grid.XCoordinates[x];
+        }
+
+        for (var y = 0; y < grid.YCoordinates.Count; y++)
+        {
+            numbers[$"y{y}"] = grid.YCoordinates[y];
+            for (var x = 0; x < grid.XCoordinates.Count; x++)
+            {
+                numbers[$"g{y}_{x}"] = grid.PhaseGrid[y, x];
+            }
+        }
+
+        return numbers;
+    }
+
+    private static GridPhaseProfile ReadGridPhaseProfile(IReadOnlyDictionary<string, double> numbers)
+    {
+        var xCount = Math.Max(4, (int)Get(numbers, "xCount", 4));
+        var yCount = Math.Max(4, (int)Get(numbers, "yCount", 4));
+        var xCoordinates = Enumerable.Range(0, xCount)
+            .Select(index => Get(numbers, $"x{index}", index))
+            .ToArray();
+        var yCoordinates = Enumerable.Range(0, yCount)
+            .Select(index => Get(numbers, $"y{index}", index))
+            .ToArray();
+        var grid = new double[yCount, xCount];
+        for (var y = 0; y < yCount; y++)
+        {
+            for (var x = 0; x < xCount; x++)
+            {
+                grid[y, x] = Get(numbers, $"g{y}_{x}", 0);
+            }
+        }
+
+        return new GridPhaseProfile(xCoordinates, yCoordinates, grid);
     }
 
     private static Dictionary<string, double> Coefficients(IReadOnlyList<double> coefficients, Dictionary<string, double> seed, string prefix = "c")
