@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
@@ -18,6 +19,74 @@ public sealed record ComponentSnapshot(
 
 public static class ComponentSnapshotFactory
 {
+    public static ComponentSnapshot? FromApodization(IApodizationModel? apodization)
+    {
+        return apodization switch
+        {
+            null => null,
+            UniformApodization => ComponentSnapshot.Empty("uniform"),
+            GaussianApodization gaussian => ComponentSnapshot.Empty("gaussian") with
+            {
+                Numbers = new Dictionary<string, double> { ["sigma"] = gaussian.Sigma }
+            },
+            CosineSquaredApodization cosine => ComponentSnapshot.Empty("cosine_squared") with
+            {
+                Numbers = new Dictionary<string, double> { ["radius"] = cosine.Radius }
+            },
+            HannApodization hann => ComponentSnapshot.Empty("hann") with
+            {
+                Numbers = new Dictionary<string, double> { ["diameter"] = hann.Diameter }
+            },
+            PolynomialApodization polynomial => ComponentSnapshot.Empty("polynomial") with
+            {
+                Numbers = new Dictionary<string, double>
+                {
+                    ["radius"] = polynomial.Radius,
+                    ["power"] = polynomial.Power
+                }
+            },
+            SuperGaussianApodization superGaussian => ComponentSnapshot.Empty("super_gaussian") with
+            {
+                Numbers = new Dictionary<string, double>
+                {
+                    ["width"] = superGaussian.Width,
+                    ["exponent"] = superGaussian.Exponent
+                }
+            },
+            TukeyApodization tukey => ComponentSnapshot.Empty("tukey") with
+            {
+                Numbers = new Dictionary<string, double>
+                {
+                    ["radius"] = tukey.Radius,
+                    ["alpha"] = tukey.Alpha
+                }
+            },
+            _ => ComponentSnapshot.Empty(apodization.Kind)
+        };
+    }
+
+    public static IApodizationModel? ToApodization(ComponentSnapshot? snapshot)
+    {
+        return snapshot?.Kind switch
+        {
+            null => null,
+            "uniform" => new UniformApodization(),
+            "gaussian" => new GaussianApodization(Get(snapshot.Numbers, "sigma", 1)),
+            "cosine_squared" => new CosineSquaredApodization(Get(snapshot.Numbers, "radius", 1)),
+            "hann" => new HannApodization(Get(snapshot.Numbers, "diameter", 2)),
+            "polynomial" => new PolynomialApodization(
+                Get(snapshot.Numbers, "radius", 1),
+                Get(snapshot.Numbers, "power", 1)),
+            "super_gaussian" => new SuperGaussianApodization(
+                Get(snapshot.Numbers, "width", 1),
+                Get(snapshot.Numbers, "exponent", 2)),
+            "tukey" => new TukeyApodization(
+                Get(snapshot.Numbers, "radius", 1),
+                Get(snapshot.Numbers, "alpha", 0.5)),
+            _ => null
+        };
+    }
+
     public static ComponentSnapshot FromGeometry(IGeometry geometry)
     {
         return geometry switch

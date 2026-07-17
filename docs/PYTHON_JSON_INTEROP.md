@@ -27,6 +27,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | Geometry | Plane, StandardGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
 | Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
+| Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |
 | Interaction | RefractiveReflectiveModel, including mirrors, and non-reflective ThinLensInteractionModel |
 | Coating | SimpleCoating dictionaries in Workbench import/export |
 | Sequential data | Thickness, stop, coordinate position and rotation |
@@ -61,7 +62,7 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 - Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
 - Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase, and diffractive interactions.
-- Pickups, solves, apodization, polarization, and telecentric field modes.
+- Pickups, solves, polarization, and telecentric field modes.
 - Lossless conversion of Workbench plugins or custom propagation models.
 
 `FileAperture` preserves `filepath`, `delimiter`, and `skip_header` in both schemas. Loading that dictionary through Python requires the referenced vertex file to remain available at its recorded path.

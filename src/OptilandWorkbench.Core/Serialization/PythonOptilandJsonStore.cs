@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
@@ -63,6 +64,7 @@ public static class PythonOptilandJsonStore
         ReadAperture(root, optic);
         ReadFields(root, optic);
         ReadWavelengths(root, optic);
+        optic.Apodization = ReadApodization(root);
 
         var parsedSurfaces = new List<ParsedSurface>();
         var surfaceNumber = 0;
@@ -112,7 +114,7 @@ public static class PythonOptilandJsonStore
             ["aperture"] = WriteAperture(optic),
             ["fields"] = WriteFields(optic),
             ["wavelengths"] = WriteWavelengths(optic),
-            ["apodization"] = null,
+            ["apodization"] = WriteApodization(optic.Apodization),
             ["pickups"] = Array.Empty<object>(),
             ["solves"] = new Dictionary<string, object?> { ["solves"] = Array.Empty<object>() },
             ["surface_group"] = new Dictionary<string, object?>
@@ -133,12 +135,6 @@ public static class PythonOptilandJsonStore
 
     private static void ValidateUnsupportedRootContracts(JsonElement root)
     {
-        if (root.TryGetProperty("apodization", out var apodization)
-            && apodization.ValueKind is not JsonValueKind.Null and not JsonValueKind.Undefined)
-        {
-            throw new NotSupportedException("Python Optiland apodization import is not supported yet.");
-        }
-
         if (root.TryGetProperty("pickups", out var pickups) && IsNonEmptyCollection(pickups))
         {
             throw new NotSupportedException("Python Optiland pickups import is not supported yet.");
@@ -176,6 +172,34 @@ public static class PythonOptilandJsonStore
         }
 
         return IsNonEmptyCollection(solves);
+    }
+
+    private static IApodizationModel? ReadApodization(JsonElement root)
+    {
+        if (!root.TryGetProperty("apodization", out var apodization)
+            || apodization.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
+        {
+            return null;
+        }
+
+        return GetString(apodization, "type", string.Empty) switch
+        {
+            "UniformApodization" => new UniformApodization(),
+            "GaussianApodization" => new GaussianApodization(GetDouble(apodization, "sigma", 1)),
+            "CosineSquaredApodization" => new CosineSquaredApodization(GetDouble(apodization, "R", 1)),
+            "HannApodization" => new HannApodization(GetDouble(apodization, "D", 2)),
+            "PolynomialApodization" => new PolynomialApodization(
+                GetDouble(apodization, "R", 1),
+                GetDouble(apodization, "p", 1)),
+            "SuperGaussianApodization" => new SuperGaussianApodization(
+                GetDouble(apodization, "w", 1),
+                GetDouble(apodization, "n", 2)),
+            "TukeyApodization" => new TukeyApodization(
+                GetDouble(apodization, "R", 1),
+                GetDouble(apodization, "alpha", 0.5)),
+            var type => throw new NotSupportedException(
+                $"Python Optiland apodization '{type}' is not supported yet.")
+        };
     }
 
     private static void ReadAperture(JsonElement root, Optic optic)
@@ -937,6 +961,53 @@ public static class PythonOptilandJsonStore
                 ["max_wavelength"] = null
             },
             _ => throw new NotSupportedException($"Material '{material.Name}' cannot be exported to Python Optiland JSON yet.")
+        };
+    }
+
+    private static object? WriteApodization(IApodizationModel? apodization)
+    {
+        return apodization switch
+        {
+            null => null,
+            UniformApodization => new Dictionary<string, object?>
+            {
+                ["type"] = "UniformApodization"
+            },
+            GaussianApodization gaussian => new Dictionary<string, object?>
+            {
+                ["type"] = "GaussianApodization",
+                ["sigma"] = gaussian.Sigma
+            },
+            CosineSquaredApodization cosine => new Dictionary<string, object?>
+            {
+                ["type"] = "CosineSquaredApodization",
+                ["R"] = cosine.Radius
+            },
+            HannApodization hann => new Dictionary<string, object?>
+            {
+                ["type"] = "HannApodization",
+                ["D"] = hann.Diameter
+            },
+            PolynomialApodization polynomial => new Dictionary<string, object?>
+            {
+                ["type"] = "PolynomialApodization",
+                ["R"] = polynomial.Radius,
+                ["p"] = polynomial.Power
+            },
+            SuperGaussianApodization superGaussian => new Dictionary<string, object?>
+            {
+                ["type"] = "SuperGaussianApodization",
+                ["w"] = superGaussian.Width,
+                ["n"] = superGaussian.Exponent
+            },
+            TukeyApodization tukey => new Dictionary<string, object?>
+            {
+                ["type"] = "TukeyApodization",
+                ["R"] = tukey.Radius,
+                ["alpha"] = tukey.Alpha
+            },
+            _ => throw new NotSupportedException(
+                $"Apodization '{apodization.Kind}' cannot be exported to Python Optiland JSON yet.")
         };
     }
 

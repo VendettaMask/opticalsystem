@@ -17,6 +17,14 @@ public sealed record RealRay(
     }
 
     public bool IsAlive => Intensity > 0;
+
+    public bool CanTrace => Direction.Length > 1e-12
+        && double.IsFinite(Origin.X)
+        && double.IsFinite(Origin.Y)
+        && double.IsFinite(Origin.Z)
+        && double.IsFinite(Direction.X)
+        && double.IsFinite(Direction.Y)
+        && double.IsFinite(Direction.Z);
 }
 
 public sealed record ParaxialRay(

@@ -244,7 +244,7 @@ public sealed class OpticalSurface : NotifyObject
             refractiveIndexAfter,
             nextCumulativePathLength,
             nextCumulativeOpticalPathLength,
-            StopTracing: !tracedRay.IsAlive);
+            StopTracing: !tracedRay.CanTrace);
     }
 
     public void SyncCompositionFromLegacyProperties(double zPosition)

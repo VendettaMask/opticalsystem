@@ -38,7 +38,7 @@ The .NET `Optic` has similar entry points but not the same model:
 - Fields are angle records with Python-compatible maximum-radial-field normalization, but object-height, paraxial-image-height, and real-image-height field types are not implemented.
 - Wavelengths are stored in nanometers internally with explicit micrometer API conversion boundaries.
 - There is no equivalent `OpticUpdater` layer that updates paraxial data, surface normalization, pickups, solves, and geometry-derived fields in one route.
-- Polarization and apodization exist only partially or as placeholders.
+- Polarization remains partial; all seven Python Optiland 0.5.8 apodization profiles now have root models and shared ray-generation behavior.
 
 Required fix:
 
@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, transforms, refractive/reflective and non-reflective thin-lens interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase/diffractive models, polarization, apodization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, all seven apodization profiles, transforms, refractive/reflective and non-reflective thin-lens interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is not claimed yet. Forbes/NURBS/grid-sag/grating freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, reflective thin-lens, phase/diffractive models, polarization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -165,11 +165,11 @@ Extend the existing Python DTO path component by component, keeping unsupported 
 
 ## Current Next Milestones
 
-Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, radial/annular/offset-radial, rectangular, elliptical, polygon/file-backed, and recursive boolean physical apertures, non-reflective thin-lens interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
+Completed foundations include normalized trace APIs, surface-owned tracing, surface-major recorded data, Python JSON subset round-trips including BiconicGeometry, representable toroidal geometry, pure polynomial/Chebyshev/fringe Zernike geometry, representable high-order aspheres, homogeneous material dictionaries, radial/annular/offset-radial, rectangular, elliptical, polygon/file-backed, and recursive boolean physical apertures, all seven apodization profiles, non-reflective thin-lens interactions, and simple coating dictionaries on the Workbench adapter path, Python-compatible field/pupil distributions, 30 source-validated analysis views, generated analysis parameter editors with persisted settings, and Cooke/Tessar golden suites.
 
 The next implementation order is:
 
-1. Extend Python JSON interoperability to the remaining freeforms, Python-preserved coating models, BSDFs, phase/diffractive models, solves, pickups, polarization, and apodization.
+1. Extend Python JSON interoperability to the remaining freeforms, Python-preserved coating models, BSDFs, phase/diffractive models, solves, pickups, and polarization.
 2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
 3. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
 4. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
@@ -294,7 +294,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 ### 2026-07-14 Python JSON Root Contract Guardrails
 
-- Kept unsupported root-level Python contracts explicit: nonempty `pickups`, nonempty `solves`, non-null `apodization`, non-ignored `polarization`, object-space telecentric apertures, and telecentric field groups now fail during import instead of being ignored.
+- Kept unsupported root-level Python contracts explicit: nonempty `pickups`, nonempty `solves`, non-ignored `polarization`, object-space telecentric apertures, and telecentric field groups fail during import instead of being ignored. The former apodization guardrail was superseded by the validated expansion below.
 - Regression coverage verifies every guardrail while preserving import of the empty/default Python Optiland 0.5.8 root dictionaries used by the Cooke and Tessar fixtures.
 
 ### 2026-07-14 Python JSON Material Propagation Guardrails
@@ -330,3 +330,10 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added explicit polygon-edge containment and recursive physical bounds shared by analysis detector extents and serialization.
 - Extended the pinned Optiland 0.5.8 fixture with exact nested dictionaries and Python `contains()` decisions for five composite cases.
 - Added optional child snapshots for recursive apertures while preserving compatibility with existing native snapshots.
+
+### 2026-07-17 Python JSON Apodization Expansion
+
+- Added native root models and exact Python dictionary import/export for uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization.
+- Applied the optic-owned profile consistently to ordinary bundles, generic rays, normalized traces, wavefront sampling, and diffraction sampling.
+- Added system-properties controls for profile selection and profile-specific parameters, while preserving the distinction between no apodization and an explicit uniform profile.
+- Added a pinned Optiland 0.5.8 fixture covering exact dictionaries, radial intensity samples, finite-radius boundaries, and the Tukey `alpha=0` limit.

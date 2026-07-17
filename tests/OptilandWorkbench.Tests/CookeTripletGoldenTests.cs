@@ -1,11 +1,13 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Rays;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.Tests;
@@ -378,6 +380,112 @@ public sealed class CookeTripletGoldenTests
         }
     }
 
+    [Fact]
+    public void PythonJsonAdapterMatchesApodizationReference()
+    {
+        using var reference = LoadApodizationReference();
+        Assert.Equal("0.5.8", reference.RootElement.GetProperty("optiland_version").GetString());
+
+        foreach (var apodizationCase in reference.RootElement.GetProperty("apodizations").EnumerateArray())
+        {
+            var expectedDictionary = apodizationCase.GetProperty("dictionary");
+            var json = PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                apodizationJson: expectedDictionary.GetRawText());
+            var optic = PythonOptilandJsonStore.Deserialize(json);
+            var apodization = Assert.IsAssignableFrom<IApodizationModel>(optic.Apodization);
+
+            foreach (var sample in apodizationCase.GetProperty("samples").EnumerateArray())
+            {
+                AssertClose(
+                    sample.GetProperty("intensity").GetDouble(),
+                    apodization.Intensity(
+                        sample.GetProperty("x").GetDouble(),
+                        sample.GetProperty("y").GetDouble()),
+                    ScalarTolerance);
+            }
+
+            var strictExport = PythonOptilandJsonStore.Serialize(optic)
+                .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+                .Replace("Infinity", "1e308", StringComparison.Ordinal);
+            using var exported = JsonDocument.Parse(strictExport);
+            AssertJsonObjectEquivalent(
+                expectedDictionary,
+                exported.RootElement.GetProperty("apodization"));
+        }
+    }
+
+    [Fact]
+    public void NativeSnapshotRoundTripsApodizationReference()
+    {
+        using var reference = LoadApodizationReference();
+        foreach (var apodizationCase in reference.RootElement.GetProperty("apodizations").EnumerateArray())
+        {
+            var optic = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+                PythonPlaneGeometry(),
+                apodizationJson: apodizationCase.GetProperty("dictionary").GetRawText()));
+            var expected = Assert.IsAssignableFrom<IApodizationModel>(optic.Apodization);
+
+            var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+            AssertApodizationEquivalent(expected, restored.Apodization);
+        }
+    }
+
+    [Fact]
+    public void RayGeneratorAppliesOpticApodizationToEveryEntryPoint()
+    {
+        var optic = Optic.CreateTessarLens();
+        optic.Apodization = new GaussianApodization(0.6);
+        var generator = optic.SequentialRayTracer.RayGenerator;
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+
+        var generic = generator.GenerateGeneric(0, 0, 0.5, 0.25, wavelength.Micrometers);
+        AssertClose(
+            optic.Apodization.Intensity(0.5, 0.25),
+            Assert.Single(generic.Rays).Intensity,
+            ScalarTolerance);
+
+        var weightedSamples = new[]
+        {
+            new PupilSample(0, 0, 0.4),
+            new PupilSample(-0.4, 0.4, 0.7)
+        };
+        var normalized = generator.GenerateNormalizedPupilSamples(0, 0, wavelength.Micrometers, weightedSamples);
+        for (var index = 0; index < weightedSamples.Length; index++)
+        {
+            var sample = weightedSamples[index];
+            AssertClose(
+                sample.Weight * optic.Apodization.Intensity(sample.X, sample.Y),
+                normalized.Rays[index].Intensity,
+                ScalarTolerance);
+        }
+
+        generator.Settings.SamplesPerField = 5;
+        generator.Settings.Sampling = PupilSampling.LineX;
+        var expectedSamples = ApertureSampler.Generate(5, PupilSampling.LineX);
+        var generated = generator.GenerateFor(
+            new[] { optic.Fields[0] },
+            new[] { wavelength },
+            applyFieldWeight: false,
+            applyWavelengthWeight: false);
+        Assert.Equal(expectedSamples.Count, generated.Rays.Count);
+        for (var index = 0; index < expectedSamples.Count; index++)
+        {
+            var sample = expectedSamples[index];
+            AssertClose(
+                sample.Weight * optic.Apodization.Intensity(sample.X, sample.Y),
+                generated.Rays[index].Intensity,
+                ScalarTolerance);
+        }
+
+        optic.Apodization = new HannApodization(2);
+        var zeroIntensityTrace = optic.TraceGeneric(0, 0, 0, 0, wavelength.Micrometers);
+        var history = Assert.Single(zeroIntensityTrace.RayHistories);
+        Assert.Equal(optic.SurfaceGroup.Items.Count, history.Count);
+        Assert.All(history, sample => Assert.Equal(0, sample.Intensity, precision: 12));
+    }
+
     [Theory]
     [InlineData("annular")]
     [InlineData("offset_radial")]
@@ -452,7 +560,7 @@ public sealed class CookeTripletGoldenTests
                 PythonPlaneGeometry(),
                 apodizationJson: """
                 {
-                  "type": "GaussianApodization"
+                  "type": "UnsupportedApodization"
                 }
                 """),
             "pickups" => PythonJsonWithSurfaceGeometry(
@@ -709,6 +817,54 @@ public sealed class CookeTripletGoldenTests
             "Fixtures",
             "optiland-0.5.8-aperture-reference.json");
         return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static JsonDocument LoadApodizationReference()
+    {
+        var path = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-apodization-reference.json");
+        return JsonDocument.Parse(File.ReadAllText(path));
+    }
+
+    private static void AssertApodizationEquivalent(
+        IApodizationModel expected,
+        IApodizationModel? actual)
+    {
+        Assert.NotNull(actual);
+        Assert.Equal(expected.GetType(), actual.GetType());
+        switch (expected)
+        {
+            case UniformApodization:
+                break;
+            case GaussianApodization gaussian:
+                AssertClose(gaussian.Sigma, Assert.IsType<GaussianApodization>(actual).Sigma, ScalarTolerance);
+                break;
+            case CosineSquaredApodization cosine:
+                AssertClose(cosine.Radius, Assert.IsType<CosineSquaredApodization>(actual).Radius, ScalarTolerance);
+                break;
+            case HannApodization hann:
+                AssertClose(hann.Diameter, Assert.IsType<HannApodization>(actual).Diameter, ScalarTolerance);
+                break;
+            case PolynomialApodization polynomial:
+                var actualPolynomial = Assert.IsType<PolynomialApodization>(actual);
+                AssertClose(polynomial.Radius, actualPolynomial.Radius, ScalarTolerance);
+                AssertClose(polynomial.Power, actualPolynomial.Power, ScalarTolerance);
+                break;
+            case SuperGaussianApodization superGaussian:
+                var actualSuperGaussian = Assert.IsType<SuperGaussianApodization>(actual);
+                AssertClose(superGaussian.Width, actualSuperGaussian.Width, ScalarTolerance);
+                AssertClose(superGaussian.Exponent, actualSuperGaussian.Exponent, ScalarTolerance);
+                break;
+            case TukeyApodization tukey:
+                var actualTukey = Assert.IsType<TukeyApodization>(actual);
+                AssertClose(tukey.Radius, actualTukey.Radius, ScalarTolerance);
+                AssertClose(tukey.Alpha, actualTukey.Alpha, ScalarTolerance);
+                break;
+            default:
+                throw new NotSupportedException($"No test assertion for apodization '{expected.Kind}'.");
+        }
     }
 
     private static void AssertJsonObjectEquivalent(JsonElement expected, JsonElement actual)

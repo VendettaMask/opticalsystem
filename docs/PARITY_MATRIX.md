@@ -8,7 +8,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
 | Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model added while retaining GUI-compatible legacy fields |
 | Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
-| Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling with apodization/telecentric options |
+| Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven source-validated apodization profiles; telecentric generation option |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
 | Geometry | `Geometries` | Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |

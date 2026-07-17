@@ -30,6 +30,7 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 - plane, standard, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
 - homogeneous catalog, ideal, and Abbe materials
 - centered/annular/offset radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures
+- uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization
 - refractive/reflective and non-reflective thin-lens interactions
 - simple Python coating dictionaries on the Workbench adapter path
 

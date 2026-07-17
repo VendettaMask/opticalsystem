@@ -74,13 +74,18 @@ public sealed class RayGenerator
                         apertureRadius);
                     var direction = Settings.Telecentric ? new Vector3D(0, 0, 1) : rayGeometry.Direction;
                     var radius = Math.Sqrt((sample.X * sample.X) + (sample.Y * sample.Y));
-                    var apodization = Settings.ApodizationPower <= 0
+                    var legacyApodization = Settings.ApodizationPower <= 0
                         ? 1.0
                         : Math.Pow(Math.Max(0, 1 - (radius * radius)), Settings.ApodizationPower);
                     var fieldWeight = applyFieldWeight ? field.Weight : 1.0;
                     var wavelengthWeight = applyWavelengthWeight ? wavelength.Weight : 1.0;
 
-                    rays.Add(new RealRay(rayGeometry.Origin, direction, wavelength.Nanometers, fieldWeight * wavelengthWeight * sample.Weight * apodization));
+                    var apodization = _optic.Apodization?.Intensity(sample.X, sample.Y) ?? 1.0;
+                    rays.Add(new RealRay(
+                        rayGeometry.Origin,
+                        direction,
+                        wavelength.Nanometers,
+                        fieldWeight * wavelengthWeight * sample.Weight * legacyApodization * apodization));
                 }
             }
         }
@@ -234,7 +239,8 @@ public sealed class RayGenerator
             normalizedPupilX,
             normalizedPupilY,
             apertureRadius);
-        return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity);
+        var apodization = _optic.Apodization?.Intensity(normalizedPupilX, normalizedPupilY) ?? 1.0;
+        return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity * apodization);
     }
 
     private static Vector3D Normalize(Vector3D vector)

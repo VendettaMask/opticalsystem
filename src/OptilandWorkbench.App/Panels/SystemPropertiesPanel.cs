@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 
@@ -15,6 +16,12 @@ public sealed class SystemPropertiesPanel : UserControl
     private readonly DataGrid _wavelengthsGrid;
     private readonly ComboBox _backendPicker = new() { MinWidth = 150 };
     private readonly ComboBox _apertureKindPicker = new() { MinWidth = 190 };
+    private readonly ComboBox _apodizationPicker = new() { MinWidth = 128 };
+    private readonly TextBlock _firstApodizationLabel = ParameterLabel("σ");
+    private readonly TextBlock _secondApodizationLabel = ParameterLabel("p");
+    private readonly NumericUpDown _firstApodizationParameter = ParameterInput(1m);
+    private readonly NumericUpDown _secondApodizationParameter = ParameterInput(1m);
+    private bool _refreshing;
     private readonly NumericUpDown _apertureValue = new()
     {
         Minimum = 0.001m,
@@ -68,6 +75,14 @@ public sealed class SystemPropertiesPanel : UserControl
     {
         _backendPicker.ItemsSource = _connector.BackendNames;
         _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
+        _apodizationPicker.ItemsSource = _connector.ApodizationKinds;
+        _apodizationPicker.SelectionChanged += (_, _) =>
+        {
+            if (!_refreshing)
+            {
+                ConfigureApodizationParameters(_apodizationPicker.SelectedItem as string, useDefaults: true);
+            }
+        };
 
         var applyButton = new Button { Content = "应用", MinWidth = 74 };
         applyButton.Click += (_, _) => ApplySystemControls();
@@ -95,6 +110,18 @@ public sealed class SystemPropertiesPanel : UserControl
                 },
                 _apertureKindPicker,
                 _apertureValue,
+                new TextBlock
+                {
+                    Text = "光瞳切趾",
+                    FontWeight = FontWeight.SemiBold,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
+                },
+                _apodizationPicker,
+                _firstApodizationLabel,
+                _firstApodizationParameter,
+                _secondApodizationLabel,
+                _secondApodizationParameter,
                 applyButton
             }
         };
@@ -159,6 +186,7 @@ public sealed class SystemPropertiesPanel : UserControl
 
     private void Refresh()
     {
+        _refreshing = true;
         _backendPicker.ItemsSource = _connector.BackendNames;
         _backendPicker.SelectedItem = _connector.CurrentOptic.Backend.Current.Name;
         _apertureKindPicker.SelectedIndex = _connector.CurrentOptic.Aperture.Kind switch
@@ -168,8 +196,10 @@ public sealed class SystemPropertiesPanel : UserControl
             _ => 0
         };
         _apertureValue.Value = (decimal)_connector.CurrentOptic.Aperture.Value;
+        SetApodizationControls(_connector.CurrentOptic.Apodization);
         _fieldsGrid.ItemsSource = _connector.Fields;
         _wavelengthsGrid.ItemsSource = _connector.Wavelengths;
+        _refreshing = false;
     }
 
     private void ApplySystemControls()
@@ -180,6 +210,9 @@ public sealed class SystemPropertiesPanel : UserControl
         var value = _apertureValue.Value.HasValue
             ? decimal.ToDouble(_apertureValue.Value.Value)
             : _connector.CurrentOptic.Aperture.Value;
+        var apodizationKind = _apodizationPicker.SelectedItem as string ?? "无";
+        var firstApodizationParameter = DecimalValue(_firstApodizationParameter, 1);
+        var secondApodizationParameter = DecimalValue(_secondApodizationParameter, 1);
 
         if (backendName is not null)
         {
@@ -187,5 +220,78 @@ public sealed class SystemPropertiesPanel : UserControl
         }
 
         _connector.SetSystemAperture(apertureKind, value);
+        _connector.SetApodization(
+            apodizationKind,
+            firstApodizationParameter,
+            secondApodizationParameter);
+    }
+
+    private void SetApodizationControls(IApodizationModel? apodization)
+    {
+        var (kind, first, second) = apodization switch
+        {
+            UniformApodization => ("均匀", 1.0, 1.0),
+            GaussianApodization gaussian => ("高斯", gaussian.Sigma, 1.0),
+            CosineSquaredApodization cosine => ("余弦平方", cosine.Radius, 1.0),
+            HannApodization hann => ("Hann", hann.Diameter, 1.0),
+            PolynomialApodization polynomial => ("多项式", polynomial.Radius, polynomial.Power),
+            SuperGaussianApodization superGaussian => ("超高斯", superGaussian.Width, superGaussian.Exponent),
+            TukeyApodization tukey => ("Tukey", tukey.Radius, tukey.Alpha),
+            _ => ("无", 1.0, 1.0)
+        };
+        _apodizationPicker.SelectedItem = kind;
+        ConfigureApodizationParameters(kind, useDefaults: false);
+        _firstApodizationParameter.Value = (decimal)first;
+        _secondApodizationParameter.Value = (decimal)second;
+    }
+
+    private void ConfigureApodizationParameters(string? kind, bool useDefaults)
+    {
+        var configuration = kind switch
+        {
+            "高斯" => ("σ", string.Empty, 1.0, 1.0),
+            "余弦平方" => ("R", string.Empty, 1.0, 1.0),
+            "Hann" => ("D", string.Empty, 2.0, 1.0),
+            "多项式" => ("R", "p", 1.0, 1.0),
+            "超高斯" => ("w", "n", 1.0, 2.0),
+            "Tukey" => ("R", "α", 1.0, 0.5),
+            _ => (string.Empty, string.Empty, 1.0, 1.0)
+        };
+        _firstApodizationLabel.Text = configuration.Item1;
+        _secondApodizationLabel.Text = configuration.Item2;
+        _firstApodizationParameter.IsEnabled = configuration.Item1.Length > 0;
+        _secondApodizationParameter.IsEnabled = configuration.Item2.Length > 0;
+        if (useDefaults)
+        {
+            _firstApodizationParameter.Value = (decimal)configuration.Item3;
+            _secondApodizationParameter.Value = (decimal)configuration.Item4;
+        }
+    }
+
+    private static TextBlock ParameterLabel(string text)
+    {
+        return new TextBlock
+        {
+            Text = text,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Avalonia.Thickness(6, 0, 2, 0)
+        };
+    }
+
+    private static NumericUpDown ParameterInput(decimal value)
+    {
+        return new NumericUpDown
+        {
+            Minimum = 0m,
+            Maximum = 1_000_000m,
+            Increment = 0.1m,
+            Value = value,
+            Width = 78
+        };
+    }
+
+    private static double DecimalValue(NumericUpDown input, double fallback)
+    {
+        return input.Value.HasValue ? decimal.ToDouble(input.Value.Value) : fallback;
     }
 }

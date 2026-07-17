@@ -1,0 +1,400 @@
+{
+  "optiland_version": "0.5.8",
+  "apodizations": [
+    {
+      "name": "uniform",
+      "dictionary": {
+        "type": "UniformApodization"
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 1.0
+        }
+      ]
+    },
+    {
+      "name": "gaussian",
+      "dictionary": {
+        "type": "GaussianApodization",
+        "sigma": 0.6
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 0.9168553557320289
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 0.6478942581726621
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 0.4867522559599717
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.41111229050718734
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.3246524673583497
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.24935220877729622
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 0.6411803884299545
+        }
+      ]
+    },
+    {
+      "name": "cosine_squared",
+      "dictionary": {
+        "type": "CosineSquaredApodization",
+        "R": 0.8
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 0.7777851165098012
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 0.20767106527204846
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 0.02447174185242323
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 0.19715006646059333
+        }
+      ]
+    },
+    {
+      "name": "hann",
+      "dictionary": {
+        "type": "HannApodization",
+        "D": 1.6
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 0.22221488349019886
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 0.7923289347279516
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 0.9755282581475768
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 0.8028499335394067
+        }
+      ]
+    },
+    {
+      "name": "polynomial",
+      "dictionary": {
+        "type": "PolynomialApodization",
+        "R": 0.9,
+        "p": 2.5
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 0.8181170530291283
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 0.29564474606404667
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 0.07776000000000005
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.020179470030034428
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 0.28462802079628774
+        }
+      ]
+    },
+    {
+      "name": "super_gaussian",
+      "dictionary": {
+        "type": "SuperGaussianApodization",
+        "w": 0.7,
+        "n": 4.0
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 0.9838623668431042
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 0.6658228930358107
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 0.3265155730979543
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.18159872173780658
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.06504919742533136
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.015530782159999897
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 0.6527970705013767
+        }
+      ]
+    },
+    {
+      "name": "tukey",
+      "dictionary": {
+        "type": "TukeyApodization",
+        "R": 0.9,
+        "alpha": 0.4
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 0.5868240888334657
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 1.0
+        }
+      ]
+    },
+    {
+      "name": "tukey_uniform_limit",
+      "dictionary": {
+        "type": "TukeyApodization",
+        "R": 0.9,
+        "alpha": 0.0
+      },
+      "samples": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.25,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.5,
+          "y": 0.25,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.72,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.8,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 0.9,
+          "y": 0.0,
+          "intensity": 1.0
+        },
+        {
+          "x": 1.0,
+          "y": 0.0,
+          "intensity": 0.0
+        },
+        {
+          "x": -0.4,
+          "y": 0.4,
+          "intensity": 1.0
+        }
+      ]
+    }
+  ]
+}

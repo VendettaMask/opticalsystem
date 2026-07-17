@@ -7,7 +7,8 @@ public sealed record OpticSnapshot(
     string? BackendName,
     List<FieldPointSnapshot> Fields,
     List<WavelengthSnapshot> Wavelengths,
-    List<SurfaceSnapshot> Surfaces);
+    List<SurfaceSnapshot> Surfaces,
+    ComponentSnapshot? Apodization = null);
 
 public sealed record ApertureSnapshot(
     string Kind,

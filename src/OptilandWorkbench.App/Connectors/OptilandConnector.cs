@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
@@ -62,6 +63,18 @@ public sealed class OptilandConnector
         "入瞳直径",
         "F 数",
         "数值孔径"
+    };
+
+    public IReadOnlyList<string> ApodizationKinds { get; } = new[]
+    {
+        "无",
+        "均匀",
+        "高斯",
+        "余弦平方",
+        "Hann",
+        "多项式",
+        "超高斯",
+        "Tukey"
     };
 
     public IReadOnlyList<string> GeometryKinds { get; } = new[]
@@ -638,6 +651,32 @@ public sealed class OptilandConnector
         CurrentOptic.Aperture.Kind = kind;
         CurrentOptic.Aperture.Value = Math.Max(0.001, value);
         SetStatus("系统孔径已更新。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetApodization(string apodizationKind, double firstParameter, double secondParameter)
+    {
+        var canonical = CanonicalApodizationKind(apodizationKind);
+        CaptureCurrentState();
+        CurrentOptic.Apodization = canonical switch
+        {
+            "None" => null,
+            "Uniform" => new UniformApodization(),
+            "Gaussian" => new GaussianApodization(Math.Max(0.001, firstParameter)),
+            "CosineSquared" => new CosineSquaredApodization(Math.Max(0.001, firstParameter)),
+            "Hann" => new HannApodization(Math.Max(0.001, firstParameter)),
+            "Polynomial" => new PolynomialApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Max(0, secondParameter)),
+            "SuperGaussian" => new SuperGaussianApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Max(2, secondParameter)),
+            "Tukey" => new TukeyApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Clamp(secondParameter, 0, 1)),
+            _ => null
+        };
+        SetStatus("光瞳切趾已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -1362,6 +1401,22 @@ public sealed class OptilandConnector
             "多边形" => "Polygon",
             "组合孔径" => "Boolean",
             "无" => "None",
+            _ => value
+        };
+    }
+
+    private static string CanonicalApodizationKind(string value)
+    {
+        return value switch
+        {
+            "无" => "None",
+            "均匀" => "Uniform",
+            "高斯" => "Gaussian",
+            "余弦平方" => "CosineSquared",
+            "Hann" => "Hann",
+            "多项式" => "Polynomial",
+            "超高斯" => "SuperGaussian",
+            "Tukey" => "Tukey",
             _ => value
         };
     }

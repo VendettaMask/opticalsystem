@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
@@ -30,6 +31,8 @@ public sealed class Optic
     public NumericBackendProvider Backend { get; } = new();
 
     public SystemAperture Aperture { get; } = new();
+
+    public IApodizationModel? Apodization { get; set; }
 
     public MaterialRegistry Materials { get; } = new();
 
@@ -362,7 +365,8 @@ public sealed class Optic
                     ComponentSnapshotFactory.FromCoating(surface.CoatingModel),
                     ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
                     ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
-                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)))).ToList());
+                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)))).ToList(),
+            Apodization: ComponentSnapshotFactory.FromApodization(Apodization));
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -382,6 +386,8 @@ public sealed class Optic
         {
             Backend.SetBackend(snapshot.BackendName);
         }
+
+        Apodization = ComponentSnapshotFactory.ToApodization(snapshot.Apodization);
 
         Fields.Clear();
         foreach (var field in snapshot.Fields ?? new List<FieldPointSnapshot>())

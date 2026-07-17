@@ -3,6 +3,7 @@ using OptilandWorkbench.App.Connectors;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apodization;
 
 namespace OptilandWorkbench.Tests;
 
@@ -56,6 +57,29 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(restored);
         Assert.Equal("16", restored.AnalysisSettings["PSF"]["NumRays"]);
         Assert.Equal("32", restored.AnalysisSettings["PSF"]["GridSize"]);
+    }
+
+    [Fact]
+    public void ConnectorExposesAndAppliesApodizationSettings()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+
+        Assert.Equal(
+            new[] { "无", "均匀", "高斯", "余弦平方", "Hann", "多项式", "超高斯", "Tukey" },
+            connector.ApodizationKinds);
+
+        connector.SetApodization("超高斯", 0.7, 1.0);
+        var superGaussian = Assert.IsType<SuperGaussianApodization>(connector.CurrentOptic.Apodization);
+        Assert.Equal(0.7, superGaussian.Width, precision: 12);
+        Assert.Equal(2.0, superGaussian.Exponent, precision: 12);
+
+        connector.SetApodization("Tukey", 0.9, 1.5);
+        var tukey = Assert.IsType<TukeyApodization>(connector.CurrentOptic.Apodization);
+        Assert.Equal(0.9, tukey.Radius, precision: 12);
+        Assert.Equal(1.0, tukey.Alpha, precision: 12);
+
+        connector.SetApodization("无", 1, 1);
+        Assert.Null(connector.CurrentOptic.Apodization);
     }
 
     private static void AssertRow(AnalysisView view, string metric, string value)
