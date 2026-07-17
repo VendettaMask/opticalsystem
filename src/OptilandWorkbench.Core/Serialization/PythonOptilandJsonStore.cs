@@ -79,6 +79,14 @@ public static class PythonOptilandJsonStore
             throw new InvalidDataException("A Python Optiland document must contain at least object and image surfaces.");
         }
 
+        var objectCoordinate = parsedSurfaces[0].CoordinateSystem;
+        var firstSurfaceCoordinate = parsedSurfaces[1].CoordinateSystem;
+        var coordinateOffset = objectCoordinate?.Origin.Z ?? 0;
+        if (objectCoordinate is not null && firstSurfaceCoordinate is not null)
+        {
+            parsedSurfaces[0].Surface.Thickness = firstSurfaceCoordinate.Origin.Z - objectCoordinate.Origin.Z;
+        }
+
         optic.SurfaceGroup.Replace(parsedSurfaces.Select(item => item.Surface));
         for (var index = 0; index < parsedSurfaces.Count; index++)
         {
@@ -90,7 +98,15 @@ public static class PythonOptilandJsonStore
             surface.PhysicalAperture = parsed.Aperture;
             if (parsed.CoordinateSystem is not null && index > 0)
             {
-                surface.CoordinateSystem = parsed.CoordinateSystem;
+                var coordinate = parsed.CoordinateSystem;
+                surface.CoordinateSystem = new CoordinateSystem(
+                    new Vector3D(
+                        coordinate.Origin.X,
+                        coordinate.Origin.Y,
+                        coordinate.Origin.Z - coordinateOffset),
+                    coordinate.RotationXDegrees,
+                    coordinate.RotationYDegrees,
+                    coordinate.RotationZDegrees);
             }
         }
 
@@ -120,7 +136,12 @@ public static class PythonOptilandJsonStore
             ["solves"] = new Dictionary<string, object?> { ["solves"] = Array.Empty<object>() },
             ["surface_group"] = new Dictionary<string, object?>
             {
-                ["surfaces"] = optic.SurfaceGroup.Items.Select((surface, index) => WriteSurface(optic, surface, index)).ToArray()
+                ["surfaces"] = optic.SurfaceGroup.Items.Select((surface, index) =>
+                    WriteSurface(
+                        optic,
+                        surface,
+                        index,
+                        optic.SurfaceGroup.Items.FirstOrDefault()?.Thickness ?? 0)).ToArray()
             }
         };
 
@@ -210,11 +231,6 @@ public static class PythonOptilandJsonStore
             return;
         }
 
-        if (GetBoolean(aperture, "object_space_telecentric"))
-        {
-            throw new NotSupportedException("Python Optiland object-space telecentric aperture import is not supported yet.");
-        }
-
         var type = GetString(aperture, "type", "EPD");
         optic.Aperture.Kind = type.ToLowerInvariant() switch
         {
@@ -224,6 +240,7 @@ public static class PythonOptilandJsonStore
             _ => throw new NotSupportedException($"Python Optiland system aperture '{type}' is not supported yet.")
         };
         optic.Aperture.Value = GetDouble(aperture, "value", optic.Aperture.Value);
+        optic.Aperture.ObjectSpaceTelecentric = GetBoolean(aperture, "object_space_telecentric");
     }
 
     private static void ReadFields(JsonElement root, Optic optic)
@@ -237,16 +254,17 @@ public static class PythonOptilandJsonStore
             && definition.ValueKind == JsonValueKind.Object)
         {
             var fieldType = GetString(definition, "field_type", "AngleField");
-            if (!fieldType.Equals("AngleField", StringComparison.OrdinalIgnoreCase))
+            optic.FieldDefinition = fieldType.ToLowerInvariant() switch
             {
-                throw new NotSupportedException($"Python Optiland field type '{fieldType}' is not supported yet.");
-            }
+                "anglefield" => FieldDefinitionKind.Angle,
+                "objectheightfield" => FieldDefinitionKind.ObjectHeight,
+                "paraxialimageheightfield" => FieldDefinitionKind.ParaxialImageHeight,
+                _ => throw new NotSupportedException($"Python Optiland field type '{fieldType}' is not supported yet.")
+            };
         }
 
-        if (GetBoolean(fields, "telecentric") || GetBoolean(fields, "object_space_telecentric"))
-        {
-            throw new NotSupportedException("Python Optiland telecentric fields are not supported yet.");
-        }
+        optic.FieldGroupTelecentric = GetBoolean(fields, "telecentric");
+        optic.ObjectSpaceTelecentric = GetBoolean(fields, "object_space_telecentric");
 
         if (fields.TryGetProperty("fields", out var fieldArray))
         {
@@ -258,7 +276,9 @@ public static class PythonOptilandJsonStore
                     Label = index == 0 ? "On axis" : $"Field {index}",
                     XAngleDegrees = GetDouble(field, "x", 0),
                     YAngleDegrees = GetDouble(field, "y", 0),
-                    Weight = 1
+                    Weight = 1,
+                    VignetteFactorX = GetDouble(field, "vx", 0),
+                    VignetteFactorY = GetDouble(field, "vy", 0)
                 });
                 index++;
             }
@@ -809,7 +829,7 @@ public static class PythonOptilandJsonStore
         {
             ["type"] = type,
             ["value"] = optic.Aperture.Value,
-            ["object_space_telecentric"] = false
+            ["object_space_telecentric"] = optic.Aperture.ObjectSpaceTelecentric
         };
     }
 
@@ -821,12 +841,20 @@ public static class PythonOptilandJsonStore
             {
                 ["x"] = field.XAngleDegrees,
                 ["y"] = field.YAngleDegrees,
-                ["vx"] = 0.0,
-                ["vy"] = 0.0
+                ["vx"] = field.VignetteFactorX,
+                ["vy"] = field.VignetteFactorY
             }).ToArray(),
-            ["telecentric"] = false,
-            ["field_definition"] = new Dictionary<string, object?> { ["field_type"] = "AngleField" },
-            ["object_space_telecentric"] = false
+            ["telecentric"] = optic.FieldGroupTelecentric,
+            ["field_definition"] = new Dictionary<string, object?>
+            {
+                ["field_type"] = optic.FieldDefinition switch
+                {
+                    FieldDefinitionKind.ObjectHeight => "ObjectHeightField",
+                    FieldDefinitionKind.ParaxialImageHeight => "ParaxialImageHeightField",
+                    _ => "AngleField"
+                }
+            },
+            ["object_space_telecentric"] = optic.ObjectSpaceTelecentric
         };
     }
 
@@ -845,7 +873,11 @@ public static class PythonOptilandJsonStore
         };
     }
 
-    private static object WriteSurface(Optic optic, OpticalSurface surface, int index)
+    private static object WriteSurface(
+        Optic optic,
+        OpticalSurface surface,
+        int index,
+        double objectDistance)
     {
         if (surface.ScatteringModel is not null)
         {
@@ -861,7 +893,7 @@ public static class PythonOptilandJsonStore
             throw new NotSupportedException("Python Optiland object surfaces cannot preserve diffractive interaction data.");
         }
 
-        var geometry = WriteGeometry(surface, index == 0);
+        var geometry = WriteGeometry(surface, index == 0, objectDistance);
         var material = WriteMaterial(optic.Materials.Resolve(surface.MaterialAfterName));
         if (index == 0)
         {
@@ -970,9 +1002,9 @@ public static class PythonOptilandJsonStore
         };
     }
 
-    private static object WriteGeometry(OpticalSurface surface, bool isObject)
+    private static object WriteGeometry(OpticalSurface surface, bool isObject, double objectDistance)
     {
-        var cs = WriteCoordinateSystem(surface.CoordinateSystem, isObject);
+        var cs = WriteCoordinateSystem(surface.CoordinateSystem, isObject, objectDistance);
         return surface.Geometry switch
         {
             PlaneGeometry => new Dictionary<string, object?>
@@ -1088,13 +1120,18 @@ public static class PythonOptilandJsonStore
         };
     }
 
-    private static Dictionary<string, object?> WriteCoordinateSystem(CoordinateSystem coordinate, bool isObject)
+    private static Dictionary<string, object?> WriteCoordinateSystem(
+        CoordinateSystem coordinate,
+        bool isObject,
+        double objectDistance)
     {
         return new Dictionary<string, object?>
         {
             ["x"] = isObject ? 0 : coordinate.Origin.X,
             ["y"] = isObject ? 0 : coordinate.Origin.Y,
-            ["z"] = isObject ? NegativeInfinitySentinel : coordinate.Origin.Z,
+            ["z"] = isObject
+                ? Math.Abs(objectDistance) <= 1e-12 ? NegativeInfinitySentinel : -objectDistance
+                : coordinate.Origin.Z - objectDistance,
             ["rx"] = DegreesToRadians(coordinate.RotationXDegrees),
             ["ry"] = DegreesToRadians(coordinate.RotationYDegrees),
             ["rz"] = DegreesToRadians(coordinate.RotationZDegrees),

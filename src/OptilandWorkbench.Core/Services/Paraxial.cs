@@ -1,4 +1,6 @@
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Interactions;
 
 namespace OptilandWorkbench.Core.Services;
 
@@ -135,26 +137,75 @@ public sealed class Paraxial
         double wavelengthMicrometers,
         int startSurfaceIndex = 0)
     {
+        return TraceGenericCore(
+            initialHeights,
+            initialSlopes,
+            initialZ,
+            wavelengthMicrometers,
+            startSurfaceIndex,
+            reverse: false);
+    }
+
+    public ParaxialTrace TraceGenericReverse(
+        IReadOnlyList<double> initialHeights,
+        IReadOnlyList<double> initialSlopes,
+        double initialZ,
+        double wavelengthMicrometers,
+        int skipSurfaceCount = 0)
+    {
+        return TraceGenericCore(
+            initialHeights,
+            initialSlopes,
+            initialZ,
+            wavelengthMicrometers,
+            skipSurfaceCount,
+            reverse: true);
+    }
+
+    private ParaxialTrace TraceGenericCore(
+        IReadOnlyList<double> initialHeights,
+        IReadOnlyList<double> initialSlopes,
+        double initialZ,
+        double wavelengthMicrometers,
+        int skipSurfaceCount,
+        bool reverse)
+    {
         if (initialHeights.Count != initialSlopes.Count)
         {
             throw new ArgumentException("Paraxial height and slope arrays must have equal length.");
         }
 
         var wavelengthNanometers = wavelengthMicrometers * 1000;
-        var positions = SurfacePositions();
-        var indices = _optic.SurfaceGroup.Items
+        var surfaces = _optic.SurfaceGroup.Items.ToArray();
+        var positions = SurfacePositions().ToArray();
+        var radii = surfaces
+            .Select(surface => surface.IsPlane ? double.PositiveInfinity : surface.Radius)
+            .ToArray();
+        var indices = surfaces
             .Select(surface => _optic.Materials.Resolve(surface.MaterialAfterName).RefractiveIndex(wavelengthNanometers))
             .ToArray();
+        if (reverse)
+        {
+            var imagePosition = positions[^1];
+            surfaces = surfaces.Reverse().ToArray();
+            positions = positions.Reverse().Select(position => imagePosition - position).ToArray();
+            radii = radii.Reverse().Select(radius => -radius).ToArray();
+            indices = indices
+                .Select((_, index) => indices[(index + indices.Length - 1) % indices.Length])
+                .Reverse()
+                .ToArray();
+        }
+
         var y = initialHeights.ToArray();
         var u = initialSlopes.ToArray();
         var z = initialZ;
-        var heights = new List<IReadOnlyList<double>>(_optic.SurfaceGroup.Items.Count);
-        var slopes = new List<IReadOnlyList<double>>(_optic.SurfaceGroup.Items.Count);
+        var heights = new List<IReadOnlyList<double>>(surfaces.Length);
+        var slopes = new List<IReadOnlyList<double>>(surfaces.Length);
 
-        for (var surfaceIndex = Math.Clamp(startSurfaceIndex, 0, _optic.SurfaceGroup.Items.Count); surfaceIndex < _optic.SurfaceGroup.Items.Count; surfaceIndex++)
+        for (var surfaceIndex = Math.Clamp(skipSurfaceCount, 0, surfaces.Length); surfaceIndex < surfaces.Length; surfaceIndex++)
         {
-            var surface = _optic.SurfaceGroup.Items[surfaceIndex];
-            if (surfaceIndex == 0 && surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase))
+            var surface = surfaces[surfaceIndex];
+            if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase))
             {
                 heights.Add(y.ToArray());
                 slopes.Add(u.ToArray());
@@ -168,12 +219,25 @@ public sealed class Paraxial
             }
 
             z = positions[surfaceIndex];
-            var indexBefore = surfaceIndex == 0 ? indices[0] : indices[surfaceIndex - 1];
+            var indexBefore = indices[(surfaceIndex + indices.Length - 1) % indices.Length];
             var indexAfter = indices[surfaceIndex];
-            var power = surface.IsPlane ? 0 : (indexAfter - indexBefore) / surface.Radius;
+            var power = double.IsInfinity(radii[surfaceIndex])
+                ? 0
+                : (indexAfter - indexBefore) / radii[surfaceIndex];
+            var reflective = surface.IsReflective
+                || surface.InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+                || surface.InteractionModel is ThinLensInteractionModel { IsReflective: true };
             for (var rayIndex = 0; rayIndex < u.Length; rayIndex++)
             {
-                u[rayIndex] = ((indexBefore * u[rayIndex]) - (y[rayIndex] * power)) / indexAfter;
+                u[rayIndex] = surface.InteractionModel switch
+                {
+                    ThinLensInteractionModel thinLens when reflective =>
+                        -u[rayIndex] - (y[rayIndex] / thinLens.FocalLength),
+                    ThinLensInteractionModel thinLens =>
+                        ((indexBefore * u[rayIndex]) - (y[rayIndex] / thinLens.FocalLength)) / indexAfter,
+                    _ when reflective => -u[rayIndex] - (2 * y[rayIndex] / radii[surfaceIndex]),
+                    _ => ((indexBefore * u[rayIndex]) - (y[rayIndex] * power)) / indexAfter
+                };
             }
 
             heights.Add(y.ToArray());

@@ -16,6 +16,12 @@ public sealed class SystemPropertiesPanel : UserControl
     private readonly DataGrid _wavelengthsGrid;
     private readonly ComboBox _backendPicker = new() { MinWidth = 150 };
     private readonly ComboBox _apertureKindPicker = new() { MinWidth = 190 };
+    private readonly ComboBox _fieldDefinitionPicker = new() { MinWidth = 116 };
+    private readonly CheckBox _objectSpaceTelecentric = new()
+    {
+        Content = "物方远心",
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly ComboBox _apodizationPicker = new() { MinWidth = 128 };
     private readonly TextBlock _firstApodizationLabel = ParameterLabel("σ");
     private readonly TextBlock _secondApodizationLabel = ParameterLabel("p");
@@ -75,6 +81,15 @@ public sealed class SystemPropertiesPanel : UserControl
     {
         _backendPicker.ItemsSource = _connector.BackendNames;
         _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
+        _fieldDefinitionPicker.ItemsSource = _connector.FieldDefinitionNames;
+        _fieldDefinitionPicker.SelectionChanged += (_, _) =>
+        {
+            _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
+            if (!_objectSpaceTelecentric.IsEnabled)
+            {
+                _objectSpaceTelecentric.IsChecked = false;
+            }
+        };
         _apodizationPicker.ItemsSource = _connector.ApodizationKinds;
         _apodizationPicker.SelectionChanged += (_, _) =>
         {
@@ -110,6 +125,15 @@ public sealed class SystemPropertiesPanel : UserControl
                 },
                 _apertureKindPicker,
                 _apertureValue,
+                new TextBlock
+                {
+                    Text = "视场类型",
+                    FontWeight = FontWeight.SemiBold,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Avalonia.Thickness(16, 0, 8, 0)
+                },
+                _fieldDefinitionPicker,
+                _objectSpaceTelecentric,
                 new TextBlock
                 {
                     Text = "光瞳切趾",
@@ -151,8 +175,10 @@ public sealed class SystemPropertiesPanel : UserControl
     {
         var grid = BaseGrid();
         grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(FieldPoint.Label)), Width = new DataGridLength(110) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "X 角度", Binding = new Binding(nameof(FieldPoint.XAngleDegrees)), Width = new DataGridLength(76) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Y 角度", Binding = new Binding(nameof(FieldPoint.YAngleDegrees)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "X", Binding = new Binding(nameof(FieldPoint.X)), Width = new DataGridLength(72) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "Y", Binding = new Binding(nameof(FieldPoint.Y)), Width = new DataGridLength(72) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "vx", Binding = new Binding(nameof(FieldPoint.VignetteFactorX)), Width = new DataGridLength(64) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "vy", Binding = new Binding(nameof(FieldPoint.VignetteFactorY)), Width = new DataGridLength(64) });
         grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(FieldPoint.Weight)), Width = new DataGridLength(76) });
         return grid;
     }
@@ -196,6 +222,14 @@ public sealed class SystemPropertiesPanel : UserControl
             _ => 0
         };
         _apertureValue.Value = (decimal)_connector.CurrentOptic.Aperture.Value;
+        _fieldDefinitionPicker.SelectedIndex = _connector.CurrentOptic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => 1,
+            FieldDefinitionKind.ParaxialImageHeight => 2,
+            _ => 0
+        };
+        _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
+        _objectSpaceTelecentric.IsChecked = _connector.CurrentOptic.ObjectSpaceTelecentric;
         SetApodizationControls(_connector.CurrentOptic.Apodization);
         _fieldsGrid.ItemsSource = _connector.Fields;
         _wavelengthsGrid.ItemsSource = _connector.Wavelengths;
@@ -211,6 +245,7 @@ public sealed class SystemPropertiesPanel : UserControl
             ? decimal.ToDouble(_apertureValue.Value.Value)
             : _connector.CurrentOptic.Aperture.Value;
         var apodizationKind = _apodizationPicker.SelectedItem as string ?? "无";
+        var fieldDefinition = _fieldDefinitionPicker.SelectedItem as string ?? "角度";
         var firstApodizationParameter = DecimalValue(_firstApodizationParameter, 1);
         var secondApodizationParameter = DecimalValue(_secondApodizationParameter, 1);
 
@@ -220,6 +255,7 @@ public sealed class SystemPropertiesPanel : UserControl
         }
 
         _connector.SetSystemAperture(apertureKind, value);
+        _connector.SetFieldDefinition(fieldDefinition, _objectSpaceTelecentric.IsChecked == true);
         _connector.SetApodization(
             apodizationKind,
             firstApodizationParameter,

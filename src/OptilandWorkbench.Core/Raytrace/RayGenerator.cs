@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
 
@@ -62,16 +63,15 @@ public sealed class RayGenerator
         {
             foreach (var wavelength in wavelengths)
             {
-                var fieldAngle = DegreesToRadians(field.YAngleDegrees);
                 foreach (var sample in samples)
                 {
-                    var xFieldAngle = DegreesToRadians(field.XAngleDegrees);
-                    var rayGeometry = CreateInfiniteConjugateRay(
-                        xFieldAngle,
-                        fieldAngle,
+                    var rayGeometry = CreateFieldRay(
+                        field.X,
+                        field.Y,
                         sample.X,
                         sample.Y,
-                        apertureRadius);
+                        apertureRadius,
+                        applyVignetting: true);
                     var direction = Settings.Telecentric ? new Vector3D(0, 0, 1) : rayGeometry.Direction;
                     var radius = Math.Sqrt((sample.X * sample.X) + (sample.Y * sample.Y));
                     var legacyApodization = Settings.ApodizationPower <= 0
@@ -104,10 +104,10 @@ public sealed class RayGenerator
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var sampling = ParseSampling(distribution);
         var apertureRadius = EntrancePupilRadius();
-        var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
+        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
         var rays = ApertureSampler.Generate(sampleCount, sampling)
-            .Select(sample => CreateRay(field.XAngleDegrees, field.YAngleDegrees, sample.X, sample.Y, apertureRadius, wavelengthNanometers, sample.Weight))
+            .Select(sample => CreateRay(field.X, field.Y, sample.X, sample.Y, apertureRadius, wavelengthNanometers, sample.Weight))
             .ToArray();
 
         return new RealRayBundle(rays);
@@ -130,12 +130,13 @@ public sealed class RayGenerator
         }
 
         var apertureRadius = EntrancePupilRadius();
-        var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
+        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var ray = CreateRay(
-            field.XAngleDegrees,
-            field.YAngleDegrees,
-            normalizedPupilX,
-            normalizedPupilY,
+            field.X,
+            field.Y,
+            normalizedPupilX * vignetteScale.X,
+            normalizedPupilY * vignetteScale.Y,
             apertureRadius,
             MicrometersToNanometers(wavelengthMicrometers),
             intensity: 1.0);
@@ -150,7 +151,7 @@ public sealed class RayGenerator
     {
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
-        var field = NormalizedFieldToAngles(normalizedFieldX, normalizedFieldY);
+        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
         var apertureRadius = EntrancePupilRadius();
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
         var rays = pupilSamples.Select(sample =>
@@ -163,8 +164,8 @@ public sealed class RayGenerator
             }
 
             return CreateRay(
-                field.XAngleDegrees,
-                field.YAngleDegrees,
+                field.X,
+                field.Y,
                 sample.X,
                 sample.Y,
                 apertureRadius,
@@ -209,36 +210,33 @@ public sealed class RayGenerator
         return wavelengthNanometers / 1000.0;
     }
 
-    private (double XAngleDegrees, double YAngleDegrees) NormalizedFieldToAngles(double normalizedFieldX, double normalizedFieldY)
+    private (double X, double Y) NormalizedFieldToValues(double normalizedFieldX, double normalizedFieldY)
     {
         var maxField = _optic.Fields.Select(field => Math.Sqrt(
-                (field.XAngleDegrees * field.XAngleDegrees)
-                + (field.YAngleDegrees * field.YAngleDegrees)))
+                (field.X * field.X)
+                + (field.Y * field.Y)))
             .DefaultIfEmpty(0)
             .Max();
-        if (maxField <= 1e-12)
-        {
-            maxField = 1.0;
-        }
 
         return (normalizedFieldX * maxField, normalizedFieldY * maxField);
     }
 
     private RealRay CreateRay(
-        double xAngleDegrees,
-        double yAngleDegrees,
+        double fieldX,
+        double fieldY,
         double normalizedPupilX,
         double normalizedPupilY,
         double apertureRadius,
         double wavelengthNanometers,
         double intensity)
     {
-        var geometry = CreateInfiniteConjugateRay(
-            DegreesToRadians(xAngleDegrees),
-            DegreesToRadians(yAngleDegrees),
+        var geometry = CreateFieldRay(
+            fieldX,
+            fieldY,
             normalizedPupilX,
             normalizedPupilY,
-            apertureRadius);
+            apertureRadius,
+            applyVignetting: true);
         var apodization = _optic.Apodization?.Intensity(normalizedPupilX, normalizedPupilY) ?? 1.0;
         return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity * apodization);
     }
@@ -259,47 +257,234 @@ public sealed class RayGenerator
         return _optic.Paraxial.EstimateEntrancePupilDiameter() / 2.0;
     }
 
-    private (Vector3D Origin, Vector3D Direction) CreateInfiniteConjugateRay(
-        double xFieldAngleRadians,
-        double yFieldAngleRadians,
+    private (Vector3D Origin, Vector3D Direction) CreateFieldRay(
+        double fieldX,
+        double fieldY,
         double normalizedPupilX,
         double normalizedPupilY,
+        double apertureRadius,
+        bool applyVignetting)
+    {
+        var normalizedField = DefinitionValuesToNormalized(fieldX, fieldY);
+        var vignetteScale = applyVignetting
+            ? VignetteScale(normalizedField.X, normalizedField.Y)
+            : (X: 1.0, Y: 1.0);
+        var pupilX = normalizedPupilX * vignetteScale.X;
+        var pupilY = normalizedPupilY * vignetteScale.Y;
+        var origin = FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius);
+
+        if (_optic.ObjectSpaceTelecentric)
+        {
+            if (_optic.FieldDefinition == FieldDefinitionKind.Angle)
+            {
+                throw new InvalidOperationException("Angle fields are not valid for object-space telecentric systems.");
+            }
+
+            if (_optic.Aperture.Kind != ApertureKind.NumericalAperture)
+            {
+                throw new InvalidOperationException("Object-space telecentric systems require an object numerical-aperture definition.");
+            }
+
+            var sine = _optic.Aperture.Value;
+            if (!double.IsFinite(sine) || sine <= 0 || sine > 1)
+            {
+                throw new InvalidOperationException("Object numerical aperture must be in (0, 1] for a telecentric field.");
+            }
+
+            var target = new Vector3D(
+                origin.X + pupilX,
+                origin.Y + pupilY,
+                origin.Z + (Math.Sqrt(1 - (sine * sine)) / sine));
+            return (origin, Normalize(target - origin));
+        }
+
+        var entrancePupil = new Vector3D(
+            pupilX * apertureRadius,
+            pupilY * apertureRadius,
+            _optic.Paraxial.EstimateEntrancePupilLocation());
+        return (origin, Normalize(entrancePupil - origin));
+    }
+
+    private Vector3D FieldOrigin(
+        double fieldX,
+        double fieldY,
+        double pupilX,
+        double pupilY,
+        double apertureRadius)
+    {
+        return _optic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => ObjectHeightOrigin(fieldX, fieldY),
+            FieldDefinitionKind.ParaxialImageHeight => ParaxialImageHeightOrigin(
+                fieldX,
+                fieldY,
+                pupilX,
+                pupilY,
+                apertureRadius),
+            _ => AngleFieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius)
+        };
+    }
+
+    private Vector3D AngleFieldOrigin(
+        double fieldX,
+        double fieldY,
+        double pupilX,
+        double pupilY,
         double apertureRadius)
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (objectSurface is not null && objectSurface.Thickness > 1e-12)
+        var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
+        if (!IsObjectAtInfinity(objectSurface))
         {
-            return (
-                new Vector3D(
-                    normalizedPupilX * apertureRadius,
-                    normalizedPupilY * apertureRadius,
-                    objectSurface.CoordinateSystem.Origin.Z),
-                FieldAnglesToDirection(xFieldAngleRadians, yFieldAngleRadians));
+            var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+            return new Vector3D(
+                -Math.Tan(DegreesToRadians(fieldX)) * (entrancePupilZ - objectZ),
+                -Math.Tan(DegreesToRadians(fieldY)) * (entrancePupilZ - objectZ),
+                objectZ);
         }
 
-        var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
-        var firstSurfaceZ = physicalSurfaces.FirstOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
-        var minimumSurfaceZ = physicalSurfaces.Select(surface => surface.CoordinateSystem.Origin.Z).DefaultIfEmpty(firstSurfaceZ).Min();
-        var entrancePupilDiameter = apertureRadius * 2.0;
-        var offset = entrancePupilDiameter - minimumSurfaceZ;
+        var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
         var startZ = firstSurfaceZ - offset;
-        var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
-        var pupilX = normalizedPupilX * apertureRadius;
-        var pupilY = normalizedPupilY * apertureRadius;
-        var origin = new Vector3D(
-            pupilX - (Math.Tan(xFieldAngleRadians) * (offset + entrancePupilZ)),
-            pupilY - (Math.Tan(yFieldAngleRadians) * (offset + entrancePupilZ)),
+        return new Vector3D(
+            (pupilX * apertureRadius) - (Math.Tan(DegreesToRadians(fieldX)) * (offset + entrancePupilZ)),
+            (pupilY * apertureRadius) - (Math.Tan(DegreesToRadians(fieldY)) * (offset + entrancePupilZ)),
             startZ);
-        var pupilPoint = new Vector3D(pupilX, pupilY, entrancePupilZ);
-        return (origin, Normalize(pupilPoint - origin));
     }
 
-    private static Vector3D FieldAnglesToDirection(double xFieldAngleRadians, double yFieldAngleRadians)
+    private Vector3D ObjectHeightOrigin(double fieldX, double fieldY)
     {
-        return Normalize(new Vector3D(
-            Math.Sin(xFieldAngleRadians),
-            Math.Sin(yFieldAngleRadians),
-            Math.Cos(xFieldAngleRadians) * Math.Cos(yFieldAngleRadians)));
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (IsObjectAtInfinity(objectSurface))
+        {
+            throw new InvalidOperationException("Object-height fields require a finite object surface.");
+        }
+
+        var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+        var sag = objectSurface?.Geometry.Sag(fieldX, fieldY) ?? 0;
+        return new Vector3D(fieldX, fieldY, objectZ + sag);
+    }
+
+    private Vector3D ParaxialImageHeightOrigin(
+        double fieldX,
+        double fieldY,
+        double pupilX,
+        double pupilY,
+        double apertureRadius)
+    {
+        var (imageHeightUnit, objectHeightUnit, objectSlopeUnit) = TraceUnitChiefRay();
+        if (Math.Abs(imageHeightUnit) <= 1e-15)
+        {
+            throw new InvalidOperationException("The paraxial image height cannot be resolved for this optical system.");
+        }
+
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (!IsObjectAtInfinity(objectSurface))
+        {
+            var objectX = objectHeightUnit * (fieldX / imageHeightUnit);
+            var objectY = objectHeightUnit * (fieldY / imageHeightUnit);
+            var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+            var sag = objectSurface?.Geometry.Sag(objectX, objectY) ?? 0;
+            return new Vector3D(objectX, objectY, objectZ + sag);
+        }
+
+        var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
+        var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
+        var objectSlopeX = objectSlopeUnit * (fieldX / imageHeightUnit);
+        var objectSlopeY = objectSlopeUnit * (fieldY / imageHeightUnit);
+        return new Vector3D(
+            (pupilX * apertureRadius) - (objectSlopeX * (offset + entrancePupilZ)),
+            (pupilY * apertureRadius) - (objectSlopeY * (offset + entrancePupilZ)),
+            firstSurfaceZ - offset);
+    }
+
+    private (double ImageHeight, double ObjectHeight, double ObjectSlope) TraceUnitChiefRay()
+    {
+        var surfaces = _optic.SurfaceGroup.Items;
+        var stopIndex = surfaces.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex < 0)
+        {
+            throw new InvalidOperationException("Paraxial image-height fields require an aperture stop.");
+        }
+
+        var positions = surfaces.Select(surface => surface.CoordinateSystem.Origin.Z).ToArray();
+        var wavelength = PrimaryWavelengthMicrometers();
+        var imageTrace = _optic.Paraxial.TraceGeneric(
+            new[] { 0.0 },
+            new[] { 1.0 },
+            positions[stopIndex],
+            wavelength,
+            stopIndex);
+        var objectTrace = _optic.Paraxial.TraceGenericReverse(
+            new[] { 0.0 },
+            new[] { 1.0 },
+            positions[^1] - positions[stopIndex],
+            wavelength,
+            surfaces.Count - stopIndex);
+        return (
+            imageTrace.Heights[^1][0],
+            objectTrace.Heights[^1][0],
+            objectTrace.Slopes[^1][0]);
+    }
+
+    private (double FirstSurfaceZ, double Offset) InfiniteObjectStart(double apertureRadius)
+    {
+        var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
+        var firstSurfaceZ = physicalSurfaces.FirstOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
+        var minimumSurfaceZ = physicalSurfaces
+            .Select(surface => surface.CoordinateSystem.Origin.Z)
+            .DefaultIfEmpty(firstSurfaceZ)
+            .Min();
+        return (firstSurfaceZ, (apertureRadius * 2.0) - minimumSurfaceZ);
+    }
+
+    private (double X, double Y) DefinitionValuesToNormalized(double fieldX, double fieldY)
+    {
+        var maxField = MaximumField();
+        return maxField <= 1e-15 ? (0, 0) : (fieldX / maxField, fieldY / maxField);
+    }
+
+    private (double X, double Y) VignetteScale(double normalizedFieldX, double normalizedFieldY)
+    {
+        if (_optic.Fields.Count == 0)
+        {
+            return (1, 1);
+        }
+
+        var maxField = MaximumField();
+        var nearest = _optic.Fields
+            .Select((field, index) =>
+            {
+                var x = maxField <= 1e-15 ? field.X : field.X / maxField;
+                var y = maxField <= 1e-15 ? field.Y : field.Y / maxField;
+                var dx = x - normalizedFieldX;
+                var dy = y - normalizedFieldY;
+                return (Field: field, Index: index, Distance: (dx * dx) + (dy * dy));
+            })
+            .OrderBy(candidate => candidate.Distance)
+            .ThenBy(candidate => candidate.Index)
+            .First().Field;
+        return (1 - nearest.VignetteFactorX, 1 - nearest.VignetteFactorY);
+    }
+
+    private double MaximumField()
+    {
+        return _optic.Fields
+            .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
+            .DefaultIfEmpty(0)
+            .Max();
+    }
+
+    private double PrimaryWavelengthMicrometers()
+    {
+        return (_optic.Wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
+            ?? _optic.Wavelengths.FirstOrDefault())?.Micrometers ?? 0.5876;
+    }
+
+    private static bool IsObjectAtInfinity(OpticalSurface? objectSurface)
+    {
+        return objectSurface is null
+            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
+            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static void ValidateNormalized(double value, string parameterName)

@@ -8,17 +8,23 @@ public sealed record OpticSnapshot(
     List<FieldPointSnapshot> Fields,
     List<WavelengthSnapshot> Wavelengths,
     List<SurfaceSnapshot> Surfaces,
-    ComponentSnapshot? Apodization = null);
+    ComponentSnapshot? Apodization = null,
+    string FieldDefinition = "Angle",
+    bool ObjectSpaceTelecentric = false,
+    bool FieldGroupTelecentric = false);
 
 public sealed record ApertureSnapshot(
     string Kind,
-    double Value);
+    double Value,
+    bool ObjectSpaceTelecentric = false);
 
 public sealed record FieldPointSnapshot(
     string Label,
     double XAngleDegrees,
     double YAngleDegrees,
-    double Weight);
+    double Weight,
+    double VignetteFactorX = 0,
+    double VignetteFactorY = 0);
 
 public sealed record WavelengthSnapshot(
     string Label,

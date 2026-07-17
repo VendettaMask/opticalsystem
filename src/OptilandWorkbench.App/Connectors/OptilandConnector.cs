@@ -66,6 +66,13 @@ public sealed class OptilandConnector
         "数值孔径"
     };
 
+    public IReadOnlyList<string> FieldDefinitionNames { get; } = new[]
+    {
+        "角度",
+        "物高",
+        "近轴像高"
+    };
+
     public IReadOnlyList<string> ApodizationKinds { get; } = new[]
     {
         "无",
@@ -665,6 +672,29 @@ public sealed class OptilandConnector
         CurrentOptic.Aperture.Kind = kind;
         CurrentOptic.Aperture.Value = Math.Max(0.001, value);
         SetStatus("系统孔径已更新。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetFieldDefinition(string fieldDefinitionName, bool objectSpaceTelecentric)
+    {
+        var fieldDefinition = fieldDefinitionName switch
+        {
+            "物高" => FieldDefinitionKind.ObjectHeight,
+            "近轴像高" => FieldDefinitionKind.ParaxialImageHeight,
+            _ => FieldDefinitionKind.Angle
+        };
+        var telecentric = objectSpaceTelecentric && fieldDefinition != FieldDefinitionKind.Angle;
+
+        CaptureCurrentState();
+        CurrentOptic.FieldDefinition = fieldDefinition;
+        CurrentOptic.ObjectSpaceTelecentric = telecentric;
+        if (telecentric)
+        {
+            CurrentOptic.Aperture.Kind = ApertureKind.NumericalAperture;
+            CurrentOptic.Aperture.Value = Math.Clamp(CurrentOptic.Aperture.Value, 0.001, 1);
+        }
+
+        SetStatus("视场定义已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 

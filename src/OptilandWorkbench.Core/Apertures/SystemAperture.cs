@@ -13,6 +13,8 @@ public sealed class SystemAperture
 
     public double Value { get; set; } = 14.0;
 
+    public bool ObjectSpaceTelecentric { get; set; }
+
     public double Diameter(double fallbackDiameter)
     {
         return Kind switch
@@ -26,6 +28,11 @@ public sealed class SystemAperture
 
     public SystemAperture Clone()
     {
-        return new SystemAperture { Kind = Kind, Value = Value };
+        return new SystemAperture
+        {
+            Kind = Kind,
+            Value = Value,
+            ObjectSpaceTelecentric = ObjectSpaceTelecentric
+        };
     }
 }

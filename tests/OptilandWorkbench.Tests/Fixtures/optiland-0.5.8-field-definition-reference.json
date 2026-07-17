@@ -1,0 +1,401 @@
+{
+  "optiland_version": "0.5.8",
+  "normalized_field": {
+    "x": 0.6,
+    "y": 0.8
+  },
+  "normalized_pupil": {
+    "x": 0.25,
+    "y": -0.4
+  },
+  "wavelength_micrometers": 0.55,
+  "finite_system": {
+    "version": 1.0,
+    "aperture": {
+      "type": "EPD",
+      "value": 8.0,
+      "object_space_telecentric": false
+    },
+    "fields": {
+      "fields": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "vx": 0.0,
+          "vy": 0.0
+        },
+        {
+          "x": 3.0,
+          "y": 4.0,
+          "vx": 0.2,
+          "vy": 0.35
+        }
+      ],
+      "telecentric": false,
+      "field_definition": null,
+      "object_space_telecentric": false
+    },
+    "wavelengths": {
+      "wavelengths": [
+        {
+          "value": 0.55,
+          "is_primary": true,
+          "unit": "um",
+          "weight": 1.0
+        }
+      ],
+      "polarization": "ignore"
+    },
+    "apodization": null,
+    "pickups": [],
+    "solves": {
+      "solves": []
+    },
+    "surface_group": {
+      "surfaces": [
+        {
+          "type": "ObjectSurface",
+          "geometry": {
+            "type": "Plane",
+            "cs": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": -100.0,
+              "rx": 0.0,
+              "ry": 0.0,
+              "rz": 0.0,
+              "reference_cs": null
+            },
+            "radius": "Infinity"
+          },
+          "material_post": {
+            "type": "IdealMaterial",
+            "propagation_model": {
+              "class": "HomogeneousPropagation"
+            },
+            "index": 1.0,
+            "absorp": 0.0
+          },
+          "comment": ""
+        },
+        {
+          "type": "Surface",
+          "thickness": 5.0,
+          "geometry": {
+            "type": "StandardGeometry",
+            "cs": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0,
+              "rx": 0.0,
+              "ry": 0.0,
+              "rz": 0.0,
+              "reference_cs": null
+            },
+            "radius": 40.0,
+            "conic": 0.0
+          },
+          "material_post": {
+            "type": "IdealMaterial",
+            "propagation_model": {
+              "class": "HomogeneousPropagation"
+            },
+            "index": 1.5,
+            "absorp": 0.0
+          },
+          "is_stop": true,
+          "aperture": null,
+          "interaction_model": {
+            "type": "RefractiveReflectiveModel",
+            "is_reflective": false,
+            "coating": null,
+            "bsdf": null
+          }
+        },
+        {
+          "type": "Surface",
+          "thickness": 30.0,
+          "geometry": {
+            "type": "StandardGeometry",
+            "cs": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 5.0,
+              "rx": 0.0,
+              "ry": 0.0,
+              "rz": 0.0,
+              "reference_cs": null
+            },
+            "radius": -40.0,
+            "conic": 0.0
+          },
+          "material_post": {
+            "type": "IdealMaterial",
+            "propagation_model": {
+              "class": "HomogeneousPropagation"
+            },
+            "index": 1.0,
+            "absorp": 0.0
+          },
+          "is_stop": false,
+          "aperture": null,
+          "interaction_model": {
+            "type": "RefractiveReflectiveModel",
+            "is_reflective": false,
+            "coating": null,
+            "bsdf": null
+          }
+        },
+        {
+          "type": "Surface",
+          "thickness": 0.0,
+          "geometry": {
+            "type": "Plane",
+            "cs": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 35.0,
+              "rx": 0.0,
+              "ry": 0.0,
+              "rz": 0.0,
+              "reference_cs": null
+            },
+            "radius": "Infinity"
+          },
+          "material_post": {
+            "type": "IdealMaterial",
+            "propagation_model": {
+              "class": "HomogeneousPropagation"
+            },
+            "index": 1.0,
+            "absorp": 0.0
+          },
+          "is_stop": false,
+          "aperture": null,
+          "interaction_model": {
+            "type": "RefractiveReflectiveModel",
+            "is_reflective": false,
+            "coating": null,
+            "bsdf": null
+          }
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "name": "finite_angle",
+      "field_type": "angle",
+      "telecentric": false,
+      "aperture_type": "EPD",
+      "aperture_value": 8.0,
+      "initial_distribution_ray": {
+        "x": -5.240777928304121,
+        "y": -6.992681194351041,
+        "z": 0.0,
+        "l": 0.060191701479492196,
+        "m": 0.05931388534813332,
+        "n": 0.9964230136231862,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": -5.240777928304121,
+        "y": -6.992681194351041,
+        "z": 0.0,
+        "l": 0.058589983242791625,
+        "m": 0.06293287211983041,
+        "n": 0.9962964756890182,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": 2.026511342588971,
+        "y": 1.8781800153740045,
+        "z": 135.0,
+        "l": 0.040424704197033104,
+        "m": 0.07688520419532334,
+        "n": 0.9962201105510902,
+        "intensity": 1.0
+      }
+    },
+    {
+      "name": "finite_object_height",
+      "field_type": "object_height",
+      "telecentric": false,
+      "aperture_type": "EPD",
+      "aperture_value": 8.0,
+      "initial_distribution_ray": {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 0.0,
+        "l": -0.021966809501091446,
+        "m": -0.05032396358431858,
+        "n": 0.9984913409587021,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 0.0,
+        "l": -0.02356769365845227,
+        "m": -0.04669598963852662,
+        "n": 0.9986310872225539,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": -0.6148731383624069,
+        "y": -1.6499958472800613,
+        "z": 135.0,
+        "l": -0.038267905290051,
+        "m": -0.02817604063345645,
+        "n": 0.9988702008564139,
+        "intensity": 1.0
+      }
+    },
+    {
+      "name": "finite_paraxial_image_height",
+      "field_type": "paraxial_image_height",
+      "telecentric": false,
+      "aperture_type": "EPD",
+      "aperture_value": 8.0,
+      "initial_distribution_ray": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "l": 0.007999311448904442,
+        "m": -0.010399104883575774,
+        "n": 0.9999139311130552,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "l": 0.006399722713701594,
+        "m": -0.006759707116347309,
+        "n": 0.999956674015874,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": 0.3483590871773002,
+        "y": -0.3679542858310234,
+        "z": 135.0,
+        "l": -0.009541912762659066,
+        "m": 0.010078645355558635,
+        "n": 0.9999036817657121,
+        "intensity": 1.0
+      },
+      "unit_chief_ray": {
+        "image_height": 32.083333333333336,
+        "object_height": 0.0,
+        "object_slope": 1.0
+      }
+    },
+    {
+      "name": "finite_object_height_telecentric",
+      "field_type": "object_height",
+      "telecentric": true,
+      "aperture_type": "objectNA",
+      "aperture_value": 0.2,
+      "initial_distribution_ray": {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 0.0,
+        "l": 0.04073361996415283,
+        "m": -0.052953705953398586,
+        "n": 0.9977658428862038,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 0.0,
+        "l": 0.032623073600255965,
+        "m": -0.03445812149027034,
+        "n": 0.9988735520235952,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": 2.2819712712436306,
+        "y": -1.0117747887425133,
+        "z": 135.0,
+        "l": -0.125971458637853,
+        "m": -0.046631574315544475,
+        "n": 0.9909372774729512,
+        "intensity": 1.0
+      }
+    },
+    {
+      "name": "infinite_angle",
+      "field_type": "angle",
+      "telecentric": false,
+      "aperture_type": "EPD",
+      "aperture_value": 10.0,
+      "initial_distribution_ray": {
+        "x": -3.3225504817915628,
+        "y": -8.168512237408212,
+        "z": -10.0,
+        "l": 0.20018654450669546,
+        "m": 0.2700578494368397,
+        "n": 0.941803644798648,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": -3.3225504817915628,
+        "y": -8.168512237408212,
+        "z": -10.0,
+        "l": 0.20018654450669546,
+        "m": 0.2700578494368397,
+        "n": 0.941803644798648,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": 10.586204931704025,
+        "y": 14.295612790143936,
+        "z": 60.17675,
+        "l": 0.16581039540713194,
+        "m": 0.29361859421609804,
+        "n": 0.9414324372494791,
+        "intensity": 0.9993612192838401
+      }
+    },
+    {
+      "name": "infinite_paraxial_image_height",
+      "field_type": "paraxial_image_height",
+      "telecentric": false,
+      "aperture_type": "EPD",
+      "aperture_value": 10.0,
+      "initial_distribution_ray": {
+        "x": -3.933919697304937,
+        "y": -8.911892929739917,
+        "z": -10.0,
+        "l": 0.22361516286395922,
+        "m": 0.29815355048527903,
+        "n": 0.9279551278323468,
+        "intensity": 1.0
+      },
+      "initial_generic_ray": {
+        "x": -3.933919697304937,
+        "y": -8.911892929739917,
+        "z": -10.0,
+        "l": 0.22361516286395922,
+        "m": 0.29815355048527903,
+        "n": 0.9279551278323468,
+        "intensity": 1.0
+      },
+      "final_generic_ray": {
+        "x": 12.009467370460142,
+        "y": 16.023615126657408,
+        "z": 60.17675,
+        "l": 0.1865804853963587,
+        "m": 0.31721774450557727,
+        "n": 0.9298175224419334,
+        "intensity": 0.9993781466910464
+      },
+      "unit_chief_ray": {
+        "image_height": 61.46267350650184,
+        "object_height": 14.20892562352779,
+        "object_slope": 1.2342538029753634
+      }
+    }
+  ]
+}

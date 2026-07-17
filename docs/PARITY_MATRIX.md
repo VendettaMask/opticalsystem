@@ -8,7 +8,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
 | Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model with source-validated phase and diffractive interactions in surface-local coordinates while retaining native snapshot compatibility |
 | Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
-| Ray generation | `Raytrace` | Python-style radial field normalization; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven source-validated apodization profiles; telecentric generation option |
+| Ray generation | `Raytrace` | Source-validated angle, object-height, and paraxial-image-height fields; radial normalization; nearest-field vignetting; object-space telecentric launch; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven apodization profiles |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
 | Geometry | `Geometries` | Plane, standard, planar/standard grating, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
@@ -36,6 +36,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Menu, toolbar, and command palette actions are registered through a shared action manager.
 - Analysis output includes metric, graphical, and exportable report views, Python-style multi-pane layouts, legends, fixed color scales, and viridis/inferno/jet heatmaps.
 - Python golden fixtures validate 30 analysis views point-for-point or pixel-for-pixel, including chief-ray and centroid/best-fit reference-sphere wavefronts, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, radiometry, Jones pupil, and image simulation.
+- Python golden fixtures validate all three 0.5.8 field definitions, finite/infinite conjugates, vignetting, telecentric launch, and paraxial image-height unit chief rays.
 - Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.

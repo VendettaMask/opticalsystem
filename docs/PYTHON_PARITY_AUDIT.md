@@ -157,7 +157,7 @@ Implement Python's operand/variable managers and batched evaluator before adding
 
 Python `to_dict/from_dict` serializes object graphs by each component's own type registry. The file handler can load/save any object that supports those methods, not only an `Optic`.
 
-The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated angle-field sequential subset, including EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/planar-grating/standard-grating/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, all seven apodization profiles, transforms, refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with all four Python profiles, transmissive/reflective diffractive interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, and its grating geometry dictionaries cannot reconstruct themselves, so those external Python retention paths are not claimed yet. Forbes/NURBS/grid-sag freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, polarization, pickups, solves, and multi-configuration remain incomplete.
+The .NET native snapshot remains a separate schema. A Python Optiland 0.5.8 adapter now imports and exports the validated sequential subset, including angle/object-height/paraxial-image-height fields, field vignetting and telecentric flags, finite/infinite object conjugates, EPD/image-F-number/object-NA/float-by-stop-size system apertures, wavelengths, plane/standard/planar-grating/standard-grating/biconic surfaces, representable toroidal surfaces, pure polynomial/Chebyshev/fringe Zernike surfaces, representable high-order even/odd aspheres, homogeneous catalog/ideal/Abbe materials, radial/annular/offset-radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures, all seven apodization profiles, transforms, refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with all four Python profiles, transmissive/reflective diffractive interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, and its grating geometry dictionaries cannot reconstruct themselves, so those external Python retention paths are not claimed yet. Forbes/NURBS/grid-sag freeforms, Python standard/noll Zernike or finite base-radius Zernike terms, Python polynomial/Chebyshev finite base radius/conic terms, Python toroidal `conic_yz` and `coeffs_poly_y` terms, non-homogeneous material propagation models, Fresnel/polarized coatings, thin-film/TMM coating stacks, BSDFs, polarization, pickups, solves, and multi-configuration remain incomplete.
 
 Required fix:
 
@@ -171,12 +171,11 @@ The next implementation order is:
 
 1. Extend Python JSON interoperability to the remaining freeforms, Python-preserved coating models, BSDFs, solves, pickups, and polarization.
 2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
-3. Expand field definitions beyond angle fields and complete vignetting/telecentric behavior.
-4. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
-5. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
-6. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
-7. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
-8. Add broad GUI automation for generated analysis parameters, persistence, detachable layout behavior, file dialogs, edits, themes, and command-palette navigation.
+3. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
+4. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
+5. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
+6. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
+7. Add broad GUI automation for generated analysis parameters, persistence, detachable layout behavior, file dialogs, edits, themes, and command-palette navigation.
 
 Every new parity claim must add a pinned Python generator output and a .NET point/pixel/parameter comparison before this list is updated.
 
@@ -294,7 +293,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 ### 2026-07-14 Python JSON Root Contract Guardrails
 
-- Kept unsupported root-level Python contracts explicit: nonempty `pickups`, nonempty `solves`, non-ignored `polarization`, object-space telecentric apertures, and telecentric field groups fail during import instead of being ignored. The former apodization guardrail was superseded by the validated expansion below.
+- Kept unsupported root-level Python contracts explicit: nonempty `pickups`, nonempty `solves`, and non-ignored `polarization` fail during import instead of being ignored. The former apodization and telecentric guardrails were superseded by validated expansions below.
 - Regression coverage verifies every guardrail while preserving import of the empty/default Python Optiland 0.5.8 root dictionaries used by the Cooke and Tessar fixtures.
 
 ### 2026-07-14 Python JSON Material Propagation Guardrails
@@ -310,7 +309,13 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 ### 2026-07-15 Python JSON Field Definition Guardrails
 
 - Added source-validated regressions for Optiland 0.5.8 `ObjectHeightField` and `ParaxialImageHeightField` definitions.
-- Both field definitions remain explicitly outside the angle-field adapter contract instead of risking a silent import as `AngleField`.
+- This guardrail was superseded by the 2026-07-18 numerical implementation below.
+
+### 2026-07-18 Field Definition Numerical Alignment
+
+- Added group-level angle, object-height, and paraxial-image-height definitions, nearest-field `vx/vy` behavior, object-space telecentric launch, and finite-object coordinate preservation in native and Python JSON.
+- Added forward and reverse unit paraxial chief-ray tracing for Python's paraxial-image-height conversion, including finite and infinite conjugates.
+- Added a pinned Optiland 0.5.8 generator and six-case fixture comparing initial distribution/generic rays, final generic rays, and unit chief-ray values; the full repository baseline is `213/213` tests with a zero-warning build.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

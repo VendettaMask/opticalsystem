@@ -38,6 +38,12 @@ public sealed class Optic
 
     public ObservableCollection<FieldPoint> Fields { get; } = new();
 
+    public FieldDefinitionKind FieldDefinition { get; set; } = FieldDefinitionKind.Angle;
+
+    public bool ObjectSpaceTelecentric { get; set; }
+
+    public bool FieldGroupTelecentric { get; set; }
+
     public ObservableCollection<Wavelength> Wavelengths { get; } = new();
 
     public SurfaceGroup SurfaceGroup { get; } = new();
@@ -328,13 +334,18 @@ public sealed class Optic
         return new OpticSnapshot(
             SchemaVersion: 2,
             Name,
-            new ApertureSnapshot(Aperture.Kind.ToString(), Aperture.Value),
+            new ApertureSnapshot(
+                Aperture.Kind.ToString(),
+                Aperture.Value,
+                Aperture.ObjectSpaceTelecentric),
             Backend.Current.Name,
             Fields.Select(field => new FieldPointSnapshot(
                 field.Label,
                 field.XAngleDegrees,
                 field.YAngleDegrees,
-                field.Weight)).ToList(),
+                field.Weight,
+                field.VignetteFactorX,
+                field.VignetteFactorY)).ToList(),
             Wavelengths.Select(wavelength => new WavelengthSnapshot(
                 wavelength.Label,
                 wavelength.Nanometers,
@@ -366,7 +377,10 @@ public sealed class Optic
                     ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
                     ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
                     ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)))).ToList(),
-            Apodization: ComponentSnapshotFactory.FromApodization(Apodization));
+            Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
+            FieldDefinition: FieldDefinition.ToString(),
+            ObjectSpaceTelecentric: ObjectSpaceTelecentric,
+            FieldGroupTelecentric: FieldGroupTelecentric);
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -380,6 +394,7 @@ public sealed class Optic
             }
 
             Aperture.Value = snapshot.Aperture.Value;
+            Aperture.ObjectSpaceTelecentric = snapshot.Aperture.ObjectSpaceTelecentric;
         }
 
         if (!string.IsNullOrWhiteSpace(snapshot.BackendName) && Backend.Names.Contains(snapshot.BackendName))
@@ -388,6 +403,11 @@ public sealed class Optic
         }
 
         Apodization = ComponentSnapshotFactory.ToApodization(snapshot.Apodization);
+        FieldDefinition = Enum.TryParse<FieldDefinitionKind>(snapshot.FieldDefinition, out var fieldDefinition)
+            ? fieldDefinition
+            : FieldDefinitionKind.Angle;
+        ObjectSpaceTelecentric = snapshot.ObjectSpaceTelecentric;
+        FieldGroupTelecentric = snapshot.FieldGroupTelecentric;
 
         Fields.Clear();
         foreach (var field in snapshot.Fields ?? new List<FieldPointSnapshot>())
@@ -397,7 +417,9 @@ public sealed class Optic
                 Label = field.Label,
                 XAngleDegrees = field.XAngleDegrees,
                 YAngleDegrees = field.YAngleDegrees,
-                Weight = field.Weight
+                Weight = field.Weight,
+                VignetteFactorX = field.VignetteFactorX,
+                VignetteFactorY = field.VignetteFactorY
             });
         }
 

@@ -1038,27 +1038,25 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Theory]
-    [InlineData("ObjectHeightField")]
-    [InlineData("ParaxialImageHeightField")]
-    public void PythonJsonImportRejectsUnsupportedFieldDefinitionsExplicitly(string fieldType)
+    [InlineData("ObjectHeightField", FieldDefinitionKind.ObjectHeight)]
+    [InlineData("ParaxialImageHeightField", FieldDefinitionKind.ParaxialImageHeight)]
+    public void PythonJsonImportPreservesFieldDefinitions(
+        string fieldType,
+        FieldDefinitionKind expected)
     {
         var json = PythonJsonWithSurfaceGeometry(
             PythonPlaneGeometry(),
             fieldType: fieldType);
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
 
-        Assert.Contains("field type", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains(fieldType, error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(expected, optic.FieldDefinition);
     }
 
     [Theory]
     [InlineData("apodization", "apodization")]
     [InlineData("pickups", "pickups")]
     [InlineData("solves", "solves")]
-    [InlineData("apertureTelecentric", "telecentric")]
-    [InlineData("fieldTelecentric", "telecentric")]
-    [InlineData("fieldObjectSpaceTelecentric", "telecentric")]
     [InlineData("polarization", "polarization")]
     public void PythonJsonImportRejectsUnsupportedRootContractsExplicitly(
         string contract,
@@ -1116,6 +1114,27 @@ public sealed class CookeTripletGoldenTests
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
 
         Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData("aperture")]
+    [InlineData("fieldGroup")]
+    [InlineData("objectSpace")]
+    public void PythonJsonImportPreservesTelecentricContracts(string contract)
+    {
+        var json = PythonJsonWithSurfaceGeometry(
+            PythonPlaneGeometry(),
+            systemApertureType: "objectNA",
+            apertureObjectSpaceTelecentric: contract == "aperture" ? "true" : "false",
+            fieldsTelecentric: contract == "fieldGroup" ? "true" : "false",
+            fieldsObjectSpaceTelecentric: contract == "objectSpace" ? "true" : "false",
+            fieldType: "ObjectHeightField");
+
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+
+        Assert.Equal(contract == "aperture", optic.Aperture.ObjectSpaceTelecentric);
+        Assert.Equal(contract == "fieldGroup", optic.FieldGroupTelecentric);
+        Assert.Equal(contract == "objectSpace", optic.ObjectSpaceTelecentric);
     }
 
     [Fact]

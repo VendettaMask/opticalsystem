@@ -13,6 +13,8 @@ python -m venv .venv-optiland-reference
   tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-cooke.json
 .venv-optiland-reference/bin/python tools/python-reference/generate_tessar_reference.py \
   tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-tessar.json
+.venv-optiland-reference/bin/python tools/python-reference/generate_field_definition_reference.py \
+  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-field-definition-reference.json
 ```
 
 The generated JSON files record each prescription, normalized generic rays at three wavelengths, every traced surface, and three 9-ray `line_y` bundles.
@@ -64,6 +66,10 @@ Measured comparison before applying test tolerances:
 
 The comparison intentionally skips Python surface 0 because Optiland represents the infinite object sample at the generated ray start (`z=-10 mm`), while the Workbench keeps an explicit zero-thickness object plane at the first optical surface. Physical surfaces 1 through 7 are indexed identically and are compared directly.
 
+### Field Definitions
+
+`optiland-0.5.8-field-definition-reference.json` validates angle, object-height, and paraxial-image-height fields for finite and infinite conjugates. It compares initial distribution and generic rays, final generic rays, vignetting factors, object-space telecentric launch, and the forward/reverse unit chief rays used to resolve paraxial image height. Finite-object Python coordinates are translated to the Workbench object-plane origin before comparison; Python JSON import/export preserves that conjugate distance.
+
 ### Tessar F/4.5
 
 The second fixture is the official four-element, three-group `TessarLens` sample using N-SK15, F2, and K10 glass. It has EFL `3.9977777470211935 mm`, image-space F-number `4.5`, and entrance pupil diameter `0.8883950548935986 mm`.
@@ -107,4 +113,4 @@ See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numeric
 
 The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, vectorial diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
 
-As of 2026-07-17, the complete solution builds with zero warnings and the repository test suite passes `209/209` tests.
+As of 2026-07-18, the complete solution builds with zero warnings and the repository test suite passes `213/213` tests.

@@ -64,7 +64,7 @@ For both validated samples, Python-loaded C# exports reproduce EFL, F-number, en
 - Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
 - Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
 - Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, and BSDFs.
-- Pickups, solves, polarization, and telecentric field modes.
+- Pickups, solves, and polarization.
 - Lossless conversion of Workbench plugins or custom propagation models.
 
 `FileAperture` preserves `filepath`, `delimiter`, and `skip_header` in both schemas. Loading that dictionary through Python requires the referenced vertex file to remain available at its recorded path.
