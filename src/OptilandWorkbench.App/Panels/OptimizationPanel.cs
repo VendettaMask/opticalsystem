@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.App.Panels;
@@ -34,7 +35,11 @@ public sealed class OptimizationPanel : UserControl
         _connector = connector;
         _optimizerPicker.ItemsSource = _connector.OptimizerNames;
 
-        var runButton = new Button { Content = "运行", MinWidth = 86 };
+        var runButton = new Button
+        {
+            Content = new LocalIconLabel("play", "运行"),
+            MinWidth = 86
+        };
         runButton.Click += (_, _) => Run();
 
         var row = new StackPanel

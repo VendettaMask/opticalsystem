@@ -6,6 +6,8 @@ public sealed class ActionManager
 
     public IReadOnlyList<AppAction> Actions => _actions;
 
+    public event EventHandler<ActionExecutionFailedEventArgs>? ExecutionFailed;
+
     public AppAction Register(string id, string text, string category, Func<Task> executeAsync)
     {
         var action = new AppAction(id, text, category, executeAsync);
@@ -27,6 +29,20 @@ public sealed class ActionManager
         return _actions.First(action => action.Id == id);
     }
 
+    public async Task<bool> ExecuteAsync(AppAction action)
+    {
+        try
+        {
+            await action.ExecuteAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            ExecutionFailed?.Invoke(this, new ActionExecutionFailedEventArgs(action, exception));
+            return false;
+        }
+    }
+
     public IReadOnlyList<AppAction> Search(string query)
     {
         if (string.IsNullOrWhiteSpace(query))
@@ -42,6 +58,8 @@ public sealed class ActionManager
             .ToArray();
     }
 }
+
+public sealed record ActionExecutionFailedEventArgs(AppAction Action, Exception Exception);
 
 public sealed record AppAction(string Id, string Text, string Category, Func<Task> ExecuteAsync)
 {

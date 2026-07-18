@@ -380,7 +380,15 @@ public sealed class Optic
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
-            FieldGroupTelecentric: FieldGroupTelecentric);
+            FieldGroupTelecentric: FieldGroupTelecentric,
+            RadiusPickups: Pickups.RadiusPickups.Select(pickup => new RadiusPickupSnapshot(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale,
+                pickup.Offset)).ToList(),
+            SolveSettings: new SolveSettingsSnapshot(
+                Solves.DesiredBackFocus,
+                Solves.KeepImageAtBackFocus));
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -464,6 +472,19 @@ public sealed class Optic
 
             return opticalSurface;
         }), syncComposition: false);
+
+        Pickups.Clear();
+        foreach (var pickup in snapshot.RadiusPickups ?? new List<RadiusPickupSnapshot>())
+        {
+            Pickups.LinkRadius(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale,
+                pickup.Offset);
+        }
+
+        Solves.DesiredBackFocus = snapshot.SolveSettings?.DesiredBackFocus ?? 30;
+        Solves.KeepImageAtBackFocus = snapshot.SolveSettings?.KeepImageAtBackFocus ?? true;
     }
 
     public static Optic FromSnapshot(OpticSnapshot snapshot)

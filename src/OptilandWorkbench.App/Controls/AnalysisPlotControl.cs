@@ -76,19 +76,21 @@ public sealed class AnalysisPlotControl : Control
     {
         base.OnPointerWheelChanged(e);
         var position = e.GetPosition(this);
-        if (!_lastPlot.Contains(position) || !HasValidViewport(_lastRenderedViewport))
+        var viewport = CurrentViewport();
+        if (!_lastPlot.Contains(position) || viewport is null)
         {
             return;
         }
 
         var factor = Math.Pow(0.82, e.Delta.Y);
-        var dataX = UnmapX(position.X, _lastPlot, _lastRenderedViewport);
-        var dataY = UnmapY(position.Y, _lastPlot, _lastRenderedViewport);
+        var current = viewport.Value;
+        var dataX = UnmapX(position.X, _lastPlot, current);
+        var dataY = UnmapY(position.Y, _lastPlot, current);
         _viewport = new PlotViewport(
-            dataX - ((dataX - _lastRenderedViewport.XMinimum) * factor),
-            dataX + ((_lastRenderedViewport.XMaximum - dataX) * factor),
-            dataY - ((dataY - _lastRenderedViewport.YMinimum) * factor),
-            dataY + ((_lastRenderedViewport.YMaximum - dataY) * factor));
+            dataX - ((dataX - current.XMinimum) * factor),
+            dataX + ((current.XMaximum - dataX) * factor),
+            dataY - ((dataY - current.YMinimum) * factor),
+            dataY + ((current.YMaximum - dataY) * factor));
         _hoverPointer = position;
         InvalidateVisual();
         e.Handled = true;
@@ -122,17 +124,19 @@ public sealed class AnalysisPlotControl : Control
         base.OnPointerMoved(e);
         var position = e.GetPosition(this);
         _hoverPointer = _lastPlot.Contains(position) ? position : null;
-        if (_panning && HasValidViewport(_lastRenderedViewport))
+        var viewport = CurrentViewport();
+        if (_panning && viewport is not null)
         {
             var delta = position - _lastPointer;
             _lastPointer = position;
-            var xShift = -(delta.X / Math.Max(1, _lastPlot.Width)) * _lastRenderedViewport.XSpan;
-            var yShift = (delta.Y / Math.Max(1, _lastPlot.Height)) * _lastRenderedViewport.YSpan;
+            var current = viewport.Value;
+            var xShift = -(delta.X / Math.Max(1, _lastPlot.Width)) * current.XSpan;
+            var yShift = (delta.Y / Math.Max(1, _lastPlot.Height)) * current.YSpan;
             _viewport = new PlotViewport(
-                _lastRenderedViewport.XMinimum + xShift,
-                _lastRenderedViewport.XMaximum + xShift,
-                _lastRenderedViewport.YMinimum + yShift,
-                _lastRenderedViewport.YMaximum + yShift);
+                current.XMinimum + xShift,
+                current.XMaximum + xShift,
+                current.YMinimum + yShift,
+                current.YMaximum + yShift);
         }
 
         InvalidateVisual();
@@ -142,6 +146,11 @@ public sealed class AnalysisPlotControl : Control
     protected override void OnPointerReleased(PointerReleasedEventArgs e)
     {
         base.OnPointerReleased(e);
+        if (!_panning)
+        {
+            return;
+        }
+
         _panning = false;
         e.Pointer.Capture(null);
         e.Handled = true;
@@ -887,6 +896,16 @@ public sealed class AnalysisPlotControl : Control
             && double.IsFinite(viewport.YMaximum)
             && viewport.XSpan > 1e-18
             && viewport.YSpan > 1e-18;
+    }
+
+    private PlotViewport? CurrentViewport()
+    {
+        if (_viewport is { } pending && HasValidViewport(pending))
+        {
+            return pending;
+        }
+
+        return HasValidViewport(_lastRenderedViewport) ? _lastRenderedViewport : null;
     }
 
     private static double UnmapX(double value, Rect plot, PlotViewport viewport)

@@ -17,7 +17,7 @@ The implementation is being built in small git milestones. The current codebase 
 - .NET plugin discovery with geometry, material, and analysis registration.
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical multi-page analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands, all 32 analyses grouped under **Analysis**, and analysis-window layout commands grouped under **Window**.
-- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, light/dark theme selection, persisted analysis settings, report copy/export, and docked, floating, tiled, or cascaded analysis result windows.
+- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, a consistent light theme, persisted analysis settings, report copy/export, and docked, floating, tiled, or cascaded analysis result windows.
 - Interactive analysis plots with pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Analysis pages expose **Plot / Data / Text** tabs at the bottom and keep graph settings in a collapsed-by-default panel with an icon-only synchronization action.
 
 ## Requirements
@@ -58,7 +58,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 213 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 223 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -98,6 +98,7 @@ See:
 - [Optiland 0.5.8 numerical parity](docs/NUMERICAL_PARITY.md)
 - [Python Optiland JSON interoperability](docs/PYTHON_JSON_INTEROP.md)
 - [Python analysis and plot parity](docs/PYTHON_ANALYSIS_PARITY.md)
+- [Local icon library](docs/LOCAL_ICONS.md)
 
 ## Notes
 

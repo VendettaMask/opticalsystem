@@ -183,6 +183,11 @@ public sealed class OpticSceneControl : Control
     protected override void OnPointerReleased(PointerReleasedEventArgs e)
     {
         base.OnPointerReleased(e);
+        if (!_dragging)
+        {
+            return;
+        }
+
         _dragging = false;
         e.Pointer.Capture(null);
         e.Handled = true;

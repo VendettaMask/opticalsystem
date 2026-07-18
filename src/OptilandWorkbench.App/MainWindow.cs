@@ -4,7 +4,6 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.Styling;
 using OptilandWorkbench.App.Connectors;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
@@ -42,38 +41,38 @@ public sealed class MainWindow : Window
 
     private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
     {
-        new("analysis-first-order", "一级像差/一阶量", "一阶量", "Ⅰ", "基础"),
-        new("analysis-prescription", "处方报告", "处方报告", "≡", "基础"),
-        new("analysis-spot", "点列图", "点列图", "⁙", "几何像质"),
-        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "⌁", "几何像质"),
-        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "≈", "几何像质"),
-        new("analysis-distortion", "畸变", "畸变", "↝", "几何像质"),
-        new("analysis-grid-distortion", "网格畸变", "网格畸变", "▦", "几何像质"),
-        new("analysis-field-curvature", "场曲", "场曲", "⌒", "几何像质"),
-        new("analysis-encircled-energy", "包围能量", "包围能量", "◎", "几何像质"),
-        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "◉", "几何像质"),
-        new("analysis-rms-field", "RMS-视场", "RMS-视场", "R", "几何像质"),
-        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "W", "几何像质"),
-        new("analysis-through-focus", "离焦扫描", "离焦扫描", "↔", "扫描"),
-        new("analysis-through-focus-mtf", "离焦 MTF", "离焦 MTF", "M", "扫描"),
-        new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "∠", "扫描"),
-        new("analysis-angle-field", "入射角-像高（扫描视场）", "像高-扫描视场", "∢", "扫描"),
-        new("analysis-psf", "点扩散函数 PSF", "PSF", "✦", "PSF / MTF"),
-        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "▦", "PSF / MTF"),
-        new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "◌", "PSF / MTF"),
-        new("analysis-mtf", "调制传递函数 MTF", "MTF", "≋", "PSF / MTF"),
-        new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "〰", "PSF / MTF"),
-        new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "▥", "PSF / MTF"),
-        new("analysis-sampled-mtf", "采样 MTF", "采样 MTF", "▤", "PSF / MTF"),
-        new("analysis-wavefront", "波前", "波前", "∿", "波前"),
-        new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "◯", "波前"),
-        new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "◉", "波前"),
-        new("analysis-zernike", "Zernike 系数", "Zernike", "Z", "波前"),
-        new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "J", "波前"),
-        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "☼", "照明与成像"),
-        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "✺", "照明与成像"),
-        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "Y", "照明与成像"),
-        new("analysis-image-simulation", "成像仿真", "成像仿真", "▣", "照明与成像")
+        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "基础"),
+        new("analysis-prescription", "处方报告", "处方报告", "file-text", "基础"),
+        new("analysis-spot", "点列图", "点列图", "chart-scatter", "几何像质"),
+        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "chart-spline", "几何像质"),
+        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "chart-no-axes-combined", "几何像质"),
+        new("analysis-distortion", "畸变", "畸变", "move-diagonal", "几何像质"),
+        new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "几何像质"),
+        new("analysis-field-curvature", "场曲", "场曲", "chart-line", "几何像质"),
+        new("analysis-encircled-energy", "包围能量", "包围能量", "circle-dot", "几何像质"),
+        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "scan", "几何像质"),
+        new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "几何像质"),
+        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "几何像质"),
+        new("analysis-through-focus", "离焦扫描", "离焦扫描", "scan-line", "扫描"),
+        new("analysis-through-focus-mtf", "离焦 MTF", "离焦 MTF", "chart-spline", "扫描"),
+        new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "scan", "扫描"),
+        new("analysis-angle-field", "入射角-像高（扫描视场）", "像高-扫描视场", "scan-line", "扫描"),
+        new("analysis-psf", "点扩散函数 PSF", "PSF", "focus", "PSF / MTF"),
+        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "grid-2x2", "PSF / MTF"),
+        new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "circle-dot-dashed", "PSF / MTF"),
+        new("analysis-mtf", "调制传递函数 MTF", "MTF", "chart-no-axes-combined", "PSF / MTF"),
+        new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "waves-horizontal", "PSF / MTF"),
+        new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "chart-spline", "PSF / MTF"),
+        new("analysis-sampled-mtf", "采样 MTF", "采样 MTF", "chart-line", "PSF / MTF"),
+        new("analysis-wavefront", "波前", "波前", "waves-horizontal", "波前"),
+        new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "circle-dot", "波前"),
+        new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "focus", "波前"),
+        new("analysis-zernike", "Zernike 系数", "Zernike", "sigma", "波前"),
+        new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "波前"),
+        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "照明与成像"),
+        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "照明与成像"),
+        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "照明与成像"),
+        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "照明与成像")
     };
 
     private readonly OptilandConnector _connector;
@@ -92,6 +91,7 @@ public sealed class MainWindow : Window
         _connector = new OptilandConnector(CreateInitialOptic());
         _panels = new PanelManager(_connector, _settings);
         RegisterActions();
+        _actions.ExecutionFailed += OnActionExecutionFailed;
 
         Title = "Optiland 光学工作台";
         Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
@@ -99,7 +99,7 @@ public sealed class MainWindow : Window
         MinWidth = 1100;
         MinHeight = 640;
         Content = BuildShell();
-        SetTheme(_settings.Theme, save: false);
+        SetLightTheme(save: false);
 
         _connector.OpticLoaded += (_, _) => RefreshStatus();
         _connector.OpticChanged += (_, _) => RefreshStatus();
@@ -140,8 +140,6 @@ public sealed class MainWindow : Window
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
         _actions.Register("show-multiconfig", "显示多配置面板", "面板", () => _panels.Show(WorkspacePanelId.MultiConfiguration));
-        _actions.Register("theme-light", "浅色主题", "视图", () => SetTheme("Light"));
-        _actions.Register("theme-dark", "深色主题", "视图", () => SetTheme("Dark"));
         _actions.Register("reset-layout", "恢复默认布局", "布局", ResetLayout);
         _actions.Register("save-layout-1", "保存布局到槽位 1", "布局", () => SaveLayoutSlot(1));
         _actions.Register("save-layout-2", "保存布局到槽位 2", "布局", () => SaveLayoutSlot(2));
@@ -221,15 +219,6 @@ public sealed class MainWindow : Window
                 MenuItem(_actions.Find("load-layout-2"))
             }
         };
-        var appearanceMenu = new MenuItem
-        {
-            Header = "外观",
-            ItemsSource = new object[]
-            {
-                MenuItem(_actions.Find("theme-light")),
-                MenuItem(_actions.Find("theme-dark"))
-            }
-        };
         var helpMenu = new MenuItem
         {
             Header = "帮助",
@@ -240,7 +229,7 @@ public sealed class MainWindow : Window
             Background = Brushes.White,
             ItemsSource = new object[]
             {
-                fileMenu, editMenu, designMenu, layoutMenu, appearanceMenu, helpMenu
+                fileMenu, editMenu, designMenu, layoutMenu, helpMenu
             }
         };
     }
@@ -251,7 +240,7 @@ public sealed class MainWindow : Window
             .GroupBy(command => command.Group)
             .Select(group => RibbonGroup(
                 group.Key,
-                group.Select(command => RibbonButton(command.Id, command.Glyph, command.Label)).ToArray()))
+                group.Select(command => RibbonButton(command.Id, command.IconName, command.Label)).ToArray()))
             .ToArray();
         var tabs = new TabControl
         {
@@ -261,61 +250,55 @@ public sealed class MainWindow : Window
             {
                 RibbonTab("文件", BuildRibbonPage(
                     RibbonGroup("文件",
-                        RibbonButton("new", "□", "新建"),
-                        RibbonButton("open", "▣", "打开"),
-                        RibbonButton("save-as", "▤", "保存"),
-                        RibbonButton("export-python-json", "⇧", "导出")),
+                        RibbonButton("new", "file-plus", "新建"),
+                        RibbonButton("open", "folder-open", "打开"),
+                        RibbonButton("save-as", "save", "保存"),
+                        RibbonButton("export-python-json", "upload", "导出")),
                     RibbonGroup("示例",
-                        RibbonButton("new-demo", "◫", "Cooke 示例"),
-                        RibbonButton("new-tessar", "◩", "Tessar 示例")))),
+                        RibbonButton("new-demo", "aperture", "Cooke 示例"),
+                        RibbonButton("new-tessar", "disc-2", "Tessar 示例")))),
                 RibbonTab("设置", BuildRibbonPage(
                     RibbonGroup("系统",
-                        RibbonButton("show-system", "⚙", "系统选项"),
-                        RibbonButton("show-lens-editor", "▦", "镜头数据"),
-                        RibbonButton("show-multiconfig", "▥", "多配置")),
-                    RibbonGroup("外观",
-                        RibbonButton("theme-light", "☀", "浅色"),
-                        RibbonButton("theme-dark", "◐", "深色")))),
+                        RibbonButton("show-system", "settings", "系统选项"),
+                        RibbonButton("show-lens-editor", "table-2", "镜头数据"),
+                        RibbonButton("show-multiconfig", "panels-top-left", "多配置")))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",
-                        RibbonButton("show-viewer-2d", "▱", "二维布局"),
-                        RibbonButton("show-viewer-3d", "◇", "三维布局")))),
+                        RibbonButton("show-viewer-2d", "panel-top", "二维布局"),
+                        RibbonButton("show-viewer-3d", "box", "三维布局")))),
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
                 RibbonTab("优化", BuildRibbonPage(
                     RibbonGroup("评价函数",
-                        RibbonButton("show-optimization", "↗", "评价函数"),
-                        RibbonButton("show-optimization", "◎", "执行优化")))),
+                        RibbonButton("show-optimization", "trending-up", "评价函数"),
+                        RibbonButton("show-optimization", "target", "执行优化")))),
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
-                        RibbonButton("show-tolerancing", "±", "灵敏度"),
-                        RibbonButton("show-tolerancing", "∿", "蒙特卡洛")))),
+                        RibbonButton("show-tolerancing", "activity", "灵敏度"),
+                        RibbonButton("show-tolerancing", "gauge", "蒙特卡洛")))),
                 RibbonTab("数据与零件", BuildRibbonPage(
                     RibbonGroup("数据",
-                        RibbonButton("show-system", "▦", "材料与系统")),
+                        RibbonButton("show-system", "database", "材料与系统")),
                     RibbonGroup("零件",
-                        RibbonButton("show-lens-editor", "◫", "表面与组件")))),
+                        RibbonButton("show-lens-editor", "layers", "表面与组件")))),
                 RibbonTab("编程与工具", BuildRibbonPage(
                     RibbonGroup("编辑",
-                        RibbonButton("undo", "↶", "撤销"),
-                        RibbonButton("redo", "↷", "重做")),
+                        RibbonButton("undo", "undo-2", "撤销"),
+                        RibbonButton("redo", "redo-2", "重做")),
                     RibbonGroup("命令",
-                        RibbonButton("command-palette", "⌘", "命令面板")),
+                        RibbonButton("command-palette", "command", "命令面板")),
                     RibbonGroup("布局",
-                        RibbonButton("load-layout-1", "1", "布局 1"),
-                        RibbonButton("load-layout-2", "2", "布局 2"),
-                        RibbonButton("reset-layout", "▧", "恢复布局")))),
+                        RibbonButton("load-layout-1", "layout-panel-left", "布局 1"),
+                        RibbonButton("load-layout-2", "layout-panel-top", "布局 2"),
+                        RibbonButton("reset-layout", "panels-top-left", "恢复布局")))),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("分析窗口布局",
-                        RibbonButton("analysis-dock-all", "▤", "标签排列"),
-                        RibbonButton("analysis-float-all", "▣", "浮动全部"),
-                        RibbonButton("analysis-tile-all", "▦", "平铺全部"),
-                        RibbonButton("analysis-cascade-all", "▱", "层叠全部")))),
-                RibbonTab("STAR", BuildRibbonPage(
-                    RibbonGroup("结构热分析",
-                        RibbonButton("show-analysis", "✦", "STAR 工作区")))),
+                        RibbonButton("analysis-dock-all", "panel-top", "标签排列"),
+                        RibbonButton("analysis-float-all", "picture-in-picture-2", "浮动全部"),
+                        RibbonButton("analysis-tile-all", "grid-2x2", "平铺全部"),
+                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
-                        RibbonButton("about", "?", "关于"))))
+                        RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
         return new Border
@@ -396,7 +379,7 @@ public sealed class MainWindow : Window
         };
     }
 
-    private Button RibbonButton(string actionId, string glyph, string label)
+    private Button RibbonButton(string actionId, string iconName, string label)
     {
         var button = new Button
         {
@@ -411,11 +394,13 @@ public sealed class MainWindow : Window
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Children =
                 {
-                    new TextBlock
+                    new LocalIcon
                     {
-                        Text = glyph,
-                        FontSize = 25,
-                        Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+                        IconName = iconName,
+                        Width = 26,
+                        Height = 26,
+                        StrokeWidth = 1.8,
+                        Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
                         HorizontalAlignment = HorizontalAlignment.Center
                     },
                     new TextBlock
@@ -431,7 +416,7 @@ public sealed class MainWindow : Window
         };
         var action = _actions.Find(actionId);
         ToolTip.SetTip(button, action.Text);
-        button.Click += async (_, _) => await action.ExecuteAsync();
+        button.Click += async (_, _) => await _actions.ExecuteAsync(action);
         return button;
     }
 
@@ -569,11 +554,10 @@ public sealed class MainWindow : Window
         return double.IsFinite(value) ? value.ToString("0.####") : "∞";
     }
 
-    private void SetTheme(string theme, bool save = true)
+    private void SetLightTheme(bool save = true)
     {
-        var normalized = theme.Equals("Dark", StringComparison.OrdinalIgnoreCase) ? "Dark" : "Light";
-        Application.Current!.RequestedThemeVariant = normalized == "Dark" ? ThemeVariant.Dark : ThemeVariant.Light;
-        _settings.Theme = normalized;
+        Application.Current!.RequestedThemeVariant = Avalonia.Styling.ThemeVariant.Light;
+        _settings.Theme = "Light";
         if (save)
         {
             _settings.Save();
@@ -616,18 +600,61 @@ public sealed class MainWindow : Window
         _settings.Save();
     }
 
-    private static MenuItem MenuItem(AppAction action)
+    private MenuItem MenuItem(AppAction action)
     {
         var item = new MenuItem { Header = action.Text };
-        item.Click += async (_, _) => await action.ExecuteAsync();
+        item.Click += async (_, _) => await _actions.ExecuteAsync(action);
         return item;
+    }
+
+    private async void OnActionExecutionFailed(object? sender, ActionExecutionFailedEventArgs args)
+    {
+        var dialog = new Window
+        {
+            Title = "操作失败",
+            Width = 560,
+            Height = 260,
+            MinWidth = 420,
+            MinHeight = 220,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        };
+        var closeButton = new Button
+        {
+            Content = "关闭",
+            MinWidth = 88,
+            HorizontalAlignment = HorizontalAlignment.Right
+        };
+        closeButton.Click += (_, _) => dialog.Close();
+        dialog.Content = new StackPanel
+        {
+            Margin = new Thickness(20),
+            Spacing = 12,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = args.Action.Text,
+                    FontWeight = FontWeight.SemiBold
+                },
+                new TextBox
+                {
+                    Text = args.Exception.Message,
+                    IsReadOnly = true,
+                    AcceptsReturn = true,
+                    TextWrapping = TextWrapping.Wrap,
+                    MinHeight = 120
+                },
+                closeButton
+            }
+        };
+        await dialog.ShowDialog(this);
     }
 
     private sealed record AnalysisRibbonCommand(
         string Id,
         string Name,
         string Label,
-        string Glyph,
+        string IconName,
         string Group);
 
 }

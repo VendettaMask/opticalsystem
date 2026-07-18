@@ -24,6 +24,42 @@ public sealed class PickupManager
         _radiusPickups.Clear();
     }
 
+    public void InsertSurface(int surfaceNumber)
+    {
+        for (var index = 0; index < _radiusPickups.Count; index++)
+        {
+            var pickup = _radiusPickups[index];
+            _radiusPickups[index] = pickup with
+            {
+                SourceSurface = pickup.SourceSurface >= surfaceNumber
+                    ? pickup.SourceSurface + 1
+                    : pickup.SourceSurface,
+                TargetSurface = pickup.TargetSurface >= surfaceNumber
+                    ? pickup.TargetSurface + 1
+                    : pickup.TargetSurface
+            };
+        }
+    }
+
+    public void RemoveSurface(int surfaceNumber)
+    {
+        _radiusPickups.RemoveAll(pickup =>
+            pickup.SourceSurface == surfaceNumber || pickup.TargetSurface == surfaceNumber);
+        for (var index = 0; index < _radiusPickups.Count; index++)
+        {
+            var pickup = _radiusPickups[index];
+            _radiusPickups[index] = pickup with
+            {
+                SourceSurface = pickup.SourceSurface > surfaceNumber
+                    ? pickup.SourceSurface - 1
+                    : pickup.SourceSurface,
+                TargetSurface = pickup.TargetSurface > surfaceNumber
+                    ? pickup.TargetSurface - 1
+                    : pickup.TargetSurface
+            };
+        }
+    }
+
     public void ApplyAll()
     {
         foreach (var pickup in _radiusPickups)

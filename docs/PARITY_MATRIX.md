@@ -23,7 +23,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | File format | `Serialization`, `FileIO` | Schema version 2 native JSON, validated Python Optiland 0.5.8 JSON adapter subset, plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation |
-| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, light/dark theme persistence, split-pane layout persistence; startup fix retained |
+| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, consistent light theme, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
 

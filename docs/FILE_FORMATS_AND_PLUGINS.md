@@ -34,7 +34,7 @@ The JSON path is strict round-trip oriented. It should be used for internal work
 - refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with constant, linear-grating, radial, or grid profiles, and transmissive/reflective diffractive interactions on grating geometry
 - simple Python coating dictionaries on the Workbench adapter path
 
-Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON remains the lossless format for Workbench-only geometry, plugin, optimization, tolerancing, solve, pickup, and GUI state.
+Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. Workbench native JSON is the lossless format for the optical model, rich surface components, radius pickups, and solve settings. GUI preferences are stored separately in `AppSettings`; optimization runs, tolerancing results, plugins, and multi-configuration sessions are not embedded in optic JSON.
 
 Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
 

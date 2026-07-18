@@ -11,7 +11,9 @@ public sealed record OpticSnapshot(
     ComponentSnapshot? Apodization = null,
     string FieldDefinition = "Angle",
     bool ObjectSpaceTelecentric = false,
-    bool FieldGroupTelecentric = false);
+    bool FieldGroupTelecentric = false,
+    List<RadiusPickupSnapshot>? RadiusPickups = null,
+    SolveSettingsSnapshot? SolveSettings = null);
 
 public sealed record ApertureSnapshot(
     string Kind,
@@ -31,6 +33,16 @@ public sealed record WavelengthSnapshot(
     double Nanometers,
     double Weight,
     bool IsPrimary);
+
+public sealed record RadiusPickupSnapshot(
+    int SourceSurface,
+    int TargetSurface,
+    double Scale,
+    double Offset);
+
+public sealed record SolveSettingsSnapshot(
+    double DesiredBackFocus,
+    bool KeepImageAtBackFocus);
 
 public sealed record SurfaceSnapshot(
     int Number,

@@ -127,9 +127,11 @@ MainWindow
 
 Panels should not directly replace the active `Optic`; they call connector methods that trigger status updates and change events.
 
-`PanelManager` owns panel construction, stable panel identifiers, pane selection, and layout capture/application. `MainWindow` owns only application commands, menus, file dialogs, theme selection, and top-level window lifecycle.
+`PanelManager` owns panel construction, stable panel identifiers, pane selection, and layout capture/application. `MainWindow` owns only application commands, menus, file dialogs, application appearance, and top-level window lifecycle.
 
-`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. `AppSettings` persists theme, window size, split-pane width, selected panel tabs, and per-analysis GUI settings under the user's application data folder.
+`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. It also catches command failures and routes them to one application error surface. `AppSettings` persists window size, split-pane width, selected panel tabs, and per-analysis GUI settings under the user's application data folder.
+
+`LocalIcon` renders the pinned Lucide catalog embedded under `Assets/Icons`; GUI commands therefore use one vector icon vocabulary without a runtime network or font dependency. See `LOCAL_ICONS.md` for usage and update rules.
 
 The analysis panel consumes structured connector data. Metric, graph, and report views are built without parsing display strings. Multiple numbered analysis pages can be created, cloned, closed, and refreshed from the same connector events. Per-analysis parameter editors are generated from connector descriptors, and saved settings are merged back into analysis construction.
 

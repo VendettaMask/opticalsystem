@@ -561,18 +561,53 @@ public sealed class OptilandConnector
         _undoRedo.Capture(CurrentOptic);
     }
 
-    public void CommitSurfaceEdit()
+    public void CommitSurfaceEdit(OpticalSurface? surface, string? propertyName)
     {
+        if (surface is null || !Surfaces.Contains(surface))
+        {
+            return;
+        }
+
+        switch (propertyName)
+        {
+            case nameof(OpticalSurface.Radius):
+            case nameof(OpticalSurface.Conic):
+                SyncSurfaceGeometry(surface);
+                break;
+            case nameof(OpticalSurface.Thickness):
+                CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                break;
+            case nameof(OpticalSurface.Material):
+                ApplyMaterial(surface, surface.Material);
+                break;
+            case nameof(OpticalSurface.Coating):
+                SyncLegacyCoating(surface);
+                break;
+            case nameof(OpticalSurface.IsStop) when surface.IsStop:
+                foreach (var other in Surfaces.Where(item => !ReferenceEquals(item, surface)))
+                {
+                    other.IsStop = false;
+                }
+
+                break;
+        }
+
         CurrentOptic.Pickups.ApplyAll();
         CurrentOptic.Solves.ApplyAll();
+        foreach (var item in Surfaces)
+        {
+            SyncSurfaceGeometry(item);
+        }
+
+        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
         SetStatus("表面数据已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void CommitSystemEdit()
+    public void CommitSystemEdit(object? editedItem = null)
     {
-        SetPrimaryWavelengthGuard();
+        SetPrimaryWavelengthGuard(editedItem as Wavelength);
         SetStatus("系统属性已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -580,6 +615,8 @@ public sealed class OptilandConnector
     public void AddSurface()
     {
         CaptureCurrentState();
+        var insertedSurfaceNumber = Math.Max(0, Surfaces.Count - 1);
+        CurrentOptic.Pickups.InsertSurface(insertedSurfaceNumber);
         CurrentOptic.SurfaceGroup.AddDefaultSurface();
         SetStatus("已添加表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
@@ -593,7 +630,16 @@ public sealed class OptilandConnector
             return;
         }
 
+        var index = Surfaces.IndexOf(surface);
+        if (Surfaces.Count <= 2 || index <= 0 || index == Surfaces.Count - 1)
+        {
+            SetStatus("物面和像面不能删除，系统必须至少保留两个表面。");
+            OpticChanged?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
         CaptureCurrentState();
+        CurrentOptic.Pickups.RemoveSurface(index);
         CurrentOptic.SurfaceGroup.Remove(surface);
         SetStatus("已删除表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
@@ -646,6 +692,26 @@ public sealed class OptilandConnector
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void RemoveField(FieldPoint? field)
+    {
+        if (field is null || !Fields.Contains(field))
+        {
+            return;
+        }
+
+        if (Fields.Count <= 1)
+        {
+            SetStatus("系统必须至少保留一个视场。");
+            OpticChanged?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        CaptureCurrentState();
+        Fields.Remove(field);
+        SetStatus("已删除视场。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public void AddWavelength()
     {
         CaptureCurrentState();
@@ -661,6 +727,46 @@ public sealed class OptilandConnector
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void RemoveWavelength(Wavelength? wavelength)
+    {
+        if (wavelength is null || !Wavelengths.Contains(wavelength))
+        {
+            return;
+        }
+
+        if (Wavelengths.Count <= 1)
+        {
+            SetStatus("系统必须至少保留一个波长。");
+            OpticChanged?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        CaptureCurrentState();
+        Wavelengths.Remove(wavelength);
+        SetPrimaryWavelengthGuard();
+        SetStatus("已删除波长。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ApplySystemSettings(
+        string? backendName,
+        string apertureKindName,
+        double apertureValue,
+        string fieldDefinitionName,
+        bool objectSpaceTelecentric,
+        string apodizationKind,
+        double firstApodizationParameter,
+        double secondApodizationParameter)
+    {
+        CaptureCurrentState();
+        ApplyBackendValue(backendName);
+        ApplySystemApertureValue(apertureKindName, apertureValue);
+        ApplyFieldDefinitionValue(fieldDefinitionName, objectSpaceTelecentric);
+        ApplyApodizationValue(apodizationKind, firstApodizationParameter, secondApodizationParameter);
+        SetStatus("系统设置已更新。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public void SetSystemAperture(string apertureKindName, double value)
     {
         if (!TryNormalizeApertureKind(apertureKindName, out var kind))
@@ -669,69 +775,36 @@ public sealed class OptilandConnector
         }
 
         CaptureCurrentState();
-        CurrentOptic.Aperture.Kind = kind;
-        CurrentOptic.Aperture.Value = Math.Max(0.001, value);
+        ApplySystemApertureValue(kind, value);
         SetStatus("系统孔径已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetFieldDefinition(string fieldDefinitionName, bool objectSpaceTelecentric)
     {
-        var fieldDefinition = fieldDefinitionName switch
-        {
-            "物高" => FieldDefinitionKind.ObjectHeight,
-            "近轴像高" => FieldDefinitionKind.ParaxialImageHeight,
-            _ => FieldDefinitionKind.Angle
-        };
-        var telecentric = objectSpaceTelecentric && fieldDefinition != FieldDefinitionKind.Angle;
-
         CaptureCurrentState();
-        CurrentOptic.FieldDefinition = fieldDefinition;
-        CurrentOptic.ObjectSpaceTelecentric = telecentric;
-        if (telecentric)
-        {
-            CurrentOptic.Aperture.Kind = ApertureKind.NumericalAperture;
-            CurrentOptic.Aperture.Value = Math.Clamp(CurrentOptic.Aperture.Value, 0.001, 1);
-        }
-
+        ApplyFieldDefinitionValue(fieldDefinitionName, objectSpaceTelecentric);
         SetStatus("视场定义已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetApodization(string apodizationKind, double firstParameter, double secondParameter)
     {
-        var canonical = CanonicalApodizationKind(apodizationKind);
         CaptureCurrentState();
-        CurrentOptic.Apodization = canonical switch
-        {
-            "None" => null,
-            "Uniform" => new UniformApodization(),
-            "Gaussian" => new GaussianApodization(Math.Max(0.001, firstParameter)),
-            "CosineSquared" => new CosineSquaredApodization(Math.Max(0.001, firstParameter)),
-            "Hann" => new HannApodization(Math.Max(0.001, firstParameter)),
-            "Polynomial" => new PolynomialApodization(
-                Math.Max(0.001, firstParameter),
-                Math.Max(0, secondParameter)),
-            "SuperGaussian" => new SuperGaussianApodization(
-                Math.Max(0.001, firstParameter),
-                Math.Max(2, secondParameter)),
-            "Tukey" => new TukeyApodization(
-                Math.Max(0.001, firstParameter),
-                Math.Clamp(secondParameter, 0, 1)),
-            _ => null
-        };
+        ApplyApodizationValue(apodizationKind, firstParameter, secondParameter);
         SetStatus("光瞳切趾已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetBackend(string backendName)
     {
-        if (string.IsNullOrWhiteSpace(backendName) || !CurrentOptic.Backend.Names.Contains(backendName))
+        if (!IsValidBackend(backendName))
         {
             return;
         }
 
-        CurrentOptic.Backend.SetBackend(backendName);
+        CaptureCurrentState();
+        ApplyBackendValue(backendName);
         SetStatus($"后端已切换为 {backendName}。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -1047,7 +1120,8 @@ public sealed class OptilandConnector
     {
         surface.Geometry = surface.Geometry switch
         {
-            IGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 =>
+            PlaneGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 => grating,
+            StandardGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 =>
                 new PlaneGratingGeometry(
                     grating.GratingOrder,
                     grating.GratingPeriodMicrometers,
@@ -1058,8 +1132,105 @@ public sealed class OptilandConnector
                 grating.GratingOrder,
                 grating.GratingPeriodMicrometers,
                 grating.GrooveOrientationAngleRadians),
-            _ when Math.Abs(surface.Radius) < 1e-9 => new PlaneGeometry(),
-            _ => new StandardGeometry(surface.Radius, surface.Conic)
+            EvenAsphereGeometry even => new EvenAsphereGeometry(
+                surface.Radius,
+                surface.Conic,
+                even.Coefficients),
+            OddAsphereGeometry odd => new OddAsphereGeometry(
+                surface.Radius,
+                surface.Conic,
+                odd.Coefficients),
+            ForbesQGeometry forbes => new ForbesQGeometry(
+                surface.Radius,
+                surface.Conic,
+                forbes.NormalizationRadius,
+                forbes.QCoefficients),
+            BiconicGeometry biconic => new BiconicGeometry(
+                surface.Radius,
+                biconic.RadiusY,
+                surface.Conic,
+                biconic.ConicY),
+            ToroidalGeometry toroidal => new ToroidalGeometry(
+                toroidal.TangentialRadius,
+                surface.Radius),
+            StandardGeometry when Math.Abs(surface.Radius) < 1e-9 => new PlaneGeometry(),
+            StandardGeometry => new StandardGeometry(surface.Radius, surface.Conic),
+            PlaneGeometry when Math.Abs(surface.Radius) >= 1e-9 =>
+                new StandardGeometry(surface.Radius, surface.Conic),
+            _ => surface.Geometry
+        };
+    }
+
+    private static void SyncLegacyCoating(OpticalSurface surface)
+    {
+        surface.CoatingModel = surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
+            ? new NoneCoatingModel()
+            : new ThinFilmStackCoating(new[] { new ThinFilmLayer(surface.Coating, 120) });
+    }
+
+    private bool IsValidBackend(string? backendName) =>
+        !string.IsNullOrWhiteSpace(backendName) && CurrentOptic.Backend.Names.Contains(backendName);
+
+    private void ApplyBackendValue(string? backendName)
+    {
+        if (IsValidBackend(backendName))
+        {
+            CurrentOptic.Backend.SetBackend(backendName!);
+        }
+    }
+
+    private void ApplySystemApertureValue(string apertureKindName, double value)
+    {
+        if (TryNormalizeApertureKind(apertureKindName, out var kind))
+        {
+            ApplySystemApertureValue(kind, value);
+        }
+    }
+
+    private void ApplySystemApertureValue(ApertureKind kind, double value)
+    {
+        CurrentOptic.Aperture.Kind = kind;
+        CurrentOptic.Aperture.Value = Math.Max(0.001, value);
+    }
+
+    private void ApplyFieldDefinitionValue(string fieldDefinitionName, bool objectSpaceTelecentric)
+    {
+        var fieldDefinition = fieldDefinitionName switch
+        {
+            "物高" => FieldDefinitionKind.ObjectHeight,
+            "近轴像高" => FieldDefinitionKind.ParaxialImageHeight,
+            _ => FieldDefinitionKind.Angle
+        };
+        var telecentric = objectSpaceTelecentric && fieldDefinition != FieldDefinitionKind.Angle;
+
+        CurrentOptic.FieldDefinition = fieldDefinition;
+        CurrentOptic.ObjectSpaceTelecentric = telecentric;
+        if (telecentric)
+        {
+            CurrentOptic.Aperture.Kind = ApertureKind.NumericalAperture;
+            CurrentOptic.Aperture.Value = Math.Clamp(CurrentOptic.Aperture.Value, 0.001, 1);
+        }
+    }
+
+    private void ApplyApodizationValue(string apodizationKind, double firstParameter, double secondParameter)
+    {
+        CurrentOptic.Apodization = CanonicalApodizationKind(apodizationKind) switch
+        {
+            "None" => null,
+            "Uniform" => new UniformApodization(),
+            "Gaussian" => new GaussianApodization(Math.Max(0.001, firstParameter)),
+            "CosineSquared" => new CosineSquaredApodization(Math.Max(0.001, firstParameter)),
+            "Hann" => new HannApodization(Math.Max(0.001, firstParameter)),
+            "Polynomial" => new PolynomialApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Max(0, secondParameter)),
+            "SuperGaussian" => new SuperGaussianApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Max(2, secondParameter)),
+            "Tukey" => new TukeyApodization(
+                Math.Max(0.001, firstParameter),
+                Math.Clamp(secondParameter, 0, 1)),
+            _ => null
         };
     }
 
@@ -1252,16 +1423,19 @@ public sealed class OptilandConnector
         };
     }
 
-    private void SetPrimaryWavelengthGuard()
+    private void SetPrimaryWavelengthGuard(Wavelength? preferred = null)
     {
         if (Wavelengths.Count == 0)
         {
             return;
         }
 
-        if (!Wavelengths.Any(item => item.IsPrimary))
+        var primary = preferred is { IsPrimary: true } && Wavelengths.Contains(preferred)
+            ? preferred
+            : Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? Wavelengths[0];
+        foreach (var wavelength in Wavelengths)
         {
-            Wavelengths[0].IsPrimary = true;
+            wavelength.IsPrimary = ReferenceEquals(wavelength, primary);
         }
     }
 

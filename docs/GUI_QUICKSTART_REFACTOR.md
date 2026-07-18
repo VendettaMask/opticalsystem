@@ -26,7 +26,7 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | Analysis refresh | Connector signals update consumers | Connector events already used | Retained for every open analysis page |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
 | Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Stable panel IDs plus analysis pages that can be docked as tabs or arranged as independent floating, tiled, or cascaded windows |
-| Theme | Light and dark | Present | Retained |
+| Theme | Light and dark | Present | Consistent light theme; the incomplete dark-theme command is not exposed |
 | Help | Help menu and About dialog | Missing | Added |
 | Native JSON | Python Optiland nested JSON | Workbench-specific schema-versioned JSON | Architecture retained; Python JSON adapter is still required |
 | Python terminal | Embedded IPython with connector access | Missing by design | Still missing; see Remaining Gaps |
@@ -174,4 +174,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-18, the solution builds with zero warnings and all `213/213` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, and file formats.
+As of 2026-07-18, the solution builds with zero warnings and all `223/223` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.

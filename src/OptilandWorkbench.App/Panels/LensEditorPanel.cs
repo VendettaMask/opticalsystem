@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
@@ -83,13 +84,13 @@ public sealed class LensEditorPanel : UserControl
         _infiniteThinLensFocalLength.IsCheckedChanged += (_, _) =>
             _thinLensFocalLength.IsEnabled = _infiniteThinLensFocalLength.IsChecked != true;
 
-        var addButton = new Button { Content = "添加", MinWidth = 74 };
+        var addButton = CommandButton("plus", "添加", 74);
         addButton.Click += (_, _) => _connector.AddSurface();
 
-        var removeButton = new Button { Content = "删除", MinWidth = 74 };
+        var removeButton = CommandButton("trash-2", "删除", 74);
         removeButton.Click += (_, _) => _connector.RemoveSurface(_grid.SelectedItem as OpticalSurface);
 
-        var applyComponentsButton = new Button { Content = "应用组件", MinWidth = 112 };
+        var applyComponentsButton = CommandButton("check", "应用组件", 112);
         applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
         var toolbar = new StackPanel
@@ -99,22 +100,8 @@ public sealed class LensEditorPanel : UserControl
             VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
-                new TextBlock
-                {
-                    Text = "更新: 所有窗口  ▾",
-                    FontSize = 12,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Avalonia.Thickness(0, 0, 8, 0)
-                },
                 addButton,
-                removeButton,
-                new TextBlock
-                {
-                    Text = "  ◀   ▶   ⟳   ⊕   ⊖   ⇄   ?",
-                    FontSize = 15,
-                    Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
-                    VerticalAlignment = VerticalAlignment.Center
-                }
+                removeButton
             }
         };
 
@@ -218,7 +205,18 @@ public sealed class LensEditorPanel : UserControl
         grid.Columns.Add(new DataGridTextColumn { Header = "孔径类型", Binding = new Binding("PhysicalAperture.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
 
         grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
-        grid.CellEditEnded += (_, _) => _connector.CommitSurfaceEdit();
+        grid.CellEditEnded += (_, e) =>
+        {
+            if (e.EditAction != DataGridEditAction.Commit)
+            {
+                return;
+            }
+
+            var propertyName = (e.Column as DataGridBoundColumn)?.Binding is Binding binding
+                ? binding.Path
+                : null;
+            _connector.CommitSurfaceEdit(e.Row.DataContext as OpticalSurface, propertyName);
+        };
 
         return grid;
     }
@@ -380,4 +378,10 @@ public sealed class LensEditorPanel : UserControl
             _ => "圆形"
         };
     }
+
+    private static Button CommandButton(string iconName, string text, double minWidth) => new()
+    {
+        Content = new LocalIconLabel(iconName, text),
+        MinWidth = minWidth
+    };
 }

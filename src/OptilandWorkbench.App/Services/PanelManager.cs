@@ -187,56 +187,26 @@ public sealed class PanelManager
 
     private Control BuildSystemExplorer(OptilandConnector connector)
     {
-        var layout = new Grid { RowDefinitions = new RowDefinitions("36,36,*") };
+        var layout = new Grid { RowDefinitions = new RowDefinitions("36,*") };
         var titleBar = new Border
         {
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             BorderBrush = new SolidColorBrush(BorderGray),
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(10, 0),
-            Child = new Grid
-            {
-                ColumnDefinitions = new ColumnDefinitions("*,Auto"),
-                Children =
-                {
-                    new TextBlock
-                    {
-                        Text = "系统选项",
-                        Foreground = new SolidColorBrush(Color.FromRgb(29, 29, 31)),
-                        FontWeight = FontWeight.SemiBold,
-                        VerticalAlignment = VerticalAlignment.Center
-                    },
-                    new TextBlock
-                    {
-                        Text = "?   ×",
-                        Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115)),
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Right
-                    }
-                }
-            }
-        };
-        var updateBar = new Border
-        {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(BorderGray),
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            Padding = new Thickness(10, 0),
-            BoxShadow = BoxShadows.Parse("0 2 5 0 #12000000"),
             Child = new TextBlock
             {
-                Text = "更新: 所有窗口  ▾",
-                FontSize = 12,
+                Text = "系统选项",
+                Foreground = new SolidColorBrush(Color.FromRgb(29, 29, 31)),
+                FontWeight = FontWeight.SemiBold,
                 VerticalAlignment = VerticalAlignment.Center
             }
         };
         var properties = new SystemPropertiesPanel(connector);
 
         Grid.SetRow(titleBar, 0);
-        Grid.SetRow(updateBar, 1);
-        Grid.SetRow(properties, 2);
+        Grid.SetRow(properties, 1);
         layout.Children.Add(titleBar);
-        layout.Children.Add(updateBar);
         layout.Children.Add(properties);
 
         return new Border

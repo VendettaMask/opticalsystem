@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.App.Panels;
@@ -40,14 +41,22 @@ public sealed class MultiConfigurationPanel : UserControl
         _connector = connector;
         ConfigureGrid();
 
-        var addButton = new Button { Content = "新增配置", MinWidth = 96 };
+        var addButton = new Button
+        {
+            Content = new LocalIconLabel("plus", "新增配置"),
+            MinWidth = 96
+        };
         addButton.Click += (_, _) =>
         {
             _connector.AddMultiConfiguration();
             Refresh();
         };
 
-        var activateButton = new Button { Content = "激活配置", MinWidth = 96 };
+        var activateButton = new Button
+        {
+            Content = new LocalIconLabel("circle-check", "激活配置"),
+            MinWidth = 96
+        };
         activateButton.Click += (_, _) =>
         {
             if (_configGrid.SelectedItem is MultiConfigurationRow row)
@@ -57,7 +66,11 @@ public sealed class MultiConfigurationPanel : UserControl
             }
         };
 
-        var applyThicknessButton = new Button { Content = "应用厚度", MinWidth = 96 };
+        var applyThicknessButton = new Button
+        {
+            Content = new LocalIconLabel("check", "应用厚度"),
+            MinWidth = 96
+        };
         applyThicknessButton.Click += (_, _) => ApplyThickness();
 
         var toolbar = new WrapPanel

@@ -15,7 +15,7 @@ public sealed class SurfaceGroup
         {
             if (!_suppressRenumber)
             {
-                Renumber();
+                Renumber(syncComposition: false);
             }
         };
     }
@@ -28,17 +28,19 @@ public sealed class SurfaceGroup
 
     public OpticalSurface AddDefaultSurface()
     {
-        var last = Items.LastOrDefault();
+        var imageIndex = Math.Max(0, Items.Count - 1);
+        var previous = imageIndex > 0 ? Items[imageIndex - 1] : Items.LastOrDefault();
         var surface = new OpticalSurface
         {
             Label = "Surface",
             Radius = 40,
             Thickness = 5,
-            Material = last?.Material == "Air" ? "N-BK7" : "Air",
-            SemiDiameter = Math.Max(5, last?.SemiDiameter ?? 10)
+            Material = "Air",
+            SemiDiameter = Math.Max(5, previous?.SemiDiameter ?? 10)
         };
 
-        Items.Add(surface);
+        surface.SyncCompositionFromLegacyProperties(0);
+        Items.Insert(imageIndex, surface);
         return surface;
     }
 

@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
@@ -45,11 +46,16 @@ public sealed class SystemPropertiesPanel : UserControl
         _wavelengthsGrid = CreateWavelengthsGrid();
         ConfigurePickers();
 
-        var addField = new Button { Content = "添加视场", MinWidth = 96 };
+        var addField = CommandButton("plus", "添加视场", 96);
         addField.Click += (_, _) => _connector.AddField();
+        var removeField = CommandButton("trash-2", "删除", 72);
+        removeField.Click += (_, _) => _connector.RemoveField(_fieldsGrid.SelectedItem as FieldPoint);
 
-        var addWavelength = new Button { Content = "添加波长", MinWidth = 112 };
+        var addWavelength = CommandButton("plus", "添加波长", 112);
         addWavelength.Click += (_, _) => _connector.AddWavelength();
+        var removeWavelength = CommandButton("trash-2", "删除", 72);
+        removeWavelength.Click += (_, _) =>
+            _connector.RemoveWavelength(_wavelengthsGrid.SelectedItem as Wavelength);
 
         var sections = new StackPanel
         {
@@ -57,18 +63,10 @@ public sealed class SystemPropertiesPanel : UserControl
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
-                Section("系统孔径", BuildApertureSection()),
-                Section("视场", BuildFieldSection(addField)),
-                Section("波长", BuildWavelengthSection(addWavelength)),
-                Section("环境", Placeholder("温度、压力和环境介质设置将在这里集中管理。")),
-                Section("偏振", Placeholder("偏振参考、Jones 设置和镀膜偏振选项将在这里显示。")),
-                Section("高级", BuildAdvancedSection()),
-                Section("光线瞄准", Placeholder("光线瞄准方法与迭代参数。")),
-                Section("材料库", Placeholder("材料目录和玻璃替换设置。")),
-                Section("标题/注释", Placeholder("系统标题、作者与设计说明。")),
-                Section("文件", Placeholder("文件关联、自动保存和导入导出设置。")),
-                Section("单位", Placeholder("长度、角度和波长显示单位。")),
-                Section("成本估计", Placeholder("制造成本与材料成本估计。"))
+                Section("系统孔径", BuildApertureSection(), expanded: true),
+                Section("视场", BuildFieldSection(addField, removeField), expanded: true),
+                Section("波长", BuildWavelengthSection(addWavelength, removeWavelength)),
+                Section("高级", BuildAdvancedSection())
             }
         };
         Content = new ScrollViewer
@@ -113,13 +111,9 @@ public sealed class SystemPropertiesPanel : UserControl
         _apertureKindPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
         _apodizationPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
 
-        var applyButton = new Button
-        {
-            Content = "应用系统设置",
-            MinWidth = 116,
-            Height = 32,
-            HorizontalAlignment = HorizontalAlignment.Left
-        };
+        var applyButton = CommandButton("check", "应用系统设置", 116);
+        applyButton.Height = 32;
+        applyButton.HorizontalAlignment = HorizontalAlignment.Left;
         applyButton.Click += (_, _) => ApplySystemControls();
 
         var apodizationParameters = new WrapPanel
@@ -144,7 +138,7 @@ public sealed class SystemPropertiesPanel : UserControl
         return form;
     }
 
-    private Control BuildFieldSection(Button addField)
+    private Control BuildFieldSection(Button addField, Button removeField)
     {
         _fieldDefinitionPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
         _fieldsGrid.Height = 210;
@@ -157,13 +151,13 @@ public sealed class SystemPropertiesPanel : UserControl
                 Form(
                     ("视场类型", _fieldDefinitionPicker),
                     (string.Empty, _objectSpaceTelecentric)),
-                BuildHeader("视场数据", addField),
+                BuildHeader("视场数据", addField, removeField),
                 _fieldsGrid
             }
         };
     }
 
-    private Control BuildWavelengthSection(Button addWavelength)
+    private Control BuildWavelengthSection(Button addWavelength, Button removeWavelength)
     {
         _wavelengthsGrid.Height = 190;
         return new StackPanel
@@ -172,7 +166,7 @@ public sealed class SystemPropertiesPanel : UserControl
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
-                BuildHeader("波长数据", addWavelength),
+                BuildHeader("波长数据", addWavelength, removeWavelength),
                 _wavelengthsGrid
             }
         };
@@ -181,13 +175,9 @@ public sealed class SystemPropertiesPanel : UserControl
     private Control BuildAdvancedSection()
     {
         _backendPicker.HorizontalAlignment = HorizontalAlignment.Stretch;
-        var applyButton = new Button
-        {
-            Content = "应用高级设置",
-            MinWidth = 116,
-            Height = 32,
-            HorizontalAlignment = HorizontalAlignment.Left
-        };
+        var applyButton = CommandButton("check", "应用高级设置", 116);
+        applyButton.Height = 32;
+        applyButton.HorizontalAlignment = HorizontalAlignment.Left;
         applyButton.Click += (_, _) => ApplySystemControls();
         return Form(
             ("计算后端", _backendPicker),
@@ -237,10 +227,11 @@ public sealed class SystemPropertiesPanel : UserControl
 
     private static Control Section(string title, Control content, bool expanded = false)
     {
-        var arrow = new TextBlock
+        var arrow = new LocalIcon
         {
+            IconName = "chevron-right",
             Width = 18,
-            FontSize = 13,
+            Height = 18,
             VerticalAlignment = VerticalAlignment.Center
         };
         var titleText = new TextBlock
@@ -259,12 +250,8 @@ public sealed class SystemPropertiesPanel : UserControl
         var contentHost = new Border
         {
             Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
-            BorderThickness = new Avalonia.Thickness(1),
-            CornerRadius = new Avalonia.CornerRadius(6),
-            Margin = new Avalonia.Thickness(6, 0, 6, 6),
-            Padding = new Avalonia.Thickness(28, 11, 12, 12),
-            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
+            BorderThickness = new Avalonia.Thickness(0),
+            Padding = new Avalonia.Thickness(28, 11, 12, 14),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Child = content
         };
@@ -283,8 +270,8 @@ public sealed class SystemPropertiesPanel : UserControl
         void SetExpanded(bool value)
         {
             contentHost.IsVisible = value;
-            arrow.Text = value ? "⌄" : "›";
-            arrow.Foreground = new SolidColorBrush(value
+            arrow.IconName = value ? "chevron-down" : "chevron-right";
+            arrow.Stroke = new SolidColorBrush(value
                 ? Color.FromRgb(0, 122, 255)
                 : Color.FromRgb(110, 110, 115));
             titleText.Foreground = new SolidColorBrush(value
@@ -317,35 +304,26 @@ public sealed class SystemPropertiesPanel : UserControl
         };
     }
 
-    private static Control Placeholder(string text)
+    private static StackPanel BuildHeader(string title, params Button[] buttons)
     {
-        return new TextBlock
-        {
-            Text = text,
-            Foreground = new SolidColorBrush(Color.FromRgb(104, 113, 125)),
-            TextWrapping = TextWrapping.Wrap,
-            HorizontalAlignment = HorizontalAlignment.Stretch
-        };
-    }
-
-    private static StackPanel BuildHeader(string title, Button button)
-    {
-        return new StackPanel
+        var header = new StackPanel
         {
             Orientation = Orientation.Horizontal,
             Spacing = 8,
-            Margin = new Avalonia.Thickness(0, 0, 0, 6),
-            Children =
-            {
-                new TextBlock
-                {
-                    Text = title,
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center
-                },
-                button
-            }
+            Margin = new Avalonia.Thickness(0, 0, 0, 6)
         };
+        header.Children.Add(new TextBlock
+        {
+            Text = title,
+            FontWeight = FontWeight.SemiBold,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        foreach (var button in buttons)
+        {
+            header.Children.Add(button);
+        }
+
+        return header;
     }
 
     private DataGrid CreateFieldsGrid()
@@ -389,7 +367,13 @@ public sealed class SystemPropertiesPanel : UserControl
         };
 
         grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
-        grid.CellEditEnded += (_, _) => _connector.CommitSystemEdit();
+        grid.CellEditEnded += (_, e) =>
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                _connector.CommitSystemEdit(e.Row.DataContext);
+            }
+        };
         return grid;
     }
 
@@ -432,14 +416,12 @@ public sealed class SystemPropertiesPanel : UserControl
         var firstApodizationParameter = DecimalValue(_firstApodizationParameter, 1);
         var secondApodizationParameter = DecimalValue(_secondApodizationParameter, 1);
 
-        if (backendName is not null)
-        {
-            _connector.SetBackend(backendName);
-        }
-
-        _connector.SetSystemAperture(apertureKind, value);
-        _connector.SetFieldDefinition(fieldDefinition, _objectSpaceTelecentric.IsChecked == true);
-        _connector.SetApodization(
+        _connector.ApplySystemSettings(
+            backendName,
+            apertureKind,
+            value,
+            fieldDefinition,
+            _objectSpaceTelecentric.IsChecked == true,
             apodizationKind,
             firstApodizationParameter,
             secondApodizationParameter);
@@ -521,4 +503,10 @@ public sealed class SystemPropertiesPanel : UserControl
     {
         return input.Value.HasValue ? decimal.ToDouble(input.Value.Value) : fallback;
     }
+
+    private static Button CommandButton(string iconName, string text, double minWidth) => new()
+    {
+        Content = new LocalIconLabel(iconName, text),
+        MinWidth = minWidth
+    };
 }

@@ -102,7 +102,9 @@ public sealed class CommandPaletteWindow : Window
             return;
         }
 
-        await action.ExecuteAsync();
-        Close();
+        if (await _actions.ExecuteAsync(action))
+        {
+            Close();
+        }
     }
 }

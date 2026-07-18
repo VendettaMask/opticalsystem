@@ -50,15 +50,17 @@ public sealed class AnalysisPanel : UserControl
         _analysisPicker.ItemsSource = _connector.AnalysisDisplayNames;
         _pageTabs = new TabControl { ItemsSource = _pages };
 
-        _rerunButton = IconButton("⟳", "同步当前设置并重新运行", () => RunSelected(createPage: false));
+        _rerunButton = IconButton("rotate-ccw", "同步当前设置并重新运行", () => RunSelected(createPage: false));
         _rerunButton.IsEnabled = false;
-        var copyButton = Button("⧉  复制报告", CopyReportAsync, 104);
-        var exportButton = Button("⇧  导出文本", ExportReportAsync, 104);
-        var settingsArrow = new TextBlock
+        var newPageButton = IconButton("plus", "新建当前分析页", () => RunSelected(createPage: true));
+        var clonePageButton = IconButton("copy", "复制当前分析页", CloneSelectedPage);
+        var copyButton = Button("clipboard-copy", "复制报告", CopyReportAsync, 104);
+        var exportButton = Button("upload", "导出文本", ExportReportAsync, 104);
+        var settingsArrow = new LocalIcon
         {
-            Text = "›",
+            IconName = "chevron-right",
             Width = 16,
-            FontSize = 16,
+            Height = 16,
             VerticalAlignment = VerticalAlignment.Center
         };
         var settingsButton = new Button
@@ -95,7 +97,7 @@ public sealed class AnalysisPanel : UserControl
         settingsButton.Click += (_, _) =>
         {
             settingsHost.IsVisible = !settingsHost.IsVisible;
-            settingsArrow.Text = settingsHost.IsVisible ? "⌄" : "›";
+            settingsArrow.IconName = settingsHost.IsVisible ? "chevron-down" : "chevron-right";
         };
         ToolTip.SetTip(settingsButton, "展开或收起当前分析的绘图设置");
 
@@ -105,12 +107,16 @@ public sealed class AnalysisPanel : UserControl
             Children =
             {
                 settingsButton,
+                newPageButton,
+                clonePageButton,
                 _rerunButton,
                 copyButton,
                 exportButton
             }
         };
         _rerunButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
+        newPageButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
+        clonePageButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
         copyButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
         exportButton.Margin = new Avalonia.Thickness(5, 0, 0, 0);
         var toolbar = new StackPanel
@@ -307,6 +313,29 @@ public sealed class AnalysisPanel : UserControl
         _emptyState.Text = "请从顶部“分析”分类中选择需要运行的分析。";
         _emptyState.IsVisible = _pages.Count == 0 || _floatingMode;
         RenumberPages();
+    }
+
+    private void CloneSelectedPage()
+    {
+        if (_pageTabs.SelectedItem is not TabItem selected || !_views.TryGetValue(selected, out var view))
+        {
+            return;
+        }
+
+        var state = PageState(selected);
+        var clone = new TabItem
+        {
+            Tag = state with { Settings = new Dictionary<string, string>(state.Settings) }
+        };
+        _pages.Add(clone);
+        SetPageView(clone, view);
+        _pageTabs.SelectedItem = clone;
+        _emptyState.IsVisible = false;
+        RenumberPages();
+        if (_floatingMode)
+        {
+            FloatPage(clone);
+        }
     }
 
     private void RefreshPages()
@@ -765,17 +794,32 @@ public sealed class AnalysisPanel : UserControl
         return button;
     }
 
-    private static Button IconButton(string glyph, string tooltip, Action action)
+    private static Button Button(string iconName, string text, Func<Task> action, double minWidth)
     {
         var button = new Button
         {
-            Content = glyph,
+            Content = new LocalIconLabel(iconName, text),
+            MinWidth = minWidth
+        };
+        button.Click += async (_, _) => await action();
+        return button;
+    }
+
+    private static Button IconButton(string iconName, string tooltip, Action action)
+    {
+        var button = new Button
+        {
+            Content = new LocalIcon
+            {
+                IconName = iconName,
+                Width = 18,
+                Height = 18
+            },
             Width = 34,
             Height = 30,
             MinWidth = 0,
             MinHeight = 0,
-            Padding = new Avalonia.Thickness(0),
-            FontSize = 17
+            Padding = new Avalonia.Thickness(0)
         };
         ToolTip.SetTip(button, tooltip);
         button.Click += (_, _) => action();

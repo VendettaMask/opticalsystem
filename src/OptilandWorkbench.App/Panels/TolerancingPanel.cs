@@ -3,6 +3,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.App.Panels;
@@ -64,7 +65,11 @@ public sealed class TolerancingPanel : UserControl
         _connector = connector;
         ConfigureGrids();
 
-        var runButton = new Button { Content = "运行公差", MinWidth = 100 };
+        var runButton = new Button
+        {
+            Content = new LocalIconLabel("play", "运行公差"),
+            MinWidth = 100
+        };
         runButton.Click += (_, _) => Run();
 
         var toolbar = new WrapPanel

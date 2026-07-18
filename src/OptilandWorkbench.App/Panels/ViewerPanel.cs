@@ -16,9 +16,7 @@ public sealed class ViewerPanel : UserControl
     private readonly OpticSceneControl _scene2D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.TwoDimensional };
     private readonly OpticSceneControl _scene3D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.ThreeDimensional };
     private readonly TextBlock _summary = new() { VerticalAlignment = VerticalAlignment.Center };
-    private readonly ContentControl _workspace = new();
-    private readonly Control _twoDimensionalWorkspace;
-    private readonly Control _threeDimensionalWorkspace;
+    private readonly TabControl _viewTabs;
 
     public ViewerPanel(OptilandConnector connector)
     {
@@ -27,9 +25,15 @@ public sealed class ViewerPanel : UserControl
         ToolTip.SetTip(_scene2D, "滚轮以指针为中心缩放，拖动平移");
         ToolTip.SetTip(_scene3D, "滚轮缩放，拖动旋转，Shift+拖动平移");
 
-        _twoDimensionalWorkspace = Build2DWorkspace();
-        _threeDimensionalWorkspace = Build3DWorkspace();
-        _workspace.Content = _threeDimensionalWorkspace;
+        _viewTabs = new TabControl
+        {
+            SelectedIndex = 1,
+            ItemsSource = new object[]
+            {
+                new TabItem { Header = "二维视图", Content = Build2DWorkspace() },
+                new TabItem { Header = "三维视图", Content = Build3DWorkspace() }
+            }
+        };
 
         var root = new DockPanel();
         var summaryBar = new Border
@@ -42,7 +46,7 @@ public sealed class ViewerPanel : UserControl
         };
         DockPanel.SetDock(summaryBar, Dock.Bottom);
         root.Children.Add(summaryBar);
-        root.Children.Add(_workspace);
+        root.Children.Add(_viewTabs);
         Content = root;
 
         _connector.OpticLoaded += (_, _) => Refresh();
@@ -52,9 +56,7 @@ public sealed class ViewerPanel : UserControl
 
     public void ShowView(OpticSceneViewMode mode)
     {
-        _workspace.Content = mode == OpticSceneViewMode.TwoDimensional
-            ? _twoDimensionalWorkspace
-            : _threeDimensionalWorkspace;
+        _viewTabs.SelectedIndex = mode == OpticSceneViewMode.TwoDimensional ? 0 : 1;
     }
 
     private Control Build2DWorkspace()
@@ -66,13 +68,12 @@ public sealed class ViewerPanel : UserControl
             VerticalAlignment = VerticalAlignment.Center
         };
         showRays.IsCheckedChanged += (_, _) => _scene2D.ShowRays = showRays.IsChecked == true;
-        var reset = CompactButton("重置视图", "恢复二维视图的缩放与平移");
+        var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
         reset.Click += (_, _) => _scene2D.ResetView();
 
         return SceneWithOverlay(
             _scene2D,
-            Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right),
-            BuildHint("二维布局 · 拖动平移 · 滚轮缩放"));
+            Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right));
     }
 
     private Control Build3DWorkspace()
@@ -98,9 +99,9 @@ public sealed class ViewerPanel : UserControl
                 ? OpticSceneRenderMode.Wireframe
                 : OpticSceneRenderMode.Solid;
         };
+        ToolTip.SetTip(renderMode, "三维渲染模式");
 
-        var reset = CompactButton("⟳", "重置三维视角");
-        reset.Width = 36;
+        var reset = CompactButton("rotate-ccw", "重置三维视角");
         reset.Click += (_, _) => _scene3D.ResetView();
 
         var topToolbar = Toolbar(
@@ -121,11 +122,11 @@ public sealed class ViewerPanel : UserControl
         var presetToolbar = Toolbar(
             new Control[]
             {
-                PresetButton("◇", "等轴测视图", OpticSceneViewPreset.Isometric),
-                PresetButton("▰", "侧视图", OpticSceneViewPreset.Side),
-                PresetButton("▱", "俯视图", OpticSceneViewPreset.Top),
-                PresetButton("▢", "端面视图", OpticSceneViewPreset.End),
-                PresetButton("◁", "反向视图", OpticSceneViewPreset.Reverse)
+                PresetButton("cuboid", "等轴测视图", OpticSceneViewPreset.Isometric),
+                PresetButton("panel-left", "侧视图", OpticSceneViewPreset.Side),
+                PresetButton("panel-top", "俯视图", OpticSceneViewPreset.Top),
+                PresetButton("square", "端面视图", OpticSceneViewPreset.End),
+                PresetButton("flip-horizontal-2", "反向视图", OpticSceneViewPreset.Reverse)
             },
             HorizontalAlignment.Center,
             VerticalAlignment.Bottom);
@@ -133,15 +134,12 @@ public sealed class ViewerPanel : UserControl
         return SceneWithOverlay(
             _scene3D,
             topToolbar,
-            presetToolbar,
-            BuildHint("拖动旋转 · Shift+拖动平移 · 滚轮缩放"));
+            presetToolbar);
     }
 
-    private Button PresetButton(string glyph, string tooltip, OpticSceneViewPreset preset)
+    private Button PresetButton(string iconName, string tooltip, OpticSceneViewPreset preset)
     {
-        var button = CompactButton(glyph, tooltip);
-        button.Width = 36;
-        button.FontSize = 15;
+        var button = CompactButton(iconName, tooltip);
         button.Click += (_, _) => _scene3D.SetViewPreset(preset);
         return button;
     }
@@ -188,36 +186,21 @@ public sealed class ViewerPanel : UserControl
         };
     }
 
-    private static Border BuildHint(string text)
-    {
-        return new Border
-        {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(10),
-            Padding = new Thickness(8, 5),
-            CornerRadius = new CornerRadius(7),
-            Background = new SolidColorBrush(Color.FromArgb(218, 255, 255, 255)),
-            BorderBrush = new SolidColorBrush(Color.FromArgb(170, 209, 209, 214)),
-            BorderThickness = new Thickness(1),
-            BoxShadow = BoxShadows.Parse("0 3 9 0 #14000000"),
-            Child = new TextBlock
-            {
-                Text = text,
-                FontSize = 11,
-                Foreground = new SolidColorBrush(Color.FromRgb(72, 83, 98))
-            }
-        };
-    }
-
-    private static Button CompactButton(string content, string tooltip)
+    private static Button CompactButton(string iconName, string tooltip)
     {
         var button = new Button
         {
-            Content = content,
-            MinWidth = 72,
+            Content = new LocalIcon
+            {
+                IconName = iconName,
+                Width = 18,
+                Height = 18,
+                Stroke = new SolidColorBrush(Color.FromRgb(48, 48, 52))
+            },
+            Width = 36,
+            MinWidth = 0,
             Height = 30,
-            Padding = new Thickness(7, 2)
+            Padding = new Thickness(0)
         };
         ToolTip.SetTip(button, tooltip);
         return button;

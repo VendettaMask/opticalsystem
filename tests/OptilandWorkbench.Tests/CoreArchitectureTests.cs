@@ -86,6 +86,28 @@ public sealed class CoreArchitectureTests
     }
 
     [Fact]
+    public void SnapshotAndUndoPreservePickupAndSolveSettings()
+    {
+        var optic = Optic.CreateDemo();
+        optic.Pickups.LinkRadius(1, 2, -0.5, 3);
+        optic.Solves.DesiredBackFocus = 42;
+        optic.Solves.KeepImageAtBackFocus = false;
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.Equal(optic.Pickups.RadiusPickups, restored.Pickups.RadiusPickups);
+        Assert.Equal(42, restored.Solves.DesiredBackFocus, precision: 12);
+        Assert.False(restored.Solves.KeepImageAtBackFocus);
+
+        var undoRedo = new UndoRedoManager();
+        undoRedo.Capture(optic);
+        optic.Pickups.Clear();
+        optic.Solves.DesiredBackFocus = 12;
+        Assert.True(undoRedo.TryUndo(optic));
+        Assert.Single(optic.Pickups.RadiusPickups);
+        Assert.Equal(42, optic.Solves.DesiredBackFocus, precision: 12);
+    }
+
+    [Fact]
     public void SimpleOptimizerDoesNotWorsenSpotMetric()
     {
         var optic = Optic.CreateDemo();
