@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Services;
+
 namespace OptilandWorkbench.Core.Optimization;
 
 public sealed class LeastSquaresOptimizer : IOptimizer
@@ -47,6 +49,7 @@ public sealed class PowellOptimizer : IOptimizer
 
         for (var iteration = 0; iteration < maxIterations; iteration++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var improved = false;
             for (var variableIndex = 0; variableIndex < problem.Variables.Count; variableIndex++)
             {
@@ -113,6 +116,7 @@ public sealed class NelderMeadOptimizer : IOptimizer
 
         for (; iterations < maxIterations; iterations++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var order = values
                 .Select((value, index) => (value, index))
                 .OrderBy(item => item.value)
@@ -223,6 +227,7 @@ public sealed class PopulationSearchOptimizer : IOptimizer
 
         for (var iteration = 0; iteration < maxIterations; iteration++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var temperature = 1.0 - ((double)iteration / Math.Max(1, maxIterations));
             for (var index = 0; index < problem.Variables.Count; index++)
             {
@@ -260,6 +265,7 @@ internal static class GradientSearch
 
         for (var iteration = 0; iteration < maxIterations; iteration++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var current = problem.VariableVector();
             var gradient = EstimateGradient(problem);
             var accepted = false;
@@ -307,6 +313,7 @@ internal static class GradientSearch
         var gradient = new double[origin.Length];
         for (var index = 0; index < origin.Length; index++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var step = Math.Max(1e-6, problem.Variables[index].StepHint * 1e-3);
             var plus = origin.ToArray();
             plus[index] += step;

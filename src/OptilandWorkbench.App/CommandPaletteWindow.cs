@@ -80,7 +80,7 @@ public sealed class CommandPaletteWindow : Window
             Margin = new Avalonia.Thickness(12)
         };
 
-        DockPanel.SetDock(_search, Dock.Top);
+        DockPanel.SetDock(_search, Avalonia.Controls.Dock.Top);
         root.Children.Add(_search);
         root.Children.Add(_list);
         return root;

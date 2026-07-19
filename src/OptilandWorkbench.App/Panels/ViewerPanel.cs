@@ -2,41 +2,82 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class ViewerPanel : UserControl
+public enum ViewerPresentationMode
+{
+    OpticalLayout,
+    SolidModel
+}
+
+public sealed class ViewerPanel : UserControl, IDisposable
 {
     private static readonly IBrush ToolbarBackground = new SolidColorBrush(Color.FromArgb(242, 255, 255, 255));
     private static readonly IBrush ToolbarBorder = new SolidColorBrush(Color.FromRgb(209, 209, 214));
 
-    private readonly OptilandConnector _connector;
-    private readonly OpticSceneControl _scene2D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.TwoDimensional };
-    private readonly OpticSceneControl _scene3D = new() { MinHeight = 320, ViewMode = OpticSceneViewMode.ThreeDimensional };
+    private readonly IVisualizationService _visualization;
+    private readonly IWorkspaceEventStream _events;
+    private readonly SceneDimension _dimension;
+    private readonly ViewerPresentationMode _presentationMode;
+    private readonly OpticSceneControl _scene;
     private readonly TextBlock _summary = new() { VerticalAlignment = VerticalAlignment.Center };
-    private readonly TabControl _viewTabs;
+    private readonly Border _summaryBar;
+    private readonly ComboBox _startSurfacePicker = SettingPicker();
+    private readonly ComboBox _endSurfacePicker = SettingPicker();
+    private readonly ComboBox _wavelengthPicker = SettingPicker();
+    private readonly ComboBox _fieldPicker = SettingPicker();
+    private readonly ComboBox _colorModePicker = SettingPicker();
+    private readonly ComboBox _scalePicker = SettingPicker();
+    private readonly ComboBox _lineWidthPicker = SettingPicker();
+    private readonly NumericUpDown _rayCount = SettingNumber(1, 101, 1, 7);
+    private readonly NumericUpDown _yStretch = SettingNumber(0.1m, 10, 0.1m, 1);
+    private readonly NumericUpDown _upperPupil = SettingNumber(-1, 1, 0.1m, 1);
+    private readonly NumericUpDown _lowerPupil = SettingNumber(-1, 1, 0.1m, -1);
+    private readonly CheckBox _suppressFrame = new() { Content = "隐藏底部框架" };
+    private readonly CheckBox _rayArrows = new() { Content = "光线箭头" };
+    private readonly CheckBox _deleteVignetted = new() { Content = "删除渐晕光线" };
+    private readonly CheckBox _marginalAndChiefOnly = new() { Content = "仅边缘和主光线" };
+    private readonly CheckBox _autoApply = new() { Content = "自动应用", IsChecked = true };
+    private CancellationTokenSource? _refreshCancellation;
+    private bool _locked;
+    private bool _disposed;
+    private bool _updatingSettings;
 
-    public ViewerPanel(OptilandConnector connector)
+    public ViewerPanel(
+        IVisualizationService visualization,
+        IWorkspaceEventStream events,
+        SceneDimension dimension,
+        ViewerPresentationMode presentationMode = ViewerPresentationMode.OpticalLayout)
     {
-        _connector = connector;
-
-        ToolTip.SetTip(_scene2D, "滚轮以指针为中心缩放，拖动平移");
-        ToolTip.SetTip(_scene3D, "滚轮缩放，拖动旋转，Shift+拖动平移");
-
-        _viewTabs = new TabControl
+        _visualization = visualization;
+        _events = events;
+        _dimension = dimension;
+        _presentationMode = presentationMode;
+        _scene = new OpticSceneControl
         {
-            SelectedIndex = 1,
-            ItemsSource = new object[]
-            {
-                new TabItem { Header = "二维视图", Content = Build2DWorkspace() },
-                new TabItem { Header = "三维视图", Content = Build3DWorkspace() }
-            }
+            MinHeight = 320,
+            ViewMode = dimension == SceneDimension.TwoDimensional
+                ? OpticSceneViewMode.TwoDimensional
+                : OpticSceneViewMode.ThreeDimensional,
+            VisualStyle = presentationMode == ViewerPresentationMode.SolidModel
+                ? OpticSceneVisualStyle.SolidModel
+                : OpticSceneVisualStyle.OpticalLayout
         };
 
+        RefreshSelectorOptions(preserveSelection: false);
+        _colorModePicker.ItemsSource = new[] { "视场 #", "波长 #" };
+        _colorModePicker.SelectedIndex = 0;
+        _scalePicker.ItemsSource = new[] { "启用", "关闭" };
+        _scalePicker.SelectedIndex = 0;
+        _lineWidthPicker.ItemsSource = new[] { "细", "标准", "粗" };
+        _lineWidthPicker.SelectedIndex = 1;
+
         var root = new DockPanel();
-        var summaryBar = new Border
+        _summaryBar = new Border
         {
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             BorderBrush = ToolbarBorder,
@@ -44,19 +85,47 @@ public sealed class ViewerPanel : UserControl
             Padding = new Thickness(10, 5),
             Child = _summary
         };
-        DockPanel.SetDock(summaryBar, Dock.Bottom);
-        root.Children.Add(summaryBar);
-        root.Children.Add(_viewTabs);
+        DockPanel.SetDock(_summaryBar, Avalonia.Controls.Dock.Bottom);
+        root.Children.Add(_summaryBar);
+        root.Children.Add(dimension == SceneDimension.TwoDimensional
+            ? Build2DWorkspace()
+            : Build3DWorkspace());
         Content = root;
 
-        _connector.OpticLoaded += (_, _) => Refresh();
-        _connector.OpticChanged += (_, _) => Refresh();
-        Refresh();
+        ApplyDisplaySettings();
+        _events.Changed += OnWorkspaceChanged;
+        QueueRefresh(TimeSpan.Zero);
     }
 
-    public void ShowView(OpticSceneViewMode mode)
+    public bool IsLocked
     {
-        _viewTabs.SelectedIndex = mode == OpticSceneViewMode.TwoDimensional ? 0 : 1;
+        get => _locked;
+        set
+        {
+            if (_locked == value)
+            {
+                return;
+            }
+
+            _locked = value;
+            if (!value)
+            {
+                QueueRefresh(TimeSpan.Zero);
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        _events.Changed -= OnWorkspaceChanged;
+        _refreshCancellation?.Cancel();
+        _refreshCancellation?.Dispose();
     }
 
     private Control Build2DWorkspace()
@@ -67,13 +136,14 @@ public sealed class ViewerPanel : UserControl
             IsChecked = true,
             VerticalAlignment = VerticalAlignment.Center
         };
-        showRays.IsCheckedChanged += (_, _) => _scene2D.ShowRays = showRays.IsChecked == true;
-        var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
-        reset.Click += (_, _) => _scene2D.ResetView();
+        showRays.IsCheckedChanged += (_, _) => _scene.ShowRays = showRays.IsChecked == true;
 
+        var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
+        reset.Click += (_, _) => _scene.ResetView();
         return SceneWithOverlay(
-            _scene2D,
-            Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right));
+            _scene,
+            Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right),
+            BuildSettingsOverlay());
     }
 
     private Control Build3DWorkspace()
@@ -84,64 +154,407 @@ public sealed class ViewerPanel : UserControl
             IsChecked = true,
             VerticalAlignment = VerticalAlignment.Center
         };
-        showRays.IsCheckedChanged += (_, _) => _scene3D.ShowRays = showRays.IsChecked == true;
+        showRays.IsCheckedChanged += (_, _) => _scene.ShowRays = showRays.IsChecked == true;
+
+        var cutaway = new CheckBox
+        {
+            Content = "切面",
+            IsChecked = false,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        ToolTip.SetTip(cutaway, "移除镜片近侧半部并显示内部剖面");
+        cutaway.IsCheckedChanged += (_, _) => _scene.CutawayEnabled = cutaway.IsChecked == true;
 
         var renderMode = new ComboBox
         {
-            ItemsSource = new[] { "实体", "框架" },
+            ItemsSource = _presentationMode == ViewerPresentationMode.SolidModel
+                ? new[] { "实体", "框架" }
+                : new[] { "透明", "框架" },
             SelectedIndex = 0,
             MinWidth = 88,
             VerticalAlignment = VerticalAlignment.Center
         };
         renderMode.SelectionChanged += (_, _) =>
         {
-            _scene3D.RenderMode = renderMode.SelectedIndex == 1
+            _scene.RenderMode = renderMode.SelectedIndex == 1
                 ? OpticSceneRenderMode.Wireframe
                 : OpticSceneRenderMode.Solid;
         };
-        ToolTip.SetTip(renderMode, "三维渲染模式");
-
-        var reset = CompactButton("rotate-ccw", "重置三维视角");
-        reset.Click += (_, _) => _scene3D.ResetView();
 
         var topToolbar = Toolbar(
             new Control[]
             {
                 new TextBlock
                 {
-                    Text = "三维布局",
+                    Text = _presentationMode == ViewerPresentationMode.SolidModel ? "实体模型" : "三维布局",
                     FontWeight = FontWeight.SemiBold,
                     VerticalAlignment = VerticalAlignment.Center
                 },
+                cutaway,
                 showRays,
-                renderMode,
-                reset
+                renderMode
             },
             HorizontalAlignment.Right);
 
+        var fitView = CompactButton("maximize-2", "适配窗口");
+        fitView.Click += (_, _) => _scene.FitView();
         var presetToolbar = Toolbar(
             new Control[]
             {
-                PresetButton("cuboid", "等轴测视图", OpticSceneViewPreset.Isometric),
-                PresetButton("panel-left", "侧视图", OpticSceneViewPreset.Side),
-                PresetButton("panel-top", "俯视图", OpticSceneViewPreset.Top),
-                PresetButton("square", "端面视图", OpticSceneViewPreset.End),
-                PresetButton("flip-horizontal-2", "反向视图", OpticSceneViewPreset.Reverse)
+                fitView,
+                PresetButton(ViewCubeFace.Front, "前视图", OpticSceneViewPreset.Front),
+                PresetButton(ViewCubeFace.Back, "后视图", OpticSceneViewPreset.Back),
+                PresetButton(ViewCubeFace.Left, "左视图", OpticSceneViewPreset.Left),
+                PresetButton(ViewCubeFace.Right, "右视图", OpticSceneViewPreset.Right),
+                PresetButton(ViewCubeFace.Top, "俯视图", OpticSceneViewPreset.Top),
+                PresetButton(ViewCubeFace.Bottom, "仰视图", OpticSceneViewPreset.Bottom),
+                PresetButton(ViewCubeFace.Isometric, "等轴测视图", OpticSceneViewPreset.Isometric)
             },
             HorizontalAlignment.Center,
             VerticalAlignment.Bottom);
-
-        return SceneWithOverlay(
-            _scene3D,
-            topToolbar,
-            presetToolbar);
+        return SceneWithOverlay(_scene, topToolbar, presetToolbar, BuildSettingsOverlay());
     }
 
-    private Button PresetButton(string iconName, string tooltip, OpticSceneViewPreset preset)
+    private Control BuildSettingsOverlay()
     {
-        var button = CompactButton(iconName, tooltip);
-        button.Click += (_, _) => _scene3D.SetViewPreset(preset);
+        var settingsContent = BuildSettingsContent();
+        settingsContent.IsVisible = false;
+
+        var toggle = new Button
+        {
+            Content = new LocalIconLabel("settings", "设置"),
+            MinWidth = 0,
+            Height = 32,
+            Padding = new Thickness(8, 3)
+        };
+        toggle.Click += (_, _) => settingsContent.IsVisible = !settingsContent.IsVisible;
+
+        var synchronize = CompactButton("refresh-cw", "同步并重新生成视图");
+        synchronize.Click += (_, _) =>
+        {
+            ApplyDisplaySettings();
+            QueueRefresh(TimeSpan.Zero);
+        };
+
+        var header = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 3,
+            Children = { toggle, synchronize }
+        };
+        var container = new StackPanel { Children = { header, settingsContent } };
+        return new Border
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(10),
+            CornerRadius = new CornerRadius(8),
+            Background = ToolbarBackground,
+            BorderBrush = ToolbarBorder,
+            BorderThickness = new Thickness(1),
+            BoxShadow = BoxShadows.Parse("0 5 16 0 #20000000"),
+            Child = container
+        };
+    }
+
+    private Control BuildSettingsContent()
+    {
+        var settings = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,150,Auto,150"),
+            Margin = new Thickness(12, 8, 12, 4)
+        };
+        AddSettingRow(settings, 0, "起始面", _startSurfacePicker, "波长", _wavelengthPicker);
+        AddSettingRow(settings, 1, "终止面", _endSurfacePicker, "视场", _fieldPicker);
+        AddSettingRow(settings, 2, "光线数", _rayCount, "颜色显示", _colorModePicker);
+        AddSettingRow(settings, 3, "比例尺", _scalePicker, "Y 拉伸", _yStretch);
+        AddSettingRow(settings, 4, "上光瞳", _upperPupil, "下光瞳", _lowerPupil);
+        AddSettingRow(settings, 5, "线宽", _lineWidthPicker, string.Empty, new Border());
+
+        var checks = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            RowDefinitions = new RowDefinitions("Auto,Auto"),
+            Margin = new Thickness(12, 2, 12, 8)
+        };
+        AddCheck(checks, _suppressFrame, 0, 0);
+        AddCheck(checks, _deleteVignetted, 0, 1);
+        AddCheck(checks, _rayArrows, 1, 0);
+        AddCheck(checks, _marginalAndChiefOnly, 1, 1);
+
+        var apply = new Button { Content = "应用", MinWidth = 72 };
+        apply.Click += (_, _) =>
+        {
+            ApplyDisplaySettings();
+            QueueRefresh(TimeSpan.Zero);
+        };
+        var reset = new Button { Content = "重置", MinWidth = 72 };
+        reset.Click += (_, _) => ResetSettings();
+        var footer = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8,
+            Margin = new Thickness(12, 8, 12, 10),
+            Children = { _autoApply, apply, reset }
+        };
+
+        WatchSettingsChanges();
+        return new StackPanel
+        {
+            Children =
+            {
+                settings,
+                new Border
+                {
+                    Height = 1,
+                    Margin = new Thickness(12, 4),
+                    Background = new SolidColorBrush(Color.FromRgb(210, 218, 228))
+                },
+                checks,
+                footer
+            }
+        };
+    }
+
+    private void WatchSettingsChanges()
+    {
+        foreach (var picker in new[]
+                 {
+                     _startSurfacePicker,
+                     _endSurfacePicker,
+                     _wavelengthPicker,
+                     _fieldPicker,
+                     _colorModePicker,
+                     _scalePicker,
+                     _lineWidthPicker
+                 })
+        {
+            picker.SelectionChanged += (_, _) => OnSettingChanged();
+        }
+
+        foreach (var number in new[] { _rayCount, _yStretch, _upperPupil, _lowerPupil })
+        {
+            number.ValueChanged += (_, _) => OnSettingChanged();
+        }
+
+        foreach (var checkBox in new[]
+                 {
+                     _suppressFrame,
+                     _rayArrows,
+                     _deleteVignetted,
+                     _marginalAndChiefOnly
+                 })
+        {
+            checkBox.IsCheckedChanged += (_, _) => OnSettingChanged();
+        }
+    }
+
+    private void OnSettingChanged()
+    {
+        if (_updatingSettings)
+        {
+            return;
+        }
+
+        ApplyDisplaySettings();
+        if (_autoApply.IsChecked == true)
+        {
+            QueueRefresh(TimeSpan.FromMilliseconds(120));
+        }
+    }
+
+    private void ApplyDisplaySettings()
+    {
+        _scene.RayColorMode = _colorModePicker.SelectedIndex == 1
+            ? OpticSceneRayColorMode.Wavelength
+            : OpticSceneRayColorMode.Field;
+        _scene.VerticalStretch = (double)(_yStretch.Value ?? 1);
+        _scene.ShowRayArrows = _rayArrows.IsChecked == true;
+        var lineWidth = _lineWidthPicker.SelectedIndex switch
+        {
+            0 => 0.85,
+            2 => 1.8,
+            _ => 1.25
+        };
+        _scene.RayLineWidth = _presentationMode == ViewerPresentationMode.SolidModel
+            ? lineWidth * 3.6
+            : lineWidth;
+        _summaryBar.IsVisible = _suppressFrame.IsChecked != true;
+        _scene.ShowScaleBar = _scalePicker.SelectedIndex != 1 && _suppressFrame.IsChecked != true;
+    }
+
+    private VisualizationRequestDto CreateRequest()
+    {
+        var firstSurface = SelectedValue(_startSurfacePicker);
+        var lastSurface = SelectedValue(_endSurfacePicker);
+        if (firstSurface.HasValue && lastSurface.HasValue && firstSurface > lastSurface)
+        {
+            (firstSurface, lastSurface) = (lastSurface, firstSurface);
+        }
+
+        var wavelengthIndex = SelectedValue(_wavelengthPicker);
+        return new VisualizationRequestDto(
+            _dimension,
+            firstSurface,
+            lastSurface,
+            SelectedValue(_fieldPicker),
+            wavelengthIndex,
+            IncludeAllWavelengths: !wavelengthIndex.HasValue,
+            RayCount: (int)(_rayCount.Value ?? 7),
+            LowerPupil: (double)(_lowerPupil.Value ?? -1),
+            UpperPupil: (double)(_upperPupil.Value ?? 1),
+            DeleteVignetted: _deleteVignetted.IsChecked == true,
+            MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true);
+    }
+
+    private void RefreshSelectorOptions(bool preserveSelection)
+    {
+        var previousStart = preserveSelection ? SelectedValue(_startSurfacePicker) : null;
+        var previousEnd = preserveSelection ? SelectedValue(_endSurfacePicker) : null;
+        var previousField = preserveSelection ? SelectedValue(_fieldPicker) : null;
+        var previousWavelength = preserveSelection ? SelectedValue(_wavelengthPicker) : null;
+        var options = _visualization.GetVisualizationOptions();
+
+        var wasUpdatingSettings = _updatingSettings;
+        _updatingSettings = true;
+        try
+        {
+            var surfaces = options.SurfaceNumbers
+                .Select(number => new SelectorItem(number, number.ToString()))
+                .ToArray();
+            _startSurfacePicker.ItemsSource = surfaces;
+            _endSurfacePicker.ItemsSource = surfaces;
+            SelectValue(
+                _startSurfacePicker,
+                previousStart ?? surfaces.FirstOrDefault(item => item.Index > 0)?.Index ?? surfaces.FirstOrDefault()?.Index);
+            SelectValue(_endSurfacePicker, previousEnd ?? surfaces.LastOrDefault()?.Index);
+
+            var fields = new[] { new SelectorItem(null, "所有") }
+                .Concat(options.Fields.Select(item => new SelectorItem(item.Index, item.Label)))
+                .ToArray();
+            _fieldPicker.ItemsSource = fields;
+            SelectValue(_fieldPicker, preserveSelection ? previousField : null);
+
+            var wavelengths = new[] { new SelectorItem(null, "所有") }
+                .Concat(options.Wavelengths.Select(item => new SelectorItem(item.Index, item.Label)))
+                .ToArray();
+            _wavelengthPicker.ItemsSource = wavelengths;
+            SelectValue(_wavelengthPicker, preserveSelection ? previousWavelength : null);
+        }
+        finally
+        {
+            _updatingSettings = wasUpdatingSettings;
+        }
+    }
+
+    private void ResetSettings()
+    {
+        _updatingSettings = true;
+        try
+        {
+            RefreshSelectorOptions(preserveSelection: false);
+            _rayCount.Value = 7;
+            _yStretch.Value = 1;
+            _upperPupil.Value = 1;
+            _lowerPupil.Value = -1;
+            _colorModePicker.SelectedIndex = 0;
+            _scalePicker.SelectedIndex = 0;
+            _lineWidthPicker.SelectedIndex = 1;
+            _suppressFrame.IsChecked = false;
+            _rayArrows.IsChecked = false;
+            _deleteVignetted.IsChecked = false;
+            _marginalAndChiefOnly.IsChecked = false;
+        }
+        finally
+        {
+            _updatingSettings = false;
+        }
+
+        ApplyDisplaySettings();
+        QueueRefresh(TimeSpan.Zero);
+    }
+
+    private Button PresetButton(ViewCubeFace face, string tooltip, OpticSceneViewPreset preset)
+    {
+        var button = new Button
+        {
+            Content = new ViewCubeIcon(face)
+            {
+                Width = 26,
+                Height = 24
+            },
+            Width = 40,
+            MinWidth = 0,
+            Height = 32,
+            Padding = new Thickness(0)
+        };
+        ToolTip.SetTip(button, tooltip);
+        button.Click += (_, _) => _scene.SetViewPreset(preset);
         return button;
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        if (!_locked)
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                RefreshSelectorOptions(preserveSelection: true);
+                QueueRefresh(TimeSpan.FromMilliseconds(120));
+            });
+        }
+    }
+
+    private void QueueRefresh(TimeSpan delay)
+    {
+        if (_disposed || _locked)
+        {
+            return;
+        }
+
+        _refreshCancellation?.Cancel();
+        _refreshCancellation?.Dispose();
+        _refreshCancellation = new CancellationTokenSource();
+        _ = RefreshAsync(delay, _refreshCancellation.Token);
+    }
+
+    private async Task RefreshAsync(TimeSpan delay, CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (delay > TimeSpan.Zero)
+            {
+                await Task.Delay(delay, cancellationToken);
+            }
+
+            var scene = await _visualization.BuildSceneAsync(CreateRequest(), cancellationToken);
+            if (cancellationToken.IsCancellationRequested || scene.SourceRevision != _events.Revision)
+            {
+                return;
+            }
+
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                _scene.Scene = scene;
+                _scene.InvalidateVisual();
+                _summary.Text = $"有效焦距 {scene.Summary.EffectiveFocalLength:0.###} mm    " +
+                    $"F 数 {scene.Summary.FNumber:0.###}    系统总长 {scene.Summary.TotalTrack:0.###} mm";
+            });
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception exception)
+        {
+            System.Diagnostics.Trace.TraceError($"Viewer refresh failed: {exception}");
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (!_disposed)
+                {
+                    _summary.Text = $"视图更新失败：{exception.Message}";
+                }
+            });
+        }
     }
 
     private static Control SceneWithOverlay(Control scene, params Control[] overlays)
@@ -156,16 +569,91 @@ public sealed class ViewerPanel : UserControl
         return grid;
     }
 
+    private static void AddSettingRow(
+        Grid grid,
+        int row,
+        string firstLabel,
+        Control firstControl,
+        string secondLabel,
+        Control secondControl)
+    {
+        while (grid.RowDefinitions.Count <= row)
+        {
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        }
+
+        AddSettingCell(grid, new TextBlock
+        {
+            Text = firstLabel,
+            Margin = new Thickness(0, 5, 8, 5),
+            VerticalAlignment = VerticalAlignment.Center
+        }, row, 0);
+        AddSettingCell(grid, firstControl, row, 1);
+        if (!string.IsNullOrEmpty(secondLabel))
+        {
+            AddSettingCell(grid, new TextBlock
+            {
+                Text = secondLabel,
+                Margin = new Thickness(22, 5, 8, 5),
+                VerticalAlignment = VerticalAlignment.Center
+            }, row, 2);
+            AddSettingCell(grid, secondControl, row, 3);
+        }
+    }
+
+    private static void AddSettingCell(Grid grid, Control control, int row, int column)
+    {
+        Grid.SetRow(control, row);
+        Grid.SetColumn(control, column);
+        control.Margin = control.Margin + new Thickness(0, 3);
+        grid.Children.Add(control);
+    }
+
+    private static void AddCheck(Grid grid, CheckBox checkBox, int row, int column)
+    {
+        Grid.SetRow(checkBox, row);
+        Grid.SetColumn(checkBox, column);
+        checkBox.Margin = new Thickness(0, 4);
+        grid.Children.Add(checkBox);
+    }
+
+    private static ComboBox SettingPicker() => new()
+    {
+        MinWidth = 140,
+        Height = 30,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+
+    private static NumericUpDown SettingNumber(
+        decimal minimum,
+        decimal maximum,
+        decimal increment,
+        decimal value) => new()
+    {
+        MinWidth = 140,
+        Height = 30,
+        Minimum = minimum,
+        Maximum = maximum,
+        Increment = increment,
+        Value = value,
+        ShowButtonSpinner = false
+    };
+
+    private static int? SelectedValue(ComboBox picker) =>
+        (picker.SelectedItem as SelectorItem)?.Index;
+
+    private static void SelectValue(ComboBox picker, int? value)
+    {
+        picker.SelectedItem = (picker.ItemsSource as IEnumerable<SelectorItem>)?
+            .FirstOrDefault(item => item.Index == value);
+    }
+
     private static Border Toolbar(
         IEnumerable<Control> controls,
         HorizontalAlignment horizontalAlignment,
         VerticalAlignment verticalAlignment = VerticalAlignment.Top)
     {
-        var panel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 6
-        };
+        var panel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6 };
         foreach (var control in controls)
         {
             panel.Children.Add(control);
@@ -206,15 +694,8 @@ public sealed class ViewerPanel : UserControl
         return button;
     }
 
-    private void Refresh()
+    private sealed record SelectorItem(int? Index, string Label)
     {
-        _scene2D.Optic = _connector.CurrentOptic;
-        _scene3D.Optic = _connector.CurrentOptic;
-        _scene2D.InvalidateVisual();
-        _scene3D.InvalidateVisual();
-
-        var focalLength = _connector.CurrentOptic.Paraxial.EstimateEffectiveFocalLength();
-        var fNumber = _connector.CurrentOptic.Paraxial.EstimateFNumber();
-        _summary.Text = $"有效焦距 {focalLength:0.###} mm    F 数 {fNumber:0.###}    系统总长 {_connector.CurrentOptic.SurfaceGroup.TotalTrack:0.###} mm";
+        public override string ToString() => Label;
     }
 }

@@ -35,6 +35,8 @@ public sealed record Layout2DPoint(double Z, double Y);
 
 public sealed record Layout3DPoint(double X, double Y, double Z);
 
+public sealed record Layout3DSurfaceFace(IReadOnlyList<Layout3DPoint> Points);
+
 public sealed record Layout2DSurfaceCurve(
     int SurfaceNumber,
     string Label,
@@ -42,7 +44,23 @@ public sealed record Layout2DSurfaceCurve(
     bool IsReferencePlane,
     IReadOnlyList<Layout2DPoint> Points);
 
-public sealed record Layout2DLensEdge(Layout2DPoint Start, Layout2DPoint End);
+public sealed record Layout2DLensEdge(
+    int FrontSurfaceNumber,
+    int BackSurfaceNumber,
+    Layout2DPoint Start,
+    Layout2DPoint End);
+
+public sealed record LayoutBuildOptions(
+    int? FirstSurface = null,
+    int? LastSurface = null,
+    int? FieldIndex = null,
+    int? WavelengthIndex = null,
+    bool IncludeAllWavelengths = false,
+    int RayCount = 3,
+    double LowerPupil = -0.85,
+    double UpperPupil = 0.85,
+    bool DeleteVignetted = false,
+    bool MarginalAndChiefOnly = false);
 
 public sealed record Layout2DLensElement(
     int FrontSurfaceNumber,
@@ -54,6 +72,7 @@ public sealed record Layout2DRayPath(
     int RayNumber,
     int FieldIndex,
     int PupilIndex,
+    int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<Layout2DPoint> Points);
@@ -75,7 +94,8 @@ public sealed record Layout3DSurfacePrimitive(
     string Material,
     IReadOnlyList<Layout3DPoint> Rim,
     IReadOnlyList<Layout3DPoint> MeridianY,
-    IReadOnlyList<Layout3DPoint> MeridianX);
+    IReadOnlyList<Layout3DPoint> MeridianX,
+    IReadOnlyList<Layout3DSurfaceFace> Faces);
 
 public sealed record Layout3DLensElement(
     int FrontSurfaceNumber,
@@ -88,6 +108,7 @@ public sealed record Layout3DRayPath(
     int RayNumber,
     int FieldIndex,
     int PupilIndex,
+    int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<Layout3DPoint> Points);
@@ -106,22 +127,6 @@ public sealed class Layout2DBuilder
     private const int DefaultSurfaceSamples = 65;
     private const int DefaultRimSamples = 64;
 
-    private static readonly (double X, double Y)[] TwoDimensionalPupilSamples =
-    {
-        (0, -0.85),
-        (0, 0),
-        (0, 0.85)
-    };
-
-    private static readonly (double X, double Y)[] ThreeDimensionalPupilSamples =
-    {
-        (0, -0.85),
-        (0, 0),
-        (0, 0.85),
-        (-0.55, 0),
-        (0.55, 0)
-    };
-
     private readonly Optic _optic;
 
     public Layout2DBuilder(Optic optic)
@@ -129,18 +134,30 @@ public sealed class Layout2DBuilder
         _optic = optic;
     }
 
-    public Layout2DScene Build(int surfaceSamples = DefaultSurfaceSamples)
+    public Layout2DScene Build(
+        int surfaceSamples = DefaultSurfaceSamples,
+        LayoutBuildOptions? options = null)
     {
         surfaceSamples = NormalizeSampleCount(surfaceSamples);
+        options ??= new LayoutBuildOptions();
 
-        var surfaces = BuildSurfaceCurves(surfaceSamples);
-        var lensElements = BuildLensElements(surfaceSamples);
-        var lensEdges = BuildLensEdges(surfaceSamples);
-        var rays = BuildRayPaths(includeDepth: false)
+        var surfaces = BuildSurfaceCurves(surfaceSamples)
+            .Where(surface => IsSurfaceSelected(surface.SurfaceNumber, options))
+            .ToList();
+        var lensElements = BuildLensElements(surfaceSamples)
+            .Where(element => IsSurfaceSelected(element.FrontSurfaceNumber, options)
+                && IsSurfaceSelected(element.BackSurfaceNumber, options))
+            .ToList();
+        var lensEdges = BuildLensEdges(surfaceSamples)
+            .Where(edge => IsSurfaceSelected(edge.FrontSurfaceNumber, options)
+                && IsSurfaceSelected(edge.BackSurfaceNumber, options))
+            .ToList();
+        var rays = BuildRayPaths(includeDepth: false, options)
             .Select(path => new Layout2DRayPath(
                 path.RayNumber,
                 path.FieldIndex,
                 path.PupilIndex,
+                path.WavelengthIndex,
                 path.Vignetted,
                 path.FinalIntensity,
                 path.Points.Select(point => new Layout2DPoint(point.Z, point.Y)).ToList()))
@@ -159,14 +176,21 @@ public sealed class Layout2DBuilder
 
     public Layout3DScene Build3D(
         int surfaceSamples = DefaultSurfaceSamples,
-        int rimSamples = DefaultRimSamples)
+        int rimSamples = DefaultRimSamples,
+        LayoutBuildOptions? options = null)
     {
         surfaceSamples = NormalizeSampleCount(surfaceSamples);
         rimSamples = Math.Max(12, rimSamples);
+        options ??= new LayoutBuildOptions(RayCount: 5);
 
-        var surfaces = Build3DSurfaces(surfaceSamples, rimSamples);
-        var lensElements = Build3DLensElements(rimSamples);
-        var rays = BuildRayPaths(includeDepth: true);
+        var surfaces = Build3DSurfaces(surfaceSamples, rimSamples)
+            .Where(surface => IsSurfaceSelected(surface.SurfaceNumber, options))
+            .ToList();
+        var lensElements = Build3DLensElements(rimSamples)
+            .Where(element => IsSurfaceSelected(element.FrontSurfaceNumber, options)
+                && IsSurfaceSelected(element.BackSurfaceNumber, options))
+            .ToList();
+        var rays = BuildRayPaths(includeDepth: true, options);
         var extents = Calculate3DExtents(surfaces, rays);
 
         return new Layout3DScene(
@@ -239,8 +263,16 @@ public sealed class Layout2DBuilder
                 var extent = ElementExtent(group[index], group[index + 1]);
                 var frontCurve = BuildExtendedSurfaceCurve(group[index], surfaceSamples, extent);
                 var backCurve = BuildExtendedSurfaceCurve(group[index + 1], surfaceSamples, extent);
-                edges.Add(new Layout2DLensEdge(frontCurve[0], backCurve[0]));
-                edges.Add(new Layout2DLensEdge(frontCurve[^1], backCurve[^1]));
+                edges.Add(new Layout2DLensEdge(
+                    group[index].Number,
+                    group[index + 1].Number,
+                    frontCurve[0],
+                    backCurve[0]));
+                edges.Add(new Layout2DLensEdge(
+                    group[index].Number,
+                    group[index + 1].Number,
+                    frontCurve[^1],
+                    backCurve[^1]));
             }
         }
 
@@ -276,7 +308,8 @@ public sealed class Layout2DBuilder
                 surface.MaterialAfterName,
                 rim,
                 meridianY,
-                meridianX));
+                meridianX,
+                BuildSurfaceFaces(surface, semiDiameter, surfaceSamples, rimSamples)));
         }
 
         return primitives;
@@ -305,9 +338,9 @@ public sealed class Layout2DBuilder
         return elements;
     }
 
-    private IReadOnlyList<Layout3DRayPath> BuildRayPaths(bool includeDepth)
+    private IReadOnlyList<Layout3DRayPath> BuildRayPaths(bool includeDepth, LayoutBuildOptions options)
     {
-        var specs = BuildViewerRays(includeDepth);
+        var specs = BuildViewerRays(includeDepth, options);
         if (specs.Count == 0)
         {
             return Array.Empty<Layout3DRayPath>();
@@ -338,10 +371,22 @@ public sealed class Layout2DBuilder
             if (points.Count >= 2)
             {
                 var spec = specs[rayIndex];
+                if (options.DeleteVignetted && vignetted)
+                {
+                    continue;
+                }
+
+                points = SelectRaySegment(points, options).ToList();
+                if (points.Count < 2)
+                {
+                    continue;
+                }
+
                 paths.Add(new Layout3DRayPath(
                     rayIndex,
                     spec.FieldIndex,
                     spec.PupilIndex,
+                    spec.WavelengthIndex,
                     vignetted,
                     finalIntensity,
                     points));
@@ -351,27 +396,34 @@ public sealed class Layout2DBuilder
         return paths;
     }
 
-    private IReadOnlyList<ViewerRaySpec> BuildViewerRays(bool includeDepth)
+    private IReadOnlyList<ViewerRaySpec> BuildViewerRays(bool includeDepth, LayoutBuildOptions options)
     {
         if (_optic.SurfaceGroup.Items.Count == 0)
         {
             return Array.Empty<ViewerRaySpec>();
         }
 
-        var wavelength = PrimaryWavelengthNanometers();
-        var pupilSamples = includeDepth ? ThreeDimensionalPupilSamples : TwoDimensionalPupilSamples;
-        var fields = new List<(double NormalizedX, double NormalizedY, double Weight)>();
+        var wavelengths = SelectedWavelengths(options);
+        var pupilSamples = BuildPupilSamples(includeDepth, options);
+        var fields = new List<(int Index, double NormalizedX, double NormalizedY, double Weight)>();
         var maxX = _optic.Fields.Select(field => Math.Abs(field.XAngleDegrees)).DefaultIfEmpty(0).Max();
         var maxY = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
         if (_optic.Fields.Count == 0)
         {
-            fields.Add((0, 0, 1));
+            fields.Add((0, 0, 0, 1));
         }
         else
         {
-            foreach (var field in _optic.Fields)
+            for (var fieldIndex = 0; fieldIndex < _optic.Fields.Count; fieldIndex++)
             {
+                var field = _optic.Fields[fieldIndex];
+                if (options.FieldIndex is int selectedField && selectedField != fieldIndex)
+                {
+                    continue;
+                }
+
                 fields.Add((
+                    fieldIndex,
                     maxX <= 1e-12 ? 0 : field.XAngleDegrees / maxX,
                     maxY <= 1e-12 ? 0 : field.YAngleDegrees / maxY,
                     Math.Max(0.05, field.Weight)));
@@ -379,30 +431,120 @@ public sealed class Layout2DBuilder
         }
         var specs = new List<ViewerRaySpec>();
 
-        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        foreach (var field in fields)
         {
-            var field = fields[fieldIndex];
-
-            for (var pupilIndex = 0; pupilIndex < pupilSamples.Length; pupilIndex++)
+            foreach (var wavelength in wavelengths)
             {
-                var sample = pupilSamples[pupilIndex];
-                var ray = _optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
-                    field.NormalizedX,
-                    field.NormalizedY,
-                    sample.X,
-                    sample.Y,
-                    RayGenerator.NanometersToMicrometers(wavelength)).Rays.Single() with
+                for (var pupilIndex = 0; pupilIndex < pupilSamples.Count; pupilIndex++)
                 {
-                    Intensity = field.Weight
-                };
-                specs.Add(new ViewerRaySpec(
-                    ray,
-                    fieldIndex,
-                    pupilIndex));
+                    var sample = pupilSamples[pupilIndex];
+                    var ray = _optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                        field.NormalizedX,
+                        field.NormalizedY,
+                        sample.X,
+                        sample.Y,
+                        RayGenerator.NanometersToMicrometers(wavelength.Nanometers)).Rays.Single() with
+                    {
+                        Intensity = field.Weight
+                    };
+                    specs.Add(new ViewerRaySpec(
+                        ray,
+                        field.Index,
+                        pupilIndex,
+                        wavelength.Index));
+                }
             }
         }
 
         return specs;
+    }
+
+    private IReadOnlyList<(int Index, double Nanometers)> SelectedWavelengths(LayoutBuildOptions options)
+    {
+        if (_optic.Wavelengths.Count == 0)
+        {
+            return new[] { (0, 587.6) };
+        }
+
+        if (options.WavelengthIndex is int selectedIndex)
+        {
+            selectedIndex = Math.Clamp(selectedIndex, 0, _optic.Wavelengths.Count - 1);
+            return new[] { (selectedIndex, _optic.Wavelengths[selectedIndex].Nanometers) };
+        }
+
+        if (options.IncludeAllWavelengths)
+        {
+            return _optic.Wavelengths
+                .Select((wavelength, index) => (index, wavelength.Nanometers))
+                .ToArray();
+        }
+
+        var primaryIndex = Enumerable.Range(0, _optic.Wavelengths.Count)
+            .FirstOrDefault(index => _optic.Wavelengths[index].IsPrimary);
+        return new[] { (primaryIndex, _optic.Wavelengths[primaryIndex].Nanometers) };
+    }
+
+    private static IReadOnlyList<(double X, double Y)> BuildPupilSamples(
+        bool includeDepth,
+        LayoutBuildOptions options)
+    {
+        var lower = Math.Clamp(Math.Min(options.LowerPupil, options.UpperPupil), -1, 1);
+        var upper = Math.Clamp(Math.Max(options.LowerPupil, options.UpperPupil), -1, 1);
+        if (options.MarginalAndChiefOnly)
+        {
+            return new[] { (0.0, lower), (0.0, 0.0), (0.0, upper) }
+                .Distinct()
+                .ToArray();
+        }
+
+        var count = Math.Clamp(options.RayCount, 1, 101);
+        if (!includeDepth)
+        {
+            if (count == 1)
+            {
+                return new[] { (0.0, 0.0) };
+            }
+
+            return Enumerable.Range(0, count)
+                .Select(index => (0.0, lower + ((upper - lower) * index / (count - 1))))
+                .ToArray();
+        }
+
+        if (count == 1)
+        {
+            return new[] { (0.0, 0.0) };
+        }
+
+        var center = (lower + upper) / 2.0;
+        var radiusY = Math.Max(0.01, (upper - lower) / 2.0);
+        var samples = new List<(double X, double Y)> { (0, center) };
+        for (var index = 0; index < count - 1; index++)
+        {
+            var angle = 2.0 * Math.PI * index / (count - 1);
+            samples.Add((Math.Cos(angle) * 0.85, center + (Math.Sin(angle) * radiusY)));
+        }
+
+        return samples;
+    }
+
+    private static bool IsSurfaceSelected(int surfaceNumber, LayoutBuildOptions options) =>
+        (!options.FirstSurface.HasValue || surfaceNumber >= options.FirstSurface.Value)
+        && (!options.LastSurface.HasValue || surfaceNumber <= options.LastSurface.Value);
+
+    private static IReadOnlyList<Layout3DPoint> SelectRaySegment(
+        IReadOnlyList<Layout3DPoint> points,
+        LayoutBuildOptions options)
+    {
+        if (!options.FirstSurface.HasValue && !options.LastSurface.HasValue)
+        {
+            return points;
+        }
+
+        var firstSurface = Math.Max(0, options.FirstSurface ?? 0);
+        var lastSurface = Math.Max(firstSurface, options.LastSurface ?? int.MaxValue);
+        var firstPoint = Math.Clamp(firstSurface + 1, 1, points.Count - 1);
+        var lastPoint = Math.Clamp(lastSurface + 1, firstPoint, points.Count - 1);
+        return points.Skip(firstPoint).Take((lastPoint - firstPoint) + 1).ToArray();
     }
 
     private IReadOnlyList<IReadOnlyList<OpticalSurface>> BuildLensGroups()
@@ -502,6 +644,66 @@ public sealed class Layout2DBuilder
         }
 
         return rim;
+    }
+
+    private static IReadOnlyList<Layout3DSurfaceFace> BuildSurfaceFaces(
+        OpticalSurface surface,
+        double extent,
+        int surfaceSamples,
+        int rimSamples)
+    {
+        var radialSegments = Math.Clamp((surfaceSamples - 1) / 8, 4, 10);
+        var angularSegments = Math.Clamp(rimSamples / 2, 16, 40);
+        var center = ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
+            new Vector3D(0, 0, SafeSag(surface, 0, 0))));
+        var rings = new List<IReadOnlyList<Layout3DPoint>>(radialSegments);
+
+        for (var radialIndex = 1; radialIndex <= radialSegments; radialIndex++)
+        {
+            var radius = extent * radialIndex / radialSegments;
+            var ring = new List<Layout3DPoint>(angularSegments);
+            for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
+            {
+                var angle = (2.0 * Math.PI * angularIndex) / angularSegments;
+                var x = Math.Cos(angle) * radius;
+                var y = Math.Sin(angle) * radius;
+                ring.Add(ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
+                    new Vector3D(x, y, SafeSag(surface, x, y)))));
+            }
+
+            rings.Add(ring);
+        }
+
+        var faces = new List<Layout3DSurfaceFace>(radialSegments * angularSegments);
+        for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
+        {
+            var nextAngularIndex = (angularIndex + 1) % angularSegments;
+            faces.Add(new Layout3DSurfaceFace(new[]
+            {
+                center,
+                rings[0][angularIndex],
+                rings[0][nextAngularIndex]
+            }));
+        }
+
+        for (var radialIndex = 1; radialIndex < rings.Count; radialIndex++)
+        {
+            var inner = rings[radialIndex - 1];
+            var outer = rings[radialIndex];
+            for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
+            {
+                var nextAngularIndex = (angularIndex + 1) % angularSegments;
+                faces.Add(new Layout3DSurfaceFace(new[]
+                {
+                    inner[angularIndex],
+                    outer[angularIndex],
+                    outer[nextAngularIndex],
+                    inner[nextAngularIndex]
+                }));
+            }
+        }
+
+        return faces;
     }
 
     private bool HasOpticalMaterialAfter(OpticalSurface surface)
@@ -683,6 +885,14 @@ public sealed class Layout2DBuilder
             {
                 Add(point);
             }
+
+            foreach (var face in surface.Faces)
+            {
+                foreach (var point in face.Points)
+                {
+                    Add(point);
+                }
+            }
         }
 
         foreach (var ray in rays)
@@ -712,5 +922,9 @@ public sealed class Layout2DBuilder
             zMax);
     }
 
-    private sealed record ViewerRaySpec(RealRay Ray, int FieldIndex, int PupilIndex);
+    private sealed record ViewerRaySpec(
+        RealRay Ray,
+        int FieldIndex,
+        int PupilIndex,
+        int WavelengthIndex);
 }

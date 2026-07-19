@@ -16,8 +16,9 @@ using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
 
-namespace OptilandWorkbench.App.Connectors;
+namespace OptilandWorkbench.Application.Legacy;
 
+[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public sealed class OptilandConnector
 {
     private readonly UndoRedoManager _undoRedo = new();
@@ -171,8 +172,16 @@ public sealed class OptilandConnector
 
     public AnalysisView BuildAnalysisView(string analysisName, IReadOnlyDictionary<string, string>? settings)
     {
+        return BuildAnalysisView(analysisName, settings, CancellationToken.None);
+    }
+
+    public AnalysisView BuildAnalysisView(
+        string analysisName,
+        IReadOnlyDictionary<string, string>? settings,
+        CancellationToken cancellationToken)
+    {
         var analysis = CreateAnalysis(CanonicalAnalysisName(analysisName), settings ?? new Dictionary<string, string>());
-        var data = analysis.GenerateData();
+        var data = analysis.GenerateData(cancellationToken);
         var rows = data.Values
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
             .ToArray();
@@ -881,37 +890,64 @@ public sealed class OptilandConnector
         return changed;
     }
 
-    public async Task SaveAsync(string path)
+    public static async Task SaveOpticAsync(
+        Optic optic,
+        string path,
+        CancellationToken cancellationToken = default)
     {
         if (IsPythonOptilandJsonPath(path))
         {
-            await PythonOptilandJsonStore.SaveAsync(CurrentOptic, path);
+            await PythonOptilandJsonStore.SaveAsync(optic, path, cancellationToken).ConfigureAwait(false);
         }
         else if (IsNativeJsonPath(path))
         {
-            await OpticJsonStore.SaveAsync(CurrentOptic, path);
+            await OpticJsonStore.SaveAsync(optic, path, cancellationToken).ConfigureAwait(false);
         }
         else
         {
-            var text = OpticalFormatCatalog.Export(CurrentOptic, Path.GetExtension(path));
-            await File.WriteAllTextAsync(path, text);
+            var text = OpticalFormatCatalog.Export(optic, Path.GetExtension(path));
+            await File.WriteAllTextAsync(path, text, cancellationToken).ConfigureAwait(false);
         }
+    }
+
+    public async Task SaveAsync(string path, CancellationToken cancellationToken = default)
+    {
+        await SaveOpticAsync(CurrentOptic, path, cancellationToken).ConfigureAwait(false);
 
         SetStatus($"已保存 {Path.GetFileName(path)}。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public async Task LoadAsync(string path)
+    public void NotifySaved(string path)
+    {
+        SetStatus($"已保存 {Path.GetFileName(path)}。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public static async Task<Optic> ReadOpticAsync(
+        string path,
+        CancellationToken cancellationToken = default)
     {
         if (IsNativeJsonPath(path))
         {
-            CurrentOptic = await OpticJsonStore.LoadAsync(path);
+            return await OpticJsonStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
         }
-        else
-        {
-            var text = await File.ReadAllTextAsync(path);
-            CurrentOptic = OpticalFormatCatalog.Import(text, Path.GetExtension(path));
-        }
+
+        var text = await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return OpticalFormatCatalog.Import(text, Path.GetExtension(path));
+    }
+
+    public async Task LoadAsync(string path, CancellationToken cancellationToken = default)
+    {
+        var optic = await ReadOpticAsync(path, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        ApplyLoadedOptic(optic, path);
+    }
+
+    public void ApplyLoadedOptic(Optic optic, string path)
+    {
+        CurrentOptic = optic;
 
         _undoRedo.Clear();
         _multiConfiguration = new MultiConfiguration(CurrentOptic);
@@ -926,8 +962,10 @@ public sealed class OptilandConnector
         double thicknessSigma,
         int trials,
         int seed,
-        int compensationIterations)
+        int compensationIterations,
+        CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();
         if (surface is null)
         {
@@ -941,11 +979,15 @@ public sealed class OptilandConnector
         }
 
         var sensitivity = new SensitivityAnalysis(CurrentOptic, tolerancing)
-            .Run(compensationIterations)
+            .Run(compensationIterations, cancellationToken)
             .Select(result => new TolerancingSensitivityRow(result.Perturbation, result.DeltaMerit.ToString("0.######")))
             .ToArray();
         var monteCarlo = new MonteCarlo(CurrentOptic, tolerancing)
-            .RunDetailed(Math.Clamp(trials, 1, 10_000), seed, compensationIterations)
+            .RunDetailed(
+                Math.Clamp(trials, 1, 10_000),
+                seed,
+                compensationIterations,
+                cancellationToken)
             .Select(result => new TolerancingTrialRow(
                 result.Trial + 1,
                 result.Merit.ToString("0.######"),

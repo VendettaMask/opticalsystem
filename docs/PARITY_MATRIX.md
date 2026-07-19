@@ -22,7 +22,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
 | File format | `Serialization`, `FileIO` | Schema version 2 native JSON, validated Python Optiland 0.5.8 JSON adapter subset, plus ZMX/SEQ/LEN common sequential subset import/export |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
-| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation |
+| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation, and per-view surface/field/wavelength/pupil controls |
 | GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, consistent light theme, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
@@ -41,6 +41,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
 - The system viewer now follows the Optiland visualization model more closely: 2D surfaces are sampled from geometry sag in an equal-scale YZ projection, glass spans are grouped as lens bodies, smaller half-diameter faces are extended to the lens group's maximum extent before closure, rays use viewer-specific stop-aimed sequential traces, and the GUI includes a 3D projection tab with selectable translucent solids or rims, meridians, lens connectors, and 3D ray paths.
+- Both layout documents include a collapsed settings panel for start/end surfaces, field and wavelength selection, pupil sampling, ray count, color grouping, Y stretch, scale bar, line width, frame suppression, ray arrows, vignetted-ray removal, and marginal/chief-ray-only display. The synchronization icon rebuilds the scene immediately, while automatic apply uses the standard debounced refresh path.
 - Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
 - Plugin discovery supports geometry, material, and analysis registration with warning isolation.
 

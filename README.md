@@ -15,9 +15,10 @@ The implementation is being built in small git milestones. The current codebase 
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, and common sequential subset import/export for Zemax `.zmx`, CODE V `.seq`, and OSLO `.len`.
 - .NET plugin discovery with geometry, material, and analysis registration.
-- Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical multi-page analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
+- Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands, all 32 analyses grouped under **Analysis**, and analysis-window layout commands grouped under **Window**.
-- GUI infrastructure for panel management, `Ctrl/Cmd+K` command palette actions, a consistent light theme, persisted analysis settings, report copy/export, and docked, floating, tiled, or cascaded analysis result windows.
+- A Dock.Avalonia workspace with draggable document tabs, split panes, tab merging, native resizable floating windows, redocking, tiling/cascading commands, `Ctrl/Cmd+K` command palette actions, and per-file workspace sessions.
+- A UI-free `OptilandWorkbench.Application` boundary. Avalonia panels depend only on immutable DTOs and application services; Core objects stay behind the application context, revision stream, undo/redo, snapshot, and cancellation boundary.
 - Interactive analysis plots with pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Analysis pages expose **Plot / Data / Text** tabs at the bottom and keep graph settings in a collapsed-by-default panel with an icon-only synchronization action.
 
 ## Requirements
@@ -40,7 +41,7 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 - Open **View** and choose **2D Layout** or **3D Layout**. The 2D view uses outlined optical elements, a split aperture-stop marker, and colored rays; the 3D view uses a light background, translucent lens solids, and colored ray bundles.
 - Open **Analysis** and choose an analysis icon. The selected analysis runs and opens its own closable result page.
 - Expand **Settings** only when parameters need adjustment, then use the adjacent synchronization icon to rerun the current page.
-- Use **Window** to return analysis pages to tabs or arrange them as independent floating, tiled, or cascaded windows.
+- Drag any document tab to split, merge, float, or redock it. Use **Window** for bulk docking, floating, tiling, cascading, locking, closing, and default-layout commands.
 - In an analysis plot, use the wheel to zoom, drag to pan, double-click to reset, and hover near a sample to inspect its values.
 
 Terminal:
@@ -58,7 +59,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 223 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 247 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -82,8 +83,9 @@ Use `osx-x64`, `osx-arm64`, `win-x64`, or `win-arm64` depending on the target ma
 
 ```text
 src/OptilandWorkbench.Core   Backend model, tracing, analysis, optimization, tolerancing, JSON/file IO, plugins
-src/OptilandWorkbench.App    Avalonia desktop GUI and connector layer
-tests/OptilandWorkbench.Tests Core, Python parity, analysis, visualization, serialization, file format, plugin, optimization, and tolerancing tests
+src/OptilandWorkbench.Application UI-free document, prescription, analysis, visualization, optimization, tolerancing, configuration, revision, and event services
+src/OptilandWorkbench.App    Avalonia desktop GUI, Dock workspace, document views, and session persistence
+tests/OptilandWorkbench.Tests Core, Python parity, application contracts, Dock/session, analysis, visualization, serialization, file format, plugin, optimization, and tolerancing tests
 docs                         Architecture, parity, file format, plugin, and release notes
 ```
 

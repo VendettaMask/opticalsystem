@@ -2,17 +2,17 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
-using OptilandWorkbench.Core.Apodization;
-using OptilandWorkbench.Core.Apertures;
-using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class SystemPropertiesPanel : UserControl
+public sealed class SystemPropertiesPanel : UserControl, IDisposable
 {
-    private readonly OptilandConnector _connector;
+    private readonly IPrescriptionService _prescription;
+    private readonly IWorkspaceEventStream _events;
     private readonly DataGrid _fieldsGrid;
     private readonly DataGrid _wavelengthsGrid;
     private readonly ComboBox _backendPicker = new() { MinWidth = 150 };
@@ -39,23 +39,37 @@ public sealed class SystemPropertiesPanel : UserControl
         Width = 110
     };
 
-    public SystemPropertiesPanel(OptilandConnector connector)
+    private bool _disposed;
+
+    public SystemPropertiesPanel(IPrescriptionService prescription, IWorkspaceEventStream events)
     {
-        _connector = connector;
+        _prescription = prescription;
+        _events = events;
         _fieldsGrid = CreateFieldsGrid();
         _wavelengthsGrid = CreateWavelengthsGrid();
         ConfigurePickers();
 
         var addField = CommandButton("plus", "添加视场", 96);
-        addField.Click += (_, _) => _connector.AddField();
+        addField.Click += (_, _) => _prescription.AddField();
         var removeField = CommandButton("trash-2", "删除", 72);
-        removeField.Click += (_, _) => _connector.RemoveField(_fieldsGrid.SelectedItem as FieldPoint);
+        removeField.Click += (_, _) =>
+        {
+            if (_fieldsGrid.SelectedItem is FieldEditorRow row)
+            {
+                _prescription.RemoveField(row.Index);
+            }
+        };
 
         var addWavelength = CommandButton("plus", "添加波长", 112);
-        addWavelength.Click += (_, _) => _connector.AddWavelength();
+        addWavelength.Click += (_, _) => _prescription.AddWavelength();
         var removeWavelength = CommandButton("trash-2", "删除", 72);
         removeWavelength.Click += (_, _) =>
-            _connector.RemoveWavelength(_wavelengthsGrid.SelectedItem as Wavelength);
+        {
+            if (_wavelengthsGrid.SelectedItem is WavelengthEditorRow row)
+            {
+                _prescription.RemoveWavelength(row.Index);
+            }
+        };
 
         var sections = new StackPanel
         {
@@ -76,16 +90,27 @@ public sealed class SystemPropertiesPanel : UserControl
             Content = sections
         };
 
-        _connector.OpticLoaded += (_, _) => Refresh();
-        _connector.OpticChanged += (_, _) => Refresh();
+        _events.Changed += OnWorkspaceChanged;
         Refresh();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        _events.Changed -= OnWorkspaceChanged;
     }
 
     private void ConfigurePickers()
     {
-        _backendPicker.ItemsSource = _connector.BackendNames;
-        _apertureKindPicker.ItemsSource = _connector.ApertureKindNames;
-        _fieldDefinitionPicker.ItemsSource = _connector.FieldDefinitionNames;
+        var options = _prescription.GetOptions();
+        _backendPicker.ItemsSource = options.Backends;
+        _apertureKindPicker.ItemsSource = options.ApertureKinds;
+        _fieldDefinitionPicker.ItemsSource = options.FieldDefinitions;
         _fieldDefinitionPicker.SelectionChanged += (_, _) =>
         {
             _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
@@ -94,7 +119,7 @@ public sealed class SystemPropertiesPanel : UserControl
                 _objectSpaceTelecentric.IsChecked = false;
             }
         };
-        _apodizationPicker.ItemsSource = _connector.ApodizationKinds;
+        _apodizationPicker.ItemsSource = options.ApodizationKinds;
         _apodizationPicker.SelectionChanged += (_, _) =>
         {
             if (!_refreshing)
@@ -329,22 +354,22 @@ public sealed class SystemPropertiesPanel : UserControl
     private DataGrid CreateFieldsGrid()
     {
         var grid = BaseGrid();
-        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(FieldPoint.Label)), Width = new DataGridLength(110) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "X", Binding = new Binding(nameof(FieldPoint.X)), Width = new DataGridLength(72) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "Y", Binding = new Binding(nameof(FieldPoint.Y)), Width = new DataGridLength(72) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "vx", Binding = new Binding(nameof(FieldPoint.VignetteFactorX)), Width = new DataGridLength(64) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "vy", Binding = new Binding(nameof(FieldPoint.VignetteFactorY)), Width = new DataGridLength(64) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(FieldPoint.Weight)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(FieldEditorRow.Label)), Width = new DataGridLength(110) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "X", Binding = new Binding(nameof(FieldEditorRow.X)), Width = new DataGridLength(72) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "Y", Binding = new Binding(nameof(FieldEditorRow.Y)), Width = new DataGridLength(72) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "vx", Binding = new Binding(nameof(FieldEditorRow.VignetteFactorX)), Width = new DataGridLength(64) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "vy", Binding = new Binding(nameof(FieldEditorRow.VignetteFactorY)), Width = new DataGridLength(64) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(FieldEditorRow.Weight)), Width = new DataGridLength(76) });
         return grid;
     }
 
     private DataGrid CreateWavelengthsGrid()
     {
         var grid = BaseGrid();
-        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(Wavelength.Label)), Width = new DataGridLength(84) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "nm", Binding = new Binding(nameof(Wavelength.Nanometers)), Width = new DataGridLength(88) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(Wavelength.Weight)), Width = new DataGridLength(76) });
-        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "主波长", Binding = new Binding(nameof(Wavelength.IsPrimary)), Width = new DataGridLength(84) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(WavelengthEditorRow.Label)), Width = new DataGridLength(84) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "nm", Binding = new Binding(nameof(WavelengthEditorRow.Nanometers)), Width = new DataGridLength(88) });
+        grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(WavelengthEditorRow.Weight)), Width = new DataGridLength(76) });
+        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "主波长", Binding = new Binding(nameof(WavelengthEditorRow.IsPrimary)), Width = new DataGridLength(84) });
         return grid;
     }
 
@@ -366,12 +391,19 @@ public sealed class SystemPropertiesPanel : UserControl
             ColumnHeaderHeight = 30
         };
 
-        grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
         grid.CellEditEnded += (_, e) =>
         {
             if (e.EditAction == DataGridEditAction.Commit)
             {
-                _connector.CommitSystemEdit(e.Row.DataContext);
+                switch (e.Row.DataContext)
+                {
+                    case FieldEditorRow field:
+                        _prescription.UpdateField(field.ToDto());
+                        break;
+                    case WavelengthEditorRow wavelength:
+                        _prescription.UpdateWavelength(wavelength.ToDto());
+                        break;
+                }
             }
         };
         return grid;
@@ -379,44 +411,45 @@ public sealed class SystemPropertiesPanel : UserControl
 
     private void Refresh()
     {
+        if (_disposed)
+        {
+            return;
+        }
+
         _refreshing = true;
-        _backendPicker.ItemsSource = _connector.BackendNames;
-        _backendPicker.SelectedItem = _connector.CurrentOptic.Backend.Current.Name;
-        _apertureKindPicker.SelectedIndex = _connector.CurrentOptic.Aperture.Kind switch
-        {
-            ApertureKind.FNumber => 1,
-            ApertureKind.NumericalAperture => 2,
-            _ => 0
-        };
-        _apertureValue.Value = (decimal)_connector.CurrentOptic.Aperture.Value;
-        _fieldDefinitionPicker.SelectedIndex = _connector.CurrentOptic.FieldDefinition switch
-        {
-            FieldDefinitionKind.ObjectHeight => 1,
-            FieldDefinitionKind.ParaxialImageHeight => 2,
-            _ => 0
-        };
+        var options = _prescription.GetOptions();
+        var settings = _prescription.GetSystemSettings();
+        _backendPicker.ItemsSource = options.Backends;
+        _backendPicker.SelectedItem = settings.Backend;
+        _apertureKindPicker.SelectedItem = settings.ApertureKind;
+        _apertureValue.Value = (decimal)settings.ApertureValue;
+        _fieldDefinitionPicker.SelectedItem = settings.FieldDefinition;
         _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
-        _objectSpaceTelecentric.IsChecked = _connector.CurrentOptic.ObjectSpaceTelecentric;
-        SetApodizationControls(_connector.CurrentOptic.Apodization);
-        _fieldsGrid.ItemsSource = _connector.Fields;
-        _wavelengthsGrid.ItemsSource = _connector.Wavelengths;
+        _objectSpaceTelecentric.IsChecked = settings.ObjectSpaceTelecentric;
+        SetApodizationControls(
+            settings.ApodizationKind,
+            settings.FirstApodizationParameter,
+            settings.SecondApodizationParameter);
+        _fieldsGrid.ItemsSource = _prescription.GetFields().Select(field => new FieldEditorRow(field)).ToArray();
+        _wavelengthsGrid.ItemsSource = _prescription.GetWavelengths().Select(wavelength => new WavelengthEditorRow(wavelength)).ToArray();
         _refreshing = false;
     }
 
     private void ApplySystemControls()
     {
-        var backendName = _backendPicker.SelectedItem as string;
+        var current = _prescription.GetSystemSettings();
+        var backendName = _backendPicker.SelectedItem as string ?? current.Backend;
         var apertureKind = _apertureKindPicker.SelectedItem as string
-            ?? _connector.CurrentOptic.Aperture.Kind.ToString();
+            ?? current.ApertureKind;
         var value = _apertureValue.Value.HasValue
             ? decimal.ToDouble(_apertureValue.Value.Value)
-            : _connector.CurrentOptic.Aperture.Value;
+            : current.ApertureValue;
         var apodizationKind = _apodizationPicker.SelectedItem as string ?? "无";
         var fieldDefinition = _fieldDefinitionPicker.SelectedItem as string ?? "角度";
         var firstApodizationParameter = DecimalValue(_firstApodizationParameter, 1);
         var secondApodizationParameter = DecimalValue(_secondApodizationParameter, 1);
 
-        _connector.ApplySystemSettings(
+        _prescription.UpdateSystemSettings(new SystemSettingsDto(
             backendName,
             apertureKind,
             value,
@@ -424,22 +457,11 @@ public sealed class SystemPropertiesPanel : UserControl
             _objectSpaceTelecentric.IsChecked == true,
             apodizationKind,
             firstApodizationParameter,
-            secondApodizationParameter);
+            secondApodizationParameter));
     }
 
-    private void SetApodizationControls(IApodizationModel? apodization)
+    private void SetApodizationControls(string kind, double first, double second)
     {
-        var (kind, first, second) = apodization switch
-        {
-            UniformApodization => ("均匀", 1.0, 1.0),
-            GaussianApodization gaussian => ("高斯", gaussian.Sigma, 1.0),
-            CosineSquaredApodization cosine => ("余弦平方", cosine.Radius, 1.0),
-            HannApodization hann => ("Hann", hann.Diameter, 1.0),
-            PolynomialApodization polynomial => ("多项式", polynomial.Radius, polynomial.Power),
-            SuperGaussianApodization superGaussian => ("超高斯", superGaussian.Width, superGaussian.Exponent),
-            TukeyApodization tukey => ("Tukey", tukey.Radius, tukey.Alpha),
-            _ => ("无", 1.0, 1.0)
-        };
         _apodizationPicker.SelectedItem = kind;
         ConfigureApodizationParameters(kind, useDefaults: false);
         _firstApodizationParameter.Value = (decimal)first;
@@ -495,8 +517,14 @@ public sealed class SystemPropertiesPanel : UserControl
             Maximum = 1_000_000m,
             Increment = 0.1m,
             Value = value,
-            Width = 78
+            Width = 78,
+            ShowButtonSpinner = false
         };
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(Refresh);
     }
 
     private static double DecimalValue(NumericUpDown input, double fallback)

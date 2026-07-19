@@ -1,6 +1,7 @@
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -16,6 +17,15 @@ public abstract class BaseAnalysis
     public abstract string Name { get; }
 
     public abstract AnalysisData GenerateData();
+
+    public AnalysisData GenerateData(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        using var scope = ComputationCancellation.Push(cancellationToken);
+        var result = GenerateData();
+        cancellationToken.ThrowIfCancellationRequested();
+        return result;
+    }
 }
 
 public enum AnalysisSeriesKind

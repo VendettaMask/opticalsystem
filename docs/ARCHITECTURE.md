@@ -16,7 +16,7 @@ Optiland Workbench follows the public Optiland architecture at module-boundary l
 - pickups and solves
 - analysis, optimization, tolerancing, and multi-configuration entry points
 
-Panels and application code should mutate an optic through `OptilandConnector`. This keeps undo/redo, pickup/solve refresh, status text, and GUI invalidation in one path.
+`Optic` is owned by `OptilandWorkbench.Application`; Avalonia code cannot access it. UI edits use application commands so validation, undo/redo, pickup/solve refresh, revision updates, and structured invalidation remain on one path.
 
 ## Surface Composition
 
@@ -74,7 +74,10 @@ All analyses inherit from `BaseAnalysis` and implement:
 
 ```csharp
 AnalysisData GenerateData();
+AnalysisData GenerateData(CancellationToken cancellationToken);
 ```
+
+The parameterless entry point remains the compatibility contract. Long-running GUI work enters through the cancellation-aware overload, and the principal ray-generation and tracing loops observe the current computation token.
 
 `AnalysisData` separates numerical reporting from presentation:
 
@@ -106,37 +109,65 @@ Tolerancing reuses optimization variables and operands through:
 - sensitivity analysis
 - seeded Monte Carlo
 
-## GUI Layer
+## Application Boundary
 
-The Avalonia application is localized for Chinese display and remains intentionally connector-centered:
+`OptilandWorkbench.Application` has no Avalonia or Dock dependency. It owns the active Core model and exposes only interfaces and immutable DTOs:
+
+```text
+IWorkbenchApplication
+  IOpticalDocumentService
+  IPrescriptionService
+  IAnalysisService
+  IVisualizationService
+  IOptimizationService
+  ITolerancingService
+  IMultiConfigurationService
+  IWorkspaceEventStream
+    Optic context
+      Core Optic
+```
+
+The application context serializes mutations, captures undo snapshots, increments a monotonic model revision, and publishes one categorized event per command. Analysis and visualization run against Core snapshots rather than the live model. Public App-facing APIs are checked by architecture tests so Core types cannot leak back into Avalonia.
+
+The former large connector remains an internal compatibility adapter in the Application project while its responsibilities are progressively split behind these services. Chinese names, icons, formatting, controls, and other presentation choices remain in the App layer.
+
+## GUI And Dock Workspace
+
+The Avalonia application is localized for Chinese display and consumes only Application services:
 
 ```text
 MainWindow
   ActionManager
   PanelManager
+    WorkspaceDockFactory
+      ToolDock: SystemPropertiesPanel
+      DocumentDock
+        LensEditorPanel
+        ViewerPanel 2D / 3D
+        AnalysisPanel instances
+        Optimization / Tolerancing / MultiConfiguration
   AppSettings
-  OptilandConnector
-    LensEditorPanel
-    SystemPropertiesPanel
-    ViewerPanel
-    AnalysisPanel
-    OptimizationPanel
-    TolerancingPanel
-    MultiConfigurationPanel
+  IWorkbenchApplication
 ```
 
-Panels should not directly replace the active `Optic`; they call connector methods that trigger status updates and change events.
+`WorkspaceDockFactory` supplies stable IDs, content rehydration, and Dock.Avalonia model creation. Tabs can be dragged into top/bottom/left/right panes, merged into another pane, floated into native resizable windows, and docked again. Only Lens Data opens in a new default workspace; standard analysis commands focus an existing instance while clone/new-page commands create an independent GUID-backed instance.
 
-`PanelManager` owns panel construction, stable panel identifiers, pane selection, and layout capture/application. `MainWindow` owns only application commands, menus, file dialogs, application appearance, and top-level window lifecycle.
+`PanelManager` delegates ownership and drag/drop behavior to Dock instead of creating Avalonia `Window` objects or transferring tabs manually. It provides bulk dock, float, tile, cascade, close, lock, and layout commands. `MainWindow` owns application commands, file dialogs, appearance, and top-level lifecycle.
 
-`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. It also catches command failures and routes them to one application error surface. `AppSettings` persists window size, split-pane width, selected panel tabs, and per-analysis GUI settings under the user's application data folder.
+`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. It also catches command failures and routes them to one application error surface. `AppSettings` retains window appearance, the legacy left-pane width migration value, and per-analysis GUI defaults.
 
 `LocalIcon` renders the pinned Lucide catalog embedded under `Assets/Icons`; GUI commands therefore use one vector icon vocabulary without a runtime network or font dependency. See `LOCAL_ICONS.md` for usage and update rules.
 
-The analysis panel consumes structured connector data. Metric, graph, and report views are built without parsing display strings. Multiple numbered analysis pages can be created, cloned, closed, and refreshed from the same connector events. Per-analysis parameter editors are generated from connector descriptors, and saved settings are merged back into analysis construction.
+The analysis panel consumes structured DTO data. Metric, graph, and report views are built without parsing display strings. Each analysis document owns one settings instance and bottom-aligned Plot/Data/Text result views. Heavy analyses do not rerun on ordinary edits: the event revision marks the result stale, and the icon-only synchronization action starts a cancellable snapshot calculation. Instance ID, generation, and source revision must all match before a result is accepted.
+
+2D/3D views are lightweight consumers. They debounce model events by approximately 120 ms, cancel superseded requests, and apply only the newest matching revision. Locking a document freezes its current result; unlocking a lightweight view refreshes immediately, while a heavy analysis still waits for explicit synchronization.
 
 The tolerancing panel exposes the current CPU tolerancing framework through sensitivity and Monte Carlo tables. The first GUI workflow perturbs selected surface radius/thickness, uses RMS spot radius as the merit proxy, and can compensate with image-surface thickness. The multi-configuration panel exposes configuration creation, activation, and linked/unlinked thickness edits through the existing `MultiConfiguration` model.
 
 ## Persistence
 
 Native persistence uses schema-versioned JSON snapshots. Commercial format support uses a common sequential lens subset, mapped to ZMX/SEQ/LEN syntax by format adapters.
+
+Dock sessions are separate from optical files. The global default is stored at `%APPDATA%\OptilandWorkbench\workspace-default.json`; a saved optical file uses the SHA-256 hash of its normalized absolute path under `%APPDATA%\OptilandWorkbench\sessions`. A session stores the Dock graph, open document descriptors, analysis keys/settings/instance IDs, active document, lock state, and floating bounds, but never large calculation results.
+
+Layout changes are saved after a 500 ms debounce and flushed during application shutdown. File switching saves the outgoing session before restoring the incoming one. Unsupported or damaged sessions are backed up and replaced by the default layout, unknown analyses are skipped, and floating bounds are clipped to the current primary working area. The legacy `LeftPaneWidth` migrates to ToolDock proportion; legacy tab indices are intentionally ignored.

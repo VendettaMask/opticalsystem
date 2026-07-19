@@ -1,5 +1,5 @@
 using System.Text.Json;
-using OptilandWorkbench.App.Connectors;
+using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
@@ -30,6 +30,8 @@ public sealed class AnalysisGuiContractTests
             "clipboard-copy",
             "plus",
             "trash-2",
+            "x",
+            "maximize-2",
             "circle-question-mark"
         };
 

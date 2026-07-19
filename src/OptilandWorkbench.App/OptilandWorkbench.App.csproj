@@ -1,13 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\OptilandWorkbench.Core\OptilandWorkbench.Core.csproj" />
+    <ProjectReference Include="..\OptilandWorkbench.Application\OptilandWorkbench.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.0.1" />
     <PackageReference Include="Avalonia.Desktop" Version="12.0.5" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.5" />
+    <PackageReference Include="Dock.Avalonia" Version="12.0.0.2" />
+    <PackageReference Include="Dock.Avalonia.Themes.Fluent" Version="12.0.0.2" />
+    <PackageReference Include="Dock.Model.Mvvm" Version="12.0.0.2" />
+    <PackageReference Include="Dock.Serializer.SystemTextJson" Version="12.0.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,8 +2,18 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Visualization;
+using OptilandWorkbench.Application.Contracts;
+using Layout2DPoint = OptilandWorkbench.Application.Contracts.ScenePoint2Dto;
+using Layout3DPoint = OptilandWorkbench.Application.Contracts.ScenePoint3Dto;
+using Layout2DSurfaceCurve = OptilandWorkbench.Application.Contracts.SceneSurface2Dto;
+using Layout2DLensEdge = OptilandWorkbench.Application.Contracts.SceneLensEdge2Dto;
+using Layout2DLensElement = OptilandWorkbench.Application.Contracts.SceneLensElement2Dto;
+using Layout2DRayPath = OptilandWorkbench.Application.Contracts.SceneRay2Dto;
+using Layout2DScene = OptilandWorkbench.Application.Contracts.Scene2Dto;
+using Layout3DSurfacePrimitive = OptilandWorkbench.Application.Contracts.SceneSurface3Dto;
+using Layout3DLensElement = OptilandWorkbench.Application.Contracts.SceneLensElement3Dto;
+using Layout3DRayPath = OptilandWorkbench.Application.Contracts.SceneRay3Dto;
+using Layout3DScene = OptilandWorkbench.Application.Contracts.Scene3Dto;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -19,19 +29,52 @@ public enum OpticSceneRenderMode
     Wireframe
 }
 
+public enum OpticSceneRayColorMode
+{
+    Field,
+    Wavelength
+}
+
+public enum OpticSceneVisualStyle
+{
+    OpticalLayout,
+    SolidModel
+}
+
 public enum OpticSceneViewPreset
 {
     Isometric,
-    Side,
+    Front,
+    Back,
+    Left,
+    Right,
     Top,
-    End,
-    Reverse
+    Bottom
 }
 
 public sealed class OpticSceneControl : Control
 {
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
-    private static readonly IBrush ThreeDBackgroundBrush = new SolidColorBrush(Color.FromRgb(238, 242, 247));
+    private static readonly IBrush ThreeDBackgroundBrush = new LinearGradientBrush
+    {
+        StartPoint = RelativePoint.TopLeft,
+        EndPoint = RelativePoint.BottomRight,
+        GradientStops =
+        {
+            new GradientStop(Color.FromRgb(248, 250, 253), 0),
+            new GradientStop(Color.FromRgb(229, 235, 243), 1)
+        }
+    };
+    private static readonly IBrush SolidModelBackgroundBrush = new LinearGradientBrush
+    {
+        StartPoint = RelativePoint.TopLeft,
+        EndPoint = RelativePoint.BottomRight,
+        GradientStops =
+        {
+            new GradientStop(Color.FromRgb(79, 99, 158), 0),
+            new GradientStop(Color.FromRgb(194, 200, 218), 1)
+        }
+    };
     private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(92, 154, 162, 170));
     private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
     private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(134, 146, 166)), 1);
@@ -43,10 +86,23 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
     private static readonly Pen ThreeDLensEdgePen = new(new SolidColorBrush(Color.FromRgb(24, 58, 142)), 1.7);
     private static readonly Pen ThreeDLensHighlightPen = new(new SolidColorBrush(Color.FromArgb(155, 128, 174, 245)), 0.9);
-    private static readonly Pen GridPen = new(new SolidColorBrush(Color.FromArgb(88, 145, 159, 179)), 0.8);
+    private static readonly Pen SolidLensEdgePen = new(new SolidColorBrush(Color.FromRgb(38, 42, 51)), 1.8);
     private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
-    private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(86, 43, 91, 205));
-    private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(112, 29, 69, 169));
+    private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(138, 30, 65, 190));
+    private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(156, 18, 72, 145));
+    private static readonly IBrush SolidLensFaceBrush = new LinearGradientBrush
+    {
+        StartPoint = RelativePoint.TopLeft,
+        EndPoint = RelativePoint.BottomRight,
+        GradientStops =
+        {
+            new GradientStop(Color.FromRgb(52, 56, 67), 0),
+            new GradientStop(Color.FromRgb(183, 187, 197), 0.52),
+            new GradientStop(Color.FromRgb(43, 47, 57), 1)
+        }
+    };
+    private static readonly IBrush SolidLensSideBrush = new SolidColorBrush(Color.FromRgb(66, 70, 82));
+    private static readonly IBrush ThreeDLensCutBrush = new SolidColorBrush(Color.FromArgb(170, 225, 139, 48));
     private static readonly Color[] RayColors =
     {
         Color.FromRgb(220, 55, 48),
@@ -67,6 +123,13 @@ public sealed class OpticSceneControl : Control
     private bool _rotating;
     private Point _lastPointer;
     private bool _showRays = true;
+    private bool _cutawayEnabled;
+    private bool _showRayArrows;
+    private bool _showScaleBar = true;
+    private double _verticalStretch = 1;
+    private double _rayLineWidth = 1.25;
+    private OpticSceneRayColorMode _rayColorMode;
+    private OpticSceneVisualStyle _visualStyle;
 
     public OpticSceneControl()
     {
@@ -74,7 +137,7 @@ public sealed class OpticSceneControl : Control
         ClipToBounds = true;
     }
 
-    public Optic? Optic { get; set; }
+    public SceneDto? Scene { get; set; }
 
     public OpticSceneViewMode ViewMode
     {
@@ -115,6 +178,99 @@ public sealed class OpticSceneControl : Control
         }
     }
 
+    public bool ShowRayArrows
+    {
+        get => _showRayArrows;
+        set
+        {
+            if (_showRayArrows != value)
+            {
+                _showRayArrows = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public OpticSceneVisualStyle VisualStyle
+    {
+        get => _visualStyle;
+        set
+        {
+            if (_visualStyle != value)
+            {
+                _visualStyle = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public bool CutawayEnabled
+    {
+        get => _cutawayEnabled;
+        set
+        {
+            if (_cutawayEnabled != value)
+            {
+                _cutawayEnabled = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public bool ShowScaleBar
+    {
+        get => _showScaleBar;
+        set
+        {
+            if (_showScaleBar != value)
+            {
+                _showScaleBar = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public double VerticalStretch
+    {
+        get => _verticalStretch;
+        set
+        {
+            var normalized = Math.Clamp(value, 0.1, 10);
+            if (Math.Abs(_verticalStretch - normalized) > 1e-12)
+            {
+                _verticalStretch = normalized;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public double RayLineWidth
+    {
+        get => _rayLineWidth;
+        set
+        {
+            var normalized = Math.Clamp(value, 0.5, 4);
+            if (Math.Abs(_rayLineWidth - normalized) > 1e-12)
+            {
+                _rayLineWidth = normalized;
+                InvalidateVisual();
+            }
+        }
+    }
+
+    public OpticSceneRayColorMode RayColorMode
+    {
+        get => _rayColorMode;
+        set
+        {
+            if (_rayColorMode != value)
+            {
+                _rayColorMode = value;
+                InvalidateVisual();
+            }
+        }
+    }
+
     public void ResetView()
     {
         _viewport.Reset();
@@ -123,14 +279,22 @@ public sealed class OpticSceneControl : Control
         InvalidateVisual();
     }
 
+    public void FitView()
+    {
+        _viewport.Reset();
+        InvalidateVisual();
+    }
+
     public void SetViewPreset(OpticSceneViewPreset preset)
     {
         (_yaw, _pitch) = preset switch
         {
-            OpticSceneViewPreset.Side => (0, 0),
-            OpticSceneViewPreset.Top => (0, 1.16),
-            OpticSceneViewPreset.End => (Math.PI / 2.0, 0),
-            OpticSceneViewPreset.Reverse => (Math.PI, 0),
+            OpticSceneViewPreset.Front => (0, 0),
+            OpticSceneViewPreset.Back => (Math.PI, 0),
+            OpticSceneViewPreset.Left => (-Math.PI / 2.0, 0),
+            OpticSceneViewPreset.Right => (Math.PI / 2.0, 0),
+            OpticSceneViewPreset.Top => (0, (Math.PI / 2.0) - 0.01),
+            OpticSceneViewPreset.Bottom => (0, (-Math.PI / 2.0) + 0.01),
             _ => (-0.52, 0.28)
         };
         _viewport.Reset();
@@ -205,22 +369,33 @@ public sealed class OpticSceneControl : Control
     {
         base.Render(context);
         context.DrawRectangle(
-            ViewMode == OpticSceneViewMode.ThreeDimensional ? ThreeDBackgroundBrush : BackgroundBrush,
+            ViewMode == OpticSceneViewMode.ThreeDimensional
+                ? VisualStyle == OpticSceneVisualStyle.SolidModel
+                    ? SolidModelBackgroundBrush
+                    : ThreeDBackgroundBrush
+                : BackgroundBrush,
             null,
             Bounds);
 
-        if (Optic is null || Optic.SurfaceGroup.Items.Count == 0)
+        if (Scene is null)
         {
             return;
         }
 
         if (ViewMode == OpticSceneViewMode.ThreeDimensional)
         {
-            Draw3D(context, new Layout2DBuilder(Optic).Build3D());
+            if (Scene.ThreeDimensional is not null)
+            {
+                Draw3D(context, Scene.ThreeDimensional);
+            }
+
             return;
         }
 
-        Draw2D(context, new Layout2DBuilder(Optic).Build());
+        if (Scene.TwoDimensional is not null)
+        {
+            Draw2D(context, Scene.TwoDimensional);
+        }
     }
 
     private void Draw2D(DrawingContext context, Layout2DScene scene)
@@ -232,14 +407,14 @@ public sealed class OpticSceneControl : Control
         var centerY = padding + (height / 2.0);
         var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
         var aperture = Math.Max(1, scene.YExtent);
-        var scale = 0.94 * Math.Min(width / zSpan, height / (aperture * 2.0));
+        var scale = 0.94 * Math.Min(width / zSpan, height / (aperture * 2.0 * VerticalStretch));
         var zCenter = scene.ZMin + (zSpan / 2.0);
 
         double MapZ(double z) => _viewport.Apply(
             new Point(centerX + ((z - zCenter) * scale), centerY),
             Bounds.Size).X;
         double MapY(double y) => _viewport.Apply(
-            new Point(centerX, centerY - (y * scale)),
+            new Point(centerX, centerY - (y * scale * VerticalStretch)),
             Bounds.Size).Y;
 
         context.DrawLine(
@@ -254,6 +429,10 @@ public sealed class OpticSceneControl : Control
         }
         DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY);
+        if (ShowScaleBar)
+        {
+            DrawScaleBar(context, scale * _viewport.Zoom);
+        }
     }
 
     private void Draw3D(DrawingContext context, Layout3DScene scene)
@@ -265,7 +444,7 @@ public sealed class OpticSceneControl : Control
         var centerY = padding + (height / 2.0);
         var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
         var projectedWidth = zSpan + (scene.XExtent * 1.4);
-        var projectedHeight = (scene.YExtent * 2.0) + (scene.XExtent * 1.4);
+        var projectedHeight = (scene.YExtent * 2.0 * VerticalStretch) + (scene.XExtent * 1.4);
         var scale = 0.88 * Math.Min(width / Math.Max(1, projectedWidth), height / Math.Max(1, projectedHeight));
         var zCenter = scene.ZMin + (zSpan / 2.0);
 
@@ -278,7 +457,7 @@ public sealed class OpticSceneControl : Control
             var depth = (-z * sinYaw) + (point.X * cosYaw);
             var cosPitch = Math.Cos(_pitch);
             var sinPitch = Math.Sin(_pitch);
-            var screenY = (point.Y * cosPitch) - (depth * sinPitch);
+            var screenY = (point.Y * VerticalStretch * cosPitch) - (depth * sinPitch);
             return _viewport.Apply(
                 new Point(centerX + (screenX * scale), centerY - (screenY * scale)),
                 Bounds.Size);
@@ -291,26 +470,54 @@ public sealed class OpticSceneControl : Control
             return (point.Y * Math.Sin(_pitch)) + (depth * Math.Cos(_pitch));
         }
 
-        DrawSceneGrid(context, scene, Project);
         context.DrawLine(
             AxisPen,
             Project(new Layout3DPoint(0, 0, scene.ZMin)),
             Project(new Layout3DPoint(0, 0, scene.ZMax)));
 
-        if (RenderMode == OpticSceneRenderMode.Solid)
+        var solidModelStyle = VisualStyle == OpticSceneVisualStyle.SolidModel;
+        if (solidModelStyle && ShowRays)
         {
-            Draw3DSolidLensElements(context, scene.LensElements, Project, Depth);
+            Draw3DRays(context, scene.Rays, Project);
         }
 
-        Draw3DLensElements(context, scene.LensElements, Project, RenderMode == OpticSceneRenderMode.Wireframe);
-        Draw3DSurfaces(context, scene.Surfaces, Project, RenderMode == OpticSceneRenderMode.Wireframe);
-        if (ShowRays)
+        if (RenderMode == OpticSceneRenderMode.Solid)
+        {
+            Draw3DSolidLensElements(
+                context,
+                scene.LensElements,
+                scene.Surfaces,
+                Project,
+                Depth,
+                CutawayEnabled,
+                solidModelStyle);
+        }
+
+        Draw3DLensElements(
+            context,
+            scene.LensElements,
+            Project,
+            RenderMode == OpticSceneRenderMode.Wireframe,
+            CutawayEnabled,
+            solidModelStyle);
+        Draw3DSurfaces(
+            context,
+            scene.Surfaces,
+            Project,
+            showMeridians: true,
+            CutawayEnabled,
+            solidModelStyle);
+        if (!solidModelStyle && ShowRays)
         {
             Draw3DRays(context, scene.Rays, Project);
         }
 
         DrawObjectTarget(context, Project(new Layout3DPoint(0, 0, scene.ZMin)));
         DrawOrientationGizmo(context);
+        if (ShowScaleBar)
+        {
+            DrawScaleBar(context, scale * _viewport.Zoom);
+        }
     }
 
     private static void DrawSurfaces(
@@ -398,7 +605,7 @@ public sealed class OpticSceneControl : Control
         }
     }
 
-    private static void DrawRays(
+    private void DrawRays(
         DrawingContext context,
         IReadOnlyList<Layout2DRayPath> rays,
         Func<double, double> mapZ,
@@ -406,8 +613,15 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var path in rays)
         {
-            var pen = RayPenFor(path.FieldIndex, path.Vignetted, 1.25);
+            var pen = RayPenFor(RayColorIndex(path.FieldIndex, path.WavelengthIndex), path.Vignetted, RayLineWidth);
             DrawPolyline(context, pen, path.Points, mapZ, mapY);
+            if (ShowRayArrows)
+            {
+                DrawArrow(
+                    context,
+                    pen,
+                    path.Points.Select(point => new Point(mapZ(point.Z), mapY(point.Y))).ToArray());
+            }
         }
     }
 
@@ -415,13 +629,19 @@ public sealed class OpticSceneControl : Control
         DrawingContext context,
         IReadOnlyList<Layout3DLensElement> elements,
         Func<Layout3DPoint, Point> project,
-        bool showConnectors)
+        bool showConnectors,
+        bool cutawayEnabled,
+        bool solidModelStyle)
     {
+        var edgePen = solidModelStyle ? SolidLensEdgePen : ThreeDLensEdgePen;
         foreach (var element in elements)
         {
-            DrawPolyline3D(context, ThreeDLensEdgePen, element.FrontRim, project);
-            DrawPolyline3D(context, ThreeDLensEdgePen, element.BackRim, project);
-            DrawPolyline3D(context, ThreeDLensHighlightPen, element.FrontRim, project);
+            DrawPolyline3D(context, edgePen, element.FrontRim, project, cutawayEnabled);
+            DrawPolyline3D(context, edgePen, element.BackRim, project, cutawayEnabled);
+            if (!solidModelStyle)
+            {
+                DrawPolyline3D(context, ThreeDLensHighlightPen, element.FrontRim, project, cutawayEnabled);
+            }
 
             if (!showConnectors)
             {
@@ -437,7 +657,13 @@ public sealed class OpticSceneControl : Control
             var quarter = Math.Max(1, (count - 1) / 4);
             for (var index = 0; index < count - 1; index += quarter)
             {
-                context.DrawLine(ThreeDWirePen, project(element.FrontRim[index]), project(element.BackRim[index]));
+                DrawSegment3D(
+                    context,
+                    ThreeDWirePen,
+                    element.FrontRim[index],
+                    element.BackRim[index],
+                    project,
+                    cutawayEnabled);
             }
         }
     }
@@ -445,29 +671,73 @@ public sealed class OpticSceneControl : Control
     private static void Draw3DSolidLensElements(
         DrawingContext context,
         IReadOnlyList<Layout3DLensElement> elements,
+        IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
         Func<Layout3DPoint, Point> project,
-        Func<Layout3DPoint, double> depth)
+        Func<Layout3DPoint, double> depth,
+        bool cutawayEnabled,
+        bool solidModelStyle)
     {
         var faces = new List<ProjectedFace>();
+        var faceBrush = solidModelStyle ? SolidLensFaceBrush : ThreeDLensFaceBrush;
+        var sideBrush = solidModelStyle ? SolidLensSideBrush : ThreeDLensSideBrush;
+        var lensSurfaceNumbers = elements
+            .SelectMany(element => new[] { element.FrontSurfaceNumber, element.BackSurfaceNumber })
+            .ToHashSet();
+
+        foreach (var surface in surfaces.Where(surface => lensSurfaceNumbers.Contains(surface.SurfaceNumber)))
+        {
+            foreach (var face in surface.Faces)
+            {
+                AddProjectedFace(
+                    faces,
+                    cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points,
+                    faceBrush,
+                    depth);
+            }
+        }
+
         foreach (var element in elements)
         {
-            AddProjectedFace(faces, element.FrontRim, ThreeDLensFaceBrush, depth);
-            AddProjectedFace(faces, element.BackRim, ThreeDLensFaceBrush, depth);
-
             var count = Math.Min(element.FrontRim.Count, element.BackRim.Count) - 1;
             for (var index = 0; index < count; index++)
             {
                 AddProjectedFace(
                     faces,
-                    new[]
+                    cutawayEnabled
+                        ? ClipPolygonToCutaway(new[]
+                        {
+                            element.FrontRim[index],
+                            element.FrontRim[index + 1],
+                            element.BackRim[index + 1],
+                            element.BackRim[index]
+                        })
+                        : new[]
                     {
                         element.FrontRim[index],
                         element.FrontRim[index + 1],
                         element.BackRim[index + 1],
                         element.BackRim[index]
                     },
-                    ThreeDLensSideBrush,
+                    sideBrush,
                     depth);
+            }
+        }
+
+        if (cutawayEnabled)
+        {
+            var surfacesByNumber = surfaces.ToDictionary(surface => surface.SurfaceNumber);
+            foreach (var element in elements)
+            {
+                if (!surfacesByNumber.TryGetValue(element.FrontSurfaceNumber, out var front) ||
+                    !surfacesByNumber.TryGetValue(element.BackSurfaceNumber, out var back))
+                {
+                    continue;
+                }
+
+                var cutFace = front.MeridianY
+                    .Concat(back.MeridianY.Reverse())
+                    .ToArray();
+                AddProjectedFace(faces, cutFace, ThreeDLensCutBrush, depth);
             }
         }
 
@@ -481,7 +751,9 @@ public sealed class OpticSceneControl : Control
         DrawingContext context,
         IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
         Func<Layout3DPoint, Point> project,
-        bool showMeridians)
+        bool showMeridians,
+        bool cutawayEnabled,
+        bool solidModelStyle)
     {
         foreach (var surface in surfaces)
         {
@@ -489,58 +761,40 @@ public sealed class OpticSceneControl : Control
                 ? StopPen
                 : surface.IsReferencePlane
                     ? ReferencePlanePen
-                    : ThreeDWirePen;
-            DrawPolyline3D(context, pen, surface.Rim, project);
+                    : solidModelStyle
+                        ? SolidLensEdgePen
+                        : ThreeDWirePen;
+            var clipSurface = cutawayEnabled && !surface.IsReferencePlane;
+            DrawPolyline3D(context, pen, surface.Rim, project, clipSurface);
             if (showMeridians && !surface.IsReferencePlane)
             {
-                DrawPolyline3D(context, ThreeDWirePen, surface.MeridianY, project);
-                DrawPolyline3D(context, ThreeDWirePen, surface.MeridianX, project);
+                var meridianPen = solidModelStyle ? SolidLensEdgePen : ThreeDWirePen;
+                DrawPolyline3D(context, meridianPen, surface.MeridianY, project);
+                DrawPolyline3D(context, meridianPen, surface.MeridianX, project, clipSurface);
             }
         }
     }
 
-    private static void Draw3DRays(
+    private void Draw3DRays(
         DrawingContext context,
         IReadOnlyList<Layout3DRayPath> rays,
         Func<Layout3DPoint, Point> project)
     {
         foreach (var ray in rays)
         {
+            var pen = RayPenFor(
+                RayColorIndex(ray.FieldIndex, ray.WavelengthIndex),
+                ray.Vignetted,
+                RayLineWidth);
             DrawPolyline3D(
                 context,
-                RayPenFor((ray.FieldIndex * 3) + ray.PupilIndex, ray.Vignetted, 1.25),
+                pen,
                 ray.Points,
                 project);
-        }
-    }
-
-    private static void DrawSceneGrid(
-        DrawingContext context,
-        Layout3DScene scene,
-        Func<Layout3DPoint, Point> project)
-    {
-        var xExtent = Math.Max(1, scene.XExtent * 1.15);
-        var floor = -Math.Max(1, scene.YExtent * 1.18);
-        var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
-        const int divisions = 8;
-
-        for (var index = 0; index <= divisions; index++)
-        {
-            var ratio = index / (double)divisions;
-            var z = scene.ZMin + (zSpan * ratio);
-            context.DrawLine(
-                GridPen,
-                project(new Layout3DPoint(-xExtent, floor, z)),
-                project(new Layout3DPoint(xExtent, floor, z)));
-        }
-
-        for (var index = -3; index <= 3; index++)
-        {
-            var x = xExtent * index / 3.0;
-            context.DrawLine(
-                GridPen,
-                project(new Layout3DPoint(x, floor, scene.ZMin)),
-                project(new Layout3DPoint(x, floor, scene.ZMax)));
+            if (ShowRayArrows)
+            {
+                DrawArrow(context, pen, ray.Points.Select(project).ToArray());
+            }
         }
     }
 
@@ -578,14 +832,82 @@ public sealed class OpticSceneControl : Control
         return surface.IsReferencePlane ? ReferencePlanePen : SurfacePen;
     }
 
-    private static Pen RayPenFor(int fieldIndex, bool vignetted, double thickness)
+    private int RayColorIndex(int fieldIndex, int wavelengthIndex) =>
+        RayColorMode == OpticSceneRayColorMode.Wavelength ? wavelengthIndex : fieldIndex;
+
+    private static Pen RayPenFor(int colorIndex, bool vignetted, double thickness)
     {
         if (vignetted)
         {
-            return VignettedRayPen;
+            return new Pen(VignettedRayPen.Brush, thickness);
         }
 
-        return new Pen(new SolidColorBrush(RayColors[Math.Abs(fieldIndex) % RayColors.Length]), thickness);
+        return new Pen(new SolidColorBrush(RayColors[Math.Abs(colorIndex) % RayColors.Length]), thickness);
+    }
+
+    private void DrawScaleBar(DrawingContext context, double pixelsPerUnit)
+    {
+        if (!double.IsFinite(pixelsPerUnit) || pixelsPerUnit <= 1e-9)
+        {
+            return;
+        }
+
+        var units = NiceScaleLength(120 / pixelsPerUnit);
+        var width = units * pixelsPerUnit;
+        var centerX = Bounds.Width / 2.0;
+        var y = Math.Max(24, Bounds.Height - 24);
+        var left = new Point(centerX - (width / 2.0), y);
+        var right = new Point(centerX + (width / 2.0), y);
+        context.DrawLine(AxisPen, left, right);
+        context.DrawLine(AxisPen, left + new Vector(0, -5), left + new Vector(0, 5));
+        context.DrawLine(AxisPen, right + new Vector(0, -5), right + new Vector(0, 5));
+        var label = new FormattedText(
+            $"{units:0.###} mm",
+            System.Globalization.CultureInfo.CurrentCulture,
+            FlowDirection.LeftToRight,
+            Typeface.Default,
+            12,
+            Brushes.Black);
+        context.DrawText(label, new Point(centerX - (label.Width / 2.0), y - 21));
+    }
+
+    private static double NiceScaleLength(double target)
+    {
+        var exponent = Math.Pow(10, Math.Floor(Math.Log10(Math.Max(target, 1e-9))));
+        var normalized = target / exponent;
+        var factor = normalized switch
+        {
+            < 1.5 => 1,
+            < 3.5 => 2,
+            < 7.5 => 5,
+            _ => 10
+        };
+        return factor * exponent;
+    }
+
+    private static void DrawArrow(DrawingContext context, Pen pen, IReadOnlyList<Point> points)
+    {
+        if (points.Count < 2)
+        {
+            return;
+        }
+
+        var segmentIndex = Math.Max(1, points.Count / 2);
+        var start = points[segmentIndex - 1];
+        var end = points[segmentIndex];
+        var direction = end - start;
+        var length = Math.Sqrt((direction.X * direction.X) + (direction.Y * direction.Y));
+        if (length < 8)
+        {
+            return;
+        }
+
+        var unit = direction / length;
+        var normal = new Vector(-unit.Y, unit.X);
+        var tip = start + (direction * 0.58);
+        var basePoint = tip - (unit * 8);
+        context.DrawLine(pen, tip, basePoint + (normal * 4));
+        context.DrawLine(pen, tip, basePoint - (normal * 4));
     }
 
     private static void DrawFilledPolygon(
@@ -638,12 +960,100 @@ public sealed class OpticSceneControl : Control
         DrawingContext context,
         Pen pen,
         IReadOnlyList<Layout3DPoint> points,
-        Func<Layout3DPoint, Point> project)
+        Func<Layout3DPoint, Point> project,
+        bool clipToCutaway = false)
     {
         for (var index = 1; index < points.Count; index++)
         {
-            context.DrawLine(pen, project(points[index - 1]), project(points[index]));
+            DrawSegment3D(
+                context,
+                pen,
+                points[index - 1],
+                points[index],
+                project,
+                clipToCutaway);
         }
+    }
+
+    private static void DrawSegment3D(
+        DrawingContext context,
+        Pen pen,
+        Layout3DPoint start,
+        Layout3DPoint end,
+        Func<Layout3DPoint, Point> project,
+        bool clipToCutaway)
+    {
+        if (!clipToCutaway)
+        {
+            context.DrawLine(pen, project(start), project(end));
+            return;
+        }
+
+        var startInside = IsInsideCutaway(start);
+        var endInside = IsInsideCutaway(end);
+        if (!startInside && !endInside)
+        {
+            return;
+        }
+
+        if (startInside && endInside)
+        {
+            context.DrawLine(pen, project(start), project(end));
+            return;
+        }
+
+        var intersection = CutawayIntersection(start, end);
+        context.DrawLine(
+            pen,
+            project(startInside ? start : intersection),
+            project(endInside ? end : intersection));
+    }
+
+    private static IReadOnlyList<Layout3DPoint> ClipPolygonToCutaway(IReadOnlyList<Layout3DPoint> points)
+    {
+        if (points.Count == 0)
+        {
+            return points;
+        }
+
+        var clipped = new List<Layout3DPoint>(points.Count + 2);
+        var previous = points[^1];
+        var previousInside = IsInsideCutaway(previous);
+        foreach (var current in points)
+        {
+            var currentInside = IsInsideCutaway(current);
+            if (currentInside != previousInside)
+            {
+                clipped.Add(CutawayIntersection(previous, current));
+            }
+
+            if (currentInside)
+            {
+                clipped.Add(current);
+            }
+
+            previous = current;
+            previousInside = currentInside;
+        }
+
+        return clipped;
+    }
+
+    private static bool IsInsideCutaway(Layout3DPoint point) => point.X <= 1e-9;
+
+    private static Layout3DPoint CutawayIntersection(Layout3DPoint start, Layout3DPoint end)
+    {
+        var deltaX = end.X - start.X;
+        if (Math.Abs(deltaX) < 1e-12)
+        {
+            return new Layout3DPoint(0, start.Y, start.Z);
+        }
+
+        var ratio = -start.X / deltaX;
+        return new Layout3DPoint(
+            0,
+            start.Y + ((end.Y - start.Y) * ratio),
+            start.Z + ((end.Z - start.Z) * ratio));
     }
 
     private static void AddProjectedFace(

@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Services;
+
 namespace OptilandWorkbench.Core.Raytrace;
 
 public enum PupilSampling
@@ -21,10 +23,12 @@ public static class ApertureSampler
         var samples = new List<PupilSample> { new(0, 0, 1) };
         for (var ring = 1; ring <= numRings; ring++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var radius = ring / (double)numRings;
             var points = ring * 6;
             for (var index = 0; index < points; index++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var angle = 2 * Math.PI * index / points;
                 samples.Add(new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1));
             }
@@ -54,6 +58,7 @@ public static class ApertureSampler
         var samples = new List<PupilSample>();
         for (var iy = 0; iy < side; iy++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var ix = 0; ix < side; ix++)
             {
                 var x = side == 1 ? 0 : -1 + (2.0 * ix / (side - 1));

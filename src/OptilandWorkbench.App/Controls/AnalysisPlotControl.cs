@@ -3,7 +3,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Application.Contracts;
+using AnalysisPoint = OptilandWorkbench.Application.Contracts.AnalysisPointDto;
+using AnalysisSeries = OptilandWorkbench.Application.Contracts.AnalysisSeriesDto;
+using AnalysisPlotOptions = OptilandWorkbench.Application.Contracts.AnalysisPlotOptionsDto;
 
 namespace OptilandWorkbench.App.Controls;
 

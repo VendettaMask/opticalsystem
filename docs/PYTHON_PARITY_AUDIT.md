@@ -315,7 +315,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Added group-level angle, object-height, and paraxial-image-height definitions, nearest-field `vx/vy` behavior, object-space telecentric launch, and finite-object coordinate preservation in native and Python JSON.
 - Added forward and reverse unit paraxial chief-ray tracing for Python's paraxial-image-height conversion, including finite and infinite conjugates.
-- Added a pinned Optiland 0.5.8 generator and six-case fixture comparing initial distribution/generic rays, final generic rays, and unit chief-ray values; the current repository baseline is `223/223` tests with a zero-warning build.
+- Added a pinned Optiland 0.5.8 generator and six-case fixture comparing initial distribution/generic rays, final generic rays, and unit chief-ray values; the current repository baseline is `247/247` tests with a zero-warning build.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

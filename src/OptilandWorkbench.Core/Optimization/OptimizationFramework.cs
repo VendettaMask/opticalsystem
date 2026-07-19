@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Services;
+
 namespace OptilandWorkbench.Core.Optimization;
 
 public interface IOptimizationVariable
@@ -199,6 +201,7 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
 
         for (var iteration = 0; iteration < maxIterations; iteration++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var improved = false;
             foreach (var variable in problem.Variables)
             {

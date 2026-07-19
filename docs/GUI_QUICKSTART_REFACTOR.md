@@ -16,16 +16,16 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | Area | Optiland 0.5.8 reference | Workbench before refactor | Workbench after refactor |
 | --- | --- | --- | --- |
 | Runtime | Python, PySide6, Optiland backend | .NET 10, Avalonia, managed C# core | Intentionally unchanged |
-| Main shell | Main window, action manager, panel manager | Main window and action manager; panel creation hard-coded in `MainWindow` | `MainWindow`, `ActionManager`, and `PanelManager` have separate ownership; the top category selection drives one linked large-command Ribbon |
+| Main shell | Main window, action manager, panel manager | Main window and action manager; panel creation hard-coded in `MainWindow` | `MainWindow`, `ActionManager`, Application services, and the Dock workspace have separate ownership; the top category selection drives one linked large-command Ribbon |
 | New system | Create from scratch | Always opened the Cooke-style demo | Starts blank; blank and Cooke demo are separate commands |
 | Lens editor | Editable sequential surface table | Present, including component editors | Retained |
 | System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
 | 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, outlined elements, split aperture-stop blades, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
 | 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Light-background translucent lens solids, colored ray bundles, drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
 | Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | All 32 analyses are grouped in the top Analysis Ribbon; selecting one runs it into a closable page with bottom Plot/Data/Text tabs, collapsed graph settings, persisted parameters, and interactive plots |
-| Analysis refresh | Connector signals update consumers | Connector events already used | Retained for every open analysis page |
+| Analysis refresh | Connector signals update consumers | Connector events already used | Revision events mark heavy results stale; only the synchronization icon reruns them, with cancellation and generation checks |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
-| Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Stable panel IDs plus analysis pages that can be docked as tabs or arranged as independent floating, tiled, or cascaded windows |
+| Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Dock.Avalonia tabs support drag splitting, merging, floating, redocking, tiling/cascading, global defaults, slots, and per-file sessions |
 | Theme | Light and dark | Present | Consistent light theme; the incomplete dark-theme command is not exposed |
 | Help | Help menu and About dialog | Missing | Added |
 | Native JSON | Python Optiland nested JSON | Workbench-specific schema-versioned JSON | Architecture retained; Python JSON adapter is still required |
@@ -35,26 +35,27 @@ The goal is behavioral and architectural alignment. This project remains a clean
 
 ### Application Layer
 
-The reference GUI uses a main window for application commands, a panel manager for dock widgets, and an `OptilandConnector` for all model access and change signals.
-
-The refactor introduces the same ownership boundaries:
+The reference GUI uses a main window for application commands, a panel manager for dock widgets, and a backend connector. The refactor keeps those responsibilities but makes the GUI/backend boundary explicit:
 
 ```text
 MainWindow
   ActionManager
   PanelManager
-    LensEditorPanel
-    SystemPropertiesPanel
-    ViewerPanel
-    AnalysisPanel
-    OptimizationPanel
-    TolerancingPanel
-    MultiConfigurationPanel
-  OptilandConnector
-    Optic
+    WorkspaceDockFactory
+      ToolDock
+      DocumentDock
+        LensEditorPanel
+        ViewerPanel
+        AnalysisPanel
+        OptimizationPanel
+        TolerancingPanel
+        MultiConfigurationPanel
+  IWorkbenchApplication
+    document / prescription / analysis / visualization services
+    Core Optic context
 ```
 
-Panels receive `OptilandConnector`, plus `AppSettings` only when they own persisted UI state. They do not replace the active `Optic` and refresh through `OpticLoaded`, `OpticChanged`, and `SurfaceDataChanged`.
+Panels receive UI-free service interfaces and immutable DTOs, plus `AppSettings` only when they own presentation defaults. The App project has no Core reference, and Core/Application have no Avalonia or Dock reference. The application context owns mutation locking, undo/redo, Core snapshots, revision increments, and categorized workspace events.
 
 ### Core Object Model
 
@@ -123,21 +124,23 @@ Workbench: the renderer remains Avalonia-native. The refactor adds the missing i
 - 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
 - Both: toggle rays and reset the camera.
 
-The two viewer modes are opened from separate commands in the top **View** Ribbon. The central viewer does not repeat a second 2D/3D selector.
+The two viewer modes are opened from separate commands in the top **View** Ribbon. Each mode gets its own document tab and can be floated into an independently resizable native window, so the central viewer does not repeat a second 2D/3D selector.
 
 ### Change Surface Radius
 
 Reference: edit Surface 1 radius and immediately update viewers.
 
-Workbench: `LensEditorPanel` captures undo state at edit start, commits through the connector, applies pickups and solves, then emits surface and optic change events. Geometry and viewers refresh from the same event path.
+Workbench: `LensEditorPanel` submits a `SurfaceRowDto` command. Application captures undo state, updates Core, applies pickups and solves, increments the revision once, and emits one structured surface event. Lightweight viewers debounce that event; heavy analyses become stale without blocking the editor.
 
 ### Run RMS Spot Size Vs Field
 
 Reference: select the analysis, press Run, and inspect a plot.
 
-Workbench: open the top **Analysis** category and choose **RMS-Field**. Choosing the icon runs the analysis and opens its result in a closable page. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
+Workbench: open the top **Analysis** category and choose **RMS-Field**. Choosing the icon runs the analysis and opens its result as a first-class closable document beside **Lens Data**, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
 
-Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. The **Window** Ribbon can return all results to tabs or arrange them as independent floating, tiled, or cascaded windows; the native small close button closes the corresponding analysis page.
+Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Every document has a compact tab with a small close button. Tabs can be dragged to split, merge, float, and redock; the **Window** Ribbon also supplies bulk docking, floating, tiling, cascading, locking, closing, and default-layout actions.
+
+Ordinary prescription edits only mark a heavy result stale. Synchronization captures the current Core revision, cancels an older run for the same page, and accepts the result only while instance ID, task generation, and source revision still match. Closing the page or switching files cancels its work.
 
 ## Persistence And Interoperability
 
@@ -155,7 +158,7 @@ Commercial format support is intentionally a common sequential subset. ZMX, SEQ,
 
 ### Priority 1: GUI Parity
 
-- Extend the detachable/dockable window model beyond analysis results. Analysis pages already support tabbed, independent floating, tiled, and cascaded layouts; the remaining editor and property panels still use the managed workspace layout.
+- Broaden automated UI acceptance for four-direction tab drops and native floating-window redocking. The Dock model and session round-trip are covered by unit tests; pointer-driven desktop automation remains future work.
 - Broaden UI automation around generated analysis parameter editors, settings persistence, file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
 - Decide whether advanced scripting should use embedded Python interoperability or a native C# scripting host. A terminal must not be labeled Python-compatible without an actual Optiland Python object.
 
@@ -174,4 +177,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-18, the solution builds with zero warnings and all `223/223` tests pass. Coverage includes finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.
+As of 2026-07-19, the solution builds with zero warnings and all `247/247` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.

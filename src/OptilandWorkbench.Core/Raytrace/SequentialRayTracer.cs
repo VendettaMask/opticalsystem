@@ -2,6 +2,7 @@ using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Rays;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Raytrace;
 
@@ -78,6 +79,7 @@ public sealed class SequentialRayTracer
 
         foreach (var sourceRay in bundle.Rays)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var ray = sourceRay.Normalize();
             var currentMaterial = ResolveMaterial("Air");
             var cumulativePathLength = 0.0;
@@ -86,6 +88,7 @@ public sealed class SequentialRayTracer
 
             foreach (var surface in _optic.SurfaceGroup.Items)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var nextMaterial = ResolveMaterial(surface.MaterialAfterName);
                 var result = surface.TraceRay(
                     ray,

@@ -1,55 +1,56 @@
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
-using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class OptimizationPanel : UserControl
+public sealed class OptimizationPanel : UserControl, IDisposable
 {
-    private readonly OptilandConnector _connector;
+    private readonly IPrescriptionService _prescription;
+    private readonly IOptimizationService _optimization;
+    private readonly IWorkspaceEventStream _events;
     private readonly ComboBox _surfacePicker = new() { MinWidth = 220 };
-    private readonly ComboBox _optimizerPicker = new()
-    {
-        MinWidth = 180,
-        SelectedIndex = 0
-    };
+    private readonly ComboBox _optimizerPicker = new() { MinWidth = 180, SelectedIndex = 0 };
     private readonly NumericUpDown _iterationsInput = new()
     {
         Minimum = 1,
         Maximum = 1000,
         Increment = 10,
         Value = 80,
-        Width = 100
+        Width = 100,
+        ShowButtonSpinner = false
     };
     private readonly TextBlock _result = new()
     {
         TextWrapping = TextWrapping.Wrap,
         Margin = new Avalonia.Thickness(0, 12, 0, 0)
     };
+    private CancellationTokenSource? _runCancellation;
+    private int _generation;
+    private bool _disposed;
 
-    public OptimizationPanel(OptilandConnector connector)
+    public OptimizationPanel(
+        IPrescriptionService prescription,
+        IOptimizationService optimization,
+        IWorkspaceEventStream events)
     {
-        _connector = connector;
-        _optimizerPicker.ItemsSource = _connector.OptimizerNames;
-
-        var runButton = new Button
-        {
-            Content = new LocalIconLabel("play", "运行"),
-            MinWidth = 86
-        };
-        runButton.Click += (_, _) => Run();
-
+        _prescription = prescription;
+        _optimization = optimization;
+        _events = events;
+        _optimizerPicker.ItemsSource = optimization.OptimizerNames;
+        var runButton = new Button { Content = new LocalIconLabel("play", "运行"), MinWidth = 86 };
+        runButton.Click += async (_, _) => await RunAsync();
         var row = new StackPanel
         {
             Orientation = Orientation.Horizontal,
             Spacing = 8,
             Children = { _surfacePicker, _optimizerPicker, _iterationsInput, runButton }
         };
-
-        var root = new StackPanel
+        Content = new StackPanel
         {
             Margin = new Avalonia.Thickness(12),
             Spacing = 10,
@@ -60,48 +61,100 @@ public sealed class OptimizationPanel : UserControl
                 _result
             }
         };
-
-        Content = root;
-
-        _connector.OpticLoaded += (_, _) => Refresh();
-        _connector.SurfaceDataChanged += (_, _) => Refresh();
+        _events.Changed += OnWorkspaceChanged;
         Refresh();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        _generation++;
+        _events.Changed -= OnWorkspaceChanged;
+        _runCancellation?.Cancel();
+        _runCancellation?.Dispose();
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (!_disposed)
+            {
+                Refresh();
+            }
+        });
     }
 
     private void Refresh()
     {
-        _surfacePicker.ItemsSource = _connector.Surfaces;
-        if (_surfacePicker.SelectedItem is null && _connector.Surfaces.Count > 0)
+        if (_disposed)
         {
-            _surfacePicker.SelectedIndex = Math.Min(2, _connector.Surfaces.Count - 1);
+            return;
         }
 
-        if (_optimizerPicker.SelectedItem is null && _connector.OptimizerNames.Count > 0)
+        var selected = (_surfacePicker.SelectedItem as SurfaceEditorRow)?.Number;
+        var surfaces = _prescription.GetSurfaces().Select(surface => new SurfaceEditorRow(surface)).ToArray();
+        _surfacePicker.ItemsSource = surfaces;
+        _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selected)
+            ?? surfaces.ElementAtOrDefault(Math.Min(2, Math.Max(0, surfaces.Length - 1)));
+        if (_optimizerPicker.SelectedItem is null && _optimization.OptimizerNames.Count > 0)
         {
             _optimizerPicker.SelectedIndex = 0;
         }
     }
 
-    private void Run()
+    private async Task RunAsync()
     {
-        if (_surfacePicker.SelectedItem is not OpticalSurface surface)
+        if (_surfacePicker.SelectedItem is not SurfaceEditorRow surface)
         {
             _result.Text = "请先选择一个表面。";
             return;
         }
 
-        var optimizerName = _optimizerPicker.SelectedItem as string
-            ?? _connector.OptimizerNames.FirstOrDefault()
+        _runCancellation?.Cancel();
+        _runCancellation?.Dispose();
+        _runCancellation = new CancellationTokenSource();
+        var cancellationToken = _runCancellation.Token;
+        var generation = ++_generation;
+        var optimizer = _optimizerPicker.SelectedItem as string
+            ?? _optimization.OptimizerNames.FirstOrDefault()
             ?? "Orthogonal Descent";
         var iterations = _iterationsInput.Value.HasValue
             ? Decimal.ToInt32(_iterationsInput.Value.Value)
             : 80;
-        var initialRadius = surface.Radius;
-        var result = _connector.OptimizeSurfaceRadius(surface, optimizerName, iterations);
-        _result.Text =
-            $"{OptilandConnector.DisplayOptimizerMessage(result.Message)}{Environment.NewLine}" +
-            $"评价函数: {result.InitialMerit:0.######} -> {result.FinalMerit:0.######}{Environment.NewLine}" +
-            $"半径: {initialRadius:0.###} -> {surface.Radius:0.###}{Environment.NewLine}" +
-            $"迭代次数: {result.Iterations}";
+        _result.Text = "正在优化…";
+        try
+        {
+            var result = await _optimization.OptimizeSurfaceRadiusAsync(
+                surface.Number,
+                optimizer,
+                iterations,
+                cancellationToken);
+            if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
+            {
+                return;
+            }
+
+            _result.Text =
+                $"{result.Message}{Environment.NewLine}" +
+                $"评价函数: {result.Merit:0.######}{Environment.NewLine}" +
+                $"半径: {result.InitialRadius:0.###} -> {result.FinalRadius:0.###}{Environment.NewLine}" +
+                $"迭代次数: {result.Iterations}";
+        }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (Exception exception)
+        {
+            if (!_disposed && generation == _generation)
+            {
+                _result.Text = $"优化失败：{exception.Message}";
+            }
+        }
     }
 }

@@ -1,67 +1,31 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
-using OptilandWorkbench.Core.Apertures;
-using OptilandWorkbench.Core.Coatings;
-using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.Geometries;
-using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class LensEditorPanel : UserControl
+public sealed class LensEditorPanel : UserControl, IDisposable
 {
-    private readonly OptilandConnector _connector;
+    private readonly IPrescriptionService _prescription;
+    private readonly IWorkspaceEventStream _events;
     private readonly DataGrid _grid;
     private readonly ComboBox _geometryPicker = new() { MinWidth = 130 };
     private readonly ComboBox _materialPicker = new() { MinWidth = 120 };
     private readonly ComboBox _coatingPicker = new() { MinWidth = 140 };
     private readonly ComboBox _interactionPicker = new() { MinWidth = 120 };
     private readonly ComboBox _aperturePicker = new() { MinWidth = 110 };
-    private readonly NumericUpDown _gratingOrder = new()
-    {
-        Width = 72,
-        Minimum = -100,
-        Maximum = 100,
-        Value = 1
-    };
-    private readonly NumericUpDown _gratingPeriod = new()
-    {
-        Width = 94,
-        Minimum = 0.000001m,
-        Maximum = 1000000,
-        Increment = 0.1m,
-        Value = 1
-    };
-    private readonly CheckBox _infiniteGratingPeriod = new()
-    {
-        Content = "∞",
-        VerticalAlignment = VerticalAlignment.Center
-    };
-    private readonly NumericUpDown _gratingAngle = new()
-    {
-        Width = 88,
-        Minimum = -360,
-        Maximum = 360,
-        Increment = 1,
-        Value = 0
-    };
-    private readonly NumericUpDown _thinLensFocalLength = new()
-    {
-        Width = 92,
-        Minimum = -1000000,
-        Maximum = 1000000,
-        Increment = 1,
-        Value = 50
-    };
-    private readonly CheckBox _infiniteThinLensFocalLength = new()
-    {
-        Content = "∞",
-        VerticalAlignment = VerticalAlignment.Center
-    };
+    private readonly NumericUpDown _gratingOrder = Number(72, -100, 100, 1, 1);
+    private readonly NumericUpDown _gratingPeriod = Number(94, 0.000001m, 1_000_000, 0.1m, 1);
+    private readonly NumericUpDown _gratingAngle = Number(88, -360, 360, 1, 0);
+    private readonly NumericUpDown _thinLensFocalLength = Number(92, -1_000_000, 1_000_000, 1, 50);
+    private readonly CheckBox _infiniteGratingPeriod = new() { Content = "∞", VerticalAlignment = VerticalAlignment.Center };
+    private readonly CheckBox _infiniteThinLensFocalLength = new() { Content = "∞", VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _componentSummary = new()
     {
         MinWidth = 160,
@@ -69,27 +33,34 @@ public sealed class LensEditorPanel : UserControl
         TextWrapping = TextWrapping.Wrap,
         VerticalAlignment = VerticalAlignment.Center
     };
-    private bool _loadingComponentSelection;
+    private bool _disposed;
 
-    public LensEditorPanel(OptilandConnector connector)
+    public LensEditorPanel(IPrescriptionService prescription, IWorkspaceEventStream events)
     {
-        _connector = connector;
+        _prescription = prescription;
+        _events = events;
         _grid = CreateGrid();
-        _geometryPicker.ItemsSource = _connector.GeometryKinds;
-        _coatingPicker.ItemsSource = _connector.CoatingKinds;
-        _interactionPicker.ItemsSource = _connector.InteractionKinds;
-        _aperturePicker.ItemsSource = _connector.PhysicalApertureKinds;
+        var options = prescription.GetOptions();
+        _geometryPicker.ItemsSource = options.GeometryKinds;
+        _materialPicker.ItemsSource = options.Materials;
+        _coatingPicker.ItemsSource = options.CoatingKinds;
+        _interactionPicker.ItemsSource = options.InteractionKinds;
+        _aperturePicker.ItemsSource = options.PhysicalApertureKinds;
         _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
             _gratingPeriod.IsEnabled = _infiniteGratingPeriod.IsChecked != true;
         _infiniteThinLensFocalLength.IsCheckedChanged += (_, _) =>
             _thinLensFocalLength.IsEnabled = _infiniteThinLensFocalLength.IsChecked != true;
 
         var addButton = CommandButton("plus", "添加", 74);
-        addButton.Click += (_, _) => _connector.AddSurface();
-
+        addButton.Click += (_, _) => _prescription.AddSurface();
         var removeButton = CommandButton("trash-2", "删除", 74);
-        removeButton.Click += (_, _) => _connector.RemoveSurface(_grid.SelectedItem as OpticalSurface);
-
+        removeButton.Click += (_, _) =>
+        {
+            if (_grid.SelectedItem is SurfaceEditorRow row)
+            {
+                _prescription.RemoveSurface(row.Number);
+            }
+        };
         var applyComponentsButton = CommandButton("check", "应用组件", 112);
         applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
@@ -98,44 +69,27 @@ public sealed class LensEditorPanel : UserControl
             Orientation = Orientation.Horizontal,
             Spacing = 6,
             VerticalAlignment = VerticalAlignment.Center,
-            Children =
-            {
-                addButton,
-                removeButton
-            }
+            Children = { addButton, removeButton }
         };
-
         var componentEditor = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
             Margin = new Avalonia.Thickness(8),
             Children =
             {
-                new TextBlock { Text = "几何", VerticalAlignment = VerticalAlignment.Center },
-                _geometryPicker,
-                new TextBlock { Text = "材料", VerticalAlignment = VerticalAlignment.Center },
-                _materialPicker,
-                new TextBlock { Text = "镀膜", VerticalAlignment = VerticalAlignment.Center },
-                _coatingPicker,
-                new TextBlock { Text = "相互作用", VerticalAlignment = VerticalAlignment.Center },
-                _interactionPicker,
-                new TextBlock { Text = "物理孔径", VerticalAlignment = VerticalAlignment.Center },
-                _aperturePicker,
-                new TextBlock { Text = "级次", VerticalAlignment = VerticalAlignment.Center },
-                _gratingOrder,
-                new TextBlock { Text = "周期 (μm)", VerticalAlignment = VerticalAlignment.Center },
-                _gratingPeriod,
-                _infiniteGratingPeriod,
-                new TextBlock { Text = "槽角 (°)", VerticalAlignment = VerticalAlignment.Center },
-                _gratingAngle,
-                new TextBlock { Text = "焦距 (mm)", VerticalAlignment = VerticalAlignment.Center },
-                _thinLensFocalLength,
-                _infiniteThinLensFocalLength,
+                Label("几何"), _geometryPicker,
+                Label("材料"), _materialPicker,
+                Label("镀膜"), _coatingPicker,
+                Label("相互作用"), _interactionPicker,
+                Label("物理孔径"), _aperturePicker,
+                Label("级次"), _gratingOrder,
+                Label("周期 (μm)"), _gratingPeriod, _infiniteGratingPeriod,
+                Label("槽角 (°)"), _gratingAngle,
+                Label("焦距 (mm)"), _thinLensFocalLength, _infiniteThinLensFocalLength,
                 applyComponentsButton,
                 _componentSummary
             }
         };
-
         var commandBar = new Border
         {
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
@@ -152,22 +106,28 @@ public sealed class LensEditorPanel : UserControl
             Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
             Content = componentEditor
         };
-
-        var root = new DockPanel
-        {
-            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247))
-        };
-        DockPanel.SetDock(commandBar, Dock.Top);
+        var root = new DockPanel { Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)) };
+        DockPanel.SetDock(commandBar, Avalonia.Controls.Dock.Top);
+        DockPanel.SetDock(componentExpander, Avalonia.Controls.Dock.Top);
         root.Children.Add(commandBar);
-        DockPanel.SetDock(componentExpander, Dock.Top);
         root.Children.Add(componentExpander);
         root.Children.Add(_grid);
         Content = root;
 
         _grid.SelectionChanged += (_, _) => LoadComponentSelection();
-        _connector.OpticLoaded += (_, _) => Refresh();
-        _connector.SurfaceDataChanged += (_, _) => Refresh();
+        _events.Changed += OnWorkspaceChanged;
         Refresh();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        _events.Changed -= OnWorkspaceChanged;
     }
 
     private DataGrid CreateGrid()
@@ -189,195 +149,194 @@ public sealed class LensEditorPanel : UserControl
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2
         };
-
-        grid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(OpticalSurface.Number)), IsReadOnly = true, Width = new DataGridLength(44) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "表面类型", Binding = new Binding(nameof(OpticalSurface.Label)), Width = new DataGridLength(132) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "曲率半径", Binding = new Binding(nameof(OpticalSurface.Radius)), Width = new DataGridLength(102) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "厚度", Binding = new Binding(nameof(OpticalSurface.Thickness)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "材料", Binding = new Binding(nameof(OpticalSurface.Material)), Width = new DataGridLength(96) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "膜层", Binding = new Binding(nameof(OpticalSurface.Coating)), Width = new DataGridLength(90) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "净口径", Binding = new Binding(nameof(OpticalSurface.SemiDiameter)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "圆锥系数", Binding = new Binding(nameof(OpticalSurface.Conic)), Width = new DataGridLength(92) });
-        grid.Columns.Add(new DataGridCheckBoxColumn { Header = "光阑", Binding = new Binding(nameof(OpticalSurface.IsStop)), Width = new DataGridLength(64) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "几何类型", Binding = new Binding("Geometry.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "镀膜类型", Binding = new Binding("CoatingModel.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "作用类型", Binding = new Binding("InteractionModel.Kind"), IsReadOnly = true, Width = new DataGridLength(132) });
-        grid.Columns.Add(new DataGridTextColumn { Header = "孔径类型", Binding = new Binding("PhysicalAperture.Kind"), IsReadOnly = true, Width = new DataGridLength(120) });
-
-        grid.BeginningEdit += (_, _) => _connector.CaptureCurrentState();
-        grid.CellEditEnded += (_, e) =>
+        grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true));
+        grid.Columns.Add(SurfaceTypeColumn());
+        grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
+        grid.Columns.Add(Column("曲率半径", nameof(SurfaceEditorRow.Radius), 112));
+        grid.Columns.Add(Column("厚度", nameof(SurfaceEditorRow.Thickness), 96));
+        grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.Material), 122));
+        grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
+        grid.Columns.Add(Column("净口径", nameof(SurfaceEditorRow.SemiDiameter), 106));
+        grid.Columns.Add(Column("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
+        grid.Columns.Add(Column("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
+        grid.Columns.Add(Column("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
+        grid.Columns.Add(Column("TCE x 1E-6", nameof(SurfaceEditorRow.ThermalExpansionDisplay), 112, true));
+        grid.CellEditEnded += (_, eventArgs) =>
         {
-            if (e.EditAction != DataGridEditAction.Commit)
+            if (eventArgs.EditAction == DataGridEditAction.Commit
+                && eventArgs.Row.DataContext is SurfaceEditorRow row)
             {
-                return;
+                _prescription.UpdateSurface(row.ToDto());
             }
-
-            var propertyName = (e.Column as DataGridBoundColumn)?.Binding is Binding binding
-                ? binding.Path
-                : null;
-            _connector.CommitSurfaceEdit(e.Row.DataContext as OpticalSurface, propertyName);
         };
-
         return grid;
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(Refresh);
     }
 
     private void Refresh()
     {
-        _materialPicker.ItemsSource = _connector.MaterialNames;
-        _grid.ItemsSource = _connector.Surfaces;
-        if (_grid.SelectedItem is null && _connector.Surfaces.Count > 0)
+        if (_disposed)
         {
-            _grid.SelectedIndex = Math.Min(1, _connector.Surfaces.Count - 1);
+            return;
         }
 
+        var selectedNumber = (_grid.SelectedItem as SurfaceEditorRow)?.Number;
+        var surfaces = _prescription.GetSurfaces();
+        var lastSurfaceNumber = surfaces.Count == 0 ? -1 : surfaces.Max(surface => surface.Number);
+        var rows = surfaces
+            .Select(surface => new SurfaceEditorRow(surface, surface.Number == lastSurfaceNumber))
+            .ToArray();
+        ApplyMechanicalSemiDiameters(rows);
+        _grid.ItemsSource = rows;
+        _grid.SelectedItem = rows.FirstOrDefault(row => row.Number == selectedNumber)
+            ?? rows.ElementAtOrDefault(Math.Min(1, Math.Max(0, rows.Length - 1)));
+        _materialPicker.ItemsSource = _prescription.GetOptions().Materials;
         LoadComponentSelection();
     }
 
     private void LoadComponentSelection()
     {
-        if (_grid.SelectedItem is not OpticalSurface surface)
+        if (_grid.SelectedItem is not SurfaceEditorRow row)
         {
             _componentSummary.Text = "未选择表面";
             return;
         }
 
-        _loadingComponentSelection = true;
-        try
+        _geometryPicker.SelectedItem = row.GeometryKind;
+        _materialPicker.SelectedItem = row.Material;
+        _coatingPicker.SelectedItem = row.CoatingKind;
+        _interactionPicker.SelectedItem = row.InteractionKind;
+        _aperturePicker.SelectedItem = row.ApertureKind;
+        _gratingOrder.Value = row.GratingOrder;
+        _infiniteGratingPeriod.IsChecked = double.IsPositiveInfinity(row.GratingPeriodMicrometers);
+        if (double.IsFinite(row.GratingPeriodMicrometers))
         {
-            _geometryPicker.SelectedItem = GeometryKindFor(surface);
-            _materialPicker.SelectedItem = _connector.MaterialNames.Contains(surface.Material)
-                ? surface.Material
-                : "Air";
-            _coatingPicker.SelectedItem = CoatingKindFor(surface);
-            _interactionPicker.SelectedItem = InteractionKindFor(surface);
-            _aperturePicker.SelectedItem = ApertureKindFor(surface);
-            if (surface.Geometry is IGratingGeometry grating)
-            {
-                _gratingOrder.Value = grating.GratingOrder;
-                _infiniteGratingPeriod.IsChecked = double.IsPositiveInfinity(grating.GratingPeriodMicrometers);
-                if (double.IsFinite(grating.GratingPeriodMicrometers))
-                {
-                    _gratingPeriod.Value = (decimal)Math.Clamp(
-                        grating.GratingPeriodMicrometers,
-                        (double)_gratingPeriod.Minimum,
-                        (double)_gratingPeriod.Maximum);
-                }
-                _gratingAngle.Value = (decimal)(grating.GrooveOrientationAngleRadians * 180.0 / Math.PI);
-            }
-            else
-            {
-                _infiniteGratingPeriod.IsChecked = false;
-            }
-            if (surface.InteractionModel is ThinLensInteractionModel thinLens
-                && double.IsFinite(thinLens.FocalLength))
-            {
-                _infiniteThinLensFocalLength.IsChecked = false;
-                _thinLensFocalLength.Value = (decimal)Math.Clamp(
-                    thinLens.FocalLength,
-                    (double)_thinLensFocalLength.Minimum,
-                    (double)_thinLensFocalLength.Maximum);
-            }
-            else if (surface.InteractionModel is ThinLensInteractionModel infiniteThinLens)
-            {
-                _infiniteThinLensFocalLength.IsChecked = true;
-                _thinLensFocalLength.Value = double.IsNegativeInfinity(infiniteThinLens.FocalLength) ? -1 : 1;
-            }
-            else
-            {
-                _infiniteThinLensFocalLength.IsChecked = false;
-            }
-            _componentSummary.Text = $"表面 {surface.Number}: {surface.Geometry.Kind}, {surface.MaterialAfterName}";
+            _gratingPeriod.Value = (decimal)Math.Clamp(row.GratingPeriodMicrometers, 0.000001, 1_000_000);
         }
-        finally
+
+        _gratingAngle.Value = (decimal)row.GrooveOrientationAngleDegrees;
+        _infiniteThinLensFocalLength.IsChecked = double.IsInfinity(row.ThinLensFocalLength);
+        if (double.IsFinite(row.ThinLensFocalLength))
         {
-            _loadingComponentSelection = false;
+            _thinLensFocalLength.Value = (decimal)Math.Clamp(row.ThinLensFocalLength, -1_000_000, 1_000_000);
         }
+
+        _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}, {row.Material}";
     }
 
     private void ApplySelectedComponents()
     {
-        if (_loadingComponentSelection || _grid.SelectedItem is not OpticalSurface surface)
+        if (_grid.SelectedItem is not SurfaceEditorRow row)
         {
             return;
         }
 
-        _connector.ApplySurfaceComponents(
-            surface,
-            _geometryPicker.SelectedItem as string ?? "标准球面/圆锥",
-            _materialPicker.SelectedItem as string ?? surface.Material,
-            _coatingPicker.SelectedItem as string ?? "无镀膜",
-            _interactionPicker.SelectedItem as string ?? "折射",
-            _aperturePicker.SelectedItem as string ?? "圆形",
-            (int)(_gratingOrder.Value ?? 1),
+        _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
+            _geometryPicker.SelectedItem as string ?? row.GeometryKind,
+            _materialPicker.SelectedItem as string ?? row.Material,
+            _coatingPicker.SelectedItem as string ?? row.CoatingKind,
+            _interactionPicker.SelectedItem as string ?? row.InteractionKind,
+            _aperturePicker.SelectedItem as string ?? row.ApertureKind,
+            (int)(_gratingOrder.Value ?? row.GratingOrder),
             _infiniteGratingPeriod.IsChecked == true
                 ? double.PositiveInfinity
                 : (double)(_gratingPeriod.Value ?? 1),
             (double)(_gratingAngle.Value ?? 0),
             _infiniteThinLensFocalLength.IsChecked == true
-                ? Math.CopySign(
-                    double.PositiveInfinity,
-                    (double)(_thinLensFocalLength.Value ?? 1))
-                : (double)(_thinLensFocalLength.Value ?? 50));
+                ? Math.CopySign(double.PositiveInfinity, (double)(_thinLensFocalLength.Value ?? 1))
+                : (double)(_thinLensFocalLength.Value ?? 50)));
     }
 
-    private static string GeometryKindFor(OpticalSurface surface)
+    private static DataGridTextColumn Column(string header, string property, double width, bool readOnly = false) => new()
     {
-        return surface.Geometry switch
-        {
-            PlaneGeometry => "平面",
-            PlaneGratingGeometry => "平面光栅",
-            StandardGratingGeometry => "标准曲面光栅",
-            EvenAsphereGeometry => "偶次非球面",
-            OddAsphereGeometry => "奇次非球面",
-            BiconicGeometry => "双圆锥",
-            ToroidalGeometry => "环形面",
-            PolynomialGeometry => "XY 多项式",
-            ChebyshevGeometry => "Chebyshev 曲面",
-            ZernikeGeometry => "Zernike 曲面",
-            ForbesQGeometry => "Forbes Q 曲面",
-            _ => "标准球面/圆锥"
-        };
-    }
+        Header = header,
+        Binding = new Binding(property),
+        IsReadOnly = readOnly,
+        Width = new DataGridLength(width)
+    };
 
-    private static string CoatingKindFor(OpticalSurface surface)
+    private static DataGridTemplateColumn SurfaceTypeColumn() => new()
     {
-        if (surface.CoatingModel is ThinFilmStackCoating stack)
+        Header = "表面类型",
+        IsReadOnly = true,
+        Width = new DataGridLength(240),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
         {
-            return stack.Layers.Count > 1 ? "四分之一波堆栈" : "MgF2 单层";
+            var content = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("100,*")
+            };
+            var role = new TextBlock
+            {
+                Text = row?.SurfaceRole ?? string.Empty,
+                Margin = new Avalonia.Thickness(8, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            var type = new TextBlock
+            {
+                Text = row?.SurfaceType ?? string.Empty,
+                Margin = new Avalonia.Thickness(8, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            Grid.SetColumn(type, 1);
+            content.Children.Add(role);
+            content.Children.Add(type);
+            return content;
+        }, supportsRecycling: true)
+    };
+
+    private static void ApplyMechanicalSemiDiameters(IReadOnlyList<SurfaceEditorRow> rows)
+    {
+        for (var index = 1; index < rows.Count - 1; index++)
+        {
+            if (!HasOpticalMaterial(rows[index]))
+            {
+                continue;
+            }
+
+            var end = index;
+            while (end < rows.Count - 1 && HasOpticalMaterial(rows[end]))
+            {
+                end++;
+            }
+
+            var mechanicalSemiDiameter = rows
+                .Skip(index)
+                .Take((end - index) + 1)
+                .Max(row => row.SemiDiameter);
+            for (var surfaceIndex = index; surfaceIndex <= end; surfaceIndex++)
+            {
+                rows[surfaceIndex].MechanicalSemiDiameter = mechanicalSemiDiameter;
+            }
+
+            index = end;
         }
-
-        return "无镀膜";
     }
 
-    private static string InteractionKindFor(OpticalSurface surface)
+    private static bool HasOpticalMaterial(SurfaceEditorRow row) =>
+        !string.IsNullOrWhiteSpace(row.Material)
+        && !string.Equals(row.Material, "Air", StringComparison.OrdinalIgnoreCase);
+
+    private static NumericUpDown Number(double width, decimal minimum, decimal maximum, decimal increment, decimal value) => new()
     {
-        return surface.InteractionModel switch
-        {
-            ThinLensInteractionModel model when model.IsReflective => "反射薄透镜",
-            ThinLensInteractionModel => "薄透镜",
-            DiffractiveInteractionModel model when model.IsReflective => "反射衍射",
-            DiffractiveInteractionModel => "衍射",
-            PhaseInteractionModel => "相位",
-            RefractiveReflectiveInteractionModel model when model.IsReflective => "反射",
-            _ => "折射"
-        };
-    }
+        Width = width,
+        Minimum = minimum,
+        Maximum = maximum,
+        Increment = increment,
+        Value = value,
+        ShowButtonSpinner = false
+    };
 
-    private static string ApertureKindFor(OpticalSurface surface)
+    private static TextBlock Label(string text) => new()
     {
-        return surface.PhysicalAperture switch
-        {
-            AnnularAperture => "环形",
-            OffsetRadialAperture => "偏心圆",
-            RectangularAperture => "矩形",
-            EllipticalAperture => "椭圆",
-            FileAperture => "多边形",
-            PolygonAperture => "多边形",
-            BooleanAperture => "组合孔径",
-            null => "无",
-            _ => "圆形"
-        };
-    }
+        Text = text,
+        VerticalAlignment = VerticalAlignment.Center,
+        Margin = new Avalonia.Thickness(7, 0, 4, 0)
+    };
 
     private static Button CommandButton(string iconName, string text, double minWidth) => new()
     {

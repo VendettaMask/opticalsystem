@@ -4,10 +4,11 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
-using OptilandWorkbench.Core;
 
 namespace OptilandWorkbench.App;
 
@@ -75,7 +76,7 @@ public sealed class MainWindow : Window
         new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "照明与成像")
     };
 
-    private readonly OptilandConnector _connector;
+    private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
     private readonly ActionManager _actions = new();
     private readonly PanelManager _panels;
@@ -84,14 +85,18 @@ public sealed class MainWindow : Window
     private readonly TextBlock _fNumberText = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _apertureText = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _trackText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private bool _closeAfterPersistence;
+    private bool _closeInProgress;
+    private bool _closed;
 
     public MainWindow()
     {
         _settings = AppSettings.Load();
-        _connector = new OptilandConnector(CreateInitialOptic());
-        _panels = new PanelManager(_connector, _settings);
+        _application = WorkbenchApplication.Create(InitialSample());
+        _panels = new PanelManager(_application, _settings);
         RegisterActions();
         _actions.ExecutionFailed += OnActionExecutionFailed;
+        _panels.PersistenceFailed += OnWorkspacePersistenceFailed;
 
         Title = "Optiland 光学工作台";
         Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
@@ -101,41 +106,95 @@ public sealed class MainWindow : Window
         Content = BuildShell();
         SetLightTheme(save: false);
 
-        _connector.OpticLoaded += (_, _) => RefreshStatus();
-        _connector.OpticChanged += (_, _) => RefreshStatus();
-        Closed += (_, _) => SaveLayout();
+        _application.Events.Changed += OnWorkspaceChanged;
+        Opened += OnOpened;
+        Closing += OnClosing;
+        Closed += OnClosed;
         KeyDown += OnWindowKeyDown;
         RefreshStatus();
     }
 
-    private static Optic CreateInitialOptic()
+    private async void OnOpened(object? sender, EventArgs args)
+    {
+        try
+        {
+            await _panels.InitializeAsync();
+        }
+        catch (Exception exception)
+        {
+            _panels.ResetLayout();
+            _statusText.Text = $"工作区恢复失败：{exception.Message}";
+        }
+    }
+
+    private async void OnClosing(object? sender, WindowClosingEventArgs args)
+    {
+        if (_closeAfterPersistence)
+        {
+            return;
+        }
+
+        args.Cancel = true;
+        if (_closeInProgress)
+        {
+            return;
+        }
+
+        _closeInProgress = true;
+        try
+        {
+            SaveLayout();
+            await _panels.SaveCurrentSessionAsync();
+        }
+        catch (Exception exception)
+        {
+            _statusText.Text = $"关闭前保存失败：{exception.Message}";
+        }
+        finally
+        {
+            _closeAfterPersistence = true;
+            Close();
+        }
+    }
+
+    private void OnClosed(object? sender, EventArgs args)
+    {
+        _closed = true;
+        Opened -= OnOpened;
+        Closing -= OnClosing;
+        Closed -= OnClosed;
+        KeyDown -= OnWindowKeyDown;
+        _actions.ExecutionFailed -= OnActionExecutionFailed;
+        _panels.PersistenceFailed -= OnWorkspacePersistenceFailed;
+        _application.Events.Changed -= OnWorkspaceChanged;
+        _panels.Dispose();
+        _application.Dispose();
+    }
+
+    private static string? InitialSample()
     {
         var sampleArgument = Environment.GetCommandLineArgs()
             .FirstOrDefault(argument => argument.StartsWith("--sample=", StringComparison.OrdinalIgnoreCase));
-        return sampleArgument?.Split('=', 2)[1].ToLowerInvariant() switch
-        {
-            "cooke" => Optic.CreateCookeTriplet(),
-            "tessar" => Optic.CreateTessarLens(),
-            _ => Optic.CreateBlank()
-        };
+        return sampleArgument?.Split('=', 2)[1];
     }
 
     private void RegisterActions()
     {
-        _actions.Register("new", "新建空白系统", "文件", _connector.NewBlank);
-        _actions.Register("new-demo", "新建 Cooke 三片式样例", "文件", _connector.NewDemo);
-        _actions.Register("new-tessar", "新建 Tessar F/4.5 四片式样例", "文件", _connector.NewTessar);
+        _actions.Register("new", "新建空白系统", "文件", () => SwitchDocumentAsync(_application.Documents.NewBlank));
+        _actions.Register("new-demo", "新建 Cooke 三片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewCooke));
+        _actions.Register("new-tessar", "新建 Tessar F/4.5 四片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewTessar));
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
         _actions.Register("save-as", "另存为", "文件", SaveAsAsync);
         _actions.Register("export-python-json", "导出 Python Optiland JSON", "文件", ExportPythonJsonAsync);
         _actions.Register("exit", "退出", "文件", Close);
-        _actions.Register("undo", "撤销", "编辑", () => _connector.Undo());
-        _actions.Register("redo", "重做", "编辑", () => _connector.Redo());
+        _actions.Register("undo", "撤销", "编辑", () => _application.Documents.Undo());
+        _actions.Register("redo", "重做", "编辑", () => _application.Documents.Redo());
         _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => _panels.Show(WorkspacePanelId.LensEditor));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
         _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));
         _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
+        _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
@@ -145,10 +204,17 @@ public sealed class MainWindow : Window
         _actions.Register("save-layout-2", "保存布局到槽位 2", "布局", () => SaveLayoutSlot(2));
         _actions.Register("load-layout-1", "加载布局槽位 1", "布局", () => LoadLayoutSlot(1));
         _actions.Register("load-layout-2", "加载布局槽位 2", "布局", () => LoadLayoutSlot(2));
-        _actions.Register("analysis-dock-all", "分析窗口排列为标签", "窗口", _panels.DockAnalysisWindows);
-        _actions.Register("analysis-float-all", "浮动所有分析窗口", "窗口", _panels.FloatAnalysisWindows);
-        _actions.Register("analysis-tile-all", "平铺所有分析窗口", "窗口", _panels.TileAnalysisWindows);
-        _actions.Register("analysis-cascade-all", "层叠所有分析窗口", "窗口", _panels.CascadeAnalysisWindows);
+        _actions.Register("analysis-dock-all", "所有页面排列为标签", "窗口", _panels.DockAllWindows);
+        _actions.Register("dock-single-pane", "停靠到单一 Pane", "窗口", _panels.DockToSinglePane);
+        _actions.Register("analysis-float-all", "浮动所有页面", "窗口", _panels.FloatAllWindows);
+        _actions.Register("analysis-tile-all", "平铺所有页面", "窗口", _panels.TileAllWindows);
+        _actions.Register("analysis-cascade-all", "层叠所有页面", "窗口", _panels.CascadeAllWindows);
+        _actions.Register("analysis-clone", "克隆当前分析页", "窗口", _panels.CloneActiveAnalysis);
+        _actions.Register("lock-page", "锁定当前页面更新", "窗口", () => _panels.SetActiveDocumentLocked(true));
+        _actions.Register("unlock-page", "解锁当前页面更新", "窗口", () => _panels.SetActiveDocumentLocked(false));
+        _actions.Register("close-all-pages", "关闭全部页面", "窗口", _panels.CloseAllDocuments);
+        _actions.Register("save-default-layout", "保存默认布局", "窗口", () => _panels.SaveDefaultLayoutAsync());
+        _actions.Register("restore-default-layout", "恢复默认布局", "窗口", () => _panels.RestoreDefaultLayoutAsync());
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
         _actions.Register("about", "关于 Optiland Workbench", "帮助", ShowAboutAsync);
         foreach (var analysis in AnalysisRibbonCommands)
@@ -165,11 +231,11 @@ public sealed class MainWindow : Window
     {
         var root = new DockPanel();
         var ribbon = BuildRibbon();
-        DockPanel.SetDock(ribbon, Dock.Top);
+        DockPanel.SetDock(ribbon, Avalonia.Controls.Dock.Top);
         root.Children.Add(ribbon);
 
         var status = BuildStatusBar();
-        DockPanel.SetDock(status, Dock.Bottom);
+        DockPanel.SetDock(status, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(status);
         root.Children.Add(_panels.WorkspaceGrid);
         return root;
@@ -264,8 +330,9 @@ public sealed class MainWindow : Window
                         RibbonButton("show-multiconfig", "panels-top-left", "多配置")))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",
-                        RibbonButton("show-viewer-2d", "panel-top", "二维布局"),
-                        RibbonButton("show-viewer-3d", "box", "三维布局")))),
+                        RibbonButton("show-viewer-2d", "panel-top", "2D视图"),
+                        RibbonButton("show-viewer-3d", "box", "3D视图"),
+                        RibbonButton("show-solid-model", "cylinder", "实体模型")))),
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
                 RibbonTab("优化", BuildRibbonPage(
                     RibbonGroup("评价函数",
@@ -285,17 +352,22 @@ public sealed class MainWindow : Window
                         RibbonButton("undo", "undo-2", "撤销"),
                         RibbonButton("redo", "redo-2", "重做")),
                     RibbonGroup("命令",
-                        RibbonButton("command-palette", "command", "命令面板")),
-                    RibbonGroup("布局",
-                        RibbonButton("load-layout-1", "layout-panel-left", "布局 1"),
-                        RibbonButton("load-layout-2", "layout-panel-top", "布局 2"),
-                        RibbonButton("reset-layout", "panels-top-left", "恢复布局")))),
+                        RibbonButton("command-palette", "command", "命令面板")))),
                 RibbonTab("窗口", BuildRibbonPage(
-                    RibbonGroup("分析窗口布局",
-                        RibbonButton("analysis-dock-all", "panel-top", "标签排列"),
+                    RibbonGroup("页面窗口布局",
+                        RibbonButton("analysis-dock-all", "panel-top", "全部停靠"),
+                        RibbonButton("dock-single-pane", "panels-top-left", "单一 Pane"),
                         RibbonButton("analysis-float-all", "picture-in-picture-2", "浮动全部"),
                         RibbonButton("analysis-tile-all", "grid-2x2", "平铺全部"),
-                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")))),
+                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")),
+                    RibbonGroup("页面",
+                        RibbonButton("analysis-clone", "copy", "克隆分析"),
+                        RibbonButton("lock-page", "lock", "锁定"),
+                        RibbonButton("unlock-page", "lock-open", "解锁"),
+                        RibbonButton("close-all-pages", "x", "关闭全部")),
+                    RibbonGroup("布局",
+                        RibbonButton("save-default-layout", "save", "保存默认"),
+                        RibbonButton("restore-default-layout", "rotate-ccw", "恢复默认")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
                         RibbonButton("about", "circle-question-mark", "关于"))))
@@ -415,7 +487,6 @@ public sealed class MainWindow : Window
             }
         };
         var action = _actions.Find(actionId);
-        ToolTip.SetTip(button, action.Text);
         button.Click += async (_, _) => await _actions.ExecuteAsync(action);
         return button;
     }
@@ -464,7 +535,8 @@ public sealed class MainWindow : Window
         });
         if (files.Count > 0)
         {
-            await _connector.LoadAsync(files[0].Path.LocalPath);
+            await _panels.SaveCurrentSessionAsync();
+            await _application.Documents.OpenAsync(files[0].Path.LocalPath);
         }
     }
 
@@ -478,7 +550,7 @@ public sealed class MainWindow : Window
         });
         if (file is not null)
         {
-            await _connector.SaveAsync(file.Path.LocalPath);
+            await _application.Documents.SaveAsync(file.Path.LocalPath);
         }
     }
 
@@ -492,7 +564,7 @@ public sealed class MainWindow : Window
         });
         if (file is not null)
         {
-            await _connector.SaveAsync(file.Path.LocalPath);
+            await _application.Documents.SaveAsync(file.Path.LocalPath);
         }
     }
 
@@ -534,19 +606,46 @@ public sealed class MainWindow : Window
         if (args.Key == Key.K && commandModifier)
         {
             args.Handled = true;
-            await ShowCommandPaletteAsync();
+            try
+            {
+                await ShowCommandPaletteAsync();
+            }
+            catch (Exception exception)
+            {
+                if (!_closed)
+                {
+                    _statusText.Text = $"命令面板打开失败：{exception.Message}";
+                }
+            }
         }
     }
 
     private void RefreshStatus()
     {
-        var optic = _connector.CurrentOptic;
-        Title = $"{optic.Name} - Optiland 光学工作台";
-        _statusText.Text = $"{_connector.Status}   |   {optic.SurfaceGroup.Items.Count} 个表面   |   {optic.Fields.Count} 个视场   |   {optic.Wavelengths.Count} 个波长";
-        _eflText.Text = $"EFFL: {FormatMetric(optic.Paraxial.EstimateEffectiveFocalLength())}";
-        _fNumberText.Text = $"F/#: {FormatMetric(optic.Paraxial.EstimateFNumber())}";
-        _apertureText.Text = $"APER: {optic.Aperture.Value:0.####}";
-        _trackText.Text = $"TOTR: {FormatMetric(optic.SurfaceGroup.TotalTrack)}";
+        var snapshot = _application.Documents.GetSnapshot();
+        Title = $"{snapshot.Name} - Optiland 光学工作台";
+        _statusText.Text = $"{snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
+        _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
+        _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
+        _apertureText.Text = $"APER: {snapshot.ApertureValue:0.####}";
+        _trackText.Text = $"TOTR: {FormatMetric(snapshot.TotalTrack)}";
+    }
+
+    private async Task SwitchDocumentAsync(Action createDocument)
+    {
+        await _panels.SaveCurrentSessionAsync();
+        createDocument();
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(RefreshStatus);
+    }
+
+    private void OnWorkspacePersistenceFailed(object? sender, WorkspacePersistenceFailedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(() =>
+            _statusText.Text = $"工作区自动保存失败：{args.Exception.Message}");
     }
 
     private static string FormatMetric(double value)
@@ -556,7 +655,7 @@ public sealed class MainWindow : Window
 
     private void SetLightTheme(bool save = true)
     {
-        Application.Current!.RequestedThemeVariant = Avalonia.Styling.ThemeVariant.Light;
+        Avalonia.Application.Current!.RequestedThemeVariant = Avalonia.Styling.ThemeVariant.Light;
         _settings.Theme = "Light";
         if (save)
         {
@@ -572,19 +671,15 @@ public sealed class MainWindow : Window
         SaveLayout();
     }
 
-    private void SaveLayoutSlot(int slot)
+    private Task SaveLayoutSlot(int slot)
     {
-        _settings.SaveLayoutSlot(slot, _panels.CaptureLayout());
+        return _panels.SaveLayoutSlotAsync(slot);
     }
 
-    private void LoadLayoutSlot(int slot)
+    private async Task LoadLayoutSlot(int slot)
     {
-        var layout = _settings.LoadLayoutSlot(slot);
-        if (layout is not null)
-        {
-            _panels.ApplyLayout(layout);
-            SaveLayout();
-        }
+        await _panels.LoadLayoutSlotAsync(slot);
+        SaveLayout();
     }
 
     private async Task ShowCommandPaletteAsync()
@@ -609,6 +704,11 @@ public sealed class MainWindow : Window
 
     private async void OnActionExecutionFailed(object? sender, ActionExecutionFailedEventArgs args)
     {
+        if (_closed || _closeInProgress)
+        {
+            return;
+        }
+
         var dialog = new Window
         {
             Title = "操作失败",
@@ -647,7 +747,17 @@ public sealed class MainWindow : Window
                 closeButton
             }
         };
-        await dialog.ShowDialog(this);
+        try
+        {
+            await dialog.ShowDialog(this);
+        }
+        catch (Exception exception)
+        {
+            if (!_closed)
+            {
+                _statusText.Text = $"操作失败：{args.Exception.Message}；错误窗口未能显示：{exception.Message}";
+            }
+        }
     }
 
     private sealed record AnalysisRibbonCommand(

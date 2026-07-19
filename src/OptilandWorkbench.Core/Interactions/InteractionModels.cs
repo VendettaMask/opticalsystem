@@ -155,10 +155,13 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
         {
             var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
             var delta = (Order ?? 1) * wavelengthMillimeters * legacyFrequency;
-            return ray with { Direction = Normalize(new Vector3D(
-                ray.Direction.X + delta,
-                ray.Direction.Y,
-                ray.Direction.Z)) };
+            return ray with
+            {
+                Direction = Normalize(new Vector3D(
+                    ray.Direction.X + delta,
+                    ray.Direction.Y,
+                    ray.Direction.Z))
+            };
         }
 
         var geometry = ResolveGeometry(context);

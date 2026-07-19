@@ -17,6 +17,7 @@ using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
 using OptilandWorkbench.Core.Visualization;
 
@@ -376,10 +377,50 @@ public sealed class OptilandParityTests
         Assert.NotEmpty(scene.Surfaces);
         Assert.NotEmpty(scene.LensElements);
         Assert.Contains(scene.Surfaces, surface => surface.Rim.Count >= 16);
+        Assert.All(scene.Surfaces, surface => Assert.NotEmpty(surface.Faces));
+        var curvedSurface = scene.Surfaces.Single(surface => surface.SurfaceNumber == 2);
+        var curvedSurfacePoints = curvedSurface.Faces.SelectMany(face => face.Points).ToArray();
+        Assert.True(curvedSurfacePoints.Max(point => point.Z) - curvedSurfacePoints.Min(point => point.Z) > 0.1);
         Assert.Contains(scene.Rays, ray => ray.Points.Any(point => Math.Abs(point.X) > 0.01));
         Assert.True(scene.ZMax > scene.ZMin);
         Assert.True(scene.XExtent > 0);
         Assert.True(scene.YExtent > 0);
+    }
+
+    [Fact]
+    public void LayoutViewerOptionsFilterSurfacesFieldsWavelengthsAndPupilSamples()
+    {
+        var optic = Optic.CreateTessarLens();
+        var builder = new Layout2DBuilder(optic);
+        var options = new LayoutBuildOptions(
+            FirstSurface: 1,
+            LastSurface: 4,
+            FieldIndex: 1,
+            WavelengthIndex: 2,
+            RayCount: 7,
+            LowerPupil: -1,
+            UpperPupil: 1);
+
+        var scene = builder.Build(surfaceSamples: 17, options);
+
+        Assert.Equal(new[] { 1, 2, 3, 4 }, scene.Surfaces.Select(surface => surface.SurfaceNumber));
+        Assert.All(scene.LensElements, element =>
+        {
+            Assert.InRange(element.FrontSurfaceNumber, 1, 4);
+            Assert.InRange(element.BackSurfaceNumber, 1, 4);
+        });
+        Assert.NotEmpty(scene.Rays);
+        Assert.All(scene.Rays, ray =>
+        {
+            Assert.Equal(1, ray.FieldIndex);
+            Assert.Equal(2, ray.WavelengthIndex);
+        });
+        Assert.Equal(7, scene.Rays.Select(ray => ray.PupilIndex).Distinct().Count());
+
+        var marginalAndChief = builder.Build(
+            surfaceSamples: 17,
+            options with { MarginalAndChiefOnly = true });
+        Assert.Equal(3, marginalAndChief.Rays.Select(ray => ray.PupilIndex).Distinct().Count());
     }
 
     [Fact]
@@ -486,7 +527,13 @@ public sealed class OptilandParityTests
         Assert.Equal(scene2D.LensElements.Count, scene3D.LensElements.Count);
         foreach (var surface in scene3D.Surfaces)
         {
-            Assert.All(surface.Rim.Concat(surface.MeridianX).Concat(surface.MeridianY), point => AssertFinite(name, point.X, point.Y, point.Z));
+            Assert.NotEmpty(surface.Faces);
+            Assert.All(
+                surface.Rim
+                    .Concat(surface.MeridianX)
+                    .Concat(surface.MeridianY)
+                    .Concat(surface.Faces.SelectMany(face => face.Points)),
+                point => AssertFinite(name, point.X, point.Y, point.Z));
         }
 
         foreach (var ray in scene3D.Rays)
@@ -643,6 +690,21 @@ public sealed class OptilandParityTests
         Assert.True(value > 4.8);
         Assert.NotEmpty(result.BestVariables);
         Assert.NotEmpty(result.MeritHistory);
+    }
+
+    [Fact]
+    public void OptimizerHonorsAmbientCancellation()
+    {
+        var value = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable("x", () => value, next => value = next, -10, 10));
+        problem.AddOperand(new Operand("target", 3, 1, () => value));
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        using var scope = ComputationCancellation.Push(cancellation.Token);
+
+        Assert.Throws<OperationCanceledException>(() =>
+            OptimizerCatalog.Create("Least Squares").Optimize(problem, maxIterations: 100));
     }
 
     [Fact]

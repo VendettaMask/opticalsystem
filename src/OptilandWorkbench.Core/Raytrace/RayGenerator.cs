@@ -2,6 +2,7 @@ using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Raytrace;
 
@@ -61,10 +62,13 @@ public sealed class RayGenerator
 
         foreach (var field in fields)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             foreach (var wavelength in wavelengths)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 foreach (var sample in samples)
                 {
+                    ComputationCancellation.ThrowIfCancellationRequested();
                     var rayGeometry = CreateFieldRay(
                         field.X,
                         field.Y,

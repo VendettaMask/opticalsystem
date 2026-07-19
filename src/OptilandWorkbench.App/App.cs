@@ -5,14 +5,19 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
+using Dock.Avalonia.Controls;
+using Dock.Avalonia.Themes.Fluent;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App;
 
-public sealed class App : Application
+public sealed class App : Avalonia.Application
 {
     public override void Initialize()
     {
         Styles.Add(new FluentTheme());
+        Styles.Add(new DockFluentTheme());
+        DataTemplates.Add(new WorkspaceViewLocator());
         Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid"))
         {
             Source = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml")
@@ -73,6 +78,50 @@ public sealed class App : Application
                 new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
             }
         });
+        AddDockIconStyles();
+    }
+
+    private void AddDockIconStyles()
+    {
+        var documentCloseStyle = new Style(selector => selector
+            .OfType<DocumentTabStripItem>()
+            .Descendant()
+            .OfType<Button>());
+        AddDockButtonSetters(documentCloseStyle, 18, 2, new Thickness(0));
+        Styles.Add(documentCloseStyle);
+        AddDockChromeButtonStyle("PART_MenuButton");
+        AddDockChromeButtonStyle("PART_PinButton");
+        AddDockChromeButtonStyle("PART_MaximizeRestoreButton");
+        AddDockChromeButtonStyle("PART_CloseButton");
+    }
+
+    private void AddDockChromeButtonStyle(string partName)
+    {
+        var style = new Style(selector => selector
+            .OfType<ToolChromeControl>()
+            .Template()
+            .OfType<Button>()
+            .Name(partName));
+        AddDockButtonSetters(style, 22, 4, new Thickness(2, 0));
+        Styles.Add(style);
+    }
+
+    private static void AddDockButtonSetters(
+        Style style,
+        double size,
+        double padding,
+        Thickness margin)
+    {
+        style.Setters.Add(new Setter(Button.WidthProperty, size));
+        style.Setters.Add(new Setter(Button.HeightProperty, size));
+        style.Setters.Add(new Setter(Button.MinWidthProperty, size));
+        style.Setters.Add(new Setter(Button.MinHeightProperty, size));
+        style.Setters.Add(new Setter(Button.PaddingProperty, new Thickness(padding)));
+        style.Setters.Add(new Setter(Button.MarginProperty, margin));
+        style.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(5)));
+        style.Setters.Add(new Setter(Button.BackgroundProperty, Brushes.Transparent));
+        style.Setters.Add(new Setter(Button.BorderBrushProperty, Brushes.Transparent));
+        style.Setters.Add(new Setter(Button.BorderThicknessProperty, new Thickness(0)));
     }
 
     public override void OnFrameworkInitializationCompleted()

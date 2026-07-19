@@ -1,10 +1,11 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Media;
-using OptilandWorkbench.App.Connectors;
+using Avalonia.Threading;
+using Dock.Avalonia.Controls;
+using Dock.Model.Controls;
+using Dock.Model.Core;
+using Dock.Model.Mvvm.Controls;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
-using OptilandWorkbench.App.Panels;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -19,239 +20,585 @@ public enum WorkspacePanelId
     MultiConfiguration
 }
 
-public sealed record WorkspacePanelDescriptor(
-    WorkspacePanelId Id,
-    string Title,
-    Func<Control> CreateContent);
-
-public sealed class PanelManager
+public sealed class PanelManager : IDisposable
 {
-    private static readonly Color BorderGray = Color.FromRgb(209, 209, 214);
-    private static readonly Color ExplorerBackground = Color.FromRgb(245, 245, 247);
-
+    private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
-    private readonly IReadOnlyList<WorkspacePanelDescriptor> _panels;
-    private readonly IReadOnlyList<Control> _panelContents;
-    private ContentControl _workspaceContent = null!;
-    private int _selectedPanelIndex;
+    private readonly WorkspaceSessionStore _sessionStore;
+    private readonly WorkspaceDockLayoutSerializer _layoutSerializer = new();
+    private readonly DispatcherTimer _saveTimer;
+    private readonly SemaphoreSlim _sessionSaveGate = new(1, 1);
+    private long _restoreGeneration;
+    private bool _restoring;
+    private bool _disposed;
 
-    public PanelManager(OptilandConnector connector, AppSettings settings)
+    public PanelManager(
+        IWorkbenchApplication application,
+        AppSettings settings,
+        WorkspaceSessionStore? sessionStore = null)
     {
+        _application = application;
         _settings = settings;
-        _panels = new WorkspacePanelDescriptor[]
+        _sessionStore = sessionStore ?? new WorkspaceSessionStore();
+        Factory = new WorkspaceDockFactory(application, settings);
+        Layout = Factory.CreateLayout();
+        Factory.InitLayout(Layout);
+        WorkspaceControl = new DockControl
         {
-            new(WorkspacePanelId.LensEditor, "镜头数据编辑器", () => new LensEditorPanel(connector)),
-            new(WorkspacePanelId.Viewer, "系统视图", () => new ViewerPanel(connector)),
-            new(WorkspacePanelId.Analysis, "分析工作区", () => new AnalysisPanel(connector, settings)),
-            new(WorkspacePanelId.Optimization, "评价函数与优化", () => new OptimizationPanel(connector)),
-            new(WorkspacePanelId.Tolerancing, "公差分析", () => new TolerancingPanel(connector)),
-            new(WorkspacePanelId.MultiConfiguration, "多配置编辑器", () => new MultiConfigurationPanel(connector))
+            InitializeFactory = true,
+            InitializeLayout = false,
+            Factory = Factory,
+            Layout = Layout,
+            IsDockingEnabled = true
         };
-        _panelContents = _panels.Select(descriptor => descriptor.CreateContent()).ToArray();
-
-        WorkspaceGrid = BuildWorkspace(connector);
+        _saveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+        _saveTimer.Tick += OnSaveTimerTick;
+        Factory.LayoutChanged += OnLayoutChanged;
+        _application.Events.Changed += OnWorkspaceChanged;
     }
 
-    public Grid WorkspaceGrid { get; }
+    public WorkspaceDockFactory Factory { get; }
+
+    public event EventHandler<WorkspacePersistenceFailedEventArgs>? PersistenceFailed;
+
+    public IRootDock Layout { get; private set; }
+
+    public DockControl WorkspaceControl { get; }
+
+    public Control WorkspaceGrid => WorkspaceControl;
+
+    public async Task InitializeAsync(CancellationToken cancellationToken = default)
+    {
+        await RestoreCurrentSessionAsync(cancellationToken);
+    }
 
     public void Show(WorkspacePanelId id)
     {
-        if (id == WorkspacePanelId.SystemProperties)
+        switch (id)
         {
-            WorkspaceGrid.ColumnDefinitions[0].Width = new GridLength(
-                Math.Max(286, WorkspaceGrid.ColumnDefinitions[0].ActualWidth));
-            return;
+            case WorkspacePanelId.SystemProperties:
+                FocusSystemTool();
+                break;
+            case WorkspacePanelId.Viewer:
+                ShowViewer(OpticSceneViewMode.ThreeDimensional);
+                break;
+            case WorkspacePanelId.Analysis:
+                ShowAnalysis(_application.Analyses.AnalysisNames.FirstOrDefault() ?? "处方报告");
+                break;
+            case WorkspacePanelId.Optimization:
+                OpenStable("document:optimization", WorkspaceDocumentKind.Optimization, "优化");
+                break;
+            case WorkspacePanelId.Tolerancing:
+                OpenStable("document:tolerancing", WorkspaceDocumentKind.Tolerancing, "公差");
+                break;
+            case WorkspacePanelId.MultiConfiguration:
+                OpenStable("document:multi-configuration", WorkspaceDocumentKind.MultiConfiguration, "多配置");
+                break;
+            default:
+                OpenStable(WorkspaceDockFactory.LensDocumentId, WorkspaceDocumentKind.LensEditor, "镜头数据");
+                break;
         }
-
-        var index = IndexOf(id);
-        if (index >= 0)
-        {
-            SelectPanel(index);
-        }
-    }
-
-    public void ShowAnalysis(string analysisName)
-    {
-        var index = IndexOf(WorkspacePanelId.Analysis);
-        if (index < 0 || _panelContents[index] is not AnalysisPanel analysisPanel)
-        {
-            return;
-        }
-
-        SelectPanel(index);
-        analysisPanel.OpenAnalysis(analysisName);
     }
 
     public void ShowViewer(OpticSceneViewMode mode)
     {
-        var index = IndexOf(WorkspacePanelId.Viewer);
-        if (index < 0 || _panelContents[index] is not ViewerPanel viewerPanel)
+        if (mode == OpticSceneViewMode.TwoDimensional)
+        {
+            OpenStable("document:viewer-2d", WorkspaceDocumentKind.Viewer2D, "二维视图");
+        }
+        else
+        {
+            OpenStable("document:viewer-3d", WorkspaceDocumentKind.Viewer3D, "三维视图");
+        }
+    }
+
+    public void ShowSolidModel()
+    {
+        OpenStable("document:solid-model", WorkspaceDocumentKind.SolidModel, "实体模型");
+    }
+
+    public void ShowAnalysis(string analysisName)
+    {
+        var canonical = _application.Analyses.CanonicalKey(analysisName);
+        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            $"analysis:{canonical}",
+            WorkspaceDocumentKind.Analysis,
+            analysisName,
+            analysisName,
+            StableAnalysisGuid(canonical)));
+    }
+
+    public void CloneActiveAnalysis()
+    {
+        if (ActiveDocument() is not Document active
+            || Factory.Descriptor(active.Id) is not { Kind: WorkspaceDocumentKind.Analysis } descriptor)
         {
             return;
         }
 
-        SelectPanel(index);
-        viewerPanel.ShowView(mode);
+        var instanceId = Guid.NewGuid();
+        Factory.OpenDocument(descriptor with
+        {
+            Id = $"analysis:{_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title)}:{instanceId:N}",
+            Title = $"{descriptor.Title}（副本）",
+            InstanceId = instanceId,
+            Settings = descriptor.Settings is null ? null : new Dictionary<string, string>(descriptor.Settings)
+        });
     }
 
-    public void DockAnalysisWindows()
+    public void DockAllWindows()
     {
-        AnalysisPanel()?.DockAllWindows();
-        Show(WorkspacePanelId.Analysis);
+        foreach (var document in Factory.OpenDocuments())
+        {
+            Factory.DockAsDocument(document);
+        }
     }
 
-    public void FloatAnalysisWindows()
+    public void DockToSinglePane()
     {
-        AnalysisPanel()?.FloatAllWindows();
-        Show(WorkspacePanelId.Analysis);
+        DockAllWindows();
+        if (Factory.PrimaryDocumentDock is not IDock target)
+        {
+            return;
+        }
+
+        foreach (var document in Factory.OpenDocuments().ToArray())
+        {
+            if (document.Owner is IDock source && !ReferenceEquals(source, target))
+            {
+                Factory.MoveDockable(source, target, document, null);
+            }
+        }
     }
 
-    public void TileAnalysisWindows()
+    public void CloseAllDocuments()
     {
-        AnalysisPanel()?.TileAllWindows();
-        Show(WorkspacePanelId.Analysis);
+        foreach (var document in Factory.OpenDocuments()
+                     .Where(document => document.Id != WorkspaceDockFactory.LensDocumentId)
+                     .ToArray())
+        {
+            Factory.CloseDockable(document);
+        }
     }
 
-    public void CascadeAnalysisWindows()
+    public void FloatAllWindows()
     {
-        AnalysisPanel()?.CascadeAllWindows();
-        Show(WorkspacePanelId.Analysis);
+        foreach (var document in Factory.OpenDocuments().ToArray())
+        {
+            Factory.FloatDockable(document);
+        }
+
+        var windows = Layout.Windows?.ToArray() ?? Array.Empty<IDockWindow>();
+        for (var index = 0; index < windows.Length; index++)
+        {
+            windows[index].X = 90 + (index * 28);
+            windows[index].Y = 90 + (index * 28);
+            windows[index].Width = 920;
+            windows[index].Height = 680;
+            windows[index].Save();
+        }
+    }
+
+    public void TileAllWindows()
+    {
+        FloatAllWindows();
+        ArrangeFloatingWindows(tile: true);
+    }
+
+    public void CascadeAllWindows()
+    {
+        FloatAllWindows();
+        ArrangeFloatingWindows(tile: false);
+    }
+
+    public void DockAnalysisWindows() => DockAllWindows();
+
+    public void FloatAnalysisWindows() => FloatAllWindows();
+
+    public void TileAnalysisWindows() => TileAllWindows();
+
+    public void CascadeAnalysisWindows() => CascadeAllWindows();
+
+    public void SetActiveDocumentLocked(bool locked)
+    {
+        if (ActiveDocument() is not Document document
+            || Factory.Descriptor(document.Id) is not { } descriptor)
+        {
+            return;
+        }
+
+        Factory.UpdateDescriptor(descriptor with { IsLocked = locked });
+        Factory.ApplyLock(document.Id, locked);
+        ScheduleSave();
     }
 
     public WorkspaceLayoutState CaptureLayout()
     {
-        var width = WorkspaceGrid.ColumnDefinitions.Count == 0
+        var toolDock = WorkspaceDockFactory.EnumerateDockables(Layout)
+            .OfType<ToolDock>()
+            .FirstOrDefault(tool => tool.Id == WorkspaceDockFactory.ToolDockId);
+        var width = toolDock is null || double.IsNaN(toolDock.Proportion)
             ? 286
-            : Math.Clamp(WorkspaceGrid.ColumnDefinitions[0].ActualWidth, 230, 360);
-        return new WorkspaceLayoutState(width, 0, Math.Max(0, _selectedPanelIndex));
+            : Math.Clamp(toolDock.Proportion * 1440, 230, 420);
+        return new WorkspaceLayoutState(width, 0, 0);
     }
 
     public void ApplyLayout(WorkspaceLayoutState layout)
     {
-        WorkspaceGrid.ColumnDefinitions[0].Width = new GridLength(Math.Clamp(layout.LeftPaneWidth, 230, 360));
-        SelectPanel(layout.RightTabIndex, persist: false);
+        var toolDock = WorkspaceDockFactory.EnumerateDockables(Layout)
+            .OfType<ToolDock>()
+            .FirstOrDefault(tool => tool.Id == WorkspaceDockFactory.ToolDockId);
+        if (toolDock is not null)
+        {
+            toolDock.Proportion = Math.Clamp(layout.LeftPaneWidth / 1440.0, 0.16, 0.34);
+        }
     }
 
     public void ResetLayout()
     {
-        ApplyLayout(new WorkspaceLayoutState(286, 0, 0));
+        ReplaceLayout(Factory.CreateLayout());
+        ScheduleSave();
     }
 
-    private Grid BuildWorkspace(OptilandConnector connector)
+    public async Task SaveDefaultLayoutAsync(CancellationToken cancellationToken = default)
     {
-        var initialExplorerWidth = _settings.LeftPaneWidth > 360
-            ? 286
-            : Math.Clamp(_settings.LeftPaneWidth, 230, 360);
-        var grid = new Grid
-        {
-            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)),
-            ColumnDefinitions = new ColumnDefinitions($"{initialExplorerWidth},8,*")
-        };
-
-        var explorer = BuildSystemExplorer(connector);
-        var splitterGuide = new Border
-        {
-            Width = 1,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Stretch,
-            Background = new SolidColorBrush(Color.FromRgb(209, 209, 214))
-        };
-        var splitter = new GridSplitter
-        {
-            Width = 8,
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            VerticalAlignment = VerticalAlignment.Stretch,
-            Background = Brushes.Transparent
-        };
-        var selectedIndex = _settings.RightTabIndex >= 0 && _settings.RightTabIndex < _panels.Count
-            ? _settings.RightTabIndex
-            : 0;
-        _selectedPanelIndex = selectedIndex;
-        _workspaceContent = new ContentControl
-        {
-            Margin = new Thickness(4, 0, 0, 0),
-            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)),
-            Content = _panelContents[selectedIndex]
-        };
-
-        Grid.SetColumn(explorer, 0);
-        Grid.SetColumn(splitterGuide, 1);
-        Grid.SetColumn(splitter, 1);
-        Grid.SetColumn(_workspaceContent, 2);
-        grid.Children.Add(explorer);
-        grid.Children.Add(splitterGuide);
-        grid.Children.Add(splitter);
-        grid.Children.Add(_workspaceContent);
-        return grid;
+        await SaveSessionAsync(null, cancellationToken);
     }
 
-    private Control BuildSystemExplorer(OptilandConnector connector)
+    public async Task RestoreDefaultLayoutAsync(CancellationToken cancellationToken = default)
     {
-        var layout = new Grid { RowDefinitions = new RowDefinitions("36,*") };
-        var titleBar = new Border
+        var session = await _sessionStore.LoadAsync(null, cancellationToken);
+        if (!TryRestore(session))
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(BorderGray),
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            Padding = new Thickness(10, 0),
-            Child = new TextBlock
+            if (session is not null)
             {
-                Text = "系统选项",
-                Foreground = new SolidColorBrush(Color.FromRgb(29, 29, 31)),
-                FontWeight = FontWeight.SemiBold,
-                VerticalAlignment = VerticalAlignment.Center
+                _sessionStore.Quarantine(null);
             }
-        };
-        var properties = new SystemPropertiesPanel(connector);
 
-        Grid.SetRow(titleBar, 0);
-        Grid.SetRow(properties, 1);
-        layout.Children.Add(titleBar);
-        layout.Children.Add(properties);
-
-        return new Border
-        {
-            Background = new SolidColorBrush(ExplorerBackground),
-            BorderBrush = new SolidColorBrush(BorderGray),
-            BorderThickness = new Thickness(0, 0, 1, 0),
-            Margin = new Thickness(0, 0, 3, 0),
-            Child = layout
-        };
-    }
-
-    private void SelectPanel(int index, bool persist = true)
-    {
-        var selectedIndex = Math.Clamp(index, 0, _panelContents.Count - 1);
-        _selectedPanelIndex = selectedIndex;
-        _workspaceContent.Content = _panelContents[selectedIndex];
-        if (persist)
-        {
-            PersistSelection();
+            ResetLayout();
         }
     }
 
-    private void PersistSelection()
+    public async Task SaveLayoutSlotAsync(int slot, CancellationToken cancellationToken = default)
     {
-        _settings.RightTabIndex = Math.Max(0, _selectedPanelIndex);
-        _settings.Save();
+        await _sessionSaveGate.WaitAsync(cancellationToken);
+        try
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            await _sessionStore.SaveSlotAsync(slot, CaptureSession(), cancellationToken);
+        }
+        finally
+        {
+            _sessionSaveGate.Release();
+        }
     }
 
-    private int IndexOf(WorkspacePanelId id)
+    public async Task LoadLayoutSlotAsync(int slot, CancellationToken cancellationToken = default)
     {
-        for (var index = 0; index < _panels.Count; index++)
+        var session = await _sessionStore.LoadSlotAsync(slot, cancellationToken);
+        if (session is not null && !TryRestore(session))
         {
-            if (_panels[index].Id == id)
+            _sessionStore.QuarantineSlot(slot);
+        }
+    }
+
+    public Task SaveCurrentSessionAsync(CancellationToken cancellationToken = default)
+    {
+        return SaveSessionAsync(_application.Documents.CurrentPath, cancellationToken);
+    }
+
+    public async Task RestoreCurrentSessionAsync(CancellationToken cancellationToken = default)
+    {
+        var generation = Interlocked.Increment(ref _restoreGeneration);
+        _restoring = true;
+        try
+        {
+            var path = _application.Documents.CurrentPath;
+            var session = await _sessionStore.LoadAsync(path, cancellationToken);
+            if (_disposed || generation != Interlocked.Read(ref _restoreGeneration))
             {
-                return index;
+                return;
+            }
+
+            if (!TryRestore(session))
+            {
+                if (session is not null)
+                {
+                    _sessionStore.Quarantine(path);
+                }
+
+                if (path is not null)
+                {
+                    session = await _sessionStore.LoadAsync(null, cancellationToken);
+                    if (_disposed || generation != Interlocked.Read(ref _restoreGeneration))
+                    {
+                        return;
+                    }
+
+                    if (!TryRestore(session))
+                    {
+                        if (session is not null)
+                        {
+                            _sessionStore.Quarantine(null);
+                        }
+
+                        ResetLayout();
+                    }
+                }
             }
         }
-
-        return -1;
+        finally
+        {
+            if (generation == Interlocked.Read(ref _restoreGeneration))
+            {
+                _restoring = false;
+            }
+        }
     }
 
-    private AnalysisPanel? AnalysisPanel()
+    public void Dispose()
     {
-        var index = IndexOf(WorkspacePanelId.Analysis);
-        return index >= 0 ? _panelContents[index] as AnalysisPanel : null;
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        Interlocked.Increment(ref _restoreGeneration);
+        _saveTimer.Stop();
+        _saveTimer.Tick -= OnSaveTimerTick;
+        Factory.LayoutChanged -= OnLayoutChanged;
+        _application.Events.Changed -= OnWorkspaceChanged;
+        Factory.DisposeContent();
+    }
+
+    private void OpenStable(string id, WorkspaceDocumentKind kind, string title)
+    {
+        Factory.OpenDocument(new WorkspaceDocumentDescriptor(id, kind, title));
+    }
+
+    private void FocusSystemTool()
+    {
+        var tool = WorkspaceDockFactory.EnumerateDockables(Layout)
+            .FirstOrDefault(dockable => dockable.Id == WorkspaceDockFactory.SystemToolId);
+        if (tool is null)
+        {
+            return;
+        }
+
+        Factory.SetActiveDockable(tool);
+        if (tool.Owner is IDock owner)
+        {
+            Factory.SetFocusedDockable(owner, tool);
+        }
+    }
+
+    private IDockable? ActiveDocument()
+    {
+        return Factory.OpenDocuments().FirstOrDefault(document => document.IsActive)
+            ?? Factory.OpenDocuments().FirstOrDefault(document => document.Owner is IDock dock && dock.ActiveDockable == document);
+    }
+
+    private async Task SaveSessionAsync(string? path, CancellationToken cancellationToken)
+    {
+        await _sessionSaveGate.WaitAsync(cancellationToken);
+        try
+        {
+            if (_restoring || _disposed)
+            {
+                return;
+            }
+
+            await _sessionStore.SaveAsync(path, CaptureSession(), cancellationToken);
+        }
+        finally
+        {
+            _sessionSaveGate.Release();
+        }
+    }
+
+    private async void OnSaveTimerTick(object? sender, EventArgs args)
+    {
+        _saveTimer.Stop();
+        try
+        {
+            await SaveCurrentSessionAsync();
+        }
+        catch (Exception exception)
+        {
+            PersistenceFailed?.Invoke(this, new WorkspacePersistenceFailedEventArgs(exception));
+        }
+    }
+
+    private WorkspaceSession CaptureSession() => new(
+        WorkspaceSessionStore.CurrentVersion,
+        _layoutSerializer.Serialize(Layout),
+        Factory.SnapshotDescriptors(),
+        ActiveDocument()?.Id);
+
+    private bool TryRestore(WorkspaceSession? session)
+    {
+        if (session is null || string.IsNullOrWhiteSpace(session.DockLayoutJson))
+        {
+            return false;
+        }
+
+        try
+        {
+            var knownAnalyses = _application.Analyses.AnalysisNames
+                .Select(_application.Analyses.CanonicalKey)
+                .ToHashSet(StringComparer.Ordinal);
+            var descriptors = session.Documents.Where(descriptor =>
+                descriptor.Kind != WorkspaceDocumentKind.Analysis
+                || knownAnalyses.Contains(_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title)))
+                .ToArray();
+            Factory.RegisterDescriptors(descriptors);
+            var restored = _layoutSerializer.Deserialize(session.DockLayoutJson);
+            if (restored is null)
+            {
+                return false;
+            }
+
+            ReplaceLayout(restored);
+            var active = session.ActiveDocumentId is null
+                ? null
+                : Factory.OpenDocuments().FirstOrDefault(document => document.Id == session.ActiveDocumentId);
+            if (active is not null)
+            {
+                Factory.SetActiveDockable(active);
+                if (active.Owner is IDock owner)
+                {
+                    Factory.SetFocusedDockable(owner, active);
+                }
+            }
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void ReplaceLayout(IRootDock layout)
+    {
+        Factory.DisposeContent();
+        ClampFloatingWindows(layout);
+        Layout = layout;
+        Factory.InitLayout(layout);
+        WorkspaceControl.Layout = layout;
+    }
+
+    private void ClampFloatingWindows(IRootDock layout)
+    {
+        var screens = TopLevel.GetTopLevel(WorkspaceControl)?.Screens;
+        var workingArea = screens?.Primary?.WorkingArea;
+        if (workingArea is null || layout.Windows is null)
+        {
+            return;
+        }
+
+        foreach (var window in layout.Windows)
+        {
+            var bounds = WorkspaceSessionStore.ClampWindowBounds(
+                window.X,
+                window.Y,
+                window.Width,
+                window.Height,
+                workingArea.Value.X,
+                workingArea.Value.Y,
+                workingArea.Value.Width,
+                workingArea.Value.Height);
+            window.X = bounds.X;
+            window.Y = bounds.Y;
+            window.Width = bounds.Width;
+            window.Height = bounds.Height;
+        }
+    }
+
+    private void ArrangeFloatingWindows(bool tile)
+    {
+        var windows = Layout.Windows?.ToArray() ?? Array.Empty<IDockWindow>();
+        if (windows.Length == 0)
+        {
+            return;
+        }
+
+        if (!tile)
+        {
+            for (var index = 0; index < windows.Length; index++)
+            {
+                windows[index].X = 80 + (index * 30);
+                windows[index].Y = 80 + (index * 28);
+                windows[index].Width = 920;
+                windows[index].Height = 680;
+                windows[index].Save();
+            }
+
+            return;
+        }
+
+        var columns = (int)Math.Ceiling(Math.Sqrt(windows.Length));
+        var rows = (int)Math.Ceiling(windows.Length / (double)columns);
+        var cellWidth = Math.Max(420, 1440.0 / columns);
+        var cellHeight = Math.Max(320, 900.0 / rows);
+        for (var index = 0; index < windows.Length; index++)
+        {
+            windows[index].X = 30 + ((index % columns) * cellWidth);
+            windows[index].Y = 50 + ((index / columns) * cellHeight);
+            windows[index].Width = cellWidth;
+            windows[index].Height = cellHeight;
+            windows[index].Save();
+        }
+    }
+
+    private void OnLayoutChanged(object? sender, EventArgs args) => ScheduleSave();
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        if (args.FileSwitched)
+        {
+            Dispatcher.UIThread.Post(RestoreAfterFileSwitchAsync);
+        }
+    }
+
+    private async void RestoreAfterFileSwitchAsync()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        try
+        {
+            await RestoreCurrentSessionAsync();
+        }
+        catch (Exception exception)
+        {
+            PersistenceFailed?.Invoke(this, new WorkspacePersistenceFailedEventArgs(exception));
+        }
+    }
+
+    private void ScheduleSave()
+    {
+        if (_restoring || _disposed)
+        {
+            return;
+        }
+
+        _saveTimer.Stop();
+        _saveTimer.Start();
+    }
+
+    private static Guid StableAnalysisGuid(string canonical)
+    {
+        var bytes = System.Security.Cryptography.MD5.HashData(System.Text.Encoding.UTF8.GetBytes(canonical));
+        return new Guid(bytes);
     }
 }
+
+public sealed record WorkspacePersistenceFailedEventArgs(Exception Exception);

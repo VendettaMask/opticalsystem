@@ -175,15 +175,25 @@ public sealed class SensitivityAnalysis
 
     public IReadOnlyList<SensitivityResult> Run(int compensationIterations = 0)
     {
+        return Run(compensationIterations, CancellationToken.None);
+    }
+
+    public IReadOnlyList<SensitivityResult> Run(
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
         var baseline = _tolerancing.Merit();
         var results = new List<SensitivityResult>();
         foreach (var perturbation in _tolerancing.Perturbations)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var snapshot = _optic.ToSnapshot();
             try
             {
                 perturbation.Apply(_optic);
-                var perturbed = CompensatedMerit(compensationIterations);
+                cancellationToken.ThrowIfCancellationRequested();
+                var perturbed = CompensatedMerit(compensationIterations, cancellationToken);
                 results.Add(new SensitivityResult(perturbation.Name, perturbed - baseline));
             }
             finally
@@ -204,8 +214,11 @@ public sealed class SensitivityAnalysis
             .ToArray();
     }
 
-    private double CompensatedMerit(int compensationIterations)
+    private double CompensatedMerit(
+        int compensationIterations,
+        CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
         {
             return _tolerancing.Merit();
@@ -213,6 +226,7 @@ public sealed class SensitivityAnalysis
 
         var problem = _tolerancing.CreateCompensationProblem();
         new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        cancellationToken.ThrowIfCancellationRequested();
         return problem.SumSquared();
     }
 }
@@ -232,7 +246,17 @@ public sealed class MonteCarlo
 
     public IReadOnlyList<double> Run(int trials, int seed = 1234)
     {
-        return RunDetailed(trials, seed)
+        return RunDetailed(trials, seed, 0, CancellationToken.None)
+            .Select(result => result.CompensatedMerit)
+            .ToArray();
+    }
+
+    public IReadOnlyList<double> Run(
+        int trials,
+        int seed,
+        CancellationToken cancellationToken)
+    {
+        return RunDetailed(trials, seed, 0, cancellationToken)
             .Select(result => result.CompensatedMerit)
             .ToArray();
     }
@@ -242,20 +266,33 @@ public sealed class MonteCarlo
         int seed = 1234,
         int compensationIterations = 0)
     {
+        return RunDetailed(trials, seed, compensationIterations, CancellationToken.None);
+    }
+
+    public IReadOnlyList<TolerancingTrialResult> RunDetailed(
+        int trials,
+        int seed,
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
         var random = new Random(seed);
         var results = new List<TolerancingTrialResult>();
         for (var trial = 0; trial < Math.Max(1, trials); trial++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var snapshot = _optic.ToSnapshot();
             try
             {
                 foreach (var perturbation in _tolerancing.Perturbations)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     ApplyPerturbation(perturbation, random);
                 }
 
+                cancellationToken.ThrowIfCancellationRequested();
                 var merit = _tolerancing.Merit();
-                var compensated = CompensatedMerit(compensationIterations);
+                var compensated = CompensatedMerit(compensationIterations, cancellationToken);
                 results.Add(new TolerancingTrialResult(trial, merit, compensated));
             }
             finally
@@ -288,8 +325,11 @@ public sealed class MonteCarlo
         perturbation.Apply(_optic);
     }
 
-    private double CompensatedMerit(int compensationIterations)
+    private double CompensatedMerit(
+        int compensationIterations,
+        CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
         {
             return _tolerancing.Merit();
@@ -297,6 +337,7 @@ public sealed class MonteCarlo
 
         var problem = _tolerancing.CreateCompensationProblem();
         new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        cancellationToken.ThrowIfCancellationRequested();
         return problem.SumSquared();
     }
 }
