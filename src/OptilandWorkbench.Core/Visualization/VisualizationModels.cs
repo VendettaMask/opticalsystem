@@ -406,8 +406,7 @@ public sealed class Layout2DBuilder
         var wavelengths = SelectedWavelengths(options);
         var pupilSamples = BuildPupilSamples(includeDepth, options);
         var fields = new List<(int Index, double NormalizedX, double NormalizedY, double Weight)>();
-        var maxX = _optic.Fields.Select(field => Math.Abs(field.XAngleDegrees)).DefaultIfEmpty(0).Max();
-        var maxY = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
+        var maximumField = FieldCoordinates.MaximumRadius(_optic.Fields);
         if (_optic.Fields.Count == 0)
         {
             fields.Add((0, 0, 0, 1));
@@ -424,8 +423,8 @@ public sealed class Layout2DBuilder
 
                 fields.Add((
                     fieldIndex,
-                    maxX <= 1e-12 ? 0 : field.XAngleDegrees / maxX,
-                    maxY <= 1e-12 ? 0 : field.YAngleDegrees / maxY,
+                    maximumField <= 1e-12 ? 0 : field.X / maximumField,
+                    maximumField <= 1e-12 ? 0 : field.Y / maximumField,
                     Math.Max(0.05, field.Weight)));
             }
         }

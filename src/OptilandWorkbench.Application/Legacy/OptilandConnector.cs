@@ -230,8 +230,12 @@ public sealed class OptilandConnector
                 IntParameter("NumPoints", "采样点数", "256", 3, 1024),
                 IntParameter("FitRings", "拟合球六角采样环数", "8", 2, 32)
             },
-            "Distortion" => DistortionParameters("128", CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle),
-            "Grid Distortion" => DistortionParameters("10", CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle),
+            "Distortion" => DistortionParameters(
+                "128",
+                UsesAngularDistortionModel()),
+            "Grid Distortion" => DistortionParameters(
+                "10",
+                UsesAngularDistortionModel()),
             "Field Curvature" => new[]
             {
                 IntParameter("NumPoints", "采样点数", "128", 3, 1024),
@@ -701,7 +705,7 @@ public sealed class OptilandConnector
         Fields.Add(new FieldPoint
         {
             Label = $"视场 {Fields.Count}",
-            YAngleDegrees = Fields.Count * 4,
+            Y = Fields.Count * 4,
             Weight = 1
         });
         SetStatus("已添加视场。");
@@ -1604,6 +1608,24 @@ public sealed class OptilandConnector
         }
 
         return parameters.ToArray();
+    }
+
+    private bool UsesAngularDistortionModel()
+    {
+        if (CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle)
+        {
+            return true;
+        }
+
+        if (CurrentOptic.FieldDefinition != FieldDefinitionKind.RealImageHeight)
+        {
+            return false;
+        }
+
+        var objectSurface = CurrentOptic.SurfaceGroup.Items.FirstOrDefault();
+        return objectSurface is null
+            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
+            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static int TryReadInt(IReadOnlyDictionary<string, string> settings, string key, int fallback)

@@ -379,6 +379,12 @@ public sealed class DistortionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (Optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
+        {
+            var converted = RealImageFieldConversion.ForDistortion(Optic);
+            return new DistortionAnalysis(converted, _numPoints, _distortionType).GenerateData();
+        }
+
         const double epsilon = 1e-10;
         var maxField = AnalysisTrace.MaxFieldValue(Optic);
         var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
@@ -393,9 +399,13 @@ public sealed class DistortionAnalysis : BaseAnalysis
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
             var wavelength = wavelengths[wavelengthIndex];
-            var chiefHeight = angularField
-                ? 0
-                : AnalysisTrace.FinalSample(Optic, 0, 0, 0, 0, wavelength.Micrometers).Position.Y;
+            var chiefHeight = AnalysisTrace.FinalSample(
+                Optic,
+                0,
+                0,
+                0,
+                0,
+                wavelength.Micrometers).Position.Y;
             var referenceHeight = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers).Position.Y
                 - chiefHeight;
             var constant = AnalysisTrace.IdealFieldScale(
@@ -2150,6 +2160,12 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (Optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
+        {
+            var converted = RealImageFieldConversion.ForDistortion(Optic);
+            return new GridDistortionAnalysis(converted, _numPoints, _distortionType).GenerateData();
+        }
+
         const double epsilon = 1e-10;
         var maxField = AnalysisTrace.MaxFieldValue(Optic);
         var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
@@ -2275,7 +2291,7 @@ internal static class AnalysisTrace
 {
     public static double MaxFieldValue(Optic optic)
     {
-        return optic.Fields.Select(field => Math.Abs(field.Y)).DefaultIfEmpty(0).Max();
+        return FieldCoordinates.MaximumRadius(optic.Fields);
     }
 
     public static string FieldAxisLabel(Optic optic)
@@ -2367,7 +2383,15 @@ internal static class AnalysisTrace
             throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
         }
 
-        return history[^1];
+        var sample = history[^1];
+        var imageSurface = optic.SurfaceGroup.Items.LastOrDefault();
+        return imageSurface is null
+            ? sample
+            : sample with
+            {
+                Position = imageSurface.CoordinateSystem.ToLocalPoint(sample.Position),
+                Direction = imageSurface.CoordinateSystem.ToLocalDirection(sample.Direction)
+            };
     }
 }
 
@@ -2389,14 +2413,10 @@ internal static class SpotAnalysisEngine
 {
     public static IReadOnlyList<(double Hx, double Hy)> DefinedFields(Optic optic)
     {
-        var maxField = optic.Fields.Select(field => Math.Sqrt(
-                (field.XAngleDegrees * field.XAngleDegrees)
-                + (field.YAngleDegrees * field.YAngleDegrees)))
-            .DefaultIfEmpty(0)
-            .Max();
+        var maxField = FieldCoordinates.MaximumRadius(optic.Fields);
         return optic.Fields.Select(field => (
-            Hx: maxField <= 1e-12 ? 0 : field.XAngleDegrees / maxField,
-            Hy: maxField <= 1e-12 ? 0 : field.YAngleDegrees / maxField)).ToArray();
+            Hx: maxField <= 1e-12 ? 0 : field.X / maxField,
+            Hy: maxField <= 1e-12 ? 0 : field.Y / maxField)).ToArray();
     }
 
     public static SpotAnalysisResult Generate(

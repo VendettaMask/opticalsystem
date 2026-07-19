@@ -287,6 +287,7 @@ public static class ImageSimulationEngine
         int numGridPoints = 25,
         int degree = 5)
     {
+        optic = RealImageFieldConversion.ForImageSimulation(optic);
         numGridPoints = Math.Max(degree + 1, numGridPoints);
         var count = numGridPoints * numGridPoints;
         var realX = new double[count];

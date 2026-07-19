@@ -45,16 +45,7 @@ public static class ReferenceSphereWavefrontEngine
         var trace = optic.SequentialRayTracer.Trace(bundle);
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter
             .RefractiveIndex(wavelength.Nanometers);
-        var maxFieldDegrees = optic.Fields.Select(item => Math.Sqrt(
-                (item.XAngleDegrees * item.XAngleDegrees)
-                + (item.YAngleDegrees * item.YAngleDegrees)))
-            .DefaultIfEmpty(0)
-            .Max();
-        var tx = Math.Tan(field.Hx * maxFieldDegrees * Math.PI / 180.0);
-        var ty = Math.Tan(field.Hy * maxFieldDegrees * Math.PI / 180.0);
-        var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
-        var ux = tx * uz;
-        var uy = ty * uz;
+        var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var rays = new List<PreparedRay>(pupilSamples.Count);
         for (var index = 0; index < pupilSamples.Count; index++)

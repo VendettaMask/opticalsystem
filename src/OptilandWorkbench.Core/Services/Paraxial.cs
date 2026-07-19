@@ -36,8 +36,30 @@ public sealed class Paraxial
         return _optic.Aperture.Kind switch
         {
             ApertureKind.FNumber => Math.Abs(EstimateEffectiveFocalLength()) / Math.Max(1e-12, _optic.Aperture.Value),
+            ApertureKind.NumericalAperture => EntrancePupilDiameterFromObjectNumericalAperture(),
             _ => _optic.Aperture.Diameter(fallbackDiameter)
         };
+    }
+
+    private double EntrancePupilDiameterFromObjectNumericalAperture()
+    {
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (objectSurface is null || IsObjectAtInfinity(objectSurface))
+        {
+            throw new InvalidOperationException("Object numerical aperture requires a finite object surface.");
+        }
+
+        var wavelength = PrimaryWavelengthNanometers();
+        var objectIndex = objectSurface.MaterialAfter.RefractiveIndex(wavelength);
+        var sine = _optic.Aperture.Value / objectIndex;
+        if (!double.IsFinite(sine) || sine <= 0 || sine > 1)
+        {
+            throw new InvalidOperationException("Object numerical aperture divided by object-space index must be in (0, 1].");
+        }
+
+        var objectPosition = objectSurface.CoordinateSystem.Origin.Z;
+        var distance = EstimateEntrancePupilLocation() - objectPosition;
+        return 2 * distance * Math.Tan(Math.Asin(sine));
     }
 
     public double EstimateEntrancePupilLocation()
@@ -100,34 +122,153 @@ public sealed class Paraxial
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
         var entrancePupilLocation = EstimateEntrancePupilLocation();
         var entrancePupilRadius = EstimateEntrancePupilDiameter() / 2;
-        var maxField = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
-        var slope = Math.Tan(normalizedFieldY * maxField * Math.PI / 180.0);
-        var heights = normalizedPupilY
-            .Select(pupil => (pupil * entrancePupilRadius) + (slope * (firstSurfacePosition - entrancePupilLocation)))
-            .ToArray();
-        var slopes = Enumerable.Repeat(slope, heights.Length).ToArray();
-        return TraceGeneric(heights, slopes, firstSurfacePosition, wavelengthMicrometers);
+        var fieldY = normalizedFieldY * FieldCoordinates.MaximumRadius(_optic.Fields);
+        var pupilHeights = normalizedPupilY.Select(pupil => pupil * entrancePupilRadius).ToArray();
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        var objectAtInfinity = IsObjectAtInfinity(objectSurface);
+        double objectHeight;
+        double objectPosition;
+
+        switch (_optic.FieldDefinition)
+        {
+            case FieldDefinitionKind.ObjectHeight:
+                if (objectAtInfinity)
+                {
+                    throw new InvalidOperationException("Object-height fields require a finite object surface.");
+                }
+
+                objectHeight = -fieldY;
+                objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+                break;
+            case FieldDefinitionKind.ParaxialImageHeight:
+                (objectHeight, objectPosition) = ParaxialImageObjectPosition(
+                    fieldY,
+                    entrancePupilLocation,
+                    firstSurfacePosition,
+                    objectSurface,
+                    objectAtInfinity);
+                break;
+            case FieldDefinitionKind.RealImageHeight:
+                var launch = _optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(0, fieldY);
+                if (objectAtInfinity)
+                {
+                    var slope = Math.Tan(launch.Y * Math.PI / 180.0);
+                    objectHeight = -slope * entrancePupilLocation;
+                    objectPosition = firstSurfacePosition;
+                }
+                else
+                {
+                    objectHeight = -launch.Y;
+                    objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+                }
+
+                break;
+            default:
+                var angleSlope = Math.Tan(fieldY * Math.PI / 180.0);
+                objectPosition = objectAtInfinity
+                    ? firstSurfacePosition
+                    : objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+                objectHeight = -angleSlope * (entrancePupilLocation - objectPosition);
+                break;
+        }
+
+        var heights = pupilHeights.Select(pupilHeight => objectAtInfinity
+            ? pupilHeight + objectHeight
+            : objectHeight).ToArray();
+        var slopes = pupilHeights.Select((pupilHeight, index) =>
+        {
+            var denominator = entrancePupilLocation - objectPosition;
+            return Math.Abs(denominator) <= 1e-15
+                ? 0
+                : (pupilHeight - heights[index]) / denominator;
+        }).ToArray();
+        return TraceGeneric(heights, slopes, objectPosition, wavelengthMicrometers);
     }
 
     public ParaxialTrace MarginalRay(double wavelengthMicrometers)
     {
         var positions = SurfacePositions();
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
-        return TraceGeneric(
-            new[] { EstimateEntrancePupilDiameter() / 2 },
-            new[] { 0.0 },
-            firstSurfacePosition - 10,
-            wavelengthMicrometers);
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (IsObjectAtInfinity(objectSurface))
+        {
+            return TraceGeneric(
+                new[] { EstimateEntrancePupilDiameter() / 2 },
+                new[] { 0.0 },
+                firstSurfacePosition - 10,
+                wavelengthMicrometers);
+        }
+
+        var objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+        var pupilDistance = EstimateEntrancePupilLocation() - objectPosition;
+        var slope = Math.Abs(pupilDistance) <= 1e-15
+            ? 0
+            : EstimateEntrancePupilDiameter() / (2 * pupilDistance);
+        return TraceGeneric(new[] { 0.0 }, new[] { slope }, objectPosition, wavelengthMicrometers);
     }
 
     public ParaxialTrace ChiefRay(double wavelengthMicrometers)
     {
+        var maximumRadius = FieldCoordinates.MaximumRadius(_optic.Fields);
+        var maximumY = _optic.Fields
+            .OrderByDescending(field => Math.Abs(field.Y))
+            .Select(field => field.Y)
+            .FirstOrDefault();
+        var normalizedY = maximumRadius <= 1e-15 ? 0 : maximumY / maximumRadius;
+        return TraceNormalizedPupil(normalizedY, new[] { 0.0 }, wavelengthMicrometers);
+    }
+
+    private (double Height, double Position) ParaxialImageObjectPosition(
+        double imageHeight,
+        double entrancePupilLocation,
+        double firstSurfacePosition,
+        OpticalSurface? objectSurface,
+        bool objectAtInfinity)
+    {
+        var (imageHeightUnit, objectHeightUnit, objectSlopeUnit) = TraceUnitChiefRay();
+        if (Math.Abs(imageHeightUnit) <= 1e-15)
+        {
+            throw new InvalidOperationException("The paraxial image height cannot be resolved for this optical system.");
+        }
+
+        if (objectAtInfinity)
+        {
+            var slope = objectSlopeUnit * imageHeight / imageHeightUnit;
+            return (-slope * entrancePupilLocation, firstSurfacePosition);
+        }
+
+        return (
+            objectHeightUnit * imageHeight / imageHeightUnit,
+            objectSurface?.CoordinateSystem.Origin.Z ?? 0);
+    }
+
+    private (double ImageHeight, double ObjectHeight, double ObjectSlope) TraceUnitChiefRay()
+    {
+        var surfaces = _optic.SurfaceGroup.Items;
+        var stopIndex = surfaces.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex < 0)
+        {
+            throw new InvalidOperationException("Image-height fields require an aperture stop.");
+        }
+
         var positions = SurfacePositions();
-        var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
-        var fieldRadians = _optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max() * Math.PI / 180.0;
-        var slope = Math.Tan(fieldRadians);
-        var height = slope * (firstSurfacePosition - EstimateEntrancePupilLocation());
-        return TraceGeneric(new[] { height }, new[] { slope }, firstSurfacePosition, wavelengthMicrometers);
+        var wavelength = PrimaryWavelengthNanometers() / 1000.0;
+        var imageTrace = TraceGeneric(
+            new[] { 0.0 },
+            new[] { 1.0 },
+            positions[stopIndex],
+            wavelength,
+            stopIndex);
+        var objectTrace = TraceGenericReverse(
+            new[] { 0.0 },
+            new[] { 1.0 },
+            positions[^1] - positions[stopIndex],
+            wavelength,
+            surfaces.Count - stopIndex);
+        return (
+            imageTrace.Heights[^1][0],
+            objectTrace.Heights[^1][0],
+            objectTrace.Slopes[^1][0]);
     }
 
     public ParaxialTrace TraceGeneric(
@@ -274,6 +415,13 @@ public sealed class Paraxial
     {
         return (_optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? _optic.Wavelengths.FirstOrDefault())?.Nanometers
             ?? 587.6;
+    }
+
+    private static bool IsObjectAtInfinity(OpticalSurface? objectSurface)
+    {
+        return objectSurface is null
+            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
+            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static RayMatrix Refract(RayMatrix matrix, double radius, double indexBefore, double indexAfter)

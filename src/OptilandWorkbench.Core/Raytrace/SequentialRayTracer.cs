@@ -89,6 +89,12 @@ public sealed class SequentialRayTracer
             foreach (var surface in _optic.SurfaceGroup.Items)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
+                if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
+                    && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
+                {
+                    continue;
+                }
+
                 var nextMaterial = surface.MaterialAfter;
                 var result = surface.TraceRay(
                     ray,

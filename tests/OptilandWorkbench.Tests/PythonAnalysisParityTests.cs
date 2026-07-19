@@ -102,7 +102,7 @@ public sealed class PythonAnalysisParityTests
     }
 
     [Fact]
-    public void HeightDefinedFieldsUseMillimetersAndLinearDistortion()
+    public void RealImageHeightUsesEquivalentAngleForDistortionAndMillimetersForFieldCurvature()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
@@ -116,12 +116,11 @@ public sealed class PythonAnalysisParityTests
         var gridDistortion = new GridDistortionAnalysis(optic, numPoints: 3).GenerateData();
         var fieldCurvature = new FieldCurvatureAnalysis(optic, numPoints: 5).GenerateData();
 
-        Assert.Equal(4.5, distortion.Values["MaxRealImageHeightMillimeters"]);
-        Assert.False(distortion.Values.ContainsKey("MaxFieldDegrees"));
-        Assert.Equal("linear-height", distortion.Values["DistortionType"]);
-        Assert.Equal("Real Image Height (mm)", distortion.PlotSeries[0].YAxisLabel);
-        Assert.Equal(4.5, distortion.PlotSeries[0].Points[^1].Y, precision: 12);
-        Assert.Equal("linear-height", gridDistortion.Values["DistortionType"]);
+        Assert.True(Convert.ToDouble(distortion.Values["MaxFieldDegrees"]) > 0);
+        Assert.False(distortion.Values.ContainsKey("MaxRealImageHeightMillimeters"));
+        Assert.Equal("f-tan", distortion.Values["DistortionType"]);
+        Assert.Equal("Field Angle (deg)", distortion.PlotSeries[0].YAxisLabel);
+        Assert.Equal("f-tan", gridDistortion.Values["DistortionType"]);
         Assert.Equal(4.5, fieldCurvature.Values["MaxRealImageHeightMillimeters"]);
         Assert.Equal("Real Image Height (mm)", fieldCurvature.PlotSeries[0].YAxisLabel);
     }

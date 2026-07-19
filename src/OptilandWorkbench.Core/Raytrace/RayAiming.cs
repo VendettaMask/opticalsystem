@@ -36,15 +36,14 @@ public sealed class RobustRayAimer : IRayAimer
 
     public Vector3D Aim(FieldPoint field, PupilSample sample, double apertureRadius)
     {
-        var fieldShift = Math.Tan(field.YAngleDegrees * Math.PI / 180.0) * apertureRadius * 0.02;
-        return new Vector3D(sample.X * apertureRadius, (sample.Y * apertureRadius) + fieldShift, 0);
+        return new Vector3D(sample.X * apertureRadius, sample.Y * apertureRadius, 0);
     }
 }
 
 public sealed class CachedRayAimer : IRayAimer
 {
     private readonly IRayAimer _inner;
-    private readonly Dictionary<(double Field, double X, double Y, double R), Vector3D> _cache = new();
+    private readonly Dictionary<(double FieldX, double FieldY, double X, double Y, double R), Vector3D> _cache = new();
 
     public CachedRayAimer(IRayAimer inner)
     {
@@ -55,7 +54,7 @@ public sealed class CachedRayAimer : IRayAimer
 
     public Vector3D Aim(FieldPoint field, PupilSample sample, double apertureRadius)
     {
-        var key = (field.YAngleDegrees, sample.X, sample.Y, apertureRadius);
+        var key = (field.X, field.Y, sample.X, sample.Y, apertureRadius);
         if (!_cache.TryGetValue(key, out var value))
         {
             value = _inner.Aim(field, sample, apertureRadius);

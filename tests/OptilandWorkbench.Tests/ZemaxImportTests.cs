@@ -13,6 +13,64 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxImportTests
 {
+    public static IEnumerable<object[]> SampleLensFiles()
+    {
+        yield return new object[] { "achromatic-doublet.zmx", FieldDefinitionKind.Angle, 5, 2 };
+        yield return new object[] { "double-gauss-50mm.zmx", FieldDefinitionKind.Angle, 11, 4 };
+        yield return new object[] { "telephoto-four-element.zmx", FieldDefinitionKind.Angle, 9, 4 };
+        yield return new object[] { "finite-conjugate-macro.zmx", FieldDefinitionKind.ObjectHeight, 9, 3 };
+        yield return new object[] { "real-image-height-demo.zmx", FieldDefinitionKind.RealImageHeight, 5, 2 };
+    }
+
+    [Theory]
+    [MemberData(nameof(SampleLensFiles))]
+    public void SampleLensFilesUseCatalogGlassAndTraceEveryDefinedField(
+        string fileName,
+        FieldDefinitionKind expectedFieldDefinition,
+        int expectedSurfaceCount,
+        int expectedGlassSurfaceCount)
+    {
+        var source = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Samples", fileName));
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(expectedFieldDefinition, optic.FieldDefinition);
+        Assert.Equal(expectedSurfaceCount, optic.SurfaceGroup.Items.Count);
+        Assert.Equal(3, optic.Fields.Count);
+        Assert.Equal(3, optic.Wavelengths.Count);
+        Assert.Equal(
+            expectedGlassSurfaceCount,
+            optic.SurfaceGroup.Items.Count(surface => surface.MaterialAfter is CatalogGlassMaterial));
+
+        var wavelength = optic.Wavelengths.Single(item => item.IsPrimary).Micrometers;
+        foreach (var field in optic.Fields)
+        {
+            var normalized = FieldCoordinates.Normalize(optic.Fields, field.X, field.Y);
+            var history = optic.TraceGeneric(normalized.X, normalized.Y, 0, 0, wavelength)
+                .RayHistories.Single();
+            var final = Assert.Single(history, sample => sample.SurfaceNumber == optic.SurfaceGroup.Items[^1].Number);
+
+            Assert.False(final.Vignetted);
+            Assert.True(final.Intensity > 0);
+            Assert.True(double.IsFinite(final.Position.X));
+            Assert.True(double.IsFinite(final.Position.Y));
+            Assert.True(double.IsFinite(final.Position.Z));
+
+            if (expectedFieldDefinition == FieldDefinitionKind.RealImageHeight)
+            {
+                var local = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(final.Position);
+                Assert.Equal(field.X, local.X, precision: 8);
+                Assert.Equal(field.Y, local.Y, precision: 8);
+            }
+        }
+
+        var scene = new Layout2DBuilder(optic).Build3D(options: new LayoutBuildOptions(
+            FieldIndex: optic.Fields.Count - 1,
+            WavelengthIndex: optic.Wavelengths.ToList().FindIndex(item => item.IsPrimary),
+            RayCount: 3));
+        Assert.NotEmpty(scene.LensElements);
+        Assert.NotEmpty(scene.Rays);
+    }
+
     [Fact]
     public void Optiland058ZemaxFixtureImportsSystemAndPrescription()
     {
@@ -217,6 +275,13 @@ public sealed class ZemaxImportTests
         Assert.Equal(new[] { 0.0, 2.5 }, optic.Fields.Select(field => field.X));
         Assert.Equal(new[] { 0.0, 4.25 }, optic.Fields.Select(field => field.Y));
         Assert.Contains("FTYP 3", exported, StringComparison.Ordinal);
+
+        var normalized = FieldCoordinates.Normalize(optic.Fields, 2.5, 4.25);
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+        var final = optic.TraceGeneric(normalized.X, normalized.Y, 0, 0, wavelength).RayHistories.Single()[^1];
+        var local = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(final.Position);
+        Assert.Equal(2.5, local.X, precision: 8);
+        Assert.Equal(4.25, local.Y, precision: 8);
     }
 
     [Fact]

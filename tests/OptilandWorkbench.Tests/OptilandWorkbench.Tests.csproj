@@ -39,6 +39,9 @@
     <None Include="Fixtures\optiland-0.5.8-zemax-reference.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-zemax-reference.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-glass-reference.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\samples\lenses\*.zmx"
+          Link="Samples\%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

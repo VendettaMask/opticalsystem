@@ -63,6 +63,7 @@ public sealed class RayGenerator
         foreach (var field in fields)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
+            var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
             foreach (var wavelength in wavelengths)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
@@ -75,7 +76,8 @@ public sealed class RayGenerator
                         sample.X,
                         sample.Y,
                         apertureRadius,
-                        applyVignetting: true);
+                        applyVignetting: true,
+                        realImageLaunch: realImageLaunch);
                     var direction = Settings.Telecentric ? new Vector3D(0, 0, 1) : rayGeometry.Direction;
                     var radius = Math.Sqrt((sample.X * sample.X) + (sample.Y * sample.Y));
                     var legacyApodization = Settings.ApodizationPower <= 0
@@ -109,9 +111,18 @@ public sealed class RayGenerator
         var sampling = ParseSampling(distribution);
         var apertureRadius = EntrancePupilRadius();
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
         var rays = ApertureSampler.Generate(sampleCount, sampling)
-            .Select(sample => CreateRay(field.X, field.Y, sample.X, sample.Y, apertureRadius, wavelengthNanometers, sample.Weight))
+            .Select(sample => CreateRay(
+                field.X,
+                field.Y,
+                sample.X,
+                sample.Y,
+                apertureRadius,
+                wavelengthNanometers,
+                sample.Weight,
+                realImageLaunch))
             .ToArray();
 
         return new RealRayBundle(rays);
@@ -135,6 +146,7 @@ public sealed class RayGenerator
 
         var apertureRadius = EntrancePupilRadius();
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
         var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var ray = CreateRay(
             field.X,
@@ -143,7 +155,8 @@ public sealed class RayGenerator
             normalizedPupilY * vignetteScale.Y,
             apertureRadius,
             MicrometersToNanometers(wavelengthMicrometers),
-            intensity: 1.0);
+            intensity: 1.0,
+            realImageLaunch);
         return new RealRayBundle(new[] { ray });
     }
 
@@ -156,6 +169,7 @@ public sealed class RayGenerator
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
         var apertureRadius = EntrancePupilRadius();
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
         var rays = pupilSamples.Select(sample =>
@@ -174,7 +188,8 @@ public sealed class RayGenerator
                 sample.Y,
                 apertureRadius,
                 wavelengthNanometers,
-                sample.Weight);
+                sample.Weight,
+                realImageLaunch);
         }).ToArray();
         return new RealRayBundle(rays);
     }
@@ -216,13 +231,7 @@ public sealed class RayGenerator
 
     private (double X, double Y) NormalizedFieldToValues(double normalizedFieldX, double normalizedFieldY)
     {
-        var maxField = _optic.Fields.Select(field => Math.Sqrt(
-                (field.X * field.X)
-                + (field.Y * field.Y)))
-            .DefaultIfEmpty(0)
-            .Max();
-
-        return (normalizedFieldX * maxField, normalizedFieldY * maxField);
+        return FieldCoordinates.Denormalize(_optic.Fields, normalizedFieldX, normalizedFieldY);
     }
 
     private RealRay CreateRay(
@@ -232,7 +241,8 @@ public sealed class RayGenerator
         double normalizedPupilY,
         double apertureRadius,
         double wavelengthNanometers,
-        double intensity)
+        double intensity,
+        (double X, double Y)? realImageLaunch = null)
     {
         var geometry = CreateFieldRay(
             fieldX,
@@ -240,7 +250,8 @@ public sealed class RayGenerator
             normalizedPupilX,
             normalizedPupilY,
             apertureRadius,
-            applyVignetting: true);
+            applyVignetting: true,
+            realImageLaunch: realImageLaunch);
         var apodization = _optic.Apodization?.Intensity(normalizedPupilX, normalizedPupilY) ?? 1.0;
         return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity * apodization);
     }
@@ -267,7 +278,8 @@ public sealed class RayGenerator
         double normalizedPupilX,
         double normalizedPupilY,
         double apertureRadius,
-        bool applyVignetting)
+        bool applyVignetting,
+        (double X, double Y)? realImageLaunch = null)
     {
         var normalizedField = DefinitionValuesToNormalized(fieldX, fieldY);
         var vignetteScale = applyVignetting
@@ -275,7 +287,7 @@ public sealed class RayGenerator
             : (X: 1.0, Y: 1.0);
         var pupilX = normalizedPupilX * vignetteScale.X;
         var pupilY = normalizedPupilY * vignetteScale.Y;
-        var origin = FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius);
+        var origin = FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius, realImageLaunch);
 
         if (_optic.ObjectSpaceTelecentric)
         {
@@ -314,7 +326,8 @@ public sealed class RayGenerator
         double fieldY,
         double pupilX,
         double pupilY,
-        double apertureRadius)
+        double apertureRadius,
+        (double X, double Y)? realImageLaunch)
     {
         return _optic.FieldDefinition switch
         {
@@ -325,14 +338,25 @@ public sealed class RayGenerator
                 pupilX,
                 pupilY,
                 apertureRadius),
-            FieldDefinitionKind.RealImageHeight => ParaxialImageHeightOrigin(
-                fieldX,
-                fieldY,
+            FieldDefinitionKind.RealImageHeight => RealImageHeightOrigin(
+                realImageLaunch ?? ResolveRealImageFieldCoordinates(fieldX, fieldY),
                 pupilX,
                 pupilY,
                 apertureRadius),
             _ => AngleFieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius)
         };
+    }
+
+    private Vector3D RealImageHeightOrigin(
+        (double X, double Y) launchField,
+        double pupilX,
+        double pupilY,
+        double apertureRadius)
+    {
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        return IsObjectAtInfinity(objectSurface)
+            ? AngleFieldOrigin(launchField.X, launchField.Y, pupilX, pupilY, apertureRadius)
+            : ObjectHeightOrigin(launchField.X, launchField.Y);
     }
 
     private Vector3D AngleFieldOrigin(
@@ -436,6 +460,255 @@ public sealed class RayGenerator
             objectTrace.Slopes[^1][0]);
     }
 
+    private (double X, double Y)? ResolveRealImageLaunch(double targetX, double targetY)
+    {
+        return _optic.FieldDefinition == FieldDefinitionKind.RealImageHeight
+            ? ResolveRealImageFieldCoordinates(targetX, targetY)
+            : null;
+    }
+
+    internal (double X, double Y) ResolveRealImageFieldCoordinates(double targetX, double targetY)
+    {
+        if (!double.IsFinite(targetX) || !double.IsFinite(targetY))
+        {
+            throw new ArgumentOutOfRangeException(nameof(targetX), "Real image-height coordinates must be finite.");
+        }
+
+        var guess = InitialRealImageFieldGuess(targetX, targetY);
+        if (!TryEvaluateRealImageChief(guess.X, guess.Y, out var current))
+        {
+            guess = (0, 0);
+            if (!TryEvaluateRealImageChief(guess.X, guess.Y, out current))
+            {
+                throw RealImageSolveFailure(targetX, targetY);
+            }
+        }
+
+        var tolerance = 1e-9 * Math.Max(1, Math.Sqrt((targetX * targetX) + (targetY * targetY)));
+
+        for (var iteration = 0; iteration < 24; iteration++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var errorX = current.X - targetX;
+            var errorY = current.Y - targetY;
+            var errorNorm = Math.Sqrt((errorX * errorX) + (errorY * errorY));
+            if (errorNorm <= tolerance)
+            {
+                return guess;
+            }
+
+            var stepX = DerivativeStep(guess.X, targetX);
+            var stepY = DerivativeStep(guess.Y, targetY);
+            var derivativeX = ImageDerivative(guess, current, stepX, varyX: true);
+            var derivativeY = ImageDerivative(guess, current, stepY, varyX: false);
+            var jxx = derivativeX.X;
+            var jyx = derivativeX.Y;
+            var jxy = derivativeY.X;
+            var jyy = derivativeY.Y;
+            var determinant = (jxx * jyy) - (jxy * jyx);
+            if (!double.IsFinite(determinant) || Math.Abs(determinant) <= 1e-18)
+            {
+                throw RealImageSolveFailure(targetX, targetY);
+            }
+
+            var deltaX = ((-errorX * jyy) + (jxy * errorY)) / determinant;
+            var deltaY = ((jyx * errorX) - (jxx * errorY)) / determinant;
+            var maximumStep = IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+                ? 15.0
+                : Math.Max(10.0, 2 * Math.Sqrt((targetX * targetX) + (targetY * targetY)));
+            var deltaNorm = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
+            if (deltaNorm > maximumStep)
+            {
+                var scale = maximumStep / deltaNorm;
+                deltaX *= scale;
+                deltaY *= scale;
+            }
+
+            var accepted = false;
+            for (var lineSearch = 0; lineSearch < 12; lineSearch++)
+            {
+                var scale = Math.Pow(0.5, lineSearch);
+                var candidate = (
+                    X: LimitLaunchCoordinate(guess.X + (scale * deltaX)),
+                    Y: LimitLaunchCoordinate(guess.Y + (scale * deltaY)));
+                if (!TryEvaluateRealImageChief(candidate.X, candidate.Y, out var candidateImage))
+                {
+                    continue;
+                }
+
+                var candidateErrorX = candidateImage.X - targetX;
+                var candidateErrorY = candidateImage.Y - targetY;
+                var candidateNorm = Math.Sqrt(
+                    (candidateErrorX * candidateErrorX) + (candidateErrorY * candidateErrorY));
+                if (candidateNorm < errorNorm)
+                {
+                    guess = candidate;
+                    current = candidateImage;
+                    accepted = true;
+                    break;
+                }
+            }
+
+            if (!accepted)
+            {
+                throw RealImageSolveFailure(targetX, targetY);
+            }
+        }
+
+        throw RealImageSolveFailure(targetX, targetY);
+    }
+
+    private (double X, double Y) InitialRealImageFieldGuess(double targetX, double targetY)
+    {
+        var (imageHeightUnit, objectHeightUnit, objectSlopeUnit) = TraceUnitChiefRay();
+        if (Math.Abs(imageHeightUnit) <= 1e-15)
+        {
+            return (0, 0);
+        }
+
+        if (IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault()))
+        {
+            return (
+                RadiansToDegrees(Math.Atan(objectSlopeUnit * targetX / imageHeightUnit)),
+                RadiansToDegrees(Math.Atan(objectSlopeUnit * targetY / imageHeightUnit)));
+        }
+
+        return (
+            objectHeightUnit * targetX / imageHeightUnit,
+            objectHeightUnit * targetY / imageHeightUnit);
+    }
+
+    private (double X, double Y) EvaluateRealImageChief(double launchX, double launchY)
+    {
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        var apertureRadius = EntrancePupilRadius();
+        var origin = IsObjectAtInfinity(objectSurface)
+            ? AngleFieldOrigin(launchX, launchY, 0, 0, apertureRadius)
+            : ObjectHeightOrigin(launchX, launchY);
+        Vector3D direction;
+        if (_optic.ObjectSpaceTelecentric)
+        {
+            ValidateTelecentricField();
+            direction = new Vector3D(0, 0, 1);
+        }
+        else
+        {
+            var entrancePupil = new Vector3D(0, 0, _optic.Paraxial.EstimateEntrancePupilLocation());
+            direction = Normalize(entrancePupil - origin);
+        }
+
+        var wavelengthNanometers = PrimaryWavelengthMicrometers() * 1000;
+        var ray = new RealRay(origin, direction, wavelengthNanometers);
+        var history = _optic.SequentialRayTracer.Trace(new RealRayBundle(new[] { ray })).RayHistories.Single();
+        var imageSurface = _optic.SurfaceGroup.Items.LastOrDefault();
+        if (imageSurface is null
+            || history.Count == 0
+            || history[^1].SurfaceNumber != imageSurface.Number
+            || history[^1].Vignetted
+            || history[^1].Intensity <= 0)
+        {
+            throw RealImageSolveFailure(double.NaN, double.NaN);
+        }
+
+        var localImagePoint = imageSurface.CoordinateSystem.ToLocalPoint(history[^1].Position);
+        return (localImagePoint.X, localImagePoint.Y);
+    }
+
+    private bool TryEvaluateRealImageChief(
+        double launchX,
+        double launchY,
+        out (double X, double Y) imagePoint)
+    {
+        try
+        {
+            imagePoint = EvaluateRealImageChief(launchX, launchY);
+            return true;
+        }
+        catch (InvalidOperationException exception) when (
+            exception.Message.StartsWith("Cannot find rays to yield requested real image height", StringComparison.Ordinal))
+        {
+            imagePoint = default;
+            return false;
+        }
+    }
+
+    private (double X, double Y) ImageDerivative(
+        (double X, double Y) launch,
+        (double X, double Y) currentImage,
+        double step,
+        bool varyX)
+    {
+        var plusLaunch = varyX
+            ? (launch.X + step, launch.Y)
+            : (launch.X, launch.Y + step);
+        var minusLaunch = varyX
+            ? (launch.X - step, launch.Y)
+            : (launch.X, launch.Y - step);
+        var hasPlus = TryEvaluateRealImageChief(plusLaunch.Item1, plusLaunch.Item2, out var plusImage);
+        var hasMinus = TryEvaluateRealImageChief(minusLaunch.Item1, minusLaunch.Item2, out var minusImage);
+        if (hasPlus && hasMinus)
+        {
+            return (
+                (plusImage.X - minusImage.X) / (2 * step),
+                (plusImage.Y - minusImage.Y) / (2 * step));
+        }
+
+        if (hasPlus)
+        {
+            return (
+                (plusImage.X - currentImage.X) / step,
+                (plusImage.Y - currentImage.Y) / step);
+        }
+
+        if (hasMinus)
+        {
+            return (
+                (currentImage.X - minusImage.X) / step,
+                (currentImage.Y - minusImage.Y) / step);
+        }
+
+        throw RealImageSolveFailure(double.NaN, double.NaN);
+    }
+
+    private void ValidateTelecentricField()
+    {
+        if (_optic.Aperture.Kind != ApertureKind.NumericalAperture)
+        {
+            throw new InvalidOperationException("Object-space telecentric systems require an object numerical-aperture definition.");
+        }
+
+        var sine = _optic.Aperture.Value;
+        if (!double.IsFinite(sine) || sine <= 0 || sine > 1)
+        {
+            throw new InvalidOperationException("Object numerical aperture must be in (0, 1] for a telecentric field.");
+        }
+    }
+
+    private double LimitLaunchCoordinate(double value)
+    {
+        return IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+            ? Math.Clamp(value, -89.0, 89.0)
+            : value;
+    }
+
+    private static double DerivativeStep(double value, double target)
+    {
+        return Math.Max(1e-6, Math.Max(Math.Abs(value), Math.Abs(target)) * 1e-5);
+    }
+
+    private static InvalidOperationException RealImageSolveFailure(double targetX, double targetY)
+    {
+        var suffix = double.IsFinite(targetX) && double.IsFinite(targetY)
+            ? $" ({targetX:R}, {targetY:R})"
+            : string.Empty;
+        return new InvalidOperationException($"Cannot find rays to yield requested real image height{suffix}.");
+    }
+
+    private static double RadiansToDegrees(double radians)
+    {
+        return radians * 180.0 / Math.PI;
+    }
+
     private (double FirstSurfaceZ, double Offset) InfiniteObjectStart(double apertureRadius)
     {
         var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
@@ -478,10 +751,7 @@ public sealed class RayGenerator
 
     private double MaximumField()
     {
-        return _optic.Fields
-            .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
-            .DefaultIfEmpty(0)
-            .Max();
+        return FieldCoordinates.MaximumRadius(_optic.Fields);
     }
 
     private double PrimaryWavelengthMicrometers()

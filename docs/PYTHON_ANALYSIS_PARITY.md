@@ -48,7 +48,9 @@ python tools/python-reference/generate_analysis_reference.py \
 
 ## Numerical Contract
 
-The C# implementations use Python's normalized field and pupil coordinates and the final traced image-plane sample. Angle fields are normalized by the maximum radial field `sqrt(x²+y²)`, matching `FieldGroup.max_field`, rather than scaling X and Y independently. The analyses no longer use EFL, Petzval, or three-ray summary proxies.
+The C# implementations use Python's normalized field and pupil coordinates and the final traced image-plane sample. Fields are normalized by the maximum radial field `sqrt(x²+y²)`, matching `FieldGroup.max_field`, rather than scaling X and Y independently. Image-plane analysis coordinates and directions are expressed in the image surface's local coordinate system. The analyses no longer use EFL, Petzval, or three-ray summary proxies.
+
+Real image height is a Zemax extension beyond Python Optiland 0.5.8. Its primary-wavelength chief ray is solved in two dimensions; distortion converts it to angle or object height according to conjugate, and image simulation converts it to paraxial image height so distortion remains visible.
 
 | Analysis | Python-compatible calculation |
 | --- | --- |
@@ -84,7 +86,7 @@ The C# implementations use Python's normalized field and pupil coordinates and t
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
-Repository validation as of 2026-07-19 is a zero-warning solution build and `273/273` passing tests.
+Repository validation as of 2026-07-19 is a zero-warning solution build and `285/285` passing tests.
 
 ## Plot Contract
 

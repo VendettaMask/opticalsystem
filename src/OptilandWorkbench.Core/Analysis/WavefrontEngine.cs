@@ -100,16 +100,7 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             pupilSamples);
         var trace = optic.SequentialRayTracer.Trace(bundle);
-        var maxFieldDegrees = optic.Fields.Select(item => Math.Sqrt(
-                (item.XAngleDegrees * item.XAngleDegrees)
-                + (item.YAngleDegrees * item.YAngleDegrees)))
-            .DefaultIfEmpty(0)
-            .Max();
-        var tx = Math.Tan(field.Hx * maxFieldDegrees * Math.PI / 180.0);
-        var ty = Math.Tan(field.Hy * maxFieldDegrees * Math.PI / 180.0);
-        var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
-        var ux = tx * uz;
-        var uy = ty * uz;
+        var (ux, uy) = LaunchTiltDirection(optic, field);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var samples = new List<WavefrontSample>(pupilSamples.Count);
         var vignetted = 0;
@@ -155,6 +146,42 @@ public static class WavefrontEngine
         }
 
         return new WavefrontResult(samples, radius, referenceOpticalPath, vignetted);
+    }
+
+    internal static (double X, double Y) LaunchTiltDirection(
+        Optic optic,
+        (double Hx, double Hy) field)
+    {
+        double fieldX;
+        double fieldY;
+        if (optic.FieldDefinition == FieldDefinitionKind.Angle)
+        {
+            (fieldX, fieldY) = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
+        }
+        else if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight && IsObjectAtInfinity(optic))
+        {
+            var target = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
+            (fieldX, fieldY) = optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(
+                target.X,
+                target.Y);
+        }
+        else
+        {
+            return (0, 0);
+        }
+
+        var tx = Math.Tan(fieldX * Math.PI / 180.0);
+        var ty = Math.Tan(fieldY * Math.PI / 180.0);
+        var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
+        return (tx * uz, ty * uz);
+    }
+
+    private static bool IsObjectAtInfinity(Optic optic)
+    {
+        var objectSurface = optic.SurfaceGroup.Items.FirstOrDefault();
+        return objectSurface is null
+            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
+            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static double ImageToReferenceSphere(

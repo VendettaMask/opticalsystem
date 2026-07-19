@@ -35,7 +35,7 @@ Python `Optic` owns:
 
 The .NET `Optic` has similar entry points but not the same model:
 
-- Fields are angle records with Python-compatible maximum-radial-field normalization, but object-height, paraxial-image-height, and real-image-height field types are not implemented.
+- Fields support Python-compatible angle, object-height, and paraxial-image-height behavior with maximum-radial-field normalization. Zemax real-image-height fields are implemented separately with iterative primary-wavelength chief-ray solving.
 - Wavelengths are stored in nanometers internally with explicit micrometer API conversion boundaries.
 - There is no equivalent `OpticUpdater` layer that updates paraxial data, surface normalization, pickups, solves, and geometry-derived fields in one route.
 - Polarization remains partial; all seven Python Optiland 0.5.8 apodization profiles now have root models and shared ray-generation behavior.
@@ -315,7 +315,14 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 
 - Added group-level angle, object-height, and paraxial-image-height definitions, nearest-field `vx/vy` behavior, object-space telecentric launch, and finite-object coordinate preservation in native and Python JSON.
 - Added forward and reverse unit paraxial chief-ray tracing for Python's paraxial-image-height conversion, including finite and infinite conjugates.
-- Added pinned Optiland 0.5.8 generators and fixtures for ray contracts, manufacturer glass n/k data, and Zemax import; the current repository baseline is `273/273` tests with a zero-warning build.
+- Added pinned Optiland 0.5.8 generators and fixtures for ray contracts, manufacturer glass n/k data, and Zemax import.
+
+### 2026-07-19 Zemax Real Image Height And Field-Path Alignment
+
+- Added a damped two-dimensional real-image-height solve that varies object angle for infinite conjugates or object coordinates for finite conjugates until the primary-wavelength chief ray reaches the requested local image coordinate.
+- Matched Zemax analysis semantics by converting real image height to angle/object height for distortion and to paraxial image height for image simulation.
+- Unified viewer, analysis, ray generation, legacy tracing, paraxial tracing, wavefront tilt, and aberration estimates on Python's maximum-radial-field normalization.
+- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The repository baseline is `285/285` tests with a zero-warning build.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

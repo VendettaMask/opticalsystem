@@ -17,7 +17,7 @@ namespace OptilandWorkbench.Tests;
 public sealed class AnalysisGuiContractTests
 {
     [Fact]
-    public void HeightDefinedFieldsHideAngularDistortionModelAndReportMillimeters()
+    public void RealImageHeightDistortionExposesConvertedAngularModel()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
@@ -34,12 +34,18 @@ public sealed class AnalysisGuiContractTests
             ["NumPoints"] = "3"
         });
 
-        Assert.DoesNotContain(parameters, parameter => parameter.Key == "DistortionType");
-        Assert.Contains(view.Rows, row => row.Metric == "最大实际像高 (mm)" && row.Value == "4.5");
-        Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "线性高度");
+        Assert.Contains(parameters, parameter => parameter.Key == "DistortionType");
+        Assert.Contains(view.Rows, row => row.Metric == "最大视场角 (deg)");
+        Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "f-tan");
 
         optic.FieldDefinition = FieldDefinitionKind.Angle;
         Assert.Contains(
+            connector.GetAnalysisParameters("Distortion"),
+            parameter => parameter.Key == "DistortionType");
+
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        optic.SurfaceGroup.Items[0].Thickness = 100;
+        Assert.DoesNotContain(
             connector.GetAnalysisParameters("Distortion"),
             parameter => parameter.Key == "DistortionType");
     }

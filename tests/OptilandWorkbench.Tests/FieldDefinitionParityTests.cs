@@ -1,10 +1,12 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.Tests;
 
@@ -88,6 +90,152 @@ public sealed class FieldDefinitionParityTests
             AssertClose(expected.GetProperty("object_height").GetDouble(), reverse.Heights[^1][0], name);
             AssertClose(expected.GetProperty("object_slope").GetDouble(), reverse.Slopes[^1][0], name);
         }
+    }
+
+    [Fact]
+    public void FieldDefinitionsMatchPython058ParaxialNormalizedTrace()
+    {
+        using var reference = LoadReference();
+        var root = reference.RootElement;
+        var hy = root.GetProperty("normalized_field").GetProperty("y").GetDouble();
+        var py = root.GetProperty("normalized_pupil").GetProperty("y").GetDouble();
+        var wavelength = root.GetProperty("wavelength_micrometers").GetDouble();
+        var finiteJson = root.GetProperty("finite_system").GetRawText();
+
+        foreach (var expectedCase in root.GetProperty("cases").EnumerateArray())
+        {
+            var expected = expectedCase.GetProperty("paraxial_trace");
+            if (expected.GetProperty("heights").EnumerateArray().Any(item => item.ValueKind != JsonValueKind.Number))
+            {
+                continue;
+            }
+
+            var name = expectedCase.GetProperty("name").GetString()!;
+            var optic = name.StartsWith("finite_", StringComparison.Ordinal)
+                ? PythonOptilandJsonStore.Deserialize(finiteJson, name)
+                : Optic.CreateCookeTriplet();
+            Configure(optic, expectedCase);
+            var actual = optic.Paraxial.TraceNormalizedPupil(hy, new[] { py }, wavelength);
+            var actualHeights = actual.Heights.Select(values => values[0]).ToArray();
+            var actualSlopes = actual.Slopes.Select(values => values[0]).ToArray();
+            var expectedHeights = expected.GetProperty("heights").EnumerateArray().Select(item => item.GetDouble()).ToArray();
+            var expectedSlopes = expected.GetProperty("slopes").EnumerateArray().Select(item => item.GetDouble()).ToArray();
+
+            Assert.Equal(expectedHeights.Length, actualHeights.Length);
+            Assert.Equal(expectedSlopes.Length, actualSlopes.Length);
+            for (var index = 0; index < expectedHeights.Length; index++)
+            {
+                AssertClose(expectedHeights[index], actualHeights[index], name);
+                AssertClose(expectedSlopes[index], actualSlopes[index], name);
+            }
+        }
+    }
+
+    [Fact]
+    public void RealImageHeightChiefRayHitsRequestedTwoDimensionalCoordinate()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        optic.Fields.Add(new FieldPoint { Label = "Diagonal", X = 3, Y = 4 });
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+
+        var final = optic.TraceGeneric(0.6, 0.8, 0, 0, wavelength).RayHistories.Single()[^1];
+        var local = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(final.Position);
+
+        AssertClose(3, local.X, "real_image_height_x");
+        AssertClose(4, local.Y, "real_image_height_y");
+    }
+
+    [Fact]
+    public void FiniteConjugateRealImageHeightChiefRayHitsRequestedCoordinate()
+    {
+        using var reference = LoadReference();
+        var optic = PythonOptilandJsonStore.Deserialize(
+            reference.RootElement.GetProperty("finite_system").GetRawText());
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        optic.Fields.Add(new FieldPoint { Label = "Diagonal", X = 1.5, Y = 2 });
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+
+        var final = optic.TraceGeneric(0.6, 0.8, 0, 0, wavelength).RayHistories.Single()[^1];
+        var local = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(final.Position);
+
+        AssertClose(1.5, local.X, "finite_real_image_height_x");
+        AssertClose(2, local.Y, "finite_real_image_height_y");
+    }
+
+    [Fact]
+    public void ViewerUsesPythonRadialNormalizationForDiagonalFields()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        optic.Fields.Add(new FieldPoint { Label = "Diagonal", X = 3, Y = 4 });
+        var wavelengthIndex = optic.Wavelengths.ToList().FindIndex(item => item.IsPrimary);
+        var wavelength = optic.Wavelengths[wavelengthIndex].Micrometers;
+        var expected = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0.6, 0.8, 0, 0, wavelength).Rays.Single();
+
+        var scene = new Layout2DBuilder(optic).Build3D(options: new LayoutBuildOptions(
+            FieldIndex: 1,
+            WavelengthIndex: wavelengthIndex,
+            RayCount: 1));
+        var actual = scene.Rays.Single().Points[0];
+
+        AssertClose(expected.Origin.X, actual.X, "viewer_field_x");
+        AssertClose(expected.Origin.Y, actual.Y, "viewer_field_y");
+        AssertClose(expected.Origin.Z, actual.Z, "viewer_field_z");
+    }
+
+    [Fact]
+    public void ParaxialChiefRayPreservesNegativeFieldDirection()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "Negative", Y = -12 });
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+
+        var chief = optic.Paraxial.ChiefRay(wavelength);
+        var direct = optic.Paraxial.TraceNormalizedPupil(-1, new[] { 0.0 }, wavelength);
+
+        AssertClose(direct.Heights[^1][0], chief.Heights[^1][0], "negative_chief_height");
+        AssertClose(direct.Slopes[^1][0], chief.Slopes[^1][0], "negative_chief_slope");
+        Assert.True(chief.Heights[^1][0] < 0);
+    }
+
+    [Fact]
+    public void ParaxialChiefRayUsesLargestAbsoluteSignedField()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "Positive", Y = 8 });
+        optic.Fields.Add(new FieldPoint { Label = "Negative full field", Y = -12 });
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+
+        var chief = optic.Paraxial.ChiefRay(wavelength);
+        var direct = optic.Paraxial.TraceNormalizedPupil(-1, new[] { 0.0 }, wavelength);
+
+        AssertClose(direct.Heights[^1][0], chief.Heights[^1][0], "signed_full_field_height");
+        AssertClose(direct.Slopes[^1][0], chief.Slopes[^1][0], "signed_full_field_slope");
+    }
+
+    [Fact]
+    public void AnalysesUseMaximumRadialFieldForDiagonalCoordinates()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        optic.Fields.Add(new FieldPoint { Label = "Diagonal", X = 3, Y = 4 });
+
+        var distortion = new DistortionAnalysis(optic, numPoints: 3).GenerateData();
+        var fieldCurvature = new FieldCurvatureAnalysis(optic, numPoints: 3).GenerateData();
+
+        Assert.Equal(5, Convert.ToDouble(distortion.Values["MaxFieldDegrees"]), precision: 12);
+        Assert.Equal(5, distortion.PlotSeries[0].Points[^1].Y, precision: 12);
+        Assert.Equal(5, Convert.ToDouble(fieldCurvature.Values["MaxFieldDegrees"]), precision: 12);
+        Assert.Equal(5, fieldCurvature.PlotSeries[0].Points[^1].Y, precision: 12);
     }
 
     [Fact]

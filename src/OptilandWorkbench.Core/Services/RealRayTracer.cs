@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Services;
 
@@ -20,7 +21,6 @@ public sealed class RealRayTracer
         }
 
         var paths = new List<RayPath>();
-        var aperture = _optic.SurfaceGroup.ApertureRadius();
         var rayCount = Math.Max(3, raysPerField | 1);
         var raySamples = Enumerable.Range(0, rayCount)
             .Select(index => -1.0 + (2.0 * index / (rayCount - 1)))
@@ -28,56 +28,34 @@ public sealed class RealRayTracer
 
         foreach (var field in _optic.Fields)
         {
+            var normalizedField = FieldCoordinates.Normalize(_optic.Fields, field.X, field.Y);
             foreach (var wavelength in _optic.Wavelengths.Where(item => item.Weight > 0))
             {
-                foreach (var sample in raySamples)
+                var bundle = _optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                    normalizedField.X,
+                    normalizedField.Y,
+                    wavelength.Micrometers,
+                    raySamples.Select(sample => new PupilSample(0, sample * 0.85, 1)));
+                var trace = _optic.SequentialRayTracer.Trace(bundle);
+                for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
                 {
-                    paths.Add(TraceSingleRay(field, wavelength, sample * aperture * 0.85));
+                    var ray = bundle.Rays[rayIndex];
+                    var history = trace.RayHistories[rayIndex];
+                    var points = new[] { ray.Origin }
+                        .Concat(history.Select(sample => sample.Position))
+                        .ToArray();
+                    var segments = points.Zip(points.Skip(1), (start, end) => new RaySegment(
+                        new RayPoint(start.Z, start.Y),
+                        new RayPoint(end.Z, end.Y))).ToArray();
+                    paths.Add(new RayPath(
+                        field.Clone(),
+                        wavelength.Clone(),
+                        segments,
+                        history.Any(sample => sample.Vignetted || sample.Intensity <= 0)));
                 }
             }
         }
 
         return new RayTraceResult(paths);
-    }
-
-    private RayPath TraceSingleRay(FieldPoint field, Wavelength wavelength, double initialHeight)
-    {
-        var segments = new List<RaySegment>();
-        var z = 0.0;
-        var y = initialHeight;
-        var slope = Math.Tan(DegreesToRadians(field.YAngleDegrees)) * 0.08;
-        var currentIndex = 1.0;
-        var vignetted = false;
-
-        foreach (var surface in _optic.SurfaceGroup.Items)
-        {
-            var nextZ = z + surface.Thickness;
-            var nextY = y + (slope * surface.Thickness);
-            segments.Add(new RaySegment(new RayPoint(z, y), new RayPoint(nextZ, nextY)));
-
-            if (surface.SemiDiameter > 0 && Math.Abs(nextY) > surface.SemiDiameter)
-            {
-                vignetted = true;
-            }
-
-            if (!surface.IsPlane)
-            {
-                var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers);
-                var refractiveDelta = nextIndex - currentIndex;
-                var curvatureKick = nextY / surface.Radius * refractiveDelta;
-                slope -= curvatureKick;
-                currentIndex = nextIndex;
-            }
-
-            z = nextZ;
-            y = nextY;
-        }
-
-        return new RayPath(field.Clone(), wavelength.Clone(), segments, vignetted);
-    }
-
-    private static double DegreesToRadians(double degrees)
-    {
-        return degrees * Math.PI / 180.0;
     }
 }

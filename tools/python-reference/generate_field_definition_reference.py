@@ -127,6 +127,29 @@ def unit_chief_ray(optic):
     }
 
 
+def paraxial_trace(optic):
+    epl = optic.paraxial.EPL()
+    epd = optic.paraxial.EPD()
+    y1 = np.asarray([PY * epd / 2])
+    y0, z0 = optic.field_definition.get_paraxial_object_position(
+        optic,
+        HY,
+        y1,
+        epl,
+    )
+    u0 = (y1 - y0) / (epl - z0)
+    heights, slopes = optic.paraxial._trace_generic(
+        y0,
+        u0,
+        z0,
+        WAVELENGTH,
+    )
+    return {
+        "heights": np.ravel(np.asarray(heights)).tolist(),
+        "slopes": np.ravel(np.asarray(slopes)).tolist(),
+    }
+
+
 def case(name, optic, field_type, telecentric=False):
     configure(optic, field_type, telecentric)
     result = {
@@ -138,6 +161,7 @@ def case(name, optic, field_type, telecentric=False):
         "initial_distribution_ray": initial_ray(optic, generic=False),
         "initial_generic_ray": initial_ray(optic, generic=True),
         "final_generic_ray": final_generic_ray(optic),
+        "paraxial_trace": paraxial_trace(optic),
     }
     if field_type == "paraxial_image_height":
         result["unit_chief_ray"] = unit_chief_ray(optic)

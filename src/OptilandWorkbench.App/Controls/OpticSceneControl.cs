@@ -75,7 +75,7 @@ public sealed class OpticSceneControl : Control
             new GradientStop(Color.FromRgb(194, 200, 218), 1)
         }
     };
-    private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(92, 154, 162, 170));
+    private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(104, 105, 151, 185));
     private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
     private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(134, 146, 166)), 1);
     private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);

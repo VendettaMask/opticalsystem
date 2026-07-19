@@ -68,7 +68,9 @@ The comparison intentionally skips Python surface 0 because Optiland represents 
 
 ### Field Definitions
 
-`optiland-0.5.8-field-definition-reference.json` validates angle, object-height, and paraxial-image-height fields for finite and infinite conjugates. It compares initial distribution and generic rays, final generic rays, vignetting factors, object-space telecentric launch, and the forward/reverse unit chief rays used to resolve paraxial image height. Finite-object Python coordinates are translated to the Workbench object-plane origin before comparison; Python JSON import/export preserves that conjugate distance.
+`optiland-0.5.8-field-definition-reference.json` validates angle, object-height, and paraxial-image-height fields for finite and infinite conjugates. It compares initial distribution and generic rays, final generic rays, normalized paraxial traces, vignetting factors, object-space telecentric launch, object-NA entrance-pupil conversion, and the forward/reverse unit chief rays used to resolve paraxial image height. Finite-object Python coordinates are translated to the Workbench object-plane origin before comparison; Python JSON import/export preserves that conjugate distance.
+
+Python Optiland 0.5.8 does not expose Zemax's real-image-height field type. The Workbench implements it as a documented Zemax extension: a damped two-dimensional solve adjusts the infinite-conjugate object angle or finite-conjugate object coordinate until the primary-wavelength chief ray reaches the requested local image-surface X/Y coordinate. Distortion temporarily converts real image height to field angle or object height, while image simulation temporarily uses paraxial image height. All field types use the same Python-compatible maximum-radial-field normalization.
 
 ### Tessar F/4.5
 
@@ -113,4 +115,4 @@ See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numeric
 
 The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, vectorial diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
 
-As of 2026-07-19, the complete solution builds with zero warnings and the repository test suite passes `273/273` tests.
+As of 2026-07-19, the complete solution builds with zero warnings and the repository test suite passes `285/285` tests.

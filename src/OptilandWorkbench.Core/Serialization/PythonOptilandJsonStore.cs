@@ -1413,7 +1413,17 @@ public static class PythonOptilandJsonStore
         {
         }
 
-        var fallback = Math.Max(0.5, optic.Paraxial.EstimateEntrancePupilDiameter() * 0.6);
+        double visualDiameter;
+        try
+        {
+            visualDiameter = optic.Paraxial.EstimateEntrancePupilDiameter();
+        }
+        catch (InvalidOperationException)
+        {
+            visualDiameter = optic.SurfaceGroup.ApertureRadius() * 2;
+        }
+
+        var fallback = Math.Max(0.5, visualDiameter * 0.6);
         for (var index = 0; index < optic.SurfaceGroup.Items.Count; index++)
         {
             if (parsedSurfaces[index].Aperture is null)

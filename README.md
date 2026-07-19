@@ -8,7 +8,7 @@ The implementation is being built in small git milestones. The current codebase 
 - A composition-based surface model: `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + optional Scattering + CoordinateSystem`, while retaining GUI-compatible legacy table fields.
 - An embedded 1,740-entry compatibility library plus a bundled 63-catalog Zemax glass database containing 5,502 AGF records, with manufacturer-aware lookup, all 13 Zemax dispersion formulas, thermal/mechanical/transmission metadata, and wavelength-dependent refractive-index/extinction calculations. The Zemax source catalogs are converted once into the Workbench-owned compressed `.ogdb` format.
 - Managed CPU backend abstraction through `INumericBackend`.
-- Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style angle/object-height/paraxial-image-height fields with vignetting and object-space telecentric launch, normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
+- Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style angle/object-height/paraxial-image-height fields plus Zemax real-image-height chief-ray solving, vignetting and object-space telecentric launch, normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, polynomial-dispersion, Abbe, catalog extinction, and absorption support.
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
@@ -61,7 +61,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 273 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 285 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -103,6 +103,8 @@ See:
 - [Python Optiland JSON interoperability](docs/PYTHON_JSON_INTEROP.md)
 - [Python analysis and plot parity](docs/PYTHON_ANALYSIS_PARITY.md)
 - [Local icon library](docs/LOCAL_ICONS.md)
+
+Manual import and viewer samples are available under [`samples/lenses`](samples/lenses), including angle, finite-object-height, and Zemax real-image-height systems backed by bundled catalog glass.
 
 ## Notes
 
