@@ -68,6 +68,7 @@ public sealed class Paraxial
         var matrix = RayMatrix.Identity;
         var currentIndex = 1.0;
         var wavelengthNanometers = PrimaryWavelengthNanometers();
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
@@ -82,7 +83,15 @@ public sealed class Paraxial
             currentIndex = nextIndex;
         }
 
-        return Math.Abs(matrix.A) < 1e-12 ? 0 : matrix.B / matrix.A;
+        if (Math.Abs(matrix.A) < 1e-12)
+        {
+            return 0;
+        }
+
+        var relativeLocation = matrix.B / matrix.A;
+        return IsObjectAtInfinity(objectSurface)
+            ? relativeLocation
+            : (objectSurface?.CoordinateSystem.Origin.Z ?? 0) + relativeLocation;
     }
 
     public double EstimateExitPupilLocation()

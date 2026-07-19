@@ -17,6 +17,7 @@ public sealed class App : Avalonia.Application
     {
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
+        ApplyBlueAccent();
         DataTemplates.Add(new WorkspaceViewLocator());
         Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid"))
         {
@@ -79,6 +80,21 @@ public sealed class App : Avalonia.Application
             }
         });
         AddDockIconStyles();
+    }
+
+    private void ApplyBlueAccent()
+    {
+        var accent = Color.FromRgb(0, 122, 255);
+        Resources["SystemAccentColor"] = accent;
+        Resources["SystemAccentColorDark1"] = Color.FromRgb(0, 102, 204);
+        Resources["SystemAccentColorDark2"] = Color.FromRgb(0, 82, 164);
+        Resources["SystemAccentColorDark3"] = Color.FromRgb(0, 64, 128);
+        Resources["SystemAccentColorLight1"] = Color.FromRgb(64, 156, 255);
+        Resources["SystemAccentColorLight2"] = Color.FromRgb(128, 190, 255);
+        Resources["SystemAccentColorLight3"] = Color.FromRgb(204, 229, 255);
+        Resources["AccentFillColorDefaultBrush"] = new SolidColorBrush(accent);
+        Resources["AccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 112, 235));
+        Resources["AccentFillColorTertiaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 102, 214));
     }
 
     private void AddDockIconStyles()

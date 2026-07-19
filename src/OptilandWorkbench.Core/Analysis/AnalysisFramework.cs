@@ -151,9 +151,13 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
             .DefaultIfEmpty(0.01)
             .Max();
-        var axisLimit = (maximumRadius <= 1e-12 ? 0.01 : maximumRadius) * 1.05;
-        var panes = result.Fields.Select(field =>
+        var axisLimit = NiceAxisLimit((maximumRadius <= 1e-12 ? 0.01 : maximumRadius) * 1.05);
+        var panes = result.Fields.Select((field, fieldIndex) =>
         {
+            var configuredField = fieldIndex < Optic.Fields.Count ? Optic.Fields[fieldIndex] : null;
+            var fieldTitle = configuredField is null
+                ? $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}"
+                : FormatFieldTitle(configuredField.X, configuredField.Y, Optic.FieldDefinition);
             var series = field.Wavelengths.Select((wavelength, index) => new AnalysisSeries(
                 "X (mm)",
                 "Y (mm)",
@@ -165,10 +169,10 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 MarkerSize: 2.5,
                 Opacity: 0.7)).ToArray();
             return new AnalysisPlotPane(
-                $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}",
+                fieldTitle,
                 series,
                 new AnalysisPlotOptions(
-                    Title: $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}",
+                    Title: fieldTitle,
                     EqualAspect: true,
                     XMinimum: -axisLimit,
                     XMaximum: axisLimit,
@@ -185,8 +189,41 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             ["WavelengthCount"] = Optic.Wavelengths.Count,
             ["NumRings"] = _numRings,
             ["Distribution"] = _distribution,
-            ["MaximumGeometricSpotRadius"] = axisLimit / 1.05
-        }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes);
+            ["MaximumGeometricSpotRadius"] = maximumRadius
+        }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes, PlotPaneColumns: 3);
+    }
+
+    private static string FormatFieldTitle(double x, double y, FieldDefinitionKind definition)
+    {
+        var label = definition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight
+            ? "像面"
+            : "物面";
+        var unit = definition == FieldDefinitionKind.Angle ? "度" : "mm";
+        if (Math.Abs(x) <= 1e-12)
+        {
+            return $"{label}: {y:0.00} ({unit})";
+        }
+
+        if (Math.Abs(y) <= 1e-12)
+        {
+            return $"{label}: {x:0.00} ({unit})";
+        }
+
+        return $"{label}: X {x:0.00}, Y {y:0.00} ({unit})";
+    }
+
+    private static double NiceAxisLimit(double minimum)
+    {
+        if (!double.IsFinite(minimum) || minimum <= 0)
+        {
+            return 0.01;
+        }
+
+        var exponent = Math.Floor(Math.Log10(minimum));
+        var scale = Math.Pow(10, exponent);
+        var normalized = minimum / scale;
+        var nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+        return nice * scale;
     }
 }
 

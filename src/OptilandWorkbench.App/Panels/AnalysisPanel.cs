@@ -622,20 +622,27 @@ public sealed class AnalysisPanel : UserControl, IDisposable
     private static Control BuildPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes, int requestedColumns)
     {
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
-        var paneGrid = new UniformGrid
+        var rows = (int)Math.Ceiling(panes.Count / (double)columns);
+        var paneGrid = new Grid
         {
-            Columns = columns,
-            Rows = (int)Math.Ceiling(panes.Count / (double)columns)
+            ColumnDefinitions = new ColumnDefinitions(string.Join(',', Enumerable.Repeat("*", columns))),
+            RowDefinitions = new RowDefinitions(string.Join(',', Enumerable.Repeat("*", rows))),
+            MinWidth = columns * 300,
+            MinHeight = rows * 300
         };
-        foreach (var pane in panes)
+        for (var index = 0; index < panes.Count; index++)
         {
-            paneGrid.Children.Add(new AnalysisPlotControl
+            var pane = panes[index];
+            var plot = new AnalysisPlotControl
             {
                 Series = pane.Series,
                 PlotOptions = pane.PlotOptions,
                 MinWidth = 300,
                 MinHeight = 300
-            });
+            };
+            Grid.SetColumn(plot, index % columns);
+            Grid.SetRow(plot, index / columns);
+            paneGrid.Children.Add(plot);
         }
 
         var legend = new WrapPanel

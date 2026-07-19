@@ -164,18 +164,25 @@ public sealed class OptimizationPanel : UserControl, IDisposable
             IsReadOnly = false,
             RowHeight = 27,
             ColumnHeaderHeight = 30,
-            FrozenColumnCount = 3,
+            FrozenColumnCount = 2,
             BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
             BorderThickness = new Avalonia.Thickness(1),
             HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             RowBackground = new SolidColorBrush(Color.FromRgb(236, 244, 241))
         };
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-comment-row"))
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-directive-row"))
         {
             Setters =
             {
                 new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(251, 211, 249)))
+            }
+        });
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-comment-row"))
+        {
+            Setters =
+            {
+                new Setter(DataGridRow.BackgroundProperty, Brushes.White)
             }
         });
         grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-error-row"))
@@ -187,12 +194,6 @@ public sealed class OptimizationPanel : UserControl, IDisposable
         });
         grid.LoadingRow += (_, args) => ApplyRowClass(args.Row);
         grid.Columns.Add(TextColumn("#", nameof(MeritOperandEditorRow.Index), 44, true));
-        grid.Columns.Add(new DataGridCheckBoxColumn
-        {
-            Header = "启用",
-            Binding = new Binding(nameof(MeritOperandEditorRow.Enabled)) { Mode = BindingMode.TwoWay },
-            Width = new DataGridLength(58)
-        });
         grid.Columns.Add(TypeColumn());
         grid.Columns.Add(TextColumn("表面", nameof(MeritOperandEditorRow.Surface), 62));
         grid.Columns.Add(TextColumn("视场", nameof(MeritOperandEditorRow.Field), 62));
@@ -237,6 +238,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable
                 }
 
                 row.Type = type;
+                row.Enabled = !row.IsBlank;
                 PersistRows();
             };
             return picker;
@@ -483,7 +485,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable
             return;
         }
 
-        row.Classes.Set("merit-comment-row", operand.IsBlank);
+        row.Classes.Set("merit-directive-row", operand.IsDirective);
+        row.Classes.Set("merit-comment-row", operand.IsComment);
         row.Classes.Set("merit-error-row", !string.IsNullOrWhiteSpace(operand.Error));
     }
 }

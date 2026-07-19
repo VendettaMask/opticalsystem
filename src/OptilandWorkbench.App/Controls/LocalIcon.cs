@@ -3,6 +3,7 @@ using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Platform;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -107,8 +108,12 @@ public static class LocalIconLibrary
 
     private static IReadOnlyDictionary<string, IconDefinition> Load()
     {
-        using var stream = typeof(LocalIconLibrary).Assembly.GetManifestResourceStream(CatalogResourceName)
-            ?? throw new InvalidOperationException($"Embedded icon catalog '{CatalogResourceName}' was not found.");
+        using var stream = OpenCatalog();
+        if (stream is null)
+        {
+            return new Dictionary<string, IconDefinition>(StringComparer.OrdinalIgnoreCase);
+        }
+
         using var document = JsonDocument.Parse(stream);
         var definitions = new Dictionary<string, IconDefinition>(StringComparer.OrdinalIgnoreCase);
         foreach (var icon in document.RootElement.EnumerateObject())
@@ -139,6 +144,36 @@ public static class LocalIconLibrary
         }
 
         return definitions;
+    }
+
+    private static Stream? OpenCatalog()
+    {
+        var assembly = typeof(LocalIconLibrary).Assembly;
+        var embedded = assembly.GetManifestResourceStream(CatalogResourceName);
+        if (embedded is not null)
+        {
+            return embedded;
+        }
+
+        var assetUri = new Uri("avares://OptilandWorkbench.App/Assets/Icons/lucide-icon-nodes.json");
+        if (AssetLoader.Exists(assetUri))
+        {
+            return AssetLoader.Open(assetUri);
+        }
+
+        var candidates = new[]
+        {
+            System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Icons", "lucide-icon-nodes.json"),
+            System.IO.Path.Combine(
+                Environment.CurrentDirectory,
+                "src",
+                "OptilandWorkbench.App",
+                "Assets",
+                "Icons",
+                "lucide-icon-nodes.json")
+        };
+        var path = candidates.FirstOrDefault(File.Exists);
+        return path is null ? null : File.OpenRead(path);
     }
 
     private static IconPrimitive Path(JsonElement attributes) =>

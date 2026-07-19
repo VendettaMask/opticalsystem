@@ -290,33 +290,59 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         };
         var header = new Button
         {
-            Height = 31,
+            Height = 35,
+            Margin = new Avalonia.Thickness(6, 3),
             Padding = new Avalonia.Thickness(10, 0),
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderThickness = new Avalonia.Thickness(0),
-            CornerRadius = new Avalonia.CornerRadius(0),
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Avalonia.Thickness(1),
+            CornerRadius = new Avalonia.CornerRadius(7),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
         };
 
-        void SetExpanded(bool value)
+        var isExpanded = expanded;
+        var isHovered = false;
+
+        void UpdateVisuals()
         {
-            contentHost.IsVisible = value;
-            arrow.IconName = value ? "chevron-down" : "chevron-right";
-            arrow.Stroke = new SolidColorBrush(value
-                ? Color.FromRgb(0, 122, 255)
-                : Color.FromRgb(110, 110, 115));
-            titleText.Foreground = new SolidColorBrush(value
+            var emphasized = isExpanded || isHovered;
+            arrow.Stroke = new SolidColorBrush(emphasized
                 ? Color.FromRgb(0, 102, 204)
+                : Color.FromRgb(110, 110, 115));
+            titleText.Foreground = new SolidColorBrush(emphasized
+                ? Color.FromRgb(0, 82, 164)
                 : Color.FromRgb(29, 29, 31));
-            header.Background = new SolidColorBrush(value
-                ? Color.FromRgb(242, 247, 253)
-                : Color.FromRgb(250, 250, 252));
+            header.Background = new SolidColorBrush(isExpanded
+                ? Color.FromRgb(228, 239, 253)
+                : isHovered
+                    ? Color.FromRgb(239, 246, 255)
+                    : Color.FromRgb(250, 250, 252));
+            header.BorderBrush = new SolidColorBrush(emphasized
+                ? Color.FromRgb(174, 204, 239)
+                : Color.FromArgb(0, 0, 0, 0));
         }
 
-        var isExpanded = expanded;
+        void SetExpanded(bool value)
+        {
+            isExpanded = value;
+            contentHost.IsVisible = value;
+            arrow.IconName = value ? "chevron-down" : "chevron-right";
+            UpdateVisuals();
+        }
+
         SetExpanded(isExpanded);
+        header.PointerEntered += (_, _) =>
+        {
+            isHovered = true;
+            UpdateVisuals();
+        };
+        header.PointerExited += (_, _) =>
+        {
+            isHovered = false;
+            UpdateVisuals();
+        };
         header.Click += (_, _) =>
         {
             isExpanded = !isExpanded;
@@ -570,15 +596,47 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         };
         var header = new Button
         {
-            Height = 38,
+            Height = 42,
             Padding = new Thickness(10, 0),
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderThickness = new Thickness(0),
-            CornerRadius = new CornerRadius(7),
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(8),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
         };
+        var card = new Border
+        {
+            Background = Brushes.White,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(9),
+            Child = new StackPanel { Children = { header, contentHost } }
+        };
+        var isHovered = false;
+
+        void UpdateVisuals(bool expanded)
+        {
+            var emphasized = expanded || isHovered;
+            header.Background = new SolidColorBrush(expanded
+                ? Color.FromRgb(228, 239, 253)
+                : isHovered
+                    ? Color.FromRgb(239, 246, 255)
+                    : Color.FromRgb(250, 250, 252));
+            header.BorderBrush = new SolidColorBrush(emphasized
+                ? Color.FromRgb(174, 204, 239)
+                : Color.FromArgb(0, 0, 0, 0));
+            card.BorderBrush = new SolidColorBrush(emphasized
+                ? Color.FromRgb(174, 204, 239)
+                : Color.FromRgb(209, 209, 214));
+            arrow.Stroke = new SolidColorBrush(emphasized
+                ? Color.FromRgb(0, 102, 204)
+                : Color.FromRgb(72, 72, 74));
+            titleText.Foreground = new SolidColorBrush(emphasized
+                ? Color.FromRgb(0, 82, 164)
+                : Color.FromRgb(29, 29, 31));
+        }
 
         void SetExpanded(bool expanded)
         {
@@ -592,18 +650,22 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
             {
                 expandedItems.Remove(index);
             }
+
+            UpdateVisuals(expanded);
         }
 
         SetExpanded(expandedItems.Contains(index));
-        header.Click += (_, _) => SetExpanded(!contentHost.IsVisible);
-        var card = new Border
+        header.PointerEntered += (_, _) =>
         {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
-            Child = new StackPanel { Children = { header, contentHost } }
+            isHovered = true;
+            UpdateVisuals(contentHost.IsVisible);
         };
+        header.PointerExited += (_, _) =>
+        {
+            isHovered = false;
+            UpdateVisuals(contentHost.IsVisible);
+        };
+        header.Click += (_, _) => SetExpanded(!contentHost.IsVisible);
         return (card, summaryText);
     }
 

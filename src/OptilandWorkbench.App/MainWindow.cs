@@ -488,7 +488,7 @@ public sealed class MainWindow : Window
         };
         return new Border
         {
-            Height = 132,
+            Height = 144,
             Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 0, 0, 1),
@@ -542,7 +542,7 @@ public sealed class MainWindow : Window
             commandPanel.Children.Add(command);
         }
 
-        var grid = new Grid { RowDefinitions = new RowDefinitions("*,20") };
+        var grid = new Grid { RowDefinitions = new RowDefinitions("68,18") };
         var caption = new TextBlock
         {
             Text = title,
@@ -569,14 +569,27 @@ public sealed class MainWindow : Window
         var button = new Button
         {
             Width = 78,
-            Height = 76,
-            MinHeight = 76,
+            Height = 66,
+            MinHeight = 66,
+            Margin = new Thickness(1, 0, 1, 2),
             Padding = new Thickness(4),
             Background = Brushes.Transparent,
-            BorderThickness = new Thickness(0),
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(7),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Content = RibbonCommandContent(iconName, label)
+        };
+        button.PointerEntered += (_, _) =>
+        {
+            button.Background = new SolidColorBrush(Color.FromRgb(232, 241, 253));
+            button.BorderBrush = new SolidColorBrush(Color.FromRgb(174, 204, 239));
+        };
+        button.PointerExited += (_, _) =>
+        {
+            button.Background = Brushes.Transparent;
+            button.BorderBrush = Brushes.Transparent;
         };
         var action = _actions.Find(actionId);
         button.Click += async (_, _) => await _actions.ExecuteAsync(action);
@@ -604,15 +617,28 @@ public sealed class MainWindow : Window
         var button = new SplitButton
         {
             Width = 92,
-            Height = 76,
-            MinHeight = 76,
+            Height = 66,
+            MinHeight = 66,
+            Margin = new Thickness(1, 0, 1, 2),
             Padding = new Thickness(4),
             Background = Brushes.Transparent,
-            BorderThickness = new Thickness(0),
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(7),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
             Content = RibbonCommandContent(menu.IconName, menu.Label)
+        };
+        button.PointerEntered += (_, _) =>
+        {
+            button.Background = new SolidColorBrush(Color.FromRgb(232, 241, 253));
+            button.BorderBrush = new SolidColorBrush(Color.FromRgb(174, 204, 239));
+        };
+        button.PointerExited += (_, _) =>
+        {
+            button.Background = Brushes.Transparent;
+            button.BorderBrush = Brushes.Transparent;
         };
         var defaultAction = _actions.Find(menu.CommandIds[0]);
         button.Click += async (_, _) => await _actions.ExecuteAsync(defaultAction);
@@ -625,8 +651,8 @@ public sealed class MainWindow : Window
         var grid = new Grid
         {
             Width = 66,
-            Height = 54,
-            RowDefinitions = new RowDefinitions("30,24"),
+            Height = 52,
+            RowDefinitions = new RowDefinitions("29,23"),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };

@@ -13,6 +13,64 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxImportTests
 {
+    [Fact]
+    public void ZemaxMeritFunctionRowsImportInOriginalOrder()
+    {
+        const string source = """
+            MODE SEQ
+            NAME "Merit import"
+            ENPD 10
+            FTYP 0 0 2 2 0 0 0
+            XFLN 0 0
+            YFLN 0 10
+            FWGN 1 1
+            WAVM 1 0.4861327 1
+            WAVM 2 0.5875618 1
+            PWAV 2
+            SURF 0
+              CURV 0
+              DISZ 20
+            SURF 1
+              CURV 0
+              DISZ 0
+            DMFS 0 0 0 0 0 0 0 0 0 0
+            BLNK 序列评价函数: RMS 波前差：质心参考高斯求积 3 环 6 臂
+            BLNK 视场操作数 2.
+            OPDX 0 2 0 0.7142857142857143 0.16785534350986436 0.29073398328101191 0 0.032320912073968894 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        Assert.Collection(
+            optic.MeritFunctionOperands,
+            operand =>
+            {
+                Assert.Equal("DMFS", operand.Type);
+                Assert.False(operand.Enabled);
+            },
+            operand =>
+            {
+                Assert.Equal("BLNK", operand.Type);
+                Assert.Equal("序列评价函数: RMS 波前差：质心参考高斯求积 3 环 6 臂", operand.Comment);
+            },
+            operand =>
+            {
+                Assert.Equal("BLNK", operand.Type);
+                Assert.Equal("视场操作数 2.", operand.Comment);
+            },
+            operand =>
+            {
+                Assert.Equal("OPDX", operand.Type);
+                Assert.Equal(0, operand.Surface);
+                Assert.Equal(2, operand.Wavelength);
+                Assert.Equal(0, operand.Hx, precision: 12);
+                Assert.Equal(0.7142857142857143, operand.Hy, precision: 12);
+                Assert.Equal(0.16785534350986436, operand.Px, precision: 12);
+                Assert.Equal(0.29073398328101191, operand.Py, precision: 12);
+                Assert.Equal(0, operand.Target, precision: 12);
+                Assert.Equal(0.032320912073968894, operand.Weight, precision: 12);
+            });
+    }
+
     public static IEnumerable<object[]> SampleLensFiles()
     {
         yield return new object[] { "achromatic-doublet.zmx", FieldDefinitionKind.Angle, 5, 2 };

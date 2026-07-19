@@ -217,6 +217,27 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void DefaultWavefrontMeritFunctionUsesZemaxGaussianQuadratureRows()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsWavefront);
+        var operands = application.Optimization.GetMeritFunction();
+        var firstField = operands
+            .SkipWhile(operand => operand.Type != "OPDX")
+            .Take(3)
+            .ToArray();
+
+        Assert.Equal(0.3357106870197288, firstField[0].Px, precision: 12);
+        Assert.Equal(0.7071067811865476, firstField[1].Px, precision: 12);
+        Assert.Equal(0.9419651451198934, firstField[2].Px, precision: 12);
+        Assert.All(firstField, operand => Assert.Equal(0, operand.Py, precision: 12));
+        Assert.Equal(0.0969627362219067, firstField[0].Weight, precision: 12);
+        Assert.Equal(0.1551403779550515, firstField[1].Weight, precision: 12);
+        Assert.Equal(0.0969627362219067, firstField[2].Weight, precision: 12);
+    }
+
+    [Fact]
     public void OptimizationWizardGeneratesSampledMeritFunction()
     {
         using var application = WorkbenchApplication.Create("cooke");

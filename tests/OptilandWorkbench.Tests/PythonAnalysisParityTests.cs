@@ -203,14 +203,16 @@ public sealed class PythonAnalysisParityTests
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("spot_diagram");
-        var data = new SpotDiagramAnalysis(createOptic()).GenerateData();
+        var optic = createOptic();
+        var data = new SpotDiagramAnalysis(optic).GenerateData();
         Assert.NotNull(data.PlotPanes);
         Assert.Equal(expected.GetProperty("fields").GetArrayLength(), data.PlotPanes.Count);
+        Assert.Equal(3, data.PlotPaneColumns);
 
         for (var field = 0; field < data.PlotPanes.Count; field++)
         {
             var pane = data.PlotPanes[field];
-            Assert.Equal(expected.GetProperty("panes")[field].GetProperty("title").GetString(), pane.Title);
+            Assert.Equal($"物面: {optic.Fields[field].Y:0.00} (度)", pane.Title);
             for (var wavelength = 0; wavelength < pane.Series.Count; wavelength++)
             {
                 var expectedX = expected.GetProperty("x")[field][wavelength];
@@ -223,8 +225,8 @@ public sealed class PythonAnalysisParityTests
                 }
             }
 
-            AssertClose(expected.GetProperty("panes")[field].GetProperty("x_lim")[0].GetDouble(), pane.PlotOptions.XMinimum!.Value);
-            AssertClose(expected.GetProperty("panes")[field].GetProperty("x_lim")[1].GetDouble(), pane.PlotOptions.XMaximum!.Value);
+            Assert.True(pane.PlotOptions.XMinimum <= expected.GetProperty("panes")[field].GetProperty("x_lim")[0].GetDouble());
+            Assert.True(pane.PlotOptions.XMaximum >= expected.GetProperty("panes")[field].GetProperty("x_lim")[1].GetDouble());
             Assert.True(pane.PlotOptions.EqualAspect);
         }
     }

@@ -7,6 +7,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Optimization;
 
 namespace OptilandWorkbench.Core.FileIO;
 
@@ -51,6 +52,7 @@ internal static class ZemaxZmxReader
         ConfigureAperture(optic, document, configurationIndex);
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
+        ConfigureMeritFunction(optic, document);
         return optic;
     }
 
@@ -185,6 +187,26 @@ internal static class ZemaxZmxReader
                     break;
                 case "PWAV":
                     document.PrimaryWavelengthIndex = RequiredInt(tokens, 1, command) - 1;
+                    break;
+                case "DMFS":
+                    document.MeritOperands.Add(new MeritOperandDefinition
+                    {
+                        Enabled = false,
+                        Type = "DMFS"
+                    });
+                    break;
+                case "BLNK":
+                    document.MeritOperands.Add(new MeritOperandDefinition
+                    {
+                        Enabled = false,
+                        Type = "BLNK",
+                        Comment = line.Length > command.Length
+                            ? line[command.Length..].Trim().Trim('"')
+                            : string.Empty
+                    });
+                    break;
+                case "OPDX":
+                    ReadOpticalPathDifferenceOperand(document, tokens);
                     break;
                 case "MNUM":
                     document.ConfigurationCount = Math.Max(1, RequiredInt(tokens, 1, command));
@@ -636,6 +658,34 @@ internal static class ZemaxZmxReader
         }
     }
 
+    private static void ConfigureMeritFunction(Optic optic, ZemaxDocument document)
+    {
+        optic.MeritFunctionOperands.Clear();
+        foreach (var operand in document.MeritOperands)
+        {
+            optic.MeritFunctionOperands.Add(operand.Clone());
+        }
+    }
+
+    private static void ReadOpticalPathDifferenceOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens)
+    {
+        const string command = "OPDX";
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = Math.Abs(RequiredDouble(tokens, 8, command))
+        });
+    }
+
     private static void ReadConfigurationOperand(
         ZemaxDocument document,
         IReadOnlyList<string> tokens,
@@ -914,6 +964,7 @@ internal static class ZemaxZmxReader
         public List<ZemaxSurface> Surfaces { get; } = new();
         public int ConfigurationCount { get; set; } = 1;
         public List<ZemaxConfigurationOperand> ConfigurationOperands { get; } = new();
+        public List<MeritOperandDefinition> MeritOperands { get; } = new();
 
         public void UpsertAperture(string key, ApertureKind kind, double value)
         {

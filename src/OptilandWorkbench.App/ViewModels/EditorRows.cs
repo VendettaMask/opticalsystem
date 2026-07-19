@@ -146,8 +146,11 @@ public sealed class MeritOperandEditorRow
     public double PupilObscuration { get; set; }
     public string PupilSampling { get; set; }
 
-    public bool IsBlank => Type.Equals("BLNK", StringComparison.OrdinalIgnoreCase)
-        || Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
+    public bool IsDirective => Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
+
+    public bool IsComment => Type.Equals("BLNK", StringComparison.OrdinalIgnoreCase);
+
+    public bool IsBlank => IsDirective || IsComment;
 
     public string ValueDisplay => double.IsFinite(Value) ? Value.ToString("0.######") : "-";
 

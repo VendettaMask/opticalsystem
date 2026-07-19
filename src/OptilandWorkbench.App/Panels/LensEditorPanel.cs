@@ -156,7 +156,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         {
             Setters =
             {
-                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(232, 238, 255)))
+                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(205, 220, 250)))
             }
         });
         grid.LoadingRow += (_, eventArgs) =>

@@ -182,49 +182,15 @@ public static class MeritFunctionCatalog
 
     public static IReadOnlyList<MeritOperandDefinition> CreateDefaultRmsWavefront(Optic optic)
     {
-        var operands = new List<MeritOperandDefinition>
-        {
-            new()
-            {
-                Enabled = false,
-                Type = "DMFS",
-                Comment = "序列评价函数：RMS 波前差"
-            }
-        };
-        var primaryIndex = optic.Wavelengths
-            .Select((wavelength, index) => (wavelength, index))
-            .FirstOrDefault(item => item.wavelength.IsPrimary).index;
-        var pupilSamples = new[]
-        {
-            (0.333, 0.0), (0.0, 0.333), (-0.333, 0.0), (0.0, -0.333),
-            (0.667, 0.0), (0.0, 0.667), (-0.667, 0.0), (0.0, -0.667),
-            (0.95, 0.0), (0.0, 0.95), (-0.95, 0.0), (0.0, -0.95)
-        };
-        var fieldWeights = NormalizeWeights(optic.Fields.Select(field => field.Weight).ToArray());
-        for (var field = 0; field < optic.Fields.Count; field++)
-        {
-            operands.Add(new MeritOperandDefinition
-            {
-                Enabled = false,
-                Type = "BLNK",
-                Comment = $"视场操作数 {field + 1}：{optic.Fields[field].Label}"
-            });
-            foreach (var (px, py) in pupilSamples)
-            {
-                operands.Add(new MeritOperandDefinition
-                {
-                    Type = "OPDX",
-                    Field = field + 1,
-                    Wavelength = primaryIndex + 1,
-                    Px = px,
-                    Py = py,
-                    Target = 0,
-                    Weight = Math.Sqrt(fieldWeights[field] / pupilSamples.Length)
-                });
-            }
-        }
-
-        return operands;
+        return CreateFromWizard(optic, new MeritFunctionWizardSettings(
+            MeritImageQuality.RmsWavefront,
+            MeritPupilSampling.GaussianQuadrature,
+            PupilRings: 3,
+            PupilArms: 6,
+            PupilObscuration: 0,
+            WeightScale: 1,
+            UseAllWavelengths: true,
+            IncludeCommonOperands: false));
     }
 
     public static IReadOnlyList<MeritOperandDefinition> CreateFromWizard(
@@ -240,6 +206,19 @@ public static class MeritFunctionCatalog
         var samplingName = settings.PupilSampling == MeritPupilSampling.RectangularArray
             ? "uniform"
             : "hexapolar";
+        if (settings.ImageQuality == MeritImageQuality.RmsWavefront
+            && settings.PupilSampling == MeritPupilSampling.GaussianQuadrature)
+        {
+            return CreateGaussianWavefrontOperands(
+                optic,
+                rings,
+                arms,
+                obscuration,
+                weightScale,
+                settings.UseAllWavelengths,
+                settings.IncludeCommonOperands);
+        }
+
         var operands = new List<MeritOperandDefinition>
         {
             new()
@@ -304,6 +283,184 @@ public static class MeritFunctionCatalog
         }
 
         return operands;
+    }
+
+    private static IReadOnlyList<MeritOperandDefinition> CreateGaussianWavefrontOperands(
+        Optic optic,
+        int rings,
+        int arms,
+        double obscuration,
+        double weightScale,
+        bool useAllWavelengths,
+        bool includeCommonOperands)
+    {
+        var operands = new List<MeritOperandDefinition>
+        {
+            new() { Enabled = false, Type = "DMFS" },
+            new()
+            {
+                Enabled = false,
+                Type = "BLNK",
+                Comment = $"序列评价函数: RMS 波前差：质心参考高斯求积 {rings} 环 {arms} 臂"
+            },
+            new()
+            {
+                Enabled = false,
+                Type = "BLNK",
+                Comment = "无空气及玻璃约束."
+            }
+        };
+        var fieldWeights = NormalizeWeights(optic.Fields.Select(field => field.Weight).ToArray());
+        var wavelengthIndices = useAllWavelengths
+            ? Enumerable.Range(0, optic.Wavelengths.Count).ToArray()
+            : new[]
+            {
+                optic.Wavelengths
+                    .Select((wavelength, index) => (wavelength, index))
+                    .FirstOrDefault(item => item.wavelength.IsPrimary).index
+            };
+        var wavelengthWeights = NormalizeWeights(
+            wavelengthIndices.Select(index => optic.Wavelengths[index].Weight).ToArray());
+        var radialSamples = GaussianRadialSamples(rings, obscuration);
+
+        for (var fieldIndex = 0; fieldIndex < optic.Fields.Count; fieldIndex++)
+        {
+            var field = optic.Fields[fieldIndex];
+            var normalized = FieldCoordinates.Normalize(optic.Fields, field.X, field.Y);
+            var onAxis = Math.Abs(normalized.X) <= 1e-12 && Math.Abs(normalized.Y) <= 1e-12;
+            var directionCount = onAxis ? 1 : Math.Max(1, arms / 2);
+            operands.Add(new MeritOperandDefinition
+            {
+                Enabled = false,
+                Type = "BLNK",
+                Comment = $"视场操作数 {fieldIndex + 1}."
+            });
+
+            for (var wavelengthOffset = 0; wavelengthOffset < wavelengthIndices.Length; wavelengthOffset++)
+            {
+                var wavelengthIndex = wavelengthIndices[wavelengthOffset];
+                foreach (var radialSample in radialSamples)
+                {
+                    for (var direction = 0; direction < directionCount; direction++)
+                    {
+                        var angle = onAxis
+                            ? 0
+                            : (((directionCount - 1) / 2.0) - direction) * (2 * Math.PI / arms);
+                        operands.Add(new MeritOperandDefinition
+                        {
+                            Type = "OPDX",
+                            Field = fieldIndex + 1,
+                            Wavelength = wavelengthIndex + 1,
+                            Hx = normalized.X,
+                            Hy = normalized.Y,
+                            Px = radialSample.Radius * Math.Cos(angle),
+                            Py = radialSample.Radius * Math.Sin(angle),
+                            Target = 0,
+                            Weight = weightScale
+                                * Math.PI
+                                * fieldWeights[fieldIndex]
+                                * wavelengthWeights[wavelengthOffset]
+                                * radialSample.Weight
+                                / directionCount,
+                            PupilRings = rings,
+                            PupilArms = arms,
+                            PupilObscuration = obscuration,
+                            PupilSampling = "hexapolar"
+                        });
+                    }
+                }
+            }
+        }
+
+        AddCommonOperands(optic, operands, weightScale, includeCommonOperands);
+        return operands;
+    }
+
+    private static IReadOnlyList<(double Radius, double Weight)> GaussianRadialSamples(
+        int sampleCount,
+        double obscuration)
+    {
+        var lower = obscuration * obscuration;
+        var span = 1 - lower;
+        var samples = new (double Radius, double Weight)[sampleCount];
+        var rootsToFind = (sampleCount + 1) / 2;
+        for (var rootIndex = 0; rootIndex < rootsToFind; rootIndex++)
+        {
+            var root = Math.Cos(Math.PI * (rootIndex + 0.75) / (sampleCount + 0.5));
+            double derivative;
+            for (var iteration = 0; iteration < 32; iteration++)
+            {
+                var previous = 1.0;
+                var current = root;
+                for (var order = 2; order <= sampleCount; order++)
+                {
+                    var next = (((2 * order) - 1) * root * current - ((order - 1) * previous)) / order;
+                    previous = current;
+                    current = next;
+                }
+
+                derivative = sampleCount * ((root * current) - previous) / ((root * root) - 1);
+                var nextRoot = root - (current / derivative);
+                if (Math.Abs(nextRoot - root) <= 1e-15)
+                {
+                    root = nextRoot;
+                    break;
+                }
+
+                root = nextRoot;
+            }
+
+            var p0 = 1.0;
+            var p1 = root;
+            for (var order = 2; order <= sampleCount; order++)
+            {
+                var next = (((2 * order) - 1) * root * p1 - ((order - 1) * p0)) / order;
+                p0 = p1;
+                p1 = next;
+            }
+
+            derivative = sampleCount * ((root * p1) - p0) / ((root * root) - 1);
+            var legendreWeight = 2 / ((1 - (root * root)) * derivative * derivative);
+            SetRadialSample(rootIndex, -root, legendreWeight);
+            SetRadialSample(sampleCount - rootIndex - 1, root, legendreWeight);
+        }
+
+        return samples;
+
+        void SetRadialSample(int index, double node, double legendreWeight)
+        {
+            var normalizedRadiusSquared = (node + 1) / 2;
+            samples[index] = (
+                Math.Sqrt(lower + (span * normalizedRadiusSquared)),
+                span * legendreWeight / 2);
+        }
+    }
+
+    private static void AddCommonOperands(
+        Optic optic,
+        ICollection<MeritOperandDefinition> operands,
+        double weightScale,
+        bool includeCommonOperands)
+    {
+        if (!includeCommonOperands)
+        {
+            return;
+        }
+
+        operands.Add(new MeritOperandDefinition
+        {
+            Type = "EFFL",
+            Target = optic.Paraxial.EstimateEffectiveFocalLength(),
+            Weight = weightScale,
+            Comment = "保持当前有效焦距"
+        });
+        operands.Add(new MeritOperandDefinition
+        {
+            Type = "FNUM",
+            Target = optic.Paraxial.EstimateFNumber(),
+            Weight = weightScale,
+            Comment = "保持当前 F 数"
+        });
     }
 
     public static string CanonicalType(string? type)
