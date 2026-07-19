@@ -112,7 +112,7 @@ public sealed class WorkspaceDockFactory : Factory
         var root = new RootDock
         {
             Id = RootId,
-            Title = "Optiland Workbench",
+            Title = "Optical System Design",
             IsCollapsable = false,
             VisibleDockables = CreateList<IDockable>(mainLayout),
             DefaultDockable = mainLayout,
@@ -363,6 +363,8 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Events,
                 SceneDimension.ThreeDimensional,
                 ViewerPresentationMode.SolidModel),
+            WorkspaceDocumentKind.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
+            WorkspaceDocumentKind.GlassCatalog => new GlassCatalogPanel(_application.Materials),
             WorkspaceDocumentKind.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
             WorkspaceDocumentKind.Tolerancing => new TolerancingPanel(_application.Prescription, _application.Tolerancing, _application.Events),
             WorkspaceDocumentKind.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),

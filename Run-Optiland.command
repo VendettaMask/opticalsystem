@@ -1,25 +1,33 @@
 #!/usr/bin/env bash
 set -u
 
-ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)"
 PROJECT="src/OptilandWorkbench.App/OptilandWorkbench.App.csproj"
-cd "$ROOT_DIR" || exit 1
+
+pause_if_interactive() {
+  if [ -t 0 ]; then
+    read -r -p "Press Return to close this window..."
+  fi
+}
 
 if command -v dotnet >/dev/null 2>&1; then
-  DOTNET="dotnet"
+  DOTNET="$(command -v dotnet)"
+elif [ -x "$HOME/.dotnet/dotnet" ]; then
+  DOTNET="$HOME/.dotnet/dotnet"
 elif [ -x "/usr/local/share/dotnet/dotnet" ]; then
   DOTNET="/usr/local/share/dotnet/dotnet"
 else
-  echo "未找到 .NET SDK。"
-  echo "请安装 .NET SDK 10 或更新版本后重新运行。"
-  read -r -p "按回车关闭窗口..."
+  echo ".NET SDK was not found."
+  echo "Install .NET SDK 10 or later and try again."
+  pause_if_interactive
   exit 1
 fi
 
+cd "$ROOT_DIR" || exit 1
 export AVALONIA_TELEMETRY_OPTOUT=1
 
-echo "正在启动 Optiland 光学工作台..."
-echo "项目: $PROJECT"
+echo "Starting Optical System Design (S.T.A.R. Labs)..."
+echo "Project: $PROJECT"
 echo
 
 "$DOTNET" run --project "$PROJECT"
@@ -27,10 +35,10 @@ STATUS=$?
 
 echo
 if [ "$STATUS" -eq 0 ]; then
-  echo "Optiland 光学工作台已关闭。"
+  echo "Optical System Design closed."
 else
-  echo "Optiland 光学工作台退出，代码 $STATUS。"
+  echo "Optical System Design exited with code $STATUS."
 fi
 
-read -r -p "按回车关闭窗口..."
+pause_if_interactive
 exit "$STATUS"

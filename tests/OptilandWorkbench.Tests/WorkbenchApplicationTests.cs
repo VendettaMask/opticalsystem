@@ -6,6 +6,65 @@ namespace OptilandWorkbench.Tests;
 public sealed class WorkbenchApplicationTests
 {
     [Fact]
+    public void MaterialCatalogExposesGlassEditorDetails()
+    {
+        using var application = WorkbenchApplication.Create();
+
+        var cdgm = Assert.Single(
+            application.Materials.GetCatalogs(),
+            catalog => catalog.Manufacturer == "CDGM");
+        var baf7 = Assert.Single(
+            application.Materials.GetGlasses(),
+            glass => glass.Manufacturer == "CDGM" && glass.Name == "BAF7");
+
+        Assert.Equal(275, cdgm.GlassCount);
+        Assert.Equal("zemax formula 1", baf7.Formula);
+        Assert.Equal(10, baf7.DispersionCoefficients.Count);
+        Assert.Equal(2.5436416, baf7.DispersionCoefficients[0], precision: 10);
+        Assert.Equal(0.365, baf7.MinimumWavelengthMicrometers, precision: 10);
+        Assert.Equal(0.7065, baf7.MaximumWavelengthMicrometers, precision: 10);
+        Assert.True(baf7.ExtinctionSampleCount > 0);
+    }
+
+    [Fact]
+    public async Task ZemaxCatalogImportPersistsOwnFormatAndExposesGlass()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), $"optiland-glass-{Guid.NewGuid():N}");
+        var sourcePath = Path.Combine(directory, "CODEXAPP.AGF");
+        Directory.CreateDirectory(directory);
+        await File.WriteAllTextAsync(sourcePath, """
+            CC Application import test
+            NM H-ZLAF96 1 900000 1.900000 30.000000 0 0 0
+            GC Imported from Zemax
+            ED 8.3 0.2 3.56 0.0001 0
+            CD 3.61 -0.02 0.03 0.001 -0.0001 0.00001
+            TD 1e-6 2e-8 3e-10 4e-7 5e-9 0.2 20
+            LD 0.365 2.5
+            """);
+
+        try
+        {
+            using var application = WorkbenchApplication.Create(userCatalogDirectory: directory);
+            var result = await application.Materials.ImportZemaxCatalogAsync(sourcePath);
+            var glass = Assert.Single(
+                application.Materials.GetGlasses(),
+                item => item.Manufacturer == "CODEXAPP" && item.Name == "H-ZLAF96");
+
+            Assert.Equal("CODEXAPP", result.CatalogName);
+            Assert.Equal(1, result.GlassCount);
+            Assert.Equal(".ogcat", Path.GetExtension(result.SavedPath));
+            Assert.True(File.Exists(result.SavedPath));
+            Assert.Equal(1, glass.ZemaxFormulaNumber);
+            Assert.Equal("Imported from Zemax", glass.Comment);
+            Assert.Equal(3.56, glass.Density);
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Fact]
     public void SurfaceEditPublishesOneRevisionAndSupportsUndoRedo()
     {
         using var application = WorkbenchApplication.Create("cooke");

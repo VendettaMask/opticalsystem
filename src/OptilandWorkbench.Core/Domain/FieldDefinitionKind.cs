@@ -4,5 +4,6 @@ public enum FieldDefinitionKind
 {
     Angle,
     ObjectHeight,
-    ParaxialImageHeight
+    ParaxialImageHeight,
+    RealImageHeight
 }

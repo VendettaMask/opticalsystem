@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
@@ -34,6 +35,12 @@ public sealed class MainWindow : Window
         MimeTypes = new[] { "text/plain" }
     };
 
+    private static readonly FilePickerFileType ZemaxOpticFileType = new("Zemax 光学系统")
+    {
+        Patterns = new[] { "*.zmx" },
+        MimeTypes = new[] { "text/plain" }
+    };
+
     private static readonly FilePickerFileType PlainSequentialFileType = new("序列光学文本")
     {
         Patterns = new[] { "*.lens", "*.dat", "*.txt" },
@@ -42,18 +49,18 @@ public sealed class MainWindow : Window
 
     private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
     {
-        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "基础"),
-        new("analysis-prescription", "处方报告", "处方报告", "file-text", "基础"),
-        new("analysis-spot", "点列图", "点列图", "chart-scatter", "几何像质"),
-        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "chart-spline", "几何像质"),
-        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "chart-no-axes-combined", "几何像质"),
-        new("analysis-distortion", "畸变", "畸变", "move-diagonal", "几何像质"),
-        new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "几何像质"),
-        new("analysis-field-curvature", "场曲", "场曲", "chart-line", "几何像质"),
-        new("analysis-encircled-energy", "包围能量", "包围能量", "circle-dot", "几何像质"),
-        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "scan", "几何像质"),
-        new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "几何像质"),
-        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "几何像质"),
+        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "报告"),
+        new("analysis-prescription", "处方报告", "处方报告", "file-text", "报告"),
+        new("analysis-spot", "点列图", "点列图", "chart-scatter", "光线分布"),
+        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "chart-spline", "像差"),
+        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "chart-no-axes-combined", "像差"),
+        new("analysis-distortion", "畸变", "畸变", "move-diagonal", "像差"),
+        new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "像差"),
+        new("analysis-field-curvature", "场曲", "场曲", "chart-line", "像差"),
+        new("analysis-encircled-energy", "包围能量", "包围能量", "circle-dot", "PSF / MTF"),
+        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "scan", "像差"),
+        new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "像差"),
+        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "像差"),
         new("analysis-through-focus", "离焦扫描", "离焦扫描", "scan-line", "扫描"),
         new("analysis-through-focus-mtf", "离焦 MTF", "离焦 MTF", "chart-spline", "扫描"),
         new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "scan", "扫描"),
@@ -70,11 +77,81 @@ public sealed class MainWindow : Window
         new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "focus", "波前"),
         new("analysis-zernike", "Zernike 系数", "Zernike", "sigma", "波前"),
         new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "波前"),
-        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "照明与成像"),
-        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "照明与成像"),
-        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "照明与成像"),
-        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "照明与成像")
+        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "照度"),
+        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "照度"),
+        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "成像仿真"),
+        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "成像仿真")
     };
+
+    private static readonly string[] AnalysisRibbonGroupOrder =
+    {
+        "光线分布",
+        "像差",
+        "扫描",
+        "波前",
+        "PSF / MTF",
+        "照度",
+        "成像仿真",
+        "报告"
+    };
+
+    private static readonly IReadOnlyList<AnalysisRibbonMenu> AnalysisRibbonMenus = new AnalysisRibbonMenu[]
+    {
+        new("报告", "系统数据", "ruler", new[]
+        {
+            "analysis-first-order",
+            "analysis-prescription"
+        }),
+        new("像差", "扇形图", "chart-spline", new[]
+        {
+            "analysis-ray-fan",
+            "analysis-best-fit-ray-fan"
+        }),
+        new("像差", "畸变", "move-diagonal", new[]
+        {
+            "analysis-distortion",
+            "analysis-grid-distortion"
+        }),
+        new("像差", "视场像差", "chart-line", new[]
+        {
+            "analysis-field-curvature",
+            "analysis-rms-field",
+            "analysis-rms-wavefront-field"
+        }),
+        new("扫描", "离焦扫描", "scan-line", new[]
+        {
+            "analysis-through-focus",
+            "analysis-through-focus-mtf"
+        }),
+        new("扫描", "像高扫描", "scan", new[]
+        {
+            "analysis-angle-pupil",
+            "analysis-angle-field"
+        }),
+        new("PSF / MTF", "PSF", "focus", new[]
+        {
+            "analysis-psf",
+            "analysis-mmdft-psf",
+            "analysis-huygens-psf"
+        }),
+        new("PSF / MTF", "MTF", "chart-no-axes-combined", new[]
+        {
+            "analysis-mtf",
+            "analysis-huygens-mtf",
+            "analysis-geometric-mtf",
+            "analysis-sampled-mtf"
+        }),
+        new("波前", "波前", "waves-horizontal", new[]
+        {
+            "analysis-wavefront",
+            "analysis-centroid-wavefront",
+            "analysis-best-fit-wavefront"
+        })
+    };
+
+    private static readonly IReadOnlySet<string> GroupedAnalysisCommandIds = AnalysisRibbonMenus
+        .SelectMany(menu => menu.CommandIds)
+        .ToHashSet(StringComparer.Ordinal);
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
@@ -92,13 +169,13 @@ public sealed class MainWindow : Window
     public MainWindow()
     {
         _settings = AppSettings.Load();
-        _application = WorkbenchApplication.Create(InitialSample());
+        _application = WorkbenchApplication.Create(InitialSample(), UserGlassCatalogDirectory());
         _panels = new PanelManager(_application, _settings);
         RegisterActions();
         _actions.ExecutionFailed += OnActionExecutionFailed;
         _panels.PersistenceFailed += OnWorkspacePersistenceFailed;
 
-        Title = "Optiland 光学工作台";
+        Title = "Optical System Design";
         Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
         Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
         MinWidth = 1100;
@@ -184,6 +261,7 @@ public sealed class MainWindow : Window
         _actions.Register("new-demo", "新建 Cooke 三片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewCooke));
         _actions.Register("new-tessar", "新建 Tessar F/4.5 四片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewTessar));
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
+        _actions.Register("import-zemax", "导入 Zemax ZMX", "文件", ImportZemaxAsync);
         _actions.Register("save-as", "另存为", "文件", SaveAsAsync);
         _actions.Register("export-python-json", "导出 Python Optiland JSON", "文件", ExportPythonJsonAsync);
         _actions.Register("exit", "退出", "文件", Close);
@@ -195,6 +273,8 @@ public sealed class MainWindow : Window
         _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));
         _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
         _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
+        _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
+        _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
@@ -216,7 +296,7 @@ public sealed class MainWindow : Window
         _actions.Register("save-default-layout", "保存默认布局", "窗口", () => _panels.SaveDefaultLayoutAsync());
         _actions.Register("restore-default-layout", "恢复默认布局", "窗口", () => _panels.RestoreDefaultLayoutAsync());
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
-        _actions.Register("about", "关于 Optiland Workbench", "帮助", ShowAboutAsync);
+        _actions.Register("about", "关于 Optical System Design", "帮助", ShowAboutAsync);
         foreach (var analysis in AnalysisRibbonCommands)
         {
             _actions.Register(
@@ -250,6 +330,8 @@ public sealed class MainWindow : Window
             {
                 MenuItem(_actions.Find("new-demo")),
                 MenuItem(_actions.Find("new-tessar")),
+                new Separator(),
+                MenuItem(_actions.Find("import-zemax")),
                 new Separator(),
                 MenuItem(_actions.Find("export-python-json")),
                 new Separator(),
@@ -304,9 +386,26 @@ public sealed class MainWindow : Window
     {
         var analysisGroups = AnalysisRibbonCommands
             .GroupBy(command => command.Group)
-            .Select(group => RibbonGroup(
-                group.Key,
-                group.Select(command => RibbonButton(command.Id, command.IconName, command.Label)).ToArray()))
+            .OrderBy(group => AnalysisRibbonGroupOrder.IndexOf(group.Key))
+            .Select(group =>
+            {
+                var commands = new List<Control>();
+                foreach (var command in group)
+                {
+                    var menu = AnalysisRibbonMenus.FirstOrDefault(candidate =>
+                        string.Equals(candidate.CommandIds[0], command.Id, StringComparison.Ordinal));
+                    if (menu is not null)
+                    {
+                        commands.Add(RibbonAnalysisMenuButton(menu));
+                    }
+                    else if (!GroupedAnalysisCommandIds.Contains(command.Id))
+                    {
+                        commands.Add(RibbonButton(command.Id, command.IconName, command.Label));
+                    }
+                }
+
+                return RibbonGroup(group.Key, commands.ToArray());
+            })
             .ToArray();
         var tabs = new TabControl
         {
@@ -318,6 +417,7 @@ public sealed class MainWindow : Window
                     RibbonGroup("文件",
                         RibbonButton("new", "file-plus", "新建"),
                         RibbonButton("open", "folder-open", "打开"),
+                        RibbonButton("import-zemax", "file-input", "Zemax 导入"),
                         RibbonButton("save-as", "save", "保存"),
                         RibbonButton("export-python-json", "upload", "导出")),
                     RibbonGroup("示例",
@@ -342,11 +442,10 @@ public sealed class MainWindow : Window
                     RibbonGroup("公差分析",
                         RibbonButton("show-tolerancing", "activity", "灵敏度"),
                         RibbonButton("show-tolerancing", "gauge", "蒙特卡洛")))),
-                RibbonTab("数据与零件", BuildRibbonPage(
-                    RibbonGroup("数据",
-                        RibbonButton("show-system", "database", "材料与系统")),
-                    RibbonGroup("零件",
-                        RibbonButton("show-lens-editor", "layers", "表面与组件")))),
+                RibbonTab("数据库", BuildRibbonPage(
+                    RibbonGroup("光学材料",
+                        RibbonButton("show-material-library", "database", "材料库"),
+                        RibbonButton("show-glass-catalog", "gem", "玻璃")))),
                 RibbonTab("编程与工具", BuildRibbonPage(
                     RibbonGroup("编辑",
                         RibbonButton("undo", "undo-2", "撤销"),
@@ -491,6 +590,64 @@ public sealed class MainWindow : Window
         return button;
     }
 
+    private SplitButton RibbonAnalysisMenuButton(AnalysisRibbonMenu menu)
+    {
+        var flyout = new MenuFlyout();
+        foreach (var commandId in menu.CommandIds)
+        {
+            var command = AnalysisRibbonCommands.First(candidate =>
+                string.Equals(candidate.Id, commandId, StringComparison.Ordinal));
+            var action = _actions.Find(command.Id);
+            var item = new MenuItem
+            {
+                Header = new LocalIconLabel(command.IconName, command.Label, 20),
+                MinWidth = 190,
+                Padding = new Thickness(10, 8)
+            };
+            item.Click += async (_, _) => await _actions.ExecuteAsync(action);
+            flyout.Items.Add(item);
+        }
+
+        var button = new SplitButton
+        {
+            Width = 92,
+            Height = 76,
+            Padding = new Thickness(4),
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Flyout = flyout,
+            Content = new StackPanel
+            {
+                Spacing = 2,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Children =
+                {
+                    new LocalIcon
+                    {
+                        IconName = menu.IconName,
+                        Width = 26,
+                        Height = 26,
+                        StrokeWidth = 1.8,
+                        Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    },
+                    new TextBlock
+                    {
+                        Text = menu.Label,
+                        FontSize = 11,
+                        TextWrapping = TextWrapping.Wrap,
+                        TextAlignment = TextAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    }
+                }
+            }
+        };
+        var defaultAction = _actions.Find(menu.CommandIds[0]);
+        button.Click += async (_, _) => await _actions.ExecuteAsync(defaultAction);
+        ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
+        return button;
+    }
+
     private Control BuildStatusBar()
     {
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto,Auto") };
@@ -537,6 +694,10 @@ public sealed class MainWindow : Window
         {
             await _panels.SaveCurrentSessionAsync();
             await _application.Documents.OpenAsync(files[0].Path.LocalPath);
+            if (_application.MultiConfiguration.GetRows().Count > 1)
+            {
+                _panels.Show(WorkspacePanelId.MultiConfiguration);
+            }
         }
     }
 
@@ -570,32 +731,81 @@ public sealed class MainWindow : Window
 
     private async Task ShowAboutAsync()
     {
+        using var authorStream = Avalonia.Platform.AssetLoader.Open(
+            new Uri("avares://OptilandWorkbench.App/Assets/Author.jpg"));
+        using var authorBitmap = new Bitmap(authorStream);
         var dialog = new Window
         {
-            Title = "关于 Optiland Workbench",
-            Width = 520,
-            Height = 280,
+            Title = "关于 Optical System Design",
+            Width = 640,
+            Height = 370,
             CanResize = false,
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
         var closeButton = new Button { Content = "关闭", MinWidth = 88, HorizontalAlignment = HorizontalAlignment.Right };
         closeButton.Click += (_, _) => dialog.Close();
-        dialog.Content = new StackPanel
+        var details = new StackPanel
         {
-            Margin = new Thickness(24),
-            Spacing = 14,
+            Spacing = 12,
+            VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
-                new TextBlock { Text = "Optiland 光学工作台", FontSize = 24, FontWeight = FontWeight.SemiBold },
                 new TextBlock
                 {
-                    Text = "纯 .NET/Avalonia 光学设计工作台，架构与工作流对齐 Optiland GUI。",
+                    Text = "Optical System Design",
+                    FontSize = 27,
+                    FontWeight = FontWeight.SemiBold
+                },
+                new TextBlock
+                {
+                    Text = "S.T.A.R. Labs 出品",
+                    FontSize = 17,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255))
+                },
+                new TextBlock
+                {
+                    Text = "面向光学系统设计、光线追迹与像质分析的桌面软件。",
                     TextWrapping = TextWrapping.Wrap
                 },
-                new TextBlock { Text = ".NET 10    Avalonia 12    Managed CPU backend" },
-                closeButton
+                new TextBlock
+                {
+                    Text = ".NET 10  ·  Avalonia 12  ·  Managed CPU",
+                    Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
+                }
             }
         };
+        var main = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("190,*"),
+            ColumnSpacing = 24
+        };
+        var portrait = new Border
+        {
+            Width = 180,
+            Height = 180,
+            CornerRadius = new CornerRadius(18),
+            ClipToBounds = true,
+            Background = new SolidColorBrush(Color.FromRgb(246, 248, 238)),
+            Child = new Image
+            {
+                Source = authorBitmap,
+                Stretch = Stretch.UniformToFill
+            }
+        };
+        Grid.SetColumn(details, 1);
+        main.Children.Add(portrait);
+        main.Children.Add(details);
+
+        var root = new Grid
+        {
+            Margin = new Thickness(26),
+            RowDefinitions = new RowDefinitions("*,Auto"),
+            RowSpacing = 18
+        };
+        Grid.SetRow(closeButton, 1);
+        root.Children.Add(main);
+        root.Children.Add(closeButton);
+        dialog.Content = root;
         await dialog.ShowDialog(this);
     }
 
@@ -623,7 +833,7 @@ public sealed class MainWindow : Window
     private void RefreshStatus()
     {
         var snapshot = _application.Documents.GetSnapshot();
-        Title = $"{snapshot.Name} - Optiland 光学工作台";
+        Title = $"{snapshot.Name} - Optical System Design";
         _statusText.Text = $"{snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
@@ -760,11 +970,41 @@ public sealed class MainWindow : Window
         }
     }
 
+    private async Task ImportZemaxAsync()
+    {
+        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "导入 Zemax 光学系统",
+            AllowMultiple = false,
+            FileTypeFilter = new[] { ZemaxOpticFileType }
+        });
+        if (files.Count > 0)
+        {
+            await _panels.SaveCurrentSessionAsync();
+            await _application.Documents.OpenAsync(files[0].Path.LocalPath);
+            if (_application.MultiConfiguration.GetRows().Count > 1)
+            {
+                _panels.Show(WorkspacePanelId.MultiConfiguration);
+            }
+        }
+    }
+
+    private static string UserGlassCatalogDirectory() => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "OptilandWorkbench",
+        "glass-catalogs");
+
     private sealed record AnalysisRibbonCommand(
         string Id,
         string Name,
         string Label,
         string IconName,
         string Group);
+
+    private sealed record AnalysisRibbonMenu(
+        string Group,
+        string Label,
+        string IconName,
+        IReadOnlyList<string> CommandIds);
 
 }

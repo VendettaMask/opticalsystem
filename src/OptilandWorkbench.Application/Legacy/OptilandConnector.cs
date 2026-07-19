@@ -19,6 +19,12 @@ using OptilandWorkbench.Core.Tolerancing;
 namespace OptilandWorkbench.Application.Legacy;
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+public sealed record LoadedOpticalDocument(
+    Optic ActiveOptic,
+    IReadOnlyList<Optic> Configurations,
+    int ActiveConfigurationIndex);
+
+[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public sealed class OptilandConnector
 {
     private readonly UndoRedoManager _undoRedo = new();
@@ -71,7 +77,8 @@ public sealed class OptilandConnector
     {
         "角度",
         "物高",
-        "近轴像高"
+        "近轴像高",
+        "实际像高"
     };
 
     public IReadOnlyList<string> ApodizationKinds { get; } = new[]
@@ -223,8 +230,8 @@ public sealed class OptilandConnector
                 IntParameter("NumPoints", "采样点数", "256", 3, 1024),
                 IntParameter("FitRings", "拟合球六角采样环数", "8", 2, 32)
             },
-            "Distortion" => DistortionParameters("128"),
-            "Grid Distortion" => DistortionParameters("10"),
+            "Distortion" => DistortionParameters("128", CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle),
+            "Grid Distortion" => DistortionParameters("10", CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle),
             "Field Curvature" => new[]
             {
                 IntParameter("NumPoints", "采样点数", "128", 3, 1024),
@@ -928,36 +935,62 @@ public sealed class OptilandConnector
         string path,
         CancellationToken cancellationToken = default)
     {
+        return (await ReadDocumentAsync(path, cancellationToken).ConfigureAwait(false)).ActiveOptic;
+    }
+
+    public static async Task<LoadedOpticalDocument> ReadDocumentAsync(
+        string path,
+        CancellationToken cancellationToken = default)
+    {
         if (IsNativeJsonPath(path))
         {
-            return await OpticJsonStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
+            var optic = await OpticJsonStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
+            return new LoadedOpticalDocument(optic, new[] { optic }, 0);
         }
 
         if (Path.GetExtension(path).Equals(".zmx", StringComparison.OrdinalIgnoreCase))
         {
-            return await new ZemaxZmxImporter().ImportFileAsync(path, cancellationToken).ConfigureAwait(false);
+            var imported = await new ZemaxZmxImporter()
+                .ImportConfigurationSetFileAsync(path, cancellationToken)
+                .ConfigureAwait(false);
+            return new LoadedOpticalDocument(
+                imported.ActiveOptic,
+                imported.Configurations,
+                imported.ActiveConfigurationIndex);
         }
 
         var text = await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        return OpticalFormatCatalog.Import(text, Path.GetExtension(path));
+        var loaded = OpticalFormatCatalog.Import(text, Path.GetExtension(path));
+        return new LoadedOpticalDocument(loaded, new[] { loaded }, 0);
     }
 
     public async Task LoadAsync(string path, CancellationToken cancellationToken = default)
     {
-        var optic = await ReadOpticAsync(path, cancellationToken).ConfigureAwait(false);
+        var document = await ReadDocumentAsync(path, cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        ApplyLoadedOptic(optic, path);
+        ApplyLoadedDocument(document, path);
     }
 
     public void ApplyLoadedOptic(Optic optic, string path)
     {
-        CurrentOptic = optic;
+        ApplyLoadedDocument(new LoadedOpticalDocument(optic, new[] { optic }, 0), path);
+    }
 
+    public void ApplyLoadedDocument(LoadedOpticalDocument document, string path)
+    {
         _undoRedo.Clear();
-        _multiConfiguration = new MultiConfiguration(CurrentOptic);
-        _activeConfigurationIndex = 0;
-        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}）。");
+        _multiConfiguration = new MultiConfiguration(document.Configurations);
+        _activeConfigurationIndex = Math.Clamp(
+            document.ActiveConfigurationIndex,
+            0,
+            _multiConfiguration.Configurations.Count - 1);
+        CurrentOptic = Optic.FromSnapshot(
+            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
+        var configurationSummary = _multiConfiguration.Configurations.Count > 1
+            ? $"，{_multiConfiguration.Configurations.Count} 个配置"
+            : string.Empty;
+        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。");
         OpticLoaded?.Invoke(this, EventArgs.Empty);
     }
 
@@ -1013,7 +1046,7 @@ public sealed class OptilandConnector
         return _multiConfiguration.Configurations
             .Select((optic, index) => new MultiConfigurationRow(
                 index,
-                index == 0 ? "Base" : $"Config {index}",
+                $"配置 {index + 1}",
                 index == _activeConfigurationIndex,
                 optic.SurfaceGroup.Items.Count,
                 optic.SurfaceGroup.TotalTrack.ToString("0.###"),
@@ -1246,6 +1279,7 @@ public sealed class OptilandConnector
         {
             "物高" => FieldDefinitionKind.ObjectHeight,
             "近轴像高" => FieldDefinitionKind.ParaxialImageHeight,
+            "实际像高" => FieldDefinitionKind.RealImageHeight,
             _ => FieldDefinitionKind.Angle
         };
         var telecentric = objectSpaceTelecentric && fieldDefinition != FieldDefinitionKind.Angle;
@@ -1554,13 +1588,22 @@ public sealed class OptilandConnector
             defaultValue);
     }
 
-    private static AnalysisParameterDescriptor[] DistortionParameters(string defaultPoints)
+    private static AnalysisParameterDescriptor[] DistortionParameters(string defaultPoints, bool angularField)
     {
-        return new[]
+        var parameters = new List<AnalysisParameterDescriptor>
         {
-            IntParameter("NumPoints", "采样点数", defaultPoints, 3, 1024),
-            ChoiceParameter("DistortionType", "畸变模型", "f-tan", new[] { "f-tan", "f-theta" })
+            IntParameter("NumPoints", "采样点数", defaultPoints, 3, 1024)
         };
+        if (angularField)
+        {
+            parameters.Add(ChoiceParameter(
+                "DistortionType",
+                "畸变模型",
+                "f-tan",
+                new[] { "f-tan", "f-theta" }));
+        }
+
+        return parameters.ToArray();
     }
 
     private static int TryReadInt(IReadOnlyDictionary<string, string> settings, string key, int fallback)
@@ -1592,6 +1635,7 @@ public sealed class OptilandConnector
         {
             double number => number.ToString("0.######"),
             float number => number.ToString("0.######"),
+            string text when text == "linear-height" => "线性高度",
             _ => value.ToString() ?? string.Empty
         };
     }
@@ -1930,7 +1974,10 @@ public sealed class OptilandConnector
         ["FieldHx"] = "归一化视场 Hx",
         ["FieldHy"] = "归一化视场 Hy",
         ["ParabasalDelta"] = "近轴光线间隔",
-        ["MaxFieldDegrees"] = "最大视场 (deg)",
+        ["MaxFieldDegrees"] = "最大视场角 (deg)",
+        ["MaxObjectHeightMillimeters"] = "最大物高 (mm)",
+        ["MaxParaxialImageHeightMillimeters"] = "最大近轴像高 (mm)",
+        ["MaxRealImageHeightMillimeters"] = "最大实际像高 (mm)",
         ["EFL"] = "有效焦距",
         ["WeightedMetric"] = "加权指标",
         ["Status"] = "状态"

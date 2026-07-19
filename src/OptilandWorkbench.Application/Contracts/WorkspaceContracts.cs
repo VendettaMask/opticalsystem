@@ -34,6 +34,41 @@ public sealed record OpticalDocumentSnapshot(
     int FieldCount,
     int WavelengthCount);
 
+public sealed record MaterialCatalogDto(
+    string Manufacturer,
+    int GlassCount);
+
+public sealed record MaterialCatalogImportResultDto(
+    string CatalogName,
+    int GlassCount,
+    string SavedPath);
+
+public sealed record GlassMaterialDto(
+    string Name,
+    string Manufacturer,
+    string Formula,
+    double RefractiveIndexD,
+    double AbbeNumber,
+    double MinimumWavelengthMicrometers,
+    double MaximumWavelengthMicrometers,
+    IReadOnlyList<double> DispersionCoefficients,
+    int RefractiveIndexSampleCount,
+    int ExtinctionSampleCount,
+    int? ZemaxFormulaNumber,
+    string Status,
+    string Comment,
+    bool ExcludeSubstitution,
+    int MeltFrequency,
+    double? ThermalExpansionLow,
+    double? ThermalExpansionHigh,
+    double? Density,
+    double? RelativePartialDispersionDeviation,
+    IReadOnlyList<double> ThermalCoefficients,
+    IReadOnlyList<double> MechanicalData,
+    IReadOnlyList<double> OtherData,
+    int InternalTransmissionCount,
+    int StressDataCount);
+
 public sealed record SurfaceRowDto(
     int Number,
     string Label,

@@ -84,6 +84,6 @@ public sealed class FieldPoint : NotifyObject
 
     public override string ToString()
     {
-        return $"{Label} ({YAngleDegrees:0.###} deg)";
+        return $"{Label} ({Y:0.###})";
     }
 }

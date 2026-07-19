@@ -80,7 +80,7 @@ public static class JonesPupilEngine
             var surface = optic.SurfaceGroup.Items[index];
             var sample = history[index];
             var outgoing = Normalize(sample.Direction);
-            var materialAfter = optic.Materials.Resolve(surface.MaterialAfterName);
+            var materialAfter = surface.MaterialAfter;
 
             var s = Cross(incoming, outgoing);
             if (s.Length <= 1e-14)

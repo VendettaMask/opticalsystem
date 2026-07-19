@@ -53,7 +53,7 @@ public sealed class Paraxial
                 break;
             }
 
-            var nextIndex = _optic.Materials.Resolve(surface.MaterialAfterName).RefractiveIndex(wavelengthNanometers);
+            var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
             matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
             matrix = Translate(matrix, surface.Thickness);
             currentIndex = nextIndex;
@@ -182,7 +182,7 @@ public sealed class Paraxial
             .Select(surface => surface.IsPlane ? double.PositiveInfinity : surface.Radius)
             .ToArray();
         var indices = surfaces
-            .Select(surface => _optic.Materials.Resolve(surface.MaterialAfterName).RefractiveIndex(wavelengthNanometers))
+            .Select(surface => surface.MaterialAfter.RefractiveIndex(wavelengthNanometers))
             .ToArray();
         if (reverse)
         {
@@ -261,7 +261,7 @@ public sealed class Paraxial
 
         foreach (var surface in _optic.SurfaceGroup.Items)
         {
-            var nextIndex = _optic.Materials.Resolve(surface.MaterialAfterName).RefractiveIndex(wavelengthNanometers);
+            var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
             matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
             matrix = Translate(matrix, surface.Thickness);
             currentIndex = nextIndex;

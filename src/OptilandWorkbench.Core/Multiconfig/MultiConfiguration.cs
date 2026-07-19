@@ -7,8 +7,19 @@ public sealed class MultiConfiguration
     private readonly HashSet<(int Config, int Surface, string Property)> _brokenLinks = new();
 
     public MultiConfiguration(Optic baseOptic)
+        : this(new[] { baseOptic })
     {
-        Configurations.Add(Optic.FromSnapshot(baseOptic.ToSnapshot()));
+    }
+
+    public MultiConfiguration(IEnumerable<Optic> configurations)
+    {
+        ArgumentNullException.ThrowIfNull(configurations);
+        Configurations.AddRange(configurations.Select(configuration =>
+            Optic.FromSnapshot(configuration.ToSnapshot())));
+        if (Configurations.Count == 0)
+        {
+            throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
+        }
     }
 
     public List<Optic> Configurations { get; } = new();
@@ -45,6 +56,7 @@ public sealed class MultiConfiguration
                 break;
             case "thickness":
                 surface.Thickness = value;
+                Configurations[configIndex].SurfaceGroup.Renumber(syncComposition: false);
                 break;
             case "conic":
                 surface.Conic = value;
@@ -81,6 +93,8 @@ public sealed class MultiConfiguration
                     target.Material = source.Material;
                 }
             }
+
+            Configurations[config].SurfaceGroup.Renumber(syncComposition: false);
         }
     }
 }

@@ -177,4 +177,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-19, the solution builds with zero warnings and all `262/262` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, Zemax import, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.
+As of 2026-07-19, the solution builds with zero warnings and all `273/273` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled Zemax AGF conversion and ZMX import including real-image-height fields, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.

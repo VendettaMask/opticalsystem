@@ -43,7 +43,7 @@ public static class ReferenceSphereWavefrontEngine
             wavelength.Micrometers,
             pupilSamples);
         var trace = optic.SequentialRayTracer.Trace(bundle);
-        var imageIndex = optic.Materials.Resolve(optic.SurfaceGroup.Items[^1].MaterialAfterName)
+        var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter
             .RefractiveIndex(wavelength.Nanometers);
         var maxFieldDegrees = optic.Fields.Select(item => Math.Sqrt(
                 (item.XAngleDegrees * item.XAngleDegrees)

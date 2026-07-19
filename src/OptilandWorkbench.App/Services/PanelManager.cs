@@ -117,6 +117,16 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:solid-model", WorkspaceDocumentKind.SolidModel, "实体模型");
     }
 
+    public void ShowMaterialLibrary()
+    {
+        OpenStable("document:material-library", WorkspaceDocumentKind.MaterialLibrary, "材料库");
+    }
+
+    public void ShowGlassCatalog()
+    {
+        OpenStable("document:glass-catalog", WorkspaceDocumentKind.GlassCatalog, "玻璃");
+    }
+
     public void ShowAnalysis(string analysisName)
     {
         var canonical = _application.Analyses.CanonicalKey(analysisName);

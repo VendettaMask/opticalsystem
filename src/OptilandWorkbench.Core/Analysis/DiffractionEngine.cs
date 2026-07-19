@@ -273,7 +273,7 @@ public static class DiffractionEngine
             return history[^1].Direction;
         }).ToArray();
         var chief = directions[0];
-        var imageIndex = optic.Materials.Resolve(optic.SurfaceGroup.Items[^1].MaterialAfterName).RefractiveIndex(wavelength.Nanometers);
+        var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
         var averageNaSquared = directions.Skip(1).Average(direction =>
         {
             var dot = Math.Clamp(

@@ -7,6 +7,7 @@ public sealed class MaterialRegistry
 
     public MaterialRegistry()
     {
+        BundledZemaxGlassCatalogDatabase.EnsureLoaded();
         Register(new AirMaterial());
         Register(new ConstantIndexMaterial("Vacuum", 1.0));
         Register(new SellmeierMaterial(
@@ -19,12 +20,17 @@ public sealed class MaterialRegistry
     }
 
     public IReadOnlyCollection<string> Names => _materials.Keys
+        .Concat(ExternalGlassCatalogDatabase.Names)
         .Concat(Catalog.Names)
         .Distinct(StringComparer.OrdinalIgnoreCase)
         .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
         .ToArray();
 
-    public IReadOnlyCollection<string> GlassManufacturers => Catalog.Manufacturers;
+    public IReadOnlyCollection<string> GlassManufacturers => ExternalGlassCatalogDatabase.Manufacturers
+        .Concat(Catalog.Manufacturers)
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+        .ToArray();
 
     public int CatalogGlassCount => Catalog.Count;
 
@@ -45,8 +51,11 @@ public sealed class MaterialRegistry
             return material;
         }
 
-        var matches = Catalog.MatchingManufacturers(name);
-        if (matches.Count > 1)
+        var matches = ExternalGlassCatalogDatabase.MatchingManufacturers(name)
+            .Concat(Catalog.MatchingManufacturers(name))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        if (matches.Length > 1)
         {
             throw new InvalidDataException(
                 $"Glass '{name}' is ambiguous; specify one of these catalogs: {string.Join(", ", matches)}.");
@@ -79,8 +88,22 @@ public sealed class MaterialRegistry
             return true;
         }
 
+        if (TryResolveExternalGlass(normalized, preferredManufacturers, out var externalMaterial))
+        {
+            material = externalMaterial;
+            return true;
+        }
+
         material = null!;
         return false;
+    }
+
+    public bool TryResolveExternalGlass(
+        string name,
+        IReadOnlyList<string>? preferredManufacturers,
+        out CatalogGlassMaterial material)
+    {
+        return ExternalGlassCatalogDatabase.TryResolve(name, preferredManufacturers, out material);
     }
 
     public void RegisterAbbeGlass(string name, double nd, double vd)

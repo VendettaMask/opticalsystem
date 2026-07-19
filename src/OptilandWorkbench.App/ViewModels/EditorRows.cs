@@ -39,6 +39,15 @@ public sealed class SurfaceEditorRow
     public double Radius { get; set; }
     public double Thickness { get; set; }
     public string Material { get; set; }
+    public string MaterialDisplay
+    {
+        get => HasOpticalMaterial ? Material : string.Empty;
+        set => Material = string.IsNullOrWhiteSpace(value) ? "Air" : value.Trim();
+    }
+
+    public bool HasOpticalMaterial =>
+        !string.IsNullOrWhiteSpace(Material)
+        && !string.Equals(Material, "Air", StringComparison.OrdinalIgnoreCase);
     public string Coating { get; set; }
     public double SemiDiameter { get; set; }
     public double Conic { get; set; }

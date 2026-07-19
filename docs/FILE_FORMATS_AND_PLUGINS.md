@@ -47,6 +47,7 @@ See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema a
 Supported extensions:
 
 - Zemax `.zmx`
+- Zemax material catalog `.agf` (build-time conversion into Workbench `.ogdb` storage)
 - CODE V `.seq`
 - OSLO `.len`
 - plain sequential `.lens`, `.dat`, `.txt`
@@ -66,7 +67,13 @@ Zemax `.zmx` import follows the Python Optiland 0.5.8 `zemax_handler.py` and `Ze
 
 The ZMX importer rejects non-sequential mode, unsupported Zemax surface types, negative thickness, coordinate-break order flags, real-image/theodolite field definitions, and toroidal conic/polynomial terms. Vignette decenter and tangent-angle operands are read but not represented by the current field model. Coatings, solves, pickups, polarization, multi-configuration operands, and unsupported freeform data are not imported.
 
-`GCAT` and `GLAS` resolve against the embedded 1,740-entry Optiland 0.5.8/refractiveindex.info glass database. SCHOTT, OHARA, HOYA, HIKARI, CDGM, SUMITA, LZOS, and the other bundled glass categories use their actual dispersion formulas or tabulated n/k values during tracing and analysis. Same-named glasses are selected by `GCAT`; an unknown glass falls back to `AbbeMaterial` only when its `GLAS` record supplies valid nd/Vd values. Otherwise import fails explicitly.
+`GCAT` and `GLAS` resolve against the bundled Zemax database first during ZMX import and then against the embedded 1,740-entry Optiland 0.5.8/refractiveindex.info compatibility database. SCHOTT, OHARA, HOYA, HIKARI, CDGM, SUMITA, LZOS, and the other bundled glass categories use their actual dispersion formulas and catalog metadata during tracing and analysis. Same-named glasses are selected by `GCAT`; an unknown glass falls back to `AbbeMaterial` only when its `GLAS` record supplies valid nd/Vd values. Otherwise import fails explicitly.
+
+### Zemax AGF material catalogs
+
+The build converter reads the official human-readable AGF master format. The parser supports `CC`, `NM`, `GC`, `ED`, `CD`, `TD`, `MD`, `OD`, `LD`, repeated `IT`, and repeated `BD` records, including dispersion formula numbers 1 through 13. It also accepts actual Glasscat compatibility variants such as UTF-16 files, `_` missing values, old two-field `BD` rows, incomplete `IT` rows, and duplicate names. Catalog names remain available to ZMX `GCAT` resolution, so glasses such as `H-ZLAF96` are resolved from `CDGM-ZEMAX202309` without a constant-index fallback.
+
+The 63 source catalogs are stored as one schema-versioned, compressed `zemax-glass-catalogs.ogdb` resource containing 5,502 glass records. The desktop application loads it automatically; users do not select or repeatedly import Glasscat files. `tools/OptilandWorkbench.GlassCatalogConverter` regenerates the resource when the source catalog set changes.
 
 ZMX export writes a complete sequential header with aperture, field, wavelength, primary-wave, and `GCAT` data. Catalog glasses retain their manufacturer identity, while custom Abbe-compatible materials include nd/Vd fallback operands. CODE V, OSLO, and plain sequential text continue to use the common subset:
 

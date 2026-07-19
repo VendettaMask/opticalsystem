@@ -34,7 +34,7 @@ OpticalSurface
   CoordinateSystem
 ```
 
-`MaterialRegistry` resolves custom materials and an embedded 1,740-entry glass database generated from Optiland 0.5.8/refractiveindex.info CC0 data. `CatalogGlassMaterial` evaluates formula 1/2/3/5 or tabulated refractive-index data and interpolates tabulated extinction data. Ambiguous glass names require a manufacturer-qualified name such as `SCHOTT:F2`; Zemax `GCAT` provides that qualification during import. Unknown names do not silently become constant-index glass.
+`MaterialRegistry` resolves custom materials, an embedded 1,740-entry compatibility database generated from Optiland 0.5.8/refractiveindex.info CC0 data, and a bundled database converted from 63 Zemax AGF catalogs. `ZemaxAgfCatalogReader` preserves the official catalog, general, coefficient, thermal, mechanical, durability, wavelength, internal-transmission, and stress-birefringence records, including legacy missing-value and shortened-record variants found in real Glasscat data. `CatalogGlassMaterial` evaluates all 13 Zemax dispersion formulas in addition to the compatibility formula 1/2/3/5 and tabulated models. The source AGF files are converted once to the schema-versioned, GZip-compressed Workbench `.ogdb` format and embedded in Core. Ambiguous glass names require a manufacturer-qualified name such as `SCHOTT:F2`; Zemax `GCAT` provides that qualification during import. Unknown names do not silently become constant-index glass.
 
 Legacy table fields are synchronized into composition objects for normal table edits. JSON load can restore rich component snapshots without losing component-specific fields.
 

@@ -708,8 +708,7 @@ public sealed class Layout2DBuilder
 
     private bool HasOpticalMaterialAfter(OpticalSurface surface)
     {
-        var material = _optic.Materials.Resolve(surface.MaterialAfterName);
-        return material.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
+        return surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
     }
 
     private static double SurfaceExtent(OpticalSurface surface)

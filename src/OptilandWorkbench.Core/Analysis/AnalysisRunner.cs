@@ -32,7 +32,7 @@ public sealed record EncircledEnergySummary(
 
 public sealed record FieldRmsSummary(
     string FieldLabel,
-    double FieldAngleDegrees,
+    double FieldValue,
     double FieldWeight,
     int RayCount,
     int VignettedRayCount,
@@ -143,7 +143,7 @@ public sealed class AnalysisRunner
                 var moments = SummarizeImageSamples(CollectFinalImageSamples(bundle));
                 return new FieldRmsSummary(
                     field.Label,
-                    field.YAngleDegrees,
+                    field.Y,
                     field.Weight,
                     moments.RayCount,
                     moments.VignettedRayCount,

@@ -31,6 +31,7 @@ One-click launchers from the repository root:
 - Windows: `Run-Optiland.cmd`
 
 Both launchers set `AVALONIA_TELEMETRY_OPTOUT=1` and run the Avalonia app project.
+Repository attributes keep the Windows launcher in CRLF format and the macOS launcher in LF format.
 
 Terminal equivalent:
 
@@ -86,7 +87,7 @@ The current local baseline is:
 Expected result as of 2026-07-19:
 
 - solution build: 0 warnings, 0 errors
-- tests: 262 passed, 0 failed, 0 skipped
+- tests: 273 passed, 0 failed, 0 skipped
 
 The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
 

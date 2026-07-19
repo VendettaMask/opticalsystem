@@ -3,6 +3,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
@@ -149,12 +150,28 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2
         };
+        grid.Styles.Add(new Style(selector => selector
+            .OfType<DataGridRow>()
+            .Class("glass-material-row"))
+        {
+            Setters =
+            {
+                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(232, 238, 255)))
+            }
+        });
+        grid.LoadingRow += (_, eventArgs) =>
+        {
+            if (eventArgs.Row.DataContext is SurfaceEditorRow row)
+            {
+                ApplyMaterialRowClass(eventArgs.Row, row);
+            }
+        };
         grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true));
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(Column("曲率半径", nameof(SurfaceEditorRow.Radius), 112));
         grid.Columns.Add(Column("厚度", nameof(SurfaceEditorRow.Thickness), 96));
-        grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.Material), 122));
+        grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(Column("净口径", nameof(SurfaceEditorRow.SemiDiameter), 106));
         grid.Columns.Add(Column("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
@@ -166,6 +183,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             if (eventArgs.EditAction == DataGridEditAction.Commit
                 && eventArgs.Row.DataContext is SurfaceEditorRow row)
             {
+                ApplyMaterialRowClass(eventArgs.Row, row);
                 _prescription.UpdateSurface(row.ToDto());
             }
         };
@@ -318,8 +336,10 @@ public sealed class LensEditorPanel : UserControl, IDisposable
     }
 
     private static bool HasOpticalMaterial(SurfaceEditorRow row) =>
-        !string.IsNullOrWhiteSpace(row.Material)
-        && !string.Equals(row.Material, "Air", StringComparison.OrdinalIgnoreCase);
+        row.HasOpticalMaterial;
+
+    private static void ApplyMaterialRowClass(DataGridRow dataGridRow, SurfaceEditorRow row) =>
+        dataGridRow.Classes.Set("glass-material-row", row.HasOpticalMaterial);
 
     private static NumericUpDown Number(double width, decimal minimum, decimal maximum, decimal increment, decimal value) => new()
     {

@@ -17,6 +17,34 @@ namespace OptilandWorkbench.Tests;
 public sealed class AnalysisGuiContractTests
 {
     [Fact]
+    public void HeightDefinedFieldsHideAngularDistortionModelAndReportMillimeters()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        for (var index = 0; index < optic.Fields.Count; index++)
+        {
+            optic.Fields[index].X = 0;
+            optic.Fields[index].Y = 4.5 * index / (optic.Fields.Count - 1.0);
+        }
+
+        var connector = new OptilandConnector(optic);
+        var parameters = connector.GetAnalysisParameters("Distortion");
+        var view = connector.BuildAnalysisView("Distortion", new Dictionary<string, string>
+        {
+            ["NumPoints"] = "3"
+        });
+
+        Assert.DoesNotContain(parameters, parameter => parameter.Key == "DistortionType");
+        Assert.Contains(view.Rows, row => row.Metric == "最大实际像高 (mm)" && row.Value == "4.5");
+        Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "线性高度");
+
+        optic.FieldDefinition = FieldDefinitionKind.Angle;
+        Assert.Contains(
+            connector.GetAnalysisParameters("Distortion"),
+            parameter => parameter.Key == "DistortionType");
+    }
+
+    [Fact]
     public void LocalIconLibraryLoadsPinnedOfflineCatalog()
     {
         var requiredIcons = new[]

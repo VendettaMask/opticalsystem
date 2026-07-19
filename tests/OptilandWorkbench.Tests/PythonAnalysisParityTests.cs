@@ -2,6 +2,7 @@ using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Tests;
 
@@ -76,7 +77,7 @@ public sealed class PythonAnalysisParityTests
         }
 
         Assert.Equal("Distortion (%)", data.PlotSeries[0].XAxisLabel);
-        Assert.Equal("Field", data.PlotSeries[0].YAxisLabel);
+        Assert.Equal("Field Angle (deg)", data.PlotSeries[0].YAxisLabel);
         Assert.True(data.PlotOptions?.SymmetricX);
         Assert.True(data.PlotOptions?.ShowVerticalZeroLine);
         Assert.True(data.PlotOptions?.ShowLegend);
@@ -98,6 +99,31 @@ public sealed class PythonAnalysisParityTests
                 AssertClose(expectedValues[index].GetDouble(), data.PlotSeries[wavelength].Points[index].X);
             }
         }
+    }
+
+    [Fact]
+    public void HeightDefinedFieldsUseMillimetersAndLinearDistortion()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        for (var index = 0; index < optic.Fields.Count; index++)
+        {
+            optic.Fields[index].X = 0;
+            optic.Fields[index].Y = 4.5 * index / (optic.Fields.Count - 1.0);
+        }
+
+        var distortion = new DistortionAnalysis(optic, numPoints: 5).GenerateData();
+        var gridDistortion = new GridDistortionAnalysis(optic, numPoints: 3).GenerateData();
+        var fieldCurvature = new FieldCurvatureAnalysis(optic, numPoints: 5).GenerateData();
+
+        Assert.Equal(4.5, distortion.Values["MaxRealImageHeightMillimeters"]);
+        Assert.False(distortion.Values.ContainsKey("MaxFieldDegrees"));
+        Assert.Equal("linear-height", distortion.Values["DistortionType"]);
+        Assert.Equal("Real Image Height (mm)", distortion.PlotSeries[0].YAxisLabel);
+        Assert.Equal(4.5, distortion.PlotSeries[0].Points[^1].Y, precision: 12);
+        Assert.Equal("linear-height", gridDistortion.Values["DistortionType"]);
+        Assert.Equal(4.5, fieldCurvature.Values["MaxRealImageHeightMillimeters"]);
+        Assert.Equal("Real Image Height (mm)", fieldCurvature.PlotSeries[0].YAxisLabel);
     }
 
     [Theory]
@@ -477,6 +503,40 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal(1, data.PlotOptions.YMaximum);
         Assert.True(data.PlotOptions.ShowLegend);
         Assert.Equal("Geometric", data.Values["Method"]);
+    }
+
+    [Fact]
+    public void GeometricMtfMaximumFrequencyChangesTheCalculatedFrequencyRange()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var diffractionCutoff = 1 / (
+            wavelength.Micrometers
+            * 1e-3
+            * Math.Abs(optic.Paraxial.EstimateFNumber()));
+        var lowerMaximum = diffractionCutoff / 2;
+
+        var lowerRange = new GeometricMtfAnalysis(
+            optic,
+            numRays: 9,
+            distribution: "uniform",
+            numPoints: 3,
+            maximumFrequency: lowerMaximum).GenerateData();
+        var fullRange = new GeometricMtfAnalysis(
+            Optic.CreateCookeTriplet(),
+            numRays: 9,
+            distribution: "uniform",
+            numPoints: 3,
+            maximumFrequency: diffractionCutoff).GenerateData();
+
+        AssertClose(diffractionCutoff, Convert.ToDouble(lowerRange.Values["CutoffFrequency"]));
+        AssertClose(lowerMaximum, Convert.ToDouble(lowerRange.Values["MaximumFrequency"]));
+        AssertClose(lowerMaximum, lowerRange.PlotOptions!.XMaximum!.Value);
+        AssertClose(lowerMaximum, lowerRange.PlotSeries[0].Points[^1].X);
+        AssertClose(
+            fullRange.PlotSeries[0].Points[1].Y,
+            lowerRange.PlotSeries[0].Points[^1].Y);
+        Assert.True(lowerRange.PlotSeries[0].Points[^1].Y > 0);
     }
 
     [Theory]

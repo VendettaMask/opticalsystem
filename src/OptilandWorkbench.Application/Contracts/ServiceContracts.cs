@@ -114,6 +114,17 @@ public interface IMultiConfigurationService
     void SetThickness(int configurationIndex, int surfaceNumber, double thickness);
 }
 
+public interface IMaterialCatalogService
+{
+    IReadOnlyList<MaterialCatalogDto> GetCatalogs();
+
+    IReadOnlyList<GlassMaterialDto> GetGlasses();
+
+    Task<MaterialCatalogImportResultDto> ImportZemaxCatalogAsync(
+        string path,
+        CancellationToken cancellationToken = default);
+}
+
 public interface IWorkbenchApplication : IDisposable
 {
     IOpticalDocumentService Documents { get; }
@@ -129,6 +140,8 @@ public interface IWorkbenchApplication : IDisposable
     ITolerancingService Tolerancing { get; }
 
     IMultiConfigurationService MultiConfiguration { get; }
+
+    IMaterialCatalogService Materials { get; }
 
     IWorkspaceEventStream Events { get; }
 }

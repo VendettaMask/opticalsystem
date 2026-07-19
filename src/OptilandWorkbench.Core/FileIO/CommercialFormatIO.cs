@@ -190,6 +190,11 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
         return ZemaxZmxReader.Import(text);
     }
 
+    public ZemaxZmxImportResult ImportConfigurationSet(string text)
+    {
+        return ZemaxZmxReader.ImportConfigurationSet(text);
+    }
+
     public async Task<Optic> ImportFileAsync(
         string path,
         CancellationToken cancellationToken = default)
@@ -198,7 +203,21 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
         cancellationToken.ThrowIfCancellationRequested();
         return Import(ZemaxZmxReader.Decode(bytes));
     }
+
+    public async Task<ZemaxZmxImportResult> ImportConfigurationSetFileAsync(
+        string path,
+        CancellationToken cancellationToken = default)
+    {
+        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return ImportConfigurationSet(ZemaxZmxReader.Decode(bytes));
+    }
 }
+
+public sealed record ZemaxZmxImportResult(
+    Optic ActiveOptic,
+    IReadOnlyList<Optic> Configurations,
+    int ActiveConfigurationIndex);
 
 public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 {
@@ -281,6 +300,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     {
         FieldDefinitionKind.ObjectHeight => 1,
         FieldDefinitionKind.ParaxialImageHeight => 2,
+        FieldDefinitionKind.RealImageHeight => 3,
         _ => 0
     };
 

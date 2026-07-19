@@ -267,6 +267,7 @@ public static class PythonOptilandJsonStore
                 "anglefield" => FieldDefinitionKind.Angle,
                 "objectheightfield" => FieldDefinitionKind.ObjectHeight,
                 "paraxialimageheightfield" => FieldDefinitionKind.ParaxialImageHeight,
+                "realimageheightfield" => FieldDefinitionKind.RealImageHeight,
                 _ => throw new NotSupportedException($"Python Optiland field type '{fieldType}' is not supported yet.")
             };
         }
@@ -864,6 +865,7 @@ public static class PythonOptilandJsonStore
                 {
                     FieldDefinitionKind.ObjectHeight => "ObjectHeightField",
                     FieldDefinitionKind.ParaxialImageHeight => "ParaxialImageHeightField",
+                    FieldDefinitionKind.RealImageHeight => "RealImageHeightField",
                     _ => "AngleField"
                 }
             },
@@ -907,7 +909,7 @@ public static class PythonOptilandJsonStore
         }
 
         var geometry = WriteGeometry(surface, index == 0, objectDistance);
-        var material = WriteMaterial(optic.Materials.Resolve(surface.MaterialAfterName));
+        var material = WriteMaterial(surface.MaterialAfter);
         if (index == 0)
         {
             return new Dictionary<string, object?>

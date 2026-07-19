@@ -39,19 +39,21 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
         var result = SpotAnalysisEngine.Generate(Optic, fields, new[] { wavelength }, _numRays, _distribution);
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
-        var cutoff = _maximumFrequency
-            ?? (fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber));
+        var diffractionCutoff = fNumber <= 1e-30
+            ? 0
+            : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+        var maximumFrequency = _maximumFrequency ?? diffractionCutoff;
         var frequency = Enumerable.Range(0, _numPoints)
-            .Select(index => cutoff * index / (_numPoints - 1.0))
+            .Select(index => maximumFrequency * index / (_numPoints - 1.0))
             .ToArray();
         var diffractionScale = frequency.Select(value =>
         {
-            if (!_scale || cutoff <= 1e-30)
+            if (!_scale || diffractionCutoff <= 1e-30)
             {
                 return 1.0;
             }
 
-            var ratio = Math.Clamp(value / cutoff, 0, 1);
+            var ratio = Math.Clamp(value / diffractionCutoff, 0, 1);
             var phi = Math.Acos(ratio);
             return (2 / Math.PI) * (phi - (Math.Cos(phi) * Math.Sin(phi)));
         }).ToArray();
@@ -85,13 +87,14 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             ["Distribution"] = _distribution,
             ["PlotPointCount"] = _numPoints,
             ["ScaleByDiffractionLimit"] = _scale,
-            ["CutoffFrequency"] = cutoff,
+            ["MaximumFrequency"] = maximumFrequency,
+            ["CutoffFrequency"] = diffractionCutoff,
             ["FNumber"] = fNumber,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldCount"] = fields.Count
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             XMinimum: 0,
-            XMaximum: cutoff,
+            XMaximum: maximumFrequency,
             YMinimum: 0,
             YMaximum: 1,
             ShowLegend: true,

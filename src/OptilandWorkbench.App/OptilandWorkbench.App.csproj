@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
+    <AvaloniaResource Include="Assets/Author.jpg" />
     <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"
                       LogicalName="OptilandWorkbench.App.Assets.Icons.lucide-icon-nodes.json" />
   </ItemGroup>
@@ -25,6 +26,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyTitle>Optical System Design</AssemblyTitle>
+    <Product>Optical System Design</Product>
+    <Company>S.T.A.R. Labs</Company>
+    <Description>Optical system design and analysis software by S.T.A.R. Labs.</Description>
   </PropertyGroup>
 
 </Project>

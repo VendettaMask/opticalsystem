@@ -114,6 +114,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         _fieldDefinitionPicker.SelectionChanged += (_, _) =>
         {
             _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
+            UpdateFieldCoordinateHeaders();
             if (!_objectSpaceTelecentric.IsEnabled)
             {
                 _objectSpaceTelecentric.IsChecked = false;
@@ -354,6 +355,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
     private DataGrid CreateFieldsGrid()
     {
         var grid = BaseGrid();
+        grid.MaxWidth = 460;
+        grid.HorizontalAlignment = HorizontalAlignment.Left;
         grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(FieldEditorRow.Label)), Width = new DataGridLength(110) });
         grid.Columns.Add(new DataGridTextColumn { Header = "X", Binding = new Binding(nameof(FieldEditorRow.X)), Width = new DataGridLength(72) });
         grid.Columns.Add(new DataGridTextColumn { Header = "Y", Binding = new Binding(nameof(FieldEditorRow.Y)), Width = new DataGridLength(72) });
@@ -366,6 +369,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
     private DataGrid CreateWavelengthsGrid()
     {
         var grid = BaseGrid();
+        grid.MaxWidth = 334;
+        grid.HorizontalAlignment = HorizontalAlignment.Left;
         grid.Columns.Add(new DataGridTextColumn { Header = "标签", Binding = new Binding(nameof(WavelengthEditorRow.Label)), Width = new DataGridLength(84) });
         grid.Columns.Add(new DataGridTextColumn { Header = "nm", Binding = new Binding(nameof(WavelengthEditorRow.Nanometers)), Width = new DataGridLength(88) });
         grid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(WavelengthEditorRow.Weight)), Width = new DataGridLength(76) });
@@ -424,6 +429,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         _apertureKindPicker.SelectedItem = settings.ApertureKind;
         _apertureValue.Value = (decimal)settings.ApertureValue;
         _fieldDefinitionPicker.SelectedItem = settings.FieldDefinition;
+        UpdateFieldCoordinateHeaders();
         _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
         _objectSpaceTelecentric.IsChecked = settings.ObjectSpaceTelecentric;
         SetApodizationControls(
@@ -433,6 +439,18 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         _fieldsGrid.ItemsSource = _prescription.GetFields().Select(field => new FieldEditorRow(field)).ToArray();
         _wavelengthsGrid.ItemsSource = _prescription.GetWavelengths().Select(wavelength => new WavelengthEditorRow(wavelength)).ToArray();
         _refreshing = false;
+    }
+
+    private void UpdateFieldCoordinateHeaders()
+    {
+        if (_fieldsGrid.Columns.Count < 3)
+        {
+            return;
+        }
+
+        var unit = _fieldDefinitionPicker.SelectedIndex == 0 ? "deg" : "mm";
+        _fieldsGrid.Columns[1].Header = $"X ({unit})";
+        _fieldsGrid.Columns[2].Header = $"Y ({unit})";
     }
 
     private void ApplySystemControls()

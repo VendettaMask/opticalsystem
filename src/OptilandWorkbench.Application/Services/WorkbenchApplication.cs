@@ -1,3 +1,4 @@
+using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
@@ -8,6 +9,7 @@ using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
@@ -29,9 +31,11 @@ public sealed class WorkbenchApplication :
     IOptimizationService,
     ITolerancingService,
     IMultiConfigurationService,
+    IMaterialCatalogService,
     IWorkspaceEventStream
 {
     private readonly IOpticContext _context;
+    private readonly string? _userCatalogDirectory;
     private WorkspaceChangeCategory _pendingCategory = WorkspaceChangeCategory.Prescription;
     private string? _currentPath;
     private long _documentGeneration;
@@ -41,8 +45,9 @@ public sealed class WorkbenchApplication :
     private bool _deferredFileSwitch;
     private bool _disposed;
 
-    private WorkbenchApplication(Optic optic)
+    private WorkbenchApplication(Optic optic, string? userCatalogDirectory)
     {
+        _userCatalogDirectory = userCatalogDirectory;
         _context = new OpticContext(optic);
         _connector.OpticLoaded += OnOpticLoaded;
         _connector.OpticChanged += OnOpticChanged;
@@ -52,15 +57,16 @@ public sealed class WorkbenchApplication :
 
     private OptilandConnector _connector => _context.Connector;
 
-    public static WorkbenchApplication Create(string? sample = null)
+    public static WorkbenchApplication Create(string? sample = null, string? userCatalogDirectory = null)
     {
+        LoadUserCatalogs(userCatalogDirectory);
         var optic = sample?.ToLowerInvariant() switch
         {
             "cooke" => Optic.CreateCookeTriplet(),
             "tessar" => Optic.CreateTessarLens(),
             _ => Optic.CreateBlank()
         };
-        return new WorkbenchApplication(optic);
+        return new WorkbenchApplication(optic, userCatalogDirectory);
     }
 
     public IOpticalDocumentService Documents => this;
@@ -77,7 +83,150 @@ public sealed class WorkbenchApplication :
 
     public IMultiConfigurationService MultiConfiguration => this;
 
+    public IMaterialCatalogService Materials => this;
+
     public IWorkspaceEventStream Events => this;
+
+    public IReadOnlyList<MaterialCatalogDto> GetCatalogs()
+    {
+        return GetGlasses()
+            .GroupBy(glass => glass.Manufacturer, StringComparer.OrdinalIgnoreCase)
+            .Select(group => new MaterialCatalogDto(group.Key, group.Count()))
+            .OrderBy(catalog => catalog.Manufacturer, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    public IReadOnlyList<GlassMaterialDto> GetGlasses()
+    {
+        lock (_gate)
+        {
+            var materials = _connector.CurrentOptic.Materials;
+            var glasses = new Dictionary<string, GlassMaterialDto>(StringComparer.OrdinalIgnoreCase);
+            foreach (var name in materials.Names)
+            {
+                CatalogGlassMaterial? glass;
+                if (materials.TryResolveExternalGlass(name, preferredManufacturers: null, out var externalGlass))
+                {
+                    glass = externalGlass;
+                }
+                else if (materials.TryResolve(name, preferredManufacturers: null, out var resolved) &&
+                    resolved is CatalogGlassMaterial catalogGlass)
+                {
+                    glass = catalogGlass;
+                }
+                else
+                {
+                    continue;
+                }
+
+                const double wavelengthF = 486.1327;
+                const double wavelengthD = 587.5618;
+                const double wavelengthC = 656.2725;
+                var refractiveIndexD = glass.ZemaxData is { ReferenceIndexD: > 0 } zemaxData
+                    ? zemaxData.ReferenceIndexD
+                    : glass.RefractiveIndex(wavelengthD);
+                var abbeNumber = glass.ZemaxData is { ReferenceAbbeNumber: > 0 } referenceData
+                    ? referenceData.ReferenceAbbeNumber
+                    : CalculateAbbeNumber(glass, refractiveIndexD, wavelengthF, wavelengthC);
+                var key = $"{glass.Manufacturer}:{glass.CatalogName}";
+                glasses[key] = new GlassMaterialDto(
+                    glass.CatalogName,
+                    glass.Manufacturer,
+                    glass.Formula,
+                    refractiveIndexD,
+                    abbeNumber,
+                    glass.MinimumWavelengthNanometers / 1000.0,
+                    glass.MaximumWavelengthNanometers / 1000.0,
+                    glass.Coefficients.ToArray(),
+                    glass.RefractiveIndices.Count,
+                    glass.ExtinctionCoefficients.Count,
+                    glass.ZemaxData?.DispersionFormulaNumber,
+                    GlassStatus(glass.ZemaxData?.Status),
+                    glass.ZemaxData?.Comment ?? string.Empty,
+                    glass.ZemaxData?.ExcludeSubstitution ?? false,
+                    glass.ZemaxData?.MeltFrequency ?? 0,
+                    glass.ZemaxData?.ThermalExpansionLow,
+                    glass.ZemaxData?.ThermalExpansionHigh,
+                    glass.ZemaxData?.Density,
+                    glass.ZemaxData?.RelativePartialDispersionDeviation,
+                    glass.ZemaxData?.ThermalCoefficients.ToArray() ?? Array.Empty<double>(),
+                    glass.ZemaxData?.MechanicalData.ToArray() ?? Array.Empty<double>(),
+                    glass.ZemaxData?.OtherData.ToArray() ?? Array.Empty<double>(),
+                    glass.ZemaxData?.InternalTransmissions.Count ?? 0,
+                    glass.ZemaxData?.StressData.Count ?? 0);
+            }
+
+            return glasses.Values
+                .OrderBy(glass => glass.Manufacturer, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(glass => glass.Name, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+    }
+
+    private static double CalculateAbbeNumber(
+        CatalogGlassMaterial glass,
+        double refractiveIndexD,
+        double wavelengthF,
+        double wavelengthC)
+    {
+        var denominator = glass.RefractiveIndex(wavelengthF) - glass.RefractiveIndex(wavelengthC);
+        return Math.Abs(denominator) > 1e-12
+            ? (refractiveIndexD - 1.0) / denominator
+            : double.NaN;
+    }
+
+    public async Task<MaterialCatalogImportResultDto> ImportZemaxCatalogAsync(
+        string path,
+        CancellationToken cancellationToken = default)
+    {
+        if (_userCatalogDirectory is null)
+        {
+            throw new InvalidOperationException("No user glass-catalog directory is configured.");
+        }
+
+        var document = await ZemaxAgfCatalogReader.ImportFileAsync(path, cancellationToken).ConfigureAwait(false);
+        Directory.CreateDirectory(_userCatalogDirectory);
+        var fileName = string.Concat(document.CatalogName.Select(character =>
+            char.IsLetterOrDigit(character) || character is '-' or '_' ? character : '_'));
+        var destination = Path.Combine(
+            _userCatalogDirectory,
+            $"{fileName}{OptilandGlassCatalogStore.Extension}");
+        await OptilandGlassCatalogStore.SaveAsync(document, destination, cancellationToken).ConfigureAwait(false);
+        ExternalGlassCatalogDatabase.Register(document);
+        return new MaterialCatalogImportResultDto(document.CatalogName, document.Glasses.Count, destination);
+    }
+
+    private static void LoadUserCatalogs(string? directory)
+    {
+        if (string.IsNullOrWhiteSpace(directory) || !Directory.Exists(directory))
+        {
+            return;
+        }
+
+        foreach (var path in Directory.EnumerateFiles(
+            directory,
+            $"*{OptilandGlassCatalogStore.Extension}",
+            SearchOption.TopDirectoryOnly))
+        {
+            try
+            {
+                ExternalGlassCatalogDatabase.Register(OptilandGlassCatalogStore.Load(path));
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or InvalidDataException)
+            {
+            }
+        }
+    }
+
+    private static string GlassStatus(int? status) => status switch
+    {
+        0 => "标准",
+        1 => "首选",
+        2 => "废弃",
+        3 => "特殊",
+        4 => "熔融",
+        _ => "内置只读"
+    };
 
     public event EventHandler<WorkspaceChangedEventArgs>? Changed;
 
@@ -123,14 +272,14 @@ public sealed class WorkbenchApplication :
         CancelDocumentTasks();
         using var linked = _context.LinkDocumentToken(cancellationToken);
         var fullPath = Path.GetFullPath(path);
-        var optic = await OptilandConnector.ReadOpticAsync(fullPath, linked.Token).ConfigureAwait(false);
+        var document = await OptilandConnector.ReadDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
         linked.Token.ThrowIfCancellationRequested();
         lock (_gate)
         {
             linked.Token.ThrowIfCancellationRequested();
             _currentPath = fullPath;
             _pendingCategory = WorkspaceChangeCategory.Document;
-            _connector.ApplyLoadedOptic(optic, fullPath);
+            _connector.ApplyLoadedDocument(document, fullPath);
         }
     }
 
@@ -209,6 +358,7 @@ public sealed class WorkbenchApplication :
                 {
                     FieldDefinitionKind.ObjectHeight => "物高",
                     FieldDefinitionKind.ParaxialImageHeight => "近轴像高",
+                    FieldDefinitionKind.RealImageHeight => "实际像高",
                     _ => "角度"
                 },
                 optic.ObjectSpaceTelecentric,

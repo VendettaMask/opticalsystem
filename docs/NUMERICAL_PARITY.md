@@ -113,4 +113,4 @@ See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numeric
 
 The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, vectorial diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
 
-As of 2026-07-19, the complete solution builds with zero warnings and the repository test suite passes `262/262` tests.
+As of 2026-07-19, the complete solution builds with zero warnings and the repository test suite passes `273/273` tests.

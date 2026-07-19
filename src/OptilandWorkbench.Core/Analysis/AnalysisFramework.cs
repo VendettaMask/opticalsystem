@@ -380,8 +380,12 @@ public sealed class DistortionAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         const double epsilon = 1e-10;
-        var maxField = AnalysisTrace.MaxFieldDegrees(Optic);
-        var fieldRadians = maxField * Math.PI / 180.0;
+        var maxField = AnalysisTrace.MaxFieldValue(Optic);
+        var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
+        var fieldRadians = angularField ? maxField * Math.PI / 180.0 : 0;
+        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
+        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
+        var effectiveDistortionType = angularField ? _distortionType : "linear-height";
         var wavelengths = Optic.Wavelengths.ToArray();
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDistortion = 0.0;
@@ -389,17 +393,32 @@ public sealed class DistortionAnalysis : BaseAnalysis
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
             var wavelength = wavelengths[wavelengthIndex];
-            var referenceHeight = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers).Position.Y;
-            var referenceAngle = epsilon * fieldRadians;
-            var constant = referenceHeight / Math.Tan(referenceAngle);
+            var chiefHeight = angularField
+                ? 0
+                : AnalysisTrace.FinalSample(Optic, 0, 0, 0, 0, wavelength.Micrometers).Position.Y;
+            var referenceHeight = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers).Position.Y
+                - chiefHeight;
+            var constant = AnalysisTrace.IdealFieldScale(
+                Optic,
+                referenceHeight,
+                epsilon,
+                maxField,
+                fieldRadians,
+                _distortionType);
             var points = new AnalysisPoint[_numPoints];
 
             for (var index = 0; index < _numPoints; index++)
             {
                 var normalizedField = epsilon + ((1.0 - epsilon) * index / (_numPoints - 1.0));
-                var actualHeight = AnalysisTrace.FinalSample(Optic, 0, normalizedField, 0, 0, wavelength.Micrometers).Position.Y;
-                var angle = normalizedField * fieldRadians;
-                var idealHeight = constant * (_distortionType == "f-theta" ? angle : Math.Tan(angle));
+                var actualHeight = AnalysisTrace.FinalSample(Optic, 0, normalizedField, 0, 0, wavelength.Micrometers).Position.Y
+                    - chiefHeight;
+                var idealHeight = AnalysisTrace.IdealFieldHeight(
+                    Optic,
+                    normalizedField,
+                    maxField,
+                    fieldRadians,
+                    constant,
+                    _distortionType);
                 var distortion = Math.Abs(idealHeight) <= 1e-30 ? 0 : 100.0 * (actualHeight - idealHeight) / idealHeight;
                 maximumAbsoluteDistortion = Math.Max(maximumAbsoluteDistortion, Math.Abs(distortion));
                 points[index] = new AnalysisPoint(distortion, normalizedField * maxField);
@@ -407,21 +426,22 @@ public sealed class DistortionAnalysis : BaseAnalysis
 
             series.Add(new AnalysisSeries(
                 "Distortion (%)",
-                "Field",
+                fieldAxisLabel,
                 points,
                 Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
                 ColorIndex: wavelengthIndex));
         }
 
         var first = series.FirstOrDefault();
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var values = new Dictionary<string, object>
         {
-            ["MaxFieldDegrees"] = maxField,
-            ["DistortionType"] = _distortionType,
+            [fieldValueKey] = maxField,
+            ["DistortionType"] = effectiveDistortionType,
             ["Samples"] = _numPoints,
             ["WavelengthCount"] = wavelengths.Length,
             ["MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
-        }, first, series, new AnalysisPlotOptions(
+        };
+        return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
             SymmetricX: true,
             ShowVerticalZeroLine: true,
             VerticalZeroLineStyle: AnalysisLineStyle.Dashed,
@@ -446,7 +466,9 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var maxField = AnalysisTrace.MaxFieldDegrees(Optic);
+        var maxField = AnalysisTrace.MaxFieldValue(Optic);
+        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
+        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
         var wavelengths = Optic.Wavelengths.ToArray();
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDelta = 0.0;
@@ -489,13 +511,13 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             var wavelengthLabel = $"{wavelength.Micrometers:0.0000} \u00B5m";
             series.Add(new AnalysisSeries(
                 "Image Plane Delta (mm)",
-                "Field",
+                fieldAxisLabel,
                 tangential,
                 Name: $"{wavelengthLabel}, Tangential",
                 ColorIndex: wavelengthIndex));
             series.Add(new AnalysisSeries(
                 "Image Plane Delta (mm)",
-                "Field",
+                fieldAxisLabel,
                 sagittal,
                 Name: $"{wavelengthLabel}, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
@@ -503,14 +525,15 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         }
 
         var first = series.FirstOrDefault();
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var values = new Dictionary<string, object>
         {
-            ["MaxFieldDegrees"] = maxField,
+            [fieldValueKey] = maxField,
             ["Samples"] = _numPoints,
             ["ParabasalDelta"] = _parabasalDelta,
             ["WavelengthCount"] = wavelengths.Length,
             ["MaximumAbsoluteImagePlaneDelta"] = maximumAbsoluteDelta
-        }, first, series, new AnalysisPlotOptions(
+        };
+        return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
             Title: "Field Curvature",
             SymmetricX: true,
             ShowVerticalZeroLine: true,
@@ -2128,8 +2151,10 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         const double epsilon = 1e-10;
-        var maxField = AnalysisTrace.MaxFieldDegrees(Optic);
-        var maxFieldRadians = maxField * Math.PI / 180.0;
+        var maxField = AnalysisTrace.MaxFieldValue(Optic);
+        var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
+        var maxFieldRadians = angularField ? maxField * Math.PI / 180.0 : 0;
+        var effectiveDistortionType = angularField ? _distortionType : "linear-height";
         var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null)
@@ -2142,10 +2167,13 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
 
         var chief = AnalysisTrace.FinalSample(Optic, 0, 0, 0, 0, wavelength.Micrometers);
         var reference = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers);
-        var referenceAngle = epsilon * maxFieldRadians;
-        var constant = _distortionType == "f-theta"
-            ? (reference.Position.Y - chief.Position.Y) / referenceAngle
-            : (reference.Position.Y - chief.Position.Y) / Math.Tan(referenceAngle);
+        var constant = AnalysisTrace.IdealFieldScale(
+            Optic,
+            reference.Position.Y - chief.Position.Y,
+            epsilon,
+            maxField,
+            maxFieldRadians,
+            _distortionType);
         var extent = Math.Sqrt(2) / 2.0;
         var normalized = Enumerable.Range(0, _numPoints)
             .Select(index => -extent + ((2 * extent) * index / (_numPoints - 1.0)))
@@ -2162,12 +2190,10 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             {
                 var hx = normalized[column];
                 var hy = normalized[row];
-                idealX[row, column] = constant * (_distortionType == "f-theta"
-                    ? hx * maxFieldRadians
-                    : Math.Tan(hx * maxFieldRadians));
-                idealY[row, column] = constant * (_distortionType == "f-theta"
-                    ? hy * maxFieldRadians
-                    : Math.Tan(hy * maxFieldRadians));
+                idealX[row, column] = AnalysisTrace.IdealFieldHeight(
+                    Optic, hx, maxField, maxFieldRadians, constant, _distortionType);
+                idealY[row, column] = AnalysisTrace.IdealFieldHeight(
+                    Optic, hy, maxField, maxFieldRadians, constant, _distortionType);
                 var sample = AnalysisTrace.FinalSample(Optic, hx, hy, 0, 0, wavelength.Micrometers);
                 actualX[row, column] = sample.Position.X - chief.Position.X;
                 actualY[row, column] = sample.Position.Y - chief.Position.Y;
@@ -2205,7 +2231,7 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["MaximumDistortionPercent"] = maximumDistortion,
-            ["DistortionType"] = _distortionType,
+            ["DistortionType"] = effectiveDistortionType,
             ["GridSize"] = _numPoints,
             ["WavelengthMicrometers"] = wavelength.Micrometers
         }, series[0], series, new AnalysisPlotOptions(
@@ -2247,9 +2273,69 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
 
 internal static class AnalysisTrace
 {
-    public static double MaxFieldDegrees(Optic optic)
+    public static double MaxFieldValue(Optic optic)
     {
-        return optic.Fields.Select(field => Math.Abs(field.YAngleDegrees)).DefaultIfEmpty(0).Max();
+        return optic.Fields.Select(field => Math.Abs(field.Y)).DefaultIfEmpty(0).Max();
+    }
+
+    public static string FieldAxisLabel(Optic optic)
+    {
+        return optic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => "Object Height (mm)",
+            FieldDefinitionKind.ParaxialImageHeight => "Paraxial Image Height (mm)",
+            FieldDefinitionKind.RealImageHeight => "Real Image Height (mm)",
+            _ => "Field Angle (deg)"
+        };
+    }
+
+    public static string MaximumFieldValueKey(Optic optic)
+    {
+        return optic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => "MaxObjectHeightMillimeters",
+            FieldDefinitionKind.ParaxialImageHeight => "MaxParaxialImageHeightMillimeters",
+            FieldDefinitionKind.RealImageHeight => "MaxRealImageHeightMillimeters",
+            _ => "MaxFieldDegrees"
+        };
+    }
+
+    public static double IdealFieldScale(
+        Optic optic,
+        double referenceImageHeight,
+        double normalizedReferenceField,
+        double maxField,
+        double maxFieldRadians,
+        string distortionType)
+    {
+        if (optic.FieldDefinition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight)
+        {
+            return 1;
+        }
+
+        var referenceCoordinate = optic.FieldDefinition == FieldDefinitionKind.Angle
+            ? distortionType == "f-theta"
+                ? normalizedReferenceField * maxFieldRadians
+                : Math.Tan(normalizedReferenceField * maxFieldRadians)
+            : normalizedReferenceField * maxField;
+        return Math.Abs(referenceCoordinate) <= 1e-30 ? 0 : referenceImageHeight / referenceCoordinate;
+    }
+
+    public static double IdealFieldHeight(
+        Optic optic,
+        double normalizedField,
+        double maxField,
+        double maxFieldRadians,
+        double scale,
+        string distortionType)
+    {
+        if (optic.FieldDefinition == FieldDefinitionKind.Angle)
+        {
+            var angle = normalizedField * maxFieldRadians;
+            return scale * (distortionType == "f-theta" ? angle : Math.Tan(angle));
+        }
+
+        return scale * normalizedField * maxField;
     }
 
     public static string NormalizeDistortionType(string distortionType)

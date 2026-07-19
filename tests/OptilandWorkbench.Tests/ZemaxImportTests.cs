@@ -1,10 +1,13 @@
 using System.Text;
 using System.Text.Json;
 using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.Tests;
 
@@ -173,6 +176,128 @@ public sealed class ZemaxImportTests
         var image = optic.SurfaceGroup.Items[3];
         Assert.Equal(6, image.CoordinateSystem.Origin.X, precision: 10);
         Assert.Equal(2, image.CoordinateSystem.Origin.Z, precision: 10);
+    }
+
+    [Fact]
+    public void ZemaxRealImageHeightFieldsImportAndRoundTrip()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 3 0 2 1 0 0 0
+            XFLN 0 2.5
+            YFLN 0 4.25
+            FWGN 1 0.5
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ INFINITY
+            SURF 1
+              CURV 0.02
+              DISZ 5
+              GLAS N-BK7
+              STOP
+              DIAM 5
+            SURF 2
+              CURV -0.02
+              DISZ 25
+              GLAS AIR
+            SURF 3
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var exported = OpticalFormatCatalog.Export(optic, ".zmx");
+        var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+
+        Assert.Equal(FieldDefinitionKind.RealImageHeight, optic.FieldDefinition);
+        Assert.Equal(FieldDefinitionKind.RealImageHeight, restored.FieldDefinition);
+        Assert.Equal(new[] { 0.0, 2.5 }, optic.Fields.Select(field => field.X));
+        Assert.Equal(new[] { 0.0, 4.25 }, optic.Fields.Select(field => field.Y));
+        Assert.Contains("FTYP 3", exported, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ZemaxMirrMetadataTracesForwardAndMultiConfigurationsArePreserved()
+    {
+        const string source = """
+            MODE SEQ
+            NAME Multi configuration import
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 200
+              DIAM 20
+              MIRR 2 0
+            SURF 1
+              TYPE EVENASPH
+              CURV 0.02
+              DISZ 15
+              GLAS N-BK7
+              DIAM 8
+              PARM 1 0
+              STOP
+              MIRR 2 0
+            SURF 2
+              CURV -0.02
+              DISZ 30
+              GLAS AIR
+              DIAM 8
+              MIRR 2 0
+            SURF 3
+              CURV 0
+              DISZ 0
+              DIAM 12
+              MIRR 2 0
+            MNUM 3 2
+            THIC 0 1 100 0 0 0 1 1 1 0 0 "" 0
+            THIC 0 2 150 0 0 0 1 1 1 0 0 "" 0
+            THIC 0 3 200 0 0 0 1 1 1 0 0 "" 0
+            THIC 1 1 5 0 0 0 1 1 1 0 0 "" 0
+            THIC 1 2 10 0 0 0 1 1 1 0 0 "" 0
+            THIC 1 3 15 0 0 0 1 1 1 0 0 "" 0
+            PRAM 1 1 0.000001 0 1 0 1 1 1 0 0 "" 0
+            PRAM 1 2 0.000002 0 1 0 1 1 1 0 0 "" 0
+            PRAM 1 3 0.000003 0 1 0 1 1 1 0 0 "" 0
+            """;
+
+        var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
+
+        Assert.Equal(3, imported.Configurations.Count);
+        Assert.Equal(2, imported.ActiveConfigurationIndex);
+        Assert.Same(imported.Configurations[2], imported.ActiveOptic);
+        Assert.Equal(new[] { 100.0, 150.0, 200.0 }, imported.Configurations
+            .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
+        Assert.Equal(new[] { 5.0, 10.0, 15.0 }, imported.Configurations
+            .Select(configuration => configuration.SurfaceGroup.Items[1].Thickness));
+        Assert.Equal(new[] { 0.000001, 0.000002, 0.000003 }, imported.Configurations
+            .Select(configuration => Assert.IsType<EvenAsphereGeometry>(
+                configuration.SurfaceGroup.Items[1].Geometry).Coefficients[0]));
+        Assert.All(imported.ActiveOptic.SurfaceGroup.Items, surface => Assert.False(surface.IsReflective));
+
+        var scene = new Layout2DBuilder(imported.ActiveOptic).Build(options: new LayoutBuildOptions(
+            FirstSurface: 1,
+            LastSurface: 3,
+            RayCount: 3));
+        Assert.NotEmpty(scene.Rays);
+        Assert.All(scene.Rays, ray => Assert.True(ray.Points.Count >= 2));
+
+        var connector = new OptilandConnector(Optic.CreateBlank());
+        connector.ApplyLoadedDocument(new LoadedOpticalDocument(
+            imported.ActiveOptic,
+            imported.Configurations,
+            imported.ActiveConfigurationIndex), "multi.zmx");
+        var rows = connector.GetMultiConfigurationRows();
+        Assert.Equal(3, rows.Count);
+        Assert.Equal(2, Assert.Single(rows, row => row.Active).Index);
+        Assert.Equal(new[] { "配置 1", "配置 2", "配置 3" }, rows.Select(row => row.Name));
     }
 
     [Fact]

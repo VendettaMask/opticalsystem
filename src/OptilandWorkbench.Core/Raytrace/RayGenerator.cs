@@ -325,6 +325,12 @@ public sealed class RayGenerator
                 pupilX,
                 pupilY,
                 apertureRadius),
+            FieldDefinitionKind.RealImageHeight => ParaxialImageHeightOrigin(
+                fieldX,
+                fieldY,
+                pupilX,
+                pupilY,
+                apertureRadius),
             _ => AngleFieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius)
         };
     }

@@ -83,8 +83,7 @@ public static class WavefrontEngine
             (imagePosition.X * imagePosition.X)
             + (imagePosition.Y * imagePosition.Y)
             + ((imagePosition.Z - spherePupilZ) * (imagePosition.Z - spherePupilZ)));
-        var imageIndex = optic.Materials.Resolve(
-            optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfterName ?? "Air")
+        var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
         var chiefImagePath = ImageToReferenceSphere(
             chief,

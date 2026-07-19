@@ -1,12 +1,12 @@
-# Optiland Workbench
+# Optical System Design
 
-Optiland Workbench is a pure .NET/C# + Avalonia optical design workbench that follows the public Optiland documentation shape without calling a Python Optiland backend. It targets Windows and macOS first, with Linux also supported by Avalonia in principle.
+**Optical System Design** is produced by **S.T.A.R. Labs**. It is a pure .NET/C# + Avalonia optical design workbench that follows the public Optiland documentation shape without calling a Python Optiland backend. It targets Windows and macOS first, with Linux also supported by Avalonia in principle.
 
 The implementation is being built in small git milestones. The current codebase includes:
 
 - A central `Optic` object with aperture, fields, wavelengths, surfaces, backend selection, ray tracers, analysis, optimization, tolerancing, pickups, solves, and multi-configuration entry points.
 - A composition-based surface model: `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + optional Scattering + CoordinateSystem`, while retaining GUI-compatible legacy table fields.
-- An embedded 1,740-entry glass library generated from the Optiland 0.5.8/refractiveindex.info CC0 data, with manufacturer-aware lookup and wavelength-dependent refractive-index/extinction calculations.
+- An embedded 1,740-entry compatibility library plus a bundled 63-catalog Zemax glass database containing 5,502 AGF records, with manufacturer-aware lookup, all 13 Zemax dispersion formulas, thermal/mechanical/transmission metadata, and wavelength-dependent refractive-index/extinction calculations. The Zemax source catalogs are converted once into the Workbench-owned compressed `.ogdb` format.
 - Managed CPU backend abstraction through `INumericBackend`.
 - Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style angle/object-height/paraxial-image-height fields with vignetting and object-space telecentric launch, normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
@@ -14,7 +14,7 @@ The implementation is being built in small git milestones. The current codebase 
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
 - A 32-entry analysis catalog. Thirty numerical/graphical views have source-derived Python contracts, including spot and ray fans, best-fit ray fan, distortion/field curvature, RMS field sweeps, through-focus spot/MTF, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. First-order and prescription reports complete the catalog.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
-- Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, Optiland-compatible Zemax `.zmx` sequential import, and common sequential export/CODE V `.seq`/OSLO `.len` adapters.
+- Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, Optiland-compatible Zemax `.zmx` sequential import, a build-time Zemax `.AGF` material-catalog converter, and common sequential export/CODE V `.seq`/OSLO `.len` adapters.
 - .NET plugin discovery with geometry, material, and analysis registration.
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands, all 32 analyses grouped under **Analysis**, and analysis-window layout commands grouped under **Window**.
@@ -41,6 +41,7 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 - Use the top categories to switch the large-command Ribbon; commands are not duplicated in the central workspace.
 - Open **View** and choose **2D Layout** or **3D Layout**. The 2D view uses outlined optical elements, a split aperture-stop marker, and colored rays; the 3D view uses a light background, translucent lens solids, and colored ray bundles.
 - Open **Analysis** and choose an analysis icon. The selected analysis runs and opens its own closable result page.
+- Open **Database > Material Library** to browse the bundled Zemax catalogs directly. No separate catalog selection or import step is required before opening ZMX files.
 - Expand **Settings** only when parameters need adjustment, then use the adjacent synchronization icon to rerun the current page.
 - Drag any document tab to split, merge, float, or redock it. Use **Window** for bulk docking, floating, tiling, cascading, locking, closing, and default-layout commands.
 - In an analysis plot, use the wheel to zoom, drag to pan, double-click to reset, and hover near a sample to inspect its values.
@@ -60,7 +61,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 262 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 273 passing tests with a zero-warning solution build.
 
 ## Publish
 

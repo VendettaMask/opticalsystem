@@ -19,7 +19,9 @@ public enum WorkspaceDocumentKind
     Tolerancing,
     MultiConfiguration,
     Analysis,
-    SolidModel
+    SolidModel,
+    MaterialLibrary,
+    GlassCatalog
 }
 
 public sealed record WorkspaceDocumentDescriptor(

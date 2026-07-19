@@ -14,11 +14,29 @@ internal static class ZemaxZmxReader
 {
     public static Optic Import(string text)
     {
+        return ImportConfigurationSet(text).ActiveOptic;
+    }
+
+    public static ZemaxZmxImportResult ImportConfigurationSet(string text)
+    {
         var document = Parse(text);
         Validate(document);
 
+        var configurations = Enumerable.Range(0, Math.Max(1, document.ConfigurationCount))
+            .Select(configurationIndex => BuildOptic(document, configurationIndex))
+            .ToArray();
+        var activeConfigurationIndex = DetectActiveConfiguration(document);
+        return new ZemaxZmxImportResult(
+            configurations[activeConfigurationIndex],
+            configurations,
+            activeConfigurationIndex);
+    }
+
+    private static Optic BuildOptic(ZemaxDocument document, int configurationIndex)
+    {
         var optic = new Optic(document.Name);
-        var converted = ConvertSurfaces(optic, document.Surfaces, document.GlassCatalogs);
+        var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
+        var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         optic.SurfaceGroup.Replace(converted.Select(item => item.Surface), syncComposition: false);
         foreach (var item in converted)
         {
@@ -30,9 +48,9 @@ internal static class ZemaxZmxReader
             surface.CoordinateSystem = item.CoordinateSystem;
         }
 
-        ConfigureAperture(optic, document);
-        ConfigureFields(optic, document);
-        ConfigureWavelengths(optic, document);
+        ConfigureAperture(optic, document, configurationIndex);
+        ConfigureFields(optic, document, configurationIndex);
+        ConfigureWavelengths(optic, document, configurationIndex);
         return optic;
     }
 
@@ -168,6 +186,22 @@ internal static class ZemaxZmxReader
                 case "PWAV":
                     document.PrimaryWavelengthIndex = RequiredInt(tokens, 1, command) - 1;
                     break;
+                case "MNUM":
+                    document.ConfigurationCount = Math.Max(1, RequiredInt(tokens, 1, command));
+                    break;
+                case "THIC":
+                case "APER":
+                case "APMN":
+                case "APMX":
+                case "XFIE":
+                case "YFIE":
+                case "WAVE":
+                case "WLWT":
+                case "GLSS":
+                case "STPS":
+                case "PRAM":
+                    ReadConfigurationOperand(document, tokens, command);
+                    break;
                 case "GCAT":
                     document.GlassCatalogs.AddRange(tokens.Skip(1));
                     break;
@@ -206,7 +240,10 @@ internal static class ZemaxZmxReader
                     RequireSurface(current, command).IsStop = true;
                     break;
                 case "MIRR":
-                    RequireSurface(current, command).IsMirror = true;
+                    if (tokens.Length == 1)
+                    {
+                        RequireSurface(current, command).IsMirror = true;
+                    }
                     break;
                 case "DIAM":
                     RequireSurface(current, command).SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, command));
@@ -249,6 +286,91 @@ internal static class ZemaxZmxReader
         {
             throw new InvalidDataException("A Zemax document may contain only one aperture stop.");
         }
+    }
+
+    private static IReadOnlyList<ZemaxSurface> ConfigureSurfaces(
+        ZemaxDocument document,
+        int configurationIndex)
+    {
+        var configuredStop = document.ConfigurationDouble("STPS", 0, configurationIndex);
+        return document.Surfaces.Select(source =>
+        {
+            var material = document.ConfigurationText("GLSS", source.Number, configurationIndex)
+                ?? source.Material;
+            var configured = new ZemaxSurface(source.Number)
+            {
+                Type = source.Type,
+                Comment = source.Comment,
+                Radius = source.Radius,
+                Thickness = document.ConfigurationDouble(
+                    "THIC",
+                    source.Number,
+                    configurationIndex) ?? source.Thickness,
+                Conic = source.Conic,
+                Material = string.IsNullOrWhiteSpace(material) ? "Air" : material,
+                RefractiveIndex = source.RefractiveIndex,
+                AbbeNumber = source.AbbeNumber,
+                SemiDiameter = document.ConfigurationDouble(
+                    "APMX",
+                    source.Number,
+                    configurationIndex) ?? source.SemiDiameter,
+                IsStop = configuredStop.HasValue
+                    ? source.Number == (int)Math.Round(configuredStop.Value)
+                    : source.IsStop,
+                IsMirror = source.IsMirror || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
+            };
+            foreach (var parameter in source.Parameters)
+            {
+                configured.Parameters[parameter.Key] = parameter.Value;
+            }
+
+            foreach (var operand in document.ConfigurationValues(
+                         "PRAM",
+                         source.Number,
+                         configurationIndex))
+            {
+                if (operand.AuxiliaryIndex >= 0 && TryParseDouble(operand.Value, out var value))
+                {
+                    configured.Parameters[operand.AuxiliaryIndex] = value;
+                }
+            }
+
+            return configured;
+        }).ToArray();
+    }
+
+    private static int DetectActiveConfiguration(ZemaxDocument document)
+    {
+        if (document.ConfigurationCount <= 1)
+        {
+            return 0;
+        }
+
+        var baseThickness = document.Surfaces.ToDictionary(surface => surface.Number, surface => surface.Thickness);
+        var candidates = Enumerable.Range(0, document.ConfigurationCount)
+            .Select(configurationIndex =>
+            {
+                var operands = document.ConfigurationOperands
+                    .Where(operand => operand.Command.Equals("THIC", StringComparison.OrdinalIgnoreCase)
+                        && operand.ConfigurationIndex == configurationIndex)
+                    .ToArray();
+                var error = operands.Sum(operand =>
+                {
+                    if (!baseThickness.TryGetValue(operand.Target, out var source)
+                        || !TryParseDouble(operand.Value, out var configured))
+                    {
+                        return 0.0;
+                    }
+
+                    return Math.Abs(source - configured) / Math.Max(1.0, Math.Abs(source));
+                });
+                return (Index: configurationIndex, OperandCount: operands.Length, Error: error);
+            })
+            .Where(candidate => candidate.OperandCount > 0)
+            .OrderBy(candidate => candidate.Error / candidate.OperandCount)
+            .ThenBy(candidate => candidate.Index)
+            .ToArray();
+        return candidates.Length == 0 ? 0 : candidates[0].Index;
     }
 
     private static IReadOnlyList<ConvertedSurface> ConvertSurfaces(
@@ -393,7 +515,10 @@ internal static class ZemaxZmxReader
         return new ToroidalGeometry(radiusY, radiusX);
     }
 
-    private static void ConfigureAperture(Optic optic, ZemaxDocument document)
+    private static void ConfigureAperture(
+        Optic optic,
+        ZemaxDocument document,
+        int configurationIndex)
     {
         if (document.FloatingStop)
         {
@@ -406,17 +531,21 @@ internal static class ZemaxZmxReader
 
         var aperture = document.Apertures[0];
         optic.Aperture.Kind = aperture.Kind;
-        optic.Aperture.Value = aperture.Value;
+        optic.Aperture.Value = document.ConfigurationDouble("APER", 0, configurationIndex)
+            ?? aperture.Value;
     }
 
-    private static void ConfigureFields(Optic optic, ZemaxDocument document)
+    private static void ConfigureFields(
+        Optic optic,
+        ZemaxDocument document,
+        int configurationIndex)
     {
         optic.FieldDefinition = document.FieldType switch
         {
             0 => FieldDefinitionKind.Angle,
             1 => FieldDefinitionKind.ObjectHeight,
             2 => FieldDefinitionKind.ParaxialImageHeight,
-            3 => throw new NotSupportedException("Zemax real-image-height fields are not supported."),
+            3 => FieldDefinitionKind.RealImageHeight,
             4 => throw new NotSupportedException("Zemax theodolite-angle fields are not supported."),
             _ => FieldDefinitionKind.Angle
         };
@@ -431,8 +560,10 @@ internal static class ZemaxZmxReader
 
         var fields = Enumerable.Range(0, count)
             .Select(index => new ParsedField(
-                ValueAt(document.FieldX, index),
-                ValueAt(document.FieldY, index),
+                document.ConfigurationDouble("XFIE", index + 1, configurationIndex)
+                    ?? ValueAt(document.FieldX, index),
+                document.ConfigurationDouble("YFIE", index + 1, configurationIndex)
+                    ?? ValueAt(document.FieldY, index),
                 ValueAt(document.FieldWeights, index, 1),
                 ValueAt(document.VignetteX, index),
                 ValueAt(document.VignetteY, index)))
@@ -459,7 +590,10 @@ internal static class ZemaxZmxReader
         }
     }
 
-    private static void ConfigureWavelengths(Optic optic, ZemaxDocument document)
+    private static void ConfigureWavelengths(
+        Optic optic,
+        ZemaxDocument document,
+        int configurationIndex)
     {
         var wavelengths = document.Wavelengths
             .OrderBy(wavelength => wavelength.Index)
@@ -485,14 +619,47 @@ internal static class ZemaxZmxReader
 
         for (var index = 0; index < wavelengths.Length; index++)
         {
+            var wavelengthNumber = wavelengths[index].Index + 1;
             optic.Wavelengths.Add(new Wavelength
             {
                 Label = $"W{index + 1}",
-                Nanometers = wavelengths[index].Micrometers * 1000.0,
-                Weight = wavelengths[index].Weight,
+                Nanometers = (document.ConfigurationDouble(
+                    "WAVE",
+                    wavelengthNumber,
+                    configurationIndex) ?? wavelengths[index].Micrometers) * 1000.0,
+                Weight = document.ConfigurationDouble(
+                    "WLWT",
+                    wavelengthNumber,
+                    configurationIndex) ?? wavelengths[index].Weight,
                 IsPrimary = index == primary
             });
         }
+    }
+
+    private static void ReadConfigurationOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        var target = RequiredInt(tokens, 1, command);
+        var configurationIndex = RequiredInt(tokens, 2, command) - 1;
+        if (configurationIndex < 0)
+        {
+            throw new InvalidDataException($"Zemax {command} configuration indices are one-based positive integers.");
+        }
+
+        var value = RequiredToken(tokens, 3, command).Trim('"');
+        var auxiliaryIndex = command.Equals("PRAM", StringComparison.OrdinalIgnoreCase)
+            && tokens.Count > 5
+            ? RequiredInt(tokens, 5, command) - 1
+            : -1;
+        document.ConfigurationOperands.Add(new ZemaxConfigurationOperand(
+            command,
+            target,
+            configurationIndex,
+            value,
+            auxiliaryIndex));
+        document.ConfigurationCount = Math.Max(document.ConfigurationCount, configurationIndex + 1);
     }
 
     private static void ReadFNumber(ZemaxDocument document, IReadOnlyList<string> tokens)
@@ -568,6 +735,11 @@ internal static class ZemaxZmxReader
         IReadOnlyList<string> glassCatalogs)
     {
         var material = NormalizeMaterial(surface.Material);
+        if (optic.Materials.TryResolveExternalGlass(material, glassCatalogs, out var externalGlass))
+        {
+            return externalGlass;
+        }
+
         if (optic.Materials.TryResolve(material, glassCatalogs, out var resolved))
         {
             return resolved;
@@ -740,6 +912,8 @@ internal static class ZemaxZmxReader
         public List<ZemaxWavelength> Wavelengths { get; } = new();
         public List<string> GlassCatalogs { get; } = new();
         public List<ZemaxSurface> Surfaces { get; } = new();
+        public int ConfigurationCount { get; set; } = 1;
+        public List<ZemaxConfigurationOperand> ConfigurationOperands { get; } = new();
 
         public void UpsertAperture(string key, ApertureKind kind, double value)
         {
@@ -753,6 +927,36 @@ internal static class ZemaxZmxReader
             {
                 Apertures.Add(aperture);
             }
+        }
+
+        public double? ConfigurationDouble(string command, int target, int configurationIndex)
+        {
+            var operand = ConfigurationOperands.FindLast(item =>
+                item.Command.Equals(command, StringComparison.OrdinalIgnoreCase)
+                && item.Target == target
+                && item.ConfigurationIndex == configurationIndex);
+            return operand is not null && TryParseDouble(operand.Value, out var value)
+                ? value
+                : null;
+        }
+
+        public string? ConfigurationText(string command, int target, int configurationIndex)
+        {
+            return ConfigurationOperands.FindLast(item =>
+                item.Command.Equals(command, StringComparison.OrdinalIgnoreCase)
+                && item.Target == target
+                && item.ConfigurationIndex == configurationIndex)?.Value;
+        }
+
+        public IEnumerable<ZemaxConfigurationOperand> ConfigurationValues(
+            string command,
+            int target,
+            int configurationIndex)
+        {
+            return ConfigurationOperands.Where(item =>
+                item.Command.Equals(command, StringComparison.OrdinalIgnoreCase)
+                && item.Target == target
+                && item.ConfigurationIndex == configurationIndex);
         }
     }
 
@@ -777,6 +981,12 @@ internal static class ZemaxZmxReader
 
     private sealed record ZemaxAperture(string Key, ApertureKind Kind, double Value);
     private sealed record ZemaxWavelength(int Index, double Micrometers, double Weight);
+    private sealed record ZemaxConfigurationOperand(
+        string Command,
+        int Target,
+        int ConfigurationIndex,
+        string Value,
+        int AuxiliaryIndex);
     private sealed record ParsedField(
         double X,
         double Y,
