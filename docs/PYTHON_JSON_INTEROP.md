@@ -24,7 +24,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | System aperture | EPD, image F-number, object NA, float by stop size |
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and high-order EvenAsphere/OddAsphere coefficients that do not use Python's first r/r² departure term |
+| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and EvenAsphere/OddAsphere including the first r²/r departure term |
 | Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
 | Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |

@@ -62,7 +62,9 @@ public sealed class RealRayTracer
 
             if (!surface.IsPlane)
             {
-                var nextIndex = MaterialCatalog.RefractiveIndex(surface.Material, wavelength);
+                var nextIndex = _optic.Materials
+                    .Resolve(surface.MaterialAfterName)
+                    .RefractiveIndex(wavelength.Nanometers);
                 var refractiveDelta = nextIndex - currentIndex;
                 var curvatureKick = nextY / surface.Radius * refractiveDelta;
                 slope -= curvatureKick;

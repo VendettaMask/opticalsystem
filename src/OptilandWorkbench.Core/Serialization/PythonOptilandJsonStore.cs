@@ -87,12 +87,18 @@ public static class PythonOptilandJsonStore
             parsedSurfaces[0].Surface.Thickness = firstSurfaceCoordinate.Origin.Z - objectCoordinate.Origin.Z;
         }
 
-        optic.SurfaceGroup.Replace(parsedSurfaces.Select(item => item.Surface));
+        optic.SurfaceGroup.Replace(parsedSurfaces.Select(item => item.Surface), syncComposition: false);
+        IMaterial previousMaterial = optic.Materials.Resolve("Air");
         for (var index = 0; index < parsedSurfaces.Count; index++)
         {
             var parsed = parsedSurfaces[index];
             var surface = optic.SurfaceGroup.Items[index];
+            var materialAfter = parsed.Interaction is RefractiveReflectiveInteractionModel { IsReflective: true }
+                ? previousMaterial.Clone()
+                : optic.Materials.Resolve(surface.Material);
             surface.Geometry = parsed.Geometry;
+            surface.MaterialBefore = previousMaterial.Clone();
+            surface.MaterialAfter = materialAfter;
             surface.InteractionModel = parsed.Interaction;
             surface.CoatingModel = parsed.Coating;
             surface.PhysicalAperture = parsed.Aperture;
@@ -108,6 +114,8 @@ public static class PythonOptilandJsonStore
                     coordinate.RotationYDegrees,
                     coordinate.RotationZDegrees);
             }
+
+            previousMaterial = materialAfter.Clone();
         }
 
         if (root.TryGetProperty("aperture", out var rootAperture)
@@ -564,7 +572,12 @@ public static class PythonOptilandJsonStore
         ValidateHomogeneousPropagation(material);
         if (type == "Material")
         {
-            return GetString(material, "name", "Air");
+            var name = GetString(material, "name", "Air");
+            var reference = GetString(material, "reference", string.Empty);
+            var preferred = string.IsNullOrWhiteSpace(reference)
+                ? Array.Empty<string>()
+                : new[] { reference };
+            return optic.Materials.Resolve(name, preferred).Name;
         }
 
         if (type == "AbbeMaterial")
@@ -1186,6 +1199,16 @@ public static class PythonOptilandJsonStore
                 ["propagation_model"] = propagation,
                 ["index"] = abbe.Nd,
                 ["abbe"] = abbe.Vd
+            },
+            CatalogGlassMaterial catalog => new Dictionary<string, object?>
+            {
+                ["type"] = "Material",
+                ["propagation_model"] = propagation,
+                ["name"] = catalog.CatalogName,
+                ["reference"] = catalog.Manufacturer.ToLowerInvariant(),
+                ["robust_search"] = false,
+                ["min_wavelength"] = null,
+                ["max_wavelength"] = null
             },
             _ when PythonCatalogMaterialNames.Contains(material.Name) => new Dictionary<string, object?>
             {

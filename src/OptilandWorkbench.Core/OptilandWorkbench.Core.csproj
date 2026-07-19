@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Materials/Data/glass-catalog.json"
+                      LogicalName="OptilandWorkbench.Core.Materials.Data.glass-catalog.json" />
+  </ItemGroup>
+
 </Project>

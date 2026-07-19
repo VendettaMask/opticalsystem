@@ -257,7 +257,7 @@ public sealed class Optic
                 Label = "Flint front",
                 Radius = -22.21328,
                 Thickness = 0.99997,
-                Material = "F2",
+                Material = "SCHOTT:F2",
                 SemiDiameter = 4.6
             },
             new OpticalSurface
@@ -317,7 +317,7 @@ public sealed class Optic
             new OpticalSurface { Label = "Object", Thickness = 0, Material = "Air", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Front crown", Radius = 1.3329, Thickness = 0.2791, Material = "N-SK15", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Front crown back", Radius = -9.9754, Thickness = 0.2054, Material = "Air", SemiDiameter = 0.73 },
-            new OpticalSurface { Label = "Flint front", Radius = -2.0917, Thickness = 0.09, Material = "F2", SemiDiameter = 0.48 },
+            new OpticalSurface { Label = "Flint front", Radius = -2.0917, Thickness = 0.09, Material = "SCHOTT:F2", SemiDiameter = 0.48 },
             new OpticalSurface { Label = "Flint back", Radius = 1.2123, Thickness = 0.0709, Material = "Air", SemiDiameter = 0.48 },
             new OpticalSurface { Label = "Aperture stop", Thickness = 0.1534, Material = "Air", SemiDiameter = 0.42, IsStop = true },
             new OpticalSurface { Label = "Rear crown front", Radius = -7.5205, Thickness = 0.09, Material = "K10", SemiDiameter = 0.63 },

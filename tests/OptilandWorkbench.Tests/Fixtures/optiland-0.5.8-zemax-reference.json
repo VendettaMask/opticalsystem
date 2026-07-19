@@ -1,0 +1,151 @@
+{
+  "optiland_version": "0.5.8",
+  "aperture": {
+    "type": "EPD",
+    "value": 12.5,
+    "object_space_telecentric": false
+  },
+  "field_type": "AngleField",
+  "fields": [
+    {
+      "x": 0.0,
+      "y": 0.0,
+      "vx": 0.0,
+      "vy": 0.0
+    },
+    {
+      "x": 1.5,
+      "y": 7.0,
+      "vx": 0.1,
+      "vy": 0.15
+    },
+    {
+      "x": -1.5,
+      "y": 10.0,
+      "vx": 0.2,
+      "vy": 0.25
+    }
+  ],
+  "wavelengths": [
+    {
+      "value_um": 0.4861327,
+      "weight": 1.0,
+      "is_primary": false
+    },
+    {
+      "value_um": 0.5875618,
+      "weight": 1.0,
+      "is_primary": true
+    },
+    {
+      "value_um": 0.6562725,
+      "weight": 1.0,
+      "is_primary": false
+    }
+  ],
+  "surfaces": [
+    {
+      "is_stop": false,
+      "material": "IdealMaterial",
+      "geometry": {
+        "type": "Plane",
+        "position": [
+          0.0,
+          0.0,
+          "-Infinity"
+        ],
+        "sag_sample": {
+          "x": 1.25,
+          "y": 0.75,
+          "z": 0.0
+        },
+        "radius": "Infinity"
+      }
+    },
+    {
+      "is_stop": true,
+      "material": "N-BK7",
+      "geometry": {
+        "type": "StandardGeometry",
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sag_sample": {
+          "x": 1.25,
+          "y": 0.75,
+          "z": 0.021254517545160775
+        },
+        "radius": 50.0,
+        "k": 0.0
+      }
+    },
+    {
+      "is_stop": false,
+      "material": "AIR",
+      "geometry": {
+        "type": "EvenAsphere",
+        "position": [
+          0.0,
+          0.0,
+          4.0
+        ],
+        "sag_sample": {
+          "x": 1.25,
+          "y": 0.75,
+          "z": -0.0265604653125
+        },
+        "radius": -40.0,
+        "k": -1.0,
+        "coefficients": [
+          1e-06,
+          -2e-08,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "is_stop": false,
+      "material": "N-F2",
+      "geometry": {
+        "type": "ToroidalGeometry",
+        "position": [
+          0.0,
+          0.0,
+          6.0
+        ],
+        "sag_sample": {
+          "x": 1.25,
+          "y": 0.75,
+          "z": 0.012579104073648272
+        },
+        "radius": 100.0,
+        "k": 0.0
+      }
+    },
+    {
+      "is_stop": false,
+      "material": "AIR",
+      "geometry": {
+        "type": "Plane",
+        "position": [
+          0.0,
+          0.0,
+          14.0
+        ],
+        "sag_sample": {
+          "x": 1.25,
+          "y": 0.75,
+          "z": 0.0
+        },
+        "radius": "Infinity"
+      }
+    }
+  ]
+}

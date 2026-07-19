@@ -34,6 +34,8 @@ OpticalSurface
   CoordinateSystem
 ```
 
+`MaterialRegistry` resolves custom materials and an embedded 1,740-entry glass database generated from Optiland 0.5.8/refractiveindex.info CC0 data. `CatalogGlassMaterial` evaluates formula 1/2/3/5 or tabulated refractive-index data and interpolates tabulated extinction data. Ambiguous glass names require a manufacturer-qualified name such as `SCHOTT:F2`; Zemax `GCAT` provides that qualification during import. Unknown names do not silently become constant-index glass.
+
 Legacy table fields are synchronized into composition objects for normal table edits. JSON load can restore rich component snapshots without losing component-specific fields.
 
 ## Geometry Coverage
@@ -166,7 +168,7 @@ The tolerancing panel exposes the current CPU tolerancing framework through sens
 
 ## Persistence
 
-Native persistence uses schema-versioned JSON snapshots. Commercial format support uses a common sequential lens subset, mapped to ZMX/SEQ/LEN syntax by format adapters.
+Native persistence uses schema-versioned JSON snapshots. `ZemaxZmxReader` maps the Python Optiland 0.5.8 sequential Zemax parser/converter boundary into Core models, including encoding detection, system data, supported geometry, materials, and coordinate breaks. CODE V and OSLO continue to use the common sequential subset adapters.
 
 Dock sessions are separate from optical files. The global default is stored at `%APPDATA%\OptilandWorkbench\workspace-default.json`; a saved optical file uses the SHA-256 hash of its normalized absolute path under `%APPDATA%\OptilandWorkbench\sessions`. A session stores the Dock graph, open document descriptors, analysis keys/settings/instance IDs, active document, lock state, and floating bounds, but never large calculation results.
 

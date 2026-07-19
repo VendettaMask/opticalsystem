@@ -878,7 +878,14 @@ public sealed class OptilandParityTests
             var restored = OpticalFormatCatalog.Import(text, extension);
 
             Assert.Equal(optic.SurfaceGroup.Items.Count, restored.SurfaceGroup.Items.Count);
-            Assert.Equal("Imported", restored.Name[..8]);
+            if (extension == ".zmx")
+            {
+                Assert.Equal(optic.Name, restored.Name);
+            }
+            else
+            {
+                Assert.Equal("Imported", restored.Name[..8]);
+            }
             Assert.Equal(optic.SurfaceGroup.Items[1].IsStop, restored.SurfaceGroup.Items[1].IsStop);
             Assert.Equal(optic.SurfaceGroup.Items[2].Radius, restored.SurfaceGroup.Items[2].Radius, precision: 5);
             Assert.Equal(optic.SurfaceGroup.Items[2].Thickness, restored.SurfaceGroup.Items[2].Thickness, precision: 12);

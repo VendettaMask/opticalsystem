@@ -181,19 +181,28 @@ public sealed class SequentialLensTextExporter : IOpticalFormatExporter
 
 public sealed class ZemaxZmxImporter : IOpticalFormatImporter
 {
-    public string FormatName => "zemax-zmx-subset";
+    public string FormatName => "zemax-zmx-optiland-0.5.8";
 
     public string[] Extensions { get; } = { ".zmx" };
 
     public Optic Import(string text)
     {
-        return SequentialLensParser.ParseZemax(text).ToOptic();
+        return ZemaxZmxReader.Import(text);
+    }
+
+    public async Task<Optic> ImportFileAsync(
+        string path,
+        CancellationToken cancellationToken = default)
+    {
+        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return Import(ZemaxZmxReader.Decode(bytes));
     }
 }
 
 public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 {
-    public string FormatName => "zemax-zmx-subset";
+    public string FormatName => "zemax-zmx-optiland-0.5.8";
 
     public string[] Extensions { get; } = { ".zmx" };
 
@@ -201,18 +210,50 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     {
         var lines = new List<string>
         {
-            "! OptilandWorkbench Zemax ZMX common sequential subset"
+            "! OptilandWorkbench Zemax ZMX sequential export",
+            "MODE SEQ",
+            $"NAME {optic.Name}",
+            ApertureLine(optic),
+            $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 0",
+            $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
+            $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",
+            $"FWGN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Weight)))}",
+            $"VCXN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorX)))}",
+            $"VCYN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorY)))}"
         };
+
+        var glassCatalogs = optic.SurfaceGroup.Items
+            .Select(surface => surface.MaterialAfter)
+            .OfType<Materials.CatalogGlassMaterial>()
+            .Select(material => material.Manufacturer)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        if (glassCatalogs.Length > 0)
+        {
+            lines.Insert(3, $"GCAT {string.Join(" ", glassCatalogs)}");
+        }
+
+        for (var index = 0; index < optic.Wavelengths.Count; index++)
+        {
+            var wavelength = optic.Wavelengths[index];
+            lines.Add($"WAVM {index + 1} {FormatDouble(wavelength.Micrometers)} {FormatDouble(wavelength.Weight)}");
+        }
+
+        var primaryIndex = optic.Wavelengths.ToList().FindIndex(wavelength => wavelength.IsPrimary);
+        lines.Add($"PWAV {Math.Max(0, primaryIndex) + 1}");
 
         foreach (var surface in SequentialLensDocument.FromOptic(optic).Surfaces)
         {
             lines.Add($"SURF {surface.Number}");
+            lines.Add($"  TYPE {SurfaceType(optic.SurfaceGroup.Items[surface.Number].Geometry)}");
             lines.Add($"  COMM {surface.Label}");
             lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
-            lines.Add($"  DISZ {FormatDouble(surface.Thickness)}");
-            lines.Add($"  GLAS {NormalizeAir(surface.Material)}");
+            lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
+            lines.Add(GlassLine(optic.SurfaceGroup.Items[surface.Number]));
             lines.Add($"  DIAM {FormatDouble(surface.SemiDiameter)}");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
+            WriteSurfaceParameters(lines, optic.SurfaceGroup.Items[surface.Number].Geometry);
             if (surface.IsStop)
             {
                 lines.Add("  STOP");
@@ -229,7 +270,85 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     private static double RadiusToCurvature(double radius) => Math.Abs(radius) < 1e-12 ? 0 : 1.0 / radius;
 
+    private static string ApertureLine(Optic optic) => optic.Aperture.Kind switch
+    {
+        ApertureKind.FNumber => $"FNUM {FormatDouble(optic.Aperture.Value)} 0",
+        ApertureKind.NumericalAperture => $"OBNA {FormatDouble(optic.Aperture.Value)} 0",
+        _ => $"ENPD {FormatDouble(optic.Aperture.Value)}"
+    };
+
+    private static int FieldTypeCode(FieldDefinitionKind definition) => definition switch
+    {
+        FieldDefinitionKind.ObjectHeight => 1,
+        FieldDefinitionKind.ParaxialImageHeight => 2,
+        _ => 0
+    };
+
+    private static string SurfaceType(Geometries.IGeometry geometry) => geometry switch
+    {
+        Geometries.EvenAsphereGeometry => "EVENASPH",
+        Geometries.OddAsphereGeometry => "ODDASPHE",
+        Geometries.ToroidalGeometry => "TOROIDAL",
+        _ => "STANDARD"
+    };
+
+    private static void WriteSurfaceParameters(List<string> lines, Geometries.IGeometry geometry)
+    {
+        switch (geometry)
+        {
+            case Geometries.EvenAsphereGeometry evenAsphere:
+                WriteCoefficients(lines, evenAsphere.Coefficients, startIndex: 1);
+                break;
+            case Geometries.OddAsphereGeometry oddAsphere:
+                WriteCoefficients(lines, oddAsphere.Coefficients, startIndex: 1);
+                break;
+            case Geometries.ToroidalGeometry toroidal:
+                lines.Add($"  PARM 2 {FormatDouble(double.IsInfinity(toroidal.SagittalRadius) ? 0 : toroidal.SagittalRadius)}");
+                break;
+        }
+    }
+
+    private static void WriteCoefficients(List<string> lines, IReadOnlyList<double> coefficients, int startIndex)
+    {
+        for (var index = 0; index < coefficients.Count; index++)
+        {
+            lines.Add($"  PARM {startIndex + index} {FormatDouble(coefficients[index])}");
+        }
+    }
+
     private static string NormalizeAir(string material) => material.Equals("Air", StringComparison.OrdinalIgnoreCase) ? "AIR" : material;
+
+    private static string GlassLine(OpticalSurface surface)
+    {
+        if (surface.IsReflective)
+        {
+            return "  GLAS MIRROR";
+        }
+
+        return surface.MaterialAfter switch
+        {
+            Materials.AirMaterial => "  GLAS AIR",
+            Materials.CatalogGlassMaterial catalog => $"  GLAS {catalog.CatalogName}",
+            Materials.AbbeMaterial abbe =>
+                $"  GLAS {abbe.Name} 0 0 {FormatDouble(abbe.Nd)} {FormatDouble(abbe.Vd)}",
+            var material => GlassLineWithCalculatedAbbe(material)
+        };
+    }
+
+    private static string GlassLineWithCalculatedAbbe(Materials.IMaterial material)
+    {
+        const double dLine = 587.5618;
+        const double fLine = 486.1327;
+        const double cLine = 656.2725;
+        var nd = material.RefractiveIndex(dLine);
+        var denominator = material.RefractiveIndex(fLine) - material.RefractiveIndex(cLine);
+        var vd = Math.Abs(denominator) < 1e-15 ? 0 : (nd - 1.0) / denominator;
+        return $"  GLAS {NormalizeAir(material.Name)} 0 0 {FormatDouble(nd)} {FormatDouble(vd)}";
+    }
+
+    private static string FormatDistance(double value) => double.IsPositiveInfinity(value)
+        ? "INFINITY"
+        : FormatDouble(value);
 
     private static string FormatDouble(double value) => value.ToString("0.##########", CultureInfo.InvariantCulture);
 }
@@ -380,21 +499,6 @@ internal static class SequentialLensParser
         }
 
         return BuildDocument(name, builders);
-    }
-
-    public static SequentialLensDocument ParseZemax(string text)
-    {
-        return ParseSectioned(
-            text,
-            "Imported Zemax ZMX",
-            beginCommands: new[] { "SURF" },
-            radiusCommands: Array.Empty<string>(),
-            curvatureCommands: new[] { "CURV" },
-            thicknessCommands: new[] { "DISZ", "THIC", "THI" },
-            materialCommands: new[] { "GLAS" },
-            semiDiameterCommands: new[] { "DIAM", "SDIA", "AP" },
-            conicCommands: new[] { "CONI", "CONIC" },
-            labelCommands: new[] { "COMM" });
     }
 
     public static SequentialLensDocument ParseCodeV(string text)

@@ -283,8 +283,8 @@ public sealed class EvenAsphereGeometry : IGeometry
         var power = r2;
         foreach (var coefficient in Coefficients)
         {
-            power *= r2;
             sag += coefficient * power;
+            power *= r2;
         }
 
         return sag;
@@ -324,8 +324,8 @@ public sealed class OddAsphereGeometry : IGeometry
         var power = r;
         foreach (var coefficient in Coefficients)
         {
-            power *= r;
             sag += coefficient * power;
+            power *= r;
         }
 
         return sag;
@@ -396,7 +396,28 @@ public sealed class ToroidalGeometry : IGeometry
 
     public double Sag(double x, double y)
     {
-        return new BiconicGeometry(SagittalRadius, TangentialRadius).Sag(x, y);
+        const double epsilon = 1e-14;
+        var yzSag = 0.0;
+        if (!double.IsInfinity(TangentialRadius) && Math.Abs(TangentialRadius) > epsilon)
+        {
+            var curvature = 1.0 / TangentialRadius;
+            var root = Math.Max(0, 1.0 - (curvature * curvature * y * y));
+            yzSag = (curvature * y * y) / (1.0 + Math.Sqrt(root));
+        }
+
+        if (double.IsInfinity(SagittalRadius) || Math.Abs(SagittalRadius) <= epsilon)
+        {
+            return yzSag;
+        }
+
+        var offset = SagittalRadius - yzSag;
+        var radicand = (offset * offset) - (x * x);
+        if (radicand < 0)
+        {
+            return double.NaN;
+        }
+
+        return yzSag + offset - (Math.Sign(offset) * Math.Sqrt(radicand));
     }
 
     public double? DistanceToIntersection(Vector3D origin, Vector3D direction)

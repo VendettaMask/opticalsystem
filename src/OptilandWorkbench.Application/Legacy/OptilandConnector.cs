@@ -933,6 +933,11 @@ public sealed class OptilandConnector
             return await OpticJsonStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
         }
 
+        if (Path.GetExtension(path).Equals(".zmx", StringComparison.OrdinalIgnoreCase))
+        {
+            return await new ZemaxZmxImporter().ImportFileAsync(path, cancellationToken).ConfigureAwait(false);
+        }
+
         var text = await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         return OpticalFormatCatalog.Import(text, Path.GetExtension(path));

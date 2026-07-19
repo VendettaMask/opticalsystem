@@ -83,18 +83,32 @@ The current local baseline is:
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
-Expected result as of 2026-07-18:
+Expected result as of 2026-07-19:
 
 - solution build: 0 warnings, 0 errors
-- tests: 247 passed, 0 failed, 0 skipped
+- tests: 262 passed, 0 failed, 0 skipped
 
-The suite covers architecture entry points, geometry/material behavior, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
+The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, and plugin discovery.
 
-Regenerate the Python analysis fixture only when intentionally updating the pinned `optiland==0.5.8` contract:
+Regenerate Python fixtures only when intentionally updating the pinned `optiland==0.5.8` contract or its embedded CC0 glass data:
 
 ```bash
-python tools/python-reference/generate_analysis_reference.py \
+MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
+  tools/python-reference/generate_analysis_reference.py \
   tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-analysis-reference.json
+
+MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
+  tools/python-reference/generate_zemax_reference.py \
+  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-zemax-reference.zmx \
+  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-zemax-reference.json
+
+.venv/bin/python tools/python-reference/generate_glass_catalog.py \
+  .venv/lib/python3.14/site-packages/optiland/database \
+  src/OptilandWorkbench.Core/Materials/Data/glass-catalog.json
+
+MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
+  tools/python-reference/generate_glass_reference.py \
+  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-glass-reference.json
 ```
 
 Review and run the full suite before committing regenerated fixture data.

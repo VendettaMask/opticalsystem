@@ -112,7 +112,7 @@ Analyses without a dedicated series receive a numeric metric bar chart in the co
 
 Reference: open `Cooke_triplet.json` and update the editor and viewer.
 
-Workbench: use **File > New Cooke Triplet Sample** or **File > New Tessar F/4.5 Sample** for prescriptions and ray models validated against Optiland 0.5.8, or **File > Open** for Workbench JSON and the supported ZMX/SEQ/LEN subset. All panels refresh through connector events.
+Workbench: use **File > New Cooke Triplet Sample** or **File > New Tessar F/4.5 Sample** for prescriptions and ray models validated against Optiland 0.5.8, or **File > Open** for Workbench JSON, Optiland-compatible sequential ZMX files, and the supported SEQ/LEN subsets. All panels refresh through connector events.
 
 ### Inspect 2D And 3D Rays
 
@@ -146,7 +146,7 @@ Ordinary prescription edits only mark a heavy result stale. Synchronization capt
 
 The Workbench native JSON remains the lossless format for Workbench-specific components. Python Optiland 0.5.8 recursive JSON dictionaries are now detected on open and can be exported explicitly through **File > Export Python Optiland JSON**. The validated interoperability subset covers angle/object-height/paraxial-image-height fields, field vignetting and telecentric flags, finite/infinite object conjugates, EPD/image F-number/object NA/float-by-stop-size system apertures, wavelengths, centered Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and representable high-order EvenAsphere/OddAsphere surfaces, homogeneous catalog/ideal/Abbe materials, radial/rectangular/elliptical/polygon/file-backed/recursive boolean physical apertures, all seven Optiland 0.5.8 apodization profiles, refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with all four phase profiles, transmissive/reflective diffractive interactions, and simple Python coating dictionaries on the Workbench adapter path. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, and its grating dictionaries cannot currently reconstruct themselves, so those external Python retention paths are not claimed yet.
 
-Commercial format support is intentionally a common sequential subset. ZMX, SEQ, and LEN files can lose unsupported freeform, coating, solve, polarization, or multi-configuration data. The UI should not claim lossless commercial compatibility.
+ZMX import follows the Python Optiland 0.5.8 supported sequential boundary; SEQ and LEN remain common sequential subsets. These formats can still lose unsupported freeform, coating, solve, polarization, or multi-configuration data, so the UI should not claim lossless commercial compatibility.
 
 ## Remaining Gaps
 
@@ -177,4 +177,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-19, the solution builds with zero warnings and all `247/247` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.
+As of 2026-07-19, the solution builds with zero warnings and all `262/262` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, Zemax import, tracing, serialization, optimization, tolerancing, plugins, visualization, editor transactions, and file formats.
