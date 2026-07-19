@@ -119,6 +119,43 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void ZemaxImportWithoutGcatUsesDefaultSchottGlassPriority()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 8
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 20
+            SURF 1
+              CURV 0.02
+              DISZ 3
+              GLAS F2
+              DIAM 4
+            SURF 2
+              CURV -0.02
+              DISZ 15
+              GLAS AIR
+            SURF 3
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var glass = Assert.Single(optic.SurfaceGroup.Items
+            .Select(surface => surface.MaterialAfter)
+            .OfType<CatalogGlassMaterial>());
+
+        Assert.Equal("SCHOTT", glass.Manufacturer);
+        Assert.Equal("F2", glass.CatalogName);
+    }
+
+    [Fact]
     public void ZemaxFixtureMatchesPython058ReferenceContract()
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(
@@ -217,8 +254,14 @@ public sealed class ZemaxImportTests
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
 
         Assert.Equal(4, optic.SurfaceGroup.Items.Count);
-        Assert.Equal(ApertureKind.EntrancePupilDiameter, optic.Aperture.Kind);
-        Assert.Equal(8, optic.Aperture.Value, precision: 12);
+        Assert.Equal(ApertureKind.FloatByStopSize, optic.Aperture.Kind);
+        Assert.Equal(4, optic.Aperture.Value, precision: 12);
+        Assert.Equal(8, optic.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
+        var exported = OpticalFormatCatalog.Export(optic, ".zmx");
+        Assert.Contains("FLOA", exported, StringComparison.Ordinal);
+        Assert.Equal(
+            ApertureKind.FloatByStopSize,
+            OpticalFormatCatalog.Import(exported, ".zmx").Aperture.Kind);
         var mirror = optic.SurfaceGroup.Items[2];
         Assert.True(mirror.IsReflective);
         Assert.Equal("CUSTOM-Z", mirror.MaterialBefore.Name);

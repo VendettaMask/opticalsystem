@@ -13,7 +13,32 @@ public sealed record OpticSnapshot(
     bool ObjectSpaceTelecentric = false,
     bool FieldGroupTelecentric = false,
     List<RadiusPickupSnapshot>? RadiusPickups = null,
-    SolveSettingsSnapshot? SolveSettings = null);
+    SolveSettingsSnapshot? SolveSettings = null,
+    List<MeritOperandSnapshot>? MeritOperands = null,
+    EnvironmentSnapshot? Environment = null);
+
+public sealed record EnvironmentSnapshot(
+    bool MatchRefractiveIndexData = true,
+    double TemperatureCelsius = 20.0,
+    double PressureAtmospheres = 1.0);
+
+public sealed record MeritOperandSnapshot(
+    bool Enabled,
+    string Type,
+    int Surface,
+    int Field,
+    int Wavelength,
+    double Hx,
+    double Hy,
+    double Px,
+    double Py,
+    double Target,
+    double Weight,
+    string Comment,
+    int PupilRings = 3,
+    int PupilArms = 6,
+    double PupilObscuration = 0,
+    string PupilSampling = "hexapolar");
 
 public sealed record ApertureSnapshot(
     string Kind,
@@ -55,7 +80,9 @@ public sealed record SurfaceSnapshot(
     double Conic,
     bool IsStop,
     bool IsReflective = false,
-    SurfaceComponentSnapshot? Components = null);
+    SurfaceComponentSnapshot? Components = null,
+    bool RadiusVariable = false,
+    bool ThicknessVariable = false);
 
 public sealed record SurfaceComponentSnapshot(
     string GeometryKind,

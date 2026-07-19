@@ -600,11 +600,60 @@ public sealed class OptilandParityTests
         Assert.Contains("Huygens PSF", optic.Analyses.Names);
         Assert.Contains("MTF", optic.Analyses.Names);
         Assert.Contains("Huygens MTF", optic.Analyses.Names);
+        Assert.Contains("Geometric MTF", optic.Analyses.Names);
+        Assert.Contains("Fourier Through Focus MTF", optic.Analyses.Names);
+        Assert.Contains("Huygens Through Focus MTF", optic.Analyses.Names);
+        Assert.Contains("Geometric Through Focus MTF", optic.Analyses.Names);
+        Assert.Contains("Fourier MTF vs Field", optic.Analyses.Names);
+        Assert.Contains("Huygens MTF vs Field", optic.Analyses.Names);
+        Assert.Contains("Geometric MTF vs Field", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
-        Assert.Equal(32, optic.Analyses.Names.Count);
+        Assert.Equal(38, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
+    }
+
+    [Theory]
+    [InlineData(MtfComputationMethod.Fourier)]
+    [InlineData(MtfComputationMethod.Huygens)]
+    [InlineData(MtfComputationMethod.Geometric)]
+    public void EveryMtfMethodSupportsThroughFocusAndFieldScans(MtfComputationMethod method)
+    {
+        var optic = Optic.CreateDemo();
+        var settings = new MtfComputationSettings(
+            PupilSampling: 8,
+            ImageSize: 16,
+            GeometricRayCount: 8,
+            Distribution: "uniform");
+
+        var throughFocus = new MtfThroughFocusAnalysis(
+            optic,
+            method,
+            spatialFrequency: 10,
+            focusStep: 0.05,
+            focusPlaneCount: 3,
+            settings).GenerateData();
+        var versusField = new MtfVsFieldAnalysis(
+            optic,
+            method,
+            spatialFrequency: 10,
+            fieldPointCount: 3,
+            settings).GenerateData();
+
+        Assert.Equal(6, throughFocus.SeriesList?.Count);
+        Assert.Equal(2, versusField.SeriesList?.Count);
+        Assert.All(throughFocus.SeriesList!, series => Assert.All(series.Points, point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        }));
+        Assert.All(versusField.SeriesList!, series => Assert.All(series.Points, point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        }));
+        Assert.Equal("deg", versusField.Values["FieldUnit"]);
     }
 
     [Fact]
@@ -660,6 +709,39 @@ public sealed class OptilandParityTests
 
         Assert.Equal(4.0, problem.ResidualVector()[0]);
         Assert.Equal(16.0, problem.SumSquared());
+    }
+
+    [Fact]
+    public void MeritFunctionEvaluatesCommonZemaxStyleOperands()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var radius = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "RADI",
+            Surface = 1,
+            Target = optic.SurfaceGroup.Items[1].Radius + 1,
+            Weight = 2
+        });
+        var focalLength = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "EFFL",
+            Target = 0,
+            Weight = 1
+        });
+        var rayHeight = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "REAY",
+            Field = 2,
+            Wavelength = 2,
+            Px = 0,
+            Py = 0.5
+        });
+
+        Assert.Equal(optic.SurfaceGroup.Items[1].Radius, radius.Value, precision: 10);
+        Assert.Equal(4, radius.Contribution, precision: 10);
+        Assert.True(double.IsFinite(focalLength.Value));
+        Assert.True(double.IsFinite(rayHeight.Value));
+        Assert.All(new[] { radius, focalLength, rayHeight }, evaluation => Assert.Empty(evaluation.Error));
     }
 
     [Fact]

@@ -108,6 +108,21 @@ public sealed class CoreArchitectureTests
     }
 
     [Fact]
+    public void SnapshotPreservesEnvironmentSettings()
+    {
+        var optic = Optic.CreateDemo();
+        optic.Environment.MatchRefractiveIndexData = false;
+        optic.Environment.TemperatureCelsius = 27.5;
+        optic.Environment.PressureAtmospheres = 0.92;
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.False(restored.Environment.MatchRefractiveIndexData);
+        Assert.Equal(27.5, restored.Environment.TemperatureCelsius, precision: 12);
+        Assert.Equal(0.92, restored.Environment.PressureAtmospheres, precision: 12);
+    }
+
+    [Fact]
     public void SimpleOptimizerDoesNotWorsenSpotMetric()
     {
         var optic = Optic.CreateDemo();

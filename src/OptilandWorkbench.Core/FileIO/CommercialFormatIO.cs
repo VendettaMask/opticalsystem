@@ -293,6 +293,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     {
         ApertureKind.FNumber => $"FNUM {FormatDouble(optic.Aperture.Value)} 0",
         ApertureKind.NumericalAperture => $"OBNA {FormatDouble(optic.Aperture.Value)} 0",
+        ApertureKind.FloatByStopSize => "FLOA",
         _ => $"ENPD {FormatDouble(optic.Aperture.Value)}"
     };
 

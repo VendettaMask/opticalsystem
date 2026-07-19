@@ -4,7 +4,8 @@ public enum ApertureKind
 {
     EntrancePupilDiameter,
     FNumber,
-    NumericalAperture
+    NumericalAperture,
+    FloatByStopSize
 }
 
 public sealed class SystemAperture
@@ -22,6 +23,7 @@ public sealed class SystemAperture
             ApertureKind.EntrancePupilDiameter => Math.Max(0.001, Value),
             ApertureKind.FNumber => Math.Max(0.001, fallbackDiameter),
             ApertureKind.NumericalAperture => Math.Max(0.001, fallbackDiameter),
+            ApertureKind.FloatByStopSize => Math.Max(0.001, fallbackDiameter),
             _ => Math.Max(0.001, fallbackDiameter)
         };
     }

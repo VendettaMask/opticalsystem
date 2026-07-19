@@ -23,6 +23,8 @@ public sealed class SurfaceEditorRow
         GratingPeriodMicrometers = source.GratingPeriodMicrometers;
         GrooveOrientationAngleDegrees = source.GrooveOrientationAngleDegrees;
         ThinLensFocalLength = source.ThinLensFocalLength;
+        RadiusVariable = source.RadiusVariable;
+        ThicknessVariable = source.ThicknessVariable;
         SurfaceRole = Number == 0
             ? "物面"
             : isLastSurface
@@ -32,6 +34,7 @@ public sealed class SurfaceEditorRow
                     : "(孔径)";
         SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
         MechanicalSemiDiameter = SemiDiameter;
+        CanOptimize = Number > 0 && !isLastSurface;
     }
 
     public int Number { get; }
@@ -60,6 +63,9 @@ public sealed class SurfaceEditorRow
     public double GratingPeriodMicrometers { get; set; }
     public double GrooveOrientationAngleDegrees { get; set; }
     public double ThinLensFocalLength { get; set; }
+    public bool RadiusVariable { get; set; }
+    public bool ThicknessVariable { get; set; }
+    public bool CanOptimize { get; }
     public string SurfaceRole { get; }
     public string SurfaceType { get; }
     public double ExtensionZone { get; } = 0;
@@ -86,9 +92,88 @@ public sealed class SurfaceEditorRow
         GratingOrder,
         GratingPeriodMicrometers,
         GrooveOrientationAngleDegrees,
-        ThinLensFocalLength);
+        ThinLensFocalLength,
+        RadiusVariable,
+        ThicknessVariable);
 
     public override string ToString() => $"{Number}: {Label}";
+}
+
+public sealed class MeritOperandEditorRow
+{
+    public MeritOperandEditorRow(MeritOperandRowDto source)
+    {
+        Index = source.Index;
+        Enabled = source.Enabled;
+        Type = source.Type;
+        Surface = source.Surface;
+        Field = source.Field;
+        Wavelength = source.Wavelength;
+        Hx = source.Hx;
+        Hy = source.Hy;
+        Px = source.Px;
+        Py = source.Py;
+        Target = source.Target;
+        Weight = source.Weight;
+        Value = source.Value;
+        Contribution = source.Contribution;
+        Comment = source.Comment;
+        Error = source.Error;
+        PupilRings = source.PupilRings;
+        PupilArms = source.PupilArms;
+        PupilObscuration = source.PupilObscuration;
+        PupilSampling = source.PupilSampling;
+    }
+
+    public int Index { get; set; }
+    public bool Enabled { get; set; }
+    public string Type { get; set; }
+    public int Surface { get; set; }
+    public int Field { get; set; }
+    public int Wavelength { get; set; }
+    public double Hx { get; set; }
+    public double Hy { get; set; }
+    public double Px { get; set; }
+    public double Py { get; set; }
+    public double Target { get; set; }
+    public double Weight { get; set; }
+    public double Value { get; set; }
+    public double Contribution { get; set; }
+    public string Comment { get; set; }
+    public string Error { get; set; }
+    public int PupilRings { get; set; }
+    public int PupilArms { get; set; }
+    public double PupilObscuration { get; set; }
+    public string PupilSampling { get; set; }
+
+    public bool IsBlank => Type.Equals("BLNK", StringComparison.OrdinalIgnoreCase)
+        || Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
+
+    public string ValueDisplay => double.IsFinite(Value) ? Value.ToString("0.######") : "-";
+
+    public string ContributionDisplay => double.IsFinite(Contribution) ? Contribution.ToString("0.######") : "-";
+
+    public MeritOperandRowDto ToDto() => new(
+        Index,
+        Enabled,
+        Type,
+        Surface,
+        Field,
+        Wavelength,
+        Hx,
+        Hy,
+        Px,
+        Py,
+        Target,
+        Weight,
+        Value,
+        Contribution,
+        Comment,
+        Error,
+        PupilRings,
+        PupilArms,
+        PupilObscuration,
+        PupilSampling);
 }
 
 public sealed class FieldEditorRow

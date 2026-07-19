@@ -310,6 +310,23 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void SystemApertureOptionsExposeFourPythonCompatibleModes()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        Assert.Equal(
+            new[] { "入瞳直径", "像方 F 数", "物方数值孔径", "按光阑面尺寸浮动" },
+            connector.ApertureKindNames);
+
+        var stop = connector.CurrentOptic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        connector.SetSystemAperture("按光阑面尺寸浮动", 999);
+
+        Assert.Equal(ApertureKind.FloatByStopSize, connector.CurrentOptic.Aperture.Kind);
+        Assert.Equal(stop.SemiDiameter, connector.CurrentOptic.Aperture.Value, precision: 12);
+        stop.SemiDiameter = 4.5;
+        Assert.Equal(9, connector.CurrentOptic.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
+    }
+
+    [Fact]
     public void WavelengthEditingMaintainsExactlyOnePrimary()
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());

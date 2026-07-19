@@ -102,6 +102,153 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void EnvironmentSettingsUseDefaultsAndPublishSystemChange()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var events = new List<WorkspaceChangedEventArgs>();
+        application.Events.Changed += (_, args) => events.Add(args);
+
+        var defaults = application.Prescription.GetEnvironmentSettings();
+        Assert.True(defaults.MatchRefractiveIndexData);
+        Assert.Equal(20.0, defaults.TemperatureCelsius, precision: 12);
+        Assert.Equal(1.0, defaults.PressureAtmospheres, precision: 12);
+
+        application.Prescription.UpdateEnvironmentSettings(new EnvironmentSettingsDto(
+            false,
+            24.5,
+            0.85));
+
+        var changed = application.Prescription.GetEnvironmentSettings();
+        Assert.False(changed.MatchRefractiveIndexData);
+        Assert.Equal(24.5, changed.TemperatureCelsius, precision: 12);
+        Assert.Equal(0.85, changed.PressureAtmospheres, precision: 12);
+        Assert.Equal(WorkspaceChangeCategory.SystemSettings, Assert.Single(events).Category);
+    }
+
+    [Fact]
+    public async Task MarkedLensVariablesAreOptimizedTogether()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surfaces = application.Prescription.GetSurfaces();
+        var radiusSurface = surfaces.First(surface => surface.Number == 1);
+        var thicknessSurface = surfaces.First(surface => surface.Number == 2);
+
+        application.Prescription.UpdateSurface(radiusSurface with { RadiusVariable = true });
+        application.Prescription.UpdateSurface(thicknessSurface with { ThicknessVariable = true });
+
+        var result = await application.Optimization.OptimizeVariablesAsync(
+            "Orthogonal Descent",
+            maxIterations: 4);
+
+        Assert.Equal(2, result.Variables.Count);
+        Assert.Contains(result.Variables, variable =>
+            variable.SurfaceNumber == 1 && variable.Kind == OptimizationVariableKind.Radius);
+        Assert.Contains(result.Variables, variable =>
+            variable.SurfaceNumber == 2 && variable.Kind == OptimizationVariableKind.Thickness);
+        Assert.True(double.IsFinite(result.InitialMerit));
+        Assert.True(double.IsFinite(result.FinalMerit));
+        Assert.True(result.FinalMerit <= result.InitialMerit + 1e-12);
+        Assert.All(result.Variables, variable => Assert.True(double.IsFinite(variable.FinalValue)));
+    }
+
+    [Fact]
+    public async Task VariableOptimizationRequiresAtLeastOneMarkedValue()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            application.Optimization.OptimizeVariablesAsync("Orthogonal Descent", 1));
+
+        Assert.Contains("优化变量", exception.Message);
+    }
+
+    [Fact]
+    public async Task CustomMeritOperandDrivesMarkedVariableOptimization()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surface = application.Prescription.GetSurfaces().First(item => item.Number == 1);
+        application.Prescription.UpdateSurface(surface with { RadiusVariable = true });
+        var target = surface.Radius + Math.Max(5, Math.Abs(surface.Radius) * 0.2);
+        application.Optimization.SetMeritFunction(new[]
+        {
+            new MeritOperandRowDto(
+                1,
+                true,
+                "RADI",
+                surface.Number,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                target,
+                1,
+                0,
+                0,
+                "半径目标")
+        });
+
+        var result = await application.Optimization.OptimizeVariablesAsync(
+            "Orthogonal Descent",
+            maxIterations: 12);
+        var optimized = application.Prescription.GetSurfaces().Single(item => item.Number == 1);
+
+        Assert.True(result.FinalMerit < result.InitialMerit);
+        Assert.True(Math.Abs(optimized.Radius - target) < Math.Abs(surface.Radius - target));
+        var evaluated = Assert.Single(application.Optimization.GetMeritFunction());
+        Assert.Equal("RADI", evaluated.Type);
+        Assert.True(evaluated.Contribution < result.InitialMerit);
+    }
+
+    [Fact]
+    public void DefaultMeritFunctionCanGenerateSpotAndWavefrontOperands()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot);
+        var spot = application.Optimization.GetMeritFunction();
+        Assert.Contains(spot, operand => operand.Type == "RSCE" && operand.Enabled);
+
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsWavefront);
+        var wavefront = application.Optimization.GetMeritFunction();
+        Assert.Contains(wavefront, operand => operand.Type == "OPDX" && operand.Enabled);
+        Assert.Contains(wavefront, operand => operand.Type == "BLNK" && !operand.Enabled);
+    }
+
+    [Fact]
+    public void OptimizationWizardGeneratesSampledMeritFunction()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var events = new List<WorkspaceChangedEventArgs>();
+        application.Events.Changed += (_, args) => events.Add(args);
+
+        application.Optimization.GenerateMeritFunction(new OptimizationWizardSettingsDto(
+            OptimizationImageQuality.RmsSpot,
+            OptimizationPupilSampling.RectangularArray,
+            PupilRings: 4,
+            PupilArms: 8,
+            PupilObscuration: 0.2,
+            StartRow: 1,
+            WeightScale: 2,
+            UseAllWavelengths: false,
+            IncludeCommonOperands: true,
+            ReplaceExisting: true));
+
+        var operands = application.Optimization.GetMeritFunction();
+        Assert.Equal(1 + application.Prescription.GetFields().Count + 2, operands.Count);
+        Assert.Equal("DMFS", operands[0].Type);
+        var sampled = Assert.Single(operands.Where(operand => operand.Type == "RSCE").Take(1));
+        Assert.Equal(4, sampled.PupilRings);
+        Assert.Equal(8, sampled.PupilArms);
+        Assert.Equal(0.2, sampled.PupilObscuration, precision: 12);
+        Assert.Equal("uniform", sampled.PupilSampling);
+        Assert.Contains(operands, operand => operand.Type == "EFFL");
+        Assert.Contains(operands, operand => operand.Type == "FNUM");
+        Assert.Equal(WorkspaceChangeCategory.Optimization, Assert.Single(events).Category);
+    }
+
+    [Fact]
     public async Task AnalysisResultCarriesRequestIdentityAndSourceRevision()
     {
         using var application = WorkbenchApplication.Create("cooke");

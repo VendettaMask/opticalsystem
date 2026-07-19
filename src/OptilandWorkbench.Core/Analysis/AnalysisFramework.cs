@@ -49,7 +49,8 @@ public enum AnalysisMarkerStyle
 {
     Circle,
     Square,
-    Triangle
+    Triangle,
+    Cross
 }
 
 public enum AnalysisColorMap
@@ -2223,26 +2224,26 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             }
         }
 
-        var series = new List<AnalysisSeries>(_numPoints * 4);
+        var series = new List<AnalysisSeries>((_numPoints * 2) + 1);
         for (var index = 0; index < _numPoints; index++)
         {
-            series.Add(GridLine(idealX, idealY, index, false, "Ideal Grid", 1, AnalysisLineStyle.Solid, 1));
+            series.Add(GridLine(actualX, actualY, index, false, "畸变网格", 10, AnalysisLineStyle.Solid, 1.2));
         }
 
         for (var index = 0; index < _numPoints; index++)
         {
-            series.Add(GridLine(idealX, idealY, index, true, "", 1, AnalysisLineStyle.Solid, 1));
+            series.Add(GridLine(actualX, actualY, index, true, "", 10, AnalysisLineStyle.Solid, 1.2));
         }
 
-        for (var index = 0; index < _numPoints; index++)
-        {
-            series.Add(GridLine(actualX, actualY, index, false, "Distorted Grid", 0, AnalysisLineStyle.Dashed, 1.5));
-        }
-
-        for (var index = 0; index < _numPoints; index++)
-        {
-            series.Add(GridLine(actualX, actualY, index, true, "", 0, AnalysisLineStyle.Dashed, 1.5));
-        }
+        series.Add(new AnalysisSeries(
+            "Image X (mm)",
+            "Image Y (mm)",
+            IdealGridPoints(idealX, idealY),
+            AnalysisSeriesKind.Scatter,
+            "理想网格",
+            ColorIndex: 0,
+            MarkerStyle: AnalysisMarkerStyle.Cross,
+            MarkerSize: 2.8));
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {
@@ -2251,11 +2252,24 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             ["GridSize"] = _numPoints,
             ["WavelengthMicrometers"] = wavelength.Micrometers
         }, series[0], series, new AnalysisPlotOptions(
-            Title: $"Grid Distortion (Max: {maximumDistortion:0.00}%)",
             EqualAspect: true,
-            ShowLegend: true,
-            HideTopAndRightAxes: true,
-            DottedGrid: true));
+            ShowLegend: false,
+            HideAxes: true));
+    }
+
+    private IReadOnlyList<AnalysisPoint> IdealGridPoints(double[,] x, double[,] y)
+    {
+        var points = new AnalysisPoint[_numPoints * _numPoints];
+        var outputIndex = 0;
+        for (var row = 0; row < _numPoints; row++)
+        {
+            for (var column = 0; column < _numPoints; column++)
+            {
+                points[outputIndex++] = new AnalysisPoint(x[row, column], y[row, column]);
+            }
+        }
+
+        return points;
     }
 
     private AnalysisSeries GridLine(
@@ -2755,6 +2769,12 @@ public sealed class AnalysisCatalog
         "RMS Wavefront vs Field",
         "Through Focus",
         "Through Focus MTF",
+        "Fourier Through Focus MTF",
+        "Huygens Through Focus MTF",
+        "Geometric Through Focus MTF",
+        "Fourier MTF vs Field",
+        "Huygens MTF vs Field",
+        "Geometric MTF vs Field",
         "Angle vs Image Height - Through Pupil",
         "Angle vs Image Height - Through Field",
         "Incoherent Irradiance",
@@ -2793,6 +2813,12 @@ public sealed class AnalysisCatalog
             "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(_optic),
             "Through Focus" => new ThroughFocusAnalysis(_optic),
             "Through Focus MTF" => new ThroughFocusMtfAnalysis(_optic),
+            "Fourier Through Focus MTF" => new MtfThroughFocusAnalysis(_optic, MtfComputationMethod.Fourier),
+            "Huygens Through Focus MTF" => new MtfThroughFocusAnalysis(_optic, MtfComputationMethod.Huygens),
+            "Geometric Through Focus MTF" => new MtfThroughFocusAnalysis(_optic, MtfComputationMethod.Geometric),
+            "Fourier MTF vs Field" => new MtfVsFieldAnalysis(_optic, MtfComputationMethod.Fourier),
+            "Huygens MTF vs Field" => new MtfVsFieldAnalysis(_optic, MtfComputationMethod.Huygens),
+            "Geometric MTF vs Field" => new MtfVsFieldAnalysis(_optic, MtfComputationMethod.Geometric),
             "Angle vs Image Height - Through Pupil" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughPupil),
             "Angle vs Image Height - Through Field" => new IncidentAngleVsHeightAnalysis(_optic, AngleScanMode.ThroughField),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(_optic),

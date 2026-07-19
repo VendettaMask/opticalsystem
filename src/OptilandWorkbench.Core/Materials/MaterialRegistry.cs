@@ -2,6 +2,22 @@ namespace OptilandWorkbench.Core.Materials;
 
 public sealed class MaterialRegistry
 {
+    private static readonly IReadOnlyList<string> DefaultGlassCatalogPriority = new[]
+    {
+        "SCHOTT",
+        "OHARA",
+        "HOYA",
+        "HIKARI",
+        "NIKON-HIKARI",
+        "SUMITA",
+        "CDGM-ZEMAX202309",
+        "CDGM",
+        "CHENGDU",
+        "GBJ",
+        "NHG",
+        "555CHINESES"
+    };
+
     private readonly Dictionary<string, IMaterial> _materials = new(StringComparer.OrdinalIgnoreCase);
     private static GlassCatalogDatabase Catalog => GlassCatalogDatabase.Instance;
 
@@ -70,13 +86,16 @@ public sealed class MaterialRegistry
         out IMaterial material)
     {
         var normalized = string.IsNullOrWhiteSpace(name) ? "Air" : name.Trim();
+        var effectiveManufacturers = preferredManufacturers is { Count: > 0 }
+            ? preferredManufacturers
+            : DefaultGlassCatalogPriority;
         if (_materials.TryGetValue(normalized, out var registered))
         {
             material = registered.Clone();
             return true;
         }
 
-        if (Catalog.TryResolve(normalized, preferredManufacturers, out var catalogMaterial))
+        if (Catalog.TryResolve(normalized, effectiveManufacturers, out var catalogMaterial))
         {
             _materials[catalogMaterial.Name] = catalogMaterial;
             if (!catalogMaterial.Name.Contains(':', StringComparison.Ordinal))
@@ -88,7 +107,7 @@ public sealed class MaterialRegistry
             return true;
         }
 
-        if (TryResolveExternalGlass(normalized, preferredManufacturers, out var externalMaterial))
+        if (TryResolveExternalGlass(normalized, effectiveManufacturers, out var externalMaterial))
         {
             material = externalMaterial;
             return true;

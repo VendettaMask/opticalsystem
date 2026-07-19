@@ -89,11 +89,13 @@ public sealed class GlassCatalogTests
     }
 
     [Fact]
-    public void UnknownAndAmbiguousGlassNamesNeverBecomeConstantIndexFallbacks()
+    public void UnqualifiedLegacyGlassUsesCatalogPriorityAndUnknownNamesDoNotFallback()
     {
         var registry = new MaterialRegistry();
 
-        Assert.Throws<InvalidDataException>(() => registry.Resolve("F2"));
+        var legacyF2 = Assert.IsType<CatalogGlassMaterial>(registry.Resolve("F2"));
+        Assert.Equal("SCHOTT", legacyF2.Manufacturer);
+        Assert.Equal("F2", legacyF2.CatalogName);
         Assert.Throws<KeyNotFoundException>(() => registry.Resolve("NOT-A-REAL-GLASS"));
         var exception = Assert.Throws<KeyNotFoundException>(() =>
             OpticalFormatCatalog.Import(ZemaxSource("SCHOTT", "NOT-A-REAL-GLASS"), ".zmx"));

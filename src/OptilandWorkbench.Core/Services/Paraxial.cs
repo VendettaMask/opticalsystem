@@ -37,6 +37,7 @@ public sealed class Paraxial
         {
             ApertureKind.FNumber => Math.Abs(EstimateEffectiveFocalLength()) / Math.Max(1e-12, _optic.Aperture.Value),
             ApertureKind.NumericalAperture => EntrancePupilDiameterFromObjectNumericalAperture(),
+            ApertureKind.FloatByStopSize => fallbackDiameter,
             _ => _optic.Aperture.Diameter(fallbackDiameter)
         };
     }

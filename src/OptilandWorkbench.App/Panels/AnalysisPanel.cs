@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -17,6 +18,7 @@ namespace OptilandWorkbench.App.Panels;
 public sealed class AnalysisPanel : UserControl, IDisposable
 {
     private readonly IAnalysisService _analyses;
+    private readonly IOpticalDocumentService _documents;
     private readonly IWorkspaceEventStream _events;
     private readonly AppSettings _appSettings;
     private readonly Dictionary<string, Control> _parameterControls = new();
@@ -32,6 +34,10 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115))
     };
     private readonly Button _syncButton;
+    private readonly DispatcherTimer _automaticRefreshTimer = new()
+    {
+        Interval = TimeSpan.FromMilliseconds(180)
+    };
     private CancellationTokenSource? _runCancellation;
     private AnalysisViewDto? _view;
     private Dictionary<string, string> _settings;
@@ -41,6 +47,7 @@ public sealed class AnalysisPanel : UserControl, IDisposable
 
     public AnalysisPanel(
         IAnalysisService analyses,
+        IOpticalDocumentService documents,
         IWorkspaceEventStream events,
         AppSettings appSettings,
         string analysisName,
@@ -48,6 +55,7 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         IReadOnlyDictionary<string, string>? initialSettings = null)
     {
         _analyses = analyses;
+        _documents = documents;
         _events = events;
         _appSettings = appSettings;
         AnalysisName = analysisName;
@@ -56,6 +64,7 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         _settings = analyses.MergeSettings(
             analysisName,
             initialSettings ?? SavedAnalysisSettings());
+        _automaticRefreshTimer.Tick += OnAutomaticRefreshTimerTick;
 
         _syncButton = IconButton("refresh-cw", "同步当前设置并重新运行");
         _syncButton.Click += async (_, _) => await RunAsync();
@@ -166,6 +175,8 @@ public sealed class AnalysisPanel : UserControl, IDisposable
 
         _disposed = true;
         _generation++;
+        _automaticRefreshTimer.Stop();
+        _automaticRefreshTimer.Tick -= OnAutomaticRefreshTimerTick;
         _events.Changed -= OnWorkspaceChanged;
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
@@ -210,7 +221,10 @@ public sealed class AnalysisPanel : UserControl, IDisposable
                 }
 
                 _view = result.View;
-                _resultHost.Content = BuildResultContent(result.View);
+                _resultHost.Content = BuildResultContent(
+                    result.View,
+                    _documents.GetSnapshot(),
+                    DateTimeOffset.Now);
                 _stateText.Text = _locked ? "已锁定：保留当前结果" : "已同步";
             });
         }
@@ -250,11 +264,33 @@ public sealed class AnalysisPanel : UserControl, IDisposable
 
         Dispatcher.UIThread.Post(() =>
         {
-            if (!_disposed && _view is not null)
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (args.Category is WorkspaceChangeCategory.SystemSettings
+                or WorkspaceChangeCategory.Field
+                or WorkspaceChangeCategory.Wavelength)
+            {
+                _stateText.Text = "系统设置已变化，正在自动刷新…";
+                _automaticRefreshTimer.Stop();
+                _automaticRefreshTimer.Start();
+            }
+            else if (_view is not null)
             {
                 _stateText.Text = "结果已过期，请同步";
             }
         });
+    }
+
+    private async void OnAutomaticRefreshTimerTick(object? sender, EventArgs args)
+    {
+        _automaticRefreshTimer.Stop();
+        if (!_disposed && !_locked)
+        {
+            await RunAsync();
+        }
     }
 
     private void RebuildParameterPanel()
@@ -366,11 +402,19 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         VerticalAlignment = VerticalAlignment.Center
     };
 
-    private static Control BuildResultContent(AnalysisViewDto view)
+    private static Control BuildResultContent(
+        AnalysisViewDto view,
+        OpticalDocumentSnapshot document,
+        DateTimeOffset generatedAt)
     {
         var plotRoot = view.PlotPanes.Count > 0
             ? BuildPanePlot(view.PlotPanes, view.PlotPaneColumns)
             : BuildSinglePlot(view);
+        var plotPage = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
+        plotPage.Children.Add(plotRoot);
+        var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
+        Grid.SetRow(titleBlock, 1);
+        plotPage.Children.Add(titleBlock);
         var resultsGrid = new DataGrid
         {
             AutoGenerateColumns = false,
@@ -407,10 +451,147 @@ public sealed class AnalysisPanel : UserControl, IDisposable
             TabStripPlacement = Avalonia.Controls.Dock.Bottom,
             ItemsSource = new object[]
             {
-                new TabItem { Header = "绘图", Content = plotRoot },
+                new TabItem { Header = "绘图", Content = plotPage },
                 new TabItem { Header = "数据", Content = resultsGrid },
                 new TabItem { Header = "文本", Content = report }
             }
+        };
+    }
+
+    private static Control BuildAnalysisTitleBlock(
+        AnalysisViewDto view,
+        OpticalDocumentSnapshot document,
+        DateTimeOffset generatedAt)
+    {
+        var visibleRows = view.Rows
+            .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
+            .Take(7)
+            .ToArray();
+        var resultLines = visibleRows.Length == 0
+            ? "暂无摘要数据"
+            : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}"));
+        if (view.Rows.Count > visibleRows.Length)
+        {
+            resultLines += $"{Environment.NewLine}其余 {view.Rows.Count - visibleRows.Length} 项见“数据”页";
+        }
+
+        var documentName = string.IsNullOrWhiteSpace(document.Path)
+            ? document.Name
+            : Path.GetFileName(document.Path);
+        var version = Assembly.GetExecutingAssembly()
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion?.Split('+')[0]
+            ?? Assembly.GetExecutingAssembly().GetName().Version?.ToString(3)
+            ?? "1.0.0";
+
+        var left = new StackPanel
+        {
+            Spacing = 2,
+            Margin = new Thickness(16, 10, 16, 10),
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = view.Name,
+                    FontSize = 15,
+                    FontWeight = FontWeight.SemiBold
+                },
+                new TextBlock
+                {
+                    Text = generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
+                },
+                new TextBlock
+                {
+                    Text = resultLines,
+                    FontSize = 11,
+                    LineHeight = 16,
+                    TextWrapping = TextWrapping.Wrap
+                }
+            }
+        };
+
+        var product = new StackPanel
+        {
+            Spacing = 4,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "S.T.A.R. Labs",
+                    FontSize = 18,
+                    FontWeight = FontWeight.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                },
+                new TextBlock
+                {
+                    Text = $"Optical System Design  {version}",
+                    FontSize = 11,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                }
+            }
+        };
+        var documentInfo = new StackPanel
+        {
+            Spacing = 2,
+            Margin = new Thickness(12, 7),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = documentName,
+                    FontSize = 11,
+                    FontWeight = FontWeight.SemiBold,
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                },
+                new TextBlock
+                {
+                    Text = document.Name,
+                    FontSize = 10,
+                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87)),
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                }
+            }
+        };
+        var right = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
+        right.Children.Add(product);
+        var documentBorder = new Border
+        {
+            BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
+            BorderThickness = new Thickness(0, 1, 0, 0),
+            Child = documentInfo
+        };
+        Grid.SetRow(documentBorder, 1);
+        right.Children.Add(documentBorder);
+
+        var grid = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("2*,*"),
+            MinHeight = 126
+        };
+        grid.Children.Add(left);
+        var rightBorder = new Border
+        {
+            BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
+            BorderThickness = new Thickness(1, 0, 0, 0),
+            Child = right
+        };
+        Grid.SetColumn(rightBorder, 1);
+        grid.Children.Add(rightBorder);
+
+        return new Border
+        {
+            Background = Brushes.White,
+            BorderBrush = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
+            BorderThickness = new Thickness(0, 1, 0, 1),
+            Child = grid
         };
     }
 

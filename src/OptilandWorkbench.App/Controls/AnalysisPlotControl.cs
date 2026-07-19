@@ -28,7 +28,8 @@ public sealed class AnalysisPlotControl : Control
         Color.FromRgb(227, 119, 194),
         Color.FromRgb(127, 127, 127),
         Color.FromRgb(188, 189, 34),
-        Color.FromRgb(23, 190, 207)
+        Color.FromRgb(23, 190, 207),
+        Color.FromRgb(20, 20, 20)
     };
 
     private IReadOnlyList<AnalysisSeries> _series = Array.Empty<AnalysisSeries>();
@@ -760,6 +761,17 @@ public sealed class AnalysisPlotControl : Control
     {
         switch (markerStyle)
         {
+            case AnalysisMarkerStyle.Cross:
+                var crossPen = new Pen(brush, Math.Max(1, size * 0.45));
+                context.DrawLine(
+                    crossPen,
+                    new Point(center.X - size, center.Y - size),
+                    new Point(center.X + size, center.Y + size));
+                context.DrawLine(
+                    crossPen,
+                    new Point(center.X - size, center.Y + size),
+                    new Point(center.X + size, center.Y - size));
+                break;
             case AnalysisMarkerStyle.Square:
                 context.DrawRectangle(brush, null, new Rect(center.X - size, center.Y - size, size * 2, size * 2));
                 break;

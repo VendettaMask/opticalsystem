@@ -36,6 +36,8 @@ public interface IPrescriptionService
 
     SystemSettingsDto GetSystemSettings();
 
+    EnvironmentSettingsDto GetEnvironmentSettings();
+
     IReadOnlyList<FieldRowDto> GetFields();
 
     IReadOnlyList<WavelengthRowDto> GetWavelengths();
@@ -61,6 +63,8 @@ public interface IPrescriptionService
     void UpdateWavelength(WavelengthRowDto wavelength);
 
     void UpdateSystemSettings(SystemSettingsDto settings);
+
+    void UpdateEnvironmentSettings(EnvironmentSettingsDto settings);
 }
 
 public interface IAnalysisService
@@ -91,8 +95,23 @@ public interface IOptimizationService
 {
     IReadOnlyList<string> OptimizerNames { get; }
 
+    IReadOnlyList<MeritOperandTypeDto> GetMeritOperandTypes();
+
+    IReadOnlyList<MeritOperandRowDto> GetMeritFunction();
+
+    void SetMeritFunction(IReadOnlyList<MeritOperandRowDto> operands);
+
+    void GenerateDefaultMeritFunction(MeritFunctionPreset preset);
+
+    void GenerateMeritFunction(OptimizationWizardSettingsDto settings);
+
     Task<OptimizationResultDto> OptimizeSurfaceRadiusAsync(
         int surfaceNumber,
+        string optimizerName,
+        int maxIterations,
+        CancellationToken cancellationToken = default);
+
+    Task<OptimizationRunResultDto> OptimizeVariablesAsync(
         string optimizerName,
         int maxIterations,
         CancellationToken cancellationToken = default);

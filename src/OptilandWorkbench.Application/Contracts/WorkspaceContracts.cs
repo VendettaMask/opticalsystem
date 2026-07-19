@@ -86,7 +86,9 @@ public sealed record SurfaceRowDto(
     int GratingOrder,
     double GratingPeriodMicrometers,
     double GrooveOrientationAngleDegrees,
-    double ThinLensFocalLength);
+    double ThinLensFocalLength,
+    bool RadiusVariable,
+    bool ThicknessVariable);
 
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
@@ -124,6 +126,11 @@ public sealed record SystemSettingsDto(
     string ApodizationKind,
     double FirstApodizationParameter,
     double SecondApodizationParameter);
+
+public sealed record EnvironmentSettingsDto(
+    bool MatchRefractiveIndexData,
+    double TemperatureCelsius,
+    double PressureAtmospheres);
 
 public sealed record PrescriptionOptionsDto(
     IReadOnlyList<string> Backends,
@@ -175,7 +182,8 @@ public enum AnalysisMarkerStyle
 {
     Circle,
     Square,
-    Triangle
+    Triangle,
+    Cross
 }
 
 public enum AnalysisColorMap
@@ -377,6 +385,84 @@ public sealed record OptimizationResultDto(
     double FinalRadius,
     double Merit,
     int Iterations);
+
+public enum MeritFunctionPreset
+{
+    RmsSpot,
+    RmsWavefront
+}
+
+public enum OptimizationImageQuality
+{
+    RmsSpot,
+    RmsWavefront
+}
+
+public enum OptimizationPupilSampling
+{
+    GaussianQuadrature,
+    RectangularArray
+}
+
+public sealed record OptimizationWizardSettingsDto(
+    OptimizationImageQuality ImageQuality,
+    OptimizationPupilSampling PupilSampling,
+    int PupilRings,
+    int PupilArms,
+    double PupilObscuration,
+    int StartRow,
+    double WeightScale,
+    bool UseAllWavelengths,
+    bool IncludeCommonOperands,
+    bool ReplaceExisting);
+
+public sealed record MeritOperandTypeDto(
+    string Code,
+    string DisplayName,
+    string Description);
+
+public sealed record MeritOperandRowDto(
+    int Index,
+    bool Enabled,
+    string Type,
+    int Surface,
+    int Field,
+    int Wavelength,
+    double Hx,
+    double Hy,
+    double Px,
+    double Py,
+    double Target,
+    double Weight,
+    double Value,
+    double Contribution,
+    string Comment,
+    string Error = "",
+    int PupilRings = 3,
+    int PupilArms = 6,
+    double PupilObscuration = 0,
+    string PupilSampling = "hexapolar");
+
+public enum OptimizationVariableKind
+{
+    Radius,
+    Thickness
+}
+
+public sealed record OptimizationVariableResultDto(
+    int SurfaceNumber,
+    OptimizationVariableKind Kind,
+    string Name,
+    double InitialValue,
+    double FinalValue);
+
+public sealed record OptimizationRunResultDto(
+    string Optimizer,
+    string Message,
+    double InitialMerit,
+    double FinalMerit,
+    int Iterations,
+    IReadOnlyList<OptimizationVariableResultDto> Variables);
 
 public sealed record TolerancingRequestDto(
     int SurfaceNumber,

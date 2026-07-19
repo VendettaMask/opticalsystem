@@ -22,6 +22,8 @@ public sealed class OpticalSurface : NotifyObject
     private double _conic;
     private bool _isStop;
     private bool _isReflective;
+    private bool _radiusVariable;
+    private bool _thicknessVariable;
     private IGeometry _geometry = new PlaneGeometry();
     private IMaterial _materialBefore = new AirMaterial();
     private IMaterial _materialAfter = new AirMaterial();
@@ -93,6 +95,18 @@ public sealed class OpticalSurface : NotifyObject
                 InteractionModel = new RefractiveReflectiveInteractionModel(value);
             }
         }
+    }
+
+    public bool RadiusVariable
+    {
+        get => _radiusVariable;
+        set => SetProperty(ref _radiusVariable, value);
+    }
+
+    public bool ThicknessVariable
+    {
+        get => _thicknessVariable;
+        set => SetProperty(ref _thicknessVariable, value);
     }
 
     public bool IsPlane => Math.Abs(Radius) < 1e-9;
@@ -290,6 +304,8 @@ public sealed class OpticalSurface : NotifyObject
             Conic = Conic,
             IsStop = IsStop,
             IsReflective = IsReflective,
+            RadiusVariable = RadiusVariable,
+            ThicknessVariable = ThicknessVariable,
             Geometry = Geometry.Clone(),
             MaterialBefore = MaterialBefore.Clone(),
             MaterialAfter = MaterialAfter.Clone(),

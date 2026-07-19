@@ -15,6 +15,7 @@ using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
+using ContractMeritFunctionPreset = OptilandWorkbench.Application.Contracts.MeritFunctionPreset;
 
 namespace OptilandWorkbench.Application.Legacy;
 
@@ -64,13 +65,54 @@ public sealed class OptilandConnector
 
     public IReadOnlyList<string> OptimizerNames => OptimizerCatalog.Names;
 
+    public void ReplaceMeritFunction(IEnumerable<MeritOperandDefinition> operands)
+    {
+        CaptureCurrentState();
+        CurrentOptic.MeritFunctionOperands.Clear();
+        foreach (var operand in operands)
+        {
+            CurrentOptic.MeritFunctionOperands.Add(operand.Clone());
+        }
+
+        SetStatus($"评价函数已更新，共 {CurrentOptic.MeritFunctionOperands.Count} 行。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void GenerateDefaultMeritFunction(ContractMeritFunctionPreset preset)
+    {
+        var operands = preset == ContractMeritFunctionPreset.RmsWavefront
+            ? MeritFunctionCatalog.CreateDefaultRmsWavefront(CurrentOptic)
+            : MeritFunctionCatalog.CreateDefaultRmsSpot(CurrentOptic);
+        ReplaceMeritFunction(operands);
+    }
+
+    public void GenerateMeritFunction(
+        MeritFunctionWizardSettings settings,
+        int startRow,
+        bool replaceExisting)
+    {
+        var generated = MeritFunctionCatalog.CreateFromWizard(CurrentOptic, settings)
+            .Select(operand => operand.Clone())
+            .ToList();
+        if (replaceExisting)
+        {
+            ReplaceMeritFunction(generated);
+            return;
+        }
+
+        var combined = CurrentOptic.MeritFunctionOperands.Select(operand => operand.Clone()).ToList();
+        combined.InsertRange(Math.Clamp(startRow - 1, 0, combined.Count), generated);
+        ReplaceMeritFunction(combined);
+    }
+
     public IReadOnlyList<string> BackendNames => CurrentOptic.Backend.Names.OrderBy(name => name).ToArray();
 
     public IReadOnlyList<string> ApertureKindNames { get; } = new[]
     {
         "入瞳直径",
-        "F 数",
-        "数值孔径"
+        "像方 F 数",
+        "物方数值孔径",
+        "按光阑面尺寸浮动"
     };
 
     public IReadOnlyList<string> FieldDefinitionNames { get; } = new[]
@@ -234,7 +276,7 @@ public sealed class OptilandConnector
                 "128",
                 UsesAngularDistortionModel()),
             "Grid Distortion" => DistortionParameters(
-                "10",
+                "13",
                 UsesAngularDistortionModel()),
             "Field Curvature" => new[]
             {
@@ -272,6 +314,27 @@ public sealed class OptilandConnector
                 DoubleParameter("FocusStep", "焦移步长 (mm)", "0.1", 0, 10, 0.01),
                 IntParameter("FocusPlaneCount", "焦面数量", "5", 1, 15),
                 IntParameter("PupilSampling", "瞳面采样数", "128", 8, 512)
+            },
+            "Fourier Through Focus MTF" or "Huygens Through Focus MTF" or "Geometric Through Focus MTF" => new[]
+            {
+                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
+                DoubleParameter("FocusStep", "焦移步长 (mm)", "0.1", 0, 10, 0.01),
+                IntParameter("FocusPlaneCount", "焦面数量", "5", 1, 31),
+                IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
+                IntParameter("ImageSize", "计算网格尺寸", "64", 4, 2048),
+                DoubleParameter("PixelPitchMillimeters", "惠更斯像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
+                ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
+                BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
+            },
+            "Fourier MTF vs Field" or "Huygens MTF vs Field" or "Geometric MTF vs Field" => new[]
+            {
+                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
+                IntParameter("FieldPointCount", "视场采样点数", "21", 2, 101),
+                IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
+                IntParameter("ImageSize", "计算网格尺寸", "64", 4, 2048),
+                DoubleParameter("PixelPitchMillimeters", "惠更斯像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
+                ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
+                BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
             },
             "Angle vs Image Height - Through Pupil" or "Angle vs Image Height - Through Field" => new[]
             {
@@ -417,6 +480,17 @@ public sealed class OptilandConnector
             return frequency <= 0 ? null : frequency;
         }
 
+        MtfComputationSettings MtfScanSettings()
+        {
+            return new MtfComputationSettings(
+                PupilSampling: Int("PupilSampling", 32),
+                ImageSize: Int("ImageSize", 64),
+                PixelPitchMillimeters: Double("PixelPitchMillimeters", 0.005),
+                GeometricRayCount: Int("PupilSampling", 32),
+                Distribution: Text("Distribution", "uniform"),
+                ScaleGeometricByDiffractionLimit: Bool("ScaleByDiffractionLimit", true));
+        }
+
         var axis = Text("Axis", "Y").Equals("X", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
         return name switch
         {
@@ -425,7 +499,7 @@ public sealed class OptilandConnector
             "Ray Fan" => new RayFanAnalysis(CurrentOptic, Int("NumPoints", 256)),
             "Best Fit Ray Fan" => new BestFitRayFanAnalysis(CurrentOptic, Int("NumPoints", 256), Int("FitRings", 8)),
             "Distortion" => new DistortionAnalysis(CurrentOptic, Int("NumPoints", 128), Text("DistortionType", "f-tan")),
-            "Grid Distortion" => new GridDistortionAnalysis(CurrentOptic, Int("NumPoints", 10), Text("DistortionType", "f-tan")),
+            "Grid Distortion" => new GridDistortionAnalysis(CurrentOptic, Int("NumPoints", 13), Text("DistortionType", "f-tan")),
             "Field Curvature" => new FieldCurvatureAnalysis(CurrentOptic, Int("NumPoints", 128), Double("ParabasalDelta", 1e-5)),
             "Encircled Energy" => new EncircledEnergyAnalysis(
                 CurrentOptic,
@@ -454,6 +528,18 @@ public sealed class OptilandConnector
                 Double("FocusStep", 0.1),
                 Int("FocusPlaneCount", 5),
                 Int("PupilSampling", 128)),
+            "Fourier Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
+                Double("SpatialFrequency", 20), Double("FocusStep", 0.1), Int("FocusPlaneCount", 5), MtfScanSettings()),
+            "Huygens Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
+                Double("SpatialFrequency", 20), Double("FocusStep", 0.1), Int("FocusPlaneCount", 5), MtfScanSettings()),
+            "Geometric Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
+                Double("SpatialFrequency", 20), Double("FocusStep", 0.1), Int("FocusPlaneCount", 5), MtfScanSettings()),
+            "Fourier MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
+                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings()),
+            "Huygens MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
+                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings()),
+            "Geometric MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
+                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings()),
             "Angle vs Image Height - Through Pupil" => new IncidentAngleVsHeightAnalysis(
                 CurrentOptic,
                 AngleScanMode.ThroughPupil,
@@ -875,6 +961,117 @@ public sealed class OptilandConnector
         return result;
     }
 
+    public OptimizerResult OptimizeMarkedVariables(string optimizerName, int maxIterations)
+    {
+        var lastSurfaceNumber = Surfaces.Count == 0 ? -1 : Surfaces[^1].Number;
+        var selected = Surfaces
+            .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
+            .Where(surface => surface.RadiusVariable || surface.ThicknessVariable)
+            .ToArray();
+        if (selected.Length == 0)
+        {
+            throw new InvalidOperationException("请先在镜头数据中勾选至少一个半径变量或厚度变量。");
+        }
+
+        CaptureCurrentState();
+        var problem = CurrentOptic.CreateOptimizationProblem();
+        foreach (var surface in selected)
+        {
+            if (surface.RadiusVariable)
+            {
+                if (surface.IsPlane)
+                {
+                    SetSurfaceRadius(surface, 40);
+                }
+
+                var initial = surface.Radius;
+                var span = Math.Max(5, Math.Abs(initial) * 0.5);
+                var lower = initial > 0
+                    ? Math.Max(0.1, initial - span)
+                    : initial - span;
+                var upper = initial < 0
+                    ? Math.Min(-0.1, initial + span)
+                    : initial + span;
+                problem.AddVariable(new DelegateVariable(
+                    $"表面 {surface.Number} 半径",
+                    () => surface.Radius,
+                    value => SetSurfaceRadius(surface, value),
+                    Math.Max(-1_000_000, lower),
+                    Math.Min(1_000_000, upper),
+                    Math.Max(0.1, Math.Abs(initial) * 0.05),
+                    new UnitRangeScaler(lower, upper)));
+            }
+
+            if (surface.ThicknessVariable)
+            {
+                var initial = surface.Thickness;
+                var lower = 0.001;
+                var upper = Math.Max(initial + 10, Math.Max(1, initial * 3));
+                problem.AddVariable(new DelegateVariable(
+                    $"表面 {surface.Number} 厚度",
+                    () => surface.Thickness,
+                    value =>
+                    {
+                        surface.Thickness = value;
+                        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                    },
+                    lower,
+                    upper,
+                    Math.Max(0.05, Math.Abs(initial) * 0.05),
+                    new UnitRangeScaler(lower, upper)));
+            }
+        }
+
+        var meritOperands = CurrentOptic.MeritFunctionOperands
+            .Where(operand => operand.Enabled
+                && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
+            .ToArray();
+        if (meritOperands.Length == 0)
+        {
+            problem.AddOperand(new Operand(
+                "RMS spot radius",
+                0,
+                1,
+                EvaluateSpotMerit));
+        }
+        else
+        {
+            foreach (var operand in meritOperands)
+            {
+                problem.AddOperand(MeritFunctionCatalog.CreateOperand(CurrentOptic, operand));
+            }
+        }
+
+        var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
+        foreach (var surface in selected)
+        {
+            SyncSurfaceGeometry(surface);
+        }
+
+        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+        SetStatus($"{DisplayOptimizerMessage(result.Message)}。{problem.Variables.Count} 个变量，评价函数 {result.InitialMerit:0.######} -> {result.FinalMerit:0.######}。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return result;
+
+        double EvaluateSpotMerit()
+        {
+            try
+            {
+                var merit = new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius;
+                return double.IsFinite(merit) ? merit : 1_000_000;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch
+            {
+                return 1_000_000;
+            }
+        }
+    }
+
     public bool Undo()
     {
         var changed = _undoRedo.TryUndo(CurrentOptic);
@@ -1274,7 +1471,9 @@ public sealed class OptilandConnector
     private void ApplySystemApertureValue(ApertureKind kind, double value)
     {
         CurrentOptic.Aperture.Kind = kind;
-        CurrentOptic.Aperture.Value = Math.Max(0.001, value);
+        CurrentOptic.Aperture.Value = kind == ApertureKind.FloatByStopSize
+            ? CurrentOptic.SurfaceGroup.ApertureRadius()
+            : Math.Max(0.001, value);
     }
 
     private void ApplyFieldDefinitionValue(string fieldDefinitionName, bool objectSpaceTelecentric)
@@ -1748,12 +1947,18 @@ public sealed class OptilandConnector
         kind = name switch
         {
             "入瞳直径" => ApertureKind.EntrancePupilDiameter,
-            "F 数" => ApertureKind.FNumber,
-            "数值孔径" => ApertureKind.NumericalAperture,
+            "像方 F 数" or "F 数" => ApertureKind.FNumber,
+            "物方数值孔径" or "数值孔径" => ApertureKind.NumericalAperture,
+            "按光阑面尺寸浮动" => ApertureKind.FloatByStopSize,
             _ => ApertureKind.EntrancePupilDiameter
         };
 
-        return name is "入瞳直径" or "F 数" or "数值孔径";
+        return name is "入瞳直径"
+            or "像方 F 数"
+            or "F 数"
+            or "物方数值孔径"
+            or "数值孔径"
+            or "按光阑面尺寸浮动";
     }
 
     private static string CanonicalGeometryKind(string value)
@@ -1849,6 +2054,12 @@ public sealed class OptilandConnector
         ["RMS Wavefront vs Field"] = "RMS 波前-视场",
         ["Through Focus"] = "离焦扫描",
         ["Through Focus MTF"] = "离焦 MTF",
+        ["Fourier Through Focus MTF"] = "傅里叶离焦 MTF",
+        ["Huygens Through Focus MTF"] = "惠更斯离焦 MTF",
+        ["Geometric Through Focus MTF"] = "几何离焦 MTF",
+        ["Fourier MTF vs Field"] = "傅里叶 MTF VS 视场",
+        ["Huygens MTF vs Field"] = "惠更斯 MTF VS 视场",
+        ["Geometric MTF vs Field"] = "几何 MTF VS 视场",
         ["Angle vs Image Height - Through Pupil"] = "入射角-像高（扫描瞳孔）",
         ["Angle vs Image Height - Through Field"] = "入射角-像高（扫描视场）",
         ["Incoherent Irradiance"] = "非相干照度",
@@ -1857,7 +2068,7 @@ public sealed class OptilandConnector
         ["PSF"] = "点扩散函数 PSF",
         ["MMDFT PSF"] = "矩阵乘法 DFT PSF",
         ["Huygens PSF"] = "惠更斯 PSF",
-        ["MTF"] = "调制传递函数 MTF",
+        ["MTF"] = "傅里叶 MTF",
         ["Huygens MTF"] = "惠更斯 MTF",
         ["Geometric MTF"] = "几何 MTF",
         ["Sampled MTF"] = "采样 MTF",

@@ -370,6 +370,7 @@ public sealed class WorkspaceDockFactory : Factory
             WorkspaceDocumentKind.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
             WorkspaceDocumentKind.Analysis => new AnalysisPanel(
                 _application.Analyses,
+                _application.Documents,
                 _application.Events,
                 _settings,
                 descriptor.AnalysisName ?? descriptor.Title,

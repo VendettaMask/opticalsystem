@@ -5,6 +5,7 @@ using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
@@ -31,6 +32,8 @@ public sealed class Optic
     public NumericBackendProvider Backend { get; } = new();
 
     public SystemAperture Aperture { get; } = new();
+
+    public OpticalEnvironment Environment { get; } = new();
 
     public IApodizationModel? Apodization { get; set; }
 
@@ -61,6 +64,8 @@ public sealed class Optic
     public SolveManager Solves { get; }
 
     public AnalysisCatalog Analyses { get; }
+
+    public ObservableCollection<MeritOperandDefinition> MeritFunctionOperands { get; } = new();
 
     public SequentialTrace Trace(
         double normalizedFieldX,
@@ -376,7 +381,9 @@ public sealed class Optic
                     ComponentSnapshotFactory.FromCoating(surface.CoatingModel),
                     ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
                     ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
-                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)))).ToList(),
+                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)),
+                surface.RadiusVariable,
+                surface.ThicknessVariable)).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -388,7 +395,28 @@ public sealed class Optic
                 pickup.Offset)).ToList(),
             SolveSettings: new SolveSettingsSnapshot(
                 Solves.DesiredBackFocus,
-                Solves.KeepImageAtBackFocus));
+                Solves.KeepImageAtBackFocus),
+            MeritOperands: MeritFunctionOperands.Select(operand => new MeritOperandSnapshot(
+                operand.Enabled,
+                operand.Type,
+                operand.Surface,
+                operand.Field,
+                operand.Wavelength,
+                operand.Hx,
+                operand.Hy,
+                operand.Px,
+                operand.Py,
+                operand.Target,
+                operand.Weight,
+                operand.Comment,
+                operand.PupilRings,
+                operand.PupilArms,
+                operand.PupilObscuration,
+                operand.PupilSampling)).ToList(),
+            Environment: new EnvironmentSnapshot(
+                Environment.MatchRefractiveIndexData,
+                Environment.TemperatureCelsius,
+                Environment.PressureAtmospheres));
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -416,6 +444,9 @@ public sealed class Optic
             : FieldDefinitionKind.Angle;
         ObjectSpaceTelecentric = snapshot.ObjectSpaceTelecentric;
         FieldGroupTelecentric = snapshot.FieldGroupTelecentric;
+        Environment.MatchRefractiveIndexData = snapshot.Environment?.MatchRefractiveIndexData ?? true;
+        Environment.TemperatureCelsius = snapshot.Environment?.TemperatureCelsius ?? 20.0;
+        Environment.PressureAtmospheres = snapshot.Environment?.PressureAtmospheres ?? 1.0;
 
         Fields.Clear();
         foreach (var field in snapshot.Fields ?? new List<FieldPointSnapshot>())
@@ -456,7 +487,9 @@ public sealed class Optic
                 SemiDiameter = surface.SemiDiameter,
                 Conic = surface.Conic,
                 IsStop = surface.IsStop,
-                IsReflective = surface.IsReflective
+                IsReflective = surface.IsReflective,
+                RadiusVariable = surface.RadiusVariable,
+                ThicknessVariable = surface.ThicknessVariable
             };
 
             if (surface.Components is not null)
@@ -485,6 +518,30 @@ public sealed class Optic
 
         Solves.DesiredBackFocus = snapshot.SolveSettings?.DesiredBackFocus ?? 30;
         Solves.KeepImageAtBackFocus = snapshot.SolveSettings?.KeepImageAtBackFocus ?? true;
+
+        MeritFunctionOperands.Clear();
+        foreach (var operand in snapshot.MeritOperands ?? new List<MeritOperandSnapshot>())
+        {
+            MeritFunctionOperands.Add(new MeritOperandDefinition
+            {
+                Enabled = operand.Enabled,
+                Type = MeritFunctionCatalog.CanonicalType(operand.Type),
+                Surface = operand.Surface,
+                Field = operand.Field,
+                Wavelength = operand.Wavelength,
+                Hx = operand.Hx,
+                Hy = operand.Hy,
+                Px = operand.Px,
+                Py = operand.Py,
+                Target = operand.Target,
+                Weight = operand.Weight,
+                Comment = operand.Comment,
+                PupilRings = operand.PupilRings,
+                PupilArms = operand.PupilArms,
+                PupilObscuration = operand.PupilObscuration,
+                PupilSampling = operand.PupilSampling
+            });
+        }
     }
 
     public static Optic FromSnapshot(OpticSnapshot snapshot)

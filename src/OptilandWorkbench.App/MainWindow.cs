@@ -62,16 +62,20 @@ public sealed class MainWindow : Window
         new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "像差"),
         new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "像差"),
         new("analysis-through-focus", "离焦扫描", "离焦扫描", "scan-line", "扫描"),
-        new("analysis-through-focus-mtf", "离焦 MTF", "离焦 MTF", "chart-spline", "扫描"),
         new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "scan", "扫描"),
         new("analysis-angle-field", "入射角-像高（扫描视场）", "像高-扫描视场", "scan-line", "扫描"),
         new("analysis-psf", "点扩散函数 PSF", "PSF", "focus", "PSF / MTF"),
         new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "grid-2x2", "PSF / MTF"),
         new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "circle-dot-dashed", "PSF / MTF"),
-        new("analysis-mtf", "调制传递函数 MTF", "MTF", "chart-no-axes-combined", "PSF / MTF"),
+        new("analysis-mtf", "MTF", "傅里叶 MTF", "chart-no-axes-combined", "PSF / MTF"),
+        new("analysis-fourier-through-focus-mtf", "Fourier Through Focus MTF", "傅里叶离焦 MTF", "scan-line", "PSF / MTF"),
+        new("analysis-fourier-mtf-field", "Fourier MTF vs Field", "傅里叶 MTF VS 视场", "chart-line", "PSF / MTF"),
         new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "waves-horizontal", "PSF / MTF"),
+        new("analysis-huygens-through-focus-mtf", "Huygens Through Focus MTF", "惠更斯离焦 MTF", "scan-line", "PSF / MTF"),
+        new("analysis-huygens-mtf-field", "Huygens MTF vs Field", "惠更斯 MTF VS 视场", "chart-line", "PSF / MTF"),
         new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "chart-spline", "PSF / MTF"),
-        new("analysis-sampled-mtf", "采样 MTF", "采样 MTF", "chart-line", "PSF / MTF"),
+        new("analysis-geometric-through-focus-mtf", "Geometric Through Focus MTF", "几何离焦 MTF", "scan-line", "PSF / MTF"),
+        new("analysis-geometric-mtf-field", "Geometric MTF vs Field", "几何 MTF VS 视场", "chart-line", "PSF / MTF"),
         new("analysis-wavefront", "波前", "波前", "waves-horizontal", "波前"),
         new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "circle-dot", "波前"),
         new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "focus", "波前"),
@@ -120,8 +124,7 @@ public sealed class MainWindow : Window
         }),
         new("扫描", "离焦扫描", "scan-line", new[]
         {
-            "analysis-through-focus",
-            "analysis-through-focus-mtf"
+            "analysis-through-focus"
         }),
         new("扫描", "像高扫描", "scan", new[]
         {
@@ -134,12 +137,23 @@ public sealed class MainWindow : Window
             "analysis-mmdft-psf",
             "analysis-huygens-psf"
         }),
-        new("PSF / MTF", "MTF", "chart-no-axes-combined", new[]
+        new("PSF / MTF", "傅里叶 MTF", "chart-no-axes-combined", new[]
         {
             "analysis-mtf",
+            "analysis-fourier-through-focus-mtf",
+            "analysis-fourier-mtf-field"
+        }),
+        new("PSF / MTF", "惠更斯 MTF", "waves-horizontal", new[]
+        {
             "analysis-huygens-mtf",
+            "analysis-huygens-through-focus-mtf",
+            "analysis-huygens-mtf-field"
+        }),
+        new("PSF / MTF", "几何 MTF", "chart-spline", new[]
+        {
             "analysis-geometric-mtf",
-            "analysis-sampled-mtf"
+            "analysis-geometric-through-focus-mtf",
+            "analysis-geometric-mtf-field"
         }),
         new("波前", "波前", "waves-horizontal", new[]
         {
@@ -436,7 +450,7 @@ public sealed class MainWindow : Window
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
                 RibbonTab("优化", BuildRibbonPage(
                     RibbonGroup("评价函数",
-                        RibbonButton("show-optimization", "trending-up", "评价函数"),
+                        RibbonButton("show-optimization", "sparkles", "优化向导"),
                         RibbonButton("show-optimization", "target", "执行优化")))),
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
@@ -556,34 +570,13 @@ public sealed class MainWindow : Window
         {
             Width = 78,
             Height = 76,
+            MinHeight = 76,
             Padding = new Thickness(4),
             Background = Brushes.Transparent,
             BorderThickness = new Thickness(0),
-            Content = new StackPanel
-            {
-                Spacing = 2,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Children =
-                {
-                    new LocalIcon
-                    {
-                        IconName = iconName,
-                        Width = 26,
-                        Height = 26,
-                        StrokeWidth = 1.8,
-                        Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    },
-                    new TextBlock
-                    {
-                        Text = label,
-                        FontSize = 11,
-                        TextWrapping = TextWrapping.Wrap,
-                        TextAlignment = TextAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    }
-                }
-            }
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Content = RibbonCommandContent(iconName, label)
         };
         var action = _actions.Find(actionId);
         button.Click += async (_, _) => await _actions.ExecuteAsync(action);
@@ -612,40 +605,55 @@ public sealed class MainWindow : Window
         {
             Width = 92,
             Height = 76,
+            MinHeight = 76,
             Padding = new Thickness(4),
             Background = Brushes.Transparent,
             BorderThickness = new Thickness(0),
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
-            Content = new StackPanel
-            {
-                Spacing = 2,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Children =
-                {
-                    new LocalIcon
-                    {
-                        IconName = menu.IconName,
-                        Width = 26,
-                        Height = 26,
-                        StrokeWidth = 1.8,
-                        Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    },
-                    new TextBlock
-                    {
-                        Text = menu.Label,
-                        FontSize = 11,
-                        TextWrapping = TextWrapping.Wrap,
-                        TextAlignment = TextAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    }
-                }
-            }
+            Content = RibbonCommandContent(menu.IconName, menu.Label)
         };
         var defaultAction = _actions.Find(menu.CommandIds[0]);
         button.Click += async (_, _) => await _actions.ExecuteAsync(defaultAction);
         ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
         return button;
+    }
+
+    private static Control RibbonCommandContent(string iconName, string label)
+    {
+        var grid = new Grid
+        {
+            Width = 66,
+            Height = 54,
+            RowDefinitions = new RowDefinitions("30,24"),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var icon = new LocalIcon
+        {
+            IconName = iconName,
+            Width = 26,
+            Height = 26,
+            StrokeWidth = 1.8,
+            Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var text = new TextBlock
+        {
+            Text = label,
+            FontSize = 11,
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+        Grid.SetRow(icon, 0);
+        Grid.SetRow(text, 1);
+        grid.Children.Add(icon);
+        grid.Children.Add(text);
+        return grid;
     }
 
     private Control BuildStatusBar()

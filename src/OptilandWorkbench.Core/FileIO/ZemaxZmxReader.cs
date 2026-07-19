@@ -524,8 +524,8 @@ internal static class ZemaxZmxReader
         {
             var stop = optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.IsStop)
                 ?? throw new InvalidDataException("FLOA requires a Zemax STOP surface.");
-            optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
-            optic.Aperture.Value = stop.SemiDiameter * 2.0;
+            optic.Aperture.Kind = ApertureKind.FloatByStopSize;
+            optic.Aperture.Value = stop.SemiDiameter;
             return;
         }
 

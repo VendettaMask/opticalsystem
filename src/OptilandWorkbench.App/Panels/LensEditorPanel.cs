@@ -170,7 +170,9 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(Column("曲率半径", nameof(SurfaceEditorRow.Radius), 112));
+        grid.Columns.Add(OptimizationVariableColumn("R 变量", radius: true));
         grid.Columns.Add(Column("厚度", nameof(SurfaceEditorRow.Thickness), 96));
+        grid.Columns.Add(OptimizationVariableColumn("T 变量", radius: false));
         grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(Column("净口径", nameof(SurfaceEditorRow.SemiDiameter), 106));
@@ -305,6 +307,42 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             content.Children.Add(type);
             return content;
         }, supportsRecycling: true)
+    };
+
+    private DataGridTemplateColumn OptimizationVariableColumn(string header, bool radius) => new()
+    {
+        Header = header,
+        IsReadOnly = true,
+        Width = new DataGridLength(68),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
+        {
+            var checkBox = new CheckBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                IsEnabled = row?.CanOptimize == true,
+                IsChecked = radius ? row?.RadiusVariable : row?.ThicknessVariable
+            };
+            checkBox.IsCheckedChanged += (_, _) =>
+            {
+                if (row is null || !row.CanOptimize)
+                {
+                    return;
+                }
+
+                if (radius)
+                {
+                    row.RadiusVariable = checkBox.IsChecked == true;
+                }
+                else
+                {
+                    row.ThicknessVariable = checkBox.IsChecked == true;
+                }
+
+                _prescription.UpdateSurface(row.ToDto());
+            };
+            return checkBox;
+        })
     };
 
     private static void ApplyMechanicalSemiDiameters(IReadOnlyList<SurfaceEditorRow> rows)

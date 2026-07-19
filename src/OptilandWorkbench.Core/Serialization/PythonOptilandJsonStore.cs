@@ -123,8 +123,8 @@ public static class PythonOptilandJsonStore
             && rootAperture.TryGetProperty("type", out var apertureType)
             && apertureType.GetString()?.Equals("float_by_stop_size", StringComparison.OrdinalIgnoreCase) == true)
         {
-            optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
-            optic.Aperture.Value = optic.SurfaceGroup.ApertureRadius() * 2.0;
+            optic.Aperture.Kind = ApertureKind.FloatByStopSize;
+            optic.Aperture.Value = optic.SurfaceGroup.ApertureRadius();
         }
 
         FitVisualSemiDiameters(optic, parsedSurfaces);
@@ -242,9 +242,10 @@ public static class PythonOptilandJsonStore
         var type = GetString(aperture, "type", "EPD");
         optic.Aperture.Kind = type.ToLowerInvariant() switch
         {
-            "epd" or "float_by_stop_size" => ApertureKind.EntrancePupilDiameter,
+            "epd" => ApertureKind.EntrancePupilDiameter,
             "imagefno" => ApertureKind.FNumber,
             "objectna" => ApertureKind.NumericalAperture,
+            "float_by_stop_size" => ApertureKind.FloatByStopSize,
             _ => throw new NotSupportedException($"Python Optiland system aperture '{type}' is not supported yet.")
         };
         optic.Aperture.Value = GetDouble(aperture, "value", optic.Aperture.Value);
@@ -837,12 +838,15 @@ public static class PythonOptilandJsonStore
         {
             ApertureKind.FNumber => "imageFNO",
             ApertureKind.NumericalAperture => "objectNA",
+            ApertureKind.FloatByStopSize => "float_by_stop_size",
             _ => "EPD"
         };
         return new Dictionary<string, object?>
         {
             ["type"] = type,
-            ["value"] = optic.Aperture.Value,
+            ["value"] = optic.Aperture.Kind == ApertureKind.FloatByStopSize
+                ? optic.SurfaceGroup.ApertureRadius()
+                : optic.Aperture.Value,
             ["object_space_telecentric"] = optic.Aperture.ObjectSpaceTelecentric
         };
     }
@@ -921,6 +925,14 @@ public static class PythonOptilandJsonStore
             };
         }
 
+        var physicalAperture = surface.PhysicalAperture;
+        if (surface.IsStop
+            && optic.Aperture.Kind == ApertureKind.FloatByStopSize
+            && physicalAperture is null)
+        {
+            physicalAperture = new CircularAperture(surface.SemiDiameter);
+        }
+
         return new Dictionary<string, object?>
         {
             ["type"] = "Surface",
@@ -928,7 +940,7 @@ public static class PythonOptilandJsonStore
             ["geometry"] = geometry,
             ["material_post"] = material,
             ["is_stop"] = surface.IsStop,
-            ["aperture"] = WritePhysicalAperture(surface.PhysicalAperture),
+            ["aperture"] = WritePhysicalAperture(physicalAperture),
             ["interaction_model"] = WriteInteractionModel(surface),
             ["comment"] = surface.Label
         };

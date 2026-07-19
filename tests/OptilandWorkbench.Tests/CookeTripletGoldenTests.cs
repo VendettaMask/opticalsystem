@@ -9,6 +9,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Propagation;
 using OptilandWorkbench.Core.Rays;
@@ -1035,6 +1036,93 @@ public sealed class CookeTripletGoldenTests
 
         Assert.Contains("aperture", error.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("chief_ray_height", error.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData(ApertureKind.EntrancePupilDiameter, "EPD")]
+    [InlineData(ApertureKind.FNumber, "imageFNO")]
+    [InlineData(ApertureKind.NumericalAperture, "objectNA")]
+    [InlineData(ApertureKind.FloatByStopSize, "float_by_stop_size")]
+    public void PythonJsonRoundTripsSupportedSystemApertureTypes(
+        ApertureKind apertureKind,
+        string expectedType)
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Aperture.Kind = apertureKind;
+        optic.Aperture.Value = 5.6;
+        var stop = optic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        stop.SemiDiameter = 3.25;
+
+        var json = PythonOptilandJsonStore.Serialize(optic);
+        var strictJson = json
+            .Replace("-Infinity", "-1e308", StringComparison.Ordinal)
+            .Replace("Infinity", "1e308", StringComparison.Ordinal);
+        using var exported = JsonDocument.Parse(strictJson);
+        var aperture = exported.RootElement.GetProperty("aperture");
+        Assert.Equal(expectedType, aperture.GetProperty("type").GetString());
+        Assert.Equal(
+            apertureKind == ApertureKind.FloatByStopSize ? 3.25 : 5.6,
+            aperture.GetProperty("value").GetDouble(),
+            precision: 12);
+
+        var restored = PythonOptilandJsonStore.Deserialize(json);
+        Assert.Equal(apertureKind, restored.Aperture.Kind);
+        if (apertureKind == ApertureKind.FloatByStopSize)
+        {
+            var restoredStop = restored.SurfaceGroup.Items.Single(surface => surface.IsStop);
+            Assert.Equal(3.25, restored.Aperture.Value, precision: 12);
+            Assert.Equal(6.5, restored.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
+            restoredStop.SemiDiameter = 4;
+            Assert.Equal(8, restored.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
+        }
+    }
+
+    [Fact]
+    public void OptimizationVariableFlagsSurviveSnapshotRoundTrip()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[1].RadiusVariable = true;
+        optic.SurfaceGroup.Items[2].ThicknessVariable = true;
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.True(restored.SurfaceGroup.Items[1].RadiusVariable);
+        Assert.False(restored.SurfaceGroup.Items[1].ThicknessVariable);
+        Assert.False(restored.SurfaceGroup.Items[2].RadiusVariable);
+        Assert.True(restored.SurfaceGroup.Items[2].ThicknessVariable);
+    }
+
+    [Fact]
+    public void MeritFunctionSurvivesSnapshotRoundTrip()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.MeritFunctionOperands.Add(new MeritOperandDefinition
+        {
+            Type = "RADI",
+            Surface = 2,
+            Field = 1,
+            Wavelength = 2,
+            Target = 12.5,
+            Weight = 3,
+            Comment = "保持第二面半径",
+            PupilRings = 5,
+            PupilArms = 10,
+            PupilObscuration = 0.25,
+            PupilSampling = "uniform"
+        });
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal("RADI", operand.Type);
+        Assert.Equal(2, operand.Surface);
+        Assert.Equal(12.5, operand.Target);
+        Assert.Equal(3, operand.Weight);
+        Assert.Equal("保持第二面半径", operand.Comment);
+        Assert.Equal(5, operand.PupilRings);
+        Assert.Equal(10, operand.PupilArms);
+        Assert.Equal(0.25, operand.PupilObscuration, precision: 12);
+        Assert.Equal("uniform", operand.PupilSampling);
     }
 
     [Theory]

@@ -132,24 +132,25 @@ public sealed class PythonAnalysisParityTests
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("grid_distortion");
         var data = new GridDistortionAnalysis(createOptic(), numPoints: 10).GenerateData();
-        Assert.Equal(40, data.PlotSeries.Count);
+        Assert.Equal(21, data.PlotSeries.Count);
 
         for (var row = 0; row < 10; row++)
         {
-            AssertGridLine(expected, "xp", "yp", row, data.PlotSeries[10 + row]);
-            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[30 + row]);
+            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[10 + row]);
         }
+
+        AssertGridPoints(expected, "xp", "yp", data.PlotSeries[^1]);
 
         AssertClose(
             expected.GetProperty("max_distortion").GetDouble(),
             Convert.ToDouble(data.Values["MaximumDistortionPercent"]));
-        Assert.Equal("Ideal Grid", data.PlotSeries[0].Name);
-        Assert.All(data.PlotSeries.Take(10), item => Assert.Equal("Ideal Grid", item.Name));
-        Assert.All(data.PlotSeries.Skip(20).Take(10), item => Assert.Equal("Distorted Grid", item.Name));
-        Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[20].LineStyle);
+        Assert.Equal("畸变网格", data.PlotSeries[0].Name);
+        Assert.All(data.PlotSeries.Take(20), item => Assert.Equal(AnalysisLineStyle.Solid, item.LineStyle));
+        Assert.Equal(AnalysisSeriesKind.Scatter, data.PlotSeries[^1].Kind);
+        Assert.Equal(AnalysisMarkerStyle.Cross, data.PlotSeries[^1].MarkerStyle);
         Assert.True(data.PlotOptions?.EqualAspect);
-        Assert.True(data.PlotOptions?.HideTopAndRightAxes);
-        Assert.True(data.PlotOptions?.DottedGrid);
+        Assert.True(data.PlotOptions?.HideAxes);
+        Assert.False(data.PlotOptions?.ShowLegend);
     }
 
     [Theory]
@@ -162,9 +163,10 @@ public sealed class PythonAnalysisParityTests
 
         for (var row = 0; row < 10; row++)
         {
-            AssertGridLine(expected, "xp", "yp", row, data.PlotSeries[10 + row]);
-            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[30 + row]);
+            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[10 + row]);
         }
+
+        AssertGridPoints(expected, "xp", "yp", data.PlotSeries[^1]);
 
         AssertClose(
             expected.GetProperty("max_distortion").GetDouble(),
@@ -1511,6 +1513,27 @@ public sealed class PythonAnalysisParityTests
         {
             AssertClose(expectedX[column].GetDouble(), actual.Points[column].X);
             AssertClose(expectedY[column].GetDouble(), actual.Points[column].Y);
+        }
+    }
+
+    private static void AssertGridPoints(
+        JsonElement expected,
+        string xName,
+        string yName,
+        AnalysisSeries actual)
+    {
+        var expectedX = expected.GetProperty(xName);
+        var expectedY = expected.GetProperty(yName);
+        Assert.Equal(expectedX.GetArrayLength() * expectedX[0].GetArrayLength(), actual.Points.Count);
+        var index = 0;
+        for (var row = 0; row < expectedX.GetArrayLength(); row++)
+        {
+            for (var column = 0; column < expectedX[row].GetArrayLength(); column++)
+            {
+                AssertClose(expectedX[row][column].GetDouble(), actual.Points[index].X);
+                AssertClose(expectedY[row][column].GetDouble(), actual.Points[index].Y);
+                index++;
+            }
         }
     }
 

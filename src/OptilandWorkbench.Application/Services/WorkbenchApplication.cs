@@ -10,6 +10,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
@@ -238,6 +239,99 @@ public sealed class WorkbenchApplication :
 
     public IReadOnlyList<string> OptimizerNames => _connector.OptimizerNames;
 
+    public IReadOnlyList<MeritOperandTypeDto> GetMeritOperandTypes()
+    {
+        return MeritFunctionCatalog.Types
+            .Select(type => new MeritOperandTypeDto(type.Code, type.DisplayName, type.Description))
+            .ToArray();
+    }
+
+    public IReadOnlyList<MeritOperandRowDto> GetMeritFunction()
+    {
+        lock (_gate)
+        {
+            return _connector.CurrentOptic.MeritFunctionOperands
+                .Select((operand, index) =>
+                {
+                    var evaluation = MeritFunctionCatalog.Evaluate(_connector.CurrentOptic, operand);
+                    return new MeritOperandRowDto(
+                        index + 1,
+                        operand.Enabled,
+                        MeritFunctionCatalog.CanonicalType(operand.Type),
+                        operand.Surface,
+                        operand.Field,
+                        operand.Wavelength,
+                        operand.Hx,
+                        operand.Hy,
+                        operand.Px,
+                        operand.Py,
+                        operand.Target,
+                        operand.Weight,
+                        evaluation.Value,
+                        evaluation.Contribution,
+                        operand.Comment,
+                        evaluation.Error,
+                        operand.PupilRings,
+                        operand.PupilArms,
+                        operand.PupilObscuration,
+                        operand.PupilSampling);
+                })
+                .ToArray();
+        }
+    }
+
+    public void SetMeritFunction(IReadOnlyList<MeritOperandRowDto> operands)
+    {
+        Mutate(WorkspaceChangeCategory.Optimization, () => _connector.ReplaceMeritFunction(
+            operands.Select(operand => new MeritOperandDefinition
+            {
+                Enabled = operand.Enabled,
+                Type = MeritFunctionCatalog.CanonicalType(operand.Type),
+                Surface = Math.Max(0, operand.Surface),
+                Field = Math.Max(0, operand.Field),
+                Wavelength = Math.Max(0, operand.Wavelength),
+                Hx = Math.Clamp(operand.Hx, -1, 1),
+                Hy = Math.Clamp(operand.Hy, -1, 1),
+                Px = Math.Clamp(operand.Px, -1, 1),
+                Py = Math.Clamp(operand.Py, -1, 1),
+                Target = double.IsFinite(operand.Target) ? operand.Target : 0,
+                Weight = double.IsFinite(operand.Weight) ? Math.Abs(operand.Weight) : 0,
+                Comment = operand.Comment ?? string.Empty,
+                PupilRings = Math.Clamp(operand.PupilRings, 1, 20),
+                PupilArms = Math.Clamp(operand.PupilArms, 3, 36),
+                PupilObscuration = Math.Clamp(operand.PupilObscuration, 0, 0.95),
+                PupilSampling = string.Equals(operand.PupilSampling, "uniform", StringComparison.OrdinalIgnoreCase)
+                    ? "uniform"
+                    : "hexapolar"
+            })));
+    }
+
+    public void GenerateDefaultMeritFunction(MeritFunctionPreset preset)
+    {
+        Mutate(WorkspaceChangeCategory.Optimization, () => _connector.GenerateDefaultMeritFunction(preset));
+    }
+
+    public void GenerateMeritFunction(OptimizationWizardSettingsDto settings)
+    {
+        var coreSettings = new MeritFunctionWizardSettings(
+            settings.ImageQuality == OptimizationImageQuality.RmsWavefront
+                ? MeritImageQuality.RmsWavefront
+                : MeritImageQuality.RmsSpot,
+            settings.PupilSampling == OptimizationPupilSampling.RectangularArray
+                ? MeritPupilSampling.RectangularArray
+                : MeritPupilSampling.GaussianQuadrature,
+            settings.PupilRings,
+            settings.PupilArms,
+            settings.PupilObscuration,
+            settings.WeightScale,
+            settings.UseAllWavelengths,
+            settings.IncludeCommonOperands);
+        Mutate(WorkspaceChangeCategory.Optimization, () => _connector.GenerateMeritFunction(
+            coreSettings,
+            settings.StartRow,
+            settings.ReplaceExisting));
+    }
+
     public OpticalDocumentSnapshot GetSnapshot()
     {
         lock (_gate)
@@ -349,11 +443,14 @@ public sealed class WorkbenchApplication :
                 optic.Backend.Current.Name,
                 optic.Aperture.Kind switch
                 {
-                    ApertureKind.FNumber => "F 数",
-                    ApertureKind.NumericalAperture => "数值孔径",
+                    ApertureKind.FNumber => "像方 F 数",
+                    ApertureKind.NumericalAperture => "物方数值孔径",
+                    ApertureKind.FloatByStopSize => "按光阑面尺寸浮动",
                     _ => "入瞳直径"
                 },
-                optic.Aperture.Value,
+                optic.Aperture.Kind == ApertureKind.FloatByStopSize
+                    ? optic.SurfaceGroup.ApertureRadius()
+                    : optic.Aperture.Value,
                 optic.FieldDefinition switch
                 {
                     FieldDefinitionKind.ObjectHeight => "物高",
@@ -365,6 +462,18 @@ public sealed class WorkbenchApplication :
                 apodizationKind,
                 first,
                 second);
+        }
+    }
+
+    public EnvironmentSettingsDto GetEnvironmentSettings()
+    {
+        lock (_gate)
+        {
+            var environment = _connector.CurrentOptic.Environment;
+            return new EnvironmentSettingsDto(
+                environment.MatchRefractiveIndexData,
+                environment.TemperatureCelsius,
+                environment.PressureAtmospheres);
         }
     }
 
@@ -421,6 +530,8 @@ public sealed class WorkbenchApplication :
             target.SemiDiameter = surface.SemiDiameter;
             target.Conic = surface.Conic;
             target.IsStop = surface.IsStop;
+            target.RadiusVariable = surface.RadiusVariable;
+            target.ThicknessVariable = surface.ThicknessVariable;
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Material));
@@ -507,6 +618,19 @@ public sealed class WorkbenchApplication :
             settings.ApodizationKind,
             settings.FirstApodizationParameter,
             settings.SecondApodizationParameter));
+    }
+
+    public void UpdateEnvironmentSettings(EnvironmentSettingsDto settings)
+    {
+        Mutate(WorkspaceChangeCategory.SystemSettings, () =>
+        {
+            var environment = _connector.CurrentOptic.Environment;
+            _connector.CaptureCurrentState();
+            environment.MatchRefractiveIndexData = settings.MatchRefractiveIndexData;
+            environment.TemperatureCelsius = settings.TemperatureCelsius;
+            environment.PressureAtmospheres = settings.PressureAtmospheres;
+            _connector.CommitSystemEdit();
+        });
     }
 
     public string CanonicalKey(string analysisName) => _connector.CanonicalAnalysisKey(analysisName);
@@ -696,6 +820,91 @@ public sealed class WorkbenchApplication :
                         surface.Radius,
                         result.FinalMerit,
                         result.Iterations);
+                }
+            }, linked.Token).ConfigureAwait(false);
+        }
+    }
+
+    public Task<OptimizationRunResultDto> OptimizeVariablesAsync(
+        string optimizerName,
+        int maxIterations,
+        CancellationToken cancellationToken = default)
+    {
+        CancellationTokenSource linked;
+        lock (_gate)
+        {
+            linked = _context.LinkDocumentToken(cancellationToken);
+        }
+
+        return OptimizeVariablesWorkerAsync(optimizerName, maxIterations, linked);
+    }
+
+    private async Task<OptimizationRunResultDto> OptimizeVariablesWorkerAsync(
+        string optimizerName,
+        int maxIterations,
+        CancellationTokenSource linked)
+    {
+        using (linked)
+        {
+            return await Task.Run(() =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                lock (_gate)
+                {
+                    linked.Token.ThrowIfCancellationRequested();
+                    var lastSurfaceNumber = _connector.Surfaces.Count == 0
+                        ? -1
+                        : _connector.Surfaces[^1].Number;
+                    var selected = _connector.Surfaces
+                        .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
+                        .SelectMany(surface => new[]
+                        {
+                            surface.RadiusVariable
+                                ? new OptimizationVariableResultDto(
+                                    surface.Number,
+                                    OptimizationVariableKind.Radius,
+                                    $"表面 {surface.Number} 半径",
+                                    surface.Radius,
+                                    surface.Radius)
+                                : null,
+                            surface.ThicknessVariable
+                                ? new OptimizationVariableResultDto(
+                                    surface.Number,
+                                    OptimizationVariableKind.Thickness,
+                                    $"表面 {surface.Number} 厚度",
+                                    surface.Thickness,
+                                    surface.Thickness)
+                                : null
+                        })
+                        .Where(variable => variable is not null)
+                        .Cast<OptimizationVariableResultDto>()
+                        .ToArray();
+                    if (selected.Length == 0)
+                    {
+                        throw new InvalidOperationException("请先在镜头数据中设置优化变量。");
+                    }
+
+                    var result = Mutate(
+                        WorkspaceChangeCategory.Optimization,
+                        () => _connector.OptimizeMarkedVariables(optimizerName, maxIterations));
+                    var variables = selected.Select(variable =>
+                    {
+                        var surface = FindSurface(variable.SurfaceNumber)
+                            ?? throw new InvalidOperationException($"优化后找不到表面 {variable.SurfaceNumber}。");
+                        var finalValue = variable.Kind == OptimizationVariableKind.Radius
+                            ? surface.Radius
+                            : surface.Thickness;
+                        return variable with { FinalValue = finalValue };
+                    }).ToArray();
+                    linked.Token.ThrowIfCancellationRequested();
+                    return new OptimizationRunResultDto(
+                        optimizerName,
+                        OptilandConnector.DisplayOptimizerMessage(result.Message),
+                        result.InitialMerit,
+                        result.FinalMerit,
+                        result.Iterations,
+                        variables);
                 }
             }, linked.Token).ConfigureAwait(false);
         }
@@ -915,7 +1124,9 @@ public sealed class WorkbenchApplication :
             grating?.GratingOrder ?? 1,
             grating?.GratingPeriodMicrometers ?? 1,
             (grating?.GrooveOrientationAngleRadians ?? 0) * 180 / Math.PI,
-            thinLens?.FocalLength ?? 50);
+            thinLens?.FocalLength ?? 50,
+            surface.RadiusVariable,
+            surface.ThicknessVariable);
     }
 
     private static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
