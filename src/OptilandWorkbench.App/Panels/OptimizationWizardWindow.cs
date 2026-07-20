@@ -11,16 +11,28 @@ public sealed class OptimizationWizardWindow : Window
 {
     private readonly IPrescriptionService _prescription;
     private readonly IOptimizationService _optimization;
-    private readonly ComboBox _quality = Picker("RMS 点列半径", "RMS 波前差");
-    private readonly ComboBox _sampling = Picker("高斯求积", "矩形阵列");
+    private readonly ComboBox _quality = Picker(2, "波前", "对比度", "点列图", "角向");
+    private readonly ComboBox _criterion = Picker(0, "RMS");
+    private readonly ComboBox _reference = Picker(0, "质心", "主光线", "无参考");
+    private readonly ComboBox _sampling = Picker(0, "高斯求积", "矩形阵列");
+    private readonly NumericUpDown _spatialFrequency = Number(30, 0, 100_000, 1);
+    private readonly NumericUpDown _xWeight = Number(1, 0, 1_000_000, 0.1m);
+    private readonly NumericUpDown _yWeight = Number(1, 0, 1_000_000, 0.1m);
     private readonly NumericUpDown _rings = Number(3, 1, 20, 1);
     private readonly NumericUpDown _arms = Number(6, 3, 36, 1);
     private readonly NumericUpDown _obscuration = Number(0, 0, 0.95m, 0.05m);
     private readonly NumericUpDown _startRow = Number(1, 1, 100_000, 1);
     private readonly NumericUpDown _weightScale = Number(1, 0, 1_000_000, 0.1m);
     private readonly CheckBox _allWavelengths = new() { Content = "使用所有波长", IsChecked = true };
+    private readonly CheckBox _ignoreLateralColor = new() { Content = "忽略垂轴色差", IsChecked = false };
     private readonly CheckBox _includeCommon = new() { Content = "加入常用约束", IsChecked = true };
     private readonly CheckBox _replaceExisting = new() { Content = "替换当前评价函数", IsChecked = true };
+    private readonly Button _generate = new()
+    {
+        Content = new LocalIconLabel("sparkles", "生成评价函数"),
+        MinWidth = 142,
+        HorizontalContentAlignment = HorizontalAlignment.Center
+    };
     private readonly TextBlock _preview = new()
     {
         TextWrapping = TextWrapping.Wrap,
@@ -34,20 +46,14 @@ public sealed class OptimizationWizardWindow : Window
         _prescription = prescription;
         _optimization = optimization;
         Title = "优化向导";
-        Width = 860;
-        Height = 570;
+        Width = 920;
+        Height = 650;
         MinWidth = 720;
         MinHeight = 500;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Background = new SolidColorBrush(Color.FromRgb(245, 245, 247));
 
-        var generate = new Button
-        {
-            Content = new LocalIconLabel("sparkles", "生成评价函数"),
-            MinWidth = 142,
-            HorizontalContentAlignment = HorizontalAlignment.Center
-        };
-        generate.Click += (_, _) => Generate();
+        _generate.Click += (_, _) => Generate();
         var cancel = new Button { Content = "取消", MinWidth = 90 };
         cancel.Click += (_, _) => Close(false);
         var reset = new Button { Content = "重置", MinWidth = 90 };
@@ -66,8 +72,14 @@ public sealed class OptimizationWizardWindow : Window
             Children =
             {
                 Labeled("成像质量", _quality),
+                Labeled("空间频率", _spatialFrequency),
+                Labeled("X 权重", _xWeight),
+                Labeled("Y 权重", _yWeight),
+                Labeled("类型", _criterion),
+                Labeled("参考", _reference),
                 Labeled("权重缩放", _weightScale),
                 _allWavelengths,
+                _ignoreLateralColor,
                 new TextBlock
                 {
                     Text = "当前目标为最佳名义性能。",
@@ -118,7 +130,7 @@ public sealed class OptimizationWizardWindow : Window
                 Orientation = Orientation.Horizontal,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Spacing = 8,
-                Children = { reset, cancel, generate }
+                Children = { reset, cancel, _generate }
             }
         };
         var root = new DockPanel();
@@ -149,7 +161,9 @@ public sealed class OptimizationWizardWindow : Window
         });
         Content = root;
 
-        _quality.SelectionChanged += (_, _) => UpdatePreview();
+        _quality.SelectionChanged += (_, _) => UpdateModeAndPreview();
+        _criterion.SelectionChanged += (_, _) => UpdatePreview();
+        _reference.SelectionChanged += (_, _) => UpdatePreview();
         _sampling.SelectionChanged += (_, _) =>
         {
             _arms.IsEnabled = _sampling.SelectedIndex == 0;
@@ -158,17 +172,28 @@ public sealed class OptimizationWizardWindow : Window
         _rings.ValueChanged += (_, _) => UpdatePreview();
         _arms.ValueChanged += (_, _) => UpdatePreview();
         _obscuration.ValueChanged += (_, _) => UpdatePreview();
-        _allWavelengths.IsCheckedChanged += (_, _) => UpdatePreview();
+        _allWavelengths.IsCheckedChanged += (_, _) => UpdateModeAndPreview();
+        _ignoreLateralColor.IsCheckedChanged += (_, _) => UpdatePreview();
         _includeCommon.IsCheckedChanged += (_, _) => UpdatePreview();
-        UpdatePreview();
+        _spatialFrequency.ValueChanged += (_, _) => UpdateModeAndPreview();
+        _xWeight.ValueChanged += (_, _) => UpdateModeAndPreview();
+        _yWeight.ValueChanged += (_, _) => UpdateModeAndPreview();
+        UpdateModeAndPreview();
     }
 
     private void Generate()
     {
+        var imageQuality = _quality.SelectedIndex switch
+        {
+            0 => OptimizationImageQuality.RmsWavefront,
+            1 => OptimizationImageQuality.Contrast,
+            2 => OptimizationImageQuality.RmsSpot,
+            3 => OptimizationImageQuality.Angular,
+            _ => OptimizationImageQuality.RmsSpot
+        };
+
         _optimization.GenerateMeritFunction(new OptimizationWizardSettingsDto(
-            _quality.SelectedIndex == 1
-                ? OptimizationImageQuality.RmsWavefront
-                : OptimizationImageQuality.RmsSpot,
+            imageQuality,
             _sampling.SelectedIndex == 1
                 ? OptimizationPupilSampling.RectangularArray
                 : OptimizationPupilSampling.GaussianQuadrature,
@@ -179,43 +204,131 @@ public sealed class OptimizationWizardWindow : Window
             DoubleValue(_weightScale, 1),
             _allWavelengths.IsChecked == true,
             _includeCommon.IsChecked == true,
-            _replaceExisting.IsChecked == true));
+            _replaceExisting.IsChecked == true,
+            _reference.SelectedIndex == 1
+                ? OptimizationSpotReference.ChiefRay
+                : _reference.SelectedIndex == 2
+                    ? OptimizationSpotReference.Unreferenced
+                    : OptimizationSpotReference.Centroid,
+            DoubleValue(_spatialFrequency, 30),
+            DoubleValue(_xWeight, 1),
+            DoubleValue(_yWeight, 1),
+            _ignoreLateralColor.IsChecked == true));
         Close(true);
+    }
+
+    private void UpdateModeAndPreview()
+    {
+        var isWavefront = _quality.SelectedIndex == 0;
+        var isContrast = _quality.SelectedIndex == 1;
+        var isSpot = _quality.SelectedIndex == 2;
+        var isAngular = _quality.SelectedIndex == 3;
+        _spatialFrequency.IsEnabled = isContrast;
+        _xWeight.IsEnabled = isContrast || isSpot || isAngular;
+        _yWeight.IsEnabled = isContrast || isSpot || isAngular;
+        _reference.IsEnabled = isWavefront || isSpot || isAngular;
+        if (!isWavefront && _reference.SelectedIndex == 2)
+        {
+            _reference.SelectedIndex = 0;
+        }
+
+        _ignoreLateralColor.IsEnabled = !isContrast && _allWavelengths.IsChecked == true;
+        var contrastSettingsAreValid = DoubleValue(_spatialFrequency, 0) > 0
+            && (DoubleValue(_xWeight, 0) > 0 || DoubleValue(_yWeight, 0) > 0);
+        _generate.IsEnabled = !isContrast || contrastSettingsAreValid;
+        UpdatePreview();
     }
 
     private void UpdatePreview()
     {
-        var fields = Math.Max(1, _prescription.GetFields().Count);
+        var fieldRows = _prescription.GetFields();
+        var fields = Math.Max(1, fieldRows.Count);
         var wavelengths = _allWavelengths.IsChecked == true
             ? Math.Max(1, _prescription.GetWavelengths().Count)
             : 1;
         var common = _includeCommon.IsChecked == true ? 2 : 0;
-        var operands = 1 + (fields * wavelengths) + common;
         var variables = _prescription.GetSurfaces().Sum(surface =>
             (surface.RadiusVariable ? 1 : 0) + (surface.ThicknessVariable ? 1 : 0));
         var rings = IntegerValue(_rings, 3);
         var arms = IntegerValue(_arms, 6);
-        var samples = _sampling.SelectedIndex == 1
-            ? ((rings * 2) + 1) * ((rings * 2) + 1)
-            : 1 + (arms * rings * (rings + 1) / 2);
+        var obscuration = DoubleValue(_obscuration, 0);
+        var rectangularSamples = CountRectangularPupilSamples(rings, obscuration);
+        var samplesByField = fieldRows.Count == 0
+            ? new[] { _sampling.SelectedIndex == 1 ? rectangularSamples : rings }
+            : fieldRows.Select(field => _sampling.SelectedIndex == 1
+                ? rectangularSamples
+                : (Math.Abs(field.X) <= 1e-12 && Math.Abs(field.Y) <= 1e-12
+                    ? rings
+                    : rings * Math.Max(1, arms / 2))).ToArray();
+        var xWeight = DoubleValue(_xWeight, 0);
+        var yWeight = DoubleValue(_yWeight, 0);
+        var directionCount = xWeight <= 0 && yWeight <= 0
+            ? 1
+            : (xWeight > 0 ? 1 : 0) + (yWeight > 0 ? 1 : 0);
+        var qualityOperands = samplesByField.Sum() * wavelengths * directionCount;
+        var operands = 3 + fields + qualityOperands + common;
+        var operandNames = _quality.SelectedIndex switch
+        {
+            0 => _reference.SelectedIndex switch
+            {
+                1 => "OPDM（主光线参考波前）",
+                2 => "OPDC（无参考波前）",
+                _ => "OPDX（质心参考波前）"
+            },
+            1 => "MECS / MECT（Moore-Elliott 对比度）",
+            2 when directionCount == 1 && xWeight <= 0 && yWeight <= 0 =>
+                _reference.SelectedIndex == 1 ? "TRAR（主光线参考径向像差）" : "TRAC（质心参考径向像差）",
+            2 => _reference.SelectedIndex == 1 ? "TRAX / TRAY" : "TRCX / TRCY",
+            3 when directionCount == 1 && xWeight <= 0 && yWeight <= 0 =>
+                _reference.SelectedIndex == 1 ? "ANAR（主光线参考径向角差）" : "ANAC（质心参考径向角差）",
+            3 => _reference.SelectedIndex == 1 ? "ANAX / ANAY" : "ANCX / ANCY",
+            _ => string.Empty
+        };
+        var estimate = _quality.SelectedIndex == 1 ? "最多 " : string.Empty;
         _preview.Text = $"当前优化变量：{variables}。\n预计生成 {operands} 行评价函数。\n" +
-                        $"每个成像质量操作数最多使用约 {samples} 条光瞳采样光线。";
+                        $"当前组合：{QualityName()} · RMS · {ReferenceName()}。\n" +
+                        $"操作数：{operandNames}。\n" +
+                        $"每个视场/波长使用{estimate}{samplesByField.Min()}–{samplesByField.Max()} 个光瞳采样点。";
     }
 
     private void Reset()
     {
-        _quality.SelectedIndex = 0;
+        _quality.SelectedIndex = 2;
+        _criterion.SelectedIndex = 0;
+        _reference.SelectedIndex = 0;
         _sampling.SelectedIndex = 0;
+        _spatialFrequency.Value = 30;
+        _xWeight.Value = 1;
+        _yWeight.Value = 1;
         _rings.Value = 3;
         _arms.Value = 6;
         _obscuration.Value = 0;
         _startRow.Value = 1;
         _weightScale.Value = 1;
         _allWavelengths.IsChecked = true;
+        _ignoreLateralColor.IsChecked = false;
         _includeCommon.IsChecked = true;
         _replaceExisting.IsChecked = true;
-        UpdatePreview();
+        UpdateModeAndPreview();
     }
+
+    private string QualityName() => _quality.SelectedIndex switch
+    {
+        0 => "波前",
+        1 => "对比度",
+        2 => "点列图",
+        3 => "角向",
+        _ => "点列图"
+    };
+
+    private string ReferenceName() => _quality.SelectedIndex == 1
+        ? "移位光线对"
+        : _reference.SelectedIndex switch
+        {
+            1 => "主光线",
+            2 => "无参考",
+            _ => "质心"
+        };
 
     private static Border Card(string title, Control content) => new()
     {
@@ -249,10 +362,10 @@ public sealed class OptimizationWizardWindow : Window
         };
     }
 
-    private static ComboBox Picker(params string[] values) => new()
+    private static ComboBox Picker(int selectedIndex, params string[] values) => new()
     {
         ItemsSource = values,
-        SelectedIndex = 0,
+        SelectedIndex = selectedIndex,
         HorizontalAlignment = HorizontalAlignment.Stretch
     };
 
@@ -273,4 +386,26 @@ public sealed class OptimizationWizardWindow : Window
     private static double DoubleValue(NumericUpDown input, double fallback) => input.Value.HasValue
         ? decimal.ToDouble(input.Value.Value)
         : fallback;
+
+    private static int CountRectangularPupilSamples(int rings, double obscuration)
+    {
+        var side = (rings * 2) + 1;
+        var count = 0;
+        for (var y = 0; y < side; y++)
+        {
+            for (var x = 0; x < side; x++)
+            {
+                var px = -1 + (2.0 * x / (side - 1));
+                var py = -1 + (2.0 * y / (side - 1));
+                var radiusSquared = (px * px) + (py * py);
+                if (radiusSquared <= 1 + 1e-12
+                    && radiusSquared >= (obscuration * obscuration) - 1e-12)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return Math.Max(1, count);
+    }
 }

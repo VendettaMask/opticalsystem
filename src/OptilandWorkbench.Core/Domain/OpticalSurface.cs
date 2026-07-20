@@ -19,6 +19,7 @@ public sealed class OpticalSurface : NotifyObject
     private string _material = "Air";
     private string _coating = "None";
     private double _semiDiameter = 10.0;
+    private bool _semiDiameterFixed;
     private double _conic;
     private bool _isStop;
     private bool _isReflective;
@@ -71,6 +72,12 @@ public sealed class OpticalSurface : NotifyObject
     {
         get => _semiDiameter;
         set => SetProperty(ref _semiDiameter, Math.Max(0.1, value));
+    }
+
+    public bool SemiDiameterFixed
+    {
+        get => _semiDiameterFixed;
+        set => SetProperty(ref _semiDiameterFixed, value);
     }
 
     public double Conic
@@ -301,6 +308,7 @@ public sealed class OpticalSurface : NotifyObject
             Material = Material,
             Coating = Coating,
             SemiDiameter = SemiDiameter,
+            SemiDiameterFixed = SemiDiameterFixed,
             Conic = Conic,
             IsStop = IsStop,
             IsReflective = IsReflective,

@@ -1,10 +1,108 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class WorkbenchApplicationTests
 {
+    [Fact]
+    public void SemiDiameterIsAutomaticUntilExplicitlyFixed()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surface = application.Prescription.GetSurfaces()[1];
+
+        Assert.False(surface.SemiDiameterFixed);
+
+        application.Prescription.UpdateSurface(surface with
+        {
+            SemiDiameter = 123.456,
+            SemiDiameterFixed = false
+        });
+
+        var automatic = application.Prescription.GetSurfaces()[1];
+        Assert.False(automatic.SemiDiameterFixed);
+        Assert.NotEqual(123.456, automatic.SemiDiameter, precision: 6);
+
+        application.Prescription.UpdateSurface(automatic with
+        {
+            SemiDiameter = 12.345,
+            SemiDiameterFixed = true
+        });
+        var field = application.Prescription.GetFields()[0];
+        application.Prescription.UpdateField(field with { Y = field.Y + 1 });
+
+        var fixedSurface = application.Prescription.GetSurfaces()[1];
+        Assert.True(fixedSurface.SemiDiameterFixed);
+        Assert.Equal(12.345, fixedSurface.SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void SemiDiameterFixedStateRoundTripsThroughSnapshot()
+    {
+        var optic = OptilandWorkbench.Core.Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[1].SemiDiameterFixed = true;
+        optic.SurfaceGroup.Items[1].SemiDiameter = 8.75;
+
+        var restored = OptilandWorkbench.Core.Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.True(restored.SurfaceGroup.Items[1].SemiDiameterFixed);
+        Assert.Equal(8.75, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void WorkspaceEventsDoNotCaptureBackgroundComputationCancellation()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        var observed = new CancellationToken(canceled: true);
+        application.Events.Changed += (_, _) => observed = ComputationCancellation.Current;
+        var surface = application.Prescription.GetSurfaces()[1];
+
+        using (ComputationCancellation.Push(cancellation.Token))
+        {
+            application.Prescription.UpdateSurface(surface with { Label = "Cancellation boundary" });
+        }
+
+        Assert.False(observed.CanBeCanceled);
+        Assert.False(observed.IsCancellationRequested);
+    }
+
+    [Fact]
+    public void MeritFunctionQueryIgnoresAmbientCanceledComputationToken()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot);
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        IReadOnlyList<MeritOperandRowDto> operands;
+        using (ComputationCancellation.Push(cancellation.Token))
+        {
+            operands = application.Optimization.GetMeritFunction();
+        }
+
+        Assert.Contains(operands, operand => operand.Type == "TRCX" && operand.Enabled);
+    }
+
+    [Fact]
+    public void ImageSurfaceIgnoresThicknessEdits()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var image = application.Prescription.GetSurfaces().Last();
+
+        application.Prescription.UpdateSurface(image with
+        {
+            Thickness = image.Thickness + 10,
+            ThicknessVariable = true
+        });
+
+        var restored = application.Prescription.GetSurfaces().Last();
+        Assert.Equal(image.Thickness, restored.Thickness, precision: 12);
+        Assert.False(restored.ThicknessVariable);
+    }
+
     [Fact]
     public void MaterialCatalogExposesGlassEditorDetails()
     {
@@ -152,6 +250,23 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public async Task GeneratedRayOperandMeritOptimizesMarkedVariable()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surface = application.Prescription.GetSurfaces().First(item => item.Number == 1);
+        application.Prescription.UpdateSurface(surface with { RadiusVariable = true });
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot);
+
+        var result = await application.Optimization.OptimizeVariablesAsync(
+            "Orthogonal Descent",
+            maxIterations: 1);
+
+        Assert.Single(result.Variables);
+        Assert.True(double.IsFinite(result.InitialMerit));
+        Assert.True(double.IsFinite(result.FinalMerit));
+    }
+
+    [Fact]
     public async Task VariableOptimizationRequiresAtLeastOneMarkedValue()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -208,7 +323,8 @@ public sealed class WorkbenchApplicationTests
 
         application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot);
         var spot = application.Optimization.GetMeritFunction();
-        Assert.Contains(spot, operand => operand.Type == "RSCE" && operand.Enabled);
+        Assert.Contains(spot, operand => operand.Type == "TRCX" && operand.Enabled);
+        Assert.Contains(spot, operand => operand.Type == "TRCY" && operand.Enabled);
 
         application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsWavefront);
         var wavefront = application.Optimization.GetMeritFunction();
@@ -232,9 +348,7 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(0.7071067811865476, firstField[1].Px, precision: 12);
         Assert.Equal(0.9419651451198934, firstField[2].Px, precision: 12);
         Assert.All(firstField, operand => Assert.Equal(0, operand.Py, precision: 12));
-        Assert.Equal(0.0969627362219067, firstField[0].Weight, precision: 12);
-        Assert.Equal(0.1551403779550515, firstField[1].Weight, precision: 12);
-        Assert.Equal(0.0969627362219067, firstField[2].Weight, precision: 12);
+        Assert.Equal(1.0 / 9.0, firstField.Sum(operand => operand.Weight * operand.Weight), precision: 12);
     }
 
     [Fact]
@@ -257,9 +371,11 @@ public sealed class WorkbenchApplicationTests
             ReplaceExisting: true));
 
         var operands = application.Optimization.GetMeritFunction();
-        Assert.Equal(1 + application.Prescription.GetFields().Count + 2, operands.Count);
+        var sampledOperands = operands.Where(operand => operand.Type is "TRCX" or "TRCY").ToArray();
+        Assert.Equal(application.Prescription.GetFields().Count * 48 * 2, sampledOperands.Length);
+        Assert.Equal(3 + application.Prescription.GetFields().Count + sampledOperands.Length + 2, operands.Count);
         Assert.Equal("DMFS", operands[0].Type);
-        var sampled = Assert.Single(operands.Where(operand => operand.Type == "RSCE").Take(1));
+        var sampled = Assert.Single(operands.Where(operand => operand.Type == "TRCX").Take(1));
         Assert.Equal(4, sampled.PupilRings);
         Assert.Equal(8, sampled.PupilArms);
         Assert.Equal(0.2, sampled.PupilObscuration, precision: 12);
@@ -267,6 +383,34 @@ public sealed class WorkbenchApplicationTests
         Assert.Contains(operands, operand => operand.Type == "EFFL");
         Assert.Contains(operands, operand => operand.Type == "FNUM");
         Assert.Equal(WorkspaceChangeCategory.Optimization, Assert.Single(events).Category);
+    }
+
+    [Fact]
+    public void MeritFunctionRoundTripPreservesWizardSpecificParameters()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Optimization.GenerateMeritFunction(new OptimizationWizardSettingsDto(
+            OptimizationImageQuality.Contrast,
+            OptimizationPupilSampling.GaussianQuadrature,
+            PupilRings: 3,
+            PupilArms: 6,
+            PupilObscuration: 0,
+            StartRow: 1,
+            WeightScale: 1,
+            UseAllWavelengths: true,
+            IncludeCommonOperands: false,
+            ReplaceExisting: true,
+            SpatialFrequency: 42,
+            IgnoreLateralColor: true));
+        var generated = application.Optimization.GetMeritFunction();
+
+        application.Optimization.SetMeritFunction(generated);
+        var restored = application.Optimization.GetMeritFunction();
+        var contrast = restored.First(operand => operand.Type is "MECS" or "MECT");
+
+        Assert.Equal(42, contrast.SpatialFrequency, precision: 12);
+        Assert.True(contrast.IgnoreLateralColor);
+        Assert.False(contrast.PolychromaticReference);
     }
 
     [Fact]

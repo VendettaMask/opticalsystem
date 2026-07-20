@@ -88,7 +88,8 @@ public sealed record SurfaceRowDto(
     double GrooveOrientationAngleDegrees,
     double ThinLensFocalLength,
     bool RadiusVariable,
-    bool ThicknessVariable);
+    bool ThicknessVariable,
+    bool SemiDiameterFixed = false);
 
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
@@ -394,14 +395,23 @@ public enum MeritFunctionPreset
 
 public enum OptimizationImageQuality
 {
+    RmsWavefront,
+    Contrast,
     RmsSpot,
-    RmsWavefront
+    Angular
 }
 
 public enum OptimizationPupilSampling
 {
     GaussianQuadrature,
     RectangularArray
+}
+
+public enum OptimizationSpotReference
+{
+    Centroid,
+    ChiefRay,
+    Unreferenced
 }
 
 public sealed record OptimizationWizardSettingsDto(
@@ -414,7 +424,12 @@ public sealed record OptimizationWizardSettingsDto(
     double WeightScale,
     bool UseAllWavelengths,
     bool IncludeCommonOperands,
-    bool ReplaceExisting);
+    bool ReplaceExisting,
+    OptimizationSpotReference Reference = OptimizationSpotReference.Centroid,
+    double SpatialFrequency = 30,
+    double XWeight = 1,
+    double YWeight = 1,
+    bool IgnoreLateralColor = false);
 
 public sealed record MeritOperandTypeDto(
     string Code,
@@ -441,7 +456,10 @@ public sealed record MeritOperandRowDto(
     int PupilRings = 3,
     int PupilArms = 6,
     double PupilObscuration = 0,
-    string PupilSampling = "hexapolar");
+    string PupilSampling = "hexapolar",
+    double SpatialFrequency = 30,
+    bool IgnoreLateralColor = false,
+    bool PolychromaticReference = false);
 
 public enum OptimizationVariableKind
 {

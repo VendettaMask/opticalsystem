@@ -383,7 +383,8 @@ public sealed class Optic
                     ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
                     ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)),
                 surface.RadiusVariable,
-                surface.ThicknessVariable)).ToList(),
+                surface.ThicknessVariable,
+                surface.SemiDiameterFixed)).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -489,7 +490,8 @@ public sealed class Optic
                 IsStop = surface.IsStop,
                 IsReflective = surface.IsReflective,
                 RadiusVariable = surface.RadiusVariable,
-                ThicknessVariable = surface.ThicknessVariable
+                ThicknessVariable = surface.ThicknessVariable,
+                SemiDiameterFixed = surface.SemiDiameterFixed
             };
 
             if (surface.Components is not null)

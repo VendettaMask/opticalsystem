@@ -136,9 +136,17 @@ public sealed class OptimizationProblem
 
     public void EnableBatching() => BatchingEnabled = true;
 
-    public double[] ResidualVector() => _operands.Select(operand => operand.Residual()).ToArray();
+    public double[] ResidualVector()
+    {
+        using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
+        return _operands.Select(operand => operand.Residual()).ToArray();
+    }
 
-    public double SumSquared() => _operands.Sum(operand => operand.Squared());
+    public double SumSquared()
+    {
+        using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
+        return _operands.Sum(operand => operand.Squared());
+    }
 
     public double[] VariableVector() => _variables.Select(variable => variable.Value).ToArray();
 

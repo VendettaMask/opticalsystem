@@ -248,6 +248,8 @@ public sealed class WorkbenchApplication :
 
     public IReadOnlyList<MeritOperandRowDto> GetMeritFunction()
     {
+        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
+        using var evaluationBatch = MeritFunctionCatalog.BeginEvaluationBatch();
         lock (_gate)
         {
             return _connector.CurrentOptic.MeritFunctionOperands
@@ -274,7 +276,10 @@ public sealed class WorkbenchApplication :
                         operand.PupilRings,
                         operand.PupilArms,
                         operand.PupilObscuration,
-                        operand.PupilSampling);
+                        operand.PupilSampling,
+                        operand.SpatialFrequency,
+                        operand.IgnoreLateralColor,
+                        operand.PolychromaticReference);
                 })
                 .ToArray();
         }
@@ -300,9 +305,17 @@ public sealed class WorkbenchApplication :
                 PupilRings = Math.Clamp(operand.PupilRings, 1, 20),
                 PupilArms = Math.Clamp(operand.PupilArms, 3, 36),
                 PupilObscuration = Math.Clamp(operand.PupilObscuration, 0, 0.95),
-                PupilSampling = string.Equals(operand.PupilSampling, "uniform", StringComparison.OrdinalIgnoreCase)
-                    ? "uniform"
-                    : "hexapolar"
+                PupilSampling = operand.PupilSampling?.Trim().ToLowerInvariant() switch
+                {
+                    "uniform" => "uniform",
+                    "gaussian_quad" => "gaussian_quad",
+                    _ => "hexapolar"
+                },
+                SpatialFrequency = double.IsFinite(operand.SpatialFrequency)
+                    ? Math.Max(0, operand.SpatialFrequency)
+                    : 30,
+                IgnoreLateralColor = operand.IgnoreLateralColor,
+                PolychromaticReference = operand.PolychromaticReference
             })));
     }
 
@@ -314,9 +327,14 @@ public sealed class WorkbenchApplication :
     public void GenerateMeritFunction(OptimizationWizardSettingsDto settings)
     {
         var coreSettings = new MeritFunctionWizardSettings(
-            settings.ImageQuality == OptimizationImageQuality.RmsWavefront
-                ? MeritImageQuality.RmsWavefront
-                : MeritImageQuality.RmsSpot,
+            settings.ImageQuality switch
+            {
+                OptimizationImageQuality.RmsWavefront => MeritImageQuality.RmsWavefront,
+                OptimizationImageQuality.RmsSpot => MeritImageQuality.RmsSpot,
+                OptimizationImageQuality.Contrast => MeritImageQuality.Contrast,
+                OptimizationImageQuality.Angular => MeritImageQuality.Angular,
+                _ => throw new ArgumentOutOfRangeException(nameof(settings.ImageQuality))
+            },
             settings.PupilSampling == OptimizationPupilSampling.RectangularArray
                 ? MeritPupilSampling.RectangularArray
                 : MeritPupilSampling.GaussianQuadrature,
@@ -325,7 +343,17 @@ public sealed class WorkbenchApplication :
             settings.PupilObscuration,
             settings.WeightScale,
             settings.UseAllWavelengths,
-            settings.IncludeCommonOperands);
+            settings.IncludeCommonOperands,
+            settings.Reference switch
+            {
+                OptimizationSpotReference.ChiefRay => MeritSpotReference.ChiefRay,
+                OptimizationSpotReference.Unreferenced => MeritSpotReference.Unreferenced,
+                _ => MeritSpotReference.Centroid
+            },
+            settings.SpatialFrequency,
+            settings.XWeight,
+            settings.YWeight,
+            settings.IgnoreLateralColor);
         Mutate(WorkspaceChangeCategory.Optimization, () => _connector.GenerateMeritFunction(
             coreSettings,
             settings.StartRow,
@@ -522,18 +550,29 @@ public sealed class WorkbenchApplication :
             }
 
             _connector.CaptureCurrentState();
+            var isImageSurface = ReferenceEquals(target, _connector.Surfaces[^1]);
             target.Label = surface.Label;
             target.Radius = surface.Radius;
-            target.Thickness = surface.Thickness;
+            if (!isImageSurface)
+            {
+                target.Thickness = surface.Thickness;
+            }
             target.Material = surface.Material;
             target.Coating = surface.Coating;
-            target.SemiDiameter = surface.SemiDiameter;
+            target.SemiDiameterFixed = surface.SemiDiameterFixed;
+            if (target.SemiDiameterFixed)
+            {
+                target.SemiDiameter = surface.SemiDiameter;
+            }
             target.Conic = surface.Conic;
             target.IsStop = surface.IsStop;
             target.RadiusVariable = surface.RadiusVariable;
-            target.ThicknessVariable = surface.ThicknessVariable;
+            target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable;
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
-            _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
+            if (!isImageSurface)
+            {
+                _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
+            }
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Material));
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Coating));
             _connector.CommitSurfaceEdit(target, nameof(OpticalSurface.IsStop));
@@ -812,6 +851,7 @@ public sealed class WorkbenchApplication :
                     var result = Mutate(
                         WorkspaceChangeCategory.Optimization,
                         () => _connector.OptimizeSurfaceRadius(surface, optimizerName, maxIterations));
+                    RefreshAutomaticSemiDiameters();
                     linked.Token.ThrowIfCancellationRequested();
                     return new OptimizationResultDto(
                         optimizerName,
@@ -888,6 +928,7 @@ public sealed class WorkbenchApplication :
                     var result = Mutate(
                         WorkspaceChangeCategory.Optimization,
                         () => _connector.OptimizeMarkedVariables(optimizerName, maxIterations));
+                    RefreshAutomaticSemiDiameters();
                     var variables = selected.Select(variable =>
                     {
                         var surface = FindSurface(variable.SurfaceNumber)
@@ -1021,6 +1062,7 @@ public sealed class WorkbenchApplication :
             return;
         }
 
+        RefreshAutomaticSemiDiameters();
         Publish(_pendingCategory, fileSwitched: true);
     }
 
@@ -1038,6 +1080,7 @@ public sealed class WorkbenchApplication :
     private void Publish(WorkspaceChangeCategory category, bool fileSwitched)
     {
         var revision = Interlocked.Increment(ref _revision);
+        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
         Changed?.Invoke(this, new WorkspaceChangedEventArgs(
             revision,
             category,
@@ -1057,6 +1100,11 @@ public sealed class WorkbenchApplication :
             }
             finally
             {
+                if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                {
+                    RefreshAutomaticSemiDiameters();
+                }
+
                 CompleteMutation();
             }
         }
@@ -1074,10 +1122,30 @@ public sealed class WorkbenchApplication :
             }
             finally
             {
+                if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                {
+                    RefreshAutomaticSemiDiameters();
+                }
+
                 CompleteMutation();
             }
         }
     }
+
+    private void RefreshAutomaticSemiDiameters()
+    {
+        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
+        AutomaticSemiDiameterSolver.Update(_connector.CurrentOptic);
+    }
+
+    private static bool UpdatesAutomaticSemiDiameters(WorkspaceChangeCategory category) => category is
+        WorkspaceChangeCategory.Document
+        or WorkspaceChangeCategory.Prescription
+        or WorkspaceChangeCategory.Surface
+        or WorkspaceChangeCategory.Field
+        or WorkspaceChangeCategory.Wavelength
+        or WorkspaceChangeCategory.SystemSettings
+        or WorkspaceChangeCategory.Configuration;
 
     private void CompleteMutation()
     {
@@ -1126,7 +1194,8 @@ public sealed class WorkbenchApplication :
             (grating?.GrooveOrientationAngleRadians ?? 0) * 180 / Math.PI,
             thinLens?.FocalLength ?? 50,
             surface.RadiusVariable,
-            surface.ThicknessVariable);
+            surface.ThicknessVariable,
+            surface.SemiDiameterFixed);
     }
 
     private static string GeometryKind(OpticalSurface surface) => surface.Geometry switch

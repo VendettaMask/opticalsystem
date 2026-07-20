@@ -1,3 +1,4 @@
+using System.Globalization;
 using OptilandWorkbench.Application.Contracts;
 
 namespace OptilandWorkbench.App.ViewModels;
@@ -13,6 +14,7 @@ public sealed class SurfaceEditorRow
         Material = source.Material;
         Coating = source.Coating;
         SemiDiameter = source.SemiDiameter;
+        SemiDiameterFixed = source.SemiDiameterFixed;
         Conic = source.Conic;
         IsStop = source.IsStop;
         GeometryKind = source.GeometryKind;
@@ -35,12 +37,60 @@ public sealed class SurfaceEditorRow
         SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
         MechanicalSemiDiameter = SemiDiameter;
         CanOptimize = Number > 0 && !isLastSurface;
+        IsLastSurface = isLastSurface;
     }
 
     public int Number { get; }
     public string Label { get; set; }
     public double Radius { get; set; }
     public double Thickness { get; set; }
+    public bool IsLastSurface { get; }
+    public string RadiusDisplay
+    {
+        get => !double.IsFinite(Radius) || Math.Abs(Radius) <= 1e-15
+            ? "无限"
+            : Radius.ToString("0.############", CultureInfo.CurrentCulture);
+        set
+        {
+            var text = value?.Trim() ?? string.Empty;
+            if (text.Length == 0
+                || text.Equals("无限", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("∞", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("inf", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("infinity", StringComparison.OrdinalIgnoreCase))
+            {
+                Radius = 0;
+                return;
+            }
+
+            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
+                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
+            {
+                Radius = Math.Abs(current) <= 1e-15 ? 0 : current;
+            }
+        }
+    }
+
+    public string ThicknessDisplay
+    {
+        get => IsLastSurface
+            ? "-"
+            : Thickness.ToString("0.############", CultureInfo.CurrentCulture);
+        set
+        {
+            if (IsLastSurface)
+            {
+                return;
+            }
+
+            var text = value?.Trim() ?? string.Empty;
+            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
+                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
+            {
+                Thickness = current;
+            }
+        }
+    }
     public string Material { get; set; }
     public string MaterialDisplay
     {
@@ -53,6 +103,20 @@ public sealed class SurfaceEditorRow
         && !string.Equals(Material, "Air", StringComparison.OrdinalIgnoreCase);
     public string Coating { get; set; }
     public double SemiDiameter { get; set; }
+    public bool SemiDiameterFixed { get; set; }
+    public string SemiDiameterDisplay
+    {
+        get => SemiDiameter.ToString("0.############", CultureInfo.CurrentCulture);
+        set
+        {
+            var text = value?.Trim() ?? string.Empty;
+            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
+                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
+            {
+                SemiDiameter = Math.Max(0.1, current);
+            }
+        }
+    }
     public double Conic { get; set; }
     public bool IsStop { get; set; }
     public string GeometryKind { get; set; }
@@ -94,7 +158,8 @@ public sealed class SurfaceEditorRow
         GrooveOrientationAngleDegrees,
         ThinLensFocalLength,
         RadiusVariable,
-        ThicknessVariable);
+        ThicknessVariable,
+        SemiDiameterFixed);
 
     public override string ToString() => $"{Number}: {Label}";
 }
@@ -123,6 +188,9 @@ public sealed class MeritOperandEditorRow
         PupilArms = source.PupilArms;
         PupilObscuration = source.PupilObscuration;
         PupilSampling = source.PupilSampling;
+        SpatialFrequency = source.SpatialFrequency;
+        IgnoreLateralColor = source.IgnoreLateralColor;
+        PolychromaticReference = source.PolychromaticReference;
     }
 
     public int Index { get; set; }
@@ -145,6 +213,9 @@ public sealed class MeritOperandEditorRow
     public int PupilArms { get; set; }
     public double PupilObscuration { get; set; }
     public string PupilSampling { get; set; }
+    public double SpatialFrequency { get; set; }
+    public bool IgnoreLateralColor { get; set; }
+    public bool PolychromaticReference { get; set; }
 
     public bool IsDirective => Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
 
@@ -176,7 +247,10 @@ public sealed class MeritOperandEditorRow
         PupilRings,
         PupilArms,
         PupilObscuration,
-        PupilSampling);
+        PupilSampling,
+        SpatialFrequency,
+        IgnoreLateralColor,
+        PolychromaticReference);
 }
 
 public sealed class FieldEditorRow

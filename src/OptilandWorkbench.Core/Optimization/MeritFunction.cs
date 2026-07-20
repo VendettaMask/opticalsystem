@@ -38,6 +38,12 @@ public sealed class MeritOperandDefinition
 
     public string PupilSampling { get; set; } = "hexapolar";
 
+    public double SpatialFrequency { get; set; } = 30;
+
+    public bool IgnoreLateralColor { get; set; }
+
+    public bool PolychromaticReference { get; set; }
+
     public MeritOperandDefinition Clone() => new()
     {
         Enabled = Enabled,
@@ -55,20 +61,32 @@ public sealed class MeritOperandDefinition
         PupilRings = PupilRings,
         PupilArms = PupilArms,
         PupilObscuration = PupilObscuration,
-        PupilSampling = PupilSampling
+        PupilSampling = PupilSampling,
+        SpatialFrequency = SpatialFrequency,
+        IgnoreLateralColor = IgnoreLateralColor,
+        PolychromaticReference = PolychromaticReference
     };
 }
 
 public enum MeritImageQuality
 {
     RmsSpot,
-    RmsWavefront
+    RmsWavefront,
+    Contrast,
+    Angular
 }
 
 public enum MeritPupilSampling
 {
     GaussianQuadrature,
     RectangularArray
+}
+
+public enum MeritSpotReference
+{
+    Centroid,
+    ChiefRay,
+    Unreferenced
 }
 
 public sealed record MeritFunctionWizardSettings(
@@ -79,7 +97,12 @@ public sealed record MeritFunctionWizardSettings(
     double PupilObscuration,
     double WeightScale,
     bool UseAllWavelengths,
-    bool IncludeCommonOperands);
+    bool IncludeCommonOperands,
+    MeritSpotReference Reference = MeritSpotReference.Centroid,
+    double SpatialFrequency = 30,
+    double XWeight = 1,
+    double YWeight = 1,
+    bool IgnoreLateralColor = false);
 
 public sealed record MeritOperandType(
     string Code,
@@ -93,13 +116,41 @@ public sealed record MeritOperandEvaluation(
 
 public static class MeritFunctionCatalog
 {
+    private static readonly AsyncLocal<EvaluationBatch?> ActiveEvaluationBatch = new();
+
+    public static IDisposable BeginEvaluationBatch()
+    {
+        var previous = ActiveEvaluationBatch.Value;
+        ActiveEvaluationBatch.Value = new EvaluationBatch();
+        return new EvaluationBatchScope(previous);
+    }
+
     public static IReadOnlyList<MeritOperandType> Types { get; } = new[]
     {
         new MeritOperandType("DMFS", "默认评价函数设置", "默认评价函数向导生成的说明行"),
         new MeritOperandType("BLNK", "空白/注释", "不参与评价函数计算"),
         new MeritOperandType("RSCE", "RMS 点列半径", "指定视场和波长的 RMS 点列半径"),
+        new MeritOperandType("RSCH", "RMS 点列半径（主光线参考）", "使用高斯求积采样的主光线参考 RMS 点列半径"),
+        new MeritOperandType("RSRE", "RMS 点列半径（矩形采样）", "使用矩形阵列采样的质心参考 RMS 点列半径"),
+        new MeritOperandType("RSRH", "RMS 点列半径（矩形/主光线）", "使用矩形阵列采样的主光线参考 RMS 点列半径"),
         new MeritOperandType("RWFE", "RMS 波前差", "指定视场和波长的 RMS 光程差"),
         new MeritOperandType("OPDX", "光程差", "指定视场、波长和瞳孔坐标的光程差（波数）"),
+        new MeritOperandType("OPDM", "光程差（主光线）", "减去平均波前但保留倾斜的光程差"),
+        new MeritOperandType("OPDC", "光程差（无参考）", "以主光线为零点且不移除平均值或倾斜的光程差"),
+        new MeritOperandType("TRAC", "横向像差半径（质心）", "相对于质心的横向像差半径"),
+        new MeritOperandType("TRAR", "横向像差半径（主光线）", "相对于主波长主光线的横向像差半径"),
+        new MeritOperandType("TRCX", "横向像差 X（质心）", "相对于质心的有符号 X 横向像差"),
+        new MeritOperandType("TRCY", "横向像差 Y（质心）", "相对于质心的有符号 Y 横向像差"),
+        new MeritOperandType("TRAX", "横向像差 X（主光线）", "相对于主波长主光线的有符号 X 横向像差"),
+        new MeritOperandType("TRAY", "横向像差 Y（主光线）", "相对于主波长主光线的有符号 Y 横向像差"),
+        new MeritOperandType("ANAC", "角像差半径（质心）", "相对于方向余弦质心的角像差半径"),
+        new MeritOperandType("ANAR", "角像差半径（主光线）", "相对于主波长主光线的角像差半径"),
+        new MeritOperandType("ANCX", "角像差 X（质心）", "相对于方向余弦质心的有符号 X 角像差"),
+        new MeritOperandType("ANCY", "角像差 Y（质心）", "相对于方向余弦质心的有符号 Y 角像差"),
+        new MeritOperandType("ANAX", "角像差 X（主光线）", "相对于主波长主光线的有符号 X 角像差"),
+        new MeritOperandType("ANAY", "角像差 Y（主光线）", "相对于主波长主光线的有符号 Y 角像差"),
+        new MeritOperandType("MECS", "Moore-Elliott 弧矢对比度", "弧矢方向移位光线对的光程差"),
+        new MeritOperandType("MECT", "Moore-Elliott 切向对比度", "切向方向移位光线对的光程差"),
         new MeritOperandType("REAX", "实际光线 X", "指定光线在表面上的 X 坐标"),
         new MeritOperandType("REAY", "实际光线 Y", "指定光线在表面上的 Y 坐标"),
         new MeritOperandType("EFFL", "有效焦距", "系统有效焦距"),
@@ -108,6 +159,62 @@ public static class MeritFunctionCatalog
         new MeritOperandType("RADI", "表面曲率半径", "指定表面的曲率半径"),
         new MeritOperandType("THIC", "表面厚度", "指定表面后的轴向厚度")
     };
+
+    private sealed class EvaluationBatch
+    {
+        public Dictionary<RaySampleCacheKey, RayTraceSample> RaySamples { get; } = new();
+
+        public Dictionary<AberrationReferenceCacheKey, (double X, double Y)> AberrationReferences { get; } = new();
+
+        public Dictionary<WavefrontReferenceCacheKey, (double Piston, double XTilt, double YTilt)> WavefrontReferences { get; } = new();
+    }
+
+    private sealed class EvaluationBatchScope(EvaluationBatch? previous) : IDisposable
+    {
+        public void Dispose()
+        {
+            ActiveEvaluationBatch.Value = previous;
+        }
+    }
+
+    private readonly record struct RaySampleCacheKey(
+        Optic Optic,
+        int Surface,
+        int Field,
+        int Wavelength,
+        double Hx,
+        double Hy,
+        double Px,
+        double Py);
+
+    private readonly record struct AberrationReferenceCacheKey(
+        Optic Optic,
+        bool Angular,
+        bool ChiefReference,
+        int Surface,
+        int Field,
+        int Wavelength,
+        double Hx,
+        double Hy,
+        int PupilRings,
+        int PupilArms,
+        double PupilObscuration,
+        string PupilSampling,
+        bool PolychromaticReference);
+
+    private readonly record struct WavefrontReferenceCacheKey(
+        Optic Optic,
+        string Type,
+        int Surface,
+        int Field,
+        int Wavelength,
+        double Hx,
+        double Hy,
+        int PupilRings,
+        int PupilArms,
+        double PupilObscuration,
+        string PupilSampling,
+        bool PolychromaticReference);
 
     public static MeritOperandEvaluation Evaluate(Optic optic, MeritOperandDefinition definition)
     {
@@ -150,34 +257,15 @@ public static class MeritFunctionCatalog
 
     public static IReadOnlyList<MeritOperandDefinition> CreateDefaultRmsSpot(Optic optic)
     {
-        var operands = new List<MeritOperandDefinition>
-        {
-            new()
-            {
-                Enabled = false,
-                Type = "DMFS",
-                Comment = "序列评价函数：RMS 点列半径"
-            }
-        };
-        var fieldWeights = NormalizeWeights(optic.Fields.Select(field => field.Weight).ToArray());
-        var wavelengthWeights = NormalizeWeights(optic.Wavelengths.Select(wavelength => wavelength.Weight).ToArray());
-        for (var field = 0; field < optic.Fields.Count; field++)
-        {
-            for (var wavelength = 0; wavelength < optic.Wavelengths.Count; wavelength++)
-            {
-                operands.Add(new MeritOperandDefinition
-                {
-                    Type = "RSCE",
-                    Field = field + 1,
-                    Wavelength = wavelength + 1,
-                    Target = 0,
-                    Weight = Math.Sqrt(fieldWeights[field] * wavelengthWeights[wavelength]),
-                    Comment = $"{optic.Fields[field].Label} · {optic.Wavelengths[wavelength].Label}"
-                });
-            }
-        }
-
-        return operands;
+        return CreateFromWizard(optic, new MeritFunctionWizardSettings(
+            MeritImageQuality.RmsSpot,
+            MeritPupilSampling.GaussianQuadrature,
+            PupilRings: 3,
+            PupilArms: 6,
+            PupilObscuration: 0,
+            WeightScale: 1,
+            UseAllWavelengths: true,
+            IncludeCommonOperands: false));
     }
 
     public static IReadOnlyList<MeritOperandDefinition> CreateDefaultRmsWavefront(Optic optic)
@@ -205,95 +293,7 @@ public static class MeritFunctionCatalog
             : 1;
         var samplingName = settings.PupilSampling == MeritPupilSampling.RectangularArray
             ? "uniform"
-            : "hexapolar";
-        if (settings.ImageQuality == MeritImageQuality.RmsWavefront
-            && settings.PupilSampling == MeritPupilSampling.GaussianQuadrature)
-        {
-            return CreateGaussianWavefrontOperands(
-                optic,
-                rings,
-                arms,
-                obscuration,
-                weightScale,
-                settings.UseAllWavelengths,
-                settings.IncludeCommonOperands);
-        }
-
-        var operands = new List<MeritOperandDefinition>
-        {
-            new()
-            {
-                Enabled = false,
-                Type = "DMFS",
-                Comment = settings.ImageQuality == MeritImageQuality.RmsWavefront
-                    ? $"优化向导：RMS 波前差，{rings} 环 {arms} 臂"
-                    : $"优化向导：RMS 点列半径，{rings} 环 {arms} 臂"
-            }
-        };
-
-        var fieldWeights = NormalizeWeights(optic.Fields.Select(field => field.Weight).ToArray());
-        var wavelengthIndices = settings.UseAllWavelengths
-            ? Enumerable.Range(0, optic.Wavelengths.Count).ToArray()
-            : new[]
-            {
-                optic.Wavelengths
-                    .Select((wavelength, index) => (wavelength, index))
-                    .FirstOrDefault(item => item.wavelength.IsPrimary).index
-            };
-        var wavelengthWeights = NormalizeWeights(
-            wavelengthIndices.Select(index => optic.Wavelengths[index].Weight).ToArray());
-
-        for (var field = 0; field < optic.Fields.Count; field++)
-        {
-            for (var wavelengthOffset = 0; wavelengthOffset < wavelengthIndices.Length; wavelengthOffset++)
-            {
-                var wavelength = wavelengthIndices[wavelengthOffset];
-                operands.Add(new MeritOperandDefinition
-                {
-                    Type = settings.ImageQuality == MeritImageQuality.RmsWavefront ? "RWFE" : "RSCE",
-                    Field = field + 1,
-                    Wavelength = wavelength + 1,
-                    Target = 0,
-                    Weight = weightScale * Math.Sqrt(fieldWeights[field] * wavelengthWeights[wavelengthOffset]),
-                    Comment = $"{optic.Fields[field].Label} · {optic.Wavelengths[wavelength].Label}",
-                    PupilRings = rings,
-                    PupilArms = arms,
-                    PupilObscuration = obscuration,
-                    PupilSampling = samplingName
-                });
-            }
-        }
-
-        if (settings.IncludeCommonOperands)
-        {
-            operands.Add(new MeritOperandDefinition
-            {
-                Type = "EFFL",
-                Target = optic.Paraxial.EstimateEffectiveFocalLength(),
-                Weight = weightScale,
-                Comment = "保持当前有效焦距"
-            });
-            operands.Add(new MeritOperandDefinition
-            {
-                Type = "FNUM",
-                Target = optic.Paraxial.EstimateFNumber(),
-                Weight = weightScale,
-                Comment = "保持当前 F 数"
-            });
-        }
-
-        return operands;
-    }
-
-    private static IReadOnlyList<MeritOperandDefinition> CreateGaussianWavefrontOperands(
-        Optic optic,
-        int rings,
-        int arms,
-        double obscuration,
-        double weightScale,
-        bool useAllWavelengths,
-        bool includeCommonOperands)
-    {
+            : "gaussian_quad";
         var operands = new List<MeritOperandDefinition>
         {
             new() { Enabled = false, Type = "DMFS" },
@@ -301,80 +301,333 @@ public static class MeritFunctionCatalog
             {
                 Enabled = false,
                 Type = "BLNK",
-                Comment = $"序列评价函数: RMS 波前差：质心参考高斯求积 {rings} 环 {arms} 臂"
+                Comment = $"序列评价函数：RMS {QualityName(settings.ImageQuality)}；" +
+                          $"{ReferenceName(settings.Reference)}参考；{rings} 环 {arms} 臂"
             },
             new()
             {
                 Enabled = false,
                 Type = "BLNK",
-                Comment = "无空气及玻璃约束."
+                Comment = "由优化向导生成；各视场和波长权重已归一化。"
             }
         };
+
         var fieldWeights = NormalizeWeights(optic.Fields.Select(field => field.Weight).ToArray());
-        var wavelengthIndices = useAllWavelengths
+        var wavelengthIndices = settings.UseAllWavelengths
             ? Enumerable.Range(0, optic.Wavelengths.Count).ToArray()
-            : new[]
-            {
-                optic.Wavelengths
-                    .Select((wavelength, index) => (wavelength, index))
-                    .FirstOrDefault(item => item.wavelength.IsPrimary).index
-            };
+            : new[] { PrimaryWavelengthIndex(optic) };
         var wavelengthWeights = NormalizeWeights(
             wavelengthIndices.Select(index => optic.Wavelengths[index].Weight).ToArray());
-        var radialSamples = GaussianRadialSamples(rings, obscuration);
+        var pupilPrototype = new MeritOperandDefinition
+        {
+            PupilRings = rings,
+            PupilArms = arms,
+            PupilObscuration = obscuration,
+            PupilSampling = samplingName
+        };
+        var xWeight = Math.Max(0, double.IsFinite(settings.XWeight) ? settings.XWeight : 1);
+        var yWeight = Math.Max(0, double.IsFinite(settings.YWeight) ? settings.YWeight : 1);
+        if (settings.ImageQuality == MeritImageQuality.Contrast
+            && (settings.SpatialFrequency <= 0 || (xWeight <= 0 && yWeight <= 0)))
+        {
+            throw new ArgumentException("对比度优化需要正的空间频率，并至少启用一个方向权重。", nameof(settings));
+        }
 
         for (var fieldIndex = 0; fieldIndex < optic.Fields.Count; fieldIndex++)
         {
             var field = optic.Fields[fieldIndex];
-            var normalized = FieldCoordinates.Normalize(optic.Fields, field.X, field.Y);
-            var onAxis = Math.Abs(normalized.X) <= 1e-12 && Math.Abs(normalized.Y) <= 1e-12;
-            var directionCount = onAxis ? 1 : Math.Max(1, arms / 2);
+            var normalizedField = FieldCoordinates.Normalize(optic.Fields, field.X, field.Y);
+            var pupilSamples = CreateWizardOperandPupilSamples(pupilPrototype, normalizedField);
             operands.Add(new MeritOperandDefinition
             {
                 Enabled = false,
                 Type = "BLNK",
-                Comment = $"视场操作数 {fieldIndex + 1}."
+                Comment = $"视场操作数 {fieldIndex + 1}：{field.Label}"
             });
 
             for (var wavelengthOffset = 0; wavelengthOffset < wavelengthIndices.Length; wavelengthOffset++)
             {
                 var wavelengthIndex = wavelengthIndices[wavelengthOffset];
-                foreach (var radialSample in radialSamples)
+                var baseWeight = fieldWeights[fieldIndex] * wavelengthWeights[wavelengthOffset];
+                foreach (var pupilSample in pupilSamples)
                 {
-                    for (var direction = 0; direction < directionCount; direction++)
+                    if (settings.ImageQuality == MeritImageQuality.Contrast)
                     {
-                        var angle = onAxis
-                            ? 0
-                            : (((directionCount - 1) / 2.0) - direction) * (2 * Math.PI / arms);
-                        operands.Add(new MeritOperandDefinition
-                        {
-                            Type = "OPDX",
-                            Field = fieldIndex + 1,
-                            Wavelength = wavelengthIndex + 1,
-                            Hx = normalized.X,
-                            Hy = normalized.Y,
-                            Px = radialSample.Radius * Math.Cos(angle),
-                            Py = radialSample.Radius * Math.Sin(angle),
-                            Target = 0,
-                            Weight = weightScale
-                                * Math.PI
-                                * fieldWeights[fieldIndex]
-                                * wavelengthWeights[wavelengthOffset]
-                                * radialSample.Weight
-                                / directionCount,
-                            PupilRings = rings,
-                            PupilArms = arms,
-                            PupilObscuration = obscuration,
-                            PupilSampling = "hexapolar"
-                        });
+                        AddContrastOperands(
+                            optic,
+                            operands,
+                            settings,
+                            fieldIndex,
+                            wavelengthIndex,
+                            pupilSample,
+                            baseWeight,
+                            weightScale,
+                            xWeight,
+                            yWeight,
+                            pupilPrototype);
+                        continue;
                     }
+
+                    var axisWeight = baseWeight * pupilSample.Weight;
+                    if (settings.ImageQuality == MeritImageQuality.RmsWavefront)
+                    {
+                        operands.Add(CreateSampleOperand(
+                            settings.Reference switch
+                            {
+                                MeritSpotReference.ChiefRay => "OPDM",
+                                MeritSpotReference.Unreferenced => "OPDC",
+                                _ => "OPDX"
+                            },
+                            fieldIndex,
+                            wavelengthIndex,
+                            pupilSample,
+                            weightScale * Math.Sqrt(axisWeight),
+                            settings,
+                            pupilPrototype));
+                        continue;
+                    }
+
+                    AddRayAberrationOperands(
+                        operands,
+                        settings,
+                        fieldIndex,
+                        wavelengthIndex,
+                        pupilSample,
+                        axisWeight,
+                        weightScale,
+                        xWeight,
+                        yWeight,
+                        pupilPrototype);
                 }
             }
         }
 
-        AddCommonOperands(optic, operands, weightScale, includeCommonOperands);
+        if (settings.ImageQuality == MeritImageQuality.Contrast
+            && !operands.Any(operand => operand.Type is "MECS" or "MECT"))
+        {
+            throw new InvalidOperationException("当前空间频率没有可用的 Moore-Elliott 移位光线对。");
+        }
+
+        AddCommonOperands(optic, operands, weightScale, settings.IncludeCommonOperands);
         return operands;
     }
+
+    private static void AddRayAberrationOperands(
+        ICollection<MeritOperandDefinition> operands,
+        MeritFunctionWizardSettings settings,
+        int fieldIndex,
+        int wavelengthIndex,
+        Raytrace.PupilSample pupilSample,
+        double baseWeight,
+        double weightScale,
+        double xWeight,
+        double yWeight,
+        MeritOperandDefinition prototype)
+    {
+        var angular = settings.ImageQuality == MeritImageQuality.Angular;
+        if (xWeight <= 0 && yWeight <= 0)
+        {
+            operands.Add(CreateSampleOperand(
+                angular
+                    ? settings.Reference == MeritSpotReference.ChiefRay ? "ANAR" : "ANAC"
+                    : settings.Reference == MeritSpotReference.ChiefRay ? "TRAR" : "TRAC",
+                fieldIndex,
+                wavelengthIndex,
+                pupilSample,
+                weightScale * Math.Sqrt(baseWeight),
+                settings,
+                prototype));
+            return;
+        }
+
+        if (xWeight > 0)
+        {
+            operands.Add(CreateSampleOperand(
+                angular
+                    ? settings.Reference == MeritSpotReference.ChiefRay ? "ANAX" : "ANCX"
+                    : settings.Reference == MeritSpotReference.ChiefRay ? "TRAX" : "TRCX",
+                fieldIndex,
+                wavelengthIndex,
+                pupilSample,
+                weightScale * Math.Sqrt(baseWeight * xWeight),
+                settings,
+                prototype));
+        }
+
+        if (yWeight > 0)
+        {
+            operands.Add(CreateSampleOperand(
+                angular
+                    ? settings.Reference == MeritSpotReference.ChiefRay ? "ANAY" : "ANCY"
+                    : settings.Reference == MeritSpotReference.ChiefRay ? "TRAY" : "TRCY",
+                fieldIndex,
+                wavelengthIndex,
+                pupilSample,
+                weightScale * Math.Sqrt(baseWeight * yWeight),
+                settings,
+                prototype));
+        }
+    }
+
+    private static void AddContrastOperands(
+        Optic optic,
+        ICollection<MeritOperandDefinition> operands,
+        MeritFunctionWizardSettings settings,
+        int fieldIndex,
+        int wavelengthIndex,
+        Raytrace.PupilSample pupilSample,
+        double baseWeight,
+        double weightScale,
+        double xWeight,
+        double yWeight,
+        MeritOperandDefinition prototype)
+    {
+        var frequency = Math.Max(0, settings.SpatialFrequency);
+        var cutoff = DiffractionCutoff(optic, optic.Wavelengths[wavelengthIndex]);
+        var pupilShift = cutoff <= 1e-12 ? double.PositiveInfinity : 2 * frequency / cutoff;
+        if (!double.IsFinite(pupilShift) || pupilShift > 2 + 1e-12)
+        {
+            return;
+        }
+
+        if (xWeight > 0 && PairFitsPupil(pupilSample.X, pupilSample.Y, pupilShift, sagittal: true))
+        {
+            var operand = CreateSampleOperand(
+                "MECS",
+                fieldIndex,
+                wavelengthIndex,
+                pupilSample,
+                weightScale * Math.Sqrt(baseWeight * pupilSample.Weight * xWeight),
+                settings,
+                prototype);
+            operand.SpatialFrequency = frequency;
+            operands.Add(operand);
+        }
+
+        if (yWeight > 0 && PairFitsPupil(pupilSample.X, pupilSample.Y, pupilShift, sagittal: false))
+        {
+            var operand = CreateSampleOperand(
+                "MECT",
+                fieldIndex,
+                wavelengthIndex,
+                pupilSample,
+                weightScale * Math.Sqrt(baseWeight * pupilSample.Weight * yWeight),
+                settings,
+                prototype);
+            operand.SpatialFrequency = frequency;
+            operands.Add(operand);
+        }
+    }
+
+    private static MeritOperandDefinition CreateSampleOperand(
+        string type,
+        int fieldIndex,
+        int wavelengthIndex,
+        Raytrace.PupilSample pupilSample,
+        double weight,
+        MeritFunctionWizardSettings settings,
+        MeritOperandDefinition prototype)
+    {
+        return new MeritOperandDefinition
+        {
+            Type = type,
+            Field = fieldIndex + 1,
+            Wavelength = wavelengthIndex + 1,
+            Px = pupilSample.X,
+            Py = pupilSample.Y,
+            Target = 0,
+            Weight = weight,
+            PupilRings = prototype.PupilRings,
+            PupilArms = prototype.PupilArms,
+            PupilObscuration = prototype.PupilObscuration,
+            PupilSampling = prototype.PupilSampling,
+            SpatialFrequency = settings.SpatialFrequency,
+            IgnoreLateralColor = settings.IgnoreLateralColor,
+            PolychromaticReference = settings.UseAllWavelengths && !settings.IgnoreLateralColor
+        };
+    }
+
+    private static IReadOnlyList<Raytrace.PupilSample> NormalizePupilSamples(
+        IReadOnlyList<Raytrace.PupilSample> samples)
+    {
+        var total = samples.Sum(sample => Math.Max(0, sample.Weight));
+        if (total <= 1e-12)
+        {
+            return samples.Select(sample => sample with { Weight = 1.0 / Math.Max(1, samples.Count) }).ToArray();
+        }
+
+        return samples.Select(sample => sample with { Weight = Math.Max(0, sample.Weight) / total }).ToArray();
+    }
+
+    private static IReadOnlyList<Raytrace.PupilSample> CreateWizardOperandPupilSamples(
+        MeritOperandDefinition prototype,
+        (double X, double Y) normalizedField)
+    {
+        if (!string.Equals(prototype.PupilSampling, "gaussian_quad", StringComparison.OrdinalIgnoreCase))
+        {
+            return NormalizePupilSamples(CreateWizardPupilSamples(prototype, 37));
+        }
+
+        var rings = Math.Clamp(prototype.PupilRings, 1, 20);
+        var arms = Math.Clamp(prototype.PupilArms, 3, 36);
+        var obscuration = Math.Clamp(prototype.PupilObscuration, 0, 0.95);
+        var onAxis = Math.Abs(normalizedField.X) <= 1e-12 && Math.Abs(normalizedField.Y) <= 1e-12;
+        var directionCount = onAxis ? 1 : Math.Max(1, arms / 2);
+        return GaussianRadialSamples(rings, obscuration)
+            .SelectMany(radialSample => Enumerable.Range(0, directionCount).Select(direction =>
+            {
+                var angle = onAxis
+                    ? 0
+                    : (((directionCount - 1) / 2.0) - direction) * (2 * Math.PI / arms);
+                return new Raytrace.PupilSample(
+                    radialSample.Radius * Math.Cos(angle),
+                    radialSample.Radius * Math.Sin(angle),
+                    radialSample.Weight / directionCount);
+            }))
+            .ToArray();
+    }
+
+    private static bool PairFitsPupil(double px, double py, double shift, bool sagittal)
+    {
+        var half = shift / 2;
+        var firstX = sagittal ? px - half : px;
+        var firstY = sagittal ? py : py - half;
+        var secondX = sagittal ? px + half : px;
+        var secondY = sagittal ? py : py + half;
+        return ((firstX * firstX) + (firstY * firstY) <= 1 + 1e-12)
+            && ((secondX * secondX) + (secondY * secondY) <= 1 + 1e-12);
+    }
+
+    private static int PrimaryWavelengthIndex(Optic optic)
+    {
+        var index = optic.Wavelengths
+            .Select((wavelength, offset) => (wavelength, offset))
+            .FirstOrDefault(item => item.wavelength.IsPrimary).offset;
+        return Math.Clamp(index, 0, Math.Max(0, optic.Wavelengths.Count - 1));
+    }
+
+    private static double DiffractionCutoff(Optic optic, Wavelength wavelength)
+    {
+        var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
+        return fNumber <= 1e-12 || wavelength.Micrometers <= 1e-12
+            ? 0
+            : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+    }
+
+    private static string QualityName(MeritImageQuality quality) => quality switch
+    {
+        MeritImageQuality.RmsWavefront => "波前",
+        MeritImageQuality.Contrast => "对比度",
+        MeritImageQuality.Angular => "角向",
+        _ => "点列图"
+    };
+
+    private static string ReferenceName(MeritSpotReference reference) => reference switch
+    {
+        MeritSpotReference.ChiefRay => "主光线",
+        MeritSpotReference.Unreferenced => "无参考",
+        _ => "质心"
+    };
 
     private static IReadOnlyList<(double Radius, double Weight)> GaussianRadialSamples(
         int sampleCount,
@@ -474,8 +727,27 @@ public static class MeritFunctionCatalog
         return CanonicalType(definition.Type) switch
         {
             "RSCE" => EvaluateRmsSpot(optic, definition),
+            "RSCH" => EvaluateRmsSpot(optic, definition),
+            "RSRE" => EvaluateRmsSpot(optic, definition),
+            "RSRH" => EvaluateRmsSpot(optic, definition),
             "RWFE" => EvaluateRmsWavefront(optic, definition),
             "OPDX" => EvaluateOpticalPathDifference(optic, definition),
+            "OPDM" => EvaluateOpticalPathDifference(optic, definition),
+            "OPDC" => EvaluateOpticalPathDifference(optic, definition),
+            "TRAC" => EvaluateRayAberration(optic, definition),
+            "TRAR" => EvaluateRayAberration(optic, definition),
+            "TRCX" => EvaluateRayAberration(optic, definition),
+            "TRCY" => EvaluateRayAberration(optic, definition),
+            "TRAX" => EvaluateRayAberration(optic, definition),
+            "TRAY" => EvaluateRayAberration(optic, definition),
+            "ANAC" => EvaluateAngularAberration(optic, definition),
+            "ANAR" => EvaluateAngularAberration(optic, definition),
+            "ANCX" => EvaluateAngularAberration(optic, definition),
+            "ANCY" => EvaluateAngularAberration(optic, definition),
+            "ANAX" => EvaluateAngularAberration(optic, definition),
+            "ANAY" => EvaluateAngularAberration(optic, definition),
+            "MECS" => EvaluateMooreElliottDifference(optic, definition, sagittal: true),
+            "MECT" => EvaluateMooreElliottDifference(optic, definition, sagittal: false),
             "REAX" => SampleAtSurface(optic, definition).Position.X,
             "REAY" => SampleAtSurface(optic, definition).Position.Y,
             "EFFL" => optic.Paraxial.EstimateEffectiveFocalLength(),
@@ -489,23 +761,284 @@ public static class MeritFunctionCatalog
 
     private static double EvaluateRmsSpot(Optic optic, MeritOperandDefinition definition)
     {
-        var trace = TraceBundle(optic, definition, 37);
-        var samples = trace.RayHistories
-            .Where(history => history.Count > 0)
-            .Select(history => history[^1])
-            .Where(sample => !sample.Vignetted && sample.Intensity > 0)
+        var normalized = ResolveNormalizedField(optic, definition);
+        var pupilSamples = CreateWizardPupilSamples(definition, 37);
+        var wavelengths = definition.Wavelength <= 0
+            ? optic.Wavelengths.ToArray()
+            : new[] { ResolveWavelength(optic, definition.Wavelength) };
+        if (wavelengths.Length == 0)
+        {
+            throw new InvalidOperationException("系统没有波长。");
+        }
+
+        var samplesByWavelength = wavelengths
+            .Select(wavelength => TraceSpotSamples(
+                optic,
+                definition,
+                normalized,
+                wavelength,
+                pupilSamples))
             .ToArray();
-        if (samples.Length == 0)
+        var primaryIndex = definition.Wavelength <= 0
+            ? Array.FindIndex(wavelengths, wavelength => wavelength.IsPrimary)
+            : 0;
+        if (primaryIndex < 0)
+        {
+            primaryIndex = 0;
+        }
+
+        var referenceSamples = samplesByWavelength[primaryIndex];
+        if (referenceSamples.Length == 0)
+        {
+            throw new InvalidOperationException("主波长没有有效光线。");
+        }
+
+        var referenceType = CanonicalType(definition.Type);
+        double referenceX;
+        double referenceY;
+        if (referenceType is "RSCH" or "RSRH")
+        {
+            var chief = TraceChiefRaySample(optic, definition, normalized, wavelengths[primaryIndex]);
+            referenceX = chief.Position.X;
+            referenceY = chief.Position.Y;
+        }
+        else
+        {
+            var referenceWeight = referenceSamples.Sum(sample => sample.Intensity);
+            if (referenceWeight <= 1e-12)
+            {
+                throw new InvalidOperationException("主波长没有有效光线。");
+            }
+
+            referenceX = referenceSamples.Sum(sample => sample.Position.X * sample.Intensity) / referenceWeight;
+            referenceY = referenceSamples.Sum(sample => sample.Position.Y * sample.Intensity) / referenceWeight;
+        }
+
+        var samples = samplesByWavelength.SelectMany(items => items).ToArray();
+        var totalWeight = samples.Sum(sample => sample.Intensity);
+        if (samples.Length == 0 || totalWeight <= 1e-12)
         {
             throw new InvalidOperationException("没有有效光线。");
         }
 
-        var totalWeight = samples.Sum(sample => sample.Intensity);
-        var centroidX = samples.Sum(sample => sample.Position.X * sample.Intensity) / totalWeight;
-        var centroidY = samples.Sum(sample => sample.Position.Y * sample.Intensity) / totalWeight;
         return Math.Sqrt(samples.Sum(sample =>
-            (((sample.Position.X - centroidX) * (sample.Position.X - centroidX))
-             + ((sample.Position.Y - centroidY) * (sample.Position.Y - centroidY))) * sample.Intensity) / totalWeight);
+            (((sample.Position.X - referenceX) * (sample.Position.X - referenceX))
+             + ((sample.Position.Y - referenceY) * (sample.Position.Y - referenceY))) * sample.Intensity) / totalWeight);
+    }
+
+    private static RayTraceSample TraceChiefRaySample(
+        Optic optic,
+        MeritOperandDefinition definition,
+        (double X, double Y) normalized,
+        Wavelength wavelength)
+    {
+        var chiefDefinition = definition.Clone();
+        chiefDefinition.Wavelength = FindWavelengthIndex(optic, wavelength) + 1;
+        chiefDefinition.Hx = normalized.X;
+        chiefDefinition.Hy = normalized.Y;
+        chiefDefinition.Px = 0;
+        chiefDefinition.Py = 0;
+        var sample = SampleAtSurface(optic, chiefDefinition);
+        if (sample.Vignetted || sample.Intensity <= 0)
+        {
+            throw new InvalidOperationException("主光线未到达指定表面。");
+        }
+
+        return sample;
+    }
+
+    private static RayTraceSample[] TraceSpotSamples(
+        Optic optic,
+        MeritOperandDefinition definition,
+        (double X, double Y) normalized,
+        Wavelength wavelength,
+        IReadOnlyList<Raytrace.PupilSample> pupilSamples)
+    {
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+            normalized.X,
+            normalized.Y,
+            wavelength.Micrometers,
+            pupilSamples);
+        var trace = optic.SequentialRayTracer.Trace(bundle);
+        var wavelengthIndex = FindWavelengthIndex(optic, wavelength) + 1;
+        var samples = new List<RayTraceSample>(trace.RayHistories.Count);
+        for (var index = 0; index < trace.RayHistories.Count; index++)
+        {
+            var history = trace.RayHistories[index];
+            var sample = history.Count == 0 ? null : SelectSpotSurfaceSample(history, definition.Surface);
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
+            {
+                continue;
+            }
+
+            samples.Add(sample);
+            var batch = ActiveEvaluationBatch.Value;
+            if (batch is not null && index < pupilSamples.Count)
+            {
+                var pupil = pupilSamples[index];
+                batch.RaySamples[CreateRaySampleCacheKey(
+                    optic,
+                    definition,
+                    wavelengthIndex,
+                    pupil.X,
+                    pupil.Y)] = sample;
+            }
+        }
+
+        return samples.ToArray();
+    }
+
+    private static RayTraceSample? SelectSpotSurfaceSample(
+        IReadOnlyList<RayTraceSample> history,
+        int surfaceNumber)
+    {
+        return surfaceNumber <= 0
+            ? history.LastOrDefault()
+            : history.LastOrDefault(sample => sample.SurfaceNumber == surfaceNumber);
+    }
+
+    private static double EvaluateRayAberration(Optic optic, MeritOperandDefinition definition)
+    {
+        var sample = SampleAtSurface(optic, definition);
+        var reference = ResolveAberrationReference(optic, definition, angular: false);
+        var x = sample.Position.X - reference.X;
+        var y = sample.Position.Y - reference.Y;
+        return CanonicalType(definition.Type) switch
+        {
+            "TRCX" or "TRAX" => x,
+            "TRCY" or "TRAY" => y,
+            _ => Math.Sqrt((x * x) + (y * y))
+        };
+    }
+
+    private static double EvaluateAngularAberration(Optic optic, MeritOperandDefinition definition)
+    {
+        var sample = SampleAtSurface(optic, definition);
+        var reference = ResolveAberrationReference(optic, definition, angular: true);
+        var x = sample.Direction.X - reference.X;
+        var y = sample.Direction.Y - reference.Y;
+        return CanonicalType(definition.Type) switch
+        {
+            "ANCX" or "ANAX" => x,
+            "ANCY" or "ANAY" => y,
+            _ => Math.Sqrt((x * x) + (y * y))
+        };
+    }
+
+    private static (double X, double Y) ResolveAberrationReference(
+        Optic optic,
+        MeritOperandDefinition definition,
+        bool angular)
+    {
+        var type = CanonicalType(definition.Type);
+        var chiefReference = type is "TRAR" or "TRAX" or "TRAY" or "ANAR" or "ANAX" or "ANAY";
+        var cacheKey = new AberrationReferenceCacheKey(
+            optic,
+            angular,
+            chiefReference,
+            definition.Surface,
+            definition.Field,
+            chiefReference || definition.PolychromaticReference ? 0 : definition.Wavelength,
+            definition.Hx,
+            definition.Hy,
+            definition.PupilRings,
+            definition.PupilArms,
+            definition.PupilObscuration,
+            definition.PupilSampling,
+            definition.PolychromaticReference);
+        var batch = ActiveEvaluationBatch.Value;
+        if (batch is not null && batch.AberrationReferences.TryGetValue(cacheKey, out var cached))
+        {
+            return cached;
+        }
+
+        var normalized = ResolveNormalizedField(optic, definition);
+        (double X, double Y) result;
+        if (chiefReference)
+        {
+            var primary = optic.Wavelengths[PrimaryWavelengthIndex(optic)];
+            var chief = TraceChiefRaySample(optic, definition, normalized, primary);
+            result = angular
+                ? (chief.Direction.X, chief.Direction.Y)
+                : (chief.Position.X, chief.Position.Y);
+        }
+        else
+        {
+            var wavelengthIndices = definition.PolychromaticReference
+                ? Enumerable.Range(0, optic.Wavelengths.Count).ToArray()
+                : new[] { Math.Clamp(definition.Wavelength - 1, 0, optic.Wavelengths.Count - 1) };
+            var wavelengthWeights = NormalizeWeights(
+                wavelengthIndices.Select(index => optic.Wavelengths[index].Weight).ToArray());
+            var pupilSamples = NormalizePupilSamples(CreateWizardPupilSamples(definition, 37));
+            var weightedX = 0.0;
+            var weightedY = 0.0;
+            var totalWeight = 0.0;
+            for (var wavelengthOffset = 0; wavelengthOffset < wavelengthIndices.Length; wavelengthOffset++)
+            {
+                var wavelength = optic.Wavelengths[wavelengthIndices[wavelengthOffset]];
+                var samples = TraceSpotSamples(optic, definition, normalized, wavelength, pupilSamples);
+                foreach (var sample in samples)
+                {
+                    var weight = sample.Intensity * wavelengthWeights[wavelengthOffset];
+                    weightedX += (angular ? sample.Direction.X : sample.Position.X) * weight;
+                    weightedY += (angular ? sample.Direction.Y : sample.Position.Y) * weight;
+                    totalWeight += weight;
+                }
+            }
+
+            if (totalWeight <= 1e-12)
+            {
+                throw new InvalidOperationException("没有可用于计算参考质心的有效光线。");
+            }
+
+            result = (weightedX / totalWeight, weightedY / totalWeight);
+        }
+
+        if (batch is not null)
+        {
+            batch.AberrationReferences[cacheKey] = result;
+        }
+
+        return result;
+    }
+
+    private static double EvaluateMooreElliottDifference(
+        Optic optic,
+        MeritOperandDefinition definition,
+        bool sagittal)
+    {
+        var wavelength = ResolveWavelength(optic, definition.Wavelength);
+        var cutoff = DiffractionCutoff(optic, wavelength);
+        if (cutoff <= 1e-12)
+        {
+            throw new InvalidOperationException("系统没有有效的衍射截止频率。");
+        }
+
+        var shift = 2 * Math.Max(0, definition.SpatialFrequency) / cutoff;
+        if (!PairFitsPupil(definition.Px, definition.Py, shift, sagittal))
+        {
+            throw new InvalidOperationException("Moore-Elliott 移位光线超出当前入瞳。");
+        }
+
+        var half = shift / 2;
+        var first = definition.Clone();
+        var second = definition.Clone();
+        if (sagittal)
+        {
+            first.Px -= half;
+            second.Px += half;
+        }
+        else
+        {
+            first.Py -= half;
+            second.Py += half;
+        }
+
+        var firstSample = SampleAtSurface(optic, first);
+        var secondSample = SampleAtSurface(optic, second);
+        var wavelengthMillimeters = wavelength.Micrometers / 1000.0;
+        return (secondSample.CumulativeOpticalPathLength - firstSample.CumulativeOpticalPathLength)
+            / Math.Max(1e-12, wavelengthMillimeters);
     }
 
     private static double EvaluateRmsWavefront(Optic optic, MeritOperandDefinition definition)
@@ -531,17 +1064,163 @@ public static class MeritFunctionCatalog
     private static double EvaluateOpticalPathDifference(Optic optic, MeritOperandDefinition definition)
     {
         var sample = SampleAtSurface(optic, definition);
-        var chiefDefinition = definition.Clone();
-        chiefDefinition.Px = 0;
-        chiefDefinition.Py = 0;
-        var chief = SampleAtSurface(optic, chiefDefinition);
         var wavelengthMillimeters = ResolveWavelength(optic, definition.Wavelength).Micrometers / 1000.0;
-        return (sample.CumulativeOpticalPathLength - chief.CumulativeOpticalPathLength)
+        var type = CanonicalType(definition.Type);
+        if (type == "OPDC")
+        {
+            var chiefDefinition = definition.Clone();
+            chiefDefinition.Px = 0;
+            chiefDefinition.Py = 0;
+            var chief = SampleAtSurface(optic, chiefDefinition);
+            return (sample.CumulativeOpticalPathLength - chief.CumulativeOpticalPathLength)
+                / Math.Max(1e-12, wavelengthMillimeters);
+        }
+
+        var cacheKey = new WavefrontReferenceCacheKey(
+            optic,
+            type,
+            definition.Surface,
+            definition.Field,
+            definition.Wavelength,
+            definition.Hx,
+            definition.Hy,
+            definition.PupilRings,
+            definition.PupilArms,
+            definition.PupilObscuration,
+            definition.PupilSampling,
+            definition.PolychromaticReference);
+        var batch = ActiveEvaluationBatch.Value;
+        if (batch is null || !batch.WavefrontReferences.TryGetValue(cacheKey, out var plane))
+        {
+            var pupilSamples = NormalizePupilSamples(CreateWizardPupilSamples(definition, 37));
+            var trace = TraceBundle(optic, definition, 37);
+            var fittedSamples = trace.RayHistories
+                .Select((history, index) => new
+                {
+                    Pupil = pupilSamples[index],
+                    Sample = history.Count == 0 ? null : SelectSpotSurfaceSample(history, definition.Surface)
+                })
+                .Where(item => item.Sample is not null && !item.Sample.Vignetted && item.Sample.Intensity > 0)
+                .Select(item => (
+                    item.Pupil.X,
+                    item.Pupil.Y,
+                    Path: item.Sample!.CumulativeOpticalPathLength,
+                    Weight: item.Sample.Intensity))
+                .ToArray();
+            if (fittedSamples.Length == 0)
+            {
+                throw new InvalidOperationException("没有可用于计算波前参考的有效光线。");
+            }
+
+            if (type == "OPDM")
+            {
+                var totalWeight = fittedSamples.Sum(item => item.Weight);
+                plane = (
+                    fittedSamples.Sum(item => item.Path * item.Weight) / totalWeight,
+                    0,
+                    0);
+            }
+            else
+            {
+                plane = FitWeightedPlane(fittedSamples);
+            }
+
+            if (batch is not null)
+            {
+                batch.WavefrontReferences[cacheKey] = plane;
+            }
+        }
+
+        var referencePath = plane.Piston + (plane.XTilt * definition.Px) + (plane.YTilt * definition.Py);
+        return (sample.CumulativeOpticalPathLength - referencePath)
             / Math.Max(1e-12, wavelengthMillimeters);
+    }
+
+    private static (double Piston, double XTilt, double YTilt) FitWeightedPlane(
+        IReadOnlyList<(double X, double Y, double Path, double Weight)> samples)
+    {
+        var matrix = new double[3, 4];
+        foreach (var sample in samples)
+        {
+            var weight = Math.Max(0, sample.Weight);
+            var basis = new[] { 1.0, sample.X, sample.Y };
+            for (var row = 0; row < 3; row++)
+            {
+                for (var column = 0; column < 3; column++)
+                {
+                    matrix[row, column] += weight * basis[row] * basis[column];
+                }
+
+                matrix[row, 3] += weight * basis[row] * sample.Path;
+            }
+        }
+
+        for (var pivot = 0; pivot < 3; pivot++)
+        {
+            var best = pivot;
+            for (var row = pivot + 1; row < 3; row++)
+            {
+                if (Math.Abs(matrix[row, pivot]) > Math.Abs(matrix[best, pivot]))
+                {
+                    best = row;
+                }
+            }
+
+            if (Math.Abs(matrix[best, pivot]) <= 1e-18)
+            {
+                var totalWeight = samples.Sum(sample => Math.Max(0, sample.Weight));
+                var mean = samples.Sum(sample => sample.Path * Math.Max(0, sample.Weight))
+                    / Math.Max(1e-12, totalWeight);
+                return (mean, 0, 0);
+            }
+
+            if (best != pivot)
+            {
+                for (var column = pivot; column < 4; column++)
+                {
+                    (matrix[pivot, column], matrix[best, column]) =
+                        (matrix[best, column], matrix[pivot, column]);
+                }
+            }
+
+            var divisor = matrix[pivot, pivot];
+            for (var column = pivot; column < 4; column++)
+            {
+                matrix[pivot, column] /= divisor;
+            }
+
+            for (var row = 0; row < 3; row++)
+            {
+                if (row == pivot)
+                {
+                    continue;
+                }
+
+                var factor = matrix[row, pivot];
+                for (var column = pivot; column < 4; column++)
+                {
+                    matrix[row, column] -= factor * matrix[pivot, column];
+                }
+            }
+        }
+
+        return (matrix[0, 3], matrix[1, 3], matrix[2, 3]);
     }
 
     private static RayTraceSample SampleAtSurface(Optic optic, MeritOperandDefinition definition)
     {
+        var cacheKey = CreateRaySampleCacheKey(
+            optic,
+            definition,
+            definition.Wavelength,
+            definition.Px,
+            definition.Py);
+        var batch = ActiveEvaluationBatch.Value;
+        if (batch is not null && batch.RaySamples.TryGetValue(cacheKey, out var cached))
+        {
+            return cached;
+        }
+
         var normalized = ResolveNormalizedField(optic, definition);
         var wavelength = ResolveWavelength(optic, definition.Wavelength);
         var trace = optic.TraceGeneric(
@@ -557,14 +1236,51 @@ public static class MeritFunctionCatalog
             throw new InvalidOperationException("光线追迹没有返回采样点。");
         }
 
-        if (definition.Surface <= 0)
+        var sample = definition.Surface <= 0
+            ? history[^1]
+            : history.LastOrDefault(item => item.SurfaceNumber == definition.Surface)
+              ?? throw new ArgumentOutOfRangeException(nameof(definition.Surface), "指定表面没有光线数据。");
+        if (batch is not null)
         {
-            return history[^1];
+            batch.RaySamples[cacheKey] = sample;
         }
 
-        return history.LastOrDefault(sample => sample.SurfaceNumber == definition.Surface)
-            ?? throw new ArgumentOutOfRangeException(nameof(definition.Surface), "指定表面没有光线数据。");
+        return sample;
     }
+
+    private static RaySampleCacheKey CreateRaySampleCacheKey(
+        Optic optic,
+        MeritOperandDefinition definition,
+        int wavelength,
+        double px,
+        double py)
+    {
+        return new RaySampleCacheKey(
+            optic,
+            definition.Surface,
+            definition.Field,
+            wavelength,
+            Quantize(definition.Hx),
+            Quantize(definition.Hy),
+            Quantize(px),
+            Quantize(py));
+    }
+
+    private static int FindWavelengthIndex(Optic optic, Wavelength wavelength)
+    {
+        for (var index = 0; index < optic.Wavelengths.Count; index++)
+        {
+            if (ReferenceEquals(optic.Wavelengths[index], wavelength)
+                || optic.Wavelengths[index].Equals(wavelength))
+            {
+                return index;
+            }
+        }
+
+        return 0;
+    }
+
+    private static double Quantize(double value) => Math.Round(value, 12);
 
     private static Raytrace.SequentialTrace TraceBundle(
         Optic optic,
@@ -590,7 +1306,21 @@ public static class MeritFunctionCatalog
         var arms = Math.Clamp(definition.PupilArms, 3, 36);
         var obscuration = Math.Clamp(definition.PupilObscuration, 0, 0.95);
         IReadOnlyList<Raytrace.PupilSample> samples;
-        if (string.Equals(definition.PupilSampling, "uniform", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(definition.PupilSampling, "gaussian_quad", StringComparison.OrdinalIgnoreCase))
+        {
+            var radialSamples = GaussianRadialSamples(rings, obscuration);
+            samples = radialSamples
+                .SelectMany(radialSample => Enumerable.Range(0, arms).Select(index =>
+                {
+                    var angle = 2 * Math.PI * (index + 1) / arms;
+                    return new Raytrace.PupilSample(
+                        radialSample.Radius * Math.Cos(angle),
+                        radialSample.Radius * Math.Sin(angle),
+                        radialSample.Weight / arms);
+                }))
+                .ToArray();
+        }
+        else if (string.Equals(definition.PupilSampling, "uniform", StringComparison.OrdinalIgnoreCase))
         {
             var side = (rings * 2) + 1;
             samples = Enumerable.Range(0, side)

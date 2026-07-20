@@ -82,7 +82,8 @@ public sealed record SurfaceSnapshot(
     bool IsReflective = false,
     SurfaceComponentSnapshot? Components = null,
     bool RadiusVariable = false,
-    bool ThicknessVariable = false);
+    bool ThicknessVariable = false,
+    bool SemiDiameterFixed = false);
 
 public sealed record SurfaceComponentSnapshot(
     string GeometryKind,

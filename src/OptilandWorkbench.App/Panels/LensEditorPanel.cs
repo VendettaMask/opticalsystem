@@ -169,13 +169,14 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true));
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
-        grid.Columns.Add(Column("曲率半径", nameof(SurfaceEditorRow.Radius), 112));
+        grid.Columns.Add(RadiusColumn());
         grid.Columns.Add(OptimizationVariableColumn("R 变量", radius: true));
-        grid.Columns.Add(Column("厚度", nameof(SurfaceEditorRow.Thickness), 96));
+        grid.Columns.Add(ThicknessColumn());
         grid.Columns.Add(OptimizationVariableColumn("T 变量", radius: false));
         grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
-        grid.Columns.Add(Column("净口径", nameof(SurfaceEditorRow.SemiDiameter), 106));
+        grid.Columns.Add(SemiDiameterColumn());
+        grid.Columns.Add(SemiDiameterFixedColumn());
         grid.Columns.Add(Column("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
         grid.Columns.Add(Column("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
         grid.Columns.Add(Column("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
@@ -278,6 +279,122 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         IsReadOnly = readOnly,
         Width = new DataGridLength(width)
     };
+
+    private DataGridTemplateColumn RadiusColumn() => new()
+    {
+        Header = "曲率半径",
+        Width = new DataGridLength(112),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateNumericEditor(
+            row?.RadiusDisplay ?? string.Empty,
+            text =>
+            {
+                if (row is null)
+                {
+                    return;
+                }
+
+                row.RadiusDisplay = text;
+                _prescription.UpdateSurface(row.ToDto());
+            }))
+    };
+
+    private DataGridTemplateColumn ThicknessColumn() => new()
+    {
+        Header = "厚度",
+        Width = new DataGridLength(96),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
+        {
+            if (row?.IsLastSurface != false)
+            {
+                return new TextBlock
+                {
+                    Text = "-",
+                    Margin = new Avalonia.Thickness(8, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Right
+                };
+            }
+
+            return CreateNumericEditor(row.ThicknessDisplay, text =>
+            {
+                row.ThicknessDisplay = text;
+                _prescription.UpdateSurface(row.ToDto());
+            });
+        })
+    };
+
+    private DataGridTemplateColumn SemiDiameterColumn() => new()
+    {
+        Header = "净口径",
+        Width = new DataGridLength(106),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
+        {
+            if (row is null)
+            {
+                return new TextBlock();
+            }
+
+            if (!row.SemiDiameterFixed)
+            {
+                return new TextBlock
+                {
+                    Text = row.SemiDiameterDisplay,
+                    Margin = new Avalonia.Thickness(8, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Foreground = new SolidColorBrush(Color.FromRgb(90, 90, 95))
+                };
+            }
+
+            return CreateNumericEditor(row.SemiDiameterDisplay, text =>
+            {
+                row.SemiDiameterDisplay = text;
+                _prescription.UpdateSurface(row.ToDto());
+            });
+        })
+    };
+
+    private DataGridTemplateColumn SemiDiameterFixedColumn() => new()
+    {
+        Header = "固定",
+        IsReadOnly = true,
+        Width = new DataGridLength(64),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
+        {
+            var checkBox = new CheckBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                IsChecked = row?.SemiDiameterFixed
+            };
+            checkBox.IsCheckedChanged += (_, _) =>
+            {
+                if (row is null)
+                {
+                    return;
+                }
+
+                row.SemiDiameterFixed = checkBox.IsChecked == true;
+                _prescription.UpdateSurface(row.ToDto());
+            };
+            return checkBox;
+        })
+    };
+
+    private static TextBox CreateNumericEditor(string value, Action<string> commit)
+    {
+        var editor = new TextBox
+        {
+            Text = value,
+            Background = Brushes.Transparent,
+            BorderThickness = new Avalonia.Thickness(0),
+            Padding = new Avalonia.Thickness(8, 0),
+            VerticalContentAlignment = VerticalAlignment.Center,
+            HorizontalContentAlignment = HorizontalAlignment.Right
+        };
+        editor.LostFocus += (_, _) => commit(editor.Text ?? string.Empty);
+        return editor;
+    }
 
     private static DataGridTemplateColumn SurfaceTypeColumn() => new()
     {
