@@ -4,11 +4,13 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Controls;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class SystemPropertiesPanel : UserControl, IDisposable
+public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
     private readonly IWorkspaceEventStream _events;
@@ -104,6 +106,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         _environmentUpdateTimer.Tick -= OnEnvironmentUpdateTimerTick;
         _events.Changed -= OnWorkspaceChanged;
     }
+
+    public void RefreshDisplaySettings() => Refresh();
 
     private void ConfigureEnvironmentControls()
     {
@@ -417,7 +421,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
             var nextWeight = DecimalValue(weight, field.Weight);
             if (summaryDisplay is not null)
             {
-                summaryDisplay.Text = $"X {nextX:0.###} · Y {nextY:0.###} · 权重 {nextWeight:0.###}";
+                summaryDisplay.Text = $"X {NumericDisplayFormatter.Format(nextX)} · " +
+                    $"Y {NumericDisplayFormatter.Format(nextY)} · 权重 {NumericDisplayFormatter.Format(nextWeight)}";
             }
 
             ApplyLocalChange(() => _prescription.UpdateField(new FieldRowDto(
@@ -449,7 +454,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         var card = EditorCard(
             field.Index,
             $"视场 {field.Index + 1}",
-            $"X {field.X:0.###} · Y {field.Y:0.###} · 权重 {field.Weight:0.###}",
+            $"X {NumericDisplayFormatter.Format(field.X)} · Y {NumericDisplayFormatter.Format(field.Y)} · " +
+                $"权重 {NumericDisplayFormatter.Format(field.Weight)}",
             content,
             _expandedFields);
         summaryDisplay = card.Summary;
@@ -484,7 +490,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
             var nextWeight = DecimalValue(weight, wavelength.Weight);
             if (summaryDisplay is not null)
             {
-                summaryDisplay.Text = $"{nextNanometers / 1000:0.0000} μm · 权重 {nextWeight:0.###}"
+                summaryDisplay.Text = $"{NumericDisplayFormatter.Format(nextNanometers / 1000)} μm · " +
+                    $"权重 {NumericDisplayFormatter.Format(nextWeight)}"
                     + (primary.IsChecked == true ? " · 主波长" : string.Empty);
             }
 
@@ -511,7 +518,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable
         var card = EditorCard(
             wavelength.Index,
             $"波长 {wavelength.Index + 1}",
-            $"{wavelength.Nanometers / 1000:0.0000} μm · 权重 {wavelength.Weight:0.###}"
+            $"{NumericDisplayFormatter.Format(wavelength.Nanometers / 1000)} μm · " +
+                $"权重 {NumericDisplayFormatter.Format(wavelength.Weight)}"
                 + (wavelength.IsPrimary ? " · 主波长" : string.Empty),
             content,
             _expandedWavelengths);

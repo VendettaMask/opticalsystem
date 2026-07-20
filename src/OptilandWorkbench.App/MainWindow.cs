@@ -7,6 +7,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
@@ -183,6 +184,7 @@ public sealed class MainWindow : Window
     public MainWindow()
     {
         _settings = AppSettings.Load();
+        ConfigureDisplaySettings();
         _application = WorkbenchApplication.Create(InitialSample(), UserGlassCatalogDirectory());
         _panels = new PanelManager(_application, _settings);
         RegisterActions();
@@ -195,6 +197,7 @@ public sealed class MainWindow : Window
         MinWidth = 1100;
         MinHeight = 640;
         Content = BuildShell();
+        DisplayTypography.Apply(this);
         SetLightTheme(save: false);
 
         _application.Events.Changed += OnWorkspaceChanged;
@@ -283,6 +286,7 @@ public sealed class MainWindow : Window
         _actions.Register("redo", "重做", "编辑", () => _application.Documents.Redo());
         _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => _panels.Show(WorkspacePanelId.LensEditor));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
+        _actions.Register("display-settings", "显示格式设置", "设置", ShowDisplaySettingsAsync);
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
         _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));
         _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
@@ -386,12 +390,17 @@ public sealed class MainWindow : Window
             Header = "帮助",
             ItemsSource = new object[] { MenuItem(_actions.Find("about")) }
         };
+        var settingsMenu = new MenuItem
+        {
+            Header = "设置",
+            ItemsSource = new object[] { MenuItem(_actions.Find("display-settings")) }
+        };
         return new Menu
         {
             Background = Brushes.White,
             ItemsSource = new object[]
             {
-                fileMenu, editMenu, designMenu, layoutMenu, helpMenu
+                fileMenu, editMenu, designMenu, layoutMenu, settingsMenu, helpMenu
             }
         };
     }
@@ -441,7 +450,9 @@ public sealed class MainWindow : Window
                     RibbonGroup("系统",
                         RibbonButton("show-system", "settings", "系统选项"),
                         RibbonButton("show-lens-editor", "table-2", "镜头数据"),
-                        RibbonButton("show-multiconfig", "panels-top-left", "多配置")))),
+                        RibbonButton("show-multiconfig", "panels-top-left", "多配置")),
+                    RibbonGroup("显示",
+                        RibbonButton("display-settings", "type", "格式与字体")))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",
                         RibbonButton("show-viewer-2d", "panel-top", "2D视图"),
@@ -871,7 +882,7 @@ public sealed class MainWindow : Window
         _statusText.Text = $"{snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
-        _apertureText.Text = $"APER: {snapshot.ApertureValue:0.####}";
+        _apertureText.Text = $"APER: {NumericDisplayFormatter.Format(snapshot.ApertureValue)}";
         _trackText.Text = $"TOTR: {FormatMetric(snapshot.TotalTrack)}";
     }
 
@@ -894,7 +905,32 @@ public sealed class MainWindow : Window
 
     private static string FormatMetric(double value)
     {
-        return double.IsFinite(value) ? value.ToString("0.####") : "∞";
+        return NumericDisplayFormatter.Format(value);
+    }
+
+    private void ConfigureDisplaySettings()
+    {
+        _settings.NormalizeDisplaySettings();
+        NumericDisplayFormatter.Configure(new NumericDisplayOptions(
+            _settings.DecimalPlaces,
+            _settings.UpperScientificExponent,
+            _settings.LowerScientificExponent));
+        DisplayTypography.Configure(_settings);
+    }
+
+    private async Task ShowDisplaySettingsAsync()
+    {
+        var dialog = new DisplaySettingsWindow(_settings);
+        if (!await dialog.ShowDialog<bool>(this))
+        {
+            return;
+        }
+
+        ConfigureDisplaySettings();
+        DisplayTypography.Apply(this);
+        _panels.ApplyDisplaySettings();
+        RefreshStatus();
+        InvalidateVisual();
     }
 
     private void SetLightTheme(bool save = true)

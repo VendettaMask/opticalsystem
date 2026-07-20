@@ -69,9 +69,35 @@ public sealed class DelegateVariable : IOptimizationVariable
 
 public sealed record Operand(string Name, double Target, double Weight, Func<double> Evaluate)
 {
-    public double Residual() => (Evaluate() - Target) * Weight;
+    public double Error() => Evaluate() - Target;
 
-    public double Squared() => Residual() * Residual();
+    public double Residual() => Math.Sqrt(Math.Abs(Weight)) * Error();
+
+    public double Squared()
+    {
+        var residual = Residual();
+        return residual * residual;
+    }
+}
+
+public sealed record OptimizationEvaluation(
+    double[] ObjectiveResiduals,
+    double[] ConstraintResiduals)
+{
+    public double Merit => SumSquares(ObjectiveResiduals);
+
+    public double ConstraintError => SumSquares(ConstraintResiduals);
+
+    private static double SumSquares(IEnumerable<double> values)
+    {
+        var total = 0.0;
+        foreach (var value in values)
+        {
+            total += value * value;
+        }
+
+        return total;
+    }
 }
 
 public interface IVariableScaler
@@ -121,6 +147,7 @@ public sealed class OptimizationProblem
 {
     private readonly List<IOptimizationVariable> _variables = new();
     private readonly List<Operand> _operands = new();
+    private Func<IReadOnlyList<double>, double[]>? _independentValueEvaluator;
 
     public IReadOnlyList<IOptimizationVariable> Variables => _variables;
 
@@ -128,9 +155,16 @@ public sealed class OptimizationProblem
 
     public bool BatchingEnabled { get; private set; } = true;
 
+    public bool SupportsParallelResidualEvaluation => _independentValueEvaluator is not null;
+
     public void AddVariable(IOptimizationVariable variable) => _variables.Add(variable);
 
     public void AddOperand(Operand operand) => _operands.Add(operand);
+
+    public void SetIndependentValueEvaluator(Func<IReadOnlyList<double>, double[]> evaluator)
+    {
+        _independentValueEvaluator = evaluator ?? throw new ArgumentNullException(nameof(evaluator));
+    }
 
     public void DisableBatching() => BatchingEnabled = false;
 
@@ -138,19 +172,86 @@ public sealed class OptimizationProblem
 
     public double[] ResidualVector()
     {
-        using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
-        return _operands.Select(operand => operand.Residual()).ToArray();
+        var evaluation = EvaluateCurrent();
+        return evaluation.ObjectiveResiduals.Concat(evaluation.ConstraintResiduals).ToArray();
     }
 
     public double SumSquared()
     {
-        using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
-        return _operands.Sum(operand => operand.Squared());
+        var evaluation = EvaluateCurrent();
+        return evaluation.Merit + evaluation.ConstraintError;
     }
 
     public double[] VariableVector() => _variables.Select(variable => variable.Value).ToArray();
 
     public double[] ScaledVariableVector() => _variables.Select(variable => variable.ScaledValue).ToArray();
+
+    public double[] VariableVectorFromScaled(IReadOnlyList<double> scaledValues)
+    {
+        var values = new double[Math.Min(scaledValues.Count, _variables.Count)];
+        for (var index = 0; index < values.Length; index++)
+        {
+            var variable = _variables[index];
+            values[index] = Math.Clamp(
+                variable.Scaler.FromScaled(scaledValues[index]),
+                variable.LowerBound,
+                variable.UpperBound);
+        }
+
+        return values;
+    }
+
+    public OptimizationEvaluation EvaluateAtScaled(IReadOnlyList<double> scaledValues)
+    {
+        if (_independentValueEvaluator is not null)
+        {
+            return BuildEvaluation(_independentValueEvaluator(VariableVectorFromScaled(scaledValues)));
+        }
+
+        var original = ScaledVariableVector();
+        try
+        {
+            SetScaledVariableVector(scaledValues);
+            return EvaluateCurrent();
+        }
+        finally
+        {
+            SetScaledVariableVector(original);
+        }
+    }
+
+    private OptimizationEvaluation EvaluateCurrent()
+    {
+        using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
+        return BuildEvaluation(_operands.Select(operand => operand.Evaluate()).ToArray());
+    }
+
+    private OptimizationEvaluation BuildEvaluation(IReadOnlyList<double> values)
+    {
+        if (values.Count != _operands.Count)
+        {
+            throw new InvalidOperationException("独立评价器返回的值数量与操作数数量不一致。");
+        }
+
+        var weightSum = _operands.Sum(operand => Math.Abs(operand.Weight));
+        var objective = new List<double>();
+        var constraints = new List<double>();
+        for (var index = 0; index < _operands.Count; index++)
+        {
+            var operand = _operands[index];
+            var error = values[index] - operand.Target;
+            if (operand.Weight > 0 && weightSum > 0)
+            {
+                objective.Add(Math.Sqrt(operand.Weight / weightSum) * error);
+            }
+            else if (operand.Weight < 0 && weightSum > 0)
+            {
+                constraints.Add(Math.Sqrt(Math.Abs(operand.Weight) / weightSum) * error);
+            }
+        }
+
+        return new OptimizationEvaluation(objective.ToArray(), constraints.ToArray());
+    }
 
     public void SetVariableVector(IReadOnlyList<double> values)
     {
@@ -207,9 +308,12 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
             variable => Math.Max(1e-9, variable.StepHint));
         var history = new List<double> { initial };
 
-        for (var iteration = 0; iteration < maxIterations; iteration++)
+        var iterations = 0;
+        var stagnantIterations = 0;
+        for (; iterations < maxIterations; iterations++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
+            var iterationStart = best;
             var improved = false;
             foreach (var variable in problem.Variables)
             {
@@ -231,12 +335,28 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
                 variable.Value = original;
             }
 
-            if (!improved)
+            var meaningfulImprovement = iterationStart - best
+                > 1e-9 * Math.Max(1, Math.Abs(iterationStart));
+            if (!improved || !meaningfulImprovement)
             {
-                foreach (var variable in problem.Variables)
+                if (!improved)
                 {
-                    stepByVariable[variable] *= 0.5;
+                    foreach (var variable in problem.Variables)
+                    {
+                        stepByVariable[variable] *= 0.5;
+                    }
                 }
+
+                stagnantIterations++;
+                if (stagnantIterations >= 6)
+                {
+                    iterations++;
+                    break;
+                }
+            }
+            else
+            {
+                stagnantIterations = 0;
             }
 
             history.Add(best);
@@ -248,7 +368,7 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
             Success = best <= initial,
             InitialMerit = initial,
             FinalMerit = best,
-            Iterations = maxIterations,
+            Iterations = iterations,
             BestVariables = bestVector,
             MeritHistory = history,
             Message = $"Optimized with {Name}"
@@ -277,24 +397,17 @@ public static class OptimizerCatalog
 {
     public static IReadOnlyList<string> Names { get; } = new[]
     {
-        "Least Squares",
+        "LM / DLS",
         "Nelder-Mead",
         "Powell",
-        "BFGS",
-        "L-BFGS-B",
-        "COBYLA",
-        "Orthogonal Descent",
-        "Differential Evolution",
-        "Dual Annealing",
-        "Basin Hopping",
-        "Glass Expert"
+        "Orthogonal Descent"
     };
 
     public static IOptimizer Create(string name)
     {
         return name switch
         {
-            "Least Squares" => new LeastSquaresOptimizer(),
+            "LM / DLS" or "Least Squares" => new LeastSquaresOptimizer(),
             "Nelder-Mead" => new NelderMeadOptimizer(),
             "Powell" => new PowellOptimizer(),
             "BFGS" => new GradientOptimizer("BFGS", useMomentum: true),

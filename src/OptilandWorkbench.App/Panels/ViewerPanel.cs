@@ -4,7 +4,9 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -21,6 +23,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
     private readonly IVisualizationService _visualization;
     private readonly IWorkspaceEventStream _events;
+    private readonly SurfaceSelectionService _surfaceSelection;
     private readonly SceneDimension _dimension;
     private readonly ViewerPresentationMode _presentationMode;
     private readonly OpticSceneControl _scene;
@@ -50,11 +53,13 @@ public sealed class ViewerPanel : UserControl, IDisposable
     public ViewerPanel(
         IVisualizationService visualization,
         IWorkspaceEventStream events,
+        SurfaceSelectionService surfaceSelection,
         SceneDimension dimension,
         ViewerPresentationMode presentationMode = ViewerPresentationMode.OpticalLayout)
     {
         _visualization = visualization;
         _events = events;
+        _surfaceSelection = surfaceSelection;
         _dimension = dimension;
         _presentationMode = presentationMode;
         _scene = new OpticSceneControl
@@ -65,7 +70,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 : OpticSceneViewMode.ThreeDimensional,
             VisualStyle = presentationMode == ViewerPresentationMode.SolidModel
                 ? OpticSceneVisualStyle.SolidModel
-                : OpticSceneVisualStyle.OpticalLayout
+                : OpticSceneVisualStyle.OpticalLayout,
+            HighlightedSurfaceNumber = surfaceSelection.SelectedSurfaceNumber
         };
 
         RefreshSelectorOptions(preserveSelection: false);
@@ -94,6 +100,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         ApplyDisplaySettings();
         _events.Changed += OnWorkspaceChanged;
+        _surfaceSelection.Changed += OnSurfaceSelectionChanged;
         QueueRefresh(TimeSpan.Zero);
     }
 
@@ -124,6 +131,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        _surfaceSelection.Changed -= OnSurfaceSelectionChanged;
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
     }
@@ -505,6 +513,11 @@ public sealed class ViewerPanel : UserControl, IDisposable
         }
     }
 
+    private void OnSurfaceSelectionChanged(object? sender, SurfaceSelectionChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(() => _scene.HighlightedSurfaceNumber = args.SurfaceNumber);
+    }
+
     private void QueueRefresh(TimeSpan delay)
     {
         if (_disposed || _locked)
@@ -537,8 +550,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
             {
                 _scene.Scene = scene;
                 _scene.InvalidateVisual();
-                _summary.Text = $"有效焦距 {scene.Summary.EffectiveFocalLength:0.###} mm    " +
-                    $"F 数 {scene.Summary.FNumber:0.###}    系统总长 {scene.Summary.TotalTrack:0.###} mm";
+                _summary.Text = $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    " +
+                    $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    " +
+                    $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
             });
         }
         catch (OperationCanceledException)

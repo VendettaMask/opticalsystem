@@ -108,7 +108,14 @@ public sealed record AnalysisPlotOptions(
 public sealed record AnalysisPlotPane(
     string Title,
     IReadOnlyList<AnalysisSeries> Series,
-    AnalysisPlotOptions PlotOptions);
+    AnalysisPlotOptions PlotOptions,
+    IReadOnlyList<AnalysisPlotMetric>? Metrics = null,
+    string Footer = "");
+
+public sealed record AnalysisPlotMetric(
+    string Label,
+    double Value,
+    string Unit = "");
 
 public sealed record AnalysisData(
     string Name,
@@ -168,6 +175,12 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 MarkerStyle: (AnalysisMarkerStyle)(index % 3),
                 MarkerSize: 2.5,
                 Opacity: 0.7)).ToArray();
+            var fieldRays = field.Wavelengths.SelectMany(wavelength => wavelength.Rays).ToArray();
+            var rmsRadiusMicrometers = SpotAnalysisEngine.RmsRadius(fieldRays) * 1000;
+            var geometricRadiusMicrometers = fieldRays
+                .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
+                .DefaultIfEmpty(0)
+                .Max() * 1000;
             return new AnalysisPlotPane(
                 fieldTitle,
                 series,
@@ -178,7 +191,13 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                     XMaximum: axisLimit,
                     YMinimum: -axisLimit,
                     YMaximum: axisLimit,
-                    GridOpacity: 0.25));
+                    GridOpacity: 0.25),
+                new[]
+                {
+                    new AnalysisPlotMetric("RMS 半径", rmsRadiusMicrometers, "µm"),
+                    new AnalysisPlotMetric("GEO 半径", geometricRadiusMicrometers, "µm")
+                },
+                "参考：主波长质心");
         }).ToArray();
         var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -2031,7 +2050,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var source = ImageSimulationEngine.CreateTestChart(64, 48);
+        var source = ImageSimulationEngine.CreateSourceImage(_config.SourcePattern, 64, 48);
         var result = ImageSimulationEngine.Simulate(Optic, source, _config);
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
@@ -2043,6 +2062,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Pipeline"] = "EigenPSF spatially variable convolution + geometric distortion + lateral color",
+            ["SourcePattern"] = _config.SourcePattern.ToString(),
             ["OutputShape"] = $"(1, {result.Simulated.Channels}, {result.Simulated.Height}, {result.Simulated.Width})",
             ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.00"))),
             ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",

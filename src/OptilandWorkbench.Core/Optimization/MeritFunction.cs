@@ -231,8 +231,10 @@ public static class MeritFunctionCatalog
                 throw new InvalidOperationException("计算结果不是有限数值。");
             }
 
-            var residual = (value - definition.Target) * definition.Weight;
-            return new MeritOperandEvaluation(value, residual * residual);
+            var error = value - definition.Target;
+            return new MeritOperandEvaluation(
+                value,
+                Math.Abs(definition.Weight) * error * error);
         }
         catch (Exception exception) when (exception is not OperationCanceledException)
         {
@@ -381,7 +383,7 @@ public static class MeritFunctionCatalog
                             fieldIndex,
                             wavelengthIndex,
                             pupilSample,
-                            weightScale * Math.Sqrt(axisWeight),
+                            weightScale * axisWeight,
                             settings,
                             pupilPrototype));
                         continue;
@@ -434,7 +436,7 @@ public static class MeritFunctionCatalog
                 fieldIndex,
                 wavelengthIndex,
                 pupilSample,
-                weightScale * Math.Sqrt(baseWeight),
+                weightScale * baseWeight,
                 settings,
                 prototype));
             return;
@@ -449,7 +451,7 @@ public static class MeritFunctionCatalog
                 fieldIndex,
                 wavelengthIndex,
                 pupilSample,
-                weightScale * Math.Sqrt(baseWeight * xWeight),
+                weightScale * baseWeight * xWeight,
                 settings,
                 prototype));
         }
@@ -463,7 +465,7 @@ public static class MeritFunctionCatalog
                 fieldIndex,
                 wavelengthIndex,
                 pupilSample,
-                weightScale * Math.Sqrt(baseWeight * yWeight),
+                weightScale * baseWeight * yWeight,
                 settings,
                 prototype));
         }
@@ -497,7 +499,7 @@ public static class MeritFunctionCatalog
                 fieldIndex,
                 wavelengthIndex,
                 pupilSample,
-                weightScale * Math.Sqrt(baseWeight * pupilSample.Weight * xWeight),
+                weightScale * baseWeight * pupilSample.Weight * xWeight,
                 settings,
                 prototype);
             operand.SpatialFrequency = frequency;
@@ -511,7 +513,7 @@ public static class MeritFunctionCatalog
                 fieldIndex,
                 wavelengthIndex,
                 pupilSample,
-                weightScale * Math.Sqrt(baseWeight * pupilSample.Weight * yWeight),
+                weightScale * baseWeight * pupilSample.Weight * yWeight,
                 settings,
                 prototype);
             operand.SpatialFrequency = frequency;

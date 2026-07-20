@@ -501,7 +501,16 @@ public sealed class Optic
                 opticalSurface.MaterialAfter = ComponentSnapshotFactory.ToMaterial(surface.Components.MaterialAfterComponent, surface.Components.MaterialAfter, Materials);
                 opticalSurface.CoatingModel = ComponentSnapshotFactory.ToCoating(surface.Components.Coating);
                 opticalSurface.InteractionModel = ComponentSnapshotFactory.ToInteraction(surface.Components.Interaction, surface.IsReflective);
-                opticalSurface.PhysicalAperture = ComponentSnapshotFactory.ToAperture(surface.Components.PhysicalAperture, surface.SemiDiameter);
+                var apertureSnapshot = surface.Components.PhysicalAperture;
+                if (apertureSnapshot is null
+                    && !string.IsNullOrWhiteSpace(surface.Components.PhysicalApertureKind))
+                {
+                    apertureSnapshot = ComponentSnapshot.Empty(surface.Components.PhysicalApertureKind);
+                }
+
+                opticalSurface.PhysicalAperture = ComponentSnapshotFactory.ToAperture(
+                    apertureSnapshot,
+                    surface.SemiDiameter);
                 opticalSurface.ScatteringModel = ComponentSnapshotFactory.ToScattering(surface.Components.Scattering);
             }
 

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -411,6 +412,11 @@ public sealed class OptilandConnector
             },
             "Image Simulation" => new[]
             {
+                ChoiceParameter(
+                    "SourceImage",
+                    "输入图像",
+                    "彩色测试卡",
+                    new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 IntParameter("PsfSize", "PSF 尺寸", "32", 8, 256),
                 IntParameter("NumRays", "光线数", "16", 2, 256),
                 IntParameter("EigenPsfComponents", "EigenPSF 分量数", "3", 1, 12),
@@ -622,6 +628,13 @@ public sealed class OptilandConnector
                 Int("MapSize", 65)),
             "Image Simulation" => new ImageSimulationAnalysis(CurrentOptic, new ImageSimulationConfig
             {
+                SourcePattern = Text("SourceImage", "彩色测试卡") switch
+                {
+                    "分辨率靶标" => ImageSimulationSourcePattern.ResolutionTarget,
+                    "畸变网格" => ImageSimulationSourcePattern.DistortionGrid,
+                    "西门子星" => ImageSimulationSourcePattern.SiemensStar,
+                    _ => ImageSimulationSourcePattern.ColorChart
+                },
                 PsfSize = Int("PsfSize", 32),
                 NumRays = Int("NumRays", 16),
                 Components = Int("EigenPsfComponents", 3),
@@ -955,7 +968,7 @@ public sealed class OptilandConnector
 
         var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
         SetSurfaceRadius(surface, surface.Radius);
-        SetStatus($"{DisplayOptimizerMessage(result.Message)}。半径 {initialRadius:0.###} -> {surface.Radius:0.###}。");
+        SetStatus($"{DisplayOptimizerMessage(result.Message)}。半径 {NumericDisplayFormatter.Format(initialRadius)} -> {NumericDisplayFormatter.Format(surface.Radius)}。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
         return result;
@@ -975,6 +988,7 @@ public sealed class OptilandConnector
 
         CaptureCurrentState();
         var problem = CurrentOptic.CreateOptimizationProblem();
+        var variableBindings = new List<(int SurfaceNumber, bool IsRadius)>();
         foreach (var surface in selected)
         {
             if (surface.RadiusVariable)
@@ -1000,6 +1014,7 @@ public sealed class OptilandConnector
                     Math.Min(1_000_000, upper),
                     Math.Max(0.1, Math.Abs(initial) * 0.05),
                     new UnitRangeScaler(lower, upper)));
+                variableBindings.Add((surface.Number, true));
             }
 
             if (surface.ThicknessVariable)
@@ -1019,6 +1034,7 @@ public sealed class OptilandConnector
                     upper,
                     Math.Max(0.05, Math.Abs(initial) * 0.05),
                     new UnitRangeScaler(lower, upper)));
+                variableBindings.Add((surface.Number, false));
             }
         }
 
@@ -1042,6 +1058,15 @@ public sealed class OptilandConnector
             }
         }
 
+        var evaluationSnapshot = CurrentOptic.ToSnapshot();
+        var evaluationOperands = meritOperands.Select(operand => operand.Clone()).ToArray();
+        using var evaluationOptics = new ThreadLocal<Optic>(() => Optic.FromSnapshot(evaluationSnapshot));
+        problem.SetIndependentValueEvaluator(values => EvaluateIndependentValues(
+            evaluationOptics.Value!,
+            variableBindings,
+            evaluationOperands,
+            values));
+
         var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
         foreach (var surface in selected)
         {
@@ -1049,7 +1074,7 @@ public sealed class OptilandConnector
         }
 
         CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
-        SetStatus($"{DisplayOptimizerMessage(result.Message)}。{problem.Variables.Count} 个变量，评价函数 {result.InitialMerit:0.######} -> {result.FinalMerit:0.######}。");
+        SetStatus($"{DisplayOptimizerMessage(result.Message)}。{problem.Variables.Count} 个变量，评价函数 {NumericDisplayFormatter.Format(result.InitialMerit)} -> {NumericDisplayFormatter.Format(result.FinalMerit)}。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
         return result;
@@ -1069,6 +1094,55 @@ public sealed class OptilandConnector
             {
                 return 1_000_000;
             }
+        }
+
+        static double[] EvaluateIndependentValues(
+            Optic optic,
+            IReadOnlyList<(int SurfaceNumber, bool IsRadius)> bindings,
+            IReadOnlyList<MeritOperandDefinition> operands,
+            IReadOnlyList<double> values)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var index = 0; index < Math.Min(bindings.Count, values.Count); index++)
+            {
+                var binding = bindings[index];
+                var surface = optic.SurfaceGroup.Items.First(item => item.Number == binding.SurfaceNumber);
+                if (binding.IsRadius)
+                {
+                    SetSurfaceRadius(surface, values[index]);
+                }
+                else
+                {
+                    surface.Thickness = values[index];
+                }
+            }
+
+            optic.SurfaceGroup.Renumber(syncComposition: false);
+            if (operands.Count == 0)
+            {
+                try
+                {
+                    var value = new AnalysisRunner(optic).EvaluateSpotDiagram().RmsSpotRadius;
+                    return new[] { double.IsFinite(value) ? value : 1_000_000 };
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+                catch
+                {
+                    return new[] { 1_000_000.0 };
+                }
+            }
+
+            using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
+            return operands.Select(operand =>
+            {
+                var evaluation = MeritFunctionCatalog.Evaluate(optic, operand);
+                return string.IsNullOrEmpty(evaluation.Error) && double.IsFinite(evaluation.Value)
+                    ? evaluation.Value
+                    : 1_000_000;
+            }).ToArray();
         }
     }
 
@@ -1219,7 +1293,7 @@ public sealed class OptilandConnector
 
         var sensitivity = new SensitivityAnalysis(CurrentOptic, tolerancing)
             .Run(compensationIterations, cancellationToken)
-            .Select(result => new TolerancingSensitivityRow(result.Perturbation, result.DeltaMerit.ToString("0.######")))
+            .Select(result => new TolerancingSensitivityRow(result.Perturbation, NumericDisplayFormatter.Format(result.DeltaMerit)))
             .ToArray();
         var monteCarlo = new MonteCarlo(CurrentOptic, tolerancing)
             .RunDetailed(
@@ -1229,8 +1303,8 @@ public sealed class OptilandConnector
                 cancellationToken)
             .Select(result => new TolerancingTrialRow(
                 result.Trial + 1,
-                result.Merit.ToString("0.######"),
-                result.CompensatedMerit.ToString("0.######")))
+                NumericDisplayFormatter.Format(result.Merit),
+                NumericDisplayFormatter.Format(result.CompensatedMerit)))
             .ToArray();
 
         SetStatus($"公差分析完成：表面 {surface.Number}，{monteCarlo.Length} 次 Monte Carlo。");
@@ -1250,8 +1324,8 @@ public sealed class OptilandConnector
                 $"配置 {index + 1}",
                 index == _activeConfigurationIndex,
                 optic.SurfaceGroup.Items.Count,
-                optic.SurfaceGroup.TotalTrack.ToString("0.###"),
-                optic.Paraxial.EstimateEffectiveFocalLength().ToString("0.###")))
+                NumericDisplayFormatter.Format(optic.SurfaceGroup.TotalTrack),
+                NumericDisplayFormatter.Format(optic.Paraxial.EstimateEffectiveFocalLength())))
             .ToArray();
     }
 
@@ -1327,7 +1401,7 @@ public sealed class OptilandConnector
         {
             var span = Math.Max(Math.Abs(target.Radius) * 3, Math.Abs(radiusSigma) * 10);
             tolerancing.AddPerturbation(new VariablePerturbation(
-                $"表面 {surfaceNumber} 半径 N(0,{Math.Abs(radiusSigma):0.###})",
+                $"表面 {surfaceNumber} 半径 N(0,{NumericDisplayFormatter.Format(Math.Abs(radiusSigma))})",
                 new DelegateVariable(
                     $"表面 {surfaceNumber} 半径",
                     () => GetSurfaceByNumber(surfaceNumber).Radius,
@@ -1341,7 +1415,7 @@ public sealed class OptilandConnector
         if (Math.Abs(thicknessSigma) > 1e-12)
         {
             tolerancing.AddPerturbation(new VariablePerturbation(
-                $"表面 {surfaceNumber} 厚度 N(0,{Math.Abs(thicknessSigma):0.###})",
+                $"表面 {surfaceNumber} 厚度 N(0,{NumericDisplayFormatter.Format(Math.Abs(thicknessSigma))})",
                 new DelegateVariable(
                     $"表面 {surfaceNumber} 厚度",
                     () => GetSurfaceByNumber(surfaceNumber).Thickness,
@@ -1854,8 +1928,8 @@ public sealed class OptilandConnector
     {
         return value switch
         {
-            double number => number.ToString("0.######"),
-            float number => number.ToString("0.######"),
+            double number => NumericDisplayFormatter.Format(number),
+            float number => NumericDisplayFormatter.Format(number),
             string text when text == "linear-height" => "线性高度",
             _ => value.ToString() ?? string.Empty
         };

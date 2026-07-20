@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Globalization;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
@@ -123,6 +125,43 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(restored);
         Assert.Equal("16", restored.AnalysisSettings["PSF"]["NumRays"]);
         Assert.Equal("32", restored.AnalysisSettings["PSF"]["GridSize"]);
+    }
+
+    [Fact]
+    public void AppSettingsRoundTripsDisplaySettings()
+    {
+        var settings = new AppSettings
+        {
+            DecimalPlaces = 4,
+            UpperScientificExponent = 7,
+            LowerScientificExponent = -5,
+            FontFamily = "Arial",
+            FontShape = "BoldItalic",
+            FontSize = 16
+        };
+
+        var restored = JsonSerializer.Deserialize<AppSettings>(JsonSerializer.Serialize(settings));
+
+        Assert.NotNull(restored);
+        Assert.Equal(4, restored.DecimalPlaces);
+        Assert.Equal(7, restored.UpperScientificExponent);
+        Assert.Equal(-5, restored.LowerScientificExponent);
+        Assert.Equal("Arial", restored.FontFamily);
+        Assert.Equal("BoldItalic", restored.FontShape);
+        Assert.Equal(16, restored.FontSize);
+    }
+
+    [Theory]
+    [InlineData(12.345, "12.35")]
+    [InlineData(9999, "9999")]
+    [InlineData(10000, "1E+4")]
+    [InlineData(0.01, "0.01")]
+    [InlineData(0.001, "1E-3")]
+    public void NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(double value, string expected)
+    {
+        var options = new NumericDisplayOptions(2, 4, -3);
+
+        Assert.Equal(expected, NumericDisplayFormatter.Format(value, options, CultureInfo.InvariantCulture));
     }
 
     [Fact]
@@ -353,6 +392,21 @@ public sealed class AnalysisGuiContractTests
         Assert.Single(connector.Fields);
         Assert.Single(connector.Wavelengths);
         Assert.True(connector.Wavelengths[0].IsPrimary);
+    }
+
+    [Fact]
+    public void ImageSimulationOffersMultipleSelectableSourceImages()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+
+        var sourceImage = Assert.Single(
+            connector.GetAnalysisParameters("Image Simulation"),
+            parameter => parameter.Key == "SourceImage");
+
+        Assert.Equal("彩色测试卡", sourceImage.DefaultValue);
+        Assert.Equal(
+            new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" },
+            sourceImage.Choices);
     }
 
     [Fact]

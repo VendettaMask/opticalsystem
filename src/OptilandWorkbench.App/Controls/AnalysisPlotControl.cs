@@ -4,6 +4,8 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.App.Services;
 using AnalysisPoint = OptilandWorkbench.Application.Contracts.AnalysisPointDto;
 using AnalysisSeries = OptilandWorkbench.Application.Contracts.AnalysisSeriesDto;
 using AnalysisPlotOptions = OptilandWorkbench.Application.Contracts.AnalysisPlotOptionsDto;
@@ -354,7 +356,8 @@ public sealed class AnalysisPlotControl : Control
         }
         else if (sample.Point.Red.HasValue && sample.Point.Green.HasValue && sample.Point.Blue.HasValue)
         {
-            lines.Add($"RGB: {sample.Point.Red:0.###}, {sample.Point.Green:0.###}, {sample.Point.Blue:0.###}");
+            lines.Add(
+                $"RGB: {FormatTick(sample.Point.Red.Value)}, {FormatTick(sample.Point.Green.Value)}, {FormatTick(sample.Point.Blue.Value)}");
         }
 
         var text = CreateText(string.Join(Environment.NewLine, lines), 11, Brushes.White, FontWeight.SemiBold);
@@ -885,17 +888,14 @@ public sealed class AnalysisPlotControl : Control
             text,
             CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight,
-            new Typeface("Arial", FontStyle.Normal, weight ?? FontWeight.Normal),
-            size,
+            DisplayTypography.Typeface(weight),
+            DisplayTypography.Scale(size),
             brush);
     }
 
     private static string FormatTick(double value)
     {
-        var magnitude = Math.Abs(value);
-        return magnitude is > 0 and (< 0.001 or >= 10000)
-            ? value.ToString("0.###E+0", CultureInfo.CurrentCulture)
-            : value.ToString("0.###", CultureInfo.CurrentCulture);
+        return NumericDisplayFormatter.Format(value);
     }
 
     private static bool IsFinite(AnalysisPoint point)

@@ -7,12 +7,14 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class OptimizationPanel : UserControl, IDisposable
+public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
     private readonly IOptimizationService _optimization;
@@ -26,7 +28,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable
         Minimum = 1,
         Maximum = 1000,
         Increment = 10,
-        Value = 80,
+        Value = 30,
         Width = 88,
         ShowButtonSpinner = false
     };
@@ -149,6 +151,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
     }
+
+    public void RefreshDisplaySettings() => Refresh();
 
     private DataGrid CreateGrid()
     {
@@ -282,7 +286,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable
             var errors = activeRows.Count(row => !string.IsNullOrWhiteSpace(row.Error));
             _summary.Text = _rows.Count == 0
                 ? "评价函数为空。可添加操作数，或生成默认 RMS 点列/波前评价函数。"
-                : $"操作数：{activeRows.Length}　评价函数：{merit:0.######}"
+                : $"操作数：{activeRows.Length}　评价函数：{NumericDisplayFormatter.Format(merit)}"
                   + (errors > 0 ? $"　错误：{errors}" : string.Empty);
             UpdateVariableSummary();
             if (_optimizerPicker.SelectedItem is null && _optimization.OptimizerNames.Count > 0)
@@ -417,7 +421,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable
             }
 
             _result.Text =
-                $"{result.Message}　评价函数：{result.InitialMerit:0.######} → {result.FinalMerit:0.######}　" +
+                $"{result.Message}　评价函数：{NumericDisplayFormatter.Format(result.InitialMerit)} → {NumericDisplayFormatter.Format(result.FinalMerit)}　" +
                 $"迭代：{result.Iterations}";
             Refresh();
         }

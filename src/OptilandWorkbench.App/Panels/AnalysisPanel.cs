@@ -10,12 +10,13 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class AnalysisPanel : UserControl, IDisposable
+public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IAnalysisService _analyses;
     private readonly IOpticalDocumentService _documents;
@@ -180,6 +181,11 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         _events.Changed -= OnWorkspaceChanged;
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
+    }
+
+    public void RefreshDisplaySettings()
+    {
+        _ = RunAsync();
     }
 
     private async Task RunAsync()
@@ -463,10 +469,13 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         OpticalDocumentSnapshot document,
         DateTimeOffset generatedAt)
     {
-        var visibleRows = view.Rows
-            .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
-            .Take(7)
-            .ToArray();
+        var hasPaneMetrics = view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
+        var visibleRows = hasPaneMetrics
+            ? Array.Empty<AnalysisRowDto>()
+            : view.Rows
+                .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
+                .Take(7)
+                .ToArray();
         var resultLines = visibleRows.Length == 0
             ? "暂无摘要数据"
             : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}"));
@@ -487,30 +496,47 @@ public sealed class AnalysisPanel : UserControl, IDisposable
         var left = new StackPanel
         {
             Spacing = 2,
-            Margin = new Thickness(16, 10, 16, 10),
-            Children =
-            {
-                new TextBlock
-                {
-                    Text = view.Name,
-                    FontSize = 15,
-                    FontWeight = FontWeight.SemiBold
-                },
-                new TextBlock
-                {
-                    Text = generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                    FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
-                },
-                new TextBlock
-                {
-                    Text = resultLines,
-                    FontSize = 11,
-                    LineHeight = 16,
-                    TextWrapping = TextWrapping.Wrap
-                }
-            }
+            Margin = new Thickness(16, 10, 16, 10)
         };
+        left.Children.Add(new TextBlock
+        {
+            Text = view.Name,
+            FontSize = 15,
+            FontWeight = FontWeight.SemiBold
+        });
+        left.Children.Add(new TextBlock
+        {
+            Text = generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
+            FontSize = 11,
+            Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
+        });
+        var resultSummary = new TextBlock
+        {
+            Text = resultLines,
+            FontSize = 11,
+            LineHeight = 16,
+            TextWrapping = TextWrapping.Wrap
+        };
+        var paneMetrics = BuildPaneMetricsSummary(view.PlotPanes);
+        if (paneMetrics is null)
+        {
+            left.Children.Add(resultSummary);
+        }
+        else if (visibleRows.Length == 0)
+        {
+            left.Children.Add(paneMetrics);
+        }
+        else
+        {
+            var summaryBody = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("Auto,*")
+            };
+            summaryBody.Children.Add(resultSummary);
+            Grid.SetColumn(paneMetrics, 1);
+            summaryBody.Children.Add(paneMetrics);
+            left.Children.Add(summaryBody);
+        }
 
         var product = new StackPanel
         {
@@ -669,6 +695,96 @@ public sealed class AnalysisPanel : UserControl, IDisposable
             Content = content,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+        };
+    }
+
+    private static Control? BuildPaneMetricsSummary(IReadOnlyList<AnalysisPlotPaneDto> panes)
+    {
+        var populated = panes
+            .Where(pane => pane.Metrics is { Count: > 0 })
+            .ToArray();
+        if (populated.Length == 0)
+        {
+            return null;
+        }
+
+        var labels = populated
+            .SelectMany(pane => pane.Metrics!)
+            .Select(metric => metric.Label)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+        var grid = new Grid
+        {
+            Margin = new Thickness(28, 0, 0, 0),
+            ColumnDefinitions = new ColumnDefinitions(
+                "Auto," + string.Join(',', Enumerable.Repeat("Auto", populated.Length))),
+            RowDefinitions = new RowDefinitions(
+                string.Join(',', Enumerable.Repeat("Auto", labels.Length + 1)))
+        };
+
+        for (var paneIndex = 0; paneIndex < populated.Length; paneIndex++)
+        {
+            var header = new TextBlock
+            {
+                Text = $"视场 {paneIndex + 1}",
+                FontSize = 11,
+                FontWeight = FontWeight.SemiBold,
+                Margin = new Thickness(12, 0, 4, 2),
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            Grid.SetColumn(header, paneIndex + 1);
+            grid.Children.Add(header);
+        }
+
+        for (var rowIndex = 0; rowIndex < labels.Length; rowIndex++)
+        {
+            var label = new TextBlock
+            {
+                Text = labels[rowIndex] + "：",
+                FontSize = 11,
+                Margin = new Thickness(0, 1, 6, 1)
+            };
+            Grid.SetRow(label, rowIndex + 1);
+            grid.Children.Add(label);
+            for (var paneIndex = 0; paneIndex < populated.Length; paneIndex++)
+            {
+                var metric = populated[paneIndex].Metrics!
+                    .FirstOrDefault(item => item.Label == labels[rowIndex]);
+                if (metric is null)
+                {
+                    continue;
+                }
+
+                var value = new TextBlock
+                {
+                    Text = $"{NumericDisplayFormatter.Format(metric.Value)} {metric.Unit}".TrimEnd(),
+                    FontSize = 11,
+                    Margin = new Thickness(12, 1, 4, 1),
+                    HorizontalAlignment = HorizontalAlignment.Right
+                };
+                Grid.SetColumn(value, paneIndex + 1);
+                Grid.SetRow(value, rowIndex + 1);
+                grid.Children.Add(value);
+            }
+        }
+
+        var reference = populated
+            .Select(pane => pane.Footer)
+            .FirstOrDefault(footer => !string.IsNullOrWhiteSpace(footer));
+        return new StackPanel
+        {
+            Spacing = 2,
+            Children =
+            {
+                grid,
+                new TextBlock
+                {
+                    Text = reference ?? string.Empty,
+                    IsVisible = !string.IsNullOrWhiteSpace(reference),
+                    FontSize = 10.5,
+                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
+                }
+            }
         };
     }
 

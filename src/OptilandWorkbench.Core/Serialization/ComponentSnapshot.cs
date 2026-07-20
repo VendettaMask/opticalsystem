@@ -518,7 +518,7 @@ public static class ComponentSnapshotFactory
             "union" => ReadBooleanAperture(snapshot, (left, right) => new UnionAperture(left, right), fallbackRadius),
             "intersection" => ReadBooleanAperture(snapshot, (left, right) => new IntersectionAperture(left, right), fallbackRadius),
             "difference" => ReadBooleanAperture(snapshot, (left, right) => new DifferenceAperture(left, right), fallbackRadius),
-            null => new CircularAperture(fallbackRadius),
+            null => null,
             _ => new CircularAperture(fallbackRadius)
         };
     }

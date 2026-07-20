@@ -682,7 +682,7 @@ internal static class ZemaxZmxReader
             Px = RequiredDouble(tokens, 5, command),
             Py = RequiredDouble(tokens, 6, command),
             Target = RequiredDouble(tokens, 7, command),
-            Weight = Math.Abs(RequiredDouble(tokens, 8, command))
+            Weight = RequiredDouble(tokens, 8, command)
         });
     }
 

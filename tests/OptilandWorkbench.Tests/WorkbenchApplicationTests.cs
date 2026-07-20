@@ -1,5 +1,7 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Tests;
@@ -48,6 +50,33 @@ public sealed class WorkbenchApplicationTests
 
         Assert.True(restored.SurfaceGroup.Items[1].SemiDiameterFixed);
         Assert.Equal(8.75, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void SnapshotPreservesAutomaticSemiDiametersWithoutCreatingPhysicalApertures()
+    {
+        var optic = OptilandWorkbench.Core.Optic.CreateBlank();
+        optic.Fields.Add(new FieldPoint
+        {
+            Label = "14 deg",
+            YAngleDegrees = 14,
+            Weight = 1
+        });
+        optic.SurfaceGroup.Items[^1].SemiDiameter = 1;
+
+        var restored = OptilandWorkbench.Core.Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.All(restored.SurfaceGroup.Items, surface => Assert.Null(surface.PhysicalAperture));
+        var evaluations = MeritFunctionCatalog.CreateDefaultRmsSpot(restored)
+            .Where(operand => operand.Field == 2 && operand.Type is "TRCX" or "TRCY")
+            .Select(operand => MeritFunctionCatalog.Evaluate(restored, operand))
+            .ToArray();
+        Assert.NotEmpty(evaluations);
+        Assert.All(evaluations, evaluation =>
+        {
+            Assert.True(double.IsFinite(evaluation.Value));
+            Assert.True(string.IsNullOrEmpty(evaluation.Error));
+        });
     }
 
     [Fact]
@@ -267,6 +296,30 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public async Task LeastSquaresOptimizesMultipleVariablesWithIndependentOpticSnapshots()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surfaces = application.Prescription.GetSurfaces();
+        var first = surfaces.First(item => item.Number == 1);
+        var second = surfaces.First(item => item.Number == 2);
+        application.Prescription.UpdateSurface(first with
+        {
+            Radius = first.Radius + 8,
+            RadiusVariable = true
+        });
+        application.Prescription.UpdateSurface(second with { ThicknessVariable = true });
+        application.Optimization.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot);
+
+        var result = await application.Optimization.OptimizeVariablesAsync(
+            "Least Squares",
+            maxIterations: 8);
+
+        Assert.Equal(2, result.Variables.Count);
+        Assert.True(double.IsFinite(result.FinalMerit));
+        Assert.True(result.FinalMerit < result.InitialMerit);
+    }
+
+    [Fact]
     public async Task VariableOptimizationRequiresAtLeastOneMarkedValue()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -317,6 +370,22 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void MeritFunctionEditorPreservesNegativeConstraintWeight()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Optimization.SetMeritFunction(new[]
+        {
+            new MeritOperandRowDto(
+                1, true, "RADI", 1, 0, 0, 0, 0, 0, 0,
+                25, -10, 0, 0, "精确半径约束")
+        });
+
+        var restored = Assert.Single(application.Optimization.GetMeritFunction());
+
+        Assert.Equal(-10, restored.Weight);
+    }
+
+    [Fact]
     public void DefaultMeritFunctionCanGenerateSpotAndWavefrontOperands()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -348,7 +417,7 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(0.7071067811865476, firstField[1].Px, precision: 12);
         Assert.Equal(0.9419651451198934, firstField[2].Px, precision: 12);
         Assert.All(firstField, operand => Assert.Equal(0, operand.Py, precision: 12));
-        Assert.Equal(1.0 / 9.0, firstField.Sum(operand => operand.Weight * operand.Weight), precision: 12);
+        Assert.Equal(1.0 / 9.0, firstField.Sum(operand => operand.Weight), precision: 12);
     }
 
     [Fact]
@@ -431,6 +500,29 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(7, result.Generation);
         Assert.Equal(sourceRevision, result.SourceRevision);
         Assert.NotEmpty(result.View.Rows);
+    }
+
+    [Fact]
+    public async Task SpotDiagramResultCarriesPerFieldRadiusMetricsToTheUi()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var settings = application.Analyses.MergeSettings("Spot Diagram", null);
+
+        var result = await application.Analyses.RunAsync(new AnalysisRequestDto(
+            Guid.NewGuid(),
+            1,
+            "Spot Diagram",
+            settings));
+
+        Assert.Equal(application.Prescription.GetFields().Count, result.View.PlotPanes.Count);
+        Assert.All(result.View.PlotPanes, pane =>
+        {
+            Assert.Collection(
+                pane.Metrics!,
+                metric => Assert.Equal("RMS 半径", metric.Label),
+                metric => Assert.Equal("GEO 半径", metric.Label));
+            Assert.Contains("参考", pane.Footer);
+        });
     }
 
     [Fact]

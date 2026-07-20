@@ -2,8 +2,18 @@ using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Analysis;
 
+public enum ImageSimulationSourcePattern
+{
+    ColorChart,
+    ResolutionTarget,
+    DistortionGrid,
+    SiemensStar
+}
+
 public sealed class ImageSimulationConfig
 {
+    public ImageSimulationSourcePattern SourcePattern { get; init; } = ImageSimulationSourcePattern.ColorChart;
+
     public IReadOnlyList<double> WavelengthsMicrometers { get; init; } = new[] { 0.65, 0.55, 0.45 };
 
     public int PsfGridRows { get; init; } = 5;
@@ -50,6 +60,20 @@ public sealed record ImageSimulationResult(
 
 public static class ImageSimulationEngine
 {
+    public static RgbImage CreateSourceImage(
+        ImageSimulationSourcePattern pattern,
+        int width = 96,
+        int height = 64)
+    {
+        return pattern switch
+        {
+            ImageSimulationSourcePattern.ResolutionTarget => CreateResolutionTarget(width, height),
+            ImageSimulationSourcePattern.DistortionGrid => CreateDistortionGrid(width, height),
+            ImageSimulationSourcePattern.SiemensStar => CreateSiemensStar(width, height),
+            _ => CreateTestChart(width, height)
+        };
+    }
+
     public static ImageSimulationResult Simulate(Optic optic, RgbImage source, ImageSimulationConfig? config = null)
     {
         config ??= new ImageSimulationConfig();
@@ -149,6 +173,99 @@ public static class ImageSimulationEngine
         }
 
         return new RgbImage(values);
+    }
+
+    public static RgbImage CreateResolutionTarget(int width = 96, int height = 64)
+    {
+        width = Math.Max(16, width);
+        height = Math.Max(16, height);
+        var values = new double[3, height, width];
+        for (var row = 0; row < height; row++)
+        {
+            for (var column = 0; column < width; column++)
+            {
+                var band = Math.Min(3, column * 4 / width);
+                var period = Math.Max(2, 8 - (band * 2));
+                var verticalBars = ((column / period) % 2) == 0;
+                var horizontalBars = ((row / period) % 2) == 0;
+                var value = row < height / 2
+                    ? verticalBars ? 0.06 : 0.94
+                    : horizontalBars ? 0.06 : 0.94;
+                if (Math.Abs(column - (width / 2)) <= 1 || Math.Abs(row - (height / 2)) <= 1)
+                {
+                    value = 0.5;
+                }
+
+                SetRgb(values, row, column, value, value, value);
+            }
+        }
+
+        return new RgbImage(values);
+    }
+
+    public static RgbImage CreateDistortionGrid(int width = 96, int height = 64)
+    {
+        width = Math.Max(16, width);
+        height = Math.Max(16, height);
+        var values = new double[3, height, width];
+        var spacing = Math.Max(4, Math.Min(width, height) / 8);
+        for (var row = 0; row < height; row++)
+        {
+            for (var column = 0; column < width; column++)
+            {
+                var onGrid = row % spacing <= 1 || column % spacing <= 1;
+                var value = onGrid ? 0.05 : 0.96;
+                var centerLine = Math.Abs(column - (width / 2)) <= 1 || Math.Abs(row - (height / 2)) <= 1;
+                SetRgb(
+                    values,
+                    row,
+                    column,
+                    centerLine ? 0.82 : value,
+                    centerLine ? 0.12 : value,
+                    centerLine ? 0.10 : value);
+            }
+        }
+
+        return new RgbImage(values);
+    }
+
+    public static RgbImage CreateSiemensStar(int width = 96, int height = 64)
+    {
+        width = Math.Max(16, width);
+        height = Math.Max(16, height);
+        var values = new double[3, height, width];
+        var centerX = (width - 1) / 2.0;
+        var centerY = (height - 1) / 2.0;
+        var radius = Math.Min(width, height) * 0.44;
+        const int sectorPairs = 18;
+        for (var row = 0; row < height; row++)
+        {
+            for (var column = 0; column < width; column++)
+            {
+                var dx = column - centerX;
+                var dy = row - centerY;
+                var distance = Math.Sqrt((dx * dx) + (dy * dy));
+                var angle = Math.Atan2(dy, dx);
+                var value = distance <= radius
+                    ? Math.Sin(angle * sectorPairs) >= 0 ? 0.04 : 0.96
+                    : 0.82;
+                if (Math.Abs(distance - radius) <= 1)
+                {
+                    value = 0.35;
+                }
+
+                SetRgb(values, row, column, value, value, value);
+            }
+        }
+
+        return new RgbImage(values);
+    }
+
+    private static void SetRgb(double[,,] values, int row, int column, double red, double green, double blue)
+    {
+        values[0, row, column] = red;
+        values[1, row, column] = green;
+        values[2, row, column] = blue;
     }
 
     public static PsfBasisResult GenerateBasis(Optic optic, Wavelength wavelength, ImageSimulationConfig config)

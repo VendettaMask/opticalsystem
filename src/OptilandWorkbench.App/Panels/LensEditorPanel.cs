@@ -7,18 +7,18 @@ using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class LensEditorPanel : UserControl, IDisposable
+public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
     private readonly IWorkspaceEventStream _events;
+    private readonly SurfaceSelectionService _surfaceSelection;
     private readonly DataGrid _grid;
     private readonly ComboBox _geometryPicker = new() { MinWidth = 130 };
-    private readonly ComboBox _materialPicker = new() { MinWidth = 120 };
-    private readonly ComboBox _coatingPicker = new() { MinWidth = 140 };
     private readonly ComboBox _interactionPicker = new() { MinWidth = 120 };
     private readonly ComboBox _aperturePicker = new() { MinWidth = 110 };
     private readonly NumericUpDown _gratingOrder = Number(72, -100, 100, 1, 1);
@@ -36,15 +36,17 @@ public sealed class LensEditorPanel : UserControl, IDisposable
     };
     private bool _disposed;
 
-    public LensEditorPanel(IPrescriptionService prescription, IWorkspaceEventStream events)
+    public LensEditorPanel(
+        IPrescriptionService prescription,
+        IWorkspaceEventStream events,
+        SurfaceSelectionService surfaceSelection)
     {
         _prescription = prescription;
         _events = events;
+        _surfaceSelection = surfaceSelection;
         _grid = CreateGrid();
         var options = prescription.GetOptions();
         _geometryPicker.ItemsSource = options.GeometryKinds;
-        _materialPicker.ItemsSource = options.Materials;
-        _coatingPicker.ItemsSource = options.CoatingKinds;
         _interactionPicker.ItemsSource = options.InteractionKinds;
         _aperturePicker.ItemsSource = options.PhysicalApertureKinds;
         _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
@@ -79,8 +81,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             Children =
             {
                 Label("几何"), _geometryPicker,
-                Label("材料"), _materialPicker,
-                Label("镀膜"), _coatingPicker,
                 Label("相互作用"), _interactionPicker,
                 Label("物理孔径"), _aperturePicker,
                 Label("级次"), _gratingOrder,
@@ -100,18 +100,67 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             BoxShadow = BoxShadows.Parse("0 2 6 0 #12000000"),
             Child = toolbar
         };
-        var componentExpander = new Expander
+        var componentToggleIcon = new LocalIcon
         {
-            Header = "表面属性与组件",
-            IsExpanded = false,
+            IconName = "chevron-down",
+            Width = 16,
+            Height = 16,
+            Stroke = new SolidColorBrush(Color.FromRgb(72, 72, 74)),
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var componentToggleContent = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = "表面属性与组件",
+                    FontWeight = FontWeight.SemiBold,
+                    VerticalAlignment = VerticalAlignment.Center
+                },
+                componentToggleIcon
+            }
+        };
+        Grid.SetColumn(componentToggleIcon, 1);
+        var componentToggle = new Button
+        {
+            Width = 240,
+            Height = 34,
+            MinHeight = 34,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            Padding = new Avalonia.Thickness(12, 0),
+            CornerRadius = new Avalonia.CornerRadius(0),
             Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
-            Content = componentEditor
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
+            Content = componentToggleContent
+        };
+        var componentEditorBorder = new Border
+        {
+            IsVisible = false,
+            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
+            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
+            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
+            Child = componentEditor
+        };
+        componentToggle.Click += (_, _) =>
+        {
+            componentEditorBorder.IsVisible = !componentEditorBorder.IsVisible;
+            componentToggleIcon.IconName = componentEditorBorder.IsVisible
+                ? "chevron-up"
+                : "chevron-down";
+        };
+        var componentSection = new StackPanel
+        {
+            Children = { componentToggle, componentEditorBorder }
         };
         var root = new DockPanel { Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)) };
         DockPanel.SetDock(commandBar, Avalonia.Controls.Dock.Top);
-        DockPanel.SetDock(componentExpander, Avalonia.Controls.Dock.Top);
+        DockPanel.SetDock(componentSection, Avalonia.Controls.Dock.Top);
         root.Children.Add(commandBar);
-        root.Children.Add(componentExpander);
+        root.Children.Add(componentSection);
         root.Children.Add(_grid);
         Content = root;
 
@@ -130,6 +179,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
     }
+
+    public void RefreshDisplaySettings() => Refresh();
 
     private DataGrid CreateGrid()
     {
@@ -195,17 +246,19 @@ public sealed class LensEditorPanel : UserControl, IDisposable
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
-        Dispatcher.UIThread.Post(Refresh);
+        Dispatcher.UIThread.Post(() => Refresh(preserveSelection: !args.FileSwitched));
     }
 
-    private void Refresh()
+    private void Refresh(bool preserveSelection = true)
     {
         if (_disposed)
         {
             return;
         }
 
-        var selectedNumber = (_grid.SelectedItem as SurfaceEditorRow)?.Number;
+        var selectedNumber = preserveSelection
+            ? (_grid.SelectedItem as SurfaceEditorRow)?.Number
+            : null;
         var surfaces = _prescription.GetSurfaces();
         var lastSurfaceNumber = surfaces.Count == 0 ? -1 : surfaces.Max(surface => surface.Number);
         var rows = surfaces
@@ -215,7 +268,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         _grid.ItemsSource = rows;
         _grid.SelectedItem = rows.FirstOrDefault(row => row.Number == selectedNumber)
             ?? rows.ElementAtOrDefault(Math.Min(1, Math.Max(0, rows.Length - 1)));
-        _materialPicker.ItemsSource = _prescription.GetOptions().Materials;
         LoadComponentSelection();
     }
 
@@ -224,12 +276,13 @@ public sealed class LensEditorPanel : UserControl, IDisposable
         if (_grid.SelectedItem is not SurfaceEditorRow row)
         {
             _componentSummary.Text = "未选择表面";
+            _surfaceSelection.Select(null);
             return;
         }
 
+        _surfaceSelection.Select(row.Number);
+
         _geometryPicker.SelectedItem = row.GeometryKind;
-        _materialPicker.SelectedItem = row.Material;
-        _coatingPicker.SelectedItem = row.CoatingKind;
         _interactionPicker.SelectedItem = row.InteractionKind;
         _aperturePicker.SelectedItem = row.ApertureKind;
         _gratingOrder.Value = row.GratingOrder;
@@ -246,7 +299,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable
             _thinLensFocalLength.Value = (decimal)Math.Clamp(row.ThinLensFocalLength, -1_000_000, 1_000_000);
         }
 
-        _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}, {row.Material}";
+        _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}";
     }
 
     private void ApplySelectedComponents()
@@ -258,8 +311,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable
 
         _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
             _geometryPicker.SelectedItem as string ?? row.GeometryKind,
-            _materialPicker.SelectedItem as string ?? row.Material,
-            _coatingPicker.SelectedItem as string ?? row.CoatingKind,
+            row.Material,
+            row.CoatingKind,
             _interactionPicker.SelectedItem as string ?? row.InteractionKind,
             _aperturePicker.SelectedItem as string ?? row.ApertureKind,
             (int)(_gratingOrder.Value ?? row.GratingOrder),

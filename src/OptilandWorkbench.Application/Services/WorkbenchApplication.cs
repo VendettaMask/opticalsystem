@@ -252,7 +252,12 @@ public sealed class WorkbenchApplication :
         using var evaluationBatch = MeritFunctionCatalog.BeginEvaluationBatch();
         lock (_gate)
         {
-            return _connector.CurrentOptic.MeritFunctionOperands
+            var operands = _connector.CurrentOptic.MeritFunctionOperands.ToArray();
+            var weightSum = operands
+                .Where(operand => operand.Enabled
+                    && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
+                .Sum(operand => Math.Abs(operand.Weight));
+            return operands
                 .Select((operand, index) =>
                 {
                     var evaluation = MeritFunctionCatalog.Evaluate(_connector.CurrentOptic, operand);
@@ -270,7 +275,7 @@ public sealed class WorkbenchApplication :
                         operand.Target,
                         operand.Weight,
                         evaluation.Value,
-                        evaluation.Contribution,
+                        weightSum > 0 ? evaluation.Contribution / weightSum : 0,
                         operand.Comment,
                         evaluation.Error,
                         operand.PupilRings,
@@ -300,7 +305,7 @@ public sealed class WorkbenchApplication :
                 Px = Math.Clamp(operand.Px, -1, 1),
                 Py = Math.Clamp(operand.Py, -1, 1),
                 Target = double.IsFinite(operand.Target) ? operand.Target : 0,
-                Weight = double.IsFinite(operand.Weight) ? Math.Abs(operand.Weight) : 0,
+                Weight = double.IsFinite(operand.Weight) ? operand.Weight : 0,
                 Comment = operand.Comment ?? string.Empty,
                 PupilRings = Math.Clamp(operand.PupilRings, 1, 20),
                 PupilArms = Math.Clamp(operand.PupilArms, 3, 36),
@@ -1271,7 +1276,12 @@ public sealed class WorkbenchApplication :
             view.PlotPanes.Select(pane => new AnalysisPlotPaneDto(
                 pane.Title,
                 pane.Series.Select(ToSeriesDto).ToArray(),
-                ToPlotOptionsDto(pane.PlotOptions))).ToArray(),
+                ToPlotOptionsDto(pane.PlotOptions),
+                pane.Metrics?.Select(metric => new AnalysisPlotMetricDto(
+                    metric.Label,
+                    metric.Value,
+                    metric.Unit)).ToArray(),
+                pane.Footer)).ToArray(),
             view.PlotPaneColumns);
     }
 

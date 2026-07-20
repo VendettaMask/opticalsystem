@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Dock.Avalonia.Controls;
@@ -24,6 +25,7 @@ public sealed class WorkspaceDockFactory : Factory
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
+    private readonly SurfaceSelectionService _surfaceSelection = new();
     private readonly Dictionary<string, WorkspaceDocumentDescriptor> _descriptors = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Control> _content = new(StringComparer.Ordinal);
 
@@ -44,6 +46,24 @@ public sealed class WorkspaceDockFactory : Factory
     public IDocumentDock? PrimaryDocumentDock { get; private set; }
 
     public IReadOnlyCollection<WorkspaceDocumentDescriptor> Descriptors => _descriptors.Values;
+
+    public void ApplyDisplaySettings()
+    {
+        foreach (var control in _content.Values)
+        {
+            if (control is TemplatedControl templated)
+            {
+                DisplayTypography.Apply(templated);
+            }
+
+            if (control is IDisplaySettingsAware aware)
+            {
+                aware.RefreshDisplaySettings();
+            }
+
+            control.InvalidateVisual();
+        }
+    }
 
     public override IDocumentDock CreateDocumentDock()
     {
@@ -355,12 +375,24 @@ public sealed class WorkspaceDockFactory : Factory
 
         Control control = descriptor.Kind switch
         {
-            WorkspaceDocumentKind.LensEditor => new LensEditorPanel(_application.Prescription, _application.Events),
-            WorkspaceDocumentKind.Viewer2D => new ViewerPanel(_application.Visualization, _application.Events, SceneDimension.TwoDimensional),
-            WorkspaceDocumentKind.Viewer3D => new ViewerPanel(_application.Visualization, _application.Events, SceneDimension.ThreeDimensional),
+            WorkspaceDocumentKind.LensEditor => new LensEditorPanel(
+                _application.Prescription,
+                _application.Events,
+                _surfaceSelection),
+            WorkspaceDocumentKind.Viewer2D => new ViewerPanel(
+                _application.Visualization,
+                _application.Events,
+                _surfaceSelection,
+                SceneDimension.TwoDimensional),
+            WorkspaceDocumentKind.Viewer3D => new ViewerPanel(
+                _application.Visualization,
+                _application.Events,
+                _surfaceSelection,
+                SceneDimension.ThreeDimensional),
             WorkspaceDocumentKind.SolidModel => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
+                _surfaceSelection,
                 SceneDimension.ThreeDimensional,
                 ViewerPresentationMode.SolidModel),
             WorkspaceDocumentKind.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
@@ -379,13 +411,19 @@ public sealed class WorkspaceDockFactory : Factory
             _ => throw new ArgumentOutOfRangeException()
         };
         SetLocked(control, descriptor.IsLocked);
+        if (control is TemplatedControl templated)
+        {
+            DisplayTypography.Apply(templated);
+        }
         _content[id] = control;
         return control;
     }
 
     private Control CreateSystemToolContent()
     {
-        return new SystemPropertiesPanel(_application.Prescription, _application.Events);
+        var panel = new SystemPropertiesPanel(_application.Prescription, _application.Events);
+        DisplayTypography.Apply(panel);
+        return panel;
     }
 
     private IDocumentDock? ActiveDocumentDock()

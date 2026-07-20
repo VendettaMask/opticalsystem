@@ -67,6 +67,12 @@ public sealed class PanelManager : IDisposable
 
     public Control WorkspaceGrid => WorkspaceControl;
 
+    public void ApplyDisplaySettings()
+    {
+        Factory.ApplyDisplaySettings();
+        WorkspaceControl.InvalidateVisual();
+    }
+
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         await RestoreCurrentSessionAsync(cancellationToken);

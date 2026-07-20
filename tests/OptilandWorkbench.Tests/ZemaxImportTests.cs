@@ -36,7 +36,7 @@ public sealed class ZemaxImportTests
             DMFS 0 0 0 0 0 0 0 0 0 0
             BLNK 序列评价函数: RMS 波前差：质心参考高斯求积 3 环 6 臂
             BLNK 视场操作数 2.
-            OPDX 0 2 0 0.7142857142857143 0.16785534350986436 0.29073398328101191 0 0.032320912073968894 0 0
+            OPDX 0 2 0 0.7142857142857143 0.16785534350986436 0.29073398328101191 0 -0.032320912073968894 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -67,7 +67,7 @@ public sealed class ZemaxImportTests
                 Assert.Equal(0.16785534350986436, operand.Px, precision: 12);
                 Assert.Equal(0.29073398328101191, operand.Py, precision: 12);
                 Assert.Equal(0, operand.Target, precision: 12);
-                Assert.Equal(0.032320912073968894, operand.Weight, precision: 12);
+                Assert.Equal(-0.032320912073968894, operand.Weight, precision: 12);
             });
     }
 

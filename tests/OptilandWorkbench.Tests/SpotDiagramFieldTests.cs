@@ -30,6 +30,21 @@ public sealed class SpotDiagramFieldTests
                     ? $"物面: {field.Y:0.00} (度)"
                     : $"物面: X {field.X:0.00}, Y {field.Y:0.00} (度)",
                 result.PlotPanes[index].Title);
+            Assert.Collection(
+                result.PlotPanes[index].Metrics!,
+                metric =>
+                {
+                    Assert.Equal("RMS 半径", metric.Label);
+                    Assert.Equal("µm", metric.Unit);
+                    Assert.True(double.IsFinite(metric.Value));
+                },
+                metric =>
+                {
+                    Assert.Equal("GEO 半径", metric.Label);
+                    Assert.Equal("µm", metric.Unit);
+                    Assert.True(double.IsFinite(metric.Value));
+                });
+            Assert.Contains("参考：主波长质心", result.PlotPanes[index].Footer);
         }
 
         Assert.Equal(3, result.PlotPaneColumns);

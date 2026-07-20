@@ -81,6 +81,8 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
     private static readonly Pen ApertureStopPen = new(new SolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
     private static readonly Pen SurfacePen = new(new SolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
+    private static readonly Pen SelectedSurfaceHaloPen = new(new SolidColorBrush(Color.FromArgb(105, 255, 193, 62)), 7);
+    private static readonly Pen SelectedSurfacePen = new(new SolidColorBrush(Color.FromRgb(232, 126, 25)), 3.2);
     private static readonly Pen LensEdgePen = new(new SolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
     private static readonly Pen VignettedRayPen = new(new SolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
     private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
@@ -90,6 +92,7 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
     private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(138, 30, 65, 190));
     private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(156, 18, 72, 145));
+    private static readonly IBrush SelectedSurfaceFaceBrush = new SolidColorBrush(Color.FromArgb(205, 255, 176, 46));
     private static readonly IBrush SolidLensFaceBrush = new LinearGradientBrush
     {
         StartPoint = RelativePoint.TopLeft,
@@ -130,6 +133,7 @@ public sealed class OpticSceneControl : Control
     private double _rayLineWidth = 1.25;
     private OpticSceneRayColorMode _rayColorMode;
     private OpticSceneVisualStyle _visualStyle;
+    private int? _highlightedSurfaceNumber;
 
     public OpticSceneControl()
     {
@@ -138,6 +142,19 @@ public sealed class OpticSceneControl : Control
     }
 
     public SceneDto? Scene { get; set; }
+
+    public int? HighlightedSurfaceNumber
+    {
+        get => _highlightedSurfaceNumber;
+        set
+        {
+            if (_highlightedSurfaceNumber != value)
+            {
+                _highlightedSurfaceNumber = value;
+                InvalidateVisual();
+            }
+        }
+    }
 
     public OpticSceneViewMode ViewMode
     {
@@ -428,7 +445,7 @@ public sealed class OpticSceneControl : Control
             DrawRays(context, scene.Rays, MapZ, MapY);
         }
         DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
-        DrawSurfaces(context, scene.Surfaces, MapZ, MapY);
+        DrawSurfaces(context, scene.Surfaces, MapZ, MapY, HighlightedSurfaceNumber);
         if (ShowScaleBar)
         {
             DrawScaleBar(context, scale * _viewport.Zoom);
@@ -490,7 +507,8 @@ public sealed class OpticSceneControl : Control
                 Project,
                 Depth,
                 CutawayEnabled,
-                solidModelStyle);
+                solidModelStyle,
+                HighlightedSurfaceNumber);
         }
 
         Draw3DLensElements(
@@ -506,7 +524,8 @@ public sealed class OpticSceneControl : Control
             Project,
             showMeridians: true,
             CutawayEnabled,
-            solidModelStyle);
+            solidModelStyle,
+            HighlightedSurfaceNumber);
         if (!solidModelStyle && ShowRays)
         {
             Draw3DRays(context, scene.Rays, Project);
@@ -524,26 +543,44 @@ public sealed class OpticSceneControl : Control
         DrawingContext context,
         IReadOnlyList<Layout2DSurfaceCurve> surfaces,
         Func<double, double> mapZ,
-        Func<double, double> mapY)
+        Func<double, double> mapY,
+        int? highlightedSurfaceNumber)
     {
         foreach (var surface in surfaces)
         {
             if (surface.IsStop)
             {
-                DrawApertureStop(context, surface, mapZ, mapY);
+                DrawApertureStop(context, surface, mapZ, mapY, ApertureStopPen);
                 continue;
             }
 
             var pen = SurfacePenFor(surface);
             DrawPolyline(context, pen, surface.Points, mapZ, mapY);
         }
+
+        var highlighted = surfaces.FirstOrDefault(surface => surface.SurfaceNumber == highlightedSurfaceNumber);
+        if (highlighted is null)
+        {
+            return;
+        }
+
+        if (highlighted.IsStop)
+        {
+            DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfaceHaloPen);
+            DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfacePen);
+            return;
+        }
+
+        DrawPolyline(context, SelectedSurfaceHaloPen, highlighted.Points, mapZ, mapY);
+        DrawPolyline(context, SelectedSurfacePen, highlighted.Points, mapZ, mapY);
     }
 
     private static void DrawApertureStop(
         DrawingContext context,
         Layout2DSurfaceCurve surface,
         Func<double, double> mapZ,
-        Func<double, double> mapY)
+        Func<double, double> mapY,
+        Pen pen)
     {
         if (surface.Points.Count == 0)
         {
@@ -561,19 +598,19 @@ public sealed class OpticSceneControl : Control
         const double capHalfWidth = 5;
 
         context.DrawLine(
-            ApertureStopPen,
+            pen,
             new Point(x, upperY),
             new Point(x, upperY - bladeLength));
         context.DrawLine(
-            ApertureStopPen,
+            pen,
             new Point(x - capHalfWidth, upperY),
             new Point(x + capHalfWidth, upperY));
         context.DrawLine(
-            ApertureStopPen,
+            pen,
             new Point(x, lowerY),
             new Point(x, lowerY + bladeLength));
         context.DrawLine(
-            ApertureStopPen,
+            pen,
             new Point(x - capHalfWidth, lowerY),
             new Point(x + capHalfWidth, lowerY));
     }
@@ -675,7 +712,8 @@ public sealed class OpticSceneControl : Control
         Func<Layout3DPoint, Point> project,
         Func<Layout3DPoint, double> depth,
         bool cutawayEnabled,
-        bool solidModelStyle)
+        bool solidModelStyle,
+        int? highlightedSurfaceNumber)
     {
         var faces = new List<ProjectedFace>();
         var faceBrush = solidModelStyle ? SolidLensFaceBrush : ThreeDLensFaceBrush;
@@ -691,7 +729,9 @@ public sealed class OpticSceneControl : Control
                 AddProjectedFace(
                     faces,
                     cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points,
-                    faceBrush,
+                    surface.SurfaceNumber == highlightedSurfaceNumber
+                        ? SelectedSurfaceFaceBrush
+                        : faceBrush,
                     depth);
             }
         }
@@ -753,25 +793,45 @@ public sealed class OpticSceneControl : Control
         Func<Layout3DPoint, Point> project,
         bool showMeridians,
         bool cutawayEnabled,
-        bool solidModelStyle)
+        bool solidModelStyle,
+        int? highlightedSurfaceNumber)
     {
-        foreach (var surface in surfaces)
+        foreach (var surface in surfaces.Where(surface => surface.SurfaceNumber != highlightedSurfaceNumber))
         {
-            var pen = surface.IsStop
-                ? StopPen
-                : surface.IsReferencePlane
-                    ? ReferencePlanePen
-                    : solidModelStyle
-                        ? SolidLensEdgePen
-                        : ThreeDWirePen;
-            var clipSurface = cutawayEnabled && !surface.IsReferencePlane;
-            DrawPolyline3D(context, pen, surface.Rim, project, clipSurface);
-            if (showMeridians && !surface.IsReferencePlane)
-            {
-                var meridianPen = solidModelStyle ? SolidLensEdgePen : ThreeDWirePen;
-                DrawPolyline3D(context, meridianPen, surface.MeridianY, project);
-                DrawPolyline3D(context, meridianPen, surface.MeridianX, project, clipSurface);
-            }
+            Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, null);
+        }
+
+        var highlighted = surfaces.FirstOrDefault(surface => surface.SurfaceNumber == highlightedSurfaceNumber);
+        if (highlighted is not null)
+        {
+            Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfaceHaloPen);
+            Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfacePen);
+        }
+    }
+
+    private static void Draw3DSurface(
+        DrawingContext context,
+        Layout3DSurfacePrimitive surface,
+        Func<Layout3DPoint, Point> project,
+        bool showMeridians,
+        bool cutawayEnabled,
+        bool solidModelStyle,
+        Pen? overridePen)
+    {
+        var pen = overridePen ?? (surface.IsStop
+            ? StopPen
+            : surface.IsReferencePlane
+                ? ReferencePlanePen
+                : solidModelStyle
+                    ? SolidLensEdgePen
+                    : ThreeDWirePen);
+        var clipSurface = cutawayEnabled && !surface.IsReferencePlane;
+        DrawPolyline3D(context, pen, surface.Rim, project, clipSurface);
+        if (showMeridians && !surface.IsReferencePlane)
+        {
+            var meridianPen = overridePen ?? (solidModelStyle ? SolidLensEdgePen : ThreeDWirePen);
+            DrawPolyline3D(context, meridianPen, surface.MeridianY, project);
+            DrawPolyline3D(context, meridianPen, surface.MeridianX, project, clipSurface);
         }
     }
 
@@ -862,7 +922,7 @@ public sealed class OpticSceneControl : Control
         context.DrawLine(AxisPen, left + new Vector(0, -5), left + new Vector(0, 5));
         context.DrawLine(AxisPen, right + new Vector(0, -5), right + new Vector(0, 5));
         var label = new FormattedText(
-            $"{units:0.###} mm",
+            $"{OptilandWorkbench.Application.Formatting.NumericDisplayFormatter.Format(units)} mm",
             System.Globalization.CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight,
             Typeface.Default,

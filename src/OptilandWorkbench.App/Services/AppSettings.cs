@@ -4,7 +4,24 @@ namespace OptilandWorkbench.App.Services;
 
 public sealed class AppSettings
 {
+    public const int DefaultDecimalPlaces = 6;
+    public const int DefaultUpperScientificExponent = 6;
+    public const int DefaultLowerScientificExponent = -4;
+    public const double DefaultFontSize = 13;
+
     public string Theme { get; set; } = "Light";
+
+    public int DecimalPlaces { get; set; } = DefaultDecimalPlaces;
+
+    public int UpperScientificExponent { get; set; } = DefaultUpperScientificExponent;
+
+    public int LowerScientificExponent { get; set; } = DefaultLowerScientificExponent;
+
+    public string FontFamily { get; set; } = string.Empty;
+
+    public string FontShape { get; set; } = "Regular";
+
+    public double FontSize { get; set; } = DefaultFontSize;
 
     public double WindowWidth { get; set; } = 1280;
 
@@ -21,6 +38,33 @@ public sealed class AppSettings
     public Dictionary<string, Dictionary<string, string>> AnalysisSettings { get; set; } = new();
 
     public WorkspaceLayoutState CurrentLayout => new(LeftPaneWidth, LeftTabIndex, RightTabIndex);
+
+    public void NormalizeDisplaySettings()
+    {
+        DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
+        UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
+        LowerScientificExponent = Math.Clamp(LowerScientificExponent, -15, -1);
+        if (LowerScientificExponent >= UpperScientificExponent)
+        {
+            LowerScientificExponent = Math.Min(-1, UpperScientificExponent - 1);
+        }
+
+        FontFamily = FontFamily?.Trim() ?? string.Empty;
+        FontShape = FontShape is "Bold" or "Italic" or "BoldItalic"
+            ? FontShape
+            : "Regular";
+        FontSize = Math.Clamp(double.IsFinite(FontSize) ? FontSize : DefaultFontSize, 9, 32);
+    }
+
+    public void ResetDisplaySettings()
+    {
+        DecimalPlaces = DefaultDecimalPlaces;
+        UpperScientificExponent = DefaultUpperScientificExponent;
+        LowerScientificExponent = DefaultLowerScientificExponent;
+        FontFamily = string.Empty;
+        FontShape = "Regular";
+        FontSize = DefaultFontSize;
+    }
 
     public void ApplyLayout(WorkspaceLayoutState layout)
     {
@@ -50,7 +94,9 @@ public sealed class AppSettings
             }
 
             var json = File.ReadAllText(SettingsPath);
-            return JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+            var settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+            settings.NormalizeDisplaySettings();
+            return settings;
         }
         catch
         {

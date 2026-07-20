@@ -707,8 +707,47 @@ public sealed class OptilandParityTests
         problem.AddVariable(new DelegateVariable("x", () => value, next => value = next, -10, 10));
         problem.AddOperand(new Operand("target", 3.0, 2.0, () => value));
 
-        Assert.Equal(4.0, problem.ResidualVector()[0]);
-        Assert.Equal(16.0, problem.SumSquared());
+        Assert.Equal(2.0, problem.ResidualVector()[0]);
+        Assert.Equal(4.0, problem.SumSquared());
+    }
+
+    [Fact]
+    public void OptimizationProblemEvaluatesEachOperandOncePerMeritCalculation()
+    {
+        var evaluations = 0;
+        var problem = new OptimizationProblem();
+        problem.AddOperand(new Operand("counted", 1, 2, () =>
+        {
+            evaluations++;
+            return 3;
+        }));
+
+        Assert.Equal(4, problem.SumSquared());
+        Assert.Equal(1, evaluations);
+    }
+
+    [Fact]
+    public void OptimizationProblemUsesZemaxAbsoluteWeightNormalization()
+    {
+        var problem = new OptimizationProblem();
+        problem.AddOperand(new Operand("first", 0, 1, () => 2));
+        problem.AddOperand(new Operand("second", 0, 3, () => 2));
+        problem.AddOperand(new Operand("monitor", 0, 0, () => 1000));
+
+        var residuals = problem.ResidualVector();
+
+        Assert.Equal(2, residuals.Length);
+        Assert.Equal(1, residuals[0], precision: 12);
+        Assert.Equal(Math.Sqrt(3), residuals[1], precision: 12);
+        Assert.Equal(4, problem.SumSquared(), precision: 12);
+    }
+
+    [Fact]
+    public void OptimizerCatalogOnlyListsDistinctImplementedAlgorithms()
+    {
+        Assert.Equal(
+            new[] { "LM / DLS", "Nelder-Mead", "Powell", "Orthogonal Descent" },
+            OptimizerCatalog.Names);
     }
 
     [Fact]
@@ -738,7 +777,7 @@ public sealed class OptilandParityTests
         });
 
         Assert.Equal(optic.SurfaceGroup.Items[1].Radius, radius.Value, precision: 10);
-        Assert.Equal(4, radius.Contribution, precision: 10);
+        Assert.Equal(2, radius.Contribution, precision: 10);
         Assert.True(double.IsFinite(focalLength.Value));
         Assert.True(double.IsFinite(rayHeight.Value));
         Assert.All(new[] { radius, focalLength, rayHeight }, evaluation => Assert.Empty(evaluation.Error));
@@ -772,6 +811,114 @@ public sealed class OptilandParityTests
         Assert.True(value > 4.8);
         Assert.NotEmpty(result.BestVariables);
         Assert.NotEmpty(result.MeritHistory);
+    }
+
+    [Fact]
+    public void LeastSquaresOptimizerUsesIndependentResidualVectorsForCoupledSystem()
+    {
+        var x = 0.0;
+        var y = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            "x", () => x, value => x = value, -10, 10, scaler: new UnitRangeScaler(-10, 10)));
+        problem.AddVariable(new DelegateVariable(
+            "y", () => y, value => y = value, -10, 10, scaler: new UnitRangeScaler(-10, 10)));
+        problem.AddOperand(new Operand("sum", 0, 1, () => throw new InvalidOperationException()));
+        problem.AddOperand(new Operand("difference", 0, 1, () => throw new InvalidOperationException()));
+        problem.SetIndependentValueEvaluator(values => new[]
+        {
+            values[0] + values[1] - 3,
+            (2 * values[0]) - values[1]
+        });
+
+        var result = OptimizerCatalog.Create("Least Squares").Optimize(problem, maxIterations: 20);
+
+        Assert.True(result.FinalMerit < 1e-12);
+        Assert.Equal(1, x, precision: 6);
+        Assert.Equal(2, y, precision: 6);
+        Assert.True(problem.SupportsParallelResidualEvaluation);
+    }
+
+    [Fact]
+    public void LeastSquaresTreatsNegativeWeightAsExactConstraint()
+    {
+        var value = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            "x", () => value, next => value = next, -20, 20, scaler: new UnitRangeScaler(-20, 20)));
+        problem.AddOperand(new Operand("performance", 10, 1, () => value));
+        problem.AddOperand(new Operand("exact", 2, -1, () => value));
+
+        var result = OptimizerCatalog.Create("LM / DLS").Optimize(problem, maxIterations: 20);
+
+        Assert.Equal(2, value, precision: 8);
+        Assert.True(result.FinalMerit < result.InitialMerit);
+        Assert.Equal(32, result.FinalMerit, precision: 6);
+    }
+
+    [Fact]
+    public void LeastSquaresOptimizesInsideExactConstraintNullSpace()
+    {
+        var x = 0.0;
+        var y = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            "x", () => x, value => x = value, -10, 10, scaler: new UnitRangeScaler(-10, 10)));
+        problem.AddVariable(new DelegateVariable(
+            "y", () => y, value => y = value, -10, 10, scaler: new UnitRangeScaler(-10, 10)));
+        problem.AddOperand(new Operand("performance", 5, 1, () => x));
+        problem.AddOperand(new Operand("sum constraint", 3, -1, () => x + y));
+
+        OptimizerCatalog.Create("LM / DLS").Optimize(problem, maxIterations: 20);
+
+        Assert.Equal(5, x, precision: 6);
+        Assert.Equal(-2, y, precision: 6);
+        Assert.Equal(3, x + y, precision: 8);
+    }
+
+    [Fact]
+    public void LeastSquaresBuildsIndependentJacobianColumnsConcurrently()
+    {
+        var values = new double[4];
+        var active = 0;
+        var maximumActive = 0;
+        var concurrencyGate = new object();
+        var problem = new OptimizationProblem();
+        for (var index = 0; index < values.Length; index++)
+        {
+            var variableIndex = index;
+            problem.AddVariable(new DelegateVariable(
+                $"x{index}",
+                () => values[variableIndex],
+                value => values[variableIndex] = value,
+                -10,
+                10,
+                scaler: new UnitRangeScaler(-10, 10)));
+            problem.AddOperand(new Operand(
+                $"target{index}",
+                index + 1,
+                1,
+                () => throw new InvalidOperationException()));
+        }
+
+        problem.SetIndependentValueEvaluator(vector =>
+        {
+            var current = Interlocked.Increment(ref active);
+            lock (concurrencyGate)
+            {
+                maximumActive = Math.Max(maximumActive, current);
+            }
+            Thread.Sleep(15);
+            Interlocked.Decrement(ref active);
+            return vector.ToArray();
+        });
+
+        OptimizerCatalog.Create("LM / DLS").Optimize(problem, maxIterations: 1);
+
+        if (Environment.ProcessorCount > 1)
+        {
+            Assert.True(maximumActive > 1, $"Expected concurrent columns, observed {maximumActive}.");
+        }
     }
 
     [Fact]

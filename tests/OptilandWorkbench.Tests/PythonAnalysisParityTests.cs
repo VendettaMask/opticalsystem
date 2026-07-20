@@ -1327,6 +1327,22 @@ public sealed class PythonAnalysisParityTests
     }
 
     [Theory]
+    [InlineData(ImageSimulationSourcePattern.ColorChart)]
+    [InlineData(ImageSimulationSourcePattern.ResolutionTarget)]
+    [InlineData(ImageSimulationSourcePattern.DistortionGrid)]
+    [InlineData(ImageSimulationSourcePattern.SiemensStar)]
+    public void ImageSimulationSourcePatternsProduceValidRgbImages(ImageSimulationSourcePattern pattern)
+    {
+        var image = ImageSimulationEngine.CreateSourceImage(pattern, 64, 48);
+
+        Assert.Equal(3, image.Channels);
+        Assert.Equal(48, image.Height);
+        Assert.Equal(64, image.Width);
+        Assert.All(image.Values.Cast<double>(), value => Assert.InRange(value, 0, 1));
+        Assert.True(image.Values.Cast<double>().Distinct().Count() > 2);
+    }
+
+    [Theory]
     [MemberData(nameof(OfficialSamples))]
     public void ImageSimulationPipelineMatchesPythonOptilandPixelForPixel(string sampleName, Func<Optic> createOptic)
     {

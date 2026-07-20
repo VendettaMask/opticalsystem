@@ -7,6 +7,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
 
 namespace OptilandWorkbench.App.Panels;
@@ -297,7 +298,7 @@ public sealed class MaterialLibraryPanel : UserControl
             if (index < coefficients.Count)
             {
                 _coefficientLabels[index].Text = $"{coefficients[index].Label}：";
-                _coefficientValues[index].Text = coefficients[index].Value.ToString("0.0000000E+000", CultureInfo.InvariantCulture);
+                _coefficientValues[index].Text = NumericDisplayFormatter.Format(coefficients[index].Value, CultureInfo.InvariantCulture);
             }
             else
             {
@@ -316,8 +317,8 @@ public sealed class MaterialLibraryPanel : UserControl
         SetProperty("Temp", CoefficientValue(glass.ThermalCoefficients, 6, "0.###"));
         SetProperty("ρ", OptionalValue(glass.Density, "0.#####"));
         SetProperty("dPgF", OptionalValue(glass.RelativePartialDispersionDeviation, "0.000000"));
-        SetProperty("最小波长", $"{glass.MinimumWavelengthMicrometers:0.0000000} μm");
-        SetProperty("最大波长", $"{glass.MaximumWavelengthMicrometers:0.0000000} μm");
+        SetProperty("最小波长", $"{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)} μm");
+        SetProperty("最大波长", $"{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} μm");
         _selectionSummary.Text = glass.ExtinctionSampleCount > 0
             ? $"{glass.ExtinctionSampleCount} 个消光样本"
             : glass.RefractiveIndexSampleCount > 0
@@ -382,10 +383,10 @@ public sealed class MaterialLibraryPanel : UserControl
             .AppendLine($"公式：{DisplayFormula(glass.Formula)}")
             .AppendLine($"Nd：{FormatNumber(glass.RefractiveIndexD, "0.000000")}")
             .AppendLine($"Vd：{FormatNumber(glass.AbbeNumber, "0.000")}")
-            .AppendLine($"有效波长：{glass.MinimumWavelengthMicrometers:0.0000000}–{glass.MaximumWavelengthMicrometers:0.0000000} μm");
+            .AppendLine($"有效波长：{NumericDisplayFormatter.Format(glass.MinimumWavelengthMicrometers)}–{NumericDisplayFormatter.Format(glass.MaximumWavelengthMicrometers)} μm");
         foreach (var coefficient in DisplayCoefficients(glass))
         {
-            report.AppendLine($"{coefficient.Label}：{coefficient.Value.ToString("0.0000000E+000", CultureInfo.InvariantCulture)}");
+            report.AppendLine($"{coefficient.Label}：{NumericDisplayFormatter.Format(coefficient.Value, CultureInfo.InvariantCulture)}");
         }
 
         await clipboard.SetTextAsync(report.ToString());

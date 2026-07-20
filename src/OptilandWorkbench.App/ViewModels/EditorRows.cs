@@ -1,5 +1,6 @@
 using System.Globalization;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 
 namespace OptilandWorkbench.App.ViewModels;
 
@@ -49,7 +50,7 @@ public sealed class SurfaceEditorRow
     {
         get => !double.IsFinite(Radius) || Math.Abs(Radius) <= 1e-15
             ? "无限"
-            : Radius.ToString("0.############", CultureInfo.CurrentCulture);
+            : NumericDisplayFormatter.Format(Radius);
         set
         {
             var text = value?.Trim() ?? string.Empty;
@@ -75,7 +76,7 @@ public sealed class SurfaceEditorRow
     {
         get => IsLastSurface
             ? "-"
-            : Thickness.ToString("0.############", CultureInfo.CurrentCulture);
+            : NumericDisplayFormatter.Format(Thickness);
         set
         {
             if (IsLastSurface)
@@ -106,7 +107,7 @@ public sealed class SurfaceEditorRow
     public bool SemiDiameterFixed { get; set; }
     public string SemiDiameterDisplay
     {
-        get => SemiDiameter.ToString("0.############", CultureInfo.CurrentCulture);
+        get => NumericDisplayFormatter.Format(SemiDiameter);
         set
         {
             var text = value?.Trim() ?? string.Empty;
@@ -223,9 +224,9 @@ public sealed class MeritOperandEditorRow
 
     public bool IsBlank => IsDirective || IsComment;
 
-    public string ValueDisplay => double.IsFinite(Value) ? Value.ToString("0.######") : "-";
+    public string ValueDisplay => double.IsFinite(Value) ? NumericDisplayFormatter.Format(Value) : "-";
 
-    public string ContributionDisplay => double.IsFinite(Contribution) ? Contribution.ToString("0.######") : "-";
+    public string ContributionDisplay => double.IsFinite(Contribution) ? NumericDisplayFormatter.Format(Contribution) : "-";
 
     public MeritOperandRowDto ToDto() => new(
         Index,

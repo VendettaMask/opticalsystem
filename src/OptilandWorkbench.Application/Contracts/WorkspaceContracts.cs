@@ -242,7 +242,14 @@ public sealed record AnalysisPlotOptionsDto(
 public sealed record AnalysisPlotPaneDto(
     string Title,
     IReadOnlyList<AnalysisSeriesDto> Series,
-    AnalysisPlotOptionsDto PlotOptions);
+    AnalysisPlotOptionsDto PlotOptions,
+    IReadOnlyList<AnalysisPlotMetricDto>? Metrics = null,
+    string Footer = "");
+
+public sealed record AnalysisPlotMetricDto(
+    string Label,
+    double Value,
+    string Unit = "");
 
 public sealed record AnalysisRowDto(string Metric, string Value);
 
