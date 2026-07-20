@@ -152,7 +152,11 @@ public sealed class OptilandConnector
         "Forbes Q 曲面"
     };
 
-    public IReadOnlyList<string> MaterialNames => CurrentOptic.Materials.Names.OrderBy(name => name).ToArray();
+    public IReadOnlyList<string> MaterialNames => CurrentOptic.Materials.Names
+        .Append("MIRROR")
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .OrderBy(name => name)
+        .ToArray();
 
     public IReadOnlyList<string> CoatingKinds { get; } = new[]
     {
@@ -761,6 +765,34 @@ public sealed class OptilandConnector
         CurrentOptic.Pickups.RemoveSurface(index);
         CurrentOptic.SurfaceGroup.Remove(surface);
         SetStatus("已删除表面。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ApplySurfaceComponents(
+        OpticalSurface? surface,
+        string geometryKind,
+        string physicalApertureKind,
+        int gratingOrder = 1,
+        double gratingPeriodMicrometers = 1,
+        double grooveOrientationAngleDegrees = 0,
+        double thinLensFocalLength = 50)
+    {
+        if (surface is null)
+        {
+            return;
+        }
+
+        CaptureCurrentState();
+        ApplyGeometry(surface, geometryKind);
+        SyncInteractionForEditedGeometry(surface, thinLensFocalLength);
+        ApplyGratingParameters(
+            surface,
+            gratingOrder,
+            gratingPeriodMicrometers,
+            grooveOrientationAngleDegrees);
+        ApplyPhysicalAperture(surface, physicalApertureKind);
+        SetStatus($"表面 {surface.Number} 组件已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -1662,8 +1694,55 @@ public sealed class OptilandConnector
     private void ApplyMaterial(OpticalSurface surface, string materialName)
     {
         var selectedMaterial = string.IsNullOrWhiteSpace(materialName) ? "Air" : materialName;
-        surface.Material = selectedMaterial;
-        surface.MaterialAfter = CurrentOptic.Materials.Resolve(selectedMaterial);
+        var isMirror = selectedMaterial.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        surface.Material = isMirror ? "MIRROR" : selectedMaterial;
+        surface.MaterialAfter = isMirror
+            ? surface.MaterialBefore.Clone()
+            : CurrentOptic.Materials.Resolve(selectedMaterial);
+        SyncInteractionReflectivity(surface, isMirror);
+    }
+
+    private static void SyncInteractionForEditedGeometry(
+        OpticalSurface surface,
+        double thinLensFocalLength)
+    {
+        var isMirror = surface.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        if (surface.Geometry is IGratingGeometry)
+        {
+            surface.InteractionModel = new DiffractiveInteractionModel(isMirror);
+            surface.IsReflective = isMirror;
+            return;
+        }
+
+        if (surface.InteractionModel is DiffractiveInteractionModel)
+        {
+            surface.InteractionModel = new RefractiveReflectiveInteractionModel(isMirror);
+            surface.IsReflective = isMirror;
+            return;
+        }
+
+        if (surface.InteractionModel is ThinLensInteractionModel)
+        {
+            surface.InteractionModel = new ThinLensInteractionModel(thinLensFocalLength, isMirror);
+            surface.IsReflective = isMirror;
+            return;
+        }
+
+        SyncInteractionReflectivity(surface, isMirror);
+    }
+
+    private static void SyncInteractionReflectivity(OpticalSurface surface, bool isMirror)
+    {
+        surface.IsReflective = isMirror;
+        surface.InteractionModel = surface.InteractionModel switch
+        {
+            ThinLensInteractionModel thinLens => new ThinLensInteractionModel(thinLens.FocalLength, isMirror),
+            DiffractiveInteractionModel diffractive when diffractive.GrooveFrequencyLinesPerMillimeter is double frequency =>
+                new DiffractiveInteractionModel(frequency, diffractive.Order ?? 1),
+            DiffractiveInteractionModel => new DiffractiveInteractionModel(isMirror),
+            PhaseInteractionModel phase => new PhaseInteractionModel(phase.Profile.Clone(), isMirror),
+            _ => new RefractiveReflectiveInteractionModel(isMirror)
+        };
     }
 
     private static void ApplyCoating(OpticalSurface surface, string coatingKind)

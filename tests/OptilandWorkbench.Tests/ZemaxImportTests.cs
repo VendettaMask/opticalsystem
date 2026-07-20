@@ -322,6 +322,7 @@ public sealed class ZemaxImportTests
             OpticalFormatCatalog.Import(exported, ".zmx").Aperture.Kind);
         var mirror = optic.SurfaceGroup.Items[2];
         Assert.True(mirror.IsReflective);
+        Assert.Equal("MIRROR", mirror.Material);
         Assert.Equal("CUSTOM-Z", mirror.MaterialBefore.Name);
         Assert.Equal("CUSTOM-Z", mirror.MaterialAfter.Name);
         var customGlass = Assert.IsType<AbbeMaterial>(mirror.MaterialAfter);

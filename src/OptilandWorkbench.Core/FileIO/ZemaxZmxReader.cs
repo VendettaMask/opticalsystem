@@ -444,7 +444,7 @@ internal static class ZemaxZmxReader
                 Label = SurfaceLabel(source, index, sourceSurfaces),
                 Radius = legacyRadius,
                 Thickness = thickness,
-                Material = materialAfter.Name,
+                Material = isReflective ? "MIRROR" : materialAfter.Name,
                 SemiDiameter = Math.Max(0.1, source.SemiDiameter ?? 10),
                 Conic = source.Conic,
                 IsStop = source.IsStop,

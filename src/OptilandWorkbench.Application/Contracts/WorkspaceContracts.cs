@@ -93,9 +93,6 @@ public sealed record SurfaceRowDto(
 
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
-    string Material,
-    string CoatingKind,
-    string InteractionKind,
     string ApertureKind,
     int GratingOrder,
     double GratingPeriodMicrometers,

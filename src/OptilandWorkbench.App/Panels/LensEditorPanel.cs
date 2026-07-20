@@ -19,7 +19,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
     private readonly SurfaceSelectionService _surfaceSelection;
     private readonly DataGrid _grid;
     private readonly ComboBox _geometryPicker = new() { MinWidth = 130 };
-    private readonly ComboBox _interactionPicker = new() { MinWidth = 120 };
     private readonly ComboBox _aperturePicker = new() { MinWidth = 110 };
     private readonly NumericUpDown _gratingOrder = Number(72, -100, 100, 1, 1);
     private readonly NumericUpDown _gratingPeriod = Number(94, 0.000001m, 1_000_000, 0.1m, 1);
@@ -47,7 +46,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         _grid = CreateGrid();
         var options = prescription.GetOptions();
         _geometryPicker.ItemsSource = options.GeometryKinds;
-        _interactionPicker.ItemsSource = options.InteractionKinds;
         _aperturePicker.ItemsSource = options.PhysicalApertureKinds;
         _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
             _gratingPeriod.IsEnabled = _infiniteGratingPeriod.IsChecked != true;
@@ -81,7 +79,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             Children =
             {
                 Label("几何"), _geometryPicker,
-                Label("相互作用"), _interactionPicker,
                 Label("物理孔径"), _aperturePicker,
                 Label("级次"), _gratingOrder,
                 Label("周期 (μm)"), _gratingPeriod, _infiniteGratingPeriod,
@@ -283,7 +280,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         _surfaceSelection.Select(row.Number);
 
         _geometryPicker.SelectedItem = row.GeometryKind;
-        _interactionPicker.SelectedItem = row.InteractionKind;
         _aperturePicker.SelectedItem = row.ApertureKind;
         _gratingOrder.Value = row.GratingOrder;
         _infiniteGratingPeriod.IsChecked = double.IsPositiveInfinity(row.GratingPeriodMicrometers);
@@ -311,9 +307,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
 
         _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
             _geometryPicker.SelectedItem as string ?? row.GeometryKind,
-            row.Material,
-            row.CoatingKind,
-            _interactionPicker.SelectedItem as string ?? row.InteractionKind,
             _aperturePicker.SelectedItem as string ?? row.ApertureKind,
             (int)(_gratingOrder.Value ?? row.GratingOrder),
             _infiniteGratingPeriod.IsChecked == true

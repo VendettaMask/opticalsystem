@@ -256,6 +256,28 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void MirrorMaterialControlsStandardSurfaceReflection()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
+
+        surface.Material = "MIRROR";
+        connector.CommitSurfaceEdit(surface, nameof(OpticalSurface.Material));
+
+        Assert.Equal("MIRROR", surface.Material);
+        Assert.True(surface.IsReflective);
+        Assert.True(Assert.IsType<RefractiveReflectiveInteractionModel>(surface.InteractionModel).IsReflective);
+        Assert.Equal(surface.MaterialBefore.Name, surface.MaterialAfter.Name);
+
+        surface.Material = "N-BK7";
+        connector.CommitSurfaceEdit(surface, nameof(OpticalSurface.Material));
+
+        Assert.False(surface.IsReflective);
+        Assert.False(Assert.IsType<RefractiveReflectiveInteractionModel>(surface.InteractionModel).IsReflective);
+        Assert.Equal("N-BK7", surface.MaterialAfter.Name);
+    }
+
+    [Fact]
     public void AddingSurfacePreservesRichComponentsAndInsertsBeforeImage()
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());

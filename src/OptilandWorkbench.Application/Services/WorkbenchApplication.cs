@@ -589,9 +589,6 @@ public sealed class WorkbenchApplication :
         Mutate(WorkspaceChangeCategory.Surface, () => _connector.ApplySurfaceComponents(
             FindSurface(surfaceNumber),
             update.GeometryKind,
-            update.Material,
-            update.CoatingKind,
-            update.InteractionKind,
             update.ApertureKind,
             update.GratingOrder,
             update.GratingPeriodMicrometers,
