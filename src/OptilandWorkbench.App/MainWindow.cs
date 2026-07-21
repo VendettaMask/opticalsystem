@@ -174,6 +174,9 @@ public sealed class MainWindow : Window
     private bool _closeAfterPersistence;
     private bool _closeInProgress;
     private bool _closed;
+    private bool _startupCompleted;
+
+    internal event EventHandler? StartupCompleted;
 
     public MainWindow()
     {
@@ -186,6 +189,7 @@ public sealed class MainWindow : Window
         _panels.PersistenceFailed += OnWorkspacePersistenceFailed;
 
         Title = "Optical System Design";
+        Icon = BrandAssets.LoadWindowIcon();
         Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
         Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
         MinWidth = 1100;
@@ -212,6 +216,14 @@ public sealed class MainWindow : Window
         {
             _panels.ResetLayout();
             _statusText.Text = $"工作区恢复失败：{exception.Message}";
+        }
+        finally
+        {
+            if (!_startupCompleted)
+            {
+                _startupCompleted = true;
+                StartupCompleted?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 
@@ -287,6 +299,8 @@ public sealed class MainWindow : Window
         _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
         _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
+        _actions.Register("show-manufacturability", "可加工性评估", "加工与图纸", _panels.ShowManufacturability);
+        _actions.Register("show-optical-drawing", "ISO 光学制图", "加工与图纸", _panels.ShowOpticalDrawing);
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
@@ -461,6 +475,11 @@ public sealed class MainWindow : Window
                     RibbonGroup("公差分析",
                         RibbonButton("show-tolerancing", "activity", "灵敏度"),
                         RibbonButton("show-tolerancing", "gauge", "蒙特卡洛")))),
+                RibbonTab("加工与图纸", BuildRibbonPage(
+                    RibbonGroup("制造准备",
+                        RibbonButton("show-manufacturability", "clipboard-check", "可加工性评估")),
+                    RibbonGroup("ISO 10110 图纸",
+                        RibbonButton("show-optical-drawing", "drafting-compass", "光学制图")))),
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),

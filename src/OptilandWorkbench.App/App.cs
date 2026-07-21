@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
+using Avalonia.Threading;
 using Dock.Avalonia.Controls;
 using Dock.Avalonia.Themes.Fluent;
 using OptilandWorkbench.App.Services;
@@ -15,6 +16,7 @@ public sealed class App : Avalonia.Application
 {
     public override void Initialize()
     {
+        Name = "Optical System Design";
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
         ApplyBlueAccent();
@@ -144,10 +146,54 @@ public sealed class App : Avalonia.Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            desktop.MainWindow = new MainWindow();
+            desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var splash = new SplashWindow();
+            desktop.MainWindow = splash;
+            MacOsBranding.TryApplyApplicationIcon();
+            splash.Show();
+            Dispatcher.UIThread.Post(
+                () => OpenMainWindowAsync(desktop, splash),
+                DispatcherPriority.Background);
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private static async void OpenMainWindowAsync(
+        IClassicDesktopStyleApplicationLifetime desktop,
+        SplashWindow splash)
+    {
+        var minimumDisplay = Task.Delay(750);
+        try
+        {
+            var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var mainWindow = new MainWindow
+            {
+                Opacity = 0,
+                ShowInTaskbar = false
+            };
+            EventHandler? readyHandler = null;
+            readyHandler = (_, _) =>
+            {
+                mainWindow.StartupCompleted -= readyHandler;
+                ready.TrySetResult();
+            };
+            mainWindow.StartupCompleted += readyHandler;
+            desktop.MainWindow = mainWindow;
+            mainWindow.Show();
+
+            await Task.WhenAll(minimumDisplay, ready.Task);
+            mainWindow.ShowInTaskbar = true;
+            mainWindow.Opacity = 1;
+            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            splash.Close();
+            mainWindow.Activate();
+        }
+        catch
+        {
+            splash.Close();
+            desktop.Shutdown(-1);
+            throw;
+        }
     }
 }

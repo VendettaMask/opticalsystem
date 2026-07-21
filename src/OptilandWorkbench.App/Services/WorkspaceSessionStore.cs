@@ -21,7 +21,9 @@ public enum WorkspaceDocumentKind
     Analysis,
     SolidModel,
     MaterialLibrary,
-    GlassCatalog
+    GlassCatalog,
+    Manufacturability,
+    OpticalDrawing
 }
 
 public sealed record WorkspaceDocumentDescriptor(

@@ -1383,6 +1383,7 @@ public sealed class WorkbenchApplication :
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
                 element.Material,
+                element.RefractiveIndex,
                 element.FrontRim.Select(Point).ToArray(),
                 element.BackRim.Select(Point).ToArray())).ToArray(),
             scene.Rays.Select(ray => new SceneRay3Dto(

@@ -17,6 +17,8 @@ The implementation is being built in small git milestones. The current codebase 
 - Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, Optiland-compatible Zemax `.zmx` sequential import, a build-time Zemax `.AGF` material-catalog converter, and common sequential export/CODE V `.seq`/OSLO `.len` adapters.
 - .NET plugin discovery with geometry, material, and analysis registration.
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
+- A dedicated **Manufacturing & Drawings** workspace with rule-based optical-element manufacturability review, ISO 10110-series Chinese drawing previews, editable tolerances and title blocks, and vector PDF export.
+- Reproducible S.T.A.R. Labs desktop branding with packaged Windows/macOS application icons and a startup image that remains visible while the workspace session is restored.
 - A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands, all 32 analyses grouped under **Analysis**, and analysis-window layout commands grouped under **Window**.
 - A Dock.Avalonia workspace with draggable document tabs, split panes, tab merging, native resizable floating windows, redocking, tiling/cascading commands, `Ctrl/Cmd+K` command palette actions, and per-file workspace sessions.
 - A UI-free `OptilandWorkbench.Application` boundary. Avalonia panels depend only on immutable DTOs and application services; Core objects stay behind the application context, revision stream, undo/redo, snapshot, and cancellation boundary.
@@ -39,9 +41,10 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 ### Desktop workflow
 
 - Use the top categories to switch the large-command Ribbon; commands are not duplicated in the central workspace.
-- Open **View** and choose **2D Layout** or **3D Layout**. The 2D view uses outlined optical elements, a split aperture-stop marker, and colored rays; the 3D view uses a light background, translucent lens solids, and colored ray bundles.
+- Open **View** and choose **2D Layout**, **3D Layout**, or **Solid Model**. The 2D view uses outlined optical elements and colored rays; the 3D layout keeps a light engineering background, while the solid-model view uses a clean dark studio background and continuous dielectric glass driven by the catalog refractive index, Fresnel reflectance, and element-thickness attenuation. Highlighted optical surfaces and ray bundles remain visible through the glass.
 - Open **Analysis** and choose an analysis icon. The selected analysis runs and opens its own closable result page.
 - Open **Database > Material Library** to browse the bundled Zemax catalogs directly. No separate catalog selection or import step is required before opening ZMX files.
+- Open **Manufacturing & Drawings** to review center/edge thickness, curvature, slope, and special-surface risks, or to prepare a Chinese ISO 10110-series reference drawing and export it as PDF.
 - Expand **Settings** only when parameters need adjustment, then use the adjacent synchronization icon to rerun the current page.
 - Drag any document tab to split, merge, float, or redock it. Use **Window** for bulk docking, floating, tiling, cascading, locking, closing, and default-layout commands.
 - In an analysis plot, use the wheel to zoom, drag to pan, double-click to reset, and hover near a sample to inspect its values.
@@ -61,7 +64,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 285 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 365 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -103,6 +106,8 @@ See:
 - [Python Optiland JSON interoperability](docs/PYTHON_JSON_INTEROP.md)
 - [Python analysis and plot parity](docs/PYTHON_ANALYSIS_PARITY.md)
 - [Local icon library](docs/LOCAL_ICONS.md)
+- [Application branding](docs/BRANDING.md)
+- [Manufacturability and optical drawings](docs/MANUFACTURING_DRAWINGS.md)
 
 Manual import and viewer samples are available under [`samples/lenses`](samples/lenses), including angle, finite-object-height, and Zemax real-image-height systems backed by bundled catalog glass.
 

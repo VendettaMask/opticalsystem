@@ -133,6 +133,22 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:glass-catalog", WorkspaceDocumentKind.GlassCatalog, "玻璃");
     }
 
+    public void ShowManufacturability()
+    {
+        OpenStable(
+            "document:manufacturability",
+            WorkspaceDocumentKind.Manufacturability,
+            "可加工性评估");
+    }
+
+    public void ShowOpticalDrawing()
+    {
+        OpenStable(
+            "document:optical-drawing",
+            WorkspaceDocumentKind.OpticalDrawing,
+            "光学制图");
+    }
+
     public void ShowAnalysis(string analysisName)
     {
         var canonical = _application.Analyses.CanonicalKey(analysisName);

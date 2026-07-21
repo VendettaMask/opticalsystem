@@ -355,6 +355,7 @@ public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     string Material,
+    double RefractiveIndex,
     IReadOnlyList<ScenePoint3Dto> FrontRim,
     IReadOnlyList<ScenePoint3Dto> BackRim);
 

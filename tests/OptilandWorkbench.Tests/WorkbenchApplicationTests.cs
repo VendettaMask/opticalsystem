@@ -584,6 +584,10 @@ public sealed class WorkbenchApplicationTests
         var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
 
         var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
+        Assert.NotEmpty(threeDimensional.LensElements);
+        Assert.All(
+            threeDimensional.LensElements,
+            element => Assert.InRange(element.RefractiveIndex, 1.0001, 2.5));
         var curvedSurface = threeDimensional.Surfaces.Single(surface => surface.SurfaceNumber == 1);
         var points = curvedSurface.Faces.SelectMany(face => face.Points).ToArray();
         Assert.NotEmpty(points);

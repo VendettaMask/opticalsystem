@@ -101,6 +101,7 @@ public sealed record Layout3DLensElement(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     string Material,
+    double RefractiveIndex,
     IReadOnlyList<Layout3DPoint> FrontRim,
     IReadOnlyList<Layout3DPoint> BackRim);
 
@@ -330,6 +331,7 @@ public sealed class Layout2DBuilder
                     surface.Number,
                     next.Number,
                     surface.MaterialAfterName,
+                    surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()),
                     BuildSurfaceRim(surface, extent, rimSamples),
                     BuildSurfaceRim(next, extent, rimSamples)));
             }
@@ -651,8 +653,8 @@ public sealed class Layout2DBuilder
         int surfaceSamples,
         int rimSamples)
     {
-        var radialSegments = Math.Clamp((surfaceSamples - 1) / 8, 4, 10);
-        var angularSegments = Math.Clamp(rimSamples / 2, 16, 40);
+        var radialSegments = Math.Clamp((surfaceSamples - 1) / 4, 8, 18);
+        var angularSegments = Math.Clamp(rimSamples, 32, 96);
         var center = ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(
             new Vector3D(0, 0, SafeSag(surface, 0, 0))));
         var rings = new List<IReadOnlyList<Layout3DPoint>>(radialSegments);

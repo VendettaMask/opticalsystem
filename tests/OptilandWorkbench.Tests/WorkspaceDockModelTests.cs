@@ -3,6 +3,7 @@ using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using Dock.Model.Mvvm.Core;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.Tests;
@@ -59,6 +60,28 @@ public sealed class WorkspaceDockModelTests
         Assert.Same(first, reopened);
         Assert.NotSame(first, clone);
         Assert.Equal(3, factory.OpenDocuments().Count);
+        factory.DisposeContent();
+    }
+
+    [Fact]
+    public void ManufacturingDocumentsCreateTheirExpectedPanels()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var factory = new WorkspaceDockFactory(application, new AppSettings());
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
+
+        var manufacturability = factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "document:manufacturability",
+            WorkspaceDocumentKind.Manufacturability,
+            "可加工性评估"));
+        var drawing = factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "document:optical-drawing",
+            WorkspaceDocumentKind.OpticalDrawing,
+            "光学制图"));
+
+        Assert.IsType<ManufacturabilityPanel>(manufacturability.Context);
+        Assert.IsType<OpticalDrawingPanel>(drawing.Context);
         factory.DisposeContent();
     }
 

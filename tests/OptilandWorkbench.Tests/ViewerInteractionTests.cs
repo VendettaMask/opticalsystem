@@ -1,4 +1,5 @@
 using Avalonia;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 
 namespace OptilandWorkbench.Tests;
@@ -35,5 +36,25 @@ public sealed class ViewerInteractionTests
 
         Assert.Equal(anchor.X, viewport.Apply(scenePoint, size).X, precision: 10);
         Assert.Equal(anchor.Y, viewport.Apply(scenePoint, size).Y, precision: 10);
+    }
+
+    [Fact]
+    public void CutawayClipsEveryRaySegmentToTheRetainedHalfSpace()
+    {
+        var paths = OpticSceneControl.ClipPolylineToCutaway(new[]
+        {
+            new ScenePoint3Dto(2, 0, 0),
+            new ScenePoint3Dto(-2, 4, 4),
+            new ScenePoint3Dto(2, 8, 8),
+            new ScenePoint3Dto(-2, 12, 12)
+        });
+
+        Assert.Equal(2, paths.Count);
+        Assert.Equal(3, paths[0].Count);
+        Assert.Equal(2, paths[1].Count);
+        Assert.All(paths.SelectMany(path => path), point => Assert.True(point.X <= 1e-9));
+        Assert.Equal(0, paths[0][0].X, precision: 12);
+        Assert.Equal(0, paths[0][^1].X, precision: 12);
+        Assert.Equal(0, paths[1][0].X, precision: 12);
     }
 }

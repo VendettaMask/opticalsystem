@@ -12,11 +12,21 @@
     <PackageReference Include="Dock.Avalonia.Themes.Fluent" Version="12.0.0.2" />
     <PackageReference Include="Dock.Model.Mvvm" Version="12.0.0.2" />
     <PackageReference Include="Dock.Serializer.SystemTextJson" Version="12.0.0.2" />
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
   </ItemGroup>
 
   <ItemGroup>
     <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
     <AvaloniaResource Include="Assets/Author.jpg" />
+    <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
+    <AvaloniaResource Include="Assets/Brand/Splash.png" />
+    <Content Include="Assets/Brand/AppIcon.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Brand/Splash.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Brand/AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Brand/AppIcon.icns" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Fonts/OFL-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Assets/Fonts/NotoSansCJKsc-Regular.otf"
+                      LogicalName="OptilandWorkbench.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />
     <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"
                       LogicalName="OptilandWorkbench.App.Assets.Icons.lucide-icon-nodes.json" />
   </ItemGroup>
@@ -30,6 +40,7 @@
     <Product>Optical System Design</Product>
     <Company>S.T.A.R. Labs</Company>
     <Description>Optical system design and analysis software by S.T.A.R. Labs.</Description>
+    <ApplicationIcon>Assets/Brand/AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>

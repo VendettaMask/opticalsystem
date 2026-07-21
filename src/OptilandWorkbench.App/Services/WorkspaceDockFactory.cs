@@ -397,6 +397,13 @@ public sealed class WorkspaceDockFactory : Factory
                 ViewerPresentationMode.SolidModel),
             WorkspaceDocumentKind.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
             WorkspaceDocumentKind.GlassCatalog => new GlassCatalogPanel(_application.Materials),
+            WorkspaceDocumentKind.Manufacturability => new ManufacturabilityPanel(
+                _application.Prescription,
+                _application.Events),
+            WorkspaceDocumentKind.OpticalDrawing => new OpticalDrawingPanel(
+                _application.Prescription,
+                _application.Materials,
+                _application.Events),
             WorkspaceDocumentKind.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
             WorkspaceDocumentKind.Tolerancing => new TolerancingPanel(_application.Prescription, _application.Tolerancing, _application.Events),
             WorkspaceDocumentKind.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
