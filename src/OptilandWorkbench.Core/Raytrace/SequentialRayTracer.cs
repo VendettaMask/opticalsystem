@@ -73,15 +73,62 @@ public sealed class SequentialRayTracer
         return Trace(bundle);
     }
 
+    public IReadOnlyList<RayTraceSample?> TraceFinalSamples(RealRayBundle bundle)
+    {
+        var finalSamples = new RayTraceSample?[bundle.Rays.Count];
+        var ambientMaterial = ResolveMaterial("Air");
+
+        for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var ray = bundle.Rays[rayIndex].Normalize();
+            var currentMaterial = ambientMaterial;
+            var cumulativePathLength = 0.0;
+            var cumulativeOpticalPathLength = 0.0;
+
+            foreach (var surface in _optic.SurfaceGroup.Items)
+            {
+                ComputationCancellation.ThrowIfCancellationRequested();
+                if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
+                    && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
+                {
+                    continue;
+                }
+
+                var nextMaterial = surface.MaterialAfter;
+                var result = surface.TraceRay(
+                    ray,
+                    currentMaterial,
+                    nextMaterial,
+                    cumulativePathLength,
+                    cumulativeOpticalPathLength);
+
+                ray = result.Ray;
+                currentMaterial = nextMaterial;
+                cumulativePathLength = result.CumulativePathLength;
+                cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
+                finalSamples[rayIndex] = result.Sample;
+
+                if (result.StopTracing)
+                {
+                    break;
+                }
+            }
+        }
+
+        return finalSamples;
+    }
+
     public SequentialTrace Trace(RealRayBundle bundle)
     {
         var histories = new List<IReadOnlyList<RayTraceSample>>();
+        var ambientMaterial = ResolveMaterial("Air");
 
         foreach (var sourceRay in bundle.Rays)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var ray = sourceRay.Normalize();
-            var currentMaterial = ResolveMaterial("Air");
+            var currentMaterial = ambientMaterial;
             var cumulativePathLength = 0.0;
             var cumulativeOpticalPathLength = 0.0;
             var history = new List<RayTraceSample>();

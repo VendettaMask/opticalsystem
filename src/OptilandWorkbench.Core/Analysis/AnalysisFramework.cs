@@ -164,7 +164,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             var configuredField = fieldIndex < Optic.Fields.Count ? Optic.Fields[fieldIndex] : null;
             var fieldTitle = configuredField is null
                 ? $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}"
-                : FormatFieldTitle(configuredField.X, configuredField.Y, Optic.FieldDefinition);
+                : AnalysisTrace.FormatFieldTitle(configuredField.X, configuredField.Y, Optic.FieldDefinition);
             var series = field.Wavelengths.Select((wavelength, index) => new AnalysisSeries(
                 "X (mm)",
                 "Y (mm)",
@@ -210,25 +210,6 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             ["Distribution"] = _distribution,
             ["MaximumGeometricSpotRadius"] = maximumRadius
         }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes, PlotPaneColumns: 3);
-    }
-
-    private static string FormatFieldTitle(double x, double y, FieldDefinitionKind definition)
-    {
-        var label = definition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight
-            ? "像面"
-            : "物面";
-        var unit = definition == FieldDefinitionKind.Angle ? "度" : "mm";
-        if (Math.Abs(x) <= 1e-12)
-        {
-            return $"{label}: {y:0.00} ({unit})";
-        }
-
-        if (Math.Abs(y) <= 1e-12)
-        {
-            return $"{label}: {x:0.00} ({unit})";
-        }
-
-        return $"{label}: X {x:0.00}, Y {y:0.00} ({unit})";
     }
 
     private static double NiceAxisLimit(double minimum)
@@ -304,9 +285,13 @@ public sealed class RayFanAnalysis : BaseAnalysis
         ExpandPlotRange(ref yMinimum, ref yMaximum);
 
         var panes = new List<AnalysisPlotPane>();
-        foreach (var field in fieldFans)
+        for (var fieldIndex = 0; fieldIndex < fieldFans.Count; fieldIndex++)
         {
-            var title = $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}";
+            var field = fieldFans[fieldIndex];
+            var configuredField = fieldIndex < Optic.Fields.Count ? Optic.Fields[fieldIndex] : null;
+            var title = configuredField is null
+                ? $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}"
+                : AnalysisTrace.FormatFieldTitle(configuredField.X, configuredField.Y, Optic.FieldDefinition);
             panes.Add(new AnalysisPlotPane(title, BuildFanSeries(field.Waves, pupil, yFan: true), new AnalysisPlotOptions(
                 Title: title,
                 ShowVerticalZeroLine: true,
@@ -425,11 +410,32 @@ public sealed class DistortionAnalysis : BaseAnalysis
 {
     private readonly int _numPoints;
     private readonly string _distortionType;
+    private readonly int _wavelengthNumber;
+    private readonly string _scanDirection;
+    private readonly string _displayMode;
+    private readonly int _referenceFieldNumber;
+    private readonly bool _ignoreVignettingFactors;
+    private readonly double _maximumDistortion;
 
-    public DistortionAnalysis(Optic optic, int numPoints = 128, string distortionType = "f-tan") : base(optic)
+    public DistortionAnalysis(
+        Optic optic,
+        int numPoints = 128,
+        string distortionType = "f-tan",
+        int wavelengthNumber = 0,
+        string scanDirection = "+y",
+        string displayMode = "percent",
+        int referenceFieldNumber = 1,
+        bool ignoreVignettingFactors = true,
+        double maximumDistortion = 0) : base(optic)
     {
         _numPoints = Math.Max(2, numPoints);
         _distortionType = AnalysisTrace.NormalizeDistortionType(distortionType);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
+        _displayMode = AnalysisTrace.NormalizeDistortionDisplayMode(displayMode);
+        _referenceFieldNumber = Math.Max(1, referenceFieldNumber);
+        _ignoreVignettingFactors = ignoreVignettingFactors;
+        _maximumDistortion = Math.Max(0, maximumDistortion);
     }
 
     public override string Name => "Distortion";
@@ -439,60 +445,65 @@ public sealed class DistortionAnalysis : BaseAnalysis
         if (Optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
         {
             var converted = RealImageFieldConversion.ForDistortion(Optic);
-            return new DistortionAnalysis(converted, _numPoints, _distortionType).GenerateData();
+            return new DistortionAnalysis(
+                converted,
+                _numPoints,
+                _distortionType,
+                _wavelengthNumber,
+                _scanDirection,
+                _displayMode,
+                _referenceFieldNumber,
+                _ignoreVignettingFactors,
+                _maximumDistortion).GenerateData();
         }
 
-        const double epsilon = 1e-10;
         var maxField = AnalysisTrace.MaxFieldValue(Optic);
-        var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
-        var fieldRadians = angularField ? maxField * Math.PI / 180.0 : 0;
         var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
         var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
-        var effectiveDistortionType = angularField ? _distortionType : "linear-height";
-        var wavelengths = Optic.Wavelengths.ToArray();
+        var effectiveDistortionType = Optic.FieldDefinition == FieldDefinitionKind.Angle
+            ? _distortionType
+            : "linear-height";
+        var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDistortion = 0.0;
 
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
             var wavelength = wavelengths[wavelengthIndex];
-            var chiefHeight = AnalysisTrace.FinalSample(
+            var mapping = AnalysisTrace.BuildDistortionReferenceMapping(
                 Optic,
-                0,
-                0,
-                0,
-                0,
-                wavelength.Micrometers).Position.Y;
-            var referenceHeight = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers).Position.Y
-                - chiefHeight;
-            var constant = AnalysisTrace.IdealFieldScale(
-                Optic,
-                referenceHeight,
-                epsilon,
-                maxField,
-                fieldRadians,
+                wavelength.Micrometers,
+                _referenceFieldNumber,
                 _distortionType);
             var points = new AnalysisPoint[_numPoints];
 
             for (var index = 0; index < _numPoints; index++)
             {
-                var normalizedField = epsilon + ((1.0 - epsilon) * index / (_numPoints - 1.0));
-                var actualHeight = AnalysisTrace.FinalSample(Optic, 0, normalizedField, 0, 0, wavelength.Micrometers).Position.Y
-                    - chiefHeight;
-                var idealHeight = AnalysisTrace.IdealFieldHeight(
+                var fieldMagnitude = maxField * index / (_numPoints - 1.0);
+                var (fieldX, fieldY) = AnalysisTrace.ScanField(_scanDirection, fieldMagnitude);
+                var linearField = AnalysisTrace.ToDistortionLinearField(Optic, fieldX, fieldY, _distortionType);
+                var actualImage = AnalysisTrace.TraceChiefAtLinearField(
                     Optic,
-                    normalizedField,
-                    maxField,
-                    fieldRadians,
-                    constant,
+                    linearField.X,
+                    linearField.Y,
+                    wavelength.Micrometers,
                     _distortionType);
-                var distortion = Math.Abs(idealHeight) <= 1e-30 ? 0 : 100.0 * (actualHeight - idealHeight) / idealHeight;
+                var actualX = actualImage.X - mapping.ReferenceImageX;
+                var actualY = actualImage.Y - mapping.ReferenceImageY;
+                var predicted = mapping.MapFromReference(linearField.X, linearField.Y);
+                var actualRadius = Math.Sqrt((actualX * actualX) + (actualY * actualY));
+                var predictedRadius = Math.Sqrt((predicted.X * predicted.X) + (predicted.Y * predicted.Y));
+                var distortion = predictedRadius <= 1e-30
+                    ? 0
+                    : _displayMode == "absolute"
+                        ? actualRadius - predictedRadius
+                        : 100.0 * (actualRadius - predictedRadius) / predictedRadius;
                 maximumAbsoluteDistortion = Math.Max(maximumAbsoluteDistortion, Math.Abs(distortion));
-                points[index] = new AnalysisPoint(distortion, normalizedField * maxField);
+                points[index] = new AnalysisPoint(distortion, AnalysisTrace.ScanFieldValue(_scanDirection, fieldMagnitude));
             }
 
             series.Add(new AnalysisSeries(
-                "Distortion (%)",
+                _displayMode == "absolute" ? "Distortion (mm)" : "Distortion (%)",
                 fieldAxisLabel,
                 points,
                 Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
@@ -504,16 +515,25 @@ public sealed class DistortionAnalysis : BaseAnalysis
         {
             [fieldValueKey] = maxField,
             ["DistortionType"] = effectiveDistortionType,
+            ["DisplayMode"] = _displayMode,
+            ["ScanDirection"] = _scanDirection,
+            ["ReferenceFieldNumber"] = _referenceFieldNumber,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["IgnoreVignettingFactors"] = _ignoreVignettingFactors,
             ["Samples"] = _numPoints,
             ["WavelengthCount"] = wavelengths.Length,
-            ["MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
+            [_displayMode == "absolute" ? "MaximumAbsoluteDistortionMillimeters" : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
+        var positiveScan = _scanDirection[0] == '+';
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
             SymmetricX: true,
             ShowVerticalZeroLine: true,
             VerticalZeroLineStyle: AnalysisLineStyle.Dashed,
             VerticalZeroLineWidth: 1,
-            YMinimum: 0,
+            XMinimum: _maximumDistortion > 0 ? -_maximumDistortion : null,
+            XMaximum: _maximumDistortion > 0 ? _maximumDistortion : null,
+            YMinimum: positiveScan ? 0 : null,
+            YMaximum: positiveScan ? null : 0,
             ShowLegend: true));
     }
 }
@@ -539,6 +559,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         var wavelengths = Optic.Wavelengths.ToArray();
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDelta = 0.0;
+        var maximumTangentialFieldCurvature = 0.0;
+        var maximumSagittalFieldCurvature = 0.0;
 
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
@@ -573,6 +595,15 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                 tangential[index] = new AnalysisPoint(tangentialDelta, field);
                 sagittal[index] = new AnalysisPoint(sagittalDelta, field);
                 maximumAbsoluteDelta = Math.Max(maximumAbsoluteDelta, Math.Max(Math.Abs(tangentialDelta), Math.Abs(sagittalDelta)));
+                if (Math.Abs(tangentialDelta) > Math.Abs(maximumTangentialFieldCurvature))
+                {
+                    maximumTangentialFieldCurvature = tangentialDelta;
+                }
+
+                if (Math.Abs(sagittalDelta) > Math.Abs(maximumSagittalFieldCurvature))
+                {
+                    maximumSagittalFieldCurvature = sagittalDelta;
+                }
             }
 
             var wavelengthLabel = $"{wavelength.Micrometers:0.0000} \u00B5m";
@@ -598,6 +629,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             ["Samples"] = _numPoints,
             ["ParabasalDelta"] = _parabasalDelta,
             ["WavelengthCount"] = wavelengths.Length,
+            ["MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
+            ["MaximumSagittalFieldCurvatureMillimeters"] = maximumSagittalFieldCurvature,
             ["MaximumAbsoluteImagePlaneDelta"] = maximumAbsoluteDelta
         };
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
@@ -618,8 +651,8 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
 
     public EncircledEnergyAnalysis(
         Optic optic,
-        int numRays = 100_000,
-        string distribution = "random",
+        int numRays = 10_000,
+        string distribution = "sobol",
         int numPoints = 256) : base(optic)
     {
         _numRays = Math.Max(1, numRays);
@@ -640,22 +673,26 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         }
 
         var result = SpotAnalysisEngine.Generate(Optic, fields, new[] { primary }, _numRays, _distribution);
-        var geometricRadius = result.Fields
-            .SelectMany(field => field.Wavelengths)
-            .SelectMany(wavelength => wavelength.Rays)
-            .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
+        var fieldRadii = result.Fields.Select(field => field.Wavelengths[0].Rays
+            .Select(ray => (
+                Radius: Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)),
+                Weight: ray.Intensity))
+            .OrderBy(item => item.Radius)
+            .ToArray()).ToArray();
+        var geometricRadius = fieldRadii
+            .SelectMany(radii => radii)
+            .Select(item => item.Radius)
             .DefaultIfEmpty(0)
             .Max();
         var radiusMaximum = geometricRadius * 1.2;
         var series = result.Fields.Select((field, fieldIndex) =>
         {
-            var rays = field.Wavelengths[0].Rays;
+            var radii = fieldRadii[fieldIndex];
+            var cumulativeWeights = CumulativeWeights(radii);
             var points = Enumerable.Range(0, _numPoints).Select(index =>
             {
                 var radius = radiusMaximum * index / (_numPoints - 1.0);
-                var energy = rays
-                    .Where(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)) <= radius)
-                    .Sum(ray => ray.Intensity);
+                var energy = EnergyWithinRadius(radii, cumulativeWeights, radius);
                 return new AnalysisPoint(radius, energy);
             }).ToArray();
             return new AnalysisSeries(
@@ -665,17 +702,11 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                 Name: $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}",
                 ColorIndex: fieldIndex);
         }).ToArray();
-        var allRays = result.Fields
-            .SelectMany(field => field.Wavelengths)
-            .SelectMany(wavelength => wavelength.Rays)
-            .ToArray();
-        var totalWeight = allRays.Sum(ray => ray.Intensity);
-        var weightedRadii = allRays
-            .Select(ray => (
-                Radius: Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)),
-                Weight: ray.Intensity))
+        var weightedRadii = fieldRadii
+            .SelectMany(radii => radii)
             .OrderBy(item => item.Radius)
             .ToArray();
+        var totalWeight = weightedRadii.Sum(item => item.Weight);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["RayCount"] = result.RayCount,
@@ -695,6 +726,42 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             XMinimum: 0,
             YMinimum: 0,
             ShowLegend: true));
+    }
+
+    private static double[] CumulativeWeights(IReadOnlyList<(double Radius, double Weight)> radii)
+    {
+        var cumulative = new double[radii.Count];
+        var total = 0.0;
+        for (var index = 0; index < radii.Count; index++)
+        {
+            total += radii[index].Weight;
+            cumulative[index] = total;
+        }
+
+        return cumulative;
+    }
+
+    private static double EnergyWithinRadius(
+        IReadOnlyList<(double Radius, double Weight)> radii,
+        IReadOnlyList<double> cumulativeWeights,
+        double radius)
+    {
+        var lower = 0;
+        var upper = radii.Count;
+        while (lower < upper)
+        {
+            var middle = lower + ((upper - lower) / 2);
+            if (radii[middle].Radius <= radius)
+            {
+                lower = middle + 1;
+            }
+            else
+            {
+                upper = middle;
+            }
+        }
+
+        return lower == 0 ? 0 : cumulativeWeights[lower - 1];
     }
 
     private static double RadiusAtEnergy(
@@ -776,9 +843,13 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
         var yMaximum = finite.DefaultIfEmpty(1).Max();
         ExpandRange(ref yMinimum, ref yMaximum);
         var panes = new List<AnalysisPlotPane>();
-        foreach (var field in fieldData)
+        for (var fieldIndex = 0; fieldIndex < fieldData.Count; fieldIndex++)
         {
-            var title = $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}";
+            var field = fieldData[fieldIndex];
+            var configuredField = fieldIndex < Optic.Fields.Count ? Optic.Fields[fieldIndex] : null;
+            var title = configuredField is null
+                ? $"Hx: {field.Hx:0.000}, Hy: {field.Hy:0.000}"
+                : AnalysisTrace.FormatFieldTitle(configuredField.X, configuredField.Y, Optic.FieldDefinition);
             panes.Add(PupilPane(field.Waves, pupil, title, yMinimum, yMaximum, yFan: true));
             panes.Add(PupilPane(field.Waves, pupil, title, yMinimum, yMaximum, yFan: false));
         }
@@ -2206,12 +2277,33 @@ public sealed class PrescriptionReportAnalysis : BaseAnalysis
 public sealed class GridDistortionAnalysis : BaseAnalysis
 {
     private readonly int _numPoints;
-    private readonly string _distortionType;
+    private readonly int _wavelengthNumber;
+    private readonly int _referenceFieldNumber;
+    private readonly string _displayMode;
+    private readonly double _scale;
+    private readonly double _heightWidthAspect;
+    private readonly bool _symmetricMagnification;
+    private readonly double _fieldWidth;
 
-    public GridDistortionAnalysis(Optic optic, int numPoints = 10, string distortionType = "f-tan") : base(optic)
+    public GridDistortionAnalysis(
+        Optic optic,
+        int numPoints = 12,
+        int wavelengthNumber = 1,
+        int referenceFieldNumber = 1,
+        string displayMode = "cross",
+        double scale = 1,
+        double heightWidthAspect = 1,
+        bool symmetricMagnification = false,
+        double fieldWidth = 0) : base(optic)
     {
         _numPoints = Math.Max(2, numPoints);
-        _distortionType = AnalysisTrace.NormalizeDistortionType(distortionType);
+        _wavelengthNumber = Math.Max(1, wavelengthNumber);
+        _referenceFieldNumber = Math.Max(1, referenceFieldNumber);
+        _displayMode = AnalysisTrace.NormalizeGridDisplayMode(displayMode);
+        _scale = Math.Max(0, scale);
+        _heightWidthAspect = Math.Max(1e-6, heightWidthAspect);
+        _symmetricMagnification = symmetricMagnification;
+        _fieldWidth = Math.Max(0, fieldWidth);
     }
 
     public override string Name => "Grid Distortion";
@@ -2221,17 +2313,20 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         if (Optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
         {
             var converted = RealImageFieldConversion.ForDistortion(Optic);
-            return new GridDistortionAnalysis(converted, _numPoints, _distortionType).GenerateData();
+            return new GridDistortionAnalysis(
+                converted,
+                _numPoints,
+                _wavelengthNumber,
+                _referenceFieldNumber,
+                _displayMode,
+                _scale,
+                _heightWidthAspect,
+                _symmetricMagnification,
+                _fieldWidth).GenerateData();
         }
 
-        const double epsilon = 1e-10;
-        var maxField = AnalysisTrace.MaxFieldValue(Optic);
-        var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
-        var maxFieldRadians = angularField ? maxField * Math.PI / 180.0 : 0;
-        var effectiveDistortionType = angularField ? _distortionType : "linear-height";
-        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? Optic.Wavelengths.FirstOrDefault();
-        if (wavelength is null)
+        var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
+        if (wavelengths.Length == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object>
             {
@@ -2239,18 +2334,20 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             });
         }
 
-        var chief = AnalysisTrace.FinalSample(Optic, 0, 0, 0, 0, wavelength.Micrometers);
-        var reference = AnalysisTrace.FinalSample(Optic, 0, epsilon, 0, 0, wavelength.Micrometers);
-        var constant = AnalysisTrace.IdealFieldScale(
+        const string coordinateModel = "f-tan";
+        var wavelength = wavelengths[0];
+        var mapping = AnalysisTrace.BuildDistortionReferenceMapping(
             Optic,
-            reference.Position.Y - chief.Position.Y,
-            epsilon,
-            maxField,
-            maxFieldRadians,
-            _distortionType);
-        var extent = Math.Sqrt(2) / 2.0;
-        var normalized = Enumerable.Range(0, _numPoints)
-            .Select(index => -extent + ((2 * extent) * index / (_numPoints - 1.0)))
+            wavelength.Micrometers,
+            _referenceFieldNumber,
+            coordinateModel,
+            _symmetricMagnification);
+        var (halfWidth, halfHeight) = GridHalfExtents();
+        var horizontal = Enumerable.Range(0, _numPoints)
+            .Select(index => -halfWidth + ((2 * halfWidth) * index / (_numPoints - 1.0)))
+            .ToArray();
+        var vertical = Enumerable.Range(0, _numPoints)
+            .Select(index => -halfHeight + ((2 * halfHeight) * index / (_numPoints - 1.0)))
             .ToArray();
         var idealX = new double[_numPoints, _numPoints];
         var idealY = new double[_numPoints, _numPoints];
@@ -2262,21 +2359,32 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         {
             for (var column = 0; column < _numPoints; column++)
             {
-                var hx = normalized[column];
-                var hy = normalized[row];
-                idealX[row, column] = AnalysisTrace.IdealFieldHeight(
-                    Optic, hx, maxField, maxFieldRadians, constant, _distortionType);
-                idealY[row, column] = AnalysisTrace.IdealFieldHeight(
-                    Optic, hy, maxField, maxFieldRadians, constant, _distortionType);
-                var sample = AnalysisTrace.FinalSample(Optic, hx, hy, 0, 0, wavelength.Micrometers);
-                actualX[row, column] = sample.Position.X - chief.Position.X;
-                actualY[row, column] = sample.Position.Y - chief.Position.Y;
-                var idealRadius = Math.Sqrt((idealX[row, column] * idealX[row, column]) + (idealY[row, column] * idealY[row, column]));
-                if (idealRadius > 1e-30)
+                var linearX = horizontal[column];
+                var linearY = vertical[row];
+                idealX[row, column] = linearX;
+                idealY[row, column] = linearY;
+                var sample = AnalysisTrace.TraceChiefAtLinearField(
+                    Optic,
+                    linearX,
+                    linearY,
+                    wavelength.Micrometers,
+                    coordinateModel);
+                var imageX = sample.X - mapping.ReferenceImageX;
+                var imageY = sample.Y - mapping.ReferenceImageY;
+                var mappedObject = mapping.MapImageToObject(imageX, imageY);
+                actualX[row, column] = linearX + (_scale * (mappedObject.X - linearX));
+                actualY[row, column] = linearY + (_scale * (mappedObject.Y - linearY));
+
+                var predicted = mapping.MapFromReference(linearX, linearY);
+                var predictedRadius = Math.Sqrt((predicted.X * predicted.X) + (predicted.Y * predicted.Y));
+                if (predictedRadius > 1e-30)
                 {
-                    var dx = idealX[row, column] - actualX[row, column];
-                    var dy = idealY[row, column] - actualY[row, column];
-                    maximumDistortion = Math.Max(maximumDistortion, 100 * Math.Sqrt((dx * dx) + (dy * dy)) / idealRadius);
+                    var actualRadius = Math.Sqrt((imageX * imageX) + (imageY * imageY));
+                    var distortion = 100 * (actualRadius - predictedRadius) / predictedRadius;
+                    if (Math.Abs(distortion) > Math.Abs(maximumDistortion))
+                    {
+                        maximumDistortion = distortion;
+                    }
                 }
             }
         }
@@ -2284,37 +2392,50 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         var series = new List<AnalysisSeries>((_numPoints * 2) + 1);
         for (var index = 0; index < _numPoints; index++)
         {
-            series.Add(GridLine(actualX, actualY, index, false, "畸变网格", 10, AnalysisLineStyle.Solid, 1.2));
+            series.Add(GridLine(idealX, idealY, index, false, "理想网格", 10, AnalysisLineStyle.Solid, 1.2));
         }
 
         for (var index = 0; index < _numPoints; index++)
         {
-            series.Add(GridLine(actualX, actualY, index, true, "", 10, AnalysisLineStyle.Solid, 1.2));
+            series.Add(GridLine(idealX, idealY, index, true, "", 10, AnalysisLineStyle.Solid, 1.2));
         }
 
         series.Add(new AnalysisSeries(
-            "Image X (mm)",
-            "Image Y (mm)",
-            IdealGridPoints(idealX, idealY),
-            AnalysisSeriesKind.Scatter,
-            "理想网格",
+            "Object field X",
+            "Object field Y",
+            _displayMode == "vector"
+                ? GridVectors(idealX, idealY, actualX, actualY)
+                : GridPoints(actualX, actualY),
+            _displayMode == "vector" ? AnalysisSeriesKind.Line : AnalysisSeriesKind.Scatter,
+            _displayMode == "vector" ? "畸变向量" : "实际像点",
             ColorIndex: 0,
             MarkerStyle: AnalysisMarkerStyle.Cross,
-            MarkerSize: 2.8));
+            MarkerSize: 2.8,
+            LineWidth: 1));
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["MaximumDistortionPercent"] = maximumDistortion,
-            ["DistortionType"] = effectiveDistortionType,
             ["GridSize"] = _numPoints,
-            ["WavelengthMicrometers"] = wavelength.Micrometers
+            ["DisplayMode"] = _displayMode,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["ReferenceFieldNumber"] = _referenceFieldNumber,
+            ["Scale"] = _scale,
+            ["HeightWidthAspect"] = _heightWidthAspect,
+            ["SymmetricMagnification"] = _symmetricMagnification,
+            ["FieldWidth"] = _fieldWidth,
+            ["MappingA"] = mapping.M00,
+            ["MappingB"] = mapping.M01,
+            ["MappingC"] = mapping.M10,
+            ["MappingD"] = mapping.M11
         }, series[0], series, new AnalysisPlotOptions(
             EqualAspect: true,
             ShowLegend: false,
             HideAxes: true));
     }
 
-    private IReadOnlyList<AnalysisPoint> IdealGridPoints(double[,] x, double[,] y)
+    private IReadOnlyList<AnalysisPoint> GridPoints(double[,] x, double[,] y)
     {
         var points = new AnalysisPoint[_numPoints * _numPoints];
         var outputIndex = 0;
@@ -2327,6 +2448,51 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         }
 
         return points;
+    }
+
+    private IReadOnlyList<AnalysisPoint> GridVectors(
+        double[,] idealX,
+        double[,] idealY,
+        double[,] actualX,
+        double[,] actualY)
+    {
+        var points = new AnalysisPoint[_numPoints * _numPoints * 3];
+        var outputIndex = 0;
+        for (var row = 0; row < _numPoints; row++)
+        {
+            for (var column = 0; column < _numPoints; column++)
+            {
+                points[outputIndex++] = new AnalysisPoint(idealX[row, column], idealY[row, column]);
+                points[outputIndex++] = new AnalysisPoint(actualX[row, column], actualY[row, column]);
+                points[outputIndex++] = new AnalysisPoint(double.NaN, double.NaN);
+            }
+        }
+
+        return points;
+    }
+
+    private (double HalfWidth, double HalfHeight) GridHalfExtents()
+    {
+        if (_fieldWidth > 0)
+        {
+            var halfWidth = Optic.FieldDefinition == FieldDefinitionKind.Angle
+                ? Math.Tan(0.5 * _fieldWidth * Math.PI / 180.0)
+                : 0.5 * _fieldWidth;
+            return (halfWidth, halfWidth * _heightWidthAspect);
+        }
+
+        var maximumRadius = Optic.Fields
+            .Select(field => AnalysisTrace.ToDistortionLinearField(Optic, field.X, field.Y, "f-tan"))
+            .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
+            .DefaultIfEmpty(0)
+            .Max();
+        if (maximumRadius <= 1e-12)
+        {
+            maximumRadius = 1;
+        }
+
+        var halfWidthAuto = maximumRadius / Math.Sqrt(1 + (_heightWidthAspect * _heightWidthAspect));
+        return (halfWidthAuto, halfWidthAuto * _heightWidthAspect);
     }
 
     private AnalysisSeries GridLine(
@@ -2348,8 +2514,8 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         }
 
         return new AnalysisSeries(
-            "Image X (mm)",
-            "Image Y (mm)",
+            "Object field X",
+            "Object field Y",
             points,
             Name: name,
             LineStyle: lineStyle,
@@ -2358,8 +2524,58 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
     }
 }
 
+internal readonly record struct DistortionReferenceMapping(
+    double ReferenceLinearX,
+    double ReferenceLinearY,
+    double ReferenceImageX,
+    double ReferenceImageY,
+    double M00,
+    double M01,
+    double M10,
+    double M11)
+{
+    public (double X, double Y) MapFromReference(double linearX, double linearY)
+    {
+        var x = linearX - ReferenceLinearX;
+        var y = linearY - ReferenceLinearY;
+        return ((M00 * x) + (M01 * y), (M10 * x) + (M11 * y));
+    }
+
+    public (double X, double Y) MapImageToObject(double imageX, double imageY)
+    {
+        var determinant = (M00 * M11) - (M01 * M10);
+        if (Math.Abs(determinant) <= 1e-20)
+        {
+            throw new InvalidOperationException("The distortion reference mapping is singular.");
+        }
+
+        var x = ((M11 * imageX) - (M01 * imageY)) / determinant;
+        var y = ((M00 * imageY) - (M10 * imageX)) / determinant;
+        return (ReferenceLinearX + x, ReferenceLinearY + y);
+    }
+}
+
 internal static class AnalysisTrace
 {
+    public static string FormatFieldTitle(double x, double y, FieldDefinitionKind definition)
+    {
+        var label = definition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight
+            ? "像面"
+            : "物面";
+        var unit = definition == FieldDefinitionKind.Angle ? "度" : "mm";
+        if (Math.Abs(x) <= 1e-12)
+        {
+            return $"{label}: {y:0.00} ({unit})";
+        }
+
+        if (Math.Abs(y) <= 1e-12)
+        {
+            return $"{label}: {x:0.00} ({unit})";
+        }
+
+        return $"{label}: X {x:0.00}, Y {y:0.00} ({unit})";
+    }
+
     public static double MaxFieldValue(Optic optic)
     {
         return FieldCoordinates.MaximumRadius(optic.Fields);
@@ -2387,52 +2603,266 @@ internal static class AnalysisTrace
         };
     }
 
-    public static double IdealFieldScale(
-        Optic optic,
-        double referenceImageHeight,
-        double normalizedReferenceField,
-        double maxField,
-        double maxFieldRadians,
-        string distortionType)
+    public static Wavelength[] SelectWavelengths(Optic optic, int wavelengthNumber)
     {
-        if (optic.FieldDefinition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight)
+        var wavelengths = optic.Wavelengths.ToArray();
+        if (wavelengthNumber <= 0 || wavelengths.Length == 0)
         {
-            return 1;
+            return wavelengths;
         }
 
-        var referenceCoordinate = optic.FieldDefinition == FieldDefinitionKind.Angle
-            ? distortionType == "f-theta"
-                ? normalizedReferenceField * maxFieldRadians
-                : Math.Tan(normalizedReferenceField * maxFieldRadians)
-            : normalizedReferenceField * maxField;
-        return Math.Abs(referenceCoordinate) <= 1e-30 ? 0 : referenceImageHeight / referenceCoordinate;
+        return new[] { wavelengths[Math.Clamp(wavelengthNumber - 1, 0, wavelengths.Length - 1)] };
     }
 
-    public static double IdealFieldHeight(
+    public static (double X, double Y) ToDistortionLinearField(
         Optic optic,
-        double normalizedField,
-        double maxField,
-        double maxFieldRadians,
-        double scale,
+        double fieldX,
+        double fieldY,
         string distortionType)
     {
-        if (optic.FieldDefinition == FieldDefinitionKind.Angle)
+        if (optic.FieldDefinition != FieldDefinitionKind.Angle)
         {
-            var angle = normalizedField * maxFieldRadians;
-            return scale * (distortionType == "f-theta" ? angle : Math.Tan(angle));
+            return (fieldX, fieldY);
         }
 
-        return scale * normalizedField * maxField;
+        var xRadians = fieldX * Math.PI / 180.0;
+        var yRadians = fieldY * Math.PI / 180.0;
+        return distortionType == "f-theta"
+            ? (xRadians, yRadians)
+            : (Math.Tan(xRadians), Math.Tan(yRadians));
+    }
+
+    public static (double X, double Y) TraceChiefAtLinearField(
+        Optic optic,
+        double linearX,
+        double linearY,
+        double wavelengthMicrometers,
+        string distortionType)
+    {
+        var physical = FromDistortionLinearField(optic, linearX, linearY, distortionType);
+        var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
+        var sample = FinalSample(
+            optic,
+            normalized.X,
+            normalized.Y,
+            0,
+            0,
+            wavelengthMicrometers);
+        return (sample.Position.X, sample.Position.Y);
+    }
+
+    public static DistortionReferenceMapping BuildDistortionReferenceMapping(
+        Optic optic,
+        double wavelengthMicrometers,
+        int referenceFieldNumber,
+        string distortionType,
+        bool symmetricMagnification = false)
+    {
+        var fields = optic.Fields.ToArray();
+        var referenceField = fields.Length == 0
+            ? new FieldPoint()
+            : fields[Math.Clamp(referenceFieldNumber - 1, 0, fields.Length - 1)];
+        var referenceLinear = ToDistortionLinearField(
+            optic,
+            referenceField.X,
+            referenceField.Y,
+            distortionType);
+        var referenceImage = TraceChiefAtLinearField(
+            optic,
+            referenceLinear.X,
+            referenceLinear.Y,
+            wavelengthMicrometers,
+            distortionType);
+        var maximumLinearRadius = fields
+            .Select(field => ToDistortionLinearField(optic, field.X, field.Y, distortionType))
+            .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
+            .DefaultIfEmpty(0)
+            .Max();
+        var delta = Math.Max(1e-8, Math.Max(1, maximumLinearRadius) * 1e-6);
+        var xColumn = DistortionDerivative(
+            optic,
+            referenceLinear,
+            referenceImage,
+            wavelengthMicrometers,
+            distortionType,
+            delta,
+            xAxis: true);
+        var yColumn = DistortionDerivative(
+            optic,
+            referenceLinear,
+            referenceImage,
+            wavelengthMicrometers,
+            distortionType,
+            delta,
+            xAxis: false);
+        var m00 = xColumn.X;
+        var m01 = yColumn.X;
+        var m10 = xColumn.Y;
+        var m11 = yColumn.Y;
+        if (symmetricMagnification)
+        {
+            var real = 0.5 * (m00 + m11);
+            var imaginary = 0.5 * (m10 - m01);
+            m00 = real;
+            m01 = -imaginary;
+            m10 = imaginary;
+            m11 = real;
+        }
+
+        var determinant = (m00 * m11) - (m01 * m10);
+        if (Math.Abs(determinant) <= 1e-20)
+        {
+            throw new InvalidOperationException("Unable to establish a non-singular distortion reference mapping.");
+        }
+
+        return new DistortionReferenceMapping(
+            referenceLinear.X,
+            referenceLinear.Y,
+            referenceImage.X,
+            referenceImage.Y,
+            m00,
+            m01,
+            m10,
+            m11);
+    }
+
+    public static (double X, double Y) ScanField(string scanDirection, double magnitude)
+    {
+        return scanDirection switch
+        {
+            "+x" => (magnitude, 0),
+            "-x" => (-magnitude, 0),
+            "-y" => (0, -magnitude),
+            _ => (0, magnitude)
+        };
+    }
+
+    public static double ScanFieldValue(string scanDirection, double magnitude)
+    {
+        return scanDirection[0] == '-' ? -magnitude : magnitude;
+    }
+
+    public static string NormalizeScanDirection(string scanDirection)
+    {
+        var normalized = scanDirection.Trim().ToLowerInvariant();
+        return normalized is "+x" or "-x" or "+y" or "-y"
+            ? normalized
+            : throw new ArgumentException("Scan direction must be +x, -x, +y, or -y.", nameof(scanDirection));
+    }
+
+    public static string NormalizeDistortionDisplayMode(string displayMode)
+    {
+        if (string.Equals(displayMode, "percent", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(displayMode, "百分比", StringComparison.Ordinal))
+        {
+            return "percent";
+        }
+
+        if (string.Equals(displayMode, "absolute", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(displayMode, "绝对值", StringComparison.Ordinal))
+        {
+            return "absolute";
+        }
+
+        throw new ArgumentException("Distortion display mode must be 'percent' or 'absolute'.", nameof(displayMode));
+    }
+
+    public static string NormalizeGridDisplayMode(string displayMode)
+    {
+        if (string.Equals(displayMode, "cross", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(displayMode, "截面", StringComparison.Ordinal))
+        {
+            return "cross";
+        }
+
+        if (string.Equals(displayMode, "vector", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(displayMode, "向量", StringComparison.Ordinal))
+        {
+            return "vector";
+        }
+
+        throw new ArgumentException("Grid display mode must be 'cross' or 'vector'.", nameof(displayMode));
+    }
+
+    private static (double X, double Y) FromDistortionLinearField(
+        Optic optic,
+        double linearX,
+        double linearY,
+        string distortionType)
+    {
+        if (optic.FieldDefinition != FieldDefinitionKind.Angle)
+        {
+            return (linearX, linearY);
+        }
+
+        var xRadians = distortionType == "f-theta" ? linearX : Math.Atan(linearX);
+        var yRadians = distortionType == "f-theta" ? linearY : Math.Atan(linearY);
+        return (xRadians * 180.0 / Math.PI, yRadians * 180.0 / Math.PI);
+    }
+
+    private static (double X, double Y) DistortionDerivative(
+        Optic optic,
+        (double X, double Y) referenceLinear,
+        (double X, double Y) referenceImage,
+        double wavelengthMicrometers,
+        string distortionType,
+        double delta,
+        bool xAxis)
+    {
+        var plus = xAxis
+            ? (referenceLinear.X + delta, referenceLinear.Y)
+            : (referenceLinear.X, referenceLinear.Y + delta);
+        var minus = xAxis
+            ? (referenceLinear.X - delta, referenceLinear.Y)
+            : (referenceLinear.X, referenceLinear.Y - delta);
+        var canTracePlus = CanTraceLinearField(optic, plus, distortionType);
+        var canTraceMinus = CanTraceLinearField(optic, minus, distortionType);
+        if (canTracePlus && canTraceMinus)
+        {
+            var plusImage = TraceChiefAtLinearField(
+                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType);
+            var minusImage = TraceChiefAtLinearField(
+                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType);
+            return ((plusImage.X - minusImage.X) / (2 * delta), (plusImage.Y - minusImage.Y) / (2 * delta));
+        }
+
+        if (canTracePlus)
+        {
+            var plusImage = TraceChiefAtLinearField(
+                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType);
+            return ((plusImage.X - referenceImage.X) / delta, (plusImage.Y - referenceImage.Y) / delta);
+        }
+
+        if (canTraceMinus)
+        {
+            var minusImage = TraceChiefAtLinearField(
+                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType);
+            return ((referenceImage.X - minusImage.X) / delta, (referenceImage.Y - minusImage.Y) / delta);
+        }
+
+        throw new InvalidOperationException("The selected reference field cannot be perturbed for distortion calibration.");
+    }
+
+    private static bool CanTraceLinearField(
+        Optic optic,
+        (double X, double Y) linearField,
+        string distortionType)
+    {
+        var physical = FromDistortionLinearField(optic, linearField.X, linearField.Y, distortionType);
+        var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
+        return Math.Abs(normalized.X) <= 1 + 1e-10 && Math.Abs(normalized.Y) <= 1 + 1e-10;
     }
 
     public static string NormalizeDistortionType(string distortionType)
     {
-        if (string.Equals(distortionType, "f-tan", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(distortionType, "f-tan", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(distortionType, "F-Tan(Theta)", StringComparison.OrdinalIgnoreCase))
         {
             return "f-tan";
         }
 
-        if (string.Equals(distortionType, "f-theta", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(distortionType, "f-theta", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(distortionType, "F-Theta", StringComparison.OrdinalIgnoreCase))
         {
             return "f-theta";
         }
@@ -2515,10 +2945,9 @@ internal static class SpotAnalysisEngine
                     field.Hy,
                     wavelength.Micrometers,
                     pupilSamples);
-                var trace = optic.SequentialRayTracer.Trace(bundle);
-                var finalSamples = trace.RayHistories
-                    .Where(history => history.Count > 0)
-                    .Select(history => history[^1])
+                var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle)
+                    .Where(sample => sample is not null)
+                    .Select(sample => sample!)
                     .ToArray();
                 var valid = finalSamples
                     .Where(sample => sample.Intensity > 0)
@@ -2816,7 +3245,6 @@ public sealed class AnalysisCatalog
         "First Order",
         "Spot Diagram",
         "Ray Fan",
-        "Best Fit Ray Fan",
         "Distortion",
         "Grid Distortion",
         "Field Curvature",
@@ -2860,7 +3288,6 @@ public sealed class AnalysisCatalog
             "First Order" => new FirstOrderAnalysis(_optic),
             "Spot Diagram" => new SpotDiagramAnalysis(_optic),
             "Ray Fan" => new RayFanAnalysis(_optic),
-            "Best Fit Ray Fan" => new BestFitRayFanAnalysis(_optic, numRingsForFit: 8),
             "Distortion" => new DistortionAnalysis(_optic),
             "Grid Distortion" => new GridDistortionAnalysis(_optic),
             "Field Curvature" => new FieldCurvatureAnalysis(_optic),

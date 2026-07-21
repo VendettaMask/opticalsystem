@@ -54,7 +54,6 @@ public sealed class MainWindow : Window
         new("analysis-prescription", "处方报告", "处方报告", "file-text", "报告"),
         new("analysis-spot", "点列图", "点列图", "chart-scatter", "光线分布"),
         new("analysis-ray-fan", "光线扇形图", "光线扇形图", "chart-spline", "像差"),
-        new("analysis-best-fit-ray-fan", "最佳拟合光线扇形图", "最佳拟合扇形图", "chart-no-axes-combined", "像差"),
         new("analysis-distortion", "畸变", "畸变", "move-diagonal", "像差"),
         new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "像差"),
         new("analysis-field-curvature", "场曲", "场曲", "chart-line", "像差"),
@@ -106,11 +105,6 @@ public sealed class MainWindow : Window
         {
             "analysis-first-order",
             "analysis-prescription"
-        }),
-        new("像差", "扇形图", "chart-spline", new[]
-        {
-            "analysis-ray-fan",
-            "analysis-best-fit-ray-fan"
         }),
         new("像差", "畸变", "move-diagonal", new[]
         {

@@ -56,28 +56,24 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void DistortionMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void DistortionUsesZemaxChiefRayReferenceDefinition(string sampleName, Func<Optic> createOptic)
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("distortion");
-        var data = new DistortionAnalysis(createOptic(), numPoints: 17).GenerateData();
-        Assert.Equal(expected.GetProperty("series").GetArrayLength(), data.PlotSeries.Count);
-
-        for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
+        Assert.False(string.IsNullOrWhiteSpace(sampleName));
+        var optic = createOptic();
+        var data = new DistortionAnalysis(optic, numPoints: 17).GenerateData();
+        Assert.Equal(optic.Wavelengths.Count, data.PlotSeries.Count);
+        Assert.All(data.PlotSeries, item => Assert.Equal(17, item.Points.Count));
+        Assert.All(data.PlotSeries.SelectMany(item => item.Points), point =>
         {
-            var expectedValues = expected.GetProperty("series")[wavelength];
-            var expectedField = expected.GetProperty("field");
-            var actual = data.PlotSeries[wavelength];
-            Assert.Equal(expectedValues.GetArrayLength(), actual.Points.Count);
-            for (var index = 0; index < actual.Points.Count; index++)
-            {
-                AssertClose(expectedValues[index].GetDouble(), actual.Points[index].X);
-                AssertClose(expectedField[index].GetDouble(), actual.Points[index].Y);
-            }
-        }
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
+        Assert.All(data.PlotSeries, item => Assert.Equal(0, item.Points[0].X, precision: 9));
 
         Assert.Equal("Distortion (%)", data.PlotSeries[0].XAxisLabel);
         Assert.Equal("Field Angle (deg)", data.PlotSeries[0].YAxisLabel);
+        Assert.Equal("f-tan", data.Values["DistortionType"]);
+        Assert.Equal(1, data.Values["ReferenceFieldNumber"]);
         Assert.True(data.PlotOptions?.SymmetricX);
         Assert.True(data.PlotOptions?.ShowVerticalZeroLine);
         Assert.True(data.PlotOptions?.ShowLegend);
@@ -85,20 +81,25 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FThetaDistortionMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void DistortionSupportsZemaxFThetaAbsoluteAndWavelengthSelection(string sampleName, Func<Optic> createOptic)
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("distortion_f_theta");
-        var data = new DistortionAnalysis(createOptic(), numPoints: 17, distortionType: "f-theta").GenerateData();
+        Assert.False(string.IsNullOrWhiteSpace(sampleName));
+        var data = new DistortionAnalysis(
+            createOptic(),
+            numPoints: 17,
+            distortionType: "F-Theta",
+            wavelengthNumber: 2,
+            scanDirection: "-x",
+            displayMode: "absolute").GenerateData();
 
-        for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
-        {
-            var expectedValues = expected.GetProperty("series")[wavelength];
-            for (var index = 0; index < data.PlotSeries[wavelength].Points.Count; index++)
-            {
-                AssertClose(expectedValues[index].GetDouble(), data.PlotSeries[wavelength].Points[index].X);
-            }
-        }
+        Assert.Single(data.PlotSeries);
+        Assert.Equal("Distortion (mm)", data.PlotSeries[0].XAxisLabel);
+        Assert.Equal("f-theta", data.Values["DistortionType"]);
+        Assert.Equal("-x", data.Values["ScanDirection"]);
+        Assert.Equal(2, data.Values["WavelengthNumber"]);
+        Assert.Equal(0, data.PlotSeries[0].Points[0].X, precision: 9);
+        Assert.True(data.PlotSeries[0].Points[^1].Y < 0);
+        Assert.All(data.PlotSeries[0].Points, point => Assert.True(double.IsFinite(point.X)));
     }
 
     [Fact]
@@ -120,34 +121,37 @@ public sealed class PythonAnalysisParityTests
         Assert.False(distortion.Values.ContainsKey("MaxRealImageHeightMillimeters"));
         Assert.Equal("f-tan", distortion.Values["DistortionType"]);
         Assert.Equal("Field Angle (deg)", distortion.PlotSeries[0].YAxisLabel);
-        Assert.Equal("f-tan", gridDistortion.Values["DistortionType"]);
+        Assert.False(gridDistortion.Values.ContainsKey("DistortionType"));
+        Assert.Equal("cross", gridDistortion.Values["DisplayMode"]);
         Assert.Equal(4.5, fieldCurvature.Values["MaxRealImageHeightMillimeters"]);
         Assert.Equal("Real Image Height (mm)", fieldCurvature.PlotSeries[0].YAxisLabel);
     }
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void GridDistortionMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void GridDistortionUsesZemaxStyleIdealGridAndActualImagePoints(string sampleName, Func<Optic> createOptic)
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("grid_distortion");
+        Assert.False(string.IsNullOrWhiteSpace(sampleName));
         var data = new GridDistortionAnalysis(createOptic(), numPoints: 10).GenerateData();
         Assert.Equal(21, data.PlotSeries.Count);
 
-        for (var row = 0; row < 10; row++)
-        {
-            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[10 + row]);
-        }
-
-        AssertGridPoints(expected, "xp", "yp", data.PlotSeries[^1]);
-
-        AssertClose(
-            expected.GetProperty("max_distortion").GetDouble(),
-            Convert.ToDouble(data.Values["MaximumDistortionPercent"]));
-        Assert.Equal("畸变网格", data.PlotSeries[0].Name);
+        Assert.Equal("理想网格", data.PlotSeries[0].Name);
         Assert.All(data.PlotSeries.Take(20), item => Assert.Equal(AnalysisLineStyle.Solid, item.LineStyle));
+        Assert.All(data.PlotSeries.Take(20), item => Assert.Equal(10, item.ColorIndex));
+        Assert.All(data.PlotSeries.Take(20).SelectMany(item => item.Points), point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
         Assert.Equal(AnalysisSeriesKind.Scatter, data.PlotSeries[^1].Kind);
+        Assert.Equal("实际像点", data.PlotSeries[^1].Name);
         Assert.Equal(AnalysisMarkerStyle.Cross, data.PlotSeries[^1].MarkerStyle);
+        Assert.All(data.PlotSeries[^1].Points, point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
+        Assert.True(Math.Abs(Convert.ToDouble(data.Values["MaximumDistortionPercent"])) > 0);
         Assert.True(data.PlotOptions?.EqualAspect);
         Assert.True(data.PlotOptions?.HideAxes);
         Assert.False(data.PlotOptions?.ShowLegend);
@@ -155,22 +159,26 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FThetaGridDistortionMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void GridDistortionSupportsZemaxVectorAndScaleSettings(string sampleName, Func<Optic> createOptic)
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("grid_distortion_f_theta");
-        var data = new GridDistortionAnalysis(createOptic(), numPoints: 10, distortionType: "f-theta").GenerateData();
+        Assert.False(string.IsNullOrWhiteSpace(sampleName));
+        var data = new GridDistortionAnalysis(
+            createOptic(),
+            numPoints: 10,
+            displayMode: "vector",
+            scale: 2,
+            heightWidthAspect: 0.75,
+            symmetricMagnification: true).GenerateData();
 
-        for (var row = 0; row < 10; row++)
-        {
-            AssertGridLine(expected, "xr", "yr", row, data.PlotSeries[10 + row]);
-        }
-
-        AssertGridPoints(expected, "xp", "yp", data.PlotSeries[^1]);
-
-        AssertClose(
-            expected.GetProperty("max_distortion").GetDouble(),
-            Convert.ToDouble(data.Values["MaximumDistortionPercent"]));
+        Assert.Equal(21, data.PlotSeries.Count);
+        Assert.Equal("vector", data.Values["DisplayMode"]);
+        Assert.Equal(2.0, data.Values["Scale"]);
+        Assert.Equal(0.75, data.Values["HeightWidthAspect"]);
+        Assert.Equal(true, data.Values["SymmetricMagnification"]);
+        Assert.All(data.PlotSeries.Take(20), item => Assert.Equal(AnalysisLineStyle.Solid, item.LineStyle));
+        Assert.Equal(AnalysisSeriesKind.Line, data.PlotSeries[^1].Kind);
+        Assert.Equal(300, data.PlotSeries[^1].Points.Count);
+        Assert.True(Math.Abs(Convert.ToDouble(data.Values["MaximumDistortionPercent"])) > 0);
     }
 
     [Theory]
@@ -195,6 +203,15 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal("Field Curvature", data.PlotOptions?.Title);
         Assert.True(data.PlotOptions?.SymmetricX);
         Assert.True(data.PlotOptions?.ShowLegend);
+        var maximumTangential = Convert.ToDouble(data.Values["MaximumTangentialFieldCurvatureMillimeters"]);
+        var maximumSagittal = Convert.ToDouble(data.Values["MaximumSagittalFieldCurvatureMillimeters"]);
+        var maximumAbsolute = Convert.ToDouble(data.Values["MaximumAbsoluteImagePlaneDelta"]);
+        Assert.True(double.IsFinite(maximumTangential));
+        Assert.True(double.IsFinite(maximumSagittal));
+        Assert.Equal(
+            Math.Max(Math.Abs(maximumTangential), Math.Abs(maximumSagittal)),
+            maximumAbsolute,
+            12);
     }
 
     [Theory]
@@ -582,7 +599,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void BestFitRayFanMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void BestFitSphereMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("best_fit_ray_fan");
@@ -605,47 +622,6 @@ public sealed class PythonAnalysisParityTests
             AssertClose(expected.GetProperty("radii")[field].GetDouble(), sphere.Radius);
         }
 
-        var data = new BestFitRayFanAnalysis(optic, numPoints: 17, numRingsForFit: 5).GenerateData();
-        Assert.NotNull(data.PlotPanes);
-        Assert.Equal(6, data.PlotPanes.Count);
-        Assert.Equal(2, data.PlotPaneColumns);
-        for (var field = 0; field < fields.Length; field++)
-        {
-            var yPane = data.PlotPanes[field * 2];
-            var xPane = data.PlotPanes[(field * 2) + 1];
-            for (var wave = 0; wave < optic.Wavelengths.Count; wave++)
-            {
-                for (var index = 0; index < 17; index++)
-                {
-                    AssertClose(expected.GetProperty("px")[index].GetDouble(), xPane.Series[wave].Points[index].X);
-                    AssertClose(expected.GetProperty("py")[index].GetDouble(), yPane.Series[wave].Points[index].X);
-                    var expectedX = expected.GetProperty("x")[field][wave][index].GetDouble();
-                    var expectedY = expected.GetProperty("y")[field][wave][index].GetDouble();
-                    var validX = expected.GetProperty("intensity_x")[field][wave][index].GetDouble() > 0;
-                    var validY = expected.GetProperty("intensity_y")[field][wave][index].GetDouble() > 0;
-                    if (validX)
-                    {
-                        AssertClose(expectedX, xPane.Series[wave].Points[index].Y);
-                    }
-                    else
-                    {
-                        Assert.True(double.IsNaN(xPane.Series[wave].Points[index].Y));
-                    }
-
-                    if (validY)
-                    {
-                        AssertClose(expectedY, yPane.Series[wave].Points[index].Y);
-                    }
-                    else
-                    {
-                        Assert.True(double.IsNaN(yPane.Series[wave].Points[index].Y));
-                    }
-                }
-            }
-
-            AssertClose(expected.GetProperty("panes")[field * 2].GetProperty("y_lim")[0].GetDouble(), yPane.PlotOptions.YMinimum!.Value);
-            AssertClose(expected.GetProperty("panes")[field * 2].GetProperty("y_lim")[1].GetDouble(), yPane.PlotOptions.YMaximum!.Value);
-        }
     }
 
     [Theory]

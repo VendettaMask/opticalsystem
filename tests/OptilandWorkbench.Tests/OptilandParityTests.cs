@@ -225,6 +225,8 @@ public sealed class OptilandParityTests
         Assert.True((double)data.Values["TotalWeight"] > 0);
         Assert.True((double)data.Values["Radius80"] >= (double)data.Values["Radius50"]);
         Assert.True((double)data.Values["Radius95"] >= (double)data.Values["Radius80"]);
+        Assert.Equal(10_000, data.Values["NumRays"]);
+        Assert.Equal("sobol", data.Values["Distribution"]);
     }
 
     [Fact]
@@ -610,7 +612,8 @@ public sealed class OptilandParityTests
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
-        Assert.Equal(38, optic.Analyses.Names.Count);
+        Assert.DoesNotContain("Best Fit Ray Fan", optic.Analyses.Names);
+        Assert.Equal(37, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

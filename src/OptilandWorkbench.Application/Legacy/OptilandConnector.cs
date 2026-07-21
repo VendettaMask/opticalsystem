@@ -263,7 +263,7 @@ public sealed class OptilandConnector
 
     public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string analysisName)
     {
-        var distributionChoices = new[] { "hexapolar", "uniform", "random", "line_x", "line_y", "ring" };
+        var distributionChoices = new[] { "hexapolar", "uniform", "sobol", "random", "line_x", "line_y", "ring" };
         return CanonicalAnalysisName(analysisName) switch
         {
             "Spot Diagram" => new[]
@@ -272,17 +272,8 @@ public sealed class OptilandConnector
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
             },
             "Ray Fan" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
-            "Best Fit Ray Fan" => new[]
-            {
-                IntParameter("NumPoints", "采样点数", "256", 3, 1024),
-                IntParameter("FitRings", "拟合球六角采样环数", "8", 2, 32)
-            },
-            "Distortion" => DistortionParameters(
-                "128",
-                UsesAngularDistortionModel()),
-            "Grid Distortion" => DistortionParameters(
-                "13",
-                UsesAngularDistortionModel()),
+            "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
+            "Grid Distortion" => GridDistortionParameters(),
             "Field Curvature" => new[]
             {
                 IntParameter("NumPoints", "采样点数", "128", 3, 1024),
@@ -290,9 +281,9 @@ public sealed class OptilandConnector
             },
             "Encircled Energy" => new[]
             {
-                IntParameter("NumRays", "光线数", "100000", 1, 200000),
+                IntParameter("NumRays", "光线数", "10000", 1, 200000),
                 IntParameter("NumPoints", "曲线采样点数", "256", 2, 2048),
-                ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices)
+                ChoiceParameter("Distribution", "瞳孔采样分布", "sobol", distributionChoices)
             },
             "Pupil Aberration" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
             "RMS vs Field" => new[]
@@ -507,14 +498,31 @@ public sealed class OptilandConnector
             "First Order" => new FirstOrderAnalysis(CurrentOptic),
             "Spot Diagram" => new SpotDiagramAnalysis(CurrentOptic, Int("NumRings", 6), Text("Distribution", "hexapolar")),
             "Ray Fan" => new RayFanAnalysis(CurrentOptic, Int("NumPoints", 256)),
-            "Best Fit Ray Fan" => new BestFitRayFanAnalysis(CurrentOptic, Int("NumPoints", 256), Int("FitRings", 8)),
-            "Distortion" => new DistortionAnalysis(CurrentOptic, Int("NumPoints", 128), Text("DistortionType", "f-tan")),
-            "Grid Distortion" => new GridDistortionAnalysis(CurrentOptic, Int("NumPoints", 13), Text("DistortionType", "f-tan")),
+            "Distortion" => new DistortionAnalysis(
+                CurrentOptic,
+                Int("NumPoints", 128),
+                Text("DistortionType", "F-Tan(Theta)"),
+                Int("WavelengthNumber", 0),
+                Text("ScanDirection", "+y"),
+                Text("DisplayMode", "百分比"),
+                Int("ReferenceFieldNumber", 1),
+                Bool("IgnoreVignettingFactors", true),
+                Double("MaximumDistortion", 0)),
+            "Grid Distortion" => new GridDistortionAnalysis(
+                CurrentOptic,
+                Int("NumPoints", 12),
+                Int("WavelengthNumber", 1),
+                Int("ReferenceFieldNumber", 1),
+                Text("DisplayMode", "截面"),
+                Double("Scale", 1),
+                Double("HeightWidthAspect", 1),
+                Bool("SymmetricMagnification", false),
+                Double("FieldWidth", 0)),
             "Field Curvature" => new FieldCurvatureAnalysis(CurrentOptic, Int("NumPoints", 128), Double("ParabasalDelta", 1e-5)),
             "Encircled Energy" => new EncircledEnergyAnalysis(
                 CurrentOptic,
-                Int("NumRays", 100_000),
-                Text("Distribution", "random"),
+                Int("NumRays", 10_000),
+                Text("Distribution", "sobol"),
                 Int("NumPoints", 256)),
             "Pupil Aberration" => new PupilAberrationAnalysis(CurrentOptic, Int("NumPoints", 256)),
             "RMS vs Field" => new RmsVsFieldAnalysis(
@@ -1944,22 +1952,59 @@ public sealed class OptilandConnector
             defaultValue);
     }
 
-    private static AnalysisParameterDescriptor[] DistortionParameters(string defaultPoints, bool angularField)
+    private AnalysisParameterDescriptor[] DistortionParameters(bool angularField)
     {
         var parameters = new List<AnalysisParameterDescriptor>
         {
-            IntParameter("NumPoints", "采样点数", defaultPoints, 3, 1024)
+            DoubleParameter("MaximumDistortion", "最大畸变（0=自动）", "0", 0, 1_000_000, 0.1),
+            ChoiceParameter(
+                "WavelengthNumber",
+                "波长（0=所有）",
+                "0",
+                new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
+            ChoiceParameter("ScanDirection", "扫描类型", "+y", new[] { "+y", "+x", "-y", "-x" }),
+            ChoiceParameter("DisplayMode", "显示为", "百分比", new[] { "百分比", "绝对值" }),
+            ChoiceParameter(
+                "ReferenceFieldNumber",
+                "参考视场",
+                "1",
+                Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+            BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true"),
+            IntParameter("NumPoints", "采样点数", "128", 3, 1024)
         };
         if (angularField)
         {
-            parameters.Add(ChoiceParameter(
+            parameters.Insert(2, ChoiceParameter(
                 "DistortionType",
                 "畸变模型",
-                "f-tan",
-                new[] { "f-tan", "f-theta" }));
+                "F-Tan(Theta)",
+                new[] { "F-Tan(Theta)", "F-Theta" }));
         }
 
         return parameters.ToArray();
+    }
+
+    private AnalysisParameterDescriptor[] GridDistortionParameters()
+    {
+        return new[]
+        {
+            ChoiceParameter("DisplayMode", "显示", "截面", new[] { "截面", "向量" }),
+            IntParameter("NumPoints", "网格尺寸", "12", 2, 128),
+            DoubleParameter("Scale", "缩放", "1", 0, 1_000_000, 0.1),
+            BoolParameter("SymmetricMagnification", "对称放大", "false"),
+            ChoiceParameter(
+                "WavelengthNumber",
+                "波长",
+                "1",
+                Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+            ChoiceParameter(
+                "ReferenceFieldNumber",
+                "参考视场",
+                "1",
+                Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+            DoubleParameter("HeightWidthAspect", "H/W 纵横比", "1", 0.000001, 1_000_000, 0.1),
+            DoubleParameter("FieldWidth", "视场宽度（0=自动）", "0", 0, 1_000_000, 0.1)
+        };
     }
 
     private bool UsesAngularDistortionModel()
@@ -2197,7 +2242,6 @@ public sealed class OptilandConnector
         ["First Order"] = "一级像差/一阶量",
         ["Spot Diagram"] = "点列图",
         ["Ray Fan"] = "光线扇形图",
-        ["Best Fit Ray Fan"] = "最佳拟合光线扇形图",
         ["Distortion"] = "畸变",
         ["Grid Distortion"] = "网格畸变",
         ["Field Curvature"] = "场曲",
@@ -2303,9 +2347,25 @@ public sealed class OptilandConnector
         ["FieldCount"] = "视场数",
         ["WavelengthCount"] = "波长数",
         ["WavelengthMicrometers"] = "分析波长 (µm)",
+        ["WavelengthNumber"] = "波长序号",
         ["DistortionType"] = "畸变模型",
+        ["DisplayMode"] = "显示方式",
+        ["ScanDirection"] = "扫描方向",
+        ["ReferenceFieldNumber"] = "参考视场",
+        ["IgnoreVignettingFactors"] = "忽略渐晕因数",
         ["MaximumAbsoluteDistortionPercent"] = "最大绝对畸变 (%)",
+        ["MaximumAbsoluteDistortionMillimeters"] = "最大绝对畸变 (mm)",
         ["MaximumDistortionPercent"] = "最大网格畸变 (%)",
+        ["Scale"] = "畸变显示缩放",
+        ["HeightWidthAspect"] = "H/W 纵横比",
+        ["SymmetricMagnification"] = "对称放大",
+        ["FieldWidth"] = "视场宽度",
+        ["MappingA"] = "参考映射 A",
+        ["MappingB"] = "参考映射 B",
+        ["MappingC"] = "参考映射 C",
+        ["MappingD"] = "参考映射 D",
+        ["MaximumTangentialFieldCurvatureMillimeters"] = "最大子午场曲 (mm)",
+        ["MaximumSagittalFieldCurvatureMillimeters"] = "最大弧矢场曲 (mm)",
         ["MaximumAbsoluteImagePlaneDelta"] = "最大像面偏移 (mm)",
         ["GridSize"] = "网格尺寸",
         ["ImageSize"] = "图像尺寸",

@@ -51,6 +51,54 @@ public sealed class SpotDiagramFieldTests
     }
 
     [Fact]
+    public void RayFanUsesEveryConfiguredFieldInSystemOrder()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "Center", X = 0, Y = 0 });
+        optic.Fields.Add(new FieldPoint { Label = "Mid", X = 0, Y = 10 });
+        optic.Fields.Add(new FieldPoint { Label = "Edge", X = 0, Y = 14 });
+
+        var result = new RayFanAnalysis(optic, numPoints: 5).GenerateData();
+
+        Assert.NotNull(result.PlotPanes);
+        Assert.Equal(optic.Fields.Count * 2, result.PlotPanes.Count);
+        Assert.Equal(optic.Fields.Count, Assert.IsType<int>(result.Values["FieldCount"]));
+        Assert.Equal(2, result.PlotPaneColumns);
+
+        for (var index = 0; index < optic.Fields.Count; index++)
+        {
+            var expectedTitle = $"物面: {optic.Fields[index].Y:0.00} (度)";
+            Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
+            Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
+        }
+    }
+
+    [Fact]
+    public void PupilAberrationUsesEveryConfiguredFieldInSystemOrder()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "Center", X = 0, Y = 0 });
+        optic.Fields.Add(new FieldPoint { Label = "Mid", X = 0, Y = 10 });
+        optic.Fields.Add(new FieldPoint { Label = "Edge", X = 0, Y = 14 });
+
+        var result = new PupilAberrationAnalysis(optic, numPoints: 5).GenerateData();
+
+        Assert.NotNull(result.PlotPanes);
+        Assert.Equal(optic.Fields.Count * 2, result.PlotPanes.Count);
+        Assert.Equal(optic.Fields.Count, Assert.IsType<int>(result.Values["FieldCount"]));
+        Assert.Equal(2, result.PlotPaneColumns);
+
+        for (var index = 0; index < optic.Fields.Count; index++)
+        {
+            var expectedTitle = $"物面: {optic.Fields[index].Y:0.00} (度)";
+            Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
+            Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
+        }
+    }
+
+    [Fact]
     public void ImportedDoubleGaussSpotDiagramContainsRaysForEveryFieldAndWavelength()
     {
         var source = File.ReadAllText(Path.Combine(

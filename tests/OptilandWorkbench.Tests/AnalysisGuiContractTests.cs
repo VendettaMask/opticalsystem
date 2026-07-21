@@ -37,6 +37,12 @@ public sealed class AnalysisGuiContractTests
         });
 
         Assert.Contains(parameters, parameter => parameter.Key == "DistortionType");
+        Assert.Contains(parameters, parameter => parameter.Key == "MaximumDistortion");
+        Assert.Contains(parameters, parameter => parameter.Key == "WavelengthNumber");
+        Assert.Contains(parameters, parameter => parameter.Key == "ScanDirection");
+        Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
+        Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
+        Assert.Contains(parameters, parameter => parameter.Key == "IgnoreVignettingFactors");
         Assert.Contains(view.Rows, row => row.Metric == "最大视场角 (deg)");
         Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "f-tan");
 
@@ -50,6 +56,23 @@ public sealed class AnalysisGuiContractTests
         Assert.DoesNotContain(
             connector.GetAnalysisParameters("Distortion"),
             parameter => parameter.Key == "DistortionType");
+    }
+
+    [Fact]
+    public void GridDistortionExposesZemaxGridSettingsWithoutPythonDistortionModel()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Grid Distortion");
+
+        Assert.DoesNotContain(parameters, parameter => parameter.Key == "DistortionType");
+        Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
+        Assert.Contains(parameters, parameter => parameter.Key == "NumPoints");
+        Assert.Contains(parameters, parameter => parameter.Key == "Scale");
+        Assert.Contains(parameters, parameter => parameter.Key == "SymmetricMagnification");
+        Assert.Contains(parameters, parameter => parameter.Key == "WavelengthNumber");
+        Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
+        Assert.Contains(parameters, parameter => parameter.Key == "HeightWidthAspect");
+        Assert.Contains(parameters, parameter => parameter.Key == "FieldWidth");
     }
 
     [Fact]

@@ -469,17 +469,18 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
         OpticalDocumentSnapshot document,
         DateTimeOffset generatedAt)
     {
+        var compactSummary = BuildCompactAnalysisSummary(view);
         var hasPaneMetrics = view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
-        var visibleRows = hasPaneMetrics
+        var visibleRows = hasPaneMetrics || compactSummary is not null
             ? Array.Empty<AnalysisRowDto>()
             : view.Rows
                 .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
                 .Take(7)
                 .ToArray();
-        var resultLines = visibleRows.Length == 0
+        var resultLines = compactSummary?.Lines ?? (visibleRows.Length == 0
             ? "暂无摘要数据"
-            : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}"));
-        if (view.Rows.Count > visibleRows.Length)
+            : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}")));
+        if (compactSummary is null && view.Rows.Count > visibleRows.Length)
         {
             resultLines += $"{Environment.NewLine}其余 {view.Rows.Count - visibleRows.Length} 项见“数据”页";
         }
@@ -500,13 +501,13 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
         };
         left.Children.Add(new TextBlock
         {
-            Text = view.Name,
+            Text = compactSummary?.Title ?? view.Name,
             FontSize = 15,
             FontWeight = FontWeight.SemiBold
         });
         left.Children.Add(new TextBlock
         {
-            Text = generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
+            Text = generatedAt.LocalDateTime.ToString(compactSummary is null ? "yyyy/MM/dd HH:mm:ss" : "yyyy/M/d"),
             FontSize = 11,
             Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
         });
@@ -620,6 +621,93 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
             Child = grid
         };
     }
+
+    private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
+    {
+        if (string.Equals(view.Name, "场曲", StringComparison.Ordinal)
+            || string.Equals(view.Name, "Field Curvature", StringComparison.OrdinalIgnoreCase))
+        {
+            var curvatureMaximumField = FindMaximumFieldRow(view);
+            var sagittalFieldCurvature = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("最大弧矢场曲", StringComparison.Ordinal));
+            var tangentialFieldCurvature = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("最大子午场曲", StringComparison.Ordinal));
+            var maximumImageDelta = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("最大像面偏移", StringComparison.Ordinal));
+            var curvatureLines = new List<string>();
+            AddMaximumFieldLine(curvatureLines, curvatureMaximumField);
+            if (sagittalFieldCurvature is not null)
+            {
+                curvatureLines.Add($"弧矢场曲 = {sagittalFieldCurvature.Value} mm");
+            }
+
+            if (tangentialFieldCurvature is not null)
+            {
+                curvatureLines.Add($"子午场曲 = {tangentialFieldCurvature.Value} mm");
+            }
+
+            if (maximumImageDelta is not null)
+            {
+                curvatureLines.Add($"最大像面偏移 = {maximumImageDelta.Value} mm");
+            }
+
+            return new CompactAnalysisSummary(
+                "场曲",
+                curvatureLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, curvatureLines));
+        }
+
+        if (!string.Equals(view.Name, "畸变", StringComparison.Ordinal)
+            && !string.Equals(view.Name, "Distortion", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var model = view.Rows.FirstOrDefault(row => row.Metric.Contains("畸变模型", StringComparison.Ordinal))?.Value;
+        var title = model?.ToLowerInvariant() switch
+        {
+            "f-tan" => "F-Tan(Theta) 畸变",
+            "f-theta" => "F-Theta 畸变",
+            _ => "畸变"
+        };
+        var maximumField = FindMaximumFieldRow(view);
+        var maximumDistortion = view.Rows.FirstOrDefault(row =>
+            row.Metric.Contains("最大绝对畸变", StringComparison.Ordinal));
+        var distortionUnit = maximumDistortion?.Metric.Contains("mm", StringComparison.OrdinalIgnoreCase) == true
+            ? " mm"
+            : "%";
+        var lines = new List<string>();
+        AddMaximumFieldLine(lines, maximumField);
+
+        if (maximumDistortion is not null)
+        {
+            lines.Add($"最大畸变 = {maximumDistortion.Value}{distortionUnit}");
+        }
+
+        return new CompactAnalysisSummary(title, lines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, lines));
+    }
+
+    private static AnalysisRowDto? FindMaximumFieldRow(AnalysisViewDto view)
+    {
+        return view.Rows.FirstOrDefault(row =>
+            row.Metric.Contains("最大视场", StringComparison.Ordinal)
+            || row.Metric.Contains("最大物高", StringComparison.Ordinal)
+            || row.Metric.Contains("最大像高", StringComparison.Ordinal));
+    }
+
+    private static void AddMaximumFieldLine(ICollection<string> lines, AnalysisRowDto? maximumField)
+    {
+        if (maximumField is null)
+        {
+            return;
+        }
+
+        var fieldUnit = maximumField.Metric.Contains("deg", StringComparison.OrdinalIgnoreCase)
+            ? " 度"
+            : " mm";
+        lines.Add($"最大视场 = {maximumField.Value}{fieldUnit}");
+    }
+
+    private sealed record CompactAnalysisSummary(string Title, string Lines);
 
     private static Control BuildSinglePlot(AnalysisViewDto view)
     {
