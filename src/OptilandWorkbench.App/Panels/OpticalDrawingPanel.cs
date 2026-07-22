@@ -24,8 +24,12 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly TextBox _designer = Text("设计");
     private readonly TextBox _reviewer = Text("审核");
     private readonly TextBox _revision = Text("A");
-    private readonly NumericUpDown _diameterTolerance = Number(0.02m, 0, 10, 0.01m);
-    private readonly NumericUpDown _thicknessTolerance = Number(0.02m, 0, 10, 0.01m);
+    private readonly NumericUpDown _diameterUpperDeviation = Number(0.02m, -10, 10, 0.01m);
+    private readonly NumericUpDown _diameterLowerDeviation = Number(-0.02m, -10, 10, 0.01m);
+    private readonly NumericUpDown _thicknessUpperDeviation = Number(0.02m, -10, 10, 0.01m);
+    private readonly NumericUpDown _thicknessLowerDeviation = Number(-0.02m, -10, 10, 0.01m);
+    private readonly NumericUpDown _refractiveIndexTolerance = Number(0.0005m, 0, 1, 0.0001m, "0.000000");
+    private readonly NumericUpDown _abbeNumberTolerance = Number(0.5m, 0, 100, 0.1m);
     private readonly NumericUpDown _frontForm = Number(100, 0, 10000, 10);
     private readonly NumericUpDown _backForm = Number(100, 0, 10000, 10);
     private readonly NumericUpDown _centering = Number(1, 0, 120, 0.1m);
@@ -36,11 +40,21 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly TextBox _stress = Text("≤ 10 nm/cm");
     private readonly TextBox _bubbles = Text("0.1 × 2");
     private readonly TextBox _homogeneity = Text("2；2");
-    private readonly Image _preview = new()
+    private readonly TextBlock _logoStatus = new()
     {
-        Stretch = Stretch.Uniform,
-        HorizontalAlignment = HorizontalAlignment.Stretch,
-        VerticalAlignment = VerticalAlignment.Stretch
+        Text = "默认 S.T.A.R. LABS",
+        MaxWidth = 190,
+        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
+        TextTrimming = TextTrimming.CharacterEllipsis
+    };
+    private readonly DrawingPreviewControl _preview = new();
+    private readonly TextBlock _zoomStatus = new()
+    {
+        Text = "100%",
+        Width = 48,
+        TextAlignment = TextAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center,
+        Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74))
     };
     private readonly TextBlock _status = new()
     {
@@ -48,6 +62,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74))
     };
     private Bitmap? _previewBitmap;
+    private byte[]? _companyLogoPng;
     private bool _disposed;
     private bool _updating;
 
@@ -72,6 +87,14 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         update.Click += (_, _) => UpdatePreview();
         var export = CommandButton("file-down", "导出 PDF", 104);
         export.Click += async (_, _) => await ExportPdfAsync();
+        var zoomOut = IconButton("zoom-out", "缩小");
+        zoomOut.Click += (_, _) => _preview.ZoomOut();
+        var resetView = IconButton("maximize-2", "适合窗口");
+        resetView.Click += (_, _) => _preview.ResetView();
+        var zoomIn = IconButton("zoom-in", "放大");
+        zoomIn.Click += (_, _) => _preview.ZoomIn();
+        _preview.ViewChanged += (_, _) =>
+            _zoomStatus.Text = $"{Math.Round(_preview.Zoom * 100):0}%";
 
         var toolbar = new Border
         {
@@ -96,6 +119,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     _pageSize,
                     update,
                     export,
+                    zoomOut,
+                    resetView,
+                    zoomIn,
+                    _zoomStatus,
                     _status
                 }
             }
@@ -152,6 +179,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        _preview.Source = null;
         _previewBitmap?.Dispose();
     }
 
@@ -169,9 +197,32 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("设计", _designer, ref row);
         AddRow("审核", _reviewer, ref row);
         AddRow("版本", _revision, ref row);
+        var importLogo = CommandButton("image-up", "导入 PNG", 92);
+        importLogo.Click += async (_, _) => await ImportLogoAsync();
+        var resetLogo = CommandButton("rotate-ccw", "恢复默认", 92);
+        resetLogo.Click += (_, _) => ResetLogo();
+        AddRow("公司 Logo", new StackPanel
+        {
+            Spacing = 4,
+            Children =
+            {
+                new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Spacing = 6,
+                    Children = { importLogo, resetLogo }
+                },
+                _logoStatus
+            }
+        }, ref row);
         AddSection("尺寸公差", ref row);
-        AddRow("直径 ± (mm)", _diameterTolerance, ref row);
-        AddRow("中心厚度 ± (mm)", _thicknessTolerance, ref row);
+        AddRow("直径上偏差 (mm)", _diameterUpperDeviation, ref row);
+        AddRow("直径下偏差 (mm)", _diameterLowerDeviation, ref row);
+        AddRow("中心厚度上偏差 (mm)", _thicknessUpperDeviation, ref row);
+        AddRow("中心厚度下偏差 (mm)", _thicknessLowerDeviation, ref row);
+        AddSection("材料公差", ref row);
+        AddRow("n[d] 公差", _refractiveIndexTolerance, ref row);
+        AddRow("V[d] 公差", _abbeNumberTolerance, ref row);
         AddSection("ISO 10110 要求", ref row);
         AddRow("S1 面形 (nm)", _frontForm, ref row);
         AddRow("S2 面形 (nm)", _backForm, ref row);
@@ -356,6 +407,80 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         }
     }
 
+    private async Task ImportLogoAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is null)
+        {
+            return;
+        }
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "导入公司 Logo",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType("PNG 图片")
+                {
+                    Patterns = new[] { "*.png" },
+                    MimeTypes = new[] { "image/png" }
+                }
+            }
+        });
+        if (files.Count == 0)
+        {
+            return;
+        }
+
+        try
+        {
+            await using var input = await files[0].OpenReadAsync();
+            using var memory = new MemoryStream();
+            await input.CopyToAsync(memory);
+            if (memory.Length > 10 * 1024 * 1024)
+            {
+                throw new InvalidDataException("PNG 文件不能超过 10 MB");
+            }
+
+            var bytes = memory.ToArray();
+            if (bytes.Length < 8
+                || bytes[0] != 0x89
+                || bytes[1] != 0x50
+                || bytes[2] != 0x4e
+                || bytes[3] != 0x47
+                || bytes[4] != 0x0d
+                || bytes[5] != 0x0a
+                || bytes[6] != 0x1a
+                || bytes[7] != 0x0a)
+            {
+                throw new InvalidDataException("请选择有效的 PNG 图片");
+            }
+
+            using var validationStream = new MemoryStream(bytes);
+            using var bitmap = new Bitmap(validationStream);
+            if (bitmap.PixelSize.Width <= 0 || bitmap.PixelSize.Height <= 0)
+            {
+                throw new InvalidDataException("PNG 图片尺寸无效");
+            }
+
+            _companyLogoPng = bytes;
+            _logoStatus.Text = files[0].Name;
+            UpdatePreview();
+        }
+        catch (Exception exception)
+        {
+            _status.Text = $"Logo 导入失败：{exception.Message}";
+        }
+    }
+
+    private void ResetLogo()
+    {
+        _companyLogoPng = null;
+        _logoStatus.Text = "默认 S.T.A.R. LABS";
+        UpdatePreview();
+    }
+
     private OpticalDrawingSheet? CreateSheet()
     {
         if (_elementPicker.SelectedItem is not ElementChoice choice)
@@ -371,8 +496,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Value(_designer, "设计"),
             Value(_reviewer, "审核"),
             Value(_revision, "A"),
-            (double)(_diameterTolerance.Value ?? 0.02m),
-            (double)(_thicknessTolerance.Value ?? 0.02m),
+            (double)(_diameterUpperDeviation.Value ?? 0.02m),
+            (double)(_diameterLowerDeviation.Value ?? -0.02m),
+            (double)(_thicknessUpperDeviation.Value ?? 0.02m),
+            (double)(_thicknessLowerDeviation.Value ?? -0.02m),
             (double)(_frontForm.Value ?? 100),
             (double)(_backForm.Value ?? 100),
             (double)(_centering.Value ?? 1),
@@ -383,7 +510,10 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Value(_stress, "≤ 10 nm/cm"),
             Value(_bubbles, "0.1 × 2"),
             Value(_homogeneity, "2；2"),
-            FindMaterial(choice.Element.Material));
+            FindMaterial(choice.Element.Material),
+            _companyLogoPng,
+            (double)(_refractiveIndexTolerance.Value ?? 0.0005m),
+            (double)(_abbeNumberTolerance.Value ?? 0.5m));
     }
 
     private GlassMaterialDto? FindMaterial(string name) =>
@@ -407,13 +537,18 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         MinHeight = 30
     };
 
-    private static NumericUpDown Number(decimal value, decimal minimum, decimal maximum, decimal increment) => new()
+    private static NumericUpDown Number(
+        decimal value,
+        decimal minimum,
+        decimal maximum,
+        decimal increment,
+        string formatString = "0.###") => new()
     {
         Value = value,
         Minimum = minimum,
         Maximum = maximum,
         Increment = increment,
-        FormatString = "0.###",
+        FormatString = formatString,
         MinHeight = 30
     };
 
@@ -424,6 +559,24 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Height = 32,
         Padding = new Thickness(8, 3)
     };
+
+    private static Button IconButton(string iconName, string tooltip)
+    {
+        var button = new Button
+        {
+            Content = new LocalIcon
+            {
+                IconName = iconName,
+                Width = 16,
+                Height = 16
+            },
+            Width = 32,
+            Height = 32,
+            Padding = new Thickness(7)
+        };
+        ToolTip.SetTip(button, tooltip);
+        return button;
+    }
 
     private sealed record ElementChoice(OpticalElementDefinition Element);
 }

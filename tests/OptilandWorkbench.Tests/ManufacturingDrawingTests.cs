@@ -69,6 +69,8 @@ public sealed class ManufacturingDrawingTests
         Assert.True(font.Length > 15_000_000);
 
         var sheet = Sheet(element) with { MaterialData = material };
+        Assert.Equal(0.0005, sheet.RefractiveIndexTolerance);
+        Assert.Equal(0.5, sheet.AbbeNumberTolerance);
         var path = Path.Combine(Path.GetTempPath(), $"optical-drawing-{Guid.NewGuid():N}.pdf");
         var page = OpticalDrawingRenderer.PageDimensions(sheet.PageSize);
 
@@ -78,10 +80,14 @@ public sealed class ManufacturingDrawingTests
         try
         {
             var preview = OpticalDrawingRenderer.RenderPreview(sheet, 800);
-            OpticalDrawingRenderer.ExportPdf(path, sheet);
+            var logoSheet = sheet with { CompanyLogoPng = TransparentPng };
+            var logoPreview = OpticalDrawingRenderer.RenderPreview(logoSheet, 800);
+            OpticalDrawingRenderer.ExportPdf(path, logoSheet);
             var pdf = File.ReadAllBytes(path);
 
             Assert.True(preview.Length > 10_000);
+            Assert.True(logoPreview.Length > 10_000);
+            Assert.False(preview.SequenceEqual(logoPreview));
             Assert.Equal(new byte[] { 0x89, 0x50, 0x4e, 0x47 }, preview[..4]);
             Assert.True(pdf.Length > 5_000);
             Assert.Equal("%PDF", System.Text.Encoding.ASCII.GetString(pdf, 0, 4));
@@ -92,6 +98,9 @@ public sealed class ManufacturingDrawingTests
         }
     }
 
+    private static readonly byte[] TransparentPng = Convert.FromBase64String(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=");
+
     private static OpticalDrawingSheet Sheet(OpticalElementDefinition element) => new(
         element,
         OpticalDrawingPageSize.A4,
@@ -101,7 +110,9 @@ public sealed class ManufacturingDrawingTests
         "审核",
         "A",
         0.02,
-        0.02,
+        -0.01,
+        0.03,
+        -0.02,
         100,
         100,
         1,

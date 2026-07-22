@@ -39,6 +39,26 @@ public sealed class ViewerInteractionTests
     }
 
     [Fact]
+    public void DrawingPreviewZoomButtonsAndResetUpdateZoom()
+    {
+        var preview = new DrawingPreviewControl
+        {
+            Width = 800,
+            Height = 600
+        };
+
+        preview.ZoomIn();
+        Assert.Equal(1.25, preview.Zoom, precision: 10);
+
+        preview.ZoomOut();
+        Assert.Equal(1, preview.Zoom, precision: 10);
+
+        preview.ZoomIn();
+        preview.ResetView();
+        Assert.Equal(1, preview.Zoom, precision: 10);
+    }
+
+    [Fact]
     public void CutawayClipsEveryRaySegmentToTheRetainedHalfSpace()
     {
         var paths = OpticSceneControl.ClipPolylineToCutaway(new[]
