@@ -80,7 +80,6 @@ public static class OpticalDrawingRenderer
         canvas.DrawRect(outer, outer, A4Width - (outer * 2), A4Height - (outer * 2), heavy);
         canvas.DrawRect(inner, inner, A4Width - (inner * 2), A4Height - (inner * 2), thin);
 
-        DrawText(canvas, "光学零件图（ISO 10110 系列参考）", inner + 10, inner + 22, 12, SKTextAlign.Left, true);
         DrawText(
             canvas,
             "单位：mm    投影：第一角法    未注公差按企业工艺规范",
@@ -184,8 +183,10 @@ public static class OpticalDrawingRenderer
             topY,
             bottomY,
             leftEdge,
-            $"⌀{element.Diameter:0.###} ±{sheet.DiameterTolerance:0.###}",
-            dimension);
+            $"⌀{element.Diameter:0.###}",
+            dimension,
+            sheet.DiameterUpperDeviation,
+            sheet.DiameterLowerDeviation);
         DrawVerticalDimension(
             canvas,
             rightEdge + 34,
@@ -201,8 +202,10 @@ public static class OpticalDrawingRenderer
             backVertexX,
             bottomY + 35,
             bottomY,
-            $"中心厚度 {element.CenterThickness:0.###} ±{sheet.CenterThicknessTolerance:0.###}",
-            dimension);
+            $"中心厚度 {element.CenterThickness:0.###}",
+            dimension,
+            sheet.CenterThicknessUpperDeviation,
+            sheet.CenterThicknessLowerDeviation);
 
         var edgeThickness = OpticalManufacturingModel.MinimumEdgeThickness(element);
         DrawHorizontalDimension(
@@ -330,8 +333,12 @@ public static class OpticalDrawingRenderer
         {
             $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
             $"玻璃牌号  {sheet.Element.Material}",
-            material is null ? "n[d]  由玻璃库解析" : $"n[d]  {material.RefractiveIndexD:0.000000}",
-            material is null ? "V[d]  由玻璃库解析" : $"V[d]  {material.AbbeNumber:0.###}",
+            material is null
+                ? "n[d]  由玻璃库解析"
+                : $"n[d]  {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
+            material is null
+                ? "V[d]  由玻璃库解析"
+                : $"V[d]  {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
             material?.Density is { } density ? $"密度   {density:0.###} g/cm³" : "密度   玻璃库未提供",
             $"0/ 应力双折射  {sheet.StressBirefringence}",
             $"1/ 气泡和夹杂  {sheet.BubblesAndInclusions}",
@@ -400,16 +407,10 @@ public static class OpticalDrawingRenderer
         canvas.DrawLine(approvalX, y, approvalX, y + height, thin);
         canvas.DrawLine(detailX, y, detailX, y + height, thin);
 
-        DrawText(canvas, "ISO 10110", x + (brandWidth / 2), y + 24, 15, SKTextAlign.Center, true);
-        DrawText(canvas, "光学零件图格式", x + (brandWidth / 2), y + 42, 10.5f, SKTextAlign.Center, true);
-        DrawFittedText(
+        DrawCompanyLogo(
             canvas,
-            "本图按设计数据自动生成；投产前须审核材料、尺寸链和检验方法。",
-            x + 7,
-            y + height - 8,
-            brandWidth - 14,
-            5.2f,
-            SKTextAlign.Left);
+            sheet.CompanyLogoPng,
+            new SKRect(x + 8, y + 8, x + brandWidth - 8, y + height - 8));
 
         var approvalRow = height / 4;
         for (var index = 1; index < 4; index++)
@@ -448,6 +449,49 @@ public static class OpticalDrawingRenderer
         DrawText(canvas, "页码：1 / 1", detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
     }
 
+    private static void DrawCompanyLogo(SKCanvas canvas, byte[]? png, SKRect bounds)
+    {
+        if (png is { Length: > 0 } && DrawImportedLogo(canvas, png, bounds))
+        {
+            return;
+        }
+
+        var centerX = bounds.MidX;
+        var centerY = bounds.MidY;
+        DrawText(canvas, "S.T.A.R.", centerX, centerY - 8, 18, SKTextAlign.Center, true);
+        using var accent = Stroke(new SKColor(39, 93, 119), 1.2f);
+        canvas.DrawLine(bounds.Left + 24, centerY, bounds.Right - 24, centerY, accent);
+        DrawText(canvas, "L A B S", centerX, centerY + 14, 8.5f, SKTextAlign.Center, true);
+    }
+
+    private static bool DrawImportedLogo(SKCanvas canvas, byte[] png, SKRect bounds)
+    {
+        try
+        {
+            using var data = SKData.CreateCopy(png);
+            using var image = SKImage.FromEncodedData(data);
+            if (image is null || image.Width <= 0 || image.Height <= 0)
+            {
+                return false;
+            }
+
+            var scale = Math.Min(bounds.Width / image.Width, bounds.Height / image.Height);
+            var width = image.Width * scale;
+            var height = image.Height * scale;
+            var destination = SKRect.Create(
+                bounds.MidX - (width / 2),
+                bounds.MidY - (height / 2),
+                width,
+                height);
+            canvas.DrawImage(image, destination);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private static IReadOnlyList<SKPoint> SurfacePoints(
         double radius,
         double conic,
@@ -477,7 +521,9 @@ public static class OpticalDrawingRenderer
         float bottom,
         float extensionX,
         string text,
-        SKPaint paint)
+        SKPaint paint,
+        double? upperDeviation = null,
+        double? lowerDeviation = null)
     {
         canvas.DrawLine(x, top, extensionX, top, paint);
         canvas.DrawLine(x, bottom, extensionX, bottom, paint);
@@ -486,7 +532,13 @@ public static class OpticalDrawingRenderer
         Arrow(canvas, new SKPoint(x, bottom), new SKPoint(x, bottom - 12), paint);
         canvas.Save();
         canvas.RotateDegrees(-90, x - 8, (top + bottom) / 2);
-        DrawText(canvas, text, x - 8, (top + bottom) / 2, 7, SKTextAlign.Center);
+        DrawDimensionText(
+            canvas,
+            text,
+            x - 8,
+            (top + bottom) / 2,
+            upperDeviation,
+            lowerDeviation);
         canvas.Restore();
     }
 
@@ -497,15 +549,61 @@ public static class OpticalDrawingRenderer
         float y,
         float extensionY,
         string text,
-        SKPaint paint)
+        SKPaint paint,
+        double? upperDeviation = null,
+        double? lowerDeviation = null)
     {
         canvas.DrawLine(left, extensionY, left, y, paint);
         canvas.DrawLine(right, extensionY, right, y, paint);
         canvas.DrawLine(left, y, right, y, paint);
         Arrow(canvas, new SKPoint(left, y), new SKPoint(left + 12, y), paint);
         Arrow(canvas, new SKPoint(right, y), new SKPoint(right - 12, y), paint);
-        DrawText(canvas, text, (left + right) / 2, y - 7, 7, SKTextAlign.Center);
+        DrawDimensionText(
+            canvas,
+            text,
+            (left + right) / 2,
+            y - 7,
+            upperDeviation,
+            lowerDeviation);
     }
+
+    private static void DrawDimensionText(
+        SKCanvas canvas,
+        string nominal,
+        float centerX,
+        float baselineY,
+        double? upperDeviation,
+        double? lowerDeviation)
+    {
+        const float nominalSize = 7;
+        if (upperDeviation is null || lowerDeviation is null)
+        {
+            DrawText(canvas, nominal, centerX, baselineY, nominalSize, SKTextAlign.Center);
+            return;
+        }
+
+        const float deviationSize = 5.4f;
+        const float gap = 2;
+        var upper = FormatDeviation(upperDeviation.Value);
+        var lower = FormatDeviation(lowerDeviation.Value);
+        var nominalWidth = MeasureText(nominal, nominalSize, false);
+        var deviationWidth = Math.Max(
+            MeasureText(upper, deviationSize, false),
+            MeasureText(lower, deviationSize, false));
+        var left = centerX - ((nominalWidth + gap + deviationWidth) / 2);
+        var deviationX = left + nominalWidth + gap;
+
+        DrawText(canvas, nominal, left, baselineY + 1.5f, nominalSize, SKTextAlign.Left);
+        DrawText(canvas, upper, deviationX, baselineY - 2.5f, deviationSize, SKTextAlign.Left);
+        DrawText(canvas, lower, deviationX, baselineY + 4.2f, deviationSize, SKTextAlign.Left);
+    }
+
+    private static string FormatDeviation(double value) => value switch
+    {
+        > 0 => $"+{value:0.###}",
+        < 0 => $"{value:0.###}",
+        _ => "0"
+    };
 
     private static void DrawSurfaceCallout(
         SKCanvas canvas,
@@ -541,8 +639,24 @@ public static class OpticalDrawingRenderer
         dy /= length;
         var normalX = -dy;
         var normalY = dx;
-        canvas.DrawLine(tip, new SKPoint(tip.X + (dx * 7) + (normalX * 3), tip.Y + (dy * 7) + (normalY * 3)), paint);
-        canvas.DrawLine(tip, new SKPoint(tip.X + (dx * 7) - (normalX * 3), tip.Y + (dy * 7) - (normalY * 3)), paint);
+        const float arrowLength = 8;
+        const float halfWidth = 3;
+        using var arrow = new SKPath();
+        arrow.MoveTo(tip);
+        arrow.LineTo(
+            tip.X + (dx * arrowLength) + (normalX * halfWidth),
+            tip.Y + (dy * arrowLength) + (normalY * halfWidth));
+        arrow.LineTo(
+            tip.X + (dx * arrowLength) - (normalX * halfWidth),
+            tip.Y + (dy * arrowLength) - (normalY * halfWidth));
+        arrow.Close();
+        using var fill = new SKPaint
+        {
+            Color = paint.Color,
+            IsAntialias = true,
+            Style = SKPaintStyle.Fill
+        };
+        canvas.DrawPath(arrow, fill);
     }
 
     private static void DrawFittedText(

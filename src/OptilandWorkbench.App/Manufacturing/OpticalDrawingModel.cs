@@ -16,8 +16,10 @@ public sealed record OpticalDrawingSheet(
     string Designer,
     string Reviewer,
     string Revision,
-    double DiameterTolerance,
-    double CenterThicknessTolerance,
+    double DiameterUpperDeviation,
+    double DiameterLowerDeviation,
+    double CenterThicknessUpperDeviation,
+    double CenterThicknessLowerDeviation,
     double FrontSurfaceFormNanometers,
     double BackSurfaceFormNanometers,
     double CenteringToleranceArcMinutes,
@@ -28,4 +30,7 @@ public sealed record OpticalDrawingSheet(
     string StressBirefringence,
     string BubblesAndInclusions,
     string HomogeneityAndStriae,
-    GlassMaterialDto? MaterialData = null);
+    GlassMaterialDto? MaterialData = null,
+    byte[]? CompanyLogoPng = null,
+    double RefractiveIndexTolerance = 0.0005,
+    double AbbeNumberTolerance = 0.5);
