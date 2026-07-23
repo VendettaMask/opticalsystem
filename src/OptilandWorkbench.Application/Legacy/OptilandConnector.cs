@@ -293,7 +293,6 @@ public sealed class OptilandConnector
             "Grid Distortion" => GridDistortionParameters(),
             "Field Curvature" => new[]
             {
-                IntParameter("NumPoints", "采样点数", "128", 3, 1024),
                 DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001)
             },
             "Encircled Energy" => new[]
@@ -305,13 +304,11 @@ public sealed class OptilandConnector
             "Pupil Aberration" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
             "RMS vs Field" => new[]
             {
-                IntParameter("NumFields", "视场数", "64", 2, 256),
                 IntParameter("NumRings", "六角采样环数", "6", 1, 32),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
             },
             "RMS Wavefront vs Field" => new[]
             {
-                IntParameter("NumFields", "视场数", "32", 2, 256),
                 IntParameter("NumRings", "六角采样环数", "12", 1, 32)
             },
             "Through Focus" => new[]
@@ -342,25 +339,27 @@ public sealed class OptilandConnector
             "Fourier MTF vs Field" or "Huygens MTF vs Field" or "Geometric MTF vs Field" => new[]
             {
                 DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
-                IntParameter("FieldPointCount", "视场采样点数", "21", 2, 101),
                 IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
                 IntParameter("ImageSize", "计算网格尺寸", "64", 4, 2048),
                 DoubleParameter("PixelPitchMillimeters", "惠更斯像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
                 ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
                 BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
             },
-            "Angle vs Image Height - Through Pupil" or "Angle vs Image Height - Through Field" => new[]
+            "Angle vs Image Height - Through Pupil" => new[]
             {
                 IntParameter("SurfaceIndex", "测量表面序号", "-1", -128, 128),
                 ChoiceParameter("Axis", "测量轴", "Y", new[] { "Y", "X" }),
                 IntParameter("NumPoints", "采样点数", "128", 2, 1024)
             },
+            "Angle vs Image Height - Through Field" => new[]
+            {
+                IntParameter("SurfaceIndex", "测量表面序号", "-1", -128, 128),
+                ChoiceParameter("Axis", "测量轴", "Y", new[] { "Y", "X" })
+            },
             "Relative Illumination" => new[]
             {
                 IntParameter("RayDensity", "光线密度", "10", 5, 128),
-                IntParameter("FieldDensity", "视场密度", "21", 2, 201),
                 IntParameter("WavelengthNumber", "波长序号（0=主波长）", "0", 0, 128),
-                ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
                 BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
             },
             "Incoherent Irradiance" => new[]
@@ -381,22 +380,29 @@ public sealed class OptilandConnector
                 ChoiceParameter("Distribution", "瞳孔采样分布", "random", distributionChoices),
                 BoolParameter("UseAbsoluteUnits", "使用绝对单位", "true")
             },
-            "PSF" or "MTF" => new[]
+            "PSF" => new[]
             {
                 IntParameter("NumRays", "光线数", "128", 2, 512),
                 IntParameter("GridSize", "网格尺寸（0=自动）", "0", 0, 2048)
             },
-            "MMDFT PSF" => new[]
+            "MTF" => new[]
             {
-                IntParameter("NumRays", "光线数", "16", 2, 256),
-                IntParameter("ImageSize", "图像尺寸", "32", 1, 512),
-                DoubleParameter("PixelPitchMicrometers", "像素间距 µm（0=自动）", "0", 0, 1000, 0.1)
+                IntParameter("NumRays", "光线数", "128", 2, 512),
+                IntParameter("GridSize", "网格尺寸（0=自动）", "0", 0, 2048),
+                DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0=截止)", "0", 0, 10000, 10)
             },
-            "Huygens PSF" or "Huygens MTF" => new[]
+            "Huygens PSF" => new[]
             {
                 IntParameter("NumRays", "光线数", "9", 2, 128),
                 IntParameter("ImageSize", "图像尺寸", "32", 1, 256),
                 DoubleParameter("PixelPitchMillimeters", "像素间距 (mm)", "0.005", 1e-6, 10, 0.001)
+            },
+            "Huygens MTF" => new[]
+            {
+                IntParameter("NumRays", "光线数", "9", 2, 128),
+                IntParameter("ImageSize", "图像尺寸", "32", 1, 256),
+                DoubleParameter("PixelPitchMillimeters", "像素间距 (mm)", "0.005", 1e-6, 10, 0.001),
+                DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0=自动)", "0", 0, 10000, 10)
             },
             "Geometric MTF" => new[]
             {
@@ -629,22 +635,22 @@ public sealed class OptilandConnector
                 distribution: Text("Distribution", "random")),
             "Y-Ybar" => new YYbarAnalysis(CurrentOptic),
             "PSF" => new PsfAnalysis(CurrentOptic, Int("NumRays", 128), OptionalGridSize()),
-            "MMDFT PSF" => new MmdftPsfAnalysis(
-                CurrentOptic,
-                Int("NumRays", 16),
-                Int("ImageSize", 32),
-                Double("PixelPitchMicrometers", 0) <= 0 ? null : Double("PixelPitchMicrometers", 0)),
             "Huygens PSF" => new HuygensPsfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 9),
                 Int("ImageSize", 32),
                 Double("PixelPitchMillimeters", 0.005)),
-            "MTF" => new MtfAnalysis(CurrentOptic, Int("NumRays", 128), OptionalGridSize()),
+            "MTF" => new MtfAnalysis(
+                CurrentOptic,
+                Int("NumRays", 128),
+                OptionalGridSize(),
+                OptionalFrequency()),
             "Huygens MTF" => new HuygensMtfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 9),
                 Int("ImageSize", 32),
-                Double("PixelPitchMillimeters", 0.005)),
+                Double("PixelPitchMillimeters", 0.005),
+                maximumFrequency: OptionalFrequency()),
             "Geometric MTF" => new GeometricMtfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 32),
@@ -2043,15 +2049,13 @@ public sealed class OptilandConnector
                 "波长（0=所有）",
                 "0",
                 new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
-            ChoiceParameter("ScanDirection", "扫描类型", "+y", new[] { "+y", "+x", "-y", "-x" }),
             ChoiceParameter("DisplayMode", "显示为", "百分比", new[] { "百分比", "绝对值" }),
             ChoiceParameter(
                 "ReferenceFieldNumber",
                 "参考视场",
                 "1",
                 Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-            BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true"),
-            IntParameter("NumPoints", "采样点数", "128", 3, 1024)
+            BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
         };
         if (angularField)
         {
@@ -2358,7 +2362,6 @@ public sealed class OptilandConnector
         ["Radiant Intensity"] = "辐射强度",
         ["Y-Ybar"] = "Y-Ybar",
         ["PSF"] = "点扩散函数 PSF",
-        ["MMDFT PSF"] = "矩阵乘法 DFT PSF",
         ["Huygens PSF"] = "惠更斯 PSF",
         ["MTF"] = "傅里叶 MTF",
         ["Huygens MTF"] = "惠更斯 MTF",

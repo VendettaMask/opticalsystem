@@ -172,6 +172,9 @@ internal static class ZemaxZmxReader
                 case "FWGN":
                     document.FieldWeights = ReadValues(tokens, 1, document.FieldCount);
                     break;
+                case "FCOM":
+                    ReadFieldComment(document, line, tokens);
+                    break;
                 case "VCXN":
                     document.VignetteX = ReadValues(tokens, 1, document.FieldCount);
                     break;
@@ -208,10 +211,29 @@ internal static class ZemaxZmxReader
                 case "OPDX":
                     ReadOpticalPathDifferenceOperand(document, tokens);
                     break;
+                case "MECS":
+                case "MECT":
+                case "EFFL":
+                    ReadStandardMeritOperand(document, tokens, command);
+                    break;
+                case "CONF":
+                case "RANG":
+                case "CONS":
+                case "PROD":
+                case "OPLT":
+                case "MNCA":
+                case "MXCA":
+                case "MNEA":
+                case "MNCG":
+                case "MXCG":
+                case "MNEG":
+                    ReadPreservedMeritOperand(document, tokens, command);
+                    break;
                 case "MNUM":
                     document.ConfigurationCount = Math.Max(1, RequiredInt(tokens, 1, command));
                     break;
                 case "THIC":
+                case "CRVT":
                 case "APER":
                 case "APMN":
                 case "APMX":
@@ -323,7 +345,9 @@ internal static class ZemaxZmxReader
             {
                 Type = source.Type,
                 Comment = source.Comment,
-                Radius = source.Radius,
+                Radius = RadiusFromConfiguredCurvature(
+                    document.ConfigurationDouble("CRVT", source.Number, configurationIndex),
+                    source.Radius),
                 Thickness = document.ConfigurationDouble(
                     "THIC",
                     source.Number,
@@ -582,7 +606,8 @@ internal static class ZemaxZmxReader
                     ?? ValueAt(document.FieldY, index),
                 ValueAt(document.FieldWeights, index, 1),
                 ValueAt(document.VignetteX, index),
-                ValueAt(document.VignetteY, index)))
+                ValueAt(document.VignetteY, index),
+                document.FieldComments.GetValueOrDefault(index + 1, string.Empty)))
             .GroupBy(field => (field.X, field.Y))
             .Select(group => group.First())
             .OrderBy(field => field.Y)
@@ -594,9 +619,11 @@ internal static class ZemaxZmxReader
             var field = fields[index];
             optic.Fields.Add(new FieldPoint
             {
-                Label = Math.Abs(field.X) < 1e-14 && Math.Abs(field.Y) < 1e-14
-                    ? "On axis"
-                    : $"Field {index + 1}",
+                Label = !string.IsNullOrWhiteSpace(field.Label)
+                    ? field.Label
+                    : Math.Abs(field.X) < 1e-14 && Math.Abs(field.Y) < 1e-14
+                        ? "On axis"
+                        : $"Field {index + 1}",
                 X = field.X,
                 Y = field.Y,
                 Weight = field.Weight,
@@ -678,6 +705,81 @@ internal static class ZemaxZmxReader
             Target = RequiredDouble(tokens, 7, command),
             Weight = RequiredDouble(tokens, 8, command)
         });
+    }
+
+    private static void ReadStandardMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        var operand = new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Field = RequiredInt(tokens, 3, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command)
+        };
+        if (command is "MECS" or "MECT")
+        {
+            operand.SpatialFrequency = RequiredDouble(tokens, 4, command);
+            operand.Px = RequiredDouble(tokens, 5, command);
+            operand.Py = RequiredDouble(tokens, 6, command);
+        }
+
+        document.MeritOperands.Add(operand);
+    }
+
+    private static void ReadPreservedMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Enabled = false,
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Field = RequiredInt(tokens, 3, command),
+            Hx = RequiredDouble(tokens, 4, command),
+            Hy = RequiredDouble(tokens, 5, command),
+            Px = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            Comment = $"Zemax 只读记录：{string.Join(" ", tokens.Skip(1))}"
+        });
+    }
+
+    private static void ReadFieldComment(
+        ZemaxDocument document,
+        string line,
+        IReadOnlyList<string> tokens)
+    {
+        var index = RequiredInt(tokens, 1, "FCOM");
+        if (index <= 0)
+        {
+            throw new InvalidDataException("Zemax FCOM indices are one-based positive integers.");
+        }
+
+        var commentStart = line.IndexOf(tokens[1], StringComparison.Ordinal) + tokens[1].Length;
+        var comment = commentStart < line.Length
+            ? line[commentStart..].Trim().Trim('"')
+            : string.Empty;
+        document.FieldComments[index] = comment;
+    }
+
+    private static double RadiusFromConfiguredCurvature(double? curvature, double fallbackRadius)
+    {
+        if (!curvature.HasValue)
+        {
+            return fallbackRadius;
+        }
+
+        return Math.Abs(curvature.Value) < 1e-15
+            ? double.PositiveInfinity
+            : 1.0 / curvature.Value;
     }
 
     private static void ReadConfigurationOperand(
@@ -952,6 +1054,7 @@ internal static class ZemaxZmxReader
         public List<double> FieldWeights { get; set; } = new();
         public List<double> VignetteX { get; set; } = new();
         public List<double> VignetteY { get; set; } = new();
+        public Dictionary<int, string> FieldComments { get; } = new();
         public int PrimaryWavelengthIndex { get; set; }
         public List<ZemaxWavelength> Wavelengths { get; } = new();
         public List<string> GlassCatalogs { get; } = new();
@@ -1037,7 +1140,8 @@ internal static class ZemaxZmxReader
         double Y,
         double Weight,
         double VignetteX,
-        double VignetteY);
+        double VignetteY,
+        string Label);
     private sealed record ConvertedSurface(
         int Index,
         OpticalSurface Surface,

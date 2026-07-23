@@ -168,6 +168,55 @@ public sealed class FieldDefinitionParityTests
     }
 
     [Fact]
+    public void LongFiniteConjugateRealImageHeightAllowsFullNewtonCorrection()
+    {
+        var optic = new Optic("Long finite conjugate");
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
+        optic.Aperture.Value = 10;
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        optic.Fields.Add(new FieldPoint { Label = "Full field", Y = 4.5 });
+        optic.Wavelengths.Add(new Wavelength
+        {
+            Label = "d",
+            Nanometers = 587.6,
+            Weight = 1,
+            IsPrimary = true
+        });
+        optic.SurfaceGroup.Replace(new[]
+        {
+            new OpticalSurface
+            {
+                Label = "Object",
+                Thickness = 2500,
+                Material = "Air",
+                SemiDiameter = 1000
+            },
+            new OpticalSurface
+            {
+                Label = "Aperture stop",
+                Thickness = 50,
+                Material = "Air",
+                SemiDiameter = 1000,
+                IsStop = true
+            },
+            new OpticalSurface
+            {
+                Label = "Image",
+                Material = "Air",
+                SemiDiameter = 1000
+            }
+        });
+        var wavelength = optic.Wavelengths.Single().Micrometers;
+
+        var final = optic.TraceGeneric(0, 1, 0, 0, wavelength).RayHistories.Single()[^1];
+        var local = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(final.Position);
+
+        AssertClose(4.5, local.Y, "long_finite_real_image_height_y");
+        Assert.False(final.Vignetted);
+    }
+
+    [Fact]
     public void ViewerUsesPythonRadialNormalizationForDiagonalFields()
     {
         var optic = Optic.CreateCookeTriplet();

@@ -513,9 +513,12 @@ public sealed class RayGenerator
 
             var deltaX = ((-errorX * jyy) + (jxy * errorY)) / determinant;
             var deltaY = ((jyx * errorX) - (jxx * errorY)) / determinant;
-            var maximumStep = IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+            var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+            var maximumStep = IsObjectAtInfinity(objectSurface)
                 ? 15.0
-                : Math.Max(10.0, 2 * Math.Sqrt((targetX * targetX) + (targetY * targetY)));
+                : Math.Max(
+                    10.0,
+                    2 * Math.Abs(objectSurface?.CoordinateSystem.Origin.Z ?? 0));
             var deltaNorm = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
             if (deltaNorm > maximumStep)
             {

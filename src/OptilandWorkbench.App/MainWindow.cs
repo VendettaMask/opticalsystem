@@ -76,7 +76,6 @@ public sealed class MainWindow : Window
         new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "扫描瞳孔", "scan", "光线迹点"),
         new("analysis-angle-field", "入射角-像高（扫描视场）", "扫描视场", "scan-line", "光线迹点"),
         new("analysis-psf", "点扩散函数 PSF", "FFT PSF", "focus", "点扩散函数"),
-        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "grid-2x2", "点扩散函数"),
         new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "circle-dot-dashed", "点扩散函数"),
         new("analysis-mtf", "MTF", "傅里叶 MTF", "chart-no-axes-combined", "MTF 曲线"),
         new("analysis-fourier-through-focus-mtf", "Fourier Through Focus MTF", "傅里叶离焦 MTF", "scan-line", "MTF 曲线"),
@@ -143,7 +142,6 @@ public sealed class MainWindow : Window
         new("点扩散函数", "点扩散函数", "focus", new[]
         {
             "analysis-psf",
-            "analysis-mmdft-psf",
             "analysis-huygens-psf"
         }),
         new("MTF 曲线", "MTF 曲线", "chart-no-axes-combined", new[]
@@ -344,6 +342,31 @@ public sealed class MainWindow : Window
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
         _actions.Register("show-lens-library", "打开镜头库", "数据库", _panels.ShowLensLibrary);
         _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
+        _actions.Register(
+            "show-material-dispersion-diagram",
+            "色散图",
+            "数据库",
+            () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.DispersionDiagram));
+        _actions.Register(
+            "show-material-glass-map",
+            "玻璃图",
+            "数据库",
+            () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.GlassMap));
+        _actions.Register(
+            "show-material-athermal-map",
+            "无热化玻璃图",
+            "数据库",
+            () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.AthermalGlassMap));
+        _actions.Register(
+            "show-material-transmission",
+            "内部透过率 vs. 波长",
+            "数据库",
+            () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.InternalTransmission));
+        _actions.Register(
+            "show-material-dispersion-wavelength",
+            "色散 vs. 波长",
+            "数据库",
+            () => _panels.ShowMaterialAnalysis(MaterialAnalysisKind.DispersionVsWavelength));
         _actions.Register("show-manufacturability", "可加工性评估", "加工与图纸", _panels.ShowManufacturability);
         _actions.Register(
             "show-optical-drawing-iso",
@@ -519,15 +542,10 @@ public sealed class MainWindow : Window
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),
+                        RibbonMaterialAnalysisMenuButton(),
                         RibbonButton("show-glass-catalog", "gem", "玻璃")),
                     RibbonGroup("镜头设计",
                         RibbonButton("show-lens-library", "telescope", "镜头库")))),
-                RibbonTab("编程与工具", BuildRibbonPage(
-                    RibbonGroup("编辑",
-                        RibbonButton("undo", "undo-2", "撤销"),
-                        RibbonButton("redo", "redo-2", "重做")),
-                    RibbonGroup("命令",
-                        RibbonButton("command-palette", "command", "命令面板")))),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonButton("analysis-dock-all", "panel-top", "全部停靠"),
@@ -706,6 +724,60 @@ public sealed class MainWindow : Window
             button.BorderBrush = Brushes.Transparent;
         };
         ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
+        return button;
+    }
+
+    private DropDownButton RibbonMaterialAnalysisMenuButton()
+    {
+        var commands = new[]
+        {
+            ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
+            ("show-material-glass-map", "gem", "玻璃图"),
+            ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
+            ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
+            ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长")
+        };
+        var flyout = new MenuFlyout();
+        foreach (var (actionId, iconName, label) in commands)
+        {
+            var action = _actions.Find(actionId);
+            var item = new MenuItem
+            {
+                Header = new LocalIconLabel(iconName, label, 20),
+                MinWidth = 230,
+                Padding = new Thickness(10, 8)
+            };
+            item.Click += async (_, _) => await _actions.ExecuteAsync(action);
+            flyout.Items.Add(item);
+        }
+
+        var button = new DropDownButton
+        {
+            Width = 92,
+            Height = 66,
+            MinHeight = 66,
+            Margin = new Thickness(1, 0, 1, 2),
+            Padding = new Thickness(4),
+            Background = Brushes.Transparent,
+            BorderBrush = Brushes.Transparent,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(7),
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Flyout = flyout,
+            Content = RibbonCommandContent("chart-scatter", "材料分析")
+        };
+        button.PointerEntered += (_, _) =>
+        {
+            button.Background = ThemeBrush(button, "OptilandHoverBrush");
+            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
+        };
+        button.PointerExited += (_, _) =>
+        {
+            button.Background = Brushes.Transparent;
+            button.BorderBrush = Brushes.Transparent;
+        };
+        ToolTip.SetTip(button, "选择材料分析类型");
         return button;
     }
 

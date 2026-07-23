@@ -464,6 +464,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
             ? _distortionType
             : "linear-height";
         var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
+        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDistortion = 0.0;
 
@@ -475,13 +476,12 @@ public sealed class DistortionAnalysis : BaseAnalysis
                 wavelength.Micrometers,
                 _referenceFieldNumber,
                 _distortionType);
-            var points = new AnalysisPoint[_numPoints];
+            var points = new AnalysisPoint[fields.Count];
 
-            for (var index = 0; index < _numPoints; index++)
+            for (var index = 0; index < fields.Count; index++)
             {
-                var fieldMagnitude = maxField * index / (_numPoints - 1.0);
-                var (fieldX, fieldY) = AnalysisTrace.ScanField(_scanDirection, fieldMagnitude);
-                var linearField = AnalysisTrace.ToDistortionLinearField(Optic, fieldX, fieldY, _distortionType);
+                var field = fields[index];
+                var linearField = AnalysisTrace.ToDistortionLinearField(Optic, field.X, field.Y, _distortionType);
                 var actualImage = AnalysisTrace.TraceChiefAtLinearField(
                     Optic,
                     linearField.X,
@@ -499,7 +499,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
                         ? actualRadius - predictedRadius
                         : 100.0 * (actualRadius - predictedRadius) / predictedRadius;
                 maximumAbsoluteDistortion = Math.Max(maximumAbsoluteDistortion, Math.Abs(distortion));
-                points[index] = new AnalysisPoint(distortion, AnalysisTrace.ScanFieldValue(_scanDirection, fieldMagnitude));
+                points[index] = new AnalysisPoint(distortion, field.Coordinate, field.Label);
             }
 
             series.Add(new AnalysisSeries(
@@ -516,15 +516,16 @@ public sealed class DistortionAnalysis : BaseAnalysis
             [fieldValueKey] = maxField,
             ["DistortionType"] = effectiveDistortionType,
             ["DisplayMode"] = _displayMode,
-            ["ScanDirection"] = _scanDirection,
+            ["ScanDirection"] = "defined-fields",
             ["ReferenceFieldNumber"] = _referenceFieldNumber,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["IgnoreVignettingFactors"] = _ignoreVignettingFactors,
-            ["Samples"] = _numPoints,
+            ["Samples"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
             [_displayMode == "absolute" ? "MaximumAbsoluteDistortionMillimeters" : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
-        var positiveScan = _scanDirection[0] == '+';
+        var minimumField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min();
+        var maximumDefinedField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max();
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
             SymmetricX: true,
             ShowVerticalZeroLine: true,
@@ -532,8 +533,8 @@ public sealed class DistortionAnalysis : BaseAnalysis
             VerticalZeroLineWidth: 1,
             XMinimum: _maximumDistortion > 0 ? -_maximumDistortion : null,
             XMaximum: _maximumDistortion > 0 ? _maximumDistortion : null,
-            YMinimum: positiveScan ? 0 : null,
-            YMaximum: positiveScan ? null : 0,
+            YMinimum: minimumField,
+            YMaximum: maximumDefinedField,
             ShowLegend: true));
     }
 }
@@ -556,6 +557,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         var maxField = AnalysisTrace.MaxFieldValue(Optic);
         var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
         var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
+        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
         var wavelengths = Optic.Wavelengths.ToArray();
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDelta = 0.0;
@@ -565,14 +567,14 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
             var wavelength = wavelengths[wavelengthIndex];
-            var tangential = new AnalysisPoint[_numPoints];
-            var sagittal = new AnalysisPoint[_numPoints];
+            var tangential = new AnalysisPoint[fields.Count];
+            var sagittal = new AnalysisPoint[fields.Count];
 
-            for (var index = 0; index < _numPoints; index++)
+            for (var index = 0; index < fields.Count; index++)
             {
-                var normalizedField = index / (_numPoints - 1.0);
-                var t1 = AnalysisTrace.FinalSample(Optic, 0, normalizedField, 0, -_parabasalDelta, wavelength.Micrometers);
-                var t2 = AnalysisTrace.FinalSample(Optic, 0, normalizedField, 0, _parabasalDelta, wavelength.Micrometers);
+                var field = fields[index];
+                var t1 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, 0, -_parabasalDelta, wavelength.Micrometers);
+                var t2 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, 0, _parabasalDelta, wavelength.Micrometers);
                 var tDenominator = (t1.Direction.Y * t2.Direction.Z) - (t2.Direction.Y * t1.Direction.Z);
                 var tangentialDelta = Math.Abs(tDenominator) <= 1e-30
                     ? 0
@@ -581,8 +583,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                         - (t2.Direction.Z * t1.Position.Y)
                         + (t2.Direction.Z * t2.Position.Y)) / tDenominator * t1.Direction.Z;
 
-                var s1 = AnalysisTrace.FinalSample(Optic, 0, normalizedField, -_parabasalDelta, 0, wavelength.Micrometers);
-                var s2 = AnalysisTrace.FinalSample(Optic, 0, normalizedField, _parabasalDelta, 0, wavelength.Micrometers);
+                var s1 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, -_parabasalDelta, 0, wavelength.Micrometers);
+                var s2 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, _parabasalDelta, 0, wavelength.Micrometers);
                 var sDenominator = (s1.Direction.X * s2.Direction.Z) - (s2.Direction.X * s1.Direction.Z);
                 var sagittalDelta = Math.Abs(sDenominator) <= 1e-30
                     ? 0
@@ -591,9 +593,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                         - (s2.Direction.Z * s1.Position.X)
                         + (s2.Direction.Z * s2.Position.X)) / sDenominator * s1.Direction.Z;
 
-                var field = normalizedField * maxField;
-                tangential[index] = new AnalysisPoint(tangentialDelta, field);
-                sagittal[index] = new AnalysisPoint(sagittalDelta, field);
+                tangential[index] = new AnalysisPoint(tangentialDelta, field.Coordinate, field.Label);
+                sagittal[index] = new AnalysisPoint(sagittalDelta, field.Coordinate, field.Label);
                 maximumAbsoluteDelta = Math.Max(maximumAbsoluteDelta, Math.Max(Math.Abs(tangentialDelta), Math.Abs(sagittalDelta)));
                 if (Math.Abs(tangentialDelta) > Math.Abs(maximumTangentialFieldCurvature))
                 {
@@ -626,7 +627,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         var values = new Dictionary<string, object>
         {
             [fieldValueKey] = maxField,
-            ["Samples"] = _numPoints,
+            ["Samples"] = fields.Count,
             ["ParabasalDelta"] = _parabasalDelta,
             ["WavelengthCount"] = wavelengths.Length,
             ["MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
@@ -637,8 +638,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             Title: "Field Curvature",
             SymmetricX: true,
             ShowVerticalZeroLine: true,
-            YMinimum: 0,
-            YMaximum: maxField,
+            YMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
+            YMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             ShowLegend: true));
     }
 }
@@ -943,7 +944,6 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
 
 public sealed class RmsVsFieldAnalysis : BaseAnalysis
 {
-    private readonly int _numFields;
     private readonly int _numRings;
     private readonly string _distribution;
 
@@ -953,7 +953,6 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         int numRings = 6,
         string distribution = "hexapolar") : base(optic)
     {
-        _numFields = Math.Max(2, numFields);
         _numRings = Math.Max(1, numRings);
         _distribution = distribution;
     }
@@ -962,22 +961,26 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var fields = Enumerable.Range(0, _numFields)
-            .Select(index => (Hx: 0.0, Hy: index / (_numFields - 1.0)))
-            .ToArray();
-        var result = SpotAnalysisEngine.Generate(Optic, fields, Optic.Wavelengths, _numRings, _distribution);
+        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
+        var result = SpotAnalysisEngine.Generate(
+            Optic,
+            fields.Select(field => (field.Hx, field.Hy)),
+            Optic.Wavelengths,
+            _numRings,
+            _distribution);
         var series = Optic.Wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-            "Normalized Y Field Coordinate",
+            AnalysisTrace.FieldAxisLabel(Optic),
             "RMS Spot Size (mm)",
-            result.Fields.Select(field => new AnalysisPoint(
-                field.Hy,
-                SpotAnalysisEngine.RmsRadius(field.Wavelengths[wavelengthIndex].Rays))).ToArray(),
+            result.Fields.Select((field, fieldIndex) => new AnalysisPoint(
+                fields[fieldIndex].Coordinate,
+                SpotAnalysisEngine.RmsRadius(field.Wavelengths[wavelengthIndex].Rays),
+                Label: fields[fieldIndex].Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
             ColorIndex: wavelengthIndex)).ToArray();
         var maximum = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max();
         var values = new Dictionary<string, object>
         {
-            ["FieldCount"] = _numFields,
+            ["FieldCount"] = fields.Count,
             ["WavelengthCount"] = Optic.Wavelengths.Count,
             ["NumRings"] = _numRings,
             ["Distribution"] = _distribution,
@@ -996,8 +999,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             : definedFields.Where(field => field.FieldWeight > 0)
                 .Sum(field => field.RmsSpotRadius * field.FieldWeight) / includedWeight;
         return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            XMinimum: 0,
-            XMaximum: 1,
+            XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
+            XMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             YMinimum: 0,
             ShowLegend: true));
     }
@@ -1005,12 +1008,10 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 
 public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 {
-    private readonly int _numFields;
     private readonly int _numRings;
 
     public RmsWavefrontVsFieldAnalysis(Optic optic, int numFields = 32, int numRings = 12) : base(optic)
     {
-        _numFields = Math.Max(2, numFields);
         _numRings = Math.Max(1, numRings);
     }
 
@@ -1018,28 +1019,26 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var fields = Enumerable.Range(0, _numFields)
-            .Select(index => index / (double)(_numFields - 1))
-            .ToArray();
+        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
         var series = Optic.Wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-            "Normalized Y Field Coordinate",
+            AnalysisTrace.FieldAxisLabel(Optic),
             "RMS Wavefront Error (waves)",
             fields.Select(field =>
             {
-                var wavefront = WavefrontEngine.GenerateChiefRay(Optic, (0, field), wavelength, _numRings);
-                return new AnalysisPoint(field, wavefront.Rms);
+                var wavefront = WavefrontEngine.GenerateChiefRay(Optic, (field.Hx, field.Hy), wavelength, _numRings);
+                return new AnalysisPoint(field.Coordinate, wavefront.Rms, Label: field.Label);
             }).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
             ColorIndex: wavelengthIndex)).ToArray();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["FieldCount"] = fields.Length,
+            ["FieldCount"] = fields.Count,
             ["WavelengthCount"] = Optic.Wavelengths.Count,
             ["NumRings"] = _numRings,
             ["MaximumRmsWavefrontError"] = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max()
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            XMinimum: 0,
-            XMaximum: 1,
+            XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
+            XMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             YMinimum: 0,
             ShowLegend: true,
             GridOpacity: 0.25));
@@ -1092,20 +1091,31 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             ? Optic.SurfaceGroup.Items.Count + _surfaceIndex
             : _surfaceIndex;
         surfaceIndex = Math.Clamp(surfaceIndex, 0, Optic.SurfaceGroup.Items.Count - 1);
-        var scan = Enumerable.Range(0, _numPoints)
-            .Select(index => -1 + (2.0 * index / (_numPoints - 1)))
-            .ToArray();
-        var points = new List<AnalysisPoint>(_numPoints);
+        var definedFields = AnalysisTrace.DefinedFieldSamples(Optic);
+        var scan = _mode == AngleScanMode.ThroughField
+            ? definedFields.Select(field => (field.Hx, field.Hy, Value: field.Coordinate, field.Label)).ToArray()
+            : Enumerable.Range(0, _numPoints)
+                .Select(index =>
+                {
+                    var coordinate = -1 + (2.0 * index / (_numPoints - 1));
+                    return (
+                        Hx: _fixedCoordinate.X,
+                        Hy: _fixedCoordinate.Y,
+                        Value: coordinate,
+                        Label: string.Empty);
+                })
+                .ToArray();
+        var points = new List<AnalysisPoint>(scan.Length);
         foreach (var coordinate in scan)
         {
-            var hx = _mode == AngleScanMode.ThroughField && _axis == 0 ? coordinate : _fixedCoordinate.X;
-            var hy = _mode == AngleScanMode.ThroughField && _axis == 1 ? coordinate : _fixedCoordinate.Y;
-            var px = _mode == AngleScanMode.ThroughPupil && _axis == 0 ? coordinate : _fixedCoordinate.X;
-            var py = _mode == AngleScanMode.ThroughPupil && _axis == 1 ? coordinate : _fixedCoordinate.Y;
+            var hx = coordinate.Hx;
+            var hy = coordinate.Hy;
+            var px = _mode == AngleScanMode.ThroughPupil && _axis == 0 ? coordinate.Value : _fixedCoordinate.X;
+            var py = _mode == AngleScanMode.ThroughPupil && _axis == 1 ? coordinate.Value : _fixedCoordinate.Y;
             var history = Optic.TraceGeneric(hx, hy, px, py, wavelength.Micrometers).RayHistories.Single();
             if (history.Count <= surfaceIndex)
             {
-                points.Add(new AnalysisPoint(double.NaN, double.NaN, Value: coordinate));
+                points.Add(new AnalysisPoint(double.NaN, double.NaN, coordinate.Label, coordinate.Value));
                 continue;
             }
 
@@ -1113,7 +1123,7 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             var height = _axis == 1 ? sample.Position.Y : sample.Position.X;
             var directionCosine = _axis == 1 ? sample.Direction.Y : sample.Direction.X;
             var angle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;
-            points.Add(new AnalysisPoint(height, angle, Value: coordinate));
+            points.Add(new AnalysisPoint(height, angle, coordinate.Label, coordinate.Value));
         }
 
         var fixedLabel = _mode == AngleScanMode.ThroughPupil
@@ -1121,7 +1131,7 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             : $"Px={_fixedCoordinate.X:0.####} Py={_fixedCoordinate.Y:0.####}";
         var valueLabel = _mode == AngleScanMode.ThroughPupil
             ? $"Normalized Pupil Coordinate ({(_axis == 0 ? "Px" : "Py")})"
-            : $"Normalized Field Coordinate ({(_axis == 0 ? "Hx" : "Hy")})";
+            : AnalysisTrace.FieldAxisLabel(Optic);
         var series = new AnalysisSeries(
             "Image Height in Millimeters",
             "Incident Angle in Degrees",
@@ -1807,11 +1817,19 @@ public sealed class MtfAnalysis : BaseAnalysis
 {
     private readonly int _requestedRays;
     private readonly int? _gridSize;
+    private readonly double? _maximumFrequency;
 
-    public MtfAnalysis(Optic optic, int numRays = 128, int? gridSize = null) : base(optic)
+    public MtfAnalysis(
+        Optic optic,
+        int numRays = 128,
+        int? gridSize = null,
+        double? maximumFrequency = null) : base(optic)
     {
         _requestedRays = Math.Max(2, numRays);
         _gridSize = gridSize;
+        _maximumFrequency = maximumFrequency is > 0 && double.IsFinite(maximumFrequency.Value)
+            ? maximumFrequency
+            : null;
     }
 
     public override string Name => "MTF";
@@ -1836,35 +1854,40 @@ public sealed class MtfAnalysis : BaseAnalysis
         {
             var field = fields[fieldIndex];
             var psf = DiffractionEngine.ComputeFftPsf(Optic, field, wavelength, pupilSampling, gridSize);
-            var mtf = DiffractionEngine.ComputeFftMtf(psf, Optic, wavelength);
-            cutoff = mtf.CutoffFrequency;
+            var fullMtf = DiffractionEngine.ComputeFftMtf(psf, Optic, wavelength);
+            var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
+            cutoff = fullMtf.CutoffFrequency;
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
+                Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: fieldIndex));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: fieldIndex));
         }
 
+        var plottedMaximum = _maximumFrequency.HasValue
+            ? Math.Min(_maximumFrequency.Value, cutoff)
+            : cutoff;
         var values = new Dictionary<string, object>
         {
             ["Method"] = "FFT",
             ["PupilSampling"] = pupilSampling,
             ["GridSize"] = gridSize,
+            ["MaximumFrequency"] = plottedMaximum,
             ["CutoffFrequency"] = cutoff,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldCount"] = fields.Count
         };
         return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             XMinimum: 0,
-            XMaximum: cutoff,
+            XMaximum: plottedMaximum,
             YMinimum: 0,
             YMaximum: 1,
             ShowLegend: true,
@@ -1972,18 +1995,23 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
     private readonly int _imageSize;
     private readonly double _pixelPitchMillimeters;
     private readonly IReadOnlyList<(double Hx, double Hy)>? _fields;
+    private readonly double? _maximumFrequency;
 
     public HuygensMtfAnalysis(
         Optic optic,
         int numRays = 9,
         int imageSize = 32,
         double pixelPitchMillimeters = 0.005,
-        IReadOnlyList<(double Hx, double Hy)>? fields = null) : base(optic)
+        IReadOnlyList<(double Hx, double Hy)>? fields = null,
+        double? maximumFrequency = null) : base(optic)
     {
         _numRays = Math.Max(2, numRays);
         _imageSize = Math.Max(1, imageSize);
         _pixelPitchMillimeters = Math.Max(1e-9, pixelPitchMillimeters);
         _fields = fields;
+        _maximumFrequency = maximumFrequency is > 0 && double.IsFinite(maximumFrequency.Value)
+            ? maximumFrequency
+            : null;
     }
 
     public override string Name => "Huygens MTF";
@@ -2010,35 +2038,41 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 _numRays,
                 _imageSize,
                 _pixelPitchMillimeters);
-            var mtf = DiffractionEngine.ComputePsfMtf(psf);
-            maximumFrequency = Math.Max(maximumFrequency, mtf.Frequency.DefaultIfEmpty(0).Max());
+            var fullMtf = DiffractionEngine.ComputePsfMtf(psf);
+            var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
+            maximumFrequency = Math.Max(maximumFrequency, fullMtf.Frequency.DefaultIfEmpty(0).Max());
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
+                Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: fieldIndex));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: fieldIndex));
         }
 
+        var plottedMaximum = _maximumFrequency.HasValue
+            ? Math.Min(_maximumFrequency.Value, maximumFrequency)
+            : maximumFrequency;
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "Huygens-Fresnel",
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,
             ["PixelPitchMillimeters"] = _pixelPitchMillimeters,
+            ["MaximumFrequency"] = plottedMaximum,
+            ["CutoffFrequency"] = maximumFrequency,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldCount"] = fields.Count
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: "Huygens MTF",
             XMinimum: 0,
-            XMaximum: maximumFrequency,
+            XMaximum: plottedMaximum,
             YMinimum: 0,
             YMaximum: 1,
             ShowLegend: true,
@@ -2557,6 +2591,34 @@ internal readonly record struct DistortionReferenceMapping(
 
 internal static class AnalysisTrace
 {
+    public static IReadOnlyList<AnalysisFieldSample> DefinedFieldSamples(Optic optic)
+    {
+        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+        return optic.Fields.Select((field, index) => new AnalysisFieldSample(
+            index,
+            field.Label,
+            field.X,
+            field.Y,
+            maximumField <= 1e-12 ? 0 : field.X / maximumField,
+            maximumField <= 1e-12 ? 0 : field.Y / maximumField,
+            DisplayFieldCoordinate(field.X, field.Y))).ToArray();
+    }
+
+    public static double DisplayFieldCoordinate(double x, double y)
+    {
+        if (Math.Abs(x) <= 1e-12)
+        {
+            return y;
+        }
+
+        if (Math.Abs(y) <= 1e-12)
+        {
+            return x;
+        }
+
+        return Math.Sqrt((x * x) + (y * y));
+    }
+
     public static string FormatFieldTitle(double x, double y, FieldDefinitionKind definition)
     {
         var label = definition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight
@@ -2896,6 +2958,15 @@ internal static class AnalysisTrace
     }
 }
 
+internal sealed record AnalysisFieldSample(
+    int Index,
+    string Label,
+    double X,
+    double Y,
+    double Hx,
+    double Hy,
+    double Coordinate);
+
 internal sealed record SpotRayData(double X, double Y, double Intensity);
 
 internal sealed record SpotWavelengthData(Wavelength Wavelength, IReadOnlyList<SpotRayData> Rays);
@@ -2909,6 +2980,44 @@ internal sealed record SpotAnalysisResult(
     IReadOnlyList<SpotFieldData> Fields,
     int RayCount,
     int VignettedRayCount);
+
+internal static class MtfPresentation
+{
+    public static string SeriesName(
+        Optic optic,
+        (double Hx, double Hy) normalizedField,
+        string direction)
+    {
+        var definedFields = SpotAnalysisEngine.DefinedFields(optic);
+        var matchedIndex = definedFields
+            .Select((field, index) => (
+                Index: index,
+                Distance: Math.Pow(field.Hx - normalizedField.Hx, 2)
+                    + Math.Pow(field.Hy - normalizedField.Hy, 2)))
+            .OrderBy(candidate => candidate.Distance)
+            .ThenBy(candidate => candidate.Index)
+            .FirstOrDefault();
+        var declaredField = matchedIndex.Distance <= 1e-18
+            && matchedIndex.Index >= 0
+            && matchedIndex.Index < optic.Fields.Count
+                ? optic.Fields[matchedIndex.Index]
+                : null;
+        var actual = FieldCoordinates.Denormalize(
+            optic.Fields,
+            normalizedField.Hx,
+            normalizedField.Hy);
+        var fieldName = !string.IsNullOrWhiteSpace(declaredField?.Label)
+            ? declaredField.Label
+            : $"Field {Math.Max(1, matchedIndex.Index + 1)}";
+        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
+        var coordinates = Math.Abs(actual.X) <= 1e-12
+            ? $"Y={actual.Y:0.###} {unit}"
+            : Math.Abs(actual.Y) <= 1e-12
+                ? $"X={actual.X:0.###} {unit}"
+                : $"X={actual.X:0.###}, Y={actual.Y:0.###} {unit}";
+        return $"{fieldName} ({coordinates}), {direction}";
+    }
+}
 
 internal static class SpotAnalysisEngine
 {
@@ -3268,7 +3377,6 @@ public sealed class AnalysisCatalog
         "Radiant Intensity",
         "Y-Ybar",
         "PSF",
-        "MMDFT PSF",
         "Huygens PSF",
         "MTF",
         "Huygens MTF",
@@ -3313,7 +3421,6 @@ public sealed class AnalysisCatalog
             "Radiant Intensity" => new RadiantIntensityAnalysis(_optic, numRays: 2048),
             "Y-Ybar" => new YYbarAnalysis(_optic),
             "PSF" => new PsfAnalysis(_optic),
-            "MMDFT PSF" => new MmdftPsfAnalysis(_optic),
             "Huygens PSF" => new HuygensPsfAnalysis(_optic),
             "MTF" => new MtfAnalysis(_optic),
             "Huygens MTF" => new HuygensMtfAnalysis(_optic),

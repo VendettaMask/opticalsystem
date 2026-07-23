@@ -139,6 +139,8 @@ public interface IMaterialCatalogService
 
     IReadOnlyList<GlassMaterialDto> GetGlasses();
 
+    AnalysisViewDto Analyze(MaterialAnalysisRequestDto request);
+
     Task<MaterialCatalogImportResultDto> ImportZemaxCatalogAsync(
         string path,
         CancellationToken cancellationToken = default);

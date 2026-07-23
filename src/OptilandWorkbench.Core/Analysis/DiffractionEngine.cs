@@ -24,6 +24,51 @@ public sealed record MtfResult(
 
 public static class DiffractionEngine
 {
+    public static MtfResult LimitFrequency(MtfResult result, double? maximumFrequency)
+    {
+        if (!maximumFrequency.HasValue
+            || !double.IsFinite(maximumFrequency.Value)
+            || maximumFrequency.Value <= 0
+            || result.Frequency.Count == 0
+            || maximumFrequency.Value >= result.Frequency[^1])
+        {
+            return result;
+        }
+
+        var limit = maximumFrequency.Value;
+        var frequency = new List<double>();
+        var tangential = new List<double>();
+        var sagittal = new List<double>();
+        var index = 0;
+        while (index < result.Frequency.Count && result.Frequency[index] <= limit)
+        {
+            frequency.Add(result.Frequency[index]);
+            tangential.Add(result.Tangential[index]);
+            sagittal.Add(result.Sagittal[index]);
+            index++;
+        }
+
+        if (frequency.Count > 0
+            && frequency[^1] < limit
+            && index < result.Frequency.Count)
+        {
+            var leftFrequency = result.Frequency[index - 1];
+            var rightFrequency = result.Frequency[index];
+            var fraction = (limit - leftFrequency) / (rightFrequency - leftFrequency);
+            frequency.Add(limit);
+            tangential.Add(result.Tangential[index - 1]
+                + ((result.Tangential[index] - result.Tangential[index - 1]) * fraction));
+            sagittal.Add(result.Sagittal[index - 1]
+                + ((result.Sagittal[index] - result.Sagittal[index - 1]) * fraction));
+        }
+
+        return new MtfResult(
+            frequency,
+            tangential,
+            sagittal,
+            result.CutoffFrequency);
+    }
+
     public static PsfResult ComputeFftPsf(
         Optic optic,
         (double Hx, double Hy) field,

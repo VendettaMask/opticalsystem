@@ -69,13 +69,13 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                 "Frequency (cycles/mm)",
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
+                Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Tangential"),
                 ColorIndex: colorIndex));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: colorIndex));
         }

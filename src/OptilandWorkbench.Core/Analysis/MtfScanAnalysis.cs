@@ -132,7 +132,6 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
 {
     private readonly MtfComputationMethod _method;
     private readonly double _spatialFrequency;
-    private readonly int _fieldPointCount;
     private readonly MtfComputationSettings _settings;
 
     public MtfVsFieldAnalysis(
@@ -144,7 +143,6 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
     {
         _method = method;
         _spatialFrequency = Math.Max(0, spatialFrequency);
-        _fieldPointCount = Math.Clamp(fieldPointCount, 2, 101);
         _settings = settings ?? new MtfComputationSettings();
     }
 
@@ -158,24 +156,17 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
         }
 
-        var definedFields = SpotAnalysisEngine.DefinedFields(Optic);
-        var endField = definedFields
-            .OrderBy(field => (field.Hx * field.Hx) + (field.Hy * field.Hy))
-            .LastOrDefault();
-        var maximumField = FieldCoordinates.MaximumRadius(Optic.Fields);
-        var fieldCoordinates = Enumerable.Range(0, _fieldPointCount)
-            .Select(index => maximumField * index / (_fieldPointCount - 1.0))
-            .ToArray();
-        var tangential = new double[_fieldPointCount];
-        var sagittal = new double[_fieldPointCount];
-        for (var index = 0; index < _fieldPointCount; index++)
+        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
+        var fieldCoordinates = fields.Select(field => field.Coordinate).ToArray();
+        var tangential = new double[fields.Count];
+        var sagittal = new double[fields.Count];
+        for (var index = 0; index < fields.Count; index++)
         {
-            var fraction = index / (_fieldPointCount - 1.0);
-            var field = (endField.Hx * fraction, endField.Hy * fraction);
+            var field = fields[index];
             var value = MtfMethodEvaluator.Evaluate(
                 Optic,
                 _method,
-                field,
+                (field.Hx, field.Hy),
                 wavelength,
                 _spatialFrequency,
                 _settings);
@@ -196,12 +187,18 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             new AnalysisSeries(
                 axisLabel,
                 "MTF",
-                fieldCoordinates.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
+                fieldCoordinates.Select((value, index) => new AnalysisPoint(
+                    value,
+                    tangential[index],
+                    fields[index].Label)).ToArray(),
                 Name: $"{_spatialFrequency:0.###} cycles/mm, Tangential"),
             new AnalysisSeries(
                 axisLabel,
                 "MTF",
-                fieldCoordinates.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
+                fieldCoordinates.Select((value, index) => new AnalysisPoint(
+                    value,
+                    sagittal[index],
+                    fields[index].Label)).ToArray(),
                 Name: $"{_spatialFrequency:0.###} cycles/mm, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed)
         };
@@ -210,16 +207,16 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         {
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
             ["SpatialFrequency"] = _spatialFrequency,
-            ["FieldPointCount"] = _fieldPointCount,
-            ["MaximumField"] = maximumField,
+            ["FieldPointCount"] = fields.Count,
+            ["MaximumField"] = fieldCoordinates.Select(Math.Abs).DefaultIfEmpty(0).Max(),
             ["FieldUnit"] = fieldUnit,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["Tangential"] = tangential,
             ["Sagittal"] = sagittal
         }, series[0], series, new AnalysisPlotOptions(
             Title: $"{MtfMethodEvaluator.MethodName(_method)} MTF vs Field at {_spatialFrequency:0.###} cycles/mm",
-            XMinimum: 0,
-            XMaximum: maximumField,
+            XMinimum: fieldCoordinates.DefaultIfEmpty(0).Min(),
+            XMaximum: fieldCoordinates.DefaultIfEmpty(0).Max(),
             YMinimum: 0,
             YMaximum: 1.05,
             ShowLegend: true,

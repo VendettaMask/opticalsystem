@@ -69,6 +69,22 @@ public sealed record GlassMaterialDto(
     int InternalTransmissionCount,
     int StressDataCount);
 
+public enum MaterialAnalysisKind
+{
+    DispersionDiagram,
+    GlassMap,
+    AthermalGlassMap,
+    InternalTransmission,
+    DispersionVsWavelength
+}
+
+public sealed record MaterialAnalysisRequestDto(
+    MaterialAnalysisKind Kind,
+    string? Manufacturer = null,
+    string? GlassName = null,
+    double ThicknessMillimeters = 10,
+    int SampleCount = 161);
+
 public sealed record LensLibraryEntryDto(
     string Id,
     string Name,
@@ -264,7 +280,9 @@ public sealed record AnalysisPlotOptionsDto(
     bool HideTopAndRightAxes = false,
     bool DottedGrid = false,
     double GridOpacity = 1,
-    bool HideAxes = false);
+    bool HideAxes = false,
+    bool ReverseX = false,
+    bool ShowPointLabels = false);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,

@@ -7,12 +7,49 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxImportTests
 {
+    [Fact]
+    public void ZemaxSpecificMeritRowsArePreservedAsDisabledReadOnlyRecords()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 100
+            SURF 1
+              STOP
+              DISZ 0
+            CONF 2 0 0 0 0 0 0 0 0 0
+            MNCA 1 1 0 0 0 0 1 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Collection(
+            optic.MeritFunctionOperands,
+            operand =>
+            {
+                Assert.Equal("CONF", operand.Type);
+                Assert.False(operand.Enabled);
+                Assert.Contains("Zemax 只读记录", operand.Comment, StringComparison.Ordinal);
+            },
+            operand =>
+            {
+                Assert.Equal("MNCA", operand.Type);
+                Assert.False(operand.Enabled);
+                Assert.Equal(1, operand.Surface);
+                Assert.Equal(1, operand.Wavelength);
+                Assert.Equal(1, operand.Target);
+                Assert.Equal(1, operand.Weight);
+            });
+    }
+
     [Fact]
     public void ZemaxMeritFunctionRowsImportInOriginalOrder()
     {
@@ -485,6 +522,110 @@ public sealed class ZemaxImportTests
         finally
         {
             File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public async Task LensVa3StyleImportPreservesFieldsConfigurationsCurvaturesAndMeritRows()
+    {
+        const string source = """
+            VERS 241210 1439 20120530 20120530
+            MODE SEQ
+            NAME
+            FNUM 2.7 0
+            GCAT CDGM
+            FTYP 3 0 5 3 0 0 0 5
+            XFLN 0 0 0 0 0
+            YFLN 0 4.5 3.375 2.25 1.125
+            FWGN 1 1 1 1 1
+            FCOM 1 轴上视场
+            FCOM 2 最大Y视场
+            WAVM 1 0.42 1
+            WAVM 2 0.44 1
+            WAVM 3 0.46 1
+            WAVM 4 0.48 1
+            PWAV 2
+            SURF 0
+              TYPE STANDARD
+              CURV 0
+              DISZ 2500
+            SURF 1
+              TYPE STANDARD
+              CURV 0.025
+              DISZ 3
+              GLAS H-K9L 0 0 1.5 40
+              STOP
+              DIAM 1000
+            SURF 2
+              TYPE STANDARD
+              CURV 0
+              DISZ 0
+            EFFL 0 2 0 0 0 0 10.7 1 0 0
+            DMFS 0 0 0 0 0 0 0 0 0 0
+            BLNK 对比度于185 lp/MM
+            MECS 0 1 1 185 0.33571068701972878 0 0 0.058177641733144006 0 0
+            MECT 0 1 1 185 0.33571068701972878 0 0 0.058177641733144006 0 0
+            MNUM 2 2
+            CRVT 1 1 0.02 0 0 0 1 1 1 0 0 "" 0
+            CRVT 1 2 0.025 0 0 0 1 1 1 0 0 "" 0
+            THIC 0 1 500 0 0 0 1 1 1 0 0 "" 0
+            THIC 0 2 2500 0 0 0 1 1 1 0 0 "" 0
+            """;
+        var zmxPath = Path.Combine(Path.GetTempPath(), $"lens-va3-{Guid.NewGuid():N}.zmx");
+        var projectPath = Path.Combine(Path.GetTempPath(), $"lens-va3-{Guid.NewGuid():N}.staropt");
+        try
+        {
+            await File.WriteAllBytesAsync(zmxPath, Encoding.Unicode.GetBytes(source));
+
+            var imported = await OptilandConnector.ReadDocumentAsync(zmxPath);
+
+            Assert.Equal(2, imported.Configurations.Count);
+            Assert.Equal(1, imported.ActiveConfigurationIndex);
+            Assert.Equal(new[] { 500.0, 2500.0 }, imported.Configurations
+                .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
+            Assert.Equal(new[] { 50.0, 40.0 }, imported.Configurations
+                .Select(configuration => Assert.IsType<StandardGeometry>(
+                    configuration.SurfaceGroup.Items[1].Geometry).Radius));
+            Assert.Equal(5, imported.ActiveOptic.Fields.Count);
+            Assert.Equal("轴上视场", imported.ActiveOptic.Fields[0].Label);
+            Assert.Equal("最大Y视场", imported.ActiveOptic.Fields[^1].Label);
+            Assert.Equal(3, imported.ActiveOptic.Wavelengths.Count);
+            Assert.Collection(
+                imported.ActiveOptic.MeritFunctionOperands,
+                operand =>
+                {
+                    Assert.Equal("EFFL", operand.Type);
+                    Assert.Equal(10.7, operand.Target, precision: 12);
+                },
+                operand => Assert.Equal("DMFS", operand.Type),
+                operand => Assert.Equal("BLNK", operand.Type),
+                operand =>
+                {
+                    Assert.Equal("MECS", operand.Type);
+                    Assert.Equal(1, operand.Field);
+                    Assert.Equal(1, operand.Wavelength);
+                    Assert.Equal(185, operand.SpatialFrequency);
+                    Assert.Equal(0.33571068701972878, operand.Px, precision: 15);
+                    Assert.Equal(0.058177641733144006, operand.Weight, precision: 15);
+                },
+                operand => Assert.Equal("MECT", operand.Type));
+
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(imported.Configurations, imported.ActiveConfigurationIndex),
+                projectPath);
+            var reopened = await OptilandConnector.ReadDocumentAsync(projectPath);
+
+            Assert.Equal(imported.Configurations.Count, reopened.Configurations.Count);
+            Assert.Equal(imported.ActiveConfigurationIndex, reopened.ActiveConfigurationIndex);
+            Assert.Equal(imported.ActiveOptic.Fields.Select(field => field.Label),
+                reopened.ActiveOptic.Fields.Select(field => field.Label));
+            Assert.Equal(imported.ActiveOptic.MeritFunctionOperands.Count,
+                reopened.ActiveOptic.MeritFunctionOperands.Count);
+        }
+        finally
+        {
+            File.Delete(zmxPath);
+            File.Delete(projectPath);
         }
     }
 
