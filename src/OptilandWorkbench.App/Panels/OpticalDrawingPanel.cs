@@ -18,6 +18,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly IPrescriptionService _prescription;
     private readonly IMaterialCatalogService _materials;
     private readonly IWorkspaceEventStream _events;
+    private readonly IVisualizationService _visualization;
     private readonly ComboBox _elementPicker = new() { MinWidth = 260 };
     private readonly ComboBox _pageSize = new() { MinWidth = 110 };
     private readonly OpticalDrawingStandard _drawingStandard;
@@ -71,11 +72,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         IPrescriptionService prescription,
         IMaterialCatalogService materials,
         IWorkspaceEventStream events,
+        IVisualizationService visualization,
         OpticalDrawingStandard drawingStandard = OpticalDrawingStandard.Iso10110)
     {
         _prescription = prescription;
         _materials = materials;
         _events = events;
+        _visualization = visualization;
         _drawingStandard = drawingStandard;
         _logoStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
         _zoomStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
@@ -84,7 +87,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         _pageSize.SelectedIndex = 0;
         _elementPicker.ItemTemplate = new FuncDataTemplate<ElementChoice>((choice, _) => new TextBlock
         {
-            Text = choice?.Element.DisplayName ?? string.Empty,
+            Text = choice?.DisplayName ?? string.Empty,
             VerticalAlignment = VerticalAlignment.Center
         });
         _elementPicker.SelectionChanged += (_, _) => OnElementChanged();
@@ -114,7 +117,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 {
                     new TextBlock
                     {
-                        Text = "元件",
+                        Text = "图纸",
                         VerticalAlignment = VerticalAlignment.Center,
                         FontWeight = FontWeight.SemiBold
                     },
@@ -305,16 +308,20 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             return;
         }
 
-        var previousSurface = preserveSelection
-            ? (_elementPicker.SelectedItem as ElementChoice)?.Element.FrontSurface.Number
+        var previousChoice = preserveSelection
+            ? (_elementPicker.SelectedItem as ElementChoice)?.DisplayName
             : null;
-        var choices = OpticalManufacturingModel.BuildElements(_prescription.GetSurfaces())
-            .Select(element => new ElementChoice(element))
+        var choices = new[]
+            {
+                new ElementChoice("\u955c\u5934\u603b\u4f53\u5e03\u5c40\u56fe", null)
+            }
+            .Concat(OpticalManufacturingModel.BuildDrawingElements(_prescription.GetSurfaces())
+                .Select(element => new ElementChoice(element.DisplayName, element)))
             .ToArray();
         _updating = true;
         _elementPicker.ItemsSource = choices;
         _elementPicker.SelectedItem = choices.FirstOrDefault(choice =>
-            choice.Element.FrontSurface.Number == previousSurface) ?? choices.FirstOrDefault();
+            choice.DisplayName == previousChoice) ?? choices.FirstOrDefault();
         _updating = false;
         OnElementChanged();
     }
@@ -332,19 +339,28 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             return;
         }
 
-        _drawingNumber.Text = $"OPT-S{choice.Element.FrontSurface.Number:00}-S{choice.Element.BackSurface.Number:00}";
-        _partName.Text = $"{choice.Element.Material} 光学元件";
-        _coating.Text = CoatingText(choice.Element);
+        var element = choice.Element;
+        if (element is null)
+        {
+            _drawingNumber.Text = "OPT-SYSTEM-LAYOUT";
+            _partName.Text = "\u955c\u5934\u603b\u4f53\u5e03\u5c40";
+            UpdatePreview();
+            return;
+        }
+
+        _drawingNumber.Text = element.IsCemented
+            ? $"OPT-CEM-{element.ComponentNumbers.Replace("+", "-")}"
+            : $"OPT-L{element.ComponentNumbers.PadLeft(2, '0')}";
+        _partName.Text = $"{element.Material} \u5149\u5b66\u5143\u4ef6";
+        _coating.Text = CoatingText(element);
         UpdatePreview();
     }
 
-    private static string CoatingText(OpticalElementDefinition element)
+    private static string CoatingText(OpticalDrawingElementDefinition element)
     {
-        var coatings = new[]
-        {
-            CoatingLabel("S1", element.FrontSurface.Coating),
-            CoatingLabel("S2", element.BackSurface.Coating)
-        }.Where(value => value is not null);
+        var coatings = element.Surfaces
+            .Select((surface, index) => CoatingLabel($"S{index + 1}", surface.Coating))
+            .Where(value => value is not null);
         var text = string.Join("；", coatings!);
         return text.Length > 0 ? text : "按设计膜系；有效口径内均匀";
 
@@ -355,10 +371,61 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 : $"{surface} {coating}";
     }
 
-    private void UpdatePreview()
+    private async void UpdatePreview()
     {
         try
         {
+            if (_elementPicker.SelectedItem is ElementChoice { Element: null })
+            {
+                _status.Text = "\u6b63\u5728\u751f\u6210\u603b\u4f53\u5e03\u5c40...";
+                var pageSize = _pageSize.SelectedIndex == 1
+                    ? OpticalDrawingPageSize.A3
+                    : OpticalDrawingPageSize.A4;
+                var drawingNumber = Value(_drawingNumber, "OPT-SYSTEM-LAYOUT");
+                var partName = Value(_partName, "\u955c\u5934\u603b\u4f53\u5e03\u5c40");
+                var designer = Value(_designer, "\u8bbe\u8ba1");
+                var reviewer = Value(_reviewer, "\u5ba1\u6838");
+                var revision = Value(_revision, "A");
+                var companyLogo = _companyLogoPng;
+
+                var scene = await _visualization.BuildSceneAsync(new VisualizationRequestDto(
+                    SceneDimension.TwoDimensional,
+                    IncludeAllWavelengths: false,
+                    RayCount: 1));
+                if (scene.TwoDimensional is null)
+                {
+                    return;
+                }
+
+                var systemSheet = new OpticalSystemDrawingSheet(
+                    scene.TwoDimensional,
+                    pageSize,
+                    drawingNumber,
+                    partName,
+                    designer,
+                    reviewer,
+                    revision,
+                    companyLogo,
+                    _drawingStandard);
+                var systemBytes = OpticalDrawingRenderer.RenderSystemPreview(systemSheet);
+                using var systemStream = new MemoryStream(systemBytes);
+                var systemBitmap = new Bitmap(systemStream);
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    if (_disposed)
+                    {
+                        systemBitmap.Dispose();
+                        return;
+                    }
+
+                    _preview.Source = systemBitmap;
+                    _previewBitmap?.Dispose();
+                    _previewBitmap = systemBitmap;
+                    _status.Text = "\u603b\u4f53\u5e03\u5c40\u9884\u89c8\u5df2\u66f4\u65b0";
+                });
+                return;
+            }
+
             var sheet = CreateSheet();
             if (sheet is null)
             {
@@ -375,6 +442,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         }
         catch (Exception exception)
         {
+            if (!Dispatcher.UIThread.CheckAccess())
+            {
+                Dispatcher.UIThread.Post(() =>
+                    _status.Text = $"\u9884\u89c8\u5931\u8d25: {exception.Message}");
+                return;
+            }
+
             _status.Text = $"预览失败：{exception.Message}";
         }
     }
@@ -383,6 +457,12 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     {
         try
         {
+            if (_elementPicker.SelectedItem is ElementChoice { Element: null })
+            {
+                await ExportSystemPdfAsync();
+                return;
+            }
+
             var sheet = CreateSheet();
             var topLevel = TopLevel.GetTopLevel(this);
             if (sheet is null || topLevel is null)
@@ -415,6 +495,46 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         {
             _status.Text = $"导出失败：{exception.Message}";
         }
+    }
+
+    private async Task ExportSystemPdfAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is null)
+        {
+            return;
+        }
+
+        var scene = await _visualization.BuildSceneAsync(new VisualizationRequestDto(
+            SceneDimension.TwoDimensional,
+            IncludeAllWavelengths: false,
+            RayCount: 1));
+        if (scene.TwoDimensional is null)
+        {
+            return;
+        }
+
+        var sheet = CreateSystemSheet(scene.TwoDimensional);
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "\u5bfc\u51fa\u955c\u5934\u603b\u4f53\u5e03\u5c40\u56fe",
+            SuggestedFileName = $"{SafeFileName(sheet.DrawingNumber)}-{SafeFileName(sheet.PartName)}.pdf",
+            FileTypeChoices = new[]
+            {
+                new FilePickerFileType("PDF")
+                {
+                    Patterns = new[] { "*.pdf" },
+                    MimeTypes = new[] { "application/pdf" }
+                }
+            }
+        });
+        if (file is null)
+        {
+            return;
+        }
+
+        OpticalDrawingRenderer.ExportSystemPdf(file.Path.LocalPath, sheet);
+        _status.Text = $"PDF \u5df2\u5bfc\u51fa: {file.Name}";
     }
 
     private async Task ImportLogoAsync()
@@ -491,15 +611,26 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         UpdatePreview();
     }
 
+    private OpticalSystemDrawingSheet CreateSystemSheet(Scene2Dto scene) => new(
+        scene,
+        _pageSize.SelectedIndex == 1 ? OpticalDrawingPageSize.A3 : OpticalDrawingPageSize.A4,
+        Value(_drawingNumber, "OPT-SYSTEM-LAYOUT"),
+        Value(_partName, "\u955c\u5934\u603b\u4f53\u5e03\u5c40"),
+        Value(_designer, "\u8bbe\u8ba1"),
+        Value(_reviewer, "\u5ba1\u6838"),
+        Value(_revision, "A"),
+        _companyLogoPng,
+        _drawingStandard);
+
     private OpticalDrawingSheet? CreateSheet()
     {
-        if (_elementPicker.SelectedItem is not ElementChoice choice)
+        if (_elementPicker.SelectedItem is not ElementChoice { Element: { } element })
         {
             return null;
         }
 
         return new OpticalDrawingSheet(
-            choice.Element,
+            element,
             _pageSize.SelectedIndex == 1 ? OpticalDrawingPageSize.A3 : OpticalDrawingPageSize.A4,
             Value(_drawingNumber, "OPT-001"),
             Value(_partName, "光学元件"),
@@ -520,13 +651,14 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Value(_stress, "10 nm/cm"),
             Value(_bubbles, "2 × 0.1"),
             Value(_homogeneity, "2；2"),
-            FindMaterial(choice.Element.Material),
+            FindMaterial(element.Components[0].Material),
             _companyLogoPng,
             (double)(_refractiveIndexTolerance.Value ?? 0.0005m),
             (double)(_abbeNumberTolerance.Value ?? 0.5m),
             _drawingStandard,
             (double)(_frontRadiusTolerance.Value ?? 0.1m),
-            (double)(_backRadiusTolerance.Value ?? 0.1m));
+            (double)(_backRadiusTolerance.Value ?? 0.1m),
+            element.Components.Select(component => FindMaterial(component.Material)).ToArray());
     }
 
     private GlassMaterialDto? FindMaterial(string name) =>
@@ -591,5 +723,5 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         return button;
     }
 
-    private sealed record ElementChoice(OpticalElementDefinition Element);
+    private sealed record ElementChoice(string DisplayName, OpticalDrawingElementDefinition? Element);
 }

@@ -14,8 +14,19 @@ public enum OpticalDrawingStandard
     GbT13323_2009
 }
 
+public sealed record OpticalSystemDrawingSheet(
+    Scene2Dto Scene,
+    OpticalDrawingPageSize PageSize,
+    string DrawingNumber,
+    string PartName,
+    string Designer,
+    string Reviewer,
+    string Revision,
+    byte[]? CompanyLogoPng = null,
+    OpticalDrawingStandard Standard = OpticalDrawingStandard.Iso10110);
+
 public sealed record OpticalDrawingSheet(
-    OpticalElementDefinition Element,
+    OpticalDrawingElementDefinition Element,
     OpticalDrawingPageSize PageSize,
     string DrawingNumber,
     string PartName,
@@ -42,7 +53,8 @@ public sealed record OpticalDrawingSheet(
     double AbbeNumberTolerance = 0.5,
     OpticalDrawingStandard Standard = OpticalDrawingStandard.Iso10110,
     double FrontRadiusTolerance = 0.1,
-    double BackRadiusTolerance = 0.1)
+    double BackRadiusTolerance = 0.1,
+    IReadOnlyList<GlassMaterialDto?>? ComponentMaterialData = null)
 {
     public IReadOnlyList<string> Validate()
     {

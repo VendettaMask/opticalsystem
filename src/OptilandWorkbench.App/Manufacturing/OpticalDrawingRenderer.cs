@@ -38,6 +38,218 @@ public static class OpticalDrawingRenderer
         document.EndPage();
         document.Close();
     }
+    public static byte[] RenderSystemPreview(OpticalSystemDrawingSheet sheet, int width = 1500)
+    {
+        var (pageWidth, pageHeight) = PageDimensions(sheet.PageSize);
+        var height = Math.Max(1, (int)Math.Round(width * pageHeight / pageWidth));
+        using var surface = SKSurface.Create(new SKImageInfo(width, height));
+        var canvas = surface.Canvas;
+        canvas.Scale(width / pageWidth, height / pageHeight);
+        RenderSystem(canvas, sheet, pageWidth, pageHeight);
+        using var image = surface.Snapshot();
+        using var data = image.Encode(SKEncodedImageFormat.Png, 100);
+        return data.ToArray();
+    }
+
+    public static void ExportSystemPdf(string path, OpticalSystemDrawingSheet sheet)
+    {
+        var (pageWidth, pageHeight) = PageDimensions(sheet.PageSize);
+        using var stream = File.Create(path);
+        using var document = SKDocument.CreatePdf(stream);
+        var canvas = document.BeginPage(pageWidth, pageHeight);
+        RenderSystem(canvas, sheet, pageWidth, pageHeight);
+        document.EndPage();
+        document.Close();
+    }
+
+    private static void RenderSystem(
+        SKCanvas canvas,
+        OpticalSystemDrawingSheet sheet,
+        float pageWidth,
+        float pageHeight)
+    {
+        canvas.Clear(SKColors.White);
+        canvas.Save();
+        canvas.Scale(pageWidth / A4Width, pageHeight / A4Height);
+        using var thin = Stroke(SKColors.Black, 0.65f);
+        using var medium = Stroke(SKColors.Black, 1.05f);
+        using var heavy = Stroke(SKColors.Black, 1.7f);
+        using var dimension = Stroke(new SKColor(43, 43, 46), 0.7f);
+
+        const float outer = 12;
+        const float inner = 18;
+        const float titleTop = 754;
+        var right = A4Width - inner;
+        var bottom = A4Height - inner;
+        canvas.DrawRect(outer, outer, A4Width - (outer * 2), A4Height - (outer * 2), heavy);
+        canvas.DrawRect(inner, inner, A4Width - (inner * 2), A4Height - (inner * 2), thin);
+
+        var scaleDesignation = DrawSystemScene(
+            canvas,
+            sheet.Scene,
+            new SKRect(inner + 14, inner + 14, right - 14, titleTop - 12),
+            medium,
+            dimension);
+        DrawSystemTitleBlock(
+            canvas,
+            sheet,
+            inner,
+            titleTop,
+            right - inner,
+            bottom - titleTop,
+            thin,
+            medium,
+            scaleDesignation);
+        canvas.Restore();
+    }
+
+    private static string DrawSystemScene(
+        SKCanvas canvas,
+        Scene2Dto scene,
+        SKRect area,
+        SKPaint outline,
+        SKPaint dimension)
+    {
+        var lenses = BuildSystemLensGeometry(scene);
+        var lensPoints = lenses
+            .SelectMany(lens => lens.Boundary)
+            .ToArray();
+        if (lensPoints.Length == 0)
+        {
+            return "1:1";
+        }
+
+        var zMin = lensPoints.Min(point => point.Z);
+        var zMax = lensPoints.Max(point => point.Z);
+        var yMin = lensPoints.Min(point => point.Y);
+        var yMax = lensPoints.Max(point => point.Y);
+        var zSpan = Math.Max(1e-6, zMax - zMin);
+        var ySpan = Math.Max(1e-6, yMax - yMin);
+        const float dimensionBand = 50;
+        var lensArea = new SKRect(
+            area.Left + 8,
+            area.Top + 8,
+            area.Right - 8,
+            area.Bottom - dimensionBand);
+        var scale = Math.Min(
+            (lensArea.Width - 24) / (float)zSpan,
+            (lensArea.Height - 24) / (float)ySpan);
+        var drawingWidth = (float)zSpan * scale;
+        var drawingHeight = (float)ySpan * scale;
+        var originX = lensArea.MidX - (drawingWidth / 2);
+        var originY = lensArea.MidY + (drawingHeight / 2);
+
+        SKPoint Map(ScenePoint2Dto point) => new(
+            originX + ((float)(point.Z - zMin) * scale),
+            originY - ((float)(point.Y - yMin) * scale));
+        float MapZ(double z) => originX + ((float)(z - zMin) * scale);
+
+        var fills = new[]
+        {
+            new SKColor(198, 218, 232, 176),
+            new SKColor(210, 226, 207, 176),
+            new SKColor(232, 219, 192, 176),
+            new SKColor(218, 207, 229, 176)
+        };
+        for (var index = 0; index < lenses.Count; index++)
+        {
+            using var path = new SKPath();
+            path.MoveTo(Map(lenses[index].Boundary[0]));
+            foreach (var point in lenses[index].Boundary.Skip(1))
+            {
+                path.LineTo(Map(point));
+            }
+
+            path.Close();
+            using var fill = new SKPaint
+            {
+                Color = fills[index % fills.Length],
+                IsAntialias = true,
+                Style = SKPaintStyle.Fill
+            };
+            canvas.DrawPath(path, fill);
+            canvas.DrawPath(path, outline);
+        }
+
+        var dimensionIndex = 0;
+        for (var index = 0; index + 1 < lenses.Count; index++)
+        {
+            var left = lenses[index].BackVertexZ;
+            var right = lenses[index + 1].FrontVertexZ;
+            var gap = right - left;
+            if (gap <= 1e-6)
+            {
+                continue;
+            }
+
+            var dimensionY = area.Bottom - 13 - ((dimensionIndex % 2) * 17);
+            DrawHorizontalDimension(
+                canvas,
+                MapZ(left),
+                MapZ(right),
+                dimensionY,
+                originY + 5,
+                gap.ToString("0.###"),
+                dimension);
+            dimensionIndex++;
+        }
+
+        return ScaleDesignation(scale / MillimetersToPoints);
+    }
+
+    internal static IReadOnlyList<double> SystemAirGaps(Scene2Dto scene)
+    {
+        var lenses = BuildSystemLensGeometry(scene);
+        var gaps = new List<double>();
+        for (var index = 0; index + 1 < lenses.Count; index++)
+        {
+            var gap = lenses[index + 1].FrontVertexZ - lenses[index].BackVertexZ;
+            if (gap > 1e-6)
+            {
+                gaps.Add(gap);
+            }
+        }
+
+        return gaps;
+    }
+
+    private static IReadOnlyList<SystemLensGeometry> BuildSystemLensGeometry(Scene2Dto scene)
+    {
+        var lenses = new List<SystemLensGeometry>();
+        foreach (var element in scene.LensElements)
+        {
+            var boundary = element.Boundary
+                .Where(point => double.IsFinite(point.Z) && double.IsFinite(point.Y))
+                .ToArray();
+            if (boundary.Length < 4)
+            {
+                continue;
+            }
+
+            var midpoint = boundary.Length / 2;
+            var frontVertex = boundary
+                .Take(midpoint)
+                .MinBy(point => Math.Abs(point.Y))!;
+            var backVertex = boundary
+                .Skip(midpoint)
+                .MinBy(point => Math.Abs(point.Y))!;
+            lenses.Add(new SystemLensGeometry(
+                element,
+                boundary,
+                frontVertex.Z,
+                backVertex.Z));
+        }
+
+        return lenses
+            .OrderBy(lens => lens.FrontVertexZ)
+            .ToArray();
+    }
+
+    private sealed record SystemLensGeometry(
+        SceneLensElement2Dto Element,
+        IReadOnlyList<ScenePoint2Dto> Boundary,
+        double FrontVertexZ,
+        double BackVertexZ);
 
     public static (float Width, float Height) PageDimensions(OpticalDrawingPageSize pageSize) =>
         pageSize == OpticalDrawingPageSize.A3
@@ -89,17 +301,10 @@ public static class OpticalDrawingRenderer
         canvas.DrawRect(outer, outer, A4Width - (outer * 2), A4Height - (outer * 2), heavy);
         canvas.DrawRect(inner, inner, A4Width - (inner * 2), A4Height - (inner * 2), thin);
 
-        DrawText(
-            canvas,
-            "单位：mm    投影：第一角法",
-            right - 8,
-            inner + 21,
-            6.8f,
-            SKTextAlign.Right);
         var scaleDesignation = DrawElementGeometry(
             canvas,
             sheet,
-            new SKRect(inner + 12, inner + 31, right - 12, specificationTop - 7),
+            new SKRect(inner + 12, inner + 12, right - 12, specificationTop - 7),
             medium,
             dimension,
             axis,
@@ -147,45 +352,84 @@ public static class OpticalDrawingRenderer
         var centerThickness = Math.Max(0.1, element.CenterThickness);
         var frontVertexX = centerX - ((float)centerThickness * xScale / 2);
         var backVertexX = centerX + ((float)centerThickness * xScale / 2);
-        var frontPoints = SurfacePoints(
-            element.FrontSurface.Radius,
-            element.FrontSurface.Conic,
-            semiDiameter,
-            frontVertexX,
-            centerY,
-            xScale,
-            yScale);
-        var backPoints = SurfacePoints(
-            element.BackSurface.Radius,
-            element.BackSurface.Conic,
-            semiDiameter,
-            backVertexX,
-            centerY,
-            xScale,
-            yScale);
-
-        using var lens = new SKPath();
-        lens.MoveTo(frontPoints[0]);
-        foreach (var point in frontPoints.Skip(1))
+        var componentGeometry = new List<(
+            OpticalElementDefinition Component,
+            IReadOnlyList<SKPoint> Front,
+            IReadOnlyList<SKPoint> Back,
+            float FrontVertex,
+            float BackVertex)>();
+        var cursorX = frontVertexX;
+        foreach (var component in element.Components)
         {
-            lens.LineTo(point);
-        }
+            var componentSemiDiameter = Math.Max(0.1, component.Diameter / 2);
+            var componentBackX = cursorX + ((float)component.CenterThickness * xScale);
+            var componentFront = SurfacePoints(
+                component.FrontSurface.Radius,
+                component.FrontSurface.Conic,
+                componentSemiDiameter,
+                cursorX,
+                centerY,
+                xScale,
+                yScale);
+            var componentBack = SurfacePoints(
+                component.BackSurface.Radius,
+                component.BackSurface.Conic,
+                componentSemiDiameter,
+                componentBackX,
+                centerY,
+                xScale,
+                yScale);
 
-        foreach (var point in backPoints.Reverse())
-        {
-            lens.LineTo(point);
-        }
+            using var lens = new SKPath();
+            lens.MoveTo(componentFront[0]);
+            foreach (var point in componentFront.Skip(1))
+            {
+                lens.LineTo(point);
+            }
 
-        lens.Close();
-        DrawOpticalGlassHatch(canvas, lens, hatch, sheet.Standard);
-        canvas.DrawPath(lens, outline);
+            foreach (var point in componentBack.Reverse())
+            {
+                lens.LineTo(point);
+            }
+
+            lens.Close();
+            DrawOpticalGlassHatch(canvas, lens, hatch, sheet.Standard);
+            canvas.DrawPath(lens, outline);
+            componentGeometry.Add((component, componentFront, componentBack, cursorX, componentBackX));
+            cursorX = componentBackX;
+        }
         canvas.DrawLine(area.Left + 8, centerY, area.Right - 8, centerY, axis);
         DrawText(canvas, "光轴", area.Right - 9, centerY - 5, 6.2f, SKTextAlign.Right);
+        foreach (var geometry in componentGeometry)
+        {
+            var width = Math.Max(24, geometry.BackVertex - geometry.FrontVertex - 4);
+            var componentCenterX = (geometry.FrontVertex + geometry.BackVertex) / 2;
+            DrawFittedText(
+                canvas,
+                $"L{geometry.Component.ElementNumber}  {geometry.Component.Material}",
+                componentCenterX,
+                centerY + 13,
+                width,
+                6.8f,
+                SKTextAlign.Center,
+                true);
+            DrawFittedText(
+                canvas,
+                $"CT {geometry.Component.CenterThickness:0.###}",
+                componentCenterX,
+                centerY + 23,
+                width,
+                6.2f,
+                SKTextAlign.Center);
+        }
+
 
         var topY = centerY - ((float)semiDiameter * yScale);
         var bottomY = centerY + ((float)semiDiameter * yScale);
-        var leftEdge = Math.Min(frontPoints[0].X, frontPoints[^1].X);
-        var rightEdge = Math.Max(backPoints[0].X, backPoints[^1].X);
+        var allPoints = componentGeometry
+            .SelectMany(geometry => geometry.Front.Concat(geometry.Back))
+            .ToArray();
+        var leftEdge = allPoints.Min(point => point.X);
 
         DrawVerticalDimension(
             canvas,
@@ -208,31 +452,33 @@ public static class OpticalDrawingRenderer
             sheet.CenterThicknessUpperDeviation,
             sheet.CenterThicknessLowerDeviation);
 
-        DrawSurfaceRadiusDimension(
-            canvas,
-            frontPoints,
-            frontVertexX,
-            centerY,
-            element.FrontSurface.Radius,
-            sheet.FrontRadiusTolerance,
-            xScale,
-            area,
-            dimension,
-            upperSurface: true);
-        DrawSurfaceRadiusDimension(
-            canvas,
-            backPoints,
-            backVertexX,
-            centerY,
-            element.BackSurface.Radius,
-            sheet.BackRadiusTolerance,
-            xScale,
-            area,
-            dimension,
-            upperSurface: false);
-
-        DrawText(canvas, "S1", frontVertexX - 9, centerY - 7, 7.2f, SKTextAlign.Right, true);
-        DrawText(canvas, "S2", backVertexX + 9, centerY - 7, 7.2f, SKTextAlign.Left, true);
+        var surfaceGeometry = new List<(SurfaceRowDto Surface, IReadOnlyList<SKPoint> Points, float Vertex)>
+        {
+            (componentGeometry[0].Component.FrontSurface, componentGeometry[0].Front, frontVertexX)
+        };
+        surfaceGeometry.AddRange(componentGeometry.Select(geometry =>
+            (geometry.Component.BackSurface, geometry.Back, geometry.BackVertex)));
+        for (var index = 0; index < surfaceGeometry.Count; index++)
+        {
+            var geometry = surfaceGeometry[index];
+            var tolerance = index == 0
+                ? sheet.FrontRadiusTolerance
+                : index == surfaceGeometry.Count - 1
+                    ? sheet.BackRadiusTolerance
+                    : Math.Max(sheet.FrontRadiusTolerance, sheet.BackRadiusTolerance);
+            DrawSurfaceRadiusDimension(
+                canvas,
+                geometry.Points,
+                geometry.Vertex,
+                centerY,
+                geometry.Surface.Radius,
+                tolerance,
+                xScale,
+                area,
+                dimension,
+                upperSurface: index % 2 == 0);
+            DrawText(canvas, $"S{index + 1}", geometry.Vertex, centerY - 7, 7.2f, SKTextAlign.Center, true);
+        }
         return ScaleDesignation(scaleRatio);
 
     }
@@ -240,7 +486,7 @@ public static class OpticalDrawingRenderer
     public static string ScaleDesignation(OpticalDrawingSheet sheet) =>
         ScaleDesignation(DrawingScaleRatio(sheet.Element));
 
-    private static double DrawingScaleRatio(OpticalElementDefinition element)
+    private static double DrawingScaleRatio(OpticalDrawingElementDefinition element)
     {
         var diameter = Math.Max(0.1, element.Diameter);
         var semiDiameter = diameter / 2;
@@ -318,6 +564,21 @@ public static class OpticalDrawingRenderer
         SKPaint medium,
         SKPaint headerFill)
     {
+        if (sheet.Element.IsCemented)
+        {
+            DrawCementedSpecificationTable(
+                canvas,
+                sheet,
+                x,
+                y,
+                width,
+                height,
+                thin,
+                medium,
+                headerFill);
+            return;
+        }
+
         if (sheet.Standard == OpticalDrawingStandard.GbT13323_2009)
         {
             DrawGbSpecificationTable(
@@ -356,6 +617,97 @@ public static class OpticalDrawingRenderer
         DrawColumnLines(canvas, materialLines, materialX + 9, bodyTop, materialWidth - 18);
         DrawColumnLines(canvas, rightLines, rightX + 9, bodyTop, width - leftWidth - materialWidth - 18);
     }
+    private static void DrawCementedSpecificationTable(
+        SKCanvas canvas,
+        OpticalDrawingSheet sheet,
+        float x,
+        float y,
+        float width,
+        float height,
+        SKPaint thin,
+        SKPaint medium,
+        SKPaint headerFill)
+    {
+        const float headerHeight = 24;
+        var columnCount = (sheet.Element.Components.Count * 2) + 1;
+        var columnWidth = width / columnCount;
+        canvas.DrawRect(x, y, width, headerHeight, headerFill);
+        canvas.DrawRect(x, y, width, height, medium);
+        canvas.DrawLine(x, y + headerHeight, x + width, y + headerHeight, thin);
+        for (var column = 1; column < columnCount; column++)
+        {
+            var columnX = x + (column * columnWidth);
+            canvas.DrawLine(columnX, y, columnX, y + height, thin);
+        }
+
+        var bodyTop = y + headerHeight + 14;
+        for (var column = 0; column < columnCount; column++)
+        {
+            var columnX = x + (column * columnWidth);
+            if (column % 2 == 0)
+            {
+                var surfaceIndex = column / 2;
+                DrawText(
+                    canvas,
+                    $"S{surfaceIndex + 1}",
+                    columnX + (columnWidth / 2),
+                    y + 16,
+                    8,
+                    SKTextAlign.Center,
+                    true);
+                DrawColumnLines(
+                    canvas,
+                    SurfaceSpecificationLines(
+                        sheet,
+                        sheet.Element.Surfaces[surfaceIndex],
+                        isFront: surfaceIndex == 0),
+                    columnX + 5,
+                    bodyTop,
+                    columnWidth - 10);
+                continue;
+            }
+
+            var componentIndex = column / 2;
+            var component = sheet.Element.Components[componentIndex];
+            var material = sheet.ComponentMaterialData?.ElementAtOrDefault(componentIndex)
+                ?? (componentIndex == 0 ? sheet.MaterialData : null);
+            DrawText(
+                canvas,
+                $"L{component.ElementNumber}",
+                columnX + (columnWidth / 2),
+                y + 16,
+                8,
+                SKTextAlign.Center,
+                true);
+            DrawColumnLines(
+                canvas,
+                ComponentMaterialSpecificationLines(sheet, component, material),
+                columnX + 5,
+                bodyTop,
+                columnWidth - 10);
+        }
+    }
+
+    private static IReadOnlyList<string> ComponentMaterialSpecificationLines(
+        OpticalDrawingSheet sheet,
+        OpticalElementDefinition component,
+        GlassMaterialDto? material) =>
+        new[]
+        {
+            $"GLASS  {component.Material}",
+            $"MAKER  {material?.Manufacturer ?? "CATALOG"}",
+            material is null
+                ? "n[d]  CATALOG"
+                : $"n[d]  {material.RefractiveIndexD:0.000000} +/-{sheet.RefractiveIndexTolerance:0.000000}",
+            material is null
+                ? "V[d]  CATALOG"
+                : $"V[d]  {material.AbbeNumber:0.###} +/-{sheet.AbbeNumberTolerance:0.###}",
+            $"CT  {component.CenterThickness:0.###} mm",
+            $"0/  {sheet.StressBirefringence}",
+            $"1/  {sheet.BubblesAndInclusions}",
+            $"2/  {sheet.HomogeneityAndStriae}"
+        };
+
 
     private static void DrawGbSpecificationTable(
         SKCanvas canvas,
@@ -615,6 +967,76 @@ public static class OpticalDrawingRenderer
         DrawText(canvas, $"比例：{scaleDesignation}", detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
         DrawText(canvas, "页码：1 / 1", detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
     }
+    private static void DrawSystemTitleBlock(
+        SKCanvas canvas,
+        OpticalSystemDrawingSheet sheet,
+        float x,
+        float y,
+        float width,
+        float height,
+        SKPaint thin,
+        SKPaint medium,
+        string scaleDesignation)
+    {
+        var brandWidth = width * 0.35f;
+        var approvalWidth = width * 0.27f;
+        var approvalX = x + brandWidth;
+        var detailX = approvalX + approvalWidth;
+        var detailWidth = width - brandWidth - approvalWidth;
+        canvas.DrawRect(x, y, width, height, medium);
+        canvas.DrawLine(approvalX, y, approvalX, y + height, thin);
+        canvas.DrawLine(detailX, y, detailX, y + height, thin);
+
+        DrawCompanyLogo(
+            canvas,
+            sheet.CompanyLogoPng,
+            new SKRect(x + 8, y + 8, x + brandWidth - 8, y + height - 8));
+
+        var approvalRow = height / 4;
+        for (var index = 1; index < 4; index++)
+        {
+            canvas.DrawLine(approvalX, y + (approvalRow * index), detailX, y + (approvalRow * index), thin);
+        }
+
+        var approvalSplit = approvalX + (approvalWidth * 0.42f);
+        canvas.DrawLine(approvalSplit, y + approvalRow, approvalSplit, y + height, thin);
+        DrawFittedText(
+            canvas,
+            StandardDesignation(sheet.Standard),
+            approvalX + (approvalWidth / 2),
+            y + 13,
+            approvalWidth - 10,
+            6.2f,
+            SKTextAlign.Center,
+            true);
+        DrawText(canvas, "\u8bbe\u8ba1", approvalX + 7, y + approvalRow + 13, 6.4f, SKTextAlign.Left);
+        DrawFittedText(canvas, sheet.Designer, approvalSplit + 5, y + approvalRow + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, "\u5ba1\u6838", approvalX + 7, y + (approvalRow * 2) + 13, 6.4f, SKTextAlign.Left);
+        DrawFittedText(canvas, sheet.Reviewer, approvalSplit + 5, y + (approvalRow * 2) + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, "\u6279\u51c6", approvalX + 7, y + (approvalRow * 3) + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, "\u6295\u5f71\uff1a\u7b2c\u4e00\u89d2\u6cd5", approvalSplit + 5, y + (approvalRow * 3) + 13, 6.1f, SKTextAlign.Left);
+
+        const float titleRow = 27;
+        const float numberRow = 24;
+        canvas.DrawLine(detailX, y + titleRow, x + width, y + titleRow, thin);
+        canvas.DrawLine(detailX, y + titleRow + numberRow, x + width, y + titleRow + numberRow, thin);
+        var revisionX = x + width - 45;
+        canvas.DrawLine(revisionX, y, revisionX, y + titleRow + numberRow, thin);
+        DrawFittedText(canvas, sheet.PartName, detailX + 8, y + 18, revisionX - detailX - 16, 10.5f, SKTextAlign.Left, true);
+        DrawText(canvas, $"\u7248\u672c {sheet.Revision}", revisionX + 5, y + 17, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, "\u56fe\u53f7", detailX + 7, y + titleRow + 15, 6.3f, SKTextAlign.Left);
+        DrawFittedText(canvas, sheet.DrawingNumber, detailX + 48, y + titleRow + 17, revisionX - detailX - 54, 9.5f, SKTextAlign.Left, true);
+        DrawText(canvas, sheet.PageSize == OpticalDrawingPageSize.A3 ? "A3" : "A4", revisionX + 15, y + titleRow + 17, 9, SKTextAlign.Center, true);
+
+        var bottomTop = y + titleRow + numberRow;
+        var bottomWidth = detailWidth / 3;
+        canvas.DrawLine(detailX + bottomWidth, bottomTop, detailX + bottomWidth, y + height, thin);
+        canvas.DrawLine(detailX + (bottomWidth * 2), bottomTop, detailX + (bottomWidth * 2), y + height, thin);
+        DrawText(canvas, "\u5c3a\u5bf8\uff1amm", detailX + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, $"\u6bd4\u4f8b\uff1a{scaleDesignation}", detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, "\u9875\u7801\uff1a1 / 1", detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+    }
+
 
     private static void DrawCompanyLogo(SKCanvas canvas, byte[]? png, SKRect bounds)
     {

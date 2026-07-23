@@ -53,8 +53,8 @@ public sealed class MainWindow : Window
 
     private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
     {
-        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "系统报告"),
-        new("analysis-prescription", "处方报告", "处方报告", "file-text", "系统报告"),
+        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "光线迹点"),
+        new("analysis-prescription", "处方报告", "处方报告", "file-text", "光线迹点"),
         new("analysis-ray-fan", "光线像差图", "光线像差图", "chart-spline", "光线迹点"),
         new("analysis-spot", "标准点列图", "标准点列图", "chart-scatter", "光线迹点"),
         new("analysis-footprint", "光迹图", "光迹图", "scan-search", "光线迹点"),
@@ -101,90 +101,74 @@ public sealed class MainWindow : Window
         "MTF 曲线",
         "RMS",
         "圈入能量",
-        "扩展图像分析",
-        "系统报告"
+        "扩展图像分析"
     };
 
     private static readonly IReadOnlyList<AnalysisRibbonMenu> AnalysisRibbonMenus = new AnalysisRibbonMenu[]
     {
-        new("系统报告", "系统数据", "ruler", new[]
-        {
-            "analysis-first-order",
-            "analysis-prescription"
-        }),
         new("光线迹点", "光线迹点", "chart-scatter", new[]
         {
             "analysis-ray-fan",
             "analysis-spot",
             "analysis-footprint",
-            "analysis-through-focus"
-        }),
-        new("光线迹点", "其他光线分析", "scan", new[]
-        {
-            "analysis-y-ybar"
-        }),
-        new("光线迹点", "入射角扫描", "scan", new[]
-        {
+            "analysis-through-focus",
+            "analysis-first-order",
+            "analysis-prescription",
+            "analysis-y-ybar",
             "analysis-angle-pupil",
             "analysis-angle-field"
         }),
-        new("像差分析", "畸变与场曲", "move-diagonal", new[]
+        new("像差分析", "像差分析", "chart-spline", new[]
         {
+            "analysis-pupil-aberration",
+            "analysis-field-curvature",
             "analysis-distortion",
-            "analysis-grid-distortion",
-            "analysis-field-curvature"
+            "analysis-grid-distortion"
         }),
-        new("波前", "参考球波前", "waves-horizontal", new[]
+        new("波前", "波前", "waves-horizontal", new[]
         {
             "analysis-wavefront",
             "analysis-centroid-wavefront",
-            "analysis-best-fit-wavefront"
-        }),
-        new("波前", "波前与瞳", "sigma", new[]
-        {
+            "analysis-best-fit-wavefront",
             "analysis-zernike",
             "analysis-jones-pupil"
         }),
-        new("点扩散函数", "PSF 方法", "focus", new[]
+        new("点扩散函数", "点扩散函数", "focus", new[]
         {
             "analysis-psf",
             "analysis-mmdft-psf",
             "analysis-huygens-psf"
         }),
-        new("MTF 曲线", "傅里叶 MTF", "chart-no-axes-combined", new[]
+        new("MTF 曲线", "MTF 曲线", "chart-no-axes-combined", new[]
         {
             "analysis-mtf",
             "analysis-fourier-through-focus-mtf",
-            "analysis-fourier-mtf-field"
-        }),
-        new("MTF 曲线", "惠更斯 MTF", "waves-horizontal", new[]
-        {
+            "analysis-fourier-mtf-field",
             "analysis-huygens-mtf",
             "analysis-huygens-through-focus-mtf",
-            "analysis-huygens-mtf-field"
-        }),
-        new("MTF 曲线", "几何 MTF", "chart-spline", new[]
-        {
+            "analysis-huygens-mtf-field",
             "analysis-geometric-mtf",
             "analysis-geometric-through-focus-mtf",
             "analysis-geometric-mtf-field"
         }),
-        new("RMS", "RMS 曲线", "chart-line", new[]
+        new("RMS", "RMS", "chart-line", new[]
         {
             "analysis-rms-field",
             "analysis-rms-wavefront-field"
         }),
-        new("扩展图像分析", "照度与辐射", "sun-medium", new[]
+        new("圈入能量", "圈入能量", "circle-dot", new[]
         {
+            "analysis-encircled-energy"
+        }),
+        new("扩展图像分析", "扩展图像分析", "image", new[]
+        {
+            "analysis-image-simulation",
             "analysis-relative-illumination",
             "analysis-incoherent-irradiance",
             "analysis-radiant-intensity"
         })
     };
 
-    private static readonly IReadOnlySet<string> GroupedAnalysisCommandIds = AnalysisRibbonMenus
-        .SelectMany(menu => menu.CommandIds)
-        .ToHashSet(StringComparer.Ordinal);
 
     internal static IReadOnlyList<string> AnalysisRibbonCategories => AnalysisRibbonGroupOrder;
 
@@ -470,28 +454,9 @@ public sealed class MainWindow : Window
 
     private Control BuildRibbon()
     {
-        var analysisGroups = AnalysisRibbonCommands
-            .GroupBy(command => command.Group)
-            .OrderBy(group => AnalysisRibbonGroupOrder.IndexOf(group.Key))
-            .Select(group =>
-            {
-                var commands = new List<Control>();
-                foreach (var command in group)
-                {
-                    var menu = AnalysisRibbonMenus.FirstOrDefault(candidate =>
-                        string.Equals(candidate.CommandIds[0], command.Id, StringComparison.Ordinal));
-                    if (menu is not null)
-                    {
-                        commands.Add(RibbonAnalysisMenuButton(menu));
-                    }
-                    else if (!GroupedAnalysisCommandIds.Contains(command.Id))
-                    {
-                        commands.Add(RibbonButton(command.Id, command.IconName, command.Label));
-                    }
-                }
-
-                return RibbonGroup(group.Key, commands.ToArray());
-            })
+        var analysisGroups = AnalysisRibbonMenus
+            .OrderBy(menu => AnalysisRibbonGroupOrder.IndexOf(menu.Group))
+            .Select(menu => RibbonGroup(string.Empty, RibbonAnalysisMenuButton(menu)))
             .ToArray();
         var tabs = new TabControl
         {
@@ -678,7 +643,7 @@ public sealed class MainWindow : Window
         return button;
     }
 
-    private SplitButton RibbonAnalysisMenuButton(AnalysisRibbonMenu menu)
+    private DropDownButton RibbonAnalysisMenuButton(AnalysisRibbonMenu menu)
     {
         var flyout = new MenuFlyout();
         foreach (var commandId in menu.CommandIds)
@@ -696,7 +661,7 @@ public sealed class MainWindow : Window
             flyout.Items.Add(item);
         }
 
-        var button = new SplitButton
+        var button = new DropDownButton
         {
             Width = 92,
             Height = 66,
@@ -722,8 +687,6 @@ public sealed class MainWindow : Window
             button.Background = Brushes.Transparent;
             button.BorderBrush = Brushes.Transparent;
         };
-        var defaultAction = _actions.Find(menu.CommandIds[0]);
-        button.Click += async (_, _) => await _actions.ExecuteAsync(defaultAction);
         ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
         return button;
     }

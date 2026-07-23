@@ -102,6 +102,17 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void AnalysisRibbonCategoriesAreDropdownsWithoutPrimaryActions()
+    {
+        var factory = typeof(MainWindow).GetMethod(
+            "RibbonAnalysisMenuButton",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+        Assert.NotNull(factory);
+        Assert.Equal(typeof(Avalonia.Controls.DropDownButton), factory.ReturnType);
+    }
+
+    [Fact]
     public void ConnectorExposesAndAppliesAnalysisParameters()
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
@@ -116,20 +127,50 @@ public sealed class AnalysisGuiContractTests
                 "MTF 曲线",
                 "RMS",
                 "圈入能量",
-                "扩展图像分析",
-                "系统报告"
+                "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
         Assert.Equal(37, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
-            Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]));
+        {
+            Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
+            Assert.Equal(
+                new[] { category },
+                MainWindow.AnalysisRibbonMenusByCategory[category]);
+        });
+        Assert.Equal(37, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         Assert.Equal(
-            new[] { "光线像差图", "标准点列图", "光迹图", "离焦点列图" },
+            new[]
+            {
+                "光线像差图",
+                "标准点列图",
+                "光迹图",
+                "离焦点列图",
+                "一阶量",
+                "处方报告",
+                "Y-Ybar",
+                "扫描瞳孔",
+                "扫描视场"
+            },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
-            new[] { "傅里叶 MTF", "惠更斯 MTF", "几何 MTF" },
-            MainWindow.AnalysisRibbonMenusByCategory["MTF 曲线"]);
-        Assert.Contains("照度与辐射", MainWindow.AnalysisRibbonMenusByCategory["扩展图像分析"]);
+            new[]
+            {
+                "傅里叶 MTF",
+                "傅里叶离焦 MTF",
+                "傅里叶 MTF VS 视场",
+                "惠更斯 MTF",
+                "惠更斯离焦 MTF",
+                "惠更斯 MTF VS 视场",
+                "几何 MTF",
+                "几何离焦 MTF",
+                "几何 MTF VS 视场"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["MTF 曲线"]);
+        Assert.Equal(
+            new[] { "成像仿真", "相对照度", "非相干照度", "辐射强度" },
+            MainWindow.AnalysisRibbonCommandsByMenu["扩展图像分析"]);
+        Assert.DoesNotContain("系统报告", MainWindow.AnalysisRibbonCategories);
 
         var descriptors = connector.GetAnalysisParameters("点扩散函数 PSF");
         Assert.Contains(descriptors, item => item.Key == "NumRays" && item.Kind == AnalysisParameterKind.Integer);

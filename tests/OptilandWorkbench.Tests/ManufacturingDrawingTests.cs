@@ -1,3 +1,4 @@
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Manufacturing;
 
@@ -188,10 +189,91 @@ public sealed class ManufacturingDrawingTests
         Assert.Equal("R∞", OpticalDrawingRenderer.RadiusDimensionText(0, 0.1));
     }
 
+    [Fact]
+    public void TessarKeepsSingleLensDrawingsAndAddsCementedAssemblyDrawing()
+    {
+        using var application = WorkbenchApplication.Create("tessar");
+
+        var drawings = OpticalManufacturingModel.BuildDrawingElements(
+            application.Prescription.GetSurfaces());
+
+        Assert.Equal(4, drawings.Count(drawing => !drawing.IsCemented));
+        var cemented = Assert.Single(drawings, drawing => drawing.IsCemented);
+        Assert.Equal(2, cemented.Components.Count);
+        Assert.Equal(
+            cemented.Components[0].BackSurface.Number,
+            cemented.Components[1].FrontSurface.Number);
+        Assert.True(
+            cemented.Components[0].FrontSurface.Number
+                < cemented.Components[1].FrontSurface.Number);
+
+        var singlePreview = OpticalDrawingRenderer.RenderPreview(
+            Sheet(drawings.First(drawing => !drawing.IsCemented)),
+            800);
+        var cementedPreview = OpticalDrawingRenderer.RenderPreview(Sheet(cemented), 800);
+
+        Assert.True(singlePreview.Length > 10_000);
+        Assert.True(cementedPreview.Length > 10_000);
+        Assert.False(singlePreview.SequenceEqual(cementedPreview));
+    }
+
+    [Fact]
+    public async Task OpticalSystemDrawingRendersLensBodiesAirGapsAndTitleBlock()
+    {
+        using var application = WorkbenchApplication.Create("tessar");
+        var scene = await application.Visualization.BuildSceneAsync(new VisualizationRequestDto(
+            SceneDimension.TwoDimensional,
+            IncludeAllWavelengths: true,
+            RayCount: 3));
+        var layout = Assert.IsType<Scene2Dto>(scene.TwoDimensional);
+        Assert.NotEmpty(layout.LensElements);
+        Assert.NotEmpty(layout.Rays);
+        var lensOnlyLayout = layout with
+        {
+            Surfaces = Array.Empty<SceneSurface2Dto>(),
+            LensEdges = Array.Empty<SceneLensEdge2Dto>(),
+            Rays = Array.Empty<SceneRay2Dto>(),
+            ZMin = -1_000_000,
+            ZMax = 1_000_000,
+            YExtent = 1_000_000
+        };
+        var airGaps = OpticalDrawingRenderer.SystemAirGaps(layout);
+        Assert.Equal(2, airGaps.Count);
+        Assert.All(airGaps, gap => Assert.True(gap > 0));
+        Assert.Equal(0.2054, airGaps[0], 4);
+        Assert.Equal(0.2243, airGaps[1], 4);
+
+        var sheet = new OpticalSystemDrawingSheet(
+            layout,
+            OpticalDrawingPageSize.A4,
+            "OPT-SYSTEM-TEST",
+            "Optical system layout",
+            "DES",
+            "CHK",
+            "A");
+        var lensOnlySheet = new OpticalSystemDrawingSheet(
+            lensOnlyLayout,
+            OpticalDrawingPageSize.A4,
+            "OPT-SYSTEM-TEST",
+            "Optical system layout",
+            "DES",
+            "CHK",
+            "A");
+        var alternateTitleSheet = lensOnlySheet with { DrawingNumber = "OPT-SYSTEM-OTHER" };
+        var lensOnlyPreview = OpticalDrawingRenderer.RenderSystemPreview(lensOnlySheet, 800);
+        var preview = OpticalDrawingRenderer.RenderSystemPreview(sheet, 800);
+        var alternateTitlePreview = OpticalDrawingRenderer.RenderSystemPreview(alternateTitleSheet, 800);
+
+        Assert.True(preview.Length > 10_000);
+        Assert.Equal(new byte[] { 0x89, 0x50, 0x4e, 0x47 }, preview[..4]);
+        Assert.True(preview.SequenceEqual(lensOnlyPreview));
+        Assert.False(preview.SequenceEqual(alternateTitlePreview));
+    }
+
     private static readonly byte[] TransparentPng = Convert.FromBase64String(
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=");
 
-    private static OpticalDrawingSheet Sheet(OpticalElementDefinition element) => new(
+    private static OpticalDrawingSheet Sheet(OpticalDrawingElementDefinition element) => new(
         element,
         OpticalDrawingPageSize.A4,
         "OPT-TEST-001",

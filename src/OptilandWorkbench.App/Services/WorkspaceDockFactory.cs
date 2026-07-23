@@ -405,6 +405,7 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Prescription,
                 _application.Materials,
                 _application.Events,
+                _application.Visualization,
                 OpticalDrawingStandardFrom(descriptor.Settings)),
             WorkspaceDocumentKind.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
             WorkspaceDocumentKind.Tolerancing => new TolerancingPanel(_application.Prescription, _application.Tolerancing, _application.Events),

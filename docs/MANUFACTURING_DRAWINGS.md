@@ -20,6 +20,10 @@ It also detects a conic surface outside its real sag domain, intersecting front 
 ## Optical Drawing
 
 The preview and PDF share one renderer, so the exported document preserves the geometry and annotations shown in the application. The **Manufacturing & Drawings** Ribbon exposes separate `ISO 10110` and `GB/T 13323` drawing commands; each command opens a stable document with its own persisted standard setting and production layout:
+The drawing selector keeps every individual glass piece as a separate single-lens drawing. When two or more glass-bearing prescription intervals are consecutive, it also adds a cemented-assembly drawing without removing either component drawing. The assembly section shows every glass body, the shared cemented interfaces, local surface numbers, material names, and component center thicknesses.
+
+The same selector also contains an optical-system layout sheet. It renders the complete lens train, material-separated lens bodies, aperture/reference planes, and traced wavelength-colored rays, and exports the result through the same PNG preview and vector PDF workflow.
+
 
 - `ISO 10110` uses an upper geometry band, lower S1/material/S2 specification columns, and the title block.
 - `GB/T 13323—2009` uses the same dimensionally correct geometry with separate `对材料的要求` and `对零件的要求` tables. Each S1/S2 row contains a dedicated `D（有效孔径）` field and its surface requirements.
@@ -34,7 +38,7 @@ Both layouts include:
 
 The sheet uses the bundled S.T.A.R.Labs company wordmark in the title block; an imported PNG can override it for the current drawing and **Restore Default** returns to the bundled asset. The source wordmark's baked light checkerboard is removed and its visible content is cropped at render time without redrawing the lettering. The sheet also uses the bundled Noto Sans CJK SC engineering font under the SIL Open Font License. Mathematical and optical notation is typeset with real glyphs and positioned subscripts, so `±`, `×`, `≤`, `λ`, `φ`, `n_d`, `V_d`, and similar notation remains consistent in both the preview and exported PDF without depending on fonts installed on the workstation.
 
-Each single optical element uses local manufacturing-surface identifiers `S1` and `S2`, independent of its global surface numbers in the sequential prescription. Additional local surface numbers are reserved for a future cemented-assembly drawing mode.
+Each single optical element uses local manufacturing-surface identifiers `S1` and `S2`, independent of its global surface numbers in the sequential prescription. Cemented assemblies continue the local sequence across shared interfaces (`S1`, `S2`, `S3`, and so on), while retaining the original global surface range in the selector.
 
 The drawing pipeline is implemented independently in C# with SkiaSharp. Preview generation, dimension geometry, Chinese and mathematical text, and vector PDF export do not invoke Python or depend on an external CAD application. [OtoCAD Community](https://github.com/otocad/Otocad-Community) is used only as a public behavioral reference for portrait-sheet proportions and the separation of geometry, surface/material specifications, and the title block; no OtoCAD source or runtime component is incorporated.
 

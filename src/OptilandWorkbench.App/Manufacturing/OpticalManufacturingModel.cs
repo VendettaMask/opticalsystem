@@ -28,6 +28,38 @@ public sealed record OpticalElementDefinition(
         BackSurface.SemiDiameter);
 }
 
+public sealed record OpticalDrawingElementDefinition(
+    IReadOnlyList<OpticalElementDefinition> Components)
+{
+    public bool IsCemented => Components.Count > 1;
+
+    public string ComponentNumbers => string.Join("+", Components.Select(component => component.ElementNumber));
+
+    public string DisplayName => IsCemented
+        ? $"\u80f6\u5408\u900f\u955c {ComponentNumbers}  S{FrontSurface.Number}-S{BackSurface.Number}  {Material}"
+        : $"\u5355\u900f\u955c {ComponentNumbers}  S{FrontSurface.Number}-S{BackSurface.Number}  {Material}";
+
+    public SurfaceRowDto FrontSurface => Components[0].FrontSurface;
+
+    public SurfaceRowDto BackSurface => Components[^1].BackSurface;
+
+    public IReadOnlyList<SurfaceRowDto> Surfaces => Components
+        .Select(component => component.FrontSurface)
+        .Append(BackSurface)
+        .ToArray();
+
+    public string Material => string.Join(" + ", Components.Select(component => component.Material));
+
+    public double Diameter => Components.Max(component => component.Diameter);
+
+    public double CenterThickness => Components.Sum(component => component.CenterThickness);
+
+    public double ClearSemiDiameter => Components.Min(component => component.ClearSemiDiameter);
+
+    public static implicit operator OpticalDrawingElementDefinition(OpticalElementDefinition element) =>
+        new(new[] { element });
+}
+
 public sealed record ManufacturabilitySettings(
     double MinimumCenterThickness = 1.0,
     double MinimumEdgeThickness = 0.8,
@@ -80,6 +112,39 @@ public static class OpticalManufacturingModel
         }
 
         return elements;
+    }
+
+    public static IReadOnlyList<OpticalDrawingElementDefinition> BuildDrawingElements(
+        IReadOnlyList<SurfaceRowDto> surfaces)
+    {
+        var singleElements = BuildElements(surfaces);
+        var drawings = new List<OpticalDrawingElementDefinition>();
+        var cementedRun = new List<OpticalElementDefinition>();
+
+        foreach (var element in singleElements)
+        {
+            if (cementedRun.Count > 0
+                && cementedRun[^1].BackSurface.Number != element.FrontSurface.Number)
+            {
+                AddCementedDrawing();
+            }
+
+            drawings.Add(element);
+            cementedRun.Add(element);
+        }
+
+        AddCementedDrawing();
+        return drawings;
+
+        void AddCementedDrawing()
+        {
+            if (cementedRun.Count > 1)
+            {
+                drawings.Add(new OpticalDrawingElementDefinition(cementedRun.ToArray()));
+            }
+
+            cementedRun.Clear();
+        }
     }
 
     public static ManufacturabilityReport Evaluate(
