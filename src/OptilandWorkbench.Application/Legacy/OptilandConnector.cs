@@ -194,6 +194,11 @@ public sealed class OptilandConnector
             || path.EndsWith(".optiland", StringComparison.OrdinalIgnoreCase);
     }
 
+    public static bool IsStarOptProjectPath(string path)
+    {
+        return path.EndsWith(StarOptProjectStore.Extension, StringComparison.OrdinalIgnoreCase);
+    }
+
     public static bool IsPythonOptilandJsonPath(string path)
     {
         return path.EndsWith(".optiland-python.json", StringComparison.OrdinalIgnoreCase)
@@ -202,7 +207,9 @@ public sealed class OptilandConnector
 
     public static string FormatNameForPath(string path)
     {
-        return IsPythonOptilandJsonPath(path)
+        return IsStarOptProjectPath(path)
+            ? "staropt-project"
+            : IsPythonOptilandJsonPath(path)
             ? "python-optiland-json"
             : IsNativeJsonPath(path)
             ? "native-json"
@@ -1251,24 +1258,42 @@ public sealed class OptilandConnector
         string path,
         CancellationToken cancellationToken = default)
     {
-        if (IsPythonOptilandJsonPath(path))
+        await SaveDocumentAsync(
+            new LoadedOpticalDocument(optic, new[] { optic }, 0),
+            path,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    public static async Task SaveDocumentAsync(
+        LoadedOpticalDocument document,
+        string path,
+        CancellationToken cancellationToken = default)
+    {
+        if (IsStarOptProjectPath(path))
         {
-            await PythonOptilandJsonStore.SaveAsync(optic, path, cancellationToken).ConfigureAwait(false);
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(document.Configurations, document.ActiveConfigurationIndex),
+                path,
+                cancellationToken).ConfigureAwait(false);
+        }
+        else if (IsPythonOptilandJsonPath(path))
+        {
+            await PythonOptilandJsonStore.SaveAsync(document.ActiveOptic, path, cancellationToken).ConfigureAwait(false);
         }
         else if (IsNativeJsonPath(path))
         {
-            await OpticJsonStore.SaveAsync(optic, path, cancellationToken).ConfigureAwait(false);
+            await OpticJsonStore.SaveAsync(document.ActiveOptic, path, cancellationToken).ConfigureAwait(false);
         }
         else
         {
-            var text = OpticalFormatCatalog.Export(optic, Path.GetExtension(path));
+            var text = OpticalFormatCatalog.Export(document.ActiveOptic, Path.GetExtension(path));
             await File.WriteAllTextAsync(path, text, cancellationToken).ConfigureAwait(false);
         }
     }
 
     public async Task SaveAsync(string path, CancellationToken cancellationToken = default)
     {
-        await SaveOpticAsync(CurrentOptic, path, cancellationToken).ConfigureAwait(false);
+        await SaveDocumentAsync(CaptureDocument(), path, cancellationToken).ConfigureAwait(false);
 
         SetStatus($"已保存 {Path.GetFileName(path)}。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -1291,6 +1316,16 @@ public sealed class OptilandConnector
         string path,
         CancellationToken cancellationToken = default)
     {
+        if (IsStarOptProjectPath(path) ||
+            await StarOptProjectStore.HasMagicAsync(path, cancellationToken).ConfigureAwait(false))
+        {
+            var project = await StarOptProjectStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
+            return new LoadedOpticalDocument(
+                project.Configurations[project.ActiveConfigurationIndex],
+                project.Configurations,
+                project.ActiveConfigurationIndex);
+        }
+
         if (IsNativeJsonPath(path))
         {
             var optic = await OpticJsonStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
@@ -1341,6 +1376,18 @@ public sealed class OptilandConnector
             : string.Empty;
         SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。");
         OpticLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public LoadedOpticalDocument CaptureDocument()
+    {
+        SyncActiveConfigurationFromCurrent();
+        var configurations = _multiConfiguration.Configurations
+            .Select(configuration => Optic.FromSnapshot(configuration.ToSnapshot()))
+            .ToArray();
+        return new LoadedOpticalDocument(
+            configurations[_activeConfigurationIndex],
+            configurations,
+            _activeConfigurationIndex);
     }
 
     public TolerancingView RunTolerancing(

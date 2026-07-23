@@ -53,7 +53,7 @@ public sealed class OpticalSurface : NotifyObject
     public double Thickness
     {
         get => _thickness;
-        set => SetProperty(ref _thickness, Math.Max(0, value));
+        set => SetProperty(ref _thickness, value);
     }
 
     public string Material

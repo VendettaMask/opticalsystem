@@ -14,7 +14,8 @@ The implementation is being built in small git milestones. The current codebase 
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
 - A 37-entry desktop analysis catalog backed by 39 registered analysis engines. Thirty numerical/graphical views have source-derived Python contracts, including standard spot and ray-aberration plots, through-focus spots/MTF, distortion/field curvature, RMS field sweeps, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. A Zemax-style footprint diagram traces pupil grids to any selected surface with field/wavelength coloring and vignetting control; relative illumination integrates the transmitted exit-pupil area in image-space direction cosines and reports normalized illumination and effective F-number.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
-- Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, Optiland-compatible Zemax `.zmx` sequential import, a build-time Zemax `.AGF` material-catalog converter, and common sequential export/CODE V `.seq`/OSLO `.len` adapters.
+- A native `.staropt` project container with magic/version headers, Brotli compression, SHA-256 integrity validation, atomic saves, and lossless multi-configuration round-trip. Legacy Workbench JSON remains a compatibility import; Python Optiland 0.5.8 JSON, Zemax `.zmx`, CODE V `.seq`, and OSLO `.len` remain explicit exchange formats.
+- A packaged read-only lens library under **Database > Lens Library**, currently containing 56 microscope objectives and 5 industrial examples. Microscope entries are restricted to standalone objectives; tube lenses, condensers, Fourier-imaging trains, and complete microscope systems are excluded. An external maintenance tool converts reviewed local source files once into native `.staropt` projects using the Workbench glass database; the desktop application only loads the finished library and shows per-lens parameters plus an interactive 2D optical layout.
 - .NET plugin discovery with geometry, material, and analysis registration.
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A dedicated **Manufacturing & Drawings** workspace with rule-based optical-element manufacturability review, ISO 10110-series Chinese drawing previews, editable tolerances and title blocks, and vector PDF export.
@@ -43,7 +44,7 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 - Use the top categories to switch the large-command Ribbon; commands are not duplicated in the central workspace.
 - Open **View** and choose **2D Layout**, **3D Layout**, or **Solid Model**. The 2D view uses outlined optical elements and colored rays; the 3D layout keeps a light engineering background, while the solid-model view uses a clean dark studio background and continuous dielectric glass driven by the catalog refractive index, Fresnel reflectance, and element-thickness attenuation. Highlighted optical surfaces and ray bundles remain visible through the glass.
 - Open **Analysis**, choose an image-quality category, and then select the required method from its second-level menu. The selected analysis runs and opens its own closable result page.
-- Open **Database > Material Library** to browse the bundled Zemax catalogs directly. No separate catalog selection or import step is required before opening ZMX files.
+- Open **Database > Lens Library** to filter packaged microscope and industrial designs, inspect their basic parameters, and preview each native system in 2D. Library download and conversion are intentionally absent from the desktop application.
 - Open **Manufacturing & Drawings** to review center/edge thickness, curvature, slope, and special-surface risks, or to prepare a Chinese ISO 10110-series reference drawing and export it as PDF.
 - Expand **Settings** only when parameters need adjustment, then use the adjacent synchronization icon to rerun the current page.
 - Drag any document tab to split, merge, float, or redock it. Use **Window** for bulk docking, floating, tiling, cascading, locking, closing, and default-layout commands.
@@ -64,7 +65,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 379 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 394 passing tests with a zero-warning solution build.
 
 ## Publish
 
@@ -108,6 +109,7 @@ See:
 - [Local icon library](docs/LOCAL_ICONS.md)
 - [Application branding](docs/BRANDING.md)
 - [Manufacturability and optical drawings](docs/MANUFACTURING_DRAWINGS.md)
+- [Packaged lens library](docs/LENS_LIBRARY.md)
 
 Manual import and viewer samples are available under [`samples/lenses`](samples/lenses), including angle, finite-object-height, and Zemax real-image-height systems backed by bundled catalog glass.
 

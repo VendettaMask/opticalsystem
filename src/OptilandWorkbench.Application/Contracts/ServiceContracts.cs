@@ -144,6 +144,19 @@ public interface IMaterialCatalogService
         CancellationToken cancellationToken = default);
 }
 
+public interface ILensLibraryService
+{
+    string LibraryDirectory { get; }
+
+    IReadOnlyList<LensLibraryEntryDto> GetLenses();
+
+    string? GetNativeProjectPath(string lensId);
+
+    Task<SceneDto?> BuildPreviewAsync(
+        string lensId,
+        CancellationToken cancellationToken = default);
+}
+
 public interface IWorkbenchApplication : IDisposable
 {
     IOpticalDocumentService Documents { get; }
@@ -161,6 +174,8 @@ public interface IWorkbenchApplication : IDisposable
     IMultiConfigurationService MultiConfiguration { get; }
 
     IMaterialCatalogService Materials { get; }
+
+    ILensLibraryService Lenses { get; }
 
     IWorkspaceEventStream Events { get; }
 }

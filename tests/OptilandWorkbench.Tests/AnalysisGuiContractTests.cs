@@ -4,6 +4,7 @@ using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.App;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
@@ -14,11 +15,34 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Phase;
+using ContractLensLibraryService = OptilandWorkbench.Application.Contracts.ILensLibraryService;
+using ContractMaterialCatalogService = OptilandWorkbench.Application.Contracts.IMaterialCatalogService;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class AnalysisGuiContractTests
 {
+    [Fact]
+    public void DesktopNativeProjectPickerOnlyOffersStarOpt()
+    {
+        Assert.Equal(new[] { "*.staropt" }, MainWindow.NativeProjectFilePatterns);
+    }
+
+    [Fact]
+    public void MaterialAndLensLibrariesAreSeparateDocuments()
+    {
+        var materialConstructor = Assert.Single(typeof(MaterialLibraryPanel).GetConstructors());
+        Assert.Equal(
+            new[] { typeof(ContractMaterialCatalogService) },
+            materialConstructor.GetParameters().Select(parameter => parameter.ParameterType));
+        Assert.NotNull(typeof(LensLibraryPanel).GetConstructor(new[]
+        {
+            typeof(ContractLensLibraryService),
+            typeof(Func<string, Task>)
+        }));
+        Assert.Equal(12, (int)WorkspaceDocumentKind.LensLibrary);
+    }
+
     [Fact]
     public void RealImageHeightDistortionExposesConvertedAngularModel()
     {

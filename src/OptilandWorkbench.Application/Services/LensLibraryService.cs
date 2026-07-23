@@ -1,0 +1,192 @@
+using System.Text.Json;
+using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Visualization;
+
+namespace OptilandWorkbench.Application.Services;
+
+internal sealed class LensLibraryService : ILensLibraryService
+{
+    private const int SupportedCatalogVersion = 1;
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    private readonly object _gate = new();
+    private LensLibraryCatalogDocument? _catalog;
+
+    public LensLibraryService(string libraryDirectory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(libraryDirectory);
+        LibraryDirectory = Path.GetFullPath(libraryDirectory);
+    }
+
+    public string LibraryDirectory { get; }
+
+    public IReadOnlyList<LensLibraryEntryDto> GetLenses()
+    {
+        lock (_gate)
+        {
+            return LoadCatalog().Entries
+                .OrderBy(entry => entry.Category, StringComparer.Ordinal)
+                .ThenBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+    }
+
+    public string? GetNativeProjectPath(string lensId)
+    {
+        var entry = GetEntry(lensId);
+        if (entry is null || string.IsNullOrWhiteSpace(entry.NativePath))
+        {
+            return null;
+        }
+
+        try
+        {
+            var nativePath = SafeChildPath(LibraryDirectory, entry.NativePath);
+            return Path.GetExtension(nativePath).Equals(".staropt", StringComparison.OrdinalIgnoreCase) &&
+                   File.Exists(nativePath)
+                ? nativePath
+                : null;
+        }
+        catch (Exception exception) when (
+            exception is InvalidDataException or ArgumentException or NotSupportedException)
+        {
+            return null;
+        }
+    }
+
+    public async Task<SceneDto?> BuildPreviewAsync(
+        string lensId,
+        CancellationToken cancellationToken = default)
+    {
+        var nativePath = GetNativeProjectPath(lensId);
+        if (nativePath is null)
+        {
+            return null;
+        }
+
+        var project = await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false);
+        var optic = project.Configurations[project.ActiveConfigurationIndex];
+        var scene = await Task.Run(
+            () => new Layout2DBuilder(optic).Build(
+                options: new LayoutBuildOptions(
+                    IncludeAllWavelengths: false,
+                    RayCount: 3,
+                    MarginalAndChiefOnly: true)),
+            cancellationToken).ConfigureAwait(false);
+        var summary = CreateSummary(optic, nativePath);
+        return new SceneDto(0, SceneDimension.TwoDimensional, ToScene2Dto(scene), null, summary);
+    }
+
+    private LensLibraryEntryDto? GetEntry(string id)
+    {
+        lock (_gate)
+        {
+            return LoadCatalog().Entries.FirstOrDefault(entry =>
+                entry.Id.Equals(id, StringComparison.Ordinal));
+        }
+    }
+
+    private LensLibraryCatalogDocument LoadCatalog()
+    {
+        if (_catalog is not null)
+        {
+            return _catalog;
+        }
+
+        var path = Path.Combine(LibraryDirectory, "index.json");
+        if (!File.Exists(path))
+        {
+            return _catalog = EmptyCatalog();
+        }
+
+        try
+        {
+            var json = File.ReadAllText(path);
+            var catalog = JsonSerializer.Deserialize<LensLibraryCatalogDocument>(json, JsonOptions);
+            return _catalog = catalog is { Version: SupportedCatalogVersion }
+                ? catalog
+                : EmptyCatalog();
+        }
+        catch (Exception exception) when (
+            exception is JsonException or IOException or UnauthorizedAccessException)
+        {
+            return _catalog = EmptyCatalog();
+        }
+    }
+
+    private static LensLibraryCatalogDocument EmptyCatalog() => new(
+        SupportedCatalogVersion,
+        DateTimeOffset.MinValue,
+        Array.Empty<LensLibraryEntryDto>());
+
+    private static OpticalDocumentSnapshot CreateSummary(Optic optic, string path) => new(
+        optic.Name,
+        path,
+        0,
+        "镜头库预览",
+        false,
+        false,
+        FiniteOrZero(optic.Paraxial.EstimateEffectiveFocalLength()),
+        FiniteOrZero(optic.Paraxial.EstimateFNumber()),
+        FiniteOrZero(optic.Aperture.Value),
+        FiniteOrZero(optic.SurfaceGroup.TotalTrack),
+        optic.SurfaceGroup.Items.Count,
+        optic.Fields.Count,
+        optic.Wavelengths.Count);
+
+    private static Scene2Dto ToScene2Dto(Layout2DScene scene)
+    {
+        ScenePoint2Dto Point(Layout2DPoint point) => new(point.Z, point.Y);
+        return new Scene2Dto(
+            scene.Surfaces.Select(surface => new SceneSurface2Dto(
+                surface.SurfaceNumber,
+                surface.Label,
+                surface.IsStop,
+                surface.IsReferencePlane,
+                surface.Points.Select(Point).ToArray())).ToArray(),
+            scene.LensElements.Select(element => new SceneLensElement2Dto(
+                element.FrontSurfaceNumber,
+                element.BackSurfaceNumber,
+                element.Material,
+                element.Boundary.Select(Point).ToArray())).ToArray(),
+            scene.LensEdges.Select(edge => new SceneLensEdge2Dto(
+                edge.FrontSurfaceNumber,
+                edge.BackSurfaceNumber,
+                Point(edge.Start),
+                Point(edge.End))).ToArray(),
+            scene.Rays.Select(ray => new SceneRay2Dto(
+                ray.RayNumber,
+                ray.FieldIndex,
+                ray.PupilIndex,
+                ray.WavelengthIndex,
+                ray.Vignetted,
+                ray.FinalIntensity,
+                ray.Points.Select(Point).ToArray())).ToArray(),
+            scene.ZMin,
+            scene.ZMax,
+            scene.YExtent);
+    }
+
+    private static string SafeChildPath(string root, string relativePath)
+    {
+        var fullRoot = Path.GetFullPath(root);
+        var candidate = Path.GetFullPath(Path.Combine(fullRoot, relativePath));
+        var prefix = fullRoot.EndsWith(Path.DirectorySeparatorChar)
+            ? fullRoot
+            : $"{fullRoot}{Path.DirectorySeparatorChar}";
+        if (!candidate.StartsWith(prefix, StringComparison.Ordinal) &&
+            !candidate.Equals(fullRoot, StringComparison.Ordinal))
+        {
+            throw new InvalidDataException("镜头库索引包含越界路径。");
+        }
+
+        return candidate;
+    }
+
+    private static double FiniteOrZero(double value) => double.IsFinite(value) ? value : 0;
+}

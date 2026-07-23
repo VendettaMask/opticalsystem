@@ -1,4 +1,5 @@
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Optimization;
@@ -8,6 +9,14 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class WorkbenchApplicationTests
 {
+    [Fact]
+    public void StarOptExtensionHasItsOwnDocumentRoute()
+    {
+        Assert.True(OptilandConnector.IsStarOptProjectPath("design.STAROPT"));
+        Assert.False(OptilandConnector.IsNativeJsonPath("design.staropt"));
+        Assert.Equal("staropt-project", OptilandConnector.FormatNameForPath("design.staropt"));
+    }
+
     [Fact]
     public void SemiDiameterIsAutomaticUntilExplicitlyFixed()
     {
@@ -643,6 +652,76 @@ public sealed class WorkbenchApplicationTests
         finally
         {
             File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public async Task StarOptSaveAndOpenPreservesAllConfigurationsAndActiveSelection()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"project-{Guid.NewGuid():N}.staropt");
+        try
+        {
+            using (var source = WorkbenchApplication.Create("cooke"))
+            {
+                var alternate = source.MultiConfiguration.Add();
+                source.MultiConfiguration.SetThickness(alternate, 2, 77);
+                source.MultiConfiguration.Activate(alternate);
+                await source.Documents.SaveAsync(path);
+            }
+
+            using var restored = WorkbenchApplication.Create("blank");
+            await restored.Documents.OpenAsync(path);
+
+            Assert.Equal(Path.GetFullPath(path), restored.Documents.CurrentPath);
+            var configurations = restored.MultiConfiguration.GetRows();
+            Assert.Equal(2, configurations.Count);
+            Assert.False(configurations[0].Active);
+            Assert.True(configurations[1].Active);
+            Assert.Equal(
+                77,
+                restored.Prescription.GetSurfaces().Single(surface => surface.Number == 2).Thickness,
+                precision: 12);
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task StarOptProjectIsRecognizedByContentAfterRename()
+    {
+        var projectPath = Path.Combine(Path.GetTempPath(), $"project-{Guid.NewGuid():N}.staropt");
+        var renamedPath = Path.ChangeExtension(projectPath, ".bin");
+        try
+        {
+            string expectedName;
+            using (var source = WorkbenchApplication.Create("tessar"))
+            {
+                expectedName = source.Documents.GetSnapshot().Name;
+                await source.Documents.SaveAsync(projectPath);
+            }
+
+            File.Move(projectPath, renamedPath);
+            using var restored = WorkbenchApplication.Create("blank");
+            await restored.Documents.OpenAsync(renamedPath);
+
+            Assert.Equal(expectedName, restored.Documents.GetSnapshot().Name);
+        }
+        finally
+        {
+            if (File.Exists(projectPath))
+            {
+                File.Delete(projectPath);
+            }
+
+            if (File.Exists(renamedPath))
+            {
+                File.Delete(renamedPath);
+            }
         }
     }
 }

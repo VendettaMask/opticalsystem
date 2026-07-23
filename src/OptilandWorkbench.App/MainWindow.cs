@@ -19,7 +19,14 @@ namespace OptilandWorkbench.App;
 
 public sealed class MainWindow : Window
 {
-    private static readonly FilePickerFileType NativeOpticFileType = new("Optiland JSON 光学系统")
+    private static readonly FilePickerFileType NativeOpticFileType = new("STAROPT 光学设计项目")
+    {
+        Patterns = new[] { "*.staropt" },
+        AppleUniformTypeIdentifiers = new[] { "public.data" },
+        MimeTypes = new[] { "application/vnd.starlabs.staropt" }
+    };
+
+    private static readonly FilePickerFileType LegacyOpticJsonFileType = new("旧版 Optiland JSON（兼容导入）")
     {
         Patterns = new[] { "*.optiland.json", "*.optic.json", "*.json", "*.optiland" },
         AppleUniformTypeIdentifiers = new[] { "public.json" },
@@ -172,6 +179,9 @@ public sealed class MainWindow : Window
 
     internal static IReadOnlyList<string> AnalysisRibbonCategories => AnalysisRibbonGroupOrder;
 
+    internal static IReadOnlyList<string> NativeProjectFilePatterns =>
+        NativeOpticFileType.Patterns ?? Array.Empty<string>();
+
     internal static IReadOnlyDictionary<string, IReadOnlyList<string>> AnalysisRibbonCommandsByCategory =>
         AnalysisRibbonCommands
             .GroupBy(command => command.Group)
@@ -213,7 +223,10 @@ public sealed class MainWindow : Window
     {
         _settings = AppSettings.Load();
         ConfigureDisplaySettings();
-        _application = WorkbenchApplication.Create(InitialSample(), UserGlassCatalogDirectory());
+        _application = WorkbenchApplication.Create(
+            InitialSample(),
+            UserGlassCatalogDirectory(),
+            BundledLensLibraryDirectory());
         _panels = new PanelManager(_application, _settings);
         RegisterActions();
         _actions.ExecutionFailed += OnActionExecutionFailed;
@@ -316,7 +329,7 @@ public sealed class MainWindow : Window
         _actions.Register("new-tessar", "新建 Tessar F/4.5 四片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewTessar));
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
         _actions.Register("import-zemax", "导入 Zemax ZMX", "文件", ImportZemaxAsync);
-        _actions.Register("save-as", "另存为", "文件", SaveAsAsync);
+        _actions.Register("save-as", "保存项目", "文件", SaveProjectAsync);
         _actions.Register("export-python-json", "导出 Python Optiland JSON", "文件", ExportPythonJsonAsync);
         _actions.Register("exit", "退出", "文件", Close);
         _actions.Register("undo", "撤销", "编辑", () => _application.Documents.Undo());
@@ -329,6 +342,7 @@ public sealed class MainWindow : Window
         _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
         _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
+        _actions.Register("show-lens-library", "打开镜头库", "数据库", _panels.ShowLensLibrary);
         _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
         _actions.Register("show-manufacturability", "可加工性评估", "加工与图纸", _panels.ShowManufacturability);
         _actions.Register(
@@ -394,10 +408,12 @@ public sealed class MainWindow : Window
             Header = "文件",
             ItemsSource = new object[]
             {
+                MenuItem(_actions.Find("open")),
                 MenuItem(_actions.Find("new-demo")),
                 MenuItem(_actions.Find("new-tessar")),
                 new Separator(),
                 MenuItem(_actions.Find("import-zemax")),
+                MenuItem(_actions.Find("save-as")),
                 new Separator(),
                 MenuItem(_actions.Find("export-python-json")),
                 new Separator(),
@@ -503,7 +519,9 @@ public sealed class MainWindow : Window
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),
-                        RibbonButton("show-glass-catalog", "gem", "玻璃")))),
+                        RibbonButton("show-glass-catalog", "gem", "玻璃")),
+                    RibbonGroup("镜头设计",
+                        RibbonButton("show-lens-library", "telescope", "镜头库")))),
                 RibbonTab("编程与工具", BuildRibbonPage(
                     RibbonGroup("编辑",
                         RibbonButton("undo", "undo-2", "撤销"),
@@ -768,7 +786,14 @@ public sealed class MainWindow : Window
         {
             Title = "打开光学系统",
             AllowMultiple = false,
-            FileTypeFilter = new[] { NativeOpticFileType, PythonOptilandJsonFileType, CommercialOpticFileType, PlainSequentialFileType }
+            FileTypeFilter = new[]
+            {
+                NativeOpticFileType,
+                LegacyOpticJsonFileType,
+                PythonOptilandJsonFileType,
+                CommercialOpticFileType,
+                PlainSequentialFileType
+            }
         });
         if (files.Count > 0)
         {
@@ -785,14 +810,28 @@ public sealed class MainWindow : Window
     {
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "保存光学系统",
-            SuggestedFileName = "optiland-workbench.optiland.json",
-            FileTypeChoices = new[] { NativeOpticFileType, PythonOptilandJsonFileType, CommercialOpticFileType, PlainSequentialFileType }
+            Title = "保存 STAROPT 项目",
+            SuggestedFileName = "optical-system.staropt",
+            DefaultExtension = "staropt",
+            FileTypeChoices = new[] { NativeOpticFileType }
         });
         if (file is not null)
         {
             await _application.Documents.SaveAsync(file.Path.LocalPath);
         }
+    }
+
+    private async Task SaveProjectAsync()
+    {
+        var currentPath = _application.Documents.CurrentPath;
+        if (currentPath is not null &&
+            currentPath.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
+        {
+            await _application.Documents.SaveAsync(currentPath);
+            return;
+        }
+
+        await SaveAsAsync();
     }
 
     private async Task ExportPythonJsonAsync()
@@ -905,6 +944,21 @@ public sealed class MainWindow : Window
                 if (!_closed)
                 {
                     _statusText.Text = $"命令面板打开失败：{exception.Message}";
+                }
+            }
+        }
+        else if (args.Key == Key.S && commandModifier)
+        {
+            args.Handled = true;
+            try
+            {
+                await SaveProjectAsync();
+            }
+            catch (Exception exception)
+            {
+                if (!_closed)
+                {
+                    _statusText.Text = $"保存项目失败：{exception.Message}";
                 }
             }
         }
@@ -1109,6 +1163,9 @@ public sealed class MainWindow : Window
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "OptilandWorkbench",
         "glass-catalogs");
+
+    private static string BundledLensLibraryDirectory() =>
+        Path.Combine(AppContext.BaseDirectory, "LensLibrary");
 
     private sealed record AnalysisRibbonCommand(
         string Id,

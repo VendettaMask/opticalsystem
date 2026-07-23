@@ -2,9 +2,10 @@
 
 ## Formats
 
-Workbench JSON and Python Optiland JSON are different schemas:
+STAROPT projects, legacy Workbench JSON, and Python Optiland JSON are different formats:
 
-- Workbench native JSON uses `SchemaVersion`, rich component snapshots, and is the preferred lossless project format.
+- STAROPT is the preferred lossless project format and wraps versioned Workbench snapshots in a validated compressed container.
+- Legacy Workbench JSON uses `SchemaVersion` and rich component snapshots; it remains readable for migration.
 - Python Optiland 0.5.8 JSON is the recursive dictionary returned by `Optic.to_dict()` and uses `version`, `aperture`, `fields`, `wavelengths`, and `surface_group`.
 
 `OpticJsonStore` detects the schema from document content. Python's standard JSON encoder emits bare `Infinity` for infinite object and plane coordinates; the importer normalizes those tokens without changing string content.
@@ -13,7 +14,7 @@ Workbench JSON and Python Optiland JSON are different schemas:
 
 - Open an official Python dictionary JSON through **File > Open**.
 - Export the active supported system through **File > Export Python Optiland JSON**.
-- Continue using ordinary **Save As** with `.optiland.json` when Workbench-specific components must round-trip losslessly.
+- Use ordinary **Save** to create a `.staropt` project when Workbench-specific components or multiple configurations must round-trip losslessly.
 
 The explicit Python export suffix is `.optiland-python.json`.
 

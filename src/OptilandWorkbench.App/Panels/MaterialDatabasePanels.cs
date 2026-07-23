@@ -3,6 +3,7 @@ using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Input;
 using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -106,7 +107,7 @@ public sealed class MaterialLibraryPanel : UserControl
         var bodyScroller = new ScrollViewer
         {
             HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             Content = body
         };
         Grid.SetRow(bodyScroller, 2);
@@ -122,7 +123,7 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var panel = new Grid
         {
-            RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto,Auto,Auto,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,280,Auto,Auto,Auto,Auto,Auto"),
             RowSpacing = 8
         };
 
@@ -584,6 +585,397 @@ public sealed class MaterialLibraryPanel : UserControl
             Child = content
         });
         return root;
+    }
+}
+
+internal sealed class LensLibraryPanel : UserControl
+{
+    private readonly ILensLibraryService _lenses;
+    private readonly Func<string, Task>? _openLensProject;
+    private readonly ComboBox _category = new() { MinWidth = 150, MinHeight = 34 };
+    private readonly TextBox _search = new()
+    {
+        MinWidth = 220,
+        MinHeight = 34,
+        PlaceholderText = "搜索镜头、来源"
+    };
+    private readonly ListBox _list = new() { MinHeight = 300 };
+    private readonly OpticSceneControl _preview = new()
+    {
+        ViewMode = OpticSceneViewMode.TwoDimensional,
+        ShowRays = true,
+        ShowScaleBar = true,
+        MinHeight = 320
+    };
+    private readonly TextBlock _count = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly TextBlock _status = new()
+    {
+        VerticalAlignment = VerticalAlignment.Center,
+        TextWrapping = TextWrapping.Wrap
+    };
+    private readonly TextBlock _name = DetailValue(18, FontWeight.SemiBold);
+    private readonly TextBlock _source = DetailValue();
+    private readonly TextBlock _license = DetailValue();
+    private readonly TextBlock _format = DetailValue();
+    private readonly TextBlock _efl = DetailValue();
+    private readonly TextBlock _fNumber = DetailValue();
+    private readonly TextBlock _aperture = DetailValue();
+    private readonly TextBlock _track = DetailValue();
+    private readonly TextBlock _surfaces = DetailValue();
+    private readonly TextBlock _fields = DetailValue();
+    private readonly TextBlock _wavelengths = DetailValue();
+    private IReadOnlyList<LensLibraryEntryDto> _all = Array.Empty<LensLibraryEntryDto>();
+    private IReadOnlyList<LensLibraryEntryDto> _visible = Array.Empty<LensLibraryEntryDto>();
+    private int _previewGeneration;
+    private bool _opening;
+
+    public LensLibraryPanel(
+        ILensLibraryService lenses,
+        Func<string, Task>? openLensProject = null)
+    {
+        _lenses = lenses;
+        _openLensProject = openLensProject;
+        _category.ItemsSource = new[] { "全部镜头", "显微物镜", "工业镜头" };
+        _category.SelectedIndex = 0;
+        _category.SelectionChanged += (_, _) => RefreshList(selectFirst: true);
+        _search.TextChanged += (_, _) => RefreshList(selectFirst: true);
+        _list.SelectionChanged += async (_, _) => await ShowSelectedLensAsync();
+        _list.DoubleTapped += async (_, _) => await OpenSelectedLensAsync();
+        _status.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+
+        Content = BuildPage();
+        ReloadIndex();
+    }
+
+    private Control BuildPage()
+    {
+        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
+
+        var header = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,12,Auto,12,Auto,*,Auto"),
+            Margin = new Thickness(18, 14, 18, 10)
+        };
+        Add(header, new LocalIcon
+        {
+            IconName = "search",
+            Width = 18,
+            Height = 18,
+            VerticalAlignment = VerticalAlignment.Center
+        }, 0);
+        Add(header, _search, 2);
+        Add(header, _category, 4);
+        Add(header, _count, 6);
+        Grid.SetRow(header, 0);
+        root.Children.Add(header);
+
+        var body = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("330,16,*"),
+            Margin = new Thickness(18, 0, 18, 14),
+            MinWidth = 980
+        };
+        var listFrame = new Border
+        {
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(5),
+            Child = _list
+        };
+        listFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        listFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        Add(body, listFrame, 0);
+
+        var details = new Grid
+        {
+            RowDefinitions = new RowDefinitions("3*,Auto,Auto"),
+            RowSpacing = 12
+        };
+        var previewFrame = new Border
+        {
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(5),
+            ClipToBounds = true,
+            Child = _preview
+        };
+        previewFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        previewFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        Grid.SetRow(previewFrame, 0);
+        details.Children.Add(previewFrame);
+
+        var parameterGrid = BuildParameterGrid();
+        Grid.SetRow(parameterGrid, 1);
+        details.Children.Add(parameterGrid);
+
+        var statusBar = new Border
+        {
+            Padding = new Thickness(0, 4),
+            Child = _status
+        };
+        Grid.SetRow(statusBar, 2);
+        details.Children.Add(statusBar);
+        Add(body, details, 2);
+
+        var scroller = new ScrollViewer
+        {
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            Content = body
+        };
+        Grid.SetRow(scroller, 1);
+        root.Children.Add(scroller);
+        return root;
+    }
+
+    private Control BuildParameterGrid()
+    {
+        var panel = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,*,24,Auto,*"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto"),
+            RowSpacing = 7
+        };
+        AddPair(panel, "镜头：", _name, 0, 0);
+        AddPair(panel, "来源：", _source, 0, 1);
+        AddPair(panel, "许可证：", _license, 1, 0);
+        AddPair(panel, "格式/状态：", _format, 1, 1);
+        AddPair(panel, "有效焦距：", _efl, 2, 0);
+        AddPair(panel, "F 数：", _fNumber, 2, 1);
+        AddPair(panel, "系统孔径：", _aperture, 3, 0);
+        AddPair(panel, "系统总长：", _track, 3, 1);
+        AddPair(panel, "表面数：", _surfaces, 4, 0);
+        AddPair(panel, "视场数：", _fields, 4, 1);
+        AddPair(panel, "波长：", _wavelengths, 5, 0);
+        return panel;
+    }
+
+    private void ReloadIndex()
+    {
+        _all = _lenses.GetLenses();
+        RefreshList(selectFirst: true);
+        _status.Text = _all.Count == 0
+            ? "此版本没有随附可用镜头，请重新构建并打包镜头库。"
+            : $"随软件加载 {_all.Count} 个本地镜头";
+    }
+
+    private void RefreshList(bool selectFirst)
+    {
+        var selectedId = SelectedLens()?.Id;
+        var category = _category.SelectedItem as string;
+        var query = _search.Text?.Trim() ?? string.Empty;
+        _visible = _all
+            .Where(lens => category is null or "全部镜头" ||
+                lens.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
+            .Where(lens => string.IsNullOrEmpty(query) ||
+                lens.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                lens.SourceName.Contains(query, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        _list.ItemsSource = _visible.Select(lens =>
+            $"{lens.Name}\n{lens.Category} · {lens.SourceName}").ToArray();
+        _count.Text = $"{_visible.Count} 个镜头";
+
+        var selectedIndex = string.IsNullOrEmpty(selectedId)
+            ? -1
+            : Array.FindIndex(_visible.ToArray(), lens => lens.Id == selectedId);
+        _list.SelectedIndex = selectedIndex >= 0
+            ? selectedIndex
+            : selectFirst && _visible.Count > 0 ? 0 : -1;
+        if (_list.SelectedIndex < 0)
+        {
+            ClearDetails();
+        }
+    }
+
+    private async Task ShowSelectedLensAsync()
+    {
+        var lens = SelectedLens();
+        if (lens is null)
+        {
+            ClearDetails();
+            return;
+        }
+
+        _name.Text = lens.Name;
+        _source.Text = lens.SourceName;
+        _license.Text = lens.License;
+        _format.Text = $"{lens.SourceFormat} · {lens.ImportStatus}";
+        _efl.Text = Millimeters(lens.EffectiveFocalLength);
+        _fNumber.Text = Number(lens.FNumber);
+        _aperture.Text = ApertureDescription(lens);
+        _track.Text = Millimeters(lens.TotalTrack);
+        _surfaces.Text = lens.SurfaceCount.ToString(CultureInfo.InvariantCulture);
+        _fields.Text = FieldDescription(lens);
+        _wavelengths.Text = lens.WavelengthCount == 0
+            ? "—"
+            : lens.MinimumWavelengthNanometers == lens.MaximumWavelengthNanometers
+                ? $"{Number(lens.MinimumWavelengthNanometers)} nm"
+                : $"{Number(lens.MinimumWavelengthNanometers)}–{Number(lens.MaximumWavelengthNanometers)} nm";
+        _status.Text = string.IsNullOrWhiteSpace(lens.SourceUrl)
+            ? $"库文件：{lens.NativePath}"
+            : $"来源：{lens.SourceUrl}";
+
+        var generation = ++_previewGeneration;
+        try
+        {
+            var scene = await _lenses.BuildPreviewAsync(lens.Id);
+            if (generation != _previewGeneration)
+            {
+                return;
+            }
+
+            _preview.Scene = scene;
+            _preview.InvalidateVisual();
+        }
+        catch (Exception exception)
+        {
+            if (generation == _previewGeneration)
+            {
+                _preview.Scene = null;
+                _preview.InvalidateVisual();
+                _status.Text = $"预览失败：{exception.Message}";
+            }
+        }
+    }
+
+    private async Task OpenSelectedLensAsync()
+    {
+        var lens = SelectedLens();
+        if (lens is null || _openLensProject is null || _opening)
+        {
+            return;
+        }
+
+        var path = _lenses.GetNativeProjectPath(lens.Id);
+        if (path is null)
+        {
+            _status.Text = "镜头项目文件不存在或不可用。";
+            return;
+        }
+
+        _opening = true;
+        _status.Text = $"正在打开：{lens.Name}";
+        try
+        {
+            await _openLensProject(path);
+            _status.Text = $"已打开：{lens.Name}";
+        }
+        catch (Exception exception)
+        {
+            _status.Text = $"打开失败：{exception.Message}";
+        }
+        finally
+        {
+            _opening = false;
+        }
+    }
+
+    private LensLibraryEntryDto? SelectedLens()
+    {
+        var index = _list.SelectedIndex;
+        return index >= 0 && index < _visible.Count ? _visible[index] : null;
+    }
+
+    private void ClearDetails()
+    {
+        _preview.Scene = null;
+        _preview.InvalidateVisual();
+        foreach (var value in new[]
+        {
+            _name, _source, _license, _format, _efl, _fNumber,
+            _aperture, _track, _surfaces, _fields, _wavelengths
+        })
+        {
+            value.Text = "—";
+        }
+    }
+
+    private static void AddPair(Grid grid, string label, Control value, int row, int group)
+    {
+        var labelColumn = group == 0 ? 0 : 3;
+        var valueColumn = group == 0 ? 1 : 4;
+        var labelControl = new TextBlock
+        {
+            Text = label,
+            MinWidth = 78,
+            Margin = new Thickness(0, 0, 8, 0),
+            TextAlignment = TextAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        Grid.SetRow(labelControl, row);
+        Grid.SetColumn(labelControl, labelColumn);
+        grid.Children.Add(labelControl);
+        Grid.SetRow(value, row);
+        Grid.SetColumn(value, valueColumn);
+        grid.Children.Add(value);
+    }
+
+    private static TextBlock DetailValue(
+        double fontSize = 14,
+        FontWeight? fontWeight = null) => new()
+    {
+        FontSize = fontSize,
+        FontWeight = fontWeight ?? FontWeight.Normal,
+        VerticalAlignment = VerticalAlignment.Center,
+        TextWrapping = TextWrapping.Wrap
+    };
+
+    private static Button CommandButton(string iconName, string text) => new()
+    {
+        Content = new LocalIconLabel(iconName, text),
+        MinHeight = 36,
+        Padding = new Thickness(12, 6)
+    };
+
+    private static string Number(double value) =>
+        double.IsFinite(value) && value != 0
+            ? NumericDisplayFormatter.Format(value, CultureInfo.InvariantCulture)
+            : "—";
+
+    private static string Millimeters(double value)
+    {
+        var number = Number(value);
+        return number == "—" ? number : $"{number} mm";
+    }
+
+    private static string ApertureDescription(LensLibraryEntryDto lens)
+    {
+        var value = Number(lens.ApertureValue);
+        if (value == "—")
+        {
+            return value;
+        }
+
+        return lens.ApertureKind switch
+        {
+            "EntrancePupilDiameter" => $"EPD {value} mm",
+            "FNumber" => $"像方 F/{value}",
+            "NumericalAperture" => $"物方 NA {value}",
+            "FloatByStopSize" => $"浮动光阑 {value}",
+            _ => value
+        };
+    }
+
+    private static string FieldDescription(LensLibraryEntryDto lens)
+    {
+        var definition = lens.FieldDefinition switch
+        {
+            "Angle" => "角度",
+            "ObjectHeight" => "物高",
+            "ParaxialImageHeight" => "近轴像高",
+            "RealImageHeight" => "实际像高",
+            _ => lens.FieldDefinition
+        };
+        var maximum = Number(lens.MaximumField);
+        var unit = lens.FieldDefinition == "Angle" ? "°" : " mm";
+        return maximum == "—"
+            ? $"{lens.FieldCount} 个"
+            : $"{lens.FieldCount} 个 · {definition} {maximum}{unit}";
+    }
+
+    private static void Add(Grid grid, Control control, int column)
+    {
+        Grid.SetColumn(control, column);
+        grid.Children.Add(control);
     }
 }
 

@@ -384,7 +384,14 @@ public sealed class Optic
                     ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)),
                 surface.RadiusVariable,
                 surface.ThicknessVariable,
-                surface.SemiDiameterFixed)).ToList(),
+                surface.SemiDiameterFixed,
+                new CoordinateSystemSnapshot(
+                    surface.CoordinateSystem.Origin.X,
+                    surface.CoordinateSystem.Origin.Y,
+                    surface.CoordinateSystem.Origin.Z,
+                    surface.CoordinateSystem.RotationXDegrees,
+                    surface.CoordinateSystem.RotationYDegrees,
+                    surface.CoordinateSystem.RotationZDegrees))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -475,7 +482,8 @@ public sealed class Optic
             });
         }
 
-        SurfaceGroup.Replace((snapshot.Surfaces ?? new List<SurfaceSnapshot>()).Select(surface =>
+        var surfaceSnapshots = snapshot.Surfaces ?? new List<SurfaceSnapshot>();
+        SurfaceGroup.Replace(surfaceSnapshots.Select(surface =>
         {
             var opticalSurface = new OpticalSurface
             {
@@ -516,6 +524,20 @@ public sealed class Optic
 
             return opticalSurface;
         }), syncComposition: false);
+        for (var index = 0; index < surfaceSnapshots.Count; index++)
+        {
+            var coordinate = surfaceSnapshots[index].CoordinateSystem;
+            if (coordinate is null)
+            {
+                continue;
+            }
+
+            SurfaceGroup.Items[index].CoordinateSystem = new Coordinates.CoordinateSystem(
+                new Backend.Vector3D(coordinate.OriginX, coordinate.OriginY, coordinate.OriginZ),
+                coordinate.RotationXDegrees,
+                coordinate.RotationYDegrees,
+                coordinate.RotationZDegrees);
+        }
 
         Pickups.Clear();
         foreach (var pickup in snapshot.RadiusPickups ?? new List<RadiusPickupSnapshot>())

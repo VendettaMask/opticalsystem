@@ -69,6 +69,66 @@ public sealed class CoreArchitectureTests
     }
 
     [Fact]
+    public async Task StarOptProjectIsAValidatedContainerAndRoundTripsConfigurations()
+    {
+        var baseOptic = Optic.CreateDemo();
+        var alternate = Optic.FromSnapshot(baseOptic.ToSnapshot());
+        alternate.Name = "Alternate configuration";
+        alternate.SurfaceGroup.Items[2].Thickness = 17.25;
+        var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.staropt");
+
+        try
+        {
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(new[] { baseOptic, alternate }, 1),
+                path);
+
+            var bytes = await File.ReadAllBytesAsync(path);
+            Assert.True(StarOptProjectStore.HasMagic(bytes));
+            Assert.True(await StarOptProjectStore.HasMagicAsync(path));
+            Assert.NotEqual((byte)'{', bytes[0]);
+
+            var loaded = await StarOptProjectStore.LoadAsync(path);
+            Assert.Equal(2, loaded.Configurations.Count);
+            Assert.Equal(1, loaded.ActiveConfigurationIndex);
+            Assert.Equal("Alternate configuration", loaded.Configurations[1].Name);
+            Assert.Equal(17.25, loaded.Configurations[1].SurfaceGroup.Items[2].Thickness, precision: 12);
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task StarOptProjectRejectsTamperedPayload()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.staropt");
+
+        try
+        {
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(new[] { Optic.CreateDemo() }, 0),
+                path);
+            var bytes = await File.ReadAllBytesAsync(path);
+            bytes[^1] ^= 0x5a;
+            await File.WriteAllBytesAsync(path, bytes);
+
+            await Assert.ThrowsAsync<InvalidDataException>(() => StarOptProjectStore.LoadAsync(path));
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
+    [Fact]
     public void UndoRedoRestoresSurfaceState()
     {
         var optic = Optic.CreateDemo();

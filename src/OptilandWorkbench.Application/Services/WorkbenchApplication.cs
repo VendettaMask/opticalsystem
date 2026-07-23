@@ -37,6 +37,7 @@ public sealed class WorkbenchApplication :
 {
     private readonly IOpticContext _context;
     private readonly string? _userCatalogDirectory;
+    private readonly LensLibraryService _lensLibrary;
     private WorkspaceChangeCategory _pendingCategory = WorkspaceChangeCategory.Prescription;
     private string? _currentPath;
     private long _documentGeneration;
@@ -46,9 +47,13 @@ public sealed class WorkbenchApplication :
     private bool _deferredFileSwitch;
     private bool _disposed;
 
-    private WorkbenchApplication(Optic optic, string? userCatalogDirectory)
+    private WorkbenchApplication(
+        Optic optic,
+        string? userCatalogDirectory,
+        string lensLibraryDirectory)
     {
         _userCatalogDirectory = userCatalogDirectory;
+        _lensLibrary = new LensLibraryService(lensLibraryDirectory);
         _context = new OpticContext(optic);
         _connector.OpticLoaded += OnOpticLoaded;
         _connector.OpticChanged += OnOpticChanged;
@@ -58,7 +63,10 @@ public sealed class WorkbenchApplication :
 
     private OptilandConnector _connector => _context.Connector;
 
-    public static WorkbenchApplication Create(string? sample = null, string? userCatalogDirectory = null)
+    public static WorkbenchApplication Create(
+        string? sample = null,
+        string? userCatalogDirectory = null,
+        string? lensLibraryDirectory = null)
     {
         LoadUserCatalogs(userCatalogDirectory);
         var optic = sample?.ToLowerInvariant() switch
@@ -67,7 +75,13 @@ public sealed class WorkbenchApplication :
             "tessar" => Optic.CreateTessarLens(),
             _ => Optic.CreateBlank()
         };
-        return new WorkbenchApplication(optic, userCatalogDirectory);
+        lensLibraryDirectory ??= Path.Combine(
+            AppContext.BaseDirectory,
+            "LensLibrary");
+        return new WorkbenchApplication(
+            optic,
+            userCatalogDirectory,
+            lensLibraryDirectory);
     }
 
     public IOpticalDocumentService Documents => this;
@@ -85,6 +99,8 @@ public sealed class WorkbenchApplication :
     public IMultiConfigurationService MultiConfiguration => this;
 
     public IMaterialCatalogService Materials => this;
+
+    public ILensLibraryService Lenses => _lensLibrary;
 
     public IWorkspaceEventStream Events => this;
 
@@ -413,16 +429,16 @@ public sealed class WorkbenchApplication :
     public async Task SaveAsync(string path, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Optic snapshot;
+        LoadedOpticalDocument document;
         long documentGeneration;
         lock (_gate)
         {
-            snapshot = Optic.FromSnapshot(_connector.CurrentOptic.ToSnapshot());
+            document = _connector.CaptureDocument();
             documentGeneration = Interlocked.Read(ref _documentGeneration);
         }
 
         var fullPath = Path.GetFullPath(path);
-        await OptilandConnector.SaveOpticAsync(snapshot, fullPath, cancellationToken).ConfigureAwait(false);
+        await OptilandConnector.SaveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         lock (_gate)
         {

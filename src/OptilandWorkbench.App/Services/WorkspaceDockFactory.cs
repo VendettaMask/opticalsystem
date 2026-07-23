@@ -397,6 +397,9 @@ public sealed class WorkspaceDockFactory : Factory
                 SceneDimension.ThreeDimensional,
                 ViewerPresentationMode.SolidModel),
             WorkspaceDocumentKind.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
+            WorkspaceDocumentKind.LensLibrary => new LensLibraryPanel(
+                _application.Lenses,
+                OpenLensLibraryProjectAsync),
             WorkspaceDocumentKind.GlassCatalog => new GlassCatalogPanel(_application.Materials),
             WorkspaceDocumentKind.Manufacturability => new ManufacturabilityPanel(
                 _application.Prescription,
@@ -427,6 +430,15 @@ public sealed class WorkspaceDockFactory : Factory
         }
         _content[id] = control;
         return control;
+    }
+
+    internal async Task OpenLensLibraryProjectAsync(string path)
+    {
+        await _application.Documents.OpenAsync(path);
+        OpenDocument(new WorkspaceDocumentDescriptor(
+            LensDocumentId,
+            WorkspaceDocumentKind.LensEditor,
+            "镜头数据"));
     }
 
     private Control CreateSystemToolContent()

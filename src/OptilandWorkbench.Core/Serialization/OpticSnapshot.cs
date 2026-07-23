@@ -83,7 +83,16 @@ public sealed record SurfaceSnapshot(
     SurfaceComponentSnapshot? Components = null,
     bool RadiusVariable = false,
     bool ThicknessVariable = false,
-    bool SemiDiameterFixed = false);
+    bool SemiDiameterFixed = false,
+    CoordinateSystemSnapshot? CoordinateSystem = null);
+
+public sealed record CoordinateSystemSnapshot(
+    double OriginX,
+    double OriginY,
+    double OriginZ,
+    double RotationXDegrees,
+    double RotationYDegrees,
+    double RotationZDegrees);
 
 public sealed record SurfaceComponentSnapshot(
     string GeometryKind,

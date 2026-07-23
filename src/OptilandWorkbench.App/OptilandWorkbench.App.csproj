@@ -24,6 +24,9 @@
     <Content Include="Assets/Brand/Splash.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/AppIcon.icns" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/LensLibrary/**/*"
+             CopyToOutputDirectory="PreserveNewest"
+             Link="LensLibrary/%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="Assets/Brand/CompanyLogo.png"
                       LogicalName="OptilandWorkbench.App.Assets.Brand.CompanyLogo.png" />
     <Content Include="Assets/Fonts/OFL-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />

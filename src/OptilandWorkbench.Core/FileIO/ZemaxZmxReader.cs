@@ -413,12 +413,6 @@ internal static class ZemaxZmxReader
                 continue;
             }
 
-            if (source.Thickness < 0)
-            {
-                throw new NotSupportedException(
-                    $"Negative Zemax thickness is not supported (SURF {source.Number}, DISZ {source.Thickness}).");
-            }
-
             var index = result.Count;
             var surfaceOrigin = index == 0
                 ? ObjectSurfaceOrigin(source.Thickness)

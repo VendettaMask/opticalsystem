@@ -515,13 +515,32 @@ public sealed class ZemaxImportTests
     [Theory]
     [InlineData("MODE NSC\nENPD 10\nSURF 0\nSURF 1", "MODE SEQ")]
     [InlineData("MODE SEQ\nENPD 10\nSURF 0\nTYPE BINARY_2\nSURF 1", "BINARY_2")]
-    [InlineData("MODE SEQ\nENPD 10\nSURF 0\nSURF 1\nDISZ -2", "Negative Zemax thickness")]
     [InlineData("MODE SEQ\nENPD 10\nFTYP 0 0 1 1 0 0 1\nSURF 0\nSURF 1", "afocal image space")]
     public void ZemaxImportRejectsUnsupportedPhysicalContracts(string source, string expectedMessage)
     {
         var exception = Assert.ThrowsAny<Exception>(() => OpticalFormatCatalog.Import(source, ".zmx"));
 
         Assert.Contains(expectedMessage, exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ZemaxImportPreservesSignedThicknessAndFollowingSurfaceCoordinate()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 0
+            SURF 1
+              DISZ -2
+            SURF 2
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(-2, optic.SurfaceGroup.Items[1].Thickness, precision: 12);
+        Assert.Equal(-2, optic.SurfaceGroup.Items[2].CoordinateSystem.Origin.Z, precision: 12);
     }
 
     private static (double X, double Y, double Weight, double VignetteX, double VignetteY) FieldValues(

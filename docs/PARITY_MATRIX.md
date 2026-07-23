@@ -20,7 +20,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
-| File format | `Serialization`, `FileIO` | Schema version 2 native JSON, validated Python Optiland 0.5.8 JSON adapter subset, Optiland-compatible Zemax sequential import/export, plus SEQ/LEN common subset adapters |
+| File format | `Serialization`, `FileIO` | Versioned `.staropt` project container with integrity checks and multi-configuration persistence; legacy native JSON import, validated Python Optiland 0.5.8 JSON adapter subset, Optiland-compatible Zemax sequential import/export, plus SEQ/LEN common subset adapters |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
 | Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation, and per-view surface/field/wavelength/pupil controls |
 | GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, consistent light theme, split-pane layout persistence; startup fix retained |
@@ -29,7 +29,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 
 The current milestone has moved beyond module scaffolding into a usable workbench shell:
 
-- Native JSON round-trip preserves rich surface components.
+- STAROPT round-trip preserves rich surface components and all optical configurations; legacy JSON remains readable.
 - ZMX import covers the Python Optiland 0.5.8 aperture/field/wavelength and supported-surface boundary; SEQ/LEN remain common sequential subsets.
 - The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
 - The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.

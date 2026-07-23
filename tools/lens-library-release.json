@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "bundled-industrial-samples",
+      "name": "STAR Labs 工业成像示例",
+      "category": "工业镜头",
+      "sourceUrl": "",
+      "license": "项目示例",
+      "files": [
+        "../samples/lenses/achromatic-doublet.zmx",
+        "../samples/lenses/double-gauss-50mm.zmx",
+        "../samples/lenses/finite-conjugate-macro.zmx",
+        "../samples/lenses/real-image-height-demo.zmx",
+        "../samples/lenses/telephoto-four-element.zmx"
+      ]
+    },
+    {
+      "id": "modern-optical-system-design-ch21",
+      "name": "《近代光学系统设计概论（第二版）》第21章",
+      "category": "显微物镜",
+      "sourceUrl": "",
+      "license": "书籍配套文件；再分发许可待确认",
+      "files": [
+        "../local-data/lens-library/originals/textbook-microscope-objectives/zmx"
+      ],
+      "includeFilePrefixes": [
+        "[HO-",
+        "[MS-H",
+        "[MS-IF",
+        "[MS-L",
+        "[MS-M"
+      ],
+      "excludeFiles": [
+        "[MS-CB] 显微系统+聚光镜.ZMX"
+      ]
+    }
+  ]
+}

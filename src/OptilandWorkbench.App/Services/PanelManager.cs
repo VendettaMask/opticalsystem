@@ -129,6 +129,11 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:material-library", WorkspaceDocumentKind.MaterialLibrary, "材料库");
     }
 
+    public void ShowLensLibrary()
+    {
+        OpenStable("document:lens-library", WorkspaceDocumentKind.LensLibrary, "镜头库");
+    }
+
     public void ShowGlassCatalog()
     {
         OpenStable("document:glass-catalog", WorkspaceDocumentKind.GlassCatalog, "玻璃");

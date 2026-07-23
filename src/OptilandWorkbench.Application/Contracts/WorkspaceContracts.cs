@@ -69,6 +69,36 @@ public sealed record GlassMaterialDto(
     int InternalTransmissionCount,
     int StressDataCount);
 
+public sealed record LensLibraryEntryDto(
+    string Id,
+    string Name,
+    string Category,
+    string SourceName,
+    string SourceUrl,
+    string License,
+    string SourceFormat,
+    string ImportStatus,
+    string? ImportMessage,
+    double EffectiveFocalLength,
+    double FNumber,
+    string ApertureKind,
+    double ApertureValue,
+    double TotalTrack,
+    int SurfaceCount,
+    string FieldDefinition,
+    double MaximumField,
+    int FieldCount,
+    int WavelengthCount,
+    double MinimumWavelengthNanometers,
+    double MaximumWavelengthNanometers,
+    string NativePath,
+    string SourcePath);
+
+public sealed record LensLibraryCatalogDocument(
+    int Version,
+    DateTimeOffset BuiltAt,
+    IReadOnlyList<LensLibraryEntryDto> Entries);
+
 public sealed record SurfaceRowDto(
     int Number,
     string Label,
