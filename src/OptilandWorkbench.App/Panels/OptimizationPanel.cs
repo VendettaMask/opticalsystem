@@ -34,13 +34,11 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     };
     private readonly TextBlock _summary = new()
     {
-        VerticalAlignment = VerticalAlignment.Center,
-        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
+        VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock _variables = new()
     {
-        VerticalAlignment = VerticalAlignment.Center,
-        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
+        VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock _result = new()
     {
@@ -113,20 +111,23 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         };
         var commandBar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
             Padding = new Avalonia.Thickness(10, 6),
             Child = toolbar
         };
         var resultBorder = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 1, 0, 0),
             Child = _result
         };
-        var root = new DockPanel { Background = Brushes.White };
+        _summary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _variables.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        commandBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        commandBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        resultBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        resultBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        var root = new DockPanel();
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         DockPanel.SetDock(commandBar, Avalonia.Controls.Dock.Top);
         DockPanel.SetDock(resultBorder, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(commandBar);
@@ -169,12 +170,12 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             RowHeight = 27,
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
             BorderThickness = new Avalonia.Thickness(1),
             HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             RowBackground = new SolidColorBrush(Color.FromRgb(236, 244, 241))
         };
+        grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
         grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-directive-row"))
         {
             Setters =

@@ -6,6 +6,7 @@ using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Manufacturing;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -141,12 +142,17 @@ public sealed class PanelManager : IDisposable
             "可加工性评估");
     }
 
-    public void ShowOpticalDrawing()
+    public void ShowOpticalDrawing(OpticalDrawingStandard standard)
     {
-        OpenStable(
-            "document:optical-drawing",
+        var isGb = standard == OpticalDrawingStandard.GbT13323_2009;
+        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            isGb ? "document:optical-drawing-gb" : "document:optical-drawing-iso",
             WorkspaceDocumentKind.OpticalDrawing,
-            "光学制图");
+            isGb ? "光学制图 · GB/T 13323—2009" : "光学制图 · ISO 10110",
+            Settings: new Dictionary<string, string>
+            {
+                ["standard"] = standard.ToString()
+            }));
     }
 
     public void ShowAnalysis(string analysisName)

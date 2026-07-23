@@ -90,8 +90,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         };
         var commandBar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
             Padding = new Avalonia.Thickness(10, 5),
             BoxShadow = BoxShadows.Parse("0 2 6 0 #12000000"),
@@ -129,16 +127,12 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Padding = new Avalonia.Thickness(12, 0),
             CornerRadius = new Avalonia.CornerRadius(0),
-            Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
             Content = componentToggleContent
         };
         var componentEditorBorder = new Border
         {
             IsVisible = false,
-            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
             Child = componentEditor
         };
@@ -153,7 +147,14 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         {
             Children = { componentToggle, componentEditorBorder }
         };
-        var root = new DockPanel { Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)) };
+        commandBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        commandBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        componentToggle.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        componentToggle.BindThemeResource(Button.BorderBrushProperty, ThemeResourceBindings.Border);
+        componentEditorBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        componentEditorBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        var root = new DockPanel();
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         DockPanel.SetDock(commandBar, Avalonia.Controls.Dock.Top);
         DockPanel.SetDock(componentSection, Avalonia.Controls.Dock.Top);
         root.Children.Add(commandBar);
@@ -189,8 +190,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
             IsReadOnly = false,
-            RowBackground = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(199, 199, 204)),
             BorderThickness = new Avalonia.Thickness(1, 0, 1, 1),
             HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234)),
             VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(218, 218, 223)),
@@ -198,6 +197,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2
         };
+        grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
+        grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
         grid.Styles.Add(new Style(selector => selector
             .OfType<DataGridRow>()
             .Class("glass-material-row"))
@@ -387,8 +388,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                     Text = row.SemiDiameterDisplay,
                     Margin = new Avalonia.Thickness(8, 0),
                     VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    Foreground = new SolidColorBrush(Color.FromRgb(90, 90, 95))
+                    HorizontalAlignment = HorizontalAlignment.Right
                 };
             }
 

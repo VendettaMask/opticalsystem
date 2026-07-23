@@ -4,6 +4,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -35,8 +36,7 @@ public sealed class OptimizationWizardWindow : Window
     };
     private readonly TextBlock _preview = new()
     {
-        TextWrapping = TextWrapping.Wrap,
-        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
+        TextWrapping = TextWrapping.Wrap
     };
 
     public OptimizationWizardWindow(
@@ -51,7 +51,8 @@ public sealed class OptimizationWizardWindow : Window
         MinWidth = 720;
         MinHeight = 500;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        Background = new SolidColorBrush(Color.FromRgb(245, 245, 247));
+        this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
+        _preview.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
 
         _generate.Click += (_, _) => Generate();
         var cancel = new Button { Content = "取消", MinWidth = 90 };
@@ -122,7 +123,6 @@ public sealed class OptimizationWizardWindow : Window
 
         var footer = new Border
         {
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 1, 0, 0),
             Padding = new Thickness(18, 12),
             Child = new StackPanel
@@ -133,6 +133,8 @@ public sealed class OptimizationWizardWindow : Window
                 Children = { reset, cancel, _generate }
             }
         };
+        footer.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        footer.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var root = new DockPanel();
         DockPanel.SetDock(footer, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(footer);
@@ -330,23 +332,27 @@ public sealed class OptimizationWizardWindow : Window
             _ => "质心"
         };
 
-    private static Border Card(string title, Control content) => new()
+    private static Border Card(string title, Control content)
     {
-        Background = Brushes.White,
-        BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
-        BorderThickness = new Thickness(1),
-        CornerRadius = new CornerRadius(10),
-        Padding = new Thickness(16),
-        Child = new StackPanel
+        var card = new Border
         {
-            Spacing = 12,
-            Children =
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(8),
+            Padding = new Thickness(16),
+            Child = new StackPanel
             {
-                new TextBlock { Text = title, FontSize = 16, FontWeight = FontWeight.SemiBold },
-                content
+                Spacing = 12,
+                Children =
+                {
+                    new TextBlock { Text = title, FontSize = 16, FontWeight = FontWeight.SemiBold },
+                    content
+                }
             }
-        }
-    };
+        };
+        card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return card;
+    }
 
     private static StackPanel Labeled(string label, Control input)
     {

@@ -7,6 +7,7 @@ using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -27,7 +28,6 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
     private readonly TextBlock _basis = new()
     {
         Text = "规则用于设计阶段筛查，最终结论应由加工和检验人员审核。",
-        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
         VerticalAlignment = VerticalAlignment.Center
     };
     private readonly DataGrid _grid;
@@ -66,15 +66,11 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         };
         var settingsBand = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 0, 0, 1),
             Child = settings
         };
         var summaryBand = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 1, 0, 0),
             Padding = new Thickness(12, 7),
             Child = new StackPanel
@@ -84,6 +80,11 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
                 Children = { _summary, _basis }
             }
         };
+        _basis.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        settingsBand.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        settingsBand.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        summaryBand.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        summaryBand.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
 
         var root = new DockPanel();
         DockPanel.SetDock(settingsBand, Avalonia.Controls.Dock.Top);

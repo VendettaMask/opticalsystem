@@ -4,6 +4,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
@@ -19,6 +20,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly IWorkspaceEventStream _events;
     private readonly ComboBox _elementPicker = new() { MinWidth = 260 };
     private readonly ComboBox _pageSize = new() { MinWidth = 110 };
+    private readonly OpticalDrawingStandard _drawingStandard;
     private readonly TextBox _drawingNumber = Text("OPT-001");
     private readonly TextBox _partName = Text("光学元件");
     private readonly TextBox _designer = Text("设计");
@@ -28,23 +30,24 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly NumericUpDown _diameterLowerDeviation = Number(-0.02m, -10, 10, 0.01m);
     private readonly NumericUpDown _thicknessUpperDeviation = Number(0.02m, -10, 10, 0.01m);
     private readonly NumericUpDown _thicknessLowerDeviation = Number(-0.02m, -10, 10, 0.01m);
+    private readonly NumericUpDown _frontRadiusTolerance = Number(0.1m, 0, 10000, 0.01m);
+    private readonly NumericUpDown _backRadiusTolerance = Number(0.1m, 0, 10000, 0.01m);
     private readonly NumericUpDown _refractiveIndexTolerance = Number(0.0005m, 0, 1, 0.0001m, "0.000000");
     private readonly NumericUpDown _abbeNumberTolerance = Number(0.5m, 0, 100, 0.1m);
     private readonly NumericUpDown _frontForm = Number(100, 0, 10000, 10);
     private readonly NumericUpDown _backForm = Number(100, 0, 10000, 10);
     private readonly NumericUpDown _centering = Number(1, 0, 120, 0.1m);
     private readonly NumericUpDown _texture = Number(1, 0, 1000, 0.1m);
-    private readonly TextBox _imperfection = Text("0.16 × 2；划痕 L 0.4");
+    private readonly TextBox _imperfection = Text("2 × 0.16；L 0.4");
     private readonly TextBox _coating = Text("按设计膜系；有效口径内均匀");
     private readonly TextBox _edgeTreatment = Text("倒边 0.2 × 45°；不允许崩边进入净口径");
-    private readonly TextBox _stress = Text("≤ 10 nm/cm");
-    private readonly TextBox _bubbles = Text("0.1 × 2");
+    private readonly TextBox _stress = Text("10 nm/cm");
+    private readonly TextBox _bubbles = Text("2 × 0.1");
     private readonly TextBox _homogeneity = Text("2；2");
     private readonly TextBlock _logoStatus = new()
     {
-        Text = "默认 S.T.A.R. LABS",
+        Text = "内置 S.T.A.R.Labs",
         MaxWidth = 190,
-        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
         TextTrimming = TextTrimming.CharacterEllipsis
     };
     private readonly DrawingPreviewControl _preview = new();
@@ -53,13 +56,11 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Text = "100%",
         Width = 48,
         TextAlignment = TextAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Center,
-        Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74))
+        VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock _status = new()
     {
-        VerticalAlignment = VerticalAlignment.Center,
-        Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74))
+        VerticalAlignment = VerticalAlignment.Center
     };
     private Bitmap? _previewBitmap;
     private byte[]? _companyLogoPng;
@@ -69,11 +70,16 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     public OpticalDrawingPanel(
         IPrescriptionService prescription,
         IMaterialCatalogService materials,
-        IWorkspaceEventStream events)
+        IWorkspaceEventStream events,
+        OpticalDrawingStandard drawingStandard = OpticalDrawingStandard.Iso10110)
     {
         _prescription = prescription;
         _materials = materials;
         _events = events;
+        _drawingStandard = drawingStandard;
+        _logoStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
+        _zoomStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
+        _status.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
         _pageSize.ItemsSource = new[] { "A4 竖向", "A3 竖向" };
         _pageSize.SelectedIndex = 0;
         _elementPicker.ItemTemplate = new FuncDataTemplate<ElementChoice>((choice, _) => new TextBlock
@@ -98,8 +104,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
         var toolbar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(10, 6),
             Child = new StackPanel
@@ -127,13 +131,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 }
             }
         };
+        toolbar.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        toolbar.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
 
         var settings = BuildSettings();
         var settingsPane = new Border
         {
             Width = 340,
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 0, 1, 0),
             Child = new ScrollViewer
             {
@@ -141,18 +145,20 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
             }
         };
+        settingsPane.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        settingsPane.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        var previewFrame = new Border
+        {
+            BorderThickness = new Thickness(1),
+            Child = _preview
+        };
+        previewFrame.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
         var previewPane = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(220, 223, 228)),
             Padding = new Thickness(16),
-            Child = new Border
-            {
-                Background = Brushes.White,
-                BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
-                BorderThickness = new Thickness(1),
-                Child = _preview
-            }
+            Child = previewFrame
         };
+        previewPane.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandWorkspaceBrush"));
         var workspace = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("340,*"),
@@ -220,15 +226,17 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("直径下偏差 (mm)", _diameterLowerDeviation, ref row);
         AddRow("中心厚度上偏差 (mm)", _thicknessUpperDeviation, ref row);
         AddRow("中心厚度下偏差 (mm)", _thicknessLowerDeviation, ref row);
+        AddRow("S1 曲率半径公差 (mm)", _frontRadiusTolerance, ref row);
+        AddRow("S2 曲率半径公差 (mm)", _backRadiusTolerance, ref row);
         AddSection("材料公差", ref row);
         AddRow("n[d] 公差", _refractiveIndexTolerance, ref row);
         AddRow("V[d] 公差", _abbeNumberTolerance, ref row);
-        AddSection("ISO 10110 要求", ref row);
-        AddRow("S1 面形 (nm)", _frontForm, ref row);
-        AddRow("S2 面形 (nm)", _backForm, ref row);
+        AddSection("光学技术要求", ref row);
+        AddRow("S1 面形偏差 (nm)", _frontForm, ref row);
+        AddRow("S2 面形偏差 (nm)", _backForm, ref row);
         AddRow("偏心/倾斜 (′)", _centering, ref row);
         AddRow("表面纹理 Rq (nm)", _texture, ref row);
-        AddRow("表面疵病", _imperfection, ref row);
+        AddRow("表面缺陷", _imperfection, ref row);
         AddRow("应力双折射", _stress, ref row);
         AddRow("气泡和夹杂", _bubbles, ref row);
         AddRow("均匀性和条纹", _homogeneity, ref row);
@@ -238,11 +246,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
         var note = new TextBlock
         {
-            Text = "依据：ISO 10110-1:2019、ISO 10110-5:2026、ISO 10110-6:2025、ISO 10110-7:2017、ISO 10110-8:2019。",
+            Text = _drawingStandard == OpticalDrawingStandard.GbT13323_2009
+                ? "当前图样：GB/T 13323—2009《光学制图》。"
+                : "当前图样：ISO 10110 系列表格式。",
             TextWrapping = TextWrapping.Wrap,
-            Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
             Margin = new Thickness(0, 12, 0, 8)
         };
+        note.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
         AddControl(note, row++, 0, 2);
         return grid;
 
@@ -477,7 +487,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private void ResetLogo()
     {
         _companyLogoPng = null;
-        _logoStatus.Text = "默认 S.T.A.R. LABS";
+        _logoStatus.Text = "内置 S.T.A.R.Labs";
         UpdatePreview();
     }
 
@@ -504,16 +514,19 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             (double)(_backForm.Value ?? 100),
             (double)(_centering.Value ?? 1),
             (double)(_texture.Value ?? 1),
-            Value(_imperfection, "0.16 × 2"),
+            Value(_imperfection, "2 × 0.16"),
             Value(_coating, "按设计膜系"),
             Value(_edgeTreatment, "倒边 0.2 × 45°"),
-            Value(_stress, "≤ 10 nm/cm"),
-            Value(_bubbles, "0.1 × 2"),
+            Value(_stress, "10 nm/cm"),
+            Value(_bubbles, "2 × 0.1"),
             Value(_homogeneity, "2；2"),
             FindMaterial(choice.Element.Material),
             _companyLogoPng,
             (double)(_refractiveIndexTolerance.Value ?? 0.0005m),
-            (double)(_abbeNumberTolerance.Value ?? 0.5m));
+            (double)(_abbeNumberTolerance.Value ?? 0.5m),
+            _drawingStandard,
+            (double)(_frontRadiusTolerance.Value ?? 0.1m),
+            (double)(_backRadiusTolerance.Value ?? 0.1m));
     }
 
     private GlassMaterialDto? FindMaterial(string name) =>

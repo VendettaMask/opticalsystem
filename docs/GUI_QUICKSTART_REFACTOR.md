@@ -89,16 +89,18 @@ Native series are currently produced for:
 
 - Spot Diagram: image-plane scatter points.
 - Ray Fan: ordered line samples.
+- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary.
 - Best Fit Ray Fan: paired fans referenced to a fitted wavefront sphere.
 - Encircled Energy: radius versus energy.
 - RMS vs Field: field angle versus RMS spot radius.
-- Through Focus: focus shift versus RMS spot radius.
+- Through Focus Spot Diagram: field-by-focus spot panes plus focus shift versus RMS spot radius data.
 - Y-Ybar: surface number versus mean ray height.
 - Zernike: coefficient bars.
 - MTF: spatial frequency samples.
 - RMS wavefront versus field: one curve per wavelength.
 - Through-focus MTF: tangential/sagittal field pairs.
 - Incident angle versus image height: pupil and field scan modes with value-colored lines.
+- Relative illumination: normalized field curve from the transmitted exit-pupil area in image-space direction cosines, with effective F-number data.
 - Incoherent irradiance: field-by-wavelength inferno detector heatmaps.
 - Radiant intensity: field-by-wavelength jet angle maps paired with central cross-sections.
 - Geometric MTF: field-colored tangential/sagittal curves from geometric spot data.
@@ -136,7 +138,7 @@ Workbench: `LensEditorPanel` submits a `SurfaceRowDto` command. Application capt
 
 Reference: select the analysis, press Run, and inspect a plot.
 
-Workbench: open the top **Analysis** category and choose **RMS-Field**. Choosing the icon runs the analysis and opens its result as a first-class closable document beside **Lens Data**, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
+Workbench: open the top **Analysis** category, then choose **RMS > RMS-Field**. The Ribbon follows the Zemax image-quality hierarchy: **Rays and Spots**, **Aberrations**, **Wavefront**, **Point Spread Function**, **MTF**, **RMS**, **Encircled Energy**, and **Extended Image Analysis**, with method variants in second-level menus. Choosing an item runs the analysis and opens its result as a first-class closable document beside **Lens Data**, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
 
 Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Every document has a compact tab with a small close button. Tabs can be dragged to split, merge, float, and redock; the **Window** Ribbon also supplies bulk docking, floating, tiling, cascading, locking, closing, and default-layout actions.
 
@@ -153,7 +155,7 @@ ZMX import follows the Python Optiland 0.5.8 supported sequential boundary; SEQ 
 ### Priority 0: Compatibility And Numerical Trust
 
 - Extend Python Optiland JSON interoperability beyond the current validated sequential subset to the remaining freeforms, Python-preserved coating models, BSDFs, pickups, solves, and polarization.
-- Continue with vectorial diffraction and broader analysis defaults; FFT/MMDFT/Huygens PSF, FFT/Huygens/geometric/sampled MTF, best-fit ray fan, chief-ray and centroid/best-fit wavefronts, sampled through-focus MTF, Zernike, distortion, field curvature, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
+- Continue with vectorial diffraction and broader analysis defaults; FFT/MMDFT/Huygens PSF, FFT/Huygens/geometric/sampled MTF, best-fit ray fan, chief-ray and centroid/best-fit wavefronts, sampled through-focus MTF, Zernike, distortion, field curvature, relative illumination, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
 - Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
 
 ### Priority 1: GUI Parity
@@ -177,4 +179,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-22, the solution builds with zero warnings and all `365/365` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled Zemax AGF conversion and ZMX import including traced real-image-height fields and five manually openable sample systems, tracing, serialization, optimization, tolerancing, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, optical drawing/PDF rendering, packaged brand assets, editor transactions, and file formats.
+As of 2026-07-22, the solution builds with zero warnings and all `379/379` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled Zemax AGF conversion and ZMX import including traced real-image-height fields and five manually openable sample systems, tracing, serialization, optimization, tolerancing, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, editor transactions, and file formats.

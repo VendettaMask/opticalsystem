@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
@@ -21,7 +22,6 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
         CanUserResizeColumns = true,
         GridLinesVisibility = DataGridGridLinesVisibility.All,
         HeadersVisibility = DataGridHeadersVisibility.Column,
-        RowBackground = Brushes.White,
         MinHeight = 240
     };
     private readonly ComboBox _surfacePicker = new() { MinWidth = 220 };
@@ -45,6 +45,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
         _prescription = prescription;
         _configurations = configurations;
         _events = events;
+        _configGrid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         ConfigureGrid();
         var addButton = new Button { Content = new LocalIconLabel("plus", "新增配置"), MinWidth = 96 };
         addButton.Click += (_, _) => _configurations.Add();

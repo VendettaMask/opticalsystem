@@ -9,16 +9,12 @@ using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
 public sealed class MaterialLibraryPanel : UserControl
 {
-    private static readonly IBrush PageBackground = new SolidColorBrush(Color.FromRgb(246, 247, 249));
-    private static readonly IBrush PanelBackground = Brushes.White;
-    private static readonly IBrush SubtleBorder = new SolidColorBrush(Color.FromRgb(207, 211, 218));
-    private static readonly IBrush MutedText = new SolidColorBrush(Color.FromRgb(97, 103, 113));
-
     private readonly IMaterialCatalogService _materials;
     private IReadOnlyList<MaterialCatalogDto> _catalogs = Array.Empty<MaterialCatalogDto>();
     private IReadOnlyList<GlassMaterialDto> _glasses = Array.Empty<GlassMaterialDto>();
@@ -33,7 +29,6 @@ public sealed class MaterialLibraryPanel : UserControl
     private readonly TextBlock _vd = MetricValue();
     private readonly TextBlock _selectionSummary = new()
     {
-        Foreground = MutedText,
         VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock[] _coefficientLabels = new TextBlock[10];
@@ -43,6 +38,7 @@ public sealed class MaterialLibraryPanel : UserControl
     public MaterialLibraryPanel(IMaterialCatalogService materials)
     {
         _materials = materials;
+        _selectionSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         for (var index = 0; index < _coefficientLabels.Length; index++)
         {
             _coefficientLabels[index] = FieldLabel($"A{index}:");
@@ -61,14 +57,13 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var root = new Grid
         {
-            Background = PageBackground,
             RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto")
         };
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
 
         var titleBar = new Border
         {
             Background = new SolidColorBrush(Color.FromRgb(236, 247, 251)),
-            BorderBrush = SubtleBorder,
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(14, 10),
             Child = new TextBlock
@@ -78,6 +73,8 @@ public sealed class MaterialLibraryPanel : UserControl
                 FontWeight = FontWeight.SemiBold
             }
         };
+        titleBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        titleBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         Grid.SetRow(titleBar, 0);
         root.Children.Add(titleBar);
 
@@ -137,12 +134,12 @@ public sealed class MaterialLibraryPanel : UserControl
 
         var listFrame = new Border
         {
-            Background = PanelBackground,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(117, 123, 132)),
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(4),
             Child = _glassList
         };
+        listFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        listFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         Grid.SetRow(listFrame, 1);
         panel.Children.Add(listFrame);
 
@@ -191,10 +188,8 @@ public sealed class MaterialLibraryPanel : UserControl
         Add(detailGrid, coefficients, 0);
         Add(detailGrid, properties, 2);
 
-        return new Border
+        var details = new Border
         {
-            Background = PanelBackground,
-            BorderBrush = SubtleBorder,
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(7),
             Padding = new Thickness(16, 14),
@@ -205,6 +200,9 @@ public sealed class MaterialLibraryPanel : UserControl
                 Content = detailGrid
             }
         };
+        details.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        details.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return details;
     }
 
     private Control BuildCommandBar()
@@ -222,10 +220,8 @@ public sealed class MaterialLibraryPanel : UserControl
             _selectionSummary.Text = "Nd/Vd 已按 Fraunhofer F-d-C 谱线计算";
         };
 
-        return new Border
+        var commandBar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 251)),
-            BorderBrush = SubtleBorder,
             BorderThickness = new Thickness(0, 1, 0, 0),
             Padding = new Thickness(18, 10),
             Child = new StackPanel
@@ -235,6 +231,9 @@ public sealed class MaterialLibraryPanel : UserControl
                 Children = { reload, copyName, copyReport, calculate }
             }
         };
+        commandBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        commandBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return commandBar;
     }
 
     private void ReloadCatalogs()
@@ -466,15 +465,19 @@ public sealed class MaterialLibraryPanel : UserControl
 
     private void SetProperty(string name, string value) => _properties[name].Text = value;
 
-    private static TextBox ReadOnlyField() => new()
+    private static TextBox ReadOnlyField()
     {
-        IsReadOnly = true,
-        MinHeight = 34,
-        Padding = new Thickness(8, 4),
-        Background = new SolidColorBrush(Color.FromRgb(252, 252, 253)),
-        BorderBrush = SubtleBorder,
-        BorderThickness = new Thickness(1)
-    };
+        var field = new TextBox
+        {
+            IsReadOnly = true,
+            MinHeight = 34,
+            Padding = new Thickness(8, 4),
+            BorderThickness = new Thickness(1)
+        };
+        field.BindThemeResource(TextBox.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        field.BindThemeResource(TextBox.BorderBrushProperty, ThemeResourceBindings.Border);
+        return field;
+    }
 
     private static TextBlock FieldLabel(string text) => new()
     {
@@ -531,25 +534,29 @@ public sealed class MaterialLibraryPanel : UserControl
         grid.Children.Add(control);
     }
 
-    internal static DataGrid DatabaseGrid() => new()
+    internal static DataGrid DatabaseGrid()
     {
-        AutoGenerateColumns = false,
-        CanUserReorderColumns = true,
-        CanUserResizeColumns = true,
-        IsReadOnly = true,
-        GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
-        HeadersVisibility = DataGridHeadersVisibility.Column,
-        RowBackground = Brushes.White,
-        BorderBrush = SubtleBorder,
-        BorderThickness = new Thickness(1)
-    };
+        var grid = new DataGrid
+        {
+            AutoGenerateColumns = false,
+            CanUserReorderColumns = true,
+            CanUserResizeColumns = true,
+            IsReadOnly = true,
+            GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
+            HeadersVisibility = DataGridHeadersVisibility.Column,
+            BorderThickness = new Thickness(1)
+        };
+        grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
+        grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
+        return grid;
+    }
 
     internal static Control DatabasePage(string title, string summary, Control content)
     {
+        var summaryText = new TextBlock { Text = summary };
+        summaryText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         var header = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = SubtleBorder,
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(16, 12),
             Child = new StackPanel
@@ -558,11 +565,14 @@ public sealed class MaterialLibraryPanel : UserControl
                 Children =
                 {
                     new TextBlock { Text = title, FontSize = 20, FontWeight = FontWeight.SemiBold },
-                    new TextBlock { Text = summary, Foreground = MutedText }
+                    summaryText
                 }
             }
         };
-        var root = new DockPanel { Background = PageBackground };
+        header.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        var root = new DockPanel();
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         DockPanel.SetDock(header, Avalonia.Controls.Dock.Top);
         root.Children.Add(header);
         root.Children.Add(new Border
@@ -616,10 +626,12 @@ public sealed class GlassCatalogPanel : UserControl
         Grid.SetRow(_grid, 1);
         content.Children.Add(toolbar);
         content.Children.Add(_grid);
+        var contentFrame = new Border { Padding = new Thickness(12), Child = content };
+        contentFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         Content = MaterialLibraryPanel.DatabasePage(
             "玻璃",
             "查看内置玻璃目录的折射率、阿贝数和有效波长范围",
-            new Border { Padding = new Thickness(12), Background = Brushes.White, Child = content });
+            contentFrame);
         Refresh();
     }
 

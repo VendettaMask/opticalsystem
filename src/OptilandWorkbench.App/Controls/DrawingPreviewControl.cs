@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Styling;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -113,7 +114,10 @@ public sealed class DrawingPreviewControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(Brushes.White, null, Bounds);
+        var background = ActualThemeVariant == ThemeVariant.Dark
+            ? new SolidColorBrush(Color.FromRgb(14, 17, 21))
+            : new SolidColorBrush(Color.FromRgb(220, 223, 228));
+        context.DrawRectangle(background, null, Bounds);
         if (_source is null || Bounds.Width <= 0 || Bounds.Height <= 0)
         {
             return;

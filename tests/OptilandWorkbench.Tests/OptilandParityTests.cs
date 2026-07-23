@@ -371,6 +371,51 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void Layout3DBuilderRevolvesTheExtended2DMeridianWithoutSlopedExtrapolation()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SurfaceGroup.Items[3].SemiDiameter = 8;
+        optic.SurfaceGroup.Renumber();
+        var builder = new Layout2DBuilder(optic);
+
+        var scene2D = builder.Build(surfaceSamples: 9);
+        var scene3D = builder.Build3D(surfaceSamples: 9, rimSamples: 32);
+        var element2D = scene2D.LensElements.First(lens =>
+            lens.FrontSurfaceNumber == 2 && lens.BackSurfaceNumber == 3);
+        var element3D = scene3D.LensElements.First(lens =>
+            lens.FrontSurfaceNumber == 2 && lens.BackSurfaceNumber == 3);
+        var radialBoundary = element2D.Boundary
+            .Select(point => new Layout2DPoint(point.Z, Math.Abs(point.Y)))
+            .ToArray();
+
+        AssertRevolvedFacesFollowProfile(element3D.FrontFaces, radialBoundary);
+        AssertRevolvedFacesFollowProfile(element3D.BackFaces, radialBoundary);
+        Assert.Equal(element2D.Boundary.Count, element3D.MeridianBoundary.Count);
+        Assert.All(
+            element2D.Boundary.Zip(element3D.MeridianBoundary),
+            pair =>
+            {
+                Assert.Equal(0, pair.Second.X, precision: 12);
+                Assert.Equal(pair.First.Y, pair.Second.Y, precision: 12);
+                Assert.Equal(pair.First.Z, pair.Second.Z, precision: 12);
+            });
+
+        var backShoulder = element3D.BackFaces
+            .SelectMany(face => face.Points)
+            .Where(point => Math.Sqrt((point.X * point.X) + (point.Y * point.Y)) > 8 + 1e-9)
+            .ToArray();
+        Assert.NotEmpty(backShoulder);
+        Assert.Equal(
+            backShoulder[0].Z,
+            backShoulder.Max(point => point.Z),
+            precision: 10);
+        Assert.Equal(
+            backShoulder[0].Z,
+            backShoulder.Min(point => point.Z),
+            precision: 10);
+    }
+
+    [Fact]
     public void Layout2DBuilderCreates3DViewerPrimitives()
     {
         var optic = Optic.CreateDemo();
@@ -380,6 +425,13 @@ public sealed class OptilandParityTests
         Assert.NotEmpty(scene.LensElements);
         Assert.Contains(scene.Surfaces, surface => surface.Rim.Count >= 16);
         Assert.All(scene.Surfaces, surface => Assert.NotEmpty(surface.Faces));
+        Assert.All(scene.LensElements, element =>
+        {
+            Assert.NotEmpty(element.FrontFaces);
+            Assert.NotEmpty(element.BackFaces);
+            AssertFacesStayInsideRim(element.FrontFaces, element.FrontRim);
+            AssertFacesStayInsideRim(element.BackFaces, element.BackRim);
+        });
         var curvedSurface = scene.Surfaces.Single(surface => surface.SurfaceNumber == 2);
         var curvedSurfacePoints = curvedSurface.Faces.SelectMany(face => face.Points).ToArray();
         Assert.True(curvedSurfacePoints.Max(point => point.Z) - curvedSurfacePoints.Min(point => point.Z) > 0.1);
@@ -387,6 +439,36 @@ public sealed class OptilandParityTests
         Assert.True(scene.ZMax > scene.ZMin);
         Assert.True(scene.XExtent > 0);
         Assert.True(scene.YExtent > 0);
+    }
+
+    private static void AssertFacesStayInsideRim(
+        IReadOnlyList<Layout3DSurfaceFace> faces,
+        IReadOnlyList<Layout3DPoint> rim)
+    {
+        var rimRadius = rim.Max(point => Math.Sqrt((point.X * point.X) + (point.Y * point.Y)));
+        var faceRadii = faces
+            .SelectMany(face => face.Points)
+            .Select(point => Math.Sqrt((point.X * point.X) + (point.Y * point.Y)))
+            .ToArray();
+
+        Assert.NotEmpty(faceRadii);
+        Assert.All(faceRadii, radius => Assert.InRange(radius, 0, rimRadius + 1e-9));
+        Assert.Equal(rimRadius, faceRadii.Max(), precision: 8);
+    }
+
+    private static void AssertRevolvedFacesFollowProfile(
+        IReadOnlyList<Layout3DSurfaceFace> faces,
+        IReadOnlyList<Layout2DPoint> profile)
+    {
+        Assert.NotEmpty(faces);
+        foreach (var point in faces.SelectMany(face => face.Points))
+        {
+            var radius = Math.Sqrt((point.X * point.X) + (point.Y * point.Y));
+            Assert.Contains(
+                profile,
+                sample => Math.Abs(sample.Y - radius) < 1e-8
+                    && Math.Abs(sample.Z - point.Z) < 1e-8);
+        }
     }
 
     [Fact]
@@ -612,8 +694,10 @@ public sealed class OptilandParityTests
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
+        Assert.Contains("Relative Illumination", optic.Analyses.Names);
+        Assert.Contains("Footprint Diagram", optic.Analyses.Names);
         Assert.DoesNotContain("Best Fit Ray Fan", optic.Analyses.Names);
-        Assert.Equal(37, optic.Analyses.Names.Count);
+        Assert.Equal(39, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 
@@ -676,6 +760,7 @@ public sealed class OptilandParityTests
     [Theory]
     [InlineData("Spot Diagram", AnalysisSeriesKind.Scatter)]
     [InlineData("Ray Fan", AnalysisSeriesKind.Line)]
+    [InlineData("Footprint Diagram", AnalysisSeriesKind.Scatter)]
     [InlineData("Encircled Energy", AnalysisSeriesKind.Line)]
     [InlineData("RMS vs Field", AnalysisSeriesKind.Line)]
     [InlineData("Through Focus", AnalysisSeriesKind.Line)]
@@ -696,6 +781,41 @@ public sealed class OptilandParityTests
         Assert.Equal(kind, data.Series.Kind);
         Assert.NotEmpty(data.Series.Points);
         Assert.All(data.Series.Points, point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
+    }
+
+    [Fact]
+    public void FootprintDiagramPlotsTheSelectedSurfaceAndFiltersVignettedRays()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var surface = optic.SurfaceGroup.Items[^1];
+        surface.PhysicalAperture = new CircularAperture(0.001);
+
+        var unfiltered = new FootprintDiagramAnalysis(
+            optic,
+            rayDensity: 3,
+            surfaceNumber: surface.Number,
+            wavelengthNumber: 1,
+            fieldNumber: 1,
+            deleteVignetted: false).GenerateData();
+        var filtered = new FootprintDiagramAnalysis(
+            optic,
+            rayDensity: 3,
+            surfaceNumber: surface.Number,
+            wavelengthNumber: 1,
+            fieldNumber: 1,
+            deleteVignetted: true).GenerateData();
+
+        Assert.Equal(surface.Number, unfiltered.Values["SurfaceNumber"]);
+        Assert.Equal(1, unfiltered.Values["FieldNumber"]);
+        Assert.Equal(1, unfiltered.Values["WavelengthNumber"]);
+        Assert.True((int)unfiltered.Values["LaunchedRayCount"] > 0);
+        Assert.True((int)unfiltered.Values["PlottedRayCount"] > (int)filtered.Values["PlottedRayCount"]);
+        Assert.Contains(unfiltered.PlotSeries, item => item.Kind == AnalysisSeriesKind.Line);
+        Assert.All(unfiltered.PlotSeries.SelectMany(item => item.Points), point =>
         {
             Assert.True(double.IsFinite(point.X));
             Assert.True(double.IsFinite(point.Y));

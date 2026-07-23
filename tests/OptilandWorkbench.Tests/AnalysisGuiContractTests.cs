@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Globalization;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.App;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Core;
@@ -105,6 +106,31 @@ public sealed class AnalysisGuiContractTests
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
 
+        Assert.Equal(
+            new[]
+            {
+                "光线迹点",
+                "像差分析",
+                "波前",
+                "点扩散函数",
+                "MTF 曲线",
+                "RMS",
+                "圈入能量",
+                "扩展图像分析",
+                "系统报告"
+            },
+            MainWindow.AnalysisRibbonCategories);
+        Assert.Equal(37, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.All(MainWindow.AnalysisRibbonCategories, category =>
+            Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]));
+        Assert.Equal(
+            new[] { "光线像差图", "标准点列图", "光迹图", "离焦点列图" },
+            MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
+        Assert.Equal(
+            new[] { "傅里叶 MTF", "惠更斯 MTF", "几何 MTF" },
+            MainWindow.AnalysisRibbonMenusByCategory["MTF 曲线"]);
+        Assert.Contains("照度与辐射", MainWindow.AnalysisRibbonMenusByCategory["扩展图像分析"]);
+
         var descriptors = connector.GetAnalysisParameters("点扩散函数 PSF");
         Assert.Contains(descriptors, item => item.Key == "NumRays" && item.Kind == AnalysisParameterKind.Integer);
         Assert.Contains(descriptors, item => item.Key == "GridSize" && item.DefaultValue == "0");
@@ -120,6 +146,15 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("16", settings["NumRays"]);
         Assert.Equal("32", settings["GridSize"]);
         Assert.DoesNotContain("Ignored", settings.Keys);
+
+        var footprintDescriptors = connector.GetAnalysisParameters("光迹图");
+        Assert.Contains(footprintDescriptors, item => item.Key == "SurfaceNumber");
+        Assert.Contains(footprintDescriptors, item => item.Key == "DeleteVignetted");
+        Assert.Equal("Footprint Diagram", connector.CanonicalAnalysisKey("光迹图"));
+        Assert.Equal("Through Focus", connector.CanonicalAnalysisKey("离焦点列图"));
+        Assert.Equal("Spot Diagram", connector.CanonicalAnalysisKey("点列图"));
+        Assert.Equal("Ray Fan", connector.CanonicalAnalysisKey("光线扇形图"));
+        Assert.Equal("Through Focus", connector.CanonicalAnalysisKey("离焦扫描"));
 
         var view = connector.BuildAnalysisView("点扩散函数 PSF", settings);
 
@@ -158,6 +193,7 @@ public sealed class AnalysisGuiContractTests
             DecimalPlaces = 4,
             UpperScientificExponent = 7,
             LowerScientificExponent = -5,
+            Theme = "Dark",
             FontFamily = "Arial",
             FontShape = "BoldItalic",
             FontSize = 16
@@ -169,6 +205,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(4, restored.DecimalPlaces);
         Assert.Equal(7, restored.UpperScientificExponent);
         Assert.Equal(-5, restored.LowerScientificExponent);
+        Assert.Equal("Dark", restored.Theme);
         Assert.Equal("Arial", restored.FontFamily);
         Assert.Equal("BoldItalic", restored.FontShape);
         Assert.Equal(16, restored.FontSize);

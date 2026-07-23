@@ -31,8 +31,7 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
     private readonly ContentControl _resultHost = new();
     private readonly TextBlock _stateText = new()
     {
-        VerticalAlignment = VerticalAlignment.Center,
-        Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115))
+        VerticalAlignment = VerticalAlignment.Center
     };
     private readonly Button _syncButton;
     private readonly DispatcherTimer _automaticRefreshTimer = new()
@@ -102,13 +101,14 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
             IsVisible = false,
             Margin = new Thickness(0, 6, 0, 0),
             Padding = new Thickness(12, 10),
-            Background = new SolidColorBrush(Color.FromRgb(248, 248, 250)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(7),
             BoxShadow = BoxShadows.Parse("0 3 10 0 #16000000"),
             Child = _parameterPanel
         };
+        _stateText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        settingsHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        settingsHost.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         settingsButton.Click += (_, _) =>
         {
             settingsHost.IsVisible = !settingsHost.IsVisible;
@@ -428,10 +428,10 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
             CanUserResizeColumns = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
-            RowBackground = Brushes.White,
             MinHeight = 220,
             ItemsSource = view.Rows
         };
+        resultsGrid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         resultsGrid.Columns.Add(new DataGridTextColumn
         {
             Header = "指标",
@@ -613,13 +613,14 @@ public sealed class AnalysisPanel : UserControl, IDisposable, IDisplaySettingsAw
         Grid.SetColumn(rightBorder, 1);
         grid.Children.Add(rightBorder);
 
-        return new Border
+        var titleBorder = new Border
         {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
             BorderThickness = new Thickness(0, 1, 0, 1),
             Child = grid
         };
+        titleBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        titleBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return titleBorder;
     }
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)

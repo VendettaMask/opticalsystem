@@ -18,9 +18,6 @@ public enum ViewerPresentationMode
 
 public sealed class ViewerPanel : UserControl, IDisposable
 {
-    private static readonly IBrush ToolbarBackground = new SolidColorBrush(Color.FromArgb(242, 255, 255, 255));
-    private static readonly IBrush ToolbarBorder = new SolidColorBrush(Color.FromRgb(209, 209, 214));
-
     private readonly IVisualizationService _visualization;
     private readonly IWorkspaceEventStream _events;
     private readonly SurfaceSelectionService _surfaceSelection;
@@ -85,12 +82,12 @@ public sealed class ViewerPanel : UserControl, IDisposable
         var root = new DockPanel();
         _summaryBar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = ToolbarBorder,
             BorderThickness = new Thickness(0, 1, 0, 0),
             Padding = new Thickness(10, 5),
             Child = _summary
         };
+        _summaryBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        _summaryBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         DockPanel.SetDock(_summaryBar, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(_summaryBar);
         root.Children.Add(dimension == SceneDimension.TwoDimensional
@@ -251,18 +248,19 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Children = { toggle, synchronize }
         };
         var container = new StackPanel { Children = { header, settingsContent } };
-        return new Border
+        var frame = new Border
         {
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Top,
             Margin = new Thickness(10),
             CornerRadius = new CornerRadius(8),
-            Background = ToolbarBackground,
-            BorderBrush = ToolbarBorder,
             BorderThickness = new Thickness(1),
             BoxShadow = BoxShadows.Parse("0 5 16 0 #20000000"),
             Child = container
         };
+        frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return frame;
     }
 
     private Control BuildSettingsContent()
@@ -673,32 +671,34 @@ public sealed class ViewerPanel : UserControl, IDisposable
             panel.Children.Add(control);
         }
 
-        return new Border
+        var toolbar = new Border
         {
             HorizontalAlignment = horizontalAlignment,
             VerticalAlignment = verticalAlignment,
             Margin = new Thickness(10),
             Padding = new Thickness(7, 5),
             CornerRadius = new CornerRadius(7),
-            Background = ToolbarBackground,
-            BorderBrush = ToolbarBorder,
             BorderThickness = new Thickness(1),
             BoxShadow = BoxShadows.Parse("0 4 12 0 #1A000000"),
             Child = panel
         };
+        toolbar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        toolbar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return toolbar;
     }
 
     private static Button CompactButton(string iconName, string tooltip)
     {
+        var icon = new LocalIcon
+        {
+            IconName = iconName,
+            Width = 18,
+            Height = 18
+        };
+        icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.MutedText);
         var button = new Button
         {
-            Content = new LocalIcon
-            {
-                IconName = iconName,
-                Width = 18,
-                Height = 18,
-                Stroke = new SolidColorBrush(Color.FromRgb(48, 48, 52))
-            },
+            Content = icon,
             Width = 36,
             MinWidth = 0,
             Height = 30,

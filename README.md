@@ -12,14 +12,14 @@ The implementation is being built in small git milestones. The current codebase 
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, polynomial-dispersion, Abbe, catalog extinction, and absorption support.
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
-- A 32-entry analysis catalog. Thirty numerical/graphical views have source-derived Python contracts, including spot and ray fans, best-fit ray fan, distortion/field curvature, RMS field sweeps, through-focus spot/MTF, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. First-order and prescription reports complete the catalog.
+- A 37-entry desktop analysis catalog backed by 39 registered analysis engines. Thirty numerical/graphical views have source-derived Python contracts, including standard spot and ray-aberration plots, through-focus spots/MTF, distortion/field curvature, RMS field sweeps, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. A Zemax-style footprint diagram traces pupil grids to any selected surface with field/wavelength coloring and vignetting control; relative illumination integrates the transmitted exit-pupil area in image-space direction cosines and reports normalized illumination and effective F-number.
 - Optimization and tolerancing foundations with variables, operands, scaling, optimizer catalog, seeded Monte Carlo, perturbations, samplers, and compensators.
 - Native JSON snapshot round-trip, Python Optiland 0.5.8 JSON import/export for the validated sequential subset, Optiland-compatible Zemax `.zmx` sequential import, a build-time Zemax `.AGF` material-catalog converter, and common sequential export/CODE V `.seq`/OSLO `.len` adapters.
 - .NET plugin discovery with geometry, material, and analysis registration.
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A dedicated **Manufacturing & Drawings** workspace with rule-based optical-element manufacturability review, ISO 10110-series Chinese drawing previews, editable tolerances and title blocks, and vector PDF export.
 - Reproducible S.T.A.R. Labs desktop branding with packaged Windows/macOS application icons and a startup image that remains visible while the workspace session is restored.
-- A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands, all 32 analyses grouped under **Analysis**, and analysis-window layout commands grouped under **Window**.
+- A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands and all 37 analyses grouped under **Analysis** using the Zemax image-quality hierarchy: rays and spots, aberrations, wavefront, PSF, MTF, RMS, encircled energy, and extended image analysis, followed by system reports. The rays-and-spots menu starts with Ray Aberration, Standard Spot Diagram, Footprint Diagram, and Through Focus Spot Diagram. Method families such as PSF and MTF open a second-level menu instead of flattening every variant into the Ribbon.
 - A Dock.Avalonia workspace with draggable document tabs, split panes, tab merging, native resizable floating windows, redocking, tiling/cascading commands, `Ctrl/Cmd+K` command palette actions, and per-file workspace sessions.
 - A UI-free `OptilandWorkbench.Application` boundary. Avalonia panels depend only on immutable DTOs and application services; Core objects stay behind the application context, revision stream, undo/redo, snapshot, and cancellation boundary.
 - Interactive analysis plots with pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Analysis pages expose **Plot / Data / Text** tabs at the bottom and keep graph settings in a collapsed-by-default panel with an icon-only synchronization action.
@@ -42,7 +42,7 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 
 - Use the top categories to switch the large-command Ribbon; commands are not duplicated in the central workspace.
 - Open **View** and choose **2D Layout**, **3D Layout**, or **Solid Model**. The 2D view uses outlined optical elements and colored rays; the 3D layout keeps a light engineering background, while the solid-model view uses a clean dark studio background and continuous dielectric glass driven by the catalog refractive index, Fresnel reflectance, and element-thickness attenuation. Highlighted optical surfaces and ray bundles remain visible through the glass.
-- Open **Analysis** and choose an analysis icon. The selected analysis runs and opens its own closable result page.
+- Open **Analysis**, choose an image-quality category, and then select the required method from its second-level menu. The selected analysis runs and opens its own closable result page.
 - Open **Database > Material Library** to browse the bundled Zemax catalogs directly. No separate catalog selection or import step is required before opening ZMX files.
 - Open **Manufacturing & Drawings** to review center/edge thickness, curvature, slope, and special-surface risks, or to prepare a Chinese ISO 10110-series reference drawing and export it as PDF.
 - Expand **Settings** only when parameters need adjustment, then use the adjacent synchronization icon to rerun the current page.
@@ -64,7 +64,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 365 passing tests with a zero-warning solution build.
+In restricted sandboxes, VSTest may need permission to bind a local socket. The current validated baseline is 379 passing tests with a zero-warning solution build.
 
 ## Publish
 

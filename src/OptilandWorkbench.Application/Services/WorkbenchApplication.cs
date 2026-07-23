@@ -1385,7 +1385,12 @@ public sealed class WorkbenchApplication :
                 element.Material,
                 element.RefractiveIndex,
                 element.FrontRim.Select(Point).ToArray(),
-                element.BackRim.Select(Point).ToArray())).ToArray(),
+                element.BackRim.Select(Point).ToArray(),
+                element.FrontFaces.Select(face => new SceneSurfaceFace3Dto(
+                    face.Points.Select(Point).ToArray())).ToArray(),
+                element.BackFaces.Select(face => new SceneSurfaceFace3Dto(
+                    face.Points.Select(Point).ToArray())).ToArray(),
+                element.MeridianBoundary.Select(Point).ToArray())).ToArray(),
             scene.Rays.Select(ray => new SceneRay3Dto(
                 ray.RayNumber,
                 ray.FieldIndex,

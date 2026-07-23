@@ -87,9 +87,9 @@ The current local baseline is:
 Expected result as of 2026-07-22:
 
 - solution build: 0 warnings, 0 errors
-- tests: 365 passed, 0 failed, 0 skipped
+- tests: 379 passed, 0 failed, 0 skipped
 
-The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, manufacturing review, optical drawing/PDF rendering, and plugin discovery.
+The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views plus Zemax-style relative illumination, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, manufacturing review, optical drawing/PDF rendering, and plugin discovery.
 
 Regenerate Python fixtures only when intentionally updating the pinned `optiland==0.5.8` contract or its embedded CC0 glass data:
 

@@ -103,6 +103,8 @@ The separate `optiland-0.5.8-analysis-reference.json` fixture validates 30 numer
 
 Tests compare deterministic output at its native level: traced samples and fitted sphere parameters, curve points, wavefront/Zernike values, heatmap and PSF pixels, MTF values, distortion coordinates, and final RGB image pixels. They also verify the presentation contract for pane order, labels, line pairing, marker/style choices, zero lines, aspect, legends, limits, and colorbars. The normal analysis tolerance is `2e-8 * max(1, abs(expected))`; image-simulation pixels use `5e-5` because different symmetric eigensolvers accumulate slightly different rounding through convolution.
 
+Relative Illumination is intentionally outside the Optiland 0.5.8 parity fixture because that release does not expose an equivalent analysis. Its contract follows the [Zemax Relative Illumination definition](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Relative_Illumination.html): trace a rectangular pupil grid, integrate transmitted effective pupil area in image-space direction cosines, and normalize to the maximum field illumination. Regression tests cover Cooke and Tessar curves, signed field scans, effective F-number output, vignetting-factor removal, and the desktop connector contract.
+
 See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numerical and presentation contract.
 
 ## Regression Contract
@@ -115,4 +117,4 @@ See [Python analysis and plot parity](PYTHON_ANALYSIS_PARITY.md) for the numeric
 
 The prescription/ray fixtures validate the centered standard sequential refractive path. The analysis fixture adds the specifically listed PSF, MTF, wavefront, Jones, and radiometric contracts on those two lenses. Neither fixture claims general parity for freeforms, vectorial diffraction, arbitrary polarization/coating stacks, GRIN curved-ray intersection, non-sequential tracing, or systems outside the documented method and sample boundaries.
 
-As of 2026-07-22, the complete solution builds with zero warnings and the repository test suite passes `365/365` tests.
+As of 2026-07-22, the complete solution builds with zero warnings and the repository test suite passes `379/379` tests.

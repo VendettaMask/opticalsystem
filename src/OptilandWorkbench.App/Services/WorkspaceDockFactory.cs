@@ -9,6 +9,7 @@ using Dock.Model.Core;
 using Dock.Model.Mvvm;
 using Dock.Model.Mvvm.Controls;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Panels;
 using Orientation = Dock.Model.Core.Orientation;
 
@@ -403,7 +404,8 @@ public sealed class WorkspaceDockFactory : Factory
             WorkspaceDocumentKind.OpticalDrawing => new OpticalDrawingPanel(
                 _application.Prescription,
                 _application.Materials,
-                _application.Events),
+                _application.Events,
+                OpticalDrawingStandardFrom(descriptor.Settings)),
             WorkspaceDocumentKind.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
             WorkspaceDocumentKind.Tolerancing => new TolerancingPanel(_application.Prescription, _application.Tolerancing, _application.Events),
             WorkspaceDocumentKind.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
@@ -556,4 +558,12 @@ public sealed class WorkspaceDockFactory : Factory
             }
         }
     }
+
+    private static OpticalDrawingStandard OpticalDrawingStandardFrom(
+        IReadOnlyDictionary<string, string>? settings) =>
+        settings is not null
+        && settings.TryGetValue("standard", out var value)
+        && Enum.TryParse<OpticalDrawingStandard>(value, out var standard)
+            ? standard
+            : OpticalDrawingStandard.Iso10110;
 }

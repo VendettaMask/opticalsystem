@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
@@ -81,12 +82,13 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Section("高级", BuildAdvancedSection())
             }
         };
-        Content = new ScrollViewer
+        var scrollViewer = new ScrollViewer
         {
-            Background = new SolidColorBrush(Color.FromRgb(245, 245, 247)),
             HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
             Content = sections
         };
+        scrollViewer.BindThemeResource(ScrollViewer.BackgroundProperty, ThemeResourceBindings.Workspace);
+        Content = scrollViewer;
 
         _events.Changed += OnWorkspaceChanged;
         Refresh();
@@ -286,12 +288,12 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         };
         var contentHost = new Border
         {
-            Background = Brushes.White,
             BorderThickness = new Avalonia.Thickness(0),
             Padding = new Avalonia.Thickness(28, 11, 12, 14),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Child = content
         };
+        contentHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         var header = new Button
         {
             Height = 35,
@@ -312,19 +314,20 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         void UpdateVisuals()
         {
             var emphasized = isExpanded || isHovered;
+            var dark = IsDarkTheme;
             arrow.Stroke = new SolidColorBrush(emphasized
-                ? Color.FromRgb(0, 102, 204)
-                : Color.FromRgb(110, 110, 115));
+                ? (dark ? Color.FromRgb(100, 181, 246) : Color.FromRgb(0, 102, 204))
+                : (dark ? Color.FromRgb(174, 180, 188) : Color.FromRgb(110, 110, 115)));
             titleText.Foreground = new SolidColorBrush(emphasized
-                ? Color.FromRgb(0, 82, 164)
-                : Color.FromRgb(29, 29, 31));
+                ? (dark ? Color.FromRgb(128, 196, 255) : Color.FromRgb(0, 82, 164))
+                : (dark ? Color.FromRgb(232, 234, 237) : Color.FromRgb(29, 29, 31)));
             header.Background = new SolidColorBrush(isExpanded
-                ? Color.FromRgb(228, 239, 253)
+                ? (dark ? Color.FromRgb(28, 55, 79) : Color.FromRgb(228, 239, 253))
                 : isHovered
-                    ? Color.FromRgb(239, 246, 255)
-                    : Color.FromRgb(250, 250, 252));
+                    ? (dark ? Color.FromRgb(35, 47, 59) : Color.FromRgb(239, 246, 255))
+                    : (dark ? Color.FromRgb(35, 38, 42) : Color.FromRgb(250, 250, 252)));
             header.BorderBrush = new SolidColorBrush(emphasized
-                ? Color.FromRgb(174, 204, 239)
+                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
                 : Color.FromArgb(0, 0, 0, 0));
         }
 
@@ -353,10 +356,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             SetExpanded(isExpanded);
         };
 
-        return new Border
+        var section = new Border
         {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Child = new StackPanel
@@ -365,6 +366,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Children = { header, contentHost }
             }
         };
+        section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        section.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return section;
     }
 
     private static StackPanel BuildHeader(string title, params Button[] buttons)
@@ -584,10 +588,10 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         {
             Text = summary,
             FontSize = 10,
-            Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102)),
             TextTrimming = TextTrimming.CharacterEllipsis,
             VerticalAlignment = VerticalAlignment.Center
         };
+        summaryText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         Grid.SetColumn(titleText, 1);
         Grid.SetColumn(summaryText, 2);
         var headerContent = new Grid
@@ -599,9 +603,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var contentHost = new Border
         {
             Padding = new Thickness(24, 10, 10, 12),
-            Background = Brushes.White,
             Child = content
         };
+        contentHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         var header = new Button
         {
             Height = 42,
@@ -616,34 +620,35 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         };
         var card = new Border
         {
-            Background = Brushes.White,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(9),
             Child = new StackPanel { Children = { header, contentHost } }
         };
+        card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var isHovered = false;
 
         void UpdateVisuals(bool expanded)
         {
             var emphasized = expanded || isHovered;
+            var dark = IsDarkTheme;
             header.Background = new SolidColorBrush(expanded
-                ? Color.FromRgb(228, 239, 253)
+                ? (dark ? Color.FromRgb(28, 55, 79) : Color.FromRgb(228, 239, 253))
                 : isHovered
-                    ? Color.FromRgb(239, 246, 255)
-                    : Color.FromRgb(250, 250, 252));
+                    ? (dark ? Color.FromRgb(35, 47, 59) : Color.FromRgb(239, 246, 255))
+                    : (dark ? Color.FromRgb(35, 38, 42) : Color.FromRgb(250, 250, 252)));
             header.BorderBrush = new SolidColorBrush(emphasized
-                ? Color.FromRgb(174, 204, 239)
+                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
                 : Color.FromArgb(0, 0, 0, 0));
             card.BorderBrush = new SolidColorBrush(emphasized
-                ? Color.FromRgb(174, 204, 239)
-                : Color.FromRgb(209, 209, 214));
+                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
+                : (dark ? Color.FromRgb(67, 71, 78) : Color.FromRgb(209, 209, 214)));
             arrow.Stroke = new SolidColorBrush(emphasized
-                ? Color.FromRgb(0, 102, 204)
-                : Color.FromRgb(72, 72, 74));
+                ? (dark ? Color.FromRgb(100, 181, 246) : Color.FromRgb(0, 102, 204))
+                : (dark ? Color.FromRgb(174, 180, 188) : Color.FromRgb(72, 72, 74)));
             titleText.Foreground = new SolidColorBrush(emphasized
-                ? Color.FromRgb(0, 82, 164)
-                : Color.FromRgb(29, 29, 31));
+                ? (dark ? Color.FromRgb(128, 196, 255) : Color.FromRgb(0, 82, 164))
+                : (dark ? Color.FromRgb(232, 234, 237) : Color.FromRgb(29, 29, 31)));
         }
 
         void SetExpanded(bool expanded)
@@ -676,6 +681,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         header.Click += (_, _) => SetExpanded(!contentHost.IsVisible);
         return (card, summaryText);
     }
+
+    private static bool IsDarkTheme =>
+        Avalonia.Application.Current?.ActualThemeVariant == ThemeVariant.Dark;
 
     private void Refresh()
     {

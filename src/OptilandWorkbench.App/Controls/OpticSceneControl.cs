@@ -95,8 +95,6 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen SolidAxisPen = new(new SolidColorBrush(Color.FromArgb(90, 154, 174, 190)), 0.9);
     private static readonly Pen SolidReferencePlanePen = new(new SolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
     private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
-    private static readonly IBrush ThreeDLensFaceBrush = new SolidColorBrush(Color.FromArgb(138, 30, 65, 190));
-    private static readonly IBrush ThreeDLensSideBrush = new SolidColorBrush(Color.FromArgb(156, 18, 72, 145));
     private static readonly IBrush SelectedSurfaceFaceBrush = new SolidColorBrush(Color.FromArgb(205, 255, 176, 46));
     private static readonly IBrush SolidLensCutBrush = new SolidColorBrush(Color.FromArgb(156, 83, 155, 174));
     private static readonly IBrush ThreeDLensCutBrush = new SolidColorBrush(Color.FromArgb(170, 225, 139, 48));
@@ -114,8 +112,8 @@ public sealed class OpticSceneControl : Control
     private readonly SceneViewport _viewport = new();
     private OpticSceneViewMode _viewMode;
     private OpticSceneRenderMode _renderMode = OpticSceneRenderMode.Solid;
-    private double _yaw = -0.52;
-    private double _pitch = 0.28;
+    private double _yaw = -0.72;
+    private double _pitch = 0.38;
     private bool _dragging;
     private bool _rotating;
     private Point _lastPointer;
@@ -285,8 +283,8 @@ public sealed class OpticSceneControl : Control
     public void ResetView()
     {
         _viewport.Reset();
-        _yaw = -0.52;
-        _pitch = 0.28;
+        _yaw = -0.72;
+        _pitch = 0.38;
         InvalidateVisual();
     }
 
@@ -306,7 +304,7 @@ public sealed class OpticSceneControl : Control
             OpticSceneViewPreset.Right => (Math.PI / 2.0, 0),
             OpticSceneViewPreset.Top => (0, (Math.PI / 2.0) - 0.01),
             OpticSceneViewPreset.Bottom => (0, (-Math.PI / 2.0) + 0.01),
-            _ => (-0.52, 0.28)
+            _ => (-0.72, 0.38)
         };
         _viewport.Reset();
         InvalidateVisual();
@@ -514,10 +512,17 @@ public sealed class OpticSceneControl : Control
             Project,
             RenderMode == OpticSceneRenderMode.Wireframe,
             CutawayEnabled,
-            solidModelStyle);
+            solidModelStyle,
+            HighlightedSurfaceNumber);
+        var elementSurfaceNumbers = scene.LensElements
+            .SelectMany(element => new[] { element.FrontSurfaceNumber, element.BackSurfaceNumber })
+            .ToHashSet();
+        var surfacesToDraw = RenderMode == OpticSceneRenderMode.Solid
+            ? scene.Surfaces.Where(surface => !elementSurfaceNumbers.Contains(surface.SurfaceNumber)).ToArray()
+            : scene.Surfaces;
         Draw3DSurfaces(
             context,
-            scene.Surfaces,
+            surfacesToDraw,
             Project,
             showMeridians: !solidModelStyle,
             CutawayEnabled,
@@ -668,19 +673,37 @@ public sealed class OpticSceneControl : Control
         Func<Layout3DPoint, Point> project,
         bool showConnectors,
         bool cutawayEnabled,
-        bool solidModelStyle)
+        bool solidModelStyle,
+        int? highlightedSurfaceNumber)
     {
         var edgePen = solidModelStyle ? SolidLensEdgePen : ThreeDLensEdgePen;
         foreach (var element in elements)
         {
-            DrawPolyline3D(context, edgePen, element.FrontRim, project, cutawayEnabled);
-            DrawPolyline3D(context, edgePen, element.BackRim, project, cutawayEnabled);
-            DrawPolyline3D(
+            DrawElementRim(
                 context,
-                solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
                 element.FrontRim,
+                element.FrontSurfaceNumber,
+                highlightedSurfaceNumber,
+                edgePen,
                 project,
                 cutawayEnabled);
+            DrawElementRim(
+                context,
+                element.BackRim,
+                element.BackSurfaceNumber,
+                highlightedSurfaceNumber,
+                edgePen,
+                project,
+                cutawayEnabled);
+            if (element.FrontSurfaceNumber != highlightedSurfaceNumber)
+            {
+                DrawPolyline3D(
+                    context,
+                    solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
+                    element.FrontRim,
+                    project,
+                    cutawayEnabled);
+            }
 
             if (!showConnectors)
             {
@@ -705,6 +728,25 @@ public sealed class OpticSceneControl : Control
                     cutawayEnabled);
             }
         }
+    }
+
+    private static void DrawElementRim(
+        DrawingContext context,
+        IReadOnlyList<Layout3DPoint> rim,
+        int surfaceNumber,
+        int? highlightedSurfaceNumber,
+        Pen edgePen,
+        Func<Layout3DPoint, Point> project,
+        bool cutawayEnabled)
+    {
+        if (surfaceNumber == highlightedSurfaceNumber)
+        {
+            DrawPolyline3D(context, SelectedSurfaceHaloPen, rim, project, cutawayEnabled);
+            DrawPolyline3D(context, SelectedSurfacePen, rim, project, cutawayEnabled);
+            return;
+        }
+
+        DrawPolyline3D(context, edgePen, rim, project, cutawayEnabled);
     }
 
     private static void Draw3DSolidLensElements(
@@ -737,40 +779,37 @@ public sealed class OpticSceneControl : Control
             })
             .GroupBy(item => item.Key)
             .ToDictionary(group => group.Key, group => group.First().Value);
-        var lensSurfaceNumbers = elements
-            .SelectMany(element => new[] { element.FrontSurfaceNumber, element.BackSurfaceNumber })
-            .ToHashSet();
-
-        foreach (var surface in surfaces.Where(surface => lensSurfaceNumbers.Contains(surface.SurfaceNumber)))
+        var renderedSurfaceNumbers = new HashSet<int>();
+        foreach (var element in elements)
         {
             var glass = glassBySurface.GetValueOrDefault(
-                surface.SurfaceNumber,
-                new GlassRenderParameters(1.52, 4));
-            if (solidModelStyle)
+                element.FrontSurfaceNumber,
+                new GlassRenderParameters(element.RefractiveIndex, 4));
+            if (renderedSurfaceNumbers.Add(element.FrontSurfaceNumber))
             {
-                var materialPoints = surface.Faces.FirstOrDefault()?.Points ?? surface.Rim;
-                AddProjectedFace(
+                AddElementSurfaceFaces(
                     faces,
-                    cutawayEnabled ? ClipPolygonToCutaway(surface.Rim) : surface.Rim,
-                    surface.SurfaceNumber == highlightedSurfaceNumber
-                        ? SelectedSurfaceFaceBrush
-                        : GlassSurfaceBrush(
-                            materialPoints,
-                            viewDirection,
-                            glass.RefractiveIndex,
-                            glass.ThicknessMillimeters),
+                    element.FrontFaces,
+                    element.FrontSurfaceNumber,
+                    highlightedSurfaceNumber,
+                    glass,
+                    viewDirection,
+                    cutawayEnabled,
+                    solidModelStyle,
                     depth);
-                continue;
             }
 
-            foreach (var face in surface.Faces)
+            if (renderedSurfaceNumbers.Add(element.BackSurfaceNumber))
             {
-                AddProjectedFace(
+                AddElementSurfaceFaces(
                     faces,
-                    cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points,
-                    surface.SurfaceNumber == highlightedSurfaceNumber
-                        ? SelectedSurfaceFaceBrush
-                        : ThreeDLensFaceBrush,
+                    element.BackFaces,
+                    element.BackSurfaceNumber,
+                    highlightedSurfaceNumber,
+                    glass,
+                    viewDirection,
+                    cutawayEnabled,
+                    solidModelStyle,
                     depth);
             }
         }
@@ -793,14 +832,13 @@ public sealed class OpticSceneControl : Control
                 AddProjectedFace(
                     faces,
                     cutawayEnabled ? ClipPolygonToCutaway(sideFace) : sideFace,
-                    solidModelStyle
-                        ? GlassFaceBrush(
-                            sideFace,
-                            viewDirection,
-                            glass.RefractiveIndex,
-                            glass.ThicknessMillimeters,
-                            isSideWall: true)
-                        : ThreeDLensSideBrush,
+                    GlassFaceBrush(
+                        sideFace,
+                        viewDirection,
+                        glass.RefractiveIndex,
+                        glass.ThicknessMillimeters,
+                        isSideWall: true,
+                        opticalLayoutStyle: !solidModelStyle),
                     depth);
             }
         }
@@ -809,18 +847,9 @@ public sealed class OpticSceneControl : Control
         {
             foreach (var element in elements)
             {
-                if (!surfacesByNumber.TryGetValue(element.FrontSurfaceNumber, out var front) ||
-                    !surfacesByNumber.TryGetValue(element.BackSurfaceNumber, out var back))
-                {
-                    continue;
-                }
-
-                var cutFace = front.MeridianY
-                    .Concat(back.MeridianY.Reverse())
-                    .ToArray();
                 AddProjectedFace(
                     faces,
-                    cutFace,
+                    element.MeridianBoundary,
                     solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush,
                     depth);
             }
@@ -832,12 +861,43 @@ public sealed class OpticSceneControl : Control
         }
     }
 
+    private static void AddElementSurfaceFaces(
+        ICollection<ProjectedFace> projectedFaces,
+        IReadOnlyList<SceneSurfaceFace3Dto> surfaceFaces,
+        int surfaceNumber,
+        int? highlightedSurfaceNumber,
+        GlassRenderParameters glass,
+        Layout3DPoint viewDirection,
+        bool cutawayEnabled,
+        bool solidModelStyle,
+        Func<Layout3DPoint, double> depth)
+    {
+        foreach (var face in surfaceFaces)
+        {
+            var points = cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points;
+            AddProjectedFace(
+                projectedFaces,
+                points,
+                surfaceNumber == highlightedSurfaceNumber
+                    ? SelectedSurfaceFaceBrush
+                    : GlassFaceBrush(
+                        points,
+                        viewDirection,
+                        glass.RefractiveIndex,
+                        glass.ThicknessMillimeters,
+                        isSideWall: false,
+                        opticalLayoutStyle: !solidModelStyle),
+                depth);
+        }
+    }
+
     private static IBrush GlassFaceBrush(
         IReadOnlyList<Layout3DPoint> points,
         Layout3DPoint viewDirection,
         double refractiveIndex,
         double thicknessMillimeters,
-        bool isSideWall)
+        bool isSideWall,
+        bool opticalLayoutStyle)
     {
         var normal = PolygonNormal(points);
         var facing = Math.Abs(Dot(normal, viewDirection));
@@ -850,45 +910,31 @@ public sealed class OpticSceneControl : Control
             Math.Abs(Dot(normal, rimLightDirection)),
             thicknessMillimeters,
             isSideWall);
-        return new SolidColorBrush(sample.Color);
+        if (!opticalLayoutStyle)
+        {
+            return new SolidColorBrush(sample.Color);
+        }
+
+        var highlight = Math.Clamp((sample.Reflectance * 1.8) + (facing * 0.14), 0, 0.42);
+        var alpha = isSideWall
+            ? 116 + (highlight * 90)
+            : 54 + (highlight * 110);
+        var shade = isSideWall ? 0.72 : 0.9;
+        return new SolidColorBrush(Color.FromArgb(
+            (byte)Math.Clamp(Math.Round(alpha), 28, 166),
+            (byte)Math.Clamp(Math.Round((55 + (highlight * 120)) * shade), 0, 255),
+            (byte)Math.Clamp(Math.Round((126 + (highlight * 105)) * shade), 0, 255),
+            (byte)Math.Clamp(Math.Round((190 + (highlight * 65)) * shade), 0, 255)));
     }
 
-    private static IBrush GlassSurfaceBrush(
-        IReadOnlyList<Layout3DPoint> points,
-        Layout3DPoint viewDirection,
-        double refractiveIndex,
-        double thicknessMillimeters)
+    internal static IReadOnlyList<IReadOnlyList<Layout3DPoint>> SurfaceFacesForRendering(
+        Layout3DSurfacePrimitive surface,
+        bool cutawayEnabled)
     {
-        var normal = PolygonNormal(points);
-        var keyLightDirection = Normalize(new Layout3DPoint(-0.38, -0.64, 0.67));
-        var rimLightDirection = Normalize(new Layout3DPoint(0.72, -0.12, -0.68));
-        var sample = DielectricGlassMaterial.Sample(
-            refractiveIndex,
-            Math.Abs(Dot(normal, viewDirection)),
-            Math.Abs(Dot(normal, keyLightDirection)),
-            Math.Abs(Dot(normal, rimLightDirection)),
-            thicknessMillimeters,
-            isSideWall: false);
-        var body = sample.Color;
-        var edgeAlpha = (byte)Math.Clamp(body.A * 1.45, 16, 176);
-        var bodyAlpha = (byte)Math.Clamp(body.A * 0.62, 10, 112);
-        var highlightAlpha = (byte)Math.Clamp(28 + (sample.Reflectance * 150), 28, 118);
-
-        return new LinearGradientBrush
-        {
-            StartPoint = RelativePoint.TopLeft,
-            EndPoint = RelativePoint.BottomRight,
-            GradientStops =
-            {
-                new GradientStop(Color.FromArgb(edgeAlpha, 126, 189, 202), 0),
-                new GradientStop(Color.FromArgb(bodyAlpha, body.R, body.G, body.B), 0.2),
-                new GradientStop(Color.FromArgb((byte)(highlightAlpha / 2), 224, 243, 246), 0.43),
-                new GradientStop(Color.FromArgb(highlightAlpha, 247, 252, 252), 0.5),
-                new GradientStop(Color.FromArgb((byte)(highlightAlpha / 3), 196, 229, 235), 0.58),
-                new GradientStop(Color.FromArgb(bodyAlpha, body.R, body.G, body.B), 0.78),
-                new GradientStop(Color.FromArgb(edgeAlpha, 91, 166, 183), 1)
-            }
-        };
+        return surface.Faces
+            .Select(face => cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points)
+            .Where(points => points.Count >= 3)
+            .ToArray();
     }
 
     private static double ElementThickness(

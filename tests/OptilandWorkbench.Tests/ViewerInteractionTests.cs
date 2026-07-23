@@ -77,4 +77,37 @@ public sealed class ViewerInteractionTests
         Assert.Equal(0, paths[0][^1].X, precision: 12);
         Assert.Equal(0, paths[1][0].X, precision: 12);
     }
+
+    [Fact]
+    public void SolidRenderingKeepsCurvedSurfaceTessellation()
+    {
+        var center = new ScenePoint3Dto(0, 0, 1);
+        var rim = new[]
+        {
+            new ScenePoint3Dto(-1, -1, 0),
+            new ScenePoint3Dto(1, -1, 0),
+            new ScenePoint3Dto(1, 1, 0),
+            new ScenePoint3Dto(-1, 1, 0)
+        };
+        var surface = new SceneSurface3Dto(
+            1,
+            "S1",
+            false,
+            false,
+            "N-BK7",
+            rim,
+            Array.Empty<ScenePoint3Dto>(),
+            Array.Empty<ScenePoint3Dto>(),
+            new[]
+            {
+                new SceneSurfaceFace3Dto(new[] { center, rim[0], rim[1] }),
+                new SceneSurfaceFace3Dto(new[] { center, rim[1], rim[2] })
+            });
+
+        var faces = OpticSceneControl.SurfaceFacesForRendering(surface, cutawayEnabled: false);
+
+        Assert.Equal(2, faces.Count);
+        Assert.All(faces, face => Assert.Equal(3, face.Count));
+        Assert.All(faces, face => Assert.Contains(center, face));
+    }
 }

@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
@@ -172,16 +173,20 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         ShowButtonSpinner = false
     };
 
-    private static DataGrid CreateGrid() => new()
+    private static DataGrid CreateGrid()
     {
-        AutoGenerateColumns = false,
-        CanUserReorderColumns = true,
-        CanUserResizeColumns = true,
-        GridLinesVisibility = DataGridGridLinesVisibility.All,
-        HeadersVisibility = DataGridHeadersVisibility.Column,
-        RowBackground = Brushes.White,
-        MinHeight = 260
-    };
+        var grid = new DataGrid
+        {
+            AutoGenerateColumns = false,
+            CanUserReorderColumns = true,
+            CanUserResizeColumns = true,
+            GridLinesVisibility = DataGridGridLinesVisibility.All,
+            HeadersVisibility = DataGridHeadersVisibility.Column,
+            MinHeight = 260
+        };
+        grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
+        return grid;
+    }
 
     private static TextBlock Label(string text) => new()
     {

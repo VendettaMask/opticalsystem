@@ -14,6 +14,7 @@ public sealed class DisplaySettingsWindow : Window
     private readonly NumericUpDown _decimalPlaces = Number(0, 15, 1);
     private readonly NumericUpDown _upperExponent = Number(1, 15, 1);
     private readonly NumericUpDown _lowerExponent = Number(-15, -1, 1);
+    private readonly ComboBox _theme = new() { MinWidth = 230 };
     private readonly ComboBox _fontFamily = new() { MinWidth = 230 };
     private readonly ComboBox _fontShape = new() { MinWidth = 150 };
     private readonly NumericUpDown _fontSize = Number(9, 32, 1);
@@ -34,9 +35,9 @@ public sealed class DisplaySettingsWindow : Window
     {
         Title = "显示格式设置";
         Width = 560;
-        Height = 560;
+        Height = 630;
         MinWidth = 520;
-        MinHeight = 520;
+        MinHeight = 600;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         CanResize = false;
 
@@ -44,6 +45,15 @@ public sealed class DisplaySettingsWindow : Window
         _upperExponent.Value = settings.UpperScientificExponent;
         _lowerExponent.Value = settings.LowerScientificExponent;
         _fontSize.Value = (decimal)settings.FontSize;
+
+        var themes = new[]
+        {
+            new ThemeOption("Light", "普通模式"),
+            new ThemeOption("Dark", "暗夜模式"),
+            new ThemeOption("System", "跟随系统")
+        };
+        _theme.ItemsSource = themes;
+        _theme.SelectedItem = themes.First(option => option.Value == settings.Theme);
 
         var fontFamilies = FontManager.Current.SystemFonts
             .Select(font => font.Name)
@@ -85,21 +95,24 @@ public sealed class DisplaySettingsWindow : Window
 
         Content = new Grid
         {
-            RowDefinitions = new RowDefinitions("Auto,Auto,*,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,*,Auto"),
             Margin = new Thickness(22),
             RowSpacing = 14,
             Children =
             {
                 At(Section(
+                    "主题",
+                    SettingRow("界面主题", _theme, "切换普通模式、暗夜模式或跟随系统外观")), 0),
+                At(Section(
                     "数字格式",
                     SettingRow("小数位数", _decimalPlaces, "普通与科学计数法尾数最多保留的位数"),
                     SettingRow("以上指数", _upperExponent, "数量级达到此指数时使用科学计数法"),
-                    SettingRow("以下指数", _lowerExponent, "非零数量级低于或等于此指数时使用科学计数法")), 0),
+                    SettingRow("以下指数", _lowerExponent, "非零数量级低于或等于此指数时使用科学计数法")), 1),
                 At(Section(
                     "界面字体",
                     SettingRow("字体", _fontFamily),
                     SettingRow("字形", _fontShape),
-                    SettingRow("大小", _fontSize, "单位：pt")), 1),
+                    SettingRow("大小", _fontSize, "单位：pt")), 2),
                 At(new Border
                 {
                     BorderBrush = new SolidColorBrush(Color.FromRgb(199, 199, 204)),
@@ -116,7 +129,7 @@ public sealed class DisplaySettingsWindow : Window
                             _validation
                         }
                     }
-                }, 2),
+                }, 3),
                 At(new Grid
                 {
                     ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
@@ -127,7 +140,7 @@ public sealed class DisplaySettingsWindow : Window
                         InColumn(cancel, 2),
                         InColumn(_save, 3)
                     }
-                }, 3)
+                }, 4)
             }
         };
 
@@ -142,6 +155,7 @@ public sealed class DisplaySettingsWindow : Window
         }
 
         settings.DecimalPlaces = options.DecimalPlaces;
+        settings.Theme = SelectedTheme();
         settings.UpperScientificExponent = options.UpperScientificExponent;
         settings.LowerScientificExponent = options.LowerScientificExponent;
         settings.FontFamily = SelectedFontFamily();
@@ -157,6 +171,8 @@ public sealed class DisplaySettingsWindow : Window
         _decimalPlaces.Value = AppSettings.DefaultDecimalPlaces;
         _upperExponent.Value = AppSettings.DefaultUpperScientificExponent;
         _lowerExponent.Value = AppSettings.DefaultLowerScientificExponent;
+        _theme.SelectedItem = (_theme.ItemsSource as IEnumerable<ThemeOption>)?
+            .First(option => option.Value == AppSettings.DefaultTheme);
         _fontFamily.SelectedItem = SystemDefaultFont;
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
@@ -214,6 +230,9 @@ public sealed class DisplaySettingsWindow : Window
             ? selected
             : string.Empty;
     }
+
+    private string SelectedTheme() =>
+        (_theme.SelectedItem as ThemeOption)?.Value ?? AppSettings.DefaultTheme;
 
     private string SelectedFontShape()
     {
@@ -294,6 +313,11 @@ public sealed class DisplaySettingsWindow : Window
     }
 
     private sealed record FontShapeOption(string Value, string Label)
+    {
+        public override string ToString() => Label;
+    }
+
+    private sealed record ThemeOption(string Value, string Label)
     {
         public override string ToString() => Label;
     }

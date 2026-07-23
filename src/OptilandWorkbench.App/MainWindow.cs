@@ -4,12 +4,15 @@ using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App;
@@ -50,117 +53,161 @@ public sealed class MainWindow : Window
 
     private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
     {
-        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "报告"),
-        new("analysis-prescription", "处方报告", "处方报告", "file-text", "报告"),
-        new("analysis-spot", "点列图", "点列图", "chart-scatter", "光线分布"),
-        new("analysis-ray-fan", "光线扇形图", "光线扇形图", "chart-spline", "像差"),
-        new("analysis-distortion", "畸变", "畸变", "move-diagonal", "像差"),
-        new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "像差"),
-        new("analysis-field-curvature", "场曲", "场曲", "chart-line", "像差"),
-        new("analysis-encircled-energy", "包围能量", "包围能量", "circle-dot", "PSF / MTF"),
-        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "scan", "像差"),
-        new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "像差"),
-        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "像差"),
-        new("analysis-through-focus", "离焦扫描", "离焦扫描", "scan-line", "扫描"),
-        new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "像高-扫描瞳孔", "scan", "扫描"),
-        new("analysis-angle-field", "入射角-像高（扫描视场）", "像高-扫描视场", "scan-line", "扫描"),
-        new("analysis-psf", "点扩散函数 PSF", "PSF", "focus", "PSF / MTF"),
-        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "grid-2x2", "PSF / MTF"),
-        new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "circle-dot-dashed", "PSF / MTF"),
-        new("analysis-mtf", "MTF", "傅里叶 MTF", "chart-no-axes-combined", "PSF / MTF"),
-        new("analysis-fourier-through-focus-mtf", "Fourier Through Focus MTF", "傅里叶离焦 MTF", "scan-line", "PSF / MTF"),
-        new("analysis-fourier-mtf-field", "Fourier MTF vs Field", "傅里叶 MTF VS 视场", "chart-line", "PSF / MTF"),
-        new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "waves-horizontal", "PSF / MTF"),
-        new("analysis-huygens-through-focus-mtf", "Huygens Through Focus MTF", "惠更斯离焦 MTF", "scan-line", "PSF / MTF"),
-        new("analysis-huygens-mtf-field", "Huygens MTF vs Field", "惠更斯 MTF VS 视场", "chart-line", "PSF / MTF"),
-        new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "chart-spline", "PSF / MTF"),
-        new("analysis-geometric-through-focus-mtf", "Geometric Through Focus MTF", "几何离焦 MTF", "scan-line", "PSF / MTF"),
-        new("analysis-geometric-mtf-field", "Geometric MTF vs Field", "几何 MTF VS 视场", "chart-line", "PSF / MTF"),
+        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "系统报告"),
+        new("analysis-prescription", "处方报告", "处方报告", "file-text", "系统报告"),
+        new("analysis-ray-fan", "光线像差图", "光线像差图", "chart-spline", "光线迹点"),
+        new("analysis-spot", "标准点列图", "标准点列图", "chart-scatter", "光线迹点"),
+        new("analysis-footprint", "光迹图", "光迹图", "scan-search", "光线迹点"),
+        new("analysis-through-focus", "离焦点列图", "离焦点列图", "scan-line", "光线迹点"),
+        new("analysis-distortion", "畸变", "畸变", "move-diagonal", "像差分析"),
+        new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "像差分析"),
+        new("analysis-field-curvature", "场曲", "场曲", "chart-line", "像差分析"),
+        new("analysis-encircled-energy", "圈入能量", "圈入能量", "circle-dot", "圈入能量"),
+        new("analysis-pupil-aberration", "瞳孔像差", "瞳孔像差", "scan", "像差分析"),
+        new("analysis-rms-field", "RMS-视场", "RMS-视场", "chart-line", "RMS"),
+        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "RMS"),
+        new("analysis-angle-pupil", "入射角-像高（扫描瞳孔）", "扫描瞳孔", "scan", "光线迹点"),
+        new("analysis-angle-field", "入射角-像高（扫描视场）", "扫描视场", "scan-line", "光线迹点"),
+        new("analysis-psf", "点扩散函数 PSF", "FFT PSF", "focus", "点扩散函数"),
+        new("analysis-mmdft-psf", "矩阵乘法 DFT PSF", "MMDFT PSF", "grid-2x2", "点扩散函数"),
+        new("analysis-huygens-psf", "惠更斯 PSF", "惠更斯 PSF", "circle-dot-dashed", "点扩散函数"),
+        new("analysis-mtf", "MTF", "傅里叶 MTF", "chart-no-axes-combined", "MTF 曲线"),
+        new("analysis-fourier-through-focus-mtf", "Fourier Through Focus MTF", "傅里叶离焦 MTF", "scan-line", "MTF 曲线"),
+        new("analysis-fourier-mtf-field", "Fourier MTF vs Field", "傅里叶 MTF VS 视场", "chart-line", "MTF 曲线"),
+        new("analysis-huygens-mtf", "惠更斯 MTF", "惠更斯 MTF", "waves-horizontal", "MTF 曲线"),
+        new("analysis-huygens-through-focus-mtf", "Huygens Through Focus MTF", "惠更斯离焦 MTF", "scan-line", "MTF 曲线"),
+        new("analysis-huygens-mtf-field", "Huygens MTF vs Field", "惠更斯 MTF VS 视场", "chart-line", "MTF 曲线"),
+        new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "chart-spline", "MTF 曲线"),
+        new("analysis-geometric-through-focus-mtf", "Geometric Through Focus MTF", "几何离焦 MTF", "scan-line", "MTF 曲线"),
+        new("analysis-geometric-mtf-field", "Geometric MTF vs Field", "几何 MTF VS 视场", "chart-line", "MTF 曲线"),
         new("analysis-wavefront", "波前", "波前", "waves-horizontal", "波前"),
         new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "circle-dot", "波前"),
         new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "focus", "波前"),
         new("analysis-zernike", "Zernike 系数", "Zernike", "sigma", "波前"),
         new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "波前"),
-        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "照度"),
-        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "照度"),
-        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "成像仿真"),
-        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "成像仿真")
+        new("analysis-relative-illumination", "相对照度", "相对照度", "sun-medium", "扩展图像分析"),
+        new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "扩展图像分析"),
+        new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "扩展图像分析"),
+        new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "光线迹点"),
+        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "扩展图像分析")
     };
 
     private static readonly string[] AnalysisRibbonGroupOrder =
     {
-        "光线分布",
-        "像差",
-        "扫描",
+        "光线迹点",
+        "像差分析",
         "波前",
-        "PSF / MTF",
-        "照度",
-        "成像仿真",
-        "报告"
+        "点扩散函数",
+        "MTF 曲线",
+        "RMS",
+        "圈入能量",
+        "扩展图像分析",
+        "系统报告"
     };
 
     private static readonly IReadOnlyList<AnalysisRibbonMenu> AnalysisRibbonMenus = new AnalysisRibbonMenu[]
     {
-        new("报告", "系统数据", "ruler", new[]
+        new("系统报告", "系统数据", "ruler", new[]
         {
             "analysis-first-order",
             "analysis-prescription"
         }),
-        new("像差", "畸变", "move-diagonal", new[]
+        new("光线迹点", "光线迹点", "chart-scatter", new[]
         {
-            "analysis-distortion",
-            "analysis-grid-distortion"
-        }),
-        new("像差", "视场像差", "chart-line", new[]
-        {
-            "analysis-field-curvature",
-            "analysis-rms-field",
-            "analysis-rms-wavefront-field"
-        }),
-        new("扫描", "离焦扫描", "scan-line", new[]
-        {
+            "analysis-ray-fan",
+            "analysis-spot",
+            "analysis-footprint",
             "analysis-through-focus"
         }),
-        new("扫描", "像高扫描", "scan", new[]
+        new("光线迹点", "其他光线分析", "scan", new[]
+        {
+            "analysis-y-ybar"
+        }),
+        new("光线迹点", "入射角扫描", "scan", new[]
         {
             "analysis-angle-pupil",
             "analysis-angle-field"
         }),
-        new("PSF / MTF", "PSF", "focus", new[]
+        new("像差分析", "畸变与场曲", "move-diagonal", new[]
+        {
+            "analysis-distortion",
+            "analysis-grid-distortion",
+            "analysis-field-curvature"
+        }),
+        new("波前", "参考球波前", "waves-horizontal", new[]
+        {
+            "analysis-wavefront",
+            "analysis-centroid-wavefront",
+            "analysis-best-fit-wavefront"
+        }),
+        new("波前", "波前与瞳", "sigma", new[]
+        {
+            "analysis-zernike",
+            "analysis-jones-pupil"
+        }),
+        new("点扩散函数", "PSF 方法", "focus", new[]
         {
             "analysis-psf",
             "analysis-mmdft-psf",
             "analysis-huygens-psf"
         }),
-        new("PSF / MTF", "傅里叶 MTF", "chart-no-axes-combined", new[]
+        new("MTF 曲线", "傅里叶 MTF", "chart-no-axes-combined", new[]
         {
             "analysis-mtf",
             "analysis-fourier-through-focus-mtf",
             "analysis-fourier-mtf-field"
         }),
-        new("PSF / MTF", "惠更斯 MTF", "waves-horizontal", new[]
+        new("MTF 曲线", "惠更斯 MTF", "waves-horizontal", new[]
         {
             "analysis-huygens-mtf",
             "analysis-huygens-through-focus-mtf",
             "analysis-huygens-mtf-field"
         }),
-        new("PSF / MTF", "几何 MTF", "chart-spline", new[]
+        new("MTF 曲线", "几何 MTF", "chart-spline", new[]
         {
             "analysis-geometric-mtf",
             "analysis-geometric-through-focus-mtf",
             "analysis-geometric-mtf-field"
         }),
-        new("波前", "波前", "waves-horizontal", new[]
+        new("RMS", "RMS 曲线", "chart-line", new[]
         {
-            "analysis-wavefront",
-            "analysis-centroid-wavefront",
-            "analysis-best-fit-wavefront"
+            "analysis-rms-field",
+            "analysis-rms-wavefront-field"
+        }),
+        new("扩展图像分析", "照度与辐射", "sun-medium", new[]
+        {
+            "analysis-relative-illumination",
+            "analysis-incoherent-irradiance",
+            "analysis-radiant-intensity"
         })
     };
 
     private static readonly IReadOnlySet<string> GroupedAnalysisCommandIds = AnalysisRibbonMenus
         .SelectMany(menu => menu.CommandIds)
         .ToHashSet(StringComparer.Ordinal);
+
+    internal static IReadOnlyList<string> AnalysisRibbonCategories => AnalysisRibbonGroupOrder;
+
+    internal static IReadOnlyDictionary<string, IReadOnlyList<string>> AnalysisRibbonCommandsByCategory =>
+        AnalysisRibbonCommands
+            .GroupBy(command => command.Group)
+            .ToDictionary(
+                group => group.Key,
+                group => (IReadOnlyList<string>)group.Select(command => command.Id).ToArray());
+
+    internal static IReadOnlyDictionary<string, IReadOnlyList<string>> AnalysisRibbonMenusByCategory =>
+        AnalysisRibbonMenus
+            .GroupBy(menu => menu.Group)
+            .ToDictionary(
+                group => group.Key,
+                group => (IReadOnlyList<string>)group.Select(menu => menu.Label).ToArray());
+
+    internal static IReadOnlyDictionary<string, IReadOnlyList<string>> AnalysisRibbonCommandsByMenu =>
+        AnalysisRibbonMenus.ToDictionary(
+            menu => menu.Label,
+            menu => (IReadOnlyList<string>)menu.CommandIds
+                .Select(commandId => AnalysisRibbonCommands.First(command => command.Id == commandId).Label)
+                .ToArray());
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
@@ -194,9 +241,9 @@ public sealed class MainWindow : Window
         Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
         MinWidth = 1100;
         MinHeight = 640;
+        ApplyTheme(save: false);
         Content = BuildShell();
         DisplayTypography.Apply(this);
-        SetLightTheme(save: false);
 
         _application.Events.Changed += OnWorkspaceChanged;
         Opened += OnOpened;
@@ -300,7 +347,16 @@ public sealed class MainWindow : Window
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
         _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
         _actions.Register("show-manufacturability", "可加工性评估", "加工与图纸", _panels.ShowManufacturability);
-        _actions.Register("show-optical-drawing", "ISO 光学制图", "加工与图纸", _panels.ShowOpticalDrawing);
+        _actions.Register(
+            "show-optical-drawing-iso",
+            "ISO 10110 光学制图",
+            "加工与图纸",
+            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.Iso10110));
+        _actions.Register(
+            "show-optical-drawing-gb",
+            "GB/T 13323—2009 光学制图",
+            "加工与图纸",
+            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
@@ -405,7 +461,6 @@ public sealed class MainWindow : Window
         };
         return new Menu
         {
-            Background = Brushes.White,
             ItemsSource = new object[]
             {
                 fileMenu, editMenu, designMenu, layoutMenu, settingsMenu, helpMenu
@@ -441,7 +496,6 @@ public sealed class MainWindow : Window
         var tabs = new TabControl
         {
             SelectedIndex = 1,
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             ItemsSource = new object[]
             {
                 RibbonTab("文件", BuildRibbonPage(
@@ -478,8 +532,9 @@ public sealed class MainWindow : Window
                 RibbonTab("加工与图纸", BuildRibbonPage(
                     RibbonGroup("制造准备",
                         RibbonButton("show-manufacturability", "clipboard-check", "可加工性评估")),
-                    RibbonGroup("ISO 10110 图纸",
-                        RibbonButton("show-optical-drawing", "drafting-compass", "光学制图")))),
+                    RibbonGroup("光学制图",
+                        RibbonButton("show-optical-drawing-iso", "drafting-compass", "ISO 10110"),
+                        RibbonButton("show-optical-drawing-gb", "ruler", "GB/T 13323")))),
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),
@@ -510,15 +565,17 @@ public sealed class MainWindow : Window
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
-        return new Border
+        tabs.Bind(TabControl.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        var ribbon = new Border
         {
             Height = 144,
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 0, 0, 1),
             BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
             Child = tabs
         };
+        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        ribbon.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        return ribbon;
     }
 
     private static TabItem RibbonTab(string title, Control content)
@@ -571,21 +628,22 @@ public sealed class MainWindow : Window
         {
             Text = title,
             FontSize = 11,
-            Foreground = new SolidColorBrush(Color.FromRgb(76, 86, 98)),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
+        caption.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
         Grid.SetRow(commandPanel, 0);
         Grid.SetRow(caption, 1);
         grid.Children.Add(commandPanel);
         grid.Children.Add(caption);
 
-        return new Border
+        var group = new Border
         {
-            BorderBrush = new SolidColorBrush(Color.FromRgb(205, 211, 218)),
             BorderThickness = new Thickness(0, 0, 1, 0),
             Child = grid
         };
+        group.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        return group;
     }
 
     private Button RibbonButton(string actionId, string iconName, string label)
@@ -607,8 +665,8 @@ public sealed class MainWindow : Window
         };
         button.PointerEntered += (_, _) =>
         {
-            button.Background = new SolidColorBrush(Color.FromRgb(232, 241, 253));
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(174, 204, 239));
+            button.Background = ThemeBrush(button, "OptilandHoverBrush");
+            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
         };
         button.PointerExited += (_, _) =>
         {
@@ -656,8 +714,8 @@ public sealed class MainWindow : Window
         };
         button.PointerEntered += (_, _) =>
         {
-            button.Background = new SolidColorBrush(Color.FromRgb(232, 241, 253));
-            button.BorderBrush = new SolidColorBrush(Color.FromRgb(174, 204, 239));
+            button.Background = ThemeBrush(button, "OptilandHoverBrush");
+            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
         };
         button.PointerExited += (_, _) =>
         {
@@ -715,27 +773,28 @@ public sealed class MainWindow : Window
         grid.Children.Add(StatusCell(_apertureText, 3, 130));
         grid.Children.Add(StatusCell(_trackText, 4, 120));
 
-        return new Border
+        var status = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(242, 242, 247)),
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(0, 1, 0, 0),
             Child = grid
         };
+        status.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSubtleSurfaceBrush"));
+        status.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        return status;
     }
 
     private static Border StatusCell(TextBlock text, int column, double width)
     {
         text.FontSize = 11;
-        text.Foreground = new SolidColorBrush(Color.FromRgb(72, 72, 74));
+        text.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
         var border = new Border
         {
             MinWidth = width,
-            BorderBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             BorderThickness = new Thickness(column == 0 ? 0 : 1, 0, 0, 0),
             Padding = new Thickness(9, 4),
             Child = text
         };
+        border.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
         Grid.SetColumn(border, column);
         return border;
     }
@@ -940,21 +999,32 @@ public sealed class MainWindow : Window
         }
 
         ConfigureDisplaySettings();
+        ApplyTheme(save: false);
         DisplayTypography.Apply(this);
         _panels.ApplyDisplaySettings();
         RefreshStatus();
         InvalidateVisual();
     }
 
-    private void SetLightTheme(bool save = true)
+    private void ApplyTheme(bool save = true)
     {
-        Avalonia.Application.Current!.RequestedThemeVariant = Avalonia.Styling.ThemeVariant.Light;
-        _settings.Theme = "Light";
+        Avalonia.Application.Current!.RequestedThemeVariant = _settings.Theme switch
+        {
+            "Dark" => ThemeVariant.Dark,
+            "System" => ThemeVariant.Default,
+            _ => ThemeVariant.Light
+        };
         if (save)
         {
             _settings.Save();
         }
     }
+
+    private static IBrush ThemeBrush(Control control, string key) =>
+        control.TryFindResource(key, control.ActualThemeVariant, out var value)
+        && value is IBrush brush
+            ? brush
+            : Brushes.Transparent;
 
     private void ResetLayout()
     {

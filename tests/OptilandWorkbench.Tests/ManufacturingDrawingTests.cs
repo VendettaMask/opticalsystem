@@ -67,6 +67,10 @@ public sealed class ManufacturingDrawingTests
             "OptilandWorkbench.App.Assets.Fonts.NotoSansCJKsc-Regular.otf");
         Assert.NotNull(font);
         Assert.True(font.Length > 15_000_000);
+        using var companyLogo = typeof(OpticalDrawingRenderer).Assembly.GetManifestResourceStream(
+            "OptilandWorkbench.App.Assets.Brand.CompanyLogo.png");
+        Assert.NotNull(companyLogo);
+        Assert.True(companyLogo.Length > 10_000);
 
         var sheet = Sheet(element) with { MaterialData = material };
         Assert.Equal(0.0005, sheet.RefractiveIndexTolerance);
@@ -98,6 +102,92 @@ public sealed class ManufacturingDrawingTests
         }
     }
 
+    [Fact]
+    public void OpticalDrawingRejectsInvertedToleranceLimits()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var sheet = Sheet(element) with
+        {
+            DiameterUpperDeviation = -0.02,
+            DiameterLowerDeviation = 0.02,
+            FrontRadiusTolerance = -0.1
+        };
+
+        var errors = sheet.Validate();
+
+        Assert.Contains(errors, error => error.Contains("直径上偏差", StringComparison.Ordinal));
+        Assert.Contains(errors, error => error.Contains("S1 曲率半径公差", StringComparison.Ordinal));
+        Assert.Throws<ArgumentException>(() => OpticalDrawingRenderer.RenderPreview(sheet, 400));
+    }
+
+    [Fact]
+    public void OpticalDrawingUsesIsoRecommendedScaleDesignation()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+
+        var designation = OpticalDrawingRenderer.ScaleDesignation(Sheet(element));
+
+        Assert.Contains(
+            designation,
+            new[] { "10:1", "5:1", "2:1", "1:1", "1:2", "1:5", "1:10" });
+    }
+
+    [Fact]
+    public void OpticalDrawingRequiresMaterialAndSurfaceIndications()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var sheet = Sheet(element) with
+        {
+            SurfaceImperfection = " ",
+            BubblesAndInclusions = string.Empty
+        };
+
+        var errors = sheet.Validate();
+
+        Assert.Contains(errors, error => error.StartsWith("5/", StringComparison.Ordinal));
+        Assert.Contains(errors, error => error.StartsWith("1/", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void OpticalDrawingSupportsCurrentChineseNationalStandardLayout()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var isoSheet = Sheet(element);
+        var gbSheet = isoSheet with { Standard = OpticalDrawingStandard.GbT13323_2009 };
+
+        var isoPreview = OpticalDrawingRenderer.RenderPreview(isoSheet, 800);
+        var gbPreview = OpticalDrawingRenderer.RenderPreview(gbSheet, 800);
+
+        Assert.Equal("ISO 10110-1:2019 表格式", OpticalDrawingRenderer.StandardDesignation(isoSheet.Standard));
+        Assert.Equal("GB/T 13323—2009 光学制图", OpticalDrawingRenderer.StandardDesignation(gbSheet.Standard));
+        Assert.False(isoPreview.SequenceEqual(gbPreview));
+        Assert.True(gbPreview.Length > 10_000);
+    }
+
+    [Fact]
+    public void IsoOpticalGlassMarksUseShortLongShortLinePattern()
+    {
+        var iso = OpticalDrawingRenderer.OpticalGlassHatchHalfLengths(
+            OpticalDrawingStandard.Iso10110);
+        var gb = OpticalDrawingRenderer.OpticalGlassHatchHalfLengths(
+            OpticalDrawingStandard.GbT13323_2009);
+
+        Assert.Equal(iso[0], iso[2]);
+        Assert.True(iso[1] > iso[0]);
+        Assert.Equal(gb[0], gb[1]);
+        Assert.Equal(gb[1], gb[2]);
+        Assert.Equal("R50 ±0.1", OpticalDrawingRenderer.RadiusDimensionText(50, 0.1));
+        Assert.Equal("R∞", OpticalDrawingRenderer.RadiusDimensionText(0, 0.1));
+    }
+
     private static readonly byte[] TransparentPng = Convert.FromBase64String(
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=");
 
@@ -117,10 +207,10 @@ public sealed class ManufacturingDrawingTests
         100,
         1,
         1,
-        "0.16 × 2",
+        "2 × 0.16",
         "增透膜",
         "倒边 0.2 × 45°",
-        "≤ 10 nm/cm",
-        "0.1 × 2",
+        "10 nm/cm",
+        "2 × 0.1",
         "2；2");
 }

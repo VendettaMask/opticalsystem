@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -8,6 +9,7 @@ using Avalonia.Themes.Fluent;
 using Avalonia.Threading;
 using Dock.Avalonia.Controls;
 using Dock.Avalonia.Themes.Fluent;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App;
@@ -20,14 +22,22 @@ public sealed class App : Avalonia.Application
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
         ApplyBlueAccent();
+        AddThemeResources();
+        Styles.Add(new Style(selector => selector.OfType<LocalIcon>())
+        {
+            Setters =
+            {
+                new Setter(
+                    LocalIcon.StrokeProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.MutedText))
+            }
+        });
         DataTemplates.Add(new WorkspaceViewLocator());
         Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid"))
         {
             Source = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml")
         });
 
-        var controlBorder = new SolidColorBrush(Color.FromRgb(199, 199, 204));
-        var controlBackground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
         Styles.Add(new Style(selector => selector.OfType<Button>())
         {
             Setters =
@@ -35,8 +45,6 @@ public sealed class App : Avalonia.Application
                 new Setter(Button.MinHeightProperty, 29d),
                 new Setter(Button.PaddingProperty, new Thickness(10, 4)),
                 new Setter(Button.CornerRadiusProperty, new CornerRadius(5)),
-                new Setter(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(242, 242, 247))),
-                new Setter(Button.BorderBrushProperty, controlBorder),
                 new Setter(Button.BorderThicknessProperty, new Thickness(1))
             }
         });
@@ -45,9 +53,7 @@ public sealed class App : Avalonia.Application
             Setters =
             {
                 new Setter(TextBox.MinHeightProperty, 29d),
-                new Setter(TextBox.CornerRadiusProperty, new CornerRadius(5)),
-                new Setter(TextBox.BackgroundProperty, controlBackground),
-                new Setter(TextBox.BorderBrushProperty, controlBorder)
+                new Setter(TextBox.CornerRadiusProperty, new CornerRadius(5))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<ComboBox>())
@@ -55,9 +61,7 @@ public sealed class App : Avalonia.Application
             Setters =
             {
                 new Setter(ComboBox.MinHeightProperty, 29d),
-                new Setter(ComboBox.CornerRadiusProperty, new CornerRadius(5)),
-                new Setter(ComboBox.BackgroundProperty, controlBackground),
-                new Setter(ComboBox.BorderBrushProperty, controlBorder)
+                new Setter(ComboBox.CornerRadiusProperty, new CornerRadius(5))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<NumericUpDown>())
@@ -66,17 +70,13 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(NumericUpDown.ShowButtonSpinnerProperty, false),
                 new Setter(NumericUpDown.MinHeightProperty, 29d),
-                new Setter(NumericUpDown.CornerRadiusProperty, new CornerRadius(5)),
-                new Setter(NumericUpDown.BackgroundProperty, controlBackground),
-                new Setter(NumericUpDown.BorderBrushProperty, controlBorder)
+                new Setter(NumericUpDown.CornerRadiusProperty, new CornerRadius(5))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<DataGridColumnHeader>())
         {
             Setters =
             {
-                new Setter(DataGridColumnHeader.BackgroundProperty, new SolidColorBrush(Color.FromRgb(242, 242, 247))),
-                new Setter(DataGridColumnHeader.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(209, 209, 214))),
                 new Setter(DataGridColumnHeader.BorderThicknessProperty, new Thickness(0, 0, 1, 1)),
                 new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
             }
@@ -98,6 +98,44 @@ public sealed class App : Avalonia.Application
         Resources["AccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 112, 235));
         Resources["AccentFillColorTertiaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 102, 214));
     }
+
+    private void AddThemeResources()
+    {
+        Resources.ThemeDictionaries[ThemeVariant.Light] = ThemeResources(
+            surface: Color.FromRgb(250, 250, 252),
+            subtle: Color.FromRgb(242, 242, 247),
+            workspace: Color.FromRgb(220, 223, 228),
+            border: Color.FromRgb(209, 209, 214),
+            mutedText: Color.FromRgb(99, 99, 102),
+            hover: Color.FromRgb(232, 241, 253),
+            hoverBorder: Color.FromRgb(174, 204, 239));
+        Resources.ThemeDictionaries[ThemeVariant.Dark] = ThemeResources(
+            surface: Color.FromRgb(25, 29, 35),
+            subtle: Color.FromRgb(31, 36, 43),
+            workspace: Color.FromRgb(14, 17, 21),
+            border: Color.FromRgb(55, 62, 72),
+            mutedText: Color.FromRgb(174, 181, 192),
+            hover: Color.FromRgb(36, 54, 77),
+            hoverBorder: Color.FromRgb(61, 100, 143));
+    }
+
+    private static ResourceDictionary ThemeResources(
+        Color surface,
+        Color subtle,
+        Color workspace,
+        Color border,
+        Color mutedText,
+        Color hover,
+        Color hoverBorder) => new()
+    {
+        ["OptilandSurfaceBrush"] = new SolidColorBrush(surface),
+        ["OptilandSubtleSurfaceBrush"] = new SolidColorBrush(subtle),
+        ["OptilandWorkspaceBrush"] = new SolidColorBrush(workspace),
+        ["OptilandBorderBrush"] = new SolidColorBrush(border),
+        ["OptilandMutedTextBrush"] = new SolidColorBrush(mutedText),
+        ["OptilandHoverBrush"] = new SolidColorBrush(hover),
+        ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder)
+    };
 
     private void AddDockIconStyles()
     {
@@ -150,6 +188,7 @@ public sealed class App : Avalonia.Application
             var splash = new SplashWindow();
             desktop.MainWindow = splash;
             MacOsBranding.TryApplyApplicationIcon();
+            splash.ReportProgress(12, "正在初始化应用...");
             splash.Show();
             Dispatcher.UIThread.Post(
                 () => OpenMainWindowAsync(desktop, splash),
@@ -163,9 +202,10 @@ public sealed class App : Avalonia.Application
         IClassicDesktopStyleApplicationLifetime desktop,
         SplashWindow splash)
     {
-        var minimumDisplay = Task.Delay(750);
+        var minimumDisplay = Task.Delay(900);
         try
         {
+            splash.ReportProgress(28, "正在创建主工作区...");
             var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             var mainWindow = new MainWindow
             {
@@ -176,13 +216,17 @@ public sealed class App : Avalonia.Application
             readyHandler = (_, _) =>
             {
                 mainWindow.StartupCompleted -= readyHandler;
+                splash.ReportProgress(92, "正在完成界面准备...");
                 ready.TrySetResult();
             };
             mainWindow.StartupCompleted += readyHandler;
             desktop.MainWindow = mainWindow;
             mainWindow.Show();
+            splash.ReportProgress(58, "正在恢复工作区与分析页面...");
 
             await Task.WhenAll(minimumDisplay, ready.Task);
+            splash.Complete();
+            await Task.Delay(120);
             mainWindow.ShowInTaskbar = true;
             mainWindow.Opacity = 1;
             desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;

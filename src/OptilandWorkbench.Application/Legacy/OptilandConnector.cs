@@ -272,6 +272,16 @@ public sealed class OptilandConnector
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
             },
             "Ray Fan" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
+            "Footprint Diagram" => new[]
+            {
+                IntParameter("RayDensity", "光线密度", "10", 1, 64),
+                IntParameter("SurfaceNumber", "表面序号", "-1", -1, 1024),
+                IntParameter("WavelengthNumber", "波长序号（0 为全部）", "0", 0, 256),
+                IntParameter("FieldNumber", "视场序号（0 为全部）", "0", 0, 256),
+                BoolParameter("DeleteVignetted", "删除渐晕光线", "false"),
+                BoolParameter("UseSymbols", "使用符号区分", "true"),
+                ChoiceParameter("ColorRaysBy", "光线着色依据", "field", new[] { "field", "wavelength" })
+            },
             "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
             "Grid Distortion" => GridDistortionParameters(),
             "Field Curvature" => new[]
@@ -337,6 +347,14 @@ public sealed class OptilandConnector
                 IntParameter("SurfaceIndex", "测量表面序号", "-1", -128, 128),
                 ChoiceParameter("Axis", "测量轴", "Y", new[] { "Y", "X" }),
                 IntParameter("NumPoints", "采样点数", "128", 2, 1024)
+            },
+            "Relative Illumination" => new[]
+            {
+                IntParameter("RayDensity", "光线密度", "10", 5, 128),
+                IntParameter("FieldDensity", "视场密度", "21", 2, 201),
+                IntParameter("WavelengthNumber", "波长序号（0=主波长）", "0", 0, 128),
+                ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
             },
             "Incoherent Irradiance" => new[]
             {
@@ -498,6 +516,15 @@ public sealed class OptilandConnector
             "First Order" => new FirstOrderAnalysis(CurrentOptic),
             "Spot Diagram" => new SpotDiagramAnalysis(CurrentOptic, Int("NumRings", 6), Text("Distribution", "hexapolar")),
             "Ray Fan" => new RayFanAnalysis(CurrentOptic, Int("NumPoints", 256)),
+            "Footprint Diagram" => new FootprintDiagramAnalysis(
+                CurrentOptic,
+                Int("RayDensity", 10),
+                Int("SurfaceNumber", -1),
+                Int("WavelengthNumber", 0),
+                Int("FieldNumber", 0),
+                Bool("DeleteVignetted", false),
+                Bool("UseSymbols", true),
+                Text("ColorRaysBy", "field")),
             "Distortion" => new DistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 128),
@@ -570,6 +597,13 @@ public sealed class OptilandConnector
                 Int("SurfaceIndex", -1),
                 axis,
                 Int("NumPoints", 128)),
+            "Relative Illumination" => new RelativeIlluminationAnalysis(
+                CurrentOptic,
+                Int("RayDensity", 10),
+                Int("FieldDensity", 21),
+                Int("WavelengthNumber", 0),
+                Text("ScanDirection", "+y"),
+                Bool("RemoveVignettingFactors", true)),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(
                 CurrentOptic,
                 Int("NumRays", 5),
@@ -2115,6 +2149,18 @@ public sealed class OptilandConnector
 
     private static string CanonicalAnalysisName(string name)
     {
+        var legacyAlias = name switch
+        {
+            "点列图" => "Spot Diagram",
+            "光线扇形图" => "Ray Fan",
+            "离焦扫描" => "Through Focus",
+            _ => null
+        };
+        if (legacyAlias is not null)
+        {
+            return legacyAlias;
+        }
+
         return AnalysisDisplayNamesByKey.ContainsKey(name)
             ? name
             : AnalysisDisplayNamesByKey.FirstOrDefault(item => item.Value == name).Key ?? name;
@@ -2240,16 +2286,17 @@ public sealed class OptilandConnector
     private static readonly IReadOnlyDictionary<string, string> AnalysisDisplayNamesByKey = new Dictionary<string, string>
     {
         ["First Order"] = "一级像差/一阶量",
-        ["Spot Diagram"] = "点列图",
-        ["Ray Fan"] = "光线扇形图",
+        ["Spot Diagram"] = "标准点列图",
+        ["Ray Fan"] = "光线像差图",
+        ["Footprint Diagram"] = "光迹图",
         ["Distortion"] = "畸变",
         ["Grid Distortion"] = "网格畸变",
         ["Field Curvature"] = "场曲",
-        ["Encircled Energy"] = "包围能量",
+        ["Encircled Energy"] = "圈入能量",
         ["Pupil Aberration"] = "瞳孔像差",
         ["RMS vs Field"] = "RMS-视场",
         ["RMS Wavefront vs Field"] = "RMS 波前-视场",
-        ["Through Focus"] = "离焦扫描",
+        ["Through Focus"] = "离焦点列图",
         ["Through Focus MTF"] = "离焦 MTF",
         ["Fourier Through Focus MTF"] = "傅里叶离焦 MTF",
         ["Huygens Through Focus MTF"] = "惠更斯离焦 MTF",
@@ -2259,6 +2306,7 @@ public sealed class OptilandConnector
         ["Geometric MTF vs Field"] = "几何 MTF VS 视场",
         ["Angle vs Image Height - Through Pupil"] = "入射角-像高（扫描瞳孔）",
         ["Angle vs Image Height - Through Field"] = "入射角-像高（扫描视场）",
+        ["Relative Illumination"] = "相对照度",
         ["Incoherent Irradiance"] = "非相干照度",
         ["Radiant Intensity"] = "辐射强度",
         ["Y-Ybar"] = "Y-Ybar",
@@ -2394,6 +2442,22 @@ public sealed class OptilandConnector
         ["MinimumRayAberration"] = "最小光线像差 (mm)",
         ["MaximumRayAberration"] = "最大光线像差 (mm)",
         ["PupilSampling"] = "瞳面采样数",
+        ["RayDensity"] = "光线密度",
+        ["SurfaceNumber"] = "表面序号",
+        ["SurfaceLabel"] = "表面标注",
+        ["FieldNumber"] = "视场序号",
+        ["DeleteVignetted"] = "删除渐晕光线",
+        ["UseSymbols"] = "使用符号区分",
+        ["ColorRaysBy"] = "光线着色依据",
+        ["LaunchedRayCount"] = "发射光线数",
+        ["PlottedRayCount"] = "绘制光线数",
+        ["TransmissionPercent"] = "绘制比例 (%)",
+        ["FieldDensity"] = "视场密度",
+        ["RemoveVignettingFactors"] = "移除渐晕因子",
+        ["MaximumProjectedCosineArea"] = "最大投影方向余弦面积",
+        ["EffectiveFNumbers"] = "有效 F/#",
+        ["ValidRayCounts"] = "有效光线数",
+        ["FoldedCellCounts"] = "方向余弦折叠单元数",
         ["DetectorSurfaceIndex"] = "探测器表面序号",
         ["DetectorExtent"] = "探测器范围",
         ["Resolution"] = "探测器分辨率",

@@ -4,12 +4,13 @@ namespace OptilandWorkbench.App.Services;
 
 public sealed class AppSettings
 {
+    public const string DefaultTheme = "Light";
     public const int DefaultDecimalPlaces = 6;
     public const int DefaultUpperScientificExponent = 6;
     public const int DefaultLowerScientificExponent = -4;
     public const double DefaultFontSize = 13;
 
-    public string Theme { get; set; } = "Light";
+    public string Theme { get; set; } = DefaultTheme;
 
     public int DecimalPlaces { get; set; } = DefaultDecimalPlaces;
 
@@ -41,6 +42,7 @@ public sealed class AppSettings
 
     public void NormalizeDisplaySettings()
     {
+        Theme = Theme is "Dark" or "System" ? Theme : DefaultTheme;
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
         LowerScientificExponent = Math.Clamp(LowerScientificExponent, -15, -1);
@@ -58,6 +60,7 @@ public sealed class AppSettings
 
     public void ResetDisplaySettings()
     {
+        Theme = DefaultTheme;
         DecimalPlaces = DefaultDecimalPlaces;
         UpperScientificExponent = DefaultUpperScientificExponent;
         LowerScientificExponent = DefaultLowerScientificExponent;

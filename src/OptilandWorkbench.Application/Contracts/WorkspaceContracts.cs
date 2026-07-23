@@ -357,7 +357,10 @@ public sealed record SceneLensElement3Dto(
     string Material,
     double RefractiveIndex,
     IReadOnlyList<ScenePoint3Dto> FrontRim,
-    IReadOnlyList<ScenePoint3Dto> BackRim);
+    IReadOnlyList<ScenePoint3Dto> BackRim,
+    IReadOnlyList<SceneSurfaceFace3Dto> FrontFaces,
+    IReadOnlyList<SceneSurfaceFace3Dto> BackFaces,
+    IReadOnlyList<ScenePoint3Dto> MeridianBoundary);
 
 public sealed record SceneRay3Dto(
     int RayNumber,
