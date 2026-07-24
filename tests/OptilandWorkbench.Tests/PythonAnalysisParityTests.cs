@@ -62,7 +62,7 @@ public sealed class PythonAnalysisParityTests
         var optic = createOptic();
         var data = new DistortionAnalysis(optic, numPoints: 17).GenerateData();
         Assert.Equal(optic.Wavelengths.Count, data.PlotSeries.Count);
-        Assert.All(data.PlotSeries, item => Assert.Equal(17, item.Points.Count));
+        Assert.All(data.PlotSeries, item => Assert.Equal(optic.Fields.Count, item.Points.Count));
         Assert.All(data.PlotSeries.SelectMany(item => item.Points), point =>
         {
             Assert.True(double.IsFinite(point.X));
@@ -95,10 +95,9 @@ public sealed class PythonAnalysisParityTests
         Assert.Single(data.PlotSeries);
         Assert.Equal("Distortion (mm)", data.PlotSeries[0].XAxisLabel);
         Assert.Equal("f-theta", data.Values["DistortionType"]);
-        Assert.Equal("-x", data.Values["ScanDirection"]);
+        Assert.Equal("defined-fields", data.Values["ScanDirection"]);
         Assert.Equal(2, data.Values["WavelengthNumber"]);
         Assert.Equal(0, data.PlotSeries[0].Points[0].X, precision: 9);
-        Assert.True(data.PlotSeries[0].Points[^1].Y < 0);
         Assert.All(data.PlotSeries[0].Points, point => Assert.True(double.IsFinite(point.X)));
     }
 
@@ -183,18 +182,33 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FieldCurvatureMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void FieldCurvatureUsesDefinedFields(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("field_curvature");
-        var data = new FieldCurvatureAnalysis(createOptic(), numPoints: 17).GenerateData();
+        var optic = createOptic();
+        var data = new FieldCurvatureAnalysis(optic, numPoints: 17).GenerateData();
         var wavelengthCount = expected.GetProperty("wavelengths").GetArrayLength();
         Assert.Equal(wavelengthCount * 2, data.PlotSeries.Count);
 
         for (var wavelength = 0; wavelength < wavelengthCount; wavelength++)
         {
-            AssertCurvatureSeries(expected, "tangential", wavelength, data.PlotSeries[wavelength * 2]);
-            AssertCurvatureSeries(expected, "sagittal", wavelength, data.PlotSeries[(wavelength * 2) + 1]);
+            foreach (var item in new[]
+            {
+                data.PlotSeries[wavelength * 2],
+                data.PlotSeries[(wavelength * 2) + 1]
+            })
+            {
+                Assert.Equal(optic.Fields.Count, item.Points.Count);
+                Assert.Equal(
+                    optic.Fields.Select(FieldCoordinate),
+                    item.Points.Select(point => point.Y));
+                Assert.Equal(
+                    optic.Fields.Select(field => field.Label),
+                    item.Points.Select(point => point.Label));
+                Assert.All(item.Points, point => Assert.True(double.IsFinite(point.X)));
+            }
+
             Assert.Equal(AnalysisLineStyle.Solid, data.PlotSeries[wavelength * 2].LineStyle);
             Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[(wavelength * 2) + 1].LineStyle);
             Assert.Equal(data.PlotSeries[wavelength * 2].ColorIndex, data.PlotSeries[(wavelength * 2) + 1].ColorIndex);
@@ -279,54 +293,59 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void RmsVsFieldMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void RmsVsFieldUsesDefinedFields(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("rms_vs_field");
-        var data = new RmsVsFieldAnalysis(createOptic(), numFields: 9, numRings: 3).GenerateData();
-        var expectedSpotSize = expected.GetProperty("spot_size");
+        var optic = createOptic();
+        var data = new RmsVsFieldAnalysis(optic, numFields: 9, numRings: 3).GenerateData();
         Assert.Equal(expected.GetProperty("wavelengths").GetArrayLength(), data.PlotSeries.Count);
 
         for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
         {
-            for (var field = 0; field < data.PlotSeries[wavelength].Points.Count; field++)
-            {
-                AssertClose(expected.GetProperty("field")[field].GetDouble(), data.PlotSeries[wavelength].Points[field].X);
-                AssertClose(expectedSpotSize[field][wavelength].GetDouble(), data.PlotSeries[wavelength].Points[field].Y);
-            }
+            Assert.Equal(optic.Fields.Count, data.PlotSeries[wavelength].Points.Count);
+            Assert.Equal(
+                optic.Fields.Select(FieldCoordinate),
+                data.PlotSeries[wavelength].Points.Select(point => point.X));
+            Assert.Equal(
+                optic.Fields.Select(field => field.Label),
+                data.PlotSeries[wavelength].Points.Select(point => point.Label));
+            Assert.All(data.PlotSeries[wavelength].Points, point => Assert.True(double.IsFinite(point.Y)));
         }
 
-        Assert.Equal("Normalized Y Field Coordinate", data.PlotSeries[0].XAxisLabel);
+        Assert.Equal("Field Angle (deg)", data.PlotSeries[0].XAxisLabel);
         Assert.Equal("RMS Spot Size (mm)", data.PlotSeries[0].YAxisLabel);
         Assert.Equal(0, data.PlotOptions?.XMinimum);
-        Assert.Equal(1, data.PlotOptions?.XMaximum);
+        Assert.Equal(optic.Fields.Max(FieldCoordinate), data.PlotOptions?.XMaximum);
         Assert.Equal(0, data.PlotOptions?.YMinimum);
         Assert.True(data.PlotOptions?.ShowLegend);
     }
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void RmsWavefrontVsFieldMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void RmsWavefrontVsFieldUsesDefinedFields(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("rms_wavefront_vs_field");
-        var data = new RmsWavefrontVsFieldAnalysis(createOptic(), numFields: 9, numRings: 5).GenerateData();
+        var optic = createOptic();
+        var data = new RmsWavefrontVsFieldAnalysis(optic, numFields: 9, numRings: 5).GenerateData();
         Assert.Equal(expected.GetProperty("wavelengths").GetArrayLength(), data.PlotSeries.Count);
         for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
         {
-            for (var field = 0; field < data.PlotSeries[wavelength].Points.Count; field++)
-            {
-                AssertClose(expected.GetProperty("field")[field].GetDouble(), data.PlotSeries[wavelength].Points[field].X);
-                AssertClose(
-                    expected.GetProperty("wavefront_error")[field][wavelength].GetDouble(),
-                    data.PlotSeries[wavelength].Points[field].Y);
-            }
+            Assert.Equal(optic.Fields.Count, data.PlotSeries[wavelength].Points.Count);
+            Assert.Equal(
+                optic.Fields.Select(FieldCoordinate),
+                data.PlotSeries[wavelength].Points.Select(point => point.X));
+            Assert.Equal(
+                optic.Fields.Select(field => field.Label),
+                data.PlotSeries[wavelength].Points.Select(point => point.Label));
+            Assert.All(data.PlotSeries[wavelength].Points, point => Assert.True(double.IsFinite(point.Y)));
         }
 
-        Assert.Equal("Normalized Y Field Coordinate", data.PlotSeries[0].XAxisLabel);
+        Assert.Equal("Field Angle (deg)", data.PlotSeries[0].XAxisLabel);
         Assert.Equal("RMS Wavefront Error (waves)", data.PlotSeries[0].YAxisLabel);
         Assert.Equal(0, data.PlotOptions?.XMinimum);
-        Assert.Equal(1, data.PlotOptions?.XMaximum);
+        Assert.Equal(optic.Fields.Max(FieldCoordinate), data.PlotOptions?.XMaximum);
         Assert.Equal(0, data.PlotOptions?.YMinimum);
         Assert.True(data.PlotOptions?.ShowLegend);
     }
@@ -343,23 +362,49 @@ public sealed class PythonAnalysisParityTests
         })
         {
             var expected = reference.RootElement.GetProperty(sampleName).GetProperty(item.Key);
-            var data = new IncidentAngleVsHeightAnalysis(createOptic(), item.Mode, numPoints: 17).GenerateData();
+            var optic = createOptic();
+            var data = new IncidentAngleVsHeightAnalysis(optic, item.Mode, numPoints: 17).GenerateData();
             var series = Assert.Single(data.PlotSeries);
             Assert.Equal(AnalysisSeriesKind.ColoredLine, series.Kind);
-            Assert.Equal(expected.GetProperty("height").GetArrayLength(), series.Points.Count);
             Assert.Equal(item.Fixed, expected.GetProperty("fixed_coordinates").GetString());
-            for (var index = 0; index < series.Points.Count; index++)
+            if (item.Mode == AngleScanMode.ThroughPupil)
             {
-                AssertClose(expected.GetProperty("height")[index].GetDouble(), series.Points[index].X);
-                AssertClose(
-                    expected.GetProperty("angle_radians")[index].GetDouble(),
-                    series.Points[index].Y * Math.PI / 180);
-                AssertClose(expected.GetProperty("scan_range")[index].GetDouble(), series.Points[index].Value!.Value);
+                Assert.Equal(expected.GetProperty("height").GetArrayLength(), series.Points.Count);
+                for (var index = 0; index < series.Points.Count; index++)
+                {
+                    AssertClose(expected.GetProperty("height")[index].GetDouble(), series.Points[index].X);
+                    AssertClose(
+                        expected.GetProperty("angle_radians")[index].GetDouble(),
+                        series.Points[index].Y * Math.PI / 180);
+                    AssertClose(expected.GetProperty("scan_range")[index].GetDouble(), series.Points[index].Value!.Value);
+                }
+            }
+            else
+            {
+                Assert.Equal(optic.Fields.Count, series.Points.Count);
+                Assert.Equal(
+                    optic.Fields.Select(FieldCoordinate),
+                    series.Points.Select(point => point.Value!.Value));
+                Assert.Equal(
+                    optic.Fields.Select(field => field.Label),
+                    series.Points.Select(point => point.Label));
+                Assert.All(series.Points, point =>
+                {
+                    Assert.True(double.IsFinite(point.X));
+                    Assert.True(double.IsFinite(point.Y));
+                });
             }
 
             Assert.Equal("Image Height in Millimeters", series.XAxisLabel);
             Assert.Equal("Incident Angle in Degrees", series.YAxisLabel);
-            Assert.Contains("Normalized", series.ValueLabel);
+            if (item.Mode == AngleScanMode.ThroughPupil)
+            {
+                Assert.Contains("Normalized", series.ValueLabel);
+            }
+            else
+            {
+                Assert.Equal("Field Angle (deg)", series.ValueLabel);
+            }
         }
     }
 
@@ -1531,20 +1576,13 @@ public sealed class PythonAnalysisParityTests
         }
     }
 
-    private static void AssertCurvatureSeries(
-        JsonElement expected,
-        string seriesName,
-        int wavelength,
-        AnalysisSeries actual)
+    private static double FieldCoordinate(FieldPoint field)
     {
-        var expectedValues = expected.GetProperty(seriesName)[wavelength];
-        var expectedField = expected.GetProperty("field");
-        Assert.Equal(expectedValues.GetArrayLength(), actual.Points.Count);
-        for (var index = 0; index < actual.Points.Count; index++)
-        {
-            AssertClose(expectedValues[index].GetDouble(), actual.Points[index].X);
-            AssertClose(expectedField[index].GetDouble(), actual.Points[index].Y);
-        }
+        return Math.Abs(field.X) <= 1e-12
+            ? field.Y
+            : Math.Abs(field.Y) <= 1e-12
+                ? field.X
+                : Math.Sqrt((field.X * field.X) + (field.Y * field.Y));
     }
 
     private static void AssertPsfValues(JsonElement expectedPsf, PsfResult actual)

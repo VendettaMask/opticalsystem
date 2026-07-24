@@ -18,14 +18,15 @@ public sealed class RelativeIlluminationTests
         string sampleName,
         Func<Optic> createOptic)
     {
+        var optic = createOptic();
         var data = new RelativeIlluminationAnalysis(
-            createOptic(),
+            optic,
             rayDensity: 10,
-            fieldDensity: 7).GenerateData();
+            fieldDensity: 97).GenerateData();
 
         var series = Assert.Single(data.SeriesList!);
         Assert.Equal(AnalysisSeriesKind.Line, series.Kind);
-        Assert.Equal(7, series.Points.Count);
+        Assert.Equal(optic.Fields.Count, series.Points.Count);
         Assert.All(series.Points, point =>
         {
             Assert.True(double.IsFinite(point.X), $"{sampleName}: non-finite field coordinate");
@@ -36,7 +37,7 @@ public sealed class RelativeIlluminationTests
         var raw = Assert.IsType<double[]>(data.Values["RawProjectedCosineArea"]);
         var effectiveFNumbers = Assert.IsType<double[]>(data.Values["EffectiveFNumbers"]);
         var validRayCounts = Assert.IsType<int[]>(data.Values["ValidRayCounts"]);
-        Assert.Equal(7, raw.Length);
+        Assert.Equal(optic.Fields.Count, raw.Length);
         Assert.All(raw, value => Assert.True(double.IsFinite(value) && value >= 0));
         Assert.Contains(raw, value => value > 0);
         Assert.All(effectiveFNumbers.Where(double.IsFinite), value => Assert.True(value > 0));
@@ -44,20 +45,30 @@ public sealed class RelativeIlluminationTests
     }
 
     [Fact]
-    public void RelativeIlluminationHonorsSignedScanDirection()
+    public void RelativeIlluminationUsesExactDefinedFieldsAndLabels()
     {
         var optic = Optic.CreateCookeTriplet();
+        var expectedCoordinates = new[] { 0.0, 3.25, 7.5 };
+        for (var index = 0; index < optic.Fields.Count; index++)
+        {
+            optic.Fields[index].X = 0;
+            optic.Fields[index].Y = expectedCoordinates[index];
+            optic.Fields[index].Label = $"Actual field {index + 1}";
+        }
+
         var data = new RelativeIlluminationAnalysis(
             optic,
             rayDensity: 8,
-            fieldDensity: 5,
+            fieldDensity: 99,
             scanDirection: "-x").GenerateData();
 
         var points = Assert.Single(data.SeriesList!).Points;
-        var maximumField = optic.Fields.Max(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)));
-        Assert.Equal(0, points[0].X, precision: 12);
-        Assert.Equal(-maximumField, points[^1].X, precision: 12);
-        Assert.Equal("-x", data.Values["ScanDirection"]);
+        Assert.Equal(expectedCoordinates.Length, points.Count);
+        Assert.Equal(expectedCoordinates, points.Select(point => point.X));
+        Assert.Equal(
+            optic.Fields.Select(field => field.Label),
+            points.Select(point => point.Label));
+        Assert.Equal("defined-fields", data.Values["ScanDirection"]);
     }
 
     [Fact]
@@ -99,22 +110,20 @@ public sealed class RelativeIlluminationTests
         Assert.Equal("Relative Illumination", connector.CanonicalAnalysisKey("相对照度"));
         var parameters = connector.GetAnalysisParameters("相对照度");
         Assert.Contains(parameters, item => item.Key == "RayDensity");
-        Assert.Contains(parameters, item => item.Key == "FieldDensity");
+        Assert.DoesNotContain(parameters, item => item.Key == "FieldDensity");
         Assert.Contains(parameters, item => item.Key == "WavelengthNumber");
-        Assert.Contains(parameters, item => item.Key == "ScanDirection");
+        Assert.DoesNotContain(parameters, item => item.Key == "ScanDirection");
         Assert.Contains(parameters, item => item.Key == "RemoveVignettingFactors");
 
         var view = connector.BuildAnalysisView("相对照度", new Dictionary<string, string>
         {
             ["RayDensity"] = "8",
-            ["FieldDensity"] = "5",
-            ["ScanDirection"] = "+x",
             ["RemoveVignettingFactors"] = "true"
         });
 
         Assert.Equal("相对照度", view.Name);
         var series = Assert.Single(view.SeriesList);
         Assert.Equal(AnalysisSeriesKind.Line, series.Kind);
-        Assert.Equal(5, series.Points.Count);
+        Assert.Equal(3, series.Points.Count);
     }
 }

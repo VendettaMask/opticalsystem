@@ -24,7 +24,8 @@ public enum WorkspaceDocumentKind
     GlassCatalog,
     Manufacturability,
     OpticalDrawing,
-    LensLibrary
+    LensLibrary,
+    MaterialAnalysis
 }
 
 public sealed record WorkspaceDocumentDescriptor(

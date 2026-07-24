@@ -7,6 +7,7 @@ using Dock.Model.Mvvm.Controls;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
+using OptilandWorkbench.App.Panels;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -137,6 +138,18 @@ public sealed class PanelManager : IDisposable
     public void ShowGlassCatalog()
     {
         OpenStable("document:glass-catalog", WorkspaceDocumentKind.GlassCatalog, "玻璃");
+    }
+
+    public void ShowMaterialAnalysis(MaterialAnalysisKind kind)
+    {
+        Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            $"document:material-analysis:{kind}",
+            WorkspaceDocumentKind.MaterialAnalysis,
+            MaterialAnalysisPanel.Title(kind),
+            Settings: new Dictionary<string, string>
+            {
+                ["MaterialAnalysisKind"] = kind.ToString()
+            }));
     }
 
     public void ShowManufacturability()

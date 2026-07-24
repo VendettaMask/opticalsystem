@@ -56,15 +56,13 @@ public sealed class AnalysisGuiContractTests
 
         var connector = new OptilandConnector(optic);
         var parameters = connector.GetAnalysisParameters("Distortion");
-        var view = connector.BuildAnalysisView("Distortion", new Dictionary<string, string>
-        {
-            ["NumPoints"] = "3"
-        });
+        var view = connector.BuildAnalysisView("Distortion", new Dictionary<string, string>());
 
         Assert.Contains(parameters, parameter => parameter.Key == "DistortionType");
         Assert.Contains(parameters, parameter => parameter.Key == "MaximumDistortion");
         Assert.Contains(parameters, parameter => parameter.Key == "WavelengthNumber");
-        Assert.Contains(parameters, parameter => parameter.Key == "ScanDirection");
+        Assert.DoesNotContain(parameters, parameter => parameter.Key == "NumPoints");
+        Assert.DoesNotContain(parameters, parameter => parameter.Key == "ScanDirection");
         Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
         Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
         Assert.Contains(parameters, parameter => parameter.Key == "IgnoreVignettingFactors");
@@ -154,7 +152,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(37, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(36, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -162,7 +160,7 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(37, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(36, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         Assert.Equal(
             new[]
             {
@@ -200,6 +198,16 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(descriptors, item => item.Key == "NumRays" && item.Kind == AnalysisParameterKind.Integer);
         Assert.Contains(descriptors, item => item.Key == "GridSize" && item.DefaultValue == "0");
         Assert.Equal("PSF", connector.CanonicalAnalysisKey("点扩散函数 PSF"));
+
+        foreach (var analysisName in new[] { "傅里叶 MTF", "惠更斯 MTF", "几何 MTF" })
+        {
+            var mtfDescriptors = connector.GetAnalysisParameters(analysisName);
+            Assert.Contains(mtfDescriptors, item =>
+                item.Key == "MaximumFrequency"
+                && item.Kind == AnalysisParameterKind.Double
+                && item.Minimum == 0
+                && item.Maximum == 10000);
+        }
 
         var settings = connector.MergeAnalysisSettings("点扩散函数 PSF", new Dictionary<string, string>
         {

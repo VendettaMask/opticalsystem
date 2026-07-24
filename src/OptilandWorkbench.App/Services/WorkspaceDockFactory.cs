@@ -401,6 +401,9 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Lenses,
                 OpenLensLibraryProjectAsync),
             WorkspaceDocumentKind.GlassCatalog => new GlassCatalogPanel(_application.Materials),
+            WorkspaceDocumentKind.MaterialAnalysis => new MaterialAnalysisPanel(
+                _application.Materials,
+                MaterialAnalysisKindFrom(descriptor.Settings)),
             WorkspaceDocumentKind.Manufacturability => new ManufacturabilityPanel(
                 _application.Prescription,
                 _application.Events),
@@ -430,6 +433,16 @@ public sealed class WorkspaceDockFactory : Factory
         }
         _content[id] = control;
         return control;
+    }
+
+    private static MaterialAnalysisKind MaterialAnalysisKindFrom(
+        IReadOnlyDictionary<string, string>? settings)
+    {
+        return settings is not null
+            && settings.TryGetValue("MaterialAnalysisKind", out var value)
+            && Enum.TryParse<MaterialAnalysisKind>(value, ignoreCase: true, out var kind)
+                ? kind
+                : MaterialAnalysisKind.GlassMap;
     }
 
     internal async Task OpenLensLibraryProjectAsync(string path)

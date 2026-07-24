@@ -90,7 +90,7 @@ public sealed class AnalysisPlotControl : Control
 
         var factor = Math.Pow(0.82, e.Delta.Y);
         var current = viewport.Value;
-        var dataX = UnmapX(position.X, _lastPlot, current);
+        var dataX = UnmapX(position.X, _lastPlot, current, PlotOptions.ReverseX);
         var dataY = UnmapY(position.Y, _lastPlot, current);
         _viewport = new PlotViewport(
             dataX - ((dataX - current.XMinimum) * factor),
@@ -136,7 +136,9 @@ public sealed class AnalysisPlotControl : Control
             var delta = position - _lastPointer;
             _lastPointer = position;
             var current = viewport.Value;
-            var xShift = -(delta.X / Math.Max(1, _lastPlot.Width)) * current.XSpan;
+            var xShift = (PlotOptions.ReverseX ? 1 : -1)
+                * (delta.X / Math.Max(1, _lastPlot.Width))
+                * current.XSpan;
             var yShift = (delta.Y / Math.Max(1, _lastPlot.Height)) * current.YSpan;
             _viewport = new PlotViewport(
                 current.XMinimum + xShift,
@@ -238,7 +240,9 @@ public sealed class AnalysisPlotControl : Control
         _lastPlot = plot;
         _lastRenderedViewport = new PlotViewport(xMin, xMax, yMin, yMax);
 
-        double MapX(double value) => plot.Left + ((value - xMin) / (xMax - xMin) * plot.Width);
+        double MapX(double value) => PlotOptions.ReverseX
+            ? plot.Right - ((value - xMin) / (xMax - xMin) * plot.Width)
+            : plot.Left + ((value - xMin) / (xMax - xMin) * plot.Width);
         double MapY(double value) => plot.Bottom - ((value - yMin) / (yMax - yMin) * plot.Height);
 
         DrawTitle(context, PlotOptions.Title, plot);
@@ -262,6 +266,11 @@ public sealed class AnalysisPlotControl : Control
             foreach (var item in visibleSeries.Where(item => item.Series.Kind is not (AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.Raster)))
             {
                 DrawSeries(context, item.Series, item.Series.Points, plot, MapX, MapY, yMin, yMax);
+            }
+
+            if (PlotOptions.ShowPointLabels)
+            {
+                DrawPointLabels(context, visibleSeries, plot, MapX, MapY);
             }
         }
 
@@ -348,6 +357,12 @@ public sealed class AnalysisPlotControl : Control
             lines.Add(sample.Series.Name);
         }
 
+        if (!string.IsNullOrWhiteSpace(sample.Point.Label)
+            && !sample.Point.Label.Equals(sample.Series.Name, StringComparison.Ordinal))
+        {
+            lines.Add(sample.Point.Label);
+        }
+
         lines.Add($"{xLabel}: {FormatTick(sample.Point.X)}");
         lines.Add($"{yLabel}: {FormatTick(sample.Point.Y)}");
         if (sample.Point.Value.HasValue)
@@ -400,7 +415,10 @@ public sealed class AnalysisPlotControl : Control
             context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
 
-            var xText = CreateText(FormatTick(xMin + ((xMax - xMin) * fraction)), 11, TickBrush);
+            var xValue = PlotOptions.ReverseX
+                ? xMax - ((xMax - xMin) * fraction)
+                : xMin + ((xMax - xMin) * fraction);
+            var xText = CreateText(FormatTick(xValue), 11, TickBrush);
             context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
             var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), 11, TickBrush);
             context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
@@ -819,6 +837,35 @@ public sealed class AnalysisPlotControl : Control
         }
     }
 
+    private static void DrawPointLabels(
+        DrawingContext context,
+        IReadOnlyList<(AnalysisSeries Series, AnalysisPoint[] Points)> visibleSeries,
+        Rect plot,
+        Func<double, double> mapX,
+        Func<double, double> mapY)
+    {
+        foreach (var item in visibleSeries.Where(item => item.Series.Kind == AnalysisSeriesKind.Scatter))
+        {
+            var color = Palette[Math.Abs(item.Series.ColorIndex) % Palette.Length];
+            var brush = new SolidColorBrush(Color.FromArgb(220, color.R, color.G, color.B));
+            foreach (var point in item.Points)
+            {
+                if (string.IsNullOrWhiteSpace(point.Label))
+                {
+                    continue;
+                }
+
+                var position = new Point(mapX(point.X) + 3, mapY(point.Y) - 7);
+                if (!plot.Contains(position))
+                {
+                    continue;
+                }
+
+                context.DrawText(CreateText(point.Label, 7.5, brush), position);
+            }
+        }
+    }
+
     private static void DrawTitle(DrawingContext context, string title, Rect plot)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -923,9 +970,16 @@ public sealed class AnalysisPlotControl : Control
         return HasValidViewport(_lastRenderedViewport) ? _lastRenderedViewport : null;
     }
 
-    private static double UnmapX(double value, Rect plot, PlotViewport viewport)
+    private static double UnmapX(
+        double value,
+        Rect plot,
+        PlotViewport viewport,
+        bool reverse)
     {
-        return viewport.XMinimum + (((value - plot.Left) / Math.Max(1, plot.Width)) * viewport.XSpan);
+        var fraction = (value - plot.Left) / Math.Max(1, plot.Width);
+        return reverse
+            ? viewport.XMaximum - (fraction * viewport.XSpan)
+            : viewport.XMinimum + (fraction * viewport.XSpan);
     }
 
     private static double UnmapY(double value, Rect plot, PlotViewport viewport)
