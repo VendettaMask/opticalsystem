@@ -548,7 +548,6 @@ public string BuildAnalysisReport()
                 useExitPupilShape: Bool("UseExitPupilShape", true),
                 surfaceNumber: LeadingInt("SurfaceNumber", -1),
                 displayAs: Text("DisplayAs", "表面"),
-                starData: Text("StarData", "STAR影响开启"),
                 pupilSx: Double("PupilSx", 0),
                 pupilSy: Double("PupilSy", 0),
                 pupilSr: Double("PupilSr", 1),

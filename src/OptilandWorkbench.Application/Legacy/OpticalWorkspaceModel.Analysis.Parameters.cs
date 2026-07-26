@@ -780,11 +780,6 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                         .ToArray()),
                 ChoiceParameter("DisplayAs", "显示为", "表面", new[] { "表面", "等高线" }),
                 BoolParameter("RemoveTilt", "除去倾斜", "false"),
-                ChoiceParameter(
-                    "StarData",
-                    "STAR Data",
-                    "STAR影响开启",
-                    new[] { "STAR影响开启", "忽略STAR数据" }),
                 DoubleParameter("PupilSx", "Sx", "0", -10, 10, 0.01),
                 DoubleParameter("PupilSy", "Sy", "0", -10, 10, 0.01),
                 DoubleParameter("PupilSr", "Sr", "1", 0.000001, 10, 0.01)

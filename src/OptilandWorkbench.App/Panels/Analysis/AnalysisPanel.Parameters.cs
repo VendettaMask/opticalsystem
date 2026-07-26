@@ -306,8 +306,7 @@ private void RebuildParameterPanel()
             "FieldNumber",
             "SurfaceNumber",
             "DisplayAs",
-            "RemoveTilt",
-            "StarData"
+            "RemoveTilt"
         };
         return BuildReferenceStyleSettings(
             descriptors,

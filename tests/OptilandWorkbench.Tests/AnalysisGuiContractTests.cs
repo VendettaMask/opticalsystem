@@ -588,7 +588,6 @@ public sealed class AnalysisGuiContractTests
                 "SurfaceNumber",
                 "DisplayAs",
                 "RemoveTilt",
-                "StarData",
                 "PupilSx",
                 "PupilSy",
                 "PupilSr"

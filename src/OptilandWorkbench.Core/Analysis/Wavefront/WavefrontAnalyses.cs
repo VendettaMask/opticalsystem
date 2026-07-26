@@ -22,7 +22,6 @@ public sealed class WavefrontAnalysis : BaseAnalysis
     private readonly bool _useExitPupilShape;
     private readonly int _surfaceNumber;
     private readonly string _displayAs;
-    private readonly string _starData;
     private readonly double _pupilSx;
     private readonly double _pupilSy;
     private readonly double _pupilSr;
@@ -43,7 +42,6 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         bool useExitPupilShape = true,
         int surfaceNumber = -1,
         string displayAs = "表面",
-        string starData = "STAR影响开启",
         double pupilSx = 0,
         double pupilSy = 0,
         double pupilSr = 1,
@@ -62,7 +60,6 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         _useExitPupilShape = useExitPupilShape;
         _surfaceNumber = surfaceNumber;
         _displayAs = displayAs;
-        _starData = starData;
         _pupilSx = double.IsFinite(pupilSx) ? pupilSx : 0;
         _pupilSy = double.IsFinite(pupilSy) ? pupilSy : 0;
         _pupilSr = double.IsFinite(pupilSr) ? Math.Max(1e-6, pupilSr) : 1;
@@ -152,7 +149,6 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                     ?? _surfaceNumber.ToString(),
             ["DisplayAs"] = _displayAs,
             ["RemoveTilt"] = _removeTilt,
-            ["StarData"] = _starData,
             ["PupilSx"] = _pupilSx,
             ["PupilSy"] = _pupilSy,
             ["PupilSr"] = _pupilSr

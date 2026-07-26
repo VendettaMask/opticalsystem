@@ -448,7 +448,6 @@ public static string DisplayOptimizerMessage(string message)
         ["UseExitPupilShape"] = "使用出瞳形状",
         ["DisplayAs"] = "显示为",
         ["RemoveTilt"] = "除去倾斜",
-        ["StarData"] = "STAR Data",
         ["PupilSx"] = "Sx",
         ["PupilSy"] = "Sy",
         ["PupilSr"] = "Sr",
