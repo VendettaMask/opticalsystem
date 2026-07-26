@@ -137,6 +137,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("像高：毫米", view.SeriesList[0].XAxisLabel);
         Assert.Equal("入射角（度）", view.SeriesList[0].YAxisLabel);
         Assert.Equal("入射角 vs. 像高", view.PlotOptions.Title);
+        Assert.False(view.PlotOptions.ShowHorizontalZeroLine);
+        Assert.True(view.PlotOptions.HideTopAndRightAxes);
         Assert.True(view.PlotOptions.ShowLegend);
         Assert.True(view.PlotOptions.LegendBelow);
     }
@@ -907,7 +909,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("64 x 64", descriptors.Single(item => item.Key == "Sampling").DefaultValue);
         Assert.Equal("128 x 128", descriptors.Single(item => item.Key == "Display").DefaultValue);
         Assert.Equal("所有", descriptors.Single(item => item.Key == "WavelengthNumber").DefaultValue);
-        Assert.Equal("表面", descriptors.Single(item => item.Key == "DisplayAs").DefaultValue);
+        var fftPsfDisplay = descriptors.Single(item => item.Key == "DisplayAs");
+        Assert.Equal("伪彩色", fftPsfDisplay.DefaultValue);
+        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, fftPsfDisplay.Choices);
         Assert.Equal("PSF", connector.CanonicalAnalysisKey("点扩散函数 PSF"));
         Assert.Equal("PSF", connector.CanonicalAnalysisKey("FFT PSF"));
         Assert.Equal("FFT PSF Cross Section", connector.CanonicalAnalysisKey("FFT PSF截面图"));
@@ -937,7 +941,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("32 x 32", huygensPsfDescriptors[0].DefaultValue);
         Assert.Equal("32 x 32", huygensPsfDescriptors[1].DefaultValue);
         Assert.Equal("所有", huygensPsfDescriptors[6].DefaultValue);
-        Assert.Equal("表面", huygensPsfDescriptors[9].DefaultValue);
+        Assert.Equal("伪彩色", huygensPsfDescriptors[9].DefaultValue);
+        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, huygensPsfDescriptors[9].Choices);
 
         var huygensPsf = connector.BuildAnalysisView(
             "惠更斯PSF",
@@ -1153,6 +1158,7 @@ public sealed class AnalysisGuiContractTests
         AssertRow(view, "瞳面采样数", "32");
         AssertRow(view, "网格尺寸", "64");
         AssertRow(view, "波长序号", "0");
+        AssertRow(view, "显示为", "伪彩色");
         Assert.Equal("复色光FFT PSF", view.PlotOptions.Title);
         var series = Assert.Single(view.SeriesList);
         Assert.Equal(AnalysisSeriesKind.Heatmap, series.Kind);

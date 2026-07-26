@@ -26,15 +26,15 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigma, double thicknessSigma, int compensationIterations)
+private Tolerancing BuildDefaultTolerancing(
+        int surfaceNumber,
+        double radiusSigma,
+        double thicknessSigma,
+        int compensationIterations,
+        ToleranceCriterion criterion)
     {
         var tolerancing = CurrentOptic.CreateTolerancing();
-        var baselineRms = new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius;
-        tolerancing.AddOperand(new Operand(
-            "RMS spot radius",
-            baselineRms,
-            1,
-            () => new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius));
+        ConfigureToleranceCriterion(tolerancing, criterion);
 
         var target = GetSurfaceByNumber(surfaceNumber);
         if (Math.Abs(radiusSigma) > 1e-12)
@@ -70,20 +70,20 @@ private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigm
                 new NormalSampler(0, Math.Abs(thicknessSigma))));
         }
 
-        if (compensationIterations > 0 && Surfaces.Count > 0)
+        if (compensationIterations > 0 && Surfaces.Count > 1)
         {
-            var imageSurfaceNumber = Surfaces[^1].Number;
-            var imageThickness = GetSurfaceByNumber(imageSurfaceNumber).Thickness;
+            var imageSpacingSurfaceNumber = Surfaces[^2].Number;
+            var imageSpacing = GetSurfaceByNumber(imageSpacingSurfaceNumber).Thickness;
             tolerancing.AddCompensator(new DelegateVariable(
-                $"表面 {imageSurfaceNumber} 像面厚度补偿",
-                () => GetSurfaceByNumber(imageSurfaceNumber).Thickness,
+                $"表面 {imageSpacingSurfaceNumber} 像面位置补偿",
+                () => GetSurfaceByNumber(imageSpacingSurfaceNumber).Thickness,
                 value =>
                 {
-                    GetSurfaceByNumber(imageSurfaceNumber).Thickness = value;
+                    GetSurfaceByNumber(imageSpacingSurfaceNumber).Thickness = value;
                     CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
                 },
                 0,
-                Math.Max(1, imageThickness + 100),
+                Math.Max(1, imageSpacing + 100),
                 0.5));
         }
 
@@ -95,12 +95,7 @@ private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigm
         ToleranceCriterion criterion)
     {
         var tolerancing = CurrentOptic.CreateTolerancing();
-        var baseline = EvaluateToleranceCriterion(criterion);
-        tolerancing.AddOperand(new Operand(
-            criterion == ToleranceCriterion.RmsWavefront ? "RMS wavefront" : "RMS spot radius",
-            baseline,
-            1,
-            () => EvaluateToleranceCriterion(criterion)));
+        ConfigureToleranceCriterion(tolerancing, criterion);
 
         foreach (var operand in operands.Where(item => item.Enabled))
         {
@@ -123,10 +118,56 @@ private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigm
 
     private double EvaluateToleranceCriterion(ToleranceCriterion criterion)
     {
-        var runner = new AnalysisRunner(CurrentOptic);
+        return EvaluateToleranceCriterion(CreateToleranceCriterionDefinitions(criterion));
+    }
+
+    private void ConfigureToleranceCriterion(Tolerancing tolerancing, ToleranceCriterion criterion)
+    {
+        var definitions = CreateToleranceCriterionDefinitions(criterion)
+            .Where(definition => definition.Enabled && Math.Abs(definition.Weight) > 0)
+            .ToArray();
+        foreach (var definition in definitions)
+        {
+            tolerancing.AddOperand(MeritFunctionCatalog.CreateOperand(CurrentOptic, definition));
+        }
+
+        tolerancing.SetCriterionEvaluator(() => EvaluateToleranceCriterion(definitions));
+    }
+
+    private IReadOnlyList<MeritOperandDefinition> CreateToleranceCriterionDefinitions(
+        ToleranceCriterion criterion)
+    {
         return criterion == ToleranceCriterion.RmsWavefront
-            ? runner.EvaluateWavefront().RmsOpticalPathDifference
-            : runner.EvaluateSpotDiagram().RmsSpotRadius;
+            ? MeritFunctionCatalog.CreateDefaultRmsWavefront(CurrentOptic)
+            : MeritFunctionCatalog.CreateDefaultRmsSpot(CurrentOptic);
+    }
+
+    private double EvaluateToleranceCriterion(
+        IReadOnlyList<MeritOperandDefinition> definitions)
+    {
+        using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
+        var contribution = 0.0;
+        foreach (var definition in definitions)
+        {
+            if (!definition.Enabled || Math.Abs(definition.Weight) <= 0)
+            {
+                continue;
+            }
+
+            var evaluation = MeritFunctionCatalog.Evaluate(CurrentOptic, definition);
+            if (!string.IsNullOrEmpty(evaluation.Error)
+                || !double.IsFinite(evaluation.Value)
+                || !double.IsFinite(evaluation.Contribution))
+            {
+                return double.PositiveInfinity;
+            }
+
+            contribution += evaluation.Contribution;
+        }
+
+        return double.IsFinite(contribution)
+            ? Math.Sqrt(Math.Max(0, contribution))
+            : double.PositiveInfinity;
     }
 
     private IOptimizationVariable CreateToleranceVariable(ToleranceOperandDto operand)
@@ -283,10 +324,10 @@ private Tolerancing BuildDefaultTolerancing(int surfaceNumber, double radiusSigm
             ToleranceOperandKind.Radius => "TRAD",
             ToleranceOperandKind.Thickness => "TTHI",
             ToleranceOperandKind.Conic => "TCON",
-            ToleranceOperandKind.DecenterX => "TEDX",
-            ToleranceOperandKind.DecenterY => "TEDY",
-            ToleranceOperandKind.TiltX => "TETX",
-            ToleranceOperandKind.TiltY => "TETY",
+            ToleranceOperandKind.DecenterX => "TSDX",
+            ToleranceOperandKind.DecenterY => "TSDY",
+            ToleranceOperandKind.TiltX => "TSTX",
+            ToleranceOperandKind.TiltY => "TSTY",
             ToleranceOperandKind.RefractiveIndex => "TIND",
             ToleranceOperandKind.AbbeNumber => "TABB",
             ToleranceOperandKind.Compensator => "COMP",

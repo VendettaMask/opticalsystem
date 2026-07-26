@@ -30,7 +30,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly NumericUpDown _maximum = Number(0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly TextBox _comment = new() { MinWidth = 180 };
     private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前");
-    private readonly NumericUpDown _trials = Number(100, 1, 10_000, 10, 96);
+    private readonly NumericUpDown _trials = Number(1000, 1, 10_000, 100, 96);
     private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1, 104);
     private readonly NumericUpDown _compensationIterations = Number(20, 0, 500, 5, 96);
     private readonly NumericUpDown _yieldLimit = Number(0, 0, 1_000_000, 0.01m, 110);
@@ -173,14 +173,14 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _operandGrid.ItemsSource = _operands;
 
         _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "公差操作数", Binding = new Binding(nameof(TolerancingSensitivityRowDto.Perturbation)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(125) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(125) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(115) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(115) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(140) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(140) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(130) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "Criterion 变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(130) });
 
         _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "试验", Binding = new Binding(nameof(TolerancingTrialRowDto.Trial)), Width = Pixels(72) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前评价", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(140) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后评价", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(140) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前 Criterion", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(150) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后 Criterion", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(150) });
         _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "相对名义变化", Binding = new Binding(nameof(TolerancingTrialRowDto.Degradation)), Width = Pixels(140) });
     }
 
@@ -380,7 +380,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 firstSurface,
                 0,
                 0,
-                IntValue(_trials, 100),
+                IntValue(_trials, 1000),
                 IntValue(_seed, 1234),
                 IntValue(_compensationIterations, 20),
                 rows,
@@ -447,7 +447,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 SchemaVersion: 1,
                 _operands.Select(row => row.ToDto()).ToArray(),
                 _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
-                IntValue(_trials, 100),
+                IntValue(_trials, 1000),
                 IntValue(_seed, 1234),
                 IntValue(_compensationIterations, 20),
                 DoubleValue(_yieldLimit, 0));
@@ -630,10 +630,10 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         ToleranceOperandKind.Radius => "曲率半径",
         ToleranceOperandKind.Thickness => "厚度/间隔",
         ToleranceOperandKind.Conic => "圆锥系数",
-        ToleranceOperandKind.DecenterX => "X 偏心",
-        ToleranceOperandKind.DecenterY => "Y 偏心",
-        ToleranceOperandKind.TiltX => "X 倾斜",
-        ToleranceOperandKind.TiltY => "Y 倾斜",
+        ToleranceOperandKind.DecenterX => "表面 X 偏心",
+        ToleranceOperandKind.DecenterY => "表面 Y 偏心",
+        ToleranceOperandKind.TiltX => "表面 X 倾斜",
+        ToleranceOperandKind.TiltY => "表面 Y 倾斜",
         ToleranceOperandKind.RefractiveIndex => "折射率",
         ToleranceOperandKind.AbbeNumber => "阿贝数",
         ToleranceOperandKind.Compensator => "补偿器",
@@ -760,10 +760,10 @@ public sealed class ToleranceOperandEditorRow
         ToleranceOperandKind.Radius => "TRAD",
         ToleranceOperandKind.Thickness => "TTHI",
         ToleranceOperandKind.Conic => "TCON",
-        ToleranceOperandKind.DecenterX => "TEDX",
-        ToleranceOperandKind.DecenterY => "TEDY",
-        ToleranceOperandKind.TiltX => "TETX",
-        ToleranceOperandKind.TiltY => "TETY",
+        ToleranceOperandKind.DecenterX => "TSDX",
+        ToleranceOperandKind.DecenterY => "TSDY",
+        ToleranceOperandKind.TiltX => "TSTX",
+        ToleranceOperandKind.TiltY => "TSTY",
         ToleranceOperandKind.RefractiveIndex => "TIND",
         ToleranceOperandKind.AbbeNumber => "TABB",
         ToleranceOperandKind.Compensator => "COMP",

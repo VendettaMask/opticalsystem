@@ -9,3 +9,7 @@ These Zemax sequential files are intentionally compact systems for manual UI and
 - `real-image-height-demo.zmx`: Zemax `FTYP 3` fields whose chief rays target local image coordinates.
 
 Open them with **File > Open**. Every catalog glass resolves against the bundled Zemax database; no external AGF installation is required.
+
+The repository-level `Convert-Zemax-Lens.cmd` utility can add a converted
+`.staropt` project here while simultaneously installing the same project and its
+metadata into the packaged **Database > Lens Library** catalog.

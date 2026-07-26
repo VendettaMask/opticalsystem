@@ -439,7 +439,7 @@ public string BuildAnalysisReport()
                 Double("ImageDeltaMicrometers", 0),
                 Double("Rotation", 0),
                 Text("Type", "线性"),
-                Text("DisplayAs", "表面"),
+                Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
                 Bool("Normalized", false)),
             "FFT PSF Cross Section" => new FftPsfCrossSectionAnalysis(
@@ -477,7 +477,7 @@ public string BuildAnalysisReport()
                 LeadingInt("FieldNumber", 1),
                 Double("Rotation", 0),
                 Text("Type", "线性"),
-                Text("DisplayAs", "表面"),
+                Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
                 Bool("Normalized", false),
                 Bool("UseCentroid", false)),

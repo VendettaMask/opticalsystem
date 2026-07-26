@@ -61,14 +61,14 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
 
                 if (settings.IncludeDecenter && surfaceNumber > 0 && surfaceNumber < surfaces.Count - 1)
                 {
-                    AddSymmetric(rows, ToleranceOperandKind.DecenterX, surfaceNumber, settings.DecenterTolerance, settings.Distribution, "元件 X 偏心");
-                    AddSymmetric(rows, ToleranceOperandKind.DecenterY, surfaceNumber, settings.DecenterTolerance, settings.Distribution, "元件 Y 偏心");
+                    AddSymmetric(rows, ToleranceOperandKind.DecenterX, surfaceNumber, settings.DecenterTolerance, settings.Distribution, "表面 X 偏心");
+                    AddSymmetric(rows, ToleranceOperandKind.DecenterY, surfaceNumber, settings.DecenterTolerance, settings.Distribution, "表面 Y 偏心");
                 }
 
                 if (settings.IncludeTilt && surfaceNumber > 0 && surfaceNumber < surfaces.Count - 1)
                 {
-                    AddSymmetric(rows, ToleranceOperandKind.TiltX, surfaceNumber, settings.TiltToleranceDegrees, settings.Distribution, "元件 X 倾斜");
-                    AddSymmetric(rows, ToleranceOperandKind.TiltY, surfaceNumber, settings.TiltToleranceDegrees, settings.Distribution, "元件 Y 倾斜");
+                    AddSymmetric(rows, ToleranceOperandKind.TiltX, surfaceNumber, settings.TiltToleranceDegrees, settings.Distribution, "表面 X 倾斜");
+                    AddSymmetric(rows, ToleranceOperandKind.TiltY, surfaceNumber, settings.TiltToleranceDegrees, settings.Distribution, "表面 Y 倾斜");
                 }
 
                 var isGlass = surface.MaterialAfter.RefractiveIndex(587.6) > 1.0001
@@ -84,17 +84,17 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                 }
             }
 
-            if (settings.IncludeImageCompensator)
+            if (settings.IncludeImageCompensator && surfaces.Count > 1)
             {
                 rows.Add(new ToleranceOperandDto(
                     rows.Count + 1,
                     true,
                     ToleranceOperandKind.Compensator,
-                    surfaces.Count - 1,
+                    surfaces.Count - 2,
                     Math.Min(settings.CompensatorMinimum, settings.CompensatorMaximum),
                     Math.Max(settings.CompensatorMinimum, settings.CompensatorMaximum),
                     settings.Distribution,
-                    "像面焦距补偿"));
+                    "像面位置补偿（像面前间隔）"));
             }
 
             return rows;
@@ -132,6 +132,34 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                 {
                     messages.Add($"第 {operand.Index} 行的公差范围不能同时为零。");
                 }
+
+                if (operand.SurfaceNumber >= 0 && operand.SurfaceNumber < surfaceCount)
+                {
+                    var surface = Connector.CurrentOptic.SurfaceGroup.Items[operand.SurfaceNumber];
+                    if (operand.Kind is ToleranceOperandKind.Thickness or ToleranceOperandKind.Compensator
+                        && surface.Thickness + operand.Minimum < 0)
+                    {
+                        messages.Add($"第 {operand.Index} 行会产生负的厚度/间隔。");
+                    }
+
+                    if (operand.Kind == ToleranceOperandKind.Compensator
+                        && operand.SurfaceNumber >= surfaceCount - 1)
+                    {
+                        messages.Add($"第 {operand.Index} 行的像面补偿器必须作用于像面之前的间隔。");
+                    }
+
+                    if (operand.Kind == ToleranceOperandKind.RefractiveIndex
+                        && surface.MaterialAfter.RefractiveIndex(587.6) + operand.Minimum <= 1)
+                    {
+                        messages.Add($"第 {operand.Index} 行会产生无效的玻璃折射率。");
+                    }
+
+                    if (operand.Kind == ToleranceOperandKind.AbbeNumber
+                        && GlassAbbeNumber(surface) + operand.Minimum <= 0.1)
+                    {
+                        messages.Add($"第 {operand.Index} 行会产生无效的阿贝数。");
+                    }
+                }
             }
 
             foreach (var duplicate in enabled
@@ -143,6 +171,17 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
 
             return new ToleranceValidationResultDto(messages.Count == 0, messages);
         }
+    }
+
+    private static double GlassAbbeNumber(OpticalSurface surface)
+    {
+        return surface.MaterialAfter switch
+        {
+            AbbeMaterial abbe => abbe.Vd,
+            CatalogGlassMaterial { ZemaxData: not null } catalog =>
+                catalog.ZemaxData.ReferenceAbbeNumber,
+            _ => 50
+        };
     }
 
     public Task<TolerancingResultDto> RunAsync(

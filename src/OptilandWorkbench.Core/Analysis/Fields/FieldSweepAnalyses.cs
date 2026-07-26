@@ -346,7 +346,6 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
             series,
             new AnalysisPlotOptions(
                 Title: "入射角 vs. 像高",
-                ShowHorizontalZeroLine: true,
                 XMinimum: 0,
                 XMaximum: maximumImageHeight,
                 YMinimum: -angleLimit,

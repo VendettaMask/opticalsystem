@@ -189,16 +189,30 @@ public sealed class VariableRangePerturbation : IRangePerturbation
 
     private double SampleTruncatedNormal(Random random)
     {
-        var sigma = Math.Max(Math.Abs(Minimum), Math.Abs(Maximum)) / 3.0;
+        const double sigmaSpan = 3.0;
+        var midpoint = (Minimum + Maximum) / 2.0;
+        var sigma = (Maximum - Minimum) / (2.0 * sigmaSpan);
         if (sigma <= 1e-15)
         {
-            return 0;
+            return midpoint;
         }
 
-        var u1 = Math.Max(1e-12, random.NextDouble());
-        var u2 = random.NextDouble();
-        var value = sigma * Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
-        return Math.Clamp(value, Minimum, Maximum);
+        // Zemax-style modified Gaussian: the tolerance interval is centered on
+        // the midpoint and samples outside the configured sigma span are rejected.
+        // Clamping would create artificial point masses at the tolerance limits.
+        for (var attempt = 0; attempt < 10_000; attempt++)
+        {
+            var u1 = Math.Max(1e-12, random.NextDouble());
+            var u2 = random.NextDouble();
+            var value = midpoint
+                + (sigma * Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2));
+            if (value >= Minimum && value <= Maximum)
+            {
+                return value;
+            }
+        }
+
+        return midpoint;
     }
 }
 
@@ -207,6 +221,7 @@ public sealed class Tolerancing
     private readonly List<IPerturbation> _perturbations = new();
     private readonly List<Operand> _operands = new();
     private readonly List<IOptimizationVariable> _compensators = new();
+    private Func<double>? _criterionEvaluator;
 
     public IReadOnlyList<IPerturbation> Perturbations => _perturbations;
 
@@ -220,7 +235,25 @@ public sealed class Tolerancing
 
     public void AddCompensator(IOptimizationVariable variable) => _compensators.Add(variable);
 
+    public void SetCriterionEvaluator(Func<double> evaluator)
+    {
+        _criterionEvaluator = evaluator ?? throw new ArgumentNullException(nameof(evaluator));
+    }
+
     public double Merit() => _operands.Sum(operand => operand.Squared());
+
+    public double Criterion()
+    {
+        try
+        {
+            var value = _criterionEvaluator?.Invoke() ?? Math.Sqrt(Math.Max(0, Merit()));
+            return double.IsFinite(value) ? value : double.PositiveInfinity;
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            return double.PositiveInfinity;
+        }
+    }
 
     public OptimizationProblem CreateCompensationProblem()
     {
@@ -244,7 +277,11 @@ public sealed record SensitivityResult(
     double DeltaMerit,
     double NegativeMerit = double.NaN,
     double PositiveMerit = double.NaN,
-    double WorstMerit = double.NaN);
+    double WorstMerit = double.NaN,
+    double DeltaCriterion = double.NaN,
+    double NegativeCriterion = double.NaN,
+    double PositiveCriterion = double.NaN,
+    double WorstCriterion = double.NaN);
 
 public sealed class SensitivityAnalysis
 {
@@ -268,6 +305,7 @@ public sealed class SensitivityAnalysis
     {
         cancellationToken.ThrowIfCancellationRequested();
         var baseline = _tolerancing.Merit();
+        var baselineCriterion = _tolerancing.Criterion();
         var results = new List<SensitivityResult>();
         foreach (var perturbation in _tolerancing.Perturbations)
         {
@@ -276,13 +314,18 @@ public sealed class SensitivityAnalysis
             {
                 var negative = EvaluateEndpoint(range, useMaximum: false, compensationIterations, cancellationToken);
                 var positive = EvaluateEndpoint(range, useMaximum: true, compensationIterations, cancellationToken);
-                var worst = Math.Max(negative, positive);
+                var worstMerit = Math.Max(negative.Merit, positive.Merit);
+                var worstCriterion = Math.Max(negative.Criterion, positive.Criterion);
                 results.Add(new SensitivityResult(
                     perturbation.Name,
-                    worst - baseline,
-                    negative,
-                    positive,
-                    worst));
+                    worstMerit - baseline,
+                    negative.Merit,
+                    positive.Merit,
+                    worstMerit,
+                    worstCriterion - baselineCriterion,
+                    negative.Criterion,
+                    positive.Criterion,
+                    worstCriterion));
                 continue;
             }
 
@@ -291,8 +334,12 @@ public sealed class SensitivityAnalysis
             {
                 perturbation.Apply(_optic);
                 cancellationToken.ThrowIfCancellationRequested();
-                var perturbed = CompensatedMerit(compensationIterations, cancellationToken);
-                results.Add(new SensitivityResult(perturbation.Name, perturbed - baseline));
+                var perturbed = CompensatedEvaluation(compensationIterations, cancellationToken);
+                results.Add(new SensitivityResult(
+                    perturbation.Name,
+                    perturbed.Merit - baseline,
+                    DeltaCriterion: perturbed.Criterion - baselineCriterion,
+                    WorstCriterion: perturbed.Criterion));
             }
             finally
             {
@@ -308,11 +355,13 @@ public sealed class SensitivityAnalysis
         }
 
         return results
-            .OrderByDescending(result => Math.Abs(result.DeltaMerit))
+            .OrderByDescending(result => double.IsFinite(result.DeltaCriterion)
+                ? Math.Abs(result.DeltaCriterion)
+                : double.PositiveInfinity)
             .ToArray();
     }
 
-    private double EvaluateEndpoint(
+    private ToleranceEvaluation EvaluateEndpoint(
         IRangePerturbation perturbation,
         bool useMaximum,
         int compensationIterations,
@@ -331,7 +380,7 @@ public sealed class SensitivityAnalysis
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            return CompensatedMerit(compensationIterations, cancellationToken);
+            return CompensatedEvaluation(compensationIterations, cancellationToken);
         }
         finally
         {
@@ -346,24 +395,35 @@ public sealed class SensitivityAnalysis
         }
     }
 
-    private double CompensatedMerit(
+    private ToleranceEvaluation CompensatedEvaluation(
         int compensationIterations,
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
         {
-            return _tolerancing.Merit();
+            return new ToleranceEvaluation(_tolerancing.Merit(), _tolerancing.Criterion());
         }
 
         var problem = _tolerancing.CreateCompensationProblem();
-        new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
         cancellationToken.ThrowIfCancellationRequested();
-        return problem.SumSquared();
+        return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
     }
 }
 
-public sealed record TolerancingTrialResult(int Trial, double Merit, double CompensatedMerit);
+internal readonly record struct ToleranceEvaluation(double Merit, double Criterion);
+
+public sealed record TolerancingTrialResult(
+    int Trial,
+    double Merit,
+    double CompensatedMerit,
+    double Criterion = double.NaN,
+    double CompensatedCriterion = double.NaN)
+{
+    public bool IsValid =>
+        double.IsFinite(Criterion) && double.IsFinite(CompensatedCriterion);
+}
 
 public sealed class MonteCarlo
 {
@@ -424,8 +484,18 @@ public sealed class MonteCarlo
 
                 cancellationToken.ThrowIfCancellationRequested();
                 var merit = _tolerancing.Merit();
-                var compensated = CompensatedMerit(compensationIterations, cancellationToken);
-                results.Add(new TolerancingTrialResult(trial, merit, compensated));
+                var criterion = _tolerancing.Criterion();
+                var compensated = CompensatedEvaluation(
+                    compensationIterations,
+                    cancellationToken,
+                    merit,
+                    criterion);
+                results.Add(new TolerancingTrialResult(
+                    trial,
+                    merit,
+                    compensated.Merit,
+                    criterion,
+                    compensated.Criterion));
             }
             finally
             {
@@ -457,19 +527,21 @@ public sealed class MonteCarlo
         perturbation.Apply(_optic);
     }
 
-    private double CompensatedMerit(
+    private ToleranceEvaluation CompensatedEvaluation(
         int compensationIterations,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        double uncompensatedMerit,
+        double uncompensatedCriterion)
     {
         cancellationToken.ThrowIfCancellationRequested();
         if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
         {
-            return _tolerancing.Merit();
+            return new ToleranceEvaluation(uncompensatedMerit, uncompensatedCriterion);
         }
 
         var problem = _tolerancing.CreateCompensationProblem();
-        new OrthogonalDescentOptimizer().Optimize(problem, compensationIterations);
+        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
         cancellationToken.ThrowIfCancellationRequested();
-        return problem.SumSquared();
+        return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
     }
 }

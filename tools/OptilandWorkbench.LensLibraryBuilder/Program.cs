@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Serialization;
@@ -92,45 +93,23 @@ try
         {
             var result = await importer.ImportConfigurationSetFileAsync(item.Path);
             var optic = result.ActiveOptic;
-            var id = $"{SafeName(item.Source.Id)}-{StableSuffix(
-                $"{item.Source.Id}/{Path.GetFileName(item.Path)}")}";
+            var id = LensLibraryCatalogEntryFactory.CreateStableId(
+                item.Source.Id,
+                Path.GetFileName(item.Path));
             var projectPath = Path.Combine(projectsDirectory, $"{id}.staropt");
             await StarOptProjectStore.SaveAsync(
                 new StarOptProjectDocument(result.Configurations, result.ActiveConfigurationIndex),
                 projectPath);
-            var wavelengths = optic.Wavelengths.Select(wavelength => wavelength.Nanometers).ToArray();
-            var maximumField = optic.Fields
-                .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
-                .DefaultIfEmpty(0)
-                .Max();
-            var name = string.IsNullOrWhiteSpace(optic.Name) ||
-                optic.Name.Equals("Imported Zemax ZMX", StringComparison.OrdinalIgnoreCase)
-                    ? Path.GetFileNameWithoutExtension(item.Path)
-                    : optic.Name;
-            entries.Add(new LensLibraryEntryDto(
+            entries.Add(LensLibraryCatalogEntryFactory.Create(
                 id,
-                name,
+                null,
                 item.Source.Category,
                 item.Source.Name,
                 item.Source.SourceUrl,
                 item.Source.License,
-                "ZMX",
-                "可用",
-                null,
-                FiniteOrZero(optic.Paraxial.EstimateEffectiveFocalLength()),
-                FiniteOrZero(optic.Paraxial.EstimateFNumber()),
-                optic.Aperture.Kind.ToString(),
-                FiniteOrZero(optic.Aperture.Value),
-                FiniteOrZero(optic.SurfaceGroup.TotalTrack),
-                optic.SurfaceGroup.Items.Count,
-                optic.FieldDefinition.ToString(),
-                FiniteOrZero(maximumField),
-                optic.Fields.Count,
-                optic.Wavelengths.Count,
-                wavelengths.Length == 0 ? 0 : wavelengths.Min(),
-                wavelengths.Length == 0 ? 0 : wavelengths.Max(),
                 Path.GetRelativePath(stagingDirectory, projectPath),
-                Path.GetFileName(item.Path)));
+                item.Path,
+                optic));
             Console.WriteLine($"Lens: {entries[^1].Category} / {entries[^1].Name}");
         }
         catch (Exception exception)
@@ -267,8 +246,6 @@ static string StableSuffix(string value)
     var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(value));
     return Convert.ToHexString(bytes.AsSpan(0, 6)).ToLowerInvariant();
 }
-
-static double FiniteOrZero(double value) => double.IsFinite(value) ? value : 0;
 
 internal sealed record LensLibraryBuildManifest(
     int Version,

@@ -75,7 +75,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         int fieldNumber = 0,
         double rotationDegrees = 0,
         string type = "线性",
-        string displayAs = "表面",
+        string displayAs = "伪彩色",
         bool usePolarization = false,
         bool normalize = false,
         bool useCentroid = false) : base(optic)

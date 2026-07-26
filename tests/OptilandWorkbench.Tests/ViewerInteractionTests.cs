@@ -97,6 +97,50 @@ public sealed class ViewerInteractionTests
     }
 
     [Fact]
+    public void PsfSurfaceViewRotatesZoomsPansAndResets()
+    {
+        var surface = new WavefrontSurfaceControl
+        {
+            DisplayAs = "表面",
+            RotationDegrees = 10
+        };
+
+        Assert.Equal(45, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(28, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1, surface.ViewZoom, precision: 10);
+
+        surface.RotateView(30, 12);
+        surface.ZoomView(1.8);
+        surface.PanView(new Vector(20, -15));
+
+        Assert.Equal(75, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(40, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1.8, surface.ViewZoom, precision: 10);
+
+        surface.ResetView();
+
+        Assert.Equal(45, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(28, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1, surface.ViewZoom, precision: 10);
+    }
+
+    [Fact]
+    public void ContourBuilderInterpolatesLevelAcrossGridCells()
+    {
+        var values = new double[,]
+        {
+            { 0, 1 },
+            { 0, 1 }
+        };
+
+        var segment = Assert.Single(WavefrontSurfaceControl.BuildContourSegments(values, 0.25));
+
+        Assert.Equal(0.25, segment.Start.X, precision: 10);
+        Assert.Equal(0.25, segment.End.X, precision: 10);
+        Assert.Equal(new[] { 0.0, 1.0 }, new[] { segment.Start.Y, segment.End.Y }.Order());
+    }
+
+    [Fact]
     public void CutawayClipsEveryRaySegmentToTheRetainedHalfSpace()
     {
         var paths = OpticSceneControl.ClipPolylineToCutaway(new[]

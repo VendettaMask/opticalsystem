@@ -541,7 +541,11 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                             : $"{index} - 视场 {index}")
                         .ToArray()),
                 ChoiceParameter("Type", "类型", "线性", new[] { "线性", "对数" }),
-                ChoiceParameter("DisplayAs", "显示为", "表面", new[] { "表面", "等高线" }),
+                ChoiceParameter(
+                    "DisplayAs",
+                    "显示为",
+                    "伪彩色",
+                    new[] { "伪彩色", "等高线", "表面" }),
                 ChoiceParameter(
                     "SurfaceNumber",
                     "表面",
@@ -674,7 +678,11 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                             : $"{index} - 视场 {index}")
                         .ToArray()),
                 ChoiceParameter("Type", "类型", "线性", new[] { "线性", "对数" }),
-                ChoiceParameter("DisplayAs", "显示为", "表面", new[] { "表面", "等高线" }),
+                ChoiceParameter(
+                    "DisplayAs",
+                    "显示为",
+                    "伪彩色",
+                    new[] { "伪彩色", "等高线", "表面" }),
                 BoolParameter("Normalized", "归一化", "false")
             },
             "Huygens PSF Cross Section" => new[]
