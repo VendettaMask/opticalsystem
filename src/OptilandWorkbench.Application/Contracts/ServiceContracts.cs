@@ -119,6 +119,10 @@ public interface IOptimizationService
 
 public interface ITolerancingService
 {
+    IReadOnlyList<ToleranceOperandDto> GenerateWizard(ToleranceWizardSettingsDto settings);
+
+    ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands);
+
     Task<TolerancingResultDto> RunAsync(TolerancingRequestDto request, CancellationToken cancellationToken = default);
 }
 

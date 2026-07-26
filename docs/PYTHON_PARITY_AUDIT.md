@@ -141,12 +141,12 @@ Python optimization includes:
 - many variable types: radius, reciprocal radius, norm radius, thickness, material, index, conic, decenter, tilt, asphere/freeform coefficients, grid sag, NURBS, Torch variables.
 - SciPy and Torch optimizer families, including Glass Expert.
 
-The .NET implementation has the surface-level shape but not equivalent depth:
+The .NET implementation has the surface-level shape but not equivalent optimization depth:
 
 - Variables and operands are basic delegates.
 - Batched ray evaluation is not equivalent.
 - Glass/material categorical optimization is not implemented.
-- Tolerancing exists but does not match Python perturbation/compensator breadth.
+- Tolerancing now has a TDE-style editor and wizard for radius, thickness, conic, decenter, tilt, index, Abbe, and image-distance compensator rows, plus two-sided sensitivity, deterministic Monte Carlo, percentile/yield statistics, and native definition/report export. This workflow is independently tested but is not claimed as a Python golden-parity contract.
 - Multi-configuration is close in intent but incomplete relative to generic property linking and pickup behavior.
 
 Required fix:
@@ -173,7 +173,7 @@ The next implementation order is:
 2. Integrate GRIN propagation with curved-ray intersection and add explicit GRIN golden systems.
 3. Rework visualization toward canonical trace arrays, projection modes, aperture overlays, sag inspection, and higher-performance 3D rendering.
 4. Add vectorial PSF/MTF contracts and any remaining diffraction defaults not covered by FFT, MMDFT, Huygens, sampled, and geometric methods.
-5. Deepen optimization/tolerancing parity with manager-based variables/operands, batched evaluation, material variables, and broader compensators.
+5. Deepen optimization parity with manager-based variables/operands, batched evaluation, categorical material variables, and broader compensator types; add pinned external contracts before making cross-product tolerance parity claims.
 6. Add optional backend-array/GPU/autograd execution without changing the validated managed public contract.
 7. Add broad GUI automation for generated analysis parameters, persistence, detachable layout behavior, file dialogs, edits, themes, and command-palette navigation.
 
@@ -322,7 +322,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added a damped two-dimensional real-image-height solve that varies object angle for infinite conjugates or object coordinates for finite conjugates until the primary-wavelength chief ray reaches the requested local image coordinate.
 - Matched Zemax analysis semantics by converting real image height to angle/object height for distortion and to paraxial image height for image simulation.
 - Unified viewer, analysis, ray generation, legacy tracing, paraxial tracing, wavefront tilt, and aberration estimates on Python's maximum-radial-field normalization.
-- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The repository baseline is `394/394` tests with a zero-warning build as of 2026-07-23.
+- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `462/462` tests with a zero-warning build as of 2026-07-26.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

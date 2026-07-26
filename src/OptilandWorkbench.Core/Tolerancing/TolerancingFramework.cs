@@ -17,6 +17,17 @@ public interface ISampledPerturbation : IPerturbation
     void Apply(Optic optic, Random random);
 }
 
+public interface IRangePerturbation : ISampledPerturbation
+{
+    double Minimum { get; }
+
+    double Maximum { get; }
+
+    void ApplyMinimum(Optic optic);
+
+    void ApplyMaximum(Optic optic);
+}
+
 public sealed class DelegatePerturbation : IPerturbation
 {
     private readonly Action<Optic> _apply;
@@ -123,6 +134,74 @@ public sealed class VariablePerturbation : ISampledPerturbation
     }
 }
 
+public sealed class VariableRangePerturbation : IRangePerturbation
+{
+    private readonly IOptimizationVariable _variable;
+    private readonly bool _normalDistribution;
+    private double _previousValue;
+
+    public VariableRangePerturbation(
+        string name,
+        IOptimizationVariable variable,
+        double minimum,
+        double maximum,
+        bool normalDistribution)
+    {
+        if (!double.IsFinite(minimum) || !double.IsFinite(maximum) || minimum > maximum)
+        {
+            throw new ArgumentOutOfRangeException(nameof(minimum), "Tolerance limits must be finite and ordered.");
+        }
+
+        Name = name;
+        _variable = variable;
+        Minimum = minimum;
+        Maximum = maximum;
+        _normalDistribution = normalDistribution;
+    }
+
+    public string Name { get; }
+
+    public double Minimum { get; }
+
+    public double Maximum { get; }
+
+    public void Apply(Optic optic) => Apply(optic, new Random(1234));
+
+    public void Apply(Optic optic, Random random)
+    {
+        var delta = _normalDistribution
+            ? SampleTruncatedNormal(random)
+            : Minimum + ((Maximum - Minimum) * random.NextDouble());
+        ApplyDelta(delta);
+    }
+
+    public void ApplyMinimum(Optic optic) => ApplyDelta(Minimum);
+
+    public void ApplyMaximum(Optic optic) => ApplyDelta(Maximum);
+
+    public void Revert(Optic optic) => _variable.Value = _previousValue;
+
+    private void ApplyDelta(double delta)
+    {
+        _previousValue = _variable.Value;
+        _variable.Value = _previousValue + delta;
+    }
+
+    private double SampleTruncatedNormal(Random random)
+    {
+        var sigma = Math.Max(Math.Abs(Minimum), Math.Abs(Maximum)) / 3.0;
+        if (sigma <= 1e-15)
+        {
+            return 0;
+        }
+
+        var u1 = Math.Max(1e-12, random.NextDouble());
+        var u2 = random.NextDouble();
+        var value = sigma * Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+        return Math.Clamp(value, Minimum, Maximum);
+    }
+}
+
 public sealed class Tolerancing
 {
     private readonly List<IPerturbation> _perturbations = new();
@@ -160,7 +239,12 @@ public sealed class Tolerancing
     }
 }
 
-public sealed record SensitivityResult(string Perturbation, double DeltaMerit);
+public sealed record SensitivityResult(
+    string Perturbation,
+    double DeltaMerit,
+    double NegativeMerit = double.NaN,
+    double PositiveMerit = double.NaN,
+    double WorstMerit = double.NaN);
 
 public sealed class SensitivityAnalysis
 {
@@ -188,6 +272,20 @@ public sealed class SensitivityAnalysis
         foreach (var perturbation in _tolerancing.Perturbations)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (perturbation is IRangePerturbation range)
+            {
+                var negative = EvaluateEndpoint(range, useMaximum: false, compensationIterations, cancellationToken);
+                var positive = EvaluateEndpoint(range, useMaximum: true, compensationIterations, cancellationToken);
+                var worst = Math.Max(negative, positive);
+                results.Add(new SensitivityResult(
+                    perturbation.Name,
+                    worst - baseline,
+                    negative,
+                    positive,
+                    worst));
+                continue;
+            }
+
             var snapshot = _optic.ToSnapshot();
             try
             {
@@ -212,6 +310,40 @@ public sealed class SensitivityAnalysis
         return results
             .OrderByDescending(result => Math.Abs(result.DeltaMerit))
             .ToArray();
+    }
+
+    private double EvaluateEndpoint(
+        IRangePerturbation perturbation,
+        bool useMaximum,
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        var snapshot = _optic.ToSnapshot();
+        try
+        {
+            if (useMaximum)
+            {
+                perturbation.ApplyMaximum(_optic);
+            }
+            else
+            {
+                perturbation.ApplyMinimum(_optic);
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            return CompensatedMerit(compensationIterations, cancellationToken);
+        }
+        finally
+        {
+            try
+            {
+                perturbation.Revert(_optic);
+            }
+            finally
+            {
+                _optic.ApplySnapshot(snapshot);
+            }
+        }
     }
 
     private double CompensatedMerit(

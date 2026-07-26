@@ -1,5 +1,6 @@
 using System.Numerics;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -9,7 +10,10 @@ public sealed record PsfResult(
     int PupilSampling,
     int GridSize,
     double WorkingFNumber,
-    double SampleSpacingMicrometers)
+    double SampleSpacingMicrometers,
+    double TangentialWorkingFNumber = 0,
+    double SagittalWorkingFNumber = 0,
+    double FrequencySampleCount = 0)
 {
     public double StrehlRatio => Values[GridSize / 2, GridSize / 2] / 100;
 
@@ -20,7 +24,20 @@ public sealed record MtfResult(
     IReadOnlyList<double> Frequency,
     IReadOnlyList<double> Tangential,
     IReadOnlyList<double> Sagittal,
-    double CutoffFrequency);
+    double CutoffFrequency,
+    IReadOnlyList<Complex>? TangentialOtf = null,
+    IReadOnlyList<Complex>? SagittalOtf = null,
+    IReadOnlyList<double>? TangentialFrequency = null,
+    IReadOnlyList<double>? SagittalFrequency = null);
+
+public enum FftMtfDataType
+{
+    Modulation,
+    Real,
+    Imaginary,
+    Phase,
+    SquareWave
+}
 
 public static class DiffractionEngine
 {
@@ -39,12 +56,16 @@ public static class DiffractionEngine
         var frequency = new List<double>();
         var tangential = new List<double>();
         var sagittal = new List<double>();
+        var tangentialOtf = result.TangentialOtf is null ? null : new List<Complex>();
+        var sagittalOtf = result.SagittalOtf is null ? null : new List<Complex>();
         var index = 0;
         while (index < result.Frequency.Count && result.Frequency[index] <= limit)
         {
             frequency.Add(result.Frequency[index]);
             tangential.Add(result.Tangential[index]);
             sagittal.Add(result.Sagittal[index]);
+            tangentialOtf?.Add(result.TangentialOtf![index]);
+            sagittalOtf?.Add(result.SagittalOtf![index]);
             index++;
         }
 
@@ -60,13 +81,19 @@ public static class DiffractionEngine
                 + ((result.Tangential[index] - result.Tangential[index - 1]) * fraction));
             sagittal.Add(result.Sagittal[index - 1]
                 + ((result.Sagittal[index] - result.Sagittal[index - 1]) * fraction));
+            tangentialOtf?.Add(result.TangentialOtf![index - 1]
+                + ((result.TangentialOtf[index] - result.TangentialOtf[index - 1]) * fraction));
+            sagittalOtf?.Add(result.SagittalOtf![index - 1]
+                + ((result.SagittalOtf[index] - result.SagittalOtf[index - 1]) * fraction));
         }
 
         return new MtfResult(
             frequency,
             tangential,
             sagittal,
-            result.CutoffFrequency);
+            result.CutoffFrequency,
+            tangentialOtf,
+            sagittalOtf);
     }
 
     public static PsfResult ComputeFftPsf(
@@ -74,25 +101,52 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         int pupilSampling,
-        int gridSize)
+        int gridSize,
+        bool usePolarization = false,
+        bool cellCenteredPupil = false,
+        double defocusMillimeters = 0,
+        WavefrontResult? preparedWavefront = null,
+        JonesPupilResult? preparedPolarization = null)
     {
         if (gridSize < pupilSampling || !IsPowerOfTwo(gridSize))
         {
             throw new ArgumentException("FFT grid size must be a power of two and at least as large as the pupil sampling.");
         }
 
-        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, pupilSampling);
-        var pupil = new Complex[pupilSampling, pupilSampling];
-        var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
-        var meanIntensity = valid.Select(sample => sample.Intensity).DefaultIfEmpty(0).Average();
-        foreach (var sample in wavefront.Samples)
-        {
-            var column = (int)Math.Round((sample.NormalizedPupilX + 1) / 2 * (pupilSampling - 1));
-            var row = (int)Math.Round((sample.NormalizedPupilY + 1) / 2 * (pupilSampling - 1));
-            var amplitude = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
-            var phase = -2 * Math.PI * sample.OpdWaves;
-            pupil[row, column] = Complex.FromPolarCoordinates(amplitude, phase);
-        }
+        var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayUniform(
+            optic,
+            field,
+            wavelength,
+            pupilSampling,
+            cellCenteredPupil,
+            aimAtStop: cellCenteredPupil);
+        var polarization = usePolarization
+            ? preparedPolarization ?? JonesPupilEngine.Generate(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    useFresnelCoatings: true,
+                    cellCentered: cellCenteredPupil)
+            : null;
+        var fNumber = WorkingFNumber(optic, field, wavelength);
+        var (tangentialFNumber, sagittalFNumber) = cellCenteredPupil
+            ? WorkingFNumbers(
+                optic,
+                field,
+                wavelength,
+                aimAtStop: true,
+                zemaxDirectionalAverage: true)
+            : (fNumber, fNumber);
+        var pupil = BuildComplexPupil(
+            wavefront,
+            polarization,
+            pupilSampling,
+            wavelength,
+            tangentialFNumber,
+            sagittalFNumber,
+            cellCenteredPupil,
+            defocusMillimeters);
 
         var nonzeroCount = pupil.Cast<Complex>().Count(value => value.Magnitude > 0);
         var normalization = Math.Max(1, nonzeroCount * nonzeroCount);
@@ -117,10 +171,400 @@ public static class DiffractionEngine
             }
         }
 
-        var fNumber = WorkingFNumber(optic, field, wavelength);
         var q = gridSize / (double)(pupilSampling - 1);
         var sampleSpacing = wavelength.Micrometers * fNumber / q;
-        return new PsfResult(psf, pupilSampling, gridSize, fNumber, sampleSpacing);
+        return new PsfResult(
+            psf,
+            pupilSampling,
+            gridSize,
+            fNumber,
+            sampleSpacing,
+            cellCenteredPupil ? tangentialFNumber : 0,
+            cellCenteredPupil ? sagittalFNumber : 0,
+            cellCenteredPupil ? pupilSampling : pupilSampling - 1);
+    }
+
+    internal static (Complex Tangential, Complex Sagittal) ComputeFastFftMtfAtFrequency(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int pupilSampling,
+        double spatialFrequency,
+        double defocusMillimeters,
+        bool usePolarization,
+        WavefrontResult preparedWavefront,
+        JonesPupilResult? preparedPolarization = null)
+    {
+        var (tangentialFNumber, sagittalFNumber) = WorkingFNumbers(
+            optic,
+            field,
+            wavelength,
+            aimAtStop: true,
+            zemaxDirectionalAverage: true);
+        var frequencyTangentialFNumber = tangentialFNumber;
+        var frequencySagittalFNumber = sagittalFNumber;
+        var pupil = BuildComplexPupil(
+            preparedWavefront,
+            usePolarization ? preparedPolarization : null,
+            pupilSampling,
+            wavelength,
+            tangentialFNumber,
+            sagittalFNumber,
+            cellCenteredPupil: true,
+            defocusMillimeters);
+        var tangentialCutoff = frequencyTangentialFNumber <= 1e-30
+            ? 0
+            : 1 / (wavelength.Micrometers * 1e-3 * frequencyTangentialFNumber);
+        var sagittalCutoff = frequencySagittalFNumber <= 1e-30
+            ? 0
+            : 1 / (wavelength.Micrometers * 1e-3 * frequencySagittalFNumber);
+        var tangentialShift = tangentialCutoff <= 1e-30
+            ? 2
+            : 2 * spatialFrequency / tangentialCutoff;
+        var sagittalShift = sagittalCutoff <= 1e-30
+            ? 2
+            : 2 * spatialFrequency / sagittalCutoff;
+        if (!usePolarization)
+        {
+            return (
+                SparsePupilAutocorrelation(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    0,
+                    tangentialShift,
+                    defocusMillimeters,
+                    tangentialFNumber,
+                    sagittalFNumber,
+                    preparedWavefront),
+                SparsePupilAutocorrelation(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    sagittalShift,
+                    0,
+                    defocusMillimeters,
+                    tangentialFNumber,
+                    sagittalFNumber,
+                    preparedWavefront));
+        }
+
+        return (
+            PupilAutocorrelation(pupil, 0, tangentialShift),
+            PupilAutocorrelation(pupil, sagittalShift, 0));
+    }
+
+    private static Complex SparsePupilAutocorrelation(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int pupilSampling,
+        double shiftX,
+        double shiftY,
+        double defocusMillimeters,
+        double tangentialFNumber,
+        double sagittalFNumber,
+        WavefrontResult normalizationWavefront)
+    {
+        if (Math.Abs(shiftX) >= 2 || Math.Abs(shiftY) >= 2)
+        {
+            return Complex.Zero;
+        }
+
+        var coordinates = new List<(double X, double Y)>();
+        var integrationWeights = new List<double>();
+        const int boundarySubdivisions = 8;
+        for (var row = 0; row < pupilSampling; row++)
+        {
+            for (var column = 0; column < pupilSampling; column++)
+            {
+                var accepted = 0;
+                var centroidX = 0.0;
+                var centroidY = 0.0;
+                for (var subRow = 0; subRow < boundarySubdivisions; subRow++)
+                {
+                    var subcellY = -1
+                        + (2.0 * (row + ((subRow + 0.5) / boundarySubdivisions))
+                            / pupilSampling);
+                    for (var subColumn = 0; subColumn < boundarySubdivisions; subColumn++)
+                    {
+                        var subcellX = -1
+                            + (2.0 * (column + ((subColumn + 0.5) / boundarySubdivisions))
+                                / pupilSampling);
+                        var leftX = subcellX - (shiftX / 2);
+                        var leftY = subcellY - (shiftY / 2);
+                        var rightX = subcellX + (shiftX / 2);
+                        var rightY = subcellY + (shiftY / 2);
+                        if ((leftX * leftX) + (leftY * leftY) > 1
+                            || (rightX * rightX) + (rightY * rightY) > 1)
+                        {
+                            continue;
+                        }
+
+                        accepted++;
+                        centroidX += subcellX;
+                        centroidY += subcellY;
+                    }
+                }
+
+                if (accepted == 0)
+                {
+                    continue;
+                }
+
+                var x = centroidX / accepted;
+                var y = centroidY / accepted;
+                coordinates.Add((x - (shiftX / 2), y - (shiftY / 2)));
+                coordinates.Add((x + (shiftX / 2), y + (shiftY / 2)));
+                integrationWeights.Add(accepted / (double)(boundarySubdivisions * boundarySubdivisions));
+            }
+        }
+
+        if (coordinates.Count == 0)
+        {
+            return Complex.Zero;
+        }
+
+        var pairWavefront = GenerateDefocusedWavefront(
+            optic,
+            field,
+            wavelength,
+            coordinates,
+            defocusMillimeters);
+        var normalizationSamples = normalizationWavefront.Samples
+            .Where(sample => sample.Intensity > 0)
+            .ToArray();
+        var meanNormalizationIntensity = normalizationSamples
+            .Select(sample => sample.Intensity)
+            .DefaultIfEmpty(0)
+            .Average();
+        var normalization = meanNormalizationIntensity * Math.PI * pupilSampling * pupilSampling / 4;
+        if (normalization <= 1e-30)
+        {
+            return Complex.Zero;
+        }
+
+        var sum = Complex.Zero;
+        for (var index = 0; index < pairWavefront.Samples.Count; index += 2)
+        {
+            var left = pairWavefront.Samples[index];
+            var right = pairWavefront.Samples[index + 1];
+            var leftValue = PupilValue(
+                left,
+                wavelength,
+                0,
+                pairWavefront.ChiefImageDirectionZ,
+                pairWavefront.ImageRefractiveIndex);
+            var rightValue = PupilValue(
+                right,
+                wavelength,
+                0,
+                pairWavefront.ChiefImageDirectionZ,
+                pairWavefront.ImageRefractiveIndex);
+            sum += integrationWeights[index / 2]
+                * rightValue
+                * Complex.Conjugate(leftValue);
+        }
+
+        return sum / normalization;
+    }
+
+    public static WavefrontResult GenerateDefocusedWavefront(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        IReadOnlyList<(double X, double Y)> coordinates,
+        double defocusMillimeters)
+    {
+        if (Math.Abs(defocusMillimeters) <= 1e-30)
+        {
+            return WavefrontEngine.GenerateChiefRaySamples(
+                optic,
+                field,
+                wavelength,
+                coordinates,
+                aimAtStop: true);
+        }
+
+        lock (optic)
+        {
+            var surfaces = optic.SurfaceGroup.Items;
+            if (surfaces.Count < 2)
+            {
+                return WavefrontEngine.GenerateChiefRaySamples(
+                    optic,
+                    field,
+                    wavelength,
+                    coordinates,
+                    aimAtStop: true);
+            }
+
+            var previous = surfaces[^2];
+            var image = surfaces[^1];
+            (double X, double Y)? nominalRealImageLaunch = null;
+            if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
+            {
+                var target = FieldCoordinates.Denormalize(
+                    optic.Fields,
+                    field.Hx,
+                    field.Hy);
+                nominalRealImageLaunch = optic.SequentialRayTracer.RayGenerator
+                    .ResolveRealImageFieldCoordinates(
+                        target.X,
+                        target.Y,
+                        aimAtStop: true);
+            }
+
+            var originalThickness = previous.Thickness;
+            var originalCoordinate = image.CoordinateSystem;
+            var shift = previous.CoordinateSystem.ToGlobalDirection(
+                new Vector3D(0, 0, defocusMillimeters));
+            previous.Thickness = originalThickness + defocusMillimeters;
+            image.CoordinateSystem = new CoordinateSystem(
+                originalCoordinate.Origin + shift,
+                originalCoordinate.RotationXDegrees,
+                originalCoordinate.RotationYDegrees,
+                originalCoordinate.RotationZDegrees);
+            try
+            {
+                return WavefrontEngine.GenerateChiefRaySamples(
+                    optic,
+                    field,
+                    wavelength,
+                    coordinates,
+                    aimAtStop: true,
+                    nominalRealImageLaunch);
+            }
+            finally
+            {
+                previous.Thickness = originalThickness;
+                image.CoordinateSystem = originalCoordinate;
+            }
+        }
+    }
+
+    private static Complex PupilValue(
+        WavefrontSample sample,
+        Wavelength wavelength,
+        double defocusMillimeters,
+        double chiefImageDirectionZ,
+        double imageRefractiveIndex)
+    {
+        if (sample.Intensity <= 0)
+        {
+            return Complex.Zero;
+        }
+
+        var defocusOpdWaves = Math.Abs(defocusMillimeters) <= 1e-30
+            ? 0
+            : imageRefractiveIndex * defocusMillimeters
+                * (chiefImageDirectionZ - sample.ImageDirectionZ)
+                / (wavelength.Micrometers * 1e-3);
+        return Complex.FromPolarCoordinates(
+            Math.Sqrt(sample.Intensity),
+            -2 * Math.PI * (sample.OpdWaves + defocusOpdWaves));
+    }
+
+    private static Complex[,] BuildComplexPupil(
+        WavefrontResult wavefront,
+        JonesPupilResult? polarization,
+        int pupilSampling,
+        Wavelength wavelength,
+        double tangentialFNumber,
+        double sagittalFNumber,
+        bool cellCenteredPupil,
+        double defocusMillimeters)
+    {
+        var pupil = new Complex[pupilSampling, pupilSampling];
+        var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
+        var meanIntensity = valid.Select(sample => sample.Intensity).DefaultIfEmpty(0).Average();
+        foreach (var sample in wavefront.Samples)
+        {
+            var column = (int)Math.Round((sample.NormalizedPupilX + 1) / 2 * (pupilSampling - 1));
+            var row = (int)Math.Round((sample.NormalizedPupilY + 1) / 2 * (pupilSampling - 1));
+            var relativeIntensity = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
+            if (polarization is not null)
+            {
+                var jones = polarization.Samples[(row * pupilSampling) + column];
+                relativeIntensity *= jones.IsValid
+                    ? (jones.Jxx.Magnitude * jones.Jxx.Magnitude
+                        + (jones.Jxy.Magnitude * jones.Jxy.Magnitude)
+                        + (jones.Jyx.Magnitude * jones.Jyx.Magnitude)
+                        + (jones.Jyy.Magnitude * jones.Jyy.Magnitude)) / 2
+                    : 0;
+            }
+
+            var amplitude = cellCenteredPupil
+                ? Math.Sqrt(Math.Max(0, relativeIntensity))
+                : Math.Max(0, relativeIntensity);
+            var defocusOpdWaves = Math.Abs(defocusMillimeters) <= 1e-30
+                ? 0
+                : wavefront.ImageRefractiveIndex * defocusMillimeters
+                    * (wavefront.ChiefImageDirectionZ - sample.ImageDirectionZ)
+                    / (wavelength.Micrometers * 1e-3);
+            var phase = -2 * Math.PI * (sample.OpdWaves + defocusOpdWaves);
+            pupil[row, column] = Complex.FromPolarCoordinates(amplitude, phase);
+        }
+
+        return pupil;
+    }
+
+    private static Complex PupilAutocorrelation(
+        Complex[,] pupil,
+        double shiftX,
+        double shiftY)
+    {
+        var size = pupil.GetLength(0);
+        var normalization = pupil.Cast<Complex>()
+            .Sum(value => value.Magnitude * value.Magnitude);
+        if (normalization <= 1e-30 || Math.Abs(shiftX) >= 2 || Math.Abs(shiftY) >= 2)
+        {
+            return Complex.Zero;
+        }
+
+        var sum = Complex.Zero;
+        for (var row = 0; row < size; row++)
+        {
+            var y = -1 + ((2.0 * row + 1) / size);
+            for (var column = 0; column < size; column++)
+            {
+                var x = -1 + ((2.0 * column + 1) / size);
+                var left = BilinearPupilSample(
+                    pupil,
+                    x - (shiftX / 2),
+                    y - (shiftY / 2));
+                var right = BilinearPupilSample(
+                    pupil,
+                    x + (shiftX / 2),
+                    y + (shiftY / 2));
+                sum += right * Complex.Conjugate(left);
+            }
+        }
+
+        return sum / normalization;
+    }
+
+    private static Complex BilinearPupilSample(Complex[,] pupil, double x, double y)
+    {
+        var size = pupil.GetLength(0);
+        var column = (((x + 1) * size) - 1) / 2;
+        var row = (((y + 1) * size) - 1) / 2;
+        if (column < 0 || row < 0 || column > size - 1 || row > size - 1)
+        {
+            return Complex.Zero;
+        }
+
+        var left = (int)Math.Floor(column);
+        var top = (int)Math.Floor(row);
+        var right = Math.Min(size - 1, left + 1);
+        var bottom = Math.Min(size - 1, top + 1);
+        var fx = column - left;
+        var fy = row - top;
+        var upper = (pupil[top, left] * (1 - fx)) + (pupil[top, right] * fx);
+        var lower = (pupil[bottom, left] * (1 - fx)) + (pupil[bottom, right] * fx);
+        return (upper * (1 - fy)) + (lower * fy);
     }
 
     public static MtfResult ComputeFftMtf(
@@ -140,21 +584,48 @@ public static class DiffractionEngine
         Fft2D(complex);
         var shifted = FftShift(complex);
         var center = psf.GridSize / 2;
-        var tangential = Enumerable.Range(center, psf.GridSize - center)
-            .Select(row => shifted[row, center].Magnitude)
+        var dc = shifted[center, center];
+        var normalization = dc.Magnitude <= 1e-30 ? Complex.One : dc;
+        var tangentialOtf = Enumerable.Range(center, psf.GridSize - center)
+            .Select(row => shifted[row, center] / normalization)
             .ToArray();
-        var sagittal = Enumerable.Range(center, psf.GridSize - center)
-            .Select(column => shifted[center, column].Magnitude)
+        var sagittalOtf = Enumerable.Range(center, psf.GridSize - center)
+            .Select(column => shifted[center, column] / normalization)
             .ToArray();
-        var tangentMaximum = tangential.DefaultIfEmpty(1).Max();
-        var sagittalMaximum = sagittal.DefaultIfEmpty(1).Max();
-        tangential = tangential.Select(value => value / Math.Max(1e-30, tangentMaximum)).ToArray();
-        sagittal = sagittal.Select(value => value / Math.Max(1e-30, sagittalMaximum)).ToArray();
-        var frequencyFNumber = WorkingFNumber(optic, (0, 0), wavelength);
-        var frequencyStep = 1 / ((psf.PupilSampling - 1) * wavelength.Micrometers * 1e-3 * frequencyFNumber);
-        var frequency = Enumerable.Range(0, tangential.Length).Select(index => index * frequencyStep).ToArray();
-        var cutoff = 1 / (wavelength.Micrometers * 1e-3 * frequencyFNumber);
-        return new MtfResult(frequency, tangential, sagittal, cutoff);
+        var tangential = tangentialOtf.Select(value => value.Magnitude).ToArray();
+        var sagittal = sagittalOtf.Select(value => value.Magnitude).ToArray();
+        var sampleCount = psf.FrequencySampleCount > 0
+            ? psf.FrequencySampleCount
+            : psf.PupilSampling - 1;
+        var legacyFNumber = WorkingFNumber(optic, (0, 0), wavelength);
+        var tangentialFNumber = psf.TangentialWorkingFNumber > 0
+            ? psf.TangentialWorkingFNumber
+            : legacyFNumber;
+        var sagittalFNumber = psf.SagittalWorkingFNumber > 0
+            ? psf.SagittalWorkingFNumber
+            : legacyFNumber;
+        var tangentialStep = 1
+            / (sampleCount * wavelength.Micrometers * 1e-3 * tangentialFNumber);
+        var sagittalStep = 1
+            / (sampleCount * wavelength.Micrometers * 1e-3 * sagittalFNumber);
+        var tangentialFrequency = Enumerable.Range(0, tangential.Length)
+            .Select(index => index * tangentialStep)
+            .ToArray();
+        var sagittalFrequency = Enumerable.Range(0, sagittal.Length)
+            .Select(index => index * sagittalStep)
+            .ToArray();
+        var cutoff = Math.Min(
+            1 / (wavelength.Micrometers * 1e-3 * tangentialFNumber),
+            1 / (wavelength.Micrometers * 1e-3 * sagittalFNumber));
+        return new MtfResult(
+            tangentialFrequency,
+            tangential,
+            sagittal,
+            cutoff,
+            tangentialOtf,
+            sagittalOtf,
+            tangentialFrequency,
+            sagittalFrequency);
     }
 
     public static PsfResult ComputeMmdftPsf(
@@ -230,7 +701,8 @@ public static class DiffractionEngine
         Wavelength wavelength,
         int numRays,
         int imageSize,
-        double pixelPitchMillimeters)
+        double pixelPitchMillimeters,
+        bool usePolarization = false)
     {
         if (numRays < 2)
         {
@@ -248,17 +720,40 @@ public static class DiffractionEngine
         }
 
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays);
+        var polarization = usePolarization
+            ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true)
+            : null;
         var imageCoordinates = CreateHuygensImageCoordinates(optic, field, wavelength, imageSize, pixelPitchMillimeters);
-        var raw = HuygensSummation(imageCoordinates, wavefront, wavelength, idealOpd: false);
+        var raw = HuygensSummation(
+            imageCoordinates,
+            wavefront,
+            wavelength,
+            idealOpd: false,
+            polarization);
         var normalizationWavefront = field.Hx == 0 && field.Hy == 0
             ? wavefront
             : WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wavelength, numRays);
+        var normalizationPolarization = !usePolarization
+            ? null
+            : field.Hx == 0 && field.Hy == 0
+                ? polarization
+                : JonesPupilEngine.Generate(
+                    optic,
+                    (0, 0),
+                    wavelength,
+                    numRays,
+                    useFresnelCoatings: true);
         var imageZ = optic.SurfaceGroup.Items.LastOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
         var normalizationPoint = new[,]
         {
             { new Vector3D(0, 0, imageZ) }
         };
-        var normalization = HuygensSummation(normalizationPoint, normalizationWavefront, wavelength, idealOpd: true)[0, 0];
+        var normalization = HuygensSummation(
+            normalizationPoint,
+            normalizationWavefront,
+            wavelength,
+            idealOpd: true,
+            normalizationPolarization)[0, 0];
         normalization = Math.Max(1e-300, normalization);
 
         var psf = new double[imageSize, imageSize];
@@ -311,25 +806,56 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength)
     {
+        var axes = WorkingFNumbers(optic, field, wavelength);
+        var inverseSquared = (1 / (axes.Tangential * axes.Tangential)
+            + (1 / (axes.Sagittal * axes.Sagittal))) / 2;
+        return inverseSquared <= 0 ? 10000 : Math.Min(10000, 1 / Math.Sqrt(inverseSquared));
+    }
+
+    public static (double Tangential, double Sagittal) WorkingFNumbers(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        bool aimAtStop = false,
+        bool zemaxDirectionalAverage = false)
+    {
         var pupil = new[] { (0.0, 0.0), (0.0, 1.0), (0.0, -1.0), (1.0, 0.0), (-1.0, 0.0) };
         var directions = pupil.Select(item =>
         {
-            var history = optic.TraceGeneric(field.Hx, field.Hy, item.Item1, item.Item2, wavelength.Micrometers).RayHistories.Single();
+            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx,
+                field.Hy,
+                item.Item1,
+                item.Item2,
+                wavelength.Micrometers,
+                aimAtStop);
+            var history = optic.SequentialRayTracer.Trace(bundle).RayHistories.Single();
             return history[^1].Direction;
         }).ToArray();
         var chief = directions[0];
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
-        var averageNaSquared = directions.Skip(1).Average(direction =>
+        double DirectionalFNumber(IEnumerable<Vector3D> marginalDirections)
         {
-            var dot = Math.Clamp(
-                (chief.X * direction.X) + (chief.Y * direction.Y) + (chief.Z * direction.Z),
-                -1,
-                1);
-            var angle = Math.Acos(dot);
-            var numericalAperture = imageIndex * Math.Sin(angle);
-            return numericalAperture * numericalAperture;
-        });
-        return averageNaSquared <= 0 ? 10000 : Math.Min(10000, 1 / (2 * Math.Sqrt(averageNaSquared)));
+            var numericalApertures = marginalDirections.Select(direction =>
+            {
+                var dot = Math.Clamp(
+                    (chief.X * direction.X) + (chief.Y * direction.Y) + (chief.Z * direction.Z),
+                    -1,
+                    1);
+                var angle = Math.Acos(dot);
+                return imageIndex * Math.Sin(angle);
+            }).ToArray();
+            var equivalentNumericalAperture = zemaxDirectionalAverage
+                ? numericalApertures.Average()
+                : Math.Sqrt(numericalApertures.Average(value => value * value));
+            return equivalentNumericalAperture <= 0
+                ? 10000
+                : Math.Min(10000, 1 / (2 * equivalentNumericalAperture));
+        }
+
+        return (
+            DirectionalFNumber(directions.Skip(1).Take(2)),
+            DirectionalFNumber(directions.Skip(3).Take(2)));
     }
 
     private static void Fft2D(Complex[,] data)
@@ -472,7 +998,8 @@ public static class DiffractionEngine
         Vector3D[,] imageCoordinates,
         WavefrontResult wavefront,
         Wavelength wavelength,
-        bool idealOpd)
+        bool idealOpd,
+        JonesPupilResult? polarization = null)
     {
         var rows = imageCoordinates.GetLength(0);
         var columns = imageCoordinates.GetLength(1);
@@ -480,6 +1007,11 @@ public static class DiffractionEngine
         var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
         var k = 2 * Math.PI / wavelengthMillimeters;
         var radius = wavefront.Radius;
+        var polarizationByPupil = polarization?.Samples.ToDictionary(
+            sample => (
+                X: (long)Math.Round(sample.Px * 1_000_000_000),
+                Y: (long)Math.Round(sample.Py * 1_000_000_000)),
+            PolarizationAmplitude);
         foreach (var row in Enumerable.Range(0, rows))
         {
             for (var column = 0; column < columns; column++)
@@ -500,7 +1032,10 @@ public static class DiffractionEngine
                     var obliquity = 0.5 * (1 + (Dot(delta, pupil / radius) / distance));
                     var opd = idealOpd ? 0 : sample.OpdWaves * wavelengthMillimeters;
                     var pupilPhase = Complex.FromPolarCoordinates(1, -k * opd);
-                    field += sample.Intensity * pupilPhase * wave * obliquity;
+                    var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
+                        (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
+                        (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;
+                    field += sample.Intensity * polarizationAmplitude * pupilPhase * wave * obliquity;
                 }
 
                 psf[row, column] = field.Magnitude * field.Magnitude;
@@ -508,6 +1043,21 @@ public static class DiffractionEngine
         }
 
         return psf;
+
+        static double PolarizationAmplitude(JonesPupilSample sample)
+        {
+            if (!sample.IsValid)
+            {
+                return 0;
+            }
+
+            var power = (
+                (sample.Jxx.Magnitude * sample.Jxx.Magnitude)
+                + (sample.Jxy.Magnitude * sample.Jxy.Magnitude)
+                + (sample.Jyx.Magnitude * sample.Jyx.Magnitude)
+                + (sample.Jyy.Magnitude * sample.Jyy.Magnitude)) / 2;
+            return Math.Sqrt(Math.Max(0, power));
+        }
     }
 
     private static double Linspace(double start, double end, int count, int index)

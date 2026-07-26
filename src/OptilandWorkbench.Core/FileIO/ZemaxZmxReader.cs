@@ -38,6 +38,20 @@ internal static class ZemaxZmxReader
         var optic = new Optic(document.Name);
         var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
+        InstallConvertedSurfaces(optic, converted);
+
+        ConfigureAperture(optic, document, configurationIndex);
+        ConfigureFields(optic, document, configurationIndex);
+        ConfigureWavelengths(optic, document, configurationIndex);
+        ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
+        ConfigureMeritFunction(optic, document);
+        return optic;
+    }
+
+    private static void InstallConvertedSurfaces(
+        Optic optic,
+        IReadOnlyList<ConvertedSurface> converted)
+    {
         optic.SurfaceGroup.Replace(converted.Select(item => item.Surface), syncComposition: false);
         foreach (var item in converted)
         {
@@ -48,12 +62,6 @@ internal static class ZemaxZmxReader
             surface.InteractionModel = new RefractiveReflectiveInteractionModel(item.IsReflective);
             surface.CoordinateSystem = item.CoordinateSystem;
         }
-
-        ConfigureAperture(optic, document, configurationIndex);
-        ConfigureFields(optic, document, configurationIndex);
-        ConfigureWavelengths(optic, document, configurationIndex);
-        ConfigureMeritFunction(optic, document);
-        return optic;
     }
 
     public static string Decode(ReadOnlySpan<byte> bytes)
@@ -274,6 +282,11 @@ internal static class ZemaxZmxReader
                 case "DISZ":
                     RequireSurface(current, command).Thickness = RequiredDistance(tokens, 1, command);
                     break;
+                case "MAZH":
+                    RequireSurface(current, command).MarginalRayHeightSolve = new ZemaxMarginalRayHeightSolve(
+                        RequiredDouble(tokens, 1, command),
+                        tokens.Length > 2 ? RequiredDouble(tokens, 2, command) : 0);
+                    break;
                 case "CONI":
                     RequireSurface(current, command).Conic = RequiredDouble(tokens, 1, command);
                     break;
@@ -365,6 +378,7 @@ internal static class ZemaxZmxReader
                     : source.IsStop,
                 IsMirror = source.IsMirror || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
             };
+            configured.MarginalRayHeightSolve = source.MarginalRayHeightSolve;
             foreach (var parameter in source.Parameters)
             {
                 configured.Parameters[parameter.Key] = parameter.Value;
@@ -610,8 +624,6 @@ internal static class ZemaxZmxReader
                 document.FieldComments.GetValueOrDefault(index + 1, string.Empty)))
             .GroupBy(field => (field.X, field.Y))
             .Select(group => group.First())
-            .OrderBy(field => field.Y)
-            .ThenBy(field => field.X)
             .ToArray();
 
         for (var index = 0; index < fields.Length; index++)
@@ -676,6 +688,78 @@ internal static class ZemaxZmxReader
                     configurationIndex) ?? wavelengths[index].Weight,
                 IsPrimary = index == primary
             });
+        }
+    }
+
+    private static void ApplyThicknessSolves(
+        Optic optic,
+        IReadOnlyList<ZemaxSurface> configuredSurfaces,
+        IReadOnlyList<string> glassCatalogs)
+    {
+        var physicalSurfaces = configuredSurfaces
+            .Where(surface => surface.Type != "COORDBRK")
+            .ToArray();
+        var wavelength = (optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? optic.Wavelengths.FirstOrDefault())?.Micrometers ?? 0.5875618;
+
+        for (var surfaceIndex = 0; surfaceIndex < physicalSurfaces.Length - 1; surfaceIndex++)
+        {
+            var source = physicalSurfaces[surfaceIndex];
+            var solve = source.MarginalRayHeightSolve;
+            if (solve is null)
+            {
+                continue;
+            }
+
+            double height;
+            double slope;
+            if (Math.Abs(solve.PupilZone) <= 1e-15)
+            {
+                var marginal = optic.Paraxial.MarginalRay(wavelength);
+                height = marginal.Heights[surfaceIndex][0];
+                slope = marginal.Slopes[surfaceIndex][0];
+            }
+            else
+            {
+                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                    0,
+                    0,
+                    0,
+                    solve.PupilZone,
+                    wavelength,
+                    aimAtStop: true);
+                var history = optic.SequentialRayTracer.Trace(bundle).RayHistories.Single();
+                if (surfaceIndex >= history.Count)
+                {
+                    throw new InvalidDataException(
+                        $"Zemax MAZH solve on surface {source.Number} could not trace its pupil-zone ray.");
+                }
+
+                var sample = history[surfaceIndex];
+                var localPosition = optic.SurfaceGroup.Items[surfaceIndex]
+                    .CoordinateSystem.ToLocalPoint(sample.Position);
+                var localDirection = optic.SurfaceGroup.Items[surfaceIndex]
+                    .CoordinateSystem.ToLocalDirection(sample.Direction);
+                height = localPosition.Y;
+                slope = localDirection.Y / Math.Max(1e-30, localDirection.Z);
+            }
+
+            if (!double.IsFinite(slope) || Math.Abs(slope) <= 1e-15)
+            {
+                throw new InvalidDataException(
+                    $"Zemax MAZH solve on surface {source.Number} has zero marginal-ray slope.");
+            }
+
+            var solvedThickness = (solve.Height - height) / slope;
+            if (!double.IsFinite(solvedThickness))
+            {
+                throw new InvalidDataException(
+                    $"Zemax MAZH solve on surface {source.Number} produced a non-finite thickness.");
+            }
+
+            source.Thickness = solvedThickness;
+            var converted = ConvertSurfaces(optic, configuredSurfaces, glassCatalogs);
+            InstallConvertedSurfaces(optic, converted);
         }
     }
 
@@ -1122,12 +1206,14 @@ internal static class ZemaxZmxReader
         public double? SemiDiameter { get; set; }
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
+        public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();
 
         public double Parameter(int index) => Parameters.GetValueOrDefault(index);
     }
 
     private sealed record ZemaxAperture(string Key, ApertureKind Kind, double Value);
+    private sealed record ZemaxMarginalRayHeightSolve(double Height, double PupilZone);
     private sealed record ZemaxWavelength(int Index, double Micrometers, double Weight);
     private sealed record ZemaxConfigurationOperand(
         string Command,

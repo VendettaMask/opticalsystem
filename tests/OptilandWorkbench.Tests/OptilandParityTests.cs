@@ -680,8 +680,11 @@ public sealed class OptilandParityTests
         var optic = Optic.CreateDemo();
 
         Assert.Contains("PSF", optic.Analyses.Names);
+        Assert.Contains("FFT PSF Cross Section", optic.Analyses.Names);
+        Assert.Contains("FFT Line Edge Spread", optic.Analyses.Names);
         Assert.DoesNotContain("MMDFT PSF", optic.Analyses.Names);
         Assert.Contains("Huygens PSF", optic.Analyses.Names);
+        Assert.Contains("Huygens PSF Cross Section", optic.Analyses.Names);
         Assert.Contains("MTF", optic.Analyses.Names);
         Assert.Contains("Huygens MTF", optic.Analyses.Names);
         Assert.Contains("Geometric MTF", optic.Analyses.Names);
@@ -691,13 +694,22 @@ public sealed class OptilandParityTests
         Assert.Contains("Fourier MTF vs Field", optic.Analyses.Names);
         Assert.Contains("Huygens MTF vs Field", optic.Analyses.Names);
         Assert.Contains("Geometric MTF vs Field", optic.Analyses.Names);
+        Assert.Contains("Optical Path Difference", optic.Analyses.Names);
+        Assert.Contains("Foucault Analysis", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
         Assert.Contains("Centroid Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Best Fit Sphere Wavefront", optic.Analyses.Names);
         Assert.Contains("Relative Illumination", optic.Analyses.Names);
         Assert.Contains("Footprint Diagram", optic.Analyses.Names);
+        Assert.Contains("Single Ray Trace", optic.Analyses.Names);
         Assert.DoesNotContain("Best Fit Ray Fan", optic.Analyses.Names);
-        Assert.Equal(38, optic.Analyses.Names.Count);
+        Assert.Contains("Seidel Coefficients", optic.Analyses.Names);
+        Assert.Contains("Seidel Diagram", optic.Analyses.Names);
+        Assert.Contains("Color Focus Shift", optic.Analyses.Names);
+        Assert.Contains("Lateral Color", optic.Analyses.Names);
+        Assert.Contains("Axial Aberration", optic.Analyses.Names);
+        Assert.Contains("Full Field Aberration", optic.Analyses.Names);
+        Assert.Equal(56, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 
@@ -718,7 +730,7 @@ public sealed class OptilandParityTests
             optic,
             method,
             spatialFrequency: 10,
-            focusStep: 0.05,
+            deltaFocus: 0.05,
             focusPlaneCount: 3,
             settings).GenerateData();
         var versusField = new MtfVsFieldAnalysis(

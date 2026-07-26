@@ -116,22 +116,26 @@ Tolerancing reuses optimization variables and operands through:
 `OptilandWorkbench.Application` has no Avalonia or Dock dependency. It owns the active Core model and exposes only interfaces and immutable DTOs:
 
 ```text
-IWorkbenchApplication
-  IOpticalDocumentService
-  IPrescriptionService
-  IAnalysisService
-  IVisualizationService
-  IOptimizationService
-  ITolerancingService
-  IMultiConfigurationService
-  IWorkspaceEventStream
-    Optic context
-      Core Optic
+WorkbenchApplication (composition and lifecycle root)
+  WorkspaceCoordinator
+    revision, mutation, cancellation, and event policies
+    OpticContext
+      OpticalWorkspaceModel
+        Core Optic
+  OpticalDocumentService
+  PrescriptionService
+  AnalysisService
+  VisualizationService
+  OptimizationService
+  TolerancingService
+  MultiConfigurationService
+  MaterialCatalogService
+  LensLibraryService
 ```
 
-The application context serializes mutations, captures undo snapshots, increments a monotonic model revision, and publishes one categorized event per command. Analysis and visualization run against Core snapshots rather than the live model. Public App-facing APIs are checked by architecture tests so Core types cannot leak back into Avalonia.
+`WorkbenchApplication` only constructs and exposes the independent services. `WorkspaceCoordinator` serializes mutations, controls document-lifetime cancellation, increments a monotonic model revision, and publishes one categorized event per command. Analysis and visualization run against Core snapshots rather than the live model. Public App-facing APIs are checked by architecture tests so Core types cannot leak back into Avalonia.
 
-The former large connector remains an internal compatibility adapter in the Application project while its responsibilities are progressively split behind these services. Chinese names, icons, formatting, controls, and other presentation choices remain in the App layer.
+The former large connector implementation is split by responsibility under `OpticalWorkspaceModel`. Production services depend on that model; `OptilandConnector` is now only a thin source-compatibility facade for older callers and tests. Chinese names, icons, formatting, controls, and other presentation choices remain in the App layer.
 
 ## GUI And Dock Workspace
 
@@ -156,15 +160,15 @@ MainWindow
 
 `PanelManager` delegates ownership and drag/drop behavior to Dock instead of creating Avalonia `Window` objects or transferring tabs manually. It provides bulk dock, float, tile, cascade, close, lock, and layout commands. `MainWindow` owns application commands, file dialogs, appearance, and top-level lifecycle.
 
-`ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. It also catches command failures and routes them to one application error surface. `AppSettings` retains window appearance, the legacy left-pane width migration value, and per-analysis GUI defaults.
+`MainWindow` is physically split into lifecycle, action, shell, document, workspace, and import files. `ActionManager` registers menu, toolbar, and command-palette actions from one source so future panels can expose commands without duplicating event wiring. It also catches command failures and routes them to one application error surface. `AppSettings` retains window appearance, the legacy left-pane width migration value, and per-analysis GUI defaults.
 
 `LocalIcon` renders the pinned Lucide catalog embedded under `Assets/Icons`; GUI commands therefore use one vector icon vocabulary without a runtime network or font dependency. See `LOCAL_ICONS.md` for usage and update rules.
 
-The analysis panel consumes structured DTO data. Metric, graph, and report views are built without parsing display strings. Each analysis document owns one settings instance and bottom-aligned Plot/Data/Text result views. Heavy analyses do not rerun on ordinary edits: the event revision marks the result stale, and the icon-only synchronization action starts a cancellable snapshot calculation. Instance ID, generation, and source revision must all match before a result is accepted.
+The analysis panel consumes structured DTO data. Its lifecycle, parameter editor, result presentation, plot layout, and export logic are split into focused files. Metric, graph, and report views are built without parsing display strings. Each analysis document owns one settings instance and bottom-aligned Plot/Data/Text result views. Heavy analyses do not rerun on ordinary edits: the event revision marks the result stale, and the icon-only synchronization action starts a cancellable snapshot calculation. Instance ID, generation, and source revision must all match before a result is accepted.
 
 2D/3D views are lightweight consumers. They debounce model events by approximately 120 ms, cancel superseded requests, and apply only the newest matching revision. Locking a document freezes its current result; unlocking a lightweight view refreshes immediately, while a heavy analysis still waits for explicit synchronization.
 
-The tolerancing panel exposes the current CPU tolerancing framework through sensitivity and Monte Carlo tables. The first GUI workflow perturbs selected surface radius/thickness, uses RMS spot radius as the merit proxy, and can compensate with image-surface thickness. The multi-configuration panel exposes configuration creation, activation, and linked/unlinked thickness edits through the existing `MultiConfiguration` model.
+The tolerancing panel exposes a Zemax-style tolerance-data workflow. Its wizard generates editable TRAD/TTHI/TEDX/TEDY/TETX/TETY/TIND/TABB/COMP rows across a selected surface range, with normal or uniform statistics. Rows are validated before execution and can be saved to or loaded from the native `*.startol.json` interchange format. CPU analysis evaluates both tolerance limits for sensitivity, runs deterministic seeded Monte Carlo trials, optionally refocuses through an image-distance compensator, and reports nominal/mean/sigma/min/max/P50/P90/P95/yield statistics for RMS spot-radius or RMS-wavefront criteria. Text reports can be exported from the panel. The multi-configuration panel exposes configuration creation, activation, and linked/unlinked thickness edits through the existing `MultiConfiguration` model.
 
 ## Persistence
 

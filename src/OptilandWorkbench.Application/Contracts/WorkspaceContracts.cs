@@ -282,7 +282,9 @@ public sealed record AnalysisPlotOptionsDto(
     double GridOpacity = 1,
     bool HideAxes = false,
     bool ReverseX = false,
-    bool ShowPointLabels = false);
+    bool ShowPointLabels = false,
+    bool HideTickLabels = false,
+    bool LegendBelow = false);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,
@@ -298,6 +300,11 @@ public sealed record AnalysisPlotMetricDto(
 
 public sealed record AnalysisRowDto(string Metric, string Value);
 
+public sealed record AnalysisTableDto(
+    IReadOnlyList<string> Columns,
+    IReadOnlyList<IReadOnlyList<string>> Rows,
+    IReadOnlyList<string>? RowGroups = null);
+
 public sealed record AnalysisViewDto(
     string Name,
     IReadOnlyList<AnalysisRowDto> Rows,
@@ -305,7 +312,8 @@ public sealed record AnalysisViewDto(
     IReadOnlyList<AnalysisSeriesDto> Series,
     AnalysisPlotOptionsDto PlotOptions,
     IReadOnlyList<AnalysisPlotPaneDto> PlotPanes,
-    int PlotPaneColumns);
+    int PlotPaneColumns,
+    AnalysisTableDto? Table = null);
 
 public sealed record AnalysisRequestDto(
     Guid InstanceId,
@@ -538,23 +546,115 @@ public sealed record OptimizationRunResultDto(
     int Iterations,
     IReadOnlyList<OptimizationVariableResultDto> Variables);
 
+public enum ToleranceOperandKind
+{
+    Radius,
+    Thickness,
+    Conic,
+    DecenterX,
+    DecenterY,
+    TiltX,
+    TiltY,
+    RefractiveIndex,
+    AbbeNumber,
+    Compensator
+}
+
+public enum ToleranceDistribution
+{
+    Normal,
+    Uniform
+}
+
+public enum ToleranceCriterion
+{
+    RmsSpotRadius,
+    RmsWavefront
+}
+
+public enum RadiusToleranceMode
+{
+    Fixed,
+    Percent
+}
+
+public sealed record ToleranceOperandDto(
+    int Index,
+    bool Enabled,
+    ToleranceOperandKind Kind,
+    int SurfaceNumber,
+    double Minimum,
+    double Maximum,
+    ToleranceDistribution Distribution = ToleranceDistribution.Normal,
+    string Comment = "");
+
+public sealed record ToleranceWizardSettingsDto(
+    int StartSurface,
+    int EndSurface,
+    bool IncludeRadius,
+    RadiusToleranceMode RadiusMode,
+    double RadiusTolerance,
+    bool IncludeThickness,
+    double ThicknessTolerance,
+    bool IncludeDecenter,
+    double DecenterTolerance,
+    bool IncludeTilt,
+    double TiltToleranceDegrees,
+    bool IncludeRefractiveIndex,
+    double RefractiveIndexTolerance,
+    bool IncludeAbbeNumber,
+    double AbbeNumberTolerance,
+    bool IncludeImageCompensator,
+    double CompensatorMinimum,
+    double CompensatorMaximum,
+    ToleranceDistribution Distribution = ToleranceDistribution.Normal,
+    bool ReplaceExisting = true);
+
+public sealed record ToleranceValidationResultDto(
+    bool IsValid,
+    IReadOnlyList<string> Messages);
+
 public sealed record TolerancingRequestDto(
     int SurfaceNumber,
     double RadiusSigma,
     double ThicknessSigma,
     int Trials,
     int Seed,
-    int CompensationIterations);
+    int CompensationIterations,
+    IReadOnlyList<ToleranceOperandDto>? Operands = null,
+    ToleranceCriterion Criterion = ToleranceCriterion.RmsSpotRadius,
+    double YieldLimit = 0);
 
-public sealed record TolerancingSensitivityRowDto(string Perturbation, string DeltaMerit);
+public sealed record TolerancingSensitivityRowDto(
+    string Perturbation,
+    string DeltaMerit,
+    string NegativeMerit = "",
+    string PositiveMerit = "",
+    string WorstMerit = "");
 
-public sealed record TolerancingTrialRowDto(int Trial, string Merit, string CompensatedMerit);
+public sealed record TolerancingTrialRowDto(
+    int Trial,
+    string Merit,
+    string CompensatedMerit,
+    string Degradation = "");
+
+public sealed record TolerancingStatisticsDto(
+    string Nominal,
+    string Mean,
+    string StandardDeviation,
+    string Minimum,
+    string Maximum,
+    string Percentile50,
+    string Percentile90,
+    string Percentile95,
+    string Yield);
 
 public sealed record TolerancingResultDto(
     string Summary,
     IReadOnlyList<TolerancingSensitivityRowDto> SensitivityRows,
     IReadOnlyList<TolerancingTrialRowDto> TrialRows,
-    string Details);
+    string Details,
+    TolerancingStatisticsDto? Statistics = null);
 
 public sealed record MultiConfigurationRowDto(
     int Index,

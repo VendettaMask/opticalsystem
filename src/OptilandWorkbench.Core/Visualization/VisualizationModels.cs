@@ -505,6 +505,11 @@ public sealed class Layout2DBuilder
         bool includeDepth,
         LayoutBuildOptions options)
     {
+        if (options.RayCount <= 0)
+        {
+            return Array.Empty<(double X, double Y)>();
+        }
+
         var lower = Math.Clamp(Math.Min(options.LowerPupil, options.UpperPupil), -1, 1);
         var upper = Math.Clamp(Math.Max(options.LowerPupil, options.UpperPupil), -1, 1);
         if (options.MarginalAndChiefOnly)

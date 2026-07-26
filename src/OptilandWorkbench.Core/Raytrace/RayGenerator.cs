@@ -21,6 +21,14 @@ public sealed class RayGenerator
 {
     private readonly Optic _optic;
     private const double NormalizedCoordinateTolerance = 1e-12;
+    private sealed record FieldRayContext(
+        double NormalizedFieldX,
+        double NormalizedFieldY,
+        double VignetteScaleX,
+        double VignetteScaleY,
+        double EntrancePupilGlobalZ,
+        Vector3D BaseOrigin,
+        bool TranslateOriginWithPupil);
 
     public RayGenerator(Optic optic)
     {
@@ -133,20 +141,25 @@ public sealed class RayGenerator
         double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
-        double wavelengthMicrometers)
+        double wavelengthMicrometers,
+        bool aimAtStop = false,
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        bool allowOutsideUnitPupil = false)
     {
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         ValidateNormalized(normalizedPupilX, nameof(normalizedPupilX));
         ValidateNormalized(normalizedPupilY, nameof(normalizedPupilY));
-        if ((normalizedPupilX * normalizedPupilX) + (normalizedPupilY * normalizedPupilY) > 1.0 + NormalizedCoordinateTolerance)
+        if (!allowOutsideUnitPupil
+            && (normalizedPupilX * normalizedPupilX) + (normalizedPupilY * normalizedPupilY) > 1.0 + NormalizedCoordinateTolerance)
         {
             throw new ArgumentOutOfRangeException(nameof(normalizedPupilX), "Normalized pupil coordinates must lie inside the unit pupil.");
         }
 
         var apertureRadius = EntrancePupilRadius();
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
-        var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
+        var realImageLaunch = resolvedRealImageLaunch
+            ?? ResolveRealImageLaunch(field.X, field.Y, aimAtStop);
         var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var ray = CreateRay(
             field.X,
@@ -156,7 +169,8 @@ public sealed class RayGenerator
             apertureRadius,
             MicrometersToNanometers(wavelengthMicrometers),
             intensity: 1.0,
-            realImageLaunch);
+            realImageLaunch,
+            aimAtStop);
         return new RealRayBundle(new[] { ray });
     }
 
@@ -164,15 +178,20 @@ public sealed class RayGenerator
         double normalizedFieldX,
         double normalizedFieldY,
         double wavelengthMicrometers,
-        IEnumerable<PupilSample> pupilSamples)
+        IEnumerable<PupilSample> pupilSamples,
+        bool aimAtStop = false,
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        bool applyVignettingFactors = true)
     {
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
-        var realImageLaunch = ResolveRealImageLaunch(field.X, field.Y);
+        var realImageLaunch = resolvedRealImageLaunch
+            ?? ResolveRealImageLaunch(field.X, field.Y, aimAtStop);
         var apertureRadius = EntrancePupilRadius();
         var wavelengthNanometers = MicrometersToNanometers(wavelengthMicrometers);
-        var rays = pupilSamples.Select(sample =>
+        var samples = pupilSamples.ToArray();
+        foreach (var sample in samples)
         {
             ValidateNormalized(sample.X, nameof(sample.X));
             ValidateNormalized(sample.Y, nameof(sample.Y));
@@ -180,8 +199,31 @@ public sealed class RayGenerator
             {
                 throw new ArgumentOutOfRangeException(nameof(pupilSamples), "Normalized pupil coordinates must lie inside the unit pupil.");
             }
+        }
 
-            return CreateRay(
+        var vignetteScale = applyVignettingFactors
+            ? VignetteScale(normalizedFieldX, normalizedFieldY)
+            : (X: 1.0, Y: 1.0);
+        var fieldRayContext = new FieldRayContext(
+            normalizedFieldX,
+            normalizedFieldY,
+            vignetteScale.X,
+            vignetteScale.Y,
+            EntrancePupilGlobalZ(),
+            FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
+            IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault()));
+        var stopTargets = aimAtStop
+            ? ParaxialStopTargets(
+                normalizedFieldX,
+                normalizedFieldY,
+                samples,
+                wavelengthNanometers)
+            : null;
+        var rays = new RealRay[samples.Length];
+        void GenerateRay(int index)
+        {
+            var sample = samples[index];
+            rays[index] = CreateRay(
                 field.X,
                 field.Y,
                 sample.X,
@@ -189,8 +231,28 @@ public sealed class RayGenerator
                 apertureRadius,
                 wavelengthNanometers,
                 sample.Weight,
-                realImageLaunch);
-        }).ToArray();
+                realImageLaunch,
+                aimAtStop,
+                stopTargets?[index],
+                fieldRayContext);
+        }
+
+        if (samples.Length >= 64)
+        {
+            Parallel.For(
+                0,
+                samples.Length,
+                new ParallelOptions { CancellationToken = ComputationCancellation.Current },
+                GenerateRay);
+        }
+        else
+        {
+            for (var index = 0; index < samples.Length; index++)
+            {
+                GenerateRay(index);
+            }
+        }
+
         return new RealRayBundle(rays);
     }
 
@@ -242,7 +304,10 @@ public sealed class RayGenerator
         double apertureRadius,
         double wavelengthNanometers,
         double intensity,
-        (double X, double Y)? realImageLaunch = null)
+        (double X, double Y)? realImageLaunch = null,
+        bool aimAtStop = false,
+        (double X, double Y)? paraxialStopTarget = null,
+        FieldRayContext? fieldRayContext = null)
     {
         var geometry = CreateFieldRay(
             fieldX,
@@ -251,7 +316,11 @@ public sealed class RayGenerator
             normalizedPupilY,
             apertureRadius,
             applyVignetting: true,
-            realImageLaunch: realImageLaunch);
+            realImageLaunch: realImageLaunch,
+            wavelengthNanometers: wavelengthNanometers,
+            aimAtStop: aimAtStop,
+            paraxialStopTarget: paraxialStopTarget,
+            fieldRayContext: fieldRayContext);
         var apodization = _optic.Apodization?.Intensity(normalizedPupilX, normalizedPupilY) ?? 1.0;
         return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity * apodization);
     }
@@ -279,15 +348,30 @@ public sealed class RayGenerator
         double normalizedPupilY,
         double apertureRadius,
         bool applyVignetting,
-        (double X, double Y)? realImageLaunch = null)
+        (double X, double Y)? realImageLaunch = null,
+        double wavelengthNanometers = 0,
+        bool aimAtStop = false,
+        (double X, double Y)? paraxialStopTarget = null,
+        FieldRayContext? fieldRayContext = null)
     {
-        var normalizedField = DefinitionValuesToNormalized(fieldX, fieldY);
-        var vignetteScale = applyVignetting
-            ? VignetteScale(normalizedField.X, normalizedField.Y)
-            : (X: 1.0, Y: 1.0);
+        (double X, double Y) normalizedField = fieldRayContext is null
+            ? DefinitionValuesToNormalized(fieldX, fieldY)
+            : (fieldRayContext.NormalizedFieldX, fieldRayContext.NormalizedFieldY);
+        (double X, double Y) vignetteScale = !applyVignetting
+            ? (1.0, 1.0)
+            : fieldRayContext is null
+                ? VignetteScale(normalizedField.X, normalizedField.Y)
+                : (fieldRayContext.VignetteScaleX, fieldRayContext.VignetteScaleY);
         var pupilX = normalizedPupilX * vignetteScale.X;
         var pupilY = normalizedPupilY * vignetteScale.Y;
-        var origin = FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius, realImageLaunch);
+        var origin = fieldRayContext is null
+            ? FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius, realImageLaunch)
+            : fieldRayContext.TranslateOriginWithPupil
+                ? fieldRayContext.BaseOrigin + new Vector3D(
+                    pupilX * apertureRadius,
+                    pupilY * apertureRadius,
+                    0)
+                : fieldRayContext.BaseOrigin;
 
         if (_optic.ObjectSpaceTelecentric)
         {
@@ -317,8 +401,252 @@ public sealed class RayGenerator
         var entrancePupil = new Vector3D(
             pupilX * apertureRadius,
             pupilY * apertureRadius,
-            _optic.Paraxial.EstimateEntrancePupilLocation());
-        return (origin, Normalize(entrancePupil - origin));
+            fieldRayContext?.EntrancePupilGlobalZ ?? EntrancePupilGlobalZ());
+        var direction = Normalize(entrancePupil - origin);
+        if (!aimAtStop)
+        {
+            return (origin, direction);
+        }
+
+        var effectiveWavelength = wavelengthNanometers > 0
+            ? wavelengthNanometers
+            : PrimaryWavelengthMicrometers() * 1000;
+        return IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+            ? AimInfiniteRayAtStop(
+                origin,
+                direction,
+                normalizedField.X,
+                normalizedField.Y,
+                pupilX,
+                pupilY,
+                effectiveWavelength,
+                paraxialStopTarget)
+            : AimFiniteRayAtStop(
+                origin,
+                direction,
+                normalizedField.X,
+                normalizedField.Y,
+                pupilX,
+                pupilY,
+                effectiveWavelength,
+                paraxialStopTarget);
+    }
+
+    private (Vector3D Origin, Vector3D Direction) AimInfiniteRayAtStop(
+        Vector3D origin,
+        Vector3D direction,
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthNanometers,
+        (double X, double Y)? paraxialStopTarget = null)
+    {
+        var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex <= 0)
+        {
+            return (origin, direction);
+        }
+
+        var stop = _optic.SurfaceGroup.Items[stopIndex];
+        var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthNanometers,
+            stopIndex);
+        var aimedOrigin = origin;
+        for (var iteration = 0; iteration < 8; iteration++)
+        {
+            var stopSample = _optic.SequentialRayTracer.TraceToSurface(
+                new RealRay(aimedOrigin, direction, wavelengthNanometers),
+                stopIndex);
+            if (stopSample is null)
+            {
+                break;
+            }
+
+            var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
+            var errorX = targetX - stopPoint.X;
+            var errorY = targetY - stopPoint.Y;
+            if ((errorX * errorX) + (errorY * errorY) <= 1e-20)
+            {
+                break;
+            }
+
+            var correction = stop.CoordinateSystem.ToGlobalDirection(new Vector3D(errorX, errorY, 0));
+            aimedOrigin += new Vector3D(correction.X, correction.Y, 0);
+        }
+
+        return (aimedOrigin, direction);
+    }
+
+    private (Vector3D Origin, Vector3D Direction) AimFiniteRayAtStop(
+        Vector3D origin,
+        Vector3D direction,
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthNanometers,
+        (double X, double Y)? paraxialStopTarget = null)
+    {
+        var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex <= 0)
+        {
+            return (origin, direction);
+        }
+
+        var stop = _optic.SurfaceGroup.Items[stopIndex];
+        var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthNanometers,
+            stopIndex);
+        var slopeX = direction.X / Math.Max(1e-30, direction.Z);
+        var slopeY = direction.Y / Math.Max(1e-30, direction.Z);
+        var distance = Math.Max(
+            1e-9,
+            Math.Abs(stop.CoordinateSystem.Origin.Z - origin.Z));
+        double? previousSlopeX = null;
+        double? previousSlopeY = null;
+        double? previousStopX = null;
+        double? previousStopY = null;
+        for (var iteration = 0; iteration < 12; iteration++)
+        {
+            var aimedDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
+            var stopSample = _optic.SequentialRayTracer.TraceToSurface(
+                new RealRay(origin, aimedDirection, wavelengthNanometers),
+                stopIndex);
+            if (stopSample is null)
+            {
+                break;
+            }
+
+            var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
+            var errorX = targetX - stopPoint.X;
+            var errorY = targetY - stopPoint.Y;
+            if ((errorX * errorX) + (errorY * errorY) <= 1e-20)
+            {
+                return (origin, aimedDirection);
+            }
+
+            var correctionX = errorX / distance;
+            var correctionY = errorY / distance;
+            if (previousSlopeX.HasValue
+                && previousStopX.HasValue
+                && Math.Abs(slopeX - previousSlopeX.Value) > 1e-18)
+            {
+                var derivativeX = (stopPoint.X - previousStopX.Value)
+                    / (slopeX - previousSlopeX.Value);
+                if (double.IsFinite(derivativeX) && Math.Abs(derivativeX) > 1e-12)
+                {
+                    correctionX = errorX / derivativeX;
+                }
+            }
+
+            if (previousSlopeY.HasValue
+                && previousStopY.HasValue
+                && Math.Abs(slopeY - previousSlopeY.Value) > 1e-18)
+            {
+                var derivativeY = (stopPoint.Y - previousStopY.Value)
+                    / (slopeY - previousSlopeY.Value);
+                if (double.IsFinite(derivativeY) && Math.Abs(derivativeY) > 1e-12)
+                {
+                    correctionY = errorY / derivativeY;
+                }
+            }
+
+            previousSlopeX = slopeX;
+            previousSlopeY = slopeY;
+            previousStopX = stopPoint.X;
+            previousStopY = stopPoint.Y;
+            slopeX += Math.Clamp(correctionX, -0.1, 0.1);
+            slopeY += Math.Clamp(correctionY, -0.1, 0.1);
+        }
+
+        return (origin, Normalize(new Vector3D(slopeX, slopeY, 1)));
+    }
+
+    private (double X, double Y) ParaxialStopTarget(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthNanometers,
+        int stopIndex)
+    {
+        var wavelengthMicrometers = wavelengthNanometers / 1000.0;
+        var xTrace = _optic.Paraxial.TraceNormalizedPupil(
+            normalizedFieldX,
+            new[] { normalizedPupilX },
+            wavelengthMicrometers);
+        var yTrace = _optic.Paraxial.TraceNormalizedPupil(
+            normalizedFieldY,
+            new[] { normalizedPupilY },
+            wavelengthMicrometers);
+        if (stopIndex >= xTrace.Heights.Count || stopIndex >= yTrace.Heights.Count)
+        {
+            var stopRadius = _optic.SurfaceGroup.Items[stopIndex].SemiDiameter;
+            return (
+                normalizedPupilX * stopRadius,
+                normalizedPupilY * stopRadius);
+        }
+
+        return (
+            xTrace.Heights[stopIndex][0],
+            yTrace.Heights[stopIndex][0]);
+    }
+
+    private (double X, double Y)[]? ParaxialStopTargets(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        IReadOnlyList<PupilSample> samples,
+        double wavelengthNanometers)
+    {
+        var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex <= 0 || samples.Count == 0)
+        {
+            return null;
+        }
+
+        var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
+        var pupilX = samples.Select(sample => sample.X * vignetteScale.X).ToArray();
+        var pupilY = samples.Select(sample => sample.Y * vignetteScale.Y).ToArray();
+        var wavelengthMicrometers = wavelengthNanometers / 1000.0;
+        var xTrace = _optic.Paraxial.TraceNormalizedPupil(
+            normalizedFieldX,
+            pupilX,
+            wavelengthMicrometers);
+        var yTrace = _optic.Paraxial.TraceNormalizedPupil(
+            normalizedFieldY,
+            pupilY,
+            wavelengthMicrometers);
+        var targets = new (double X, double Y)[samples.Count];
+        if (stopIndex >= xTrace.Heights.Count || stopIndex >= yTrace.Heights.Count)
+        {
+            var stopRadius = _optic.SurfaceGroup.Items[stopIndex].SemiDiameter;
+            for (var index = 0; index < samples.Count; index++)
+            {
+                targets[index] = (
+                    pupilX[index] * stopRadius,
+                    pupilY[index] * stopRadius);
+            }
+
+            return targets;
+        }
+
+        for (var index = 0; index < samples.Count; index++)
+        {
+            targets[index] = (
+                xTrace.Heights[stopIndex][index],
+                yTrace.Heights[stopIndex][index]);
+        }
+
+        return targets;
     }
 
     private Vector3D FieldOrigin(
@@ -460,14 +788,20 @@ public sealed class RayGenerator
             objectTrace.Slopes[^1][0]);
     }
 
-    private (double X, double Y)? ResolveRealImageLaunch(double targetX, double targetY)
+    private (double X, double Y)? ResolveRealImageLaunch(
+        double targetX,
+        double targetY,
+        bool aimAtStop = false)
     {
         return _optic.FieldDefinition == FieldDefinitionKind.RealImageHeight
-            ? ResolveRealImageFieldCoordinates(targetX, targetY)
+            ? ResolveRealImageFieldCoordinates(targetX, targetY, aimAtStop)
             : null;
     }
 
-    internal (double X, double Y) ResolveRealImageFieldCoordinates(double targetX, double targetY)
+    internal (double X, double Y) ResolveRealImageFieldCoordinates(
+        double targetX,
+        double targetY,
+        bool aimAtStop = false)
     {
         if (!double.IsFinite(targetX) || !double.IsFinite(targetY))
         {
@@ -475,10 +809,10 @@ public sealed class RayGenerator
         }
 
         var guess = InitialRealImageFieldGuess(targetX, targetY);
-        if (!TryEvaluateRealImageChief(guess.X, guess.Y, out var current))
+        if (!TryEvaluateRealImageChief(guess.X, guess.Y, out var current, aimAtStop))
         {
             guess = (0, 0);
-            if (!TryEvaluateRealImageChief(guess.X, guess.Y, out current))
+            if (!TryEvaluateRealImageChief(guess.X, guess.Y, out current, aimAtStop))
             {
                 throw RealImageSolveFailure(targetX, targetY);
             }
@@ -499,8 +833,8 @@ public sealed class RayGenerator
 
             var stepX = DerivativeStep(guess.X, targetX);
             var stepY = DerivativeStep(guess.Y, targetY);
-            var derivativeX = ImageDerivative(guess, current, stepX, varyX: true);
-            var derivativeY = ImageDerivative(guess, current, stepY, varyX: false);
+            var derivativeX = ImageDerivative(guess, current, stepX, varyX: true, aimAtStop);
+            var derivativeY = ImageDerivative(guess, current, stepY, varyX: false, aimAtStop);
             var jxx = derivativeX.X;
             var jyx = derivativeX.Y;
             var jxy = derivativeY.X;
@@ -534,7 +868,11 @@ public sealed class RayGenerator
                 var candidate = (
                     X: LimitLaunchCoordinate(guess.X + (scale * deltaX)),
                     Y: LimitLaunchCoordinate(guess.Y + (scale * deltaY)));
-                if (!TryEvaluateRealImageChief(candidate.X, candidate.Y, out var candidateImage))
+                if (!TryEvaluateRealImageChief(
+                    candidate.X,
+                    candidate.Y,
+                    out var candidateImage,
+                    aimAtStop))
                 {
                     continue;
                 }
@@ -581,7 +919,10 @@ public sealed class RayGenerator
             objectHeightUnit * targetY / imageHeightUnit);
     }
 
-    private (double X, double Y) EvaluateRealImageChief(double launchX, double launchY)
+    private (double X, double Y) EvaluateRealImageChief(
+        double launchX,
+        double launchY,
+        bool aimAtStop = false)
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var apertureRadius = EntrancePupilRadius();
@@ -596,11 +937,18 @@ public sealed class RayGenerator
         }
         else
         {
-            var entrancePupil = new Vector3D(0, 0, _optic.Paraxial.EstimateEntrancePupilLocation());
+            var entrancePupil = new Vector3D(0, 0, EntrancePupilGlobalZ());
             direction = Normalize(entrancePupil - origin);
         }
 
         var wavelengthNanometers = PrimaryWavelengthMicrometers() * 1000;
+        if (aimAtStop)
+        {
+            (origin, direction) = IsObjectAtInfinity(objectSurface)
+                ? AimInfiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers)
+                : AimFiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers);
+        }
+
         var ray = new RealRay(origin, direction, wavelengthNanometers);
         var history = _optic.SequentialRayTracer.Trace(new RealRayBundle(new[] { ray })).RayHistories.Single();
         var imageSurface = _optic.SurfaceGroup.Items.LastOrDefault();
@@ -620,11 +968,12 @@ public sealed class RayGenerator
     private bool TryEvaluateRealImageChief(
         double launchX,
         double launchY,
-        out (double X, double Y) imagePoint)
+        out (double X, double Y) imagePoint,
+        bool aimAtStop = false)
     {
         try
         {
-            imagePoint = EvaluateRealImageChief(launchX, launchY);
+            imagePoint = EvaluateRealImageChief(launchX, launchY, aimAtStop);
             return true;
         }
         catch (InvalidOperationException exception) when (
@@ -639,7 +988,8 @@ public sealed class RayGenerator
         (double X, double Y) launch,
         (double X, double Y) currentImage,
         double step,
-        bool varyX)
+        bool varyX,
+        bool aimAtStop)
     {
         var plusLaunch = varyX
             ? (launch.X + step, launch.Y)
@@ -647,8 +997,16 @@ public sealed class RayGenerator
         var minusLaunch = varyX
             ? (launch.X - step, launch.Y)
             : (launch.X, launch.Y - step);
-        var hasPlus = TryEvaluateRealImageChief(plusLaunch.Item1, plusLaunch.Item2, out var plusImage);
-        var hasMinus = TryEvaluateRealImageChief(minusLaunch.Item1, minusLaunch.Item2, out var minusImage);
+        var hasPlus = TryEvaluateRealImageChief(
+            plusLaunch.Item1,
+            plusLaunch.Item2,
+            out var plusImage,
+            aimAtStop);
+        var hasMinus = TryEvaluateRealImageChief(
+            minusLaunch.Item1,
+            minusLaunch.Item2,
+            out var minusImage,
+            aimAtStop);
         if (hasPlus && hasMinus)
         {
             return (
@@ -716,11 +1074,23 @@ public sealed class RayGenerator
     {
         var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
         var firstSurfaceZ = physicalSurfaces.FirstOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
-        var minimumSurfaceZ = physicalSurfaces
-            .Select(surface => surface.CoordinateSystem.Origin.Z)
-            .DefaultIfEmpty(firstSurfaceZ)
-            .Min();
-        return (firstSurfaceZ, (apertureRadius * 2.0) - minimumSurfaceZ);
+        return (firstSurfaceZ, Math.Max(apertureRadius * 2.0, 1e-6));
+    }
+
+    private double EntrancePupilGlobalZ()
+    {
+        var relativeOrGlobal = _optic.Paraxial.EstimateEntrancePupilLocation();
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (!IsObjectAtInfinity(objectSurface))
+        {
+            return relativeOrGlobal;
+        }
+
+        var firstSurfaceZ = _optic.SurfaceGroup.Items
+            .Skip(1)
+            .FirstOrDefault()
+            ?.CoordinateSystem.Origin.Z ?? 0;
+        return firstSurfaceZ + relativeOrGlobal;
     }
 
     private (double X, double Y) DefinitionValuesToNormalized(double fieldX, double fieldY)

@@ -1,7 +1,10 @@
+using System.Collections.ObjectModel;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
@@ -15,17 +18,28 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly IPrescriptionService _prescription;
     private readonly ITolerancingService _tolerancing;
     private readonly IWorkspaceEventStream _events;
-    private readonly ComboBox _surfacePicker = new() { MinWidth = 220 };
-    private readonly NumericUpDown _radiusSigma = Number(0.1m, 0, 1000, 0.1m, 100);
-    private readonly NumericUpDown _thicknessSigma = Number(0.05m, 0, 1000, 0.1m, 100);
-    private readonly NumericUpDown _trials = Number(50, 1, 10_000, 10, 92);
-    private readonly NumericUpDown _seed = Number(1234, 1, 1_000_000, 1, 104);
-    private readonly NumericUpDown _compensationIterations = Number(20, 0, 500, 5, 92);
+    private readonly ObservableCollection<ToleranceOperandEditorRow> _operands = new();
+    private readonly DataGrid _operandGrid = CreateGrid();
     private readonly DataGrid _sensitivityGrid = CreateGrid();
     private readonly DataGrid _monteCarloGrid = CreateGrid();
-    private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap, Margin = new Avalonia.Thickness(0, 8, 0, 0) };
+    private readonly ComboBox _kindPicker = new() { MinWidth = 180 };
+    private readonly ComboBox _surfacePicker = new() { MinWidth = 180 };
+    private readonly ComboBox _distributionPicker = Picker(0, "正态（±值按 3σ）", "均匀");
+    private readonly CheckBox _enabled = new() { Content = "启用", IsChecked = true };
+    private readonly NumericUpDown _minimum = Number(-0.1m, -1_000_000, 1_000_000, 0.01m, 150);
+    private readonly NumericUpDown _maximum = Number(0.1m, -1_000_000, 1_000_000, 0.01m, 150);
+    private readonly TextBox _comment = new() { MinWidth = 180 };
+    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前");
+    private readonly NumericUpDown _trials = Number(100, 1, 10_000, 10, 96);
+    private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1, 104);
+    private readonly NumericUpDown _compensationIterations = Number(20, 0, 500, 5, 96);
+    private readonly NumericUpDown _yieldLimit = Number(0, 0, 1_000_000, 0.01m, 110);
+    private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
+    private readonly TextBlock _statistics = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(12) };
     private CancellationTokenSource? _runCancellation;
+    private TolerancingResultDto? _lastResult;
     private int _generation;
+    private bool _updatingEditor;
     private bool _disposed;
 
     public TolerancingPanel(
@@ -37,40 +51,97 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _tolerancing = tolerancing;
         _events = events;
         ConfigureGrids();
-        var runButton = new Button { Content = new LocalIconLabel("play", "运行公差"), MinWidth = 100 };
+        ConfigureEditor();
+
+        var wizardButton = CommandButton("sparkles", "公差向导");
+        wizardButton.Click += async (_, _) => await ShowWizardAsync();
+        var addButton = CommandButton("plus", "添加");
+        addButton.Click += (_, _) => AddOperand();
+        var removeButton = CommandButton("trash", "删除");
+        removeButton.Click += (_, _) => RemoveSelected();
+        var validateButton = CommandButton("check", "验证");
+        validateButton.Click += (_, _) => Validate(showSuccess: true);
+        var saveButton = CommandButton("save", "保存公差");
+        saveButton.Click += async (_, _) => await SaveToleranceFileAsync();
+        var loadButton = CommandButton("folder-open", "载入公差");
+        loadButton.Click += async (_, _) => await LoadToleranceFileAsync();
+        var reportButton = CommandButton("file-text", "导出报告");
+        reportButton.Click += async (_, _) => await ExportReportAsync();
+        var runButton = CommandButton("play", "运行公差");
         runButton.Click += async (_, _) => await RunAsync();
+
         var toolbar = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(0, 0, 0, 8),
+            Margin = new Thickness(0, 0, 0, 8),
             Children =
             {
-                Label("表面"), _surfacePicker,
-                Label("半径 sigma"), _radiusSigma,
-                Label("厚度 sigma"), _thicknessSigma,
-                Label("次数"), _trials,
-                Label("种子"), _seed,
-                Label("补偿迭代"), _compensationIterations,
-                runButton
+                wizardButton, addButton, removeButton, validateButton,
+                saveButton, loadButton, reportButton, runButton
             }
         };
-        var tabs = new TabControl
+
+        var editor = BuildOperandEditor();
+        var editorLayout = new Grid
         {
+            ColumnDefinitions = new ColumnDefinitions("3*,320"),
+            ColumnSpacing = 10,
+            Children = { _operandGrid, editor }
+        };
+        Grid.SetColumn(editor, 1);
+
+        var runSettings = new WrapPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Margin = new Thickness(0, 8),
+            Children =
+            {
+                Label("评价标准"), _criterion,
+                Label("Monte Carlo 次数"), _trials,
+                Label("随机种子"), _seed,
+                Label("补偿迭代"), _compensationIterations,
+                Label("合格上限（0=关闭）"), _yieldLimit
+            }
+        };
+
+        var resultTabs = new TabControl
+        {
+            MinHeight = 250,
             ItemsSource = new object[]
             {
                 new TabItem { Header = "灵敏度", Content = _sensitivityGrid },
-                new TabItem { Header = "Monte Carlo", Content = _monteCarloGrid }
+                new TabItem { Header = "Monte Carlo", Content = _monteCarloGrid },
+                new TabItem { Header = "统计摘要", Content = new ScrollViewer { Content = _statistics } }
             }
         };
-        var root = new DockPanel { Margin = new Avalonia.Thickness(12) };
-        DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
-        DockPanel.SetDock(_summary, Avalonia.Controls.Dock.Bottom);
-        root.Children.Add(toolbar);
-        root.Children.Add(_summary);
-        root.Children.Add(tabs);
-        Content = root;
+
+        var content = new Grid
+        {
+            RowDefinitions = new RowDefinitions("Auto,2*,Auto,2*,Auto"),
+            RowSpacing = 4,
+            Margin = new Thickness(12)
+        };
+        content.Children.Add(toolbar);
+        Grid.SetRow(editorLayout, 1);
+        content.Children.Add(editorLayout);
+        Grid.SetRow(runSettings, 2);
+        content.Children.Add(runSettings);
+        Grid.SetRow(resultTabs, 3);
+        content.Children.Add(resultTabs);
+        var summaryBorder = new Border
+        {
+            Padding = new Thickness(10, 8),
+            BorderThickness = new Thickness(1, 0, 0, 0),
+            Child = _summary
+        };
+        summaryBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        Grid.SetRow(summaryBorder, 4);
+        content.Children.Add(summaryBorder);
+        Content = content;
+
         _events.Changed += OnWorkspaceChanged;
-        Refresh();
+        RefreshSurfaces();
+        AddOperand();
     }
 
     public void Dispose()
@@ -89,41 +160,209 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
     private void ConfigureGrids()
     {
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "扰动", Binding = new Binding(nameof(TolerancingSensitivityRowDto.Perturbation)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "评价函数变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = new DataGridLength(140) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "试验", Binding = new Binding(nameof(TolerancingTrialRowDto.Trial)), Width = new DataGridLength(80) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "评价函数", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = new DataGridLength(140) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后评价函数", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = new DataGridLength(160) });
+        _operandGrid.SelectionMode = DataGridSelectionMode.Single;
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(ToleranceOperandEditorRow.Index)), Width = Pixels(46), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "启用", Binding = new Binding(nameof(ToleranceOperandEditorRow.Enabled)), Width = Pixels(56), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "类型", Binding = new Binding(nameof(ToleranceOperandEditorRow.Code)), Width = Pixels(82), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = new Binding(nameof(ToleranceOperandEditorRow.SurfaceNumber)), Width = Pixels(62), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最小偏差", Binding = new Binding(nameof(ToleranceOperandEditorRow.Minimum)), Width = Pixels(110), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最大偏差", Binding = new Binding(nameof(ToleranceOperandEditorRow.Maximum)), Width = Pixels(110), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "统计", Binding = new Binding(nameof(ToleranceOperandEditorRow.DistributionText)), Width = Pixels(90), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "备注", Binding = new Binding(nameof(ToleranceOperandEditorRow.Comment)), Width = new DataGridLength(1, DataGridLengthUnitType.Star), IsReadOnly = true });
+        _operandGrid.SelectionChanged += (_, _) => LoadSelectedOperand();
+        _operandGrid.ItemsSource = _operands;
+
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "公差操作数", Binding = new Binding(nameof(TolerancingSensitivityRowDto.Perturbation)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(125) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(125) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏评价", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(115) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(115) });
+
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "试验", Binding = new Binding(nameof(TolerancingTrialRowDto.Trial)), Width = Pixels(72) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前评价", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(140) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后评价", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(140) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "相对名义变化", Binding = new Binding(nameof(TolerancingTrialRowDto.Degradation)), Width = Pixels(140) });
     }
 
-    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) =>
-        Dispatcher.UIThread.Post(() =>
-        {
-            if (!_disposed)
-            {
-                Refresh();
-            }
-        });
-
-    private void Refresh()
+    private void ConfigureEditor()
     {
-        if (_disposed)
+        _kindPicker.ItemsSource = Enum.GetValues<ToleranceOperandKind>()
+            .Select(kind => new ToleranceKindChoice(kind, ToleranceOperandEditorRow.CodeFor(kind), KindName(kind)))
+            .ToArray();
+        _kindPicker.DisplayMemberBinding = new Binding(nameof(ToleranceKindChoice.Display));
+        _kindPicker.SelectedIndex = 0;
+    }
+
+    private Border BuildOperandEditor()
+    {
+        var applyButton = new Button
+        {
+            Content = "应用到当前行",
+            HorizontalAlignment = HorizontalAlignment.Right,
+            MinWidth = 120
+        };
+        applyButton.Click += (_, _) => ApplySelectedOperand();
+        var panel = new StackPanel
+        {
+            Spacing = 8,
+            Children =
+            {
+                new TextBlock { Text = "操作数属性", FontSize = 16, FontWeight = FontWeight.SemiBold },
+                _enabled,
+                Labeled("类型", _kindPicker),
+                Labeled("表面", _surfacePicker),
+                Labeled("最小偏差", _minimum),
+                Labeled("最大偏差", _maximum),
+                Labeled("统计分布", _distributionPicker),
+                Labeled("备注", _comment),
+                applyButton
+            }
+        };
+        var border = new Border
+        {
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(6),
+            Padding = new Thickness(12),
+            Child = panel
+        };
+        border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        border.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return border;
+    }
+
+    private async Task ShowWizardAsync()
+    {
+        if (TopLevel.GetTopLevel(this) is not Window owner)
         {
             return;
         }
 
-        var selected = (_surfacePicker.SelectedItem as SurfaceEditorRow)?.Number;
-        var surfaces = _prescription.GetSurfaces().Select(surface => new SurfaceEditorRow(surface)).ToArray();
-        _surfacePicker.ItemsSource = surfaces;
-        _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selected)
-            ?? surfaces.ElementAtOrDefault(Math.Min(2, Math.Max(0, surfaces.Length - 1)));
+        var settings = await new ToleranceWizardWindow(_prescription).ShowDialog<ToleranceWizardSettingsDto?>(owner);
+        if (settings is null)
+        {
+            return;
+        }
+
+        var generated = _tolerancing.GenerateWizard(settings);
+        if (settings.ReplaceExisting)
+        {
+            _operands.Clear();
+        }
+
+        foreach (var operand in generated)
+        {
+            _operands.Add(new ToleranceOperandEditorRow(operand with { Index = _operands.Count + 1 }));
+        }
+
+        Renumber();
+        _operandGrid.SelectedItem = _operands.FirstOrDefault();
+        _summary.Text = $"公差向导已生成 {generated.Count} 个操作数。";
+    }
+
+    private void AddOperand()
+    {
+        var surface = (_surfacePicker.SelectedItem as SurfaceEditorRow)?.Number
+            ?? Math.Min(1, Math.Max(0, _prescription.GetSurfaces().Count - 1));
+        var row = new ToleranceOperandEditorRow(new ToleranceOperandDto(
+            _operands.Count + 1,
+            true,
+            ToleranceOperandKind.Thickness,
+            surface,
+            -0.05,
+            0.05,
+            ToleranceDistribution.Normal,
+            "手动添加"));
+        _operands.Add(row);
+        _operandGrid.SelectedItem = row;
+    }
+
+    private void RemoveSelected()
+    {
+        if (_operandGrid.SelectedItem is not ToleranceOperandEditorRow row)
+        {
+            return;
+        }
+
+        _operands.Remove(row);
+        Renumber();
+        _operandGrid.SelectedItem = _operands.FirstOrDefault();
+    }
+
+    private void LoadSelectedOperand()
+    {
+        if (_updatingEditor || _operandGrid.SelectedItem is not ToleranceOperandEditorRow row)
+        {
+            return;
+        }
+
+        _updatingEditor = true;
+        try
+        {
+            _enabled.IsChecked = row.Enabled;
+            _kindPicker.SelectedItem = _kindPicker.ItemsSource?
+                .Cast<ToleranceKindChoice>()
+                .FirstOrDefault(item => item.Kind == row.Kind);
+            _surfacePicker.SelectedItem = _surfacePicker.ItemsSource?
+                .Cast<SurfaceEditorRow>()
+                .FirstOrDefault(item => item.Number == row.SurfaceNumber);
+            _minimum.Value = ToDecimal(row.Minimum);
+            _maximum.Value = ToDecimal(row.Maximum);
+            _distributionPicker.SelectedIndex = row.Distribution == ToleranceDistribution.Uniform ? 1 : 0;
+            _comment.Text = row.Comment;
+        }
+        finally
+        {
+            _updatingEditor = false;
+        }
+    }
+
+    private void ApplySelectedOperand()
+    {
+        if (_operandGrid.SelectedItem is not ToleranceOperandEditorRow selected
+            || _kindPicker.SelectedItem is not ToleranceKindChoice kind
+            || _surfacePicker.SelectedItem is not SurfaceEditorRow surface)
+        {
+            return;
+        }
+
+        var index = _operands.IndexOf(selected);
+        var updated = new ToleranceOperandEditorRow(new ToleranceOperandDto(
+            selected.Index,
+            _enabled.IsChecked == true,
+            kind.Kind,
+            surface.Number,
+            DoubleValue(_minimum, -0.1),
+            DoubleValue(_maximum, 0.1),
+            _distributionPicker.SelectedIndex == 1 ? ToleranceDistribution.Uniform : ToleranceDistribution.Normal,
+            _comment.Text?.Trim() ?? string.Empty));
+        _operands[index] = updated;
+        _operandGrid.SelectedItem = updated;
+        Validate(showSuccess: false);
+    }
+
+    private bool Validate(bool showSuccess)
+    {
+        var result = _tolerancing.ValidateOperands(_operands.Select(row => row.ToDto()).ToArray());
+        if (!result.IsValid)
+        {
+            _summary.Text = "公差数据验证失败：" + Environment.NewLine + string.Join(Environment.NewLine, result.Messages);
+            return false;
+        }
+
+        if (showSuccess)
+        {
+            _summary.Text = $"验证通过：{_operands.Count(row => row.Enabled && row.Kind != ToleranceOperandKind.Compensator)} 个公差，"
+                + $"{_operands.Count(row => row.Enabled && row.Kind == ToleranceOperandKind.Compensator)} 个补偿器。";
+        }
+
+        return true;
     }
 
     private async Task RunAsync()
     {
-        if (_surfacePicker.SelectedItem is not SurfaceEditorRow surface)
+        ApplySelectedOperand();
+        if (!Validate(showSuccess: false))
         {
-            _summary.Text = "请先选择一个表面。";
             return;
         }
 
@@ -132,16 +371,21 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _runCancellation = new CancellationTokenSource();
         var cancellationToken = _runCancellation.Token;
         var generation = ++_generation;
-        _summary.Text = "正在运行公差分析…";
+        _summary.Text = "正在运行灵敏度和 Monte Carlo 公差分析…";
         try
         {
+            var rows = _operands.Select(row => row.ToDto()).ToArray();
+            var firstSurface = rows.FirstOrDefault(row => row.Enabled)?.SurfaceNumber ?? 1;
             var result = await _tolerancing.RunAsync(new TolerancingRequestDto(
-                surface.Number,
-                DoubleValue(_radiusSigma, 0.1),
-                DoubleValue(_thicknessSigma, 0.05),
-                IntValue(_trials, 50),
+                firstSurface,
+                0,
+                0,
+                IntValue(_trials, 100),
                 IntValue(_seed, 1234),
-                IntValue(_compensationIterations, 20)), cancellationToken);
+                IntValue(_compensationIterations, 20),
+                rows,
+                _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
+                DoubleValue(_yieldLimit, 0)), cancellationToken);
             if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
             {
                 return;
@@ -149,7 +393,9 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
             _sensitivityGrid.ItemsSource = result.SensitivityRows;
             _monteCarloGrid.ItemsSource = result.TrialRows;
+            _statistics.Text = FormatStatistics(result.Statistics);
             _summary.Text = $"{result.Summary}    {result.Details}";
+            _lastResult = result;
         }
         catch (OperationCanceledException)
         {
@@ -163,6 +409,244 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         }
     }
 
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) =>
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (!_disposed)
+            {
+                RefreshSurfaces();
+            }
+        });
+
+    private async Task SaveToleranceFileAsync()
+    {
+        try
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is null)
+            {
+                return;
+            }
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "保存公差数据",
+                SuggestedFileName = "tolerances.startol.json",
+                DefaultExtension = "json",
+                FileTypeChoices = new[]
+                {
+                    new FilePickerFileType("STAR 公差数据") { Patterns = new[] { "*.startol.json", "*.json" } }
+                }
+            });
+            if (file is null)
+            {
+                return;
+            }
+
+            var document = new ToleranceFileDto(
+                SchemaVersion: 1,
+                _operands.Select(row => row.ToDto()).ToArray(),
+                _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
+                IntValue(_trials, 100),
+                IntValue(_seed, 1234),
+                IntValue(_compensationIterations, 20),
+                DoubleValue(_yieldLimit, 0));
+            var json = System.Text.Json.JsonSerializer.Serialize(
+                document,
+                new System.Text.Json.JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                });
+            await File.WriteAllTextAsync(file.Path.LocalPath, json);
+            _summary.Text = "公差数据已保存。";
+        }
+        catch (Exception exception)
+        {
+            _summary.Text = $"保存公差数据失败：{exception.Message}";
+        }
+    }
+
+    private async Task LoadToleranceFileAsync()
+    {
+        try
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is null)
+            {
+                return;
+            }
+
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "载入公差数据",
+                AllowMultiple = false,
+                FileTypeFilter = new[]
+                {
+                    new FilePickerFileType("STAR 公差数据") { Patterns = new[] { "*.startol.json", "*.json" } }
+                }
+            });
+            if (files.Count == 0)
+            {
+                return;
+            }
+
+            var json = await File.ReadAllTextAsync(files[0].Path.LocalPath);
+            var document = System.Text.Json.JsonSerializer.Deserialize<ToleranceFileDto>(
+                json,
+                new System.Text.Json.JsonSerializerOptions
+                {
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                });
+            if (document is null || document.SchemaVersion != 1)
+            {
+                throw new InvalidDataException("不支持的公差文件版本。");
+            }
+
+            var validation = _tolerancing.ValidateOperands(document.Operands);
+            if (!validation.IsValid)
+            {
+                throw new InvalidDataException(string.Join("；", validation.Messages));
+            }
+
+            _operands.Clear();
+            foreach (var operand in document.Operands)
+            {
+                _operands.Add(new ToleranceOperandEditorRow(operand));
+            }
+
+            Renumber();
+            _criterion.SelectedIndex = document.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
+            _trials.Value = document.Trials;
+            _seed.Value = document.Seed;
+            _compensationIterations.Value = document.CompensationIterations;
+            _yieldLimit.Value = ToDecimal(document.YieldLimit);
+            _operandGrid.SelectedItem = _operands.FirstOrDefault();
+            _summary.Text = $"已载入 {_operands.Count} 个公差操作数。";
+        }
+        catch (Exception exception)
+        {
+            _summary.Text = $"载入公差数据失败：{exception.Message}";
+        }
+    }
+
+    private async Task ExportReportAsync()
+    {
+        if (_lastResult is null)
+        {
+            _summary.Text = "请先运行公差分析。";
+            return;
+        }
+
+        try
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is null)
+            {
+                return;
+            }
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "导出公差分析报告",
+                SuggestedFileName = "tolerance-report.txt",
+                DefaultExtension = "txt",
+                FileTypeChoices = new[]
+                {
+                    new FilePickerFileType("文本报告") { Patterns = new[] { "*.txt" } }
+                }
+            });
+            if (file is null)
+            {
+                return;
+            }
+
+            var lines = new List<string>
+            {
+                _lastResult.Summary,
+                _lastResult.Details,
+                string.Empty,
+                "统计摘要",
+                FormatStatistics(_lastResult.Statistics),
+                string.Empty,
+                "灵敏度",
+                "操作数\t负极限\t正极限\t最坏值\t变化"
+            };
+            lines.AddRange(_lastResult.SensitivityRows.Select(row =>
+                $"{row.Perturbation}\t{row.NegativeMerit}\t{row.PositiveMerit}\t{row.WorstMerit}\t{row.DeltaMerit}"));
+            lines.Add(string.Empty);
+            lines.Add("Monte Carlo");
+            lines.Add("试验\t补偿前\t补偿后\t相对名义变化");
+            lines.AddRange(_lastResult.TrialRows.Select(row =>
+                $"{row.Trial}\t{row.Merit}\t{row.CompensatedMerit}\t{row.Degradation}"));
+            await File.WriteAllLinesAsync(file.Path.LocalPath, lines);
+            _summary.Text = "公差分析报告已导出。";
+        }
+        catch (Exception exception)
+        {
+            _summary.Text = $"导出公差报告失败：{exception.Message}";
+        }
+    }
+
+    private void RefreshSurfaces()
+    {
+        var selected = (_surfacePicker.SelectedItem as SurfaceEditorRow)?.Number;
+        var surfaces = _prescription.GetSurfaces().Select(surface => new SurfaceEditorRow(surface)).ToArray();
+        _surfacePicker.ItemsSource = surfaces;
+        _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selected)
+            ?? surfaces.ElementAtOrDefault(Math.Min(1, Math.Max(0, surfaces.Length - 1)));
+    }
+
+    private void Renumber()
+    {
+        for (var index = 0; index < _operands.Count; index++)
+        {
+            _operands[index].Index = index + 1;
+        }
+
+        _operandGrid.ItemsSource = null;
+        _operandGrid.ItemsSource = _operands;
+    }
+
+    private static string FormatStatistics(TolerancingStatisticsDto? statistics)
+    {
+        if (statistics is null)
+        {
+            return "尚未运行公差分析。";
+        }
+
+        return $"名义评价：{statistics.Nominal}{Environment.NewLine}"
+            + $"Monte Carlo 平均值：{statistics.Mean}{Environment.NewLine}"
+            + $"标准差：{statistics.StandardDeviation}{Environment.NewLine}"
+            + $"最小值 / 最大值：{statistics.Minimum} / {statistics.Maximum}{Environment.NewLine}"
+            + $"P50：{statistics.Percentile50}{Environment.NewLine}"
+            + $"P90：{statistics.Percentile90}{Environment.NewLine}"
+            + $"P95：{statistics.Percentile95}{Environment.NewLine}"
+            + $"预计合格率：{statistics.Yield}";
+    }
+
+    private static string KindName(ToleranceOperandKind kind) => kind switch
+    {
+        ToleranceOperandKind.Radius => "曲率半径",
+        ToleranceOperandKind.Thickness => "厚度/间隔",
+        ToleranceOperandKind.Conic => "圆锥系数",
+        ToleranceOperandKind.DecenterX => "X 偏心",
+        ToleranceOperandKind.DecenterY => "Y 偏心",
+        ToleranceOperandKind.TiltX => "X 倾斜",
+        ToleranceOperandKind.TiltY => "Y 倾斜",
+        ToleranceOperandKind.RefractiveIndex => "折射率",
+        ToleranceOperandKind.AbbeNumber => "阿贝数",
+        ToleranceOperandKind.Compensator => "补偿器",
+        _ => kind.ToString()
+    };
+
+    private static Button CommandButton(string icon, string text) => new()
+    {
+        Content = new LocalIconLabel(icon, text),
+        MinWidth = 94,
+        Margin = new Thickness(0, 0, 6, 0)
+    };
+
     private static NumericUpDown Number(decimal value, decimal minimum, decimal maximum, decimal increment, double width) => new()
     {
         Value = value,
@@ -171,6 +655,13 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         Increment = increment,
         Width = width,
         ShowButtonSpinner = false
+    };
+
+    private static ComboBox Picker(int selectedIndex, params string[] values) => new()
+    {
+        ItemsSource = values,
+        SelectedIndex = selectedIndex,
+        MinWidth = 145
     };
 
     private static DataGrid CreateGrid()
@@ -182,20 +673,100 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             CanUserResizeColumns = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
-            MinHeight = 260
+            MinHeight = 180
         };
         grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         return grid;
     }
 
+    private static DataGridLength Pixels(double value) =>
+        new(value, DataGridLengthUnitType.Pixel);
+
     private static TextBlock Label(string text) => new()
     {
         Text = text,
         VerticalAlignment = VerticalAlignment.Center,
-        Margin = new Avalonia.Thickness(10, 0, 4, 0)
+        Margin = new Thickness(10, 0, 4, 0)
     };
 
-    private static double DoubleValue(NumericUpDown input, double fallback) => input.Value.HasValue ? decimal.ToDouble(input.Value.Value) : fallback;
+    private static StackPanel Labeled(string label, Control input) => new()
+    {
+        Spacing = 3,
+        Children =
+        {
+            new TextBlock { Text = label, FontWeight = FontWeight.SemiBold },
+            input
+        }
+    };
 
-    private static int IntValue(NumericUpDown input, int fallback) => input.Value.HasValue ? Decimal.ToInt32(input.Value.Value) : fallback;
+    private static decimal ToDecimal(double value) =>
+        (decimal)Math.Clamp(value, -1_000_000, 1_000_000);
+
+    private static double DoubleValue(NumericUpDown input, double fallback) =>
+        input.Value.HasValue ? decimal.ToDouble(input.Value.Value) : fallback;
+
+    private static int IntValue(NumericUpDown input, int fallback) =>
+        input.Value.HasValue ? decimal.ToInt32(input.Value.Value) : fallback;
+
+    private sealed record ToleranceKindChoice(ToleranceOperandKind Kind, string Code, string Name)
+    {
+        public string Display => $"{Code} — {Name}";
+    }
+
+    private sealed record ToleranceFileDto(
+        int SchemaVersion,
+        IReadOnlyList<ToleranceOperandDto> Operands,
+        ToleranceCriterion Criterion,
+        int Trials,
+        int Seed,
+        int CompensationIterations,
+        double YieldLimit);
+}
+
+public sealed class ToleranceOperandEditorRow
+{
+    private readonly ToleranceOperandDto _source;
+
+    public ToleranceOperandEditorRow(ToleranceOperandDto source)
+    {
+        _source = source;
+        Index = source.Index;
+    }
+
+    public int Index { get; set; }
+
+    public bool Enabled => _source.Enabled;
+
+    public ToleranceOperandKind Kind => _source.Kind;
+
+    public string Code => CodeFor(Kind);
+
+    public int SurfaceNumber => _source.SurfaceNumber;
+
+    public double Minimum => _source.Minimum;
+
+    public double Maximum => _source.Maximum;
+
+    public ToleranceDistribution Distribution => _source.Distribution;
+
+    public string DistributionText => Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
+
+    public string Comment => _source.Comment;
+
+    public ToleranceOperandDto ToDto() => _source with { Index = Index };
+
+    public static string CodeFor(ToleranceOperandKind kind) => kind switch
+    {
+        ToleranceOperandKind.Radius => "TRAD",
+        ToleranceOperandKind.Thickness => "TTHI",
+        ToleranceOperandKind.Conic => "TCON",
+        ToleranceOperandKind.DecenterX => "TEDX",
+        ToleranceOperandKind.DecenterY => "TEDY",
+        ToleranceOperandKind.TiltX => "TETX",
+        ToleranceOperandKind.TiltY => "TETY",
+        ToleranceOperandKind.RefractiveIndex => "TIND",
+        ToleranceOperandKind.AbbeNumber => "TABB",
+        ToleranceOperandKind.Compensator => "COMP",
+        _ => kind.ToString().ToUpperInvariant()
+    };
 }

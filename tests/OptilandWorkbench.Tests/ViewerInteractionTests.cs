@@ -7,6 +7,20 @@ namespace OptilandWorkbench.Tests;
 public sealed class ViewerInteractionTests
 {
     [Fact]
+    public void AnnotationLabelsUseAdditionalLanesOnlyWhenTheyOverlap()
+    {
+        var lanes = OpticSceneControl.AssignAnnotationLanes(new[]
+        {
+            (Left: 10.0, Right: 90.0),
+            (Left: 30.0, Right: 110.0),
+            (Left: 120.0, Right: 180.0),
+            (Left: 125.0, Right: 185.0)
+        });
+
+        Assert.Equal(new[] { 0, 1, 0, 1 }, lanes);
+    }
+
+    [Fact]
     public void SceneViewportMovesAxisAndContentTogether()
     {
         var viewport = new SceneViewport();
