@@ -425,11 +425,23 @@ public sealed class OpticSceneControl : Control
 
     private void Draw2D(DrawingContext context, Layout2DScene scene)
     {
-        var padding = 28.0;
-        var width = Math.Max(1, Bounds.Width - (padding * 2));
-        var height = Math.Max(1, Bounds.Height - (padding * 2));
-        var centerX = padding + (width / 2.0);
-        var centerY = padding + (height / 2.0);
+        const double horizontalPadding = 28.0;
+        var autoAnnotationCount = Annotations2D.Count(annotation =>
+            annotation.Placement == OpticSceneAnnotationPlacement2D.Auto);
+        var aboveAnnotationCount = Annotations2D.Count(annotation =>
+                                       annotation.Placement == OpticSceneAnnotationPlacement2D.Above)
+                                   + ((autoAnnotationCount + 1) / 2);
+        var belowAnnotationCount = Annotations2D.Count(annotation =>
+                                       annotation.Placement == OpticSceneAnnotationPlacement2D.Below)
+                                   + (autoAnnotationCount / 2);
+        var annotationPadding = CalculateAnnotationPadding(
+            Bounds.Height,
+            aboveAnnotationCount,
+            belowAnnotationCount);
+        var width = Math.Max(1, Bounds.Width - (horizontalPadding * 2));
+        var height = Math.Max(1, Bounds.Height - annotationPadding.Top - annotationPadding.Bottom);
+        var centerX = horizontalPadding + (width / 2.0);
+        var centerY = annotationPadding.Top + (height / 2.0);
         var annotationMinimum = Annotations2D.Select(annotation => annotation.Z).DefaultIfEmpty(scene.ZMin).Min();
         var annotationMaximum = Annotations2D.Select(annotation => annotation.Z).DefaultIfEmpty(scene.ZMax).Max();
         var zMinimum = Math.Min(scene.ZMin, annotationMinimum);
@@ -544,19 +556,36 @@ public sealed class OpticSceneControl : Control
             }
         }
 
-        var top = mapY(aperture * 1.18);
-        var bottom = mapY(-aperture * 1.18);
+        var top = mapY(aperture * 1.02);
+        var bottom = mapY(-aperture * 1.02);
         var upperEdge = Math.Min(top, bottom);
         var lowerEdge = Math.Max(top, bottom);
+        var maximumLabelHeight = prepared.Select(item => item.Label.Height).DefaultIfEmpty(14).Max();
+        var laneStep = maximumLabelHeight + 5;
+        var maximumAboveLane = prepared
+            .Where(item => item.Above)
+            .Select(item => item.Lane)
+            .DefaultIfEmpty(0)
+            .Max();
+        var maximumBelowLane = prepared
+            .Where(item => !item.Above)
+            .Select(item => item.Lane)
+            .DefaultIfEmpty(0)
+            .Max();
+        var aboveLaneZeroY = Math.Max(
+            upperEdge - maximumLabelHeight - 7,
+            6 + (maximumAboveLane * laneStep));
+        var belowLaneZeroY = Math.Min(
+            lowerEdge + 7,
+            bounds.Height - maximumLabelHeight - 6 - (maximumBelowLane * laneStep));
         foreach (var item in prepared)
         {
             var pen = new Pen(item.Brush, 1.5, DashStyle.Dash);
             context.DrawLine(pen, new Point(item.X, top), new Point(item.X, bottom));
 
-            var laneOffset = item.Lane * (item.Label.Height + 5);
             var labelY = item.Above
-                ? upperEdge - item.Label.Height - 7 - laneOffset
-                : lowerEdge + 7 + laneOffset;
+                ? aboveLaneZeroY - (item.Lane * laneStep)
+                : belowLaneZeroY + (item.Lane * laneStep);
             labelY = Math.Clamp(labelY, 6, Math.Max(6, bounds.Height - item.Label.Height - 6));
             var labelCenterX = item.LabelX + (item.Label.Width / 2);
             var labelEdgeY = item.Above ? labelY + item.Label.Height + 2 : labelY - 2;
@@ -567,6 +596,23 @@ public sealed class OpticSceneControl : Control
                 new Point(labelCenterX, labelEdgeY));
             context.DrawText(item.Label, new Point(item.LabelX, labelY));
         }
+    }
+
+    internal static (double Top, double Bottom) CalculateAnnotationPadding(
+        double availableHeight,
+        int aboveLabelCount,
+        int belowLabelCount)
+    {
+        const double basePadding = 28;
+        const double estimatedLaneHeight = 19;
+        var maximumBand = Math.Max(basePadding, availableHeight * 0.32);
+        var top = Math.Min(
+            maximumBand,
+            basePadding + (Math.Max(0, aboveLabelCount) * estimatedLaneHeight));
+        var bottom = Math.Min(
+            maximumBand,
+            basePadding + (Math.Max(0, belowLabelCount) * estimatedLaneHeight));
+        return (top, bottom);
     }
 
     internal static int[] AssignAnnotationLanes(

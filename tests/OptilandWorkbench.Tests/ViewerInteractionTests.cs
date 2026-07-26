@@ -21,6 +21,30 @@ public sealed class ViewerInteractionTests
     }
 
     [Fact]
+    public void CrowdedCardinalAnnotationsReserveIndependentTopAndBottomBands()
+    {
+        var padding = OpticSceneControl.CalculateAnnotationPadding(
+            availableHeight: 1000,
+            aboveLabelCount: 6,
+            belowLabelCount: 5);
+
+        Assert.Equal(142, padding.Top);
+        Assert.Equal(123, padding.Bottom);
+    }
+
+    [Fact]
+    public void AnnotationPaddingRemainsBoundedInShortViews()
+    {
+        var padding = OpticSceneControl.CalculateAnnotationPadding(
+            availableHeight: 420,
+            aboveLabelCount: 12,
+            belowLabelCount: 12);
+
+        Assert.Equal(134.4, padding.Top, precision: 10);
+        Assert.Equal(134.4, padding.Bottom, precision: 10);
+    }
+
+    [Fact]
     public void SceneViewportMovesAxisAndContentTogether()
     {
         var viewport = new SceneViewport();
