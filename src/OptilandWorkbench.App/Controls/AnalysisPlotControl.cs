@@ -182,22 +182,46 @@ public sealed class AnalysisPlotControl : Control
             .Select(item => (Series: item, Points: item.Points.Where(IsFinite).ToArray()))
             .Where(item => item.Points.Length > 0)
             .ToArray();
-        if (visibleSeries.Length == 0 || Bounds.Width < 160 || Bounds.Height < 140)
+        if (visibleSeries.Length == 0 || Bounds.Width < 48 || Bounds.Height < 48)
         {
             return;
         }
 
+        var compact = Bounds.Width < 160 || Bounds.Height < 140;
+        var compactWithoutTicks = compact && PlotOptions.HideTickLabels;
         var legendItems = visibleSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
-        var legendWidth = PlotOptions.ShowLegend && legendItems.Length > 0 ? Math.Min(190, Bounds.Width * 0.28) : 0;
+        var legendBelow = !compact
+            && PlotOptions.ShowLegend
+            && PlotOptions.LegendBelow
+            && legendItems.Length > 0;
+        var legendWidth = !compact && !legendBelow && PlotOptions.ShowLegend && legendItems.Length > 0
+            ? Math.Min(190, Bounds.Width * 0.28)
+            : 0;
+        var legendBelowHeight = legendBelow ? 32 : 0;
         var valueSeries = visibleSeries
             .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
             .FirstOrDefault();
-        var colorbarWidth = valueSeries is not null && !string.IsNullOrWhiteSpace(valueSeries.ValueLabel) ? 92 : 0;
-        var top = PlotOptions.HideAxes ? (string.IsNullOrWhiteSpace(PlotOptions.Title) ? 8.0 : 38.0) : (string.IsNullOrWhiteSpace(PlotOptions.Title) ? 22.0 : 46.0);
-        var left = PlotOptions.HideAxes ? 8 : 76;
-        var bottom = PlotOptions.HideAxes ? 8 : 62;
-        var right = (PlotOptions.HideAxes ? 8 : 20) + legendWidth + colorbarWidth;
+        var colorbarWidth = !compact
+            && valueSeries is not null
+            && !string.IsNullOrWhiteSpace(valueSeries.ValueLabel)
+                ? 92
+                : 0;
+        var top = compactWithoutTicks
+            ? string.IsNullOrWhiteSpace(PlotOptions.Title) ? 4.0 : 24.0
+            : PlotOptions.HideAxes
+                ? string.IsNullOrWhiteSpace(PlotOptions.Title) ? 8.0 : 38.0
+                : string.IsNullOrWhiteSpace(PlotOptions.Title) ? 22.0 : 46.0;
+        var left = compactWithoutTicks
+            ? 4
+            : PlotOptions.HideAxes ? 8 : PlotOptions.HideTickLabels ? 52 : 76;
+        var bottom = compactWithoutTicks
+            ? 4
+            : (PlotOptions.HideAxes ? 8 : PlotOptions.HideTickLabels ? 46 : 62)
+                + legendBelowHeight;
+        var right = (compactWithoutTicks ? 4 : PlotOptions.HideAxes ? 8 : 20)
+            + legendWidth
+            + colorbarWidth;
         var plot = new Rect(
             left,
             top,
@@ -287,6 +311,10 @@ public sealed class AnalysisPlotControl : Control
         {
             DrawLegend(context, legendItems, plot);
         }
+        else if (legendBelow)
+        {
+            DrawLegendBelow(context, legendItems, plot);
+        }
 
         DrawInteractionOverlay(context, visibleSeries, plot, MapX, MapY);
     }
@@ -300,6 +328,11 @@ public sealed class AnalysisPlotControl : Control
     {
         if (_hoverPointer is not Point pointer || !plot.Contains(pointer))
         {
+            if (plot.Width < 320 || plot.Height < 180)
+            {
+                return;
+            }
+
             var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", 10.5, new SolidColorBrush(Color.FromRgb(110, 110, 115)));
             context.DrawText(hint, new Point(plot.Right - hint.Width - 8, plot.Bottom - hint.Height - 6));
             return;
@@ -415,13 +448,16 @@ public sealed class AnalysisPlotControl : Control
             context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
 
-            var xValue = PlotOptions.ReverseX
-                ? xMax - ((xMax - xMin) * fraction)
-                : xMin + ((xMax - xMin) * fraction);
-            var xText = CreateText(FormatTick(xValue), 11, TickBrush);
-            context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
-            var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), 11, TickBrush);
-            context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
+            if (!PlotOptions.HideTickLabels)
+            {
+                var xValue = PlotOptions.ReverseX
+                    ? xMax - ((xMax - xMin) * fraction)
+                    : xMin + ((xMax - xMin) * fraction);
+                var xText = CreateText(FormatTick(xValue), 11, TickBrush);
+                context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
+                var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), 11, TickBrush);
+                context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
+            }
         }
     }
 
@@ -912,6 +948,35 @@ public sealed class AnalysisPlotControl : Control
             var label = CreateText(item.Series.Name, lineHeight < 17 ? 10 : 11.5, TextBrush);
             context.DrawText(label, new Point(x + 36, y));
             y += lineHeight;
+        }
+    }
+
+    private static void DrawLegendBelow(
+        DrawingContext context,
+        IReadOnlyList<(AnalysisSeries Series, AnalysisPoint[] Points)> legendItems,
+        Rect plot)
+    {
+        var entries = legendItems.Select(item =>
+        {
+            var label = CreateText(item.Series.Name, 11.5, TextBrush);
+            return (item.Series, Label: label, Width: 34 + label.Width + 20);
+        }).ToArray();
+        var totalWidth = entries.Sum(entry => entry.Width);
+        var x = Math.Max(plot.Left, plot.Center.X - (totalWidth / 2));
+        var y = plot.Bottom + 58;
+        foreach (var entry in entries)
+        {
+            var color = Palette[Math.Abs(entry.Series.ColorIndex) % Palette.Length];
+            var brush = new SolidColorBrush(color);
+            var pen = new Pen(brush, entry.Series.LineWidth, DashFor(entry.Series.LineStyle));
+            context.DrawLine(pen, new Point(x, y + 8), new Point(x + 26, y + 8));
+            if (entry.Series.Kind == AnalysisSeriesKind.Scatter || entry.Series.ShowMarkers)
+            {
+                DrawMarker(context, brush, new Point(x + 13, y + 8), entry.Series.MarkerStyle, 3);
+            }
+
+            context.DrawText(entry.Label, new Point(x + 32, y));
+            x += entry.Width;
         }
     }
 

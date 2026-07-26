@@ -1,0 +1,199 @@
+using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Services;
+
+namespace OptilandWorkbench.Core.Analysis;
+
+public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
+{
+    private readonly int _numRays;
+    private readonly int _resolutionX;
+    private readonly int _resolutionY;
+    private readonly int _detectorSurfaceIndex;
+    private readonly string _distribution;
+    private readonly bool _normalize;
+
+    public IncoherentIrradianceAnalysis(
+        Optic optic,
+        int numRays = 5,
+        int resolutionX = 128,
+        int resolutionY = 128,
+        int detectorSurfaceIndex = -1,
+        string distribution = "random",
+        bool normalize = true) : base(optic)
+    {
+        _numRays = Math.Max(1, numRays);
+        _resolutionX = Math.Max(1, resolutionX);
+        _resolutionY = Math.Max(1, resolutionY);
+        _detectorSurfaceIndex = detectorSurfaceIndex;
+        _distribution = distribution;
+        _normalize = normalize;
+    }
+
+    public override string Name => "Incoherent Irradiance";
+
+    public override AnalysisData GenerateData()
+    {
+        if (Optic.SurfaceGroup.Items.Count == 0)
+        {
+            return Status("No detector surface");
+        }
+
+        var detectorIndex = _detectorSurfaceIndex < 0
+            ? Optic.SurfaceGroup.Items.Count + _detectorSurfaceIndex
+            : _detectorSurfaceIndex;
+        if (detectorIndex < 0 || detectorIndex >= Optic.SurfaceGroup.Items.Count)
+        {
+            return Status("Detector surface index is out of range");
+        }
+
+        var detector = Optic.SurfaceGroup.Items[detectorIndex];
+        if (!TryGetExtent(detector.PhysicalAperture, out var extent))
+        {
+            return Status("Detector surface has no supported physical aperture");
+        }
+
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var wavelengths = Optic.Wavelengths.ToArray();
+        if (fields.Count == 0 || wavelengths.Length == 0)
+        {
+            return Status("No fields or wavelengths");
+        }
+
+        var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
+        var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
+        var pixelArea = xStep * yStep;
+        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(_numRays, _distribution);
+        var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
+        var peaks = new List<double>(fields.Count * wavelengths.Length);
+        var validRayCount = 0;
+
+        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        {
+            var field = fields[fieldIndex];
+            for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
+            {
+                var wavelength = wavelengths[wavelengthIndex];
+                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                    field.Hx,
+                    field.Hy,
+                    wavelength.Micrometers,
+                    pupilSamples);
+                var trace = Optic.SequentialRayTracer.Trace(bundle);
+                var irradiance = new double[_resolutionX, _resolutionY];
+                foreach (var history in trace.RayHistories)
+                {
+                    if (history.Count <= detectorIndex)
+                    {
+                        continue;
+                    }
+
+                    var sample = history[detectorIndex];
+                    if (sample.Intensity <= 0 || sample.Vignetted)
+                    {
+                        continue;
+                    }
+
+                    var local = detector.CoordinateSystem.ToLocalPoint(sample.Position);
+                    var xBin = BinIndex(local.X, extent.XMinimum, extent.XMaximum, _resolutionX);
+                    var yBin = BinIndex(local.Y, extent.YMinimum, extent.YMaximum, _resolutionY);
+                    if (xBin < 0 || yBin < 0)
+                    {
+                        continue;
+                    }
+
+                    irradiance[xBin, yBin] += sample.Intensity / pixelArea;
+                    validRayCount++;
+                }
+
+                var peak = irradiance.Cast<double>().DefaultIfEmpty(0).Max();
+                peaks.Add(peak);
+                var points = new List<AnalysisPoint>(_resolutionX * _resolutionY);
+                for (var x = 0; x < _resolutionX; x++)
+                {
+                    var xCenter = extent.XMinimum + ((x + 0.5) * xStep);
+                    for (var y = 0; y < _resolutionY; y++)
+                    {
+                        var yCenter = extent.YMinimum + ((y + 0.5) * yStep);
+                        var value = _normalize && peak > 0 ? irradiance[x, y] / peak : irradiance[x, y];
+                        points.Add(new AnalysisPoint(xCenter, yCenter, Value: value));
+                    }
+                }
+
+                var title = $"{MtfPresentation.FieldName(Optic, field)}, "
+                    + $"\u03BB{wavelengthIndex} = {wavelength.Micrometers:0.000} \u00B5m";
+                var series = new AnalysisSeries(
+                    "X (mm)",
+                    "Y (mm)",
+                    points,
+                    AnalysisSeriesKind.Heatmap,
+                    ValueLabel: _normalize ? "Normalized Irradiance" : "Irradiance (W/mm\u00B2)",
+                    ColorMap: AnalysisColorMap.Inferno,
+                    ValueMinimum: _normalize ? 0 : null,
+                    ValueMaximum: _normalize ? 1 : null);
+                panes.Add(new AnalysisPlotPane(title, new[] { series }, new AnalysisPlotOptions(
+                    Title: title,
+                    EqualAspect: true,
+                    XMinimum: extent.XMinimum,
+                    XMaximum: extent.XMaximum,
+                    YMinimum: extent.YMinimum,
+                    YMaximum: extent.YMaximum,
+                    GridOpacity: 0)));
+            }
+        }
+
+        var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["DetectorSurfaceIndex"] = detectorIndex,
+            ["DetectorExtent"] = $"[{extent.XMinimum:R}, {extent.XMaximum:R}] x [{extent.YMinimum:R}, {extent.YMaximum:R}] mm",
+            ["Resolution"] = $"{_resolutionX} x {_resolutionY}",
+            ["NumRays"] = _numRays,
+            ["Distribution"] = _distribution,
+            ["Normalized"] = _normalize,
+            ["ValidRayCount"] = validRayCount,
+            ["PeakIrradiance"] = peaks.DefaultIfEmpty(0).Max(),
+            ["FieldCount"] = fields.Count,
+            ["WavelengthCount"] = wavelengths.Length
+        }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes, PlotPaneColumns: wavelengths.Length);
+    }
+
+    private AnalysisData Status(string message)
+    {
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Status"] = message,
+            ["PythonRequirement"] = "Set a physical aperture on the detector surface"
+        });
+    }
+
+    private static bool TryGetExtent(
+        IPhysicalAperture? aperture,
+        out (double XMinimum, double XMaximum, double YMinimum, double YMaximum) extent)
+    {
+        if (PhysicalApertureBoundsCalculator.TryGetBounds(aperture, out var bounds))
+        {
+            extent = (bounds.XMinimum, bounds.XMaximum, bounds.YMinimum, bounds.YMaximum);
+            return true;
+        }
+
+        extent = default;
+        return false;
+    }
+
+    private static int BinIndex(double value, double minimum, double maximum, int count)
+    {
+        if (!double.IsFinite(value) || value < minimum || value > maximum)
+        {
+            return -1;
+        }
+
+        if (value == maximum)
+        {
+            return count - 1;
+        }
+
+        return Math.Clamp((int)Math.Floor((value - minimum) / (maximum - minimum) * count), 0, count - 1);
+    }
+}

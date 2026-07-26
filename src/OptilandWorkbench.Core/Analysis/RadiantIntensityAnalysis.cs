@@ -153,7 +153,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             }
 
             var valueLabel = _normalize ? "Normalized Intensity" : "Radiant Intensity (W/sr)";
-            var title = $"Field: ({map.Field.Hx:0.0###}, {map.Field.Hy:0.0###}), "
+            var title = $"{MtfPresentation.FieldName(Optic, map.Field)}, "
                 + $"\u03BB={map.Wavelength.Micrometers:0.000} \u00B5m";
             var heatmapPoints = new List<AnalysisPoint>(_binsX * _binsY);
             for (var x = 0; x < _binsX; x++)

@@ -67,6 +67,135 @@ public sealed class MtfMaximumFrequencyTests
     }
 
     [Fact]
+    public void ThroughFocusMtfLegendsUseDeclaredRealImageHeightFields()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "Field 1", Y = 0 });
+        optic.Fields.Add(new FieldPoint { Label = "Field 2", Y = 4.5 });
+        optic.Fields.Add(new FieldPoint { Label = "Field 3", Y = 3.375 });
+        optic.Fields.Add(new FieldPoint { Label = "Field 4", Y = 2.25 });
+        optic.Fields.Add(new FieldPoint { Label = "Field 5", Y = 1.125 });
+
+        var settings = new MtfComputationSettings(
+            PupilSampling: 8,
+            ImageSize: 16,
+            GeometricRayCount: 8);
+        var methodSpecific = new MtfThroughFocusAnalysis(
+            optic,
+            MtfComputationMethod.Fourier,
+            spatialFrequency: 20,
+            focusPlaneCount: 1,
+            settings: settings).GenerateData();
+        var sampled = new ThroughFocusMtfAnalysis(
+            optic,
+            spatialFrequency: 20,
+            numSteps: 1,
+            pupilSampling: 8).GenerateData();
+
+        foreach (var data in new[] { methodSpecific, sampled })
+        {
+            Assert.Equal(10, data.PlotSeries.Count);
+            Assert.Equal("Field 1 (Y=0 mm), Tangential", data.PlotSeries[0].Name);
+            Assert.Equal("Field 2 (Y=4.5 mm), Tangential", data.PlotSeries[2].Name);
+            Assert.Equal("Field 3 (Y=3.375 mm), Tangential", data.PlotSeries[4].Name);
+            Assert.Equal("Field 4 (Y=2.25 mm), Tangential", data.PlotSeries[6].Name);
+            Assert.Equal("Field 5 (Y=1.125 mm), Tangential", data.PlotSeries[8].Name);
+            Assert.DoesNotContain(data.PlotSeries, series =>
+                series.Name?.Contains("Hx", StringComparison.Ordinal) == true
+                || series.Name?.Contains("Hy", StringComparison.Ordinal) == true);
+        }
+    }
+
+    [Fact]
+    public void FourierThroughFocusMtfUsesZemaxDefaultsAndSmoothPlotSampling()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var settings = new MtfComputationSettings(
+            PupilSampling: 8,
+            ImageSize: 16,
+            ZemaxCompatible: true);
+
+        var data = new MtfThroughFocusAnalysis(
+            optic,
+            MtfComputationMethod.Fourier,
+            spatialFrequency: 0,
+            deltaFocus: 0.1,
+            focusPlaneCount: 5,
+            settings: settings,
+            type: "调制").GenerateData();
+
+        Assert.Equal(0.0, data.Values["FrequencyInput"]);
+        Assert.Equal(50.0, data.Values["SpatialFrequency"]);
+        Assert.Equal(5, data.Values["NumberOfSteps"]);
+        Assert.Equal("Modulation", data.Values["Type"]);
+        Assert.Equal(true, data.Values["ZemaxCompatible"]);
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(300, series.Points.Count);
+            Assert.Equal(-0.1, series.Points[0].X, 12);
+            Assert.Equal(0.1, series.Points[^1].X, 12);
+        });
+    }
+
+    [Fact]
+    public void ThroughFocusMtfUsesZemaxDeltaFocusStepsAndPolychromaticDefaults()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var settings = new MtfComputationSettings(
+            PupilSampling: 8,
+            ImageSize: 16,
+            GeometricRayCount: 8);
+
+        var data = new MtfThroughFocusAnalysis(
+            optic,
+            MtfComputationMethod.Fourier,
+            spatialFrequency: 50,
+            deltaFocus: 0.1,
+            focusPlaneCount: 5,
+            settings: settings,
+            wavelengthNumber: 0,
+            fieldNumber: 0).GenerateData();
+
+        Assert.Equal(0.1, data.Values["DeltaFocus"]);
+        Assert.Equal(5, data.Values["Steps"]);
+        Assert.Equal(0, data.Values["WavelengthNumber"]);
+        Assert.Equal(optic.Wavelengths.Count, Assert.IsType<double[]>(data.Values["WavelengthsMicrometers"]).Length);
+        var rawTangential = Assert.IsType<double[][]>(data.Values["RawTangential"]);
+        Assert.Equal(optic.Fields.Count, rawTangential.Length);
+        Assert.All(rawTangential, field => Assert.Equal(5, field.Length));
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(101, series.Points.Count);
+            Assert.Equal(-0.1, series.Points[0].X, 12);
+            Assert.Equal(0.1, series.Points[^1].X, 12);
+        });
+    }
+
+    [Fact]
+    public void ThroughFocusMtfCanSelectOneDeclaredFieldAndWavelengthByZemaxNumber()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var settings = new MtfComputationSettings(PupilSampling: 8, ImageSize: 16);
+
+        var data = new MtfThroughFocusAnalysis(
+            optic,
+            MtfComputationMethod.Fourier,
+            spatialFrequency: 20,
+            focusPlaneCount: 1,
+            settings: settings,
+            wavelengthNumber: 2,
+            fieldNumber: 2).GenerateData();
+
+        Assert.Equal(2, data.PlotSeries.Count);
+        Assert.StartsWith("14 deg (Y=14 °)", data.PlotSeries[0].Name);
+        Assert.Equal(
+            new[] { optic.Wavelengths[1].Micrometers },
+            Assert.IsType<double[]>(data.Values["WavelengthsMicrometers"]));
+    }
+
+    [Fact]
     public void FourierMtfHonorsRequestedMaximumFrequency()
     {
         const double maximumFrequency = 20;
@@ -74,13 +203,79 @@ public sealed class MtfMaximumFrequencyTests
             Optic.CreateCookeTriplet(),
             numRays: 16,
             gridSize: 32,
-            maximumFrequency: maximumFrequency).GenerateData();
+            maximumFrequency: maximumFrequency,
+            zemaxCompatible: true).GenerateData();
 
         Assert.Equal(maximumFrequency, data.PlotOptions!.XMaximum);
         Assert.Equal(maximumFrequency, Convert.ToDouble(data.Values["MaximumFrequency"]));
         Assert.All(data.PlotSeries.SelectMany(series => series.Points), point =>
             Assert.InRange(point.X, 0, maximumFrequency));
-        Assert.All(data.PlotSeries, series => Assert.Equal(maximumFrequency, series.Points[^1].X));
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(300, series.Points.Count);
+            Assert.Equal(maximumFrequency, series.Points[^1].X);
+        });
+    }
+
+    [Fact]
+    public void FourierMtfAcceptsTheSameSettingsAsZemax()
+    {
+        const double maximumFrequency = 20;
+        var data = new MtfAnalysis(
+            Optic.CreateCookeTriplet(),
+            numRays: 8,
+            gridSize: 16,
+            maximumFrequency: maximumFrequency,
+            wavelengthNumber: 1,
+            fieldNumber: 1,
+            surfaceNumber: 0,
+            type: "实部",
+            showDiffractionLimit: true,
+            usePolarization: false,
+            useDashes: false,
+            zemaxCompatible: true).GenerateData();
+
+        Assert.Equal(3, data.PlotSeries.Count);
+        Assert.Equal("Real", data.Values["Type"]);
+        Assert.Equal(0, data.Values["SurfaceNumber"]);
+        Assert.Equal(true, data.Values["ShowDiffractionLimit"]);
+        Assert.Equal(false, data.Values["UsePolarization"]);
+        Assert.Equal(false, data.Values["UseDashes"]);
+        Assert.Equal(300, data.Values["PlotPointCount"]);
+        Assert.Equal(AnalysisLineStyle.Solid, data.PlotSeries[0].LineStyle);
+        Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[1].LineStyle);
+        Assert.Equal("Diffraction Limit", data.PlotSeries[2].Name);
+        Assert.All(data.PlotSeries, series => Assert.Equal(300, series.Points.Count));
+        Assert.Equal(-1, data.PlotOptions!.YMinimum);
+        Assert.Equal(1, data.PlotOptions.YMaximum);
+    }
+
+    [Theory]
+    [InlineData("调制", "Modulation", 0.0, 1.05)]
+    [InlineData("实部", "Real", -1.0, 1.0)]
+    [InlineData("虚部", "Imaginary", -1.0, 1.0)]
+    [InlineData("相位", "Phase", -3.141592653589793, 3.141592653589793)]
+    [InlineData("方波", "SquareWave", 0.0, 1.05)]
+    public void FourierMtfTypeControlsTheReturnedData(
+        string type,
+        string expectedType,
+        double expectedMinimum,
+        double expectedMaximum)
+    {
+        var data = new MtfAnalysis(
+            Optic.CreateCookeTriplet(),
+            numRays: 8,
+            gridSize: 16,
+            maximumFrequency: 20,
+            wavelengthNumber: 1,
+            fieldNumber: 1,
+            type: type,
+            zemaxCompatible: true).GenerateData();
+
+        Assert.Equal(expectedType, data.Values["Type"]);
+        Assert.Equal(expectedMinimum, data.PlotOptions!.YMinimum);
+        Assert.Equal(expectedMaximum, data.PlotOptions.YMaximum);
+        Assert.All(data.PlotSeries, series => Assert.Equal(300, series.Points.Count));
     }
 
     [Fact]

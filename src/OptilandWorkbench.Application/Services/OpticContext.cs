@@ -7,7 +7,7 @@ internal interface IOpticContext : IDisposable
 {
     object SyncRoot { get; }
 
-    OptilandConnector Connector { get; }
+    OpticalWorkspaceModel Connector { get; }
 
     CancellationTokenSource LinkDocumentToken(CancellationToken cancellationToken);
 
@@ -21,12 +21,12 @@ internal sealed class OpticContext : IOpticContext
 
     public OpticContext(Optic optic)
     {
-        Connector = new OptilandConnector(optic);
+        Connector = new OpticalWorkspaceModel(optic);
     }
 
     public object SyncRoot { get; } = new();
 
-    public OptilandConnector Connector { get; }
+    public OpticalWorkspaceModel Connector { get; }
 
     public CancellationTokenSource LinkDocumentToken(CancellationToken cancellationToken)
     {

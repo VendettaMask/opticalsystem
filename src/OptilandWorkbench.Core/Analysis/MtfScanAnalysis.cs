@@ -1,3 +1,4 @@
+using System.Numerics;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -10,121 +11,274 @@ public enum MtfComputationMethod
 }
 
 public sealed record MtfComputationSettings(
-    int PupilSampling = 32,
+    int PupilSampling = 64,
     int ImageSize = 64,
     double PixelPitchMillimeters = 0.005,
-    int GeometricRayCount = 32,
+    int GeometricRayCount = 64,
     string Distribution = "uniform",
-    bool ScaleGeometricByDiffractionLimit = true);
+    bool ScaleGeometricByDiffractionLimit = true,
+    bool UsePolarization = false,
+    bool ZemaxCompatible = false);
 
 public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 {
     private readonly MtfComputationMethod _method;
+    private readonly double _frequencyInput;
     private readonly double _spatialFrequency;
-    private readonly double _focusStep;
+    private readonly double _deltaFocus;
     private readonly int _focusPlaneCount;
     private readonly MtfComputationSettings _settings;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
+    private readonly FftMtfDataType _dataType;
+    private readonly bool _useDashes;
 
     public MtfThroughFocusAnalysis(
         Optic optic,
         MtfComputationMethod method,
-        double spatialFrequency = 20,
-        double focusStep = 0.1,
+        double spatialFrequency = 50,
+        double deltaFocus = 0.1,
         int focusPlaneCount = 5,
-        MtfComputationSettings? settings = null) : base(optic)
+        MtfComputationSettings? settings = null,
+        int wavelengthNumber = 0,
+        int fieldNumber = 0,
+        string type = "Modulation",
+        bool useDashes = false) : base(optic)
     {
         _method = method;
-        _spatialFrequency = Math.Max(0, spatialFrequency);
-        _focusStep = Math.Abs(focusStep);
-        _focusPlaneCount = Math.Clamp(focusPlaneCount % 2 == 0 ? focusPlaneCount + 1 : focusPlaneCount, 1, 31);
         _settings = settings ?? new MtfComputationSettings();
+        _frequencyInput = Math.Max(0, spatialFrequency);
+        _spatialFrequency = _settings.ZemaxCompatible && _frequencyInput <= 0
+            ? 50
+            : _frequencyInput;
+        _deltaFocus = Math.Abs(deltaFocus);
+        _focusPlaneCount = Math.Clamp(focusPlaneCount, 1, 101);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _fieldNumber = Math.Max(0, fieldNumber);
+        _dataType = MtfMethodEvaluator.ParseDataType(type);
+        _useDashes = useDashes;
     }
 
     public override string Name => $"{MtfMethodEvaluator.MethodName(_method)} Through Focus MTF";
 
     public override AnalysisData GenerateData()
     {
-        var wavelength = MtfMethodEvaluator.PrimaryWavelength(Optic);
+        var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
         var imageSurface = Optic.SurfaceGroup.Items.LastOrDefault();
-        if (wavelength is null || imageSurface is null)
+        if (wavelengths.Count == 0 || imageSurface is null)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
         }
 
-        var fields = SpotAnalysisEngine.DefinedFields(Optic);
-        var focus = Enumerable.Range(0, _focusPlaneCount)
-            .Select(index => (index - (_focusPlaneCount / 2)) * _focusStep)
-            .ToArray();
+        var allFields = SpotAnalysisEngine.DefinedFields(Optic);
+        var fieldIndices = _fieldNumber <= 0
+            ? Enumerable.Range(0, allFields.Count).ToArray()
+            : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
+        var fields = fieldIndices.Select(index => allFields[index]).ToArray();
+        var focus = _focusPlaneCount == 1
+            ? new[] { 0.0 }
+            : Enumerable.Range(0, _focusPlaneCount)
+                .Select(index => -_deltaFocus + ((2 * _deltaFocus * index) / (_focusPlaneCount - 1.0)))
+                .ToArray();
         var tangential = fields.Select(_ => new double[focus.Length]).ToArray();
         var sagittal = fields.Select(_ => new double[focus.Length]).ToArray();
         var originalCoordinateSystem = imageSurface.CoordinateSystem;
-        try
+        if (_method == MtfComputationMethod.Fourier && _settings.ZemaxCompatible)
         {
-            for (var focusIndex = 0; focusIndex < focus.Length; focusIndex++)
+            for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
             {
-                imageSurface.CoordinateSystem = originalCoordinateSystem with
-                {
-                    Origin = originalCoordinateSystem.Origin with
-                    {
-                        Z = originalCoordinateSystem.Origin.Z + focus[focusIndex]
-                    }
-                };
-                for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
-                {
-                    var value = MtfMethodEvaluator.Evaluate(
-                        Optic,
-                        _method,
-                        fields[fieldIndex],
-                        wavelength,
-                        _spatialFrequency,
-                        _settings);
-                    tangential[fieldIndex][focusIndex] = value.Tangential;
-                    sagittal[fieldIndex][focusIndex] = value.Sagittal;
-                }
+                var values = MtfMethodEvaluator.EvaluateFourierThroughFocus(
+                    Optic,
+                    fields[fieldIndex],
+                    wavelengths,
+                    focus,
+                    _spatialFrequency,
+                    _settings,
+                    _dataType);
+                tangential[fieldIndex] = values.Tangential;
+                sagittal[fieldIndex] = values.Sagittal;
             }
         }
-        finally
+        else
         {
-            imageSurface.CoordinateSystem = originalCoordinateSystem;
+            try
+            {
+                for (var focusIndex = 0; focusIndex < focus.Length; focusIndex++)
+                {
+                    imageSurface.CoordinateSystem = originalCoordinateSystem with
+                    {
+                        Origin = originalCoordinateSystem.Origin with
+                        {
+                            Z = originalCoordinateSystem.Origin.Z + focus[focusIndex]
+                        }
+                    };
+                    for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
+                    {
+                        var value = MtfMethodEvaluator.EvaluatePolychromatic(
+                            Optic,
+                            _method,
+                            fields[fieldIndex],
+                            wavelengths,
+                            _spatialFrequency,
+                            _settings,
+                            _dataType);
+                        tangential[fieldIndex][focusIndex] = value.Tangential;
+                        sagittal[fieldIndex][focusIndex] = value.Sagittal;
+                    }
+                }
+            }
+            finally
+            {
+                imageSurface.CoordinateSystem = originalCoordinateSystem;
+            }
         }
 
-        var series = new List<AnalysisSeries>(fields.Count * 2);
-        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        var displayFocus = focus.Length < 2
+            ? focus
+            : Enumerable.Range(0, _settings.ZemaxCompatible ? 300 : 101)
+                .Select(index => -_deltaFocus
+                    + ((2 * _deltaFocus * index)
+                        / ((_settings.ZemaxCompatible ? 300 : 101) - 1.0)))
+                .ToArray();
+        var series = new List<AnalysisSeries>(fields.Length * 2);
+        for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
+            var tangentialDisplay = _settings.ZemaxCompatible
+                ? CubicSplineInterpolate(focus, tangential[fieldIndex], displayFocus)
+                : ThroughFocusMtfAnalysis.Interpolate(focus, tangential[fieldIndex], displayFocus);
+            var sagittalDisplay = _settings.ZemaxCompatible
+                ? CubicSplineInterpolate(focus, sagittal[fieldIndex], displayFocus)
+                : ThroughFocusMtfAnalysis.Interpolate(focus, sagittal[fieldIndex], displayFocus);
+            var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
-                "MTF",
-                focus.Select((value, index) => new AnalysisPoint(value, tangential[fieldIndex][index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Tangential",
-                ColorIndex: fieldIndex));
+                MtfMethodEvaluator.DataTypeLabel(_dataType),
+                displayFocus.Select((value, index) => new AnalysisPoint(
+                    value,
+                    DisplayValue(tangentialDisplay[index]))).ToArray(),
+                Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
+                ColorIndex: _useDashes ? 0 : colorIndex));
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
-                "MTF",
-                focus.Select((value, index) => new AnalysisPoint(value, sagittal[fieldIndex][index])).ToArray(),
-                Name: $"Hx: {field.Hx:0.0}, Hy: {field.Hy:0.0}, Sagittal",
+                MtfMethodEvaluator.DataTypeLabel(_dataType),
+                displayFocus.Select((value, index) => new AnalysisPoint(
+                    value,
+                    DisplayValue(sagittalDisplay[index]))).ToArray(),
+                Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: fieldIndex));
+                ColorIndex: _useDashes ? 0 : colorIndex));
         }
 
+        var wavelengthLabel = _wavelengthNumber <= 0
+            ? "Polychromatic"
+            : $"\u03BB={wavelengths[0].Micrometers:0.000} \u00B5m";
+        var (yMinimum, yMaximum) = _dataType switch
+        {
+            FftMtfDataType.Real or FftMtfDataType.Imaginary => (-1.0, 1.0),
+            FftMtfDataType.Phase => (-Math.PI, Math.PI),
+            _ => (0.0, 1.05)
+        };
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
+            ["FrequencyInput"] = _frequencyInput,
             ["SpatialFrequency"] = _spatialFrequency,
-            ["FocusStep"] = _focusStep,
-            ["FocusPlaneCount"] = _focusPlaneCount,
-            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["DeltaFocus"] = _deltaFocus,
+            ["Steps"] = _focusPlaneCount,
+            ["NumberOfSteps"] = _focusPlaneCount,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["FieldNumber"] = _fieldNumber,
+            ["Type"] = MtfMethodEvaluator.DataTypeName(_dataType),
+            ["UsePolarization"] = _settings.UsePolarization,
+            ["UseDashes"] = _useDashes,
+            ["ZemaxCompatible"] = _settings.ZemaxCompatible,
+            ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["RawTangential"] = tangential,
             ["RawSagittal"] = sagittal
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} cycles/mm",
-            XMinimum: focus.FirstOrDefault(),
-            XMaximum: focus.LastOrDefault(),
-            YMinimum: 0,
-            YMaximum: 1.05,
+            Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} cycles/mm, {wavelengthLabel}",
+            XMinimum: -_deltaFocus,
+            XMaximum: _deltaFocus,
+            YMinimum: yMinimum,
+            YMaximum: yMaximum,
             ShowLegend: true,
             DottedGrid: true,
             GridOpacity: 0.35));
+    }
+
+    private double DisplayValue(double value)
+    {
+        return _dataType is FftMtfDataType.Modulation or FftMtfDataType.SquareWave
+            ? Math.Clamp(value, 0, 1)
+            : value;
+    }
+
+    private static double[] CubicSplineInterpolate(
+        IReadOnlyList<double> x,
+        IReadOnlyList<double> y,
+        IReadOnlyList<double> targets)
+    {
+        if (x.Count != y.Count || x.Count == 0)
+        {
+            return targets.Select(_ => 0.0).ToArray();
+        }
+
+        if (x.Count == 1)
+        {
+            return targets.Select(_ => y[0]).ToArray();
+        }
+
+        var secondDerivatives = new double[x.Count];
+        var work = new double[x.Count - 1];
+        secondDerivatives[0] = 0;
+        work[0] = 0;
+        for (var index = 1; index < x.Count - 1; index++)
+        {
+            var span = x[index + 1] - x[index - 1];
+            var sigma = span <= 1e-30 ? 0.5 : (x[index] - x[index - 1]) / span;
+            var pivot = (sigma * secondDerivatives[index - 1]) + 2;
+            secondDerivatives[index] = (sigma - 1) / pivot;
+            var leftWidth = x[index] - x[index - 1];
+            var rightWidth = x[index + 1] - x[index];
+            var slopeChange = leftWidth <= 1e-30 || rightWidth <= 1e-30
+                ? 0
+                : ((y[index + 1] - y[index]) / rightWidth)
+                    - ((y[index] - y[index - 1]) / leftWidth);
+            work[index] = ((6 * slopeChange / Math.Max(span, 1e-30))
+                - (sigma * work[index - 1])) / pivot;
+        }
+
+        secondDerivatives[^1] = 0;
+        for (var index = x.Count - 2; index >= 0; index--)
+        {
+            secondDerivatives[index] = (secondDerivatives[index] * secondDerivatives[index + 1])
+                + work[index];
+        }
+
+        return targets.Select(target =>
+        {
+            var upper = 1;
+            while (upper < x.Count - 1 && target > x[upper])
+            {
+                upper++;
+            }
+
+            var lower = upper - 1;
+            var width = x[upper] - x[lower];
+            if (width <= 1e-30)
+            {
+                return y[lower];
+            }
+
+            var a = (x[upper] - target) / width;
+            var b = (target - x[lower]) / width;
+            return (a * y[lower])
+                + (b * y[upper])
+                + ((((a * a * a) - a) * secondDerivatives[lower]
+                    + (((b * b * b) - b) * secondDerivatives[upper]))
+                    * width * width / 6);
+        }).ToArray();
     }
 }
 
@@ -133,25 +287,28 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
     private readonly MtfComputationMethod _method;
     private readonly double _spatialFrequency;
     private readonly MtfComputationSettings _settings;
+    private readonly int _wavelengthNumber;
 
     public MtfVsFieldAnalysis(
         Optic optic,
         MtfComputationMethod method,
         double spatialFrequency = 20,
         int fieldPointCount = 21,
-        MtfComputationSettings? settings = null) : base(optic)
+        MtfComputationSettings? settings = null,
+        int wavelengthNumber = 0) : base(optic)
     {
         _method = method;
         _spatialFrequency = Math.Max(0, spatialFrequency);
         _settings = settings ?? new MtfComputationSettings();
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
     }
 
     public override string Name => $"{MtfMethodEvaluator.MethodName(_method)} MTF vs Field";
 
     public override AnalysisData GenerateData()
     {
-        var wavelength = MtfMethodEvaluator.PrimaryWavelength(Optic);
-        if (wavelength is null)
+        var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
+        if (wavelengths.Count == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
         }
@@ -163,11 +320,11 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         for (var index = 0; index < fields.Count; index++)
         {
             var field = fields[index];
-            var value = MtfMethodEvaluator.Evaluate(
+            var value = MtfMethodEvaluator.EvaluatePolychromatic(
                 Optic,
                 _method,
                 (field.Hx, field.Hy),
-                wavelength,
+                wavelengths,
                 _spatialFrequency,
                 _settings);
             tangential[index] = value.Tangential;
@@ -210,7 +367,8 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             ["FieldPointCount"] = fields.Count,
             ["MaximumField"] = fieldCoordinates.Select(Math.Abs).DefaultIfEmpty(0).Max(),
             ["FieldUnit"] = fieldUnit,
-            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["Tangential"] = tangential,
             ["Sagittal"] = sagittal
         }, series[0], series, new AnalysisPlotOptions(
@@ -227,6 +385,30 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
 
 internal static class MtfMethodEvaluator
 {
+    public static IReadOnlyList<Wavelength> SelectWavelengths(Optic optic, int wavelengthNumber)
+    {
+        var wavelengths = optic.Wavelengths.ToArray();
+        if (wavelengths.Length == 0)
+        {
+            return Array.Empty<Wavelength>();
+        }
+
+        if (wavelengthNumber < 0)
+        {
+            return new[]
+            {
+                wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]
+            };
+        }
+
+        if (wavelengthNumber == 0)
+        {
+            return wavelengths;
+        }
+
+        return new[] { wavelengths[Math.Clamp(wavelengthNumber - 1, 0, wavelengths.Length - 1)] };
+    }
+
     public static Wavelength? PrimaryWavelength(Optic optic)
     {
         return optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
@@ -261,6 +443,297 @@ internal static class MtfMethodEvaluator
         };
     }
 
+    public static (double Tangential, double Sagittal) EvaluatePolychromatic(
+        Optic optic,
+        MtfComputationMethod method,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        double spatialFrequency,
+        MtfComputationSettings settings,
+        FftMtfDataType dataType = FftMtfDataType.Modulation,
+        double defocusMillimeters = 0)
+    {
+        if (wavelengths.Count == 0)
+        {
+            return (0, 0);
+        }
+
+        if (method == MtfComputationMethod.Fourier)
+        {
+            var pupilSampling = Math.Max(8, settings.PupilSampling);
+            var gridSize = NextPowerOfTwo(Math.Max(pupilSampling, settings.ImageSize));
+            var results = wavelengths.Select(wavelength =>
+            {
+                var psf = DiffractionEngine.ComputeFftPsf(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    gridSize,
+                    settings.UsePolarization,
+                    cellCenteredPupil: settings.ZemaxCompatible,
+                    defocusMillimeters: defocusMillimeters);
+                return (wavelength, DiffractionEngine.ComputeFftMtf(psf, optic, wavelength));
+            }).ToArray();
+            var combined = CombinePolychromatic(results);
+            return (
+                Sample(combined, spatialFrequency, dataType, tangential: true),
+                Sample(combined, spatialFrequency, dataType, tangential: false));
+        }
+
+        var totalWeight = wavelengths.Sum(wavelength => wavelength.Weight);
+        var useEqualWeights = totalWeight <= 1e-30;
+        if (useEqualWeights)
+        {
+            totalWeight = wavelengths.Count;
+        }
+
+        var tangential = 0.0;
+        var sagittal = 0.0;
+        foreach (var wavelength in wavelengths)
+        {
+            var weight = useEqualWeights ? 1.0 : wavelength.Weight;
+            var value = Evaluate(optic, method, field, wavelength, spatialFrequency, settings);
+            tangential += value.Tangential * weight;
+            sagittal += value.Sagittal * weight;
+        }
+
+        return (
+            Math.Clamp(tangential / totalWeight, 0, 1),
+            Math.Clamp(sagittal / totalWeight, 0, 1));
+    }
+
+    internal static (double[] Tangential, double[] Sagittal) EvaluateFourierThroughFocus(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        IReadOnlyList<double> focus,
+        double spatialFrequency,
+        MtfComputationSettings settings,
+        FftMtfDataType dataType)
+    {
+        var pupilSampling = Math.Max(8, settings.PupilSampling);
+        var gridSize = NextPowerOfTwo(Math.Max(pupilSampling, settings.ImageSize));
+        var wavelengthResults = wavelengths.Select(wavelength =>
+        {
+            var wavefront = WavefrontEngine.GenerateChiefRayUniform(
+                optic,
+                field,
+                wavelength,
+                pupilSampling,
+                cellCentered: true,
+                aimAtStop: true);
+            var polarization = settings.UsePolarization
+                ? JonesPupilEngine.Generate(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    useFresnelCoatings: true,
+                    cellCentered: true)
+                : null;
+            var results = focus.Select(defocus =>
+            {
+                if (dataType == FftMtfDataType.Modulation)
+                {
+                    return DiffractionEngine.ComputeFastFftMtfAtFrequency(
+                        optic,
+                        field,
+                        wavelength,
+                        pupilSampling,
+                        spatialFrequency,
+                        defocus,
+                        settings.UsePolarization,
+                        wavefront,
+                        polarization);
+                }
+
+                var defocusedWavefront = Math.Abs(defocus) <= 1e-30
+                    ? wavefront
+                    : DiffractionEngine.GenerateDefocusedWavefront(
+                        optic,
+                        field,
+                        wavelength,
+                        wavefront.Samples
+                            .Select(sample => (
+                                sample.NormalizedPupilX,
+                                sample.NormalizedPupilY))
+                            .ToArray(),
+                        defocus);
+                var psf = DiffractionEngine.ComputeFftPsf(
+                    optic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    gridSize,
+                    settings.UsePolarization,
+                    cellCenteredPupil: true,
+                    defocusMillimeters: 0,
+                    preparedWavefront: defocusedWavefront,
+                    preparedPolarization: polarization);
+                var mtf = DiffractionEngine.ComputeFftMtf(psf, optic, wavelength);
+                return (
+                    Tangential: InterpolateComplex(
+                        mtf.TangentialFrequency ?? mtf.Frequency,
+                        mtf.TangentialOtf ?? Array.Empty<Complex>(),
+                        spatialFrequency),
+                    Sagittal: InterpolateComplex(
+                        mtf.SagittalFrequency ?? mtf.Frequency,
+                        mtf.SagittalOtf ?? Array.Empty<Complex>(),
+                        spatialFrequency));
+            }).ToArray();
+            return (Wavelength: wavelength, Results: results);
+        }).ToArray();
+
+        var tangential = new double[focus.Count];
+        var sagittal = new double[focus.Count];
+        var totalWeight = wavelengthResults.Sum(item => item.Wavelength.Weight);
+        var useEqualWeights = totalWeight <= 1e-30;
+        if (useEqualWeights)
+        {
+            totalWeight = Math.Max(1, wavelengthResults.Length);
+        }
+
+        for (var focusIndex = 0; focusIndex < focus.Count; focusIndex++)
+        {
+            var tangentialComplex = Complex.Zero;
+            var sagittalComplex = Complex.Zero;
+            var tangentialModulation = 0.0;
+            var sagittalModulation = 0.0;
+            foreach (var item in wavelengthResults)
+            {
+                var weight = useEqualWeights ? 1 : item.Wavelength.Weight;
+                tangentialComplex += item.Results[focusIndex].Tangential * weight;
+                sagittalComplex += item.Results[focusIndex].Sagittal * weight;
+                tangentialModulation += item.Results[focusIndex].Tangential.Magnitude * weight;
+                sagittalModulation += item.Results[focusIndex].Sagittal.Magnitude * weight;
+            }
+
+            tangential[focusIndex] = DataTypeValue(
+                tangentialComplex / totalWeight,
+                tangentialModulation / totalWeight,
+                dataType);
+            sagittal[focusIndex] = DataTypeValue(
+                sagittalComplex / totalWeight,
+                sagittalModulation / totalWeight,
+                dataType);
+        }
+
+        return (tangential, sagittal);
+    }
+
+    private static double DataTypeValue(
+        Complex value,
+        double modulation,
+        FftMtfDataType dataType)
+    {
+        return dataType switch
+        {
+            FftMtfDataType.Real => value.Real,
+            FftMtfDataType.Imaginary => value.Imaginary,
+            FftMtfDataType.Phase => value.Phase,
+            FftMtfDataType.SquareWave => modulation,
+            _ => modulation
+        };
+    }
+
+    public static MtfResult CombinePolychromatic(
+        IReadOnlyList<(Wavelength Wavelength, MtfResult Result)> results)
+    {
+        if (results.Count == 0)
+        {
+            return new MtfResult(Array.Empty<double>(), Array.Empty<double>(), Array.Empty<double>(), 0);
+        }
+
+        var reference = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
+        if (reference.Wavelength is null)
+        {
+            reference = results[0];
+        }
+
+        var totalWeight = results.Sum(item => item.Wavelength.Weight);
+        var useEqualWeights = totalWeight <= 1e-30;
+        if (useEqualWeights)
+        {
+            totalWeight = results.Count;
+        }
+
+        var tangentialFrequency = (reference.Result.TangentialFrequency ?? reference.Result.Frequency).ToArray();
+        var sagittalFrequency = (reference.Result.SagittalFrequency ?? reference.Result.Frequency).ToArray();
+        var tangential = new double[tangentialFrequency.Length];
+        var sagittal = new double[sagittalFrequency.Length];
+        var hasComplexOtf = results.All(item =>
+            item.Result.TangentialOtf is not null
+            && item.Result.SagittalOtf is not null);
+        var tangentialOtf = hasComplexOtf ? new Complex[tangentialFrequency.Length] : null;
+        var sagittalOtf = hasComplexOtf ? new Complex[sagittalFrequency.Length] : null;
+        foreach (var item in results)
+        {
+            var weight = useEqualWeights ? 1.0 : item.Wavelength.Weight;
+            var itemTangentialFrequency = item.Result.TangentialFrequency ?? item.Result.Frequency;
+            var itemSagittalFrequency = item.Result.SagittalFrequency ?? item.Result.Frequency;
+            for (var index = 0; index < tangentialFrequency.Length; index++)
+            {
+                tangential[index] += Interpolate(
+                    itemTangentialFrequency,
+                    item.Result.Tangential,
+                    tangentialFrequency[index]) * weight;
+                if (hasComplexOtf)
+                {
+                    tangentialOtf![index] += InterpolateComplex(
+                        itemTangentialFrequency,
+                        item.Result.TangentialOtf!,
+                        tangentialFrequency[index]) * weight;
+                }
+            }
+
+            for (var index = 0; index < sagittalFrequency.Length; index++)
+            {
+                sagittal[index] += Interpolate(
+                    itemSagittalFrequency,
+                    item.Result.Sagittal,
+                    sagittalFrequency[index]) * weight;
+                if (hasComplexOtf)
+                {
+                    sagittalOtf![index] += InterpolateComplex(
+                        itemSagittalFrequency,
+                        item.Result.SagittalOtf!,
+                        sagittalFrequency[index]) * weight;
+                }
+            }
+        }
+
+        if (hasComplexOtf)
+        {
+            for (var index = 0; index < tangentialFrequency.Length; index++)
+            {
+                tangentialOtf![index] /= totalWeight;
+                tangential[index] = Math.Clamp(tangential[index] / totalWeight, 0, 1);
+            }
+
+            for (var index = 0; index < sagittalFrequency.Length; index++)
+            {
+                sagittalOtf![index] /= totalWeight;
+                sagittal[index] = Math.Clamp(sagittal[index] / totalWeight, 0, 1);
+            }
+        }
+        else
+        {
+            tangential = tangential.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
+            sagittal = sagittal.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
+        }
+
+        return new MtfResult(
+            tangentialFrequency,
+            tangential,
+            sagittal,
+            results.Min(item => item.Result.CutoffFrequency),
+            tangentialOtf,
+            sagittalOtf,
+            tangentialFrequency,
+            sagittalFrequency);
+    }
+
     private static (double Tangential, double Sagittal) EvaluateFourier(
         Optic optic,
         (double Hx, double Hy) field,
@@ -270,7 +743,14 @@ internal static class MtfMethodEvaluator
     {
         var pupilSampling = Math.Max(8, settings.PupilSampling);
         var gridSize = NextPowerOfTwo(Math.Max(pupilSampling, settings.ImageSize));
-        var psf = DiffractionEngine.ComputeFftPsf(optic, field, wavelength, pupilSampling, gridSize);
+        var psf = DiffractionEngine.ComputeFftPsf(
+            optic,
+            field,
+            wavelength,
+            pupilSampling,
+            gridSize,
+            settings.UsePolarization,
+            cellCenteredPupil: settings.ZemaxCompatible);
         return AtFrequency(DiffractionEngine.ComputeFftMtf(psf, optic, wavelength), spatialFrequency);
     }
 
@@ -318,12 +798,100 @@ internal static class MtfMethodEvaluator
 
     private static (double Tangential, double Sagittal) AtFrequency(MtfResult result, double frequency)
     {
+        var tangentialFrequency = result.TangentialFrequency ?? result.Frequency;
+        var sagittalFrequency = result.SagittalFrequency ?? result.Frequency;
         return (
-            Interpolate(result.Frequency, result.Tangential, frequency),
-            Interpolate(result.Frequency, result.Sagittal, frequency));
+            Interpolate(tangentialFrequency, result.Tangential, frequency),
+            Interpolate(sagittalFrequency, result.Sagittal, frequency));
     }
 
-    private static double Interpolate(IReadOnlyList<double> x, IReadOnlyList<double> y, double target)
+    internal static FftMtfDataType ParseDataType(string? value)
+    {
+        return value?.Trim().ToLowerInvariant() switch
+        {
+            "real" or "实部" => FftMtfDataType.Real,
+            "imaginary" or "虚部" => FftMtfDataType.Imaginary,
+            "phase" or "相位" => FftMtfDataType.Phase,
+            "squarewave" or "square wave" or "方波" => FftMtfDataType.SquareWave,
+            _ => FftMtfDataType.Modulation
+        };
+    }
+
+    internal static string DataTypeName(FftMtfDataType type)
+    {
+        return type switch
+        {
+            FftMtfDataType.Real => "Real",
+            FftMtfDataType.Imaginary => "Imaginary",
+            FftMtfDataType.Phase => "Phase",
+            FftMtfDataType.SquareWave => "SquareWave",
+            _ => "Modulation"
+        };
+    }
+
+    internal static string DataTypeLabel(FftMtfDataType type)
+    {
+        return type switch
+        {
+            FftMtfDataType.Real => "Real MTF",
+            FftMtfDataType.Imaginary => "Imaginary MTF",
+            FftMtfDataType.Phase => "Phase (radians)",
+            FftMtfDataType.SquareWave => "Square Wave MTF",
+            _ => "MTF"
+        };
+    }
+
+    private static double Sample(
+        MtfResult result,
+        double frequency,
+        FftMtfDataType type,
+        bool tangential)
+    {
+        var sourceFrequency = tangential
+            ? result.TangentialFrequency ?? result.Frequency
+            : result.SagittalFrequency ?? result.Frequency;
+        var scalar = tangential ? result.Tangential : result.Sagittal;
+        var complex = tangential ? result.TangentialOtf : result.SagittalOtf;
+        if (type == FftMtfDataType.SquareWave)
+        {
+            if (frequency <= 1e-12)
+            {
+                return 1;
+            }
+
+            var sum = 0.0;
+            var sign = 1.0;
+            for (var harmonic = 1; harmonic <= 999; harmonic += 2)
+            {
+                var harmonicFrequency = harmonic * frequency;
+                if (sourceFrequency.Count == 0 || harmonicFrequency > sourceFrequency[^1])
+                {
+                    break;
+                }
+
+                sum += sign * Interpolate(sourceFrequency, scalar, harmonicFrequency) / harmonic;
+                sign *= -1;
+            }
+
+            return Math.Max(0, 4 * sum / Math.PI);
+        }
+
+        if (complex is null || type == FftMtfDataType.Modulation)
+        {
+            return Interpolate(sourceFrequency, scalar, frequency);
+        }
+
+        var value = InterpolateComplex(sourceFrequency, complex, frequency);
+        return type switch
+        {
+            FftMtfDataType.Real => value.Real,
+            FftMtfDataType.Imaginary => value.Imaginary,
+            FftMtfDataType.Phase => value.Phase,
+            _ => value.Magnitude
+        };
+    }
+
+    internal static double Interpolate(IReadOnlyList<double> x, IReadOnlyList<double> y, double target)
     {
         if (x.Count == 0 || y.Count == 0 || target > x[^1])
         {
@@ -348,6 +916,36 @@ internal static class MtfMethodEvaluator
         }
 
         return 0;
+    }
+
+    internal static Complex InterpolateComplex(
+        IReadOnlyList<double> x,
+        IReadOnlyList<Complex> y,
+        double target)
+    {
+        if (x.Count == 0 || y.Count == 0 || target > x[^1])
+        {
+            return Complex.Zero;
+        }
+
+        if (target <= x[0])
+        {
+            return y[0];
+        }
+
+        for (var index = 1; index < x.Count; index++)
+        {
+            if (target > x[index])
+            {
+                continue;
+            }
+
+            var width = x[index] - x[index - 1];
+            var fraction = width <= 1e-30 ? 0 : (target - x[index - 1]) / width;
+            return y[index - 1] + ((y[index] - y[index - 1]) * fraction);
+        }
+
+        return Complex.Zero;
     }
 
     private static double GeometricAtFrequency(IEnumerable<double> coordinateValues, double frequency)

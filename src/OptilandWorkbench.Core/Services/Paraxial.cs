@@ -8,6 +8,17 @@ public sealed record ParaxialTrace(
     IReadOnlyList<IReadOnlyList<double>> Heights,
     IReadOnlyList<IReadOnlyList<double>> Slopes);
 
+public sealed record CardinalPointEstimate(
+    double EffectiveFocalLength,
+    double FrontFocalPosition,
+    double BackFocalPosition,
+    double FrontPrincipalPlanePosition,
+    double BackPrincipalPlanePosition,
+    double FrontNodalPlanePosition,
+    double BackNodalPlanePosition,
+    double FirstReferencePosition,
+    double LastReferencePosition);
+
 public sealed class Paraxial
 {
     private readonly Optic _optic;
@@ -94,7 +105,46 @@ public sealed class Paraxial
             : (objectSurface?.CoordinateSystem.Origin.Z ?? 0) + relativeLocation;
     }
 
+    public CardinalPointEstimate EstimateCardinalPoints()
+    {
+        var positions = SurfacePositions();
+        if (positions.Count == 0)
+        {
+            return new CardinalPointEstimate(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        }
+
+        var matrix = TraceSystemMatrix(PrimaryWavelengthNanometers());
+        var effectiveFocalLength = Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
+        var matrixStart = positions[0];
+        var matrixEnd = matrixStart + _optic.SurfaceGroup.Items.Sum(surface => surface.Thickness);
+        var firstReference = positions.Count > 1 ? positions[1] : positions[0];
+        var lastReference = positions[^1];
+        var frontFocalPosition = Math.Abs(matrix.C) < 1e-12
+            ? firstReference
+            : matrixStart + (matrix.D / matrix.C);
+        var backFocalPosition = Math.Abs(matrix.C) < 1e-12
+            ? lastReference
+            : matrixEnd - (matrix.A / matrix.C);
+        var frontPrincipalPlane = frontFocalPosition + effectiveFocalLength;
+        var backPrincipalPlane = backFocalPosition - effectiveFocalLength;
+        return new CardinalPointEstimate(
+            effectiveFocalLength,
+            frontFocalPosition,
+            backFocalPosition,
+            frontPrincipalPlane,
+            backPrincipalPlane,
+            frontPrincipalPlane,
+            backPrincipalPlane,
+            firstReference,
+            lastReference);
+    }
+
     public double EstimateExitPupilLocation()
+    {
+        return EstimateExitPupilLocation(PrimaryWavelengthNanometers() / 1000.0);
+    }
+
+    public double EstimateExitPupilLocation(double wavelengthMicrometers)
     {
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex < 0 || stopIndex >= _optic.SurfaceGroup.Items.Count - 1)
@@ -107,7 +157,7 @@ public sealed class Paraxial
             new[] { 0.0 },
             new[] { 0.1 },
             positions[stopIndex],
-            PrimaryWavelengthNanometers() / 1000.0,
+            wavelengthMicrometers,
             stopIndex + 1);
         var finalHeight = trace.Heights[^1][0];
         var finalSlope = trace.Slopes[^1][0];
@@ -116,11 +166,15 @@ public sealed class Paraxial
 
     public double EstimateExitPupilDiameter()
     {
-        var wavelengthMicrometers = PrimaryWavelengthNanometers() / 1000.0;
+        return EstimateExitPupilDiameter(PrimaryWavelengthNanometers() / 1000.0);
+    }
+
+    public double EstimateExitPupilDiameter(double wavelengthMicrometers)
+    {
         var marginal = MarginalRay(wavelengthMicrometers);
         var imageHeight = marginal.Heights[^1][0];
         var imageSlope = marginal.Slopes[^1][0];
-        return 2 * (imageHeight + (imageSlope * EstimateExitPupilLocation()));
+        return 2 * (imageHeight + (imageSlope * EstimateExitPupilLocation(wavelengthMicrometers)));
     }
 
     public ParaxialTrace TraceNormalizedPupil(

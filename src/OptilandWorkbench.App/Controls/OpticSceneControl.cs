@@ -52,6 +52,19 @@ public enum OpticSceneViewPreset
     Bottom
 }
 
+public enum OpticSceneAnnotationPlacement2D
+{
+    Auto,
+    Above,
+    Below
+}
+
+public sealed record OpticSceneAnnotation2D(
+    double Z,
+    string Label,
+    Color Color,
+    OpticSceneAnnotationPlacement2D Placement = OpticSceneAnnotationPlacement2D.Auto);
+
 public sealed class OpticSceneControl : Control
 {
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
@@ -134,6 +147,9 @@ public sealed class OpticSceneControl : Control
     }
 
     public SceneDto? Scene { get; set; }
+
+    public IReadOnlyList<OpticSceneAnnotation2D> Annotations2D { get; set; } =
+        Array.Empty<OpticSceneAnnotation2D>();
 
     public int? HighlightedSurfaceNumber
     {
@@ -409,15 +425,35 @@ public sealed class OpticSceneControl : Control
 
     private void Draw2D(DrawingContext context, Layout2DScene scene)
     {
-        var padding = 28.0;
-        var width = Math.Max(1, Bounds.Width - (padding * 2));
-        var height = Math.Max(1, Bounds.Height - (padding * 2));
-        var centerX = padding + (width / 2.0);
-        var centerY = padding + (height / 2.0);
-        var zSpan = Math.Max(1, scene.ZMax - scene.ZMin);
+        const double horizontalPadding = 28.0;
+        var autoAnnotationCount = Annotations2D.Count(annotation =>
+            annotation.Placement == OpticSceneAnnotationPlacement2D.Auto);
+        var aboveAnnotationCount = Annotations2D.Count(annotation =>
+                                       annotation.Placement == OpticSceneAnnotationPlacement2D.Above)
+                                   + ((autoAnnotationCount + 1) / 2);
+        var belowAnnotationCount = Annotations2D.Count(annotation =>
+                                       annotation.Placement == OpticSceneAnnotationPlacement2D.Below)
+                                   + (autoAnnotationCount / 2);
+        var annotationPadding = CalculateAnnotationPadding(
+            Bounds.Height,
+            aboveAnnotationCount,
+            belowAnnotationCount);
+        var width = Math.Max(1, Bounds.Width - (horizontalPadding * 2));
+        var height = Math.Max(1, Bounds.Height - annotationPadding.Top - annotationPadding.Bottom);
+        var centerX = horizontalPadding + (width / 2.0);
+        var centerY = annotationPadding.Top + (height / 2.0);
+        var annotationMinimum = Annotations2D.Select(annotation => annotation.Z).DefaultIfEmpty(scene.ZMin).Min();
+        var annotationMaximum = Annotations2D.Select(annotation => annotation.Z).DefaultIfEmpty(scene.ZMax).Max();
+        var zMinimum = Math.Min(scene.ZMin, annotationMinimum);
+        var zMaximum = Math.Max(scene.ZMax, annotationMaximum);
+        var rawZSpan = Math.Max(1, zMaximum - zMinimum);
+        var zMargin = rawZSpan * 0.06;
+        zMinimum -= zMargin;
+        zMaximum += zMargin;
+        var zSpan = Math.Max(1, zMaximum - zMinimum);
         var aperture = Math.Max(1, scene.YExtent);
         var scale = 0.94 * Math.Min(width / zSpan, height / (aperture * 2.0 * VerticalStretch));
-        var zCenter = scene.ZMin + (zSpan / 2.0);
+        var zCenter = zMinimum + (zSpan / 2.0);
 
         double MapZ(double z) => _viewport.Apply(
             new Point(centerX + ((z - zCenter) * scale), centerY),
@@ -428,8 +464,8 @@ public sealed class OpticSceneControl : Control
 
         context.DrawLine(
             AxisPen,
-            new Point(MapZ(scene.ZMin), MapY(0)),
-            new Point(MapZ(scene.ZMax), MapY(0)));
+            new Point(MapZ(zMinimum), MapY(0)),
+            new Point(MapZ(zMaximum), MapY(0)));
 
         DrawLensElements(context, scene.LensElements, MapZ, MapY);
         if (ShowRays)
@@ -438,10 +474,177 @@ public sealed class OpticSceneControl : Control
         }
         DrawLensEdges(context, scene.LensEdges, MapZ, MapY);
         DrawSurfaces(context, scene.Surfaces, MapZ, MapY, HighlightedSurfaceNumber);
+        DrawAnnotations2D(context, Annotations2D, aperture, Bounds, MapZ, MapY);
         if (ShowScaleBar)
         {
             DrawScaleBar(context, scale * _viewport.Zoom);
         }
+    }
+
+    private static void DrawAnnotations2D(
+        DrawingContext context,
+        IReadOnlyList<OpticSceneAnnotation2D> annotations,
+        double aperture,
+        Rect bounds,
+        Func<double, double> mapZ,
+        Func<double, double> mapY)
+    {
+        var grouped = annotations
+            .GroupBy(annotation => (Z: Math.Round(annotation.Z, 8), annotation.Placement))
+            .Select(group => new
+            {
+                Z = group.First().Z,
+                Label = string.Join(" / ", group.Select(annotation => annotation.Label)),
+                Color = group.First().Color,
+                Placement = group.Key.Placement
+            })
+            .OrderBy(annotation => annotation.Z)
+            .ToArray();
+
+        var prepared = grouped
+            .Select((annotation, index) =>
+            {
+                var brush = new SolidColorBrush(annotation.Color);
+                var label = new FormattedText(
+                    annotation.Label,
+                    System.Globalization.CultureInfo.CurrentCulture,
+                    FlowDirection.LeftToRight,
+                    OptilandWorkbench.App.Services.DisplayTypography.Typeface(FontWeight.SemiBold),
+                    11.5,
+                    brush);
+                var x = mapZ(annotation.Z);
+                var labelX = Math.Clamp(
+                    x - (label.Width / 2),
+                    8,
+                    Math.Max(8, bounds.Width - label.Width - 8));
+                var above = annotation.Placement switch
+                {
+                    OpticSceneAnnotationPlacement2D.Above => true,
+                    OpticSceneAnnotationPlacement2D.Below => false,
+                    _ => index % 2 == 0
+                };
+                return new
+                {
+                    Annotation = annotation,
+                    Brush = brush,
+                    Label = label,
+                    X = x,
+                    LabelX = labelX,
+                    Above = above,
+                    Lane = 0
+                };
+            })
+            .ToArray();
+
+        foreach (var side in new[] { true, false })
+        {
+            var labels = prepared
+                .Select((item, index) => (Item: item, Index: index))
+                .Where(candidate => candidate.Item.Above == side)
+                .ToArray();
+            var lanes = AssignAnnotationLanes(labels
+                .Select(candidate => (
+                    Left: candidate.Item.LabelX,
+                    Right: candidate.Item.LabelX + candidate.Item.Label.Width))
+                .ToArray());
+            for (var index = 0; index < labels.Length; index++)
+            {
+                prepared[labels[index].Index] = prepared[labels[index].Index] with
+                {
+                    Lane = lanes[index]
+                };
+            }
+        }
+
+        var top = mapY(aperture * 1.02);
+        var bottom = mapY(-aperture * 1.02);
+        var upperEdge = Math.Min(top, bottom);
+        var lowerEdge = Math.Max(top, bottom);
+        var maximumLabelHeight = prepared.Select(item => item.Label.Height).DefaultIfEmpty(14).Max();
+        var laneStep = maximumLabelHeight + 5;
+        var maximumAboveLane = prepared
+            .Where(item => item.Above)
+            .Select(item => item.Lane)
+            .DefaultIfEmpty(0)
+            .Max();
+        var maximumBelowLane = prepared
+            .Where(item => !item.Above)
+            .Select(item => item.Lane)
+            .DefaultIfEmpty(0)
+            .Max();
+        var aboveLaneZeroY = Math.Max(
+            upperEdge - maximumLabelHeight - 7,
+            6 + (maximumAboveLane * laneStep));
+        var belowLaneZeroY = Math.Min(
+            lowerEdge + 7,
+            bounds.Height - maximumLabelHeight - 6 - (maximumBelowLane * laneStep));
+        foreach (var item in prepared)
+        {
+            var pen = new Pen(item.Brush, 1.5, DashStyle.Dash);
+            context.DrawLine(pen, new Point(item.X, top), new Point(item.X, bottom));
+
+            var labelY = item.Above
+                ? aboveLaneZeroY - (item.Lane * laneStep)
+                : belowLaneZeroY + (item.Lane * laneStep);
+            labelY = Math.Clamp(labelY, 6, Math.Max(6, bounds.Height - item.Label.Height - 6));
+            var labelCenterX = item.LabelX + (item.Label.Width / 2);
+            var labelEdgeY = item.Above ? labelY + item.Label.Height + 2 : labelY - 2;
+            var planeEdgeY = item.Above ? upperEdge : lowerEdge;
+            context.DrawLine(
+                new Pen(item.Brush, 0.8),
+                new Point(item.X, planeEdgeY),
+                new Point(labelCenterX, labelEdgeY));
+            context.DrawText(item.Label, new Point(item.LabelX, labelY));
+        }
+    }
+
+    internal static (double Top, double Bottom) CalculateAnnotationPadding(
+        double availableHeight,
+        int aboveLabelCount,
+        int belowLabelCount)
+    {
+        const double basePadding = 28;
+        const double estimatedLaneHeight = 19;
+        var maximumBand = Math.Max(basePadding, availableHeight * 0.32);
+        var top = Math.Min(
+            maximumBand,
+            basePadding + (Math.Max(0, aboveLabelCount) * estimatedLaneHeight));
+        var bottom = Math.Min(
+            maximumBand,
+            basePadding + (Math.Max(0, belowLabelCount) * estimatedLaneHeight));
+        return (top, bottom);
+    }
+
+    internal static int[] AssignAnnotationLanes(
+        IReadOnlyList<(double Left, double Right)> intervals,
+        double minimumGap = 8)
+    {
+        var lanes = new int[intervals.Count];
+        var laneRightEdges = new List<double>();
+        foreach (var candidate in intervals
+                     .Select((interval, index) => (interval, index))
+                     .OrderBy(candidate => candidate.interval.Left))
+        {
+            var lane = 0;
+            while (lane < laneRightEdges.Count
+                   && candidate.interval.Left < laneRightEdges[lane] + minimumGap)
+            {
+                lane++;
+            }
+
+            if (lane == laneRightEdges.Count)
+            {
+                laneRightEdges.Add(candidate.interval.Right);
+            }
+            else
+            {
+                laneRightEdges[lane] = candidate.interval.Right;
+            }
+
+            lanes[candidate.index] = lane;
+        }
+
+        return lanes;
     }
 
     private void Draw3D(DrawingContext context, Layout3DScene scene)

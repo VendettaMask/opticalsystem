@@ -12,13 +12,16 @@ public sealed record WavefrontSample(
     double PupilY,
     double PupilZ,
     double OpdWaves,
-    double Intensity);
+    double Intensity,
+    double ImageDirectionZ = 1);
 
 public sealed record WavefrontResult(
     IReadOnlyList<WavefrontSample> Samples,
     double Radius,
     double ReferenceOpticalPath,
-    int VignettedRayCount)
+    int VignettedRayCount,
+    double ChiefImageDirectionZ = 1,
+    double ImageRefractiveIndex = 1)
 {
     public double Rms => Samples.Where(sample => sample.Intensity > 0)
         .Select(sample => sample.OpdWaves * sample.OpdWaves)
@@ -35,23 +38,29 @@ public static class WavefrontEngine
         int numRings)
     {
         var pupilSamples = ApertureSampler.GenerateHexapolarRings(numRings);
-        return GenerateChiefRay(optic, field, wavelength, pupilSamples);
+        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop: false);
     }
 
     public static WavefrontResult GenerateChiefRayUniform(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
-        int samplesAcrossPupil)
+        int samplesAcrossPupil,
+        bool cellCentered = false,
+        bool aimAtStop = false)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
         var pupilSamples = new List<PupilSample>();
         for (var row = 0; row < samplesAcrossPupil; row++)
         {
-            var y = -1 + (2.0 * row / (samplesAcrossPupil - 1.0));
+            var y = cellCentered
+                ? -1 + ((2.0 * row + 1) / samplesAcrossPupil)
+                : -1 + (2.0 * row / (samplesAcrossPupil - 1.0));
             for (var column = 0; column < samplesAcrossPupil; column++)
             {
-                var x = -1 + (2.0 * column / (samplesAcrossPupil - 1.0));
+                var x = cellCentered
+                    ? -1 + ((2.0 * column + 1) / samplesAcrossPupil)
+                    : -1 + (2.0 * column / (samplesAcrossPupil - 1.0));
                 if ((x * x) + (y * y) <= 1)
                 {
                     pupilSamples.Add(new PupilSample(x, y, 1));
@@ -59,22 +68,48 @@ public static class WavefrontEngine
             }
         }
 
-        return GenerateChiefRay(optic, field, wavelength, pupilSamples);
+        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop);
+    }
+
+    public static WavefrontResult GenerateChiefRaySamples(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        IReadOnlyList<(double X, double Y)> samples,
+        bool aimAtStop = true,
+        (double X, double Y)? resolvedRealImageLaunch = null)
+    {
+        return GenerateChiefRay(
+            optic,
+            field,
+            wavelength,
+            samples.Select(sample => new PupilSample(sample.X, sample.Y, 1)).ToArray(),
+            aimAtStop,
+            resolvedRealImageLaunch);
     }
 
     private static WavefrontResult GenerateChiefRay(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
-        IReadOnlyList<PupilSample> pupilSamples)
+        IReadOnlyList<PupilSample> pupilSamples,
+        bool aimAtStop,
+        (double X, double Y)? resolvedRealImageLaunch = null)
     {
-        var chiefHistory = optic.TraceGeneric(field.Hx, field.Hy, 0, 0, wavelength.Micrometers).RayHistories.Single();
-        if (chiefHistory.Count == 0)
+        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+            field.Hx,
+            field.Hy,
+            0,
+            0,
+            wavelength.Micrometers,
+            aimAtStop,
+            resolvedRealImageLaunch);
+        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
+        if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
         }
 
-        var chief = chiefHistory[^1];
         var imagePosition = chief.Position;
         var imageSurfacePosition = optic.SurfaceGroup.Items.LastOrDefault()?.CoordinateSystem.Origin.Z
             ?? imagePosition.Z;
@@ -98,9 +133,11 @@ public static class WavefrontEngine
             field.Hx,
             field.Hy,
             wavelength.Micrometers,
-            pupilSamples);
-        var trace = optic.SequentialRayTracer.Trace(bundle);
-        var (ux, uy) = LaunchTiltDirection(optic, field);
+            pupilSamples,
+            aimAtStop,
+            resolvedRealImageLaunch);
+        var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var samples = new List<WavefrontSample>(pupilSamples.Count);
         var vignetted = 0;
@@ -108,15 +145,14 @@ public static class WavefrontEngine
         for (var index = 0; index < pupilSamples.Count; index++)
         {
             var pupil = pupilSamples[index];
-            var history = trace.RayHistories[index];
-            if (history.Count == 0)
+            var ray = finalSamples[index];
+            if (ray is null)
             {
                 samples.Add(new WavefrontSample(pupil.X, pupil.Y, 0, 0, 0, 0, 0));
                 vignetted++;
                 continue;
             }
 
-            var ray = history[^1];
             var imagePath = ImageToReferenceSphere(
                 ray,
                 imagePosition.X,
@@ -142,15 +178,23 @@ public static class WavefrontEngine
                 pupilPosition.Y,
                 pupilPosition.Z,
                 opdWaves,
-                intensity));
+                intensity,
+                ray.Direction.Z));
         }
 
-        return new WavefrontResult(samples, radius, referenceOpticalPath, vignetted);
+        return new WavefrontResult(
+            samples,
+            radius,
+            referenceOpticalPath,
+            vignetted,
+            chief.Direction.Z,
+            imageIndex);
     }
 
     internal static (double X, double Y) LaunchTiltDirection(
         Optic optic,
-        (double Hx, double Hy) field)
+        (double Hx, double Hy) field,
+        bool aimAtStop = false)
     {
         double fieldX;
         double fieldY;
@@ -163,7 +207,8 @@ public static class WavefrontEngine
             var target = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
             (fieldX, fieldY) = optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(
                 target.X,
-                target.Y);
+                target.Y,
+                aimAtStop);
         }
         else
         {

@@ -9,6 +9,8 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
     private readonly int _numPoints;
     private readonly double? _maximumFrequency;
     private readonly bool _scale;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
 
     public GeometricMtfAnalysis(
         Optic optic,
@@ -16,55 +18,85 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         string distribution = "uniform",
         int numPoints = 256,
         double? maximumFrequency = null,
-        bool scale = true) : base(optic)
+        bool scale = true,
+        int wavelengthNumber = -1,
+        int fieldNumber = 0) : base(optic)
     {
         _numRays = Math.Max(2, numRays);
         _distribution = distribution;
         _numPoints = Math.Max(2, numPoints);
         _maximumFrequency = maximumFrequency;
         _scale = scale;
+        _wavelengthNumber = wavelengthNumber;
+        _fieldNumber = Math.Max(0, fieldNumber);
     }
 
     public override string Name => "Geometric MTF";
 
     public override AnalysisData GenerateData()
     {
-        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? Optic.Wavelengths.FirstOrDefault();
-        if (wavelength is null)
+        var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
+        if (wavelengths.Count == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
         }
 
-        var fields = SpotAnalysisEngine.DefinedFields(Optic);
-        var result = SpotAnalysisEngine.Generate(Optic, fields, new[] { wavelength }, _numRays, _distribution);
+        var allFields = SpotAnalysisEngine.DefinedFields(Optic);
+        var fieldIndices = _fieldNumber <= 0
+            ? Enumerable.Range(0, allFields.Count).ToArray()
+            : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
+        var fields = fieldIndices.Select(index => allFields[index]).ToArray();
+        var result = SpotAnalysisEngine.Generate(Optic, fields, wavelengths, _numRays, _distribution);
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
+        var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var diffractionCutoff = fNumber <= 1e-30
             ? 0
-            : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+            : 1 / (referenceWavelength.Micrometers * 1e-3 * fNumber);
         var maximumFrequency = _maximumFrequency ?? diffractionCutoff;
         var frequency = Enumerable.Range(0, _numPoints)
             .Select(index => maximumFrequency * index / (_numPoints - 1.0))
             .ToArray();
-        var diffractionScale = frequency.Select(value =>
-        {
-            if (!_scale || diffractionCutoff <= 1e-30)
-            {
-                return 1.0;
-            }
-
-            var ratio = Math.Clamp(value / diffractionCutoff, 0, 1);
-            var phi = Math.Acos(ratio);
-            return (2 / Math.PI) * (phi - (Math.Cos(phi) * Math.Sin(phi)));
-        }).ToArray();
 
         var series = new List<AnalysisSeries>(result.Fields.Count * 2);
-        foreach (var field in result.Fields)
+        for (var fieldIndex = 0; fieldIndex < result.Fields.Count; fieldIndex++)
         {
-            var rays = field.Wavelengths.Single().Rays;
-            var tangential = Compute(rays.Select(ray => ray.Y).ToArray(), frequency, diffractionScale);
-            var sagittal = Compute(rays.Select(ray => ray.X).ToArray(), frequency, diffractionScale);
-            var colorIndex = series.Count / 2;
+            var field = result.Fields[fieldIndex];
+            var totalWeight = wavelengths.Sum(item => item.Weight);
+            var useEqualWeights = totalWeight <= 1e-30;
+            if (useEqualWeights)
+            {
+                totalWeight = wavelengths.Count;
+            }
+
+            var tangential = new double[frequency.Length];
+            var sagittal = new double[frequency.Length];
+            for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Count; wavelengthIndex++)
+            {
+                var wavelength = wavelengths[wavelengthIndex];
+                var cutoff = fNumber <= 1e-30
+                    ? 0
+                    : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+                var diffractionScale = frequency.Select(value => DiffractionScale(value, cutoff)).ToArray();
+                var rays = field.Wavelengths[wavelengthIndex].Rays;
+                var wavelengthTangential = Compute(
+                    rays.Select(ray => ray.Y).ToArray(),
+                    frequency,
+                    diffractionScale);
+                var wavelengthSagittal = Compute(
+                    rays.Select(ray => ray.X).ToArray(),
+                    frequency,
+                    diffractionScale);
+                var weight = useEqualWeights ? 1.0 : wavelength.Weight;
+                for (var index = 0; index < frequency.Length; index++)
+                {
+                    tangential[index] += wavelengthTangential[index] * weight;
+                    sagittal[index] += wavelengthSagittal[index] * weight;
+                }
+            }
+
+            tangential = tangential.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
+            sagittal = sagittal.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
+            var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
@@ -90,8 +122,10 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             ["MaximumFrequency"] = maximumFrequency,
             ["CutoffFrequency"] = diffractionCutoff,
             ["FNumber"] = fNumber,
-            ["WavelengthMicrometers"] = wavelength.Micrometers,
-            ["FieldCount"] = fields.Count
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
+            ["FieldNumber"] = _fieldNumber,
+            ["FieldCount"] = fields.Length
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             XMinimum: 0,
             XMaximum: maximumFrequency,
@@ -99,6 +133,23 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             YMaximum: 1,
             ShowLegend: true,
             GridOpacity: 0.25));
+    }
+
+    private double DiffractionScale(double frequency, double cutoff)
+    {
+        if (!_scale || cutoff <= 1e-30)
+        {
+            return 1.0;
+        }
+
+        if (frequency >= cutoff)
+        {
+            return 0;
+        }
+
+        var ratio = Math.Clamp(frequency / cutoff, 0, 1);
+        var phi = Math.Acos(ratio);
+        return (2 / Math.PI) * (phi - (Math.Cos(phi) * Math.Sin(phi)));
     }
 
     private static double[] Compute(

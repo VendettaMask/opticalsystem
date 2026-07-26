@@ -1,5 +1,7 @@
 using System.Reflection;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
 using OptilandWorkbench.Core;
 
@@ -38,6 +40,37 @@ public sealed class LayeringArchitectureTests
                 AssertNotCoreType(memberType);
             }
         }
+    }
+
+    [Fact]
+    public void WorkbenchApplicationIsOnlyACompositionRoot()
+    {
+        var interfaces = typeof(WorkbenchApplication).GetInterfaces();
+
+        Assert.Contains(typeof(IWorkbenchApplication), interfaces);
+        Assert.DoesNotContain(typeof(IOpticalDocumentService), interfaces);
+        Assert.DoesNotContain(typeof(IPrescriptionService), interfaces);
+        Assert.DoesNotContain(typeof(IAnalysisService), interfaces);
+        Assert.DoesNotContain(typeof(IVisualizationService), interfaces);
+        Assert.DoesNotContain(typeof(IOptimizationService), interfaces);
+        Assert.DoesNotContain(typeof(ITolerancingService), interfaces);
+        Assert.DoesNotContain(typeof(IMultiConfigurationService), interfaces);
+        Assert.DoesNotContain(typeof(IMaterialCatalogService), interfaces);
+        Assert.DoesNotContain(typeof(IWorkspaceEventStream), interfaces);
+    }
+
+    [Fact]
+    public void LegacyConnectorIsAThinCompatibilityFacade()
+    {
+        Assert.Equal(typeof(OpticalWorkspaceModel), typeof(OptilandConnector).BaseType);
+
+        var declaredMethods = typeof(OptilandConnector).GetMethods(
+            BindingFlags.Public
+            | BindingFlags.NonPublic
+            | BindingFlags.Instance
+            | BindingFlags.Static
+            | BindingFlags.DeclaredOnly);
+        Assert.Empty(declaredMethods);
     }
 
     private static void AssertNoUiReferences(Assembly assembly)

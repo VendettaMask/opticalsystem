@@ -27,23 +27,35 @@ public static class JonesPupilEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         int gridSize = 65,
-        bool useFresnelCoatings = true)
+        bool useFresnelCoatings = true,
+        bool cellCentered = false)
     {
         gridSize = Math.Max(3, gridSize);
         var samples = new List<JonesPupilSample>(gridSize * gridSize);
         for (var row = 0; row < gridSize; row++)
         {
-            var py = -1 + (2.0 * row / (gridSize - 1));
+            var py = cellCentered
+                ? -1 + ((2.0 * row + 1) / gridSize)
+                : -1 + (2.0 * row / (gridSize - 1));
             for (var column = 0; column < gridSize; column++)
             {
-                var px = -1 + (2.0 * column / (gridSize - 1));
+                var px = cellCentered
+                    ? -1 + ((2.0 * column + 1) / gridSize)
+                    : -1 + (2.0 * column / (gridSize - 1));
                 if ((px * px) + (py * py) > 1 + 1e-12)
                 {
                     samples.Add(Invalid(px, py));
                     continue;
                 }
 
-                samples.Add(TraceSample(optic, field, wavelength, px, py, useFresnelCoatings));
+                samples.Add(TraceSample(
+                    optic,
+                    field,
+                    wavelength,
+                    px,
+                    py,
+                    useFresnelCoatings,
+                    aimAtStop: cellCentered));
             }
         }
 
@@ -56,14 +68,16 @@ public static class JonesPupilEngine
         Wavelength wavelength,
         double px,
         double py,
-        bool useFresnelCoatings)
+        bool useFresnelCoatings,
+        bool aimAtStop)
     {
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
             field.Hy,
             px,
             py,
-            wavelength.Micrometers);
+            wavelength.Micrometers,
+            aimAtStop);
         var sourceRay = bundle.Rays.Single();
         var trace = optic.SequentialRayTracer.Trace(bundle);
         var history = trace.RayHistories.Single();

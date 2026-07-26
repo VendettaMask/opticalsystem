@@ -78,7 +78,7 @@ public sealed class SequentialRayTracer
         var finalSamples = new RayTraceSample?[bundle.Rays.Count];
         var ambientMaterial = ResolveMaterial("Air");
 
-        for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
+        void TraceRay(int rayIndex)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var ray = bundle.Rays[rayIndex].Normalize();
@@ -116,7 +116,70 @@ public sealed class SequentialRayTracer
             }
         }
 
+        if (bundle.Rays.Count >= 64)
+        {
+            Parallel.For(
+                0,
+                bundle.Rays.Count,
+                new ParallelOptions { CancellationToken = ComputationCancellation.Current },
+                TraceRay);
+        }
+        else
+        {
+            for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
+            {
+                TraceRay(rayIndex);
+            }
+        }
+
         return finalSamples;
+    }
+
+    internal RayTraceSample? TraceToSurface(RealRay sourceRay, int surfaceIndex)
+    {
+        if (surfaceIndex < 0 || surfaceIndex >= _optic.SurfaceGroup.Items.Count)
+        {
+            return null;
+        }
+
+        var ray = sourceRay.Normalize();
+        var currentMaterial = ResolveMaterial("Air");
+        var cumulativePathLength = 0.0;
+        var cumulativeOpticalPathLength = 0.0;
+
+        for (var index = 0; index <= surfaceIndex; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var surface = _optic.SurfaceGroup.Items[index];
+            if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
+                && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
+            {
+                continue;
+            }
+
+            var result = surface.TraceRay(
+                ray,
+                currentMaterial,
+                surface.MaterialAfter,
+                cumulativePathLength,
+                cumulativeOpticalPathLength);
+            if (index == surfaceIndex)
+            {
+                return result.Sample;
+            }
+
+            if (result.StopTracing)
+            {
+                return null;
+            }
+
+            ray = result.Ray;
+            currentMaterial = surface.MaterialAfter;
+            cumulativePathLength = result.CumulativePathLength;
+            cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
+        }
+
+        return null;
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)

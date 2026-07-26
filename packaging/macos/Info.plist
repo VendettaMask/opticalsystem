@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key>
+  <string>Optical System Design</string>
+  <key>CFBundleDisplayName</key>
+  <string>Optical System Design</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.starlabs.optical-system-design</string>
+  <key>CFBundleExecutable</key>
+  <string>OptilandWorkbench.App</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon.icns</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>Optical System Design Project</string>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>LSHandlerRank</key>
+      <string>Owner</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>com.starlabs.staropt</string>
+      </array>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>staropt</string>
+      </array>
+      <key>CFBundleTypeIconFile</key>
+      <string>AppIcon.icns</string>
+    </dict>
+  </array>
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key>
+      <string>com.starlabs.staropt</string>
+      <key>UTTypeDescription</key>
+      <string>Optical System Design Project</string>
+      <key>UTTypeIconFile</key>
+      <string>AppIcon.icns</string>
+      <key>UTTypeConformsTo</key>
+      <array>
+        <string>public.data</string>
+      </array>
+      <key>UTTypeTagSpecification</key>
+      <dict>
+        <key>public.filename-extension</key>
+        <array>
+          <string>staropt</string>
+        </array>
+        <key>public.mime-type</key>
+        <string>application/vnd.starlabs.staropt</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>

@@ -99,6 +99,357 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void IncidentAngleVsImageHeightMatchesReferenceEntrySettingsAndCurves()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Angle vs Image Height");
+
+        Assert.Equal(
+            new[] { "FieldDensity", "WavelengthNumber" },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("20", parameters[0].DefaultValue);
+        Assert.Equal(AnalysisParameterKind.Choice, parameters[1].Kind);
+        Assert.Equal("2", parameters[1].DefaultValue);
+
+        var view = connector.BuildAnalysisView(
+            "Angle vs Image Height",
+            new Dictionary<string, string>
+            {
+                ["FieldDensity"] = "20",
+                ["WavelengthNumber"] = "2"
+            });
+
+        Assert.Equal(
+            new[] { "较小光瞳点光线", "主光线", "较大光瞳点光线" },
+            view.SeriesList.Select(series => series.Name));
+        Assert.Equal(new[] { 0, 2, 3 }, view.SeriesList.Select(series => series.ColorIndex));
+        Assert.All(view.SeriesList, series =>
+        {
+            Assert.Equal(21, series.Points.Count);
+            Assert.All(series.Points, point =>
+            {
+                Assert.True(double.IsFinite(point.X));
+                Assert.True(double.IsFinite(point.Y));
+            });
+            Assert.Equal(0, series.Points[0].X, 6);
+            Assert.True(series.Points[^1].X > series.Points[0].X);
+        });
+        Assert.Equal("像高：毫米", view.SeriesList[0].XAxisLabel);
+        Assert.Equal("入射角（度）", view.SeriesList[0].YAxisLabel);
+        Assert.Equal("入射角 vs. 像高", view.PlotOptions.Title);
+        Assert.False(view.PlotOptions.ShowHorizontalZeroLine);
+        Assert.True(view.PlotOptions.HideTopAndRightAxes);
+        Assert.True(view.PlotOptions.ShowLegend);
+        Assert.True(view.PlotOptions.LegendBelow);
+    }
+
+    [Fact]
+    public void RayFanExposesZemaxSettings()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Ray Fan");
+
+        Assert.Equal(
+            new[]
+            {
+                "PlotScaleMicrometers",
+                "NumberOfRays",
+                "UseDashes",
+                "VignettedPupil",
+                "CheckApertures",
+                "WavelengthNumber",
+                "FieldNumber",
+                "TangentialAberration",
+                "SagittalAberration",
+                "SurfaceNumber"
+            },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("20", parameters.Single(parameter => parameter.Key == "NumberOfRays").DefaultValue);
+        Assert.Equal("所有", parameters.Single(parameter => parameter.Key == "WavelengthNumber").DefaultValue);
+        Assert.Equal("所有", parameters.Single(parameter => parameter.Key == "FieldNumber").DefaultValue);
+        Assert.Equal("像面", parameters.Single(parameter => parameter.Key == "SurfaceNumber").DefaultValue);
+    }
+
+    [Fact]
+    public void SpotDiagramExposesReferenceSettings()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Spot Diagram");
+
+        Assert.Equal(
+            new[]
+            {
+                "RayDensity",
+                "Pattern",
+                "ColorRaysBy",
+                "Reference",
+                "UsePolarization",
+                "DirectionCosines",
+                "ShowAiryDisk",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "DisplayScale",
+                "PlotScaleMicrometers",
+                "ScatterRays",
+                "UseSymbols"
+            },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("6", parameters.Single(parameter => parameter.Key == "RayDensity").DefaultValue);
+        Assert.Equal("六边", parameters.Single(parameter => parameter.Key == "Pattern").DefaultValue);
+        Assert.Equal("主光线", parameters.Single(parameter => parameter.Key == "Reference").DefaultValue);
+        Assert.Equal("所有", parameters.Single(parameter => parameter.Key == "WavelengthNumber").DefaultValue);
+        Assert.Equal("所有", parameters.Single(parameter => parameter.Key == "FieldNumber").DefaultValue);
+        Assert.Equal("像面", parameters.Single(parameter => parameter.Key == "SurfaceNumber").DefaultValue);
+        Assert.Equal("true", parameters.Single(parameter => parameter.Key == "UseSymbols").DefaultValue);
+    }
+
+    [Fact]
+    public void SpotDiagramAppliesSelectionScaleDirectionAndAirySettings()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView("Spot Diagram", new Dictionary<string, string>
+        {
+            ["RayDensity"] = "3",
+            ["Pattern"] = "六边",
+            ["Reference"] = "主光线",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "2",
+            ["SurfaceNumber"] = "像面",
+            ["DirectionCosines"] = "false",
+            ["ShowAiryDisk"] = "true",
+            ["PlotScaleMicrometers"] = "50",
+            ["UseSymbols"] = "true"
+        });
+
+        var pane = Assert.Single(view.PlotPanes);
+        Assert.Equal(2, pane.Series.Count);
+        Assert.Equal("艾里斑", pane.Series[1].Name);
+        Assert.Equal(-0.05, pane.PlotOptions.XMinimum);
+        Assert.Equal(0.05, pane.PlotOptions.XMaximum);
+        Assert.True(pane.PlotOptions.HideTickLabels);
+        Assert.Contains(view.Rows, row => row.Metric == "光线密度" && row.Value == "3");
+        Assert.Contains(view.Rows, row => row.Metric == "艾里斑半径 (mm)");
+    }
+
+    [Fact]
+    public void FullFieldSpotDiagramUsesAbsoluteImagePositionsAndWavelengthLegend()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Full Field Spot Diagram");
+
+        Assert.Equal(
+            new[]
+            {
+                "RayDensity",
+                "Pattern",
+                "ColorRaysBy",
+                "Reference",
+                "Magnification",
+                "UsePolarization",
+                "ShowAiryDisk",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "DisplayScale",
+                "PlotScaleMicrometers",
+                "ScatterRays",
+                "UseSymbols"
+            },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("1", parameters.Single(parameter => parameter.Key == "Magnification").DefaultValue);
+
+        var view = connector.BuildAnalysisView("Full Field Spot Diagram");
+
+        Assert.Equal(3, view.SeriesList.Count);
+        Assert.Equal(3, view.SeriesList.Select(series => series.Name).Distinct().Count());
+        Assert.All(view.SeriesList, series =>
+        {
+            Assert.Equal("X (µm)", series.XAxisLabel);
+            Assert.Equal("Y (µm)", series.YAxisLabel);
+            Assert.DoesNotContain("Field", series.Name, StringComparison.OrdinalIgnoreCase);
+        });
+        Assert.True(view.PlotOptions.ShowLegend);
+        Assert.True(view.PlotOptions.HideTickLabels);
+        Assert.True(
+            view.SeriesList.SelectMany(series => series.Points).Max(point => point.Y)
+            - view.SeriesList.SelectMany(series => series.Points).Min(point => point.Y) > 10);
+        Assert.Contains(view.Rows, row => row.Metric == "RMS 半径 (µm)");
+        Assert.Contains(view.Rows, row => row.Metric == "GEO 半径 (µm)");
+        Assert.Contains(view.Rows, row => row.Metric == "缩放标尺 (µm)");
+    }
+
+    [Fact]
+    public void MatrixSpotDiagramUsesFieldRowsAndWavelengthColumns()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
+        var parameters = connector.GetAnalysisParameters("Matrix Spot Diagram");
+
+        Assert.Equal(
+            new[]
+            {
+                "RayDensity",
+                "Pattern",
+                "ColorRaysBy",
+                "Reference",
+                "UsePolarization",
+                "DirectionCosines",
+                "ShowAiryDisk",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "DisplayScale",
+                "PlotScaleMicrometers",
+                "ScatterRays",
+                "UseSymbols",
+                "IgnoreLateralColor"
+            },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("false", parameters.Single(
+            parameter => parameter.Key == "IgnoreLateralColor").DefaultValue);
+
+        var view = connector.BuildAnalysisView("Matrix Spot Diagram", new Dictionary<string, string>
+        {
+            ["IgnoreLateralColor"] = "true"
+        });
+
+        Assert.Equal(optic.Wavelengths.Count, view.PlotPaneColumns);
+        Assert.Equal(optic.Fields.Count * optic.Wavelengths.Count, view.PlotPanes.Count);
+        Assert.Equal(
+            optic.Wavelengths.Select(wavelength => $"{wavelength.Micrometers:0.0000} µm"),
+            view.PlotPanes.Take(optic.Wavelengths.Count).Select(pane => pane.Title));
+        Assert.All(view.PlotPanes, pane =>
+        {
+            Assert.Matches(@"^-?\d+\.\d{4} mm$", pane.Footer);
+            Assert.Empty(pane.PlotOptions.Title);
+            Assert.True(pane.PlotOptions.HideTickLabels);
+            Assert.Null(pane.Metrics);
+            Assert.Single(pane.Series);
+        });
+        Assert.Contains(view.Rows, row => row.Metric == "缩放标尺 (µm)");
+        Assert.Contains(view.Rows, row =>
+            row.Metric == "忽略垂轴色差" && row.Value == "True");
+    }
+
+    [Fact]
+    public void MatrixSpotWavelengthLegendUsesSelectableUnifiedLabels()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView("Matrix Spot Diagram", new Dictionary<string, string>
+        {
+            ["RayDensity"] = "3"
+        });
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildMatrixSpotPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+            null,
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
+        var legend = Assert.IsType<Avalonia.Controls.StackPanel>(layout.Children[1]);
+        Assert.Equal(3, legend.Children.Count);
+        var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
+        var content = Assert.IsType<Avalonia.Controls.StackPanel>(firstToggle.Content);
+        Assert.Equal(
+            "0.4800 µm",
+            Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]).Text);
+
+        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        var firstWavelengthPlots = matrix.Children
+            .OfType<AnalysisPlotControl>()
+            .Where(plot => Avalonia.Controls.Grid.GetColumn(plot) == 1)
+            .ToArray();
+        Assert.NotEmpty(firstWavelengthPlots);
+        Assert.All(firstWavelengthPlots, plot => Assert.NotEmpty(plot.Series));
+
+        firstToggle.IsChecked = false;
+
+        Assert.All(firstWavelengthPlots, plot => Assert.Empty(plot.Series));
+    }
+
+    [Fact]
+    public void ThroughFocusSpotExposesReferenceSettings()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var parameters = connector.GetAnalysisParameters("Through Focus");
+
+        Assert.Equal(
+            new[]
+            {
+                "RayDensity",
+                "Pattern",
+                "ColorRaysBy",
+                "Reference",
+                "DefocusStepMicrometers",
+                "UsePolarization",
+                "ShowAiryDisk",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "DisplayScale",
+                "PlotScaleMicrometers",
+                "ScatterRays",
+                "UseSymbols"
+            },
+            parameters.Select(parameter => parameter.Key));
+        Assert.Equal("6", parameters.Single(parameter => parameter.Key == "RayDensity").DefaultValue);
+        Assert.Equal("六边", parameters.Single(parameter => parameter.Key == "Pattern").DefaultValue);
+        Assert.Equal("主光线", parameters.Single(parameter => parameter.Key == "Reference").DefaultValue);
+        Assert.Equal(
+            "50",
+            parameters.Single(parameter => parameter.Key == "DefocusStepMicrometers").DefaultValue);
+        Assert.Equal("像面", parameters.Single(parameter => parameter.Key == "SurfaceNumber").DefaultValue);
+    }
+
+    [Fact]
+    public void ThroughFocusSpotBuildsVisibleFiveColumnMatrix()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
+        var view = connector.BuildAnalysisView("Through Focus", new Dictionary<string, string>
+        {
+            ["RayDensity"] = "3",
+            ["Pattern"] = "六边",
+            ["Reference"] = "主光线",
+            ["DefocusStepMicrometers"] = "50",
+            ["WavelengthNumber"] = "所有",
+            ["FieldNumber"] = "所有",
+            ["SurfaceNumber"] = "像面",
+            ["PlotScaleMicrometers"] = "0",
+            ["UseSymbols"] = "true"
+        });
+
+        Assert.Equal(5, view.PlotPaneColumns);
+        Assert.Equal(optic.Fields.Count * 5, view.PlotPanes.Count);
+        Assert.Contains("Defocus: -0.100 mm", view.PlotPanes[0].Title);
+        Assert.Contains("Defocus: +0.100 mm", view.PlotPanes[4].Title);
+        Assert.Equal(optic.Fields.Count, view.PlotPanes.Count(pane => pane.Metrics is { Count: 2 }));
+        Assert.All(
+            Enumerable.Range(0, optic.Fields.Count),
+            fieldIndex => Assert.Equal(
+                new[] { "RMS 半径", "GEO 半径" },
+                view.PlotPanes[(fieldIndex * 5) + 2].Metrics!.Select(metric => metric.Label)));
+        Assert.Contains(view.Rows, row => row.Metric == "缩放标尺 (µm)");
+        Assert.All(view.PlotPanes, pane =>
+        {
+            Assert.True(pane.PlotOptions.HideTickLabels);
+            Assert.NotEmpty(pane.Footer);
+            Assert.Contains(pane.Series, series => series.Points.Count > 0);
+        });
+    }
+
+    [Fact]
     public void LocalIconLibraryLoadsPinnedOfflineCatalog()
     {
         var requiredIcons = new[]
@@ -137,12 +488,14 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorExposesAndAppliesAnalysisParameters()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
 
         Assert.Equal(
             new[]
             {
                 "光线迹点",
+                "系统报告",
                 "像差分析",
                 "波前",
                 "点扩散函数",
@@ -152,7 +505,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(36, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(56, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -160,21 +513,335 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(36, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(54, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(
+            new[]
+            {
+                "单光线追迹",
+                "标准点列图",
+                "光迹图",
+                "离焦点列图",
+                "全视场点列图",
+                "矩阵点列图",
+                "结构矩阵点列图",
+                "基面数据",
+                "Y-Ybar",
+                "渐晕图",
+                "入射角 vs. 像高"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
+        Assert.Equal(
+            new[] { "一阶量", "处方报告" },
+            MainWindow.AnalysisRibbonCommandsByMenu["系统报告"]);
         Assert.Equal(
             new[]
             {
                 "光线像差图",
-                "标准点列图",
-                "光迹图",
-                "离焦点列图",
-                "一阶量",
-                "处方报告",
-                "Y-Ybar",
-                "扫描瞳孔",
-                "扫描视场"
+                "光程差图",
+                "光瞳像差",
+                "全视场像差",
+                "场曲/畸变",
+                "网格畸变",
+                "轴向像差",
+                "垂轴色差",
+                "色焦移",
+                "赛德尔系数",
+                "赛德尔图"
             },
-            MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
+            MainWindow.AnalysisRibbonCommandsByMenu["像差分析"]);
+        Assert.Equal(
+            new[]
+            {
+                "光程差图",
+                "波前图",
+                "干涉图",
+                "傅科分析",
+                "对比度损失图",
+                "全视场像差",
+                "Zernike Fringe系数",
+                "Zernike Standard系数",
+                "Zernike Annular系数",
+                "Zernike系数 vs. 视场"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["波前"]);
+        Assert.Equal(
+            new[]
+            {
+                "FFT PSF",
+                "FFT PSF截面图",
+                "FFT 线/边缘扩散",
+                "惠更斯PSF",
+                "惠更斯PSF截面图"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["点扩散函数"]);
+        Assert.Equal("Wavefront Map", connector.CanonicalAnalysisKey("波前图"));
+        var wavefrontMapParameters = connector.GetAnalysisParameters("波前图");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "Rotation",
+                "DisplayScale",
+                "Apodization",
+                "ReferenceChiefRay",
+                "UseExitPupilShape",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "DisplayAs",
+                "RemoveTilt",
+                "PupilSx",
+                "PupilSy",
+                "PupilSr"
+            },
+            wavefrontMapParameters.Select(parameter => parameter.Key));
+        Assert.Equal("64 x 64", wavefrontMapParameters
+            .Single(parameter => parameter.Key == "Sampling").DefaultValue);
+        var wavefrontMapView = connector.BuildAnalysisView(
+            "波前图",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "16 x 16",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1"
+            });
+        Assert.Equal("波前图", wavefrontMapView.Name);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, Assert.Single(wavefrontMapView.SeriesList).Kind);
+        Assert.Equal("Interferogram", connector.CanonicalAnalysisKey("干涉图"));
+        Assert.Equal("Foucault Analysis", connector.CanonicalAnalysisKey("傅科分析"));
+        var foucaultParameters = connector.GetAnalysisParameters("傅科分析");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "Type",
+                "DisplayAs",
+                "KnifeEdge",
+                "DataSource",
+                "WavelengthNumber",
+                "FieldNumber",
+                "YPositionMicrometers",
+                "UsePolarization"
+            },
+            foucaultParameters.Select(parameter => parameter.Key));
+        Assert.Equal("32 x 32", foucaultParameters
+            .Single(parameter => parameter.Key == "Sampling").DefaultValue);
+        var foucaultView = connector.BuildAnalysisView(
+            "傅科分析",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "16 x 16",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1"
+            });
+        Assert.Equal("傅科分析", foucaultView.Name);
+        var foucaultSeries = Assert.Single(foucaultView.SeriesList);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, foucaultSeries.Kind);
+        Assert.All(foucaultSeries.Points, point => Assert.InRange(point.Value!.Value, 0, 1));
+        Assert.Equal("Contrast Loss Map", connector.CanonicalAnalysisKey("对比度损失图"));
+        Assert.Equal("Zernike Fringe", connector.CanonicalAnalysisKey("Zernike Fringe系数"));
+        var zernikeFringeParameters = connector.GetAnalysisParameters("Zernike Fringe系数");
+        Assert.Equal(
+            new[] { "NumRings", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
+            zernikeFringeParameters.Select(parameter => parameter.Key));
+        Assert.Equal("1 - 轴上视场", zernikeFringeParameters
+            .Single(parameter => parameter.Key == "FieldNumber").DefaultValue);
+        var zernikeFringeView = connector.BuildAnalysisView(
+            "Zernike Fringe系数",
+            new Dictionary<string, string>
+            {
+                ["NumRings"] = "5",
+                ["ZernikeTerms"] = "12",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1 - 轴上视场"
+            });
+        Assert.Equal("Zernike Fringe系数", zernikeFringeView.Name);
+        Assert.Contains("使用 Zernike Fringe 多项式", zernikeFringeView.ReportText);
+        Assert.Contains("RMS 匹配误差", zernikeFringeView.ReportText);
+        Assert.Contains("Z   1", zernikeFringeView.ReportText);
+        Assert.Contains(":  1", zernikeFringeView.ReportText);
+        Assert.Contains("COS (A)", zernikeFringeView.ReportText);
+        Assert.Equal("Zernike Standard", connector.CanonicalAnalysisKey("Zernike Standard系数"));
+        var zernikeStandardParameters = connector.GetAnalysisParameters("Zernike Standard系数");
+        Assert.Equal(
+            new[] { "NumRings", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
+            zernikeStandardParameters.Select(parameter => parameter.Key));
+        var zernikeStandardView = connector.BuildAnalysisView(
+            "Zernike Standard系数",
+            new Dictionary<string, string>
+            {
+                ["NumRings"] = "5",
+                ["ZernikeTerms"] = "12",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1 - 轴上视场"
+            });
+        Assert.Equal("Zernike Standard系数", zernikeStandardView.Name);
+        Assert.Contains("使用 Zernike Standard 多项式", zernikeStandardView.ReportText);
+        Assert.Contains("来自集合光线", zernikeStandardView.ReportText);
+        Assert.Contains("来自集合匹配系数", zernikeStandardView.ReportText);
+        Assert.Contains("Z   2", zernikeStandardView.ReportText);
+        Assert.Contains("4^(1/2) (p) * COS (A)", zernikeStandardView.ReportText);
+        Assert.Contains("6^(1/2) (p^2) * COS (2A)", zernikeStandardView.ReportText);
+        Assert.Equal("Zernike Annular", connector.CanonicalAnalysisKey("Zernike Annular系数"));
+        var zernikeAnnularParameters = connector.GetAnalysisParameters("Zernike Annular系数");
+        Assert.Equal(
+            new[] { "NumRings", "ZernikeTerms", "ObscurationRatio", "WavelengthNumber", "FieldNumber" },
+            zernikeAnnularParameters.Select(parameter => parameter.Key));
+        Assert.Equal("0.5", zernikeAnnularParameters
+            .Single(parameter => parameter.Key == "ObscurationRatio").DefaultValue);
+        var zernikeAnnularView = connector.BuildAnalysisView(
+            "Zernike Annular系数",
+            new Dictionary<string, string>
+            {
+                ["NumRings"] = "5",
+                ["ZernikeTerms"] = "12",
+                ["ObscurationRatio"] = "0.5",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1 - 轴上视场"
+            });
+        Assert.Equal("Zernike Annular系数", zernikeAnnularView.Name);
+        Assert.Contains("使用 Zernike Annular 多项式", zernikeAnnularView.ReportText);
+        Assert.Contains("遮光", zernikeAnnularView.ReportText);
+        Assert.Contains("0.5000", zernikeAnnularView.ReportText);
+        Assert.Contains("Z   1", zernikeAnnularView.ReportText);
+        Assert.DoesNotContain("COS (A)", zernikeAnnularView.ReportText);
+        Assert.NotEqual(zernikeStandardView.ReportText, zernikeAnnularView.ReportText);
+        Assert.NotEqual(
+            zernikeStandardView.Rows.Single(row => row.Metric.StartsWith("Z4 ", StringComparison.Ordinal)).Value,
+            zernikeAnnularView.Rows.Single(row => row.Metric.StartsWith("Z4 ", StringComparison.Ordinal)).Value);
+        Assert.Equal("Zernike vs Field", connector.CanonicalAnalysisKey("Zernike系数 vs. 视场"));
+        var zernikeVsFieldParameters = connector.GetAnalysisParameters("Zernike系数 vs. 视场");
+        Assert.Equal(
+            new[] { "FieldDensity", "NumRings", "ZernikeTerms", "WavelengthNumber" },
+            zernikeVsFieldParameters.Select(parameter => parameter.Key));
+        var zernikeVsFieldView = connector.BuildAnalysisView(
+            "Zernike系数 vs. 视场",
+            new Dictionary<string, string>
+            {
+                ["FieldDensity"] = "5",
+                ["NumRings"] = "5",
+                ["ZernikeTerms"] = "8",
+                ["WavelengthNumber"] = "1"
+            });
+        Assert.Equal("Zernike系数 vs. 视场", zernikeVsFieldView.Name);
+        Assert.Equal(8, zernikeVsFieldView.SeriesList.Count);
+        Assert.Equal(Enumerable.Range(1, 8).Select(index => index.ToString()),
+            zernikeVsFieldView.SeriesList.Select(series => series.Name));
+        Assert.All(zernikeVsFieldView.SeriesList, series =>
+        {
+            Assert.Equal(6, series.Points.Count);
+            Assert.Equal("视场为 度", series.XAxisLabel);
+            Assert.Equal("波前差 (waves)", series.YAxisLabel);
+        });
+        Assert.Equal("Zernike Fringe系数项 vs. 视场", zernikeVsFieldView.PlotOptions.Title);
+        Assert.True(zernikeVsFieldView.PlotOptions.ShowLegend);
+        Assert.True(zernikeVsFieldView.PlotOptions.LegendBelow);
+        Assert.Equal("Optical Path Difference", connector.CanonicalAnalysisKey("光程差图"));
+        var opticalPathDifferenceParameters = connector.GetAnalysisParameters("光程差图");
+        Assert.Equal(
+            new[]
+            {
+                "GraphScale",
+                "NumberOfRays",
+                "UseDashes",
+                "VignettedPupil",
+                "CheckApertures",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber"
+            },
+            opticalPathDifferenceParameters.Select(parameter => parameter.Key));
+        Assert.Equal("20", opticalPathDifferenceParameters
+            .Single(parameter => parameter.Key == "NumberOfRays").DefaultValue);
+        var opticalPathDifferenceView = connector.BuildAnalysisView(
+            "光程差图",
+            new Dictionary<string, string>
+            {
+                ["NumberOfRays"] = "3",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1"
+            });
+        Assert.Equal(2, opticalPathDifferenceView.PlotPanes.Count);
+        Assert.Equal(2, opticalPathDifferenceView.PlotPaneColumns);
+        Assert.All(opticalPathDifferenceView.PlotPanes, pane =>
+            Assert.All(pane.Series, series => Assert.Equal(7, series.Points.Count)));
+        Assert.Equal("Pupil Aberration", connector.CanonicalAnalysisKey("光瞳像差"));
+        Assert.Equal("Full Field Aberration", connector.CanonicalAnalysisKey("全视场像差"));
+        var fullFieldAberrationParameters = connector.GetAnalysisParameters("全视场像差");
+        Assert.Equal(
+            new[]
+            {
+                "FieldShape", "XFieldWidth", "YFieldWidth", "Decomposition", "MaximumTerm",
+                "Aberration", "FieldNumber", "WavelengthNumber", "XFieldSamples", "YFieldSamples",
+                "PupilSampling", "DisplayAs", "DisplayMode"
+            },
+            fullFieldAberrationParameters.Select(parameter => parameter.Key));
+        var fullFieldAberrationView = connector.BuildAnalysisView(
+            "全视场像差",
+            new Dictionary<string, string>
+            {
+                ["XFieldSamples"] = "5",
+                ["YFieldSamples"] = "5",
+                ["PupilSampling"] = "8 x 8",
+                ["MaximumTerm"] = "9"
+            });
+        var fullFieldAberrationSeries = Assert.Single(fullFieldAberrationView.SeriesList);
+        Assert.All(fullFieldAberrationSeries.Points, point => Assert.True(point.Value.HasValue));
+        Assert.StartsWith("X视场，单位：", fullFieldAberrationSeries.XAxisLabel);
+        Assert.StartsWith("Y视场，单位：", fullFieldAberrationSeries.YAxisLabel);
+        Assert.Equal("Field Curvature", connector.CanonicalAnalysisKey("场曲/畸变"));
+        Assert.Equal("Axial Aberration", connector.CanonicalAnalysisKey("轴向像差"));
+        Assert.Equal("Axial Aberration", connector.CanonicalAnalysisKey("轴向色差"));
+        var axialParameters = connector.GetAnalysisParameters("轴向像差");
+        Assert.Equal(
+            new[] { "GraphScale", "WavelengthNumber", "UseDashes" },
+            axialParameters.Select(parameter => parameter.Key));
+        Assert.Equal(
+            "所有",
+            axialParameters.Single(parameter => parameter.Key == "WavelengthNumber").DefaultValue);
+        var axialView = connector.BuildAnalysisView("轴向像差");
+        Assert.Equal(optic.Wavelengths.Count, axialView.SeriesList.Count);
+        Assert.All(axialView.SeriesList, series =>
+        {
+            Assert.Equal("毫米", series.XAxisLabel);
+            Assert.Equal("归一化光瞳坐标", series.YAxisLabel);
+        });
+        Assert.Equal("Lateral Color", connector.CanonicalAnalysisKey("垂轴色差"));
+        var lateralColorParameters = connector.GetAnalysisParameters("垂轴色差");
+        Assert.Equal(
+            new[] { "GraphScale", "AllWavelengths", "UseRealRays", "ShowAiryDisk" },
+            lateralColorParameters.Select(parameter => parameter.Key));
+        var lateralColorView = connector.BuildAnalysisView("垂轴色差");
+        Assert.Contains(lateralColorView.SeriesList, series => series.Name == "最短的-最长的");
+        Assert.Contains(lateralColorView.SeriesList, series => series.Name == "艾里斑");
+        Assert.Equal("µm", lateralColorView.SeriesList[0].XAxisLabel);
+        Assert.Equal("Color Focus Shift", connector.CanonicalAnalysisKey("色焦移"));
+        var colorFocusParameters = connector.GetAnalysisParameters("色焦移");
+        Assert.Equal(
+            new[] { "MaximumShift", "PupilZone" },
+            colorFocusParameters.Select(parameter => parameter.Key));
+        var colorFocusView = connector.BuildAnalysisView("色焦移");
+        Assert.Single(colorFocusView.SeriesList);
+        Assert.Equal("焦移：µm", colorFocusView.SeriesList[0].XAxisLabel);
+        Assert.Equal("波长：µm", colorFocusView.SeriesList[0].YAxisLabel);
+        Assert.Equal("Seidel Coefficients", connector.CanonicalAnalysisKey("赛德尔系数"));
+        var seidelParameters = connector.GetAnalysisParameters("赛德尔系数");
+        var seidelWavelength = Assert.Single(seidelParameters);
+        Assert.Equal("WavelengthNumber", seidelWavelength.Key);
+        var seidelView = connector.BuildAnalysisView("赛德尔系数");
+        Assert.Equal(
+            new[] { "表面", "SPHA S1", "COMA S2", "ASTI S3", "FCUR S4", "DIST S5", "CLA (CL)", "CTR (CT)" },
+            seidelView.Table?.Columns);
+        Assert.Contains(seidelView.Table!.Rows, row => row[0] == "累计");
+        Assert.Contains("赛德尔像差系数", seidelView.ReportText);
+        Assert.Equal("Seidel Diagram", connector.CanonicalAnalysisKey("赛德尔图"));
+        var seidelDiagramParameters = connector.GetAnalysisParameters("赛德尔图");
+        Assert.Equal(
+            new[] { "WavelengthNumber", "MaximumAberration", "GridInterval" },
+            seidelDiagramParameters.Select(parameter => parameter.Key));
+        var seidelDiagramView = connector.BuildAnalysisView("赛德尔图");
+        Assert.Equal(7, seidelDiagramView.SeriesList.Count);
+        Assert.Equal("总和", seidelDiagramView.Table?.Rows[^1][0]);
         Assert.Equal(
             new[]
             {
@@ -192,12 +859,206 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[] { "成像仿真", "相对照度", "非相干照度", "辐射强度" },
             MainWindow.AnalysisRibbonCommandsByMenu["扩展图像分析"]);
-        Assert.DoesNotContain("系统报告", MainWindow.AnalysisRibbonCategories);
+        Assert.Contains("系统报告", MainWindow.AnalysisRibbonCategories);
+        Assert.NotEmpty(connector.BuildAnalysisView("全视场点列图").SeriesList);
+        Assert.NotEmpty(connector.BuildAnalysisView("矩阵点列图").PlotPanes);
+        Assert.NotEmpty(connector.BuildAnalysisView("结构矩阵点列图").PlotPanes);
+        var cardinalView = connector.BuildAnalysisView("基面数据");
+        Assert.Equal(new[] { "基面量", "物空间", "像空间" }, cardinalView.Table?.Columns);
+        Assert.Equal(6, cardinalView.Table?.Rows.Count);
+        Assert.All(cardinalView.Table!.Rows, row =>
+        {
+            Assert.True(double.TryParse(row[1], CultureInfo.InvariantCulture, out _));
+            Assert.True(double.TryParse(row[2], CultureInfo.InvariantCulture, out _));
+        });
+        var cardinalParameters = connector.GetAnalysisParameters("Cardinal Points Data");
+        var referenceSurface = Assert.Single(cardinalParameters);
+        Assert.Equal("ReferenceSurfaceNumber", referenceSurface.Key);
+        Assert.Equal(
+            optic.SurfaceGroup.Items[^1].Number.ToString(CultureInfo.InvariantCulture),
+            referenceSurface.DefaultValue);
+        var selectedReference = optic.SurfaceGroup.Items[1].Number;
+        var referencedCardinalView = connector.BuildAnalysisView(
+            "Cardinal Points Data",
+            new Dictionary<string, string>
+            {
+                ["ReferenceSurfaceNumber"] = selectedReference.ToString(CultureInfo.InvariantCulture)
+            });
+        Assert.Contains(referencedCardinalView.Rows, row =>
+            row.Metric == "参考面"
+            && row.Value == selectedReference.ToString(CultureInfo.InvariantCulture));
+        Assert.Equal(2, connector.BuildAnalysisView("渐晕图").SeriesList.Count);
 
         var descriptors = connector.GetAnalysisParameters("点扩散函数 PSF");
-        Assert.Contains(descriptors, item => item.Key == "NumRays" && item.Kind == AnalysisParameterKind.Integer);
-        Assert.Contains(descriptors, item => item.Key == "GridSize" && item.DefaultValue == "0");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "Display",
+                "Rotation",
+                "ImageDeltaMicrometers",
+                "UsePolarization",
+                "WavelengthNumber",
+                "FieldNumber",
+                "Type",
+                "DisplayAs",
+                "SurfaceNumber",
+                "Normalized"
+            },
+            descriptors.Select(item => item.Key));
+        Assert.Equal("64 x 64", descriptors.Single(item => item.Key == "Sampling").DefaultValue);
+        Assert.Equal("128 x 128", descriptors.Single(item => item.Key == "Display").DefaultValue);
+        Assert.Equal("所有", descriptors.Single(item => item.Key == "WavelengthNumber").DefaultValue);
+        var fftPsfDisplay = descriptors.Single(item => item.Key == "DisplayAs");
+        Assert.Equal("伪彩色", fftPsfDisplay.DefaultValue);
+        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, fftPsfDisplay.Choices);
         Assert.Equal("PSF", connector.CanonicalAnalysisKey("点扩散函数 PSF"));
+        Assert.Equal("PSF", connector.CanonicalAnalysisKey("FFT PSF"));
+        Assert.Equal("FFT PSF Cross Section", connector.CanonicalAnalysisKey("FFT PSF截面图"));
+        Assert.Equal("FFT Line Edge Spread", connector.CanonicalAnalysisKey("FFT 线/边缘扩散"));
+        Assert.Equal("Huygens PSF", connector.CanonicalAnalysisKey("惠更斯PSF"));
+        Assert.Equal(
+            "Huygens PSF Cross Section",
+            connector.CanonicalAnalysisKey("惠更斯PSF截面图"));
+
+        var huygensPsfDescriptors = connector.GetAnalysisParameters("惠更斯PSF");
+        Assert.Equal(
+            new[]
+            {
+                "PupilSampling",
+                "ImageSampling",
+                "ImageDeltaMicrometers",
+                "Rotation",
+                "UsePolarization",
+                "UseCentroid",
+                "WavelengthNumber",
+                "FieldNumber",
+                "Type",
+                "DisplayAs",
+                "Normalized"
+            },
+            huygensPsfDescriptors.Select(item => item.Key));
+        Assert.Equal("32 x 32", huygensPsfDescriptors[0].DefaultValue);
+        Assert.Equal("32 x 32", huygensPsfDescriptors[1].DefaultValue);
+        Assert.Equal("所有", huygensPsfDescriptors[6].DefaultValue);
+        Assert.Equal("伪彩色", huygensPsfDescriptors[9].DefaultValue);
+        Assert.Equal(new[] { "伪彩色", "等高线", "表面" }, huygensPsfDescriptors[9].Choices);
+
+        var huygensPsf = connector.BuildAnalysisView(
+            "惠更斯PSF",
+            new Dictionary<string, string>
+            {
+                ["PupilSampling"] = "16 x 16",
+                ["ImageSampling"] = "16 x 16",
+                ["ImageDeltaMicrometers"] = "0",
+                ["WavelengthNumber"] = "所有",
+                ["FieldNumber"] = "1 - 轴上视场",
+                ["Type"] = "线性",
+                ["DisplayAs"] = "表面",
+                ["Normalized"] = "false",
+                ["UseCentroid"] = "false"
+            });
+        Assert.Equal("惠更斯PSF", huygensPsf.Name);
+        Assert.Equal("复色光惠更斯PSF", huygensPsf.PlotOptions.Title);
+        var huygensSurface = Assert.Single(huygensPsf.SeriesList);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, huygensSurface.Kind);
+        Assert.Equal(16 * 16, huygensSurface.Points.Count);
+        Assert.All(huygensSurface.Points, point => Assert.InRange(point.Value ?? 0, 0, 1));
+
+        var fftCrossSectionDescriptors = connector.GetAnalysisParameters("FFT PSF截面图");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "Row",
+                "GraphScaleMicrometers",
+                "UsePolarization",
+                "WavelengthNumber",
+                "FieldNumber",
+                "Type",
+                "Normalized"
+            },
+            fftCrossSectionDescriptors.Select(item => item.Key));
+        Assert.Equal("64 x 64", fftCrossSectionDescriptors[0].DefaultValue);
+        Assert.Equal("中心", fftCrossSectionDescriptors[1].DefaultValue);
+        Assert.Equal("X-线性", fftCrossSectionDescriptors[6].DefaultValue);
+
+        var fftCrossSection = connector.BuildAnalysisView(
+            "FFT PSF截面图",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "32 x 32",
+                ["WavelengthNumber"] = "所有",
+                ["FieldNumber"] = "1 - 轴上视场",
+                ["Type"] = "X-线性",
+                ["Normalized"] = "false"
+            });
+        var fftProfile = Assert.Single(fftCrossSection.SeriesList);
+        Assert.Equal(AnalysisSeriesKind.Line, fftProfile.Kind);
+        Assert.Equal("X 截面", fftProfile.Name);
+        Assert.Equal("相对辐射照度", fftProfile.YAxisLabel);
+        Assert.NotEmpty(fftProfile.Points);
+        Assert.InRange(fftProfile.Points.Max(point => point.Y), 0, 1);
+        Assert.Equal("PSF截面图", fftCrossSection.PlotOptions.Title);
+
+        var spreadDescriptors = connector.GetAnalysisParameters("FFT 线/边缘扩散");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "Spread",
+                "GraphScaleMicrometers",
+                "UsePolarization",
+                "WavelengthNumber",
+                "FieldNumber",
+                "Type",
+                "UseCoherentPsf"
+            },
+            spreadDescriptors.Select(item => item.Key));
+        Assert.Equal("线", spreadDescriptors[1].DefaultValue);
+        Assert.Equal("X-线性", spreadDescriptors[6].DefaultValue);
+
+        var lineSpread = connector.BuildAnalysisView(
+            "FFT 线/边缘扩散",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "32 x 32",
+                ["Spread"] = "线",
+                ["WavelengthNumber"] = "所有",
+                ["FieldNumber"] = "1 - 轴上视场",
+                ["Type"] = "X-线性"
+            });
+        var line = Assert.Single(lineSpread.SeriesList);
+        Assert.Equal("线扩散函数", line.Name);
+        Assert.Equal("Y-位置 µm", line.XAxisLabel);
+        Assert.Equal("相对辐射照度", line.YAxisLabel);
+        Assert.Equal("FFT 线扩散函数", lineSpread.PlotOptions.Title);
+        Assert.InRange(line.Points.Max(point => point.Y), 0.999999, 1.000001);
+
+        var edgeSpread = connector.BuildAnalysisView(
+            "FFT 线/边缘扩散",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "32 x 32",
+                ["Spread"] = "边缘",
+                ["WavelengthNumber"] = "所有",
+                ["FieldNumber"] = "1 - 轴上视场",
+                ["Type"] = "X-线性"
+            });
+        var edge = Assert.Single(edgeSpread.SeriesList).Points;
+        Assert.True(edge.Zip(edge.Skip(1), (left, right) => right.Y >= left.Y).All(value => value));
+        Assert.Equal("FFT 边缘扩散函数", edgeSpread.PlotOptions.Title);
+
+        var huygensCrossSection = connector.BuildAnalysisView(
+            "惠更斯PSF截面图",
+            new Dictionary<string, string>
+            {
+                ["NumRays"] = "3",
+                ["ImageSize"] = "8",
+                ["PixelPitchMillimeters"] = "0.005"
+            });
+        Assert.Equal(2, huygensCrossSection.SeriesList.Count);
+        Assert.All(huygensCrossSection.SeriesList, profile => Assert.NotEmpty(profile.Points));
 
         foreach (var analysisName in new[] { "傅里叶 MTF", "惠更斯 MTF", "几何 MTF" })
         {
@@ -209,15 +1070,76 @@ public sealed class AnalysisGuiContractTests
                 && item.Maximum == 10000);
         }
 
+        var fftMtfDescriptors = connector.GetAnalysisParameters("傅里叶 MTF");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "MaximumFrequency",
+                "WavelengthNumber",
+                "FieldNumber",
+                "SurfaceNumber",
+                "Type",
+                "ShowDiffractionLimit",
+                "UsePolarization",
+                "UseDashes"
+            },
+            fftMtfDescriptors.Select(item => item.Key));
+        Assert.Equal(
+            new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" },
+            fftMtfDescriptors.Single(item => item.Key == "Sampling").Choices);
+        Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "MaximumFrequency").DefaultValue);
+        Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "SurfaceNumber").DefaultValue);
+        Assert.Equal(
+            new[] { "调制", "实部", "虚部", "相位", "方波" },
+            fftMtfDescriptors.Single(item => item.Key == "Type").Choices);
+
+        var fftThroughFocusDescriptors = connector.GetAnalysisParameters("傅里叶离焦 MTF");
+        Assert.Equal(
+            new[]
+            {
+                "Sampling",
+                "DeltaFocus",
+                "Frequency",
+                "NumberOfSteps",
+                "WavelengthNumber",
+                "FieldNumber",
+                "Type",
+                "UsePolarization",
+                "UseDashes"
+            },
+            fftThroughFocusDescriptors.Select(item => item.Key));
+        Assert.Equal(
+            new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" },
+            fftThroughFocusDescriptors.Single(item => item.Key == "Sampling").Choices);
+        Assert.Equal("0", fftThroughFocusDescriptors.Single(item => item.Key == "Frequency").DefaultValue);
+        Assert.Equal("5", fftThroughFocusDescriptors.Single(item => item.Key == "NumberOfSteps").DefaultValue);
+        Assert.Equal(
+            new[] { "调制", "实部", "虚部", "相位", "方波" },
+            fftThroughFocusDescriptors.Single(item => item.Key == "Type").Choices);
+
+        foreach (var analysisName in new[] { "惠更斯离焦 MTF", "几何离焦 MTF" })
+        {
+            var throughFocusDescriptors = connector.GetAnalysisParameters(analysisName);
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "DeltaFocus" && item.DefaultValue == "0.1");
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "Steps" && item.DefaultValue == "5");
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "SpatialFrequency" && item.DefaultValue == "50");
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "WavelengthNumber" && item.DefaultValue == "0");
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "FieldNumber" && item.DefaultValue == "0");
+            Assert.DoesNotContain(throughFocusDescriptors, item => item.Key is "FocusStep" or "FocusPlaneCount");
+        }
+
         var settings = connector.MergeAnalysisSettings("点扩散函数 PSF", new Dictionary<string, string>
         {
-            ["NumRays"] = "16",
-            ["GridSize"] = "32",
+            ["Sampling"] = "32 x 32",
+            ["Display"] = "64 x 64",
+            ["WavelengthNumber"] = "所有",
+            ["FieldNumber"] = "1 - 轴上视场",
             ["Ignored"] = "not persisted"
         });
 
-        Assert.Equal("16", settings["NumRays"]);
-        Assert.Equal("32", settings["GridSize"]);
+        Assert.Equal("32 x 32", settings["Sampling"]);
+        Assert.Equal("64 x 64", settings["Display"]);
         Assert.DoesNotContain("Ignored", settings.Keys);
 
         var footprintDescriptors = connector.GetAnalysisParameters("光迹图");
@@ -231,13 +1153,17 @@ public sealed class AnalysisGuiContractTests
 
         var view = connector.BuildAnalysisView("点扩散函数 PSF", settings);
 
-        Assert.Equal("点扩散函数 PSF", view.Name);
+        Assert.Equal("FFT PSF", view.Name);
         AssertRow(view, "方法", "FFT");
-        AssertRow(view, "瞳面采样数", "16");
-        AssertRow(view, "网格尺寸", "32");
+        AssertRow(view, "瞳面采样数", "32");
+        AssertRow(view, "网格尺寸", "64");
+        AssertRow(view, "波长序号", "0");
+        AssertRow(view, "显示为", "伪彩色");
+        Assert.Equal("复色光FFT PSF", view.PlotOptions.Title);
         var series = Assert.Single(view.SeriesList);
         Assert.Equal(AnalysisSeriesKind.Heatmap, series.Kind);
         Assert.NotEmpty(series.Points);
+        Assert.All(series.Points, point => Assert.InRange(point.Value ?? 0, 0, 1));
     }
 
     [Fact]
@@ -246,16 +1172,16 @@ public sealed class AnalysisGuiContractTests
         var settings = new AppSettings();
         settings.AnalysisSettings["PSF"] = new Dictionary<string, string>
         {
-            ["NumRays"] = "16",
-            ["GridSize"] = "32"
+            ["Sampling"] = "64 x 64",
+            ["Display"] = "128 x 128"
         };
 
         var json = JsonSerializer.Serialize(settings);
         var restored = JsonSerializer.Deserialize<AppSettings>(json);
 
         Assert.NotNull(restored);
-        Assert.Equal("16", restored.AnalysisSettings["PSF"]["NumRays"]);
-        Assert.Equal("32", restored.AnalysisSettings["PSF"]["GridSize"]);
+        Assert.Equal("64 x 64", restored.AnalysisSettings["PSF"]["Sampling"]);
+        Assert.Equal("128 x 128", restored.AnalysisSettings["PSF"]["Display"]);
     }
 
     [Fact]

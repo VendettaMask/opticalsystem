@@ -44,7 +44,17 @@ longer creates them.
 - refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with constant, linear-grating, radial, or grid profiles, and transmissive/reflective diffractive interactions on grating geometry
 - simple Python coating dictionaries on the Workbench adapter path
 
-Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. STAROPT is the lossless project format for the optical model, rich surface components, radius pickups, solve settings, merit operands, environment, and multi-configuration systems. GUI preferences are stored separately in `AppSettings`; optimization runs, tolerancing results, plugins, and cached analysis results are not embedded in the project.
+Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. STAROPT is the lossless project format for the optical model, rich surface components, radius pickups, solve settings, merit operands, environment, and multi-configuration systems. GUI preferences are stored separately in `AppSettings`; optimization runs, tolerance definitions/results, plugins, and cached analysis results are not embedded in the project.
+
+## Native Tolerance Files
+
+The tolerancing panel saves editable tolerance definitions as:
+
+- `*.startol.json`
+
+The schema contains a version, ordered enabled/disabled tolerance operands, operand type, target surface, minimum and maximum deviations, normal/uniform distribution, comments, evaluation criterion, Monte Carlo count/seed, compensation iterations, and yield limit. The loader validates surface ranges, finite ordered limits, duplicate operands, and the presence of at least one active non-compensator before accepting a file.
+
+This is a Workbench-owned, human-readable interchange format. It is not presented as binary- or text-compatible with Zemax proprietary `.TOL` files. STAROPT project saves and Python/commercial exchange files do not silently embed these tolerance definitions. See [Tolerancing](TOLERANCING.md).
 
 Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
 
@@ -112,14 +122,17 @@ Downloaded lens-library sources are intentionally separate from repository sampl
 [Packaged lens library](LENS_LIBRARY.md) for the offline build, source, license,
 glass-resolution, packaging, and storage rules.
 
-The application routes by extension through `OptilandConnector`:
+The desktop application routes by extension through `IOpticalDocumentService`:
 
 ```csharp
-await connector.LoadAsync(path);
-await connector.SaveAsync(path);
+await application.Documents.OpenAsync(path);
+await application.Documents.SaveAsync(path);
 ```
 
-The connector detects STAROPT content, legacy Workbench JSON, Python Optiland JSON, or an `OpticalFormatCatalog` adapter automatically.
+`OpticalDocumentService` delegates format detection to the split
+`OpticalWorkspaceModel`, which recognizes STAROPT content, legacy Workbench JSON,
+Python Optiland JSON, or an `OpticalFormatCatalog` adapter automatically.
+`OptilandConnector` remains only as a thin source-compatibility facade.
 
 ## Plugin Model
 

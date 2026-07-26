@@ -32,6 +32,7 @@ public sealed class PanelManager : IDisposable
     private readonly SemaphoreSlim _sessionSaveGate = new(1, 1);
     private long _restoreGeneration;
     private bool _restoring;
+    private bool _initialized;
     private bool _disposed;
 
     public PanelManager(
@@ -78,6 +79,7 @@ public sealed class PanelManager : IDisposable
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         await RestoreCurrentSessionAsync(cancellationToken);
+        _initialized = true;
     }
 
     public void Show(WorkspacePanelId id)
@@ -616,7 +618,7 @@ public sealed class PanelManager : IDisposable
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
-        if (args.FileSwitched)
+        if (_initialized && args.FileSwitched)
         {
             Dispatcher.UIThread.Post(RestoreAfterFileSwitchAsync);
         }

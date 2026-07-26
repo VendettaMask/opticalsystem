@@ -77,6 +77,16 @@ Publish output is under:
 src/OptilandWorkbench.App/bin/Release/net10.0/<runtime>/publish
 ```
 
+For each macOS runtime, the script also creates a Finder-ready application bundle:
+
+```text
+src/OptilandWorkbench.App/bin/Release/net10.0/<runtime>/Optical System Design.app
+```
+
+The bundle declares the native `.staropt` document type, uses `AppIcon.icns` for
+both the application and saved projects, and forwards Finder-opened project paths
+to the application.
+
 ## Current Validation Baseline
 
 The current local baseline is:
@@ -84,12 +94,12 @@ The current local baseline is:
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
-Expected result as of 2026-07-23:
+Expected result as of 2026-07-26:
 
 - solution build: 0 warnings, 0 errors
-- tests: 394 passed, 0 failed, 0 skipped
+- tests: 462 passed, 0 failed, 0 skipped
 
-The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views plus Zemax-style relative illumination, generated analysis parameter settings, optimization, tolerancing, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, manufacturing review, optical drawing/PDF rendering, and plugin discovery.
+The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views plus the broader 56-entry desktop catalog, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, compensated Monte Carlo statistics, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery.
 
 Regenerate Python fixtures only when intentionally updating the pinned `optiland==0.5.8` contract or its embedded CC0 glass data:
 

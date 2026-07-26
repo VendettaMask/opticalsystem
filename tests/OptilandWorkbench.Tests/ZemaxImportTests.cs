@@ -424,6 +424,80 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void ZemaxFieldsPreserveDeclaredOrder()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 3 0 5 1 0 0 0
+            XFLN 0 0 0 0 0
+            YFLN 0 4.5 3.375 2.25 1.125
+            FWGN 1 1 1 1 1
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ INFINITY
+            SURF 1
+              CURV 0
+              DISZ 10
+              STOP
+              DIAM 5
+            SURF 2
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(
+            new[] { 0.0, 4.5, 3.375, 2.25, 1.125 },
+            optic.Fields.Select(field => field.Y));
+        Assert.Equal(
+            new[] { "On axis", "Field 2", "Field 3", "Field 4", "Field 5" },
+            optic.Fields.Select(field => field.Label));
+    }
+
+    [Fact]
+    public void ZemaxMarginalRayHeightSolveFocusesParaxialMarginalRay()
+    {
+        const string source = """
+            MODE SEQ
+            FNUM 2.7 0
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 1000
+            SURF 1
+              CURV 0.02
+              DISZ 5
+              GLAS N-BK7
+              STOP
+              DIAM 5
+            SURF 2
+              CURV -0.02
+              DISZ 40
+              GLAS AIR
+              MAZH 0 0
+            SURF 3
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var wavelength = Assert.Single(optic.Wavelengths).Micrometers;
+        var marginal = optic.Paraxial.MarginalRay(wavelength);
+
+        Assert.True(double.IsFinite(optic.SurfaceGroup.Items[2].Thickness));
+        Assert.NotEqual(40, optic.SurfaceGroup.Items[2].Thickness);
+        Assert.Equal(0, marginal.Heights[3][0], precision: 10);
+    }
+
+    [Fact]
     public void ZemaxMirrMetadataTracesForwardAndMultiConfigurationsArePreserved()
     {
         const string source = """
@@ -588,7 +662,10 @@ public sealed class ZemaxImportTests
                     configuration.SurfaceGroup.Items[1].Geometry).Radius));
             Assert.Equal(5, imported.ActiveOptic.Fields.Count);
             Assert.Equal("轴上视场", imported.ActiveOptic.Fields[0].Label);
-            Assert.Equal("最大Y视场", imported.ActiveOptic.Fields[^1].Label);
+            Assert.Equal("最大Y视场", imported.ActiveOptic.Fields[1].Label);
+            Assert.Equal(
+                new[] { 0.0, 4.5, 3.375, 2.25, 1.125 },
+                imported.ActiveOptic.Fields.Select(field => field.Y));
             Assert.Equal(3, imported.ActiveOptic.Wavelengths.Count);
             Assert.Collection(
                 imported.ActiveOptic.MeritFunctionOperands,

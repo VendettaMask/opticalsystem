@@ -16,7 +16,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe, plus a 1,740-entry manufacturer-aware Optiland/refractiveindex.info glass catalog with formula/tabulated n/k evaluation |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | 32 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
+| Analysis | `Analysis` | 56 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
@@ -37,7 +37,7 @@ The current milestone has moved beyond module scaffolding into a usable workbenc
 - Analysis output includes metric, graphical, and exportable report views, Python-style multi-pane layouts, legends, fixed color scales, and viridis/inferno/jet heatmaps.
 - Python golden fixtures validate 30 analysis views point-for-point or pixel-for-pixel, including chief-ray and centroid/best-fit reference-sphere wavefronts, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, radiometry, Jones pupil, and image simulation.
 - Python golden fixtures validate all three 0.5.8 field definitions, finite/infinite conjugates, vignetting, telecentric launch, and paraxial image-height unit chief rays.
-- Tolerancing GUI runs sensitivity and Monte Carlo tables for selected surface radius/thickness perturbations.
+- Tolerancing GUI provides a TDE-style operand editor and wizard for radius, thickness, conic, decenter, tilt, refractive-index, Abbe-number, and compensator rows; it runs two-sided sensitivity and seeded Monte Carlo analysis with optional refocus compensation, percentile/yield statistics, native tolerance-file save/load, and text-report export.
 - Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
 - Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
 - The system viewer now follows the Optiland visualization model more closely: 2D surfaces are sampled from geometry sag in an equal-scale YZ projection, glass spans are grouped as lens bodies, smaller half-diameter faces are extended to the lens group's maximum extent before closure, rays use viewer-specific stop-aimed sequential traces, and the GUI includes a 3D projection tab with selectable translucent solids or rims, meridians, lens connectors, and 3D ray paths.

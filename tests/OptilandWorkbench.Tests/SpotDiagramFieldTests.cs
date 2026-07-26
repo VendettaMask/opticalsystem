@@ -27,8 +27,8 @@ public sealed class SpotDiagramFieldTests
             var field = optic.Fields[index];
             Assert.Equal(
                 Math.Abs(field.X) <= 1e-12
-                    ? $"物面: {field.Y:0.00} (度)"
-                    : $"物面: X {field.X:0.00}, Y {field.Y:0.00} (度)",
+                    ? $"{field.Label} (Y={field.Y:0.###} \u00B0)"
+                    : $"{field.Label} (X={field.X:0.###}, Y={field.Y:0.###} \u00B0)",
                 result.PlotPanes[index].Title);
             Assert.Collection(
                 result.PlotPanes[index].Metrics!,
@@ -68,10 +68,48 @@ public sealed class SpotDiagramFieldTests
 
         for (var index = 0; index < optic.Fields.Count; index++)
         {
-            var expectedTitle = $"物面: {optic.Fields[index].Y:0.00} (度)";
+            var expectedTitle = $"{optic.Fields[index].Label} (Y={optic.Fields[index].Y:0.###} \u00B0)";
             Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
             Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
         }
+    }
+
+    [Fact]
+    public void RayFanAppliesZemaxSettingsToTraceAndPlot()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var surfaceNumber = optic.SurfaceGroup.Items[1].Number;
+        var result = new RayFanAnalysis(
+            optic,
+            plotScaleMicrometers: 5,
+            numberOfRaysEachSide: 2,
+            useDashes: true,
+            vignettedPupil: true,
+            checkApertures: false,
+            wavelengthNumber: 2,
+            fieldNumber: 2,
+            tangentialAberration: "X Aberration",
+            sagittalAberration: "Y Aberration",
+            surfaceNumber: surfaceNumber,
+            zemaxCompatible: true).GenerateData();
+
+        Assert.NotNull(result.PlotPanes);
+        Assert.Equal(2, result.PlotPanes.Count);
+        Assert.All(result.PlotPanes, pane =>
+        {
+            Assert.Equal(-0.005, pane.PlotOptions.YMinimum);
+            Assert.Equal(0.005, pane.PlotOptions.YMaximum);
+            Assert.True(pane.PlotOptions.HideTickLabels);
+            var series = Assert.Single(pane.Series);
+            Assert.Equal(5, series.Points.Count);
+            Assert.Equal(AnalysisLineStyle.Dashed, series.LineStyle);
+        });
+        Assert.Equal("epsilon_x (mm)", result.PlotPanes[0].Series[0].YAxisLabel);
+        Assert.Equal("epsilon_y (mm)", result.PlotPanes[1].Series[0].YAxisLabel);
+        Assert.Equal(surfaceNumber, Assert.IsType<int>(result.Values["SurfaceNumber"]));
+        Assert.Equal(2, Assert.IsType<int>(result.Values["NumberOfRaysEachSide"]));
+        Assert.Equal(1, Assert.IsType<int>(result.Values["FieldCount"]));
+        Assert.Equal(1, Assert.IsType<int>(result.Values["WavelengthCount"]));
     }
 
     [Fact]
@@ -92,7 +130,7 @@ public sealed class SpotDiagramFieldTests
 
         for (var index = 0; index < optic.Fields.Count; index++)
         {
-            var expectedTitle = $"物面: {optic.Fields[index].Y:0.00} (度)";
+            var expectedTitle = $"{optic.Fields[index].Label} (Y={optic.Fields[index].Y:0.###} \u00B0)";
             Assert.Equal(expectedTitle, result.PlotPanes[index * 2].Title);
             Assert.Equal(expectedTitle, result.PlotPanes[(index * 2) + 1].Title);
         }

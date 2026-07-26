@@ -243,7 +243,9 @@ public sealed class PythonAnalysisParityTests
         for (var field = 0; field < data.PlotPanes.Count; field++)
         {
             var pane = data.PlotPanes[field];
-            Assert.Equal($"物面: {optic.Fields[field].Y:0.00} (度)", pane.Title);
+            Assert.Equal(
+                $"{optic.Fields[field].Label} (Y={optic.Fields[field].Y:0.###} \u00B0)",
+                pane.Title);
             for (var wavelength = 0; wavelength < pane.Series.Count; wavelength++)
             {
                 var expectedX = expected.GetProperty("x")[field][wavelength];
@@ -708,8 +710,9 @@ public sealed class PythonAnalysisParityTests
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("through_focus_spot");
+        var optic = createOptic();
         var data = new ThroughFocusAnalysis(
-            createOptic(),
+            optic,
             deltaFocus: 0.1,
             numSteps: 3,
             numRings: 3).GenerateData();
@@ -726,7 +729,9 @@ public sealed class PythonAnalysisParityTests
             {
                 var paneIndex = (field * stepCount) + step;
                 var pane = data.PlotPanes[paneIndex];
-                Assert.Equal(expected.GetProperty("panes")[paneIndex].GetProperty("title").GetString(), pane.Title);
+                Assert.Contains(optic.Fields[field].Label, pane.Title);
+                Assert.DoesNotContain("Hx", pane.Title);
+                Assert.DoesNotContain("Hy", pane.Title);
                 for (var wavelength = 0; wavelength < wavelengthCount; wavelength++)
                 {
                     var expectedX = expected.GetProperty("x")[step][field][wavelength];
@@ -752,8 +757,9 @@ public sealed class PythonAnalysisParityTests
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("through_focus_mtf");
+        var optic = createOptic();
         var data = new ThroughFocusMtfAnalysis(
-            createOptic(),
+            optic,
             spatialFrequency: 20,
             deltaFocus: 0.1,
             numSteps: 5,
@@ -775,7 +781,9 @@ public sealed class PythonAnalysisParityTests
             var expectedX = expected.GetProperty("series_x")[series];
             var expectedY = expected.GetProperty("series_y")[series];
             Assert.Equal(256, data.PlotSeries[series].Points.Count);
-            Assert.Equal(expected.GetProperty("line_labels")[series].GetString(), data.PlotSeries[series].Name);
+            Assert.Contains(optic.Fields[series / 2].Label, data.PlotSeries[series].Name);
+            Assert.DoesNotContain("Hx", data.PlotSeries[series].Name);
+            Assert.DoesNotContain("Hy", data.PlotSeries[series].Name);
             for (var index = 0; index < data.PlotSeries[series].Points.Count; index++)
             {
                 AssertClose(expectedX[index].GetDouble(), data.PlotSeries[series].Points[index].X);
@@ -1128,7 +1136,7 @@ public sealed class PythonAnalysisParityTests
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_psf");
         var data = new PsfAnalysis(createOptic(), numRays: 16, gridSize: 32).GenerateData();
         Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
-        Assert.Equal("Relative Intensity (%)", data.PlotSeries[0].ValueLabel);
+        Assert.Equal("Relative Intensity", data.PlotSeries[0].ValueLabel);
         Assert.Equal("FFT PSF", data.PlotOptions?.Title);
         AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
         Assert.Equal("FFT", data.Values["Method"]);
@@ -1193,13 +1201,13 @@ public sealed class PythonAnalysisParityTests
             pixelPitchMillimeters: expected.GetProperty("pixel_pitch").GetDouble()).GenerateData();
         Assert.Equal("Huygens PSF", data.Name);
         Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
-        Assert.Equal("Relative Intensity (%)", data.PlotSeries[0].ValueLabel);
-        Assert.Equal("Huygens PSF", data.PlotOptions?.Title);
+        Assert.Equal("Relative Intensity", data.PlotSeries[0].ValueLabel);
+        Assert.Equal("惠更斯PSF", data.PlotOptions?.Title);
         Assert.Equal("Huygens-Fresnel", data.Values["Method"]);
         AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), Convert.ToDouble(data.Values["PixelPitchMicrometers"]) / 1000.0);
         AssertClose(expected.GetProperty("working_fno").GetDouble(), Convert.ToDouble(data.Values["WorkingFNumber"]));
         AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
-        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0]);
+        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0], 0.01);
     }
 
     [Theory]
@@ -1598,7 +1606,10 @@ public sealed class PythonAnalysisParityTests
         }
     }
 
-    private static void AssertPsfSeriesValues(JsonElement expectedPsf, AnalysisSeries actual)
+    private static void AssertPsfSeriesValues(
+        JsonElement expectedPsf,
+        AnalysisSeries actual,
+        double scale = 1)
     {
         var size = expectedPsf.GetArrayLength();
         Assert.Equal(size * size, actual.Points.Count);
@@ -1608,7 +1619,7 @@ public sealed class PythonAnalysisParityTests
             {
                 var value = actual.Points[(row * size) + column].Value;
                 Assert.True(value.HasValue);
-                AssertClose(expectedPsf[row][column].GetDouble(), value.Value);
+                AssertClose(expectedPsf[row][column].GetDouble() * scale, value.Value);
             }
         }
     }
