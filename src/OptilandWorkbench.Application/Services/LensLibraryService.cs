@@ -148,7 +148,8 @@ internal sealed class LensLibraryService : ILensLibraryService
                 surface.Label,
                 surface.IsStop,
                 surface.IsReferencePlane,
-                surface.Points.Select(Point).ToArray())).ToArray(),
+                surface.Points.Select(Point).ToArray(),
+                surface.IsStandaloneStop)).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement2Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,

@@ -505,7 +505,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(56, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(62, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -513,7 +513,22 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(54, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(60, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(
+            new[] { "RMS vs. \u89c6\u573a", "RMS vs. \u6ce2\u957f", "RMS vs. \u79bb\u7126", "\u4e8c\u7ef4\u89c6\u573aRMS\u56fe" },
+            MainWindow.AnalysisRibbonCommandsByMenu["RMS"]);
+        Assert.Equal(
+            new[] { "\u884d\u5c04", "\u51e0\u4f55", "\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563", "\u6269\u5c55\u5149\u6e90" },
+            MainWindow.AnalysisRibbonCommandsByMenu["\u5708\u5165\u80fd\u91cf"]);
+        Assert.Equal(
+            "Diffraction Encircled Energy",
+            connector.CanonicalAnalysisKey("\u884d\u5c04"));
+        Assert.Equal(
+            "Geometric Line Edge Spread",
+            connector.CanonicalAnalysisKey("\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563"));
+        Assert.Equal(
+            "Extended Source Encircled Energy",
+            connector.CanonicalAnalysisKey("\u6269\u5c55\u5149\u6e90"));
         Assert.Equal(
             new[]
             {
@@ -642,15 +657,19 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("Zernike Fringe", connector.CanonicalAnalysisKey("Zernike Fringe系数"));
         var zernikeFringeParameters = connector.GetAnalysisParameters("Zernike Fringe系数");
         Assert.Equal(
-            new[] { "NumRings", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
+            new[] { "PupilSampling", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
             zernikeFringeParameters.Select(parameter => parameter.Key));
+        Assert.Equal("32 x 32", zernikeFringeParameters
+            .Single(parameter => parameter.Key == "PupilSampling").DefaultValue);
+        Assert.Equal(37, zernikeFringeParameters
+            .Single(parameter => parameter.Key == "ZernikeTerms").Maximum);
         Assert.Equal("1 - 轴上视场", zernikeFringeParameters
             .Single(parameter => parameter.Key == "FieldNumber").DefaultValue);
         var zernikeFringeView = connector.BuildAnalysisView(
             "Zernike Fringe系数",
             new Dictionary<string, string>
             {
-                ["NumRings"] = "5",
+                ["PupilSampling"] = "32 x 32",
                 ["ZernikeTerms"] = "12",
                 ["WavelengthNumber"] = "1",
                 ["FieldNumber"] = "1 - 轴上视场"

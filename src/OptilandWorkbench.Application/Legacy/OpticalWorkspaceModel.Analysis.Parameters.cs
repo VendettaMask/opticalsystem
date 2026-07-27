@@ -321,11 +321,112 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                 IntParameter("NumPoints", "曲线采样点数", "256", 2, 2048),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "sobol", distributionChoices)
             },
+            "Diffraction Encircled Energy" => new[]
+            {
+                ChoiceParameter("PupilSampling", "\u77b3\u9762\u91c7\u6837", "64 x 64",
+                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                ChoiceParameter("ImageSampling", "\u50cf\u9762\u91c7\u6837", "128 x 128",
+                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512" }),
+                IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "256", 2, 2048),
+                ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("FieldNumber", "\u89c6\u573a", "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Type", "\u7c7b\u578b", "encircled",
+                    new[] { "encircled", "X only", "Y only", "ensquared" }),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid",
+                    new[] { "chief", "centroid", "vertex" }),
+                DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
+                    "0", 0, 1_000_000, 1)
+            },
+            "Geometric Line Edge Spread" => new[]
+            {
+                ChoiceParameter("PupilSampling", "\u77b3\u9762\u91c7\u6837", "32 x 32",
+                    new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
+                IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "257", 33, 2049),
+                ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("FieldNumber", "\u89c6\u573a", "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Orientation", "\u65b9\u5411", "X", new[] { "X", "Y" }),
+                ChoiceParameter("Display", "\u663e\u793a", "line and edge",
+                    new[] { "line and edge", "line", "edge" }),
+                DoubleParameter("MaximumRadiusMicrometers", "\u6700\u5927\u534a\u5f84 (\u00b5m)",
+                    "0", 0, 1_000_000, 1)
+            },
+            "Extended Source Encircled Energy" => new[]
+            {
+                DoubleParameter("FieldSize", "\u89c6\u573a\u5c3a\u5bf8", "0", 0, 1_000_000, 0.1),
+                IntParameter("SourceSampling", "\u5149\u6e90\u91c7\u6837", "5", 1, 21),
+                IntParameter("NumRays", "\u5149\u7ebf\u6570", "5000", 100, 200000),
+                IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "256", 2, 2048),
+                ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("FieldNumber", "\u89c6\u573a", "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Type", "\u7c7b\u578b", "encircled",
+                    new[] { "encircled", "X only", "Y only", "ensquared" }),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid",
+                    new[] { "chief", "centroid", "vertex" }),
+                DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
+                    "0", 0, 1_000_000, 1)
+            },
             "Pupil Aberration" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
             "RMS vs Field" => new[]
             {
                 IntParameter("NumRings", "六角采样环数", "6", 1, 32),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
+            },
+            "RMS vs Wavelength" => new[]
+            {
+                IntParameter("WaveDensity", "\u6ce2\u957f\u5bc6\u5ea6", "21", 2, 100),
+                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
+                ChoiceParameter(
+                    "FieldNumber",
+                    "\u89c6\u573a",
+                    "0",
+                    new[] { "0" }.Concat(
+                        Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                            .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
+            },
+            "RMS vs Focus" => new[]
+            {
+                IntParameter("FocusDensity", "\u79bb\u7126\u5bc6\u5ea6", "21", 2, 100),
+                DoubleParameter("MinimumFocus", "\u6700\u5c0f\u79bb\u7126", "-1", -1_000_000, 1_000_000, 0.01),
+                DoubleParameter("MaximumFocus", "\u6700\u5927\u79bb\u7126", "1", -1_000_000, 1_000_000, 0.01),
+                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "\u6ce2\u957f",
+                    "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
+            },
+            "RMS Field Map" => new[]
+            {
+                IntParameter("XFieldSamples", "X\u89c6\u573a\u91c7\u6837", "11", 3, 101),
+                IntParameter("YFieldSamples", "Y\u89c6\u573a\u91c7\u6837", "11", 3, 101),
+                DoubleParameter("XFieldWidth", "X\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
+                DoubleParameter("YFieldWidth", "Y\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
+                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "\u6ce2\u957f",
+                    "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
             },
             "RMS Wavefront vs Field" => new[]
             {
@@ -836,7 +937,32 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                 IntParameter("MapSize", "波前图尺寸", "65", 17, 257),
                 DoubleParameter("RobustTrimStandardDeviations", "鲁棒裁剪 sigma", "3", 0, 10, 0.5)
             },
-            "Zernike Fringe" or "Zernike Standard" => new[]
+            "Zernike Fringe" => new[]
+            {
+                ChoiceParameter(
+                    "PupilSampling",
+                    "\u77b3\u9762\u91c7\u6837",
+                    "32 x 32",
+                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                IntParameter("ZernikeTerms", "Zernike \u62df\u5408\u9879\u6570", "37", 1, 37),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "\u6ce2\u957f",
+                    primaryWavelengthNumber.ToString(CultureInfo.InvariantCulture),
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture))
+                        .ToArray()),
+                ChoiceParameter(
+                    "FieldNumber",
+                    "\u89c6\u573a",
+                    "1 - \u8f74\u4e0a\u89c6\u573a",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index == 1
+                            ? "1 - \u8f74\u4e0a\u89c6\u573a"
+                            : $"{index} - \u89c6\u573a {index}")
+                        .ToArray())
+            },
+            "Zernike Standard" => new[]
             {
                 IntParameter("NumRings", "六角采样环数", "15", 1, 32),
                 IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),

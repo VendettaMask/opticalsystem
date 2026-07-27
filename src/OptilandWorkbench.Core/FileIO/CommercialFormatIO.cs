@@ -270,7 +270,9 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
             lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
             lines.Add(GlassLine(optic.SurfaceGroup.Items[surface.Number]));
-            lines.Add($"  DIAM {FormatDouble(surface.SemiDiameter)}");
+            lines.Add(
+                $"  DIAM {FormatDouble(surface.SemiDiameter)} " +
+                $"{(optic.SurfaceGroup.Items[surface.Number].SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\"");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
             WriteSurfaceParameters(lines, optic.SurfaceGroup.Items[surface.Number].Geometry);
             if (surface.IsStop)

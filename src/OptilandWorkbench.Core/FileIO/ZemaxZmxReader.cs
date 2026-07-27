@@ -303,7 +303,7 @@ internal static class ZemaxZmxReader
                     }
                     break;
                 case "DIAM":
-                    RequireSurface(current, command).SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, command));
+                    ReadSemiDiameter(RequireSurface(current, command), tokens);
                     break;
                 case "COMM":
                     RequireSurface(current, command).Comment = tokens.Length > 1
@@ -373,6 +373,7 @@ internal static class ZemaxZmxReader
                     "APMX",
                     source.Number,
                     configurationIndex) ?? source.SemiDiameter,
+                SemiDiameterFixed = source.SemiDiameterFixed,
                 IsStop = configuredStop.HasValue
                     ? source.Number == (int)Math.Round(configuredStop.Value)
                     : source.IsStop,
@@ -478,6 +479,7 @@ internal static class ZemaxZmxReader
                 Thickness = thickness,
                 Material = isReflective ? "MIRROR" : materialAfter.Name,
                 SemiDiameter = Math.Max(0.1, source.SemiDiameter ?? 10),
+                SemiDiameterFixed = source.SemiDiameterFixed,
                 Conic = source.Conic,
                 IsStop = source.IsStop,
                 IsReflective = isReflective,
@@ -959,6 +961,21 @@ internal static class ZemaxZmxReader
         }
     }
 
+    private static void ReadSemiDiameter(
+        ZemaxSurface surface,
+        IReadOnlyList<string> tokens)
+    {
+        surface.SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, "DIAM"));
+        var solveCode = tokens.Count > 2
+            ? RequiredInt(tokens, 2, "DIAM")
+            : 0;
+
+        // OpticStudio solve codes: 0 = automatic, 1 = user defined,
+        // 2 = pickup. Preserve every explicit solve because the local
+        // model currently exposes only automatic vs fixed.
+        surface.SemiDiameterFixed = solveCode != 0;
+    }
+
     private static IMaterial ResolveGlass(
         Optic optic,
         ZemaxSurface surface,
@@ -1204,6 +1221,7 @@ internal static class ZemaxZmxReader
         public double? RefractiveIndex { get; set; }
         public double? AbbeNumber { get; set; }
         public double? SemiDiameter { get; set; }
+        public bool SemiDiameterFixed { get; set; }
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }

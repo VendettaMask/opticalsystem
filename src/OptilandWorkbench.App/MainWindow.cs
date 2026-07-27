@@ -79,10 +79,16 @@ public sealed partial class MainWindow : Window
         new("analysis-color-focus", "色焦移", "色焦移", "triangle", "像差分析"),
         new("analysis-seidel", "赛德尔系数", "赛德尔系数", "sigma", "像差分析"),
         new("analysis-seidel-diagram", "赛德尔图", "赛德尔图", "chart-no-axes-column", "像差分析"),
-        new("analysis-encircled-energy", "圈入能量", "圈入能量", "circle-dot", "圈入能量"),
+        new("analysis-diffraction-encircled-energy", "\u884d\u5c04", "\u884d\u5c04", "circle-dot-dashed", "\u5708\u5165\u80fd\u91cf"),
+        new("analysis-encircled-energy", "\u51e0\u4f55", "\u51e0\u4f55", "circle-dot", "\u5708\u5165\u80fd\u91cf"),
+        new("analysis-geometric-line-edge-spread", "\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563", "\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563", "chart-spline", "\u5708\u5165\u80fd\u91cf"),
+        new("analysis-extended-source-encircled-energy", "\u6269\u5c55\u5149\u6e90", "\u6269\u5c55\u5149\u6e90", "scan", "\u5708\u5165\u80fd\u91cf"),
         new("analysis-pupil-aberration", "光瞳像差", "光瞳像差", "scan", "像差分析"),
-        new("analysis-rms-field", "全视场像差", "全视场像差", "scan", "像差分析"),
-        new("analysis-rms-wavefront-field", "RMS 波前-视场", "RMS 波前-视场", "waves-horizontal", "RMS"),
+        new("analysis-full-field-aberration", "全视场像差", "全视场像差", "scan", "像差分析"),
+        new("analysis-rms-field", "RMS vs. 视场", "RMS vs. 视场", "chart-line", "RMS"),
+        new("analysis-rms-wavelength", "RMS vs. 波长", "RMS vs. 波长", "chart-line", "RMS"),
+        new("analysis-rms-focus", "RMS vs. 离焦", "RMS vs. 离焦", "chart-line", "RMS"),
+        new("analysis-rms-field-map", "二维视场RMS图", "二维视场RMS图", "map", "RMS"),
         new("analysis-angle-height", "入射角 vs. 像高", "入射角 vs. 像高", "scan-line", "光线迹点"),
         new("analysis-psf", "FFT PSF", "FFT PSF", "focus", "点扩散函数"),
         new("analysis-psf-cross-section", "FFT PSF Cross Section", "FFT PSF截面图", "chart-line", "点扩散函数"),
@@ -160,7 +166,7 @@ public sealed partial class MainWindow : Window
             "analysis-ray-fan",
             "analysis-wavefront",
             "analysis-pupil-aberration",
-            "analysis-rms-field",
+            "analysis-full-field-aberration",
             "-",
             "analysis-field-curvature",
             "analysis-grid-distortion",
@@ -179,7 +185,7 @@ public sealed partial class MainWindow : Window
             "analysis-foucault",
             "analysis-contrast-loss",
             "-",
-            "analysis-rms-field",
+            "analysis-full-field-aberration",
             "-",
             "analysis-zernike-fringe",
             "analysis-zernike-standard",
@@ -209,11 +215,17 @@ public sealed partial class MainWindow : Window
         }),
         new("RMS", "RMS", "chart-line", new[]
         {
-            "analysis-rms-wavefront-field"
+            "analysis-rms-field",
+            "analysis-rms-wavelength",
+            "analysis-rms-focus",
+            "analysis-rms-field-map"
         }),
         new("圈入能量", "圈入能量", "circle-dot", new[]
         {
-            "analysis-encircled-energy"
+            "analysis-diffraction-encircled-energy",
+            "analysis-encircled-energy",
+            "analysis-geometric-line-edge-spread",
+            "analysis-extended-source-encircled-energy"
         }),
         new("扩展图像分析", "扩展图像分析", "image", new[]
         {

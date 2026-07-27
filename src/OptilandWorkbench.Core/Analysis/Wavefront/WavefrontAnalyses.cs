@@ -272,6 +272,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
 public sealed class ZernikeAnalysis : BaseAnalysis
 {
     private readonly int _numRings;
+    private readonly bool _useUniformGrid;
     private readonly int _numTerms;
     private readonly int _mapSize;
     private readonly int _wavelengthNumber;
@@ -289,8 +290,13 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         string name = "Zernike",
         double obscurationRatio = 0.5) : base(optic)
     {
-        _numRings = Math.Max(2, numRings);
-        _numTerms = Math.Max(1, numTerms);
+        _useUniformGrid = string.Equals(name, "Zernike Fringe", StringComparison.OrdinalIgnoreCase);
+        _numRings = _useUniformGrid
+            ? Math.Clamp(numRings, 8, 512)
+            : Math.Max(2, numRings);
+        _numTerms = _useUniformGrid
+            ? Math.Clamp(numTerms, 1, ZernikeFitEngine.MaximumFringeTerm)
+            : Math.Max(1, numTerms);
         _mapSize = Math.Max(17, mapSize);
         _wavelengthNumber = wavelengthNumber;
         _fieldNumber = fieldNumber;
@@ -315,7 +321,9 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         var field = _fieldNumber > 0
             ? fields.ElementAtOrDefault(_fieldNumber - 1)
             : fields.LastOrDefault();
-        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
+        var wavefront = _useUniformGrid
+            ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings)
+            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
         var isStandard = string.Equals(Name, "Zernike Standard", StringComparison.OrdinalIgnoreCase);
         var isAnnular = string.Equals(Name, "Zernike Annular", StringComparison.OrdinalIgnoreCase);
         var coefficients = isAnnular
@@ -336,6 +344,11 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         values["WavelengthMicrometers"] = wavelength.Micrometers;
         values["FieldHx"] = field.Hx;
         values["FieldHy"] = field.Hy;
+        values["Sampling"] = _useUniformGrid
+            ? $"{_numRings} x {_numRings}"
+            : $"{_numRings} hexapolar rings";
+        values["RayCount"] = wavefront.Samples.Count;
+        values["VignettedRayCount"] = wavefront.VignettedRayCount;
         var validSamples = wavefront.Samples.Where(sample =>
         {
             var radiusSquared = (sample.NormalizedPupilX * sample.NormalizedPupilX)

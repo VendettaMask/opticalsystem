@@ -352,6 +352,45 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void LayoutTreatsRefractingStopAsLensSurface()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var stop = optic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        var scene2D = new Layout2DBuilder(optic).Build(surfaceSamples: 33);
+        var scene3D = new Layout2DBuilder(optic).Build3D(surfaceSamples: 17, rimSamples: 24);
+
+        var stop2D = scene2D.Surfaces.Single(surface => surface.SurfaceNumber == stop.Number);
+        var stop3D = scene3D.Surfaces.Single(surface => surface.SurfaceNumber == stop.Number);
+
+        Assert.True(stop2D.IsStop);
+        Assert.False(stop2D.IsStandaloneStop);
+        Assert.True(stop2D.Points.Max(point => point.Z) - stop2D.Points.Min(point => point.Z) > 0.01);
+        Assert.True(stop3D.IsStop);
+        Assert.False(stop3D.IsStandaloneStop);
+    }
+
+    [Fact]
+    public void LayoutDistinguishesPlaneAirStopFromPlaneRefractingStop()
+    {
+        var optic = Optic.CreateTessarLens();
+        var stop = optic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        var scene2D = new Layout2DBuilder(optic).Build();
+        var scene3D = new Layout2DBuilder(optic).Build3D();
+
+        Assert.True(scene2D.Surfaces.Single(surface => surface.SurfaceNumber == stop.Number).IsStandaloneStop);
+        Assert.True(scene3D.Surfaces.Single(surface => surface.SurfaceNumber == stop.Number).IsStandaloneStop);
+
+        var refractingOptic = Optic.CreateCookeTriplet();
+        var refractingStop = refractingOptic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        refractingStop.Radius = 0;
+        refractingStop.Geometry = new PlaneGeometry();
+        var refractingScene = new Layout2DBuilder(refractingOptic).Build();
+
+        Assert.False(refractingScene.Surfaces
+            .Single(surface => surface.SurfaceNumber == refractingStop.Number).IsStandaloneStop);
+    }
+
+    [Fact]
     public void Layout2DBuilderExtendsUnequalLensAperturesBeforeClosingBody()
     {
         var optic = Optic.CreateDemo();
@@ -505,6 +544,23 @@ public sealed class OptilandParityTests
             surfaceSamples: 17,
             options with { MarginalAndChiefOnly = true });
         Assert.Equal(3, marginalAndChief.Rays.Select(ray => ray.PupilIndex).Distinct().Count());
+    }
+
+    [Fact]
+    public void LayoutHidesVignettedRaysByDefaultAndCanShowThemForDiagnostics()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[^2].PhysicalAperture = new CircularAperture(0.001);
+        var builder = new Layout2DBuilder(optic);
+
+        var diagnosticScene = builder.Build(options: new LayoutBuildOptions(
+            RayCount: 7,
+            DeleteVignetted: false));
+        var zemaxStyleScene = builder.Build(options: new LayoutBuildOptions(RayCount: 7));
+
+        Assert.Contains(diagnosticScene.Rays, ray => ray.Vignetted);
+        Assert.DoesNotContain(zemaxStyleScene.Rays, ray => ray.Vignetted);
+        Assert.True(zemaxStyleScene.Rays.Count < diagnosticScene.Rays.Count);
     }
 
     [Fact]
@@ -709,7 +765,10 @@ public sealed class OptilandParityTests
         Assert.Contains("Lateral Color", optic.Analyses.Names);
         Assert.Contains("Axial Aberration", optic.Analyses.Names);
         Assert.Contains("Full Field Aberration", optic.Analyses.Names);
-        Assert.Equal(56, optic.Analyses.Names.Count);
+        Assert.Contains("Diffraction Encircled Energy", optic.Analyses.Names);
+        Assert.Contains("Geometric Line Edge Spread", optic.Analyses.Names);
+        Assert.Contains("Extended Source Encircled Energy", optic.Analyses.Names);
+        Assert.Equal(62, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

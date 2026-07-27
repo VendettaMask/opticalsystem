@@ -756,7 +756,7 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var surface in surfaces)
         {
-            if (surface.IsStop)
+            if (surface.IsStandaloneStop)
             {
                 DrawApertureStop(context, surface, mapZ, mapY, ApertureStopPen);
                 continue;
@@ -772,7 +772,7 @@ public sealed class OpticSceneControl : Control
             return;
         }
 
-        if (highlighted.IsStop)
+        if (highlighted.IsStandaloneStop)
         {
             DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfaceHaloPen);
             DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfacePen);
@@ -1262,7 +1262,7 @@ public sealed class OpticSceneControl : Control
         bool solidModelStyle,
         Pen? overridePen)
     {
-        var pen = overridePen ?? (surface.IsStop
+        var pen = overridePen ?? (surface.IsStandaloneStop
             ? StopPen
             : surface.IsReferencePlane
                 ? solidModelStyle ? SolidReferencePlanePen : ReferencePlanePen

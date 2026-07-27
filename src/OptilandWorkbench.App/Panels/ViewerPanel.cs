@@ -78,6 +78,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _scalePicker.SelectedIndex = 0;
         _lineWidthPicker.ItemsSource = new[] { "细", "标准", "粗" };
         _lineWidthPicker.SelectedIndex = 1;
+        _deleteVignetted.IsChecked = true;
 
         var root = new DockPanel();
         _summaryBar = new Border
@@ -468,7 +469,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             _lineWidthPicker.SelectedIndex = 1;
             _suppressFrame.IsChecked = false;
             _rayArrows.IsChecked = false;
-            _deleteVignetted.IsChecked = false;
+            _deleteVignetted.IsChecked = true;
             _marginalAndChiefOnly.IsChecked = false;
         }
         finally

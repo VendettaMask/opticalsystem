@@ -8,6 +8,7 @@ using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
 
 namespace OptilandWorkbench.Tests;
@@ -211,6 +212,105 @@ public sealed class ZemaxImportTests
         var positions = optic.SurfaceGroup.Items.Select(surface => surface.CoordinateSystem.Origin.Z).ToArray();
         Assert.Equal(double.NegativeInfinity, positions[0]);
         Assert.Equal(new[] { 0.0, 4.0, 6.0, 14.0 }, positions.Skip(1));
+    }
+
+    [Fact]
+    public void ZemaxImportPreservesUserDefinedAndPickupSemiDiameters()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 8
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              DISZ 20
+              DIAM 10 0 0 0 1 ""
+            SURF 1
+              CURV 0.02
+              DISZ 3
+              GLAS N-BK7
+              DIAM 5.5 1 0 0 1 ""
+            SURF 2
+              CURV -0.02
+              DISZ 15
+              DIAM 5.5 2 1 0 1 ""
+            SURF 3
+              DISZ 0
+              DIAM 2 0 0 0 1 ""
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.False(optic.SurfaceGroup.Items[0].SemiDiameterFixed);
+        Assert.True(optic.SurfaceGroup.Items[1].SemiDiameterFixed);
+        Assert.True(optic.SurfaceGroup.Items[2].SemiDiameterFixed);
+        Assert.False(optic.SurfaceGroup.Items[3].SemiDiameterFixed);
+
+        AutomaticSemiDiameterSolver.Update(optic);
+
+        Assert.Equal(5.5, optic.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+        Assert.Equal(5.5, optic.SurfaceGroup.Items[2].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxExportRoundTripsFixedSemiDiameterState()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[1].SemiDiameter = 8.85;
+        optic.SurfaceGroup.Items[1].SemiDiameterFixed = true;
+
+        var exported = OpticalFormatCatalog.Export(optic, ".zmx");
+        var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+
+        Assert.True(restored.SurfaceGroup.Items[1].SemiDiameterFixed);
+        Assert.Equal(8.85, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxCurvedRefractingStopRemainsAnOpticalSurfaceInLayout()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 8
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              DISZ 20
+            SURF 1
+              CURV -0.1
+              DISZ 2
+              GLAS N-BK10
+              DIAM 6 1 0 0 1 ""
+            SURF 2
+              STOP
+              CURV 0.04
+              DISZ 4
+              GLAS N-FK56
+              DIAM 6 1 0 0 1 ""
+            SURF 3
+              CURV -0.05
+              DISZ 10
+              DIAM 6 1 0 0 1 ""
+            SURF 4
+              DISZ 0
+              DIAM 2 0 0 0 1 ""
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var stop = optic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        var scene = new Layout2DBuilder(optic).Build(surfaceSamples: 33);
+
+        Assert.True(stop.IsStop);
+        Assert.Equal(25, Assert.IsType<StandardGeometry>(stop.Geometry).Radius, precision: 12);
+        Assert.Equal("N-BK10", stop.MaterialBefore.Name);
+        Assert.Equal("N-FK56", stop.MaterialAfter.Name);
+        Assert.False(scene.Surfaces.Single(surface => surface.SurfaceNumber == stop.Number).IsStandaloneStop);
     }
 
     [Fact]

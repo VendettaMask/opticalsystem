@@ -350,7 +350,7 @@ public sealed record VisualizationRequestDto(
     int RayCount = 3,
     double LowerPupil = -0.85,
     double UpperPupil = 0.85,
-    bool DeleteVignetted = false,
+    bool DeleteVignetted = true,
     bool MarginalAndChiefOnly = false);
 
 public sealed record ScenePoint2Dto(double Z, double Y);
@@ -364,7 +364,8 @@ public sealed record SceneSurface2Dto(
     string Label,
     bool IsStop,
     bool IsReferencePlane,
-    IReadOnlyList<ScenePoint2Dto> Points);
+    IReadOnlyList<ScenePoint2Dto> Points,
+    bool IsStandaloneStop = false);
 
 public sealed record SceneLensEdge2Dto(
     int FrontSurfaceNumber,
@@ -405,7 +406,8 @@ public sealed record SceneSurface3Dto(
     IReadOnlyList<ScenePoint3Dto> Rim,
     IReadOnlyList<ScenePoint3Dto> MeridianY,
     IReadOnlyList<ScenePoint3Dto> MeridianX,
-    IReadOnlyList<SceneSurfaceFace3Dto> Faces);
+    IReadOnlyList<SceneSurfaceFace3Dto> Faces,
+    bool IsStandaloneStop = false);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,

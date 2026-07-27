@@ -205,7 +205,8 @@ internal static class WorkbenchMapper
                 surface.Label,
                 surface.IsStop,
                 surface.IsReferencePlane,
-                surface.Points.Select(Point).ToArray())).ToArray(),
+                surface.Points.Select(Point).ToArray(),
+                surface.IsStandaloneStop)).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement2Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,
@@ -243,7 +244,8 @@ internal static class WorkbenchMapper
                  surface.MeridianY.Select(Point).ToArray(),
                  surface.MeridianX.Select(Point).ToArray(),
                  surface.Faces.Select(face => new SceneSurfaceFace3Dto(
-                     face.Points.Select(Point).ToArray())).ToArray())).ToArray(),
+                     face.Points.Select(Point).ToArray())).ToArray(),
+                 surface.IsStandaloneStop)).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement3Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,

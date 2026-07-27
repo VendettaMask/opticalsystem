@@ -673,7 +673,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void SampledMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void SampledMtfRemainsCloseToPythonOptilandAfterZemaxFringeAlignment(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("sampled_mtf");
@@ -693,8 +693,8 @@ public sealed class PythonAnalysisParityTests
             for (var index = 0; index < 33; index++)
             {
                 AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
-                AssertClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
-                AssertClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
+                AssertMtfClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
+                AssertMtfClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
             }
         }
 
@@ -753,7 +753,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void ThroughFocusMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void ThroughFocusMtfRemainsCloseToPythonOptilandAfterZemaxFringeAlignment(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("through_focus_mtf");
@@ -771,8 +771,8 @@ public sealed class PythonAnalysisParityTests
         {
             for (var step = 0; step < tangential[field].Length; step++)
             {
-                AssertClose(expected.GetProperty("tangential")[field][step].GetDouble(), tangential[field][step]);
-                AssertClose(expected.GetProperty("sagittal")[field][step].GetDouble(), sagittal[field][step]);
+                AssertMtfClose(expected.GetProperty("tangential")[field][step].GetDouble(), tangential[field][step]);
+                AssertMtfClose(expected.GetProperty("sagittal")[field][step].GetDouble(), sagittal[field][step]);
             }
         }
 
@@ -787,7 +787,7 @@ public sealed class PythonAnalysisParityTests
             for (var index = 0; index < data.PlotSeries[series].Points.Count; index++)
             {
                 AssertClose(expectedX[index].GetDouble(), data.PlotSeries[series].Points[index].X);
-                AssertClose(expectedY[index].GetDouble(), data.PlotSeries[series].Points[index].Y);
+                AssertMtfClose(expectedY[index].GetDouble(), data.PlotSeries[series].Points[index].Y);
             }
         }
 
@@ -939,7 +939,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FringeZernikeFitMatchesPythonOptiland(string sampleName, Func<Optic> createOptic)
+    public void FringeZernikeLowerTermsRemainCompatibleWithPythonOptiland(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("zernike");
@@ -1116,7 +1116,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void ZernikeAnalysisUsesPythonFringeHeatmapContract(string sampleName, Func<Optic> createOptic)
+    public void ZernikeAnalysisPreservesPythonHeatmapShapeContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("zernike");
@@ -1636,6 +1636,14 @@ public sealed class PythonAnalysisParityTests
         Assert.True(
             Math.Abs(expected - actual) <= tolerance,
             $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}.");
+    }
+
+    private static void AssertMtfClose(double expected, double actual)
+    {
+        var tolerance = 1e-3 * Math.Max(1, Math.Abs(expected));
+        Assert.True(
+            Math.Abs(expected - actual) <= tolerance,
+            $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}. Zemax Fringe term 37 is active.");
     }
 
     private static void AssertImageClose(double expected, double actual)

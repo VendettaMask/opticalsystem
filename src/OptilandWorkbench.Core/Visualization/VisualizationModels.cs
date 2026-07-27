@@ -41,6 +41,7 @@ public sealed record Layout2DSurfaceCurve(
     int SurfaceNumber,
     string Label,
     bool IsStop,
+    bool IsStandaloneStop,
     bool IsReferencePlane,
     IReadOnlyList<Layout2DPoint> Points);
 
@@ -59,7 +60,7 @@ public sealed record LayoutBuildOptions(
     int RayCount = 3,
     double LowerPupil = -0.85,
     double UpperPupil = 0.85,
-    bool DeleteVignetted = false,
+    bool DeleteVignetted = true,
     bool MarginalAndChiefOnly = false);
 
 public sealed record Layout2DLensElement(
@@ -90,6 +91,7 @@ public sealed record Layout3DSurfacePrimitive(
     int SurfaceNumber,
     string Label,
     bool IsStop,
+    bool IsStandaloneStop,
     bool IsReferencePlane,
     string Material,
     IReadOnlyList<Layout3DPoint> Rim,
@@ -218,6 +220,7 @@ public sealed class Layout2DBuilder
                 surface.Number,
                 surface.Label,
                 surface.IsStop,
+                IsStandaloneStop(surface),
                 IsReferencePlane(surface, surfaceCount),
                 BuildSurfaceCurvePoints(surface, surfaceSamples, SurfaceExtent(surface))));
         }
@@ -308,6 +311,7 @@ public sealed class Layout2DBuilder
                 surface.Number,
                 surface.Label,
                 surface.IsStop,
+                IsStandaloneStop(surface),
                 IsReferencePlane(surface, surfaceCount),
                 surface.MaterialAfterName,
                 rim,
@@ -366,6 +370,7 @@ public sealed class Layout2DBuilder
 
         var trace = _optic.SequentialRayTracer.Trace(new RealRayBundle(specs.Select(spec => spec.Ray)));
         var paths = new List<Layout3DRayPath>();
+        var imageSurfaceNumber = _optic.SurfaceGroup.Items[^1].Number;
 
         for (var rayIndex = 0; rayIndex < trace.RayHistories.Count; rayIndex++)
         {
@@ -385,6 +390,12 @@ public sealed class Layout2DBuilder
                     break;
                 }
             }
+
+            vignetted = vignetted
+                || history.Count == 0
+                || history[^1].SurfaceNumber != imageSurfaceNumber
+                || history[^1].Vignetted
+                || history[^1].Intensity <= 0;
 
             if (points.Count >= 2)
             {
@@ -809,6 +820,23 @@ public sealed class Layout2DBuilder
     private bool HasOpticalMaterialAfter(OpticalSurface surface)
     {
         return surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
+    }
+
+    private bool IsStandaloneStop(OpticalSurface surface)
+    {
+        if (!surface.IsStop || !surface.IsPlane || surface.IsReflective)
+        {
+            return false;
+        }
+
+        var wavelength = PrimaryWavelengthNanometers();
+        var surfaceIndex = _optic.SurfaceGroup.Items.IndexOf(surface);
+        var materialBefore = surfaceIndex > 0
+            ? _optic.SurfaceGroup.Items[surfaceIndex - 1].MaterialAfter
+            : surface.MaterialBefore;
+        var indexBefore = materialBefore.RefractiveIndex(wavelength);
+        var indexAfter = surface.MaterialAfter.RefractiveIndex(wavelength);
+        return Math.Abs(indexAfter - indexBefore) <= 1e-9;
     }
 
     private static double SurfaceExtent(OpticalSurface surface)

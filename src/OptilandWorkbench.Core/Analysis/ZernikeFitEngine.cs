@@ -6,6 +6,33 @@ public sealed record ZernikeCoefficient(int Number, int RadialOrder, int Azimuth
 
 public static class ZernikeFitEngine
 {
+    public const int MaximumFringeTerm = 37;
+
+    private static readonly (int N, int M)[] ZemaxFringeIndices =
+    {
+        (0, 0),
+        (1, 1), (1, -1),
+        (2, 0), (2, 2), (2, -2),
+        (3, 1), (3, -1),
+        (4, 0),
+        (3, 3), (3, -3),
+        (4, 2), (4, -2),
+        (5, 1), (5, -1),
+        (6, 0),
+        (4, 4), (4, -4),
+        (5, 3), (5, -3),
+        (6, 2), (6, -2),
+        (7, 1), (7, -1),
+        (8, 0),
+        (5, 5), (5, -5),
+        (6, 4), (6, -4),
+        (7, 3), (7, -3),
+        (8, 2), (8, -2),
+        (9, 1), (9, -1),
+        (10, 0),
+        (12, 0)
+    };
+
     private static readonly ConcurrentDictionary<(int N, int M, long Obscuration), double[]>
         AnnularRadialCache = new();
 
@@ -135,29 +162,10 @@ public static class ZernikeFitEngine
 
     private static IReadOnlyList<(int Number, int N, int M)> FringeIndices(int count)
     {
-        var byNumber = new Dictionary<int, (int N, int M)>();
-        for (var n = 0; byNumber.Count < count; n++)
-        {
-            for (var m = -n; m <= n; m++)
-            {
-                if ((n - m) % 2 != 0)
-                {
-                    continue;
-                }
-
-                var sign = Math.Sign(m);
-                var number = (int)(Math.Pow(1 + ((n + Math.Abs(m)) / 2.0), 2)
-                    - (2 * Math.Abs(m))
-                    + ((1 - sign) / 2.0));
-                if (number >= 1 && number <= count)
-                {
-                    byNumber[number] = (n, m);
-                }
-            }
-        }
-
-        return Enumerable.Range(1, count)
-            .Select(number => (number, byNumber[number].N, byNumber[number].M))
+        count = Math.Clamp(count, 1, MaximumFringeTerm);
+        return ZemaxFringeIndices
+            .Take(count)
+            .Select((index, position) => (position + 1, index.N, index.M))
             .ToArray();
     }
 
