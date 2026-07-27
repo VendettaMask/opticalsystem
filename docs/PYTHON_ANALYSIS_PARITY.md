@@ -86,7 +86,7 @@ Real image height is a Zemax extension beyond Python Optiland 0.5.8. Its primary
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
 
-Repository validation as of 2026-07-26 is a zero-warning solution build and `462/462` passing tests.
+Repository validation as of 2026-07-28 is a zero-warning solution build and `513/513` passing tests.
 
 ## Plot Contract
 

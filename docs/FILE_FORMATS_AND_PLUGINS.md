@@ -58,6 +58,28 @@ This is a Workbench-owned, human-readable interchange format. It is not presente
 
 Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
 
+## CAD Exchange
+
+The desktop **File > Export CAD** command currently writes:
+
+- STEP (`.step` / `.stp`)
+- AP203 `CONFIG_CONTROL_DESIGN`
+- millimetre geometry
+- one closed faceted B-rep per grouped lens element
+
+`CadExportService` takes an immutable snapshot of the active optic, builds the
+same sampled 3D lens scene used by the viewer, validates that each triangle mesh
+is closed and consistently oriented, and then writes the STEP exchange file
+without requiring an external CAD application.
+
+This is an experimental mesh exchange path. It does not preserve analytic
+spheres/aspheres, NURBS definitions, optical materials, coatings, tolerances, or
+assembly constraints as native CAD features. STEP syntax and mesh closure are
+covered by automated tests, but production interoperability with every receiving
+CAD kernel is not claimed. Open and inspect the result in the target CAD system
+before using it for mechanical design or manufacturing. STAROPT remains the
+lossless optical project format.
+
 Python Optiland 0.5.8 also emits incomplete planar-grating dictionaries and has broken grating `from_dict()` constructors. Workbench preserves order, period, and groove angle in its adapter and native snapshots, but external Python reload of grating exports is not part of the validated contract.
 
 See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema and external Python round-trip validation.

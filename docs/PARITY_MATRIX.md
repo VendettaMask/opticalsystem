@@ -16,7 +16,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe, plus a 1,740-entry manufacturer-aware Optiland/refractiveindex.info glass catalog with formula/tabulated n/k evaluation |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | 56 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
+| Analysis | `Analysis` | 67 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |

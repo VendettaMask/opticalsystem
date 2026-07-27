@@ -131,6 +131,7 @@ WorkbenchApplication (composition and lifecycle root)
   MultiConfigurationService
   MaterialCatalogService
   LensLibraryService
+  CadExportService
 ```
 
 `WorkbenchApplication` only constructs and exposes the independent services. `WorkspaceCoordinator` serializes mutations, controls document-lifetime cancellation, increments a monotonic model revision, and publishes one categorized event per command. Analysis and visualization run against Core snapshots rather than the live model. Public App-facing APIs are checked by architecture tests so Core types cannot leak back into Avalonia.
@@ -165,6 +166,18 @@ MainWindow
 `LocalIcon` renders the pinned Lucide catalog embedded under `Assets/Icons`; GUI commands therefore use one vector icon vocabulary without a runtime network or font dependency. See `LOCAL_ICONS.md` for usage and update rules.
 
 The analysis panel consumes structured DTO data. Its lifecycle, parameter editor, result presentation, plot layout, and export logic are split into focused files. Metric, graph, and report views are built without parsing display strings. Each analysis document owns one settings instance and bottom-aligned Plot/Data/Text result views. Heavy analyses do not rerun on ordinary edits: the event revision marks the result stale, and the icon-only synchronization action starts a cancellable snapshot calculation. Instance ID, generation, and source revision must all match before a result is accepted.
+
+The analysis catalog currently contains 67 entries. Encircled-energy variants
+share common curve construction while diffraction energy integrates FFT PSF
+samples and adds a polychromatic diffraction-limit reference. Extended image
+analysis is split into geometric, bitmap, light-source, partially coherent, and
+extended-diffraction engines. IMA/BIM and ordinary bitmap viewers are file
+utilities owned by the App layer rather than numerical analyses.
+
+`CadExportService` snapshots the active optic and delegates sampled lens geometry
+to the Core STEP writer. The current writer produces closed, consistently
+oriented faceted B-reps in millimetres; it is deliberately documented as an
+experimental exchange boundary, not an analytic CAD kernel.
 
 2D/3D views are lightweight consumers. They debounce model events by approximately 120 ms, cancel superseded requests, and apply only the newest matching revision. Locking a document freezes its current result; unlocking a lightweight view refreshes immediately, while a heavy analysis still waits for explicit synchronization.
 
