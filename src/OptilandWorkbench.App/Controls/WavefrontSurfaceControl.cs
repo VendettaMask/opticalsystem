@@ -74,6 +74,8 @@ public sealed class WavefrontSurfaceControl : Control
         }
     }
 
+    internal bool HasRenderableGrid => TryBuildGrid(out _);
+
     public void ResetView()
     {
         _viewInitialized = true;
@@ -262,7 +264,13 @@ public sealed class WavefrontSurfaceControl : Control
                 {
                     for (var column = 0; column < grid.Xs.Length; column++)
                     {
-                        var normalized = (grid.Values[row, column] - minimum) / range;
+                        var value = grid.Values[row, column];
+                        if (!double.IsFinite(value))
+                        {
+                            continue;
+                        }
+
+                        var normalized = (value - minimum) / range;
                         var left = MapX(grid.Xs[column] - (xStep / 2));
                         var right = MapX(grid.Xs[column] + (xStep / 2));
                         var top = MapY(grid.Ys[row] + (yStep / 2));
@@ -362,8 +370,18 @@ public sealed class WavefrontSurfaceControl : Control
                 var p10 = Project(row, column + 1);
                 var p01 = Project(row + 1, column);
                 var p11 = Project(row + 1, column + 1);
-                AddTriangle(p00, p10, p11);
-                AddTriangle(p00, p11, p01);
+                var finiteCorners = new[] { p00, p10, p11, p01 }
+                    .Where(point => double.IsFinite(point.Value))
+                    .ToArray();
+                if (finiteCorners.Length == 4)
+                {
+                    AddTriangle(p00, p10, p11);
+                    AddTriangle(p00, p11, p01);
+                }
+                else if (finiteCorners.Length == 3)
+                {
+                    AddTriangle(finiteCorners[0], finiteCorners[1], finiteCorners[2]);
+                }
             }
         }
 
@@ -747,13 +765,15 @@ public sealed class WavefrontSurfaceControl : Control
                 xIndices[CoordinateKey(sample.X)]] = sample.Value!.Value;
         }
 
-        if (values.Cast<double>().Any(value => !double.IsFinite(value)))
+        var finiteValues = values.Cast<double>()
+            .Where(double.IsFinite)
+            .ToArray();
+        if (finiteValues.Length < 4)
         {
             grid = null!;
             return false;
         }
 
-        var finiteValues = values.Cast<double>().ToArray();
         grid = new SurfaceGrid(xs, ys, values, finiteValues.Min(), finiteValues.Max());
         return true;
     }

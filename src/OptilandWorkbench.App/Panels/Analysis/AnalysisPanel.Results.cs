@@ -43,8 +43,12 @@ public sealed partial class AnalysisPanel
         }
 
         var plotRoot = view.PlotPanes.Count > 0
-            ? IsThroughFocusSpotView(view)
+            ? IsStandardSpotView(view)
+                ? BuildStandardSpotPanePlot(view.PlotPanes)
+                : IsThroughFocusSpotView(view)
                 ? BuildThroughFocusSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
+                : IsConfigurationMatrixSpotView(view)
+                ? BuildConfigurationMatrixSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
                 : IsMatrixSpotView(view)
                 ? BuildMatrixSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
                 : IsRayFanView(view) || IsOpticalPathDifferenceView(view)
@@ -608,7 +612,9 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt)
     {
         var compactSummary = BuildCompactAnalysisSummary(view);
-        var hasPaneMetrics = view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
+        var showPaneMetrics = !IsConfigurationMatrixSpotView(view);
+        var hasPaneMetrics = showPaneMetrics
+            && view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
         var visibleRows = hasPaneMetrics || compactSummary is not null
             ? Array.Empty<AnalysisRowDto>()
             : view.Rows
@@ -656,7 +662,9 @@ public sealed partial class AnalysisPanel
             LineHeight = 16,
             TextWrapping = TextWrapping.Wrap
         };
-        var paneMetrics = BuildPaneMetricsSummary(view.PlotPanes);
+        var paneMetrics = showPaneMetrics
+            ? BuildPaneMetricsSummary(view.PlotPanes)
+            : null;
         if (paneMetrics is null)
         {
             left.Children.Add(resultSummary);
@@ -904,6 +912,22 @@ public sealed partial class AnalysisPanel
                 "矩阵点列图",
                 $"单位是 µm。    图例对应于波长{Environment.NewLine}"
                 + $"缩放标尺：{scale}    参考：{reference}");
+        }
+
+        if (IsConfigurationMatrixSpotView(view))
+        {
+            var wavelengthCount = Math.Clamp(
+                view.PlotPaneColumns,
+                1,
+                Math.Max(1, view.PlotPanes.Count));
+            var fieldCount = (int)Math.Ceiling(view.PlotPanes.Count / (double)wavelengthCount);
+            var reference = view.Rows.FirstOrDefault(row =>
+                string.Equals(row.Metric, "参考", StringComparison.Ordinal))?.Value ?? "主光线";
+            return new CompactAnalysisSummary(
+                "结构矩阵点列图",
+                $"行：结构 × 视场    列：波长{Environment.NewLine}"
+                + $"{fieldCount} 个视场 × {wavelengthCount} 个波长，共 {view.PlotPanes.Count} 个点列图{Environment.NewLine}"
+                + $"单位：mm    参考：{reference}");
         }
 
         if (string.Equals(view.Name, "全视场点列图", StringComparison.Ordinal)

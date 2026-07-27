@@ -268,7 +268,12 @@ public static string DisplayOptimizerMessage(string message)
         ["Zernike Fringe"] = "Zernike Fringe系数",
         ["Zernike Standard"] = "Zernike Standard系数",
         ["Zernike Annular"] = "Zernike Annular系数",
-        ["Image Simulation"] = "成像仿真",
+        ["Image Simulation"] = "图像模拟",
+        ["Geometric Image Analysis"] = "几何图像分析",
+        ["Geometric Bitmap Image Analysis"] = "几何位图图像分析",
+        ["Light Source Analysis"] = "光源分析",
+        ["Partially Coherent Image Analysis"] = "部分相干图像分析",
+        ["Extended Diffraction Image Analysis"] = "扩展图像分析",
         ["Jones Pupil"] = "Jones 瞳",
         ["Prescription Report"] = "处方报告"
     };

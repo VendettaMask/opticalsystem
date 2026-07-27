@@ -140,20 +140,185 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
             || string.Equals(view.Name, "Matrix Spot Diagram", StringComparison.OrdinalIgnoreCase);
     }
 
+    private static bool IsConfigurationMatrixSpotView(AnalysisViewDto view)
+    {
+        return IsConfigurationMatrixSpotViewName(view.Name);
+    }
+
+    internal static bool IsConfigurationMatrixSpotViewName(string? name)
+    {
+        return string.Equals(name, "结构矩阵点列图", StringComparison.Ordinal)
+            || string.Equals(
+                name,
+                "Configuration Matrix Spot Diagram",
+                StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsStandardSpotView(AnalysisViewDto view)
+    {
+        return string.Equals(view.Name, "标准点列图", StringComparison.Ordinal)
+            || string.Equals(view.Name, "Spot Diagram", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static Control BuildStandardSpotPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes)
+    {
+        if (panes.Count == 0)
+        {
+            return new Grid();
+        }
+
+        const double cardWidth = 280;
+        const double plotWidth = 260;
+        const double plotHeight = 256;
+        const double cardHeight = 290;
+        if (panes.Count > 9)
+        {
+            return BuildPanePlot(panes, 3);
+        }
+
+        var fieldGrid = new Grid
+        {
+            Width = cardWidth * 3,
+            Height = cardHeight * 3,
+            ColumnDefinitions = new ColumnDefinitions("*,*,*"),
+            RowDefinitions = new RowDefinitions("*,*,*")
+        };
+        var plots = new List<AnalysisPlotControl>(panes.Count);
+
+        for (var paneIndex = 0; paneIndex < panes.Count; paneIndex++)
+        {
+            var pane = panes[paneIndex];
+            var plot = new AnalysisPlotControl
+            {
+                Series = pane.Series,
+                PlotOptions = pane.PlotOptions with
+                {
+                    Title = string.Empty,
+                    ShowLegend = false,
+                    HideTickLabels = true
+                },
+                Width = plotWidth,
+                Height = plotHeight,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            var card = new Grid
+            {
+                Width = cardWidth,
+                Height = cardHeight,
+                RowDefinitions = new RowDefinitions("34,256"),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            card.Children.Add(new TextBlock
+            {
+                Text = pane.Title,
+                FontSize = 11.5,
+                FontWeight = FontWeight.SemiBold,
+                TextAlignment = TextAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                MaxWidth = cardWidth - 8
+            });
+            Grid.SetRow(plot, 1);
+            card.Children.Add(plot);
+            var position = StandardSpotGridPosition(panes.Count, paneIndex);
+            Grid.SetColumn(card, position.Column);
+            Grid.SetRow(card, position.Row);
+            fieldGrid.Children.Add(card);
+            plots.Add(plot);
+        }
+
+        return BuildPanePlotContent(new Viewbox
+        {
+            Stretch = Stretch.Uniform,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            Child = fieldGrid
+        }, panes, plots);
+    }
+
+    internal static (int Column, int Row) StandardSpotGridPosition(int paneCount, int paneIndex)
+    {
+        if (paneCount < 1 || paneCount > 9)
+        {
+            throw new ArgumentOutOfRangeException(nameof(paneCount));
+        }
+
+        if (paneIndex < 0 || paneIndex >= paneCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(paneIndex));
+        }
+
+        var positions = paneCount switch
+        {
+            1 => new[] { (1, 1) },
+            2 => new[] { (0, 1), (2, 1) },
+            3 => new[] { (0, 1), (1, 1), (2, 1) },
+            4 => new[] { (0, 0), (2, 0), (0, 2), (2, 2) },
+            5 => new[] { (0, 0), (2, 0), (1, 1), (0, 2), (2, 2) },
+            6 => new[] { (0, 0), (2, 0), (0, 1), (2, 1), (0, 2), (2, 2) },
+            7 => new[] { (0, 0), (2, 0), (0, 1), (1, 1), (2, 1), (0, 2), (2, 2) },
+            8 => new[] { (0, 0), (1, 0), (2, 0), (0, 1), (2, 1), (0, 2), (1, 2), (2, 2) },
+            _ => new[]
+            {
+                (0, 0), (1, 0), (2, 0),
+                (0, 1), (1, 1), (2, 1),
+                (0, 2), (1, 2), (2, 2)
+            }
+        };
+        return positions[paneIndex];
+    }
+
     private static Control BuildMatrixSpotPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns)
     {
+        return BuildMatrixSpotPanePlotCore(
+            panes,
+            requestedColumns,
+            configurationMatrix: false);
+    }
+
+    private static Control BuildConfigurationMatrixSpotPanePlot(
+        IReadOnlyList<AnalysisPlotPaneDto> panes,
+        int requestedColumns)
+    {
+        return BuildMatrixSpotPanePlotCore(
+            panes,
+            requestedColumns,
+            configurationMatrix: true);
+    }
+
+    private static Control BuildMatrixSpotPanePlotCore(
+        IReadOnlyList<AnalysisPlotPaneDto> panes,
+        int requestedColumns,
+        bool configurationMatrix)
+    {
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
+        var labelWidth = configurationMatrix ? 220d : 150d;
+        var plotColumnWidth = configurationMatrix ? 170d : 114d;
+        var plotRowHeight = configurationMatrix ? 128d : 104d;
+        var plotWidth = configurationMatrix ? 164d : 110d;
+        var plotHeight = configurationMatrix ? 122d : 100d;
         var matrix = new Grid
         {
-            Width = 150 + (columns * 114),
-            Height = 36 + (rows * 104),
+            Width = labelWidth + (columns * plotColumnWidth),
+            Height = 36 + (rows * plotRowHeight),
             ColumnDefinitions = new ColumnDefinitions(
-                "150," + string.Join(',', Enumerable.Repeat("114", columns))),
+                $"{labelWidth.ToString(CultureInfo.InvariantCulture)}," +
+                string.Join(
+                    ',',
+                    Enumerable.Repeat(
+                        plotColumnWidth.ToString(CultureInfo.InvariantCulture),
+                        columns))),
             RowDefinitions = new RowDefinitions(
-                "36," + string.Join(',', Enumerable.Repeat("104", rows)))
+                "36," + string.Join(
+                    ',',
+                    Enumerable.Repeat(
+                        plotRowHeight.ToString(CultureInfo.InvariantCulture),
+                        rows)))
         };
 
         var corner = new TextBlock
@@ -191,12 +356,22 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
 
             var fieldLabel = new TextBlock
             {
-                Text = panes[paneIndex].Footer,
+                Text = configurationMatrix
+                    ? ConfigurationMatrixRowLabel(panes[paneIndex].Title)
+                    : panes[paneIndex].Footer,
                 FontSize = 12,
-                FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+                FontFamily = configurationMatrix
+                    ? FontFamily.Default
+                    : new FontFamily("Cascadia Mono, Consolas"),
+                FontWeight = configurationMatrix
+                    ? FontWeight.SemiBold
+                    : FontWeight.Normal,
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Right,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(4, 0, 12, 0)
+                Margin = new Thickness(8, 0, 14, 0),
+                MaxWidth = labelWidth - 24
             };
             Grid.SetRow(fieldLabel, row + 1);
             matrix.Children.Add(fieldLabel);
@@ -223,9 +398,9 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
                     ShowLegend = false,
                     HideTickLabels = true
                 },
-                Width = 110,
-                Height = 100,
-                Margin = new Thickness(2)
+                Width = plotWidth,
+                Height = plotHeight,
+                Margin = new Thickness(3)
             };
             Grid.SetColumn(plot, (index % columns) + 1);
             Grid.SetRow(plot, (index / columns) + 1);
@@ -305,6 +480,16 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
 
     private static string MatrixWavelengthLabel(string title)
     {
+        if (TryGetWavelengthLegend(title, out var key, out _)
+            && double.TryParse(
+                key,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out var parsedWavelength))
+        {
+            return parsedWavelength.ToString("0.000000", CultureInfo.InvariantCulture);
+        }
+
         var valueText = title.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? title;
         return double.TryParse(
             valueText,
@@ -313,6 +498,19 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
             out var wavelength)
                 ? wavelength.ToString("0.000000", CultureInfo.InvariantCulture)
                 : valueText;
+    }
+
+    private static string ConfigurationMatrixRowLabel(string title)
+    {
+        var wavelengthSeparator = title.LastIndexOf(" · ", StringComparison.Ordinal);
+        var rowLabel = wavelengthSeparator > 0
+            ? title[..wavelengthSeparator].Trim()
+            : title.Trim();
+        var structureSeparator = rowLabel.IndexOf(" · ", StringComparison.Ordinal);
+        return structureSeparator > 0
+            ? rowLabel[..structureSeparator] + Environment.NewLine
+                + rowLabel[(structureSeparator + 3)..]
+            : rowLabel;
     }
 
     private static Control BuildThroughFocusSpotPanePlot(
@@ -792,14 +990,8 @@ private static Control BuildSinglePlot(AnalysisViewDto view)
         };
     }
 
-    private static IBrush SeriesBrush(int colorIndex)
+    internal static IBrush SeriesBrush(int colorIndex)
     {
-        var colors = new[]
-        {
-            Color.FromRgb(31, 119, 180),
-            Color.FromRgb(255, 127, 14),
-            Color.FromRgb(44, 160, 44)
-        };
-        return new SolidColorBrush(colors[Math.Abs(colorIndex) % colors.Length]);
+        return new SolidColorBrush(AnalysisPlotControl.SeriesColor(colorIndex));
     }
 }

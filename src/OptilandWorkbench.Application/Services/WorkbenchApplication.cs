@@ -20,6 +20,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         Prescription = new PrescriptionService(_workspace);
         Analyses = new AnalysisService(_workspace);
         Visualization = new VisualizationService(_workspace);
+        CadExport = new CadExportService(_workspace);
         Optimization = new OptimizationService(_workspace);
         Tolerancing = new TolerancingService(_workspace);
         MultiConfiguration = new MultiConfigurationService(_workspace);
@@ -35,6 +36,8 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     public IAnalysisService Analyses { get; }
 
     public IVisualizationService Visualization { get; }
+
+    public ICadExportService CadExport { get; }
 
     public IOptimizationService Optimization { get; }
 

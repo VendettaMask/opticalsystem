@@ -58,6 +58,13 @@ public sealed partial class MainWindow : Window
         MimeTypes = new[] { "text/plain" }
     };
 
+    private static readonly FilePickerFileType StepCadFileType = new("STEP CAD 模型")
+    {
+        Patterns = new[] { "*.step", "*.stp" },
+        AppleUniformTypeIdentifiers = new[] { "public.item" },
+        MimeTypes = new[] { "model/step", "application/step" }
+    };
+
     private static readonly IReadOnlyList<AnalysisRibbonCommand> AnalysisRibbonCommands = new AnalysisRibbonCommand[]
     {
         new("analysis-single-ray-trace", "单光线追迹", "单光线追迹", "scan-line", "光线迹点"),
@@ -117,11 +124,18 @@ public sealed partial class MainWindow : Window
         new("analysis-zernike-annular", "Zernike Annular系数", "Zernike Annular系数", "sigma", "波前"),
         new("analysis-zernike-field", "Zernike系数 vs. 视场", "Zernike系数 vs. 视场", "chart-line", "波前"),
         new("analysis-jones-pupil", "Jones 瞳", "Jones 瞳", "scan", "波前"),
-        new("analysis-relative-illumination", "相对照度", "相对照度", "sun-medium", "扩展图像分析"),
+        new("analysis-image-simulation", "Image Simulation", "图像模拟", "image", "扩展图像分析"),
+        new("analysis-geometric-image", "Geometric Image Analysis", "几何图像分析", "letter-text", "扩展图像分析"),
+        new("analysis-geometric-bitmap-image", "Geometric Bitmap Image Analysis", "几何位图图像分析", "image", "扩展图像分析"),
+        new("analysis-light-source", "Light Source Analysis", "光源分析", "flashlight", "扩展图像分析"),
+        new("analysis-partially-coherent-image", "Partially Coherent Image Analysis", "部分相干图像分析", "blend", "扩展图像分析"),
+        new("analysis-extended-diffraction-image", "Extended Diffraction Image Analysis", "扩展图像分析", "scan-search", "扩展图像分析"),
+        new("analysis-relative-illumination", "Relative Illumination", "相对照度", "sun-medium", "扩展图像分析"),
         new("analysis-incoherent-irradiance", "非相干照度", "非相干照度", "sun", "扩展图像分析"),
         new("analysis-radiant-intensity", "辐射强度", "辐射强度", "gauge", "扩展图像分析"),
+        new("viewer-ima-bim", "IMA/BIM Image Viewer", "IMA和BIM图片浏览器", "file-image", "扩展图像分析", AnalysisRibbonCommandKind.ImaBimViewer),
+        new("viewer-bitmap", "Bitmap File Viewer", "位图文件查看器", "palette", "扩展图像分析", AnalysisRibbonCommandKind.BitmapViewer),
         new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "光线迹点"),
-        new("analysis-image-simulation", "成像仿真", "成像仿真", "image", "扩展图像分析")
     };
 
     private static readonly string[] AnalysisRibbonGroupOrder =
@@ -230,9 +244,15 @@ public sealed partial class MainWindow : Window
         new("扩展图像分析", "扩展图像分析", "image", new[]
         {
             "analysis-image-simulation",
+            "analysis-geometric-image",
+            "analysis-geometric-bitmap-image",
+            "analysis-light-source",
+            "analysis-partially-coherent-image",
+            "analysis-extended-diffraction-image",
             "analysis-relative-illumination",
-            "analysis-incoherent-irradiance",
-            "analysis-radiant-intensity"
+            "-",
+            "viewer-ima-bim",
+            "viewer-bitmap"
         })
     };
 

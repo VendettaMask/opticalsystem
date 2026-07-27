@@ -768,7 +768,7 @@ public sealed class OptilandParityTests
         Assert.Contains("Diffraction Encircled Energy", optic.Analyses.Names);
         Assert.Contains("Geometric Line Edge Spread", optic.Analyses.Names);
         Assert.Contains("Extended Source Encircled Energy", optic.Analyses.Names);
-        Assert.Equal(62, optic.Analyses.Names.Count);
+        Assert.Equal(67, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

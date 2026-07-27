@@ -34,6 +34,12 @@ public sealed class AnalysisPlotControl : Control
         Color.FromRgb(20, 20, 20)
     };
 
+    internal static Color SeriesColor(int colorIndex)
+    {
+        var normalizedIndex = colorIndex == int.MinValue ? 0 : Math.Abs(colorIndex);
+        return Palette[normalizedIndex % Palette.Length];
+    }
+
     private IReadOnlyList<AnalysisSeries> _series = Array.Empty<AnalysisSeries>();
     private AnalysisPlotOptions _plotOptions = new();
     private PlotViewport? _viewport;
@@ -188,7 +194,13 @@ public sealed class AnalysisPlotControl : Control
         }
 
         var compact = Bounds.Width < 160 || Bounds.Height < 140;
-        var compactWithoutTicks = compact && PlotOptions.HideTickLabels;
+        var primarySeries = visibleSeries[0].Series;
+        var compactWithoutTicks = CanUseMinimalAxisMargins(
+            compact,
+            PlotOptions.HideAxes,
+            PlotOptions.HideTickLabels,
+            primarySeries.XAxisLabel,
+            primarySeries.YAxisLabel);
         var legendItems = visibleSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
         var legendBelow = !compact
             && PlotOptions.ShowLegend
@@ -300,7 +312,11 @@ public sealed class AnalysisPlotControl : Control
 
         if (!PlotOptions.HideAxes)
         {
-            DrawAxisLabels(context, visibleSeries[0].Series, plot);
+            DrawAxisLabels(
+                context,
+                visibleSeries[0].Series,
+                plot,
+                PlotOptions.HideTickLabels);
         }
         if (colorbarWidth > 0 && valueSeries is not null)
         {
@@ -374,7 +390,7 @@ public sealed class AnalysisPlotControl : Control
         var guidePen = new Pen(new SolidColorBrush(Color.FromArgb(115, 110, 110, 115)), 1, DashStyle.Dash);
         context.DrawLine(guidePen, new Point(sample.ScreenPoint.X, plot.Top), new Point(sample.ScreenPoint.X, plot.Bottom));
         context.DrawLine(guidePen, new Point(plot.Left, sample.ScreenPoint.Y), new Point(plot.Right, sample.ScreenPoint.Y));
-        var color = Palette[Math.Abs(sample.Series.ColorIndex) % Palette.Length];
+        var color = SeriesColor(sample.Series.ColorIndex);
         context.DrawEllipse(
             Brushes.White,
             new Pen(new SolidColorBrush(color), 2),
@@ -509,7 +525,7 @@ public sealed class AnalysisPlotControl : Control
         double yMin,
         double yMax)
     {
-        var color = Palette[Math.Abs(series.ColorIndex) % Palette.Length];
+        var color = SeriesColor(series.ColorIndex);
         var brush = new SolidColorBrush(Color.FromArgb(
             (byte)Math.Clamp(Math.Round(series.Opacity * 255), 0, 255),
             color.R,
@@ -882,7 +898,7 @@ public sealed class AnalysisPlotControl : Control
     {
         foreach (var item in visibleSeries.Where(item => item.Series.Kind == AnalysisSeriesKind.Scatter))
         {
-            var color = Palette[Math.Abs(item.Series.ColorIndex) % Palette.Length];
+            var color = SeriesColor(item.Series.ColorIndex);
             var brush = new SolidColorBrush(Color.FromArgb(220, color.R, color.G, color.B));
             foreach (var point in item.Points)
             {
@@ -913,10 +929,18 @@ public sealed class AnalysisPlotControl : Control
         context.DrawText(text, new Point(plot.Center.X - (text.Width / 2), 13));
     }
 
-    private static void DrawAxisLabels(DrawingContext context, AnalysisSeries series, Rect plot)
+    private static void DrawAxisLabels(
+        DrawingContext context,
+        AnalysisSeries series,
+        Rect plot,
+        bool hideTickLabels)
     {
         var xLabel = CreateText(series.XAxisLabel, 12.5, TextBrush);
-        context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 35));
+        context.DrawText(
+            xLabel,
+            new Point(
+                plot.Center.X - (xLabel.Width / 2),
+                plot.Bottom + XAxisLabelOffset(hideTickLabels)));
 
         var yLabel = CreateText(series.YAxisLabel, 12.5, TextBrush);
         var center = new Point(17, plot.Center.Y);
@@ -925,6 +949,21 @@ public sealed class AnalysisPlotControl : Control
             context.DrawText(yLabel, new Point(center.X - (yLabel.Width / 2), center.Y - (yLabel.Height / 2)));
         }
     }
+
+    internal static double XAxisLabelOffset(bool hideTickLabels) =>
+        hideTickLabels ? 18 : 35;
+
+    internal static bool CanUseMinimalAxisMargins(
+        bool compact,
+        bool hideAxes,
+        bool hideTickLabels,
+        string? xAxisLabel,
+        string? yAxisLabel) =>
+        compact
+        && hideTickLabels
+        && (hideAxes
+            || (string.IsNullOrWhiteSpace(xAxisLabel)
+                && string.IsNullOrWhiteSpace(yAxisLabel)));
 
     private static void DrawLegend(
         DrawingContext context,
@@ -937,7 +976,7 @@ public sealed class AnalysisPlotControl : Control
         var y = plot.Center.Y - (totalHeight / 2);
         foreach (var item in legendItems)
         {
-            var brush = new SolidColorBrush(Palette[Math.Abs(item.Series.ColorIndex) % Palette.Length]);
+            var brush = new SolidColorBrush(SeriesColor(item.Series.ColorIndex));
             var pen = new Pen(brush, item.Series.LineWidth, DashFor(item.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 28, y + 8));
             if (item.Series.Kind == AnalysisSeriesKind.Scatter || item.Series.ShowMarkers)
@@ -966,7 +1005,7 @@ public sealed class AnalysisPlotControl : Control
         var y = plot.Bottom + 58;
         foreach (var entry in entries)
         {
-            var color = Palette[Math.Abs(entry.Series.ColorIndex) % Palette.Length];
+            var color = SeriesColor(entry.Series.ColorIndex);
             var brush = new SolidColorBrush(color);
             var pen = new Pen(brush, entry.Series.LineWidth, DashFor(entry.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 26, y + 8));

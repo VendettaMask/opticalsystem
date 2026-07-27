@@ -12,6 +12,9 @@ public static class ThemeResourceBindings
     public const string MutedText = "OptilandMutedTextBrush";
     public const string Hover = "OptilandHoverBrush";
     public const string HoverBorder = "OptilandHoverBorderBrush";
+    public const string RibbonHover = "OptilandRibbonHoverBrush";
+    public const string RibbonHoverBorder = "OptilandRibbonHoverBorderBrush";
+    public const string RibbonTabHover = "OptilandRibbonTabHoverBrush";
 
     public static IDisposable BindThemeResource(
         this AvaloniaObject target,

@@ -379,6 +379,147 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void ConfigurationMatrixSpotUsesFieldByWavelengthMatrix()
+    {
+        Assert.True(AnalysisPanel.IsConfigurationMatrixSpotViewName("结构矩阵点列图"));
+        Assert.True(AnalysisPanel.IsConfigurationMatrixSpotViewName(
+            "Configuration Matrix Spot Diagram"));
+
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView(
+            "Configuration Matrix Spot Diagram",
+            new Dictionary<string, string>
+            {
+                ["RayDensity"] = "3"
+            });
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildConfigurationMatrixSpotPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+            null,
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
+        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+
+        Assert.Equal(viewDto.PlotPaneColumns + 1, matrix.ColumnDefinitions.Count);
+        Assert.Equal(
+            (viewDto.PlotPanes.Count / viewDto.PlotPaneColumns) + 1,
+            matrix.RowDefinitions.Count);
+        Assert.Equal(
+            viewDto.PlotPanes.Count,
+            matrix.Children.OfType<AnalysisPlotControl>().Count());
+
+        var headers = matrix.Children
+            .OfType<Avalonia.Controls.TextBlock>()
+            .Where(label => Avalonia.Controls.Grid.GetRow(label) == 0
+                && Avalonia.Controls.Grid.GetColumn(label) > 0)
+            .Select(label => label.Text)
+            .ToArray();
+        Assert.Equal(
+            new[] { "0.480000", "0.550000", "0.650000" },
+            headers);
+
+        var rowLabels = matrix.Children
+            .OfType<Avalonia.Controls.TextBlock>()
+            .Where(label => Avalonia.Controls.Grid.GetColumn(label) == 0
+                && Avalonia.Controls.Grid.GetRow(label) > 0)
+            .Select(label => label.Text)
+            .ToArray();
+        Assert.Equal(Optic.CreateCookeTriplet().Fields.Count, rowLabels.Length);
+        Assert.All(rowLabels, label =>
+        {
+            Assert.Contains("结构 1", label);
+            Assert.DoesNotContain("参考", label);
+            Assert.DoesNotContain("µm", label);
+        });
+
+        var legend = Assert.IsType<Avalonia.Controls.StackPanel>(layout.Children[1]);
+        Assert.Equal(viewDto.PlotPaneColumns, legend.Children.Count);
+    }
+
+    [Fact]
+    public void ExternalLegendUsesThePlotPaletteForEveryColorIndex()
+    {
+        foreach (var colorIndex in Enumerable.Range(0, 11))
+        {
+            var legendBrush = Assert.IsType<Avalonia.Media.SolidColorBrush>(
+                AnalysisPanel.SeriesBrush(colorIndex));
+            Assert.Equal(
+                AnalysisPlotControl.SeriesColor(colorIndex),
+                legendBrush.Color);
+        }
+
+        Assert.Equal(
+            Avalonia.Media.Color.FromRgb(214, 39, 40),
+            AnalysisPlotControl.SeriesColor(3));
+    }
+
+    [Fact]
+    public void StandardSpotDiagramUsesThreeByThreeSymmetricGrid()
+    {
+        var fiveFieldPositions = Enumerable.Range(0, 5)
+            .Select(index => AnalysisPanel.StandardSpotGridPosition(5, index))
+            .ToArray();
+        Assert.Equal(
+            new[]
+            {
+                (Column: 0, Row: 0),
+                (Column: 2, Row: 0),
+                (Column: 1, Row: 1),
+                (Column: 0, Row: 2),
+                (Column: 2, Row: 2)
+            },
+            fiveFieldPositions);
+
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView("Spot Diagram", new Dictionary<string, string>
+        {
+            ["RayDensity"] = "3"
+        });
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildStandardSpotPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+            method.Invoke(null, new object[] { viewDto.PlotPanes }));
+        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
+        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        Assert.Equal(3, fieldGrid.ColumnDefinitions.Count);
+        Assert.Equal(3, fieldGrid.RowDefinitions.Count);
+        Assert.Equal(viewDto.PlotPanes.Count, fieldGrid.Children.Count);
+        Assert.All(fieldGrid.Children.OfType<Avalonia.Controls.Grid>(), card =>
+        {
+            var plot = Assert.Single(card.Children.OfType<AnalysisPlotControl>());
+            Assert.Equal(260, plot.Width);
+            Assert.Equal(256, plot.Height);
+            Assert.All(plot.Series, series =>
+            {
+                Assert.False(string.IsNullOrWhiteSpace(series.XAxisLabel));
+                Assert.False(string.IsNullOrWhiteSpace(series.YAxisLabel));
+            });
+        });
+    }
+
+    [Fact]
     public void ThroughFocusSpotExposesReferenceSettings()
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
@@ -486,6 +627,139 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void AnalysisRibbonDropdownIndicatorIsSmallSolidTriangleBelowLabel()
+    {
+        var factory = typeof(MainWindow).GetMethod(
+            "RibbonDropDownCommandContent",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+        Assert.NotNull(factory);
+        var content = Assert.IsType<Avalonia.Controls.Grid>(
+            factory.Invoke(null, new object[] { "image", "扩展图像分析" }));
+        Assert.Equal(3, content.RowDefinitions.Count);
+
+        var arrow = Assert.Single(content.Children.OfType<Avalonia.Controls.Shapes.Polygon>());
+        Assert.Equal(2, Avalonia.Controls.Grid.GetRow(arrow));
+        Assert.Equal(6, arrow.Width);
+        Assert.Equal(4, arrow.Height);
+        Assert.Equal(0.72, arrow.Opacity);
+        Assert.Equal(3, arrow.Points.Count);
+
+        var hoverBinder = typeof(MainWindow).GetMethod(
+            "AttachRibbonCommandHover",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(hoverBinder);
+        Assert.Equal(
+            typeof(Avalonia.Controls.Button),
+            hoverBinder.GetParameters()[0].ParameterType);
+    }
+
+    [Fact]
+    public void RibbonHoverOverridesTheFluentTemplatePresenter()
+    {
+        var selector = OptilandWorkbench.App.App
+            .RibbonCommandPointerOverSelector(null)
+            .ToString();
+
+        Assert.Contains(":is(Button).ribbon-command:pointerover", selector, StringComparison.Ordinal);
+        Assert.Contains("/template/", selector, StringComparison.Ordinal);
+        Assert.Contains("ContentPresenter#PART_ContentPresenter", selector, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void RibbonTabsHaveTemplateLevelPointerOverFeedback()
+    {
+        var selector = OptilandWorkbench.App.App
+            .RibbonTabPointerOverSelector(null)
+            .ToString();
+        Assert.Contains("TabItem.ribbon-tab:pointerover", selector, StringComparison.Ordinal);
+        Assert.Contains("/template/", selector, StringComparison.Ordinal);
+        Assert.Contains("Border#PART_LayoutRoot", selector, StringComparison.Ordinal);
+
+        var factory = typeof(MainWindow).GetMethod(
+            "RibbonTab",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(factory);
+        var tab = Assert.IsType<Avalonia.Controls.TabItem>(
+            factory.Invoke(null, new object[] { "分析", new Avalonia.Controls.Border() }));
+        Assert.Contains("ribbon-tab", tab.Classes);
+    }
+
+    [Fact]
+    public void RibbonMenuItemsHaveTemplateLevelPointerOverFeedback()
+    {
+        var selector = OptilandWorkbench.App.App
+            .RibbonMenuItemPointerOverSelector(null)
+            .ToString();
+        Assert.Contains("MenuItem.ribbon-menu-item:pointerover", selector, StringComparison.Ordinal);
+        Assert.Contains("/template/", selector, StringComparison.Ordinal);
+        Assert.Contains("Border#PART_LayoutRoot", selector, StringComparison.Ordinal);
+
+        var hoverBinder = typeof(MainWindow).GetMethod(
+            "AttachRibbonMenuItemHover",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(hoverBinder);
+        Assert.Equal(
+            typeof(Avalonia.Controls.MenuItem),
+            hoverBinder.GetParameters()[0].ParameterType);
+        Assert.Equal(
+            typeof(OptilandWorkbench.App.Controls.LocalIconLabel),
+            hoverBinder.GetParameters()[1].ParameterType);
+    }
+
+    [Fact]
+    public void SolidBlueSelectionStatesShareTheBrandAccent()
+    {
+        Assert.Equal(
+            Avalonia.Media.Color.FromRgb(0, 122, 255),
+            OptilandWorkbench.App.App.BrandAccentColor);
+        Assert.Contains(
+            "DockSurfaceHeaderActiveBrush",
+            OptilandWorkbench.App.App.UnifiedDockAccentResourceKeys);
+        Assert.Contains(
+            "DockTabActiveBackgroundBrush",
+            OptilandWorkbench.App.App.UnifiedDockAccentResourceKeys);
+
+        var selector = OptilandWorkbench.App.App
+            .DataGridSelectedRowSelector(null)
+            .ToString();
+        Assert.Equal("DataGridRow:selected", selector);
+    }
+
+    [Fact]
+    public void PanePlotsKeepXAxisLabelsVisibleWhenTickLabelsAreHidden()
+    {
+        Assert.Equal(18, AnalysisPlotControl.XAxisLabelOffset(hideTickLabels: true));
+        Assert.Equal(35, AnalysisPlotControl.XAxisLabelOffset(hideTickLabels: false));
+        Assert.True(
+            AnalysisPlotControl.XAxisLabelOffset(hideTickLabels: true) <
+            AnalysisPlotControl.XAxisLabelOffset(hideTickLabels: false));
+    }
+
+    [Fact]
+    public void CompactPlotsPreserveMarginsWheneverAxisLabelsArePresent()
+    {
+        Assert.False(AnalysisPlotControl.CanUseMinimalAxisMargins(
+            compact: true,
+            hideAxes: false,
+            hideTickLabels: true,
+            xAxisLabel: "X (mm)",
+            yAxisLabel: "Y (mm)"));
+        Assert.False(AnalysisPlotControl.CanUseMinimalAxisMargins(
+            compact: true,
+            hideAxes: false,
+            hideTickLabels: true,
+            xAxisLabel: "P_y",
+            yAxisLabel: string.Empty));
+        Assert.True(AnalysisPlotControl.CanUseMinimalAxisMargins(
+            compact: true,
+            hideAxes: false,
+            hideTickLabels: true,
+            xAxisLabel: string.Empty,
+            yAxisLabel: string.Empty));
+    }
+
+    [Fact]
     public void ConnectorExposesAndAppliesAnalysisParameters()
     {
         var optic = Optic.CreateCookeTriplet();
@@ -505,7 +779,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(62, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(69, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -513,13 +787,27 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(60, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(65, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         Assert.Equal(
             new[] { "RMS vs. \u89c6\u573a", "RMS vs. \u6ce2\u957f", "RMS vs. \u79bb\u7126", "\u4e8c\u7ef4\u89c6\u573aRMS\u56fe" },
             MainWindow.AnalysisRibbonCommandsByMenu["RMS"]);
         Assert.Equal(
             new[] { "\u884d\u5c04", "\u51e0\u4f55", "\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563", "\u6269\u5c55\u5149\u6e90" },
             MainWindow.AnalysisRibbonCommandsByMenu["\u5708\u5165\u80fd\u91cf"]);
+        Assert.Equal(
+            new[]
+            {
+                "图像模拟",
+                "几何图像分析",
+                "几何位图图像分析",
+                "光源分析",
+                "部分相干图像分析",
+                "扩展图像分析",
+                "相对照度",
+                "IMA和BIM图片浏览器",
+                "位图文件查看器"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["扩展图像分析"]);
         Assert.Equal(
             "Diffraction Encircled Energy",
             connector.CanonicalAnalysisKey("\u884d\u5c04"));
@@ -876,7 +1164,18 @@ public sealed class AnalysisGuiContractTests
             },
             MainWindow.AnalysisRibbonCommandsByMenu["MTF 曲线"]);
         Assert.Equal(
-            new[] { "成像仿真", "相对照度", "非相干照度", "辐射强度" },
+            new[]
+            {
+                "图像模拟",
+                "几何图像分析",
+                "几何位图图像分析",
+                "光源分析",
+                "部分相干图像分析",
+                "扩展图像分析",
+                "相对照度",
+                "IMA和BIM图片浏览器",
+                "位图文件查看器"
+            },
             MainWindow.AnalysisRibbonCommandsByMenu["扩展图像分析"]);
         Assert.Contains("系统报告", MainWindow.AnalysisRibbonCategories);
         Assert.NotEmpty(connector.BuildAnalysisView("全视场点列图").SeriesList);

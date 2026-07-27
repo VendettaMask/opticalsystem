@@ -125,6 +125,30 @@ public sealed class ViewerInteractionTests
     }
 
     [Fact]
+    public void WavefrontSurfaceAcceptsCircularPupilGridWithMissingCorners()
+    {
+        var points = new[]
+        {
+            new AnalysisPointDto(0, -1, Value: 0.1),
+            new AnalysisPointDto(-1, 0, Value: 0.2),
+            new AnalysisPointDto(0, 0, Value: 0.3),
+            new AnalysisPointDto(1, 0, Value: 0.4),
+            new AnalysisPointDto(0, 1, Value: 0.5)
+        };
+        var surface = new WavefrontSurfaceControl
+        {
+            Series = new AnalysisSeriesDto(
+                "Pupil X",
+                "Pupil Y",
+                points,
+                AnalysisSeriesKind.Heatmap),
+            DisplayAs = "表面"
+        };
+
+        Assert.True(surface.HasRenderableGrid);
+    }
+
+    [Fact]
     public void ContourBuilderInterpolatesLevelAcrossGridCells()
     {
         var values = new double[,]

@@ -14,6 +14,8 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
+    private const string NumericColumnTag = "numeric";
+
     private readonly IPrescriptionService _prescription;
     private readonly IWorkspaceEventStream _events;
     private readonly SurfaceSelectionService _surfaceSelection;
@@ -205,7 +207,10 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         {
             Setters =
             {
-                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(205, 220, 250)))
+                new Setter(
+                    DataGridRow.BackgroundProperty,
+                    new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension(
+                        ThemeResourceBindings.RibbonTabHover))
             }
         });
         grid.LoadingRow += (_, eventArgs) =>
@@ -226,10 +231,19 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
         grid.Columns.Add(SemiDiameterFixedColumn());
-        grid.Columns.Add(Column("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
-        grid.Columns.Add(Column("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
-        grid.Columns.Add(Column("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
-        grid.Columns.Add(Column("TCE x 1E-6", nameof(SurfaceEditorRow.ThermalExpansionDisplay), 112, true));
+        grid.Columns.Add(NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
+        grid.Columns.Add(NumericColumn("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
+        grid.Columns.Add(NumericColumn("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
+        grid.Columns.Add(NumericColumn("TCE x 1E-6", nameof(SurfaceEditorRow.ThermalExpansionDisplay), 112, true));
+        grid.PreparingCellForEdit += (_, eventArgs) =>
+        {
+            if (Equals(eventArgs.Column.Tag, NumericColumnTag)
+                && eventArgs.EditingElement is TextBox editor)
+            {
+                editor.TextAlignment = TextAlignment.Right;
+                editor.HorizontalContentAlignment = HorizontalAlignment.Right;
+            }
+        };
         grid.CellEditEnded += (_, eventArgs) =>
         {
             if (eventArgs.EditAction == DataGridEditAction.Commit
@@ -327,9 +341,32 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         Width = new DataGridLength(width)
     };
 
+    private static DataGridTextColumn NumericColumn(
+        string header,
+        string property,
+        double width,
+        bool readOnly = false) => new()
+    {
+        Header = NumericHeader(header),
+        Binding = new Binding(property),
+        IsReadOnly = readOnly,
+        Width = new DataGridLength(width),
+        Tag = NumericColumnTag,
+        CellTheme = new ControlTheme(typeof(DataGridCell))
+        {
+            Setters =
+            {
+                new Setter(
+                    DataGridCell.HorizontalContentAlignmentProperty,
+                    HorizontalAlignment.Right)
+            }
+        }
+    };
+
     private DataGridTemplateColumn RadiusColumn() => new()
     {
-        Header = "曲率半径",
+        Header = NumericHeader("曲率半径"),
+        Tag = NumericColumnTag,
         Width = new DataGridLength(112),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateNumericEditor(
             row?.RadiusDisplay ?? string.Empty,
@@ -347,7 +384,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
 
     private DataGridTemplateColumn ThicknessColumn() => new()
     {
-        Header = "厚度",
+        Header = NumericHeader("厚度"),
+        Tag = NumericColumnTag,
         Width = new DataGridLength(96),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
         {
@@ -358,7 +396,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                     Text = "-",
                     Margin = new Avalonia.Thickness(8, 0),
                     VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Right
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Right
                 };
             }
 
@@ -372,7 +411,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
 
     private DataGridTemplateColumn SemiDiameterColumn() => new()
     {
-        Header = "净口径",
+        Header = NumericHeader("净口径"),
+        Tag = NumericColumnTag,
         Width = new DataGridLength(106),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
         {
@@ -388,7 +428,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                     Text = row.SemiDiameterDisplay,
                     Margin = new Avalonia.Thickness(8, 0),
                     VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Right
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    TextAlignment = TextAlignment.Right
                 };
             }
 
@@ -436,11 +477,20 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             BorderThickness = new Avalonia.Thickness(0),
             Padding = new Avalonia.Thickness(8, 0),
             VerticalContentAlignment = VerticalAlignment.Center,
-            HorizontalContentAlignment = HorizontalAlignment.Right
+            HorizontalContentAlignment = HorizontalAlignment.Right,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            TextAlignment = TextAlignment.Right
         };
         editor.LostFocus += (_, _) => commit(editor.Text ?? string.Empty);
         return editor;
     }
+
+    private static TextBlock NumericHeader(string text) => new()
+    {
+        Text = text,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        TextAlignment = TextAlignment.Right
+    };
 
     private static DataGridTemplateColumn SurfaceTypeColumn() => new()
     {

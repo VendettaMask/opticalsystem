@@ -8,6 +8,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Avalonia.Controls.Shapes;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
@@ -48,6 +49,7 @@ private Control BuildShell()
                 MenuItem(_actions.Find("save-as")),
                 new Separator(),
                 MenuItem(_actions.Find("export-python-json")),
+                MenuItem(_actions.Find("export-cad")),
                 new Separator(),
                 MenuItem(_actions.Find("exit"))
             }
@@ -104,7 +106,7 @@ private Control BuildShell()
     {
         var analysisGroups = AnalysisRibbonMenus
             .OrderBy(menu => AnalysisRibbonGroupOrder.IndexOf(menu.Group))
-            .Select(menu => RibbonGroup(string.Empty, RibbonAnalysisMenuButton(menu)))
+            .Select(menu => RibbonGroup(string.Empty, false, RibbonAnalysisMenuButton(menu)))
             .ToArray();
         var tabs = new TabControl
         {
@@ -117,7 +119,8 @@ private Control BuildShell()
                         RibbonButton("open", "folder-open", "打开"),
                         RibbonButton("import-zemax", "file-input", "Zemax 导入"),
                         RibbonButton("save-as", "save", "保存"),
-                        RibbonButton("export-python-json", "upload", "导出")),
+                        RibbonButton("export-python-json", "upload", "导出"),
+                        RibbonButton("export-cad", "box", "导出 CAD")),
                     RibbonGroup("示例",
                         RibbonButton("new-demo", "aperture", "Cooke 示例"),
                         RibbonButton("new-tessar", "disc-2", "Tessar 示例")))),
@@ -190,13 +193,15 @@ private Control BuildShell()
 
     private static TabItem RibbonTab(string title, Control content)
     {
-        return new TabItem
+        var tab = new TabItem
         {
             Header = title,
             Content = content,
             FontSize = 13,
             Padding = new Thickness(14, 7)
         };
+        tab.Classes.Add("ribbon-tab");
+        return tab;
     }
 
     private static Control BuildRibbonPage(params Control[] groups)
@@ -220,7 +225,10 @@ private Control BuildShell()
         };
     }
 
-    private static Control RibbonGroup(string title, params Control[] commands)
+    private static Control RibbonGroup(string title, params Control[] commands) =>
+        RibbonGroup(title, true, commands);
+
+    private static Control RibbonGroup(string title, bool showDivider, params Control[] commands)
     {
         var commandPanel = new StackPanel
         {
@@ -249,7 +257,9 @@ private Control BuildShell()
 
         var group = new Border
         {
-            BorderThickness = new Thickness(0, 0, 1, 0),
+            BorderThickness = showDivider
+                ? new Thickness(0, 0, 1, 0)
+                : new Thickness(0),
             Child = grid
         };
         group.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
@@ -258,6 +268,7 @@ private Control BuildShell()
 
     private Button RibbonButton(string actionId, string iconName, string label)
     {
+        var content = RibbonCommandContent(iconName, label);
         var button = new Button
         {
             Width = 78,
@@ -271,18 +282,10 @@ private Control BuildShell()
             CornerRadius = new CornerRadius(7),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
-            Content = RibbonCommandContent(iconName, label)
+            Content = content
         };
-        button.PointerEntered += (_, _) =>
-        {
-            button.Background = ThemeBrush(button, "OptilandHoverBrush");
-            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
-        };
-        button.PointerExited += (_, _) =>
-        {
-            button.Background = Brushes.Transparent;
-            button.BorderBrush = Brushes.Transparent;
-        };
+        button.Classes.Add("ribbon-command");
+        AttachRibbonCommandHover(button, content);
         var action = _actions.Find(actionId);
         button.Click += async (_, _) => await _actions.ExecuteAsync(action);
         return button;
@@ -302,19 +305,23 @@ private Control BuildShell()
             var command = AnalysisRibbonCommands.First(candidate =>
                 string.Equals(candidate.Id, commandId, StringComparison.Ordinal));
             var action = _actions.Find(command.Id);
+            var header = new LocalIconLabel(command.IconName, command.Label, 20);
             var item = new MenuItem
             {
-                Header = new LocalIconLabel(command.IconName, command.Label, 20),
+                Header = header,
                 MinWidth = 190,
                 Padding = new Thickness(10, 8)
             };
+            item.Classes.Add("ribbon-menu-item");
+            AttachRibbonMenuItemHover(item, header);
             item.Click += async (_, _) => await _actions.ExecuteAsync(action);
             flyout.Items.Add(item);
         }
 
+        var content = RibbonDropDownCommandContent(menu.IconName, menu.Label);
         var button = new DropDownButton
         {
-            Width = 92,
+            Width = 78,
             Height = 66,
             MinHeight = 66,
             Margin = new Thickness(1, 0, 1, 2),
@@ -326,18 +333,11 @@ private Control BuildShell()
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
-            Content = RibbonCommandContent(menu.IconName, menu.Label)
+            Content = content
         };
-        button.PointerEntered += (_, _) =>
-        {
-            button.Background = ThemeBrush(button, "OptilandHoverBrush");
-            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
-        };
-        button.PointerExited += (_, _) =>
-        {
-            button.Background = Brushes.Transparent;
-            button.BorderBrush = Brushes.Transparent;
-        };
+        button.Classes.Add("ribbon-command");
+        button.Classes.Add("ribbon-dropdown");
+        AttachRibbonCommandHover(button, content);
         ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
         return button;
     }
@@ -356,19 +356,23 @@ private Control BuildShell()
         foreach (var (actionId, iconName, label) in commands)
         {
             var action = _actions.Find(actionId);
+            var header = new LocalIconLabel(iconName, label, 20);
             var item = new MenuItem
             {
-                Header = new LocalIconLabel(iconName, label, 20),
+                Header = header,
                 MinWidth = 230,
                 Padding = new Thickness(10, 8)
             };
+            item.Classes.Add("ribbon-menu-item");
+            AttachRibbonMenuItemHover(item, header);
             item.Click += async (_, _) => await _actions.ExecuteAsync(action);
             flyout.Items.Add(item);
         }
 
+        var content = RibbonDropDownCommandContent("chart-scatter", "材料分析");
         var button = new DropDownButton
         {
-            Width = 92,
+            Width = 78,
             Height = 66,
             MinHeight = 66,
             Margin = new Thickness(1, 0, 1, 2),
@@ -380,18 +384,11 @@ private Control BuildShell()
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
-            Content = RibbonCommandContent("chart-scatter", "材料分析")
+            Content = content
         };
-        button.PointerEntered += (_, _) =>
-        {
-            button.Background = ThemeBrush(button, "OptilandHoverBrush");
-            button.BorderBrush = ThemeBrush(button, "OptilandHoverBorderBrush");
-        };
-        button.PointerExited += (_, _) =>
-        {
-            button.Background = Brushes.Transparent;
-            button.BorderBrush = Brushes.Transparent;
-        };
+        button.Classes.Add("ribbon-command");
+        button.Classes.Add("ribbon-dropdown");
+        AttachRibbonCommandHover(button, content);
         ToolTip.SetTip(button, "选择材料分析类型");
         return button;
     }
@@ -430,6 +427,129 @@ private Control BuildShell()
         grid.Children.Add(icon);
         grid.Children.Add(text);
         return grid;
+    }
+
+    private static Control RibbonDropDownCommandContent(string iconName, string label)
+    {
+        var grid = new Grid
+        {
+            Width = 66,
+            Height = 52,
+            RowDefinitions = new RowDefinitions("27,18,7"),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var icon = new LocalIcon
+        {
+            IconName = iconName,
+            Width = 26,
+            Height = 26,
+            StrokeWidth = 1.8,
+            Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        var text = new TextBlock
+        {
+            Text = label,
+            FontSize = 11,
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+        var arrow = new Polygon
+        {
+            Width = 6,
+            Height = 4,
+            Opacity = 0.72,
+            Points = new Points
+            {
+                new Point(0, 0),
+                new Point(6, 0),
+                new Point(3, 4)
+            },
+            Stretch = Stretch.Fill,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top
+        };
+        arrow.Bind(Shape.FillProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
+
+        Grid.SetRow(icon, 0);
+        Grid.SetRow(text, 1);
+        Grid.SetRow(arrow, 2);
+        grid.Children.Add(icon);
+        grid.Children.Add(text);
+        grid.Children.Add(arrow);
+        return grid;
+    }
+
+    private static void AttachRibbonCommandHover(Button button, Control content)
+    {
+        if (content is not Grid grid)
+        {
+            return;
+        }
+
+        var icon = grid.Children.OfType<LocalIcon>().FirstOrDefault();
+        var text = grid.Children.OfType<TextBlock>().FirstOrDefault();
+        var arrow = grid.Children.OfType<Polygon>().FirstOrDefault();
+        if (icon is null || text is null)
+        {
+            return;
+        }
+
+        button.PointerEntered += (_, _) =>
+        {
+            var accent = ThemeBrush(button, "AccentFillColorDefaultBrush");
+            button.Background = ThemeBrush(button, ThemeResourceBindings.RibbonHover);
+            button.BorderBrush = ThemeBrush(button, ThemeResourceBindings.RibbonHoverBorder);
+            icon.Stroke = accent;
+            icon.StrokeWidth = 2.05;
+            text.Foreground = accent;
+            if (arrow is not null)
+            {
+                arrow.Fill = accent;
+                arrow.Opacity = 1;
+            }
+        };
+        button.PointerExited += (_, _) =>
+        {
+            button.Background = Brushes.Transparent;
+            button.BorderBrush = Brushes.Transparent;
+            icon.Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255));
+            icon.StrokeWidth = 1.8;
+            text.ClearValue(TextBlock.ForegroundProperty);
+            if (arrow is not null)
+            {
+                arrow.Fill = ThemeBrush(button, "OptilandMutedTextBrush");
+                arrow.Opacity = 0.72;
+            }
+        };
+    }
+
+    private static void AttachRibbonMenuItemHover(MenuItem item, LocalIconLabel header)
+    {
+        var icon = header.Children.OfType<LocalIcon>().FirstOrDefault();
+        var text = header.Children.OfType<TextBlock>().FirstOrDefault();
+        if (icon is null || text is null)
+        {
+            return;
+        }
+
+        item.PointerEntered += (_, _) =>
+        {
+            var accent = ThemeBrush(item, "AccentFillColorDefaultBrush");
+            icon.Stroke = accent;
+            icon.StrokeWidth = 2.05;
+            text.Foreground = accent;
+        };
+        item.PointerExited += (_, _) =>
+        {
+            icon.Stroke = ThemeBrush(item, ThemeResourceBindings.MutedText);
+            icon.StrokeWidth = 2;
+            text.ClearValue(TextBlock.ForegroundProperty);
+        };
     }
 
     private Control BuildStatusBar()

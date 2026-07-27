@@ -312,7 +312,7 @@ public string BuildAnalysisReport()
                 LeadingInt("ImageSampling", 128),
                 Int("NumPoints", 256),
                 Int("WavelengthNumber", 0),
-                LeadingInt("FieldNumber", 1),
+                LeadingInt("FieldNumber", 0),
                 Text("Type", "encircled"),
                 Text("Reference", "centroid"),
                 Double("MaximumDistanceMicrometers", 0)),
@@ -665,6 +665,30 @@ public string BuildAnalysisReport()
                 Int("NumRings", 15),
                 Int("ZernikeTerms", 37),
                 Int("MapSize", 65)),
+            "Geometric Image Analysis" => new GeometricImageAnalysis(
+                CurrentOptic,
+                ParseImageSourcePattern(Text("SourceImage", "分辨率靶标")),
+                Int("ImageSize", 64),
+                Int("NumRays", 8)),
+            "Geometric Bitmap Image Analysis" => new GeometricBitmapImageAnalysis(
+                CurrentOptic,
+                Int("ImageSize", 64),
+                Int("RaysPerPixel", 8)),
+            "Light Source Analysis" => new LightSourceAnalysis(
+                CurrentOptic,
+                Int("Resolution", 65),
+                Int("NumRays", 2048)),
+            "Partially Coherent Image Analysis" => new PartiallyCoherentImageAnalysis(
+                CurrentOptic,
+                Int("ImageSize", 64),
+                LeadingInt("PupilSampling", 16),
+                Double("Coherence", 0.5)),
+            "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(
+                CurrentOptic,
+                ParseImageSourcePattern(Text("SourceImage", "分辨率靶标")),
+                Int("ImageSize", 64),
+                LeadingInt("PupilSampling", 16),
+                Int("FieldGrid", 5)),
             "Image Simulation" => new ImageSimulationAnalysis(CurrentOptic, new ImageSimulationConfig
             {
                 SourcePattern = Text("SourceImage", "彩色测试卡") switch
@@ -686,6 +710,17 @@ public string BuildAnalysisReport()
             "Jones Pupil" => new JonesPupilAnalysis(CurrentOptic, Int("GridSize", 65)),
             "Prescription Report" => new PrescriptionReportAnalysis(CurrentOptic),
             _ => CurrentOptic.Analyses.Create(name)
+        };
+    }
+
+    private static ImageSimulationSourcePattern ParseImageSourcePattern(string value)
+    {
+        return value switch
+        {
+            "彩色测试卡" => ImageSimulationSourcePattern.ColorChart,
+            "畸变网格" => ImageSimulationSourcePattern.DistortionGrid,
+            "西门子星" => ImageSimulationSourcePattern.SiemensStar,
+            _ => ImageSimulationSourcePattern.ResolutionTarget
         };
     }
 }

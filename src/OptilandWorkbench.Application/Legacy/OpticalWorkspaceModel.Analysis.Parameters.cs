@@ -331,8 +331,8 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                 ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("FieldNumber", "\u89c6\u573a", "1",
-                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                ChoiceParameter("FieldNumber", "\u89c6\u573a", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Fields.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
                 ChoiceParameter("Type", "\u7c7b\u578b", "encircled",
                     new[] { "encircled", "X only", "Y only", "ensquared" }),
@@ -1010,6 +1010,45 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
                 IntParameter("NumRings", "六角采样环数", "15", 1, 32),
                 IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
                 IntParameter("MapSize", "波前图尺寸", "65", 17, 257)
+            },
+            "Geometric Image Analysis" => new[]
+            {
+                ChoiceParameter("SourceImage", "输入图像", "分辨率靶标",
+                    new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
+                ChoiceParameter("ImageSize", "图像尺寸", "64",
+                    new[] { "32", "64", "128", "256" }),
+                IntParameter("NumRays", "每点光线数", "8", 2, 128)
+            },
+            "Geometric Bitmap Image Analysis" => new[]
+            {
+                ChoiceParameter("ImageSize", "图像尺寸", "64",
+                    new[] { "32", "64", "128", "256" }),
+                IntParameter("RaysPerPixel", "每像素光线数", "8", 2, 128)
+            },
+            "Light Source Analysis" => new[]
+            {
+                ChoiceParameter("Resolution", "采样分辨率", "65",
+                    new[] { "33", "65", "129", "257" }),
+                IntParameter("NumRays", "光线数", "2048", 32, 200000)
+            },
+            "Partially Coherent Image Analysis" => new[]
+            {
+                ChoiceParameter("ImageSize", "图像尺寸", "64",
+                    new[] { "32", "64", "128", "256" }),
+                ChoiceParameter("PupilSampling", "瞳面采样", "16 x 16",
+                    new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
+                DoubleParameter("Coherence", "相干度", "0.5", 0, 1, 0.05)
+            },
+            "Extended Diffraction Image Analysis" => new[]
+            {
+                ChoiceParameter("SourceImage", "输入图像", "分辨率靶标",
+                    new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
+                ChoiceParameter("ImageSize", "图像尺寸", "64",
+                    new[] { "32", "64", "128", "256" }),
+                ChoiceParameter("PupilSampling", "瞳面采样", "16 x 16",
+                    new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
+                ChoiceParameter("FieldGrid", "视场 PSF 网格", "5",
+                    new[] { "3", "5", "7", "9" })
             },
             "Image Simulation" => new[]
             {

@@ -206,6 +206,8 @@ public sealed class ManufacturingDrawingTests
         Assert.True(
             cemented.Components[0].FrontSurface.Number
                 < cemented.Components[1].FrontSurface.Number);
+        Assert.Equal("L1", OpticalDrawingRenderer.CementedComponentLabel(0));
+        Assert.Equal("L2", OpticalDrawingRenderer.CementedComponentLabel(1));
 
         var singlePreview = OpticalDrawingRenderer.RenderPreview(
             Sheet(drawings.First(drawing => !drawing.IsCemented)),

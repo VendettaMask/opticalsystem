@@ -87,6 +87,40 @@ private async Task OpenAsync()
         }
     }
 
+    private async Task ExportCadAsync()
+    {
+        var documentName = _application.Documents.GetSnapshot().Name;
+        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "导出 CAD 模型",
+            SuggestedFileName = CadSuggestedFileName(documentName),
+            DefaultExtension = "step",
+            FileTypeChoices = new[] { StepCadFileType }
+        });
+        if (file is null)
+        {
+            return;
+        }
+
+        _statusText.Text = "正在生成 STEP CAD 模型…";
+        var result = await _application.CadExport.ExportAsync(
+            file.Path.LocalPath,
+            new CadExportOptionsDto(CadExportFormat.Step));
+        _statusText.Text =
+            $"CAD 已导出：{Path.GetFileName(result.Path)}（{result.ByteCount / 1024.0:0.#} KB）";
+    }
+
+    private static string CadSuggestedFileName(string documentName)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var safeName = new string(documentName
+            .Select(character => invalid.Contains(character) ? '-' : character)
+            .ToArray())
+            .Trim()
+            .Trim('.');
+        return $"{(string.IsNullOrWhiteSpace(safeName) ? "optical-system" : safeName)}.step";
+    }
+
     private async Task ShowAboutAsync()
     {
         using var authorStream = Avalonia.Platform.AssetLoader.Open(

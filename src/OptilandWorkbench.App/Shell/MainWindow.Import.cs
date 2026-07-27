@@ -51,7 +51,15 @@ private async Task ImportZemaxAsync()
         string Name,
         string Label,
         string IconName,
-        string Group);
+        string Group,
+        AnalysisRibbonCommandKind Kind = AnalysisRibbonCommandKind.Analysis);
+
+    private enum AnalysisRibbonCommandKind
+    {
+        Analysis,
+        ImaBimViewer,
+        BitmapViewer
+    }
 
     private sealed record AnalysisRibbonMenu(
         string Group,

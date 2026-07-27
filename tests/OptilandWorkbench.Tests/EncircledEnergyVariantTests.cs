@@ -13,11 +13,37 @@ public sealed class EncircledEnergyVariantTests
             pupilSampling: 8,
             imageSampling: 16,
             numPoints: 17,
+            wavelengthNumber: 1,
+            fieldNumber: 1).GenerateData();
+
+        Assert.Equal(2, data.PlotSeries.Count);
+        var diffractionLimit = data.PlotSeries[0];
+        Assert.Equal("\u884d\u5c04\u6781\u9650", diffractionLimit.Name);
+        AssertNormalizedCumulativeCurve(diffractionLimit, 17, requireUnityAtEnd: false);
+        var field = data.PlotSeries[1];
+        AssertNormalizedCumulativeCurve(field, 17);
+        Assert.Equal("FFT PSF integration", data.Values["Method"]);
+        Assert.Equal(0, data.PlotOptions!.YMinimum);
+        Assert.Equal(1, data.PlotOptions.YMaximum);
+        Assert.True(data.PlotOptions.ShowLegend);
+        Assert.True(data.PlotOptions.LegendBelow);
+    }
+
+    [Fact]
+    public void DiffractionEncircledEnergyDefaultsToAllFields()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var data = new DiffractionEncircledEnergyAnalysis(
+            optic,
+            pupilSampling: 8,
+            imageSampling: 16,
+            numPoints: 17,
             wavelengthNumber: 1).GenerateData();
 
-        var series = Assert.Single(data.PlotSeries);
-        AssertNormalizedCumulativeCurve(series, 17);
-        Assert.Equal("FFT PSF integration", data.Values["Method"]);
+        Assert.Equal(optic.Fields.Count + 1, data.PlotSeries.Count);
+        Assert.Equal(optic.Fields.Count, data.Values["FieldCount"]);
+        Assert.All(data.PlotSeries.Skip(1), series =>
+            AssertNormalizedCumulativeCurve(series, 17));
     }
 
     [Fact]
@@ -62,7 +88,10 @@ public sealed class EncircledEnergyVariantTests
         Assert.True((int)data.Values["RayCount"] > 0);
     }
 
-    private static void AssertNormalizedCumulativeCurve(AnalysisSeries series, int pointCount)
+    private static void AssertNormalizedCumulativeCurve(
+        AnalysisSeries series,
+        int pointCount,
+        bool requireUnityAtEnd = true)
     {
         Assert.Equal(pointCount, series.Points.Count);
         Assert.All(series.Points, point =>
@@ -72,7 +101,10 @@ public sealed class EncircledEnergyVariantTests
             Assert.InRange(point.Y, 0, 1);
         });
         AssertMonotonic(series.Points);
-        Assert.Equal(1, series.Points[^1].Y, 10);
+        if (requireUnityAtEnd)
+        {
+            Assert.Equal(1, series.Points[^1].Y, 10);
+        }
     }
 
     private static void AssertMonotonic(IReadOnlyList<AnalysisPoint> points)

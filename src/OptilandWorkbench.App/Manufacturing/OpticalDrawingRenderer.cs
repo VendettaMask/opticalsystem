@@ -79,6 +79,11 @@ public static class OpticalDrawingRenderer
         return OpticalDrawingRendererCore.OpticalGlassHatchHalfLengths(standard);
     }
 
+    internal static string CementedComponentLabel(int componentIndex)
+    {
+        return OpticalDrawingRendererCore.CementedComponentLabel(componentIndex);
+    }
+
     internal static string RadiusDimensionText(double radius, double tolerance)
     {
         return OpticalDrawingRendererCore.RadiusDimensionText(radius, tolerance);

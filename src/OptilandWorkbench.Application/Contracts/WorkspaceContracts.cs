@@ -445,6 +445,21 @@ public sealed record SceneDto(
     Scene3Dto? ThreeDimensional,
     OpticalDocumentSnapshot Summary);
 
+public enum CadExportFormat
+{
+    Step
+}
+
+public sealed record CadExportOptionsDto(
+    CadExportFormat Format = CadExportFormat.Step,
+    int SurfaceSamples = 33,
+    int AngularSamples = 64);
+
+public sealed record CadExportResultDto(
+    string Path,
+    CadExportFormat Format,
+    long ByteCount);
+
 public sealed record OptimizationResultDto(
     string Optimizer,
     string Message,

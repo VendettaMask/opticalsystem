@@ -196,7 +196,7 @@ internal static partial class OpticalDrawingRendererCore
                 ?? (componentIndex == 0 ? sheet.MaterialData : null);
             DrawText(
                 canvas,
-                $"L{component.ElementNumber}",
+                CementedComponentLabel(componentIndex),
                 columnX + (columnWidth / 2),
                 y + 16,
                 8,
@@ -209,6 +209,16 @@ internal static partial class OpticalDrawingRendererCore
                 bodyTop,
                 columnWidth - 10);
         }
+    }
+
+    internal static string CementedComponentLabel(int componentIndex)
+    {
+        if (componentIndex < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(componentIndex));
+        }
+
+        return $"L{componentIndex + 1}";
     }
 
     private static IReadOnlyList<string> ComponentMaterialSpecificationLines(

@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Controls.Presenters;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
@@ -48,6 +50,57 @@ public sealed class App : Avalonia.Application
                 new Setter(Button.BorderThicknessProperty, new Thickness(1))
             }
         });
+        Styles.Add(new Style(selector => selector
+            .OfType<DropDownButton>()
+            .Class("ribbon-dropdown")
+            .Template()
+            .OfType<PathIcon>())
+        {
+            Setters =
+            {
+                new Setter(PathIcon.IsVisibleProperty, false)
+            }
+        });
+        Styles.Add(new Style(RibbonCommandPointerOverSelector)
+        {
+            Setters =
+            {
+                new Setter(
+                    ContentPresenter.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.RibbonHover)),
+                new Setter(
+                    ContentPresenter.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.RibbonHoverBorder))
+            }
+        });
+        Styles.Add(new Style(RibbonTabPointerOverSelector)
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.RibbonTabHover)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
+                new Setter(Border.CornerRadiusProperty, new CornerRadius(6))
+            }
+        });
+        Styles.Add(new Style(RibbonMenuItemPointerOverSelector)
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.RibbonTabHover)),
+                new Setter(Border.BorderBrushProperty, Brushes.Transparent),
+                new Setter(Border.BorderThicknessProperty, new Thickness(0)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
+                new Setter(Border.CornerRadiusProperty, new CornerRadius(6))
+            }
+        });
         Styles.Add(new Style(selector => selector.OfType<TextBox>())
         {
             Setters =
@@ -81,12 +134,66 @@ public sealed class App : Avalonia.Application
                 new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
             }
         });
+        Styles.Add(new Style(DataGridSelectedRowSelector)
+        {
+            Setters =
+            {
+                new Setter(
+                    DataGridRow.BackgroundProperty,
+                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
+                new Setter(
+                    DataGridRow.BorderBrushProperty,
+                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
+                new Setter(TextElement.ForegroundProperty, Brushes.White)
+            }
+        });
         AddDockIconStyles();
     }
 
+    internal static Selector RibbonCommandPointerOverSelector(Selector? selector) => selector
+        .Is<Button>()
+        .Class("ribbon-command")
+        .Class(":pointerover")
+        .Template()
+        .OfType<ContentPresenter>()
+        .Name("PART_ContentPresenter");
+
+    internal static Selector RibbonTabPointerOverSelector(Selector? selector) => selector
+        .OfType<TabItem>()
+        .Class("ribbon-tab")
+        .Class(":pointerover")
+        .Template()
+        .OfType<Border>()
+        .Name("PART_LayoutRoot");
+
+    internal static Selector RibbonMenuItemPointerOverSelector(Selector? selector) => selector
+        .OfType<MenuItem>()
+        .Class("ribbon-menu-item")
+        .Class(":pointerover")
+        .Template()
+        .OfType<Border>()
+        .Name("PART_LayoutRoot");
+
+    internal static Selector DataGridSelectedRowSelector(Selector? selector) => selector
+        .OfType<DataGridRow>()
+        .Class(":selected");
+
+    internal static Color BrandAccentColor => Color.FromRgb(0, 122, 255);
+
+    internal static IReadOnlyList<string> UnifiedDockAccentResourceKeys { get; } =
+        new[]
+        {
+            "DockSurfaceHeaderActiveBrush",
+            "DockTabActiveBackgroundBrush",
+            "DockTabActiveIndicatorBrush",
+            "DockTargetIndicatorBrush",
+            "DockSplitterDragBrush"
+        };
+
     private void ApplyBlueAccent()
     {
-        var accent = Color.FromRgb(0, 122, 255);
+        var accent = BrandAccentColor;
+        var accentBrush = new SolidColorBrush(accent);
         Resources["SystemAccentColor"] = accent;
         Resources["SystemAccentColorDark1"] = Color.FromRgb(0, 102, 204);
         Resources["SystemAccentColorDark2"] = Color.FromRgb(0, 82, 164);
@@ -94,9 +201,17 @@ public sealed class App : Avalonia.Application
         Resources["SystemAccentColorLight1"] = Color.FromRgb(64, 156, 255);
         Resources["SystemAccentColorLight2"] = Color.FromRgb(128, 190, 255);
         Resources["SystemAccentColorLight3"] = Color.FromRgb(204, 229, 255);
-        Resources["AccentFillColorDefaultBrush"] = new SolidColorBrush(accent);
+        Resources["AccentFillColorDefaultBrush"] = accentBrush;
         Resources["AccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 112, 235));
         Resources["AccentFillColorTertiaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 102, 214));
+        foreach (var resourceKey in UnifiedDockAccentResourceKeys)
+        {
+            Resources[resourceKey] = accentBrush;
+        }
+
+        Resources["DockTabActiveForegroundBrush"] = Brushes.White;
+        Resources["DockDocumentTabSelectedForegroundBrush"] = Brushes.White;
+        Resources["DockDocumentTabCloseSelectedForegroundBrush"] = Brushes.White;
     }
 
     private void AddThemeResources()
@@ -108,7 +223,10 @@ public sealed class App : Avalonia.Application
             border: Color.FromRgb(209, 209, 214),
             mutedText: Color.FromRgb(99, 99, 102),
             hover: Color.FromRgb(232, 241, 253),
-            hoverBorder: Color.FromRgb(174, 204, 239));
+            hoverBorder: Color.FromRgb(174, 204, 239),
+            ribbonHover: Color.FromRgb(217, 236, 255),
+            ribbonHoverBorder: Color.FromRgb(115, 183, 255),
+            ribbonTabHover: Color.FromRgb(235, 246, 255));
         Resources.ThemeDictionaries[ThemeVariant.Dark] = ThemeResources(
             surface: Color.FromRgb(25, 29, 35),
             subtle: Color.FromRgb(31, 36, 43),
@@ -116,7 +234,10 @@ public sealed class App : Avalonia.Application
             border: Color.FromRgb(55, 62, 72),
             mutedText: Color.FromRgb(174, 181, 192),
             hover: Color.FromRgb(36, 54, 77),
-            hoverBorder: Color.FromRgb(61, 100, 143));
+            hoverBorder: Color.FromRgb(61, 100, 143),
+            ribbonHover: Color.FromRgb(23, 59, 98),
+            ribbonHoverBorder: Color.FromRgb(52, 125, 202),
+            ribbonTabHover: Color.FromRgb(26, 52, 80));
     }
 
     private static ResourceDictionary ThemeResources(
@@ -126,7 +247,10 @@ public sealed class App : Avalonia.Application
         Color border,
         Color mutedText,
         Color hover,
-        Color hoverBorder) => new()
+        Color hoverBorder,
+        Color ribbonHover,
+        Color ribbonHoverBorder,
+        Color ribbonTabHover) => new()
     {
         ["OptilandSurfaceBrush"] = new SolidColorBrush(surface),
         ["OptilandSubtleSurfaceBrush"] = new SolidColorBrush(subtle),
@@ -134,7 +258,10 @@ public sealed class App : Avalonia.Application
         ["OptilandBorderBrush"] = new SolidColorBrush(border),
         ["OptilandMutedTextBrush"] = new SolidColorBrush(mutedText),
         ["OptilandHoverBrush"] = new SolidColorBrush(hover),
-        ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder)
+        ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder),
+        ["OptilandRibbonHoverBrush"] = new SolidColorBrush(ribbonHover),
+        ["OptilandRibbonHoverBorderBrush"] = new SolidColorBrush(ribbonHoverBorder),
+        ["OptilandRibbonTabHoverBrush"] = new SolidColorBrush(ribbonTabHover)
     };
 
     private void AddDockIconStyles()

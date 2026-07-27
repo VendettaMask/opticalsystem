@@ -156,18 +156,9 @@ internal static partial class OpticalDrawingRendererCore
             var componentCenterX = (geometry.FrontVertex + geometry.BackVertex) / 2;
             DrawFittedText(
                 canvas,
-                $"L{geometry.Component.ElementNumber}  {geometry.Component.Material}",
-                componentCenterX,
-                centerY + 13,
-                width,
-                6.8f,
-                SKTextAlign.Center,
-                true);
-            DrawFittedText(
-                canvas,
                 $"CT {geometry.Component.CenterThickness:0.###}",
                 componentCenterX,
-                centerY + 23,
+                centerY + 17,
                 width,
                 6.2f,
                 SKTextAlign.Center);

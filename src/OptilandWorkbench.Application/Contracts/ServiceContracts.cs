@@ -91,6 +91,14 @@ public interface IVisualizationService
         CancellationToken cancellationToken = default);
 }
 
+public interface ICadExportService
+{
+    Task<CadExportResultDto> ExportAsync(
+        string path,
+        CadExportOptionsDto? options = null,
+        CancellationToken cancellationToken = default);
+}
+
 public interface IOptimizationService
 {
     IReadOnlyList<string> OptimizerNames { get; }
@@ -172,6 +180,8 @@ public interface IWorkbenchApplication : IDisposable
     IAnalysisService Analyses { get; }
 
     IVisualizationService Visualization { get; }
+
+    ICadExportService CadExport { get; }
 
     IOptimizationService Optimization { get; }
 

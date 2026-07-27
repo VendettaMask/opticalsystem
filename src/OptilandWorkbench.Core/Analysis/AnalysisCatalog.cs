@@ -71,6 +71,11 @@ public sealed class AnalysisCatalog
         "Best Fit Sphere Wavefront",
         "Zernike",
         "Image Simulation",
+        "Geometric Image Analysis",
+        "Geometric Bitmap Image Analysis",
+        "Light Source Analysis",
+        "Partially Coherent Image Analysis",
+        "Extended Diffraction Image Analysis",
         "Jones Pupil",
         "Prescription Report"
     };
@@ -147,6 +152,11 @@ public sealed class AnalysisCatalog
                 numRings: 8),
             "Zernike" => new ZernikeAnalysis(_optic),
             "Image Simulation" => new ImageSimulationAnalysis(_optic),
+            "Geometric Image Analysis" => new GeometricImageAnalysis(_optic),
+            "Geometric Bitmap Image Analysis" => new GeometricBitmapImageAnalysis(_optic),
+            "Light Source Analysis" => new LightSourceAnalysis(_optic),
+            "Partially Coherent Image Analysis" => new PartiallyCoherentImageAnalysis(_optic),
+            "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(_optic),
             "Jones Pupil" => new JonesPupilAnalysis(_optic),
             "Prescription Report" => new PrescriptionReportAnalysis(_optic),
             _ => new PlaceholderAnalysis(_optic, name)
