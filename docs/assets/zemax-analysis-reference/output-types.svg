@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" role="img" aria-labelledby="title desc">
+  <title id="title">Zemax 分析结果展现方式总览</title>
+  <desc id="desc">八个分组的典型输出图形，包括点列图、像差曲线、波前热图、PSF、MTF、RMS、圈入能量和图像模拟。</desc>
+  <defs>
+    <linearGradient id="heat" x1="0" x2="1" y1="1" y2="0">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="0.35" stop-color="#0891b2"/>
+      <stop offset="0.68" stop-color="#facc15"/>
+      <stop offset="1" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="psf" x1="0" x2="1" y1="1" y2="0">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.48" stop-color="#1d4ed8"/>
+      <stop offset="0.72" stop-color="#22c55e"/>
+      <stop offset="0.9" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .card { fill: #ffffff; stroke: #cbd5e1; filter: url(#cardShadow); }
+      .title { font: 700 22px Arial, 'Noto Sans SC', sans-serif; fill: #0f172a; }
+      .caption { font: 15px Arial, 'Noto Sans SC', sans-serif; fill: #475569; }
+      .axis { stroke: #94a3b8; stroke-width: 2; }
+      .grid { stroke: #e2e8f0; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1400" height="980" fill="#eef2f7"/>
+  <text x="60" y="62" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="30" fill="#111827" font-weight="700">分析结果展现方式总览</text>
+  <text x="60" y="94" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" fill="#475569">每个分析项在文档中都写明设置内容、结果显示形式和计算方式；下图是常见 Plot 类型。</text>
+
+  <g transform="translate(60 130)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">光线迹点</text>
+    <text class="caption" x="24" y="66">spot / footprint / Y-Ybar</text>
+    <rect x="54" y="88" width="192" height="120" fill="#f8fafc" stroke="#cbd5e1"/>
+    <line class="axis" x1="150" y1="88" x2="150" y2="208"/>
+    <line class="axis" x1="54" y1="148" x2="246" y2="148"/>
+    <g fill="#2563eb">
+      <circle cx="142" cy="143" r="4"/><circle cx="158" cy="154" r="4"/><circle cx="134" cy="160" r="3.5"/><circle cx="168" cy="137" r="3.5"/>
+      <circle cx="151" cy="129" r="3.5"/><circle cx="123" cy="146" r="3"/><circle cx="179" cy="160" r="3"/>
+    </g>
+    <g fill="#f97316">
+      <circle cx="118" cy="127" r="3.5"/><circle cx="110" cy="165" r="3.5"/><circle cx="190" cy="127" r="3.5"/><circle cx="202" cy="174" r="3.5"/>
+    </g>
+  </g>
+
+  <g transform="translate(390 130)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">像差分析</text>
+    <text class="caption" x="24" y="66">ray fan / OPD / distortion</text>
+    <rect x="44" y="88" width="212" height="120" fill="#f8fafc" stroke="#cbd5e1"/>
+    <line class="axis" x1="44" y1="148" x2="256" y2="148"/>
+    <line class="axis" x1="150" y1="88" x2="150" y2="208"/>
+    <path d="M54 186 C96 116 122 108 150 148 C179 189 205 176 246 102" fill="none" stroke="#dc2626" stroke-width="4"/>
+    <path d="M54 112 C92 144 118 168 150 148 C184 128 207 133 246 174" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="8 7"/>
+  </g>
+
+  <g transform="translate(720 130)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">波前</text>
+    <text class="caption" x="24" y="66">OPD map / Zernike / Foucault</text>
+    <rect x="74" y="88" width="152" height="120" fill="url(#heat)" stroke="#cbd5e1"/>
+    <circle cx="150" cy="148" r="55" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    <path d="M95 152 C126 116 178 116 206 151" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+    <path d="M108 178 C136 160 170 162 192 181" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.8"/>
+    <text x="100" y="225" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" fill="#475569">OPD / RMS waves</text>
+  </g>
+
+  <g transform="translate(1050 130)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">点扩散函数</text>
+    <text class="caption" x="24" y="66">FFT / Huygens PSF</text>
+    <rect x="74" y="88" width="152" height="120" fill="#0f172a" stroke="#cbd5e1"/>
+    <circle cx="150" cy="148" r="58" fill="url(#psf)" opacity="0.18"/>
+    <circle cx="150" cy="148" r="34" fill="url(#psf)" opacity="0.42"/>
+    <circle cx="150" cy="148" r="16" fill="#ffffff"/>
+    <path d="M92 148h116M150 94v108" stroke="#ffffff" stroke-width="1" opacity="0.45"/>
+    <text x="104" y="225" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" fill="#475569">relative intensity</text>
+  </g>
+
+  <g transform="translate(60 420)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">MTF 曲线</text>
+    <text class="caption" x="24" y="66">tangential / sagittal</text>
+    <rect x="44" y="88" width="212" height="120" fill="#f8fafc" stroke="#cbd5e1"/>
+    <g>
+      <line class="axis" x1="44" y1="208" x2="256" y2="208"/>
+      <line class="axis" x1="44" y1="88" x2="44" y2="208"/>
+      <line class="grid" x1="97" y1="88" x2="97" y2="208"/>
+      <line class="grid" x1="150" y1="88" x2="150" y2="208"/>
+      <line class="grid" x1="203" y1="88" x2="203" y2="208"/>
+    </g>
+    <path d="M44 96 C91 104 124 126 160 150 C195 173 224 190 256 203" fill="none" stroke="#2563eb" stroke-width="4"/>
+    <path d="M44 102 C93 115 128 137 163 165 C198 190 226 198 256 206" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="8 7"/>
+  </g>
+
+  <g transform="translate(390 420)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">RMS</text>
+    <text class="caption" x="24" y="66">field / wavelength / focus</text>
+    <rect x="44" y="88" width="212" height="120" fill="#f8fafc" stroke="#cbd5e1"/>
+    <line class="axis" x1="44" y1="208" x2="256" y2="208"/>
+    <line class="axis" x1="44" y1="88" x2="44" y2="208"/>
+    <path d="M44 186 C86 154 118 138 150 132 C182 126 213 142 256 116" fill="none" stroke="#16a34a" stroke-width="4"/>
+    <path d="M44 196 C90 174 123 164 156 156 C190 146 220 150 256 138" fill="none" stroke="#7c3aed" stroke-width="4"/>
+    <circle cx="150" cy="132" r="5" fill="#16a34a"/>
+    <text x="90" y="225" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" fill="#475569">RMS radius / waves</text>
+  </g>
+
+  <g transform="translate(720 420)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">圈入能量</text>
+    <text class="caption" x="24" y="66">encircled / ensquared</text>
+    <rect x="44" y="88" width="212" height="120" fill="#f8fafc" stroke="#cbd5e1"/>
+    <line class="axis" x1="44" y1="208" x2="256" y2="208"/>
+    <line class="axis" x1="44" y1="88" x2="44" y2="208"/>
+    <path d="M44 204 C74 173 96 139 120 120 C151 95 187 91 256 90" fill="none" stroke="#0891b2" stroke-width="4"/>
+    <line x1="44" y1="90" x2="256" y2="90" stroke="#94a3b8" stroke-dasharray="5 6"/>
+    <text x="110" y="225" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" fill="#475569">energy fraction</text>
+  </g>
+
+  <g transform="translate(1050 420)">
+    <rect class="card" width="300" height="240" rx="10"/>
+    <text class="title" x="24" y="40">扩展图像分析</text>
+    <text class="caption" x="24" y="66">image simulation / irradiance</text>
+    <rect x="60" y="88" width="180" height="120" fill="#111827" stroke="#cbd5e1"/>
+    <g opacity="0.94">
+      <rect x="70" y="98" width="48" height="48" fill="#ef4444"/>
+      <rect x="122" y="98" width="48" height="48" fill="#22c55e"/>
+      <rect x="174" y="98" width="56" height="48" fill="#3b82f6"/>
+      <rect x="70" y="150" width="48" height="48" fill="#facc15"/>
+      <rect x="122" y="150" width="48" height="48" fill="#f8fafc"/>
+      <rect x="174" y="150" width="56" height="48" fill="#a855f7"/>
+    </g>
+    <path d="M70 158 C112 140 148 178 230 126" fill="none" stroke="#ffffff" stroke-width="6" opacity="0.55"/>
+    <text x="92" y="225" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" fill="#475569">raster RGB / heatmap</text>
+  </g>
+
+  <g transform="translate(60 720)">
+    <rect class="card" width="1290" height="160" rx="10"/>
+    <text x="28" y="42" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="22" fill="#0f172a" font-weight="700">结果页固定三种查看方式</text>
+    <g font-family="Arial, 'Noto Sans SC', sans-serif">
+      <rect x="28" y="68" width="360" height="64" rx="8" fill="#dbeafe"/>
+      <text x="52" y="96" font-size="18" fill="#1e3a8a" font-weight="700">Plot</text>
+      <text x="112" y="96" font-size="15" fill="#1e3a8a">曲线、散点、热图、栅格图、多 pane 图</text>
+      <rect x="430" y="68" width="360" height="64" rx="8" fill="#dcfce7"/>
+      <text x="454" y="96" font-size="18" fill="#166534" font-weight="700">Data</text>
+      <text x="518" y="96" font-size="15" fill="#166534">指标键值、曲线点、像素/采样数据</text>
+      <rect x="832" y="68" width="400" height="64" rx="8" fill="#fef3c7"/>
+      <text x="856" y="96" font-size="18" fill="#92400e" font-weight="700">Text</text>
+      <text x="918" y="96" font-size="15" fill="#92400e">报告、解释性摘要、追迹/系数明细</text>
+    </g>
+  </g>
+</svg>

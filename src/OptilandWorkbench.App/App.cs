@@ -251,18 +251,18 @@ public sealed class App : Avalonia.Application
         Color ribbonHover,
         Color ribbonHoverBorder,
         Color ribbonTabHover) => new()
-    {
-        ["OptilandSurfaceBrush"] = new SolidColorBrush(surface),
-        ["OptilandSubtleSurfaceBrush"] = new SolidColorBrush(subtle),
-        ["OptilandWorkspaceBrush"] = new SolidColorBrush(workspace),
-        ["OptilandBorderBrush"] = new SolidColorBrush(border),
-        ["OptilandMutedTextBrush"] = new SolidColorBrush(mutedText),
-        ["OptilandHoverBrush"] = new SolidColorBrush(hover),
-        ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder),
-        ["OptilandRibbonHoverBrush"] = new SolidColorBrush(ribbonHover),
-        ["OptilandRibbonHoverBorderBrush"] = new SolidColorBrush(ribbonHoverBorder),
-        ["OptilandRibbonTabHoverBrush"] = new SolidColorBrush(ribbonTabHover)
-    };
+        {
+            ["OptilandSurfaceBrush"] = new SolidColorBrush(surface),
+            ["OptilandSubtleSurfaceBrush"] = new SolidColorBrush(subtle),
+            ["OptilandWorkspaceBrush"] = new SolidColorBrush(workspace),
+            ["OptilandBorderBrush"] = new SolidColorBrush(border),
+            ["OptilandMutedTextBrush"] = new SolidColorBrush(mutedText),
+            ["OptilandHoverBrush"] = new SolidColorBrush(hover),
+            ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder),
+            ["OptilandRibbonHoverBrush"] = new SolidColorBrush(ribbonHover),
+            ["OptilandRibbonHoverBorderBrush"] = new SolidColorBrush(ribbonHoverBorder),
+            ["OptilandRibbonTabHoverBrush"] = new SolidColorBrush(ribbonTabHover)
+        };
 
     private void AddDockIconStyles()
     {

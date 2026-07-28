@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
-private static Control BuildSinglePlot(AnalysisViewDto view)
+    private static Control BuildSinglePlot(AnalysisViewDto view)
     {
         var plot = new AnalysisPlotControl
         {

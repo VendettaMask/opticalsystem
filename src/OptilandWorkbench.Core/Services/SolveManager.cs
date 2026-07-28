@@ -2,7 +2,7 @@ namespace OptilandWorkbench.Core.Services;
 
 public sealed class SolveManager
 {
-    private readonly Optic _optic;
+    private Optic _optic;
 
     public SolveManager(Optic optic)
     {
@@ -12,6 +12,11 @@ public sealed class SolveManager
     public double DesiredBackFocus { get; set; } = 30.0;
 
     public bool KeepImageAtBackFocus { get; set; } = true;
+
+    internal void Rebind(Optic optic)
+    {
+        _optic = optic;
+    }
 
     public void ApplyAll()
     {

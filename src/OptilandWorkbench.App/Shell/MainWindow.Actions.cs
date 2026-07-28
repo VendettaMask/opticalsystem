@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
-private void RegisterActions()
+    private void RegisterActions()
     {
         _actions.Register("new", "新建空白系统", "文件", () => SwitchDocumentAsync(_application.Documents.NewBlank));
         _actions.Register("new-demo", "新建 Cooke 三片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewCooke));

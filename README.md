@@ -14,8 +14,8 @@ The implementation is being built in small git milestones. The current codebase 
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
 - A 67-entry desktop analysis catalog. Thirty numerical/graphical views have source-derived Python contracts, including standard spot and ray-aberration plots, single-ray trace reports, through-focus spots/MTF, distortion/field curvature, RMS field sweeps, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. Additional Zemax-style views include full-field/configuration-matrix spot diagrams, diffraction and extended-source encircled energy, line/edge spread, optical-path difference, Foucault, Seidel, axial/lateral color, full-field aberration, cardinal data, vignetting, footprint, relative illumination, and extended image analysis.
 - Optimization plus a Zemax-style tolerancing workflow with a TDE-like operand editor, bulk tolerance wizard, radius/thickness/conic/decenter/tilt/index/Abbe operands, image-distance compensation, two-sided sensitivity, seeded Monte Carlo, percentile/yield statistics, native tolerance-file save/load, and report export.
-- A native `.staropt` project container with magic/version headers, Brotli compression, SHA-256 integrity validation, atomic saves, and lossless multi-configuration round-trip. Legacy Workbench JSON remains a compatibility import; Python Optiland 0.5.8 JSON, Zemax `.zmx`, CODE V `.seq`, and OSLO `.len` remain explicit exchange formats.
-- A packaged read-only lens library under **Database > Lens Library**, currently containing 56 microscope objectives and 5 industrial examples. Microscope entries are restricted to standalone objectives; tube lenses, condensers, Fourier-imaging trains, and complete microscope systems are excluded. An external maintenance tool converts reviewed local source files once into native `.staropt` projects using the Workbench glass database; the desktop application only loads the finished library and shows per-lens parameters plus an interactive 2D optical layout.
+- A native `.staropt` project container with magic/version headers, Brotli compression, SHA-256 integrity validation, schema-3 optical-state validation, transactional temporary construction, atomic saves, and lossless multi-configuration round-trip. Checksum-valid payloads are still rejected when wavelengths, coordinates, components, numbering, or cross-references are semantically invalid. Legacy Workbench JSON remains a compatibility import; Python Optiland 0.5.8 JSON, Zemax `.zmx`, CODE V `.seq`, and OSLO `.len` remain explicit exchange formats.
+- A packaged read-only lens library under **Database > Lens Library**, currently containing 106 entries: 56 microscope objectives, 5 industrial examples, and 45 compatible public Zemax designs. Microscope entries are restricted to standalone objectives; tube lenses, condensers, Fourier-imaging trains, and complete microscope systems are excluded. An external maintenance tool converts reviewed local source files once into native `.staropt` projects using the Workbench glass database; the desktop application only loads the finished library and shows per-lens parameters plus an interactive 2D optical layout.
 - A standalone single-file Zemax installer, `Convert-Zemax-Lens.cmd`, converts one reviewed `.zmx` into the native checksummed `.staropt` format and atomically adds it to both the repository example library and the packaged **Database > Lens Library** index without rebuilding existing entries.
 - An explicit **File > Export CAD** workflow that writes millimetre-based faceted STEP AP203 geometry from the sampled 3D lens scene. This exporter is currently an experimental mesh interchange path rather than a native analytic/NURBS B-rep kernel; verify generated files in the target CAD system before manufacturing use.
 - .NET plugin discovery with geometry, material, and analysis registration.
@@ -66,12 +66,13 @@ The telemetry opt-out environment variable is useful in sandboxed environments t
 ## Test
 
 ```bash
+dotnet restore OptilandWorkbench.slnx --locked-mode
 dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
 In restricted sandboxes, VSTest may need permission to bind a local socket. The
-validated baseline as of 2026-07-28 is a zero-warning solution build and 532
+validated baseline as of 2026-07-28 is a zero-warning solution build and 542
 passing tests; details are recorded in
 [Build and release](docs/BUILD_AND_RELEASE.md).
 

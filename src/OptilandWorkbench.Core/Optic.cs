@@ -15,41 +15,61 @@ namespace OptilandWorkbench.Core;
 
 public sealed class Optic
 {
+    private OpticState _state;
+
     public Optic(string name = "Untitled optic")
     {
-        Name = name;
+        _state = new OpticState(this, name);
         RealRayTracer = new RealRayTracer(this);
         SequentialRayTracer = new SequentialRayTracer(this);
         Paraxial = new Paraxial(this);
         Aberrations = new Aberrations(this);
-        Pickups = new PickupManager(this);
-        Solves = new SolveManager(this);
         Analyses = new AnalysisCatalog(this);
     }
 
-    public string Name { get; set; }
+    public string Name
+    {
+        get => _state.Name;
+        set => _state.Name = value;
+    }
 
-    public NumericBackendProvider Backend { get; } = new();
+    public NumericBackendProvider Backend => _state.Backend;
 
-    public SystemAperture Aperture { get; } = new();
+    public SystemAperture Aperture => _state.Aperture;
 
-    public OpticalEnvironment Environment { get; } = new();
+    public OpticalEnvironment Environment => _state.Environment;
 
-    public IApodizationModel? Apodization { get; set; }
+    public IApodizationModel? Apodization
+    {
+        get => _state.Apodization;
+        set => _state.Apodization = value;
+    }
 
-    public MaterialRegistry Materials { get; } = new();
+    public MaterialRegistry Materials => _state.Materials;
 
-    public ObservableCollection<FieldPoint> Fields { get; } = new();
+    public ObservableCollection<FieldPoint> Fields => _state.Fields;
 
-    public FieldDefinitionKind FieldDefinition { get; set; } = FieldDefinitionKind.Angle;
+    public FieldDefinitionKind FieldDefinition
+    {
+        get => _state.FieldDefinition;
+        set => _state.FieldDefinition = value;
+    }
 
-    public bool ObjectSpaceTelecentric { get; set; }
+    public bool ObjectSpaceTelecentric
+    {
+        get => _state.ObjectSpaceTelecentric;
+        set => _state.ObjectSpaceTelecentric = value;
+    }
 
-    public bool FieldGroupTelecentric { get; set; }
+    public bool FieldGroupTelecentric
+    {
+        get => _state.FieldGroupTelecentric;
+        set => _state.FieldGroupTelecentric = value;
+    }
 
-    public ObservableCollection<Wavelength> Wavelengths { get; } = new();
+    public ObservableCollection<Wavelength> Wavelengths => _state.Wavelengths;
 
-    public SurfaceGroup SurfaceGroup { get; } = new();
+    public SurfaceGroup SurfaceGroup => _state.SurfaceGroup;
 
     public RealRayTracer RealRayTracer { get; }
 
@@ -59,13 +79,14 @@ public sealed class Optic
 
     public Aberrations Aberrations { get; }
 
-    public PickupManager Pickups { get; }
+    public PickupManager Pickups => _state.Pickups;
 
-    public SolveManager Solves { get; }
+    public SolveManager Solves => _state.Solves;
 
     public AnalysisCatalog Analyses { get; }
 
-    public ObservableCollection<MeritOperandDefinition> MeritFunctionOperands { get; } = new();
+    public ObservableCollection<MeritOperandDefinition> MeritFunctionOperands =>
+        _state.MeritFunctionOperands;
 
     public SequentialTrace Trace(
         double normalizedFieldX,
@@ -365,7 +386,7 @@ public sealed class Optic
     public OpticSnapshot ToSnapshot()
     {
         return new OpticSnapshot(
-            SchemaVersion: 2,
+            SchemaVersion: OpticSnapshotValidator.CurrentSchemaVersion,
             Name,
             new ApertureSnapshot(
                 Aperture.Kind.ToString(),
@@ -457,6 +478,23 @@ public sealed class Optic
 
     public void ApplySnapshot(OpticSnapshot snapshot)
     {
+        ReplaceState(CreateFromSnapshot(snapshot, this, validate: true));
+    }
+
+    internal void RestoreTrustedSnapshot(OpticSnapshot snapshot)
+    {
+        ReplaceState(CreateFromSnapshot(snapshot, this, validate: false));
+    }
+
+    private void ReplaceState(Optic staged)
+    {
+        staged.Pickups.Rebind(this);
+        staged.Solves.Rebind(this);
+        _state = staged._state;
+    }
+
+    private void ApplySnapshotCore(OpticSnapshot snapshot)
+    {
         Name = snapshot.Name;
         if (snapshot.Aperture is not null)
         {
@@ -469,8 +507,14 @@ public sealed class Optic
             Aperture.ObjectSpaceTelecentric = snapshot.Aperture.ObjectSpaceTelecentric;
         }
 
-        if (!string.IsNullOrWhiteSpace(snapshot.BackendName) && Backend.Names.Contains(snapshot.BackendName))
+        if (!string.IsNullOrWhiteSpace(snapshot.BackendName))
         {
+            if (!Backend.Names.Contains(snapshot.BackendName, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new InvalidDataException(
+                    $"Numeric backend '{snapshot.BackendName}' is not registered.");
+            }
+
             Backend.SetBackend(snapshot.BackendName);
         }
 
@@ -607,8 +651,82 @@ public sealed class Optic
 
     public static Optic FromSnapshot(OpticSnapshot snapshot)
     {
+        return CreateFromSnapshot(snapshot, template: null, validate: true);
+    }
+
+    private static Optic CreateFromSnapshot(
+        OpticSnapshot snapshot,
+        Optic? template,
+        bool validate)
+    {
+        if (validate)
+        {
+            snapshot = OpticSnapshotMigration.Upgrade(snapshot);
+            OpticSnapshotValidator.Validate(snapshot);
+        }
+
         var optic = new Optic(snapshot.Name);
-        optic.ApplySnapshot(snapshot);
+        if (template is not null)
+        {
+            optic._state.Backend = template.Backend.Clone();
+            optic._state.Materials = template.Materials.Clone();
+        }
+
+        try
+        {
+            optic.ApplySnapshotCore(snapshot);
+        }
+        catch (Exception exception) when (
+            exception is ArgumentException
+            or InvalidOperationException
+            or KeyNotFoundException
+            or OverflowException)
+        {
+            throw new InvalidDataException(
+                "The optic snapshot could not be constructed from its validated state.",
+                exception);
+        }
+
         return optic;
+    }
+
+    private sealed class OpticState
+    {
+        public OpticState(Optic owner, string name)
+        {
+            Name = name;
+            Pickups = new PickupManager(owner);
+            Solves = new SolveManager(owner);
+        }
+
+        public string Name { get; set; }
+
+        public NumericBackendProvider Backend { get; set; } = new();
+
+        public SystemAperture Aperture { get; } = new();
+
+        public OpticalEnvironment Environment { get; } = new();
+
+        public IApodizationModel? Apodization { get; set; }
+
+        public MaterialRegistry Materials { get; set; } = new();
+
+        public ObservableCollection<FieldPoint> Fields { get; } = new();
+
+        public FieldDefinitionKind FieldDefinition { get; set; } = FieldDefinitionKind.Angle;
+
+        public bool ObjectSpaceTelecentric { get; set; }
+
+        public bool FieldGroupTelecentric { get; set; }
+
+        public ObservableCollection<Wavelength> Wavelengths { get; } = new();
+
+        public SurfaceGroup SurfaceGroup { get; } = new();
+
+        public PickupManager Pickups { get; }
+
+        public SolveManager Solves { get; }
+
+        public ObservableCollection<MeritOperandDefinition> MeritFunctionOperands { get; } = new();
     }
 }

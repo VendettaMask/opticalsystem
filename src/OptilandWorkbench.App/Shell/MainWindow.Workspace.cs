@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
-private async void OnWindowKeyDown(object? sender, KeyEventArgs args)
+    private async void OnWindowKeyDown(object? sender, KeyEventArgs args)
     {
         var commandModifier = args.KeyModifiers.HasFlag(KeyModifiers.Control)
             || args.KeyModifiers.HasFlag(KeyModifiers.Meta);

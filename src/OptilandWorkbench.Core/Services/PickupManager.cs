@@ -4,7 +4,7 @@ public sealed record RadiusPickup(int SourceSurface, int TargetSurface, double S
 
 public sealed class PickupManager
 {
-    private readonly Optic _optic;
+    private Optic _optic;
     private readonly List<RadiusPickup> _radiusPickups = new();
 
     public PickupManager(Optic optic)
@@ -13,6 +13,11 @@ public sealed class PickupManager
     }
 
     public IReadOnlyList<RadiusPickup> RadiusPickups => _radiusPickups;
+
+    internal void Rebind(Optic optic)
+    {
+        _optic = optic;
+    }
 
     public void LinkRadius(int sourceSurface, int targetSurface, double scale = -1, double offset = 0)
     {

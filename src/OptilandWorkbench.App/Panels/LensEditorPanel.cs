@@ -346,22 +346,22 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         string property,
         double width,
         bool readOnly = false) => new()
-    {
-        Header = NumericHeader(header),
-        Binding = new Binding(property),
-        IsReadOnly = readOnly,
-        Width = new DataGridLength(width),
-        Tag = NumericColumnTag,
-        CellTheme = new ControlTheme(typeof(DataGridCell))
         {
-            Setters =
+            Header = NumericHeader(header),
+            Binding = new Binding(property),
+            IsReadOnly = readOnly,
+            Width = new DataGridLength(width),
+            Tag = NumericColumnTag,
+            CellTheme = new ControlTheme(typeof(DataGridCell))
+            {
+                Setters =
             {
                 new Setter(
                     DataGridCell.HorizontalContentAlignmentProperty,
                     HorizontalAlignment.Right)
             }
-        }
-    };
+            }
+        };
 
     private DataGridTemplateColumn RadiusColumn() => new()
     {

@@ -35,11 +35,19 @@ public static class StarOptProjectStore
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         ValidateDocument(document);
 
+        var configurations = document.Configurations
+            .Select(configuration => configuration.ToSnapshot())
+            .ToList();
+        foreach (var configuration in configurations)
+        {
+            OpticSnapshotValidator.Validate(configuration);
+        }
+
         var project = new StarOptProjectSnapshot(
             ProjectFormatVersion,
             "Optical System Design",
             document.ActiveConfigurationIndex,
-            document.Configurations.Select(configuration => configuration.ToSnapshot()).ToList());
+            configurations);
         var json = JsonSerializer.SerializeToUtf8Bytes(project, JsonOptions);
         var compressed = Compress(json);
         var header = BuildHeader(json, compressed.Length);

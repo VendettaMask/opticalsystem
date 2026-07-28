@@ -26,7 +26,7 @@ internal static partial class PythonOptilandJsonWriter
             "SK16"
         };
 
-private static object WriteAperture(Optic optic)
+    private static object WriteAperture(Optic optic)
     {
         var type = optic.Aperture.Kind switch
         {

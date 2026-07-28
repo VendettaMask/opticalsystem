@@ -130,6 +130,17 @@ public sealed class MaterialRegistry
         Register(new AbbeMaterial(name, nd, vd));
     }
 
+    internal MaterialRegistry Clone()
+    {
+        var clone = new MaterialRegistry();
+        foreach (var material in _materials.Values)
+        {
+            clone.Register(material.Clone());
+        }
+
+        return clone;
+    }
+
     private void RegisterAlias(string alias, IMaterial material)
     {
         _materials[alias] = material.Clone();

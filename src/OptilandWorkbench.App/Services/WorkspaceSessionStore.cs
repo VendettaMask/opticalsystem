@@ -73,10 +73,59 @@ public sealed class WorkspaceSessionStore
 
     public static string PathHash(string documentPath)
     {
-        var normalized = Path.GetFullPath(documentPath)
-            .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
-            .ToUpperInvariant();
+        var normalized = CanonicalizeExistingPath(Path.TrimEndingDirectorySeparator(
+            Path.GetFullPath(documentPath)));
         return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(normalized))).ToLowerInvariant();
+    }
+
+    private static string CanonicalizeExistingPath(string fullPath)
+    {
+        var root = Path.GetPathRoot(fullPath);
+        if (string.IsNullOrEmpty(root) || fullPath.Length <= root.Length)
+        {
+            return fullPath;
+        }
+
+        try
+        {
+            var current = root;
+            var segments = fullPath[root.Length..].Split(
+                new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar },
+                StringSplitOptions.RemoveEmptyEntries);
+            foreach (var segment in segments)
+            {
+                var entries = Directory.EnumerateFileSystemEntries(current).ToArray();
+                var match = entries.FirstOrDefault(entry =>
+                    string.Equals(Path.GetFileName(entry), segment, StringComparison.Ordinal));
+                if (match is null)
+                {
+                    var caseInsensitiveMatches = entries
+                        .Where(entry => string.Equals(
+                            Path.GetFileName(entry),
+                            segment,
+                            StringComparison.OrdinalIgnoreCase))
+                        .Take(2)
+                        .ToArray();
+                    if (caseInsensitiveMatches.Length != 1)
+                    {
+                        return fullPath;
+                    }
+
+                    match = caseInsensitiveMatches[0];
+                }
+
+                current = match;
+            }
+
+            return current;
+        }
+        catch (Exception exception) when (
+            exception is IOException
+            or UnauthorizedAccessException
+            or System.Security.SecurityException)
+        {
+            return fullPath;
+        }
     }
 
     public async Task<WorkspaceSession?> LoadAsync(

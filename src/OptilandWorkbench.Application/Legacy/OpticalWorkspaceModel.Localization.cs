@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public static string DisplayOptimizerMessage(string message)
+    public static string DisplayOptimizerMessage(string message)
     {
         const string optimizedWith = "Optimized with ";
         if (message.StartsWith(optimizedWith, StringComparison.Ordinal))

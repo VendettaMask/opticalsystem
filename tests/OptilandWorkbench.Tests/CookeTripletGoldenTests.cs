@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Apodization;
@@ -141,6 +142,33 @@ public sealed class CookeTripletGoldenTests
                 var actual = Assert.Single(history, sample => sample.SurfaceNumber == surfaceNumber);
                 AssertSample(expectedTrace.GetProperty("name").GetString()!, expectedSurface, actual);
             }
+        }
+    }
+
+    [Fact]
+    public async Task PythonNativeJsonStringNumbersUseInvariantCulture()
+    {
+        var nativePath = Path.Combine(
+            AppContext.BaseDirectory,
+            "Fixtures",
+            "optiland-0.5.8-cooke-native.json");
+        var json = await File.ReadAllTextAsync(nativePath);
+        json = json.Replace(
+            "\"radius\": 22.01359",
+            "\"radius\": \"22.01359\"",
+            StringComparison.Ordinal);
+
+        var previousCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+            var optic = PythonOptilandJsonStore.Deserialize(json);
+
+            Assert.Equal(22.01359, optic.SurfaceGroup.Items[1].Radius, 8);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previousCulture;
         }
     }
 

@@ -351,4 +351,4 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         }
     }
 
-    }
+}

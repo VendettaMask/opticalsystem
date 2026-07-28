@@ -26,12 +26,12 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-private Tolerancing BuildDefaultTolerancing(
-        int surfaceNumber,
-        double radiusSigma,
-        double thicknessSigma,
-        int compensationIterations,
-        ToleranceCriterion criterion)
+    private Tolerancing BuildDefaultTolerancing(
+            int surfaceNumber,
+            double radiusSigma,
+            double thicknessSigma,
+            int compensationIterations,
+            ToleranceCriterion criterion)
     {
         var tolerancing = CurrentOptic.CreateTolerancing();
         ConfigureToleranceCriterion(tolerancing, criterion);

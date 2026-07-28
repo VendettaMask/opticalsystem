@@ -6,14 +6,14 @@ namespace OptilandWorkbench.App.Manufacturing;
 
 internal static partial class OpticalDrawingRendererCore
 {
-private static IReadOnlyList<SKPoint> SurfacePoints(
-        double radius,
-        double conic,
-        double semiDiameter,
-        float centerX,
-        float centerY,
-        float xScale,
-        float yScale)
+    private static IReadOnlyList<SKPoint> SurfacePoints(
+            double radius,
+            double conic,
+            double semiDiameter,
+            float centerX,
+            float centerY,
+            float xScale,
+            float yScale)
     {
         var points = new List<SKPoint>(65);
         for (var sample = 0; sample <= 64; sample++)

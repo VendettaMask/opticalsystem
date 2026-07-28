@@ -23,18 +23,18 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public TolerancingView RunTolerancing(
-        OpticalSurface? surface,
-        double radiusSigma,
-        double thicknessSigma,
-        int trials,
-        int seed,
-        int compensationIterations,
-        IReadOnlyList<ToleranceOperandDto>? operands = null,
-        ToleranceCriterion criterion = ToleranceCriterion.RmsSpotRadius,
-        double yieldLimit = 0,
-        CancellationToken cancellationToken = default,
-        int maxDegreeOfParallelism = -1)
+    public TolerancingView RunTolerancing(
+            OpticalSurface? surface,
+            double radiusSigma,
+            double thicknessSigma,
+            int trials,
+            int seed,
+            int compensationIterations,
+            IReadOnlyList<ToleranceOperandDto>? operands = null,
+            ToleranceCriterion criterion = ToleranceCriterion.RmsSpotRadius,
+            double yieldLimit = 0,
+            CancellationToken cancellationToken = default,
+            int maxDegreeOfParallelism = -1)
     {
         cancellationToken.ThrowIfCancellationRequested();
         surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();

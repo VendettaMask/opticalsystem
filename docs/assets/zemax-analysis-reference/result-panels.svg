@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Zemax 风格分析结果页结构示意</title>
+  <desc id="desc">示意 Workbench 分析结果页由设置区、同步运行、绘图区、数据表和文本报告组成。</desc>
+  <defs>
+    <linearGradient id="plotBg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7fbff"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="650" fill="#eef2f7"/>
+  <rect x="60" y="42" width="1080" height="566" rx="10" fill="#ffffff" filter="url(#shadow)"/>
+
+  <rect x="60" y="42" width="1080" height="54" rx="10" fill="#243447"/>
+  <rect x="60" y="80" width="1080" height="16" fill="#243447"/>
+  <text x="92" y="76" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="22" fill="#ffffff" font-weight="700">分析结果页</text>
+  <text x="1010" y="76" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="15" fill="#cbd5e1">Plot / Data / Text</text>
+
+  <rect x="88" y="124" width="264" height="436" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="112" y="160" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20" fill="#0f172a" font-weight="700">设置内容</text>
+  <text x="112" y="190" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="14" fill="#475569">由参数描述器生成，可折叠保存</text>
+  <g font-family="Arial, 'Noto Sans SC', sans-serif" font-size="14" fill="#1e293b">
+    <rect x="112" y="222" width="96" height="20" rx="4" fill="#e0f2fe"/>
+    <text x="122" y="237">采样</text>
+    <rect x="224" y="218" width="88" height="28" rx="5" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="244" y="237">64 x 64</text>
+    <rect x="112" y="266" width="96" height="20" rx="4" fill="#dcfce7"/>
+    <text x="122" y="281">视场</text>
+    <rect x="224" y="262" width="88" height="28" rx="5" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="250" y="281">1</text>
+    <rect x="112" y="310" width="96" height="20" rx="4" fill="#fef3c7"/>
+    <text x="122" y="325">波长</text>
+    <rect x="224" y="306" width="88" height="28" rx="5" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="244" y="325">所有</text>
+    <rect x="112" y="354" width="96" height="20" rx="4" fill="#fee2e2"/>
+    <text x="122" y="369">显示</text>
+    <rect x="224" y="350" width="88" height="28" rx="5" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="240" y="369">伪彩色</text>
+  </g>
+  <rect x="112" y="416" width="200" height="38" rx="6" fill="#2563eb"/>
+  <path d="M139 435a11 11 0 1 0 3-8" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M142 426h-11v11" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="166" y="441" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#ffffff" font-weight="700">同步并重新运行</text>
+
+  <rect x="388" y="124" width="724" height="436" rx="8" fill="url(#plotBg)" stroke="#cbd5e1"/>
+  <rect x="414" y="152" width="236" height="34" rx="6" fill="#1f2937"/>
+  <text x="438" y="175" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#ffffff" font-weight="700">Plot 图形展示</text>
+  <rect x="666" y="152" width="152" height="34" rx="6" fill="#e2e8f0"/>
+  <text x="713" y="175" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#334155">Data</text>
+  <rect x="832" y="152" width="152" height="34" rx="6" fill="#e2e8f0"/>
+  <text x="878" y="175" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" fill="#334155">Text</text>
+
+  <g transform="translate(428 218)">
+    <line x1="0" y1="260" x2="620" y2="260" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="260" stroke="#94a3b8" stroke-width="2"/>
+    <g stroke="#e2e8f0" stroke-width="1">
+      <line x1="124" y1="0" x2="124" y2="260"/>
+      <line x1="248" y1="0" x2="248" y2="260"/>
+      <line x1="372" y1="0" x2="372" y2="260"/>
+      <line x1="496" y1="0" x2="496" y2="260"/>
+      <line x1="0" y1="65" x2="620" y2="65"/>
+      <line x1="0" y1="130" x2="620" y2="130"/>
+      <line x1="0" y1="195" x2="620" y2="195"/>
+    </g>
+    <path d="M0 235 C75 215 125 125 210 142 C294 159 334 62 412 82 C504 105 538 166 620 34" fill="none" stroke="#2563eb" stroke-width="4"/>
+    <path d="M0 220 C74 192 130 184 202 160 C285 132 348 139 420 116 C498 90 555 76 620 66" fill="none" stroke="#f97316" stroke-width="4" stroke-dasharray="10 8"/>
+    <text x="206" y="-18" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18" fill="#0f172a" font-weight="700">分析结果展现方式</text>
+    <text x="216" y="294" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="14" fill="#475569">曲线 / 散点 / 热图 / 栅格 / 报告</text>
+  </g>
+
+  <g font-family="Arial, 'Noto Sans SC', sans-serif" font-size="14" fill="#334155">
+    <rect x="430" y="514" width="112" height="24" rx="12" fill="#dbeafe"/>
+    <text x="456" y="532">曲线</text>
+    <rect x="560" y="514" width="112" height="24" rx="12" fill="#ffedd5"/>
+    <text x="586" y="532">散点</text>
+    <rect x="690" y="514" width="112" height="24" rx="12" fill="#dcfce7"/>
+    <text x="716" y="532">热图</text>
+    <rect x="820" y="514" width="112" height="24" rx="12" fill="#fef3c7"/>
+    <text x="846" y="532">数据表</text>
+    <rect x="950" y="514" width="112" height="24" rx="12" fill="#f3e8ff"/>
+    <text x="976" y="532">文本</text>
+  </g>
+</svg>

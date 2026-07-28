@@ -34,7 +34,7 @@ internal static partial class PythonOptilandJsonReader
         }
     }
 
-public static Optic Deserialize(string json, string name = "Imported Python Optiland")
+    public static Optic Deserialize(string json, string name = "Imported Python Optiland")
     {
         using var document = JsonDocument.Parse(NormalizePythonNumericTokens(json));
         var root = document.RootElement;

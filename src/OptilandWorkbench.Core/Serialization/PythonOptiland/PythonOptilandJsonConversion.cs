@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using OptilandWorkbench.Core.Apodization;
@@ -15,7 +16,7 @@ namespace OptilandWorkbench.Core.Serialization;
 
 internal static class PythonOptilandJsonConversion
 {
-internal static void FitVisualSemiDiameters(Optic optic, IReadOnlyList<ParsedSurface> parsedSurfaces)
+    internal static void FitVisualSemiDiameters(Optic optic, IReadOnlyList<ParsedSurface> parsedSurfaces)
     {
         var maxima = new double[optic.SurfaceGroup.Items.Count];
         var fields = new[] { 0.0, 0.5, 1.0 };
@@ -389,7 +390,11 @@ internal static void FitVisualSemiDiameters(Optic optic, IReadOnlyList<ParsedSur
                 "Infinity" => double.PositiveInfinity,
                 "-Infinity" => double.NegativeInfinity,
                 "NaN" => double.NaN,
-                var text when double.TryParse(text, out var parsed) => parsed,
+                var text when double.TryParse(
+                    text,
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out var parsed) => parsed,
                 _ => fallback
             };
         }

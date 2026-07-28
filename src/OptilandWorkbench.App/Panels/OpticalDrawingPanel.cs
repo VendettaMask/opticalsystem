@@ -65,6 +65,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     };
     private Bitmap? _previewBitmap;
     private byte[]? _companyLogoPng;
+    private long _previewGeneration;
     private bool _disposed;
     private bool _updating;
 
@@ -187,6 +188,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         }
 
         _disposed = true;
+        Interlocked.Increment(ref _previewGeneration);
         _events.Changed -= OnWorkspaceChanged;
         _preview.Source = null;
         _previewBitmap?.Dispose();
@@ -373,6 +375,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
     private async void UpdatePreview()
     {
+        var generation = Interlocked.Increment(ref _previewGeneration);
         try
         {
             if (_elementPicker.SelectedItem is ElementChoice { Element: null })
@@ -412,7 +415,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                 var systemBitmap = new Bitmap(systemStream);
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    if (_disposed)
+                    if (_disposed || generation != Interlocked.Read(ref _previewGeneration))
                     {
                         systemBitmap.Dispose();
                         return;
@@ -435,6 +438,12 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             var bytes = OpticalDrawingRenderer.RenderPreview(sheet);
             using var stream = new MemoryStream(bytes);
             var bitmap = new Bitmap(stream);
+            if (_disposed || generation != Interlocked.Read(ref _previewGeneration))
+            {
+                bitmap.Dispose();
+                return;
+            }
+
             _preview.Source = bitmap;
             _previewBitmap?.Dispose();
             _previewBitmap = bitmap;
@@ -442,14 +451,23 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         }
         catch (Exception exception)
         {
+            void ShowFailure()
+            {
+                if (_disposed || generation != Interlocked.Read(ref _previewGeneration))
+                {
+                    return;
+                }
+
+                _status.Text = $"预览失败：{exception.Message}";
+            }
+
             if (!Dispatcher.UIThread.CheckAccess())
             {
-                Dispatcher.UIThread.Post(() =>
-                    _status.Text = $"\u9884\u89c8\u5931\u8d25: {exception.Message}");
+                Dispatcher.UIThread.Post(ShowFailure);
                 return;
             }
 
-            _status.Text = $"预览失败：{exception.Message}";
+            ShowFailure();
         }
     }
 
@@ -688,14 +706,14 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         decimal maximum,
         decimal increment,
         string formatString = "0.###") => new()
-    {
-        Value = value,
-        Minimum = minimum,
-        Maximum = maximum,
-        Increment = increment,
-        FormatString = formatString,
-        MinHeight = 30
-    };
+        {
+            Value = value,
+            Minimum = minimum,
+            Maximum = maximum,
+            Increment = increment,
+            FormatString = formatString,
+            MinHeight = 30
+        };
 
     private static Button CommandButton(string iconName, string text, double minWidth) => new()
     {

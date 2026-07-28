@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-private void SetStatus(string status)
+    private void SetStatus(string status)
     {
         Status = status;
     }

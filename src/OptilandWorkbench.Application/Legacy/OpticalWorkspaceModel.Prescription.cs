@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public void NewBlank()
+    public void NewBlank()
     {
         ReplaceOptic(Optic.CreateBlank(), "已创建空白光学系统。");
     }

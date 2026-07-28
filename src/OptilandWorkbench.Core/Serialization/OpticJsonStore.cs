@@ -13,7 +13,9 @@ public static class OpticJsonStore
 
     public static async Task SaveAsync(Optic optic, string path, CancellationToken cancellationToken = default)
     {
-        var json = JsonSerializer.Serialize(optic.ToSnapshot(), Options);
+        var snapshot = optic.ToSnapshot();
+        OpticSnapshotValidator.Validate(snapshot);
+        var json = JsonSerializer.Serialize(snapshot, Options);
         await File.WriteAllTextAsync(path, json, cancellationToken);
     }
 

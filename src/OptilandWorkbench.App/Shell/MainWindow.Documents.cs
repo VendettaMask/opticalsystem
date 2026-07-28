@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
-private async Task OpenAsync()
+    private async Task OpenAsync()
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {

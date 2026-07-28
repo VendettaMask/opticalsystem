@@ -6,16 +6,16 @@ namespace OptilandWorkbench.App.Manufacturing;
 
 internal static partial class OpticalDrawingRendererCore
 {
-private static void DrawTitleBlock(
-        SKCanvas canvas,
-        OpticalDrawingSheet sheet,
-        float x,
-        float y,
-        float width,
-        float height,
-        SKPaint thin,
-        SKPaint medium,
-        string scaleDesignation)
+    private static void DrawTitleBlock(
+            SKCanvas canvas,
+            OpticalDrawingSheet sheet,
+            float x,
+            float y,
+            float width,
+            float height,
+            SKPaint thin,
+            SKPaint medium,
+            string scaleDesignation)
     {
         var brandWidth = width * 0.35f;
         var approvalWidth = width * 0.27f;

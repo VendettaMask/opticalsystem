@@ -478,7 +478,10 @@ internal static class ZemaxZmxReader
                 Radius = legacyRadius,
                 Thickness = thickness,
                 Material = isReflective ? "MIRROR" : materialAfter.Name,
-                SemiDiameter = Math.Max(0.1, source.SemiDiameter ?? 10),
+                SemiDiameter = source.SemiDiameter is { } semiDiameter
+                    && double.IsFinite(semiDiameter)
+                    ? Math.Max(0.1, semiDiameter)
+                    : 10,
                 SemiDiameterFixed = source.SemiDiameterFixed,
                 Conic = source.Conic,
                 IsStop = source.IsStop,
@@ -1064,7 +1067,7 @@ internal static class ZemaxZmxReader
     private static Vector3D ObjectSurfaceOrigin(double thickness)
     {
         return double.IsInfinity(thickness)
-            ? new Vector3D(0, 0, double.NegativeInfinity)
+            ? Vector3D.Zero
             : new Vector3D(0, 0, -thickness);
     }
 

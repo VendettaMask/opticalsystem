@@ -25,9 +25,9 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed partial class MaterialCatalogService
 {
-private static AnalysisViewDto BuildDispersionDiagram(
-        CatalogGlassMaterial? selected,
-        int sampleCount)
+    private static AnalysisViewDto BuildDispersionDiagram(
+            CatalogGlassMaterial? selected,
+            int sampleCount)
     {
         if (selected is null)
         {

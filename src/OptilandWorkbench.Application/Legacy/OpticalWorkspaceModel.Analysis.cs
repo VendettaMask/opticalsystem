@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public string BuildAnalysisReport()
+    public string BuildAnalysisReport()
     {
         return BuildAnalysisReport("Prescription Report");
     }

@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-private static string FormatAnalysisData(AnalysisData data)
+    private static string FormatAnalysisData(AnalysisData data)
     {
         var lines = new List<string> { $"分析：{DisplayAnalysisName(data.Name)}" };
         lines.AddRange(data.Values.Select(item => $"{DisplayAnalysisKey(item.Key)}：{FormatAnalysisValue(item.Value)}"));

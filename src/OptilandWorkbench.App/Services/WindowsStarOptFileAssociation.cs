@@ -46,7 +46,12 @@ internal static class WindowsStarOptFileAssociation
         string assemblyPath,
         string baseDirectory)
     {
-        var iconPath = Path.Combine(baseDirectory, "Assets", "Brand", "AppIcon.ico");
+        var iconPath = string.Join(
+            '\\',
+            baseDirectory.TrimEnd('\\', '/'),
+            "Assets",
+            "Brand",
+            "AppIcon.ico");
         var openCommand = BuildOpenCommand(processPath, assemblyPath);
         return new FileAssociationRegistration(
             Extension,
@@ -59,16 +64,23 @@ internal static class WindowsStarOptFileAssociation
     internal static string BuildOpenCommand(string? processPath, string assemblyPath)
     {
         if (!string.IsNullOrWhiteSpace(processPath)
-            && !string.Equals(
-                Path.GetFileNameWithoutExtension(processPath),
-                "dotnet",
-                StringComparison.OrdinalIgnoreCase))
+            && !IsDotnetHost(processPath))
         {
             return $"{Quote(processPath)} \"%1\"";
         }
 
         var dotnetPath = string.IsNullOrWhiteSpace(processPath) ? "dotnet" : processPath;
         return $"{Quote(dotnetPath)} {Quote(assemblyPath)} \"%1\"";
+    }
+
+    private static bool IsDotnetHost(string processPath)
+    {
+        var separator = Math.Max(
+            processPath.LastIndexOf('/'),
+            processPath.LastIndexOf('\\'));
+        var fileName = processPath[(separator + 1)..];
+        return fileName.Equals("dotnet", StringComparison.OrdinalIgnoreCase)
+            || fileName.Equals("dotnet.exe", StringComparison.OrdinalIgnoreCase);
     }
 
     [SupportedOSPlatform("windows")]

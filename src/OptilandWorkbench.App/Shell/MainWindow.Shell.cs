@@ -20,7 +20,7 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
-private Control BuildShell()
+    private Control BuildShell()
     {
         var root = new DockPanel();
         var ribbon = BuildRibbon();

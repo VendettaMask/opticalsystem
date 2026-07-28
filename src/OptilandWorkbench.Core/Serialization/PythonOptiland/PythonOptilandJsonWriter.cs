@@ -28,7 +28,7 @@ internal static partial class PythonOptilandJsonWriter
 
     internal static string NegativeInfinity => NegativeInfinitySentinel;
 
-public static string Serialize(Optic optic)
+    public static string Serialize(Optic optic)
     {
         var root = new Dictionary<string, object?>
         {

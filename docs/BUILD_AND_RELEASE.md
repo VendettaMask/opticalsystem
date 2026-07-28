@@ -2,17 +2,18 @@
 
 ## Local Build
 
-Use telemetry opt-out in restricted environments:
+Restore the committed dependency graph, then build without changing it:
 
 ```bash
+AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --locked-mode
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 ```
 
-If dependencies have not been restored yet:
+When intentionally changing a package reference, regenerate and review all
+`packages.lock.json` files before committing:
 
 ```bash
-AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx
-AVALONIA_TELEMETRY_OPTOUT=1 dotnet build OptilandWorkbench.slnx /m:1 /nr:false
+AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --force-evaluate
 ```
 
 ## Tests
@@ -101,13 +102,14 @@ to the application.
 
 The current local baseline is:
 
+- `dotnet restore OptilandWorkbench.slnx --locked-mode`
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
 Expected result as of 2026-07-28:
 
 - solution build: 0 warnings, 0 errors
-- tests: 532 passed, 0 failed, 0 skipped
+- tests: 542 passed, 0 failed, 0 skipped
 
 The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, scalar/SIMD and serial/parallel parity, all three trace-retention modes, total-internal-reflection medium state, reflection absorption, thin-lens OPL, early termination and exceptional surfaces, 30 Python-referenced analysis views plus the broader 67-entry desktop catalog, diffraction/extended-source encircled energy, extended image analysis, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, deterministic parallel Monte Carlo, cancellation, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, Zemax and bitmap file viewers, faceted STEP generation, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery.
 

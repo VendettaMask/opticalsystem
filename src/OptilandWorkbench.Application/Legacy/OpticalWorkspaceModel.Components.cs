@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-private OpticalSurface GetSurfaceByNumber(int surfaceNumber)
+    private OpticalSurface GetSurfaceByNumber(int surfaceNumber)
     {
         return Surfaces.First(surface => surface.Number == surfaceNumber);
     }

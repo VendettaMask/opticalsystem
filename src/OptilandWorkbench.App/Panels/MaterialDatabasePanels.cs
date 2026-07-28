@@ -912,12 +912,12 @@ internal sealed class LensLibraryPanel : UserControl
     private static TextBlock DetailValue(
         double fontSize = 14,
         FontWeight? fontWeight = null) => new()
-    {
-        FontSize = fontSize,
-        FontWeight = fontWeight ?? FontWeight.Normal,
-        VerticalAlignment = VerticalAlignment.Center,
-        TextWrapping = TextWrapping.Wrap
-    };
+        {
+            FontSize = fontSize,
+            FontWeight = fontWeight ?? FontWeight.Normal,
+            VerticalAlignment = VerticalAlignment.Center,
+            TextWrapping = TextWrapping.Wrap
+        };
 
     private static Button CommandButton(string iconName, string text) => new()
     {

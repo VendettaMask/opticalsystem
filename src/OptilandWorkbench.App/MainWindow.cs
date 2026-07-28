@@ -404,4 +404,4 @@ public sealed partial class MainWindow : Window
         _application.Dispose();
     }
 
-    }
+}

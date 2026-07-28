@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
-private async Task CopyReportAsync()
+    private async Task CopyReportAsync()
     {
         try
         {

@@ -642,15 +642,15 @@ public sealed class ViewerPanel : UserControl, IDisposable
         decimal maximum,
         decimal increment,
         decimal value) => new()
-    {
-        MinWidth = 140,
-        Height = 30,
-        Minimum = minimum,
-        Maximum = maximum,
-        Increment = increment,
-        Value = value,
-        ShowButtonSpinner = false
-    };
+        {
+            MinWidth = 140,
+            Height = 30,
+            Minimum = minimum,
+            Maximum = maximum,
+            Increment = increment,
+            Value = value,
+            ShowButtonSpinner = false
+        };
 
     private static int? SelectedValue(ComboBox picker) =>
         (picker.SelectedItem as SelectorItem)?.Index;

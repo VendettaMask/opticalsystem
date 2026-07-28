@@ -16,7 +16,7 @@ namespace OptilandWorkbench.Core.Serialization;
 
 internal static partial class PythonOptilandJsonReader
 {
-private static void ValidateUnsupportedRootContracts(JsonElement root)
+    private static void ValidateUnsupportedRootContracts(JsonElement root)
     {
         if (root.TryGetProperty("pickups", out var pickups) && IsNonEmptyCollection(pickups))
         {

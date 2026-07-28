@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string analysisName)
+    public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string analysisName)
     {
         var distributionChoices = new[] { "hexapolar", "uniform", "sobol", "random", "line_x", "line_y", "ring" };
         var primaryWavelengthNumber = Math.Max(

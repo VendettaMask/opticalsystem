@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public OptimizationResult OptimizeRadius(OpticalSurface surface)
+    public OptimizationResult OptimizeRadius(OpticalSurface surface)
     {
         CaptureCurrentState();
         var result = new SimpleOptimizer(CurrentOptic).OptimizeRadius(surface);

@@ -5,13 +5,34 @@ namespace OptilandWorkbench.Tests;
 public sealed class WorkspaceSessionTests
 {
     [Fact]
-    public void PathHashUsesNormalizedCaseInsensitiveAbsolutePath()
+    public void PathHashUsesActualFileSystemCaseSemantics()
     {
-        var first = WorkspaceSessionStore.PathHash(@"C:\Optics\Lens.zmx");
-        var second = WorkspaceSessionStore.PathHash(@"c:\optics\LENS.ZMX");
+        var root = TemporaryDirectory();
+        try
+        {
+            var actualPath = Path.Combine(root, "Lens.zmx");
+            var alternateCasePath = Path.Combine(root, "lENS.ZMX");
+            File.WriteAllText(actualPath, "lens");
 
-        Assert.Equal(first, second);
-        Assert.Equal(64, first.Length);
+            var first = WorkspaceSessionStore.PathHash(actualPath);
+            var second = WorkspaceSessionStore.PathHash(alternateCasePath);
+
+            if (File.Exists(alternateCasePath))
+            {
+                Assert.Equal(first, second);
+            }
+            else
+            {
+                Assert.NotEqual(first, second);
+            }
+
+            Assert.Equal(64, first.Length);
+            Assert.Equal(64, second.Length);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
     }
 
     [Fact]
@@ -38,8 +59,9 @@ public sealed class WorkspaceSessionTests
                 },
                 "analysis:spot");
 
-            await store.SaveAsync(@"C:\Optics\Lens.zmx", session);
-            var restored = await store.LoadAsync(@"c:\optics\LENS.ZMX");
+            var documentPath = Path.Combine(root, "Lens.zmx");
+            await store.SaveAsync(documentPath, session);
+            var restored = await store.LoadAsync(documentPath);
 
             Assert.NotNull(restored);
             Assert.Equal(session.ActiveDocumentId, restored.ActiveDocumentId);

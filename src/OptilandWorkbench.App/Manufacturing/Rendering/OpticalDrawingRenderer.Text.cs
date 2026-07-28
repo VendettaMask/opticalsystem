@@ -6,15 +6,15 @@ namespace OptilandWorkbench.App.Manufacturing;
 
 internal static partial class OpticalDrawingRendererCore
 {
-private static void DrawFittedText(
-        SKCanvas canvas,
-        string text,
-        float x,
-        float y,
-        float maxWidth,
-        float preferredSize,
-        SKTextAlign alignment,
-        bool bold = false)
+    private static void DrawFittedText(
+            SKCanvas canvas,
+            string text,
+            float x,
+            float y,
+            float maxWidth,
+            float preferredSize,
+            SKTextAlign alignment,
+            bool bold = false)
     {
         var size = preferredSize;
         while (size > 4.8f)

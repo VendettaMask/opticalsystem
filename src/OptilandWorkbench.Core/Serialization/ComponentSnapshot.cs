@@ -529,10 +529,7 @@ public static class ComponentSnapshotFactory
         {
             null => null,
             LambertianScatteringModel lambertian => new ComponentSnapshot("lambertian", new Dictionary<string, double> { ["scatterFraction"] = lambertian.ScatterFraction }, new Dictionary<string, string>()),
-            MeasuredBsdfScatteringModel measured => new ComponentSnapshot("measured_bsdf", new Dictionary<string, double>
-            {
-                ["sampleCount"] = measured.Samples.Count
-            }, new Dictionary<string, string>()),
+            MeasuredBsdfScatteringModel measured => FromMeasuredBsdf(measured),
             _ => ComponentSnapshot.Empty(scattering.Kind)
         };
     }
@@ -542,9 +539,45 @@ public static class ComponentSnapshotFactory
         return snapshot?.Kind switch
         {
             "lambertian" => new LambertianScatteringModel(Get(snapshot.Numbers, "scatterFraction", 0.02)),
-            "measured_bsdf" => new MeasuredBsdfScatteringModel(Array.Empty<(double AngleDegrees, double Value)>()),
+            "measured_bsdf" => new MeasuredBsdfScatteringModel(ReadMeasuredBsdfSamples(snapshot.Numbers)),
             _ => null
         };
+    }
+
+    private static ComponentSnapshot FromMeasuredBsdf(MeasuredBsdfScatteringModel measured)
+    {
+        var numbers = new Dictionary<string, double>
+        {
+            ["sampleCount"] = measured.Samples.Count
+        };
+        for (var index = 0; index < measured.Samples.Count; index++)
+        {
+            numbers[$"angle{index}"] = measured.Samples[index].AngleDegrees;
+            numbers[$"value{index}"] = measured.Samples[index].Value;
+        }
+
+        return new ComponentSnapshot("measured_bsdf", numbers, new Dictionary<string, string>());
+    }
+
+    private static IReadOnlyList<(double AngleDegrees, double Value)> ReadMeasuredBsdfSamples(
+        IReadOnlyDictionary<string, double> numbers)
+    {
+        var rawCount = Get(numbers, "sampleCount", 0);
+        var requestedCount = double.IsFinite(rawCount) && rawCount > 0
+            ? (int)Math.Min(rawCount, 1_000_000)
+            : 0;
+        var count = Math.Min(requestedCount, numbers.Count / 2);
+        var samples = new List<(double AngleDegrees, double Value)>(count);
+        for (var index = 0; index < count; index++)
+        {
+            if (numbers.TryGetValue($"angle{index}", out var angle)
+                && numbers.TryGetValue($"value{index}", out var value))
+            {
+                samples.Add((angle, value));
+            }
+        }
+
+        return samples;
     }
 
     private static double Get(IReadOnlyDictionary<string, double> values, string key, double fallback)

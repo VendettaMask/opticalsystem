@@ -210,7 +210,7 @@ public sealed class ZemaxImportTests
         Assert.Equal("SCHOTT", importedFlint.Manufacturer);
 
         var positions = optic.SurfaceGroup.Items.Select(surface => surface.CoordinateSystem.Origin.Z).ToArray();
-        Assert.Equal(double.NegativeInfinity, positions[0]);
+        Assert.Equal(0, positions[0]);
         Assert.Equal(new[] { 0.0, 4.0, 6.0, 14.0 }, positions.Skip(1));
     }
 
@@ -393,7 +393,16 @@ public sealed class ZemaxImportTests
             var expectedPosition = expectedSurfaces[index]
                 .GetProperty("geometry")
                 .GetProperty("position")[2];
-            Assert.Equal(ReadPythonNumber(expectedPosition), optic.SurfaceGroup.Items[index].CoordinateSystem.Origin.Z, precision: 12);
+            var expectedZ = ReadPythonNumber(expectedPosition);
+            if (index == 0 && double.IsNegativeInfinity(expectedZ))
+            {
+                expectedZ = 0;
+            }
+
+            Assert.Equal(
+                expectedZ,
+                optic.SurfaceGroup.Items[index].CoordinateSystem.Origin.Z,
+                precision: 12);
             Assert.Equal(
                 expectedSurfaces[index].GetProperty("is_stop").GetBoolean(),
                 optic.SurfaceGroup.Items[index].IsStop);

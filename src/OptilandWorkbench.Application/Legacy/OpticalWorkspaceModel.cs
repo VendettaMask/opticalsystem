@@ -216,4 +216,4 @@ public partial class OpticalWorkspaceModel
             : OpticalFormatCatalog.FindImporter(Path.GetExtension(path)).FormatName;
     }
 
-    }
+}

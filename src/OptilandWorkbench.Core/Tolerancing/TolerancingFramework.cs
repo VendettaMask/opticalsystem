@@ -350,7 +350,7 @@ public sealed class SensitivityAnalysis
                 }
                 finally
                 {
-                    _optic.ApplySnapshot(snapshot);
+                    _optic.RestoreTrustedSnapshot(snapshot);
                 }
             }
         }
@@ -391,7 +391,7 @@ public sealed class SensitivityAnalysis
             }
             finally
             {
-                _optic.ApplySnapshot(snapshot);
+                _optic.RestoreTrustedSnapshot(snapshot);
             }
         }
     }
@@ -509,7 +509,7 @@ public sealed class MonteCarlo
                 }
                 finally
                 {
-                    _optic.ApplySnapshot(snapshot);
+                    _optic.RestoreTrustedSnapshot(snapshot);
                 }
             }
         }

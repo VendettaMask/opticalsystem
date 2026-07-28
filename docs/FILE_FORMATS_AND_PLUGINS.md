@@ -12,7 +12,7 @@ Brotli-compression flags, compressed and uncompressed lengths, and a SHA-256 dig
 of the payload. The versioned payload stores all optical configurations and the
 active-configuration index. Saves use a temporary file and atomic replacement.
 
-Each configuration uses `OpticSnapshot`. The current snapshot schema stores:
+Each configuration uses schema-3 `OpticSnapshot`. The current snapshot schema stores:
 
 - optic name
 - aperture
@@ -22,6 +22,14 @@ Each configuration uses `OpticSnapshot`. The current snapshot schema stores:
 - surfaces
 - rich surface component snapshots
 - radius pickups, solves, merit operands, and environment settings
+
+Container integrity is only the first validation layer. Before construction, the
+loader also requires non-empty field/wavelength/surface tables, exactly one finite
+positive primary wavelength, finite physical and environmental state, contiguous
+surface numbering, known component layouts, bounded encoded collections, and
+valid pickup/solve/merit references. Construction happens in a temporary `Optic`;
+the active state is replaced only after every component succeeds. Schemas 1 and 2
+are migrated into safe schema-3 state before validation.
 
 The loader recognizes STAROPT by both extension and content. See
 [STAROPT Project Format](STAROPT_FILE_FORMAT.md) for the binary layout and

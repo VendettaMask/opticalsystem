@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
-private void RebuildParameterPanel()
+    private void RebuildParameterPanel()
     {
         _parameterPanel.Children.Clear();
         _parameterControls.Clear();

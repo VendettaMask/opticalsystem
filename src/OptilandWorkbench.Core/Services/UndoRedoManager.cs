@@ -4,8 +4,20 @@ namespace OptilandWorkbench.Core.Services;
 
 public sealed class UndoRedoManager
 {
-    private readonly Stack<OpticSnapshot> _undo = new();
-    private readonly Stack<OpticSnapshot> _redo = new();
+    private readonly LinkedList<OpticSnapshot> _undo = new();
+    private readonly LinkedList<OpticSnapshot> _redo = new();
+
+    public UndoRedoManager(int capacity = 100)
+    {
+        if (capacity <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(capacity), "撤销历史容量必须大于零。");
+        }
+
+        Capacity = capacity;
+    }
+
+    public int Capacity { get; }
 
     public bool CanUndo => _undo.Count > 0;
 
@@ -13,7 +25,7 @@ public sealed class UndoRedoManager
 
     public void Capture(Optic optic)
     {
-        _undo.Push(optic.ToSnapshot());
+        AddBounded(_undo, optic.ToSnapshot());
         _redo.Clear();
     }
 
@@ -25,8 +37,9 @@ public sealed class UndoRedoManager
         }
 
         var current = optic.ToSnapshot();
-        var previous = _undo.Pop();
-        _redo.Push(current);
+        var previous = _undo.Last!.Value;
+        _undo.RemoveLast();
+        AddBounded(_redo, current);
         optic.ApplySnapshot(previous);
         return true;
     }
@@ -39,8 +52,9 @@ public sealed class UndoRedoManager
         }
 
         var current = optic.ToSnapshot();
-        var next = _redo.Pop();
-        _undo.Push(current);
+        var next = _redo.Last!.Value;
+        _redo.RemoveLast();
+        AddBounded(_undo, current);
         optic.ApplySnapshot(next);
         return true;
     }
@@ -49,5 +63,14 @@ public sealed class UndoRedoManager
     {
         _undo.Clear();
         _redo.Clear();
+    }
+
+    private void AddBounded(LinkedList<OpticSnapshot> history, OpticSnapshot snapshot)
+    {
+        history.AddLast(snapshot);
+        if (history.Count > Capacity)
+        {
+            history.RemoveFirst();
+        }
     }
 }

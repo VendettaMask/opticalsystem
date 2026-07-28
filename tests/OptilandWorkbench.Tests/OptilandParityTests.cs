@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
@@ -1145,12 +1146,10 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void LeastSquaresBuildsIndependentJacobianColumnsConcurrently()
+    public void LeastSquaresBuildsEveryIndependentJacobianColumn()
     {
         var values = new double[4];
-        var active = 0;
-        var maximumActive = 0;
-        var concurrencyGate = new object();
+        var evaluations = new ConcurrentQueue<double[]>();
         var problem = new OptimizationProblem();
         for (var index = 0; index < values.Length; index++)
         {
@@ -1171,22 +1170,24 @@ public sealed class OptilandParityTests
 
         problem.SetIndependentValueEvaluator(vector =>
         {
-            var current = Interlocked.Increment(ref active);
-            lock (concurrencyGate)
-            {
-                maximumActive = Math.Max(maximumActive, current);
-            }
-            Thread.Sleep(15);
-            Interlocked.Decrement(ref active);
+            evaluations.Enqueue(vector.ToArray());
             return vector.ToArray();
         });
 
         OptimizerCatalog.Create("LM / DLS").Optimize(problem, maxIterations: 1);
 
-        if (Environment.ProcessorCount > 1)
-        {
-            Assert.True(maximumActive > 1, $"Expected concurrent columns, observed {maximumActive}.");
-        }
+        var perturbedColumns = evaluations
+            .Select(vector => vector
+                .Select((value, index) => (value, index))
+                .Where(item => Math.Abs(item.value) > 1e-12)
+                .Select(item => item.index)
+                .ToArray())
+            .Where(indices => indices.Length == 1)
+            .Select(indices => indices[0])
+            .Distinct()
+            .Order()
+            .ToArray();
+        Assert.Equal(new[] { 0, 1, 2, 3 }, perturbedColumns);
     }
 
     [Fact]
@@ -1280,7 +1281,7 @@ public sealed class OptilandParityTests
         var optic = Optic.CreateDemo();
         var snapshot = optic.ToSnapshot();
 
-        Assert.Equal(2, snapshot.SchemaVersion);
+        Assert.Equal(OpticSnapshotValidator.CurrentSchemaVersion, snapshot.SchemaVersion);
         Assert.NotNull(snapshot.Aperture);
         Assert.NotNull(snapshot.BackendName);
         Assert.All(snapshot.Surfaces, surface => Assert.NotNull(surface.Components));

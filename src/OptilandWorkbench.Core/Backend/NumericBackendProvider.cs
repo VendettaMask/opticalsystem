@@ -33,4 +33,16 @@ public sealed class NumericBackendProvider
 
         Current = backend;
     }
+
+    internal NumericBackendProvider Clone()
+    {
+        var clone = new NumericBackendProvider();
+        foreach (var backend in _backends.Values)
+        {
+            clone.Register(backend);
+        }
+
+        clone.SetBackend(Current.Name);
+        return clone;
+    }
 }

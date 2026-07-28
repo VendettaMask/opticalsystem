@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public IReadOnlyList<MultiConfigurationRow> GetMultiConfigurationRows()
+    public IReadOnlyList<MultiConfigurationRow> GetMultiConfigurationRows()
     {
         SyncActiveConfigurationFromCurrent();
         return _multiConfiguration.Configurations

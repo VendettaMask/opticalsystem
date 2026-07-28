@@ -1,6 +1,7 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 
@@ -180,6 +181,54 @@ public sealed class CoreArchitectureTests
         Assert.False(restored.Environment.MatchRefractiveIndexData);
         Assert.Equal(27.5, restored.Environment.TemperatureCelsius, precision: 12);
         Assert.Equal(0.92, restored.Environment.PressureAtmospheres, precision: 12);
+    }
+
+    [Fact]
+    public void SnapshotPreservesMeasuredBsdfSamples()
+    {
+        var optic = Optic.CreateDemo();
+        var samples = new[]
+        {
+            (AngleDegrees: 0.0, Value: 0.01),
+            (AngleDegrees: 12.5, Value: 0.08),
+            (AngleDegrees: 40.0, Value: 0.22)
+        };
+        optic.SurfaceGroup.Items[2].ScatteringModel = new MeasuredBsdfScatteringModel(samples);
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        var measured = Assert.IsType<MeasuredBsdfScatteringModel>(
+            restored.SurfaceGroup.Items[2].ScatteringModel);
+        Assert.Equal(samples, measured.Samples);
+    }
+
+    [Fact]
+    public void UndoHistoryEvictsOldestSnapshotsAtCapacity()
+    {
+        var optic = Optic.CreateDemo();
+        var surface = optic.SurfaceGroup.Items[2];
+        var originalRadius = surface.Radius;
+        var undoRedo = new UndoRedoManager(capacity: 2);
+
+        surface.Radius = originalRadius + 1;
+        undoRedo.Capture(optic);
+        surface.Radius = originalRadius + 2;
+        undoRedo.Capture(optic);
+        surface.Radius = originalRadius + 3;
+        undoRedo.Capture(optic);
+        surface.Radius = originalRadius + 4;
+
+        Assert.True(undoRedo.TryUndo(optic));
+        Assert.Equal(
+            originalRadius + 3,
+            optic.SurfaceGroup.Items[2].Radius,
+            precision: 12);
+        Assert.True(undoRedo.TryUndo(optic));
+        Assert.Equal(
+            originalRadius + 2,
+            optic.SurfaceGroup.Items[2].Radius,
+            precision: 12);
+        Assert.False(undoRedo.TryUndo(optic));
     }
 
     [Fact]

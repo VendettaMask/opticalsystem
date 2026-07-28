@@ -22,7 +22,7 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-public bool Undo()
+    public bool Undo()
     {
         var changed = _undoRedo.TryUndo(CurrentOptic);
         if (changed)

@@ -19,7 +19,7 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
-private async Task ImportZemaxAsync()
+    private async Task ImportZemaxAsync()
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
