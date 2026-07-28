@@ -500,10 +500,13 @@ public sealed class RayFanAnalysis : BaseAnalysis
             wavelength.Micrometers,
             pupilSamples,
             applyVignettingFactors: !vignettedPupil);
-        return optic.SequentialRayTracer.Trace(bundle).RayHistories.Select(history =>
+        var surfaceIndex = optic.SurfaceGroup.Items.IndexOf(targetSurface);
+        using var trace = optic.SequentialRayTracer.Trace(
+            bundle,
+            TraceRequest.Selected(new[] { surfaceIndex }));
+        return trace.GetSurfaceSamples(surfaceIndex).Select(sampleValue =>
         {
-            var sample = history.LastOrDefault(item => item.SurfaceNumber == targetSurface.Number);
-            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
+            if (sampleValue is not { } sample || sample.Vignetted || sample.Intensity <= 0)
             {
                 return new RayFanSample(double.NaN, 0);
             }

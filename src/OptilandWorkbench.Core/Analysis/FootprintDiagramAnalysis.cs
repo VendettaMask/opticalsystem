@@ -68,11 +68,23 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     field.NormalizedY,
                     wavelength.Micrometers,
                     pupilSamples);
-                var trace = Optic.SequentialRayTracer.Trace(bundle);
+                var surfaceIndex = Optic.SurfaceGroup.Items.IndexOf(surface);
+                var finalSurfaceIndex = Optic.SurfaceGroup.Items.Count - 1;
+                var retainedSurfaces = _deleteVignetted && surfaceIndex != finalSurfaceIndex
+                    ? new[] { surfaceIndex, finalSurfaceIndex }
+                    : new[] { surfaceIndex };
+                using var trace = Optic.SequentialRayTracer.Trace(
+                    bundle,
+                    TraceRequest.Selected(retainedSurfaces));
                 launchedRayCount += bundle.Rays.Count;
 
-                var points = trace.RayHistories
-                    .Select(history => FootprintPoint(history, surface))
+                var points = Enumerable.Range(0, trace.RayCount)
+                    .Select(rayIndex => FootprintPoint(
+                        trace,
+                        rayIndex,
+                        surfaceIndex,
+                        finalSurfaceIndex,
+                        surface))
                     .Where(point => point is not null)
                     .Select(point => point!)
                     .ToArray();
@@ -150,24 +162,19 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         return new[] { fields[Math.Clamp(_fieldNumber - 1, 0, fields.Length - 1)] };
     }
 
-    private AnalysisPoint? FootprintPoint(IReadOnlyList<RayTraceSample> history, OpticalSurface surface)
+    private AnalysisPoint? FootprintPoint(
+        RequestedTrace trace,
+        int rayIndex,
+        int surfaceIndex,
+        int finalSurfaceIndex,
+        OpticalSurface surface)
     {
-        var selectedIndex = -1;
-        for (var index = 0; index < history.Count; index++)
-        {
-            if (history[index].SurfaceNumber == surface.Number)
-            {
-                selectedIndex = index;
-                break;
-            }
-        }
-
-        if (selectedIndex < 0 || history.Take(selectedIndex).Any(sample => sample.Vignetted || sample.Intensity <= 0))
+        if (!trace.TryGetSample(rayIndex, surfaceIndex, out var selected))
         {
             return null;
         }
 
-        var local = surface.CoordinateSystem.ToLocalPoint(history[selectedIndex].Position);
+        var local = surface.CoordinateSystem.ToLocalPoint(selected.Position);
         var sag = surface.Geometry.Sag(local.X, local.Y);
         var surfaceTolerance = 1e-7 * Math.Max(1, Math.Abs(sag));
         if (!double.IsFinite(sag) || Math.Abs(local.Z - sag) > surfaceTolerance)
@@ -175,7 +182,13 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
             return null;
         }
 
-        if (_deleteVignetted && history.Skip(selectedIndex).Any(sample => sample.Vignetted || sample.Intensity <= 0))
+        if (_deleteVignetted
+            && (selected.Vignetted
+                || selected.Intensity <= 0
+                || (surfaceIndex != finalSurfaceIndex
+                    && (!trace.TryGetSample(rayIndex, finalSurfaceIndex, out var finalSample)
+                        || finalSample.Vignetted
+                        || finalSample.Intensity <= 0))))
         {
             return null;
         }

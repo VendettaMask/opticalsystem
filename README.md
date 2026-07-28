@@ -7,8 +7,8 @@ The implementation is being built in small git milestones. The current codebase 
 - A central `Optic` object with aperture, fields, wavelengths, surfaces, backend selection, ray tracers, analysis, optimization, tolerancing, pickups, solves, and multi-configuration entry points.
 - A composition-based surface model: `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + optional Scattering + CoordinateSystem`, while retaining GUI-compatible legacy table fields.
 - An embedded 1,740-entry compatibility library plus a bundled 63-catalog Zemax glass database containing 5,502 AGF records, with manufacturer-aware lookup, all 13 Zemax dispersion formulas, thermal/mechanical/transmission metadata, and wavelength-dependent refractive-index/extinction calculations. The Zemax source catalogs are converted once into the Workbench-owned compressed `.ogdb` format.
-- Managed CPU backend abstraction through `INumericBackend`.
-- Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, refraction/reflection, coating/scattering hooks, Python-style angle/object-height/paraxial-image-height fields plus Zemax real-image-height chief-ray solving, vignetting and object-space telecentric launch, normalized `Trace`/`TraceGeneric` entry points, and per-surface geometric path, optical path, OPD, and recorded array data.
+- Managed CPU backend abstraction through the compatible scalar `INumericBackend` plus optional `IBatchedNumericBackend`; the built-in backend uses `System.Numerics.Vector<double>` SIMD for the common sequential path and falls back to scalar kernels for unsupported surfaces.
+- Sequential real-ray tracing with surface-owned trace kernels, local coordinates, aperture clipping, explicit transmitted/reflected/total-internal-reflection outcomes, coating/scattering hooks, Python-style angle/object-height/paraxial-image-height fields plus Zemax real-image-height chief-ray solving, vignetting and object-space telecentric launch. `TraceRequest` selects final-only, selected-surface, or full-history retention; pooled SoA state, deterministic parallel tracing, and shared flat result views keep large ray bundles bounded by the number of retained surfaces while legacy `Trace` entry points remain compatible.
 - Plane, standard, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, and placeholder geometry models for not-yet-implemented freeforms.
 - Air/vacuum, constant-index, Cauchy, Sellmeier, polynomial-dispersion, Abbe, catalog extinction, and absorption support.
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
@@ -71,7 +71,7 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 ```
 
 In restricted sandboxes, VSTest may need permission to bind a local socket. The
-validated baseline as of 2026-07-28 is a zero-warning solution build and 513
+validated baseline as of 2026-07-28 is a zero-warning solution build and 532
 passing tests; details are recorded in
 [Build and release](docs/BUILD_AND_RELEASE.md).
 
@@ -106,6 +106,7 @@ docs                         Architecture, parity, file format, plugin, and rele
 See:
 
 - [Architecture](docs/ARCHITECTURE.md)
+- [Large-scale ray tracing performance](docs/RAY_TRACING_PERFORMANCE.md)
 - [Python Optiland parity audit](docs/PYTHON_PARITY_AUDIT.md)
 - [Parity matrix](docs/PARITY_MATRIX.md)
 - [File formats and plugins](docs/FILE_FORMATS_AND_PLUGINS.md)

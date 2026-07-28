@@ -640,7 +640,8 @@ public sealed record TolerancingRequestDto(
     int CompensationIterations,
     IReadOnlyList<ToleranceOperandDto>? Operands = null,
     ToleranceCriterion Criterion = ToleranceCriterion.RmsSpotRadius,
-    double YieldLimit = 0);
+    double YieldLimit = 0,
+    int MaxDegreeOfParallelism = -1);
 
 public sealed record TolerancingSensitivityRowDto(
     string Perturbation,

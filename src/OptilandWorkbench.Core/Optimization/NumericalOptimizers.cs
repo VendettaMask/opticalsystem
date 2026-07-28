@@ -130,7 +130,11 @@ internal static class LevenbergMarquardtSearch
                 0,
                 origin.Count,
                 new ParallelOptions { MaxDegreeOfParallelism = Math.Min(origin.Count, Environment.ProcessorCount) },
-                EvaluateColumn);
+                column =>
+                {
+                    using var parallelism = ComputationParallelism.SuppressNestedParallelism();
+                    EvaluateColumn(column);
+                });
         }
         else
         {

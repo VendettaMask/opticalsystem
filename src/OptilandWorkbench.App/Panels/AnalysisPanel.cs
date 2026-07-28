@@ -86,25 +86,23 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         var exportButton = CommandButton("upload", "导出文本", 96);
         exportButton.Click += async (_, _) => await ExportReportAsync();
 
-        var settingsArrow = new LocalIcon
+        var settingsIcon = new LocalIcon
         {
-            IconName = "chevron-right",
+            IconName = "circle-chevron-down",
             Width = 16,
             Height = 16,
             VerticalAlignment = VerticalAlignment.Center
         };
         var settingsButton = new Button
         {
-            MinWidth = 84,
-            Height = 30,
-            Padding = new Thickness(8, 2),
+            MinWidth = 72,
             Content = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
                 Spacing = 4,
                 Children =
                 {
-                    settingsArrow,
+                    settingsIcon,
                     new TextBlock { Text = "设置", VerticalAlignment = VerticalAlignment.Center }
                 }
             }
@@ -122,10 +120,13 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _stateText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         _settingsHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
         _settingsHost.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        StyleToolbarButton(settingsButton, iconOnly: false);
         settingsButton.Click += (_, _) =>
         {
             _settingsHost.IsVisible = !_settingsHost.IsVisible;
-            settingsArrow.IconName = _settingsHost.IsVisible ? "chevron-down" : "chevron-right";
+            settingsIcon.IconName = _settingsHost.IsVisible
+                ? "circle-chevron-up"
+                : "circle-chevron-down";
         };
 
         var commands = new WrapPanel
@@ -140,9 +141,9 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _stateText
             }
         };
-        _syncButton.Margin = new Thickness(6, 0, 0, 0);
-        copyButton.Margin = new Thickness(6, 0, 0, 0);
-        exportButton.Margin = new Thickness(6, 0, 8, 0);
+        _syncButton.Margin = new Thickness(2, 0, 0, 0);
+        copyButton.Margin = new Thickness(2, 0, 0, 0);
+        exportButton.Margin = new Thickness(2, 0, 8, 0);
 
         var toolbar = new StackPanel
         {

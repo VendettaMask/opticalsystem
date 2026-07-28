@@ -33,7 +33,8 @@ public TolerancingView RunTolerancing(
         IReadOnlyList<ToleranceOperandDto>? operands = null,
         ToleranceCriterion criterion = ToleranceCriterion.RmsSpotRadius,
         double yieldLimit = 0,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        int maxDegreeOfParallelism = -1)
     {
         cancellationToken.ThrowIfCancellationRequested();
         surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();
@@ -76,7 +77,19 @@ public TolerancingView RunTolerancing(
                 Math.Clamp(trials, 1, 10_000),
                 seed,
                 compensationIterations,
-                cancellationToken);
+                cancellationToken,
+                workerOptic => configuredOperands is { Length: > 0 }
+                    ? BuildConfiguredTolerancingWorker(workerOptic, configuredOperands, criterion)
+                    : BuildDefaultTolerancingWorker(
+                        workerOptic,
+                        surface.Number,
+                        radiusSigma,
+                        thicknessSigma,
+                        compensationIterations,
+                        criterion),
+                maxDegreeOfParallelism: maxDegreeOfParallelism == -1
+                    ? Math.Max(1, Environment.ProcessorCount)
+                    : maxDegreeOfParallelism);
         var monteCarlo = trialResults
             .Select(result => new TolerancingTrialRow(
                 result.Trial + 1,

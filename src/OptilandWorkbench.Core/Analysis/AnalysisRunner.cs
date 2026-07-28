@@ -86,10 +86,10 @@ public sealed class AnalysisRunner
 
     public WavefrontSummary EvaluateWavefront()
     {
-        var trace = _optic.SequentialRayTracer.Trace();
-        var finalSamples = trace.RayHistories
-            .Where(history => history.Count > 0)
-            .Select(history => history[^1])
+        var bundle = _optic.SequentialRayTracer.RayGenerator.Generate();
+        var finalSamples = _optic.SequentialRayTracer.TraceFinalSamples(bundle)
+            .Where(sample => sample is not null)
+            .Select(sample => sample!)
             .ToArray();
         var validSamples = finalSamples
             .Where(sample => !sample.Vignetted && sample.Intensity > 0)
@@ -197,12 +197,12 @@ public sealed class AnalysisRunner
 
     private IReadOnlyList<SpotSample> CollectFinalImageSamples(RealRayBundle? bundle = null, double imagePlaneOffset = 0)
     {
-        var trace = bundle is null ? _optic.SequentialRayTracer.Trace() : _optic.SequentialRayTracer.Trace(bundle);
-        return trace.RayHistories
-            .Where(history => history.Count > 0)
-            .Select(history =>
+        bundle ??= _optic.SequentialRayTracer.RayGenerator.Generate();
+        return _optic.SequentialRayTracer.TraceFinalSamples(bundle)
+            .Where(sample => sample is not null)
+            .Select(sampleValue =>
             {
-                var sample = history[^1];
+                var sample = sampleValue!;
                 var position = sample.Position;
                 if (Math.Abs(imagePlaneOffset) > 1e-12 && Math.Abs(sample.Direction.Z) > 1e-12)
                 {

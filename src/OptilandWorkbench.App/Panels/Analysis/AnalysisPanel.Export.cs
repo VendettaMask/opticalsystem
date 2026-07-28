@@ -84,24 +84,59 @@ private async Task CopyReportAsync()
         Margin = new Thickness(10, 0, 4, 0)
     };
 
-    private static Button CommandButton(string iconName, string text, double minWidth) => new()
+    private static Button CommandButton(string iconName, string text, double minWidth)
     {
-        Content = new LocalIconLabel(iconName, text),
-        MinWidth = minWidth
-    };
+        var button = new Button
+        {
+            Content = new LocalIconLabel(iconName, text),
+            MinWidth = minWidth
+        };
+        StyleToolbarButton(button, iconOnly: false);
+        return button;
+    }
 
     private static Button IconButton(string iconName, string tooltip)
     {
         var button = new Button
         {
-            Content = new LocalIcon { IconName = iconName, Width = 18, Height = 18 },
-            Width = 34,
-            Height = 30,
+            Content = new LocalIcon { IconName = iconName, Width = 17, Height = 17 },
             MinWidth = 0,
-            MinHeight = 0,
-            Padding = new Thickness(0)
+            MinHeight = 0
         };
+        StyleToolbarButton(button, iconOnly: true);
         ToolTip.SetTip(button, tooltip);
         return button;
     }
+
+    private static void StyleToolbarButton(Button button, bool iconOnly)
+    {
+        button.Height = 28;
+        button.MinHeight = 28;
+        button.Padding = iconOnly ? new Thickness(0) : new Thickness(7, 2);
+        button.CornerRadius = new CornerRadius(4);
+        button.BorderThickness = new Thickness(1);
+        if (iconOnly)
+        {
+            button.Width = 30;
+        }
+
+        button.Background = Brushes.Transparent;
+        button.BorderBrush = Brushes.Transparent;
+        button.PointerEntered += (_, _) =>
+        {
+            button.Background = ToolbarBrush(button, ThemeResourceBindings.Hover);
+            button.BorderBrush = ToolbarBrush(button, ThemeResourceBindings.HoverBorder);
+        };
+        button.PointerExited += (_, _) =>
+        {
+            button.Background = Brushes.Transparent;
+            button.BorderBrush = Brushes.Transparent;
+        };
+    }
+
+    private static IBrush ToolbarBrush(Control control, string resourceKey) =>
+        control.TryFindResource(resourceKey, control.ActualThemeVariant, out var value)
+        && value is IBrush brush
+            ? brush
+            : Brushes.Transparent;
 }

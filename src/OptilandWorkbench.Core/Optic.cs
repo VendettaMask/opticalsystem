@@ -97,6 +97,34 @@ public sealed class Optic
             wavelengthMicrometers);
     }
 
+    public Rays.RayTraceSample? TraceGenericFinalSample(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers) =>
+        SequentialRayTracer.TraceGenericFinalSample(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers);
+
+    public Rays.RayTraceSample? TraceGenericSurfaceSample(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers,
+        int surfaceIndex) =>
+        SequentialRayTracer.TraceGenericSurfaceSample(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers,
+            surfaceIndex);
+
     public Optimization.OptimizationProblem CreateOptimizationProblem()
     {
         return new Optimization.OptimizationProblem();

@@ -96,6 +96,14 @@ public static class JonesPupilEngine
             var outgoing = Normalize(sample.Direction);
             var materialAfter = surface.MaterialAfter;
 
+            var localPoint = surface.CoordinateSystem.ToLocalPoint(sample.Position);
+            var normal = Normalize(surface.CoordinateSystem.ToGlobalDirection(
+                surface.Geometry.SurfaceNormal(localPoint)));
+            if (Dot(incoming, normal) > 0)
+            {
+                normal = -normal;
+            }
+            var reflected = surface.IsReflective || Dot(outgoing, normal) > 0;
             var s = Cross(incoming, outgoing);
             if (s.Length <= 1e-14)
             {
@@ -110,19 +118,17 @@ public static class JonesPupilEngine
             var jones = ComplexMatrix3x3.Identity;
             if (useFresnelCoatings)
             {
-                var localPoint = surface.CoordinateSystem.ToLocalPoint(sample.Position);
-                var normal = Normalize(surface.CoordinateSystem.ToGlobalDirection(surface.Geometry.SurfaceNormal(localPoint)));
                 var cosine = Math.Clamp(Math.Abs(Dot(normal, incoming)), -1, 1);
                 jones = FresnelMatrix(
                     materialBefore.RefractiveIndex(wavelength.Nanometers),
                     materialAfter.RefractiveIndex(wavelength.Nanometers),
                     cosine,
-                    surface.IsReflective);
+                    reflected);
             }
 
             polarization = oOut * jones * oIn * polarization;
             incoming = outgoing;
-            materialBefore = materialAfter;
+            materialBefore = reflected ? materialBefore : materialAfter;
         }
 
         var k = incoming;

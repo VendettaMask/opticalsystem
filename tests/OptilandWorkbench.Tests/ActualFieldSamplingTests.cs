@@ -41,11 +41,6 @@ public sealed class ActualFieldSamplingTests
             settings: new MtfComputationSettings(GeometricRayCount: 4)).GenerateData();
         AssertSeriesFields(mtf.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: true);
 
-        var illumination = new RelativeIlluminationAnalysis(
-            optic,
-            rayDensity: 5,
-            fieldDensity: 101).GenerateData();
-        AssertSeriesFields(illumination.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: true);
 
         var incidentAngle = new IncidentAngleVsHeightAnalysis(
             optic,

@@ -23,6 +23,16 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 
 VSTest opens a local socket. Some sandboxes need elevated permission for that test run.
 
+## Performance benchmark
+
+The dependency-free benchmark covers 10,000 and 100,000 rays through a representative 20-surface system in final-only, selected-surface, full-history, PSF/MTF sampling, and Monte Carlo modes:
+
+```bash
+dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
+```
+
+Pass one or more ray counts to override the defaults. Output is CSV with elapsed time, throughput, total allocation, managed heap size, and process peak working set. Timing is diagnostic rather than a CI threshold; compare runs on the same machine and runtime.
+
 ## Run Desktop App
 
 One-click launchers from the repository root:
@@ -97,9 +107,9 @@ The current local baseline is:
 Expected result as of 2026-07-28:
 
 - solution build: 0 warnings, 0 errors
-- tests: 513 passed, 0 failed, 0 skipped
+- tests: 532 passed, 0 failed, 0 skipped
 
-The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, 30 Python-referenced analysis views plus the broader 67-entry desktop catalog, diffraction/extended-source encircled energy, extended image analysis, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, compensated Monte Carlo statistics, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, Zemax and bitmap file viewers, faceted STEP generation, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery.
+The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, scalar/SIMD and serial/parallel parity, all three trace-retention modes, total-internal-reflection medium state, reflection absorption, thin-lens OPL, early termination and exceptional surfaces, 30 Python-referenced analysis views plus the broader 67-entry desktop catalog, diffraction/extended-source encircled energy, extended image analysis, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, deterministic parallel Monte Carlo, cancellation, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, Zemax and bitmap file viewers, faceted STEP generation, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery.
 
 Regenerate Python fixtures only when intentionally updating the pinned `optiland==0.5.8` contract or its embedded CC0 glass data:
 

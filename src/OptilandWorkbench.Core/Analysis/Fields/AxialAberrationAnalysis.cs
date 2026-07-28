@@ -112,10 +112,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
 
         try
         {
-            var sample = Optic.TraceGeneric(0, 0, 0, pupil, wavelengthMicrometers)
-                .RayHistories
-                .SingleOrDefault()?
-                .LastOrDefault();
+            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupil, wavelengthMicrometers);
             if (sample is null || sample.Intensity <= 0 || Math.Abs(sample.Direction.Y) <= 1e-15)
             {
                 return double.NaN;

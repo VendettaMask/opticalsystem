@@ -418,7 +418,8 @@ public static class ImageSimulationEngine
             for (var column = 0; column < numGridPoints; column++)
             {
                 var hx = -1 + (2.0 * column / (numGridPoints - 1));
-                var final = optic.TraceGeneric(hx, hy, 0, 0, wavelength.Micrometers).RayHistories.Single()[^1];
+                var final = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers)
+                    ?? throw new InvalidOperationException("Distortion-grid ray did not reach the image surface.");
                 realX[index] = final.Position.X;
                 realY[index] = final.Position.Y;
                 fieldX[index] = hx;
@@ -427,7 +428,8 @@ public static class ImageSimulationEngine
             }
         }
 
-        var center = optic.TraceGeneric(0, 0, 0, 0, wavelength.Micrometers).RayHistories.Single()[^1].Position;
+        var center = optic.TraceGenericFinalSample(0, 0, 0, 0, wavelength.Micrometers)?.Position
+            ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
         for (index = 0; index < count; index++)
         {
             realX[index] -= center.X;

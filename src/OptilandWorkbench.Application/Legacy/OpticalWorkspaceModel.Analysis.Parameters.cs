@@ -582,7 +582,13 @@ public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string a
             "Relative Illumination" => new[]
             {
                 IntParameter("RayDensity", "光线密度", "10", 5, 128),
+                IntParameter("FieldDensity", "视场密度", "21", 2, 201),
                 IntParameter("WavelengthNumber", "波长序号（0=主波长）", "0", 0, 128),
+                ChoiceParameter(
+                    "ScanDirection",
+                    "扫描方向",
+                    "+y",
+                    new[] { "+y", "+x", "-y", "-x" }),
                 BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
             },
             "Incoherent Irradiance" => new[]

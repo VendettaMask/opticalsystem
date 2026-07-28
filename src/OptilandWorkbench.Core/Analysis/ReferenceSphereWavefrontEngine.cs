@@ -42,7 +42,9 @@ public static class ReferenceSphereWavefrontEngine
             field.Hy,
             wavelength.Micrometers,
             pupilSamples);
-        var trace = optic.SequentialRayTracer.Trace(bundle);
+        using var trace = optic.SequentialRayTracer.Trace(bundle, TraceRequest.FinalOnly(false));
+        var finalSurfaceIndex = optic.SurfaceGroup.Items.Count - 1;
+        var finalSamples = trace.GetSurfaceSamples(finalSurfaceIndex);
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter
             .RefractiveIndex(wavelength.Nanometers);
         var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field);
@@ -50,13 +52,13 @@ public static class ReferenceSphereWavefrontEngine
         var rays = new List<PreparedRay>(pupilSamples.Count);
         for (var index = 0; index < pupilSamples.Count; index++)
         {
-            var history = trace.RayHistories[index];
-            if (history.Count == 0)
+            var sampleValue = finalSamples[index];
+            if (sampleValue is not { } value)
             {
                 continue;
             }
 
-            var sample = history[^1];
+            var sample = value.ToRayTraceSample();
             var pupil = pupilSamples[index];
             var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);
             rays.Add(new PreparedRay(

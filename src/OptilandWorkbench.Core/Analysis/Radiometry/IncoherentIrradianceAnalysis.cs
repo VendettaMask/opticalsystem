@@ -80,16 +80,14 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                     field.Hy,
                     wavelength.Micrometers,
                     pupilSamples);
-                var trace = Optic.SequentialRayTracer.Trace(bundle);
+                using var trace = Optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(new[] { detectorIndex }));
                 var irradiance = new double[_resolutionX, _resolutionY];
-                foreach (var history in trace.RayHistories)
+                foreach (var sampleValue in trace.GetSurfaceSamples(detectorIndex))
                 {
-                    if (history.Count <= detectorIndex)
+                    if (sampleValue is not { } sample)
                     {
                         continue;
                     }
-
-                    var sample = history[detectorIndex];
                     if (sample.Intensity <= 0 || sample.Vignetted)
                     {
                         continue;

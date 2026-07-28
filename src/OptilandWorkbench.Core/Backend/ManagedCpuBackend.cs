@@ -1,6 +1,6 @@
 namespace OptilandWorkbench.Core.Backend;
 
-public sealed class ManagedCpuBackend : INumericBackend
+public sealed partial class ManagedCpuBackend : INumericBackend, IBatchedNumericBackend
 {
     public string Name => "managed-cpu";
 

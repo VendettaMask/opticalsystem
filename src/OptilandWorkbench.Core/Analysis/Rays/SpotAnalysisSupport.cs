@@ -221,33 +221,26 @@ internal static class SpotAnalysisEngine
         int surfaceNumber,
         bool directionCosines)
     {
-        if (surfaceNumber < 0 && !directionCosines)
+        var surfaceIndex = surfaceNumber < 0
+            ? optic.SurfaceGroup.Items.Count - 1
+            : optic.SurfaceGroup.Items
+                .Select((surface, index) => (surface, index))
+                .Where(item => item.surface.Number == surfaceNumber)
+                .Select(item => item.index)
+                .DefaultIfEmpty(-1)
+                .First();
+        if (surfaceIndex < 0)
         {
-            return optic.SequentialRayTracer.TraceFinalSamples(bundle)
-                .Where(sample => sample is not null)
-                .Select(sample => sample!)
-                .ToArray();
+            return Array.Empty<RayTraceSample>();
         }
 
-        return optic.SequentialRayTracer.Trace(bundle).RayHistories
-            .Select(history => SelectSample(history, surfaceNumber))
-            .Where(sample => sample is not null)
-            .Select(sample => sample!)
+        using var trace = optic.SequentialRayTracer.Trace(
+            bundle,
+            TraceRequest.Selected(new[] { surfaceIndex }));
+        return trace.GetSurfaceSamples(surfaceIndex)
+            .Where(sample => sample.HasValue)
+            .Select(sample => sample!.Value.ToRayTraceSample())
             .ToArray();
-    }
-
-    private static RayTraceSample? SelectSample(
-        IReadOnlyList<RayTraceSample> history,
-        int surfaceNumber)
-    {
-        if (history.Count == 0)
-        {
-            return null;
-        }
-
-        return surfaceNumber < 0
-            ? history[^1]
-            : history.FirstOrDefault(sample => sample.SurfaceNumber == surfaceNumber);
     }
 
     private static SpotRayData? ChiefRayReference(

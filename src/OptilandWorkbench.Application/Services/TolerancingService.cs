@@ -221,7 +221,8 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                     request.Operands,
                     request.Criterion,
                     request.YieldLimit,
-                    linked.Token);
+                    linked.Token,
+                    request.MaxDegreeOfParallelism);
                 linked.Token.ThrowIfCancellationRequested();
                 return new TolerancingResultDto(
                     view.Summary,

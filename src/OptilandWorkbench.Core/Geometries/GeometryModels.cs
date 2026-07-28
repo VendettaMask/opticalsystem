@@ -213,8 +213,24 @@ public sealed class StandardGeometry : IGeometry
         var root = Math.Sqrt(discriminant);
         var first = (-b - root) / (2.0 * a);
         var second = (-b + root) / (2.0 * a);
-        var valid = new[] { first, second }.Where(value => value >= -1e-12).Select(value => Math.Max(0, value)).ToArray();
-        return valid.Length == 0 ? null : valid.Min();
+        var firstIsValid = first >= -1e-12;
+        var secondIsValid = second >= -1e-12;
+        if (!firstIsValid && !secondIsValid)
+        {
+            return null;
+        }
+
+        if (!firstIsValid)
+        {
+            return Math.Max(0, second);
+        }
+
+        if (!secondIsValid)
+        {
+            return Math.Max(0, first);
+        }
+
+        return Math.Max(0, Math.Min(first, second));
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)

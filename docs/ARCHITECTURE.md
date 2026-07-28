@@ -52,11 +52,13 @@ Analytic surfaces and freeforms share Newton intersection fallback for consisten
 
 ## Backend Layer
 
-`INumericBackend` is the only supported abstraction for backend-aware numeric operations. `ManagedCpuBackend` is the default implementation. The provider is intentionally extensible for a later TorchSharp/GPU/autograd backend, but the current implementation is CPU-only.
+`INumericBackend` remains the compatible scalar abstraction for backend-aware numeric operations. The optional `IBatchedNumericBackend` adds structure-of-arrays kernels for direction normalization, propagation, plane/standard intersection, circular-aperture clipping, refraction, ordinary reflection, and total internal reflection. `ManagedCpuBackend` implements these kernels with `System.Numerics.Vector<double>` SIMD and scalar tail handling. A third-party scalar backend is automatically exposed through a scalar batch adapter, so existing plugins do not need to change.
+
+The provider remains extensible for later GPU or automatic-differentiation backends, but the current implementation is managed CPU only. GPU and derivative propagation are deliberately outside this compatibility-focused phase.
 
 ## Ray Tracing
 
-Ray tracing is sequential:
+Optical interaction is sequential by surface, while rays within a surface are processed in deterministic index ranges:
 
 1. Generate field/wavelength/pupil samples.
 2. Aim rays with the selected ray aiming strategy.
@@ -64,9 +66,15 @@ Ray tracing is sequential:
 4. Intersect the surface geometry.
 5. Clip through the physical aperture.
 6. Apply interaction, coating, and scattering models.
-7. Record per-surface history for analysis and visualization.
+7. Retain only the requested surface samples.
 
-The standard centered sequential refractive path is validated point-for-point against the Python 0.5.8 Cooke and Tessar samples. The tracer remains a per-ray managed implementation rather than Python's backend-array engine; GRIN curved-ray intersection, non-sequential propagation, and broader polarization/coating behavior are outside that validated path.
+`TraceRequest` selects one of three retention modes: `FinalOnly`, `SelectedSurfaces`, or `FullHistory`. The compatibility `Trace()` and `TraceFinalSamples()` methods wrap this path. Unless full history and recording are explicitly requested, tracing does not populate `SurfaceGroup.RecordedTrace`. `RequestedTrace` owns one pooled flat sample buffer; its ray and surface views address that same storage, and legacy object samples are materialized only at API boundaries.
+
+Active ray state uses pooled SoA buffers for position, direction, wavelength, intensity, path, OPL/OPD, polarization, liveness, normalization, and current material. The tracer freezes a cloned read-only surface context, runs a surface-major serial or chunked-parallel loop, and uses the batched backend for supported common surfaces. Complex geometry, apertures, coatings, scattering, and GRIN propagation fall back to the scalar state path. OPD reference reduction is performed in ray-index order and updates the retained buffer in place.
+
+Interaction results distinguish transmission, ordinary reflection, and total internal reflection. Only transmission advances the current material; reflection and total internal reflection retain the incident medium. Directions emitted by a thin lens are normalized before the next surface, keeping geometric path, OPL, and absorption based on physical distance.
+
+The standard centered sequential refractive path is validated point-for-point against the Python 0.5.8 Cooke and Tessar samples. GRIN curved-ray intersection, non-sequential propagation, and broader polarization/coating behavior remain outside that validated path. See [Large-scale ray tracing performance](RAY_TRACING_PERFORMANCE.md) for API, lifetime, fallback, and benchmark details.
 
 Visualization layout is generated in core before Avalonia rendering. `Layout2DBuilder` samples each surface with `Sag(0, y)` in the YZ projection, groups lens surfaces by material transitions, extends smaller-aperture lens faces to the group's maximum extent before closing the 2D body, builds 3D surface rims/meridians from the same geometry, and draws ray paths from `SequentialRayTracer` histories so clipped or vignetted rays stop at the recorded failure point. The GUI maps those scene primitives to pixels and owns only pens, colors, projection, and interaction.
 
@@ -110,6 +118,8 @@ Tolerancing reuses optimization variables and operands through:
 - compensators
 - sensitivity analysis
 - seeded Monte Carlo
+
+Monte Carlo trials are independent: each worker restores its own `Optic` from the nominal snapshot, uses a trial seed derived from the global seed and trial index, and writes back by trial index. Results are therefore stable across supported parallelism levels. Cancellation and maximum parallelism are explicit, while inner tracing is suppressed when an outer Monte Carlo or parallel-Jacobian loop already owns parallel execution.
 
 ## Application Boundary
 

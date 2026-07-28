@@ -8,7 +8,9 @@ namespace OptilandWorkbench.Core.Analysis;
 public sealed class RelativeIlluminationAnalysis : BaseAnalysis
 {
     private readonly int _rayDensity;
+    private readonly int _fieldDensity;
     private readonly int _wavelengthNumber;
+    private readonly string _scanDirection;
     private readonly bool _removeVignettingFactors;
 
     public RelativeIlluminationAnalysis(
@@ -20,7 +22,9 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         bool removeVignettingFactors = true) : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 5, 128);
+        _fieldDensity = Math.Clamp(fieldDensity, 2, 201);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
         _removeVignettingFactors = removeVignettingFactors;
     }
 
@@ -47,16 +51,16 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
 
         var wavelength = SelectWavelength(workingOptic);
         var maximumField = FieldCoordinates.MaximumRadius(workingOptic.Fields);
-        var fields = AnalysisTrace.DefinedFieldSamples(workingOptic);
-        var rawIllumination = new double[fields.Count];
-        var effectiveFNumbers = new double[fields.Count];
-        var validRays = new int[fields.Count];
-        var foldedCells = new int[fields.Count];
+        var rawIllumination = new double[_fieldDensity];
+        var effectiveFNumbers = new double[_fieldDensity];
+        var validRays = new int[_fieldDensity];
+        var foldedCells = new int[_fieldDensity];
 
-        for (var index = 0; index < fields.Count; index++)
+        for (var index = 0; index < _fieldDensity; index++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            var normalizedField = (fields[index].Hx, fields[index].Hy);
+            var fraction = index / (_fieldDensity - 1.0);
+            var normalizedField = AnalysisTrace.ScanField(_scanDirection, fraction);
             var result = EvaluateField(workingOptic, normalizedField, wavelength.Micrometers);
             rawIllumination[index] = result.ProjectedCosineArea;
             validRays[index] = result.ValidRays;
@@ -67,31 +71,30 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         }
 
         var maximumIllumination = rawIllumination.DefaultIfEmpty(0).Max();
-        var points = Enumerable.Range(0, fields.Count)
+        var points = Enumerable.Range(0, _fieldDensity)
             .Select(index => new AnalysisPoint(
-                fields[index].Coordinate,
-                maximumIllumination > 0 ? rawIllumination[index] / maximumIllumination : 0,
-                fields[index].Label))
+                AnalysisTrace.ScanFieldValue(
+                    _scanDirection,
+                    maximumField * index / (_fieldDensity - 1.0)),
+                maximumIllumination > 0 ? rawIllumination[index] / maximumIllumination : 0))
             .ToArray();
-        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(workingOptic);
+        var fieldAxisLabel = ScanFieldAxisLabel(workingOptic, _scanDirection);
         var fieldUnit = workingOptic.FieldDefinition == FieldDefinitionKind.Angle ? "deg" : "mm";
         var series = new AnalysisSeries(
             fieldAxisLabel,
             "Relative Illumination",
             points,
-            Name: $"{wavelength.Micrometers:0.0000} µm",
-            ShowMarkers: true,
-            MarkerSize: 2.8);
+            Name: $"{wavelength.Micrometers:0.0000} µm");
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             [AnalysisTrace.MaximumFieldValueKey(workingOptic)] = maximumField,
             ["FieldUnit"] = fieldUnit,
             ["RayDensity"] = _rayDensity,
-            ["FieldDensity"] = fields.Count,
+            ["FieldDensity"] = _fieldDensity,
             ["WavelengthNumber"] = WavelengthNumber(workingOptic, wavelength),
             ["WavelengthMicrometers"] = wavelength.Micrometers,
-            ["ScanDirection"] = "defined-fields",
+            ["ScanDirection"] = _scanDirection,
             ["RemoveVignettingFactors"] = _removeVignettingFactors,
             ["RawProjectedCosineArea"] = rawIllumination,
             ["RelativeIllumination"] = points.Select(point => point.Y).ToArray(),
@@ -106,6 +109,18 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ShowLegend: false,
             DottedGrid: true,
             GridOpacity: 0.35));
+    }
+
+    private static string ScanFieldAxisLabel(Optic optic, string scanDirection)
+    {
+        var axis = scanDirection.EndsWith('x') ? "X" : "Y";
+        return optic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => $"{axis} Object Height (mm)",
+            FieldDefinitionKind.ParaxialImageHeight => $"{axis} Paraxial Image Height (mm)",
+            FieldDefinitionKind.RealImageHeight => $"{axis} Real Image Height (mm)",
+            _ => $"{axis} Field Angle (deg)"
+        };
     }
 
     private IlluminationResult EvaluateField(

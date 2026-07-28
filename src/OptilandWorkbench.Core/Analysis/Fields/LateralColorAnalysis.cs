@@ -151,10 +151,7 @@ public sealed class LateralColorAnalysis : BaseAnalysis
         {
             if (_useRealRays)
             {
-                var sample = Optic.TraceGeneric(0, normalizedField, 0, 0, wavelengthMicrometers)
-                    .RayHistories
-                    .SingleOrDefault()?
-                    .LastOrDefault();
+                var sample = Optic.TraceGenericFinalSample(0, normalizedField, 0, 0, wavelengthMicrometers);
                 return sample is null || sample.Intensity <= 0 ? double.NaN : sample.Position.Y;
             }
 

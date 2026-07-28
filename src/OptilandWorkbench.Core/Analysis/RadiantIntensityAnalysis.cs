@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -85,16 +86,14 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                     field.Hy,
                     wavelength.Micrometers,
                     pupilSamples);
-                var trace = Optic.SequentialRayTracer.Trace(bundle);
+                using var trace = Optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(new[] { referenceIndex }));
                 var values = new double[_binsX, _binsY];
-                foreach (var history in trace.RayHistories)
+                foreach (var sampleValue in trace.GetSurfaceSamples(referenceIndex))
                 {
-                    if (history.Count <= referenceIndex)
+                    if (sampleValue is not { } sample)
                     {
                         continue;
                     }
-
-                    var sample = history[referenceIndex];
                     if (sample.Intensity <= 1e-12
                         || !double.IsFinite(sample.Direction.X)
                         || !double.IsFinite(sample.Direction.Y)

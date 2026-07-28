@@ -1,5 +1,6 @@
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Tolerancing;
 
@@ -514,6 +515,103 @@ public sealed class MonteCarlo
         }
 
         return results;
+    }
+
+    public IReadOnlyList<TolerancingTrialResult> RunDetailed(
+        int trials,
+        int seed,
+        int compensationIterations,
+        CancellationToken cancellationToken,
+        Func<Optic, Tolerancing> workerFactory,
+        int maxDegreeOfParallelism = -1)
+    {
+        ArgumentNullException.ThrowIfNull(workerFactory);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (maxDegreeOfParallelism is 0 or < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism));
+        }
+
+
+        var trialCount = Math.Max(1, trials);
+        var nominalSnapshot = _optic.ToSnapshot();
+        var results = new TolerancingTrialResult[trialCount];
+        var options = new ParallelOptions
+        {
+            CancellationToken = cancellationToken,
+            MaxDegreeOfParallelism = maxDegreeOfParallelism
+        };
+
+        Parallel.For(0, trialCount, options, trial =>
+        {
+            using var parallelism = ComputationParallelism.SuppressNestedParallelism();
+            var workerOptic = Optic.FromSnapshot(nominalSnapshot);
+            var workerTolerancing = workerFactory(workerOptic)
+                ?? throw new InvalidOperationException("The tolerancing worker factory returned null.");
+            var random = new Random(DeriveTrialSeed(seed, trial));
+            foreach (var perturbation in workerTolerancing.Perturbations)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (perturbation is ISampledPerturbation sampled)
+                {
+                    sampled.Apply(workerOptic, random);
+                }
+                else
+                {
+                    perturbation.Apply(workerOptic);
+                }
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            var merit = workerTolerancing.Merit();
+            var criterion = workerTolerancing.Criterion();
+            var compensated = EvaluateCompensatedWorker(
+                workerTolerancing,
+                compensationIterations,
+                cancellationToken,
+                merit,
+                criterion);
+            results[trial] = new TolerancingTrialResult(
+                trial,
+                merit,
+                compensated.Merit,
+                criterion,
+                compensated.Criterion);
+        });
+
+        return results;
+    }
+
+    private static int DeriveTrialSeed(int seed, int trial)
+    {
+        unchecked
+        {
+            var value = (uint)seed + (0x9E3779B9u * ((uint)trial + 1u));
+            value ^= value >> 16;
+            value *= 0x85EBCA6Bu;
+            value ^= value >> 13;
+            value *= 0xC2B2AE35u;
+            value ^= value >> 16;
+            return (int)value;
+        }
+    }
+
+    private static ToleranceEvaluation EvaluateCompensatedWorker(
+        Tolerancing tolerancing,
+        int compensationIterations,
+        CancellationToken cancellationToken,
+        double uncompensatedMerit,
+        double uncompensatedCriterion)
+    {
+        if (compensationIterations <= 0 || tolerancing.Compensators.Count == 0)
+        {
+            return new ToleranceEvaluation(uncompensatedMerit, uncompensatedCriterion);
+        }
+
+        var problem = tolerancing.CreateCompensationProblem();
+        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
+        cancellationToken.ThrowIfCancellationRequested();
+        return new ToleranceEvaluation(problem.SumSquared(), tolerancing.Criterion());
     }
 
     private void ApplyPerturbation(IPerturbation perturbation, Random random)

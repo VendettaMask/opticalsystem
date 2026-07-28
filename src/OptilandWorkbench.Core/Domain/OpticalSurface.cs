@@ -10,7 +10,7 @@ using OptilandWorkbench.Core.Scattering;
 
 namespace OptilandWorkbench.Core.Domain;
 
-public sealed class OpticalSurface : NotifyObject
+public sealed partial class OpticalSurface : NotifyObject
 {
     private int _number;
     private string _label = "Surface";
@@ -167,7 +167,31 @@ public sealed class OpticalSurface : NotifyObject
         double cumulativePathLength,
         double cumulativeOpticalPathLength)
     {
-        var ray = inputRay.IsNormalized ? inputRay.Normalize() : inputRay;
+        var result = TraceRayValue(
+            inputRay,
+            materialBefore,
+            materialAfter,
+            cumulativePathLength,
+            cumulativeOpticalPathLength);
+        return new SurfaceRayTraceResult(
+            result.Ray,
+            result.Sample.ToRayTraceSample(),
+            result.OutgoingRefractiveIndex,
+            result.OutgoingMaterial,
+            result.InteractionKind,
+            result.CumulativePathLength,
+            result.CumulativeOpticalPathLength,
+            result.StopTracing);
+    }
+
+    internal SurfaceRayTraceValueResult TraceRayValue(
+        RealRay inputRay,
+        IMaterial materialBefore,
+        IMaterial materialAfter,
+        double cumulativePathLength,
+        double cumulativeOpticalPathLength)
+    {
+        var ray = inputRay.IsNormalized ? inputRay : inputRay.Normalize();
         var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
         var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
@@ -176,7 +200,7 @@ public sealed class OpticalSurface : NotifyObject
         if (distance is null)
         {
             var stoppedRay = ray with { Intensity = 0 };
-            var sample = new RayTraceSample(
+            var sample = new RayTraceSampleValue(
                 Number,
                 Label,
                 ray.Origin,
@@ -185,10 +209,12 @@ public sealed class OpticalSurface : NotifyObject
                 true,
                 CumulativePathLength: cumulativePathLength,
                 CumulativeOpticalPathLength: cumulativeOpticalPathLength);
-            return new SurfaceRayTraceResult(
+            return new SurfaceRayTraceValueResult(
                 stoppedRay,
                 sample,
                 refractiveIndexBefore,
+                materialBefore,
+                InteractionKind: null,
                 cumulativePathLength,
                 cumulativeOpticalPathLength,
                 StopTracing: true);
@@ -214,7 +240,7 @@ public sealed class OpticalSurface : NotifyObject
         if (vignetted)
         {
             var stoppedRay = propagatedRay with { Intensity = 0 };
-            var sample = new RayTraceSample(
+            var sample = new RayTraceSampleValue(
                 Number,
                 Label,
                 propagatedRay.Origin,
@@ -225,10 +251,12 @@ public sealed class OpticalSurface : NotifyObject
                 segmentOpticalPathLength,
                 nextCumulativePathLength,
                 nextCumulativeOpticalPathLength);
-            return new SurfaceRayTraceResult(
+            return new SurfaceRayTraceValueResult(
                 stoppedRay,
                 sample,
                 refractiveIndexBefore,
+                materialBefore,
+                InteractionKind: null,
                 nextCumulativePathLength,
                 nextCumulativeOpticalPathLength,
                 StopTracing: true);
@@ -254,8 +282,12 @@ public sealed class OpticalSurface : NotifyObject
             Origin = localPropagatedHit,
             Direction = CoordinateSystem.ToLocalDirection(propagatedRay.Direction)
         };
-        var interactedLocalRay = InteractionModel.Interact(localRay, context);
-        interactedLocalRay = CoatingModel.Apply(interactedLocalRay, context);
+        var interactionResult = InteractionModel.Interact(localRay, context);
+        var outgoingMaterial = interactionResult.Kind == RayInteractionKind.Transmitted
+            ? materialAfter
+            : materialBefore;
+        var coatingContext = context with { IsReflective = interactionResult.IsReflective };
+        var interactedLocalRay = CoatingModel.Apply(interactionResult.Ray, coatingContext);
         var tracedRay = interactedLocalRay with
         {
             Origin = CoordinateSystem.ToGlobalPoint(interactedLocalRay.Origin),
@@ -263,7 +295,7 @@ public sealed class OpticalSurface : NotifyObject
         };
         tracedRay = ScatteringModel?.Scatter(tracedRay, normal) ?? tracedRay;
 
-        var tracedSample = new RayTraceSample(
+        var tracedSample = new RayTraceSampleValue(
             Number,
             Label,
             tracedRay.Origin,
@@ -274,10 +306,12 @@ public sealed class OpticalSurface : NotifyObject
             segmentOpticalPathLength,
             nextCumulativePathLength,
             nextCumulativeOpticalPathLength);
-        return new SurfaceRayTraceResult(
+        return new SurfaceRayTraceValueResult(
             tracedRay,
             tracedSample,
-            refractiveIndexAfter,
+            outgoingMaterial.RefractiveIndex(ray.WavelengthNanometers),
+            outgoingMaterial,
+            interactionResult.Kind,
             nextCumulativePathLength,
             nextCumulativeOpticalPathLength,
             StopTracing: !tracedRay.CanTrace);
@@ -334,7 +368,22 @@ public sealed class OpticalSurface : NotifyObject
 public sealed record SurfaceRayTraceResult(
     RealRay Ray,
     RayTraceSample Sample,
-    double RefractiveIndexAfter,
+    double OutgoingRefractiveIndex,
+    IMaterial OutgoingMaterial,
+    RayInteractionKind? InteractionKind,
+    double CumulativePathLength,
+    double CumulativeOpticalPathLength,
+    bool StopTracing)
+{
+    public double RefractiveIndexAfter => OutgoingRefractiveIndex;
+}
+
+internal readonly record struct SurfaceRayTraceValueResult(
+    RealRay Ray,
+    RayTraceSampleValue Sample,
+    double OutgoingRefractiveIndex,
+    IMaterial OutgoingMaterial,
+    RayInteractionKind? InteractionKind,
     double CumulativePathLength,
     double CumulativeOpticalPathLength,
     bool StopTracing);

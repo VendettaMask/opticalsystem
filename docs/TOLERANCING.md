@@ -118,9 +118,11 @@ Each trial:
 3. evaluates the uncompensated physical criterion;
 4. optionally optimizes active compensators;
 5. records the compensated criterion and its change from nominal;
-6. restores the nominal snapshot.
+6. writes its result to the original trial index.
 
-Run settings include trial count, random seed, compensation iteration count, and an optional physical-criterion pass/fail limit. Invalid trials, including trials with no valid evaluation rays, are reported as failed and count against yield.
+Each trial runs on an independent `Optic` restored from the immutable nominal snapshot; workers never perturb and restore the active or a shared optical system. The per-trial seed is derived from the global seed and trial index, so serial and parallel runs produce the same ordered trial sequence. Worker-local perturbations, compensators, evaluation functions, and trace buffers prevent shared mutable state.
+
+Run settings include trial count, random seed, compensation iteration count, maximum degree of parallelism, and an optional physical-criterion pass/fail limit. Cancellation is observed by the outer trial scheduler and inner work suppresses nested trace parallelism. Invalid trials, including trials with no valid evaluation rays, are reported as failed and count against yield.
 
 The statistics tab reports:
 
@@ -157,6 +159,9 @@ The regression suite covers:
 - minimum/maximum endpoint sensitivity;
 - restoration of perturbed variables;
 - seeded Monte Carlo repeatability;
+- identical per-trial Monte Carlo results across parallelism levels;
+- distinct sequences for different seeds;
+- maximum-parallelism and cancellation behavior;
 - compensator improvement;
 - application cancellation during document switching;
 - statistics and yield output.

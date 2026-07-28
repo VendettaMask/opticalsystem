@@ -568,7 +568,7 @@ public sealed class CookeTripletGoldenTests
                     1,
                     1.5,
                     ray.WavelengthNanometers,
-                    interaction.IsReflective));
+                    interaction.IsReflective)).Ray;
 
                 AssertPythonFloat(sample.GetProperty("output_direction_x"), actual.Direction.X);
                 AssertPythonFloat(sample.GetProperty("output_direction_y"), actual.Direction.Y);
@@ -674,7 +674,7 @@ public sealed class CookeTripletGoldenTests
                     indexAfter,
                     ray.WavelengthNanometers,
                     interaction.IsReflective,
-                    new PlaneGeometry()));
+                    new PlaneGeometry())).Ray;
 
                 AssertClose(sample.GetProperty("thin_direction_x").GetDouble(), actual.Direction.X, TraceTolerance);
                 AssertClose(sample.GetProperty("thin_direction_y").GetDouble(), actual.Direction.Y, TraceTolerance);
@@ -719,7 +719,7 @@ public sealed class CookeTripletGoldenTests
     }
 
     [Fact]
-    public void ThinLensSlopeStatePropagatesAcrossSurfacesLikePython()
+    public void ThinLensSlopeStateNormalizesBeforeSurfacePropagation()
     {
         using var reference = LoadThinLensReference();
         foreach (var thinLensCase in reference.RootElement.GetProperty("cases").EnumerateArray())
@@ -755,6 +755,8 @@ public sealed class CookeTripletGoldenTests
                 afterMaterial,
                 thinResult.CumulativePathLength,
                 thinResult.CumulativeOpticalPathLength);
+            var normalizedOutgoing = thinResult.Ray.Normalize();
+            var expectedSegmentLength = distance / Math.Abs(normalizedOutgoing.Direction.Z);
 
             AssertClose(sample.GetProperty("propagated_x").GetDouble(), nextResult.Ray.Origin.X, TraceTolerance);
             AssertClose(sample.GetProperty("propagated_y").GetDouble(), nextResult.Ray.Origin.Y, TraceTolerance);
@@ -762,7 +764,15 @@ public sealed class CookeTripletGoldenTests
             AssertClose(sample.GetProperty("propagated_direction_x").GetDouble(), nextResult.Ray.Direction.X, TraceTolerance);
             AssertClose(sample.GetProperty("propagated_direction_y").GetDouble(), nextResult.Ray.Direction.Y, TraceTolerance);
             AssertClose(sample.GetProperty("propagated_direction_z").GetDouble(), nextResult.Ray.Direction.Z, TraceTolerance);
-            AssertClose(sample.GetProperty("propagated_opd").GetDouble(), nextResult.Ray.OpticalPathDifference, TraceTolerance);
+            AssertClose(expectedSegmentLength, nextResult.Sample.SegmentLength, TraceTolerance);
+            AssertClose(
+                expectedSegmentLength * indexAfter,
+                nextResult.Sample.SegmentOpticalPathLength,
+                TraceTolerance);
+            AssertClose(
+                thinResult.Ray.OpticalPathDifference + (expectedSegmentLength * indexAfter),
+                nextResult.Ray.OpticalPathDifference,
+                TraceTolerance);
             Assert.True(nextResult.Ray.IsNormalized);
         }
     }
@@ -804,7 +814,7 @@ public sealed class CookeTripletGoldenTests
                     indexAfter,
                     ray.WavelengthNanometers,
                     interaction.IsReflective,
-                    geometry));
+                    geometry)).Ray;
 
                 AssertPythonFloat(sample.GetProperty("output_direction_x"), actual.Direction.X);
                 AssertPythonFloat(sample.GetProperty("output_direction_y"), actual.Direction.Y);
@@ -970,7 +980,7 @@ public sealed class CookeTripletGoldenTests
             1,
             1,
             500,
-            false));
+            false)).Ray;
         var legacyDelta = 2 * 500e-6 * 1200;
         var legacyLength = Math.Sqrt(1 + (legacyDelta * legacyDelta));
         AssertClose(legacyDelta / legacyLength, legacyOutput.Direction.X, TraceTolerance);

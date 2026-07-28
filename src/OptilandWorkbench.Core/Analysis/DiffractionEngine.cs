@@ -829,8 +829,9 @@ public static class DiffractionEngine
                 item.Item2,
                 wavelength.Micrometers,
                 aimAtStop);
-            var history = optic.SequentialRayTracer.Trace(bundle).RayHistories.Single();
-            return history[^1].Direction;
+            var sample = optic.SequentialRayTracer.TraceFinalSamples(bundle).Single()
+                ?? throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
+            return sample.Direction;
         }).ToArray();
         var chief = directions[0];
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
@@ -982,10 +983,9 @@ public static class DiffractionEngine
             field.Hy,
             wavelength.Micrometers,
             pupilSamples);
-        var trace = optic.SequentialRayTracer.Trace(bundle);
-        var local = trace.RayHistories
-            .Where(history => history.Count > 0)
-            .Select(history => history[^1])
+        var local = optic.SequentialRayTracer.TraceFinalSamples(bundle)
+            .Where(sample => sample is not null)
+            .Select(sample => sample!)
             .Where(sample => sample.Intensity > 0)
             .Select(sample => imageSurface.CoordinateSystem.ToLocalPoint(sample.Position))
             .ToArray();

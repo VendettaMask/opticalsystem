@@ -356,13 +356,8 @@ internal static class AnalysisTrace
         double py,
         double wavelengthMicrometers)
     {
-        var history = optic.TraceGeneric(hx, hy, px, py, wavelengthMicrometers).RayHistories.Single();
-        if (history.Count == 0)
-        {
-            throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
-        }
-
-        var sample = history[^1];
+        var sample = optic.TraceGenericFinalSample(hx, hy, px, py, wavelengthMicrometers)
+            ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
         var imageSurface = optic.SurfaceGroup.Items.LastOrDefault();
         return imageSurface is null
             ? sample

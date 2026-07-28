@@ -174,6 +174,81 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void TotalInternalReflectionKeepsIncidentMaterialAndUsesReflectiveCoatingBranch()
+    {
+        var surface = new OpticalSurface
+        {
+            Number = 1,
+            Label = "TIR interface",
+            Geometry = new PlaneGeometry(),
+            InteractionModel = new RefractiveReflectiveInteractionModel(),
+            CoatingModel = new SimpleCoatingModel(transmittance: 0.2, reflectance: 0.9),
+            CoordinateSystem = new CoordinateSystem(Vector3D.Zero)
+        };
+        var incidentAngle = Math.PI / 3;
+        var ray = new RealRay(
+            new Vector3D(0, 0, -1),
+            new Vector3D(Math.Sin(incidentAngle), 0, Math.Cos(incidentAngle)),
+            587.6);
+        var glass = new ConstantIndexMaterial("TIR glass", 1.5);
+        var air = new AirMaterial();
+
+        var result = surface.TraceRay(ray, glass, air, 0, 0);
+
+        Assert.Equal(RayInteractionKind.TotalInternalReflection, result.InteractionKind);
+        Assert.Same(glass, result.OutgoingMaterial);
+        Assert.Equal(1.5, result.OutgoingRefractiveIndex, precision: 12);
+        Assert.True(result.Ray.Direction.Z < 0);
+        Assert.Equal(0.9, result.Ray.Intensity, precision: 12);
+    }
+
+    [Fact]
+    public void SequentialTracerKeepsIncidentMaterialAfterReflection()
+    {
+        var optic = Optic.CreateBlank();
+        var air = new AirMaterial();
+        var glass = new ConstantIndexMaterial("n=1.5", 1.5);
+        optic.SurfaceGroup.Replace(
+            new[]
+            {
+                new OpticalSurface
+                {
+                    Label = "Reflector",
+                    Geometry = new PlaneGeometry(),
+                    MaterialAfter = glass,
+                    Thickness = -2,
+                    InteractionModel = new RefractiveReflectiveInteractionModel(isReflective: true),
+                    CoatingModel = new NoneCoatingModel(),
+                    CoordinateSystem = new CoordinateSystem(Vector3D.Zero)
+                },
+                new OpticalSurface
+                {
+                    Label = "Return plane",
+                    Geometry = new PlaneGeometry(),
+                    MaterialAfter = air,
+                    InteractionModel = new RefractiveReflectiveInteractionModel(),
+                    CoatingModel = new NoneCoatingModel(),
+                    CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, -2))
+                }
+            },
+            syncComposition: false);
+        var bundle = new RealRayBundle(new[]
+        {
+            new RealRay(
+                new Vector3D(0, 0, -1),
+                new Vector3D(0, 0, 1),
+                587.6)
+        });
+
+        var trace = optic.SequentialRayTracer.Trace(bundle);
+
+        var history = Assert.Single(trace.RayHistories);
+        Assert.Equal(2, history.Count);
+        Assert.Equal(2, history[1].SegmentLength, precision: 12);
+        Assert.Equal(2, history[1].SegmentOpticalPathLength, precision: 12);
+    }
+
+    [Fact]
     public void MaterialsOwnPropagationModelsUsedBySurfaceKernel()
     {
         var material = new ConstantIndexMaterial("GRIN test", 1.2, propagationModel: new GrinPropagationModel(0.02));

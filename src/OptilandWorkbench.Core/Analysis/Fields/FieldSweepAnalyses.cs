@@ -276,14 +276,10 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
                 var fraction = (double)index / _fieldDensity;
                 var hx = fieldX * fraction;
                 var hy = fieldY * fraction;
-                var chiefHistory = Optic.TraceGeneric(hx, hy, 0, 0, wavelength.Micrometers)
-                    .RayHistories
-                    .Single();
-                var imageHeight = chiefHistory.Count <= surfaceIndex
+                var chief = Optic.TraceGenericSurfaceSample(hx, hy, 0, 0, wavelength.Micrometers, surfaceIndex);
+                var imageHeight = chief is null
                     ? double.NaN
-                    : axis == 0
-                        ? chiefHistory[surfaceIndex].Position.X
-                        : chiefHistory[surfaceIndex].Position.Y;
+                    : axis == 0 ? chief.Position.X : chief.Position.Y;
                 return (Hx: hx, Hy: hy, ImageHeight: Math.Abs(imageHeight));
             })
             .ToArray();
@@ -295,21 +291,18 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
             {
                 var px = axis == 0 ? ray.Pupil : 0;
                 var py = axis == 1 ? ray.Pupil : 0;
-                var history = Optic.TraceGeneric(
-                        fieldSample.Hx,
-                        fieldSample.Hy,
-                        px,
-                        py,
-                        wavelength.Micrometers)
-                    .RayHistories
-                    .Single();
-                if (history.Count <= surfaceIndex)
+                var sample = Optic.TraceGenericSurfaceSample(
+                    fieldSample.Hx,
+                    fieldSample.Hy,
+                    px,
+                    py,
+                    wavelength.Micrometers,
+                    surfaceIndex);
+                if (sample is null)
                 {
                     points.Add(new AnalysisPoint(double.NaN, double.NaN));
                     continue;
                 }
-
-                var sample = history[surfaceIndex];
                 var directionCosine = axis == 0 ? sample.Direction.X : sample.Direction.Y;
                 var incidentAngle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;
                 points.Add(new AnalysisPoint(fieldSample.ImageHeight, incidentAngle));
@@ -418,14 +411,12 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             var hy = coordinate.Hy;
             var px = _mode == AngleScanMode.ThroughPupil && _axis == 0 ? coordinate.Value : _fixedCoordinate.X;
             var py = _mode == AngleScanMode.ThroughPupil && _axis == 1 ? coordinate.Value : _fixedCoordinate.Y;
-            var history = Optic.TraceGeneric(hx, hy, px, py, wavelength.Micrometers).RayHistories.Single();
-            if (history.Count <= surfaceIndex)
+            var sample = Optic.TraceGenericSurfaceSample(hx, hy, px, py, wavelength.Micrometers, surfaceIndex);
+            if (sample is null)
             {
                 points.Add(new AnalysisPoint(double.NaN, double.NaN, coordinate.Label, coordinate.Value));
                 continue;
             }
-
-            var sample = history[surfaceIndex];
             var height = _axis == 1 ? sample.Position.Y : sample.Position.X;
             var directionCosine = _axis == 1 ? sample.Direction.Y : sample.Direction.X;
             var angle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;

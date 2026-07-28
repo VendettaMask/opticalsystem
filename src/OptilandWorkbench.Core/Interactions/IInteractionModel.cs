@@ -8,11 +8,26 @@ public interface IInteractionModel
 {
     string Kind { get; }
 
-    RealRay Interact(RealRay ray, SurfaceInteractionContext context);
+    RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context);
 
     ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context);
 
     IInteractionModel Clone();
+}
+
+public enum RayInteractionKind
+{
+    Transmitted,
+    Reflected,
+    TotalInternalReflection
+}
+
+public sealed record RealRayInteractionResult(
+    RealRay Ray,
+    RayInteractionKind Kind)
+{
+    public bool IsReflective =>
+        Kind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection;
 }
 
 public sealed record SurfaceInteractionContext(

@@ -872,18 +872,34 @@ public static class MeritFunctionCatalog
             normalized.Y,
             wavelength.Micrometers,
             pupilSamples);
-        var trace = optic.SequentialRayTracer.Trace(bundle);
-        var wavelengthIndex = FindWavelengthIndex(optic, wavelength) + 1;
-        var samples = new List<RayTraceSample>(trace.RayHistories.Count);
-        for (var index = 0; index < trace.RayHistories.Count; index++)
+        var surfaceIndex = definition.Surface <= 0
+            ? optic.SurfaceGroup.Items.Count - 1
+            : optic.SurfaceGroup.Items
+                .Select((surface, index) => (surface, index))
+                .Where(item => item.surface.Number == definition.Surface)
+                .Select(item => item.index)
+                .DefaultIfEmpty(-1)
+                .First();
+        if (surfaceIndex < 0)
         {
-            var history = trace.RayHistories[index];
-            var sample = history.Count == 0 ? null : SelectSpotSurfaceSample(history, definition.Surface);
-            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
+            return Array.Empty<RayTraceSample>();
+        }
+
+        using var trace = optic.SequentialRayTracer.Trace(
+            bundle,
+            Raytrace.TraceRequest.Selected(new[] { surfaceIndex }));
+        var surfaceSamples = trace.GetSurfaceSamples(surfaceIndex);
+        var wavelengthIndex = FindWavelengthIndex(optic, wavelength) + 1;
+        var samples = new List<RayTraceSample>(trace.RayCount);
+        for (var index = 0; index < trace.RayCount; index++)
+        {
+            var sampleValue = surfaceSamples[index];
+            if (sampleValue is not { } value || value.Vignetted || value.Intensity <= 0)
             {
                 continue;
             }
 
+            var sample = value.ToRayTraceSample();
             samples.Add(sample);
             var batch = ActiveEvaluationBatch.Value;
             if (batch is not null && index < pupilSamples.Count)
@@ -899,15 +915,6 @@ public static class MeritFunctionCatalog
         }
 
         return samples.ToArray();
-    }
-
-    private static RayTraceSample? SelectSpotSurfaceSample(
-        IReadOnlyList<RayTraceSample> history,
-        int surfaceNumber)
-    {
-        return surfaceNumber <= 0
-            ? history.LastOrDefault()
-            : history.LastOrDefault(sample => sample.SurfaceNumber == surfaceNumber);
     }
 
     private static double EvaluateRayAberration(Optic optic, MeritOperandDefinition definition)
@@ -1056,12 +1063,15 @@ public static class MeritFunctionCatalog
 
     private static double EvaluateRmsWavefront(Optic optic, MeritOperandDefinition definition)
     {
-        var trace = TraceBundle(optic, definition, 37);
-        var paths = trace.RayHistories
-            .Where(history => history.Count > 0)
-            .Select(history => history[^1])
-            .Where(sample => !sample.Vignetted && sample.Intensity > 0)
-            .Select(sample => sample.CumulativeOpticalPathLength)
+        using var trace = TraceBundleAtSurface(
+            optic,
+            definition,
+            37,
+            surfaceNumber: 0,
+            out var surfaceIndex);
+        var paths = trace.GetSurfaceSamples(surfaceIndex)
+            .Where(sample => sample is { Vignetted: false, Intensity: > 0 })
+            .Select(sample => sample!.Value.CumulativeOpticalPathLength)
             .ToArray();
         if (paths.Length == 0)
         {
@@ -1106,20 +1116,36 @@ public static class MeritFunctionCatalog
         if (batch is null || !batch.WavefrontReferences.TryGetValue(cacheKey, out var plane))
         {
             var pupilSamples = NormalizePupilSamples(CreateWizardPupilSamples(definition, 37));
-            var trace = TraceBundle(optic, definition, 37);
-            var fittedSamples = trace.RayHistories
-                .Select((history, index) => new
+            using var trace = TraceBundleAtSurface(
+                optic,
+                definition,
+                37,
+                definition.Surface,
+                out var targetSurfaceIndex);
+            var surfaceSamples = trace.GetSurfaceSamples(targetSurfaceIndex);
+            var fitted = new List<(
+                double X,
+                double Y,
+                double Path,
+                double Weight)>(surfaceSamples.Count);
+            for (var index = 0; index < surfaceSamples.Count; index++)
+            {
+                if (surfaceSamples[index] is not { } tracedSample
+                    || tracedSample.Vignetted
+                    || tracedSample.Intensity <= 0)
                 {
-                    Pupil = pupilSamples[index],
-                    Sample = history.Count == 0 ? null : SelectSpotSurfaceSample(history, definition.Surface)
-                })
-                .Where(item => item.Sample is not null && !item.Sample.Vignetted && item.Sample.Intensity > 0)
-                .Select(item => (
-                    item.Pupil.X,
-                    item.Pupil.Y,
-                    Path: item.Sample!.CumulativeOpticalPathLength,
-                    Weight: item.Sample.Intensity))
-                .ToArray();
+                    continue;
+                }
+
+                var pupil = pupilSamples[index];
+                fitted.Add((
+                    pupil.X,
+                    pupil.Y,
+                    tracedSample.CumulativeOpticalPathLength,
+                    tracedSample.Intensity));
+            }
+
+            var fittedSamples = fitted.ToArray();
             if (fittedSamples.Length == 0)
             {
                 throw new InvalidOperationException("没有可用于计算波前参考的有效光线。");
@@ -1236,23 +1262,34 @@ public static class MeritFunctionCatalog
 
         var normalized = ResolveNormalizedField(optic, definition);
         var wavelength = ResolveWavelength(optic, definition.Wavelength);
-        var trace = optic.TraceGeneric(
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             normalized.X,
             normalized.Y,
             Math.Clamp(definition.Px, -1, 1),
             Math.Clamp(definition.Py, -1, 1),
             wavelength.Micrometers);
-        var history = trace.RayHistories.FirstOrDefault()
-            ?? throw new InvalidOperationException("光线追迹没有返回结果。");
-        if (history.Count == 0)
+        var surfaceIndex = definition.Surface <= 0
+            ? optic.SurfaceGroup.Items.Count - 1
+            : optic.SurfaceGroup.Items
+                .Select((surface, index) => (surface, index))
+                .Where(item => item.surface.Number == definition.Surface)
+                .Select(item => item.index)
+                .DefaultIfEmpty(-1)
+                .First();
+        if (surfaceIndex < 0)
         {
-            throw new InvalidOperationException("光线追迹没有返回采样点。");
+            throw new ArgumentOutOfRangeException(nameof(definition.Surface));
         }
 
-        var sample = definition.Surface <= 0
-            ? history[^1]
-            : history.LastOrDefault(item => item.SurfaceNumber == definition.Surface)
-              ?? throw new ArgumentOutOfRangeException(nameof(definition.Surface), "指定表面没有光线数据。");
+        using var trace = optic.SequentialRayTracer.Trace(
+            bundle,
+            Raytrace.TraceRequest.Selected(new[] { surfaceIndex }));
+        if (!trace.TryGetSample(0, surfaceIndex, out var sampleValue))
+        {
+            throw new InvalidOperationException("The ray did not reach the requested surface.");
+        }
+
+        var sample = sampleValue.ToRayTraceSample();
         if (batch is not null)
         {
             batch.RaySamples[cacheKey] = sample;
@@ -1295,10 +1332,12 @@ public static class MeritFunctionCatalog
 
     private static double Quantize(double value) => Math.Round(value, 12);
 
-    private static Raytrace.SequentialTrace TraceBundle(
+    private static Raytrace.RequestedTrace TraceBundleAtSurface(
         Optic optic,
         MeritOperandDefinition definition,
-        int sampleCount)
+        int sampleCount,
+        int surfaceNumber,
+        out int surfaceIndex)
     {
         var normalized = ResolveNormalizedField(optic, definition);
         var wavelength = ResolveWavelength(optic, definition.Wavelength);
@@ -1308,7 +1347,29 @@ public static class MeritFunctionCatalog
             normalized.Y,
             wavelength.Micrometers,
             pupilSamples);
-        return optic.SequentialRayTracer.Trace(bundle);
+        surfaceIndex = ResolveSurfaceIndex(optic, surfaceNumber);
+        var request = surfaceIndex == optic.SurfaceGroup.Items.Count - 1
+            ? Raytrace.TraceRequest.FinalOnly(false)
+            : Raytrace.TraceRequest.Selected(new[] { surfaceIndex });
+        return optic.SequentialRayTracer.Trace(bundle, request);
+    }
+
+    private static int ResolveSurfaceIndex(Optic optic, int surfaceNumber)
+    {
+        if (surfaceNumber <= 0)
+        {
+            return optic.SurfaceGroup.Items.Count - 1;
+        }
+
+        var surfaceIndex = optic.SurfaceGroup.Items
+            .Select((surface, index) => (surface, index))
+            .Where(item => item.surface.Number == surfaceNumber)
+            .Select(item => item.index)
+            .DefaultIfEmpty(-1)
+            .First();
+        return surfaceIndex >= 0
+            ? surfaceIndex
+            : throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
     }
 
     private static IReadOnlyList<Raytrace.PupilSample> CreateWizardPupilSamples(

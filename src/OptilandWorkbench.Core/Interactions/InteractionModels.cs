@@ -16,7 +16,7 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
 
     public bool IsReflective { get; set; }
 
-    public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
+    public RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context)
     {
         var normal = context.SurfaceNormal;
         var incoming = ray.Direction;
@@ -25,11 +25,21 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
             normal = -normal;
         }
 
-        var outgoing = IsReflective || context.IsReflective
-            ? Reflect(incoming, normal)
-            : Refract(incoming, normal, context.RefractiveIndexBefore, context.RefractiveIndexAfter);
+        if (IsReflective || context.IsReflective)
+        {
+            return new RealRayInteractionResult(
+                ray with { Direction = Normalize(Reflect(incoming, normal)) },
+                RayInteractionKind.Reflected);
+        }
 
-        return ray with { Direction = Normalize(outgoing) };
+        var refraction = Refract(
+            incoming,
+            normal,
+            context.RefractiveIndexBefore,
+            context.RefractiveIndexAfter);
+        return new RealRayInteractionResult(
+            ray with { Direction = Normalize(refraction.Direction) },
+            refraction.Kind);
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
@@ -45,18 +55,26 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
         return direction - (2 * VectorDot(direction, normal) * normal);
     }
 
-    private static Vector3D Refract(Vector3D direction, Vector3D normal, double n1, double n2)
+    private static (Vector3D Direction, RayInteractionKind Kind) Refract(
+        Vector3D direction,
+        Vector3D normal,
+        double n1,
+        double n2)
     {
         var eta = n1 / Math.Max(1e-9, n2);
         var cosI = -VectorDot(normal, direction);
         var sinT2 = eta * eta * (1.0 - (cosI * cosI));
         if (sinT2 > 1.0)
         {
-            return Reflect(direction, normal);
+            return (
+                Reflect(direction, normal),
+                RayInteractionKind.TotalInternalReflection);
         }
 
         var cosT = Math.Sqrt(1.0 - sinT2);
-        return (eta * direction) + ((eta * cosI - cosT) * normal);
+        return (
+            (eta * direction) + ((eta * cosI - cosT) * normal),
+            RayInteractionKind.Transmitted);
     }
 
     private static double VectorDot(Vector3D left, Vector3D right)
@@ -85,7 +103,7 @@ public sealed class ThinLensInteractionModel : IInteractionModel
 
     public bool IsReflective { get; }
 
-    public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
+    public RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context)
     {
         var reflective = IsReflective || context.IsReflective;
         var indexBefore = context.RefractiveIndexBefore;
@@ -96,12 +114,14 @@ public sealed class ThinLensInteractionModel : IInteractionModel
         var outputSlopeY = ((indexBefore * inputSlopeY) - (ray.Origin.Y / FocalLength)) / indexAfter;
         var opd = ray.OpticalPathDifference
             - (((ray.Origin.X * ray.Origin.X) + (ray.Origin.Y * ray.Origin.Y)) / (2 * FocalLength));
-        return ray with
-        {
-            Direction = new Vector3D(outputSlopeX, outputSlopeY, 1),
-            OpticalPathDifference = opd,
-            IsNormalized = false
-        };
+        return new RealRayInteractionResult(
+            ray with
+            {
+                Direction = new Vector3D(outputSlopeX, outputSlopeY, 1),
+                OpticalPathDifference = opd,
+                IsNormalized = false
+            },
+            reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
@@ -148,20 +168,23 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
 
     public int? Order { get; }
 
-    public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
+    public RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context)
     {
+        var reflective = IsReflective || context.IsReflective;
         if (context.Geometry is not IGratingGeometry
             && GrooveFrequencyLinesPerMillimeter is double legacyFrequency)
         {
             var wavelengthMillimeters = context.WavelengthNanometers * 1e-6;
             var delta = (Order ?? 1) * wavelengthMillimeters * legacyFrequency;
-            return ray with
-            {
-                Direction = Normalize(new Vector3D(
-                    ray.Direction.X + delta,
-                    ray.Direction.Y,
-                    ray.Direction.Z))
-            };
+            return new RealRayInteractionResult(
+                ray with
+                {
+                    Direction = Normalize(new Vector3D(
+                        ray.Direction.X + delta,
+                        ray.Direction.Y,
+                        ray.Direction.Z))
+                },
+                reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
         }
 
         var geometry = ResolveGeometry(context);
@@ -185,14 +208,17 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
             - Dot(tangential, tangential);
         if (radicand < 0 || !double.IsFinite(radicand))
         {
-            return ray with { Direction = new Vector3D(double.NaN, double.NaN, double.NaN) };
+            return new RealRayInteractionResult(
+                ray with { Direction = new Vector3D(double.NaN, double.NaN, double.NaN) },
+                reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
         }
 
-        var reflective = IsReflective || context.IsReflective;
         var signedIndexAfter = reflective ? -refractiveIndexAfter : refractiveIndexAfter;
         var normalTerm = normal * (reflective ? -Math.Sqrt(radicand) : Math.Sqrt(radicand));
         var direction = (tangential + normalTerm) / (period * signedIndexAfter);
-        return ray with { Direction = Normalize(direction) };
+        return new RealRayInteractionResult(
+            ray with { Direction = Normalize(direction) },
+            reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)
@@ -269,7 +295,7 @@ public sealed class PhaseInteractionModel : IInteractionModel
 
     public bool IsReflective { get; }
 
-    public RealRay Interact(RealRay ray, SurfaceInteractionContext context)
+    public RealRayInteractionResult Interact(RealRay ray, SurfaceInteractionContext context)
     {
         var normal = context.SurfaceNormal;
         var reflective = IsReflective || context.IsReflective;
@@ -295,12 +321,14 @@ public sealed class PhaseInteractionModel : IInteractionModel
             + ((reflective ? -normalMagnitude : normalMagnitude) * normal);
         var outgoingLength = outgoingWaveVector.Length;
         var phase = Profile.Phase(ray.Origin.X, ray.Origin.Y, context.WavelengthNanometers);
-        return ray with
-        {
-            Direction = outgoingLength <= 1e-12 ? ray.Direction : outgoingWaveVector / outgoingLength,
-            Intensity = intensity * Profile.Efficiency,
-            OpticalPathDifference = ray.OpticalPathDifference - (phase / waveNumber)
-        };
+        return new RealRayInteractionResult(
+            ray with
+            {
+                Direction = outgoingLength <= 1e-12 ? ray.Direction : outgoingWaveVector / outgoingLength,
+                Intensity = intensity * Profile.Efficiency,
+                OpticalPathDifference = ray.OpticalPathDifference - (phase / waveNumber)
+            },
+            reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)

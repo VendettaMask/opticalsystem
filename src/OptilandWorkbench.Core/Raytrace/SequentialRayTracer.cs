@@ -10,7 +10,7 @@ public sealed record SequentialTrace(
     IReadOnlyList<IReadOnlyList<RayTraceSample>> RayHistories,
     SurfaceTraceData SurfaceTraceData);
 
-public sealed class SequentialRayTracer
+public sealed partial class SequentialRayTracer
 {
     private readonly Optic _optic;
 
@@ -72,69 +72,76 @@ public sealed class SequentialRayTracer
             wavelengthMicrometers);
         return Trace(bundle);
     }
+    public RayTraceSample? TraceGenericFinalSample(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers)
+    {
+        var bundle = RayGenerator.GenerateGeneric(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers);
+        if (_optic.SurfaceGroup.Items.Count == 0)
+        {
+            return null;
+        }
+
+        var surfaceIndex = _optic.SurfaceGroup.Items.Count - 1;
+        using var trace = Trace(bundle, TraceRequest.FinalOnly(false));
+        return trace.TryGetSample(0, surfaceIndex, out var sample) ? sample.ToRayTraceSample() : null;
+    }
+
+    public RayTraceSample? TraceGenericSurfaceSample(
+        double normalizedFieldX,
+        double normalizedFieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers,
+        int surfaceIndex)
+    {
+        if (surfaceIndex < 0 || surfaceIndex >= _optic.SurfaceGroup.Items.Count)
+        {
+            return null;
+        }
+
+        var bundle = RayGenerator.GenerateGeneric(
+            normalizedFieldX,
+            normalizedFieldY,
+            normalizedPupilX,
+            normalizedPupilY,
+            wavelengthMicrometers);
+        using var trace = Trace(bundle, TraceRequest.Selected(new[] { surfaceIndex }));
+        return trace.TryGetSample(0, surfaceIndex, out var sample)
+            ? sample.ToRayTraceSample()
+            : null;
+    }
+
 
     public IReadOnlyList<RayTraceSample?> TraceFinalSamples(RealRayBundle bundle)
     {
-        var finalSamples = new RayTraceSample?[bundle.Rays.Count];
-        var ambientMaterial = ResolveMaterial("Air");
-
-        void TraceRay(int rayIndex)
+        if (_optic.SurfaceGroup.Items.Count == 0)
         {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            var ray = bundle.Rays[rayIndex].Normalize();
-            var currentMaterial = ambientMaterial;
-            var cumulativePathLength = 0.0;
-            var cumulativeOpticalPathLength = 0.0;
+            return new RayTraceSample?[bundle.Rays.Count];
+        }
 
-            foreach (var surface in _optic.SurfaceGroup.Items)
+        var finalSurfaceIndex = _optic.SurfaceGroup.Items.Count - 1;
+        using var trace = Trace(bundle, TraceRequest.FinalOnly(false));
+        var values = trace.GetSurfaceSamples(finalSurfaceIndex);
+        var samples = new RayTraceSample?[trace.RayCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            if (values[index] is { } value)
             {
-                ComputationCancellation.ThrowIfCancellationRequested();
-                if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
-                    && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
-                {
-                    continue;
-                }
-
-                var nextMaterial = surface.MaterialAfter;
-                var result = surface.TraceRay(
-                    ray,
-                    currentMaterial,
-                    nextMaterial,
-                    cumulativePathLength,
-                    cumulativeOpticalPathLength);
-
-                ray = result.Ray;
-                currentMaterial = nextMaterial;
-                cumulativePathLength = result.CumulativePathLength;
-                cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
-                finalSamples[rayIndex] = result.Sample;
-
-                if (result.StopTracing)
-                {
-                    break;
-                }
+                samples[index] = value.ToRayTraceSample();
             }
         }
 
-        if (bundle.Rays.Count >= 64)
-        {
-            Parallel.For(
-                0,
-                bundle.Rays.Count,
-                new ParallelOptions { CancellationToken = ComputationCancellation.Current },
-                TraceRay);
-        }
-        else
-        {
-            for (var rayIndex = 0; rayIndex < bundle.Rays.Count; rayIndex++)
-            {
-                TraceRay(rayIndex);
-            }
-        }
-
-        return finalSamples;
+        return samples;
     }
-
     internal RayTraceSample? TraceToSurface(RealRay sourceRay, int surfaceIndex)
     {
         if (surfaceIndex < 0 || surfaceIndex >= _optic.SurfaceGroup.Items.Count)
@@ -174,7 +181,7 @@ public sealed class SequentialRayTracer
             }
 
             ray = result.Ray;
-            currentMaterial = surface.MaterialAfter;
+            currentMaterial = result.OutgoingMaterial;
             cumulativePathLength = result.CumulativePathLength;
             cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
         }
@@ -184,83 +191,194 @@ public sealed class SequentialRayTracer
 
     public SequentialTrace Trace(RealRayBundle bundle)
     {
-        var histories = new List<IReadOnlyList<RayTraceSample>>();
-        var ambientMaterial = ResolveMaterial("Air");
+        using var requested = Trace(bundle, TraceRequest.FullHistory(recordSurfaceData: false));
+        var histories = MaterializeHistories(requested);
+        var surfaceTraceData = BuildSurfaceTraceData(_optic.SurfaceGroup.Items, histories);
+        _optic.SurfaceGroup.RecordTrace(surfaceTraceData);
+        return new SequentialTrace(histories, surfaceTraceData);
+    }
 
-        foreach (var sourceRay in bundle.Rays)
+    public RequestedTrace Trace(RealRayBundle bundle, TraceRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(bundle);
+        ArgumentNullException.ThrowIfNull(request);
+
+        if (request.MaxDegreeOfParallelism is 0 or < -1)
         {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            var ray = sourceRay.Normalize();
-            var currentMaterial = ambientMaterial;
-            var cumulativePathLength = 0.0;
-            var cumulativeOpticalPathLength = 0.0;
-            var history = new List<RayTraceSample>();
+            throw new ArgumentOutOfRangeException(
+                nameof(request),
+                "MaxDegreeOfParallelism must be -1 or a positive value.");
+        }
+        request = request with
+        {
+            MaxDegreeOfParallelism = ComputationParallelism.ResolveMaxDegreeOfParallelism(request.MaxDegreeOfParallelism)
+        };
+        var surfaces = _optic.SurfaceGroup.Items
+            .Select(surface => surface.Clone())
+            .ToArray();
+        var retainedSurfaceIndices = request.ResolveSurfaceIndices(surfaces.Length);
+        if (request.RecordSurfaceData && request.Retention != TraceRetention.FullHistory)
+        {
+            throw new ArgumentException(
+                "Surface trace recording requires FullHistory retention.",
+                nameof(request));
+        }
 
-            foreach (var surface in _optic.SurfaceGroup.Items)
+        var rayCount = bundle.Rays.Count;
+        var retainedCount = retainedSurfaceIndices.Length;
+        var sampleCount = checked(rayCount * retainedCount);
+        var samples = System.Buffers.ArrayPool<RayTraceSampleValue>.Shared.Rent(Math.Max(1, sampleCount));
+        var hasSamples = System.Buffers.ArrayPool<bool>.Shared.Rent(Math.Max(1, sampleCount));
+        Array.Clear(hasSamples, 0, Math.Max(1, sampleCount));
+        var requestedTrace = new RequestedTrace(rayCount, retainedSurfaceIndices, samples, hasSamples);
+
+        if (rayCount == 0 || surfaces.Length == 0 || retainedCount == 0)
+        {
+            return requestedTrace;
+        }
+
+        var surfaceSlots = new int[surfaces.Length];
+        Array.Fill(surfaceSlots, -1);
+        for (var slot = 0; slot < retainedCount; slot++)
+        {
+            surfaceSlots[retainedSurfaceIndices[slot]] = slot;
+        }
+
+        var finalOpticalPaths = request.NormalizeOpticalPathDifference
+            ? System.Buffers.ArrayPool<double>.Shared.Rent(rayCount)
+            : null;
+        var hasFinalOpticalPath = request.NormalizeOpticalPathDifference
+            ? System.Buffers.ArrayPool<bool>.Shared.Rent(rayCount)
+            : null;
+        if (hasFinalOpticalPath is not null)
+        {
+            Array.Clear(hasFinalOpticalPath, 0, rayCount);
+        }
+
+        var ambientMaterial = ResolveMaterial("Air");
+        var maximumRequiredSurface = request.NormalizeOpticalPathDifference
+            ? surfaces.Length - 1
+            : retainedSurfaceIndices[^1];
+
+        using var initialDirections = PooledDirectionBatch.Create(
+            bundle,
+            _optic.Backend.CurrentBatched,
+            request.UseBatchedBackend);
+
+
+        try
+        {
+            TraceSurfaceMajor(
+                bundle,
+                request,
+                surfaces,
+                surfaceSlots,
+                maximumRequiredSurface,
+                samples,
+                hasSamples,
+                finalOpticalPaths,
+                hasFinalOpticalPath,
+                initialDirections,
+                ambientMaterial);
+
+            if (request.NormalizeOpticalPathDifference)
             {
-                ComputationCancellation.ThrowIfCancellationRequested();
-                if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
-                    && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
+                NormalizeOpticalPathDifference(
+                    samples,
+                    hasSamples,
+                    sampleCount,
+                    finalOpticalPaths!,
+                    hasFinalOpticalPath!,
+                    rayCount);
+            }
+
+            if (request.RecordSurfaceData)
+            {
+                var histories = MaterializeHistories(requestedTrace);
+                _optic.SurfaceGroup.RecordTrace(BuildSurfaceTraceData(surfaces, histories));
+            }
+
+            return requestedTrace;
+        }
+        catch
+        {
+            requestedTrace.Dispose();
+            throw;
+        }
+        finally
+        {
+            if (finalOpticalPaths is not null)
+            {
+                System.Buffers.ArrayPool<double>.Shared.Return(finalOpticalPaths, clearArray: true);
+            }
+
+            if (hasFinalOpticalPath is not null)
+            {
+                System.Buffers.ArrayPool<bool>.Shared.Return(hasFinalOpticalPath, clearArray: true);
+            }
+        }
+    }
+
+    private static IReadOnlyList<IReadOnlyList<RayTraceSample>> MaterializeHistories(RequestedTrace trace)
+    {
+        var histories = new IReadOnlyList<RayTraceSample>[trace.RayCount];
+        for (var rayIndex = 0; rayIndex < trace.RayCount; rayIndex++)
+        {
+            var history = new List<RayTraceSample>(trace.RetainedSurfaceIndices.Count);
+            foreach (var surfaceIndex in trace.RetainedSurfaceIndices)
+            {
+                if (trace.TryGetSample(rayIndex, surfaceIndex, out var sample))
                 {
-                    continue;
-                }
-
-                var nextMaterial = surface.MaterialAfter;
-                var result = surface.TraceRay(
-                    ray,
-                    currentMaterial,
-                    nextMaterial,
-                    cumulativePathLength,
-                    cumulativeOpticalPathLength);
-
-                ray = result.Ray;
-                currentMaterial = nextMaterial;
-                cumulativePathLength = result.CumulativePathLength;
-                cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
-                history.Add(result.Sample);
-
-                if (result.StopTracing)
-                {
-                    break;
+                    history.Add(sample.ToRayTraceSample());
                 }
             }
 
-            histories.Add(history);
+            histories[rayIndex] = history.ToArray();
         }
 
-        var normalizedHistories = NormalizeOpticalPathDifference(histories);
-        var surfaceTraceData = BuildSurfaceTraceData(_optic.SurfaceGroup.Items, normalizedHistories);
-        _optic.SurfaceGroup.RecordTrace(surfaceTraceData);
-        return new SequentialTrace(normalizedHistories, surfaceTraceData);
+        return histories;
+    }
+
+    private static void NormalizeOpticalPathDifference(
+        RayTraceSampleValue[] samples,
+        bool[] hasSamples,
+        int sampleCount,
+        double[] finalOpticalPaths,
+        bool[] hasFinalOpticalPath,
+        int rayCount)
+    {
+        var sum = 0.0;
+        var count = 0;
+        for (var rayIndex = 0; rayIndex < rayCount; rayIndex++)
+        {
+            if (hasFinalOpticalPath[rayIndex])
+            {
+                sum += finalOpticalPaths[rayIndex];
+                count++;
+            }
+        }
+
+        if (count == 0)
+        {
+            return;
+        }
+
+        var reference = sum / count;
+        for (var index = 0; index < sampleCount; index++)
+        {
+            if (hasSamples[index])
+            {
+                samples[index] = samples[index] with
+                {
+                    OpticalPathDifference = samples[index].CumulativeOpticalPathLength - reference
+                };
+            }
+        }
     }
 
     private IMaterial ResolveMaterial(string material)
     {
         return _optic.Materials.Resolve(material);
-    }
-
-    private static IReadOnlyList<IReadOnlyList<RayTraceSample>> NormalizeOpticalPathDifference(
-        IReadOnlyList<IReadOnlyList<RayTraceSample>> histories)
-    {
-        var finalSamples = histories
-            .Where(history => history.Count > 0)
-            .Select(history => history[^1])
-            .Where(sample => !sample.Vignetted && sample.Intensity > 0)
-            .ToArray();
-        if (finalSamples.Length == 0)
-        {
-            return histories;
-        }
-
-        var referenceOpticalPathLength = finalSamples.Average(sample => sample.CumulativeOpticalPathLength);
-        return histories
-            .Select(history => history
-                .Select(sample => sample with
-                {
-                    OpticalPathDifference = sample.CumulativeOpticalPathLength - referenceOpticalPathLength
-                })
-                .ToArray())
-            .ToArray();
     }
 
     private static SurfaceTraceData BuildSurfaceTraceData(

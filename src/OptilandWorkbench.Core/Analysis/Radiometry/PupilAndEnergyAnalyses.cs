@@ -269,10 +269,25 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
             field.Hy,
             wavelength.Micrometers,
             pupilSamples);
-        return optic.SequentialRayTracer.Trace(bundle).RayHistories.Select(history =>
+        var targetIndex = optic.SurfaceGroup.Items
+            .Select((surface, index) => (surface, index))
+            .Where(item => item.surface.Number == surfaceIndex)
+            .Select(item => item.index)
+            .DefaultIfEmpty(-1)
+            .First();
+        if (targetIndex < 0)
         {
-            var sample = history.FirstOrDefault(item => item.SurfaceNumber == surfaceIndex);
-            return sample is null
+            return pupil
+                .Select(_ => new RayFanSample(double.NaN, 0))
+                .ToArray();
+        }
+
+        using var trace = optic.SequentialRayTracer.Trace(
+            bundle,
+            TraceRequest.Selected(new[] { targetIndex }));
+        return trace.GetSurfaceSamples(targetIndex).Select(sampleValue =>
+        {
+            return sampleValue is not { } sample
                 ? new RayFanSample(double.NaN, 0)
                 : new RayFanSample(xFan ? sample.Position.X : sample.Position.Y, sample.Intensity);
         }).ToArray();
