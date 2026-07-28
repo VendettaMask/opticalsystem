@@ -779,7 +779,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(69, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(70, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -787,10 +787,25 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(65, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(66, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         Assert.Equal(
             new[] { "RMS vs. \u89c6\u573a", "RMS vs. \u6ce2\u957f", "RMS vs. \u79bb\u7126", "\u4e8c\u7ef4\u89c6\u573aRMS\u56fe" },
             MainWindow.AnalysisRibbonCommandsByMenu["RMS"]);
+        var rmsVsFieldParameters = connector.GetAnalysisParameters("RMS vs. 视场");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Method");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Data");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Reference");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "ShowDiffractionLimit");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "UsePolarization");
+        Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "RemoveVignetting");
+        var rmsWavefrontView = connector.BuildAnalysisView(
+            "RMS vs. 视场",
+            new Dictionary<string, string>
+            {
+                ["Data"] = "wavefront",
+                ["Method"] = "RA"
+            });
+        Assert.Contains(rmsWavefrontView.Rows, row => row.Metric == "数据" && row.Value == "wavefront");
         Assert.Equal(
             new[] { "\u884d\u5c04", "\u51e0\u4f55", "\u51e0\u4f55\u7ebf/\u8fb9\u7f18\u6269\u6563", "\u6269\u5c55\u5149\u6e90" },
             MainWindow.AnalysisRibbonCommandsByMenu["\u5708\u5165\u80fd\u91cf"]);
@@ -846,6 +861,7 @@ public sealed class AnalysisGuiContractTests
                 "场曲/畸变",
                 "网格畸变",
                 "轴向像差",
+                "畸变",
                 "垂轴色差",
                 "色焦移",
                 "赛德尔系数",
@@ -942,6 +958,23 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(AnalysisSeriesKind.Heatmap, foucaultSeries.Kind);
         Assert.All(foucaultSeries.Points, point => Assert.InRange(point.Value!.Value, 0, 1));
         Assert.Equal("Contrast Loss Map", connector.CanonicalAnalysisKey("对比度损失图"));
+        var contrastLossParameters = connector.GetAnalysisParameters("对比度损失图");
+        Assert.Equal(
+            new[] { "Sampling", "Frequency", "Normalize", "WavelengthNumber", "FieldNumber", "ShowOPD" },
+            contrastLossParameters.Select(parameter => parameter.Key));
+        var contrastLossView = connector.BuildAnalysisView(
+            "对比度损失图",
+            new Dictionary<string, string>
+            {
+                ["Sampling"] = "8",
+                ["WavelengthNumber"] = "1",
+                ["FieldNumber"] = "1"
+            });
+        Assert.Equal("对比度损失图", contrastLossView.Name);
+        Assert.Equal(2, contrastLossView.PlotPanes.Count);
+        Assert.All(contrastLossView.PlotPanes, pane =>
+            Assert.Equal(AnalysisSeriesKind.Heatmap, Assert.Single(pane.Series).Kind));
+        Assert.Contains(contrastLossView.Rows, row => row.Metric == "方法" && row.Value == "Moore-Elliott");
         Assert.Equal("Zernike Fringe", connector.CanonicalAnalysisKey("Zernike Fringe系数"));
         var zernikeFringeParameters = connector.GetAnalysisParameters("Zernike Fringe系数");
         Assert.Equal(
@@ -1096,7 +1129,28 @@ public sealed class AnalysisGuiContractTests
         Assert.All(fullFieldAberrationSeries.Points, point => Assert.True(point.Value.HasValue));
         Assert.StartsWith("X视场，单位：", fullFieldAberrationSeries.XAxisLabel);
         Assert.StartsWith("Y视场，单位：", fullFieldAberrationSeries.YAxisLabel);
-        Assert.Equal("Field Curvature", connector.CanonicalAnalysisKey("场曲/畸变"));
+        Assert.Equal("Field Curvature and Distortion", connector.CanonicalAnalysisKey("场曲/畸变"));
+        Assert.Equal("Distortion", connector.CanonicalAnalysisKey("畸变"));
+        var fieldCurvatureAndDistortionParameters = connector.GetAnalysisParameters("场曲/畸变");
+        Assert.Contains(fieldCurvatureAndDistortionParameters, parameter => parameter.Key == "MaximumCurvature");
+        Assert.Contains(fieldCurvatureAndDistortionParameters, parameter => parameter.Key == "MaximumDistortion");
+        Assert.Contains(
+            fieldCurvatureAndDistortionParameters,
+            parameter => parameter.Key == "DistortionType"
+                && parameter.Choices is not null
+                && parameter.Choices.Contains("Calibrated F-Theta")
+                && parameter.Choices.Contains("Calibrated F-Tan(Theta)")
+                && parameter.Choices.Contains("SMIA-TV"));
+        var fieldCurvatureAndDistortionView = connector.BuildAnalysisView(
+            "场曲/畸变",
+            new Dictionary<string, string>
+            {
+                ["DistortionType"] = "SMIA-TV"
+            });
+        Assert.Equal("场曲/畸变", fieldCurvatureAndDistortionView.Name);
+        Assert.Equal(2, fieldCurvatureAndDistortionView.PlotPanes.Count);
+        Assert.Equal(new[] { "Field Curvature", "Distortion" }, fieldCurvatureAndDistortionView.PlotPanes.Select(pane => pane.Title));
+        Assert.Contains(fieldCurvatureAndDistortionView.Rows, row => row.Metric == "畸变.SMIA-TV 畸变 (%)");
         Assert.Equal("Axial Aberration", connector.CanonicalAnalysisKey("轴向像差"));
         Assert.Equal("Axial Aberration", connector.CanonicalAnalysisKey("轴向色差"));
         var axialParameters = connector.GetAnalysisParameters("轴向像差");
@@ -1806,6 +1860,28 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" },
             sourceImage.Choices);
+        var parameters = connector.GetAnalysisParameters("Image Simulation");
+        Assert.Contains(parameters, parameter => parameter.Key == "FieldHeight");
+        Assert.Contains(parameters, parameter => parameter.Key == "Oversampling");
+        Assert.Contains(parameters, parameter => parameter.Key == "GuardBand");
+        Assert.Contains(parameters, parameter => parameter.Key == "RelativeIllumination");
+        Assert.Contains(parameters, parameter => parameter.Key == "AberrationMode");
+
+        var view = connector.BuildAnalysisView(
+            "Image Simulation",
+            new Dictionary<string, string>
+            {
+                ["Oversampling"] = "2",
+                ["GuardBand"] = "8",
+                ["FieldHeight"] = "1.5",
+                ["RelativeIllumination"] = "false",
+                ["AberrationMode"] = "Geometric",
+                ["PsfSize"] = "16",
+                ["NumRays"] = "8"
+            });
+        Assert.Contains(view.Rows, row => row.Metric == "过采样" && row.Value == "2");
+        Assert.Contains(view.Rows, row => row.Metric == "保护带" && row.Value == "8");
+        Assert.Contains(view.Rows, row => row.Metric == "像差模式" && row.Value == "Geometric");
     }
 
     [Fact]

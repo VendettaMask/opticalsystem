@@ -820,6 +820,7 @@ public sealed class OptilandParityTests
         Assert.Contains("MTF", optic.Analyses.Names);
         Assert.Contains("Huygens MTF", optic.Analyses.Names);
         Assert.Contains("Geometric MTF", optic.Analyses.Names);
+        Assert.Contains("Contrast Loss Map", optic.Analyses.Names);
         Assert.Contains("Fourier Through Focus MTF", optic.Analyses.Names);
         Assert.Contains("Huygens Through Focus MTF", optic.Analyses.Names);
         Assert.Contains("Geometric Through Focus MTF", optic.Analyses.Names);
@@ -840,11 +841,12 @@ public sealed class OptilandParityTests
         Assert.Contains("Color Focus Shift", optic.Analyses.Names);
         Assert.Contains("Lateral Color", optic.Analyses.Names);
         Assert.Contains("Axial Aberration", optic.Analyses.Names);
+        Assert.Contains("Field Curvature and Distortion", optic.Analyses.Names);
         Assert.Contains("Full Field Aberration", optic.Analyses.Names);
         Assert.Contains("Diffraction Encircled Energy", optic.Analyses.Names);
         Assert.Contains("Geometric Line Edge Spread", optic.Analyses.Names);
         Assert.Contains("Extended Source Encircled Energy", optic.Analyses.Names);
-        Assert.Equal(67, optic.Analyses.Names.Count);
+        Assert.Equal(69, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

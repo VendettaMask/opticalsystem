@@ -105,7 +105,8 @@ internal static class AnalysisTrace
 
         var xRadians = fieldX * Math.PI / 180.0;
         var yRadians = fieldY * Math.PI / 180.0;
-        return distortionType == "f-theta"
+        var model = BaseDistortionType(distortionType);
+        return model == "f-theta"
             ? (xRadians, yRadians)
             : (Math.Tan(xRadians), Math.Tan(yRadians));
     }
@@ -136,6 +137,15 @@ internal static class AnalysisTrace
         string distortionType,
         bool symmetricMagnification = false)
     {
+        distortionType = NormalizeDistortionType(distortionType);
+        if (UsesCalibratedDistortionReference(distortionType))
+        {
+            return BuildCalibratedDistortionReferenceMapping(
+                optic,
+                wavelengthMicrometers,
+                distortionType);
+        }
+
         var fields = optic.Fields.ToArray();
         var referenceField = fields.Length == 0
             ? new FieldPoint()
@@ -273,9 +283,61 @@ internal static class AnalysisTrace
             return (linearX, linearY);
         }
 
-        var xRadians = distortionType == "f-theta" ? linearX : Math.Atan(linearX);
-        var yRadians = distortionType == "f-theta" ? linearY : Math.Atan(linearY);
+        var model = BaseDistortionType(distortionType);
+        var xRadians = model == "f-theta" ? linearX : Math.Atan(linearX);
+        var yRadians = model == "f-theta" ? linearY : Math.Atan(linearY);
         return (xRadians * 180.0 / Math.PI, yRadians * 180.0 / Math.PI);
+    }
+
+    private static DistortionReferenceMapping BuildCalibratedDistortionReferenceMapping(
+        Optic optic,
+        double wavelengthMicrometers,
+        string distortionType)
+    {
+        var baseType = BaseDistortionType(distortionType);
+        var originImage = TraceChiefAtLinearField(optic, 0, 0, wavelengthMicrometers, baseType);
+        var numerator = 0.0;
+        var denominator = 0.0;
+        foreach (var field in optic.Fields)
+        {
+            var linear = ToDistortionLinearField(optic, field.X, field.Y, baseType);
+            var linearRadiusSquared = (linear.X * linear.X) + (linear.Y * linear.Y);
+            if (linearRadiusSquared <= 1e-30)
+            {
+                continue;
+            }
+
+            var actual = TraceChiefAtLinearField(
+                optic,
+                linear.X,
+                linear.Y,
+                wavelengthMicrometers,
+                baseType);
+            numerator += (linear.X * (actual.X - originImage.X))
+                + (linear.Y * (actual.Y - originImage.Y));
+            denominator += linearRadiusSquared;
+        }
+
+        if (denominator <= 1e-30)
+        {
+            throw new InvalidOperationException("Unable to calibrate distortion reference from the defined fields.");
+        }
+
+        var scale = numerator / denominator;
+        if (Math.Abs(scale) <= 1e-30)
+        {
+            throw new InvalidOperationException("The calibrated distortion reference scale is singular.");
+        }
+
+        return new DistortionReferenceMapping(
+            0,
+            0,
+            originImage.X,
+            originImage.Y,
+            scale,
+            0,
+            0,
+            scale);
     }
 
     private static (double X, double Y) DistortionDerivative(
@@ -345,7 +407,41 @@ internal static class AnalysisTrace
             return "f-theta";
         }
 
-        throw new ArgumentException("Distortion type must be 'f-tan' or 'f-theta'.", nameof(distortionType));
+        if (string.Equals(distortionType, "calibrated-f-theta", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(distortionType, "Calibrated F-Theta", StringComparison.OrdinalIgnoreCase))
+        {
+            return "calibrated-f-theta";
+        }
+
+        if (string.Equals(distortionType, "calibrated-f-tan", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(distortionType, "Calibrated F-Tan(Theta)", StringComparison.OrdinalIgnoreCase))
+        {
+            return "calibrated-f-tan";
+        }
+
+        if (string.Equals(distortionType, "smia-tv", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(distortionType, "SMIA-TV", StringComparison.OrdinalIgnoreCase))
+        {
+            return "smia-tv";
+        }
+
+        throw new ArgumentException(
+            "Distortion type must be F-Tan(Theta), F-Theta, Calibrated F-Theta, Calibrated F-Tan(Theta), or SMIA-TV.",
+            nameof(distortionType));
+    }
+
+    public static string BaseDistortionType(string distortionType)
+    {
+        var normalized = NormalizeDistortionType(distortionType);
+        return normalized.Contains("f-theta", StringComparison.OrdinalIgnoreCase)
+            ? "f-theta"
+            : "f-tan";
+    }
+
+    public static bool UsesCalibratedDistortionReference(string distortionType)
+    {
+        var normalized = NormalizeDistortionType(distortionType);
+        return normalized is "calibrated-f-theta" or "calibrated-f-tan" or "smia-tv";
     }
 
     public static Rays.RayTraceSample FinalSample(

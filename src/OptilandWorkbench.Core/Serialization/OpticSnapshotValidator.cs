@@ -8,7 +8,7 @@ namespace OptilandWorkbench.Core.Serialization;
 public static class OpticSnapshotValidator
 {
     public const int MinimumSupportedSchemaVersion = 1;
-    public const int CurrentSchemaVersion = 3;
+    public const int CurrentSchemaVersion = 4;
 
     private const int MaximumTopLevelItemCount = 100_000;
     private const int MaximumComponentNumberCount = 1_000_000;
@@ -288,6 +288,7 @@ public static class OpticSnapshotValidator
         if (surface.Components is { } components)
         {
             ValidateSurfaceComponents(components, $"{path}.components");
+            ValidateSurfaceComponentConsistency(surface, path);
         }
     }
 
@@ -347,6 +348,63 @@ public static class OpticSnapshotValidator
                 $"{path}.physicalAperture",
                 "boolean apertures must include their left and right components");
         }
+    }
+
+    private static void ValidateSurfaceComponentConsistency(
+        SurfaceSnapshot surface,
+        string path)
+    {
+        var components = surface.Components!;
+        var normalized = SurfaceSnapshotCompatibility.NormalizeLegacyFromComponents(surface);
+        var normalizedComponents = normalized.Components!;
+
+        RequireSameKind(
+            components.GeometryKind,
+            components.Geometry?.Kind,
+            $"{path}.components.geometryKind");
+        RequireSameKind(
+            components.CoatingKind,
+            components.Coating?.Kind,
+            $"{path}.components.coatingKind");
+        RequireSameKind(
+            components.InteractionKind,
+            components.Interaction?.Kind,
+            $"{path}.components.interactionKind");
+        RequireSameKind(
+            components.PhysicalApertureKind,
+            components.PhysicalAperture?.Kind,
+            $"{path}.components.physicalApertureKind");
+        RequireSameKind(
+            components.ScatteringKind,
+            components.Scattering?.Kind,
+            $"{path}.components.scatteringKind");
+        RequireSameText(
+            components.MaterialBefore,
+            normalizedComponents.MaterialBefore,
+            $"{path}.components.materialBefore");
+        RequireSameText(
+            components.MaterialAfter,
+            normalizedComponents.MaterialAfter,
+            $"{path}.components.materialAfter");
+
+        if (SurfaceSnapshotCompatibility.LegacyRadiusConic(
+                components.Geometry,
+                out _,
+                out _))
+        {
+            RequireSameNumber(surface.Radius, normalized.Radius, $"{path}.radius");
+            RequireSameNumber(surface.Conic, normalized.Conic, $"{path}.conic");
+        }
+
+        if (surface.IsReflective != normalized.IsReflective)
+        {
+            Invalid(
+                $"{path}.isReflective",
+                "the legacy reflective flag contradicts the interaction component");
+        }
+
+        RequireSameText(surface.Material, normalized.Material, $"{path}.material");
+        RequireSameText(surface.Coating, normalized.Coating, $"{path}.coating");
     }
 
     private static void ValidatePickups(
@@ -453,7 +511,7 @@ public static class OpticSnapshotValidator
             RequireFinite(operand.Px, $"{path}.px");
             RequireFinite(operand.Py, $"{path}.py");
             RequireFinite(operand.Target, $"{path}.target");
-            RequireFiniteNonNegative(operand.Weight, $"{path}.weight");
+            RequireFinite(operand.Weight, $"{path}.weight");
             RequireText(operand.Comment, $"{path}.comment");
 
             if (operand.PupilRings is < 1 or > 20)
@@ -479,6 +537,7 @@ public static class OpticSnapshotValidator
                 PupilSamplingKinds,
                 $"{path}.pupilSampling",
                 ignoreCase: true);
+            RequireFiniteNonNegative(operand.SpatialFrequency, $"{path}.spatialFrequency");
         }
     }
 
@@ -870,6 +929,46 @@ public static class OpticSnapshotValidator
         if (!double.IsFinite(value) || value < 0)
         {
             Invalid(path, "the value must be finite and non-negative");
+        }
+    }
+
+    private static void RequireSameKind(string? stored, string? authoritative, string path)
+    {
+        if (authoritative is not null && stored != authoritative)
+        {
+            Invalid(path, "the summary kind contradicts the nested component kind");
+        }
+    }
+
+    private static void RequireSameText(string stored, string authoritative, string path)
+    {
+        if (!string.Equals(stored, authoritative, StringComparison.OrdinalIgnoreCase))
+        {
+            Invalid(path, "the legacy value contradicts the component value");
+        }
+    }
+
+    private static void RequireSameNumber(double stored, double authoritative, string path)
+    {
+        if (double.IsNaN(stored) || double.IsNaN(authoritative))
+        {
+            Invalid(path, "the legacy value contradicts the component value");
+        }
+
+        if (double.IsInfinity(stored) || double.IsInfinity(authoritative))
+        {
+            if (stored.Equals(authoritative))
+            {
+                return;
+            }
+
+            Invalid(path, "the legacy value contradicts the component value");
+        }
+
+        var tolerance = 1e-9 * Math.Max(1, Math.Max(Math.Abs(stored), Math.Abs(authoritative)));
+        if (Math.Abs(stored - authoritative) > tolerance)
+        {
+            Invalid(path, "the legacy value contradicts the component value");
         }
     }
 

@@ -38,9 +38,9 @@ public sealed class UndoRedoManager
 
         var current = optic.ToSnapshot();
         var previous = _undo.Last!.Value;
+        optic.ApplySnapshot(previous);
         _undo.RemoveLast();
         AddBounded(_redo, current);
-        optic.ApplySnapshot(previous);
         return true;
     }
 
@@ -53,9 +53,9 @@ public sealed class UndoRedoManager
 
         var current = optic.ToSnapshot();
         var next = _redo.Last!.Value;
+        optic.ApplySnapshot(next);
         _redo.RemoveLast();
         AddBounded(_undo, current);
-        optic.ApplySnapshot(next);
         return true;
     }
 

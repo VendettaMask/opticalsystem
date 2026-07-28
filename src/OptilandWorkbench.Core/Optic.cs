@@ -405,42 +405,43 @@ public sealed class Optic
                 wavelength.Nanometers,
                 wavelength.Weight,
                 wavelength.IsPrimary)).ToList(),
-            SurfaceGroup.Items.Select(surface => new SurfaceSnapshot(
-                surface.Number,
-                surface.Label,
-                surface.Radius,
-                surface.Thickness,
-                surface.Material,
-                surface.Coating,
-                surface.SemiDiameter,
-                surface.Conic,
-                surface.IsStop,
-                surface.IsReflective,
-                new SurfaceComponentSnapshot(
-                    surface.Geometry.Kind,
-                    surface.MaterialBefore.Name,
-                    surface.MaterialAfter.Name,
-                    surface.CoatingModel.Kind,
-                    surface.InteractionModel.Kind,
-                    surface.PhysicalAperture?.Kind,
-                    surface.ScatteringModel?.Kind,
-                    ComponentSnapshotFactory.FromGeometry(surface.Geometry),
-                    ComponentSnapshotFactory.FromMaterial(surface.MaterialBefore),
-                    ComponentSnapshotFactory.FromMaterial(surface.MaterialAfter),
-                    ComponentSnapshotFactory.FromCoating(surface.CoatingModel),
-                    ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
-                    ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
-                    ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)),
-                surface.RadiusVariable,
-                surface.ThicknessVariable,
-                surface.SemiDiameterFixed,
-                new CoordinateSystemSnapshot(
-                    surface.CoordinateSystem.Origin.X,
-                    surface.CoordinateSystem.Origin.Y,
-                    surface.CoordinateSystem.Origin.Z,
-                    surface.CoordinateSystem.RotationXDegrees,
-                    surface.CoordinateSystem.RotationYDegrees,
-                    surface.CoordinateSystem.RotationZDegrees))).ToList(),
+            SurfaceGroup.Items.Select(surface => SurfaceSnapshotCompatibility.PrepareForSave(
+                new SurfaceSnapshot(
+                    surface.Number,
+                    surface.Label,
+                    surface.Radius,
+                    surface.Thickness,
+                    surface.Material,
+                    surface.Coating,
+                    surface.SemiDiameter,
+                    surface.Conic,
+                    surface.IsStop,
+                    surface.IsReflective,
+                    new SurfaceComponentSnapshot(
+                        surface.Geometry.Kind,
+                        surface.MaterialBefore.Name,
+                        surface.MaterialAfter.Name,
+                        surface.CoatingModel.Kind,
+                        surface.InteractionModel.Kind,
+                        surface.PhysicalAperture?.Kind,
+                        surface.ScatteringModel?.Kind,
+                        ComponentSnapshotFactory.FromGeometry(surface.Geometry),
+                        ComponentSnapshotFactory.FromMaterial(surface.MaterialBefore),
+                        ComponentSnapshotFactory.FromMaterial(surface.MaterialAfter),
+                        ComponentSnapshotFactory.FromCoating(surface.CoatingModel),
+                        ComponentSnapshotFactory.FromInteraction(surface.InteractionModel),
+                        ComponentSnapshotFactory.FromAperture(surface.PhysicalAperture),
+                        ComponentSnapshotFactory.FromScattering(surface.ScatteringModel)),
+                    surface.RadiusVariable,
+                    surface.ThicknessVariable,
+                    surface.SemiDiameterFixed,
+                    new CoordinateSystemSnapshot(
+                        surface.CoordinateSystem.Origin.X,
+                        surface.CoordinateSystem.Origin.Y,
+                        surface.CoordinateSystem.Origin.Z,
+                        surface.CoordinateSystem.RotationXDegrees,
+                        surface.CoordinateSystem.RotationYDegrees,
+                        surface.CoordinateSystem.RotationZDegrees)))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -469,7 +470,10 @@ public sealed class Optic
                 operand.PupilRings,
                 operand.PupilArms,
                 operand.PupilObscuration,
-                operand.PupilSampling)).ToList(),
+                operand.PupilSampling,
+                operand.SpatialFrequency,
+                operand.IgnoreLateralColor,
+                operand.PolychromaticReference)).ToList(),
             Environment: new EnvironmentSnapshot(
                 Environment.MatchRefractiveIndexData,
                 Environment.TemperatureCelsius,
@@ -557,6 +561,7 @@ public sealed class Optic
         var surfaceSnapshots = snapshot.Surfaces ?? new List<SurfaceSnapshot>();
         SurfaceGroup.Replace(surfaceSnapshots.Select(surface =>
         {
+            surface = SurfaceSnapshotCompatibility.NormalizeLegacyFromComponents(surface);
             var opticalSurface = new OpticalSurface
             {
                 Number = surface.Number,
@@ -644,7 +649,10 @@ public sealed class Optic
                 PupilRings = operand.PupilRings,
                 PupilArms = operand.PupilArms,
                 PupilObscuration = operand.PupilObscuration,
-                PupilSampling = operand.PupilSampling
+                PupilSampling = operand.PupilSampling,
+                SpatialFrequency = operand.SpatialFrequency,
+                IgnoreLateralColor = operand.IgnoreLateralColor,
+                PolychromaticReference = operand.PolychromaticReference
             });
         }
     }

@@ -254,10 +254,12 @@ public partial class OpticalWorkspaceModel
                 BoolParameter("UseSymbols", "使用符号区分", "true"),
                 ChoiceParameter("ColorRaysBy", "光线着色依据", "field", new[] { "field", "wavelength" })
             },
+            "Field Curvature and Distortion" => FieldCurvatureAndDistortionParameters(UsesAngularDistortionModel()),
             "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
             "Grid Distortion" => GridDistortionParameters(),
             "Field Curvature" => new[]
             {
+                DoubleParameter("MaximumCurvature", "最大场曲（0=自动）", "0", 0, 1_000_000, 0.1),
                 DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001)
             },
             "Color Focus Shift" => new[]
@@ -381,12 +383,26 @@ public partial class OpticalWorkspaceModel
             "RMS vs Field" => new[]
             {
                 IntParameter("NumRings", "六角采样环数", "6", 1, 32),
-                ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices)
+                ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
+                ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "\u6ce2\u957f",
+                    "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },
             "RMS vs Wavelength" => new[]
             {
                 IntParameter("WaveDensity", "\u6ce2\u957f\u5bc6\u5ea6", "21", 2, 100),
                 IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "FieldNumber",
@@ -395,7 +411,10 @@ public partial class OpticalWorkspaceModel
                     new[] { "0" }.Concat(
                         Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
                             .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },
             "RMS vs Focus" => new[]
             {
@@ -403,6 +422,8 @@ public partial class OpticalWorkspaceModel
                 DoubleParameter("MinimumFocus", "\u6700\u5c0f\u79bb\u7126", "-1", -1_000_000, 1_000_000, 0.01),
                 DoubleParameter("MaximumFocus", "\u6700\u5927\u79bb\u7126", "1", -1_000_000, 1_000_000, 0.01),
                 IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -410,7 +431,10 @@ public partial class OpticalWorkspaceModel
                     "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },
             "RMS Field Map" => new[]
             {
@@ -419,6 +443,8 @@ public partial class OpticalWorkspaceModel
                 DoubleParameter("XFieldWidth", "X\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
                 DoubleParameter("YFieldWidth", "Y\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
                 IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -426,7 +452,10 @@ public partial class OpticalWorkspaceModel
                     "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" })
+                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },
             "RMS Wavefront vs Field" => new[]
             {
@@ -817,12 +846,31 @@ public partial class OpticalWorkspaceModel
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
                 BoolParameter("ScaleByDiffractionLimit", "乘以衍射极限包络", "true")
             },
-            "Sampled MTF" or "Contrast Loss Map" => new[]
+            "Sampled MTF" => new[]
             {
                 IntParameter("PupilSampling", "瞳面采样数", "32", 8, 512),
                 IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
                 IntParameter("PlotPointCount", "曲线采样点数", "128", 2, 2048),
                 DoubleParameter("MaximumFrequency", "最大频率（0=截止）", "0", 0, 10000, 10)
+            },
+            "Contrast Loss Map" => new[]
+            {
+                ChoiceParameter("Sampling", "采样", "32", new[] { "16", "32", "64", "128", "256", "512" }),
+                DoubleParameter("Frequency", "频率 (cycles/mm，0=5%截止)", "0", 0, 10000, 1),
+                BoolParameter("Normalize", "归一化", "false"),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "波长",
+                    "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter(
+                    "FieldNumber",
+                    "视场",
+                    "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                BoolParameter("ShowOPD", "显示 OPD", "false")
             },
             "Optical Path Difference" => new[]
             {
@@ -1023,13 +1071,25 @@ public partial class OpticalWorkspaceModel
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 ChoiceParameter("ImageSize", "图像尺寸", "64",
                     new[] { "32", "64", "128", "256" }),
-                IntParameter("NumRays", "每点光线数", "8", 2, 128)
+                IntParameter("NumRays", "每点光线数", "8", 2, 128),
+                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
+                IntParameter("Oversampling", "过采样", "1", 1, 16),
+                IntParameter("GuardBand", "保护带", "4", 0, 512),
+                BoolParameter("RelativeIllumination", "相对照度", "true"),
+                ChoiceParameter("AberrationMode", "像差模式", "Geometric",
+                    new[] { "Geometric", "None" })
             },
             "Geometric Bitmap Image Analysis" => new[]
             {
                 ChoiceParameter("ImageSize", "图像尺寸", "64",
                     new[] { "32", "64", "128", "256" }),
-                IntParameter("RaysPerPixel", "每像素光线数", "8", 2, 128)
+                IntParameter("RaysPerPixel", "每像素光线数", "8", 2, 128),
+                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
+                IntParameter("Oversampling", "过采样", "1", 1, 16),
+                IntParameter("GuardBand", "保护带", "4", 0, 512),
+                BoolParameter("RelativeIllumination", "相对照度", "true"),
+                ChoiceParameter("AberrationMode", "像差模式", "Geometric",
+                    new[] { "Geometric", "None" })
             },
             "Light Source Analysis" => new[]
             {
@@ -1043,7 +1103,11 @@ public partial class OpticalWorkspaceModel
                     new[] { "32", "64", "128", "256" }),
                 ChoiceParameter("PupilSampling", "瞳面采样", "16 x 16",
                     new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
-                DoubleParameter("Coherence", "相干度", "0.5", 0, 1, 0.05)
+                DoubleParameter("Coherence", "相干度", "0.5", 0, 1, 0.05),
+                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
+                IntParameter("Oversampling", "过采样", "1", 1, 16),
+                IntParameter("GuardBand", "保护带", "16", 0, 512),
+                BoolParameter("RelativeIllumination", "相对照度", "true")
             },
             "Extended Diffraction Image Analysis" => new[]
             {
@@ -1054,7 +1118,13 @@ public partial class OpticalWorkspaceModel
                 ChoiceParameter("PupilSampling", "瞳面采样", "16 x 16",
                     new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
                 ChoiceParameter("FieldGrid", "视场 PSF 网格", "5",
-                    new[] { "3", "5", "7", "9" })
+                    new[] { "3", "5", "7", "9" }),
+                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
+                IntParameter("Oversampling", "过采样", "1", 1, 16),
+                IntParameter("GuardBand", "保护带", "16", 0, 512),
+                BoolParameter("RelativeIllumination", "相对照度", "true"),
+                ChoiceParameter("AberrationMode", "像差模式", "Huygens",
+                    new[] { "Huygens", "Geometric", "None" })
             },
             "Image Simulation" => new[]
             {
@@ -1063,6 +1133,17 @@ public partial class OpticalWorkspaceModel
                     "输入图像",
                     "彩色测试卡",
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
+                ChoiceParameter("SourceMode", "源类型", "内置图像", new[] { "内置图像", "外部位图" }),
+                IntParameter("ImageWidth", "图像宽度", "64", 16, 2048),
+                IntParameter("ImageHeight", "图像高度", "48", 16, 2048),
+                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
+                IntParameter("Oversampling", "过采样", "1", 1, 16),
+                IntParameter("GuardBand", "保护带", "16", 0, 512),
+                BoolParameter("RelativeIllumination", "相对照度", "true"),
+                ChoiceParameter("AberrationMode", "像差模式", "Huygens",
+                    new[] { "Huygens", "Geometric", "None" }),
+                IntParameter("PsfGridRows", "PSF 网格行", "3", 1, 15),
+                IntParameter("PsfGridColumns", "PSF 网格列", "3", 1, 15),
                 IntParameter("PsfSize", "PSF 尺寸", "32", 8, 256),
                 IntParameter("NumRays", "光线数", "16", 2, 256),
                 IntParameter("EigenPsfComponents", "EigenPSF 分量数", "3", 1, 12),

@@ -8,6 +8,7 @@ using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.Core.FileIO;
 
@@ -238,7 +239,9 @@ internal static class ZemaxZmxReader
                     ReadPreservedMeritOperand(document, tokens, command);
                     break;
                 case "MNUM":
-                    document.ConfigurationCount = Math.Max(1, RequiredInt(tokens, 1, command));
+                    document.ConfigurationCount = CheckedConfigurationCount(
+                        RequiredInt(tokens, 1, command),
+                        command);
                     break;
                 case "THIC":
                 case "CRVT":
@@ -888,13 +891,33 @@ internal static class ZemaxZmxReader
             && tokens.Count > 5
             ? RequiredInt(tokens, 5, command) - 1
             : -1;
+        var requiredConfigurationCount = CheckedConfigurationCount(
+            configurationIndex + 1,
+            command);
         document.ConfigurationOperands.Add(new ZemaxConfigurationOperand(
             command,
             target,
             configurationIndex,
             value,
             auxiliaryIndex));
-        document.ConfigurationCount = Math.Max(document.ConfigurationCount, configurationIndex + 1);
+        document.ConfigurationCount = Math.Max(document.ConfigurationCount, requiredConfigurationCount);
+    }
+
+    private static int CheckedConfigurationCount(int count, string command)
+    {
+        if (count < 1)
+        {
+            return 1;
+        }
+
+        if (count > StarOptProjectStore.MaximumConfigurationCount)
+        {
+            throw new InvalidDataException(
+                $"Zemax {command} declares {count} configurations, which exceeds the supported limit "
+                + $"of {StarOptProjectStore.MaximumConfigurationCount}.");
+        }
+
+        return count;
     }
 
     private static void ReadFNumber(ZemaxDocument document, IReadOnlyList<string> tokens)

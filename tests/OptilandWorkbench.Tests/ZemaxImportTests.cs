@@ -109,6 +109,27 @@ public sealed class ZemaxImportTests
             });
     }
 
+    [Fact]
+    public void ZemaxImportRejectsExcessiveMultiConfigurationCount()
+    {
+        var configurationCount = StarOptProjectStore.MaximumConfigurationCount + 1;
+        var source = $$"""
+            MODE SEQ
+            ENPD 10
+            MNUM {{configurationCount}}
+            SURF 0
+              DISZ 100
+            SURF 1
+              DISZ 0
+            """;
+
+        var exception = Assert.Throws<InvalidDataException>(
+            () => OpticalFormatCatalog.Import(source, ".zmx"));
+
+        Assert.Contains("MNUM", exception.Message, StringComparison.Ordinal);
+        Assert.Contains(configurationCount.ToString(), exception.Message, StringComparison.Ordinal);
+    }
+
     public static IEnumerable<object[]> SampleLensFiles()
     {
         yield return new object[] { "achromatic-doublet.zmx", FieldDefinitionKind.Angle, 5, 2 };

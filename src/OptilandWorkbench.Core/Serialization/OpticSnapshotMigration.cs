@@ -33,7 +33,7 @@ internal static class OpticSnapshotMigration
                 };
             }
 
-            return migrated;
+            return SurfaceSnapshotCompatibility.NormalizeLegacyFromComponents(migrated);
         }).ToList();
 
         var surfaceNumbers = surfaces?

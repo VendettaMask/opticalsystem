@@ -61,9 +61,10 @@ public partial class OpticalWorkspaceModel
             "Zernike系数 vs. 视场" => "Zernike vs Field",
             "光瞳像差" => "Pupil Aberration",
             "全视场像差" => "Full Field Aberration",
-            "场曲/畸变" => "Field Curvature",
+            "场曲/畸变" => "Field Curvature and Distortion",
             "轴向像差" => "Axial Aberration",
             "轴向色差" => "Axial Aberration",
+            "畸变" => "Distortion",
             "垂轴色差" => "Lateral Color",
             "色焦移" => "Color Focus Shift",
             "赛德尔系数" => "Seidel Coefficients",
@@ -87,6 +88,16 @@ public partial class OpticalWorkspaceModel
 
     private static string DisplayAnalysisKey(string key)
     {
+        if (key.StartsWith("FieldCurvature.", StringComparison.OrdinalIgnoreCase))
+        {
+            return "场曲." + DisplayAnalysisKey(key["FieldCurvature.".Length..]);
+        }
+
+        if (key.StartsWith("Distortion.", StringComparison.OrdinalIgnoreCase))
+        {
+            return "畸变." + DisplayAnalysisKey(key["Distortion.".Length..]);
+        }
+
         if (key.StartsWith("Surface ", StringComparison.OrdinalIgnoreCase))
         {
             return "表面 " + key["Surface ".Length..];
@@ -216,6 +227,7 @@ public partial class OpticalWorkspaceModel
         ["Footprint Diagram"] = "光迹图",
         ["Distortion"] = "畸变",
         ["Grid Distortion"] = "网格畸变",
+        ["Field Curvature and Distortion"] = "场曲/畸变",
         ["Field Curvature"] = "场曲",
         ["Color Focus Shift"] = "色焦移",
         ["Lateral Color"] = "垂轴色差",
@@ -258,6 +270,7 @@ public partial class OpticalWorkspaceModel
         ["Huygens MTF"] = "惠更斯 MTF",
         ["Geometric MTF"] = "几何 MTF",
         ["Sampled MTF"] = "采样 MTF",
+        ["Contrast Loss Map"] = "对比度损失图",
         ["Optical Path Difference"] = "光程差图",
         ["Foucault Analysis"] = "傅科分析",
         ["Wavefront Map"] = "波前图",
@@ -329,12 +342,27 @@ public partial class OpticalWorkspaceModel
         ["PeakToValleyProxy"] = "PV 波前近似",
         ["Reference"] = "参考",
         ["Method"] = "方法",
+        ["Data"] = "数据",
+        ["ShowDiffractionLimit"] = "显示衍射极限",
+        ["DiffractionLimitMillimeters"] = "衍射极限 (mm)",
+        ["RemoveVignetting"] = "移除渐晕",
         ["Sigma"] = "Sigma",
         ["PeakNormalized"] = "归一化峰值",
         ["Pipeline"] = "仿真流程",
+        ["ZemaxImageSimulationSettings"] = "Zemax 图像仿真设置",
+        ["SourceMode"] = "源类型",
         ["OutputShape"] = "输出形状",
+        ["FieldHeight"] = "视场高度",
+        ["Oversampling"] = "过采样",
+        ["GuardBand"] = "保护带",
+        ["RelativeIllumination"] = "相对照度",
+        ["AberrationMode"] = "像差模式",
+        ["ImageWidth"] = "图像宽度",
+        ["ImageHeight"] = "图像高度",
         ["WavelengthsMicrometers"] = "仿真波长 (µm)",
         ["PsfGridShape"] = "PSF 视场网格",
+        ["PsfGridRows"] = "PSF 网格行",
+        ["PsfGridColumns"] = "PSF 网格列",
         ["PsfSize"] = "PSF 尺寸",
         ["EigenPsfComponents"] = "EigenPSF 分量数",
         ["DistortionGridSize"] = "畸变采样网格",
@@ -351,6 +379,13 @@ public partial class OpticalWorkspaceModel
         ["WavelengthCount"] = "波长数",
         ["WavelengthMicrometers"] = "分析波长 (µm)",
         ["WavelengthNumber"] = "波长序号",
+        ["Frequency"] = "频率 (cycles/mm)",
+        ["RequestedFrequency"] = "请求频率 (cycles/mm)",
+        ["PupilSeparation"] = "瞳孔分离量",
+        ["Normalize"] = "归一化",
+        ["ShowOPD"] = "显示 OPD",
+        ["MaximumContrastLoss"] = "最大对比度损失",
+        ["ValidSampleCount"] = "有效采样数",
         ["MaximumAberration"] = "最大像差范围",
         ["GridInterval"] = "网格线间隔",
         ["MaximumFocalShiftChangeMicrometers"] = "最大焦移变化",
@@ -394,6 +429,7 @@ public partial class OpticalWorkspaceModel
         ["ScanDirection"] = "扫描方向",
         ["ReferenceFieldNumber"] = "参考视场",
         ["IgnoreVignettingFactors"] = "忽略渐晕因数",
+        ["SmiaTvDistortionPercent"] = "SMIA-TV 畸变 (%)",
         ["MaximumAbsoluteDistortionPercent"] = "最大绝对畸变 (%)",
         ["MaximumAbsoluteDistortionMillimeters"] = "最大绝对畸变 (mm)",
         ["MaximumDistortionPercent"] = "最大网格畸变 (%)",
@@ -408,12 +444,14 @@ public partial class OpticalWorkspaceModel
         ["MaximumTangentialFieldCurvatureMillimeters"] = "最大子午场曲 (mm)",
         ["MaximumSagittalFieldCurvatureMillimeters"] = "最大弧矢场曲 (mm)",
         ["MaximumAbsoluteImagePlaneDelta"] = "最大像面偏移 (mm)",
+        ["MaximumCurvatureScale"] = "最大场曲缩放",
         ["GridSize"] = "网格尺寸",
         ["ImageDeltaMicrometers"] = "像面采样间距 (µm)",
         ["ImageSize"] = "图像尺寸",
         ["ImageExtentMicrometers"] = "像的尺寸 (µm)",
         ["PixelPitchMicrometers"] = "像素间距 (µm)",
         ["PixelPitchMillimeters"] = "像素间距 (mm)",
+        ["ImagePlane"] = "像面平面",
         ["Samples"] = "采样点数",
         ["NumberOfRaysEachSide"] = "原点每侧光线数",
         ["PlotScaleMicrometers"] = "图形缩放 (µm)",

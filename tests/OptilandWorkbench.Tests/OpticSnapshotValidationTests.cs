@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.Tests;
@@ -16,7 +17,7 @@ public sealed class OpticSnapshotValidationTests
         var valid = Optic.CreateDemo().ToSnapshot();
         var cases = new (string ExpectedPath, OpticSnapshot Snapshot)[]
         {
-            ("$.schemaVersion", valid with { SchemaVersion = 4 }),
+            ("$.schemaVersion", valid with { SchemaVersion = 5 }),
             ("$.aperture.value", valid with
             {
                 Aperture = valid.Aperture! with { Value = double.PositiveInfinity }
@@ -81,6 +82,75 @@ public sealed class OpticSnapshotValidationTests
                         CoordinateSystem = valid.Surfaces[1].CoordinateSystem! with
                         {
                             OriginZ = double.PositiveInfinity
+                        }
+                    })
+            }),
+            ("$.surfaces[2].components.geometryKind", valid with
+            {
+                Surfaces = ReplaceAt(
+                    valid.Surfaces,
+                    2,
+                    valid.Surfaces[2] with
+                    {
+                        Components = valid.Surfaces[2].Components! with
+                        {
+                            GeometryKind = "plane"
+                        }
+                    })
+            }),
+            ("$.surfaces[2].radius", valid with
+            {
+                Surfaces = ReplaceAt(
+                    valid.Surfaces,
+                    2,
+                    valid.Surfaces[2] with
+                    {
+                        Components = valid.Surfaces[2].Components! with
+                        {
+                            Geometry = valid.Surfaces[2].Components!.Geometry! with
+                            {
+                                Numbers = new Dictionary<string, double>(
+                                    valid.Surfaces[2].Components!.Geometry!.Numbers)
+                                {
+                                    ["radius"] = valid.Surfaces[2].Radius + 10
+                                }
+                            }
+                        }
+                    })
+            }),
+            ("$.surfaces[2].material", valid with
+            {
+                Surfaces = ReplaceAt(
+                    valid.Surfaces,
+                    2,
+                    valid.Surfaces[2] with
+                    {
+                        Material = "Air",
+                        IsReflective = false,
+                        Components = valid.Surfaces[2].Components! with
+                        {
+                            InteractionKind = "refractive",
+                            Interaction = ComponentSnapshot.Empty("refractive"),
+                            MaterialAfter = "N-BK7",
+                            MaterialAfterComponent = new ComponentSnapshot(
+                                "catalog",
+                                new Dictionary<string, double>(),
+                                new Dictionary<string, string> { ["name"] = "N-BK7" })
+                        }
+                    })
+            }),
+            ("$.surfaces[2].isReflective", valid with
+            {
+                Surfaces = ReplaceAt(
+                    valid.Surfaces,
+                    2,
+                    valid.Surfaces[2] with
+                    {
+                        IsReflective = false,
+                        Components = valid.Surfaces[2].Components! with
+                        {
+                            InteractionKind = "reflective",
+                            Interaction = ComponentSnapshot.Empty("reflective")
                         }
                     })
             }),
@@ -156,6 +226,71 @@ public sealed class OpticSnapshotValidationTests
     }
 
     [Fact]
+    public void MeritOperandSnapshotPreservesZemaxConstraintAndContrastSettings()
+    {
+        var optic = Optic.CreateDemo();
+        optic.MeritFunctionOperands.Clear();
+        optic.MeritFunctionOperands.Add(new MeritOperandDefinition
+        {
+            Type = "MECS",
+            Surface = 0,
+            Field = 1,
+            Wavelength = 1,
+            Target = 0.75,
+            Weight = -0.032320912073968894,
+            SpatialFrequency = 185,
+            IgnoreLateralColor = true,
+            PolychromaticReference = true,
+            Comment = "constraint"
+        });
+
+        var snapshot = optic.ToSnapshot();
+        OpticSnapshotValidator.Validate(snapshot);
+        var restored = Optic.FromSnapshot(snapshot);
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal(OpticSnapshotValidator.CurrentSchemaVersion, snapshot.SchemaVersion);
+        Assert.Equal(-0.032320912073968894, operand.Weight, precision: 15);
+        Assert.Equal(185, operand.SpatialFrequency, precision: 12);
+        Assert.True(operand.IgnoreLateralColor);
+        Assert.True(operand.PolychromaticReference);
+    }
+
+    [Fact]
+    public void LegacySchemaThreeMeritOperandUsesSchemaFourDefaults()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var legacy = valid with
+        {
+            SchemaVersion = 3,
+            MeritOperands = new List<MeritOperandSnapshot>
+            {
+                new(
+                    Enabled: true,
+                    Type: "MECS",
+                    Surface: 0,
+                    Field: 1,
+                    Wavelength: 1,
+                    Hx: 0,
+                    Hy: 0,
+                    Px: 0,
+                    Py: 0,
+                    Target: 0,
+                    Weight: -1,
+                    Comment: string.Empty)
+            }
+        };
+
+        var restored = Optic.FromSnapshot(legacy);
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal(30, operand.SpatialFrequency, precision: 12);
+        Assert.False(operand.IgnoreLateralColor);
+        Assert.False(operand.PolychromaticReference);
+        Assert.Equal(-1, operand.Weight, precision: 12);
+    }
+
+    [Fact]
     public void ApplySnapshotDoesNotPartiallyUpdateWhenComponentConstructionFails()
     {
         var optic = Optic.CreateDemo();
@@ -228,6 +363,32 @@ public sealed class OpticSnapshotValidationTests
             await Assert.ThrowsAsync<InvalidDataException>(
                 () => StarOptProjectStore.SaveAsync(
                     new StarOptProjectDocument(new[] { optic }, 0),
+                    path));
+            Assert.False(File.Exists(path));
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task StarOptSaveRejectsTooManyConfigurationsBeforeCreatingAFile()
+    {
+        var optic = Optic.CreateDemo();
+        var configurations = Enumerable
+            .Repeat(optic, StarOptProjectStore.MaximumConfigurationCount + 1)
+            .ToArray();
+        var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.staropt");
+
+        try
+        {
+            await Assert.ThrowsAsync<ArgumentException>(
+                () => StarOptProjectStore.SaveAsync(
+                    new StarOptProjectDocument(configurations, 0),
                     path));
             Assert.False(File.Exists(path));
         }

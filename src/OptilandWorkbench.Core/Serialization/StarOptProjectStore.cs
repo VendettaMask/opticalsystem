@@ -15,10 +15,11 @@ public static class StarOptProjectStore
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 1;
     public const int ProjectFormatVersion = 1;
+    public const int MaximumConfigurationCount = 4096;
+    public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
     private const ushort BrotliCompressionFlag = 1;
     private const int HeaderLength = 52;
-    private const int MaximumPayloadLength = 256 * 1024 * 1024;
     private static readonly byte[] Magic = "STAROPT\x1a"u8.ToArray();
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -49,7 +50,19 @@ public static class StarOptProjectStore
             document.ActiveConfigurationIndex,
             configurations);
         var json = JsonSerializer.SerializeToUtf8Bytes(project, JsonOptions);
+        if (json.Length > MaximumPayloadLength)
+        {
+            throw new InvalidDataException(
+                "The STAROPT project is too large to be reopened by this application.");
+        }
+
         var compressed = Compress(json);
+        if (compressed.Length > MaximumPayloadLength)
+        {
+            throw new InvalidDataException(
+                "The STAROPT compressed project payload is too large to be reopened by this application.");
+        }
+
         var header = BuildHeader(json, compressed.Length);
         var fullPath = Path.GetFullPath(path);
         var directory = Path.GetDirectoryName(fullPath)
@@ -186,6 +199,7 @@ public static class StarOptProjectStore
 
         if (project.Configurations is null ||
             project.Configurations.Count == 0 ||
+            project.Configurations.Count > MaximumConfigurationCount ||
             project.Configurations.Any(configuration => configuration is null) ||
             project.ActiveConfigurationIndex < 0 ||
             project.ActiveConfigurationIndex >= project.Configurations.Count)
@@ -265,6 +279,13 @@ public static class StarOptProjectStore
         if (document.Configurations.Count == 0)
         {
             throw new ArgumentException("A STAROPT project must contain at least one configuration.", nameof(document));
+        }
+
+        if (document.Configurations.Count > MaximumConfigurationCount)
+        {
+            throw new ArgumentException(
+                $"A STAROPT project cannot contain more than {MaximumConfigurationCount} configurations.",
+                nameof(document));
         }
 
         if (document.Configurations.Any(configuration => configuration is null))

@@ -954,17 +954,34 @@ public static class DiffractionEngine
         double pixelPitchMillimeters)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var (centerX, centerY) = HuygensImageCenter(optic, field, wavelength);
+        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+            field.Hx,
+            field.Hy,
+            0,
+            0,
+            wavelength.Micrometers);
+        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).SingleOrDefault()
+            ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
+        var center = chief.Position;
+        var normal = Normalize(chief.Direction);
+        var imageLocalX = imageSurface.CoordinateSystem.ToGlobalDirection(new Vector3D(1, 0, 0));
+        var tangentX = imageLocalX - (normal * Dot(imageLocalX, normal));
+        if (tangentX.Length <= 1e-12)
+        {
+            tangentX = new Vector3D(1, 0, 0) - (normal * normal.X);
+        }
+
+        tangentX = Normalize(tangentX);
+        var tangentY = Normalize(Cross(normal, tangentX));
         var extent = 0.5 * imageSize * pixelPitchMillimeters;
         var coordinates = new Vector3D[imageSize, imageSize];
         for (var row = 0; row < imageSize; row++)
         {
-            var y = Linspace(-extent + centerY, extent + centerY, imageSize, row);
+            var y = Linspace(-extent, extent, imageSize, row);
             for (var column = 0; column < imageSize; column++)
             {
-                var x = Linspace(-extent + centerX, extent + centerX, imageSize, column);
-                var z = imageSurface.Geometry.Sag(x, y);
-                coordinates[row, column] = imageSurface.CoordinateSystem.ToGlobalPoint(new Vector3D(x, y, z));
+                var x = Linspace(-extent, extent, imageSize, column);
+                coordinates[row, column] = center + (tangentX * x) + (tangentY * y);
             }
         }
 
@@ -1068,6 +1085,20 @@ public static class DiffractionEngine
     private static double Dot(Vector3D left, Vector3D right)
     {
         return (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
+    }
+
+    private static Vector3D Cross(Vector3D left, Vector3D right)
+    {
+        return new Vector3D(
+            (left.Y * right.Z) - (left.Z * right.Y),
+            (left.Z * right.X) - (left.X * right.Z),
+            (left.X * right.Y) - (left.Y * right.X));
+    }
+
+    private static Vector3D Normalize(Vector3D value)
+    {
+        var length = value.Length;
+        return length <= 1e-30 ? new Vector3D(0, 0, 1) : value / length;
     }
 
     private static void Fft(Complex[] values)

@@ -20,7 +20,9 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             Components = 3,
             Padding = 16,
             DistortionGridSize = 9,
-            DistortionPolynomialDegree = 5
+            DistortionPolynomialDegree = 5,
+            ImageWidth = 64,
+            ImageHeight = 48
         };
     }
 
@@ -28,7 +30,11 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var source = ImageSimulationEngine.CreateSourceImage(_config.SourcePattern, 64, 48);
+        var oversampling = Math.Clamp(_config.Oversampling, 1, 16);
+        var source = ImageSimulationEngine.CreateSourceImage(
+            _config.SourcePattern,
+            Math.Max(16, _config.ImageWidth * oversampling),
+            Math.Max(16, _config.ImageHeight * oversampling));
         var result = ImageSimulationEngine.Simulate(Optic, source, _config);
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
@@ -40,7 +46,14 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Pipeline"] = "EigenPSF spatially variable convolution + geometric distortion + lateral color",
+            ["ZemaxImageSimulationSettings"] = "Source, FieldHeight, Oversampling, GuardBand, RelativeIllumination, PSF grid, and AberrationMode",
+            ["SourceMode"] = _config.SourceMode,
             ["SourcePattern"] = _config.SourcePattern.ToString(),
+            ["FieldHeight"] = _config.FieldHeight,
+            ["Oversampling"] = oversampling,
+            ["GuardBand"] = _config.Padding,
+            ["RelativeIllumination"] = _config.UseRelativeIllumination,
+            ["AberrationMode"] = _config.AberrationMode,
             ["OutputShape"] = $"(1, {result.Simulated.Channels}, {result.Simulated.Height}, {result.Simulated.Width})",
             ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.00"))),
             ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",

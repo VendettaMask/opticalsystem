@@ -121,10 +121,57 @@ public partial class OpticalWorkspaceModel
                 "DistortionType",
                 "畸变模型",
                 "F-Tan(Theta)",
-                new[] { "F-Tan(Theta)", "F-Theta" }));
+                DistortionModelChoices()));
         }
 
         return parameters.ToArray();
+    }
+
+    private AnalysisParameterDescriptor[] FieldCurvatureAndDistortionParameters(bool angularField)
+    {
+        var parameters = new List<AnalysisParameterDescriptor>
+        {
+            DoubleParameter("MaximumCurvature", "最大场曲（0=自动）", "0", 0, 1_000_000, 0.1),
+            DoubleParameter("MaximumDistortion", "最大畸变（0=自动）", "0", 0, 1_000_000, 0.1),
+            ChoiceParameter(
+                "WavelengthNumber",
+                "波长（0=所有）",
+                "0",
+                new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
+                    .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
+            ChoiceParameter("DisplayMode", "畸变显示为", "百分比", new[] { "百分比", "绝对值" }),
+            ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
+            ChoiceParameter(
+                "ReferenceFieldNumber",
+                "参考视场",
+                "1",
+                Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                    .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+            DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001),
+            BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
+        };
+        if (angularField)
+        {
+            parameters.Insert(3, ChoiceParameter(
+                "DistortionType",
+                "畸变模型",
+                "F-Tan(Theta)",
+                DistortionModelChoices()));
+        }
+
+        return parameters.ToArray();
+    }
+
+    private static string[] DistortionModelChoices()
+    {
+        return new[]
+        {
+            "F-Tan(Theta)",
+            "F-Theta",
+            "Calibrated F-Theta",
+            "Calibrated F-Tan(Theta)",
+            "SMIA-TV"
+        };
     }
 
     private AnalysisParameterDescriptor[] GridDistortionParameters()

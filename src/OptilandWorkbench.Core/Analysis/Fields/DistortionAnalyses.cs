@@ -123,6 +123,11 @@ public sealed class DistortionAnalysis : BaseAnalysis
             ["WavelengthCount"] = wavelengths.Length,
             [_displayMode == "absolute" ? "MaximumAbsoluteDistortionMillimeters" : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
+        if (_distortionType == "smia-tv" && wavelengths.Length > 0)
+        {
+            values["SmiaTvDistortionPercent"] = ComputeSmiaTvDistortion(Optic, wavelengths[0]);
+        }
+
         var minimumField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min();
         var maximumDefinedField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max();
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
@@ -136,17 +141,157 @@ public sealed class DistortionAnalysis : BaseAnalysis
             YMaximum: maximumDefinedField,
             ShowLegend: true));
     }
+
+    private static double ComputeSmiaTvDistortion(Optic optic, Wavelength wavelength)
+    {
+        if (optic.Fields.Count == 0)
+        {
+            return 0;
+        }
+
+        var maxX = optic.Fields.Select(field => Math.Abs(field.X)).DefaultIfEmpty(0).Max();
+        var maxY = optic.Fields.Select(field => Math.Abs(field.Y)).DefaultIfEmpty(0).Max();
+        var maximum = FieldCoordinates.MaximumRadius(optic.Fields);
+        if (maxX <= 1e-12)
+        {
+            maxX = maximum;
+        }
+
+        if (maxY <= 1e-12)
+        {
+            maxY = maximum;
+        }
+
+        if (maxX <= 1e-12 || maxY <= 1e-12)
+        {
+            return 0;
+        }
+
+        try
+        {
+            var leftTop = TraceChief(optic, -maxX, maxY, wavelength);
+            var leftBottom = TraceChief(optic, -maxX, -maxY, wavelength);
+            var rightTop = TraceChief(optic, maxX, maxY, wavelength);
+            var rightBottom = TraceChief(optic, maxX, -maxY, wavelength);
+            var centerTop = TraceChief(optic, 0, maxY, wavelength);
+            var centerBottom = TraceChief(optic, 0, -maxY, wavelength);
+            var a1 = Distance(leftTop, leftBottom);
+            var a2 = Distance(rightTop, rightBottom);
+            var b = Distance(centerTop, centerBottom);
+            return b <= 1e-30 ? 0 : 100.0 * ((((a1 + a2) / 2.0) - b) / b);
+        }
+        catch (InvalidOperationException)
+        {
+            return 0;
+        }
+    }
+
+    private static (double X, double Y) TraceChief(Optic optic, double fieldX, double fieldY, Wavelength wavelength)
+    {
+        var normalized = FieldCoordinates.Normalize(optic.Fields, fieldX, fieldY);
+        var sample = AnalysisTrace.FinalSample(
+            optic,
+            normalized.X,
+            normalized.Y,
+            0,
+            0,
+            wavelength.Micrometers);
+        return (sample.Position.X, sample.Position.Y);
+    }
+
+    private static double Distance((double X, double Y) first, (double X, double Y) second)
+    {
+        var dx = first.X - second.X;
+        var dy = first.Y - second.Y;
+        return Math.Sqrt((dx * dx) + (dy * dy));
+    }
+}
+
+public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
+{
+    private readonly FieldCurvatureAnalysis _fieldCurvature;
+    private readonly DistortionAnalysis _distortion;
+
+    public FieldCurvatureAndDistortionAnalysis(
+        Optic optic,
+        int numPoints = 128,
+        double parabasalDelta = 1e-5,
+        double maximumCurvature = 0,
+        string distortionType = "f-tan",
+        int wavelengthNumber = 0,
+        string scanDirection = "+y",
+        string displayMode = "percent",
+        int referenceFieldNumber = 1,
+        bool ignoreVignettingFactors = true,
+        double maximumDistortion = 0) : base(optic)
+    {
+        _fieldCurvature = new FieldCurvatureAnalysis(optic, numPoints, parabasalDelta, maximumCurvature);
+        _distortion = new DistortionAnalysis(
+            optic,
+            numPoints,
+            distortionType,
+            wavelengthNumber,
+            scanDirection,
+            displayMode,
+            referenceFieldNumber,
+            ignoreVignettingFactors,
+            maximumDistortion);
+    }
+
+    public override string Name => "Field Curvature and Distortion";
+
+    public override AnalysisData GenerateData()
+    {
+        var curvature = _fieldCurvature.GenerateData();
+        var distortion = _distortion.GenerateData();
+        var values = new Dictionary<string, object>();
+        foreach (var item in curvature.Values)
+        {
+            values[$"FieldCurvature.{item.Key}"] = item.Value;
+        }
+
+        foreach (var item in distortion.Values)
+        {
+            values[$"Distortion.{item.Key}"] = item.Value;
+        }
+
+        var panes = new[]
+        {
+            new AnalysisPlotPane(
+                "Field Curvature",
+                curvature.PlotSeries,
+                curvature.PlotOptions ?? new AnalysisPlotOptions(Title: "Field Curvature")),
+            new AnalysisPlotPane(
+                "Distortion",
+                distortion.PlotSeries,
+                distortion.PlotOptions ?? new AnalysisPlotOptions(Title: "Distortion"))
+        };
+        return new AnalysisData(
+            Name,
+            values,
+            curvature.Series,
+            curvature.PlotSeries,
+            new AnalysisPlotOptions(Title: Name),
+            panes,
+            PlotPaneColumns: 2);
+    }
 }
 
 public sealed class FieldCurvatureAnalysis : BaseAnalysis
 {
     private readonly int _numPoints;
     private readonly double _parabasalDelta;
+    private readonly double _maximumCurvature;
 
-    public FieldCurvatureAnalysis(Optic optic, int numPoints = 128, double parabasalDelta = 1e-5) : base(optic)
+    public FieldCurvatureAnalysis(
+        Optic optic,
+        int numPoints = 128,
+        double parabasalDelta = 1e-5,
+        double maximumCurvature = 0) : base(optic)
     {
         _numPoints = Math.Max(2, numPoints);
         _parabasalDelta = Math.Abs(parabasalDelta) <= 1e-12 ? 1e-5 : Math.Abs(parabasalDelta);
+        _maximumCurvature = Math.Max(0, maximumCurvature);
     }
 
     public override string Name => "Field Curvature";
@@ -228,6 +373,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             [fieldValueKey] = maxField,
             ["Samples"] = fields.Count,
             ["ParabasalDelta"] = _parabasalDelta,
+            ["MaximumCurvatureScale"] = _maximumCurvature,
             ["WavelengthCount"] = wavelengths.Length,
             ["MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
             ["MaximumSagittalFieldCurvatureMillimeters"] = maximumSagittalFieldCurvature,
@@ -237,6 +383,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             Title: "Field Curvature",
             SymmetricX: true,
             ShowVerticalZeroLine: true,
+            XMinimum: _maximumCurvature > 0 ? -_maximumCurvature : null,
+            XMaximum: _maximumCurvature > 0 ? _maximumCurvature : null,
             YMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
             YMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             ShowLegend: true));

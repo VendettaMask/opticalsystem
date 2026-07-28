@@ -147,6 +147,23 @@ public sealed class CoreArchitectureTests
     }
 
     [Fact]
+    public void UndoFailureLeavesHistoryStacksUnchanged()
+    {
+        var optic = Optic.CreateDemo();
+        var originalWavelength = optic.Wavelengths[0].Nanometers;
+        var undoRedo = new UndoRedoManager();
+
+        optic.Wavelengths[0].Nanometers = double.NaN;
+        undoRedo.Capture(optic);
+        optic.Wavelengths[0].Nanometers = originalWavelength;
+
+        Assert.Throws<InvalidDataException>(() => undoRedo.TryUndo(optic));
+        Assert.True(undoRedo.CanUndo);
+        Assert.False(undoRedo.CanRedo);
+        Assert.Equal(originalWavelength, optic.Wavelengths[0].Nanometers, precision: 12);
+    }
+
+    [Fact]
     public void SnapshotAndUndoPreservePickupAndSolveSettings()
     {
         var optic = Optic.CreateDemo();

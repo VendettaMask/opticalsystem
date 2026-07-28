@@ -14,6 +14,20 @@ public sealed class ImageSimulationConfig
 {
     public ImageSimulationSourcePattern SourcePattern { get; init; } = ImageSimulationSourcePattern.ColorChart;
 
+    public string SourceMode { get; init; } = "Built-in";
+
+    public double FieldHeight { get; init; }
+
+    public int Oversampling { get; init; } = 1;
+
+    public bool UseRelativeIllumination { get; init; } = true;
+
+    public string AberrationMode { get; init; } = "Huygens";
+
+    public int ImageWidth { get; init; } = 64;
+
+    public int ImageHeight { get; init; } = 48;
+
     public IReadOnlyList<double> WavelengthsMicrometers { get; init; } = new[] { 0.65, 0.55, 0.45 };
 
     public int PsfGridRows { get; init; } = 5;

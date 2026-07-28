@@ -1,6 +1,6 @@
-# Zemax 风格分析参考
+# Zemax 分析设置与实现方式参考
 
-本文档记录当前 Workbench 中按 Zemax 图像质量层级组织的分析项。范围只包括以下分组：
+本文档根据 Ansys Zemax OpticStudio 官方帮助页整理，用作 Workbench 实现 Zemax 风格分析时的参考。范围只包括图像质量相关分析：
 
 - 光线迹点
 - 像差分析
@@ -11,544 +11,499 @@
 - 圈入能量
 - 扩展图像分析
 
-不包括系统报告、优化、公差、文件格式转换、镜头库和单纯文件查看器。IMA/BIM Image Viewer 与 Bitmap File Viewer 属于查看器，不作为分析项记录。
+不包括系统报告、优化、公差、非序列分析、IMA/BIM 文件查看器和 Bitmap 文件查看器。本文不放图片，只记录设置内容、结果展现方式和计算/实现方式。
 
-## 代码来源
+## 资料来源
 
-本文按当前工程实现编写，主要对应：
+主要来源为 Ansys Zemax OpticStudio 2025 R1/R2 官方帮助：
 
-- `src/OptilandWorkbench.App/MainWindow.cs`：Ribbon 分组、菜单、命令名。
-- `src/OptilandWorkbench.Application/Legacy/OpticalWorkspaceModel.Analysis.Parameters.cs`：GUI 参数、默认值、可选项。
-- `src/OptilandWorkbench.Application/Legacy/OpticalWorkspaceModel.Analysis.cs`：参数到 Core 分析对象的映射。
-- `src/OptilandWorkbench.Core/Analysis/*`：实际追迹、波前、PSF、MTF、RMS、圈入能量、图像模拟等算法。
-
-本文描述的是 Workbench 当前实现，不声明与 OpticStudio 每个选项完全等价。
+- [Image Quality Group 目录](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/)：给出 Rays and Spots、Aberrations、Wavefront、PSF、MTF、RMS、Enclosed Energy、Extended Scene Analysis 的官方菜单范围。
+- [Single Ray Trace](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Single_Ray_Trace.html)
+- [Standard Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Standard_Spot_Diagram.html)
+- [Full Field Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Full_Field_Spot_Diagram.html)
+- [Matrix Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/Matrix_Spot_Diagram.html)
+- [Configuration Matrix Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Configuration_Matrix_Spot_Diagram.html)
+- [Cardinal Points](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Cardinal_Points_rays_and_spots.html)
+- [Vignetting Plot](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Vignetting_Plot.html)
+- [Optical Path Difference](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optical_Path_Difference.html)
+- [Pupil Aberration](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Pupil_Aberration.html)
+- [Field Curvature and Distortion](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Field_Curvature_and_Distortion.html)
+- [Chromatic Focal Shift](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/Chromatic_Focal_Shift.html)
+- [Seidel Coefficients](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Seidel_Coefficients.html)
+- [Seidel Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Seidel_Diagram.html)
+- [Full-Field Aberration](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Full_Field_Aberration.html)
+- [Wavefront Map](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Wavefront_Map.html)
+- [FFT PSF](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_PSF.html)
+- [Huygens PSF](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_PSF.html)
+- [FFT MTF](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_MTF.html)
+- [Huygens Through Focus MTF](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_Through_Focus_MTF.html)
+- [Geometric MTF](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Geometric_MTF.html)
+- [Geometric MTF vs Field](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/Geometric_MTF_vs_Field.html)
+- [RMS vs Field](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/RMS_vs_Field.html)
+- [RMS Field Map](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/RMS_Field_Map.html)
+- [Encircled Energy operands](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Encircled_Energy_optimization_operands_by_category.html)
+- [Extended Source](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Extended_Source.html)
+- [Image Simulation](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Image_Simulation.html)
+- [Geometric Image Analysis](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Geometric_Image_Analysis.html)
+- [Geometric Bitmap Image Analysis](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Geometric_Bitmap_Image_Analysis.html)
+- [Light Source Analysis](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Light_Source_Analysis.html)
+- [Partially Coherent Image Analysis](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Partially_Coherent_Image_Analysis.html)
+- [Extended Diffraction Image Analysis](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Extended_Diffraction_Image_Analysis.html)
+- [Relative Illumination](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Relative_Illumination.html)
 
 ## 通用约定
 
-- 每个分析项都按固定结构记录：`设置内容`、`分析结果展现`、`计算方式`、`备注`。
-- `设置内容` 记录当前 GUI 或工厂暴露的参数、默认值、主要可选项和隐藏默认值。
-- `分析结果展现` 记录结果页中用户看到的形态，例如曲线、散点、热图、栅格图、矩阵 pane、数据表或文本报告。
-- 视场编号与波长编号通常为 1 起始；很多曲线类分析中 `0` 或“所有”表示全部视场/全部波长。
-- 表面编号在多数光线和波前分析中 `-1` 或“像面”表示当前像面；MTF 的 `SurfaceNumber=0` 表示像面。
-- 光瞳坐标使用归一化 `Px/Py` 或 `Hx/Hy` 范围，常用区间为 `[-1, 1]`。
-- 几何坐标默认单位为 mm；界面上写明 `µm` 的缩放、采样间距和半径会在工厂中转换为 mm。
-- OPD 与波前误差通常以 waves 作为图上单位；PSF 使用相对强度或 dB；MTF 使用 cycles/mm。
-- 常用光瞳采样分布为 `hexapolar`、`uniform`、`sobol`、`random`、`line_x`、`line_y`、`ring`。
-- `Sampling`、`PupilSampling`、`ImageSampling` 等选择项写成 `64 x 64` 时，工厂读取前导整数作为采样数。
-- 结果页统一有 Plot、Data、Text 视图；Plot 可能是曲线、散点、热图、栅格光栅或多 pane 图。
-
-## 结果页结构图
-
-![分析结果页结构示意](assets/zemax-analysis-reference/result-panels.svg)
-
-## 分析结果展现总览
-
-![分析结果展现方式总览](assets/zemax-analysis-reference/output-types.svg)
+- `设置内容` 写官方设置窗口中应暴露的参数类型，括号中写 Workbench 当前已有或应映射的参数名。
+- `结果展现` 写分析窗口应该显示的形式：曲线、散点、矩阵图、热图、表面图、灰阶/伪彩图、文本表等。
+- `实现方式` 写 Zemax/OpticStudio 帮助中说明的算法路径或计算定义。
+- field、wavelength、surface、sampling、polarization、vignetting factors 是许多分析共用设置。
+- normalized field coordinates 为 `Hx/Hy`，normalized pupil coordinates 为 `Px/Py`。
+- 多数图形支持 Graphic/Text 两类输出；Workbench 结果页可映射到 Plot/Data/Text。
 
 ## 光线迹点
 
 ### 单光线追迹 / Single Ray Trace
 
-- 设置内容：`FieldNumber=1`，可选“任意”；任意视场时用 `Hx=0`、`Hy=0`。`WavelengthNumber=1`，`Px=0`，`Py=0`，`GlobalCoordinates=false`，`Type=方向余弦`，`UseRayAiming=true`，`ShowRaySegments=false`。
-- 分析结果展现：以文本/表格为主，列出单条光线在各表面的坐标、方向余弦或所选角度表达；开启光线段后保留逐段信息。
-- 计算方式：按指定视场、波长和归一化瞳孔点生成一条顺序真实光线，经每个表面折射/反射/孔径检查，记录交点、方向、光程和终止状态。任意视场模式直接采用输入的 `Hx/Hy`。
-- 备注：该分析适合诊断单条边缘光线、主光线或异常终止位置。
+- 设置内容：`Hx`、`Hy`、`Field`、`Wavelength`、`Px`、`Py`、`Global Coordinates`、`Type`。`Type` 包括方向余弦、切线角等输出方式。
+- 结果展现：文本/表格窗口，列出单条真实光线和近轴光线在各表面的坐标、方向、角度、光程或追迹状态。
+- 实现方式：从指定归一化视场和归一化光瞳坐标发射一条光线，执行序列模式 real ray trace 与 paraxial ray trace。若选择全局坐标，除切线角外数据以全局坐标输出。
 
-### 标准点列图 / Spot Diagram
+### 光线像差图 / Ray Aberration
 
-- 设置内容：`RayDensity=6`，`Pattern=六边`，`ColorRaysBy=波长`，`Reference=主光线`，`UsePolarization=false`，`DirectionCosines=false`，`ShowAiryDisk=false`，`WavelengthNumber=所有`，`FieldNumber=所有`，`SurfaceNumber=像面`，`DisplayScale=比例尺`，`PlotScaleMicrometers=0`，`ScatterRays=false`，`UseSymbols=true`。
-- 分析结果展现：每个视场/波长组合生成像面散点图，可按波长或视场着色，可叠加 Airy disk；Data/Text 包含质心、RMS 半径、几何半径等指标。
-- 计算方式：按选定采样分布生成光瞳光线束，追迹到指定表面，剔除失败光线；用主光线或质心作为参考点，把交点转换为相对坐标后画散点并计算矩。
-- 备注：`DirectionCosines=true` 时散点数据改为方向余弦空间，用于看出射方向分布。
+- 设置内容：`Plot Scale`、`Number of Rays/Ray Density`、`Wavelength`、`Field`、`Tangential`、`Sagittal`、`Surface`、`Use Dashes`、`Vignetting`、`Check Apertures`。
+- 结果展现：一组 fan 曲线，横轴为归一化入瞳坐标，纵轴为 X 或 Y 方向 transverse ray aberration。
+- 实现方式：沿 pupil 的子午和弧矢截线追迹一束真实光线，比较光线在目标表面处相对参考点的横向误差。该项也可作为 Rays and Spots 组入口。
+
+### 标准点列图 / Standard Spot Diagram
+
+- 设置内容：`Pattern`（hexapolar、square、dithered）、`Refer To`（chief ray、centroid、middle、vertex）、`Show Scale`、`Wavelength`、`Field`、`Surface`、`Plot Scale`、`Delta Focus`、`Ray Density`、`Use Symbols`、`Use Polarization`、`Scatter Rays`、`Airy Disk`、`Direction Cosines`、`Configuration`、`Color Rays By`。
+- 结果展现：点列散点图；图下方显示参考点坐标、RMS spot radius、GEO spot radius 等。可按波长、视场或结构着色，可叠加 Airy disk。
+- 实现方式：按 pupil 图样追迹光线束到指定表面。RMS/GEO 半径按所选参考点计算；波长权重和 pupil apodization 会影响 ray grid 和 RMS 估计。OpticStudio 不把 vignetted rays 画入 spot，也不用于 RMS/GEO 计算。
 
 ### 光迹图 / Footprint Diagram
 
-- 设置内容：`RayDensity=10`，`SurfaceNumber=-1`，`WavelengthNumber=0`，`FieldNumber=0`，`DeleteVignetted=false`，`UseSymbols=true`，`ColorRaysBy=field`。
-- 分析结果展现：指定表面上的足迹散点，按视场或波长区分符号/颜色。
-- 计算方式：从选定视场和波长发射光瞳光线束，保留指定表面的交点。若启用 `DeleteVignetted`，渐晕或孔径失败的样本不进入图形。
-- 备注：常用于查看某一机械孔径、镜片表面或像面上的光束占用范围。
+- 设置内容：通常与 spot 类分析共享 `Ray Density`、`Wavelength`、`Field`、`Surface`、`Color Rays By`、`Delete Vignetted`、`Use Symbols`。
+- 结果展现：指定表面上的 ray footprint 散点图，通常用于观察光束在孔径、镜片表面或中间面上的占用范围。
+- 实现方式：追迹 pupil 光线束并记录其在指定表面的实际交点，不一定要求形成焦点。官方中间面说明中，footprint 属于更适合直接在表面处评价的几何分析。
 
-### 离焦点列图 / Through Focus
+### 离焦点列图 / Through Focus Spot Diagram
 
-- 设置内容：`RayDensity=6`，`Pattern=六边`，`Reference=主光线`，`DefocusStepMicrometers=50`，`FocusPlaneCount=5`（当前工厂固定），其余点列图参数与标准点列图一致。
-- 分析结果展现：围绕名义像面的多个离焦位置分别显示点列图，并输出每个离焦位置的 RMS/半径数据。
-- 计算方式：复制当前系统，在像面前后按离焦步长移动像面或等效采样平面，对每个焦位重复点列图追迹和统计，最后恢复名义系统。
-- 备注：界面暴露的是离焦范围步长，当前焦面数量固定为 5 个。
+- 设置内容：继承标准点列图设置；额外使用 `Delta Focus`。焦点位置为 `-2`、`-1`、`0`、`+1`、`+2` 倍 delta focus。
+- 结果展现：每个视场显示五个离焦位置的点列图，可比较焦前/焦后 spot 形态。
+- 实现方式：在名义焦面前后移动分析面或等效焦位，分别追迹 spot 光线束并计算相同的 RMS/GEO 指标。官方说明中 through-focus spot 通常追迹的最大 ray 数为标准 spot 的一半。
 
 ### 全视场点列图 / Full Field Spot Diagram
 
-- 设置内容：继承标准点列图；额外 `Magnification=1`。
-- 分析结果展现：按多个视场组合展示点列图，强调全视场范围内 spot 的变化。
-- 计算方式：对当前系统定义的视场集合逐一运行标准 spot 追迹，统一缩放后组织成全视场视图。
-- 备注：适合快速比较轴上、半视场、边缘视场。
+- 设置内容：大部分与标准点列图相同；额外有 `Exaggerate`，用于放大 transverse aberration。
+- 结果展现：所有视场点用同一比例和共同参考显示在一张图上。
+- 实现方式：与标准 spot 类似，但不是每个视场单独参考，而是把所有 spot 放在共同坐标系中，以观察不同视场点之间的相对位置和可分辨性。
 
 ### 矩阵点列图 / Matrix Spot Diagram
 
-- 设置内容：继承标准点列图；额外 `IgnoreLateralColor=false`。
-- 分析结果展现：按视场与波长矩阵排布点列图，每个 pane 对应一个组合。
-- 计算方式：对视场和波长做笛卡尔组合，逐组追迹，按主光线或质心重心化后绘制。
-- 备注：`IgnoreLateralColor=true` 时会弱化不同波长主光线漂移对版式的影响。
+- 设置内容：与标准点列图相似；额外有 `Ignore Lateral Color`。
+- 结果展现：矩阵图，行通常为不同视场，列为不同波长。
+- 实现方式：对 field × wavelength 组合逐个生成 spot diagram。`Ignore Lateral Color` 使每个视场/波长单元独立参考自己的参考点，用于分离与波长相关的像差形态。
 
 ### 结构矩阵点列图 / Configuration Matrix Spot Diagram
 
-- 设置内容：与标准点列图一致。
-- 分析结果展现：按多结构或配置维度组织 spot 结果。
-- 计算方式：复用 `SpotDiagramVariantAnalysis` 的 ConfigurationMatrix 变体，对结构/视场/波长组合生成矩阵式 pane。
-- 备注：当前行为取决于系统是否已有多重结构数据。
+- 设置内容：与标准点列图相似。
+- 结果展现：矩阵图，行是不同视场，列是不同 configuration。
+- 实现方式：对 field × configuration 组合逐个生成 spot diagram，用于区分与多重结构相关的像差成分。
 
-### 基面数据 / Cardinal Points Data
+### 基点 / Cardinal Points
 
-- 设置内容：`ReferenceSurfaceNumber` 默认为最后一个表面编号。
-- 分析结果展现：文本/表格形式输出焦距、主平面、节点、焦点等一阶基面数据。
-- 计算方式：围绕参考面运行近轴/一阶计算，求系统矩阵和基点位置，再转成相对当前光学系统的报告值。
-- 备注：该项在光线迹点组中，但本质是辅助一阶数据。
+- 设置内容：`First Surface`、`Last Surface`、`Wavelength`、`Orientation`。
+- 结果展现：文本/表格列表，输出 principal、nodal、anti-nodal、focal planes 等位置。
+- 实现方式：对选定表面范围和波长执行一阶/近轴计算，分别给出 X-Z 或 Y-Z 方向的基面位置。若范围内包含 coordinate break 或非中心光学元件，官方提示结果可能不可靠。
 
-### 渐晕图 / Vignetting Diagram
+### Y-Ybar Drawing
 
-- 设置内容：无 GUI 参数。
-- 分析结果展现：显示视场或光瞳上的渐晕边界/因子。
-- 计算方式：扫描定义视场下的边缘/孔径光线，依据孔径裁切和有效光瞳传输判断渐晕。
-- 备注：用于检查某一视场是否被机械孔径或表面孔径截断。
+- 设置内容：官方目录将其列为 Rays and Spots 项；通常不需要复杂设置，主要依赖系统孔径、视场和波长定义。
+- 结果展现：Y-Ybar 光线高度图，显示边缘光线和主光线在各表面处的高度。
+- 实现方式：用近轴/真实边缘光线和主光线沿系统传播，画出 Y 与 Ybar 随表面的变化，用于判断光阑位置、孔径负担和一阶成像关系。
 
-### 入射角 vs. 像高 / Angle vs Image Height
+### 渐晕图 / Vignetting Plot
 
-- 设置内容：`FieldDensity=20`，`WavelengthNumber` 默认为主波长。
-- 分析结果展现：曲线图，横轴通常为像高或归一化视场，纵轴为入射角。
-- 计算方式：沿视场扫描主光线或代表光线，追迹到像面或测量表面，计算局部入射方向与法线/轴的夹角。
-- 备注：工厂中还保留了 Through Pupil / Through Field 两个更底层的角度扫描入口，但当前 Ribbon 菜单只暴露本项。
+- 设置内容：`Ray Density`、`Field Density`、`Remove Vignetting Factors`。
+- 结果展现：fractional vignetting 随视场角变化曲线。
+- 实现方式：对每个视场点追迹 `(2n+1) x (2n+1)` 光线网格，统计入瞳光线中穿过所有遮挡和孔径并到达像面的比例，并归一化到相对 pupil 面积。出错、漏面或全反射光线视为 vignetted。
 
-### Y-Ybar
+### 入射角 vs 像高 / Incident Angle vs Image Height
 
-- 设置内容：无 GUI 参数。
-- 分析结果展现：Y-Ybar 图，展示边缘光线和主光线在系统中的高度关系。
-- 计算方式：追迹近轴/真实的边缘光线与主光线，在各表面采样高度并按传统 Y-Ybar 形式绘制。
-- 备注：用于诊断光阑位置、孔径负担和一阶成像关系。
+- 设置内容：通常包括 `Field Density`、`Wavelength`、扫描方向或表面选择。
+- 结果展现：入射角随像高或视场坐标变化的曲线。
+- 实现方式：沿视场扫描主光线或代表光线，计算其到达像面/目标面时相对局部法线或坐标轴的入射角。
 
 ## 像差分析
 
-### 光线像差图 / Ray Fan
+### 光线像差图 / Ray Aberration
 
-- 设置内容：`PlotScaleMicrometers=0`，`NumberOfRays=20`，`UseDashes=false`，`VignettedPupil=true`，`CheckApertures=true`，`WavelengthNumber=所有`，`FieldNumber=所有`，`TangentialAberration=Y Aberration`，`SagittalAberration=X Aberration`，`SurfaceNumber=像面`。
-- 分析结果展现：每个视场/波长生成子午和弧矢两个 fan pane；横轴为归一化 pupil 坐标，纵轴为横向像差，单位通常为 µm。
-- 计算方式：沿 `Py` 和 `Px` 两条 pupil 截线扫描 `2*NumberOfRays+1` 条光线，追迹到目标表面，减去参考主光线或理想像点，得到 X/Y transverse aberration。
-- 备注：工厂启用 `zemaxCompatible=true`，因此曲线密度和 pane 排列按 Zemax 风格。
+- 设置内容：同 Rays and Spots 中的 Ray Aberration。
+- 结果展现：子午/弧矢 ray fan 曲线。
+- 实现方式：沿归一化 pupil 坐标追迹截线光线，显示 transverse ray aberration，属于几何光线像差。
 
-### 光程差图 / Optical Path Difference
+### 光程差 / Optical Path Difference
 
-- 设置内容：`GraphScale=0`，`NumberOfRays=20`，`UseDashes=false`，`VignettedPupil=true`，`CheckApertures=true`，`WavelengthNumber=所有`，`FieldNumber=所有`，`SurfaceNumber=像面`。
-- 分析结果展现：子午/弧矢 OPD 曲线，纵轴为 waves。
-- 计算方式：以主光线参考波前为基准，沿 pupil X/Y 截线采样，追迹后计算每条光线相对参考球/参考光程的 OPD，并除以当前波长转换为 waves。
-- 备注：该命令同时出现在“像差分析”和“波前”分组。
+- 设置内容：与 ray aberration fan 基本一致，但 tangential/sagittal 数据固定为 OPD。
+- 结果展现：OPD fan 曲线，横轴为 normalized entrance pupil coordinate，纵轴为 waves。
+- 实现方式：计算每条 ray 的 optical path length 与 chief ray optical path length 之差。通常把差值参考到系统 exit pupil。多波长“All”显示时参考主波长 reference sphere 和 chief ray，但 OPD 数值以各自波长的 waves 输出。
 
 ### 光瞳像差 / Pupil Aberration
 
-- 设置内容：`NumPoints=256`。
-- 分析结果展现：光瞳空间中的像差曲线或散点数据。
-- 计算方式：在归一化光瞳上采样真实光线，比较实际出射/成像行为与参考主光线或理想几何关系，生成 pupil aberration 数据。
-- 备注：适合看像差随 pupil 坐标的分布，和 Ray Fan 的截线视角互补。
+- 设置内容：与 ray aberration fan 类似；tangential/sagittal 只能选择 pupil aberration；surface 固定为 image，因为数据总是在 stop surface 计算。
+- 结果展现：entrance pupil distortion 随 pupil coordinate 的曲线。
+- 实现方式：定义为真实光线在 stop surface 的截距，与轴上主波长近轴光线截距之间的差，再除以 paraxial stop radius 得到百分比。官方说明它主要用于判断是否需要 ray aiming；若开启 ray aiming，该像差会接近零。
 
-### 全视场像差 / Full Field Aberration
+### 场曲与畸变 / Field Curvature and Distortion
 
-- 设置内容：`FieldShape=椭圆`，`XFieldWidth/YFieldWidth=当前最大视场半径`，`Decomposition=Zernike项`，`MaximumTerm=37`，`Aberration=离焦`，`FieldNumber=第 1 视场`，`WavelengthNumber=主波长`，`XFieldSamples=11`，`YFieldSamples=11`，`PupilSampling=32 x 32`，`DisplayAs=图标`，`DisplayMode=绝对值`。
-- 分析结果展现：全视场热图或图标阵列，展示所选像差项在视场中的变化。
-- 计算方式：在指定椭圆/矩形视场区域上布点；每个视场点生成 chief-ray 参考波前，做 Zernike 拟合，然后提取离焦、像散、彗差、球差、X/Y 倾斜或 RMS 波前值。
-- 备注：该项也出现在“波前”菜单中。
-
-### 场曲/畸变 / Field Curvature
-
-- 设置内容：`ParabasalDelta=0.00001`。
-- 分析结果展现：场曲曲线，按波长显示 tangential 与 sagittal 焦面偏移随视场变化。
-- 计算方式：用近轴小间隔 `ParabasalDelta` 追迹子午/弧矢邻近光线，求交点斜率和最佳焦面位置，相对名义像面得到场曲。
-- 备注：当前 Ribbon 标签写“场曲/畸变”，实际运行的 canonical analysis 是 `Field Curvature`；独立 `Distortion` 工厂存在但当前菜单未以“畸变”单项暴露。
-
-### 畸变 / Distortion
-
-- 设置内容：`MaximumDistortion=0`，`WavelengthNumber=0`，`DisplayMode=百分比`，`ReferenceFieldNumber=1`，`IgnoreVignettingFactors=true`；角度视场或可按角度处理的 real-image-height 系统额外使用 `DistortionType=F-Tan(Theta)`，可选 `F-Theta`。工厂内部默认 `NumPoints=128`、`ScanDirection=+y`。
-- 分析结果展现：畸变随定义视场变化的曲线，横轴为百分比畸变或绝对畸变 mm，纵轴为视场坐标。
-- 计算方式：为参考视场建立理想线性映射；对每个定义视场追迹主光线得到实际像点，比较实际半径与理想半径。百分比模式输出 `(actual - predicted) / predicted * 100`，绝对值模式输出 `actual - predicted`。
-- 备注：当前实现对 real-image-height 视场会先转换为适合畸变分析的等效字段；`ScanDirection` 在结果中标记为 defined-fields，实际使用当前系统定义的视场样本。
+- 设置内容：`Max Curvature`、`Max Distortion`、`Wavelength`、`Use Dashes`、`Ignore Vignetting Factors`、`Distortion` 模型、`Display As`、`Scan Type`、`Ref. Field`、`H/W Aspect`。
+- 结果展现：同一分析窗口显示 field curvature 曲线和 distortion 曲线。field curvature 给出 tangential/sagittal 焦面相对像面的距离；distortion 可显示百分比或绝对长度。
+- 实现方式：field curvature 使用 parabasal ray trace，在 X/Y 方向求 sagittal/tangential paraxial focal plane 的 Z 坐标，并与系统 image surface Z 坐标比较。distortion 以真实 chief ray height 与 reference ray height 的差定义：百分比为 `(real chief ray height - reference height) / reference height * 100`。
+- 畸变模型：`F-Tan(theta)`、`F-Theta`、`Calibrated F-Theta`、`Calibrated F-Tan(theta)`、`SMIA-TV`。`F-Tan(theta)` 使用 `f*tan(theta)` 参考高度；`F-Theta` 使用 `f*theta`，常用于扫描系统；calibrated 模式使用 best-fit focal length。
+- 注意：对非旋转对称系统，单一畸变数值定义较差，官方建议参考 Grid Distortion。real image height 字段会被转换为 field angle 以保留畸变信息。
 
 ### 网格畸变 / Grid Distortion
 
-- 设置内容：`DisplayMode=截面`，`NumPoints=12`，`Scale=1`，`SymmetricMagnification=false`，`WavelengthNumber=1`，`ReferenceFieldNumber=1`，`HeightWidthAspect=1`，`FieldWidth=0`。
-- 分析结果展现：理想网格、实际成像网格或畸变向量/截面图。
-- 计算方式：在物方/视场平面采样规则网格，追迹主光线到像面，和理想线性放大位置比较，计算 X/Y 畸变量并按显示模式绘制。
-- 备注：`SymmetricMagnification` 用于控制理想参考放大率是否强制对称。
+- 设置内容：通常包括网格尺寸、波长、参考视场、显示方式、比例、field width、H/W aspect 等。
+- 结果展现：理想网格与实际成像网格、矢量图或截面图。
+- 实现方式：在二维 field/object 网格上追迹 chief rays，比较实际像点与理想线性映射位置。用于非旋转对称系统中无法由单一径向畸变曲线描述的情况。
 
-### 轴向像差 / Axial Aberration
+### 轴向像差 / Longitudinal Aberration
 
-- 设置内容：`GraphScale=0`，`WavelengthNumber=所有`，`UseDashes=false`。
-- 分析结果展现：纵向焦移曲线，横轴为 pupil zone，纵轴为焦点偏移。
-- 计算方式：沿归一化 pupil 半径发射轴上或指定参考光线，求不同 zone 光线与光轴/像面附近的交点位置，得到 longitudinal aberration。
-- 备注：常用于观察球差与不同波长的纵向色差趋势。
+- 设置内容：`Plot Scale`、`Wavelength`、`Use Dashes` 等。
+- 结果展现：纵向像差随 pupil zone 变化的曲线，常用于看球差和轴向色差。
+- 实现方式：沿 pupil 半径追迹边缘/分区光线，求其与光轴或焦点的交会位置相对参考焦点的偏移。
 
 ### 垂轴色差 / Lateral Color
 
-- 设置内容：`GraphScale=0`，`AllWavelengths=false`，`UseRealRays=true`，`ShowAiryDisk=true`。
-- 分析结果展现：垂轴色差曲线，纵轴为像面位移，通常以 µm 显示；可叠加 Airy disk 参考。
-- 计算方式：在多个视场点追迹不同波长主光线或实际光线，比较非主波长与主波长像点位置差。`AllWavelengths=false` 时通常比较短波/长波端点。
-- 备注：当前 `analysis-distortion` 命令的标签是“垂轴色差”，canonical mapping 运行的是 `Lateral Color`。
+- 设置内容：`Graph Scale`、`All Wavelengths`、`Use Real Rays`、`Show Airy Disk` 等。
+- 结果展现：lateral color 随 field 的曲线，通常以像面横向位移表示，可叠加 Airy disk 尺度。
+- 实现方式：比较不同波长 chief ray 或实际代表光线在像面上的横向位置差，反映倍率色差。
 
-### 色焦移 / Color Focus Shift
+### 色焦移 / Chromatic Focal Shift
 
-- 设置内容：`MaximumShift=0`，`PupilZone=0`。
-- 分析结果展现：焦移随波长变化的曲线，横轴为波长，纵轴为焦点漂移。
-- 计算方式：若 `PupilZone=0`，使用近轴边缘光线求各波长焦点；若大于 0，则用指定 pupil zone 的真实光线求焦点。结果相对主波长焦点归一。
-- 备注：`MaximumShift=0` 表示自动缩放纵轴。
+- 设置内容：`Maximum Shift`、`Pupil Zone`。
+- 结果展现：back focal shift 相对主波长焦点随波长变化的曲线。
+- 实现方式：对每个波长计算像方空间边缘光线焦点相对主波长近轴焦点的偏移。`Pupil Zone=0` 使用近轴光线；0 到 1 之间使用入瞳指定区域的真实边缘光线；1 为全孔径边缘。
 
 ### 赛德尔系数 / Seidel Coefficients
 
-- 设置内容：`WavelengthNumber=主波长`。
-- 分析结果展现：文本/表格输出各面或合计的 Seidel 项，例如 SPHA、COMA、ASTI、FCUR、DIST、CLA、CTR。
-- 计算方式：基于近轴边缘光线、主光线和每面折射率/曲率计算三阶像差贡献，并累加到系统项。
-- 备注：它是像差诊断报告，不是热图。
+- 设置内容：`Wavelength`。
+- 结果展现：文本/表格，按表面和系统总和列出 unconverted Seidel、transverse、longitudinal 和 wavefront coefficients。
+- 实现方式：基于近轴光线计算三阶像差项。输出包括 SPHA/S1、COMA/S2、ASTI/S3、FCUR/S4、DIST/S5、CLA/CL、CTR/CT，以及 transverse、longitudinal 和 wavefront 系数。官方说明该计算只对轴对称球面、圆锥、二阶/四阶非球面等受支持面型可靠。
 
 ### 赛德尔图 / Seidel Diagram
 
-- 设置内容：`WavelengthNumber=主波长`，`MaximumAberration=0.1`，`GridInterval=0.01`。
-- 分析结果展现：Seidel 系数柱状图，纵轴按最大像差范围限制。
-- 计算方式：复用 Seidel 系数计算结果，将各三阶项转换为 bar series。
-- 备注：用于快速比较三阶项主导关系。
+- 设置内容：`First Surface`、`Last Surface`、`Wavelength`、`Plot Scale`、`Ignore Distortion`、`Ignore Chromatic`。
+- 结果展现：bar chart，显示未转换 Seidel coefficients，可按表面范围和总和显示。
+- 实现方式：复用 Seidel Coefficients 的未转换像差项，把各项以柱状图形式显示。
+
+### 全视场像差 / Full-Field Aberration
+
+- 设置内容：`Field`、`Field Shape`、`Wavelength`、`X/Y Field Width`、`X/Y Field Sampling`、`Pupil Sampling`、`Show As`、像差项选择。
+- 结果展现：Icons、Grey Scale、Inverse Grey Scale、False Color、Inverse False Color。Icons 可表达像差大小和方向；灰阶/伪色可显示正负幅值但不显示方向。
+- 实现方式：在指定 field sampling grid 上计算 Zernike coefficients。OpticStudio 为使图标看起来像 spot diagram 所显示的 transverse aberration，使用波前导数定义 `Ex = -(R/n)(dW/dx)`、`Ey = -(R/n)(dW/dy)`。适合检查自由曲面系统的全视场像差校正。
 
 ## 波前
 
+### 光程差 / Optical Path Difference
+
+- 设置内容、结果展现、实现方式与像差分析中的 OPD 相同。
+- 结果展现：OPD fan 曲线，通常用于从波前角度查看 pupil 坐标上的光程误差。
+
 ### 波前图 / Wavefront Map
 
-- 设置内容：`Sampling=64 x 64`，`Rotation=0`，`DisplayScale=1`，`Apodization=无`，`ReferenceChiefRay=false`，`UseExitPupilShape=true`，`WavelengthNumber=主波长`，`FieldNumber=1`，`SurfaceNumber=像面`，`DisplayAs=表面`，`RemoveTilt=false`，`PupilSx=0`，`PupilSy=0`，`PupilSr=1`。
-- 分析结果展现：方形 pupil 热图/表面图，颜色为 OPD waves；标题包含 RMS/PV 等摘要。
-- 计算方式：在 pupil 区域生成 chief-ray 参考的均匀波前采样，追迹到目标表面，计算相对参考光程；可按 `RemoveTilt` 拟合并移除倾斜平面，再插值到 map。
-- 备注：`PupilSx/PupilSy/PupilSr` 用于偏移或缩放采样 pupil。
+- 设置内容：`Sampling`、`Rotation`、`Scale`、`Polarization`、`Wavelength`、`Field`、`Reference To Primary`、`Use Exit Pupil Shape`、`STAR Data`、`Show As`、`Surface`、`Remove Tilt`、`Contour Format`、`Subaperture Data Sx/Sy/Sr`。
+- 结果展现：surface plot、contour map、grey scale 或 false color map，显示 pupil 上 wavefront error。
+- 实现方式：在 pupil ray grid 上采样 OPD。若选择 polarization 分量，会把相应电场分量的偏振相位加入 OPD；若相位超过一波，官方提示不做 phase unwrapping。`Remove Tilt` 等价于把 OPD 参考到 centroid。`Use Exit Pupil Shape` 会按指定 field 的像点视角近似显示 exit pupil 形状。
 
 ### 干涉图 / Interferogram
 
-- 设置内容：`NumRings=15`，`MapSize=65`。
-- 分析结果展现：当前实现复用 `WavefrontAnalysis` 的 OPD 热图/波前数据。
-- 计算方式：使用 hexapolar pupil rings 采样 OPD，再映射到 `MapSize` 的二维 map。
-- 备注：当前没有单独的真实干涉条纹渲染器；菜单名称是 Interferogram，但数据路径与 Wavefront 共用。
-
-### 普通波前 / Wavefront
-
-- 设置内容：`NumRings=15`，`MapSize=65`。
-- 分析结果展现：OPD heatmap 与 RMS/PV 指标。
-- 计算方式：hexapolar pupil 采样，主光线参考 OPD，插值生成方形 map。
-- 备注：这是命令注册项，当前二级菜单主要暴露“光程差图”和“波前图”。
-
-### 质心参考球波前 / Centroid Sphere Wavefront
-
-- 设置内容：`NumRings=8`，`MapSize=65`，`RobustTrimStandardDeviations=3`。
-- 分析结果展现：OPD map，指标包含参考球中心、半径、平均 OPD、RMS OPD、PV OPD、RMS waves。
-- 计算方式：追迹 pupil 光线得到像点云，以质心定义参考球中心，计算每条光线相对该参考球的 OPD；可用 sigma 裁剪降低离群光线影响。
-- 备注：当前属于波前命令组，但不在二级菜单列表中。
-
-### 最佳拟合球波前 / Best Fit Sphere Wavefront
-
-- 设置内容：`NumRings=8`，`MapSize=65`，`RobustTrimStandardDeviations=3`。
-- 分析结果展现：同质心参考球波前，但参考球由最佳拟合得到。
-- 计算方式：对光线截距和光程做四参数球面拟合，寻找使 OPD 残差 RMS 最小的参考球，再生成 OPD map。
-- 备注：适合在像点偏斜或质心不代表最佳参考球时使用。
+- 设置内容：通常与 wavefront map 类似，围绕采样、波长、视场、显示方式。
+- 结果展现：干涉条纹或由波前误差转换出的干涉图样。
+- 实现方式：以 wavefront OPD 为基础，将相位误差映射为干涉强度/条纹显示，用于直观查看波前形状。
 
 ### 傅科分析 / Foucault Analysis
 
-- 设置内容：`Sampling=32 x 32`，`Type=线性`，`DisplayAs=灰度`，`KnifeEdge=水平线上`，`DataSource=计算的`，`WavelengthNumber=主波长`，`FieldNumber=1`，`YPositionMicrometers=0`，`UsePolarization=false`。
-- 分析结果展现：灰度或伪彩色 pupil 响应图。
-- 计算方式：由 wavefront samples 计算局部斜率/梯度，根据刀口方向和位置模拟遮挡响应；线性或二次模式控制强度映射。
-- 备注：当前数据源只有“计算的”。
+- 设置内容：采样、刀口方向/位置、显示方式、波长、视场等。
+- 结果展现：灰阶或伪彩色 pupil/knife-edge 响应图。
+- 实现方式：从波前斜率或局部相位梯度模拟刀口截断后的强度变化，用来查看面形/波前低频误差。
 
 ### 对比度损失图 / Contrast Loss Map
 
-- 设置内容：`PupilSampling=32`，`ZernikeTerms=37`，`PlotPointCount=128`，`MaximumFrequency=0`。
-- 分析结果展现：当前实现调用 `SampledMtfAnalysis`，输出 sampled MTF 曲线，而不是独立二维 contrast heatmap。
-- 计算方式：先对 wavefront 做 Zernike 拟合，再计算频率位移后 pupil 复振幅重叠积分，归一化得到 MTF/contrast。
-- 备注：它在“波前”菜单中，算法实际上属于 sampled MTF。
+- 设置内容：官方菜单归在 Wavefront/MTF 相关项，通常涉及 sampling、frequency、field、wavelength、show as。
+- 结果展现：contrast loss 随 pupil/field/frequency 变化的图或曲线。
+- 实现方式：基于 wavefront 对成像对比度的影响估算损失，本质与 MTF/OTF 计算相关。
 
-### Zernike Fringe 系数 / Zernike Fringe
+### Zernike Fringe 系数 / Zernike Fringe Coefficients
 
-- 设置内容：`PupilSampling=32 x 32`，`ZernikeTerms=37`，`WavelengthNumber=主波长`，`FieldNumber=1`。
-- 分析结果展现：Zernike 系数表、拟合波前 map 与残差/摘要指标。
-- 计算方式：在均匀 pupil 网格上生成 OPD samples，使用 Fringe Zernike 基函数做最小二乘拟合。
-- 备注：当前 Fringe 项数上限为 37。
+- 设置内容：采样、项数、波长、视场、subaperture 等。
+- 结果展现：Zernike coefficient 文本/表格和可能的波前重建图。
+- 实现方式：对 pupil OPD 拟合 Fringe Zernike 多项式。Subaperture 由 `Sx/Sy/Sr` 定义。
 
-### Zernike Standard 系数 / Zernike Standard
+### Zernike Standard 系数 / Zernike Standard Coefficients
 
-- 设置内容：`NumRings=15`，`ZernikeTerms=37`，`WavelengthNumber=主波长`，`FieldNumber=1`。
-- 分析结果展现：Standard Zernike 系数和波前重建。
-- 计算方式：用 hexapolar rings 采样 OPD，按 Standard Zernike 规范拟合系数。
-- 备注：适合与 Standard 多项式定义对照。
+- 设置内容：采样、项数、波长、视场。
+- 结果展现：Standard Zernike coefficient 表。
+- 实现方式：对波前 OPD 做 Standard Zernike 基函数拟合。
 
-### Zernike Annular 系数 / Zernike Annular
+### Zernike Annular 系数 / Zernike Annular Coefficients
 
-- 设置内容：`NumRings=15`，`ZernikeTerms=37`，`ObscurationRatio=0.5`，`WavelengthNumber=主波长`，`FieldNumber=1`。
-- 分析结果展现：环形孔径 Zernike 系数和波前重建。
-- 计算方式：剔除中心遮光区后，在 annular pupil 上按环形 Zernike 基函数拟合。
-- 备注：用于有中心遮挡的反射或折反系统。
+- 设置内容：采样、项数、中心遮拦或 annular pupil 参数、波长、视场。
+- 结果展现：Annular Zernike coefficient 表。
+- 实现方式：在环形 pupil 上拟合 Annular Zernike 多项式，适合中心遮拦系统。
 
-### Zernike 系数 / Zernike
+### Zernike 系数 vs 视场 / Zernike Coefficients vs Field
 
-- 设置内容：`NumRings=15`，`ZernikeTerms=37`，`MapSize=65`。
-- 分析结果展现：Zernike 系数表和拟合/残差 map。
-- 计算方式：通用 Zernike 拟合入口，按采样 ring 生成 OPD 后做最小二乘拟合。
-- 备注：当前属于波前命令组，但不在二级菜单列表中。
+- 设置内容：field density、Zernike term、sampling、wavelength、scan direction 等。
+- 结果展现：Zernike 系数随视场变化的多曲线图。
+- 实现方式：沿视场扫描，每个视场点计算 wavefront OPD 并拟合 Zernike 系数，然后把指定项组成场曲线。
 
-### Zernike 系数 vs. 视场 / Zernike vs Field
+### 全视场像差 / Full-Field Aberration
 
-- 设置内容：`FieldDensity=20`，`NumRings=12`，`ZernikeTerms=8`，`WavelengthNumber=主波长`。
-- 分析结果展现：多条曲线，横轴为视场，纵轴为指定 Zernike 系数。
-- 计算方式：沿视场扫描，在每个视场点生成 OPD samples 并拟合前若干 Zernike 项，逐项组成曲线。
-- 备注：适合观察像差项随视场的变化趋势。
-
-### Jones 瞳 / Jones Pupil
-
-- 设置内容：`GridSize=65`。
-- 分析结果展现：Jones pupil 的多个分量图或偏振指标图。
-- 计算方式：在 pupil 网格发射偏振光线，沿顺序表面积累 Fresnel/涂层/坐标旋转对 Jones 矩阵的影响，最后在 pupil 上绘制矩阵分量。
-- 备注：属于波前命令组，但当前二级菜单未列出。
+- 设置内容、结果展现、实现方式见像差分析中的 Full-Field Aberration。
+- 结果展现：作为波前组入口时仍显示 Zernike aberration across field。
 
 ## 点扩散函数
 
+### PSF 的官方实现路径
+
+- 几何 PSF：Spot Diagram，本质是点源经几何光线追迹后的 ray intercept 分布，不含干涉/衍射。
+- FFT PSF：基于 pupil data 的快速傅里叶变换，速度快但假设更多。
+- Huygens PSF：基于 Huygens wavelets direct integration，速度慢但更通用。
+
 ### FFT PSF
 
-- 设置内容：`Sampling=64 x 64`，`Display=128 x 128`，`Rotation=0`，`ImageDeltaMicrometers=0`，`UsePolarization=false`，`WavelengthNumber=所有`，`FieldNumber=1`，`Type=线性`，`DisplayAs=伪彩色`，`SurfaceNumber=像面`，`Normalized=false`。
-- 分析结果展现：二维 PSF heatmap，物理坐标为 µm，强度为相对强度或对数 dB。
-- 计算方式：建立复 pupil 振幅和相位，按波长计算 FFT PSF；多波长时按波长权重合成；根据显示尺寸裁切/重采样到输出网格。
-- 备注：`ImageDeltaMicrometers=0` 时由衍射引擎自动估计像面采样间距。
+- 设置内容：`Sampling`、`Display`、`Rotation`、`Wavelength`、`Field`、`Type`（linear/log/phase/real/imaginary）、`Show As`（surface、contour、grey scale、false color）、`Use Polarization`、`Image Delta`、`Normalize`、`Surface`。
+- 结果展现：二维 PSF surface/contour/grey/false color 图，也可输出线性强度、对数强度、相位、实部、虚部。
+- 实现方式：在与参考波长 chief ray 垂直、以 chief ray 为中心的假想平面上计算点源衍射强度。算法在 pupil space coordinates 中完成，采样后进行 zero padding，使 image-space sampling 为 pupil sampling 的两倍以降低 aliasing。
+- 适用限制：chief ray 与像面法线夹角较小、exit pupil 畸变不显著、横向像差不过大、标量衍射足够时较可靠。倾斜像面、广角、异常出瞳、非远心或极快系统中可能过于乐观，应使用 Huygens PSF 交叉检查。
 
-### FFT PSF Cross Section
+### FFT Cross Section
 
-- 设置内容：`Sampling=64 x 64`，`Row=中心`，`GraphScaleMicrometers=0`，`UsePolarization=false`，`WavelengthNumber=所有`，`FieldNumber=1`，`Type=X-线性`，`Normalized=false`。
-- 分析结果展现：PSF 中心 X 或 Y 截线曲线。
-- 计算方式：先计算 FFT PSF，再提取中心行或列；线性模式输出强度，对数模式输出 dB。
-- 备注：若设置了 `Sampling`，显示网格通常为 `2*Sampling`。
+- 设置内容：继承 FFT PSF 的 sampling、wavelength、field、image delta、normalize、type；增加截线方向或 row/column。
+- 结果展现：PSF 中心 X 或 Y 截线曲线。
+- 实现方式：先计算 FFT PSF，再取指定行/列的强度或对数强度数据。
 
-### FFT 线/边缘扩散 / FFT Line Edge Spread
+### FFT Line/Edge Spread
 
-- 设置内容：`Sampling=64 x 64`，`Spread=线`，`GraphScaleMicrometers=0`，`UsePolarization=false`，`WavelengthNumber=所有`，`FieldNumber=1`，`Type=X-线性`，`UseCoherentPsf=false`。
-- 分析结果展现：线扩散函数 LSF 或边缘扩散函数 ESF 曲线。
-- 计算方式：由 FFT PSF 沿指定方向积分得到 line spread；edge spread 为 line spread 的累积分布并归一。
-- 备注：`UseCoherentPsf=true` 时使用相干 PSF 路径。
+- 设置内容：FFT sampling、wavelength、field、line/edge、方向、图形比例、polarization。
+- 结果展现：line spread function 或 edge spread function 曲线。
+- 实现方式：由 FFT PSF 积分得到一维 LSF；ESF 为 LSF 的累积分布。
 
 ### Huygens PSF
 
-- 设置内容：`PupilSampling=32 x 32`，`ImageSampling=32 x 32`，`ImageDeltaMicrometers=0`，`Rotation=0`，`UsePolarization=false`，`UseCentroid=false`，`WavelengthNumber=所有`，`FieldNumber=1`，`Type=线性`，`DisplayAs=伪彩色`，`Normalized=false`。
-- 分析结果展现：Huygens-Fresnel PSF heatmap，坐标为 µm 或由 pixel pitch 换算。
-- 计算方式：在 exit pupil 上采样复振幅，直接对像面网格做 Huygens-Fresnel 求和，包含相位传播和倾斜/斜率因子，再归一化。
-- 备注：比 FFT PSF 更直接，但采样成本更高。
+- 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、`Rotation`、`Wavelength`、`Field`、`Type`、`Show As`、`Use Polarization` 等。
+- 结果展现：二维 Huygens PSF surface/contour/grey/false color 图；同时计算 Strehl ratio。
+- 实现方式：用 Huygens wavelets direct integration 计算衍射 PSF。与 FFT PSF 不同，Huygens PSF 在与 image surface chief ray 截点相切的 imaginary plane 上计算，并考虑像面局部倾斜、chief ray 入射角和像面 slope 对 PSF 形状的影响。
+- 成本：计算时间近似随 `pupil grid size^2 * image grid size^2 * wavelength count` 增长。
 
-### Huygens PSF Cross Section
+### Huygens Cross Section
 
-- 设置内容：`NumRays=9`，`ImageSize=32`，`PixelPitchMillimeters=0.005`。
-- 分析结果展现：Huygens PSF 的中心截线曲线。
-- 计算方式：按给定 pupil 光线数生成 Huygens PSF，再提取中心线并以 pixel pitch 标定横轴。
-- 备注：参数更偏向低阶校验和快速截线。
+- 设置内容：Huygens pupil/image sampling、image delta、波长、视场、截线方向。
+- 结果展现：Huygens PSF 的一维截线曲线。
+- 实现方式：先用 direct integration 生成 Huygens PSF，再提取截线。
 
 ## MTF 曲线
 
-### 傅里叶 MTF / MTF
+### MTF 的官方实现路径
 
-- 设置内容：`Sampling=64`，`MaximumFrequency=0`，`WavelengthNumber=0`，`FieldNumber=0`，`SurfaceNumber=0`，`Type=调制`，`ShowDiffractionLimit=false`，`UsePolarization=false`，`UseDashes=false`。
-- 分析结果展现：tangential 与 sagittal MTF 曲线，横轴 cycles/mm，纵轴为调制度、实部、虚部、相位或方波 MTF。
-- 计算方式：先计算 FFT PSF，再对 PSF 强度做二维 FFT 得到 OTF；取中心轴切片形成 tangential/sagittal MTF。多波长时按波长权重合成。
-- 备注：`MaximumFrequency=0` 时使用截止频率；工厂启用 Zemax-compatible 输出，并重采样为稳定曲线点。
+- FFT MTF：基于 pupil data 的 diffraction MTF，速度快，假设接近 FFT PSF。
+- Huygens MTF：先用 Huygens PSF direct integration，再由 PSF 得到 OTF/MTF，更慢但适用性更好。
+- Geometric MTF：基于 ray aberration data 的几何近似，不直接计算衍射相位。
+- Sampled/Contrast 类方法：基于 complex pupil function 或 wavefront difference/overlap 的 MTF 点或损失估计，适合优化或局部频率分析。
 
-### 傅里叶离焦 MTF / Fourier Through Focus MTF
+### FFT MTF
 
-- 设置内容：`Sampling=64`，`DeltaFocus=0.1 mm`，`Frequency=0 cycles/mm`，`NumberOfSteps=5`，`WavelengthNumber=0`，`FieldNumber=0`，`Type=调制`，`UsePolarization=false`，`UseDashes=false`。
-- 分析结果展现：指定空间频率下，MTF 随离焦变化的 tangential/sagittal 曲线。
-- 计算方式：在 `[-DeltaFocus, +DeltaFocus]` 内移动像面或等效焦位，每个焦位计算 Fourier MTF，然后在指定频率插值得到曲线点。
-- 备注：`Frequency=0` 时使用默认/低频采样策略。
+- 设置内容：`Sampling`、`Show Diffraction Limit`、`Max Frequency`、`Wavelength`、`Field`、`Type`（modulation、real、imaginary、phase、square wave）、`Use Polarization`、`Use Dashes`、`Surface`。
+- 结果展现：tangential 和 sagittal MTF 曲线，横轴为空间频率，单位为 cycles/mm 或 afocal 单位。
+- 实现方式：基于 pupil data 的 FFT 计算 diffraction MTF。square wave response 由 sinusoidal MTF 按官方公式换算。focal 系统 cutoff frequency 为 `1 / (wavelength * working F/#)`，sagittal/tangential 分别按每个 field 和 wavelength 的 working F/# 计算。
+- 限制：OPD PV 或 wavefront slope 太大时采样不足会 alias。exit pupil 在 cosine space 中严重拉伸时 FFT MTF 不准确，应使用 Huygens MTF。OPD 大于约 10 waves 的高像差系统，可优先使用 Geometric MTF。
 
-### 傅里叶 MTF vs Field
+### FFT Through Focus MTF
 
-- 设置内容：`SpatialFrequency=20 cycles/mm`，`PupilSampling=32`，`ImageSize=64`，`PixelPitchMillimeters=0.005`，`WavelengthNumber=0`；内部 `FieldPointCount=21`。
-- 分析结果展现：固定空间频率下，MTF 随视场变化曲线。
-- 计算方式：沿视场扫描，在每个视场点计算 Fourier MTF 并取指定频率的 tangential/sagittal 值。
-- 备注：该参数组与 Huygens/Geometric MTF vs Field 共用部分设置。
+- 设置内容：FFT sampling、delta focus、frequency、field、wavelength、type、use polarization、use dashes。
+- 结果展现：指定空间频率下 MTF 随 defocus 变化的 tangential/sagittal 曲线。
+- 实现方式：在一系列焦移位置上重复 FFT MTF 计算，并在指定频率处取值。
 
-### 惠更斯 MTF / Huygens MTF
+### FFT Surface MTF
 
-- 设置内容：`PupilSampling=64`，`ImageSampling=64`，`ImageDeltaMicrometers=0`，`MaximumFrequency=0`，`WavelengthNumber=0`，`FieldNumber=0`。
-- 分析结果展现：tangential/sagittal MTF 曲线。
-- 计算方式：先用 Huygens-Fresnel 直接求和得到 PSF，再对 PSF 做二维 FFT 生成 OTF/MTF。
-- 备注：频率步长由像面采样间距和图像尺寸决定。
+- 设置内容：与 FFT MTF 相似，重点选择被评价 surface。
+- 结果展现：指定 surface 或中间像面上的 MTF 曲线。
+- 实现方式：OpticStudio 会在分析副本上对中间表面构造临时像面或直接评价，原镜头数据不改变。
 
-### 惠更斯离焦 MTF / Huygens Through Focus MTF
+### FFT MTF vs Field
 
-- 设置内容：`PupilSampling=64`，`ImageSampling=64`，`ImageDeltaMicrometers=0`，`DeltaFocus=0.1 mm`，`SpatialFrequency=50 cycles/mm`，`Steps=5`，`WavelengthNumber=0`，`FieldNumber=0`。
-- 分析结果展现：指定频率下 Huygens MTF 随离焦变化曲线。
-- 计算方式：逐焦位计算 Huygens PSF 和 MTF，在空间频率处插值得到 tangential/sagittal 值。
-- 备注：比 Fourier through focus 成本高。
+- 设置内容：sampling、frequency 1-6、wavelength、field density、scan type、remove vignetting factors、use polarization 等。
+- 结果展现：一个或多个空间频率下 MTF 随视场变化曲线。
+- 实现方式：沿指定 field scan direction 计算 FFT MTF，再在各目标频率处插值得到曲线。
 
-### 惠更斯 MTF vs Field
+### FFT MTF Map
 
-- 设置内容：`SpatialFrequency=20 cycles/mm`，`PupilSampling=32`，`ImageSize=64`，`PixelPitchMillimeters=0.005`，`WavelengthNumber=0`；内部 `FieldPointCount=21`。
-- 分析结果展现：固定频率下 Huygens MTF 随视场变化曲线。
-- 计算方式：沿视场扫描，每个视场点运行 Huygens PSF -> OTF -> MTF，再取指定频率。
-- 备注：用于比较全视场衍射成像质量。
+- 设置内容：`Sampling`、`X/Y Field Width`、`Frequency`、`Use Polarization`、`Wavelength`、`X/Y Pixels`、`MTF Data`、`Reference Field`、`Show As`、`Remove Vignetting Factors`。
+- 结果展现：二维 field map，可为 grey scale 或 false color；数据可选 tangential、sagittal、average、minimum、maximum MTF。
+- 实现方式：在二维视场网格上逐点计算 FFT MTF 的指定频率值。因为需要未定义中间视场点追迹，官方建议默认移除 vignetting factors。
 
-### 几何 MTF / Geometric MTF
+### Huygens MTF
 
-- 设置内容：`NumRays=32`，`PlotPointCount=128`，`Distribution=uniform`，`MaximumFrequency=0`，`WavelengthNumber=0`，`FieldNumber=0`，`ScaleByDiffractionLimit=true`。
-- 分析结果展现：几何 tangential/sagittal MTF 曲线。
-- 计算方式：追迹几何 spot 光线，把像点分布投影为一维 histogram，再用 cos/sin 积分计算 OTF；可乘以圆孔衍射极限包络。
-- 备注：不需要波前相位，适合几何像差主导或快速估算。
+- 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、`Max Frequency`、`Wavelength`、`Field` 等。
+- 结果展现：Huygens tangential/sagittal MTF 曲线。
+- 实现方式：先计算 Huygens PSF，然后对 PSF 做 OTF/MTF 计算。对倾斜像面、exit pupil 畸变或 FFT 假设不成立的系统更可靠。
 
-### 几何离焦 MTF / Geometric Through Focus MTF
+### Huygens Through Focus MTF
 
-- 设置内容：`Sampling=64`，`DeltaFocus=0.1 mm`，`SpatialFrequency=50 cycles/mm`，`Steps=5`，`WavelengthNumber=0`，`FieldNumber=0`，`Distribution=uniform`，`ScaleByDiffractionLimit=true`。
-- 分析结果展现：固定频率下几何 MTF 随焦位变化。
-- 计算方式：逐焦位追迹几何 spot，按 histogram Fourier 积分得到 MTF 并取指定频率。
-- 备注：适合与 Through Focus spot 联合判断最佳焦位。
+- 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、configuration、wavelength、field、spatial frequency、focus range/steps。
+- 结果展现：Huygens MTF 随 delta focus 变化的曲线。
+- 实现方式：每个焦位先直接积分生成 Huygens PSF，再从 PSF 得到 MTF。多波长时，相同波长可做 coherent sum，不同波长 PSF 进行 incoherent sum。
 
-### 几何 MTF vs Field
+### Huygens Surface MTF
 
-- 设置内容：`SpatialFrequency=20 cycles/mm`，`PupilSampling=32`，`ImageSize=64`，`PixelPitchMillimeters=0.005`，`WavelengthNumber=0`，`Distribution=uniform`，`ScaleByDiffractionLimit=true`；内部 `FieldPointCount=21`。
-- 分析结果展现：固定频率下几何 MTF 随视场变化。
-- 计算方式：沿视场扫描，逐点用几何 spot histogram 方法求 tangential/sagittal MTF。
-- 备注：`ImageSize/PixelPitchMillimeters` 对几何方法主要用于共用设置结构，不是核心几何积分参数。
+- 设置内容：同 Huygens MTF，加 surface 选择。
+- 结果展现：指定 surface 或中间像面上的 Huygens MTF 曲线。
+- 实现方式：在中间 surface 评价时，按照官方中间面规则构造临时分析系统。
 
-### Sampled MTF / Contrast Loss Map 使用的采样 MTF
+### Huygens MTF vs Field
 
-- 设置内容：`PupilSampling=32`，`ZernikeTerms=37`，`PlotPointCount=128`，`MaximumFrequency=0`。
-- 分析结果展现：sampled MTF 频率曲线。
-- 计算方式：生成 pupil OPD，拟合 Zernike 波前；对不同空间频率计算 frequency-shifted pupil overlap，归一化得到 MTF。
-- 备注：Ribbon 菜单里叫“对比度损失图”时仍走同一实现。
+- 设置内容：与 FFT MTF vs Field 类似，但使用 Huygens pupil/image sampling 和 image delta。
+- 结果展现：固定频率下 Huygens MTF 随视场变化曲线。
+- 实现方式：沿视场扫描，每个视场点用 Huygens PSF -> OTF -> MTF 路径求值。
+
+### Geometric MTF
+
+- 设置内容：`Sampling`、`Max Frequency`、`Wavelength`、`Field`、`Multiply by Diffraction Limit`、`Use Polarization`、`Scatter Rays`。
+- 结果展现：几何 tangential/sagittal MTF 曲线。
+- 实现方式：基于 ray aberration data 近似 diffraction MTF。若 `Multiply by Diffraction Limit` 开启，则把几何 MTF 乘以衍射极限 MTF，以便小像差系统更真实；官方建议通常应开启。
+
+### Geometric Through Focus MTF
+
+- 设置内容：geometric sampling、spatial frequency、focus range/steps、wavelength、field、scatter rays、multiply by diffraction limit。
+- 结果展现：几何 MTF 随 defocus 变化曲线。
+- 实现方式：逐焦位追迹几何 ray aberration data，计算对应频率的几何 MTF。
+
+### Geometric MTF vs Field
+
+- 设置内容：`Sampling`、`Frequency 1-6`、`Wavelength`、`Use Polarization`、`Use Dashes`、`Remove Vignetting Factors`、`Field Density`、`Scan Type`、以及 scatter/diffraction-limit 相关选项。
+- 结果展现：几何 MTF 随视场变化曲线。
+- 实现方式：与 diffraction MTF vs Field 类似，但计算值来自 Geometric MTF 而非 FFT/Huygens diffraction MTF。
+
+### Geometric MTF Map
+
+- 设置内容：sampling、X/Y field width、frequency、wavelength、X/Y pixels、MTF data、reference field、show as、scatter rays、remove vignetting factors。
+- 结果展现：二维 field map，grey scale 或 false color。
+- 实现方式：在二维 field grid 上逐点计算 Geometric MTF。
+
+### Contrast Loss Map
+
+- 设置内容：与 MTF/波前相关，通常涉及 sampling、frequency、field、wavelength。
+- 结果展现：对比度损失图或曲线。
+- 实现方式：从 wavefront/complex pupil 对指定空间频率下的 contrast degradation 进行估算，可视为 MTF 相关分析。
 
 ## RMS
 
-### RMS vs. 视场 / RMS vs Field
+### RMS vs Field
 
-- 设置内容：`NumRings=6`，`Distribution=hexapolar`。
-- 分析结果展现：每个波长一条 RMS spot radius 曲线，横轴为视场。
-- 计算方式：对每个定义视场和波长追迹 pupil 光线束，按像点参考统计 RMS spot 半径。
-- 备注：工厂传入 `NumFields=64`，但当前生成数据主要使用系统已定义视场样本。
+- 设置内容：`Ray Density`、`Field Density`、`Plot Scale`、`Method`（Gaussian Quadrature/GQ 或 Rectangular Array/RA）、`Data`（wavefront error、spot radius、spot x、spot y、Strehl ratio）、`Refer To`（chief ray 或 centroid）、`Orientation`、`Use Dashes`、`Wavelength`、`Show Diffraction Limit`、`Use Polarization`、`Remove Vignetting Factors`。
+- 结果展现：RMS 或 Strehl 随 field angle 变化的曲线。可显示每个波长和多波长结果。
+- 实现方式：按视场扫描计算 RMS error 或 Strehl。GQ 用径向图样和最优权重估计 RMS；RA 用矩形 pupil grid，忽略圆形入瞳外光线。GQ 高效，但若表面孔径截断光线会不准；有孔径系统计算 RMS wavefront 时建议 RA 和更高采样。
+- 波前 RMS：chief ray 参考减 piston；centroid 参考减 piston 和 tilt，通常得到更小 RMS。多波长 RMS 同时对所有波长光瞳样本按权重计算。
 
-### RMS vs. 波长 / RMS vs Wavelength
+### RMS vs Wavelength
 
-- 设置内容：`WaveDensity=21`，`NumRings=6`，`Distribution=hexapolar`，`FieldNumber=0`，`Reference=centroid`。
-- 分析结果展现：RMS spot radius 随波长变化曲线。
-- 计算方式：在当前波长范围内生成 `WaveDensity` 个采样波长；每个波长追迹光线束并按质心或主光线参考计算 RMS 半径。
-- 备注：`FieldNumber=0` 表示全部视场。
+- 设置内容：ray density、method、data、field、refer to、wavelength sampling/density、polarization、vignetting factors。
+- 结果展现：RMS spot radius、RMS wavefront 或 Strehl 随 wavelength 变化曲线。
+- 实现方式：在定义波段内取多个 wavelength 样本，对指定 field 和参考方式重复 RMS 计算。
 
-### RMS vs. 离焦 / RMS vs Focus
+### RMS vs Focus
 
-- 设置内容：`FocusDensity=21`，`MinimumFocus=-1`，`MaximumFocus=1`，`NumRings=6`，`Distribution=hexapolar`，`WavelengthNumber=0`，`Reference=centroid`。
-- 分析结果展现：RMS spot radius 随焦移变化曲线，并可找出最小 RMS 焦位。
-- 计算方式：在给定焦移范围内移动像面或等效采样平面，每个焦位追迹光线束并计算 RMS spot 半径。
-- 备注：单位为 mm，范围默认覆盖 `[-1, +1]` mm。
+- 设置内容：focus range、focus density、ray density、method、data、wavelength、field、refer to、polarization、vignetting factors。
+- 结果展现：RMS 或 Strehl 随 defocus 变化曲线，可判断最佳焦位。
+- 实现方式：移动像面或分析焦位，在每个焦位重复 RMS spot/wavefront 计算。
 
-### 二维视场 RMS 图 / RMS Field Map
+### RMS Field Map
 
-- 设置内容：`XFieldSamples=11`，`YFieldSamples=11`，`XFieldWidth=0`，`YFieldWidth=0`，`NumRings=6`，`Distribution=hexapolar`，`WavelengthNumber=0`，`Reference=centroid`。
-- 分析结果展现：二维视场 heatmap，颜色为 RMS spot radius。
-- 计算方式：在 X/Y 视场矩形内采样网格；每个网格点追迹 pupil 光线束，计算 RMS spot radius。
-- 备注：`XFieldWidth/YFieldWidth=0` 时使用系统视场范围自动确定。
-
-### RMS Wavefront vs Field
-
-- 设置内容：`NumRings=12`；工厂内部 `NumFields=32`。
-- 分析结果展现：每个波长一条 RMS wavefront error 曲线，纵轴为 waves。
-- 计算方式：沿视场扫描 chief-ray 参考波前，对每个视场点采样 OPD 并计算 RMS。
-- 备注：参数和工厂存在于 catalog 中，但当前主 Ribbon 的 RMS 二级菜单未列出。
+- 设置内容：`Ray Density`、`Data`、`Method`、`Plot Scale`、`Wavelength`、`Field`、`Refer To`、`Show As`（surface、contour、grey scale、false color）、`Surface`、`Contour Format`、`X/Y Field Size`、`X/Y Field Sampling`、`Use Polarization`、`Remove Vignetting Factors`。
+- 结果展现：二维矩形 field map，显示 RMS radial/x/y spot radius、RMS wavefront error、Strehl ratio 或 RA 下的粗略 PTV。
+- 实现方式：在以参考 field 为中心的 X/Y field grid 上计算与 RMS vs Field 相同的指标和算法。
 
 ## 圈入能量
 
-### 衍射圈入能量 / Diffraction Encircled Energy
+### Diffraction Encircled Energy
 
-- 设置内容：`PupilSampling=64 x 64`，`ImageSampling=128 x 128`，`NumPoints=256`，`WavelengthNumber=0`，`FieldNumber=0`，`Type=encircled`，`Reference=centroid`，`MaximumDistanceMicrometers=0`。
-- 分析结果展现：圈入能量、X-only、Y-only 或 ensquared energy 曲线。
-- 计算方式：计算 FFT diffraction PSF，在像面网格上按相对参考点的半径、X/Y 距离或方框距离排序积分，归一化累计能量。
-- 备注：`MaximumDistanceMicrometers=0` 时自动覆盖有效 PSF 范围。
+- 设置内容：pupil sampling、image sampling、image delta 或 maximum distance、wavelength、field、type（encircled、X only、Y only、ensquared）、reference point/algorithm（chief ray、centroid、vertex；FFT 或 Huygens 方法有不同编号）。
+- 结果展现：fraction of energy vs distance 曲线，或指定 fraction 对应的 distance。
+- 实现方式：基于 diffraction PSF 对能量积分。encircled 为圆半径内能量；ensquared 为方框内能量；X/Y only 也称 enslitted energy。FFT 与 Huygens diffraction encircled energy 的采样和 reference 算法不同。
 
-### 几何圈入能量 / Encircled Energy
+### Geometric Encircled Energy
 
-- 设置内容：`NumRays=10000`，`NumPoints=256`，`Distribution=sobol`。
-- 分析结果展现：几何 encircled energy 曲线。
-- 计算方式：追迹大量几何光线，计算像点到参考点的半径，排序后累计权重并按半径采样输出。
-- 备注：默认使用 Sobol 采样降低随机噪声。
+- 设置内容：pupil sampling、wavelength、field、type、reference point（chief ray、centroid、vertex、middle of spot）、是否乘 diffraction limit。
+- 结果展现：几何 encircled/ensquared/X/Y energy 曲线，或指定 fraction 的距离。
+- 实现方式：追迹几何光线，统计落点相对参考点在半径、狭缝或方框范围内的累计能量。若启用 diffraction-limit scaling，会用圆孔衍射极限曲线近似修正。
 
-### 几何线/边缘扩散 / Geometric Line Edge Spread
+### Geometric Line/Edge Spread
 
-- 设置内容：`PupilSampling=32 x 32`，`NumPoints=257`，`WavelengthNumber=0`，`FieldNumber=1`，`Orientation=X`，`Display=line and edge`，`MaximumRadiusMicrometers=0`。
-- 分析结果展现：几何 LSF、ESF 或二者同时显示。
-- 计算方式：追迹几何 spot，将像点投影到 X 或 Y 方向；对投影分布做 histogram 得到 line spread，对 line spread 积分得到 edge spread。
-- 备注：虽然放在圈入能量组中，计算对象是几何线/边缘扩散。
+- 设置内容：sampling、wavelength、field、orientation、line/edge、maximum radius、reference。
+- 结果展现：line spread function、edge response function，或二者曲线。
+- 实现方式：将几何 spot 光线落点投影到 X 或 Y 方向，形成一维能量分布；edge response 是 line spread 的积分。
 
-### 扩展光源圈入能量 / Extended Source Encircled Energy
+### Extended Source Encircled Energy
 
-- 设置内容：`FieldSize=0`，`SourceSampling=5`，`NumRays=5000`，`NumPoints=256`，`WavelengthNumber=0`，`FieldNumber=1`，`Type=encircled`，`Reference=centroid`，`MaximumDistanceMicrometers=0`。
-- 分析结果展现：扩展源的 encircled/X-only/Y-only/ensquared energy 曲线。
-- 计算方式：在扩展光源或视场区域上采样多个源点，每个源点追迹光线束，把所有像点按能量权重合并后累计积分。
-- 备注：`FieldSize=0` 时使用与当前视场相关的默认源尺寸。
+- 设置内容：`Field Size`、`Rays x 1000`、`Type`（encircled、X-only、Y-only、ensquared，也可 X/Y distribution）、`Refer To`、`Surface`、`Use Polarization`、`Multiply by Diffraction Limit`、`Wavelength`、`Field`、`File`、`Max Distance`、`Use Dashes`、`Remove Vignetting Factors`。
+- 结果展现：扩展源 encircled/ensquared/enslitted energy 曲线，或 X/Y distribution；distribution 模式报告 geometric full width at half max。
+- 实现方式：使用类似 Geometric Image Analysis 的扩展源模型，从 IMA/BIM 图像文件或场尺寸生成扩展目标，追迹大量光线并统计相对参考点的能量累计。X/Y-only 表示以参考点为中心的扩展狭缝内能量分数。
 
 ## 扩展图像分析
 
-### 图像模拟 / Image Simulation
+### Image Simulation
 
-- 设置内容：`SourceImage=彩色测试卡`，`PsfSize=32`，`NumRays=16`，`EigenPsfComponents=3`，`DistortionGridSize=9`，`DistortionPolynomialDegree=5`；工厂固定 `PsfGridRows=3`，`PsfGridColumns=3`，`Padding=16`。
-- 分析结果展现：RGB 栅格图像，展示经过系统 PSF、畸变和场依赖模糊后的模拟成像。
-- 计算方式：先生成测试源图；在视场网格上计算场依赖 PSF stack；用 EigenPSF 分解降低空间变化卷积成本；拟合畸变多项式并对图像做反向 warp；最后按 RGB 通道合成。
-- 备注：源图可选彩色测试卡、分辨率靶标、畸变网格、西门子星。
+- 设置内容：输入图像文件、field height、oversampling、guard band、rotation、flip、show as（simulated image、source bitmap、PSF grid）、reference、X/Y pixels、pixel size、output file、aberrations（Diffraction、Geometric、None）、use relative illumination、polarization、PSF grid points 等。
+- 结果展现：模拟图像、源图、或 PSF grid；可输出 BMP/JPG/PNG。
+- 实现方式：用 Point Spread Function 阵列与源位图卷积来模拟成像。考虑 diffraction、aberrations、distortion、relative illumination、image orientation、polarization。流程为：源图过采样/旋转/加 guard band；计算覆盖视场的 PSF grid；对每个像素插值有效 PSF 并卷积；最后按 detector pixel size、geometric distortion、lateral color 缩放和变形。
+- PSF 方法：`Diffraction` 使用 Huygens PSF；`Geometric` 使用 spot diagram 积分；`None` 使用 delta functions。若 Diffraction 模式下像差过严重，官方说明可自动切换到 Geometric。
 
-### 几何图像分析 / Geometric Image Analysis
+### Geometric Image Analysis
 
-- 设置内容：`SourceImage=分辨率靶标`，`ImageSize=64`，`NumRays=8`。
-- 分析结果展现：几何光线形成的灰度/强度栅格图像。
-- 计算方式：把源图像采样为物方/视场点，对每个点发射多条 pupil 光线并追迹到像面，根据落点累积像素强度。
-- 备注：不包含衍射 PSF；主要显示几何像差和畸变。
+- 设置内容：`Field Size`、`Image Size`、`Parity`、`Rotation`、`Rays x 1000`、source file、field、surface、show as、polarization、delete vignetted、remove vignetting factors、apply fixed apertures 等。
+- 结果展现：几何图像、spot overlay、灰度/伪色或强度分布。
+- 实现方式：完全基于几何 ray tracing。使用 IMA/BIM 文件描述扩展源；在源图像像素单元内随机选点，并随机选择 entrance pupil 坐标，追迹到目标表面后把能量累加到 detector/bin。
+- 备注：官方提示 Image Simulation 更适合高分辨率摄影场景。
 
-### 几何位图图像分析 / Geometric Bitmap Image Analysis
+### Geometric Bitmap Image Analysis
 
-- 设置内容：`ImageSize=64`，`RaysPerPixel=8`。
-- 分析结果展现：位图式几何成像结果。
-- 计算方式：以内部色卡/位图源为输入，对每个源像素发射 `RaysPerPixel` 条几何光线，按像面落点重采样。
-- 备注：当前不读取外部位图文件；外部位图查看器不属于本分析。
+- 设置内容：`Field Y Size`、`Source`（uniform/Lambertian）、`Normalize`、`Use Polarization`、`Field`、`Input`（BMP/JPG/PNG）、`Surface`、`Show Source Bitmap`、`Output`、`Reference`、`Delete Vignetted`、`Suppress Frame`、`Remove Vignetting Factors`、`Apply Fixed Apertures`、parity、rotation、rays/pixel、detector X/Y pixels、pixel size。
+- 结果展现：RGB 彩色位图模拟图，可保存输出位图；也可只显示源位图。
+- 实现方式：严格几何光线追迹。对源图每个像素和颜色通道随机生成光线，entrance pupil 坐标随机，追迹到接收面后累加 RGB bin count，再归一化成 RGB 图像。
+- 注意：real image height 会掩盖畸变，官方说明该功能会自动切换到 paraxial image height；建议使用 object height 更明确。
 
-### 光源分析 / Light Source Analysis
+### Light Source Analysis
 
-- 设置内容：`Resolution=65`，`NumRays=2048`。
-- 分析结果展现：光源/远场强度或辐射分布 heatmap。
-- 计算方式：当前实现调用辐射强度分析路径，采样光线方向并在角度 bin 上累积能量。
-- 备注：用于扩展图像分析中的光源分布诊断。
+- 设置内容：`Input`（DAT、SDF、TM25RAY source file）、`Surface`、`Wavelength`、`Show As`（grey scale/false color）等。
+- 结果展现：由复杂光源 ray file 追迹得到的图像或强度分布。
+- 实现方式：使用 DAT/SDF/TM25RAY 二进制 ray file 作为源，在序列系统中追迹这些光线。官方说明该功能仅 Premium/Enterprise 可用。由于源光线可从任意位置/方向发出，序列模式中需要假设 object surface field point 为源坐标原点，+Z 平行于物面 +Z。
 
-### 部分相干图像分析 / Partially Coherent Image Analysis
+### Partially Coherent Image Analysis
 
-- 设置内容：`ImageSize=64`，`PupilSampling=16 x 16`，`Coherence=0.5`。
-- 分析结果展现：部分相干条件下的模拟图像。
-- 计算方式：以分辨率靶标为源图，使用 pupil 采样构造相干和非相干成像贡献，并按 `Coherence` 在两者之间混合。
-- 备注：`Coherence=0` 接近非相干，`Coherence=1` 接近相干。
+- 设置内容：`File Size`、`Oversampling`、coherence 相关 `Gamma`、`Alpha`、`Fraction`、`Diffraction Limited`、`Wavelength`、`Field`、`File`、显示类型、polarization 等。
+- 结果展现：coherent、incoherent 或 partially coherent diffraction image，也可显示 partially coherent PSF/gamma。
+- 实现方式：使用 IMA/BIM/ZBF 文件描述被成像物体，同时考虑 diffraction、aberrations 和 illumination partial coherence。该方法考虑真实系统有限 pass band 和衍射滤波效应。纯非相干图像官方通常建议 Image Simulation 更优。
 
-### 扩展衍射图像分析 / Extended Diffraction Image Analysis
+### Extended Diffraction Image Analysis
 
-- 设置内容：`SourceImage=分辨率靶标`，`ImageSize=64`，`PupilSampling=16 x 16`，`FieldGrid=5`。
-- 分析结果展现：带场依赖衍射模糊的图像模拟结果。
-- 计算方式：对源图生成 field grid；每个视场格点计算衍射 PSF，再用空间变化 PSF 对源图进行卷积/插值，得到扩展衍射图像。
-- 备注：比几何图像分析更接近衍射成像，但成本更高。
+- 设置内容：`File Size`、`Show As`、`Data Type`（incoherent/coherent image）、`Diffraction Limited`、`Use Delta Functions`、`File`、`Wavelength`、`Field`、`Contour Format`、`Use Polarization`、`Consider Distortion`、`Output File`、`Use Relative Illumination`、OTF grid 相关采样。
+- 结果展现：扩展源 coherent/incoherent diffraction image，可输出 complex amplitude 到 ZBF。
+- 实现方式：与 Partially Coherent Image Analysis 类似，但允许 OTF 随视场变化。算法把 IMA 文件逐像素处理：每个像素的 Fourier transform 乘以该像素对应的 OTF，所有像素在频域求和后再反变换形成最终图像。实际不会为每个像素都算 OTF，而是计算覆盖视场的 OTF grid 并插值。
+- 备注：官方说明 Image Simulation 通常优于该功能；该功能内存消耗随 OTF grid 和 sampling 快速增长。
 
-### 相对照度 / Relative Illumination
+### Relative Illumination
 
-- 设置内容：`RayDensity=10`，`FieldDensity=21`，`WavelengthNumber=0`（主波长），`ScanDirection=+y`，`RemoveVignettingFactors=true`。
-- 分析结果展现：相对照度随视场扫描方向变化的曲线。
-- 计算方式：沿指定视场方向扫描，追迹矩形 pupil 网格，积分 transmitted effective pupil area，并按最大场照度归一化。
-- 备注：`RemoveVignettingFactors=true` 时会移除字段中的渐晕因子影响，观察系统本身照度变化。
+- 设置内容：`Ray Density`、`Field Density`、`Use Polarization`、`Remove Vignetting Factors`、`Wavelength`、`Scan Type`、`Log Scale`。
+- 结果展现：relative illumination 随 radial field coordinate 变化曲线；文本中还给出 Effective F/#。
+- 实现方式：对均匀朗伯场景计算像面单位面积照度，并归一化到视场中最大照度点。计算考虑 apodization、vignetting、apertures、image/pupil aberrations、F/# 变化、chromatic aberrations、image surface shape、incidence angle 和可选 polarization。核心为在 image direction cosine space 上积分从像点看到的 exit pupil effective area。
+- 注意：RI 一般不会等于简单 cosine-fourth law；cosine-fourth law 只是慢速、无像差、薄透镜且光阑在透镜处的近似。
 
-### 非相干照度 / Incoherent Irradiance
+## Workbench 当前实现对照注意点
 
-- 设置内容：`NumRays=5`，`ResolutionX=128`，`ResolutionY=128`，`DetectorSurfaceIndex=-1`，`Distribution=random`，`Normalized=true`。
-- 分析结果展现：探测器面非相干照度 heatmap。
-- 计算方式：从光瞳或源分布发射随机/指定分布光线，追迹到探测器表面，在二维 detector bin 上累积非相干能量；可归一化显示。
-- 备注：属于扩展图像分析命令组，但当前二级菜单未列出。
-
-### 辐射强度 / Radiant Intensity
-
-- 设置内容：`AngularBinsX=101`，`AngularBinsY=101`，`NumRays=2048`，`ReferenceSurfaceIndex=-1`，`Distribution=random`，`UseAbsoluteUnits=true`。
-- 分析结果展现：角空间辐射强度 heatmap。
-- 计算方式：追迹光线到参考表面，读取出射方向，把方向角投影到 X/Y 角度 bin 中累积能量；可使用绝对单位或归一化单位。
-- 备注：属于扩展图像分析命令组，但当前二级菜单未列出。
-
-## 当前实现注意点
-
-- “光程差图”和“全视场像差”在多个分组出现，实际共用同一 Core 分析。
-- “对比度损失图”当前复用 `SampledMtfAnalysis`，输出曲线而非单独二维损失 map。
-- “干涉图”当前复用普通波前 OPD map，没有独立干涉条纹渲染。
-- Ribbon 中 `analysis-distortion` 的显示名是“垂轴色差”，实际 canonical name 为 `Lateral Color`；独立 `DistortionAnalysis` 已在本文作为 catalog 能力记录，但当前这一路菜单不会触发它。
-- 质心球波前、最佳拟合球波前、通用 Zernike、Jones Pupil、非相干照度、辐射强度属于已注册命令或工厂能力，但不是所有项都在当前二级菜单中显示。
+- 本文描述 Zemax/OpticStudio 官方方法。Workbench 当前实现可能只覆盖其中一部分设置或用简化参数名映射。
+- Workbench 当前 Ribbon 中“垂轴色差”的 command id 叫 `analysis-distortion`，但实际 canonical name 为 `Lateral Color`；若要做官方 `Field Curvature and Distortion` 的畸变曲线，应单独接入 `DistortionAnalysis`。
+- Workbench 当前“对比度损失图”实现路径更接近 sampled MTF 曲线，不等同于完整官方 Contrast Loss Map。
+- Workbench 当前“干涉图”若复用 wavefront map，则还缺少独立干涉条纹显示方式。
+- 官方菜单包含 `FFT Surface MTF`、`FFT MTF Map`、`Huygens Surface MTF`、`Geometric MTF Map` 等 MTF 变体；若需要“所有 Zemax 方法”完全覆盖，应在 Workbench MTF 分组中补齐这些入口。

@@ -9,6 +9,11 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
     private readonly string _distribution;
     private readonly int _fieldNumber;
     private readonly string _reference;
+    private readonly string _method;
+    private readonly string _data;
+    private readonly bool _showDiffractionLimit;
+    private readonly bool _usePolarization;
+    private readonly bool _removeVignetting;
 
     public RmsVsWavelengthAnalysis(
         Optic optic,
@@ -16,13 +21,23 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
         int numRings = 6,
         string distribution = "hexapolar",
         int fieldNumber = 0,
-        string reference = "centroid") : base(optic)
+        string reference = "centroid",
+        string method = "GQ",
+        string data = "spot",
+        bool showDiffractionLimit = false,
+        bool usePolarization = false,
+        bool removeVignetting = true) : base(optic)
     {
         _waveDensity = Math.Clamp(waveDensity, 2, 100);
         _numRings = Math.Clamp(numRings, 1, 32);
         _distribution = distribution;
         _fieldNumber = Math.Max(0, fieldNumber);
-        _reference = reference;
+        _reference = RmsScanSupport.NormalizeReference(reference);
+        _method = RmsScanSupport.NormalizeMethod(method);
+        _data = RmsScanSupport.NormalizeData(data);
+        _showDiffractionLimit = showDiffractionLimit;
+        _usePolarization = usePolarization;
+        _removeVignetting = removeVignetting;
     }
 
     public override string Name => "RMS vs Wavelength";
@@ -47,20 +62,26 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                 IsPrimary = true
             })
             .ToArray();
+        var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
         var series = fields.Select((field, fieldIndex) => new AnalysisSeries(
             "Wavelength (\u00B5m)",
-            "RMS Spot Radius (mm)",
+            yAxisLabel,
             wavelengths.Select(wavelength => new AnalysisPoint(
                 wavelength.Micrometers,
-                RmsScanSupport.SpotRadius(
+                RmsScanSupport.Metric(
                     Optic,
                     (field.Hx, field.Hy),
                     new[] { wavelength },
                     _numRings,
-                    _distribution,
-                    _reference))).ToArray(),
+                    effectiveDistribution,
+                    _data,
+                    _reference,
+                    usePolarization: _usePolarization,
+                    removeVignetting: _removeVignetting))).ToArray(),
             Name: field.Label,
             ColorIndex: fieldIndex)).ToArray();
+        var diffractionLimit = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths);
 
         return new AnalysisData(
             Name,
@@ -68,9 +89,15 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
             {
                 ["WaveDensity"] = _waveDensity,
                 ["RayDensity"] = _numRings,
-                ["Distribution"] = _distribution,
+                ["Method"] = _method,
+                ["Data"] = _data,
+                ["Distribution"] = effectiveDistribution,
                 ["FieldNumber"] = _fieldNumber,
                 ["Reference"] = _reference,
+                ["ShowDiffractionLimit"] = _showDiffractionLimit,
+                ["DiffractionLimitMillimeters"] = diffractionLimit,
+                ["UsePolarization"] = _usePolarization,
+                ["RemoveVignetting"] = _removeVignetting,
                 ["MinimumWavelengthMicrometers"] = minimum,
                 ["MaximumWavelengthMicrometers"] = maximum
             },
@@ -97,6 +124,11 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
     private readonly string _distribution;
     private readonly int _wavelengthNumber;
     private readonly string _reference;
+    private readonly string _method;
+    private readonly string _data;
+    private readonly bool _showDiffractionLimit;
+    private readonly bool _usePolarization;
+    private readonly bool _removeVignetting;
 
     public RmsVsFocusAnalysis(
         Optic optic,
@@ -106,7 +138,12 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
         int numRings = 6,
         string distribution = "hexapolar",
         int wavelengthNumber = 0,
-        string reference = "centroid") : base(optic)
+        string reference = "centroid",
+        string method = "GQ",
+        string data = "spot",
+        bool showDiffractionLimit = false,
+        bool usePolarization = false,
+        bool removeVignetting = true) : base(optic)
     {
         _focusDensity = Math.Clamp(focusDensity, 2, 100);
         _minimumFocus = Math.Min(minimumFocus, maximumFocus);
@@ -114,7 +151,12 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
         _numRings = Math.Clamp(numRings, 1, 32);
         _distribution = distribution;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
-        _reference = reference;
+        _reference = RmsScanSupport.NormalizeReference(reference);
+        _method = RmsScanSupport.NormalizeMethod(method);
+        _data = RmsScanSupport.NormalizeData(data);
+        _showDiffractionLimit = showDiffractionLimit;
+        _usePolarization = usePolarization;
+        _removeVignetting = removeVignetting;
     }
 
     public override string Name => "RMS vs Focus";
@@ -132,19 +174,24 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
             .Select(index => _minimumFocus
                 + ((_maximumFocus - _minimumFocus) * index / (_focusDensity - 1.0)))
             .ToArray();
+        var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
         var series = fields.Select((field, fieldIndex) => new AnalysisSeries(
             "Focus Shift (mm)",
-            "RMS Spot Radius (mm)",
+            yAxisLabel,
             focusValues.Select(focus => new AnalysisPoint(
                 focus,
-                RmsScanSupport.SpotRadius(
+                RmsScanSupport.Metric(
                     Optic,
                     (field.Hx, field.Hy),
                     wavelengths,
                     _numRings,
-                    _distribution,
+                    effectiveDistribution,
+                    _data,
                     _reference,
-                    focus))).ToArray(),
+                    focus,
+                    _usePolarization,
+                    _removeVignetting))).ToArray(),
             Name: field.Label,
             ColorIndex: fieldIndex)).ToArray();
 
@@ -156,9 +203,15 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 ["MinimumFocus"] = _minimumFocus,
                 ["MaximumFocus"] = _maximumFocus,
                 ["RayDensity"] = _numRings,
-                ["Distribution"] = _distribution,
+                ["Method"] = _method,
+                ["Data"] = _data,
+                ["Distribution"] = effectiveDistribution,
                 ["WavelengthNumber"] = _wavelengthNumber,
-                ["Reference"] = _reference
+                ["Reference"] = _reference,
+                ["ShowDiffractionLimit"] = _showDiffractionLimit,
+                ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
+                ["UsePolarization"] = _usePolarization,
+                ["RemoveVignetting"] = _removeVignetting
             },
             series.FirstOrDefault(),
             series,
@@ -184,6 +237,11 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
     private readonly string _distribution;
     private readonly int _wavelengthNumber;
     private readonly string _reference;
+    private readonly string _method;
+    private readonly string _data;
+    private readonly bool _showDiffractionLimit;
+    private readonly bool _usePolarization;
+    private readonly bool _removeVignetting;
 
     public RmsFieldMapAnalysis(
         Optic optic,
@@ -194,7 +252,12 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         int numRings = 6,
         string distribution = "hexapolar",
         int wavelengthNumber = 0,
-        string reference = "centroid") : base(optic)
+        string reference = "centroid",
+        string method = "GQ",
+        string data = "spot",
+        bool showDiffractionLimit = false,
+        bool usePolarization = false,
+        bool removeVignetting = true) : base(optic)
     {
         var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic));
         _xFieldSamples = Math.Clamp(xFieldSamples, 3, 101);
@@ -204,7 +267,12 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         _numRings = Math.Clamp(numRings, 1, 32);
         _distribution = distribution;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
-        _reference = reference;
+        _reference = RmsScanSupport.NormalizeReference(reference);
+        _method = RmsScanSupport.NormalizeMethod(method);
+        _data = RmsScanSupport.NormalizeData(data);
+        _showDiffractionLimit = showDiffractionLimit;
+        _usePolarization = usePolarization;
+        _removeVignetting = removeVignetting;
     }
 
     public override string Name => "RMS Field Map";
@@ -225,13 +293,17 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             for (var column = 0; column < _xFieldSamples; column++)
             {
                 var x = -_xFieldWidth + (2 * _xFieldWidth * column / (_xFieldSamples - 1.0));
-                var rms = RmsScanSupport.SpotRadius(
+                var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+                var rms = RmsScanSupport.Metric(
                     Optic,
                     (x / maximumField, y / maximumField),
                     wavelengths,
                     _numRings,
-                    _distribution,
-                    _reference);
+                    effectiveDistribution,
+                    _data,
+                    _reference,
+                    usePolarization: _usePolarization,
+                    removeVignetting: _removeVignetting);
                 points.Add(new AnalysisPoint(x, y, Value: rms));
             }
         }
@@ -242,10 +314,11 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             RmsScanSupport.FieldYAxisLabel(Optic),
             points,
             AnalysisSeriesKind.Heatmap,
-            Name: "RMS Spot Radius",
-            ValueLabel: "RMS Spot Radius (mm)",
+            Name: RmsScanSupport.SeriesName(_data),
+            ValueLabel: RmsScanSupport.AxisLabel(_data),
             ValueMinimum: values.DefaultIfEmpty(0).Min(),
             ValueMaximum: values.DefaultIfEmpty(0).Max());
+        var distribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         return new AnalysisData(
             Name,
             new Dictionary<string, object>
@@ -255,9 +328,15 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                 ["XFieldWidth"] = _xFieldWidth,
                 ["YFieldWidth"] = _yFieldWidth,
                 ["RayDensity"] = _numRings,
-                ["Distribution"] = _distribution,
+                ["Method"] = _method,
+                ["Data"] = _data,
+                ["Distribution"] = distribution,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
+                ["ShowDiffractionLimit"] = _showDiffractionLimit,
+                ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
+                ["UsePolarization"] = _usePolarization,
+                ["RemoveVignetting"] = _removeVignetting,
                 ["MinimumRmsSpotRadius"] = values.DefaultIfEmpty(0).Min(),
                 ["MaximumRmsSpotRadius"] = values.DefaultIfEmpty(0).Max()
             },
@@ -297,6 +376,94 @@ internal static class RmsScanSupport
             : wavelengths;
     }
 
+    public static string NormalizeMethod(string method)
+    {
+        if (string.Equals(method, "RA", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(method, "Rectangular Array", StringComparison.OrdinalIgnoreCase))
+        {
+            return "RA";
+        }
+
+        return "GQ";
+    }
+
+    public static string NormalizeData(string data)
+    {
+        if (string.Equals(data, "wavefront", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(data, "Wavefront", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(data, "波前", StringComparison.Ordinal))
+        {
+            return "wavefront";
+        }
+
+        return "spot";
+    }
+
+    public static string NormalizeReference(string reference)
+    {
+        if (string.Equals(reference, "chief", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(reference, "chief ray", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(reference, "主光线", StringComparison.Ordinal))
+        {
+            return "chief";
+        }
+
+        return "centroid";
+    }
+
+    public static string EffectiveDistribution(string method, string distribution)
+    {
+        return NormalizeMethod(method) == "RA"
+            ? "uniform"
+            : string.IsNullOrWhiteSpace(distribution) ? "hexapolar" : distribution;
+    }
+
+    public static string AxisLabel(string data)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? "RMS Wavefront Error (waves)"
+            : "RMS Spot Radius (mm)";
+    }
+
+    public static string SeriesName(string data)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? "RMS Wavefront Error"
+            : "RMS Spot Radius";
+    }
+
+    public static string MaximumValueKey(string data)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? "MaximumRmsWavefrontError"
+            : "MaximumRmsSpotSize";
+    }
+
+    public static double Metric(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        int numRings,
+        string distribution,
+        string data,
+        string reference,
+        double imagePlaneOffset = 0,
+        bool usePolarization = false,
+        bool removeVignetting = true)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? WavefrontRms(optic, field, wavelengths, numRings, imagePlaneOffset, removeVignetting)
+            : SpotRadius(
+                optic,
+                field,
+                wavelengths,
+                numRings,
+                distribution,
+                reference,
+                imagePlaneOffset,
+                usePolarization);
+    }
+
     public static double SpotRadius(
         Optic optic,
         (double Hx, double Hy) field,
@@ -304,7 +471,8 @@ internal static class RmsScanSupport
         int numRings,
         string distribution,
         string reference,
-        double imagePlaneOffset = 0)
+        double imagePlaneOffset = 0,
+        bool usePolarization = false)
     {
         var result = SpotAnalysisEngine.Generate(
             optic,
@@ -313,11 +481,69 @@ internal static class RmsScanSupport
             numRings,
             distribution,
             imagePlaneOffset,
-            reference: reference);
+            reference: reference,
+            usePolarization: usePolarization);
         var rays = result.Fields.FirstOrDefault()?.Wavelengths
             .SelectMany(wavelength => wavelength.Rays)
             .ToArray() ?? Array.Empty<SpotRayData>();
         return SpotAnalysisEngine.RmsRadius(rays);
+    }
+
+    public static double WavefrontRms(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        int numRings,
+        double imagePlaneOffset = 0,
+        bool removeVignetting = true)
+    {
+        if (wavelengths.Count == 0)
+        {
+            return 0;
+        }
+
+        var values = wavelengths.Select(wavelength =>
+        {
+            var wavefront = WavefrontEngine.GenerateChiefRay(optic, field, wavelength, numRings);
+            var samples = wavefront.Samples
+                .Where(sample => double.IsFinite(sample.OpdWaves)
+                    && (!removeVignetting || sample.Intensity > 0))
+                .ToArray();
+            if (samples.Length == 0)
+            {
+                return 0;
+            }
+
+            var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
+            var mean = samples.Select(sample =>
+            {
+                var defocusOpdWaves = Math.Abs(imagePlaneOffset) <= 1e-30
+                    ? 0
+                    : wavefront.ImageRefractiveIndex * imagePlaneOffset
+                        * (wavefront.ChiefImageDirectionZ - sample.ImageDirectionZ)
+                        / wavelengthMillimeters;
+                var opd = sample.OpdWaves + defocusOpdWaves;
+                return opd * opd;
+            }).Average();
+            return Math.Sqrt(mean);
+        }).ToArray();
+        return values.DefaultIfEmpty(0).Average();
+    }
+
+    public static double DiffractionLimitMillimeters(
+        Optic optic,
+        IReadOnlyList<Wavelength> wavelengths)
+    {
+        var wavelength = wavelengths.Count == 0
+            ? optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? optic.Wavelengths.FirstOrDefault()
+            : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
+        if (wavelength is null)
+        {
+            return 0;
+        }
+
+        var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
+        return fNumber <= 1e-30 ? 0 : 1.22 * wavelength.Micrometers * 1e-3 * fNumber;
     }
 
     public static string FieldXAxisLabel(Optic optic)

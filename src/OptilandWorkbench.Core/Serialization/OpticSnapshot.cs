@@ -38,7 +38,10 @@ public sealed record MeritOperandSnapshot(
     int PupilRings = 3,
     int PupilArms = 6,
     double PupilObscuration = 0,
-    string PupilSampling = "hexapolar");
+    string PupilSampling = "hexapolar",
+    double SpatialFrequency = 30,
+    bool IgnoreLateralColor = false,
+    bool PolychromaticReference = false);
 
 public sealed record ApertureSnapshot(
     string Kind,

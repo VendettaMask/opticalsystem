@@ -9,15 +9,36 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 {
     private readonly int _numRings;
     private readonly string _distribution;
+    private readonly string _method;
+    private readonly string _data;
+    private readonly string _reference;
+    private readonly int _wavelengthNumber;
+    private readonly bool _showDiffractionLimit;
+    private readonly bool _usePolarization;
+    private readonly bool _removeVignetting;
 
     public RmsVsFieldAnalysis(
         Optic optic,
         int numFields = 64,
         int numRings = 6,
-        string distribution = "hexapolar") : base(optic)
+        string distribution = "hexapolar",
+        string method = "GQ",
+        string data = "spot",
+        string reference = "centroid",
+        int wavelengthNumber = 0,
+        bool showDiffractionLimit = false,
+        bool usePolarization = false,
+        bool removeVignetting = true) : base(optic)
     {
         _numRings = Math.Max(1, numRings);
         _distribution = distribution;
+        _method = RmsScanSupport.NormalizeMethod(method);
+        _data = RmsScanSupport.NormalizeData(data);
+        _reference = RmsScanSupport.NormalizeReference(reference);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _showDiffractionLimit = showDiffractionLimit;
+        _usePolarization = usePolarization;
+        _removeVignetting = removeVignetting;
     }
 
     public override string Name => "RMS vs Field";
@@ -25,43 +46,88 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var result = SpotAnalysisEngine.Generate(
-            Optic,
-            fields.Select(field => (field.Hx, field.Hy)),
-            Optic.Wavelengths,
-            _numRings,
-            _distribution);
-        var series = Optic.Wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
+        var wavelengths = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        if (fields.Count == 0 || wavelengths.Count == 0)
+        {
+            return RmsScanSupport.Empty(Name);
+        }
+
+        var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
+        var series = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
             AnalysisTrace.FieldAxisLabel(Optic),
-            "RMS Spot Size (mm)",
-            result.Fields.Select((field, fieldIndex) => new AnalysisPoint(
-                fields[fieldIndex].Coordinate,
-                SpotAnalysisEngine.RmsRadius(field.Wavelengths[wavelengthIndex].Rays),
-                Label: fields[fieldIndex].Label)).ToArray(),
+            yAxisLabel,
+            fields.Select(field => new AnalysisPoint(
+                field.Coordinate,
+                RmsScanSupport.Metric(
+                    Optic,
+                    (field.Hx, field.Hy),
+                    new[] { wavelength },
+                    _numRings,
+                    effectiveDistribution,
+                    _data,
+                    _reference,
+                    usePolarization: _usePolarization,
+                    removeVignetting: _removeVignetting),
+                Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
-            ColorIndex: wavelengthIndex)).ToArray();
-        var maximum = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max();
+            ColorIndex: wavelengthIndex)).ToList();
+        var diffractionLimit = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths);
+        if (_showDiffractionLimit && _data == "spot" && diffractionLimit > 0)
+        {
+            series.Add(new AnalysisSeries(
+                AnalysisTrace.FieldAxisLabel(Optic),
+                yAxisLabel,
+                fields.Select(field => new AnalysisPoint(field.Coordinate, diffractionLimit, Label: field.Label)).ToArray(),
+                Name: "Diffraction Limit",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: series.Count));
+        }
+
+        var seriesArray = series.ToArray();
+        var maximum = seriesArray.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max();
+        var fieldMetrics = fields.Select(field => (
+            Field: field,
+            Rms: RmsScanSupport.Metric(
+                Optic,
+                (field.Hx, field.Hy),
+                wavelengths,
+                _numRings,
+                effectiveDistribution,
+                _data,
+                _reference,
+                usePolarization: _usePolarization,
+                removeVignetting: _removeVignetting))).ToArray();
         var values = new Dictionary<string, object>
         {
             ["FieldCount"] = fields.Count,
-            ["WavelengthCount"] = Optic.Wavelengths.Count,
+            ["WavelengthCount"] = wavelengths.Count,
             ["NumRings"] = _numRings,
-            ["Distribution"] = _distribution,
-            ["MaximumRmsSpotSize"] = maximum
+            ["Method"] = _method,
+            ["Data"] = _data,
+            ["Distribution"] = effectiveDistribution,
+            ["Reference"] = _reference,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["ShowDiffractionLimit"] = _showDiffractionLimit,
+            ["DiffractionLimitMillimeters"] = diffractionLimit,
+            ["UsePolarization"] = _usePolarization,
+            ["RemoveVignetting"] = _removeVignetting,
+            [RmsScanSupport.MaximumValueKey(_data)] = maximum
         };
-        var definedFields = new AnalysisRunner(Optic).EvaluateRmsByField();
-        foreach (var field in definedFields)
+        foreach (var item in fieldMetrics)
         {
-            values[$"Field {field.FieldLabel}"] = field.RmsSpotRadius;
+            values[$"Field {item.Field.Label}"] = item.Rms;
         }
 
-        var includedWeight = definedFields.Where(field => field.FieldWeight > 0).Sum(field => field.FieldWeight);
+        var includedWeight = fields.Where(field => Optic.Fields[field.Index].Weight > 0)
+            .Sum(field => Optic.Fields[field.Index].Weight);
         values["IncludedFieldWeight"] = includedWeight;
         values["WeightedMean"] = includedWeight <= 1e-12
             ? 0
-            : definedFields.Where(field => field.FieldWeight > 0)
-                .Sum(field => field.RmsSpotRadius * field.FieldWeight) / includedWeight;
-        return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            : fieldMetrics
+                .Where(item => Optic.Fields[item.Field.Index].Weight > 0)
+                .Sum(item => item.Rms * Optic.Fields[item.Field.Index].Weight) / includedWeight;
+        return new AnalysisData(Name, values, seriesArray.FirstOrDefault(), seriesArray, new AnalysisPlotOptions(
             XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
             XMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             YMinimum: 0,

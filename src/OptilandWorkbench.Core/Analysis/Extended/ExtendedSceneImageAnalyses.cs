@@ -5,16 +5,31 @@ public sealed class GeometricImageAnalysis : BaseAnalysis
     private readonly ImageSimulationSourcePattern _sourcePattern;
     private readonly int _imageSize;
     private readonly int _numRays;
+    private readonly double _fieldHeight;
+    private readonly int _oversampling;
+    private readonly int _guardBand;
+    private readonly bool _relativeIllumination;
+    private readonly string _aberrationMode;
 
     public GeometricImageAnalysis(
         Optic optic,
         ImageSimulationSourcePattern sourcePattern = ImageSimulationSourcePattern.ResolutionTarget,
         int imageSize = 64,
-        int numRays = 8) : base(optic)
+        int numRays = 8,
+        double fieldHeight = 0,
+        int oversampling = 1,
+        int guardBand = 4,
+        bool relativeIllumination = true,
+        string aberrationMode = "Geometric") : base(optic)
     {
         _sourcePattern = sourcePattern;
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _numRays = Math.Clamp(numRays, 2, 128);
+        _fieldHeight = Math.Max(0, fieldHeight);
+        _oversampling = Math.Clamp(oversampling, 1, 16);
+        _guardBand = Math.Clamp(guardBand, 0, 512);
+        _relativeIllumination = relativeIllumination;
+        _aberrationMode = aberrationMode;
     }
 
     public override string Name => "Geometric Image Analysis";
@@ -29,7 +44,12 @@ public sealed class GeometricImageAnalysis : BaseAnalysis
             _numRays,
             psfSize: 8,
             psfGridSize: 3,
-            pipeline: "Geometric image approximation from field-dependent ray samples");
+            pipeline: "Geometric image approximation from field-dependent ray samples",
+            fieldHeight: _fieldHeight,
+            oversampling: _oversampling,
+            guardBand: _guardBand,
+            relativeIllumination: _relativeIllumination,
+            aberrationMode: _aberrationMode);
     }
 }
 
@@ -37,14 +57,29 @@ public sealed class GeometricBitmapImageAnalysis : BaseAnalysis
 {
     private readonly int _imageSize;
     private readonly int _raysPerPixel;
+    private readonly double _fieldHeight;
+    private readonly int _oversampling;
+    private readonly int _guardBand;
+    private readonly bool _relativeIllumination;
+    private readonly string _aberrationMode;
 
     public GeometricBitmapImageAnalysis(
         Optic optic,
         int imageSize = 64,
-        int raysPerPixel = 8) : base(optic)
+        int raysPerPixel = 8,
+        double fieldHeight = 0,
+        int oversampling = 1,
+        int guardBand = 4,
+        bool relativeIllumination = true,
+        string aberrationMode = "Geometric") : base(optic)
     {
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _raysPerPixel = Math.Clamp(raysPerPixel, 2, 128);
+        _fieldHeight = Math.Max(0, fieldHeight);
+        _oversampling = Math.Clamp(oversampling, 1, 16);
+        _guardBand = Math.Clamp(guardBand, 0, 512);
+        _relativeIllumination = relativeIllumination;
+        _aberrationMode = aberrationMode;
     }
 
     public override string Name => "Geometric Bitmap Image Analysis";
@@ -59,7 +94,13 @@ public sealed class GeometricBitmapImageAnalysis : BaseAnalysis
             _raysPerPixel,
             psfSize: 8,
             psfGridSize: 3,
-            pipeline: "RGB bitmap geometric ray image");
+            pipeline: "RGB bitmap geometric ray image",
+            fieldHeight: _fieldHeight,
+            oversampling: _oversampling,
+            guardBand: _guardBand,
+            relativeIllumination: _relativeIllumination,
+            aberrationMode: _aberrationMode,
+            sourceMode: "Built-in bitmap surrogate");
     }
 }
 
@@ -97,16 +138,28 @@ public sealed class PartiallyCoherentImageAnalysis : BaseAnalysis
     private readonly int _imageSize;
     private readonly int _pupilSampling;
     private readonly double _coherence;
+    private readonly double _fieldHeight;
+    private readonly int _oversampling;
+    private readonly int _guardBand;
+    private readonly bool _relativeIllumination;
 
     public PartiallyCoherentImageAnalysis(
         Optic optic,
         int imageSize = 64,
         int pupilSampling = 16,
-        double coherence = 0.5) : base(optic)
+        double coherence = 0.5,
+        double fieldHeight = 0,
+        int oversampling = 1,
+        int guardBand = 16,
+        bool relativeIllumination = true) : base(optic)
     {
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _pupilSampling = Math.Clamp(pupilSampling, 4, 128);
         _coherence = Math.Clamp(coherence, 0, 1);
+        _fieldHeight = Math.Max(0, fieldHeight);
+        _oversampling = Math.Clamp(oversampling, 1, 16);
+        _guardBand = Math.Clamp(guardBand, 0, 512);
+        _relativeIllumination = relativeIllumination;
     }
 
     public override string Name => "Partially Coherent Image Analysis";
@@ -123,6 +176,11 @@ public sealed class PartiallyCoherentImageAnalysis : BaseAnalysis
             psfGridSize: 3,
             pipeline: "Partially coherent diffraction image",
             sourceBlend: _coherence,
+            fieldHeight: _fieldHeight,
+            oversampling: _oversampling,
+            guardBand: _guardBand,
+            relativeIllumination: _relativeIllumination,
+            aberrationMode: "Partially Coherent",
             additionalValues: new Dictionary<string, object>
             {
                 ["Coherence"] = _coherence
@@ -136,18 +194,33 @@ public sealed class ExtendedDiffractionImageAnalysis : BaseAnalysis
     private readonly int _imageSize;
     private readonly int _pupilSampling;
     private readonly int _fieldGrid;
+    private readonly double _fieldHeight;
+    private readonly int _oversampling;
+    private readonly int _guardBand;
+    private readonly bool _relativeIllumination;
+    private readonly string _aberrationMode;
 
     public ExtendedDiffractionImageAnalysis(
         Optic optic,
         ImageSimulationSourcePattern sourcePattern = ImageSimulationSourcePattern.ResolutionTarget,
         int imageSize = 64,
         int pupilSampling = 16,
-        int fieldGrid = 5) : base(optic)
+        int fieldGrid = 5,
+        double fieldHeight = 0,
+        int oversampling = 1,
+        int guardBand = 16,
+        bool relativeIllumination = true,
+        string aberrationMode = "Huygens") : base(optic)
     {
         _sourcePattern = sourcePattern;
         _imageSize = Math.Clamp(imageSize, 16, 256);
         _pupilSampling = Math.Clamp(pupilSampling, 4, 128);
         _fieldGrid = Math.Clamp(fieldGrid, 2, 9);
+        _fieldHeight = Math.Max(0, fieldHeight);
+        _oversampling = Math.Clamp(oversampling, 1, 16);
+        _guardBand = Math.Clamp(guardBand, 0, 512);
+        _relativeIllumination = relativeIllumination;
+        _aberrationMode = aberrationMode;
     }
 
     public override string Name => "Extended Diffraction Image Analysis";
@@ -162,7 +235,12 @@ public sealed class ExtendedDiffractionImageAnalysis : BaseAnalysis
             _pupilSampling,
             psfSize: 32,
             psfGridSize: _fieldGrid,
-            pipeline: "Field-dependent extended diffraction image");
+            pipeline: "Field-dependent extended diffraction image",
+            fieldHeight: _fieldHeight,
+            oversampling: _oversampling,
+            guardBand: _guardBand,
+            relativeIllumination: _relativeIllumination,
+            aberrationMode: _aberrationMode);
     }
 }
 
@@ -178,18 +256,36 @@ internal static class ExtendedSceneImageSupport
         int psfGridSize,
         string pipeline,
         double sourceBlend = 0,
+        double fieldHeight = 0,
+        int oversampling = 1,
+        int guardBand = -1,
+        bool relativeIllumination = true,
+        string aberrationMode = "Huygens",
+        string sourceMode = "Built-in",
         IReadOnlyDictionary<string, object>? additionalValues = null)
     {
-        var source = ImageSimulationEngine.CreateSourceImage(sourcePattern, imageSize, imageSize);
+        oversampling = Math.Clamp(oversampling, 1, 16);
+        var source = ImageSimulationEngine.CreateSourceImage(
+            sourcePattern,
+            imageSize * oversampling,
+            imageSize * oversampling);
+        var padding = guardBand >= 0 ? guardBand : Math.Max(4, psfSize / 2);
         var result = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
         {
             SourcePattern = sourcePattern,
+            SourceMode = sourceMode,
+            FieldHeight = Math.Max(0, fieldHeight),
+            Oversampling = oversampling,
+            UseRelativeIllumination = relativeIllumination,
+            AberrationMode = aberrationMode,
+            ImageWidth = imageSize,
+            ImageHeight = imageSize,
             PsfGridRows = psfGridSize,
             PsfGridColumns = psfGridSize,
             PsfSize = psfSize,
             NumRays = numRays,
             Components = Math.Min(3, psfGridSize),
-            Padding = Math.Max(4, psfSize / 2),
+            Padding = padding,
             DistortionGridSize = Math.Max(5, psfGridSize * 2 + 1),
             DistortionPolynomialDegree = 5
         });
@@ -201,8 +297,14 @@ internal static class ExtendedSceneImageSupport
         var values = new Dictionary<string, object>
         {
             ["Pipeline"] = pipeline,
+            ["SourceMode"] = sourceMode,
             ["SourcePattern"] = sourcePattern.ToString(),
             ["ImageSize"] = imageSize,
+            ["FieldHeight"] = Math.Max(0, fieldHeight),
+            ["Oversampling"] = oversampling,
+            ["GuardBand"] = padding,
+            ["RelativeIllumination"] = relativeIllumination,
+            ["AberrationMode"] = aberrationMode,
             ["PupilRaySampling"] = numRays,
             ["PsfSize"] = psfSize,
             ["FieldGrid"] = $"{psfGridSize} x {psfGridSize}",

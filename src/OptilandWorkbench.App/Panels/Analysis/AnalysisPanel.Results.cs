@@ -948,6 +948,39 @@ public sealed partial class AnalysisPanel
                 + $"缩放标尺：{scale}    参考：{reference}");
         }
 
+        if (string.Equals(view.Name, "场曲/畸变", StringComparison.Ordinal)
+            || string.Equals(view.Name, "Field Curvature and Distortion", StringComparison.OrdinalIgnoreCase))
+        {
+            var curvatureMaximum = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("场曲.最大像面偏移", StringComparison.Ordinal));
+            var distortionMaximum = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("畸变.最大绝对畸变", StringComparison.Ordinal));
+            var distortionModel = view.Rows.FirstOrDefault(row =>
+                row.Metric.Contains("畸变.畸变模型", StringComparison.Ordinal));
+            var combinedLines = new List<string>();
+            if (curvatureMaximum is not null)
+            {
+                combinedLines.Add($"最大像面偏移 = {curvatureMaximum.Value} mm");
+            }
+
+            if (distortionMaximum is not null)
+            {
+                var combinedDistortionUnit = distortionMaximum.Metric.Contains("mm", StringComparison.OrdinalIgnoreCase)
+                    ? " mm"
+                    : "%";
+                combinedLines.Add($"最大畸变 = {distortionMaximum.Value}{combinedDistortionUnit}");
+            }
+
+            if (distortionModel is not null)
+            {
+                combinedLines.Add($"畸变模型 = {distortionModel.Value}");
+            }
+
+            return new CompactAnalysisSummary(
+                "场曲/畸变",
+                combinedLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, combinedLines));
+        }
+
         if (string.Equals(view.Name, "场曲", StringComparison.Ordinal)
             || string.Equals(view.Name, "Field Curvature", StringComparison.OrdinalIgnoreCase))
         {
