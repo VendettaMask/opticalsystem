@@ -27,8 +27,8 @@ public sealed partial class AnalysisPanel
             PlotOptions = view.PlotOptions,
             MinHeight = 360
         };
-        var wavelengthEntries = WavelengthLegendEntries(view.Series);
-        if (wavelengthEntries.Count == 0)
+        var legendEntries = SelectableLegendEntries(view.Series);
+        if (legendEntries.Count == 0)
         {
             return new Grid
             {
@@ -41,9 +41,9 @@ public sealed partial class AnalysisPanel
         }
 
         var original = view.Series.ToArray();
-        var enabled = wavelengthEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
+        var enabled = legendEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
         var legendBelow = view.PlotOptions.LegendBelow;
-        var legend = BuildSelectableWavelengthLegend(wavelengthEntries, (key, isVisible) =>
+        var legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
         {
             if (isVisible)
             {
@@ -55,7 +55,7 @@ public sealed partial class AnalysisPanel
             }
 
             plot.Series = original.Where(series =>
-                !TryGetWavelengthLegend(series.Name, out var seriesKey, out _)
+                !TryGetSelectableLegend(series, out var seriesKey, out _)
                 || enabled.Contains(seriesKey)).ToArray();
         }, legendBelow ? Orientation.Horizontal : Orientation.Vertical);
         plot.PlotOptions = view.PlotOptions with { ShowLegend = false };
@@ -176,12 +176,15 @@ public sealed partial class AnalysisPanel
             return BuildPanePlot(panes, 3);
         }
 
+        var gridSize = StandardSpotGridSize(panes.Count);
         var fieldGrid = new Grid
         {
-            Width = cardWidth * 3,
-            Height = cardHeight * 3,
-            ColumnDefinitions = new ColumnDefinitions("*,*,*"),
-            RowDefinitions = new RowDefinitions("*,*,*")
+            Width = cardWidth * gridSize.Columns,
+            Height = cardHeight * gridSize.Rows,
+            ColumnDefinitions = new ColumnDefinitions(
+                string.Join(',', Enumerable.Repeat("*", gridSize.Columns))),
+            RowDefinitions = new RowDefinitions(
+                string.Join(',', Enumerable.Repeat("*", gridSize.Rows)))
         };
         var plots = new List<AnalysisPlotControl>(panes.Count);
 
@@ -252,9 +255,9 @@ public sealed partial class AnalysisPanel
 
         var positions = paneCount switch
         {
-            1 => new[] { (1, 1) },
-            2 => new[] { (0, 1), (2, 1) },
-            3 => new[] { (0, 1), (1, 1), (2, 1) },
+            1 => new[] { (0, 0) },
+            2 => new[] { (0, 0), (1, 0) },
+            3 => new[] { (0, 0), (1, 0), (2, 0) },
             4 => new[] { (0, 0), (2, 0), (0, 2), (2, 2) },
             5 => new[] { (0, 0), (2, 0), (1, 1), (0, 2), (2, 2) },
             6 => new[] { (0, 0), (2, 0), (0, 1), (2, 1), (0, 2), (2, 2) },
@@ -268,6 +271,18 @@ public sealed partial class AnalysisPanel
             }
         };
         return positions[paneIndex];
+    }
+
+    internal static (int Columns, int Rows) StandardSpotGridSize(int paneCount)
+    {
+        if (paneCount < 1 || paneCount > 9)
+        {
+            throw new ArgumentOutOfRangeException(nameof(paneCount));
+        }
+
+        return paneCount <= 3
+            ? (paneCount, 1)
+            : (3, 3);
     }
 
     private static Control BuildMatrixSpotPanePlot(
@@ -443,7 +458,7 @@ public sealed partial class AnalysisPanel
                 legendEntries.Add((key, label, series.ColorIndex));
             }
         }
-        var legend = BuildSelectableWavelengthLegend(legendEntries, (key, isVisible) =>
+        var legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
         {
             var column = legendEntries.FindIndex(entry => entry.Key == key);
             if (column < 0 || column >= columnPlots.Length)
@@ -712,13 +727,13 @@ public sealed partial class AnalysisPanel
         IReadOnlyList<AnalysisPlotControl> plots)
     {
         var sourceSeries = panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>();
-        var wavelengthEntries = WavelengthLegendEntries(sourceSeries);
+        var legendEntries = SelectableLegendEntries(sourceSeries);
         Control legend;
-        if (wavelengthEntries.Count > 0)
+        if (legendEntries.Count > 0)
         {
             var originals = plots.Select(plot => plot.Series.ToArray()).ToArray();
-            var enabled = wavelengthEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
-            legend = BuildSelectableWavelengthLegend(wavelengthEntries, (key, isVisible) =>
+            var enabled = legendEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
+            legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
             {
                 if (isVisible)
                 {
@@ -732,7 +747,7 @@ public sealed partial class AnalysisPanel
                 for (var index = 0; index < plots.Count; index++)
                 {
                     plots[index].Series = originals[index].Where(series =>
-                        !TryGetWavelengthLegend(series.Name, out var seriesKey, out _)
+                        !TryGetSelectableLegend(series, out var seriesKey, out _)
                         || enabled.Contains(seriesKey)).ToArray();
                 }
             }, Orientation.Horizontal);
@@ -780,14 +795,14 @@ public sealed partial class AnalysisPanel
         };
     }
 
-    private static List<(string Key, string Label, int ColorIndex)> WavelengthLegendEntries(
+    private static List<(string Key, string Label, int ColorIndex)> SelectableLegendEntries(
         IReadOnlyList<AnalysisSeriesDto> series)
     {
         var entries = new List<(string Key, string Label, int ColorIndex)>();
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var item in series)
         {
-            if (!TryGetWavelengthLegend(item.Name, out var key, out var label)
+            if (!TryGetSelectableLegend(item, out var key, out var label)
                 || !seen.Add(key))
             {
                 continue;
@@ -799,7 +814,7 @@ public sealed partial class AnalysisPanel
         return entries;
     }
 
-    private static StackPanel BuildSelectableWavelengthLegend(
+    private static StackPanel BuildSelectableLegend(
         IReadOnlyList<(string Key, string Label, int ColorIndex)> entries,
         Action<string, bool> setVisibility,
         Orientation orientation = Orientation.Vertical)
@@ -850,6 +865,22 @@ public sealed partial class AnalysisPanel
         }
 
         return legend;
+    }
+
+    private static bool TryGetSelectableLegend(
+        AnalysisSeriesDto series,
+        out string key,
+        out string label)
+    {
+        if (!string.IsNullOrWhiteSpace(series.LegendKey)
+            && !string.IsNullOrWhiteSpace(series.LegendLabel))
+        {
+            key = series.LegendKey;
+            label = series.LegendLabel;
+            return true;
+        }
+
+        return TryGetWavelengthLegend(series.Name, out key, out label);
     }
 
     private static bool TryGetWavelengthLegend(

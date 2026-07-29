@@ -1,6 +1,9 @@
 using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coordinates;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 
@@ -62,7 +65,7 @@ public sealed class PythonAnalysisParityTests
         var optic = createOptic();
         var data = new DistortionAnalysis(optic, numPoints: 17).GenerateData();
         Assert.Equal(optic.Wavelengths.Count, data.PlotSeries.Count);
-        Assert.All(data.PlotSeries, item => Assert.Equal(optic.Fields.Count, item.Points.Count));
+        Assert.All(data.PlotSeries, item => Assert.Equal(17, item.Points.Count));
         Assert.All(data.PlotSeries.SelectMany(item => item.Points), point =>
         {
             Assert.True(double.IsFinite(point.X));
@@ -95,7 +98,7 @@ public sealed class PythonAnalysisParityTests
         Assert.Single(data.PlotSeries);
         Assert.Equal("Distortion (mm)", data.PlotSeries[0].XAxisLabel);
         Assert.Equal("f-theta", data.Values["DistortionType"]);
-        Assert.Equal("defined-fields", data.Values["ScanDirection"]);
+        Assert.Equal("-x", data.Values["ScanDirection"]);
         Assert.Equal(2, data.Values["WavelengthNumber"]);
         Assert.Equal(0, data.PlotSeries[0].Points[0].X, precision: 9);
         Assert.All(data.PlotSeries[0].Points, point => Assert.True(double.IsFinite(point.X)));
@@ -182,38 +185,33 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FieldCurvatureUsesDefinedFields(string sampleName, Func<Optic> createOptic)
+    public void FieldCurvatureUsesZemaxSelectedHalfFan(string sampleName, Func<Optic> createOptic)
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("field_curvature");
+        Assert.False(string.IsNullOrWhiteSpace(sampleName));
         var optic = createOptic();
-        var data = new FieldCurvatureAnalysis(optic, numPoints: 17).GenerateData();
-        var wavelengthCount = expected.GetProperty("wavelengths").GetArrayLength();
-        Assert.Equal(wavelengthCount * 2, data.PlotSeries.Count);
+        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+        var data = new FieldCurvatureAnalysis(
+            optic,
+            numPoints: 17,
+            wavelengthNumber: 2,
+            scanDirection: "-x").GenerateData();
 
-        for (var wavelength = 0; wavelength < wavelengthCount; wavelength++)
+        Assert.Equal(2, data.PlotSeries.Count);
+        foreach (var item in data.PlotSeries)
         {
-            foreach (var item in new[]
+            Assert.Equal(17, item.Points.Count);
+            for (var index = 0; index < item.Points.Count; index++)
             {
-                data.PlotSeries[wavelength * 2],
-                data.PlotSeries[(wavelength * 2) + 1]
-            })
-            {
-                Assert.Equal(optic.Fields.Count, item.Points.Count);
-                Assert.Equal(
-                    optic.Fields.Select(FieldCoordinate),
-                    item.Points.Select(point => point.Y));
-                Assert.Equal(
-                    optic.Fields.Select(field => field.Label),
-                    item.Points.Select(point => point.Label));
-                Assert.All(item.Points, point => Assert.True(double.IsFinite(point.X)));
+                Assert.Equal(-maximumField * index / 16.0, item.Points[index].Y, 12);
+                Assert.True(double.IsFinite(item.Points[index].X));
             }
-
-            Assert.Equal(AnalysisLineStyle.Solid, data.PlotSeries[wavelength * 2].LineStyle);
-            Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[(wavelength * 2) + 1].LineStyle);
-            Assert.Equal(data.PlotSeries[wavelength * 2].ColorIndex, data.PlotSeries[(wavelength * 2) + 1].ColorIndex);
         }
 
+        Assert.Equal("-x", data.Values["ScanDirection"]);
+        Assert.Equal(2, data.Values["WavelengthNumber"]);
+        Assert.Equal(AnalysisLineStyle.Solid, data.PlotSeries[0].LineStyle);
+        Assert.Equal(AnalysisLineStyle.Dashed, data.PlotSeries[1].LineStyle);
+        Assert.Equal(data.PlotSeries[0].ColorIndex, data.PlotSeries[1].ColorIndex);
         Assert.Equal("Field Curvature", data.PlotOptions?.Title);
         Assert.True(data.PlotOptions?.SymmetricX);
         Assert.True(data.PlotOptions?.ShowLegend);
@@ -226,6 +224,36 @@ public sealed class PythonAnalysisParityTests
             Math.Max(Math.Abs(maximumTangential), Math.Abs(maximumSagittal)),
             maximumAbsolute,
             12);
+    }
+
+    [Fact]
+    public void FieldCurvatureIgnoreVignettingFactorsControlsTheTraceWithoutMutatingTheOptic()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        foreach (var field in optic.Fields)
+        {
+            field.VignetteFactorX = 1;
+            field.VignetteFactorY = 1;
+        }
+
+        var ignored = new FieldCurvatureAnalysis(
+            optic, numPoints: 5, parabasalDelta: 0.05, ignoreVignettingFactors: true).GenerateData();
+        var applied = new FieldCurvatureAnalysis(
+            optic, numPoints: 5, parabasalDelta: 0.05, ignoreVignettingFactors: false).GenerateData();
+
+        Assert.False((bool)ignored.Values["VignettingFactorsApplied"]);
+        Assert.True((bool)applied.Values["VignettingFactorsApplied"]);
+        Assert.All(optic.Fields, field =>
+        {
+            Assert.Equal(1, field.VignetteFactorX);
+            Assert.Equal(1, field.VignetteFactorY);
+        });
+        Assert.Contains(
+            ignored.PlotSeries.SelectMany(series => series.Points),
+            point => Math.Abs(point.X) > 1e-10);
+        Assert.All(
+            applied.PlotSeries.SelectMany(series => series.Points),
+            point => Assert.Equal(0, point.X, 12));
     }
 
     [Theory]
@@ -1020,7 +1048,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void HuygensPsfUsesZemaxChiefRayTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
+    public void HuygensPsfUsesZemaxImageSurfaceTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_psf");
@@ -1045,10 +1073,60 @@ public sealed class PythonAnalysisParityTests
         });
         Assert.True(actual.Values.Cast<double>().Max() > 0);
     }
+    [Fact]
+    public void HuygensImageGridUsesTiltedImageSurfaceNormalAndExactImageDelta()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var imageSurface = optic.SurfaceGroup.Items[^1];
+        imageSurface.CoordinateSystem = imageSurface.CoordinateSystem with
+        {
+            RotationYDegrees = 15
+        };
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        const double imageDeltaMillimeters = 0.007;
+        var grid = CreateHuygensGrid(optic, (0, 0), wavelength, 5, imageDeltaMillimeters);
+        var chief = optic.TraceGenericFinalSample(0, 0, 0, 0, wavelength.Micrometers)
+            ?? throw new InvalidOperationException("Chief ray did not reach the tilted image surface.");
+        var expectedNormal = Unit(imageSurface.CoordinateSystem.ToGlobalDirection(
+            imageSurface.Geometry.SurfaceNormal(
+                imageSurface.CoordinateSystem.ToLocalPoint(chief.Position))));
+        var gridX = grid[2, 3] - grid[2, 2];
+        var gridY = grid[3, 2] - grid[2, 2];
+        var gridNormal = Unit(Cross(gridX, gridY));
+
+        Assert.Equal(imageDeltaMillimeters, gridX.Length, 12);
+        Assert.Equal(imageDeltaMillimeters, gridY.Length, 12);
+        AssertVectorClose(chief.Position, grid[2, 2], 1e-12);
+        Assert.True(Math.Abs(Dot(expectedNormal, gridNormal)) > 1 - 1e-12);
+        Assert.True(Math.Abs(Dot(expectedNormal, Unit(chief.Direction))) < 0.999);
+    }
+
+    [Fact]
+    public void HuygensImageGridUsesCurvedDetectorNormalAtChiefIntercept()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var imageSurface = optic.SurfaceGroup.Items[^1];
+        imageSurface.Radius = 75;
+        imageSurface.Geometry = new StandardGeometry(75);
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var field = (Hx: 0.0, Hy: 0.7);
+        var grid = CreateHuygensGrid(optic, field, wavelength, 3, 0.005);
+        var chief = optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0, wavelength.Micrometers)
+            ?? throw new InvalidOperationException("Chief ray did not reach the curved image surface.");
+        var expectedNormal = Unit(imageSurface.CoordinateSystem.ToGlobalDirection(
+            imageSurface.Geometry.SurfaceNormal(
+                imageSurface.CoordinateSystem.ToLocalPoint(chief.Position))));
+        var gridNormal = Unit(Cross(grid[1, 2] - grid[1, 1], grid[2, 1] - grid[1, 1]));
+
+        Assert.True(Math.Abs(Dot(expectedNormal, gridNormal)) > 1 - 1e-12);
+        Assert.Equal(0.005, (grid[1, 2] - grid[1, 1]).Length, 12);
+        Assert.Equal(0.005, (grid[2, 1] - grid[1, 1]).Length, 12);
+    }
+
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void HuygensMtfUsesZemaxChiefRayTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
+    public void HuygensMtfUsesZemaxImageSurfaceTangentPlaneGrid(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("huygens_mtf");
@@ -1361,10 +1439,14 @@ public sealed class PythonAnalysisParityTests
         {
             Assert.True(pane.PlotOptions.HideAxes);
             Assert.Equal(AnalysisSeriesKind.Raster, pane.Series.Single().Kind);
-            Assert.Equal(64 * 48, pane.Series.Single().Points.Count);
+            Assert.Equal((64 + 4) * (48 + 4), pane.Series.Single().Points.Count);
         });
         Assert.DoesNotContain(data.Values.Keys, key => key.Contains("Proxy", StringComparison.OrdinalIgnoreCase));
         Assert.True(Convert.ToDouble(data.Values["MeanAbsoluteChange"]) > 0);
+        Assert.Matches("^(Diffraction|Geometric)( \\+ (Diffraction|Geometric))?$", data.Values["EffectiveAberrationMode"]?.ToString()
+            ?? throw new InvalidOperationException("Missing effective image-simulation mode."));
+        Assert.Equal(0.0, data.PlotPanes[0].Series.Single().Points[0].Red);
+        Assert.Equal(0.0, data.PlotPanes[0].Series.Single().Points[0].Green);
     }
 
     [Theory]
@@ -1383,168 +1465,139 @@ public sealed class PythonAnalysisParityTests
         Assert.True(image.Values.Cast<double>().Distinct().Count() > 2);
     }
 
-    [Theory]
-    [MemberData(nameof(OfficialSamples))]
-    public void ImageSimulationPipelineMatchesPythonOptilandPixelForPixel(string sampleName, Func<Optic> createOptic)
+    [Fact]
+    public void ImageSimulationPipelineUsesBlackGuardBandAndSelectedMode()
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("image_simulation");
         var config = new ImageSimulationConfig
         {
+            AberrationMode = "None",
+            UseRelativeIllumination = false,
+            Oversampling = 2,
             PsfGridRows = 2,
             PsfGridColumns = 2,
-            PsfSize = 16,
-            NumRays = 8,
-            Components = 3,
+            PsfSize = 8,
+            NumRays = 5,
+            Components = 2,
             Padding = 2,
-            DistortionGridSize = 7,
-            DistortionPolynomialDegree = 3
+            DistortionGridSize = 5,
+            DistortionPolynomialDegree = 2
         };
         var actual = ImageSimulationEngine.Simulate(
-            createOptic(),
+            Optic.CreateCookeTriplet(),
             ImageSimulationEngine.CreateTestChart(16, 16),
             config);
-        Assert.Equal(expected.GetProperty("shape")[0].GetInt32(), actual.Simulated.Channels);
-        Assert.Equal(expected.GetProperty("shape")[1].GetInt32(), actual.Simulated.Height);
-        Assert.Equal(expected.GetProperty("shape")[2].GetInt32(), actual.Simulated.Width);
-        AssertImageClose(expected.GetProperty("maximum").GetDouble(), actual.MaximumValue);
-        AssertImageClose(expected.GetProperty("mean_absolute_change").GetDouble(), actual.MeanAbsoluteChange);
-        for (var channel = 0; channel < actual.Simulated.Channels; channel++)
-        {
-            for (var row = 0; row < actual.Simulated.Height; row++)
-            {
-                for (var column = 0; column < actual.Simulated.Width; column++)
-                {
-                    AssertImageClose(
-                        expected.GetProperty("simulated")[channel][row][column].GetDouble(),
-                        actual.Simulated.Values[channel, row, column]);
-                }
-            }
-        }
 
+        Assert.Equal(36, actual.Source.Width);
+        Assert.Equal(36, actual.Source.Height);
+        Assert.Equal(actual.Source.Width, actual.Simulated.Width);
+        Assert.Equal(actual.Source.Height, actual.Simulated.Height);
+        Assert.Equal("None", actual.EffectiveAberrationMode);
+        Assert.Equal(0, actual.GeometricFallbackCount);
+        Assert.All(
+            Enumerable.Range(0, actual.Source.Channels),
+            channel => Assert.Equal(0, actual.Source.Values[channel, 0, 0]));
+        Assert.All(actual.Simulated.Values.Cast<double>(), value => Assert.True(double.IsFinite(value)));
     }
 
-    [Theory]
-    [MemberData(nameof(OfficialSamples))]
-    public void ImageSimulationBlurAndDistortionStagesMatchPythonOptiland(string sampleName, Func<Optic> createOptic)
+    [Fact]
+    public void ImageSimulationGuardBandIsBlackInsteadOfReflected()
     {
-        using var reference = LoadReference();
-        var expected = reference.RootElement.GetProperty(sampleName).GetProperty("image_simulation");
-        var optic = createOptic();
         var source = ImageSimulationEngine.CreateTestChart(16, 16);
-        for (var channel = 0; channel < 3; channel++)
-        {
-            for (var row = 0; row < 16; row++)
-            {
-                for (var column = 0; column < 16; column++)
-                {
-                    AssertClose(expected.GetProperty("source")[channel][row][column].GetDouble(), source.Values[channel, row, column]);
-                }
-            }
-        }
-        var padded = ImageSimulationEngine.ReflectPad(source.Values, 2);
-        var config = new ImageSimulationConfig
-        {
-            PsfGridRows = 2,
-            PsfGridColumns = 2,
-            PsfSize = 16,
-            NumRays = 8,
-            Components = 3,
-            Padding = 2,
-            DistortionGridSize = 7,
-            DistortionPolynomialDegree = 3
-        };
-        var wavelengths = new[] { 0.65, 0.55, 0.45 };
-        for (var channel = 0; channel < wavelengths.Length; channel++)
-        {
-            var wavelength = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = wavelengths[channel] * 1000 };
-            var basis = ImageSimulationEngine.GenerateBasis(optic, wavelength, config);
-            var maps = ImageSimulationEngine.ResizeCoefficientMaps(basis.CoefficientGrid, 20, 20);
-            var sourceChannel = new double[20, 20];
-            for (var row = 0; row < 20; row++)
-            {
-                for (var column = 0; column < 20; column++)
-                {
-                    sourceChannel[row, column] = padded[channel, row, column];
-                }
-            }
+        var padded = ImageSimulationEngine.ZeroPad(source.Values, 2);
 
-            var blurred = ImageSimulationEngine.SpatiallyVariableConvolution(sourceChannel, basis.EigenPsfs, maps, basis.MeanPsf);
-            var grid = ImageSimulationEngine.GenerateDistortionGrid(optic, wavelength, 20, 20, 7, 3);
-            for (var row = 0; row < 20; row++)
-            {
-                for (var column = 0; column < 20; column++)
-                {
-                    AssertImageClose(expected.GetProperty("blurred")[channel][row][column].GetDouble(), blurred[row, column]);
-                    AssertClose(expected.GetProperty("distortion_grids")[channel][row][column][0].GetDouble(), grid[row, column].X);
-                    AssertClose(expected.GetProperty("distortion_grids")[channel][row][column][1].GetDouble(), grid[row, column].Y);
-                }
-            }
+        Assert.Equal(20, padded.GetLength(1));
+        Assert.Equal(20, padded.GetLength(2));
+        Assert.All(padded.Cast<double>().Take(20), value => Assert.Equal(0, value));
+        for (var channel = 0; channel < source.Channels; channel++)
+        {
+            Assert.Equal(source.Values[channel, 0, 0], padded[channel, 2, 2]);
+            Assert.Equal(source.Values[channel, 15, 15], padded[channel, 17, 17]);
         }
     }
 
     [Fact]
-    public void ImageSimulationDistortionGridMatchesPythonReferenceCoordinates()
+    public void ImageSimulationPsfModeIsHonored()
     {
         var optic = Optic.CreateCookeTriplet();
-        var wavelength = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 650 };
-        var grid = ImageSimulationEngine.GenerateDistortionGrid(optic, wavelength, 20, 20, 7, 3);
-        AssertClose(-1.00178581, grid[0, 0].X);
-        AssertClose(-1.00178581, grid[0, 0].Y);
-        AssertClose(-0.80251784, grid[2, 2].X);
-        AssertClose(-0.80251784, grid[2, 2].Y);
-        AssertClose(0.05477868, grid[10, 10].X);
-        AssertClose(0.05477868, grid[10, 10].Y);
+        var wavelength = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 587.6 };
+        var none = ImageSimulationEngine.GenerateBasis(optic, wavelength, new ImageSimulationConfig
+        {
+            AberrationMode = "None",
+            PsfGridRows = 2,
+            PsfGridColumns = 2,
+            PsfSize = 8,
+            NumRays = 5,
+            Components = 2
+        });
+        var geometric = ImageSimulationEngine.GenerateBasis(optic, wavelength, new ImageSimulationConfig
+        {
+            AberrationMode = "Geometric",
+            PsfGridRows = 2,
+            PsfGridColumns = 2,
+            PsfSize = 8,
+            NumRays = 5,
+            Components = 2
+        });
+
+        Assert.All(none.EffectiveModes!, mode => Assert.Equal("None", mode));
+        Assert.All(geometric.EffectiveModes!, mode => Assert.Equal("Geometric", mode));
+        Assert.Equal(1, none.MeanPsf.Cast<double>().Sum(), 10);
+        Assert.Equal(1, geometric.MeanPsf.Cast<double>().Sum(), 10);
     }
 
     [Fact]
-    public void ImageSimulationPsfBasisPreservesUnitMeanEnergy()
+    public void ImageSimulationDistortionGridKeepsLateralColorAgainstPrimaryReference()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var red = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 650 };
+        var primary = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 587.6 };
+        var primaryGrid = ImageSimulationEngine.GenerateDistortionGrid(
+            optic, primary, 20, 20, 7, 3, referenceWavelength: primary);
+        var redGrid = ImageSimulationEngine.GenerateDistortionGrid(
+            optic, red, 20, 20, 7, 3, referenceWavelength: primary);
+
+        Assert.All(primaryGrid.Cast<(double X, double Y)>(), point =>
+        {
+            Assert.True(double.IsFinite(point.X));
+            Assert.True(double.IsFinite(point.Y));
+        });
+        Assert.Contains(
+            redGrid.Cast<(double X, double Y)>().Zip(primaryGrid.Cast<(double X, double Y)>()),
+            pair => Math.Abs(pair.First.X - pair.Second.X) > 1e-8
+                || Math.Abs(pair.First.Y - pair.Second.Y) > 1e-8);
+    }
+
+    [Fact]
+    public void ImageSimulationDiffractionBasisPreservesUnitEnergyAndReportsFallback()
     {
         var config = new ImageSimulationConfig
         {
+            AberrationMode = "Diffraction",
             PsfGridRows = 2,
             PsfGridColumns = 2,
-            PsfSize = 16,
-            NumRays = 8,
+            PsfSize = 8,
+            NumRays = 5,
             Components = 3
         };
-        var optic = Optic.CreateCookeTriplet();
-        var wavelength = new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 650 };
-        var centerPsf = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wavelength, 8, 16);
-        var cornerWavefront = WavefrontEngine.GenerateChiefRayUniform(optic, (-1, -1), wavelength, 8);
-        var cornerPsf = DiffractionEngine.ComputeFftPsf(optic, (-1, -1), wavelength, 8, 16);
-        Assert.True(centerPsf.Values.Cast<double>().Sum() > 0);
-        Assert.Contains(cornerWavefront.Samples, sample => sample.Intensity > 0);
-        Assert.True(cornerWavefront.Samples.All(sample => double.IsFinite(sample.OpdWaves)));
-        Assert.True(cornerPsf.Values.Cast<double>().Sum() > 0, $"Corner PSF sum: {cornerPsf.Values.Cast<double>().Sum():R}");
-        var cornerSum = cornerPsf.Values.Cast<double>().Sum();
-        AssertClose(0.0025213610975391913, cornerPsf.Values[0, 0] / cornerSum);
-        AssertClose(7.51274450291732e-05, cornerPsf.Values[3, 7] / cornerSum);
-        AssertClose(0.00021681217396903035, cornerPsf.Values[8, 8] / cornerSum);
         var basis = ImageSimulationEngine.GenerateBasis(
-            optic,
-            wavelength,
+            Optic.CreateCookeTriplet(),
+            new OptilandWorkbench.Core.Domain.Wavelength { Nanometers = 650 },
             config);
-        AssertClose(1, basis.MeanPsf.Cast<double>().Sum());
-        var fields = new[] { (-1.0, -1.0), (1.0, -1.0), (-1.0, 1.0), (1.0, 1.0) };
-        for (var field = 0; field < fields.Length; field++)
-        {
-            var expected = DiffractionEngine.ComputeFftPsf(optic, fields[field], wavelength, 8, 16).Values;
-            var sum = expected.Cast<double>().Sum();
-            for (var row = 0; row < 16; row++)
-            {
-                for (var column = 0; column < 16; column++)
-                {
-                    var reconstructed = basis.MeanPsf[row, column];
-                    for (var component = 0; component < basis.EigenPsfs.Length; component++)
-                    {
-                        reconstructed += basis.CoefficientGrid[component, field / 2, field % 2]
-                            * basis.EigenPsfs[component][row, column];
-                    }
 
-                    AssertClose(expected[row, column] / sum, reconstructed);
-                }
+        AssertClose(1, basis.MeanPsf.Cast<double>().Sum());
+        Assert.Equal(4, basis.EffectiveModes!.Count);
+        Assert.All(basis.EffectiveModes, mode => Assert.Contains(mode, new[] { "Diffraction", "Geometric" }));
+        Assert.Equal(basis.EffectiveModes.Count(mode => mode == "Geometric"), basis.GeometricFallbackCount);
+        for (var field = 0; field < 4; field++)
+        {
+            var sum = basis.MeanPsf.Cast<double>().Sum();
+            for (var component = 0; component < basis.EigenPsfs.Length; component++)
+            {
+                sum += basis.CoefficientGrid[component, field / 2, field % 2]
+                    * basis.EigenPsfs[component].Cast<double>().Sum();
             }
+
+            AssertClose(1, sum);
         }
     }
 
@@ -1556,6 +1609,40 @@ public sealed class PythonAnalysisParityTests
         AssertClose(-18.08356061, history[^1].Position.X);
         AssertClose(-18.08356061, history[^1].Position.Y);
         AssertClose(60.17675, history[^1].Position.Z);
+    }
+
+    private static Vector3D[,] CreateHuygensGrid(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int imageSize,
+        double imageDeltaMillimeters)
+    {
+        var method = typeof(DiffractionEngine).GetMethod(
+            "CreateHuygensImageCoordinates",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+            ?? throw new MissingMethodException(nameof(DiffractionEngine), "CreateHuygensImageCoordinates");
+        return (Vector3D[,])(method.Invoke(
+            null,
+            new object[] { optic, field, wavelength, imageSize, imageDeltaMillimeters })
+            ?? throw new InvalidOperationException("Huygens image-grid construction returned null."));
+    }
+
+    private static Vector3D Unit(Vector3D value) => value / value.Length;
+
+    private static Vector3D Cross(Vector3D left, Vector3D right) => new(
+        (left.Y * right.Z) - (left.Z * right.Y),
+        (left.Z * right.X) - (left.X * right.Z),
+        (left.X * right.Y) - (left.Y * right.X));
+
+    private static double Dot(Vector3D left, Vector3D right) =>
+        (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
+
+    private static void AssertVectorClose(Vector3D expected, Vector3D actual, double tolerance)
+    {
+        Assert.InRange(Math.Abs(expected.X - actual.X), 0, tolerance);
+        Assert.InRange(Math.Abs(expected.Y - actual.Y), 0, tolerance);
+        Assert.InRange(Math.Abs(expected.Z - actual.Z), 0, tolerance);
     }
 
     private static void AssertGridLine(
@@ -1596,14 +1683,6 @@ public sealed class PythonAnalysisParityTests
         }
     }
 
-    private static double FieldCoordinate(FieldPoint field)
-    {
-        return Math.Abs(field.X) <= 1e-12
-            ? field.Y
-            : Math.Abs(field.Y) <= 1e-12
-                ? field.X
-                : Math.Sqrt((field.X * field.X) + (field.Y * field.Y));
-    }
 
     private static void AssertPsfValues(JsonElement expectedPsf, PsfResult actual)
     {
@@ -1634,6 +1713,21 @@ public sealed class PythonAnalysisParityTests
                 AssertClose(expectedPsf[row][column].GetDouble() * scale, value.Value);
             }
         }
+    }
+
+    private static double FieldCoordinate(FieldPoint field)
+    {
+        if (Math.Abs(field.X) <= 1e-12)
+        {
+            return field.Y;
+        }
+
+        if (Math.Abs(field.Y) <= 1e-12)
+        {
+            return field.X;
+        }
+
+        return Math.Sqrt((field.X * field.X) + (field.Y * field.Y));
     }
 
     private static JsonDocument LoadReference()

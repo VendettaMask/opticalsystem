@@ -31,10 +31,10 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         var oversampling = Math.Clamp(_config.Oversampling, 1, 16);
-        var source = ImageSimulationEngine.CreateSourceImage(
+        var source = _config.SourceImage ?? ImageSimulationEngine.CreateSourceImage(
             _config.SourcePattern,
-            Math.Max(16, _config.ImageWidth * oversampling),
-            Math.Max(16, _config.ImageHeight * oversampling));
+            Math.Max(16, _config.ImageWidth),
+            Math.Max(16, _config.ImageHeight));
         var result = ImageSimulationEngine.Simulate(Optic, source, _config);
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
@@ -49,12 +49,15 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["ZemaxImageSimulationSettings"] = "Source, FieldHeight, Oversampling, GuardBand, RelativeIllumination, PSF grid, and AberrationMode",
             ["SourceMode"] = _config.SourceMode,
             ["SourcePattern"] = _config.SourcePattern.ToString(),
+            ["SourceFile"] = _config.SourceFile,
             ["FieldHeight"] = _config.FieldHeight,
             ["Oversampling"] = oversampling,
             ["GuardBand"] = _config.Padding,
             ["RelativeIllumination"] = _config.UseRelativeIllumination,
             ["AberrationMode"] = _config.AberrationMode,
             ["OutputShape"] = $"(1, {result.Simulated.Channels}, {result.Simulated.Height}, {result.Simulated.Width})",
+            ["EffectiveAberrationMode"] = result.EffectiveAberrationMode,
+            ["GeometricFallbackCount"] = result.GeometricFallbackCount,
             ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.00"))),
             ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",
             ["PsfSize"] = _config.PsfSize,

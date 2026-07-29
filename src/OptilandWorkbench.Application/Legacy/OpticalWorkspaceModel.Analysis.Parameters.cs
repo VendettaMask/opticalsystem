@@ -252,7 +252,7 @@ public partial class OpticalWorkspaceModel
                 IntParameter("FieldNumber", "视场序号（0 为全部）", "0", 0, 256),
                 BoolParameter("DeleteVignetted", "删除渐晕光线", "false"),
                 BoolParameter("UseSymbols", "使用符号区分", "true"),
-                ChoiceParameter("ColorRaysBy", "光线着色依据", "field", new[] { "field", "wavelength" })
+                ChoiceParameter("ColorRaysBy", "光线着色依据", "wavelength", new[] { "wavelength", "field" })
             },
             "Field Curvature and Distortion" => FieldCurvatureAndDistortionParameters(UsesAngularDistortionModel()),
             "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
@@ -260,7 +260,15 @@ public partial class OpticalWorkspaceModel
             "Field Curvature" => new[]
             {
                 DoubleParameter("MaximumCurvature", "最大场曲（0=自动）", "0", 0, 1_000_000, 0.1),
-                DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001)
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "波长（0=所有）",
+                    "0",
+                    new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
+                DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001),
+                BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
             },
             "Color Focus Shift" => new[]
             {
@@ -1123,8 +1131,8 @@ public partial class OpticalWorkspaceModel
                 IntParameter("Oversampling", "过采样", "1", 1, 16),
                 IntParameter("GuardBand", "保护带", "16", 0, 512),
                 BoolParameter("RelativeIllumination", "相对照度", "true"),
-                ChoiceParameter("AberrationMode", "像差模式", "Huygens",
-                    new[] { "Huygens", "Geometric", "None" })
+                ChoiceParameter("AberrationMode", "像差模式", "Diffraction",
+                    new[] { "Diffraction", "Geometric", "None" })
             },
             "Image Simulation" => new[]
             {
@@ -1134,14 +1142,15 @@ public partial class OpticalWorkspaceModel
                     "彩色测试卡",
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 ChoiceParameter("SourceMode", "源类型", "内置图像", new[] { "内置图像", "外部位图" }),
+                FileParameter("SourceFile", "外部位图文件"),
                 IntParameter("ImageWidth", "图像宽度", "64", 16, 2048),
                 IntParameter("ImageHeight", "图像高度", "48", 16, 2048),
                 DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
                 IntParameter("Oversampling", "过采样", "1", 1, 16),
                 IntParameter("GuardBand", "保护带", "16", 0, 512),
                 BoolParameter("RelativeIllumination", "相对照度", "true"),
-                ChoiceParameter("AberrationMode", "像差模式", "Huygens",
-                    new[] { "Huygens", "Geometric", "None" }),
+                ChoiceParameter("AberrationMode", "像差模式", "Diffraction",
+                    new[] { "Diffraction", "Geometric", "None" }),
                 IntParameter("PsfGridRows", "PSF 网格行", "3", 1, 15),
                 IntParameter("PsfGridColumns", "PSF 网格列", "3", 1, 15),
                 IntParameter("PsfSize", "PSF 尺寸", "32", 8, 256),

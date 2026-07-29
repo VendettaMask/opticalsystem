@@ -10,6 +10,7 @@ The current validated set is:
 - `EncircledEnergy`, with field-separated energy accumulation. Golden tests use a deterministic 3-ring hexapolar distribution because Python's default random distribution intentionally has no fixed seed.
 - `RmsSpotSizeVsField`, with a normalized Y-field sweep and one RMS curve per wavelength.
 - `RmsWavefrontErrorVsField`, with a normalized Y-field sweep and one wavefront RMS curve per wavelength.
+- Workbench's Zemax RMS scan extension adds the optional approximate diffraction-limit series to Field, Focus, and Wavelength plots: `1.22 × F/# × wavelength` for spot data, `0.072 waves` for wavefront data, and `0.8` for Strehl when that data mode is available.
 - `RayFan`, with odd line-pupil sampling, primary-chief-ray recentering, and paired X/Y fans for every field.
 - `BestFitRayFan`, with a three-dimensional least-squares reference sphere fitted from tilt-corrected wavefront points.
 - `PupilAberration`, with real-versus-paraxial stop intersections normalized by the on-axis paraxial stop radius.
@@ -25,18 +26,18 @@ The current validated set is:
 - `ZernikeOPD`, with Fringe indexing and least-squares coefficients.
 - `FFTPSF`, with complex pupil phase, zero padding, two-dimensional FFT, and diffraction-limited normalization.
 - `MMDFTPSF`, with source-matched matrix-multiply DFT kernels, image-plane pixel pitch, peak Strehl, and bounded 16 by 16 reference grids.
-- `HuygensPSF`, with Huygens-Fresnel direct summation, image-surface coordinates, ideal on-axis normalization, center Strehl, and bounded 9 by 9 reference grids.
+- `HuygensPSF`, with Huygens-Fresnel direct summation on the image-surface tangent plane, exact adjacent-point Image Delta, ideal on-axis normalization at the chief intercept, center Strehl, and bounded reference grids.
 - `FFTMTF`, with field-paired tangential/sagittal curves and on-axis working-F-number frequency scaling.
 - `HuygensMTF`, with two-dimensional FFT of the Huygens PSF and DC-normalized tangential/sagittal slices.
 - `GeometricMTF`, with spot-histogram Fourier integration and the diffraction-limited modulation envelope.
 - `SampledMTF`, with a 37-term Fringe wavefront fit and shifted-pupil overlap evaluation over tangential/sagittal frequency scans.
-- `Distortion`, with 17-point `f-tan` and `f-theta` sweeps at every configured wavelength.
+- `Distortion`, with selectable `+x/-x/+y/-y` half-fan scans, `f-tan` and `f-theta` reference models, wavelength selection, and an effective vignetting-factor switch.
 - `GridDistortion`, with 10 by 10 `f-tan` and `f-theta` chief-ray grids at the primary wavelength.
-- `FieldCurvature`, with 17-point tangential and sagittal parabasal intersections at every configured wavelength.
+- `FieldCurvature`, with selectable `+x/-x/+y/-y` half-fan scans, axis-correct tangential/sagittal parabasal intersections, wavelength selection, and an effective vignetting-factor switch.
 - `JonesPupil`, with Fresnel polarization propagation and the real/imaginary parts of all four Jones elements over the pupil.
-- `ImageSimulationEngine`, with field-dependent FFT PSFs, EigenPSF decomposition, spatially variable convolution, fifth-order geometric distortion, and wavelength-dependent lateral color.
+- `ImageSimulationEngine`, with selectable None/Geometric/Diffraction PSFs, EigenPSF decomposition, spatially variable convolution, black guard bands, relative illumination, fifth-order geometric distortion, and wavelength-dependent lateral color.
 
-The production defaults remain Python's defaults for the existing deterministic analyses. Jones pupil uses a 65-square pupil grid. The reusable image engine defaults to a 5 by 5 PSF field grid, 128-square PSFs, 64 pupil samples, three EigenPSFs, 64-pixel reflect padding, a 25-square distortion grid, and a fifth-order fit. The interactive analysis preview uses a smaller source-derived configuration to keep the GUI responsive.
+The production defaults remain Python's defaults for the existing deterministic analyses. Jones pupil uses a 65-square pupil grid. The reusable image engine defaults to Diffraction mode, a 5 by 5 PSF field grid, 128-square PSFs, 64 pupil samples, three EigenPSFs, a 64-pixel black guard band, a 25-square distortion grid, and a fifth-order fit. A severely aberrated or failed Huygens node falls back to Geometric mode. The interactive analysis preview uses a smaller source-derived configuration to keep the GUI responsive.
 
 Regenerate the fixture and Python reference plots with:
 
@@ -73,20 +74,20 @@ Real image height is a Zemax extension beyond Python Optiland 0.5.8. Its primary
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
 | FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
 | MMDFT PSF | Uniform pupil complex amplitude/phase propagated with Python's non-unitary matrix-multiply DFT kernels and ideal-pupil peak normalization |
-| Huygens PSF | Huygens-Fresnel direct summation over chief-ray exit-pupil points, image-surface sag coordinates, obliquity factor, and ideal on-axis normalization |
+| Huygens PSF | Huygens-Fresnel direct summation on the image-surface tangent plane at the chief intercept, using the local surface normal, exact adjacent-point Image Delta, obliquity factor, and ideal normalization at the on-axis chief intercept |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
 | Huygens MTF | Two-dimensional FFT of the Huygens PSF, NumPy-compatible odd-size `fftshift`, DC normalization, and pixel-pitch frequency step |
 | Geometric MTF | One-dimensional spot histograms transformed with cosine/sine integrals and optionally multiplied by the circular-pupil diffraction limit |
 | Sampled MTF | Complex pupil overlap against a frequency-shifted 37-term Fringe Zernike fit, normalized by zero-frequency intensity |
-| Distortion | Chief ray at each normalized Y field; ideal height from the `f-tan` or `f-theta` model; percent difference at every wavelength |
+| Distortion | Chief rays on the selected `+x/-x/+y/-y` half-fan; ideal height from the selected reference model; optional vignetting factors; Real Image Height converted to an equivalent launch field |
 | Grid distortion | Chief-point-centered real grid against the ideal grid over `[-sqrt(2)/2, +sqrt(2)/2]` in X and Y |
 | Field curvature | Paired `+/-1e-5` normalized pupil rays; direct tangential and sagittal line intersections from final position and direction cosines |
 | Jones pupil | Per-surface `s/p/k` basis transport, optional Fresnel Jones coefficients, final `u/v` projection, and complex `Jxx/Jxy/Jyx/Jyy` pupil samples |
-| Image simulation | Normalized field PSF stack, Gram/SVD-equivalent EigenPSFs, spatial coefficient interpolation, spatial-axis FFT-convolution contract, polynomial inverse distortion map, bilinear warp, and RGB channel stacking |
+| Image simulation | Intentional Zemax-semantic extension: external bitmap input, Field Height mapping, black guard band, relative-illumination grid, selectable None/Geometric/Huygens PSF grid with severe-aberration fallback, common-reference distortion/lateral-color warp, and RGB stacking |
 
-The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image-simulation pixels use an absolute `5e-5` tolerance because the C# symmetric eigensolver and NumPy LAPACK accumulate slightly different rounding through PSF convolution. Every intermediate blur pixel, distortion-grid coordinate, and final RGB pixel is checked.
+The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image simulation is no longer pixel-compared to the older fixed-FFT Python fixture because that fixture does not model the Zemax settings above; its tests instead lock the selected PSF mode, unit-energy reconstruction, black guard band, finite warp, and retained lateral color.
 
-Repository validation as of 2026-07-28 is a zero-warning solution build and `542/542` passing tests.
+The validated repository baseline on 2026-07-29 is a zero-warning solution build with `569/569` passing tests. The added image decoder is locked in the committed dependency graph, and the complete Huygens/image-simulation, GUI-contract, import, snapshot, and numerical suite passes.
 
 ## Plot Contract
 

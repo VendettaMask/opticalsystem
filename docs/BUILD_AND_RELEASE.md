@@ -1,5 +1,13 @@
 # Build And Release
 
+## Documentation completion rule
+
+Every completed code change must update the relevant repository documentation in
+the same task. Documentation must distinguish implemented behavior from planned
+or compatibility-only behavior. If verification changes the current build date
+or passing-test count, update every document that states that baseline. Code,
+tests, documentation, and the reported verification result must agree.
+
 ## Local Build
 
 Restore the committed dependency graph, then build without changing it:
@@ -106,10 +114,10 @@ The current local baseline is:
 - `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
 - `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
 
-Expected result as of 2026-07-28:
+Expected result as of 2026-07-29:
 
 - solution build: 0 warnings, 0 errors
-- tests: 542 passed, 0 failed, 0 skipped
+- tests: 569 passed, 0 failed, 0 skipped
 
 The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, scalar/SIMD and serial/parallel parity, all three trace-retention modes, total-internal-reflection medium state, reflection absorption, thin-lens OPL, early termination and exceptional surfaces, 30 Python-referenced analysis views plus the broader 67-entry desktop catalog, diffraction/extended-source encircled energy, extended image analysis, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, deterministic parallel Monte Carlo, cancellation, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, Zemax and bitmap file viewers, faceted STEP generation, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery.
 

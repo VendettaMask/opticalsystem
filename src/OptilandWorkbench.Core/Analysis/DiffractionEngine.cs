@@ -743,11 +743,7 @@ public static class DiffractionEngine
                     wavelength,
                     numRays,
                     useFresnelCoatings: true);
-        var imageZ = optic.SurfaceGroup.Items.LastOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
-        var normalizationPoint = new[,]
-        {
-            { new Vector3D(0, 0, imageZ) }
-        };
+        var normalizationPoint = CreateHuygensImageCoordinates(optic, (0, 0), wavelength, 1, pixelPitchMillimeters);
         var normalization = HuygensSummation(
             normalizationPoint,
             normalizationWavefront,
@@ -963,7 +959,9 @@ public static class DiffractionEngine
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).SingleOrDefault()
             ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
         var center = chief.Position;
-        var normal = Normalize(chief.Direction);
+        var localCenter = imageSurface.CoordinateSystem.ToLocalPoint(center);
+        var localNormal = imageSurface.Geometry.SurfaceNormal(localCenter);
+        var normal = Normalize(imageSurface.CoordinateSystem.ToGlobalDirection(localNormal));
         var imageLocalX = imageSurface.CoordinateSystem.ToGlobalDirection(new Vector3D(1, 0, 0));
         var tangentX = imageLocalX - (normal * Dot(imageLocalX, normal));
         if (tangentX.Length <= 1e-12)
@@ -973,14 +971,13 @@ public static class DiffractionEngine
 
         tangentX = Normalize(tangentX);
         var tangentY = Normalize(Cross(normal, tangentX));
-        var extent = 0.5 * imageSize * pixelPitchMillimeters;
         var coordinates = new Vector3D[imageSize, imageSize];
         for (var row = 0; row < imageSize; row++)
         {
-            var y = Linspace(-extent, extent, imageSize, row);
+            var y = (row - ((imageSize - 1) / 2.0)) * pixelPitchMillimeters;
             for (var column = 0; column < imageSize; column++)
             {
-                var x = Linspace(-extent, extent, imageSize, column);
+                var x = (column - ((imageSize - 1) / 2.0)) * pixelPitchMillimeters;
                 coordinates[row, column] = center + (tangentX * x) + (tangentY * y);
             }
         }
@@ -1077,10 +1074,6 @@ public static class DiffractionEngine
         }
     }
 
-    private static double Linspace(double start, double end, int count, int index)
-    {
-        return count == 1 ? start : start + ((end - start) * index / (count - 1));
-    }
 
     private static double Dot(Vector3D left, Vector3D right)
     {

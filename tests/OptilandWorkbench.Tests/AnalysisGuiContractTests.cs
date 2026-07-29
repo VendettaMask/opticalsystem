@@ -62,10 +62,14 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(parameters, parameter => parameter.Key == "MaximumDistortion");
         Assert.Contains(parameters, parameter => parameter.Key == "WavelengthNumber");
         Assert.DoesNotContain(parameters, parameter => parameter.Key == "NumPoints");
-        Assert.DoesNotContain(parameters, parameter => parameter.Key == "ScanDirection");
+        Assert.Contains(parameters, parameter => parameter.Key == "ScanDirection");
         Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
         Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
         Assert.Contains(parameters, parameter => parameter.Key == "IgnoreVignettingFactors");
+        var curvatureParameters = connector.GetAnalysisParameters("Field Curvature");
+        Assert.Contains(curvatureParameters, parameter => parameter.Key == "WavelengthNumber");
+        Assert.Contains(curvatureParameters, parameter => parameter.Key == "ScanDirection");
+        Assert.Contains(curvatureParameters, parameter => parameter.Key == "IgnoreVignettingFactors");
         Assert.Contains(view.Rows, row => row.Metric == "最大视场角 (deg)");
         Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "f-tan");
 
@@ -448,6 +452,66 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void FootprintLegendAndDefaultFollowTheSelectedColorBasis()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
+        var colorDescriptor = Assert.Single(
+            connector.GetAnalysisParameters("Footprint Diagram"),
+            descriptor => descriptor.Key == "ColorRaysBy");
+
+        Assert.Equal("wavelength", colorDescriptor.DefaultValue);
+        Assert.Equal(new[] { "wavelength", "field" }, colorDescriptor.Choices);
+
+        var view = connector.BuildAnalysisView(
+            "Footprint Diagram",
+            new Dictionary<string, string>
+            {
+                ["RayDensity"] = "1",
+                ["ColorRaysBy"] = "field"
+            });
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildSinglePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+            method.Invoke(null, new object[] { viewDto }));
+        var legend = Assert.Single(layout.Children.OfType<Avalonia.Controls.StackPanel>());
+        var labels = legend.Children
+            .OfType<Avalonia.Controls.CheckBox>()
+            .Select(checkBox =>
+            {
+                var content = Assert.IsType<Avalonia.Controls.StackPanel>(checkBox.Content);
+                return Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]).Text
+                    ?? string.Empty;
+            })
+            .ToArray();
+        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
+        var expected = optic.Fields.Select((field, index) =>
+            $"F{index + 1}  ({field.X.ToString("0.####", CultureInfo.InvariantCulture)}, " +
+            $"{field.Y.ToString("0.####", CultureInfo.InvariantCulture)}) {unit}");
+
+        Assert.Equal(expected, labels);
+        Assert.DoesNotContain(labels, label => label.Contains("µm", StringComparison.Ordinal));
+
+        var plot = Assert.Single(layout.Children.OfType<AnalysisPlotControl>());
+        var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
+        firstToggle.IsChecked = false;
+
+        Assert.DoesNotContain(plot.Series, series => series.LegendKey == "field:1");
+        Assert.Contains(plot.Series, series => series.Name == "Surface aperture");
+    }
+
+    [Fact]
     public void ExternalLegendUsesThePlotPaletteForEveryColorIndex()
     {
         foreach (var colorIndex in Enumerable.Range(0, 11))
@@ -465,8 +529,17 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void StandardSpotDiagramUsesThreeByThreeSymmetricGrid()
+    public void StandardSpotDiagramUsesCompactRowAndThreeByThreeSymmetricGrid()
     {
+        Assert.Equal((Columns: 1, Rows: 1), AnalysisPanel.StandardSpotGridSize(1));
+        Assert.Equal((Columns: 2, Rows: 1), AnalysisPanel.StandardSpotGridSize(2));
+        Assert.Equal((Columns: 3, Rows: 1), AnalysisPanel.StandardSpotGridSize(3));
+        Assert.Equal((Columns: 3, Rows: 3), AnalysisPanel.StandardSpotGridSize(5));
+        Assert.Equal(
+            new[] { (Column: 0, Row: 0), (Column: 1, Row: 0), (Column: 2, Row: 0) },
+            Enumerable.Range(0, 3)
+                .Select(index => AnalysisPanel.StandardSpotGridPosition(3, index)));
+
         var fiveFieldPositions = Enumerable.Range(0, 5)
             .Select(index => AnalysisPanel.StandardSpotGridPosition(5, index))
             .ToArray();
@@ -504,7 +577,7 @@ public sealed class AnalysisGuiContractTests
         var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
         var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
         Assert.Equal(3, fieldGrid.ColumnDefinitions.Count);
-        Assert.Equal(3, fieldGrid.RowDefinitions.Count);
+        Assert.Single(fieldGrid.RowDefinitions);
         Assert.Equal(viewDto.PlotPanes.Count, fieldGrid.Children.Count);
         Assert.All(fieldGrid.Children.OfType<Avalonia.Controls.Grid>(), card =>
         {
@@ -637,6 +710,10 @@ public sealed class AnalysisGuiContractTests
         var content = Assert.IsType<Avalonia.Controls.Grid>(
             factory.Invoke(null, new object[] { "image", "扩展图像分析" }));
         Assert.Equal(3, content.RowDefinitions.Count);
+        Assert.True(double.IsNaN(content.Width));
+        Assert.True(double.IsNaN(content.Height));
+        Assert.Equal(66, content.MinWidth);
+        Assert.Equal(52, content.MinHeight);
 
         var arrow = Assert.Single(content.Children.OfType<Avalonia.Controls.Shapes.Polygon>());
         Assert.Equal(2, Avalonia.Controls.Grid.GetRow(arrow));
@@ -773,8 +850,8 @@ public sealed class AnalysisGuiContractTests
                 "像差分析",
                 "波前",
                 "点扩散函数",
-                "MTF 曲线",
-                "RMS",
+                "调制传递函数",
+                "均方根",
                 "圈入能量",
                 "扩展图像分析"
             },
@@ -787,10 +864,25 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(66, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(64, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        var commandIds = MainWindow.AnalysisRibbonCommandIdsByMenu
+            .SelectMany(menu => menu.Value)
+            .ToArray();
         Assert.Equal(
-            new[] { "RMS vs. \u89c6\u573a", "RMS vs. \u6ce2\u957f", "RMS vs. \u79bb\u7126", "\u4e8c\u7ef4\u89c6\u573aRMS\u56fe" },
-            MainWindow.AnalysisRibbonCommandsByMenu["RMS"]);
+            commandIds.Length,
+            commandIds.Distinct(StringComparer.Ordinal).Count());
+
+        var displayNames = MainWindow.AnalysisRibbonDisplayNames.Values;
+        var forbiddenFragments = new[]
+        {
+            "FFT", "PSF", "MTF", "RMS", "Huygens", "Zernike", "Jones", " vs", " VS"
+        };
+        Assert.All(forbiddenFragments, fragment =>
+            Assert.DoesNotContain(displayNames, displayName =>
+                displayName.Contains(fragment, StringComparison.OrdinalIgnoreCase)));
+        Assert.Equal(
+            new[] { "均方根随视场", "均方根随波长", "均方根随离焦", "二维视场均方根图" },
+            MainWindow.AnalysisRibbonCommandsByMenu["均方根"]);
         var rmsVsFieldParameters = connector.GetAnalysisParameters("RMS vs. 视场");
         Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Method");
         Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Data");
@@ -843,9 +935,9 @@ public sealed class AnalysisGuiContractTests
                 "矩阵点列图",
                 "结构矩阵点列图",
                 "基面数据",
-                "Y-Ybar",
+                "Y-Ȳ 图",
                 "渐晕图",
-                "入射角 vs. 像高"
+                "入射角随像高"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
@@ -855,7 +947,6 @@ public sealed class AnalysisGuiContractTests
             new[]
             {
                 "光线像差图",
-                "光程差图",
                 "光瞳像差",
                 "全视场像差",
                 "场曲/畸变",
@@ -876,21 +967,20 @@ public sealed class AnalysisGuiContractTests
                 "干涉图",
                 "傅科分析",
                 "对比度损失图",
-                "全视场像差",
-                "Zernike Fringe系数",
-                "Zernike Standard系数",
-                "Zernike Annular系数",
-                "Zernike系数 vs. 视场"
+                "泽尼克条纹系数",
+                "泽尼克标准系数",
+                "泽尼克环形系数",
+                "泽尼克系数随视场"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["波前"]);
         Assert.Equal(
             new[]
             {
-                "FFT PSF",
-                "FFT PSF截面图",
-                "FFT 线/边缘扩散",
-                "惠更斯PSF",
-                "惠更斯PSF截面图"
+                "傅里叶点扩散函数",
+                "傅里叶点扩散函数截面",
+                "傅里叶线/边缘扩散",
+                "惠更斯点扩散函数",
+                "惠更斯点扩散函数截面"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["点扩散函数"]);
         Assert.Equal("Wavefront Map", connector.CanonicalAnalysisKey("波前图"));
@@ -1206,17 +1296,17 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
-                "傅里叶 MTF",
-                "傅里叶离焦 MTF",
-                "傅里叶 MTF VS 视场",
-                "惠更斯 MTF",
-                "惠更斯离焦 MTF",
-                "惠更斯 MTF VS 视场",
-                "几何 MTF",
-                "几何离焦 MTF",
-                "几何 MTF VS 视场"
+                "傅里叶调制传递函数",
+                "傅里叶离焦调制传递函数",
+                "傅里叶调制传递函数随视场",
+                "惠更斯调制传递函数",
+                "惠更斯离焦调制传递函数",
+                "惠更斯调制传递函数随视场",
+                "几何调制传递函数",
+                "几何离焦调制传递函数",
+                "几何调制传递函数随视场"
             },
-            MainWindow.AnalysisRibbonCommandsByMenu["MTF 曲线"]);
+            MainWindow.AnalysisRibbonCommandsByMenu["调制传递函数"]);
         Assert.Equal(
             new[]
             {
@@ -1861,6 +1951,13 @@ public sealed class AnalysisGuiContractTests
             new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" },
             sourceImage.Choices);
         var parameters = connector.GetAnalysisParameters("Image Simulation");
+        var sourceMode = Assert.Single(parameters, parameter => parameter.Key == "SourceMode");
+        var sourceFile = Assert.Single(parameters, parameter => parameter.Key == "SourceFile");
+        var aberrationMode = Assert.Single(parameters, parameter => parameter.Key == "AberrationMode");
+        Assert.Equal(2, sourceMode.Choices?.Count);
+        Assert.Equal("File", sourceFile.Kind.ToString());
+        Assert.Equal("Diffraction", aberrationMode.DefaultValue);
+        Assert.Equal(new[] { "Diffraction", "Geometric", "None" }, aberrationMode.Choices);
         Assert.Contains(parameters, parameter => parameter.Key == "FieldHeight");
         Assert.Contains(parameters, parameter => parameter.Key == "Oversampling");
         Assert.Contains(parameters, parameter => parameter.Key == "GuardBand");

@@ -52,6 +52,37 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void ZemaxReadOnlyConstraintColumnsAreNotTreatedAsWavelengthReferences()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 3 1 0 0 0
+            WAVM 1 0.4861327 1
+            WAVM 2 0.5875618 1
+            WAVM 3 0.6562725 1
+            PWAV 2
+            SURF 0
+              DISZ 100
+            SURF 1
+              DISZ 0
+            MNEA 1 15 0 0 0 0 0.1 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var snapshot = optic.ToSnapshot();
+
+        OpticSnapshotValidator.Validate(snapshot);
+        var restored = Optic.FromSnapshot(snapshot);
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal("MNEA", operand.Type);
+        Assert.False(operand.Enabled);
+        Assert.Equal(1, operand.Surface);
+        Assert.Equal(15, operand.Wavelength);
+    }
+
+    [Fact]
     public void ZemaxMeritFunctionRowsImportInOriginalOrder()
     {
         const string source = """

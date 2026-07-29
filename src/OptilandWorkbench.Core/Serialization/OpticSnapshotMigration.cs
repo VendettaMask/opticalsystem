@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Optimization;
+
 namespace OptilandWorkbench.Core.Serialization;
 
 internal static class OpticSnapshotMigration
@@ -51,14 +53,15 @@ internal static class OpticSnapshotMigration
         var meritOperands = snapshot.MeritOperands?
             .Where(operand =>
                 operand is not null
-                && operand.Surface >= 0
-                && (operand.Surface == 0 || surfaceNumbers.Contains(operand.Surface))
-                && operand.Field >= 0
-                && operand.Field <= fieldCount
-                && operand.Wavelength >= 0
-                && operand.Wavelength <= wavelengthCount
-                && (operand.Type is not ("RADI" or "THIC")
-                    || surfaceNumbers.Contains(operand.Surface)))
+                && (MeritFunctionCatalog.HasOpaqueZemaxParameters(operand.Type)
+                    || (operand.Surface >= 0
+                        && (operand.Surface == 0 || surfaceNumbers.Contains(operand.Surface))
+                        && operand.Field >= 0
+                        && operand.Field <= fieldCount
+                        && operand.Wavelength >= 0
+                        && operand.Wavelength <= wavelengthCount
+                        && (operand.Type is not ("RADI" or "THIC")
+                            || surfaceNumbers.Contains(operand.Surface)))))
             .ToList();
 
         return snapshot with

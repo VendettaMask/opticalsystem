@@ -86,6 +86,11 @@ public sealed class WorkspaceSessionStore
             return fullPath;
         }
 
+        if (!File.Exists(fullPath) && !Directory.Exists(fullPath))
+        {
+            return fullPath;
+        }
+
         try
         {
             var current = root;
@@ -124,7 +129,9 @@ public sealed class WorkspaceSessionStore
             or UnauthorizedAccessException
             or System.Security.SecurityException)
         {
-            return fullPath;
+            return OperatingSystem.IsWindows()
+                ? fullPath.ToUpperInvariant()
+                : fullPath;
         }
     }
 

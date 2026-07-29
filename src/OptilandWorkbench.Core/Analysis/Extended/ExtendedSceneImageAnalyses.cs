@@ -210,7 +210,7 @@ public sealed class ExtendedDiffractionImageAnalysis : BaseAnalysis
         int oversampling = 1,
         int guardBand = 16,
         bool relativeIllumination = true,
-        string aberrationMode = "Huygens") : base(optic)
+        string aberrationMode = "Diffraction") : base(optic)
     {
         _sourcePattern = sourcePattern;
         _imageSize = Math.Clamp(imageSize, 16, 256);
@@ -260,15 +260,15 @@ internal static class ExtendedSceneImageSupport
         int oversampling = 1,
         int guardBand = -1,
         bool relativeIllumination = true,
-        string aberrationMode = "Huygens",
+        string aberrationMode = "Diffraction",
         string sourceMode = "Built-in",
         IReadOnlyDictionary<string, object>? additionalValues = null)
     {
         oversampling = Math.Clamp(oversampling, 1, 16);
         var source = ImageSimulationEngine.CreateSourceImage(
             sourcePattern,
-            imageSize * oversampling,
-            imageSize * oversampling);
+            imageSize,
+            imageSize);
         var padding = guardBand >= 0 ? guardBand : Math.Max(4, psfSize / 2);
         var result = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
         {

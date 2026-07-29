@@ -80,8 +80,20 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                     usePolarization: _usePolarization,
                     removeVignetting: _removeVignetting))).ToArray(),
             Name: field.Label,
-            ColorIndex: fieldIndex)).ToArray();
-        var diffractionLimit = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths);
+            ColorIndex: fieldIndex)).ToList();
+        var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
+        if (_showDiffractionLimit && diffractionLimit > 0)
+        {
+            series.Add(new AnalysisSeries(
+                "Wavelength (\u00B5m)",
+                yAxisLabel,
+                wavelengths.Select(wavelength => new AnalysisPoint(
+                    wavelength.Micrometers,
+                    RmsScanSupport.DiffractionLimitValue(Optic, new[] { wavelength }, _data))).ToArray(),
+                Name: "Diffraction Limit",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: series.Count));
+        }
 
         return new AnalysisData(
             Name,
@@ -95,7 +107,9 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                 ["FieldNumber"] = _fieldNumber,
                 ["Reference"] = _reference,
                 ["ShowDiffractionLimit"] = _showDiffractionLimit,
-                ["DiffractionLimitMillimeters"] = diffractionLimit,
+                ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+                ["DiffractionLimitValue"] = diffractionLimit,
+                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting,
                 ["MinimumWavelengthMicrometers"] = minimum,
@@ -193,7 +207,18 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                     _usePolarization,
                     _removeVignetting))).ToArray(),
             Name: field.Label,
-            ColorIndex: fieldIndex)).ToArray();
+            ColorIndex: fieldIndex)).ToList();
+        var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
+        if (_showDiffractionLimit && diffractionLimit > 0)
+        {
+            series.Add(new AnalysisSeries(
+                "Focus Shift (mm)",
+                yAxisLabel,
+                focusValues.Select(focus => new AnalysisPoint(focus, diffractionLimit)).ToArray(),
+                Name: "Diffraction Limit",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: series.Count));
+        }
 
         return new AnalysisData(
             Name,
@@ -209,7 +234,9 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
                 ["ShowDiffractionLimit"] = _showDiffractionLimit,
-                ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
+                ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+                ["DiffractionLimitValue"] = diffractionLimit,
+                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting
             },
@@ -544,6 +571,31 @@ internal static class RmsScanSupport
 
         var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
         return fNumber <= 1e-30 ? 0 : 1.22 * wavelength.Micrometers * 1e-3 * fNumber;
+    }
+
+    public static double DiffractionLimitValue(
+        Optic optic,
+        IReadOnlyList<Wavelength> wavelengths,
+        string data)
+    {
+        if (string.Equals(data, "strehl", StringComparison.OrdinalIgnoreCase))
+        {
+            return 0.8;
+        }
+
+        return NormalizeData(data) == "wavefront"
+            ? 0.072
+            : DiffractionLimitMillimeters(optic, wavelengths);
+    }
+
+    public static string DiffractionLimitUnit(string data)
+    {
+        if (string.Equals(data, "strehl", StringComparison.OrdinalIgnoreCase))
+        {
+            return "ratio";
+        }
+
+        return NormalizeData(data) == "wavefront" ? "waves" : "mm";
     }
 
     public static string FieldXAxisLabel(Optic optic)

@@ -104,7 +104,7 @@ public sealed partial class MainWindow
         {
             _actions.Register(
                 analysis.Id,
-                analysis.Name,
+                analysis.Label,
                 "分析",
                 analysis.Kind switch
                 {

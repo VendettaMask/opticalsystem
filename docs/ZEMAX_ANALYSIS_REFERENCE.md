@@ -82,8 +82,9 @@
 
 ### 光迹图 / Footprint Diagram
 
-- 设置内容：通常与 spot 类分析共享 `Ray Density`、`Wavelength`、`Field`、`Surface`、`Color Rays By`、`Delete Vignetted`、`Use Symbols`。
+- 设置内容：通常与 spot 类分析共享 `Ray Density`、`Wavelength`、`Field`、`Surface`、`Color Rays By`、`Delete Vignetted`、`Use Symbols`。`Color Rays By` 默认值为 `wavelength`，也可切换为 `field`。
 - 结果展现：指定表面上的 ray footprint 散点图，通常用于观察光束在孔径、镜片表面或中间面上的占用范围。
+- 图例必须和着色依据一致：按波长着色时显示波长及 `µm` 单位；按视场着色时显示视场序号、`(X, Y)` 坐标及当前视场单位（角度为 `°`，高度为 `mm`）。图例开关按相同分组过滤光线。
 - 实现方式：追迹 pupil 光线束并记录其在指定表面的实际交点，不一定要求形成焦点。官方中间面说明中，footprint 属于更适合直接在表面处评价的几何分析。
 
 ### 离焦点列图 / Through Focus Spot Diagram
@@ -160,7 +161,10 @@
 - 结果展现：同一分析窗口显示 field curvature 曲线和 distortion 曲线。field curvature 给出 tangential/sagittal 焦面相对像面的距离；distortion 可显示百分比或绝对长度。
 - 实现方式：field curvature 使用 parabasal ray trace，在 X/Y 方向求 sagittal/tangential paraxial focal plane 的 Z 坐标，并与系统 image surface Z 坐标比较。distortion 以真实 chief ray height 与 reference ray height 的差定义：百分比为 `(real chief ray height - reference height) / reference height * 100`。
 - 畸变模型：`F-Tan(theta)`、`F-Theta`、`Calibrated F-Theta`、`Calibrated F-Tan(theta)`、`SMIA-TV`。`F-Tan(theta)` 使用 `f*tan(theta)` 参考高度；`F-Theta` 使用 `f*theta`，常用于扫描系统；calibrated 模式使用 best-fit focal length。
-- 注意：对非旋转对称系统，单一畸变数值定义较差，官方建议参考 Grid Distortion。real image height 字段会被转换为 field angle 以保留畸变信息。
+- 扫描规则：从轴上到最大视场生成半扇形采样，`Scan Type` 必须实际选择 `+Y`、`+X`、`-Y` 或 `-X`。选择 X 扫描时，tangential 曲线对应 XZ 平面，sagittal 曲线对应 YZ 平面；不得用当前已定义视场列表代替扫描。
+- 渐晕规则：默认 `Ignore Vignetting Factors = true`。Workbench 在独立工作副本中清零视场渐晕因子；关闭该选项时保留并应用原始因子，且两种模式都不修改用户的原始光学系统。
+- Real Image Height：畸变计算临时转换为等效 Field Angle（有限共轭时为 Object Height），因为“命中指定像高”的迭代会掩盖畸变；场曲仍保留原视场定义。
+- 适用性：严格来说，该图只适用于旋转对称系统以及平面物面、像面。OpticStudio 对非旋转对称、偏心、倾斜、自由曲面或非平面物像面系统使用推广定义，结果需要谨慎解释；单一畸变值不充分时应使用 Grid Distortion。
 
 ### 网格畸变 / Grid Distortion
 
@@ -296,6 +300,9 @@
 - 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、`Rotation`、`Wavelength`、`Field`、`Type`、`Show As`、`Use Polarization` 等。
 - 结果展现：二维 Huygens PSF surface/contour/grey/false color 图；同时计算 Strehl ratio。
 - 实现方式：用 Huygens wavelets direct integration 计算衍射 PSF。与 FFT PSF 不同，Huygens PSF 在与 image surface chief ray 截点相切的 imaginary plane 上计算，并考虑像面局部倾斜、chief ray 入射角和像面 slope 对 PSF 形状的影响。
+- 该虚拟平面的法向量必须是主光线截点处的像面局部法向量，即先在像面局部坐标调用 `Geometry.SurfaceNormal(localIntercept)`，再变换到全局坐标；不能使用 `chief.Direction`。垂直于主光线的虚拟平面属于 FFT PSF 的定义。
+- `Image Delta = Δ` 是相邻像面采样点的实际距离。对每轴 `N` 个点，Workbench 使用 `(index - (N-1)/2) * Δ`，总跨度为 `(N-1)Δ`；不得在 `[-NΔ/2,+NΔ/2]` 上 linspace `N` 点。
+- Workbench 回归覆盖倾斜平面探测器、曲面探测器的局部法向以及逐点 Image Delta；无像差归一化点也取自 on-axis chief intercept，不再假定全局 `(0,0,imageZ)`。
 - 成本：计算时间近似随 `pupil grid size^2 * image grid size^2 * wavelength count` 增长。
 
 ### Huygens Cross Section
@@ -406,16 +413,19 @@
 - 结果展现：RMS 或 Strehl 随 field angle 变化的曲线。可显示每个波长和多波长结果。
 - 实现方式：按视场扫描计算 RMS error 或 Strehl。GQ 用径向图样和最优权重估计 RMS；RA 用矩形 pupil grid，忽略圆形入瞳外光线。GQ 高效，但若表面孔径截断光线会不准；有孔径系统计算 RMS wavefront 时建议 RA 和更高采样。
 - 波前 RMS：chief ray 参考减 piston；centroid 参考减 piston 和 tilt，通常得到更小 RMS。多波长 RMS 同时对所有波长光瞳样本按权重计算。
+- `Show Diffraction Limit` 是便捷判断线，不执行完整衍射计算：spot radius/X/Y 使用 `1.22 × on-axis working F/# × λ`，RMS wavefront 使用 `0.072 waves`，Strehl 使用 `0.8`。勾选后 RMS vs Field 必须把该值作为覆盖整个视场范围的水平虚线加入绘图系列；不能只写入结果元数据。
 
 ### RMS vs Wavelength
 
-- 设置内容：ray density、method、data、field、refer to、wavelength sampling/density、polarization、vignetting factors。
+- 设置内容：ray density、method、data、field、refer to、wavelength sampling/density、`Show Diffraction Limit`、polarization、vignetting factors。
 - 结果展现：RMS spot radius、RMS wavefront 或 Strehl 随 wavelength 变化曲线。
+- 勾选衍射极限后必须加入参考曲线：spot 数据逐采样波长计算 `1.22 × F/# × λ`，因此随波长变化；wavefront 为 `0.072 waves` 水平线，Strehl 为 `0.8` 水平线。
 - 实现方式：在定义波段内取多个 wavelength 样本，对指定 field 和参考方式重复 RMS 计算。
 
 ### RMS vs Focus
 
-- 设置内容：focus range、focus density、ray density、method、data、wavelength、field、refer to、polarization、vignetting factors。
+- 设置内容：focus range、focus density、ray density、method、data、wavelength、field、refer to、`Show Diffraction Limit`、polarization、vignetting factors。
+- 勾选衍射极限后必须把相应近似阈值作为覆盖整个 focus range 的水平虚线加入绘图系列；视场 F/# 变化对该方便指标的影响按 Zemax 定义忽略。
 - 结果展现：RMS 或 Strehl 随 defocus 变化曲线，可判断最佳焦位。
 - 实现方式：移动像面或分析焦位，在每个焦位重复 RMS spot/wavefront 计算。
 
@@ -459,6 +469,12 @@
 - 结果展现：模拟图像、源图、或 PSF grid；可输出 BMP/JPG/PNG。
 - 实现方式：用 Point Spread Function 阵列与源位图卷积来模拟成像。考虑 diffraction、aberrations、distortion、relative illumination、image orientation、polarization。流程为：源图过采样/旋转/加 guard band；计算覆盖视场的 PSF grid；对每个像素插值有效 PSF 并卷积；最后按 detector pixel size、geometric distortion、lateral color 缩放和变形。
 - PSF 方法：`Diffraction` 使用 Huygens PSF；`Geometric` 使用 spot diagram 积分；`None` 使用 delta functions。若 Diffraction 模式下像差过严重，官方说明可自动切换到 Geometric。
+- `Field Height` 表示完成 oversampling、旋转和 guard band 后整幅源图所覆盖的视场高度；它不是只写入结果页的显示参数。
+- `Guard Band` 是原图四周的黑色零强度边界，不是镜像、重复或边缘延拓。
+- Workbench 实现状态（2026-07-29）：可读取 BMP/PNG/JPEG；先执行最近邻 oversampling 和黑色 guard band，再把整幅准备后位图映射到 `FieldHeight`；按视场网格生成并插值 PSF，应用二维 relative-illumination 网格，最后在统一的主波长像面坐标上拟合逆畸变，从而保留畸变和垂轴色差。
+- Workbench 的 `AberrationMode` 默认值为 `Diffraction`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍，或 Huygens 计算失效时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。`Geometric` 和 `None` 不再经过固定 FFT PSF。
+- Workbench 当前 `GuardBand` 数值仍表示每边加入的像素数；它与 OpticStudio 界面中的 guard-band level 表示法不同，但边界内容和管线位置遵循上述定义。
+- 尚未接入本入口的设置包括 rotation/flip、polarization、显式 detector pixel size、PSF-grid 单独显示和图像文件导出；文档和界面不得把这些能力标为已完成。
 
 ### Geometric Image Analysis
 

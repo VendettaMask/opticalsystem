@@ -61,7 +61,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ComputationCancellation.ThrowIfCancellationRequested();
             var fraction = index / (_fieldDensity - 1.0);
             var normalizedField = AnalysisTrace.ScanField(_scanDirection, fraction);
-            var result = EvaluateField(workingOptic, normalizedField, wavelength.Micrometers);
+            var result = EvaluateField(workingOptic, normalizedField, wavelength.Micrometers, _rayDensity);
             rawIllumination[index] = result.ProjectedCosineArea;
             validRays[index] = result.ValidRays;
             foldedCells[index] = result.FoldedCells;
@@ -123,22 +123,32 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         };
     }
 
-    private IlluminationResult EvaluateField(
+    internal static double ProjectedCosineArea(
         Optic optic,
         (double Hx, double Hy) normalizedField,
-        double wavelengthMicrometers)
+        double wavelengthMicrometers,
+        int rayDensity)
+    {
+        return EvaluateField(optic, normalizedField, wavelengthMicrometers, rayDensity).ProjectedCosineArea;
+    }
+
+    private static IlluminationResult EvaluateField(
+        Optic optic,
+        (double Hx, double Hy) normalizedField,
+        double wavelengthMicrometers,
+        int rayDensity)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var coordinates = new PupilNode?[_rayDensity, _rayDensity];
-        var samples = new List<PupilSample>(_rayDensity * _rayDensity);
-        var sampleCoordinates = new List<(int X, int Y)>(_rayDensity * _rayDensity);
+        var coordinates = new PupilNode?[rayDensity, rayDensity];
+        var samples = new List<PupilSample>(rayDensity * rayDensity);
+        var sampleCoordinates = new List<(int X, int Y)>(rayDensity * rayDensity);
 
-        for (var y = 0; y < _rayDensity; y++)
+        for (var y = 0; y < rayDensity; y++)
         {
-            var py = -1 + (2.0 * y / (_rayDensity - 1.0));
-            for (var x = 0; x < _rayDensity; x++)
+            var py = -1 + (2.0 * y / (rayDensity - 1.0));
+            for (var x = 0; x < rayDensity; x++)
             {
-                var px = -1 + (2.0 * x / (_rayDensity - 1.0));
+                var px = -1 + (2.0 * x / (rayDensity - 1.0));
                 if ((px * px) + (py * py) > 1 + 1e-12)
                 {
                     continue;
@@ -189,9 +199,9 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         var positiveCells = 0;
         var negativeCells = 0;
         var polygon = new PupilNode[4];
-        for (var y = 0; y < _rayDensity - 1; y++)
+        for (var y = 0; y < rayDensity - 1; y++)
         {
-            for (var x = 0; x < _rayDensity - 1; x++)
+            for (var x = 0; x < rayDensity - 1; x++)
             {
                 var count = 0;
                 var first = coordinates[x, y];

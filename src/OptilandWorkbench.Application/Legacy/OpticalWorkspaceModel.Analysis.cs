@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -249,7 +250,7 @@ public partial class OpticalWorkspaceModel
                 Int("FieldNumber", 0),
                 Bool("DeleteVignetted", false),
                 Bool("UseSymbols", true),
-                Text("ColorRaysBy", "field")),
+                Text("ColorRaysBy", "wavelength")),
             "Field Curvature and Distortion" => new FieldCurvatureAndDistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 128),
@@ -286,7 +287,10 @@ public partial class OpticalWorkspaceModel
                 CurrentOptic,
                 Int("NumPoints", 128),
                 Double("ParabasalDelta", 1e-5),
-                Double("MaximumCurvature", 0)),
+                Double("MaximumCurvature", 0),
+                Int("WavelengthNumber", 0),
+                Text("ScanDirection", "+y"),
+                Bool("IgnoreVignettingFactors", true)),
             "Color Focus Shift" => new ColorFocusShiftAnalysis(
                 CurrentOptic,
                 Double("MaximumShift", 0),
@@ -753,7 +757,7 @@ public partial class OpticalWorkspaceModel
                 Int("Oversampling", 1),
                 Int("GuardBand", 16),
                 Bool("RelativeIllumination", true),
-                Text("AberrationMode", "Huygens")),
+                Text("AberrationMode", "Diffraction")),
             "Image Simulation" => new ImageSimulationAnalysis(CurrentOptic, new ImageSimulationConfig
             {
                 SourcePattern = Text("SourceImage", "彩色测试卡") switch
@@ -763,6 +767,8 @@ public partial class OpticalWorkspaceModel
                     "西门子星" => ImageSimulationSourcePattern.SiemensStar,
                     _ => ImageSimulationSourcePattern.ColorChart
                 },
+                SourceFile = Text("SourceFile", string.Empty),
+                SourceImage = Text("SourceMode", "内置图像") == "外部位图" ? ImageFileLoader.LoadRgb(Text("SourceFile", string.Empty)) : null,
                 PsfSize = Int("PsfSize", 32),
                 NumRays = Int("NumRays", 16),
                 Components = Int("EigenPsfComponents", 3),
@@ -771,11 +777,11 @@ public partial class OpticalWorkspaceModel
                 PsfGridRows = Int("PsfGridRows", 3),
                 PsfGridColumns = Int("PsfGridColumns", 3),
                 Padding = Int("GuardBand", 16),
-                SourceMode = Text("SourceMode", "内置图像") == "外部位图" ? "External bitmap (not loaded)" : "Built-in",
+                SourceMode = Text("SourceMode", "内置图像") == "外部位图" ? "External bitmap" : "Built-in",
                 FieldHeight = Double("FieldHeight", 0),
                 Oversampling = Int("Oversampling", 1),
                 UseRelativeIllumination = Bool("RelativeIllumination", true),
-                AberrationMode = Text("AberrationMode", "Huygens"),
+                AberrationMode = Text("AberrationMode", "Diffraction"),
                 ImageWidth = Int("ImageWidth", 64),
                 ImageHeight = Int("ImageHeight", 48)
             }),

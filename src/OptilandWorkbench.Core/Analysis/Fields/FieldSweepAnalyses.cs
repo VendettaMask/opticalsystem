@@ -72,8 +72,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
             ColorIndex: wavelengthIndex)).ToList();
-        var diffractionLimit = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths);
-        if (_showDiffractionLimit && _data == "spot" && diffractionLimit > 0)
+        var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
+        if (_showDiffractionLimit && diffractionLimit > 0)
         {
             series.Add(new AnalysisSeries(
                 AnalysisTrace.FieldAxisLabel(Optic),
@@ -109,7 +109,9 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             ["Reference"] = _reference,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["ShowDiffractionLimit"] = _showDiffractionLimit,
-            ["DiffractionLimitMillimeters"] = diffractionLimit,
+            ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+            ["DiffractionLimitValue"] = diffractionLimit,
+            ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
             ["UsePolarization"] = _usePolarization,
             ["RemoveVignetting"] = _removeVignetting,
             [RmsScanSupport.MaximumValueKey(_data)] = maximum

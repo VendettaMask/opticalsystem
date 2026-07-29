@@ -83,7 +83,7 @@ The .NET analyses are currently mixed:
 - Spot/encircled energy/RMS-vs-field/through-focus/wavefront now consume sequential ray samples, which is better than pure placeholders.
 - Spot diagram, encircled energy, RMS spot size versus field, RMS wavefront versus field, ray fan, best-fit ray fan, pupil aberration, through-focus spot diagram, through-focus sampled MTF, both incident-angle-versus-height scans, incoherent irradiance, radiant intensity, Y-Ybar, distortion, grid distortion, field curvature, chief-ray/centroid-sphere/best-fit-sphere wavefronts, Fringe Zernike, FFT/MMDFT/Huygens PSF, FFT/Huygens MTF, geometric MTF, and sampled MTF now match Python 0.5.8 numerical algorithms and data contracts. Cooke and Tessar fixtures verify every deterministic sample, fitted sphere parameter, coefficient, heatmap pixel, PSF pixel, and MTF point.
 - The remaining analyses still do not match all Python defaults, reference choices, or alternative physical methods.
-- Image simulation and Jones pupil now use source-derived numerical/data/display contracts with Cooke and Tessar golden tests. Vectorial diffraction and broader analysis defaults remain separate follow-up work.
+- Jones pupil retains source-derived Cooke/Tessar golden tests. Image simulation intentionally moved beyond the old fixed-FFT Python fixture to the documented Zemax pipeline: external bitmap input, Field Height, black guard band, relative illumination, selectable PSF method with diffraction fallback, and common-reference distortion/lateral color.
 
 Required fix:
 
@@ -322,7 +322,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added a damped two-dimensional real-image-height solve that varies object angle for infinite conjugates or object coordinates for finite conjugates until the primary-wavelength chief ray reaches the requested local image coordinate.
 - Matched Zemax analysis semantics by converting real image height to angle/object height for distortion and to paraxial image height for image simulation.
 - Unified viewer, analysis, ray generation, legacy tracing, paraxial tracing, wavefront tilt, and aberration estimates on Python's maximum-radial-field normalization.
-- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `542/542` tests with a zero-warning build as of 2026-07-28.
+- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `569/569` tests with a zero-warning build as of 2026-07-29.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

@@ -81,7 +81,11 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 ### P2：优化面板状态色和编辑行为过重
 
-优化面板的评价函数表使用固定状态底色：目标行浅绿、指令行粉色、错误行红色等，见 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:176`。这些颜色不完全走主题 token，暗色主题下会显得突兀，也可能和选中行颜色冲突。
+已于 2026-07-29 修正评价函数表的单一状态色：编辑器现在按 Zemax 操作数类型应用稳定的浅色行色，参考系统中出现的 `TTHI`、`OPLT`、`EFFL`、`PMAG`、`CONS`、`DIVI`、`REAR`、`PETZ`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG` 和 `DMFS` 均有对应色；`BLNK` 保持白色，同族操作数使用一致色系，未知类型使用中性回退色。错误状态优先覆盖为红色。
+
+选中行不再使用全局强调色覆盖整行，而是保留类型底色、恢复深色文字并使用强调色边框，因此颜色语义在键盘或鼠标选择后仍然可见。实现见 `src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs`。
+
+尚未实现的边界是 ZOS-API `IMFERow.RowColor` 的 `Color1`–`Color16` 自定义覆盖、逐行“无颜色”以及全局 `Color Rows` 偏好开关的持久化；这些能力不得仅凭当前默认色外观标记为完成。
 
 工具栏用两个 `WrapPanel` 承载新增、删除、上移、下移、向导、刷新、运行等动作，见 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:80` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:94`。动作多但层级不明显，用户不容易区分“编辑评价函数”和“运行优化”的主次。
 

@@ -18,15 +18,6 @@ public sealed class ActualFieldSamplingTests
             optic.Fields[index].Label = expectedLabels[index];
         }
 
-        var distortion = new DistortionAnalysis(
-            optic,
-            numPoints: 101,
-            wavelengthNumber: 1).GenerateData();
-        AssertSeriesFields(distortion.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: false);
-
-        var curvature = new FieldCurvatureAnalysis(optic, numPoints: 101).GenerateData();
-        AssertSeriesFields(curvature.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: false);
-
         var rms = new RmsVsFieldAnalysis(optic, numFields: 101, numRings: 1).GenerateData();
         AssertSeriesFields(rms.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: true);
 

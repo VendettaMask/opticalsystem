@@ -38,7 +38,8 @@ public enum AnalysisParameterKind
     Integer,
     Double,
     Choice,
-    Boolean
+    Boolean,
+    File
 }
 
 public sealed record AnalysisParameterDescriptor(

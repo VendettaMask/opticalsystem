@@ -22,7 +22,7 @@ The goal is behavioral and architectural alignment. This project remains a clean
 | System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
 | 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, outlined elements, split aperture-stop blades, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
 | 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Light engineering layout plus a grid-free studio solid-model view with catalog-IOR Fresnel glass, thickness attenuation, continuous surface reflections, highlighted optical surfaces, visible internal ray bundles, shared lens/ray/arrow cutaway clipping, drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
-| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | All 67 analyses are grouped in the top Analysis Ribbon; selecting one runs it into a closable page with bottom Plot/Data/Text tabs, collapsed graph settings, persisted parameters, and interactive plots |
+| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Analysis commands are grouped once in the top Analysis Ribbon, use consistent Chinese display names, and open closable pages with bottom Plot/Data/Text tabs, collapsed graph settings, persisted parameters, and interactive plots |
 | Analysis refresh | Connector signals update consumers | Connector events already used | Revision events mark heavy results stale; only the synchronization icon reruns them, with cancellation and generation checks |
 | Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
 | Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Dock.Avalonia tabs support drag splitting, merging, floating, redocking, tiling/cascading, global defaults, slots, and per-file sessions |
@@ -87,9 +87,11 @@ PlotOptions -> limits, aspect, legends, grids, zero lines, and axis visibility
 
 Native series are currently produced for:
 
-- Spot Diagram: image-plane scatter points.
+- Spot Diagram: image-plane scatter points. One to three fields use a compact
+  single row that expands to the available plot area; four to nine fields retain
+  the symmetric three-by-three field layout.
 - Ray Fan: ordered line samples.
-- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary.
+- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary. Ray coloring defaults to wavelength; the selectable legend follows the active color basis and switches to numbered field coordinates and units when coloring by field.
 - Best Fit Ray Fan: paired fans referenced to a fitted wavefront sphere.
 - Encircled Energy: radius versus energy.
 - RMS vs Field: field angle versus RMS spot radius.
@@ -122,6 +124,10 @@ Reference: use Matplotlib and VTK navigation controls.
 
 Workbench: the renderer remains Avalonia-native. The refactor adds the missing interaction contract while avoiding a VTK dependency:
 
+For **Image Simulation**, choose the built-in target or **External Bitmap** and browse to a BMP, PNG, JPG, or JPEG file. `Field Height` maps the oversampled image plus its black guard band to the optical field. `Diffraction` is the default PSF method; `Geometric` and `None` select their own kernels, while an unreliable diffraction node is reported as an automatic geometric fallback. Relative illumination, geometric distortion, and lateral color are applied during simulation rather than stored as inactive settings.
+
+The guard-band value is currently a per-side pixel count. Guard pixels are black; they are never mirror-filled.
+
 - 2D: drag to pan the full physical scene, including the optical axis; wheel to zoom around the pointer.
 - 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
 - Both: toggle rays and reset the camera.
@@ -138,7 +144,11 @@ Workbench: `LensEditorPanel` submits a `SurfaceRowDto` command. Application capt
 
 Reference: select the analysis, press Run, and inspect a plot.
 
-Workbench: open the top **Analysis** category, then choose **RMS > RMS-Field**. The Ribbon follows the Zemax image-quality hierarchy: **Rays and Spots**, **Aberrations**, **Wavefront**, **Point Spread Function**, **MTF**, **RMS**, **Encircled Energy**, and **Extended Image Analysis**, with method variants in second-level menus. Choosing an item runs the analysis and opens its result as a first-class closable document beside **Lens Data**, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **Settings** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
+Workbench: open the top **分析** category, then choose **均方根 > 均方根随视场**. The Ribbon follows the Zemax image-quality hierarchy through **光线迹点**, **像差分析**, **波前**, **点扩散函数**, **调制传递函数**, **均方根**, **圈入能量**, and **扩展图像分析**, with method variants in second-level menus. Choosing an item runs the analysis and opens its result as a first-class closable document beside lens data, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **设置** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values.
+
+Visible Ribbon labels and command-palette labels are Chinese display names; the established English/Zemax analysis keys remain internal compatibility identifiers. Each command ID has one menu location: **光程差图** belongs to **波前**, while **全视场像差** belongs to **像差分析**.
+
+The Ribbon uses content-driven minimum sizing rather than fixed button and content dimensions. Long Chinese titles can widen or wrap up to a readable limit, group rows grow with their content, and the existing horizontal scroll viewer handles narrow windows without clipping commands.
 
 The **Encircled Energy** group includes geometric, diffraction, line/edge-spread,
 and extended-source workflows. **Extended Image Analysis** contains geometric,
@@ -191,4 +201,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-28, the solution builds with zero warnings and all `542/542` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, editor transactions, STEP generation, image viewers, file association, and file formats.
+As of 2026-07-29, the solution builds with zero warnings and all `569/569` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, editor transactions, STEP generation, image viewers, file association, and file formats.

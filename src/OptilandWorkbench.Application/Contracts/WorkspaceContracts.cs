@@ -192,7 +192,8 @@ public enum AnalysisParameterKind
     Integer,
     Double,
     Choice,
-    Boolean
+    Boolean,
+    File
 }
 
 public sealed record AnalysisParameterDescriptor(
@@ -262,7 +263,9 @@ public sealed record AnalysisSeriesDto(
     string ValueLabel = "",
     AnalysisColorMap ColorMap = AnalysisColorMap.Viridis,
     double? ValueMinimum = null,
-    double? ValueMaximum = null);
+    double? ValueMaximum = null,
+    string LegendKey = "",
+    string LegendLabel = "");
 
 public sealed record AnalysisPlotOptionsDto(
     string Title = "",

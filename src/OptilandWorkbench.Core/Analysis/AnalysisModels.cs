@@ -57,7 +57,9 @@ public sealed record AnalysisSeries(
     string ValueLabel = "",
     AnalysisColorMap ColorMap = AnalysisColorMap.Viridis,
     double? ValueMinimum = null,
-    double? ValueMaximum = null);
+    double? ValueMaximum = null,
+    string LegendKey = "",
+    string LegendLabel = "");
 
 public sealed record AnalysisPlotOptions(
     string Title = "",

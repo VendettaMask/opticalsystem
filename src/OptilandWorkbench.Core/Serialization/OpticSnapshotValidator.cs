@@ -485,27 +485,30 @@ public static class OpticSnapshotValidator
                 Invalid($"{path}.type", $"'{operand.Type}' is not a supported merit operand type");
             }
 
-            if (operand.Surface < 0
-                || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface)))
+            if (!MeritFunctionCatalog.HasOpaqueZemaxParameters(canonicalType))
             {
-                Invalid(
-                    $"{path}.surface",
-                    $"surface reference {operand.Surface} does not exist");
-            }
+                if (operand.Surface < 0
+                    || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface)))
+                {
+                    Invalid(
+                        $"{path}.surface",
+                        $"surface reference {operand.Surface} does not exist");
+                }
 
-            if (canonicalType is "RADI" or "THIC"
-                && !surfaceNumbers.Contains(operand.Surface))
-            {
-                Invalid(
-                    $"{path}.surface",
-                    $"operand {canonicalType} requires an existing surface");
-            }
+                if (canonicalType is "RADI" or "THIC"
+                    && !surfaceNumbers.Contains(operand.Surface))
+                {
+                    Invalid(
+                        $"{path}.surface",
+                        $"operand {canonicalType} requires an existing surface");
+                }
 
-            RequireOneBasedReferenceOrDefault(operand.Field, fieldCount, $"{path}.field");
-            RequireOneBasedReferenceOrDefault(
-                operand.Wavelength,
-                wavelengthCount,
-                $"{path}.wavelength");
+                RequireOneBasedReferenceOrDefault(operand.Field, fieldCount, $"{path}.field");
+                RequireOneBasedReferenceOrDefault(
+                    operand.Wavelength,
+                    wavelengthCount,
+                    $"{path}.wavelength");
+            }
             RequireFinite(operand.Hx, $"{path}.hx");
             RequireFinite(operand.Hy, $"{path}.hy");
             RequireFinite(operand.Px, $"{path}.px");

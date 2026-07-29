@@ -13,6 +13,10 @@ public enum ImageSimulationSourcePattern
 public sealed class ImageSimulationConfig
 {
     public ImageSimulationSourcePattern SourcePattern { get; init; } = ImageSimulationSourcePattern.ColorChart;
+    public string SourceFile { get; init; } = string.Empty;
+
+    public RgbImage? SourceImage { get; init; }
+
 
     public string SourceMode { get; init; } = "Built-in";
 
@@ -22,7 +26,7 @@ public sealed class ImageSimulationConfig
 
     public bool UseRelativeIllumination { get; init; } = true;
 
-    public string AberrationMode { get; init; } = "Huygens";
+    public string AberrationMode { get; init; } = "Diffraction";
 
     public int ImageWidth { get; init; } = 64;
 
@@ -63,14 +67,18 @@ public sealed record PsfBasisResult(
     double[,,] CoefficientGrid,
     double[,] MeanPsf,
     int GridRows,
-    int GridColumns);
+    int GridColumns,
+    IReadOnlyList<string>? EffectiveModes = null,
+    int GeometricFallbackCount = 0);
 
 public sealed record ImageSimulationResult(
     RgbImage Source,
     RgbImage Simulated,
     ImageSimulationConfig Config,
     double MeanAbsoluteChange,
-    double MaximumValue);
+    double MaximumValue,
+    string EffectiveAberrationMode = "Diffraction",
+    int GeometricFallbackCount = 0);
 
 public static class ImageSimulationEngine
 {
@@ -96,53 +104,110 @@ public static class ImageSimulationEngine
             throw new ArgumentException("Source image must contain one or three channels.", nameof(source));
         }
 
-        var padded = ReflectPad(source.Values, Math.Max(0, config.Padding));
-        var output = new double[config.WavelengthsMicrometers.Count, padded.GetLength(1), padded.GetLength(2)];
+        if (config.WavelengthsMicrometers.Count == 0)
+        {
+            throw new ArgumentException("At least one wavelength is required.", nameof(config));
+        }
+
+        var workingOptic = RealImageFieldConversion.ForImageSimulation(optic);
+        var oversampled = NearestNeighborOversample(source.Values, Math.Clamp(config.Oversampling, 1, 16));
+        var prepared = ZeroPad(oversampled, Math.Max(0, config.Padding));
+        var (halfFieldX, halfFieldY) = ResolveNormalizedFieldExtent(
+            workingOptic,
+            config.FieldHeight,
+            prepared.GetLength(2),
+            prepared.GetLength(1));
+        var referenceWavelength = ResolveReferenceWavelength(workingOptic, config);
+        var pixelPitch = EstimateDetectorPixelPitch(
+            workingOptic,
+            referenceWavelength,
+            halfFieldX,
+            halfFieldY,
+            prepared.GetLength(2),
+            prepared.GetLength(1));
+        var output = new double[config.WavelengthsMicrometers.Count, prepared.GetLength(1), prepared.GetLength(2)];
+        var effectiveModes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var fallbackCount = 0;
         for (var channel = 0; channel < config.WavelengthsMicrometers.Count; channel++)
         {
-            var wavelength = ResolveWavelength(optic, config.WavelengthsMicrometers[channel]);
-            var basis = GenerateBasis(optic, wavelength, config);
+            var wavelength = ResolveWavelength(workingOptic, config.WavelengthsMicrometers[channel]);
+            var basis = GenerateBasis(
+                workingOptic,
+                wavelength,
+                config,
+                halfFieldX,
+                halfFieldY,
+                pixelPitch);
+            foreach (var mode in basis.EffectiveModes ?? Array.Empty<string>())
+            {
+                effectiveModes.Add(mode);
+            }
+
+            fallbackCount += basis.GeometricFallbackCount;
             var coefficientMaps = ResizeCoefficientMaps(
                 basis.CoefficientGrid,
-                padded.GetLength(1),
-                padded.GetLength(2));
-            var sourceChannel = SliceChannel(padded, Math.Min(channel, source.Channels - 1));
+                prepared.GetLength(1),
+                prepared.GetLength(2));
+            var sourceChannel = SliceChannel(prepared, Math.Min(channel, source.Channels - 1));
+            if (config.UseRelativeIllumination)
+            {
+                ApplyRelativeIllumination(
+                    sourceChannel,
+                    workingOptic,
+                    wavelength,
+                    halfFieldX,
+                    halfFieldY,
+                    Math.Max(5, Math.Min(33, config.NumRays)));
+            }
+
             var blurred = SpatiallyVariableConvolution(
                 sourceChannel,
                 basis.EigenPsfs,
                 coefficientMaps,
                 basis.MeanPsf);
             var distortionGrid = GenerateDistortionGrid(
-                optic,
+                workingOptic,
                 wavelength,
                 blurred.GetLength(0),
                 blurred.GetLength(1),
                 config.DistortionGridSize,
-                config.DistortionPolynomialDegree);
+                config.DistortionPolynomialDegree,
+                halfFieldX,
+                halfFieldY,
+                referenceWavelength);
             var warped = WarpImage(blurred, distortionGrid);
             CopyChannel(output, channel, warped);
         }
 
-        var cropped = Crop(output, config.Padding, source.Height, source.Width);
         var maximum = 0.0;
         var totalChange = 0.0;
         var count = 0;
-        for (var channel = 0; channel < cropped.GetLength(0); channel++)
+        for (var channel = 0; channel < output.GetLength(0); channel++)
         {
-            for (var row = 0; row < cropped.GetLength(1); row++)
+            for (var row = 0; row < output.GetLength(1); row++)
             {
-                for (var column = 0; column < cropped.GetLength(2); column++)
+                for (var column = 0; column < output.GetLength(2); column++)
                 {
-                    cropped[channel, row, column] = Math.Max(0, cropped[channel, row, column]);
-                    maximum = Math.Max(maximum, cropped[channel, row, column]);
-                    var sourceValue = source.Values[Math.Min(channel, source.Channels - 1), row, column];
-                    totalChange += Math.Abs(cropped[channel, row, column] - sourceValue);
+                    output[channel, row, column] = Math.Max(0, output[channel, row, column]);
+                    maximum = Math.Max(maximum, output[channel, row, column]);
+                    var sourceValue = prepared[Math.Min(channel, prepared.GetLength(0) - 1), row, column];
+                    totalChange += Math.Abs(output[channel, row, column] - sourceValue);
                     count++;
                 }
             }
         }
 
-        return new ImageSimulationResult(source, new RgbImage(cropped), config, totalChange / Math.Max(1, count), maximum);
+        var effectiveMode = effectiveModes.Count == 0
+            ? NormalizeAberrationMode(config.AberrationMode)
+            : string.Join(" + ", effectiveModes.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
+        return new ImageSimulationResult(
+            new RgbImage(prepared),
+            new RgbImage(output),
+            config,
+            totalChange / Math.Max(1, count),
+            maximum,
+            effectiveMode,
+            fallbackCount);
     }
 
     public static RgbImage CreateTestChart(int width = 96, int height = 64)
@@ -284,25 +349,100 @@ public static class ImageSimulationEngine
 
     public static PsfBasisResult GenerateBasis(Optic optic, Wavelength wavelength, ImageSimulationConfig config)
     {
+        var (halfFieldX, halfFieldY) = ResolveNormalizedFieldExtent(
+            optic,
+            config.FieldHeight,
+            Math.Max(1, config.ImageWidth),
+            Math.Max(1, config.ImageHeight));
+        var pixelPitch = EstimateDetectorPixelPitch(
+            optic,
+            wavelength,
+            halfFieldX,
+            halfFieldY,
+            Math.Max(1, config.ImageWidth),
+            Math.Max(1, config.ImageHeight));
+        return GenerateBasis(optic, wavelength, config, halfFieldX, halfFieldY, pixelPitch);
+    }
+
+    private static PsfBasisResult GenerateBasis(
+        Optic optic,
+        Wavelength wavelength,
+        ImageSimulationConfig config,
+        double halfFieldX,
+        double halfFieldY,
+        double pixelPitchMillimeters)
+    {
         var rows = Math.Max(2, config.PsfGridRows);
         var columns = Math.Max(2, config.PsfGridColumns);
         var psfCount = rows * columns;
         var featureCount = config.PsfSize * config.PsfSize;
         var psfs = new double[psfCount, featureCount];
+        var effectiveModes = new string[psfCount];
+        var fallbackCount = 0;
         var sample = 0;
         for (var row = 0; row < rows; row++)
         {
-            var hy = -1 + (2.0 * row / (rows - 1));
+            var hy = -halfFieldY + (2.0 * halfFieldY * row / (rows - 1));
             for (var column = 0; column < columns; column++)
             {
-                var hx = -1 + (2.0 * column / (columns - 1));
-                var psf = DiffractionEngine.ComputeFftPsf(optic, (hx, hy), wavelength, config.NumRays, config.PsfSize);
-                var sum = psf.Values.Cast<double>().Sum();
+                var hx = -halfFieldX + (2.0 * halfFieldX * column / (columns - 1));
+                var requestedMode = NormalizeAberrationMode(config.AberrationMode);
+                (double[,] Psf, double RmsRadiusMillimeters)? geometric = requestedMode is "Geometric" or "Diffraction"
+                    ? ComputeGeometricPsf(
+                        optic,
+                        (hx, hy),
+                        wavelength,
+                        config.NumRays,
+                        config.PsfSize,
+                        pixelPitchMillimeters)
+                    : null;
+                var actualMode = requestedMode;
+                double[,] values;
+                if (requestedMode == "None")
+                {
+                    values = DeltaPsf(config.PsfSize);
+                }
+                else if (requestedMode == "Geometric")
+                {
+                    values = geometric!.Value.Psf;
+                }
+                else if (ShouldFallbackToGeometric(
+                    geometric!.Value.RmsRadiusMillimeters,
+                    1.22 * wavelength.Micrometers * 1e-3
+                        * DiffractionEngine.WorkingFNumber(optic, (hx, hy), wavelength)))
+                {
+                    values = geometric.Value.Psf;
+                    actualMode = "Geometric";
+                    fallbackCount++;
+                }
+                else
+                {
+                    try
+                    {
+                        values = DiffractionEngine.ComputeHuygensPsf(
+                            optic,
+                            (hx, hy),
+                            wavelength,
+                            Math.Max(2, config.NumRays),
+                            config.PsfSize,
+                            pixelPitchMillimeters).Values;
+                    }
+                    catch (Exception exception) when (exception is not OperationCanceledException)
+                    {
+                        values = geometric.Value.Psf;
+                        actualMode = "Geometric";
+                        fallbackCount++;
+                    }
+                }
+
+                effectiveModes[sample] = actualMode;
+                var sum = values.Cast<double>().Where(double.IsFinite).Sum();
                 for (var y = 0; y < config.PsfSize; y++)
                 {
                     for (var x = 0; x < config.PsfSize; x++)
                     {
-                        psfs[sample, (y * config.PsfSize) + x] = psf.Values[y, x] / Math.Max(1e-30, sum);
+                        var value = double.IsFinite(values[y, x]) ? Math.Max(0, values[y, x]) : 0;
+                        psfs[sample, (y * config.PsfSize) + x] = value / Math.Max(1e-30, sum);
                     }
                 }
 
@@ -376,7 +516,200 @@ public static class ImageSimulationEngine
             meanPsf[feature / config.PsfSize, feature % config.PsfSize] = mean[feature];
         }
 
-        return new PsfBasisResult(eigenPsfs, coefficients, meanPsf, rows, columns);
+        return new PsfBasisResult(
+            eigenPsfs,
+            coefficients,
+            meanPsf,
+            rows,
+            columns,
+            effectiveModes,
+            fallbackCount);
+    }
+
+    internal static bool ShouldFallbackToGeometric(
+        double geometricRmsRadiusMillimeters,
+        double airyRadiusMillimeters)
+    {
+        return !double.IsFinite(geometricRmsRadiusMillimeters)
+            || !double.IsFinite(airyRadiusMillimeters)
+            || airyRadiusMillimeters <= 0
+            || geometricRmsRadiusMillimeters > 20 * airyRadiusMillimeters;
+    }
+
+    private static string NormalizeAberrationMode(string mode)
+    {
+        if (string.Equals(mode, "None", StringComparison.OrdinalIgnoreCase))
+        {
+            return "None";
+        }
+
+        if (string.Equals(mode, "Geometric", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Geometric";
+        }
+
+        return "Diffraction";
+    }
+
+    private static (double[,] Psf, double RmsRadiusMillimeters) ComputeGeometricPsf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int sampleParameter,
+        int size,
+        double pixelPitchMillimeters)
+    {
+        var spot = SpotAnalysisEngine.Generate(
+            optic,
+            new[] { field },
+            new[] { wavelength },
+            Math.Max(2, sampleParameter),
+            "uniform",
+            reference: "chief");
+        var rays = spot.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
+            ?? Array.Empty<SpotRayData>();
+        var psf = new double[size, size];
+        var center = (size - 1) / 2.0;
+        var totalWeight = 0.0;
+        var secondMoment = 0.0;
+        foreach (var ray in rays)
+        {
+            var weight = Math.Max(0, ray.Intensity);
+            if (weight <= 0 || !double.IsFinite(ray.X) || !double.IsFinite(ray.Y))
+            {
+                continue;
+            }
+
+            var x = (int)Math.Round(center + (ray.X / pixelPitchMillimeters));
+            var y = (int)Math.Round(center - (ray.Y / pixelPitchMillimeters));
+            if (x >= 0 && x < size && y >= 0 && y < size)
+            {
+                psf[y, x] += weight;
+            }
+
+            totalWeight += weight;
+            secondMoment += weight * ((ray.X * ray.X) + (ray.Y * ray.Y));
+        }
+
+        if (psf.Cast<double>().Sum() <= 0)
+        {
+            psf[(size - 1) / 2, (size - 1) / 2] = 1;
+        }
+
+        var rms = totalWeight <= 0
+            ? double.PositiveInfinity
+            : Math.Sqrt(secondMoment / totalWeight);
+        return (psf, rms);
+    }
+
+    private static double[,] DeltaPsf(int size)
+    {
+        var psf = new double[size, size];
+        psf[(size - 1) / 2, (size - 1) / 2] = 1;
+        return psf;
+    }
+
+    private static (double HalfX, double HalfY) ResolveNormalizedFieldExtent(
+        Optic optic,
+        double fieldHeight,
+        int width,
+        int height)
+    {
+        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+        var halfY = fieldHeight > 0 && maximumField > 1e-12
+            ? Math.Clamp(fieldHeight / (2 * maximumField), 1e-9, 1)
+            : 1;
+        var halfX = Math.Clamp(halfY * width / Math.Max(1.0, height), 1e-9, 1);
+        return (halfX, halfY);
+    }
+
+    private static Wavelength ResolveReferenceWavelength(Optic optic, ImageSimulationConfig config)
+    {
+        var primary = optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
+            ?? optic.Wavelengths.FirstOrDefault();
+        var micrometers = primary?.Micrometers
+            ?? config.WavelengthsMicrometers[config.WavelengthsMicrometers.Count / 2];
+        return ResolveWavelength(optic, micrometers);
+    }
+
+    private static double EstimateDetectorPixelPitch(
+        Optic optic,
+        Wavelength wavelength,
+        double halfFieldX,
+        double halfFieldY,
+        int width,
+        int height)
+    {
+        try
+        {
+            var left = optic.TraceGenericFinalSample(-halfFieldX, 0, 0, 0, wavelength.Micrometers)?.Position;
+            var right = optic.TraceGenericFinalSample(halfFieldX, 0, 0, 0, wavelength.Micrometers)?.Position;
+            var bottom = optic.TraceGenericFinalSample(0, -halfFieldY, 0, 0, wavelength.Micrometers)?.Position;
+            var top = optic.TraceGenericFinalSample(0, halfFieldY, 0, 0, wavelength.Micrometers)?.Position;
+            var pitchX = left.HasValue && right.HasValue
+                ? Math.Abs(right.Value.X - left.Value.X) / Math.Max(1, width - 1)
+                : 0;
+            var pitchY = bottom.HasValue && top.HasValue
+                ? Math.Abs(top.Value.Y - bottom.Value.Y) / Math.Max(1, height - 1)
+                : 0;
+            var pitch = new[] { pitchX, pitchY }
+                .Where(value => double.IsFinite(value) && value > 1e-12)
+                .DefaultIfEmpty(0)
+                .Average();
+            if (pitch > 0)
+            {
+                return pitch;
+            }
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+        }
+
+        var fNumber = Math.Max(1e-6, DiffractionEngine.WorkingFNumber(optic, (0, 0), wavelength));
+        return Math.Max(1e-6, wavelength.Micrometers * 1e-3 * fNumber / 2);
+    }
+
+    private static void ApplyRelativeIllumination(
+        double[,] source,
+        Optic optic,
+        Wavelength wavelength,
+        double halfFieldX,
+        double halfFieldY,
+        int rayDensity)
+    {
+        const int gridSize = 9;
+        var illumination = new double[gridSize, gridSize];
+        var maximum = 0.0;
+        for (var row = 0; row < gridSize; row++)
+        {
+            var hy = halfFieldY - (2 * halfFieldY * row / (gridSize - 1.0));
+            for (var column = 0; column < gridSize; column++)
+            {
+                var hx = -halfFieldX + (2 * halfFieldX * column / (gridSize - 1.0));
+                var value = RelativeIlluminationAnalysis.ProjectedCosineArea(
+                    optic,
+                    (hx, hy),
+                    wavelength.Micrometers,
+                    rayDensity);
+                illumination[row, column] = value;
+                maximum = Math.Max(maximum, value);
+            }
+        }
+
+        if (maximum <= 0)
+        {
+            return;
+        }
+
+        for (var row = 0; row < source.GetLength(0); row++)
+        {
+            var y = row * (gridSize - 1.0) / Math.Max(1, source.GetLength(0) - 1);
+            for (var column = 0; column < source.GetLength(1); column++)
+            {
+                var x = column * (gridSize - 1.0) / Math.Max(1, source.GetLength(1) - 1);
+                source[row, column] *= Bilinear(illumination, y, x) / maximum;
+            }
+        }
     }
 
     public static double[,] SpatiallyVariableConvolution(
@@ -416,38 +749,47 @@ public static class ImageSimulationEngine
         int height,
         int width,
         int numGridPoints = 25,
-        int degree = 5)
+        int degree = 5,
+        double halfFieldX = 1,
+        double halfFieldY = 1,
+        Wavelength? referenceWavelength = null)
     {
         optic = RealImageFieldConversion.ForImageSimulation(optic);
+        halfFieldX = Math.Clamp(Math.Abs(halfFieldX), 1e-9, 1);
+        halfFieldY = Math.Clamp(Math.Abs(halfFieldY), 1e-9, 1);
+        referenceWavelength ??= wavelength;
         numGridPoints = Math.Max(degree + 1, numGridPoints);
         var count = numGridPoints * numGridPoints;
         var realX = new double[count];
         var realY = new double[count];
+        var referenceX = new double[count];
+        var referenceY = new double[count];
         var fieldX = new double[count];
         var fieldY = new double[count];
         var index = 0;
         for (var row = 0; row < numGridPoints; row++)
         {
-            var hy = -1 + (2.0 * row / (numGridPoints - 1));
+            var hy = -halfFieldY + (2.0 * halfFieldY * row / (numGridPoints - 1));
             for (var column = 0; column < numGridPoints; column++)
             {
-                var hx = -1 + (2.0 * column / (numGridPoints - 1));
+                var hx = -halfFieldX + (2.0 * halfFieldX * column / (numGridPoints - 1));
                 var final = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers)
                     ?? throw new InvalidOperationException("Distortion-grid ray did not reach the image surface.");
+                var reference = optic.TraceGenericFinalSample(
+                    hx,
+                    hy,
+                    0,
+                    0,
+                    referenceWavelength.Micrometers)
+                    ?? throw new InvalidOperationException("Reference distortion-grid ray did not reach the image surface.");
                 realX[index] = final.Position.X;
                 realY[index] = final.Position.Y;
-                fieldX[index] = hx;
-                fieldY[index] = hy;
+                referenceX[index] = reference.Position.X;
+                referenceY[index] = reference.Position.Y;
+                fieldX[index] = hx / halfFieldX;
+                fieldY[index] = hy / halfFieldY;
                 index++;
             }
-        }
-
-        var center = optic.TraceGenericFinalSample(0, 0, 0, 0, wavelength.Micrometers)?.Position
-            ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
-        for (index = 0; index < count; index++)
-        {
-            realX[index] -= center.X;
-            realY[index] -= center.Y;
         }
 
         var scaleX = realX.Select(Math.Abs).DefaultIfEmpty(1).Max();
@@ -463,10 +805,10 @@ public static class ImageSimulationEngine
 
         var coefficientX = LeastSquares(design, fieldX);
         var coefficientY = LeastSquares(design, fieldY);
-        var minX = realX.Min();
-        var maxX = realX.Max();
-        var minY = realY.Min();
-        var maxY = realY.Max();
+        var minX = referenceX.Min();
+        var maxX = referenceX.Max();
+        var minY = referenceY.Min();
+        var maxY = referenceY.Max();
         var grid = new (double X, double Y)[height, width];
         var features = new double[featureCount];
         for (var row = 0; row < height; row++)
@@ -565,6 +907,53 @@ public static class ImageSimulationEngine
         return output;
     }
 
+    public static double[,,] ZeroPad(double[,,] source, int padding)
+    {
+        padding = Math.Max(0, padding);
+        var output = new double[
+            source.GetLength(0),
+            source.GetLength(1) + (2 * padding),
+            source.GetLength(2) + (2 * padding)];
+        for (var channel = 0; channel < source.GetLength(0); channel++)
+        {
+            for (var row = 0; row < source.GetLength(1); row++)
+            {
+                for (var column = 0; column < source.GetLength(2); column++)
+                {
+                    output[channel, row + padding, column + padding] = source[channel, row, column];
+                }
+            }
+        }
+
+        return output;
+    }
+
+    public static double[,,] NearestNeighborOversample(double[,,] source, int factor)
+    {
+        factor = Math.Clamp(factor, 1, 16);
+        if (factor == 1)
+        {
+            return (double[,,])source.Clone();
+        }
+
+        var output = new double[
+            source.GetLength(0),
+            source.GetLength(1) * factor,
+            source.GetLength(2) * factor];
+        for (var channel = 0; channel < output.GetLength(0); channel++)
+        {
+            for (var row = 0; row < output.GetLength(1); row++)
+            {
+                for (var column = 0; column < output.GetLength(2); column++)
+                {
+                    output[channel, row, column] = source[channel, row / factor, column / factor];
+                }
+            }
+        }
+
+        return output;
+    }
+
     public static double[,,] ReflectPad(double[,,] source, int padding)
     {
         var output = new double[source.GetLength(0), source.GetLength(1) + (2 * padding), source.GetLength(2) + (2 * padding)];
@@ -641,6 +1030,18 @@ public static class ImageSimulationEngine
         }
 
         return output;
+    }
+
+    private static double Bilinear(double[,] source, double y, double x)
+    {
+        var y0 = Math.Clamp((int)Math.Floor(y), 0, source.GetLength(0) - 1);
+        var x0 = Math.Clamp((int)Math.Floor(x), 0, source.GetLength(1) - 1);
+        var y1 = Math.Min(y0 + 1, source.GetLength(0) - 1);
+        var x1 = Math.Min(x0 + 1, source.GetLength(1) - 1);
+        var fy = y - y0;
+        var fx = x - x0;
+        return ((1 - fy) * (((1 - fx) * source[y0, x0]) + (fx * source[y0, x1])))
+            + (fy * (((1 - fx) * source[y1, x0]) + (fx * source[y1, x1])));
     }
 
     private static double Bilinear(double[,,] source, int component, double y, double x)

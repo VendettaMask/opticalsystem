@@ -1,3 +1,4 @@
+using System.Globalization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
@@ -23,7 +24,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         int fieldNumber = 0,
         bool deleteVignetted = false,
         bool useSymbols = true,
-        string colorRaysBy = "field") : base(optic)
+        string colorRaysBy = "wavelength") : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 1, 64);
         _surfaceNumber = surfaceNumber;
@@ -31,9 +32,9 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         _fieldNumber = fieldNumber;
         _deleteVignetted = deleteVignetted;
         _useSymbols = useSymbols;
-        _colorRaysBy = string.Equals(colorRaysBy, "wavelength", StringComparison.OrdinalIgnoreCase)
-            ? "wavelength"
-            : "field";
+        _colorRaysBy = string.Equals(colorRaysBy, "field", StringComparison.OrdinalIgnoreCase)
+            ? "field"
+            : "wavelength";
     }
 
     public override string Name => "Footprint Diagram";
@@ -90,6 +91,12 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     .ToArray();
                 plottedRayCount += points.Length;
                 var colorIndex = _colorRaysBy == "wavelength" ? wavelengthIndex : fieldIndex;
+                var legendKey = _colorRaysBy == "wavelength"
+                    ? $"wavelength:{wavelength.Micrometers.ToString("R", CultureInfo.InvariantCulture)}"
+                    : $"field:{field.Number}";
+                var legendLabel = _colorRaysBy == "wavelength"
+                    ? $"{wavelength.Micrometers.ToString("0.0000", CultureInfo.InvariantCulture)} \u00B5m"
+                    : FieldLegendLabel(field);
                 var markerStyle = _useSymbols
                     ? (AnalysisMarkerStyle)((fieldIndex + wavelengthIndex) % 4)
                     : AnalysisMarkerStyle.Circle;
@@ -102,7 +109,9 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     ColorIndex: colorIndex,
                     MarkerStyle: markerStyle,
                     MarkerSize: _useSymbols ? 3.2 : 2.4,
-                    Opacity: 0.8));
+                    Opacity: 0.8,
+                    LegendKey: legendKey,
+                    LegendLabel: legendLabel));
             }
         }
 
@@ -153,13 +162,23 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         var fields = Optic.Fields.Select((field, index) => new SelectedField(
             index + 1,
             index < normalized.Count ? normalized[index].Hx : 0,
-            index < normalized.Count ? normalized[index].Hy : 0)).ToArray();
+            index < normalized.Count ? normalized[index].Hy : 0,
+            field.X,
+            field.Y)).ToArray();
         if (_fieldNumber <= 0 || fields.Length == 0)
         {
             return fields;
         }
 
         return new[] { fields[Math.Clamp(_fieldNumber - 1, 0, fields.Length - 1)] };
+    }
+
+    private string FieldLegendLabel(SelectedField field)
+    {
+        var unit = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "\u00B0" : "mm";
+        return $"F{field.Number}  " +
+            $"({field.X.ToString("0.####", CultureInfo.InvariantCulture)}, " +
+            $"{field.Y.ToString("0.####", CultureInfo.InvariantCulture)}) {unit}";
     }
 
     private AnalysisPoint? FootprintPoint(
@@ -303,7 +322,9 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
     private sealed record SelectedField(
         int Number,
         double NormalizedX,
-        double NormalizedY);
+        double NormalizedY,
+        double X,
+        double Y);
 
     private sealed record PlotExtent(double MinimumX, double MaximumX, double MinimumY, double MaximumY);
 }

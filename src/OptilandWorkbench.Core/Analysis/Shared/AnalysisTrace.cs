@@ -20,6 +20,49 @@ internal static class AnalysisTrace
             DisplayFieldCoordinate(field.X, field.Y))).ToArray();
     }
 
+    public static IReadOnlyList<AnalysisFieldSample> ScanFieldSamples(
+        Optic optic,
+        string scanDirection,
+        int count)
+    {
+        scanDirection = NormalizeScanDirection(scanDirection);
+        count = Math.Max(2, count);
+        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+        return Enumerable.Range(0, count)
+            .Select(index =>
+            {
+                var magnitude = maximumField * index / (count - 1.0);
+                var physical = ScanField(scanDirection, magnitude);
+                var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
+                return new AnalysisFieldSample(
+                    index,
+                    FormatFieldTitle(physical.X, physical.Y, optic.FieldDefinition),
+                    physical.X,
+                    physical.Y,
+                    normalized.X,
+                    normalized.Y,
+                    ScanFieldValue(scanDirection, magnitude));
+            })
+            .ToArray();
+    }
+
+    public static Optic PrepareVignettingFactors(Optic optic, bool ignoreVignettingFactors)
+    {
+        if (!ignoreVignettingFactors)
+        {
+            return optic;
+        }
+
+        var workingOptic = Optic.FromSnapshot(optic.ToSnapshot());
+        foreach (var field in workingOptic.Fields)
+        {
+            field.VignetteFactorX = 0;
+            field.VignetteFactorY = 0;
+        }
+
+        return workingOptic;
+    }
+
     public static double DisplayFieldCoordinate(double x, double y)
     {
         if (Math.Abs(x) <= 1e-12)

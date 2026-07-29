@@ -170,7 +170,9 @@ internal static class WorkbenchMapper
             series.ValueLabel,
             (ContractAnalysisColorMap)(int)series.ColorMap,
             series.ValueMinimum,
-            series.ValueMaximum);
+            series.ValueMaximum,
+            series.LegendKey,
+            series.LegendLabel);
     }
 
     internal static AnalysisPlotOptionsDto ToPlotOptionsDto(AnalysisPlotOptions options)

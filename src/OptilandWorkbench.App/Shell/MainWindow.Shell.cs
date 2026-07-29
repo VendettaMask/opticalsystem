@@ -181,7 +181,7 @@ public sealed partial class MainWindow
         tabs.Bind(TabControl.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
         var ribbon = new Border
         {
-            Height = 144,
+            MinHeight = 126,
             BorderThickness = new Thickness(0, 0, 0, 1),
             BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
             Child = tabs
@@ -241,7 +241,7 @@ public sealed partial class MainWindow
             commandPanel.Children.Add(command);
         }
 
-        var grid = new Grid { RowDefinitions = new RowDefinitions("68,18") };
+        var grid = new Grid { RowDefinitions = new RowDefinitions("Auto,18") };
         var caption = new TextBlock
         {
             Text = title,
@@ -271,8 +271,7 @@ public sealed partial class MainWindow
         var content = RibbonCommandContent(iconName, label);
         var button = new Button
         {
-            Width = 78,
-            Height = 66,
+            MinWidth = 78,
             MinHeight = 66,
             Margin = new Thickness(1, 0, 1, 2),
             Padding = new Thickness(4),
@@ -321,8 +320,7 @@ public sealed partial class MainWindow
         var content = RibbonDropDownCommandContent(menu.IconName, menu.Label);
         var button = new DropDownButton
         {
-            Width = 78,
-            Height = 66,
+            MinWidth = 78,
             MinHeight = 66,
             Margin = new Thickness(1, 0, 1, 2),
             Padding = new Thickness(4),
@@ -349,8 +347,8 @@ public sealed partial class MainWindow
             ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
             ("show-material-glass-map", "gem", "玻璃图"),
             ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
-            ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
-            ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长")
+            ("show-material-transmission", "arrow-right-left", "内部透过率随波长"),
+            ("show-material-dispersion-wavelength", "chart-line", "色散随波长")
         };
         var flyout = new MenuFlyout();
         foreach (var (actionId, iconName, label) in commands)
@@ -372,8 +370,7 @@ public sealed partial class MainWindow
         var content = RibbonDropDownCommandContent("chart-scatter", "材料分析");
         var button = new DropDownButton
         {
-            Width = 78,
-            Height = 66,
+            MinWidth = 78,
             MinHeight = 66,
             Margin = new Thickness(1, 0, 1, 2),
             Padding = new Thickness(4),
@@ -397,9 +394,9 @@ public sealed partial class MainWindow
     {
         var grid = new Grid
         {
-            Width = 66,
-            Height = 52,
-            RowDefinitions = new RowDefinitions("29,23"),
+            MinWidth = 66,
+            MinHeight = 52,
+            RowDefinitions = new RowDefinitions("29,Auto"),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -417,6 +414,8 @@ public sealed partial class MainWindow
         {
             Text = label,
             FontSize = 11,
+            MinWidth = 66,
+            MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
             TextAlignment = TextAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
@@ -433,9 +432,9 @@ public sealed partial class MainWindow
     {
         var grid = new Grid
         {
-            Width = 66,
-            Height = 52,
-            RowDefinitions = new RowDefinitions("27,18,7"),
+            MinWidth = 66,
+            MinHeight = 52,
+            RowDefinitions = new RowDefinitions("27,Auto,7"),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -453,6 +452,8 @@ public sealed partial class MainWindow
         {
             Text = label,
             FontSize = 11,
+            MinWidth = 66,
+            MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
             TextAlignment = TextAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,

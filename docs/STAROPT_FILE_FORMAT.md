@@ -43,9 +43,9 @@ state is changed.
 
 ## Optical Snapshot Validation
 
-The current optical snapshot schema is `3`. Schemas `1` and `2` remain readable
-through a bounded migration step, while snapshots outside the supported range are
-rejected.
+The current optical snapshot schema is `4`. Schemas `1`, `2`, and `3` remain
+readable through a bounded migration step, while snapshots outside the supported
+range are rejected.
 
 Schema validation enforces these invariants:
 
@@ -56,8 +56,10 @@ Schema validation enforces these invariants:
 - thickness, semi-diameter, conic, coordinate transforms, aperture values,
   environment values, pickup scale/offset, solve values, and merit-operand numeric
   values are finite and within their applicable ranges;
-- radius pickups and merit operands reference existing surfaces, fields, and
-  wavelengths using the format's zero/default and one-based conventions;
+- radius pickups and typed executable merit operands reference existing surfaces,
+  fields, and wavelengths using the format's zero/default and one-based conventions;
+- Zemax compatibility rows with opaque generic integer slots are not reinterpreted
+  as surface, field, or wavelength references;
 - component kinds, recursive child layouts, encoded collection counts, and all
   required collection entries are valid before component factories run.
 
@@ -67,12 +69,15 @@ periods, and infinite thin-lens focal lengths. It is rejected for wavelengths,
 thicknesses, apertures, coordinates, environment state, references, and ordinary
 component parameters.
 
-Schemas `1` and `2` used two historical sentinels that are not legal schema-3
+Schemas `1` and `2` used two historical sentinels that are not legal schema-4
 state. During migration, an infinite object-space Z coordinate is normalized to
 the finite object-plane representation, and a non-finite legacy semi-diameter is
-replaced by the historical 10 mm fallback. Dangling legacy pickups or merit
-operands are removed. The migrated snapshot is then subjected to the same schema-3
-validator, so selecting an older schema version cannot bypass validation.
+replaced by the historical 10 mm fallback. Dangling legacy pickups or typed merit
+operands are removed, while opaque Zemax compatibility rows retain their source
+integer slots. Schema `3` receives the schema-4 merit defaults. Every migrated
+snapshot is then subjected to the same schema-4 validator, so selecting an older
+schema version cannot bypass validation. The complete typed operand target is
+defined in [Zemax sequential operand support](ZEMAX_OPERAND_SUPPORT.md).
 
 ## Transactional Construction
 

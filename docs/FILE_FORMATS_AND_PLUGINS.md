@@ -12,7 +12,7 @@ Brotli-compression flags, compressed and uncompressed lengths, and a SHA-256 dig
 of the payload. The versioned payload stores all optical configurations and the
 active-configuration index. Saves use a temporary file and atomic replacement.
 
-Each configuration uses schema-3 `OpticSnapshot`. The current snapshot schema stores:
+Each configuration uses schema-4 `OpticSnapshot`. The current snapshot schema stores:
 
 - optic name
 - aperture
@@ -27,9 +27,12 @@ Container integrity is only the first validation layer. Before construction, the
 loader also requires non-empty field/wavelength/surface tables, exactly one finite
 positive primary wavelength, finite physical and environmental state, contiguous
 surface numbering, known component layouts, bounded encoded collections, and
-valid pickup/solve/merit references. Construction happens in a temporary `Optic`;
-the active state is replaced only after every component succeeds. Schemas 1 and 2
-are migrated into safe schema-3 state before validation.
+valid pickup/solve references and type-appropriate merit-operand parameters. Zemax
+compatibility rows whose generic integer slots do not represent Workbench optical
+references are validated as opaque source parameters rather than mislabeled
+surface/field/wavelength references. Construction happens in a temporary `Optic`;
+the active state is replaced only after every component succeeds. Schemas 1 through
+3 are migrated into safe schema-4 state before validation.
 
 The loader recognizes STAROPT by both extension and content. See
 [STAROPT Project Format](STAROPT_FILE_FORMAT.md) for the binary layout and
@@ -116,6 +119,12 @@ Zemax `.zmx` import follows the Python Optiland 0.5.8 `zemax_handler.py` and `Ze
 - mirror material continuity, comments, stop flags, and semi-diameters
 
 The ZMX importer rejects non-sequential mode, unsupported Zemax surface types, negative thickness, coordinate-break order flags, theodolite field definitions, and toroidal conic/polynomial terms. Real-image-height chief rays are solved at the primary wavelength in local image-surface coordinates. Vignette decenter and tangent-angle operands are read but not represented by the current field model. Coatings, solves, pickups, polarization, multi-configuration operands, and unsupported freeform data are not imported.
+
+The required operand boundary is defined by
+[Zemax sequential operand support specification](ZEMAX_OPERAND_SUPPORT.md): 333
+unique sequential codes must ultimately be imported, edited, evaluated, validated,
+and round-tripped; only explicitly obsolete and non-sequential-only operands are
+excluded. The current importer implements only a subset, and compatibility-only
 
 `GCAT` and `GLAS` resolve against the bundled Zemax database first during ZMX import and then against the embedded 1,740-entry Optiland 0.5.8/refractiveindex.info compatibility database. SCHOTT, OHARA, HOYA, HIKARI, CDGM, SUMITA, LZOS, and the other bundled glass categories use their actual dispersion formulas and catalog metadata during tracing and analysis. Same-named glasses are selected by `GCAT`; an unknown glass falls back to `AbbeMaterial` only when its `GLAS` record supplies valid nd/Vd values. Otherwise import fails explicitly.
 

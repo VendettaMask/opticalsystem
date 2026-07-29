@@ -85,6 +85,18 @@ public partial class OpticalWorkspaceModel
             Choices: choices);
     }
 
+    private static AnalysisParameterDescriptor FileParameter(
+        string key,
+        string displayName,
+        string defaultValue = "")
+    {
+        return new AnalysisParameterDescriptor(
+            key,
+            displayName,
+            AnalysisParameterKind.File,
+            defaultValue);
+    }
+
     private static AnalysisParameterDescriptor BoolParameter(
         string key,
         string displayName,
@@ -108,6 +120,7 @@ public partial class OpticalWorkspaceModel
                 "0",
                 new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
             ChoiceParameter("DisplayMode", "显示为", "百分比", new[] { "百分比", "绝对值" }),
+            ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
             ChoiceParameter(
                 "ReferenceFieldNumber",
                 "参考视场",

@@ -184,6 +184,25 @@ public sealed class OpticSnapshotValidationTests
                         Comment: string.Empty)
                 }
             }),
+            ("$.meritOperands[0].wavelength", valid with
+            {
+                MeritOperands = new List<MeritOperandSnapshot>
+                {
+                    new(
+                        Enabled: true,
+                        Type: "RSCE",
+                        Surface: 0,
+                        Field: 1,
+                        Wavelength: valid.Wavelengths.Count + 1,
+                        Hx: 0,
+                        Hy: 0,
+                        Px: 0,
+                        Py: 0,
+                        Target: 0,
+                        Weight: 1,
+                        Comment: string.Empty)
+                }
+            }),
             ("$.surfaces[1].components.interactionKind", valid with
             {
                 Surfaces = ReplaceAt(
@@ -288,6 +307,39 @@ public sealed class OpticSnapshotValidationTests
         Assert.False(operand.IgnoreLateralColor);
         Assert.False(operand.PolychromaticReference);
         Assert.Equal(-1, operand.Weight, precision: 12);
+    }
+
+    [Fact]
+    public void LegacySnapshotMigrationKeepsOpaqueZemaxConstraintParameters()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var legacy = valid with
+        {
+            SchemaVersion = 3,
+            MeritOperands = new List<MeritOperandSnapshot>
+            {
+                new(
+                    Enabled: false,
+                    Type: "MNEA",
+                    Surface: 1,
+                    Field: 0,
+                    Wavelength: 15,
+                    Hx: 0,
+                    Hy: 0,
+                    Px: 0,
+                    Py: 0,
+                    Target: 0.1,
+                    Weight: 1,
+                    Comment: "Zemax compatibility row")
+            }
+        };
+
+        var restored = Optic.FromSnapshot(legacy);
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal("MNEA", operand.Type);
+        Assert.False(operand.Enabled);
+        Assert.Equal(15, operand.Wavelength);
     }
 
     [Fact]

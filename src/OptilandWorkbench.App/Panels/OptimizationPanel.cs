@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -173,31 +175,23 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             BorderThickness = new Avalonia.Thickness(1),
             HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
-            RowBackground = new SolidColorBrush(Color.FromRgb(236, 244, 241))
+            RowBackground = new SolidColorBrush(MeritOperandRowPalette.Resolve(null))
         };
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-directive-row"))
+        grid.Styles.Add(new Style(selector => selector
+            .OfType<DataGridRow>()
+            .Class("merit-color-row")
+            .Class(":selected"))
         {
             Setters =
             {
-                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(251, 211, 249)))
+                new Setter(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(24, 24, 27))),
+                new Setter(
+                    DataGridRow.BorderBrushProperty,
+                    new DynamicResourceExtension("AccentFillColorDefaultBrush"))
             }
         });
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-comment-row"))
-        {
-            Setters =
-            {
-                new Setter(DataGridRow.BackgroundProperty, Brushes.White)
-            }
-        });
-        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("merit-error-row"))
-        {
-            Setters =
-            {
-                new Setter(DataGridRow.BackgroundProperty, new SolidColorBrush(Color.FromRgb(255, 225, 225)))
-            }
-        });
-        grid.LoadingRow += (_, args) => ApplyRowClass(args.Row);
+        grid.LoadingRow += (_, args) => ApplyRowAppearance(args.Row);
         grid.Columns.Add(TextColumn("#", nameof(MeritOperandEditorRow.Index), 44, true));
         grid.Columns.Add(TypeColumn());
         grid.Columns.Add(TextColumn("表面", nameof(MeritOperandEditorRow.Surface), 62));
@@ -483,15 +477,16 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         Background = new SolidColorBrush(Color.FromRgb(209, 209, 214))
     };
 
-    private static void ApplyRowClass(DataGridRow row)
+    private static void ApplyRowAppearance(DataGridRow row)
     {
         if (row.DataContext is not MeritOperandEditorRow operand)
         {
             return;
         }
 
-        row.Classes.Set("merit-directive-row", operand.IsDirective);
-        row.Classes.Set("merit-comment-row", operand.IsComment);
-        row.Classes.Set("merit-error-row", !string.IsNullOrWhiteSpace(operand.Error));
+        row.Classes.Set("merit-color-row", true);
+        row.Background = new SolidColorBrush(MeritOperandRowPalette.Resolve(
+            operand.Type,
+            !string.IsNullOrWhiteSpace(operand.Error)));
     }
 }

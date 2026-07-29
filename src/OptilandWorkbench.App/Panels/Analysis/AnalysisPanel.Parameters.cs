@@ -513,6 +513,9 @@ public sealed partial class AnalysisPanel
             case CheckBox check:
                 check.IsCheckedChanged += (_, _) => Schedule();
                 break;
+            case FilePathInput file:
+                file.Input.TextChanged += (_, _) => Schedule();
+                break;
         }
     }
 
@@ -616,6 +619,7 @@ public sealed partial class AnalysisPanel
                     numeric.Value.Value.ToString(CultureInfo.InvariantCulture),
                 ComboBox combo when combo.SelectedItem is string selected => selected,
                 CheckBox check => (check.IsChecked == true).ToString(CultureInfo.InvariantCulture),
+                FilePathInput file => file.Value,
                 _ => settings[descriptor.Key]
             };
         }
@@ -644,12 +648,13 @@ public sealed partial class AnalysisPanel
         _appSettings.Save();
     }
 
-    private static Control CreateParameterControl(AnalysisParameterDescriptor descriptor, string value)
+    private Control CreateParameterControl(AnalysisParameterDescriptor descriptor, string value)
     {
         return descriptor.Kind switch
         {
             AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
             AnalysisParameterKind.Boolean => BooleanInput(value),
+            AnalysisParameterKind.File => FileInput(value),
             _ => NumericInput(descriptor, value)
         };
     }
@@ -692,4 +697,64 @@ public sealed partial class AnalysisPanel
         IsChecked = bool.TryParse(value, out var flag) && flag,
         VerticalAlignment = VerticalAlignment.Center
     };
+    private FilePathInput FileInput(string value) =>
+        new(value, SelectImageFileAsync);
+
+    private async Task<string?> SelectImageFileAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is null)
+        {
+            return null;
+        }
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "\u9009\u62E9\u56FE\u50CF\u6A21\u62DF\u4F4D\u56FE",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType("\u4F4D\u56FE")
+                {
+                    Patterns = new[] { "*.bmp", "*.png", "*.jpg", "*.jpeg" }
+                }
+            }
+        });
+        return files.Count == 0 ? null : files[0].Path.LocalPath;
+    }
+
+    private sealed class FilePathInput : Grid
+    {
+        internal FilePathInput(string value, Func<Task<string?>> browse)
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto");
+            Input = new TextBox
+            {
+                Text = value,
+                MinWidth = 220,
+                PlaceholderText = "\u9009\u62E9 BMP\u3001PNG \u6216 JPEG \u56FE\u50CF"
+            };
+            var button = new Button
+            {
+                Content = "\u6D4F\u89C8\u2026",
+                Margin = new Thickness(6, 0, 0, 0)
+            };
+            button.Click += async (_, _) =>
+            {
+                var selected = await browse();
+                if (!string.IsNullOrWhiteSpace(selected))
+                {
+                    Input.Text = selected;
+                }
+            };
+            Children.Add(Input);
+            Grid.SetColumn(button, 1);
+            Children.Add(button);
+        }
+
+        internal TextBox Input { get; }
+
+        internal string Value => Input.Text?.Trim() ?? string.Empty;
+    }
+
 }

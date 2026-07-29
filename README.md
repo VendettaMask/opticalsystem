@@ -14,7 +14,7 @@ The implementation is being built in small git milestones. The current codebase 
 - Optiland 0.5.8 Cooke Triplet and Tessar F/4.5 compatibility fixtures with matching EFL, F-number, entrance/exit pupil geometry, per-surface real rays, intensity, optical path, and line-bundle spot results.
 - A 67-entry desktop analysis catalog. Thirty numerical/graphical views have source-derived Python contracts, including standard spot and ray-aberration plots, single-ray trace reports, through-focus spots/MTF, distortion/field curvature, RMS field sweeps, chief-ray and centroid/best-fit reference-sphere wavefronts, Zernike, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, irradiance/radiant intensity, incident-angle scans, Jones pupil, and image simulation. Additional Zemax-style views include full-field/configuration-matrix spot diagrams, diffraction and extended-source encircled energy, line/edge spread, optical-path difference, Foucault, Seidel, axial/lateral color, full-field aberration, cardinal data, vignetting, footprint, relative illumination, and extended image analysis.
 - Optimization plus a Zemax-style tolerancing workflow with a TDE-like operand editor, bulk tolerance wizard, radius/thickness/conic/decenter/tilt/index/Abbe operands, image-distance compensation, two-sided sensitivity, seeded Monte Carlo, percentile/yield statistics, native tolerance-file save/load, and report export.
-- A native `.staropt` project container with magic/version headers, Brotli compression, SHA-256 integrity validation, schema-3 optical-state validation, transactional temporary construction, atomic saves, and lossless multi-configuration round-trip. Checksum-valid payloads are still rejected when wavelengths, coordinates, components, numbering, or cross-references are semantically invalid. Legacy Workbench JSON remains a compatibility import; Python Optiland 0.5.8 JSON, Zemax `.zmx`, CODE V `.seq`, and OSLO `.len` remain explicit exchange formats.
+- A native `.staropt` project container with magic/version headers, Brotli compression, SHA-256 integrity validation, schema-4 optical-state validation, transactional temporary construction, atomic saves, and lossless multi-configuration round-trip. Checksum-valid payloads are still rejected when wavelengths, coordinates, components, numbering, or typed cross-references are semantically invalid. Legacy Workbench JSON remains a compatibility import; Python Optiland 0.5.8 JSON, Zemax `.zmx`, CODE V `.seq`, and OSLO `.len` remain explicit exchange formats.
 - A packaged read-only lens library under **Database > Lens Library**, currently containing 106 entries: 56 microscope objectives, 5 industrial examples, and 45 compatible public Zemax designs. Microscope entries are restricted to standalone objectives; tube lenses, condensers, Fourier-imaging trains, and complete microscope systems are excluded. An external maintenance tool converts reviewed local source files once into native `.staropt` projects using the Workbench glass database; the desktop application only loads the finished library and shows per-lens parameters plus an interactive 2D optical layout.
 - A standalone single-file Zemax installer, `Convert-Zemax-Lens.cmd`, converts one reviewed `.zmx` into the native checksummed `.staropt` format and atomically adds it to both the repository example library and the packaged **Database > Lens Library** index without rebuilding existing entries.
 - An explicit **File > Export CAD** workflow that writes millimetre-based faceted STEP AP203 geometry from the sampled 3D lens scene. This exporter is currently an experimental mesh interchange path rather than a native analytic/NURBS B-rep kernel; verify generated files in the target CAD system before manufacturing use.
@@ -22,7 +22,7 @@ The implementation is being built in small git milestones. The current codebase 
 - Chinese Avalonia GUI panels for lens editing, component editing, interactive 2D/3D system viewing, configurable graphical analysis, optimization, tolerancing, multi-configuration, and system properties, presented with a compact semi-flat desktop style.
 - A dedicated **Manufacturing & Drawings** workspace with rule-based optical-element manufacturability review, ISO 10110-series Chinese drawing previews, editable tolerances and title blocks, and vector PDF export.
 - Reproducible S.T.A.R. Labs desktop branding with packaged Windows/macOS application icons and a startup image that remains visible while the workspace session is restored.
-- A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands and all 67 analyses grouped under **Analysis** using the Zemax image-quality hierarchy: rays and spots, aberrations, wavefront, PSF, MTF, RMS, encircled energy, and extended image analysis, followed by system reports. The rays-and-spots menu starts with Single Ray Trace, Ray Aberration, Standard Spot Diagram, Footprint Diagram, and Through Focus Spot Diagram. Method families such as PSF and MTF open a second-level menu instead of flattening every variant into the Ribbon.
+- A linked category Ribbon: selecting a top category replaces the large-command region, with dedicated 2D/3D view commands and analysis commands grouped once under **分析** using the Zemax image-quality hierarchy. User-facing command and command-palette labels are consistently Chinese while stable English/Zemax keys remain internal compatibility identifiers. Buttons use content-driven minimum sizing and horizontal scrolling, so long titles remain readable without a fixed 78-by-66-pixel box.
 - A Dock.Avalonia workspace with draggable document tabs, split panes, tab merging, native resizable floating windows, redocking, tiling/cascading commands, `Ctrl/Cmd+K` command palette actions, and per-file workspace sessions.
 - A UI-free `OptilandWorkbench.Application` boundary. Avalonia panels depend only on immutable DTOs and application services; Core objects stay behind the application context, revision stream, undo/redo, snapshot, and cancellation boundary.
 - Interactive analysis plots with pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Analysis pages expose **Plot / Data / Text** tabs at the bottom and keep graph settings in a collapsed-by-default panel with an icon-only synchronization action.
@@ -44,7 +44,7 @@ First launch may take a moment because `dotnet run` restores and builds the proj
 
 ### Desktop workflow
 
-- Use the top categories to switch the large-command Ribbon; commands are not duplicated in the central workspace.
+- Use the top categories to switch the large-command Ribbon. Analysis commands have one semantic menu home—for example, **光程差图** is under **波前**, while **全视场像差** is under **像差分析**—and narrow windows expose the remaining commands through horizontal scrolling.
 - Open **View** and choose **2D Layout**, **3D Layout**, or **Solid Model**. The 2D view uses outlined optical elements and colored rays; the 3D layout keeps a light engineering background, while the solid-model view uses a clean dark studio background and continuous dielectric glass driven by the catalog refractive index, Fresnel reflectance, and element-thickness attenuation. Highlighted optical surfaces and ray bundles remain visible through the glass.
 - Open **Analysis**, choose an image-quality category, and then select the required method from its second-level menu. The selected analysis runs and opens its own closable result page.
 - Open **Database > Lens Library** to filter packaged microscope and industrial designs, inspect their basic parameters, and preview each native system in 2D. Library download and conversion are intentionally absent from the desktop application.
@@ -72,7 +72,7 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 ```
 
 In restricted sandboxes, VSTest may need permission to bind a local socket. The
-validated baseline as of 2026-07-28 is a zero-warning solution build and 542
+validated baseline as of 2026-07-29 is a zero-warning solution build and 569
 passing tests; details are recorded in
 [Build and release](docs/BUILD_AND_RELEASE.md).
 
@@ -108,6 +108,7 @@ See:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Large-scale ray tracing performance](docs/RAY_TRACING_PERFORMANCE.md)
+- [Zemax sequential operand support specification](docs/ZEMAX_OPERAND_SUPPORT.md)
 - [Python Optiland parity audit](docs/PYTHON_PARITY_AUDIT.md)
 - [Parity matrix](docs/PARITY_MATRIX.md)
 - [File formats and plugins](docs/FILE_FORMATS_AND_PLUGINS.md)

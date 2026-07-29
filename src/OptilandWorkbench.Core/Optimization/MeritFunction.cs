@@ -735,6 +735,14 @@ public static class MeritFunctionCatalog
         return Types.Any(item => item.Code == canonical) ? canonical : "BLNK";
     }
 
+    // Compatibility rows still carry raw Zemax integer slots in legacy Workbench
+    // fields. They are not complete operand implementations; see
+    // docs/ZEMAX_OPERAND_SUPPORT.md.
+    internal static bool HasOpaqueZemaxParameters(string? type) =>
+        (type ?? string.Empty).Trim().ToUpperInvariant() is
+            "CONF" or "RANG" or "CONS" or "PROD" or "OPLT"
+            or "MNCA" or "MXCA" or "MNEA" or "MNCG" or "MXCG" or "MNEG";
+
     private static double EvaluateValue(Optic optic, MeritOperandDefinition definition)
     {
         return CanonicalType(definition.Type) switch

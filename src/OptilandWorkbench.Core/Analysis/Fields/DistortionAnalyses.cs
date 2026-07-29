@@ -56,14 +56,15 @@ public sealed class DistortionAnalysis : BaseAnalysis
                 _maximumDistortion).GenerateData();
         }
 
-        var maxField = AnalysisTrace.MaxFieldValue(Optic);
-        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
-        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
-        var effectiveDistortionType = Optic.FieldDefinition == FieldDefinitionKind.Angle
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _ignoreVignettingFactors);
+        var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
+        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(workingOptic);
+        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(workingOptic);
+        var effectiveDistortionType = workingOptic.FieldDefinition == FieldDefinitionKind.Angle
             ? _distortionType
             : "linear-height";
-        var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
-        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
+        var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
+        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDistortion = 0.0;
 
@@ -71,7 +72,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
         {
             var wavelength = wavelengths[wavelengthIndex];
             var mapping = AnalysisTrace.BuildDistortionReferenceMapping(
-                Optic,
+                workingOptic,
                 wavelength.Micrometers,
                 _referenceFieldNumber,
                 _distortionType);
@@ -80,9 +81,9 @@ public sealed class DistortionAnalysis : BaseAnalysis
             for (var index = 0; index < fields.Count; index++)
             {
                 var field = fields[index];
-                var linearField = AnalysisTrace.ToDistortionLinearField(Optic, field.X, field.Y, _distortionType);
+                var linearField = AnalysisTrace.ToDistortionLinearField(workingOptic, field.X, field.Y, _distortionType);
                 var actualImage = AnalysisTrace.TraceChiefAtLinearField(
-                    Optic,
+                    workingOptic,
                     linearField.X,
                     linearField.Y,
                     wavelength.Micrometers,
@@ -115,17 +116,19 @@ public sealed class DistortionAnalysis : BaseAnalysis
             [fieldValueKey] = maxField,
             ["DistortionType"] = effectiveDistortionType,
             ["DisplayMode"] = _displayMode,
-            ["ScanDirection"] = "defined-fields",
+            ["ScanDirection"] = _scanDirection,
             ["ReferenceFieldNumber"] = _referenceFieldNumber,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["IgnoreVignettingFactors"] = _ignoreVignettingFactors,
+            ["VignettingFactorsApplied"] = !_ignoreVignettingFactors,
+            ["Applicability"] = "Strictly valid for rotationally symmetric systems with plane object and image surfaces; generalized otherwise.",
             ["Samples"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
             [_displayMode == "absolute" ? "MaximumAbsoluteDistortionMillimeters" : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
         if (_distortionType == "smia-tv" && wavelengths.Length > 0)
         {
-            values["SmiaTvDistortionPercent"] = ComputeSmiaTvDistortion(Optic, wavelengths[0]);
+            values["SmiaTvDistortionPercent"] = ComputeSmiaTvDistortion(workingOptic, wavelengths[0]);
         }
 
         var minimumField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min();
@@ -225,7 +228,14 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
         bool ignoreVignettingFactors = true,
         double maximumDistortion = 0) : base(optic)
     {
-        _fieldCurvature = new FieldCurvatureAnalysis(optic, numPoints, parabasalDelta, maximumCurvature);
+        _fieldCurvature = new FieldCurvatureAnalysis(
+            optic,
+            numPoints,
+            parabasalDelta,
+            maximumCurvature,
+            wavelengthNumber,
+            scanDirection,
+            ignoreVignettingFactors);
         _distortion = new DistortionAnalysis(
             optic,
             numPoints,
@@ -282,27 +292,37 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
     private readonly int _numPoints;
     private readonly double _parabasalDelta;
     private readonly double _maximumCurvature;
+    private readonly int _wavelengthNumber;
+    private readonly string _scanDirection;
+    private readonly bool _ignoreVignettingFactors;
 
     public FieldCurvatureAnalysis(
         Optic optic,
         int numPoints = 128,
         double parabasalDelta = 1e-5,
-        double maximumCurvature = 0) : base(optic)
+        double maximumCurvature = 0,
+        int wavelengthNumber = 0,
+        string scanDirection = "+y",
+        bool ignoreVignettingFactors = true) : base(optic)
     {
         _numPoints = Math.Max(2, numPoints);
         _parabasalDelta = Math.Abs(parabasalDelta) <= 1e-12 ? 1e-5 : Math.Abs(parabasalDelta);
         _maximumCurvature = Math.Max(0, maximumCurvature);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
+        _ignoreVignettingFactors = ignoreVignettingFactors;
     }
 
     public override string Name => "Field Curvature";
 
     public override AnalysisData GenerateData()
     {
-        var maxField = AnalysisTrace.MaxFieldValue(Optic);
-        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(Optic);
-        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(Optic);
-        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var wavelengths = Optic.Wavelengths.ToArray();
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _ignoreVignettingFactors);
+        var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
+        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(workingOptic);
+        var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(workingOptic);
+        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints);
+        var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDelta = 0.0;
         var maximumTangentialFieldCurvature = 0.0;
@@ -317,25 +337,11 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             for (var index = 0; index < fields.Count; index++)
             {
                 var field = fields[index];
-                var t1 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, 0, -_parabasalDelta, wavelength.Micrometers);
-                var t2 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, 0, _parabasalDelta, wavelength.Micrometers);
-                var tDenominator = (t1.Direction.Y * t2.Direction.Z) - (t2.Direction.Y * t1.Direction.Z);
-                var tangentialDelta = Math.Abs(tDenominator) <= 1e-30
-                    ? 0
-                    : ((t2.Direction.Y * t1.Position.Z)
-                        - (t2.Direction.Y * t2.Position.Z)
-                        - (t2.Direction.Z * t1.Position.Y)
-                        + (t2.Direction.Z * t2.Position.Y)) / tDenominator * t1.Direction.Z;
-
-                var s1 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, -_parabasalDelta, 0, wavelength.Micrometers);
-                var s2 = AnalysisTrace.FinalSample(Optic, field.Hx, field.Hy, _parabasalDelta, 0, wavelength.Micrometers);
-                var sDenominator = (s1.Direction.X * s2.Direction.Z) - (s2.Direction.X * s1.Direction.Z);
-                var sagittalDelta = Math.Abs(sDenominator) <= 1e-30
-                    ? 0
-                    : ((s2.Direction.X * s1.Position.Z)
-                        - (s2.Direction.X * s2.Position.Z)
-                        - (s2.Direction.Z * s1.Position.X)
-                        + (s2.Direction.Z * s2.Position.X)) / sDenominator * s1.Direction.Z;
+                var scanUsesX = _scanDirection.EndsWith('x');
+                var tangentialDelta = ParabasalImagePlaneDelta(
+                    workingOptic, field, wavelength.Micrometers, _parabasalDelta, scanUsesX);
+                var sagittalDelta = ParabasalImagePlaneDelta(
+                    workingOptic, field, wavelength.Micrometers, _parabasalDelta, !scanUsesX);
 
                 tangential[index] = new AnalysisPoint(tangentialDelta, field.Coordinate, field.Label);
                 sagittal[index] = new AnalysisPoint(sagittalDelta, field.Coordinate, field.Label);
@@ -375,6 +381,11 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             ["ParabasalDelta"] = _parabasalDelta,
             ["MaximumCurvatureScale"] = _maximumCurvature,
             ["WavelengthCount"] = wavelengths.Length,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["ScanDirection"] = _scanDirection,
+            ["IgnoreVignettingFactors"] = _ignoreVignettingFactors,
+            ["VignettingFactorsApplied"] = !_ignoreVignettingFactors,
+            ["Applicability"] = "Strictly valid for rotationally symmetric systems with plane object and image surfaces; generalized otherwise.",
             ["MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
             ["MaximumSagittalFieldCurvatureMillimeters"] = maximumSagittalFieldCurvature,
             ["MaximumAbsoluteImagePlaneDelta"] = maximumAbsoluteDelta
@@ -388,5 +399,40 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             YMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
             YMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             ShowLegend: true));
+    }
+
+    private static double ParabasalImagePlaneDelta(
+        Optic optic,
+        AnalysisFieldSample field,
+        double wavelengthMicrometers,
+        double pupilDelta,
+        bool xAxis)
+    {
+        var first = AnalysisTrace.FinalSample(
+            optic,
+            field.Hx,
+            field.Hy,
+            xAxis ? -pupilDelta : 0,
+            xAxis ? 0 : -pupilDelta,
+            wavelengthMicrometers);
+        var second = AnalysisTrace.FinalSample(
+            optic,
+            field.Hx,
+            field.Hy,
+            xAxis ? pupilDelta : 0,
+            xAxis ? 0 : pupilDelta,
+            wavelengthMicrometers);
+        var firstDirection = xAxis ? first.Direction.X : first.Direction.Y;
+        var secondDirection = xAxis ? second.Direction.X : second.Direction.Y;
+        var firstPosition = xAxis ? first.Position.X : first.Position.Y;
+        var secondPosition = xAxis ? second.Position.X : second.Position.Y;
+        var denominator = (firstDirection * second.Direction.Z)
+            - (secondDirection * first.Direction.Z);
+        return Math.Abs(denominator) <= 1e-30
+            ? 0
+            : ((secondDirection * first.Position.Z)
+                - (secondDirection * second.Position.Z)
+                - (second.Direction.Z * firstPosition)
+                + (second.Direction.Z * secondPosition)) / denominator * first.Direction.Z;
     }
 }
