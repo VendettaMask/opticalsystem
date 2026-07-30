@@ -259,7 +259,7 @@ internal static partial class PythonOptilandJsonWriter
                 odd.Base.Radius,
                 odd.Base.Conic,
                 WithLeadingZero(odd.Coefficients)),
-            BiconicGeometry biconic => new Dictionary<string, object?>
+            SeparableBiconicGeometry biconic => new Dictionary<string, object?>
             {
                 ["type"] = "BiconicGeometry",
                 ["cs"] = cs,
@@ -268,6 +268,8 @@ internal static partial class PythonOptilandJsonWriter
                 ["conic_x"] = biconic.ConicX,
                 ["conic_y"] = biconic.ConicY
             },
+            BiconicGeometry => throw new NotSupportedException(
+                "Zemax-style shared-root BiconicGeometry cannot be exported as Python Optiland's separable BiconicGeometry."),
             ToroidalGeometry toroidal => new Dictionary<string, object?>
             {
                 ["type"] = "ToroidalGeometry",

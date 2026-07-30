@@ -278,6 +278,7 @@
 
 ### FFT PSF
 
+- Workbench 将追迹 `Intensity` 视为功率/通量；FFT、MMDFT 与 Huygens 的复场振幅统一使用 `sqrt(Intensity)`（偏振也先按功率合成再开方），避免膜层透过率、吸收、渐晕或 apodization 在 PSF 中被再次平方。
 - 设置内容：`Sampling`、`Display`、`Rotation`、`Wavelength`、`Field`、`Type`（linear/log/phase/real/imaginary）、`Show As`（surface、contour、grey scale、false color）、`Use Polarization`、`Image Delta`、`Normalize`、`Surface`。
 - 结果展现：二维 PSF surface/contour/grey/false color 图，也可输出线性强度、对数强度、相位、实部、虚部。
 - 实现方式：在与参考波长 chief ray 垂直、以 chief ray 为中心的假想平面上计算点源衍射强度。算法在 pupil space coordinates 中完成，采样后进行 zero padding，使 image-space sampling 为 pupil sampling 的两倍以降低 aliasing。
@@ -399,6 +400,10 @@
 - 结果展现：二维 field map，grey scale 或 false color。
 - 实现方式：在二维 field grid 上逐点计算 Geometric MTF。
 
+### Sampled MTF / GETMTF
+
+- Zemax GETMTF 的快速采样方法按复光瞳（出瞳复波前）自相关计算指定空间频率处的 MTF。Workbench 因此使用同一个连续波前模型计算原始与移位光瞳点，并用实际零频 OTF 归一化，保证零频 MTF 为 1。
+- 按 Zemax pupil-space 方向约定，Tangential 对应 Y pupil shift，Sagittal 对应 X pupil shift。这个交换只应用于 Sampled MTF / through-focus sampled MTF；普通 FFT MTF 和 Contrast Loss Map 的现有方向不随本规则改动。
 ### Contrast Loss Map
 
 - 设置内容：与 MTF/波前相关，通常涉及 sampling、frequency、field、wavelength。
@@ -411,7 +416,7 @@
 
 - 设置内容：`Ray Density`、`Field Density`、`Plot Scale`、`Method`（Gaussian Quadrature/GQ 或 Rectangular Array/RA）、`Data`（wavefront error、spot radius、spot x、spot y、Strehl ratio）、`Refer To`（chief ray 或 centroid）、`Orientation`、`Use Dashes`、`Wavelength`、`Show Diffraction Limit`、`Use Polarization`、`Remove Vignetting Factors`。
 - 结果展现：RMS 或 Strehl 随 field angle 变化的曲线。可显示每个波长和多波长结果。
-- 实现方式：按视场扫描计算 RMS error 或 Strehl。GQ 用径向图样和最优权重估计 RMS；RA 用矩形 pupil grid，忽略圆形入瞳外光线。GQ 高效，但若表面孔径截断光线会不准；有孔径系统计算 RMS wavefront 时建议 RA 和更高采样。
+- 实现方式：按视场扫描计算 RMS error 或 Strehl。GQ 用径向图样和最优权重估计 RMS；RA 用矩形 pupil grid，忽略圆形入瞳外光线。GQ 高效，但若表面孔径截断光线会不准；有孔径系统计算 RMS wavefront 时建议 RA 和更高采样。`Remove Vignetting Factors` 指临时移除字段入瞳映射因子，不表示把未到达像面的失效光线放回 RMS；失效或零强度样本永远不得进入有效 RMS 分母。
 - 波前 RMS：chief ray 参考减 piston；centroid 参考减 piston 和 tilt，通常得到更小 RMS。多波长 RMS 同时对所有波长光瞳样本按权重计算。
 - `Show Diffraction Limit` 是便捷判断线，不执行完整衍射计算：spot radius/X/Y 使用 `1.22 × on-axis working F/# × λ`，RMS wavefront 使用 `0.072 waves`，Strehl 使用 `0.8`。勾选后 RMS vs Field 必须把该值作为覆盖整个视场范围的水平虚线加入绘图系列；不能只写入结果元数据。
 

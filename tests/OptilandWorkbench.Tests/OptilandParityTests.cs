@@ -41,6 +41,122 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void SampledMtfZeroFrequencyIsNormalizedAndIndependentOfZernikeResiduals()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+
+        foreach (var zernikeTerms in new[] { 5, 12, 37 })
+        {
+            var evaluator = SampledMtfEngine.Create(
+                optic,
+                (0, 1),
+                wavelength,
+                pupilSampling: 16,
+                zernikeTerms: zernikeTerms);
+
+            Assert.Equal(1, evaluator.Calculate(0, 0), precision: 12);
+        }
+    }
+
+    [Fact]
+    public void SampledMtfLabelsUseZemaxPupilSpaceTangentialSagittalDirections()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var frequency = 20.0;
+        var data = new SampledMtfAnalysis(
+            optic,
+            pupilSampling: 16,
+            zernikeTerms: 37,
+            numPoints: 3,
+            maximumFrequency: frequency).GenerateData();
+        var fields = SpotAnalysisEngine.DefinedFields(optic);
+
+        for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+        {
+            var evaluator = SampledMtfEngine.Create(optic, fields[fieldIndex], wavelength, 16, 37);
+            var tangential = data.PlotSeries[(fieldIndex * 2)];
+            var sagittal = data.PlotSeries[(fieldIndex * 2) + 1];
+
+            Assert.Contains("Tangential", tangential.Name);
+            Assert.Contains("Sagittal", sagittal.Name);
+            Assert.Equal(evaluator.Calculate(0, frequency / 2), tangential.Points[1].Y, precision: 12);
+            Assert.Equal(evaluator.Calculate(frequency / 2, 0), sagittal.Points[1].Y, precision: 12);
+        }
+    }
+
+    [Fact]
+    public void ContrastLossMapKeepsExistingZemaxPupilSpaceDirectionLabels()
+    {
+        var data = new ContrastLossMapAnalysis(
+            Optic.CreateCookeTriplet(),
+            sampling: 8,
+            frequency: 5).GenerateData();
+
+        Assert.Equal("Sagittal", data.PlotSeries[0].Name);
+        Assert.Equal("Tangential", data.PlotSeries[1].Name);
+    }
+    [Fact]
+    public void DiffractionPsfUsesSquareRootOfRayPowerAsFieldAmplitude()
+    {
+        Assert.Equal(0, DiffractionEngine.FieldAmplitudeFromPower(-1), precision: 12);
+        Assert.Equal(0, DiffractionEngine.FieldAmplitudeFromPower(double.NaN), precision: 12);
+        Assert.Equal(2, DiffractionEngine.FieldAmplitudeFromPower(4), precision: 12);
+
+        var wavefront = new WavefrontResult(
+            new[]
+            {
+                new WavefrontSample(-1, -1, -1, -1, 1, 0, 1),
+                new WavefrontSample(1, -1, 1, -1, 1, 0, 1),
+                new WavefrontSample(-1, 1, -1, 1, 1, 0, 1),
+                new WavefrontSample(1, 1, 1, 1, 1, 0, 9)
+            },
+            Radius: 1,
+            ReferenceOpticalPath: 0,
+            VignettedRayCount: 0);
+
+        var uniform = InvokeComplexPupil("CreateUniformPupil", wavefront, 2);
+        var fft = InvokeComplexPupil(
+            "BuildComplexPupil",
+            wavefront,
+            null,
+            2,
+            new Wavelength { Nanometers = 550 },
+            1.0,
+            1.0,
+            false,
+            0.0);
+        var zemaxCompatibleFft = InvokeComplexPupil(
+            "BuildComplexPupil",
+            wavefront,
+            null,
+            2,
+            new Wavelength { Nanometers = 550 },
+            1.0,
+            1.0,
+            true,
+            0.0);
+
+        Assert.Equal(3, uniform[1, 1].Magnitude / uniform[0, 0].Magnitude, precision: 12);
+        Assert.Equal(3, fft[1, 1].Magnitude / fft[0, 0].Magnitude, precision: 12);
+        Assert.Equal(3, zemaxCompatibleFft[1, 1].Magnitude / zemaxCompatibleFft[0, 0].Magnitude, precision: 12);
+
+        var huygensWavefront = new WavefrontResult(
+            new[] { new WavefrontSample(0, 0, 0, 0, 1, 0, 4) },
+            Radius: 1,
+            ReferenceOpticalPath: 0,
+            VignettedRayCount: 0);
+        var imageCoordinates = new[,] { { new Vector3D(0, 0, 2) } };
+        var huygens = InvokeHuygensSummation(
+            imageCoordinates,
+            huygensWavefront,
+            new Wavelength { Nanometers = 550 },
+            false,
+            null);
+        Assert.Equal(4, huygens[0, 0], precision: 12);
+    }
+    [Fact]
     public void ManagedBackendProvidesVectorOperations()
     {
         var backend = new ManagedCpuBackend();
@@ -74,6 +190,77 @@ public sealed class OptilandParityTests
             Assert.True(double.IsFinite(geometry.Sag(1, 1)));
             Assert.NotNull(geometry.DistanceToIntersection(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)));
         }
+    }
+
+    [Fact]
+    public void BiconicGeometryUsesSharedRootZemaxSagEquation()
+    {
+        var biconic = new BiconicGeometry(50, 50, -0.4, -0.4);
+        var standard = new StandardGeometry(50, -0.4);
+        var separable = new SeparableBiconicGeometry(50, 50, -0.4, -0.4);
+        var x = 4.5;
+        var y = -3.25;
+
+        Assert.Equal(standard.Sag(x, y), biconic.Sag(x, y), precision: 12);
+        Assert.NotEqual(separable.Sag(x, y), biconic.Sag(x, y), precision: 12);
+        Assert.NotNull(biconic.DistanceToIntersection(new Vector3D(x, y, -5), new Vector3D(0, 0, 1)));
+        Assert.All(new[]
+        {
+            biconic.SurfaceNormal(new Vector3D(x, y, biconic.Sag(x, y))).X,
+            biconic.SurfaceNormal(new Vector3D(x, y, biconic.Sag(x, y))).Y,
+            biconic.SurfaceNormal(new Vector3D(x, y, biconic.Sag(x, y))).Z
+        }, value => Assert.True(double.IsFinite(value)));
+    }
+
+    [Fact]
+    public void ConicSagReturnsNaNOutsideExplicitSquareRootDomain()
+    {
+        var standard = new StandardGeometry(1, 0);
+        var asphere = new EvenAsphereGeometry(1, 0, new[] { 1e-6 });
+        var biconic = new BiconicGeometry(1, 1, 0, 0);
+
+        Assert.True(double.IsNaN(standard.Sag(1.01, 0)));
+        Assert.True(double.IsNaN(asphere.Sag(1.01, 0)));
+        Assert.True(double.IsNaN(biconic.Sag(1.01, 0)));
+        Assert.All(new[]
+        {
+            standard.SurfaceNormal(new Vector3D(1.01, 0, 0)).X,
+            standard.SurfaceNormal(new Vector3D(1.01, 0, 0)).Y,
+            standard.SurfaceNormal(new Vector3D(1.01, 0, 0)).Z
+        }, value => Assert.True(double.IsNaN(value)));
+        Assert.Equal(1, standard.Sag(1, 0), precision: 12);
+    }
+
+    [Fact]
+    public void ConicIntersectionsRejectUndefinedSagAndImplicitBackBranch()
+    {
+        var standard = new StandardGeometry(1, 0);
+        var asphere = new EvenAsphereGeometry(1, 0, new[] { 1e-6 });
+        var biconic = new BiconicGeometry(1, 1, 0, 0);
+
+        Assert.Null(standard.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
+        Assert.Null(asphere.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
+        Assert.Null(biconic.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
+        Assert.Equal(3, standard.DistanceToIntersection(new Vector3D(0, 0, 3), new Vector3D(0, 0, -1))!.Value, precision: 12);
+    }
+
+    [Theory]
+    [InlineData(0.0)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(double.NegativeInfinity)]
+    public void StandardGeometryPlanarRadiusReturnsStableLocalZNormal(double radius)
+    {
+        var geometry = new StandardGeometry(radius);
+
+        var centerNormal = geometry.SurfaceNormal(new Vector3D(0, 0, 0));
+        var offAxisNormal = geometry.SurfaceNormal(new Vector3D(1.25, -0.5, 0));
+
+        Assert.Equal(new Vector3D(0, 0, 1), centerNormal);
+        Assert.Equal(new Vector3D(0, 0, 1), offAxisNormal);
+        Assert.Equal(new PlaneGeometry().Sag(1.25, -0.5), geometry.Sag(1.25, -0.5));
+        Assert.Equal(
+            new PlaneGeometry().DistanceToIntersection(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)),
+            geometry.DistanceToIntersection(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)));
     }
 
     [Fact]
@@ -1404,7 +1591,24 @@ public sealed class OptilandParityTests
         Assert.Equal(1.42, registry.Materials.Resolve("TEST-N").RefractiveIndex(587.6), precision: 12);
         Assert.Contains(registry.Warnings, warning => warning.Contains(nameof(FailingOptilandPlugin), StringComparison.Ordinal));
     }
-}
+
+    private static System.Numerics.Complex[,] InvokeComplexPupil(string methodName, params object?[] parameters)
+    {
+        var method = typeof(DiffractionEngine).GetMethod(
+            methodName,
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+            ?? throw new MissingMethodException(nameof(DiffractionEngine), methodName);
+        return (System.Numerics.Complex[,])method.Invoke(null, parameters)!;
+    }
+
+    private static double[,] InvokeHuygensSummation(params object?[] parameters)
+    {
+        var method = typeof(DiffractionEngine).GetMethod(
+            "HuygensSummation",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+            ?? throw new MissingMethodException(nameof(DiffractionEngine), "HuygensSummation");
+        return (double[,])method.Invoke(null, parameters)!;
+    }}
 
 public sealed class TestOptilandPlugin : IOptilandPlugin
 {

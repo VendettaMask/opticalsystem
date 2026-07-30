@@ -534,7 +534,7 @@ internal static class RmsScanSupport
             var wavefront = WavefrontEngine.GenerateChiefRay(optic, field, wavelength, numRings);
             var samples = wavefront.Samples
                 .Where(sample => double.IsFinite(sample.OpdWaves)
-                    && (!removeVignetting || sample.Intensity > 0))
+                    && sample.Intensity > 0)
                 .ToArray();
             if (samples.Length == 0)
             {

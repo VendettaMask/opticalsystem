@@ -413,6 +413,7 @@ internal static class PythonOptilandJsonConversion
             EvenAsphereGeometry even => even.Base.Radius,
             OddAsphereGeometry odd => odd.Base.Radius,
             BiconicGeometry biconic => biconic.RadiusX,
+            SeparableBiconicGeometry biconic => biconic.RadiusX,
             ToroidalGeometry toroidal => toroidal.SagittalRadius,
             PolynomialGeometry => double.PositiveInfinity,
             ChebyshevGeometry => double.PositiveInfinity,
@@ -430,6 +431,7 @@ internal static class PythonOptilandJsonConversion
             EvenAsphereGeometry even => even.Base.Conic,
             OddAsphereGeometry odd => odd.Base.Conic,
             BiconicGeometry biconic => biconic.ConicX,
+            SeparableBiconicGeometry biconic => biconic.ConicX,
             _ => 0
         };
     }

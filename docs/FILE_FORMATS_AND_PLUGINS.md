@@ -48,7 +48,7 @@ longer creates them.
 
 - EPD, image-F-number, object-NA, and float-by-stop-size system apertures
 - angle fields and weighted primary/non-primary wavelengths
-- plane, standard, planar/standard grating, biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
+- plane, standard, planar/standard grating, Python/Optiland separable biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
 - homogeneous catalog, ideal, and Abbe materials
 - centered/annular/offset radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures
 - uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization
@@ -116,9 +116,9 @@ Zemax `.zmx` import follows the Python Optiland 0.5.8 `zemax_handler.py` and `Ze
 - glass catalog declarations and `GLAS` index/Abbe fallback data
 - standard, even-asphere, odd-asphere, and basic toroidal surfaces
 - coordinate-break decenter, tilt, and thickness transforms
-- mirror material continuity, comments, stop flags, and semi-diameters
+- mirror material continuity, comments, stop flags, semi-diameters, and `APMN`/`APMX` circular annular surface-aperture bounds
 
-The ZMX importer rejects non-sequential mode, unsupported Zemax surface types, negative thickness, coordinate-break order flags, theodolite field definitions, and toroidal conic/polynomial terms. Real-image-height chief rays are solved at the primary wavelength in local image-surface coordinates. Vignette decenter and tangent-angle operands are read but not represented by the current field model. Coatings, solves, pickups, polarization, multi-configuration operands, and unsupported freeform data are not imported.
+The ZMX importer rejects non-sequential mode, unsupported Zemax surface types, negative thickness, coordinate-break order flags, theodolite field definitions, and toroidal conic/polynomial terms. Real-image-height chief rays are solved at the primary wavelength in local image-surface coordinates. Field rows are preserved in declared one-based order and are never merged by numeric X/Y coordinates, because merit operands and multi-configuration data may reference duplicate-coordinate fields by index. Plain ZMX exports do not carry a reliable persisted UI-active multi-configuration selection, so imports deterministically activate configuration 1 while preserving all configurations. `APMN` and `APMX` configuration operands are applied to the addressed surface; a positive `APMN` installs an `AnnularAperture` so central obscurations affect tracing instead of remaining display-only metadata. Vignette decenter and tangent-angle operands are read but not represented by the current field model. Coatings, solves, pickups, polarization, most multi-configuration operands, and unsupported freeform data are not imported.
 
 The required operand boundary is defined by
 [Zemax sequential operand support specification](ZEMAX_OPERAND_SUPPORT.md): 333

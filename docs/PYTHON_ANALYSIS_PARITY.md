@@ -72,22 +72,22 @@ Real image height is a Zemax extension beyond Python Optiland 0.5.8. Its primary
 | Centroid sphere wavefront | Python `centroid_sphere` OPD strategy with tilt-corrected reference-sphere center/radius, pupil intersections, intensity, OPD, and RMS |
 | Best-fit sphere wavefront | Python `best_fit_sphere` OPD strategy with four-parameter sphere fit, pupil intersections, intensity, OPD, and RMS |
 | Zernike | Unnormalized Fringe basis ordering with QR least-squares fitting to valid wavefront samples |
-| FFT PSF | Complex pupil amplitude and phase, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
-| MMDFT PSF | Uniform pupil complex amplitude/phase propagated with Python's non-unitary matrix-multiply DFT kernels and ideal-pupil peak normalization |
-| Huygens PSF | Huygens-Fresnel direct summation on the image-surface tangent plane at the chief intercept, using the local surface normal, exact adjacent-point Image Delta, obliquity factor, and ideal normalization at the on-axis chief intercept |
+| FFT PSF | Complex pupil phase with traced power converted to field amplitude by `sqrt(Intensity)`, centered zero padding, two-dimensional FFT, and ideal-pupil peak normalization |
+| MMDFT PSF | Uniform pupil complex phase with traced power converted to field amplitude by `sqrt(Intensity)`, propagated with Python's non-unitary matrix-multiply DFT kernels and ideal-pupil peak normalization |
+| Huygens PSF | Huygens-Fresnel direct summation on the image-surface tangent plane at the chief intercept, using `sqrt(Intensity)` field amplitudes, the local surface normal, exact adjacent-point Image Delta, obliquity factor, and ideal normalization at the on-axis chief intercept |
 | FFT MTF | Two-dimensional FFT of PSF intensity with normalized center-axis tangential and sagittal slices |
 | Huygens MTF | Two-dimensional FFT of the Huygens PSF, NumPy-compatible odd-size `fftshift`, DC normalization, and pixel-pitch frequency step |
 | Geometric MTF | One-dimensional spot histograms transformed with cosine/sine integrals and optionally multiplied by the circular-pupil diffraction limit |
-| Sampled MTF | Complex pupil overlap against a frequency-shifted 37-term Fringe Zernike fit, normalized by zero-frequency intensity |
+| Sampled MTF | Complex-pupil autocorrelation using the same fitted continuous wavefront model at both pupil points, normalized by the actual zero-frequency OTF; Zemax pupil-space labels use Y shift for Tangential and X shift for Sagittal |
 | Distortion | Chief rays on the selected `+x/-x/+y/-y` half-fan; ideal height from the selected reference model; optional vignetting factors; Real Image Height converted to an equivalent launch field |
 | Grid distortion | Chief-point-centered real grid against the ideal grid over `[-sqrt(2)/2, +sqrt(2)/2]` in X and Y |
 | Field curvature | Paired `+/-1e-5` normalized pupil rays; direct tangential and sagittal line intersections from final position and direction cosines |
 | Jones pupil | Per-surface `s/p/k` basis transport, optional Fresnel Jones coefficients, final `u/v` projection, and complex `Jxx/Jxy/Jyx/Jyy` pupil samples |
 | Image simulation | Intentional Zemax-semantic extension: external bitmap input, Field Height mapping, black guard band, relative-illumination grid, selectable None/Geometric/Huygens PSF grid with severe-aberration fallback, common-reference distortion/lateral-color warp, and RGB stacking |
 
-The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image simulation is no longer pixel-compared to the older fixed-FFT Python fixture because that fixture does not model the Zemax settings above; its tests instead lock the selected PSF mode, unit-energy reconstruction, black guard band, finite warp, and retained lateral color.
+The tests compare every generated point for both official lenses where the Python fixture remains the semantic authority. FFT/MMDFT/Huygens diffraction PSF pixels now use Zemax/physical power-to-field-amplitude semantics, so those checks retain the Python sampling and scale contracts with a dedicated diffraction reference tolerance while a separate regression locks `sqrt(Intensity)` amplitude weighting. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image simulation is no longer pixel-compared to the older fixed-FFT Python fixture because that fixture does not model the Zemax settings above; its tests instead lock the selected PSF mode, unit-energy reconstruction, black guard band, finite warp, and retained lateral color.
 
-The validated repository baseline on 2026-07-30 is a zero-warning solution build with `577/577` passing tests. The added image decoder is locked in the committed dependency graph, and the complete Huygens/image-simulation, GUI-contract, import, snapshot, and numerical suite passes.
+The validated repository baseline on 2026-07-30 is a zero-warning solution build with `590/590` passing tests. Subsequent geometry work distinguishes Zemax shared-root `BiconicGeometry` from Python Optiland separable biconic dictionaries, which now use `SeparableBiconicGeometry`. The added image decoder is locked in the committed dependency graph, and the complete Huygens/image-simulation, GUI-contract, import, snapshot, and numerical suite passes.
 
 ## Plot Contract
 
@@ -129,6 +129,6 @@ Line point order is preserved. This is required for two-dimensional grid rows an
 
 ## Scope
 
-This parity statement applies to the thirty analyses above on the validated sequential refractive path and chief-ray, centroid-sphere, and best-fit-sphere wavefront strategies. Sampled MTF is validated both as a frequency sweep and through focus; geometric MTF has its own spot-based contract. MMDFT and Huygens-Fresnel diffraction are validated on bounded Cooke/Tessar fixtures; vectorial PSF/MTF remains outside this contract.
+This parity statement applies to the thirty analyses above on the validated sequential refractive path and chief-ray, centroid-sphere, and best-fit-sphere wavefront strategies. Sampled MTF is validated as a Zemax-style complex-pupil autocorrelation for both frequency sweep and through focus; old Python fixture values are no longer treated as exact authority where zero-frequency OTF normalization or Tangential/Sagittal pupil-space labeling differs. Geometric MTF has its own spot-based contract. MMDFT and Huygens-Fresnel diffraction are validated on bounded Cooke/Tessar fixtures; vectorial PSF/MTF remains outside this contract.
 
 The checked wavefront samples and FFT arrays are point-for-point equivalent. The native Avalonia OPD heatmaps currently use local inverse-distance interpolation rather than SciPy's `griddata(method="cubic")`; axes, limits, values, color scale, title, and colorbar follow Python, but interpolated pixels between traced samples are not yet claimed identical.

@@ -67,31 +67,43 @@ public sealed partial class ManagedCpuBackend
             var second = (-b + root) / denominator;
             for (var lane = 0; lane < width; lane++)
             {
-                double? candidate;
+                double? validDistance;
                 if (Math.Abs(a[lane]) < 1e-15)
                 {
-                    candidate = Math.Abs(b[lane]) < 1e-15 ? null : -c[lane] / b[lane];
+                    validDistance = Math.Abs(b[lane]) < 1e-15
+                        ? null
+                        : ValidateStandardExplicitSagDistance(
+                            -c[lane] / b[lane],
+                            originX[index + lane],
+                            originY[index + lane],
+                            originZ[index + lane],
+                            directionX[index + lane],
+                            directionY[index + lane],
+                            directionZ[index + lane],
+                            radius,
+                            conic);
                 }
                 else if (discriminant[lane] < 0)
                 {
-                    candidate = null;
+                    validDistance = null;
                 }
                 else
                 {
-                    var firstValue = first[lane];
-                    var secondValue = second[lane];
-                    candidate = firstValue >= -1e-12 && secondValue >= -1e-12
-                        ? Math.Min(firstValue, secondValue)
-                        : firstValue >= -1e-12
-                            ? firstValue
-                            : secondValue >= -1e-12 ? secondValue : null;
+                    validDistance = SelectStandardExplicitSagDistance(
+                        first[lane],
+                        second[lane],
+                        originX[index + lane],
+                        originY[index + lane],
+                        originZ[index + lane],
+                        directionX[index + lane],
+                        directionY[index + lane],
+                        directionZ[index + lane],
+                        radius,
+                        conic);
                 }
 
-                var valid = candidate is >= -1e-12;
-                intersects[index + lane] = valid;
-                distance[index + lane] = valid
-                    ? Math.Max(0, candidate!.Value)
-                    : double.NaN;
+                intersects[index + lane] = validDistance.HasValue;
+                distance[index + lane] = validDistance ?? double.NaN;
             }
         }
 
@@ -109,5 +121,84 @@ public sealed partial class ManagedCpuBackend
                 distance[index..],
                 intersects[index..]);
         }
+    }
+
+    private static double? SelectStandardExplicitSagDistance(
+        double first,
+        double second,
+        double originX,
+        double originY,
+        double originZ,
+        double directionX,
+        double directionY,
+        double directionZ,
+        double radius,
+        double conic)
+    {
+        var firstDistance = ValidateStandardExplicitSagDistance(
+            first,
+            originX,
+            originY,
+            originZ,
+            directionX,
+            directionY,
+            directionZ,
+            radius,
+            conic);
+        var secondDistance = ValidateStandardExplicitSagDistance(
+            second,
+            originX,
+            originY,
+            originZ,
+            directionX,
+            directionY,
+            directionZ,
+            radius,
+            conic);
+        if (!firstDistance.HasValue)
+        {
+            return secondDistance;
+        }
+
+        if (!secondDistance.HasValue)
+        {
+            return firstDistance;
+        }
+
+        return Math.Min(firstDistance.Value, secondDistance.Value);
+    }
+
+    private static double? ValidateStandardExplicitSagDistance(
+        double? candidate,
+        double originX,
+        double originY,
+        double originZ,
+        double directionX,
+        double directionY,
+        double directionZ,
+        double radius,
+        double conic)
+    {
+        const double tolerance = 1e-12;
+        if (candidate is not { } rawDistance || !double.IsFinite(rawDistance) || rawDistance < -tolerance)
+        {
+            return null;
+        }
+
+        var distance = Math.Max(0, rawDistance);
+        var x = originX + (directionX * distance);
+        var y = originY + (directionY * distance);
+        var z = originZ + (directionZ * distance);
+        var curvature = 1.0 / radius;
+        var r2 = (x * x) + (y * y);
+        var rootArgument = 1.0 - ((1.0 + conic) * curvature * curvature * r2);
+        if (rootArgument < -tolerance)
+        {
+            return null;
+        }
+
+        var sag = curvature * r2 / (1.0 + Math.Sqrt(Math.Max(0, rootArgument)));
+        var sagTolerance = 1e-8 * Math.Max(1.0, Math.Max(Math.Abs(z), Math.Abs(sag)));
+        return Math.Abs(z - sag) <= sagTolerance ? distance : null;
     }
 }

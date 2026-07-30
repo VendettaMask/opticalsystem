@@ -11,7 +11,7 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Ray generation | `Raytrace` | Source-validated angle, object-height, and paraxial-image-height fields; radial normalization; nearest-field vignetting; object-space telecentric launch; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven apodization profiles |
 | Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
 | Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
-| Geometry | `Geometries` | Plane, standard, planar/standard grating, even/odd asphere, biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
+| Geometry | `Geometries` | Plane, standard conics with explicit sag-domain rejection, planar/standard grating, even/odd asphere, Zemax shared-root biconic, Python-separable biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
 | Propagation | `Propagation` | Homogeneous and GRIN models |
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe, plus a 1,740-entry manufacturer-aware Optiland/refractiveindex.info glass catalog with formula/tabulated n/k evaluation |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |

@@ -147,6 +147,8 @@ public sealed class StandardGratingGeometry : IGratingGeometry
 
 public sealed class StandardGeometry : IGeometry
 {
+    internal const double ConicDomainTolerance = 1e-12;
+
     public StandardGeometry(double radius, double conic = 0)
     {
         Radius = radius;
@@ -168,7 +170,13 @@ public sealed class StandardGeometry : IGeometry
 
         var r2 = (x * x) + (y * y);
         var c = 1.0 / Radius;
-        var root = Math.Sqrt(Math.Max(0, 1 - ((1 + Conic) * c * c * r2)));
+        var rootArgument = 1.0 - ((1.0 + Conic) * c * c * r2);
+        if (rootArgument < -ConicDomainTolerance)
+        {
+            return double.NaN;
+        }
+
+        var root = Math.Sqrt(Math.Max(0, rootArgument));
         return c * r2 / (1 + root);
     }
 
@@ -201,7 +209,7 @@ public sealed class StandardGeometry : IGeometry
             }
 
             var linearDistance = -c / b;
-            return linearDistance >= -1e-12 ? Math.Max(0, linearDistance) : null;
+            return ValidateExplicitSagDistance(linearDistance, origin, direction);
         }
 
         var discriminant = (b * b) - (4.0 * a * c);
@@ -213,28 +221,55 @@ public sealed class StandardGeometry : IGeometry
         var root = Math.Sqrt(discriminant);
         var first = (-b - root) / (2.0 * a);
         var second = (-b + root) / (2.0 * a);
-        var firstIsValid = first >= -1e-12;
-        var secondIsValid = second >= -1e-12;
-        if (!firstIsValid && !secondIsValid)
+        var firstDistance = ValidateExplicitSagDistance(first, origin, direction);
+        var secondDistance = ValidateExplicitSagDistance(second, origin, direction);
+        if (!firstDistance.HasValue)
+        {
+            return secondDistance;
+        }
+
+        if (!secondDistance.HasValue)
+        {
+            return firstDistance;
+        }
+
+        return Math.Min(firstDistance.Value, secondDistance.Value);
+    }
+
+    private double? ValidateExplicitSagDistance(double distance, Vector3D origin, Vector3D direction)
+    {
+        if (!double.IsFinite(distance) || distance < -ConicDomainTolerance)
         {
             return null;
         }
 
-        if (!firstIsValid)
+        var clampedDistance = Math.Max(0, distance);
+        var point = origin + (direction * clampedDistance);
+        var sag = Sag(point.X, point.Y);
+        if (!double.IsFinite(sag))
         {
-            return Math.Max(0, second);
+            return null;
         }
 
-        if (!secondIsValid)
-        {
-            return Math.Max(0, first);
-        }
-
-        return Math.Max(0, Math.Min(first, second));
+        var tolerance = 1e-8 * Math.Max(1.0, Math.Max(Math.Abs(point.Z), Math.Abs(sag)));
+        return Math.Abs(point.Z - sag) <= tolerance ? clampedDistance : null;
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
+        if (Math.Abs(Radius) < 1e-12 || double.IsInfinity(Radius))
+        {
+            return new Vector3D(0, 0, 1);
+        }
+
+        var r2 = (localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y);
+        var c = 1.0 / Radius;
+        var rootArgument = 1.0 - ((1.0 + Conic) * c * c * r2);
+        if (rootArgument < -ConicDomainTolerance)
+        {
+            return new Vector3D(double.NaN, double.NaN, double.NaN);
+        }
+
         var normal = new Vector3D(
             -localPoint.X,
             -localPoint.Y,
@@ -253,28 +288,38 @@ public sealed class StandardGeometry : IGeometry
         {
             var point = origin + (direction * t);
             var residual = point.Z - sag(point.X, point.Y);
+            if (!double.IsFinite(residual))
+            {
+                return null;
+            }
+
             if (Math.Abs(residual) < 1e-8)
             {
-                return t >= 0 ? t : null;
+                return double.IsFinite(t) && t >= 0 ? t : null;
             }
 
             var dt = 1e-5;
             var next = origin + (direction * (t + dt));
             var residualNext = next.Z - sag(next.X, next.Y);
+            if (!double.IsFinite(residualNext))
+            {
+                return null;
+            }
+
             var derivative = (residualNext - residual) / dt;
-            if (Math.Abs(derivative) < 1e-12)
+            if (!double.IsFinite(derivative) || Math.Abs(derivative) < 1e-12)
             {
                 return null;
             }
 
             t -= residual / derivative;
-            if (t < -1e-8)
+            if (!double.IsFinite(t) || t < -1e-8)
             {
                 return null;
             }
         }
 
-        return t >= 0 ? t : null;
+        return double.IsFinite(t) && t >= 0 ? t : null;
     }
 }
 
@@ -382,6 +427,61 @@ public sealed class BiconicGeometry : IGeometry
 
     public double Sag(double x, double y)
     {
+        var curvatureX = Curvature(RadiusX);
+        var curvatureY = Curvature(RadiusY);
+        var numerator = (curvatureX * x * x) + (curvatureY * y * y);
+        if (Math.Abs(numerator) <= 1e-30)
+        {
+            return 0;
+        }
+
+        var rootArgument = 1.0
+            - ((1.0 + ConicX) * curvatureX * curvatureX * x * x)
+            - ((1.0 + ConicY) * curvatureY * curvatureY * y * y);
+        if (rootArgument < -StandardGeometry.ConicDomainTolerance)
+        {
+            return double.NaN;
+        }
+
+        return numerator / (1.0 + Math.Sqrt(Math.Max(0, rootArgument)));
+    }
+
+    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    {
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+    }
+
+    public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
+
+    public IGeometry Clone() => new BiconicGeometry(RadiusX, RadiusY, ConicX, ConicY);
+
+    private static double Curvature(double radius) => Math.Abs(radius) < 1e-12 || double.IsInfinity(radius)
+        ? 0
+        : 1.0 / radius;
+}
+
+public sealed class SeparableBiconicGeometry : IGeometry
+{
+    public SeparableBiconicGeometry(double radiusX, double radiusY, double conicX = 0, double conicY = 0)
+    {
+        RadiusX = radiusX;
+        RadiusY = radiusY;
+        ConicX = conicX;
+        ConicY = conicY;
+    }
+
+    public string Kind => "separable_biconic";
+
+    public double RadiusX { get; }
+
+    public double RadiusY { get; }
+
+    public double ConicX { get; }
+
+    public double ConicY { get; }
+
+    public double Sag(double x, double y)
+    {
         return new StandardGeometry(RadiusX, ConicX).Sag(x, 0)
             + new StandardGeometry(RadiusY, ConicY).Sag(0, y);
     }
@@ -393,7 +493,7 @@ public sealed class BiconicGeometry : IGeometry
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
 
-    public IGeometry Clone() => new BiconicGeometry(RadiusX, RadiusY, ConicX, ConicY);
+    public IGeometry Clone() => new SeparableBiconicGeometry(RadiusX, RadiusY, ConicX, ConicY);
 }
 
 public sealed class ToroidalGeometry : IGeometry

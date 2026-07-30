@@ -463,9 +463,12 @@ public static class DiffractionEngine
                 * (chiefImageDirectionZ - sample.ImageDirectionZ)
                 / (wavelength.Micrometers * 1e-3);
         return Complex.FromPolarCoordinates(
-            Math.Sqrt(sample.Intensity),
+            FieldAmplitudeFromPower(sample.Intensity),
             -2 * Math.PI * (sample.OpdWaves + defocusOpdWaves));
     }
+
+    internal static double FieldAmplitudeFromPower(double power) =>
+        double.IsFinite(power) && power > 0 ? Math.Sqrt(power) : 0;
 
     private static Complex[,] BuildComplexPupil(
         WavefrontResult wavefront,
@@ -496,9 +499,7 @@ public static class DiffractionEngine
                     : 0;
             }
 
-            var amplitude = cellCenteredPupil
-                ? Math.Sqrt(Math.Max(0, relativeIntensity))
-                : Math.Max(0, relativeIntensity);
+            var amplitude = FieldAmplitudeFromPower(relativeIntensity);
             var defocusOpdWaves = Math.Abs(defocusMillimeters) <= 1e-30
                 ? 0
                 : wavefront.ImageRefractiveIndex * defocusMillimeters
@@ -934,7 +935,8 @@ public static class DiffractionEngine
         {
             var column = (int)Math.Round((sample.NormalizedPupilX + 1) / 2 * (numRays - 1));
             var row = (int)Math.Round((sample.NormalizedPupilY + 1) / 2 * (numRays - 1));
-            var amplitude = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
+            var relativePower = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
+            var amplitude = FieldAmplitudeFromPower(relativePower);
             var phase = -2 * Math.PI * sample.OpdWaves;
             pupil[row, column] = Complex.FromPolarCoordinates(amplitude, phase);
         }
@@ -1049,7 +1051,8 @@ public static class DiffractionEngine
                     var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
                         (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
                         (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;
-                    field += sample.Intensity * polarizationAmplitude * pupilPhase * wave * obliquity;
+                    var sampleAmplitude = FieldAmplitudeFromPower(sample.Intensity);
+                    field += sampleAmplitude * polarizationAmplitude * pupilPhase * wave * obliquity;
                 }
 
                 psf[row, column] = field.Magnitude * field.Magnitude;

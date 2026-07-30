@@ -45,8 +45,8 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
         {
             var field = fields[fieldIndex];
             var evaluator = SampledMtfEngine.Create(Optic, field, wavelength, _pupilSampling, _zernikeTerms);
-            var tangential = frequency.Select(value => evaluator.Calculate(value, 0)).ToArray();
-            var sagittal = frequency.Select(value => evaluator.Calculate(0, value)).ToArray();
+            var tangential = frequency.Select(value => evaluator.Calculate(0, value)).ToArray();
+            var sagittal = frequency.Select(value => evaluator.Calculate(value, 0)).ToArray();
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",

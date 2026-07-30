@@ -323,9 +323,9 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
                 for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
                 {
                     tangential[fieldIndex][step] = SampledMtfEngine.Calculate(
-                        Optic, fields[fieldIndex], wavelength, _spatialFrequency, 0, _pupilSampling);
-                    sagittal[fieldIndex][step] = SampledMtfEngine.Calculate(
                         Optic, fields[fieldIndex], wavelength, 0, _spatialFrequency, _pupilSampling);
+                    sagittal[fieldIndex][step] = SampledMtfEngine.Calculate(
+                        Optic, fields[fieldIndex], wavelength, _spatialFrequency, 0, _pupilSampling);
                 }
             }
         }

@@ -33,6 +33,7 @@ public static class OpticSnapshotValidator
         "even_asphere",
         "odd_asphere",
         "biconic",
+        "separable_biconic",
         "toroidal",
         "polynomial",
         "chebyshev",

@@ -129,6 +129,13 @@ public static class ComponentSnapshotFactory
                 ["conicX"] = biconic.ConicX,
                 ["conicY"] = biconic.ConicY
             }, new Dictionary<string, string>()),
+            SeparableBiconicGeometry biconic => new ComponentSnapshot("separable_biconic", new Dictionary<string, double>
+            {
+                ["radiusX"] = biconic.RadiusX,
+                ["radiusY"] = biconic.RadiusY,
+                ["conicX"] = biconic.ConicX,
+                ["conicY"] = biconic.ConicY
+            }, new Dictionary<string, string>()),
             ToroidalGeometry toroidal => new ComponentSnapshot("toroidal", new Dictionary<string, double>
             {
                 ["tangentialRadius"] = toroidal.TangentialRadius,
@@ -183,6 +190,7 @@ public static class ComponentSnapshotFactory
             "even_asphere" => new EvenAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
             "odd_asphere" => new OddAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
             "biconic" => new BiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
+            "separable_biconic" => new SeparableBiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
             "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius)),
             "polynomial" => new PolynomialGeometry(ReadPolynomial(n)),
             "chebyshev" => new ChebyshevGeometry(ReadPairCoefficients(n), Get(n, "normalizationX", 1), Get(n, "normalizationY", 1)),

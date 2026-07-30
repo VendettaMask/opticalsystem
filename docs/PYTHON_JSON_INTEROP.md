@@ -25,7 +25,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | System aperture | EPD, image F-number, object NA, float by stop size |
 | Fields | AngleField |
 | Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and EvenAsphere/OddAsphere including the first r²/r departure term |
+| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, Python/Optiland separable BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and EvenAsphere/OddAsphere including the first r²/r departure term |
 | Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
 | Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
 | Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |
@@ -33,7 +33,7 @@ The explicit Python export suffix is `.optiland-python.json`.
 | Coating | SimpleCoating dictionaries in Workbench import/export |
 | Sequential data | Thickness, stop, coordinate position and rotation |
 
-Unsupported geometry, material, system aperture, physical aperture, coating, or interaction types fail with `NotSupportedException`. Export never silently replaces an unsupported optical component.
+Unsupported geometry, material, system aperture, physical aperture, coating, or interaction types fail with `NotSupportedException`. Workbench `BiconicGeometry` uses the Zemax shared-root equation and is not exported as Python Optiland `BiconicGeometry`; only `SeparableBiconicGeometry` maps to Python's additive biconic formula. Export never silently replaces an unsupported optical component.
 
 Python Optiland 0.5.8 can emit `SimpleCoating.to_dict()` with the same fields. Its `Optic.from_dict()` surface-linking path can relink arbitrary surface coatings to Fresnel coatings, so external Python retention of `SimpleCoating` is not part of the validated bidirectional contract yet.
 

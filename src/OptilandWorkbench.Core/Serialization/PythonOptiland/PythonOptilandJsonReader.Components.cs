@@ -285,7 +285,7 @@ internal static partial class PythonOptilandJsonReader
                 radius,
                 conic,
                 ReadHighOrderAsphereCoefficients(geometry, geometryType)),
-            "BiconicGeometry" => new BiconicGeometry(
+            "BiconicGeometry" => new SeparableBiconicGeometry(
                 GetDouble(geometry, "radius_x", radius),
                 GetDouble(geometry, "radius_y", radius),
                 GetDouble(geometry, "conic_x", conic),

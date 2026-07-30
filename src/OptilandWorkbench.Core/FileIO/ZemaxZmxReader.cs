@@ -191,6 +191,12 @@ internal static class ZemaxZmxReader
                 case "VCYN":
                     document.VignetteY = ReadValues(tokens, 1, document.FieldCount);
                     break;
+                case "APMN" when tokens.Length <= 2 && current is not null:
+                    RequireSurface(current, command).MinimumAperture = Math.Abs(RequiredDouble(tokens, 1, command));
+                    break;
+                case "APMX" when tokens.Length <= 2 && current is not null:
+                    RequireSurface(current, command).SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, command));
+                    break;
                 case "VDXN":
                 case "VDYN":
                 case "VANN":
@@ -377,6 +383,10 @@ internal static class ZemaxZmxReader
                     "APMX",
                     source.Number,
                     configurationIndex) ?? source.SemiDiameter,
+                MinimumAperture = document.ConfigurationDouble(
+                    "APMN",
+                    source.Number,
+                    configurationIndex) ?? source.MinimumAperture,
                 SemiDiameterFixed = source.SemiDiameterFixed,
                 IsStop = configuredStop.HasValue
                     ? source.Number == (int)Math.Round(configuredStop.Value)
@@ -406,36 +416,10 @@ internal static class ZemaxZmxReader
 
     private static int DetectActiveConfiguration(ZemaxDocument document)
     {
-        if (document.ConfigurationCount <= 1)
-        {
-            return 0;
-        }
-
-        var baseThickness = document.Surfaces.ToDictionary(surface => surface.Number, surface => surface.Thickness);
-        var candidates = Enumerable.Range(0, document.ConfigurationCount)
-            .Select(configurationIndex =>
-            {
-                var operands = document.ConfigurationOperands
-                    .Where(operand => operand.Command.Equals("THIC", StringComparison.OrdinalIgnoreCase)
-                        && operand.ConfigurationIndex == configurationIndex)
-                    .ToArray();
-                var error = operands.Sum(operand =>
-                {
-                    if (!baseThickness.TryGetValue(operand.Target, out var source)
-                        || !TryParseDouble(operand.Value, out var configured))
-                    {
-                        return 0.0;
-                    }
-
-                    return Math.Abs(source - configured) / Math.Max(1.0, Math.Abs(source));
-                });
-                return (Index: configurationIndex, OperandCount: operands.Length, Error: error);
-            })
-            .Where(candidate => candidate.OperandCount > 0)
-            .OrderBy(candidate => candidate.Error / candidate.OperandCount)
-            .ThenBy(candidate => candidate.Index)
-            .ToArray();
-        return candidates.Length == 0 ? 0 : candidates[0].Index;
+        // Plain sequential ZMX exports do not provide a reliable persisted UI-active
+        // multi-configuration selection. Keep imports deterministic and explainable
+        // by selecting configuration 1 instead of guessing from operand values.
+        return 0;
     }
 
     private static IReadOnlyList<ConvertedSurface> ConvertSurfaces(
@@ -475,6 +459,11 @@ internal static class ZemaxZmxReader
 
             var legacyRadius = double.IsInfinity(source.Radius) ? 0 : source.Radius;
             var thickness = index == 0 && double.IsInfinity(source.Thickness) ? 0 : source.Thickness;
+            var semiDiameter = source.SemiDiameter is { } configuredSemiDiameter
+                && double.IsFinite(configuredSemiDiameter)
+                    ? Math.Max(0.1, Math.Abs(configuredSemiDiameter))
+                    : 10;
+            var physicalAperture = CreatePhysicalAperture(source, semiDiameter);
             var surface = new OpticalSurface
             {
                 Number = index,
@@ -482,10 +471,7 @@ internal static class ZemaxZmxReader
                 Radius = legacyRadius,
                 Thickness = thickness,
                 Material = isReflective ? "MIRROR" : materialAfter.Name,
-                SemiDiameter = source.SemiDiameter is { } semiDiameter
-                    && double.IsFinite(semiDiameter)
-                    ? Math.Max(0.1, semiDiameter)
-                    : 10,
+                SemiDiameter = semiDiameter,
                 SemiDiameterFixed = source.SemiDiameterFixed,
                 Conic = source.Conic,
                 IsStop = source.IsStop,
@@ -494,6 +480,7 @@ internal static class ZemaxZmxReader
                 MaterialBefore = previousMaterial.Clone(),
                 MaterialAfter = materialAfter.Clone(),
                 InteractionModel = new RefractiveReflectiveInteractionModel(isReflective),
+                PhysicalAperture = physicalAperture,
                 CoordinateSystem = coordinate
             };
             result.Add(new ConvertedSurface(
@@ -518,6 +505,18 @@ internal static class ZemaxZmxReader
         }
 
         return result;
+    }
+
+    private static IPhysicalAperture? CreatePhysicalAperture(ZemaxSurface source, double semiDiameter)
+    {
+        if (source.MinimumAperture is not { } minimumAperture
+            || !double.IsFinite(minimumAperture)
+            || Math.Abs(minimumAperture) <= 1e-12)
+        {
+            return null;
+        }
+
+        return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
     }
 
     private static void ApplyCoordinateBreak(
@@ -631,8 +630,6 @@ internal static class ZemaxZmxReader
                 ValueAt(document.VignetteX, index),
                 ValueAt(document.VignetteY, index),
                 document.FieldComments.GetValueOrDefault(index + 1, string.Empty)))
-            .GroupBy(field => (field.X, field.Y))
-            .Select(group => group.First())
             .ToArray();
 
         for (var index = 0; index < fields.Length; index++)
@@ -1248,6 +1245,7 @@ internal static class ZemaxZmxReader
         public double? RefractiveIndex { get; set; }
         public double? AbbeNumber { get; set; }
         public double? SemiDiameter { get; set; }
+        public double? MinimumAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }

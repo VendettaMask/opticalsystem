@@ -77,6 +77,11 @@ public partial class OpticalWorkspaceModel
                 biconic.RadiusY,
                 surface.Conic,
                 biconic.ConicY),
+            SeparableBiconicGeometry biconic => new SeparableBiconicGeometry(
+                surface.Radius,
+                biconic.RadiusY,
+                surface.Conic,
+                biconic.ConicY),
             ToroidalGeometry toroidal => new ToroidalGeometry(
                 toroidal.TangentialRadius,
                 surface.Radius),

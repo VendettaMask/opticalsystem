@@ -45,4 +45,36 @@ public sealed class BatchedBackendKernelTests
             Assert.Equal(expected!.Value, distance[index], precision: 11);
         }
     }
+
+    [Fact]
+    public void ManagedSimdStandardIntersectionRejectsImplicitBackBranch()
+    {
+        var backend = (IBatchedNumericBackend)new ManagedCpuBackend();
+        var geometry = new StandardGeometry(radius: 1, conic: 0);
+        var originX = new[] { 0.0, 1.01 };
+        var originY = new[] { 0.0, 0.0 };
+        var originZ = new[] { 3.0, -5.0 };
+        var directionX = new[] { 0.0, 0.0 };
+        var directionY = new[] { 0.0, 0.0 };
+        var directionZ = new[] { -1.0, 1.0 };
+        var distance = new double[originX.Length];
+        var intersects = new bool[originX.Length];
+
+        backend.IntersectStandard(
+            originX,
+            originY,
+            originZ,
+            directionX,
+            directionY,
+            directionZ,
+            geometry.Radius,
+            geometry.Conic,
+            distance,
+            intersects);
+
+        Assert.True(intersects[0]);
+        Assert.Equal(3, distance[0], precision: 12);
+        Assert.False(intersects[1]);
+        Assert.True(double.IsNaN(distance[1]));
+    }
 }

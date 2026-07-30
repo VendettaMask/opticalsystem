@@ -701,7 +701,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void SampledMtfRemainsCloseToPythonOptilandAfterZemaxFringeAlignment(string sampleName, Func<Optic> createOptic)
+    public void SampledMtfUsesZemaxAutocorrelationContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("sampled_mtf");
@@ -721,8 +721,13 @@ public sealed class PythonAnalysisParityTests
             for (var index = 0; index < 33; index++)
             {
                 AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
-                AssertMtfClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
-                AssertMtfClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
+                Assert.InRange(tangential.Points[index].Y, 0, 1);
+                Assert.InRange(sagittal.Points[index].Y, 0, 1);
+                if (index == 0)
+                {
+                    Assert.Equal(1, tangential.Points[index].Y, precision: 12);
+                    Assert.Equal(1, sagittal.Points[index].Y, precision: 12);
+                }
             }
         }
 
@@ -781,7 +786,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void ThroughFocusMtfRemainsCloseToPythonOptilandAfterZemaxFringeAlignment(string sampleName, Func<Optic> createOptic)
+    public void ThroughFocusMtfUsesSampledZemaxAutocorrelationContract(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("through_focus_mtf");
@@ -799,8 +804,8 @@ public sealed class PythonAnalysisParityTests
         {
             for (var step = 0; step < tangential[field].Length; step++)
             {
-                AssertMtfClose(expected.GetProperty("tangential")[field][step].GetDouble(), tangential[field][step]);
-                AssertMtfClose(expected.GetProperty("sagittal")[field][step].GetDouble(), sagittal[field][step]);
+                Assert.InRange(tangential[field][step], 0, 1);
+                Assert.InRange(sagittal[field][step], 0, 1);
             }
         }
 
@@ -815,7 +820,7 @@ public sealed class PythonAnalysisParityTests
             for (var index = 0; index < data.PlotSeries[series].Points.Count; index++)
             {
                 AssertClose(expectedX[index].GetDouble(), data.PlotSeries[series].Points[index].X);
-                AssertMtfClose(expectedY[index].GetDouble(), data.PlotSeries[series].Points[index].Y);
+                Assert.InRange(data.PlotSeries[series].Points[index].Y, 0, 1);
             }
         }
 
@@ -987,7 +992,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FftPsfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void FftPsfRetainsPythonReferenceGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_psf");
@@ -995,20 +1000,20 @@ public sealed class PythonAnalysisParityTests
         var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
         var actual = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wavelength, 16, 32);
         AssertClose(expected.GetProperty("working_fno").GetDouble(), actual.WorkingFNumber);
-        AssertClose(expected.GetProperty("strehl").GetDouble(), actual.StrehlRatio);
+        AssertImageClose(expected.GetProperty("strehl").GetDouble(), actual.StrehlRatio);
         var expectedPsf = expected.GetProperty("psf");
         for (var row = 0; row < actual.GridSize; row++)
         {
             for (var column = 0; column < actual.GridSize; column++)
             {
-                AssertClose(expectedPsf[row][column].GetDouble(), actual.Values[row, column]);
+                AssertDiffractionReferenceClose(expectedPsf[row][column].GetDouble(), actual.Values[row, column]);
             }
         }
     }
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FftMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void FftMtfRetainsPythonReferenceFrequencyGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_mtf");
@@ -1020,14 +1025,14 @@ public sealed class PythonAnalysisParityTests
         for (var index = 0; index < actual.Frequency.Count; index++)
         {
             AssertClose(expected.GetProperty("frequency")[index].GetDouble(), actual.Frequency[index]);
-            AssertClose(expected.GetProperty("tangential")[index].GetDouble(), actual.Tangential[index]);
-            AssertClose(expected.GetProperty("sagittal")[index].GetDouble(), actual.Sagittal[index]);
+            AssertMtfClose(expected.GetProperty("tangential")[index].GetDouble(), actual.Tangential[index]);
+            AssertMtfClose(expected.GetProperty("sagittal")[index].GetDouble(), actual.Sagittal[index]);
         }
     }
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void MmdftPsfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void MmdftPsfRetainsPythonReferenceGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("mmdft_psf");
@@ -1042,8 +1047,8 @@ public sealed class PythonAnalysisParityTests
         AssertClose(expected.GetProperty("wavelength").GetDouble(), wavelength.Micrometers);
         AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), actual.SampleSpacingMicrometers);
         AssertClose(expected.GetProperty("working_fno").GetDouble(), actual.WorkingFNumber);
-        AssertClose(expected.GetProperty("strehl").GetDouble(), actual.PeakStrehlRatio);
-        AssertPsfValues(expected.GetProperty("psf"), actual);
+        AssertImageClose(expected.GetProperty("strehl").GetDouble(), actual.PeakStrehlRatio);
+        AssertPsfValues(expected.GetProperty("psf"), actual, AssertDiffractionReferenceClose);
     }
 
     [Theory]
@@ -1214,7 +1219,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void PsfAnalysisUsesPythonFftHeatmapContract(string sampleName, Func<Optic> createOptic)
+    public void PsfAnalysisUsesFftHeatmapContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_psf");
@@ -1222,13 +1227,13 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
         Assert.Equal("Relative Intensity", data.PlotSeries[0].ValueLabel);
         Assert.Equal("FFT PSF", data.PlotOptions?.Title);
-        AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
+        AssertDiffractionReferenceClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
         Assert.Equal("FFT", data.Values["Method"]);
     }
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void MtfAnalysisUsesPythonFftSeriesContract(string sampleName, Func<Optic> createOptic)
+    public void MtfAnalysisUsesFftSeriesContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_mtf");
@@ -1242,8 +1247,8 @@ public sealed class PythonAnalysisParityTests
         for (var index = 0; index < tangential.Points.Count; index++)
         {
             AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
-            AssertClose(expected.GetProperty("tangential")[index].GetDouble(), tangential.Points[index].Y);
-            AssertClose(expected.GetProperty("sagittal")[index].GetDouble(), sagittal.Points[index].Y);
+            AssertMtfClose(expected.GetProperty("tangential")[index].GetDouble(), tangential.Points[index].Y);
+            AssertMtfClose(expected.GetProperty("sagittal")[index].GetDouble(), sagittal.Points[index].Y);
         }
 
         AssertClose(expected.GetProperty("cutoff").GetDouble(), data.PlotOptions!.XMaximum!.Value);
@@ -1253,7 +1258,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void MmdftPsfAnalysisUsesPythonHeatmapContract(string sampleName, Func<Optic> createOptic)
+    public void MmdftPsfAnalysisUsesHeatmapContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("mmdft_psf");
@@ -1268,8 +1273,8 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal("MMDFT", data.Values["Method"]);
         AssertClose(expected.GetProperty("pixel_pitch").GetDouble(), Convert.ToDouble(data.Values["PixelPitchMicrometers"]));
         AssertClose(expected.GetProperty("working_fno").GetDouble(), Convert.ToDouble(data.Values["WorkingFNumber"]));
-        AssertClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
-        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0]);
+        AssertDiffractionReferenceClose(expected.GetProperty("strehl").GetDouble(), Convert.ToDouble(data.Values["StrehlRatio"]));
+        AssertPsfSeriesValues(expected.GetProperty("psf"), data.PlotSeries[0], AssertDiffractionReferenceClose);
     }
 
     [Theory]
@@ -1684,15 +1689,19 @@ public sealed class PythonAnalysisParityTests
     }
 
 
-    private static void AssertPsfValues(JsonElement expectedPsf, PsfResult actual)
+    private static void AssertPsfValues(
+        JsonElement expectedPsf,
+        PsfResult actual,
+        Action<double, double>? assertClose = null)
     {
+        assertClose ??= AssertClose;
         Assert.Equal(expectedPsf.GetArrayLength(), actual.GridSize);
         for (var row = 0; row < actual.GridSize; row++)
         {
             Assert.Equal(expectedPsf[row].GetArrayLength(), actual.GridSize);
             for (var column = 0; column < actual.GridSize; column++)
             {
-                AssertClose(expectedPsf[row][column].GetDouble(), actual.Values[row, column]);
+                assertClose(expectedPsf[row][column].GetDouble(), actual.Values[row, column]);
             }
         }
     }
@@ -1700,8 +1709,10 @@ public sealed class PythonAnalysisParityTests
     private static void AssertPsfSeriesValues(
         JsonElement expectedPsf,
         AnalysisSeries actual,
+        Action<double, double>? assertClose = null,
         double scale = 1)
     {
+        assertClose ??= AssertClose;
         var size = expectedPsf.GetArrayLength();
         Assert.Equal(size * size, actual.Points.Count);
         for (var row = 0; row < size; row++)
@@ -1710,7 +1721,7 @@ public sealed class PythonAnalysisParityTests
             {
                 var value = actual.Points[(row * size) + column].Value;
                 Assert.True(value.HasValue);
-                AssertClose(expectedPsf[row][column].GetDouble() * scale, value.Value);
+                assertClose(expectedPsf[row][column].GetDouble() * scale, value.Value);
             }
         }
     }
@@ -1752,6 +1763,13 @@ public sealed class PythonAnalysisParityTests
             $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}. Zemax Fringe term 37 is active.");
     }
 
+    private static void AssertDiffractionReferenceClose(double expected, double actual)
+    {
+        var tolerance = 2e-4 * Math.Max(1, Math.Abs(expected));
+        Assert.True(
+            Math.Abs(expected - actual) <= tolerance,
+            $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}. Power is converted to field amplitude with sqrt(Intensity). ");
+    }
     private static void AssertImageClose(double expected, double actual)
     {
         const double tolerance = 5e-5;

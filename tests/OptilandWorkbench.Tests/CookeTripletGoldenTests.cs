@@ -209,7 +209,7 @@ public sealed class CookeTripletGoldenTests
         {
             new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 }),
             new OddAsphereGeometry(42, -0.2, new[] { 2e-4, -3e-6 }),
-            new BiconicGeometry(1.3, 1.4, -0.1, -0.2),
+            new SeparableBiconicGeometry(1.3, 1.4, -0.1, -0.2),
             new ToroidalGeometry(80, 30),
             new PolynomialGeometry(new Dictionary<(int X, int Y), double>
             {
@@ -1400,6 +1400,13 @@ public sealed class CookeTripletGoldenTests
                 AssertClose(biconic.RadiusY, actualBiconic.RadiusY, ScalarTolerance);
                 AssertClose(biconic.ConicX, actualBiconic.ConicX, ScalarTolerance);
                 AssertClose(biconic.ConicY, actualBiconic.ConicY, ScalarTolerance);
+                break;
+            case SeparableBiconicGeometry biconic:
+                var actualSeparableBiconic = Assert.IsType<SeparableBiconicGeometry>(actual);
+                AssertClose(biconic.RadiusX, actualSeparableBiconic.RadiusX, ScalarTolerance);
+                AssertClose(biconic.RadiusY, actualSeparableBiconic.RadiusY, ScalarTolerance);
+                AssertClose(biconic.ConicX, actualSeparableBiconic.ConicX, ScalarTolerance);
+                AssertClose(biconic.ConicY, actualSeparableBiconic.ConicY, ScalarTolerance);
                 break;
             case ToroidalGeometry toroidal:
                 var actualToroidal = Assert.IsType<ToroidalGeometry>(actual);

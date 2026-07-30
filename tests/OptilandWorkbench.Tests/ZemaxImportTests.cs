@@ -3,6 +3,7 @@ using System.Text.Json;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
@@ -305,6 +306,47 @@ public sealed class ZemaxImportTests
 
         Assert.Equal(5.5, optic.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
         Assert.Equal(5.5, optic.SurfaceGroup.Items[2].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxMultiConfigurationApmnCreatesAnnularPhysicalAperture()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 6
+            MNUM 2
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              DISZ 20
+            SURF 1
+              STOP
+              DISZ 10
+              DIAM 3 1 0 0 1 ""
+            SURF 2
+              DISZ 0
+            APMX 1 2 3
+            APMN 1 2 1
+            """;
+
+        var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
+        var configured = imported.Configurations[1];
+        var stop = configured.SurfaceGroup.Items[1];
+
+        Assert.Equal(3, stop.SemiDiameter, precision: 12);
+        var aperture = Assert.IsType<AnnularAperture>(stop.PhysicalAperture);
+        Assert.Equal(3, aperture.OuterRadius, precision: 12);
+        Assert.Equal(1, aperture.InnerRadius, precision: 12);
+        Assert.False(aperture.Contains(Vector3D.Zero));
+        Assert.True(aperture.Contains(new Vector3D(1.5, 0, 0)));
+
+        var history = configured.TraceGeneric(0, 0, 0, 0, 0.5875618).RayHistories.Single();
+        var stopSample = Assert.Single(history, sample => sample.SurfaceNumber == stop.Number);
+        Assert.True(stopSample.Vignetted);
+        Assert.Equal(0, stopSample.Intensity, precision: 12);
     }
 
     [Fact]
@@ -620,6 +662,48 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void ZemaxDuplicateCoordinateFieldsPreserveDeclaredIndices()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 3 1 0 0 0
+            XFLN 0 2 2
+            YFLN 0 5 5
+            FWGN 1 0.5 0.25
+            FCOM 2 "Duplicate coordinates, first user field"
+            FCOM 3 "Duplicate coordinates referenced by merit"
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ INFINITY
+            SURF 1
+              CURV 0
+              DISZ 10
+              STOP
+              DIAM 5
+            SURF 2
+              CURV 0
+              DISZ 0
+            EFFL 0 1 3 0 0 0 50 0.1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(3, optic.Fields.Count);
+        Assert.Equal((2.0, 5.0), (optic.Fields[1].X, optic.Fields[1].Y));
+        Assert.Equal((2.0, 5.0), (optic.Fields[2].X, optic.Fields[2].Y));
+        Assert.Equal(0.5, optic.Fields[1].Weight, precision: 12);
+        Assert.Equal(0.25, optic.Fields[2].Weight, precision: 12);
+        Assert.Equal("Duplicate coordinates, first user field", optic.Fields[1].Label);
+        Assert.Equal("Duplicate coordinates referenced by merit", optic.Fields[2].Label);
+
+        var operand = Assert.Single(optic.MeritFunctionOperands, item => item.Type == "EFFL");
+        Assert.Equal(3, operand.Field);
+    }
+
+    [Fact]
     public void ZemaxMarginalRayHeightSolveFocusesParaxialMarginalRay()
     {
         const string source = """
@@ -710,8 +794,8 @@ public sealed class ZemaxImportTests
         var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
 
         Assert.Equal(3, imported.Configurations.Count);
-        Assert.Equal(2, imported.ActiveConfigurationIndex);
-        Assert.Same(imported.Configurations[2], imported.ActiveOptic);
+        Assert.Equal(0, imported.ActiveConfigurationIndex);
+        Assert.Same(imported.Configurations[0], imported.ActiveOptic);
         Assert.Equal(new[] { 100.0, 150.0, 200.0 }, imported.Configurations
             .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
         Assert.Equal(new[] { 5.0, 10.0, 15.0 }, imported.Configurations
@@ -735,7 +819,7 @@ public sealed class ZemaxImportTests
             imported.ActiveConfigurationIndex), "multi.zmx");
         var rows = connector.GetMultiConfigurationRows();
         Assert.Equal(3, rows.Count);
-        Assert.Equal(2, Assert.Single(rows, row => row.Active).Index);
+        Assert.Equal(0, Assert.Single(rows, row => row.Active).Index);
         Assert.Equal(new[] { "配置 1", "配置 2", "配置 3" }, rows.Select(row => row.Name));
     }
 
@@ -815,7 +899,7 @@ public sealed class ZemaxImportTests
             var imported = await OptilandConnector.ReadDocumentAsync(zmxPath);
 
             Assert.Equal(2, imported.Configurations.Count);
-            Assert.Equal(1, imported.ActiveConfigurationIndex);
+            Assert.Equal(0, imported.ActiveConfigurationIndex);
             Assert.Equal(new[] { 500.0, 2500.0 }, imported.Configurations
                 .Select(configuration => configuration.SurfaceGroup.Items[0].Thickness));
             Assert.Equal(new[] { 50.0, 40.0 }, imported.Configurations
