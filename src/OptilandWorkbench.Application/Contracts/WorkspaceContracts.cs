@@ -471,6 +471,25 @@ public sealed record OptimizationResultDto(
     double Merit,
     int Iterations);
 
+public enum OptimizationVariableUpdateMode
+{
+    ClearAll,
+    SetAllRadii,
+    SetAllThicknesses
+}
+
+public sealed record OptimizationVariableUpdateResultDto(
+    OptimizationVariableUpdateMode Mode,
+    int RadiusVariableCount,
+    int ThicknessVariableCount);
+
+public sealed record QuickFocusResultDto(
+    int SurfaceNumber,
+    double InitialThickness,
+    double AppliedShift,
+    double FinalThickness,
+    double RmsSpotRadius);
+
 public enum MeritFunctionPreset
 {
     RmsSpot,

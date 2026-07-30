@@ -457,7 +457,10 @@ public sealed class WorkspaceDockFactory : Factory
 
     private Control CreateSystemToolContent()
     {
-        var panel = new SystemPropertiesPanel(_application.Prescription, _application.Events);
+        var panel = new SystemPropertiesPanel(
+            _application.Prescription,
+            _application.Materials,
+            _application.Events);
         DisplayTypography.Apply(panel);
         return panel;
     }

@@ -71,6 +71,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 环境区内还有“当前仅保存环境参数，暂不启用温度补偿计算”的说明文字，见 `src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs:563`。这类状态很重要，但现在放在普通说明文本中，容易被忽略，也容易让用户误会环境设置已经参与全部计算。
 
+已于 2026-07-29 按明确需求在系统选项中加入“材料库”折叠区。界面使用“当前玻璃库 / 可用玻璃库”双列表以及加入、移出、优先级上移和优先级下移操作；当前列表顺序参与未限定厂商玻璃名的解析，并进入撤销、STAROPT 快照及 ZMX `GCAT` 往返。至少保留一个当前目录，避免空选择产生隐式回退。
+
 ### P2：分析设置布局窄屏表现弱，且结果导航存在例外
 
 分析面板默认参数区是 `WrapPanel`，见 `src/OptilandWorkbench.App/Panels/AnalysisPanel.cs:28`；部分 Zemax 风格设置页则是固定列宽 Grid，见 `src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs:361`、`src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs:376`。两套布局在不同分析之间切换时，用户会感到设置项位置和阅读顺序不稳定。
@@ -78,6 +80,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 结果页大多数使用“绘图 / 数据 / 文本”三 tab，见 `src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs:87` 到 `src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs:94`。这是合理方向，但特殊报告类视图会走不同构建分支，可能造成有些分析不像同一个产品体系。
 
 注意：分析图本身的坐标、图例、曲线、矩阵排布、色标等表现形式本轮只记录风险，不建议改动。当前要求是先保证与 Zemax 的逻辑、结果和图形含义一致，非经明确授权不修改绘图表现。
+
+已于 2026-07-29 按明确授权为可伸缩的多子图结果增加“方形子图”选项。默认关闭并维持原有自动铺满布局；启用时只调整每个绘图控件的可视宽高和居中位置，不改变数据范围、坐标比例、曲线或固定点列图矩阵。
 
 ### P2：优化面板状态色和编辑行为过重
 
@@ -88,6 +92,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 尚未实现的边界是 ZOS-API `IMFERow.RowColor` 的 `Color1`–`Color16` 自定义覆盖、逐行“无颜色”以及全局 `Color Rows` 偏好开关的持久化；这些能力不得仅凭当前默认色外观标记为完成。
 
 工具栏用两个 `WrapPanel` 承载新增、删除、上移、下移、向导、刷新、运行等动作，见 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:80` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:94`。动作多但层级不明显，用户不容易区分“编辑评价函数”和“运行优化”的主次。
+
+2026-07-29 的 Ribbon 更新在面板之外增加了“手动调整 / 自动优化 / 全局优化”三级入口，覆盖快速聚焦、快速调整、变量滑块、评价函数编辑器、向导、执行优化、批量变量操作、差分进化全局搜索和基于 basin hopping 的锤形搜索。玻璃替换模板当前明确为玻璃目录与评价函数的人工替换工作流，不表示已经实现 Zemax Glass Expert 等价算法。
 
 ### P2：多配置面板过于简化，容易误导功能边界
 

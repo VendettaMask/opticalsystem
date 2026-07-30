@@ -241,12 +241,12 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             $"VCYN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorY)))}"
         };
 
-        var glassCatalogs = optic.SurfaceGroup.Items
-            .Select(surface => surface.MaterialAfter)
-            .OfType<Materials.CatalogGlassMaterial>()
-            .Select(material => material.Manufacturer)
+        var glassCatalogs = optic.GlassCatalogs
+            .Concat(optic.SurfaceGroup.Items
+                .Select(surface => surface.MaterialAfter)
+                .OfType<Materials.CatalogGlassMaterial>()
+                .Select(material => material.Manufacturer))
             .Distinct(StringComparer.OrdinalIgnoreCase)
-            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
         if (glassCatalogs.Length > 0)
         {

@@ -102,6 +102,7 @@ public static class OpticSnapshotValidator
 
         RequireText(snapshot.Name, "$.name");
         ValidateSystemAperture(snapshot.Aperture);
+        ValidateGlassCatalogs(snapshot.GlassCatalogs);
 
         if (!Enum.TryParse<FieldDefinitionKind>(
                 snapshot.FieldDefinition,
@@ -205,6 +206,31 @@ public static class OpticSnapshotValidator
         }
 
         RequireFinitePositive(aperture.Value, "$.aperture.value");
+    }
+
+    private static void ValidateGlassCatalogs(IReadOnlyList<string>? catalogs)
+    {
+        if (catalogs is null)
+        {
+            return;
+        }
+
+        if (catalogs.Count > MaximumTopLevelItemCount)
+        {
+            Invalid("$.glassCatalogs", "the glass-catalog list is too large");
+        }
+
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        for (var index = 0; index < catalogs.Count; index++)
+        {
+            RequireText(catalogs[index], $"$.glassCatalogs[{index}]");
+            if (!names.Add(catalogs[index]))
+            {
+                Invalid(
+                    $"$.glassCatalogs[{index}]",
+                    $"glass catalog '{catalogs[index]}' is duplicated");
+            }
+        }
     }
 
     private static void ValidateEnvironment(EnvironmentSnapshot? environment)

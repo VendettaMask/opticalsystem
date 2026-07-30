@@ -34,7 +34,7 @@ OpticalSurface
   CoordinateSystem
 ```
 
-`MaterialRegistry` resolves custom materials, an embedded 1,740-entry compatibility database generated from Optiland 0.5.8/refractiveindex.info CC0 data, and a bundled database converted from 63 Zemax AGF catalogs. `ZemaxAgfCatalogReader` preserves the official catalog, general, coefficient, thermal, mechanical, durability, wavelength, internal-transmission, and stress-birefringence records, including legacy missing-value and shortened-record variants found in real Glasscat data. `CatalogGlassMaterial` evaluates all 13 Zemax dispersion formulas in addition to the compatibility formula 1/2/3/5 and tabulated models. The source AGF files are converted once to the schema-versioned, GZip-compressed Workbench `.ogdb` format and embedded in Core. Ambiguous glass names require a manufacturer-qualified name such as `SCHOTT:F2`; Zemax `GCAT` provides that qualification during import. Unknown names do not silently become constant-index glass.
+`MaterialRegistry` resolves custom materials, an embedded 1,740-entry compatibility database generated from Optiland 0.5.8/refractiveindex.info CC0 data, and a bundled database converted from 63 Zemax AGF catalogs. `ZemaxAgfCatalogReader` preserves the official catalog, general, coefficient, thermal, mechanical, durability, wavelength, internal-transmission, and stress-birefringence records, including legacy missing-value and shortened-record variants found in real Glasscat data. `CatalogGlassMaterial` evaluates all 13 Zemax dispersion formulas in addition to the compatibility formula 1/2/3/5 and tabulated models. The source AGF files are converted once to the schema-versioned, GZip-compressed Workbench `.ogdb` format and embedded in Core. Each optic stores an ordered current-catalog list; `MaterialRegistry` uses it when an unqualified glass name is ambiguous, while catalog enumeration remains independent so the database view never hides same-named records. The list is snapshot/undo state, and Zemax `GCAT` imports and exports it. Unknown names do not silently become constant-index glass.
 
 Legacy table fields are synchronized into composition objects for normal table edits. JSON load can restore rich component snapshots without losing component-specific fields.
 
@@ -110,6 +110,19 @@ Optimization uses:
 - `IVariableScaler`
 - `IOptimizer`
 - `OptimizerCatalog`
+
+The application optimization service also owns bulk radius/thickness variable
+selection and traced quick focus. The Optimization Ribbon exposes manual
+adjustment, the merit-function editor and wizard, LM/DLS execution, and the
+population-search entries backed by differential evolution and basin hopping.
+The slider edits one surface value at a time through `IPrescriptionService`, so
+undo, revision publication, solves, and automatic semi-diameter updates follow
+the same path as lens-editor edits.
+
+`Glass Replacement Template` currently opens the glass catalog together with a
+default merit-function workflow for reviewed manual substitutions. It is not an
+automatic glass-selection optimizer and does not claim parity with Zemax Glass
+Expert.
 
 Tolerancing reuses optimization variables and operands through:
 

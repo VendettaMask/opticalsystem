@@ -37,13 +37,15 @@
     <None Include="Fixtures\optiland-0.5.8-diffractive-reference.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-thin-lens-reference.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-field-definition-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-zemax-reference.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\local-data\lens-library\originals\user-zmx\project\tests\Fixtures\optiland-0.5.8-zemax-reference.zmx"
+          Link="Fixtures\optiland-0.5.8-zemax-reference.zmx"
+          CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-zemax-reference.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\optiland-0.5.8-glass-reference.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\packaging\macos\Info.plist"
           Link="Fixtures\macos-Info.plist"
           CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\..\samples\lenses\*.zmx"
+    <None Include="..\..\local-data\lens-library\originals\user-zmx\project\samples\lenses\*.zmx"
           Link="Samples\%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

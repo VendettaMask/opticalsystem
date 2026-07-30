@@ -96,6 +96,7 @@ public sealed partial class AnalysisPanel
             RowDefinitions = new RowDefinitions(string.Join(',', Enumerable.Repeat("*", rows)))
         };
         var plots = new List<AnalysisPlotControl>(panes.Count);
+        var squareHosts = new List<OptionalSquarePlotHost>(panes.Count);
         for (var index = 0; index < panes.Count; index++)
         {
             var pane = panes[index];
@@ -107,13 +108,20 @@ public sealed partial class AnalysisPanel
                 MinHeight = 64,
                 Margin = new Thickness(2)
             };
-            Grid.SetColumn(plot, index % columns);
-            Grid.SetRow(plot, index / columns);
-            paneGrid.Children.Add(plot);
+            var squareHost = new OptionalSquarePlotHost
+            {
+                Child = plot,
+                MinWidth = 64,
+                MinHeight = 64
+            };
+            Grid.SetColumn(squareHost, index % columns);
+            Grid.SetRow(squareHost, index / columns);
+            paneGrid.Children.Add(squareHost);
             plots.Add(plot);
+            squareHosts.Add(squareHost);
         }
 
-        return BuildPanePlotContent(paneGrid, panes, plots);
+        return BuildPanePlotContent(paneGrid, panes, plots, squareHosts);
     }
 
     private static bool IsRayFanView(AnalysisViewDto view)
@@ -670,6 +678,7 @@ public sealed partial class AnalysisPanel
             (Column: 2, Row: 2)
         };
         var plots = new List<AnalysisPlotControl>(fieldCount * panesPerField);
+        var squareHosts = new List<OptionalSquarePlotHost>(fieldCount * panesPerField);
         for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++)
         {
             var firstPaneIndex = fieldIndex * panesPerField;
@@ -700,10 +709,12 @@ public sealed partial class AnalysisPanel
                     PlotOptions = pane.PlotOptions with { Title = string.Empty },
                     Margin = new Thickness(2)
                 };
-                Grid.SetColumn(plot, paneOffset);
-                Grid.SetRow(plot, 1);
-                pair.Children.Add(plot);
+                var squareHost = new OptionalSquarePlotHost { Child = plot };
+                Grid.SetColumn(squareHost, paneOffset);
+                Grid.SetRow(squareHost, 1);
+                pair.Children.Add(squareHost);
                 plots.Add(plot);
+                squareHosts.Add(squareHost);
             }
 
             var scaledPair = new Viewbox
@@ -718,13 +729,14 @@ public sealed partial class AnalysisPanel
             fieldGrid.Children.Add(scaledPair);
         }
 
-        return BuildPanePlotContent(fieldGrid, panes, plots);
+        return BuildPanePlotContent(fieldGrid, panes, plots, squareHosts);
     }
 
     private static Control BuildPanePlotContent(
         Control plotRoot,
         IReadOnlyList<AnalysisPlotPaneDto> panes,
-        IReadOnlyList<AnalysisPlotControl> plots)
+        IReadOnlyList<AnalysisPlotControl> plots,
+        IReadOnlyList<OptionalSquarePlotHost>? squareHosts = null)
     {
         var sourceSeries = panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>();
         var legendEntries = SelectableLegendEntries(sourceSeries);
@@ -780,6 +792,32 @@ public sealed partial class AnalysisPanel
         content.Children.Add(plotRoot);
         content.Children.Add(legend);
         Grid.SetRow(legend, 1);
+        if (squareHosts is { Count: > 0 })
+        {
+            var squareToggle = new CheckBox
+            {
+                Name = "SquarePaneToggle",
+                Content = "方形子图",
+                IsChecked = false,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(12, 4, 12, 12)
+            };
+            ToolTip.SetTip(
+                squareToggle,
+                "可选：将每个子图按可用宽高的较小值居中显示为方形；关闭时自动铺满。");
+            squareToggle.IsCheckedChanged += (_, _) =>
+            {
+                var isSquare = squareToggle.IsChecked == true;
+                foreach (var squareHost in squareHosts)
+                {
+                    squareHost.IsSquare = isSquare;
+                }
+            };
+            Grid.SetRow(squareToggle, 1);
+            content.Children.Add(squareToggle);
+        }
+
         return content;
     }
 

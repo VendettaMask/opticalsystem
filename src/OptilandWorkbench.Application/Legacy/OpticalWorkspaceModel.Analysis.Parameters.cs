@@ -30,6 +30,14 @@ public partial class OpticalWorkspaceModel
             CurrentOptic.Wavelengths.ToList().FindIndex(wavelength => wavelength.IsPrimary) + 1);
         var defaultFieldWidth = FieldCoordinates.MaximumRadius(CurrentOptic.Fields)
             .ToString("0.######", CultureInfo.InvariantCulture);
+        var imageSimulationWavelengthChoices = new[] { "RGB" }
+            .Concat(CurrentOptic.Wavelengths.Select((wavelength, index) =>
+                $"{index + 1} - {wavelength.Micrometers:0.0000} µm"))
+            .ToArray();
+        var imageSimulationFieldChoices = CurrentOptic.Fields.Count == 0
+            ? new[] { "1 - 轴上视场" }
+            : CurrentOptic.Fields.Select((field, index) =>
+                $"{index + 1} - {field.Label}").ToArray();
         var fftSamplingChoices = new[]
         {
             "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384"
@@ -252,7 +260,7 @@ public partial class OpticalWorkspaceModel
                 IntParameter("FieldNumber", "视场序号（0 为全部）", "0", 0, 256),
                 BoolParameter("DeleteVignetted", "删除渐晕光线", "false"),
                 BoolParameter("UseSymbols", "使用符号区分", "true"),
-                ChoiceParameter("ColorRaysBy", "光线着色依据", "wavelength", new[] { "wavelength", "field" })
+                ChoiceParameter("ColorRaysBy", "光线着色依据", "视场", new[] { "视场", "波长" })
             },
             "Field Curvature and Distortion" => FieldCurvatureAndDistortionParameters(UsesAngularDistortionModel()),
             "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
@@ -1142,19 +1150,34 @@ public partial class OpticalWorkspaceModel
                     "彩色测试卡",
                     new[] { "彩色测试卡", "分辨率靶标", "畸变网格", "西门子星" }),
                 ChoiceParameter("SourceMode", "源类型", "内置图像", new[] { "内置图像", "外部位图" }),
-                FileParameter("SourceFile", "外部位图文件"),
+                FileParameter("SourceFile", "导入文件"),
                 IntParameter("ImageWidth", "图像宽度", "64", 16, 2048),
                 IntParameter("ImageHeight", "图像高度", "48", 16, 2048),
-                DoubleParameter("FieldHeight", "视场高度", "0", 0, 1_000_000, 0.1),
-                IntParameter("Oversampling", "过采样", "1", 1, 16),
-                IntParameter("GuardBand", "保护带", "16", 0, 512),
-                BoolParameter("RelativeIllumination", "相对照度", "true"),
-                ChoiceParameter("AberrationMode", "像差模式", "Diffraction",
-                    new[] { "Diffraction", "Geometric", "None" }),
-                IntParameter("PsfGridRows", "PSF 网格行", "3", 1, 15),
-                IntParameter("PsfGridColumns", "PSF 网格列", "3", 1, 15),
-                IntParameter("PsfSize", "PSF 尺寸", "32", 8, 256),
-                IntParameter("NumRays", "光线数", "16", 2, 256),
+                DoubleParameter("FieldHeight", "视场高度", defaultFieldWidth, 0, 1_000_000, 0.1),
+                ChoiceParameter("Oversampling", "过采样", "无", new[] { "无", "2 x", "4 x", "8 x", "16 x" }),
+                ChoiceParameter("SourceFlip", "翻转位图", "无", new[] { "无", "水平", "垂直", "水平和垂直" }),
+                ChoiceParameter("GuardBand", "安全宽度", "无", new[] { "无", "4", "8", "16", "32", "64" }),
+                ChoiceParameter("SourceRotation", "旋转位图", "无", new[] { "无", "90°", "180°", "270°" }),
+                ChoiceParameter("WavelengthNumber", "波长", "RGB", imageSimulationWavelengthChoices),
+                ChoiceParameter("FieldNumber", "视场", imageSimulationFieldChoices[0], imageSimulationFieldChoices),
+                ChoiceParameter("NumRays", "光瞳采样", "32 x 32",
+                    new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
+                ChoiceParameter("PsfSize", "像面采样", "32 x 32",
+                    new[] { "8 x 8", "16 x 16", "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                ChoiceParameter("PsfGridColumns", "PSF-X点数", "3", new[] { "1", "3", "5", "7", "9", "11", "13", "15" }),
+                ChoiceParameter("PsfGridRows", "PSF-Y点数", "3", new[] { "1", "3", "5", "7", "9", "11", "13", "15" }),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                ChoiceParameter("AberrationMode", "像差", "几何的", new[] { "衍射", "几何的", "无" }),
+                BoolParameter("ApplyFixedApertures", "应用固定孔径", "true"),
+                BoolParameter("RelativeIllumination", "使用相对照度", "true"),
+                ChoiceParameter("DisplayAs", "显示为", "仿真图", new[] { "仿真图", "源位图" }),
+                ChoiceParameter("Reference", "参考", "主光线", new[] { "主光线", "质心" }),
+                ChoiceParameter("ImageFlip", "翻转图像", "无", new[] { "无", "水平", "垂直", "水平和垂直" }),
+                DoubleParameter("PixelSize", "像素大小", "0", 0, 1_000_000, 0.001),
+                IntParameter("DetectorXPixels", "X 像素", "0", 0, 16_000),
+                IntParameter("DetectorYPixels", "Y 像素", "0", 0, 16_000),
+                BoolParameter("CompressFrame", "压缩框架", "false"),
+                FileParameter("OutputFile", "输出文件"),
                 IntParameter("EigenPsfComponents", "EigenPSF 分量数", "3", 1, 12),
                 IntParameter("DistortionGridSize", "畸变采样网格", "9", 3, 33),
                 IntParameter("DistortionPolynomialDegree", "畸变拟合阶数", "5", 1, 9)

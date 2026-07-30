@@ -100,6 +100,14 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         }
     }
 
+    public IReadOnlyList<string> GetGlassCatalogs()
+    {
+        lock (Gate)
+        {
+            return Connector.CurrentOptic.GlassCatalogs.ToArray();
+        }
+    }
+
     public IReadOnlyList<FieldRowDto> GetFields()
     {
         lock (Gate)
@@ -260,6 +268,24 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             environment.MatchRefractiveIndexData = settings.MatchRefractiveIndexData;
             environment.TemperatureCelsius = settings.TemperatureCelsius;
             environment.PressureAtmospheres = settings.PressureAtmospheres;
+            Connector.CommitSystemEdit();
+        });
+    }
+
+    public void UpdateGlassCatalogs(IReadOnlyList<string> catalogs)
+    {
+        ArgumentNullException.ThrowIfNull(catalogs);
+        if (catalogs.Count == 0)
+        {
+            throw new ArgumentException(
+                "At least one current glass catalog is required.",
+                nameof(catalogs));
+        }
+
+        Mutate(WorkspaceChangeCategory.SystemSettings, () =>
+        {
+            Connector.CaptureCurrentState();
+            Connector.CurrentOptic.Materials.SetPreferredGlassCatalogs(catalogs);
             Connector.CommitSystemEdit();
         });
     }

@@ -87,7 +87,7 @@ Real image height is a Zemax extension beyond Python Optiland 0.5.8. Its primary
 
 The tests compare every generated point for both official lenses. The normal tolerance is `2e-8 * max(1, abs(expected))`. Image simulation is no longer pixel-compared to the older fixed-FFT Python fixture because that fixture does not model the Zemax settings above; its tests instead lock the selected PSF mode, unit-energy reconstruction, black guard band, finite warp, and retained lateral color.
 
-The validated repository baseline on 2026-07-29 is a zero-warning solution build with `569/569` passing tests. The added image decoder is locked in the committed dependency graph, and the complete Huygens/image-simulation, GUI-contract, import, snapshot, and numerical suite passes.
+The validated repository baseline on 2026-07-30 is a zero-warning solution build with `577/577` passing tests. The added image decoder is locked in the committed dependency graph, and the complete Huygens/image-simulation, GUI-contract, import, snapshot, and numerical suite passes.
 
 ## Plot Contract
 

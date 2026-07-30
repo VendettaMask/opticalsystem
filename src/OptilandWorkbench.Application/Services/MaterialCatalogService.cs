@@ -49,6 +49,14 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
             .ToArray();
     }
 
+    public IReadOnlyList<string> GetCatalogNames()
+    {
+        lock (_gate)
+        {
+            return _connector.CurrentOptic.Materials.GlassManufacturers.ToArray();
+        }
+    }
+
     public IReadOnlyList<GlassMaterialDto> GetGlasses()
     {
         lock (_gate)

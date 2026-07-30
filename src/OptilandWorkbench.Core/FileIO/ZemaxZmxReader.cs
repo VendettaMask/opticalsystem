@@ -37,6 +37,7 @@ internal static class ZemaxZmxReader
     private static Optic BuildOptic(ZemaxDocument document, int configurationIndex)
     {
         var optic = new Optic(document.Name);
+        optic.Materials.SetPreferredGlassCatalogs(document.GlassCatalogs);
         var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         InstallConvertedSurfaces(optic, converted);

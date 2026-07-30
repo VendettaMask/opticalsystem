@@ -322,7 +322,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added a damped two-dimensional real-image-height solve that varies object angle for infinite conjugates or object coordinates for finite conjugates until the primary-wavelength chief ray reaches the requested local image coordinate.
 - Matched Zemax analysis semantics by converting real image height to angle/object height for distortion and to paraxial image height for image simulation.
 - Unified viewer, analysis, ray generation, legacy tracing, paraxial tracing, wavefront tilt, and aberration estimates on Python's maximum-radial-field normalization.
-- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `569/569` tests with a zero-warning build as of 2026-07-29.
+- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `577/577` tests with a zero-warning build as of 2026-07-30.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

@@ -48,8 +48,17 @@ public partial class OpticalWorkspaceModel
         IReadOnlyDictionary<string, string>? settings,
         CancellationToken cancellationToken)
     {
-        var analysis = CreateAnalysis(CanonicalAnalysisName(analysisName), settings ?? new Dictionary<string, string>());
+        var canonicalName = CanonicalAnalysisName(analysisName);
+        settings ??= new Dictionary<string, string>();
+        var analysis = CreateAnalysis(canonicalName, settings);
         var data = analysis.GenerateData(cancellationToken);
+        if (string.Equals(canonicalName, "Image Simulation", StringComparison.Ordinal)
+            && settings.TryGetValue("OutputFile", out var outputFile)
+            && !string.IsNullOrWhiteSpace(outputFile))
+        {
+            ImageFileLoader.SaveAnalysisRaster(data, outputFile);
+        }
+
         var rows = data.Values
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
             .ToArray();
@@ -129,6 +138,40 @@ public partial class OpticalWorkspaceModel
             return int.TryParse(digits, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)
                 ? result
                 : fallback;
+        }
+
+        IReadOnlyList<double> ImageSimulationWavelengths()
+        {
+            var selection = Text("WavelengthNumber", "RGB");
+            if (!string.Equals(selection, "RGB", StringComparison.OrdinalIgnoreCase))
+            {
+                var index = Math.Clamp(LeadingInt("WavelengthNumber", 1) - 1, 0, Math.Max(0, CurrentOptic.Wavelengths.Count - 1));
+                return CurrentOptic.Wavelengths.Count == 0
+                    ? new[] { 0.55 }
+                    : new[] { CurrentOptic.Wavelengths[index].Micrometers };
+            }
+
+            var values = CurrentOptic.Wavelengths
+                .OrderByDescending(wavelength => wavelength.Micrometers)
+                .Take(3)
+                .Select(wavelength => wavelength.Micrometers)
+                .ToArray();
+            return values.Length == 0 ? new[] { 0.65, 0.55, 0.45 } : values;
+        }
+
+        (double X, double Y) ImageSimulationFieldCenter()
+        {
+            if (CurrentOptic.Fields.Count == 0)
+            {
+                return (0, 0);
+            }
+
+            var index = Math.Clamp(
+                LeadingInt("FieldNumber", 1) - 1,
+                0,
+                CurrentOptic.Fields.Count - 1);
+            var field = CurrentOptic.Fields[index];
+            return FieldCoordinates.Normalize(CurrentOptic.Fields, field.X, field.Y);
         }
 
         int? OptionalGridSize()
@@ -250,7 +293,7 @@ public partial class OpticalWorkspaceModel
                 Int("FieldNumber", 0),
                 Bool("DeleteVignetted", false),
                 Bool("UseSymbols", true),
-                Text("ColorRaysBy", "wavelength")),
+                Text("ColorRaysBy", "视场")),
             "Field Curvature and Distortion" => new FieldCurvatureAndDistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 128),
@@ -768,22 +811,46 @@ public partial class OpticalWorkspaceModel
                     _ => ImageSimulationSourcePattern.ColorChart
                 },
                 SourceFile = Text("SourceFile", string.Empty),
-                SourceImage = Text("SourceMode", "内置图像") == "外部位图" ? ImageFileLoader.LoadRgb(Text("SourceFile", string.Empty)) : null,
-                PsfSize = Int("PsfSize", 32),
-                NumRays = Int("NumRays", 16),
+                SourceImage = string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
+                    ? null
+                    : ImageFileLoader.LoadRgb(Text("SourceFile", string.Empty)),
+                PsfSize = LeadingInt("PsfSize", 32),
+                NumRays = LeadingInt("NumRays", 32),
                 Components = Int("EigenPsfComponents", 3),
                 DistortionGridSize = Int("DistortionGridSize", 9),
                 DistortionPolynomialDegree = Int("DistortionPolynomialDegree", 5),
-                PsfGridRows = Int("PsfGridRows", 3),
-                PsfGridColumns = Int("PsfGridColumns", 3),
-                Padding = Int("GuardBand", 16),
-                SourceMode = Text("SourceMode", "内置图像") == "外部位图" ? "External bitmap" : "Built-in",
+                PsfGridRows = LeadingInt("PsfGridRows", 3),
+                PsfGridColumns = LeadingInt("PsfGridColumns", 3),
+                Padding = LeadingInt("GuardBand", 0),
+                SourceMode = string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
+                    ? "Built-in"
+                    : "External bitmap",
                 FieldHeight = Double("FieldHeight", 0),
-                Oversampling = Int("Oversampling", 1),
+                Oversampling = LeadingInt("Oversampling", 1),
+                SourceFlip = Text("SourceFlip", "无"),
+                SourceRotationDegrees = LeadingInt("SourceRotation", 0),
+                ImageFlip = Text("ImageFlip", "无"),
                 UseRelativeIllumination = Bool("RelativeIllumination", true),
-                AberrationMode = Text("AberrationMode", "Diffraction"),
+                AberrationMode = Text("AberrationMode", "几何的") switch
+                {
+                    "无" => "None",
+                    "衍射" => "Diffraction",
+                    _ => "Geometric"
+                },
+                Reference = Text("Reference", "主光线") == "质心" ? "centroid" : "chief",
+                DisplayAs = Text("DisplayAs", "仿真图"),
+                FieldCenterX = ImageSimulationFieldCenter().X,
+                FieldCenterY = ImageSimulationFieldCenter().Y,
                 ImageWidth = Int("ImageWidth", 64),
-                ImageHeight = Int("ImageHeight", 48)
+                ImageHeight = Int("ImageHeight", 48),
+                OutputWidth = Int("DetectorXPixels", 0),
+                OutputHeight = Int("DetectorYPixels", 0),
+                PixelSizeMillimeters = Double("PixelSize", 0),
+                WavelengthsMicrometers = ImageSimulationWavelengths(),
+                UsePolarization = Bool("UsePolarization", false),
+                ApplyFixedApertures = Bool("ApplyFixedApertures", true),
+                CompressFrame = Bool("CompressFrame", false),
+                OutputFile = Text("OutputFile", string.Empty)
             }),
             "Jones Pupil" => new JonesPupilAnalysis(CurrentOptic, Int("GridSize", 65)),
             "Prescription Report" => new PrescriptionReportAnalysis(CurrentOptic),

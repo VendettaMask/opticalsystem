@@ -72,14 +72,34 @@ internal sealed class LensLibraryService : ILensLibraryService
         var project = await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false);
         var optic = project.Configurations[project.ActiveConfigurationIndex];
         var scene = await Task.Run(
-            () => new Layout2DBuilder(optic).Build(
-                options: new LayoutBuildOptions(
-                    IncludeAllWavelengths: false,
-                    RayCount: 3,
-                    MarginalAndChiefOnly: true)),
+            () => BuildPreviewScene(optic),
             cancellationToken).ConfigureAwait(false);
         var summary = CreateSummary(optic, nativePath);
         return new SceneDto(0, SceneDimension.TwoDimensional, ToScene2Dto(scene), null, summary);
+    }
+
+    private static Layout2DScene BuildPreviewScene(Optic optic)
+    {
+        var builder = new Layout2DBuilder(optic);
+        try
+        {
+            return builder.Build(
+                options: new LayoutBuildOptions(
+                    IncludeAllWavelengths: false,
+                    RayCount: 3,
+                    MarginalAndChiefOnly: true));
+        }
+        catch (InvalidOperationException exception) when (
+            exception.Message.StartsWith(
+                "Cannot find rays to yield requested real image height",
+                StringComparison.Ordinal))
+        {
+            return builder.Build(
+                options: new LayoutBuildOptions(
+                    IncludeAllWavelengths: false,
+                    RayCount: 0,
+                    MarginalAndChiefOnly: true));
+        }
     }
 
     private LensLibraryEntryDto? GetEntry(string id)

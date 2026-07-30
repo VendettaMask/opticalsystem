@@ -19,6 +19,8 @@ public sealed class MaterialRegistry
     };
 
     private readonly Dictionary<string, IMaterial> _materials = new(StringComparer.OrdinalIgnoreCase);
+    private IReadOnlyList<string> _preferredGlassCatalogs =
+        DefaultGlassCatalogPriority.ToArray();
     private static GlassCatalogDatabase Catalog => GlassCatalogDatabase.Instance;
 
     public MaterialRegistry()
@@ -48,7 +50,21 @@ public sealed class MaterialRegistry
         .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
         .ToArray();
 
+    public IReadOnlyList<string> PreferredGlassCatalogs => _preferredGlassCatalogs;
+
     public int CatalogGlassCount => Catalog.Count;
+
+    public void SetPreferredGlassCatalogs(IEnumerable<string>? catalogs)
+    {
+        var normalized = (catalogs ?? Array.Empty<string>())
+            .Where(name => !string.IsNullOrWhiteSpace(name))
+            .Select(name => name.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        _preferredGlassCatalogs = normalized.Length > 0
+            ? normalized
+            : DefaultGlassCatalogPriority.ToArray();
+    }
 
     public void Register(IMaterial material)
     {
@@ -88,7 +104,7 @@ public sealed class MaterialRegistry
         var normalized = string.IsNullOrWhiteSpace(name) ? "Air" : name.Trim();
         var effectiveManufacturers = preferredManufacturers is { Count: > 0 }
             ? preferredManufacturers
-            : DefaultGlassCatalogPriority;
+            : PreferredGlassCatalogs;
         if (_materials.TryGetValue(normalized, out var registered))
         {
             material = registered.Clone();
@@ -138,6 +154,7 @@ public sealed class MaterialRegistry
             clone.Register(material.Clone());
         }
 
+        clone.SetPreferredGlassCatalogs(PreferredGlassCatalogs);
         return clone;
     }
 

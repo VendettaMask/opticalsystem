@@ -82,8 +82,8 @@
 
 ### 光迹图 / Footprint Diagram
 
-- 设置内容：通常与 spot 类分析共享 `Ray Density`、`Wavelength`、`Field`、`Surface`、`Color Rays By`、`Delete Vignetted`、`Use Symbols`。`Color Rays By` 默认值为 `wavelength`，也可切换为 `field`。
-- 结果展现：指定表面上的 ray footprint 散点图，通常用于观察光束在孔径、镜片表面或中间面上的占用范围。
+- 设置内容：通常与 spot 类分析共享 `Ray Density`、`Wavelength`、`Field`、`Surface`、`Color Rays By`、`Delete Vignetted`、`Use Symbols`。当前实现的 `Color Rays By` 默认值为 `视场`，也可切换为 `波长`；旧设置中的 `field` / `wavelength` 继续兼容。
+- 结果展现：指定表面上的 ray footprint 散点图，通常用于观察光束在孔径、镜片表面或中间面上的占用范围。图下工程标注显示表面、光线 X/Y 极值、最大半径、参与分析的波长以及图例含义；数据页同时提供 X/Y 绘图缩放和孔径。
 - 图例必须和着色依据一致：按波长着色时显示波长及 `µm` 单位；按视场着色时显示视场序号、`(X, Y)` 坐标及当前视场单位（角度为 `°`，高度为 `mm`）。图例开关按相同分组过滤光线。
 - 实现方式：追迹 pupil 光线束并记录其在指定表面的实际交点，不一定要求形成焦点。官方中间面说明中，footprint 属于更适合直接在表面处评价的几何分析。
 
@@ -471,10 +471,11 @@
 - PSF 方法：`Diffraction` 使用 Huygens PSF；`Geometric` 使用 spot diagram 积分；`None` 使用 delta functions。若 Diffraction 模式下像差过严重，官方说明可自动切换到 Geometric。
 - `Field Height` 表示完成 oversampling、旋转和 guard band 后整幅源图所覆盖的视场高度；它不是只写入结果页的显示参数。
 - `Guard Band` 是原图四周的黑色零强度边界，不是镜像、重复或边缘延拓。
-- Workbench 实现状态（2026-07-29）：可读取 BMP/PNG/JPEG；先执行最近邻 oversampling 和黑色 guard band，再把整幅准备后位图映射到 `FieldHeight`；按视场网格生成并插值 PSF，应用二维 relative-illumination 网格，最后在统一的主波长像面坐标上拟合逆畸变，从而保留畸变和垂轴色差。
-- Workbench 的 `AberrationMode` 默认值为 `Diffraction`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍，或 Huygens 计算失效时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。`Geometric` 和 `None` 不再经过固定 FFT PSF。
+- Workbench 实现状态（2026-07-30）：设置页按 Zemax 分为“源位图设置”“网格卷积设置”“探测器和显示设置”。可读取 BMP/PNG/JPEG；先执行源位图翻转、90° 步进旋转、最近邻 oversampling 和黑色 guard band，再把整幅准备后位图映射到 `FieldHeight`。可选择一个视场作为网格中心，选择 RGB 或单一系统波长；随后按视场网格生成并插值 PSF，应用二维 relative-illumination 网格，最后在统一的参考波长像面坐标上拟合逆畸变，从而保留畸变和垂轴色差。
+- Workbench 的图像模拟入口默认使用 `Geometric`，以匹配 Zemax 设置页示例；也可切换 `Diffraction` 或 `None`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍，或 Huygens 计算失效时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。`Geometric` 和 `None` 不再经过固定 FFT PSF。
+- 源图和仿真结果均可按设置翻转；`Reference` 可选择主光线或质心。显式 pixel size 会覆盖自动估算的像面采样间距；非零 X/Y detector pixels 会重采样最终输出。`显示为` 可选择仿真图或源位图，输出文件支持 BMP/JPG/PNG。
 - Workbench 当前 `GuardBand` 数值仍表示每边加入的像素数；它与 OpticStudio 界面中的 guard-band level 表示法不同，但边界内容和管线位置遵循上述定义。
-- 尚未接入本入口的设置包括 rotation/flip、polarization、显式 detector pixel size、PSF-grid 单独显示和图像文件导出；文档和界面不得把这些能力标为已完成。
+- `Use Polarization`、`Apply Fixed Apertures` 和 `Compress Frame` 已作为 Zemax 设置兼容项保存并显示；当前标量 PSF 管线尚未进行 Jones/Mueller 偏振传播，固定孔径仍采用现有顺序追迹的固定孔径行为，`Compress Frame` 尚不改变无框架的栅格输出。PSF-grid 单独显示仍未接入本入口。
 
 ### Geometric Image Analysis
 

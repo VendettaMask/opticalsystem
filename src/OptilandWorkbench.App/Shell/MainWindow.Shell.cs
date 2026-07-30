@@ -138,9 +138,40 @@ public sealed partial class MainWindow
                         RibbonButton("show-solid-model", "cylinder", "实体模型")))),
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
                 RibbonTab("优化", BuildRibbonPage(
-                    RibbonGroup("评价函数",
-                        RibbonButton("show-optimization", "sparkles", "优化向导"),
-                        RibbonButton("show-optimization", "target", "执行优化")))),
+                    RibbonGroup("手动调整",
+                        RibbonButton("quick-focus", "focus", "快速聚焦"),
+                        RibbonButton("quick-adjust", "scan-search", "快速调整"),
+                        RibbonButton("optimization-slider", "sliders-horizontal", "滑块"),
+                        RibbonButton(
+                            "show-visual-optimizer",
+                            "chart-no-axes-combined",
+                            "可视化优化器")),
+                    RibbonGroup("自动优化",
+                        RibbonButton("show-merit-editor", "list-tree", "评价函数编辑器"),
+                        RibbonButton(
+                            "show-optimization-wizard",
+                            "wand-sparkles",
+                            "优化向导"),
+                        RibbonButton("run-optimization", "play", "执行优化"),
+                        RibbonButton(
+                            "clear-optimization-variables",
+                            "trash-2",
+                            "移除所有变量"),
+                        RibbonButton(
+                            "set-all-radius-variables",
+                            "circle-dot",
+                            "设全部半径变量"),
+                        RibbonButton(
+                            "set-all-thickness-variables",
+                            "move-vertical",
+                            "设全部厚度变量")),
+                    RibbonGroup("全局优化",
+                        RibbonButton("run-global-optimization", "globe", "全局优化"),
+                        RibbonButton("run-hammer-optimization", "hammer", "锤形优化"),
+                        RibbonButton(
+                            "glass-replacement-template",
+                            "replace",
+                            "玻璃替换模板")))),
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
                         RibbonButton("show-tolerancing", "activity", "灵敏度"),

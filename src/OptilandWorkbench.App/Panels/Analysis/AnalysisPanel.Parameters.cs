@@ -168,6 +168,11 @@ public sealed partial class AnalysisPanel
                 }));
             return;
         }
+        if (string.Equals(AnalysisKey, "Image Simulation", StringComparison.Ordinal))
+        {
+            _parameterPanel.Children.Add(BuildImageSimulationSettings(descriptors));
+            return;
+        }
 
         foreach (var descriptor in descriptors)
         {
@@ -179,6 +184,134 @@ public sealed partial class AnalysisPanel
             _parameterControls[descriptor.Key] = control;
             _parameterPanel.Children.Add(control);
         }
+    }
+
+    private Control BuildImageSimulationSettings(
+        IReadOnlyList<AnalysisParameterDescriptor> descriptors)
+    {
+        var byKey = descriptors.ToDictionary(descriptor => descriptor.Key);
+        var panel = new StackPanel
+        {
+            Spacing = 4,
+            MinWidth = 780,
+            MaxWidth = 960
+        };
+        AddSection(
+            "源位图设置",
+            new[] { "SourceFile", "FieldHeight", "SourceFlip", "SourceRotation" },
+            new[] { "Oversampling", "GuardBand", "WavelengthNumber", "FieldNumber" });
+        AddSection(
+            "网格卷积设置",
+            new[] { "NumRays", "PsfGridColumns", "UsePolarization", "ApplyFixedApertures" },
+            new[] { "PsfSize", "PsfGridRows", "AberrationMode", "RelativeIllumination" });
+        AddSection(
+            "探测器和显示设置",
+            new string?[] { "DisplayAs", "Reference", "ImageFlip", "CompressFrame", "OutputFile" },
+            new string?[] { "PixelSize", "DetectorXPixels", "DetectorYPixels", null, null });
+
+        var separator = new Border
+        {
+            Height = 1,
+            Margin = new Thickness(4, 8, 4, 2)
+        };
+        separator.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Border);
+        panel.Children.Add(separator);
+        panel.Children.Add(BuildImageSimulationFooter());
+        return panel;
+
+        void AddSection(
+            string title,
+            IReadOnlyList<string?> leftKeys,
+            IReadOnlyList<string?> rightKeys)
+        {
+            panel.Children.Add(new TextBlock
+            {
+                Text = $"----- {title} -----",
+                FontSize = 14,
+                FontWeight = FontWeight.SemiBold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 8, 0, 3)
+            });
+            var rows = Math.Max(leftKeys.Count, rightKeys.Count);
+            var grid = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("Auto,240,24,Auto,240"),
+                RowDefinitions = new RowDefinitions(
+                    string.Join(',', Enumerable.Repeat("34", rows)))
+            };
+            for (var row = 0; row < rows; row++)
+            {
+                if (row < leftKeys.Count && leftKeys[row] is { } leftKey)
+                {
+                    AddSpotSetting(grid, byKey[leftKey], row, 0, 1);
+                }
+
+                if (row < rightKeys.Count && rightKeys[row] is { } rightKey)
+                {
+                    AddSpotSetting(grid, byKey[rightKey], row, 3, 4);
+                }
+            }
+
+            panel.Children.Add(grid);
+        }
+    }
+
+    private Control BuildImageSimulationFooter()
+    {
+        var applyButton = new Button { Content = "应用", MinWidth = 86 };
+        applyButton.Click += async (_, _) => await RunAsync();
+        var okButton = new Button { Content = "确定", MinWidth = 86 };
+        okButton.Click += async (_, _) =>
+        {
+            await RunAsync();
+            _settingsHost.IsVisible = false;
+        };
+        var cancelButton = new Button { Content = "取消", MinWidth = 86 };
+        cancelButton.Click += (_, _) =>
+        {
+            RebuildParameterPanel();
+            _settingsHost.IsVisible = false;
+        };
+        var saveButton = new Button { Content = "保存", MinWidth = 86 };
+        saveButton.Click += async (_, _) => await SaveSettingsPresetAsync();
+        var loadButton = new Button { Content = "载入", MinWidth = 86 };
+        loadButton.Click += async (_, _) => await LoadSettingsPresetAsync();
+        var resetButton = new Button { Content = "重置", MinWidth = 86 };
+        resetButton.Click += async (_, _) =>
+        {
+            _settings = _analyses.MergeSettings(AnalysisName, null);
+            RebuildParameterPanel();
+            if (_parameterAutoApply.IsChecked == true)
+            {
+                await RunAsync();
+            }
+        };
+        foreach (var button in new[] { applyButton, okButton, cancelButton, saveButton, loadButton, resetButton })
+        {
+            button.Margin = new Thickness(3, 4);
+        }
+
+        var footer = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"),
+            Children =
+            {
+                _parameterAutoApply,
+                new WrapPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Children = { applyButton, okButton, cancelButton }
+                },
+                new WrapPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Children = { saveButton, loadButton, resetButton }
+                }
+            }
+        };
+        Grid.SetColumn(footer.Children[1], 1);
+        Grid.SetColumn(footer.Children[2], 2);
+        return footer;
     }
 
     private Control BuildSpotDiagramSettings(
@@ -654,6 +787,8 @@ public sealed partial class AnalysisPanel
         {
             AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
             AnalysisParameterKind.Boolean => BooleanInput(value),
+            AnalysisParameterKind.File when descriptor.Key == "OutputFile" =>
+                new FilePathInput(value, SelectImageOutputFileAsync, "选择输出 BMP、PNG 或 JPEG 文件"),
             AnalysisParameterKind.File => FileInput(value),
             _ => NumericInput(descriptor, value)
         };
@@ -723,16 +858,43 @@ public sealed partial class AnalysisPanel
         return files.Count == 0 ? null : files[0].Path.LocalPath;
     }
 
+    private async Task<string?> SelectImageOutputFileAsync()
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is null)
+        {
+            return null;
+        }
+
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "选择图像模拟输出文件",
+            SuggestedFileName = "image-simulation.png",
+            DefaultExtension = "png",
+            FileTypeChoices = new[]
+            {
+                new FilePickerFileType("位图图像")
+                {
+                    Patterns = new[] { "*.png", "*.bmp", "*.jpg", "*.jpeg" }
+                }
+            }
+        });
+        return file?.Path.LocalPath;
+    }
+
     private sealed class FilePathInput : Grid
     {
-        internal FilePathInput(string value, Func<Task<string?>> browse)
+        internal FilePathInput(
+            string value,
+            Func<Task<string?>> browse,
+            string placeholder = "选择 BMP、PNG 或 JPEG 图像")
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto");
             Input = new TextBox
             {
                 Text = value,
                 MinWidth = 220,
-                PlaceholderText = "\u9009\u62E9 BMP\u3001PNG \u6216 JPEG \u56FE\u50CF"
+                PlaceholderText = placeholder
             };
             var button = new Button
             {

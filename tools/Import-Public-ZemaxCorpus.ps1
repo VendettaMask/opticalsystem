@@ -12,11 +12,17 @@ if ([string]::IsNullOrWhiteSpace($RepositoryRoot)) {
     $RepositoryRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 }
 $repository = [IO.Path]::GetFullPath($RepositoryRoot)
-$corpusRoot = Join-Path $repository 'local-data\lens-library\originals\public-zmx'
-$manifestPath = Join-Path $corpusRoot 'manifest.json'
+$corpusRoot = Join-Path $repository 'local-data\lens-library\originals\user-zmx\public'
+$manifestPaths = @(
+    (Join-Path $corpusRoot 'manifest.json'),
+    (Join-Path $corpusRoot 'dan-reiley-manifest.json')
+) | Where-Object { [IO.File]::Exists($_) }
 $reportPath = Join-Path $corpusRoot 'conversion-report.json'
-if (-not [IO.File]::Exists($manifestPath)) {
-    throw "Download manifest not found: $manifestPath. Run tools\Sync-Public-ZemaxCorpus.ps1 first."
+if ($manifestPaths.Count -eq 0) {
+    throw (
+        "No download manifest found under $corpusRoot. Run " +
+        'tools\Sync-Public-ZemaxCorpus.ps1 or ' +
+        'tools\Sync-DanReileyLensExchange.ps1 first.')
 }
 
 if ([string]::IsNullOrWhiteSpace($ImporterDll)) {
@@ -42,7 +48,15 @@ function Get-SafeName {
     return $(if ([string]::IsNullOrWhiteSpace($safe)) { 'zemax-design' } else { $safe })
 }
 
-$manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$manifestEntries = [Collections.Generic.List[object]]::new()
+foreach ($manifestPath in $manifestPaths) {
+    $manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 |
+        ConvertFrom-Json
+    foreach ($entry in @($manifest.Entries |
+            Where-Object { $_.OriginalFileName -match '(?i)\.zmx$' })) {
+        $manifestEntries.Add($entry)
+    }
+}
 $previous = @{}
 if (-not $RetrySuccessful -and [IO.File]::Exists($reportPath)) {
     $oldReport = Get-Content -LiteralPath $reportPath -Raw -Encoding UTF8 | ConvertFrom-Json
@@ -54,7 +68,7 @@ if (-not $RetrySuccessful -and [IO.File]::Exists($reportPath)) {
 }
 
 $results = [Collections.Generic.List[object]]::new()
-foreach ($entry in $manifest.Entries) {
+foreach ($entry in $manifestEntries) {
     $key = "$($entry.Provider)/$($entry.SourceId)/$($entry.FileId)"
     if ($previous.ContainsKey($key)) {
         $results.Add($previous[$key])
@@ -126,7 +140,7 @@ $report = [ordered]@{
     Version = 1
     GeneratedAtUtc = [DateTimeOffset]::UtcNow.ToString('O')
     Importer = $ImporterDll
-    Manifest = $manifestPath
+    Manifests = @($manifestPaths)
     Results = @($results)
 }
 [IO.File]::WriteAllText(

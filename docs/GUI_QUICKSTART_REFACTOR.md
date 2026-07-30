@@ -91,7 +91,7 @@ Native series are currently produced for:
   single row that expands to the available plot area; four to nine fields retain
   the symmetric three-by-three field layout.
 - Ray Fan: ordered line samples.
-- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary. Ray coloring defaults to wavelength; the selectable legend follows the active color basis and switches to numbered field coordinates and units when coloring by field.
+- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary. Ray coloring defaults to field and the Chinese settings show `视场` / `波长`; legacy saved values `field` / `wavelength` remain accepted. The selectable legend follows the active color basis, and the result footer reports the selected surface, ray X/Y extrema, maximum footprint radius, wavelengths, and legend meaning.
 - Best Fit Ray Fan: paired fans referenced to a fitted wavefront sphere.
 - Encircled Energy: radius versus energy.
 - RMS vs Field: field angle versus RMS spot radius.
@@ -124,9 +124,11 @@ Reference: use Matplotlib and VTK navigation controls.
 
 Workbench: the renderer remains Avalonia-native. The refactor adds the missing interaction contract while avoiding a VTK dependency:
 
-For **Image Simulation**, choose the built-in target or **External Bitmap** and browse to a BMP, PNG, JPG, or JPEG file. `Field Height` maps the oversampled image plus its black guard band to the optical field. `Diffraction` is the default PSF method; `Geometric` and `None` select their own kernels, while an unreliable diffraction node is reported as an automatic geometric fallback. Relative illumination, geometric distortion, and lateral color are applied during simulation rather than stored as inactive settings.
+For **Image Simulation**, expand **设置** to use the Zemax-style three-section form: source bitmap, grid convolution, and detector/display. Browse to a BMP, PNG, JPG, or JPEG file, or leave the path empty to use the built-in target. `Field Height` maps the transformed, oversampled image plus its black guard band to the optical field. The entry defaults to `Geometric`; `Diffraction` and `None` select their own kernels, while an unreliable diffraction node is reported as an automatic geometric fallback. Source/output flip, 90° source rotation, RGB or single-wavelength selection, field-center selection, reference ray, relative illumination, detector pixel size and output dimensions all affect the generated raster. **显示为** selects the simulated image or source bitmap, and **输出文件** writes BMP, JPG, or PNG.
 
 The guard-band value is currently a per-side pixel count. Guard pixels are black; they are never mirror-filled.
+
+`Use Polarization`, `Apply Fixed Apertures`, and `Compress Frame` are retained as Zemax-compatible settings. The current image-simulation path is scalar, uses the existing sequential fixed-aperture behavior, and emits an unframed raster, so those three compatibility settings do not yet select a separate calculation path.
 
 - 2D: drag to pan the full physical scene, including the optical axis; wheel to zoom around the pointer.
 - 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
@@ -139,6 +141,10 @@ The two viewer modes are opened from separate commands in the top **View** Ribbo
 Reference: edit Surface 1 radius and immediately update viewers.
 
 Workbench: `LensEditorPanel` submits a `SurfaceRowDto` command. Application captures undo state, updates Core, applies pickups and solves, increments the revision once, and emits one structured surface event. Lightweight viewers debounce that event; heavy analyses become stale without blocking the editor.
+
+### Select Current Glass Catalogs
+
+Open **System Options** and expand **Material Library**. **Current Glass Catalogs** contains the ordered search priority used when a surface specifies an ambiguous glass name without a manufacturer; **Available Glass Catalogs** lists the other loaded built-in, bundled Zemax, and user-imported catalogs. Select a row and use **Add to Current** or **Remove from Current** to transfer it, or use the priority up/down commands to reorder the current list. At least one catalog remains current. The selection participates in undo/redo, is stored in STAROPT, and round-trips through Zemax `GCAT`.
 
 ### Run RMS Spot Size Vs Field
 
@@ -156,7 +162,7 @@ geometric-bitmap, light-source, partially coherent, and extended-diffraction
 calculations, plus standalone IMA/BIM and bitmap file viewers. IMA/BIM files can
 be displayed as false color, grayscale, RGB, or an individual channel.
 
-Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Every document has a compact tab with a small close button. Tabs can be dragged to split, merge, float, and redock; the **Window** Ribbon also supplies bulk docking, floating, tiling, cascading, locking, closing, and default-layout actions.
+Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Flexible multi-pane plots expose an optional **方形子图** checkbox: the unchecked default keeps the existing auto-fill rectangles, while enabling it centers each pane in a square bounded by the available cell size. Fixed presentation matrices keep their established layout. Every document has a compact tab with a small close button. Tabs can be dragged to split, merge, float, and redock; the **Window** Ribbon also supplies bulk docking, floating, tiling, cascading, locking, closing, and default-layout actions.
 
 Ordinary prescription edits only mark a heavy result stale. Synchronization captures the current Core revision, cancels an older run for the same page, and accepts the result only while instance ID, task generation, and source revision still match. Closing the page or switching files cancels its work.
 
@@ -201,4 +207,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-29, the solution builds with zero warnings and all `569/569` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, Python golden comparisons, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, editor transactions, STEP generation, image viewers, file association, and file formats.
+As of 2026-07-30, the solution builds with zero warnings and all `577/577` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, optional square multi-pane layout, current/available glass-catalog selection and persistence, Python golden comparisons, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, editor transactions, STEP generation, image viewers, file association, and file formats.

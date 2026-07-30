@@ -771,6 +771,33 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
+        if (string.Equals(view.Name, "光迹图", StringComparison.Ordinal)
+            || string.Equals(view.Name, "Footprint Diagram", StringComparison.OrdinalIgnoreCase))
+        {
+            var surfaceNumber = FindRowText(view, "表面序号", "0");
+            var surfaceLabel = FindRowText(view, "表面标注", string.Empty);
+            var rayXMinimum = FindRowText(view, "光线 X 最小", "0");
+            var rayXMaximum = FindRowText(view, "光线 X 最大", "0");
+            var rayYMinimum = FindRowText(view, "光线 Y 最小", "0");
+            var rayYMaximum = FindRowText(view, "光线 Y 最大", "0");
+            var maximumRadius = FindRowText(view, "最大半径", "0");
+            var wavelengths = FindRowText(view, "波长 (µm)", "0");
+            var colorBasis = FindRowText(view, "颜色显示", "field");
+            var legendMeaning = string.Equals(colorBasis, "field", StringComparison.OrdinalIgnoreCase)
+                ? "图例对应于视场位置"
+                : "图例对应于波长";
+            var surfaceText = string.IsNullOrWhiteSpace(surfaceLabel)
+                ? $"面 {surfaceNumber}:"
+                : $"面 {surfaceNumber}: {surfaceLabel}";
+            return new CompactAnalysisSummary(
+                "光迹图",
+                $"{surfaceText}{Environment.NewLine}"
+                + $"光线 X 最小 = {rayXMinimum}    光线 X 最大 = {rayXMaximum}{Environment.NewLine}"
+                + $"光线 Y 最小 = {rayYMinimum}    光线 Y 最大 = {rayYMaximum}{Environment.NewLine}"
+                + $"最大半径 = {maximumRadius}    波长 = {wavelengths}{Environment.NewLine}"
+                + legendMeaning);
+        }
+
         if (IsHuygensPsfView(view))
         {
             var wavelengthRange = FindRowText(view, "波长范围", "0");

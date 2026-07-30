@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_capture_baseline.py", line 608, in capture_data
+    write_json(data_path, serialize_results(results))
+  File "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_capture_baseline.py", line 271, in serialize_results
+    "x": vector(item.XData.Data),
+AttributeError: 'NoneType' object has no attribute 'Data'

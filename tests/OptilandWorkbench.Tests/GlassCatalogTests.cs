@@ -89,6 +89,41 @@ public sealed class GlassCatalogTests
     }
 
     [Fact]
+    public void SystemGlassCatalogPriorityControlsResolutionAndSurvivesSnapshot()
+    {
+        var optic = Optic.CreateDemo();
+        optic.Materials.SetPreferredGlassCatalogs(new[] { "CDGM", "SCHOTT" });
+
+        var cdgm = Assert.IsType<CatalogGlassMaterial>(optic.Materials.Resolve("F2"));
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+
+        Assert.Equal("CDGM", cdgm.Manufacturer);
+        Assert.Equal(new[] { "CDGM", "SCHOTT" }, restored.GlassCatalogs);
+        Assert.Equal(
+            "CDGM",
+            Assert.IsType<CatalogGlassMaterial>(restored.Materials.Resolve("F2")).Manufacturer);
+
+        restored.Materials.SetPreferredGlassCatalogs(new[] { "SCHOTT", "CDGM" });
+        Assert.Equal(
+            "SCHOTT",
+            Assert.IsType<CatalogGlassMaterial>(restored.Materials.Resolve("F2")).Manufacturer);
+    }
+
+    [Fact]
+    public void ZemaxGcatRoundTripPreservesTheConfiguredCatalogOrder()
+    {
+        var imported = OpticalFormatCatalog.Import(ZemaxSource("CDGM", "F2"), ".zmx");
+
+        Assert.Equal(new[] { "CDGM" }, imported.GlassCatalogs);
+
+        var exported = OpticalFormatCatalog.Export(imported, ".zmx");
+        var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+
+        Assert.Contains("GCAT CDGM", exported, StringComparison.Ordinal);
+        Assert.Equal(new[] { "CDGM" }, restored.GlassCatalogs);
+    }
+
+    [Fact]
     public void UnqualifiedLegacyGlassUsesCatalogPriorityAndUnknownNamesDoNotFallback()
     {
         var registry = new MaterialRegistry();

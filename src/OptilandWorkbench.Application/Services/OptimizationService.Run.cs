@@ -25,6 +25,68 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed partial class OptimizationService
 {
+    public Task<QuickFocusResultDto> QuickFocusAsync(
+        CancellationToken cancellationToken = default)
+    {
+        CancellationTokenSource linked;
+        lock (Gate)
+        {
+            linked = Workspace.LinkDocumentToken(cancellationToken);
+        }
+
+        return QuickFocusWorkerAsync(linked);
+    }
+
+    private async Task<QuickFocusResultDto> QuickFocusWorkerAsync(
+        CancellationTokenSource linked)
+    {
+        using (linked)
+        {
+            return await Task.Run(() =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                lock (Gate)
+                {
+                    if (Connector.Surfaces.Count < 2)
+                    {
+                        throw new InvalidOperationException(
+                            "快速聚焦至少需要一个物方表面和一个像面。");
+                    }
+
+                    var summary = new AnalysisRunner(Connector.CurrentOptic)
+                        .EvaluateThroughFocus();
+                    if (!double.IsFinite(summary.BestFocusShift))
+                    {
+                        throw new InvalidOperationException("快速聚焦未得到有限的焦移结果。");
+                    }
+
+                    var focusSurface = Connector.Surfaces[^2];
+                    var initialThickness = focusSurface.Thickness;
+                    var finalThickness = Math.Max(
+                        0.001,
+                        initialThickness + summary.BestFocusShift);
+                    var appliedShift = finalThickness - initialThickness;
+                    return Mutate(WorkspaceChangeCategory.Optimization, () =>
+                    {
+                        Connector.CaptureCurrentState();
+                        focusSurface.Thickness = finalThickness;
+                        Connector.CommitSurfaceEdit(
+                            focusSurface,
+                            nameof(OpticalSurface.Thickness));
+                        linked.Token.ThrowIfCancellationRequested();
+                        return new QuickFocusResultDto(
+                            focusSurface.Number,
+                            initialThickness,
+                            appliedShift,
+                            finalThickness,
+                            summary.BestRmsSpotRadius);
+                    });
+                }
+            }, linked.Token).ConfigureAwait(false);
+        }
+    }
+
     public Task<OptimizationResultDto> OptimizeSurfaceRadiusAsync(
         int surfaceNumber,
         string optimizerName,

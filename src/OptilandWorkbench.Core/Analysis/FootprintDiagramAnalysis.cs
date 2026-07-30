@@ -24,7 +24,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         int fieldNumber = 0,
         bool deleteVignetted = false,
         bool useSymbols = true,
-        string colorRaysBy = "wavelength") : base(optic)
+        string colorRaysBy = "field") : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 1, 64);
         _surfaceNumber = surfaceNumber;
@@ -33,6 +33,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         _deleteVignetted = deleteVignetted;
         _useSymbols = useSymbols;
         _colorRaysBy = string.Equals(colorRaysBy, "field", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(colorRaysBy, "视场", StringComparison.Ordinal)
             ? "field"
             : "wavelength";
     }
@@ -56,6 +57,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
 
         var pupilSamples = BuildPupilGrid(_rayDensity);
         var series = new List<AnalysisSeries>();
+        var rayPoints = new List<AnalysisPoint>();
         var launchedRayCount = 0;
         var plottedRayCount = 0;
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
@@ -89,6 +91,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     .Where(point => point is not null)
                     .Select(point => point!)
                     .ToArray();
+                rayPoints.AddRange(points);
                 plottedRayCount += points.Length;
                 var colorIndex = _colorRaysBy == "wavelength" ? wavelengthIndex : fieldIndex;
                 var legendKey = _colorRaysBy == "wavelength"
@@ -115,8 +118,12 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
             }
         }
 
-        series.AddRange(BuildApertureOutline(surface));
+        var apertureSeries = BuildApertureOutline(surface).ToArray();
+        series.AddRange(apertureSeries);
         var bounds = PlotBounds(surface, series);
+        var aperturePoints = apertureSeries.SelectMany(item => item.Points).ToArray();
+        var apertureWidth = Span(aperturePoints.Select(point => point.X), 2 * surface.SemiDiameter);
+        var apertureHeight = Span(aperturePoints.Select(point => point.Y), 2 * surface.SemiDiameter);
         var values = new Dictionary<string, object>
         {
             ["SurfaceNumber"] = surface.Number,
@@ -129,7 +136,22 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
             ["ColorRaysBy"] = _colorRaysBy,
             ["LaunchedRayCount"] = launchedRayCount,
             ["PlottedRayCount"] = plottedRayCount,
-            ["TransmissionPercent"] = launchedRayCount == 0 ? 0 : 100.0 * plottedRayCount / launchedRayCount
+            ["TransmissionPercent"] = launchedRayCount == 0 ? 0 : 100.0 * plottedRayCount / launchedRayCount,
+            ["XScaleMillimeters"] = bounds.MaximumX - bounds.MinimumX,
+            ["YScaleMillimeters"] = bounds.MaximumY - bounds.MinimumY,
+            ["ApertureDiameterMillimeters"] = Math.Max(apertureWidth, apertureHeight),
+            ["RayXMinimumMillimeters"] = Minimum(rayPoints.Select(point => point.X)),
+            ["RayXMaximumMillimeters"] = Maximum(rayPoints.Select(point => point.X)),
+            ["RayYMinimumMillimeters"] = Minimum(rayPoints.Select(point => point.Y)),
+            ["RayYMaximumMillimeters"] = Maximum(rayPoints.Select(point => point.Y)),
+            ["MaximumRayRadiusMillimeters"] = rayPoints
+                .Select(point => Math.Sqrt((point.X * point.X) + (point.Y * point.Y)))
+                .DefaultIfEmpty(0)
+                .Max(),
+            ["WavelengthsMicrometers"] = string.Join(
+                ", ",
+                wavelengths.Select(wavelength =>
+                    wavelength.Micrometers.ToString("0.0000", CultureInfo.InvariantCulture)))
         };
         var plotOptions = new AnalysisPlotOptions(
             Title: $"Surface {surface.Number}: {surface.Label}",
@@ -318,6 +340,16 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
         var margin = Math.Max(0.05, span * 0.05);
         return new PlotExtent(minimumX - margin, maximumX + margin, minimumY - margin, maximumY + margin);
     }
+
+    private static double Span(IEnumerable<double> values, double fallback)
+    {
+        var samples = values.ToArray();
+        return samples.Length == 0 ? fallback : samples.Max() - samples.Min();
+    }
+
+    private static double Minimum(IEnumerable<double> values) => values.DefaultIfEmpty(0).Min();
+
+    private static double Maximum(IEnumerable<double> values) => values.DefaultIfEmpty(0).Max();
 
     private sealed record SelectedField(
         int Number,

@@ -18,10 +18,10 @@ public sealed class LensLibraryTests
             lensLibraryDirectory: root);
 
         var lenses = application.Lenses.GetLenses();
-        Assert.Equal(106, lenses.Count);
+        Assert.Equal(849, lenses.Count);
         Assert.Equal(56, lenses.Count(lens => lens.Category == "显微物镜"));
         Assert.Equal(5, lenses.Count(lens => lens.Category == "工业镜头"));
-        Assert.Equal(45, lenses.Count(lens => lens.Category == "Public Zemax Designs"));
+        Assert.Equal(788, lenses.Count(lens => lens.Category == "Public Zemax Designs"));
         Assert.DoesNotContain(lenses.Where(lens => lens.Category == "显微物镜"), lens =>
             new[] { "管镜", "Tube", "傅里叶", "Fourier", "聚光", "Condenser", "MultiConfig", "显微系统" }
                 .Any(token =>
@@ -35,10 +35,21 @@ public sealed class LensLibraryTests
         Assert.Empty(Directory.EnumerateFiles(root, "*.zar", SearchOption.AllDirectories));
         Assert.Empty(Directory.EnumerateFiles(root, "*.zip", SearchOption.AllDirectories));
         Assert.Empty(Directory.EnumerateFiles(root, "*.agf", SearchOption.AllDirectories));
+        var previewFailures = new List<string>();
         foreach (var lens in lenses)
         {
-            Assert.NotNull(await application.Lenses.BuildPreviewAsync(lens.Id));
+            try
+            {
+                Assert.NotNull(await application.Lenses.BuildPreviewAsync(lens.Id));
+            }
+            catch (Exception exception)
+            {
+                previewFailures.Add($"{lens.Id}: {exception.Message}");
+            }
         }
+        Assert.True(
+            previewFailures.Count == 0,
+            $"Packaged lens previews failed:{Environment.NewLine}{string.Join(Environment.NewLine, previewFailures)}");
     }
 
     [Fact]

@@ -157,4 +157,48 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             settings.StartRow,
             settings.ReplaceExisting));
     }
+
+    public OptimizationVariableUpdateResultDto UpdateAllSurfaceVariables(
+        OptimizationVariableUpdateMode mode)
+    {
+        return Mutate(WorkspaceChangeCategory.Optimization, () =>
+        {
+            var lastSurfaceNumber = Connector.Surfaces.Count == 0
+                ? -1
+                : Connector.Surfaces[^1].Number;
+            var editable = Connector.Surfaces
+                .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
+                .ToArray();
+            if (editable.Length == 0)
+            {
+                return new OptimizationVariableUpdateResultDto(mode, 0, 0);
+            }
+
+            Connector.CaptureCurrentState();
+            foreach (var surface in editable)
+            {
+                switch (mode)
+                {
+                    case OptimizationVariableUpdateMode.ClearAll:
+                        surface.RadiusVariable = false;
+                        surface.ThicknessVariable = false;
+                        break;
+                    case OptimizationVariableUpdateMode.SetAllRadii:
+                        surface.RadiusVariable = true;
+                        break;
+                    case OptimizationVariableUpdateMode.SetAllThicknesses:
+                        surface.ThicknessVariable = true;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(mode));
+                }
+            }
+
+            Connector.CommitSurfaceEdit(editable[0], nameof(OpticalSurface.RadiusVariable));
+            return new OptimizationVariableUpdateResultDto(
+                mode,
+                editable.Count(surface => surface.RadiusVariable),
+                editable.Count(surface => surface.ThicknessVariable));
+        });
+    }
 }

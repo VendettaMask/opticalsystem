@@ -47,6 +47,8 @@ public sealed class Optic
 
     public MaterialRegistry Materials => _state.Materials;
 
+    public IReadOnlyList<string> GlassCatalogs => Materials.PreferredGlassCatalogs;
+
     public ObservableCollection<FieldPoint> Fields => _state.Fields;
 
     public FieldDefinitionKind FieldDefinition
@@ -477,7 +479,8 @@ public sealed class Optic
             Environment: new EnvironmentSnapshot(
                 Environment.MatchRefractiveIndexData,
                 Environment.TemperatureCelsius,
-                Environment.PressureAtmospheres));
+                Environment.PressureAtmospheres),
+            GlassCatalogs: GlassCatalogs.ToList());
     }
 
     public void ApplySnapshot(OpticSnapshot snapshot)
@@ -531,6 +534,7 @@ public sealed class Optic
         Environment.MatchRefractiveIndexData = snapshot.Environment?.MatchRefractiveIndexData ?? true;
         Environment.TemperatureCelsius = snapshot.Environment?.TemperatureCelsius ?? 20.0;
         Environment.PressureAtmospheres = snapshot.Environment?.PressureAtmospheres ?? 1.0;
+        Materials.SetPreferredGlassCatalogs(snapshot.GlassCatalogs);
 
         Fields.Clear();
         foreach (var field in snapshot.Fields ?? new List<FieldPointSnapshot>())

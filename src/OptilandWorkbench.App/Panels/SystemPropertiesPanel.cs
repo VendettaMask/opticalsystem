@@ -14,6 +14,7 @@ namespace OptilandWorkbench.App.Panels;
 public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
+    private readonly IMaterialCatalogService _materials;
     private readonly IWorkspaceEventStream _events;
     private readonly StackPanel _fieldsHost = new() { Spacing = 5 };
     private readonly StackPanel _wavelengthsHost = new() { Spacing = 5 };
@@ -41,6 +42,20 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     };
     private readonly NumericUpDown _temperatureCelsius = NumberInput(20.0, -273.15, 10_000, 0.1);
     private readonly NumericUpDown _pressureAtmospheres = NumberInput(1.0, 0.0001, 10_000, 0.1);
+    private readonly ListBox _currentGlassCatalogs = new()
+    {
+        Height = 130,
+        HorizontalAlignment = HorizontalAlignment.Stretch
+    };
+    private readonly ListBox _availableGlassCatalogs = new()
+    {
+        Height = 210,
+        HorizontalAlignment = HorizontalAlignment.Stretch
+    };
+    private readonly Button _addGlassCatalog = CommandButton("arrow-up", "加入当前", 108);
+    private readonly Button _removeGlassCatalog = CommandButton("arrow-down", "移出当前", 108);
+    private readonly Button _moveGlassCatalogUp = CommandButton("chevron-up", "优先级上移", 118);
+    private readonly Button _moveGlassCatalogDown = CommandButton("chevron-down", "优先级下移", 118);
     private StackPanel? _apodizationParameterRow;
     private bool _refreshing;
     private bool _applyingLocalChange;
@@ -55,14 +70,19 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
 
     private bool _disposed;
 
-    public SystemPropertiesPanel(IPrescriptionService prescription, IWorkspaceEventStream events)
+    public SystemPropertiesPanel(
+        IPrescriptionService prescription,
+        IMaterialCatalogService materials,
+        IWorkspaceEventStream events)
     {
         _prescription = prescription;
+        _materials = materials;
         _events = events;
         _systemUpdateTimer.Tick += OnSystemUpdateTimerTick;
         _environmentUpdateTimer.Tick += OnEnvironmentUpdateTimerTick;
         ConfigurePickers();
         ConfigureEnvironmentControls();
+        ConfigureGlassCatalogControls();
 
         var addField = CommandButton("plus", "添加视场", 96);
         addField.Click += (_, _) => _prescription.AddField();
@@ -78,6 +98,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Section("系统孔径", BuildApertureSection(), expanded: true),
                 Section("视场", BuildFieldSection(addField), expanded: true),
                 Section("波长", BuildWavelengthSection(addWavelength)),
+                Section("材料库", BuildMaterialLibrarySection()),
                 Section("环境", BuildEnvironmentSection()),
                 Section("高级", BuildAdvancedSection())
             }
@@ -215,6 +236,140 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 _wavelengthsHost
             }
         };
+    }
+
+    private Control BuildMaterialLibrarySection()
+    {
+        var currentActions = new WrapPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Children =
+            {
+                _moveGlassCatalogUp,
+                _moveGlassCatalogDown,
+                _removeGlassCatalog
+            }
+        };
+        var availableActions = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Children = { _addGlassCatalog }
+        };
+        return new StackPanel
+        {
+            Spacing = 8,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Children =
+            {
+                LabeledRow("当前玻璃库", _currentGlassCatalogs),
+                currentActions,
+                LabeledRow("可用玻璃库", _availableGlassCatalogs),
+                availableActions,
+                new TextBlock
+                {
+                    Text = "当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。",
+                    FontSize = 11,
+                    TextWrapping = TextWrapping.Wrap
+                }
+            }
+        };
+    }
+
+    private void ConfigureGlassCatalogControls()
+    {
+        ToolTip.SetTip(_addGlassCatalog, "将选中的可用玻璃库加入当前系统。");
+        ToolTip.SetTip(_removeGlassCatalog, "将选中的当前玻璃库移回可用列表。");
+        ToolTip.SetTip(_moveGlassCatalogUp, "提高当前玻璃库的同名玻璃解析优先级。");
+        ToolTip.SetTip(_moveGlassCatalogDown, "降低当前玻璃库的同名玻璃解析优先级。");
+        _availableGlassCatalogs.SelectionChanged += (_, _) => UpdateGlassCatalogButtonStates();
+        _currentGlassCatalogs.SelectionChanged += (_, _) => UpdateGlassCatalogButtonStates();
+        _addGlassCatalog.Click += (_, _) => AddSelectedGlassCatalog();
+        _removeGlassCatalog.Click += (_, _) => RemoveSelectedGlassCatalog();
+        _moveGlassCatalogUp.Click += (_, _) => MoveSelectedGlassCatalog(-1);
+        _moveGlassCatalogDown.Click += (_, _) => MoveSelectedGlassCatalog(1);
+    }
+
+    private void AddSelectedGlassCatalog()
+    {
+        if (_availableGlassCatalogs.SelectedItem is not string selected)
+        {
+            return;
+        }
+
+        var current = _prescription.GetGlassCatalogs();
+        ApplyLocalChange(() => _prescription.UpdateGlassCatalogs(
+            current.Append(selected).Distinct(StringComparer.OrdinalIgnoreCase).ToArray()));
+        RefreshGlassCatalogs(selected);
+    }
+
+    private void RemoveSelectedGlassCatalog()
+    {
+        if (_currentGlassCatalogs.SelectedItem is not string selected)
+        {
+            return;
+        }
+
+        var current = _prescription.GetGlassCatalogs();
+        if (current.Count <= 1)
+        {
+            return;
+        }
+
+        ApplyLocalChange(() => _prescription.UpdateGlassCatalogs(
+            current.Where(name => !name.Equals(selected, StringComparison.OrdinalIgnoreCase)).ToArray()));
+        RefreshGlassCatalogs();
+        _availableGlassCatalogs.SelectedItem = selected;
+    }
+
+    private void MoveSelectedGlassCatalog(int offset)
+    {
+        if (_currentGlassCatalogs.SelectedItem is not string selected)
+        {
+            return;
+        }
+
+        var current = _prescription.GetGlassCatalogs().ToList();
+        var index = current.FindIndex(name =>
+            name.Equals(selected, StringComparison.OrdinalIgnoreCase));
+        var target = index + offset;
+        if (index < 0 || target < 0 || target >= current.Count)
+        {
+            return;
+        }
+
+        (current[index], current[target]) = (current[target], current[index]);
+        ApplyLocalChange(() => _prescription.UpdateGlassCatalogs(current));
+        RefreshGlassCatalogs(selected);
+    }
+
+    private void RefreshGlassCatalogs(string? selectCurrent = null)
+    {
+        var current = _prescription.GetGlassCatalogs();
+        var currentNames = current.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var available = _materials.GetCatalogNames()
+            .Where(name => !currentNames.Contains(name))
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        _currentGlassCatalogs.ItemsSource = current.ToArray();
+        _availableGlassCatalogs.ItemsSource = available;
+        _currentGlassCatalogs.SelectedItem = selectCurrent;
+        UpdateGlassCatalogButtonStates();
+    }
+
+    private void UpdateGlassCatalogButtonStates()
+    {
+        _addGlassCatalog.IsEnabled = _availableGlassCatalogs.SelectedItem is string;
+        _removeGlassCatalog.IsEnabled = _currentGlassCatalogs.SelectedItem is string
+            && _prescription.GetGlassCatalogs().Count > 1;
+        var current = _prescription.GetGlassCatalogs();
+        var selectedIndex = _currentGlassCatalogs.SelectedItem is string selected
+            ? current.ToList().FindIndex(name =>
+                name.Equals(selected, StringComparison.OrdinalIgnoreCase))
+            : -1;
+        _moveGlassCatalogUp.IsEnabled = selectedIndex > 0;
+        _moveGlassCatalogDown.IsEnabled = selectedIndex >= 0
+            && selectedIndex < current.Count - 1;
     }
 
     private Control BuildAdvancedSection()
@@ -711,6 +866,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _matchRefractiveIndexData.IsChecked = environment.MatchRefractiveIndexData;
         _temperatureCelsius.Value = (decimal)environment.TemperatureCelsius;
         _pressureAtmospheres.Value = (decimal)environment.PressureAtmospheres;
+        RefreshGlassCatalogs();
         RebuildFieldCards();
         RebuildWavelengthCards();
         _refreshing = false;

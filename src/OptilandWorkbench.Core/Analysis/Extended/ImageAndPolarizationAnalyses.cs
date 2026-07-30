@@ -38,23 +38,49 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
         var result = ImageSimulationEngine.Simulate(Optic, source, _config);
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
-        var panes = new[]
+        var panes = _config.DisplayAs switch
         {
-            RasterPane("Original Image [0]", original, result.Source),
-            RasterPane("Simulated Image [0]", simulated, result.Simulated)
+            "Source" or "源位图" => new[]
+            {
+                RasterPane("Source Bitmap", original, result.Source)
+            },
+            "Simulated" or "仿真图" or "模拟图" => new[]
+            {
+                RasterPane("Simulated Image", simulated, result.Simulated)
+            },
+            _ => new[]
+            {
+                RasterPane("Original Image [0]", original, result.Source),
+                RasterPane("Simulated Image [0]", simulated, result.Simulated)
+            }
         };
+        var selectedSeries = panes[0].Series[0];
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Pipeline"] = "EigenPSF spatially variable convolution + geometric distortion + lateral color",
-            ["ZemaxImageSimulationSettings"] = "Source, FieldHeight, Oversampling, GuardBand, RelativeIllumination, PSF grid, and AberrationMode",
+            ["ZemaxImageSimulationSettings"] =
+                "Source bitmap, orientation, field, wavelength, grid convolution, detector, display, and output settings",
             ["SourceMode"] = _config.SourceMode,
             ["SourcePattern"] = _config.SourcePattern.ToString(),
             ["SourceFile"] = _config.SourceFile,
             ["FieldHeight"] = _config.FieldHeight,
             ["Oversampling"] = oversampling,
             ["GuardBand"] = _config.Padding,
+            ["SourceFlip"] = _config.SourceFlip,
+            ["SourceRotationDegrees"] = _config.SourceRotationDegrees,
+            ["ImageFlip"] = _config.ImageFlip,
             ["RelativeIllumination"] = _config.UseRelativeIllumination,
             ["AberrationMode"] = _config.AberrationMode,
+            ["Reference"] = _config.Reference,
+            ["DisplayAs"] = _config.DisplayAs,
+            ["FieldCenter"] = $"({_config.FieldCenterX:0.####}, {_config.FieldCenterY:0.####})",
+            ["PixelSizeMillimeters"] = _config.PixelSizeMillimeters,
+            ["DetectorXPixels"] = _config.OutputWidth,
+            ["DetectorYPixels"] = _config.OutputHeight,
+            ["UsePolarization"] = _config.UsePolarization,
+            ["ApplyFixedApertures"] = _config.ApplyFixedApertures,
+            ["CompressFrame"] = _config.CompressFrame,
+            ["OutputFile"] = _config.OutputFile,
             ["OutputShape"] = $"(1, {result.Simulated.Channels}, {result.Simulated.Height}, {result.Simulated.Width})",
             ["EffectiveAberrationMode"] = result.EffectiveAberrationMode,
             ["GeometricFallbackCount"] = result.GeometricFallbackCount,
@@ -67,7 +93,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["DistortionPolynomialDegree"] = _config.DistortionPolynomialDegree,
             ["MeanAbsoluteChange"] = result.MeanAbsoluteChange,
             ["MaximumOutputValue"] = result.MaximumValue
-        }, original, new[] { original }, PlotPanes: panes, PlotPaneColumns: 2);
+        }, selectedSeries, new[] { selectedSeries }, PlotPanes: panes, PlotPaneColumns: panes.Length);
     }
 
     private static AnalysisSeries RasterSeries(RgbImage image)

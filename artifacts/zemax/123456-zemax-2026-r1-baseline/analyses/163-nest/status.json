@@ -1,0 +1,11 @@
+{
+  "index": 163,
+  "analysisId": "NEST",
+  "zplCode": null,
+  "directory": "analyses/163-nest",
+  "status": "not-applicable-or-failed",
+  "startedUtc": "2026-07-29T23:46:29.393492+00:00",
+  "error": "值不在预期的范围内。\r\n\r\nServer stack trace: \r\n   在 ZemaxUI.ZOSAPI.Analysis.A_Command.FromAnalysisIDM(AnalysisIDM id)\r\n   在 ZemaxUI.ZOSAPI.Analysis.A_Command..ctor(ZemaxAnalyses za, AnalysisIDM theIDM)\r\n   在 ZemaxUI.ZOSAPI.Analysis.ZemaxAnalyses.New_Analysis(AnalysisIDM analysisType)\r\n   在 System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Object[]& outArgs)\r\n   在 System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg)\r\n\r\nException rethrown at [0]: \r\n   在 System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)\r\n   在 System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)\r\n   在 ZemaxUI.ZOSAPI.Analysis.ZemaxAnalyses.New_Analysis(AnalysisIDM analysisType)",
+  "exceptionType": "ArgumentException",
+  "finishedUtc": "2026-07-29T23:46:29.406006+00:00"
+}

@@ -11,7 +11,7 @@ if ([string]::IsNullOrWhiteSpace($RepositoryRoot)) {
     $RepositoryRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 }
 $repository = [IO.Path]::GetFullPath($RepositoryRoot)
-$corpusRoot = Join-Path $repository 'local-data\lens-library\originals\public-zmx'
+$corpusRoot = Join-Path $repository 'local-data\lens-library\originals\user-zmx\public'
 $manifestPath = Join-Path $corpusRoot 'manifest.json'
 $userAgent = 'OptilandWorkbench-Public-Zemax-Corpus/1.0'
 [IO.Directory]::CreateDirectory($corpusRoot) | Out-Null

@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Globalization;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Panels;
@@ -460,15 +461,14 @@ public sealed class AnalysisGuiContractTests
             connector.GetAnalysisParameters("Footprint Diagram"),
             descriptor => descriptor.Key == "ColorRaysBy");
 
-        Assert.Equal("wavelength", colorDescriptor.DefaultValue);
-        Assert.Equal(new[] { "wavelength", "field" }, colorDescriptor.Choices);
+        Assert.Equal("视场", colorDescriptor.DefaultValue);
+        Assert.Equal(new[] { "视场", "波长" }, colorDescriptor.Choices);
 
         var view = connector.BuildAnalysisView(
             "Footprint Diagram",
             new Dictionary<string, string>
             {
-                ["RayDensity"] = "1",
-                ["ColorRaysBy"] = "field"
+                ["RayDensity"] = "1"
             });
         var mapperType = typeof(OptilandConnector).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
@@ -509,6 +509,19 @@ public sealed class AnalysisGuiContractTests
 
         Assert.DoesNotContain(plot.Series, series => series.LegendKey == "field:1");
         Assert.Contains(plot.Series, series => series.Name == "Surface aperture");
+
+        var summaryMethod = typeof(AnalysisPanel).GetMethod(
+            "BuildCompactAnalysisSummary",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(summaryMethod);
+        var summary = summaryMethod.Invoke(null, new object[] { viewDto });
+        Assert.NotNull(summary);
+        var lines = Assert.IsType<string>(summary.GetType().GetProperty("Lines")?.GetValue(summary));
+        Assert.Contains("光线 X 最小 =", lines);
+        Assert.Contains("光线 Y 最大 =", lines);
+        Assert.Contains("最大半径 =", lines);
+        Assert.Contains("波长 =", lines);
+        Assert.Contains("图例对应于视场位置", lines);
     }
 
     [Fact]
@@ -526,6 +539,84 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             Avalonia.Media.Color.FromRgb(214, 39, 40),
             AnalysisPlotControl.SeriesColor(3));
+    }
+
+    [Fact]
+    public void MultiPanePlotsOfferOptionalSquareCellsWithoutChangingTheDefault()
+    {
+        var bounds = OptionalSquarePlotHost.SquareBounds(new Avalonia.Size(420, 180), true);
+        Assert.Equal(new Avalonia.Rect(120, 0, 180, 180), bounds);
+        Assert.Equal(
+            new Avalonia.Rect(0, 0, 420, 180),
+            OptionalSquarePlotHost.SquareBounds(new Avalonia.Size(420, 180), false));
+
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView("Pupil Aberration");
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+            null,
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
+        var paneGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var hosts = paneGrid.Children.OfType<OptionalSquarePlotHost>().ToArray();
+        Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
+        Assert.All(hosts, host => Assert.False(host.IsSquare));
+
+        var toggle = Assert.Single(
+            layout.Children.OfType<Avalonia.Controls.CheckBox>(),
+            checkBox => checkBox.Name == "SquarePaneToggle");
+        Assert.False(toggle.IsChecked);
+        toggle.IsChecked = true;
+
+        Assert.All(hosts, host => Assert.True(host.IsSquare));
+    }
+
+    [Fact]
+    public void SystemPropertiesOffersCurrentAndAvailableGlassCatalogTransfers()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var panel = new SystemPropertiesPanel(
+            application.Prescription,
+            application.Materials,
+            application.Events);
+        var currentField = typeof(SystemPropertiesPanel).GetField(
+            "_currentGlassCatalogs",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var availableField = typeof(SystemPropertiesPanel).GetField(
+            "_availableGlassCatalogs",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var addMethod = typeof(SystemPropertiesPanel).GetMethod(
+            "AddSelectedGlassCatalog",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(currentField);
+        Assert.NotNull(availableField);
+        Assert.NotNull(addMethod);
+        var current = Assert.IsType<Avalonia.Controls.ListBox>(currentField.GetValue(panel));
+        var available = Assert.IsType<Avalonia.Controls.ListBox>(availableField.GetValue(panel));
+        var currentNames = Assert.IsAssignableFrom<IEnumerable<string>>(current.ItemsSource).ToArray();
+        var availableNames = Assert.IsAssignableFrom<IEnumerable<string>>(available.ItemsSource).ToArray();
+        Assert.NotEmpty(currentNames);
+        Assert.NotEmpty(availableNames);
+        Assert.Empty(currentNames.Intersect(availableNames, StringComparer.OrdinalIgnoreCase));
+
+        available.SelectedItem = availableNames[0];
+        addMethod.Invoke(panel, null);
+
+        Assert.Contains(
+            availableNames[0],
+            application.Prescription.GetGlassCatalogs(),
+            StringComparer.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -1954,31 +2045,72 @@ public sealed class AnalysisGuiContractTests
         var sourceMode = Assert.Single(parameters, parameter => parameter.Key == "SourceMode");
         var sourceFile = Assert.Single(parameters, parameter => parameter.Key == "SourceFile");
         var aberrationMode = Assert.Single(parameters, parameter => parameter.Key == "AberrationMode");
+        var wavelength = Assert.Single(parameters, parameter => parameter.Key == "WavelengthNumber");
+        var field = Assert.Single(parameters, parameter => parameter.Key == "FieldNumber");
         Assert.Equal(2, sourceMode.Choices?.Count);
         Assert.Equal("File", sourceFile.Kind.ToString());
-        Assert.Equal("Diffraction", aberrationMode.DefaultValue);
-        Assert.Equal(new[] { "Diffraction", "Geometric", "None" }, aberrationMode.Choices);
+        Assert.Equal("几何的", aberrationMode.DefaultValue);
+        Assert.Equal(new[] { "衍射", "几何的", "无" }, aberrationMode.Choices);
+        Assert.Equal("RGB", wavelength.DefaultValue);
+        Assert.StartsWith("1 - ", field.DefaultValue);
         Assert.Contains(parameters, parameter => parameter.Key == "FieldHeight");
         Assert.Contains(parameters, parameter => parameter.Key == "Oversampling");
+        Assert.Contains(parameters, parameter => parameter.Key == "SourceFlip");
+        Assert.Contains(parameters, parameter => parameter.Key == "SourceRotation");
         Assert.Contains(parameters, parameter => parameter.Key == "GuardBand");
         Assert.Contains(parameters, parameter => parameter.Key == "RelativeIllumination");
-        Assert.Contains(parameters, parameter => parameter.Key == "AberrationMode");
+        Assert.Contains(parameters, parameter => parameter.Key == "UsePolarization");
+        Assert.Contains(parameters, parameter => parameter.Key == "ApplyFixedApertures");
+        Assert.Contains(parameters, parameter => parameter.Key == "DisplayAs");
+        Assert.Contains(parameters, parameter => parameter.Key == "Reference");
+        Assert.Contains(parameters, parameter => parameter.Key == "ImageFlip");
+        Assert.Contains(parameters, parameter => parameter.Key == "PixelSize");
+        Assert.Contains(parameters, parameter => parameter.Key == "DetectorXPixels");
+        Assert.Contains(parameters, parameter => parameter.Key == "DetectorYPixels");
+        Assert.Contains(parameters, parameter => parameter.Key == "CompressFrame");
+        Assert.Contains(parameters, parameter => parameter.Key == "OutputFile");
 
-        var view = connector.BuildAnalysisView(
-            "Image Simulation",
-            new Dictionary<string, string>
-            {
-                ["Oversampling"] = "2",
-                ["GuardBand"] = "8",
-                ["FieldHeight"] = "1.5",
-                ["RelativeIllumination"] = "false",
-                ["AberrationMode"] = "Geometric",
-                ["PsfSize"] = "16",
-                ["NumRays"] = "8"
-            });
-        Assert.Contains(view.Rows, row => row.Metric == "过采样" && row.Value == "2");
-        Assert.Contains(view.Rows, row => row.Metric == "保护带" && row.Value == "8");
-        Assert.Contains(view.Rows, row => row.Metric == "像差模式" && row.Value == "Geometric");
+        var outputFile = Path.Combine(
+            Path.GetTempPath(),
+            $"optiland-image-simulation-{Guid.NewGuid():N}.png");
+        try
+        {
+            var view = connector.BuildAnalysisView(
+                "Image Simulation",
+                new Dictionary<string, string>
+                {
+                    ["Oversampling"] = "2 x",
+                    ["GuardBand"] = "8",
+                    ["FieldHeight"] = "1.5",
+                    ["RelativeIllumination"] = "false",
+                    ["AberrationMode"] = "几何的",
+                    ["PsfSize"] = "16 x 16",
+                    ["NumRays"] = "8 x 8",
+                    ["SourceFlip"] = "水平",
+                    ["SourceRotation"] = "90°",
+                    ["ImageFlip"] = "垂直",
+                    ["DisplayAs"] = "源位图",
+                    ["DetectorXPixels"] = "20",
+                    ["DetectorYPixels"] = "18",
+                    ["PixelSize"] = "0.01",
+                    ["OutputFile"] = outputFile
+                });
+            Assert.Contains(view.Rows, row => row.Metric == "过采样" && row.Value == "2");
+            Assert.Contains(view.Rows, row => row.Metric == "保护带" && row.Value == "8");
+            Assert.Contains(view.Rows, row => row.Metric == "像差模式" && row.Value == "Geometric");
+            Assert.Contains(view.Rows, row => row.Metric == "旋转位图 (°)" && row.Value == "90");
+            Assert.Contains(view.Rows, row => row.Metric == "输出形状" && row.Value == "(1, 3, 18, 20)");
+            var pane = Assert.Single(view.PlotPanes);
+            Assert.Equal("Source Bitmap", pane.Title);
+            using var exported = SkiaSharp.SKBitmap.Decode(outputFile);
+            Assert.NotNull(exported);
+            Assert.Equal(20, exported.Width);
+            Assert.Equal(18, exported.Height);
+        }
+        finally
+        {
+            File.Delete(outputFile);
+        }
     }
 
     [Fact]

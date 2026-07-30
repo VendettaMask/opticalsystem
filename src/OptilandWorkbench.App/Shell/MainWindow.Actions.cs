@@ -80,6 +80,75 @@ public sealed partial class MainWindow
             () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
+        _actions.Register("quick-focus", "快速聚焦", "优化", QuickFocusAsync);
+        _actions.Register(
+            "quick-adjust",
+            "快速调整",
+            "优化",
+            () => _panels.Show(WorkspacePanelId.LensEditor));
+        _actions.Register("optimization-slider", "滑块", "优化", ShowOptimizationSliderAsync);
+        _actions.Register(
+            "show-visual-optimizer",
+            "可视化优化器",
+            "优化",
+            () => _panels.Show(WorkspacePanelId.Optimization));
+        _actions.Register(
+            "show-merit-editor",
+            "评价函数编辑器",
+            "优化",
+            () => _panels.Show(WorkspacePanelId.Optimization));
+        _actions.Register(
+            "show-optimization-wizard",
+            "优化向导",
+            "优化",
+            ShowOptimizationWizardAsync);
+        _actions.Register(
+            "run-optimization",
+            "执行优化",
+            "优化",
+            () => RunRibbonOptimizationAsync("LM / DLS", 80, "局部优化"));
+        _actions.Register(
+            "clear-optimization-variables",
+            "移除所有变量",
+            "优化",
+            () => UpdateAllOptimizationVariables(
+                OptimizationVariableUpdateMode.ClearAll,
+                "已移除所有变量"));
+        _actions.Register(
+            "set-all-radius-variables",
+            "设全部半径变量",
+            "优化",
+            () => UpdateAllOptimizationVariables(
+                OptimizationVariableUpdateMode.SetAllRadii,
+                "已设置全部半径变量"));
+        _actions.Register(
+            "set-all-thickness-variables",
+            "设全部厚度变量",
+            "优化",
+            () => UpdateAllOptimizationVariables(
+                OptimizationVariableUpdateMode.SetAllThicknesses,
+                "已设置全部厚度变量"));
+        _actions.Register(
+            "run-global-optimization",
+            "全局优化",
+            "优化",
+            () => RunRibbonOptimizationAsync(
+                "Differential Evolution",
+                120,
+                "全局优化"));
+        _actions.Register(
+            "run-hammer-optimization",
+            "锤形优化",
+            "优化",
+            () => RunRibbonOptimizationAsync(
+                "Basin Hopping",
+                200,
+                "锤形优化"));
+        _actions.Register(
+            "glass-replacement-template",
+            "玻璃替换模板",
+            "优化",
+            OpenGlassReplacementTemplate);
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
         _actions.Register("show-multiconfig", "显示多配置面板", "面板", () => _panels.Show(WorkspacePanelId.MultiConfiguration));
         _actions.Register("reset-layout", "恢复默认布局", "布局", ResetLayout);

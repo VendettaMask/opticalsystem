@@ -49,6 +49,21 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void PrescriptionServiceEditsCurrentGlassCatalogsWithUndoSupport()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var original = application.Prescription.GetGlassCatalogs();
+
+        application.Prescription.UpdateGlassCatalogs(new[] { "CDGM", "SCHOTT" });
+
+        Assert.Equal(
+            new[] { "CDGM", "SCHOTT" },
+            application.Prescription.GetGlassCatalogs());
+        Assert.True(application.Documents.Undo());
+        Assert.Equal(original, application.Prescription.GetGlassCatalogs());
+    }
+
+    [Fact]
     public void SemiDiameterFixedStateRoundTripsThroughSnapshot()
     {
         var optic = OptilandWorkbench.Core.Optic.CreateCookeTriplet();
@@ -285,6 +300,78 @@ public sealed class WorkbenchApplicationTests
         Assert.True(double.IsFinite(result.FinalMerit));
         Assert.True(result.FinalMerit <= result.InitialMerit + 1e-12);
         Assert.All(result.Variables, variable => Assert.True(double.IsFinite(variable.FinalValue)));
+    }
+
+    [Fact]
+    public void BulkOptimizationVariableCommandsMarkAndClearInternalSurfaces()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var internalSurfaceCount = application.Prescription.GetSurfaces().Count - 2;
+
+        var radii = application.Optimization.UpdateAllSurfaceVariables(
+            OptimizationVariableUpdateMode.SetAllRadii);
+        var thicknesses = application.Optimization.UpdateAllSurfaceVariables(
+            OptimizationVariableUpdateMode.SetAllThicknesses);
+        var marked = application.Prescription.GetSurfaces()
+            .Where(surface => surface.Number > 0)
+            .SkipLast(1)
+            .ToArray();
+
+        Assert.Equal(internalSurfaceCount, radii.RadiusVariableCount);
+        Assert.Equal(internalSurfaceCount, thicknesses.RadiusVariableCount);
+        Assert.Equal(internalSurfaceCount, thicknesses.ThicknessVariableCount);
+        Assert.All(marked, surface =>
+        {
+            Assert.True(surface.RadiusVariable);
+            Assert.True(surface.ThicknessVariable);
+        });
+
+        var cleared = application.Optimization.UpdateAllSurfaceVariables(
+            OptimizationVariableUpdateMode.ClearAll);
+
+        Assert.Equal(0, cleared.RadiusVariableCount);
+        Assert.Equal(0, cleared.ThicknessVariableCount);
+        Assert.All(
+            application.Prescription.GetSurfaces(),
+            surface =>
+            {
+                Assert.False(surface.RadiusVariable);
+                Assert.False(surface.ThicknessVariable);
+            });
+    }
+
+    [Fact]
+    public async Task QuickFocusUpdatesTheImageSpaceThickness()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var before = application.Prescription.GetSurfaces()[^2];
+
+        var result = await application.Optimization.QuickFocusAsync();
+        var after = application.Prescription.GetSurfaces()
+            .Single(surface => surface.Number == result.SurfaceNumber);
+
+        Assert.Equal(before.Number, result.SurfaceNumber);
+        Assert.Equal(before.Thickness, result.InitialThickness, precision: 12);
+        Assert.Equal(result.FinalThickness, after.Thickness, precision: 12);
+        Assert.Equal(
+            result.InitialThickness + result.AppliedShift,
+            result.FinalThickness,
+            precision: 12);
+        Assert.True(double.IsFinite(result.RmsSpotRadius));
+    }
+
+    [Fact]
+    public void OptimizerCatalogCreatesRibbonGlobalSearchAlgorithms()
+    {
+        Assert.Equal(
+            "Differential Evolution",
+            OptimizerCatalog.Create("Differential Evolution").Name);
+        Assert.Equal(
+            "Dual Annealing",
+            OptimizerCatalog.Create("Dual Annealing").Name);
+        Assert.Equal(
+            "Basin Hopping",
+            OptimizerCatalog.Create("Basin Hopping").Name);
     }
 
     [Fact]

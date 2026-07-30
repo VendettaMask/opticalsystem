@@ -38,6 +38,8 @@ public interface IPrescriptionService
 
     EnvironmentSettingsDto GetEnvironmentSettings();
 
+    IReadOnlyList<string> GetGlassCatalogs();
+
     IReadOnlyList<FieldRowDto> GetFields();
 
     IReadOnlyList<WavelengthRowDto> GetWavelengths();
@@ -65,6 +67,8 @@ public interface IPrescriptionService
     void UpdateSystemSettings(SystemSettingsDto settings);
 
     void UpdateEnvironmentSettings(EnvironmentSettingsDto settings);
+
+    void UpdateGlassCatalogs(IReadOnlyList<string> catalogs);
 }
 
 public interface IAnalysisService
@@ -113,6 +117,12 @@ public interface IOptimizationService
 
     void GenerateMeritFunction(OptimizationWizardSettingsDto settings);
 
+    OptimizationVariableUpdateResultDto UpdateAllSurfaceVariables(
+        OptimizationVariableUpdateMode mode);
+
+    Task<QuickFocusResultDto> QuickFocusAsync(
+        CancellationToken cancellationToken = default);
+
     Task<OptimizationResultDto> OptimizeSurfaceRadiusAsync(
         int surfaceNumber,
         string optimizerName,
@@ -148,6 +158,8 @@ public interface IMultiConfigurationService
 public interface IMaterialCatalogService
 {
     IReadOnlyList<MaterialCatalogDto> GetCatalogs();
+
+    IReadOnlyList<string> GetCatalogNames();
 
     IReadOnlyList<GlassMaterialDto> GetGlasses();
 
