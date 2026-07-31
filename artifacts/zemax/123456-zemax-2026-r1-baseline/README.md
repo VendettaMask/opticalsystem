@@ -4,6 +4,11 @@ This directory is the captured reference for the current `123456.ZMX`
 sequential lens. It was produced with Ansys Zemax OpticStudio 2026 R1 through
 ZOS-API and the companion ZPL screenshot exporter.
 
+Open [`BASELINE_REPORT.md`](BASELINE_REPORT.md) for the complete human-readable
+baseline dashboard, all 165 analysis entries, and all 148 captured GUI images.
+The self-contained Workbench comparison is in
+[`comparison-reports/workbench-vs-zemax-2026-07-30/`](comparison-reports/workbench-vs-zemax-2026-07-30/).
+
 - Source SHA-256:
   `0CD65A2F823BAF5079F20F91D8310765899A182A6BE72DDAC53EDE943F2BF75B`
 - Lens structure: 23 surfaces, 5 fields, and 3 wavelengths.
