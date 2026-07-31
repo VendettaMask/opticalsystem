@@ -13,6 +13,7 @@ using Dock.Avalonia.Controls;
 using Dock.Avalonia.Themes.Fluent;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -38,6 +39,33 @@ public sealed class App : Avalonia.Application
         Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid"))
         {
             Source = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml")
+        });
+        Styles.Add(new Style(selector => selector.OfType<TextBlock>())
+        {
+            Setters =
+            {
+                new Setter(
+                    TextBlock.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary))
+            }
+        });
+        Styles.Add(new Style(selector => selector.OfType<Label>())
+        {
+            Setters =
+            {
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextSecondary))
+            }
+        });
+        Styles.Add(new Style(selector => selector.OfType<DataGrid>())
+        {
+            Setters =
+            {
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary))
+            }
         });
 
         Styles.Add(new Style(selector => selector.OfType<Button>())
@@ -144,7 +172,7 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     DataGridRow.BorderBrushProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(TextElement.ForegroundProperty, Brushes.White)
+                new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextOnAccent))
             }
         });
         AddDockIconStyles();
@@ -190,6 +218,17 @@ public sealed class App : Avalonia.Application
             "DockSplitterDragBrush"
         };
 
+    internal void ApplyThemeAccent(string settingsValue)
+    {
+        if (settingsValue == IsekaiTheme.SettingsValue)
+        {
+            IsekaiTheme.ApplyAccentResources(Resources);
+            return;
+        }
+
+        ApplyBlueAccent();
+    }
+
     private void ApplyBlueAccent()
     {
         var accent = BrandAccentColor;
@@ -209,61 +248,17 @@ public sealed class App : Avalonia.Application
             Resources[resourceKey] = accentBrush;
         }
 
-        Resources["DockTabActiveForegroundBrush"] = Brushes.White;
-        Resources["DockDocumentTabSelectedForegroundBrush"] = Brushes.White;
-        Resources["DockDocumentTabCloseSelectedForegroundBrush"] = Brushes.White;
+        Resources["DockTabActiveForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        Resources["DockDocumentTabSelectedForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        Resources["DockDocumentTabCloseSelectedForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
     }
 
     private void AddThemeResources()
     {
-        Resources.ThemeDictionaries[ThemeVariant.Light] = ThemeResources(
-            surface: Color.FromRgb(250, 250, 252),
-            subtle: Color.FromRgb(242, 242, 247),
-            workspace: Color.FromRgb(220, 223, 228),
-            border: Color.FromRgb(209, 209, 214),
-            mutedText: Color.FromRgb(99, 99, 102),
-            hover: Color.FromRgb(232, 241, 253),
-            hoverBorder: Color.FromRgb(174, 204, 239),
-            ribbonHover: Color.FromRgb(217, 236, 255),
-            ribbonHoverBorder: Color.FromRgb(115, 183, 255),
-            ribbonTabHover: Color.FromRgb(235, 246, 255));
-        Resources.ThemeDictionaries[ThemeVariant.Dark] = ThemeResources(
-            surface: Color.FromRgb(25, 29, 35),
-            subtle: Color.FromRgb(31, 36, 43),
-            workspace: Color.FromRgb(14, 17, 21),
-            border: Color.FromRgb(55, 62, 72),
-            mutedText: Color.FromRgb(174, 181, 192),
-            hover: Color.FromRgb(36, 54, 77),
-            hoverBorder: Color.FromRgb(61, 100, 143),
-            ribbonHover: Color.FromRgb(23, 59, 98),
-            ribbonHoverBorder: Color.FromRgb(52, 125, 202),
-            ribbonTabHover: Color.FromRgb(26, 52, 80));
+        Resources.ThemeDictionaries[ThemeVariant.Light] = ThemePalette.Light.ToResourceDictionary();
+        Resources.ThemeDictionaries[ThemeVariant.Dark] = ThemePalette.DarkOpticStudio.ToResourceDictionary();
+        Resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiTheme.CreateResourceDictionary();
     }
-
-    private static ResourceDictionary ThemeResources(
-        Color surface,
-        Color subtle,
-        Color workspace,
-        Color border,
-        Color mutedText,
-        Color hover,
-        Color hoverBorder,
-        Color ribbonHover,
-        Color ribbonHoverBorder,
-        Color ribbonTabHover) => new()
-        {
-            ["OptilandSurfaceBrush"] = new SolidColorBrush(surface),
-            ["OptilandSubtleSurfaceBrush"] = new SolidColorBrush(subtle),
-            ["OptilandWorkspaceBrush"] = new SolidColorBrush(workspace),
-            ["OptilandBorderBrush"] = new SolidColorBrush(border),
-            ["OptilandMutedTextBrush"] = new SolidColorBrush(mutedText),
-            ["OptilandHoverBrush"] = new SolidColorBrush(hover),
-            ["OptilandHoverBorderBrush"] = new SolidColorBrush(hoverBorder),
-            ["OptilandRibbonHoverBrush"] = new SolidColorBrush(ribbonHover),
-            ["OptilandRibbonHoverBorderBrush"] = new SolidColorBrush(ribbonHoverBorder),
-            ["OptilandRibbonTabHoverBrush"] = new SolidColorBrush(ribbonTabHover)
-        };
-
     private void AddDockIconStyles()
     {
         var documentCloseStyle = new Style(selector => selector

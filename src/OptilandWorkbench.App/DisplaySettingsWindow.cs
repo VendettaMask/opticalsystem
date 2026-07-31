@@ -50,6 +50,7 @@ public sealed class DisplaySettingsWindow : Window
         {
             new ThemeOption("Light", "普通模式"),
             new ThemeOption("Dark", "暗夜模式"),
+            new ThemeOption("Isekai", "异世界"),
             new ThemeOption("System", "跟随系统")
         };
         _theme.ItemsSource = themes;
@@ -102,7 +103,7 @@ public sealed class DisplaySettingsWindow : Window
             {
                 At(Section(
                     "主题",
-                    SettingRow("界面主题", _theme, "切换普通模式、暗夜模式或跟随系统外观")), 0),
+                    SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界或跟随系统外观")), 0),
                 At(Section(
                     "数字格式",
                     SettingRow("小数位数", _decimalPlaces, "普通与科学计数法尾数最多保留的位数"),

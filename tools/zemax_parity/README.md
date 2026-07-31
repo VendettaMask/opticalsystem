@@ -70,3 +70,25 @@ result = zosapi_probe( ...
     "C:\Users\19851\Desktop\123456.ZMX", ...
     "D:\Projects\opticalsystem\artifacts\zemax\123456-fft-mtf.json");
 ```
+## Current Workbench comparison
+
+To recalculate every current Workbench analysis with the saved comparison
+settings, then regenerate all numeric and screenshot comparisons:
+
+```powershell
+dotnet run --project tools/OptilandWorkbench.AccuracyCapture -- `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/current-manifest.json `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
+
+python tools/zemax_parity/generate_workbench_comparison.py `
+  artifacts/zemax/123456-zemax-2026-r1-baseline `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31 `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30
+```
+
+The capture directory retains one raw JSON result for every Workbench analysis.
+The comparison directory contains 32 machine-readable numeric comparisons,
+32 numeric plots, and 69 Workbench/Zemax page images. A previous comparison is
+used only for stable physical-series mappings; its Workbench values are never
+reused.

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Application.Contracts;
 using Layout2DPoint = OptilandWorkbench.Application.Contracts.ScenePoint2Dto;
 using Layout3DPoint = OptilandWorkbench.Application.Contracts.ScenePoint3Dto;
@@ -144,6 +145,54 @@ public sealed class OpticSceneControl : Control
     {
         Focusable = true;
         ClipToBounds = true;
+    }
+
+
+    private IBrush ThemeBrush(string key, IBrush fallback) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
+            ? brush
+            : fallback;
+
+    private Color ThemeColor(string key, Color fallback)
+    {
+        return this.TryFindResource(key, ActualThemeVariant, out var value)
+            && value is ISolidColorBrush brush
+                ? brush.Color
+                : fallback;
+    }
+
+    private Pen ThemePen(string key, Pen fallback) => new(
+        ThemeBrush(key, fallback.Brush ?? Brushes.Black),
+        fallback.Thickness,
+        fallback.DashStyle,
+        fallback.LineCap,
+        fallback.LineJoin,
+        fallback.MiterLimit);
+
+    private IBrush SceneBackgroundBrush(bool threeDimensional, bool solidModel)
+    {
+        if (solidModel)
+        {
+            return SolidModelBackgroundBrush;
+        }
+
+        var primary = ThemeColor(ThemeResourceBindings.SceneBackground, Color.FromRgb(250, 252, 254));
+        if (!threeDimensional)
+        {
+            return new SolidColorBrush(primary);
+        }
+
+        var secondary = ThemeColor(ThemeResourceBindings.SceneBackgroundAlt, Color.FromRgb(229, 235, 243));
+        return new LinearGradientBrush
+        {
+            StartPoint = RelativePoint.TopLeft,
+            EndPoint = RelativePoint.BottomRight,
+            GradientStops =
+            {
+                new GradientStop(primary, 0),
+                new GradientStop(secondary, 1)
+            }
+        };
     }
 
     public SceneDto? Scene { get; set; }
@@ -394,14 +443,11 @@ public sealed class OpticSceneControl : Control
     {
         base.Render(context);
         context.DrawRectangle(
-            ViewMode == OpticSceneViewMode.ThreeDimensional
-                ? VisualStyle == OpticSceneVisualStyle.SolidModel
-                    ? SolidModelBackgroundBrush
-                    : ThreeDBackgroundBrush
-                : BackgroundBrush,
+            SceneBackgroundBrush(
+                ViewMode == OpticSceneViewMode.ThreeDimensional,
+                VisualStyle == OpticSceneVisualStyle.SolidModel),
             null,
             Bounds);
-
         if (Scene is null)
         {
             return;
@@ -463,7 +509,7 @@ public sealed class OpticSceneControl : Control
             Bounds.Size).Y;
 
         context.DrawLine(
-            AxisPen,
+            ThemePen(ThemeResourceBindings.SceneAxis, AxisPen),
             new Point(MapZ(zMinimum), MapY(0)),
             new Point(MapZ(zMaximum), MapY(0)));
 
@@ -747,7 +793,7 @@ public sealed class OpticSceneControl : Control
         }
     }
 
-    private static void DrawSurfaces(
+    private void DrawSurfaces(
         DrawingContext context,
         IReadOnlyList<Layout2DSurfaceCurve> surfaces,
         Func<double, double> mapZ,
@@ -758,7 +804,7 @@ public sealed class OpticSceneControl : Control
         {
             if (surface.IsStandaloneStop)
             {
-                DrawApertureStop(context, surface, mapZ, mapY, ApertureStopPen);
+                DrawApertureStop(context, surface, mapZ, mapY, ThemePen(ThemeResourceBindings.SceneApertureStop, ApertureStopPen));
                 continue;
             }
 
@@ -823,7 +869,7 @@ public sealed class OpticSceneControl : Control
             new Point(x + capHalfWidth, lowerY));
     }
 
-    private static void DrawLensElements(
+    private void DrawLensElements(
         DrawingContext context,
         IReadOnlyList<Layout2DLensElement> elements,
         Func<double, double> mapZ,
@@ -831,11 +877,11 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var element in elements)
         {
-            DrawFilledPolygon(context, LensFillBrush, LensEdgePen, element.Boundary, mapZ, mapY);
+            DrawFilledPolygon(context, ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush), ThemePen(ThemeResourceBindings.SceneLensEdge, LensEdgePen), element.Boundary, mapZ, mapY);
         }
     }
 
-    private static void DrawLensEdges(
+    private void DrawLensEdges(
         DrawingContext context,
         IReadOnlyList<Layout2DLensEdge> edges,
         Func<double, double> mapZ,
@@ -844,7 +890,7 @@ public sealed class OpticSceneControl : Control
         foreach (var edge in edges)
         {
             context.DrawLine(
-                LensEdgePen,
+                ThemePen(ThemeResourceBindings.SceneLensEdge, LensEdgePen),
                 new Point(mapZ(edge.Start.Z), mapY(edge.Start.Y)),
                 new Point(mapZ(edge.End.Z), mapY(edge.End.Y)));
         }
@@ -1310,11 +1356,12 @@ public sealed class OpticSceneControl : Control
         }
     }
 
-    private static void DrawObjectTarget(DrawingContext context, Point center)
+    private void DrawObjectTarget(DrawingContext context, Point center)
     {
-        context.DrawEllipse(null, TargetPen, center, 8, 8);
-        context.DrawLine(TargetPen, center + new Vector(-13, 0), center + new Vector(13, 0));
-        context.DrawLine(TargetPen, center + new Vector(0, -13), center + new Vector(0, 13));
+        var targetPen = ThemePen(ThemeResourceBindings.SceneTarget, TargetPen);
+        context.DrawEllipse(null, targetPen, center, 8, 8);
+        context.DrawLine(targetPen, center + new Vector(-13, 0), center + new Vector(13, 0));
+        context.DrawLine(targetPen, center + new Vector(0, -13), center + new Vector(0, 13));
     }
 
     private void DrawOrientationGizmo(DrawingContext context)
@@ -1326,12 +1373,12 @@ public sealed class OpticSceneControl : Control
         context.DrawLine(red, origin, origin + new Vector(23, 7));
         context.DrawLine(green, origin, origin + new Vector(-6, -24));
         context.DrawLine(blue, origin, origin + new Vector(-18, 12));
-        context.DrawEllipse(Brushes.White, new Pen(new SolidColorBrush(Color.FromRgb(108, 122, 140)), 1), origin, 4, 4);
+        context.DrawEllipse(ThemeBrush(ThemeResourceBindings.SceneOrientationFill, Brushes.White), new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, new SolidColorBrush(Color.FromRgb(108, 122, 140))), 1), origin, 4, 4);
 
         var cube = new Rect(Math.Max(8, Bounds.Width - 66), Math.Max(8, Bounds.Height - 66), 46, 46);
         context.DrawRectangle(
-            new SolidColorBrush(Color.FromArgb(214, 255, 255, 255)),
-            new Pen(new SolidColorBrush(Color.FromRgb(120, 132, 147)), 1),
+            ThemeBrush(ThemeResourceBindings.SceneOrientationFill, new SolidColorBrush(Color.FromArgb(214, 255, 255, 255))),
+            new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, new SolidColorBrush(Color.FromRgb(120, 132, 147))), 1),
             cube);
         var cubeCenter = cube.Center;
         context.DrawLine(red, cubeCenter, cubeCenter + new Vector(15, 5));
@@ -1339,9 +1386,11 @@ public sealed class OpticSceneControl : Control
         context.DrawLine(blue, cubeCenter, cubeCenter + new Vector(-12, 9));
     }
 
-    private static Pen SurfacePenFor(Layout2DSurfaceCurve surface)
+    private Pen SurfacePenFor(Layout2DSurfaceCurve surface)
     {
-        return surface.IsReferencePlane ? ReferencePlanePen : SurfacePen;
+        return surface.IsReferencePlane
+            ? ThemePen(ThemeResourceBindings.SceneReference, ReferencePlanePen)
+            : ThemePen(ThemeResourceBindings.SceneSurface, SurfacePen);
     }
 
     private int RayColorIndex(int fieldIndex, int wavelengthIndex) =>
@@ -1370,7 +1419,7 @@ public sealed class OpticSceneControl : Control
         var y = Math.Max(24, Bounds.Height - 24);
         var left = new Point(centerX - (width / 2.0), y);
         var right = new Point(centerX + (width / 2.0), y);
-        var pen = darkBackground ? SolidAxisPen : AxisPen;
+        var pen = darkBackground ? SolidAxisPen : ThemePen(ThemeResourceBindings.SceneAxis, AxisPen);
         context.DrawLine(pen, left, right);
         context.DrawLine(pen, left + new Vector(0, -5), left + new Vector(0, 5));
         context.DrawLine(pen, right + new Vector(0, -5), right + new Vector(0, 5));
@@ -1380,7 +1429,7 @@ public sealed class OpticSceneControl : Control
             FlowDirection.LeftToRight,
             Typeface.Default,
             12,
-            darkBackground ? Brushes.White : Brushes.Black);
+            darkBackground ? ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White) : ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(label, new Point(centerX - (label.Width / 2.0), y - 21));
     }
 

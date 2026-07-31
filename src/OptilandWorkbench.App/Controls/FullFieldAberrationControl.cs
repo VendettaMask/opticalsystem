@@ -9,6 +9,20 @@ namespace OptilandWorkbench.App.Controls;
 
 public sealed class FullFieldAberrationControl : Control
 {
+    private IBrush ThemeBrush(string key, IBrush fallback) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
+            ? brush
+            : fallback;
+
+    private Color ThemeColor(string key, Color fallback, byte? alpha = null)
+    {
+        var color = this.TryFindResource(key, ActualThemeVariant, out var value)
+            && value is ISolidColorBrush brush
+                ? brush.Color
+                : fallback;
+        return alpha.HasValue ? Color.FromArgb(alpha.Value, color.R, color.G, color.B) : color;
+    }
+
     public AnalysisSeriesDto? Series { get; init; }
 
     public double XFieldWidth { get; init; } = 1;
@@ -22,7 +36,7 @@ public sealed class FullFieldAberrationControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(Brushes.White, null, Bounds);
+        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, Brushes.White), null, Bounds);
         if (Series is null || Series.Points.Count == 0 || Bounds.Width < 200 || Bounds.Height < 180)
         {
             return;
@@ -31,8 +45,8 @@ public sealed class FullFieldAberrationControl : Control
         var plot = new Rect(82, 30, Math.Max(1, Bounds.Width - 112), Math.Max(1, Bounds.Height - 102));
         var yHalf = Math.Max(1e-9, YFieldWidth * 1.1);
         var xHalf = Math.Max(XFieldWidth * 1.1, yHalf * plot.Width / plot.Height);
-        var gridPen = new Pen(new SolidColorBrush(Color.FromRgb(224, 224, 224)), 1);
-        var axisPen = new Pen(new SolidColorBrush(Color.FromRgb(35, 35, 35)), 1);
+        var gridPen = new Pen(new SolidColorBrush(ThemeColor(ThemeResourceBindings.PlotGrid, Color.FromRgb(224, 224, 224))), 1);
+        var axisPen = new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, new SolidColorBrush(Color.FromRgb(35, 35, 35))), 1);
         const int tickCount = 6;
 
         double MapX(double x) => plot.Left + ((x + xHalf) / (2 * xHalf) * plot.Width);
@@ -47,17 +61,17 @@ public sealed class FullFieldAberrationControl : Control
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
 
             var xValue = -xHalf + (2 * xHalf * fraction);
-            var xText = CreateText(FormatTick(xValue), 9.5, Brushes.Black);
+            var xText = CreateText(FormatTick(xValue), 9.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
             var yValue = -yHalf + (2 * yHalf * fraction);
-            var yText = CreateText(FormatTick(yValue), 9.5, Brushes.Black);
+            var yText = CreateText(FormatTick(yValue), 9.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
         }
 
         context.DrawRectangle(null, axisPen, plot);
-        var xLabel = CreateText(Series.XAxisLabel, 12.5, Brushes.Black);
+        var xLabel = CreateText(Series.XAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 33));
-        var yLabel = CreateText(Series.YAxisLabel, 12.5, Brushes.Black);
+        var yLabel = CreateText(Series.YAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yCenter = new Point(20, plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {

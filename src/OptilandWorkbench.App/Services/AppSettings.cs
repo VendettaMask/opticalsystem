@@ -42,7 +42,7 @@ public sealed class AppSettings
 
     public void NormalizeDisplaySettings()
     {
-        Theme = Theme is "Dark" or "System" ? Theme : DefaultTheme;
+        Theme = Theme is "Dark" or "Isekai" or "System" ? Theme : DefaultTheme;
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
         LowerScientificExponent = Math.Clamp(LowerScientificExponent, -15, -1);

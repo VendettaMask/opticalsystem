@@ -27,6 +27,21 @@ public sealed class WavefrontSurfaceControl : Control
         Focusable = true;
     }
 
+
+    private IBrush ThemeBrush(string key, IBrush fallback) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
+            ? brush
+            : fallback;
+
+    private Color ThemeColor(string key, Color fallback, byte? alpha = null)
+    {
+        var color = this.TryFindResource(key, ActualThemeVariant, out var value)
+            && value is ISolidColorBrush brush
+                ? brush.Color
+                : fallback;
+        return alpha.HasValue ? Color.FromArgb(alpha.Value, color.R, color.G, color.B) : color;
+    }
+
     public AnalysisSeriesDto? Series { get; init; }
 
     public double RotationDegrees { get; init; }
@@ -196,7 +211,7 @@ public sealed class WavefrontSurfaceControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(Brushes.White, null, Bounds);
+        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, Brushes.White), null, Bounds);
         if (!TryBuildGrid(out var grid) || Bounds.Width < 260 || Bounds.Height < 220)
         {
             return;
@@ -541,7 +556,7 @@ public sealed class WavefrontSurfaceControl : Control
         double yMaximum,
         bool drawGrid)
     {
-        var framePen = new Pen(new SolidColorBrush(Color.FromRgb(35, 35, 35)), 0.9);
+        var framePen = new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, new SolidColorBrush(Color.FromRgb(35, 35, 35))), 0.9);
         if (drawGrid)
         {
             DrawPlanarGrid(context, plot);
@@ -563,14 +578,14 @@ public sealed class WavefrontSurfaceControl : Control
 
             var xValue = xMinimum + ((xMaximum - xMinimum) * fraction);
             var yValue = yMinimum + ((yMaximum - yMinimum) * fraction);
-            var xText = Text(FormatAxisValue(xValue), 10, Brushes.Black);
-            var yText = Text(FormatAxisValue(yValue), 10, Brushes.Black);
+            var xText = Text(FormatAxisValue(xValue), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
+            var yText = Text(FormatAxisValue(yValue), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
             context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
         }
 
-        var xLabel = Text(XAxisLabel, 12, Brushes.Black);
-        var yLabel = Text(YAxisLabel, 12, Brushes.Black);
+        var xLabel = Text(XAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var yLabel = Text(YAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(
             xLabel,
             new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 34));
@@ -583,9 +598,9 @@ public sealed class WavefrontSurfaceControl : Control
         }
     }
 
-    private static void DrawPlanarGrid(DrawingContext context, Rect plot)
+    private void DrawPlanarGrid(DrawingContext context, Rect plot)
     {
-        var gridPen = new Pen(new SolidColorBrush(Color.FromArgb(38, 110, 110, 110)), 0.6);
+        var gridPen = new Pen(new SolidColorBrush(ThemeColor(ThemeResourceBindings.PlotGrid, Color.FromRgb(110, 110, 110), 38)), 0.6);
         const int divisions = 10;
         for (var index = 1; index < divisions; index++)
         {
@@ -602,7 +617,7 @@ public sealed class WavefrontSurfaceControl : Control
         Rect plot,
         Func<double, double, double, Point> project)
     {
-        var axisPen = new Pen(new SolidColorBrush(Color.FromRgb(45, 45, 45)), 0.8);
+        var axisPen = new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, new SolidColorBrush(Color.FromRgb(45, 45, 45))), 0.8);
         var origin = project(-1, -1, 0);
         var xEnd = project(1, -1, 0);
         var yEnd = project(-1, 1, 0);
@@ -611,8 +626,8 @@ public sealed class WavefrontSurfaceControl : Control
         context.DrawLine(axisPen, origin, yEnd);
         context.DrawLine(axisPen, origin, zEnd);
 
-        var xLabel = Text(XAxisLabel, 10, Brushes.Black);
-        var yLabel = Text(YAxisLabel, 10, Brushes.Black);
+        var xLabel = Text(XAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var yLabel = Text(YAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(
             xLabel,
             ClampLabelPosition(new Point(xEnd.X - xLabel.Width, xEnd.Y + 7), xLabel, plot));
@@ -638,7 +653,7 @@ public sealed class WavefrontSurfaceControl : Control
                 new Rect(bar.Left, y, bar.Width, (bar.Height / strips) + 1));
         }
 
-        context.DrawRectangle(null, new Pen(Brushes.Black, 0.7), bar);
+        context.DrawRectangle(null, new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, Brushes.Black), 0.7), bar);
         DrawColorLegendText(context, bar, minimum, maximum);
     }
 
@@ -648,7 +663,7 @@ public sealed class WavefrontSurfaceControl : Control
         double minimum,
         double maximum)
     {
-        var title = Text(ColorBarTitle, 12, Brushes.Black);
+        var title = Text(ColorBarTitle, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(title, new Point(bar.Center.X - (title.Width / 2), bar.Top - title.Height - 8));
         for (var index = 0; index < ContourLevelCount; index++)
         {
@@ -657,7 +672,7 @@ public sealed class WavefrontSurfaceControl : Control
             var pen = new Pen(new SolidColorBrush(JetColor(fraction)), 1.3);
             context.DrawLine(pen, new Point(bar.Left - 8, y), new Point(bar.Right + 8, y));
             var value = minimum + ((maximum - minimum) * fraction);
-            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, Brushes.Black);
+            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             context.DrawText(label, new Point(bar.Right + 13, y - (label.Height / 2)));
         }
 
@@ -670,13 +685,13 @@ public sealed class WavefrontSurfaceControl : Control
         double minimum,
         double maximum)
     {
-        var title = Text(ColorBarTitle, 12, Brushes.Black);
+        var title = Text(ColorBarTitle, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(title, new Point(bar.Center.X - (title.Width / 2), bar.Top - title.Height - 8));
         for (var index = 0; index <= 8; index++)
         {
             var fraction = index / 8.0;
             var value = minimum + ((maximum - minimum) * fraction);
-            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, Brushes.Black);
+            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             var y = bar.Bottom - (fraction * bar.Height) - (label.Height / 2);
             context.DrawText(label, new Point(bar.Right + 6, y));
         }
@@ -691,14 +706,14 @@ public sealed class WavefrontSurfaceControl : Control
             return;
         }
 
-        var unit = Text(ColorBarUnit, 11, Brushes.Black);
+        var unit = Text(ColorBarUnit, 11, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(unit, new Point(bar.Right + 6, bar.Bottom + 8));
     }
 
     private void DrawInteractionHint(DrawingContext context)
     {
         const string hint = "左键拖动旋转 · 右键/中键拖动平移 · 滚轮缩放 · 双击复位";
-        var text = Text(hint, 10, new SolidColorBrush(Color.FromRgb(120, 124, 132)));
+        var text = Text(hint, 10, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(120, 124, 132))));
         context.DrawText(
             text,
             new Point(

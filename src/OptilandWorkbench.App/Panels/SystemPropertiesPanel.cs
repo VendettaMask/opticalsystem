@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Styling;
+using OptilandWorkbench.App.Theming;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
@@ -838,7 +838,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     }
 
     private static bool IsDarkTheme =>
-        Avalonia.Application.Current?.ActualThemeVariant == ThemeVariant.Dark;
+        IsekaiTheme.IsDarkLike(Avalonia.Application.Current?.ActualThemeVariant);
 
     private void Refresh()
     {

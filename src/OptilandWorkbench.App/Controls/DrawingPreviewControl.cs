@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Styling;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -114,7 +114,7 @@ public sealed class DrawingPreviewControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        var background = ActualThemeVariant == ThemeVariant.Dark
+        var background = IsekaiTheme.IsDarkLike(ActualThemeVariant)
             ? new SolidColorBrush(Color.FromRgb(14, 17, 21))
             : new SolidColorBrush(Color.FromRgb(220, 223, 228));
         context.DrawRectangle(background, null, Bounds);

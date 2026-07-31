@@ -14,6 +14,7 @@ using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -119,9 +120,11 @@ public sealed partial class MainWindow
         Avalonia.Application.Current!.RequestedThemeVariant = _settings.Theme switch
         {
             "Dark" => ThemeVariant.Dark,
+            IsekaiTheme.SettingsValue => IsekaiTheme.Variant,
             "System" => ThemeVariant.Default,
             _ => ThemeVariant.Light
         };
+        ((App)Avalonia.Application.Current!).ApplyThemeAccent(_settings.Theme);
         if (save)
         {
             _settings.Save();

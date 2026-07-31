@@ -9,6 +9,20 @@ namespace OptilandWorkbench.App.Controls;
 
 public sealed class SeidelDiagramControl : Control
 {
+    private IBrush ThemeBrush(string key, IBrush fallback) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
+            ? brush
+            : fallback;
+
+    private Color ThemeColor(string key, Color fallback, byte? alpha = null)
+    {
+        var color = this.TryFindResource(key, ActualThemeVariant, out var value)
+            && value is ISolidColorBrush brush
+                ? brush.Color
+                : fallback;
+        return alpha.HasValue ? Color.FromArgb(alpha.Value, color.R, color.G, color.B) : color;
+    }
+
     private static readonly Color[] Colors =
     {
         Color.FromRgb(244, 24, 15),
@@ -34,7 +48,7 @@ public sealed class SeidelDiagramControl : Control
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.DrawRectangle(Brushes.White, null, Bounds);
+        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, Brushes.White), null, Bounds);
         if (Table is null || Table.Rows.Count == 0 || Bounds.Width < 180 || Bounds.Height < 180)
         {
             return;
@@ -46,8 +60,8 @@ public sealed class SeidelDiagramControl : Control
         var rowCount = Table.Rows.Count;
         var groupWidth = plot.Width / rowCount;
         var zeroY = plot.Center.Y;
-        var gridPen = new Pen(new SolidColorBrush(Color.FromRgb(212, 212, 212)), 1);
-        var separatorPen = new Pen(new SolidColorBrush(Color.FromRgb(38, 38, 38)), 1);
+        var gridPen = new Pen(new SolidColorBrush(ThemeColor(ThemeResourceBindings.PlotGrid, Color.FromRgb(212, 212, 212))), 1);
+        var separatorPen = new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, new SolidColorBrush(Color.FromRgb(38, 38, 38))), 1);
 
         var gridCount = Math.Min(100, (int)Math.Floor(maximum / interval));
         for (var index = -gridCount; index <= gridCount; index++)
@@ -68,7 +82,7 @@ public sealed class SeidelDiagramControl : Control
                 continue;
             }
 
-            var label = CreateText(Table.Rows[rowIndex][0], groupWidth < 34 ? 8 : 10, Brushes.Black);
+            var label = CreateText(Table.Rows[rowIndex][0], groupWidth < 34 ? 8 : 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(
                 label,
                 new Point(x + ((groupWidth - label.Width) / 2), Math.Max(3, plot.Top - label.Height - 7)));
@@ -114,7 +128,7 @@ public sealed class SeidelDiagramControl : Control
                 new SolidColorBrush(Colors[index]),
                 null,
                 new Rect(x, legendTop, legendWidth, 21));
-            var label = CreateText(Names[index], 9, Brushes.Black);
+            var label = CreateText(Names[index], 9, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(
                 label,
                 new Point(x + ((legendWidth - label.Width) / 2), legendTop + 27));

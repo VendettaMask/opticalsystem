@@ -941,8 +941,8 @@ public sealed class AnalysisGuiContractTests
                 "像差分析",
                 "波前",
                 "点扩散函数",
-                "调制传递函数",
-                "均方根",
+                "MTF 曲线",
+                "RMS",
                 "圈入能量",
                 "扩展图像分析"
             },
@@ -964,16 +964,15 @@ public sealed class AnalysisGuiContractTests
             commandIds.Distinct(StringComparer.Ordinal).Count());
 
         var displayNames = MainWindow.AnalysisRibbonDisplayNames.Values;
-        var forbiddenFragments = new[]
-        {
-            "FFT", "PSF", "MTF", "RMS", "Huygens", "Zernike", "Jones", " vs", " VS"
-        };
-        Assert.All(forbiddenFragments, fragment =>
-            Assert.DoesNotContain(displayNames, displayName =>
-                displayName.Contains(fragment, StringComparison.OrdinalIgnoreCase)));
+        Assert.Contains("FFT PSF", displayNames);
+        Assert.Contains("FFT PSF截面图", displayNames);
+        Assert.Contains("傅里叶 MTF VS 视场", displayNames);
+        Assert.Contains("Zernike", displayNames);
+        Assert.Contains("Jones 瞳", displayNames);
+        Assert.Contains("Y-Ybar", displayNames);
         Assert.Equal(
-            new[] { "均方根随视场", "均方根随波长", "均方根随离焦", "二维视场均方根图" },
-            MainWindow.AnalysisRibbonCommandsByMenu["均方根"]);
+            new[] { "RMS vs. 视场", "RMS vs. 波长", "RMS vs. 离焦", "二维视场RMS图" },
+            MainWindow.AnalysisRibbonCommandsByMenu["RMS"]);
         var rmsVsFieldParameters = connector.GetAnalysisParameters("RMS vs. 视场");
         Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Method");
         Assert.Contains(rmsVsFieldParameters, parameter => parameter.Key == "Data");
@@ -1026,9 +1025,9 @@ public sealed class AnalysisGuiContractTests
                 "矩阵点列图",
                 "结构矩阵点列图",
                 "基面数据",
-                "Y-Ȳ 图",
+                "Y-Ybar",
                 "渐晕图",
-                "入射角随像高"
+                "入射角 vs. 像高"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
@@ -1058,20 +1057,20 @@ public sealed class AnalysisGuiContractTests
                 "干涉图",
                 "傅科分析",
                 "对比度损失图",
-                "泽尼克条纹系数",
-                "泽尼克标准系数",
-                "泽尼克环形系数",
-                "泽尼克系数随视场"
+                "Zernike Fringe系数",
+                "Zernike Standard系数",
+                "Zernike Annular系数",
+                "Zernike系数 vs. 视场"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["波前"]);
         Assert.Equal(
             new[]
             {
-                "傅里叶点扩散函数",
-                "傅里叶点扩散函数截面",
-                "傅里叶线/边缘扩散",
-                "惠更斯点扩散函数",
-                "惠更斯点扩散函数截面"
+                "FFT PSF",
+                "FFT PSF截面图",
+                "FFT 线/边缘扩散",
+                "惠更斯PSF",
+                "惠更斯PSF截面图"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["点扩散函数"]);
         Assert.Equal("Wavefront Map", connector.CanonicalAnalysisKey("波前图"));
@@ -1387,17 +1386,17 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
-                "傅里叶调制传递函数",
-                "傅里叶离焦调制传递函数",
-                "傅里叶调制传递函数随视场",
-                "惠更斯调制传递函数",
-                "惠更斯离焦调制传递函数",
-                "惠更斯调制传递函数随视场",
-                "几何调制传递函数",
-                "几何离焦调制传递函数",
-                "几何调制传递函数随视场"
+                "傅里叶 MTF",
+                "傅里叶离焦 MTF",
+                "傅里叶 MTF VS 视场",
+                "惠更斯 MTF",
+                "惠更斯离焦 MTF",
+                "惠更斯 MTF VS 视场",
+                "几何 MTF",
+                "几何离焦 MTF",
+                "几何 MTF VS 视场"
             },
-            MainWindow.AnalysisRibbonCommandsByMenu["调制传递函数"]);
+            MainWindow.AnalysisRibbonCommandsByMenu["MTF 曲线"]);
         Assert.Equal(
             new[]
             {

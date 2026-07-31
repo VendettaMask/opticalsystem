@@ -16,14 +16,14 @@ This matrix tracks the .NET implementation against the Optiland documentation.
 | Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe, plus a 1,740-entry manufacturer-aware Optiland/refractiveindex.info glass catalog with formula/tabulated n/k evaluation |
 | Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
 | Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | 67 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
+| Analysis | `Analysis` | 69 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
 | Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
 | Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
 | Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
 | File format | `Serialization`, `FileIO` | Versioned `.staropt` project container with integrity checks, schema-4 semantic validation, transactional reconstruction, safe schema-1/2/3 migration, and multi-configuration persistence; legacy native JSON import, validated Python Optiland 0.5.8 JSON adapter subset, Optiland-compatible Zemax sequential import/export, plus SEQ/LEN common subset adapters; the 333-code target is tracked in `ZEMAX_OPERAND_SUPPORT.md` |
 | Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
-| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation, and per-view surface/field/wavelength/pupil controls |
-| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, consistent light theme, split-pane layout persistence; startup fix retained |
+| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation, per-view surface/field/wavelength/pupil controls, and palette-driven light/dark/异世界 rendering tokens |
+| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, light, OpticStudio-inspired dark, and sword-and-magic “异世界” rendering themes with palette-backed text hierarchy, split-pane layout persistence; startup fix retained |
 
 ## Milestone Notes
 

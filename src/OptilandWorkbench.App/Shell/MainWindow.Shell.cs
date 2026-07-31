@@ -15,6 +15,7 @@ using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -209,13 +210,16 @@ public sealed partial class MainWindow
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
-        tabs.Bind(TabControl.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        tabs.Background = Brushes.Transparent;
+        var ribbonLayer = new Grid();
+        ribbonLayer.Children.Add(new IsekaiRibbonChrome());
+        ribbonLayer.Children.Add(tabs);
         var ribbon = new Border
         {
             MinHeight = 126,
             BorderThickness = new Thickness(0, 0, 0, 1),
             BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
-            Child = tabs
+            Child = ribbonLayer
         };
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
         ribbon.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
@@ -378,8 +382,8 @@ public sealed partial class MainWindow
             ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
             ("show-material-glass-map", "gem", "玻璃图"),
             ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
-            ("show-material-transmission", "arrow-right-left", "内部透过率随波长"),
-            ("show-material-dispersion-wavelength", "chart-line", "色散随波长")
+            ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
+            ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长")
         };
         var flyout = new MenuFlyout();
         foreach (var (actionId, iconName, label) in commands)
