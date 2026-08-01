@@ -112,7 +112,11 @@ public sealed class VignettingDiagramAnalysis : BaseAnalysis
                     field.Label)).ToArray(),
                 Name: "X 渐晕",
                 ColorIndex: 0,
-                ShowMarkers: true),
+                ShowMarkers: true,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                YQuantity: AnalysisAxisQuantity.Irradiance,
+                YUnit: AnalysisAxisUnit.Percent),
             new AnalysisSeries(
                 AnalysisTrace.FieldAxisLabel(Optic),
                 "渐晕（%）",
@@ -122,7 +126,11 @@ public sealed class VignettingDiagramAnalysis : BaseAnalysis
                     field.Label)).ToArray(),
                 Name: "Y 渐晕",
                 ColorIndex: 3,
-                ShowMarkers: true)
+                ShowMarkers: true,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                YQuantity: AnalysisAxisQuantity.Irradiance,
+                YUnit: AnalysisAxisUnit.Percent)
         };
         return new AnalysisData(
             Name,

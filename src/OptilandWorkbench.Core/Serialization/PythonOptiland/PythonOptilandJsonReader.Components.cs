@@ -203,6 +203,9 @@ internal static partial class PythonOptilandJsonReader
         var type = GetString(source, "type", number == 0 ? "ObjectSurface" : "Surface");
         var geometry = source.GetProperty("geometry");
         var parsedGeometry = ReadGeometry(geometry);
+        var objectAtInfinity = type == "ObjectSurface"
+            && geometry.TryGetProperty("cs", out var objectCoordinate)
+            && double.IsInfinity(GetDouble(objectCoordinate, "z", 0));
 
         var materialName = ReadMaterial(optic, source.GetProperty("material_post"));
         var radius = GeometryRadius(parsedGeometry);
@@ -247,7 +250,9 @@ internal static partial class PythonOptilandJsonReader
             Number = number,
             Label = label,
             Radius = radius,
-            Thickness = type == "ObjectSurface" ? 0 : GetDouble(source, "thickness", 0),
+            Thickness = type == "ObjectSurface"
+                ? objectAtInfinity ? double.PositiveInfinity : 0
+                : GetDouble(source, "thickness", 0),
             Material = materialName,
             SemiDiameter = semiDiameter,
             Conic = conic,

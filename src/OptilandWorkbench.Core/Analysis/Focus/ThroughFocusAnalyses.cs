@@ -133,7 +133,11 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                             ? (AnalysisMarkerStyle)(wavelengthIndex % 4)
                             : AnalysisMarkerStyle.Circle,
                         MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
-                        Opacity: 0.7)).ToList();
+                        Opacity: 0.7,
+                        XQuantity: AnalysisAxisQuantity.ImageHeight,
+                        XUnit: AnalysisAxisUnit.Millimeter,
+                        YQuantity: AnalysisAxisQuantity.ImageHeight,
+                        YUnit: AnalysisAxisUnit.Millimeter)).ToList();
                 if (_settings.ShowAiryDisk && airyRadius > 0)
                 {
                     series.Add(AiryDiskSeries(airyRadius));
@@ -177,7 +181,11 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         var legacySeries = new AnalysisSeries(
             "Focus shift (mm)",
             "RMS spot radius (mm)",
-            points.Select(point => new AnalysisPoint(point.FocusShift, point.RmsSpotRadius)).ToArray());
+            points.Select(point => new AnalysisPoint(point.FocusShift, point.RmsSpotRadius)).ToArray(),
+            XQuantity: AnalysisAxisQuantity.Defocus,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.Radius,
+            YUnit: AnalysisAxisUnit.Millimeter);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["FocusStep"] = deltaFocus,
@@ -266,7 +274,11 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             AnalysisSeriesKind.Line,
             "艾里斑",
             ColorIndex: 7,
-            LineWidth: 1.2);
+            LineWidth: 1.2,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.ImageHeight,
+            YUnit: AnalysisAxisUnit.Millimeter);
     }
 }
 
@@ -350,14 +362,22 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
                 "MTF",
                 smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(tangentialSmooth[index], 0, 1))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
-                ColorIndex: fieldIndex));
+                ColorIndex: fieldIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
                 "MTF",
                 smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(sagittalSmooth[index], 0, 1))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: fieldIndex));
+                ColorIndex: fieldIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         var values = new Dictionary<string, object>

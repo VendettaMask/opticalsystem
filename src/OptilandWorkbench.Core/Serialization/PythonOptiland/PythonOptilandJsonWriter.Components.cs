@@ -353,8 +353,8 @@ internal static partial class PythonOptilandJsonWriter
             ["x"] = isObject ? 0 : coordinate.Origin.X,
             ["y"] = isObject ? 0 : coordinate.Origin.Y,
             ["z"] = isObject
-                ? Math.Abs(objectDistance) <= 1e-12 ? NegativeInfinitySentinel : -objectDistance
-                : coordinate.Origin.Z - objectDistance,
+                ? double.IsPositiveInfinity(objectDistance) ? NegativeInfinitySentinel : -objectDistance
+                : coordinate.Origin.Z - (double.IsPositiveInfinity(objectDistance) ? 0 : objectDistance),
             ["rx"] = DegreesToRadians(coordinate.RotationXDegrees),
             ["ry"] = DegreesToRadians(coordinate.RotationYDegrees),
             ["rz"] = DegreesToRadians(coordinate.RotationZDegrees),

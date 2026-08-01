@@ -322,6 +322,17 @@ public sealed class FieldDefinitionParityTests
         Assert.Throws<InvalidOperationException>(() =>
             optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 1, 0, 0, 0.55));
 
+        optic.SurfaceGroup.Items[0].Thickness = 0;
+        optic.SurfaceGroup.Renumber();
+        var finiteZeroDistanceRay = Assert.Single(
+            optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 1, 0, 0, 0.55).Rays);
+        Assert.Equal(0, finiteZeroDistanceRay.Origin.X, precision: 12);
+        Assert.Equal(20, finiteZeroDistanceRay.Origin.Y, precision: 12);
+        Assert.Equal(0, finiteZeroDistanceRay.Origin.Z, precision: 12);
+
+        optic.SurfaceGroup.Items[0].Thickness = double.PositiveInfinity;
+        optic.SurfaceGroup.Renumber();
+
         optic.FieldDefinition = FieldDefinitionKind.Angle;
         optic.ObjectSpaceTelecentric = true;
         optic.Aperture.Kind = ApertureKind.NumericalAperture;

@@ -1,6 +1,7 @@
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Rays;
 
@@ -34,6 +35,47 @@ public sealed class VisualizationTheme
 public sealed record Layout2DPoint(double Z, double Y);
 
 public sealed record Layout3DPoint(double X, double Y, double Z);
+
+public sealed record Layout2DDirection(double Z, double Y);
+
+public sealed record Layout3DDirection(double X, double Y, double Z);
+
+public enum LayoutRayInteractionType
+{
+    None,
+    Refractive,
+    Reflective,
+    Diffractive,
+    ThinLens,
+    Phase
+}
+
+public enum LayoutRaySegmentType
+{
+    Unspecified,
+    Incident,
+    Transmitted,
+    Reflected,
+    TotalInternalReflection
+}
+
+public sealed record Layout2DRaySegment(
+    Layout2DPoint Start,
+    Layout2DPoint End,
+    Layout2DDirection Direction,
+    LayoutRaySegmentType SegmentType,
+    LayoutRayInteractionType InteractionType,
+    int? SourceSurfaceNumber,
+    int? TargetSurfaceNumber);
+
+public sealed record Layout3DRaySegment(
+    Layout3DPoint Start,
+    Layout3DPoint End,
+    Layout3DDirection Direction,
+    LayoutRaySegmentType SegmentType,
+    LayoutRayInteractionType InteractionType,
+    int? SourceSurfaceNumber,
+    int? TargetSurfaceNumber);
 
 public sealed record Layout3DSurfaceFace(IReadOnlyList<Layout3DPoint> Points);
 
@@ -76,7 +118,8 @@ public sealed record Layout2DRayPath(
     int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
-    IReadOnlyList<Layout2DPoint> Points);
+    IReadOnlyList<Layout2DPoint> Points,
+    IReadOnlyList<Layout2DRaySegment> Segments);
 
 public sealed record Layout2DScene(
     IReadOnlyList<Layout2DSurfaceCurve> Surfaces,
@@ -117,7 +160,8 @@ public sealed record Layout3DRayPath(
     int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
-    IReadOnlyList<Layout3DPoint> Points);
+    IReadOnlyList<Layout3DPoint> Points,
+    IReadOnlyList<Layout3DRaySegment> Segments);
 
 public sealed record Layout3DScene(
     IReadOnlyList<Layout3DSurfacePrimitive> Surfaces,
@@ -166,7 +210,15 @@ public sealed class Layout2DBuilder
                 path.WavelengthIndex,
                 path.Vignetted,
                 path.FinalIntensity,
-                path.Points.Select(point => new Layout2DPoint(point.Z, point.Y)).ToList()))
+                path.Points.Select(point => new Layout2DPoint(point.Z, point.Y)).ToList(),
+                path.Segments.Select(segment => new Layout2DRaySegment(
+                    new Layout2DPoint(segment.Start.Z, segment.Start.Y),
+                    new Layout2DPoint(segment.End.Z, segment.End.Y),
+                    new Layout2DDirection(segment.Direction.Z, segment.Direction.Y),
+                    segment.SegmentType,
+                    segment.InteractionType,
+                    segment.SourceSurfaceNumber,
+                    segment.TargetSurfaceNumber)).ToArray()))
             .ToList();
         var extents = CalculateExtents(surfaces, rays);
 
@@ -376,12 +428,14 @@ public sealed class Layout2DBuilder
         {
             var history = trace.RayHistories[rayIndex];
             var points = new List<Layout3DPoint> { ToLayoutPoint(specs[rayIndex].Ray.Origin) };
+            var samples = new List<RayTraceSample>();
             var vignetted = false;
             var finalIntensity = 0.0;
 
             foreach (var sample in history)
             {
                 points.Add(ToLayoutPoint(sample.Position));
+                samples.Add(sample);
                 finalIntensity = sample.Intensity;
 
                 if (sample.Vignetted || sample.Intensity <= 0)
@@ -405,7 +459,16 @@ public sealed class Layout2DBuilder
                     continue;
                 }
 
-                points = SelectRaySegment(points, options).ToList();
+                var segments = BuildRaySegments(specs[rayIndex].Ray, samples);
+                var range = SelectRayPointRange(points.Count, options);
+                points = points
+                    .Skip(range.FirstPoint)
+                    .Take((range.LastPoint - range.FirstPoint) + 1)
+                    .ToList();
+                segments = segments
+                    .Skip(range.FirstPoint)
+                    .Take(range.LastPoint - range.FirstPoint)
+                    .ToArray();
                 if (points.Count < 2)
                 {
                     continue;
@@ -418,7 +481,8 @@ public sealed class Layout2DBuilder
                     spec.WavelengthIndex,
                     vignetted,
                     finalIntensity,
-                    points));
+                    points,
+                    segments));
             }
         }
 
@@ -564,21 +628,88 @@ public sealed class Layout2DBuilder
         (!options.FirstSurface.HasValue || surfaceNumber >= options.FirstSurface.Value)
         && (!options.LastSurface.HasValue || surfaceNumber <= options.LastSurface.Value);
 
-    private static IReadOnlyList<Layout3DPoint> SelectRaySegment(
-        IReadOnlyList<Layout3DPoint> points,
+    private static (int FirstPoint, int LastPoint) SelectRayPointRange(
+        int pointCount,
         LayoutBuildOptions options)
     {
         if (!options.FirstSurface.HasValue && !options.LastSurface.HasValue)
         {
-            return points;
+            return (0, pointCount - 1);
         }
 
         var firstSurface = Math.Max(0, options.FirstSurface ?? 0);
         var lastSurface = Math.Max(firstSurface, options.LastSurface ?? int.MaxValue);
-        var firstPoint = Math.Clamp(firstSurface + 1, 1, points.Count - 1);
-        var lastPoint = Math.Clamp(lastSurface + 1, firstPoint, points.Count - 1);
-        return points.Skip(firstPoint).Take((lastPoint - firstPoint) + 1).ToArray();
+        var firstPoint = Math.Clamp(firstSurface + 1, 1, pointCount - 1);
+        var lastPoint = Math.Clamp(lastSurface + 1, firstPoint, pointCount - 1);
+        return (firstPoint, lastPoint);
     }
+
+    internal IReadOnlyList<Layout3DRaySegment> BuildRaySegments(
+        RealRay sourceRay,
+        IReadOnlyList<RayTraceSample> history)
+    {
+        if (history.Count == 0)
+        {
+            return Array.Empty<Layout3DRaySegment>();
+        }
+
+        var segments = new List<Layout3DRaySegment>(history.Count)
+        {
+            new(
+                ToLayoutPoint(sourceRay.Origin),
+                ToLayoutPoint(history[0].Position),
+                ToLayoutDirection(sourceRay.Direction),
+                LayoutRaySegmentType.Incident,
+                LayoutRayInteractionType.None,
+                SourceSurfaceNumber: null,
+                TargetSurfaceNumber: history[0].SurfaceNumber)
+        };
+
+        for (var index = 1; index < history.Count; index++)
+        {
+            var source = history[index - 1];
+            var target = history[index];
+            segments.Add(new Layout3DRaySegment(
+                ToLayoutPoint(source.Position),
+                ToLayoutPoint(target.Position),
+                ToLayoutDirection(source.Direction),
+                SegmentTypeFor(source.InteractionKind),
+                InteractionTypeFor(source.SurfaceNumber),
+                source.SurfaceNumber,
+                target.SurfaceNumber));
+        }
+
+        return segments;
+    }
+
+    private LayoutRayInteractionType InteractionTypeFor(int surfaceNumber)
+    {
+        var surface = _optic.SurfaceGroup.Items.FirstOrDefault(item => item.Number == surfaceNumber);
+        if (surface is null)
+        {
+            return LayoutRayInteractionType.None;
+        }
+
+        return surface.InteractionModel switch
+        {
+            DiffractiveInteractionModel => LayoutRayInteractionType.Diffractive,
+            ThinLensInteractionModel => LayoutRayInteractionType.ThinLens,
+            PhaseInteractionModel => LayoutRayInteractionType.Phase,
+            RefractiveReflectiveInteractionModel model when model.IsReflective || surface.IsReflective =>
+                LayoutRayInteractionType.Reflective,
+            RefractiveReflectiveInteractionModel => LayoutRayInteractionType.Refractive,
+            _ when surface.IsReflective => LayoutRayInteractionType.Reflective,
+            _ => LayoutRayInteractionType.None
+        };
+    }
+
+    private static LayoutRaySegmentType SegmentTypeFor(RayInteractionKind? kind) => kind switch
+    {
+        RayInteractionKind.Transmitted => LayoutRaySegmentType.Transmitted,
+        RayInteractionKind.Reflected => LayoutRaySegmentType.Reflected,
+        RayInteractionKind.TotalInternalReflection => LayoutRaySegmentType.TotalInternalReflection,
+        _ => LayoutRaySegmentType.Unspecified
+    };
 
     private IReadOnlyList<IReadOnlyList<OpticalSurface>> BuildLensGroups()
     {
@@ -936,6 +1067,12 @@ public sealed class Layout2DBuilder
     private static Layout3DPoint ToLayoutPoint(Vector3D point)
     {
         return new Layout3DPoint(point.X, point.Y, point.Z);
+    }
+
+    private static Layout3DDirection ToLayoutDirection(Vector3D direction)
+    {
+        var normalized = Normalize(direction);
+        return new Layout3DDirection(normalized.X, normalized.Y, normalized.Z);
     }
 
     private (double ZMin, double ZMax, double YExtent) CalculateExtents(

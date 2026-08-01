@@ -187,7 +187,31 @@ internal sealed class LensLibraryService : ILensLibraryService
                 ray.WavelengthIndex,
                 ray.Vignetted,
                 ray.FinalIntensity,
-                ray.Points.Select(Point).ToArray())).ToArray(),
+                ray.Points.Select(Point).ToArray(),
+                ray.Segments.Select(segment => new SceneRaySegment2Dto(
+                    Point(segment.Start),
+                    Point(segment.End),
+                    new SceneRayDirection2Dto(segment.Direction.Z, segment.Direction.Y),
+                    segment.SegmentType switch
+                    {
+                        LayoutRaySegmentType.Incident => SceneRaySegmentType.Incident,
+                        LayoutRaySegmentType.Transmitted => SceneRaySegmentType.Transmitted,
+                        LayoutRaySegmentType.Reflected => SceneRaySegmentType.Reflected,
+                        LayoutRaySegmentType.TotalInternalReflection =>
+                            SceneRaySegmentType.TotalInternalReflection,
+                        _ => SceneRaySegmentType.Unspecified
+                    },
+                    segment.InteractionType switch
+                    {
+                        LayoutRayInteractionType.Refractive => SceneRayInteractionType.Refractive,
+                        LayoutRayInteractionType.Reflective => SceneRayInteractionType.Reflective,
+                        LayoutRayInteractionType.Diffractive => SceneRayInteractionType.Diffractive,
+                        LayoutRayInteractionType.ThinLens => SceneRayInteractionType.ThinLens,
+                        LayoutRayInteractionType.Phase => SceneRayInteractionType.Phase,
+                        _ => SceneRayInteractionType.None
+                    },
+                    segment.SourceSurfaceNumber,
+                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
             scene.ZMin,
             scene.ZMax,
             scene.YExtent);

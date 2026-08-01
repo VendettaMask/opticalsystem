@@ -1,6 +1,6 @@
 # Zemax 基准配置边界
 
-更新时间：2026-08-01。
+更新时间：2026-08-02。
 
 ## 三类信息必须分开
 
@@ -15,6 +15,7 @@
 - 生产代码没有读取 `123456.ZMX` 或其报告来动态决定分析算法。
 - Core `AnalysisCatalog` 已恢复为通用构造器默认值，不再承担 Workbench 产品预设。
 - `RMS vs. Field` 的 Core 默认数据为 spot、参考为 centroid；未显式给出 `fieldDensity` 时由 `numFields` 推导，不再暗含基准的 15 个间隔。
+- `RMS vs. Field` 的 Spot 路径按 `Field Density + 1` 和 Orientation 从零连续扫描至最大定义视场，不把 Field Editor 离散行冒充扫描点；公共波前 RMS 中 chief reference 仅减加权 piston，centroid reference 减加权最佳拟合 piston 及 X/Y tilt。两者都是分析语义，不是 `123456.ZMX` 专用参数。
 - `RMS vs. Focus`、Diffraction Encircled Energy、Pupil Aberration、Huygens PSF Cross Section、Huygens MTF 和 Contrast Loss Map 的 Core 默认值已与 `123456` 捕获参数解耦。
 - Workbench GUI 仍可在 Application 层显式选择用于当前产品的预设；注释明确说明这些不是 Zemax 文件格式或通用默认规则。
 - Zemax 对标测试已显式传入捕获参数，测试名使用 `Captured...Settings` 或明确的 `123456` 表述。
@@ -29,7 +30,7 @@
 
 ## 验证结果
 
-- 完整 .NET 回归：`616/616` 通过。
+- 完整 .NET 回归：`621/621` 通过。
 - Zemax 数值基准定向测试：`10/10` 通过。
 - Core/Application/辅助兼容边界定向测试：`16/16` 通过。
 - Python 报告与映射测试：`14/14` 通过。

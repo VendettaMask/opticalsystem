@@ -194,7 +194,13 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             "Y (\u00B5m)",
             points,
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity");
+            ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity",
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.ImageHeight,
+            YUnit: AnalysisAxisUnit.Micrometer,
+            ValueQuantity: AnalysisAxisQuantity.Irradiance,
+            ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var title = wavelengths.Length > 1 ? "复色光惠更斯PSF" : "惠更斯PSF";
         return new AnalysisData(Name, new Dictionary<string, object>
         {
@@ -373,14 +379,22 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
-                ColorIndex: fieldIndices[fieldIndex]));
+                ColorIndex: fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: fieldIndices[fieldIndex]));
+                ColorIndex: fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         var plottedMaximum = _maximumFrequency.HasValue
@@ -440,7 +454,13 @@ internal static class DiffractionAnalysisPresentation
             "Y (\u00B5m)",
             points,
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: "Relative Intensity (%)");
+            ValueLabel: "Relative Intensity (%)",
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.ImageHeight,
+            YUnit: AnalysisAxisUnit.Micrometer,
+            ValueQuantity: AnalysisAxisQuantity.Irradiance,
+            ValueUnit: AnalysisAxisUnit.Percent);
         return new AnalysisData(name, new Dictionary<string, object>
         {
             ["Method"] = method,

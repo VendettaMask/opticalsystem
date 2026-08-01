@@ -168,7 +168,11 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         _ => AnalysisLineStyle.Solid
                     }
                     : AnalysisLineStyle.Solid,
-                ColorIndex: wave.WavelengthIndex);
+                ColorIndex: wave.WavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.WavefrontError,
+                YUnit: AnalysisAxisUnit.Wave);
         }).ToArray();
         return new AnalysisPlotPane(title, series, new AnalysisPlotOptions(
             Title: title,

@@ -64,7 +64,11 @@ public sealed class YYbarAnalysis : BaseAnalysis
                     },
                     Name: index == stopIndex ? "Stop" : "",
                     ColorIndex: index - 1,
-                    ShowMarkers: false);
+                    ShowMarkers: false,
+                    XQuantity: AnalysisAxisQuantity.RayHeight,
+                    XUnit: AnalysisAxisUnit.Millimeter,
+                    YQuantity: AnalysisAxisQuantity.RayHeight,
+                    YUnit: AnalysisAxisUnit.Millimeter);
             }).ToArray();
         var labels = new AnalysisSeries(
             "Ybar (mm)",
@@ -76,7 +80,11 @@ public sealed class YYbarAnalysis : BaseAnalysis
             Name: "Surfaces",
             ColorIndex: 0,
             ShowMarkers: true,
-            MarkerSize: 2);
+            MarkerSize: 2,
+            XQuantity: AnalysisAxisQuantity.RayHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.RayHeight,
+            YUnit: AnalysisAxisUnit.Millimeter);
         var series = lineSeries.Append(labels).ToArray();
         var values = new Dictionary<string, object>
         {
@@ -131,7 +139,11 @@ public sealed class YYbarAnalysis : BaseAnalysis
                     Name: name,
                     ColorIndex: index - 1,
                     ShowMarkers: true,
-                    MarkerSize: 4);
+                    MarkerSize: 4,
+                    XQuantity: AnalysisAxisQuantity.RayHeight,
+                    XUnit: AnalysisAxisUnit.Millimeter,
+                    YQuantity: AnalysisAxisQuantity.RayHeight,
+                    YUnit: AnalysisAxisUnit.Millimeter);
             }).ToArray();
         var values = new Dictionary<string, object>
         {

@@ -59,13 +59,25 @@ public sealed partial class AnalysisPanel
                     {
                         Patterns = new[] { "*.txt" },
                         MimeTypes = new[] { "text/plain" }
+                    },
+                    new FilePickerFileType("CSV 数据")
+                    {
+                        Patterns = new[] { "*.csv" },
+                        MimeTypes = new[] { "text/csv" }
                     }
                 }
             });
             if (file is not null)
             {
-                await File.WriteAllTextAsync(file.Path.LocalPath, _view.ReportText);
-                _stateText.Text = "报告文本已导出";
+                var isCsv = string.Equals(
+                    Path.GetExtension(file.Path.LocalPath),
+                    ".csv",
+                    StringComparison.OrdinalIgnoreCase);
+                var content = isCsv
+                    ? AnalysisCsvFormatter.Format(_view)
+                    : _view.ReportText;
+                await File.WriteAllTextAsync(file.Path.LocalPath, content);
+                _stateText.Text = isCsv ? "CSV 数据已导出" : "报告文本已导出";
             }
         }
         catch (Exception exception)

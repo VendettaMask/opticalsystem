@@ -38,6 +38,23 @@ The modes are:
 
 Memory for retained results is `O(ray count × retained surface count)`. Full history retains one flat backing store instead of parallel ray-history and surface-history object graphs.
 
+## Cross-analysis cache
+
+`AnalysisService` owns one bounded `RayTraceCache` and attaches it to each immutable worker snapshot for the current workspace revision. This lets analyses such as Spot, Ray Fan, RMS, and Wavefront reuse an identical trace instead of repeating the surface traversal.
+
+The key is based on numerical inputs, not the analysis name:
+
+- workspace optic revision and numeric backend;
+- the exact ordered input rays, including field-derived origin/direction, wavelength, intensity, incoming OPD, polarization, and normalization state;
+- the resolved retained surface indices;
+- OPD normalization and batched-backend mode.
+
+Retention labels are intentionally excluded. A selected-surface request for the final surface and an equivalent final-only request share an entry. Requests with different rays, wavelengths, pupil samples, surfaces, OPD behavior, polarization, or backend remain separate.
+
+The default limits are 256 entries and 500,000 retained samples. Old entries are removed in insertion order, and a single result larger than the sample budget is not cached. Advancing the workspace revision clears all entries. Worker snapshots subscribe to surface, field, wavelength, aperture, environment, and top-level tracing-property changes; the first trace-relevant mutation detaches that snapshot from the shared cache. This permits temporary analysis mutations such as defocus without publishing or consuming results for the original revision. Trace requests that populate `SurfaceGroup.RecordedTrace` bypass the cache so their required side effect is never skipped.
+
+Pupil sampling plans use a separate bounded cache. Gaussian-quadrature, hexapolar, and generic samplers are keyed by all parameters that affect the generated coordinates; deterministic random sampling includes its seed.
+
 ## Execution model
 
 The tracer snapshots surfaces into a read-only context and uses a surface-major loop. Current state is stored in pooled SoA arrays:
@@ -82,13 +99,15 @@ The regression suite compares:
 - serial and parallel tracing;
 - scalar and SIMD backends;
 - final-only, selected-surface, and full-history retention;
+- same-revision cache reuse across equivalent final-only/selected-surface requests, mutation detachment, and revision invalidation;
+- deterministic pupil-sampling reuse and random-seed separation;
 - position, direction, intensity, OPL, OPD, and vignetting;
 - total internal reflection and ordinary-reflection material/absorption state;
 - thin-lens OPL;
 - early termination, non-finite object distance, cancellation, and exceptional surfaces;
 - Monte Carlo sequences across seeds and parallelism levels.
 
-The validated 2026-08-01 baseline is 616 passing tests. The analysis-preset boundary is covered so captured `123456.ZMX` settings cannot silently become Core defaults.
+The validated 2026-08-02 baseline is 621 passing tests. The analysis-preset boundary is covered so captured `123456.ZMX` settings cannot silently become Core defaults.
 
 ## Benchmark
 

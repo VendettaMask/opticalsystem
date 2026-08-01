@@ -493,18 +493,24 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void RmsVsFieldRetainsZeroWeightFieldsButExcludesThemFromAggregate()
+    public void RmsVsFieldSpotUsesUniformDirectionalScanIndependentOfEditorWeights()
     {
         var optic = Optic.CreateDemo();
         optic.SequentialRayTracer.RayGenerator.Settings.SamplesPerField = 3;
         optic.Fields[0].Weight = 0;
-        var zeroWeightFieldKey = $"Field {optic.Fields[0].Label}";
 
         var data = optic.Analyses.Create("RMS vs Field").GenerateData();
 
-        Assert.Contains(zeroWeightFieldKey, data.Values.Keys);
-        Assert.True(double.IsFinite((double)data.Values[zeroWeightFieldKey]));
-        Assert.Equal(optic.Fields.Skip(1).Sum(field => field.Weight), (double)data.Values["IncludedFieldWeight"], precision: 12);
+        Assert.Equal(64, data.Values["FieldCount"]);
+        Assert.Equal(63, data.Values["FieldDensity"]);
+        Assert.Equal("+y", data.Values["ScanDirection"]);
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(64, series.Points.Count);
+            Assert.Equal(0, series.Points[0].X, 12);
+            Assert.Equal(FieldCoordinates.MaximumRadius(optic.Fields), series.Points[^1].X, 12);
+        });
+        Assert.Equal(64.0, Convert.ToDouble(data.Values["IncludedFieldWeight"]), precision: 12);
         Assert.True(double.IsFinite((double)data.Values["WeightedMean"]));
     }
 
@@ -610,6 +616,73 @@ public sealed class OptilandParityTests
         Assert.NotEmpty(scene.LensEdges);
         Assert.Contains(scene.Rays, ray => ray.Points.Count > 2);
         Assert.Contains(scene.Rays, ray => ray.FieldIndex > 0);
+        Assert.All(scene.Rays, ray =>
+        {
+            Assert.Equal(ray.Points.Count - 1, ray.Segments.Count);
+            Assert.Equal(LayoutRaySegmentType.Incident, ray.Segments[0].SegmentType);
+            Assert.Equal(LayoutRayInteractionType.None, ray.Segments[0].InteractionType);
+            Assert.All(ray.Segments, segment =>
+            {
+                var deltaY = segment.End.Y - segment.Start.Y;
+                var deltaZ = segment.End.Z - segment.Start.Z;
+                var lengthSquared = (deltaY * deltaY) + (deltaZ * deltaZ);
+                if (lengthSquared > 1e-20)
+                {
+                    Assert.True(
+                        (deltaY * segment.Direction.Y)
+                        + (deltaZ * segment.Direction.Z) > 0);
+                }
+            });
+        });
+
+        var semanticOptic = Optic.CreateBlank();
+        var interactionSurface = semanticOptic.SurfaceGroup.Items[0];
+        var targetSurface = semanticOptic.SurfaceGroup.Items[1];
+        interactionSurface.InteractionModel = new RefractiveReflectiveInteractionModel(true);
+        interactionSurface.IsReflective = true;
+        var sourceRay = new RealRay(
+            new Vector3D(0, 0, -1),
+            new Vector3D(0, 0, 1),
+            587.6);
+        var reflectedHistory = new[]
+        {
+            new RayTraceSample(
+                interactionSurface.Number,
+                interactionSurface.Label,
+                new Vector3D(0, 0, 0),
+                new Vector3D(0, 0, -1),
+                1,
+                false,
+                InteractionKind: RayInteractionKind.Reflected),
+            new RayTraceSample(
+                targetSurface.Number,
+                targetSurface.Label,
+                new Vector3D(0, 0, -2),
+                new Vector3D(0, 0, -1),
+                1,
+                false,
+                InteractionKind: RayInteractionKind.Transmitted)
+        };
+        var reflectedSegments = new Layout2DBuilder(semanticOptic)
+            .BuildRaySegments(sourceRay, reflectedHistory);
+
+        Assert.Equal(LayoutRaySegmentType.Incident, reflectedSegments[0].SegmentType);
+        Assert.Equal(LayoutRaySegmentType.Reflected, reflectedSegments[1].SegmentType);
+        Assert.Equal(LayoutRayInteractionType.Reflective, reflectedSegments[1].InteractionType);
+        Assert.True(reflectedSegments[1].Direction.Z < 0);
+
+        interactionSurface.InteractionModel = new RefractiveReflectiveInteractionModel();
+        interactionSurface.IsReflective = false;
+        var tirHistory = reflectedHistory.ToArray();
+        tirHistory[0] = tirHistory[0] with
+        {
+            InteractionKind = RayInteractionKind.TotalInternalReflection
+        };
+        var tirSegment = new Layout2DBuilder(semanticOptic)
+            .BuildRaySegments(sourceRay, tirHistory)[1];
+
+        Assert.Equal(LayoutRaySegmentType.TotalInternalReflection, tirSegment.SegmentType);
+        Assert.Equal(LayoutRayInteractionType.Refractive, tirSegment.InteractionType);
         Assert.True(scene.ZMax > scene.ZMin);
         Assert.True(scene.YExtent > 0);
     }
@@ -1480,6 +1553,7 @@ public sealed class OptilandParityTests
     public void AnalysisCatalogGeneratesDataForEveryRegisteredName()
     {
         var optic = Optic.CreateDemo();
+        var missingAxisMetadata = new List<string>();
 
         foreach (var name in optic.Analyses.Names)
         {
@@ -1488,7 +1562,38 @@ public sealed class OptilandParityTests
             Assert.Equal(name, data.Name);
             Assert.NotEmpty(data.Values);
             Assert.False(string.IsNullOrWhiteSpace(data.ExportText()));
+            var series = data.PlotSeries
+                .Concat(data.PlotPanes?.SelectMany(pane => pane.Series)
+                    ?? Array.Empty<AnalysisSeries>());
+            foreach (var item in series)
+            {
+                if (!string.IsNullOrWhiteSpace(item.XAxisLabel)
+                    && (item.XQuantity == AnalysisAxisQuantity.Unspecified
+                        || item.XUnit == AnalysisAxisUnit.Unspecified))
+                {
+                    missingAxisMetadata.Add($"{name}: X '{item.XAxisLabel}'");
+                }
+
+                if (!string.IsNullOrWhiteSpace(item.YAxisLabel)
+                    && (item.YQuantity == AnalysisAxisQuantity.Unspecified
+                        || item.YUnit == AnalysisAxisUnit.Unspecified))
+                {
+                    missingAxisMetadata.Add($"{name}: Y '{item.YAxisLabel}'");
+                }
+
+                if (item.Points.Any(point => point.Value.HasValue)
+                    && !string.IsNullOrWhiteSpace(item.ValueLabel)
+                    && (item.ValueQuantity == AnalysisAxisQuantity.Unspecified
+                        || item.ValueUnit == AnalysisAxisUnit.Unspecified))
+                {
+                    missingAxisMetadata.Add($"{name}: Value '{item.ValueLabel}'");
+                }
+            }
         }
+
+        Assert.True(
+            missingAxisMetadata.Count == 0,
+            string.Join(Environment.NewLine, missingAxisMetadata.Distinct()));
     }
 
     [Fact]

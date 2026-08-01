@@ -272,7 +272,8 @@ public static class WavefrontEngine
         {
             (fieldX, fieldY) = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
         }
-        else if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight && IsObjectAtInfinity(optic))
+        else if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight
+            && ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault()))
         {
             var target = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
             (fieldX, fieldY) = optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(
@@ -289,14 +290,6 @@ public static class WavefrontEngine
         var ty = Math.Tan(fieldY * Math.PI / 180.0);
         var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
         return (tx * uz, ty * uz);
-    }
-
-    private static bool IsObjectAtInfinity(Optic optic)
-    {
-        var objectSurface = optic.SurfaceGroup.Items.FirstOrDefault();
-        return objectSurface is null
-            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
-            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static double ImageToReferenceSphere(

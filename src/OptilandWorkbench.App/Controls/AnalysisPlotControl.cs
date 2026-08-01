@@ -206,7 +206,7 @@ public sealed class AnalysisPlotControl : Control
     {
         base.Render(context);
         context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, BackgroundBrush), null, Bounds);
-        var visibleSeries = Series
+        var visibleSeries = NormalizeSeriesUnits(Series)
             .Select(item => (Series: item, Points: item.Points.Where(IsFinite).ToArray()))
             .Where(item => item.Points.Length > 0)
             .ToArray();
@@ -217,12 +217,20 @@ public sealed class AnalysisPlotControl : Control
 
         var compact = Bounds.Width < 160 || Bounds.Height < 140;
         var primarySeries = visibleSeries[0].Series;
+        var primaryXAxisLabel = AnalysisAxisFormatting.FormatLabel(
+            primarySeries.XAxisLabel,
+            primarySeries.XQuantity,
+            primarySeries.XUnit);
+        var primaryYAxisLabel = AnalysisAxisFormatting.FormatLabel(
+            primarySeries.YAxisLabel,
+            primarySeries.YQuantity,
+            primarySeries.YUnit);
         var compactWithoutTicks = CanUseMinimalAxisMargins(
             compact,
             PlotOptions.HideAxes,
             PlotOptions.HideTickLabels,
-            primarySeries.XAxisLabel,
-            primarySeries.YAxisLabel);
+            primaryXAxisLabel,
+            primaryYAxisLabel);
         var legendItems = visibleSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
         var legendBelow = !compact
             && PlotOptions.ShowLegend
@@ -419,8 +427,14 @@ public sealed class AnalysisPlotControl : Control
             sample.ScreenPoint,
             4,
             4);
-        var xLabel = string.IsNullOrWhiteSpace(sample.Series.XAxisLabel) ? "X" : sample.Series.XAxisLabel;
-        var yLabel = string.IsNullOrWhiteSpace(sample.Series.YAxisLabel) ? "Y" : sample.Series.YAxisLabel;
+        var xLabel = AnalysisAxisFormatting.FormatLabel(
+            sample.Series.XAxisLabel,
+            sample.Series.XQuantity,
+            sample.Series.XUnit);
+        var yLabel = AnalysisAxisFormatting.FormatLabel(
+            sample.Series.YAxisLabel,
+            sample.Series.YQuantity,
+            sample.Series.YUnit);
         var lines = new List<string>();
         if (!string.IsNullOrWhiteSpace(sample.Series.Name))
         {
@@ -433,11 +447,11 @@ public sealed class AnalysisPlotControl : Control
             lines.Add(sample.Point.Label);
         }
 
-        lines.Add($"{xLabel}: {FormatTick(sample.Point.X)}");
-        lines.Add($"{yLabel}: {FormatTick(sample.Point.Y)}");
+        lines.Add($"{xLabel}: {AnalysisAxisFormatting.FormatValue(sample.Point.X, sample.Series.XUnit)}");
+        lines.Add($"{yLabel}: {AnalysisAxisFormatting.FormatValue(sample.Point.Y, sample.Series.YUnit)}");
         if (sample.Point.Value.HasValue)
         {
-            lines.Add($"值: {FormatTick(sample.Point.Value.Value)}");
+            lines.Add($"值: {AnalysisAxisFormatting.FormatValue(sample.Point.Value.Value, sample.Series.ValueUnit)}");
         }
         else if (sample.Point.Red.HasValue && sample.Point.Green.HasValue && sample.Point.Blue.HasValue)
         {
@@ -957,14 +971,22 @@ public sealed class AnalysisPlotControl : Control
         Rect plot,
         bool hideTickLabels)
     {
-        var xLabel = CreateText(series.XAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var xLabelText = AnalysisAxisFormatting.FormatLabel(
+            series.XAxisLabel,
+            series.XQuantity,
+            series.XUnit);
+        var xLabel = CreateText(xLabelText, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         context.DrawText(
             xLabel,
             new Point(
                 plot.Center.X - (xLabel.Width / 2),
                 plot.Bottom + XAxisLabelOffset(hideTickLabels)));
 
-        var yLabel = CreateText(series.YAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var yLabelText = AnalysisAxisFormatting.FormatLabel(
+            series.YAxisLabel,
+            series.YQuantity,
+            series.YUnit);
+        var yLabel = CreateText(yLabelText, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         var center = new Point(17, plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))
         {
@@ -974,6 +996,47 @@ public sealed class AnalysisPlotControl : Control
 
     internal static double XAxisLabelOffset(bool hideTickLabels) =>
         hideTickLabels ? 18 : 35;
+
+    internal static IReadOnlyList<AnalysisSeries> NormalizeSeriesUnits(
+        IReadOnlyList<AnalysisSeries> series)
+    {
+        var primary = series.FirstOrDefault(item => item.Points.Count > 0);
+        if (primary is null)
+        {
+            return series;
+        }
+
+        return series.Select(item => NormalizeSeriesUnits(item, primary)).ToArray();
+    }
+
+    private static AnalysisSeries NormalizeSeriesUnits(
+        AnalysisSeries series,
+        AnalysisSeries primary)
+    {
+        var convertX = series.XQuantity == primary.XQuantity
+            && AnalysisAxisFormatting.CanConvert(series.XUnit, primary.XUnit);
+        var convertY = series.YQuantity == primary.YQuantity
+            && AnalysisAxisFormatting.CanConvert(series.YUnit, primary.YUnit);
+        if (!convertX && !convertY)
+        {
+            return series;
+        }
+
+        return series with
+        {
+            Points = series.Points.Select(point => point with
+            {
+                X = convertX
+                    ? AnalysisAxisFormatting.Convert(point.X, series.XUnit, primary.XUnit)
+                    : point.X,
+                Y = convertY
+                    ? AnalysisAxisFormatting.Convert(point.Y, series.YUnit, primary.YUnit)
+                    : point.Y
+            }).ToArray(),
+            XUnit = convertX ? primary.XUnit : series.XUnit,
+            YUnit = convertY ? primary.YUnit : series.YUnit
+        };
+    }
 
     internal static bool CanUseMinimalAxisMargins(
         bool compact,

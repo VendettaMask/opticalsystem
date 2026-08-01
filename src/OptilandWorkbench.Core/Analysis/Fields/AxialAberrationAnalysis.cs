@@ -58,7 +58,11 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
                     }
                     : AnalysisLineStyle.Solid,
                 ColorIndex: WavelengthColorIndices[index % WavelengthColorIndices.Length],
-                LineWidth: 1.35))
+                LineWidth: 1.35,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                YUnit: AnalysisAxisUnit.Dimensionless))
             .ToArray();
         var maximumMagnitude = series
             .SelectMany(item => item.Points)

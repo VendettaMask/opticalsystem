@@ -34,6 +34,7 @@ public sealed class ThemeResourceTests
         AssertBrush(resources, ThemeResourceBindings.WarningSurface);
         AssertBrush(resources, ThemeResourceBindings.ErrorSurface);
         AssertBrush(resources, ThemeResourceBindings.SuccessSurface);
+        AssertBrush(resources, ThemeResourceBindings.SettingsSurface);
         AssertBrush(resources, ThemeResourceBindings.PlotBackground);
         AssertBrush(resources, ThemeResourceBindings.PlotText);
         AssertBrush(resources, ThemeResourceBindings.PlotGrid);
@@ -55,6 +56,9 @@ public sealed class ThemeResourceTests
             ColorOf(applicationResources, "AccentFillColorDefaultBrush"));
         Assert.True(IsekaiTheme.IsDarkLike(IsekaiTheme.Variant));
         Assert.False(IsekaiTheme.IsDarkLike(ThemeVariant.Light));
+        Assert.Equal(
+            Color.FromRgb(255, 255, 255),
+            ColorOf(lightResources, ThemeResourceBindings.SettingsSurface));
     }
 
     [Fact]

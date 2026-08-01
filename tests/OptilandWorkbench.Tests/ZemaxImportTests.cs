@@ -611,12 +611,32 @@ public sealed class ZemaxImportTests
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
         var exported = OpticalFormatCatalog.Export(optic, ".zmx");
         var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+        var finiteZeroDistance = OpticalFormatCatalog.Import(
+            source.Replace("DISZ INFINITY", "DISZ 0", StringComparison.Ordinal),
+            ".zmx");
 
         Assert.Equal(FieldDefinitionKind.RealImageHeight, optic.FieldDefinition);
         Assert.Equal(FieldDefinitionKind.RealImageHeight, restored.FieldDefinition);
+        Assert.True(double.IsPositiveInfinity(optic.SurfaceGroup.Items[0].Thickness));
+        Assert.True(double.IsPositiveInfinity(restored.SurfaceGroup.Items[0].Thickness));
+        Assert.Equal(0, optic.SurfaceGroup.Items[1].CoordinateSystem.Origin.Z, precision: 12);
+        Assert.Equal(30, optic.SurfaceGroup.TotalTrack, precision: 12);
         Assert.Equal(new[] { 0.0, 2.5 }, optic.Fields.Select(field => field.X));
         Assert.Equal(new[] { 0.0, 4.25 }, optic.Fields.Select(field => field.Y));
         Assert.Contains("FTYP 3", exported, StringComparison.Ordinal);
+        Assert.Contains("DISZ INFINITY", exported, StringComparison.Ordinal);
+
+        Assert.Equal(0, finiteZeroDistance.SurfaceGroup.Items[0].Thickness, precision: 12);
+        Assert.False(ObjectConjugate.IsInfinite(finiteZeroDistance.SurfaceGroup.Items[0]));
+        finiteZeroDistance.FieldDefinition = FieldDefinitionKind.ObjectHeight;
+        var finiteZeroDistanceRay = Assert.Single(
+            finiteZeroDistance.SequentialRayTracer.RayGenerator
+                .GenerateGeneric(0, 1, 0, 0, 0.5875618).Rays);
+        Assert.Equal(
+            FieldCoordinates.MaximumRadius(finiteZeroDistance.Fields),
+            finiteZeroDistanceRay.Origin.Y,
+            precision: 12);
+        Assert.Equal(0, finiteZeroDistanceRay.Origin.Z, precision: 12);
 
         var normalized = FieldCoordinates.Normalize(optic.Fields, 2.5, 4.25);
         var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;

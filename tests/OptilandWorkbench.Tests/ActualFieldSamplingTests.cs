@@ -1,12 +1,13 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class ActualFieldSamplingTests
 {
     [Fact]
-    public void FieldBasedAnalysesUseExactSystemFieldRowsInsteadOfProportionalSamples()
+    public void FieldSamplingHonorsEachAnalysisContract()
     {
         var optic = Optic.CreateCookeTriplet();
         var expectedCoordinates = new[] { 0.0, 2.75, 9.125 };
@@ -18,8 +19,18 @@ public sealed class ActualFieldSamplingTests
             optic.Fields[index].Label = expectedLabels[index];
         }
 
-        var rms = new RmsVsFieldAnalysis(optic, numFields: 101, numRings: 1).GenerateData();
-        AssertSeriesFields(rms.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: true);
+        var rms = new RmsVsFieldAnalysis(
+            optic,
+            numRings: 1,
+            data: "spot",
+            fieldDensity: 4,
+            scanDirection: "-x").GenerateData();
+        var expectedSpotScan = new[] { 0.0, -2.28125, -4.5625, -6.84375, -9.125 };
+        Assert.All(rms.PlotSeries, series =>
+            Assert.Equal(expectedSpotScan, series.Points.Select(point => point.X)));
+        Assert.Equal(5, (int)rms.Values["FieldCount"]);
+        Assert.Equal(4, (int)rms.Values["FieldDensity"]);
+        Assert.Equal("-x", rms.Values["ScanDirection"]);
 
         var wavefront = new RmsWavefrontVsFieldAnalysis(optic, numFields: 101, numRings: 2).GenerateData();
         AssertSeriesFields(wavefront.PlotSeries, expectedCoordinates, expectedLabels, coordinateOnX: true);
@@ -40,6 +51,32 @@ public sealed class ActualFieldSamplingTests
         var incidentSeries = Assert.Single(incidentAngle.PlotSeries);
         Assert.Equal(expectedCoordinates, incidentSeries.Points.Select(point => point.Value!.Value));
         Assert.Equal(expectedLabels, incidentSeries.Points.Select(point => point.Label));
+
+        var pupil = new[]
+        {
+            new PupilSample(-1, -1, 1),
+            new PupilSample(1, -1, 2),
+            new PupilSample(-1, 1, 3),
+            new PupilSample(1, 1, 4)
+        };
+        var tiltedWavefront = pupil.Select(sample => new WavefrontSample(
+            sample.X,
+            sample.Y,
+            sample.X,
+            sample.Y,
+            0,
+            7 + (2 * sample.X) - (3 * sample.Y),
+            1)).ToArray();
+        var centroidRms = RmsScanSupport.WeightedWavefrontRms(
+            tiltedWavefront,
+            pupil,
+            "centroid");
+        var chiefRms = RmsScanSupport.WeightedWavefrontRms(
+            tiltedWavefront,
+            pupil,
+            "chief");
+        Assert.InRange(centroidRms, 0, 1e-12);
+        Assert.True(chiefRms > 1);
     }
 
     private static void AssertSeriesFields(

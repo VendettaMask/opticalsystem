@@ -102,7 +102,11 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                     ? (AnalysisMarkerStyle)(wavelengthIndex % 4)
                     : AnalysisMarkerStyle.Circle,
                 MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
-                Opacity: 0.75);
+                Opacity: 0.75,
+                XQuantity: AnalysisAxisQuantity.ImageHeight,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.ImageHeight,
+                YUnit: AnalysisAxisUnit.Micrometer);
         }).ToArray();
         var allPoints = series.SelectMany(item => item.Points)
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))

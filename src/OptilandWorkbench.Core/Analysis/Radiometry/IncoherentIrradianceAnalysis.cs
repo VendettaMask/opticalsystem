@@ -129,7 +129,15 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                     ValueLabel: _normalize ? "Normalized Irradiance" : "Irradiance (W/mm\u00B2)",
                     ColorMap: AnalysisColorMap.Inferno,
                     ValueMinimum: _normalize ? 0 : null,
-                    ValueMaximum: _normalize ? 1 : null);
+                    ValueMaximum: _normalize ? 1 : null,
+                    XQuantity: AnalysisAxisQuantity.ImageHeight,
+                    XUnit: AnalysisAxisUnit.Millimeter,
+                    YQuantity: AnalysisAxisQuantity.ImageHeight,
+                    YUnit: AnalysisAxisUnit.Millimeter,
+                    ValueQuantity: AnalysisAxisQuantity.Irradiance,
+                    ValueUnit: _normalize
+                        ? AnalysisAxisUnit.Dimensionless
+                        : AnalysisAxisUnit.WattsPerSquareMillimeter);
                 panes.Add(new AnalysisPlotPane(title, new[] { series }, new AnalysisPlotOptions(
                     Title: title,
                     EqualAspect: true,

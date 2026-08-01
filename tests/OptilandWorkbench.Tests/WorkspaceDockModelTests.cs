@@ -11,6 +11,59 @@ namespace OptilandWorkbench.Tests;
 public sealed class WorkspaceDockModelTests
 {
     [Fact]
+    public void TileAndCascadeDoNotFloatDockedDocuments()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var manager = new PanelManager(application, new AppSettings());
+        var viewer = manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "document:viewer-2d",
+            WorkspaceDocumentKind.Viewer2D,
+            "二维视图"));
+        var originalOwner = viewer.Owner;
+
+        manager.TileAllWindows();
+        manager.CascadeAllWindows();
+
+        Assert.True(manager.Layout.Windows is null or { Count: 0 });
+        Assert.Same(originalOwner, viewer.Owner);
+        Assert.Equal(2, manager.Factory.OpenDocuments().Count);
+    }
+
+    [Fact]
+    public void TileAndCascadeOnlyRepositionExistingFloatingWindows()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var manager = new PanelManager(application, new AppSettings());
+        var first = new DockWindow { X = 1, Y = 2, Width = 3, Height = 4 };
+        var second = new DockWindow { X = 5, Y = 6, Width = 7, Height = 8 };
+        manager.Layout.Windows = manager.Factory.CreateList<IDockWindow>(first, second);
+
+        manager.TileAllWindows();
+
+        Assert.Equal(2, manager.Layout.Windows!.Count);
+        Assert.Same(first, manager.Layout.Windows[0]);
+        Assert.Same(second, manager.Layout.Windows[1]);
+        Assert.Equal(30, first.X);
+        Assert.Equal(50, first.Y);
+        Assert.Equal(720, first.Width);
+        Assert.Equal(900, first.Height);
+        Assert.Equal(750, second.X);
+        Assert.Equal(50, second.Y);
+
+        manager.CascadeAllWindows();
+
+        Assert.Equal(2, manager.Layout.Windows.Count);
+        Assert.Same(first, manager.Layout.Windows[0]);
+        Assert.Same(second, manager.Layout.Windows[1]);
+        Assert.Equal(80, first.X);
+        Assert.Equal(80, first.Y);
+        Assert.Equal(920, first.Width);
+        Assert.Equal(680, first.Height);
+        Assert.Equal(110, second.X);
+        Assert.Equal(108, second.Y);
+    }
+
+    [Fact]
     public void DefaultLayoutContainsToolDockAndOnlyLensDocument()
     {
         using var application = WorkbenchApplication.Create("cooke");

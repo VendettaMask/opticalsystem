@@ -463,7 +463,7 @@ internal static class ZemaxZmxReader
             }
 
             var legacyRadius = double.IsInfinity(source.Radius) ? 0 : source.Radius;
-            var thickness = index == 0 && double.IsInfinity(source.Thickness) ? 0 : source.Thickness;
+            var thickness = source.Thickness;
             var semiDiameter = source.SemiDiameter is { } configuredSemiDiameter
                 && double.IsFinite(configuredSemiDiameter)
                     ? Math.Max(0.1, Math.Abs(configuredSemiDiameter))

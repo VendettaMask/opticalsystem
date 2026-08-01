@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Domain;
+
 namespace OptilandWorkbench.Core.Services;
 
 public sealed class SolveManager
@@ -32,6 +34,7 @@ public sealed class SolveManager
         }
 
         var poweredTrack = _optic.SurfaceGroup.Items.Take(_optic.SurfaceGroup.Items.Count - 1)
+            .Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
             .Sum(surface => surface.Thickness);
         image.Thickness = Math.Max(0, DesiredBackFocus - poweredTrack);
     }

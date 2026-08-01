@@ -96,7 +96,11 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                     ? (AnalysisMarkerStyle)(index % 4)
                     : AnalysisMarkerStyle.Circle,
                 MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
-                Opacity: 0.7)).ToList();
+                Opacity: 0.7,
+                XQuantity: AnalysisAxisQuantity.ImageHeight,
+                XUnit: _settings.DirectionCosines ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.ImageHeight,
+                YUnit: _settings.DirectionCosines ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter)).ToList();
             if (_settings.ShowAiryDisk && !_settings.DirectionCosines && airyRadius > 0)
             {
                 series.Add(AiryDiskSeries(airyRadius));
@@ -223,7 +227,11 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             AnalysisSeriesKind.Line,
             "艾里斑",
             ColorIndex: 7,
-            LineWidth: 1.2);
+            LineWidth: 1.2,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.ImageHeight,
+            YUnit: AnalysisAxisUnit.Millimeter);
     }
 
     private static double NiceAxisLimit(double minimum)
@@ -475,7 +483,11 @@ public sealed class RayFanAnalysis : BaseAnalysis
                         _ => AnalysisLineStyle.Solid
                     }
                     : AnalysisLineStyle.Solid,
-                ColorIndex: wave.WavelengthIndex);
+                ColorIndex: wave.WavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.ImageHeight,
+                YUnit: AnalysisAxisUnit.Millimeter);
         }).ToArray();
     }
 

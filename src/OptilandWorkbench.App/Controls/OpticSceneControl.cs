@@ -905,13 +905,19 @@ public sealed class OpticSceneControl : Control
         foreach (var path in rays)
         {
             var pen = RayPenFor(RayColorIndex(path.FieldIndex, path.WavelengthIndex), path.Vignetted, RayLineWidth);
-            DrawPolyline(context, pen, path.Points, mapZ, mapY);
-            if (ShowRayArrows)
+            foreach (var segment in path.Segments)
             {
-                DrawArrow(
-                    context,
-                    pen,
-                    path.Points.Select(point => new Point(mapZ(point.Z), mapY(point.Y))).ToArray());
+                var oriented = OrientSegment(segment);
+                var points = new[]
+                {
+                    new Point(mapZ(oriented.Start.Z), mapY(oriented.Start.Y)),
+                    new Point(mapZ(oriented.End.Z), mapY(oriented.End.Y))
+                };
+                context.DrawLine(pen, points[0], points[1]);
+                if (ShowRayArrows)
+                {
+                    DrawArrow(context, pen, points);
+                }
             }
         }
     }
@@ -1337,23 +1343,52 @@ public sealed class OpticSceneControl : Control
                 RayColorIndex(ray.FieldIndex, ray.WavelengthIndex),
                 ray.Vignetted,
                 RayLineWidth);
-            DrawPolyline3D(
-                context,
-                pen,
-                ray.Points,
-                project,
-                clipToCutaway);
-            if (ShowRayArrows)
+            foreach (var segment in ray.Segments)
             {
+                var oriented = OrientSegment(segment);
+                IReadOnlyList<Layout3DPoint> segmentPoints = new[]
+                {
+                    oriented.Start,
+                    oriented.End
+                };
                 var visiblePaths = clipToCutaway
-                    ? ClipPolylineToCutaway(ray.Points)
-                    : new[] { ray.Points };
+                    ? ClipPolylineToCutaway(segmentPoints)
+                    : new[] { segmentPoints };
                 foreach (var path in visiblePaths)
                 {
-                    DrawArrow(context, pen, path.Select(project).ToArray());
+                    DrawPolyline3D(context, pen, path, project);
+                    if (ShowRayArrows)
+                    {
+                        DrawArrow(context, pen, path.Select(project).ToArray());
+                    }
                 }
             }
         }
+    }
+
+    internal static (ScenePoint2Dto Start, ScenePoint2Dto End) OrientSegment(
+        SceneRaySegment2Dto segment)
+    {
+        var deltaZ = segment.End.Z - segment.Start.Z;
+        var deltaY = segment.End.Y - segment.Start.Y;
+        var dot = (deltaZ * segment.Direction.Z) + (deltaY * segment.Direction.Y);
+        return dot >= 0
+            ? (segment.Start, segment.End)
+            : (segment.End, segment.Start);
+    }
+
+    internal static (ScenePoint3Dto Start, ScenePoint3Dto End) OrientSegment(
+        SceneRaySegment3Dto segment)
+    {
+        var deltaX = segment.End.X - segment.Start.X;
+        var deltaY = segment.End.Y - segment.Start.Y;
+        var deltaZ = segment.End.Z - segment.Start.Z;
+        var dot = (deltaX * segment.Direction.X)
+            + (deltaY * segment.Direction.Y)
+            + (deltaZ * segment.Direction.Z);
+        return dot >= 0
+            ? (segment.Start, segment.End)
+            : (segment.End, segment.Start);
     }
 
     private void DrawObjectTarget(DrawingContext context, Point center)

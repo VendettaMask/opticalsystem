@@ -599,6 +599,21 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public async Task AnalysisResultCarriesStablePresentationKindForLocalizedAlias()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var settings = application.Analyses.MergeSettings("波前图", null);
+
+        var result = await application.Analyses.RunAsync(new AnalysisRequestDto(
+            Guid.NewGuid(),
+            1,
+            "波前图",
+            settings));
+
+        Assert.Equal(AnalysisPresentationKind.WavefrontMap, result.View.PresentationKind);
+    }
+
+    [Fact]
     public async Task SpotDiagramResultCarriesPerFieldRadiusMetricsToTheUi()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -670,6 +685,14 @@ public sealed class WorkbenchApplicationTests
         Assert.NotNull(scene.TwoDimensional);
         Assert.Null(scene.ThreeDimensional);
         Assert.NotEmpty(scene.TwoDimensional!.Surfaces);
+        Assert.NotEmpty(scene.TwoDimensional.Rays);
+        Assert.All(scene.TwoDimensional.Rays, ray =>
+        {
+            Assert.Equal(ray.Points.Count - 1, ray.Segments.Count);
+            Assert.Equal(SceneRaySegmentType.Incident, ray.Segments[0].SegmentType);
+            Assert.All(ray.Segments.Skip(1), segment =>
+                Assert.NotEqual(SceneRaySegmentType.Unspecified, segment.SegmentType));
+        });
     }
 
     [Fact]
@@ -681,6 +704,17 @@ public sealed class WorkbenchApplicationTests
 
         var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
         Assert.NotEmpty(threeDimensional.LensElements);
+        Assert.NotEmpty(threeDimensional.Rays);
+        Assert.All(threeDimensional.Rays, ray =>
+        {
+            Assert.Equal(ray.Points.Count - 1, ray.Segments.Count);
+            Assert.All(ray.Segments, segment =>
+            {
+                Assert.True(double.IsFinite(segment.Direction.X));
+                Assert.True(double.IsFinite(segment.Direction.Y));
+                Assert.True(double.IsFinite(segment.Direction.Z));
+            });
+        });
         Assert.All(
             threeDimensional.LensElements,
             element => Assert.InRange(element.RefractiveIndex, 1.0001, 2.5));

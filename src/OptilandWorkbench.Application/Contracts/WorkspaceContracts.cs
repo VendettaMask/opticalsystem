@@ -238,6 +238,59 @@ public enum AnalysisColorMap
     Jet
 }
 
+public enum AnalysisAxisQuantity
+{
+    Unspecified,
+    Coordinate,
+    FieldAngle,
+    FieldHeight,
+    ImageHeight,
+    ObjectHeight,
+    PupilCoordinate,
+    Wavelength,
+    WavefrontError,
+    Defocus,
+    Radius,
+    SpatialFrequency,
+    Modulation,
+    EnergyFraction,
+    Irradiance,
+    Distortion,
+    RayHeight,
+    IncidentAngle,
+    ZernikeTerm,
+    Coefficient,
+    SurfaceNumber,
+    RefractiveIndex,
+    AbbeNumber,
+    Dispersion,
+    Intensity,
+    Pixel,
+    ChromaticPower,
+    ThermalOpticalPower,
+    Transmission
+}
+
+public enum AnalysisAxisUnit
+{
+    Unspecified,
+    Dimensionless,
+    Millimeter,
+    Micrometer,
+    Nanometer,
+    Degree,
+    Wave,
+    Percent,
+    CyclesPerMillimeter,
+    InverseMicrometer,
+    Pixel,
+    Radian,
+    Decibel,
+    WattsPerSteradian,
+    WattsPerSquareMillimeter,
+    PartsPerMillionPerKelvin
+}
+
 public sealed record AnalysisPointDto(
     double X,
     double Y,
@@ -265,7 +318,13 @@ public sealed record AnalysisSeriesDto(
     double? ValueMinimum = null,
     double? ValueMaximum = null,
     string LegendKey = "",
-    string LegendLabel = "");
+    string LegendLabel = "",
+    AnalysisAxisQuantity XQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit XUnit = AnalysisAxisUnit.Unspecified,
+    AnalysisAxisQuantity YQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit YUnit = AnalysisAxisUnit.Unspecified,
+    AnalysisAxisQuantity ValueQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit ValueUnit = AnalysisAxisUnit.Unspecified);
 
 public sealed record AnalysisPlotOptionsDto(
     string Title = "",
@@ -309,6 +368,36 @@ public sealed record AnalysisTableDto(
     IReadOnlyList<IReadOnlyList<string>> Rows,
     IReadOnlyList<string>? RowGroups = null);
 
+public enum AnalysisPresentationKind
+{
+    Standard,
+    CardinalPoints,
+    SeidelCoefficients,
+    ZernikeFringe,
+    ZernikeStandard,
+    ZernikeAnnular,
+    SeidelDiagram,
+    FullFieldAberration,
+    WavefrontMap,
+    FftPsf,
+    HuygensPsf,
+    Foucault,
+    SpotDiagram,
+    ThroughFocusSpot,
+    MatrixSpot,
+    ConfigurationMatrixSpot,
+    FullFieldSpot,
+    RayFan,
+    OpticalPathDifference,
+    FootprintDiagram,
+    AxialAberration,
+    LateralColor,
+    ColorFocusShift,
+    FieldCurvatureAndDistortion,
+    FieldCurvature,
+    Distortion
+}
+
 public sealed record AnalysisViewDto(
     string Name,
     IReadOnlyList<AnalysisRowDto> Rows,
@@ -317,7 +406,8 @@ public sealed record AnalysisViewDto(
     AnalysisPlotOptionsDto PlotOptions,
     IReadOnlyList<AnalysisPlotPaneDto> PlotPanes,
     int PlotPaneColumns,
-    AnalysisTableDto? Table = null);
+    AnalysisTableDto? Table = null,
+    AnalysisPresentationKind PresentationKind = AnalysisPresentationKind.Standard);
 
 public sealed record AnalysisRequestDto(
     Guid InstanceId,
@@ -361,6 +451,47 @@ public sealed record ScenePoint2Dto(double Z, double Y);
 
 public sealed record ScenePoint3Dto(double X, double Y, double Z);
 
+public sealed record SceneRayDirection2Dto(double Z, double Y);
+
+public sealed record SceneRayDirection3Dto(double X, double Y, double Z);
+
+public enum SceneRayInteractionType
+{
+    None,
+    Refractive,
+    Reflective,
+    Diffractive,
+    ThinLens,
+    Phase
+}
+
+public enum SceneRaySegmentType
+{
+    Unspecified,
+    Incident,
+    Transmitted,
+    Reflected,
+    TotalInternalReflection
+}
+
+public sealed record SceneRaySegment2Dto(
+    ScenePoint2Dto Start,
+    ScenePoint2Dto End,
+    SceneRayDirection2Dto Direction,
+    SceneRaySegmentType SegmentType,
+    SceneRayInteractionType InteractionType,
+    int? SourceSurfaceNumber,
+    int? TargetSurfaceNumber);
+
+public sealed record SceneRaySegment3Dto(
+    ScenePoint3Dto Start,
+    ScenePoint3Dto End,
+    SceneRayDirection3Dto Direction,
+    SceneRaySegmentType SegmentType,
+    SceneRayInteractionType InteractionType,
+    int? SourceSurfaceNumber,
+    int? TargetSurfaceNumber);
+
 public sealed record SceneSurfaceFace3Dto(IReadOnlyList<ScenePoint3Dto> Points);
 
 public sealed record SceneSurface2Dto(
@@ -390,7 +521,8 @@ public sealed record SceneRay2Dto(
     int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
-    IReadOnlyList<ScenePoint2Dto> Points);
+    IReadOnlyList<ScenePoint2Dto> Points,
+    IReadOnlyList<SceneRaySegment2Dto> Segments);
 
 public sealed record Scene2Dto(
     IReadOnlyList<SceneSurface2Dto> Surfaces,
@@ -431,7 +563,8 @@ public sealed record SceneRay3Dto(
     int WavelengthIndex,
     bool Vignetted,
     double FinalIntensity,
-    IReadOnlyList<ScenePoint3Dto> Points);
+    IReadOnlyList<ScenePoint3Dto> Points,
+    IReadOnlyList<SceneRaySegment3Dto> Segments);
 
 public sealed record Scene3Dto(
     IReadOnlyList<SceneSurface3Dto> Surfaces,

@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
@@ -69,9 +70,15 @@ public sealed class FullFieldAberrationControl : Control
         }
 
         context.DrawRectangle(null, axisPen, plot);
-        var xLabel = CreateText(Series.XAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var xLabel = CreateText(
+            AnalysisAxisFormatting.FormatLabel(Series.XAxisLabel, Series.XQuantity, Series.XUnit),
+            12.5,
+            ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 33));
-        var yLabel = CreateText(Series.YAxisLabel, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var yLabel = CreateText(
+            AnalysisAxisFormatting.FormatLabel(Series.YAxisLabel, Series.YQuantity, Series.YUnit),
+            12.5,
+            ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yCenter = new Point(20, plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {

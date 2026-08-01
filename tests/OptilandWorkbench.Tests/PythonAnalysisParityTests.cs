@@ -325,7 +325,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void RmsVsFieldUsesDefinedFields(string sampleName, Func<Optic> createOptic)
+    public void RmsVsFieldSpotUsesRequestedDirectionalDensity(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("rms_vs_field");
@@ -335,13 +335,12 @@ public sealed class PythonAnalysisParityTests
 
         for (var wavelength = 0; wavelength < data.PlotSeries.Count; wavelength++)
         {
-            Assert.Equal(optic.Fields.Count, data.PlotSeries[wavelength].Points.Count);
+            Assert.Equal(9, data.PlotSeries[wavelength].Points.Count);
+            Assert.Equal(0, data.PlotSeries[wavelength].Points[0].X, 12);
             Assert.Equal(
-                optic.Fields.Select(FieldCoordinate),
-                data.PlotSeries[wavelength].Points.Select(point => point.X));
-            Assert.Equal(
-                optic.Fields.Select(field => field.Label),
-                data.PlotSeries[wavelength].Points.Select(point => point.Label));
+                FieldCoordinates.MaximumRadius(optic.Fields),
+                data.PlotSeries[wavelength].Points[^1].X,
+                12);
             Assert.All(data.PlotSeries[wavelength].Points, point => Assert.True(double.IsFinite(point.Y)));
         }
 

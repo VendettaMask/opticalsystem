@@ -84,7 +84,11 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             fieldAxisLabel,
             "Relative Illumination",
             points,
-            Name: $"{wavelength.Micrometers:0.0000} µm");
+            Name: $"{wavelength.Micrometers:0.0000} µm",
+            XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+            XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
+            YQuantity: AnalysisAxisQuantity.Irradiance,
+            YUnit: AnalysisAxisUnit.Dimensionless);
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {

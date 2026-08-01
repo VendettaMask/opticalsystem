@@ -18,6 +18,7 @@ using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Phase;
 using ContractLensLibraryService = OptilandWorkbench.Application.Contracts.ILensLibraryService;
 using ContractMaterialCatalogService = OptilandWorkbench.Application.Contracts.IMaterialCatalogService;
+using AnalysisContracts = OptilandWorkbench.Application.Contracts;
 
 namespace OptilandWorkbench.Tests;
 
@@ -388,10 +389,6 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConfigurationMatrixSpotUsesFieldByWavelengthMatrix()
     {
-        Assert.True(AnalysisPanel.IsConfigurationMatrixSpotViewName("结构矩阵点列图"));
-        Assert.True(AnalysisPanel.IsConfigurationMatrixSpotViewName(
-            "Configuration Matrix Spot Diagram"));
-
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView(
             "Configuration Matrix Spot Diagram",
@@ -455,6 +452,68 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void AnalysisControlDispatchIgnoresLocalizedOrRenamedTitle()
+    {
+        var view = new AnalysisContracts.AnalysisViewDto(
+            "任意修改后的标题",
+            Array.Empty<AnalysisContracts.AnalysisRowDto>(),
+            string.Empty,
+            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+            new AnalysisContracts.AnalysisPlotOptionsDto(),
+            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+            1,
+            PresentationKind: AnalysisContracts.AnalysisPresentationKind.WavefrontMap);
+        var method = typeof(AnalysisPanel).GetMethod(
+            "IsWavefrontMapView",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+        Assert.NotNull(method);
+        Assert.True(Assert.IsType<bool>(method.Invoke(null, new object[] { view })));
+    }
+
+    [Fact]
+    public void PlotScalingAndCsvExportUseTypedUnitsInsteadOfAxisTitles()
+    {
+        var millimeters = new AnalysisContracts.AnalysisSeriesDto(
+            "横轴 (µm)",
+            "值",
+            new[] { new AnalysisContracts.AnalysisPointDto(1, 2) },
+            XQuantity: AnalysisContracts.AnalysisAxisQuantity.Coordinate,
+            XUnit: AnalysisContracts.AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisContracts.AnalysisAxisQuantity.Intensity,
+            YUnit: AnalysisContracts.AnalysisAxisUnit.Dimensionless);
+        var micrometers = millimeters with
+        {
+            Name = "micrometer source",
+            Points = new[] { new AnalysisContracts.AnalysisPointDto(1000, 3) },
+            XUnit = AnalysisContracts.AnalysisAxisUnit.Micrometer
+        };
+
+        var normalized = AnalysisPlotControl.NormalizeSeriesUnits(new[] { millimeters, micrometers });
+        Assert.Equal(1, normalized[1].Points[0].X, precision: 12);
+        Assert.Equal(AnalysisContracts.AnalysisAxisUnit.Millimeter, normalized[1].XUnit);
+        Assert.Equal(
+            "横轴 (mm)",
+            AnalysisAxisFormatting.FormatLabel(
+                millimeters.XAxisLabel,
+                millimeters.XQuantity,
+                millimeters.XUnit));
+
+        var view = new AnalysisContracts.AnalysisViewDto(
+            "typed units",
+            Array.Empty<AnalysisContracts.AnalysisRowDto>(),
+            string.Empty,
+            new[] { millimeters },
+            new AnalysisContracts.AnalysisPlotOptionsDto(),
+            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+            1);
+        var csv = AnalysisCsvFormatter.Format(view);
+
+        Assert.Contains("\"Coordinate\",\"mm\",\"1\"", csv);
+        Assert.DoesNotContain("横轴 (µm)", csv);
+    }
+
+    [Fact]
     public void FootprintLegendAndDefaultFollowTheSelectedColorBasis()
     {
         var optic = Optic.CreateCookeTriplet();
@@ -481,6 +540,10 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(mapMethod);
         var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
             mapMethod.Invoke(null, new object[] { view }));
+        viewDto = viewDto with
+        {
+            PresentationKind = AnalysisContracts.AnalysisPresentationKind.FootprintDiagram
+        };
         var method = typeof(AnalysisPanel).GetMethod(
             "BuildSinglePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);

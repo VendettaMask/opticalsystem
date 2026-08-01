@@ -15,6 +15,8 @@ using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
 using ContractAnalysisColorMap = OptilandWorkbench.Application.Contracts.AnalysisColorMap;
+using ContractAnalysisAxisQuantity = OptilandWorkbench.Application.Contracts.AnalysisAxisQuantity;
+using ContractAnalysisAxisUnit = OptilandWorkbench.Application.Contracts.AnalysisAxisUnit;
 using ContractAnalysisLineStyle = OptilandWorkbench.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OptilandWorkbench.Application.Contracts.AnalysisMarkerStyle;
 using ContractAnalysisParameterDescriptor = OptilandWorkbench.Application.Contracts.AnalysisParameterDescriptor;
@@ -172,7 +174,13 @@ internal static class WorkbenchMapper
             series.ValueMinimum,
             series.ValueMaximum,
             series.LegendKey,
-            series.LegendLabel);
+            series.LegendLabel,
+            (ContractAnalysisAxisQuantity)(int)series.XQuantity,
+            (ContractAnalysisAxisUnit)(int)series.XUnit,
+            (ContractAnalysisAxisQuantity)(int)series.YQuantity,
+            (ContractAnalysisAxisUnit)(int)series.YUnit,
+            (ContractAnalysisAxisQuantity)(int)series.ValueQuantity,
+            (ContractAnalysisAxisUnit)(int)series.ValueUnit);
     }
 
     internal static AnalysisPlotOptionsDto ToPlotOptionsDto(AnalysisPlotOptions options)
@@ -227,7 +235,15 @@ internal static class WorkbenchMapper
                 ray.WavelengthIndex,
                 ray.Vignetted,
                 ray.FinalIntensity,
-                ray.Points.Select(Point).ToArray())).ToArray(),
+                ray.Points.Select(Point).ToArray(),
+                ray.Segments.Select(segment => new SceneRaySegment2Dto(
+                    Point(segment.Start),
+                    Point(segment.End),
+                    new SceneRayDirection2Dto(segment.Direction.Z, segment.Direction.Y),
+                    ToSceneRaySegmentType(segment.SegmentType),
+                    ToSceneRayInteractionType(segment.InteractionType),
+                    segment.SourceSurfaceNumber,
+                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
             scene.ZMin,
             scene.ZMax,
             scene.YExtent);
@@ -268,10 +284,41 @@ internal static class WorkbenchMapper
                 ray.WavelengthIndex,
                 ray.Vignetted,
                 ray.FinalIntensity,
-                ray.Points.Select(Point).ToArray())).ToArray(),
+                ray.Points.Select(Point).ToArray(),
+                ray.Segments.Select(segment => new SceneRaySegment3Dto(
+                    Point(segment.Start),
+                    Point(segment.End),
+                    new SceneRayDirection3Dto(
+                        segment.Direction.X,
+                        segment.Direction.Y,
+                        segment.Direction.Z),
+                    ToSceneRaySegmentType(segment.SegmentType),
+                    ToSceneRayInteractionType(segment.InteractionType),
+                    segment.SourceSurfaceNumber,
+                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
             scene.XExtent,
             scene.YExtent,
             scene.ZMin,
             scene.ZMax);
     }
+
+    private static SceneRaySegmentType ToSceneRaySegmentType(LayoutRaySegmentType type) => type switch
+    {
+        LayoutRaySegmentType.Incident => SceneRaySegmentType.Incident,
+        LayoutRaySegmentType.Transmitted => SceneRaySegmentType.Transmitted,
+        LayoutRaySegmentType.Reflected => SceneRaySegmentType.Reflected,
+        LayoutRaySegmentType.TotalInternalReflection => SceneRaySegmentType.TotalInternalReflection,
+        _ => SceneRaySegmentType.Unspecified
+    };
+
+    private static SceneRayInteractionType ToSceneRayInteractionType(
+        LayoutRayInteractionType type) => type switch
+    {
+        LayoutRayInteractionType.Refractive => SceneRayInteractionType.Refractive,
+        LayoutRayInteractionType.Reflective => SceneRayInteractionType.Reflective,
+        LayoutRayInteractionType.Diffractive => SceneRayInteractionType.Diffractive,
+        LayoutRayInteractionType.ThinLens => SceneRayInteractionType.ThinLens,
+        LayoutRayInteractionType.Phase => SceneRayInteractionType.Phase,
+        _ => SceneRayInteractionType.None
+    };
 }

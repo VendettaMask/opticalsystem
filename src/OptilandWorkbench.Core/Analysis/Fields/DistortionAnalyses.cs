@@ -105,7 +105,11 @@ public sealed class DistortionAnalysis : BaseAnalysis
                 fieldAxisLabel,
                 points,
                 Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
-                ColorIndex: wavelengthIndex));
+                ColorIndex: wavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.Distortion,
+                XUnit: _displayMode == "absolute" ? AnalysisAxisUnit.Millimeter : AnalysisAxisUnit.Percent,
+                YQuantity: AnalysisTrace.FieldAxisQuantity(displayReference),
+                YUnit: AnalysisTrace.FieldAxisUnit(displayReference)));
         }
 
         var first = series.FirstOrDefault();
@@ -361,14 +365,22 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                 fieldAxisLabel,
                 tangential,
                 Name: $"{wavelengthLabel}, Tangential",
-                ColorIndex: wavelengthIndex));
+                ColorIndex: wavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+                YUnit: AnalysisTrace.FieldAxisUnit(workingOptic)));
             series.Add(new AnalysisSeries(
                 "Image Plane Delta (mm)",
                 fieldAxisLabel,
                 sagittal,
                 Name: $"{wavelengthLabel}, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: wavelengthIndex));
+                ColorIndex: wavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+                YUnit: AnalysisTrace.FieldAxisUnit(workingOptic)));
         }
 
         var first = series.FirstOrDefault();

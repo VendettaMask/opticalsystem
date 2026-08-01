@@ -160,9 +160,13 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 MtfMethodEvaluator.DataTypeLabel(_dataType),
                 displayFocus.Select((value, index) => new AnalysisPoint(
                     value,
-                    DisplayValue(tangentialDisplay[index]))).ToArray(),
+                DisplayValue(tangentialDisplay[index]))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
-                ColorIndex: _useDashes ? 0 : colorIndex));
+                ColorIndex: _useDashes ? 0 : colorIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
                 MtfMethodEvaluator.DataTypeLabel(_dataType),
@@ -171,7 +175,11 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                     DisplayValue(sagittalDisplay[index]))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: _useDashes ? 0 : colorIndex));
+                ColorIndex: _useDashes ? 0 : colorIndex,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
         }
 
         var wavelengthLabel = _wavelengthNumber <= 0
@@ -418,7 +426,11 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                 LineStyle: _useDashes && frequencyIndex % 2 == 1
                     ? AnalysisLineStyle.Dashed
                     : AnalysisLineStyle.Solid,
-                ColorIndex: frequencyIndex));
+                ColorIndex: frequencyIndex,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 axisLabel,
                 "MTF",
@@ -428,7 +440,11 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
                 Name: $"{frequency:0.###} cycles/mm, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: frequencyIndex));
+                ColorIndex: frequencyIndex,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return new AnalysisData(Name, new Dictionary<string, object>

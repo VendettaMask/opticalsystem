@@ -140,7 +140,11 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             points,
             Name: name,
             ColorIndex: _allWavelengths ? colorIndex : 10,
-            LineWidth: 1.25);
+            LineWidth: 1.25,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            YUnit: AnalysisTrace.FieldAxisUnit(Optic));
     }
 
     private double ImageHeight(double normalizedField, double wavelengthMicrometers)
@@ -193,7 +197,11 @@ public sealed class LateralColorAnalysis : BaseAnalysis
             Name: name,
             LineStyle: AnalysisLineStyle.Dotted,
             ColorIndex: 10,
-            LineWidth: 1);
+            LineWidth: 1,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            YUnit: AnalysisTrace.FieldAxisUnit(Optic));
     }
 
     private double AiryRadiusMicrometers(double normalizedField, Wavelength primary)

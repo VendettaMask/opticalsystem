@@ -78,7 +78,7 @@ public sealed class TracingEdgeCaseTests
     }
 
     [Fact]
-    public void NonFiniteObjectSurfaceIsSkippedInRequestedTrace()
+    public void InfiniteObjectDistanceUsesFiniteTraceCoordinates()
     {
         var optic = Optic.CreateBlank();
         var objectSurface = Surface("Object", double.PositiveInfinity, new AirMaterial());
@@ -86,14 +86,15 @@ public sealed class TracingEdgeCaseTests
         optic.SurfaceGroup.Replace(
             new[] { objectSurface, image },
             syncComposition: false);
-        optic.SurfaceGroup.Items[0].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, double.PositiveInfinity));
+        optic.SurfaceGroup.Items[0].CoordinateSystem = new CoordinateSystem(Vector3D.Zero);
         optic.SurfaceGroup.Items[1].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10));
-
 
         using var trace = optic.SequentialRayTracer.Trace(
             Bundle(new Vector3D(0, 0, 0), new Vector3D(0, 0, 1)),
-            TraceRequest.FinalOnly(false));
+            TraceRequest.Selected(new[] { 0, 1 }));
 
+        Assert.True(trace.TryGetSample(0, 0, out var objectSample));
+        Assert.Equal(0, objectSample.Position.Z, precision: 12);
         Assert.True(trace.TryGetSample(0, 1, out var sample));
         Assert.Equal(10, sample.Position.Z, precision: 12);
     }

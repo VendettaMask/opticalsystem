@@ -114,7 +114,11 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     MarkerSize: _useSymbols ? 3.2 : 2.4,
                     Opacity: 0.8,
                     LegendKey: legendKey,
-                    LegendLabel: legendLabel));
+                    LegendLabel: legendLabel,
+                    XQuantity: AnalysisAxisQuantity.Coordinate,
+                    XUnit: AnalysisAxisUnit.Millimeter,
+                    YQuantity: AnalysisAxisQuantity.Coordinate,
+                    YUnit: AnalysisAxisUnit.Millimeter));
             }
         }
 
@@ -271,7 +275,11 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
             LineStyle: AnalysisLineStyle.Dashed,
             ColorIndex: 8,
             LineWidth: 1,
-            Opacity: 0.75));
+            Opacity: 0.75,
+            XQuantity: AnalysisAxisQuantity.Coordinate,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.Coordinate,
+            YUnit: AnalysisAxisUnit.Millimeter));
     }
 
     private static IReadOnlyList<IReadOnlyList<(double X, double Y)>> ApertureOutlines(IPhysicalAperture aperture)

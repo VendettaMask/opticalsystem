@@ -30,6 +30,8 @@ public sealed partial class OpticalSurface : NotifyObject
     private IMaterial _materialAfter = new AirMaterial();
     private ICoatingModel _coatingModel = new NoneCoatingModel();
     private IInteractionModel _interactionModel = new RefractiveReflectiveInteractionModel();
+    private IPhysicalAperture? _physicalAperture;
+    private IScatteringModel? _scatteringModel;
     private CoordinateSystem _coordinateSystem = CoordinateSystem.Global;
 
     public int Number
@@ -150,9 +152,17 @@ public sealed partial class OpticalSurface : NotifyObject
         set => SetProperty(ref _interactionModel, value);
     }
 
-    public IPhysicalAperture? PhysicalAperture { get; set; }
+    public IPhysicalAperture? PhysicalAperture
+    {
+        get => _physicalAperture;
+        set => SetProperty(ref _physicalAperture, value);
+    }
 
-    public IScatteringModel? ScatteringModel { get; set; }
+    public IScatteringModel? ScatteringModel
+    {
+        get => _scatteringModel;
+        set => SetProperty(ref _scatteringModel, value);
+    }
 
     public CoordinateSystem CoordinateSystem
     {
@@ -305,7 +315,8 @@ public sealed partial class OpticalSurface : NotifyObject
             segmentLength,
             segmentOpticalPathLength,
             nextCumulativePathLength,
-            nextCumulativeOpticalPathLength);
+            nextCumulativeOpticalPathLength,
+            InteractionKind: interactionResult.Kind);
         return new SurfaceRayTraceValueResult(
             tracedRay,
             tracedSample,

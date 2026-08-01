@@ -132,7 +132,11 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                 "Fraction of Energy",
                 points,
                 Name: MtfPresentation.FieldName(Optic, (curve.Hx, curve.Hy)),
-                ColorIndex: curve.FieldIndex);
+                ColorIndex: curve.FieldIndex,
+                XQuantity: AnalysisAxisQuantity.Radius,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.EnergyFraction,
+                YUnit: AnalysisAxisUnit.Dimensionless);
         }).ToArray();
         var weightedRadii = curves
             .SelectMany(curve => curve.Radii)
@@ -209,7 +213,11 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                 "Encircled Energy (-)",
                 points,
                 Name: MtfPresentation.FieldName(Optic, (field.Hx, field.Hy)),
-                ColorIndex: fieldIndex);
+                ColorIndex: fieldIndex,
+                XQuantity: AnalysisAxisQuantity.Radius,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.EnergyFraction,
+                YUnit: AnalysisAxisUnit.Dimensionless);
         }).ToArray();
         var weightedRadii = fieldRadii
             .SelectMany(radii => radii)
@@ -431,7 +439,11 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
                     pupil[index],
                     sample.Intensity > 0 ? sample.Value : double.NaN)).ToArray(),
                 Name: $"{wave.Wavelength.Micrometers:0.0000} \u00B5m",
-                ColorIndex: wavelengthIndex);
+                ColorIndex: wavelengthIndex,
+                XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.Distortion,
+                YUnit: AnalysisAxisUnit.Percent);
         }).ToArray();
         return new AnalysisPlotPane(title, series, new AnalysisPlotOptions(
             Title: title,

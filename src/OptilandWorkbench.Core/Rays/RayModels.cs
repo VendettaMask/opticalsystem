@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Interactions;
 
 namespace OptilandWorkbench.Core.Rays;
 
@@ -52,7 +53,8 @@ public sealed record RayTraceSample(
     double SegmentOpticalPathLength = 0,
     double CumulativePathLength = 0,
     double CumulativeOpticalPathLength = 0,
-    double OpticalPathDifference = 0);
+    double OpticalPathDifference = 0,
+    RayInteractionKind? InteractionKind = null);
 
 public sealed class RealRayBundle
 {

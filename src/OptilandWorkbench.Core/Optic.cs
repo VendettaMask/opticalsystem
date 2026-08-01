@@ -16,6 +16,7 @@ namespace OptilandWorkbench.Core;
 public sealed class Optic
 {
     private OpticState _state;
+    private RayTraceCacheBinding? _rayTraceCacheBinding;
 
     public Optic(string name = "Untitled optic")
     {
@@ -42,7 +43,14 @@ public sealed class Optic
     public IApodizationModel? Apodization
     {
         get => _state.Apodization;
-        set => _state.Apodization = value;
+        set
+        {
+            if (!ReferenceEquals(_state.Apodization, value))
+            {
+                _state.Apodization = value;
+                InvalidateRayTraceCache();
+            }
+        }
     }
 
     public MaterialRegistry Materials => _state.Materials;
@@ -54,25 +62,53 @@ public sealed class Optic
     public FieldDefinitionKind FieldDefinition
     {
         get => _state.FieldDefinition;
-        set => _state.FieldDefinition = value;
+        set
+        {
+            if (_state.FieldDefinition != value)
+            {
+                _state.FieldDefinition = value;
+                InvalidateRayTraceCache();
+            }
+        }
     }
 
     public bool ObjectSpaceTelecentric
     {
         get => _state.ObjectSpaceTelecentric;
-        set => _state.ObjectSpaceTelecentric = value;
+        set
+        {
+            if (_state.ObjectSpaceTelecentric != value)
+            {
+                _state.ObjectSpaceTelecentric = value;
+                InvalidateRayTraceCache();
+            }
+        }
     }
 
     public bool FieldGroupTelecentric
     {
         get => _state.FieldGroupTelecentric;
-        set => _state.FieldGroupTelecentric = value;
+        set
+        {
+            if (_state.FieldGroupTelecentric != value)
+            {
+                _state.FieldGroupTelecentric = value;
+                InvalidateRayTraceCache();
+            }
+        }
     }
 
     public bool RayAimingEnabled
     {
         get => _state.RayAimingEnabled;
-        set => _state.RayAimingEnabled = value;
+        set
+        {
+            if (_state.RayAimingEnabled != value)
+            {
+                _state.RayAimingEnabled = value;
+                InvalidateRayTraceCache();
+            }
+        }
     }
 
     public ObservableCollection<Wavelength> Wavelengths => _state.Wavelengths;
@@ -92,6 +128,33 @@ public sealed class Optic
     public SolveManager Solves => _state.Solves;
 
     public AnalysisCatalog Analyses { get; }
+
+    public void ConfigureRayTraceCache(RayTraceCache? cache, long opticRevision)
+    {
+        _rayTraceCacheBinding?.Dispose();
+        _rayTraceCacheBinding = null;
+        SequentialRayTracer.ConfigureCache(cache, opticRevision);
+        if (cache is null)
+        {
+            return;
+        }
+
+        cache.SetCurrentRevision(opticRevision);
+        _rayTraceCacheBinding = new RayTraceCacheBinding(this, InvalidateRayTraceCache);
+    }
+
+    public void InvalidateRayTraceCache()
+    {
+        var binding = _rayTraceCacheBinding;
+        if (binding is null)
+        {
+            return;
+        }
+
+        _rayTraceCacheBinding = null;
+        SequentialRayTracer.ConfigureCache(null, 0);
+        binding.Dispose();
+    }
 
     public ObservableCollection<MeritOperandDefinition> MeritFunctionOperands =>
         _state.MeritFunctionOperands;
@@ -294,7 +357,7 @@ public sealed class Optic
             {
                 Label = "Object",
                 Radius = 0,
-                Thickness = 0,
+                Thickness = double.PositiveInfinity,
                 Material = "Air",
                 SemiDiameter = 9.85
             },
@@ -376,7 +439,7 @@ public sealed class Optic
 
         optic.SurfaceGroup.Replace(new[]
         {
-            new OpticalSurface { Label = "Object", Thickness = 0, Material = "Air", SemiDiameter = 0.73 },
+            new OpticalSurface { Label = "Object", Thickness = double.PositiveInfinity, Material = "Air", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Front crown", Radius = 1.3329, Thickness = 0.2791, Material = "N-SK15", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Front crown back", Radius = -9.9754, Thickness = 0.2054, Material = "Air", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Flint front", Radius = -2.0917, Thickness = 0.09, Material = "SCHOTT:F2", SemiDiameter = 0.48 },

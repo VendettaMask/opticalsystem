@@ -13,6 +13,8 @@ public sealed record SequentialTrace(
 public sealed partial class SequentialRayTracer
 {
     private readonly Optic _optic;
+    private RayTraceCache? _traceCache;
+    private long _cacheOpticRevision;
 
     public SequentialRayTracer(Optic optic)
     {
@@ -23,6 +25,12 @@ public sealed partial class SequentialRayTracer
     public RayGenerator RayGenerator { get; }
 
     public IRayAimer RayAimer { get; private set; } = new ParaxialRayAimer();
+
+    internal void ConfigureCache(RayTraceCache? cache, long opticRevision)
+    {
+        _traceCache = cache;
+        _cacheOpticRevision = opticRevision;
+    }
 
     public void SetAiming(string mode)
     {
@@ -158,12 +166,6 @@ public sealed partial class SequentialRayTracer
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
-            if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
-                && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
-            {
-                continue;
-            }
-
             var result = surface.TraceRay(
                 ray,
                 currentMaterial,
@@ -237,6 +239,21 @@ public sealed partial class SequentialRayTracer
             return requestedTrace;
         }
 
+        RayTraceCacheKey? cacheKey = null;
+        if (!request.RecordSurfaceData && _traceCache is not null)
+        {
+            cacheKey = RayTraceCacheKey.Create(
+                _cacheOpticRevision,
+                _optic.Backend.Current.Name,
+                request,
+                retainedSurfaceIndices,
+                bundle.Rays);
+            if (_traceCache.TryCopyTo(cacheKey, samples, hasSamples))
+            {
+                return requestedTrace;
+            }
+        }
+
         var surfaceSlots = new int[surfaces.Length];
         Array.Fill(surfaceSlots, -1);
         for (var slot = 0; slot < retainedCount; slot++)
@@ -296,6 +313,11 @@ public sealed partial class SequentialRayTracer
             {
                 var histories = MaterializeHistories(requestedTrace);
                 _optic.SurfaceGroup.RecordTrace(BuildSurfaceTraceData(surfaces, histories));
+            }
+
+            if (cacheKey is not null)
+            {
+                _traceCache?.Store(cacheKey, samples, hasSamples, sampleCount);
             }
 
             return requestedTrace;

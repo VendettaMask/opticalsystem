@@ -268,13 +268,17 @@ public partial class OpticalWorkspaceModel
     private static void SyncSurfacePositions(Optic optic)
     {
         var z = 0.0;
-        foreach (var surface in optic.SurfaceGroup.Items)
+        for (var index = 0; index < optic.SurfaceGroup.Items.Count; index++)
         {
+            var surface = optic.SurfaceGroup.Items[index];
             surface.CoordinateSystem = surface.CoordinateSystem with
             {
                 Origin = surface.CoordinateSystem.Origin with { Z = z }
             };
-            z += surface.Thickness;
+            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
+            {
+                z += surface.Thickness;
+            }
         }
     }
 

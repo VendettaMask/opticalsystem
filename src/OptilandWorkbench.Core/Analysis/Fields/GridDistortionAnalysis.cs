@@ -142,7 +142,11 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             ColorIndex: 0,
             MarkerStyle: AnalysisMarkerStyle.Cross,
             MarkerSize: 2.8,
-            LineWidth: 1));
+            LineWidth: 1,
+            XQuantity: AnalysisAxisQuantity.ObjectHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.ObjectHeight,
+            YUnit: AnalysisAxisUnit.Millimeter));
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {
@@ -251,7 +255,11 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             Name: name,
             LineStyle: lineStyle,
             ColorIndex: colorIndex,
-            LineWidth: lineWidth);
+            LineWidth: lineWidth,
+            XQuantity: AnalysisAxisQuantity.ObjectHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.ObjectHeight,
+            YUnit: AnalysisAxisUnit.Millimeter);
     }
 }
 

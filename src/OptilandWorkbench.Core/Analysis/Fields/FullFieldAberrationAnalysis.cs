@@ -117,9 +117,15 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             AnalysisSeriesKind.Scatter,
             Name: _aberration,
             ColorIndex: 10,
-            ValueLabel: "波长",
+            ValueLabel: "波前差",
             ValueMinimum: minimum,
-            ValueMaximum: maximum);
+            ValueMaximum: maximum,
+            XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+            YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            YUnit: AnalysisTrace.FieldAxisUnit(Optic),
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
         return new AnalysisData(
             Name,
             new Dictionary<string, object>

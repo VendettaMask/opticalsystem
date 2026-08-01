@@ -7,6 +7,7 @@ namespace OptilandWorkbench.App.Theming;
 internal sealed record ThemePalette(
     Color Surface,
     Color SubtleSurface,
+    Color SettingsSurface,
     Color Workspace,
     Color Border,
     Color TextPrimary,
@@ -53,6 +54,7 @@ internal sealed record ThemePalette(
     public static ThemePalette Light { get; } = new(
         Surface: Color.FromRgb(250, 250, 252),
         SubtleSurface: Color.FromRgb(242, 242, 247),
+        SettingsSurface: Color.FromRgb(255, 255, 255),
         Workspace: Color.FromRgb(220, 223, 228),
         Border: Color.FromRgb(209, 209, 214),
         TextPrimary: Color.FromRgb(32, 34, 38),
@@ -99,6 +101,7 @@ internal sealed record ThemePalette(
     public static ThemePalette DarkOpticStudio { get; } = new(
         Surface: Color.FromRgb(28, 32, 38),
         SubtleSurface: Color.FromRgb(34, 39, 46),
+        SettingsSurface: Color.FromRgb(28, 32, 38),
         Workspace: Color.FromRgb(15, 18, 23),
         Border: Color.FromRgb(52, 58, 66),
         TextPrimary: Color.FromRgb(224, 230, 238),
@@ -146,6 +149,7 @@ internal sealed record ThemePalette(
     {
         [ThemeResourceBindings.Surface] = Brush(Surface),
         [ThemeResourceBindings.SubtleSurface] = Brush(SubtleSurface),
+        [ThemeResourceBindings.SettingsSurface] = Brush(SettingsSurface),
         [ThemeResourceBindings.Workspace] = Brush(Workspace),
         [ThemeResourceBindings.Border] = Brush(Border),
         [ThemeResourceBindings.TextPrimary] = Brush(TextPrimary),

@@ -49,6 +49,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     };
     private CancellationTokenSource? _runCancellation;
     private AnalysisViewDto? _view;
+    private long? _displayedSourceRevision;
     private Dictionary<string, string> _settings;
     private int _generation;
     private bool _locked;
@@ -86,47 +87,19 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         var exportButton = CommandButton("upload", "导出文本", 96);
         exportButton.Click += async (_, _) => await ExportReportAsync();
 
-        var settingsIcon = new LocalIcon
-        {
-            IconName = "circle-chevron-down",
-            Width = 16,
-            Height = 16,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        var settingsButton = new Button
-        {
-            MinWidth = 72,
-            Content = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Spacing = 4,
-                Children =
-                {
-                    settingsIcon,
-                    new TextBlock { Text = "设置", VerticalAlignment = VerticalAlignment.Center }
-                }
-            }
-        };
+        var settingsButton = SettingsPanelChrome.CreateToggleButton();
         _settingsHost = new Border
         {
             IsVisible = false,
             Margin = new Thickness(0, 6, 0, 0),
             Padding = new Thickness(12, 10),
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
-            BoxShadow = BoxShadows.Parse("0 3 10 0 #16000000"),
             Child = _parameterPanel
         };
         _stateText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
-        _settingsHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
-        _settingsHost.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        StyleToolbarButton(settingsButton, iconOnly: false);
+        SettingsPanelChrome.ApplyCardStyle(_settingsHost);
         settingsButton.Click += (_, _) =>
         {
             _settingsHost.IsVisible = !_settingsHost.IsVisible;
-            settingsIcon.IconName = _settingsHost.IsVisible
-                ? "circle-chevron-up"
-                : "circle-chevron-down";
         };
 
         var commands = new WrapPanel
@@ -267,12 +240,19 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                     return;
                 }
 
+                if (_displayedSourceRevision is long displayedRevision
+                    && displayedRevision != result.SourceRevision)
+                {
+                    ResetInteractiveViewState(_resultHost.Content as Control);
+                }
+
                 _view = result.View;
                 _resultHost.Content = BuildResultContent(
                     result.View,
                     _documents.GetSnapshot(),
                     DateTimeOffset.Now,
                     cardinalScene);
+                _displayedSourceRevision = result.SourceRevision;
                 _stateText.Text = _locked ? "已锁定：保留当前结果" : "已同步";
             });
         }
@@ -289,6 +269,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 _view = null;
+                _displayedSourceRevision = null;
                 _resultHost.Content = BuildAnalysisErrorContent(exception.Message);
                 _stateText.Text = $"分析失败：{exception.Message}";
             });
@@ -324,14 +305,30 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             _runCancellation?.Cancel();
         }
 
-        if (_locked)
-        {
-            return;
-        }
-
         Dispatcher.UIThread.Post(() =>
         {
             if (_disposed)
+            {
+                return;
+            }
+
+            if (_displayedSourceRevision is long displayedRevision
+                && displayedRevision != args.Revision)
+            {
+                ResetInteractiveViewState(_resultHost.Content as Control);
+            }
+
+            if (args.FileSwitched)
+            {
+                _automaticRefreshTimer.Stop();
+                _view = null;
+                _displayedSourceRevision = null;
+                _resultHost.Content = null;
+                _stateText.Text = "文件已切换，请同步";
+                return;
+            }
+
+            if (_locked)
             {
                 return;
             }
@@ -349,6 +346,36 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _stateText.Text = "结果已过期，请同步";
             }
         });
+    }
+
+    internal static int ResetInteractiveViewState(Control? root)
+    {
+        if (root is null)
+        {
+            return 0;
+        }
+
+        var resetCount = 0;
+        foreach (var control in root.GetVisualDescendants().OfType<Control>().Prepend(root))
+        {
+            switch (control)
+            {
+                case AnalysisPlotControl plot:
+                    plot.ResetView();
+                    resetCount++;
+                    break;
+                case WavefrontSurfaceControl surface:
+                    surface.ResetView();
+                    resetCount++;
+                    break;
+                case OpticSceneControl scene:
+                    scene.ResetView();
+                    resetCount++;
+                    break;
+            }
+        }
+
+        return resetCount;
     }
 
     private async void OnAutomaticRefreshTimerTick(object? sender, EventArgs args)

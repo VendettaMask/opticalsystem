@@ -56,7 +56,7 @@ public sealed class Paraxial
     private double EntrancePupilDiameterFromObjectNumericalAperture()
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (objectSurface is null || IsObjectAtInfinity(objectSurface))
+        if (objectSurface is null || ObjectConjugate.IsInfinite(objectSurface))
         {
             throw new InvalidOperationException("Object numerical aperture requires a finite object surface.");
         }
@@ -90,7 +90,10 @@ public sealed class Paraxial
 
             var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
             matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
-            matrix = Translate(matrix, surface.Thickness);
+            if (!ReferenceEquals(surface, objectSurface) || !ObjectConjugate.IsInfinite(surface))
+            {
+                matrix = Translate(matrix, surface.Thickness);
+            }
             currentIndex = nextIndex;
         }
 
@@ -100,7 +103,7 @@ public sealed class Paraxial
         }
 
         var relativeLocation = matrix.B / matrix.A;
-        return IsObjectAtInfinity(objectSurface)
+        return ObjectConjugate.IsInfinite(objectSurface)
             ? relativeLocation
             : (objectSurface?.CoordinateSystem.Origin.Z ?? 0) + relativeLocation;
     }
@@ -116,7 +119,7 @@ public sealed class Paraxial
         var matrix = TraceSystemMatrix(PrimaryWavelengthNanometers());
         var effectiveFocalLength = Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
         var matrixStart = positions[0];
-        var matrixEnd = matrixStart + _optic.SurfaceGroup.Items.Sum(surface => surface.Thickness);
+        var matrixEnd = matrixStart + _optic.SurfaceGroup.TotalTrack;
         var firstReference = positions.Count > 1 ? positions[1] : positions[0];
         var lastReference = positions[^1];
         var frontFocalPosition = Math.Abs(matrix.C) < 1e-12
@@ -189,7 +192,7 @@ public sealed class Paraxial
         var fieldY = normalizedFieldY * FieldCoordinates.MaximumRadius(_optic.Fields);
         var pupilHeights = normalizedPupilY.Select(pupil => pupil * entrancePupilRadius).ToArray();
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        var objectAtInfinity = IsObjectAtInfinity(objectSurface);
+        var objectAtInfinity = ObjectConjugate.IsInfinite(objectSurface);
         double objectHeight;
         double objectPosition;
 
@@ -254,7 +257,7 @@ public sealed class Paraxial
         var positions = SurfacePositions();
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (IsObjectAtInfinity(objectSurface))
+        if (ObjectConjugate.IsInfinite(objectSurface))
         {
             return TraceGeneric(
                 new[] { EstimateEntrancePupilDiameter() / 2 },
@@ -464,11 +467,15 @@ public sealed class Paraxial
         var matrix = RayMatrix.Identity;
         var currentIndex = 1.0;
 
-        foreach (var surface in _optic.SurfaceGroup.Items)
+        for (var index = 0; index < _optic.SurfaceGroup.Items.Count; index++)
         {
+            var surface = _optic.SurfaceGroup.Items[index];
             var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
             matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
-            matrix = Translate(matrix, surface.Thickness);
+            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
+            {
+                matrix = Translate(matrix, surface.Thickness);
+            }
             currentIndex = nextIndex;
         }
 
@@ -479,13 +486,6 @@ public sealed class Paraxial
     {
         return (_optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? _optic.Wavelengths.FirstOrDefault())?.Nanometers
             ?? 587.6;
-    }
-
-    private static bool IsObjectAtInfinity(OpticalSurface? objectSurface)
-    {
-        return objectSurface is null
-            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
-            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static RayMatrix Refract(RayMatrix matrix, double radius, double indexBefore, double indexAfter)

@@ -52,14 +52,22 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
-                ColorIndex: fieldIndex));
+                ColorIndex: fieldIndex,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: fieldIndex));
+                ColorIndex: fieldIndex,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -217,7 +225,13 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             Name: xShift ? "Sagittal" : "Tangential",
             ValueLabel: "Contrast Loss",
             ValueMinimum: 0,
-            ValueMaximum: Math.Max(1e-12, finiteLosses.DefaultIfEmpty(0).Max()));
+            ValueMaximum: Math.Max(1e-12, finiteLosses.DefaultIfEmpty(0).Max()),
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.Modulation,
+            ValueUnit: AnalysisAxisUnit.Dimensionless);
         var opdSeries = new AnalysisSeries(
             "Px",
             "Py",
@@ -226,7 +240,13 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             Name: xShift ? "Sagittal OPD" : "Tangential OPD",
             ValueLabel: "OPD Phase (waves modulo 1)",
             ValueMinimum: 0,
-            ValueMaximum: 1);
+            ValueMaximum: 1,
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
         return new ContrastLossMap(lossSeries, opdSeries, finiteLosses, validCount);
     }
 

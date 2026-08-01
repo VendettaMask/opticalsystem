@@ -45,14 +45,14 @@ public sealed class BatchedTirMediumTests
 
         using var scalar = optic.SequentialRayTracer.Trace(
             bundle,
-            TraceRequest.FinalOnly(false) with
+            TraceRequest.FullHistory(false) with
             {
                 UseBatchedBackend = false,
                 MaxDegreeOfParallelism = 1
             });
         using var batched = optic.SequentialRayTracer.Trace(
             bundle,
-            TraceRequest.FinalOnly(false) with
+            TraceRequest.FullHistory(false) with
             {
                 UseBatchedBackend = true,
                 ParallelThreshold = 1,
@@ -61,6 +61,10 @@ public sealed class BatchedTirMediumTests
 
         for (var index = 0; index < rays.Length; index++)
         {
+            Assert.True(scalar.TryGetSample(index, 0, out var expectedTir));
+            Assert.True(batched.TryGetSample(index, 0, out var actualTir));
+            Assert.Equal(RayInteractionKind.TotalInternalReflection, expectedTir.InteractionKind);
+            Assert.Equal(RayInteractionKind.TotalInternalReflection, actualTir.InteractionKind);
             Assert.True(scalar.TryGetSample(index, 1, out var expected));
             Assert.True(batched.TryGetSample(index, 1, out var actual));
             Assert.Equal(9.0, actual.CumulativeOpticalPathLength, precision: 11);

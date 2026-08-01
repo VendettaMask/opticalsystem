@@ -159,46 +159,32 @@ public sealed partial class AnalysisPanel
 
     private static bool IsRayFanView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "光线像差图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Ray Fan", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.RayFan;
     }
 
     private static bool IsOpticalPathDifferenceView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "光程差图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Optical Path Difference", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.OpticalPathDifference;
     }
 
     private static bool IsThroughFocusSpotView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "离焦点列图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Through Focus", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.ThroughFocusSpot;
     }
 
     private static bool IsMatrixSpotView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "矩阵点列图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Matrix Spot Diagram", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.MatrixSpot;
     }
 
     private static bool IsConfigurationMatrixSpotView(AnalysisViewDto view)
     {
-        return IsConfigurationMatrixSpotViewName(view.Name);
-    }
-
-    internal static bool IsConfigurationMatrixSpotViewName(string? name)
-    {
-        return string.Equals(name, "结构矩阵点列图", StringComparison.Ordinal)
-            || string.Equals(
-                name,
-                "Configuration Matrix Spot Diagram",
-                StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.ConfigurationMatrixSpot;
     }
 
     private static bool IsStandardSpotView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "标准点列图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Spot Diagram", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.SpotDiagram;
     }
 
     private static Control BuildStandardSpotPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes)

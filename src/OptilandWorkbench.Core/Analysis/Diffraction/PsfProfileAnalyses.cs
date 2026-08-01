@@ -330,7 +330,11 @@ internal static class PsfProfilePresentation
             selected,
             Name: functionName,
             ColorIndex: 0,
-            LineWidth: 1.8);
+            LineWidth: 1.8,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.Irradiance,
+            YUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var values = CopyValues(source, ("Display", functionName)).ToDictionary(
             item => item.Key,
             item => item.Value);
@@ -417,7 +421,11 @@ internal static class PsfProfilePresentation
             Name: name,
             LineStyle: lineStyle,
             ColorIndex: colorIndex,
-            LineWidth: 1.8);
+            LineWidth: 1.8,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.Irradiance,
+            YUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
     }
 
     private static IReadOnlyList<AnalysisPoint> Normalize(IReadOnlyList<AnalysisPoint> points)

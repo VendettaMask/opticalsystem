@@ -102,14 +102,22 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Tangential"),
-                ColorIndex: colorIndex));
+                ColorIndex: colorIndex,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: colorIndex));
+                ColorIndex: colorIndex,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return new AnalysisData(Name, new Dictionary<string, object>

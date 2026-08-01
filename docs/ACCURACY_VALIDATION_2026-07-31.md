@@ -1,4 +1,4 @@
-# 精度与页面对比验证（2026-08-01 更新）
+# 精度与页面对比验证（2026-08-02 更新）
 
 默认精度权威是仓库固定的 Zemax OpticStudio 2026 R1 `123456.ZMX` 基线。Optiland 0.5.8 Cooke/Tessar 仅作为辅助回归，不参与默认精度结论。
 
@@ -14,12 +14,14 @@
 | 接近 | 4 项 |
 | 明显差异 | 0 项 |
 | 非等价映射排除 | 2 项 |
-| .NET 回归测试 | 616/616 通过 |
+| .NET 回归测试 | 621/621 通过 |
 | Python 报告测试 | 14/14 通过 |
 
 “高度一致”的判定为中位 NRMSE ≤ 3% 且 P90 ≤ 10%；“接近”为中位 NRMSE ≤ 10% 且 P90 ≤ 25%。当前 30 项等价映射中没有“明显差异”，但仍有 4 项处于“接近”而不是“高度一致”，因此不能把本结论扩大为所有 Zemax 功能或所有镜头都已逐点等同。
 
 完整逐项数值、30 张数值图和 69 张页面对照图见 [当前全面对比报告](../artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/COMPARISON_REPORT.md)。
+
+本轮回归还锁定了 RMS vs Field 的通用分析契约：Spot 模式按 `Field Density + 1` 和 Orientation 从零连续扫描至最大定义视场，不遍历 Field Editor 离散行；波前 RMS 的 chief reference 仅移除加权 piston，centroid reference 移除加权最佳拟合 piston 与 X/Y tilt。这些规则不依赖 `123456.ZMX`，也没有引入镜头专用比例、偏置或经验系数。
 
 ## 本轮关闭的明显差异
 

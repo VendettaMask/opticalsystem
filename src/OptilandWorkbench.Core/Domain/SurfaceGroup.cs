@@ -24,7 +24,9 @@ public sealed class SurfaceGroup
 
     public SurfaceTraceData RecordedTrace { get; private set; } = SurfaceTraceData.Empty;
 
-    public double TotalTrack => Items.Sum(surface => surface.Thickness);
+    public double TotalTrack => Items
+        .Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
+        .Sum(surface => surface.Thickness);
 
     public OpticalSurface AddDefaultSurface()
     {
@@ -107,7 +109,10 @@ public sealed class SurfaceGroup
                     existing.RotationZDegrees);
             }
 
-            z += Items[index].Thickness;
+            if (index != 0 || !ObjectConjugate.IsInfinite(Items[index]))
+            {
+                z += Items[index].Thickness;
+            }
         }
     }
 }

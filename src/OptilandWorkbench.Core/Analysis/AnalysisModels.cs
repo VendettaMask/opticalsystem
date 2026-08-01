@@ -32,6 +32,59 @@ public enum AnalysisColorMap
     Jet
 }
 
+public enum AnalysisAxisQuantity
+{
+    Unspecified,
+    Coordinate,
+    FieldAngle,
+    FieldHeight,
+    ImageHeight,
+    ObjectHeight,
+    PupilCoordinate,
+    Wavelength,
+    WavefrontError,
+    Defocus,
+    Radius,
+    SpatialFrequency,
+    Modulation,
+    EnergyFraction,
+    Irradiance,
+    Distortion,
+    RayHeight,
+    IncidentAngle,
+    ZernikeTerm,
+    Coefficient,
+    SurfaceNumber,
+    RefractiveIndex,
+    AbbeNumber,
+    Dispersion,
+    Intensity,
+    Pixel,
+    ChromaticPower,
+    ThermalOpticalPower,
+    Transmission
+}
+
+public enum AnalysisAxisUnit
+{
+    Unspecified,
+    Dimensionless,
+    Millimeter,
+    Micrometer,
+    Nanometer,
+    Degree,
+    Wave,
+    Percent,
+    CyclesPerMillimeter,
+    InverseMicrometer,
+    Pixel,
+    Radian,
+    Decibel,
+    WattsPerSteradian,
+    WattsPerSquareMillimeter,
+    PartsPerMillionPerKelvin
+}
+
 public sealed record AnalysisPoint(
     double X,
     double Y,
@@ -59,7 +112,13 @@ public sealed record AnalysisSeries(
     double? ValueMinimum = null,
     double? ValueMaximum = null,
     string LegendKey = "",
-    string LegendLabel = "");
+    string LegendLabel = "",
+    AnalysisAxisQuantity XQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit XUnit = AnalysisAxisUnit.Unspecified,
+    AnalysisAxisQuantity YQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit YUnit = AnalysisAxisUnit.Unspecified,
+    AnalysisAxisQuantity ValueQuantity = AnalysisAxisQuantity.Unspecified,
+    AnalysisAxisUnit ValueUnit = AnalysisAxisUnit.Unspecified);
 
 public sealed record AnalysisPlotOptions(
     string Title = "",

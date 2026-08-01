@@ -45,6 +45,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 2026-07-31 文案恢复：撤回 1b088115 中未经明确授权的分析显示名称汉化，恢复 FFT、PSF、MTF、RMS、Huygens、Zernike、Jones、Y-Ybar 和 vs. 等既有产品术语。重复入口清理和布局修复保留；后续任何术语翻译或重命名必须有明确的 UI 文案需求。
 
+2026-08-02 设置样式统一：二维/三维视图与全部分析页面通过独立的 `SettingsPanelChrome` 共用设置齿轮、圆角卡片、边框和阴影。明亮主题新增纯白设置卡片表面，避免原 `Surface`（250,250,252）与分析 `SubtleSurface`（242,242,247）造成的灰度不一致；暗夜和异世界主题继续使用各自主题表面色。该变更只调整视觉样式，不修改参数排列、按钮、展开方式、默认值或计算行为。
+
 ### P1：关键设置经常默认隐藏，但操作会自动触发
 
 分析面板的设置 host 默认隐藏，见 `src/OptilandWorkbench.App/Panels/AnalysisPanel.cs:112`；镜头编辑器的“表面属性与组件”也默认隐藏，见 `src/OptilandWorkbench.App/Panels/LensEditorPanel.cs:137`。这降低了关键参数的可发现性。

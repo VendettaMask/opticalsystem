@@ -90,7 +90,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ideal,
                 Name: "\u884d\u5c04\u6781\u9650",
                 ColorIndex: 10,
-                LineWidth: 1.25));
+                LineWidth: 1.25,
+                XQuantity: AnalysisAxisQuantity.Radius,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.EnergyFraction,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         foreach (var curve in curves)
@@ -102,7 +106,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 points,
                 Name: FieldSeriesName(curve.FieldIndex, curve.Field),
                 ColorIndex: curve.FieldIndex,
-                LineWidth: 1.25));
+                LineWidth: 1.25,
+                XQuantity: AnalysisAxisQuantity.Radius,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.EnergyFraction,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return new AnalysisData(
@@ -687,7 +695,11 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
                 "Relative Intensity",
                 linePoints,
                 Name: "Line Spread",
-                ColorIndex: 0));
+                ColorIndex: 0,
+                XQuantity: AnalysisAxisQuantity.ImageHeight,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.Irradiance,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         if (!_display.Equals("line", StringComparison.OrdinalIgnoreCase))
@@ -698,7 +710,11 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
                 edgePoints,
                 Name: "Edge Spread",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: 1));
+                ColorIndex: 1,
+                XQuantity: AnalysisAxisQuantity.ImageHeight,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: AnalysisAxisQuantity.Irradiance,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return new AnalysisData(
@@ -1024,7 +1040,11 @@ internal static class EnergyCurveSupport
             "Fraction of Energy",
             points,
             Name: type,
-            ColorIndex: 0);
+            ColorIndex: 0,
+            XQuantity: AnalysisAxisQuantity.Radius,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.EnergyFraction,
+            YUnit: AnalysisAxisUnit.Dimensionless);
         return new AnalysisData(
             name,
             resultValues,

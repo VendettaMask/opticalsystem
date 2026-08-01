@@ -173,7 +173,13 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                 ValueLabel: valueLabel,
                 ColorMap: AnalysisColorMap.Jet,
                 ValueMinimum: 0,
-                ValueMaximum: globalMaximum);
+                ValueMaximum: globalMaximum,
+                XQuantity: AnalysisAxisQuantity.FieldAngle,
+                XUnit: AnalysisAxisUnit.Degree,
+                YQuantity: AnalysisAxisQuantity.FieldAngle,
+                YUnit: AnalysisAxisUnit.Degree,
+                ValueQuantity: AnalysisAxisQuantity.Intensity,
+                ValueUnit: _normalize ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.WattsPerSteradian);
             panes.Add(new AnalysisPlotPane(title, new[] { heatmap }, new AnalysisPlotOptions(
                 Title: title,
                 XMinimum: _angleXMinimum,
@@ -190,7 +196,11 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                 Enumerable.Range(0, _binsX)
                     .Select(x => new AnalysisPoint(_angleXMinimum + ((x + 0.5) * xStep), display[x, centerY]))
                     .ToArray(),
-                ColorIndex: 3);
+                ColorIndex: 3,
+                XQuantity: AnalysisAxisQuantity.FieldAngle,
+                XUnit: AnalysisAxisUnit.Degree,
+                YQuantity: AnalysisAxisQuantity.Intensity,
+                YUnit: _normalize ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.WattsPerSteradian);
             panes.Add(new AnalysisPlotPane("Central Cross-Section", new[] { crossSection }, new AnalysisPlotOptions(
                 Title: "Central Cross-Section",
                 XMinimum: _angleXMinimum + (xStep / 2),

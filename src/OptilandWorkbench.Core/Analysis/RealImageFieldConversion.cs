@@ -15,7 +15,7 @@ internal static class RealImageFieldConversion
         var launchFields = optic.Fields
             .Select(field => optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(field.X, field.Y))
             .ToArray();
-        converted.FieldDefinition = IsObjectAtInfinity(converted)
+        converted.FieldDefinition = ObjectConjugate.IsInfinite(converted.SurfaceGroup.Items.FirstOrDefault())
             ? FieldDefinitionKind.Angle
             : FieldDefinitionKind.ObjectHeight;
         for (var index = 0; index < converted.Fields.Count; index++)
@@ -39,11 +39,4 @@ internal static class RealImageFieldConversion
         return converted;
     }
 
-    private static bool IsObjectAtInfinity(Optic optic)
-    {
-        var objectSurface = optic.SurfaceGroup.Items.FirstOrDefault();
-        return objectSurface is null
-            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
-            || Math.Abs(objectSurface.Thickness) <= 1e-12;
-    }
 }

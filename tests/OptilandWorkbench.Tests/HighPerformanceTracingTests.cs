@@ -54,6 +54,70 @@ public sealed class HighPerformanceTracingTests
             Assert.Equal(serialSample.OpticalPathDifference, parallelSample.OpticalPathDifference);
             Assert.Equal(serialSample.Vignetted, parallelSample.Vignetted);
         }
+
+        var sharedCache = new RayTraceCache(maximumEntries: 8, maximumSamples: 10_000);
+        var snapshot = optic.ToSnapshot();
+        var firstSnapshot = Optic.FromSnapshot(snapshot);
+        var secondSnapshot = Optic.FromSnapshot(snapshot);
+        firstSnapshot.ConfigureRayTraceCache(sharedCache, opticRevision: 42);
+        secondSnapshot.ConfigureRayTraceCache(sharedCache, opticRevision: 42);
+        var firstBundle = firstSnapshot.SequentialRayTracer.RayGenerator.GenerateNormalized(
+            0.3,
+            0.5,
+            0.5876,
+            128,
+            "hexapolar");
+        var secondBundle = secondSnapshot.SequentialRayTracer.RayGenerator.GenerateNormalized(
+            0.3,
+            0.5,
+            0.5876,
+            128,
+            "hexapolar");
+        var cacheRequest = TraceRequest.Selected(
+            new[] { finalSurface },
+            normalizeOpticalPathDifference: false);
+
+        using var firstCached = firstSnapshot.SequentialRayTracer.Trace(firstBundle, cacheRequest);
+        var afterFirst = sharedCache.Statistics;
+        using var secondCached = secondSnapshot.SequentialRayTracer.Trace(
+            secondBundle,
+            TraceRequest.FinalOnly(normalizeOpticalPathDifference: false));
+        var afterSecond = sharedCache.Statistics;
+
+        Assert.Equal(1, afterFirst.Misses);
+        Assert.Equal(1, afterFirst.EntryCount);
+        Assert.Equal(afterFirst.Hits + 1, afterSecond.Hits);
+        Assert.True(secondCached.TryGetSample(0, finalSurface, out var cachedSample));
+        Assert.True(firstCached.TryGetSample(0, finalSurface, out var originalSample));
+        Assert.Equal(originalSample, cachedSample);
+
+        secondSnapshot.SurfaceGroup.Items[1].Thickness += 0.01;
+        using var uncachedAfterMutation = secondSnapshot.SequentialRayTracer.Trace(secondBundle, cacheRequest);
+        var afterMutation = sharedCache.Statistics;
+        Assert.Equal(afterSecond.Hits, afterMutation.Hits);
+        Assert.Equal(afterSecond.Misses, afterMutation.Misses);
+
+        var newRevisionSnapshot = Optic.FromSnapshot(snapshot);
+        newRevisionSnapshot.ConfigureRayTraceCache(sharedCache, opticRevision: 43);
+        var newRevisionBundle = newRevisionSnapshot.SequentialRayTracer.RayGenerator.GenerateNormalized(
+            0.3,
+            0.5,
+            0.5876,
+            128,
+            "hexapolar");
+        using var uncachedNewRevision = newRevisionSnapshot.SequentialRayTracer.Trace(
+            newRevisionBundle,
+            TraceRequest.FinalOnly(normalizeOpticalPathDifference: false));
+        var afterNewRevision = sharedCache.Statistics;
+        Assert.Equal(afterMutation.Hits, afterNewRevision.Hits);
+        Assert.Equal(afterMutation.Misses + 1, afterNewRevision.Misses);
+        Assert.Equal(1, afterNewRevision.EntryCount);
+
+        var cachedPupil = ApertureSampler.Generate(128, PupilSampling.Hexapolar);
+        Assert.Same(cachedPupil, ApertureSampler.Generate(128, PupilSampling.Hexapolar));
+        Assert.NotSame(
+            ApertureSampler.Generate(32, PupilSampling.Random, seed: 1),
+            ApertureSampler.Generate(32, PupilSampling.Random, seed: 2));
     }
 
     [Fact]

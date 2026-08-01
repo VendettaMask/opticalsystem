@@ -41,12 +41,6 @@ public sealed partial class SequentialRayTracer
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
                 var surface = surfaces[surfaceIndex];
-                if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase)
-                    && !double.IsFinite(surface.CoordinateSystem.Origin.Z))
-                {
-                    continue;
-                }
-
                 NormalizePendingDirections(
                     states,
                     active,

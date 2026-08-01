@@ -168,14 +168,22 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 marginalPoints,
                 Name: "近轴边缘光线",
                 ColorIndex: 0,
-                ShowMarkers: true),
+                ShowMarkers: true,
+                XQuantity: AnalysisAxisQuantity.Coordinate,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.RayHeight,
+                YUnit: AnalysisAxisUnit.Millimeter),
             new AnalysisSeries(
                 "Z (mm)",
                 "Y (mm)",
                 chiefPoints,
                 Name: "近轴主光线",
                 ColorIndex: 1,
-                ShowMarkers: true)
+                ShowMarkers: true,
+                XQuantity: AnalysisAxisQuantity.Coordinate,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.RayHeight,
+                YUnit: AnalysisAxisUnit.Millimeter)
         };
         return new AnalysisData(
             Name,
@@ -344,7 +352,11 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 Name: "",
                 ColorIndex: 7,
                 LineWidth: 1.2,
-                Opacity: 0.65));
+                Opacity: 0.65,
+                XQuantity: AnalysisAxisQuantity.Coordinate,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.RayHeight,
+                YUnit: AnalysisAxisUnit.Millimeter));
         }
 
         foreach (var surface in layout.Surfaces)
@@ -356,7 +368,11 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 Name: "",
                 ColorIndex: surface.IsStop ? 3 : surface.IsReferencePlane ? 10 : 7,
                 LineWidth: surface.IsStop ? 1.8 : 0.8,
-                Opacity: surface.IsStop ? 0.9 : 0.5));
+                Opacity: surface.IsStop ? 0.9 : 0.5,
+                XQuantity: AnalysisAxisQuantity.Coordinate,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.RayHeight,
+                YUnit: AnalysisAxisUnit.Millimeter));
         }
 
         var realPoints = displayedRealRows
@@ -379,7 +395,11 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             ColorIndex: 0,
             ShowMarkers: true,
             LineWidth: 2.4,
-            MarkerSize: 3.8));
+            MarkerSize: 3.8,
+            XQuantity: AnalysisAxisQuantity.Coordinate,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.RayHeight,
+            YUnit: AnalysisAxisUnit.Millimeter));
         series.Add(new AnalysisSeries(
             "Z (mm)",
             "Y (mm)",
@@ -388,7 +408,11 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             LineStyle: AnalysisLineStyle.Dashed,
             ColorIndex: 1,
             ShowMarkers: false,
-            LineWidth: 1.6));
+            LineWidth: 1.6,
+            XQuantity: AnalysisAxisQuantity.Coordinate,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.RayHeight,
+            YUnit: AnalysisAxisUnit.Millimeter));
 
         var allGeometryPoints = layout.Surfaces.SelectMany(surface => surface.Points)
             .Concat(layout.LensElements.SelectMany(element => element.Boundary))

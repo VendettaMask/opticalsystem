@@ -64,7 +64,13 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
             "Pupil Y",
             WavefrontAnalysis.BuildWavefrontMap(valid, _mapSize),
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: "OPD (waves)");
+            ValueLabel: "OPD (waves)",
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
         var reference = _strategy == ReferenceSphereStrategy.CentroidSphere
             ? "centroid_sphere"
             : "best_fit_sphere";

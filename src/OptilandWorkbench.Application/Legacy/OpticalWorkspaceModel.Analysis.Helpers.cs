@@ -222,10 +222,7 @@ public partial class OpticalWorkspaceModel
             return false;
         }
 
-        var objectSurface = CurrentOptic.SurfaceGroup.Items.FirstOrDefault();
-        return objectSurface is null
-            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
-            || Math.Abs(objectSurface.Thickness) <= 1e-12;
+        return ObjectConjugate.IsInfinite(CurrentOptic.SurfaceGroup.Items.FirstOrDefault());
     }
 
     private static int TryReadInt(IReadOnlyDictionary<string, string> settings, string key, int fallback)

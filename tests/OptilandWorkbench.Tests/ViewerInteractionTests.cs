@@ -1,6 +1,8 @@
 using Avalonia;
+using Avalonia.Controls;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Panels;
 
 namespace OptilandWorkbench.Tests;
 
@@ -117,7 +119,15 @@ public sealed class ViewerInteractionTests
         Assert.Equal(40, surface.ViewPitchDegrees, precision: 10);
         Assert.Equal(1.8, surface.ViewZoom, precision: 10);
 
-        surface.ResetView();
+        var analysisRoot = new Grid
+        {
+            Children =
+            {
+                surface,
+                new AnalysisPlotControl()
+            }
+        };
+        Assert.Equal(2, AnalysisPanel.ResetInteractiveViewState(analysisRoot));
 
         Assert.Equal(45, surface.ViewYawDegrees, precision: 10);
         Assert.Equal(28, surface.ViewPitchDegrees, precision: 10);
@@ -182,6 +192,28 @@ public sealed class ViewerInteractionTests
         Assert.Equal(0, paths[0][0].X, precision: 12);
         Assert.Equal(0, paths[0][^1].X, precision: 12);
         Assert.Equal(0, paths[1][0].X, precision: 12);
+
+        var oriented2D = OpticSceneControl.OrientSegment(new SceneRaySegment2Dto(
+            new ScenePoint2Dto(2, 0),
+            new ScenePoint2Dto(0, 0),
+            new SceneRayDirection2Dto(1, 0),
+            SceneRaySegmentType.Reflected,
+            SceneRayInteractionType.Reflective,
+            1,
+            0));
+        Assert.Equal(0, oriented2D.Start.Z);
+        Assert.Equal(2, oriented2D.End.Z);
+
+        var oriented3D = OpticSceneControl.OrientSegment(new SceneRaySegment3Dto(
+            new ScenePoint3Dto(0, 0, 2),
+            new ScenePoint3Dto(0, 0, 0),
+            new SceneRayDirection3Dto(0, 0, 1),
+            SceneRaySegmentType.TotalInternalReflection,
+            SceneRayInteractionType.Refractive,
+            1,
+            0));
+        Assert.Equal(0, oriented3D.Start.Z);
+        Assert.Equal(2, oriented3D.End.Z);
     }
 
     [Fact]

@@ -226,13 +226,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         var settingsContent = BuildSettingsContent();
         settingsContent.IsVisible = false;
 
-        var toggle = new Button
-        {
-            Content = new LocalIconLabel("settings", "设置"),
-            MinWidth = 0,
-            Height = 32,
-            Padding = new Thickness(8, 3)
-        };
+        var toggle = SettingsPanelChrome.CreateToggleButton();
         toggle.Click += (_, _) => settingsContent.IsVisible = !settingsContent.IsVisible;
 
         var synchronize = CompactButton("refresh-cw", "同步并重新生成视图");
@@ -249,19 +243,10 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Children = { toggle, synchronize }
         };
         var container = new StackPanel { Children = { header, settingsContent } };
-        var frame = new Border
-        {
-            HorizontalAlignment = HorizontalAlignment.Left,
-            VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(10),
-            CornerRadius = new CornerRadius(8),
-            BorderThickness = new Thickness(1),
-            BoxShadow = BoxShadows.Parse("0 5 16 0 #20000000"),
-            Child = container
-        };
-        frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        return frame;
+        return SettingsPanelChrome.CreateCard(
+            container,
+            new Thickness(10),
+            HorizontalAlignment.Left);
     }
 
     private Control BuildSettingsContent()

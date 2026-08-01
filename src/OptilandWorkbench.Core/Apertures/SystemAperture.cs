@@ -8,13 +8,29 @@ public enum ApertureKind
     FloatByStopSize
 }
 
-public sealed class SystemAperture
+public sealed class SystemAperture : OptilandWorkbench.Core.Domain.NotifyObject
 {
-    public ApertureKind Kind { get; set; } = ApertureKind.EntrancePupilDiameter;
+    private ApertureKind _kind = ApertureKind.EntrancePupilDiameter;
+    private double _value = 14.0;
+    private bool _objectSpaceTelecentric;
 
-    public double Value { get; set; } = 14.0;
+    public ApertureKind Kind
+    {
+        get => _kind;
+        set => SetProperty(ref _kind, value);
+    }
 
-    public bool ObjectSpaceTelecentric { get; set; }
+    public double Value
+    {
+        get => _value;
+        set => SetProperty(ref _value, value);
+    }
+
+    public bool ObjectSpaceTelecentric
+    {
+        get => _objectSpaceTelecentric;
+        set => SetProperty(ref _objectSpaceTelecentric, value);
+    }
 
     public double Diameter(double fallbackDiameter)
     {

@@ -123,6 +123,24 @@ internal static class AnalysisTrace
         };
     }
 
+    public static AnalysisAxisQuantity FieldAxisQuantity(Optic optic)
+    {
+        return optic.FieldDefinition switch
+        {
+            FieldDefinitionKind.ObjectHeight => AnalysisAxisQuantity.ObjectHeight,
+            FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight =>
+                AnalysisAxisQuantity.FieldHeight,
+            _ => AnalysisAxisQuantity.FieldAngle
+        };
+    }
+
+    public static AnalysisAxisUnit FieldAxisUnit(Optic optic)
+    {
+        return optic.FieldDefinition == FieldDefinitionKind.Angle
+            ? AnalysisAxisUnit.Degree
+            : AnalysisAxisUnit.Millimeter;
+    }
+
     public static string MaximumFieldValueKey(Optic optic)
     {
         return optic.FieldDefinition switch

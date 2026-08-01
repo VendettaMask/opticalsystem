@@ -442,6 +442,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Ray Density`、`Field Density`、`Plot Scale`、`Method`（Gaussian Quadrature/GQ 或 Rectangular Array/RA）、`Data`（wavefront error、spot radius、spot x、spot y、Strehl ratio）、`Refer To`（chief ray 或 centroid）、`Orientation`、`Use Dashes`、`Wavelength`、`Show Diffraction Limit`、`Use Polarization`、`Remove Vignetting Factors`。
 - 结果展现：RMS 或 Strehl 随 field angle 变化的曲线。可显示每个波长和多波长结果。
 - 实现方式：按视场扫描计算 RMS error 或 Strehl。GQ 用径向图样和最优权重估计 RMS；RA 用矩形 pupil grid，忽略圆形入瞳外光线。GQ 高效，但若表面孔径截断光线会不准；有孔径系统计算 RMS wavefront 时建议 RA 和更高采样。`Remove Vignetting Factors` 指临时移除字段入瞳映射因子，不表示把未到达像面的失效光线放回 RMS；失效或零强度样本永远不得进入有效 RMS 分母。
+- Spot、Spot X、Spot Y 和 Strehl 数据模式都按 `Field Density + 1` 个位置，从零连续扫描到最大已定义视场幅值；`Orientation` 决定 `+X`、`-X`、`+Y` 或 `-Y` 的扫描轴和符号。Field Editor 的离散行只定义系统视场范围，不能代替这条连续扫描序列。
 - 波前 RMS：chief ray 参考减 piston；centroid 参考减 piston 和 tilt，通常得到更小 RMS。多波长 RMS 同时对所有波长光瞳样本按权重计算。
 - `Show Diffraction Limit` 是便捷判断线，不执行完整衍射计算：spot radius/X/Y 使用 `1.22 × on-axis working F/# × λ`，RMS wavefront 使用 `0.072 waves`，Strehl 使用 `0.8`。勾选后 RMS vs Field 必须把该值作为覆盖整个视场范围的水平虚线加入绘图系列；不能只写入结果元数据。
 

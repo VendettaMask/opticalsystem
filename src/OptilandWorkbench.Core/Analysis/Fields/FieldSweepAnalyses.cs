@@ -75,7 +75,11 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                     wavefrontSeries[0].Points.Select(point => new AnalysisPoint(point.X, wavefrontDiffractionLimit)).ToArray(),
                     Name: "Diffraction Limit",
                     LineStyle: AnalysisLineStyle.Dashed,
-                    ColorIndex: wavefrontSeries.Count));
+                    ColorIndex: wavefrontSeries.Count,
+                    XQuantity: wavefrontSeries[0].XQuantity,
+                    XUnit: wavefrontSeries[0].XUnit,
+                    YQuantity: wavefrontSeries[0].YQuantity,
+                    YUnit: wavefrontSeries[0].YUnit));
             }
 
             var wavefrontValues = wavefront.Values.ToDictionary(item => item.Key, item => item.Value);
@@ -97,8 +101,12 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 wavefront.ReportText);
         }
 
-        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var wavelengths = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _removeVignetting);
+        var fields = AnalysisTrace.ScanFieldSamples(
+            workingOptic,
+            _scanDirection,
+            _fieldDensity + 1);
+        var wavelengths = RmsScanSupport.SelectedWavelengths(workingOptic, _wavelengthNumber);
         if (fields.Count == 0 || wavelengths.Count == 0)
         {
             return RmsScanSupport.Empty(Name);
@@ -107,12 +115,12 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         var yAxisLabel = RmsScanSupport.AxisLabel(_data);
         var series = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-            AnalysisTrace.FieldAxisLabel(Optic),
+            AnalysisTrace.FieldAxisLabel(workingOptic),
             yAxisLabel,
             fields.Select(field => new AnalysisPoint(
                 field.Coordinate,
                 RmsScanSupport.Metric(
-                    Optic,
+                    workingOptic,
                     (field.Hx, field.Hy),
                     new[] { wavelength },
                     _numRings,
@@ -123,17 +131,25 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                     removeVignetting: _removeVignetting),
                 Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
-            ColorIndex: wavelengthIndex)).ToList();
+            ColorIndex: wavelengthIndex,
+            XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+            XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
+            YQuantity: RmsScanSupport.MetricQuantity(_data),
+            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
             series.Add(new AnalysisSeries(
-                AnalysisTrace.FieldAxisLabel(Optic),
+                AnalysisTrace.FieldAxisLabel(workingOptic),
                 yAxisLabel,
                 fields.Select(field => new AnalysisPoint(field.Coordinate, diffractionLimit, Label: field.Label)).ToArray(),
                 Name: "Diffraction Limit",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: series.Count));
+                ColorIndex: series.Count,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+                XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
+                YQuantity: RmsScanSupport.MetricQuantity(_data),
+                YUnit: RmsScanSupport.MetricUnit(_data)));
         }
 
         var seriesArray = series.ToArray();
@@ -141,7 +157,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         var fieldMetrics = fields.Select(field => (
             Field: field,
             Rms: RmsScanSupport.Metric(
-                Optic,
+                workingOptic,
                 (field.Hx, field.Hy),
                 wavelengths,
                 _numRings,
@@ -153,6 +169,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         var values = new Dictionary<string, object>
         {
             ["FieldCount"] = fields.Count,
+            ["FieldDensity"] = _fieldDensity,
+            ["ScanDirection"] = _scanDirection,
             ["WavelengthCount"] = wavelengths.Count,
             ["NumRings"] = _numRings,
             ["Method"] = _method,
@@ -173,14 +191,11 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             values[$"Field {item.Field.Label}"] = item.Rms;
         }
 
-        var includedWeight = fields.Where(field => Optic.Fields[field.Index].Weight > 0)
-            .Sum(field => Optic.Fields[field.Index].Weight);
+        var includedWeight = fields.Count;
         values["IncludedFieldWeight"] = includedWeight;
         values["WeightedMean"] = includedWeight <= 1e-12
             ? 0
-            : fieldMetrics
-                .Where(item => Optic.Fields[item.Field.Index].Weight > 0)
-                .Sum(item => item.Rms * Optic.Fields[item.Field.Index].Weight) / includedWeight;
+            : fieldMetrics.Sum(item => item.Rms) / includedWeight;
         return new AnalysisData(Name, values, seriesArray.FirstOrDefault(), seriesArray, new AnalysisPlotOptions(
             XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
             XMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
@@ -279,7 +294,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             return new
             {
                 Monochromatic = monochromaticWavefronts.Select(wavefront =>
-                    WeightedWavefrontRms(wavefront.Samples, pupilSamples, _reference)).ToArray(),
+                    RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupilSamples, _reference)).ToArray(),
                 Polychromatic = WeightedPolychromaticWavefrontRms(
                     polychromaticWavefronts,
                     wavelengths,
@@ -295,7 +310,11 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                 fieldResults[fieldIndex].Monochromatic[wavelengthIndex],
                 Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
-            ColorIndex: wavelengthIndex + (_wavelengthNumber == 0 ? 1 : 0))).ToArray();
+            ColorIndex: wavelengthIndex + (_wavelengthNumber == 0 ? 1 : 0),
+            XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
+            XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
+            YQuantity: AnalysisAxisQuantity.WavefrontError,
+            YUnit: AnalysisAxisUnit.Wave)).ToArray();
         var series = new List<AnalysisSeries>();
         if (_zemaxCompatibleOutput && _wavelengthNumber == 0 && wavelengthSeries.Length > 1)
         {
@@ -307,7 +326,11 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                     fieldResults[index].Polychromatic,
                     Label: field.Label)).ToArray(),
                 Name: "Poly",
-                ColorIndex: 0));
+                ColorIndex: 0,
+                XQuantity: wavelengthSeries[0].XQuantity,
+                XUnit: wavelengthSeries[0].XUnit,
+                YQuantity: wavelengthSeries[0].YQuantity,
+                YUnit: wavelengthSeries[0].YUnit));
         }
         series.AddRange(wavelengthSeries);
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -330,21 +353,6 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             GridOpacity: 0.25));
     }
 
-    private static double WeightedWavefrontRms(
-        IReadOnlyList<WavefrontSample> wavefront,
-        IReadOnlyList<PupilSample> pupil,
-        string reference)
-    {
-        var samples = wavefront.Select((sample, index) => (
-                Sample: sample,
-                Weight: Math.Max(0, pupil[index].Weight)))
-            .Where(item => item.Weight > 0
-                && item.Sample.Intensity > 0
-                && double.IsFinite(item.Sample.OpdWaves))
-            .ToArray();
-        return WeightedWavefrontRms(samples, reference);
-    }
-
     private static double WeightedPolychromaticWavefrontRms(
         IReadOnlyList<WavefrontResult> wavefronts,
         IReadOnlyList<Wavelength> wavelengths,
@@ -359,94 +367,10 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 
         var meanSquare = wavefronts.Select((wavefront, wavelengthIndex) =>
         {
-            var rms = WeightedWavefrontRms(wavefront.Samples, pupil, reference);
+            var rms = RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupil, reference);
             return Math.Max(0, wavelengths[wavelengthIndex].Weight) * rms * rms;
         }).Sum() / totalWeight;
         return Math.Sqrt(Math.Max(0, meanSquare));
-    }
-
-    private static double WeightedWavefrontRms(
-        IReadOnlyList<(WavefrontSample Sample, double Weight)> samples,
-        string reference)
-    {
-        var totalWeight = samples.Sum(item => item.Weight);
-        if (totalWeight <= 1e-30)
-        {
-            return 0;
-        }
-
-        var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalWeight;
-        var tiltX = 0.0;
-        var tiltY = 0.0;
-        if (reference == "centroid")
-        {
-            (piston, tiltX, tiltY) = WeightedPlane(samples);
-        }
-
-        var meanSquare = samples.Sum(item =>
-        {
-            var residual = item.Sample.OpdWaves
-                - piston
-                - (tiltX * item.Sample.NormalizedPupilX)
-                - (tiltY * item.Sample.NormalizedPupilY);
-            return item.Weight * residual * residual;
-        }) / totalWeight;
-        return Math.Sqrt(Math.Max(0, meanSquare));
-    }
-
-    private static (double Piston, double TiltX, double TiltY) WeightedPlane(
-        IReadOnlyList<(WavefrontSample Sample, double Weight)> samples)
-    {
-        var matrix = new double[3, 4];
-        foreach (var item in samples)
-        {
-            var basis = new[] { 1.0, item.Sample.NormalizedPupilX, item.Sample.NormalizedPupilY };
-            for (var row = 0; row < 3; row++)
-            {
-                for (var column = 0; column < 3; column++)
-                {
-                    matrix[row, column] += item.Weight * basis[row] * basis[column];
-                }
-                matrix[row, 3] += item.Weight * basis[row] * item.Sample.OpdWaves;
-            }
-        }
-
-        for (var pivot = 0; pivot < 3; pivot++)
-        {
-            var best = Enumerable.Range(pivot, 3 - pivot)
-                .OrderByDescending(row => Math.Abs(matrix[row, pivot]))
-                .First();
-            if (Math.Abs(matrix[best, pivot]) <= 1e-20)
-            {
-                return (0, 0, 0);
-            }
-            if (best != pivot)
-            {
-                for (var column = pivot; column < 4; column++)
-                {
-                    (matrix[pivot, column], matrix[best, column]) = (matrix[best, column], matrix[pivot, column]);
-                }
-            }
-            var scale = matrix[pivot, pivot];
-            for (var column = pivot; column < 4; column++)
-            {
-                matrix[pivot, column] /= scale;
-            }
-            for (var row = 0; row < 3; row++)
-            {
-                if (row == pivot)
-                {
-                    continue;
-                }
-                var factor = matrix[row, pivot];
-                for (var column = pivot; column < 4; column++)
-                {
-                    matrix[row, column] -= factor * matrix[pivot, column];
-                }
-            }
-        }
-
-        return (matrix[0, 3], matrix[1, 3], matrix[2, 3]);
     }
 
     private static string ScanAxisLabel(Optic optic, string scanType)
@@ -525,7 +449,11 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
                 }).ToArray(),
                 Name: term.ToString(),
                 ColorIndex: term - 1,
-                LineWidth: 1.2))
+                LineWidth: 1.2,
+                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                YQuantity: AnalysisAxisQuantity.WavefrontError,
+                YUnit: AnalysisAxisUnit.Wave))
             .ToArray();
         var extrema = series.SelectMany(item => item.Points)
             .Select(point => point.Y)
@@ -662,7 +590,11 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
                 points,
                 Name: ray.Name,
                 ColorIndex: ray.ColorIndex,
-                LineWidth: 1.5);
+                LineWidth: 1.5,
+                XQuantity: AnalysisAxisQuantity.ImageHeight,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: AnalysisAxisQuantity.IncidentAngle,
+                YUnit: AnalysisAxisUnit.Degree);
         }).ToArray();
 
         var finitePoints = series.SelectMany(item => item.Points)
@@ -784,7 +716,17 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             AnalysisSeriesKind.ColoredLine,
             $"{fixedLabel}, {wavelength.Micrometers:0.0000} \u00B5m",
             LineWidth: 3,
-            ValueLabel: valueLabel);
+            ValueLabel: valueLabel,
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: AnalysisAxisQuantity.IncidentAngle,
+            YUnit: AnalysisAxisUnit.Degree,
+            ValueQuantity: _mode == AngleScanMode.ThroughPupil
+                ? AnalysisAxisQuantity.PupilCoordinate
+                : AnalysisTrace.FieldAxisQuantity(Optic),
+            ValueUnit: _mode == AngleScanMode.ThroughPupil
+                ? AnalysisAxisUnit.Dimensionless
+                : AnalysisTrace.FieldAxisUnit(Optic));
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["ScanMode"] = _mode.ToString(),

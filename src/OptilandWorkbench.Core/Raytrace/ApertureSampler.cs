@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Raytrace;
@@ -17,6 +18,12 @@ public sealed record PupilSample(double X, double Y, double Weight);
 
 public static class ApertureSampler
 {
+    private const int MaximumCachedSamplingPlans = 512;
+    private static readonly ConcurrentDictionary<GaussianSamplingKey, IReadOnlyList<PupilSample>>
+        GaussianCache = new();
+    private static readonly ConcurrentDictionary<int, IReadOnlyList<PupilSample>> HexapolarRingCache = new();
+    private static readonly ConcurrentDictionary<SamplingKey, IReadOnlyList<PupilSample>> SamplingCache = new();
+
     public static IReadOnlyList<PupilSample> GenerateGaussianQuadrature(
         int radialSamples,
         int azimuthalSamples = 6,
@@ -25,6 +32,21 @@ public static class ApertureSampler
         radialSamples = Math.Clamp(radialSamples, 1, 32);
         azimuthalSamples = Math.Clamp(azimuthalSamples, 1, 72);
         obscuration = Math.Clamp(obscuration, 0, 0.999999);
+
+        TrimSamplingCachesIfNeeded();
+        return GaussianCache.GetOrAdd(
+            new GaussianSamplingKey(radialSamples, azimuthalSamples, obscuration),
+            static key => BuildGaussianQuadrature(
+                key.RadialSamples,
+                key.AzimuthalSamples,
+                key.Obscuration));
+    }
+
+    private static IReadOnlyList<PupilSample> BuildGaussianQuadrature(
+        int radialSamples,
+        int azimuthalSamples,
+        double obscuration)
+    {
 
         var lower = obscuration * obscuration;
         var span = 1 - lower;
@@ -84,7 +106,7 @@ public static class ApertureSampler
             }
         }
 
-        return samples;
+        return Array.AsReadOnly(samples.ToArray());
 
         void SetRadialSample(int index, double node, double legendreWeight)
         {
@@ -98,6 +120,12 @@ public static class ApertureSampler
     public static IReadOnlyList<PupilSample> GenerateHexapolarRings(int numRings)
     {
         numRings = Math.Max(0, numRings);
+        TrimSamplingCachesIfNeeded();
+        return HexapolarRingCache.GetOrAdd(numRings, static rings => BuildHexapolarRings(rings));
+    }
+
+    private static IReadOnlyList<PupilSample> BuildHexapolarRings(int numRings)
+    {
         var samples = new List<PupilSample> { new(0, 0, 1) };
         for (var ring = 1; ring <= numRings; ring++)
         {
@@ -112,13 +140,24 @@ public static class ApertureSampler
             }
         }
 
-        return samples;
+        return Array.AsReadOnly(samples.ToArray());
     }
 
     public static IReadOnlyList<PupilSample> Generate(int sampleCount, PupilSampling sampling, int seed = 1234)
     {
         sampleCount = Math.Max(1, sampleCount);
-        return sampling switch
+        TrimSamplingCachesIfNeeded();
+        return SamplingCache.GetOrAdd(
+            new SamplingKey(sampleCount, sampling, seed),
+            static key => Build(key.SampleCount, key.Sampling, key.Seed));
+    }
+
+    private static IReadOnlyList<PupilSample> Build(
+        int sampleCount,
+        PupilSampling sampling,
+        int seed)
+    {
+        var samples = sampling switch
         {
             PupilSampling.Hexapolar => Hexapolar(sampleCount),
             PupilSampling.Random => Random(sampleCount, seed),
@@ -128,6 +167,22 @@ public static class ApertureSampler
             PupilSampling.Ring => Ring(sampleCount),
             _ => UniformGrid(sampleCount)
         };
+        return samples is PupilSample[] array
+            ? Array.AsReadOnly(array)
+            : samples;
+    }
+
+    private static void TrimSamplingCachesIfNeeded()
+    {
+        if (GaussianCache.Count + HexapolarRingCache.Count + SamplingCache.Count
+            <= MaximumCachedSamplingPlans)
+        {
+            return;
+        }
+
+        GaussianCache.Clear();
+        HexapolarRingCache.Clear();
+        SamplingCache.Clear();
     }
 
     private static IReadOnlyList<PupilSample> UniformGrid(int sampleCount)
@@ -232,4 +287,14 @@ public static class ApertureSampler
 
         return result;
     }
+
+    private readonly record struct GaussianSamplingKey(
+        int RadialSamples,
+        int AzimuthalSamples,
+        double Obscuration);
+
+    private readonly record struct SamplingKey(
+        int SampleCount,
+        PupilSampling Sampling,
+        int Seed);
 }

@@ -121,7 +121,13 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             "Pupil Y",
             mapPoints,
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: "OPD (waves)");
+            ValueLabel: "OPD (waves)",
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["RayCount"] = wavefront.Samples.Count,
@@ -426,7 +432,13 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             "Pupil Y",
             heatmapPoints,
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: "OPD (waves)");
+            ValueLabel: "OPD (waves)",
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
         var coefficientBars = new AnalysisSeries(
             "Zernike term",
             "Coefficient",
@@ -434,7 +446,11 @@ public sealed class ZernikeAnalysis : BaseAnalysis
                 coefficient.Number,
                 coefficient.Value,
                 $"Z{coefficient.Number}")).ToArray(),
-            AnalysisSeriesKind.Bar);
+            AnalysisSeriesKind.Bar,
+            XQuantity: AnalysisAxisQuantity.ZernikeTerm,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.Coefficient,
+            YUnit: AnalysisAxisUnit.Wave);
         return new AnalysisData(
             Name,
             values,

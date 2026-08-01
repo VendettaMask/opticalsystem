@@ -212,7 +212,7 @@ public sealed class RayGenerator
             vignetteScale.Y,
             EntrancePupilGlobalZ(),
             FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
-            IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault()));
+            ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
         var resolvedStopTargets = aimAtStop
             ? stopTargets ?? ParaxialStopTargets(
                 normalizedFieldX,
@@ -418,7 +418,7 @@ public sealed class RayGenerator
         var effectiveWavelength = wavelengthNanometers > 0
             ? wavelengthNanometers
             : PrimaryWavelengthMicrometers() * 1000;
-        return IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+        return ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault())
             ? AimInfiniteRayAtStop(
                 origin,
                 direction,
@@ -693,7 +693,7 @@ public sealed class RayGenerator
         double apertureRadius)
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        return IsObjectAtInfinity(objectSurface)
+        return ObjectConjugate.IsInfinite(objectSurface)
             ? AngleFieldOrigin(launchField.X, launchField.Y, pupilX, pupilY, apertureRadius)
             : ObjectHeightOrigin(launchField.X, launchField.Y);
     }
@@ -707,7 +707,7 @@ public sealed class RayGenerator
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
-        if (!IsObjectAtInfinity(objectSurface))
+        if (!ObjectConjugate.IsInfinite(objectSurface))
         {
             var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
             return new Vector3D(
@@ -727,7 +727,7 @@ public sealed class RayGenerator
     private Vector3D ObjectHeightOrigin(double fieldX, double fieldY)
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (IsObjectAtInfinity(objectSurface))
+        if (ObjectConjugate.IsInfinite(objectSurface))
         {
             throw new InvalidOperationException("Object-height fields require a finite object surface.");
         }
@@ -751,7 +751,7 @@ public sealed class RayGenerator
         }
 
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (!IsObjectAtInfinity(objectSurface))
+        if (!ObjectConjugate.IsInfinite(objectSurface))
         {
             var objectX = objectHeightUnit * (fieldX / imageHeightUnit);
             var objectY = objectHeightUnit * (fieldY / imageHeightUnit);
@@ -859,7 +859,7 @@ public sealed class RayGenerator
             var deltaX = ((-errorX * jyy) + (jxy * errorY)) / determinant;
             var deltaY = ((jyx * errorX) - (jxx * errorY)) / determinant;
             var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-            var maximumStep = IsObjectAtInfinity(objectSurface)
+            var maximumStep = ObjectConjugate.IsInfinite(objectSurface)
                 ? 15.0
                 : Math.Max(
                     10.0,
@@ -918,7 +918,7 @@ public sealed class RayGenerator
             return (0, 0);
         }
 
-        if (IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault()))
+        if (ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()))
         {
             return (
                 RadiansToDegrees(Math.Atan(objectSlopeUnit * targetX / imageHeightUnit)),
@@ -937,7 +937,7 @@ public sealed class RayGenerator
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var apertureRadius = EntrancePupilRadius();
-        var origin = IsObjectAtInfinity(objectSurface)
+        var origin = ObjectConjugate.IsInfinite(objectSurface)
             ? AngleFieldOrigin(launchX, launchY, 0, 0, apertureRadius)
             : ObjectHeightOrigin(launchX, launchY);
         Vector3D direction;
@@ -955,7 +955,7 @@ public sealed class RayGenerator
         var wavelengthNanometers = PrimaryWavelengthMicrometers() * 1000;
         if (aimAtStop)
         {
-            (origin, direction) = IsObjectAtInfinity(objectSurface)
+            (origin, direction) = ObjectConjugate.IsInfinite(objectSurface)
                 ? AimInfiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers)
                 : AimFiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers);
         }
@@ -1058,7 +1058,7 @@ public sealed class RayGenerator
 
     private double LimitLaunchCoordinate(double value)
     {
-        return IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault())
+        return ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault())
             ? Math.Clamp(value, -89.0, 89.0)
             : value;
     }
@@ -1092,7 +1092,7 @@ public sealed class RayGenerator
     {
         var relativeOrGlobal = _optic.Paraxial.EstimateEntrancePupilLocation();
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (!IsObjectAtInfinity(objectSurface))
+        if (!ObjectConjugate.IsInfinite(objectSurface))
         {
             return relativeOrGlobal;
         }
@@ -1142,13 +1142,6 @@ public sealed class RayGenerator
     {
         return (_optic.Wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
             ?? _optic.Wavelengths.FirstOrDefault())?.Micrometers ?? 0.5876;
-    }
-
-    private static bool IsObjectAtInfinity(OpticalSurface? objectSurface)
-    {
-        return objectSurface is null
-            || double.IsInfinity(objectSurface.CoordinateSystem.Origin.Z)
-            || Math.Abs(objectSurface.Thickness) <= 1e-12;
     }
 
     private static void ValidateNormalized(double value, string parameterName)

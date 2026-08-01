@@ -73,7 +73,7 @@ Python analyses generate data in constructors through `BaseAnalysis._generate_da
 
 - `SpotDiagram` resolves fields/wavelengths, supports global/local coordinates, chief-ray or centroid reference centering, Airy disk calculation, and returns nested field/wavelength `SpotData`.
 - `EncircledEnergy` inherits from `SpotDiagram`, defaults to primary wavelength, random distribution, and `100_000` rays.
-- `RMS vs Field` samples a normalized field sweep, usually 64 fields, instead of aggregating only the currently defined field list.
+- `RMS vs Field` Spot mode samples `Field Density + 1` positions from zero to the maximum defined field magnitude along the selected `+X`, `-X`, `+Y`, or `-Y` orientation instead of aggregating only the Field Editor rows. Its chief-ray wavefront reference removes weighted piston only; centroid reference removes the weighted best-fit piston and both pupil tilts.
 - `ThroughFocusAnalysis` moves the image surface geometry z position, runs a subclass analysis at each position, then restores nominal focus.
 - `Wavefront` uses reference strategies such as chief ray, centroid sphere, best-fit sphere, optional tilt removal, and reports OPD in waves.
 - `PSF` and `MTF` have FFT, Huygens-Fresnel, vectorial, sampled, and geometric implementations.
@@ -322,7 +322,7 @@ The plot contract now includes value-colored curves, per-series viridis/inferno/
 - Added a damped two-dimensional real-image-height solve that varies object angle for infinite conjugates or object coordinates for finite conjugates until the primary-wavelength chief ray reaches the requested local image coordinate.
 - Matched Zemax analysis semantics by converting real image height to angle/object height for distortion and to paraxial image height for image simulation.
 - Unified viewer, analysis, ray generation, legacy tracing, paraxial tracing, wavefront tilt, and aberration estimates on Python's maximum-radial-field normalization.
-- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `616/616` passing tests as of 2026-08-01; Optiland encircled-energy and legacy Huygens-MTF parity are retained only through explicit auxiliary compatibility modes. The dedicated Zemax parity tests lock the listed analyses to settings captured from `123456.ZMX`; they do not redefine those settings as universal Zemax defaults, and Core constructors retain general-purpose defaults.
+- Added Python 0.5.8 normalized paraxial golden data, finite/infinite real-image-height regressions, diagonal-field coverage, and traced ZMX `FTYP 3` coverage. Five manually openable ZMX sample systems also verify catalog-glass resolution, every defined chief ray, and viewer scene generation. The current repository baseline is `621/621` passing tests as of 2026-08-02; Optiland encircled-energy and legacy Huygens-MTF parity are retained only through explicit auxiliary compatibility modes. The dedicated Zemax parity tests lock the listed analyses to settings captured from `123456.ZMX`; they do not redefine those settings as universal Zemax defaults, and Core constructors retain general-purpose defaults.
 
 ### 2026-07-15 Viewer Interaction And Rendering Alignment
 

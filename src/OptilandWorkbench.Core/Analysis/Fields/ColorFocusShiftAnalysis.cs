@@ -64,7 +64,11 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
             points,
             Name: "色焦移",
             ColorIndex: 0,
-            LineWidth: 1.4);
+            LineWidth: 1.4,
+            XQuantity: AnalysisAxisQuantity.Defocus,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.Wavelength,
+            YUnit: AnalysisAxisUnit.Micrometer);
         return new AnalysisData(
             Name,
             new Dictionary<string, object>

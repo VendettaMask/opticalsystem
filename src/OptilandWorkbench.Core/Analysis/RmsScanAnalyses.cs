@@ -81,7 +81,11 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                     usePolarization: _usePolarization,
                     removeVignetting: _removeVignetting))).ToArray(),
             Name: field.Label,
-            ColorIndex: fieldIndex)).ToList();
+            ColorIndex: fieldIndex,
+            XQuantity: AnalysisAxisQuantity.Wavelength,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: RmsScanSupport.MetricQuantity(_data),
+            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
@@ -93,7 +97,11 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                     RmsScanSupport.DiffractionLimitValue(Optic, new[] { wavelength }, _data))).ToArray(),
                 Name: "Diffraction Limit",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: series.Count));
+                ColorIndex: series.Count,
+                XQuantity: AnalysisAxisQuantity.Wavelength,
+                XUnit: AnalysisAxisUnit.Micrometer,
+                YQuantity: RmsScanSupport.MetricQuantity(_data),
+                YUnit: RmsScanSupport.MetricUnit(_data)));
         }
 
         return new AnalysisData(
@@ -208,7 +216,11 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                     _usePolarization,
                     _removeVignetting))).ToArray(),
             Name: field.Label,
-            ColorIndex: fieldIndex)).ToList();
+            ColorIndex: fieldIndex,
+            XQuantity: AnalysisAxisQuantity.Defocus,
+            XUnit: AnalysisAxisUnit.Millimeter,
+            YQuantity: RmsScanSupport.MetricQuantity(_data),
+            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
@@ -218,7 +230,11 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 focusValues.Select(focus => new AnalysisPoint(focus, diffractionLimit)).ToArray(),
                 Name: "Diffraction Limit",
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: series.Count));
+                ColorIndex: series.Count,
+                XQuantity: AnalysisAxisQuantity.Defocus,
+                XUnit: AnalysisAxisUnit.Millimeter,
+                YQuantity: RmsScanSupport.MetricQuantity(_data),
+                YUnit: RmsScanSupport.MetricUnit(_data)));
         }
 
         return new AnalysisData(
@@ -345,7 +361,13 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             Name: RmsScanSupport.SeriesName(_data),
             ValueLabel: RmsScanSupport.AxisLabel(_data),
             ValueMinimum: values.DefaultIfEmpty(0).Min(),
-            ValueMaximum: values.DefaultIfEmpty(0).Max());
+            ValueMaximum: values.DefaultIfEmpty(0).Max(),
+            XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+            YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
+            YUnit: AnalysisTrace.FieldAxisUnit(Optic),
+            ValueQuantity: RmsScanSupport.MetricQuantity(_data),
+            ValueUnit: RmsScanSupport.MetricUnit(_data));
         var distribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         return new AnalysisData(
             Name,
@@ -568,13 +590,8 @@ internal static class RmsScanSupport
                 continue;
             }
 
-            var totalPupilWeight = samples.Sum(item => item.Weight);
-            var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalPupilWeight;
-            var meanSquare = samples.Sum(item =>
-            {
-                var residual = item.Sample.OpdWaves - piston;
-                return item.Weight * residual * residual;
-            }) / totalPupilWeight;
+            var rms = WeightedWavefrontRms(wavefront.Samples, pupil, reference);
+            var meanSquare = rms * rms;
             var wavelengthWeight = Math.Max(0, wavelength.Weight);
             weightedMeanSquare += wavelengthWeight * meanSquare;
             totalWavelengthWeight += wavelengthWeight;
@@ -583,6 +600,103 @@ internal static class RmsScanSupport
         return totalWavelengthWeight <= 1e-30
             ? 0
             : Math.Sqrt(Math.Max(0, weightedMeanSquare / totalWavelengthWeight));
+    }
+
+    public static double WeightedWavefrontRms(
+        IReadOnlyList<WavefrontSample> wavefront,
+        IReadOnlyList<PupilSample> pupil,
+        string reference)
+    {
+        var count = Math.Min(wavefront.Count, pupil.Count);
+        var samples = Enumerable.Range(0, count)
+            .Select(index => (
+                Sample: wavefront[index],
+                Weight: Math.Max(0, pupil[index].Weight)))
+            .Where(item => item.Weight > 0
+                && item.Sample.Intensity > 0
+                && double.IsFinite(item.Sample.OpdWaves))
+            .ToArray();
+        var totalWeight = samples.Sum(item => item.Weight);
+        if (totalWeight <= 1e-30)
+        {
+            return 0;
+        }
+
+        var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalWeight;
+        var tiltX = 0.0;
+        var tiltY = 0.0;
+        if (NormalizeReference(reference) == "centroid")
+        {
+            (piston, tiltX, tiltY) = WeightedPlane(samples, piston);
+        }
+
+        var meanSquare = samples.Sum(item =>
+        {
+            var residual = item.Sample.OpdWaves
+                - piston
+                - (tiltX * item.Sample.NormalizedPupilX)
+                - (tiltY * item.Sample.NormalizedPupilY);
+            return item.Weight * residual * residual;
+        }) / totalWeight;
+        return Math.Sqrt(Math.Max(0, meanSquare));
+    }
+
+    private static (double Piston, double TiltX, double TiltY) WeightedPlane(
+        IReadOnlyList<(WavefrontSample Sample, double Weight)> samples,
+        double fallbackPiston)
+    {
+        var matrix = new double[3, 4];
+        foreach (var item in samples)
+        {
+            var basis = new[] { 1.0, item.Sample.NormalizedPupilX, item.Sample.NormalizedPupilY };
+            for (var row = 0; row < 3; row++)
+            {
+                for (var column = 0; column < 3; column++)
+                {
+                    matrix[row, column] += item.Weight * basis[row] * basis[column];
+                }
+                matrix[row, 3] += item.Weight * basis[row] * item.Sample.OpdWaves;
+            }
+        }
+
+        for (var pivot = 0; pivot < 3; pivot++)
+        {
+            var best = Enumerable.Range(pivot, 3 - pivot)
+                .OrderByDescending(row => Math.Abs(matrix[row, pivot]))
+                .First();
+            if (Math.Abs(matrix[best, pivot]) <= 1e-20)
+            {
+                return (fallbackPiston, 0, 0);
+            }
+            if (best != pivot)
+            {
+                for (var column = pivot; column < 4; column++)
+                {
+                    (matrix[pivot, column], matrix[best, column]) = (matrix[best, column], matrix[pivot, column]);
+                }
+            }
+
+            var scale = matrix[pivot, pivot];
+            for (var column = pivot; column < 4; column++)
+            {
+                matrix[pivot, column] /= scale;
+            }
+            for (var row = 0; row < 3; row++)
+            {
+                if (row == pivot)
+                {
+                    continue;
+                }
+
+                var factor = matrix[row, pivot];
+                for (var column = pivot; column < 4; column++)
+                {
+                    matrix[row, column] -= factor * matrix[pivot, column];
+                }
+            }
+        }
+
+        return (matrix[0, 3], matrix[1, 3], matrix[2, 3]);
     }
 
     public static double DiffractionLimitMillimeters(
@@ -624,6 +738,25 @@ internal static class RmsScanSupport
         }
 
         return NormalizeData(data) == "wavefront" ? "waves" : "mm";
+    }
+
+    public static AnalysisAxisQuantity MetricQuantity(string data)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? AnalysisAxisQuantity.WavefrontError
+            : AnalysisAxisQuantity.Radius;
+    }
+
+    public static AnalysisAxisUnit MetricUnit(string data)
+    {
+        if (string.Equals(data, "strehl", StringComparison.OrdinalIgnoreCase))
+        {
+            return AnalysisAxisUnit.Dimensionless;
+        }
+
+        return NormalizeData(data) == "wavefront"
+            ? AnalysisAxisUnit.Wave
+            : AnalysisAxisUnit.Millimeter;
     }
 
     public static string FieldXAxisLabel(Optic optic)

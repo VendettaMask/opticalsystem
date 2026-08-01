@@ -241,9 +241,15 @@ public sealed class PanelManager : IDisposable
 
     public void FloatAllWindows()
     {
+        var floatingDocumentIds = FloatingDocuments()
+            .Select(document => document.Id)
+            .ToHashSet(StringComparer.Ordinal);
         foreach (var document in Factory.OpenDocuments().ToArray())
         {
-            Factory.FloatDockable(document);
+            if (!floatingDocumentIds.Contains(document.Id))
+            {
+                Factory.FloatDockable(document);
+            }
         }
 
         var windows = Layout.Windows?.ToArray() ?? Array.Empty<IDockWindow>();
@@ -259,13 +265,11 @@ public sealed class PanelManager : IDisposable
 
     public void TileAllWindows()
     {
-        FloatAllWindows();
         ArrangeFloatingWindows(tile: true);
     }
 
     public void CascadeAllWindows()
     {
-        FloatAllWindows();
         ArrangeFloatingWindows(tile: false);
     }
 
@@ -612,6 +616,15 @@ public sealed class PanelManager : IDisposable
             windows[index].Height = cellHeight;
             windows[index].Save();
         }
+    }
+
+    private IEnumerable<Document> FloatingDocuments()
+    {
+        return Layout.Windows?
+            .Where(window => window.Layout is not null)
+            .SelectMany(window => WorkspaceDockFactory.EnumerateDockables(window.Layout!))
+            .OfType<Document>()
+            ?? Enumerable.Empty<Document>();
     }
 
     private void OnLayoutChanged(object? sender, EventArgs args) => ScheduleSave();

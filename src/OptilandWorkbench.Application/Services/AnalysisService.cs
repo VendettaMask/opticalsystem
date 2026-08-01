@@ -14,6 +14,7 @@ using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
+using OptilandWorkbench.Core.Raytrace;
 using ContractAnalysisColorMap = OptilandWorkbench.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisLineStyle = OptilandWorkbench.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OptilandWorkbench.Application.Contracts.AnalysisMarkerStyle;
@@ -26,6 +27,8 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
 {
+    private readonly RayTraceCache _rayTraceCache = new();
+
     public AnalysisService(WorkspaceCoordinator workspace)
         : base(workspace)
     {
@@ -66,6 +69,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         {
             sourceRevision = Workspace.Revision;
             snapshot = Optic.FromSnapshot(Connector.CurrentOptic.ToSnapshot());
+            snapshot.ConfigureRayTraceCache(_rayTraceCache, sourceRevision);
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
@@ -84,13 +88,17 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
             {
                 linked.Token.ThrowIfCancellationRequested();
                 var worker = new OpticalWorkspaceModel(snapshot);
-                var view = worker.BuildAnalysisView(request.AnalysisKey, request.Settings, linked.Token);
+                var canonicalAnalysisKey = worker.CanonicalAnalysisKey(request.AnalysisKey);
+                var view = worker.BuildAnalysisView(canonicalAnalysisKey, request.Settings, linked.Token);
                 linked.Token.ThrowIfCancellationRequested();
                 return new AnalysisResultDto(
                     request.InstanceId,
                     request.Generation,
                     sourceRevision,
-                    ToAnalysisViewDto(view));
+                    ToAnalysisViewDto(view) with
+                    {
+                        PresentationKind = AnalysisPresentationKindResolver.Resolve(canonicalAnalysisKey)
+                    });
             }, linked.Token).ConfigureAwait(false);
         }
     }

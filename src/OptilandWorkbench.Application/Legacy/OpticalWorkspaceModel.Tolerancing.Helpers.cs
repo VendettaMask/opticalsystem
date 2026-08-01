@@ -281,14 +281,18 @@ public partial class OpticalWorkspaceModel
     private void SyncSurfacePositionsPreservingDecenter()
     {
         var z = 0.0;
-        foreach (var surface in Surfaces)
+        for (var index = 0; index < Surfaces.Count; index++)
         {
+            var surface = Surfaces[index];
             var coordinate = surface.CoordinateSystem;
             surface.CoordinateSystem = coordinate with
             {
                 Origin = coordinate.Origin with { Z = z }
             };
-            z += surface.Thickness;
+            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
+            {
+                z += surface.Thickness;
+            }
         }
     }
 

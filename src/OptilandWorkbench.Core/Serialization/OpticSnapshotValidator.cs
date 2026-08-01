@@ -290,7 +290,10 @@ public static class OpticSnapshotValidator
             Invalid($"{path}.radius", "radius cannot be NaN");
         }
 
-        RequireFinite(surface.Thickness, $"{path}.thickness");
+        if (index != 0 || !double.IsPositiveInfinity(surface.Thickness))
+        {
+            RequireFinite(surface.Thickness, $"{path}.thickness");
+        }
         RequireText(surface.Material, $"{path}.material");
         RequireText(surface.Coating, $"{path}.coating");
         RequireFiniteNonNegative(surface.SemiDiameter, $"{path}.semiDiameter");

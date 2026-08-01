@@ -7,6 +7,7 @@ public static class ThemeResourceBindings
 {
     public const string Surface = "OptilandSurfaceBrush";
     public const string SubtleSurface = "OptilandSubtleSurfaceBrush";
+    public const string SettingsSurface = "OptilandSettingsSurfaceBrush";
     public const string Workspace = "OptilandWorkspaceBrush";
     public const string Border = "OptilandBorderBrush";
     public const string TextPrimary = "OptilandTextPrimaryBrush";

@@ -290,7 +290,8 @@ public sealed partial class SequentialRayTracer
                             segmentLength,
                             segmentOpticalPathLength,
                             cumulativePaths[rayIndex],
-                            cumulativeOpticalPaths[rayIndex]);
+                            cumulativeOpticalPaths[rayIndex],
+                            InteractionKind: kind);
                     }
                 }
 

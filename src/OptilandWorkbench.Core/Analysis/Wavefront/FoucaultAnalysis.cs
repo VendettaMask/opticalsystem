@@ -100,7 +100,13 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             AnalysisSeriesKind.Heatmap,
             ValueLabel: "归一化刀口响应",
             ValueMinimum: 0,
-            ValueMaximum: 1);
+            ValueMaximum: 1,
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.Intensity,
+            ValueUnit: AnalysisAxisUnit.Dimensionless);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Sampling"] = $"{_sampling} x {_sampling}",

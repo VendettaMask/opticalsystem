@@ -166,7 +166,13 @@ public sealed class PsfAnalysis : BaseAnalysis
             "Y (\u00B5m)",
             points,
             AnalysisSeriesKind.Heatmap,
-            ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity");
+            ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity",
+            XQuantity: AnalysisAxisQuantity.ImageHeight,
+            XUnit: AnalysisAxisUnit.Micrometer,
+            YQuantity: AnalysisAxisQuantity.ImageHeight,
+            YUnit: AnalysisAxisUnit.Micrometer,
+            ValueQuantity: AnalysisAxisQuantity.Irradiance,
+            ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var centerValue = values[gridSize / 2, gridSize / 2];
         var title = wavelengths.Length > 1 ? "复色光FFT PSF" : "FFT PSF";
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -326,14 +332,22 @@ public sealed class MtfAnalysis : BaseAnalysis
                 yAxisLabel,
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
-                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex]));
+                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Frequency (cycles/mm)",
                 yAxisLabel,
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
-                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex]));
+                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
         }
 
         if (diffractionLimit is not null)
@@ -343,7 +357,11 @@ public sealed class MtfAnalysis : BaseAnalysis
                 "Modulation",
                 diffractionLimit,
                 Name: "Diffraction Limit",
-                ColorIndex: fields.Length));
+                ColorIndex: fields.Length,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         var plottedMaximum = _zemaxCompatible

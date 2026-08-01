@@ -172,7 +172,13 @@ public sealed class JonesPupilAnalysis : BaseAnalysis
                             ? (component == "Re" ? element.Select(sample).Real : element.Select(sample).Imaginary)
                             : double.NaN)).ToArray(),
                     AnalysisSeriesKind.Heatmap,
-                    ValueLabel: $"{component}({element.Name})");
+                    ValueLabel: $"{component}({element.Name})",
+                    XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                    XUnit: AnalysisAxisUnit.Dimensionless,
+                    YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+                    YUnit: AnalysisAxisUnit.Dimensionless,
+                    ValueQuantity: AnalysisAxisQuantity.Coefficient,
+                    ValueUnit: AnalysisAxisUnit.Dimensionless);
                 panes.Add(new AnalysisPlotPane(
                     $"{component}({element.Name})",
                     new[] { series },

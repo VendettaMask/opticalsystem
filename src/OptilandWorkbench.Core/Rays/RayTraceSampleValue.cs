@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Interactions;
 
 namespace OptilandWorkbench.Core.Rays;
 
@@ -13,7 +14,8 @@ public readonly record struct RayTraceSampleValue(
     double SegmentOpticalPathLength = 0,
     double CumulativePathLength = 0,
     double CumulativeOpticalPathLength = 0,
-    double OpticalPathDifference = 0)
+    double OpticalPathDifference = 0,
+    RayInteractionKind? InteractionKind = null)
 {
     public RayTraceSample ToRayTraceSample() => new(
         SurfaceNumber,
@@ -26,7 +28,8 @@ public readonly record struct RayTraceSampleValue(
         SegmentOpticalPathLength,
         CumulativePathLength,
         CumulativeOpticalPathLength,
-        OpticalPathDifference);
+        OpticalPathDifference,
+        InteractionKind);
 
     public static RayTraceSampleValue FromRayTraceSample(RayTraceSample sample) => new(
         sample.SurfaceNumber,
@@ -39,5 +42,6 @@ public readonly record struct RayTraceSampleValue(
         sample.SegmentOpticalPathLength,
         sample.CumulativePathLength,
         sample.CumulativeOpticalPathLength,
-        sample.OpticalPathDifference);
+        sample.OpticalPathDifference,
+        sample.InteractionKind);
 }

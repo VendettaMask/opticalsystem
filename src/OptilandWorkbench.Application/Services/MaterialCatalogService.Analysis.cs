@@ -20,6 +20,8 @@ using ContractAnalysisMarkerStyle = OptilandWorkbench.Application.Contracts.Anal
 using ContractAnalysisParameterDescriptor = OptilandWorkbench.Application.Contracts.AnalysisParameterDescriptor;
 using ContractAnalysisParameterKind = OptilandWorkbench.Application.Contracts.AnalysisParameterKind;
 using ContractAnalysisSeriesKind = OptilandWorkbench.Application.Contracts.AnalysisSeriesKind;
+using AnalysisAxisQuantity = OptilandWorkbench.Application.Contracts.AnalysisAxisQuantity;
+using AnalysisAxisUnit = OptilandWorkbench.Application.Contracts.AnalysisAxisUnit;
 
 namespace OptilandWorkbench.Application.Services;
 
@@ -51,7 +53,11 @@ internal sealed partial class MaterialCatalogService
                     points,
                     Name: GlassLabel(selected),
                     ColorIndex: 0,
-                    LineWidth: 2)
+                    LineWidth: 2,
+                    XQuantity: AnalysisAxisQuantity.Wavelength,
+                    XUnit: AnalysisAxisUnit.Micrometer,
+                    YQuantity: AnalysisAxisQuantity.RefractiveIndex,
+                    YUnit: AnalysisAxisUnit.Dimensionless)
             };
         return CurveView(
             "色散图",
@@ -164,7 +170,11 @@ internal sealed partial class MaterialCatalogService
                 ShowMarkers: true,
                 MarkerStyle: ContractAnalysisMarkerStyle.Square,
                 MarkerSize: 2.2,
-                Opacity: 0.8))
+                Opacity: 0.8,
+                XQuantity: AnalysisAxisQuantity.AbbeNumber,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.RefractiveIndex,
+                YUnit: AnalysisAxisUnit.Dimensionless))
             .ToList();
         if (selectedPoint is not null)
         {
@@ -178,7 +188,11 @@ internal sealed partial class MaterialCatalogService
                 ShowMarkers: true,
                 MarkerStyle: ContractAnalysisMarkerStyle.Square,
                 MarkerSize: 6,
-                LineWidth: 2));
+                LineWidth: 2,
+                XQuantity: AnalysisAxisQuantity.AbbeNumber,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.RefractiveIndex,
+                YUnit: AnalysisAxisUnit.Dimensionless));
         }
 
         return series;
@@ -242,7 +256,11 @@ internal sealed partial class MaterialCatalogService
                 Name: "参考线",
                 LineStyle: ContractAnalysisLineStyle.Dashed,
                 ColorIndex: 3,
-                LineWidth: 1));
+                LineWidth: 1,
+                XQuantity: AnalysisAxisQuantity.ChromaticPower,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
+                YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin));
         }
 
         return MaterialView(
@@ -293,7 +311,11 @@ internal sealed partial class MaterialCatalogService
                     ColorIndex: 0,
                     ShowMarkers: true,
                     LineWidth: 2,
-                    MarkerSize: 3)
+                    MarkerSize: 3,
+                    XQuantity: AnalysisAxisQuantity.Wavelength,
+                    XUnit: AnalysisAxisUnit.Micrometer,
+                    YQuantity: AnalysisAxisQuantity.Transmission,
+                    YUnit: AnalysisAxisUnit.Dimensionless)
             };
         return CurveView(
             "内部透过率 vs. 波长",
@@ -349,7 +371,11 @@ internal sealed partial class MaterialCatalogService
                     points,
                     Name: GlassLabel(selected),
                     ColorIndex: 0,
-                    LineWidth: 2)
+                    LineWidth: 2,
+                    XQuantity: AnalysisAxisQuantity.Wavelength,
+                    XUnit: AnalysisAxisUnit.Micrometer,
+                    YQuantity: AnalysisAxisQuantity.Dispersion,
+                    YUnit: AnalysisAxisUnit.InverseMicrometer)
             };
         return CurveView(
             "色散 vs. 波长",
@@ -437,7 +463,11 @@ internal sealed partial class MaterialCatalogService
                 ColorIndex: 0,
                 ShowMarkers: true,
                 MarkerSize: 2.5,
-                Opacity: 0.65)
+                Opacity: 0.65,
+                XQuantity: AnalysisAxisQuantity.ChromaticPower,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
+                YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin)
         };
         if (selectedPoint is not null)
         {
@@ -451,7 +481,11 @@ internal sealed partial class MaterialCatalogService
                 ShowMarkers: true,
                 MarkerStyle: ContractAnalysisMarkerStyle.Square,
                 MarkerSize: 7,
-                LineWidth: 2));
+                LineWidth: 2,
+                XQuantity: AnalysisAxisQuantity.ChromaticPower,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.ThermalOpticalPower,
+                YUnit: AnalysisAxisUnit.PartsPerMillionPerKelvin));
         }
 
         return series;

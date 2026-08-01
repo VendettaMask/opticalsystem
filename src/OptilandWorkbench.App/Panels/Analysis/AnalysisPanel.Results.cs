@@ -98,50 +98,42 @@ public sealed partial class AnalysisPanel
 
     private static bool IsCardinalPointsView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "基面数据", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Cardinal Points Data", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.CardinalPoints;
     }
 
     private static bool IsSeidelCoefficientsView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "赛德尔系数", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Seidel Coefficients", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.SeidelCoefficients;
     }
 
     private static bool IsZernikeFringeView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "Zernike Fringe系数", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Zernike Fringe", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.ZernikeFringe;
     }
 
     private static bool IsZernikeStandardView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "Zernike Standard系数", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Zernike Standard", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.ZernikeStandard;
     }
 
     private static bool IsZernikeAnnularView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "Zernike Annular系数", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Zernike Annular", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.ZernikeAnnular;
     }
 
     private static bool IsSeidelDiagramView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "赛德尔图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Seidel Diagram", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.SeidelDiagram;
     }
 
     private static bool IsFullFieldAberrationView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "全视场像差", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Full Field Aberration", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.FullFieldAberration;
     }
 
     private static bool IsWavefrontMapView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "波前图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Wavefront Map", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.WavefrontMap;
     }
 
     private static Control BuildWavefrontMapPlot(AnalysisViewDto view)
@@ -158,7 +150,7 @@ public sealed partial class AnalysisPanel
 
     private static bool IsFftPsfView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "FFT PSF", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.FftPsf;
     }
 
     private static Control BuildFftPsfPlot(AnalysisViewDto view)
@@ -182,8 +174,7 @@ public sealed partial class AnalysisPanel
 
     private static bool IsHuygensPsfView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "惠更斯PSF", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Huygens PSF", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.HuygensPsf;
     }
 
     private static Control BuildHuygensPsfPlot(AnalysisViewDto view)
@@ -207,8 +198,7 @@ public sealed partial class AnalysisPanel
 
     private static bool IsFoucaultView(AnalysisViewDto view)
     {
-        return string.Equals(view.Name, "傅科分析", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Foucault Analysis", StringComparison.OrdinalIgnoreCase);
+        return view.PresentationKind == AnalysisPresentationKind.Foucault;
     }
 
     private static Control BuildFoucaultPlot(AnalysisViewDto view)
@@ -774,8 +764,7 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
-        if (string.Equals(view.Name, "光迹图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Footprint Diagram", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.FootprintDiagram)
         {
             var surfaceNumber = FindRowText(view, "表面序号", "0");
             var surfaceLabel = FindRowText(view, "表面标注", string.Empty);
@@ -868,8 +857,7 @@ public sealed partial class AnalysisPanel
                 + $"绘图范围：从 {minimum} 到 {maximum}");
         }
 
-        if (string.Equals(view.Name, "轴向像差", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Axial Aberration", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.AxialAberration)
         {
             var shortest = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("短波长", StringComparison.Ordinal))?.Value ?? "0";
@@ -881,8 +869,7 @@ public sealed partial class AnalysisPanel
                 + "图例对应于波长");
         }
 
-        if (string.Equals(view.Name, "垂轴色差", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Lateral Color", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.LateralColor)
         {
             var shortest = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("短波长", StringComparison.Ordinal))?.Value ?? "0";
@@ -900,8 +887,7 @@ public sealed partial class AnalysisPanel
                 + rayText);
         }
 
-        if (string.Equals(view.Name, "色焦移", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Color Focus Shift", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.ColorFocusShift)
         {
             var maximumChange = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("最大焦移变化", StringComparison.Ordinal))?.Value ?? "0";
@@ -931,8 +917,7 @@ public sealed partial class AnalysisPanel
                 + $"网格线相隔 {interval} 毫米。");
         }
 
-        if (string.Equals(view.Name, "矩阵点列图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Matrix Spot Diagram", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.MatrixSpot)
         {
             var scale = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("缩放标尺", StringComparison.Ordinal))?.Value ?? "0";
@@ -960,8 +945,7 @@ public sealed partial class AnalysisPanel
                 + $"单位：mm    参考：{reference}");
         }
 
-        if (string.Equals(view.Name, "全视场点列图", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Full Field Spot Diagram", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.FullFieldSpot)
         {
             var rmsRadius = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("RMS 半径", StringComparison.Ordinal))?.Value ?? "0";
@@ -978,8 +962,7 @@ public sealed partial class AnalysisPanel
                 + $"缩放标尺：{scale}    参考：{reference}");
         }
 
-        if (string.Equals(view.Name, "场曲/畸变", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Field Curvature and Distortion", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
         {
             var curvatureMaximum = view.Rows.FirstOrDefault(row =>
                 row.Metric.Contains("场曲.最大像面偏移", StringComparison.Ordinal));
@@ -1011,8 +994,7 @@ public sealed partial class AnalysisPanel
                 combinedLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, combinedLines));
         }
 
-        if (string.Equals(view.Name, "场曲", StringComparison.Ordinal)
-            || string.Equals(view.Name, "Field Curvature", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind == AnalysisPresentationKind.FieldCurvature)
         {
             var curvatureMaximumField = FindMaximumFieldRow(view);
             var sagittalFieldCurvature = view.Rows.FirstOrDefault(row =>
@@ -1043,8 +1025,7 @@ public sealed partial class AnalysisPanel
                 curvatureLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, curvatureLines));
         }
 
-        if (!string.Equals(view.Name, "畸变", StringComparison.Ordinal)
-            && !string.Equals(view.Name, "Distortion", StringComparison.OrdinalIgnoreCase))
+        if (view.PresentationKind != AnalysisPresentationKind.Distortion)
         {
             return null;
         }
