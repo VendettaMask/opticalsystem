@@ -1713,7 +1713,8 @@ public sealed class OptilandParityTests
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
             ?? throw new MissingMethodException(nameof(DiffractionEngine), "HuygensSummation");
         return (double[,])method.Invoke(null, parameters)!;
-    }}
+    }
+}
 
 public sealed class TestOptilandPlugin : IOptilandPlugin
 {

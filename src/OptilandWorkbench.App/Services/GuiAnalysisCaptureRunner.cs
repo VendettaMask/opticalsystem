@@ -241,7 +241,7 @@ internal static class GuiAnalysisCaptureRunner
         var height = Math.Max(1, (int)Math.Ceiling(control.Bounds.Height));
         using var bitmap = new RenderTargetBitmap(new PixelSize(width, height));
         bitmap.Render(control);
-        bitmap.Save(path);
+        bitmap.Save(path, PngBitmapEncoderOptions.Default);
     }
 
     private static string Slug(string value)

@@ -389,13 +389,13 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         var (axisLabel, fieldUnit) = _zemaxCompatibleOutput
             ? ("Relative Field", string.Empty)
             : Optic.FieldDefinition switch
-        {
-            FieldDefinitionKind.Angle => ("Field angle (deg)", "deg"),
-            FieldDefinitionKind.ObjectHeight => ("Object height (mm)", "mm"),
-            FieldDefinitionKind.ParaxialImageHeight => ("Paraxial image height (mm)", "mm"),
-            FieldDefinitionKind.RealImageHeight => ("Real image height (mm)", "mm"),
-            _ => ("Field", string.Empty)
-        };
+            {
+                FieldDefinitionKind.Angle => ("Field angle (deg)", "deg"),
+                FieldDefinitionKind.ObjectHeight => ("Object height (mm)", "mm"),
+                FieldDefinitionKind.ParaxialImageHeight => ("Paraxial image height (mm)", "mm"),
+                FieldDefinitionKind.RealImageHeight => ("Real image height (mm)", "mm"),
+                _ => ("Field", string.Empty)
+            };
         var plotCoordinates = _zemaxCompatibleOutput
             ? Enumerable.Range(0, 300).Select(index => index / 299.0).ToArray()
             : calculationCoordinates;

@@ -313,12 +313,12 @@ internal static class WorkbenchMapper
 
     private static SceneRayInteractionType ToSceneRayInteractionType(
         LayoutRayInteractionType type) => type switch
-    {
-        LayoutRayInteractionType.Refractive => SceneRayInteractionType.Refractive,
-        LayoutRayInteractionType.Reflective => SceneRayInteractionType.Reflective,
-        LayoutRayInteractionType.Diffractive => SceneRayInteractionType.Diffractive,
-        LayoutRayInteractionType.ThinLens => SceneRayInteractionType.ThinLens,
-        LayoutRayInteractionType.Phase => SceneRayInteractionType.Phase,
-        _ => SceneRayInteractionType.None
-    };
+        {
+            LayoutRayInteractionType.Refractive => SceneRayInteractionType.Refractive,
+            LayoutRayInteractionType.Reflective => SceneRayInteractionType.Reflective,
+            LayoutRayInteractionType.Diffractive => SceneRayInteractionType.Diffractive,
+            LayoutRayInteractionType.ThinLens => SceneRayInteractionType.ThinLens,
+            LayoutRayInteractionType.Phase => SceneRayInteractionType.Phase,
+            _ => SceneRayInteractionType.None
+        };
 }
