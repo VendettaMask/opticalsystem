@@ -1,78 +1,66 @@
-# Build And Release
+# 构建与发布
 
-## Documentation completion rule
+## 文档同步规则
 
-Every completed code change must update the relevant repository documentation in
-the same task. Documentation must distinguish implemented behavior from planned
-or compatibility-only behavior. If verification changes the current build date
-or passing-test count, update every document that states that baseline. Code,
-tests, documentation, and the reported verification result must agree.
+每项已完成代码修改必须在同一任务中更新相关文档。文档必须区分已实现、计划和仅兼容行为。测试数量或验证日期变化时，所有引用该基线的文档必须同步；代码、测试、文档和最终报告必须一致。
 
-## Local Build
-
-Restore the committed dependency graph, then build without changing it:
+## 本地构建
 
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --locked-mode
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 ```
 
-When intentionally changing a package reference, regenerate and review all
-`packages.lock.json` files before committing:
+有意修改依赖时再更新锁文件：
 
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --force-evaluate
 ```
 
-## Tests
+## 测试
 
 ```bash
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-VSTest opens a local socket. Some sandboxes need elevated permission for that test run.
+VSTest 会打开本地套接字；受限沙箱可能需要额外权限。普通修改优先运行相关定向子集，只有跨模块、高风险或发布验证才要求全量测试。
 
-## Performance benchmark
-
-The dependency-free benchmark covers 10,000 and 100,000 rays through a representative 20-surface system in final-only, selected-surface, full-history, PSF/MTF sampling, and Monte Carlo modes:
+## 性能基准
 
 ```bash
 dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
 ```
 
-Pass one or more ray counts to override the defaults. Output is CSV with elapsed time, throughput, total allocation, managed heap size, and process peak working set. Timing is diagnostic rather than a CI threshold; compare runs on the same machine and runtime.
+基准覆盖 10,000 和 100,000 条光线、20 个表面、不同历史保留模式、PSF/MTF 采样和 Monte Carlo。输出为 CSV；耗时用于同机同运行时比较，不是 CI 硬阈值。
 
-## Run Desktop App
+## 启动桌面应用
 
-One-click launchers from the repository root:
+- Windows：`Run-Optiland.cmd`
+- macOS：`Run-Optiland.command`
 
-- macOS: `Run-Optiland.command`
-- Windows: `Run-Optiland.cmd`
+脚本依次执行 `dotnet clean`、`dotnet build` 和 `dotnet run --no-build`。清理只涉及项目构建输出，不删除 `%APPDATA%/OptilandWorkbench` 或 macOS 对应用户目录中的工程、主题和会话数据。
 
-Both launchers set `AVALONIA_TELEMETRY_OPTOUT=1` and run the Avalonia app project.
-Repository attributes keep the Windows launcher in CRLF format and the macOS launcher in LF format.
-
-Terminal equivalent:
+终端等价命令：
 
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj
 ```
 
-## Publish Targets
+## 发布目标
 
-Publish every primary Windows/macOS runtime:
+一次发布主要平台：
 
 ```bash
 bash scripts/publish-cross-platform.sh
 ```
 
-Set `SELF_CONTAINED=true` for self-contained outputs:
+自包含发布：
 
 ```bash
 SELF_CONTAINED=true bash scripts/publish-cross-platform.sh
 ```
 
-Framework-dependent:
+手工命令示例：
 
 ```bash
 dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r osx-arm64 --self-contained false
@@ -81,65 +69,25 @@ dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
 dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r win-arm64 --self-contained false
 ```
 
-Self-contained:
-
-```bash
-dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r osx-arm64 --self-contained true
-dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r osx-x64 --self-contained true
-dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r win-x64 --self-contained true
-dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -r win-arm64 --self-contained true
-```
-
-Publish output is under:
+输出位于：
 
 ```text
 src/OptilandWorkbench.App/bin/Release/net10.0/<runtime>/publish
 ```
 
-For each macOS runtime, the script also creates a Finder-ready application bundle:
+macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档类型并转发 Finder 打开的工程路径。
 
-```text
-src/OptilandWorkbench.App/bin/Release/net10.0/<runtime>/Optical System Design.app
-```
+## 当前验证基线
 
-The bundle declares the native `.staropt` document type, uses `AppIcon.icns` for
-both the application and saved projects, and forwards Finder-opened project paths
-to the application.
+截至 2026-08-02：
 
-## Current Validation Baseline
+- 仓库包含 `627` 项回归测试；
+- 已建立的全量基线为 `621/621`；
+- 2 项新增 Avalonia 首帧/主题回归通过相关 16 项定向子集；
+- 4 项新增 Dock 空宿主、会话和锁定回归通过 `12/12` 窗口布局子集；
+- 平铺/层叠修复复用了现有测试，验证浮动页自动回收到主文档区并进入内部 MDI；合并命令验证回收后恢复标签模式；
+- 最近 App 项目构建结果为 0 警告、0 错误。
 
-The current local baseline is:
+完整发布前仍应重新运行锁定还原、解决方案构建和全量测试，不得把定向验证表述成新的全量基线。
 
-- `dotnet restore OptilandWorkbench.slnx --locked-mode`
-- `dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false`
-- `dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false`
-
-Expected result as of 2026-07-31:
-
-- solution build: 0 warnings, 0 errors
-- tests: 592 passed, 0 failed, 0 skipped
-
-The suite covers architecture entry points, geometry/material behavior, the embedded manufacturer glass catalog, radial field and pupil sampling, per-surface tracing, scalar/SIMD and serial/parallel parity, all three trace-retention modes, total-internal-reflection medium state, reflection absorption, thin-lens OPL, early termination and exceptional surfaces, 30 Python-referenced analysis views plus the broader 69-entry desktop catalog, diffraction/extended-source encircled energy, extended image analysis, generated analysis parameter settings, optimization, TDE-style tolerance generation/validation, two-sided sensitivity, deterministic parallel Monte Carlo, cancellation, native/Python JSON round-trip, rich component snapshots, commercial format round-trip, Zemax and bitmap file viewers, faceted STEP generation, visualization, manufacturing review, optical drawing/PDF rendering, file association, and plugin discovery, and palette-backed light/dark/异世界 plot and scene theme resources.
-
-Regenerate Python fixtures only when intentionally updating the pinned `optiland==0.5.8` contract or its embedded CC0 glass data:
-
-```bash
-MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
-  tools/python-reference/generate_analysis_reference.py \
-  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-analysis-reference.json
-
-MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
-  tools/python-reference/generate_zemax_reference.py \
-  local-data/lens-library/originals/user-zmx/project/tests/Fixtures/optiland-0.5.8-zemax-reference.zmx \
-  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-zemax-reference.json
-
-.venv/bin/python tools/python-reference/generate_glass_catalog.py \
-  .venv/lib/python3.14/site-packages/optiland/database \
-  src/OptilandWorkbench.Core/Materials/Data/glass-catalog.json
-
-MPLCONFIGDIR=/private/tmp/optiland-mpl .venv/bin/python \
-  tools/python-reference/generate_glass_reference.py \
-  tests/OptilandWorkbench.Tests/Fixtures/optiland-0.5.8-glass-reference.json
-```
-
-Review and run the full suite before committing regenerated fixture data.
+Python 基准夹具只在有意更新固定的 `optiland==0.5.8` 契约时重新生成；生成后必须审核差异并运行全量测试。

@@ -1,48 +1,37 @@
-# Optiland Parity Matrix
+# Optiland 兼容矩阵
 
-This matrix tracks the .NET implementation against the Optiland documentation.
+本表按公开 Optiland 文档跟踪 .NET 实现状态。“已实现”只表示列出的边界，不代表完整等价。
 
-| Optiland area | .NET module | Current status |
+| 领域 | .NET 模块 | 当前状态 |
 | --- | --- | --- |
-| Configurable backend | `Backend` | `INumericBackend`, managed CPU backend, backend registry |
-| Optic container | `Optic` | Aperture, fields, wavelengths, surfaces, backend, materials, ray tracers, analysis entry point |
-| Surface composition | `Domain`, `Geometries`, `Materials`, `Coatings`, `Interactions`, `Apertures`, `Scattering` | Composition model with source-validated phase and diffractive interactions in surface-local coordinates while retaining native snapshot compatibility |
-| Real/paraxial/polarized rays | `Rays` | Ray records and bundle model |
-| Ray generation | `Raytrace` | Source-validated angle, object-height, and paraxial-image-height fields; radial normalization; nearest-field vignetting; object-space telecentric launch; uniform, hexapolar, random, line, ring, and Sobol-like pupil sampling; seven apodization profiles |
-| Ray aiming | `Raytrace` | Paraxial, iterative, robust, cached strategy interfaces |
-| Sequential tracing | `Raytrace.SequentialRayTracer` | Surface-local intersection, aperture clipping, refraction/reflection, coating/scattering hooks |
-| Geometry | `Geometries` | Plane, standard conics with explicit sag-domain rejection, planar/standard grating, even/odd asphere, Zemax shared-root biconic, Python-separable biconic, toroidal, polynomial, Chebyshev, Zernike, Forbes Q, placeholders for remaining named freeforms |
-| Propagation | `Propagation` | Homogeneous and GRIN models |
-| Materials | `Materials` | Air, vacuum, constant, Cauchy, Sellmeier, Abbe, plus a 1,740-entry manufacturer-aware Optiland/refractiveindex.info glass catalog with formula/tabulated n/k evaluation |
-| Thin films | `Coatings` | Stack model and quarter-wave synthesis scaffold |
-| Sources | `Sources` | Point and single-mode fiber sources |
-| Analysis | `Analysis` | 69 catalog entries; 30 source-derived numerical/display contracts validated on Python 0.5.8 Cooke and Tessar fixtures |
-| Optimization | `Optimization` | Problem, operands, variables, scaling, optimizer catalog, local/global numerical optimizer implementations, Glass Expert scaffold |
-| Tolerancing | `Tolerancing` | Perturbations, samplers, compensators, sensitivity, seeded Monte Carlo |
-| Multi-configuration | `Multiconfig` | Config cloning, default base linking, property unlinking |
-| File format | `Serialization`, `FileIO` | Versioned `.staropt` project container with integrity checks, schema-4 semantic validation, transactional reconstruction, safe schema-1/2/3 migration, and multi-configuration persistence; legacy native JSON import, validated Python Optiland 0.5.8 JSON adapter subset, Optiland-compatible Zemax sequential import/export, plus SEQ/LEN common subset adapters; the 333-code target is tracked in `ZEMAX_OPERAND_SUPPORT.md` |
-| Plugins | `Plugins` | `IOptilandPlugin` assembly/directory discovery with geometry, material, analysis registration and warning isolation |
-| Visualization | `Visualization` | Theme primitives plus Optiland-style 2D/3D layout scenes: sag-sampled surfaces, max-extent lens body closure, 3D rims/meridians, sequential ray histories, vignetting truncation, per-view surface/field/wavelength/pupil controls, and palette-driven light/dark/异世界 rendering tokens |
-| GUI | `OptilandWorkbench.App` | Chinese Avalonia shell, connector, editor/system-viewer/analysis/optimization/tolerancing/multi-configuration/system panels, equal-scale 2D and solid/wireframe 3D viewer tabs, command palette, light, OpticStudio-inspired dark, and sword-and-magic “异世界” rendering themes with palette-backed text hierarchy, split-pane layout persistence; startup fix retained |
+| 数值后端 | `Backend` | 标量 `INumericBackend`、批量接口、CPU/SIMD 后端和注册表 |
+| 光学容器 | `Optic` | 孔径、视场、波长、表面、材料、追迹、分析、优化、公差和多配置入口 |
+| 表面组合 | `Domain` 等 | 几何、前后材料、镀膜、交互、物理孔径、散射和坐标系组合 |
+| 光线生成 | `Raytrace` | 角度/物高/近轴像高/实像高、渐晕、远心、常用光瞳采样和七种变迹 |
+| 顺序追迹 | `SequentialRayTracer` | 局部交点、孔径裁剪、折射/反射/衍射/全反射、镀膜/散射钩子 |
+| 几何 | `Geometries` | 平面、标准面、光栅、非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q；其余自由曲面有明确占位边界 |
+| 材料 | `Materials` | Air、Vacuum、常数、Cauchy、Sellmeier、Abbe、目录 n/k 及厂商消歧 |
+| 传播 | `Propagation` | 均匀介质和简化 GRIN |
+| 镀膜 | `Coatings` | 镀膜栈和四分之一波合成骨架；完整薄膜 TMM 未完成 |
+| 分析 | `Analysis` | 桌面分析目录与 30 个 Python 来源契约，另有 Zemax 捕获基准 |
+| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；Glass Expert 未实现 |
+| 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
+| 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |
+| 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集 |
+| 插件 | `Plugins` | 程序集/目录发现，几何、材料、分析注册和失败隔离 |
+| 可视化 | `Visualization` | 二维/三维、显式光段方向和交互类型、主题资源 |
+| GUI | `OptilandWorkbench.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、三主题和按文件会话 |
 
-## Milestone Notes
+## 当前里程碑
 
-The current milestone has moved beyond module scaffolding into a usable workbench shell:
+- STAROPT 无损保存丰富表面组件和全部配置，并在替换活动状态前完成校验和临时构建；
+- ZMX 覆盖公开 Optiland 0.5.8 顺序边界和 Workbench 扩展子集；
+- 分析结果提供指标、图形、数据和文本导出；
+- 公差 GUI 提供 TDE 风格编辑和 CPU 计算；
+- 二维/三维查看器使用真实表面弧矢和顺序追迹历史；
+- Dock 窗口会过滤空宿主；独立浮动使用原生窗口，平铺/层叠自动回收页面并在主文档区使用内部 MDI；
+- 插件失败不会阻止其他插件。
 
-- STAROPT round-trip preserves rich surface components and all optical configurations; checksum-valid but semantically invalid snapshots are rejected before temporary construction and atomic state replacement, while legacy schemas remain readable through safe migration.
-- ZMX import covers the Python Optiland 0.5.8 aperture/field/wavelength and supported-surface boundary; SEQ/LEN remain common sequential subsets.
-- The GUI can edit surface components, system aperture, backend selection, fields, wavelengths, analysis selection, and optimizer selection.
-- The GUI presents Chinese labels/status text while keeping internal English keys for JSON, plugins, and algorithms.
-- Menu, toolbar, and command palette actions are registered through a shared action manager.
-- Analysis output includes metric, graphical, and exportable report views, Python-style multi-pane layouts, legends, fixed color scales, and viridis/inferno/jet heatmaps.
-- Python golden fixtures validate 30 analysis views point-for-point or pixel-for-pixel, including chief-ray and centroid/best-fit reference-sphere wavefronts, FFT/Huygens/geometric/sampled MTF, FFT/MMDFT/Huygens PSF, radiometry, Jones pupil, and image simulation.
-- Python golden fixtures validate all three 0.5.8 field definitions, finite/infinite conjugates, vignetting, telecentric launch, and paraxial image-height unit chief rays.
-- Tolerancing GUI provides a TDE-style operand editor and wizard for radius, thickness, conic, decenter, tilt, refractive-index, Abbe-number, and compensator rows; it runs two-sided sensitivity and seeded Monte Carlo analysis with optional refocus compensation, percentile/yield statistics, native tolerance-file save/load, and text-report export.
-- Multi-configuration GUI can add configurations, activate a configuration, and edit per-configuration surface thickness.
-- Chebyshev, Zernike, and Forbes Q freeform geometries now support sag, finite-difference normals, Newton intersection, GUI selection, and JSON round-trip.
-- The system viewer now follows the Optiland visualization model more closely: 2D surfaces are sampled from geometry sag in an equal-scale YZ projection, glass spans are grouped as lens bodies, smaller half-diameter faces are extended to the lens group's maximum extent before closure, rays use viewer-specific stop-aimed sequential traces, and the GUI includes a 3D projection tab with selectable translucent solids or rims, meridians, lens connectors, and 3D ray paths.
-- Both layout documents include a collapsed settings panel for start/end surfaces, field and wavelength selection, pupil sampling, ray count, color grouping, Y stretch, scale bar, line width, frame suppression, ray arrows, vignetted-ray removal, and marginal/chief-ray-only display. The synchronization icon rebuilds the scene immediately, while automatic apply uses the standard debounced refresh path.
-- Optimization and tolerancing have concrete CPU algorithms and deterministic tests.
-- Plugin discovery supports geometry, material, and analysis registration with warning isolation.
+## 主要缺口
 
-The matrix does not imply full Optiland equivalence. Remaining high-value gaps are Forbes/NURBS/grid-sag freeform JSON breadth, diffraction efficiency, full thin-film TMM, vectorial diffraction methods, non-sequential tracing, commercial-format breadth, GUI automation breadth, and optional GPU/autograd backends.
+Forbes/NURBS/grid-sag JSON 广度、衍射效率、完整薄膜 TMM、矢量衍射、非顺序追迹、更广商业格式、完整 GUI 自动化以及 GPU/自动微分后端仍未完成。

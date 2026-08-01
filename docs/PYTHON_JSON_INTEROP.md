@@ -1,71 +1,41 @@
-# Python Optiland JSON Interoperability
+# Python Optiland JSON 互操作
 
-## Formats
+## 格式识别
 
-STAROPT projects, legacy Workbench JSON, and Python Optiland JSON are different formats:
+应用可读取：
 
-- STAROPT is the preferred lossless project format and wraps versioned Workbench snapshots in a validated compressed container.
-- Legacy Workbench JSON uses `SchemaVersion` and rich component snapshots; it remains readable for migration.
-- Python Optiland 0.5.8 JSON is the recursive dictionary returned by `Optic.to_dict()` and uses `version`, `aperture`, `fields`, `wavelengths`, and `surface_group`.
+- Workbench 旧 JSON 快照；
+- Python Optiland 0.5.8 `Optic.to_dict()` 递归字典；
+- 原生 STAROPT。
 
-`OpticJsonStore` detects the schema from document content. Python's standard JSON encoder emits bare `Infinity` for infinite object and plane coordinates; the importer normalizes those tokens without changing string content.
+显式 Python 导出使用“文件 > 导出 Python Optiland JSON”或 `.optiland-python.json`。普通“保存”写入 `.staropt`。
 
-## GUI Workflow
+## GUI 工作流
 
-- Open an official Python dictionary JSON through **File > Open**.
-- Export the active supported system through **File > Export Python Optiland JSON**.
-- Use ordinary **Save** to create a `.staropt` project when Workbench-specific components or multiple configurations must round-trip losslessly.
+导入 Python JSON 后，系统在临时模型中验证并构建；不支持的组件会给出明确错误。导入成功后用户另存为 STAROPT，原交换文件不会被静默覆盖。
 
-The explicit Python export suffix is `.optiland-python.json`.
+## 已验证子集
 
-## Validated Subset
+- EPD、像方 F 数、物方 NA、浮动光阑；
+- 角度、物高和近轴像高视场；
+- 波长、权重和主波长；
+- 平面、标准面、光栅、可表示双锥面/环曲面/多项式/Chebyshev/Zernike/高阶非球面；
+- 目录、理想和 Abbe 材料；
+- 径向、矩形、椭圆、多边形、文件和布尔孔径；
+- 七种变迹；
+- 折射、反射、薄透镜、相位和衍射交互；
+- 简单镀膜字典的 Workbench 适配路径。
 
-| Area | Supported |
-| --- | --- |
-| System aperture | EPD, image F-number, object NA, float by stop size |
-| Fields | AngleField |
-| Wavelengths | Micrometer and nanometer values, weights, primary wavelength |
-| Geometry | Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, Python/Optiland separable BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and EvenAsphere/OddAsphere including the first r²/r departure term |
-| Materials | Homogeneous Python catalog material, IdealMaterial, AbbeMaterial |
-| Physical aperture | RadialAperture including annular `r_min`; OffsetRadialAperture; centered or asymmetric RectangularAperture; centered or offset EllipticalAperture; PolygonAperture and FileAperture; recursive UnionAperture, IntersectionAperture, and DifferenceAperture |
-| Apodization | Uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey profiles |
-| Interaction | RefractiveReflectiveModel including mirrors; transmissive or reflective ThinLensInteractionModel; transmissive or reflective plane-surface PhaseInteractionModel with constant, linear-grating, radial, or grid profiles; transmissive or reflective DiffractiveInteractionModel paired with grating geometry |
-| Coating | SimpleCoating dictionaries in Workbench import/export |
-| Sequential data | Thickness, stop, coordinate position and rotation |
+往返测试比较结构、材料身份、数值追迹和分析结果。无限物距标记保持显式：正无穷物面厚度是无限共轭，零厚度是有限共轭。
 
-Unsupported geometry, material, system aperture, physical aperture, coating, or interaction types fail with `NotSupportedException`. Workbench `BiconicGeometry` uses the Zemax shared-root equation and is not exported as Python Optiland `BiconicGeometry`; only `SeparableBiconicGeometry` maps to Python's additive biconic formula. Export never silently replaces an unsupported optical component.
+## 外部 Python 限制
 
-Python Optiland 0.5.8 can emit `SimpleCoating.to_dict()` with the same fields. Its `Optic.from_dict()` surface-linking path can relink arbitrary surface coatings to Fresnel coatings, so external Python retention of `SimpleCoating` is not part of the validated bidirectional contract yet.
+Python Optiland 0.5.8 自身可能在 `Optic.from_dict()` 中重连镀膜，光栅字典也可能无法按原类型重建。因此必须区分：
 
-Python Optiland 0.5.8 has a separate grating serialization defect: `PlaneGrating.to_dict()` omits order, period, and angle, while the `from_dict()` implementations for both grating geometries cannot reconstruct their own emitted dictionaries. The Workbench adapter writes and requires all three grating fields, so its dictionaries are lossless inside Workbench; external Python `Optic.from_dict()` reload of grating exports is not claimed until that upstream defect is fixed.
+1. Workbench 读取/写入字典；
+2. 外部 Python 再次加载；
+3. STAROPT 原生无损保存。
 
-## Numerical Validation
+## 尚未支持
 
-The official Optiland 0.5.8 Cooke Triplet and Tessar Lens dictionaries are imported directly and checked against committed per-surface golden data.
-
-The reverse direction is checked outside the .NET process:
-
-```python
-import json
-from optiland.optic import Optic
-
-with open("optic.optiland-python.json") as stream:
-    optic = Optic.from_dict(json.load(stream))
-```
-
-For both validated samples, Python-loaded C# exports reproduce EFL, F-number, entrance pupil diameter, entrance pupil location, and representative real-ray results exactly.
-
-## Not Yet Supported
-
-- Forbes, NURBS, and grid-sag geometries.
-- Python EvenAsphere/OddAsphere files with a nonzero first departure coefficient that cannot be represented by the current Workbench high-order asphere model.
-- Python ToroidalGeometry files with nonzero `conic_yz` or `coeffs_poly_y` terms that cannot be represented by the current Workbench toroidal model.
-- Python PolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure polynomial model.
-- Python ChebyshevPolynomialGeometry files with a finite base radius/conic term that cannot be represented by the current Workbench pure Chebyshev model.
-- Python ZernikePolynomialGeometry files with a non-fringe `zernike_type` or finite base radius/conic term that cannot be represented by the current Workbench pure Fringe Zernike model.
-- Python materials with non-`HomogeneousPropagation` propagation models, including `GRINPropagation`.
-- Python-preserved coating round-trips beyond the raw SimpleCoating dictionary, Fresnel/polarized coatings, thin-film/TMM coating stacks, and BSDFs.
-- Pickups, solves, and polarization.
-- Lossless conversion of Workbench plugins or custom propagation models.
-
-`FileAperture` preserves `filepath`, `delimiter`, and `skip_header` in both schemas. Loading that dictionary through Python requires the referenced vertex file to remain available at its recorded path.
+更广自由曲面、完整镀膜/BSDF、全部拾取和求解、偏振状态、非顺序对象以及不能由当前模型表示的第三方扩展。遇到这些组件时必须失败，不能用平面、常数材料或空交互静默替换。

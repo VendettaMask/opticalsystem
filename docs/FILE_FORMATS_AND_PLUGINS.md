@@ -1,198 +1,100 @@
-# File Formats And Plugins
+# 文件格式与插件
 
-## Native STAROPT Projects
+## 原生 STAROPT 工程
 
-The only native desktop project extension is:
+桌面端唯一原生工程扩展名是 `.staropt`。它是版本化二进制容器，不是改后缀的 JSON。固定文件头包含 `STAROPT` 魔数、容器版本、Brotli 标志、压缩/解压长度和负载 SHA-256；保存使用临时文件与原子替换。
 
-- `.staropt`
+当前负载使用 schema 4 `OpticSnapshot`，保存：
 
-STAROPT is a versioned binary container, not JSON with a renamed suffix. Its fixed
-header contains the `STAROPT` magic bytes, an independent container version,
-Brotli-compression flags, compressed and uncompressed lengths, and a SHA-256 digest
-of the payload. The versioned payload stores all optical configurations and the
-active-configuration index. Saves use a temporary file and atomic replacement.
+- 系统名称、孔径、数值后端；
+- 视场、波长和全部表面；
+- 丰富的表面组件快照；
+- 半径拾取、求解、评价操作数；
+- 环境设置和有序当前玻璃目录；
+- 全部光学配置与活动配置索引。
 
-Each configuration uses schema-4 `OpticSnapshot`. The current snapshot schema stores:
+加载器除校验容器完整性外，还验证主波长、有限数值、表面编号、集合上限、组件布局和类型化引用。构建在临时 `Optic` 中完成，全部成功后才替换活动状态。schema 1–3 会先迁移到安全的 schema 4 状态。
 
-- optic name
-- aperture
-- backend name
-- fields
-- wavelengths
-- surfaces
-- rich surface component snapshots
-- radius pickups, solves, merit operands, environment settings, and ordered current glass catalogs
+旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可继续读取用于迁移，但桌面“保存”不再生成这些格式。二进制结构见 [STAROPT 工程格式](STAROPT_FILE_FORMAT.md)。
 
-Container integrity is only the first validation layer. Before construction, the
-loader also requires non-empty field/wavelength/surface tables, exactly one finite
-positive primary wavelength, finite physical and environmental state, contiguous
-surface numbering, known component layouts, bounded encoded collections, and
-valid pickup/solve references and type-appropriate merit-operand parameters. Zemax
-compatibility rows whose generic integer slots do not represent Workbench optical
-references are validated as opaque source parameters rather than mislabeled
-surface/field/wavelength references. Construction happens in a temporary `Optic`;
-the active state is replaced only after every component succeeds. Schemas 1 through
-3 are migrated into safe schema-4 state before validation.
+## Python Optiland JSON
 
-The loader recognizes STAROPT by both extension and content. See
-[STAROPT Project Format](STAROPT_FILE_FORMAT.md) for the binary layout and
-validation rules.
+`OpticJsonStore` 可识别 Python Optiland 0.5.8 `Optic.to_dict()` 的递归字典。已验证的双向子集包括：
 
-Legacy `.optiland.json`, `.optic.json`, `.json`, and `.optiland` snapshots remain
-readable for migration and regression fixtures, but the desktop Save command no
-longer creates them.
+- EPD、像方 F 数、物方 NA 和按光阑浮动的系统孔径；
+- 角度、物高、近轴像高视场以及波长权重；
+- 平面、标准面、光栅、可表示的双锥面/环曲面/多项式/Chebyshev/Zernike/高阶非球面及坐标变换；
+- 目录、理想和 Abbe 材料；
+- 径向、矩形、椭圆、多边形、文件及递归布尔物理孔径；
+- uniform、Gaussian、cosine-squared、Hann、polynomial、super-Gaussian 和 Tukey 变迹；
+- 折射、反射、薄透镜、相位和衍射交互；
+- Workbench 适配路径上的简单 Python 镀膜字典。
 
-## Python Optiland JSON Subset
+显式导出使用“文件 > 导出 Python Optiland JSON”或 `.optiland-python.json`。不支持的组件必须报错，不能静默替换。Python 0.5.8 自身可能在 `from_dict()` 中把任意表面镀膜重连为 Fresnel 镀膜，其光栅字典也存在外部重建限制；这些不属于 Workbench 原生保存承诺。
 
-`OpticJsonStore` also detects the recursive dictionary schema emitted by Python Optiland 0.5.8 `Optic.to_dict()`. The validated bidirectional subset covers:
+## 公差文件
 
-- EPD, image-F-number, object-NA, and float-by-stop-size system apertures
-- angle fields and weighted primary/non-primary wavelengths
-- plane, standard, planar/standard grating, Python/Optiland separable biconic, representable toroidal, pure polynomial/Chebyshev/fringe Zernike, and representable high-order even/odd asphere surfaces with coordinate transforms
-- homogeneous catalog, ideal, and Abbe materials
-- centered/annular/offset radial, centered/asymmetric rectangular, offset elliptical, polygon/file-backed, and recursive union/intersection/difference physical apertures
-- uniform, Gaussian, cosine-squared, Hann, polynomial, super-Gaussian, and Tukey apodization
-- refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with constant, linear-grating, radial, or grid profiles, and transmissive/reflective diffractive interactions on grating geometry
-- simple Python coating dictionaries on the Workbench adapter path
+公差定义使用 `*.startol.json`，保存版本、操作数顺序和启用状态、类型、表面、上下偏差、分布、注释、评价准则、Monte Carlo 数量/种子、补偿迭代和良率阈值。
 
-Use **File > Export Python Optiland JSON** or the `.optiland-python.json` suffix for an explicit Python export. Unsupported Python components fail explicitly; they are not silently replaced. STAROPT is the lossless project format for the optical model, rich surface components, radius pickups, solve settings, merit operands, environment, and multi-configuration systems. GUI preferences are stored separately in `AppSettings`; optimization runs, tolerance definitions/results, plugins, and cached analysis results are not embedded in the project.
+加载时验证表面范围、有限且有序的偏差、重复操作数以及至少一个有效非补偿操作数。该格式是 Workbench 自有的可读交换格式，不宣称兼容 Zemax 专有 `.TOL`。
 
-## Native Tolerance Files
+## CAD 交换
 
-The tolerancing panel saves editable tolerance definitions as:
+“文件 > 导出 CAD”当前输出：
 
-- `*.startol.json`
+- `.step` / `.stp`；
+- AP203 `CONFIG_CONTROL_DESIGN`；
+- 毫米单位；
+- 每个组合镜片元素一个闭合分面 B-rep。
 
-The schema contains a version, ordered enabled/disabled tolerance operands, operand type, target surface, minimum and maximum deviations, normal/uniform distribution, comments, evaluation criterion, Monte Carlo count/seed, compensation iterations, and yield limit. The loader validates surface ranges, finite ordered limits, duplicate operands, and the presence of at least one active non-compensator before accepting a file.
+导出服务针对活动系统快照构建与三维查看器一致的采样网格，并验证闭合性和方向。该路径是实验性的网格交换，不保留解析球面/非球面、NURBS、光学材料、镀膜、公差或装配约束。进入机械设计或制造前必须在目标 CAD 中打开复核；`.staropt` 仍是无损光学工程格式。
 
-This is a Workbench-owned, human-readable interchange format. It is not presented as binary- or text-compatible with Zemax proprietary `.TOL` files. STAROPT project saves and Python/commercial exchange files do not silently embed these tolerance definitions. See [Tolerancing](TOLERANCING.md).
+## 商业顺序格式
 
-Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, so external Python retention of `SimpleCoating` is tracked separately from the Workbench adapter's dictionary support.
+支持的扩展名：
 
-## CAD Exchange
+- Zemax `.zmx`；
+- Zemax 玻璃目录 `.agf`，在构建或离线工具中转换为 Workbench 存储；
+- CODE V `.seq`；
+- OSLO `.len`；
+- 通用顺序 `.lens`、`.dat`、`.txt`。
 
-The desktop **File > Export CAD** command currently writes:
+ZMX 导入边界包括编码检测、顺序模式验证、系统孔径、角度/物高/近轴像高/实像高视场、渐晕、波长、`GCAT`/`GLAS`、标准面、偶次/奇次非球面、基础环曲面、坐标断点、反射镜材料连续性、光阑、半口径和 `APMN`/`APMX`。
 
-- STEP (`.step` / `.stp`)
-- AP203 `CONFIG_CONTROL_DESIGN`
-- millimetre geometry
-- one closed faceted B-rep per grouped lens element
+当前明确拒绝非顺序模式、未知表面类型、负厚度、未支持的坐标断点顺序、经纬仪视场以及不可表示的环曲面项。ZMX 不可靠保存 UI 活动配置，因此导入固定激活配置 1，同时保留全部配置。
 
-`CadExportService` takes an immutable snapshot of the active optic, builds the
-same sampled 3D lens scene used by the viewer, validates that each triangle mesh
-is closed and consistently oriented, and then writes the STEP exchange file
-without requiring an external CAD application.
+`GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 Optiland 兼容数据。无厂商同名玻璃按有序 `GCAT` 消歧；只有 `GLAS` 给出有效 nd/Vd 时，未知玻璃才可回退为 `AbbeMaterial`，否则导入失败。
 
-This is an experimental mesh exchange path. It does not preserve analytic
-spheres/aspheres, NURBS definitions, optical materials, coatings, tolerances, or
-assembly constraints as native CAD features. STEP syntax and mesh closure are
-covered by automated tests, but production interoperability with every receiving
-CAD kernel is not claimed. Open and inspect the result in the target CAD system
-before using it for mechanical design or manufacturing. STAROPT remains the
-lossless optical project format.
+63 个 AGF 目录转换为一个版本化压缩 `zemax-glass-catalogs.ogdb`，包含 5,502 条记录。解析器支持公式 1–13 以及真实 Glasscat 文件中的 UTF-16、缺失值、旧式短记录和重复名称。用户补充目录转换为用户目录中的 `.ogcat`，成为可复用材料目录。
 
-Python Optiland 0.5.8 also emits incomplete planar-grating dictionaries and has broken grating `from_dict()` constructors. Workbench preserves order, period, and groove angle in its adapter and native snapshots, but external Python reload of grating exports is not part of the validated contract.
+ZMX 导出写入系统孔径、视场、波长、主波长和有序 `GCAT`。CODE V、OSLO 和通用顺序文本只覆盖公共表面字段。完整状态应使用 STAROPT。
 
-See [Python Optiland JSON interoperability](PYTHON_JSON_INTEROP.md) for schema and external Python round-trip validation.
+Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。兼容表中出现的操作数不等于已经完成导入、编辑、求值和往返。
 
-## Commercial Sequential Formats
+## 文档服务
 
-Supported extensions:
-
-- Zemax `.zmx`
-- Zemax material catalog `.agf` (build-time conversion into Workbench `.ogdb` storage)
-- CODE V `.seq`
-- OSLO `.len`
-- plain sequential `.lens`, `.dat`, `.txt`
-
-Zemax `.zmx` import follows the Python Optiland 0.5.8 `zemax_handler.py` and `ZemaxToOpticConverter` boundary. It includes:
-
-- UTF-16 LE/BE, UTF-8, and Latin-1 text decoding
-- sequential-mode validation
-- entrance-pupil diameter, image F-number, object numerical aperture, and floating-stop aperture definitions
-- angle, object-height, paraxial-image-height, and Zemax real-image-height fields
-- field weights and X/Y vignette compression
-- wavelengths, weights, and primary-wavelength selection
-- glass catalog declarations and `GLAS` index/Abbe fallback data
-- standard, even-asphere, odd-asphere, and basic toroidal surfaces
-- coordinate-break decenter, tilt, and thickness transforms
-- mirror material continuity, comments, stop flags, semi-diameters, and `APMN`/`APMX` circular annular surface-aperture bounds
-
-The ZMX importer rejects non-sequential mode, unsupported Zemax surface types, negative thickness, coordinate-break order flags, theodolite field definitions, and toroidal conic/polynomial terms. Real-image-height chief rays are solved at the primary wavelength in local image-surface coordinates. Field rows are preserved in declared one-based order and are never merged by numeric X/Y coordinates, because merit operands and multi-configuration data may reference duplicate-coordinate fields by index. Plain ZMX exports do not carry a reliable persisted UI-active multi-configuration selection, so imports deterministically activate configuration 1 while preserving all configurations. `APMN` and `APMX` configuration operands are applied to the addressed surface; a positive `APMN` installs an `AnnularAperture` so central obscurations affect tracing instead of remaining display-only metadata. Vignette decenter and tangent-angle operands are read but not represented by the current field model. Coatings, solves, pickups, polarization, most multi-configuration operands, and unsupported freeform data are not imported.
-
-The required operand boundary is defined by
-[Zemax sequential operand support specification](ZEMAX_OPERAND_SUPPORT.md): 333
-unique sequential codes must ultimately be imported, edited, evaluated, validated,
-and round-tripped; only explicitly obsolete and non-sequential-only operands are
-excluded. The current importer implements only a subset, and compatibility-only
-
-`GCAT` and `GLAS` resolve against the bundled Zemax database first during ZMX import and then against the embedded 1,740-entry Optiland 0.5.8/refractiveindex.info compatibility database. SCHOTT, OHARA, HOYA, HIKARI, CDGM, SUMITA, LZOS, and the other bundled glass categories use their actual dispersion formulas and catalog metadata during tracing and analysis. Same-named glasses are selected by the ordered `GCAT` list, which also becomes the imported optic's current material-library selection; an unknown glass falls back to `AbbeMaterial` only when its `GLAS` record supplies valid nd/Vd values. Otherwise import fails explicitly.
-
-### Zemax AGF material catalogs
-
-The build converter reads the official human-readable AGF master format. The parser supports `CC`, `NM`, `GC`, `ED`, `CD`, `TD`, `MD`, `OD`, `LD`, repeated `IT`, and repeated `BD` records, including dispersion formula numbers 1 through 13. It also accepts actual Glasscat compatibility variants such as UTF-16 files, `_` missing values, old two-field `BD` rows, incomplete `IT` rows, and duplicate names. Catalog names remain available to ZMX `GCAT` resolution, so glasses such as `H-ZLAF96` are resolved from `CDGM-ZEMAX202309` without a constant-index fallback.
-
-The 63 source catalogs are stored as one schema-versioned, compressed `zemax-glass-catalogs.ogdb` resource containing 5,502 glass records. The desktop application loads the catalog files automatically; users select which loaded catalogs are current, and in what priority order, under **System Options > Material Library** rather than repeatedly importing Glasscat files. `tools/OptilandWorkbench.GlassCatalogConverter` regenerates the resource when the source catalog set changes.
-
-Lens-library conversion uses the same material path. Bundled Workbench glass data is
-always resolved first. When a downloaded lens package includes AGF data, only catalogs
-containing still-missing glass names are registered. Those supplemental catalogs are
-immediately converted to Workbench `.ogcat` files under the user's
-`OptilandWorkbench/glass-catalogs` directory, so they become normal reusable material
-catalogs rather than per-lens temporary data.
-
-ZMX export writes a complete sequential header with aperture, field, wavelength, primary-wave, and the ordered current `GCAT` data. Any manufacturer used by an existing surface is appended if it is not already current. Catalog glasses retain their manufacturer identity, while custom Abbe-compatible materials include nd/Vd fallback operands. CODE V, OSLO, and plain sequential text continue to use the common subset:
-
-- surface number
-- label/comment
-- radius or curvature
-- thickness
-- material
-- semi-diameter
-- conic
-- stop flag
-- reflective flag
-
-Use STAROPT when full state preservation matters. Python-derived Zemax fixtures are generated by `tools/python-reference/generate_zemax_reference.py` and validated by `ZemaxImportTests`. The embedded glass resource and n/k golden values are generated by `generate_glass_catalog.py` and `generate_glass_reference.py`, then validated by `GlassCatalogTests`.
-
-Five manually openable ZMX systems under `local-data/lens-library/originals/user-zmx/project/samples/lenses` cover a cemented achromat, double Gauss, telephoto, finite-conjugate macro, and real-image-height workflow. Automated tests import each file, verify bundled catalog-glass resolution, trace every defined chief ray to the image, and build its viewer scene.
-
-Downloaded lens-library sources are intentionally separate from repository samples. See
-[Packaged lens library](LENS_LIBRARY.md) for the offline build, source, license,
-glass-resolution, packaging, and storage rules.
-
-The desktop application routes by extension through `IOpticalDocumentService`:
+桌面统一通过：
 
 ```csharp
 await application.Documents.OpenAsync(path);
 await application.Documents.SaveAsync(path);
 ```
 
-`OpticalDocumentService` delegates format detection to the split
-`OpticalWorkspaceModel`, which recognizes STAROPT content, legacy Workbench JSON,
-Python Optiland JSON, or an `OpticalFormatCatalog` adapter automatically.
-`OptilandConnector` remains only as a thin source-compatibility facade.
+`OpticalDocumentService` 委托 `OpticalWorkspaceModel` 按内容和扩展名识别 STAROPT、旧 Workbench JSON、Python Optiland JSON 或商业格式适配器。`OptilandConnector` 仅保留为源代码兼容外观。
 
-## Plugin Model
+## 插件模型
 
-Plugins implement:
+插件实现：
 
 ```csharp
 public interface IOptilandPlugin
 {
     string Name { get; }
-
     void Register(PluginRegistry registry);
 }
 ```
 
-Plugins can register:
-
-- geometry factories
-- material instances
-- analysis factories
-
-Example:
+可注册几何工厂、材料实例和分析工厂。示例：
 
 ```csharp
 public sealed class ExamplePlugin : IOptilandPlugin
@@ -203,21 +105,10 @@ public sealed class ExamplePlugin : IOptilandPlugin
     {
         registry.RegisterGeometry("example-plane", () => new PlaneGeometry());
         registry.RegisterMaterial(new ConstantIndexMaterial("EXAMPLE-N", 1.52));
-        registry.RegisterAnalysis("example-report", optic => new PlaceholderAnalysis(optic, "Example Report"));
+        registry.RegisterAnalysis("example-report", optic =>
+            new PlaceholderAnalysis(optic, "Example Report"));
     }
 }
 ```
 
-Discovery:
-
-```csharp
-var registry = new PluginLoader().LoadFromDirectory("plugins");
-```
-
-or for tests/in-process registration:
-
-```csharp
-var registry = new PluginLoader().LoadFromAssembly(typeof(SomePlugin).Assembly);
-```
-
-Failed plugin assemblies or plugin registration exceptions are collected in `PluginRegistry.Warnings`; they do not block other plugins from loading.
+目录发现使用 `new PluginLoader().LoadFromDirectory("plugins")`，进程内测试可使用 `LoadFromAssembly`。单个插件加载或注册失败只记录到 `PluginRegistry.Warnings`，不得阻止其他插件。

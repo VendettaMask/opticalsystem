@@ -1,15 +1,15 @@
-# Local Icon Library
+# 本地矢量图标库
 
-The Avalonia application embeds `lucide-static` version 1.25.0 as its local vector icon catalog. No icon font, JavaScript runtime, NuGet wrapper, or network connection is needed when the application runs.
+Avalonia 应用内嵌固定版本 `lucide-static 1.25.0`，运行时不需要图标字体、JavaScript、NuGet 包装器或网络。
 
-Repository files:
+仓库文件：
 
-- `src/OptilandWorkbench.App/Assets/Icons/lucide-icon-nodes.json` contains the complete icon-node catalog.
-- `src/OptilandWorkbench.App/Assets/Icons/lucide-package.json` records the pinned upstream package metadata.
-- `src/OptilandWorkbench.App/Assets/Icons/LUCIDE-LICENSE.txt` preserves the upstream ISC license and Feather attribution.
-- `src/OptilandWorkbench.App/Controls/LocalIcon.cs` loads the catalog from the application assembly, then parses, caches, and renders it with native Avalonia geometry.
+- `Assets/Icons/lucide-icon-nodes.json`：完整节点目录；
+- `Assets/Icons/lucide-package.json`：固定上游元数据；
+- `Assets/Icons/LUCIDE-LICENSE.txt`：ISC 许可和 Feather 署名；
+- `Controls/LocalIcon.cs`：加载、解析、缓存和 Avalonia 几何渲染。
 
-Use an icon-only control for familiar toolbar commands and provide a tooltip:
+熟悉的工具栏命令可使用纯图标，但必须提供 Tooltip：
 
 ```csharp
 var resetButton = new Button
@@ -19,7 +19,7 @@ var resetButton = new Button
 ToolTip.SetTip(resetButton, "重置视图");
 ```
 
-Use `LocalIconLabel` for commands that need visible text:
+需要可见文字时使用：
 
 ```csharp
 var saveButton = new Button
@@ -28,6 +28,6 @@ var saveButton = new Button
 };
 ```
 
-Before adding a name, verify it with `LocalIconLibrary.Contains`. Unknown names render the local `circle-question-mark` fallback instead of leaving a blank control.
+新增图标名前先调用 `LocalIconLibrary.Contains`。未知名称显示本地 `circle-question-mark`，不会产生空白控件。
 
-To update the catalog, download a specifically pinned `lucide-static` npm tarball, replace only the three files under `Assets/Icons`, and run the full build and test suite. Do not use a floating package version or fetch icons at runtime.
+更新目录时必须下载明确固定版本，只替换 `Assets/Icons` 下的三个上游文件，保留许可并运行完整构建与测试。禁止使用浮动版本或运行时联网获取图标。

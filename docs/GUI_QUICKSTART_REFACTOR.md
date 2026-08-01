@@ -1,41 +1,10 @@
-# Optiland GUI Quickstart Comparison And Refactor
+# GUI 工作流与重构对照
 
-## Scope
+## 范围
 
-This audit uses the Optiland 0.5.8 documentation as the behavioral reference:
+本文记录桌面 GUI 相对公开 Optiland Quickstart 工作流的当前映射，以及已经落地的应用边界。它不是第三方界面的逐像素复刻说明。
 
-- [GUI Quickstart](https://optiland.readthedocs.io/en/latest/gui_quickstart.html)
-- [Developer Guide: Optiland GUI](https://optiland.readthedocs.io/en/latest/developers_guide/gui.html)
-- [Developer Guide: Architecture](https://optiland.readthedocs.io/en/latest/developers_guide/architecture.html)
-- [Developer Guide: File Format](https://optiland.readthedocs.io/en/latest/developers_guide/optiland_file_format.html)
-
-The goal is behavioral and architectural alignment. This project remains a clean-room .NET/Avalonia implementation; it does not embed or wrap the Python Optiland backend.
-
-## Executive Comparison
-
-| Area | Optiland 0.5.8 reference | Workbench before refactor | Workbench after refactor |
-| --- | --- | --- | --- |
-| Runtime | Python, PySide6, Optiland backend | .NET 10, Avalonia, managed C# core | Intentionally unchanged |
-| Main shell | Main window, action manager, panel manager | Main window and action manager; panel creation hard-coded in `MainWindow` | `MainWindow`, `ActionManager`, Application services, and the Dock workspace have separate ownership; the top category selection drives one linked large-command Ribbon |
-| New system | Create from scratch | Always opened the Cooke-style demo | Starts blank; blank and Cooke demo are separate commands |
-| Lens editor | Editable sequential surface table | Present, including component editors | Retained |
-| System properties | Aperture, fields, wavelengths | Present, plus backend selection | Retained |
-| 2D viewer | Lens and rays with pan/zoom | Static rendering | Equal-scale YZ view, outlined elements, split aperture-stop blades, pointer-centered wheel zoom, shared optical-axis pan, ray visibility, reset |
-| 3D viewer | Interactive VTK rotation/pan/zoom | Static orthographic wireframe | Light engineering layout plus a grid-free studio solid-model view with catalog-IOR Fresnel glass, thickness attenuation, continuous surface reflections, highlighted optical surfaces, visible internal ray bundles, shared lens/ray/arrow cutaway clipping, drag rotation, Shift-drag pan, pointer-centered wheel zoom, solid/wireframe rendering, reset; still not VTK |
-| Analysis | Configurable analyses with graphical plots | One analysis page with metric table and text report | Analysis commands are grouped once in the top Analysis Ribbon, use consistent Chinese display names, and open closable pages with bottom Plot/Data/Text tabs, collapsed graph settings, persisted parameters, and interactive plots |
-| Analysis refresh | Connector signals update consumers | Connector events already used | Revision events mark heavy results stale; only the synchronization icon reruns them, with cancellation and generation checks |
-| Command palette | `Ctrl+K`, searchable commands | `Cmd+P` only | `Ctrl+K` and `Cmd+K`; actions include panels and layouts |
-| Layout | Dockable panels and saved layout slots | Fixed split tabs; one persisted layout | Dock.Avalonia tabs support drag splitting, merging, floating, redocking, tiling/cascading, global defaults, slots, and per-file sessions |
-| Theme | Light, dark, and custom | Present | Light theme, an OpticStudio-inspired dark theme, and an independently defined sword-and-magic “异世界” theme. Theme files centralize rendering and primary/secondary/muted/disabled/accent/status text tokens; layout, UI copy, Ribbon order, and analysis data semantics are unchanged. |
-| Help | Help menu and About dialog | Missing | Added |
-| Native project | Python Optiland nested JSON | `.staropt` versioned/checksummed compressed project container | STAROPT is the save format; legacy/Python JSON remain import adapters |
-| Python terminal | Embedded IPython with connector access | Missing by design | Still missing; see Remaining Gaps |
-
-## Architecture Mapping
-
-### Application Layer
-
-The reference GUI uses a main window for application commands, a panel manager for dock widgets, and a backend connector. The refactor keeps those responsibilities but makes the GUI/backend boundary explicit:
+## 当前结构
 
 ```text
 MainWindow
@@ -44,175 +13,78 @@ MainWindow
     WorkspaceDockFactory
       ToolDock
       DocumentDock
-        LensEditorPanel
-        ViewerPanel
-        AnalysisPanel
-        OptimizationPanel
-        TolerancingPanel
-        MultiConfigurationPanel
   IWorkbenchApplication
-    document / prescription / analysis / visualization services
-    Core Optic context
+    文档、处方、分析、可视化、优化、公差和多配置服务
 ```
 
-Panels receive UI-free service interfaces and immutable DTOs, plus `AppSettings` only when they own presentation defaults. Specialized analysis controls are selected exclusively through the typed `AnalysisViewDto.PresentationKind`; the localized analysis name and plot title remain presentation text, so renaming or translating them cannot redirect the result to another control. The App project has no Core reference, and Core/Application have no Avalonia or Dock reference. The application context owns mutation locking, undo/redo, Core snapshots, revision increments, and categorized workspace events.
+Core 与 Application 不依赖 Avalonia。App 只消费应用服务和不可变 DTO。分析专用控件由 `AnalysisPresentationKind` 选择；坐标范围、悬停、单位转换和 CSV 导出由 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 驱动。
 
-### Core Object Model
+## 打开光学系统
 
-Both systems center their public surface on an `Optic` object. The Workbench implementation owns aperture, fields, wavelengths, a surface group, material registry, ray tracers, analyses, optimization, tolerancing, solves, pickups, and backend selection.
+- “文件 > Cooke 示例”与“Tessar 示例”打开固定兼容样例；
+- “打开”支持 STAROPT、兼容 JSON、ZMX、SEQ 和 LEN 子集；
+- STAROPT 是 Workbench 特有状态的无损格式；其他格式是有明确边界的交换路径。
 
-Important differences remain:
+## 二维、三维与实体视图
 
-| Core area | Python Optiland | Workbench |
-| --- | --- | --- |
-| Numeric backend | NumPy and optional PyTorch/autograd/GPU | Managed CPU abstraction only |
-| Surface model | Geometry, interaction, material, coating, aperture, propagation | Equivalent composition shape plus GUI-compatible legacy columns |
-| Sequential trace | Production Optiland trace stack | Deterministic C# implementation with recorded per-surface histories |
-| GRIN propagation | Dedicated propagation framework | Material-owned propagation model; current integration is simplified |
-| Polarization | Rich polarization/Jones behavior | Source-validated Jones pupil analysis on the sequential sample path; broader polarization state/coating behavior remains limited |
-| Non-sequential tracing | Not the Quickstart focus; broader roadmap item | Not implemented |
+- 二维：拖动平移、滚轮以指针为中心缩放；
+- 三维：拖动旋转、Shift+拖动平移、滚轮缩放；
+- 两者都可切换光线并重置相机；
+- 光段携带显式传播方向和交互类型，不能从 Z 顺序推断反射或全反射；
+- 二维和三维是独立文档，可停靠、分栏或浮动。
 
-### Analysis Contract
+## 编辑与更新
 
-Before the refactor, `AnalysisData` exposed only a dictionary. The GUI converted every value to text, so plots could not be implemented without parsing display strings.
+镜头编辑器通过 `IPrescriptionService` 提交命令。应用层负责验证、撤销/重做、拾取和求解、修订号及事件发布。轻量查看器防抖更新；重型分析只标记为过期，等待用户点击同步。
 
-`AnalysisData` now separates report data from one or more graphical layouts:
+交互视图状态属于显示中的文档修订。结果过期或切换工程时，旧图、波前表面和嵌入场景会清空并重置视图状态；锁定页面也不能继续显示上一工程结果。
 
-```text
-Values -> metric table, text export, automation
-Series / SeriesList -> ordered typed curves, points, heatmaps, and rasters
-PlotPanes -> field/wavelength/focus/component/cross-section layouts
-PlotOptions -> limits, aspect, legends, grids, zero lines, and axis visibility
-```
+## 分析结果
 
-Native series are currently produced for:
+分析结果统一提供“绘图 / 数据 / 文本”页。绘图支持指针中心缩放、拖动平移、双击重置和最近采样悬停。可伸缩多子图可选“方形子图”，默认关闭；固定矩阵布局不受该选项影响。
 
-- Spot Diagram: image-plane scatter points. One to three fields use a compact
-  single row that expands to the available plot area; four to nine fields retain
-  the symmetric three-by-three field layout.
-- Ray Fan: ordered line samples.
-- Footprint Diagram: pupil-grid ray intersections on a selected surface, overlaid with its aperture boundary. Ray coloring defaults to field and the Chinese settings show `视场` / `波长`; legacy saved values `field` / `wavelength` remain accepted. The selectable legend follows the active color basis, and the result footer reports the selected surface, ray X/Y extrema, maximum footprint radius, wavelengths, and legend meaning.
-- Best Fit Ray Fan: paired fans referenced to a fitted wavefront sphere.
-- Encircled Energy: radius versus energy.
-- RMS vs Field: field angle versus RMS spot radius.
-- Through Focus Spot Diagram: field-by-focus spot panes plus focus shift versus RMS spot radius data.
-- Y-Ybar: surface number versus mean ray height.
-- Zernike: coefficient bars.
-- MTF: spatial frequency samples.
-- RMS wavefront versus field: one curve per wavelength.
-- Through-focus MTF: tangential/sagittal field pairs.
-- Incident angle versus image height: pupil and field scan modes with value-colored lines.
-- Relative illumination: normalized field curve from the transmitted exit-pupil area in image-space direction cosines, with effective F-number data.
-- Incoherent irradiance: field-by-wavelength inferno detector heatmaps.
-- Radiant intensity: field-by-wavelength jet angle maps paired with central cross-sections.
-- Geometric MTF: field-colored tangential/sagittal curves from geometric spot data.
-- Sampled MTF: field-colored tangential/sagittal curves from shifted-pupil wavefront overlap.
+分析目录保留 FFT、PSF、MTF、RMS、Huygens、Zernike、Jones、Y-Ybar 和 `vs.` 等既有专业术语。显示名称是文案，不能参与实现分派或缓存身份。
 
-Analyses without a dedicated series receive a numeric metric bar chart in the connector. This keeps old analyses visible while allowing rigorous series to replace the fallback incrementally.
+## 图像分析
 
-## Quickstart Workflow Mapping
+图像模拟支持内置目标或 BMP/PNG/JPG/JPEG 输入、几何/衍射/无卷积模式、过采样、保护带、翻转、旋转、RGB 或单波长、视场中心、参考光线、相对照度、探测器像素和输出尺寸。当前路径是标量实现；部分兼容设置保留但尚未选择独立计算分支时，界面必须明确说明。
 
-### Open A Cooke Triplet
+IMA/BIM 与普通位图查看器属于 App 文件工具，不是数值分析本体。
 
-Reference: open `Cooke_triplet.json` and update the editor and viewer.
+## 优化与公差
 
-Workbench: use **File > New Cooke Triplet Sample** or **File > New Tessar F/4.5 Sample** for prescriptions and ray models validated against Optiland 0.5.8, or **File > Open** for Workbench JSON, Optiland-compatible sequential ZMX files, and the supported SEQ/LEN subsets. All panels refresh through connector events.
+优化 Ribbon 提供快速聚焦、快速调整、滑块、评价函数编辑器/向导、局部优化、差分进化和盆地跳跃。“玻璃替换模板”当前只是打开玻璃目录和默认评价工作流，不是自动 Glass Expert。
 
-### Inspect 2D And 3D Rays
+公差工作流包括向导、可编辑操作数表、正态/均匀分布、RMS 点列或 RMS 波前准则、双侧灵敏度、可选像距补偿、确定性 Monte Carlo、P50/P90/P95 和良率统计。定义保存为 `*.startol.json`，结果可导出文本。
 
-Reference: use Matplotlib and VTK navigation controls.
+## Dock 窗口行为
 
-Workbench: the renderer remains Avalonia-native. The refactor adds the missing interaction contract while avoiding a VTK dependency:
+- 标签可拖动分栏、合并、浮动和重新停靠；
+- “保留分栏停靠”不会强制合并已有文档区；
+- “合并单窗格”自动回收所有原生浮动页，把全部页面集中到主文档区并恢复标签模式；
+- “全部独立浮动”为每个页面创建独立原生宿主；
+- “平铺全部”和“层叠全部”自动回收所有原生浮动页，在中央文档区切换为内部 MDI 窗口；
+- 平铺调用 MDI 平铺布局，层叠调用 MDI 层叠布局；二者都不会把页面移到软件外；
+- 不含文档或工具的空宿主会在批量操作、保存和旧会话恢复时剔除；
+- 锁定/解锁合并为“切换锁定”；
+- 系统初始布局与用户保存的默认布局使用不同命令名称。
 
-For **Image Simulation**, expand **设置** to use the Zemax-style three-section form: source bitmap, grid convolution, and detector/display. Browse to a BMP, PNG, JPG, or JPEG file, or leave the path empty to use the built-in target. `Field Height` maps the transformed, oversampled image plus its black guard band to the optical field. The entry defaults to `Geometric`; `Diffraction` and `None` select their own kernels, while an unreliable diffraction node is reported as an automatic geometric fallback. Source/output flip, 90° source rotation, RGB or single-wavelength selection, field-center selection, reference ray, relative illumination, detector pixel size and output dimensions all affect the generated raster. **显示为** selects the simulated image or source bitmap, and **输出文件** writes BMP, JPG, or PNG.
+## 主题与设置表面
 
-The guard-band value is currently a per-side pixel count. Guard pixels are black; they are never mirror-filled.
+明亮、暗夜和异世界主题共享资源契约。设置齿轮、卡片、边框和阴影由 `SettingsPanelChrome` 统一；明亮主题的设置卡片和按钮实际背景为 `#FFFFFF`。主题变化不改变参数、默认值或计算语义。
 
-`Use Polarization`, `Apply Fixed Apertures`, and `Compress Frame` are retained as Zemax-compatible settings. The current image-simulation path is scalar, uses the existing sequential fixed-aperture behavior, and emits an unframed raster, so those three compatibility settings do not yet select a separate calculation path.
+## 持久化与互操作
 
-- 2D: drag to pan the full physical scene, including the optical axis; wheel to zoom around the pointer.
-- 3D: choose solid or wireframe rendering, drag to rotate, Shift-drag to pan, and wheel to zoom around the pointer.
-- Both: toggle rays and reset the camera.
+工程文件与 Dock 会话分开保存。按文件会话记录打开文档、分析设置、活动页、锁定状态和窗口边界，不保存计算结果。文件切换先保存旧会话再恢复新会话；损坏或未知内容安全回退。
 
-The two viewer modes are opened from separate commands in the top **View** Ribbon. Each mode gets its own document tab and can be floated into an independently resizable native window, so the central viewer does not repeat a second 2D/3D selector.
+## 仍未完成
 
-### Change Surface Radius
+- 更广泛的自由曲面、镀膜、偏振和商业格式；
+- 非顺序追迹；
+- 完整矢量衍射和可选 GPU/自动微分后端；
+- 四向拖放、原生浮动窗口和文件对话框的端到端桌面自动化；
+- 解析/NURBS CAD 内核。
 
-Reference: edit Surface 1 radius and immediately update viewers.
+## 验证
 
-Workbench: `LensEditorPanel` submits a `SurfaceRowDto` command. Application captures undo state, updates Core, applies pickups and solves, increments the revision once, and emits one structured surface event. Lightweight viewers debounce that event; heavy analyses become stale without blocking the editor.
-
-### Select Current Glass Catalogs
-
-Open **System Options** and expand **Material Library**. **Current Glass Catalogs** contains the ordered search priority used when a surface specifies an ambiguous glass name without a manufacturer; **Available Glass Catalogs** lists the other loaded built-in, bundled Zemax, and user-imported catalogs. Select a row and use **Add to Current** or **Remove from Current** to transfer it, or use the priority up/down commands to reorder the current list. At least one catalog remains current. The selection participates in undo/redo, is stored in STAROPT, and round-trips through Zemax `GCAT`.
-
-### Run RMS Spot Size Vs Field
-
-Reference: select the analysis, press Run, and inspect a plot.
-
-Workbench: open the top **分析** category, then choose **RMS > RMS vs. 视场**. The Ribbon follows the Zemax image-quality hierarchy through **光线迹点**, **像差分析**, **波前**, **点扩散函数**, **MTF 曲线**, **RMS**, **圈入能量**, and **扩展图像分析**, with established optical abbreviations and method names retained in second-level menus. Choosing an item runs the analysis and opens its result as a first-class closable document beside lens data, 2D/3D views, optimization, tolerancing, and multi-configuration pages. Expand the page-level **设置** panel only when parameters need adjustment, then use the adjacent synchronization icon to rerun with the current values. Existing product terminology must not be translated or renamed without an explicit UI-copy requirement.
-
-Visible Ribbon labels retain the established mixed Chinese/English optical terminology, while command-palette entries use the canonical analysis names. Internal command IDs and Zemax-compatible analysis keys remain stable. Each command ID has one menu location: **光程差图** belongs to **波前**, while **全视场像差** belongs to **像差分析**.
-
-The Ribbon uses content-driven minimum sizing rather than fixed button and content dimensions. Long Chinese titles can widen or wrap up to a readable limit, group rows grow with their content, and the existing horizontal scroll viewer handles narrow windows without clipping commands.
-
-The **Encircled Energy** group includes geometric, diffraction, line/edge-spread,
-and extended-source workflows. The Workbench product preset for Geometric
-Encircled Energy selects a polychromatic centroid reference and enables
-**Multiply by Diffraction Limit**; this product choice is not a universal Zemax default.
-turning that setting off shows the normalized pure-geometric cumulative curve.
-**Extended Image Analysis** contains geometric,
-geometric-bitmap, light-source, partially coherent, and extended-diffraction
-calculations, plus standalone IMA/BIM and bitmap file viewers. IMA/BIM files can
-be displayed as false color, grayscale, RGB, or an individual channel.
-
-Every result page provides bottom-aligned **Plot**, **Data**, and **Text** tabs. Plots are rendered from numerical series rather than static images and support pointer-centered wheel zoom, drag pan, double-click reset, and nearest-sample hover readout. Axis quantities and units are typed independently from their localized labels; hover values use the typed unit, compatible length/angle series are normalized to the primary axis before plotting, and the export command can write CSV with explicit quantity/unit columns. Flexible multi-pane plots expose an optional **方形子图** checkbox: the unchecked default keeps the existing auto-fill rectangles, while enabling it centers each pane in a square bounded by the available cell size. Fixed presentation matrices keep their established layout. Every document has a compact tab with a small close button. Tabs can be dragged to split, merge, float, and redock; the **Window** Ribbon also supplies bulk docking, explicit floating, locking, closing, and default-layout actions. **Tile All** and **Cascade All** rearrange only existing floating windows and never create new host windows.
-
-Ordinary prescription edits only mark a heavy result stale. Synchronization captures the current Core revision, cancels an older run for the same page, and accepts the result only while instance ID, task generation, and source revision still match. Closing the page or switching files cancels its work.
-
-Interactive plot state belongs to the displayed document revision. When a workspace revision supersedes the plotted result, analysis plots, wavefront surfaces, and embedded optical scenes reset their pan/zoom/hover/camera state. A file switch also removes the previous result content immediately, including on a locked analysis page, so an analysis tab cannot continue showing the prior lens while the new document is active.
-
-### Run a tolerance study
-
-Open **Tolerance** and start with **Tolerance Wizard**. Select the surface range and manufacturing grade, then include the required radius, thickness, element decenter/tilt, refractive-index, and Abbe-number tolerances. The generated TRAD/TTHI/TEDX/TEDY/TETX/TETY/TIND/TABB/COMP rows remain editable in the tolerance data table.
-
-Validate the table, choose RMS spot radius or RMS wavefront, set the Monte Carlo trial count and seed, and optionally enable image-distance compensation. The result tabs show negative/positive-limit sensitivity, compensated and uncompensated trials, and nominal/mean/sigma/min/max/P50/P90/P95/yield statistics. Definitions use the native `*.startol.json` format; reports export as text. See [Tolerancing](TOLERANCING.md).
-
-## Persistence And Interoperability
-
-The versioned `.staropt` container is the lossless format for Workbench-specific components and multi-configuration projects; legacy Workbench JSON remains a compatibility import. Python Optiland 0.5.8 recursive JSON dictionaries are detected on open and can be exported explicitly through **File > Export Python Optiland JSON**. The validated interoperability subset covers angle/object-height/paraxial-image-height fields, field vignetting and telecentric flags, finite/infinite object conjugates, EPD/image F-number/object NA/float-by-stop-size system apertures, wavelengths, centered Plane, StandardGeometry, PlaneGrating, StandardGratingGeometry, Python/Optiland separable BiconicGeometry, representable ToroidalGeometry, pure PolynomialGeometry/ChebyshevPolynomialGeometry/fringe ZernikePolynomialGeometry, and representable high-order EvenAsphere/OddAsphere surfaces, homogeneous catalog/ideal/Abbe materials, radial/rectangular/elliptical/polygon/file-backed/recursive boolean physical apertures, all seven Optiland 0.5.8 apodization profiles, refractive/reflective, transmissive/reflective thin-lens, plane-surface phase interactions with all four phase profiles, transmissive/reflective diffractive interactions, and simple Python coating dictionaries on the Workbench adapter path. The conjugate marker is lossless: positive-infinite Object thickness maps to Zemax `DISZ INFINITY` and Python Optiland Object `z = -Infinity`; Object thickness `0` remains a finite zero-distance object. Python Optiland 0.5.8 itself may relink arbitrary surface coatings to Fresnel coatings during `Optic.from_dict()`, and its grating dictionaries cannot currently reconstruct themselves, so those external Python retention paths are not claimed yet.
-
-ZMX import follows the Python Optiland 0.5.8 supported sequential boundary; SEQ and LEN remain common sequential subsets. These formats can still lose unsupported freeform, coating, solve, polarization, or multi-configuration data, so the UI should not claim lossless commercial compatibility.
-
-## Remaining Gaps
-
-### Priority 0: Compatibility And Numerical Trust
-
-- Extend Python Optiland JSON interoperability beyond the current validated sequential subset to the remaining freeforms, Python-preserved coating models, BSDFs, pickups, solves, and polarization.
-- Continue with vectorial diffraction and broader analysis defaults; FFT/MMDFT/Huygens PSF, FFT/Huygens/geometric/sampled MTF, best-fit ray fan, chief-ray and centroid/best-fit wavefronts, sampled through-focus MTF, Zernike, distortion, field curvature, relative illumination, irradiance/radiant intensity, Jones pupil, and image simulation now have validated numerical implementations.
-- Integrate GRIN propagation with curved-ray intersection instead of applying a bend after straight-line distance calculation.
-
-### Priority 1: GUI Parity
-
-- Broaden automated UI acceptance for four-direction tab drops and native floating-window redocking. The Dock model and session round-trip are covered by unit tests; pointer-driven desktop automation remains future work.
-- Broaden UI automation around generated analysis parameter editors, settings persistence, file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
-- Decide whether advanced scripting should use embedded Python interoperability or a native C# scripting host. A terminal must not be labeled Python-compatible without an actual Optiland Python object.
-
-### Priority 2: Platform And Performance
-
-- Add optional GPU/autograd backends behind `INumericBackend`.
-- Add a higher-performance 3D renderer if large systems outgrow the Avalonia solid/wireframe view.
-- Add application-level UI automation tests for file dialogs, edits, layout slots, themes, and command-palette keyboard navigation.
-
-## Validation
-
-Analysis validation includes same-revision cross-analysis trace-cache reuse, equivalence of final-only and selected-final-surface requests, mutation/revision invalidation, and deterministic pupil-sampling reuse. Cache identity is numerical and never depends on localized analysis titles.
-
-The refactor is expected to satisfy:
-
-```bash
-dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
-dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
-```
-
-As of 2026-08-02, all `621/621` tests pass. Coverage includes layering constraints, application revisions and cancellation, stable typed analysis-presentation dispatch independent of localized titles, typed axis quantity/unit coverage for every plotted catalog analysis, unit-aware plot normalization and CSV export, Dock model/session round-trips including non-creating tile/cascade behavior, finite structured plots for every catalog entry, generated analysis parameter settings, the Core-versus-product-versus-captured-baseline preset boundary, optional square multi-pane layout, current/available glass-catalog selection and persistence, Python auxiliary golden comparisons, Zemax pupil-aberration, geometric/diffraction/extended-source encircled energy, Contrast Loss Map, Huygens PSF/MTF, Huygens-through-focus-MTF, Huygens-MTF-vs-field, RMS-wavefront-vs-field, Wavefront Map, Optical Path Difference, and lateral-color baselines, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing including retained TIR interaction kinds, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, directed 2D/3D scene ray segments with typed refractive/reflective/diffractive interactions, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, light/dark/异世界 theme resource coverage, editor transactions, STEP generation, image viewers, file association, and file formats.
+截至 2026-08-02，仓库包含 `627` 项回归测试。已建立全量基线为 `621/621`；Avalonia 首帧/主题与 Dock 窗口改动通过各自定向子集。窗口布局测试验证平铺/层叠回收浮动页并进入主文档区 MDI，合并回收浮动页并恢复标签模式。

@@ -1,126 +1,59 @@
-# Large-scale ray tracing performance
+# 大规模光线追迹性能
 
-## Scope
+## 范围
 
-The first performance phase keeps the public scalar backend, legacy tracing calls, plugin contracts, file formats, and .NET 10 target. It adds a managed CPU bulk path without introducing GPU, automatic-differentiation, or benchmark-framework dependencies.
+性能工作针对顺序实光线批量追迹、分析复用和 Monte Carlo。目标是控制分配、避免重复追迹并保持确定性，不以牺牲交互类型、光程或介质状态为代价。
 
-Correctness is a prerequisite for the fast path:
+## 历史保留 API
 
-- interaction results explicitly report transmission, ordinary reflection, or total internal reflection;
-- only transmission moves the ray into `MaterialAfter`;
-- ordinary reflection and total internal reflection retain `MaterialBefore`;
-- thin-lens output is normalized before the next surface;
-- path length, OPL, absorption, and subsequent refraction therefore use the correct direction magnitude and medium.
+`TraceRequest` 支持：
 
-## Retention API
+- `FinalOnly`：只保留最终状态；
+- `SelectedSurfaces`：只保留指定表面；
+- `FullHistory`：保留完整逐面历史。
 
-Use `TraceRequest` when the consumer does not require every surface:
+内存随“光线数 × 保留表面数”增长，而不是始终随全部表面增长。旧 `Trace` API 保持兼容，但新分析应显式声明保留需求。
 
-```csharp
-using var finalTrace = tracer.Trace(bundle, TraceRequest.FinalOnly());
-using var stopTrace = tracer.Trace(
-    bundle,
-    TraceRequest.Selected(new[] { stopSurfaceIndex }));
-using var history = tracer.Trace(bundle, TraceRequest.FullHistory());
-```
+## 跨分析缓存
 
-The modes are:
+缓存键包含光学修订号、数值后端、精确输入光线状态、最终保留表面集合和影响结果的选项。等价保留模式可共享；分析名称和本地化标题绝不能进入键。
 
-| Mode | Retained samples | Typical consumers |
-| --- | --- | --- |
-| `FinalOnly` | Final surface only | PSF, MTF, spot, irradiance, optimization operands |
-| `SelectedSurfaces` | Explicit surface indices | Footprints, pupil/wavefront planes, targeted diagnostics |
-| `FullHistory` | Every surface | Single-ray reports, layout rendering, Jones propagation |
+任何会影响追迹的分析快照变更必须先与共享缓存分离。缓存有容量边界，文件切换和修订变化会失效。
 
-`Trace()` and `TraceFinalSamples()` remain compatibility wrappers. Surface recording is opt-in on the request; a final-only or selected-surface trace does not mutate `SurfaceGroup.RecordedTrace`.
+## 执行模型
 
-`RequestedTrace` is disposable because it rents storage from `ArrayPool<T>`. Its surface and ray views share one flat sample buffer, and both views become invalid after disposal. Copy or materialize samples before leaving the owning `using` scope if they must outlive the result.
+- 使用池化 SoA 光线状态和扁平结果视图；
+- 常见顺序路径使用 `Vector<double>` SIMD；
+- 不支持向量化的曲面回退标量；
+- 并行按稳定分块写回原索引；
+- 外层 Monte Carlo 或并行 Jacobian 已并行时，内层追迹不再嵌套并行。
 
-Memory for retained results is `O(ray count × retained surface count)`. Full history retains one flat backing store instead of parallel ray-history and surface-history object graphs.
+## 使用方
 
-## Cross-analysis cache
+PSF、MTF、点列、波前、查看器和公差只请求需要的表面。Monte Carlo 每个试验从不可变名义快照构建独立 `Optic`，按全局种子和试验索引派生种子，串行/并行顺序一致。
 
-`AnalysisService` owns one bounded `RayTraceCache` and attaches it to each immutable worker snapshot for the current workspace revision. This lets analyses such as Spot, Ray Fan, RMS, and Wavefront reuse an identical trace instead of repeating the surface traversal.
+## 验证
 
-The key is based on numerical inputs, not the analysis name:
+回归覆盖：
 
-- workspace optic revision and numeric backend;
-- the exact ordered input rays, including field-derived origin/direction, wavelength, intensity, incoming OPD, polarization, and normalization state;
-- the resolved retained surface indices;
-- OPD normalization and batched-backend mode.
+- 三种保留模式的数值一致性；
+- 选定末面与仅末面等价；
+- 标量/SIMD、串行/并行一致；
+- 修订、输入和选项变化的缓存失效；
+- 全反射、反射、吸收和提前终止；
+- 分析之间的同修订缓存复用；
+- Monte Carlo 并行度无关的确定结果。
 
-Retention labels are intentionally excluded. A selected-surface request for the final surface and an equivalent final-only request share an entry. Requests with different rays, wavelengths, pupil samples, surfaces, OPD behavior, polarization, or backend remain separate.
+截至 2026-08-02，仓库有 `627` 项回归测试；全量既有基线 `621/621`，新增 GUI/Dock 修改通过定向子集。该 GUI 工作不改变追迹性能基线。
 
-The default limits are 256 entries and 500,000 retained samples. Old entries are removed in insertion order, and a single result larger than the sample budget is not cached. Advancing the workspace revision clears all entries. Worker snapshots subscribe to surface, field, wavelength, aperture, environment, and top-level tracing-property changes; the first trace-relevant mutation detaches that snapshot from the shared cache. This permits temporary analysis mutations such as defocus without publishing or consuming results for the original revision. Trace requests that populate `SurfaceGroup.RecordedTrace` bypass the cache so their required side effect is never skipped.
-
-Pupil sampling plans use a separate bounded cache. Gaussian-quadrature, hexapolar, and generic samplers are keyed by all parameters that affect the generated coordinates; deterministic random sampling includes its seed.
-
-## Execution model
-
-The tracer snapshots surfaces into a read-only context and uses a surface-major loop. Current state is stored in pooled SoA arrays:
-
-- origin and direction components;
-- wavelength and intensity;
-- geometric path, OPL, and OPD;
-- polarization;
-- active/vignetted and normalized flags;
-- current material.
-
-Small bundles run serially. Larger bundles are divided into deterministic ray-index ranges and processed with `Parallel.ForEach`; results are always written at the original ray index. The final OPD reference is reduced in ray-index order and applied in place, so serial and parallel modes use the same ordering.
-
-`TraceRequest` exposes the parallel threshold, maximum degree of parallelism, and batched-backend switch. Parallel optimization Jacobians and outer Monte Carlo trials suppress nested tracing parallelism to avoid oversubscription.
-
-## Batched backend and SIMD
-
-`IBatchedNumericBackend` is optional. The managed implementation vectorizes:
-
-- direction normalization;
-- homogeneous propagation;
-- plane and standard/conic intersection;
-- circular-aperture tests;
-- refraction;
-- ordinary reflection;
-- total internal reflection.
-
-The implementation uses `System.Numerics.Vector<double>` and handles a non-vector-width tail. Common homogeneous, centered sequential surfaces use this path. Unsupported geometry, GRIN propagation, custom apertures, complex coatings, scattering, or plugin components fall back to scalar state tracing for that batch.
-
-Existing `INumericBackend` implementations remain valid. `NumericBackendProvider` supplies a cached scalar batch adapter when a backend does not implement `IBatchedNumericBackend`.
-
-## Analysis and tolerancing use
-
-Core PSF/MTF sampling, spots, wavefronts, radiometry, field analyses, image simulation, and optimization operands request only their final or targeted surfaces. Full history remains limited to consumers that use every interaction, notably single-ray diagnostics, layout display, and Jones-pupil accumulation.
-
-Monte Carlo creates an independent `Optic` for every trial from the nominal snapshot. A trial seed is derived from the global seed and trial number, and results are stored by trial number. This makes the trial sequence independent of scheduler order and maximum parallelism.
-
-## Verification
-
-The regression suite compares:
-
-- serial and parallel tracing;
-- scalar and SIMD backends;
-- final-only, selected-surface, and full-history retention;
-- same-revision cache reuse across equivalent final-only/selected-surface requests, mutation detachment, and revision invalidation;
-- deterministic pupil-sampling reuse and random-seed separation;
-- position, direction, intensity, OPL, OPD, and vignetting;
-- total internal reflection and ordinary-reflection material/absorption state;
-- thin-lens OPL;
-- early termination, non-finite object distance, cancellation, and exceptional surfaces;
-- Monte Carlo sequences across seeds and parallelism levels.
-
-The validated 2026-08-02 baseline is 621 passing tests. The analysis-preset boundary is covered so captured `123456.ZMX` settings cannot silently become Core defaults.
-
-## Benchmark
-
-Run the built-in benchmark:
+## 基准
 
 ```bash
 dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
 ```
 
-By default it measures 10,000 and 100,000 rays through 20 surfaces for final-only, selected-surface, full-history, PSF/MTF-related sampling, and 100 Monte Carlo trials. It reports elapsed milliseconds, rays per second, allocated bytes, managed heap size, and peak working set.
+输出包括耗时、吞吐量、总分配、托管堆和峰值工作集。只比较相同机器、运行时、配置和热身条件下的结果。
 
-Treat timing as a local comparison rather than a CI contract. Allocation and retained-buffer dimensions are the stable architectural checks: final-only and selected-surface storage scale with the number of retained surfaces, while full history intentionally scales with all surfaces.
+## 延后工作
 
-## Deferred work
-
-GPU execution is a later backend phase after the CPU batch interface and benchmarks stabilize. CUDA, DirectML, and cross-platform compute choices are not committed yet. Automatic differentiation will require a separate parameter/state derivative model and is not coupled to this refactor.
+GPU/自动微分后端、更高阶批量自由曲面、非顺序追迹和跨进程缓存未实现。

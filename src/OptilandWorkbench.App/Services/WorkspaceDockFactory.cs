@@ -164,9 +164,10 @@ public sealed class WorkspaceDockFactory : Factory
         };
         base.InitLayout(layout);
         RootLayout = layout as IRootDock ?? FindRoot(layout);
-        PrimaryDocumentDock = EnumerateDockables(layout).OfType<IDocumentDock>()
+        var mainDockables = EnumerateMainDockables(layout).ToArray();
+        PrimaryDocumentDock = mainDockables.OfType<IDocumentDock>()
             .FirstOrDefault(dock => dock.Id == DocumentDockId)
-            ?? EnumerateDockables(layout).OfType<IDocumentDock>().FirstOrDefault();
+            ?? mainDockables.OfType<IDocumentDock>().FirstOrDefault();
         foreach (var dockable in EnumerateDockables(layout))
         {
             if (dockable.Id == SystemToolId || _descriptors.ContainsKey(dockable.Id))
@@ -495,6 +496,35 @@ public sealed class WorkspaceDockFactory : Factory
     public static IEnumerable<IDockable> EnumerateDockables(IDockable root)
     {
         return EnumerateDockables(root, new HashSet<IDockable>());
+    }
+
+    private static IEnumerable<IDockable> EnumerateMainDockables(IDockable root)
+    {
+        return EnumerateMainDockables(root, new HashSet<IDockable>());
+    }
+
+    private static IEnumerable<IDockable> EnumerateMainDockables(
+        IDockable dockable,
+        HashSet<IDockable> seen)
+    {
+        if (!seen.Add(dockable))
+        {
+            yield break;
+        }
+
+        yield return dockable;
+        if (dockable is not IDock dock || dock.VisibleDockables is null)
+        {
+            yield break;
+        }
+
+        foreach (var child in dock.VisibleDockables)
+        {
+            foreach (var descendant in EnumerateMainDockables(child, seen))
+            {
+                yield return descendant;
+            }
+        }
     }
 
     private static IEnumerable<IDockable> EnumerateDockables(IDockable dockable, HashSet<IDockable> seen)

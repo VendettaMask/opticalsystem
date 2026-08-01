@@ -26,12 +26,26 @@ fi
 cd "$ROOT_DIR" || exit 1
 export AVALONIA_TELEMETRY_OPTOUT=1
 
-echo "Starting Optical System Design (S.T.A.R. Labs)..."
+echo "Preparing Optical System Design (S.T.A.R. Labs)..."
 echo "Project: $PROJECT"
 echo
 
-"$DOTNET" run --project "$PROJECT"
+echo "[1/3] Cleaning previous build outputs..."
+"$DOTNET" clean "$PROJECT" --nologo --verbosity minimal
 STATUS=$?
+if [ "$STATUS" -eq 0 ]; then
+  echo
+  echo "[2/3] Rebuilding the application..."
+  "$DOTNET" build "$PROJECT" --nologo --verbosity minimal
+  STATUS=$?
+fi
+
+if [ "$STATUS" -eq 0 ]; then
+  echo
+  echo "[3/3] Starting the rebuilt application..."
+  "$DOTNET" run --project "$PROJECT" --no-build
+  STATUS=$?
+fi
 
 echo
 if [ "$STATUS" -eq 0 ]; then

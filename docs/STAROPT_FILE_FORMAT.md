@@ -1,111 +1,60 @@
-# STAROPT Project Format
+# STAROPT 工程格式
 
-`.staropt` is the native, lossless project format for Optical System Design. It is a
-versioned binary container rather than a renamed JSON file.
+`.staropt` 是 Optical System Design 的原生无损工程格式，是版本化二进制容器而不是改名 JSON。
 
-## Goals
+## 目标
 
-- identify projects independently of the filename extension
-- reject truncated or modified files before constructing an optical model
-- reject checksum-valid payloads whose optical state is semantically invalid
-- preserve every optical configuration and the active configuration
-- keep the optical snapshot schema extensible
-- write projects atomically so a failed save does not replace the previous file
+- 不依赖扩展名识别工程；
+- 构造光学模型前拒绝截断或被修改文件；
+- 拒绝校验和正确但语义非法的负载；
+- 保存全部配置和活动配置；
+- 容器版本与光学 schema 独立演进；
+- 原子写入，失败保存不替换旧文件。
 
-## Container Layout
+## 容器布局
 
-All integer values are little-endian.
+整数均为小端：
 
-| Offset | Size | Meaning |
+| 偏移 | 大小 | 含义 |
 | ---: | ---: | --- |
-| 0 | 8 | magic bytes `STAROPT` followed by `0x1A` |
-| 8 | 2 | container version, currently `1` |
-| 10 | 2 | flags, currently `1` for Brotli compression |
-| 12 | 4 | uncompressed payload length |
-| 16 | 4 | compressed payload length |
-| 20 | 32 | SHA-256 of the uncompressed payload |
-| 52 | variable | Brotli-compressed UTF-8 project payload |
+| 0 | 8 | `STAROPT` 加 `0x1A` 魔数 |
+| 8 | 2 | 容器版本，当前为 1 |
+| 10 | 2 | 标志，当前 1 表示 Brotli |
+| 12 | 4 | 未压缩负载长度 |
+| 16 | 4 | 压缩负载长度 |
+| 20 | 32 | 未压缩负载 SHA-256 |
+| 52 | 可变 | Brotli 压缩 UTF-8 工程负载 |
 
-The payload has its own project-format version and contains the producing
-application name, active-configuration index, and an ordered list of
-`OpticSnapshot` objects. The container and payload versions are intentionally
-separate so compression/framing can evolve independently from the optical model.
+未压缩负载上限为 256 MiB。加载器验证长度、版本、解压结果和固定时间 SHA-256 比较。保存先写目标目录中的临时文件，完整刷新后原子替换。
 
-The loader limits the uncompressed payload to 256 MiB, validates all declared
-lengths, verifies the SHA-256 digest with a fixed-time comparison, and rejects
-unsupported versions. Saving writes a temporary file in the destination directory
-and atomically replaces the target only after the complete container is flushed.
+## 光学快照验证
 
-SHA-256 protects the payload against accidental corruption or modification; it
-does not make the decoded optical state trustworthy. After the container checks
-pass, each configuration is independently validated before any current document
-state is changed.
+当前 schema 为 4；schema 1–3 经有界迁移后使用同一 schema 4 验证器。主要不变量：
 
-## Optical Snapshot Validation
+- 视场、波长、表面表存在且非空；
+- 波长有限且为正，恰有一个主波长；
+- 表面编号从 0 连续；
+- 厚度、半口径、坐标、环境、拾取/求解和操作数参数在允许域内；
+- 类型化引用指向存在的表面、视场和波长；
+- Zemax 兼容行中的不透明整数槽不被误判为 Workbench 引用；
+- 递归组件种类、子节点和集合数量在工厂运行前验证。
 
-The current optical snapshot schema is `4`. Schemas `1`, `2`, and `3` remain
-readable through a bounded migration step, while snapshots outside the supported
-range are rejected.
+普通参数不接受 `NaN`。无穷只在有明确光学意义的位置允许，例如平面曲率、无限光栅周期和无限薄透镜焦距；波长、厚度、孔径、坐标、环境和引用不允许无穷。
 
-Schema validation enforces these invariants:
+## 事务构建
 
-- field, wavelength, and surface tables are present and non-empty;
-- every wavelength is finite and positive, and exactly one wavelength is primary;
-- field coordinates, weights, and vignetting values are finite;
-- surface numbers are unique, ordered, and contiguous from `0`;
-- thickness, semi-diameter, conic, coordinate transforms, aperture values,
-  environment values, pickup scale/offset, solve values, and merit-operand numeric
-  values are finite and within their applicable ranges;
-- radius pickups and typed executable merit operands reference existing surfaces,
-  fields, and wavelengths using the format's zero/default and one-based conventions;
-- Zemax compatibility rows with opaque generic integer slots are not reinterpreted
-  as surface, field, or wavelength references;
-- component kinds, recursive child layouts, encoded collection counts, and all
-  required collection entries are valid before component factories run.
+加载顺序：
 
-`NaN` is never accepted. Infinity is accepted only where it has an explicit
-optical meaning in the model: plane/infinite curvature radii, infinite grating
-periods, and infinite thin-lens focal lengths. It is rejected for wavelengths,
-thicknesses, apertures, coordinates, environment state, references, and ordinary
-component parameters.
+1. 验证文件框架、长度、压缩、版本和校验和；
+2. 反序列化并迁移旧 schema；
+3. 验证完整状态和交叉引用；
+4. 在临时 `Optic` 中构建全部对象；
+5. 仅在全部成功后替换当前系统。
 
-Schemas `1` and `2` used two historical sentinels that are not legal schema-4
-state. During migration, an infinite object-space Z coordinate is normalized to
-the finite object-plane representation, and a non-finite legacy semi-diameter is
-replaced by the historical 10 mm fallback. Dangling legacy pickups or typed merit
-operands are removed, while opaque Zemax compatibility rows retain their source
-integer slots. Schema `3` receives the schema-4 merit defaults. Every migrated
-snapshot is then subjected to the same schema-4 validator, so selecting an older
-schema version cannot bypass validation. The complete typed operand target is
-defined in [Zemax sequential operand support](ZEMAX_OPERAND_SUPPORT.md).
+保存前也运行同一快照验证，非法内存状态不能写成原生工程。
 
-## Transactional Construction
+## 兼容边界
 
-Loading and applying a snapshot follows this order:
+桌面“保存”只写 `.staropt`。旧 Workbench JSON 可导入；Python Optiland JSON、ZMX、SEQ、LEN 和通用顺序文本是交换格式。导入后保存会要求 STAROPT 目标，不覆盖原交换源。
 
-1. validate the STAROPT framing, lengths, compression, version, and checksum;
-2. deserialize and migrate a supported legacy snapshot;
-3. validate the complete optical state and every cross-reference;
-4. construct all fields, wavelengths, surfaces, components, pickups, solves, and
-   merit operands in a temporary `Optic`;
-5. replace the current optic state only after temporary construction succeeds.
-
-An unknown component, invalid material, malformed phase grid, or other constructor
-failure therefore leaves the current document unchanged. Save paths run the same
-snapshot validator before serializing or creating a temporary output file, so an
-invalid in-memory state cannot be written as a native project.
-
-## Compatibility
-
-The desktop **Save** command writes only `.staropt`. Opening a `.staropt` project
-uses both its extension and its magic bytes, so a renamed project can still be
-recognized.
-
-Legacy `.optiland.json`, `.optic.json`, `.json`, and `.optiland` files remain
-available as compatibility imports. Python Optiland JSON, Zemax ZMX, CODE V SEQ,
-OSLO LEN, and plain sequential text are exchange formats rather than native
-projects. They do not replace the source file when the user saves the imported
-system; the application prompts for a `.staropt` destination instead.
-
-Workspace layout sessions, application preferences, cached analysis results, and
-plugin binaries are deliberately stored outside the project file.
+工作区布局、应用偏好、计算缓存和插件二进制不进入工程文件。

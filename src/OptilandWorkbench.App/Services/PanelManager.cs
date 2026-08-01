@@ -206,27 +206,31 @@ public sealed class PanelManager : IDisposable
 
     public void DockAllWindows()
     {
-        foreach (var document in Factory.OpenDocuments())
-        {
-            Factory.DockAsDocument(document);
-        }
-    }
-
-    public void DockToSinglePane()
-    {
-        DockAllWindows();
         if (Factory.PrimaryDocumentDock is not IDock target)
         {
             return;
         }
 
-        foreach (var document in Factory.OpenDocuments().ToArray())
+        foreach (var document in FloatingDocuments().Distinct().ToArray())
         {
-            if (document.Owner is IDock source && !ReferenceEquals(source, target))
-            {
-                Factory.MoveDockable(source, target, document, null);
-            }
+            MoveDocumentToDock(document, target);
         }
+
+        PruneEmptyFloatingWindows();
+        ScheduleSave();
+    }
+
+    public void DockToSinglePane()
+    {
+        if (CollectDocumentsInPrimaryDock() is not { } target)
+        {
+            return;
+        }
+
+        MdiLayoutHelper.RestoreDocuments(target);
+        Factory.SetDocumentDockLayoutModeTabbed(target);
+        ActivateLastDocument(target);
+        ScheduleSave();
     }
 
     public void CloseAllDocuments()
@@ -237,10 +241,13 @@ public sealed class PanelManager : IDisposable
         {
             Factory.CloseDockable(document);
         }
+
+        PruneEmptyFloatingWindows();
     }
 
     public void FloatAllWindows()
     {
+        PruneEmptyFloatingWindows();
         var floatingDocumentIds = FloatingDocuments()
             .Select(document => document.Id)
             .ToHashSet(StringComparer.Ordinal);
@@ -252,34 +259,32 @@ public sealed class PanelManager : IDisposable
             }
         }
 
-        var windows = Layout.Windows?.ToArray() ?? Array.Empty<IDockWindow>();
-        for (var index = 0; index < windows.Length; index++)
-        {
-            windows[index].X = 90 + (index * 28);
-            windows[index].Y = 90 + (index * 28);
-            windows[index].Width = 920;
-            windows[index].Height = 680;
-            windows[index].Save();
-        }
+        CascadeFloatingWindows();
     }
 
     public void TileAllWindows()
     {
-        ArrangeFloatingWindows(tile: true);
+        if (CollectDocumentsInPrimaryDock() is not { } target)
+        {
+            return;
+        }
+
+        Factory.SetDocumentDockLayoutModeMdi(target);
+        ArrangeMdiDocuments(target, AdaptiveMdiLayout.TileDocuments);
+        ScheduleSave();
     }
 
     public void CascadeAllWindows()
     {
-        ArrangeFloatingWindows(tile: false);
+        if (CollectDocumentsInPrimaryDock() is not { } target)
+        {
+            return;
+        }
+
+        Factory.SetDocumentDockLayoutModeMdi(target);
+        ArrangeMdiDocuments(target, MdiLayoutHelper.CascadeDocuments);
+        ScheduleSave();
     }
-
-    public void DockAnalysisWindows() => DockAllWindows();
-
-    public void FloatAnalysisWindows() => FloatAllWindows();
-
-    public void TileAnalysisWindows() => TileAllWindows();
-
-    public void CascadeAnalysisWindows() => CascadeAllWindows();
 
     public void SetActiveDocumentLocked(bool locked)
     {
@@ -292,6 +297,17 @@ public sealed class PanelManager : IDisposable
         Factory.UpdateDescriptor(descriptor with { IsLocked = locked });
         Factory.ApplyLock(document.Id, locked);
         ScheduleSave();
+    }
+
+    public void ToggleActiveDocumentLocked()
+    {
+        if (ActiveDocument() is not Document document
+            || Factory.Descriptor(document.Id) is not { } descriptor)
+        {
+            return;
+        }
+
+        SetActiveDocumentLocked(!descriptor.IsLocked);
     }
 
     public WorkspaceLayoutState CaptureLayout()
@@ -488,6 +504,7 @@ public sealed class PanelManager : IDisposable
         _saveTimer.Stop();
         try
         {
+            PruneEmptyFloatingWindows();
             await SaveCurrentSessionAsync();
         }
         catch (Exception exception)
@@ -582,7 +599,7 @@ public sealed class PanelManager : IDisposable
         }
     }
 
-    private void ArrangeFloatingWindows(bool tile)
+    private void CascadeFloatingWindows()
     {
         var windows = Layout.Windows?.ToArray() ?? Array.Empty<IDockWindow>();
         if (windows.Length == 0)
@@ -590,32 +607,145 @@ public sealed class PanelManager : IDisposable
             return;
         }
 
-        if (!tile)
+        var workArea = FloatingWorkArea();
+        var width = Math.Min(920, Math.Max(360, workArea.Width * 0.72));
+        var height = Math.Min(680, Math.Max(240, workArea.Height * 0.72));
+        var availableX = Math.Max(0, workArea.Width - width - 48);
+        var availableY = Math.Max(0, workArea.Height - height - 48);
+        var stepX = windows.Length > 1 ? Math.Min(30, availableX / (windows.Length - 1)) : 0;
+        var stepY = windows.Length > 1 ? Math.Min(28, availableY / (windows.Length - 1)) : 0;
+        for (var index = 0; index < windows.Length; index++)
         {
-            for (var index = 0; index < windows.Length; index++)
-            {
-                windows[index].X = 80 + (index * 30);
-                windows[index].Y = 80 + (index * 28);
-                windows[index].Width = 920;
-                windows[index].Height = 680;
-                windows[index].Save();
-            }
+            ApplyWindowBounds(
+                windows[index],
+                workArea.X + ((24 + (index * stepX)) * workArea.Scaling),
+                workArea.Y + ((24 + (index * stepY)) * workArea.Scaling),
+                width,
+                height);
+        }
 
+        ScheduleSave();
+    }
+
+    private FloatingWindowWorkArea FloatingWorkArea()
+    {
+        var topLevel = TopLevel.GetTopLevel(WorkspaceControl);
+        var screens = topLevel?.Screens;
+        var screen = topLevel is null || screens is null
+            ? null
+            : screens.ScreenFromTopLevel(topLevel) ?? screens.Primary;
+        if (screen is null)
+        {
+            return new FloatingWindowWorkArea(0, 0, 1440, 900, 1);
+        }
+
+        var scaling = Math.Max(0.1, screen.Scaling);
+        return new FloatingWindowWorkArea(
+            screen.WorkingArea.X,
+            screen.WorkingArea.Y,
+            screen.WorkingArea.Width / scaling,
+            screen.WorkingArea.Height / scaling,
+            scaling);
+    }
+
+    private static void ApplyWindowBounds(
+        IDockWindow window,
+        double x,
+        double y,
+        double width,
+        double height)
+    {
+        window.WindowState = DockWindowState.Normal;
+        window.X = x;
+        window.Y = y;
+        window.Width = width;
+        window.Height = height;
+
+        if (window.Host is not { } host)
+        {
             return;
         }
 
-        var columns = (int)Math.Ceiling(Math.Sqrt(windows.Length));
-        var rows = (int)Math.Ceiling(windows.Length / (double)columns);
-        var cellWidth = Math.Max(420, 1440.0 / columns);
-        var cellHeight = Math.Max(320, 900.0 / rows);
-        for (var index = 0; index < windows.Length; index++)
+        var wasTracked = host.IsTracked;
+        host.IsTracked = false;
+        try
         {
-            windows[index].X = 30 + ((index % columns) * cellWidth);
-            windows[index].Y = 50 + ((index / columns) * cellHeight);
-            windows[index].Width = cellWidth;
-            windows[index].Height = cellHeight;
-            windows[index].Save();
+            host.SetWindowState(DockWindowState.Normal);
+            host.SetPosition(x, y);
+            host.SetSize(width, height);
         }
+        finally
+        {
+            host.IsTracked = wasTracked;
+        }
+    }
+
+    private void PruneEmptyFloatingWindows()
+    {
+        var emptyWindows = Layout.Windows?
+            .Where(window => !WorkspaceDockLayoutSerializer.HasFloatingContent(window))
+            .ToArray()
+            ?? Array.Empty<IDockWindow>();
+        foreach (var window in emptyWindows)
+        {
+            window.Host?.Exit();
+            Factory.RemoveWindow(window);
+            Layout.Windows?.Remove(window);
+        }
+    }
+
+    private IDocumentDock? CollectDocumentsInPrimaryDock()
+    {
+        if (Factory.PrimaryDocumentDock is not IDocumentDock target)
+        {
+            return null;
+        }
+
+        foreach (var document in Factory.OpenDocuments().ToArray())
+        {
+            MoveDocumentToDock(document, target);
+        }
+
+        PruneEmptyFloatingWindows();
+        ActivateLastDocument(target);
+        return target;
+    }
+
+    private void MoveDocumentToDock(Document document, IDock target)
+    {
+        if (document.Owner is not IDock source || ReferenceEquals(source, target))
+        {
+            return;
+        }
+
+        Factory.MoveDockable(source, target, document, null);
+    }
+
+    private void ArrangeMdiDocuments(IDocumentDock target, Action<IDocumentDock> arrange)
+    {
+        arrange(target);
+        Dispatcher.UIThread.Post(
+            () =>
+            {
+                if (!_disposed
+                    && ReferenceEquals(Factory.PrimaryDocumentDock, target)
+                    && target.LayoutMode == DocumentLayoutMode.Mdi)
+                {
+                    arrange(target);
+                }
+            },
+            DispatcherPriority.Background);
+    }
+
+    private void ActivateLastDocument(IDocumentDock target)
+    {
+        if (target.VisibleDockables?.LastOrDefault() is not { } document)
+        {
+            return;
+        }
+
+        Factory.SetActiveDockable(document);
+        Factory.SetFocusedDockable(target, document);
     }
 
     private IEnumerable<Document> FloatingDocuments()
@@ -626,6 +756,13 @@ public sealed class PanelManager : IDisposable
             .OfType<Document>()
             ?? Enumerable.Empty<Document>();
     }
+
+    private readonly record struct FloatingWindowWorkArea(
+        double X,
+        double Y,
+        double Width,
+        double Height,
+        double Scaling);
 
     private void OnLayoutChanged(object? sender, EventArgs args) => ScheduleSave();
 

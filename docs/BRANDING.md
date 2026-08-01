@@ -1,35 +1,29 @@
-# Application Branding
+# 应用品牌资源
 
-The desktop application icon uses a cinematic black-hole mark with a warm gravitationally lensed accretion disk and the product name `Optical System Design`. The startup view extends the same visual identity into a widescreen composition, with the black hole on the left and crisp runtime-rendered product information and loading progress on the right.
+桌面图标采用黑洞与暖色吸积盘视觉，启动画面沿用同一品牌语言。产品名称和加载进度由 Avalonia 在运行时绘制，避免把版本文字固化进图片。
 
-## Assets
+## 资源
 
-Brand files are stored under `src/OptilandWorkbench.App/Assets/Brand`:
+资源位于 `src/OptilandWorkbench.App/Assets/Brand`：
 
-- `AppIconArtwork.png`: 1024 × 1024 RGBA master black-hole artwork.
-- `AppIcon.png`: 1024 × 1024 RGBA runtime icon with transparent rounded corners and platform-safe visual padding.
-- `AppIcon.ico`: Windows icon containing 16, 24, 32, 48, 64, 128, and 256 pixel variants.
-- `AppIcon.icns`: macOS application icon for bundle packaging.
-- `Splash.png`: 1280 × 720 text-free black-hole startup background; Avalonia overlays the product identity, version, loading phase, percentage, and progress bar.
+- `AppIconArtwork.png`：1024×1024 RGBA 主图；
+- `AppIcon.png`：带透明圆角和平台安全留白的运行时图标；
+- `AppIcon.ico`：Windows 多尺寸图标；
+- `AppIcon.icns`：macOS 应用图标；
+- `Splash.png`：1280×720 无文字启动背景。
 
-All four files are copied to publish output. The project also assigns the ICO through the .NET `ApplicationIcon` property, while the PNG files are embedded as Avalonia resources for the live window and startup screen. On macOS, a platform-guarded Objective-C bridge assigns the packaged PNG to `NSApplication` before the first window appears, so `dotnet run` receives the branded Dock icon immediately instead of briefly showing Avalonia's generic development icon.
+ICO 通过项目的 `ApplicationIcon` 使用，PNG 作为 Avalonia 资源用于窗口和启动页。macOS 在首个窗口出现前通过平台桥接设置 Dock 图标，避免短暂显示开发默认图标。
 
-## Regeneration
+## 重新生成
 
-The approved black-hole source can be given a true transparent rounded silhouette and repackaged for Windows and macOS with:
+从已批准主图重新处理圆角和平台资源：
 
 ```bash
 python tools/round_brand_icon.py src/OptilandWorkbench.App/Assets/Brand
 ```
 
-The legacy deterministic generator remains available for the original lens-based branding only:
+旧脚本 `tools/generate_brand_assets.py` 只用于历史镜头标识，不得覆盖当前黑洞图标。修改资源后应构建解决方案、运行 `BrandAssetTests`，并人工检查小尺寸图标和完整启动页。
 
-```bash
-python tools/generate_brand_assets.py
-```
+## 启动生命周期
 
-The script requires Pillow and still contains the original lens-mark artwork; do not use it to overwrite the approved black-hole desktop icon or splash background. Platform icon derivatives must be regenerated from `AppIcon.png`: the ICO contains 16, 24, 32, 48, 64, 128, and 256 pixel PNG frames, while the ICNS contains the standard macOS 16 through 1024 pixel iconset. After changing an asset, run the solution build and `BrandAssetTests`, then inspect both the icon at small size and the full startup view.
-
-## Startup Lifecycle
-
-The splash window opens before the main workbench is constructed. The main window initializes invisibly and signals readiness after restoring its workspace; the application then closes the splash, reveals the workbench, and transfers the desktop lifetime to the main window. A short minimum display interval prevents a distracting flash on fast machines.
+启动窗口先于主工作台显示。主窗口在不可见状态完成工作区恢复并发出就绪信号，随后关闭启动页、显示工作台并转移桌面生命周期。最短显示时间用于避免快速机器上的闪烁。

@@ -13,13 +13,37 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Starting Optical System Design ^(S.T.A.R. Labs^)...
+echo Preparing Optical System Design ^(S.T.A.R. Labs^)...
 echo Project: %PROJECT%
 echo.
 
-dotnet run --project "%PROJECT%"
-set "EXITCODE=%ERRORLEVEL%"
+echo [1/3] Cleaning previous build outputs...
+dotnet clean "%PROJECT%" --nologo --verbosity minimal
+if errorlevel 1 goto clean_failed
 
+echo.
+echo [2/3] Rebuilding the application...
+dotnet build "%PROJECT%" --nologo --verbosity minimal
+if errorlevel 1 goto build_failed
+
+echo.
+echo [3/3] Starting the rebuilt application...
+dotnet run --project "%PROJECT%" --no-build
+set "EXITCODE=%ERRORLEVEL%"
+goto report
+
+:clean_failed
+set "EXITCODE=%ERRORLEVEL%"
+echo.
+echo Cleaning previous build outputs failed with code %EXITCODE%.
+goto report
+
+:build_failed
+set "EXITCODE=%ERRORLEVEL%"
+echo.
+echo Rebuilding Optical System Design failed with code %EXITCODE%.
+
+:report
 echo.
 if "%EXITCODE%"=="0" (
     echo Optical System Design closed.

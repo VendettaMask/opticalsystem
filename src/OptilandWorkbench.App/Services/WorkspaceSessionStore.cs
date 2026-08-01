@@ -317,6 +317,7 @@ public sealed class WorkspaceDockLayoutSerializer
     public string Serialize(IRootDock layout)
     {
         var clone = CloneLayout(layout);
+        RemoveEmptyFloatingWindows(clone);
         return _serializer.Serialize(clone);
     }
 
@@ -327,9 +328,35 @@ public sealed class WorkspaceDockLayoutSerializer
         {
             NormalizeDockRelations(layout);
             RestoreWindowReferences(layout, null);
+            RemoveEmptyFloatingWindows(layout);
         }
 
         return layout;
+    }
+
+    internal static bool HasFloatingContent(IDockWindow window)
+    {
+        return window.Layout is not null
+            && WorkspaceDockFactory.EnumerateDockables(window.Layout)
+                .Any(dockable => dockable is Document or Tool);
+    }
+
+    internal static int RemoveEmptyFloatingWindows(IRootDock layout)
+    {
+        if (layout.Windows is null)
+        {
+            return 0;
+        }
+
+        var emptyWindows = layout.Windows
+            .Where(window => !HasFloatingContent(window))
+            .ToArray();
+        foreach (var window in emptyWindows)
+        {
+            layout.Windows.Remove(window);
+        }
+
+        return emptyWindows.Length;
     }
 
     private static RootDock CloneLayout(IRootDock layout)
@@ -406,7 +433,8 @@ public sealed class WorkspaceDockLayoutSerializer
         var clones = new List<IDockWindow>(source.Count);
         foreach (var window in source)
         {
-            if (CloneWindow(window, included) is { } clone)
+            if (CloneWindow(window, included) is { } clone
+                && HasFloatingContent(clone))
             {
                 clones.Add(clone);
             }

@@ -1,38 +1,40 @@
-# Zemax parity probe
+# Zemax 一致性采集工具
 
-`zosapi_export.py` uses the official Python ZOS-API Standalone connection to
-load a sequential ZMX file and export an FFT MTF result. `zosapi_probe.m`
-provides an equivalent MATLAB connection probe.
+本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
 
-`zosapi_capture_baseline.py` captures the complete `AnalysisIDM` catalog for
-one lens. Every analysis receives a status record. Applicable analyses retain
-their native settings file, raw text, structured ZOS-API JSON, and either an
-actual OpticStudio window screenshot exported by the companion
-`capture_analysis_window.zpl` macro or a clearly identified plot rendered from
-the ZOS-API data when no ZPL window code exists. Analyses that need
-non-sequential data, external files, STAR data, or another unavailable module
-remain in the manifest as not applicable; no substitute numbers are generated.
+## 工具用途
 
-Before running it, close every visible and background OpticStudio instance.
-The script deliberately refuses to launch when an existing `OpticStudio.exe`
-process is present, because a stale or second instance can consume the
-available license and make `IsValidLicenseForAPI` return false.
+- `zosapi_export.py`：通过官方 Python ZOS-API Standalone 连接加载顺序模式 ZMX，并导出 FFT MTF。
+- `zosapi_probe.m`：提供等价的 MATLAB 连接探测与 FFT MTF 导出。
+- `zosapi_capture_baseline.py`：为一个镜头枚举完整 `AnalysisIDM` 目录，并记录每项分析状态。
+- `capture_analysis_window.zpl`：在存在对应窗口代码时捕获真实 OpticStudio 分析窗口。
+- `verify_baseline.py`：验证清单、源文件哈希、JSON、设置/文本引用和截图。
 
-Run from MATLAB:
+适用分析保留原生设置文件、原始文本、结构化 ZOS-API JSON，以及真实 OpticStudio 截图；没有 ZPL 窗口代码时，才使用由 ZOS-API 数据绘制并明确标识的图像。需要非顺序数据、外部文件、STAR 数据或缺失模块的分析仍写入清单并标记“不适用”，不会生成替代数值。
+
+## 运行前要求
+
+运行采集前必须关闭所有可见和后台 `OpticStudio.exe`。脚本默认拒绝在已有实例时启动，防止旧实例或第二实例占用 API 许可证并导致 `IsValidLicenseForAPI` 返回 `false`。
+
+只有在确实需要保留交互会话、且许可证允许额外实例时才使用 `--allow-existing`。每个采集子进程仍保持隔离，只关闭自己创建的实例。
+
+## 连接探测与基线采集
+
+在 MATLAB 中运行：
 
 ```matlab
 addpath("D:\Projects\opticalsystem\tools\zemax_parity");
 result = zosapi_probe("C:\Users\19851\Desktop\123456.ZMX");
 ```
 
-Run the Python exporter with the Python distribution bundled with Ansys:
+使用 Ansys 自带 Python 导出 FFT MTF：
 
 ```powershell
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
   "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_export.py"
 ```
 
-Capture the current `123456.ZMX` baseline:
+采集当前 `123456.ZMX` 基线：
 
 ```powershell
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
@@ -41,20 +43,9 @@ Capture the current `123456.ZMX` baseline:
   --output "D:\Projects\opticalsystem\artifacts\zemax\123456-zemax-2026-r1-baseline"
 ```
 
-The collector refuses to start while another `OpticStudio.exe` process is
-present. This protects the single API license and prevents the screenshot pass
-from attaching to or closing an unrelated interactive session. Use
-`--allow-existing` only when an intentional interactive session must remain
-open and the installed license supports another OpticStudio instance; each
-capture subprocess remains isolated and closes only itself.
+若一次采集后修复了序列化或外部依赖，可先用 `--retry-failed --data-only` 只重算失败项，再用 `--screenshots-only` 补齐缺失截图；已有原生截图不会被覆盖。
 
-If a serializer or external prerequisite is fixed after a run, use
-`--retry-failed --data-only` to recalculate only failed manifest entries, then
-use `--screenshots-only` to fill only the still-missing screenshots. Existing
-native screenshots are not overwritten.
-
-Verify the manifest, source hash, JSON outputs, settings/text references, and
-every screenshot:
+验证基线：
 
 ```powershell
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
@@ -62,27 +53,22 @@ every screenshot:
   "D:\Projects\opticalsystem\artifacts\zemax\123456-zemax-2026-r1-baseline"
 ```
 
-To export the Zemax FFT MTF frequency, tangential, and sagittal arrays as
-JSON:
+通过 MATLAB 导出 Zemax FFT MTF 的频率、子午和弧矢数组：
 
 ```matlab
 result = zosapi_probe( ...
     "C:\Users\19851\Desktop\123456.ZMX", ...
     "D:\Projects\opticalsystem\artifacts\zemax\123456-fft-mtf.json");
 ```
-## Current Workbench comparison
 
-There are two distinct image products. Do not interchange them:
+## Workbench 图像口径
 
-- `images/current/*.png` is an offline Matplotlib rendering of structured
-  result JSON. It is useful for data-shape diagnostics, but it is **not** a
-  screenshot of the Workbench application and must not be used for GUI parity.
-- `images/gui-current/*.png` is rendered by the real Avalonia
-  `AnalysisPanel`, with the imported lens, saved analysis settings, light theme,
-  toolbar, plot/data/text tabs, and report footer. Only this directory is valid
-  for Workbench-vs-Zemax GUI image comparison.
+两类图像用途不同，不得混用：
 
-Capture all 69 real GUI analysis pages after building the desktop app:
+- `images/current/*.png`：由结构化结果 JSON 离线绘制的 Matplotlib 图，只用于数据形状诊断，不能证明 GUI 一致。
+- `images/gui-current/*.png`：由真实 Avalonia `AnalysisPanel` 渲染，包含导入镜头、保存的分析设置、明亮主题、工具栏、图表/数据/文本页签和报告页脚；只有这类图像可用于 Workbench 与 Zemax 的 GUI 对比。
+
+构建桌面应用后捕获全部 69 个真实 GUI 分析页：
 
 ```powershell
 dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
@@ -93,11 +79,9 @@ dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
   --start=1 --end=69
 ```
 
-The capture manifest records `captured`, `analysis-error`, or `failed` for every
-page. An image can exist for `analysis-error`; that screenshot documents the
-actual error UI and is not a successful numerical result.
+捕获清单为每页记录 `captured`、`analysis-error` 或 `failed`。`analysis-error` 也可能生成截图，但它只记录真实错误界面，不代表数值计算成功。
 
-Generate the side-by-side report from those real GUI images:
+生成并排图像报告：
 
 ```powershell
 python tools/zemax_parity/generate_gui_image_report.py `
@@ -106,13 +90,11 @@ python tools/zemax_parity/generate_gui_image_report.py `
   --output artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
 ```
 
-The GUI report separates direct references, nearest-only references, analyses
-whose source/settings differ, and analyses with no equivalent Zemax screenshot.
-It intentionally does not infer visual equality from image dimensions or pixel
-similarity.
+报告会区分直接参考、仅最近似参考、来源/设置不同以及没有等价 Zemax 截图的分析，不会从图像尺寸或像素相似度推断视觉一致。
 
-To recalculate every current Workbench analysis with the saved comparison
-settings, then regenerate all numeric and screenshot comparisons:
+## 重算与定向采集
+
+使用保存的对比设置重算全部 Workbench 分析，并重新生成数值和截图对比：
 
 ```powershell
 dotnet run --project tools/OptilandWorkbench.AccuracyCapture -- `
@@ -126,24 +108,10 @@ python tools/zemax_parity/generate_workbench_comparison.py `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30
 ```
 
-The capture command also accepts optional 1-based `start-index` and `end-index`
-arguments. Pass the same index twice to recalculate exactly one analysis while
-reusing the other existing captures; Field Curvature and Distortion is `11 11`,
-Distortion is `12 12`, Encircled Energy is `19 19`, Extended Source Encircled
-Energy is `22 22`, Pupil Aberration is `23 23`, Huygens Through Focus MTF is
-`32 32`, Huygens MTF is `52 52`, Contrast Loss Map is `55 55`, Optical Path
-Difference is `56 56`, and Wavefront is `58 58`. A targeted run does not provide a valid full-suite
-performance total because reused entries are not timed; keep the last complete
-run's timings until all 69 analyses are recalculated.
+捕获命令还接受从 1 开始的 `start-index` 和 `end-index`。传入相同索引可只重算一项并复用其他已有结果。常用索引：视场曲率与畸变 `11`、畸变 `12`、包围能量 `19`、扩展源包围能量 `22`、光瞳像差 `23`、Huygens 离焦 MTF `32`、Huygens MTF `52`、对比度损失图 `55`、光程差 `56`、波前 `58`。
 
-The capture directory retains one raw JSON result for every Workbench analysis.
-The comparison directory contains 30 machine-readable equivalent numeric comparisons,
-30 numeric plots, two explicitly excluded non-equivalent mappings, and 69 Workbench/Zemax page images. A previous comparison is
-used only for stable physical-series mappings; its Workbench values are never
-reused.
+定向重算不能提供有效的全套性能总计，因为复用项没有重新计时；在全部 69 项重算前，应保留最近一次完整运行的时间数据。
 
-Report screenshots are rendered from the current structured `plotPanes` when
-they exist. The renderer must not flatten multi-pane analyses into a single
-axis: Ray Fan, Optical Path Difference, and Pupil Aberration keep the Zemax-style
-five-field/two-direction layout, while Field Curvature and Distortion keeps the
-two-pane curvature/distortion layout.
+捕获目录为每项 Workbench 分析保留原始 JSON。对比目录当前包含 30 组可机读的等价数值比较、30 张数值图、2 个明确排除的非等价映射，以及 69 组 Workbench/Zemax 页面图像。旧报告只用于稳定物理序列映射，不能复用其中的 Workbench 数值。
+
+报告截图优先使用当前结构化 `plotPanes`。渲染器不得把多面板分析压平成单坐标轴：光线扇形、光程差和光瞳像差保留五视场/双方向布局，视场曲率与畸变保留曲率/畸变双面板布局。
