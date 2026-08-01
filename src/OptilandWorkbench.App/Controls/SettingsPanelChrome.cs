@@ -10,13 +10,15 @@ internal static class SettingsPanelChrome
 {
     public static Button CreateToggleButton()
     {
-        return new Button
+        var button = new Button
         {
             Content = new LocalIconLabel("settings", "设置"),
             MinWidth = 0,
             Height = 32,
             Padding = new Thickness(8, 3)
         };
+        button.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
+        return button;
     }
 
     public static Border CreateCard(

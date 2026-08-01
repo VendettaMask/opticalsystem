@@ -93,11 +93,7 @@ public sealed class WavefrontSurfaceControl : Control
 
     public void ResetView()
     {
-        _viewInitialized = true;
-        _yawDegrees = RotationDegrees + InitialYawOffsetDegrees;
-        _pitchDegrees = InitialPitchDegrees;
-        _zoom = 1;
-        _pan = default;
+        InitializeView();
         InvalidateVisual();
     }
 
@@ -797,8 +793,17 @@ public sealed class WavefrontSurfaceControl : Control
     {
         if (!_viewInitialized)
         {
-            ResetView();
+            InitializeView();
         }
+    }
+
+    private void InitializeView()
+    {
+        _viewInitialized = true;
+        _yawDegrees = RotationDegrees + InitialYawOffsetDegrees;
+        _pitchDegrees = InitialPitchDegrees;
+        _zoom = 1;
+        _pan = default;
     }
 
     private static Point ClampLabelPosition(Point point, FormattedText text, Rect bounds)

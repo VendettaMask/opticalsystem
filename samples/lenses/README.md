@@ -1,18 +1,15 @@
-# Test Lens Samples
+# 测试镜头样例
 
-The Zemax sequential sources for manual UI and importer testing now live under
-`local-data/lens-library/originals/user-zmx/project/samples/lenses`:
+用于手工界面和导入器测试的 Zemax 顺序模式源文件位于：
 
-- `achromatic-doublet.zmx`: cemented N-BK7/N-F2 doublet with angle fields.
-- `double-gauss-50mm.zmx`: symmetric four-group photographic layout with a central stop.
-- `telephoto-four-element.zmx`: positive front group, negative telephoto group, and rear field lens.
-- `finite-conjugate-macro.zmx`: finite-object, object-height system.
-- `real-image-height-demo.zmx`: Zemax `FTYP 3` fields whose chief rays target local image coordinates.
+`local-data/lens-library/originals/user-zmx/project/samples/lenses`
 
-Open the source files from that directory with **File > Open**. Every catalog
-glass resolves against the bundled Zemax database; no external AGF installation
-is required. This directory retains the converted `.staropt` viewer samples.
+- `achromatic-doublet.zmx`：带角度视场的 N-BK7/N-F2 胶合消色差双片。
+- `double-gauss-50mm.zmx`：中央光阑、四组对称的摄影物镜。
+- `telephoto-four-element.zmx`：正前组、负远摄组和后场镜组成的四片系统。
+- `finite-conjugate-macro.zmx`：有限物距、物高视场系统。
+- `real-image-height-demo.zmx`：使用 Zemax `FTYP 3` 实像高视场，主光线目标为局部像面坐标。
 
-The repository-level `Convert-Zemax-Lens.cmd` utility can add a converted
-`.staropt` project here while simultaneously installing the same project and its
-metadata into the packaged **Database > Lens Library** catalog.
+在应用中通过“文件 → 打开”选择上述源文件。目录玻璃由内置 Zemax 数据库解析，不需要另行安装 AGF。当前目录保留转换后的 `.staropt` 查看器样例。
+
+仓库根目录的 `Convert-Zemax-Lens.cmd` 可以在这里新增转换后的 `.staropt` 工程，同时把同一工程及其元数据安装到打包后的“数据库 → 镜头库”目录。

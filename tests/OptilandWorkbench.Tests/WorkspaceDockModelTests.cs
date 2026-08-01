@@ -1,3 +1,7 @@
+using Avalonia.Controls;
+using Avalonia.Headless;
+using Avalonia.VisualTree;
+using Dock.Avalonia.Controls;
 using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
@@ -8,59 +12,183 @@ using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.Tests;
 
+[Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class WorkspaceDockModelTests
 {
-    [Fact]
-    public void TileAndCascadeDoNotFloatDockedDocuments()
+    [Theory]
+    [InlineData(1, 1600, 900, 1, 1)]
+    [InlineData(2, 1600, 900, 1, 2)]
+    [InlineData(3, 1600, 900, 2, 2)]
+    [InlineData(4, 1600, 900, 2, 2)]
+    [InlineData(5, 1600, 900, 2, 3)]
+    [InlineData(6, 1600, 900, 2, 3)]
+    [InlineData(8, 1600, 900, 3, 3)]
+    public void AdaptiveTilePlansBalancedGrid(
+        int documentCount,
+        double width,
+        double height,
+        int expectedRows,
+        int expectedColumns)
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        using var manager = new PanelManager(application, new AppSettings());
-        var viewer = manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            "document:viewer-2d",
-            WorkspaceDocumentKind.Viewer2D,
-            "二维视图"));
-        var originalOwner = viewer.Owner;
+        var plan = AdaptiveMdiLayout.Plan(documentCount, width, height);
 
-        manager.TileAllWindows();
-        manager.CascadeAllWindows();
-
-        Assert.True(manager.Layout.Windows is null or { Count: 0 });
-        Assert.Same(originalOwner, viewer.Owner);
-        Assert.Equal(2, manager.Factory.OpenDocuments().Count);
+        Assert.Equal(expectedRows, plan.Rows);
+        Assert.Equal(expectedColumns, plan.Columns);
     }
 
     [Fact]
-    public void TileAndCascadeOnlyRepositionExistingFloatingWindows()
+    public void AdaptiveTileAppliesEqualNormalAspectBoundsAndCentersLastRow()
+    {
+        var documents = Enumerable.Range(1, 5)
+            .Select(index => new Document { Id = $"document:{index}" })
+            .ToArray();
+        var dock = new DocumentDock
+        {
+            VisibleDockables = documents.Cast<IDockable>().ToList()
+        };
+        dock.SetVisibleBounds(0, 0, 1600, 900);
+
+        AdaptiveMdiLayout.TileDocuments(dock);
+
+        Assert.All(documents, document =>
+        {
+            Assert.Equal(MdiWindowState.Normal, document.MdiState);
+            Assert.Equal(1600.0 / 3, document.MdiBounds.Width, 6);
+            Assert.Equal(450, document.MdiBounds.Height, 6);
+            Assert.InRange(
+                document.MdiBounds.Width / document.MdiBounds.Height,
+                1.1,
+                1.3);
+        });
+        Assert.Equal(0, documents[0].MdiBounds.X, 6);
+        Assert.Equal(1600.0 / 6, documents[3].MdiBounds.X, 6);
+        Assert.Equal(1600.0 / 2, documents[4].MdiBounds.X, 6);
+    }
+
+    [Fact]
+    public void TileAndCascadeReturnAllDocumentsToPrimaryMdiArea()
     {
         using var application = WorkbenchApplication.Create("cooke");
         using var manager = new PanelManager(application, new AppSettings());
-        var first = new DockWindow { X = 1, Y = 2, Width = 3, Height = 4 };
-        var second = new DockWindow { X = 5, Y = 6, Width = 7, Height = 8 };
-        manager.Layout.Windows = manager.Factory.CreateList<IDockWindow>(first, second);
+        UseTestHostWindows(manager.Factory);
+        manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "document:viewer-2d",
+            WorkspaceDocumentKind.Viewer2D,
+            "二维视图"));
+        manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "analysis:spot",
+            WorkspaceDocumentKind.Analysis,
+            "Spot Diagram",
+            "Spot Diagram"));
 
+        manager.FloatAllWindows();
+        Assert.NotEmpty(manager.Layout.Windows!);
         manager.TileAllWindows();
 
-        Assert.Equal(2, manager.Layout.Windows!.Count);
-        Assert.Same(first, manager.Layout.Windows[0]);
-        Assert.Same(second, manager.Layout.Windows[1]);
-        Assert.Equal(30, first.X);
-        Assert.Equal(50, first.Y);
-        Assert.Equal(720, first.Width);
-        Assert.Equal(900, first.Height);
-        Assert.Equal(750, second.X);
-        Assert.Equal(50, second.Y);
+        var target = Assert.IsAssignableFrom<IDocumentDock>(manager.Factory.PrimaryDocumentDock);
+        Assert.Empty(manager.Layout.Windows!);
+        Assert.Equal(DocumentLayoutMode.Mdi, target.LayoutMode);
+        Assert.Equal(3, manager.Factory.OpenDocuments().Count);
+        Assert.All(manager.Factory.OpenDocuments(), document => Assert.Same(target, document.Owner));
 
+        manager.FloatAllWindows();
+        Assert.NotEmpty(manager.Layout.Windows!);
         manager.CascadeAllWindows();
 
-        Assert.Equal(2, manager.Layout.Windows.Count);
-        Assert.Same(first, manager.Layout.Windows[0]);
-        Assert.Same(second, manager.Layout.Windows[1]);
-        Assert.Equal(80, first.X);
-        Assert.Equal(80, first.Y);
-        Assert.Equal(920, first.Width);
-        Assert.Equal(680, first.Height);
-        Assert.Equal(110, second.X);
-        Assert.Equal(108, second.Y);
+        Assert.Empty(manager.Layout.Windows!);
+        Assert.Equal(DocumentLayoutMode.Mdi, target.LayoutMode);
+        Assert.All(manager.Factory.OpenDocuments(), document => Assert.Same(target, document.Owner));
+    }
+
+    [Fact]
+    public async Task MergeSinglePaneReturnsAllDocumentsAndUsesTabbedLayout()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(OptilandWorkbench.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var manager = new PanelManager(application, new AppSettings());
+            var window = new Window
+            {
+                Width = 1200,
+                Height = 800,
+                Content = manager.WorkspaceControl
+            };
+
+            try
+            {
+                window.Show();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+                    "document:viewer-2d",
+                    WorkspaceDocumentKind.Viewer2D,
+                    "二维视图"));
+                manager.FloatAllWindows();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                Assert.NotEmpty(manager.Layout.Windows!);
+
+                manager.DockToSinglePane();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+
+                var target = Assert.IsAssignableFrom<IDocumentDock>(manager.Factory.PrimaryDocumentDock);
+                Assert.Empty(manager.Layout.Windows!);
+                Assert.Equal(DocumentLayoutMode.Tabbed, target.LayoutMode);
+                Assert.Equal(2, manager.Factory.OpenDocuments().Count);
+                Assert.All(manager.Factory.OpenDocuments(), document => Assert.Same(target, document.Owner));
+                Assert.DoesNotContain(
+                    window.GetVisualDescendants(),
+                    visual => visual is MdiDocumentControl { IsVisible: true });
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public void BulkWindowCommandsRemoveEmptyFloatingHosts()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var manager = new PanelManager(application, new AppSettings());
+        UseTestHostWindows(manager.Factory);
+        var mainDocumentDock = Assert.IsAssignableFrom<IDocumentDock>(manager.Factory.PrimaryDocumentDock);
+        var floatingDocument = new Document
+        {
+            Id = "document:floating-restored",
+            Title = "恢复的浮动页面"
+        };
+        var floatingDocumentDock = new DocumentDock
+        {
+            Id = WorkspaceDockFactory.DocumentDockId,
+            VisibleDockables = manager.Factory.CreateList<IDockable>(floatingDocument),
+            ActiveDockable = floatingDocument
+        };
+        floatingDocument.Owner = floatingDocumentDock;
+        var floatingRoot = new RootDock
+        {
+            VisibleDockables = manager.Factory.CreateList<IDockable>(floatingDocumentDock),
+            ActiveDockable = floatingDocumentDock
+        };
+        manager.Layout.Windows = manager.Factory.CreateList<IDockWindow>(
+            new DockWindow(),
+            new DockWindow
+            {
+                Layout = new RootDock
+                {
+                    VisibleDockables = manager.Factory.CreateList<IDockable>(new DocumentDock())
+                }
+            },
+            new DockWindow { Layout = floatingRoot });
+
+        manager.Factory.InitLayout(manager.Layout);
+
+        Assert.Same(mainDocumentDock, manager.Factory.PrimaryDocumentDock);
+
+        manager.DockAllWindows();
+
+        Assert.Empty(manager.Layout.Windows);
+        Assert.Same(mainDocumentDock, floatingDocument.Owner);
     }
 
     [Fact]
@@ -233,6 +361,56 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
+    public void DockLayoutSerializationFiltersEmptyFloatingHosts()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var factory = new WorkspaceDockFactory(application, new AppSettings());
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
+        layout.Windows = factory.CreateList<IDockWindow>(
+            new DockWindow(),
+            new DockWindow
+            {
+                Layout = new RootDock
+                {
+                    VisibleDockables = factory.CreateList<IDockable>(new DocumentDock())
+                }
+            });
+        var serializer = new WorkspaceDockLayoutSerializer();
+
+        var restored = serializer.Deserialize(serializer.Serialize(layout));
+
+        Assert.NotNull(restored);
+        Assert.Empty(restored!.Windows!);
+        factory.DisposeContent();
+    }
+
+    [Fact]
+    public void DockLayoutDeserializationFiltersLegacyEmptyFloatingHosts()
+    {
+        var layout = new RootDock
+        {
+            Windows = new List<IDockWindow>
+            {
+                new DockWindow
+                {
+                    Layout = new RootDock
+                    {
+                        VisibleDockables = new List<IDockable> { new DocumentDock() }
+                    }
+                }
+            }
+        };
+        var rawSerializer = new Dock.Serializer.SystemTextJson.DockSerializer();
+        var serializer = new WorkspaceDockLayoutSerializer();
+
+        var restored = serializer.Deserialize(rawSerializer.Serialize(layout));
+
+        Assert.NotNull(restored);
+        Assert.Empty(restored!.Windows!);
+    }
+
+    [Fact]
     public void DockLayoutSerializationPrunesRepeatedAndCyclicStructuralReferences()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -263,4 +441,86 @@ public sealed class WorkspaceDockModelTests
         Assert.DoesNotContain(restoredToolDock, restoredToolDock.VisibleDockables!);
         factory.DisposeContent();
     }
+
+    [Fact]
+    public void ActiveDocumentLockCommandTogglesOneState()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var manager = new PanelManager(application, new AppSettings());
+        var viewer = manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
+            "document:viewer-2d",
+            WorkspaceDocumentKind.Viewer2D,
+            "二维视图"));
+        manager.Factory.SetActiveDockable(viewer);
+
+        manager.ToggleActiveDocumentLocked();
+        Assert.True(manager.Factory.Descriptor(viewer.Id)!.IsLocked);
+
+        manager.ToggleActiveDocumentLocked();
+        Assert.False(manager.Factory.Descriptor(viewer.Id)!.IsLocked);
+    }
+
+    private static void UseTestHostWindows(WorkspaceDockFactory factory)
+    {
+        factory.HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>
+        {
+            [nameof(IDockWindow)] = () => new TestHostWindow()
+        };
+    }
+
+    private sealed class TestHostWindow : IHostWindow
+    {
+        public IHostWindowState HostWindowState => null!;
+
+        public bool IsTracked { get; set; }
+
+        public IDockWindow? Window { get; set; }
+
+        public void Present(bool isDialog)
+        {
+        }
+
+        public void Exit()
+        {
+        }
+
+        public void SetPosition(double x, double y)
+        {
+        }
+
+        public void GetPosition(out double x, out double y)
+        {
+            x = 0;
+            y = 0;
+        }
+
+        public void SetSize(double width, double height)
+        {
+        }
+
+        public void GetSize(out double width, out double height)
+        {
+            width = 0;
+            height = 0;
+        }
+
+        public void SetWindowState(DockWindowState windowState)
+        {
+        }
+
+        public DockWindowState GetWindowState() => DockWindowState.Normal;
+
+        public void SetTitle(string? title)
+        {
+        }
+
+        public void SetLayout(IDock layout)
+        {
+        }
+
+        public void SetActive()
+        {
+        }
+    }
+
 }
