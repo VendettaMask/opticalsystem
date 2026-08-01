@@ -64,7 +64,6 @@ public sealed class MaterialLibraryPanel : UserControl
 
         var titleBar = new Border
         {
-            Background = new SolidColorBrush(Color.FromRgb(236, 247, 251)),
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(14, 10),
             Child = new TextBlock

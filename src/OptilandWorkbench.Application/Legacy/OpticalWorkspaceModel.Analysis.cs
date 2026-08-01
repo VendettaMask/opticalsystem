@@ -109,6 +109,9 @@ public partial class OpticalWorkspaceModel
         string name,
         IReadOnlyDictionary<string, string> settings)
     {
+        // Fallback values in this Application-layer factory are Workbench UI
+        // presets. Some intentionally reproduce a committed comparison capture,
+        // but they are not universal Zemax defaults or file-format rules.
         int Int(string key, int fallback)
         {
             return TryReadInt(settings, key, fallback);
@@ -186,23 +189,28 @@ public partial class OpticalWorkspaceModel
             return frequency <= 0 ? null : frequency;
         }
 
-        MtfComputationSettings MtfScanSettings(bool zemaxCompatible = true)
+        MtfComputationSettings MtfScanSettings(
+            bool zemaxCompatible = true,
+            bool useHuygensImageSampling = false)
         {
             var imageDeltaMicrometers = Double("ImageDeltaMicrometers", 0);
             var pupilSampling = Int("Sampling", Int("PupilSampling", 64));
             return new MtfComputationSettings(
                 PupilSampling: pupilSampling,
-                ImageSize: zemaxCompatible
+                ImageSize: zemaxCompatible && !useHuygensImageSampling
                     ? pupilSampling * 2
                     : Int("ImageSampling", Int("ImageSize", 64)),
                 PixelPitchMillimeters: imageDeltaMicrometers > 0
                     ? imageDeltaMicrometers / 1000.0
-                    : Double("PixelPitchMillimeters", 0.005),
+                    : useHuygensImageSampling
+                        ? 0
+                        : Double("PixelPitchMillimeters", 0.005),
                 GeometricRayCount: Int("Sampling", Int("PupilSampling", 64)),
                 Distribution: Text("Distribution", "uniform"),
                 ScaleGeometricByDiffractionLimit: Bool("ScaleByDiffractionLimit", true),
                 UsePolarization: Bool("UsePolarization", false),
-                ZemaxCompatible: zemaxCompatible);
+                ZemaxCompatible: zemaxCompatible,
+                UseZemaxHuygensSemantics: useHuygensImageSampling);
         }
 
         SpotDiagramSettings SpotSettings()
@@ -368,12 +376,16 @@ public partial class OpticalWorkspaceModel
                 CurrentOptic,
                 Int("NumRays", 10_000),
                 Text("Distribution", "sobol"),
-                Int("NumPoints", 256)),
+                Int("NumPoints", 256),
+                Int("WavelengthNumber", 0),
+                Text("Reference", "centroid"),
+                Double("MaximumDistanceMicrometers", 0),
+                Bool("MultiplyByDiffractionLimit", true)),
             "Diffraction Encircled Energy" => new DiffractionEncircledEnergyAnalysis(
                 CurrentOptic,
                 LeadingInt("PupilSampling", 64),
                 LeadingInt("ImageSampling", 128),
-                Int("NumPoints", 256),
+                Int("NumPoints", 401),
                 Int("WavelengthNumber", 0),
                 LeadingInt("FieldNumber", 0),
                 Text("Type", "encircled"),
@@ -398,20 +410,30 @@ public partial class OpticalWorkspaceModel
                 LeadingInt("FieldNumber", 1),
                 Text("Type", "encircled"),
                 Text("Reference", "centroid"),
-                Double("MaximumDistanceMicrometers", 0)),
-            "Pupil Aberration" => new PupilAberrationAnalysis(CurrentOptic, Int("NumPoints", 256)),
+                Double("MaximumDistanceMicrometers", 0),
+                LoadExtendedSourceImage(Text("SourceFile", string.Empty)),
+                string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
+                    ? "uniform square"
+                    : Path.GetFileName(Text("SourceFile", string.Empty))),
+            "Pupil Aberration" => new PupilAberrationAnalysis(
+                CurrentOptic,
+                settings.ContainsKey("NumberOfRays")
+                    ? (Int("NumberOfRays", 20) * 2) + 1
+                    : Int("NumPoints", 41)),
             "RMS vs Field" => new RmsVsFieldAnalysis(
                 CurrentOptic,
                 Int("NumFields", 64),
                 Int("NumRings", 6),
                 Text("Distribution", "hexapolar"),
                 Text("Method", "GQ"),
-                Text("Data", "spot"),
-                Text("Reference", "centroid"),
+                Text("Data", "wavefront"),
+                Text("Reference", "chief"),
                 Int("WavelengthNumber", 0),
                 Bool("ShowDiffractionLimit", false),
                 Bool("UsePolarization", false),
-                Bool("RemoveVignetting", true)),
+                Bool("RemoveVignetting", true),
+                Int("FieldDensity", 15),
+                Text("ScanDirection", "+y")),
             "RMS vs Wavelength" => new RmsVsWavelengthAnalysis(
                 CurrentOptic,
                 Int("WaveDensity", 21),
@@ -426,15 +448,15 @@ public partial class OpticalWorkspaceModel
                 Bool("RemoveVignetting", true)),
             "RMS vs Focus" => new RmsVsFocusAnalysis(
                 CurrentOptic,
-                Int("FocusDensity", 21),
-                Double("MinimumFocus", -1),
-                Double("MaximumFocus", 1),
+                Int("FocusDensity", 16),
+                Double("MinimumFocus", -0.01),
+                Double("MaximumFocus", 0.01),
                 Int("NumRings", 6),
                 Text("Distribution", "hexapolar"),
                 Int("WavelengthNumber", 0),
-                Text("Reference", "centroid"),
+                Text("Reference", "chief"),
                 Text("Method", "GQ"),
-                Text("Data", "spot"),
+                Text("Data", "wavefront"),
                 Bool("ShowDiffractionLimit", false),
                 Bool("UsePolarization", false),
                 Bool("RemoveVignetting", true)),
@@ -456,7 +478,14 @@ public partial class OpticalWorkspaceModel
             "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(
                 CurrentOptic,
                 Int("NumFields", 32),
-                Int("NumRings", 12)),
+                Int("RayDensity", Int("NumRings", 6)),
+                Int("FieldDensity", 15),
+                Text("Method", "GQ"),
+                Text("Reference", "chief"),
+                Int("WavelengthNumber", 0),
+                Text("ScanType", "+y"),
+                Bool("RemoveVignettingFactors", true),
+                zemaxCompatibleOutput: true),
             "Zernike vs Field" => new ZernikeVsFieldAnalysis(
                 CurrentOptic,
                 Int("FieldDensity", 20),
@@ -508,8 +537,8 @@ public partial class OpticalWorkspaceModel
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0),
                 Text("Type", "调制"), Bool("UseDashes", false)),
             "Huygens Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
-                Double("SpatialFrequency", 50), Double("DeltaFocus", Double("FocusStep", 0.1)),
-                Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(),
+                Double("SpatialFrequency", 20), Double("DeltaFocus", Double("FocusStep", 0.1)),
+                Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(useHuygensImageSampling: true),
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Geometric Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
                 Double("SpatialFrequency", 50), Double("DeltaFocus", Double("FocusStep", 0.1)),
@@ -519,8 +548,22 @@ public partial class OpticalWorkspaceModel
                 Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings(),
                 Int("WavelengthNumber", 0)),
             "Huygens MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
-                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings(),
-                Int("WavelengthNumber", 0)),
+                Double("Frequency1", 10), Int("FieldDensity", 10),
+                MtfScanSettings(useHuygensImageSampling: true),
+                Int("WavelengthNumber", 0),
+                new[]
+                {
+                    Double("Frequency1", 10),
+                    Double("Frequency2", 20),
+                    Double("Frequency3", 30),
+                    Double("Frequency4", 40),
+                    Double("Frequency5", 50),
+                    Double("Frequency6", 60)
+                },
+                Text("ScanType", "+y"),
+                Bool("RemoveVignettingFactors", true),
+                zemaxCompatibleOutput: true,
+                useDashes: Bool("UseDashes", false)),
             "Geometric MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
                 Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings(),
                 Int("WavelengthNumber", 0)),
@@ -624,9 +667,16 @@ public partial class OpticalWorkspaceModel
                 Bool("UseCentroid", false)),
             "Huygens PSF Cross Section" => new HuygensPsfCrossSectionAnalysis(
                 CurrentOptic,
-                Int("NumRays", 9),
-                Int("ImageSize", 32),
-                Double("PixelPitchMillimeters", 0.005)),
+                Int("PupilSampling", Int("NumRays", 32)),
+                Int("ImageSampling", Int("ImageSize", 32)),
+                Double("ImageDeltaMicrometers", 0) / 1000.0,
+                Int("WavelengthNumber", 0),
+                Int("FieldNumber", 1),
+                settings.ContainsKey("ProfileType")
+                    ? Text("ProfileType", "X")
+                    : settings.ContainsKey("NumRays") ? "Both" : "X",
+                Bool("UsePolarization", false),
+                Bool("UseCentroid", false)),
             "MTF" => new MtfAnalysis(
                 CurrentOptic,
                 Int("Sampling", Int("NumRays", 64)),
@@ -642,14 +692,13 @@ public partial class OpticalWorkspaceModel
                 zemaxCompatible: true),
             "Huygens MTF" => new HuygensMtfAnalysis(
                 CurrentOptic,
-                Int("PupilSampling", Int("NumRays", 64)),
-                Int("ImageSampling", Int("ImageSize", 64)),
-                Double("ImageDeltaMicrometers", 0) > 0
-                    ? Double("ImageDeltaMicrometers", 0) / 1000.0
-                    : Double("PixelPitchMillimeters", 0.005),
+                Int("PupilSampling", Int("NumRays", 32)),
+                Int("ImageSampling", Int("ImageSize", 32)),
+                Double("ImageDeltaMicrometers", 0) / 1000.0,
                 maximumFrequency: OptionalFrequency(),
                 wavelengthNumber: Int("WavelengthNumber", 0),
-                fieldNumber: Int("FieldNumber", 0)),
+                fieldNumber: Int("FieldNumber", 0),
+                zemaxCompatible: true),
             "Geometric MTF" => new GeometricMtfAnalysis(
                 CurrentOptic,
                 Int("NumRays", 32),
@@ -667,10 +716,10 @@ public partial class OpticalWorkspaceModel
                 OptionalFrequency()),
             "Contrast Loss Map" => new ContrastLossMapAnalysis(
                 CurrentOptic,
-                Int("Sampling", 32),
-                Double("Frequency", 0),
+                Int("Sampling", 13),
+                Double("Frequency", 100),
                 Bool("Normalize", false),
-                LeadingInt("WavelengthNumber", 1),
+                LeadingInt("WavelengthNumber", 0),
                 LeadingInt("FieldNumber", 1),
                 Bool("ShowOPD", false)),
             "Optical Path Difference" => new OpticalPathDifferenceAnalysis(
@@ -683,7 +732,7 @@ public partial class OpticalWorkspaceModel
                 wavelengthNumber: Int("WavelengthNumber", 0),
                 fieldNumber: Int("FieldNumber", 0),
                 surfaceNumber: Int("SurfaceNumber", -1)),
-            "Wavefront Map" => new WavefrontAnalysis(
+            "Wavefront Map" or "Wavefront" => new WavefrontAnalysis(
                 CurrentOptic,
                 pupilSampling: LeadingInt("Sampling", 64),
                 mapSize: LeadingInt("Sampling", 64),
@@ -700,7 +749,7 @@ public partial class OpticalWorkspaceModel
                 pupilSx: Double("PupilSx", 0),
                 pupilSy: Double("PupilSy", 0),
                 pupilSr: Double("PupilSr", 1),
-                name: "Wavefront Map"),
+                name: name),
             "Foucault Analysis" => new FoucaultAnalysis(
                 CurrentOptic,
                 sampling: LeadingInt("Sampling", 32),
@@ -712,7 +761,7 @@ public partial class OpticalWorkspaceModel
                 fieldNumber: LeadingInt("FieldNumber", 1),
                 positionMicrometers: Double("YPositionMicrometers", 0),
                 usePolarization: Bool("UsePolarization", false)),
-            "Wavefront" or "Interferogram" => new WavefrontAnalysis(
+            "Interferogram" => new WavefrontAnalysis(
                 CurrentOptic,
                 Int("NumRings", 15),
                 Int("MapSize", 65)),
@@ -721,13 +770,17 @@ public partial class OpticalWorkspaceModel
                 ReferenceSphereStrategy.CentroidSphere,
                 Int("NumRings", 8),
                 Int("MapSize", 65),
-                Double("RobustTrimStandardDeviations", 3)),
+                Double("RobustTrimStandardDeviations", 3),
+                Int("WavelengthNumber", 0),
+                LeadingInt("FieldNumber", 1)),
             "Best Fit Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
                 CurrentOptic,
                 ReferenceSphereStrategy.BestFitSphere,
                 Int("NumRings", 8),
                 Int("MapSize", 65),
-                Double("RobustTrimStandardDeviations", 3)),
+                Double("RobustTrimStandardDeviations", 3),
+                Int("WavelengthNumber", 0),
+                LeadingInt("FieldNumber", 1)),
             "Zernike Fringe" => new ZernikeAnalysis(
                 CurrentOptic,
                 LeadingInt("PupilSampling", 32),
@@ -867,5 +920,26 @@ public partial class OpticalWorkspaceModel
             "西门子星" => ImageSimulationSourcePattern.SiemensStar,
             _ => ImageSimulationSourcePattern.ResolutionTarget
         };
+    }
+
+    private static ExtendedSourceImage? LoadExtendedSourceImage(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return null;
+        }
+
+        var fullPath = Path.GetFullPath(path);
+        if (!File.Exists(fullPath))
+        {
+            throw new FileNotFoundException("The extended-source IMA file does not exist.", fullPath);
+        }
+
+        if (!Path.GetExtension(fullPath).Equals(".ima", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidDataException("Extended Source Encircled Energy requires a text .IMA file.");
+        }
+
+        return ExtendedSourceImage.ParseZemaxTextIma(File.ReadAllText(fullPath));
     }
 }

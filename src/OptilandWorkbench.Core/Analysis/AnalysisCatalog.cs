@@ -9,6 +9,11 @@ public sealed class AnalysisCatalog
         _optic = optic;
     }
 
+    // This core catalog intentionally uses each analysis' general-purpose
+    // defaults. Product UI presets and captured-file parity settings belong in
+    // the Application layer and tests respectively; neither is a universal
+    // Zemax requirement.
+
     public IReadOnlyList<string> Names { get; } = new[]
     {
         "Single Ray Trace",

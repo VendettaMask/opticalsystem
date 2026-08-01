@@ -5,20 +5,23 @@ using System.Text.Json.Serialization;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core.FileIO;
 
-if (args.Length is < 3 or > 4)
+if (args.Length is < 3 or > 5)
 {
     Console.Error.WriteLine(
         "Usage: OptilandWorkbench.AccuracyCapture <source.zmx> <settings-manifest.json> " +
-        "<output-directory> [start-index]");
+        "<output-directory> [start-index] [end-index]");
     return 2;
 }
 
 var sourcePath = Path.GetFullPath(args[0]);
 var settingsManifestPath = Path.GetFullPath(args[1]);
 var outputDirectory = Path.GetFullPath(args[2]);
-var startIndex = args.Length == 4
+var startIndex = args.Length >= 4
     ? int.Parse(args[3], System.Globalization.CultureInfo.InvariantCulture)
     : 1;
+var endIndex = args.Length == 5
+    ? int.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture)
+    : int.MaxValue;
 var currentDirectory = Path.Combine(outputDirectory, "current");
 Directory.CreateDirectory(currentDirectory);
 
@@ -54,7 +57,7 @@ foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, ind
     var slug = Slug(name);
     var relativeOutput = $"current/{index:D3}-{slug}.json";
     var outputPath = Path.Combine(outputDirectory, relativeOutput.Replace('/', Path.DirectorySeparatorChar));
-    if (index < startIndex && File.Exists(outputPath))
+    if ((index < startIndex || index > endIndex) && File.Exists(outputPath))
     {
         var existing = JsonSerializer.Deserialize<AnalysisView>(
             await File.ReadAllTextAsync(outputPath),

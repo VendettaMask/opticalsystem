@@ -2,7 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
@@ -119,10 +121,20 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
             HeadersVisibility = DataGridHeadersVisibility.Column,
             RowHeight = 30,
             ColumnHeaderHeight = 32,
-            BorderThickness = new Thickness(0),
-            HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234)),
-            VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234))
+            BorderThickness = new Thickness(0)
         };
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-error"))
+        {
+            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.ErrorSurface)) }
+        });
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-warning"))
+        {
+            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.WarningSurface)) }
+        });
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-success"))
+        {
+            Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.SuccessSurface)) }
+        });
         grid.Columns.Add(Column("元件", nameof(ManufacturabilityFinding.ElementNumber), 64));
         grid.Columns.Add(Column("表面", nameof(ManufacturabilityFinding.Surfaces), 86));
         grid.Columns.Add(Column("结论", nameof(ManufacturabilityFinding.SeverityText), 92));
@@ -141,12 +153,9 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
                 return;
             }
 
-            args.Row.Background = finding.Severity switch
-            {
-                ManufacturabilitySeverity.Error => new SolidColorBrush(Color.FromRgb(255, 232, 230)),
-                ManufacturabilitySeverity.Warning => new SolidColorBrush(Color.FromRgb(255, 247, 220)),
-                _ => new SolidColorBrush(Color.FromRgb(232, 247, 237))
-            };
+            args.Row.Classes.Set("severity-error", finding.Severity == ManufacturabilitySeverity.Error);
+            args.Row.Classes.Set("severity-warning", finding.Severity == ManufacturabilitySeverity.Warning);
+            args.Row.Classes.Set("severity-success", finding.Severity == ManufacturabilitySeverity.Pass);
         };
         return grid;
     }

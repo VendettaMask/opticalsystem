@@ -103,7 +103,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         _sampling = Math.Clamp(sampling, 8, 512);
         _frequency = Math.Max(0, frequency);
         _normalize = normalize;
-        _wavelengthNumber = Math.Max(1, wavelengthNumber);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(1, fieldNumber);
         _showOpd = showOpd;
     }
@@ -119,7 +119,9 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
         }
 
-        var wavelength = wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Length - 1)];
+        var wavelength = _wavelengthNumber > 0
+            ? wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Length - 1)]
+            : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var field = fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
         var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, wavelength);
         var cutoff = fNumber <= 1e-30
@@ -128,9 +130,12 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         var frequency = _frequency > 0
             ? _frequency
             : 0.05 * cutoff;
+        // The normalized pupil spans one full diameter from -1 to +1. In the
+        // Moore-Elliott autocorrelation, cutoff is reached when the two pupil
+        // samples are separated by that full diameter, hence the factor of 2.
         var pupilSeparation = cutoff <= 1e-30
             ? 0
-            : Math.Clamp(frequency / cutoff, 0, 1.999);
+            : Math.Clamp(2 * frequency / cutoff, 0, 1.999);
 
         var sagittal = BuildMap(field, wavelength, pupilSeparation, xShift: true);
         var tangential = BuildMap(field, wavelength, pupilSeparation, xShift: false);
@@ -164,7 +169,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ["CutoffFrequency"] = cutoff,
             ["PupilSeparation"] = pupilSeparation,
             ["Normalize"] = _normalize,
-            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldNumber"] = _fieldNumber,
             ["FieldHx"] = field.Hx,

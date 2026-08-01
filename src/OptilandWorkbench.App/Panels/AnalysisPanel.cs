@@ -208,6 +208,15 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _ = RunAsync();
     }
 
+    internal async Task<bool> RunForGuiCaptureAsync()
+    {
+        _parameterAutoApply.IsChecked = false;
+        _automaticRefreshTimer.Stop();
+        _initialRunRequested = true;
+        await RunAsync();
+        return _view is not null;
+    }
+
     private async Task RunAsync()
     {
         if (_disposed)

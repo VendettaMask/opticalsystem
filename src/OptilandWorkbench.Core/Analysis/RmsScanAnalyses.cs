@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -479,7 +480,15 @@ internal static class RmsScanSupport
         bool removeVignetting = true)
     {
         return NormalizeData(data) == "wavefront"
-            ? WavefrontRms(optic, field, wavelengths, numRings, imagePlaneOffset, removeVignetting)
+            ? WavefrontRms(
+                optic,
+                field,
+                wavelengths,
+                numRings,
+                distribution,
+                reference,
+                imagePlaneOffset,
+                removeVignetting)
             : SpotRadius(
                 optic,
                 field,
@@ -521,6 +530,8 @@ internal static class RmsScanSupport
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
         int numRings,
+        string distribution,
+        string reference,
         double imagePlaneOffset = 0,
         bool removeVignetting = true)
     {
@@ -529,32 +540,49 @@ internal static class RmsScanSupport
             return 0;
         }
 
-        var values = wavelengths.Select(wavelength =>
+        var pupil = string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase)
+            ? ApertureSampler.Generate(numRings * numRings, PupilSampling.UniformGrid)
+            : ApertureSampler.GenerateGaussianQuadrature(numRings, 6);
+        var coordinates = pupil.Select(sample => (sample.X, sample.Y)).ToArray();
+        var wavefronts = DiffractionEngine.GenerateDefocusedPolychromaticWavefronts(
+            optic,
+            field,
+            wavelengths,
+            coordinates,
+            imagePlaneOffset);
+        var weightedMeanSquare = 0.0;
+        var totalWavelengthWeight = 0.0;
+        for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Count; wavelengthIndex++)
         {
-            var wavefront = WavefrontEngine.GenerateChiefRay(optic, field, wavelength, numRings);
-            var samples = wavefront.Samples
-                .Where(sample => double.IsFinite(sample.OpdWaves)
-                    && sample.Intensity > 0)
+            var wavelength = wavelengths[wavelengthIndex];
+            var wavefront = wavefronts[wavelengthIndex];
+            var samples = wavefront.Samples.Select((sample, index) => (
+                    Sample: sample,
+                    Weight: Math.Max(0, pupil[index].Weight)))
+                .Where(item => item.Weight > 0
+                    && double.IsFinite(item.Sample.OpdWaves)
+                    && item.Sample.Intensity > 0)
                 .ToArray();
             if (samples.Length == 0)
             {
-                return 0;
+                continue;
             }
 
-            var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
-            var mean = samples.Select(sample =>
+            var totalPupilWeight = samples.Sum(item => item.Weight);
+            var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalPupilWeight;
+            var meanSquare = samples.Sum(item =>
             {
-                var defocusOpdWaves = Math.Abs(imagePlaneOffset) <= 1e-30
-                    ? 0
-                    : wavefront.ImageRefractiveIndex * imagePlaneOffset
-                        * (wavefront.ChiefImageDirectionZ - sample.ImageDirectionZ)
-                        / wavelengthMillimeters;
-                var opd = sample.OpdWaves + defocusOpdWaves;
-                return opd * opd;
-            }).Average();
-            return Math.Sqrt(mean);
-        }).ToArray();
-        return values.DefaultIfEmpty(0).Average();
+                var residual = item.Sample.OpdWaves - piston;
+                return item.Weight * residual * residual;
+            }) / totalPupilWeight;
+            var wavelengthWeight = Math.Max(0, wavelength.Weight);
+            weightedMeanSquare += wavelengthWeight * meanSquare;
+            totalWavelengthWeight += wavelengthWeight;
+        }
+
+        return totalWavelengthWeight <= 1e-30
+            ? 0
+            : Math.Sqrt(Math.Max(0, weightedMeanSquare / totalWavelengthWeight));
     }
 
     public static double DiffractionLimitMillimeters(

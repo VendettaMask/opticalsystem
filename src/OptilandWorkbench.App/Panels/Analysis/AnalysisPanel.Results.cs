@@ -568,6 +568,13 @@ public sealed partial class AnalysisPanel
 
     private static Control BuildAnalysisErrorContent(string message)
     {
+        var detail = new TextBlock
+        {
+            Text = message,
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center
+        };
+        detail.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         var panel = new StackPanel
         {
             Spacing = 10,
@@ -590,13 +597,7 @@ public sealed partial class AnalysisPanel
                     FontWeight = FontWeight.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 },
-                new TextBlock
-                {
-                    Text = message,
-                    TextWrapping = TextWrapping.Wrap,
-                    TextAlignment = TextAlignment.Center,
-                    Foreground = Brushes.Gray
-                }
+                detail
             }
         };
         return new Border
@@ -649,12 +650,13 @@ public sealed partial class AnalysisPanel
             FontSize = 15,
             FontWeight = FontWeight.SemiBold
         });
-        left.Children.Add(new TextBlock
+        var generatedAtText = new TextBlock
         {
             Text = generatedAt.LocalDateTime.ToString(compactSummary is null ? "yyyy/MM/dd HH:mm:ss" : "yyyy/M/d"),
-            FontSize = 11,
-            Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
-        });
+            FontSize = 11
+        };
+        generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        left.Children.Add(generatedAtText);
         var resultSummary = new TextBlock
         {
             Text = resultLines,
@@ -707,6 +709,14 @@ public sealed partial class AnalysisPanel
                 }
             }
         };
+        var documentDescription = new TextBlock
+        {
+            Text = document.Name,
+            FontSize = 10,
+            TextTrimming = TextTrimming.CharacterEllipsis,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
+        documentDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         var documentInfo = new StackPanel
         {
             Spacing = 2,
@@ -723,24 +733,17 @@ public sealed partial class AnalysisPanel
                     TextTrimming = TextTrimming.CharacterEllipsis,
                     HorizontalAlignment = HorizontalAlignment.Center
                 },
-                new TextBlock
-                {
-                    Text = document.Name,
-                    FontSize = 10,
-                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87)),
-                    TextTrimming = TextTrimming.CharacterEllipsis,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                }
+                documentDescription
             }
         };
         var right = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
         right.Children.Add(product);
         var documentBorder = new Border
         {
-            BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
             BorderThickness = new Thickness(0, 1, 0, 0),
             Child = documentInfo
         };
+        documentBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         Grid.SetRow(documentBorder, 1);
         right.Children.Add(documentBorder);
 
@@ -752,10 +755,10 @@ public sealed partial class AnalysisPanel
         grid.Children.Add(left);
         var rightBorder = new Border
         {
-            BorderBrush = new SolidColorBrush(Color.FromRgb(174, 174, 178)),
             BorderThickness = new Thickness(1, 0, 0, 0),
             Child = right
         };
+        rightBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         Grid.SetColumn(rightBorder, 1);
         grid.Children.Add(rightBorder);
 

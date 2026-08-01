@@ -72,13 +72,52 @@ result = zosapi_probe( ...
 ```
 ## Current Workbench comparison
 
+There are two distinct image products. Do not interchange them:
+
+- `images/current/*.png` is an offline Matplotlib rendering of structured
+  result JSON. It is useful for data-shape diagnostics, but it is **not** a
+  screenshot of the Workbench application and must not be used for GUI parity.
+- `images/gui-current/*.png` is rendered by the real Avalonia
+  `AnalysisPanel`, with the imported lens, saved analysis settings, light theme,
+  toolbar, plot/data/text tabs, and report footer. Only this directory is valid
+  for Workbench-vs-Zemax GUI image comparison.
+
+Capture all 69 real GUI analysis pages after building the desktop app:
+
+```powershell
+dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
+  --capture-analysis-gui `
+  --source=artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
+  --settings-manifest=artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
+  --output=artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current `
+  --start=1 --end=69
+```
+
+The capture manifest records `captured`, `analysis-error`, or `failed` for every
+page. An image can exist for `analysis-error`; that screenshot documents the
+actual error UI and is not a successful numerical result.
+
+Generate the side-by-side report from those real GUI images:
+
+```powershell
+python tools/zemax_parity/generate_gui_image_report.py `
+  --capture-manifest artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current/capture-manifest.json `
+  --baseline-root artifacts/zemax/123456-zemax-2026-r1-baseline `
+  --output artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
+```
+
+The GUI report separates direct references, nearest-only references, analyses
+whose source/settings differ, and analyses with no equivalent Zemax screenshot.
+It intentionally does not infer visual equality from image dimensions or pixel
+similarity.
+
 To recalculate every current Workbench analysis with the saved comparison
 settings, then regenerate all numeric and screenshot comparisons:
 
 ```powershell
 dotnet run --project tools/OptilandWorkbench.AccuracyCapture -- `
   artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
-  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/current-manifest.json `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
 
 python tools/zemax_parity/generate_workbench_comparison.py `
@@ -87,8 +126,24 @@ python tools/zemax_parity/generate_workbench_comparison.py `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30
 ```
 
+The capture command also accepts optional 1-based `start-index` and `end-index`
+arguments. Pass the same index twice to recalculate exactly one analysis while
+reusing the other existing captures; Field Curvature and Distortion is `11 11`,
+Distortion is `12 12`, Encircled Energy is `19 19`, Extended Source Encircled
+Energy is `22 22`, Pupil Aberration is `23 23`, Huygens Through Focus MTF is
+`32 32`, Huygens MTF is `52 52`, Contrast Loss Map is `55 55`, Optical Path
+Difference is `56 56`, and Wavefront is `58 58`. A targeted run does not provide a valid full-suite
+performance total because reused entries are not timed; keep the last complete
+run's timings until all 69 analyses are recalculated.
+
 The capture directory retains one raw JSON result for every Workbench analysis.
-The comparison directory contains 32 machine-readable numeric comparisons,
-32 numeric plots, and 69 Workbench/Zemax page images. A previous comparison is
+The comparison directory contains 30 machine-readable equivalent numeric comparisons,
+30 numeric plots, two explicitly excluded non-equivalent mappings, and 69 Workbench/Zemax page images. A previous comparison is
 used only for stable physical-series mappings; its Workbench values are never
 reused.
+
+Report screenshots are rendered from the current structured `plotPanes` when
+they exist. The renderer must not flatten multi-pane analyses into a single
+axis: Ray Fan, Optical Path Difference, and Pupil Aberration keep the Zemax-style
+five-field/two-direction layout, while Field Curvature and Distortion keeps the
+two-pane curvature/distortion layout.

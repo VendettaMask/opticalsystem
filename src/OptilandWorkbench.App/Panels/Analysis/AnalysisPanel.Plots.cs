@@ -27,17 +27,34 @@ public sealed partial class AnalysisPanel
             PlotOptions = view.PlotOptions,
             MinHeight = 360
         };
+        OptionalSquarePlotHost? squareHost = null;
+        Control plotRoot = plot;
+        if (view.PlotOptions.DefaultSquareViewport)
+        {
+            squareHost = new OptionalSquarePlotHost
+            {
+                Child = plot,
+                IsSquare = true
+            };
+            plotRoot = squareHost;
+        }
         var legendEntries = SelectableLegendEntries(view.Series);
         if (legendEntries.Count == 0)
         {
-            return new Grid
+            var content = new Grid
             {
                 Children =
                 {
-                    plot,
+                    plotRoot,
                     EmptyPlotMessage(view.Series.Count == 0)
                 }
             };
+            if (view.PlotOptions.DefaultSquareViewport)
+            {
+                content.Children.Add(BuildSinglePlotSquareToggle(squareHost!));
+            }
+
+            return content;
         }
 
         var original = view.Series.ToArray();
@@ -64,7 +81,7 @@ public sealed partial class AnalysisPanel
             ColumnDefinitions = legendBelow ? new ColumnDefinitions("*") : new ColumnDefinitions("*,Auto"),
             RowDefinitions = legendBelow ? new RowDefinitions("*,Auto") : new RowDefinitions("*")
         };
-        layout.Children.Add(plot);
+        layout.Children.Add(plotRoot);
         layout.Children.Add(EmptyPlotMessage(view.Series.Count == 0));
         if (legendBelow)
         {
@@ -78,6 +95,22 @@ public sealed partial class AnalysisPanel
 
         layout.Children.Add(legend);
         return layout;
+    }
+
+    private static CheckBox BuildSinglePlotSquareToggle(OptionalSquarePlotHost squareHost)
+    {
+        var toggle = new CheckBox
+        {
+            Name = "SquarePlotToggle",
+            Content = "方形绘图",
+            IsChecked = true,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Margin = new Thickness(12)
+        };
+        ToolTip.SetTip(toggle, "可选：使用方形绘图区；取消后自动铺满可用空间。");
+        toggle.IsCheckedChanged += (_, _) => squareHost.IsSquare = toggle.IsChecked == true;
+        return toggle;
     }
 
     private static Control BuildPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes, int requestedColumns)
@@ -823,14 +856,15 @@ public sealed partial class AnalysisPanel
 
     private static TextBlock EmptyPlotMessage(bool isVisible)
     {
-        return new TextBlock
+        var message = new TextBlock
         {
             Text = "当前分析没有可绘制的数值序列",
             IsVisible = isVisible,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center,
-            Foreground = Brushes.Gray
+            VerticalAlignment = VerticalAlignment.Center
         };
+        message.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        return message;
     }
 
     private static List<(string Key, string Label, int ColorIndex)> SelectableLegendEntries(
@@ -1042,19 +1076,20 @@ public sealed partial class AnalysisPanel
         var reference = populated
             .Select(pane => pane.Footer)
             .FirstOrDefault(footer => !string.IsNullOrWhiteSpace(footer));
+        var referenceText = new TextBlock
+        {
+            Text = reference ?? string.Empty,
+            IsVisible = !string.IsNullOrWhiteSpace(reference),
+            FontSize = 10.5
+        };
+        referenceText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         return new StackPanel
         {
             Spacing = 2,
             Children =
             {
                 grid,
-                new TextBlock
-                {
-                    Text = reference ?? string.Empty,
-                    IsVisible = !string.IsNullOrWhiteSpace(reference),
-                    FontSize = 10.5,
-                    Foreground = new SolidColorBrush(Color.FromRgb(82, 82, 87))
-                }
+                referenceText
             }
         };
     }

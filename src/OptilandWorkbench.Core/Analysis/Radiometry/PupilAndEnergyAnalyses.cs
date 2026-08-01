@@ -10,21 +10,168 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
     private readonly int _numRays;
     private readonly string _distribution;
     private readonly int _numPoints;
+    private readonly int _wavelengthNumber;
+    private readonly string _reference;
+    private readonly double _maximumDistanceMicrometers;
+    private readonly bool _multiplyByDiffractionLimit;
+    private readonly bool _optilandCompatibility;
 
     public EncircledEnergyAnalysis(
         Optic optic,
         int numRays = 10_000,
         string distribution = "sobol",
-        int numPoints = 256) : base(optic)
+        int numPoints = 256,
+        int wavelengthNumber = 0,
+        string reference = "centroid",
+        double maximumDistanceMicrometers = 0,
+        bool multiplyByDiffractionLimit = true,
+        bool optilandCompatibility = false) : base(optic)
     {
         _numRays = Math.Max(1, numRays);
         _distribution = distribution;
         _numPoints = Math.Max(2, numPoints);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _reference = reference;
+        _maximumDistanceMicrometers = Math.Max(0, maximumDistanceMicrometers);
+        _multiplyByDiffractionLimit = multiplyByDiffractionLimit;
+        _optilandCompatibility = optilandCompatibility;
     }
 
     public override string Name => "Encircled Energy";
 
     public override AnalysisData GenerateData()
+    {
+        if (_optilandCompatibility)
+        {
+            return GenerateOptilandCompatibilityData();
+        }
+
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var wavelengths = EnergyCurveSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        if (wavelengths.Count == 0)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+        }
+
+        var result = SpotAnalysisEngine.Generate(
+            Optic,
+            fields,
+            wavelengths,
+            _numRays,
+            _distribution,
+            reference: "absolute",
+            aimAtStop: Optic.RayAimingEnabled);
+        var curves = result.Fields.Select((field, fieldIndex) =>
+        {
+            var samples = field.Wavelengths
+                .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
+                    ray.X * 1000,
+                    ray.Y * 1000,
+                    ray.Intensity * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength))))
+                .Where(sample => sample.Weight > 0)
+                .ToArray();
+            var center = EnergyCurveSupport.ReferencePoint(
+                Optic,
+                (field.Hx, field.Hy),
+                wavelengths,
+                samples,
+                _reference);
+            var radii = samples
+                .Select(sample => (
+                    Radius: Math.Sqrt(
+                        Math.Pow(sample.X - center.X, 2)
+                        + Math.Pow(sample.Y - center.Y, 2)),
+                    sample.Weight))
+                .Where(item => double.IsFinite(item.Radius))
+                .OrderBy(item => item.Radius)
+                .ToArray();
+            return new FieldEnergyCurve(fieldIndex, field.Hx, field.Hy, samples, center, radii);
+        }).ToArray();
+        if (curves.Length == 0 || curves.All(curve => curve.Radii.Length == 0))
+        {
+            return EnergyCurveSupport.Empty(Name);
+        }
+
+        var geometricMaximumMicrometers = curves.SelectMany(curve => curve.Radii)
+            .Select(item => item.Radius)
+            .DefaultIfEmpty(0)
+            .Max();
+        var radiusMaximumMicrometers = _maximumDistanceMicrometers > 0
+            ? _maximumDistanceMicrometers
+            : geometricMaximumMicrometers * 1.05;
+        var airyComponents = _multiplyByDiffractionLimit
+            ? wavelengths.Select(wavelength => (
+                    Wavelength: wavelength.Micrometers,
+                    Weight: EnergyCurveSupport.WavelengthWeight(wavelength),
+                    FNumber: DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength)))
+                .Where(component => component.Wavelength > 0
+                    && component.Weight > 0
+                    && double.IsFinite(component.FNumber)
+                    && component.FNumber > 0)
+                .ToArray()
+            : Array.Empty<(double Wavelength, double Weight, double FNumber)>();
+        var series = curves.Select(curve =>
+        {
+            var data = EnergyCurveSupport.CreateCurve(
+                Name,
+                curve.Samples,
+                curve.Center,
+                "encircled",
+                radiusMaximumMicrometers,
+                _numPoints,
+                new Dictionary<string, object>());
+            var points = data.Series?.Points ?? Array.Empty<AnalysisPoint>();
+            if (_multiplyByDiffractionLimit)
+            {
+                points = points.Select(point => new AnalysisPoint(
+                    point.X,
+                    point.Y * PolychromaticAiryEnergy(point.X, airyComponents))).ToArray();
+            }
+            return new AnalysisSeries(
+                "Radius (µm)",
+                "Fraction of Energy",
+                points,
+                Name: MtfPresentation.FieldName(Optic, (curve.Hx, curve.Hy)),
+                ColorIndex: curve.FieldIndex);
+        }).ToArray();
+        var weightedRadii = curves
+            .SelectMany(curve => curve.Radii)
+            .OrderBy(item => item.Radius)
+            .ToArray();
+        var totalWeight = weightedRadii.Sum(item => item.Weight);
+        var primary = wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
+            ?? wavelengths.First();
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["RayCount"] = result.RayCount,
+            ["VignettedRayCount"] = result.VignettedRayCount,
+            ["FieldCount"] = result.Fields.Count,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthCount"] = wavelengths.Count,
+            ["WavelengthMicrometers"] = primary.Micrometers,
+            ["NumRays"] = _numRays,
+            ["Distribution"] = _distribution,
+            ["Reference"] = _reference,
+            ["MultiplyByDiffractionLimit"] = _multiplyByDiffractionLimit,
+            ["PlotPointCount"] = _numPoints,
+            ["MaximumDistanceMicrometers"] = radiusMaximumMicrometers,
+            ["MaximumGeometricSpotRadius"] = geometricMaximumMicrometers / 1000,
+            ["TotalWeight"] = totalWeight,
+            ["Radius50"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.50) / 1000,
+            ["Radius80"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.80) / 1000,
+            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95) / 1000
+        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            Title: wavelengths.Count == 1
+                ? $"Wavelength: {primary.Micrometers:0.0000} \u00B5m"
+                : "Wavelength: Polychromatic",
+            XMinimum: 0,
+            XMaximum: radiusMaximumMicrometers,
+            YMinimum: 0,
+            YMaximum: 1,
+            ShowLegend: true));
+    }
+
+    private AnalysisData GenerateOptilandCompatibilityData()
     {
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
         var primary = Optic.Wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
@@ -82,12 +229,27 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ["TotalWeight"] = totalWeight,
             ["Radius50"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.50),
             ["Radius80"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.80),
-            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95)
+            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95),
+            ["CompatibilityReference"] = "Optiland 0.5.8"
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: $"Wavelength: {primary.Micrometers:0.0000} \u00B5m",
             XMinimum: 0,
             YMinimum: 0,
             ShowLegend: true));
+    }
+
+    private static double PolychromaticAiryEnergy(
+        double radiusMicrometers,
+        IReadOnlyList<(double Wavelength, double Weight, double FNumber)> components)
+    {
+        var totalWeight = components.Sum(component => component.Weight);
+        return totalWeight <= 0
+            ? 0
+            : components.Sum(component => component.Weight
+                * DiffractionEncircledEnergyAnalysis.IdealAiryEncircledEnergy(
+                    radiusMicrometers,
+                    component.Wavelength,
+                    component.FNumber)) / totalWeight;
     }
 
     private static double[] CumulativeWeights(IReadOnlyList<(double Radius, double Weight)> radii)
@@ -144,15 +306,26 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
 
         return radii.Count == 0 ? 0 : radii[^1].Radius;
     }
+
+    private sealed record FieldEnergyCurve(
+        int FieldIndex,
+        double Hx,
+        double Hy,
+        IReadOnlyList<EnergySample> Samples,
+        (double X, double Y) Center,
+        (double Radius, double Weight)[] Radii);
 }
 
 public sealed class PupilAberrationAnalysis : BaseAnalysis
 {
+    private readonly int _numberOfRaysEachSide;
     private readonly int _numPoints;
 
     public PupilAberrationAnalysis(Optic optic, int numPoints = 256) : base(optic)
     {
-        _numPoints = Math.Max(3, numPoints % 2 == 0 ? numPoints + 1 : numPoints);
+        _numPoints = Math.Clamp(numPoints, 3, 8193);
+        _numPoints = _numPoints % 2 == 0 ? _numPoints + 1 : _numPoints;
+        _numberOfRaysEachSide = (_numPoints - 1) / 2;
     }
 
     public override string Name => "Pupil Aberration";
@@ -182,8 +355,22 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
             var waves = new List<PupilWave>();
             foreach (var wavelength in wavelengths)
             {
-                var realX = TraceAtSurface(Optic, field, wavelength, pupil, stopIndex, xFan: true);
-                var realY = TraceAtSurface(Optic, field, wavelength, pupil, stopIndex, xFan: false);
+                var realX = TraceAtSurface(
+                    Optic,
+                    field,
+                    wavelength,
+                    pupil,
+                    paraxialReference,
+                    stopIndex,
+                    xFan: true);
+                var realY = TraceAtSurface(
+                    Optic,
+                    field,
+                    wavelength,
+                    pupil,
+                    paraxialReference,
+                    stopIndex,
+                    xFan: false);
                 var errorX = realX.Select((sample, index) => new RayFanSample(
                     Math.Abs(stopRadius) <= 1e-30 ? 0 : (paraxialReference[index] - sample.Value) / stopRadius * 100,
                     sample.Intensity)).ToArray();
@@ -216,6 +403,7 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
         var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
+            ["NumberOfRaysEachSide"] = _numberOfRaysEachSide,
             ["Samples"] = _numPoints,
             ["FieldCount"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
@@ -260,15 +448,21 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
         (double Hx, double Hy) field,
         Wavelength wavelength,
         IReadOnlyList<double> pupil,
+        IReadOnlyList<double> paraxialReference,
         int surfaceIndex,
         bool xFan)
     {
         var pupilSamples = pupil.Select(value => new PupilSample(xFan ? value : 0, xFan ? 0 : value, 1));
+        var stopTargets = paraxialReference
+            .Select(value => xFan ? (X: value, Y: 0.0) : (X: 0.0, Y: value))
+            .ToArray();
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
             field.Hy,
             wavelength.Micrometers,
-            pupilSamples);
+            pupilSamples,
+            aimAtStop: optic.RayAimingEnabled,
+            stopTargets: optic.RayAimingEnabled ? stopTargets : null);
         var targetIndex = optic.SurfaceGroup.Items
             .Select((surface, index) => (surface, index))
             .Where(item => item.surface.Number == surfaceIndex)

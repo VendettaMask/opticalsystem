@@ -43,6 +43,7 @@ internal static class ZemaxZmxReader
         InstallConvertedSurfaces(optic, converted);
 
         ConfigureAperture(optic, document, configurationIndex);
+        optic.RayAimingEnabled = document.RayAimingEnabled;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
         ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
@@ -169,6 +170,10 @@ internal static class ZemaxZmxReader
                     break;
                 case "FLOA":
                     document.FloatingStop = true;
+                    break;
+                case "RAIM":
+                    document.RayAimingEnabled = tokens.Length > 2
+                        && RequiredInt(tokens, 2, command) != 0;
                     break;
                 case "FTYP":
                     ReadConfiguration(document, tokens);
@@ -1173,6 +1178,8 @@ internal static class ZemaxZmxReader
         public int FieldCount { get; set; }
         public int WavelengthCount { get; set; }
         public bool ObjectSpaceTelecentric { get; set; }
+
+        public bool RayAimingEnabled { get; set; }
         public bool AfocalImageSpace { get; set; }
         public List<double> FieldX { get; set; } = new();
         public List<double> FieldY { get; set; } = new();

@@ -67,6 +67,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
         Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
         Assert.Contains(parameters, parameter => parameter.Key == "IgnoreVignettingFactors");
+        Assert.Equal("Real Image Height (mm)", view.SeriesList[0].YAxisLabel);
+        Assert.Equal(4.5, view.SeriesList[0].Points.Last().Y, precision: 9);
         var curvatureParameters = connector.GetAnalysisParameters("Field Curvature");
         Assert.Contains(curvatureParameters, parameter => parameter.Key == "WavelengthNumber");
         Assert.Contains(curvatureParameters, parameter => parameter.Key == "ScanDirection");
@@ -1670,12 +1672,16 @@ public sealed class AnalysisGuiContractTests
             new[] { "调制", "实部", "虚部", "相位", "方波" },
             fftThroughFocusDescriptors.Single(item => item.Key == "Type").Choices);
 
-        foreach (var analysisName in new[] { "惠更斯离焦 MTF", "几何离焦 MTF" })
+        foreach (var (analysisName, defaultFrequency) in new[]
+        {
+            ("惠更斯离焦 MTF", "20"),
+            ("几何离焦 MTF", "50")
+        })
         {
             var throughFocusDescriptors = connector.GetAnalysisParameters(analysisName);
             Assert.Contains(throughFocusDescriptors, item => item.Key == "DeltaFocus" && item.DefaultValue == "0.1");
             Assert.Contains(throughFocusDescriptors, item => item.Key == "Steps" && item.DefaultValue == "5");
-            Assert.Contains(throughFocusDescriptors, item => item.Key == "SpatialFrequency" && item.DefaultValue == "50");
+            Assert.Contains(throughFocusDescriptors, item => item.Key == "SpatialFrequency" && item.DefaultValue == defaultFrequency);
             Assert.Contains(throughFocusDescriptors, item => item.Key == "WavelengthNumber" && item.DefaultValue == "0");
             Assert.Contains(throughFocusDescriptors, item => item.Key == "FieldNumber" && item.DefaultValue == "0");
             Assert.DoesNotContain(throughFocusDescriptors, item => item.Key is "FocusStep" or "FocusPlaneCount");

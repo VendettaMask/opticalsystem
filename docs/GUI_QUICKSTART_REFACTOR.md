@@ -157,7 +157,11 @@ Visible Ribbon labels retain the established mixed Chinese/English optical termi
 The Ribbon uses content-driven minimum sizing rather than fixed button and content dimensions. Long Chinese titles can widen or wrap up to a readable limit, group rows grow with their content, and the existing horizontal scroll viewer handles narrow windows without clipping commands.
 
 The **Encircled Energy** group includes geometric, diffraction, line/edge-spread,
-and extended-source workflows. **Extended Image Analysis** contains geometric,
+and extended-source workflows. The Workbench product preset for Geometric
+Encircled Energy selects a polychromatic centroid reference and enables
+**Multiply by Diffraction Limit**; this product choice is not a universal Zemax default.
+turning that setting off shows the normalized pure-geometric cumulative curve.
+**Extended Image Analysis** contains geometric,
 geometric-bitmap, light-source, partially coherent, and extended-diffraction
 calculations, plus standalone IMA/BIM and bitmap file viewers. IMA/BIM files can
 be displayed as false color, grayscale, RGB, or an individual channel.
@@ -207,4 +211,4 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-As of 2026-07-31, the solution builds with zero warnings and all `592/592` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, optional square multi-pane layout, current/available glass-catalog selection and persistence, Python golden comparisons, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, light/dark/异世界 theme resource coverage, editor transactions, STEP generation, image viewers, file association, and file formats.
+As of 2026-08-01, all `616/616` tests pass. Coverage includes layering constraints, application revisions and cancellation, Dock model/session round-trips, finite structured plots for every catalog entry, generated analysis parameter settings, the Core-versus-product-versus-captured-baseline preset boundary, optional square multi-pane layout, current/available glass-catalog selection and persistence, Python auxiliary golden comparisons, Zemax pupil-aberration, geometric/diffraction/extended-source encircled energy, Contrast Loss Map, Huygens PSF/MTF, Huygens-through-focus-MTF, Huygens-MTF-vs-field, RMS-wavefront-vs-field, Wavefront Map, Optical Path Difference, and lateral-color baselines, manufacturer glass data, bundled and supplemental Zemax AGF conversion, ZMX import including traced real-image-height fields and opaque constraint columns, offline lens-library building, packaged read-only loading and preview, five manually openable sample systems, tracing, serialization, optimization, tolerance-wizard generation and two-sided/Monte Carlo analysis, plugins, visualization, dielectric glass rendering and cutaway clipping, manufacturing review, ISO and GB/T optical drawing/PDF rendering, packaged brand assets, light/dark/异世界 theme resource coverage, editor transactions, STEP generation, image viewers, file association, and file formats.

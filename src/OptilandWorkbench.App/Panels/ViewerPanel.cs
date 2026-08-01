@@ -311,16 +311,22 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Children =
             {
                 settings,
-                new Border
-                {
-                    Height = 1,
-                    Margin = new Thickness(12, 4),
-                    Background = new SolidColorBrush(Color.FromRgb(210, 218, 228))
-                },
+                ThemeSeparator(),
                 checks,
                 footer
             }
         };
+    }
+
+    private static Border ThemeSeparator()
+    {
+        var separator = new Border
+        {
+            Height = 1,
+            Margin = new Thickness(12, 4)
+        };
+        separator.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Border);
+        return separator;
     }
 
     private void WatchSettingsChanges()

@@ -24,6 +24,9 @@ public partial class OpticalWorkspaceModel
 {
     public IReadOnlyList<AnalysisParameterDescriptor> GetAnalysisParameters(string analysisName)
     {
+        // Descriptor defaults are Workbench product presets. A value matching a
+        // captured Zemax window describes that preset only, not a Zemax-wide
+        // specification.
         var distributionChoices = new[] { "hexapolar", "uniform", "sobol", "random", "line_x", "line_y", "ring" };
         var primaryWavelengthNumber = Math.Max(
             1,
@@ -337,7 +340,13 @@ public partial class OpticalWorkspaceModel
             {
                 IntParameter("NumRays", "光线数", "10000", 1, 200000),
                 IntParameter("NumPoints", "曲线采样点数", "256", 2, 2048),
-                ChoiceParameter("Distribution", "瞳孔采样分布", "sobol", distributionChoices)
+                ChoiceParameter("Distribution", "瞳孔采样分布", "sobol", distributionChoices),
+                ChoiceParameter("WavelengthNumber", "波长", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("Reference", "参照", "centroid", new[] { "chief", "centroid", "vertex" }),
+                DoubleParameter("MaximumDistanceMicrometers", "最大距离 (µm)", "0", 0, 1_000_000, 1),
+                BoolParameter("MultiplyByDiffractionLimit", "乘以衍射极限", "true")
             },
             "Diffraction Encircled Energy" => new[]
             {
@@ -345,7 +354,7 @@ public partial class OpticalWorkspaceModel
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 ChoiceParameter("ImageSampling", "\u50cf\u9762\u91c7\u6837", "128 x 128",
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512" }),
-                IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "256", 2, 2048),
+                IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "401", 2, 2048),
                 ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
@@ -378,9 +387,10 @@ public partial class OpticalWorkspaceModel
             },
             "Extended Source Encircled Energy" => new[]
             {
+                FileParameter("SourceFile", "源 IMA 文件"),
                 DoubleParameter("FieldSize", "\u89c6\u573a\u5c3a\u5bf8", "0", 0, 1_000_000, 0.1),
                 IntParameter("SourceSampling", "\u5149\u6e90\u91c7\u6837", "5", 1, 21),
-                IntParameter("NumRays", "\u5149\u7ebf\u6570", "5000", 100, 200000),
+                IntParameter("NumRays", "\u5149\u7ebf\u6570", "5000", 100, 2_000_000),
                 IntParameter("NumPoints", "\u66f2\u7ebf\u91c7\u6837\u70b9\u6570", "256", 2, 2048),
                 ChoiceParameter("WavelengthNumber", "\u6ce2\u957f", "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
@@ -395,12 +405,17 @@ public partial class OpticalWorkspaceModel
                 DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
                     "0", 0, 1_000_000, 1)
             },
-            "Pupil Aberration" => new[] { IntParameter("NumPoints", "采样点数", "256", 3, 1024) },
+            "Pupil Aberration" => new[]
+            {
+                IntParameter("NumberOfRays", "原点每侧光线数", "20", 1, 4096)
+            },
             "RMS vs Field" => new[]
             {
+                IntParameter("FieldDensity", "视场间隔数", "15", 1, 200),
+                ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "-y", "+x", "-x" }),
                 IntParameter("NumRings", "六角采样环数", "6", 1, 32),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
-                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
+                ChoiceParameter("Data", "数据", "wavefront", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -408,7 +423,7 @@ public partial class OpticalWorkspaceModel
                     "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                ChoiceParameter("Reference", "\u53c2\u7167", "chief", new[] { "centroid", "chief" }),
                 BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("RemoveVignetting", "移除渐晕", "true")
@@ -434,12 +449,12 @@ public partial class OpticalWorkspaceModel
             },
             "RMS vs Focus" => new[]
             {
-                IntParameter("FocusDensity", "\u79bb\u7126\u5bc6\u5ea6", "21", 2, 100),
-                DoubleParameter("MinimumFocus", "\u6700\u5c0f\u79bb\u7126", "-1", -1_000_000, 1_000_000, 0.01),
-                DoubleParameter("MaximumFocus", "\u6700\u5927\u79bb\u7126", "1", -1_000_000, 1_000_000, 0.01),
+                IntParameter("FocusDensity", "\u79bb\u7126\u5bc6\u5ea6", "16", 2, 100),
+                DoubleParameter("MinimumFocus", "\u6700\u5c0f\u79bb\u7126", "-0.01", -1_000_000, 1_000_000, 0.001),
+                DoubleParameter("MaximumFocus", "\u6700\u5927\u79bb\u7126", "0.01", -1_000_000, 1_000_000, 0.001),
                 IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
-                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
+                ChoiceParameter("Data", "数据", "wavefront", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -447,7 +462,7 @@ public partial class OpticalWorkspaceModel
                     "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                ChoiceParameter("Reference", "\u53c2\u7167", "chief", new[] { "centroid", "chief" }),
                 BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("RemoveVignetting", "移除渐晕", "true")
@@ -475,7 +490,18 @@ public partial class OpticalWorkspaceModel
             },
             "RMS Wavefront vs Field" => new[]
             {
-                IntParameter("NumRings", "六角采样环数", "12", 1, 32)
+                IntParameter("RayDensity", "光线密度", "6", 1, 32),
+                IntParameter("FieldDensity", "视场密度", "15", 1, 200),
+                ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                ChoiceParameter("Reference", "参照", "chief", new[] { "chief", "centroid" }),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "波长（0 为全部）",
+                    "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("ScanType", "视场方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
             },
             "Zernike vs Field" => new[]
             {
@@ -555,10 +581,10 @@ public partial class OpticalWorkspaceModel
             "Huygens Through Focus MTF" => new[]
             {
                 ChoiceParameter("PupilSampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
-                ChoiceParameter("ImageSampling", "图像采样", "64", new[] { "32", "64", "128", "256", "512" }),
+                ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
                 DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
-                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "50", 0, 10000, 1),
+                DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
                 IntParameter("Steps", "步长数", "5", 1, 31),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256)
@@ -574,7 +600,23 @@ public partial class OpticalWorkspaceModel
                 ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
                 BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
             },
-            "Fourier MTF vs Field" or "Huygens MTF vs Field" or "Geometric MTF vs Field" => new[]
+            "Huygens MTF vs Field" => new[]
+            {
+                ChoiceParameter("Sampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
+                DoubleParameter("Frequency1", "空间频率 1 (cycles/mm)", "10", 0, 10000, 1),
+                DoubleParameter("Frequency2", "空间频率 2 (cycles/mm)", "20", 0, 10000, 1),
+                DoubleParameter("Frequency3", "空间频率 3 (cycles/mm)", "30", 0, 10000, 1),
+                DoubleParameter("Frequency4", "空间频率 4 (cycles/mm)", "40", 0, 10000, 1),
+                DoubleParameter("Frequency5", "空间频率 5 (cycles/mm)", "50", 0, 10000, 1),
+                DoubleParameter("Frequency6", "空间频率 6 (cycles/mm)", "60", 0, 10000, 1),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UseDashes", "使用虚线", "false"),
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
+                IntParameter("FieldDensity", "视场密度", "10", 2, 100),
+                ChoiceParameter("ScanType", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" })
+            },
+            "Fourier MTF vs Field" or "Geometric MTF vs Field" => new[]
             {
                 DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
                 IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
@@ -839,14 +881,19 @@ public partial class OpticalWorkspaceModel
             },
             "Huygens PSF Cross Section" => new[]
             {
-                IntParameter("NumRays", "光线数", "9", 2, 128),
-                IntParameter("ImageSize", "图像尺寸", "32", 1, 256),
-                DoubleParameter("PixelPitchMillimeters", "像素间距 (mm)", "0.005", 1e-6, 10, 0.001)
+                ChoiceParameter("PupilSampling", "光瞳采样", "32", new[] { "16", "32", "64", "128" }),
+                ChoiceParameter("ImageSampling", "像面采样", "32", new[] { "16", "32", "64", "128" }),
+                DoubleParameter("ImageDeltaMicrometers", "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
+                IntParameter("FieldNumber", "视场", "1", 1, 256),
+                ChoiceParameter("ProfileType", "截面", "X", new[] { "X", "Y", "Both" }),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UseCentroid", "使用质心", "false")
             },
             "Huygens MTF" => new[]
             {
-                ChoiceParameter("PupilSampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
-                ChoiceParameter("ImageSampling", "图像采样", "64", new[] { "32", "64", "128", "256", "512" }),
+                ChoiceParameter("PupilSampling", "瞳面采样", "32", new[] { "32", "64", "128", "256", "512" }),
+                ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
                 DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0=自动)", "0", 0, 10000, 10),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
@@ -871,13 +918,13 @@ public partial class OpticalWorkspaceModel
             },
             "Contrast Loss Map" => new[]
             {
-                ChoiceParameter("Sampling", "采样", "32", new[] { "16", "32", "64", "128", "256", "512" }),
-                DoubleParameter("Frequency", "频率 (cycles/mm，0=5%截止)", "0", 0, 10000, 1),
+                ChoiceParameter("Sampling", "采样", "13", new[] { "13", "17", "25", "33", "49", "65" }),
+                DoubleParameter("Frequency", "频率 (cycles/mm，0=5%截止)", "100", 0, 10000, 1),
                 BoolParameter("Normalize", "归一化", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
-                    "1",
+                    primaryWavelengthNumber.ToString(CultureInfo.InvariantCulture),
                     Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
                 ChoiceParameter(
@@ -920,7 +967,7 @@ public partial class OpticalWorkspaceModel
                         .Distinct(StringComparer.Ordinal)
                         .ToArray())
             },
-            "Wavefront Map" => new[]
+            "Wavefront Map" or "Wavefront" => new[]
             {
                 ChoiceParameter(
                     "Sampling",
@@ -996,7 +1043,7 @@ public partial class OpticalWorkspaceModel
                 DoubleParameter("YPositionMicrometers", "Y位置：µm", "0", -1_000_000, 1_000_000, 0.1),
                 BoolParameter("UsePolarization", "使用偏振", "false")
             },
-            "Wavefront" or "Interferogram" => new[]
+            "Interferogram" => new[]
             {
                 IntParameter("NumRings", "六角采样环数", "15", 1, 32),
                 IntParameter("MapSize", "波前图尺寸", "65", 17, 257)
@@ -1005,7 +1052,13 @@ public partial class OpticalWorkspaceModel
             {
                 IntParameter("NumRings", "六角采样环数", "8", 2, 32),
                 IntParameter("MapSize", "波前图尺寸", "65", 17, 257),
-                DoubleParameter("RobustTrimStandardDeviations", "鲁棒裁剪 sigma", "3", 0, 10, 0.5)
+                DoubleParameter("RobustTrimStandardDeviations", "鲁棒裁剪 sigma", "3", 0, 10, 0.5),
+                ChoiceParameter("WavelengthNumber", "波长", "0",
+                    Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("FieldNumber", "视场", "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray())
             },
             "Zernike Fringe" => new[]
             {

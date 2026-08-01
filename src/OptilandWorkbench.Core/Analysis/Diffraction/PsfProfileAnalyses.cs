@@ -127,17 +127,32 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
     private readonly int _numRays;
     private readonly int _imageSize;
     private readonly double _pixelPitchMillimeters;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
+    private readonly string _profileType;
+    private readonly bool _usePolarization;
+    private readonly bool _useCentroid;
 
     public HuygensPsfCrossSectionAnalysis(
         Optic optic,
         int numRays = 9,
         int imageSize = 32,
-        double pixelPitchMillimeters = 0.005)
+        double pixelPitchMillimeters = 0.005,
+        int wavelengthNumber = -1,
+        int fieldNumber = 0,
+        string profileType = "Both",
+        bool usePolarization = false,
+        bool useCentroid = false)
         : base(optic)
     {
-        _numRays = numRays;
-        _imageSize = imageSize;
-        _pixelPitchMillimeters = pixelPitchMillimeters;
+        _numRays = Math.Max(2, numRays);
+        _imageSize = Math.Max(1, imageSize);
+        _pixelPitchMillimeters = Math.Max(0, pixelPitchMillimeters);
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _fieldNumber = Math.Max(1, fieldNumber);
+        _profileType = profileType;
+        _usePolarization = usePolarization;
+        _useCentroid = useCentroid;
     }
 
     public override string Name => "Huygens PSF Cross Section";
@@ -148,8 +163,23 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             Optic,
             _numRays,
             _imageSize,
-            _pixelPitchMillimeters).GenerateData();
-        return PsfProfilePresentation.CreateCrossSectionData(Name, "惠更斯PSF截面图", source);
+            _pixelPitchMillimeters,
+            wavelengthNumber: _wavelengthNumber,
+            fieldNumber: _fieldNumber,
+            type: "线性",
+            displayAs: "截面",
+            usePolarization: _usePolarization,
+            normalize: false,
+            useCentroid: _useCentroid).GenerateData();
+        var graphScaleMicrometers = source.Values.TryGetValue("ImageExtentMicrometers", out var extent)
+            ? Convert.ToDouble(extent) / 2
+            : 0;
+        return PsfProfilePresentation.CreateCrossSectionData(
+            Name,
+            "惠更斯 PSF 截面图",
+            source,
+            _profileType,
+            graphScaleMicrometers: graphScaleMicrometers);
     }
 }
 

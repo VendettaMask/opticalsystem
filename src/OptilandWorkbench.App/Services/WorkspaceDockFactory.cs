@@ -365,13 +365,14 @@ public sealed class WorkspaceDockFactory : Factory
 
         if (!_descriptors.TryGetValue(id, out var descriptor))
         {
-            return new TextBlock
+            var unavailable = new TextBlock
             {
                 Text = "此页面类型不可用，已从会话中跳过。",
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Foreground = Brushes.Gray
+                VerticalAlignment = VerticalAlignment.Center
             };
+            unavailable.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+            return unavailable;
         }
 
         Control control = descriptor.Kind switch

@@ -50,49 +50,18 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var curves = new List<DiffractionEnergyCurve>(fieldIndices.Length);
         foreach (var fieldIndex in fieldIndices)
         {
-            var source = new PsfAnalysis(
-                Optic,
-                _pupilSampling,
-                _imageSampling,
-                _wavelengthNumber,
-                fieldIndex + 1,
-                type: "linear",
-                displayAs: "heatmap").GenerateData();
-            var heatmap = source.PlotSeries.FirstOrDefault(
-                series => series.Kind == AnalysisSeriesKind.Heatmap);
-            if (heatmap is null || heatmap.Points.Count == 0)
+            var pixelGrid = CreatePixelGrid(fieldIndex, ignoreOpd: false);
+            if (pixelGrid is null)
             {
                 continue;
             }
 
-            var samples = heatmap.Points
-                .Where(point => point.Value is > 0 && double.IsFinite(point.Value.Value))
-                .Select(point => new EnergySample(point.X, point.Y, point.Value!.Value))
-                .ToArray();
-            if (samples.Length == 0)
-            {
-                continue;
-            }
-
-            var center = string.Equals(_reference, "centroid", StringComparison.OrdinalIgnoreCase)
-                ? EnergyCurveSupport.Centroid(samples)
-                : (X: 0.0, Y: 0.0);
-            var automatic = EnergyCurveSupport.CreateCurve(
-                Name,
-                samples,
-                center,
-                _type,
-                0,
-                _numPoints,
-                new Dictionary<string, object>());
-            var automaticMaximum = Convert.ToDouble(
-                automatic.Values["MaximumDistanceMicrometers"],
-                System.Globalization.CultureInfo.InvariantCulture);
+            var automaticMaximum = PsfPixelEnergyGrid.DefaultMaximumDistance(
+                pixelGrid.RadiusContaining(0.99));
             curves.Add(new DiffractionEnergyCurve(
                 fieldIndex,
                 allFields[fieldIndex],
-                samples,
-                center,
+                pixelGrid,
                 automaticMaximum));
         }
 
@@ -101,41 +70,32 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             return EnergyCurveSupport.Empty(Name);
         }
 
+        var radial = IsRadialEncircledEnergy(_type);
+        var idealGrid = radial
+            ? CreatePixelGrid(curves[0].FieldIndex, ignoreOpd: true)
+            : null;
+        var automaticDistance = idealGrid is null
+            ? curves.Max(curve => curve.AutomaticMaximumDistance)
+            : PsfPixelEnergyGrid.DefaultMaximumDistance(idealGrid.RadiusContaining(0.99));
         var maximumDistance = _maximumDistanceMicrometers > 0
             ? _maximumDistanceMicrometers
-            : curves.Max(curve => curve.AutomaticMaximumDistance);
+            : automaticDistance;
         var series = new List<AnalysisSeries>(curves.Count + 1);
-        if (IsRadialEncircledEnergy(_type))
+        if (idealGrid is not null)
         {
-            var wavelengths = EnergyCurveSupport.SelectedWavelengths(Optic, _wavelengthNumber);
-            var ideal = BuildDiffractionLimit(
-                curves[0].Field,
-                wavelengths,
-                maximumDistance,
-                _numPoints);
-            if (ideal.Count > 0)
-            {
-                series.Add(new AnalysisSeries(
-                    RadiusAxisLabel(),
-                    "\u5708\u5165\u80fd\u91cf\u5206\u6570",
-                    ideal,
-                    Name: "\u884d\u5c04\u6781\u9650",
-                    ColorIndex: 10,
-                    LineWidth: 1.25));
-            }
+            var ideal = BuildCurve(idealGrid, maximumDistance);
+            series.Add(new AnalysisSeries(
+                RadiusAxisLabel(),
+                "\u5708\u5165\u80fd\u91cf\u5206\u6570",
+                ideal,
+                Name: "\u884d\u5c04\u6781\u9650",
+                ColorIndex: 10,
+                LineWidth: 1.25));
         }
 
         foreach (var curve in curves)
         {
-            var data = EnergyCurveSupport.CreateCurve(
-                Name,
-                curve.Samples,
-                curve.Center,
-                _type,
-                maximumDistance,
-                _numPoints,
-                new Dictionary<string, object>());
-            var points = data.Series?.Points ?? Array.Empty<AnalysisPoint>();
+            var points = BuildCurve(curve.PixelGrid, maximumDistance);
             series.Add(new AnalysisSeries(
                 RadiusAxisLabel(),
                 "\u5708\u5165\u80fd\u91cf\u5206\u6570",
@@ -149,7 +109,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             Name,
             new Dictionary<string, object>
             {
-                ["Method"] = "FFT PSF integration",
+                ["Method"] = "FFT PSF pixel-area integration",
                 ["PupilSampling"] = _pupilSampling,
                 ["ImageSampling"] = _imageSampling,
                 ["WavelengthNumber"] = _wavelengthNumber,
@@ -220,42 +180,85 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             && !type.Contains("square", StringComparison.OrdinalIgnoreCase);
     }
 
-    private IReadOnlyList<AnalysisPoint> BuildDiffractionLimit(
-        (double Hx, double Hy) field,
-        IReadOnlyList<Wavelength> wavelengths,
-        double maximumDistance,
-        int numPoints)
+    private PsfPixelEnergyGrid? CreatePixelGrid(int fieldIndex, bool ignoreOpd)
     {
-        var components = wavelengths
-            .Select(wavelength => (
-                Wavelength: wavelength.Micrometers,
-                Weight: EnergyCurveSupport.WavelengthWeight(wavelength),
-                FNumber: DiffractionEngine.WorkingFNumber(Optic, field, wavelength)))
-            .Where(component => component.Wavelength > 0
-                && component.Weight > 0
-                && double.IsFinite(component.FNumber)
-                && component.FNumber > 0)
-            .ToArray();
-        var totalWeight = components.Sum(component => component.Weight);
-        if (components.Length == 0 || totalWeight <= 0)
+        var source = new PsfAnalysis(
+            Optic,
+            _pupilSampling,
+            _imageSampling,
+            _wavelengthNumber,
+            fieldIndex + 1,
+            type: "linear",
+            displayAs: "heatmap",
+            zemaxCompatible: true,
+            ignoreOpd: ignoreOpd).GenerateData();
+        var heatmap = source.PlotSeries.FirstOrDefault(
+            series => series.Kind == AnalysisSeriesKind.Heatmap);
+        if (heatmap is null || heatmap.Points.Count == 0)
         {
-            return Array.Empty<AnalysisPoint>();
+            return null;
         }
 
-        return Enumerable.Range(0, numPoints)
+        var samples = CentralFftWindow(heatmap.Points, _pupilSampling, _imageSampling)
+            .Where(point => point.Value is > 0 && double.IsFinite(point.Value.Value))
+            .Select(point => new EnergySample(point.X, point.Y, point.Value!.Value))
+            .ToArray();
+        if (samples.Length == 0)
+        {
+            return null;
+        }
+
+        var center = string.Equals(_reference, "centroid", StringComparison.OrdinalIgnoreCase)
+            ? EnergyCurveSupport.Centroid(samples)
+            : (X: 0.0, Y: 0.0);
+        return new PsfPixelEnergyGrid(samples, center, _type);
+    }
+
+    private IReadOnlyList<AnalysisPoint> BuildCurve(
+        PsfPixelEnergyGrid pixelGrid,
+        double maximumDistance)
+    {
+        return Enumerable.Range(0, _numPoints)
             .Select(index =>
             {
-                var radius = maximumDistance * index / (numPoints - 1.0);
-                var energy = components.Sum(component =>
-                {
-                    var argument = Math.PI * radius / (component.Wavelength * component.FNumber);
-                    var j0 = BesselJ0(argument);
-                    var j1 = BesselJ1(argument);
-                    return component.Weight * Math.Clamp(1 - (j0 * j0) - (j1 * j1), 0, 1);
-                }) / totalWeight;
-                return new AnalysisPoint(radius, energy);
+                var distance = maximumDistance * index / (_numPoints - 1.0);
+                return new AnalysisPoint(distance, pixelGrid.Fraction(distance));
             })
             .ToArray();
+    }
+
+    private static IReadOnlyList<AnalysisPoint> CentralFftWindow(
+        IReadOnlyList<AnalysisPoint> points,
+        int pupilSampling,
+        int imageSampling)
+    {
+        var xCoordinates = points.Select(point => point.X).Distinct().Order().ToArray();
+        var yCoordinates = points.Select(point => point.Y).Distinct().Order().ToArray();
+        var xCount = Math.Min(Math.Min(pupilSampling, imageSampling), xCoordinates.Length);
+        var yCount = Math.Min(Math.Min(pupilSampling, imageSampling), yCoordinates.Length);
+        var xStart = (xCoordinates.Length - xCount) / 2;
+        var yStart = (yCoordinates.Length - yCount) / 2;
+        var xSelected = xCoordinates.Skip(xStart).Take(xCount).ToHashSet();
+        var ySelected = yCoordinates.Skip(yStart).Take(yCount).ToHashSet();
+        return points
+            .Where(point => xSelected.Contains(point.X) && ySelected.Contains(point.Y))
+            .ToArray();
+    }
+
+    internal static double IdealAiryEncircledEnergy(
+        double radiusMicrometers,
+        double wavelengthMicrometers,
+        double fNumber)
+    {
+        if (radiusMicrometers <= 0 || wavelengthMicrometers <= 0 || fNumber <= 0)
+        {
+            return 0;
+        }
+
+        var argument = Math.PI * radiusMicrometers / (wavelengthMicrometers * fNumber);
+        var j0 = BesselJ0(argument);
+        var j1 = BesselJ1(argument);
+        return Math.Clamp(1 - (j0 * j0) - (j1 * j1), 0, 1);
     }
 
     private static double BesselJ0(double value)
@@ -326,9 +329,265 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     private sealed record DiffractionEnergyCurve(
         int FieldIndex,
         (double Hx, double Hy) Field,
-        IReadOnlyList<EnergySample> Samples,
-        (double X, double Y) Center,
+        PsfPixelEnergyGrid PixelGrid,
         double AutomaticMaximumDistance);
+}
+
+internal sealed class PsfPixelEnergyGrid
+{
+    private static readonly double[] GaussNodes =
+    {
+        0.09501250983763744,
+        0.2816035507792589,
+        0.45801677765722737,
+        0.6178762444026438,
+        0.755404408355003,
+        0.8656312023878318,
+        0.9445750230732326,
+        0.9894009349916499
+    };
+
+    private static readonly double[] GaussWeights =
+    {
+        0.1894506104550685,
+        0.18260341504492358,
+        0.16915651939500254,
+        0.14959598881657673,
+        0.12462897125553388,
+        0.09515851168249278,
+        0.06225352393864789,
+        0.027152459411754096
+    };
+
+    private readonly Pixel[] _pixels;
+    private readonly string _type;
+    private readonly double _totalWeight;
+    private readonly double _maximumRadius;
+
+    public PsfPixelEnergyGrid(
+        IReadOnlyList<EnergySample> samples,
+        (double X, double Y) center,
+        string type)
+    {
+        var pitchX = GridPitch(samples.Select(sample => sample.X));
+        var pitchY = GridPitch(samples.Select(sample => sample.Y));
+        var halfX = pitchX / 2;
+        var halfY = pitchY / 2;
+        _type = type;
+        _pixels = samples
+            .Where(sample => sample.Weight > 0 && double.IsFinite(sample.Weight))
+            .Select(sample => new Pixel(
+                sample.X - center.X - halfX,
+                sample.X - center.X + halfX,
+                sample.Y - center.Y - halfY,
+                sample.Y - center.Y + halfY,
+                sample.Weight))
+            .ToArray();
+        _totalWeight = _pixels.Sum(pixel => pixel.Weight);
+        _maximumRadius = _pixels.Length == 0
+            ? 0
+            : _pixels.Max(pixel => MaximumDistance(pixel, type));
+    }
+
+    public double Fraction(double distance)
+    {
+        if (distance <= 0 || _totalWeight <= 0)
+        {
+            return 0;
+        }
+
+        if (distance >= _maximumRadius)
+        {
+            return 1;
+        }
+
+        var enclosed = 0.0;
+        foreach (var pixel in _pixels)
+        {
+            enclosed += pixel.Weight * AreaFraction(pixel, distance, _type);
+        }
+
+        return Math.Clamp(enclosed / _totalWeight, 0, 1);
+    }
+
+    public double RadiusContaining(double fraction)
+    {
+        if (_maximumRadius <= 0 || _totalWeight <= 0)
+        {
+            return 0;
+        }
+
+        var target = Math.Clamp(fraction, 0, 1);
+        var lower = 0.0;
+        var upper = _maximumRadius;
+        for (var iteration = 0; iteration < 48; iteration++)
+        {
+            var middle = (lower + upper) / 2;
+            if (Fraction(middle) < target)
+            {
+                lower = middle;
+            }
+            else
+            {
+                upper = middle;
+            }
+        }
+
+        return upper;
+    }
+
+    public static double DefaultMaximumDistance(double requiredDistance)
+    {
+        if (!double.IsFinite(requiredDistance) || requiredDistance <= 0)
+        {
+            return 1e-9;
+        }
+
+        var exponent = Math.Floor(Math.Log10(requiredDistance));
+        var scale = Math.Pow(10, exponent);
+        var normalized = requiredDistance / scale;
+        var nice = normalized <= 1 + 1e-12
+            ? 1
+            : normalized <= 2 + 1e-12
+                ? 2
+                : normalized <= 5 + 1e-12
+                    ? 5
+                    : 10;
+        return nice * scale;
+    }
+
+    private static double AreaFraction(Pixel pixel, double distance, string type)
+    {
+        if (type.StartsWith("X", StringComparison.OrdinalIgnoreCase))
+        {
+            return Overlap(pixel.XMinimum, pixel.XMaximum, -distance, distance)
+                / (pixel.XMaximum - pixel.XMinimum);
+        }
+
+        if (type.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
+        {
+            return Overlap(pixel.YMinimum, pixel.YMaximum, -distance, distance)
+                / (pixel.YMaximum - pixel.YMinimum);
+        }
+
+        if (type.Contains("square", StringComparison.OrdinalIgnoreCase))
+        {
+            var xFraction = Overlap(pixel.XMinimum, pixel.XMaximum, -distance, distance)
+                / (pixel.XMaximum - pixel.XMinimum);
+            var yFraction = Overlap(pixel.YMinimum, pixel.YMaximum, -distance, distance)
+                / (pixel.YMaximum - pixel.YMinimum);
+            return xFraction * yFraction;
+        }
+
+        var minimum = MinimumRadialDistance(pixel);
+        if (minimum >= distance)
+        {
+            return 0;
+        }
+
+        var maximum = MaximumRadialDistance(pixel);
+        if (maximum <= distance)
+        {
+            return 1;
+        }
+
+        var area = CircleRectangleIntersectionArea(pixel, distance);
+        var pixelArea = (pixel.XMaximum - pixel.XMinimum)
+            * (pixel.YMaximum - pixel.YMinimum);
+        return Math.Clamp(area / pixelArea, 0, 1);
+    }
+
+    private static double CircleRectangleIntersectionArea(Pixel pixel, double radius)
+    {
+        var left = Math.Max(pixel.XMinimum, -radius);
+        var right = Math.Min(pixel.XMaximum, radius);
+        if (right <= left)
+        {
+            return 0;
+        }
+
+        var midpoint = (left + right) / 2;
+        var halfWidth = (right - left) / 2;
+        var integral = 0.0;
+        for (var index = 0; index < GaussNodes.Length; index++)
+        {
+            var offset = halfWidth * GaussNodes[index];
+            integral += GaussWeights[index]
+                * (VerticalOverlap(midpoint - offset, pixel, radius)
+                    + VerticalOverlap(midpoint + offset, pixel, radius));
+        }
+
+        return halfWidth * integral;
+    }
+
+    private static double VerticalOverlap(double x, Pixel pixel, double radius)
+    {
+        var halfHeight = Math.Sqrt(Math.Max(0, (radius * radius) - (x * x)));
+        return Overlap(pixel.YMinimum, pixel.YMaximum, -halfHeight, halfHeight);
+    }
+
+    private static double Overlap(double firstMinimum, double firstMaximum, double secondMinimum, double secondMaximum)
+    {
+        return Math.Max(0, Math.Min(firstMaximum, secondMaximum) - Math.Max(firstMinimum, secondMinimum));
+    }
+
+    private static double MinimumRadialDistance(Pixel pixel)
+    {
+        var x = pixel.XMinimum > 0
+            ? pixel.XMinimum
+            : pixel.XMaximum < 0 ? -pixel.XMaximum : 0;
+        var y = pixel.YMinimum > 0
+            ? pixel.YMinimum
+            : pixel.YMaximum < 0 ? -pixel.YMaximum : 0;
+        return Math.Sqrt((x * x) + (y * y));
+    }
+
+    private static double MaximumRadialDistance(Pixel pixel)
+    {
+        var x = Math.Max(Math.Abs(pixel.XMinimum), Math.Abs(pixel.XMaximum));
+        var y = Math.Max(Math.Abs(pixel.YMinimum), Math.Abs(pixel.YMaximum));
+        return Math.Sqrt((x * x) + (y * y));
+    }
+
+    private static double MaximumDistance(Pixel pixel, string type)
+    {
+        if (type.StartsWith("X", StringComparison.OrdinalIgnoreCase))
+        {
+            return Math.Max(Math.Abs(pixel.XMinimum), Math.Abs(pixel.XMaximum));
+        }
+
+        if (type.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
+        {
+            return Math.Max(Math.Abs(pixel.YMinimum), Math.Abs(pixel.YMaximum));
+        }
+
+        if (type.Contains("square", StringComparison.OrdinalIgnoreCase))
+        {
+            return Math.Max(
+                Math.Max(Math.Abs(pixel.XMinimum), Math.Abs(pixel.XMaximum)),
+                Math.Max(Math.Abs(pixel.YMinimum), Math.Abs(pixel.YMaximum)));
+        }
+
+        return MaximumRadialDistance(pixel);
+    }
+
+    private static double GridPitch(IEnumerable<double> coordinates)
+    {
+        var sorted = coordinates.Distinct().Order().ToArray();
+        var minimum = Enumerable.Range(1, sorted.Length - 1)
+            .Select(index => sorted[index] - sorted[index - 1])
+            .Where(delta => delta > 1e-12 && double.IsFinite(delta))
+            .DefaultIfEmpty(1)
+            .Min();
+        return minimum;
+    }
+
+    private sealed record Pixel(
+        double XMinimum,
+        double XMaximum,
+        double YMinimum,
+        double YMaximum,
+        double Weight);
 }
 
 public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
@@ -481,6 +740,8 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
     private readonly string _type;
     private readonly string _reference;
     private readonly double _maximumDistanceMicrometers;
+    private readonly ExtendedSourceImage? _sourceImage;
+    private readonly string _sourceName;
 
     public ExtendedSourceEncircledEnergyAnalysis(
         Optic optic,
@@ -492,17 +753,21 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
         int fieldNumber = 1,
         string type = "encircled",
         string reference = "centroid",
-        double maximumDistanceMicrometers = 0) : base(optic)
+        double maximumDistanceMicrometers = 0,
+        ExtendedSourceImage? sourceImage = null,
+        string sourceName = "uniform square") : base(optic)
     {
         _fieldSize = Math.Max(0, fieldSize);
         _sourceSampling = Math.Clamp(sourceSampling, 1, 21);
-        _numRays = Math.Clamp(numRays, 100, 200_000);
+        _numRays = Math.Clamp(numRays, 100, 2_000_000);
         _numPoints = Math.Clamp(numPoints, 2, 2048);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(1, fieldNumber);
         _type = type;
         _reference = reference;
         _maximumDistanceMicrometers = Math.Max(0, maximumDistanceMicrometers);
+        _sourceImage = sourceImage;
+        _sourceName = sourceName;
     }
 
     public override string Name => "Extended Source Encircled Energy";
@@ -519,30 +784,29 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
         var maximumField = Math.Max(1e-9, FieldCoordinates.MaximumRadius(Optic.Fields));
         var fieldSize = _fieldSize > 0 ? _fieldSize : maximumField * 0.1;
         var normalizedWidth = fieldSize / maximumField;
-        var sourceAxis = Enumerable.Range(0, _sourceSampling)
-            .Select(index => _sourceSampling == 1
-                ? 0
-                : -0.5 + (index / (_sourceSampling - 1.0)))
-            .ToArray();
-        var sourceFields = sourceAxis.SelectMany(y => sourceAxis.Select(x => (
-            Hx: centerField.Hx + (x * normalizedWidth),
-            Hy: centerField.Hy + (y * normalizedWidth)))).ToArray();
+        var sourceFields = CreateSourceFields(centerField, normalizedWidth);
+        if (sourceFields.Length == 0)
+        {
+            return EnergyCurveSupport.Empty(Name);
+        }
         var raysPerSource = Math.Max(
             8,
             _numRays / Math.Max(1, sourceFields.Length * wavelengths.Count));
         var result = SpotAnalysisEngine.Generate(
             Optic,
-            sourceFields,
+            sourceFields.Select(source => (source.Hx, source.Hy)).ToArray(),
             wavelengths,
             raysPerSource,
             "sobol",
             reference: "absolute");
         var samples = result.Fields
-            .SelectMany(field => field.Wavelengths)
-            .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
-                ray.X * 1000,
-                ray.Y * 1000,
-                ray.Intensity * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength))))
+            .SelectMany((field, sourceIndex) => field.Wavelengths
+                .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
+                    ray.X * 1000,
+                    ray.Y * 1000,
+                    ray.Intensity
+                    * sourceFields[sourceIndex].Weight
+                    * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength)))))
             .Where(sample => sample.Weight > 0)
             .ToArray();
         var center = EnergyCurveSupport.ReferencePoint(
@@ -560,16 +824,75 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
             _numPoints,
             new Dictionary<string, object>
             {
-                ["Method"] = "Extended uniform square source",
+                ["Method"] = _sourceImage is null
+                    ? "Extended uniform square source"
+                    : "Zemax IMA weighted-pixel source",
+                ["Source"] = _sourceName,
                 ["FieldSize"] = fieldSize,
                 ["SourceSampling"] = _sourceSampling,
+                ["ActiveSourcePointCount"] = sourceFields.Length,
+                ["ActiveSourcePixelCount"] = _sourceImage?.Values.Count(value =>
+                    double.IsFinite(value) && value > 0) ?? sourceFields.Length,
                 ["RequestedRayCount"] = _numRays,
                 ["RayCount"] = result.RayCount,
                 ["VignettedRayCount"] = result.VignettedRayCount,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["FieldNumber"] = _fieldNumber,
-                ["Reference"] = _reference
+                ["Reference"] = _reference,
+                ["ReferenceXMicrometers"] = center.X,
+                ["ReferenceYMicrometers"] = center.Y
             });
+    }
+
+    private (double Hx, double Hy, double Weight)[] CreateSourceFields(
+        (double Hx, double Hy) centerField,
+        double normalizedWidth)
+    {
+        if (_sourceImage is null)
+        {
+            var sourceAxis = Enumerable.Range(0, _sourceSampling)
+                .Select(index => _sourceSampling == 1
+                    ? 0
+                    : -0.5 + (index / (_sourceSampling - 1.0)))
+                .ToArray();
+            return sourceAxis.SelectMany(y => sourceAxis.Select(x => (
+                Hx: centerField.Hx + (x * normalizedWidth),
+                Hy: centerField.Hy + (y * normalizedWidth),
+                Weight: 1.0))).ToArray();
+        }
+
+        var fields = new List<(double Hx, double Hy, double Weight)>();
+        for (var row = 0; row < _sourceImage.Height; row++)
+        {
+            for (var column = 0; column < _sourceImage.Width; column++)
+            {
+                var weight = _sourceImage.Value(row, column);
+                if (!double.IsFinite(weight) || weight <= 0)
+                {
+                    continue;
+                }
+
+                // An IMA pixel is an emitting area, not a point at its center.
+                // Deterministic sub-pixel centers reproduce Zemax's uniform ray
+                // distribution over every active source pixel.
+                for (var subRow = 0; subRow < _sourceSampling; subRow++)
+                {
+                    for (var subColumn = 0; subColumn < _sourceSampling; subColumn++)
+                    {
+                        var pixelX = column + ((subColumn + 0.5) / _sourceSampling);
+                        var pixelY = row + ((subRow + 0.5) / _sourceSampling);
+                        var x = (pixelX / _sourceImage.Width) - 0.5;
+                        var y = 0.5 - (pixelY / _sourceImage.Height);
+                        fields.Add((
+                            centerField.Hx + (x * normalizedWidth),
+                            centerField.Hy + (y * normalizedWidth),
+                            weight / (_sourceSampling * _sourceSampling)));
+                    }
+                }
+            }
+        }
+
+        return fields.ToArray();
     }
 }
 

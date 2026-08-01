@@ -1,0 +1,187 @@
+{
+  "name": "\u5165\u5C04\u89D2-\u50CF\u9AD8\uFF08\u626B\u63CF\u89C6\u573A\uFF09",
+  "rows": [
+    {
+      "metric": "\u626B\u63CF\u6A21\u5F0F",
+      "value": "ThroughField"
+    },
+    {
+      "metric": "\u6D4B\u91CF\u8868\u9762\u5E8F\u53F7",
+      "value": "22"
+    },
+    {
+      "metric": "\u6D4B\u91CF\u8F74",
+      "value": "Y"
+    },
+    {
+      "metric": "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "value": "0.44"
+    },
+    {
+      "metric": "\u91C7\u6837\u70B9\u6570",
+      "value": "5"
+    },
+    {
+      "metric": "\u56FA\u5B9A\u5750\u6807",
+      "value": "Px=0 Py=0"
+    }
+  ],
+  "reportText": "\u5206\u6790\uFF1A\u5165\u5C04\u89D2-\u50CF\u9AD8\uFF08\u626B\u63CF\u89C6\u573A\uFF09\r\n\u626B\u63CF\u6A21\u5F0F\uFF1AThroughField\r\n\u6D4B\u91CF\u8868\u9762\u5E8F\u53F7\uFF1A22\r\n\u6D4B\u91CF\u8F74\uFF1AY\r\n\u5206\u6790\u6CE2\u957F (\u00B5m)\uFF1A0.44\r\n\u91C7\u6837\u70B9\u6570\uFF1A5\r\n\u56FA\u5B9A\u5750\u6807\uFF1APx=0 Py=0",
+  "series": {
+    "xAxisLabel": "Image Height in Millimeters",
+    "yAxisLabel": "Incident Angle in Degrees",
+    "points": [
+      {
+        "x": 0,
+        "y": 0,
+        "label": "\u8F74\u4E0A\u89C6\u573A",
+        "value": 0,
+        "red": null,
+        "green": null,
+        "blue": null
+      },
+      {
+        "x": 4.500000000000054,
+        "y": 5.457900815332203,
+        "label": "\u6700\u5927Y\u89C6\u573A",
+        "value": 4.5,
+        "red": null,
+        "green": null,
+        "blue": null
+      },
+      {
+        "x": 3.374999999478158,
+        "y": 3.925208952758156,
+        "label": "Field 3",
+        "value": 3.375,
+        "red": null,
+        "green": null,
+        "blue": null
+      },
+      {
+        "x": 2.2499999999985874,
+        "y": 2.528833457231734,
+        "label": "Field 4",
+        "value": 2.25,
+        "red": null,
+        "green": null,
+        "blue": null
+      },
+      {
+        "x": 1.1249999999999958,
+        "y": 1.2364958975887046,
+        "label": "Field 5",
+        "value": 1.125,
+        "red": null,
+        "green": null,
+        "blue": null
+      }
+    ],
+    "kind": "coloredLine",
+    "name": "Px=0 Py=0, 0.4400 \u00B5m",
+    "lineStyle": "solid",
+    "colorIndex": 0,
+    "showMarkers": false,
+    "lineWidth": 3,
+    "markerStyle": "circle",
+    "markerSize": 3.2,
+    "opacity": 1,
+    "valueLabel": "Real Image Height (mm)",
+    "colorMap": "viridis",
+    "valueMinimum": null,
+    "valueMaximum": null,
+    "legendKey": "",
+    "legendLabel": ""
+  },
+  "seriesList": [
+    {
+      "xAxisLabel": "Image Height in Millimeters",
+      "yAxisLabel": "Incident Angle in Degrees",
+      "points": [
+        {
+          "x": 0,
+          "y": 0,
+          "label": "\u8F74\u4E0A\u89C6\u573A",
+          "value": 0,
+          "red": null,
+          "green": null,
+          "blue": null
+        },
+        {
+          "x": 4.500000000000054,
+          "y": 5.457900815332203,
+          "label": "\u6700\u5927Y\u89C6\u573A",
+          "value": 4.5,
+          "red": null,
+          "green": null,
+          "blue": null
+        },
+        {
+          "x": 3.374999999478158,
+          "y": 3.925208952758156,
+          "label": "Field 3",
+          "value": 3.375,
+          "red": null,
+          "green": null,
+          "blue": null
+        },
+        {
+          "x": 2.2499999999985874,
+          "y": 2.528833457231734,
+          "label": "Field 4",
+          "value": 2.25,
+          "red": null,
+          "green": null,
+          "blue": null
+        },
+        {
+          "x": 1.1249999999999958,
+          "y": 1.2364958975887046,
+          "label": "Field 5",
+          "value": 1.125,
+          "red": null,
+          "green": null,
+          "blue": null
+        }
+      ],
+      "kind": "coloredLine",
+      "name": "Px=0 Py=0, 0.4400 \u00B5m",
+      "lineStyle": "solid",
+      "colorIndex": 0,
+      "showMarkers": false,
+      "lineWidth": 3,
+      "markerStyle": "circle",
+      "markerSize": 3.2,
+      "opacity": 1,
+      "valueLabel": "Real Image Height (mm)",
+      "colorMap": "viridis",
+      "valueMinimum": null,
+      "valueMaximum": null,
+      "legendKey": "",
+      "legendLabel": ""
+    }
+  ],
+  "plotOptions": {
+    "title": "Incident Angle vs Image Height",
+    "symmetricX": false,
+    "equalAspect": false,
+    "showVerticalZeroLine": false,
+    "showHorizontalZeroLine": false,
+    "verticalZeroLineStyle": "solid",
+    "verticalZeroLineWidth": 0.5,
+    "xMinimum": null,
+    "xMaximum": null,
+    "yMinimum": null,
+    "yMaximum": null,
+    "showLegend": false,
+    "hideTopAndRightAxes": false,
+    "dottedGrid": false,
+    "gridOpacity": 0.25,
+    "hideAxes": false,
+    "hideTickLabels": false,
+    "legendBelow": false
+  },
+  "plotPanes": [],
+  "plotPaneColumns": 3,
+  "table": null
+}

@@ -16,7 +16,8 @@ public sealed record OpticSnapshot(
     SolveSettingsSnapshot? SolveSettings = null,
     List<MeritOperandSnapshot>? MeritOperands = null,
     EnvironmentSnapshot? Environment = null,
-    List<string>? GlassCatalogs = null);
+    List<string>? GlassCatalogs = null,
+    bool RayAimingEnabled = false);
 
 public sealed record EnvironmentSnapshot(
     bool MatchRefractiveIndexData = true,

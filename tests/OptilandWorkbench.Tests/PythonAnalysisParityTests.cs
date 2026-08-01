@@ -122,7 +122,8 @@ public sealed class PythonAnalysisParityTests
         Assert.True(Convert.ToDouble(distortion.Values["MaxFieldDegrees"]) > 0);
         Assert.False(distortion.Values.ContainsKey("MaxRealImageHeightMillimeters"));
         Assert.Equal("f-tan", distortion.Values["DistortionType"]);
-        Assert.Equal("Field Angle (deg)", distortion.PlotSeries[0].YAxisLabel);
+        Assert.Equal("Real Image Height (mm)", distortion.PlotSeries[0].YAxisLabel);
+        Assert.Equal(4.5, distortion.PlotSeries[0].Points.Last().Y, precision: 9);
         Assert.False(gridDistortion.Values.ContainsKey("DistortionType"));
         Assert.Equal("cross", gridDistortion.Values["DisplayMode"]);
         Assert.Equal(4.5, fieldCurvature.Values["MaxRealImageHeightMillimeters"]);
@@ -302,7 +303,8 @@ public sealed class PythonAnalysisParityTests
             createOptic(),
             numRays: 3,
             distribution: "hexapolar",
-            numPoints: 33).GenerateData();
+            numPoints: 33,
+            optilandCompatibility: true).GenerateData();
         Assert.Equal(expected.GetProperty("energy").GetArrayLength(), data.PlotSeries.Count);
 
         for (var field = 0; field < data.PlotSeries.Count; field++)
@@ -883,7 +885,7 @@ public sealed class PythonAnalysisParityTests
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("yybar");
-        var data = new YYbarAnalysis(createOptic()).GenerateData();
+        var data = new YYbarAnalysis(createOptic(), zemaxCompatible: false).GenerateData();
         var expectedMarginal = expected.GetProperty("ya");
         var expectedChief = expected.GetProperty("yb");
         Assert.Equal(expectedMarginal.GetArrayLength() - 1, data.PlotSeries.Count);
@@ -1180,7 +1182,12 @@ public sealed class PythonAnalysisParityTests
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty(referenceKey);
-        var data = new ReferenceSphereWavefrontAnalysis(createOptic(), strategy, numRings: 5, mapSize: 33).GenerateData();
+        var data = new ReferenceSphereWavefrontAnalysis(
+            createOptic(),
+            strategy,
+            numRings: 5,
+            mapSize: 33,
+            fieldNumber: 0).GenerateData();
         Assert.Equal(analysisName, data.Name);
         Assert.Equal(AnalysisSeriesKind.Heatmap, data.PlotSeries[0].Kind);
         Assert.Equal("Pupil X", data.PlotSeries[0].XAxisLabel);
@@ -1316,7 +1323,8 @@ public sealed class PythonAnalysisParityTests
             numRays: 5,
             imageSize: expected.GetProperty("image_size").GetInt32(),
             pixelPitchMillimeters: expected.GetProperty("pixel_pitch").GetDouble(),
-            fields: new[] { (0.0, 1.0) }).GenerateData();
+            fields: new[] { (0.0, 1.0) },
+            zemaxCompatible: false).GenerateData();
         Assert.Equal("Huygens MTF", data.Name);
         Assert.Equal("Huygens MTF", data.PlotOptions?.Title);
         Assert.Equal("Huygens-Fresnel", data.Values["Method"]);

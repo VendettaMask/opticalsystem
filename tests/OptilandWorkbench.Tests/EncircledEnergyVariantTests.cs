@@ -21,8 +21,9 @@ public sealed class EncircledEnergyVariantTests
         Assert.Equal("\u884d\u5c04\u6781\u9650", diffractionLimit.Name);
         AssertNormalizedCumulativeCurve(diffractionLimit, 17, requireUnityAtEnd: false);
         var field = data.PlotSeries[1];
-        AssertNormalizedCumulativeCurve(field, 17);
-        Assert.Equal("FFT PSF integration", data.Values["Method"]);
+        AssertNormalizedCumulativeCurve(field, 17, requireUnityAtEnd: false);
+        Assert.InRange(field.Points[^1].Y, 0.99, 1);
+        Assert.Equal("FFT PSF pixel-area integration", data.Values["Method"]);
         Assert.Equal(0, data.PlotOptions!.YMinimum);
         Assert.Equal(1, data.PlotOptions.YMaximum);
         Assert.True(data.PlotOptions.ShowLegend);
@@ -43,7 +44,9 @@ public sealed class EncircledEnergyVariantTests
         Assert.Equal(optic.Fields.Count + 1, data.PlotSeries.Count);
         Assert.Equal(optic.Fields.Count, data.Values["FieldCount"]);
         Assert.All(data.PlotSeries.Skip(1), series =>
-            AssertNormalizedCumulativeCurve(series, 17));
+        {
+            AssertNormalizedCumulativeCurve(series, 17, requireUnityAtEnd: false);
+        });
     }
 
     [Fact]

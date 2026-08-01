@@ -57,6 +57,23 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
         foreach (var field in fields)
         {
             var waves = new List<OpdWave>(wavelengths.Length);
+            var wavelengthReferenceSpheres = wavelengths.Select(wavelength =>
+                WavefrontEngine.CreateChiefRayReferenceSphere(
+                    analysisOptic,
+                    field,
+                    wavelength,
+                    aimAtStop: _vignettedPupil)).ToArray();
+            var primaryWavelength = allWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
+                ?? allWavelengths.FirstOrDefault();
+            var primaryReferenceSphere = _wavelengthNumber == 0
+                && wavelengths.Length > 1
+                && primaryWavelength is not null
+                    ? WavefrontEngine.CreateChiefRayReferenceSphere(
+                        analysisOptic,
+                        field,
+                        primaryWavelength,
+                        aimAtStop: _vignettedPupil)
+                    : null;
             for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
             {
                 var samples = pupil.Select(value => (X: 0.0, Y: value))
@@ -67,7 +84,14 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                     field,
                     wavelengths[wavelengthIndex],
                     samples,
-                    aimAtStop: _vignettedPupil);
+                    aimAtStop: _vignettedPupil,
+                    referenceSphere: primaryReferenceSphere is null
+                        ? null
+                        : new WavefrontReferenceSphere(
+                            primaryReferenceSphere.CenterX,
+                            primaryReferenceSphere.CenterY,
+                            primaryReferenceSphere.CenterZ,
+                            wavelengthReferenceSpheres[wavelengthIndex].Radius));
                 waves.Add(new OpdWave(
                     wavelengths[wavelengthIndex],
                     wavelengthIndices[wavelengthIndex],

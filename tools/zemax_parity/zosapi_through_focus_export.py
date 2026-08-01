@@ -575,7 +575,7 @@ def export_reference(
             "surface21ThicknessSolve": thickness_solve_properties,
             "pupilData": pupil_properties,
             "rayAiming": ray_aiming_properties,
-            "zemaxDefaults": defaults,
+            "capturedInitialSettings": defaults,
             "settings": {
                 "analysis": "FFT Through Focus MTF",
                 "sampleSize": "S_64x64",

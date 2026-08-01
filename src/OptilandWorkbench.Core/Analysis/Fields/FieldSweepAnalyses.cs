@@ -7,6 +7,7 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class RmsVsFieldAnalysis : BaseAnalysis
 {
+    private readonly int _fieldDensity;
     private readonly int _numRings;
     private readonly string _distribution;
     private readonly string _method;
@@ -16,6 +17,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
     private readonly bool _showDiffractionLimit;
     private readonly bool _usePolarization;
     private readonly bool _removeVignetting;
+    private readonly string _scanDirection;
 
     public RmsVsFieldAnalysis(
         Optic optic,
@@ -28,8 +30,11 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         bool showDiffractionLimit = false,
         bool usePolarization = false,
-        bool removeVignetting = true) : base(optic)
+        bool removeVignetting = true,
+        int fieldDensity = 0,
+        string scanDirection = "+y") : base(optic)
     {
+        _fieldDensity = Math.Clamp(fieldDensity > 0 ? fieldDensity : numFields - 1, 1, 200);
         _numRings = Math.Max(1, numRings);
         _distribution = distribution;
         _method = RmsScanSupport.NormalizeMethod(method);
@@ -39,12 +44,59 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         _showDiffractionLimit = showDiffractionLimit;
         _usePolarization = usePolarization;
         _removeVignetting = removeVignetting;
+        _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
     }
 
     public override string Name => "RMS vs Field";
 
     public override AnalysisData GenerateData()
     {
+        if (_data == "wavefront")
+        {
+            var wavefront = new RmsWavefrontVsFieldAnalysis(
+                Optic,
+                numFields: _fieldDensity + 1,
+                numRings: _numRings,
+                fieldDensity: _fieldDensity,
+                method: _method,
+                reference: _reference,
+                wavelengthNumber: _wavelengthNumber,
+                scanType: _scanDirection,
+                removeVignettingFactors: _removeVignetting,
+                zemaxCompatibleOutput: true).GenerateData();
+            var wavefrontSeries = wavefront.PlotSeries.ToList();
+            var wavelengthSelection = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+            var wavefrontDiffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengthSelection, _data);
+            if (_showDiffractionLimit && wavefrontDiffractionLimit > 0 && wavefrontSeries.Count > 0)
+            {
+                wavefrontSeries.Add(new AnalysisSeries(
+                    wavefrontSeries[0].XAxisLabel,
+                    wavefrontSeries[0].YAxisLabel,
+                    wavefrontSeries[0].Points.Select(point => new AnalysisPoint(point.X, wavefrontDiffractionLimit)).ToArray(),
+                    Name: "Diffraction Limit",
+                    LineStyle: AnalysisLineStyle.Dashed,
+                    ColorIndex: wavefrontSeries.Count));
+            }
+
+            var wavefrontValues = wavefront.Values.ToDictionary(item => item.Key, item => item.Value);
+            wavefrontValues["Data"] = _data;
+            wavefrontValues["Distribution"] = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+            wavefrontValues["ShowDiffractionLimit"] = _showDiffractionLimit;
+            wavefrontValues["DiffractionLimitValue"] = wavefrontDiffractionLimit;
+            wavefrontValues["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data);
+            wavefrontValues["UsePolarization"] = _usePolarization;
+            return new AnalysisData(
+                Name,
+                wavefrontValues,
+                wavefrontSeries.FirstOrDefault(),
+                wavefrontSeries,
+                wavefront.PlotOptions,
+                wavefront.PlotPanes,
+                wavefront.PlotPaneColumns,
+                wavefront.Table,
+                wavefront.ReportText);
+        }
+
         var fields = AnalysisTrace.DefinedFieldSamples(Optic);
         var wavelengths = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
         if (fields.Count == 0 || wavelengths.Count == 0)
@@ -139,40 +191,268 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 
 public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 {
-    private readonly int _numRings;
+    private readonly int _rayDensity;
+    private readonly int _fieldDensity;
+    private readonly string _method;
+    private readonly string _reference;
+    private readonly int _wavelengthNumber;
+    private readonly string _scanType;
+    private readonly bool _removeVignettingFactors;
+    private readonly bool _zemaxCompatibleOutput;
 
-    public RmsWavefrontVsFieldAnalysis(Optic optic, int numFields = 32, int numRings = 12) : base(optic)
+    public RmsWavefrontVsFieldAnalysis(
+        Optic optic,
+        int numFields = 32,
+        int numRings = 12,
+        int fieldDensity = 0,
+        string method = "GQ",
+        string reference = "chief",
+        int wavelengthNumber = 0,
+        string scanType = "+y",
+        bool removeVignettingFactors = true,
+        bool zemaxCompatibleOutput = false) : base(optic)
     {
-        _numRings = Math.Max(1, numRings);
+        _rayDensity = Math.Clamp(numRings, 1, 32);
+        _fieldDensity = Math.Clamp(fieldDensity > 0 ? fieldDensity : numFields - 1, 1, 200);
+        _method = string.Equals(method, "RA", StringComparison.OrdinalIgnoreCase) ? "RA" : "GQ";
+        _reference = string.Equals(reference, "centroid", StringComparison.OrdinalIgnoreCase)
+            ? "centroid"
+            : "chief";
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _scanType = AnalysisTrace.NormalizeScanDirection(scanType);
+        _removeVignettingFactors = removeVignettingFactors;
+        _zemaxCompatibleOutput = zemaxCompatibleOutput;
     }
 
     public override string Name => "RMS Wavefront vs Field";
 
     public override AnalysisData GenerateData()
     {
-        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var series = Optic.Wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-            AnalysisTrace.FieldAxisLabel(Optic),
-            "RMS Wavefront Error (waves)",
-            fields.Select(field =>
+        var workingOptic = _zemaxCompatibleOutput
+            ? AnalysisTrace.PrepareVignettingFactors(Optic, _removeVignettingFactors)
+            : Optic;
+        var fields = _zemaxCompatibleOutput
+            ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, _fieldDensity + 1)
+            : AnalysisTrace.DefinedFieldSamples(workingOptic);
+        var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
+        var pupilSamples = _method == "GQ"
+            ? ApertureSampler.GenerateGaussianQuadrature(_rayDensity, 6)
+            : ApertureSampler.Generate(_rayDensity * _rayDensity, PupilSampling.UniformGrid);
+        var pupilCoordinates = pupilSamples.Select(sample => (sample.X, sample.Y)).ToArray();
+        var referenceWavelength = _wavelengthNumber == 0
+            ? wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary) ?? wavelengths.FirstOrDefault()
+            : wavelengths.FirstOrDefault();
+        var fieldResults = fields.Select(field =>
+        {
+            var wavelengthReferenceSpheres = wavelengths.Select(wavelength =>
+                WavefrontEngine.CreateChiefRayReferenceSphere(
+                    workingOptic,
+                    (field.Hx, field.Hy),
+                    wavelength,
+                    aimAtStop: workingOptic.RayAimingEnabled)).ToArray();
+            var primaryReferenceSphere = referenceWavelength is null
+                ? null
+                : wavelengthReferenceSpheres[Array.IndexOf(wavelengths, referenceWavelength)];
+            var monochromaticWavefronts = wavelengths.Select(wavelength => WavefrontEngine.GenerateChiefRaySamples(
+                workingOptic,
+                (field.Hx, field.Hy),
+                wavelength,
+                pupilCoordinates,
+                aimAtStop: workingOptic.RayAimingEnabled)).ToArray();
+            var polychromaticWavefronts = _zemaxCompatibleOutput
+                && _wavelengthNumber == 0
+                && wavelengths.Length > 1
+                ? wavelengths.Select((wavelength, wavelengthIndex) => WavefrontEngine.GenerateChiefRaySamples(
+                    workingOptic,
+                    (field.Hx, field.Hy),
+                    wavelength,
+                    pupilCoordinates,
+                    aimAtStop: workingOptic.RayAimingEnabled,
+                    referenceSphere: primaryReferenceSphere is null
+                        ? null
+                        : new WavefrontReferenceSphere(
+                            primaryReferenceSphere.CenterX,
+                            primaryReferenceSphere.CenterY,
+                            primaryReferenceSphere.CenterZ,
+                            wavelengthReferenceSpheres[wavelengthIndex].Radius))).ToArray()
+                : monochromaticWavefronts;
+            return new
             {
-                var wavefront = WavefrontEngine.GenerateChiefRay(Optic, (field.Hx, field.Hy), wavelength, _numRings);
-                return new AnalysisPoint(field.Coordinate, wavefront.Rms, Label: field.Label);
-            }).ToArray(),
+                Monochromatic = monochromaticWavefronts.Select(wavefront =>
+                    WeightedWavefrontRms(wavefront.Samples, pupilSamples, _reference)).ToArray(),
+                Polychromatic = WeightedPolychromaticWavefrontRms(
+                    polychromaticWavefronts,
+                    wavelengths,
+                    pupilSamples,
+                    _reference)
+            };
+        }).ToArray();
+        var wavelengthSeries = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
+            _zemaxCompatibleOutput ? ScanAxisLabel(workingOptic, _scanType) : AnalysisTrace.FieldAxisLabel(workingOptic),
+            "RMS Wavefront Error (waves)",
+            fields.Select((field, fieldIndex) => new AnalysisPoint(
+                field.Coordinate,
+                fieldResults[fieldIndex].Monochromatic[wavelengthIndex],
+                Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
-            ColorIndex: wavelengthIndex)).ToArray();
+            ColorIndex: wavelengthIndex + (_wavelengthNumber == 0 ? 1 : 0))).ToArray();
+        var series = new List<AnalysisSeries>();
+        if (_zemaxCompatibleOutput && _wavelengthNumber == 0 && wavelengthSeries.Length > 1)
+        {
+            series.Add(new AnalysisSeries(
+                wavelengthSeries[0].XAxisLabel,
+                wavelengthSeries[0].YAxisLabel,
+                fields.Select((field, index) => new AnalysisPoint(
+                    field.Coordinate,
+                    fieldResults[index].Polychromatic,
+                    Label: field.Label)).ToArray(),
+                Name: "Poly",
+                ColorIndex: 0));
+        }
+        series.AddRange(wavelengthSeries);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["FieldCount"] = fields.Count,
-            ["WavelengthCount"] = Optic.Wavelengths.Count,
-            ["NumRings"] = _numRings,
+            ["WavelengthCount"] = wavelengths.Length,
+            ["RayDensity"] = _rayDensity,
+            ["FieldDensity"] = _fieldDensity,
+            ["Method"] = _method,
+            ["Reference"] = _reference,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["ScanType"] = _scanType,
+            ["RemoveVignettingFactors"] = _removeVignettingFactors,
             ["MaximumRmsWavefrontError"] = series.SelectMany(item => item.Points).Select(point => point.Y).DefaultIfEmpty(0).Max()
-        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+        }, series.FirstOrDefault(), series.ToArray(), new AnalysisPlotOptions(
             XMinimum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min(),
             XMaximum: fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max(),
             YMinimum: 0,
             ShowLegend: true,
             GridOpacity: 0.25));
+    }
+
+    private static double WeightedWavefrontRms(
+        IReadOnlyList<WavefrontSample> wavefront,
+        IReadOnlyList<PupilSample> pupil,
+        string reference)
+    {
+        var samples = wavefront.Select((sample, index) => (
+                Sample: sample,
+                Weight: Math.Max(0, pupil[index].Weight)))
+            .Where(item => item.Weight > 0
+                && item.Sample.Intensity > 0
+                && double.IsFinite(item.Sample.OpdWaves))
+            .ToArray();
+        return WeightedWavefrontRms(samples, reference);
+    }
+
+    private static double WeightedPolychromaticWavefrontRms(
+        IReadOnlyList<WavefrontResult> wavefronts,
+        IReadOnlyList<Wavelength> wavelengths,
+        IReadOnlyList<PupilSample> pupil,
+        string reference)
+    {
+        var totalWeight = wavelengths.Sum(wavelength => Math.Max(0, wavelength.Weight));
+        if (totalWeight <= 1e-30)
+        {
+            return 0;
+        }
+
+        var meanSquare = wavefronts.Select((wavefront, wavelengthIndex) =>
+        {
+            var rms = WeightedWavefrontRms(wavefront.Samples, pupil, reference);
+            return Math.Max(0, wavelengths[wavelengthIndex].Weight) * rms * rms;
+        }).Sum() / totalWeight;
+        return Math.Sqrt(Math.Max(0, meanSquare));
+    }
+
+    private static double WeightedWavefrontRms(
+        IReadOnlyList<(WavefrontSample Sample, double Weight)> samples,
+        string reference)
+    {
+        var totalWeight = samples.Sum(item => item.Weight);
+        if (totalWeight <= 1e-30)
+        {
+            return 0;
+        }
+
+        var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalWeight;
+        var tiltX = 0.0;
+        var tiltY = 0.0;
+        if (reference == "centroid")
+        {
+            (piston, tiltX, tiltY) = WeightedPlane(samples);
+        }
+
+        var meanSquare = samples.Sum(item =>
+        {
+            var residual = item.Sample.OpdWaves
+                - piston
+                - (tiltX * item.Sample.NormalizedPupilX)
+                - (tiltY * item.Sample.NormalizedPupilY);
+            return item.Weight * residual * residual;
+        }) / totalWeight;
+        return Math.Sqrt(Math.Max(0, meanSquare));
+    }
+
+    private static (double Piston, double TiltX, double TiltY) WeightedPlane(
+        IReadOnlyList<(WavefrontSample Sample, double Weight)> samples)
+    {
+        var matrix = new double[3, 4];
+        foreach (var item in samples)
+        {
+            var basis = new[] { 1.0, item.Sample.NormalizedPupilX, item.Sample.NormalizedPupilY };
+            for (var row = 0; row < 3; row++)
+            {
+                for (var column = 0; column < 3; column++)
+                {
+                    matrix[row, column] += item.Weight * basis[row] * basis[column];
+                }
+                matrix[row, 3] += item.Weight * basis[row] * item.Sample.OpdWaves;
+            }
+        }
+
+        for (var pivot = 0; pivot < 3; pivot++)
+        {
+            var best = Enumerable.Range(pivot, 3 - pivot)
+                .OrderByDescending(row => Math.Abs(matrix[row, pivot]))
+                .First();
+            if (Math.Abs(matrix[best, pivot]) <= 1e-20)
+            {
+                return (0, 0, 0);
+            }
+            if (best != pivot)
+            {
+                for (var column = pivot; column < 4; column++)
+                {
+                    (matrix[pivot, column], matrix[best, column]) = (matrix[best, column], matrix[pivot, column]);
+                }
+            }
+            var scale = matrix[pivot, pivot];
+            for (var column = pivot; column < 4; column++)
+            {
+                matrix[pivot, column] /= scale;
+            }
+            for (var row = 0; row < 3; row++)
+            {
+                if (row == pivot)
+                {
+                    continue;
+                }
+                var factor = matrix[row, pivot];
+                for (var column = pivot; column < 4; column++)
+                {
+                    matrix[row, column] -= factor * matrix[pivot, column];
+                }
+            }
+        }
+
+        return (matrix[0, 3], matrix[1, 3], matrix[2, 3]);
+    }
+
+    private static string ScanAxisLabel(Optic optic, string scanType)
+    {
+        var unit = optic.FieldDefinition == FieldDefinitionKind.Angle ? "deg" : "mm";
+        return $"{scanType.ToUpperInvariant()} Field ({unit})";
     }
 }
 

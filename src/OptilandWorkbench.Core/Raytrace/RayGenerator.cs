@@ -181,7 +181,8 @@ public sealed class RayGenerator
         IEnumerable<PupilSample> pupilSamples,
         bool aimAtStop = false,
         (double X, double Y)? resolvedRealImageLaunch = null,
-        bool applyVignettingFactors = true)
+        bool applyVignettingFactors = true,
+        IReadOnlyList<(double X, double Y)>? stopTargets = null)
     {
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
@@ -212,13 +213,19 @@ public sealed class RayGenerator
             EntrancePupilGlobalZ(),
             FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
             IsObjectAtInfinity(_optic.SurfaceGroup.Items.FirstOrDefault()));
-        var stopTargets = aimAtStop
-            ? ParaxialStopTargets(
+        var resolvedStopTargets = aimAtStop
+            ? stopTargets ?? ParaxialStopTargets(
                 normalizedFieldX,
                 normalizedFieldY,
                 samples,
                 wavelengthNanometers)
             : null;
+        if (resolvedStopTargets is not null && resolvedStopTargets.Count != samples.Length)
+        {
+            throw new ArgumentException(
+                "Stop-target count must match the pupil-sample count.",
+                nameof(stopTargets));
+        }
         var rays = new RealRay[samples.Length];
         void GenerateRay(int index)
         {
@@ -233,7 +240,7 @@ public sealed class RayGenerator
                 sample.Weight,
                 realImageLaunch,
                 aimAtStop,
-                stopTargets?[index],
+                resolvedStopTargets?[index],
                 fieldRayContext);
         }
 
@@ -579,13 +586,16 @@ public sealed class RayGenerator
         double wavelengthNanometers,
         int stopIndex)
     {
-        var wavelengthMicrometers = wavelengthNanometers / 1000.0;
+        _ = normalizedFieldX;
+        _ = normalizedFieldY;
+        _ = wavelengthNanometers;
+        var wavelengthMicrometers = PrimaryWavelengthMicrometers();
         var xTrace = _optic.Paraxial.TraceNormalizedPupil(
-            normalizedFieldX,
+            0,
             new[] { normalizedPupilX },
             wavelengthMicrometers);
         var yTrace = _optic.Paraxial.TraceNormalizedPupil(
-            normalizedFieldY,
+            0,
             new[] { normalizedPupilY },
             wavelengthMicrometers);
         if (stopIndex >= xTrace.Heights.Count || stopIndex >= yTrace.Heights.Count)
@@ -616,13 +626,14 @@ public sealed class RayGenerator
         var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var pupilX = samples.Select(sample => sample.X * vignetteScale.X).ToArray();
         var pupilY = samples.Select(sample => sample.Y * vignetteScale.Y).ToArray();
-        var wavelengthMicrometers = wavelengthNanometers / 1000.0;
+        _ = wavelengthNanometers;
+        var wavelengthMicrometers = PrimaryWavelengthMicrometers();
         var xTrace = _optic.Paraxial.TraceNormalizedPupil(
-            normalizedFieldX,
+            0,
             pupilX,
             wavelengthMicrometers);
         var yTrace = _optic.Paraxial.TraceNormalizedPupil(
-            normalizedFieldY,
+            0,
             pupilY,
             wavelengthMicrometers);
         var targets = new (double X, double Y)[samples.Count];

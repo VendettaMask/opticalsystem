@@ -233,6 +233,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             "MODE SEQ",
             $"NAME {optic.Name}",
             ApertureLine(optic),
+            $"RAIM 0 {(optic.RayAimingEnabled ? 1 : 0)} 1 1 0 0 0 0 0 1",
             $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 0",
             $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
             $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",

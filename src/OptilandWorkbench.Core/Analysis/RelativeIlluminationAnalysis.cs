@@ -139,33 +139,45 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         int rayDensity)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var coordinates = new PupilNode?[rayDensity, rayDensity];
-        var samples = new List<PupilSample>(rayDensity * rayDensity);
-        var sampleCoordinates = new List<(int X, int Y)>(rayDensity * rayDensity);
-
-        for (var y = 0; y < rayDensity; y++)
+        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+            normalizedField.Hx,
+            normalizedField.Hy,
+            0,
+            0,
+            wavelengthMicrometers,
+            aimAtStop: true);
+        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single()
+            ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
+        var chiefDirection = Normalize(imageSurface.CoordinateSystem.ToLocalDirection(chief.Direction));
+        var tangentX = TangentX(chiefDirection);
+        var tangentY = Normalize(Cross(chiefDirection, tangentX));
+        if (Dot(tangentY, new Vector3D(0, 1, 0)) < 0)
         {
-            var py = -1 + (2.0 * y / (rayDensity - 1.0));
-            for (var x = 0; x < rayDensity; x++)
-            {
-                var px = -1 + (2.0 * x / (rayDensity - 1.0));
-                if ((px * px) + (py * py) > 1 + 1e-12)
-                {
-                    continue;
-                }
-
-                samples.Add(new PupilSample(px, py, 1));
-                sampleCoordinates.Add((x, y));
-            }
+            tangentY = -tangentY;
         }
+
+        // The projected solid angle is an area enclosed by the traced rim of the
+        // entrance pupil. Integrating only cells whose four rectangular-grid nodes
+        // fall inside the unit circle discards the outer annulus and biases both the
+        // effective F/# and its field dependence. Green's theorem gives the complete
+        // area directly from the ordered image-space pupil boundary.
+        var boundaryCount = Math.Max(48, rayDensity * 24);
+        var samples = Enumerable.Range(0, boundaryCount)
+            .Select(index =>
+            {
+                var angle = 2 * Math.PI * index / boundaryCount;
+                return new PupilSample(Math.Cos(angle), Math.Sin(angle), 1);
+            })
+            .ToArray();
 
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             normalizedField.Hx,
             normalizedField.Hy,
             wavelengthMicrometers,
-            samples);
+            samples,
+            aimAtStop: true);
         var traced = optic.SequentialRayTracer.TraceFinalSamples(bundle);
-        var validRayCount = 0;
+        var boundary = new PupilNode?[boundaryCount];
         for (var index = 0; index < traced.Count; index++)
         {
             var sample = traced[index];
@@ -177,95 +189,42 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
                 continue;
             }
 
-            var localPoint = imageSurface.CoordinateSystem.ToLocalPoint(sample.Position);
             var localDirection = Normalize(imageSurface.CoordinateSystem.ToLocalDirection(sample.Direction));
-            var normal = Normalize(imageSurface.Geometry.SurfaceNormal(localPoint));
-            var tangentX = TangentX(normal);
-            var tangentY = Normalize(Cross(normal, tangentX));
-            if (Dot(tangentY, new Vector3D(0, 1, 0)) < 0)
-            {
-                tangentY = -tangentY;
-            }
-
-            var coordinate = sampleCoordinates[index];
-            coordinates[coordinate.X, coordinate.Y] = new PupilNode(
+            boundary[index] = new PupilNode(
                 Dot(localDirection, tangentX),
                 Dot(localDirection, tangentY),
                 sample.Intensity);
-            validRayCount++;
         }
 
         var area = 0.0;
         var positiveCells = 0;
         var negativeCells = 0;
-        var polygon = new PupilNode[4];
-        for (var y = 0; y < rayDensity - 1; y++)
+        for (var index = 0; index < boundaryCount; index++)
         {
-            for (var x = 0; x < rayDensity - 1; x++)
+            var first = boundary[index];
+            var second = boundary[(index + 1) % boundaryCount];
+            if (!first.HasValue || !second.HasValue)
             {
-                var count = 0;
-                var first = coordinates[x, y];
-                var second = coordinates[x + 1, y];
-                var third = coordinates[x + 1, y + 1];
-                var fourth = coordinates[x, y + 1];
-                if (first.HasValue)
-                {
-                    polygon[count++] = first.Value;
-                }
-
-                if (second.HasValue)
-                {
-                    polygon[count++] = second.Value;
-                }
-
-                if (third.HasValue)
-                {
-                    polygon[count++] = third.Value;
-                }
-
-                if (fourth.HasValue)
-                {
-                    polygon[count++] = fourth.Value;
-                }
-
-                if (count == 3)
-                {
-                    area += TriangleContribution(polygon[0], polygon[1], polygon[2], ref positiveCells, ref negativeCells);
-                }
-                else if (count == 4)
-                {
-                    area += TriangleContribution(polygon[0], polygon[1], polygon[2], ref positiveCells, ref negativeCells);
-                    area += TriangleContribution(polygon[0], polygon[2], polygon[3], ref positiveCells, ref negativeCells);
-                }
+                continue;
             }
+
+            var cross = (first.Value.L * second.Value.M) - (second.Value.L * first.Value.M);
+            if (cross > 1e-18)
+            {
+                positiveCells++;
+            }
+            else if (cross < -1e-18)
+            {
+                negativeCells++;
+            }
+
+            area += 0.25 * Math.Abs(cross) * (first.Value.Intensity + second.Value.Intensity);
         }
 
         return new IlluminationResult(
             area,
-            validRayCount,
+            boundary.Count(node => node.HasValue),
             Math.Min(positiveCells, negativeCells));
-    }
-
-    private static double TriangleContribution(
-        PupilNode first,
-        PupilNode second,
-        PupilNode third,
-        ref int positiveCells,
-        ref int negativeCells)
-    {
-        var twiceSignedArea = ((second.L - first.L) * (third.M - first.M))
-            - ((second.M - first.M) * (third.L - first.L));
-        if (twiceSignedArea > 1e-18)
-        {
-            positiveCells++;
-        }
-        else if (twiceSignedArea < -1e-18)
-        {
-            negativeCells++;
-        }
-
-        var meanTransmission = (first.Intensity + second.Intensity + third.Intensity) / 3.0;
-        return 0.5 * Math.Abs(twiceSignedArea) * meanTransmission;
     }
 
     private Wavelength SelectWavelength(Optic optic)

@@ -306,6 +306,20 @@ public sealed class App : Avalonia.Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var captureRequest = GuiAnalysisCaptureRequest.Parse(
+                Environment.GetCommandLineArgs().Skip(1));
+            if (captureRequest is not null)
+            {
+                desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                Dispatcher.UIThread.Post(
+                    () => _ = GuiAnalysisCaptureRunner.RunAndShutdownAsync(
+                        desktop,
+                        captureRequest),
+                    DispatcherPriority.Background);
+                base.OnFrameworkInitializationCompleted();
+                return;
+            }
+
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             var splash = new SplashWindow();
             desktop.MainWindow = splash;

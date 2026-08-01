@@ -102,9 +102,9 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             IconName = "chevron-down",
             Width = 16,
             Height = 16,
-            Stroke = new SolidColorBrush(Color.FromRgb(72, 72, 74)),
             VerticalAlignment = VerticalAlignment.Center
         };
+        componentToggleIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.MutedText);
         var componentToggleContent = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto"),
@@ -193,8 +193,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HeadersVisibility = DataGridHeadersVisibility.Column,
             IsReadOnly = false,
             BorderThickness = new Avalonia.Thickness(1, 0, 1, 1),
-            HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(229, 229, 234)),
-            VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(218, 218, 223)),
             RowHeight = 28,
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2

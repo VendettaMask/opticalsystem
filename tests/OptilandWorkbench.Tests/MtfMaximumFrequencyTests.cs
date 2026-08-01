@@ -109,7 +109,7 @@ public sealed class MtfMaximumFrequencyTests
     }
 
     [Fact]
-    public void FourierThroughFocusMtfUsesZemaxDefaultsAndSmoothPlotSampling()
+    public void FourierThroughFocusMtfUsesCapturedZemaxUiFallbackAndSmoothPlotSampling()
     {
         var optic = Optic.CreateCookeTriplet();
         var settings = new MtfComputationSettings(
@@ -140,7 +140,7 @@ public sealed class MtfMaximumFrequencyTests
     }
 
     [Fact]
-    public void ThroughFocusMtfUsesZemaxDeltaFocusStepsAndPolychromaticDefaults()
+    public void ThroughFocusMtfUsesConfiguredZemaxDeltaFocusStepsAndPolychromaticSelection()
     {
         var optic = Optic.CreateCookeTriplet();
         var settings = new MtfComputationSettings(
@@ -171,6 +171,40 @@ public sealed class MtfMaximumFrequencyTests
             Assert.Equal(-0.1, series.Points[0].X, 12);
             Assert.Equal(0.1, series.Points[^1].X, 12);
         });
+    }
+
+    [Fact]
+    public void HuygensThroughFocusUsesZemaxImageDeltaFormulaAndOutputSampling()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var settings = new MtfComputationSettings(
+            PupilSampling: 8,
+            ImageSize: 8,
+            PixelPitchMillimeters: 0,
+            ZemaxCompatible: true,
+            UseZemaxHuygensSemantics: true);
+        var wavelengths = optic.Wavelengths.ToArray();
+        var longest = wavelengths.MaxBy(item => item.Micrometers)!;
+        var field = SpotAnalysisEngine.DefinedFields(optic)[0];
+        var expectedDeltaMicrometers = longest.Micrometers
+            * DiffractionEngine.WorkingFNumber(optic, field, longest)
+            / Math.Sqrt(settings.PupilSampling);
+
+        var data = new MtfThroughFocusAnalysis(
+            optic,
+            MtfComputationMethod.Huygens,
+            spatialFrequency: 20,
+            deltaFocus: 0.1,
+            focusPlaneCount: 2,
+            settings: settings,
+            fieldNumber: 1).GenerateData();
+
+        Assert.Equal(8, data.Values["PupilSampling"]);
+        Assert.Equal(8, data.Values["ImageSampling"]);
+        Assert.Equal(0.0, data.Values["ImageDeltaMicrometers"]);
+        var resolved = Assert.IsType<double[]>(data.Values["ResolvedImageDeltaMicrometers"]);
+        Assert.Equal(expectedDeltaMicrometers, Assert.Single(resolved), 12);
+        Assert.All(data.PlotSeries, series => Assert.Equal(101, series.Points.Count));
     }
 
     [Fact]

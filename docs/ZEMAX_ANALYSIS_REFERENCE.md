@@ -1,5 +1,24 @@
 # Zemax 分析设置与实现方式参考
 
+本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。
+
+## GUI 对比证据规范
+
+Workbench 的 GUI 对比只使用
+`comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current`
+中的真实 Avalonia `AnalysisPanel` 截图。截图进程通过
+`--capture-analysis-gui` 启动，导入已提交的 `123456.ZMX`，应用保存的逐项
+分析设置，并在 `capture-manifest.json` 中记录全部 69 个分析页面的状态。
+
+`images/current` 中的文件是结构化分析 JSON 的离线 Matplotlib 重绘图，
+不是软件界面截图，不能用于 GUI 一致性结论。
+`IMAGE_COMPARISON_REPORT.html` 及对应的 Markdown/JSON 报告必须在
+Workbench 一侧引用 `images/gui-current`。
+
+`analysis-error` 截图可以作为真实错误界面的证据，但不能计为分析成功。
+报告必须分别标记直接 Zemax 参考、仅最接近参考、输入或设置不同，以及无
+等价 Zemax 截图，避免把非等价页面判为一致。
+
 本文档根据 Ansys Zemax OpticStudio 官方帮助页整理，用作 Workbench 实现 Zemax 风格分析时的参考。范围只包括图像质量相关分析：
 
 - 光线迹点
@@ -163,7 +182,7 @@
 - 畸变模型：`F-Tan(theta)`、`F-Theta`、`Calibrated F-Theta`、`Calibrated F-Tan(theta)`、`SMIA-TV`。`F-Tan(theta)` 使用 `f*tan(theta)` 参考高度；`F-Theta` 使用 `f*theta`，常用于扫描系统；calibrated 模式使用 best-fit focal length。
 - 扫描规则：从轴上到最大视场生成半扇形采样，`Scan Type` 必须实际选择 `+Y`、`+X`、`-Y` 或 `-X`。选择 X 扫描时，tangential 曲线对应 XZ 平面，sagittal 曲线对应 YZ 平面；不得用当前已定义视场列表代替扫描。
 - 渐晕规则：默认 `Ignore Vignetting Factors = true`。Workbench 在独立工作副本中清零视场渐晕因子；关闭该选项时保留并应用原始因子，且两种模式都不修改用户的原始光学系统。
-- Real Image Height：畸变计算临时转换为等效 Field Angle（有限共轭时为 Object Height），因为“命中指定像高”的迭代会掩盖畸变；场曲仍保留原视场定义。
+- Real Image Height：畸变计算临时转换为等效 Field Angle（有限共轭时为 Object Height），因为“命中指定像高”的迭代会掩盖畸变；场曲仍保留原视场定义。Workbench 的畸变计算值、`DistortionType` 和 `MaxFieldDegrees` 仍来自该等效字段；绘图 Y 轴必须显示回原始 `Real Image Height (mm)`，`123456.ZMX` 基准为 `0..4.5 mm`，不得把等效物高/角度显示到 Zemax 对比图上。
 - 适用性：严格来说，该图只适用于旋转对称系统以及平面物面、像面。OpticStudio 对非旋转对称、偏心、倾斜、自由曲面或非平面物像面系统使用推广定义，结果需要谨慎解释；单一畸变值不充分时应使用 Grid Distortion。
 
 ### 网格畸变 / Grid Distortion
@@ -220,6 +239,7 @@
 - 设置内容：`Sampling`、`Rotation`、`Scale`、`Polarization`、`Wavelength`、`Field`、`Reference To Primary`、`Use Exit Pupil Shape`、`STAR Data`、`Show As`、`Surface`、`Remove Tilt`、`Contour Format`、`Subaperture Data Sx/Sy/Sr`。
 - 结果展现：surface plot、contour map、grey scale 或 false color map，显示 pupil 上 wavefront error。
 - 实现方式：在 pupil ray grid 上采样 OPD。若选择 polarization 分量，会把相应电场分量的偏振相位加入 OPD；若相位超过一波，官方提示不做 phase unwrapping。`Remove Tilt` 等价于把 OPD 参考到 centroid。`Use Exit Pupil Shape` 会按指定 field 的像点视角近似显示 exit pupil 形状。
+- 对标边界：Workbench 的 `Centroid Sphere Wavefront` 与 `Best Fit Sphere Wavefront` 分别使用 Optiland 的质心拟合球和最佳拟合球；它们都不等价于 Zemax `Wavefront Map` 的逐波长参考球。Zemax 的 `Remove Tilt` 只移除线性 X/Y 倾斜（质心参考 OPD），不会改用质心拟合球；Zemax 文档中的 `Best Fit Sphere` 用于表面矢高/制造分析，也不是 Wavefront Map 的参考方式。因此在没有同物理定义的 Zemax 捕获结果前，这两页只做功能回归和截图审查，不进入 `123456.ZMX` 的数值精度统计；报告不得把它们映射到 `WavefrontMap`。
 
 ### 干涉图 / Interferogram
 
@@ -235,9 +255,10 @@
 
 ### 对比度损失图 / Contrast Loss Map
 
-- 设置内容：官方菜单归在 Wavefront/MTF 相关项，通常涉及 sampling、frequency、field、wavelength、show as。
-- 结果展现：contrast loss 随 pupil/field/frequency 变化的图或曲线。
-- 实现方式：基于 wavefront 对成像对比度的影响估算损失，本质与 MTF/OTF 计算相关。
+- 设置内容：`Sampling`、`Frequency`、`Normalize`、`Wavelength`、`Field`、`Show OPD`。
+- 结果展现：Sagittal 与 Tangential 两张 pupil map；圆大小表示局部 contrast loss，启用 `Show OPD` 后以小指示器角度显示两条光线的平均 OPD 相位。
+- 实现方式：Moore–Elliott 方法在每个 pupil 点追迹主光线及两对分离光线。Sagittal 使用 `(px±δ/2, py)`，Tangential 使用 `(px, py±δ/2)`；归一化瞳孔直径为 2，因此 `δ=2f/f_cutoff`。损失为 `0.5×(1−cos(2π(OPD1−OPD2)))`；任一分离光线超出单位圆时该点无数据。
+- `123456.ZMX` 默认对标设置由 ZOS-API 原生 `settings.cfg` 读回：`13×13`、`100 cycles/mm`、波长 2（`0.44 µm` 主波长）、视场 1、不归一化、不显示 OPD。Workbench 两张损失网格相对 Zemax 的 NRMSE 均为 `0.775%`，没有经验缩放。
 
 ### Zernike Fringe 系数 / Zernike Fringe Coefficients
 
@@ -356,13 +377,18 @@
 
 - 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、`Max Frequency`、`Wavelength`、`Field` 等。
 - 结果展现：Huygens tangential/sagittal MTF 曲线。
-- 实现方式：先计算 Huygens PSF，然后对 PSF 做 OTF/MTF 计算。对倾斜像面、exit pupil 畸变或 FFT 假设不成立的系统更可靠。
+- 实现方式：先计算各波长 Huygens PSF，不同波长作非相干强度合成，然后在局部像面 Y/X 方向分别求 Tangential/Sagittal OTF 模值；不能先计算各单色 MTF 模值再平均。对倾斜像面、exit pupil 畸变或 FFT 假设不成立的系统更可靠。
+- `Image Delta=0` 使用 Huygens PSF 的自动像面间距。N 点像面网格的自动频率支持按长度 `2N−1` 的离散相关定义，最高正频率为 `(N−1)/((2N−1)Δ)`；ZOS-API 图形数据固定输出 300 个等间隔频率点。
+- `123456.ZMX` 保存设置为 `Pupil Sampling=32×32`、`Image Sampling=32×32`、`Image Delta=0`、`Max Frequency=0`、全部波长、全部视场。10 条曲线对 Zemax 2026 R1 基线达到中位 NRMSE `0.194%`、P90 `1.414%`、最差 `1.696%`，算法没有经验比例或偏置。
 
 ### Huygens Through Focus MTF
 
 - 设置内容：`Pupil Sampling`、`Image Sampling`、`Image Delta`、configuration、wavelength、field、spatial frequency、focus range/steps。
 - 结果展现：Huygens MTF 随 delta focus 变化的曲线。
-- 实现方式：每个焦位先直接积分生成 Huygens PSF，再从 PSF 得到 MTF。多波长时，相同波长可做 coherent sum，不同波长 PSF 进行 incoherent sum。
+- 实现方式：每个焦位先直接积分生成 Huygens PSF，再从 PSF 得到 MTF。多波长时，相同波长可做 coherent sum，不同波长 PSF 进行 incoherent sum；Linear PSF 的波长权重为 `w_multi × w_wave × (λmin/λused)²`，不能先分别计算单色 MTF 再平均其模值。
+- 本项目的 Zemax 兼容模式在 `Image Delta=0` 时使用经捕获数据验证的 `Δ=λF/√nₚ` 采样公式；`Wavelength=All` 时公式中的 `λ` 取最长定义波长，`F` 为工作 F/#，`nₚ` 为每轴瞳面采样点数。该公式是采样定义，不是拟合系数；这里不把它外推为所有 Zemax 版本和分析模式的通用默认设置。
+- `123456.ZMX` 捕获窗口使用 `Pupil Sampling=64×64`、`Image Sampling=32×32`、`Image Delta=0`、`Frequency=20 cycles/mm`、`Delta Focus=±0.1 mm`、`# Steps=5`，文本输出为由这些计算焦面样条采样得到的 101 点。这些是本基准的捕获设置，不是 Zemax 通用规格。
+- `123456.ZMX` 对标使用系统 `RAIM` 设置进行瞳面瞄准。五视场 10 条曲线对 Zemax 2026 R1 捕获基线达到中位 NRMSE `1.744%`、P90 `1.787%`；算法中没有加入经验比例或偏置。
 
 ### Huygens Surface MTF
 
@@ -372,9 +398,10 @@
 
 ### Huygens MTF vs Field
 
-- 设置内容：与 FFT MTF vs Field 类似，但使用 Huygens pupil/image sampling 和 image delta。
-- 结果展现：固定频率下 Huygens MTF 随视场变化曲线。
-- 实现方式：沿视场扫描，每个视场点用 Huygens PSF -> OTF -> MTF 路径求值。
+- 设置内容：`Sampling`、`Frequency 1-6`、`Wavelength`、`Use Polarization`、`Use Dashes`、`Remove Vignetting Factors`、`Field Density` 和 `Scan Type`。原生页面只有一个 Sampling，没有独立的 Image Sampling/Image Delta 控件。
+- 结果展现：六个固定频率下的 Huygens tangential/sagittal MTF 随相对视场变化曲线；Field Density 表示从零到最大视场的计算间隔数，显示数据样条输出为 300 点。
+- 实现方式：每个计算视场先按 Zemax 复色权重生成 Huygens PSF，再在用户指定的空间频率直接求连续 OTF 模值。不能把低于首个离散 FFT 频点的值统一做 DC 到首频点的线性插值，否则 10–60 cycles/mm 会产生人为直线频响。
+- `123456.ZMX` 对标使用 `64×64` Sampling、10/20/30/40/50/60 cycles/mm、全波长、Field Density 10、`+Y` 扫描和移除渐晕因子。12 条曲线对 Zemax 2026 R1 捕获基线达到中位 NRMSE `0.304%`、P90 `0.422%`、最差 `0.505%`，最低相关系数 `0.993916`；算法没有经验比例或偏置。
 
 ### Geometric MTF
 
@@ -406,9 +433,7 @@
 - 按 Zemax pupil-space 方向约定，Tangential 对应 Y pupil shift，Sagittal 对应 X pupil shift。这个交换只应用于 Sampled MTF / through-focus sampled MTF；普通 FFT MTF 和 Contrast Loss Map 的现有方向不随本规则改动。
 ### Contrast Loss Map
 
-- 设置内容：与 MTF/波前相关，通常涉及 sampling、frequency、field、wavelength。
-- 结果展现：对比度损失图或曲线。
-- 实现方式：从 wavefront/complex pupil 对指定空间频率下的 contrast degradation 进行估算，可视为 MTF 相关分析。
+- 见上文“对比度损失图 / Contrast Loss Map”。Workbench 使用完整 Moore–Elliott 两光线 OPD 差定义，并保留 Zemax Sagittal=X pupil shift、Tangential=Y pupil shift 的方向约定。
 
 ## RMS
 
@@ -447,12 +472,13 @@
 - 设置内容：pupil sampling、image sampling、image delta 或 maximum distance、wavelength、field、type（encircled、X only、Y only、ensquared）、reference point/algorithm（chief ray、centroid、vertex；FFT 或 Huygens 方法有不同编号）。
 - 结果展现：fraction of energy vs distance 曲线，或指定 fraction 对应的 distance。
 - 实现方式：基于 diffraction PSF 对能量积分。encircled 为圆半径内能量；ensquared 为方框内能量；X/Y only 也称 enslitted energy。FFT 与 Huygens diffraction encircled energy 的采样和 reference 算法不同。
+- Workbench 实现状态（2026-08-01）：默认 FFT 路径按 Zemax 的拉伸瞳面与工作 F/# 像面采样生成复色 PSF；将每个 PSF 样本按有限像素面积积分，而不是把像素中心当点质量。径向圆边界使用 Gauss–Legendre 面积积分，X/Y-only 与 ensquared 使用精确矩形重叠；自动最大距离由同采样的无 OPD 衍射极限曲线确定。`123456.ZMX` 的 `64×64` 瞳面、质心参考、全部视场/波长基准输出 401 点和 `0–10 µm` 范围，六条曲线中位 NRMSE 为 `1.229%`、P90 为 `1.376%`、最差为 `1.478%`，没有使用经验系数。
 
 ### Geometric Encircled Energy
 
 - 设置内容：pupil sampling、wavelength、field、type、reference point（chief ray、centroid、vertex、middle of spot）、是否乘 diffraction limit。
 - 结果展现：几何 encircled/ensquared/X/Y energy 曲线，或指定 fraction 的距离。
-- 实现方式：追迹几何光线，统计落点相对参考点在半径、狭缝或方框范围内的累计能量。若启用 diffraction-limit scaling，会用圆孔衍射极限曲线近似修正。
+- 实现方式：追迹几何光线，按波长权重统计落点相对参考点在半径、狭缝或方框范围内的归一化累计能量。径向模式启用 diffraction-limit scaling 时，按 Zemax 定义将几何累计曲线逐点乘以圆孔 Airy 包围能量 `1-J0(u)^2-J1(u)^2`，其中 `u=πr/(λF/#)`；复色光对各波长的 Airy 曲线按波长权重合成，不使用经验拟合系数。
 
 ### Geometric Line/Edge Spread
 
@@ -465,6 +491,7 @@
 - 设置内容：`Field Size`、`Rays x 1000`、`Type`（encircled、X-only、Y-only、ensquared，也可 X/Y distribution）、`Refer To`、`Surface`、`Use Polarization`、`Multiply by Diffraction Limit`、`Wavelength`、`Field`、`File`、`Max Distance`、`Use Dashes`、`Remove Vignetting Factors`。
 - 结果展现：扩展源 encircled/ensquared/enslitted energy 曲线，或 X/Y distribution；distribution 模式报告 geometric full width at half max。
 - 实现方式：使用类似 Geometric Image Analysis 的扩展源模型，从 IMA/BIM 图像文件或场尺寸生成扩展目标，追迹大量光线并统计相对参考点的能量累计。X/Y-only 表示以参考点为中心的扩展狭缝内能量分数。
+- Workbench 实现状态（2026-08-01）：支持文本 IMA 强度图。每个非零像素按 `Field Size` 映射为发光面积，并在像素内部使用确定性子像素中心采样；不能把亮像素退化为点源。`123456.ZMX` 对标使用基准随附的 `LETTERF.IMA`、全宽 `6.3639610306789285 mm`、中心视场、复色、质心参考和约 200 万条光线，当前曲线对 Zemax 2026 R1 捕获数据的 NRMSE 为 `2.000%`、相关系数为 `0.999143`，没有使用经验比例或偏置。
 
 ## 扩展图像分析
 
@@ -526,6 +553,5 @@
 
 - 本文描述 Zemax/OpticStudio 官方方法。Workbench 当前实现可能只覆盖其中一部分设置或用简化参数名映射。
 - Workbench 当前 Ribbon 中“垂轴色差”的 command id 叫 `analysis-distortion`，但实际 canonical name 为 `Lateral Color`；若要做官方 `Field Curvature and Distortion` 的畸变曲线，应单独接入 `DistortionAnalysis`。
-- Workbench 当前“对比度损失图”实现路径更接近 sampled MTF 曲线，不等同于完整官方 Contrast Loss Map。
 - Workbench 当前“干涉图”若复用 wavefront map，则还缺少独立干涉条纹显示方式。
 - 官方菜单包含 `FFT Surface MTF`、`FFT MTF Map`、`Huygens Surface MTF`、`Geometric MTF Map` 等 MTF 变体；若需要“所有 Zemax 方法”完全覆盖，应在 Workbench MTF 分组中补齐这些入口。

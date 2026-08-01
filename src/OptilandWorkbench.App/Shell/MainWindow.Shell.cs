@@ -441,10 +441,10 @@ public sealed partial class MainWindow
             Width = 26,
             Height = 26,
             StrokeWidth = 1.8,
-            Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
+        icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var text = new TextBlock
         {
             Text = label,
@@ -479,10 +479,10 @@ public sealed partial class MainWindow
             Width = 26,
             Height = 26,
             StrokeWidth = 1.8,
-            Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255)),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
+        icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var text = new TextBlock
         {
             Text = label,
@@ -540,7 +540,6 @@ public sealed partial class MainWindow
             var accent = ThemeBrush(button, "AccentFillColorDefaultBrush");
             button.Background = ThemeBrush(button, ThemeResourceBindings.RibbonHover);
             button.BorderBrush = ThemeBrush(button, ThemeResourceBindings.RibbonHoverBorder);
-            icon.Stroke = accent;
             icon.StrokeWidth = 2.05;
             text.Foreground = accent;
             if (arrow is not null)
@@ -553,7 +552,6 @@ public sealed partial class MainWindow
         {
             button.Background = Brushes.Transparent;
             button.BorderBrush = Brushes.Transparent;
-            icon.Stroke = new SolidColorBrush(Color.FromRgb(0, 122, 255));
             icon.StrokeWidth = 1.8;
             text.ClearValue(TextBlock.ForegroundProperty);
             if (arrow is not null)

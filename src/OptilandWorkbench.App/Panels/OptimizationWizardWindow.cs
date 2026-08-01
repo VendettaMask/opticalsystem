@@ -81,12 +81,7 @@ public sealed class OptimizationWizardWindow : Window
                 Labeled("权重缩放", _weightScale),
                 _allWavelengths,
                 _ignoreLateralColor,
-                new TextBlock
-                {
-                    Text = "当前目标为最佳名义性能。",
-                    FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115))
-                }
+                MutedText("当前目标为最佳名义性能。", 11)
             }
         });
         var samplingCard = Card("光瞳采样", new StackPanel
@@ -152,11 +147,7 @@ public sealed class OptimizationWizardWindow : Window
                         FontSize = 22,
                         FontWeight = FontWeight.SemiBold
                     },
-                    new TextBlock
-                    {
-                        Text = "根据当前视场、波长和光瞳采样生成可直接执行的评价函数。",
-                        Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
-                    },
+                    MutedText("根据当前视场、波长和光瞳采样生成可直接执行的评价函数。"),
                     columns
                 }
             }
@@ -366,6 +357,18 @@ public sealed class OptimizationWizardWindow : Window
                 input
             }
         };
+    }
+
+    private static TextBlock MutedText(string text, double fontSize = 12)
+    {
+        var block = new TextBlock
+        {
+            Text = text,
+            FontSize = fontSize,
+            TextWrapping = TextWrapping.Wrap
+        };
+        block.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        return block;
     }
 
     private static ComboBox Picker(int selectedIndex, params string[] values) => new()

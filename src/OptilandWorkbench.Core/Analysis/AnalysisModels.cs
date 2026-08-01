@@ -79,7 +79,8 @@ public sealed record AnalysisPlotOptions(
     double GridOpacity = 1,
     bool HideAxes = false,
     bool HideTickLabels = false,
-    bool LegendBelow = false);
+    bool LegendBelow = false,
+    bool DefaultSquareViewport = false);
 
 public sealed record AnalysisPlotPane(
     string Title,

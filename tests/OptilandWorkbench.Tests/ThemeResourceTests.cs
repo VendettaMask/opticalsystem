@@ -11,12 +11,16 @@ public sealed class ThemeResourceTests
     [Fact]
     public void DarkAndIsekaiThemesDefineAnalysisAndSceneRenderingResources()
     {
+        var lightResources = ThemePalette.Light.ToResourceDictionary();
         var resources = ThemePalette.DarkOpticStudio.ToResourceDictionary();
         var isekaiResources = IsekaiTheme.CreateResourceDictionary();
         var settings = new AppSettings { Theme = IsekaiTheme.SettingsValue };
         settings.NormalizeDisplaySettings();
 
         Assert.Equal(IsekaiTheme.SettingsValue, settings.Theme);
+        AssertAllThemeBrushes(lightResources);
+        AssertAllThemeBrushes(resources);
+        AssertAllThemeBrushes(isekaiResources);
 
         AssertBrush(resources, ThemeResourceBindings.TextPrimary);
         AssertBrush(resources, ThemeResourceBindings.TextSecondary);
@@ -27,6 +31,9 @@ public sealed class ThemeResourceTests
         AssertBrush(resources, ThemeResourceBindings.TextWarning);
         AssertBrush(resources, ThemeResourceBindings.TextError);
         AssertBrush(resources, ThemeResourceBindings.TextSuccess);
+        AssertBrush(resources, ThemeResourceBindings.WarningSurface);
+        AssertBrush(resources, ThemeResourceBindings.ErrorSurface);
+        AssertBrush(resources, ThemeResourceBindings.SuccessSurface);
         AssertBrush(resources, ThemeResourceBindings.PlotBackground);
         AssertBrush(resources, ThemeResourceBindings.PlotText);
         AssertBrush(resources, ThemeResourceBindings.PlotGrid);
@@ -75,6 +82,13 @@ public sealed class ThemeResourceTests
             > Luminance(ColorOf(isekai, ThemeResourceBindings.PlotBackground)));
         Assert.True(Luminance(ColorOf(isekai, ThemeResourceBindings.TextAccent))
             > Luminance(ColorOf(isekai, ThemeResourceBindings.Surface)));
+        Assert.True(Luminance(ColorOf(isekai, ThemeResourceBindings.TextWarning))
+            > Luminance(ColorOf(isekai, ThemeResourceBindings.WarningSurface)));
+        Assert.True(Luminance(ColorOf(isekai, ThemeResourceBindings.TextError))
+            > Luminance(ColorOf(isekai, ThemeResourceBindings.ErrorSurface)));
+        Assert.True(Luminance(ColorOf(isekai, ThemeResourceBindings.TextSuccess))
+            > Luminance(ColorOf(isekai, ThemeResourceBindings.SuccessSurface)));
+
     }
 
     [Fact]
@@ -89,6 +103,20 @@ public sealed class ThemeResourceTests
     {
         Assert.True(resources.ContainsKey(key));
         Assert.IsAssignableFrom<IBrush>(resources[key]);
+    }
+
+    private static void AssertAllThemeBrushes(ResourceDictionary resources)
+    {
+        foreach (var field in typeof(ThemeResourceBindings).GetFields(
+                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+        {
+            if (!field.IsLiteral || field.FieldType != typeof(string))
+            {
+                continue;
+            }
+
+            AssertBrush(resources, Assert.IsType<string>(field.GetRawConstantValue()));
+        }
     }
 
     private static Color ColorOf(ResourceDictionary resources, string key)

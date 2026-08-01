@@ -228,7 +228,7 @@ def export_fft_mtf(
 
         analysis = system.Analyses.New_FftMtf()
         settings = analysis.GetSettings()
-        zemax_defaults = {
+        captured_initial_settings = {
             "fieldNumber": int(settings.Field.GetFieldNumber()),
             "surfaceNumber": int(settings.Surface.GetSurfaceNumber()),
             "wavelengthNumber": int(
@@ -331,7 +331,7 @@ def export_fft_mtf(
             "wavelengths": wavelengths,
             "surfaceRefractiveIndices": surface_refractive_indices,
             "referenceRays": export_reference_rays(system, ZOSAPI),
-            "zemaxDefaults": zemax_defaults,
+            "capturedInitialSettings": captured_initial_settings,
             "settings": {
                 "analysis": "FFT MTF",
                 "sampleSize": "64x64",

@@ -121,10 +121,14 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             : _fieldNumber <= 0
                 ? allFields[^1]
                 : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
-        var primaryWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
+        var imageDeltaWavelength = wavelengths.MaxBy(item => item.Micrometers) ?? wavelengths[0];
         var pixelPitchMillimeters = _pixelPitchMillimeters > 0
             ? _pixelPitchMillimeters
-            : AutoPixelPitchMillimeters(primaryWavelength, field);
+            : DiffractionEngine.DefaultHuygensImageDeltaMillimeters(
+                Optic,
+                field,
+                imageDeltaWavelength,
+                _numRays);
         var results = wavelengths
             .Select(wavelength => (
                 Wavelength: wavelength,
@@ -166,19 +170,19 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
 
         var (centerColumn, centerRow) = _useCentroid
             ? IntensityCentroid(values)
-            : (_imageSize / 2.0, _imageSize / 2.0);
+            : (_imageSize / 2, _imageSize / 2);
         var logarithmic = _type.Contains("对数", StringComparison.Ordinal)
             || _type.Contains("log", StringComparison.OrdinalIgnoreCase);
         var sampleSpacingMicrometers = pixelPitchMillimeters * 1000;
         var points = new List<AnalysisPoint>(_imageSize * _imageSize);
         for (var row = 0; row < _imageSize; row++)
         {
-            var y = ((row + 0.5) - centerRow) * sampleSpacingMicrometers;
+            var y = (row - centerRow) * sampleSpacingMicrometers;
             for (var column = 0; column < _imageSize; column++)
             {
                 var value = values[row, column];
                 points.Add(new AnalysisPoint(
-                    ((column + 0.5) - centerColumn) * sampleSpacingMicrometers,
+                    (column - centerColumn) * sampleSpacingMicrometers,
                     y,
                     Value: logarithmic ? 10 * Math.Log10(Math.Max(1e-12, value)) : value));
             }
@@ -216,8 +220,8 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["UsePolarization"] = _usePolarization,
             ["Normalized"] = _normalize,
             ["UseCentroid"] = _useCentroid,
-            ["CentroidXMicrometers"] = (centerColumn - (_imageSize / 2.0)) * sampleSpacingMicrometers,
-            ["CentroidYMicrometers"] = (centerRow - (_imageSize / 2.0)) * sampleSpacingMicrometers
+            ["CentroidXMicrometers"] = (centerColumn - (_imageSize / 2)) * sampleSpacingMicrometers,
+            ["CentroidYMicrometers"] = (centerRow - (_imageSize / 2)) * sampleSpacingMicrometers
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
@@ -225,25 +229,6 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             XMaximum: extent / 2,
             YMinimum: -extent / 2,
             YMaximum: extent / 2));
-    }
-
-    private double AutoPixelPitchMillimeters(
-        Wavelength wavelength,
-        (double Hx, double Hy) field)
-    {
-        var fftGridSize = 1;
-        while (fftGridSize < Math.Max(_numRays, _imageSize))
-        {
-            fftGridSize *= 2;
-        }
-
-        var estimate = DiffractionEngine.ComputeFftPsf(
-            Optic,
-            field,
-            wavelength,
-            _numRays,
-            fftGridSize);
-        return Math.Max(1e-9, estimate.SampleSpacingMicrometers / 1000.0);
     }
 
     private static (double X, double Y) IntensityCentroid(double[,] values)
@@ -259,14 +244,14 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             {
                 var value = Math.Max(0, values[row, column]);
                 total += value;
-                weightedX += (column + 0.5) * value;
-                weightedY += (row + 0.5) * value;
+                weightedX += column * value;
+                weightedY += row * value;
             }
         }
 
         return total > 0
             ? (weightedX / total, weightedY / total)
-            : (columns / 2.0, rows / 2.0);
+            : (columns / 2, rows / 2);
     }
 }
 
@@ -279,6 +264,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
     private readonly double? _maximumFrequency;
     private readonly int _wavelengthNumber;
     private readonly int _fieldNumber;
+    private readonly bool _zemaxCompatible;
 
     public HuygensMtfAnalysis(
         Optic optic,
@@ -288,17 +274,19 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
         IReadOnlyList<(double Hx, double Hy)>? fields = null,
         double? maximumFrequency = null,
         int wavelengthNumber = -1,
-        int fieldNumber = 0) : base(optic)
+        int fieldNumber = 0,
+        bool zemaxCompatible = false) : base(optic)
     {
         _numRays = Math.Max(2, numRays);
         _imageSize = Math.Max(1, imageSize);
-        _pixelPitchMillimeters = Math.Max(1e-9, pixelPitchMillimeters);
+        _pixelPitchMillimeters = Math.Max(0, pixelPitchMillimeters);
         _fields = fields;
         _maximumFrequency = maximumFrequency is > 0 && double.IsFinite(maximumFrequency.Value)
             ? maximumFrequency
             : null;
         _wavelengthNumber = wavelengthNumber;
         _fieldNumber = Math.Max(0, fieldNumber);
+        _zemaxCompatible = zemaxCompatible;
     }
 
     public override string Name => "Huygens MTF";
@@ -316,23 +304,68 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ? Enumerable.Range(0, allFields.Count).ToArray()
             : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
+        if (fields.Length == 0)
+        {
+            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No fields" });
+        }
+
+        var sharedPixelPitchMillimeters = _pixelPitchMillimeters > 0
+            ? _pixelPitchMillimeters
+            : MtfMethodEvaluator.ResolveHuygensImageDeltaMillimeters(
+                Optic,
+                fields[0],
+                wavelengths,
+                new MtfComputationSettings(PupilSampling: _numRays, PixelPitchMillimeters: 0));
         var series = new List<AnalysisSeries>();
         var maximumFrequency = 0.0;
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
-            var wavelengthResults = wavelengths.Select(wavelength =>
+            MtfResult fullMtf;
+            if (_zemaxCompatible)
             {
-                var psf = DiffractionEngine.ComputeHuygensPsf(
+                var supportedMaximum = (_imageSize - 1.0)
+                    / ((2 * _imageSize - 1.0) * sharedPixelPitchMillimeters);
+                var requestedMaximum = _maximumFrequency.HasValue
+                    ? Math.Min(_maximumFrequency.Value, supportedMaximum)
+                    : supportedMaximum;
+                var frequencies = Enumerable.Range(0, 300)
+                    .Select(index => requestedMaximum * index / 299.0)
+                    .ToArray();
+                var values = MtfMethodEvaluator.EvaluatePolychromaticFrequencies(
                     Optic,
+                    MtfComputationMethod.Huygens,
                     field,
-                    wavelength,
-                    _numRays,
-                    _imageSize,
-                    _pixelPitchMillimeters);
-                return (wavelength, DiffractionEngine.ComputePsfMtf(psf));
-            }).ToArray();
-            var fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
+                    wavelengths,
+                    frequencies,
+                    new MtfComputationSettings(
+                        PupilSampling: _numRays,
+                        ImageSize: _imageSize,
+                        PixelPitchMillimeters: sharedPixelPitchMillimeters,
+                        ZemaxCompatible: true,
+                        UseZemaxHuygensSemantics: true));
+                fullMtf = new MtfResult(
+                    frequencies,
+                    values.Select(item => item.Tangential).ToArray(),
+                    values.Select(item => item.Sagittal).ToArray(),
+                    supportedMaximum);
+            }
+            else
+            {
+                var wavelengthResults = wavelengths.Select(wavelength =>
+                {
+                    var psf = DiffractionEngine.ComputeHuygensPsf(
+                        Optic,
+                        field,
+                        wavelength,
+                        _numRays,
+                        _imageSize,
+                        sharedPixelPitchMillimeters);
+                    return (wavelength, DiffractionEngine.ComputePsfMtf(psf));
+                }).ToArray();
+                fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
+            }
+
             var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
             maximumFrequency = Math.Max(maximumFrequency, fullMtf.Frequency.DefaultIfEmpty(0).Max());
             series.Add(new AnalysisSeries(
@@ -359,13 +392,15 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ["ImagePlane"] = "Chief ray tangent plane",
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,
-            ["PixelPitchMillimeters"] = _pixelPitchMillimeters,
+            ["PixelPitchMillimeters"] = sharedPixelPitchMillimeters,
+            ["ImageDeltaMicrometers"] = sharedPixelPitchMillimeters * 1000,
             ["MaximumFrequency"] = plottedMaximum,
             ["CutoffFrequency"] = maximumFrequency,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["FieldNumber"] = _fieldNumber,
-            ["FieldCount"] = fields.Length
+            ["FieldCount"] = fields.Length,
+            ["ZemaxCompatible"] = _zemaxCompatible
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: "Huygens MTF",
             XMinimum: 0,

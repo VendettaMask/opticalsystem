@@ -88,7 +88,7 @@ The regression suite compares:
 - early termination, non-finite object distance, cancellation, and exceptional surfaces;
 - Monte Carlo sequences across seeds and parallelism levels.
 
-The validated 2026-07-31 baseline is 592 passing tests with a zero-warning solution build.
+The validated 2026-08-01 baseline is 616 passing tests. The analysis-preset boundary is covered so captured `123456.ZMX` settings cannot silently become Core defaults.
 
 ## Benchmark
 

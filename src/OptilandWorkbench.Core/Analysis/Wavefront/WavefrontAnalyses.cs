@@ -89,7 +89,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                 field,
                 wavelength,
                 _pupilSampling.Value,
-                aimAtStop: _useExitPupilShape)
+                aimAtStop: _useExitPupilShape,
+                zemaxCentered: true)
             : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         if (_removeTilt)
@@ -102,7 +103,12 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         var maximum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Max();
         var sampling = _pupilSampling ?? _mapSize;
         var displayOffset = _pupilSampling.HasValue ? minimum : 0;
-        var mapPoints = BuildWavefrontMap(valid, sampling)
+        var mapPoints = (_pupilSampling.HasValue
+                ? valid.Select(sample => new AnalysisPoint(
+                    sample.NormalizedPupilX,
+                    sample.NormalizedPupilY,
+                    Value: sample.OpdWaves))
+                : BuildWavefrontMap(valid, sampling))
             .Select(point => point with
             {
                 X = _pupilSx + (point.X * _pupilSr),
@@ -122,9 +128,10 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["VignettedRayCount"] = wavefront.VignettedRayCount,
             ["ReferenceOpticalPathLength"] = wavefront.ReferenceOpticalPath,
             ["MeanOpticalPathDifference"] = mean * wavelength.Micrometers * 1e-3,
-            ["RmsOpticalPathDifference"] = Rms(valid) * wavelength.Micrometers * 1e-3,
+            ["RmsOpticalPathDifference"] = Rms(valid, removePiston: _pupilSampling.HasValue)
+                * wavelength.Micrometers * 1e-3,
             ["PeakToValleyOpticalPathDifference"] = (maximum - minimum) * wavelength.Micrometers * 1e-3,
-            ["RmsWaves"] = Rms(valid),
+            ["RmsWaves"] = Rms(valid, removePiston: _pupilSampling.HasValue),
             ["PeakToValleyWaves"] = maximum - minimum,
             ["ReferenceSphereRadius"] = wavefront.Radius,
             ["PupilDiameterMillimeters"] = Math.Abs(Optic.Paraxial.EstimateExitPupilDiameter(wavelength.Micrometers)),
@@ -154,7 +161,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["PupilSr"] = _pupilSr
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: _pupilSampling.HasValue
-                ? $"Wavefront Function: PV={maximum - minimum:0.0000}, RMS={Rms(valid):0.0000} waves"
+                ? $"Wavefront Function: PV={maximum - minimum:0.0000}, RMS={Rms(valid, removePiston: true):0.0000} waves"
                 : $"OPD Map: RMS={wavefront.Rms:0.000} waves",
             EqualAspect: true,
             XMinimum: _pupilSx - _pupilSr,
@@ -225,9 +232,13 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         }).ToArray();
     }
 
-    private static double Rms(IReadOnlyList<WavefrontSample> samples)
+    private static double Rms(IReadOnlyList<WavefrontSample> samples, bool removePiston = false)
     {
-        var meanSquare = samples.Select(sample => sample.OpdWaves * sample.OpdWaves)
+        var piston = removePiston
+            ? samples.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average()
+            : 0;
+        var meanSquare = samples.Select(sample =>
+                (sample.OpdWaves - piston) * (sample.OpdWaves - piston))
             .DefaultIfEmpty(0)
             .Average();
         return Math.Sqrt(meanSquare);

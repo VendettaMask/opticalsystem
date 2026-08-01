@@ -1,8 +1,10 @@
 """Capture a complete OpticStudio analysis baseline for one ZMX file.
 
 The data pass uses the official ZOS-API Standalone connection. Every
-AnalysisIDM value is attempted with its Zemax defaults and receives a status
-record even when it is unavailable for the loaded sequential system.
+AnalysisIDM value is attempted with the initial settings returned for the
+loaded file by this OpticStudio installation and receives a status record even
+when it is unavailable for the loaded sequential system. Those initial values
+are capture metadata, not universal Zemax defaults.
 
 For successful analyses that have an official ZPL string code, a second pass
 launches OpticStudio with a command-line ZPL macro and exports the actual

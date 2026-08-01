@@ -173,11 +173,18 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             ColumnHeaderHeight = 30,
             FrozenColumnCount = 2,
             BorderThickness = new Avalonia.Thickness(1),
-            HorizontalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
-            VerticalGridLinesBrush = new SolidColorBrush(Color.FromRgb(209, 209, 214)),
             RowBackground = new SolidColorBrush(MeritOperandRowPalette.Resolve(null))
         };
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
+        grid.Styles.Add(new Style(selector => selector
+            .OfType<DataGridRow>()
+            .Class("merit-color-row"))
+        {
+            Setters =
+            {
+                new Setter(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(24, 24, 27)))
+            }
+        });
         grid.Styles.Add(new Style(selector => selector
             .OfType<DataGridRow>()
             .Class("merit-color-row")
@@ -469,13 +476,17 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         MinWidth = 74
     };
 
-    private static Separator Separator() => new()
+    private static Separator Separator()
     {
-        Width = 1,
-        Height = 28,
-        Margin = new Avalonia.Thickness(4, 0),
-        Background = new SolidColorBrush(Color.FromRgb(209, 209, 214))
-    };
+        var separator = new Separator
+        {
+            Width = 1,
+            Height = 28,
+            Margin = new Avalonia.Thickness(4, 0)
+        };
+        separator.BindThemeResource(Avalonia.Controls.Separator.BackgroundProperty, ThemeResourceBindings.Border);
+        return separator;
+    }
 
     private static void ApplyRowAppearance(DataGridRow row)
     {

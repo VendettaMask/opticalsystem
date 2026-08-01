@@ -41,30 +41,27 @@ public sealed class DistortionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        var calculationOptic = Optic;
+        Optic? displayOptic = null;
         if (Optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
         {
-            var converted = RealImageFieldConversion.ForDistortion(Optic);
-            return new DistortionAnalysis(
-                converted,
-                _numPoints,
-                _distortionType,
-                _wavelengthNumber,
-                _scanDirection,
-                _displayMode,
-                _referenceFieldNumber,
-                _ignoreVignettingFactors,
-                _maximumDistortion).GenerateData();
+            calculationOptic = RealImageFieldConversion.ForDistortion(Optic);
+            displayOptic = Optic;
         }
 
-        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _ignoreVignettingFactors);
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(calculationOptic, _ignoreVignettingFactors);
+        var displayReference = displayOptic ?? workingOptic;
         var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
-        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(workingOptic);
+        var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(displayReference);
         var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(workingOptic);
         var effectiveDistortionType = workingOptic.FieldDefinition == FieldDefinitionKind.Angle
             ? _distortionType
             : "linear-height";
         var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
         var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints);
+        var displayFields = displayOptic is null
+            ? fields
+            : AnalysisTrace.ScanFieldSamples(displayReference, _scanDirection, _numPoints);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDistortion = 0.0;
 
@@ -98,8 +95,9 @@ public sealed class DistortionAnalysis : BaseAnalysis
                     : _displayMode == "absolute"
                         ? actualRadius - predictedRadius
                         : 100.0 * (actualRadius - predictedRadius) / predictedRadius;
+                var displayField = displayFields[index];
                 maximumAbsoluteDistortion = Math.Max(maximumAbsoluteDistortion, Math.Abs(distortion));
-                points[index] = new AnalysisPoint(distortion, field.Coordinate, field.Label);
+                points[index] = new AnalysisPoint(distortion, displayField.Coordinate, displayField.Label);
             }
 
             series.Add(new AnalysisSeries(
@@ -131,8 +129,8 @@ public sealed class DistortionAnalysis : BaseAnalysis
             values["SmiaTvDistortionPercent"] = ComputeSmiaTvDistortion(workingOptic, wavelengths[0]);
         }
 
-        var minimumField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min();
-        var maximumDefinedField = fields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max();
+        var minimumField = displayFields.Select(field => field.Coordinate).DefaultIfEmpty(0).Min();
+        var maximumDefinedField = displayFields.Select(field => field.Coordinate).DefaultIfEmpty(0).Max();
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(
             SymmetricX: true,
             ShowVerticalZeroLine: true,

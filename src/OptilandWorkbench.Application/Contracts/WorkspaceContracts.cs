@@ -287,7 +287,8 @@ public sealed record AnalysisPlotOptionsDto(
     bool ReverseX = false,
     bool ShowPointLabels = false,
     bool HideTickLabels = false,
-    bool LegendBelow = false);
+    bool LegendBelow = false,
+    bool DefaultSquareViewport = false);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,

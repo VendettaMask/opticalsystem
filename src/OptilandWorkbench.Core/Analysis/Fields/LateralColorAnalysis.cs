@@ -49,13 +49,11 @@ public sealed class LateralColorAnalysis : BaseAnalysis
                 maximumField,
                 index))
             .ToList();
-        var airyRadius = 1.22
-            * primary.Micrometers
-            * Math.Max(0, Optic.Paraxial.EstimateFNumber());
+        var airyRadius = AiryRadiusMicrometers(0, primary);
         if (_showAiryDisk && airyRadius > 0)
         {
-            series.Add(AiryBoundary(-airyRadius, maximumField, "艾里斑"));
-            series.Add(AiryBoundary(airyRadius, maximumField, ""));
+            series.Add(AiryBoundary(-1, maximumField, primary, "艾里斑"));
+            series.Add(AiryBoundary(1, maximumField, primary, ""));
         }
 
         var curveMaximum = series
@@ -131,7 +129,7 @@ public sealed class LateralColorAnalysis : BaseAnalysis
                 var firstHeight = ImageHeight(fraction, first.Micrometers);
                 var secondHeight = ImageHeight(fraction, second.Micrometers);
                 return new AnalysisPoint(
-                    (firstHeight - secondHeight) * 1000,
+                    (secondHeight - firstHeight) * 1000,
                     fraction * maximumField);
             })
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
@@ -151,7 +149,14 @@ public sealed class LateralColorAnalysis : BaseAnalysis
         {
             if (_useRealRays)
             {
-                var sample = Optic.TraceGenericFinalSample(0, normalizedField, 0, 0, wavelengthMicrometers);
+                var bundle = Optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                    0,
+                    normalizedField,
+                    0,
+                    0,
+                    wavelengthMicrometers,
+                    aimAtStop: Optic.RayAimingEnabled);
+                var sample = Optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault();
                 return sample is null || sample.Intensity <= 0 ? double.NaN : sample.Position.Y;
             }
 
@@ -167,20 +172,38 @@ public sealed class LateralColorAnalysis : BaseAnalysis
         }
     }
 
-    private AnalysisSeries AiryBoundary(double x, double maximumField, string name)
+    private AnalysisSeries AiryBoundary(
+        double sign,
+        double maximumField,
+        Wavelength primary,
+        string name)
     {
         return new AnalysisSeries(
             "µm",
             FieldAxisLabel(),
-            new[]
-            {
-                new AnalysisPoint(x, 0),
-                new AnalysisPoint(x, maximumField)
-            },
+            Enumerable.Range(0, _sampleCount)
+                .Select(index =>
+                {
+                    var fraction = index / (double)(_sampleCount - 1);
+                    return new AnalysisPoint(
+                        sign * AiryRadiusMicrometers(fraction, primary),
+                        fraction * maximumField);
+                })
+                .ToArray(),
             Name: name,
             LineStyle: AnalysisLineStyle.Dotted,
             ColorIndex: 10,
             LineWidth: 1);
+    }
+
+    private double AiryRadiusMicrometers(double normalizedField, Wavelength primary)
+    {
+        var workingFNumber = DiffractionEngine.WorkingFNumber(
+            Optic,
+            (0, normalizedField),
+            primary,
+            aimAtStop: Optic.RayAimingEnabled);
+        return 1.22 * primary.Micrometers * Math.Max(0, workingFNumber);
     }
 
     private string FieldAxisLabel()

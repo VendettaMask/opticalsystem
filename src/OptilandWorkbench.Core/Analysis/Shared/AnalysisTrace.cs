@@ -53,6 +53,16 @@ internal static class AnalysisTrace
             return optic;
         }
 
+        // Imported systems can carry runtime material/catalog state that is not part of
+        // the persisted snapshot.  When every vignetting factor is already zero there is
+        // nothing to remove, so retain the original optic instead of needlessly rebuilding it.
+        if (optic.Fields.All(field =>
+                Math.Abs(field.VignetteFactorX) <= 1e-15
+                && Math.Abs(field.VignetteFactorY) <= 1e-15))
+        {
+            return optic;
+        }
+
         var workingOptic = Optic.FromSnapshot(optic.ToSnapshot());
         foreach (var field in workingOptic.Fields)
         {

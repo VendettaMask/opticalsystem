@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OptilandWorkbench.App.Theming;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
@@ -454,7 +453,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Height = 35,
             Margin = new Avalonia.Thickness(6, 3),
             Padding = new Avalonia.Thickness(10, 0),
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Avalonia.Thickness(1),
             CornerRadius = new Avalonia.CornerRadius(7),
@@ -465,25 +463,22 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
 
         var isExpanded = expanded;
         var isHovered = false;
+        IDisposable? arrowBinding = null;
+        IDisposable? titleBinding = null;
+        IDisposable? backgroundBinding = null;
+        IDisposable? borderBinding = null;
 
         void UpdateVisuals()
         {
             var emphasized = isExpanded || isHovered;
-            var dark = IsDarkTheme;
-            arrow.Stroke = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(100, 181, 246) : Color.FromRgb(0, 102, 204))
-                : (dark ? Color.FromRgb(174, 180, 188) : Color.FromRgb(110, 110, 115)));
-            titleText.Foreground = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(128, 196, 255) : Color.FromRgb(0, 82, 164))
-                : (dark ? Color.FromRgb(232, 234, 237) : Color.FromRgb(29, 29, 31)));
-            header.Background = new SolidColorBrush(isExpanded
-                ? (dark ? Color.FromRgb(28, 55, 79) : Color.FromRgb(228, 239, 253))
-                : isHovered
-                    ? (dark ? Color.FromRgb(35, 47, 59) : Color.FromRgb(239, 246, 255))
-                    : (dark ? Color.FromRgb(35, 38, 42) : Color.FromRgb(250, 250, 252)));
-            header.BorderBrush = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
-                : Color.FromArgb(0, 0, 0, 0));
+            RebindThemeResource(ref arrowBinding, arrow, LocalIcon.StrokeProperty,
+                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextMuted);
+            RebindThemeResource(ref titleBinding, titleText, TextBlock.ForegroundProperty,
+                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextPrimary);
+            RebindThemeResource(ref backgroundBinding, header, Button.BackgroundProperty,
+                emphasized ? ThemeResourceBindings.Hover : ThemeResourceBindings.Surface);
+            RebindThemeResource(ref borderBinding, header, Button.BorderBrushProperty,
+                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
         }
 
         void SetExpanded(bool value)
@@ -713,13 +708,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Form(
                     ("温度 (°C)", _temperatureCelsius),
                     ("压力 (ATM)", _pressureAtmospheres)),
-                new TextBlock
-                {
-                    Text = "当前仅保存环境参数，暂不启用温度补偿计算。",
-                    FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(110, 110, 115)),
-                    TextWrapping = TextWrapping.Wrap
-                }
+                MutedText("当前仅保存环境参数，暂不启用温度补偿计算。", 11)
             }
         };
     }
@@ -765,7 +754,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         {
             Height = 42,
             Padding = new Thickness(10, 0),
-            Background = new SolidColorBrush(Color.FromRgb(250, 250, 252)),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
             CornerRadius = new CornerRadius(8),
@@ -780,30 +768,26 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Child = new StackPanel { Children = { header, contentHost } }
         };
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var isHovered = false;
+        IDisposable? arrowBinding = null;
+        IDisposable? titleBinding = null;
+        IDisposable? headerBackgroundBinding = null;
+        IDisposable? headerBorderBinding = null;
+        IDisposable? cardBorderBinding = null;
 
         void UpdateVisuals(bool expanded)
         {
             var emphasized = expanded || isHovered;
-            var dark = IsDarkTheme;
-            header.Background = new SolidColorBrush(expanded
-                ? (dark ? Color.FromRgb(28, 55, 79) : Color.FromRgb(228, 239, 253))
-                : isHovered
-                    ? (dark ? Color.FromRgb(35, 47, 59) : Color.FromRgb(239, 246, 255))
-                    : (dark ? Color.FromRgb(35, 38, 42) : Color.FromRgb(250, 250, 252)));
-            header.BorderBrush = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
-                : Color.FromArgb(0, 0, 0, 0));
-            card.BorderBrush = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(54, 95, 128) : Color.FromRgb(174, 204, 239))
-                : (dark ? Color.FromRgb(67, 71, 78) : Color.FromRgb(209, 209, 214)));
-            arrow.Stroke = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(100, 181, 246) : Color.FromRgb(0, 102, 204))
-                : (dark ? Color.FromRgb(174, 180, 188) : Color.FromRgb(72, 72, 74)));
-            titleText.Foreground = new SolidColorBrush(emphasized
-                ? (dark ? Color.FromRgb(128, 196, 255) : Color.FromRgb(0, 82, 164))
-                : (dark ? Color.FromRgb(232, 234, 237) : Color.FromRgb(29, 29, 31)));
+            RebindThemeResource(ref headerBackgroundBinding, header, Button.BackgroundProperty,
+                emphasized ? ThemeResourceBindings.Hover : ThemeResourceBindings.Surface);
+            RebindThemeResource(ref headerBorderBinding, header, Button.BorderBrushProperty,
+                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
+            RebindThemeResource(ref cardBorderBinding, card, Border.BorderBrushProperty,
+                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
+            RebindThemeResource(ref arrowBinding, arrow, LocalIcon.StrokeProperty,
+                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextMuted);
+            RebindThemeResource(ref titleBinding, titleText, TextBlock.ForegroundProperty,
+                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextPrimary);
         }
 
         void SetExpanded(bool expanded)
@@ -837,8 +821,27 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         return (card, summaryText);
     }
 
-    private static bool IsDarkTheme =>
-        IsekaiTheme.IsDarkLike(Avalonia.Application.Current?.ActualThemeVariant);
+    private static void RebindThemeResource(
+        ref IDisposable? subscription,
+        AvaloniaObject target,
+        AvaloniaProperty property,
+        string resourceKey)
+    {
+        subscription?.Dispose();
+        subscription = target.BindThemeResource(property, resourceKey);
+    }
+
+    private static TextBlock MutedText(string text, double fontSize)
+    {
+        var block = new TextBlock
+        {
+            Text = text,
+            FontSize = fontSize,
+            TextWrapping = TextWrapping.Wrap
+        };
+        block.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        return block;
+    }
 
     private void Refresh()
     {

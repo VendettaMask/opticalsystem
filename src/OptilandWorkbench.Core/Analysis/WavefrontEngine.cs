@@ -29,6 +29,12 @@ public sealed record WavefrontResult(
         .Average() is var mean ? Math.Sqrt(mean) : 0;
 }
 
+public sealed record WavefrontReferenceSphere(
+    double CenterX,
+    double CenterY,
+    double CenterZ,
+    double Radius);
+
 public static class WavefrontEngine
 {
     public static WavefrontResult GenerateChiefRay(
@@ -47,20 +53,26 @@ public static class WavefrontEngine
         Wavelength wavelength,
         int samplesAcrossPupil,
         bool cellCentered = false,
-        bool aimAtStop = false)
+        bool aimAtStop = false,
+        double pupilGridStretch = 1,
+        bool zemaxCentered = false)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
         var pupilSamples = new List<PupilSample>();
         for (var row = 0; row < samplesAcrossPupil; row++)
         {
-            var y = cellCentered
-                ? -1 + ((2.0 * row + 1) / samplesAcrossPupil)
-                : -1 + (2.0 * row / (samplesAcrossPupil - 1.0));
+            var y = PupilGridCoordinate(
+                row,
+                samplesAcrossPupil,
+                cellCentered,
+                zemaxCentered) * pupilGridStretch;
             for (var column = 0; column < samplesAcrossPupil; column++)
             {
-                var x = cellCentered
-                    ? -1 + ((2.0 * column + 1) / samplesAcrossPupil)
-                    : -1 + (2.0 * column / (samplesAcrossPupil - 1.0));
+                var x = PupilGridCoordinate(
+                    column,
+                    samplesAcrossPupil,
+                    cellCentered,
+                    zemaxCentered) * pupilGridStretch;
                 if ((x * x) + (y * y) <= 1)
                 {
                     pupilSamples.Add(new PupilSample(x, y, 1));
@@ -71,13 +83,33 @@ public static class WavefrontEngine
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop);
     }
 
+    private static double PupilGridCoordinate(
+        int index,
+        int sampleCount,
+        bool cellCentered,
+        bool zemaxCentered)
+    {
+        if (zemaxCentered && sampleCount % 2 == 0)
+        {
+            // Zemax places the chief-ray sample at index N/2 on even Wavefront
+            // Map grids. The usable pupil radius is N/2-1, leaving the first
+            // row/column outside the unit pupil for a 64x64 grid.
+            return (index - (sampleCount / 2.0)) / Math.Max(1, (sampleCount / 2.0) - 1);
+        }
+
+        return cellCentered
+            ? -1 + ((2.0 * index + 1) / sampleCount)
+            : -1 + (2.0 * index / (sampleCount - 1.0));
+    }
+
     public static WavefrontResult GenerateChiefRaySamples(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
         IReadOnlyList<(double X, double Y)> samples,
         bool aimAtStop = true,
-        (double X, double Y)? resolvedRealImageLaunch = null)
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        WavefrontReferenceSphere? referenceSphere = null)
     {
         return GenerateChiefRay(
             optic,
@@ -85,15 +117,15 @@ public static class WavefrontEngine
             wavelength,
             samples.Select(sample => new PupilSample(sample.X, sample.Y, 1)).ToArray(),
             aimAtStop,
-            resolvedRealImageLaunch);
+            resolvedRealImageLaunch,
+            referenceSphere);
     }
 
-    private static WavefrontResult GenerateChiefRay(
+    public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
-        IReadOnlyList<PupilSample> pupilSamples,
-        bool aimAtStop,
+        bool aimAtStop = true,
         (double X, double Y)? resolvedRealImageLaunch = null)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
@@ -113,18 +145,56 @@ public static class WavefrontEngine
         var imagePosition = chief.Position;
         var imageSurfacePosition = optic.SurfaceGroup.Items.LastOrDefault()?.CoordinateSystem.Origin.Z
             ?? imagePosition.Z;
-        var spherePupilZ = imageSurfacePosition + optic.Paraxial.EstimateExitPupilLocation();
+        var spherePupilZ = imageSurfacePosition
+            + optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
         var radius = Math.Sqrt(
             (imagePosition.X * imagePosition.X)
             + (imagePosition.Y * imagePosition.Y)
             + ((imagePosition.Z - spherePupilZ) * (imagePosition.Z - spherePupilZ)));
+        return new WavefrontReferenceSphere(
+            imagePosition.X,
+            imagePosition.Y,
+            imagePosition.Z,
+            radius);
+    }
+
+    private static WavefrontResult GenerateChiefRay(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        IReadOnlyList<PupilSample> pupilSamples,
+        bool aimAtStop,
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        WavefrontReferenceSphere? referenceSphere = null)
+    {
+        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+            field.Hx,
+            field.Hy,
+            0,
+            0,
+            wavelength.Micrometers,
+            aimAtStop,
+            resolvedRealImageLaunch);
+        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
+        if (chief is null)
+        {
+            throw new InvalidOperationException("Chief ray did not reach the image surface.");
+        }
+
+        var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
+            optic,
+            field,
+            wavelength,
+            aimAtStop,
+            resolvedRealImageLaunch);
+        var radius = sphere.Radius;
         var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
         var chiefImagePath = ImageToReferenceSphere(
             chief,
-            imagePosition.X,
-            imagePosition.Y,
-            imagePosition.Z,
+            sphere.CenterX,
+            sphere.CenterY,
+            sphere.CenterZ,
             radius,
             imageIndex);
         var referenceOpticalPath = chief.CumulativeOpticalPathLength - chiefImagePath;
@@ -155,9 +225,9 @@ public static class WavefrontEngine
 
             var imagePath = ImageToReferenceSphere(
                 ray,
-                imagePosition.X,
-                imagePosition.Y,
-                imagePosition.Z,
+                sphere.CenterX,
+                sphere.CenterY,
+                sphere.CenterZ,
                 radius,
                 imageIndex);
             var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);

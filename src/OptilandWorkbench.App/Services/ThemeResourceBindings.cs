@@ -18,6 +18,9 @@ public static class ThemeResourceBindings
     public const string TextWarning = "OptilandTextWarningBrush";
     public const string TextError = "OptilandTextErrorBrush";
     public const string TextSuccess = "OptilandTextSuccessBrush";
+    public const string WarningSurface = "OptilandWarningSurfaceBrush";
+    public const string ErrorSurface = "OptilandErrorSurfaceBrush";
+    public const string SuccessSurface = "OptilandSuccessSurfaceBrush";
     public const string MutedText = "OptilandMutedTextBrush";
     public const string Hover = "OptilandHoverBrush";
     public const string HoverBorder = "OptilandHoverBorderBrush";

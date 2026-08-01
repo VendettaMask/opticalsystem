@@ -195,7 +195,8 @@ internal static class WorkbenchMapper
             options.GridOpacity,
             options.HideAxes,
             HideTickLabels: options.HideTickLabels,
-            LegendBelow: options.LegendBelow);
+            LegendBelow: options.LegendBelow,
+            DefaultSquareViewport: options.DefaultSquareViewport);
     }
 
     internal static Scene2Dto ToScene2Dto(Layout2DScene scene)

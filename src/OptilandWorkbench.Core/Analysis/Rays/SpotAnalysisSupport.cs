@@ -96,7 +96,8 @@ internal static class SpotAnalysisEngine
         bool directionCosines = false,
         string reference = "centroid",
         bool usePolarization = false,
-        bool ignoreLateralColor = false)
+        bool ignoreLateralColor = false,
+        bool aimAtStop = false)
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
@@ -114,7 +115,8 @@ internal static class SpotAnalysisEngine
                     field.Hx,
                     field.Hy,
                     wavelength.Micrometers,
-                    pupilSamples);
+                    pupilSamples,
+                    aimAtStop: aimAtStop);
                 if (usePolarization)
                 {
                     bundle = WithPolarization(bundle);

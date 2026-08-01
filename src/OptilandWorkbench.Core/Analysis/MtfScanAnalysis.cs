@@ -18,7 +18,8 @@ public sealed record MtfComputationSettings(
     string Distribution = "uniform",
     bool ScaleGeometricByDiffractionLimit = true,
     bool UsePolarization = false,
-    bool ZemaxCompatible = false);
+    bool ZemaxCompatible = false,
+    bool UseZemaxHuygensSemantics = false);
 
 public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 {
@@ -133,12 +134,15 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             }
         }
 
+        var displayPointCount = _settings.ZemaxCompatible
+            ? _method == MtfComputationMethod.Huygens ? 101 : 300
+            : 101;
         var displayFocus = focus.Length < 2
             ? focus
-            : Enumerable.Range(0, _settings.ZemaxCompatible ? 300 : 101)
+            : Enumerable.Range(0, displayPointCount)
                 .Select(index => -_deltaFocus
                     + ((2 * _deltaFocus * index)
-                        / ((_settings.ZemaxCompatible ? 300 : 101) - 1.0)))
+                        / (displayPointCount - 1.0)))
                 .ToArray();
         var series = new List<AnalysisSeries>(fields.Length * 2);
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
@@ -193,6 +197,16 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["UsePolarization"] = _settings.UsePolarization,
             ["UseDashes"] = _useDashes,
             ["ZemaxCompatible"] = _settings.ZemaxCompatible,
+            ["PupilSampling"] = _settings.PupilSampling,
+            ["ImageSampling"] = _settings.ImageSize,
+            ["ImageDeltaMicrometers"] = _settings.PixelPitchMillimeters * 1000,
+            ["ResolvedImageDeltaMicrometers"] = _method == MtfComputationMethod.Huygens
+                ? fields.Select(field => MtfMethodEvaluator.ResolveHuygensImageDeltaMillimeters(
+                    Optic,
+                    field,
+                    wavelengths,
+                    _settings) * 1000).ToArray()
+                : Array.Empty<double>(),
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["RawTangential"] = tangential,
             ["RawSagittal"] = sagittal
@@ -214,7 +228,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             : value;
     }
 
-    private static double[] CubicSplineInterpolate(
+    internal static double[] CubicSplineInterpolate(
         IReadOnlyList<double> x,
         IReadOnlyList<double> y,
         IReadOnlyList<double> targets)
@@ -285,9 +299,14 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 public sealed class MtfVsFieldAnalysis : BaseAnalysis
 {
     private readonly MtfComputationMethod _method;
-    private readonly double _spatialFrequency;
+    private readonly double[] _spatialFrequencies;
+    private readonly int _fieldPointCount;
     private readonly MtfComputationSettings _settings;
     private readonly int _wavelengthNumber;
+    private readonly string _scanType;
+    private readonly bool _removeVignettingFactors;
+    private readonly bool _zemaxCompatibleOutput;
+    private readonly bool _useDashes;
 
     public MtfVsFieldAnalysis(
         Optic optic,
@@ -295,43 +314,73 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         double spatialFrequency = 20,
         int fieldPointCount = 21,
         MtfComputationSettings? settings = null,
-        int wavelengthNumber = 0) : base(optic)
+        int wavelengthNumber = 0,
+        IReadOnlyList<double>? spatialFrequencies = null,
+        string scanType = "+y",
+        bool removeVignettingFactors = false,
+        bool zemaxCompatibleOutput = false,
+        bool useDashes = false) : base(optic)
     {
         _method = method;
-        _spatialFrequency = Math.Max(0, spatialFrequency);
+        _spatialFrequencies = (spatialFrequencies ?? new[] { spatialFrequency })
+            .Where(double.IsFinite)
+            .Select(value => Math.Max(0, value))
+            .Distinct()
+            .ToArray();
+        if (_spatialFrequencies.Length == 0)
+        {
+            _spatialFrequencies = new[] { 0.0 };
+        }
+        _fieldPointCount = Math.Clamp(fieldPointCount, 2, 101);
         _settings = settings ?? new MtfComputationSettings();
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _scanType = scanType;
+        _removeVignettingFactors = removeVignettingFactors;
+        _zemaxCompatibleOutput = zemaxCompatibleOutput;
+        _useDashes = useDashes;
     }
 
     public override string Name => $"{MtfMethodEvaluator.MethodName(_method)} MTF vs Field";
 
     public override AnalysisData GenerateData()
     {
-        var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _removeVignettingFactors);
+        var wavelengths = MtfMethodEvaluator.SelectWavelengths(workingOptic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
         }
 
-        var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var fieldCoordinates = fields.Select(field => field.Coordinate).ToArray();
-        var tangential = new double[fields.Count];
-        var sagittal = new double[fields.Count];
+        var fields = _zemaxCompatibleOutput
+            ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, _fieldPointCount + 1)
+            : AnalysisTrace.DefinedFieldSamples(workingOptic);
+        var calculationCoordinates = _zemaxCompatibleOutput
+            ? Enumerable.Range(0, fields.Count)
+                .Select(index => index / (fields.Count - 1.0))
+                .ToArray()
+            : fields.Select(field => field.Coordinate).ToArray();
+        var tangential = _spatialFrequencies.Select(_ => new double[fields.Count]).ToArray();
+        var sagittal = _spatialFrequencies.Select(_ => new double[fields.Count]).ToArray();
         for (var index = 0; index < fields.Count; index++)
         {
             var field = fields[index];
-            var value = MtfMethodEvaluator.EvaluatePolychromatic(
-                Optic,
+            var values = MtfMethodEvaluator.EvaluatePolychromaticFrequencies(
+                workingOptic,
                 _method,
                 (field.Hx, field.Hy),
                 wavelengths,
-                _spatialFrequency,
+                _spatialFrequencies,
                 _settings);
-            tangential[index] = value.Tangential;
-            sagittal[index] = value.Sagittal;
+            for (var frequencyIndex = 0; frequencyIndex < _spatialFrequencies.Length; frequencyIndex++)
+            {
+                tangential[frequencyIndex][index] = values[frequencyIndex].Tangential;
+                sagittal[frequencyIndex][index] = values[frequencyIndex].Sagittal;
+            }
         }
 
-        var (axisLabel, fieldUnit) = Optic.FieldDefinition switch
+        var (axisLabel, fieldUnit) = _zemaxCompatibleOutput
+            ? ("Relative Field", string.Empty)
+            : Optic.FieldDefinition switch
         {
             FieldDefinitionKind.Angle => ("Field angle (deg)", "deg"),
             FieldDefinitionKind.ObjectHeight => ("Object height (mm)", "mm"),
@@ -339,42 +388,72 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             FieldDefinitionKind.RealImageHeight => ("Real image height (mm)", "mm"),
             _ => ("Field", string.Empty)
         };
-        var series = new[]
+        var plotCoordinates = _zemaxCompatibleOutput
+            ? Enumerable.Range(0, 300).Select(index => index / 299.0).ToArray()
+            : calculationCoordinates;
+        var series = new List<AnalysisSeries>(_spatialFrequencies.Length * 2);
+        for (var frequencyIndex = 0; frequencyIndex < _spatialFrequencies.Length; frequencyIndex++)
         {
-            new AnalysisSeries(
+            var frequency = _spatialFrequencies[frequencyIndex];
+            var tangentialDisplay = _zemaxCompatibleOutput
+                ? MtfThroughFocusAnalysis.CubicSplineInterpolate(
+                    calculationCoordinates,
+                    tangential[frequencyIndex],
+                    plotCoordinates)
+                : tangential[frequencyIndex];
+            var sagittalDisplay = _zemaxCompatibleOutput
+                ? MtfThroughFocusAnalysis.CubicSplineInterpolate(
+                    calculationCoordinates,
+                    sagittal[frequencyIndex],
+                    plotCoordinates)
+                : sagittal[frequencyIndex];
+            series.Add(new AnalysisSeries(
                 axisLabel,
                 "MTF",
-                fieldCoordinates.Select((value, index) => new AnalysisPoint(
+                plotCoordinates.Select((value, index) => new AnalysisPoint(
                     value,
-                    tangential[index],
-                    fields[index].Label)).ToArray(),
-                Name: $"{_spatialFrequency:0.###} cycles/mm, Tangential"),
-            new AnalysisSeries(
+                    tangentialDisplay[index],
+                    Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
+                Name: $"{frequency:0.###} cycles/mm, Tangential",
+                LineStyle: _useDashes && frequencyIndex % 2 == 1
+                    ? AnalysisLineStyle.Dashed
+                    : AnalysisLineStyle.Solid,
+                ColorIndex: frequencyIndex));
+            series.Add(new AnalysisSeries(
                 axisLabel,
                 "MTF",
-                fieldCoordinates.Select((value, index) => new AnalysisPoint(
+                plotCoordinates.Select((value, index) => new AnalysisPoint(
                     value,
-                    sagittal[index],
-                    fields[index].Label)).ToArray(),
-                Name: $"{_spatialFrequency:0.###} cycles/mm, Sagittal",
-                LineStyle: AnalysisLineStyle.Dashed)
-        };
+                    sagittalDisplay[index],
+                    Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
+                Name: $"{frequency:0.###} cycles/mm, Sagittal",
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: frequencyIndex));
+        }
 
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
-            ["SpatialFrequency"] = _spatialFrequency,
+            ["SpatialFrequency"] = _spatialFrequencies[0],
+            ["SpatialFrequencies"] = _spatialFrequencies,
             ["FieldPointCount"] = fields.Count,
-            ["MaximumField"] = fieldCoordinates.Select(Math.Abs).DefaultIfEmpty(0).Max(),
+            ["FieldDensity"] = _fieldPointCount,
+            ["PlotPointCount"] = plotCoordinates.Length,
+            ["MaximumField"] = AnalysisTrace.MaxFieldValue(workingOptic),
             ["FieldUnit"] = fieldUnit,
+            ["ScanType"] = _scanType,
+            ["RemoveVignettingFactors"] = _removeVignettingFactors,
+            ["VignettingFactorsApplied"] = !_removeVignettingFactors,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
-            ["Tangential"] = tangential,
-            ["Sagittal"] = sagittal
+            ["Tangential"] = tangential[0],
+            ["Sagittal"] = sagittal[0],
+            ["TangentialByFrequency"] = tangential,
+            ["SagittalByFrequency"] = sagittal
         }, series[0], series, new AnalysisPlotOptions(
-            Title: $"{MtfMethodEvaluator.MethodName(_method)} MTF vs Field at {_spatialFrequency:0.###} cycles/mm",
-            XMinimum: fieldCoordinates.DefaultIfEmpty(0).Min(),
-            XMaximum: fieldCoordinates.DefaultIfEmpty(0).Max(),
+            Title: $"{MtfMethodEvaluator.MethodName(_method)} MTF vs Field",
+            XMinimum: plotCoordinates.DefaultIfEmpty(0).Min(),
+            XMaximum: plotCoordinates.DefaultIfEmpty(0).Max(),
             YMinimum: 0,
             YMaximum: 1.05,
             ShowLegend: true,
@@ -479,6 +558,16 @@ internal static class MtfMethodEvaluator
             return (
                 Sample(combined, spatialFrequency, dataType, tangential: true),
                 Sample(combined, spatialFrequency, dataType, tangential: false));
+        }
+
+        if (method == MtfComputationMethod.Huygens && settings.UseZemaxHuygensSemantics)
+        {
+            return EvaluateHuygensPolychromatic(
+                optic,
+                field,
+                wavelengths,
+                spatialFrequency,
+                settings);
         }
 
         var totalWeight = wavelengths.Sum(wavelength => wavelength.Weight);
@@ -761,14 +850,143 @@ internal static class MtfMethodEvaluator
         double spatialFrequency,
         MtfComputationSettings settings)
     {
+        var resolvedSettings = settings.PixelPitchMillimeters > 0
+            ? settings
+            : settings with
+            {
+                PixelPitchMillimeters = ResolveHuygensImageDeltaMillimeters(
+                    optic,
+                    field,
+                    new[] { wavelength },
+                    settings)
+            };
         var psf = DiffractionEngine.ComputeHuygensPsf(
             optic,
             field,
             wavelength,
-            Math.Max(2, settings.PupilSampling),
-            Math.Max(4, settings.ImageSize),
-            Math.Max(1e-9, settings.PixelPitchMillimeters));
+            Math.Max(2, resolvedSettings.PupilSampling),
+            Math.Max(4, resolvedSettings.ImageSize),
+            resolvedSettings.PixelPitchMillimeters,
+            aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled);
         return AtFrequency(DiffractionEngine.ComputePsfMtf(psf), spatialFrequency);
+    }
+
+    internal static (double Tangential, double Sagittal)[] EvaluatePolychromaticFrequencies(
+        Optic optic,
+        MtfComputationMethod method,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        IReadOnlyList<double> spatialFrequencies,
+        MtfComputationSettings settings)
+    {
+        if (method == MtfComputationMethod.Huygens && settings.UseZemaxHuygensSemantics)
+        {
+            var psf = ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings);
+            var mtf = DiffractionEngine.ComputePsfMtfAtFrequencies(psf, spatialFrequencies);
+            return Enumerable.Range(0, spatialFrequencies.Count)
+                .Select(index => (mtf.Tangential[index], mtf.Sagittal[index]))
+                .ToArray();
+        }
+
+        return spatialFrequencies.Select(frequency => EvaluatePolychromatic(
+            optic,
+            method,
+            field,
+            wavelengths,
+            frequency,
+            settings)).ToArray();
+    }
+
+    private static (double Tangential, double Sagittal) EvaluateHuygensPolychromatic(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        double spatialFrequency,
+        MtfComputationSettings settings)
+    {
+        return AtFrequency(
+            ComputeHuygensPolychromaticMtf(optic, field, wavelengths, settings),
+            spatialFrequency);
+    }
+
+    private static MtfResult ComputeHuygensPolychromaticMtf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        MtfComputationSettings settings)
+    {
+        return DiffractionEngine.ComputePsfMtf(
+            ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings));
+    }
+
+    private static PsfResult ComputeHuygensPolychromaticPsf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        MtfComputationSettings settings)
+    {
+        var pupilSampling = Math.Max(2, settings.PupilSampling);
+        var imageSize = Math.Max(4, settings.ImageSize);
+        var pixelPitchMillimeters = ResolveHuygensImageDeltaMillimeters(
+            optic,
+            field,
+            wavelengths,
+            settings);
+        var shortestWavelength = wavelengths.Min(item => item.Micrometers);
+        var useConfiguredWeights = wavelengths.Any(item => item.Weight > 0);
+        var results = wavelengths.Select(wavelength =>
+        {
+            var wavelengthWeight = useConfiguredWeights ? wavelength.Weight : 1;
+            var zemaxHuygensWeight = wavelengthWeight
+                * Math.Pow(shortestWavelength / wavelength.Micrometers, 2);
+            var psf = DiffractionEngine.ComputeHuygensPsf(
+                optic,
+                field,
+                wavelength,
+                pupilSampling,
+                imageSize,
+                pixelPitchMillimeters,
+                settings.UsePolarization,
+                aimAtStop: optic.RayAimingEnabled);
+            return (Psf: psf, Weight: zemaxHuygensWeight);
+        }).ToArray();
+        var combinedValues = new double[imageSize, imageSize];
+        for (var row = 0; row < imageSize; row++)
+        {
+            for (var column = 0; column < imageSize; column++)
+            {
+                combinedValues[row, column] = results.Sum(item =>
+                    item.Weight * item.Psf.Values[row, column]);
+            }
+        }
+
+        var combinedPsf = new PsfResult(
+            combinedValues,
+            pupilSampling,
+            imageSize,
+            results.Average(item => item.Psf.WorkingFNumber),
+            pixelPitchMillimeters * 1000);
+        return combinedPsf;
+    }
+
+    internal static double ResolveHuygensImageDeltaMillimeters(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        MtfComputationSettings settings)
+    {
+        if (settings.PixelPitchMillimeters > 0)
+        {
+            return settings.PixelPitchMillimeters;
+        }
+
+        var longestWavelength = wavelengths.MaxBy(item => item.Micrometers)
+            ?? throw new ArgumentException("At least one wavelength is required.", nameof(wavelengths));
+        return DiffractionEngine.DefaultHuygensImageDeltaMillimeters(
+            optic,
+            field,
+            longestWavelength,
+            Math.Max(2, settings.PupilSampling));
     }
 
     private static (double Tangential, double Sagittal) EvaluateGeometric(

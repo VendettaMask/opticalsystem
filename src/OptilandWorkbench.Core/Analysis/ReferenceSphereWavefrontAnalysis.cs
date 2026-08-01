@@ -6,18 +6,24 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
     private readonly int _numRings;
     private readonly int _mapSize;
     private readonly double _robustTrimStandardDeviations;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
 
     public ReferenceSphereWavefrontAnalysis(
         Optic optic,
         ReferenceSphereStrategy strategy,
         int numRings = 15,
         int mapSize = 65,
-        double robustTrimStandardDeviations = 3) : base(optic)
+        double robustTrimStandardDeviations = 3,
+        int wavelengthNumber = 0,
+        int fieldNumber = 1) : base(optic)
     {
         _strategy = strategy;
         _numRings = Math.Max(2, numRings);
         _mapSize = Math.Max(17, mapSize);
         _robustTrimStandardDeviations = robustTrimStandardDeviations;
+        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        _fieldNumber = Math.Max(0, fieldNumber);
     }
 
     public override string Name => _strategy == ReferenceSphereStrategy.CentroidSphere
@@ -26,14 +32,22 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var wavelength = Optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? Optic.Wavelengths.FirstOrDefault();
+        var wavelengths = Optic.Wavelengths.ToArray();
+        var wavelength = _wavelengthNumber > 0
+            ? wavelengths.ElementAtOrDefault(Math.Clamp(
+                _wavelengthNumber - 1,
+                0,
+                Math.Max(0, wavelengths.Length - 1)))
+            : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
         }
 
-        var field = SpotAnalysisEngine.DefinedFields(Optic).LastOrDefault();
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var field = _fieldNumber > 0
+            ? fields[Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, fields.Count - 1))]
+            : fields.LastOrDefault();
         var wavefront = ReferenceSphereWavefrontEngine.Generate(
             Optic,
             field,
@@ -68,6 +82,8 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
+            ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
             ["Reference"] = reference
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"OPD Map: RMS={wavefront.Rms:0.000} waves",

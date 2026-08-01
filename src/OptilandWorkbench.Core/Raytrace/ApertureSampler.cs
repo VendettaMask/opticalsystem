@@ -17,6 +17,84 @@ public sealed record PupilSample(double X, double Y, double Weight);
 
 public static class ApertureSampler
 {
+    public static IReadOnlyList<PupilSample> GenerateGaussianQuadrature(
+        int radialSamples,
+        int azimuthalSamples = 6,
+        double obscuration = 0)
+    {
+        radialSamples = Math.Clamp(radialSamples, 1, 32);
+        azimuthalSamples = Math.Clamp(azimuthalSamples, 1, 72);
+        obscuration = Math.Clamp(obscuration, 0, 0.999999);
+
+        var lower = obscuration * obscuration;
+        var span = 1 - lower;
+        var radial = new (double Radius, double Weight)[radialSamples];
+        var rootsToFind = (radialSamples + 1) / 2;
+        for (var rootIndex = 0; rootIndex < rootsToFind; rootIndex++)
+        {
+            var root = Math.Cos(Math.PI * (rootIndex + 0.75) / (radialSamples + 0.5));
+            double derivative = 0;
+            for (var iteration = 0; iteration < 32; iteration++)
+            {
+                var previous = 1.0;
+                var current = root;
+                for (var order = 2; order <= radialSamples; order++)
+                {
+                    var next = (((2 * order) - 1) * root * current - ((order - 1) * previous)) / order;
+                    previous = current;
+                    current = next;
+                }
+
+                derivative = radialSamples * ((root * current) - previous) / ((root * root) - 1);
+                var nextRoot = root - (current / derivative);
+                if (Math.Abs(nextRoot - root) <= 1e-15)
+                {
+                    root = nextRoot;
+                    break;
+                }
+
+                root = nextRoot;
+            }
+
+            var p0 = 1.0;
+            var p1 = root;
+            for (var order = 2; order <= radialSamples; order++)
+            {
+                var next = (((2 * order) - 1) * root * p1 - ((order - 1) * p0)) / order;
+                p0 = p1;
+                p1 = next;
+            }
+
+            derivative = radialSamples * ((root * p1) - p0) / ((root * root) - 1);
+            var legendreWeight = 2 / ((1 - (root * root)) * derivative * derivative);
+            SetRadialSample(rootIndex, -root, legendreWeight);
+            SetRadialSample(radialSamples - rootIndex - 1, root, legendreWeight);
+        }
+
+        var samples = new List<PupilSample>(radialSamples * azimuthalSamples);
+        foreach (var radialSample in radial)
+        {
+            for (var azimuth = 0; azimuth < azimuthalSamples; azimuth++)
+            {
+                var angle = 2 * Math.PI * azimuth / azimuthalSamples;
+                samples.Add(new PupilSample(
+                    radialSample.Radius * Math.Cos(angle),
+                    radialSample.Radius * Math.Sin(angle),
+                    radialSample.Weight / azimuthalSamples));
+            }
+        }
+
+        return samples;
+
+        void SetRadialSample(int index, double node, double legendreWeight)
+        {
+            var normalizedRadiusSquared = (node + 1) / 2;
+            radial[index] = (
+                Math.Sqrt(lower + (span * normalizedRadiusSquared)),
+                span * legendreWeight / 2);
+        }
+    }
+
     public static IReadOnlyList<PupilSample> GenerateHexapolarRings(int numRings)
     {
         numRings = Math.Max(0, numRings);

@@ -151,8 +151,7 @@ public sealed partial class MainWindow
                 new TextBlock
                 {
                     Text = "S.T.A.R. Labs 出品",
-                    FontSize = 17,
-                    Foreground = new SolidColorBrush(Color.FromRgb(0, 122, 255))
+                    FontSize = 17
                 },
                 new TextBlock
                 {
@@ -161,11 +160,18 @@ public sealed partial class MainWindow
                 },
                 new TextBlock
                 {
-                    Text = ".NET 10  ·  Avalonia 12  ·  Managed CPU",
-                    Foreground = new SolidColorBrush(Color.FromRgb(99, 99, 102))
+                    Text = ".NET 10  ·  Avalonia 12  ·  Managed CPU"
                 }
             }
         };
+        if (details.Children[1] is TextBlock brandText)
+        {
+            brandText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextAccent);
+        }
+        if (details.Children[3] is TextBlock runtimeText)
+        {
+            runtimeText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        }
         var main = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("190,*"),
@@ -177,13 +183,13 @@ public sealed partial class MainWindow
             Height = 180,
             CornerRadius = new CornerRadius(18),
             ClipToBounds = true,
-            Background = new SolidColorBrush(Color.FromRgb(246, 248, 238)),
             Child = new Image
             {
                 Source = authorBitmap,
                 Stretch = Stretch.UniformToFill
             }
         };
+        portrait.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
         Grid.SetColumn(details, 1);
         main.Children.Add(portrait);
         main.Children.Add(details);

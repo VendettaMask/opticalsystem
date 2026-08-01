@@ -18,6 +18,8 @@ public sealed class PsfAnalysis : BaseAnalysis
     private readonly string _displayAs;
     private readonly bool _usePolarization;
     private readonly bool _normalize;
+    private readonly bool _zemaxCompatible;
+    private readonly bool _ignoreOpd;
 
     public PsfAnalysis(
         Optic optic,
@@ -31,7 +33,9 @@ public sealed class PsfAnalysis : BaseAnalysis
         string type = "线性",
         string displayAs = "伪彩色",
         bool usePolarization = false,
-        bool normalize = false) : base(optic)
+        bool normalize = false,
+        bool zemaxCompatible = false,
+        bool ignoreOpd = false) : base(optic)
     {
         _requestedRays = Math.Max(2, numRays);
         _gridSize = gridSize;
@@ -44,6 +48,8 @@ public sealed class PsfAnalysis : BaseAnalysis
         _displayAs = displayAs;
         _usePolarization = usePolarization;
         _normalize = normalize;
+        _zemaxCompatible = zemaxCompatible;
+        _ignoreOpd = ignoreOpd;
     }
 
     public override string Name => "PSF";
@@ -87,7 +93,10 @@ public sealed class PsfAnalysis : BaseAnalysis
                     wavelength,
                     pupilSampling,
                     gridSize,
-                    usePolarization: _usePolarization)))
+                    usePolarization: _usePolarization,
+                    cellCenteredPupil: _zemaxCompatible,
+                    zemaxFftSampling: _zemaxCompatible,
+                    ignoreOpd: _ignoreOpd)))
             .ToArray();
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
@@ -97,7 +106,9 @@ public sealed class PsfAnalysis : BaseAnalysis
 
         var sampleSpacing = _imageDeltaMicrometers > 0
             ? _imageDeltaMicrometers
-            : primary.Result.SampleSpacingMicrometers;
+            : _zemaxCompatible
+                ? results.Min(item => item.Result.SampleSpacingMicrometers)
+                : primary.Result.SampleSpacingMicrometers;
         var values = new double[gridSize, gridSize];
         var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
         var totalWeight = results.Sum(item =>
