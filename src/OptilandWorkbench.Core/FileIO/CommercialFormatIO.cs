@@ -56,7 +56,7 @@ public sealed record SequentialLensDocument(string Name, IReadOnlyList<Sequentia
     public Optic ToOptic()
     {
         var optic = new Optic(Name);
-        optic.SurfaceGroup.Replace(Surfaces.Select(surface => new OpticalSurface
+        optic.SurfaceGroup.ImportLegacySurfaces(Surfaces.Select(surface => new OpticalSurface
         {
             Number = surface.Number,
             Label = surface.Label,

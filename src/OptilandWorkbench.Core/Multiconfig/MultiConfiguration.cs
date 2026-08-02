@@ -56,7 +56,7 @@ public sealed class MultiConfiguration
                 break;
             case "thickness":
                 surface.Thickness = value;
-                Configurations[configIndex].SurfaceGroup.Renumber(syncComposition: false);
+                Configurations[configIndex].SurfaceGroup.Renumber();
                 break;
             case "conic":
                 surface.Conic = value;
@@ -94,7 +94,7 @@ public sealed class MultiConfiguration
                 }
             }
 
-            Configurations[config].SurfaceGroup.Renumber(syncComposition: false);
+            Configurations[config].SurfaceGroup.Renumber();
         }
     }
 }

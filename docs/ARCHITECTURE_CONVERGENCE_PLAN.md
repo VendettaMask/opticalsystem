@@ -13,14 +13,14 @@
 | 范围 | 状态 | 当前结果 |
 | --- | --- | --- |
 | 停止伪成功 | 已完成 | 未知分析抛出结构化异常；`PlaceholderAnalysis` 已删除；无有效光线不再返回伪零值 |
-| 重复分析执行链 | 已完成 | `AnalysisRunner` 已删除；优化和离焦指标复用正式光斑分析引擎 |
-| Ray Aiming 公开能力 | 已完成 | 未接入主追迹的四种 `IRayAimer` 模式已删除；保留并校准实际生效的光阑瞄准 |
+| 重复分析执行链 | 已完成 | `AnalysisRunner`、`SimpleOptimizer` 已删除；优化和离焦指标复用正式分析与优化框架 |
+| Ray Aiming 公开能力 | 已完成 | 未接入主追迹的四种 `IRayAimer` 模式已删除；从私有瞄准签名移除不会影响归一化光瞳目标的视场/波长参数 |
 | Telecentric / Apodization | 已完成 | 光线生成只读取 `Optic` 的规范状态，不再叠加旧设置对象 |
-| 审计中的分析缺陷 | 部分完成 | 已修正 GQ 权重、无数据语义、RMS 偏振/去渐晕、PSF 表面选择、Full Field 视场与项数等；仍需完成全参数行为矩阵 |
-| `OpticalSurface` 单一状态 | 部分完成 | Geometry/Radius/Conic 与 Interaction/IsReflective 已即时同步；材料、镀膜及兼容投影仍待收敛 |
+| 审计中的分析缺陷 | 部分完成 | 已修正 GQ 权重、无数据语义、RMS 偏振/去渐晕、PSF 表面选择、Full Field 全失败伪零、RMS 元数据和无语义图表回退；仍需完成全参数行为矩阵 |
+| `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 依赖冻结 | 已完成 | 架构测试固定当前生产服务允许清单，禁止新增 `Legacy` 依赖；现存依赖只能减少 |
-| 分析结果来源诊断 | 已完成 | Application 分析结果携带规范键、源修订号、稳定请求指纹和真实执行器标识 |
-| 当前验证基线 | 已完成 | 2026-08-02 全量 `dotnet test OptilandWorkbench.slnx --no-restore`：651/651 通过 |
+| 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
+| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `658/658` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
 | 单一分析描述符与执行器 | 未完成 | Core、Application 和 GUI 仍分别维护部分名称、参数、展示与构造逻辑 |
 | 工作区状态与领域服务迁移 | 未完成 | `OpticContext`、`WorkspaceCoordinator` 及多个服务仍以 `OpticalWorkspaceModel` 为实际状态/执行主体 |
 | 兼容层隔离与旧链路删除 | 未完成 | `OptilandConnector` 和 14 个 `OpticalWorkspaceModel` 分部文件仍在生产程序集内 |
@@ -43,7 +43,17 @@
 | 反射面近轴光焦度 | 已纳入系统矩阵，覆盖反射薄透镜 |
 | Relative Illumination “只积分边界” | 复核为已使用有序边界和 Green 定理计算完整投影面积，并有 Zemax 对照测试，不是当前缺陷 |
 | 固定 Semi-Diameter 未生成 `PhysicalAperture` | 复核为当前明确建模语义：Semi-Diameter 是自动/固定的机械绘制包络，裁剪由独立 `PhysicalAperture` 表达；不把两种概念强行合并 |
-| `OpticalSurface` 双状态 | Geometry/Interaction 已收敛；材料与镀膜仍未完成 |
+| `OpticalSurface` 双状态 | Geometry、Interaction、Coating 已收敛；Material 的对象到名称投影已收敛，但名称到对象需要具体 `MaterialRegistry`，仍由领域服务和导入器负责 |
+| `SurfaceGroup` 破坏性同步入口 | 已删除布尔分支；`Replace` 只接收规范组件，旧标量导入必须显式调用 `ImportLegacySurfaces`；重编号保留偏心、倾斜和全部光学组件 |
+| Legacy `SyncSurfaceGeometry` | 已删除；Radius/Conic 与 Geometry 的同步只由 `OpticalSurface` 负责 |
+| `TraceRayValue` 与 `TraceRayState` 双内核 | 已合并；`RealRay` 只适配到 `RayState`，传播、交互、镀膜和散射调用各自正式模型 |
+| 入瞳位置旧近轴循环 | 已改为与焦距相同的统一矩阵路径，反射和薄透镜不再被入口瞳计算忽略 |
+| 光阑瞄准死参数 | 已修正私有契约；标量目标删除视场/波长参数，批量目标仅保留用于渐晕缩放的视场参数。主波长目标与 Python 对照一致，不伪称支持色差目标 |
+| `SimpleOptimizer` 第二优化入口 | 已删除；保留 `OptimizationProblem` 与 `OptimizerCatalog` 正式路径 |
+| 请求指纹和来源字段 | 已修正；指纹基于执行时的规范设置，来源字段改为必填 `AnalysisExecutionProvenanceDto` |
+| Full Field 全失败伪零 | 已修正；全部采样失败抛出 `AnalysisDataUnavailableException`，部分失败记录数量 |
+| 通用图表 fallback | 已删除；没有分析声明的系列就不生成跨单位柱状图 |
+| Telecentric 两个布尔值 | 暂不合并：二者分别对应 Python Optiland `fields.telecentric` 与 `fields.object_space_telecentric` 的独立序列化字段；在缺少上游语义证据前，强行合并会破坏无损往返。当前仅确认两者在发射路径行为相同，列入语义核验项 |
 | 分析注册多处维护 | 尚未完成；已先阻止未知键回退，单一描述符仍是下一阶段主体工作 |
 | `Legacy.OpticalWorkspaceModel` 仍是主流程 | 尚未完成；已冻结新增依赖并给结果增加真实执行器标识，下一步逐域迁出 |
 
@@ -73,17 +83,16 @@
 9. 至少 8 个测试文件直接引用旧架构，`AnalysisGuiContractTests` 等测试大量直接构造 `OptilandConnector`。这使测试可能验证旧入口，却未证明 GUI 的新入口与旧入口一致。
 10. 现有 `LayeringArchitectureTests.LegacyConnectorIsAThinCompatibilityFacade` 只检查 `OptilandConnector` 自身没有声明方法，没有检查其基类是否仍承担生产逻辑，也没有阻止新服务依赖 `Legacy` 命名空间。
 
-### 2.1 补充审计线索的当前复核
+### 2.1 历史审计与当前复核
 
-外部审计材料基于历史提交 `7582fe7`，当前计划基于 `1632f46`。因此附件只作为线索来源，不能把历史结论无条件当成当前事实。对当前代码的快速复核确认了以下问题仍然存在：
+历史审计材料只作为线索，不作为当前事实。早期材料中关于 `PlaceholderAnalysis`、`AnalysisRunner`、旧 `IRayAimer` 和 `SimpleOptimizer` “仍然存在”的描述已经失效；这些入口现已删除。本文后续阶段说明的是迁移计划和历史风险，不得解释为这些已删除类型仍在当前代码中。
 
-- `AnalysisCatalog.Create()` 对未知名称返回 `PlaceholderAnalysis`；该类实际执行 Spot Diagram，并把 RMS 光斑值包装为任意分析的 `WeightedMetric`，状态写为 `framework-ready`。这属于“伪成功”，优先级高于普通重构。
-- `AnalysisRunner` 仍与正式分析类并存，当前至少被 `SimpleOptimizer`、`PlaceholderAnalysis` 和 Through Focus 路径调用，形成另一条分析语义链路。
-- `SequentialRayTracer` 暴露 `IRayAimer` 和多种 aiming 模式，但主光阑瞄准逻辑位于 `RayGenerator.AimInfiniteRayAtStop()` 与 `AimFiniteRayAtStop()`；必须证明公开模式确实影响主追迹，否则应删除或真正接入。
-- `OpticalSurface` 同时公开 `Radius`、`Material`、`Coating`、`SemiDiameter`、`Conic`、`IsReflective` 等旧字段，以及 `Geometry`、`MaterialBefore/After`、`CoatingModel`、`InteractionModel`、`PhysicalAperture` 等组合对象。这是比服务重复更底层的“双真相来源”。
-- 分析名称、工厂、参数描述、展示类型和本地化映射分散在 Core、Legacy 和 Application 中，无法由一个描述符证明注册信息一致。
+2026-08-02 对当前代码逐项复核后的结论如下：
 
-附件还指出若干可能的无效参数或错误实现，例如 Full Field 参数、RMS 去渐晕与偏振、FFT PSF 表面选择、GQ 权重、无有效光线返回零、相对照度积分、固定半口径裁剪、Telecentric 与 Apodization 双状态等。这些项目应进入缺陷核验队列，但必须先在当前提交上为每一项建立最小复现和断言，再决定“实现、隐藏参数还是删除”；不能仅凭历史静态审计直接改算法。
+- 已证实并修正：`SurfaceGroup` 的破坏性组件重建、Legacy 几何同步副本、表面追迹双流程、入口瞳旧矩阵、光阑瞄准死参数、`SimpleOptimizer`、未规范化请求指纹、Full Field 全失败伪零、RMS Field Map 错误元数据和无语义图表 fallback。
+- 已证实但尚未完成：材料名称解析仍依赖持有目录的服务、分析描述符多处维护、`OpticalWorkspaceModel` 仍作为分析和其他领域的生产执行主体。
+- 不能按缺陷直接修改：Semi-Diameter 与 `PhysicalAperture` 是机械包络和光学裁剪两个概念；Telecentric 的两个字段对应外部格式中的不同键。除非取得格式语义证据和兼容迁移方案，否则不得为了减少字段数而合并。
+- 需要语义证据后再迁移：Telecentric 模式枚举会改变外部序列化及编辑契约，必须先取得上游字段定义，并建立导入、保存、重新打开和追迹等价测试。
 
 当前实际依赖关系可概括为：
 

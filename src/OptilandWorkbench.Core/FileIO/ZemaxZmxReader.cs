@@ -55,7 +55,7 @@ internal static class ZemaxZmxReader
         Optic optic,
         IReadOnlyList<ConvertedSurface> converted)
     {
-        optic.SurfaceGroup.Replace(converted.Select(item => item.Surface), syncComposition: false);
+        optic.SurfaceGroup.Replace(converted.Select(item => item.Surface));
         foreach (var item in converted)
         {
             var surface = optic.SurfaceGroup.Items[item.Index];

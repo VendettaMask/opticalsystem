@@ -40,64 +40,6 @@ public partial class OpticalWorkspaceModel
         surface.Radius = Math.Abs(radius) < 1e-9
             ? Math.CopySign(1e-9, radius == 0 ? 1 : radius)
             : radius;
-        SyncSurfaceGeometry(surface);
-    }
-
-    private static void SyncSurfaceGeometry(OpticalSurface surface)
-    {
-        surface.Geometry = surface.Geometry switch
-        {
-            PlaneGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 => grating,
-            StandardGratingGeometry grating when Math.Abs(surface.Radius) < 1e-9 =>
-                new PlaneGratingGeometry(
-                    grating.GratingOrder,
-                    grating.GratingPeriodMicrometers,
-                    grating.GrooveOrientationAngleRadians),
-            IGratingGeometry grating => new StandardGratingGeometry(
-                surface.Radius,
-                surface.Conic,
-                grating.GratingOrder,
-                grating.GratingPeriodMicrometers,
-                grating.GrooveOrientationAngleRadians),
-            EvenAsphereGeometry even => new EvenAsphereGeometry(
-                surface.Radius,
-                surface.Conic,
-                even.Coefficients),
-            OddAsphereGeometry odd => new OddAsphereGeometry(
-                surface.Radius,
-                surface.Conic,
-                odd.Coefficients),
-            ForbesQGeometry forbes => new ForbesQGeometry(
-                surface.Radius,
-                surface.Conic,
-                forbes.NormalizationRadius,
-                forbes.QCoefficients),
-            BiconicGeometry biconic => new BiconicGeometry(
-                surface.Radius,
-                biconic.RadiusY,
-                surface.Conic,
-                biconic.ConicY),
-            SeparableBiconicGeometry biconic => new SeparableBiconicGeometry(
-                surface.Radius,
-                biconic.RadiusY,
-                surface.Conic,
-                biconic.ConicY),
-            ToroidalGeometry toroidal => new ToroidalGeometry(
-                toroidal.TangentialRadius,
-                surface.Radius),
-            StandardGeometry when Math.Abs(surface.Radius) < 1e-9 => new PlaneGeometry(),
-            StandardGeometry => new StandardGeometry(surface.Radius, surface.Conic),
-            PlaneGeometry when Math.Abs(surface.Radius) >= 1e-9 =>
-                new StandardGeometry(surface.Radius, surface.Conic),
-            _ => surface.Geometry
-        };
-    }
-
-    private static void SyncLegacyCoating(OpticalSurface surface)
-    {
-        surface.CoatingModel = surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
-            ? new NoneCoatingModel()
-            : new ThinFilmStackCoating(new[] { new ThinFilmLayer(surface.Coating, 120) });
     }
 
     private bool IsValidBackend(string? backendName) =>

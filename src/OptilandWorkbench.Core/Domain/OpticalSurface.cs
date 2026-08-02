@@ -73,7 +73,18 @@ public sealed partial class OpticalSurface : NotifyObject
     public string Coating
     {
         get => _coating;
-        set => SetProperty(ref _coating, string.IsNullOrWhiteSpace(value) ? "None" : value.Trim());
+        set
+        {
+            var normalized = string.IsNullOrWhiteSpace(value) ? "None" : value.Trim();
+            if (!SetProperty(ref _coating, normalized))
+            {
+                return;
+            }
+
+            CoatingModel = normalized.Equals("None", StringComparison.OrdinalIgnoreCase)
+                ? new NoneCoatingModel()
+                : new ThinFilmStackCoating(new[] { new ThinFilmLayer(normalized, 120) });
+        }
     }
 
     public double SemiDiameter
@@ -118,6 +129,10 @@ public sealed partial class OpticalSurface : NotifyObject
 
             var next = WithReflectivity(_interactionModel, value);
             SetProperty(ref _interactionModel, next, nameof(InteractionModel));
+            SetProperty(
+                ref _material,
+                value ? "MIRROR" : MaterialAfter.Name,
+                nameof(Material));
             RaisePropertyChanged();
         }
     }
@@ -158,15 +173,32 @@ public sealed partial class OpticalSurface : NotifyObject
     public IMaterial MaterialAfter
     {
         get => _materialAfter;
-        set => SetProperty(ref _materialAfter, value);
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            if (SetProperty(ref _materialAfter, value))
+            {
+                SetProperty(
+                    ref _material,
+                    IsReflective ? "MIRROR" : value.Name,
+                    nameof(Material));
+            }
+        }
     }
 
-    public string MaterialAfterName => MaterialAfter.Name == "Air" && Material != "Air" ? Material : MaterialAfter.Name;
+    public string MaterialAfterName => MaterialAfter.Name;
 
     public ICoatingModel CoatingModel
     {
         get => _coatingModel;
-        set => SetProperty(ref _coatingModel, value);
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            if (SetProperty(ref _coatingModel, value))
+            {
+                SetProperty(ref _coating, LegacyCoatingName(value), nameof(Coating));
+            }
+        }
     }
 
     public IInteractionModel InteractionModel
@@ -180,6 +212,10 @@ public sealed partial class OpticalSurface : NotifyObject
             {
                 if (wasReflective != IsReflective)
                 {
+                    SetProperty(
+                        ref _material,
+                        IsReflective ? "MIRROR" : MaterialAfter.Name,
+                        nameof(Material));
                     RaisePropertyChanged(nameof(IsReflective));
                 }
             }
@@ -235,130 +271,24 @@ public sealed partial class OpticalSurface : NotifyObject
         double cumulativePathLength,
         double cumulativeOpticalPathLength)
     {
-        var ray = inputRay.IsNormalized ? inputRay : inputRay.Normalize();
-        var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
-        var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);
-        var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
-        var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
-        var distance = Geometry.DistanceToIntersection(localOrigin, localDirection);
-        if (distance is null)
-        {
-            var stoppedRay = ray with { Intensity = 0 };
-            var sample = new RayTraceSampleValue(
-                Number,
-                Label,
-                ray.Origin,
-                ray.Direction,
-                0,
-                true,
-                CumulativePathLength: cumulativePathLength,
-                CumulativeOpticalPathLength: cumulativeOpticalPathLength);
-            return new SurfaceRayTraceValueResult(
-                stoppedRay,
-                sample,
-                refractiveIndexBefore,
-                materialBefore,
-                InteractionKind: null,
-                cumulativePathLength,
-                cumulativeOpticalPathLength,
-                StopTracing: true);
-        }
-
-        var segmentLength = Math.Max(0, distance.Value);
-        var segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
-        var nextCumulativePathLength = cumulativePathLength + segmentLength;
-        var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;
-        var extinctionCoefficient = materialBefore.ExtinctionCoefficient(ray.WavelengthNanometers);
-        var wavelengthMicrometers = ray.WavelengthNanometers / 1000.0;
-        var attenuation = extinctionCoefficient <= 0
-            ? 1.0
-            : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * segmentLength * 1000.0) / wavelengthMicrometers);
-        var propagatedRay = materialBefore.PropagationModel.Propagate(ray, segmentLength) with
-        {
-            OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength,
-            Intensity = ray.Intensity * attenuation
-        };
-        var localPropagatedHit = CoordinateSystem.ToLocalPoint(propagatedRay.Origin);
-
-        var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localPropagatedHit);
-        if (vignetted)
-        {
-            var stoppedRay = propagatedRay with { Intensity = 0 };
-            var sample = new RayTraceSampleValue(
-                Number,
-                Label,
-                propagatedRay.Origin,
-                ray.Direction,
-                0,
-                true,
-                segmentLength,
-                segmentOpticalPathLength,
-                nextCumulativePathLength,
-                nextCumulativeOpticalPathLength);
-            return new SurfaceRayTraceValueResult(
-                stoppedRay,
-                sample,
-                refractiveIndexBefore,
-                materialBefore,
-                InteractionKind: null,
-                nextCumulativePathLength,
-                nextCumulativeOpticalPathLength,
-                StopTracing: true);
-        }
-
-        var localNormal = Geometry.SurfaceNormal(localPropagatedHit);
-        var normal = CoordinateSystem.ToGlobalDirection(localNormal);
-        var isReflectiveInteraction = IsReflective;
-        var context = new SurfaceInteractionContext(
-            localNormal,
-            refractiveIndexBefore,
-            refractiveIndexAfter,
-            ray.WavelengthNanometers,
-            isReflectiveInteraction,
-            Geometry);
-
-        var localRay = propagatedRay with
-        {
-            Origin = localPropagatedHit,
-            Direction = CoordinateSystem.ToLocalDirection(propagatedRay.Direction)
-        };
-        var interactionResult = InteractionModel.Interact(localRay, context);
-        var outgoingMaterial = interactionResult.Kind == RayInteractionKind.Transmitted
-            ? materialAfter
-            : materialBefore;
-        var coatingContext = context with { IsReflective = interactionResult.IsReflective };
-        var interactedLocalRay = CoatingModel.Apply(interactionResult.Ray, coatingContext);
-        var tracedRay = interactedLocalRay with
-        {
-            Origin = CoordinateSystem.ToGlobalPoint(interactedLocalRay.Origin),
-            Direction = CoordinateSystem.ToGlobalDirection(interactedLocalRay.Direction)
-        };
-        tracedRay = ScatteringModel?.Scatter(tracedRay, normal) ?? tracedRay;
-
-        var tracedSample = new RayTraceSampleValue(
-            Number,
-            Label,
-            tracedRay.Origin,
-            tracedRay.Direction,
-            tracedRay.Intensity,
-            false,
-            segmentLength,
-            segmentOpticalPathLength,
-            nextCumulativePathLength,
-            nextCumulativeOpticalPathLength,
-            InteractionKind: interactionResult.Kind);
+        var result = TraceRayState(
+            RayState.FromRealRay(inputRay),
+            materialBefore,
+            materialAfter,
+            cumulativePathLength,
+            cumulativeOpticalPathLength);
         return new SurfaceRayTraceValueResult(
-            tracedRay,
-            tracedSample,
-            outgoingMaterial.RefractiveIndex(ray.WavelengthNanometers),
-            outgoingMaterial,
-            interactionResult.Kind,
-            nextCumulativePathLength,
-            nextCumulativeOpticalPathLength,
-            StopTracing: !tracedRay.CanTrace);
+            result.Ray.ToRealRay(),
+            result.Sample,
+            result.OutgoingRefractiveIndex,
+            result.OutgoingMaterial,
+            result.InteractionKind,
+            result.CumulativePathLength,
+            result.CumulativeOpticalPathLength,
+            result.StopTracing);
     }
 
-    public void SyncCompositionFromLegacyProperties(double zPosition)
+    internal void InitializeFromLegacyProperties(double zPosition)
     {
         SynchronizeGeometryFromLegacyParameters();
         MaterialAfter = new MaterialRegistry().Resolve(Material);
@@ -366,10 +296,20 @@ public sealed partial class OpticalSurface : NotifyObject
             ? new NoneCoatingModel()
             : new ThinFilmStackCoating(new[] { new ThinFilmLayer(Coating, 120) });
         InteractionModel = new RefractiveReflectiveInteractionModel(IsReflective);
-        // Optiland's semi_aperture controls the drawn/mechanical envelope only.
-        // Rays are clipped only when an explicit physical aperture is configured.
         PhysicalAperture = null;
         CoordinateSystem = new CoordinateSystem(new Backend.Vector3D(0, 0, zPosition));
+    }
+
+    private static string LegacyCoatingName(ICoatingModel coating)
+    {
+        return coating switch
+        {
+            NoneCoatingModel => "None",
+            ThinFilmStackCoating { Layers.Count: 1 } stack => stack.Layers[0].MaterialName,
+            ThinFilmStackCoating => "Stack",
+            SimpleCoatingModel => "Simple",
+            _ => coating.Kind
+        };
     }
 
     private void SynchronizeGeometryFromLegacyParameters()

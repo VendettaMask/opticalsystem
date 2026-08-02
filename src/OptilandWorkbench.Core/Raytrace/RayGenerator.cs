@@ -208,8 +208,7 @@ public sealed class RayGenerator
             ? stopTargets ?? ParaxialStopTargets(
                 normalizedFieldX,
                 normalizedFieldY,
-                samples,
-                wavelengthNanometers)
+                samples)
             : null;
         if (resolvedStopTargets is not null && resolvedStopTargets.Count != samples.Length)
         {
@@ -433,8 +432,6 @@ public sealed class RayGenerator
             ? AimInfiniteRayAtStop(
                 origin,
                 direction,
-                normalizedField.X,
-                normalizedField.Y,
                 pupilX,
                 pupilY,
                 effectiveWavelength,
@@ -442,8 +439,6 @@ public sealed class RayGenerator
             : AimFiniteRayAtStop(
                 origin,
                 direction,
-                normalizedField.X,
-                normalizedField.Y,
                 pupilX,
                 pupilY,
                 effectiveWavelength,
@@ -453,8 +448,6 @@ public sealed class RayGenerator
     private (Vector3D Origin, Vector3D Direction) AimInfiniteRayAtStop(
         Vector3D origin,
         Vector3D direction,
-        double normalizedFieldX,
-        double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
         double wavelengthNanometers,
@@ -469,11 +462,8 @@ public sealed class RayGenerator
         var stop = _optic.SurfaceGroup.Items[stopIndex];
         const int maximumIterations = 16;
         var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
-            normalizedFieldX,
-            normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
-            wavelengthNanometers,
             stopIndex);
         var aimedOrigin = origin;
         var lastErrorSquared = double.PositiveInfinity;
@@ -511,8 +501,6 @@ public sealed class RayGenerator
     private (Vector3D Origin, Vector3D Direction) AimFiniteRayAtStop(
         Vector3D origin,
         Vector3D direction,
-        double normalizedFieldX,
-        double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
         double wavelengthNanometers,
@@ -526,11 +514,8 @@ public sealed class RayGenerator
 
         var stop = _optic.SurfaceGroup.Items[stopIndex];
         var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
-            normalizedFieldX,
-            normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
-            wavelengthNanometers,
             stopIndex);
         var slopeX = direction.X / Math.Max(1e-30, direction.Z);
         var slopeY = direction.Y / Math.Max(1e-30, direction.Z);
@@ -605,16 +590,10 @@ public sealed class RayGenerator
     }
 
     private (double X, double Y) ParaxialStopTarget(
-        double normalizedFieldX,
-        double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
-        double wavelengthNanometers,
         int stopIndex)
     {
-        _ = normalizedFieldX;
-        _ = normalizedFieldY;
-        _ = wavelengthNanometers;
         var wavelengthMicrometers = PrimaryWavelengthMicrometers();
         var xTrace = _optic.Paraxial.TraceNormalizedPupil(
             0,
@@ -640,8 +619,7 @@ public sealed class RayGenerator
     private (double X, double Y)[]? ParaxialStopTargets(
         double normalizedFieldX,
         double normalizedFieldY,
-        IReadOnlyList<PupilSample> samples,
-        double wavelengthNanometers)
+        IReadOnlyList<PupilSample> samples)
     {
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex <= 0 || samples.Count == 0)
@@ -652,7 +630,6 @@ public sealed class RayGenerator
         var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var pupilX = samples.Select(sample => sample.X * vignetteScale.X).ToArray();
         var pupilY = samples.Select(sample => sample.Y * vignetteScale.Y).ToArray();
-        _ = wavelengthNanometers;
         var wavelengthMicrometers = PrimaryWavelengthMicrometers();
         var xTrace = _optic.Paraxial.TraceNormalizedPupil(
             0,
@@ -982,8 +959,8 @@ public sealed class RayGenerator
         if (aimAtStop)
         {
             (origin, direction) = ObjectConjugate.IsInfinite(objectSurface)
-                ? AimInfiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers)
-                : AimFiniteRayAtStop(origin, direction, 0, 0, 0, 0, wavelengthNanometers);
+                ? AimInfiniteRayAtStop(origin, direction, 0, 0, wavelengthNanometers)
+                : AimFiniteRayAtStop(origin, direction, 0, 0, wavelengthNanometers);
         }
 
         var ray = new RealRay(origin, direction, wavelengthNanometers);

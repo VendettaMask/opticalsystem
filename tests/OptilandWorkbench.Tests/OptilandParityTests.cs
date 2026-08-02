@@ -418,8 +418,7 @@ public sealed class OptilandParityTests
                     CoatingModel = new NoneCoatingModel(),
                     CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, -2))
                 }
-            },
-            syncComposition: false);
+            });
         var bundle = new RealRayBundle(new[]
         {
             new RealRay(

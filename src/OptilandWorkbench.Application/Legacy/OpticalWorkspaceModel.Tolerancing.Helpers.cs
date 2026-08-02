@@ -62,7 +62,7 @@ public partial class OpticalWorkspaceModel
                     value =>
                     {
                         GetSurfaceByNumber(surfaceNumber).Thickness = value;
-                        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                        CurrentOptic.SurfaceGroup.Renumber();
                     },
                     0,
                     Math.Max(1, target.Thickness * 4),
@@ -80,7 +80,7 @@ public partial class OpticalWorkspaceModel
                 value =>
                 {
                     GetSurfaceByNumber(imageSpacingSurfaceNumber).Thickness = value;
-                    CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                    CurrentOptic.SurfaceGroup.Renumber();
                 },
                 0,
                 Math.Max(1, imageSpacing + 100),
@@ -211,7 +211,6 @@ public partial class OpticalWorkspaceModel
                 {
                     var target = GetSurfaceByNumber(operand.SurfaceNumber);
                     target.Conic = value;
-                    SyncSurfaceGeometry(target);
                 },
                 -1e6,
                 1e6,

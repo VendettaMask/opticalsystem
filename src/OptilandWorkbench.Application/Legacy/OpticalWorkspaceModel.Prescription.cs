@@ -61,18 +61,11 @@ public partial class OpticalWorkspaceModel
 
         switch (propertyName)
         {
-            case nameof(OpticalSurface.Radius):
-            case nameof(OpticalSurface.Conic):
-                SyncSurfaceGeometry(surface);
-                break;
             case nameof(OpticalSurface.Thickness):
-                CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                CurrentOptic.SurfaceGroup.Renumber();
                 break;
             case nameof(OpticalSurface.Material):
                 ApplyMaterial(surface, surface.Material);
-                break;
-            case nameof(OpticalSurface.Coating):
-                SyncLegacyCoating(surface);
                 break;
             case nameof(OpticalSurface.IsStop) when surface.IsStop:
                 foreach (var other in Surfaces.Where(item => !ReferenceEquals(item, surface)))
@@ -85,12 +78,7 @@ public partial class OpticalWorkspaceModel
 
         CurrentOptic.Pickups.ApplyAll();
         CurrentOptic.Solves.ApplyAll();
-        foreach (var item in Surfaces)
-        {
-            SyncSurfaceGeometry(item);
-        }
-
-        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+        CurrentOptic.SurfaceGroup.Renumber();
         SetStatus("表面数据已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);

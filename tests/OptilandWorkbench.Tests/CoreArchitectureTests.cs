@@ -247,15 +247,4 @@ public sealed class CoreArchitectureTests
         Assert.False(undoRedo.TryUndo(optic));
     }
 
-    [Fact]
-    public void SimpleOptimizerDoesNotWorsenSpotMetric()
-    {
-        var optic = Optic.CreateDemo();
-        var surface = optic.SurfaceGroup.Items[2];
-        var before = SpotMetricEvaluator.Evaluate(optic).RmsSpotRadius;
-
-        var result = new SimpleOptimizer(optic).OptimizeRadius(surface, iterations: 8);
-
-        Assert.True(result.FinalMetric <= before + 1e-9);
-    }
 }

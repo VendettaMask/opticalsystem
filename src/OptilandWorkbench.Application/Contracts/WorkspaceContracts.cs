@@ -420,9 +420,19 @@ public sealed record AnalysisResultDto(
     int Generation,
     long SourceRevision,
     AnalysisViewDto View,
-    string CanonicalAnalysisKey = "",
-    string RequestFingerprint = "",
-    string ExecutorId = "");
+    AnalysisExecutionProvenanceDto Provenance)
+{
+    public string CanonicalAnalysisKey => Provenance.CanonicalAnalysisKey;
+
+    public string RequestFingerprint => Provenance.RequestFingerprint;
+
+    public string ExecutorId => Provenance.ExecutorId;
+}
+
+public sealed record AnalysisExecutionProvenanceDto(
+    string CanonicalAnalysisKey,
+    string RequestFingerprint,
+    string ExecutorId);
 
 public enum SceneDimension
 {

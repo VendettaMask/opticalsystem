@@ -71,13 +71,13 @@ internal static partial class PythonOptilandJsonReader
             parsedSurfaces[0].Surface.Thickness = firstSurfaceCoordinate.Origin.Z - objectCoordinate.Origin.Z;
         }
 
-        optic.SurfaceGroup.Replace(parsedSurfaces.Select(item => item.Surface), syncComposition: false);
+        optic.SurfaceGroup.Replace(parsedSurfaces.Select(item => item.Surface));
         IMaterial previousMaterial = optic.Materials.Resolve("Air");
         for (var index = 0; index < parsedSurfaces.Count; index++)
         {
             var parsed = parsedSurfaces[index];
             var surface = optic.SurfaceGroup.Items[index];
-            var materialAfter = parsed.Interaction is RefractiveReflectiveInteractionModel { IsReflective: true }
+            var materialAfter = surface.IsReflective
                 ? previousMaterial.Clone()
                 : optic.Materials.Resolve(surface.Material);
             surface.Geometry = parsed.Geometry;

@@ -62,12 +62,7 @@ public partial class OpticalWorkspaceModel
         var rows = data.Values
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
             .ToArray();
-        var fallback = BuildFallbackSeries(data.Values);
-        var plotSeries = data.PlotSeries.Count > 0
-            ? data.PlotSeries
-            : fallback is null
-                ? Array.Empty<AnalysisSeries>()
-                : new[] { fallback };
+        var plotSeries = data.PlotSeries;
         return new AnalysisView(
             DisplayAnalysisName(data.Name),
             rows,

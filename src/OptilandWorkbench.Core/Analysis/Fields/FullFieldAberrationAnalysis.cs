@@ -54,7 +54,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         var wavelengths = Optic.Wavelengths.ToArray();
         if (wavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            throw new AnalysisDataUnavailableException(Name, "the optical system has no wavelengths");
         }
 
         var primaryIndex = Array.FindIndex(wavelengths, wavelength => wavelength.IsPrimary);
@@ -69,6 +69,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             : (definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].X,
                 definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].Y);
         var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
+        var failedFieldSamples = 0;
         for (var row = 0; row < _yFieldSamples; row++)
         {
             var yOffset = -_yFieldWidth + (2 * _yFieldWidth * row / (_yFieldSamples - 1.0));
@@ -105,15 +106,22 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 }
                 catch (InvalidOperationException)
                 {
-                    // Fields that cannot reach the image surface are omitted from the map.
+                    failedFieldSamples++;
                 }
             }
         }
 
+        if (points.Count == 0)
+        {
+            throw new AnalysisDataUnavailableException(
+                Name,
+                $"all {failedFieldSamples} attempted field samples failed ray tracing or wavefront fitting");
+        }
+
         var valuesOnly = points.Select(point => point.Value ?? 0).ToArray();
-        var minimum = valuesOnly.DefaultIfEmpty(0).Min();
-        var maximum = valuesOnly.DefaultIfEmpty(0).Max();
-        var mean = valuesOnly.DefaultIfEmpty(0).Average();
+        var minimum = valuesOnly.Min();
+        var maximum = valuesOnly.Max();
+        var mean = valuesOnly.Average();
         var series = new AnalysisSeries(
             FieldXAxisLabel(),
             FieldYAxisLabel(),
@@ -152,7 +160,8 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 ["MeanAberrationWaves"] = mean,
                 ["PlotMinimumWaves"] = minimum,
                 ["PlotMaximumWaves"] = maximum,
-                ["ValidFieldSamples"] = points.Count
+                ["ValidFieldSamples"] = points.Count,
+                ["FailedFieldSamples"] = failedFieldSamples
             },
             series,
             new[] { series },

@@ -231,7 +231,7 @@ public sealed class PsfAnalysis : BaseAnalysis
             .Take(surfaceIndex + 1)
             .Select(surface => surface.Clone())
             .ToArray();
-        clone.SurfaceGroup.Replace(surfaces, syncComposition: false);
+        clone.SurfaceGroup.Replace(surfaces);
         return clone;
     }
 
@@ -460,7 +460,7 @@ public sealed class MtfAnalysis : BaseAnalysis
             .Take(surfaceIndex + 1)
             .Select(surface => surface.Clone())
             .ToArray();
-        clone.SurfaceGroup.Replace(surfaces, syncComposition: false);
+        clone.SurfaceGroup.Replace(surfaces);
         return clone;
     }
 

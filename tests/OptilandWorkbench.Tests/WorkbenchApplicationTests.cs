@@ -602,6 +602,30 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public async Task EquivalentAnalysisRequestsHaveTheSameNormalizedFingerprint()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var defaults = application.Analyses.MergeSettings("First Order", null);
+        var withIgnoredInput = new Dictionary<string, string>
+        {
+            ["NotAParameter"] = "does not affect execution"
+        };
+
+        var implicitDefaults = await application.Analyses.RunAsync(new AnalysisRequestDto(
+            Guid.NewGuid(),
+            1,
+            "First Order",
+            withIgnoredInput));
+        var explicitDefaults = await application.Analyses.RunAsync(new AnalysisRequestDto(
+            Guid.NewGuid(),
+            1,
+            "First Order",
+            defaults));
+
+        Assert.Equal(explicitDefaults.RequestFingerprint, implicitDefaults.RequestFingerprint);
+    }
+
+    [Fact]
     public async Task AnalysisResultCarriesStablePresentationKindForLocalizedAlias()
     {
         using var application = WorkbenchApplication.Create("cooke");

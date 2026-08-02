@@ -31,8 +31,7 @@ public sealed class TracingEdgeCaseTests
                 Surface("Entrance", 0, absorbing),
                 Surface("Mirror", 1, new AirMaterial(), reflective: true),
                 Surface("Return", 0, new AirMaterial())
-            },
-            syncComposition: false);
+            });
         optic.SurfaceGroup.Items[0].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 0));
         optic.SurfaceGroup.Items[1].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 1));
         optic.SurfaceGroup.Items[2].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 0));
@@ -65,8 +64,7 @@ public sealed class TracingEdgeCaseTests
             {
                 clip,
                 Surface("Image", 1, new AirMaterial())
-            },
-            syncComposition: false);
+            });
 
         using var trace = optic.SequentialRayTracer.Trace(
             Bundle(new Vector3D(1, 0, -1), new Vector3D(0, 0, 1)),
@@ -84,8 +82,7 @@ public sealed class TracingEdgeCaseTests
         var objectSurface = Surface("Object", double.PositiveInfinity, new AirMaterial());
         var image = Surface("Image", 10, new AirMaterial());
         optic.SurfaceGroup.Replace(
-            new[] { objectSurface, image },
-            syncComposition: false);
+            new[] { objectSurface, image });
         optic.SurfaceGroup.Items[0].CoordinateSystem = new CoordinateSystem(Vector3D.Zero);
         optic.SurfaceGroup.Items[1].CoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10));
 
@@ -119,7 +116,7 @@ public sealed class TracingEdgeCaseTests
         var optic = Optic.CreateBlank();
         var surface = Surface("Failure", 0, new AirMaterial());
         surface.Geometry = new ThrowingGeometry();
-        optic.SurfaceGroup.Replace(new[] { surface }, syncComposition: false);
+        optic.SurfaceGroup.Replace(new[] { surface });
 
         Assert.Throws<InvalidOperationException>(() =>
             optic.SequentialRayTracer.Trace(

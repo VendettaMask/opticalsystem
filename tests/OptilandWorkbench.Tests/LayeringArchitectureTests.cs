@@ -60,7 +60,7 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
-    public void LegacyConnectorIsAThinCompatibilityFacade()
+    public void LegacyConnectorAddsNoMembersButStillInheritsTheLegacyRuntime()
     {
         Assert.Equal(typeof(OpticalWorkspaceModel), typeof(OptilandConnector).BaseType);
 
@@ -108,6 +108,58 @@ public sealed class LayeringArchitectureTests
         Assert.True(
             actual.IsSubsetOf(allowed),
             $"New production Legacy dependencies: {string.Join(", ", actual.Except(allowed))}");
+    }
+
+    [Fact]
+    public void ProductionServicesCannotIncreaseLegacyRuntimeCalls()
+    {
+        var maximumReferences = new Dictionary<string, (int Model, int Connector)>(StringComparer.Ordinal)
+        {
+            ["AnalysisService.cs"] = (3, 5),
+            ["CadExportService.cs"] = (0, 1),
+            ["MaterialCatalogService.cs"] = (1, 0),
+            ["MultiConfigurationService.cs"] = (0, 4),
+            ["OpticalDocumentService.cs"] = (2, 8),
+            ["OpticContext.cs"] = (3, 0),
+            ["OptimizationService.cs"] = (0, 11),
+            ["OptimizationService.Run.cs"] = (2, 10),
+            ["PrescriptionService.cs"] = (0, 44),
+            ["TolerancingService.cs"] = (1, 4),
+            ["VisualizationService.cs"] = (0, 4),
+            ["WorkbenchServiceBase.cs"] = (1, 1),
+            ["WorkspaceCoordinator.cs"] = (1, 10)
+        };
+        var servicesRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.Application",
+            "Services");
+
+        foreach (var path in Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories))
+        {
+            var source = File.ReadAllText(path);
+            var modelReferences = System.Text.RegularExpressions.Regex.Matches(
+                source,
+                @"\bOpticalWorkspaceModel\b").Count;
+            var connectorCalls = System.Text.RegularExpressions.Regex.Matches(
+                source,
+                @"\bConnector\.").Count;
+            if (modelReferences == 0 && connectorCalls == 0)
+            {
+                continue;
+            }
+
+            var relativePath = Path.GetRelativePath(servicesRoot, path).Replace('\\', '/');
+            Assert.True(
+                maximumReferences.TryGetValue(relativePath, out var maximum),
+                $"New production Legacy runtime dependency: {relativePath}");
+            Assert.True(
+                modelReferences <= maximum.Model,
+                $"{relativePath} increased OpticalWorkspaceModel references from {maximum.Model} to {modelReferences}.");
+            Assert.True(
+                connectorCalls <= maximum.Connector,
+                $"{relativePath} increased Connector calls from {maximum.Connector} to {connectorCalls}.");
+        }
     }
 
     private static void AssertNoUiReferences(Assembly assembly)

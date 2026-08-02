@@ -1,10 +1,8 @@
 using OptilandWorkbench.Core.Backend;
-using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Propagation;
 using OptilandWorkbench.Core.Rays;
-using OptilandWorkbench.Core.Scattering;
 
 namespace OptilandWorkbench.Core.Domain;
 
@@ -138,144 +136,26 @@ public sealed partial class OpticalSurface
 
     private static RayState Propagate(RayState ray, IPropagationModel propagation, double distance)
     {
-        if (propagation is HomogeneousPropagationModel)
-        {
-            return ray with { Origin = ray.Origin + (ray.Direction * distance) };
-        }
-
-        if (propagation is GrinPropagationModel grin)
-        {
-            var direction = ray.Direction + new Vector3D(
-                -ray.Origin.X * grin.RadialGradient,
-                -ray.Origin.Y * grin.RadialGradient,
-                0);
-            var length = direction.Length;
-            direction = length <= 1e-12 ? new Vector3D(0, 0, 1) : direction / length;
-            return ray with
-            {
-                Origin = ray.Origin + (direction * distance),
-                Direction = direction,
-                IsNormalized = true
-            };
-        }
-
         return RayState.FromRealRay(propagation.Propagate(ray.ToRealRay(), distance));
     }
 
     private RayStateInteractionResult Interact(RayState ray, SurfaceInteractionStateContext context)
     {
-        if (InteractionModel is RefractiveReflectiveInteractionModel refractive)
-        {
-            var normal = context.SurfaceNormal;
-            var incoming = ray.Direction;
-            if (Dot(incoming, normal) > 0)
-            {
-                normal = -normal;
-            }
-
-            if (refractive.IsReflective || context.IsReflective)
-            {
-                return new RayStateInteractionResult(
-                    ray with { Direction = Normalize(Reflect(incoming, normal)), IsNormalized = true },
-                    RayInteractionKind.Reflected);
-            }
-
-            var eta = context.RefractiveIndexBefore / Math.Max(1e-9, context.RefractiveIndexAfter);
-            var cosI = -Dot(normal, incoming);
-            var sinT2 = eta * eta * (1 - (cosI * cosI));
-            if (sinT2 > 1)
-            {
-                return new RayStateInteractionResult(
-                    ray with { Direction = Normalize(Reflect(incoming, normal)), IsNormalized = true },
-                    RayInteractionKind.TotalInternalReflection);
-            }
-
-            var cosT = Math.Sqrt(Math.Max(0, 1 - sinT2));
-            var direction = (eta * incoming) + ((eta * cosI - cosT) * normal);
-            return new RayStateInteractionResult(
-                ray with { Direction = Normalize(direction), IsNormalized = true },
-                RayInteractionKind.Transmitted);
-        }
-
-        if (InteractionModel is ThinLensInteractionModel thinLens)
-        {
-            var isReflective = thinLens.IsReflective || context.IsReflective;
-            var indexAfter = isReflective
-                ? -context.RefractiveIndexBefore
-                : context.RefractiveIndexAfter;
-            var inputSlopeX = ray.Direction.X / ray.Direction.Z;
-            var inputSlopeY = ray.Direction.Y / ray.Direction.Z;
-            var outputSlopeX = ((context.RefractiveIndexBefore * inputSlopeX) - (ray.Origin.X / thinLens.FocalLength))
-                / indexAfter;
-            var outputSlopeY = ((context.RefractiveIndexBefore * inputSlopeY) - (ray.Origin.Y / thinLens.FocalLength))
-                / indexAfter;
-            var opd = ray.OpticalPathDifference
-                - (((ray.Origin.X * ray.Origin.X) + (ray.Origin.Y * ray.Origin.Y)) / (2 * thinLens.FocalLength));
-            return new RayStateInteractionResult(
-                ray with
-                {
-                    Direction = new Vector3D(outputSlopeX, outputSlopeY, 1),
-                    OpticalPathDifference = opd,
-                    IsNormalized = false
-                },
-                isReflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
-        }
-
-        var fallback = InteractionModel.Interact(ray.ToRealRay(), context.ToPublic());
-        return new RayStateInteractionResult(RayState.FromRealRay(fallback.Ray), fallback.Kind);
+        var result = InteractionModel.Interact(ray.ToRealRay(), context.ToPublic());
+        return new RayStateInteractionResult(RayState.FromRealRay(result.Ray), result.Kind);
     }
 
     private RayState ApplyCoating(RayState ray, SurfaceInteractionStateContext context)
     {
-        return CoatingModel switch
-        {
-            NoneCoatingModel => ray,
-            SimpleCoatingModel simple => ray with
-            {
-                Intensity = ray.Intensity * (context.IsReflective ? simple.Reflectance : simple.Transmittance)
-            },
-            ThinFilmStackCoating thinFilm => ray with
-            {
-                Intensity = ray.Intensity * thinFilm.EstimateTransmission(context.WavelengthNanometers)
-            },
-            _ => RayState.FromRealRay(CoatingModel.Apply(ray.ToRealRay(), context.ToPublic()))
-        };
+        return RayState.FromRealRay(CoatingModel.Apply(ray.ToRealRay(), context.ToPublic()));
     }
 
     private RayState ApplyScattering(RayState ray, Vector3D normal)
     {
-        if (ScatteringModel is null)
-        {
-            return ray;
-        }
-
-        if (ScatteringModel is LambertianScatteringModel lambertian)
-        {
-            return ray with { Intensity = ray.Intensity * (1 - lambertian.ScatterFraction) };
-        }
-
-        if (ScatteringModel is MeasuredBsdfScatteringModel measured)
-        {
-            var sum = 0.0;
-            for (var index = 0; index < measured.Samples.Count; index++)
-            {
-                sum += measured.Samples[index].Value;
-            }
-
-            var loss = measured.Samples.Count == 0
-                ? 0
-                : Math.Clamp(sum / measured.Samples.Count, 0, 1);
-            return ray with { Intensity = ray.Intensity * (1 - loss) };
-        }
-
-        return RayState.FromRealRay(ScatteringModel.Scatter(ray.ToRealRay(), normal));
+        return ScatteringModel is null
+            ? ray
+            : RayState.FromRealRay(ScatteringModel.Scatter(ray.ToRealRay(), normal));
     }
-
-    private static double Dot(Vector3D left, Vector3D right) =>
-        (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
-
-    private static Vector3D Reflect(Vector3D direction, Vector3D normal) =>
-        direction - (2 * Dot(direction, normal) * normal);
 
 
     internal readonly record struct SurfaceInteractionStateContext(
@@ -295,11 +175,6 @@ public sealed partial class OpticalSurface
             Geometry);
     }
 
-    private static Vector3D Normalize(Vector3D vector)
-    {
-        var length = vector.Length;
-        return length <= 1e-12 ? new Vector3D(0, 0, 1) : vector / length;
-    }
 }
 
 internal readonly record struct RayStateInteractionResult(RayState Ray, RayInteractionKind Kind);

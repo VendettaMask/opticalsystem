@@ -83,19 +83,20 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             analysisOptic,
             _settings.WavelengthNumber);
         var deltaFocus = _settings.DefocusStepMicrometers / 1000.0;
-        var offsets = Enumerable.Range(0, _settings.FocusPlaneCount)
-            .Select(index => (index - (_settings.FocusPlaneCount / 2)) * deltaFocus)
-            .ToArray();
-        var results = offsets.Select(offset => SpotAnalysisEngine.Generate(
+        var sweep = FocusSweepEvaluator.Evaluate(
             analysisOptic,
             fields,
             wavelengths,
+            _settings.FocusPlaneCount,
+            deltaFocus,
             _settings.RayDensity,
             _settings.Pattern,
-            offset,
             _settings.SurfaceNumber,
-            reference: _settings.Reference,
-            usePolarization: _settings.UsePolarization)).ToArray();
+            _settings.Reference,
+            _settings.UsePolarization,
+            Name);
+        var offsets = sweep.Offsets;
+        var results = sweep.SpotResults;
         var axisLimit = results
             .SelectMany(result => result.Fields)
             .SelectMany(field => field.Wavelengths)
@@ -176,13 +177,8 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             }
         }
 
-        var points = results.Select((result, index) =>
-        {
-            var metric = SpotMetricEvaluator.Summarize(result, Name);
-            return new FocusMetricPoint(offsets[index], metric.RmsSpotRadius, metric.Radius80);
-        }).ToArray();
-        var best = points.MinBy(point => point.RmsSpotRadius)
-            ?? throw new AnalysisDataUnavailableException(Name, "no focus samples");
+        var points = sweep.Points;
+        var best = sweep.Best;
         var metricSeries = new AnalysisSeries(
             "Focus shift (mm)",
             "RMS spot radius (mm)",

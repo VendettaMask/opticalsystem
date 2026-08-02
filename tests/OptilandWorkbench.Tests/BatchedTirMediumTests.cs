@@ -26,8 +26,7 @@ public sealed class BatchedTirMediumTests
                     new AirMaterial(),
                     new SimpleCoatingModel(transmittance: 0.2, reflectance: 0.9)),
                 Surface("Return", new AirMaterial(), new NoneCoatingModel())
-            },
-            syncComposition: false);
+            });
         optic.SurfaceGroup.Items[0].CoordinateSystem =
             new CoordinateSystem(new Vector3D(0, 0, 0));
         optic.SurfaceGroup.Items[1].CoordinateSystem =

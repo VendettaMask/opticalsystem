@@ -175,7 +175,6 @@ public partial class OpticalWorkspaceModel
                 {
                     var target = FindSurface(optic, operand.SurfaceNumber);
                     target.Conic = value;
-                    SyncSurfaceGeometry(target);
                 },
                 -1e6,
                 1e6,

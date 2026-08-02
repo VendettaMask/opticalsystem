@@ -1,9 +1,14 @@
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Tests;
@@ -71,6 +76,22 @@ public sealed class ArchitectureConvergenceTests
     }
 
     [Fact]
+    public void FullFieldAberrationDoesNotTurnTotalSamplingFailureIntoZeroMetrics()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[1].PhysicalAperture = new ClosedAperture();
+        var analysis = new FullFieldAberrationAnalysis(
+            optic,
+            xFieldWidth: 0.05,
+            yFieldWidth: 0.05,
+            xFieldSamples: 3,
+            yFieldSamples: 3,
+            pupilSampling: 8);
+
+        Assert.Throws<AnalysisDataUnavailableException>(analysis.GenerateData);
+    }
+
+    [Fact]
     public void PsfRejectsUnknownSurfaceInsteadOfIgnoringIt()
     {
         var analysis = new PsfAnalysis(
@@ -104,6 +125,24 @@ public sealed class ArchitectureConvergenceTests
         Assert.DoesNotContain(
             connector.GetAnalysisParameters("RMS Field Map"),
             parameter => parameter.Key == "ShowDiffractionLimit");
+    }
+
+    [Fact]
+    public void WavefrontFieldMapUsesWavefrontMetadataNames()
+    {
+        var data = new RmsFieldMapAnalysis(
+            Optic.CreateCookeTriplet(),
+            xFieldSamples: 3,
+            yFieldSamples: 3,
+            xFieldWidth: 0.01,
+            yFieldWidth: 0.01,
+            numRings: 2,
+            data: "wavefront").GenerateData();
+
+        Assert.Contains("MinimumRmsWavefrontError", data.Values.Keys);
+        Assert.Contains("MaximumRmsWavefrontError", data.Values.Keys);
+        Assert.DoesNotContain("MinimumRmsSpotRadius", data.Values.Keys);
+        Assert.DoesNotContain("MaximumRmsSpotRadius", data.Values.Keys);
     }
 
     [Fact]
@@ -187,6 +226,84 @@ public sealed class ArchitectureConvergenceTests
     }
 
     [Fact]
+    public void CanonicalReplaceAndRenumberPreserveSurfaceComponentsAndDecenter()
+    {
+        var optic = Optic.CreateBlank();
+        var interaction = new ThinLensInteractionModel(42, isReflective: true);
+        var aperture = new RectangularAperture(3, 2);
+        var coating = new SimpleCoatingModel(0.8, 0.15);
+        var surface = new OpticalSurface
+        {
+            Thickness = 7,
+            InteractionModel = interaction,
+            PhysicalAperture = aperture,
+            CoatingModel = coating,
+            CoordinateSystem = new CoordinateSystem(
+                new Vector3D(1.25, -2.5, 99),
+                RotationXDegrees: 3,
+                RotationYDegrees: 4,
+                RotationZDegrees: 5)
+        };
+
+        optic.SurfaceGroup.Replace(new[] { surface });
+        optic.SurfaceGroup.Renumber();
+
+        Assert.Same(interaction, surface.InteractionModel);
+        Assert.Same(aperture, surface.PhysicalAperture);
+        Assert.Same(coating, surface.CoatingModel);
+        Assert.Equal(1.25, surface.CoordinateSystem.Origin.X, 12);
+        Assert.Equal(-2.5, surface.CoordinateSystem.Origin.Y, 12);
+        Assert.Equal(0, surface.CoordinateSystem.Origin.Z, 12);
+        Assert.Equal(3, surface.CoordinateSystem.RotationXDegrees, 12);
+        Assert.Equal(4, surface.CoordinateSystem.RotationYDegrees, 12);
+        Assert.Equal(5, surface.CoordinateSystem.RotationZDegrees, 12);
+    }
+
+    [Fact]
+    public void LegacyImportExplicitlyBuildsCanonicalComposition()
+    {
+        var optic = new Optic("Legacy import");
+
+        optic.SurfaceGroup.ImportLegacySurfaces(new[]
+        {
+            new OpticalSurface
+            {
+                Radius = 25,
+                Material = "N-BK7",
+                Coating = "MgF2"
+            }
+        });
+
+        var surface = Assert.Single(optic.SurfaceGroup.Items);
+        Assert.IsType<StandardGeometry>(surface.Geometry);
+        Assert.Equal("N-BK7", surface.MaterialAfter.Name);
+        Assert.IsType<ThinFilmStackCoating>(surface.CoatingModel);
+        Assert.False(Assert.IsType<RefractiveReflectiveInteractionModel>(surface.InteractionModel).IsReflective);
+    }
+
+    [Fact]
+    public void CanonicalMaterialAndCoatingComponentsUpdateCompatibilityProjections()
+    {
+        var surface = new OpticalSurface();
+
+        surface.Coating = "MgF2";
+
+        Assert.Equal("MgF2", Assert.Single(
+            Assert.IsType<ThinFilmStackCoating>(surface.CoatingModel).Layers).MaterialName);
+
+        surface.MaterialAfter = new ConstantIndexMaterial("CustomGlass", 1.7);
+        surface.CoatingModel = new SimpleCoatingModel(0.8, 0.1);
+
+        Assert.Equal("CustomGlass", surface.Material);
+        Assert.Equal("Simple", surface.Coating);
+
+        surface.InteractionModel = new RefractiveReflectiveInteractionModel(true);
+
+        Assert.True(surface.IsReflective);
+        Assert.Equal("MIRROR", surface.Material);
+    }
+
+    [Fact]
     public void ParaxialSystemMatrixIncludesReflectiveThinLensPower()
     {
         var optic = Optic.CreateBlank();
@@ -196,5 +313,33 @@ public sealed class ArchitectureConvergenceTests
         var effectiveFocalLength = optic.Paraxial.EstimateEffectiveFocalLength();
 
         Assert.Equal(50, effectiveFocalLength, 8);
+    }
+
+    [Fact]
+    public void EntrancePupilUsesTheSameMatrixRulesForReflectiveThinLenses()
+    {
+        var optic = new Optic("Reflective pupil");
+        optic.SurfaceGroup.Replace(new[]
+        {
+            new OpticalSurface { Label = "Object", Thickness = 0 },
+            new OpticalSurface
+            {
+                Label = "Powered mirror",
+                Thickness = 10,
+                InteractionModel = new ThinLensInteractionModel(50, isReflective: true)
+            },
+            new OpticalSurface { Label = "Stop", IsStop = true }
+        });
+
+        Assert.Equal(-12.5, optic.Paraxial.EstimateEntrancePupilLocation(), 10);
+    }
+
+    private sealed class ClosedAperture : IPhysicalAperture
+    {
+        public string Kind => "test-closed";
+
+        public bool Contains(Vector3D localPoint) => false;
+
+        public IPhysicalAperture Clone() => new ClosedAperture();
     }
 }

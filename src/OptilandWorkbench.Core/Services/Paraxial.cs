@@ -76,26 +76,11 @@ public sealed class Paraxial
 
     public double EstimateEntrancePupilLocation()
     {
-        var matrix = RayMatrix.Identity;
-        var currentIndex = 1.0;
         var wavelengthNanometers = PrimaryWavelengthNanometers();
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-
-        foreach (var surface in _optic.SurfaceGroup.Items)
-        {
-            if (surface.IsStop)
-            {
-                break;
-            }
-
-            var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
-            matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
-            if (!ReferenceEquals(surface, objectSurface) || !ObjectConjugate.IsInfinite(surface))
-            {
-                matrix = Translate(matrix, surface.Thickness);
-            }
-            currentIndex = nextIndex;
-        }
+        var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        var endSurfaceExclusive = stopIndex < 0 ? _optic.SurfaceGroup.Items.Count : stopIndex;
+        var matrix = TraceMatrix(0, endSurfaceExclusive, wavelengthNanometers);
 
         if (Math.Abs(matrix.A) < 1e-12)
         {
@@ -464,10 +449,22 @@ public sealed class Paraxial
 
     private RayMatrix TraceSystemMatrix(double wavelengthNanometers)
     {
-        var matrix = RayMatrix.Identity;
-        var currentIndex = 1.0;
+        return TraceMatrix(0, _optic.SurfaceGroup.Items.Count, wavelengthNanometers);
+    }
 
-        for (var index = 0; index < _optic.SurfaceGroup.Items.Count; index++)
+    private RayMatrix TraceMatrix(
+        int startSurfaceInclusive,
+        int endSurfaceExclusive,
+        double wavelengthNanometers)
+    {
+        var matrix = RayMatrix.Identity;
+        var currentIndex = startSurfaceInclusive <= 0
+            ? 1.0
+            : _optic.SurfaceGroup.Items[startSurfaceInclusive - 1]
+                .MaterialAfter
+                .RefractiveIndex(wavelengthNanometers);
+
+        for (var index = startSurfaceInclusive; index < endSurfaceExclusive; index++)
         {
             var surface = _optic.SurfaceGroup.Items[index];
             var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);

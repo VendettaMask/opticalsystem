@@ -328,13 +328,13 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         }
 
         var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
+        var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         for (var row = 0; row < _yFieldSamples; row++)
         {
             var y = -_yFieldWidth + (2 * _yFieldWidth * row / (_yFieldSamples - 1.0));
             for (var column = 0; column < _xFieldSamples; column++)
             {
                 var x = -_xFieldWidth + (2 * _xFieldWidth * column / (_xFieldSamples - 1.0));
-                var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
                 var rms = RmsScanSupport.Metric(
                     Optic,
                     (x / maximumField, y / maximumField),
@@ -350,6 +350,8 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         }
 
         var values = points.Select(point => point.Value ?? 0).ToArray();
+        var minimum = values.Min();
+        var maximum = values.Max();
         var series = new AnalysisSeries(
             RmsScanSupport.FieldXAxisLabel(Optic),
             RmsScanSupport.FieldYAxisLabel(Optic),
@@ -357,15 +359,14 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             AnalysisSeriesKind.Heatmap,
             Name: RmsScanSupport.SeriesName(_data),
             ValueLabel: RmsScanSupport.AxisLabel(_data),
-            ValueMinimum: values.DefaultIfEmpty(0).Min(),
-            ValueMaximum: values.DefaultIfEmpty(0).Max(),
+            ValueMinimum: minimum,
+            ValueMaximum: maximum,
             XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
             XUnit: AnalysisTrace.FieldAxisUnit(Optic),
             YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
             YUnit: AnalysisTrace.FieldAxisUnit(Optic),
             ValueQuantity: RmsScanSupport.MetricQuantity(_data),
             ValueUnit: RmsScanSupport.MetricUnit(_data));
-        var distribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         return new AnalysisData(
             Name,
             new Dictionary<string, object>
@@ -377,14 +378,16 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                 ["RayDensity"] = _numRings,
                 ["Method"] = _method,
                 ["Data"] = _data,
-                ["Distribution"] = distribution,
+                ["Distribution"] = effectiveDistribution,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
                 ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting,
-                ["MinimumRmsSpotRadius"] = values.DefaultIfEmpty(0).Min(),
-                ["MaximumRmsSpotRadius"] = values.DefaultIfEmpty(0).Max()
+                ["MinimumMetricValue"] = minimum,
+                ["MaximumMetricValue"] = maximum,
+                [RmsScanSupport.MinimumValueKey(_data)] = minimum,
+                [RmsScanSupport.MaximumValueKey(_data)] = maximum
             },
             series,
             new[] { series },
@@ -403,7 +406,7 @@ internal static class RmsScanSupport
 {
     public static AnalysisData Empty(string name)
     {
-        return new AnalysisData(name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+        throw new AnalysisDataUnavailableException(name, "the optical system has no selected fields or wavelengths");
     }
 
     public static IReadOnlyList<AnalysisFieldSample> SelectedFields(Optic optic, int fieldNumber)
@@ -482,7 +485,14 @@ internal static class RmsScanSupport
     {
         return NormalizeData(data) == "wavefront"
             ? "MaximumRmsWavefrontError"
-            : "MaximumRmsSpotSize";
+            : "MaximumRmsSpotRadius";
+    }
+
+    public static string MinimumValueKey(string data)
+    {
+        return NormalizeData(data) == "wavefront"
+            ? "MinimumRmsWavefrontError"
+            : "MinimumRmsSpotRadius";
     }
 
     public static double Metric(

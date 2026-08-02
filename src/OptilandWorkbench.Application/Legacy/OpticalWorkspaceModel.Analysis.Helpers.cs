@@ -259,33 +259,4 @@ public partial class OpticalWorkspaceModel
         };
     }
 
-    private static AnalysisSeries? BuildFallbackSeries(IReadOnlyDictionary<string, object> values)
-    {
-        var points = values
-            .Select(item => (item.Key, Value: TryConvertFiniteNumber(item.Value)))
-            .Where(item => item.Value.HasValue)
-            .Select((item, index) => new AnalysisPoint(index, item.Value!.Value, DisplayAnalysisKey(item.Key)))
-            .ToArray();
-        return points.Length == 0
-            ? null
-            : new AnalysisSeries("Metric", "Value", points, AnalysisSeriesKind.Bar);
-    }
-
-    private static double? TryConvertFiniteNumber(object value)
-    {
-        if (value is not IConvertible || value is string or bool or char)
-        {
-            return null;
-        }
-
-        try
-        {
-            var number = Convert.ToDouble(value);
-            return double.IsFinite(number) ? number : null;
-        }
-        catch (Exception exception) when (exception is FormatException or InvalidCastException or OverflowException)
-        {
-            return null;
-        }
-    }
 }

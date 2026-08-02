@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Security.Cryptography;
 using System.Text;
+using System.Globalization;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
@@ -91,7 +92,11 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                 linked.Token.ThrowIfCancellationRequested();
                 var worker = new OpticalWorkspaceModel(snapshot);
                 var canonicalAnalysisKey = worker.CanonicalAnalysisKey(request.AnalysisKey);
-                var view = worker.BuildAnalysisView(canonicalAnalysisKey, request.Settings, linked.Token);
+                var normalizedSettings = NormalizeAnalysisSettings(
+                    worker,
+                    canonicalAnalysisKey,
+                    request.Settings);
+                var view = worker.BuildAnalysisView(canonicalAnalysisKey, normalizedSettings, linked.Token);
                 linked.Token.ThrowIfCancellationRequested();
                 return new AnalysisResultDto(
                     request.InstanceId,
@@ -101,11 +106,49 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                     {
                         PresentationKind = AnalysisPresentationKindResolver.Resolve(canonicalAnalysisKey)
                     },
-                    canonicalAnalysisKey,
-                    CreateRequestFingerprint(canonicalAnalysisKey, request.Settings),
-                    "Legacy.OpticalWorkspaceModel.BuildAnalysisView/v1");
+                    new AnalysisExecutionProvenanceDto(
+                        canonicalAnalysisKey,
+                        CreateRequestFingerprint(canonicalAnalysisKey, normalizedSettings),
+                        "Legacy.OpticalWorkspaceModel.BuildAnalysisView/v1"));
             }, linked.Token).ConfigureAwait(false);
         }
+    }
+
+    private static IReadOnlyDictionary<string, string> NormalizeAnalysisSettings(
+        OpticalWorkspaceModel worker,
+        string canonicalAnalysisKey,
+        IReadOnlyDictionary<string, string> settings)
+    {
+        var descriptors = worker.GetAnalysisParameters(canonicalAnalysisKey)
+            .ToDictionary(parameter => parameter.Key, StringComparer.Ordinal);
+        var merged = worker.MergeAnalysisSettings(canonicalAnalysisKey, settings);
+        foreach (var key in merged.Keys.ToArray())
+        {
+            if (!descriptors.TryGetValue(key, out var descriptor))
+            {
+                merged.Remove(key);
+                continue;
+            }
+
+            merged[key] = descriptor.Kind switch
+            {
+                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Integer when int.TryParse(
+                    merged[key],
+                    NumberStyles.Integer,
+                    CultureInfo.InvariantCulture,
+                    out var integer) => integer.ToString(CultureInfo.InvariantCulture),
+                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Double when double.TryParse(
+                    merged[key],
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out var number) => number.ToString("R", CultureInfo.InvariantCulture),
+                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Boolean when bool.TryParse(merged[key], out var flag) =>
+                    flag ? "true" : "false",
+                _ => merged[key].Trim()
+            };
+        }
+
+        return merged;
     }
 
     private static string CreateRequestFingerprint(

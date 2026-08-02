@@ -235,7 +235,7 @@ public sealed class Optic
             Weight = 1,
             IsPrimary = true
         });
-        optic.SurfaceGroup.Replace(new[]
+        optic.SurfaceGroup.ImportLegacySurfaces(new[]
         {
             new OpticalSurface
             {
@@ -266,7 +266,7 @@ public sealed class Optic
         optic.Wavelengths.Add(new Wavelength { Label = "d", Nanometers = 587.6, Weight = 1.0, IsPrimary = true });
         optic.Wavelengths.Add(new Wavelength { Label = "C", Nanometers = 656.3, Weight = 0.4, IsPrimary = false });
 
-        optic.SurfaceGroup.Replace(new[]
+        optic.SurfaceGroup.ImportLegacySurfaces(new[]
         {
             new OpticalSurface
             {
@@ -348,7 +348,7 @@ public sealed class Optic
         optic.Wavelengths.Add(new Wavelength { Label = "d", Nanometers = 550, Weight = 1, IsPrimary = true });
         optic.Wavelengths.Add(new Wavelength { Label = "C", Nanometers = 650, Weight = 1, IsPrimary = false });
 
-        optic.SurfaceGroup.Replace(new[]
+        optic.SurfaceGroup.ImportLegacySurfaces(new[]
         {
             new OpticalSurface
             {
@@ -434,7 +434,7 @@ public sealed class Optic
         optic.Wavelengths.Add(new Wavelength { Label = "d", Nanometers = 587.5618, Weight = 1, IsPrimary = true });
         optic.Wavelengths.Add(new Wavelength { Label = "C", Nanometers = 656.2725, Weight = 1, IsPrimary = false });
 
-        optic.SurfaceGroup.Replace(new[]
+        optic.SurfaceGroup.ImportLegacySurfaces(new[]
         {
             new OpticalSurface { Label = "Object", Thickness = double.PositiveInfinity, Material = "Air", SemiDiameter = 0.73 },
             new OpticalSurface { Label = "Front crown", Radius = 1.3329, Thickness = 0.2791, Material = "N-SK15", SemiDiameter = 0.73 },
@@ -672,7 +672,7 @@ public sealed class Optic
             }
 
             return opticalSurface;
-        }), syncComposition: false);
+        }));
         for (var index = 0; index < surfaceSnapshots.Count; index++)
         {
             var coordinate = surfaceSnapshots[index].CoordinateSystem;

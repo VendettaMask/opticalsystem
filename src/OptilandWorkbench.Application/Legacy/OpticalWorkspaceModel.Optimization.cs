@@ -22,17 +22,6 @@ namespace OptilandWorkbench.Application.Legacy;
 
 public partial class OpticalWorkspaceModel
 {
-    public OptimizationResult OptimizeRadius(OpticalSurface surface)
-    {
-        CaptureCurrentState();
-        var result = new SimpleOptimizer(CurrentOptic).OptimizeRadius(surface);
-        SyncSurfaceGeometry(surface);
-        SetStatus(result.Message);
-        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
-        OpticChanged?.Invoke(this, EventArgs.Empty);
-        return result;
-    }
-
     public OptimizerResult OptimizeSurfaceRadius(OpticalSurface surface, string optimizerName, int maxIterations)
     {
         CaptureCurrentState();
@@ -122,7 +111,7 @@ public partial class OpticalWorkspaceModel
                     value =>
                     {
                         surface.Thickness = value;
-                        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+                        CurrentOptic.SurfaceGroup.Renumber();
                     },
                     lower,
                     upper,
@@ -162,12 +151,7 @@ public partial class OpticalWorkspaceModel
             values));
 
         var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
-        foreach (var surface in selected)
-        {
-            SyncSurfaceGeometry(surface);
-        }
-
-        CurrentOptic.SurfaceGroup.Renumber(syncComposition: false);
+        CurrentOptic.SurfaceGroup.Renumber();
         SetStatus($"{DisplayOptimizerMessage(result.Message)}。{problem.Variables.Count} 个变量，评价函数 {NumericDisplayFormatter.Format(result.InitialMerit)} -> {NumericDisplayFormatter.Format(result.FinalMerit)}。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -211,7 +195,7 @@ public partial class OpticalWorkspaceModel
                 }
             }
 
-            optic.SurfaceGroup.Renumber(syncComposition: false);
+            optic.SurfaceGroup.Renumber();
             if (operands.Count == 0)
             {
                 try

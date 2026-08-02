@@ -91,11 +91,7 @@ public static class SpotMetricEvaluator
             throw new AnalysisDataUnavailableException(analysisName, "valid rays have no finite positive weight");
         }
 
-        var rms = Math.Sqrt(rays.Sum(ray =>
-        {
-            var weight = Math.Max(0, ray.Intensity);
-            return weight * ((ray.X * ray.X) + (ray.Y * ray.Y));
-        }) / totalWeight);
+        var rms = SpotAnalysisEngine.RmsRadius(rays);
         var weightedRadii = rays
             .Select(ray => new WeightedRadius(
                 Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)),
@@ -172,27 +168,23 @@ public static class FocusMetricEvaluator
             throw new AnalysisDataUnavailableException("Through focus metric", "no fields or wavelengths");
         }
 
-        var offsets = Enumerable.Range(0, count)
-            .Select(index => (index - (count / 2)) * step)
-            .ToArray();
-        var points = offsets.Select(offset =>
-        {
-            var result = SpotAnalysisEngine.Generate(
-                optic,
-                fields,
-                wavelengths,
-                Math.Clamp(rayDensity, 1, 32),
-                pattern,
-                imagePlaneOffset: offset,
-                surfaceNumber: surfaceNumber,
-                reference: reference,
-                usePolarization: usePolarization);
-            var metric = SpotMetricEvaluator.Summarize(result, "Through focus metric");
-            return new FocusMetricPoint(offset, metric.RmsSpotRadius, metric.Radius80);
-        }).ToArray();
-        var best = points.MinBy(point => point.RmsSpotRadius)
-            ?? throw new AnalysisDataUnavailableException("Through focus metric", "no focus samples");
-        return new FocusMetricSummary(step, best.FocusShift, best.RmsSpotRadius, points);
+        var sweep = FocusSweepEvaluator.Evaluate(
+            optic,
+            fields,
+            wavelengths,
+            count,
+            step,
+            Math.Clamp(rayDensity, 1, 32),
+            pattern,
+            surfaceNumber,
+            reference,
+            usePolarization,
+            "Through focus metric");
+        return new FocusMetricSummary(
+            step,
+            sweep.Best.FocusShift,
+            sweep.Best.RmsSpotRadius,
+            sweep.Points);
     }
 
     private static double DefaultFocusStep(Optic optic)
@@ -202,5 +194,50 @@ public static class FocusMetricEvaluator
             double.IsFinite(fNumber) && fNumber > 0 ? fNumber * 0.05 : 0.5,
             0.25,
             2.0);
+    }
+}
+
+internal sealed record FocusSweepResult(
+    IReadOnlyList<double> Offsets,
+    IReadOnlyList<SpotAnalysisResult> SpotResults,
+    IReadOnlyList<FocusMetricPoint> Points,
+    FocusMetricPoint Best);
+
+internal static class FocusSweepEvaluator
+{
+    public static FocusSweepResult Evaluate(
+        Optic optic,
+        IReadOnlyList<(double Hx, double Hy)> fields,
+        IReadOnlyList<Wavelength> wavelengths,
+        int focusPlaneCount,
+        double focusStep,
+        int rayDensity,
+        string pattern,
+        int surfaceNumber,
+        string reference,
+        bool usePolarization,
+        string analysisName)
+    {
+        var offsets = Enumerable.Range(0, focusPlaneCount)
+            .Select(index => (index - (focusPlaneCount / 2)) * focusStep)
+            .ToArray();
+        var results = offsets.Select(offset => SpotAnalysisEngine.Generate(
+            optic,
+            fields,
+            wavelengths,
+            rayDensity,
+            pattern,
+            imagePlaneOffset: offset,
+            surfaceNumber: surfaceNumber,
+            reference: reference,
+            usePolarization: usePolarization)).ToArray();
+        var points = results.Select((result, index) =>
+        {
+            var metric = SpotMetricEvaluator.Summarize(result, analysisName);
+            return new FocusMetricPoint(offsets[index], metric.RmsSpotRadius, metric.Radius80);
+        }).ToArray();
+        var best = points.MinBy(point => point.RmsSpotRadius)
+            ?? throw new AnalysisDataUnavailableException(analysisName, "no focus samples");
+        return new FocusSweepResult(offsets, results, points, best);
     }
 }

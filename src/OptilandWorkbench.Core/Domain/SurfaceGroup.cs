@@ -15,7 +15,7 @@ public sealed class SurfaceGroup
         {
             if (!_suppressRenumber)
             {
-                Renumber(syncComposition: false);
+                Renumber();
             }
         };
     }
@@ -41,7 +41,7 @@ public sealed class SurfaceGroup
             SemiDiameter = Math.Max(5, previous?.SemiDiameter ?? 10)
         };
 
-        surface.SyncCompositionFromLegacyProperties(0);
+        surface.InitializeFromLegacyProperties(0);
         Items.Insert(imageIndex, surface);
         return surface;
     }
@@ -54,7 +54,19 @@ public sealed class SurfaceGroup
         }
     }
 
-    public void Replace(IEnumerable<OpticalSurface> surfaces, bool syncComposition = true)
+    public void Replace(IEnumerable<OpticalSurface> surfaces)
+    {
+        ReplaceCore(surfaces, initializeLegacyComposition: false);
+    }
+
+    public void ImportLegacySurfaces(IEnumerable<OpticalSurface> surfaces)
+    {
+        ReplaceCore(surfaces, initializeLegacyComposition: true);
+    }
+
+    private void ReplaceCore(
+        IEnumerable<OpticalSurface> surfaces,
+        bool initializeLegacyComposition)
     {
         _suppressRenumber = true;
         try
@@ -70,7 +82,13 @@ public sealed class SurfaceGroup
             _suppressRenumber = false;
         }
 
-        Renumber(syncComposition);
+        if (initializeLegacyComposition)
+        {
+            InitializeLegacyCompositionAndRenumber();
+            return;
+        }
+
+        Renumber();
     }
 
     public double ApertureRadius()
@@ -89,29 +107,37 @@ public sealed class SurfaceGroup
         RecordedTrace = trace;
     }
 
-    public void Renumber(bool syncComposition = true)
+    public void Renumber()
     {
         var z = 0.0;
         for (var index = 0; index < Items.Count; index++)
         {
             Items[index].Number = index;
-            if (syncComposition)
-            {
-                Items[index].SyncCompositionFromLegacyProperties(z);
-            }
-            else
-            {
-                var existing = Items[index].CoordinateSystem;
-                Items[index].CoordinateSystem = new CoordinateSystem(
-                    new Vector3D(0, 0, z),
-                    existing.RotationXDegrees,
-                    existing.RotationYDegrees,
-                    existing.RotationZDegrees);
-            }
+            var existing = Items[index].CoordinateSystem;
+            Items[index].CoordinateSystem = new CoordinateSystem(
+                new Vector3D(existing.Origin.X, existing.Origin.Y, z),
+                existing.RotationXDegrees,
+                existing.RotationYDegrees,
+                existing.RotationZDegrees);
 
             if (index != 0 || !ObjectConjugate.IsInfinite(Items[index]))
             {
                 z += Items[index].Thickness;
+            }
+        }
+    }
+
+    private void InitializeLegacyCompositionAndRenumber()
+    {
+        var z = 0.0;
+        for (var index = 0; index < Items.Count; index++)
+        {
+            var surface = Items[index];
+            surface.Number = index;
+            surface.InitializeFromLegacyProperties(z);
+            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
+            {
+                z += surface.Thickness;
             }
         }
     }
