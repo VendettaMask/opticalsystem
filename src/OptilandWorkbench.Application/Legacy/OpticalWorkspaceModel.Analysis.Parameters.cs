@@ -311,8 +311,7 @@ public partial class OpticalWorkspaceModel
                 ChoiceParameter("FieldShape", "视场形状", "椭圆", new[] { "椭圆", "矩形" }),
                 DoubleParameter("XFieldWidth", "X 视场宽度", defaultFieldWidth, 0.000001, 1_000_000, 0.1),
                 DoubleParameter("YFieldWidth", "Y 视场宽度", defaultFieldWidth, 0.000001, 1_000_000, 0.1),
-                ChoiceParameter("Decomposition", "分解", "Zernike项", new[] { "Zernike项" }),
-                IntParameter("MaximumTerm", "最大项", "37", 4, 256),
+                IntParameter("MaximumTerm", "最大项", "37", 4, ZernikeFitEngine.MaximumFringeTerm),
                 ChoiceParameter(
                     "Aberration",
                     "像差",
@@ -484,7 +483,6 @@ public partial class OpticalWorkspaceModel
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
                 ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
-                BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },

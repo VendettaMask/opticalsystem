@@ -87,11 +87,7 @@ public sealed partial class OpticalSurface
 
         var localNormal = Geometry.SurfaceNormal(localHit);
         var globalNormal = CoordinateSystem.ToGlobalDirection(localNormal);
-        var reflective = IsReflective
-            || InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
-            || InteractionModel is ThinLensInteractionModel { IsReflective: true }
-            || InteractionModel is DiffractiveInteractionModel { IsReflective: true }
-            || InteractionModel is PhaseInteractionModel { IsReflective: true };
+        var reflective = IsReflective;
         var context = new SurfaceInteractionStateContext(
             localNormal,
             refractiveIndexBefore,

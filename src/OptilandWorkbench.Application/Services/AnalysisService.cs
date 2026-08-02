@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Security.Cryptography;
+using System.Text;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
@@ -98,8 +100,28 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                     ToAnalysisViewDto(view) with
                     {
                         PresentationKind = AnalysisPresentationKindResolver.Resolve(canonicalAnalysisKey)
-                    });
+                    },
+                    canonicalAnalysisKey,
+                    CreateRequestFingerprint(canonicalAnalysisKey, request.Settings),
+                    "Legacy.OpticalWorkspaceModel.BuildAnalysisView/v1");
             }, linked.Token).ConfigureAwait(false);
         }
+    }
+
+    private static string CreateRequestFingerprint(
+        string canonicalAnalysisKey,
+        IReadOnlyDictionary<string, string> settings)
+    {
+        var canonical = new StringBuilder(canonicalAnalysisKey.Length + (settings.Count * 32));
+        canonical.Append(canonicalAnalysisKey.Length).Append(':').Append(canonicalAnalysisKey);
+        foreach (var setting in settings.OrderBy(item => item.Key, StringComparer.Ordinal))
+        {
+            canonical.Append('|')
+                .Append(setting.Key.Length).Append(':').Append(setting.Key)
+                .Append('=')
+                .Append(setting.Value.Length).Append(':').Append(setting.Value);
+        }
+
+        return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(canonical.ToString())));
     }
 }

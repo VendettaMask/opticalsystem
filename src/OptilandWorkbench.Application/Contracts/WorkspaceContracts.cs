@@ -419,7 +419,10 @@ public sealed record AnalysisResultDto(
     Guid InstanceId,
     int Generation,
     long SourceRevision,
-    AnalysisViewDto View);
+    AnalysisViewDto View,
+    string CanonicalAnalysisKey = "",
+    string RequestFingerprint = "",
+    string ExecutorId = "");
 
 public enum SceneDimension
 {

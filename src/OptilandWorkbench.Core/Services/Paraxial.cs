@@ -471,12 +471,30 @@ public sealed class Paraxial
         {
             var surface = _optic.SurfaceGroup.Items[index];
             var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
-            matrix = Refract(matrix, surface.Radius, currentIndex, nextIndex);
+            var reflective = surface.IsReflective
+                || surface.InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
+                || surface.InteractionModel is ThinLensInteractionModel { IsReflective: true }
+                || surface.InteractionModel is DiffractiveInteractionModel { IsReflective: true }
+                || surface.InteractionModel is PhaseInteractionModel { IsReflective: true };
+            matrix = surface.InteractionModel switch
+            {
+                ThinLensInteractionModel thinLens => ThinLens(
+                    matrix,
+                    thinLens.FocalLength,
+                    currentIndex,
+                    nextIndex,
+                    reflective),
+                _ when reflective => Reflect(matrix, surface.Radius),
+                _ => Refract(matrix, surface.Radius, currentIndex, nextIndex)
+            };
             if (index != 0 || !ObjectConjugate.IsInfinite(surface))
             {
                 matrix = Translate(matrix, surface.Thickness);
             }
-            currentIndex = nextIndex;
+            if (!reflective)
+            {
+                currentIndex = nextIndex;
+            }
         }
 
         return matrix;
@@ -501,6 +519,38 @@ public sealed class Paraxial
 
         var c = -(indexAfter - indexBefore) / (indexAfter * radius);
         var d = indexBefore / indexAfter;
+        return new RayMatrix(
+            matrix.A,
+            matrix.B,
+            (c * matrix.A) + (d * matrix.C),
+            (c * matrix.B) + (d * matrix.D));
+    }
+
+    private static RayMatrix Reflect(RayMatrix matrix, double radius)
+    {
+        var c = Math.Abs(radius) < 1e-12 || double.IsInfinity(radius) ? 0 : -2 / radius;
+        const double d = -1;
+        return new RayMatrix(
+            matrix.A,
+            matrix.B,
+            (c * matrix.A) + (d * matrix.C),
+            (c * matrix.B) + (d * matrix.D));
+    }
+
+    private static RayMatrix ThinLens(
+        RayMatrix matrix,
+        double focalLength,
+        double indexBefore,
+        double indexAfter,
+        bool reflective)
+    {
+        if (!double.IsFinite(focalLength) || Math.Abs(focalLength) < 1e-12)
+        {
+            throw new InvalidOperationException("Thin-lens focal length must be finite and non-zero.");
+        }
+
+        var c = reflective ? -1 / focalLength : -1 / (indexAfter * focalLength);
+        var d = reflective ? -1 : indexBefore / indexAfter;
         return new RayMatrix(
             matrix.A,
             matrix.B,

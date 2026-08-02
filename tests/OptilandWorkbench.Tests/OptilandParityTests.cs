@@ -1110,6 +1110,17 @@ public sealed class OptilandParityTests
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 
+    [Fact]
+    public void AnalysisCatalogRejectsUnknownAnalysisInsteadOfReturningUnrelatedData()
+    {
+        var optic = Optic.CreateDemo();
+
+        var exception = Assert.Throws<UnknownAnalysisException>(() =>
+            optic.Analyses.Create("misspelled-analysis"));
+
+        Assert.Equal("misspelled-analysis", exception.AnalysisName);
+    }
+
     [Theory]
     [InlineData(MtfComputationMethod.Fourier)]
     [InlineData(MtfComputationMethod.Huygens)]
@@ -1724,7 +1735,25 @@ public sealed class TestOptilandPlugin : IOptilandPlugin
     {
         registry.RegisterGeometry("test-plane", () => new PlaneGeometry());
         registry.RegisterMaterial(new ConstantIndexMaterial("TEST-N", 1.42));
-        registry.RegisterAnalysis("test-analysis", optic => new PlaceholderAnalysis(optic, "Plugin Analysis"));
+        registry.RegisterAnalysis("test-analysis", optic => new TestPluginAnalysis(optic));
+    }
+}
+
+public sealed class TestPluginAnalysis : BaseAnalysis
+{
+    public TestPluginAnalysis(Optic optic)
+        : base(optic)
+    {
+    }
+
+    public override string Name => "Plugin Analysis";
+
+    public override AnalysisData GenerateData()
+    {
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Status"] = "test-only"
+        });
     }
 }
 

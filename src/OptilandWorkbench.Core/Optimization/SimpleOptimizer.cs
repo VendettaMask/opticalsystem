@@ -27,10 +27,9 @@ public sealed class SimpleOptimizer
             surface.Radius = 40;
         }
 
-        var analysis = new AnalysisRunner(_optic);
         var initialRadius = surface.Radius;
         var bestRadius = initialRadius;
-        var bestMetric = analysis.EvaluateSpotDiagram().RmsSpotRadius;
+        var bestMetric = SpotMetricEvaluator.Evaluate(_optic).RmsSpotRadius;
         var initialMetric = bestMetric;
         var step = Math.Max(1.0, Math.Abs(initialRadius) * 0.18);
 
@@ -40,7 +39,7 @@ public sealed class SimpleOptimizer
             foreach (var candidate in new[] { bestRadius - step, bestRadius + step })
             {
                 surface.Radius = Math.Abs(candidate) < 1e-6 ? Math.Sign(candidate) * 1e-6 : candidate;
-                var metric = analysis.EvaluateSpotDiagram().RmsSpotRadius;
+                var metric = SpotMetricEvaluator.Evaluate(_optic).RmsSpotRadius;
                 if (metric < bestMetric)
                 {
                     bestMetric = metric;

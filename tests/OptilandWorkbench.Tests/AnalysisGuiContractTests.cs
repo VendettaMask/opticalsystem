@@ -1356,7 +1356,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
-                "FieldShape", "XFieldWidth", "YFieldWidth", "Decomposition", "MaximumTerm",
+                "FieldShape", "XFieldWidth", "YFieldWidth", "MaximumTerm",
                 "Aberration", "FieldNumber", "WavelengthNumber", "XFieldSamples", "YFieldSamples",
                 "PupilSampling", "DisplayAs", "DisplayMode"
             },

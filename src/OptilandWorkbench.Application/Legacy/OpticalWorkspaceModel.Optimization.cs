@@ -58,7 +58,7 @@ public partial class OpticalWorkspaceModel
             "RMS spot radius",
             0,
             1,
-            () => new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius));
+            () => SpotMetricEvaluator.Evaluate(CurrentOptic).RmsSpotRadius));
 
         var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
         SetSurfaceRadius(surface, surface.Radius);
@@ -177,7 +177,7 @@ public partial class OpticalWorkspaceModel
         {
             try
             {
-                var merit = new AnalysisRunner(CurrentOptic).EvaluateSpotDiagram().RmsSpotRadius;
+                var merit = SpotMetricEvaluator.Evaluate(CurrentOptic).RmsSpotRadius;
                 return double.IsFinite(merit) ? merit : 1_000_000;
             }
             catch (OperationCanceledException)
@@ -216,7 +216,7 @@ public partial class OpticalWorkspaceModel
             {
                 try
                 {
-                    var value = new AnalysisRunner(optic).EvaluateSpotDiagram().RmsSpotRadius;
+                    var value = SpotMetricEvaluator.Evaluate(optic).RmsSpotRadius;
                     return new[] { double.IsFinite(value) ? value : 1_000_000 };
                 }
                 catch (OperationCanceledException)

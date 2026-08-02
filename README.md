@@ -64,7 +64,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至 2026-08-02，仓库包含 `627` 项回归测试：已建立的全量基线为 `621/621`；新增 2 项 Avalonia 首帧/主题回归通过相关 16 项定向子集；Dock 空宿主、会话、锁定及内部 MDI 布局回归通过 `12/12` 窗口布局子集。本轮平铺/层叠语义修复没有增加测试数量，而是更新现有测试以验证浮动页面回收、主文档区 MDI 模式和合并后的标签模式。
+截至 2026-08-02，仓库包含 `651` 项回归测试，当前全量基线为 `651/651`。基线覆盖 Core、Application、Avalonia 首帧与主题、Dock 空宿主/会话/锁定、内部 MDI 布局，以及本轮架构收敛与光学计算回归。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -92,6 +92,7 @@ docs                               架构、格式、兼容、验证和发布文
 ## 文档索引
 
 - [架构](docs/ARCHITECTURE.md)
+- [旧、新架构收敛与单一结果链路修正计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)
 - [构建与发布](docs/BUILD_AND_RELEASE.md)
 - [文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)
 - [GUI 工作流与重构](docs/GUI_QUICKSTART_REFACTOR.md)

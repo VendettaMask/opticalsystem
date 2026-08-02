@@ -7,7 +7,6 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
     private readonly string _fieldShape;
     private readonly double _xFieldWidth;
     private readonly double _yFieldWidth;
-    private readonly string _decomposition;
     private readonly int _maximumTerm;
     private readonly string _aberration;
     private readonly int _fieldNumber;
@@ -23,7 +22,6 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         string fieldShape = "椭圆",
         double xFieldWidth = 0,
         double yFieldWidth = 0,
-        string decomposition = "Zernike项",
         int maximumTerm = 37,
         string aberration = "离焦",
         int fieldNumber = 1,
@@ -38,8 +36,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic));
         _xFieldWidth = xFieldWidth > 0 ? xFieldWidth : defaultWidth;
         _yFieldWidth = yFieldWidth > 0 ? yFieldWidth : defaultWidth;
-        _decomposition = decomposition;
-        _maximumTerm = Math.Clamp(maximumTerm, 4, 256);
+        _maximumTerm = Math.Clamp(maximumTerm, 4, ZernikeFitEngine.MaximumFringeTerm);
         _aberration = aberration;
         _fieldNumber = Math.Max(1, fieldNumber);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
@@ -66,14 +63,21 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             : Math.Max(0, primaryIndex);
         var wavelength = wavelengths[selectedIndex];
         var systemMaximumField = Math.Max(1e-12, AnalysisTrace.MaxFieldValue(Optic));
+        var definedFields = AnalysisTrace.DefinedFieldSamples(Optic);
+        var center = definedFields.Count == 0
+            ? (X: 0.0, Y: 0.0)
+            : (definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].X,
+                definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].Y);
         var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
         for (var row = 0; row < _yFieldSamples; row++)
         {
-            var y = -_yFieldWidth + (2 * _yFieldWidth * row / (_yFieldSamples - 1.0));
+            var yOffset = -_yFieldWidth + (2 * _yFieldWidth * row / (_yFieldSamples - 1.0));
+            var y = center.Y + yOffset;
             for (var column = 0; column < _xFieldSamples; column++)
             {
-                var x = -_xFieldWidth + (2 * _xFieldWidth * column / (_xFieldSamples - 1.0));
-                if (IsOutsideShape(x, y))
+                var xOffset = -_xFieldWidth + (2 * _xFieldWidth * column / (_xFieldSamples - 1.0));
+                var x = center.X + xOffset;
+                if (IsOutsideShape(xOffset, yOffset))
                 {
                     continue;
                 }
@@ -134,10 +138,12 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 ["FieldShape"] = _fieldShape,
                 ["XFieldWidth"] = _xFieldWidth,
                 ["YFieldWidth"] = _yFieldWidth,
-                ["Decomposition"] = _decomposition,
+                ["Decomposition"] = "Zernike Fringe",
                 ["MaximumTerm"] = _maximumTerm,
                 ["Aberration"] = _aberration,
                 ["FieldNumber"] = _fieldNumber,
+                ["FieldCenterX"] = center.X,
+                ["FieldCenterY"] = center.Y,
                 ["XFieldSamples"] = _xFieldSamples,
                 ["YFieldSamples"] = _yFieldSamples,
                 ["PupilSampling"] = _pupilSampling,
@@ -152,10 +158,10 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             new[] { series },
             new AnalysisPlotOptions(
                 EqualAspect: true,
-                XMinimum: -_xFieldWidth,
-                XMaximum: _xFieldWidth,
-                YMinimum: -_yFieldWidth,
-                YMaximum: _yFieldWidth,
+                XMinimum: center.X - _xFieldWidth,
+                XMaximum: center.X + _xFieldWidth,
+                YMinimum: center.Y - _yFieldWidth,
+                YMaximum: center.Y + _yFieldWidth,
                 HideTopAndRightAxes: true));
     }
 

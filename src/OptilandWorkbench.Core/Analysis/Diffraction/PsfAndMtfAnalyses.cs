@@ -56,7 +56,8 @@ public sealed class PsfAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var allWavelengths = Optic.Wavelengths.ToArray();
+        var analysisOptic = ResolveAnalysisOptic();
+        var allWavelengths = analysisOptic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
@@ -74,7 +75,7 @@ public sealed class PsfAnalysis : BaseAnalysis
                 allWavelengths[Math.Clamp(_wavelengthNumber - 1, 0, allWavelengths.Length - 1)]
             }
         };
-        var allFields = SpotAnalysisEngine.DefinedFields(Optic);
+        var allFields = SpotAnalysisEngine.DefinedFields(analysisOptic);
         var field = allFields.Count == 0
             ? (Hx: 0.0, Hy: 0.0)
             : _fieldNumber <= 0
@@ -88,7 +89,7 @@ public sealed class PsfAnalysis : BaseAnalysis
             .Select(wavelength => (
                 Wavelength: wavelength,
                 Result: DiffractionEngine.ComputeFftPsf(
-                    Optic,
+                    analysisOptic,
                     field,
                     wavelength,
                     pupilSampling,
@@ -202,6 +203,36 @@ public sealed class PsfAnalysis : BaseAnalysis
             XMaximum: xExtent / 2,
             YMinimum: -yExtent / 2,
             YMaximum: yExtent / 2));
+    }
+
+    private Optic ResolveAnalysisOptic()
+    {
+        if (_surfaceNumber <= 0)
+        {
+            return Optic;
+        }
+
+        var surfaceIndex = Optic.SurfaceGroup.Items.ToList()
+            .FindIndex(surface => surface.Number == _surfaceNumber);
+        if (surfaceIndex < 1)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(_surfaceNumber),
+                $"FFT PSF surface {_surfaceNumber} does not exist.");
+        }
+
+        if (surfaceIndex == Optic.SurfaceGroup.Items.Count - 1)
+        {
+            return Optic;
+        }
+
+        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
+        var surfaces = clone.SurfaceGroup.Items
+            .Take(surfaceIndex + 1)
+            .Select(surface => surface.Clone())
+            .ToArray();
+        clone.SurfaceGroup.Replace(surfaces, syncComposition: false);
+        return clone;
     }
 
     private static double Coordinate(int index, int size, double spacing)

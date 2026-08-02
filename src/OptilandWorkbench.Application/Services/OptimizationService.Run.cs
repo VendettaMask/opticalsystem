@@ -54,8 +54,7 @@ internal sealed partial class OptimizationService
                             "快速聚焦至少需要一个物方表面和一个像面。");
                     }
 
-                    var summary = new AnalysisRunner(Connector.CurrentOptic)
-                        .EvaluateThroughFocus();
+                    var summary = FocusMetricEvaluator.Evaluate(Connector.CurrentOptic);
                     if (!double.IsFinite(summary.BestFocusShift))
                     {
                         throw new InvalidOperationException("快速聚焦未得到有限的焦移结果。");

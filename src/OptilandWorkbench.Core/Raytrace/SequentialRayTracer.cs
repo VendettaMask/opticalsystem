@@ -24,23 +24,10 @@ public sealed partial class SequentialRayTracer
 
     public RayGenerator RayGenerator { get; }
 
-    public IRayAimer RayAimer { get; private set; } = new ParaxialRayAimer();
-
     internal void ConfigureCache(RayTraceCache? cache, long opticRevision)
     {
         _traceCache = cache;
         _cacheOpticRevision = opticRevision;
-    }
-
-    public void SetAiming(string mode)
-    {
-        RayAimer = mode.ToLowerInvariant() switch
-        {
-            "iterative" => new IterativeRayAimer(),
-            "robust" => new RobustRayAimer(),
-            "cached" => new CachedRayAimer(new ParaxialRayAimer()),
-            _ => new ParaxialRayAimer()
-        };
     }
 
     public SequentialTrace Trace()

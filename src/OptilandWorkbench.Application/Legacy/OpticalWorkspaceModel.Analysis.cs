@@ -362,7 +362,6 @@ public partial class OpticalWorkspaceModel
                 Text("FieldShape", "椭圆"),
                 Double("XFieldWidth", FieldCoordinates.MaximumRadius(CurrentOptic.Fields)),
                 Double("YFieldWidth", FieldCoordinates.MaximumRadius(CurrentOptic.Fields)),
-                Text("Decomposition", "Zernike项"),
                 Int("MaximumTerm", 37),
                 Text("Aberration", "离焦"),
                 LeadingInt("FieldNumber", 1),
@@ -472,7 +471,6 @@ public partial class OpticalWorkspaceModel
                 Text("Reference", "centroid"),
                 Text("Method", "GQ"),
                 Text("Data", "spot"),
-                Bool("ShowDiffractionLimit", false),
                 Bool("UsePolarization", false),
                 Bool("RemoveVignetting", true)),
             "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(

@@ -109,7 +109,8 @@ public static class WavefrontEngine
         IReadOnlyList<(double X, double Y)> samples,
         bool aimAtStop = true,
         (double X, double Y)? resolvedRealImageLaunch = null,
-        WavefrontReferenceSphere? referenceSphere = null)
+        WavefrontReferenceSphere? referenceSphere = null,
+        bool usePolarization = false)
     {
         return GenerateChiefRay(
             optic,
@@ -118,7 +119,8 @@ public static class WavefrontEngine
             samples.Select(sample => new PupilSample(sample.X, sample.Y, 1)).ToArray(),
             aimAtStop,
             resolvedRealImageLaunch,
-            referenceSphere);
+            referenceSphere,
+            usePolarization);
     }
 
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
@@ -126,7 +128,8 @@ public static class WavefrontEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         bool aimAtStop = true,
-        (double X, double Y)? resolvedRealImageLaunch = null)
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        bool usePolarization = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -136,6 +139,10 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
+        if (usePolarization)
+        {
+            chiefBundle = WithPolarization(chiefBundle);
+        }
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
         if (chief is null)
         {
@@ -165,7 +172,8 @@ public static class WavefrontEngine
         IReadOnlyList<PupilSample> pupilSamples,
         bool aimAtStop,
         (double X, double Y)? resolvedRealImageLaunch = null,
-        WavefrontReferenceSphere? referenceSphere = null)
+        WavefrontReferenceSphere? referenceSphere = null,
+        bool usePolarization = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -175,6 +183,10 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
+        if (usePolarization)
+        {
+            chiefBundle = WithPolarization(chiefBundle);
+        }
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
         if (chief is null)
         {
@@ -186,7 +198,8 @@ public static class WavefrontEngine
             field,
             wavelength,
             aimAtStop,
-            resolvedRealImageLaunch);
+            resolvedRealImageLaunch,
+            usePolarization);
         var radius = sphere.Radius;
         var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
@@ -206,6 +219,10 @@ public static class WavefrontEngine
             pupilSamples,
             aimAtStop,
             resolvedRealImageLaunch);
+        if (usePolarization)
+        {
+            bundle = WithPolarization(bundle);
+        }
         var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
@@ -259,6 +276,14 @@ public static class WavefrontEngine
             vignetted,
             chief.Direction.Z,
             imageIndex);
+    }
+
+    private static RealRayBundle WithPolarization(RealRayBundle bundle)
+    {
+        return new RealRayBundle(bundle.Rays.Select(ray => ray with
+        {
+            PolarizationMatrix = Matrix3x3.Identity
+        }));
     }
 
     internal static (double X, double Y) LaunchTiltDirection(

@@ -168,7 +168,18 @@ public sealed class AnalysisCatalog
             "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(_optic),
             "Jones Pupil" => new JonesPupilAnalysis(_optic),
             "Prescription Report" => new PrescriptionReportAnalysis(_optic),
-            _ => new PlaceholderAnalysis(_optic, name)
+            _ => throw new UnknownAnalysisException(name)
         };
     }
+}
+
+public sealed class UnknownAnalysisException : ArgumentException
+{
+    public UnknownAnalysisException(string analysisName)
+        : base($"Unknown analysis '{analysisName}'.", nameof(analysisName))
+    {
+        AnalysisName = analysisName;
+    }
+
+    public string AnalysisName { get; }
 }

@@ -22,9 +22,9 @@ public sealed partial class OpticalSurface : NotifyObject
     private bool _semiDiameterFixed;
     private double _conic;
     private bool _isStop;
-    private bool _isReflective;
     private bool _radiusVariable;
     private bool _thicknessVariable;
+    private bool _synchronizingGeometry;
     private IGeometry _geometry = new PlaneGeometry();
     private IMaterial _materialBefore = new AirMaterial();
     private IMaterial _materialAfter = new AirMaterial();
@@ -49,7 +49,13 @@ public sealed partial class OpticalSurface : NotifyObject
     public double Radius
     {
         get => _radius;
-        set => SetProperty(ref _radius, value);
+        set
+        {
+            if (SetProperty(ref _radius, value))
+            {
+                SynchronizeGeometryFromLegacyParameters();
+            }
+        }
     }
 
     public double Thickness
@@ -85,7 +91,13 @@ public sealed partial class OpticalSurface : NotifyObject
     public double Conic
     {
         get => _conic;
-        set => SetProperty(ref _conic, value);
+        set
+        {
+            if (SetProperty(ref _conic, value))
+            {
+                SynchronizeGeometryFromLegacyParameters();
+            }
+        }
     }
 
     public bool IsStop
@@ -96,13 +108,17 @@ public sealed partial class OpticalSurface : NotifyObject
 
     public bool IsReflective
     {
-        get => _isReflective;
+        get => InteractionIsReflective(_interactionModel);
         set
         {
-            if (SetProperty(ref _isReflective, value))
+            if (value == IsReflective)
             {
-                InteractionModel = new RefractiveReflectiveInteractionModel(value);
+                return;
             }
+
+            var next = WithReflectivity(_interactionModel, value);
+            SetProperty(ref _interactionModel, next, nameof(InteractionModel));
+            RaisePropertyChanged();
         }
     }
 
@@ -123,7 +139,14 @@ public sealed partial class OpticalSurface : NotifyObject
     public IGeometry Geometry
     {
         get => _geometry;
-        set => SetProperty(ref _geometry, value);
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            if (SetProperty(ref _geometry, value))
+            {
+                SynchronizeLegacyParametersFromGeometry(value);
+            }
+        }
     }
 
     public IMaterial MaterialBefore
@@ -149,7 +172,18 @@ public sealed partial class OpticalSurface : NotifyObject
     public IInteractionModel InteractionModel
     {
         get => _interactionModel;
-        set => SetProperty(ref _interactionModel, value);
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            var wasReflective = IsReflective;
+            if (SetProperty(ref _interactionModel, value))
+            {
+                if (wasReflective != IsReflective)
+                {
+                    RaisePropertyChanged(nameof(IsReflective));
+                }
+            }
+        }
     }
 
     public IPhysicalAperture? PhysicalAperture
@@ -274,11 +308,7 @@ public sealed partial class OpticalSurface : NotifyObject
 
         var localNormal = Geometry.SurfaceNormal(localPropagatedHit);
         var normal = CoordinateSystem.ToGlobalDirection(localNormal);
-        var isReflectiveInteraction = IsReflective
-            || InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
-            || InteractionModel is ThinLensInteractionModel { IsReflective: true }
-            || InteractionModel is DiffractiveInteractionModel { IsReflective: true }
-            || InteractionModel is PhaseInteractionModel { IsReflective: true };
+        var isReflectiveInteraction = IsReflective;
         var context = new SurfaceInteractionContext(
             localNormal,
             refractiveIndexBefore,
@@ -330,7 +360,7 @@ public sealed partial class OpticalSurface : NotifyObject
 
     public void SyncCompositionFromLegacyProperties(double zPosition)
     {
-        Geometry = IsPlane ? new PlaneGeometry() : new StandardGeometry(Radius, Conic);
+        SynchronizeGeometryFromLegacyParameters();
         MaterialAfter = new MaterialRegistry().Resolve(Material);
         CoatingModel = Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
             ? new NoneCoatingModel()
@@ -340,6 +370,121 @@ public sealed partial class OpticalSurface : NotifyObject
         // Rays are clipped only when an explicit physical aperture is configured.
         PhysicalAperture = null;
         CoordinateSystem = new CoordinateSystem(new Backend.Vector3D(0, 0, zPosition));
+    }
+
+    private void SynchronizeGeometryFromLegacyParameters()
+    {
+        if (_synchronizingGeometry)
+        {
+            return;
+        }
+
+        _synchronizingGeometry = true;
+        try
+        {
+            var next = Geometry switch
+            {
+                PlaneGratingGeometry grating when Math.Abs(Radius) < 1e-9 => grating,
+                StandardGratingGeometry grating when Math.Abs(Radius) < 1e-9 =>
+                    new PlaneGratingGeometry(
+                        grating.GratingOrder,
+                        grating.GratingPeriodMicrometers,
+                        grating.GrooveOrientationAngleRadians),
+                IGratingGeometry grating => new StandardGratingGeometry(
+                    Radius,
+                    Conic,
+                    grating.GratingOrder,
+                    grating.GratingPeriodMicrometers,
+                    grating.GrooveOrientationAngleRadians),
+                EvenAsphereGeometry even => new EvenAsphereGeometry(Radius, Conic, even.Coefficients),
+                OddAsphereGeometry odd => new OddAsphereGeometry(Radius, Conic, odd.Coefficients),
+                ForbesQGeometry forbes => new ForbesQGeometry(
+                    Radius,
+                    Conic,
+                    forbes.NormalizationRadius,
+                    forbes.QCoefficients),
+                BiconicGeometry biconic => new BiconicGeometry(
+                    Radius,
+                    biconic.RadiusY,
+                    Conic,
+                    biconic.ConicY),
+                SeparableBiconicGeometry biconic => new SeparableBiconicGeometry(
+                    Radius,
+                    biconic.RadiusY,
+                    Conic,
+                    biconic.ConicY),
+                ToroidalGeometry toroidal => new ToroidalGeometry(toroidal.TangentialRadius, Radius),
+                StandardGeometry when Math.Abs(Radius) < 1e-9 => new PlaneGeometry(),
+                StandardGeometry => new StandardGeometry(Radius, Conic),
+                PlaneGeometry when Math.Abs(Radius) >= 1e-9 => new StandardGeometry(Radius, Conic),
+                _ => Geometry
+            };
+            SetProperty(ref _geometry, next, nameof(Geometry));
+        }
+        finally
+        {
+            _synchronizingGeometry = false;
+        }
+    }
+
+    private void SynchronizeLegacyParametersFromGeometry(IGeometry geometry)
+    {
+        if (_synchronizingGeometry)
+        {
+            return;
+        }
+
+        _synchronizingGeometry = true;
+        try
+        {
+            var parameters = geometry switch
+            {
+                StandardGeometry standard => (standard.Radius, standard.Conic),
+                StandardGratingGeometry grating => (grating.Base.Radius, grating.Base.Conic),
+                PlaneGeometry or PlaneGratingGeometry => (0.0, 0.0),
+                EvenAsphereGeometry even => (even.Base.Radius, even.Base.Conic),
+                OddAsphereGeometry odd => (odd.Base.Radius, odd.Base.Conic),
+                ForbesQGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
+                BiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
+                SeparableBiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
+                ToroidalGeometry toroidal => (toroidal.SagittalRadius, 0.0),
+                _ => (_radius, _conic)
+            };
+            SetProperty(ref _radius, parameters.Item1, nameof(Radius));
+            SetProperty(ref _conic, parameters.Item2, nameof(Conic));
+        }
+        finally
+        {
+            _synchronizingGeometry = false;
+        }
+    }
+
+    private static bool InteractionIsReflective(IInteractionModel interaction)
+    {
+        return interaction switch
+        {
+            RefractiveReflectiveInteractionModel model => model.IsReflective,
+            ThinLensInteractionModel model => model.IsReflective,
+            DiffractiveInteractionModel model => model.IsReflective,
+            PhaseInteractionModel model => model.IsReflective,
+            _ => false
+        };
+    }
+
+    private static IInteractionModel WithReflectivity(IInteractionModel interaction, bool isReflective)
+    {
+        return interaction switch
+        {
+            RefractiveReflectiveInteractionModel => new RefractiveReflectiveInteractionModel(isReflective),
+            ThinLensInteractionModel model => new ThinLensInteractionModel(model.FocalLength, isReflective),
+            DiffractiveInteractionModel { GrooveFrequencyLinesPerMillimeter: double frequency } model =>
+                new DiffractiveInteractionModel(frequency, model.Order ?? 1, isReflective),
+            DiffractiveInteractionModel => new DiffractiveInteractionModel(isReflective),
+            PhaseInteractionModel model => new PhaseInteractionModel(model.Profile.Clone(), isReflective),
+            _ when isReflective => throw new InvalidOperationException(
+                $"Interaction model '{interaction.Kind}' does not support reflection."),
+            _ => interaction.Clone()
+        };
     }
 
     public OpticalSurface Clone()

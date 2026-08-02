@@ -24,7 +24,6 @@ public sealed class Optic
         RealRayTracer = new RealRayTracer(this);
         SequentialRayTracer = new SequentialRayTracer(this);
         Paraxial = new Paraxial(this);
-        Aberrations = new Aberrations(this);
         Analyses = new AnalysisCatalog(this);
     }
 
@@ -120,8 +119,6 @@ public sealed class Optic
     public SequentialRayTracer SequentialRayTracer { get; }
 
     public Paraxial Paraxial { get; }
-
-    public Aberrations Aberrations { get; }
 
     public PickupManager Pickups => _state.Pickups;
 

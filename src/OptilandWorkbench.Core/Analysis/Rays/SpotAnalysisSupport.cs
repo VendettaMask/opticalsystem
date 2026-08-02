@@ -301,9 +301,26 @@ internal static class SpotAnalysisEngine
 
     public static double RmsRadius(IReadOnlyList<SpotRayData> rays)
     {
-        return rays.Count == 0
-            ? 0
-            : Math.Sqrt(rays.Average(ray => (ray.X * ray.X) + (ray.Y * ray.Y)));
+        if (rays.Count == 0)
+        {
+            throw new AnalysisDataUnavailableException(
+                "RMS spot",
+                "no valid rays reached the selected surface");
+        }
+
+        var totalWeight = rays.Sum(ray => Math.Max(0, ray.Intensity));
+        if (!(totalWeight > 0) || !double.IsFinite(totalWeight))
+        {
+            throw new AnalysisDataUnavailableException(
+                "RMS spot",
+                "valid rays have no finite positive weight");
+        }
+
+        return Math.Sqrt(rays.Sum(ray =>
+        {
+            var weight = Math.Max(0, ray.Intensity);
+            return weight * ((ray.X * ray.X) + (ray.Y * ray.Y));
+        }) / totalWeight);
     }
 
     public static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)

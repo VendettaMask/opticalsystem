@@ -19,7 +19,6 @@ public sealed class CoreArchitectureTests
         Assert.NotEmpty(optic.SurfaceGroup.Items);
         Assert.NotNull(optic.RealRayTracer);
         Assert.NotNull(optic.Paraxial);
-        Assert.NotNull(optic.Aberrations);
         Assert.NotNull(optic.Pickups);
         Assert.NotNull(optic.Solves);
     }
@@ -253,7 +252,7 @@ public sealed class CoreArchitectureTests
     {
         var optic = Optic.CreateDemo();
         var surface = optic.SurfaceGroup.Items[2];
-        var before = new AnalysisRunner(optic).EvaluateSpotDiagram().RmsSpotRadius;
+        var before = SpotMetricEvaluator.Evaluate(optic).RmsSpotRadius;
 
         var result = new SimpleOptimizer(optic).OptimizeRadius(surface, iterations: 8);
 

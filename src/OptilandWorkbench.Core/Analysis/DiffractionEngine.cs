@@ -508,7 +508,8 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
         IReadOnlyList<(double X, double Y)> coordinates,
-        double defocusMillimeters)
+        double defocusMillimeters,
+        bool usePolarization = false)
     {
         if (wavelengths.Count == 0)
         {
@@ -550,7 +551,8 @@ public static class DiffractionEngine
                         field,
                         wavelength,
                         aimAtStop: true,
-                        nominalRealImageLaunch)).ToArray();
+                        nominalRealImageLaunch,
+                        usePolarization)).ToArray();
                 var primaryIndex = Enumerable.Range(0, wavelengths.Count)
                     .FirstOrDefault(index => wavelengths[index].IsPrimary);
                 var primary = spheres[primaryIndex];
@@ -566,7 +568,8 @@ public static class DiffractionEngine
                             primary.CenterX,
                             primary.CenterY,
                             primary.CenterZ,
-                            spheres[index].Radius))).ToArray();
+                            spheres[index].Radius),
+                        usePolarization: usePolarization)).ToArray();
             }
             finally
             {

@@ -176,9 +176,14 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             }
         }
 
-        var legacy = new AnalysisRunner(Optic).EvaluateThroughFocus();
-        var points = legacy.Points.ToArray();
-        var legacySeries = new AnalysisSeries(
+        var points = results.Select((result, index) =>
+        {
+            var metric = SpotMetricEvaluator.Summarize(result, Name);
+            return new FocusMetricPoint(offsets[index], metric.RmsSpotRadius, metric.Radius80);
+        }).ToArray();
+        var best = points.MinBy(point => point.RmsSpotRadius)
+            ?? throw new AnalysisDataUnavailableException(Name, "no focus samples");
+        var metricSeries = new AnalysisSeries(
             "Focus shift (mm)",
             "RMS spot radius (mm)",
             points.Select(point => new AnalysisPoint(point.FocusShift, point.RmsSpotRadius)).ToArray(),
@@ -213,10 +218,10 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             ["NominalRms"] = points.ElementAtOrDefault(2)?.RmsSpotRadius ?? 0,
             ["Plus1StepRms"] = points.ElementAtOrDefault(3)?.RmsSpotRadius ?? 0,
             ["Plus2StepRms"] = points.ElementAtOrDefault(4)?.RmsSpotRadius ?? 0,
-            ["BestFocusShift"] = legacy.BestFocusShift,
-            ["BestRmsSpotRadius"] = legacy.BestRmsSpotRadius,
+            ["BestFocusShift"] = best.FocusShift,
+            ["BestRmsSpotRadius"] = best.RmsSpotRadius,
             ["Radius80AtBest"] = points.OrderBy(point => point.RmsSpotRadius).FirstOrDefault()?.Radius80 ?? 0
-        }, legacySeries, new[] { legacySeries }, PlotPanes: panes, PlotPaneColumns: _settings.FocusPlaneCount);
+        }, metricSeries, new[] { metricSeries }, PlotPanes: panes, PlotPaneColumns: _settings.FocusPlaneCount);
     }
 
     private bool IsColorByField()

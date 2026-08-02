@@ -283,7 +283,6 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
     private readonly string _reference;
     private readonly string _method;
     private readonly string _data;
-    private readonly bool _showDiffractionLimit;
     private readonly bool _usePolarization;
     private readonly bool _removeVignetting;
 
@@ -299,7 +298,6 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         string reference = "centroid",
         string method = "GQ",
         string data = "spot",
-        bool showDiffractionLimit = false,
         bool usePolarization = false,
         bool removeVignetting = true) : base(optic)
     {
@@ -314,7 +312,6 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         _reference = RmsScanSupport.NormalizeReference(reference);
         _method = RmsScanSupport.NormalizeMethod(method);
         _data = RmsScanSupport.NormalizeData(data);
-        _showDiffractionLimit = showDiffractionLimit;
         _usePolarization = usePolarization;
         _removeVignetting = removeVignetting;
     }
@@ -383,7 +380,6 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                 ["Distribution"] = distribution,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
-                ["ShowDiffractionLimit"] = _showDiffractionLimit,
                 ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting,
@@ -501,18 +497,19 @@ internal static class RmsScanSupport
         bool usePolarization = false,
         bool removeVignetting = true)
     {
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(optic, removeVignetting);
         return NormalizeData(data) == "wavefront"
             ? WavefrontRms(
-                optic,
+                workingOptic,
                 field,
                 wavelengths,
                 numRings,
                 distribution,
                 reference,
                 imagePlaneOffset,
-                removeVignetting)
+                usePolarization)
             : SpotRadius(
-                optic,
+                workingOptic,
                 field,
                 wavelengths,
                 numRings,
@@ -544,6 +541,13 @@ internal static class RmsScanSupport
         var rays = result.Fields.FirstOrDefault()?.Wavelengths
             .SelectMany(wavelength => wavelength.Rays)
             .ToArray() ?? Array.Empty<SpotRayData>();
+        if (rays.Length == 0)
+        {
+            throw new AnalysisDataUnavailableException(
+                "RMS spot",
+                "no valid rays reached the selected surface");
+        }
+
         return SpotAnalysisEngine.RmsRadius(rays);
     }
 
@@ -555,11 +559,11 @@ internal static class RmsScanSupport
         string distribution,
         string reference,
         double imagePlaneOffset = 0,
-        bool removeVignetting = true)
+        bool usePolarization = false)
     {
         if (wavelengths.Count == 0)
         {
-            return 0;
+            throw new AnalysisDataUnavailableException("RMS wavefront", "no wavelengths");
         }
 
         var pupil = string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase)
@@ -571,7 +575,8 @@ internal static class RmsScanSupport
             field,
             wavelengths,
             coordinates,
-            imagePlaneOffset);
+            imagePlaneOffset,
+            usePolarization);
         var weightedMeanSquare = 0.0;
         var totalWavelengthWeight = 0.0;
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Count; wavelengthIndex++)
@@ -597,9 +602,14 @@ internal static class RmsScanSupport
             totalWavelengthWeight += wavelengthWeight;
         }
 
-        return totalWavelengthWeight <= 1e-30
-            ? 0
-            : Math.Sqrt(Math.Max(0, weightedMeanSquare / totalWavelengthWeight));
+        if (totalWavelengthWeight <= 1e-30)
+        {
+            throw new AnalysisDataUnavailableException(
+                "RMS wavefront",
+                "no valid weighted wavefront samples");
+        }
+
+        return Math.Sqrt(Math.Max(0, weightedMeanSquare / totalWavelengthWeight));
     }
 
     public static double WeightedWavefrontRms(
@@ -619,7 +629,9 @@ internal static class RmsScanSupport
         var totalWeight = samples.Sum(item => item.Weight);
         if (totalWeight <= 1e-30)
         {
-            return 0;
+            throw new AnalysisDataUnavailableException(
+                "RMS wavefront",
+                "no valid weighted wavefront samples");
         }
 
         var piston = samples.Sum(item => item.Weight * item.Sample.OpdWaves) / totalWeight;

@@ -11,10 +11,6 @@ public sealed class RayGenerationSettings
     public int SamplesPerField { get; set; } = 9;
 
     public PupilSampling Sampling { get; set; } = PupilSampling.Hexapolar;
-
-    public bool Telecentric { get; set; }
-
-    public double ApodizationPower { get; set; }
 }
 
 public sealed class RayGenerator
@@ -86,20 +82,15 @@ public sealed class RayGenerator
                         apertureRadius,
                         applyVignetting: true,
                         realImageLaunch: realImageLaunch);
-                    var direction = Settings.Telecentric ? new Vector3D(0, 0, 1) : rayGeometry.Direction;
-                    var radius = Math.Sqrt((sample.X * sample.X) + (sample.Y * sample.Y));
-                    var legacyApodization = Settings.ApodizationPower <= 0
-                        ? 1.0
-                        : Math.Pow(Math.Max(0, 1 - (radius * radius)), Settings.ApodizationPower);
                     var fieldWeight = applyFieldWeight ? field.Weight : 1.0;
                     var wavelengthWeight = applyWavelengthWeight ? wavelength.Weight : 1.0;
 
                     var apodization = _optic.Apodization?.Intensity(sample.X, sample.Y) ?? 1.0;
                     rays.Add(new RealRay(
                         rayGeometry.Origin,
-                        direction,
+                        rayGeometry.Direction,
                         wavelength.Nanometers,
-                        fieldWeight * wavelengthWeight * sample.Weight * legacyApodization * apodization));
+                        fieldWeight * wavelengthWeight * sample.Weight * apodization));
                 }
             }
         }
@@ -230,18 +221,38 @@ public sealed class RayGenerator
         void GenerateRay(int index)
         {
             var sample = samples[index];
-            rays[index] = CreateRay(
-                field.X,
-                field.Y,
-                sample.X,
-                sample.Y,
-                apertureRadius,
-                wavelengthNanometers,
-                sample.Weight,
-                realImageLaunch,
-                aimAtStop,
-                resolvedStopTargets?[index],
-                fieldRayContext);
+            try
+            {
+                rays[index] = CreateRay(
+                    field.X,
+                    field.Y,
+                    sample.X,
+                    sample.Y,
+                    apertureRadius,
+                    wavelengthNanometers,
+                    sample.Weight,
+                    realImageLaunch,
+                    aimAtStop,
+                    resolvedStopTargets?[index],
+                    fieldRayContext);
+            }
+            catch (RayAimingException) when (aimAtStop)
+            {
+                // A batch can legitimately contain pupil samples that cannot reach
+                // the stop. Preserve the sample position but mark it invalid; the
+                // consuming analysis decides whether enough valid rays remain.
+                rays[index] = CreateRay(
+                    field.X,
+                    field.Y,
+                    sample.X,
+                    sample.Y,
+                    apertureRadius,
+                    wavelengthNanometers,
+                    intensity: 0,
+                    realImageLaunch,
+                    aimAtStop: false,
+                    fieldRayContext: fieldRayContext);
+            }
         }
 
         if (samples.Length >= 64)
@@ -380,7 +391,7 @@ public sealed class RayGenerator
                     0)
                 : fieldRayContext.BaseOrigin;
 
-        if (_optic.ObjectSpaceTelecentric)
+        if (_optic.ObjectSpaceTelecentric || _optic.FieldGroupTelecentric)
         {
             if (_optic.FieldDefinition == FieldDefinitionKind.Angle)
             {
@@ -456,6 +467,7 @@ public sealed class RayGenerator
         }
 
         var stop = _optic.SurfaceGroup.Items[stopIndex];
+        const int maximumIterations = 16;
         var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
             normalizedFieldX,
             normalizedFieldY,
@@ -464,29 +476,36 @@ public sealed class RayGenerator
             wavelengthNanometers,
             stopIndex);
         var aimedOrigin = origin;
-        for (var iteration = 0; iteration < 8; iteration++)
+        var lastErrorSquared = double.PositiveInfinity;
+        for (var iteration = 0; iteration < maximumIterations; iteration++)
         {
             var stopSample = _optic.SequentialRayTracer.TraceToSurface(
                 new RealRay(aimedOrigin, direction, wavelengthNanometers),
                 stopIndex);
             if (stopSample is null)
             {
-                break;
+                throw new RayAimingException(stop.Number, iteration + 1, double.PositiveInfinity);
             }
 
             var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
             var errorX = targetX - stopPoint.X;
             var errorY = targetY - stopPoint.Y;
-            if ((errorX * errorX) + (errorY * errorY) <= 1e-20)
+            lastErrorSquared = (errorX * errorX) + (errorY * errorY);
+            if (lastErrorSquared <= 1e-16)
             {
-                break;
+                return (aimedOrigin, direction);
             }
 
             var correction = stop.CoordinateSystem.ToGlobalDirection(new Vector3D(errorX, errorY, 0));
             aimedOrigin += new Vector3D(correction.X, correction.Y, 0);
         }
 
-        return (aimedOrigin, direction);
+        if (lastErrorSquared <= 1e-8)
+        {
+            return (aimedOrigin, direction);
+        }
+
+        throw new RayAimingException(stop.Number, maximumIterations, Math.Sqrt(lastErrorSquared));
     }
 
     private (Vector3D Origin, Vector3D Direction) AimFiniteRayAtStop(
@@ -522,6 +541,7 @@ public sealed class RayGenerator
         double? previousSlopeY = null;
         double? previousStopX = null;
         double? previousStopY = null;
+        var lastErrorSquared = double.PositiveInfinity;
         for (var iteration = 0; iteration < 12; iteration++)
         {
             var aimedDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
@@ -530,13 +550,14 @@ public sealed class RayGenerator
                 stopIndex);
             if (stopSample is null)
             {
-                break;
+                throw new RayAimingException(stop.Number, iteration + 1, double.PositiveInfinity);
             }
 
             var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
             var errorX = targetX - stopPoint.X;
             var errorY = targetY - stopPoint.Y;
-            if ((errorX * errorX) + (errorY * errorY) <= 1e-20)
+            lastErrorSquared = (errorX * errorX) + (errorY * errorY);
+            if (lastErrorSquared <= 1e-16)
             {
                 return (origin, aimedDirection);
             }
@@ -575,7 +596,12 @@ public sealed class RayGenerator
             slopeY += Math.Clamp(correctionY, -0.1, 0.1);
         }
 
-        return (origin, Normalize(new Vector3D(slopeX, slopeY, 1)));
+        if (lastErrorSquared <= 1e-8)
+        {
+            return (origin, Normalize(new Vector3D(slopeX, slopeY, 1)));
+        }
+
+        throw new RayAimingException(stop.Number, 12, Math.Sqrt(lastErrorSquared));
     }
 
     private (double X, double Y) ParaxialStopTarget(
@@ -941,7 +967,7 @@ public sealed class RayGenerator
             ? AngleFieldOrigin(launchX, launchY, 0, 0, apertureRadius)
             : ObjectHeightOrigin(launchX, launchY);
         Vector3D direction;
-        if (_optic.ObjectSpaceTelecentric)
+        if (_optic.ObjectSpaceTelecentric || _optic.FieldGroupTelecentric)
         {
             ValidateTelecentricField();
             direction = new Vector3D(0, 0, 1);
@@ -1151,4 +1177,21 @@ public sealed class RayGenerator
             throw new ArgumentOutOfRangeException(parameterName, "Normalized coordinates must be finite values in [-1, 1].");
         }
     }
+}
+
+public sealed class RayAimingException : InvalidOperationException
+{
+    public RayAimingException(int stopSurfaceNumber, int iterations, double residual)
+        : base($"Ray aiming did not converge at stop surface {stopSurfaceNumber} after {iterations} iterations; residual={residual:G6} mm.")
+    {
+        StopSurfaceNumber = stopSurfaceNumber;
+        Iterations = iterations;
+        Residual = residual;
+    }
+
+    public int StopSurfaceNumber { get; }
+
+    public int Iterations { get; }
+
+    public double Residual { get; }
 }

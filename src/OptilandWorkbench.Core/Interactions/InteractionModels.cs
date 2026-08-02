@@ -149,7 +149,10 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
         IsReflective = isReflective;
     }
 
-    public DiffractiveInteractionModel(double grooveFrequencyLinesPerMillimeter, int order = 1)
+    public DiffractiveInteractionModel(
+        double grooveFrequencyLinesPerMillimeter,
+        int order = 1,
+        bool isReflective = false)
     {
         if (!double.IsFinite(grooveFrequencyLinesPerMillimeter) || grooveFrequencyLinesPerMillimeter <= 0)
         {
@@ -158,6 +161,7 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
 
         GrooveFrequencyLinesPerMillimeter = grooveFrequencyLinesPerMillimeter;
         Order = order;
+        IsReflective = isReflective;
     }
 
     public string Kind => "diffractive";
@@ -258,7 +262,7 @@ public sealed class DiffractiveInteractionModel : IInteractionModel
     }
 
     public IInteractionModel Clone() => GrooveFrequencyLinesPerMillimeter is double frequency
-        ? new DiffractiveInteractionModel(frequency, Order ?? 1)
+        ? new DiffractiveInteractionModel(frequency, Order ?? 1, IsReflective)
         : new DiffractiveInteractionModel(IsReflective);
 
     private IGratingGeometry ResolveGeometry(SurfaceInteractionContext context)

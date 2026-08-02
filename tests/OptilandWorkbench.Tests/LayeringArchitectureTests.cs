@@ -73,11 +73,64 @@ public sealed class LayeringArchitectureTests
         Assert.Empty(declaredMethods);
     }
 
+    [Fact]
+    public void ProductionServicesCannotAddNewLegacyDependencies()
+    {
+        var allowed = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "AnalysisService.cs",
+            "Mapping/WorkbenchMapper.cs",
+            "MaterialCatalogService.Analysis.cs",
+            "MaterialCatalogService.cs",
+            "MultiConfigurationService.cs",
+            "OpticalDocumentService.cs",
+            "OpticContext.cs",
+            "OptimizationService.cs",
+            "OptimizationService.Run.cs",
+            "PrescriptionService.cs",
+            "TolerancingService.cs",
+            "VisualizationService.cs",
+            "WorkbenchServiceBase.cs",
+            "WorkspaceCoordinator.cs"
+        };
+        var servicesRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.Application",
+            "Services");
+        var actual = Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => File.ReadAllText(path).Contains(
+                "using OptilandWorkbench.Application.Legacy;",
+                StringComparison.Ordinal))
+            .Select(path => Path.GetRelativePath(servicesRoot, path).Replace('\\', '/'))
+            .ToHashSet(StringComparer.Ordinal);
+
+        Assert.True(
+            actual.IsSubsetOf(allowed),
+            $"New production Legacy dependencies: {string.Join(", ", actual.Except(allowed))}");
+    }
+
     private static void AssertNoUiReferences(Assembly assembly)
     {
         Assert.DoesNotContain(assembly.GetReferencedAssemblies(), reference =>
             reference.Name?.StartsWith("Avalonia", StringComparison.Ordinal) == true
             || reference.Name?.StartsWith("Dock.", StringComparison.Ordinal) == true);
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "OptilandWorkbench.slnx")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new DirectoryNotFoundException("Unable to locate the repository root.");
     }
 
     private static IEnumerable<Type> PublicMemberTypes(Type contractType)

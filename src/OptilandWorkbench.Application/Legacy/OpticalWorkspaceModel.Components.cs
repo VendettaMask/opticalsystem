@@ -283,7 +283,7 @@ public partial class OpticalWorkspaceModel
         {
             ThinLensInteractionModel thinLens => new ThinLensInteractionModel(thinLens.FocalLength, isMirror),
             DiffractiveInteractionModel diffractive when diffractive.GrooveFrequencyLinesPerMillimeter is double frequency =>
-                new DiffractiveInteractionModel(frequency, diffractive.Order ?? 1),
+                new DiffractiveInteractionModel(frequency, diffractive.Order ?? 1, isMirror),
             DiffractiveInteractionModel => new DiffractiveInteractionModel(isMirror),
             PhaseInteractionModel phase => new PhaseInteractionModel(phase.Profile.Clone(), isMirror),
             _ => new RefractiveReflectiveInteractionModel(isMirror)
