@@ -1,3 +1,4 @@
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
@@ -22,6 +23,59 @@ public sealed class ArchitectureConvergenceTests
             Optic.CreateCookeTriplet().Analyses.Create("not-registered"));
 
         Assert.Equal("not-registered", exception.AnalysisName);
+    }
+
+    [Fact]
+    public void WorkbenchAnalysisDescriptorsAreTheCanonicalProductMetadataSource()
+    {
+        var descriptors = WorkbenchAnalysisCatalog.Descriptors;
+        Assert.Equal(
+            descriptors.Count,
+            descriptors.Select(descriptor => descriptor.CanonicalKey).Distinct(StringComparer.Ordinal).Count());
+
+        var optic = Optic.CreateCookeTriplet();
+        Assert.All(optic.Analyses.Names, canonicalKey =>
+            Assert.True(
+                WorkbenchAnalysisCatalog.TryGetDescriptor(canonicalKey, out _),
+                $"Core analysis '{canonicalKey}' is missing a Workbench descriptor."));
+
+        foreach (var descriptor in descriptors)
+        {
+            Assert.Equal(
+                descriptor.CanonicalKey,
+                WorkbenchAnalysisCatalog.CanonicalKey(descriptor.CanonicalKey));
+            Assert.Equal(
+                descriptor.CanonicalKey,
+                WorkbenchAnalysisCatalog.CanonicalKey(descriptor.DisplayName));
+            Assert.Equal(
+                descriptor.DisplayName,
+                WorkbenchAnalysisCatalog.DisplayName(descriptor.CanonicalKey));
+            Assert.Equal(
+                descriptor.PresentationKind,
+                WorkbenchAnalysisCatalog.PresentationKind(descriptor.CanonicalKey));
+            Assert.All(descriptor.Aliases, alias =>
+                Assert.Equal(descriptor.CanonicalKey, WorkbenchAnalysisCatalog.CanonicalKey(alias)));
+        }
+    }
+
+    [Fact]
+    public void RibbonAnalysisCommandsResolveThroughWorkbenchDescriptors()
+    {
+        var commandIds = WorkbenchAnalysisCatalog.RibbonCommands
+            .Select(command => command.Id)
+            .ToHashSet(StringComparer.Ordinal);
+        Assert.All(
+            WorkbenchAnalysisCatalog.RibbonMenus.SelectMany(menu => menu.CommandIds),
+            commandId => Assert.True(commandId == "-" || commandIds.Contains(commandId)));
+
+        foreach (var command in WorkbenchAnalysisCatalog.RibbonCommands
+                     .Where(command => command.Kind == AnalysisRibbonCommandKind.Analysis))
+        {
+            Assert.True(
+                WorkbenchAnalysisCatalog.TryGetDescriptor(command.Name, out var descriptor),
+                $"Ribbon command '{command.Id}' with name '{command.Name}' has no descriptor.");
+            Assert.Equal(command, descriptor.RibbonCommand);
+        }
     }
 
     [Fact]

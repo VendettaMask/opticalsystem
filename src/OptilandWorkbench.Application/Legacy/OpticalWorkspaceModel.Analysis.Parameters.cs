@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -45,7 +46,12 @@ public partial class OpticalWorkspaceModel
         {
             "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384"
         };
-        return CanonicalAnalysisName(analysisName) switch
+        if (!WorkbenchAnalysisCatalog.TryGetDescriptor(analysisName, out var descriptor))
+        {
+            return Array.Empty<AnalysisParameterDescriptor>();
+        }
+
+        return descriptor.CanonicalKey switch
         {
             "Seidel Coefficients" => new[]
             {

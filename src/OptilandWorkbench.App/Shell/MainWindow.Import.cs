@@ -46,24 +46,4 @@ public sealed partial class MainWindow
     private static string BundledLensLibraryDirectory() =>
         Path.Combine(AppContext.BaseDirectory, "LensLibrary");
 
-    private sealed record AnalysisRibbonCommand(
-        string Id,
-        string Name,
-        string Label,
-        string IconName,
-        string Group,
-        AnalysisRibbonCommandKind Kind = AnalysisRibbonCommandKind.Analysis);
-
-    private enum AnalysisRibbonCommandKind
-    {
-        Analysis,
-        ImaBimViewer,
-        BitmapViewer
-    }
-
-    private sealed record AnalysisRibbonMenu(
-        string Group,
-        string Label,
-        string IconName,
-        IReadOnlyList<string> CommandIds);
 }

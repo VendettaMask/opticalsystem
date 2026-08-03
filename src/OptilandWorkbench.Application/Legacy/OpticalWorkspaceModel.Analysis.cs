@@ -48,7 +48,11 @@ public partial class OpticalWorkspaceModel
         IReadOnlyDictionary<string, string>? settings,
         CancellationToken cancellationToken)
     {
-        var canonicalName = CanonicalAnalysisName(analysisName);
+        if (!WorkbenchAnalysisCatalog.TryGetDescriptor(analysisName, out var descriptor))
+        {
+            throw new UnknownAnalysisException(analysisName);
+        }
+        var canonicalName = descriptor.CanonicalKey;
         settings ??= new Dictionary<string, string>();
         var analysis = CreateAnalysis(canonicalName, settings);
         var data = analysis.GenerateData(cancellationToken);

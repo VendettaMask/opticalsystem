@@ -20,8 +20,8 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 依赖冻结 | 已完成 | 架构测试固定当前生产服务允许清单，禁止新增 `Legacy` 依赖；现存依赖只能减少 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `660/660` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
-| 单一分析描述符与执行器 | 未完成 | Core、Application 和 GUI 仍分别维护部分名称、参数、展示与构造逻辑 |
+| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `662/662` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
+| 单一分析描述符与执行器 | 部分完成 | `WorkbenchAnalysisCatalog` 已统一规范键、显示名、别名、展示类型和 Ribbon 元数据，并作为参数/构造前置路由；具体参数定义与产品预设构造仍待从 Legacy 分部迁出 |
 | 工作区状态与领域服务迁移 | 未完成 | `OpticContext`、`WorkspaceCoordinator` 及多个服务仍以 `OpticalWorkspaceModel` 为实际状态/执行主体 |
 | 兼容层隔离与旧链路删除 | 未完成 | `OptilandConnector` 和 14 个 `OpticalWorkspaceModel` 分部文件仍在生产程序集内 |
 
@@ -33,7 +33,14 @@
 - 已实现：QR 最小二乘、Airy 圈半径/系列、常规波长选择和 MTF 数据类型映射各自收敛为一个共享实现；保留 MTF“负数表示仅主波长”的独立选择语义，避免错误合并。
 - 已实现：删除会把任意名称和 Glass Expert 悄悄映射为正交下降的 `NamedOptimizer`/`GlassExpert` 伪实现；`OptimizerCatalog` 对未实现 Glass Expert 抛出 `NotSupportedException`，对未知名称抛出 `ArgumentException`。
 - 兼容保留：`RealRayTracer` 外观、`OpticalSurface` 兼容投影、Legacy 单镜头适配器、插件加载器、Telecentric 独立字段和未接线但语义独立的反射填充算法不按“零引用”直接删除。
-- 计划中：单一分析描述符、`OpticalWorkspaceModel` 分域迁移和兼容层最终删除仍属于后续架构阶段；主题资源辅助函数只属于低风险 UI 去重，不与本轮计算链收敛混做。
+- 计划中：`OpticalWorkspaceModel` 分域迁移和兼容层最终删除仍属于后续架构阶段；主题资源辅助函数只属于低风险 UI 去重，不与计算链收敛混做。
+
+### 2026-08-03 Workbench 分析描述符收敛
+
+- 已实现：`WorkbenchAnalysisDescriptor` 统一保存规范键、中文显示名、兼容别名、`AnalysisPresentationKind` 和对应 Ribbon 命令；App 不再维护独立分析命令/菜单类型与静态注册表。
+- 已实现：Legacy 本地化入口、Application 分析服务、参数选择和分析构造前置路由均通过 `WorkbenchAnalysisCatalog`；未知分析不会越过目录进入任意执行分支。
+- 分层边界：Core `AnalysisCatalog` 继续负责通用默认构造，不吸收中文、Ribbon 或产品预设，避免 UI 默认值污染 Core 公共 API。
+- 尚未完成：参数描述符和带 Workbench 产品默认值的具体构造代码仍位于 `OpticalWorkspaceModel.Analysis*`；下一步按执行器迁移将其移到非 Legacy 服务。
 
 ### 外部审计条目的当前处理结果
 
@@ -62,7 +69,7 @@
 | Full Field 全失败伪零 | 已修正；全部采样失败抛出 `AnalysisDataUnavailableException`，部分失败记录数量 |
 | 通用图表 fallback | 已删除；没有分析声明的系列就不生成跨单位柱状图 |
 | Telecentric 两个布尔值 | 暂不合并：二者分别对应 Python Optiland `fields.telecentric` 与 `fields.object_space_telecentric` 的独立序列化字段；在缺少上游语义证据前，强行合并会破坏无损往返。当前仅确认两者在发射路径行为相同，列入语义核验项 |
-| 分析注册多处维护 | 尚未完成；已先阻止未知键回退，单一描述符仍是下一阶段主体工作 |
+| 分析注册多处维护 | 部分完成；Workbench 产品元数据与入口路由已收敛到 `WorkbenchAnalysisCatalog`，Core 通用默认目录按层次边界保留，参数定义和产品预设构造仍待迁出 Legacy |
 | `Legacy.OpticalWorkspaceModel` 仍是主流程 | 尚未完成；已冻结新增依赖并给结果增加真实执行器标识，下一步逐域迁出 |
 
 ## 1. 问题定性
@@ -98,7 +105,7 @@
 2026-08-02 对当前代码逐项复核后的结论如下：
 
 - 已证实并修正：`SurfaceGroup` 的破坏性组件重建、Legacy 几何同步副本、表面追迹双流程、入口瞳旧矩阵、光阑瞄准死参数、`SimpleOptimizer`、未规范化请求指纹、Full Field 全失败伪零、RMS Field Map 错误元数据和无语义图表 fallback。
-- 已证实但尚未完成：材料名称解析仍依赖持有目录的服务、分析描述符多处维护、`OpticalWorkspaceModel` 仍作为分析和其他领域的生产执行主体。
+- 已证实但尚未完成：材料名称解析仍依赖持有目录的服务；Workbench 分析元数据已统一，但参数定义和产品预设构造仍在 Legacy；`OpticalWorkspaceModel` 仍作为分析和其他领域的生产执行主体。
 - 不能按缺陷直接修改：Semi-Diameter 与 `PhysicalAperture` 是机械包络和光学裁剪两个概念；Telecentric 的两个字段对应外部格式中的不同键。除非取得格式语义证据和兼容迁移方案，否则不得为了减少字段数而合并。
 - 需要语义证据后再迁移：Telecentric 模式枚举会改变外部序列化及编辑契约，必须先取得上游字段定义，并建立导入、保存、重新打开和追迹等价测试。
 

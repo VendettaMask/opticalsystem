@@ -39,7 +39,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
 
     public IReadOnlyList<string> AnalysisNames => Connector.AnalysisDisplayNames;
 
-    public string CanonicalKey(string analysisName) => Connector.CanonicalAnalysisKey(analysisName);
+    public string CanonicalKey(string analysisName) => WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
 
     public IReadOnlyList<ContractAnalysisParameterDescriptor> GetParameters(string analysisName)
     {
@@ -91,7 +91,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
             {
                 linked.Token.ThrowIfCancellationRequested();
                 var worker = new OpticalWorkspaceModel(snapshot);
-                var canonicalAnalysisKey = worker.CanonicalAnalysisKey(request.AnalysisKey);
+                var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
                 var normalizedSettings = NormalizeAnalysisSettings(
                     worker,
                     canonicalAnalysisKey,
@@ -104,7 +104,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                     sourceRevision,
                     ToAnalysisViewDto(view) with
                     {
-                        PresentationKind = AnalysisPresentationKindResolver.Resolve(canonicalAnalysisKey)
+                        PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(canonicalAnalysisKey)
                     },
                     new AnalysisExecutionProvenanceDto(
                         canonicalAnalysisKey,
