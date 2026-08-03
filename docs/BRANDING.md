@@ -22,7 +22,7 @@ ICO 通过项目的 `ApplicationIcon` 使用，PNG 作为 Avalonia 资源用于�
 python tools/round_brand_icon.py src/OptilandWorkbench.App/Assets/Brand
 ```
 
-旧脚本 `tools/generate_brand_assets.py` 只用于历史镜头标识，不得覆盖当前黑洞图标。修改资源后应构建解决方案、运行 `BrandAssetTests`，并人工检查小尺寸图标和完整启动页。
+修改资源后应构建解决方案、运行 `BrandAssetTests`，并人工检查小尺寸图标和完整启动页。
 
 ## 启动生命周期
 

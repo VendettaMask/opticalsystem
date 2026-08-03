@@ -1,11 +1,12 @@
 # Zemax 一致性采集工具
 
 本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
+当前保留的入口均为 Python 或 ZPL 工具；历史外部探针和临时接口探针已删除，不属于当前基线采集链路。
 
 ## 工具用途
 
 - `zosapi_export.py`：通过官方 Python ZOS-API Standalone 连接加载顺序模式 ZMX，并导出 FFT MTF。
-- `zosapi_probe.m`：提供等价的 MATLAB 连接探测与 FFT MTF 导出。
+- `zosapi_through_focus_export.py`：通过官方 Python ZOS-API 导出 FFT Through Focus MTF 与相关波前/追迹参考数据。
 - `zosapi_capture_baseline.py`：为一个镜头枚举完整 `AnalysisIDM` 目录，并记录每项分析状态。
 - `capture_analysis_window.zpl`：在存在对应窗口代码时捕获真实 OpticStudio 分析窗口。
 - `verify_baseline.py`：验证清单、源文件哈希、JSON、设置/文本引用和截图。
@@ -19,13 +20,6 @@
 只有在确实需要保留交互会话、且许可证允许额外实例时才使用 `--allow-existing`。每个采集子进程仍保持隔离，只关闭自己创建的实例。
 
 ## 连接探测与基线采集
-
-在 MATLAB 中运行：
-
-```matlab
-addpath("D:\Projects\opticalsystem\tools\zemax_parity");
-result = zosapi_probe("C:\Users\19851\Desktop\123456.ZMX");
-```
 
 使用 Ansys 自带 Python 导出 FFT MTF：
 
@@ -51,14 +45,6 @@ result = zosapi_probe("C:\Users\19851\Desktop\123456.ZMX");
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
   "D:\Projects\opticalsystem\tools\zemax_parity\verify_baseline.py" `
   "D:\Projects\opticalsystem\artifacts\zemax\123456-zemax-2026-r1-baseline"
-```
-
-通过 MATLAB 导出 Zemax FFT MTF 的频率、子午和弧矢数组：
-
-```matlab
-result = zosapi_probe( ...
-    "C:\Users\19851\Desktop\123456.ZMX", ...
-    "D:\Projects\opticalsystem\artifacts\zemax\123456-fft-mtf.json");
 ```
 
 ## Workbench 图像口径

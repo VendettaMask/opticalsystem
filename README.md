@@ -64,7 +64,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至 2026-08-03，仓库包含 `662` 项回归测试，当前全量基线为 `662/662`。基线覆盖 Core、Application、Avalonia 首帧与主题、Dock 空宿主/会话/锁定、内部 MDI 布局，以及本轮架构收敛与光学计算回归。
+截至 2026-08-03，仓库包含 `663` 项回归测试，当前全量基线为 `663/663`。基线覆盖 Core、Application、Avalonia 首帧与主题、Dock 空宿主/会话/锁定、内部 MDI 布局、Ray Fan 方形面板契约，以及本轮架构收敛与光学计算回归。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 

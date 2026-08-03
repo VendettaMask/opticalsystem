@@ -52,7 +52,7 @@ public sealed partial class AnalysisPanel
                 : IsMatrixSpotView(view)
                 ? BuildMatrixSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
                 : IsRayFanView(view) || IsOpticalPathDifferenceView(view)
-                ? BuildRayFanPanePlot(view.PlotPanes)
+                ? BuildRayFanPanePlot(view.PlotPanes, defaultSquareCells: IsRayFanView(view))
                 : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns)
             : IsSeidelDiagramView(view)
                 ? BuildSeidelDiagramPlot(view)

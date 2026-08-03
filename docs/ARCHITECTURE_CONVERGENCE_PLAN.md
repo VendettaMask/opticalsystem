@@ -20,7 +20,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 依赖冻结 | 已完成 | 架构测试固定当前生产服务允许清单，禁止新增 `Legacy` 依赖；现存依赖只能减少 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `662/662` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
+| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `663/663` 通过；本轮新增的架构、导入、追迹、无数据和 Ray Fan 方形面板契约测试均已纳入基线 |
 | 单一分析描述符与执行器 | 部分完成 | `WorkbenchAnalysisCatalog` 已统一规范键、显示名、别名、展示类型和 Ribbon 元数据，并作为参数/构造前置路由；具体参数定义与产品预设构造仍待从 Legacy 分部迁出 |
 | 工作区状态与领域服务迁移 | 未完成 | `OpticContext`、`WorkspaceCoordinator` 及多个服务仍以 `OpticalWorkspaceModel` 为实际状态/执行主体 |
 | 兼容层隔离与旧链路删除 | 未完成 | `OptilandConnector` 和 14 个 `OpticalWorkspaceModel` 分部文件仍在生产程序集内 |

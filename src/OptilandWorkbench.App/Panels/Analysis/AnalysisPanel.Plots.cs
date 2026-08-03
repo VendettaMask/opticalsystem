@@ -113,7 +113,10 @@ public sealed partial class AnalysisPanel
         return toggle;
     }
 
-    private static Control BuildPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes, int requestedColumns)
+    private static Control BuildPanePlot(
+        IReadOnlyList<AnalysisPlotPaneDto> panes,
+        int requestedColumns,
+        bool defaultSquareCells = false)
     {
         var baseColumns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var baseRows = (int)Math.Ceiling(panes.Count / (double)baseColumns);
@@ -144,6 +147,7 @@ public sealed partial class AnalysisPanel
             var squareHost = new OptionalSquarePlotHost
             {
                 Child = plot,
+                IsSquare = defaultSquareCells,
                 MinWidth = 64,
                 MinHeight = 64
             };
@@ -154,7 +158,7 @@ public sealed partial class AnalysisPanel
             squareHosts.Add(squareHost);
         }
 
-        return BuildPanePlotContent(paneGrid, panes, plots, squareHosts);
+        return BuildPanePlotContent(paneGrid, panes, plots, squareHosts, defaultSquareCells);
     }
 
     private static bool IsRayFanView(AnalysisViewDto view)
@@ -674,13 +678,15 @@ public sealed partial class AnalysisPanel
                 : valueText;
     }
 
-    private static Control BuildRayFanPanePlot(IReadOnlyList<AnalysisPlotPaneDto> panes)
+    private static Control BuildRayFanPanePlot(
+        IReadOnlyList<AnalysisPlotPaneDto> panes,
+        bool defaultSquareCells = false)
     {
         const int fieldCount = 5;
         const int panesPerField = 2;
         if (panes.Count != fieldCount * panesPerField)
         {
-            return BuildPanePlot(panes, panesPerField);
+            return BuildPanePlot(panes, panesPerField, defaultSquareCells);
         }
 
         var fieldGrid = new Grid
@@ -704,7 +710,7 @@ public sealed partial class AnalysisPanel
             var pair = new Grid
             {
                 Width = 520,
-                Height = 280,
+                Height = 288,
                 ColumnDefinitions = new ColumnDefinitions("*,*"),
                 RowDefinitions = new RowDefinitions("28,*")
             };
@@ -728,7 +734,11 @@ public sealed partial class AnalysisPanel
                     PlotOptions = pane.PlotOptions with { Title = string.Empty },
                     Margin = new Thickness(2)
                 };
-                var squareHost = new OptionalSquarePlotHost { Child = plot };
+                var squareHost = new OptionalSquarePlotHost
+                {
+                    Child = plot,
+                    IsSquare = defaultSquareCells
+                };
                 Grid.SetColumn(squareHost, paneOffset);
                 Grid.SetRow(squareHost, 1);
                 pair.Children.Add(squareHost);
@@ -748,14 +758,15 @@ public sealed partial class AnalysisPanel
             fieldGrid.Children.Add(scaledPair);
         }
 
-        return BuildPanePlotContent(fieldGrid, panes, plots, squareHosts);
+        return BuildPanePlotContent(fieldGrid, panes, plots, squareHosts, defaultSquareCells);
     }
 
     private static Control BuildPanePlotContent(
         Control plotRoot,
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         IReadOnlyList<AnalysisPlotControl> plots,
-        IReadOnlyList<OptionalSquarePlotHost>? squareHosts = null)
+        IReadOnlyList<OptionalSquarePlotHost>? squareHosts = null,
+        bool defaultSquareCells = false)
     {
         var sourceSeries = panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>();
         var legendEntries = SelectableLegendEntries(sourceSeries);
@@ -817,7 +828,7 @@ public sealed partial class AnalysisPanel
             {
                 Name = "SquarePaneToggle",
                 Content = "方形子图",
-                IsChecked = false,
+                IsChecked = defaultSquareCells,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(12, 4, 12, 12)

@@ -632,7 +632,7 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(method);
         var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
             null,
-            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns, false }));
         var paneGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
         var hosts = paneGrid.Children.OfType<OptionalSquarePlotHost>().ToArray();
         Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
@@ -645,6 +645,98 @@ public sealed class AnalysisGuiContractTests
         toggle.IsChecked = true;
 
         Assert.All(hosts, host => Assert.True(host.IsSquare));
+    }
+
+    [Fact]
+    public void RayFanDefaultsToSquarePaneCells()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var view = connector.BuildAnalysisView("Ray Fan");
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        Assert.NotEmpty(viewDto.PlotPanes);
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildRayFanPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+            null,
+            new object[] { viewDto.PlotPanes, true }));
+        var hosts = FindSquareHosts(layout);
+
+        Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
+        Assert.All(hosts, host => Assert.True(host.IsSquare));
+
+        var toggle = Assert.Single(
+            layout.Children.OfType<Avalonia.Controls.CheckBox>(),
+            checkBox => checkBox.Name == "SquarePaneToggle");
+        Assert.True(toggle.IsChecked);
+        toggle.IsChecked = false;
+
+        Assert.All(hosts, host => Assert.False(host.IsSquare));
+
+        var dedicatedPanes = Enumerable.Range(0, 10)
+            .Select(index => viewDto.PlotPanes[index % viewDto.PlotPanes.Count] with
+            {
+                Title = $"Field {index / 2 + 1}"
+            })
+            .ToArray();
+        var dedicatedLayout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+            null,
+            new object[] { dedicatedPanes, true }));
+        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(dedicatedLayout.Children[0]);
+        var pairs = fieldGrid.Children
+            .OfType<Avalonia.Controls.Viewbox>()
+            .Select(viewbox => Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child))
+            .ToArray();
+        var dedicatedHosts = pairs.SelectMany(pair => pair.Children.OfType<OptionalSquarePlotHost>()).ToArray();
+
+        Assert.Equal(5, pairs.Length);
+        Assert.Equal(10, dedicatedHosts.Length);
+        Assert.All(pairs, pair =>
+        {
+            Assert.Equal(520, pair.Width);
+            Assert.Equal(288, pair.Height);
+        });
+        Assert.All(dedicatedHosts, host => Assert.True(host.IsSquare));
+    }
+
+    private static OptionalSquarePlotHost[] FindSquareHosts(Avalonia.Controls.Control root)
+    {
+        var hosts = new List<OptionalSquarePlotHost>();
+        Visit(root);
+        return hosts.ToArray();
+
+        void Visit(Avalonia.Controls.Control control)
+        {
+            if (control is OptionalSquarePlotHost host)
+            {
+                hosts.Add(host);
+            }
+
+            foreach (var child in ChildControls(control))
+            {
+                Visit(child);
+            }
+        }
+
+        static IEnumerable<Avalonia.Controls.Control> ChildControls(Avalonia.Controls.Control control)
+        {
+            return control switch
+            {
+                Avalonia.Controls.Panel panel => panel.Children.OfType<Avalonia.Controls.Control>(),
+                Avalonia.Controls.Decorator { Child: Avalonia.Controls.Control child } => new[] { child },
+                Avalonia.Controls.ContentControl { Content: Avalonia.Controls.Control child } => new[] { child },
+                _ => Array.Empty<Avalonia.Controls.Control>()
+            };
+        }
     }
 
     [Fact]
