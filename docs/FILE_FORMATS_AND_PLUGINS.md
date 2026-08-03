@@ -106,7 +106,7 @@ public sealed class ExamplePlugin : IOptilandPlugin
         registry.RegisterGeometry("example-plane", () => new PlaneGeometry());
         registry.RegisterMaterial(new ConstantIndexMaterial("EXAMPLE-N", 1.52));
         registry.RegisterAnalysis("example-report", optic =>
-            new PlaceholderAnalysis(optic, "Example Report"));
+            new SpotDiagramAnalysis(optic));
     }
 }
 ```

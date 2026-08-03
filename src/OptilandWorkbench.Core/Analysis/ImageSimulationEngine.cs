@@ -1173,23 +1173,6 @@ public static class ImageSimulationEngine
         }
     }
 
-    private static double[,,] Crop(double[,,] source, int padding, int height, int width)
-    {
-        var output = new double[source.GetLength(0), height, width];
-        for (var channel = 0; channel < output.GetLength(0); channel++)
-        {
-            for (var row = 0; row < height; row++)
-            {
-                for (var column = 0; column < width; column++)
-                {
-                    output[channel, row, column] = source[channel, row + padding, column + padding];
-                }
-            }
-        }
-
-        return output;
-    }
-
     private static double Bilinear(double[,] source, double y, double x)
     {
         var y0 = Math.Clamp((int)Math.Floor(y), 0, source.GetLength(0) - 1);

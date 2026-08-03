@@ -105,7 +105,7 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             .DefaultIfEmpty(0.01)
             .Max() * 1.05;
         axisLimit = axisLimit <= 1e-12 ? 0.01 : axisLimit;
-        var airyRadius = AiryRadius(analysisOptic, fields, wavelengths);
+        var airyRadius = AiryDiskSupport.CalculateRadius(analysisOptic, fields, wavelengths, _settings.ShowAiryDisk);
         axisLimit = Math.Max(axisLimit, airyRadius * 1.05);
         if (_settings.PlotScaleMicrometers > 0)
         {
@@ -141,7 +141,7 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                         YUnit: AnalysisAxisUnit.Millimeter)).ToList();
                 if (_settings.ShowAiryDisk && airyRadius > 0)
                 {
-                    series.Add(AiryDiskSeries(airyRadius));
+                    series.Add(AiryDiskSupport.CreateSeries(airyRadius));
                 }
 
                 var fieldRays = results[stepIndex].Fields[fieldIndex].Wavelengths
@@ -243,44 +243,6 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         return clone;
     }
 
-    private double AiryRadius(
-        Optic optic,
-        IReadOnlyList<(double Hx, double Hy)> fields,
-        IReadOnlyList<Wavelength> wavelengths)
-    {
-        if (!_settings.ShowAiryDisk || fields.Count == 0 || wavelengths.Count == 0)
-        {
-            return 0;
-        }
-
-        var wavelength = wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? wavelengths[0];
-        var workingFNumber = DiffractionEngine.WorkingFNumber(optic, fields[0], wavelength);
-        return 1.22 * wavelength.Micrometers * workingFNumber / 1000.0;
-    }
-
-    private static AnalysisSeries AiryDiskSeries(double radius)
-    {
-        var points = Enumerable.Range(0, 65)
-            .Select(index =>
-            {
-                var angle = 2 * Math.PI * index / 64;
-                return new AnalysisPoint(radius * Math.Cos(angle), radius * Math.Sin(angle));
-            })
-            .ToArray();
-        return new AnalysisSeries(
-            "X (mm)",
-            "Y (mm)",
-            points,
-            AnalysisSeriesKind.Line,
-            "艾里斑",
-            ColorIndex: 7,
-            LineWidth: 1.2,
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Millimeter,
-            YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Millimeter);
-    }
 }
 
 public sealed class ThroughFocusMtfAnalysis : BaseAnalysis

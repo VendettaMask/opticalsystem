@@ -376,23 +376,6 @@ public sealed class OrthogonalDescentOptimizer : IOptimizer
     }
 }
 
-public sealed class NamedOptimizer : IOptimizer
-{
-    private readonly OrthogonalDescentOptimizer _fallback = new();
-
-    public NamedOptimizer(string name)
-    {
-        Name = name;
-    }
-
-    public string Name { get; }
-
-    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
-    {
-        return _fallback.Optimize(problem, maxIterations).WithMessage($"Optimized with {Name} using orthogonal descent fallback");
-    }
-}
-
 public static class OptimizerCatalog
 {
     public static IReadOnlyList<string> Names { get; } = new[]
@@ -405,6 +388,8 @@ public static class OptimizerCatalog
 
     public static IOptimizer Create(string name)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
         return name switch
         {
             "LM / DLS" or "Least Squares" => new LeastSquaresOptimizer(),
@@ -417,33 +402,8 @@ public static class OptimizerCatalog
             "Differential Evolution" => new PopulationSearchOptimizer("Differential Evolution"),
             "Dual Annealing" => new PopulationSearchOptimizer("Dual Annealing"),
             "Basin Hopping" => new PopulationSearchOptimizer("Basin Hopping"),
-            "Glass Expert" => new NamedOptimizer("Glass Expert"),
-            _ => new NamedOptimizer(name)
-        };
-    }
-}
-
-public sealed class GlassExpert
-{
-    public OptimizerResult Run(OptimizationProblem problem, IReadOnlyList<string> candidateGlasses, int maxIterations = 25)
-    {
-        return OptimizerCatalog.Create("Orthogonal Descent").Optimize(problem, maxIterations);
-    }
-}
-
-internal static class OptimizerResultExtensions
-{
-    public static OptimizerResult WithMessage(this OptimizerResult result, string message)
-    {
-        return new OptimizerResult
-        {
-            Success = result.Success,
-            InitialMerit = result.InitialMerit,
-            FinalMerit = result.FinalMerit,
-            Iterations = result.Iterations,
-            BestVariables = result.BestVariables,
-            MeritHistory = result.MeritHistory,
-            Message = message
+            "Glass Expert" => throw new NotSupportedException("Glass Expert is not implemented."),
+            _ => throw new ArgumentException($"Unknown optimizer '{name}'.", nameof(name))
         };
     }
 }

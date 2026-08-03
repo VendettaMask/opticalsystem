@@ -4,7 +4,7 @@
 
 - 状态：执行中（尚未全部完成）
 - 编写日期：2026-08-02
-- 最后更新：2026-08-02
+- 最后更新：2026-08-03
 - 适用范围：`OptilandWorkbench.Core`、`OptilandWorkbench.Application`、`OptilandWorkbench.App` 及相关测试
 - 核心目标：同一个镜头、同一份设置和同一修订号，无论从哪个受支持入口执行，都必须进入同一条规范计算链路并得到一致结果
 
@@ -12,7 +12,7 @@
 
 | 范围 | 状态 | 当前结果 |
 | --- | --- | --- |
-| 停止伪成功 | 已完成 | 未知分析抛出结构化异常；`PlaceholderAnalysis` 已删除；无有效光线不再返回伪零值 |
+| 停止伪成功 | 已完成 | 未知分析抛出结构化异常；`PlaceholderAnalysis` 已删除；未实现的 Glass Expert 和未知优化器名称明确失败；无有效光线不再返回伪零值 |
 | 重复分析执行链 | 已完成 | `AnalysisRunner`、`SimpleOptimizer` 已删除；优化和离焦指标复用正式分析与优化框架 |
 | Ray Aiming 公开能力 | 已完成 | 未接入主追迹的四种 `IRayAimer` 模式已删除；从私有瞄准签名移除不会影响归一化光瞳目标的视场/波长参数 |
 | Telecentric / Apodization | 已完成 | 光线生成只读取 `Optic` 的规范状态，不再叠加旧设置对象 |
@@ -20,12 +20,20 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 依赖冻结 | 已完成 | 架构测试固定当前生产服务允许清单，禁止新增 `Legacy` 依赖；现存依赖只能减少 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `658/658` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
+| 当前验证基线 | 已完成 | CI 参数构建 `0` 警告、`0` 错误；全量测试 `660/660` 通过；本轮新增的架构、导入、追迹和无数据契约测试均已纳入基线 |
 | 单一分析描述符与执行器 | 未完成 | Core、Application 和 GUI 仍分别维护部分名称、参数、展示与构造逻辑 |
 | 工作区状态与领域服务迁移 | 未完成 | `OpticContext`、`WorkspaceCoordinator` 及多个服务仍以 `OpticalWorkspaceModel` 为实际状态/执行主体 |
 | 兼容层隔离与旧链路删除 | 未完成 | `OptilandConnector` 和 14 个 `OpticalWorkspaceModel` 分部文件仍在生产程序集内 |
 
 “已完成”只表示对应工作项已有代码和定向测试证明，不代表整个收敛计划已经完成。阶段 1 至阶段 5 的主体迁移仍需继续执行。
+
+### 2026-08-03 逻辑冗余清理
+
+- 已实现：删除未接入 Ribbon 主界面的旧菜单构造器、未调用的图像裁剪和 MTF 主波长方法，以及已被 `Layout2DScene`/`Layout3DScene` 取代的第一代可视化 DTO；镜头库预览统一复用 `WorkbenchMapper` 的规范场景映射。
+- 已实现：QR 最小二乘、Airy 圈半径/系列、常规波长选择和 MTF 数据类型映射各自收敛为一个共享实现；保留 MTF“负数表示仅主波长”的独立选择语义，避免错误合并。
+- 已实现：删除会把任意名称和 Glass Expert 悄悄映射为正交下降的 `NamedOptimizer`/`GlassExpert` 伪实现；`OptimizerCatalog` 对未实现 Glass Expert 抛出 `NotSupportedException`，对未知名称抛出 `ArgumentException`。
+- 兼容保留：`RealRayTracer` 外观、`OpticalSurface` 兼容投影、Legacy 单镜头适配器、插件加载器、Telecentric 独立字段和未接线但语义独立的反射填充算法不按“零引用”直接删除。
+- 计划中：单一分析描述符、`OpticalWorkspaceModel` 分域迁移和兼容层最终删除仍属于后续架构阶段；主题资源辅助函数只属于低风险 UI 去重，不与本轮计算链收敛混做。
 
 ### 外部审计条目的当前处理结果
 

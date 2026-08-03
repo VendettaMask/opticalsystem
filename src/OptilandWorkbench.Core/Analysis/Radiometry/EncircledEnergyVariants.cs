@@ -631,7 +631,7 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var wavelengths = EnergyCurveSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         var field = EnergyCurveSupport.SelectedField(Optic, _fieldNumber);
         if (wavelengths.Count == 0)
         {
@@ -790,7 +790,7 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var wavelengths = EnergyCurveSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
             return EnergyCurveSupport.Empty(Name);
@@ -919,14 +919,6 @@ internal static class EnergyCurveSupport
     public static AnalysisData Empty(string name)
     {
         return new AnalysisData(name, new Dictionary<string, object> { ["Status"] = "No energy data" });
-    }
-
-    public static IReadOnlyList<Wavelength> SelectedWavelengths(Optic optic, int wavelengthNumber)
-    {
-        var wavelengths = optic.Wavelengths.ToArray();
-        return wavelengthNumber > 0
-            ? wavelengths.Skip(wavelengthNumber - 1).Take(1).ToArray()
-            : wavelengths;
     }
 
     public static (double Hx, double Hy) SelectedField(Optic optic, int fieldNumber)

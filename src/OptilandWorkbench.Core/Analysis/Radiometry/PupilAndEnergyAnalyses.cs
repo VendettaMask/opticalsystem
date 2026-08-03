@@ -47,7 +47,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
-        var wavelengths = EnergyCurveSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });

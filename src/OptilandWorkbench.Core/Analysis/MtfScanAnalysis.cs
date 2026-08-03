@@ -56,7 +56,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
         _focusPlaneCount = Math.Clamp(focusPlaneCount, 1, 101);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(0, fieldNumber);
-        _dataType = MtfMethodEvaluator.ParseDataType(type);
+        _dataType = MtfDataTypeSupport.Parse(type);
         _useDashes = useDashes;
     }
 
@@ -157,7 +157,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
-                MtfMethodEvaluator.DataTypeLabel(_dataType),
+                MtfDataTypeSupport.Label(_dataType, "MTF"),
                 displayFocus.Select((value, index) => new AnalysisPoint(
                     value,
                 DisplayValue(tangentialDisplay[index]))).ToArray(),
@@ -169,7 +169,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
                 "Defocus (mm)",
-                MtfMethodEvaluator.DataTypeLabel(_dataType),
+                MtfDataTypeSupport.Label(_dataType, "MTF"),
                 displayFocus.Select((value, index) => new AnalysisPoint(
                     value,
                     DisplayValue(sagittalDisplay[index]))).ToArray(),
@@ -201,7 +201,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["NumberOfSteps"] = _focusPlaneCount,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["FieldNumber"] = _fieldNumber,
-            ["Type"] = MtfMethodEvaluator.DataTypeName(_dataType),
+            ["Type"] = MtfDataTypeSupport.Name(_dataType),
             ["UsePolarization"] = _settings.UsePolarization,
             ["UseDashes"] = _useDashes,
             ["ZemaxCompatible"] = _settings.ZemaxCompatible,
@@ -502,12 +502,6 @@ internal static class MtfMethodEvaluator
         }
 
         return new[] { wavelengths[Math.Clamp(wavelengthNumber - 1, 0, wavelengths.Length - 1)] };
-    }
-
-    public static Wavelength? PrimaryWavelength(Optic optic)
-    {
-        return optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? optic.Wavelengths.FirstOrDefault();
     }
 
     public static string MethodName(MtfComputationMethod method)
@@ -1037,42 +1031,6 @@ internal static class MtfMethodEvaluator
         return (
             Interpolate(tangentialFrequency, result.Tangential, frequency),
             Interpolate(sagittalFrequency, result.Sagittal, frequency));
-    }
-
-    internal static FftMtfDataType ParseDataType(string? value)
-    {
-        return value?.Trim().ToLowerInvariant() switch
-        {
-            "real" or "实部" => FftMtfDataType.Real,
-            "imaginary" or "虚部" => FftMtfDataType.Imaginary,
-            "phase" or "相位" => FftMtfDataType.Phase,
-            "squarewave" or "square wave" or "方波" => FftMtfDataType.SquareWave,
-            _ => FftMtfDataType.Modulation
-        };
-    }
-
-    internal static string DataTypeName(FftMtfDataType type)
-    {
-        return type switch
-        {
-            FftMtfDataType.Real => "Real",
-            FftMtfDataType.Imaginary => "Imaginary",
-            FftMtfDataType.Phase => "Phase",
-            FftMtfDataType.SquareWave => "SquareWave",
-            _ => "Modulation"
-        };
-    }
-
-    internal static string DataTypeLabel(FftMtfDataType type)
-    {
-        return type switch
-        {
-            FftMtfDataType.Real => "Real MTF",
-            FftMtfDataType.Imaginary => "Imaginary MTF",
-            FftMtfDataType.Phase => "Phase (radians)",
-            FftMtfDataType.SquareWave => "Square Wave MTF",
-            _ => "MTF"
-        };
     }
 
     private static double Sample(

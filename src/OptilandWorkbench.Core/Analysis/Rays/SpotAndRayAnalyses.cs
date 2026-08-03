@@ -76,7 +76,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
             .DefaultIfEmpty(0.01)
             .Max();
-        var airyRadius = AiryRadius(analysisOptic, fields, wavelengths);
+        var airyRadius = AiryDiskSupport.CalculateRadius(analysisOptic, fields, wavelengths, _settings.ShowAiryDisk);
         var requiredRadius = Math.Max(maximumRadius, airyRadius);
         var axisLimit = _settings.PlotScaleMicrometers > 0
             ? _settings.PlotScaleMicrometers / 1000.0
@@ -103,7 +103,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 YUnit: _settings.DirectionCosines ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter)).ToList();
             if (_settings.ShowAiryDisk && !_settings.DirectionCosines && airyRadius > 0)
             {
-                series.Add(AiryDiskSeries(airyRadius));
+                series.Add(AiryDiskSupport.CreateSeries(airyRadius));
             }
 
             var fieldRays = field.Wavelengths.SelectMany(wavelength => wavelength.Rays).ToArray();
@@ -193,45 +193,6 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             || string.Equals(_settings.Reference, "质心", StringComparison.Ordinal)
                 ? "主波长质心"
                 : "主光线";
-    }
-
-    private double AiryRadius(
-        Optic optic,
-        IReadOnlyList<(double Hx, double Hy)> fields,
-        IReadOnlyList<Wavelength> wavelengths)
-    {
-        if (!_settings.ShowAiryDisk || fields.Count == 0 || wavelengths.Count == 0)
-        {
-            return 0;
-        }
-
-        var wavelength = wavelengths.FirstOrDefault(item => item.IsPrimary)
-            ?? wavelengths[0];
-        var workingFNumber = DiffractionEngine.WorkingFNumber(optic, fields[0], wavelength);
-        return 1.22 * wavelength.Micrometers * workingFNumber / 1000.0;
-    }
-
-    private static AnalysisSeries AiryDiskSeries(double radius)
-    {
-        var points = Enumerable.Range(0, 65)
-            .Select(index =>
-            {
-                var angle = 2 * Math.PI * index / 64;
-                return new AnalysisPoint(radius * Math.Cos(angle), radius * Math.Sin(angle));
-            })
-            .ToArray();
-        return new AnalysisSeries(
-            "X (mm)",
-            "Y (mm)",
-            points,
-            AnalysisSeriesKind.Line,
-            "艾里斑",
-            ColorIndex: 7,
-            LineWidth: 1.2,
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Millimeter,
-            YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Millimeter);
     }
 
     private static double NiceAxisLimit(double minimum)

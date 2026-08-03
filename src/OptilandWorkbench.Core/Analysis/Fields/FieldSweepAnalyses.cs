@@ -65,7 +65,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 removeVignettingFactors: _removeVignetting,
                 zemaxCompatibleOutput: true).GenerateData();
             var wavefrontSeries = wavefront.PlotSeries.ToList();
-            var wavelengthSelection = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+            IReadOnlyList<Wavelength> wavelengthSelection = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
             var wavefrontDiffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengthSelection, _data);
             if (_showDiffractionLimit && wavefrontDiffractionLimit > 0 && wavefrontSeries.Count > 0)
             {
@@ -106,7 +106,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             workingOptic,
             _scanDirection,
             _fieldDensity + 1);
-        var wavelengths = RmsScanSupport.SelectedWavelengths(workingOptic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
         if (fields.Count == 0 || wavelengths.Count == 0)
         {
             return RmsScanSupport.Empty(Name);

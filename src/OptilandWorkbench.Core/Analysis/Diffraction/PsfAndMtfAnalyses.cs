@@ -297,7 +297,7 @@ public sealed class MtfAnalysis : BaseAnalysis
         _wavelengthNumber = wavelengthNumber;
         _fieldNumber = Math.Max(0, fieldNumber);
         _surfaceNumber = Math.Max(0, surfaceNumber);
-        _dataType = ParseDataType(type);
+        _dataType = MtfDataTypeSupport.Parse(type);
         _showDiffractionLimit = showDiffractionLimit;
         _usePolarization = usePolarization;
         _useDashes = useDashes;
@@ -327,7 +327,7 @@ public sealed class MtfAnalysis : BaseAnalysis
         var series = new List<AnalysisSeries>();
         var cutoff = 0.0;
         IReadOnlyList<AnalysisPoint>? diffractionLimit = null;
-        var yAxisLabel = DataTypeLabel(_dataType);
+        var yAxisLabel = MtfDataTypeSupport.Label(_dataType, "Modulation");
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
@@ -412,7 +412,7 @@ public sealed class MtfAnalysis : BaseAnalysis
             ["FieldNumber"] = _fieldNumber,
             ["FieldCount"] = fields.Length,
             ["SurfaceNumber"] = _surfaceNumber,
-            ["Type"] = DataTypeName(_dataType),
+            ["Type"] = MtfDataTypeSupport.Name(_dataType),
             ["ShowDiffractionLimit"] = _showDiffractionLimit,
             ["UsePolarization"] = _usePolarization,
             ["UseDashes"] = _useDashes,
@@ -588,39 +588,4 @@ public sealed class MtfAnalysis : BaseAnalysis
         return value / totalWeight;
     }
 
-    private static FftMtfDataType ParseDataType(string? value)
-    {
-        return value?.Trim().ToLowerInvariant() switch
-        {
-            "real" or "实部" => FftMtfDataType.Real,
-            "imaginary" or "虚部" => FftMtfDataType.Imaginary,
-            "phase" or "相位" => FftMtfDataType.Phase,
-            "squarewave" or "square wave" or "方波" => FftMtfDataType.SquareWave,
-            _ => FftMtfDataType.Modulation
-        };
-    }
-
-    private static string DataTypeName(FftMtfDataType type)
-    {
-        return type switch
-        {
-            FftMtfDataType.Real => "Real",
-            FftMtfDataType.Imaginary => "Imaginary",
-            FftMtfDataType.Phase => "Phase",
-            FftMtfDataType.SquareWave => "SquareWave",
-            _ => "Modulation"
-        };
-    }
-
-    private static string DataTypeLabel(FftMtfDataType type)
-    {
-        return type switch
-        {
-            FftMtfDataType.Real => "Real MTF",
-            FftMtfDataType.Imaginary => "Imaginary MTF",
-            FftMtfDataType.Phase => "Phase (radians)",
-            FftMtfDataType.SquareWave => "Square Wave MTF",
-            _ => "Modulation"
-        };
-    }
 }

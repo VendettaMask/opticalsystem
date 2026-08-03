@@ -161,7 +161,7 @@ public static class ReferenceSphereWavefrontEngine
             target[row] = (point.X * point.X) + (point.Y * point.Y) + (point.Z * point.Z);
         }
 
-        var parameters = SolveLeastSquares(design, target);
+        var parameters = QrLeastSquares.Solve(design, target);
         var centerX = parameters[0] / 2;
         var centerY = parameters[1] / 2;
         var centerZ = parameters[2] / 2;
@@ -170,73 +170,6 @@ public static class ReferenceSphereWavefrontEngine
             + (centerY * centerY)
             + (centerZ * centerZ)));
         return new Sphere(centerX, centerY, centerZ, radius);
-    }
-
-    private static double[] SolveLeastSquares(double[,] matrix, double[] target)
-    {
-        var rows = matrix.GetLength(0);
-        var columns = matrix.GetLength(1);
-        var q = new double[rows, columns];
-        var r = new double[columns, columns];
-        var work = (double[,])matrix.Clone();
-        for (var column = 0; column < columns; column++)
-        {
-            var norm = 0.0;
-            for (var row = 0; row < rows; row++)
-            {
-                norm += work[row, column] * work[row, column];
-            }
-
-            norm = Math.Sqrt(norm);
-            if (norm <= 1e-14)
-            {
-                continue;
-            }
-
-            r[column, column] = norm;
-            for (var row = 0; row < rows; row++)
-            {
-                q[row, column] = work[row, column] / norm;
-            }
-
-            for (var next = column + 1; next < columns; next++)
-            {
-                var projection = 0.0;
-                for (var row = 0; row < rows; row++)
-                {
-                    projection += q[row, column] * work[row, next];
-                }
-
-                r[column, next] = projection;
-                for (var row = 0; row < rows; row++)
-                {
-                    work[row, next] -= projection * q[row, column];
-                }
-            }
-        }
-
-        var projected = new double[columns];
-        for (var column = 0; column < columns; column++)
-        {
-            for (var row = 0; row < rows; row++)
-            {
-                projected[column] += q[row, column] * target[row];
-            }
-        }
-
-        var result = new double[columns];
-        for (var row = columns - 1; row >= 0; row--)
-        {
-            var value = projected[row];
-            for (var column = row + 1; column < columns; column++)
-            {
-                value -= r[row, column] * result[column];
-            }
-
-            result[row] = Math.Abs(r[row, row]) <= 1e-14 ? 0 : value / r[row, row];
-        }
-
-        return result;
     }
 
     private static double ImageToReferenceSphere(

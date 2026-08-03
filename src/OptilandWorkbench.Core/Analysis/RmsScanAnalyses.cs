@@ -187,7 +187,7 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         var fields = AnalysisTrace.DefinedFieldSamples(Optic);
-        var wavelengths = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (fields.Count == 0 || wavelengths.Count == 0)
         {
             return RmsScanSupport.Empty(Name);
@@ -320,7 +320,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var wavelengths = RmsScanSupport.SelectedWavelengths(Optic, _wavelengthNumber);
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         var maximumField = Math.Max(1e-12, AnalysisTrace.MaxFieldValue(Optic));
         if (wavelengths.Count == 0)
         {
@@ -415,14 +415,6 @@ internal static class RmsScanSupport
         return fieldNumber > 0
             ? fields.Skip(fieldNumber - 1).Take(1).ToArray()
             : fields;
-    }
-
-    public static IReadOnlyList<Wavelength> SelectedWavelengths(Optic optic, int wavelengthNumber)
-    {
-        var wavelengths = optic.Wavelengths.ToArray();
-        return wavelengthNumber > 0
-            ? wavelengths.Skip(wavelengthNumber - 1).Take(1).ToArray()
-            : wavelengths;
     }
 
     public static string NormalizeMethod(string method)

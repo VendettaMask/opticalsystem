@@ -75,7 +75,7 @@ internal sealed class LensLibraryService : ILensLibraryService
             () => BuildPreviewScene(optic),
             cancellationToken).ConfigureAwait(false);
         var summary = CreateSummary(optic, nativePath);
-        return new SceneDto(0, SceneDimension.TwoDimensional, ToScene2Dto(scene), null, summary);
+        return new SceneDto(0, SceneDimension.TwoDimensional, WorkbenchMapper.ToScene2Dto(scene), null, summary);
     }
 
     private static Layout2DScene BuildPreviewScene(Optic optic)
@@ -158,64 +158,6 @@ internal sealed class LensLibraryService : ILensLibraryService
         optic.SurfaceGroup.Items.Count,
         optic.Fields.Count,
         optic.Wavelengths.Count);
-
-    private static Scene2Dto ToScene2Dto(Layout2DScene scene)
-    {
-        ScenePoint2Dto Point(Layout2DPoint point) => new(point.Z, point.Y);
-        return new Scene2Dto(
-            scene.Surfaces.Select(surface => new SceneSurface2Dto(
-                surface.SurfaceNumber,
-                surface.Label,
-                surface.IsStop,
-                surface.IsReferencePlane,
-                surface.Points.Select(Point).ToArray(),
-                surface.IsStandaloneStop)).ToArray(),
-            scene.LensElements.Select(element => new SceneLensElement2Dto(
-                element.FrontSurfaceNumber,
-                element.BackSurfaceNumber,
-                element.Material,
-                element.Boundary.Select(Point).ToArray())).ToArray(),
-            scene.LensEdges.Select(edge => new SceneLensEdge2Dto(
-                edge.FrontSurfaceNumber,
-                edge.BackSurfaceNumber,
-                Point(edge.Start),
-                Point(edge.End))).ToArray(),
-            scene.Rays.Select(ray => new SceneRay2Dto(
-                ray.RayNumber,
-                ray.FieldIndex,
-                ray.PupilIndex,
-                ray.WavelengthIndex,
-                ray.Vignetted,
-                ray.FinalIntensity,
-                ray.Points.Select(Point).ToArray(),
-                ray.Segments.Select(segment => new SceneRaySegment2Dto(
-                    Point(segment.Start),
-                    Point(segment.End),
-                    new SceneRayDirection2Dto(segment.Direction.Z, segment.Direction.Y),
-                    segment.SegmentType switch
-                    {
-                        LayoutRaySegmentType.Incident => SceneRaySegmentType.Incident,
-                        LayoutRaySegmentType.Transmitted => SceneRaySegmentType.Transmitted,
-                        LayoutRaySegmentType.Reflected => SceneRaySegmentType.Reflected,
-                        LayoutRaySegmentType.TotalInternalReflection =>
-                            SceneRaySegmentType.TotalInternalReflection,
-                        _ => SceneRaySegmentType.Unspecified
-                    },
-                    segment.InteractionType switch
-                    {
-                        LayoutRayInteractionType.Refractive => SceneRayInteractionType.Refractive,
-                        LayoutRayInteractionType.Reflective => SceneRayInteractionType.Reflective,
-                        LayoutRayInteractionType.Diffractive => SceneRayInteractionType.Diffractive,
-                        LayoutRayInteractionType.ThinLens => SceneRayInteractionType.ThinLens,
-                        LayoutRayInteractionType.Phase => SceneRayInteractionType.Phase,
-                        _ => SceneRayInteractionType.None
-                    },
-                    segment.SourceSurfaceNumber,
-                    segment.TargetSurfaceNumber)).ToArray())).ToArray(),
-            scene.ZMin,
-            scene.ZMax,
-            scene.YExtent);
-    }
 
     private static string SafeChildPath(string root, string relativePath)
     {

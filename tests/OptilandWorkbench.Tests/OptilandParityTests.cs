@@ -1292,6 +1292,19 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void OptimizerCatalogRejectsUnimplementedGlassExpert()
+    {
+        Assert.Throws<NotSupportedException>(() => OptimizerCatalog.Create("Glass Expert"));
+    }
+
+    [Fact]
+    public void OptimizerCatalogRejectsUnknownOptimizerNames()
+    {
+        var exception = Assert.Throws<ArgumentException>(() => OptimizerCatalog.Create("Typo"));
+        Assert.Equal("name", exception.ParamName);
+    }
+
+    [Fact]
     public void MeritFunctionEvaluatesCommonZemaxStyleOperands()
     {
         var optic = Optic.CreateCookeTriplet();

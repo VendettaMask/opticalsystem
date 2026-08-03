@@ -14,7 +14,7 @@
 | 传播 | `Propagation` | 均匀介质和简化 GRIN |
 | 镀膜 | `Coatings` | 镀膜栈和四分之一波合成骨架；完整薄膜 TMM 未完成 |
 | 分析 | `Analysis` | 桌面分析目录与 30 个 Python 来源契约，另有 Zemax 捕获基准 |
-| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；Glass Expert 未实现 |
+| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；Glass Expert 未实现且会明确返回不支持，不回退到其他算法 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
 | 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |
 | 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集 |
