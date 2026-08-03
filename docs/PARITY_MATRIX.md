@@ -13,11 +13,11 @@
 | 材料 | `Materials` | Air、Vacuum、常数、Cauchy、Sellmeier、Abbe、目录 n/k 及厂商消歧 |
 | 传播 | `Propagation` | 均匀介质和简化 GRIN |
 | 镀膜 | `Coatings` | 镀膜栈和四分之一波合成骨架；完整薄膜 TMM 未完成 |
-| 分析 | `Analysis` | 桌面分析目录与 30 个 Python 来源契约，另有 Zemax 捕获基准 |
-| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；Glass Expert 未实现且会明确返回不支持，不回退到其他算法 |
+| 分析 | `Analysis` | 70 个规范分析、Workbench 单一描述符目录、30 个 Python 来源契约和固定 Zemax 捕获基准；独立畸变入口已合并到场曲/畸变，报告菜单含 5 个真实入口 |
+| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；ZMX 参考评价函数 103 行按源顺序可见，`TRAR` 可执行，未实现类型禁用只读保留；当前 51 个代码/兼容类型不等同 Zemax 333 项完整支持；Glass Expert 未实现且明确返回不支持 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
 | 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |
-| 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集 |
+| 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集；Zemax 只读评价函数参数往返时不裁剪 |
 | 插件 | `Plugins` | 程序集/目录发现，几何、材料、分析注册和失败隔离 |
 | 可视化 | `Visualization` | 二维/三维、显式光段方向和交互类型、主题资源 |
 | GUI | `OptilandWorkbench.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、三主题和按文件会话 |

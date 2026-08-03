@@ -93,7 +93,7 @@ public sealed class PanelManager : IDisposable
                 ShowViewer(OpticSceneViewMode.ThreeDimensional);
                 break;
             case WorkspacePanelId.Analysis:
-                ShowAnalysis(_application.Analyses.AnalysisNames.FirstOrDefault() ?? "处方报告");
+                ShowAnalysis(_application.Analyses.AnalysisNames.FirstOrDefault() ?? "表面数据报告");
                 break;
             case WorkspacePanelId.Optimization:
                 OpenStable("document:optimization", WorkspaceDocumentKind.Optimization, "优化");

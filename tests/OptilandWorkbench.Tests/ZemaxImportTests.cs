@@ -142,6 +142,94 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void ZemaxReferenceMeritFunctionRowsAreNotSilentlyDropped()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 20
+            SURF 1
+              CURV 0
+              DISZ 0
+            SINE 3 0 0 0 0 0 0 0 0 0
+            TTHI 0 15 0.25 0 0 0 195 0.02 0 0
+            CTGT 15 2 0 0 0 0 0.33 0.02 0 0
+            PMAG 0 1 0 0 0 0 -0.018 0 0 0
+            DIVI 15 14 0 0 0 0 -10 0.1 0 0
+            REAR 0 1 0 1 0 0 0 0 0 0
+            DIMX 0 1 0 0 0 0 2 0 0 0
+            PETZ 0 1 0 0 0 0 -99.794 0 0 0
+            MXEG 1 15 0 0 0 0 6 0.01 0 0
+            TRAR 0 1 0 -1 0.335710687 0 0 0.0969627362 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        OpticSnapshotValidator.Validate(optic.ToSnapshot());
+
+        Assert.Equal(
+            new[] { "SINE", "TTHI", "CTGT", "PMAG", "DIVI", "REAR", "DIMX", "PETZ", "MXEG", "TRAR" },
+            optic.MeritFunctionOperands.Select(operand => operand.Type));
+        Assert.All(optic.MeritFunctionOperands.Take(9), operand => Assert.False(operand.Enabled));
+
+        var thickness = optic.MeritFunctionOperands[1];
+        Assert.Equal(0, thickness.Surface);
+        Assert.Equal(15, thickness.Wavelength);
+        Assert.Equal(0.25, thickness.Hx, precision: 12);
+        Assert.Equal(0, thickness.Field);
+        Assert.Equal(195, thickness.Target, precision: 12);
+        Assert.Equal(0.02, thickness.Weight, precision: 12);
+
+        var ray = optic.MeritFunctionOperands[^1];
+        Assert.True(ray.Enabled);
+        Assert.Equal(0, ray.Surface);
+        Assert.Equal(1, ray.Wavelength);
+        Assert.Equal(0, ray.Hx, precision: 12);
+        Assert.Equal(-1, ray.Hy, precision: 12);
+        Assert.Equal(0.335710687, ray.Px, precision: 12);
+        Assert.Equal(0, ray.Py, precision: 12);
+        Assert.Equal(0.0969627362, ray.Weight, precision: 12);
+    }
+
+    [Fact]
+    public void MsL7MeritFunctionMatchesTrackedZemaxRowOrder()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var path = Path.Combine(
+            repositoryRoot,
+            "local-data",
+            "lens-library",
+            "originals",
+            "user-zmx",
+            "project",
+            "root",
+            "[MS-L7](10X大NA大视场).ZMX");
+        var source = File.ReadAllText(path);
+        var sourceRows = source
+            .Replace("\r\n", "\n", StringComparison.Ordinal)
+            .Replace('\r', '\n')
+            .Split('\n')
+            .SkipWhile(line => !line.Trim().Equals("BLNK MICROSCOPE", StringComparison.Ordinal))
+            .TakeWhile(line => !line.TrimStart().StartsWith("TOL ", StringComparison.Ordinal))
+            .Select(line => line.Trim().Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries))
+            .Where(tokens => tokens.Length > 0 && tokens[0].Length == 4)
+            .Select(tokens => tokens[0].ToUpperInvariant())
+            .ToArray();
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(103, sourceRows.Length);
+        Assert.Equal(sourceRows, optic.MeritFunctionOperands.Select(operand => operand.Type));
+    }
+
+    [Fact]
     public void ZemaxImportRejectsExcessiveMultiConfigurationCount()
     {
         var configurationCount = StarOptProjectStore.MaximumConfigurationCount + 1;
@@ -1047,4 +1135,16 @@ public sealed class ZemaxImportTests
 
     private static string FixturePath(string fileName) =>
         Path.Combine(AppContext.BaseDirectory, "Fixtures", fileName);
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OptilandWorkbench.slnx")))
+        {
+            directory = directory.Parent;
+        }
+
+        return directory?.FullName
+            ?? throw new DirectoryNotFoundException("无法从测试输出目录定位仓库根目录。");
+    }
 }

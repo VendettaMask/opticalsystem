@@ -24,6 +24,11 @@ public sealed class ZemaxPupilAberrationParityTests
         Assert.All(
             panes.SelectMany(pane => pane.Series),
             series => Assert.Equal(41, series.Points.Count));
+        Assert.All(panes, pane =>
+        {
+            Assert.Equal(-1e-5, pane.PlotOptions.YMinimum);
+            Assert.Equal(1e-5, pane.PlotOptions.YMaximum);
+        });
 
         var currentMaximum = panes
             .SelectMany(pane => pane.Series)

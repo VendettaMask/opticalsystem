@@ -3,6 +3,8 @@
 本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
 当前保留的入口均为 Python 或 ZPL 工具；历史外部探针和临时接口探针已删除，不属于当前基线采集链路。
 
+本目录只处理分析数据、设置和截图基线，不验证 Zemax Merit Function Editor。`[MS-L7]` 的 103 行评价函数导入、51 个当前代码/兼容类型及禁用只读边界由 Core 导入测试和 [Zemax 顺序模式操作数支持规范](../../docs/ZEMAX_OPERAND_SUPPORT.md) 管理，不能用这里的 69 页截图或 30 项数值映射替代。
+
 ## 工具用途
 
 - `zosapi_export.py`：通过官方 Python ZOS-API Standalone 连接加载顺序模式 ZMX，并导出 FFT MTF。
@@ -54,7 +56,7 @@
 - `images/current/*.png`：由结构化结果 JSON 离线绘制的 Matplotlib 图，只用于数据形状诊断，不能证明 GUI 一致。
 - `images/gui-current/*.png`：由真实 Avalonia `AnalysisPanel` 渲染，包含导入镜头、保存的分析设置、明亮主题、工具栏、图表/数据/文本页签和报告页脚；只有这类图像可用于 Workbench 与 Zemax 的 GUI 对比。
 
-构建桌面应用后捕获全部 69 个真实 GUI 分析页：
+构建桌面应用后捕获固定基线清单中的 69 个真实 GUI 分析页。这里的 69 是 `current-manifest.json` 的历史捕获项数，不是当前 Workbench 分析目录总数；当前 Core 目录为 70 项，新增报告类入口以及独立畸变入口退场不自动改写这份 Zemax 图像基线：
 
 ```powershell
 dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
@@ -96,7 +98,7 @@ python tools/zemax_parity/generate_workbench_comparison.py `
 
 捕获命令还接受从 1 开始的 `start-index` 和 `end-index`。传入相同索引可只重算一项并复用其他已有结果。常用索引：视场曲率与畸变 `11`、畸变 `12`、包围能量 `19`、扩展源包围能量 `22`、光瞳像差 `23`、Huygens 离焦 MTF `32`、Huygens MTF `52`、对比度损失图 `55`、光程差 `56`、波前 `58`。
 
-定向重算不能提供有效的全套性能总计，因为复用项没有重新计时；在全部 69 项重算前，应保留最近一次完整运行的时间数据。
+定向重算不能提供有效的全套性能总计，因为复用项没有重新计时；在固定清单全部 69 项重算前，应保留最近一次完整运行的时间数据。
 
 捕获目录为每项 Workbench 分析保留原始 JSON。对比目录当前包含 30 组可机读的等价数值比较、30 张数值图、2 个明确排除的非等价映射，以及 69 组 Workbench/Zemax 页面图像。旧报告只用于稳定物理序列映射，不能复用其中的 Workbench 数值。
 

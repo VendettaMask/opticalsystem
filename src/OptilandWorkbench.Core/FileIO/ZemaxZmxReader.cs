@@ -230,7 +230,23 @@ internal static class ZemaxZmxReader
                     });
                     break;
                 case "OPDX":
-                    ReadOpticalPathDifferenceOperand(document, tokens);
+                case "OPDM":
+                case "OPDC":
+                case "TRAC":
+                case "TRAR":
+                case "TRCX":
+                case "TRCY":
+                case "TRAX":
+                case "TRAY":
+                case "ANAC":
+                case "ANAR":
+                case "ANCX":
+                case "ANCY":
+                case "ANAX":
+                case "ANAY":
+                case "REAX":
+                case "REAY":
+                    ReadPupilRayMeritOperand(document, tokens, command);
                     break;
                 case "MECS":
                 case "MECT":
@@ -248,6 +264,15 @@ internal static class ZemaxZmxReader
                 case "MNCG":
                 case "MXCG":
                 case "MNEG":
+                case "MXEG":
+                case "TTHI":
+                case "CTGT":
+                case "PMAG":
+                case "REAR":
+                case "DIMX":
+                case "PETZ":
+                case "SINE":
+                case "DIVI":
                     ReadPreservedMeritOperand(document, tokens, command);
                     break;
                 case "MNUM":
@@ -783,11 +808,11 @@ internal static class ZemaxZmxReader
         }
     }
 
-    private static void ReadOpticalPathDifferenceOperand(
+    private static void ReadPupilRayMeritOperand(
         ZemaxDocument document,
-        IReadOnlyList<string> tokens)
+        IReadOnlyList<string> tokens,
+        string command)
     {
-        const string command = "OPDX";
         document.MeritOperands.Add(new MeritOperandDefinition
         {
             Type = command,
@@ -837,10 +862,10 @@ internal static class ZemaxZmxReader
             Type = command,
             Surface = RequiredInt(tokens, 1, command),
             Wavelength = RequiredInt(tokens, 2, command),
-            Field = RequiredInt(tokens, 3, command),
-            Hx = RequiredDouble(tokens, 4, command),
-            Hy = RequiredDouble(tokens, 5, command),
-            Px = RequiredDouble(tokens, 6, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
             Target = RequiredDouble(tokens, 7, command),
             Weight = RequiredDouble(tokens, 8, command),
             Comment = $"Zemax 只读记录：{string.Join(" ", tokens.Skip(1))}"

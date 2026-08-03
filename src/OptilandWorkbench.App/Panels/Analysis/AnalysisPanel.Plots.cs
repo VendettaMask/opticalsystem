@@ -27,16 +27,14 @@ public sealed partial class AnalysisPanel
             PlotOptions = view.PlotOptions,
             MinHeight = 360
         };
-        OptionalSquarePlotHost? squareHost = null;
         Control plotRoot = plot;
         if (view.PlotOptions.DefaultSquareViewport)
         {
-            squareHost = new OptionalSquarePlotHost
+            plotRoot = new OptionalSquarePlotHost
             {
                 Child = plot,
                 IsSquare = true
             };
-            plotRoot = squareHost;
         }
         var legendEntries = SelectableLegendEntries(view.Series);
         if (legendEntries.Count == 0)
@@ -49,11 +47,6 @@ public sealed partial class AnalysisPanel
                     EmptyPlotMessage(view.Series.Count == 0)
                 }
             };
-            if (view.PlotOptions.DefaultSquareViewport)
-            {
-                content.Children.Add(BuildSinglePlotSquareToggle(squareHost!));
-            }
-
             return content;
         }
 
@@ -97,22 +90,6 @@ public sealed partial class AnalysisPanel
         return layout;
     }
 
-    private static CheckBox BuildSinglePlotSquareToggle(OptionalSquarePlotHost squareHost)
-    {
-        var toggle = new CheckBox
-        {
-            Name = "SquarePlotToggle",
-            Content = "方形绘图",
-            IsChecked = true,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Bottom,
-            Margin = new Thickness(12)
-        };
-        ToolTip.SetTip(toggle, "可选：使用方形绘图区；取消后自动铺满可用空间。");
-        toggle.IsCheckedChanged += (_, _) => squareHost.IsSquare = toggle.IsChecked == true;
-        return toggle;
-    }
-
     private static Control BuildPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns,
@@ -132,7 +109,6 @@ public sealed partial class AnalysisPanel
             RowDefinitions = new RowDefinitions(string.Join(',', Enumerable.Repeat("*", rows)))
         };
         var plots = new List<AnalysisPlotControl>(panes.Count);
-        var squareHosts = new List<OptionalSquarePlotHost>(panes.Count);
         for (var index = 0; index < panes.Count; index++)
         {
             var pane = panes[index];
@@ -155,15 +131,19 @@ public sealed partial class AnalysisPanel
             Grid.SetRow(squareHost, index / columns);
             paneGrid.Children.Add(squareHost);
             plots.Add(plot);
-            squareHosts.Add(squareHost);
         }
 
-        return BuildPanePlotContent(paneGrid, panes, plots, squareHosts, defaultSquareCells);
+        return BuildPanePlotContent(paneGrid, panes, plots);
     }
 
     private static bool IsRayFanView(AnalysisViewDto view)
     {
         return view.PresentationKind == AnalysisPresentationKind.RayFan;
+    }
+
+    private static bool IsPupilAberrationView(AnalysisViewDto view)
+    {
+        return view.PresentationKind == AnalysisPresentationKind.PupilAberration;
     }
 
     private static bool IsOpticalPathDifferenceView(AnalysisViewDto view)
@@ -343,15 +323,16 @@ public sealed partial class AnalysisPanel
     {
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
-        var labelWidth = configurationMatrix ? 220d : 150d;
-        var plotColumnWidth = configurationMatrix ? 170d : 114d;
-        var plotRowHeight = configurationMatrix ? 128d : 104d;
-        var plotWidth = configurationMatrix ? 164d : 110d;
-        var plotHeight = configurationMatrix ? 122d : 100d;
+        var labelWidth = configurationMatrix ? 180d : 132d;
+        var plotColumnWidth = configurationMatrix ? 170d : 146d;
+        var plotRowHeight = configurationMatrix ? 170d : 142d;
+        var plotWidth = configurationMatrix ? 164d : 140d;
+        var plotHeight = configurationMatrix ? 164d : 140d;
+        var headerHeight = configurationMatrix ? 36d : 28d;
         var matrix = new Grid
         {
             Width = labelWidth + (columns * plotColumnWidth),
-            Height = 36 + (rows * plotRowHeight),
+            Height = headerHeight + (rows * plotRowHeight),
             ColumnDefinitions = new ColumnDefinitions(
                 $"{labelWidth.ToString(CultureInfo.InvariantCulture)}," +
                 string.Join(
@@ -360,7 +341,7 @@ public sealed partial class AnalysisPanel
                         plotColumnWidth.ToString(CultureInfo.InvariantCulture),
                         columns))),
             RowDefinitions = new RowDefinitions(
-                "36," + string.Join(
+                headerHeight.ToString(CultureInfo.InvariantCulture) + "," + string.Join(
                     ',',
                     Enumerable.Repeat(
                         plotRowHeight.ToString(CultureInfo.InvariantCulture),
@@ -369,8 +350,10 @@ public sealed partial class AnalysisPanel
 
         var corner = new TextBlock
         {
-            Text = "波长 →\n视场    ↓",
-            FontSize = 12,
+            Text = configurationMatrix
+                ? "结构 →\n视场    ↓"
+                : "波长 →\n视场    ↓",
+            FontSize = 10.5,
             HorizontalAlignment = HorizontalAlignment.Right,
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(4, 0, 12, 0)
@@ -381,8 +364,10 @@ public sealed partial class AnalysisPanel
         {
             var header = new TextBlock
             {
-                Text = MatrixWavelengthLabel(panes[column].Title),
-                FontSize = 12,
+                Text = configurationMatrix
+                    ? ConfigurationMatrixConfigurationLabel(panes[column].Title)
+                    : MatrixWavelengthLabel(panes[column].Title),
+                FontSize = 10.5,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom,
@@ -403,9 +388,9 @@ public sealed partial class AnalysisPanel
             var fieldLabel = new TextBlock
             {
                 Text = configurationMatrix
-                    ? ConfigurationMatrixRowLabel(panes[paneIndex].Title)
+                    ? ConfigurationMatrixFieldLabel(panes[paneIndex].Title)
                     : panes[paneIndex].Footer,
-                FontSize = 12,
+                FontSize = 10.5,
                 FontFamily = configurationMatrix
                     ? FontFamily.Default
                     : new FontFamily("Cascadia Mono, Consolas"),
@@ -433,7 +418,11 @@ public sealed partial class AnalysisPanel
             {
                 XAxisLabel = string.Empty,
                 YAxisLabel = string.Empty,
-                Name = string.Empty
+                Name = configurationMatrix ? series.Name : string.Empty,
+                XQuantity = AnalysisAxisQuantity.Unspecified,
+                XUnit = AnalysisAxisUnit.Unspecified,
+                YQuantity = AnalysisAxisQuantity.Unspecified,
+                YUnit = AnalysisAxisUnit.Unspecified
             }).ToArray();
             var plot = new AnalysisPlotControl
             {
@@ -462,7 +451,7 @@ public sealed partial class AnalysisPanel
             {
                 Text = (Math.Abs(xMaximum - xMinimum) * 1000)
                     .ToString("0.000", CultureInfo.InvariantCulture),
-                FontSize = 10.5,
+                FontSize = 9.5,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
@@ -475,22 +464,68 @@ public sealed partial class AnalysisPanel
             matrix.Children.Add(sharedScale);
         }
 
-        var legendEntries = new List<(string Key, string Label, int ColorIndex)>();
-        for (var column = 0; column < columns && column < panes.Count; column++)
+        var legendEntries = new List<(string Key, string Label, Color Color)>();
+        if (configurationMatrix)
         {
-            var series = panes[column].Series.FirstOrDefault();
-            if (series is null)
+            foreach (var series in panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>())
             {
-                continue;
-            }
-
-            if (TryGetWavelengthLegend(panes[column].Title, out var key, out var label))
-            {
-                legendEntries.Add((key, label, series.ColorIndex));
+                if (TryGetSelectableLegend(series, out var key, out var label)
+                    && legendEntries.All(entry => entry.Key != key))
+                {
+                    legendEntries.Add((key, label, AnalysisPlotControl.SeriesColor(series)));
+                }
             }
         }
+        else
+        {
+            for (var column = 0; column < columns && column < panes.Count; column++)
+            {
+                var series = panes[column].Series.FirstOrDefault();
+                if (series is null)
+                {
+                    continue;
+                }
+
+                if (TryGetWavelengthLegend(panes[column].Title, out var key, out var label))
+                {
+                    var color = double.TryParse(
+                        key,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out var wavelengthMicrometers)
+                            ? AnalysisPlotControl.WavelengthColor(wavelengthMicrometers * 1000)
+                            : AnalysisPlotControl.SeriesColor(series);
+                    legendEntries.Add((key, label, color));
+                }
+            }
+        }
+
+        var enabledLegendKeys = legendEntries
+            .Select(entry => entry.Key)
+            .ToHashSet(StringComparer.Ordinal);
         var legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
         {
+            if (configurationMatrix)
+            {
+                if (isVisible)
+                {
+                    enabledLegendKeys.Add(key);
+                }
+                else
+                {
+                    enabledLegendKeys.Remove(key);
+                }
+
+                foreach (var (plot, originalSeries) in columnPlots.SelectMany(items => items))
+                {
+                    plot.Series = originalSeries.Where(series =>
+                        !TryGetSelectableLegend(series, out var seriesKey, out _)
+                        || enabledLegendKeys.Contains(seriesKey)).ToArray();
+                }
+
+                return;
+            }
+
             var column = legendEntries.FindIndex(entry => entry.Key == key);
             if (column < 0 || column >= columnPlots.Length)
             {
@@ -546,33 +581,38 @@ public sealed partial class AnalysisPanel
                 : valueText;
     }
 
-    private static string ConfigurationMatrixRowLabel(string title)
+    private static string ConfigurationMatrixConfigurationLabel(string title)
     {
-        var wavelengthSeparator = title.LastIndexOf(" · ", StringComparison.Ordinal);
-        var rowLabel = wavelengthSeparator > 0
-            ? title[..wavelengthSeparator].Trim()
-            : title.Trim();
-        var structureSeparator = rowLabel.IndexOf(" · ", StringComparison.Ordinal);
-        return structureSeparator > 0
-            ? rowLabel[..structureSeparator] + Environment.NewLine
-                + rowLabel[(structureSeparator + 3)..]
-            : rowLabel;
+        var separator = title.IndexOf(" · ", StringComparison.Ordinal);
+        return separator > 0 ? title[..separator].Trim() : title.Trim();
+    }
+
+    private static string ConfigurationMatrixFieldLabel(string title)
+    {
+        var separator = title.IndexOf(" · ", StringComparison.Ordinal);
+        return separator > 0 ? title[(separator + 3)..].Trim() : title.Trim();
     }
 
     private static Control BuildThroughFocusSpotPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns)
     {
+        const int fieldLabelWidth = 120;
+        const int plotCellSize = 124;
+        const int plotSize = 120;
+        const int columnLabelHeight = 24;
+        const int axisCaptionHeight = 24;
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
         var matrix = new Grid
         {
-            Width = 142 + (columns * 114),
-            Height = (rows * 104) + 58,
+            Width = fieldLabelWidth + (columns * plotCellSize),
+            Height = (rows * plotCellSize) + columnLabelHeight + axisCaptionHeight,
             ColumnDefinitions = new ColumnDefinitions(
-                "142," + string.Join(',', Enumerable.Repeat("114", columns))),
+                $"{fieldLabelWidth}," + string.Join(',', Enumerable.Repeat(plotCellSize.ToString(CultureInfo.InvariantCulture), columns))),
             RowDefinitions = new RowDefinitions(
-                string.Join(',', Enumerable.Repeat("104", rows)) + ",28,30")
+                string.Join(',', Enumerable.Repeat(plotCellSize.ToString(CultureInfo.InvariantCulture), rows))
+                    + $",{columnLabelHeight},{axisCaptionHeight}")
         };
 
         for (var row = 0; row < rows; row++)
@@ -590,7 +630,7 @@ public sealed partial class AnalysisPanel
             var label = new TextBlock
             {
                 Text = fieldLabel,
-                FontSize = 12,
+                FontSize = 10,
                 FontWeight = FontWeight.SemiBold,
                 Margin = new Thickness(4, 0, 12, 0),
                 HorizontalAlignment = HorizontalAlignment.Right,
@@ -609,15 +649,19 @@ public sealed partial class AnalysisPanel
                 Series = pane.Series.Select(series => series with
                 {
                     XAxisLabel = string.Empty,
-                    YAxisLabel = string.Empty
+                    YAxisLabel = string.Empty,
+                    XQuantity = AnalysisAxisQuantity.Unspecified,
+                    XUnit = AnalysisAxisUnit.Unspecified,
+                    YQuantity = AnalysisAxisQuantity.Unspecified,
+                    YUnit = AnalysisAxisUnit.Unspecified
                 }).ToArray(),
                 PlotOptions = pane.PlotOptions with
                 {
                     Title = string.Empty,
                     HideTickLabels = true
                 },
-                Width = 110,
-                Height = 100,
+                Width = plotSize,
+                Height = plotSize,
                 Margin = new Thickness(2)
             };
             Grid.SetColumn(plot, (index % columns) + 1);
@@ -631,7 +675,7 @@ public sealed partial class AnalysisPanel
             var header = new TextBlock
             {
                 Text = DefocusMicrometersLabel(panes[column].Title),
-                FontSize = 12,
+                FontSize = 10,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
@@ -644,7 +688,7 @@ public sealed partial class AnalysisPanel
         var axisCaption = new TextBlock
         {
             Text = "←  离焦：µm  →",
-            FontSize = 12,
+            FontSize = 10,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top
         };
@@ -678,35 +722,31 @@ public sealed partial class AnalysisPanel
                 : valueText;
     }
 
-    private static Control BuildRayFanPanePlot(
+    private static Control BuildPairedFanPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         bool defaultSquareCells = false)
     {
-        const int fieldCount = 5;
         const int panesPerField = 2;
-        if (panes.Count != fieldCount * panesPerField)
+        var fieldPanes = PairFanPanesByField(panes);
+        if (fieldPanes is null)
         {
             return BuildPanePlot(panes, panesPerField, defaultSquareCells);
         }
 
+        var fieldCount = fieldPanes.Count;
+        var fieldColumns = Math.Min(3, (int)Math.Ceiling(Math.Sqrt(fieldCount)));
+        var fieldRows = (int)Math.Ceiling(fieldCount / (double)fieldColumns);
         var fieldGrid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("*,*,*"),
-            RowDefinitions = new RowDefinitions("*,*,*")
-        };
-        var positions = new[]
-        {
-            (Column: 0, Row: 0),
-            (Column: 2, Row: 0),
-            (Column: 1, Row: 1),
-            (Column: 0, Row: 2),
-            (Column: 2, Row: 2)
+            ColumnDefinitions = new ColumnDefinitions(
+                string.Join(',', Enumerable.Repeat("*", fieldColumns * 2))),
+            RowDefinitions = new RowDefinitions(
+                string.Join(',', Enumerable.Repeat("*", fieldRows)))
         };
         var plots = new List<AnalysisPlotControl>(fieldCount * panesPerField);
-        var squareHosts = new List<OptionalSquarePlotHost>(fieldCount * panesPerField);
         for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++)
         {
-            var firstPaneIndex = fieldIndex * panesPerField;
+            var field = fieldPanes[fieldIndex];
             var pair = new Grid
             {
                 Width = 520,
@@ -716,7 +756,7 @@ public sealed partial class AnalysisPanel
             };
             var title = new TextBlock
             {
-                Text = panes[firstPaneIndex].Title,
+                Text = field.Title,
                 FontSize = 12,
                 FontWeight = FontWeight.SemiBold,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -727,7 +767,7 @@ public sealed partial class AnalysisPanel
 
             for (var paneOffset = 0; paneOffset < panesPerField; paneOffset++)
             {
-                var pane = panes[firstPaneIndex + paneOffset];
+                var pane = paneOffset == 0 ? field.Y : field.X;
                 var plot = new AnalysisPlotControl
                 {
                     Series = pane.Series,
@@ -743,7 +783,6 @@ public sealed partial class AnalysisPanel
                 Grid.SetRow(squareHost, 1);
                 pair.Children.Add(squareHost);
                 plots.Add(plot);
-                squareHosts.Add(squareHost);
             }
 
             var scaledPair = new Viewbox
@@ -751,22 +790,68 @@ public sealed partial class AnalysisPanel
                 Stretch = Stretch.Uniform,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
+                Margin = new Thickness(8),
                 Child = pair
             };
-            Grid.SetColumn(scaledPair, positions[fieldIndex].Column);
-            Grid.SetRow(scaledPair, positions[fieldIndex].Row);
+            var row = fieldIndex / fieldColumns;
+            var indexInRow = fieldIndex % fieldColumns;
+            var fieldsInRow = Math.Min(fieldColumns, fieldCount - (row * fieldColumns));
+            var centeringOffset = fieldColumns - fieldsInRow;
+            Grid.SetColumn(scaledPair, centeringOffset + (indexInRow * 2));
+            Grid.SetColumnSpan(scaledPair, 2);
+            Grid.SetRow(scaledPair, row);
             fieldGrid.Children.Add(scaledPair);
         }
 
-        return BuildPanePlotContent(fieldGrid, panes, plots, squareHosts, defaultSquareCells);
+        return BuildPanePlotContent(fieldGrid, panes, plots);
+    }
+
+    private static IReadOnlyList<(string Title, AnalysisPlotPaneDto Y, AnalysisPlotPaneDto X)>?
+        PairFanPanesByField(IReadOnlyList<AnalysisPlotPaneDto> panes)
+    {
+        if (panes.Count == 0 || panes.Count % 2 != 0)
+        {
+            return null;
+        }
+
+        var used = new HashSet<int>();
+        var pairs = new List<(string Title, AnalysisPlotPaneDto Y, AnalysisPlotPaneDto X)>(panes.Count / 2);
+        for (var yIndex = 0; yIndex < panes.Count; yIndex++)
+        {
+            if (used.Contains(yIndex) || !IsRayFanAxis(panes[yIndex], "P_y"))
+            {
+                continue;
+            }
+
+            var xIndex = Enumerable.Range(0, panes.Count).FirstOrDefault(index =>
+                !used.Contains(index)
+                && index != yIndex
+                && string.Equals(panes[index].Title, panes[yIndex].Title, StringComparison.Ordinal)
+                && IsRayFanAxis(panes[index], "P_x"), -1);
+            if (xIndex < 0)
+            {
+                return null;
+            }
+
+            used.Add(yIndex);
+            used.Add(xIndex);
+            pairs.Add((panes[yIndex].Title, panes[yIndex], panes[xIndex]));
+        }
+
+        return used.Count == panes.Count ? pairs : null;
+    }
+
+    private static bool IsRayFanAxis(AnalysisPlotPaneDto pane, string axisLabel)
+    {
+        return pane.Series.Count > 0
+            && pane.Series.All(series =>
+                string.Equals(series.XAxisLabel, axisLabel, StringComparison.OrdinalIgnoreCase));
     }
 
     private static Control BuildPanePlotContent(
         Control plotRoot,
         IReadOnlyList<AnalysisPlotPaneDto> panes,
-        IReadOnlyList<AnalysisPlotControl> plots,
-        IReadOnlyList<OptionalSquarePlotHost>? squareHosts = null,
-        bool defaultSquareCells = false)
+        IReadOnlyList<AnalysisPlotControl> plots)
     {
         var sourceSeries = panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>();
         var legendEntries = SelectableLegendEntries(sourceSeries);
@@ -810,7 +895,7 @@ public sealed partial class AnalysisPanel
                 plainLegend.Children.Add(new TextBlock
                 {
                     Text = $"●  {series.Name}",
-                    Foreground = SeriesBrush(series.ColorIndex),
+                    Foreground = SeriesBrush(series),
                     Margin = new Thickness(10, 2)
                 });
             }
@@ -822,32 +907,6 @@ public sealed partial class AnalysisPanel
         content.Children.Add(plotRoot);
         content.Children.Add(legend);
         Grid.SetRow(legend, 1);
-        if (squareHosts is { Count: > 0 })
-        {
-            var squareToggle = new CheckBox
-            {
-                Name = "SquarePaneToggle",
-                Content = "方形子图",
-                IsChecked = defaultSquareCells,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(12, 4, 12, 12)
-            };
-            ToolTip.SetTip(
-                squareToggle,
-                "可选：将每个子图按可用宽高的较小值居中显示为方形；关闭时自动铺满。");
-            squareToggle.IsCheckedChanged += (_, _) =>
-            {
-                var isSquare = squareToggle.IsChecked == true;
-                foreach (var squareHost in squareHosts)
-                {
-                    squareHost.IsSquare = isSquare;
-                }
-            };
-            Grid.SetRow(squareToggle, 1);
-            content.Children.Add(squareToggle);
-        }
-
         return content;
     }
 
@@ -864,10 +923,10 @@ public sealed partial class AnalysisPanel
         return message;
     }
 
-    private static List<(string Key, string Label, int ColorIndex)> SelectableLegendEntries(
+    private static List<(string Key, string Label, Color Color)> SelectableLegendEntries(
         IReadOnlyList<AnalysisSeriesDto> series)
     {
-        var entries = new List<(string Key, string Label, int ColorIndex)>();
+        var entries = new List<(string Key, string Label, Color Color)>();
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var item in series)
         {
@@ -877,14 +936,14 @@ public sealed partial class AnalysisPanel
                 continue;
             }
 
-            entries.Add((key, label, item.ColorIndex));
+            entries.Add((key, label, AnalysisPlotControl.SeriesColor(item)));
         }
 
         return entries;
     }
 
     private static StackPanel BuildSelectableLegend(
-        IReadOnlyList<(string Key, string Label, int ColorIndex)> entries,
+        IReadOnlyList<(string Key, string Label, Color Color)> entries,
         Action<string, bool> setVisibility,
         Orientation orientation = Orientation.Vertical)
     {
@@ -897,7 +956,7 @@ public sealed partial class AnalysisPanel
         };
         foreach (var entry in entries)
         {
-            var brush = SeriesBrush(entry.ColorIndex);
+            var brush = new SolidColorBrush(entry.Color);
             var content = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -1094,5 +1153,10 @@ public sealed partial class AnalysisPanel
     internal static IBrush SeriesBrush(int colorIndex)
     {
         return new SolidColorBrush(AnalysisPlotControl.SeriesColor(colorIndex));
+    }
+
+    internal static IBrush SeriesBrush(AnalysisSeriesDto series)
+    {
+        return new SolidColorBrush(AnalysisPlotControl.SeriesColor(series));
     }
 }

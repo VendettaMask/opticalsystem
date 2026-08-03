@@ -26,6 +26,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
     private readonly double _pupilSy;
     private readonly double _pupilSr;
     private readonly string _name;
+    private readonly bool _defaultSquareViewport;
 
     public WavefrontAnalysis(
         Optic optic,
@@ -45,7 +46,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         double pupilSx = 0,
         double pupilSy = 0,
         double pupilSr = 1,
-        string name = "Wavefront") : base(optic)
+        string name = "Wavefront",
+        bool defaultSquareViewport = false) : base(optic)
     {
         _numRings = Math.Max(2, numRings);
         _mapSize = Math.Max(17, mapSize);
@@ -64,6 +66,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         _pupilSy = double.IsFinite(pupilSy) ? pupilSy : 0;
         _pupilSr = double.IsFinite(pupilSr) ? Math.Max(1e-6, pupilSr) : 1;
         _name = name;
+        _defaultSquareViewport = defaultSquareViewport;
     }
 
     public override string Name => _name;
@@ -173,7 +176,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             XMinimum: _pupilSx - _pupilSr,
             XMaximum: _pupilSx + _pupilSr,
             YMinimum: _pupilSy - _pupilSr,
-            YMaximum: _pupilSy + _pupilSr));
+            YMaximum: _pupilSy + _pupilSr,
+            DefaultSquareViewport: _defaultSquareViewport));
     }
 
     private static WavefrontSample[] RemoveBestFitPlane(IReadOnlyList<WavefrontSample> samples)

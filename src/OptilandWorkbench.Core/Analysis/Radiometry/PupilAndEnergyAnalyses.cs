@@ -396,9 +396,10 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
             .Where(point => point.Intensity > 0 && double.IsFinite(point.Value))
             .Select(point => point.Value)
             .ToArray();
-        var yMinimum = finite.DefaultIfEmpty(-1).Min();
-        var yMaximum = finite.DefaultIfEmpty(1).Max();
-        ExpandRange(ref yMinimum, ref yMaximum);
+        var displayScale = PupilDisplayScale(
+            finite.Select(Math.Abs).DefaultIfEmpty(0).Max());
+        var yMinimum = -displayScale;
+        var yMaximum = displayScale;
         var panes = new List<AnalysisPlotPane>();
         for (var fieldIndex = 0; fieldIndex < fieldData.Count; fieldIndex++)
         {
@@ -499,18 +500,19 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
         }).ToArray();
     }
 
-    private static void ExpandRange(ref double minimum, ref double maximum)
+    private static double PupilDisplayScale(double maximumAbsoluteAberration)
     {
-        if (Math.Abs(maximum - minimum) < 1e-12)
+        const double minimumScale = 1e-5;
+        if (!double.IsFinite(maximumAbsoluteAberration)
+            || maximumAbsoluteAberration <= minimumScale)
         {
-            minimum -= 1;
-            maximum += 1;
-            return;
+            return minimumScale;
         }
 
-        var padding = (maximum - minimum) * 0.05;
-        minimum -= padding;
-        maximum += padding;
+        var baseScale = Math.Pow(10, Math.Floor(Math.Log10(maximumAbsoluteAberration)));
+        return maximumAbsoluteAberration <= baseScale * (1 + 1e-12)
+            ? baseScale
+            : baseScale * 10;
     }
 
     private sealed record RayFanSample(double Value, double Intensity);

@@ -904,7 +904,11 @@ public sealed class OpticSceneControl : Control
     {
         foreach (var path in rays)
         {
-            var pen = RayPenFor(RayColorIndex(path.FieldIndex, path.WavelengthIndex), path.Vignetted, RayLineWidth);
+            var pen = RayPenFor(
+                path.FieldIndex,
+                path.WavelengthNanometers,
+                path.Vignetted,
+                RayLineWidth);
             foreach (var segment in path.Segments)
             {
                 var oriented = OrientSegment(segment);
@@ -1340,7 +1344,8 @@ public sealed class OpticSceneControl : Control
         foreach (var ray in rays)
         {
             var pen = RayPenFor(
-                RayColorIndex(ray.FieldIndex, ray.WavelengthIndex),
+                ray.FieldIndex,
+                ray.WavelengthNanometers,
                 ray.Vignetted,
                 RayLineWidth);
             foreach (var segment in ray.Segments)
@@ -1428,17 +1433,21 @@ public sealed class OpticSceneControl : Control
             : ThemePen(ThemeResourceBindings.SceneSurface, SurfacePen);
     }
 
-    private int RayColorIndex(int fieldIndex, int wavelengthIndex) =>
-        RayColorMode == OpticSceneRayColorMode.Wavelength ? wavelengthIndex : fieldIndex;
-
-    private static Pen RayPenFor(int colorIndex, bool vignetted, double thickness)
+    private Pen RayPenFor(
+        int fieldIndex,
+        double wavelengthNanometers,
+        bool vignetted,
+        double thickness)
     {
         if (vignetted)
         {
             return new Pen(VignettedRayPen.Brush, thickness);
         }
 
-        return new Pen(new SolidColorBrush(RayColors[Math.Abs(colorIndex) % RayColors.Length]), thickness);
+        var color = RayColorMode == OpticSceneRayColorMode.Wavelength
+            ? SpectralColorMap.FromNanometers(wavelengthNanometers)
+            : RayColors[Math.Abs(fieldIndex) % RayColors.Length];
+        return new Pen(new SolidColorBrush(color), thickness);
     }
 
     private void DrawScaleBar(DrawingContext context, double pixelsPerUnit, bool darkBackground = false)

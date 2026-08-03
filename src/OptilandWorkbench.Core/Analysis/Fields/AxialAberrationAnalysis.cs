@@ -2,7 +2,6 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class AxialAberrationAnalysis : BaseAnalysis
 {
-    private static readonly int[] WavelengthColorIndices = { 2, 3, 0, 1, 4, 5, 6 };
     private readonly double _graphScaleMillimeters;
     private readonly int _wavelengthNumber;
     private readonly bool _useDashes;
@@ -57,8 +56,9 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
                         _ => AnalysisLineStyle.Solid
                     }
                     : AnalysisLineStyle.Solid,
-                ColorIndex: WavelengthColorIndices[index % WavelengthColorIndices.Length],
+                ColorIndex: index,
                 LineWidth: 1.35,
+                LegendKey: $"wavelength:{wavelength.Micrometers:R}",
                 XQuantity: AnalysisAxisQuantity.Defocus,
                 XUnit: AnalysisAxisUnit.Millimeter,
                 YQuantity: AnalysisAxisQuantity.PupilCoordinate,

@@ -46,7 +46,7 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void RealImageHeightDistortionExposesConvertedAngularModel()
+    public void CombinedFieldCurvatureAndDistortionExposesConvertedAngularModel()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
@@ -57,8 +57,10 @@ public sealed class AnalysisGuiContractTests
         }
 
         var connector = new OptilandConnector(optic);
-        var parameters = connector.GetAnalysisParameters("Distortion");
-        var view = connector.BuildAnalysisView("Distortion", new Dictionary<string, string>());
+        var parameters = connector.GetAnalysisParameters("Field Curvature and Distortion");
+        var view = connector.BuildAnalysisView(
+            "Field Curvature and Distortion",
+            new Dictionary<string, string>());
 
         Assert.Contains(parameters, parameter => parameter.Key == "DistortionType");
         Assert.Contains(parameters, parameter => parameter.Key == "MaximumDistortion");
@@ -68,24 +70,25 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(parameters, parameter => parameter.Key == "DisplayMode");
         Assert.Contains(parameters, parameter => parameter.Key == "ReferenceFieldNumber");
         Assert.Contains(parameters, parameter => parameter.Key == "IgnoreVignettingFactors");
-        Assert.Equal("Real Image Height (mm)", view.SeriesList[0].YAxisLabel);
-        Assert.Equal(4.5, view.SeriesList[0].Points.Last().Y, precision: 9);
+        var distortionPane = Assert.Single(view.PlotPanes, pane => pane.Title == "Distortion");
+        Assert.Equal("Real Image Height (mm)", distortionPane.Series[0].YAxisLabel);
+        Assert.Equal(4.5, distortionPane.Series[0].Points.Last().Y, precision: 9);
         var curvatureParameters = connector.GetAnalysisParameters("Field Curvature");
         Assert.Contains(curvatureParameters, parameter => parameter.Key == "WavelengthNumber");
         Assert.Contains(curvatureParameters, parameter => parameter.Key == "ScanDirection");
         Assert.Contains(curvatureParameters, parameter => parameter.Key == "IgnoreVignettingFactors");
-        Assert.Contains(view.Rows, row => row.Metric == "最大视场角 (deg)");
-        Assert.Contains(view.Rows, row => row.Metric == "畸变模型" && row.Value == "f-tan");
+        Assert.Contains(view.Rows, row => row.Metric == "畸变.最大视场角 (deg)");
+        Assert.Contains(view.Rows, row => row.Metric == "畸变.畸变模型" && row.Value == "f-tan");
 
         optic.FieldDefinition = FieldDefinitionKind.Angle;
         Assert.Contains(
-            connector.GetAnalysisParameters("Distortion"),
+            connector.GetAnalysisParameters("Field Curvature and Distortion"),
             parameter => parameter.Key == "DistortionType");
 
         optic.FieldDefinition = FieldDefinitionKind.RealImageHeight;
         optic.SurfaceGroup.Items[0].Thickness = 100;
         Assert.DoesNotContain(
-            connector.GetAnalysisParameters("Distortion"),
+            connector.GetAnalysisParameters("Field Curvature and Distortion"),
             parameter => parameter.Key == "DistortionType");
     }
 
@@ -243,7 +246,8 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void FullFieldSpotDiagramUsesAbsoluteImagePositionsAndWavelengthLegend()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
         var parameters = connector.GetAnalysisParameters("Full Field Spot Diagram");
 
         Assert.Equal(
@@ -279,12 +283,41 @@ public sealed class AnalysisGuiContractTests
         });
         Assert.True(view.PlotOptions.ShowLegend);
         Assert.True(view.PlotOptions.HideTickLabels);
+        Assert.True(view.PlotOptions.DefaultSquareViewport);
         Assert.True(
             view.SeriesList.SelectMany(series => series.Points).Max(point => point.Y)
             - view.SeriesList.SelectMany(series => series.Points).Min(point => point.Y) > 10);
         Assert.Contains(view.Rows, row => row.Metric == "RMS 半径 (µm)");
         Assert.Contains(view.Rows, row => row.Metric == "GEO 半径 (µm)");
         Assert.Contains(view.Rows, row => row.Metric == "缩放标尺 (µm)");
+
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<AnalysisContracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var buildMethod = typeof(AnalysisPanel).GetMethod(
+            "BuildSinglePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(buildMethod);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+            buildMethod.Invoke(null, new object[] { viewDto }));
+        var squareHost = Assert.Single(layout.Children.OfType<OptionalSquarePlotHost>());
+        Assert.True(squareHost.IsSquare);
+
+        var fieldColoredView = connector.BuildAnalysisView(
+            "Full Field Spot Diagram",
+            new Dictionary<string, string> { ["ColorRaysBy"] = "视场" });
+        Assert.Equal(optic.Fields.Count, fieldColoredView.SeriesList.Count);
+        Assert.All(fieldColoredView.SeriesList, series =>
+        {
+            Assert.StartsWith("field:", series.LegendKey, StringComparison.Ordinal);
+            Assert.DoesNotContain("µm", series.Name, StringComparison.Ordinal);
+        });
     }
 
     [Fact]
@@ -374,6 +407,25 @@ public sealed class AnalysisGuiContractTests
 
         var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
         var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
+        Assert.Equal(570, matrix.Width);
+        Assert.Equal(454, matrix.Height);
+        Assert.Equal(viewDto.PlotPanes.Count, plots.Length);
+        Assert.All(plots, plot =>
+        {
+            Assert.Equal(140, plot.Width);
+            Assert.Equal(140, plot.Height);
+            Assert.All(plot.Series, series =>
+            {
+                Assert.Empty(series.XAxisLabel);
+                Assert.Empty(series.YAxisLabel);
+                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
+                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
+            });
+        });
+        Assert.All(
+            matrix.Children.OfType<Avalonia.Controls.TextBlock>(),
+            label => Assert.InRange(label.FontSize, 1, 10.5));
         var firstWavelengthPlots = matrix.Children
             .OfType<AnalysisPlotControl>()
             .Where(plot => Avalonia.Controls.Grid.GetColumn(plot) == 1)
@@ -387,15 +439,21 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void ConfigurationMatrixSpotUsesFieldByWavelengthMatrix()
+    public void ConfigurationMatrixSpotGroupsAllWavelengthsInsideEachFieldByConfigurationCell()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
         var view = connector.BuildAnalysisView(
             "Configuration Matrix Spot Diagram",
             new Dictionary<string, string>
             {
                 ["RayDensity"] = "3"
             });
+        Assert.Equal(1, view.PlotPaneColumns);
+        Assert.Equal(optic.Fields.Count, view.PlotPanes.Count);
+        Assert.All(
+            view.PlotPanes,
+            pane => Assert.Equal(optic.Wavelengths.Count, pane.Series.Count));
         var mapperType = typeof(OptilandConnector).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
@@ -415,6 +473,8 @@ public sealed class AnalysisGuiContractTests
         var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
         var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
 
+        Assert.Equal(350, matrix.Width);
+        Assert.Equal(546, matrix.Height);
         Assert.Equal(viewDto.PlotPaneColumns + 1, matrix.ColumnDefinitions.Count);
         Assert.Equal(
             (viewDto.PlotPanes.Count / viewDto.PlotPaneColumns) + 1,
@@ -430,7 +490,7 @@ public sealed class AnalysisGuiContractTests
             .Select(label => label.Text)
             .ToArray();
         Assert.Equal(
-            new[] { "0.480000", "0.550000", "0.650000" },
+            new[] { "结构 1" },
             headers);
 
         var rowLabels = matrix.Children
@@ -439,16 +499,24 @@ public sealed class AnalysisGuiContractTests
                 && Avalonia.Controls.Grid.GetRow(label) > 0)
             .Select(label => label.Text)
             .ToArray();
-        Assert.Equal(Optic.CreateCookeTriplet().Fields.Count, rowLabels.Length);
+        Assert.Equal(optic.Fields.Count, rowLabels.Length);
         Assert.All(rowLabels, label =>
         {
-            Assert.Contains("结构 1", label);
+            Assert.DoesNotContain("结构 1", label);
             Assert.DoesNotContain("参考", label);
             Assert.DoesNotContain("µm", label);
         });
 
         var legend = Assert.IsType<Avalonia.Controls.StackPanel>(layout.Children[1]);
-        Assert.Equal(viewDto.PlotPaneColumns, legend.Children.Count);
+        Assert.Equal(optic.Wavelengths.Count, legend.Children.Count);
+        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
+        Assert.Equal(optic.Fields.Count, plots.Length);
+        Assert.All(plots, plot => Assert.Equal(optic.Wavelengths.Count, plot.Series.Count));
+
+        var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
+        firstToggle.IsChecked = false;
+
+        Assert.All(plots, plot => Assert.Equal(optic.Wavelengths.Count - 1, plot.Series.Count));
     }
 
     [Fact]
@@ -531,6 +599,7 @@ public sealed class AnalysisGuiContractTests
             {
                 ["RayDensity"] = "1"
             });
+        Assert.True(view.PlotOptions.DefaultSquareViewport);
         var mapperType = typeof(OptilandConnector).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
@@ -568,7 +637,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(expected, labels);
         Assert.DoesNotContain(labels, label => label.Contains("µm", StringComparison.Ordinal));
 
-        var plot = Assert.Single(layout.Children.OfType<AnalysisPlotControl>());
+        var squareHost = Assert.Single(layout.Children.OfType<OptionalSquarePlotHost>());
+        Assert.True(squareHost.IsSquare);
+        var plot = Assert.IsType<AnalysisPlotControl>(squareHost.Child);
         var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
         firstToggle.IsChecked = false;
 
@@ -607,7 +678,44 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void MultiPanePlotsOfferOptionalSquareCellsWithoutChangingTheDefault()
+    public void WavelengthSeriesUseStableOpticalEngineeringColorsInsteadOfCategoryOrder()
+    {
+        static AnalysisContracts.AnalysisSeriesDto Series(string name, int colorIndex) => new(
+            string.Empty,
+            string.Empty,
+            Array.Empty<AnalysisContracts.AnalysisPointDto>(),
+            Name: name,
+            ColorIndex: colorIndex);
+
+        var blue = AnalysisPlotControl.SeriesColor(Series("0.4861 µm", 0));
+        var green = AnalysisPlotControl.SeriesColor(Series("0.5876 µm", 1));
+        var red = AnalysisPlotControl.SeriesColor(Series("0.6563 µm", 2));
+        var keyedRed = AnalysisPlotControl.SeriesColor(Series("arbitrary", 2) with
+        {
+            LegendKey = "wavelength:0.6563",
+            LegendLabel = "0.6563 µm"
+        });
+
+        Assert.True(blue.B > blue.G && blue.G > blue.R);
+        Assert.True(green.G > green.R && green.G > green.B);
+        Assert.True(red.R > red.G && red.R > red.B);
+        Assert.Equal(Avalonia.Media.Color.FromRgb(0, 140, 255), blue);
+        Assert.Equal(Avalonia.Media.Color.FromRgb(0, 200, 83), green);
+        Assert.Equal(Avalonia.Media.Color.FromRgb(255, 52, 48), red);
+        Assert.Equal(red, keyedRed);
+        Assert.NotEqual(AnalysisPlotControl.SeriesColor(2), red);
+
+        var fieldCoded = Series("0.6563 µm", 2) with { LegendKey = "field:2" };
+        Assert.Equal(
+            AnalysisPlotControl.SeriesColor(fieldCoded.ColorIndex),
+            AnalysisPlotControl.SeriesColor(fieldCoded));
+
+        var infrared = AnalysisPlotControl.WavelengthColor(1064);
+        Assert.Equal(Avalonia.Media.Color.FromRgb(126, 132, 145), infrared);
+    }
+
+    [Fact]
+    public void MultiPanePlotsKeepConfiguredShapeWithoutExposingAUiToggle()
     {
         var bounds = OptionalSquarePlotHost.SquareBounds(new Avalonia.Size(420, 180), true);
         Assert.Equal(new Avalonia.Rect(120, 0, 180, 180), bounds);
@@ -638,20 +746,18 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
         Assert.All(hosts, host => Assert.False(host.IsSquare));
 
-        var toggle = Assert.Single(
-            layout.Children.OfType<Avalonia.Controls.CheckBox>(),
-            checkBox => checkBox.Name == "SquarePaneToggle");
-        Assert.False(toggle.IsChecked);
-        toggle.IsChecked = true;
-
-        Assert.All(hosts, host => Assert.True(host.IsSquare));
+        Assert.Empty(layout.Children.OfType<Avalonia.Controls.CheckBox>());
     }
 
-    [Fact]
-    public void RayFanDefaultsToSquarePaneCells()
+    [Theory]
+    [InlineData("Ray Fan", AnalysisContracts.AnalysisPresentationKind.RayFan)]
+    [InlineData("Pupil Aberration", AnalysisContracts.AnalysisPresentationKind.PupilAberration)]
+    public void PairedFanAnalysesGroupXYWithinEachFieldAndCenterIncompleteRows(
+        string analysisName,
+        AnalysisContracts.AnalysisPresentationKind expectedPresentationKind)
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
-        var view = connector.BuildAnalysisView("Ray Fan");
+        var view = connector.BuildAnalysisView(analysisName);
         var mapperType = typeof(OptilandConnector).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
@@ -659,28 +765,32 @@ public sealed class AnalysisGuiContractTests
             "ToAnalysisViewDto",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(mapMethod);
-        var viewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
+        var mappedViewDto = Assert.IsType<OptilandWorkbench.Application.Contracts.AnalysisViewDto>(
             mapMethod.Invoke(null, new object[] { view }));
+        var viewDto = mappedViewDto with
+        {
+            PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(analysisName)
+        };
         Assert.NotEmpty(viewDto.PlotPanes);
+        Assert.Equal(expectedPresentationKind, viewDto.PresentationKind);
         var method = typeof(AnalysisPanel).GetMethod(
-            "BuildRayFanPanePlot",
+            "BuildPairedFanPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
         var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, true }));
-        var hosts = FindSquareHosts(layout);
+        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var cards = FanFieldCards(fieldGrid);
+        var hosts = cards.SelectMany(CardHosts).ToArray();
 
+        Assert.Equal(3, cards.Length);
         Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
+        Assert.All(cards, AssertFanFieldCard);
         Assert.All(hosts, host => Assert.True(host.IsSquare));
+        AssertFanFieldCardPositions(cards, (0, 0), (0, 2), (1, 1));
 
-        var toggle = Assert.Single(
-            layout.Children.OfType<Avalonia.Controls.CheckBox>(),
-            checkBox => checkBox.Name == "SquarePaneToggle");
-        Assert.True(toggle.IsChecked);
-        toggle.IsChecked = false;
-
-        Assert.All(hosts, host => Assert.False(host.IsSquare));
+        Assert.Empty(layout.Children.OfType<Avalonia.Controls.CheckBox>());
 
         var dedicatedPanes = Enumerable.Range(0, 10)
             .Select(index => viewDto.PlotPanes[index % viewDto.PlotPanes.Count] with
@@ -691,21 +801,136 @@ public sealed class AnalysisGuiContractTests
         var dedicatedLayout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { dedicatedPanes, true }));
-        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(dedicatedLayout.Children[0]);
-        var pairs = fieldGrid.Children
+        var dedicatedFieldGrid = Assert.IsType<Avalonia.Controls.Grid>(dedicatedLayout.Children[0]);
+        var dedicatedCards = FanFieldCards(dedicatedFieldGrid);
+        var dedicatedHosts = dedicatedCards.SelectMany(CardHosts).ToArray();
+
+        Assert.Equal(5, dedicatedCards.Length);
+        Assert.Equal(10, dedicatedHosts.Length);
+        Assert.All(dedicatedCards, card =>
+        {
+            Assert.Equal(520, card.Width);
+            Assert.Equal(288, card.Height);
+            AssertFanFieldCard(card);
+        });
+        Assert.All(dedicatedHosts, host => Assert.True(host.IsSquare));
+        AssertFanFieldCardPositions(
+            dedicatedCards,
+            (0, 0),
+            (0, 2),
+            (0, 4),
+            (1, 1),
+            (1, 3));
+    }
+
+    private static Avalonia.Controls.Grid[] FanFieldCards(Avalonia.Controls.Grid fieldGrid)
+    {
+        return fieldGrid.Children
             .OfType<Avalonia.Controls.Viewbox>()
             .Select(viewbox => Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child))
             .ToArray();
-        var dedicatedHosts = pairs.SelectMany(pair => pair.Children.OfType<OptionalSquarePlotHost>()).ToArray();
+    }
 
-        Assert.Equal(5, pairs.Length);
-        Assert.Equal(10, dedicatedHosts.Length);
-        Assert.All(pairs, pair =>
+    private static OptionalSquarePlotHost[] CardHosts(Avalonia.Controls.Grid card)
+    {
+        return card.Children
+            .OfType<OptionalSquarePlotHost>()
+            .OrderBy(Avalonia.Controls.Grid.GetColumn)
+            .ToArray();
+    }
+
+    private static void AssertFanFieldCard(Avalonia.Controls.Grid card)
+    {
+        var hosts = CardHosts(card);
+        Assert.Equal(2, hosts.Length);
+        var yPlot = Assert.IsType<AnalysisPlotControl>(hosts[0].Child);
+        var xPlot = Assert.IsType<AnalysisPlotControl>(hosts[1].Child);
+        Assert.All(yPlot.Series, series => Assert.Equal("P_y", series.XAxisLabel));
+        Assert.All(xPlot.Series, series => Assert.Equal("P_x", series.XAxisLabel));
+    }
+
+    private static void AssertFanFieldCardPositions(
+        IReadOnlyList<Avalonia.Controls.Grid> cards,
+        params (int Row, int Column)[] expectedPositions)
+    {
+        Assert.Equal(expectedPositions.Length, cards.Count);
+        for (var index = 0; index < cards.Count; index++)
         {
-            Assert.Equal(520, pair.Width);
-            Assert.Equal(288, pair.Height);
-        });
-        Assert.All(dedicatedHosts, host => Assert.True(host.IsSquare));
+            var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(cards[index].Parent);
+            Assert.Equal(expectedPositions[index].Row, Avalonia.Controls.Grid.GetRow(viewbox));
+            Assert.Equal(expectedPositions[index].Column, Avalonia.Controls.Grid.GetColumn(viewbox));
+            Assert.Equal(2, Avalonia.Controls.Grid.GetColumnSpan(viewbox));
+        }
+    }
+
+    [Fact]
+    public void PupilAberrationSummaryMatchesTheCompactSharedScaleLayout()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var connector = new OptilandConnector(optic);
+        var view = connector.BuildAnalysisView("Pupil Aberration");
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<AnalysisContracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view })) with
+        {
+            PresentationKind = AnalysisContracts.AnalysisPresentationKind.PupilAberration
+        };
+        var summaryMethod = typeof(AnalysisPanel).GetMethod(
+            "BuildPupilAberrationTitleBlock",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(summaryMethod);
+        var generatedAt = new DateTimeOffset(2026, 8, 3, 12, 0, 0, TimeSpan.FromHours(8));
+        var summary = Assert.IsAssignableFrom<Avalonia.Controls.Control>(
+            summaryMethod.Invoke(null, new object[] { viewDto, generatedAt }));
+        var texts = DescendantText(summary);
+        var maximumScale = viewDto.PlotPanes
+            .Select(pane => pane.PlotOptions.YMaximum ?? 0)
+            .Max();
+
+        var expectedTexts = new List<string>
+        {
+            viewDto.Name,
+            "2026/8/3",
+            $"最大缩放比例： ± {maximumScale.ToString("0.00E+00", CultureInfo.InvariantCulture)} Percent."
+        };
+        expectedTexts.AddRange(optic.Wavelengths.Select(wavelength =>
+            wavelength.Micrometers.ToString("0.000", CultureInfo.InvariantCulture)));
+        expectedTexts.Add("面：像面");
+
+        Assert.Equal(expectedTexts, texts);
+    }
+
+    private static string[] DescendantText(Avalonia.Controls.Control root)
+    {
+        var texts = new List<string>();
+        Visit(root);
+        return texts.ToArray();
+
+        void Visit(Avalonia.Controls.Control control)
+        {
+            if (control is Avalonia.Controls.TextBlock { Text: { } text }
+                && !string.IsNullOrWhiteSpace(text))
+            {
+                texts.Add(text);
+            }
+
+            foreach (var child in control switch
+            {
+                Avalonia.Controls.Panel panel => panel.Children.OfType<Avalonia.Controls.Control>(),
+                Avalonia.Controls.Decorator { Child: Avalonia.Controls.Control child } => new[] { child },
+                Avalonia.Controls.ContentControl { Content: Avalonia.Controls.Control child } => new[] { child },
+                _ => Array.Empty<Avalonia.Controls.Control>()
+            })
+            {
+                Visit(child);
+            }
+        }
     }
 
     private static OptionalSquarePlotHost[] FindSquareHosts(Avalonia.Controls.Control root)
@@ -909,6 +1134,46 @@ public sealed class AnalysisGuiContractTests
             Assert.NotEmpty(pane.Footer);
             Assert.Contains(pane.Series, series => series.Points.Count > 0);
         });
+
+        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+            "OptilandWorkbench.Application.Services.WorkbenchMapper");
+        Assert.NotNull(mapperType);
+        var mapMethod = mapperType.GetMethod(
+            "ToAnalysisViewDto",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mapMethod);
+        var viewDto = Assert.IsType<AnalysisContracts.AnalysisViewDto>(
+            mapMethod.Invoke(null, new object[] { view }));
+        var buildMethod = typeof(AnalysisPanel).GetMethod(
+            "BuildThroughFocusSpotPanePlot",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(buildMethod);
+        var layout = Assert.IsType<Avalonia.Controls.Grid>(buildMethod.Invoke(
+            null,
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
+        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
+
+        Assert.Equal(740, matrix.Width);
+        Assert.Equal(420, matrix.Height);
+        Assert.Equal(view.PlotPanes.Count, plots.Length);
+        Assert.All(plots, plot =>
+        {
+            Assert.Equal(120, plot.Width);
+            Assert.Equal(120, plot.Height);
+            Assert.True(plot.PlotOptions.HideTickLabels);
+            Assert.All(plot.Series, series =>
+            {
+                Assert.Empty(series.XAxisLabel);
+                Assert.Empty(series.YAxisLabel);
+                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
+                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
+            });
+        });
+        Assert.All(
+            matrix.Children.OfType<Avalonia.Controls.TextBlock>(),
+            label => Assert.InRange(label.FontSize, 1, 10));
     }
 
     [Fact]
@@ -1094,7 +1359,7 @@ public sealed class AnalysisGuiContractTests
             new[]
             {
                 "光线迹点",
-                "系统报告",
+                "报告",
                 "像差分析",
                 "波前",
                 "点扩散函数",
@@ -1104,7 +1369,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(70, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(71, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -1112,7 +1377,7 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(64, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(65, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         var commandIds = MainWindow.AnalysisRibbonCommandIdsByMenu
             .SelectMany(menu => menu.Value)
             .ToArray();
@@ -1181,15 +1446,21 @@ public sealed class AnalysisGuiContractTests
                 "全视场点列图",
                 "矩阵点列图",
                 "结构矩阵点列图",
-                "基面数据",
                 "Y-Ybar",
                 "渐晕图",
                 "入射角 vs. 像高"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
-            new[] { "一阶量", "处方报告" },
-            MainWindow.AnalysisRibbonCommandsByMenu["系统报告"]);
+            new[]
+            {
+                "表面数据报告",
+                "系统数据报告",
+                "分类数据报告",
+                "系统数据摘要",
+                "基面数据"
+            },
+            MainWindow.AnalysisRibbonCommandsByMenu["报告"]);
         Assert.Equal(
             new[]
             {
@@ -1199,7 +1470,6 @@ public sealed class AnalysisGuiContractTests
                 "场曲/畸变",
                 "网格畸变",
                 "轴向像差",
-                "畸变",
                 "垂轴色差",
                 "色焦移",
                 "赛德尔系数",
@@ -1264,6 +1534,11 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("波前图", wavefrontMapView.Name);
         Assert.Equal(AnalysisSeriesKind.Heatmap, Assert.Single(wavefrontMapView.SeriesList).Kind);
         Assert.Equal("Interferogram", connector.CanonicalAnalysisKey("干涉图"));
+        var interferogramView = connector.BuildAnalysisView("干涉图");
+        Assert.Equal("干涉图", interferogramView.Name);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, Assert.Single(interferogramView.SeriesList).Kind);
+        Assert.True(interferogramView.PlotOptions.EqualAspect);
+        Assert.True(interferogramView.PlotOptions.DefaultSquareViewport);
         Assert.Equal("Foucault Analysis", connector.CanonicalAnalysisKey("傅科分析"));
         var foucaultParameters = connector.GetAnalysisParameters("傅科分析");
         Assert.Equal(
@@ -1467,7 +1742,8 @@ public sealed class AnalysisGuiContractTests
         Assert.StartsWith("X视场，单位：", fullFieldAberrationSeries.XAxisLabel);
         Assert.StartsWith("Y视场，单位：", fullFieldAberrationSeries.YAxisLabel);
         Assert.Equal("Field Curvature and Distortion", connector.CanonicalAnalysisKey("场曲/畸变"));
-        Assert.Equal("Distortion", connector.CanonicalAnalysisKey("畸变"));
+        Assert.Equal("Field Curvature and Distortion", connector.CanonicalAnalysisKey("畸变"));
+        Assert.Equal("Field Curvature and Distortion", connector.CanonicalAnalysisKey("Distortion"));
         var fieldCurvatureAndDistortionParameters = connector.GetAnalysisParameters("场曲/畸变");
         Assert.Contains(fieldCurvatureAndDistortionParameters, parameter => parameter.Key == "MaximumCurvature");
         Assert.Contains(fieldCurvatureAndDistortionParameters, parameter => parameter.Key == "MaximumDistortion");
@@ -1522,6 +1798,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Single(colorFocusView.SeriesList);
         Assert.Equal("焦移：µm", colorFocusView.SeriesList[0].XAxisLabel);
         Assert.Equal("波长：µm", colorFocusView.SeriesList[0].YAxisLabel);
+        Assert.False(colorFocusView.PlotOptions.DefaultSquareViewport);
         Assert.Equal("Seidel Coefficients", connector.CanonicalAnalysisKey("赛德尔系数"));
         var seidelParameters = connector.GetAnalysisParameters("赛德尔系数");
         var seidelWavelength = Assert.Single(seidelParameters);
@@ -1568,7 +1845,20 @@ public sealed class AnalysisGuiContractTests
                 "位图文件查看器"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["扩展图像分析"]);
-        Assert.Contains("系统报告", MainWindow.AnalysisRibbonCategories);
+        Assert.Contains("报告", MainWindow.AnalysisRibbonCategories);
+        var surfaceReport = connector.BuildAnalysisView("表面数据报告");
+        Assert.Equal(
+            new[] { "面", "标签", "类型", "曲率半径", "厚度", "材料", "半口径", "圆锥系数", "光阑", "镀膜" },
+            surfaceReport.Table?.Columns);
+        Assert.Equal(optic.SurfaceGroup.Items.Count, surfaceReport.Table?.Rows.Count);
+        var systemReport = connector.BuildAnalysisView("系统数据报告");
+        Assert.Equal(new[] { "分类", "项目", "值" }, systemReport.Table?.Columns);
+        Assert.Contains(systemReport.Table!.Rows, row => row[1] == "有效焦距 (mm)");
+        var classifiedReport = connector.BuildAnalysisView("分类数据报告");
+        Assert.Equal(new[] { "分类", "项目", "数量", "表面序号" }, classifiedReport.Table?.Columns);
+        Assert.Contains(classifiedReport.Table!.Rows, row => row[0] == "材料");
+        Assert.Equal("First Order", connector.CanonicalAnalysisKey("一级像差/一阶量"));
+        Assert.Equal("Prescription Report", connector.CanonicalAnalysisKey("处方报告"));
         Assert.NotEmpty(connector.BuildAnalysisView("全视场点列图").SeriesList);
         Assert.NotEmpty(connector.BuildAnalysisView("矩阵点列图").PlotPanes);
         Assert.NotEmpty(connector.BuildAnalysisView("结构矩阵点列图").PlotPanes);

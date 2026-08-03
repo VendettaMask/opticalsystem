@@ -167,7 +167,8 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
             YMinimum: bounds.MinimumY,
             YMaximum: bounds.MaximumY,
             ShowLegend: true,
-            GridOpacity: 0.25);
+            GridOpacity: 0.25,
+            DefaultSquareViewport: true);
         return new AnalysisData(Name, values, series.FirstOrDefault(), series, plotOptions);
     }
 

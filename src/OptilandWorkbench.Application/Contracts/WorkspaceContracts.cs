@@ -388,14 +388,14 @@ public enum AnalysisPresentationKind
     ConfigurationMatrixSpot,
     FullFieldSpot,
     RayFan,
+    PupilAberration,
     OpticalPathDifference,
     FootprintDiagram,
     AxialAberration,
     LateralColor,
     ColorFocusShift,
     FieldCurvatureAndDistortion,
-    FieldCurvature,
-    Distortion
+    FieldCurvature
 }
 
 public sealed record AnalysisViewDto(
@@ -532,6 +532,7 @@ public sealed record SceneRay2Dto(
     int FieldIndex,
     int PupilIndex,
     int WavelengthIndex,
+    double WavelengthNanometers,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<ScenePoint2Dto> Points,
@@ -574,6 +575,7 @@ public sealed record SceneRay3Dto(
     int FieldIndex,
     int PupilIndex,
     int WavelengthIndex,
+    double WavelengthNanometers,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<ScenePoint3Dto> Points,

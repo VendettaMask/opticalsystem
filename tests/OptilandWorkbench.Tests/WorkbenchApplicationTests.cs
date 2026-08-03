@@ -482,6 +482,29 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void MeritFunctionEditorPreservesReadOnlyZemaxParameterSlotsWithoutClamping()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Optimization.SetMeritFunction(new[]
+        {
+            new MeritOperandRowDto(
+                1, true, "TTHI", 0, 0, 15, 195, -12, 6, -8,
+                40, 0.02, 0, 0, "Zemax 只读记录")
+        });
+
+        var restored = Assert.Single(application.Optimization.GetMeritFunction());
+
+        Assert.False(restored.Enabled);
+        Assert.Equal(15, restored.Wavelength);
+        Assert.Equal(195, restored.Hx);
+        Assert.Equal(-12, restored.Hy);
+        Assert.Equal(6, restored.Px);
+        Assert.Equal(-8, restored.Py);
+        Assert.Equal(40, restored.Target);
+        Assert.Equal(0.02, restored.Weight);
+    }
+
+    [Fact]
     public void DefaultMeritFunctionCanGenerateSpotAndWavefrontOperands()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -777,6 +800,12 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(
             options.Wavelengths.Select(wavelength => wavelength.Index),
             twoDimensional.Rays.Select(ray => ray.WavelengthIndex).Distinct().Order());
+        Assert.Equal(
+            application.Prescription.GetWavelengths().Select(wavelength => wavelength.Nanometers),
+            twoDimensional.Rays
+                .GroupBy(ray => ray.WavelengthIndex)
+                .OrderBy(group => group.Key)
+                .Select(group => group.Select(ray => ray.WavelengthNanometers).Distinct().Single()));
         Assert.Equal(options.Wavelengths.Count * 3, twoDimensional.Rays.Count);
     }
 

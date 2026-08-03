@@ -91,6 +91,7 @@ public sealed record Layout2DRayPath(
     int FieldIndex,
     int PupilIndex,
     int WavelengthIndex,
+    double WavelengthNanometers,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<Layout2DPoint> Points,
@@ -133,6 +134,7 @@ public sealed record Layout3DRayPath(
     int FieldIndex,
     int PupilIndex,
     int WavelengthIndex,
+    double WavelengthNanometers,
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<Layout3DPoint> Points,
@@ -183,6 +185,7 @@ public sealed class Layout2DBuilder
                 path.FieldIndex,
                 path.PupilIndex,
                 path.WavelengthIndex,
+                path.WavelengthNanometers,
                 path.Vignetted,
                 path.FinalIntensity,
                 path.Points.Select(point => new Layout2DPoint(point.Z, point.Y)).ToList(),
@@ -454,6 +457,7 @@ public sealed class Layout2DBuilder
                     spec.FieldIndex,
                     spec.PupilIndex,
                     spec.WavelengthIndex,
+                    spec.WavelengthNanometers,
                     vignetted,
                     finalIntensity,
                     points,
@@ -518,7 +522,8 @@ public sealed class Layout2DBuilder
                         ray,
                         field.Index,
                         pupilIndex,
-                        wavelength.Index));
+                        wavelength.Index,
+                        wavelength.Nanometers));
                 }
             }
         }
@@ -1165,5 +1170,6 @@ public sealed class Layout2DBuilder
         RealRay Ray,
         int FieldIndex,
         int PupilIndex,
-        int WavelengthIndex);
+        int WavelengthIndex,
+        double WavelengthNanometers);
 }

@@ -14,7 +14,7 @@ public static partial class WorkbenchAnalysisCatalog
     private static readonly IReadOnlyDictionary<string, string> DisplayNamesByKey = new Dictionary<string, string>
     {
         ["Single Ray Trace"] = "单光线追迹",
-        ["First Order"] = "一级像差/一阶量",
+        ["First Order"] = "系统数据摘要",
         ["Seidel Coefficients"] = "赛德尔系数",
         ["Seidel Diagram"] = "赛德尔图",
         ["Spot Diagram"] = "标准点列图",
@@ -23,7 +23,6 @@ public static partial class WorkbenchAnalysisCatalog
         ["Configuration Matrix Spot Diagram"] = "结构矩阵点列图",
         ["Ray Fan"] = "光线像差图",
         ["Footprint Diagram"] = "光迹图",
-        ["Distortion"] = "畸变",
         ["Grid Distortion"] = "网格畸变",
         ["Field Curvature and Distortion"] = "场曲/畸变",
         ["Field Curvature"] = "场曲",
@@ -72,7 +71,7 @@ public static partial class WorkbenchAnalysisCatalog
         ["Optical Path Difference"] = "光程差图",
         ["Foucault Analysis"] = "傅科分析",
         ["Wavefront Map"] = "波前图",
-        ["Interferogram"] = "???",
+        ["Interferogram"] = "干涉图",
         ["Wavefront"] = "波前",
         ["Centroid Sphere Wavefront"] = "质心参考球波前",
         ["Best Fit Sphere Wavefront"] = "最佳拟合球波前",
@@ -87,12 +86,17 @@ public static partial class WorkbenchAnalysisCatalog
         ["Partially Coherent Image Analysis"] = "部分相干图像分析",
         ["Extended Diffraction Image Analysis"] = "扩展图像分析",
         ["Jones Pupil"] = "Jones 瞳",
-        ["Prescription Report"] = "处方报告"
+        ["Prescription Report"] = "表面数据报告",
+        ["System Data Report"] = "系统数据报告",
+        ["Classified Data Report"] = "分类数据报告"
     };
 
     private static readonly IReadOnlyDictionary<string, string> AliasesByName =
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
+            ["一级像差/一阶量"] = "First Order",
+            ["一阶量"] = "First Order",
+            ["处方报告"] = "Prescription Report",
             ["光程差图"] = "Optical Path Difference",
             ["波前图"] = "Wavefront Map",
             ["干涉图"] = "Interferogram",
@@ -105,9 +109,10 @@ public static partial class WorkbenchAnalysisCatalog
             ["光瞳像差"] = "Pupil Aberration",
             ["全视场像差"] = "Full Field Aberration",
             ["场曲/畸变"] = "Field Curvature and Distortion",
+            ["Distortion"] = "Field Curvature and Distortion",
+            ["畸变"] = "Field Curvature and Distortion",
             ["轴向像差"] = "Axial Aberration",
             ["轴向色差"] = "Axial Aberration",
-            ["畸变"] = "Distortion",
             ["垂轴色差"] = "Lateral Color",
             ["色焦移"] = "Color Focus Shift",
             ["赛德尔系数"] = "Seidel Coefficients",
@@ -139,14 +144,14 @@ public static partial class WorkbenchAnalysisCatalog
             ["Configuration Matrix Spot Diagram"] = AnalysisPresentationKind.ConfigurationMatrixSpot,
             ["Full Field Spot Diagram"] = AnalysisPresentationKind.FullFieldSpot,
             ["Ray Fan"] = AnalysisPresentationKind.RayFan,
+            ["Pupil Aberration"] = AnalysisPresentationKind.PupilAberration,
             ["Optical Path Difference"] = AnalysisPresentationKind.OpticalPathDifference,
             ["Footprint Diagram"] = AnalysisPresentationKind.FootprintDiagram,
             ["Axial Aberration"] = AnalysisPresentationKind.AxialAberration,
             ["Lateral Color"] = AnalysisPresentationKind.LateralColor,
             ["Color Focus Shift"] = AnalysisPresentationKind.ColorFocusShift,
             ["Field Curvature and Distortion"] = AnalysisPresentationKind.FieldCurvatureAndDistortion,
-            ["Field Curvature"] = AnalysisPresentationKind.FieldCurvature,
-            ["Distortion"] = AnalysisPresentationKind.Distortion
+            ["Field Curvature"] = AnalysisPresentationKind.FieldCurvature
         };
 
     private static readonly IReadOnlyDictionary<string, WorkbenchAnalysisDescriptor> DescriptorsByKey;

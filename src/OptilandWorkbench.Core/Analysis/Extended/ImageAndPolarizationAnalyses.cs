@@ -128,7 +128,6 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             HideAxes: true));
     }
 }
-
 public sealed class JonesPupilAnalysis : BaseAnalysis
 {
     private readonly int _gridSize;
@@ -203,28 +202,5 @@ public sealed class JonesPupilAnalysis : BaseAnalysis
             ["CoatingMode"] = "Fresnel",
             ["Layout"] = "2 rows (real, imaginary) x 4 columns (Jxx, Jxy, Jyx, Jyy)"
         }, PlotPanes: panes, PlotPaneColumns: 4);
-    }
-}
-
-public sealed class PrescriptionReportAnalysis : BaseAnalysis
-{
-    public PrescriptionReportAnalysis(Optic optic) : base(optic)
-    {
-    }
-
-    public override string Name => "Prescription Report";
-
-    public override AnalysisData GenerateData()
-    {
-        return new AnalysisData(Name, new Dictionary<string, object>
-        {
-            ["Name"] = Optic.Name,
-            ["SurfaceCount"] = Optic.SurfaceGroup.Items.Count,
-            ["FieldCount"] = Optic.Fields.Count,
-            ["WavelengthCount"] = Optic.Wavelengths.Count,
-            ["EFL"] = Optic.Paraxial.EstimateEffectiveFocalLength(),
-            ["FNumber"] = Optic.Paraxial.EstimateFNumber(),
-            ["TotalTrack"] = Optic.SurfaceGroup.TotalTrack
-        });
     }
 }

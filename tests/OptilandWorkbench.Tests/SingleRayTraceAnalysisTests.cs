@@ -1,6 +1,7 @@
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
 
 namespace OptilandWorkbench.Tests;
 
@@ -113,5 +114,30 @@ public sealed class SingleRayTraceAnalysisTests
         Assert.NotNull(data.Table);
         Assert.NotEmpty(data.Table.Rows);
         Assert.Contains("0.8000000000", data.ReportText);
+    }
+
+    [Fact]
+    public void RayAimingTrialIgnoresPreStopApertureButFinalTraceReportsVignetting()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var stopIndex = optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        Assert.True(stopIndex > 1);
+        var clippingSurface = optic.SurfaceGroup.Items[stopIndex - 1];
+        clippingSurface.PhysicalAperture = new CircularAperture(0.001);
+
+        var data = new SingleRayTraceAnalysis(
+            optic,
+            fieldNumber: 0,
+            hx: 0,
+            hy: 0,
+            wavelengthNumber: 2,
+            px: 1,
+            py: 1,
+            useRayAiming: true).GenerateData();
+
+        Assert.NotNull(data.Table);
+        Assert.NotEmpty(data.Table.Rows);
+        Assert.Equal(clippingSurface.Number, data.Values["VignettedSurface"]);
+        Assert.Equal("Paraxial", data.Values["RayAiming"]);
     }
 }

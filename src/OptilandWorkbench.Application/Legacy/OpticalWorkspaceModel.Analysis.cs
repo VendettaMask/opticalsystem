@@ -313,16 +313,6 @@ public partial class OpticalWorkspaceModel
                 Int("ReferenceFieldNumber", 1),
                 Bool("IgnoreVignettingFactors", true),
                 Double("MaximumDistortion", 0)),
-            "Distortion" => new DistortionAnalysis(
-                CurrentOptic,
-                Int("NumPoints", 128),
-                Text("DistortionType", "F-Tan(Theta)"),
-                Int("WavelengthNumber", 0),
-                Text("ScanDirection", "+y"),
-                Text("DisplayMode", "百分比"),
-                Int("ReferenceFieldNumber", 1),
-                Bool("IgnoreVignettingFactors", true),
-                Double("MaximumDistortion", 0)),
             "Grid Distortion" => new GridDistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 12),
@@ -761,7 +751,9 @@ public partial class OpticalWorkspaceModel
             "Interferogram" => new WavefrontAnalysis(
                 CurrentOptic,
                 Int("NumRings", 15),
-                Int("MapSize", 65)),
+                Int("MapSize", 65),
+                name: "Interferogram",
+                defaultSquareViewport: true),
             "Centroid Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
                 CurrentOptic,
                 ReferenceSphereStrategy.CentroidSphere,
@@ -904,6 +896,8 @@ public partial class OpticalWorkspaceModel
             }),
             "Jones Pupil" => new JonesPupilAnalysis(CurrentOptic, Int("GridSize", 65)),
             "Prescription Report" => new PrescriptionReportAnalysis(CurrentOptic),
+            "System Data Report" => new SystemDataReportAnalysis(CurrentOptic),
+            "Classified Data Report" => new ClassifiedDataReportAnalysis(CurrentOptic),
             _ => CurrentOptic.Analyses.Create(name)
         };
     }

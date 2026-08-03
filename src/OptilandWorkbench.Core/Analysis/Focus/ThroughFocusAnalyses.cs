@@ -135,6 +135,9 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                             : AnalysisMarkerStyle.Circle,
                         MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
                         Opacity: 0.7,
+                        LegendKey: IsColorByField()
+                            ? $"field:{fieldIndex}"
+                            : $"wavelength:{wavelength.Wavelength.Micrometers:R}",
                         XQuantity: AnalysisAxisQuantity.ImageHeight,
                         XUnit: AnalysisAxisUnit.Millimeter,
                         YQuantity: AnalysisAxisQuantity.ImageHeight,

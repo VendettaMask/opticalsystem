@@ -51,8 +51,10 @@ public sealed partial class AnalysisPanel
                 ? BuildConfigurationMatrixSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
                 : IsMatrixSpotView(view)
                 ? BuildMatrixSpotPanePlot(view.PlotPanes, view.PlotPaneColumns)
-                : IsRayFanView(view) || IsOpticalPathDifferenceView(view)
-                ? BuildRayFanPanePlot(view.PlotPanes, defaultSquareCells: IsRayFanView(view))
+                : IsRayFanView(view) || IsPupilAberrationView(view) || IsOpticalPathDifferenceView(view)
+                ? BuildPairedFanPanePlot(
+                    view.PlotPanes,
+                    defaultSquareCells: IsRayFanView(view) || IsPupilAberrationView(view))
                 : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns)
             : IsSeidelDiagramView(view)
                 ? BuildSeidelDiagramPlot(view)
@@ -602,6 +604,11 @@ public sealed partial class AnalysisPanel
         OpticalDocumentSnapshot document,
         DateTimeOffset generatedAt)
     {
+        if (IsPupilAberrationView(view))
+        {
+            return BuildPupilAberrationTitleBlock(view, generatedAt);
+        }
+
         var compactSummary = BuildCompactAnalysisSummary(view);
         var showPaneMetrics = !IsConfigurationMatrixSpotView(view);
         var hasPaneMetrics = showPaneMetrics
@@ -760,6 +767,118 @@ public sealed partial class AnalysisPanel
         titleBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         titleBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return titleBorder;
+    }
+
+    private static Control BuildPupilAberrationTitleBlock(
+        AnalysisViewDto view,
+        DateTimeOffset generatedAt)
+    {
+        var maximumScale = view.PlotPanes
+            .SelectMany(pane => new[]
+            {
+                Math.Abs(pane.PlotOptions.YMinimum ?? 0),
+                Math.Abs(pane.PlotOptions.YMaximum ?? 0)
+            })
+            .DefaultIfEmpty(0)
+            .Max();
+        var wavelengths = view.PlotPanes.FirstOrDefault()?.Series
+            .GroupBy(series => series.Name, StringComparer.Ordinal)
+            .Select(group => group.First())
+            .ToArray()
+            ?? Array.Empty<AnalysisSeriesDto>();
+
+        var wavelengthLegend = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 4
+        };
+        foreach (var series in wavelengths)
+        {
+            var brush = SeriesBrush(series);
+            wavelengthLegend.Children.Add(new Border
+            {
+                BorderBrush = brush,
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                Padding = new Thickness(0, 0, 0, 3),
+                Margin = new Thickness(0, 2, 12, 2),
+                MinWidth = 82,
+                Child = new TextBlock
+                {
+                    Text = PupilWavelengthLabel(series.Name),
+                    Foreground = brush,
+                    FontSize = 12,
+                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                }
+            });
+        }
+
+        var body = new StackPanel
+        {
+            Spacing = 3,
+            Margin = new Thickness(16, 10),
+            Children =
+            {
+                new TextBlock
+                {
+                    Text = generatedAt.LocalDateTime.ToString("yyyy/M/d"),
+                    FontSize = 11
+                },
+                new TextBlock
+                {
+                    Text = $"最大缩放比例： ± {maximumScale.ToString("0.00E+00", CultureInfo.InvariantCulture)} Percent.",
+                    FontSize = 12,
+                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                },
+                wavelengthLegend,
+                new TextBlock
+                {
+                    Text = "面：像面",
+                    FontSize = 11
+                }
+            }
+        };
+        var content = new Grid
+        {
+            RowDefinitions = new RowDefinitions("34,*"),
+            MinHeight = 142
+        };
+        var header = new Border
+        {
+            BorderThickness = new Thickness(0, 0, 0, 1),
+            Child = new TextBlock
+            {
+                Text = view.Name,
+                FontSize = 15,
+                FontWeight = FontWeight.SemiBold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            }
+        };
+        header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        content.Children.Add(header);
+        Grid.SetRow(body, 1);
+        content.Children.Add(body);
+
+        var result = new Border
+        {
+            BorderThickness = new Thickness(0, 1, 0, 1),
+            Child = content
+        };
+        result.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        result.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        return result;
+    }
+
+    private static string PupilWavelengthLabel(string name)
+    {
+        var valueText = name.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? name;
+        return double.TryParse(
+            valueText,
+            NumberStyles.Float,
+            CultureInfo.InvariantCulture,
+            out var wavelength)
+                ? wavelength.ToString("0.000", CultureInfo.InvariantCulture)
+                : valueText;
     }
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
@@ -1025,33 +1144,7 @@ public sealed partial class AnalysisPanel
                 curvatureLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, curvatureLines));
         }
 
-        if (view.PresentationKind != AnalysisPresentationKind.Distortion)
-        {
-            return null;
-        }
-
-        var model = view.Rows.FirstOrDefault(row => row.Metric.Contains("畸变模型", StringComparison.Ordinal))?.Value;
-        var title = model?.ToLowerInvariant() switch
-        {
-            "f-tan" => "F-Tan(Theta) 畸变",
-            "f-theta" => "F-Theta 畸变",
-            _ => "畸变"
-        };
-        var maximumField = FindMaximumFieldRow(view);
-        var maximumDistortion = view.Rows.FirstOrDefault(row =>
-            row.Metric.Contains("最大绝对畸变", StringComparison.Ordinal));
-        var distortionUnit = maximumDistortion?.Metric.Contains("mm", StringComparison.OrdinalIgnoreCase) == true
-            ? " mm"
-            : "%";
-        var lines = new List<string>();
-        AddMaximumFieldLine(lines, maximumField);
-
-        if (maximumDistortion is not null)
-        {
-            lines.Add($"最大畸变 = {maximumDistortion.Value}{distortionUnit}");
-        }
-
-        return new CompactAnalysisSummary(title, lines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, lines));
+        return null;
     }
 
     private static AnalysisRowDto? FindMaximumFieldRow(AnalysisViewDto view)

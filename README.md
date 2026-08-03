@@ -9,8 +9,9 @@
 - 内置 Optiland 兼容玻璃数据以及由 63 个 Zemax AGF 目录转换的玻璃库，支持厂商消歧、13 种 Zemax 色散公式和热学、机械、透过率数据。
 - 顺序实光线追迹支持局部坐标、孔径裁剪、折射、反射、衍射和全反射的显式交互类型；大批量追迹可选择仅末面、指定表面或完整历史保留模式。
 - 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等几何模型；尚未实现的自由曲面保持明确边界。
-- 桌面分析目录覆盖点列图、光线像差、波前、Zernike、PSF、MTF、RMS、圈入能量、相对照度、辐照度、Jones 光瞳和图像模拟等工作流。
+- 桌面端当前注册 `70` 个规范分析，覆盖报告、点列图、光线像差、波前、Zernike、PSF、MTF、RMS、圈入能量、相对照度、辐照度、Jones 光瞳和图像模拟等工作流。独立“畸变”入口已移除，畸变曲线统一由“场曲/畸变”组合分析提供；“分析 > 报告”按表面数据、系统数据、分类数据、系统数据摘要和基面数据组织。
 - 优化模块包括手动调整、评价函数、局部优化、差分进化和盆地跳跃；公差模块包括 TDE 风格编辑器、向导、灵敏度、补偿和确定性 Monte Carlo。
+- Zemax ZMX 评价函数按源顺序导入；当前参考 `[MS-L7]` 文件的 103 行均可见，其中已实现的操作数参与计算，尚未实现的类型以禁用只读行保留原参数，不伪装为 Zemax 数值等价。
 - 原生 `.staropt` 项目采用版本头、Brotli 压缩、SHA-256 校验、语义验证和原子保存；Python Optiland JSON、Zemax ZMX、CODE V SEQ、OSLO LEN 是显式交换格式。
 - Dock.Avalonia 工作区支持标签拖放、分栏、合并、独立浮动、重新停靠、平铺、层叠、页面锁定和按文件保存工作区会话。
 - 只有“全部独立浮动”会创建软件外的原生窗口；平铺和层叠会先把全部页面收回主文档区，再使用 Dock 的内部 MDI 布局。空浮动宿主会在操作、保存和旧会话恢复时清理。
@@ -49,6 +50,7 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/Optil
 - 在顶部 Ribbon 切换文件、设置、视图、分析、优化、公差、加工与图纸、数据库和窗口命令。
 - 在“视图”中打开二维布局、三维布局或实体模型。
 - 在“分析”中按像质类别选择方法；分析结果作为可关闭文档打开，底部提供绘图、数据和文本页。
+- “分析 > 报告”依次提供表面数据报告、系统数据报告、分类数据报告、系统数据摘要和基面数据；旧“一阶量、处方报告”只作为兼容别名保留。
 - 设置面板默认折叠；修改参数后使用同步按钮重新计算重型分析。
 - 在“窗口”中选择“保留分栏停靠”“合并单窗格”“全部独立浮动”“平铺全部”或“层叠全部”。平铺、层叠和合并都会自动回收软件外的浮动页面；平铺与层叠在中央文档区使用内部 MDI，合并切回单一标签窗格。
 - “切换锁定”用于冻结或恢复当前页面更新；“关闭其他页”保留镜头数据页。
@@ -64,7 +66,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至 2026-08-03，仓库包含 `663` 项回归测试，当前全量基线为 `663/663`。基线覆盖 Core、Application、Avalonia 首帧与主题、Dock 空宿主/会话/锁定、内部 MDI 布局、Ray Fan 方形面板契约，以及本轮架构收敛与光学计算回归。
+截至 2026-08-04，仓库当前记录 `671` 项回归测试；最近一次全量基线仍为 `663/663`。其后新增的 8 项覆盖分析布局、波长语义色、单光线瞄准、入射角 vs. 像高和 Zemax 评价函数导入，并已按相关子集定向验证；报告菜单和三类真实报告输出另通过 `4/4` 定向契约测试。最近一次 `3/3` 分析目录子集还验证了 70 项规范目录、独立“畸变”入口退场、旧名称迁移到“场曲/畸变”以及干涉图方形视口；色焦移保持普通曲线图的自适应布局。Zemax 评价函数导入与编辑往返最近通过 `6/6` 定向测试。未重新执行全量测试前，不把这些定向结果写成新的全量基线。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -91,23 +93,12 @@ docs                               架构、格式、兼容、验证和发布文
 
 ## 文档索引
 
-- [架构](docs/ARCHITECTURE.md)
-- [旧、新架构收敛与单一结果链路修正计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)
-- [构建与发布](docs/BUILD_AND_RELEASE.md)
-- [文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)
-- [GUI 工作流与重构](docs/GUI_QUICKSTART_REFACTOR.md)
-- [大规模光线追迹性能](docs/RAY_TRACING_PERFORMANCE.md)
-- [Python Optiland 兼容审计](docs/PYTHON_PARITY_AUDIT.md)
-- [数值兼容](docs/NUMERICAL_PARITY.md)
-- [Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)
-- [分析与绘图兼容](docs/PYTHON_ANALYSIS_PARITY.md)
-- [Zemax 分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)
-- [Zemax 操作数支持](docs/ZEMAX_OPERAND_SUPPORT.md)
-- [公差](docs/TOLERANCING.md)
-- [镜头库](docs/LENS_LIBRARY.md)
-- [制造与制图](docs/MANUFACTURING_DRAWINGS.md)
-- [品牌资源](docs/BRANDING.md)
-- [本地图标](docs/LOCAL_ICONS.md)
+- 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
+- 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
+- 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
+- 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
+- Zemax 边界：[分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)、[基准配置边界](docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)、[操作数支持规范](docs/ZEMAX_OPERAND_SUPPORT.md)。
+- 工程工作流：[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
 
 ## 兼容声明
 

@@ -540,11 +540,13 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
         var fieldX = maximumField <= 1e-12 ? 0 : edgeField.X / maximumField;
         var fieldY = maximumField <= 1e-12 ? 0 : edgeField.Y / maximumField;
         var axis = Math.Abs(edgeField.X) > Math.Abs(edgeField.Y) ? 0 : 1;
+        var edgeCoordinate = axis == 0 ? edgeField.X : edgeField.Y;
+        var orientation = edgeCoordinate < 0 ? -1.0 : 1.0;
         var rayDefinitions = new[]
         {
-            (Pupil: -1.0, Name: "较小光瞳点光线", ColorIndex: 0),
+            (Pupil: -orientation, Name: "较小光瞳点光线", ColorIndex: 0),
             (Pupil: 0.0, Name: "主光线", ColorIndex: 2),
-            (Pupil: 1.0, Name: "较大光瞳点光线", ColorIndex: 3)
+            (Pupil: orientation, Name: "较大光瞳点光线", ColorIndex: 3)
         };
         var fieldSamples = Enumerable.Range(0, _fieldDensity + 1)
             .Select(index =>
@@ -552,11 +554,21 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
                 var fraction = (double)index / _fieldDensity;
                 var hx = fieldX * fraction;
                 var hy = fieldY * fraction;
-                var chief = Optic.TraceGenericSurfaceSample(hx, hy, 0, 0, wavelength.Micrometers, surfaceIndex);
+                var chief = Optic.TraceGenericSurfaceSample(
+                    hx,
+                    hy,
+                    0,
+                    0,
+                    wavelength.Micrometers,
+                    surfaceIndex,
+                    aimAtStop: true);
+                var localChiefPosition = chief is null
+                    ? default
+                    : Optic.SurfaceGroup.Items[surfaceIndex].CoordinateSystem.ToLocalPoint(chief.Position);
                 var imageHeight = chief is null
                     ? double.NaN
-                    : axis == 0 ? chief.Position.X : chief.Position.Y;
-                return (Hx: hx, Hy: hy, ImageHeight: Math.Abs(imageHeight));
+                    : axis == 0 ? localChiefPosition.X : localChiefPosition.Y;
+                return (Hx: hx, Hy: hy, ImageHeight: orientation * Math.Abs(imageHeight));
             })
             .ToArray();
 
@@ -573,14 +585,21 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
                     px,
                     py,
                     wavelength.Micrometers,
-                    surfaceIndex);
+                    surfaceIndex,
+                    aimAtStop: true);
                 if (sample is null)
                 {
                     points.Add(new AnalysisPoint(double.NaN, double.NaN));
                     continue;
                 }
-                var directionCosine = axis == 0 ? sample.Direction.X : sample.Direction.Y;
-                var incidentAngle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;
+                var localDirection = Optic.SurfaceGroup.Items[surfaceIndex]
+                    .CoordinateSystem
+                    .ToLocalDirection(sample.Direction);
+                var directionCosine = axis == 0 ? localDirection.X : localDirection.Y;
+                var incidentAngle = orientation
+                    * Math.Asin(Math.Clamp(directionCosine, -1, 1))
+                    * 180
+                    / Math.PI;
                 points.Add(new AnalysisPoint(fieldSample.ImageHeight, incidentAngle));
             }
 
@@ -600,7 +619,12 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
         var finitePoints = series.SelectMany(item => item.Points)
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
+        var minimumImageHeight = finitePoints.Select(point => point.X).DefaultIfEmpty(0).Min();
         var maximumImageHeight = finitePoints.Select(point => point.X).DefaultIfEmpty(1).Max();
+        if (maximumImageHeight - minimumImageHeight <= 1e-12)
+        {
+            maximumImageHeight = minimumImageHeight + 1;
+        }
         var maximumAngle = finitePoints.Select(point => Math.Abs(point.Y)).DefaultIfEmpty(0).Max();
         var angleLimit = Math.Max(25, Math.Ceiling(maximumAngle / 5) * 5);
 
@@ -612,6 +636,7 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
                 ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
                 ["WavelengthMicrometers"] = wavelength.Micrometers,
                 ["SurfaceIndex"] = surfaceIndex,
+                ["AimAtStop"] = true,
                 ["RayCount"] = series.Length,
                 ["PointCountPerRay"] = _fieldDensity + 1
             },
@@ -619,7 +644,7 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
             series,
             new AnalysisPlotOptions(
                 Title: "入射角 vs. 像高",
-                XMinimum: 0,
+                XMinimum: minimumImageHeight,
                 XMaximum: maximumImageHeight,
                 YMinimum: -angleLimit,
                 YMaximum: angleLimit,

@@ -272,7 +272,6 @@ public partial class OpticalWorkspaceModel
                 ChoiceParameter("ColorRaysBy", "光线着色依据", "视场", new[] { "视场", "波长" })
             },
             "Field Curvature and Distortion" => FieldCurvatureAndDistortionParameters(UsesAngularDistortionModel()),
-            "Distortion" => DistortionParameters(UsesAngularDistortionModel()),
             "Grid Distortion" => GridDistortionParameters(),
             "Field Curvature" => new[]
             {

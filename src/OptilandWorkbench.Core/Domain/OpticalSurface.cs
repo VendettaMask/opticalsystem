@@ -269,14 +269,16 @@ public sealed partial class OpticalSurface : NotifyObject
         IMaterial materialBefore,
         IMaterial materialAfter,
         double cumulativePathLength,
-        double cumulativeOpticalPathLength)
+        double cumulativeOpticalPathLength,
+        bool ignorePhysicalAperture = false)
     {
         var result = TraceRayState(
             RayState.FromRealRay(inputRay),
             materialBefore,
             materialAfter,
             cumulativePathLength,
-            cumulativeOpticalPathLength);
+            cumulativeOpticalPathLength,
+            ignorePhysicalAperture);
         return new SurfaceRayTraceValueResult(
             result.Ray.ToRealRay(),
             result.Sample,

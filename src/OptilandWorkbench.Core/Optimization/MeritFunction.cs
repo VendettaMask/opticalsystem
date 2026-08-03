@@ -140,6 +140,15 @@ public static class MeritFunctionCatalog
         new MeritOperandType("MNCG", "最小玻璃中心厚度", "从 Zemax 导入并作为只读记录保留"),
         new MeritOperandType("MXCG", "最大玻璃中心厚度", "从 Zemax 导入并作为只读记录保留"),
         new MeritOperandType("MNEG", "最小玻璃边缘厚度", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("MXEG", "最大玻璃边缘厚度", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("TTHI", "总厚度", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("CTGT", "中心厚度下限", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("PMAG", "近轴放大率", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("REAR", "实际光线径向坐标", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("DIMX", "最大畸变", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("PETZ", "佩兹伐曲率", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("SINE", "正弦", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("DIVI", "除法", "从 Zemax 导入并作为只读记录保留"),
         new MeritOperandType("RSCE", "RMS 点列半径", "指定视场和波长的 RMS 点列半径"),
         new MeritOperandType("RSCH", "RMS 点列半径（主光线参考）", "使用高斯求积采样的主光线参考 RMS 点列半径"),
         new MeritOperandType("RSRE", "RMS 点列半径（矩形采样）", "使用矩形阵列采样的质心参考 RMS 点列半径"),
@@ -738,10 +747,12 @@ public static class MeritFunctionCatalog
     // Compatibility rows still carry raw Zemax integer slots in legacy Workbench
     // fields. They are not complete operand implementations; see
     // docs/ZEMAX_OPERAND_SUPPORT.md.
-    internal static bool HasOpaqueZemaxParameters(string? type) =>
+    public static bool HasOpaqueZemaxParameters(string? type) =>
         (type ?? string.Empty).Trim().ToUpperInvariant() is
             "CONF" or "RANG" or "CONS" or "PROD" or "OPLT"
-            or "MNCA" or "MXCA" or "MNEA" or "MNCG" or "MXCG" or "MNEG";
+            or "MNCA" or "MXCA" or "MNEA" or "MNCG" or "MXCG" or "MNEG" or "MXEG"
+            or "TTHI" or "CTGT" or "PMAG" or "REAR" or "DIMX" or "PETZ"
+            or "SINE" or "DIVI";
 
     private static double EvaluateValue(Optic optic, MeritOperandDefinition definition)
     {

@@ -847,7 +847,9 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void PupilAberrationMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void PupilAberrationCurvesMatchPythonWithSharedZemaxDisplayScale(
+        string sampleName,
+        Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("pupil_aberration");
@@ -871,11 +873,23 @@ public sealed class PythonAnalysisParityTests
                     AssertClose(expectedY[index].GetDouble(), yPane.Series[wavelength].Points[index].Y);
                 }
             }
-
-            var expectedLimits = expected.GetProperty("panes")[field * 2].GetProperty("y_lim");
-            AssertClose(expectedLimits[0].GetDouble(), yPane.PlotOptions.YMinimum!.Value);
-            AssertClose(expectedLimits[1].GetDouble(), yPane.PlotOptions.YMaximum!.Value);
         }
+
+        var maximumAbsoluteAberration = data.PlotPanes
+            .SelectMany(pane => pane.Series)
+            .SelectMany(series => series.Points)
+            .Where(point => double.IsFinite(point.Y))
+            .Select(point => Math.Abs(point.Y))
+            .DefaultIfEmpty(0)
+            .Max();
+        var expectedScale = Math.Max(
+            1e-5,
+            Math.Pow(10, Math.Ceiling(Math.Log10(maximumAbsoluteAberration))));
+        Assert.All(data.PlotPanes, pane =>
+        {
+            AssertClose(-expectedScale, pane.PlotOptions.YMinimum!.Value);
+            AssertClose(expectedScale, pane.PlotOptions.YMaximum!.Value);
+        });
     }
 
     [Theory]

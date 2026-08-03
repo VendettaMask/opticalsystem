@@ -519,6 +519,78 @@ public sealed class RayGenerator
             stopIndex);
         var slopeX = direction.X / Math.Max(1e-30, direction.Z);
         var slopeY = direction.Y / Math.Max(1e-30, direction.Z);
+        if (TryAimFiniteTarget(
+                origin,
+                wavelengthNanometers,
+                stopIndex,
+                targetX,
+                targetY,
+                slopeX,
+                slopeY,
+                out var aimedDirection,
+                out var residual))
+        {
+            return (origin, aimedDirection);
+        }
+
+        // In high-NA finite-conjugate systems, the direct paraxial marginal-ray
+        // estimate can miss an early surface before Newton iteration obtains a
+        // usable sample. Continue from the chief ray to the requested stop point
+        // so every intermediate trial remains on a traceable branch.
+        var entrancePupilCenter = new Vector3D(0, 0, EntrancePupilGlobalZ());
+        var centralDirection = Normalize(entrancePupilCenter - origin);
+        var centralSlopeX = centralDirection.X / Math.Max(1e-30, centralDirection.Z);
+        var centralSlopeY = centralDirection.Y / Math.Max(1e-30, centralDirection.Z);
+        if (!TryAimFiniteTarget(
+                origin,
+                wavelengthNanometers,
+                stopIndex,
+                0,
+                0,
+                centralSlopeX,
+                centralSlopeY,
+                out aimedDirection,
+                out residual))
+        {
+            throw new RayAimingException(stop.Number, 1, residual);
+        }
+
+        const int continuationSteps = 16;
+        for (var step = 1; step <= continuationSteps; step++)
+        {
+            slopeX = aimedDirection.X / Math.Max(1e-30, aimedDirection.Z);
+            slopeY = aimedDirection.Y / Math.Max(1e-30, aimedDirection.Z);
+            var fraction = (double)step / continuationSteps;
+            if (!TryAimFiniteTarget(
+                    origin,
+                    wavelengthNanometers,
+                    stopIndex,
+                    targetX * fraction,
+                    targetY * fraction,
+                    slopeX,
+                    slopeY,
+                    out aimedDirection,
+                    out residual))
+            {
+                throw new RayAimingException(stop.Number, step, residual);
+            }
+        }
+
+        return (origin, aimedDirection);
+    }
+
+    private bool TryAimFiniteTarget(
+        Vector3D origin,
+        double wavelengthNanometers,
+        int stopIndex,
+        double targetX,
+        double targetY,
+        double slopeX,
+        double slopeY,
+        out Vector3D aimedDirection,
+        out double residual)
+    {
+        var stop = _optic.SurfaceGroup.Items[stopIndex];
         var distance = Math.Max(
             1e-9,
             Math.Abs(stop.CoordinateSystem.Origin.Z - origin.Z));
@@ -529,13 +601,15 @@ public sealed class RayGenerator
         var lastErrorSquared = double.PositiveInfinity;
         for (var iteration = 0; iteration < 12; iteration++)
         {
-            var aimedDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
+            var trialDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
             var stopSample = _optic.SequentialRayTracer.TraceToSurface(
-                new RealRay(origin, aimedDirection, wavelengthNanometers),
+                new RealRay(origin, trialDirection, wavelengthNanometers),
                 stopIndex);
             if (stopSample is null)
             {
-                throw new RayAimingException(stop.Number, iteration + 1, double.PositiveInfinity);
+                aimedDirection = default;
+                residual = double.PositiveInfinity;
+                return false;
             }
 
             var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
@@ -544,7 +618,9 @@ public sealed class RayGenerator
             lastErrorSquared = (errorX * errorX) + (errorY * errorY);
             if (lastErrorSquared <= 1e-16)
             {
-                return (origin, aimedDirection);
+                aimedDirection = trialDirection;
+                residual = Math.Sqrt(lastErrorSquared);
+                return true;
             }
 
             var correctionX = errorX / distance;
@@ -583,10 +659,14 @@ public sealed class RayGenerator
 
         if (lastErrorSquared <= 1e-8)
         {
-            return (origin, Normalize(new Vector3D(slopeX, slopeY, 1)));
+            aimedDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
+            residual = Math.Sqrt(lastErrorSquared);
+            return true;
         }
 
-        throw new RayAimingException(stop.Number, 12, Math.Sqrt(lastErrorSquared));
+        aimedDirection = default;
+        residual = Math.Sqrt(lastErrorSquared);
+        return false;
     }
 
     private (double X, double Y) ParaxialStopTarget(

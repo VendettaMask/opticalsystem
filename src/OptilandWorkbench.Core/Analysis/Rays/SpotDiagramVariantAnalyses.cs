@@ -78,23 +78,47 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         var magnification = double.IsFinite(_settings.Magnification)
             ? Math.Max(0, _settings.Magnification)
             : 1;
-        var series = wavelengths.Select((wavelength, wavelengthIndex) =>
+        AnalysisPoint[] BuildPoints(int fieldIndex, int wavelengthIndex)
         {
-            var points = absolute.Fields.SelectMany((field, fieldIndex) =>
+            var absoluteRays = absolute.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
+            var referencedRays = referenced.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
+            return absoluteRays.Zip(referencedRays, (absoluteRay, referencedRay) =>
             {
-                var absoluteRays = field.Wavelengths[wavelengthIndex].Rays;
-                var referencedRays = referenced.Fields[fieldIndex].Wavelengths[wavelengthIndex].Rays;
-                return absoluteRays.Zip(referencedRays, (absoluteRay, referencedRay) =>
-                {
-                    var x = absoluteRay.X + ((magnification - 1) * referencedRay.X);
-                    var y = absoluteRay.Y + ((magnification - 1) * referencedRay.Y);
-                    return new AnalysisPoint(x * 1000, y * 1000);
-                });
+                var x = absoluteRay.X + ((magnification - 1) * referencedRay.X);
+                var y = absoluteRay.Y + ((magnification - 1) * referencedRay.Y);
+                return new AnalysisPoint(x * 1000, y * 1000);
             }).ToArray();
-            return new AnalysisSeries(
+        }
+
+        var series = IsColorByField()
+            ? fields.Select((field, fieldIndex) =>
+            {
+                var globalFieldIndex = fieldIndices[fieldIndex];
+                var points = Enumerable.Range(0, wavelengths.Count())
+                    .SelectMany(wavelengthIndex => BuildPoints(fieldIndex, wavelengthIndex))
+                    .ToArray();
+                return new AnalysisSeries(
+                    "X (µm)",
+                    "Y (µm)",
+                    points,
+                    AnalysisSeriesKind.Scatter,
+                    MtfPresentation.FieldName(Optic, field),
+                    ColorIndex: globalFieldIndex,
+                    MarkerStyle: _settings.UseSymbols
+                        ? (AnalysisMarkerStyle)(globalFieldIndex % 4)
+                        : AnalysisMarkerStyle.Circle,
+                    MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
+                    Opacity: 0.75,
+                    LegendKey: $"field:{globalFieldIndex}",
+                    XQuantity: AnalysisAxisQuantity.ImageHeight,
+                    XUnit: AnalysisAxisUnit.Micrometer,
+                    YQuantity: AnalysisAxisQuantity.ImageHeight,
+                    YUnit: AnalysisAxisUnit.Micrometer);
+            }).ToArray()
+            : wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
                 "X (µm)",
                 "Y (µm)",
-                points,
+                fields.SelectMany((_, fieldIndex) => BuildPoints(fieldIndex, wavelengthIndex)).ToArray(),
                 AnalysisSeriesKind.Scatter,
                 $"{wavelength.Micrometers:0.0000} µm",
                 ColorIndex: wavelengthIndex,
@@ -103,11 +127,11 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                     : AnalysisMarkerStyle.Circle,
                 MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
                 Opacity: 0.75,
+                LegendKey: $"wavelength:{wavelength.Micrometers:R}",
                 XQuantity: AnalysisAxisQuantity.ImageHeight,
                 XUnit: AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.ImageHeight,
-                YUnit: AnalysisAxisUnit.Micrometer);
-        }).ToArray();
+                YUnit: AnalysisAxisUnit.Micrometer)).ToArray();
         var allPoints = series.SelectMany(item => item.Points)
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
@@ -170,7 +194,8 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                 YMaximum: yCenter + (span / 2),
                 ShowLegend: true,
                 GridOpacity: 0.25,
-                HideTickLabels: true));
+                HideTickLabels: true,
+                DefaultSquareViewport: true));
     }
 
     private static double NiceScale(double value)
@@ -190,27 +215,44 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         return rounded * power;
     }
 
+    private bool IsColorByField()
+    {
+        return string.Equals(_settings.ColorRaysBy, "field", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(_settings.ColorRaysBy, "视场", StringComparison.Ordinal);
+    }
+
     private AnalysisData BuildMatrix(
         AnalysisData source,
         IReadOnlyDictionary<string, object> values,
         bool configurationMatrix)
     {
-        var panes = (source.PlotPanes ?? Array.Empty<AnalysisPlotPane>())
-            .SelectMany(pane => pane.Series.Select(series => new AnalysisPlotPane(
-                configurationMatrix
-                    ? $"结构 1 · {pane.Title} · {series.Name}"
-                    : series.Name,
-                new[] { series },
-                pane.PlotOptions with
-                {
-                    Title = configurationMatrix
-                        ? $"结构 1 · {pane.Title} · {series.Name}"
-                        : string.Empty,
-                    HideTickLabels = true
-                },
-                configurationMatrix ? pane.Metrics : null,
-                configurationMatrix ? pane.Footer : MatrixFieldLabel(pane.Title))))
-            .ToArray();
+        var sourcePanes = source.PlotPanes ?? Array.Empty<AnalysisPlotPane>();
+        var panes = configurationMatrix
+            ? sourcePanes.Select(pane =>
+            {
+                var title = $"结构 1 · {pane.Title}";
+                return new AnalysisPlotPane(
+                    title,
+                    pane.Series,
+                    pane.PlotOptions with
+                    {
+                        Title = title,
+                        HideTickLabels = true
+                    },
+                    pane.Metrics,
+                    pane.Footer);
+            }).ToArray()
+            : sourcePanes
+                .SelectMany(pane => pane.Series.Select(series => new AnalysisPlotPane(
+                    series.Name,
+                    new[] { series },
+                    pane.PlotOptions with
+                    {
+                        Title = string.Empty,
+                        HideTickLabels = true
+                    },
+                    Footer: MatrixFieldLabel(pane.Title))))
+                .ToArray();
         var matrixValues = values.ToDictionary(item => item.Key, item => item.Value);
         if (!configurationMatrix)
         {
@@ -229,7 +271,9 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             firstSeries,
             firstSeries is null ? null : new[] { firstSeries },
             PlotPanes: panes,
-            PlotPaneColumns: Math.Max(1, source.PlotPanes?.FirstOrDefault()?.Series.Count ?? 1));
+            PlotPaneColumns: configurationMatrix
+                ? 1
+                : Math.Max(1, sourcePanes.FirstOrDefault()?.Series.Count ?? 1));
     }
 
     private static string MatrixFieldLabel(string title)

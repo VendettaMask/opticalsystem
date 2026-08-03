@@ -62,6 +62,93 @@ public sealed class AnalysisPlotControl : Control
         return Palette[normalizedIndex % Palette.Length];
     }
 
+    internal static Color SeriesColor(AnalysisSeries series)
+    {
+        return TryGetWavelengthNanometers(series, out var wavelengthNanometers)
+            ? SpectralColorMap.FromNanometers(wavelengthNanometers)
+            : SeriesColor(series.ColorIndex);
+    }
+
+    internal static Color WavelengthColor(double wavelengthNanometers) =>
+        SpectralColorMap.FromNanometers(wavelengthNanometers);
+
+    internal static bool TryGetWavelengthNanometers(
+        AnalysisSeries series,
+        out double wavelengthNanometers)
+    {
+        const string wavelengthPrefix = "wavelength:";
+        if (!string.IsNullOrWhiteSpace(series.LegendKey))
+        {
+            if (series.LegendKey.StartsWith(wavelengthPrefix, StringComparison.OrdinalIgnoreCase)
+                && double.TryParse(
+                    series.LegendKey[wavelengthPrefix.Length..],
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out var keyedMicrometers))
+            {
+                wavelengthNanometers = keyedMicrometers * 1000;
+                return double.IsFinite(wavelengthNanometers) && wavelengthNanometers > 0;
+            }
+
+            wavelengthNanometers = 0;
+            return false;
+        }
+
+        return TryParseWavelength(series.LegendLabel, out wavelengthNanometers)
+            || TryParseWavelength(series.Name, out wavelengthNanometers);
+    }
+
+    private static bool TryParseWavelength(string text, out double wavelengthNanometers)
+    {
+        wavelengthNanometers = 0;
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return false;
+        }
+
+        foreach (var (unit, multiplier) in new[]
+        {
+            ("µm", 1000.0),
+            ("μm", 1000.0),
+            ("um", 1000.0),
+            ("nm", 1.0)
+        })
+        {
+            var unitIndex = text.IndexOf(unit, StringComparison.OrdinalIgnoreCase);
+            if (unitIndex < 0)
+            {
+                continue;
+            }
+
+            var prefix = text[..unitIndex].TrimEnd();
+            var start = prefix.Length;
+            while (start > 0)
+            {
+                var character = prefix[start - 1];
+                if (!char.IsDigit(character)
+                    && character is not '.' and not ',' and not '+' and not '-' and not 'e' and not 'E')
+                {
+                    break;
+                }
+
+                start--;
+            }
+
+            var numberText = prefix[start..].Replace(',', '.');
+            if (double.TryParse(
+                numberText,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out var wavelength))
+            {
+                wavelengthNanometers = wavelength * multiplier;
+                return double.IsFinite(wavelengthNanometers) && wavelengthNanometers > 0;
+            }
+        }
+
+        return false;
+    }
+
     private IReadOnlyList<AnalysisSeries> _series = Array.Empty<AnalysisSeries>();
     private AnalysisPlotOptions _plotOptions = new();
     private PlotViewport? _viewport;
@@ -420,7 +507,7 @@ public sealed class AnalysisPlotControl : Control
         var guidePen = new Pen(new SolidColorBrush(ThemeColor(ThemeResourceBindings.PlotHint, Color.FromRgb(110, 110, 115), 115)), 1, DashStyle.Dash);
         context.DrawLine(guidePen, new Point(sample.ScreenPoint.X, plot.Top), new Point(sample.ScreenPoint.X, plot.Bottom));
         context.DrawLine(guidePen, new Point(plot.Left, sample.ScreenPoint.Y), new Point(plot.Right, sample.ScreenPoint.Y));
-        var color = SeriesColor(sample.Series.ColorIndex);
+        var color = SeriesColor(sample.Series);
         context.DrawEllipse(
             ThemeBrush(ThemeResourceBindings.PlotHoverMarkerFill, Brushes.White),
             new Pen(new SolidColorBrush(color), 2),
@@ -561,7 +648,7 @@ public sealed class AnalysisPlotControl : Control
         double yMin,
         double yMax)
     {
-        var color = SeriesColor(series.ColorIndex);
+        var color = SeriesColor(series);
         var brush = new SolidColorBrush(Color.FromArgb(
             (byte)Math.Clamp(Math.Round(series.Opacity * 255), 0, 255),
             color.R,
@@ -934,7 +1021,7 @@ public sealed class AnalysisPlotControl : Control
     {
         foreach (var item in visibleSeries.Where(item => item.Series.Kind == AnalysisSeriesKind.Scatter))
         {
-            var color = SeriesColor(item.Series.ColorIndex);
+            var color = SeriesColor(item.Series);
             var brush = new SolidColorBrush(Color.FromArgb(220, color.R, color.G, color.B));
             foreach (var point in item.Points)
             {
@@ -1061,7 +1148,7 @@ public sealed class AnalysisPlotControl : Control
         var y = plot.Center.Y - (totalHeight / 2);
         foreach (var item in legendItems)
         {
-            var brush = new SolidColorBrush(SeriesColor(item.Series.ColorIndex));
+            var brush = new SolidColorBrush(SeriesColor(item.Series));
             var pen = new Pen(brush, item.Series.LineWidth, DashFor(item.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 28, y + 8));
             if (item.Series.Kind == AnalysisSeriesKind.Scatter || item.Series.ShowMarkers)
@@ -1090,7 +1177,7 @@ public sealed class AnalysisPlotControl : Control
         var y = plot.Bottom + 58;
         foreach (var entry in entries)
         {
-            var color = SeriesColor(entry.Series.ColorIndex);
+            var color = SeriesColor(entry.Series);
             var brush = new SolidColorBrush(color);
             var pen = new Pen(brush, entry.Series.LineWidth, DashFor(entry.Series.LineStyle));
             context.DrawLine(pen, new Point(x, y + 8), new Point(x + 26, y + 8));

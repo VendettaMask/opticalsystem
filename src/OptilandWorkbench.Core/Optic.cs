@@ -205,14 +205,16 @@ public sealed class Optic
         double normalizedPupilX,
         double normalizedPupilY,
         double wavelengthMicrometers,
-        int surfaceIndex) =>
+        int surfaceIndex,
+        bool aimAtStop = false) =>
         SequentialRayTracer.TraceGenericSurfaceSample(
             normalizedFieldX,
             normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
             wavelengthMicrometers,
-            surfaceIndex);
+            surfaceIndex,
+            aimAtStop);
 
     public Optimization.OptimizationProblem CreateOptimizationProblem()
     {

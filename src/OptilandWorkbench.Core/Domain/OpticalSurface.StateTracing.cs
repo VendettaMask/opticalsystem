@@ -13,7 +13,8 @@ public sealed partial class OpticalSurface
         IMaterial materialBefore,
         IMaterial materialAfter,
         double cumulativePathLength,
-        double cumulativeOpticalPathLength)
+        double cumulativeOpticalPathLength,
+        bool ignorePhysicalAperture = false)
     {
         var ray = inputRay.Normalize();
         var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
@@ -58,7 +59,9 @@ public sealed partial class OpticalSurface
             Intensity = ray.Intensity * attenuation
         };
         var localHit = CoordinateSystem.ToLocalPoint(propagated.Origin);
-        var vignetted = PhysicalAperture is not null && !PhysicalAperture.Contains(localHit);
+        var vignetted = !ignorePhysicalAperture
+            && PhysicalAperture is not null
+            && !PhysicalAperture.Contains(localHit);
         if (vignetted)
         {
             var stopped = propagated with { Intensity = 0 };

@@ -26,8 +26,10 @@ public static partial class WorkbenchAnalysisCatalog
     public static IReadOnlyList<AnalysisRibbonCommand> RibbonCommands = new AnalysisRibbonCommand[]
     {
         new("analysis-single-ray-trace", "单光线追迹", "单光线追迹", "scan-line", "光线迹点"),
-        new("analysis-first-order", "一级像差/一阶量", "一阶量", "ruler", "系统报告"),
-        new("analysis-prescription", "处方报告", "处方报告", "file-text", "系统报告"),
+        new("analysis-surface-data-report", "Prescription Report", "表面数据报告", "file-text", "报告"),
+        new("analysis-system-data-report", "System Data Report", "系统数据报告", "file-text", "报告"),
+        new("analysis-classified-data-report", "Classified Data Report", "分类数据报告", "list-tree", "报告"),
+        new("analysis-first-order", "First Order", "系统数据摘要", "clipboard-list", "报告"),
         new("analysis-ray-fan", "光线像差图", "光线像差图", "chart-spline", "像差分析"),
         new("analysis-spot", "标准点列图", "标准点列图", "chart-scatter", "光线迹点"),
         new("analysis-footprint", "光迹图", "光迹图", "scan-search", "光线迹点"),
@@ -35,9 +37,8 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-full-field-spot", "全视场点列图", "全视场点列图", "chart-scatter", "光线迹点"),
         new("analysis-matrix-spot", "矩阵点列图", "矩阵点列图", "grid-3x3", "光线迹点"),
         new("analysis-configuration-matrix-spot", "结构矩阵点列图", "结构矩阵点列图", "panels-top-left", "光线迹点"),
-        new("analysis-cardinal-points", "基面数据", "基面数据", "ruler", "光线迹点"),
+        new("analysis-cardinal-points", "Cardinal Points Data", "基面数据", "ruler", "报告"),
         new("analysis-vignetting", "渐晕图", "渐晕图", "scan", "光线迹点"),
-        new("analysis-distortion", "畸变", "畸变", "triangle", "像差分析"),
         new("analysis-grid-distortion", "网格畸变", "网格畸变", "grid-3x3", "像差分析"),
         new("analysis-field-curvature", "场曲/畸变", "场曲/畸变", "chart-line", "像差分析"),
         new("analysis-axial-aberration", "轴向像差", "轴向像差", "triangle", "像差分析"),
@@ -100,7 +101,7 @@ public static partial class WorkbenchAnalysisCatalog
     public static string[] RibbonGroupOrder =
     {
         "光线迹点",
-        "系统报告",
+        "报告",
         "像差分析",
         "波前",
         "点扩散函数",
@@ -123,16 +124,19 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-matrix-spot",
             "analysis-configuration-matrix-spot",
             "-",
-            "analysis-cardinal-points",
             "analysis-y-ybar",
             "-",
             "analysis-vignetting",
             "analysis-angle-height"
         }),
-        new("系统报告", "系统报告", "file-text", new[]
+        new("报告", "报告", "file-text", new[]
         {
+            "analysis-surface-data-report",
+            "analysis-system-data-report",
+            "analysis-classified-data-report",
+            "-",
             "analysis-first-order",
-            "analysis-prescription"
+            "analysis-cardinal-points"
         }),
         new("像差分析", "像差分析", "chart-spline", new[]
         {
@@ -143,7 +147,6 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-field-curvature",
             "analysis-grid-distortion",
             "analysis-axial-aberration",
-            "analysis-distortion",
             "analysis-lateral-color",
             "analysis-color-focus",
             "-",

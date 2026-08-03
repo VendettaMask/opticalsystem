@@ -86,34 +86,39 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     public void SetMeritFunction(IReadOnlyList<MeritOperandRowDto> operands)
     {
         Mutate(WorkspaceChangeCategory.Optimization, () => Connector.ReplaceMeritFunction(
-            operands.Select(operand => new MeritOperandDefinition
+            operands.Select(operand =>
             {
-                Enabled = operand.Enabled,
-                Type = MeritFunctionCatalog.CanonicalType(operand.Type),
-                Surface = Math.Max(0, operand.Surface),
-                Field = Math.Max(0, operand.Field),
-                Wavelength = Math.Max(0, operand.Wavelength),
-                Hx = Math.Clamp(operand.Hx, -1, 1),
-                Hy = Math.Clamp(operand.Hy, -1, 1),
-                Px = Math.Clamp(operand.Px, -1, 1),
-                Py = Math.Clamp(operand.Py, -1, 1),
-                Target = double.IsFinite(operand.Target) ? operand.Target : 0,
-                Weight = double.IsFinite(operand.Weight) ? operand.Weight : 0,
-                Comment = operand.Comment ?? string.Empty,
-                PupilRings = Math.Clamp(operand.PupilRings, 1, 20),
-                PupilArms = Math.Clamp(operand.PupilArms, 3, 36),
-                PupilObscuration = Math.Clamp(operand.PupilObscuration, 0, 0.95),
-                PupilSampling = operand.PupilSampling?.Trim().ToLowerInvariant() switch
+                var type = MeritFunctionCatalog.CanonicalType(operand.Type);
+                var preservesZemaxSlots = MeritFunctionCatalog.HasOpaqueZemaxParameters(type);
+                return new MeritOperandDefinition
                 {
-                    "uniform" => "uniform",
-                    "gaussian_quad" => "gaussian_quad",
-                    _ => "hexapolar"
-                },
-                SpatialFrequency = double.IsFinite(operand.SpatialFrequency)
-                    ? Math.Max(0, operand.SpatialFrequency)
-                    : 30,
-                IgnoreLateralColor = operand.IgnoreLateralColor,
-                PolychromaticReference = operand.PolychromaticReference
+                    Enabled = preservesZemaxSlots ? false : operand.Enabled,
+                    Type = type,
+                    Surface = preservesZemaxSlots ? operand.Surface : Math.Max(0, operand.Surface),
+                    Field = preservesZemaxSlots ? operand.Field : Math.Max(0, operand.Field),
+                    Wavelength = preservesZemaxSlots ? operand.Wavelength : Math.Max(0, operand.Wavelength),
+                    Hx = preservesZemaxSlots ? operand.Hx : Math.Clamp(operand.Hx, -1, 1),
+                    Hy = preservesZemaxSlots ? operand.Hy : Math.Clamp(operand.Hy, -1, 1),
+                    Px = preservesZemaxSlots ? operand.Px : Math.Clamp(operand.Px, -1, 1),
+                    Py = preservesZemaxSlots ? operand.Py : Math.Clamp(operand.Py, -1, 1),
+                    Target = double.IsFinite(operand.Target) ? operand.Target : 0,
+                    Weight = double.IsFinite(operand.Weight) ? operand.Weight : 0,
+                    Comment = operand.Comment ?? string.Empty,
+                    PupilRings = Math.Clamp(operand.PupilRings, 1, 20),
+                    PupilArms = Math.Clamp(operand.PupilArms, 3, 36),
+                    PupilObscuration = Math.Clamp(operand.PupilObscuration, 0, 0.95),
+                    PupilSampling = operand.PupilSampling?.Trim().ToLowerInvariant() switch
+                    {
+                        "uniform" => "uniform",
+                        "gaussian_quad" => "gaussian_quad",
+                        _ => "hexapolar"
+                    },
+                    SpatialFrequency = double.IsFinite(operand.SpatialFrequency)
+                        ? Math.Max(0, operand.SpatialFrequency)
+                        : 30,
+                    IgnoreLateralColor = operand.IgnoreLateralColor,
+                    PolychromaticReference = operand.PolychromaticReference
+                };
             })));
     }
 

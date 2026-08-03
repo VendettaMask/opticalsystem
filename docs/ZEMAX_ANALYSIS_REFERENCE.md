@@ -1,8 +1,8 @@
 # Zemax 分析设置与实现方式参考
 
-当前状态复核：2026-08-02。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。
+当前状态复核：2026-08-04。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。
 
-本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。
+本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。评价函数导入属于另一条兼容链路，当前 103 行 `[MS-L7]` 夹具及 51 个代码/兼容类型的边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)，不得并入本文的 69 页分析结论。
 
 ## GUI 对比证据规范
 
@@ -10,7 +10,7 @@ Workbench 的 GUI 对比只使用
 `comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current`
 中的真实 Avalonia `AnalysisPanel` 截图。截图进程通过
 `--capture-analysis-gui` 启动，导入已提交的 `123456.ZMX`，应用保存的逐项
-分析设置，并在 `capture-manifest.json` 中记录全部 69 个分析页面的状态。
+分析设置，并在 `capture-manifest.json` 中记录该次固定捕获的 69 个分析页面状态。这个数字描述历史捕获集合，不是当前 Core `AnalysisCatalog` 的数量；当前目录为 70 个规范分析。
 
 `images/current` 中的文件是结构化分析 JSON 的离线 Matplotlib 重绘图，
 不是软件界面截图，不能用于 GUI 一致性结论。
@@ -32,7 +32,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 圈入能量
 - 扩展图像分析
 
-不包括系统报告、优化、公差、非序列分析、IMA/BIM 文件查看器和 Bitmap 文件查看器。本文不放图片，只记录设置内容、结果展现方式和计算/实现方式。
+不包括当前“报告”菜单中的表面数据、系统数据、分类数据、系统数据摘要和基面数据，也不包括优化、公差、非序列分析、IMA/BIM 文件查看器和 Bitmap 文件查看器。本文不放图片，只记录设置内容、结果展现方式和计算/实现方式。
 
 ## 资料来源
 
@@ -88,6 +88,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Hx`、`Hy`、`Field`、`Wavelength`、`Px`、`Py`、`Global Coordinates`、`Type`。`Type` 包括方向余弦、切线角等输出方式。
 - 结果展现：文本/表格窗口，列出单条真实光线和近轴光线在各表面的坐标、方向、角度、光程或追迹状态。
 - 实现方式：从指定归一化视场和归一化光瞳坐标发射一条光线，执行序列模式 real ray trace 与 paraxial ray trace。若选择全局坐标，除切线角外数据以全局坐标输出。
+- 光线瞄准：`Px/Py` 遵循 Zemax 的方形归一化光瞳坐标。瞄准求解的试探追迹忽略停光面之前的物理孔径裁剪，但仍执行各面的几何求交、材料传播和折反射；求得发射方向后，正式单光线追迹恢复真实孔径判定并报告渐晕面。这样角点光线不会因第一次试探被裁剪而直接以 `residual=∞` 失败。
 
 ### 光线像差图 / Ray Aberration
 
@@ -100,6 +101,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Pattern`（hexapolar、square、dithered）、`Refer To`（chief ray、centroid、middle、vertex）、`Show Scale`、`Wavelength`、`Field`、`Surface`、`Plot Scale`、`Delta Focus`、`Ray Density`、`Use Symbols`、`Use Polarization`、`Scatter Rays`、`Airy Disk`、`Direction Cosines`、`Configuration`、`Color Rays By`。
 - 结果展现：点列散点图；图下方显示参考点坐标、RMS spot radius、GEO spot radius 等。可按波长、视场或结构着色，可叠加 Airy disk。
 - 实现方式：按 pupil 图样追迹光线束到指定表面。RMS/GEO 半径按所选参考点计算；波长权重和 pupil apodization 会影响 ray grid 和 RMS 估计。OpticStudio 不把 vignetted rays 画入 spot，也不用于 RMS/GEO 计算。
+- Workbench 颜色契约：选择“按波长”时由真实纳米值映射稳定的工程约定色，Fraunhofer F/d/C 线 `486.1 nm`、`587.6 nm`、`656.3 nm` 分别为蓝、绿、红，紫外/红外使用中性灰。d 线绿色用于曲线辨识，并非声称 `587.6 nm` 的肉眼单色光外观为绿色；选择“按视场”时使用离散分类调色板。全视场点列图会按所选依据实际拆分系列，不再出现参数可选但显示仍始终按波长的情况。
 
 ### 光迹图 / Footprint Diagram
 
@@ -112,6 +114,7 @@ Workbench 一侧引用 `images/gui-current`。
 
 - 设置内容：继承标准点列图设置；额外使用 `Delta Focus`。焦点位置为 `-2`、`-1`、`0`、`+1`、`+2` 倍 delta focus。
 - 结果展现：每个视场显示五个离焦位置的点列图，可比较焦前/焦后 spot 形态。
+- Workbench 展示契约：矩阵中的每个方形小图只画像面 X/Y 截距和网格，不重复显示轴标题或刻度文字；左侧统一标视场，底部统一标离焦量。这样避免把 X、Y 两轴都误写成“像高”，并将空间优先分配给点列数据。
 - 实现方式：在名义焦面前后移动分析面或等效焦位，分别追迹 spot 光线束并计算相同的 RMS/GEO 指标。官方说明中 through-focus spot 通常追迹的最大 ray 数为标准 spot 的一半。
 
 ### 全视场点列图 / Full Field Spot Diagram
@@ -129,7 +132,7 @@ Workbench 一侧引用 `images/gui-current`。
 ### 结构矩阵点列图 / Configuration Matrix Spot Diagram
 
 - 设置内容：与标准点列图相似。
-- 结果展现：矩阵图，行是不同视场，列是不同 configuration。
+- 结果展现：矩阵图，行是不同视场，列是不同 configuration；每个单元叠加显示所选的全部波长，而不是按波长继续拆列。
 - 实现方式：对 field × configuration 组合逐个生成 spot diagram，用于区分与多重结构相关的像差成分。
 
 ### 基点 / Cardinal Points
@@ -153,8 +156,10 @@ Workbench 一侧引用 `images/gui-current`。
 ### 入射角 vs 像高 / Incident Angle vs Image Height
 
 - 设置内容：通常包括 `Field Density`、`Wavelength`、扫描方向或表面选择。
-- 结果展现：入射角随像高或视场坐标变化的曲线。
-- 实现方式：沿视场扫描主光线或代表光线，计算其到达像面/目标面时相对局部法线或坐标轴的入射角。
+- 结果展现：同时显示较小光瞳点光线、主光线和较大光瞳点光线三条曲线。横轴保留视场方向对应的有符号像高；负 Y 视场不得强制变成正像高。
+- 实现方式：每个视场样本的三条光线都使用真实光阑瞰准，分别命中近轴停光面的较小边缘、中心和较大边缘，再在目标面局部坐标中计算有符号方向角。不得用“朝向近轴入瞳的未瞰准光线”代替，否则离轴越大，主光线和两条边缘光线的误差越大。
+- 高 NA 约束：边缘光线的直接牛顿初值若无法到达停光面，瞄准器从主光线开始向目标光瞳点分步延续，避免第一次试追迹即以 `residual=∞` 失败。
+- 数据基准：`123456.ZMX` 的 21 点输出与 Zemax 文本基准逐点对齐；`[MS-L7](10X大NA大视场).ZMX` 保持 `-1.4916..0 mm` 的负像高范围并完整输出三条光线。
 
 ## 像差分析
 
@@ -209,6 +214,7 @@ Workbench 一侧引用 `images/gui-current`。
 
 - 设置内容：`Maximum Shift`、`Pupil Zone`。
 - 结果展现：back focal shift 相对主波长焦点随波长变化的曲线。
+- Workbench 展示契约：使用普通曲线图的自适应宽屏布局；横轴焦移与纵轴波长维持各自独立量纲和范围，不套用二维空间图的方形视口。
 - 实现方式：对每个波长计算像方空间边缘光线焦点相对主波长近轴焦点的偏移。`Pupil Zone=0` 使用近轴光线；0 到 1 之间使用入瞳指定区域的真实边缘光线；1 为全孔径边缘。
 
 ### 赛德尔系数 / Seidel Coefficients
@@ -247,6 +253,7 @@ Workbench 一侧引用 `images/gui-current`。
 
 - 设置内容：通常与 wavefront map 类似，围绕采样、波长、视场、显示方式。
 - 结果展现：干涉条纹或由波前误差转换出的干涉图样。
+- Workbench 展示契约：当前实现复用瞳面波前热图，二维 X/Y 数据等比例，单图外层固定为正方形，不随结果区比例拉伸。
 - 实现方式：以 wavefront OPD 为基础，将相位误差映射为干涉强度/条纹显示，用于直观查看波前形状。
 
 ### 傅科分析 / Foucault Analysis
@@ -555,6 +562,6 @@ Workbench 一侧引用 `images/gui-current`。
 ## Workbench 当前实现对照注意点
 
 - 本文描述 Zemax/OpticStudio 官方方法。Workbench 当前实现可能只覆盖其中一部分设置或用简化参数名映射。
-- Workbench 当前 Ribbon 中“垂轴色差”的 command id 叫 `analysis-distortion`，但实际 canonical name 为 `Lateral Color`；若要做官方 `Field Curvature and Distortion` 的畸变曲线，应单独接入 `DistortionAnalysis`。
+- Workbench 不再提供独立“畸变”入口；场曲与畸变统一由 `Field Curvature and Distortion` 页面展示。底层 `DistortionAnalysis` 仍负责组合页中的畸变曲线，旧 `Distortion`/“畸变”名称会迁移到组合分析。
 - Workbench 当前“干涉图”若复用 wavefront map，则还缺少独立干涉条纹显示方式。
 - 官方菜单包含 `FFT Surface MTF`、`FFT MTF Map`、`Huygens Surface MTF`、`Geometric MTF Map` 等 MTF 变体；若需要“所有 Zemax 方法”完全覆盖，应在 Workbench MTF 分组中补齐这些入口。

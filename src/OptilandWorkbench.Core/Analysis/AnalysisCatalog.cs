@@ -27,7 +27,6 @@ public sealed class AnalysisCatalog
         "Ray Fan",
         "Footprint Diagram",
         "Field Curvature and Distortion",
-        "Distortion",
         "Grid Distortion",
         "Field Curvature",
         "Color Focus Shift",
@@ -84,7 +83,9 @@ public sealed class AnalysisCatalog
         "Partially Coherent Image Analysis",
         "Extended Diffraction Image Analysis",
         "Jones Pupil",
-        "Prescription Report"
+        "Prescription Report",
+        "System Data Report",
+        "Classified Data Report"
     };
 
     public BaseAnalysis Create(string name)
@@ -104,7 +105,6 @@ public sealed class AnalysisCatalog
             "Ray Fan" => new RayFanAnalysis(_optic),
             "Footprint Diagram" => new FootprintDiagramAnalysis(_optic),
             "Field Curvature and Distortion" => new FieldCurvatureAndDistortionAnalysis(_optic),
-            "Distortion" => new DistortionAnalysis(_optic),
             "Grid Distortion" => new GridDistortionAnalysis(_optic),
             "Field Curvature" => new FieldCurvatureAnalysis(_optic),
             "Color Focus Shift" => new ColorFocusShiftAnalysis(_optic),
@@ -168,6 +168,8 @@ public sealed class AnalysisCatalog
             "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(_optic),
             "Jones Pupil" => new JonesPupilAnalysis(_optic),
             "Prescription Report" => new PrescriptionReportAnalysis(_optic),
+            "System Data Report" => new SystemDataReportAnalysis(_optic),
+            "Classified Data Report" => new ClassifiedDataReportAnalysis(_optic),
             _ => throw new UnknownAnalysisException(name)
         };
     }

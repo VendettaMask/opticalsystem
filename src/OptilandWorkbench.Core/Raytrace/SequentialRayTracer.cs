@@ -96,7 +96,8 @@ public sealed partial class SequentialRayTracer
         double normalizedPupilX,
         double normalizedPupilY,
         double wavelengthMicrometers,
-        int surfaceIndex)
+        int surfaceIndex,
+        bool aimAtStop = false)
     {
         if (surfaceIndex < 0 || surfaceIndex >= _optic.SurfaceGroup.Items.Count)
         {
@@ -108,7 +109,8 @@ public sealed partial class SequentialRayTracer
             normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
-            wavelengthMicrometers);
+            wavelengthMicrometers,
+            aimAtStop);
         using var trace = Trace(bundle, TraceRequest.Selected(new[] { surfaceIndex }));
         return trace.TryGetSample(0, surfaceIndex, out var sample)
             ? sample.ToRayTraceSample()
@@ -153,15 +155,16 @@ public sealed partial class SequentialRayTracer
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
-            var result = surface.TraceRay(
+            var result = surface.TraceRayValue(
                 ray,
                 currentMaterial,
                 surface.MaterialAfter,
                 cumulativePathLength,
-                cumulativeOpticalPathLength);
+                cumulativeOpticalPathLength,
+                ignorePhysicalAperture: true);
             if (index == surfaceIndex)
             {
-                return result.Sample;
+                return result.Sample.ToRayTraceSample();
             }
 
             if (result.StopTracing)

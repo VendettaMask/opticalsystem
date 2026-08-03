@@ -872,6 +872,7 @@ public sealed class OptilandParityTests
         {
             Assert.Equal(1, ray.FieldIndex);
             Assert.Equal(2, ray.WavelengthIndex);
+            Assert.Equal(optic.Wavelengths[2].Nanometers, ray.WavelengthNanometers);
         });
         Assert.Equal(7, scene.Rays.Select(ray => ray.PupilIndex).Distinct().Count());
 
@@ -1101,11 +1102,15 @@ public sealed class OptilandParityTests
         Assert.Contains("Lateral Color", optic.Analyses.Names);
         Assert.Contains("Axial Aberration", optic.Analyses.Names);
         Assert.Contains("Field Curvature and Distortion", optic.Analyses.Names);
+        Assert.DoesNotContain("Distortion", optic.Analyses.Names);
         Assert.Contains("Full Field Aberration", optic.Analyses.Names);
         Assert.Contains("Diffraction Encircled Energy", optic.Analyses.Names);
         Assert.Contains("Geometric Line Edge Spread", optic.Analyses.Names);
         Assert.Contains("Extended Source Encircled Energy", optic.Analyses.Names);
-        Assert.Equal(69, optic.Analyses.Names.Count);
+        Assert.Contains("Prescription Report", optic.Analyses.Names);
+        Assert.Contains("System Data Report", optic.Analyses.Names);
+        Assert.Contains("Classified Data Report", optic.Analyses.Names);
+        Assert.Equal(70, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

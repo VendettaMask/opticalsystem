@@ -109,37 +109,6 @@ public partial class OpticalWorkspaceModel
             defaultValue);
     }
 
-    private AnalysisParameterDescriptor[] DistortionParameters(bool angularField)
-    {
-        var parameters = new List<AnalysisParameterDescriptor>
-        {
-            DoubleParameter("MaximumDistortion", "最大畸变（0=自动）", "0", 0, 1_000_000, 0.1),
-            ChoiceParameter(
-                "WavelengthNumber",
-                "波长（0=所有）",
-                "0",
-                new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
-            ChoiceParameter("DisplayMode", "显示为", "百分比", new[] { "百分比", "绝对值" }),
-            ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
-            ChoiceParameter(
-                "ReferenceFieldNumber",
-                "参考视场",
-                "1",
-                Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count)).Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-            BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
-        };
-        if (angularField)
-        {
-            parameters.Insert(2, ChoiceParameter(
-                "DistortionType",
-                "畸变模型",
-                "F-Tan(Theta)",
-                DistortionModelChoices()));
-        }
-
-        return parameters.ToArray();
-    }
-
     private AnalysisParameterDescriptor[] FieldCurvatureAndDistortionParameters(bool angularField)
     {
         var parameters = new List<AnalysisParameterDescriptor>

@@ -46,9 +46,11 @@ OpticalSurface
 
 ## 分析、优化与公差
 
-分析通过 `AnalysisCatalog` 注册。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放或导出逻辑。
+Core 通过 `AnalysisCatalog` 注册当前 `70` 个规范分析；Workbench 的规范键、中文显示名、兼容别名、展示类型和 Ribbon 命令由 `WorkbenchAnalysisCatalog` 统一描述。独立 `Distortion` 已退出公开目录，旧名称兼容映射到 `Field Curvature and Distortion`，底层 `DistortionAnalysis` 只作为组合分析的计算组件保留。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放、缓存身份或导出逻辑。
 
-优化由变量、操作数、缩放器和优化器组成，支持快速聚焦、局部优化、差分进化和盆地跳跃。公差复用变量和操作数模型，支持扰动、采样、补偿、双侧灵敏度及按种子确定的 Monte Carlo。外层并行拥有执行权时，内层追迹会抑制嵌套并行。
+报告入口属于分析体系，不是独立旧页面：“表面数据报告”逐面输出处方，“系统数据报告”按系统/孔径/视场/波长/近轴量组织，“分类数据报告”按角色/材料/几何类型汇总，“系统数据摘要”复用规范 `First Order` 分析，“基面数据”使用规范 `Cardinal Points Data`。旧“一阶量、处方报告”仅作为兼容别名解析。
+
+优化由变量、操作数、缩放器和优化器组成，支持快速聚焦、局部优化、差分进化和盆地跳跃。ZMX 评价函数导入保持源行顺序；当前 `[MS-L7]` 参考文件的 103 行均可见，其中 63 行 `TRAR` 进入现有光线像差执行路径，九类尚无计算引擎的约束/数学操作数按八个 Zemax 参数槽位禁用只读保留。当前目录只有 51 个 Workbench 代码或兼容类型，不能表述为 333 项 Zemax 顺序操作数已完整实现。公差复用变量和操作数模型，支持扰动、采样、补偿、双侧灵敏度及按种子确定的 Monte Carlo。外层并行拥有执行权时，内层追迹会抑制嵌套并行。
 
 ## 应用边界
 
