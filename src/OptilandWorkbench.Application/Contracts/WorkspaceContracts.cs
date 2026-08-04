@@ -605,12 +605,18 @@ public enum CadExportFormat
 public sealed record CadExportOptionsDto(
     CadExportFormat Format = CadExportFormat.Step,
     int SurfaceSamples = 33,
-    int AngularSamples = 64);
+    int AngularSamples = 64,
+    double MaximumChordErrorMillimeters = 0.005,
+    int MaximumTrianglesPerPart = 500_000);
 
 public sealed record CadExportResultDto(
     string Path,
     CadExportFormat Format,
-    long ByteCount);
+    long ByteCount,
+    int PartCount = 0,
+    int VertexCount = 0,
+    int TriangleCount = 0,
+    IReadOnlyList<string>? Warnings = null);
 
 public sealed record OptimizationResultDto(
     string Optimizer,

@@ -60,3 +60,45 @@ jobs:
         run: |
           bash -n Run-Optiland.command
           bash -n scripts/publish-cross-platform.sh
+
+  step-cad-validation:
+    name: STEP CAD import
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore locked dependencies
+        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
+      - name: Build
+        run: dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+
+      - name: Generate STEP validation fixtures
+        env:
+          OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
+        run: >-
+          dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
+          --no-build
+          --filter FullyQualifiedName~CadExportFreeCadFixtureTests
+          /m:1 /nr:false
+
+      - name: Install FreeCAD validation runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes freecad
+
+      - name: Validate STEP with OpenCascade
+        env:
+          OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
+        run: |
+          freecad_cmd="$(command -v FreeCADCmd || command -v freecadcmd)"
+          validator_path="$PWD/tools/step_validation/validate_freecad_import.py"
+          printf "exec(compile(open(r'%s','rb').read(),r'%s','exec'))\n" \
+            "$validator_path" "$validator_path" | "$freecad_cmd" -c

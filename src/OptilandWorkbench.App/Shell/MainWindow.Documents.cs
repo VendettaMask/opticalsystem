@@ -106,8 +106,14 @@ public sealed partial class MainWindow
         var result = await _application.CadExport.ExportAsync(
             file.Path.LocalPath,
             new CadExportOptionsDto(CadExportFormat.Step));
+        var warning = result.Warnings is { Count: > 0 }
+            ? $"；警告：{string.Join(" ", result.Warnings)}"
+            : string.Empty;
         _statusText.Text =
-            $"CAD 已导出：{Path.GetFileName(result.Path)}（{result.ByteCount / 1024.0:0.#} KB）";
+            $"CAD 已导出：{Path.GetFileName(result.Path)}"
+            + $"（{result.PartCount} 个零件，{result.TriangleCount:N0} 个三角形，"
+            + $"{result.ByteCount / 1024.0:0.#} KB）"
+            + warning;
     }
 
     private static string CadSuggestedFileName(string documentName)

@@ -25,8 +25,9 @@ public sealed class CadExportTests
         Assert.EndsWith("END-ISO-10303-21;", step.TrimEnd(), StringComparison.Ordinal);
         Assert.Contains("FILE_SCHEMA(('CONFIG_CONTROL_DESIGN'));", step, StringComparison.Ordinal);
         Assert.Contains("SI_UNIT(.MILLI.,.METRE.)", step, StringComparison.Ordinal);
-        Assert.Contains("FACETED_BREP_SHAPE_REPRESENTATION", step, StringComparison.Ordinal);
-        Assert.Equal(3, Regex.Matches(step, @"FACETED_BREP\(").Count);
+        Assert.Contains("ADVANCED_BREP_SHAPE_REPRESENTATION", step, StringComparison.Ordinal);
+        Assert.Equal(3, Regex.Matches(step, @"MANIFOLD_SOLID_BREP\(").Count);
+        Assert.True(Regex.Matches(step, @"EDGE_LOOP\('").Count > 100);
         Assert.Equal(3, Regex.Matches(step, @"CLOSED_SHELL\(").Count);
         Assert.True(Regex.Matches(step, @"FACE\('',").Count > 100);
         Assert.DoesNotContain("NaN", step, StringComparison.OrdinalIgnoreCase);
