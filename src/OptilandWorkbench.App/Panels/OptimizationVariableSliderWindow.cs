@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -26,7 +27,7 @@ public sealed class OptimizationVariableSliderWindow : Window
     private readonly TextBlock _valueText = new()
     {
         HorizontalAlignment = HorizontalAlignment.Center,
-        FontSize = 18
+        FontSize = DisplayTypography.WindowTitle
     };
     private readonly TextBlock _statusText = new()
     {

@@ -11,6 +11,20 @@ public static class DisplayTypography
     private static double _fontSize = AppSettings.DefaultFontSize;
 
     public static double FontSize => _fontSize;
+    public static double SplashTitle => Scale(29);
+    public static double EmptyStateIcon => Scale(27);
+    public static double PageTitle => Scale(22);
+    public static double LargeTitle => Scale(20);
+    public static double WindowTitle => Scale(18);
+    public static double EmptyStateTitle => Scale(17);
+    public static double SectionTitle => Scale(16);
+    public static double CardTitle => Scale(14);
+    public static double Body => Scale(13);
+    public static double BodySmall => Scale(12);
+    public static double CompactBody => Scale(11.5);
+    public static double RibbonText => Scale(11);
+    public static double Caption => Scale(10.5);
+    public static double Micro => Scale(10);
 
     public static void Configure(AppSettings settings)
     {

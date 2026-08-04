@@ -69,7 +69,7 @@ public sealed class MaterialLibraryPanel : UserControl
             Child = new TextBlock
             {
                 Text = "材料库",
-                FontSize = 18,
+                FontSize = DisplayTypography.WindowTitle,
                 FontWeight = FontWeight.SemiBold
             }
         };
@@ -134,12 +134,9 @@ public sealed class MaterialLibraryPanel : UserControl
 
         var listFrame = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(4),
             Child = _glassList
         };
-        listFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        listFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplyControlFrameStyle(listFrame);
         Grid.SetRow(listFrame, 1);
         panel.Children.Add(listFrame);
 
@@ -190,18 +187,14 @@ public sealed class MaterialLibraryPanel : UserControl
 
         var details = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
             Padding = new Thickness(16, 14),
-            BoxShadow = BoxShadows.Parse("0 3 12 0 #12000000"),
             Child = new ScrollViewer
             {
                 VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
                 Content = detailGrid
             }
         };
-        details.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        details.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplySurfaceCardStyle(details);
         return details;
     }
 
@@ -491,7 +484,7 @@ public sealed class MaterialLibraryPanel : UserControl
     private static TextBlock MetricValue() => new()
     {
         MinWidth = 90,
-        FontSize = 16,
+        FontSize = DisplayTypography.SectionTitle,
         FontWeight = FontWeight.SemiBold,
         VerticalAlignment = VerticalAlignment.Center
     };
@@ -499,7 +492,7 @@ public sealed class MaterialLibraryPanel : UserControl
     private static TextBlock SectionTitle(string text) => new()
     {
         Text = text,
-        FontSize = 15,
+        FontSize = DisplayTypography.CardTitle,
         FontWeight = FontWeight.SemiBold,
         Margin = new Thickness(0, 0, 0, 4)
     };
@@ -564,7 +557,7 @@ public sealed class MaterialLibraryPanel : UserControl
                 Spacing = 3,
                 Children =
                 {
-                    new TextBlock { Text = title, FontSize = 20, FontWeight = FontWeight.SemiBold },
+                    new TextBlock { Text = title, FontSize = DisplayTypography.LargeTitle, FontWeight = FontWeight.SemiBold },
                     summaryText
                 }
             }
@@ -575,14 +568,14 @@ public sealed class MaterialLibraryPanel : UserControl
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         DockPanel.SetDock(header, Avalonia.Controls.Dock.Top);
         root.Children.Add(header);
-        root.Children.Add(new Border
+        var contentCard = new Border
         {
             Margin = new Thickness(16),
-            CornerRadius = new CornerRadius(8),
             ClipToBounds = true,
-            BoxShadow = BoxShadows.Parse("0 3 12 0 #16000000"),
             Child = content
-        });
+        };
+        SettingsPanelChrome.ApplySurfaceCardStyle(contentCard);
+        root.Children.Add(contentCard);
         return root;
     }
 }
@@ -677,12 +670,9 @@ internal sealed class LensLibraryPanel : UserControl
         };
         var listFrame = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(5),
             Child = _list
         };
-        listFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        listFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplyControlFrameStyle(listFrame);
         Add(body, listFrame, 0);
 
         var details = new Grid
@@ -692,13 +682,10 @@ internal sealed class LensLibraryPanel : UserControl
         };
         var previewFrame = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(5),
             ClipToBounds = true,
             Child = _preview
         };
-        previewFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        previewFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplyControlFrameStyle(previewFrame);
         Grid.SetRow(previewFrame, 0);
         details.Children.Add(previewFrame);
 

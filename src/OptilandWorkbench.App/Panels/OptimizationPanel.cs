@@ -12,6 +12,7 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
@@ -42,6 +43,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     {
         VerticalAlignment = VerticalAlignment.Center
     };
+    private readonly OperationStatusBar _operationStatus = new();
     private readonly TextBlock _result = new()
     {
         TextWrapping = TextWrapping.Wrap,
@@ -103,7 +105,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
                 new TextBlock { Text = "迭代", VerticalAlignment = VerticalAlignment.Center },
                 _iterationsInput,
                 runButton,
-                _variables
+                _variables,
+                _operationStatus
             }
         };
         var toolbar = new StackPanel
@@ -153,6 +156,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         _events.Changed -= OnWorkspaceChanged;
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
+        _operationStatus.Dispose();
     }
 
     public void RefreshDisplaySettings() => Refresh();
@@ -178,21 +182,11 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
         grid.Styles.Add(new Style(selector => selector
             .OfType<DataGridRow>()
-            .Class("merit-color-row"))
-        {
-            Setters =
-            {
-                new Setter(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(24, 24, 27)))
-            }
-        });
-        grid.Styles.Add(new Style(selector => selector
-            .OfType<DataGridRow>()
             .Class("merit-color-row")
             .Class(":selected"))
         {
             Setters =
             {
-                new Setter(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(24, 24, 27))),
                 new Setter(
                     DataGridRow.BorderBrushProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush"))
@@ -388,12 +382,14 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     {
         if (SelectedVariables().Count == 0)
         {
+            _operationStatus.MarkFailed("缺少可优化变量");
             _result.Text = "请先在镜头数据中勾选至少一个 R 变量或 T 变量。";
             return;
         }
 
         if (_rows.All(row => !row.Enabled || row.IsBlank))
         {
+            _operationStatus.MarkFailed("缺少启用的评价函数操作数");
             _result.Text = "请先添加至少一个启用的评价函数操作数。";
             return;
         }
@@ -410,6 +406,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             ? decimal.ToInt32(_iterationsInput.Value.Value)
             : 80;
         _result.Text = "正在根据当前评价函数优化…";
+        _operationStatus.Start("正在优化…", () => _runCancellation?.Cancel());
 
         try
         {
@@ -425,15 +422,21 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             _result.Text =
                 $"{result.Message}　评价函数：{NumericDisplayFormatter.Format(result.InitialMerit)} → {NumericDisplayFormatter.Format(result.FinalMerit)}　" +
                 $"迭代：{result.Iterations}";
+            _operationStatus.MarkSynced("优化完成");
             Refresh();
         }
         catch (OperationCanceledException)
         {
+            if (!_disposed && generation == _generation)
+            {
+                _operationStatus.MarkStale("优化已取消");
+            }
         }
         catch (Exception exception)
         {
             if (!_disposed && generation == _generation)
             {
+                _operationStatus.MarkFailed($"优化失败：{exception.Message}");
                 _result.Text = $"优化失败：{exception.Message}";
             }
         }
@@ -496,8 +499,11 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         }
 
         row.Classes.Set("merit-color-row", true);
-        row.Background = new SolidColorBrush(MeritOperandRowPalette.Resolve(
+        var visual = MeritOperandRowPalette.ResolveVisual(
             operand.Type,
-            !string.IsNullOrWhiteSpace(operand.Error)));
+            !string.IsNullOrWhiteSpace(operand.Error),
+            IsekaiTheme.IsDarkLike(row.ActualThemeVariant));
+        row.Background = new SolidColorBrush(visual.Background);
+        row.Foreground = new SolidColorBrush(visual.Foreground);
     }
 }

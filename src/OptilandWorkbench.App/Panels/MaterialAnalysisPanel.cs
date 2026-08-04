@@ -209,12 +209,12 @@ public sealed class MaterialAnalysisPanel : UserControl
         _details.Children.Add(new TextBlock
         {
             Text = "分析信息",
-            FontSize = 16,
+            FontSize = DisplayTypography.SectionTitle,
             FontWeight = FontWeight.SemiBold
         });
         foreach (var row in result.Rows)
         {
-            var label = new TextBlock { Text = row.Metric, FontSize = 11 };
+            var label = new TextBlock { Text = row.Metric, FontSize = DisplayTypography.RibbonText };
             label.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
             _details.Children.Add(new StackPanel
             {
@@ -237,7 +237,7 @@ public sealed class MaterialAnalysisPanel : UserControl
             Text = result.ReportText,
             TextWrapping = TextWrapping.Wrap,
             Margin = new Thickness(0, 10, 0, 0),
-            FontSize = 11
+            FontSize = DisplayTypography.RibbonText
         };
         note.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         _details.Children.Add(note);
@@ -245,7 +245,7 @@ public sealed class MaterialAnalysisPanel : UserControl
         {
             Text = "操作：滚轮缩放，拖动平移，双击复位，悬停查看数据点。",
             TextWrapping = TextWrapping.Wrap,
-            FontSize = 11
+            FontSize = DisplayTypography.RibbonText
         });
     }
 
@@ -262,7 +262,7 @@ public sealed class MaterialAnalysisPanel : UserControl
         var labelControl = new TextBlock
         {
             Text = label,
-            FontSize = 11,
+            FontSize = DisplayTypography.RibbonText,
             Margin = new Thickness(0, 0, 0, 3)
         };
         labelControl.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);

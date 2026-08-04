@@ -81,7 +81,7 @@ public sealed class OptimizationWizardWindow : Window
                 Labeled("权重缩放", _weightScale),
                 _allWavelengths,
                 _ignoreLateralColor,
-                MutedText("当前目标为最佳名义性能。", 11)
+                MutedText("当前目标为最佳名义性能。", DisplayTypography.RibbonText)
             }
         });
         var samplingCard = Card("光瞳采样", new StackPanel
@@ -144,7 +144,7 @@ public sealed class OptimizationWizardWindow : Window
                     new TextBlock
                     {
                         Text = "优化向导与操作数",
-                        FontSize = 22,
+                        FontSize = DisplayTypography.PageTitle,
                         FontWeight = FontWeight.SemiBold
                     },
                     MutedText("根据当前视场、波长和光瞳采样生成可直接执行的评价函数。"),
@@ -335,7 +335,7 @@ public sealed class OptimizationWizardWindow : Window
                 Spacing = 12,
                 Children =
                 {
-                    new TextBlock { Text = title, FontSize = 16, FontWeight = FontWeight.SemiBold },
+                    new TextBlock { Text = title, FontSize = DisplayTypography.SectionTitle, FontWeight = FontWeight.SemiBold },
                     content
                 }
             }
@@ -359,8 +359,9 @@ public sealed class OptimizationWizardWindow : Window
         };
     }
 
-    private static TextBlock MutedText(string text, double fontSize = 12)
+    private static TextBlock MutedText(string text, double fontSize = double.NaN)
     {
+        fontSize = double.IsNaN(fontSize) ? DisplayTypography.BodySmall : fontSize;
         var block = new TextBlock
         {
             Text = text,

@@ -19,6 +19,11 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
+    internal static double AnalysisFooterTextSize => DisplayTypography.CompactBody;
+    internal static double AnalysisFooterTitleSize => DisplayTypography.CardTitle;
+    internal static double AnalysisFooterCaptionSize => DisplayTypography.Caption;
+    internal const double AnalysisFooterHeight = 132;
+
     private static Control BuildResultContent(
         AnalysisViewDto view,
         OpticalDocumentSnapshot document,
@@ -70,6 +75,7 @@ public sealed partial class AnalysisPanel
                     ? BuildFullFieldAberrationPlot(view)
                 : BuildSinglePlot(view);
         var plotPage = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
+        plotPage.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         plotPage.Children.Add(plotRoot);
         var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
         Grid.SetRow(titleBlock, 1);
@@ -86,15 +92,30 @@ public sealed partial class AnalysisPanel
         };
         report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
         report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        return new TabControl
+        var resultTabs = new TabControl
         {
             TabStripPlacement = Avalonia.Controls.Dock.Bottom,
             ItemsSource = new object[]
             {
-                new TabItem { Header = "绘图", Content = plotPage },
-                new TabItem { Header = "数据", Content = resultsGrid },
-                new TabItem { Header = "文本", Content = report }
+                AnalysisResultTab("绘图", plotPage),
+                AnalysisResultTab("数据", resultsGrid),
+                AnalysisResultTab("文本", report)
             }
+        };
+        resultTabs.BindThemeResource(TabControl.BackgroundProperty, ThemeResourceBindings.PlotBackground);
+        return resultTabs;
+    }
+
+    private static TabItem AnalysisResultTab(string header, Control content)
+    {
+        return new TabItem
+        {
+            Header = header,
+            Content = content,
+            FontSize = AnalysisFooterTextSize,
+            FontWeight = FontWeight.Medium,
+            MinHeight = 30,
+            Padding = new Thickness(12, 4)
         };
     }
 
@@ -275,7 +296,7 @@ public sealed partial class AnalysisPanel
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             FontFamily = new FontFamily("Cascadia Mono, Consolas"),
-            FontSize = 13,
+            FontSize = DisplayTypography.Body,
             Padding = new Thickness(14, 12),
             Text = text
         };
@@ -311,7 +332,7 @@ public sealed partial class AnalysisPanel
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             FontFamily = new FontFamily("Cascadia Mono, Consolas"),
-            FontSize = 13,
+            FontSize = DisplayTypography.Body,
             Padding = new Thickness(14, 12),
             Text = text
         };
@@ -352,14 +373,14 @@ public sealed partial class AnalysisPanel
         annotations.Add(new OpticSceneAnnotation2D(
             referenceZ,
             $"参考面 S{referenceSurface.SurfaceNumber}  0.000000 mm",
-            Color.FromRgb(72, 78, 86),
+            AnalysisSemanticColors.ReferencePlane,
             OpticSceneAnnotationPlacement2D.Above));
 
-        AddPair("焦平面", "F物", "F像", Color.FromRgb(205, 52, 52));
-        AddPair("主平面", "H物", "H像", Color.FromRgb(34, 111, 202));
-        AddPair("反主平面", "H̄物", "H̄像", Color.FromRgb(130, 76, 170));
-        AddPair("节平面", "N物", "N像", Color.FromRgb(36, 145, 86));
-        AddPair("反节平面", "N̄物", "N̄像", Color.FromRgb(39, 135, 116));
+        AddPair("焦平面", "F物", "F像", AnalysisSemanticColors.FocalPlane);
+        AddPair("主平面", "H物", "H像", AnalysisSemanticColors.PrincipalPlane);
+        AddPair("反主平面", "H̄物", "H̄像", AnalysisSemanticColors.AntiPrincipalPlane);
+        AddPair("节平面", "N物", "N像", AnalysisSemanticColors.NodalPlane);
+        AddPair("反节平面", "N̄物", "N̄像", AnalysisSemanticColors.AntiNodalPlane);
 
         var sceneControl = new OpticSceneControl
         {
@@ -447,7 +468,7 @@ public sealed partial class AnalysisPanel
                 new TextBlock
                 {
                     Text = $"基面数据（mm）    图中标注距离相对于参考面 S{referenceSurfaceNumber}",
-                    FontSize = 13,
+                    FontSize = DisplayTypography.Body,
                     FontWeight = FontWeight.SemiBold
                 },
                 grid
@@ -466,7 +487,7 @@ public sealed partial class AnalysisPanel
             var cell = new TextBlock
             {
                 Text = text,
-                FontSize = header ? 12 : 11.5,
+                FontSize = header ? DisplayTypography.BodySmall : DisplayTypography.CompactBody,
                 FontWeight = header ? FontWeight.SemiBold : FontWeight.Normal,
                 FontFamily = column == 0 ? FontFamily.Default : new FontFamily("Cascadia Mono, Consolas"),
                 Margin = new Thickness(8, 3),
@@ -521,13 +542,21 @@ public sealed partial class AnalysisPanel
 
                 if (group.Equals("实光线", StringComparison.Ordinal))
                 {
-                    args.Row.Background = new SolidColorBrush(Color.FromArgb(28, 31, 119, 180));
-                    args.Row.Foreground = new SolidColorBrush(Color.FromRgb(24, 82, 125));
+                    args.Row.BindThemeResource(
+                        DataGridRow.BackgroundProperty,
+                        ThemeResourceBindings.AnalysisRealRayRowBackground);
+                    args.Row.BindThemeResource(
+                        DataGridRow.ForegroundProperty,
+                        ThemeResourceBindings.AnalysisRealRayRowForeground);
                 }
                 else if (group.Equals("近轴光线", StringComparison.Ordinal))
                 {
-                    args.Row.Background = new SolidColorBrush(Color.FromArgb(28, 255, 127, 14));
-                    args.Row.Foreground = new SolidColorBrush(Color.FromRgb(166, 82, 0));
+                    args.Row.BindThemeResource(
+                        DataGridRow.BackgroundProperty,
+                        ThemeResourceBindings.AnalysisParaxialRayRowBackground);
+                    args.Row.BindThemeResource(
+                        DataGridRow.ForegroundProperty,
+                        ThemeResourceBindings.AnalysisParaxialRayRowForeground);
                 }
             };
             for (var index = 0; index < view.Table.Columns.Count; index++)
@@ -585,7 +614,7 @@ public sealed partial class AnalysisPanel
                 new TextBlock
                 {
                     Text = "分析未完成",
-                    FontSize = 17,
+                    FontSize = DisplayTypography.EmptyStateTitle,
                     FontWeight = FontWeight.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 },
@@ -617,7 +646,7 @@ public sealed partial class AnalysisPanel
             ? Array.Empty<AnalysisRowDto>()
             : view.Rows
                 .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
-                .Take(7)
+                .Take(4)
                 .ToArray();
         var resultLines = compactSummary?.Lines ?? (visibleRows.Length == 0
             ? "暂无摘要数据"
@@ -639,28 +668,31 @@ public sealed partial class AnalysisPanel
         var left = new StackPanel
         {
             Spacing = 2,
-            Margin = new Thickness(16, 10, 16, 10)
+            Margin = new Thickness(16, 8)
         };
-        left.Children.Add(new TextBlock
+        var analysisTitle = new TextBlock
         {
             Text = compactSummary?.Title ?? view.Name,
-            FontSize = 15,
+            FontSize = AnalysisFooterTitleSize,
             FontWeight = FontWeight.SemiBold
-        });
+        };
+        analysisTitle.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+        left.Children.Add(analysisTitle);
         var generatedAtText = new TextBlock
         {
             Text = generatedAt.LocalDateTime.ToString(compactSummary is null ? "yyyy/MM/dd HH:mm:ss" : "yyyy/M/d"),
-            FontSize = 11
+            FontSize = AnalysisFooterCaptionSize
         };
-        generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
         left.Children.Add(generatedAtText);
         var resultSummary = new TextBlock
         {
             Text = resultLines,
-            FontSize = 11,
+            FontSize = AnalysisFooterTextSize,
             LineHeight = 16,
             TextWrapping = TextWrapping.Wrap
         };
+        resultSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var paneMetrics = showPaneMetrics
             ? BuildPaneMetricsSummary(view.PlotPanes)
             : null;
@@ -684,56 +716,62 @@ public sealed partial class AnalysisPanel
             left.Children.Add(summaryBody);
         }
 
+        var productLogo = new Image
+        {
+            Width = 180,
+            Height = 28,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Stretch = Stretch.Uniform
+        };
+        productLogo.BindThemeResource(Image.SourceProperty, ThemeAssetBindings.CompanyLogo);
+        var productDescription = new TextBlock
+        {
+            Text = $"Optical System Design  {version}",
+            FontSize = AnalysisFooterCaptionSize,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
+        productDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var product = new StackPanel
         {
-            Spacing = 4,
+            Spacing = 2,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
-                new TextBlock
-                {
-                    Text = "S.T.A.R. Labs",
-                    FontSize = 18,
-                    FontWeight = FontWeight.SemiBold,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                },
-                new TextBlock
-                {
-                    Text = $"Optical System Design  {version}",
-                    FontSize = 11,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                }
+                productLogo,
+                productDescription
             }
         };
         var documentDescription = new TextBlock
         {
             Text = document.Name,
-            FontSize = 10,
+            FontSize = AnalysisFooterCaptionSize,
             TextTrimming = TextTrimming.CharacterEllipsis,
             HorizontalAlignment = HorizontalAlignment.Center
         };
-        documentDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        documentDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
+        var documentNameText = new TextBlock
+        {
+            Text = documentName,
+            FontSize = AnalysisFooterTextSize,
+            FontWeight = FontWeight.Medium,
+            TextTrimming = TextTrimming.CharacterEllipsis,
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
+        documentNameText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var documentInfo = new StackPanel
         {
             Spacing = 2,
-            Margin = new Thickness(12, 7),
+            Margin = new Thickness(12, 5),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
-                new TextBlock
-                {
-                    Text = documentName,
-                    FontSize = 11,
-                    FontWeight = FontWeight.SemiBold,
-                    TextTrimming = TextTrimming.CharacterEllipsis,
-                    HorizontalAlignment = HorizontalAlignment.Center
-                },
+                documentNameText,
                 documentDescription
             }
         };
-        var right = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
+        var right = new Grid { RowDefinitions = new RowDefinitions("64,*") };
         right.Children.Add(product);
         var documentBorder = new Border
         {
@@ -747,7 +785,8 @@ public sealed partial class AnalysisPanel
         var grid = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("2*,*"),
-            MinHeight = 126
+            Height = AnalysisFooterHeight,
+            ClipToBounds = true
         };
         grid.Children.Add(left);
         var rightBorder = new Border
@@ -806,7 +845,7 @@ public sealed partial class AnalysisPanel
                 {
                     Text = PupilWavelengthLabel(series.Name),
                     Foreground = brush,
-                    FontSize = 12,
+                    FontSize = DisplayTypography.BodySmall,
                     FontFamily = new FontFamily("Cascadia Mono, Consolas")
                 }
             });
@@ -821,26 +860,38 @@ public sealed partial class AnalysisPanel
                 new TextBlock
                 {
                     Text = generatedAt.LocalDateTime.ToString("yyyy/M/d"),
-                    FontSize = 11
+                    FontSize = DisplayTypography.RibbonText
                 },
                 new TextBlock
                 {
                     Text = $"最大缩放比例： ± {maximumScale.ToString("0.00E+00", CultureInfo.InvariantCulture)} Percent.",
-                    FontSize = 12,
+                    FontSize = DisplayTypography.BodySmall,
                     FontFamily = new FontFamily("Cascadia Mono, Consolas")
                 },
                 wavelengthLegend,
                 new TextBlock
                 {
                     Text = "面：像面",
-                    FontSize = 11
+                    FontSize = DisplayTypography.RibbonText
                 }
             }
         };
+        var bodyTextBlocks = body.Children.OfType<TextBlock>().ToArray();
+        if (bodyTextBlocks.FirstOrDefault() is TextBlock generatedAtText)
+        {
+            generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
+        }
+
+        foreach (var textBlock in bodyTextBlocks.Skip(1))
+        {
+            textBlock.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+        }
+
         var content = new Grid
         {
             RowDefinitions = new RowDefinitions("34,*"),
-            MinHeight = 142
+            Height = AnalysisFooterHeight,
+            ClipToBounds = true
         };
         var header = new Border
         {
@@ -848,12 +899,17 @@ public sealed partial class AnalysisPanel
             Child = new TextBlock
             {
                 Text = view.Name,
-                FontSize = 15,
+                FontSize = DisplayTypography.SectionTitle,
                 FontWeight = FontWeight.SemiBold,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             }
         };
+        if (header.Child is TextBlock headerText)
+        {
+            headerText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+        }
+
         header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         content.Children.Add(header);
         Grid.SetRow(body, 1);

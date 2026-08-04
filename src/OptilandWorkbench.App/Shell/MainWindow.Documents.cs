@@ -151,13 +151,13 @@ public sealed partial class MainWindow
                 new TextBlock
                 {
                     Text = "Optical System Design",
-                    FontSize = 27,
+                    FontSize = DisplayTypography.EmptyStateIcon,
                     FontWeight = FontWeight.SemiBold
                 },
                 new TextBlock
                 {
                     Text = "S.T.A.R. Labs 出品",
-                    FontSize = 17
+                    FontSize = DisplayTypography.EmptyStateTitle
                 },
                 new TextBlock
                 {

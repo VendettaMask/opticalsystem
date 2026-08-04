@@ -94,7 +94,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         {
             BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
             Padding = new Avalonia.Thickness(10, 5),
-            BoxShadow = BoxShadows.Parse("0 2 6 0 #12000000"),
             Child = toolbar
         };
         var componentToggleIcon = new LocalIcon
@@ -128,7 +127,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HorizontalAlignment = HorizontalAlignment.Left,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Padding = new Avalonia.Thickness(12, 0),
-            CornerRadius = new Avalonia.CornerRadius(0),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
             Content = componentToggleContent
         };

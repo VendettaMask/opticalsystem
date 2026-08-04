@@ -162,7 +162,7 @@ public sealed class ToleranceWizardWindow : Window
                 Spacing = 14,
                 Children =
                 {
-                    new TextBlock { Text = "公差向导", FontSize = 22, FontWeight = FontWeight.SemiBold },
+                    new TextBlock { Text = "公差向导", FontSize = DisplayTypography.PageTitle, FontWeight = FontWeight.SemiBold },
                     new TextBlock
                     {
                         Text = "为选定表面批量生成 Zemax 风格的 TDE 公差操作数，生成后仍可逐行编辑。",
@@ -278,7 +278,7 @@ public sealed class ToleranceWizardWindow : Window
                 Spacing = 10,
                 Children =
                 {
-                    new TextBlock { Text = title, FontSize = 16, FontWeight = FontWeight.SemiBold },
+                    new TextBlock { Text = title, FontSize = DisplayTypography.SectionTitle, FontWeight = FontWeight.SemiBold },
                     content
                 }
             }

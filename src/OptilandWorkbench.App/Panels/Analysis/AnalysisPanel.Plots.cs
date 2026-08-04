@@ -178,10 +178,6 @@ public sealed partial class AnalysisPanel
             return new Grid();
         }
 
-        const double cardWidth = 280;
-        const double plotWidth = 260;
-        const double plotHeight = 256;
-        const double cardHeight = 290;
         if (panes.Count > 9)
         {
             return BuildPanePlot(panes, 3);
@@ -190,8 +186,6 @@ public sealed partial class AnalysisPanel
         var gridSize = StandardSpotGridSize(panes.Count);
         var fieldGrid = new Grid
         {
-            Width = cardWidth * gridSize.Columns,
-            Height = cardHeight * gridSize.Rows,
             ColumnDefinitions = new ColumnDefinitions(
                 string.Join(',', Enumerable.Repeat("*", gridSize.Columns))),
             RowDefinitions = new RowDefinitions(
@@ -211,17 +205,21 @@ public sealed partial class AnalysisPanel
                     ShowLegend = false,
                     HideTickLabels = true
                 },
-                Width = plotWidth,
-                Height = plotHeight,
-                HorizontalAlignment = HorizontalAlignment.Center
+                MinWidth = 64,
+                MinHeight = 64
+            };
+            var plotHost = new OptionalSquarePlotHost
+            {
+                Child = plot,
+                IsSquare = true,
+                MinWidth = 64,
+                MinHeight = 64,
+                Margin = new Thickness(8)
             };
             var card = new Grid
             {
-                Width = cardWidth,
-                Height = cardHeight,
-                RowDefinitions = new RowDefinitions("34,256"),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                RowDefinitions = new RowDefinitions("Auto,*"),
+                Margin = new Thickness(4)
             };
             card.Children.Add(new TextBlock
             {
@@ -232,10 +230,10 @@ public sealed partial class AnalysisPanel
                 TextWrapping = TextWrapping.Wrap,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                MaxWidth = cardWidth - 8
+                Margin = new Thickness(4, 2, 4, 4)
             });
-            Grid.SetRow(plot, 1);
-            card.Children.Add(plot);
+            Grid.SetRow(plotHost, 1);
+            card.Children.Add(plotHost);
             var position = StandardSpotGridPosition(panes.Count, paneIndex);
             Grid.SetColumn(card, position.Column);
             Grid.SetRow(card, position.Row);
@@ -243,13 +241,7 @@ public sealed partial class AnalysisPanel
             plots.Add(plot);
         }
 
-        return BuildPanePlotContent(new Viewbox
-        {
-            Stretch = Stretch.Uniform,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Stretch,
-            Child = fieldGrid
-        }, panes, plots);
+        return BuildPanePlotContent(fieldGrid, panes, plots);
     }
 
     internal static (int Column, int Row) StandardSpotGridPosition(int paneCount, int paneIndex)
@@ -323,29 +315,13 @@ public sealed partial class AnalysisPanel
     {
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
-        var labelWidth = configurationMatrix ? 180d : 132d;
-        var plotColumnWidth = configurationMatrix ? 170d : 146d;
-        var plotRowHeight = configurationMatrix ? 170d : 142d;
-        var plotWidth = configurationMatrix ? 164d : 140d;
-        var plotHeight = configurationMatrix ? 164d : 140d;
-        var headerHeight = configurationMatrix ? 36d : 28d;
         var matrix = new Grid
         {
-            Width = labelWidth + (columns * plotColumnWidth),
-            Height = headerHeight + (rows * plotRowHeight),
             ColumnDefinitions = new ColumnDefinitions(
-                $"{labelWidth.ToString(CultureInfo.InvariantCulture)}," +
-                string.Join(
-                    ',',
-                    Enumerable.Repeat(
-                        plotColumnWidth.ToString(CultureInfo.InvariantCulture),
-                        columns))),
+                "Auto," + string.Join(',', Enumerable.Repeat("*", columns))),
             RowDefinitions = new RowDefinitions(
-                headerHeight.ToString(CultureInfo.InvariantCulture) + "," + string.Join(
-                    ',',
-                    Enumerable.Repeat(
-                        plotRowHeight.ToString(CultureInfo.InvariantCulture),
-                        rows)))
+                "Auto," + string.Join(',', Enumerable.Repeat("*", rows))),
+            Margin = new Thickness(8)
         };
 
         var corner = new TextBlock
@@ -401,8 +377,7 @@ public sealed partial class AnalysisPanel
                 TextAlignment = TextAlignment.Right,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(8, 0, 14, 0),
-                MaxWidth = labelWidth - 24
+                Margin = new Thickness(8, 0, 14, 0)
             };
             Grid.SetRow(fieldLabel, row + 1);
             matrix.Children.Add(fieldLabel);
@@ -433,13 +408,20 @@ public sealed partial class AnalysisPanel
                     ShowLegend = false,
                     HideTickLabels = true
                 },
-                Width = plotWidth,
-                Height = plotHeight,
+                MinWidth = 64,
+                MinHeight = 64
+            };
+            var plotHost = new OptionalSquarePlotHost
+            {
+                Child = plot,
+                IsSquare = true,
+                MinWidth = 64,
+                MinHeight = 64,
                 Margin = new Thickness(3)
             };
-            Grid.SetColumn(plot, (index % columns) + 1);
-            Grid.SetRow(plot, (index / columns) + 1);
-            matrix.Children.Add(plot);
+            Grid.SetColumn(plotHost, (index % columns) + 1);
+            Grid.SetRow(plotHost, (index / columns) + 1);
+            matrix.Children.Add(plotHost);
             columnPlots[index % columns].Add((plot, compactSeries));
         }
 
@@ -545,13 +527,7 @@ public sealed partial class AnalysisPanel
             ColumnDefinitions = new ColumnDefinitions("*,Auto"),
             Children =
             {
-                new Viewbox
-                {
-                    Stretch = Stretch.Uniform,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Stretch,
-                    Child = matrix
-                },
+                matrix,
                 legend
             }
         };
@@ -597,22 +573,15 @@ public sealed partial class AnalysisPanel
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns)
     {
-        const int fieldLabelWidth = 120;
-        const int plotCellSize = 124;
-        const int plotSize = 120;
-        const int columnLabelHeight = 24;
-        const int axisCaptionHeight = 24;
         var columns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
         var matrix = new Grid
         {
-            Width = fieldLabelWidth + (columns * plotCellSize),
-            Height = (rows * plotCellSize) + columnLabelHeight + axisCaptionHeight,
             ColumnDefinitions = new ColumnDefinitions(
-                $"{fieldLabelWidth}," + string.Join(',', Enumerable.Repeat(plotCellSize.ToString(CultureInfo.InvariantCulture), columns))),
+                "Auto," + string.Join(',', Enumerable.Repeat("*", columns))),
             RowDefinitions = new RowDefinitions(
-                string.Join(',', Enumerable.Repeat(plotCellSize.ToString(CultureInfo.InvariantCulture), rows))
-                    + $",{columnLabelHeight},{axisCaptionHeight}")
+                string.Join(',', Enumerable.Repeat("*", rows)) + ",Auto,Auto"),
+            Margin = new Thickness(8)
         };
 
         for (var row = 0; row < rows; row++)
@@ -633,6 +602,8 @@ public sealed partial class AnalysisPanel
                 FontSize = AnalysisPlotControl.PlotTextSize,
                 FontWeight = FontWeight.SemiBold,
                 Margin = new Thickness(4, 0, 12, 0),
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Right,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -660,13 +631,20 @@ public sealed partial class AnalysisPanel
                     Title = string.Empty,
                     HideTickLabels = true
                 },
-                Width = plotSize,
-                Height = plotSize,
+                MinWidth = 64,
+                MinHeight = 64
+            };
+            var plotHost = new OptionalSquarePlotHost
+            {
+                Child = plot,
+                IsSquare = true,
+                MinWidth = 64,
+                MinHeight = 64,
                 Margin = new Thickness(2)
             };
-            Grid.SetColumn(plot, (index % columns) + 1);
-            Grid.SetRow(plot, index / columns);
-            matrix.Children.Add(plot);
+            Grid.SetColumn(plotHost, (index % columns) + 1);
+            Grid.SetRow(plotHost, index / columns);
+            matrix.Children.Add(plotHost);
             plots.Add(plot);
         }
 
@@ -697,13 +675,7 @@ public sealed partial class AnalysisPanel
         Grid.SetRow(axisCaption, rows + 1);
         matrix.Children.Add(axisCaption);
 
-        return BuildPanePlotContent(new Viewbox
-        {
-            Stretch = Stretch.Uniform,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Stretch,
-            Child = matrix
-        }, panes, plots);
+        return BuildPanePlotContent(matrix, panes, plots);
     }
 
     private static string DefocusMicrometersLabel(string title)
@@ -749,10 +721,9 @@ public sealed partial class AnalysisPanel
             var field = fieldPanes[fieldIndex];
             var pair = new Grid
             {
-                Width = 520,
-                Height = 288,
                 ColumnDefinitions = new ColumnDefinitions("*,*"),
-                RowDefinitions = new RowDefinitions("28,*")
+                RowDefinitions = new RowDefinitions("Auto,*"),
+                Margin = new Thickness(8)
             };
             var title = new TextBlock
             {
@@ -777,7 +748,9 @@ public sealed partial class AnalysisPanel
                 var squareHost = new OptionalSquarePlotHost
                 {
                     Child = plot,
-                    IsSquare = defaultSquareCells
+                    IsSquare = defaultSquareCells,
+                    MinWidth = 64,
+                    MinHeight = 64
                 };
                 Grid.SetColumn(squareHost, paneOffset);
                 Grid.SetRow(squareHost, 1);
@@ -785,22 +758,14 @@ public sealed partial class AnalysisPanel
                 plots.Add(plot);
             }
 
-            var scaledPair = new Viewbox
-            {
-                Stretch = Stretch.Uniform,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Margin = new Thickness(8),
-                Child = pair
-            };
             var row = fieldIndex / fieldColumns;
             var indexInRow = fieldIndex % fieldColumns;
             var fieldsInRow = Math.Min(fieldColumns, fieldCount - (row * fieldColumns));
             var centeringOffset = fieldColumns - fieldsInRow;
-            Grid.SetColumn(scaledPair, centeringOffset + (indexInRow * 2));
-            Grid.SetColumnSpan(scaledPair, 2);
-            Grid.SetRow(scaledPair, row);
-            fieldGrid.Children.Add(scaledPair);
+            Grid.SetColumn(pair, centeringOffset + (indexInRow * 2));
+            Grid.SetColumnSpan(pair, 2);
+            Grid.SetRow(pair, row);
+            fieldGrid.Children.Add(pair);
         }
 
         return BuildPanePlotContent(fieldGrid, panes, plots);
@@ -1095,6 +1060,7 @@ public sealed partial class AnalysisPanel
                 Margin = new Thickness(12, 0, 4, 2),
                 HorizontalAlignment = HorizontalAlignment.Right
             };
+            header.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
             Grid.SetColumn(header, paneIndex + 1);
             grid.Children.Add(header);
         }
@@ -1107,6 +1073,7 @@ public sealed partial class AnalysisPanel
                 FontSize = AnalysisPlotControl.PlotTextSize,
                 Margin = new Thickness(0, 1, 6, 1)
             };
+            label.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
             Grid.SetRow(label, rowIndex + 1);
             grid.Children.Add(label);
             for (var paneIndex = 0; paneIndex < populated.Length; paneIndex++)
@@ -1125,6 +1092,7 @@ public sealed partial class AnalysisPanel
                     Margin = new Thickness(12, 1, 4, 1),
                     HorizontalAlignment = HorizontalAlignment.Right
                 };
+                value.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
                 Grid.SetColumn(value, paneIndex + 1);
                 Grid.SetRow(value, rowIndex + 1);
                 grid.Children.Add(value);

@@ -31,6 +31,17 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void AnalysisSettingsUseCompactOverlayLayoutInsteadOfHorizontalWrapPanel()
+    {
+        var parameterPanelField = typeof(AnalysisPanel).GetField(
+            "_parameterPanel",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        Assert.NotNull(parameterPanelField);
+        Assert.Equal(typeof(Avalonia.Controls.StackPanel), parameterPanelField.FieldType);
+    }
+
+    [Fact]
     public void MaterialAndLensLibrariesAreSeparateDocuments()
     {
         var materialConstructor = Assert.Single(typeof(MaterialLibraryPanel).GetConstructors());
@@ -407,16 +418,21 @@ public sealed class AnalysisGuiContractTests
             legendLabel.Text);
         Assert.Equal(AnalysisPlotControl.PlotTextSize, legendLabel.FontSize);
 
-        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
-        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
-        Assert.Equal(570, matrix.Width);
-        Assert.Equal(454, matrix.Height);
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
+        Assert.True(double.IsNaN(matrix.Width));
+        Assert.True(double.IsNaN(matrix.Height));
+        var plotHosts = matrix.Children.OfType<OptionalSquarePlotHost>().ToArray();
+        var plots = plotHosts
+            .Select(host => Assert.IsType<AnalysisPlotControl>(host.Child))
+            .ToArray();
         Assert.Equal(viewDto.PlotPanes.Count, plots.Length);
-        Assert.All(plots, plot =>
+        Assert.All(plotHosts, host =>
         {
-            Assert.Equal(140, plot.Width);
-            Assert.Equal(140, plot.Height);
+            Assert.True(host.IsSquare);
+            Assert.True(double.IsNaN(host.Width));
+            Assert.True(double.IsNaN(host.Height));
+            var plot = Assert.IsType<AnalysisPlotControl>(host.Child);
             Assert.All(plot.Series, series =>
             {
                 Assert.Empty(series.XAxisLabel);
@@ -428,9 +444,9 @@ public sealed class AnalysisGuiContractTests
         Assert.All(
             matrix.Children.OfType<Avalonia.Controls.TextBlock>(),
             label => Assert.Equal(AnalysisPlotControl.PlotTextSize, label.FontSize));
-        var firstWavelengthPlots = matrix.Children
-            .OfType<AnalysisPlotControl>()
-            .Where(plot => Avalonia.Controls.Grid.GetColumn(plot) == 1)
+        var firstWavelengthPlots = plotHosts
+            .Where(host => Avalonia.Controls.Grid.GetColumn(host) == 1)
+            .Select(host => Assert.IsType<AnalysisPlotControl>(host.Child))
             .ToArray();
         Assert.NotEmpty(firstWavelengthPlots);
         Assert.All(firstWavelengthPlots, plot => Assert.NotEmpty(plot.Series));
@@ -472,18 +488,18 @@ public sealed class AnalysisGuiContractTests
         var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
-        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
 
-        Assert.Equal(350, matrix.Width);
-        Assert.Equal(546, matrix.Height);
+        Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
+        Assert.True(double.IsNaN(matrix.Width));
+        Assert.True(double.IsNaN(matrix.Height));
         Assert.Equal(viewDto.PlotPaneColumns + 1, matrix.ColumnDefinitions.Count);
         Assert.Equal(
             (viewDto.PlotPanes.Count / viewDto.PlotPaneColumns) + 1,
             matrix.RowDefinitions.Count);
         Assert.Equal(
             viewDto.PlotPanes.Count,
-            matrix.Children.OfType<AnalysisPlotControl>().Count());
+            matrix.Children.OfType<OptionalSquarePlotHost>().Count());
 
         var headers = matrix.Children
             .OfType<Avalonia.Controls.TextBlock>()
@@ -511,7 +527,10 @@ public sealed class AnalysisGuiContractTests
 
         var legend = Assert.IsType<Avalonia.Controls.StackPanel>(layout.Children[1]);
         Assert.Equal(optic.Wavelengths.Count, legend.Children.Count);
-        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
+        var plots = matrix.Children
+            .OfType<OptionalSquarePlotHost>()
+            .Select(host => Assert.IsType<AnalysisPlotControl>(host.Child))
+            .ToArray();
         Assert.Equal(optic.Fields.Count, plots.Length);
         Assert.All(plots, plot => Assert.Equal(optic.Wavelengths.Count, plot.Series.Count));
 
@@ -811,8 +830,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(10, dedicatedHosts.Length);
         Assert.All(dedicatedCards, card =>
         {
-            Assert.Equal(520, card.Width);
-            Assert.Equal(288, card.Height);
+            Assert.True(double.IsNaN(card.Width));
+            Assert.True(double.IsNaN(card.Height));
             AssertFanFieldCard(card);
         });
         Assert.All(dedicatedHosts, host => Assert.True(host.IsSquare));
@@ -828,8 +847,7 @@ public sealed class AnalysisGuiContractTests
     private static Avalonia.Controls.Grid[] FanFieldCards(Avalonia.Controls.Grid fieldGrid)
     {
         return fieldGrid.Children
-            .OfType<Avalonia.Controls.Viewbox>()
-            .Select(viewbox => Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child))
+            .OfType<Avalonia.Controls.Grid>()
             .ToArray();
     }
 
@@ -858,11 +876,85 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(expectedPositions.Length, cards.Count);
         for (var index = 0; index < cards.Count; index++)
         {
-            var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(cards[index].Parent);
-            Assert.Equal(expectedPositions[index].Row, Avalonia.Controls.Grid.GetRow(viewbox));
-            Assert.Equal(expectedPositions[index].Column, Avalonia.Controls.Grid.GetColumn(viewbox));
-            Assert.Equal(2, Avalonia.Controls.Grid.GetColumnSpan(viewbox));
+            Assert.Equal(expectedPositions[index].Row, Avalonia.Controls.Grid.GetRow(cards[index]));
+            Assert.Equal(expectedPositions[index].Column, Avalonia.Controls.Grid.GetColumn(cards[index]));
+            Assert.Equal(2, Avalonia.Controls.Grid.GetColumnSpan(cards[index]));
         }
+    }
+
+    [Fact]
+    public void AnalysisResultTabsUseCompactSharedTypography()
+    {
+        var method = typeof(AnalysisPanel).GetMethod(
+            "AnalysisResultTab",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(method);
+
+        var content = new Avalonia.Controls.Border();
+        var tab = Assert.IsType<Avalonia.Controls.TabItem>(
+            method.Invoke(null, new object[] { "绘图", content }));
+
+        Assert.Equal("绘图", tab.Header);
+        Assert.Same(content, tab.Content);
+        Assert.Equal(AnalysisPlotControl.PlotTextSize, tab.FontSize);
+        Assert.Equal(30, tab.MinHeight);
+        Assert.Equal(new Avalonia.Thickness(12, 4), tab.Padding);
+    }
+
+    [Fact]
+    public void AnalysisFooterUsesOneSharedHeightAcrossRegularAndPupilLayouts()
+    {
+        Assert.Equal(132, AnalysisPanel.AnalysisFooterHeight);
+        var view = new AnalysisContracts.AnalysisViewDto(
+            "test",
+            Array.Empty<AnalysisContracts.AnalysisRowDto>(),
+            string.Empty,
+            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+            new AnalysisContracts.AnalysisPlotOptionsDto(),
+            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+            1);
+        var document = new AnalysisContracts.OpticalDocumentSnapshot(
+            "test",
+            null,
+            0,
+            string.Empty,
+            false,
+            false,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0);
+        var generatedAt = new DateTimeOffset(2026, 8, 4, 12, 0, 0, TimeSpan.FromHours(8));
+        var regularFactory = typeof(AnalysisPanel).GetMethod(
+            "BuildAnalysisTitleBlock",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        var pupilFactory = typeof(AnalysisPanel).GetMethod(
+            "BuildPupilAberrationTitleBlock",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+
+        Assert.NotNull(regularFactory);
+        Assert.NotNull(pupilFactory);
+        var regular = Assert.IsType<Avalonia.Controls.Border>(
+            regularFactory.Invoke(null, new object[] { view, document, generatedAt }));
+        var pupil = Assert.IsType<Avalonia.Controls.Border>(
+            pupilFactory.Invoke(null, new object[]
+            {
+                view with
+                {
+                    PresentationKind = AnalysisContracts.AnalysisPresentationKind.PupilAberration
+                },
+                generatedAt
+            }));
+
+        Assert.Equal(
+            AnalysisPanel.AnalysisFooterHeight,
+            Assert.IsType<Avalonia.Controls.Grid>(regular.Child).Height);
+        Assert.Equal(
+            AnalysisPanel.AnalysisFooterHeight,
+            Assert.IsType<Avalonia.Controls.Grid>(pupil.Child).Height);
     }
 
     [Fact]
@@ -1049,16 +1141,20 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(method);
         var layout = Assert.IsType<Avalonia.Controls.Grid>(
             method.Invoke(null, new object[] { viewDto.PlotPanes }));
-        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
-        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
+        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        Assert.Empty(fieldGrid.Children.OfType<Avalonia.Controls.Viewbox>());
+        Assert.True(double.IsNaN(fieldGrid.Width));
+        Assert.True(double.IsNaN(fieldGrid.Height));
         Assert.Equal(3, fieldGrid.ColumnDefinitions.Count);
         Assert.Single(fieldGrid.RowDefinitions);
         Assert.Equal(viewDto.PlotPanes.Count, fieldGrid.Children.Count);
         Assert.All(fieldGrid.Children.OfType<Avalonia.Controls.Grid>(), card =>
         {
-            var plot = Assert.Single(card.Children.OfType<AnalysisPlotControl>());
-            Assert.Equal(260, plot.Width);
-            Assert.Equal(256, plot.Height);
+            var host = Assert.Single(card.Children.OfType<OptionalSquarePlotHost>());
+            Assert.True(host.IsSquare);
+            Assert.True(double.IsNaN(host.Width));
+            Assert.True(double.IsNaN(host.Height));
+            var plot = Assert.IsType<AnalysisPlotControl>(host.Child);
             Assert.All(plot.Series, series =>
             {
                 Assert.False(string.IsNullOrWhiteSpace(series.XAxisLabel));
@@ -1153,17 +1249,22 @@ public sealed class AnalysisGuiContractTests
         var layout = Assert.IsType<Avalonia.Controls.Grid>(buildMethod.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
-        var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
-        var plots = matrix.Children.OfType<AnalysisPlotControl>().ToArray();
+        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
+        Assert.True(double.IsNaN(matrix.Width));
+        Assert.True(double.IsNaN(matrix.Height));
+        var plotHosts = matrix.Children.OfType<OptionalSquarePlotHost>().ToArray();
+        var plots = plotHosts
+            .Select(host => Assert.IsType<AnalysisPlotControl>(host.Child))
+            .ToArray();
 
-        Assert.Equal(740, matrix.Width);
-        Assert.Equal(420, matrix.Height);
         Assert.Equal(view.PlotPanes.Count, plots.Length);
-        Assert.All(plots, plot =>
+        Assert.All(plotHosts, host =>
         {
-            Assert.Equal(120, plot.Width);
-            Assert.Equal(120, plot.Height);
+            Assert.True(host.IsSquare);
+            Assert.True(double.IsNaN(host.Width));
+            Assert.True(double.IsNaN(host.Height));
+            var plot = Assert.IsType<AnalysisPlotControl>(host.Child);
             Assert.True(plot.PlotOptions.HideTickLabels);
             Assert.All(plot.Series, series =>
             {

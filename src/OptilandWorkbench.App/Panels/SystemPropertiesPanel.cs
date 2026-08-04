@@ -268,7 +268,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 new TextBlock
                 {
                     Text = "当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。",
-                    FontSize = 11,
+                    FontSize = DisplayTypography.RibbonText,
                     TextWrapping = TextWrapping.Wrap
                 }
             }
@@ -410,7 +410,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 new TextBlock
                 {
                     Text = label,
-                    FontSize = 12,
+                    FontSize = DisplayTypography.BodySmall,
                     FontWeight = FontWeight.SemiBold
                 },
                 input
@@ -430,7 +430,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var titleText = new TextBlock
         {
             Text = title,
-            FontSize = 12,
+            FontSize = DisplayTypography.BodySmall,
             FontWeight = FontWeight.SemiBold,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -455,7 +455,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Padding = new Avalonia.Thickness(10, 0),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Avalonia.Thickness(1),
-            CornerRadius = new Avalonia.CornerRadius(7),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
@@ -708,7 +708,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Form(
                     ("温度 (°C)", _temperatureCelsius),
                     ("压力 (ATM)", _pressureAtmospheres)),
-                MutedText("当前仅保存环境参数，暂不启用温度补偿计算。", 11)
+                MutedText("当前仅保存环境参数，暂不启用温度补偿计算。", DisplayTypography.RibbonText)
             }
         };
     }
@@ -724,14 +724,14 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var titleText = new TextBlock
         {
             Text = title,
-            FontSize = 12,
+            FontSize = DisplayTypography.BodySmall,
             FontWeight = FontWeight.SemiBold,
             VerticalAlignment = VerticalAlignment.Center
         };
         var summaryText = new TextBlock
         {
             Text = summary,
-            FontSize = 10,
+            FontSize = DisplayTypography.Micro,
             TextTrimming = TextTrimming.CharacterEllipsis,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -756,7 +756,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Padding = new Thickness(10, 0),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(8),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
@@ -764,7 +764,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var card = new Border
         {
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(9),
+            CornerRadius = SettingsPanelChrome.CardCornerRadius,
             Child = new StackPanel { Children = { header, contentHost } }
         };
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);

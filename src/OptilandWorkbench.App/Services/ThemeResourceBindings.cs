@@ -8,6 +8,7 @@ public static class ThemeResourceBindings
     public const string Surface = "OptilandSurfaceBrush";
     public const string SubtleSurface = "OptilandSubtleSurfaceBrush";
     public const string SettingsSurface = "OptilandSettingsSurfaceBrush";
+    public const string SettingsOverlaySurface = "OptilandSettingsOverlaySurfaceBrush";
     public const string Workspace = "OptilandWorkspaceBrush";
     public const string Border = "OptilandBorderBrush";
     public const string TextPrimary = "OptilandTextPrimaryBrush";
@@ -39,6 +40,10 @@ public static class ThemeResourceBindings
     public const string PlotTooltipBorder = "OptilandPlotTooltipBorderBrush";
     public const string PlotHoverMarkerFill = "OptilandPlotHoverMarkerFillBrush";
     public const string PlotBar = "OptilandPlotBarBrush";
+    public const string AnalysisRealRayRowBackground = "OptilandAnalysisRealRayRowBackgroundBrush";
+    public const string AnalysisRealRayRowForeground = "OptilandAnalysisRealRayRowForegroundBrush";
+    public const string AnalysisParaxialRayRowBackground = "OptilandAnalysisParaxialRayRowBackgroundBrush";
+    public const string AnalysisParaxialRayRowForeground = "OptilandAnalysisParaxialRayRowForegroundBrush";
     public const string SceneBackground = "OptilandSceneBackgroundBrush";
     public const string SceneBackgroundAlt = "OptilandSceneBackgroundAltBrush";
     public const string SceneLensFill = "OptilandSceneLensFillBrush";

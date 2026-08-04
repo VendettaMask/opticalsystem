@@ -35,6 +35,7 @@ public sealed class ThemeResourceTests
         AssertBrush(resources, ThemeResourceBindings.ErrorSurface);
         AssertBrush(resources, ThemeResourceBindings.SuccessSurface);
         AssertBrush(resources, ThemeResourceBindings.SettingsSurface);
+        AssertBrush(resources, ThemeResourceBindings.SettingsOverlaySurface);
         AssertBrush(resources, ThemeResourceBindings.PlotBackground);
         AssertBrush(resources, ThemeResourceBindings.PlotText);
         AssertBrush(resources, ThemeResourceBindings.PlotGrid);
@@ -59,6 +60,10 @@ public sealed class ThemeResourceTests
         Assert.Equal(
             Color.FromRgb(255, 255, 255),
             ColorOf(lightResources, ThemeResourceBindings.SettingsSurface));
+        Assert.Equal((byte)255, ColorOf(lightResources, ThemeResourceBindings.SettingsSurface).A);
+        Assert.True(ColorOf(lightResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
+        Assert.True(ColorOf(resources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
+        Assert.True(ColorOf(isekaiResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
     }
 
     [Fact]
@@ -92,6 +97,12 @@ public sealed class ThemeResourceTests
             > Luminance(ColorOf(isekai, ThemeResourceBindings.ErrorSurface)));
         Assert.True(Luminance(ColorOf(isekai, ThemeResourceBindings.TextSuccess))
             > Luminance(ColorOf(isekai, ThemeResourceBindings.SuccessSurface)));
+        AssertReadable(light, ThemeResourceBindings.AnalysisRealRayRowForeground, ThemeResourceBindings.AnalysisRealRayRowBackground);
+        AssertReadable(light, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
+        AssertReadable(dark, ThemeResourceBindings.AnalysisRealRayRowForeground, ThemeResourceBindings.AnalysisRealRayRowBackground);
+        AssertReadable(dark, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
+        AssertReadable(isekai, ThemeResourceBindings.AnalysisRealRayRowForeground, ThemeResourceBindings.AnalysisRealRayRowBackground);
+        AssertReadable(isekai, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
 
     }
 
@@ -131,4 +142,31 @@ public sealed class ThemeResourceTests
 
     private static double Luminance(Color color) =>
         (0.2126 * color.R) + (0.7152 * color.G) + (0.0722 * color.B);
+
+    private static void AssertReadable(ResourceDictionary resources, string foregroundKey, string backgroundKey)
+    {
+        Assert.True(
+            ContrastRatio(ColorOf(resources, foregroundKey), ColorOf(resources, backgroundKey)) >= 4.5,
+            $"{foregroundKey} must be readable on {backgroundKey}");
+    }
+
+    private static double ContrastRatio(Color foreground, Color background)
+    {
+        var first = RelativeLuminance(foreground) + 0.05;
+        var second = RelativeLuminance(background) + 0.05;
+        return Math.Max(first, second) / Math.Min(first, second);
+    }
+
+    private static double RelativeLuminance(Color color)
+    {
+        static double Linear(byte channel)
+        {
+            var value = channel / 255.0;
+            return value <= 0.03928
+                ? value / 12.92
+                : Math.Pow((value + 0.055) / 1.055, 2.4);
+        }
+
+        return (0.2126 * Linear(color.R)) + (0.7152 * Linear(color.G)) + (0.0722 * Linear(color.B));
+    }
 }

@@ -8,6 +8,10 @@ namespace OptilandWorkbench.App.Controls;
 
 internal static class SettingsPanelChrome
 {
+    public static CornerRadius CardCornerRadius { get; } = new(8);
+    public static CornerRadius ControlCornerRadius { get; } = new(5);
+    public static BoxShadows CardShadow { get; } = BoxShadows.Parse("0 5 16 0 #20000000");
+
     public static Button CreateToggleButton()
     {
         var button = new Button
@@ -40,10 +44,27 @@ internal static class SettingsPanelChrome
 
     public static void ApplyCardStyle(Border card)
     {
-        card.CornerRadius = new CornerRadius(8);
+        card.CornerRadius = CardCornerRadius;
         card.BorderThickness = new Thickness(1);
-        card.BoxShadow = BoxShadows.Parse("0 5 16 0 #20000000");
-        card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
+        card.BoxShadow = CardShadow;
+        card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SettingsOverlaySurface);
         card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+    }
+
+    public static void ApplySurfaceCardStyle(Border card, bool shadow = true)
+    {
+        card.CornerRadius = CardCornerRadius;
+        card.BorderThickness = new Thickness(1);
+        card.BoxShadow = shadow ? CardShadow : default;
+        card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+    }
+
+    public static void ApplyControlFrameStyle(Border frame)
+    {
+        frame.CornerRadius = ControlCornerRadius;
+        frame.BorderThickness = new Thickness(1);
+        frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
     }
 }

@@ -174,16 +174,18 @@ public sealed partial class AnalysisPanel
             return;
         }
 
-        foreach (var descriptor in descriptors)
-        {
-            _parameterPanel.Children.Add(Label(descriptor.DisplayName));
-            var value = _settings.TryGetValue(descriptor.Key, out var saved)
-                ? saved
-                : descriptor.DefaultValue;
-            var control = CreateParameterControl(descriptor, value);
-            _parameterControls[descriptor.Key] = control;
-            _parameterPanel.Children.Add(control);
-        }
+        _parameterPanel.Children.Add(BuildAutomaticTwoColumnSettings(descriptors));
+    }
+
+    private Control BuildAutomaticTwoColumnSettings(
+        IReadOnlyList<AnalysisParameterDescriptor> descriptors)
+    {
+        var keys = descriptors.Select(descriptor => descriptor.Key).ToArray();
+        var split = (keys.Length + 1) / 2;
+        return BuildReferenceStyleSettings(
+            descriptors,
+            keys.Take(split).ToArray(),
+            keys.Skip(split).ToArray());
     }
 
     private Control BuildImageSimulationSettings(
@@ -227,7 +229,7 @@ public sealed partial class AnalysisPanel
             panel.Children.Add(new TextBlock
             {
                 Text = $"----- {title} -----",
-                FontSize = 14,
+                FontSize = DisplayTypography.CardTitle,
                 FontWeight = FontWeight.SemiBold,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(0, 8, 0, 3)
@@ -501,11 +503,13 @@ public sealed partial class AnalysisPanel
         var byKey = descriptors.ToDictionary(descriptor => descriptor.Key);
         var settingRowCount = Math.Max(leftKeys.Count, rightKeys.Count);
         var rowCount = settingRowCount + Math.Max(0, additionalRows);
+        var rowDefinitions = rowCount == 0
+            ? "Auto,42"
+            : string.Join(',', Enumerable.Repeat("34", rowCount)) + ",Auto,42";
         var grid = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("Auto,240,24,Auto,240"),
-            RowDefinitions = new RowDefinitions(
-                string.Join(',', Enumerable.Repeat("34", rowCount)) + ",Auto,42"),
+            RowDefinitions = new RowDefinitions(rowDefinitions),
             MinWidth = 780,
             MaxWidth = 960
         };
@@ -630,7 +634,7 @@ public sealed partial class AnalysisPanel
                 return;
             }
 
-            _stateText.Text = "设置已更改，正在自动刷新…";
+            _operationStatus.MarkStale("设置已更改，正在自动刷新…");
             _automaticRefreshTimer.Stop();
             _automaticRefreshTimer.Start();
         }
@@ -684,11 +688,11 @@ public sealed partial class AnalysisPanel
                 settings,
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(file.Path.LocalPath, json);
-            _stateText.Text = $"{AnalysisName}设置已保存";
+            _operationStatus.MarkSynced($"{AnalysisName}设置已保存");
         }
         catch (Exception exception)
         {
-            _stateText.Text = $"保存设置失败：{exception.Message}";
+            _operationStatus.MarkFailed($"保存设置失败：{exception.Message}");
         }
     }
 
@@ -727,12 +731,12 @@ public sealed partial class AnalysisPanel
             }
             else
             {
-                _stateText.Text = $"{AnalysisName}设置已载入";
+                _operationStatus.MarkSynced($"{AnalysisName}设置已载入");
             }
         }
         catch (Exception exception)
         {
-            _stateText.Text = $"载入设置失败：{exception.Message}";
+            _operationStatus.MarkFailed($"载入设置失败：{exception.Message}");
         }
     }
 

@@ -35,6 +35,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly NumericUpDown _compensationIterations = Number(20, 0, 500, 5, 96);
     private readonly NumericUpDown _yieldLimit = Number(0, 0, 1_000_000, 0.01m, 110);
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
+    private readonly OperationStatusBar _operationStatus = new();
     private readonly TextBlock _statistics = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(12) };
     private CancellationTokenSource? _runCancellation;
     private TolerancingResultDto? _lastResult;
@@ -77,7 +78,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             Children =
             {
                 wizardButton, addButton, removeButton, validateButton,
-                saveButton, loadButton, reportButton, runButton
+                saveButton, loadButton, reportButton, runButton, _operationStatus
             }
         };
 
@@ -156,6 +157,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _events.Changed -= OnWorkspaceChanged;
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
+        _operationStatus.Dispose();
     }
 
     private void ConfigureGrids()
@@ -207,7 +209,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             Spacing = 8,
             Children =
             {
-                new TextBlock { Text = "操作数属性", FontSize = 16, FontWeight = FontWeight.SemiBold },
+                new TextBlock { Text = "操作数属性", FontSize = DisplayTypography.SectionTitle, FontWeight = FontWeight.SemiBold },
                 _enabled,
                 Labeled("类型", _kindPicker),
                 Labeled("表面", _surfacePicker),
@@ -220,13 +222,10 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         };
         var border = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(6),
             Padding = new Thickness(12),
             Child = panel
         };
-        border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        border.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplySurfaceCardStyle(border, shadow: false);
         return border;
     }
 
@@ -345,12 +344,14 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         var result = _tolerancing.ValidateOperands(_operands.Select(row => row.ToDto()).ToArray());
         if (!result.IsValid)
         {
+            _operationStatus.MarkFailed("公差数据验证失败");
             _summary.Text = "公差数据验证失败：" + Environment.NewLine + string.Join(Environment.NewLine, result.Messages);
             return false;
         }
 
         if (showSuccess)
         {
+            _operationStatus.MarkSynced("验证通过");
             _summary.Text = $"验证通过：{_operands.Count(row => row.Enabled && row.Kind != ToleranceOperandKind.Compensator)} 个公差，"
                 + $"{_operands.Count(row => row.Enabled && row.Kind == ToleranceOperandKind.Compensator)} 个补偿器。";
         }
@@ -371,6 +372,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _runCancellation = new CancellationTokenSource();
         var cancellationToken = _runCancellation.Token;
         var generation = ++_generation;
+        _operationStatus.Start("正在运行公差分析…", () => _runCancellation?.Cancel());
         _summary.Text = "正在运行灵敏度和 Monte Carlo 公差分析…";
         try
         {
@@ -395,15 +397,21 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             _monteCarloGrid.ItemsSource = result.TrialRows;
             _statistics.Text = FormatStatistics(result.Statistics);
             _summary.Text = $"{result.Summary}    {result.Details}";
+            _operationStatus.MarkSynced("公差分析完成");
             _lastResult = result;
         }
         catch (OperationCanceledException)
         {
+            if (!_disposed && generation == _generation)
+            {
+                _operationStatus.MarkStale("公差分析已取消");
+            }
         }
         catch (Exception exception)
         {
             if (!_disposed && generation == _generation)
             {
+                _operationStatus.MarkFailed($"公差分析失败：{exception.Message}");
                 _summary.Text = $"公差分析失败：{exception.Message}";
             }
         }

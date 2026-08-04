@@ -4,6 +4,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App;
 
@@ -23,13 +24,13 @@ internal sealed class SplashWindow : Window
     private readonly TextBlock _statusText = new()
     {
         Text = "正在初始化光学工作区...",
-        FontSize = 12,
+        FontSize = DisplayTypography.BodySmall,
         Foreground = new SolidColorBrush(Color.FromRgb(210, 214, 220))
     };
     private readonly TextBlock _progressText = new()
     {
         Text = "8%",
-        FontSize = 12,
+        FontSize = DisplayTypography.BodySmall,
         Foreground = new SolidColorBrush(Color.FromRgb(246, 176, 116)),
         HorizontalAlignment = HorizontalAlignment.Right
     };
@@ -106,7 +107,7 @@ internal sealed class SplashWindow : Window
                 new TextBlock
                 {
                     Text = "Optical System Design",
-                    FontSize = 29,
+                    FontSize = DisplayTypography.SplashTitle,
                     FontWeight = FontWeight.SemiBold,
                     Foreground = Brushes.White,
                     TextWrapping = TextWrapping.NoWrap
@@ -114,27 +115,27 @@ internal sealed class SplashWindow : Window
                 new TextBlock
                 {
                     Text = "光学系统设计、分析与优化",
-                    FontSize = 15,
+                    FontSize = DisplayTypography.SectionTitle,
                     Foreground = new SolidColorBrush(Color.FromRgb(224, 226, 230))
                 },
                 new TextBlock
                 {
                     Text = "Sequential ray tracing · Imaging analysis",
-                    FontSize = 12,
+                    FontSize = DisplayTypography.BodySmall,
                     Foreground = new SolidColorBrush(Color.FromRgb(155, 161, 170))
                 },
                 new TextBlock
                 {
                     Text = "S.T.A.R. Labs",
                     Margin = new Thickness(0, 8, 0, 0),
-                    FontSize = 13,
+                    FontSize = DisplayTypography.Body,
                     FontWeight = FontWeight.SemiBold,
                     Foreground = new SolidColorBrush(Color.FromRgb(246, 176, 116))
                 },
                 new TextBlock
                 {
                     Text = ProductVersion(),
-                    FontSize = 11,
+                    FontSize = DisplayTypography.RibbonText,
                     Foreground = new SolidColorBrush(Color.FromRgb(125, 132, 142))
                 }
             }

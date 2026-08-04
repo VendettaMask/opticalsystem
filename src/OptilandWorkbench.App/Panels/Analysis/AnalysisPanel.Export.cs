@@ -27,14 +27,14 @@ public sealed partial class AnalysisPanel
             if (clipboard is not null && !string.IsNullOrWhiteSpace(_view?.ReportText))
             {
                 await clipboard.SetTextAsync(_view.ReportText);
-                _stateText.Text = "报告文本已复制";
+                _operationStatus.MarkSynced("报告文本已复制");
             }
         }
         catch (Exception exception)
         {
             if (!_disposed)
             {
-                _stateText.Text = $"复制失败：{exception.Message}";
+                _operationStatus.MarkFailed($"复制失败：{exception.Message}");
             }
         }
     }
@@ -77,14 +77,14 @@ public sealed partial class AnalysisPanel
                     ? AnalysisCsvFormatter.Format(_view)
                     : _view.ReportText;
                 await File.WriteAllTextAsync(file.Path.LocalPath, content);
-                _stateText.Text = isCsv ? "CSV 数据已导出" : "报告文本已导出";
+                _operationStatus.MarkSynced(isCsv ? "CSV 数据已导出" : "报告文本已导出");
             }
         }
         catch (Exception exception)
         {
             if (!_disposed)
             {
-                _stateText.Text = $"导出失败：{exception.Message}";
+                _operationStatus.MarkFailed($"导出失败：{exception.Message}");
             }
         }
     }
@@ -125,7 +125,7 @@ public sealed partial class AnalysisPanel
         button.Height = 28;
         button.MinHeight = 28;
         button.Padding = iconOnly ? new Thickness(0) : new Thickness(7, 2);
-        button.CornerRadius = new CornerRadius(4);
+        button.CornerRadius = SettingsPanelChrome.ControlCornerRadius;
         button.BorderThickness = new Thickness(1);
         if (iconOnly)
         {

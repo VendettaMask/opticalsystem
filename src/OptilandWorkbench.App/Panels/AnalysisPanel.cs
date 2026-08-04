@@ -25,16 +25,13 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private readonly IWorkspaceEventStream _events;
     private readonly AppSettings _appSettings;
     private readonly Dictionary<string, Control> _parameterControls = new();
-    private readonly WrapPanel _parameterPanel = new()
+    private readonly StackPanel _parameterPanel = new()
     {
-        Orientation = Orientation.Horizontal,
-        VerticalAlignment = VerticalAlignment.Center
+        VerticalAlignment = VerticalAlignment.Center,
+        HorizontalAlignment = HorizontalAlignment.Left
     };
     private readonly ContentControl _resultHost = new();
-    private readonly TextBlock _stateText = new()
-    {
-        VerticalAlignment = VerticalAlignment.Center
-    };
+    private readonly OperationStatusBar _operationStatus = new();
     private readonly Button _syncButton;
     private readonly Border _settingsHost;
     private readonly CheckBox _parameterAutoApply = new()
@@ -91,11 +88,11 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _settingsHost = new Border
         {
             IsVisible = false,
+            HorizontalAlignment = HorizontalAlignment.Left,
             Margin = new Thickness(0, 6, 0, 0),
             Padding = new Thickness(12, 10),
             Child = _parameterPanel
         };
-        _stateText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         SettingsPanelChrome.ApplyCardStyle(_settingsHost);
         settingsButton.Click += (_, _) =>
         {
@@ -111,7 +108,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _syncButton,
                 copyButton,
                 exportButton,
-                _stateText
+                _operationStatus
             }
         };
         _syncButton.Margin = new Thickness(2, 0, 0, 0);
@@ -153,9 +150,18 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 return;
             }
 
-            _stateText.Text = value
-                ? "已锁定：保留当前结果"
-                : _view is null ? "尚未运行" : "";
+            if (value)
+            {
+                _operationStatus.MarkIdle("已锁定：保留当前结果");
+            }
+            else if (_view is null)
+            {
+                _operationStatus.MarkIdle("尚未运行");
+            }
+            else
+            {
+                _operationStatus.MarkSynced("已同步");
+            }
         }
     }
 
@@ -174,6 +180,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         AttachedToVisualTree -= OnAttachedToVisualTree;
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
+        _operationStatus.Dispose();
     }
 
     public void RefreshDisplaySettings()
@@ -206,7 +213,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         var generation = ++_generation;
         _isRunning = true;
         _syncButton.IsEnabled = true;
-        _stateText.Text = "正在计算…";
+        _operationStatus.Start("正在计算…", () => _runCancellation?.Cancel());
 
         try
         {
@@ -236,7 +243,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             {
                 if (result.SourceRevision != _events.Revision)
                 {
-                    _stateText.Text = "结果已过期，请同步";
+                    _operationStatus.MarkStale("结果已过期，请同步");
                     return;
                 }
 
@@ -253,11 +260,25 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                     DateTimeOffset.Now,
                     cardinalScene);
                 _displayedSourceRevision = result.SourceRevision;
-                _stateText.Text = _locked ? "已锁定：保留当前结果" : "已同步";
+                if (_locked)
+                {
+                    _operationStatus.MarkIdle("已锁定：保留当前结果");
+                }
+                else
+                {
+                    _operationStatus.MarkSynced("已同步");
+                }
             });
         }
         catch (OperationCanceledException)
         {
+            if (!_disposed && generation == _generation)
+            {
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    _operationStatus.MarkStale("已取消，请同步");
+                });
+            }
         }
         catch (Exception exception)
         {
@@ -271,7 +292,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _view = null;
                 _displayedSourceRevision = null;
                 _resultHost.Content = BuildAnalysisErrorContent(exception.Message);
-                _stateText.Text = $"分析失败：{exception.Message}";
+                _operationStatus.MarkFailed($"分析失败：{exception.Message}");
             });
         }
         finally
@@ -324,7 +345,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _view = null;
                 _displayedSourceRevision = null;
                 _resultHost.Content = null;
-                _stateText.Text = "文件已切换，请同步";
+                _operationStatus.MarkStale("文件已切换，请同步");
                 return;
             }
 
@@ -337,13 +358,13 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 or WorkspaceChangeCategory.Field
                 or WorkspaceChangeCategory.Wavelength)
             {
-                _stateText.Text = "系统设置已变化，正在自动刷新…";
+                _operationStatus.MarkStale("系统设置已变化，正在自动刷新…");
                 _automaticRefreshTimer.Stop();
                 _automaticRefreshTimer.Start();
             }
             else if (_view is not null)
             {
-                _stateText.Text = "结果已过期，请同步";
+                _operationStatus.MarkStale("结果已过期，请同步");
             }
         });
     }

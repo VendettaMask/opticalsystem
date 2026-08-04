@@ -4,15 +4,62 @@ namespace OptilandWorkbench.App.Panels;
 
 internal static class MeritOperandRowPalette
 {
+    private static readonly Color LightForeground = Color.FromRgb(24, 24, 27);
+    private static readonly Color DarkForeground = Color.FromRgb(236, 240, 246);
+
     internal static Color Resolve(string? operandType, bool hasError = false)
+    {
+        return ResolveBackground(operandType, hasError, darkTheme: false);
+    }
+
+    internal static MeritOperandRowVisual ResolveVisual(
+        string? operandType,
+        bool hasError = false,
+        bool darkTheme = false)
+    {
+        return new MeritOperandRowVisual(
+            ResolveBackground(operandType, hasError, darkTheme),
+            darkTheme ? DarkForeground : LightForeground);
+    }
+
+    internal static IEnumerable<MeritOperandRowVisual> ContrastSamples()
+    {
+        var sampleTypes = new[]
+        {
+            "BLNK",
+            "DMFS",
+            "TTHI",
+            "OPLT",
+            "EFFL",
+            "PMAG",
+            "CONS",
+            "DIVI",
+            "MNEA",
+            "MNCG",
+            "RSCE",
+            "TRAC",
+            "UNKNOWN"
+        };
+        foreach (var darkTheme in new[] { false, true })
+        {
+            foreach (var sampleType in sampleTypes)
+            {
+                yield return ResolveVisual(sampleType, darkTheme: darkTheme);
+            }
+
+            yield return ResolveVisual("EFFL", hasError: true, darkTheme: darkTheme);
+        }
+    }
+
+    private static Color ResolveBackground(string? operandType, bool hasError, bool darkTheme)
     {
         if (hasError)
         {
-            return Color.FromRgb(255, 198, 198);
+            return darkTheme ? Color.FromRgb(92, 44, 44) : Color.FromRgb(255, 198, 198);
         }
 
         var type = operandType?.Trim().ToUpperInvariant() ?? string.Empty;
-        return type switch
+        var light = type switch
         {
             "BLNK" => Colors.White,
             "DMFS" => Color.FromRgb(247, 177, 239),
@@ -53,5 +100,26 @@ internal static class MeritOperandRowPalette
 
             _ => Color.FromRgb(236, 244, 241)
         };
+        return darkTheme ? DarkEquivalent(light) : light;
+    }
+
+    private static Color DarkEquivalent(Color light)
+    {
+        if (light == Colors.White)
+        {
+            return Color.FromRgb(28, 32, 38);
+        }
+
+        return Color.FromRgb(
+            Darken(light.R),
+            Darken(light.G),
+            Darken(light.B));
+    }
+
+    private static byte Darken(byte channel)
+    {
+        return (byte)Math.Clamp(24 + (channel * 0.21), 24, 86);
     }
 }
+
+internal sealed record MeritOperandRowVisual(Color Background, Color Foreground);

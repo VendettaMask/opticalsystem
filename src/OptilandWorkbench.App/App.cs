@@ -111,7 +111,7 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     TextElement.ForegroundProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(Border.CornerRadiusProperty, new CornerRadius(6))
+                new Setter(Border.CornerRadiusProperty, SettingsPanelChrome.ControlCornerRadius)
             }
         });
         Styles.Add(new Style(RibbonMenuItemPointerOverSelector)
@@ -126,7 +126,7 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     TextElement.ForegroundProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(Border.CornerRadiusProperty, new CornerRadius(6))
+                new Setter(Border.CornerRadiusProperty, SettingsPanelChrome.ControlCornerRadius)
             }
         });
         Styles.Add(new Style(selector => selector.OfType<TextBox>())

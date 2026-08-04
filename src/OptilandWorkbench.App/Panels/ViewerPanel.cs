@@ -669,13 +669,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
             VerticalAlignment = verticalAlignment,
             Margin = new Thickness(10),
             Padding = new Thickness(7, 5),
-            CornerRadius = new CornerRadius(7),
-            BorderThickness = new Thickness(1),
-            BoxShadow = BoxShadows.Parse("0 4 12 0 #1A000000"),
             Child = panel
         };
-        toolbar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        toolbar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        SettingsPanelChrome.ApplySurfaceCardStyle(toolbar);
         return toolbar;
     }
 

@@ -15,7 +15,7 @@
 - 原生 `.staropt` 项目采用版本头、Brotli 压缩、SHA-256 校验、语义验证和原子保存；Python Optiland JSON、Zemax ZMX、CODE V SEQ、OSLO LEN 是显式交换格式。
 - Dock.Avalonia 工作区支持标签拖放、分栏、合并、独立浮动、重新停靠、平铺、层叠、页面锁定和按文件保存工作区会话。
 - 只有“全部独立浮动”会创建软件外的原生窗口；平铺和层叠会先把全部页面收回主文档区，再使用 Dock 的内部 MDI 布局。空浮动宿主会在操作、保存和旧会话恢复时清理。
-- 明亮、暗夜和异世界主题统一使用主题资源；明亮主题设置卡片与按钮表面为纯白。
+- 明亮、暗夜和异世界主题统一使用主题资源；设置按钮使用主题设置表面，覆盖在图形区上的设置卡片使用半透明主题浮层。
 - 二维/三维查看器、分析图、制造审查、ISO 10110 系列制图、矢量 PDF 和容差控制的分面 STEP 装配导出均为 Avalonia/.NET 原生实现。
 - 打包镜头库只在桌面端读取已审核的原生项目；下载、转换和索引重建由离线维护工具完成。
 
@@ -94,7 +94,7 @@ docs                               架构、格式、兼容、验证和发布文
 ## 文档索引
 
 - 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
-- 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
+- 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计规范](docs/UI_DESIGN_SPEC.md)、[UI 符合性审计](docs/UI_CONFORMANCE_AUDIT_2026-08-04.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
 - 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
 - Zemax 边界：[分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)、[基准配置边界](docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)、[操作数支持规范](docs/ZEMAX_OPERAND_SUPPORT.md)。

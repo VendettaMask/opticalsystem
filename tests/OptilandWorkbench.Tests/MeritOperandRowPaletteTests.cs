@@ -48,4 +48,35 @@ public sealed class MeritOperandRowPaletteTests
             Color.FromRgb(255, 198, 198),
             MeritOperandRowPalette.Resolve("EFFL", hasError: true));
     }
+
+    [Fact]
+    public void OperandRowPaletteKeepsTextReadableInLightAndDarkThemes()
+    {
+        foreach (var visual in MeritOperandRowPalette.ContrastSamples())
+        {
+            Assert.True(
+                ContrastRatio(visual.Foreground, visual.Background) >= 4.5,
+                $"foreground {visual.Foreground} must be readable on background {visual.Background}");
+        }
+    }
+
+    private static double ContrastRatio(Color foreground, Color background)
+    {
+        var first = RelativeLuminance(foreground) + 0.05;
+        var second = RelativeLuminance(background) + 0.05;
+        return Math.Max(first, second) / Math.Min(first, second);
+    }
+
+    private static double RelativeLuminance(Color color)
+    {
+        static double Linear(byte channel)
+        {
+            var value = channel / 255.0;
+            return value <= 0.03928
+                ? value / 12.92
+                : Math.Pow((value + 0.055) / 1.055, 2.4);
+        }
+
+        return (0.2126 * Linear(color.R)) + (0.7152 * Linear(color.G)) + (0.0722 * Linear(color.B));
+    }
 }

@@ -23,6 +23,62 @@ public sealed class BrandAssetTests
         Assert.True(macIcon.Length > 10_000);
     }
 
+    [Fact]
+    public void EmbeddedCompanyLogoCanBeLoadedByTheAnalysisFooter()
+    {
+        using var stream = OptilandWorkbench.App.BrandAssets.OpenCompanyLogoStream();
+        using var memory = new MemoryStream();
+        stream.CopyTo(memory);
+
+        AssertPng(memory.ToArray(), 2172, 724);
+    }
+
+    [Fact]
+    public void PreparedCompanyLogoHasTransparentBackgroundAndVisibleArtwork()
+    {
+        var png = OptilandWorkbench.App.BrandAssets.GetPreparedCompanyLogoPng();
+        using var logo = SKBitmap.Decode(png);
+
+        Assert.NotNull(logo);
+        Assert.Equal((byte)0, logo.GetPixel(0, 0).Alpha);
+        Assert.Contains(
+            Enumerable.Range(0, logo.Height),
+            y => Enumerable.Range(0, logo.Width).Any(x => logo.GetPixel(x, y).Alpha == 255));
+    }
+
+    [Fact]
+    public void PreparedCompanyLogoKeepsOriginalBrandColor()
+    {
+        var png = OptilandWorkbench.App.BrandAssets.GetPreparedCompanyLogoPng();
+        using var logo = SKBitmap.Decode(png);
+        Assert.NotNull(logo);
+
+        var visibleColors = Enumerable.Range(0, logo.Height)
+            .SelectMany(y => Enumerable.Range(0, logo.Width).Select(x => logo.GetPixel(x, y)))
+            .Where(pixel => pixel.Alpha == 255)
+            .Select(pixel => (pixel.Red, pixel.Green, pixel.Blue))
+            .Distinct()
+            .Take(8)
+            .ToArray();
+
+        Assert.Contains(visibleColors, color => color.Blue > color.Red && color.Blue > color.Green);
+        Assert.DoesNotContain(visibleColors, color => color is ((byte)32, (byte)34, (byte)38));
+    }
+
+    [Fact]
+    public void ThemeColoredCompanyLogoPreservesTransparencyAndUsesRequestedColor()
+    {
+        var requested = Avalonia.Media.Color.FromRgb(32, 34, 38);
+        var png = OptilandWorkbench.App.BrandAssets.GetThemeColoredCompanyLogoPng(requested);
+        using var logo = SKBitmap.Decode(png);
+        Assert.NotNull(logo);
+        Assert.Equal((byte)0, logo.GetPixel(0, 0).Alpha);
+        var visible = Enumerable.Range(0, logo.Height)
+            .SelectMany(y => Enumerable.Range(0, logo.Width).Select(x => logo.GetPixel(x, y)))
+            .First(pixel => pixel.Alpha == 255);
+        Assert.Equal((requested.R, requested.G, requested.B), (visible.Red, visible.Green, visible.Blue));
+    }
+
     private static string Asset(string name) => Path.Combine(
         AppContext.BaseDirectory,
         "Assets",

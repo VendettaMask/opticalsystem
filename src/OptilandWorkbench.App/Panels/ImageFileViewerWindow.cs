@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using OptilandWorkbench.App.Services;
 using SkiaSharp;
 
 namespace OptilandWorkbench.App.Panels;
@@ -71,28 +72,35 @@ internal sealed class ImageFileViewerWindow : Window
             _status.Text = $"{_bitmap.PixelSize.Width} × {_bitmap.PixelSize.Height}";
         }
 
+        var toolbarBorder = new Border
+        {
+            BorderThickness = new Thickness(0, 0, 0, 1),
+            Child = toolbar
+        };
+        toolbarBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+
+        var imageCanvas = new Border
+        {
+            Child = _image
+        };
+        imageCanvas.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.PlotBackground);
+
+        var statusBorder = new Border
+        {
+            BorderThickness = new Thickness(0, 1, 0, 0),
+            Child = _status
+        };
+        statusBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        _status.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
+
         var root = new Grid
         {
             RowDefinitions = new RowDefinitions("Auto,*,Auto"),
             Children =
             {
-                new Border
-                {
-                    BorderThickness = new Thickness(0, 0, 0, 1),
-                    BorderBrush = Brushes.LightGray,
-                    Child = toolbar
-                },
-                new Border
-                {
-                    Background = Brushes.White,
-                    Child = _image
-                },
-                new Border
-                {
-                    BorderThickness = new Thickness(0, 1, 0, 0),
-                    BorderBrush = Brushes.LightGray,
-                    Child = _status
-                }
+                toolbarBorder,
+                imageCanvas,
+                statusBorder
             }
         };
         Grid.SetRow(root.Children[1], 1);

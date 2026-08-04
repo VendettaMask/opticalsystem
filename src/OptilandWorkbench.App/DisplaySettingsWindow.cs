@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App;
@@ -26,7 +27,6 @@ public sealed class DisplaySettingsWindow : Window
     };
     private readonly TextBlock _validation = new()
     {
-        Foreground = new SolidColorBrush(Color.FromRgb(190, 45, 40)),
         MinHeight = 20
     };
     private readonly Button _save = new() { Content = "应用并保存", MinWidth = 108 };
@@ -40,6 +40,7 @@ public sealed class DisplaySettingsWindow : Window
         MinHeight = 600;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         CanResize = false;
+        _validation.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextError);
 
         _decimalPlaces.Value = settings.DecimalPlaces;
         _upperExponent.Value = settings.UpperScientificExponent;
@@ -114,11 +115,9 @@ public sealed class DisplaySettingsWindow : Window
                     SettingRow("字体", _fontFamily),
                     SettingRow("字形", _fontShape),
                     SettingRow("大小", _fontSize, "单位：pt")), 2),
-                At(new Border
+                At(PreviewBox(new Border
                 {
-                    BorderBrush = new SolidColorBrush(Color.FromRgb(199, 199, 204)),
                     BorderThickness = new Thickness(1),
-                    CornerRadius = new CornerRadius(5),
                     Padding = new Thickness(14),
                     Child = new StackPanel
                     {
@@ -130,7 +129,7 @@ public sealed class DisplaySettingsWindow : Window
                             _validation
                         }
                     }
-                }, 3),
+                }), 3),
                 At(new Grid
                 {
                     ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
@@ -260,7 +259,7 @@ public sealed class DisplaySettingsWindow : Window
         panel.Children.Add(new TextBlock
         {
             Text = title,
-            FontSize = 15,
+            FontSize = DisplayTypography.SectionTitle,
             FontWeight = FontWeight.SemiBold
         });
         foreach (var control in controls)
@@ -290,9 +289,9 @@ public sealed class DisplaySettingsWindow : Window
             var text = new TextBlock
             {
                 Text = hint,
-                FontSize = 11,
-                Foreground = new SolidColorBrush(Color.FromRgb(105, 105, 110))
+                FontSize = DisplayTypography.RibbonText
             };
+            text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
             Grid.SetColumn(text, 1);
             Grid.SetRow(text, 1);
             grid.Children.Add(text);
@@ -311,6 +310,12 @@ public sealed class DisplaySettingsWindow : Window
     {
         Grid.SetColumn(control, column);
         return control;
+    }
+
+    private static Border PreviewBox(Border border)
+    {
+        SettingsPanelChrome.ApplySurfaceCardStyle(border, shadow: false);
+        return border;
     }
 
     private sealed record FontShapeOption(string Value, string Label)

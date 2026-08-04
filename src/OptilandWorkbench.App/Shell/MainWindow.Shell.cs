@@ -163,7 +163,7 @@ public sealed partial class MainWindow
         {
             Header = title,
             Content = content,
-            FontSize = 13,
+            FontSize = DisplayTypography.Body,
             Padding = new Thickness(14, 7)
         };
         tab.Classes.Add("ribbon-tab");
@@ -211,7 +211,7 @@ public sealed partial class MainWindow
         var caption = new TextBlock
         {
             Text = title,
-            FontSize = 11,
+            FontSize = DisplayTypography.RibbonText,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -244,7 +244,7 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Content = content
@@ -293,7 +293,7 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
@@ -343,7 +343,7 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(7),
+            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
@@ -379,7 +379,7 @@ public sealed partial class MainWindow
         var text = new TextBlock
         {
             Text = label,
-            FontSize = 11,
+            FontSize = DisplayTypography.RibbonText,
             MinWidth = 66,
             MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
@@ -417,7 +417,7 @@ public sealed partial class MainWindow
         var text = new TextBlock
         {
             Text = label,
-            FontSize = 11,
+            FontSize = DisplayTypography.RibbonText,
             MinWidth = 66,
             MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
@@ -522,9 +522,9 @@ public sealed partial class MainWindow
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto,Auto") };
         grid.Children.Add(StatusCell(_statusText, 0, 0));
         grid.Children.Add(StatusCell(_eflText, 1, 128));
-        grid.Children.Add(StatusCell(_fNumberText, 2, 116));
-        grid.Children.Add(StatusCell(_apertureText, 3, 130));
-        grid.Children.Add(StatusCell(_trackText, 4, 120));
+        grid.Children.Add(StatusCell(_fNumberText, 2, 128));
+        grid.Children.Add(StatusCell(_apertureText, 3, 128));
+        grid.Children.Add(StatusCell(_trackText, 4, 128));
 
         var status = new Border
         {
@@ -538,13 +538,14 @@ public sealed partial class MainWindow
 
     private static Border StatusCell(TextBlock text, int column, double width)
     {
-        text.FontSize = 11;
-        text.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
+        text.FontSize = DisplayTypography.CompactBody;
+        text.VerticalAlignment = VerticalAlignment.Center;
+        text.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextSecondary));
         var border = new Border
         {
             MinWidth = width,
             BorderThickness = new Thickness(column == 0 ? 0 : 1, 0, 0, 0),
-            Padding = new Thickness(9, 4),
+            Padding = new Thickness(10, 3),
             Child = text
         };
         border.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
