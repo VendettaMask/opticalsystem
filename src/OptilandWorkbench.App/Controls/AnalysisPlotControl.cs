@@ -14,6 +14,8 @@ namespace OptilandWorkbench.App.Controls;
 
 public sealed class AnalysisPlotControl : Control
 {
+    internal const double PlotTextSize = 11.5;
+
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
     private static readonly IBrush TextBrush = new SolidColorBrush(Color.FromRgb(38, 38, 38));
     private static readonly IBrush TickBrush = new SolidColorBrush(Color.FromRgb(80, 80, 80));
@@ -466,7 +468,7 @@ public sealed class AnalysisPlotControl : Control
                 return;
             }
 
-            var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", 10.5, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(110, 110, 115))));
+            var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(110, 110, 115))));
             context.DrawText(hint, new Point(plot.Right - hint.Width - 8, plot.Bottom - hint.Height - 6));
             return;
         }
@@ -546,7 +548,7 @@ public sealed class AnalysisPlotControl : Control
                 $"RGB: {FormatTick(sample.Point.Red.Value)}, {FormatTick(sample.Point.Green.Value)}, {FormatTick(sample.Point.Blue.Value)}");
         }
 
-        var text = CreateText(string.Join(Environment.NewLine, lines), 11, ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White), FontWeight.SemiBold);
+        var text = CreateText(string.Join(Environment.NewLine, lines), PlotTextSize, ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White), FontWeight.SemiBold);
         var tooltipWidth = text.Width + 16;
         var tooltipHeight = text.Height + 12;
         var tooltipX = Math.Min(plot.Right - tooltipWidth - 4, pointer.X + 14);
@@ -592,9 +594,9 @@ public sealed class AnalysisPlotControl : Control
                 var xValue = PlotOptions.ReverseX
                     ? xMax - ((xMax - xMin) * fraction)
                     : xMin + ((xMax - xMin) * fraction);
-                var xText = CreateText(FormatTick(xValue), 11, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+                var xText = CreateText(FormatTick(xValue), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
                 context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
-                var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), 11, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+                var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
                 context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
             }
         }
@@ -936,11 +938,11 @@ public sealed class AnalysisPlotControl : Control
         }
 
         context.DrawRectangle(null, ThemePen(ThemeResourceBindings.PlotAxis, AxisPen), new Rect(left, top, width, height));
-        var maxText = CreateText(FormatTick(maximum), 10.5, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
-        var minText = CreateText(FormatTick(minimum), 10.5, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+        var maxText = CreateText(FormatTick(maximum), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+        var minText = CreateText(FormatTick(minimum), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
         context.DrawText(maxText, new Point(left + width + 6, top - (maxText.Height / 2)));
         context.DrawText(minText, new Point(left + width + 6, top + height - (minText.Height / 2)));
-        var label = CreateText(series.ValueLabel, 10.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var label = CreateText(series.ValueLabel, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         var center = new Point(left + 66, top + (height / 2));
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))
         {
@@ -1036,7 +1038,7 @@ public sealed class AnalysisPlotControl : Control
                     continue;
                 }
 
-                context.DrawText(CreateText(point.Label, 7.5, brush), position);
+                context.DrawText(CreateText(point.Label, PlotTextSize, brush), position);
             }
         }
     }
@@ -1048,7 +1050,7 @@ public sealed class AnalysisPlotControl : Control
             return;
         }
 
-        var text = CreateText(title, 15, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush), FontWeight.SemiBold);
+        var text = CreateText(title, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush), FontWeight.SemiBold);
         context.DrawText(text, new Point(plot.Center.X - (text.Width / 2), 13));
     }
 
@@ -1062,7 +1064,7 @@ public sealed class AnalysisPlotControl : Control
             series.XAxisLabel,
             series.XQuantity,
             series.XUnit);
-        var xLabel = CreateText(xLabelText, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var xLabel = CreateText(xLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         context.DrawText(
             xLabel,
             new Point(
@@ -1073,7 +1075,7 @@ public sealed class AnalysisPlotControl : Control
             series.YAxisLabel,
             series.YQuantity,
             series.YUnit);
-        var yLabel = CreateText(yLabelText, 12.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var yLabel = CreateText(yLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         var center = new Point(17, plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))
         {
@@ -1156,7 +1158,7 @@ public sealed class AnalysisPlotControl : Control
                 DrawMarker(context, brush, new Point(x + 14, y + 8), item.Series.MarkerStyle, 3);
             }
 
-            var label = CreateText(item.Series.Name, lineHeight < 17 ? 10 : 11.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+            var label = CreateText(item.Series.Name, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
             context.DrawText(label, new Point(x + 36, y));
             y += lineHeight;
         }
@@ -1169,7 +1171,7 @@ public sealed class AnalysisPlotControl : Control
     {
         var entries = legendItems.Select(item =>
         {
-            var label = CreateText(item.Series.Name, 11.5, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+            var label = CreateText(item.Series.Name, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
             return (item.Series, Label: label, Width: 34 + label.Width + 20);
         }).ToArray();
         var totalWidth = entries.Sum(entry => entry.Width);

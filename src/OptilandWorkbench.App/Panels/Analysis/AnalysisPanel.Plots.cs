@@ -226,7 +226,7 @@ public sealed partial class AnalysisPanel
             card.Children.Add(new TextBlock
             {
                 Text = pane.Title,
-                FontSize = 11.5,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontWeight = FontWeight.SemiBold,
                 TextAlignment = TextAlignment.Center,
                 TextWrapping = TextWrapping.Wrap,
@@ -353,7 +353,7 @@ public sealed partial class AnalysisPanel
             Text = configurationMatrix
                 ? "结构 →\n视场    ↓"
                 : "波长 →\n视场    ↓",
-            FontSize = 10.5,
+            FontSize = AnalysisPlotControl.PlotTextSize,
             HorizontalAlignment = HorizontalAlignment.Right,
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(4, 0, 12, 0)
@@ -367,7 +367,7 @@ public sealed partial class AnalysisPanel
                 Text = configurationMatrix
                     ? ConfigurationMatrixConfigurationLabel(panes[column].Title)
                     : MatrixWavelengthLabel(panes[column].Title),
-                FontSize = 10.5,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom,
@@ -390,7 +390,7 @@ public sealed partial class AnalysisPanel
                 Text = configurationMatrix
                     ? ConfigurationMatrixFieldLabel(panes[paneIndex].Title)
                     : panes[paneIndex].Footer,
-                FontSize = 10.5,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = configurationMatrix
                     ? FontFamily.Default
                     : new FontFamily("Cascadia Mono, Consolas"),
@@ -451,7 +451,7 @@ public sealed partial class AnalysisPanel
             {
                 Text = (Math.Abs(xMaximum - xMinimum) * 1000)
                     .ToString("0.000", CultureInfo.InvariantCulture),
-                FontSize = 9.5,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
@@ -630,7 +630,7 @@ public sealed partial class AnalysisPanel
             var label = new TextBlock
             {
                 Text = fieldLabel,
-                FontSize = 10,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontWeight = FontWeight.SemiBold,
                 Margin = new Thickness(4, 0, 12, 0),
                 HorizontalAlignment = HorizontalAlignment.Right,
@@ -675,7 +675,7 @@ public sealed partial class AnalysisPanel
             var header = new TextBlock
             {
                 Text = DefocusMicrometersLabel(panes[column].Title),
-                FontSize = 10,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
@@ -688,7 +688,7 @@ public sealed partial class AnalysisPanel
         var axisCaption = new TextBlock
         {
             Text = "←  离焦：µm  →",
-            FontSize = 10,
+            FontSize = AnalysisPlotControl.PlotTextSize,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top
         };
@@ -757,7 +757,7 @@ public sealed partial class AnalysisPanel
             var title = new TextBlock
             {
                 Text = field.Title,
-                FontSize = 12,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontWeight = FontWeight.SemiBold,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
@@ -896,6 +896,7 @@ public sealed partial class AnalysisPanel
                 {
                     Text = $"●  {series.Name}",
                     Foreground = SeriesBrush(series),
+                    FontSize = AnalysisPlotControl.PlotTextSize,
                     Margin = new Thickness(10, 2)
                 });
             }
@@ -916,6 +917,7 @@ public sealed partial class AnalysisPanel
         {
             Text = "当前分析没有可绘制的数值序列",
             IsVisible = isVisible,
+            FontSize = AnalysisPlotControl.PlotTextSize,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
@@ -976,7 +978,7 @@ public sealed partial class AnalysisPanel
                         Text = entry.Label,
                         Foreground = brush,
                         FontFamily = new FontFamily("Cascadia Mono, Consolas"),
-                        FontSize = 11.5,
+                        FontSize = AnalysisPlotControl.PlotTextSize,
                         VerticalAlignment = VerticalAlignment.Center
                     }
                 }
@@ -1088,7 +1090,7 @@ public sealed partial class AnalysisPanel
             var header = new TextBlock
             {
                 Text = $"视场 {paneIndex + 1}",
-                FontSize = 11,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 FontWeight = FontWeight.SemiBold,
                 Margin = new Thickness(12, 0, 4, 2),
                 HorizontalAlignment = HorizontalAlignment.Right
@@ -1102,7 +1104,7 @@ public sealed partial class AnalysisPanel
             var label = new TextBlock
             {
                 Text = labels[rowIndex] + "：",
-                FontSize = 11,
+                FontSize = AnalysisPlotControl.PlotTextSize,
                 Margin = new Thickness(0, 1, 6, 1)
             };
             Grid.SetRow(label, rowIndex + 1);
@@ -1119,7 +1121,7 @@ public sealed partial class AnalysisPanel
                 var value = new TextBlock
                 {
                     Text = $"{NumericDisplayFormatter.Format(metric.Value)} {metric.Unit}".TrimEnd(),
-                    FontSize = 11,
+                    FontSize = AnalysisPlotControl.PlotTextSize,
                     Margin = new Thickness(12, 1, 4, 1),
                     HorizontalAlignment = HorizontalAlignment.Right
                 };
@@ -1136,7 +1138,7 @@ public sealed partial class AnalysisPanel
         {
             Text = reference ?? string.Empty,
             IsVisible = !string.IsNullOrWhiteSpace(reference),
-            FontSize = 10.5
+            FontSize = AnalysisPlotControl.PlotTextSize
         };
         referenceText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         return new StackPanel

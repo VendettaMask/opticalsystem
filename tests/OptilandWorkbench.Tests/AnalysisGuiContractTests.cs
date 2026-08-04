@@ -401,9 +401,11 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(3, legend.Children.Count);
         var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
         var content = Assert.IsType<Avalonia.Controls.StackPanel>(firstToggle.Content);
+        var legendLabel = Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]);
         Assert.Equal(
             "0.4800 µm",
-            Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]).Text);
+            legendLabel.Text);
+        Assert.Equal(AnalysisPlotControl.PlotTextSize, legendLabel.FontSize);
 
         var viewbox = Assert.IsType<Avalonia.Controls.Viewbox>(layout.Children[0]);
         var matrix = Assert.IsType<Avalonia.Controls.Grid>(viewbox.Child);
@@ -425,7 +427,7 @@ public sealed class AnalysisGuiContractTests
         });
         Assert.All(
             matrix.Children.OfType<Avalonia.Controls.TextBlock>(),
-            label => Assert.InRange(label.FontSize, 1, 10.5));
+            label => Assert.Equal(AnalysisPlotControl.PlotTextSize, label.FontSize));
         var firstWavelengthPlots = matrix.Children
             .OfType<AnalysisPlotControl>()
             .Where(plot => Avalonia.Controls.Grid.GetColumn(plot) == 1)
@@ -1173,7 +1175,7 @@ public sealed class AnalysisGuiContractTests
         });
         Assert.All(
             matrix.Children.OfType<Avalonia.Controls.TextBlock>(),
-            label => Assert.InRange(label.FontSize, 1, 10));
+            label => Assert.Equal(AnalysisPlotControl.PlotTextSize, label.FontSize));
     }
 
     [Fact]
