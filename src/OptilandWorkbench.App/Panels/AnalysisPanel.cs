@@ -89,7 +89,8 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         {
             IsVisible = false,
             HorizontalAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(0, 6, 0, 0),
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(12, 8, 0, 0),
             Padding = new Thickness(12, 10),
             Child = _parameterPanel
         };
@@ -118,12 +119,21 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         var toolbar = new StackPanel
         {
             Margin = new Thickness(12, 10, 12, 8),
-            Children = { commands, _settingsHost }
+            Children = { commands }
+        };
+        var overlay = new Grid
+        {
+            ClipToBounds = true,
+            Children =
+            {
+                _resultHost,
+                _settingsHost
+            }
         };
         var root = new DockPanel();
         DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
         root.Children.Add(toolbar);
-        root.Children.Add(_resultHost);
+        root.Children.Add(overlay);
         Content = root;
 
         RebuildParameterPanel();

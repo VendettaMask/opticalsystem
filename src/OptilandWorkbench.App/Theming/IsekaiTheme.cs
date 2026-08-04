@@ -14,7 +14,7 @@ internal static class IsekaiTheme
         Surface: Color.FromRgb(40, 31, 22),
         SubtleSurface: Color.FromRgb(55, 43, 29),
         SettingsSurface: Color.FromRgb(40, 31, 22),
-        SettingsOverlaySurface: Color.FromArgb(232, 40, 31, 22),
+        SettingsOverlaySurface: Color.FromArgb(224, 40, 31, 22),
         Workspace: Color.FromRgb(20, 16, 13),
         Border: Color.FromRgb(116, 86, 43),
         TextPrimary: Color.FromRgb(226, 205, 158),

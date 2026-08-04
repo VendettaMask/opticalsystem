@@ -2712,4 +2712,5 @@ public sealed class AnalysisGuiContractTests
         var row = Assert.Single(view.Rows, item => item.Metric == metric);
         Assert.Equal(value, row.Value);
     }
+
 }
