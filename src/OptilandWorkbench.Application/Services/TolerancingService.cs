@@ -54,6 +54,11 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                     AddSymmetric(rows, ToleranceOperandKind.Radius, surfaceNumber, tolerance, settings.Distribution, "曲率半径");
                 }
 
+                if (settings.IncludeConic && Math.Abs(surface.Radius) > 1e-9)
+                {
+                    AddSymmetric(rows, ToleranceOperandKind.Conic, surfaceNumber, settings.ConicTolerance, settings.Distribution, "圆锥系数");
+                }
+
                 if (settings.IncludeThickness && surfaceNumber < surfaces.Count - 1)
                 {
                     AddSymmetric(rows, ToleranceOperandKind.Thickness, surfaceNumber, settings.ThicknessTolerance, settings.Distribution, "轴向厚度/空气间隔");

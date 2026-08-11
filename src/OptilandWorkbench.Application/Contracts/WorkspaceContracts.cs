@@ -802,7 +802,9 @@ public sealed record ToleranceWizardSettingsDto(
     double CompensatorMinimum,
     double CompensatorMaximum,
     ToleranceDistribution Distribution = ToleranceDistribution.Normal,
-    bool ReplaceExisting = true);
+    bool ReplaceExisting = true,
+    bool IncludeConic = false,
+    double ConicTolerance = 0);
 
 public sealed record ToleranceValidationResultDto(
     bool IsValid,

@@ -17,6 +17,8 @@ public sealed class ToleranceWizardWindow : Window
     private readonly CheckBox _radiusEnabled = Check("曲率半径", true);
     private readonly ComboBox _radiusMode = Picker(0, "固定值 (mm)", "半径百分比 (%)");
     private readonly NumericUpDown _radius = Number(0.05m, 0, 1_000_000, 0.01m);
+    private readonly CheckBox _conicEnabled = Check("圆锥系数", false);
+    private readonly NumericUpDown _conic = Number(0.02m, 0, 100, 0.001m);
     private readonly CheckBox _thicknessEnabled = Check("厚度和空气间隔", true);
     private readonly NumericUpDown _thickness = Number(0.05m, 0, 1_000_000, 0.01m);
     private readonly CheckBox _decenterEnabled = Check("元件偏心 X/Y", true);
@@ -87,6 +89,8 @@ public sealed class ToleranceWizardWindow : Window
                 _radiusEnabled,
                 Labeled("半径公差方式", _radiusMode),
                 Labeled("半径公差", _radius),
+                _conicEnabled,
+                Labeled("圆锥系数公差", _conic),
                 _thicknessEnabled,
                 Labeled("厚度公差 (mm)", _thickness)
             }
@@ -179,6 +183,7 @@ public sealed class ToleranceWizardWindow : Window
         _startSurface.ValueChanged += (_, _) => UpdatePreview();
         _endSurface.ValueChanged += (_, _) => UpdatePreview();
         _radiusEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
+        _conicEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _thicknessEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _decenterEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _tiltEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
@@ -212,7 +217,9 @@ public sealed class ToleranceWizardWindow : Window
             DoubleValue(_compensatorMinimum, -2),
             DoubleValue(_compensatorMaximum, 2),
             _distribution.SelectedIndex == 1 ? ToleranceDistribution.Uniform : ToleranceDistribution.Normal,
-            _replaceExisting.IsChecked == true));
+            _replaceExisting.IsChecked == true,
+            IncludeConic: _conicEnabled.IsChecked == true,
+            ConicTolerance: DoubleValue(_conic, 0.02)));
     }
 
     private void ApplyPreset(int preset)
@@ -220,13 +227,13 @@ public sealed class ToleranceWizardWindow : Window
         switch (preset)
         {
             case 0:
-                SetValues(0.1m, 0.1m, 0.05m, 0.05m, 0.0005m, 0.5m);
+                SetValues(0.1m, 0.05m, 0.1m, 0.05m, 0.05m, 0.0005m, 0.5m);
                 break;
             case 2:
-                SetValues(0.01m, 0.02m, 0.005m, 0.005m, 0.0001m, 0.1m);
+                SetValues(0.01m, 0.005m, 0.02m, 0.005m, 0.005m, 0.0001m, 0.1m);
                 break;
             default:
-                SetValues(0.05m, 0.05m, 0.02m, 0.02m, 0.0002m, 0.2m);
+                SetValues(0.05m, 0.02m, 0.05m, 0.02m, 0.02m, 0.0002m, 0.2m);
                 break;
         }
 
@@ -235,6 +242,7 @@ public sealed class ToleranceWizardWindow : Window
 
     private void SetValues(
         decimal radius,
+        decimal conic,
         decimal thickness,
         decimal decenter,
         decimal tilt,
@@ -242,6 +250,7 @@ public sealed class ToleranceWizardWindow : Window
         decimal abbe)
     {
         _radius.Value = radius;
+        _conic.Value = conic;
         _thickness.Value = thickness;
         _decenter.Value = decenter;
         _tilt.Value = tilt;
@@ -255,6 +264,7 @@ public sealed class ToleranceWizardWindow : Window
         var end = Math.Max(start, IntegerValue(_endSurface, start));
         var count = Math.Max(0, end - start + 1);
         var perSurface = (_radiusEnabled.IsChecked == true ? 1 : 0)
+            + (_conicEnabled.IsChecked == true ? 1 : 0)
             + (_thicknessEnabled.IsChecked == true ? 1 : 0)
             + (_decenterEnabled.IsChecked == true ? 2 : 0)
             + (_tiltEnabled.IsChecked == true ? 2 : 0);
@@ -262,7 +272,7 @@ public sealed class ToleranceWizardWindow : Window
             + (_abbeEnabled.IsChecked == true ? 1 : 0);
         var maximum = (count * (perSurface + material)) + (_compensatorEnabled.IsChecked == true ? 1 : 0);
         _preview.Text = $"表面范围：{start}–{end}。{Environment.NewLine}"
-            + $"预计最多生成 {maximum} 行；平面会跳过 TRAD，空气面会跳过 TIND/TABB。{Environment.NewLine}"
+            + $"预计最多生成 {maximum} 行；平面会跳过 TRAD/TCON，空气面会跳过 TIND/TABB。{Environment.NewLine}"
             + $"统计分布：{(_distribution.SelectedIndex == 1 ? "均匀" : "正态，公差极限按 ±3σ")}。";
     }
 

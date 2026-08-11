@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
@@ -39,6 +40,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly TextBlock _statistics = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(12) };
     private CancellationTokenSource? _runCancellation;
     private TolerancingResultDto? _lastResult;
+    private ToleranceOperandEditorRow? _selectedOperandForEditor;
     private int _generation;
     private bool _updatingEditor;
     private bool _disposed;
@@ -155,6 +157,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _disposed = true;
         _generation++;
         _events.Changed -= OnWorkspaceChanged;
+        TrackSelectedOperand(null);
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
         _operationStatus.Dispose();
@@ -164,25 +167,25 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     {
         _operandGrid.SelectionMode = DataGridSelectionMode.Single;
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(ToleranceOperandEditorRow.Index)), Width = Pixels(46), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "启用", Binding = new Binding(nameof(ToleranceOperandEditorRow.Enabled)), Width = Pixels(56), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "类型", Binding = new Binding(nameof(ToleranceOperandEditorRow.Code)), Width = Pixels(82), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = new Binding(nameof(ToleranceOperandEditorRow.SurfaceNumber)), Width = Pixels(62), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最小偏差", Binding = new Binding(nameof(ToleranceOperandEditorRow.Minimum)), Width = Pixels(110), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最大偏差", Binding = new Binding(nameof(ToleranceOperandEditorRow.Maximum)), Width = Pixels(110), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "统计", Binding = new Binding(nameof(ToleranceOperandEditorRow.DistributionText)), Width = Pixels(90), IsReadOnly = true });
-        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "备注", Binding = new Binding(nameof(ToleranceOperandEditorRow.Comment)), Width = new DataGridLength(1, DataGridLengthUnitType.Star), IsReadOnly = true });
+        _operandGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "启用", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Enabled)), Width = Pixels(56) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "类型", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Code)), Width = Pixels(82) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = TwoWay(nameof(ToleranceOperandEditorRow.SurfaceNumber)), Width = Pixels(62) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最小偏差", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Minimum)), Width = Pixels(110) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最大偏差", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Maximum)), Width = Pixels(110) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "统计", Binding = TwoWay(nameof(ToleranceOperandEditorRow.DistributionText)), Width = Pixels(90) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "备注", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Comment)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
         _operandGrid.SelectionChanged += (_, _) => LoadSelectedOperand();
         _operandGrid.ItemsSource = _operands;
 
         _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "公差操作数", Binding = new Binding(nameof(TolerancingSensitivityRowDto.Perturbation)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(140) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(140) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏 Criterion", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(130) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "Criterion 变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(130) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(140) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(140) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(130) });
+        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "评价值变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(130) });
 
         _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "试验", Binding = new Binding(nameof(TolerancingTrialRowDto.Trial)), Width = Pixels(72) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前 Criterion", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(150) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后 Criterion", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(150) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前评价值", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(150) });
+        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后评价值", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(150) });
         _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "相对名义变化", Binding = new Binding(nameof(TolerancingTrialRowDto.Degradation)), Width = Pixels(140) });
     }
 
@@ -289,11 +292,54 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
     private void LoadSelectedOperand()
     {
-        if (_updatingEditor || _operandGrid.SelectedItem is not ToleranceOperandEditorRow row)
+        if (_updatingEditor)
         {
             return;
         }
 
+        if (_operandGrid.SelectedItem is not ToleranceOperandEditorRow row)
+        {
+            TrackSelectedOperand(null);
+            return;
+        }
+
+        TrackSelectedOperand(row);
+        LoadOperandIntoEditor(row);
+    }
+
+    private void TrackSelectedOperand(ToleranceOperandEditorRow? row)
+    {
+        if (ReferenceEquals(_selectedOperandForEditor, row))
+        {
+            return;
+        }
+
+        if (_selectedOperandForEditor is not null)
+        {
+            _selectedOperandForEditor.PropertyChanged -= OnSelectedOperandChanged;
+        }
+
+        _selectedOperandForEditor = row;
+        if (_selectedOperandForEditor is not null)
+        {
+            _selectedOperandForEditor.PropertyChanged += OnSelectedOperandChanged;
+        }
+    }
+
+    private void OnSelectedOperandChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        if (_updatingEditor
+            || _operandGrid.SelectedItem is not ToleranceOperandEditorRow row
+            || !ReferenceEquals(sender, row))
+        {
+            return;
+        }
+
+        LoadOperandIntoEditor(row);
+    }
+
+    private void LoadOperandIntoEditor(ToleranceOperandEditorRow row)
+    {
         _updatingEditor = true;
         try
         {
@@ -324,18 +370,25 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             return;
         }
 
-        var index = _operands.IndexOf(selected);
-        var updated = new ToleranceOperandEditorRow(new ToleranceOperandDto(
-            selected.Index,
-            _enabled.IsChecked == true,
-            kind.Kind,
-            surface.Number,
-            DoubleValue(_minimum, -0.1),
-            DoubleValue(_maximum, 0.1),
-            _distributionPicker.SelectedIndex == 1 ? ToleranceDistribution.Uniform : ToleranceDistribution.Normal,
-            _comment.Text?.Trim() ?? string.Empty));
-        _operands[index] = updated;
-        _operandGrid.SelectedItem = updated;
+        _updatingEditor = true;
+        try
+        {
+            selected.Enabled = _enabled.IsChecked == true;
+            selected.Kind = kind.Kind;
+            selected.SurfaceNumber = surface.Number;
+            selected.Minimum = DoubleValue(_minimum, -0.1);
+            selected.Maximum = DoubleValue(_maximum, 0.1);
+            selected.Distribution = _distributionPicker.SelectedIndex == 1
+                ? ToleranceDistribution.Uniform
+                : ToleranceDistribution.Normal;
+            selected.Comment = _comment.Text?.Trim() ?? string.Empty;
+        }
+        finally
+        {
+            _updatingEditor = false;
+        }
+
+        LoadOperandIntoEditor(selected);
         Validate(showSuccess: false);
     }
 
@@ -690,6 +743,11 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private static DataGridLength Pixels(double value) =>
         new(value, DataGridLengthUnitType.Pixel);
 
+    private static Binding TwoWay(string propertyName) => new(propertyName)
+    {
+        Mode = BindingMode.TwoWay
+    };
+
     private static TextBlock Label(string text) => new()
     {
         Text = text,
@@ -731,37 +789,130 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         double YieldLimit);
 }
 
-public sealed class ToleranceOperandEditorRow
+public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
 {
-    private readonly ToleranceOperandDto _source;
+    private int _index;
+    private bool _enabled;
+    private ToleranceOperandKind _kind;
+    private int _surfaceNumber;
+    private double _minimum;
+    private double _maximum;
+    private ToleranceDistribution _distribution;
+    private string _comment = string.Empty;
 
     public ToleranceOperandEditorRow(ToleranceOperandDto source)
     {
-        _source = source;
         Index = source.Index;
+        Enabled = source.Enabled;
+        Kind = source.Kind;
+        SurfaceNumber = source.SurfaceNumber;
+        Minimum = source.Minimum;
+        Maximum = source.Maximum;
+        Distribution = source.Distribution;
+        Comment = source.Comment;
     }
 
-    public int Index { get; set; }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    public bool Enabled => _source.Enabled;
+    public int Index
+    {
+        get => _index;
+        set => SetField(ref _index, value, nameof(Index));
+    }
 
-    public ToleranceOperandKind Kind => _source.Kind;
+    public bool Enabled
+    {
+        get => _enabled;
+        set => SetField(ref _enabled, value, nameof(Enabled));
+    }
 
-    public string Code => CodeFor(Kind);
+    public ToleranceOperandKind Kind
+    {
+        get => _kind;
+        set
+        {
+            if (SetField(ref _kind, value, nameof(Kind)))
+            {
+                OnPropertyChanged(nameof(Code));
+            }
+        }
+    }
 
-    public int SurfaceNumber => _source.SurfaceNumber;
+    public string Code
+    {
+        get => CodeFor(Kind);
+        set
+        {
+            if (TryParseCode(value, out var kind))
+            {
+                Kind = kind;
+                return;
+            }
 
-    public double Minimum => _source.Minimum;
+            OnPropertyChanged(nameof(Code));
+        }
+    }
 
-    public double Maximum => _source.Maximum;
+    public int SurfaceNumber
+    {
+        get => _surfaceNumber;
+        set => SetField(ref _surfaceNumber, value, nameof(SurfaceNumber));
+    }
 
-    public ToleranceDistribution Distribution => _source.Distribution;
+    public double Minimum
+    {
+        get => _minimum;
+        set => SetField(ref _minimum, value, nameof(Minimum));
+    }
 
-    public string DistributionText => Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
+    public double Maximum
+    {
+        get => _maximum;
+        set => SetField(ref _maximum, value, nameof(Maximum));
+    }
 
-    public string Comment => _source.Comment;
+    public ToleranceDistribution Distribution
+    {
+        get => _distribution;
+        set
+        {
+            if (SetField(ref _distribution, value, nameof(Distribution)))
+            {
+                OnPropertyChanged(nameof(DistributionText));
+            }
+        }
+    }
 
-    public ToleranceOperandDto ToDto() => _source with { Index = Index };
+    public string DistributionText
+    {
+        get => Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
+        set
+        {
+            if (TryParseDistribution(value, out var distribution))
+            {
+                Distribution = distribution;
+                return;
+            }
+
+            OnPropertyChanged(nameof(DistributionText));
+        }
+    }
+
+    public string Comment
+    {
+        get => _comment;
+        set => SetField(ref _comment, value ?? string.Empty, nameof(Comment));
+    }
+
+    public ToleranceOperandDto ToDto() => new(
+        Index,
+        Enabled,
+        Kind,
+        SurfaceNumber,
+        Minimum,
+        Maximum,
+        Distribution,
+        Comment);
 
     public static string CodeFor(ToleranceOperandKind kind) => kind switch
     {
@@ -777,4 +928,81 @@ public sealed class ToleranceOperandEditorRow
         ToleranceOperandKind.Compensator => "COMP",
         _ => kind.ToString().ToUpperInvariant()
     };
+
+    private static bool TryParseCode(string? text, out ToleranceOperandKind kind)
+    {
+        switch ((text ?? string.Empty).Trim().ToUpperInvariant())
+        {
+            case "TRAD":
+                kind = ToleranceOperandKind.Radius;
+                return true;
+            case "TTHI":
+                kind = ToleranceOperandKind.Thickness;
+                return true;
+            case "TCON":
+                kind = ToleranceOperandKind.Conic;
+                return true;
+            case "TSDX":
+                kind = ToleranceOperandKind.DecenterX;
+                return true;
+            case "TSDY":
+                kind = ToleranceOperandKind.DecenterY;
+                return true;
+            case "TSTX":
+                kind = ToleranceOperandKind.TiltX;
+                return true;
+            case "TSTY":
+                kind = ToleranceOperandKind.TiltY;
+                return true;
+            case "TIND":
+                kind = ToleranceOperandKind.RefractiveIndex;
+                return true;
+            case "TABB":
+                kind = ToleranceOperandKind.AbbeNumber;
+                return true;
+            case "COMP":
+                kind = ToleranceOperandKind.Compensator;
+                return true;
+        }
+
+        return Enum.TryParse(text, ignoreCase: true, out kind);
+    }
+
+    private static bool TryParseDistribution(string? text, out ToleranceDistribution distribution)
+    {
+        var normalized = (text ?? string.Empty).Trim();
+        if (normalized.Contains("均", StringComparison.Ordinal)
+            || normalized.Equals("uniform", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals("u", StringComparison.OrdinalIgnoreCase))
+        {
+            distribution = ToleranceDistribution.Uniform;
+            return true;
+        }
+
+        if (normalized.Contains("正", StringComparison.Ordinal)
+            || normalized.Equals("normal", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals("gaussian", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals("n", StringComparison.OrdinalIgnoreCase))
+        {
+            distribution = ToleranceDistribution.Normal;
+            return true;
+        }
+
+        return Enum.TryParse(text, ignoreCase: true, out distribution);
+    }
+
+    private bool SetField<T>(ref T field, T value, string propertyName)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value))
+        {
+            return false;
+        }
+
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
+
+    private void OnPropertyChanged(string propertyName) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

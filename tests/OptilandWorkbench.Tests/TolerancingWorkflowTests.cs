@@ -1,5 +1,6 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Tolerancing;
@@ -33,11 +34,14 @@ public sealed class TolerancingWorkflowTests
             AbbeNumberTolerance: 0.2,
             IncludeImageCompensator: true,
             CompensatorMinimum: -2,
-            CompensatorMaximum: 2));
+            CompensatorMaximum: 2,
+            IncludeConic: true,
+            ConicTolerance: 0.01));
 
         Assert.NotEmpty(rows);
         Assert.Equal(Enumerable.Range(1, rows.Count), rows.Select(row => row.Index));
         Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.Radius);
+        Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.Conic);
         Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.Thickness);
         Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.DecenterX);
         Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.DecenterY);
@@ -55,6 +59,40 @@ public sealed class TolerancingWorkflowTests
                 or ToleranceOperandKind.TiltY),
             row => Assert.Contains("表面", row.Comment, StringComparison.Ordinal));
         Assert.True(application.Tolerancing.ValidateOperands(rows).IsValid);
+    }
+
+    [Fact]
+    public void EditableToleranceOperandRowExportsCurrentGridValues()
+    {
+        var row = new ToleranceOperandEditorRow(new ToleranceOperandDto(
+            1,
+            true,
+            ToleranceOperandKind.Thickness,
+            1,
+            -0.05,
+            0.05,
+            ToleranceDistribution.Normal,
+            "initial"));
+
+        row.Enabled = false;
+        row.Code = "TRAD";
+        row.SurfaceNumber = 3;
+        row.Minimum = -0.2;
+        row.Maximum = 0.3;
+        row.DistributionText = "均匀";
+        row.Comment = "edited in grid";
+
+        var dto = row.ToDto();
+
+        Assert.False(dto.Enabled);
+        Assert.Equal(ToleranceOperandKind.Radius, dto.Kind);
+        Assert.Equal("TRAD", row.Code);
+        Assert.Equal(3, dto.SurfaceNumber);
+        Assert.Equal(-0.2, dto.Minimum);
+        Assert.Equal(0.3, dto.Maximum);
+        Assert.Equal(ToleranceDistribution.Uniform, dto.Distribution);
+        Assert.Equal("均匀", row.DistributionText);
+        Assert.Equal("edited in grid", dto.Comment);
     }
 
     [Fact]
