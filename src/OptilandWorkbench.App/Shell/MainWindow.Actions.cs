@@ -150,6 +150,11 @@ public sealed partial class MainWindow
             "优化",
             OpenGlassReplacementTemplate);
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
+        _actions.Register("run-tolerancing", "运行公差分析", "公差", () => _panels.RunTolerancingAsync(this));
+        _actions.Register("show-tolerance-data-viewer", "显示公差数据查看器", "公差", _panels.ShowTolerancingDataViewer);
+        _actions.Register("show-tolerance-report", "显示公差报告", "公差", _panels.ShowTolerancingReport);
+        _actions.Register("show-tolerance-histogram", "显示公差直方图", "公差", _panels.ShowTolerancingHistogram);
+        _actions.Register("show-tolerance-yield", "显示公差良率", "公差", _panels.ShowTolerancingYield);
         _actions.Register("show-multiconfig", "显示多配置面板", "面板", () => _panels.Show(WorkspacePanelId.MultiConfiguration));
         _actions.Register("reset-layout", "重置为系统初始布局", "布局", ResetLayout);
         _actions.Register("save-layout-1", "保存布局到槽位 1", "布局", () => SaveLayoutSlot(1));

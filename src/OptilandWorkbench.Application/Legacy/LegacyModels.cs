@@ -57,7 +57,8 @@ public sealed record TolerancingView(
     IReadOnlyList<TolerancingSensitivityRow> SensitivityRows,
     IReadOnlyList<TolerancingTrialRow> TrialRows,
     string Details,
-    TolerancingStatistics? Statistics = null)
+    TolerancingStatistics? Statistics = null,
+    TolerancingSensitivityStatistics? SensitivityStatistics = null)
 {
     public static TolerancingView Empty(string message)
     {
@@ -88,5 +89,10 @@ public sealed record TolerancingStatistics(
     string Percentile90,
     string Percentile95,
     string Yield);
+
+public sealed record TolerancingSensitivityStatistics(
+    string Nominal,
+    string RssEstimatedChange,
+    string EstimatedCriterion);
 
 public sealed record MultiConfigurationRow(int Index, string Name, bool Active, int SurfaceCount, string TotalTrack, string EffectiveFocalLength);

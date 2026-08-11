@@ -227,7 +227,8 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                     request.Criterion,
                     request.YieldLimit,
                     linked.Token,
-                    request.MaxDegreeOfParallelism);
+                    request.MaxDegreeOfParallelism,
+                    request.Mode);
                 linked.Token.ThrowIfCancellationRequested();
                 return new TolerancingResultDto(
                     view.Summary,
@@ -254,7 +255,13 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                             view.Statistics.Percentile50,
                             view.Statistics.Percentile90,
                             view.Statistics.Percentile95,
-                            view.Statistics.Yield));
+                            view.Statistics.Yield),
+                    view.SensitivityStatistics is null
+                        ? null
+                        : new TolerancingSensitivityStatisticsDto(
+                            view.SensitivityStatistics.Nominal,
+                            view.SensitivityStatistics.RssEstimatedChange,
+                            view.SensitivityStatistics.EstimatedCriterion));
             }, linked.Token).ConfigureAwait(false);
         }
     }

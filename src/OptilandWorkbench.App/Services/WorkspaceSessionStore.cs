@@ -10,27 +10,53 @@ using Dock.Serializer.SystemTextJson;
 
 namespace OptilandWorkbench.App.Services;
 
-public enum WorkspaceDocumentKind
+public static class WorkspaceDocumentTypes
 {
-    LensEditor,
-    Viewer2D,
-    Viewer3D,
-    Optimization,
-    Tolerancing,
-    MultiConfiguration,
-    Analysis,
-    SolidModel,
-    MaterialLibrary,
-    GlassCatalog,
-    Manufacturability,
-    OpticalDrawing,
-    LensLibrary,
-    MaterialAnalysis
+    public const string LensEditor = "lens-editor";
+    public const string Viewer2D = "viewer-2d";
+    public const string Viewer3D = "viewer-3d";
+    public const string Optimization = "optimization";
+    public const string Tolerancing = "tolerancing";
+    public const string MultiConfiguration = "multi-configuration";
+    public const string Analysis = "analysis";
+    public const string SolidModel = "solid-model";
+    public const string MaterialLibrary = "material-library";
+    public const string GlassCatalog = "glass-catalog";
+    public const string Manufacturability = "manufacturability";
+    public const string OpticalDrawing = "optical-drawing";
+    public const string LensLibrary = "lens-library";
+    public const string MaterialAnalysis = "material-analysis";
+    public const string ToleranceReport = "tolerance-report";
+    public const string ToleranceHistogram = "tolerance-histogram";
+    public const string ToleranceYield = "tolerance-yield";
+
+    private static readonly HashSet<string> Known = new(StringComparer.Ordinal)
+    {
+        LensEditor,
+        Viewer2D,
+        Viewer3D,
+        Optimization,
+        Tolerancing,
+        MultiConfiguration,
+        Analysis,
+        SolidModel,
+        MaterialLibrary,
+        GlassCatalog,
+        Manufacturability,
+        OpticalDrawing,
+        LensLibrary,
+        MaterialAnalysis,
+        ToleranceReport,
+        ToleranceHistogram,
+        ToleranceYield
+    };
+
+    public static bool IsKnown(string? typeId) => typeId is not null && Known.Contains(typeId);
 }
 
 public sealed record WorkspaceDocumentDescriptor(
     string Id,
-    WorkspaceDocumentKind Kind,
+    string TypeId,
     string Title,
     string? AnalysisName = null,
     Guid? InstanceId = null,
@@ -45,7 +71,7 @@ public sealed record WorkspaceSession(
 
 public sealed class WorkspaceSessionStore
 {
-    public const int CurrentVersion = 2;
+    public const int CurrentVersion = 3;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,

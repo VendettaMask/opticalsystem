@@ -766,6 +766,12 @@ public enum ToleranceCriterion
     RmsWavefront
 }
 
+public enum ToleranceAnalysisMode
+{
+    Sensitivity,
+    SkipSensitivity
+}
+
 public enum RadiusToleranceMode
 {
     Fixed,
@@ -820,7 +826,8 @@ public sealed record TolerancingRequestDto(
     IReadOnlyList<ToleranceOperandDto>? Operands = null,
     ToleranceCriterion Criterion = ToleranceCriterion.RmsSpotRadius,
     double YieldLimit = 0,
-    int MaxDegreeOfParallelism = -1);
+    int MaxDegreeOfParallelism = -1,
+    ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity);
 
 public sealed record TolerancingSensitivityRowDto(
     string Perturbation,
@@ -846,12 +853,18 @@ public sealed record TolerancingStatisticsDto(
     string Percentile95,
     string Yield);
 
+public sealed record TolerancingSensitivityStatisticsDto(
+    string Nominal,
+    string RssEstimatedChange,
+    string EstimatedCriterion);
+
 public sealed record TolerancingResultDto(
     string Summary,
     IReadOnlyList<TolerancingSensitivityRowDto> SensitivityRows,
     IReadOnlyList<TolerancingTrialRowDto> TrialRows,
     string Details,
-    TolerancingStatisticsDto? Statistics = null);
+    TolerancingStatisticsDto? Statistics = null,
+    TolerancingSensitivityStatisticsDto? SensitivityStatistics = null);
 
 public sealed record MultiConfigurationRowDto(
     int Index,

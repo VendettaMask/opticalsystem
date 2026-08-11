@@ -190,7 +190,7 @@ public sealed class VariableRangePerturbation : IRangePerturbation
 
     private double SampleTruncatedNormal(Random random)
     {
-        const double sigmaSpan = 3.0;
+        const double sigmaSpan = 2.0;
         var midpoint = (Minimum + Maximum) / 2.0;
         var sigma = (Maximum - Minimum) / (2.0 * sigmaSpan);
         if (sigma <= 1e-15)
@@ -305,8 +305,7 @@ public sealed class SensitivityAnalysis
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var baseline = _tolerancing.Merit();
-        var baselineCriterion = _tolerancing.Criterion();
+        var baseline = EvaluateNominal(compensationIterations, cancellationToken);
         var results = new List<SensitivityResult>();
         foreach (var perturbation in _tolerancing.Perturbations)
         {
@@ -319,11 +318,11 @@ public sealed class SensitivityAnalysis
                 var worstCriterion = Math.Max(negative.Criterion, positive.Criterion);
                 results.Add(new SensitivityResult(
                     perturbation.Name,
-                    worstMerit - baseline,
+                    worstMerit - baseline.Merit,
                     negative.Merit,
                     positive.Merit,
                     worstMerit,
-                    worstCriterion - baselineCriterion,
+                    worstCriterion - baseline.Criterion,
                     negative.Criterion,
                     positive.Criterion,
                     worstCriterion));
@@ -338,8 +337,8 @@ public sealed class SensitivityAnalysis
                 var perturbed = CompensatedEvaluation(compensationIterations, cancellationToken);
                 results.Add(new SensitivityResult(
                     perturbation.Name,
-                    perturbed.Merit - baseline,
-                    DeltaCriterion: perturbed.Criterion - baselineCriterion,
+                    perturbed.Merit - baseline.Merit,
+                    DeltaCriterion: perturbed.Criterion - baseline.Criterion,
                     WorstCriterion: perturbed.Criterion));
             }
             finally
@@ -360,6 +359,21 @@ public sealed class SensitivityAnalysis
                 ? Math.Abs(result.DeltaCriterion)
                 : double.PositiveInfinity)
             .ToArray();
+    }
+
+    public ToleranceEvaluation EvaluateNominal(
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        var snapshot = _optic.ToSnapshot();
+        try
+        {
+            return CompensatedEvaluation(compensationIterations, cancellationToken);
+        }
+        finally
+        {
+            _optic.RestoreTrustedSnapshot(snapshot);
+        }
     }
 
     private ToleranceEvaluation EvaluateEndpoint(
@@ -413,7 +427,7 @@ public sealed class SensitivityAnalysis
     }
 }
 
-internal readonly record struct ToleranceEvaluation(double Merit, double Criterion);
+public readonly record struct ToleranceEvaluation(double Merit, double Criterion);
 
 public sealed record TolerancingTrialResult(
     int Trial,
@@ -471,7 +485,7 @@ public sealed class MonteCarlo
         cancellationToken.ThrowIfCancellationRequested();
         var random = new Random(seed);
         var results = new List<TolerancingTrialResult>();
-        for (var trial = 0; trial < Math.Max(1, trials); trial++)
+        for (var trial = 0; trial < Math.Max(0, trials); trial++)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var snapshot = _optic.ToSnapshot();
@@ -533,7 +547,11 @@ public sealed class MonteCarlo
         }
 
 
-        var trialCount = Math.Max(1, trials);
+        var trialCount = Math.Max(0, trials);
+        if (trialCount == 0)
+        {
+            return Array.Empty<TolerancingTrialResult>();
+        }
         var nominalSnapshot = _optic.ToSnapshot();
         var results = new TolerancingTrialResult[trialCount];
         var options = new ParallelOptions

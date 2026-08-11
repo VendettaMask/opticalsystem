@@ -50,7 +50,7 @@ public sealed class WorkspaceSessionTests
                 {
                     new WorkspaceDocumentDescriptor(
                         "analysis:spot",
-                        WorkspaceDocumentKind.Analysis,
+                        WorkspaceDocumentTypes.Analysis,
                         "点列图",
                         "Spot Diagram",
                         instanceId,
@@ -66,9 +66,13 @@ public sealed class WorkspaceSessionTests
             Assert.NotNull(restored);
             Assert.Equal(session.ActiveDocumentId, restored.ActiveDocumentId);
             var document = Assert.Single(restored.Documents);
+            Assert.Equal(WorkspaceDocumentTypes.Analysis, document.TypeId);
             Assert.Equal(instanceId, document.InstanceId);
             Assert.True(document.IsLocked);
             Assert.Equal("8", document.Settings!["NumRings"]);
+            var persistedJson = await File.ReadAllTextAsync(store.SessionPath(documentPath));
+            Assert.Contains("\"TypeId\": \"analysis\"", persistedJson, StringComparison.Ordinal);
+            Assert.DoesNotContain("\"Kind\"", persistedJson, StringComparison.Ordinal);
         }
         finally
         {

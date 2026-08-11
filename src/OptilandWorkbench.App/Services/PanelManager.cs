@@ -96,16 +96,16 @@ public sealed class PanelManager : IDisposable
                 ShowAnalysis(_application.Analyses.AnalysisNames.FirstOrDefault() ?? "表面数据报告");
                 break;
             case WorkspacePanelId.Optimization:
-                OpenStable("document:optimization", WorkspaceDocumentKind.Optimization, "优化");
+                OpenStable("document:optimization", WorkspaceDocumentTypes.Optimization, "优化");
                 break;
             case WorkspacePanelId.Tolerancing:
-                OpenStable("document:tolerancing", WorkspaceDocumentKind.Tolerancing, "公差");
+                OpenStable("document:tolerancing", WorkspaceDocumentTypes.Tolerancing, "公差数据编辑器");
                 break;
             case WorkspacePanelId.MultiConfiguration:
-                OpenStable("document:multi-configuration", WorkspaceDocumentKind.MultiConfiguration, "多配置");
+                OpenStable("document:multi-configuration", WorkspaceDocumentTypes.MultiConfiguration, "多配置");
                 break;
             default:
-                OpenStable(WorkspaceDockFactory.LensDocumentId, WorkspaceDocumentKind.LensEditor, "镜头数据");
+                OpenStable(WorkspaceDockFactory.LensDocumentId, WorkspaceDocumentTypes.LensEditor, "镜头数据");
                 break;
         }
     }
@@ -114,39 +114,68 @@ public sealed class PanelManager : IDisposable
     {
         if (mode == OpticSceneViewMode.TwoDimensional)
         {
-            OpenStable("document:viewer-2d", WorkspaceDocumentKind.Viewer2D, "二维视图");
+            OpenStable("document:viewer-2d", WorkspaceDocumentTypes.Viewer2D, "二维视图");
         }
         else
         {
-            OpenStable("document:viewer-3d", WorkspaceDocumentKind.Viewer3D, "三维视图");
+            OpenStable("document:viewer-3d", WorkspaceDocumentTypes.Viewer3D, "三维视图");
         }
     }
 
     public void ShowSolidModel()
     {
-        OpenStable("document:solid-model", WorkspaceDocumentKind.SolidModel, "实体模型");
+        OpenStable("document:solid-model", WorkspaceDocumentTypes.SolidModel, "实体模型");
+    }
+
+    public void ShowTolerancingDataViewer() =>
+        OpenStable("document:tolerancing", WorkspaceDocumentTypes.Tolerancing, "公差数据编辑器");
+
+    public void ShowTolerancingReport() =>
+        OpenStable("document:tolerance-report", WorkspaceDocumentTypes.ToleranceReport, "1: 公差报告");
+
+    public void ShowTolerancingHistogram() =>
+        OpenStable("document:tolerance-histogram", WorkspaceDocumentTypes.ToleranceHistogram, "直方图");
+
+    public void ShowTolerancingYield() =>
+        OpenStable("document:tolerance-yield", WorkspaceDocumentTypes.ToleranceYield, "良率");
+
+    public async Task RunTolerancingAsync(Window owner)
+    {
+        const string editorId = "document:tolerancing";
+        OpenStable(editorId, WorkspaceDocumentTypes.Tolerancing, "公差数据编辑器");
+        var editor = Factory.DocumentContent<TolerancingPanel>(editorId)
+            ?? throw new InvalidOperationException("公差数据编辑器不可用。");
+        if (!await editor.ShowAnalysisDialogAsync(owner))
+        {
+            return;
+        }
+
+        Factory.RefreshDocumentContent("document:tolerance-histogram");
+        Factory.RefreshDocumentContent("document:tolerance-yield");
+        ShowTolerancingReport();
+        Factory.RefreshDocumentContent("document:tolerance-report");
     }
 
     public void ShowMaterialLibrary()
     {
-        OpenStable("document:material-library", WorkspaceDocumentKind.MaterialLibrary, "材料库");
+        OpenStable("document:material-library", WorkspaceDocumentTypes.MaterialLibrary, "材料库");
     }
 
     public void ShowLensLibrary()
     {
-        OpenStable("document:lens-library", WorkspaceDocumentKind.LensLibrary, "镜头库");
+        OpenStable("document:lens-library", WorkspaceDocumentTypes.LensLibrary, "镜头库");
     }
 
     public void ShowGlassCatalog()
     {
-        OpenStable("document:glass-catalog", WorkspaceDocumentKind.GlassCatalog, "玻璃");
+        OpenStable("document:glass-catalog", WorkspaceDocumentTypes.GlassCatalog, "玻璃");
     }
 
     public void ShowMaterialAnalysis(MaterialAnalysisKind kind)
     {
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             $"document:material-analysis:{kind}",
-            WorkspaceDocumentKind.MaterialAnalysis,
+            WorkspaceDocumentTypes.MaterialAnalysis,
             MaterialAnalysisPanel.Title(kind),
             Settings: new Dictionary<string, string>
             {
@@ -158,7 +187,7 @@ public sealed class PanelManager : IDisposable
     {
         OpenStable(
             "document:manufacturability",
-            WorkspaceDocumentKind.Manufacturability,
+            WorkspaceDocumentTypes.Manufacturability,
             "可加工性评估");
     }
 
@@ -167,7 +196,7 @@ public sealed class PanelManager : IDisposable
         var isGb = standard == OpticalDrawingStandard.GbT13323_2009;
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             isGb ? "document:optical-drawing-gb" : "document:optical-drawing-iso",
-            WorkspaceDocumentKind.OpticalDrawing,
+            WorkspaceDocumentTypes.OpticalDrawing,
             isGb ? "光学制图 · GB/T 13323—2009" : "光学制图 · ISO 10110",
             Settings: new Dictionary<string, string>
             {
@@ -180,7 +209,7 @@ public sealed class PanelManager : IDisposable
         var canonical = _application.Analyses.CanonicalKey(analysisName);
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             $"analysis:{canonical}",
-            WorkspaceDocumentKind.Analysis,
+            WorkspaceDocumentTypes.Analysis,
             analysisName,
             analysisName,
             StableAnalysisGuid(canonical)));
@@ -189,7 +218,7 @@ public sealed class PanelManager : IDisposable
     public void CloneActiveAnalysis()
     {
         if (ActiveDocument() is not Document active
-            || Factory.Descriptor(active.Id) is not { Kind: WorkspaceDocumentKind.Analysis } descriptor)
+            || Factory.Descriptor(active.Id) is not { TypeId: WorkspaceDocumentTypes.Analysis } descriptor)
         {
             return;
         }
@@ -454,9 +483,9 @@ public sealed class PanelManager : IDisposable
         Factory.DisposeContent();
     }
 
-    private void OpenStable(string id, WorkspaceDocumentKind kind, string title)
+    private void OpenStable(string id, string typeId, string title)
     {
-        Factory.OpenDocument(new WorkspaceDocumentDescriptor(id, kind, title));
+        Factory.OpenDocument(new WorkspaceDocumentDescriptor(id, typeId, title));
     }
 
     private void FocusSystemTool()
@@ -532,8 +561,9 @@ public sealed class PanelManager : IDisposable
                 .Select(_application.Analyses.CanonicalKey)
                 .ToHashSet(StringComparer.Ordinal);
             var descriptors = session.Documents.Where(descriptor =>
-                descriptor.Kind != WorkspaceDocumentKind.Analysis
-                || knownAnalyses.Contains(_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title)))
+                WorkspaceDocumentTypes.IsKnown(descriptor.TypeId)
+                && (descriptor.TypeId != WorkspaceDocumentTypes.Analysis
+                    || knownAnalyses.Contains(_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title))))
                 .ToArray();
             Factory.RegisterDescriptors(descriptors);
             var restored = _layoutSerializer.Deserialize(session.DockLayoutJson);

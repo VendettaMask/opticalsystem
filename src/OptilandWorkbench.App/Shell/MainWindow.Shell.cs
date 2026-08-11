@@ -107,8 +107,13 @@ public sealed partial class MainWindow
                             "玻璃替换模板")))),
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
-                        RibbonButton("show-tolerancing", "activity", "灵敏度"),
-                        RibbonButton("show-tolerancing", "gauge", "蒙特卡洛")))),
+                        RibbonButton("show-tolerancing", "table", "公差数据编辑器"),
+                        RibbonButton("run-tolerancing", "activity", "公差分析")),
+                    RibbonGroup("公差数据可视化",
+                        RibbonButton("show-tolerance-data-viewer", "table", "公差数据查看器"),
+                        RibbonButton("show-tolerance-histogram", "chart-column", "直方图"),
+                        RibbonButton("show-tolerance-yield", "badge-percent", "良率"),
+                        RibbonButton("show-tolerance-report", "file-text", "公差报告")))),
                 RibbonTab("加工与图纸", BuildRibbonPage(
                     RibbonGroup("制造准备",
                         RibbonButton("show-manufacturability", "clipboard-check", "可加工性评估")),

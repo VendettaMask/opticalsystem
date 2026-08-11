@@ -124,31 +124,7 @@ public partial class OpticalWorkspaceModel
     private static double EvaluateToleranceCriterionWorker(
         Optic optic,
         IReadOnlyList<MeritOperandDefinition> definitions)
-    {
-        using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
-        var contribution = 0.0;
-        foreach (var definition in definitions)
-        {
-            if (!definition.Enabled || Math.Abs(definition.Weight) <= 0)
-            {
-                continue;
-            }
-
-            var evaluation = MeritFunctionCatalog.Evaluate(optic, definition);
-            if (!string.IsNullOrEmpty(evaluation.Error)
-                || !double.IsFinite(evaluation.Value)
-                || !double.IsFinite(evaluation.Contribution))
-            {
-                return double.PositiveInfinity;
-            }
-
-            contribution += evaluation.Contribution;
-        }
-
-        return double.IsFinite(contribution)
-            ? Math.Sqrt(Math.Max(0, contribution))
-            : double.PositiveInfinity;
-    }
+        => EvaluateToleranceCriterionCore(optic, definitions);
 
     private IOptimizationVariable CreateToleranceVariableWorker(Optic optic, ToleranceOperandDto operand)
     {

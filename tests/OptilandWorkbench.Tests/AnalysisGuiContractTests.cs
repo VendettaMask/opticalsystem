@@ -53,7 +53,7 @@ public sealed class AnalysisGuiContractTests
             typeof(ContractLensLibraryService),
             typeof(Func<string, Task>)
         }));
-        Assert.Equal(12, (int)WorkspaceDocumentKind.LensLibrary);
+        Assert.Equal("lens-library", WorkspaceDocumentTypes.LensLibrary);
     }
 
     [Fact]

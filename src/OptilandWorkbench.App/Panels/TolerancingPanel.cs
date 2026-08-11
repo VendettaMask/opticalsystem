@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
@@ -16,6 +18,7 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed class TolerancingPanel : UserControl, IDisposable
 {
+    private readonly IOpticalDocumentService _documents;
     private readonly IPrescriptionService _prescription;
     private readonly ITolerancingService _tolerancing;
     private readonly IWorkspaceEventStream _events;
@@ -25,15 +28,15 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly DataGrid _monteCarloGrid = CreateGrid();
     private readonly ComboBox _kindPicker = new() { MinWidth = 180 };
     private readonly ComboBox _surfacePicker = new() { MinWidth = 180 };
-    private readonly ComboBox _distributionPicker = Picker(0, "正态（±值按 3σ）", "均匀");
+    private readonly ComboBox _distributionPicker = Picker(0, "正态（公差极限为 ±2σ）", "均匀");
     private readonly CheckBox _enabled = new() { Content = "启用", IsChecked = true };
     private readonly NumericUpDown _minimum = Number(-0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly NumericUpDown _maximum = Number(0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly TextBox _comment = new() { MinWidth = 180 };
     private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前");
-    private readonly NumericUpDown _trials = Number(1000, 1, 10_000, 100, 96);
+    private readonly NumericUpDown _trials = Number(20, 0, 10_000, 20, 96);
     private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1, 104);
-    private readonly NumericUpDown _compensationIterations = Number(20, 0, 500, 5, 96);
+    private readonly NumericUpDown _compensationIterations = Number(3, 0, 500, 1, 96);
     private readonly NumericUpDown _yieldLimit = Number(0, 0, 1_000_000, 0.01m, 110);
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
     private readonly OperationStatusBar _operationStatus = new();
@@ -41,15 +44,22 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private CancellationTokenSource? _runCancellation;
     private TolerancingResultDto? _lastResult;
     private ToleranceOperandEditorRow? _selectedOperandForEditor;
+    private ToleranceAnalysisMode _analysisMode = ToleranceAnalysisMode.Sensitivity;
+    private ToleranceDistribution? _distributionOverride;
+    private int _maxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount);
+    private int _worstSensitivityCount;
+    private bool _showMonteCarloTrials = true;
     private int _generation;
     private bool _updatingEditor;
     private bool _disposed;
 
     public TolerancingPanel(
+        IOpticalDocumentService documents,
         IPrescriptionService prescription,
         ITolerancingService tolerancing,
         IWorkspaceEventStream events)
     {
+        _documents = documents;
         _prescription = prescription;
         _tolerancing = tolerancing;
         _events = events;
@@ -68,11 +78,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         saveButton.Click += async (_, _) => await SaveToleranceFileAsync();
         var loadButton = CommandButton("folder-open", "载入公差");
         loadButton.Click += async (_, _) => await LoadToleranceFileAsync();
-        var reportButton = CommandButton("file-text", "导出报告");
-        reportButton.Click += async (_, _) => await ExportReportAsync();
-        var runButton = CommandButton("play", "运行公差");
-        runButton.Click += async (_, _) => await RunAsync();
-
+        var exportButton = CommandButton("download", "导出报告");
+        exportButton.Click += async (_, _) => await ExportReportAsync();
         var toolbar = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
@@ -80,7 +87,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             Children =
             {
                 wizardButton, addButton, removeButton, validateButton,
-                saveButton, loadButton, reportButton, runButton, _operationStatus
+                saveButton, loadButton, exportButton, _operationStatus
             }
         };
 
@@ -93,44 +100,15 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         };
         Grid.SetColumn(editor, 1);
 
-        var runSettings = new WrapPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Margin = new Thickness(0, 8),
-            Children =
-            {
-                Label("评价标准"), _criterion,
-                Label("Monte Carlo 次数"), _trials,
-                Label("随机种子"), _seed,
-                Label("补偿迭代"), _compensationIterations,
-                Label("合格上限（0=关闭）"), _yieldLimit
-            }
-        };
-
-        var resultTabs = new TabControl
-        {
-            MinHeight = 250,
-            ItemsSource = new object[]
-            {
-                new TabItem { Header = "灵敏度", Content = _sensitivityGrid },
-                new TabItem { Header = "Monte Carlo", Content = _monteCarloGrid },
-                new TabItem { Header = "统计摘要", Content = new ScrollViewer { Content = _statistics } }
-            }
-        };
-
         var content = new Grid
         {
-            RowDefinitions = new RowDefinitions("Auto,2*,Auto,2*,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,*,Auto"),
             RowSpacing = 4,
             Margin = new Thickness(12)
         };
         content.Children.Add(toolbar);
         Grid.SetRow(editorLayout, 1);
         content.Children.Add(editorLayout);
-        Grid.SetRow(runSettings, 2);
-        content.Children.Add(runSettings);
-        Grid.SetRow(resultTabs, 3);
-        content.Children.Add(resultTabs);
         var summaryBorder = new Border
         {
             Padding = new Thickness(10, 8),
@@ -138,7 +116,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             Child = _summary
         };
         summaryBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        Grid.SetRow(summaryBorder, 4);
+        Grid.SetRow(summaryBorder, 2);
         content.Children.Add(summaryBorder);
         Content = content;
 
@@ -412,12 +390,54 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         return true;
     }
 
-    private async Task RunAsync()
+    public async Task<bool> ShowAnalysisDialogAsync(Window owner)
+    {
+        var options = await new TolerancingRunWindow(CurrentRunOptions())
+            .ShowDialog<TolerancingRunOptions?>(owner);
+        if (options is null)
+        {
+            return false;
+        }
+
+        _analysisMode = options.Mode;
+        _criterion.SelectedIndex = options.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
+        _trials.Value = options.MonteCarloRuns;
+        _seed.Value = options.Seed;
+        _compensationIterations.Value = options.CompensationIterations;
+        _yieldLimit.Value = ToDecimal(options.YieldLimit);
+        _distributionOverride = options.DistributionOverride;
+        _maxDegreeOfParallelism = options.MaxDegreeOfParallelism;
+        _worstSensitivityCount = options.WorstSensitivityCount;
+        _showMonteCarloTrials = options.ShowMonteCarloTrials;
+        return await RunAsync(options);
+    }
+
+    private TolerancingRunOptions CurrentRunOptions() => new(
+        _analysisMode,
+        _criterion.SelectedIndex == 1
+            ? ToleranceCriterion.RmsWavefront
+            : ToleranceCriterion.RmsSpotRadius,
+        IntValue(_trials, 20),
+        IntValue(_seed, 1234),
+        IntValue(_compensationIterations, 3),
+        _maxDegreeOfParallelism,
+        DoubleValue(_yieldLimit, 0),
+        _distributionOverride,
+        _worstSensitivityCount,
+        _showMonteCarloTrials);
+
+    private async Task<bool> RunAsync(TolerancingRunOptions options)
     {
         ApplySelectedOperand();
         if (!Validate(showSuccess: false))
         {
-            return;
+            throw new InvalidOperationException(_summary.Text ?? "公差数据验证失败。");
+        }
+
+        if (options.Mode == ToleranceAnalysisMode.SkipSensitivity
+            && options.MonteCarloRuns == 0)
+        {
+            throw new InvalidOperationException("当前设置同时跳过灵敏度且 Monte Carlo 次数为 0，没有可执行的公差分析。");
         }
 
         _runCancellation?.Cancel();
@@ -426,24 +446,54 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         var cancellationToken = _runCancellation.Token;
         var generation = ++_generation;
         _operationStatus.Start("正在运行公差分析…", () => _runCancellation?.Cancel());
-        _summary.Text = "正在运行灵敏度和 Monte Carlo 公差分析…";
+        _summary.Text = options.Mode == ToleranceAnalysisMode.SkipSensitivity
+            ? "正在运行 Monte Carlo 公差分析…"
+            : options.MonteCarloRuns == 0
+                ? "正在运行灵敏度公差分析…"
+                : "正在运行灵敏度和 Monte Carlo 公差分析…";
         try
         {
             var rows = _operands.Select(row => row.ToDto()).ToArray();
+            if (options.DistributionOverride is { } distribution)
+            {
+                rows = rows.Select(row => row.Kind == ToleranceOperandKind.Compensator
+                    ? row
+                    : row with { Distribution = distribution }).ToArray();
+            }
+
             var firstSurface = rows.FirstOrDefault(row => row.Enabled)?.SurfaceNumber ?? 1;
             var result = await _tolerancing.RunAsync(new TolerancingRequestDto(
                 firstSurface,
                 0,
                 0,
-                IntValue(_trials, 1000),
-                IntValue(_seed, 1234),
-                IntValue(_compensationIterations, 20),
+                options.MonteCarloRuns,
+                options.Seed,
+                options.CompensationIterations,
                 rows,
-                _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
-                DoubleValue(_yieldLimit, 0)), cancellationToken);
+                options.Criterion,
+                options.YieldLimit,
+                options.MaxDegreeOfParallelism,
+                options.Mode), cancellationToken);
             if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
             {
-                return;
+                return false;
+            }
+
+            if (options.Mode == ToleranceAnalysisMode.Sensitivity
+                && result.SensitivityRows.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    string.IsNullOrWhiteSpace(result.Details)
+                        ? "灵敏度分析未生成结果。"
+                        : result.Details);
+            }
+
+            if (options.MonteCarloRuns > 0 && result.TrialRows.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    string.IsNullOrWhiteSpace(result.Details)
+                        ? "Monte Carlo 分析未生成试验结果。"
+                        : result.Details);
             }
 
             _sensitivityGrid.ItemsSource = result.SensitivityRows;
@@ -452,6 +502,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             _summary.Text = $"{result.Summary}    {result.Details}";
             _operationStatus.MarkSynced("公差分析完成");
             _lastResult = result;
+            return true;
         }
         catch (OperationCanceledException)
         {
@@ -459,6 +510,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             {
                 _operationStatus.MarkStale("公差分析已取消");
             }
+
+            return false;
         }
         catch (Exception exception)
         {
@@ -467,6 +520,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 _operationStatus.MarkFailed($"公差分析失败：{exception.Message}");
                 _summary.Text = $"公差分析失败：{exception.Message}";
             }
+
+            throw;
         }
     }
 
@@ -593,12 +648,6 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
     private async Task ExportReportAsync()
     {
-        if (_lastResult is null)
-        {
-            _summary.Text = "请先运行公差分析。";
-            return;
-        }
-
         try
         {
             var topLevel = TopLevel.GetTopLevel(this);
@@ -622,31 +671,247 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 return;
             }
 
-            var lines = new List<string>
-            {
-                _lastResult.Summary,
-                _lastResult.Details,
-                string.Empty,
-                "统计摘要",
-                FormatStatistics(_lastResult.Statistics),
-                string.Empty,
-                "灵敏度",
-                "操作数\t负极限\t正极限\t最坏值\t变化"
-            };
-            lines.AddRange(_lastResult.SensitivityRows.Select(row =>
-                $"{row.Perturbation}\t{row.NegativeMerit}\t{row.PositiveMerit}\t{row.WorstMerit}\t{row.DeltaMerit}"));
-            lines.Add(string.Empty);
-            lines.Add("Monte Carlo");
-            lines.Add("试验\t补偿前\t补偿后\t相对名义变化");
-            lines.AddRange(_lastResult.TrialRows.Select(row =>
-                $"{row.Trial}\t{row.Merit}\t{row.CompensatedMerit}\t{row.Degradation}"));
-            await File.WriteAllLinesAsync(file.Path.LocalPath, lines);
+            await File.WriteAllTextAsync(file.Path.LocalPath, BuildToleranceReportText());
             _summary.Text = "公差分析报告已导出。";
         }
         catch (Exception exception)
         {
             _summary.Text = $"导出公差报告失败：{exception.Message}";
         }
+    }
+
+    public string BuildToleranceReportText()
+    {
+        var document = _documents.GetSnapshot();
+        var path = document.Path ?? document.Name;
+        var surfaces = _prescription.GetSurfaces();
+        var wavelengths = _prescription.GetWavelengths();
+        var operands = _operands.Select(row => row.ToDto()).ToArray();
+        var enabled = operands.Where(row => row.Enabled).ToArray();
+        var measurementWavelength = wavelengths.FirstOrDefault(wave => wave.IsPrimary)
+            ?? wavelengths.FirstOrDefault();
+        var builder = new StringBuilder();
+
+        builder.AppendLine("公差数据概要");
+        builder.AppendLine();
+        builder.AppendLine($"文件 : {path}");
+        builder.AppendLine("题目 :");
+        builder.AppendLine($"日期 : {DateTime.Now:yyyy/M/d}");
+        builder.AppendLine();
+        builder.AppendLine("半径和厚度数据在毫米里。");
+        builder.AppendLine($"光焦和不规则度是通过双通干涉测量，测量波长: {FormatWavelength(measurementWavelength)}");
+        builder.AppendLine("仅球差和象散不规则公差列在表面中心公差；");
+        builder.AppendLine("Zernike不规则公差列在其它公差下。");
+        builder.AppendLine("表面全跳动公差（TIR）单位是：毫米。");
+        builder.AppendLine("折射率和阿贝公差是无量纲的。");
+        builder.AppendLine("表面和元件偏心单位：毫米。");
+        builder.AppendLine("表面和元件倾斜单位：角度。");
+        builder.AppendLine();
+        builder.AppendLine("表面中心公差:");
+        builder.AppendLine();
+        builder.AppendLine(FixedColumns("表面", "半径", "最小公差", "最大公差", "光焦度", "不规则", "厚度", "最小公差", "最大公差"));
+        foreach (var surface in surfaces)
+        {
+            var radius = FindOperand(enabled, ToleranceOperandKind.Radius, surface.Number);
+            var thickness = FindOperand(enabled, ToleranceOperandKind.Thickness, surface.Number);
+            builder.AppendLine(FixedColumns(
+                surface.Number.ToString(),
+                FormatRadius(surface.Radius),
+                FormatOperandMinimum(radius),
+                FormatOperandMaximum(radius),
+                "-",
+                FormatConicTolerance(enabled, surface.Number),
+                FormatNumber(surface.Thickness),
+                FormatOperandMinimum(thickness),
+                FormatOperandMaximum(thickness)));
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("表面偏心/倾斜公差:");
+        builder.AppendLine();
+        builder.AppendLine(FixedColumns("表面", "偏心 X", "偏心 Y", "偏心 R", "倾斜 X", "倾斜 Y", "不规则X", "不规则Y"));
+        foreach (var surface in surfaces)
+        {
+            builder.AppendLine(FixedColumns(
+                surface.Number.ToString(),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.DecenterX, surface.Number)),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.DecenterY, surface.Number)),
+                "-",
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.TiltX, surface.Number)),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.TiltY, surface.Number)),
+                "-",
+                "-"));
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("折射率/阿贝公差:");
+        builder.AppendLine();
+        builder.AppendLine(FixedColumns("表面", "材料", "折射率", "Abbe"));
+        foreach (var surface in surfaces.Where(surface => !string.IsNullOrWhiteSpace(surface.Material)))
+        {
+            builder.AppendLine(FixedColumns(
+                surface.Number.ToString(),
+                surface.Material,
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.RefractiveIndex, surface.Number)),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.AbbeNumber, surface.Number))));
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("公差操作数:");
+        builder.AppendLine();
+        builder.AppendLine(FixedColumns("#", "类型", "表面", "最小", "最大", "统计", "标注"));
+        foreach (var operand in operands)
+        {
+            builder.AppendLine(FixedColumns(
+                operand.Index.ToString(),
+                ToleranceOperandEditorRow.CodeFor(operand.Kind),
+                operand.SurfaceNumber.ToString(),
+                FormatNumber(operand.Minimum),
+                FormatNumber(operand.Maximum),
+                operand.Distribution == ToleranceDistribution.Normal ? "正态" : "均匀",
+                operand.Comment));
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("公差分析结果:");
+        builder.AppendLine();
+        if (_lastResult is null)
+        {
+            builder.AppendLine("尚未运行灵敏度或 Monte Carlo 公差分析。");
+            return builder.ToString();
+        }
+
+        builder.AppendLine(_lastResult.Summary);
+        builder.AppendLine(_lastResult.Details);
+        builder.AppendLine();
+        if (_lastResult.SensitivityStatistics is not null)
+        {
+            builder.AppendLine("灵敏度 RSS 预计性能");
+            builder.AppendLine(FixedColumns(
+                "名义值",
+                "RSS 预计变化",
+                "预计评价值"));
+            builder.AppendLine(FixedColumns(
+                _lastResult.SensitivityStatistics.Nominal,
+                _lastResult.SensitivityStatistics.RssEstimatedChange,
+                _lastResult.SensitivityStatistics.EstimatedCriterion));
+            builder.AppendLine();
+        }
+
+        if (_lastResult.Statistics is not null)
+        {
+            builder.AppendLine("Monte Carlo 统计摘要");
+            builder.AppendLine(FormatStatistics(_lastResult.Statistics));
+            builder.AppendLine();
+        }
+
+        if (_lastResult.SensitivityRows.Count > 0)
+        {
+            builder.AppendLine("灵敏度（逐项施加最小/最大公差）");
+            builder.AppendLine(FixedColumns("操作数", "负极限", "正极限", "最坏值", "变化"));
+            var sensitivityRows = _worstSensitivityCount > 0
+                ? _lastResult.SensitivityRows.Take(_worstSensitivityCount)
+                : _lastResult.SensitivityRows;
+            foreach (var row in sensitivityRows)
+            {
+                builder.AppendLine(FixedColumns(
+                    row.Perturbation,
+                    row.NegativeMerit,
+                    row.PositiveMerit,
+                    row.WorstMerit,
+                    row.DeltaMerit));
+            }
+
+            builder.AppendLine();
+        }
+        else if (_analysisMode == ToleranceAnalysisMode.SkipSensitivity)
+        {
+            builder.AppendLine("灵敏度：已按运行设置跳过。");
+            builder.AppendLine();
+        }
+
+        if (_showMonteCarloTrials && _lastResult.TrialRows.Count > 0)
+        {
+            builder.AppendLine("Monte Carlo（全部公差同时随机施加）");
+            builder.AppendLine(FixedColumns("试验", "补偿前", "补偿后", "相对名义变化"));
+            foreach (var row in _lastResult.TrialRows)
+            {
+                builder.AppendLine(FixedColumns(
+                    row.Trial.ToString(),
+                    row.Merit,
+                    row.CompensatedMerit,
+                    row.Degradation));
+            }
+        }
+
+        return builder.ToString();
+    }
+
+    internal ToleranceChartView BuildHistogramChartView() =>
+        ToleranceChartBuilder.Histogram(
+            _lastResult,
+            _criterion.SelectedIndex == 1
+                ? ToleranceCriterion.RmsWavefront
+                : ToleranceCriterion.RmsSpotRadius);
+
+    internal ToleranceChartView BuildYieldChartView() =>
+        ToleranceChartBuilder.Yield(
+            _lastResult,
+            _criterion.SelectedIndex == 1
+                ? ToleranceCriterion.RmsWavefront
+                : ToleranceCriterion.RmsSpotRadius,
+            DoubleValue(_yieldLimit, 0));
+
+    private static ToleranceOperandDto? FindOperand(
+        IReadOnlyList<ToleranceOperandDto> operands,
+        ToleranceOperandKind kind,
+        int surfaceNumber) =>
+        operands.FirstOrDefault(operand => operand.Kind == kind && operand.SurfaceNumber == surfaceNumber);
+
+    private static string FormatWavelength(WavelengthRowDto? wavelength) =>
+        wavelength is null
+            ? "-"
+            : $"{wavelength.Nanometers / 1000.0:0.####} μm";
+
+    private static string FormatRadius(double radius) =>
+        !double.IsFinite(radius) || Math.Abs(radius) < 1e-12
+            ? "无限"
+            : FormatNumber(radius);
+
+    private static string FormatConicTolerance(IReadOnlyList<ToleranceOperandDto> operands, int surfaceNumber)
+    {
+        var conic = FindOperand(operands, ToleranceOperandKind.Conic, surfaceNumber);
+        return conic is null ? "-" : FormatOperandRange(conic);
+    }
+
+    private static string FormatOperandMinimum(ToleranceOperandDto? operand) =>
+        operand is null ? "-" : FormatNumber(operand.Minimum);
+
+    private static string FormatOperandMaximum(ToleranceOperandDto? operand) =>
+        operand is null ? "-" : FormatNumber(operand.Maximum);
+
+    private static string FormatOperandRange(ToleranceOperandDto? operand) =>
+        operand is null ? "-" : $"{FormatNumber(operand.Minimum)} / {FormatNumber(operand.Maximum)}";
+
+    private static string FormatNumber(double value) =>
+        double.IsFinite(value)
+            ? value.ToString("0.#####", CultureInfo.InvariantCulture)
+            : "-";
+
+    private static string FixedColumns(params string[] values)
+    {
+        var widths = new[] { 8, 16, 16, 16, 16, 16, 16, 16, 16 };
+        var builder = new StringBuilder();
+        for (var index = 0; index < values.Length; index++)
+        {
+            var text = (values[index] ?? string.Empty)
+                .ReplaceLineEndings(" ")
+                .Trim();
+            var width = widths[Math.Min(index, widths.Length - 1)];
+            builder.Append(text.Length >= width ? text[..Math.Min(text.Length, width - 1)] + " " : text.PadRight(width));
+        }
+
+        return builder.ToString().TrimEnd();
     }
 
     private void RefreshSurfaces()

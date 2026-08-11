@@ -83,7 +83,7 @@ public sealed class WorkspaceDockFactory : Factory
         DisposeContent();
         var lensDescriptor = new WorkspaceDocumentDescriptor(
             LensDocumentId,
-            WorkspaceDocumentKind.LensEditor,
+            WorkspaceDocumentTypes.LensEditor,
             "镜头数据");
         _descriptors[lensDescriptor.Id] = lensDescriptor;
         var lens = CreateDocument(lensDescriptor);
@@ -189,7 +189,7 @@ public sealed class WorkspaceDockFactory : Factory
         {
             _descriptors[LensDocumentId] = new WorkspaceDocumentDescriptor(
                 LensDocumentId,
-                WorkspaceDocumentKind.LensEditor,
+                WorkspaceDocumentTypes.LensEditor,
                 "镜头数据");
         }
     }
@@ -226,6 +226,27 @@ public sealed class WorkspaceDockFactory : Factory
     public WorkspaceDocumentDescriptor? Descriptor(string id)
     {
         return _descriptors.TryGetValue(id, out var descriptor) ? descriptor : null;
+    }
+
+    public T? DocumentContent<T>(string id)
+        where T : Control => ResolveContent(id) as T;
+
+    public void RefreshDocumentContent(string id)
+    {
+        if (!_content.TryGetValue(id, out var control))
+        {
+            return;
+        }
+
+        switch (control)
+        {
+            case ToleranceTextDocumentPanel textDocument:
+                textDocument.Refresh();
+                break;
+            case ToleranceChartDocumentPanel chartDocument:
+                chartDocument.Refresh();
+                break;
+        }
     }
 
     public void UpdateDescriptor(WorkspaceDocumentDescriptor descriptor)
@@ -344,7 +365,7 @@ public sealed class WorkspaceDockFactory : Factory
         {
             Id = descriptor.Id,
             Title = descriptor.Title,
-            CanClose = descriptor.Kind != WorkspaceDocumentKind.LensEditor,
+            CanClose = descriptor.TypeId != WorkspaceDocumentTypes.LensEditor,
             CanFloat = true,
             CanDrag = true,
             CanDrop = true,
@@ -376,49 +397,61 @@ public sealed class WorkspaceDockFactory : Factory
             return unavailable;
         }
 
-        Control control = descriptor.Kind switch
+        Control control = descriptor.TypeId switch
         {
-            WorkspaceDocumentKind.LensEditor => new LensEditorPanel(
+            WorkspaceDocumentTypes.LensEditor => new LensEditorPanel(
                 _application.Prescription,
                 _application.Events,
                 _surfaceSelection),
-            WorkspaceDocumentKind.Viewer2D => new ViewerPanel(
+            WorkspaceDocumentTypes.Viewer2D => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
                 _surfaceSelection,
                 SceneDimension.TwoDimensional),
-            WorkspaceDocumentKind.Viewer3D => new ViewerPanel(
+            WorkspaceDocumentTypes.Viewer3D => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
                 _surfaceSelection,
                 SceneDimension.ThreeDimensional),
-            WorkspaceDocumentKind.SolidModel => new ViewerPanel(
+            WorkspaceDocumentTypes.SolidModel => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
                 _surfaceSelection,
                 SceneDimension.ThreeDimensional,
                 ViewerPresentationMode.SolidModel),
-            WorkspaceDocumentKind.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
-            WorkspaceDocumentKind.LensLibrary => new LensLibraryPanel(
+            WorkspaceDocumentTypes.MaterialLibrary => new MaterialLibraryPanel(_application.Materials),
+            WorkspaceDocumentTypes.LensLibrary => new LensLibraryPanel(
                 _application.Lenses,
                 OpenLensLibraryProjectAsync),
-            WorkspaceDocumentKind.GlassCatalog => new GlassCatalogPanel(_application.Materials),
-            WorkspaceDocumentKind.MaterialAnalysis => new MaterialAnalysisPanel(
+            WorkspaceDocumentTypes.GlassCatalog => new GlassCatalogPanel(_application.Materials),
+            WorkspaceDocumentTypes.MaterialAnalysis => new MaterialAnalysisPanel(
                 _application.Materials,
                 MaterialAnalysisKindFrom(descriptor.Settings)),
-            WorkspaceDocumentKind.Manufacturability => new ManufacturabilityPanel(
+            WorkspaceDocumentTypes.Manufacturability => new ManufacturabilityPanel(
                 _application.Prescription,
                 _application.Events),
-            WorkspaceDocumentKind.OpticalDrawing => new OpticalDrawingPanel(
+            WorkspaceDocumentTypes.OpticalDrawing => new OpticalDrawingPanel(
                 _application.Prescription,
                 _application.Materials,
                 _application.Events,
                 _application.Visualization,
                 OpticalDrawingStandardFrom(descriptor.Settings)),
-            WorkspaceDocumentKind.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
-            WorkspaceDocumentKind.Tolerancing => new TolerancingPanel(_application.Prescription, _application.Tolerancing, _application.Events),
-            WorkspaceDocumentKind.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
-            WorkspaceDocumentKind.Analysis => new AnalysisPanel(
+            WorkspaceDocumentTypes.Optimization => new OptimizationPanel(_application.Prescription, _application.Optimization, _application.Events),
+            WorkspaceDocumentTypes.Tolerancing => new TolerancingPanel(
+                _application.Documents,
+                _application.Prescription,
+                _application.Tolerancing,
+                _application.Events),
+            WorkspaceDocumentTypes.ToleranceReport => new ToleranceTextDocumentPanel(
+                "公差报告",
+                "tolerance-report.txt",
+                () => TolerancingEditor().BuildToleranceReportText()),
+            WorkspaceDocumentTypes.ToleranceHistogram => new ToleranceChartDocumentPanel(
+                () => TolerancingEditor().BuildHistogramChartView()),
+            WorkspaceDocumentTypes.ToleranceYield => new ToleranceChartDocumentPanel(
+                () => TolerancingEditor().BuildYieldChartView()),
+            WorkspaceDocumentTypes.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
+            WorkspaceDocumentTypes.Analysis => new AnalysisPanel(
                 _application.Analyses,
                 _application.Visualization,
                 _application.Documents,
@@ -438,6 +471,21 @@ public sealed class WorkspaceDockFactory : Factory
         return control;
     }
 
+    private TolerancingPanel TolerancingEditor()
+    {
+        const string id = "document:tolerancing";
+        if (!_descriptors.ContainsKey(id))
+        {
+            _descriptors[id] = new WorkspaceDocumentDescriptor(
+                id,
+                WorkspaceDocumentTypes.Tolerancing,
+                "公差数据编辑器");
+        }
+
+        return ResolveContent(id) as TolerancingPanel
+            ?? throw new InvalidOperationException("公差数据编辑器不可用。");
+    }
+
     private static MaterialAnalysisKind MaterialAnalysisKindFrom(
         IReadOnlyDictionary<string, string>? settings)
     {
@@ -453,7 +501,7 @@ public sealed class WorkspaceDockFactory : Factory
         await _application.Documents.OpenAsync(path);
         OpenDocument(new WorkspaceDocumentDescriptor(
             LensDocumentId,
-            WorkspaceDocumentKind.LensEditor,
+            WorkspaceDocumentTypes.LensEditor,
             "镜头数据"));
     }
 

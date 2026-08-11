@@ -34,7 +34,8 @@ public partial class OpticalWorkspaceModel
             ToleranceCriterion criterion = ToleranceCriterion.RmsSpotRadius,
             double yieldLimit = 0,
             CancellationToken cancellationToken = default,
-            int maxDegreeOfParallelism = -1)
+            int maxDegreeOfParallelism = -1,
+            ToleranceAnalysisMode mode = ToleranceAnalysisMode.Sensitivity)
     {
         cancellationToken.ThrowIfCancellationRequested();
         surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();
@@ -57,39 +58,54 @@ public partial class OpticalWorkspaceModel
             return TolerancingView.Empty("请至少设置一个启用且非零的公差操作数。");
         }
 
-        var nominal = EvaluateToleranceCriterion(criterion);
+        var sensitivityAnalysis = new SensitivityAnalysis(CurrentOptic, tolerancing);
+        var nominal = sensitivityAnalysis
+            .EvaluateNominal(compensationIterations, cancellationToken)
+            .Criterion;
         if (!double.IsFinite(nominal))
         {
             return TolerancingView.Empty("名义系统没有可用于公差评价的有效光线。");
         }
 
-        var sensitivity = new SensitivityAnalysis(CurrentOptic, tolerancing)
-            .Run(compensationIterations, cancellationToken)
-            .Select(result => new TolerancingSensitivityRow(
-                result.Perturbation,
-                FormatCriterion(result.DeltaCriterion),
-                FormatCriterion(result.NegativeCriterion),
-                FormatCriterion(result.PositiveCriterion),
-                FormatCriterion(result.WorstCriterion)))
-            .ToArray();
-        var trialResults = new MonteCarlo(CurrentOptic, tolerancing)
-            .RunDetailed(
-                Math.Clamp(trials, 1, 10_000),
-                seed,
-                compensationIterations,
-                cancellationToken,
-                workerOptic => configuredOperands is { Length: > 0 }
-                    ? BuildConfiguredTolerancingWorker(workerOptic, configuredOperands, criterion)
-                    : BuildDefaultTolerancingWorker(
-                        workerOptic,
-                        surface.Number,
-                        radiusSigma,
-                        thicknessSigma,
-                        compensationIterations,
-                        criterion),
-                maxDegreeOfParallelism: maxDegreeOfParallelism == -1
-                    ? Math.Max(1, Environment.ProcessorCount)
-                    : maxDegreeOfParallelism);
+        var sensitivityResults = mode == ToleranceAnalysisMode.SkipSensitivity
+            ? Array.Empty<SensitivityResult>()
+            : sensitivityAnalysis.Run(compensationIterations, cancellationToken).ToArray();
+        var sensitivity = sensitivityResults
+                .Select(result => new TolerancingSensitivityRow(
+                    result.Perturbation,
+                    FormatCriterion(result.DeltaCriterion),
+                    FormatCriterion(result.NegativeCriterion),
+                    FormatCriterion(result.PositiveCriterion),
+                    FormatCriterion(result.WorstCriterion)))
+                .ToArray();
+        var rssEstimatedChange = CalculateSensitivityRss(sensitivityResults, nominal);
+        var sensitivityStatistics = sensitivityResults.Length == 0
+            ? null
+            : new TolerancingSensitivityStatistics(
+                FormatCriterion(nominal),
+                FormatCriterion(rssEstimatedChange),
+                FormatCriterion(nominal + rssEstimatedChange));
+        var requestedTrials = Math.Clamp(trials, 0, 10_000);
+        var trialResults = requestedTrials == 0
+            ? Array.Empty<TolerancingTrialResult>()
+            : new MonteCarlo(CurrentOptic, tolerancing)
+                .RunDetailed(
+                    requestedTrials,
+                    seed,
+                    compensationIterations,
+                    cancellationToken,
+                    workerOptic => configuredOperands is { Length: > 0 }
+                        ? BuildConfiguredTolerancingWorker(workerOptic, configuredOperands, criterion)
+                        : BuildDefaultTolerancingWorker(
+                            workerOptic,
+                            surface.Number,
+                            radiusSigma,
+                            thicknessSigma,
+                            compensationIterations,
+                            criterion),
+                    maxDegreeOfParallelism: maxDegreeOfParallelism == -1
+                        ? Math.Max(1, Environment.ProcessorCount)
+                        : maxDegreeOfParallelism);
         var monteCarlo = trialResults
             .Select(result => new TolerancingTrialRow(
                 result.Trial + 1,
@@ -107,19 +123,21 @@ public partial class OpticalWorkspaceModel
         var sigma = values.Length > 0
             ? Math.Sqrt(values.Select(value => Math.Pow(value - mean, 2)).Average())
             : double.PositiveInfinity;
-        var yield = yieldLimit > 0
+        var yield = yieldLimit > 0 && trialResults.Count > 0
             ? $"{100.0 * values.Count(value => value <= yieldLimit) / trialResults.Count:0.0}%"
             : "未设置";
-        var statistics = new TolerancingStatistics(
-            NumericDisplayFormatter.Format(nominal),
-            FormatCriterion(mean),
-            FormatCriterion(sigma),
-            values.Length > 0 ? NumericDisplayFormatter.Format(values[0]) : "失效",
-            values.Length > 0 ? NumericDisplayFormatter.Format(values[^1]) : "失效",
-            values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.50)) : "失效",
-            values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.90)) : "失效",
-            values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.95)) : "失效",
-            yield);
+        var statistics = trialResults.Count == 0
+            ? null
+            : new TolerancingStatistics(
+                NumericDisplayFormatter.Format(nominal),
+                FormatCriterion(mean),
+                FormatCriterion(sigma),
+                values.Length > 0 ? NumericDisplayFormatter.Format(values[0]) : "失效",
+                values.Length > 0 ? NumericDisplayFormatter.Format(values[^1]) : "失效",
+                values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.50)) : "失效",
+                values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.90)) : "失效",
+                values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.95)) : "失效",
+                yield);
 
         SetStatus($"公差分析完成：表面 {surface.Number}，{monteCarlo.Length} 次 Monte Carlo。");
         return new TolerancingView(
@@ -127,7 +145,35 @@ public partial class OpticalWorkspaceModel
             sensitivity,
             monteCarlo,
             $"公差数：{tolerancing.Perturbations.Count}    补偿器：{tolerancing.Compensators.Count}    Monte Carlo：{monteCarlo.Length}    失效试验：{invalidTrials}    补偿迭代：{Math.Max(0, compensationIterations)}",
-            statistics);
+            statistics,
+            sensitivityStatistics);
+    }
+
+    private static double CalculateSensitivityRss(
+        IReadOnlyList<SensitivityResult> results,
+        double nominal)
+    {
+        var sumOfMeanSquares = 0.0;
+        foreach (var result in results)
+        {
+            if (double.IsFinite(result.NegativeCriterion)
+                && double.IsFinite(result.PositiveCriterion))
+            {
+                var negativeChange = result.NegativeCriterion - nominal;
+                var positiveChange = result.PositiveCriterion - nominal;
+                sumOfMeanSquares += ((negativeChange * negativeChange)
+                    + (positiveChange * positiveChange)) / 2.0;
+                continue;
+            }
+
+            if (double.IsFinite(result.WorstCriterion))
+            {
+                var change = result.WorstCriterion - nominal;
+                sumOfMeanSquares += change * change;
+            }
+        }
+
+        return Math.Sqrt(sumOfMeanSquares);
     }
 
     private static string FormatCriterion(double value)

@@ -11,6 +11,45 @@ namespace OptilandWorkbench.Tests;
 public sealed class TolerancingWorkflowTests
 {
     [Fact]
+    public void ToleranceHistogramUsesMonteCarloValuesToBuildRealBars()
+    {
+        var result = CreateChartResult("1", "2", "2", "3", "4", "5");
+
+        var view = ToleranceChartBuilder.Histogram(result, ToleranceCriterion.RmsSpotRadius);
+
+        var series = Assert.Single(view.Series);
+        Assert.Equal(AnalysisSeriesKind.Bar, series.Kind);
+        Assert.Equal("RMS 点列半径 (mm)", series.XAxisLabel);
+        Assert.Equal(6, series.Points.Sum(point => point.Y));
+        Assert.True(series.Points.Count >= 5);
+        Assert.Equal(0, view.PlotOptions.YMinimum);
+        Assert.Contains("样本数：6", view.Summary, StringComparison.Ordinal);
+        Assert.Empty(view.EmptyMessage);
+    }
+
+    [Fact]
+    public void ToleranceYieldUsesCumulativeDistributionAndLimitLine()
+    {
+        var result = CreateChartResult("4", "1", "3", "2");
+
+        var view = ToleranceChartBuilder.Yield(result, ToleranceCriterion.RmsWavefront, 2.5);
+
+        Assert.Equal(2, view.Series.Count);
+        var cumulative = view.Series[0];
+        Assert.Equal(AnalysisSeriesKind.Line, cumulative.Kind);
+        Assert.Equal("RMS 波前误差 (waves)", cumulative.XAxisLabel);
+        Assert.Equal(0, cumulative.Points[0].Y);
+        Assert.Equal(100, cumulative.Points[^1].Y);
+        Assert.True(cumulative.Points.Zip(cumulative.Points.Skip(1), (first, second) => first.Y <= second.Y).All(value => value));
+
+        var limit = view.Series[1];
+        Assert.Equal(new[] { 2.5, 2.5 }, limit.Points.Select(point => point.X));
+        Assert.Equal(new[] { 0.0, 100.0 }, limit.Points.Select(point => point.Y));
+        Assert.Contains("2 / 4", view.Summary, StringComparison.Ordinal);
+        Assert.Contains("50%", view.Summary, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void ToleranceWizardGeneratesEditableZemaxStyleOperands()
     {
         using var application = WorkbenchApplication.Create("cooke");
@@ -60,6 +99,12 @@ public sealed class TolerancingWorkflowTests
             row => Assert.Contains("表面", row.Comment, StringComparison.Ordinal));
         Assert.True(application.Tolerancing.ValidateOperands(rows).IsValid);
     }
+
+    private static TolerancingResultDto CreateChartResult(params string[] values) => new(
+        "完成",
+        Array.Empty<TolerancingSensitivityRowDto>(),
+        values.Select((value, index) => new TolerancingTrialRowDto(index + 1, value, value)).ToArray(),
+        "");
 
     [Fact]
     public void EditableToleranceOperandRowExportsCurrentGridValues()
@@ -145,6 +190,93 @@ public sealed class TolerancingWorkflowTests
     }
 
     [Fact]
+    public async Task SensitivityCanRunWithoutCreatingMonteCarloTrials()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var operand = new ToleranceOperandDto(
+            1,
+            true,
+            ToleranceOperandKind.Thickness,
+            2,
+            -0.01,
+            0.01);
+
+        var result = await application.Tolerancing.RunAsync(new TolerancingRequestDto(
+            2,
+            0,
+            0,
+            Trials: 0,
+            Seed: 42,
+            CompensationIterations: 0,
+            Operands: new[] { operand },
+            Mode: ToleranceAnalysisMode.Sensitivity));
+
+        Assert.Single(result.SensitivityRows);
+        Assert.Empty(result.TrialRows);
+        Assert.Null(result.Statistics);
+        Assert.NotNull(result.SensitivityStatistics);
+        Assert.False(string.IsNullOrWhiteSpace(result.SensitivityStatistics!.Nominal));
+        Assert.False(string.IsNullOrWhiteSpace(result.SensitivityStatistics.RssEstimatedChange));
+        Assert.False(string.IsNullOrWhiteSpace(result.SensitivityStatistics.EstimatedCriterion));
+    }
+
+    [Fact]
+    public async Task HighNaZemaxLensKeepsValidRaysForToleranceCriterion()
+    {
+        using var application = WorkbenchApplication.Create();
+        var path = Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-ms-l7-high-na.ZMX");
+        await application.Documents.OpenAsync(path);
+        var operand = new ToleranceOperandDto(
+            1,
+            true,
+            ToleranceOperandKind.Thickness,
+            1,
+            -0.01,
+            0.01);
+
+        var result = await application.Tolerancing.RunAsync(new TolerancingRequestDto(
+            1,
+            0,
+            0,
+            Trials: 0,
+            Seed: 42,
+            CompensationIterations: 0,
+            Operands: new[] { operand },
+            Mode: ToleranceAnalysisMode.Sensitivity));
+
+        Assert.Single(result.SensitivityRows);
+        Assert.NotNull(result.SensitivityStatistics);
+    }
+
+    [Fact]
+    public async Task SkipSensitivityRunsOnlyMonteCarlo()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var operand = new ToleranceOperandDto(
+            1,
+            true,
+            ToleranceOperandKind.Thickness,
+            2,
+            -0.01,
+            0.01);
+
+        var result = await application.Tolerancing.RunAsync(new TolerancingRequestDto(
+            2,
+            0,
+            0,
+            Trials: 2,
+            Seed: 42,
+            CompensationIterations: 0,
+            Operands: new[] { operand },
+            Mode: ToleranceAnalysisMode.SkipSensitivity));
+
+        Assert.Empty(result.SensitivityRows);
+        Assert.Equal(2, result.TrialRows.Count);
+        Assert.NotNull(result.Statistics);
+        Assert.Null(result.SensitivityStatistics);
+    }
+
+    [Fact]
     public void RangeSensitivityEvaluatesBothLimitsAndRestoresVariable()
     {
         var optic = new Optic();
@@ -198,6 +330,8 @@ public sealed class TolerancingWorkflowTests
         Assert.All(samples, sample => Assert.InRange(sample, -1.0, 3.0));
         Assert.DoesNotContain(samples, sample => sample == -1.0 || sample == 3.0);
         Assert.InRange(samples.Average(), 0.98, 1.02);
+        var standardDeviation = Math.Sqrt(samples.Select(sample => Math.Pow(sample - samples.Average(), 2)).Average());
+        Assert.InRange(standardDeviation, 0.85, 0.91);
     }
 
     [Fact]

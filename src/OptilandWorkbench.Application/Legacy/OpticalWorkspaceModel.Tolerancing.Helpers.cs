@@ -145,8 +145,17 @@ public partial class OpticalWorkspaceModel
     private double EvaluateToleranceCriterion(
         IReadOnlyList<MeritOperandDefinition> definitions)
     {
+        return EvaluateToleranceCriterionCore(CurrentOptic, definitions);
+    }
+
+    private static double EvaluateToleranceCriterionCore(
+        Optic optic,
+        IReadOnlyList<MeritOperandDefinition> definitions)
+    {
         using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
         var contribution = 0.0;
+        var requestedWeight = 0.0;
+        var includedWeight = 0.0;
         foreach (var definition in definitions)
         {
             if (!definition.Enabled || Math.Abs(definition.Weight) <= 0)
@@ -154,19 +163,24 @@ public partial class OpticalWorkspaceModel
                 continue;
             }
 
-            var evaluation = MeritFunctionCatalog.Evaluate(CurrentOptic, definition);
+            var weight = Math.Abs(definition.Weight);
+            requestedWeight += weight;
+            var evaluation = MeritFunctionCatalog.Evaluate(optic, definition);
             if (!string.IsNullOrEmpty(evaluation.Error)
                 || !double.IsFinite(evaluation.Value)
                 || !double.IsFinite(evaluation.Contribution))
             {
-                return double.PositiveInfinity;
+                continue;
             }
 
             contribution += evaluation.Contribution;
+            includedWeight += weight;
         }
 
         return double.IsFinite(contribution)
-            ? Math.Sqrt(Math.Max(0, contribution))
+            && requestedWeight > 1e-15
+            && includedWeight > 1e-15
+            ? Math.Sqrt(Math.Max(0, contribution * requestedWeight / includedWeight))
             : double.PositiveInfinity;
     }
 

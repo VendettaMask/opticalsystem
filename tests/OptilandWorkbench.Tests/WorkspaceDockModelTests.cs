@@ -73,11 +73,11 @@ public sealed class WorkspaceDockModelTests
         UseTestHostWindows(manager.Factory);
         manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:viewer-2d",
-            WorkspaceDocumentKind.Viewer2D,
+            WorkspaceDocumentTypes.Viewer2D,
             "二维视图"));
         manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "analysis:spot",
-            WorkspaceDocumentKind.Analysis,
+            WorkspaceDocumentTypes.Analysis,
             "Spot Diagram",
             "Spot Diagram"));
 
@@ -121,7 +121,7 @@ public sealed class WorkspaceDockModelTests
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
                     "document:viewer-2d",
-                    WorkspaceDocumentKind.Viewer2D,
+                    WorkspaceDocumentTypes.Viewer2D,
                     "二维视图"));
                 manager.FloatAllWindows();
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
@@ -223,7 +223,7 @@ public sealed class WorkspaceDockModelTests
         factory.InitLayout(layout);
         var stable = new WorkspaceDocumentDescriptor(
             "analysis:spot-diagram",
-            WorkspaceDocumentKind.Analysis,
+            WorkspaceDocumentTypes.Analysis,
             "点列图",
             "Spot Diagram",
             Guid.NewGuid());
@@ -254,11 +254,11 @@ public sealed class WorkspaceDockModelTests
 
         var manufacturability = factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:manufacturability",
-            WorkspaceDocumentKind.Manufacturability,
+            WorkspaceDocumentTypes.Manufacturability,
             "可加工性评估"));
         var drawing = factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:optical-drawing",
-            WorkspaceDocumentKind.OpticalDrawing,
+            WorkspaceDocumentTypes.OpticalDrawing,
             "光学制图"));
 
         Assert.IsType<ManufacturabilityPanel>(manufacturability.Context);
@@ -276,7 +276,7 @@ public sealed class WorkspaceDockModelTests
         factory.InitLayout(layout);
         var viewer = factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:viewer-2d",
-            WorkspaceDocumentKind.Viewer2D,
+            WorkspaceDocumentTypes.Viewer2D,
             "二维视图"));
         var previousOwner = Assert.IsAssignableFrom<IDock>(viewer.Owner);
         Assert.True(previousOwner.VisibleDockables!.Remove(viewer));
@@ -292,11 +292,11 @@ public sealed class WorkspaceDockModelTests
         {
             new WorkspaceDocumentDescriptor(
                 WorkspaceDockFactory.LensDocumentId,
-                WorkspaceDocumentKind.LensEditor,
+                WorkspaceDocumentTypes.LensEditor,
                 "镜头数据"),
             new WorkspaceDocumentDescriptor(
                 "document:viewer-2d",
-                WorkspaceDocumentKind.Viewer2D,
+                WorkspaceDocumentTypes.Viewer2D,
                 "二维视图")
         });
         factory.InitLayout(restored!);
@@ -315,7 +315,7 @@ public sealed class WorkspaceDockModelTests
         factory.InitLayout(layout);
         var viewer = factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:viewer-3d",
-            WorkspaceDocumentKind.Viewer3D,
+            WorkspaceDocumentTypes.Viewer3D,
             "三维视图"));
         var previousOwner = Assert.IsAssignableFrom<IDock>(viewer.Owner);
         Assert.True(previousOwner.VisibleDockables!.Remove(viewer));
@@ -449,7 +449,7 @@ public sealed class WorkspaceDockModelTests
         using var manager = new PanelManager(application, new AppSettings());
         var viewer = manager.Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             "document:viewer-2d",
-            WorkspaceDocumentKind.Viewer2D,
+            WorkspaceDocumentTypes.Viewer2D,
             "二维视图"));
         manager.Factory.SetActiveDockable(viewer);
 
