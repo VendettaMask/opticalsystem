@@ -126,7 +126,9 @@ public sealed partial class MainWindow
                         RibbonMaterialAnalysisMenuButton(),
                         RibbonButton("show-glass-catalog", "gem", "玻璃")),
                     RibbonGroup("镜头设计",
-                        RibbonButton("show-lens-library", "telescope", "镜头库")))),
+                        RibbonButton("show-lens-library", "telescope", "镜头库"),
+                        RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
+                        RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")))),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),

@@ -43,6 +43,7 @@ public sealed class ZemaxLibraryImporterTests
             var catalog = JsonSerializer.Deserialize<LensLibraryCatalogDocument>(
                 await File.ReadAllTextAsync(result.CatalogPath));
             var entry = Assert.Single(catalog!.Entries);
+            Assert.Equal(2, catalog.Version);
             Assert.Equal(result.Id, entry.Id);
             Assert.Equal("测试镜头", entry.Category);
             Assert.Equal("测试示例库", entry.SourceName);
@@ -51,6 +52,13 @@ public sealed class ZemaxLibraryImporterTests
             Assert.Equal("可用", entry.ImportStatus);
             Assert.Equal($"projects/{result.Id}.staropt", entry.NativePath);
             Assert.Equal("achromatic-doublet.zmx", entry.SourcePath);
+            Assert.NotNull(entry.ImportedAt);
+            Assert.False(string.IsNullOrWhiteSpace(entry.ImporterVersion));
+            Assert.True(entry.LensElementCount > 0);
+            Assert.True(entry.MaximumClearAperture > 0);
+            Assert.False(string.IsNullOrWhiteSpace(entry.LensType));
+            Assert.False(string.IsNullOrWhiteSpace(entry.Application));
+            Assert.False(string.IsNullOrWhiteSpace(entry.DesignOrganization));
 
             using var application = WorkbenchApplication.Create(lensLibraryDirectory: library);
             Assert.Equal(result.Id, Assert.Single(application.Lenses.GetLenses()).Id);

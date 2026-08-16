@@ -25,6 +25,8 @@ public static class WorkspaceDocumentTypes
     public const string Manufacturability = "manufacturability";
     public const string OpticalDrawing = "optical-drawing";
     public const string LensLibrary = "lens-library";
+    public const string StockLensCatalog = "stock-lens-catalog";
+    public const string StockLensMatching = "stock-lens-matching";
     public const string MaterialAnalysis = "material-analysis";
     public const string ToleranceReport = "tolerance-report";
     public const string ToleranceHistogram = "tolerance-histogram";
@@ -45,6 +47,8 @@ public static class WorkspaceDocumentTypes
         Manufacturability,
         OpticalDrawing,
         LensLibrary,
+        StockLensCatalog,
+        StockLensMatching,
         MaterialAnalysis,
         ToleranceReport,
         ToleranceHistogram,

@@ -176,9 +176,17 @@ public interface ILensLibraryService
 
     IReadOnlyList<LensLibraryEntryDto> GetLenses();
 
+    IReadOnlyList<CommercialLensEntryDto> GetCommercialLenses();
+
     string? GetNativeProjectPath(string lensId);
 
+    string? GetCommercialNativeProjectPath(string lensId);
+
     Task<SceneDto?> BuildPreviewAsync(
+        string lensId,
+        CancellationToken cancellationToken = default);
+
+    Task<SceneDto?> BuildCommercialPreviewAsync(
         string lensId,
         CancellationToken cancellationToken = default);
 }

@@ -31,7 +31,10 @@ try
             parsed.License,
             parsed.Name,
             parsed.Id,
-            parsed.ExampleFileName));
+            parsed.ExampleFileName,
+            parsed.LensType,
+            parsed.Application,
+            parsed.DesignOrganization));
 
     Console.WriteLine(result.UpdatedExistingEntry ? "已更新现有镜头条目。" : "已新增镜头条目。");
     Console.WriteLine($"ID: {result.Id}");
@@ -62,6 +65,9 @@ static ParsedArguments ParseArguments(IReadOnlyList<string> arguments)
     string? name = null;
     string? id = null;
     string? exampleFileName = null;
+    string? lensType = null;
+    string? application = null;
+    string? designOrganization = null;
 
     for (var index = 0; index < arguments.Count; index++)
     {
@@ -113,6 +119,15 @@ static ParsedArguments ParseArguments(IReadOnlyList<string> arguments)
             case "--example-file":
                 exampleFileName = value;
                 break;
+            case "--lens-type":
+                lensType = value;
+                break;
+            case "--application":
+                application = value;
+                break;
+            case "--design-organization":
+                designOrganization = value;
+                break;
             default:
                 throw new ArgumentException($"未知参数：{argument}");
         }
@@ -140,7 +155,10 @@ static ParsedArguments ParseArguments(IReadOnlyList<string> arguments)
         license,
         name,
         id,
-        exampleFileName);
+        exampleFileName,
+        lensType,
+        application,
+        designOrganization);
 }
 
 static string FindRepositoryRoot()
@@ -184,6 +202,9 @@ static void PrintUsage()
           --source-name <名称>      默认“STAR Labs 用户示例”
           --source-url <URL>        来源地址
           --license <说明>          默认“用户提供”
+          --lens-type <类型>        镜头类型；未提供时按分类生成保守值
+          --application <用途>      应用场景；未提供时按分类生成保守值
+          --design-organization <单位> 设计单位；未知时记录“未注明”
           --id <ID>                 自定义稳定镜头 ID
           --example-file <文件名>   示例库中的 STAROPT 文件名
           --repo-root <目录>        项目根目录
@@ -207,4 +228,7 @@ internal sealed record ParsedArguments(
     string License,
     string? Name,
     string? Id,
-    string? ExampleFileName);
+    string? ExampleFileName,
+    string? LensType,
+    string? Application,
+    string? DesignOrganization);

@@ -41,6 +41,16 @@ public sealed partial class MainWindow
         _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
         _actions.Register("show-lens-library", "打开镜头库", "数据库", _panels.ShowLensLibrary);
+        _actions.Register(
+            "show-stock-lens-catalog",
+            "打开库存镜头查看",
+            "数据库",
+            _panels.ShowStockLensCatalog);
+        _actions.Register(
+            "show-stock-lens-matching",
+            "打开库存镜头匹配",
+            "数据库",
+            _panels.ShowStockLensMatching);
         _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
         _actions.Register(
             "show-material-dispersion-diagram",

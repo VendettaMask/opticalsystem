@@ -17,7 +17,10 @@ public sealed record ZemaxLibraryInstallOptions(
     string License = "用户提供",
     string? Name = null,
     string? Id = null,
-    string? ExampleFileName = null);
+    string? ExampleFileName = null,
+    string? LensType = null,
+    string? Application = null,
+    string? DesignOrganization = null);
 
 public sealed record ZemaxLibraryInstallResult(
     string Id,
@@ -30,7 +33,7 @@ public sealed record ZemaxLibraryInstallResult(
 
 public sealed class ZemaxLibraryInstaller
 {
-    private const int SupportedCatalogVersion = 1;
+    private const int SupportedCatalogVersion = 2;
     private static readonly JsonSerializerOptions ReadOptions = new()
     {
         PropertyNameCaseInsensitive = true
@@ -96,7 +99,11 @@ public sealed class ZemaxLibraryInstaller
             license,
             nativePath,
             inputPath,
-            imported.ActiveOptic);
+            imported.ActiveOptic,
+            options.LensType,
+            options.Application,
+            options.DesignOrganization,
+            DateTimeOffset.UtcNow);
         var entries = existingCatalog.Entries
             .Where(existing => !existing.Id.Equals(id, StringComparison.Ordinal))
             .Append(entry)

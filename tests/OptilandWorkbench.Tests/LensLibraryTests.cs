@@ -30,6 +30,34 @@ public sealed class LensLibraryTests
         Assert.All(lenses, lens =>
         {
             Assert.EndsWith(".staropt", lens.NativePath, StringComparison.OrdinalIgnoreCase);
+            Assert.False(string.IsNullOrWhiteSpace(lens.NumericalApertureBasis));
+            Assert.False(string.IsNullOrWhiteSpace(lens.WorkingDistanceBasis));
+            Assert.False(string.IsNullOrWhiteSpace(lens.LensType));
+            Assert.False(string.IsNullOrWhiteSpace(lens.Application));
+            Assert.False(string.IsNullOrWhiteSpace(lens.DesignOrganization));
+            Assert.False(string.IsNullOrWhiteSpace(lens.ImporterVersion));
+            Assert.True(lens.LensElementCount >= 0);
+            Assert.True(lens.MaximumClearAperture >= 0);
+        });
+
+        var commercial = application.Lenses.GetCommercialLenses();
+        Assert.Equal(6, commercial.Count);
+        Assert.Equal(
+            new[] { "Edmund Optics", "Thorlabs" },
+            commercial
+                .Select(entry => entry.Manufacturer)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Order(StringComparer.OrdinalIgnoreCase));
+        Assert.All(commercial, entry =>
+        {
+            Assert.False(string.IsNullOrWhiteSpace(entry.PartNumber));
+            Assert.True(Uri.IsWellFormedUriString(entry.ProductUrl, UriKind.Absolute));
+            Assert.False(string.IsNullOrWhiteSpace(entry.LensType));
+            Assert.False(string.IsNullOrWhiteSpace(entry.ShapeCode));
+            Assert.False(string.IsNullOrWhiteSpace(entry.SurfaceType));
+            Assert.True(entry.ElementCount > 0);
+            Assert.Null(entry.NativePath);
+            Assert.Null(application.Lenses.GetCommercialNativeProjectPath(entry.Id));
         });
         Assert.Empty(Directory.EnumerateFiles(root, "*.zmx", SearchOption.AllDirectories));
         Assert.Empty(Directory.EnumerateFiles(root, "*.zar", SearchOption.AllDirectories));
@@ -77,7 +105,7 @@ public sealed class LensLibraryTests
                 new StarOptProjectDocument(new[] { Optic.CreateTessarLens() }, 0),
                 industrialPath);
             var catalog = new LensLibraryCatalogDocument(
-                1,
+                2,
                 DateTimeOffset.UtcNow,
                 new[]
                 {
@@ -128,7 +156,7 @@ public sealed class LensLibraryTests
                 new StarOptProjectDocument(new[] { optic }, 0),
                 outsidePath);
             var catalog = new LensLibraryCatalogDocument(
-                1,
+                2,
                 DateTimeOffset.UtcNow,
                 new[] { Entry("outside", "显微镜", "../outside.staropt", optic) });
             await File.WriteAllTextAsync(
@@ -148,6 +176,61 @@ public sealed class LensLibraryTests
     }
 
     [Fact]
+    public void InstalledZemaxStockCatalogPublishesAllHeaderEntriesWithoutExtractingPrescriptions()
+    {
+        var container = Path.Combine(Path.GetTempPath(), $"zemax-stockcat-{Guid.NewGuid():N}");
+        var library = Path.Combine(container, "library");
+        var stockCatalog = Path.Combine(container, "Stockcat");
+        Directory.CreateDirectory(library);
+        Directory.CreateDirectory(stockCatalog);
+
+        try
+        {
+            var path = Path.Combine(stockCatalog, "THORLABS.ZMF");
+            using (var stream = File.Create(path))
+            using (var writer = new BinaryWriter(stream, System.Text.Encoding.Latin1))
+            {
+                writer.Write((uint)1001);
+                WriteZmfRecord(writer, "AC254-100-A", 2, 2, 0, 0, 0, 100.1, 25.4);
+                WriteZmfRecord(writer, "ACL25416U-A", 2, 4, 1, 0, 0, 16, 22);
+            }
+
+            var excludedPath = Path.Combine(stockCatalog, "ANTERYON.ZMF");
+            using (var stream = File.Create(excludedPath))
+            using (var writer = new BinaryWriter(stream, System.Text.Encoding.Latin1))
+            {
+                writer.Write((uint)1001);
+                WriteZmfRecord(writer, "AC-044", 2, 2, 0, 0, 0, 18.86, 4.4);
+            }
+
+            using var application = WorkbenchApplication.Create(
+                lensLibraryDirectory: library,
+                zemaxStockCatalogDirectory: stockCatalog);
+            var entries = application.Lenses.GetCommercialLenses();
+
+            Assert.Equal(2, entries.Count);
+            Assert.DoesNotContain(entries, entry => entry.Manufacturer == "Anteryon");
+            var achromat = Assert.Single(entries, entry => entry.PartNumber == "AC254-100-A");
+            Assert.Equal("Thorlabs", achromat.Manufacturer);
+            Assert.Equal("B", achromat.ShapeCode);
+            Assert.Equal("S", achromat.SurfaceType);
+            Assert.Equal(2, achromat.ElementCount);
+            Assert.Equal(100.1, achromat.EffectiveFocalLength, precision: 8);
+            Assert.Equal(25.4, achromat.EntrancePupilDiameter, precision: 8);
+            Assert.Null(achromat.NativePath);
+            Assert.Contains("未解码或复制处方正文", achromat.SourceNote, StringComparison.Ordinal);
+
+            var asphere = Assert.Single(entries, entry => entry.PartNumber == "ACL25416U-A");
+            Assert.Equal("M", asphere.ShapeCode);
+            Assert.Equal("A", asphere.SurfaceType);
+        }
+        finally
+        {
+            Directory.Delete(container, recursive: true);
+        }
+    }
+
+    [Fact]
     public void RuntimeLensLibraryIsReadOnlyAndEmptyCatalogDoesNotCreateFiles()
     {
         var root = Path.Combine(Path.GetTempPath(), $"staropt-lenses-empty-{Guid.NewGuid():N}");
@@ -157,6 +240,7 @@ public sealed class LensLibraryTests
                 lensLibraryDirectory: root);
 
             Assert.Empty(application.Lenses.GetLenses());
+            Assert.Empty(application.Lenses.GetCommercialLenses());
             Assert.False(Directory.Exists(root));
             Assert.DoesNotContain(
                 typeof(ILensLibraryService).GetMethods(),
@@ -171,36 +255,87 @@ public sealed class LensLibraryTests
         }
     }
 
+    [Fact]
+    public void EntryFactoryPublishesComputedAndProvenanceMetadata()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var importedAt = new DateTimeOffset(2026, 8, 16, 8, 30, 0, TimeSpan.Zero);
+
+        var entry = LensLibraryCatalogEntryFactory.Create(
+            "metadata",
+            "Metadata lens",
+            "工业镜头",
+            "S.T.A.R. Labs sample",
+            "https://example.invalid/lens",
+            "测试许可证",
+            "projects/metadata.staropt",
+            "metadata.zmx",
+            optic,
+            "双高斯镜头",
+            "工业检测",
+            "S.T.A.R. Labs",
+            importedAt,
+            "test-importer");
+
+        Assert.True(entry.EffectiveFocalLength > 0);
+        Assert.True(entry.FNumber > 0);
+        Assert.True(entry.NumericalAperture > 0);
+        Assert.Equal("像方空气近轴估算", entry.NumericalApertureBasis);
+        Assert.True(entry.WorkingDistance >= 0);
+        Assert.NotEqual("未提供", entry.WorkingDistanceBasis);
+        Assert.True(entry.LensElementCount > 0);
+        Assert.True(entry.MaximumClearAperture > 0);
+        Assert.Equal("双高斯镜头", entry.LensType);
+        Assert.Equal("工业检测", entry.Application);
+        Assert.Equal("S.T.A.R. Labs", entry.DesignOrganization);
+        Assert.Equal(importedAt, entry.ImportedAt);
+        Assert.Equal("test-importer", entry.ImporterVersion);
+    }
+
     private static LensLibraryEntryDto Entry(
         string id,
         string category,
         string nativePath,
         Optic optic)
     {
-        var wavelengths = optic.Wavelengths.Select(wavelength => wavelength.Nanometers).ToArray();
-        return new LensLibraryEntryDto(
+        return LensLibraryCatalogEntryFactory.Create(
             id,
             optic.Name,
             category,
             "测试镜头库",
             string.Empty,
             "测试",
-            "STAROPT",
-            "可用",
-            null,
-            optic.Paraxial.EstimateEffectiveFocalLength(),
-            optic.Paraxial.EstimateFNumber(),
-            optic.Aperture.Kind.ToString(),
-            optic.Aperture.Value,
-            optic.SurfaceGroup.TotalTrack,
-            optic.SurfaceGroup.Items.Count,
-            optic.FieldDefinition.ToString(),
-            optic.Fields.Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y))).Max(),
-            optic.Fields.Count,
-            wavelengths.Length,
-            wavelengths.Min(),
-            wavelengths.Max(),
             nativePath,
-            string.Empty);
+            "test.zmx",
+            optic,
+            importedAt: DateTimeOffset.UnixEpoch,
+            importerVersion: "test-importer");
+    }
+
+    private static void WriteZmfRecord(
+        BinaryWriter writer,
+        string name,
+        uint elements,
+        uint shape,
+        uint aspheric,
+        uint grin,
+        uint toroidal,
+        double effectiveFocalLength,
+        double entrancePupilDiameter)
+    {
+        var nameBytes = System.Text.Encoding.Latin1.GetBytes(name);
+        var field = new byte[100];
+        nameBytes.CopyTo(field, 0);
+        writer.Write(field);
+        writer.Write((uint)230101);
+        writer.Write(elements);
+        writer.Write(shape);
+        writer.Write(aspheric);
+        writer.Write(grin);
+        writer.Write(toroidal);
+        writer.Write((uint)4);
+        writer.Write(effectiveFocalLength);
+        writer.Write(entrancePupilDiameter);
+        writer.Write(new byte[] { 1, 2, 3, 4 });
     }
 }

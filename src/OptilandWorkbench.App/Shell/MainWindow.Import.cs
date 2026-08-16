@@ -46,4 +46,9 @@ public sealed partial class MainWindow
     private static string BundledLensLibraryDirectory() =>
         Path.Combine(AppContext.BaseDirectory, "LensLibrary");
 
+    internal static string InstalledZemaxStockCatalogDirectory() => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "Zemax",
+        "Stockcat");
+
 }

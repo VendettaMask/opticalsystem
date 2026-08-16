@@ -8,7 +8,8 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class LensLibraryService : ILensLibraryService
 {
-    private const int SupportedCatalogVersion = 1;
+    private const int SupportedCatalogVersion = 2;
+    private const int SupportedCommercialCatalogVersion = 1;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
@@ -16,14 +17,22 @@ internal sealed class LensLibraryService : ILensLibraryService
 
     private readonly object _gate = new();
     private LensLibraryCatalogDocument? _catalog;
+    private CommercialLensCatalogDocument? _commercialCatalog;
+    private IReadOnlyList<CommercialLensEntryDto>? _installedCommercialEntries;
+    private IReadOnlyList<CommercialLensEntryDto>? _mergedCommercialEntries;
 
-    public LensLibraryService(string libraryDirectory)
+    public LensLibraryService(string libraryDirectory, string? zemaxStockCatalogDirectory = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(libraryDirectory);
         LibraryDirectory = Path.GetFullPath(libraryDirectory);
+        ZemaxStockCatalogDirectory = string.IsNullOrWhiteSpace(zemaxStockCatalogDirectory)
+            ? null
+            : Path.GetFullPath(zemaxStockCatalogDirectory);
     }
 
     public string LibraryDirectory { get; }
+
+    public string? ZemaxStockCatalogDirectory { get; }
 
     public IReadOnlyList<LensLibraryEntryDto> GetLenses()
     {
@@ -33,6 +42,20 @@ internal sealed class LensLibraryService : ILensLibraryService
                 .OrderBy(entry => entry.Category, StringComparer.Ordinal)
                 .ThenBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
+        }
+    }
+
+    public IReadOnlyList<CommercialLensEntryDto> GetCommercialLenses()
+    {
+        lock (_gate)
+        {
+            return _mergedCommercialEntries ??= MergeCommercialEntries(
+                        LoadCommercialCatalog().Entries,
+                        LoadInstalledCommercialEntries())
+                    .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
+                    .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
+                    .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
+                    .ToArray();
         }
     }
 
@@ -59,6 +82,12 @@ internal sealed class LensLibraryService : ILensLibraryService
         }
     }
 
+    public string? GetCommercialNativeProjectPath(string lensId)
+    {
+        var entry = GetCommercialEntry(lensId);
+        return entry is null ? null : ResolveNativeProjectPath(entry.NativePath);
+    }
+
     public async Task<SceneDto?> BuildPreviewAsync(
         string lensId,
         CancellationToken cancellationToken = default)
@@ -69,6 +98,23 @@ internal sealed class LensLibraryService : ILensLibraryService
             return null;
         }
 
+        return await BuildPreviewFromProjectAsync(nativePath, cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<SceneDto?> BuildCommercialPreviewAsync(
+        string lensId,
+        CancellationToken cancellationToken = default)
+    {
+        var nativePath = GetCommercialNativeProjectPath(lensId);
+        return nativePath is null
+            ? null
+            : await BuildPreviewFromProjectAsync(nativePath, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task<SceneDto> BuildPreviewFromProjectAsync(
+        string nativePath,
+        CancellationToken cancellationToken)
+    {
         var project = await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false);
         var optic = project.Configurations[project.ActiveConfigurationIndex];
         var scene = await Task.Run(
@@ -111,6 +157,37 @@ internal sealed class LensLibraryService : ILensLibraryService
         }
     }
 
+    private CommercialLensEntryDto? GetCommercialEntry(string id)
+    {
+        lock (_gate)
+        {
+            return (_mergedCommercialEntries ??= GetCommercialLenses()).FirstOrDefault(entry =>
+                entry.Id.Equals(id, StringComparison.Ordinal));
+        }
+    }
+
+    private string? ResolveNativeProjectPath(string? relativePath)
+    {
+        if (string.IsNullOrWhiteSpace(relativePath))
+        {
+            return null;
+        }
+
+        try
+        {
+            var nativePath = SafeChildPath(LibraryDirectory, relativePath);
+            return Path.GetExtension(nativePath).Equals(".staropt", StringComparison.OrdinalIgnoreCase)
+                   && File.Exists(nativePath)
+                ? nativePath
+                : null;
+        }
+        catch (Exception exception) when (
+            exception is InvalidDataException or ArgumentException or NotSupportedException)
+        {
+            return null;
+        }
+    }
+
     private LensLibraryCatalogDocument LoadCatalog()
     {
         if (_catalog is not null)
@@ -139,10 +216,87 @@ internal sealed class LensLibraryService : ILensLibraryService
         }
     }
 
+    private CommercialLensCatalogDocument LoadCommercialCatalog()
+    {
+        if (_commercialCatalog is not null)
+        {
+            return _commercialCatalog;
+        }
+
+        var path = Path.Combine(LibraryDirectory, "commercial-index.json");
+        if (!File.Exists(path))
+        {
+            return _commercialCatalog = EmptyCommercialCatalog();
+        }
+
+        try
+        {
+            var json = File.ReadAllText(path);
+            var catalog = JsonSerializer.Deserialize<CommercialLensCatalogDocument>(json, JsonOptions);
+            return _commercialCatalog = catalog is { Version: SupportedCommercialCatalogVersion }
+                ? catalog
+                : EmptyCommercialCatalog();
+        }
+        catch (Exception exception) when (
+            exception is JsonException or IOException or UnauthorizedAccessException)
+        {
+            return _commercialCatalog = EmptyCommercialCatalog();
+        }
+    }
+
+    private IReadOnlyList<CommercialLensEntryDto> LoadInstalledCommercialEntries() =>
+        _installedCommercialEntries ??= ZemaxStockCatalogReader.ReadDirectory(ZemaxStockCatalogDirectory);
+
+    private static IReadOnlyList<CommercialLensEntryDto> MergeCommercialEntries(
+        IReadOnlyList<CommercialLensEntryDto> packaged,
+        IReadOnlyList<CommercialLensEntryDto> installed)
+    {
+        var entries = new Dictionary<string, CommercialLensEntryDto>(StringComparer.Ordinal);
+        foreach (var entry in packaged)
+        {
+            entries[CommercialKey(entry)] = entry;
+        }
+
+        foreach (var entry in installed)
+        {
+            var key = CommercialKey(entry);
+            if (!entries.TryGetValue(key, out var existing))
+            {
+                entries[key] = entry;
+                continue;
+            }
+
+            entries[key] = existing with
+            {
+                EntrancePupilDiameter = existing.EntrancePupilDiameter > 0
+                    ? existing.EntrancePupilDiameter
+                    : entry.EntrancePupilDiameter,
+                ShapeCode = existing.ShapeCode == "?" ? entry.ShapeCode : existing.ShapeCode,
+                SurfaceType = string.IsNullOrWhiteSpace(existing.SurfaceType)
+                    ? entry.SurfaceType
+                    : existing.SurfaceType,
+                SourceNote = $"{existing.SourceNote} {entry.SourceNote}"
+            };
+        }
+
+        return entries.Values.ToArray();
+    }
+
+    private static string CommercialKey(CommercialLensEntryDto entry) =>
+        $"{Canonical(entry.Manufacturer)}:{Canonical(entry.PartNumber)}";
+
+    private static string Canonical(string value) =>
+        string.Concat(value.Where(char.IsLetterOrDigit)).ToUpperInvariant();
+
     private static LensLibraryCatalogDocument EmptyCatalog() => new(
         SupportedCatalogVersion,
         DateTimeOffset.MinValue,
         Array.Empty<LensLibraryEntryDto>());
+
+    private static CommercialLensCatalogDocument EmptyCommercialCatalog() => new(
+        SupportedCommercialCatalogVersion,
+        DateTimeOffset.MinValue,
+        Array.Empty<CommercialLensEntryDto>());
 
     private static OpticalDocumentSnapshot CreateSummary(Optic optic, string path) => new(
         optic.Name,

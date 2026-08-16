@@ -8,10 +8,16 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Serialization;
 
+if (args.Length == 2 && args[0].Equals("--reindex", StringComparison.OrdinalIgnoreCase))
+{
+    return await ReindexExistingLibraryAsync(Path.GetFullPath(args[1]));
+}
+
 if (args.Length != 2)
 {
     Console.Error.WriteLine(
-        "Usage: OptilandWorkbench.LensLibraryBuilder <manifest.json> <output-directory>");
+        "Usage: OptilandWorkbench.LensLibraryBuilder <manifest.json> <output-directory>\n"
+        + "   or: OptilandWorkbench.LensLibraryBuilder --reindex <library-directory>");
     return 2;
 }
 
@@ -35,6 +41,7 @@ var stagingDirectory = Path.Combine(temporaryDirectory, "output");
 var projectsDirectory = Path.Combine(stagingDirectory, "projects");
 Directory.CreateDirectory(projectsDirectory);
 var failures = new List<string>();
+var importedAt = DateTimeOffset.UtcNow;
 try
 {
     var sourceFiles = new List<(LensLibraryBuildSource Source, string Path)>();
@@ -109,7 +116,11 @@ try
                 item.Source.License,
                 Path.GetRelativePath(stagingDirectory, projectPath),
                 item.Path,
-                optic));
+                optic,
+                item.Source.LensType,
+                item.Source.Application,
+                item.Source.DesignOrganization,
+                importedAt));
             Console.WriteLine($"Lens: {entries[^1].Category} / {entries[^1].Name}");
         }
         catch (Exception exception)
@@ -121,8 +132,8 @@ try
     }
 
     var catalog = new LensLibraryCatalogDocument(
-        1,
-        DateTimeOffset.UnixEpoch,
+        2,
+        importedAt,
         entries
             .OrderBy(entry => entry.Category, StringComparer.Ordinal)
             .ThenBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
@@ -141,6 +152,87 @@ finally
 }
 
 return failures.Count == 0 ? 0 : 1;
+
+static async Task<int> ReindexExistingLibraryAsync(string libraryDirectory)
+{
+    var catalogPath = Path.Combine(libraryDirectory, "index.json");
+    if (!File.Exists(catalogPath))
+    {
+        throw new FileNotFoundException("Lens-library index was not found.", catalogPath);
+    }
+
+    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    var existing = JsonSerializer.Deserialize<LensLibraryCatalogDocument>(
+        await File.ReadAllTextAsync(catalogPath),
+        options) ?? throw new InvalidDataException("Lens-library index is empty.");
+    if (existing.Version is not (1 or 2))
+    {
+        throw new InvalidDataException(
+            $"Lens-library index version {existing.Version} cannot be reindexed.");
+    }
+
+    var entries = new List<LensLibraryEntryDto>(existing.Entries.Count);
+    foreach (var oldEntry in existing.Entries)
+    {
+        var projectPath = SafeChildPath(libraryDirectory, oldEntry.NativePath);
+        var project = await StarOptProjectStore.LoadAsync(projectPath);
+        var optic = project.Configurations[project.ActiveConfigurationIndex];
+        var enriched = LensLibraryCatalogEntryFactory.Create(
+            oldEntry.Id,
+            oldEntry.Name,
+            oldEntry.Category,
+            oldEntry.SourceName,
+            oldEntry.SourceUrl,
+            oldEntry.License,
+            oldEntry.NativePath,
+            oldEntry.SourcePath,
+            optic,
+            NullIfHistoricalValue(oldEntry.LensType),
+            NullIfHistoricalValue(oldEntry.Application),
+            NullIfHistoricalValue(oldEntry.DesignOrganization),
+            oldEntry.ImportedAt,
+            string.IsNullOrWhiteSpace(oldEntry.ImporterVersion)
+                ? "历史版本（未记录）"
+                : oldEntry.ImporterVersion) with
+        {
+            SourceFormat = oldEntry.SourceFormat,
+            ImportStatus = oldEntry.ImportStatus,
+            ImportMessage = oldEntry.ImportMessage
+        };
+        entries.Add(enriched);
+    }
+
+    var catalog = new LensLibraryCatalogDocument(
+        2,
+        DateTimeOffset.UtcNow,
+        entries
+            .OrderBy(entry => entry.Category, StringComparer.Ordinal)
+            .ThenBy(entry => entry.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(entry => entry.Id, StringComparer.Ordinal)
+            .ToArray());
+    var temporaryPath = $"{catalogPath}.{Guid.NewGuid():N}.tmp";
+    try
+    {
+        await File.WriteAllTextAsync(
+            temporaryPath,
+            JsonSerializer.Serialize(catalog, new JsonSerializerOptions { WriteIndented = true }));
+        File.Move(temporaryPath, catalogPath, overwrite: true);
+    }
+    finally
+    {
+        if (File.Exists(temporaryPath))
+        {
+            File.Delete(temporaryPath);
+        }
+    }
+
+    Console.WriteLine($"Reindexed: {entries.Count}");
+    Console.WriteLine($"Output: {catalogPath}");
+    return 0;
+}
+
+static string? NullIfHistoricalValue(string? value) =>
+    string.IsNullOrWhiteSpace(value) ? null : value;
 
 static bool IsBuildInput(string path)
 {
@@ -206,7 +298,7 @@ static void PublishLibrary(string stagingDirectory, string outputDirectory)
         var source = Path.Combine(stagingDirectory, name);
         if (Directory.Exists(source))
         {
-            Directory.Move(source, destination);
+            CopyDirectory(source, destination);
         }
     }
 
@@ -214,6 +306,32 @@ static void PublishLibrary(string stagingDirectory, string outputDirectory)
         Path.Combine(stagingDirectory, "index.json"),
         Path.Combine(outputDirectory, "index.json"),
         overwrite: true);
+}
+
+static void CopyDirectory(string sourceDirectory, string destinationDirectory)
+{
+    Directory.CreateDirectory(destinationDirectory);
+    foreach (var directory in Directory.EnumerateDirectories(
+                 sourceDirectory,
+                 "*",
+                 SearchOption.AllDirectories))
+    {
+        Directory.CreateDirectory(Path.Combine(
+            destinationDirectory,
+            Path.GetRelativePath(sourceDirectory, directory)));
+    }
+
+    foreach (var file in Directory.EnumerateFiles(
+                 sourceDirectory,
+                 "*",
+                 SearchOption.AllDirectories))
+    {
+        var destination = Path.Combine(
+            destinationDirectory,
+            Path.GetRelativePath(sourceDirectory, file));
+        Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+        File.Copy(file, destination, overwrite: true);
+    }
 }
 
 static string SafeChildPath(string root, string relativePath)
@@ -260,4 +378,7 @@ internal sealed record LensLibraryBuildSource(
     IReadOnlyList<string> Files,
     IReadOnlyList<string>? IncludeFiles = null,
     IReadOnlyList<string>? IncludeFilePrefixes = null,
-    IReadOnlyList<string>? ExcludeFiles = null);
+    IReadOnlyList<string>? ExcludeFiles = null,
+    string? LensType = null,
+    string? Application = null,
+    string? DesignOrganization = null);

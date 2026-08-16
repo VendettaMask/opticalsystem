@@ -137,7 +137,8 @@ public sealed partial class MainWindow : Window
         _application = WorkbenchApplication.Create(
             startup.Sample,
             UserGlassCatalogDirectory(),
-            BundledLensLibraryDirectory());
+            BundledLensLibraryDirectory(),
+            InstalledZemaxStockCatalogDirectory());
         _panels = new PanelManager(_application, _settings);
         RegisterActions();
         _actions.ExecutionFailed += OnActionExecutionFailed;

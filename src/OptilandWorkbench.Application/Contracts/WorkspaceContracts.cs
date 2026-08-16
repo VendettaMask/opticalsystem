@@ -32,7 +32,8 @@ public sealed record OpticalDocumentSnapshot(
     double TotalTrack,
     int SurfaceCount,
     int FieldCount,
-    int WavelengthCount);
+    int WavelengthCount,
+    double EntrancePupilDiameter = 0);
 
 public sealed record MaterialCatalogDto(
     string Manufacturer,
@@ -108,12 +109,74 @@ public sealed record LensLibraryEntryDto(
     double MinimumWavelengthNanometers,
     double MaximumWavelengthNanometers,
     string NativePath,
-    string SourcePath);
+    string SourcePath,
+    double NumericalAperture,
+    string NumericalApertureBasis,
+    double WorkingDistance,
+    string WorkingDistanceBasis,
+    int LensElementCount,
+    double MaximumClearAperture,
+    string LensType,
+    string Application,
+    string DesignOrganization,
+    DateTimeOffset? ImportedAt,
+    string ImporterVersion);
 
 public sealed record LensLibraryCatalogDocument(
     int Version,
     DateTimeOffset BuiltAt,
     IReadOnlyList<LensLibraryEntryDto> Entries);
+
+public sealed record CommercialLensEntryDto(
+    string Id,
+    string Manufacturer,
+    string PartNumber,
+    string Name,
+    string ProductStatus,
+    string ProductUrl,
+    string DataSheetUrl,
+    string LensType,
+    string ShapeCode,
+    string SurfaceType,
+    int ElementCount,
+    double EffectiveFocalLength,
+    double CatalogDiameter,
+    double ClearAperture,
+    double BackFocalLength,
+    double NumericalAperture,
+    double MinimumWavelengthNanometers,
+    double MaximumWavelengthNanometers,
+    double MinimumWorkingDistance,
+    double MaximumWorkingDistance,
+    string ModelStatus,
+    string? NativePath,
+    string SourceNote,
+    DateTimeOffset VerifiedAt,
+    double EntrancePupilDiameter);
+
+public sealed record CommercialLensCatalogDocument(
+    int Version,
+    DateTimeOffset BuiltAt,
+    IReadOnlyList<CommercialLensEntryDto> Entries);
+
+public sealed record StockLensMatchRequestDto(
+    double TargetEffectiveFocalLength,
+    double TargetEntrancePupilDiameter,
+    IReadOnlyList<string> Manufacturers,
+    int MaximumResults,
+    double EffectiveFocalLengthTolerancePercent,
+    double EntrancePupilDiameterTolerancePercent,
+    bool MatchShape,
+    string TargetShapeCode,
+    bool MatchPowerDirection);
+
+public sealed record StockLensMatchResultDto(
+    CommercialLensEntryDto Entry,
+    double EffectiveFocalLengthDeviationPercent,
+    double EntrancePupilDiameterDeviationPercent,
+    double NormalizedScore,
+    bool DirectionMatches,
+    bool ShapeMatches);
 
 public sealed record SurfaceRowDto(
     int Number,

@@ -52,7 +52,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                 optic.SurfaceGroup.TotalTrack,
                 optic.SurfaceGroup.Items.Count,
                 optic.Fields.Count,
-                optic.Wavelengths.Count);
+                optic.Wavelengths.Count,
+                optic.Paraxial.EstimateEntrancePupilDiameter());
         }
     }
 

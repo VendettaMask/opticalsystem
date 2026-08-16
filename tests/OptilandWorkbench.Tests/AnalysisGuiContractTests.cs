@@ -53,7 +53,26 @@ public sealed class AnalysisGuiContractTests
             typeof(ContractLensLibraryService),
             typeof(Func<string, Task>)
         }));
+        Assert.NotNull(typeof(CommercialLensCatalogPanel).GetConstructor(new[]
+        {
+            typeof(ContractLensLibraryService),
+            typeof(Func<string, Task>)
+        }));
         Assert.Equal("lens-library", WorkspaceDocumentTypes.LensLibrary);
+        Assert.Equal("stock-lens-catalog", WorkspaceDocumentTypes.StockLensCatalog);
+        Assert.Equal("stock-lens-matching", WorkspaceDocumentTypes.StockLensMatching);
+        Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.StockLensCatalog));
+        Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.StockLensMatching));
+        Assert.NotNull(typeof(StockLensMatchingPanel).GetConstructor(new[]
+        {
+            typeof(AnalysisContracts.IOpticalDocumentService),
+            typeof(ContractLensLibraryService),
+            typeof(AnalysisContracts.IWorkspaceEventStream)
+        }));
+        Assert.EndsWith(
+            Path.Combine("Zemax", "Stockcat"),
+            MainWindow.InstalledZemaxStockCatalogDirectory(),
+            StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

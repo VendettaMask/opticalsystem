@@ -166,6 +166,22 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:lens-library", WorkspaceDocumentTypes.LensLibrary, "镜头库");
     }
 
+    public void ShowStockLensCatalog()
+    {
+        OpenStable(
+            "document:stock-lens-catalog",
+            WorkspaceDocumentTypes.StockLensCatalog,
+            "库存镜头查看");
+    }
+
+    public void ShowStockLensMatching()
+    {
+        OpenStable(
+            "document:stock-lens-matching",
+            WorkspaceDocumentTypes.StockLensMatching,
+            "库存镜头匹配");
+    }
+
     public void ShowGlassCatalog()
     {
         OpenStable("document:glass-catalog", WorkspaceDocumentTypes.GlassCatalog, "玻璃");

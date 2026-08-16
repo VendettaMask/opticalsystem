@@ -72,6 +72,8 @@ WorkbenchApplication
   CadExportService
 ```
 
+`LensLibraryService` 只读加载两类明确分离的资源：版本 2 的设计镜头库 `index.json`/`projects/*.staropt`，以及库存镜头目录。库存目录合并版本 1 的离线 `commercial-index.json` 与当前用户 `Documents/Zemax/Stockcat` 中版本 1001 ZMF 的目录头，但 `StockLensCatalogPolicy` 在读取入口和合并出口都限制为 Thorlabs、Edmund Optics、Daheng Optics、Newport、Sigma Koki 五家；`ZemaxStockCatalogReader` 跳过 ZMF 处方正文，只发布料号、分类、EFL 和 EPD 等目录元数据。`StockLensMatcher` 使用当前文档快照的一阶 EFL/EPD 做厂商、方向和公差过滤，并按归一化双参数偏差排序。设计库条目具有可校验的原生工程和预览；库存目录只有条目显式指向库内 `.staropt` 且文件存在时才提供载入能力，不能从目录元数据或受限 ZMF 正文伪造光学处方。
+
 `WorkspaceCoordinator` 串行化写操作、控制文档生命周期取消令牌、递增修订号并发布分类事件。分析和可视化针对快照运行。原来的大型 `OptilandConnector` 已缩减为兼容旧调用者的薄外观。
 
 ## Avalonia 与 Dock 工作区

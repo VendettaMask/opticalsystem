@@ -607,15 +607,24 @@ internal sealed class LensLibraryPanel : UserControl
     };
     private readonly TextBlock _name = DetailValue(18, FontWeight.SemiBold);
     private readonly TextBlock _source = DetailValue();
+    private readonly TextBlock _sourceUrl = DetailValue();
     private readonly TextBlock _license = DetailValue();
     private readonly TextBlock _format = DetailValue();
     private readonly TextBlock _efl = DetailValue();
     private readonly TextBlock _fNumber = DetailValue();
-    private readonly TextBlock _aperture = DetailValue();
+    private readonly TextBlock _numericalAperture = DetailValue();
+    private readonly TextBlock _workingDistance = DetailValue();
     private readonly TextBlock _track = DetailValue();
+    private readonly TextBlock _maximumAperture = DetailValue();
+    private readonly TextBlock _lensElements = DetailValue();
     private readonly TextBlock _surfaces = DetailValue();
     private readonly TextBlock _fields = DetailValue();
     private readonly TextBlock _wavelengths = DetailValue();
+    private readonly TextBlock _lensType = DetailValue();
+    private readonly TextBlock _application = DetailValue();
+    private readonly TextBlock _designOrganization = DetailValue();
+    private readonly TextBlock _importedAt = DetailValue();
+    private readonly TextBlock _importerVersion = DetailValue();
     private IReadOnlyList<LensLibraryEntryDto> _all = Array.Empty<LensLibraryEntryDto>();
     private IReadOnlyList<LensLibraryEntryDto> _visible = Array.Empty<LensLibraryEntryDto>();
     private int _previewGeneration;
@@ -718,20 +727,30 @@ internal sealed class LensLibraryPanel : UserControl
         var panel = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("Auto,*,24,Auto,*"),
-            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto"),
+            RowDefinitions = new RowDefinitions(
+                "Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
             RowSpacing = 7
         };
         AddPair(panel, "镜头：", _name, 0, 0);
-        AddPair(panel, "来源：", _source, 0, 1);
-        AddPair(panel, "许可证：", _license, 1, 0);
-        AddPair(panel, "格式/状态：", _format, 1, 1);
-        AddPair(panel, "有效焦距：", _efl, 2, 0);
-        AddPair(panel, "F 数：", _fNumber, 2, 1);
-        AddPair(panel, "系统孔径：", _aperture, 3, 0);
-        AddPair(panel, "系统总长：", _track, 3, 1);
-        AddPair(panel, "表面数：", _surfaces, 4, 0);
-        AddPair(panel, "视场数：", _fields, 4, 1);
-        AddPair(panel, "波长：", _wavelengths, 5, 0);
+        AddPair(panel, "镜头类型：", _lensType, 0, 1);
+        AddPair(panel, "应用场景：", _application, 1, 0);
+        AddPair(panel, "设计单位：", _designOrganization, 1, 1);
+        AddPair(panel, "来源：", _source, 2, 0);
+        AddPair(panel, "许可证：", _license, 2, 1);
+        AddPair(panel, "有效焦距：", _efl, 3, 0);
+        AddPair(panel, "F/#：", _fNumber, 3, 1);
+        AddPair(panel, "数值孔径：", _numericalAperture, 4, 0);
+        AddPair(panel, "工作距离：", _workingDistance, 4, 1);
+        AddPair(panel, "视场：", _fields, 5, 0);
+        AddPair(panel, "波长范围：", _wavelengths, 5, 1);
+        AddPair(panel, "镜片数：", _lensElements, 6, 0);
+        AddPair(panel, "最大口径：", _maximumAperture, 6, 1);
+        AddPair(panel, "系统总长：", _track, 7, 0);
+        AddPair(panel, "表面数：", _surfaces, 7, 1);
+        AddPair(panel, "导入时间：", _importedAt, 8, 0);
+        AddPair(panel, "导入器版本：", _importerVersion, 8, 1);
+        AddPair(panel, "来源地址：", _sourceUrl, 9, 0);
+        AddPair(panel, "格式/状态：", _format, 9, 1);
         return panel;
     }
 
@@ -754,7 +773,10 @@ internal sealed class LensLibraryPanel : UserControl
                 lens.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
             .Where(lens => string.IsNullOrEmpty(query) ||
                 lens.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                lens.SourceName.Contains(query, StringComparison.OrdinalIgnoreCase))
+                lens.SourceName.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                lens.LensType.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                lens.Application.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                lens.DesignOrganization.Contains(query, StringComparison.OrdinalIgnoreCase))
             .ToArray();
         _list.ItemsSource = _visible.Select(lens =>
             $"{lens.Name}\n{lens.Category} · {lens.SourceName}").ToArray();
@@ -783,22 +805,39 @@ internal sealed class LensLibraryPanel : UserControl
 
         _name.Text = lens.Name;
         _source.Text = lens.SourceName;
+        _sourceUrl.Text = TextOrDash(lens.SourceUrl);
         _license.Text = lens.License;
         _format.Text = $"{lens.SourceFormat} · {lens.ImportStatus}";
         _efl.Text = Millimeters(lens.EffectiveFocalLength);
         _fNumber.Text = Number(lens.FNumber);
-        _aperture.Text = ApertureDescription(lens);
+        _numericalAperture.Text = MetadataNumber(
+            lens.NumericalAperture,
+            lens.NumericalApertureBasis);
+        _workingDistance.Text = MetadataMillimeters(
+            lens.WorkingDistance,
+            lens.WorkingDistanceBasis);
         _track.Text = Millimeters(lens.TotalTrack);
+        _maximumAperture.Text = Millimeters(lens.MaximumClearAperture);
+        _lensElements.Text = lens.LensElementCount > 0
+            ? $"{lens.LensElementCount} 片"
+            : "—";
         _surfaces.Text = lens.SurfaceCount.ToString(CultureInfo.InvariantCulture);
         _fields.Text = FieldDescription(lens);
+        _lensType.Text = TextOrDash(lens.LensType);
+        _application.Text = TextOrDash(lens.Application);
+        _designOrganization.Text = TextOrDash(lens.DesignOrganization);
+        _importedAt.Text = lens.ImportedAt is null
+            ? "历史条目未记录"
+            : lens.ImportedAt.Value.ToLocalTime().ToString(
+                "yyyy-MM-dd HH:mm:ss",
+                CultureInfo.InvariantCulture);
+        _importerVersion.Text = TextOrDash(lens.ImporterVersion);
         _wavelengths.Text = lens.WavelengthCount == 0
             ? "—"
             : lens.MinimumWavelengthNanometers == lens.MaximumWavelengthNanometers
                 ? $"{Number(lens.MinimumWavelengthNanometers)} nm"
                 : $"{Number(lens.MinimumWavelengthNanometers)}–{Number(lens.MaximumWavelengthNanometers)} nm";
-        _status.Text = string.IsNullOrWhiteSpace(lens.SourceUrl)
-            ? $"库文件：{lens.NativePath}"
-            : $"来源：{lens.SourceUrl}";
+        _status.Text = $"库文件：{lens.NativePath}";
 
         var generation = ++_previewGeneration;
         try
@@ -868,7 +907,9 @@ internal sealed class LensLibraryPanel : UserControl
         foreach (var value in new[]
         {
             _name, _source, _license, _format, _efl, _fNumber,
-            _aperture, _track, _surfaces, _fields, _wavelengths
+            _sourceUrl, _numericalAperture, _workingDistance, _track,
+            _maximumAperture, _lensElements, _surfaces, _fields, _wavelengths,
+            _lensType, _application, _designOrganization, _importedAt, _importerVersion
         })
         {
             value.Text = "—";
@@ -922,6 +963,21 @@ internal sealed class LensLibraryPanel : UserControl
         var number = Number(value);
         return number == "—" ? number : $"{number} mm";
     }
+
+    private static string MetadataNumber(double value, string basis)
+    {
+        var number = Number(value);
+        return number == "—" ? number : $"{number} · {TextOrDash(basis)}";
+    }
+
+    private static string MetadataMillimeters(double value, string basis)
+    {
+        var millimeters = Millimeters(value);
+        return millimeters == "—" ? millimeters : $"{millimeters} · {TextOrDash(basis)}";
+    }
+
+    private static string TextOrDash(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? "—" : value;
 
     private static string ApertureDescription(LensLibraryEntryDto lens)
     {

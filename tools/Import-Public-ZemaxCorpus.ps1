@@ -2,6 +2,9 @@
 param(
     [string]$RepositoryRoot = '',
     [string]$ImporterDll = '',
+    [string]$ExamplesDirectory = '',
+    [string]$LibraryDirectory = '',
+    [string]$ConversionReportPath = '',
     [switch]$RetrySuccessful
 )
 
@@ -13,11 +16,25 @@ if ([string]::IsNullOrWhiteSpace($RepositoryRoot)) {
 }
 $repository = [IO.Path]::GetFullPath($RepositoryRoot)
 $corpusRoot = Join-Path $repository 'local-data\lens-library\originals\user-zmx\public'
+$examplesDirectory = if ([string]::IsNullOrWhiteSpace($ExamplesDirectory)) {
+    Join-Path $repository 'samples\lenses'
+} else {
+    [IO.Path]::GetFullPath($ExamplesDirectory)
+}
+$libraryDirectory = if ([string]::IsNullOrWhiteSpace($LibraryDirectory)) {
+    Join-Path $repository 'src\OptilandWorkbench.App\Assets\LensLibrary'
+} else {
+    [IO.Path]::GetFullPath($LibraryDirectory)
+}
+$conversionReportPath = if ([string]::IsNullOrWhiteSpace($ConversionReportPath)) {
+    Join-Path $corpusRoot 'conversion-report.json'
+} else {
+    [IO.Path]::GetFullPath($ConversionReportPath)
+}
 $manifestPaths = @(
     (Join-Path $corpusRoot 'manifest.json'),
     (Join-Path $corpusRoot 'dan-reiley-manifest.json')
 ) | Where-Object { [IO.File]::Exists($_) }
-$reportPath = Join-Path $corpusRoot 'conversion-report.json'
 if ($manifestPaths.Count -eq 0) {
     throw (
         "No download manifest found under $corpusRoot. Run " +
@@ -58,8 +75,8 @@ foreach ($manifestPath in $manifestPaths) {
     }
 }
 $previous = @{}
-if (-not $RetrySuccessful -and [IO.File]::Exists($reportPath)) {
-    $oldReport = Get-Content -LiteralPath $reportPath -Raw -Encoding UTF8 | ConvertFrom-Json
+if (-not $RetrySuccessful -and [IO.File]::Exists($conversionReportPath)) {
+    $oldReport = Get-Content -LiteralPath $conversionReportPath -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach ($item in $oldReport.Results) {
         if ($item.Status -eq 'converted') {
             $previous["$($item.Provider)/$($item.SourceId)/$($item.FileId)"] = $item
@@ -99,6 +116,8 @@ foreach ($entry in $manifestEntries) {
         $ImporterDll,
         $inputPath,
         '--repo-root', $repository,
+        '--examples', $examplesDirectory,
+        '--library', $libraryDirectory,
         '--source-id', $sourceId,
         '--source-name', $sourceName,
         '--source-url', [string]$entry.SourceUrl,
@@ -107,6 +126,35 @@ foreach ($entry in $manifestEntries) {
         '--name', $baseName,
         '--example-file', $exampleFile
     )
+
+    $lensType = if ($null -eq $entry.PSObject.Properties['LensType']) {
+        ''
+    }
+    else {
+        [string]$entry.LensType
+    }
+    $application = if ($null -eq $entry.PSObject.Properties['Application']) {
+        ''
+    }
+    else {
+        [string]$entry.Application
+    }
+    $designOrganization = if ($null -eq $entry.PSObject.Properties['DesignOrganization']) {
+        ''
+    }
+    else {
+        [string]$entry.DesignOrganization
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($lensType)) {
+        $arguments += @('--lens-type', $lensType)
+    }
+    if (-not [string]::IsNullOrWhiteSpace($application)) {
+        $arguments += @('--application', $application)
+    }
+    if (-not [string]::IsNullOrWhiteSpace($designOrganization)) {
+        $arguments += @('--design-organization', $designOrganization)
+    }
 
     $originalErrorActionPreference = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
@@ -143,13 +191,17 @@ $report = [ordered]@{
     Manifests = @($manifestPaths)
     Results = @($results)
 }
+$reportDirectory = [IO.Path]::GetDirectoryName($conversionReportPath)
+if (-not [string]::IsNullOrWhiteSpace($reportDirectory)) {
+    [IO.Directory]::CreateDirectory($reportDirectory) | Out-Null
+}
 [IO.File]::WriteAllText(
-    $reportPath,
+    $conversionReportPath,
     ($report | ConvertTo-Json -Depth 8),
     [Text.UTF8Encoding]::new($false))
 
 $converted = @($results | Where-Object Status -eq 'converted').Count
 $failed = @($results | Where-Object Status -eq 'failed').Count
 $duplicates = @($results | Where-Object Status -eq 'duplicate-skipped').Count
-Write-Output "Conversion report: $reportPath"
+Write-Output "Conversion report: $conversionReportPath"
 Write-Output "Converted: $converted; failed: $failed; duplicates skipped: $duplicates"

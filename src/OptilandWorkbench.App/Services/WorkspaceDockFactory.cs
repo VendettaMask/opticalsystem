@@ -423,6 +423,13 @@ public sealed class WorkspaceDockFactory : Factory
             WorkspaceDocumentTypes.LensLibrary => new LensLibraryPanel(
                 _application.Lenses,
                 OpenLensLibraryProjectAsync),
+            WorkspaceDocumentTypes.StockLensCatalog => new CommercialLensCatalogPanel(
+                _application.Lenses,
+                OpenLensLibraryProjectAsync),
+            WorkspaceDocumentTypes.StockLensMatching => new StockLensMatchingPanel(
+                _application.Documents,
+                _application.Lenses,
+                _application.Events),
             WorkspaceDocumentTypes.GlassCatalog => new GlassCatalogPanel(_application.Materials),
             WorkspaceDocumentTypes.MaterialAnalysis => new MaterialAnalysisPanel(
                 _application.Materials,
