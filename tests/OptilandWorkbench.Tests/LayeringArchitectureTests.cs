@@ -1,6 +1,7 @@
 using System.Reflection;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
 using OptilandWorkbench.Core;
@@ -60,9 +61,9 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
-    public void LegacyConnectorAddsNoMembersButStillInheritsTheLegacyRuntime()
+    public void LegacyConnectorAddsNoMembersAndDelegatesToTheCanonicalRuntime()
     {
-        Assert.Equal(typeof(OpticalWorkspaceModel), typeof(OptilandConnector).BaseType);
+        Assert.Equal(typeof(WorkbenchRuntime), typeof(OptilandConnector).BaseType);
 
         var declaredMethods = typeof(OptilandConnector).GetMethods(
             BindingFlags.Public
@@ -74,25 +75,8 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
-    public void ProductionServicesCannotAddNewLegacyDependencies()
+    public void ProductionServicesDoNotReferenceLegacyNamespace()
     {
-        var allowed = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "AnalysisService.cs",
-            "Mapping/WorkbenchMapper.cs",
-            "MaterialCatalogService.Analysis.cs",
-            "MaterialCatalogService.cs",
-            "MultiConfigurationService.cs",
-            "OpticalDocumentService.cs",
-            "OpticContext.cs",
-            "OptimizationService.cs",
-            "OptimizationService.Run.cs",
-            "PrescriptionService.cs",
-            "TolerancingService.cs",
-            "VisualizationService.cs",
-            "WorkbenchServiceBase.cs",
-            "WorkspaceCoordinator.cs"
-        };
         var servicesRoot = Path.Combine(
             FindRepositoryRoot(),
             "src",
@@ -105,61 +89,32 @@ public sealed class LayeringArchitectureTests
             .Select(path => Path.GetRelativePath(servicesRoot, path).Replace('\\', '/'))
             .ToHashSet(StringComparer.Ordinal);
 
-        Assert.True(
-            actual.IsSubsetOf(allowed),
-            $"New production Legacy dependencies: {string.Join(", ", actual.Except(allowed))}");
+        Assert.Empty(actual);
     }
 
     [Fact]
-    public void ProductionServicesCannotIncreaseLegacyRuntimeCalls()
+    public void ProductionServicesUseTheCanonicalRuntimeVocabulary()
     {
-        var maximumReferences = new Dictionary<string, (int Model, int Connector)>(StringComparer.Ordinal)
-        {
-            ["AnalysisService.cs"] = (3, 5),
-            ["CadExportService.cs"] = (0, 1),
-            ["MaterialCatalogService.cs"] = (1, 0),
-            ["MultiConfigurationService.cs"] = (0, 4),
-            ["OpticalDocumentService.cs"] = (2, 8),
-            ["OpticContext.cs"] = (3, 0),
-            ["OptimizationService.cs"] = (0, 11),
-            ["OptimizationService.Run.cs"] = (2, 10),
-            ["PrescriptionService.cs"] = (0, 44),
-            ["TolerancingService.cs"] = (1, 4),
-            ["VisualizationService.cs"] = (0, 4),
-            ["WorkbenchServiceBase.cs"] = (1, 1),
-            ["WorkspaceCoordinator.cs"] = (1, 10)
-        };
         var servicesRoot = Path.Combine(
             FindRepositoryRoot(),
             "src",
             "OptilandWorkbench.Application",
             "Services");
 
-        foreach (var path in Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories))
-        {
-            var source = File.ReadAllText(path);
-            var modelReferences = System.Text.RegularExpressions.Regex.Matches(
-                source,
-                @"\bOpticalWorkspaceModel\b").Count;
-            var connectorCalls = System.Text.RegularExpressions.Regex.Matches(
-                source,
-                @"\bConnector\.").Count;
-            if (modelReferences == 0 && connectorCalls == 0)
-            {
-                continue;
-            }
+        var legacyVocabulary = Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => File.ReadLines(path)
+                .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
+            .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
+                item.Line,
+                @"\bOpticalWorkspaceModel\b|\bConnector\."))
+            .Select(item => $"{Path.GetRelativePath(servicesRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
 
-            var relativePath = Path.GetRelativePath(servicesRoot, path).Replace('\\', '/');
-            Assert.True(
-                maximumReferences.TryGetValue(relativePath, out var maximum),
-                $"New production Legacy runtime dependency: {relativePath}");
-            Assert.True(
-                modelReferences <= maximum.Model,
-                $"{relativePath} increased OpticalWorkspaceModel references from {maximum.Model} to {modelReferences}.");
-            Assert.True(
-                connectorCalls <= maximum.Connector,
-                $"{relativePath} increased Connector calls from {maximum.Connector} to {connectorCalls}.");
-        }
+        Assert.True(
+            legacyVocabulary.Length == 0,
+            "Production services must use WorkbenchRuntime directly:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, legacyVocabulary));
     }
 
     [Fact]
@@ -223,6 +178,45 @@ public sealed class LayeringArchitectureTests
             "Use SettingsPanelChrome.CardCornerRadius or ControlCornerRadius instead of split card/control radius values:"
             + Environment.NewLine
             + string.Join(Environment.NewLine, splitCardRadii));
+    }
+
+    [Fact]
+    public void DockDocumentsDoNotRestoreLargeFixedMinimumWidths()
+    {
+        var appRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.App");
+        var responsiveDocuments = new[]
+        {
+            "Panels/Analysis/AnalysisPanel.Parameters.cs",
+            "Panels/CommercialLensCatalogPanel.cs",
+            "Panels/MaterialAnalysisPanel.cs",
+            "Panels/MaterialDatabasePanels.cs",
+            "Panels/ViewerPanel.cs"
+        };
+        var violations = responsiveDocuments
+            .SelectMany(relativePath => File.ReadLines(Path.Combine(
+                    appRoot,
+                    relativePath.Replace('/', Path.DirectorySeparatorChar)))
+                .Select((line, index) => (RelativePath: relativePath, Line: line, LineNumber: index + 1)))
+            .SelectMany(item => System.Text.RegularExpressions.Regex.Matches(
+                    item.Line,
+                    @"\bMinWidth\s*=\s*(?<width>\d+)")
+                .Select(match => (item.RelativePath, item.Line, item.LineNumber, Width: int.Parse(match.Groups["width"].Value))))
+            .Where(item => item.Width >= 500)
+            .Select(item => $"{item.RelativePath}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
+
+        Assert.True(
+            violations.Length == 0,
+            "Dock documents must reflow instead of imposing a minimum width of 500px or more:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, violations));
+
+        var mainWindow = File.ReadAllText(Path.Combine(appRoot, "MainWindow.cs"));
+        Assert.Contains("MinWidth = 720;", mainWindow);
+        Assert.Contains("Math.Clamp(_settings.WindowWidth, 720, 4096)", mainWindow);
     }
 
     [Fact]

@@ -1,5 +1,5 @@
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Application.Services;
@@ -18,15 +18,15 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
     public WorkspaceCoordinator(IOpticContext context)
     {
         _context = context;
-        Connector.OpticLoaded += OnOpticLoaded;
-        Connector.OpticChanged += OnOpticChanged;
+        Runtime.OpticLoaded += OnOpticLoaded;
+        Runtime.OpticChanged += OnOpticChanged;
     }
 
     public event EventHandler<WorkspaceChangedEventArgs>? Changed;
 
     public object Gate => _context.SyncRoot;
 
-    public OpticalWorkspaceModel Connector => _context.Connector;
+    public WorkbenchRuntime Runtime => _context.Runtime;
 
     public long Revision => Interlocked.Read(ref _revision);
 
@@ -38,14 +38,14 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
     {
         lock (Gate)
         {
-            var optic = Connector.CurrentOptic;
+            var optic = Runtime.CurrentOptic;
             return new OpticalDocumentSnapshot(
                 optic.Name,
                 CurrentPath,
                 Revision,
-                Connector.Status,
-                Connector.CanUndo,
-                Connector.CanRedo,
+                Runtime.Status,
+                Runtime.CanUndo,
+                Runtime.CanRedo,
                 optic.Paraxial.EstimateEffectiveFocalLength(),
                 optic.Paraxial.EstimateFNumber(),
                 optic.Aperture.Value,
@@ -134,8 +134,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         }
 
         _disposed = true;
-        Connector.OpticLoaded -= OnOpticLoaded;
-        Connector.OpticChanged -= OnOpticChanged;
+        Runtime.OpticLoaded -= OnOpticLoaded;
+        Runtime.OpticChanged -= OnOpticChanged;
         _context.Dispose();
     }
 
@@ -171,14 +171,14 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         Changed?.Invoke(this, new WorkspaceChangedEventArgs(
             revision,
             category,
-            Connector.Status,
+            Runtime.Status,
             fileSwitched));
     }
 
     public void RefreshAutomaticSemiDiameters()
     {
         using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
-        AutomaticSemiDiameterSolver.Update(Connector.CurrentOptic);
+        AutomaticSemiDiameterSolver.Update(Runtime.CurrentOptic);
     }
 
     private static bool UpdatesAutomaticSemiDiameters(WorkspaceChangeCategory category) => category is

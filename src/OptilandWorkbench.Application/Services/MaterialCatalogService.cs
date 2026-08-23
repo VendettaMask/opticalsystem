@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -38,7 +38,7 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
 
     private object _gate => _workspace.Gate;
 
-    private OpticalWorkspaceModel _connector => _workspace.Connector;
+    private WorkbenchRuntime _runtime => _workspace.Runtime;
 
     public IReadOnlyList<MaterialCatalogDto> GetCatalogs()
     {
@@ -53,7 +53,7 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
     {
         lock (_gate)
         {
-            return _connector.CurrentOptic.Materials.GlassManufacturers.ToArray();
+            return _runtime.CurrentOptic.Materials.GlassManufacturers.ToArray();
         }
     }
 
@@ -99,7 +99,7 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
 
     private IReadOnlyList<CatalogGlassMaterial> CatalogGlasses()
     {
-        var materials = _connector.CurrentOptic.Materials;
+        var materials = _runtime.CurrentOptic.Materials;
         var glasses = new Dictionary<string, CatalogGlassMaterial>(StringComparer.OrdinalIgnoreCase);
         foreach (var name in materials.Names)
         {

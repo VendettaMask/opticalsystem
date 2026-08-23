@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -36,15 +36,15 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         lock (Gate)
         {
             return new PrescriptionOptionsDto(
-                Connector.BackendNames,
-                Connector.ApertureKindNames,
-                Connector.FieldDefinitionNames,
-                Connector.ApodizationKinds,
-                Connector.GeometryKinds,
-                Connector.MaterialNames,
-                Connector.CoatingKinds,
-                Connector.InteractionKinds,
-                Connector.PhysicalApertureKinds);
+                Runtime.BackendNames,
+                Runtime.ApertureKindNames,
+                Runtime.FieldDefinitionNames,
+                Runtime.ApodizationKinds,
+                Runtime.GeometryKinds,
+                Runtime.MaterialNames,
+                Runtime.CoatingKinds,
+                Runtime.InteractionKinds,
+                Runtime.PhysicalApertureKinds);
         }
     }
 
@@ -52,7 +52,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            return Connector.Surfaces.Select(ToSurfaceDto).ToArray();
+            return Runtime.Surfaces.Select(ToSurfaceDto).ToArray();
         }
     }
 
@@ -60,7 +60,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            var optic = Connector.CurrentOptic;
+            var optic = Runtime.CurrentOptic;
             var (apodizationKind, first, second) = ToApodizationSettings(optic.Apodization);
             return new SystemSettingsDto(
                 optic.Backend.Current.Name,
@@ -92,7 +92,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            var environment = Connector.CurrentOptic.Environment;
+            var environment = Runtime.CurrentOptic.Environment;
             return new EnvironmentSettingsDto(
                 environment.MatchRefractiveIndexData,
                 environment.TemperatureCelsius,
@@ -104,7 +104,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            return Connector.CurrentOptic.GlassCatalogs.ToArray();
+            return Runtime.CurrentOptic.GlassCatalogs.ToArray();
         }
     }
 
@@ -112,7 +112,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            return Connector.Fields.Select((field, index) => new FieldRowDto(
+            return Runtime.Fields.Select((field, index) => new FieldRowDto(
                 index,
                 field.Label,
                 field.X,
@@ -127,7 +127,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            return Connector.Wavelengths.Select((wavelength, index) => new WavelengthRowDto(
+            return Runtime.Wavelengths.Select((wavelength, index) => new WavelengthRowDto(
                 index,
                 wavelength.Label,
                 wavelength.Nanometers,
@@ -136,11 +136,11 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         }
     }
 
-    public void AddSurface() => Mutate(WorkspaceChangeCategory.Surface, Connector.AddSurface);
+    public void AddSurface() => Mutate(WorkspaceChangeCategory.Surface, Runtime.AddSurface);
 
     public void RemoveSurface(int surfaceNumber) => Mutate(
         WorkspaceChangeCategory.Surface,
-        () => Connector.RemoveSurface(FindSurface(surfaceNumber)));
+        () => Runtime.RemoveSurface(FindSurface(surfaceNumber)));
 
     public void UpdateSurface(SurfaceRowDto surface)
     {
@@ -152,8 +152,8 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
                 return;
             }
 
-            Connector.CaptureCurrentState();
-            var isImageSurface = ReferenceEquals(target, Connector.Surfaces[^1]);
+            Runtime.CaptureCurrentState();
+            var isImageSurface = ReferenceEquals(target, Runtime.Surfaces[^1]);
             target.Label = surface.Label;
             target.Radius = surface.Radius;
             if (!isImageSurface)
@@ -171,20 +171,20 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             target.IsStop = surface.IsStop;
             target.RadiusVariable = surface.RadiusVariable;
             target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable;
-            Connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
+            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
             if (!isImageSurface)
             {
-                Connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
+                Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
             }
-            Connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Material));
-            Connector.CommitSurfaceEdit(target, nameof(OpticalSurface.Coating));
-            Connector.CommitSurfaceEdit(target, nameof(OpticalSurface.IsStop));
+            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Material));
+            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Coating));
+            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.IsStop));
         });
     }
 
     public void UpdateSurfaceComponents(int surfaceNumber, SurfaceComponentUpdateDto update)
     {
-        Mutate(WorkspaceChangeCategory.Surface, () => Connector.ApplySurfaceComponents(
+        Mutate(WorkspaceChangeCategory.Surface, () => Runtime.ApplySurfaceComponents(
             FindSurface(surfaceNumber),
             update.GeometryKind,
             update.ApertureKind,
@@ -194,61 +194,61 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             update.ThinLensFocalLength));
     }
 
-    public void AddField() => Mutate(WorkspaceChangeCategory.Field, Connector.AddField);
+    public void AddField() => Mutate(WorkspaceChangeCategory.Field, Runtime.AddField);
 
     public void RemoveField(int index) => Mutate(
         WorkspaceChangeCategory.Field,
-        () => Connector.RemoveField(ElementAtOrDefault(Connector.Fields, index)));
+        () => Runtime.RemoveField(ElementAtOrDefault(Runtime.Fields, index)));
 
     public void UpdateField(FieldRowDto field)
     {
         Mutate(WorkspaceChangeCategory.Field, () =>
         {
-            var target = ElementAtOrDefault(Connector.Fields, field.Index);
+            var target = ElementAtOrDefault(Runtime.Fields, field.Index);
             if (target is null)
             {
                 return;
             }
 
-            Connector.CaptureCurrentState();
+            Runtime.CaptureCurrentState();
             target.Label = field.Label;
             target.X = field.X;
             target.Y = field.Y;
             target.VignetteFactorX = field.VignetteFactorX;
             target.VignetteFactorY = field.VignetteFactorY;
             target.Weight = field.Weight;
-            Connector.CommitSystemEdit(target);
+            Runtime.CommitSystemEdit(target);
         });
     }
 
-    public void AddWavelength() => Mutate(WorkspaceChangeCategory.Wavelength, Connector.AddWavelength);
+    public void AddWavelength() => Mutate(WorkspaceChangeCategory.Wavelength, Runtime.AddWavelength);
 
     public void RemoveWavelength(int index) => Mutate(
         WorkspaceChangeCategory.Wavelength,
-        () => Connector.RemoveWavelength(ElementAtOrDefault(Connector.Wavelengths, index)));
+        () => Runtime.RemoveWavelength(ElementAtOrDefault(Runtime.Wavelengths, index)));
 
     public void UpdateWavelength(WavelengthRowDto wavelength)
     {
         Mutate(WorkspaceChangeCategory.Wavelength, () =>
         {
-            var target = ElementAtOrDefault(Connector.Wavelengths, wavelength.Index);
+            var target = ElementAtOrDefault(Runtime.Wavelengths, wavelength.Index);
             if (target is null)
             {
                 return;
             }
 
-            Connector.CaptureCurrentState();
+            Runtime.CaptureCurrentState();
             target.Label = wavelength.Label;
             target.Nanometers = wavelength.Nanometers;
             target.Weight = wavelength.Weight;
             target.IsPrimary = wavelength.IsPrimary;
-            Connector.CommitSystemEdit(target);
+            Runtime.CommitSystemEdit(target);
         });
     }
 
     public void UpdateSystemSettings(SystemSettingsDto settings)
     {
-        Mutate(WorkspaceChangeCategory.SystemSettings, () => Connector.ApplySystemSettings(
+        Mutate(WorkspaceChangeCategory.SystemSettings, () => Runtime.ApplySystemSettings(
             settings.Backend,
             settings.ApertureKind,
             settings.ApertureValue,
@@ -263,12 +263,12 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         Mutate(WorkspaceChangeCategory.SystemSettings, () =>
         {
-            var environment = Connector.CurrentOptic.Environment;
-            Connector.CaptureCurrentState();
+            var environment = Runtime.CurrentOptic.Environment;
+            Runtime.CaptureCurrentState();
             environment.MatchRefractiveIndexData = settings.MatchRefractiveIndexData;
             environment.TemperatureCelsius = settings.TemperatureCelsius;
             environment.PressureAtmospheres = settings.PressureAtmospheres;
-            Connector.CommitSystemEdit();
+            Runtime.CommitSystemEdit();
         });
     }
 
@@ -284,9 +284,9 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
         Mutate(WorkspaceChangeCategory.SystemSettings, () =>
         {
-            Connector.CaptureCurrentState();
-            Connector.CurrentOptic.Materials.SetPreferredGlassCatalogs(catalogs);
-            Connector.CommitSystemEdit();
+            Runtime.CaptureCurrentState();
+            Runtime.CurrentOptic.Materials.SetPreferredGlassCatalogs(catalogs);
+            Runtime.CommitSystemEdit();
         });
     }
 }

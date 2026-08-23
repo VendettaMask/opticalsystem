@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -34,7 +34,7 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
     {
         lock (Gate)
         {
-            return Connector.GetMultiConfigurationRows().Select(row => new MultiConfigurationRowDto(
+            return Runtime.GetMultiConfigurationRows().Select(row => new MultiConfigurationRowDto(
                 row.Index,
                 row.Name,
                 row.Active,
@@ -44,17 +44,17 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
         }
     }
 
-    public int Add() => Mutate(WorkspaceChangeCategory.Configuration, Connector.AddMultiConfiguration);
+    public int Add() => Mutate(WorkspaceChangeCategory.Configuration, Runtime.AddMultiConfiguration);
 
     public void Activate(int configurationIndex)
     {
         Workspace.CancelDocumentTasks();
         Mutate(
             WorkspaceChangeCategory.Configuration,
-            () => Connector.ActivateMultiConfiguration(configurationIndex));
+            () => Runtime.ActivateMultiConfiguration(configurationIndex));
     }
 
     public void SetThickness(int configurationIndex, int surfaceNumber, double thickness) => Mutate(
         WorkspaceChangeCategory.Configuration,
-        () => Connector.SetMultiConfigurationThickness(configurationIndex, surfaceNumber, thickness));
+        () => Runtime.SetMultiConfigurationThickness(configurationIndex, surfaceNumber, thickness));
 }

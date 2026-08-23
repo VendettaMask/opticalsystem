@@ -18,7 +18,7 @@ using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
 using ContractMeritFunctionPreset = OptilandWorkbench.Application.Contracts.MeritFunctionPreset;
 
-namespace OptilandWorkbench.Application.Legacy;
+namespace OptilandWorkbench.Application.Runtime;
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public sealed record LoadedOpticalDocument(
@@ -27,13 +27,13 @@ public sealed record LoadedOpticalDocument(
     int ActiveConfigurationIndex);
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-public partial class OpticalWorkspaceModel
+public partial class WorkbenchRuntime
 {
     private readonly UndoRedoManager _undoRedo = new();
     private MultiConfiguration _multiConfiguration;
     private int _activeConfigurationIndex;
 
-    public OpticalWorkspaceModel(Optic optic)
+    public WorkbenchRuntime(Optic optic)
     {
         CurrentOptic = optic;
         _multiConfiguration = new MultiConfiguration(optic);

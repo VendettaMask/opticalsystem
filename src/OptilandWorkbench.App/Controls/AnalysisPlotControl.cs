@@ -1,5 +1,7 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -164,6 +166,8 @@ public sealed class AnalysisPlotControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        AutomationProperties.SetName(this, "分析图表");
+        AutomationProperties.SetHelpText(this, "使用方向键平移，使用加号或减号缩放，按 Home 重置视图。");
     }
 
     public IReadOnlyList<AnalysisSeries> Series
@@ -192,6 +196,85 @@ public sealed class AnalysisPlotControl : Control
     {
         _viewport = null;
         _hoverPointer = null;
+        InvalidateVisual();
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new InteractiveCanvasAutomationPeer(this);
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (!InteractiveCanvasKeyboard.TryGetCommand(e.Key, out var command))
+        {
+            return;
+        }
+
+        switch (command)
+        {
+            case InteractiveCanvasCommand.Reset:
+                ResetView();
+                break;
+            case InteractiveCanvasCommand.ZoomIn:
+                ZoomView(0.8);
+                break;
+            case InteractiveCanvasCommand.ZoomOut:
+                ZoomView(1.25);
+                break;
+            case InteractiveCanvasCommand.Left:
+                PanView(PlotOptions.ReverseX ? 0.08 : -0.08, 0);
+                break;
+            case InteractiveCanvasCommand.Right:
+                PanView(PlotOptions.ReverseX ? -0.08 : 0.08, 0);
+                break;
+            case InteractiveCanvasCommand.Up:
+                PanView(0, 0.08);
+                break;
+            case InteractiveCanvasCommand.Down:
+                PanView(0, -0.08);
+                break;
+        }
+
+        e.Handled = true;
+    }
+
+    private void ZoomView(double factor)
+    {
+        var viewport = CurrentViewport();
+        if (viewport is null)
+        {
+            return;
+        }
+
+        var current = viewport.Value;
+        var centerX = (current.XMinimum + current.XMaximum) / 2;
+        var centerY = (current.YMinimum + current.YMaximum) / 2;
+        var halfWidth = current.XSpan * factor / 2;
+        var halfHeight = current.YSpan * factor / 2;
+        _viewport = new PlotViewport(
+            centerX - halfWidth,
+            centerX + halfWidth,
+            centerY - halfHeight,
+            centerY + halfHeight);
+        InvalidateVisual();
+    }
+
+    private void PanView(double xFraction, double yFraction)
+    {
+        var viewport = CurrentViewport();
+        if (viewport is null)
+        {
+            return;
+        }
+
+        var current = viewport.Value;
+        var xShift = current.XSpan * xFraction;
+        var yShift = current.YSpan * yFraction;
+        _viewport = new PlotViewport(
+            current.XMinimum + xShift,
+            current.XMaximum + xShift,
+            current.YMinimum + yShift,
+            current.YMaximum + yShift);
         InvalidateVisual();
     }
 

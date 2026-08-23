@@ -85,7 +85,7 @@ dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
 
 ```text
 src/OptilandWorkbench.Core         计算模型、追迹、分析、优化、公差、文件和插件
-src/OptilandWorkbench.Application  无 UI 的应用服务、工作区协调和 DTO 映射
+src/OptilandWorkbench.Application  无 UI 的应用服务、规范 WorkbenchRuntime、工作区协调和 DTO 映射
 src/OptilandWorkbench.App          Avalonia 桌面端、Dock 工作区和会话持久化
 tests/OptilandWorkbench.Tests      核心、兼容、GUI 契约和回归测试
 docs                               架构、格式、兼容、验证和发布文档

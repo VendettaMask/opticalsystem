@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -34,7 +34,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
     {
         lock (Gate)
         {
-            var surfaces = Connector.CurrentOptic.SurfaceGroup.Items;
+            var surfaces = Runtime.CurrentOptic.SurfaceGroup.Items;
             if (surfaces.Count == 0)
             {
                 return Array.Empty<ToleranceOperandDto>();
@@ -111,7 +111,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
         lock (Gate)
         {
             var messages = new List<string>();
-            var surfaceCount = Connector.CurrentOptic.SurfaceGroup.Items.Count;
+            var surfaceCount = Runtime.CurrentOptic.SurfaceGroup.Items.Count;
             var enabled = operands.Where(item => item.Enabled).ToArray();
             if (!enabled.Any(item => item.Kind != ToleranceOperandKind.Compensator))
             {
@@ -140,7 +140,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
 
                 if (operand.SurfaceNumber >= 0 && operand.SurfaceNumber < surfaceCount)
                 {
-                    var surface = Connector.CurrentOptic.SurfaceGroup.Items[operand.SurfaceNumber];
+                    var surface = Runtime.CurrentOptic.SurfaceGroup.Items[operand.SurfaceNumber];
                     if (operand.Kind is ToleranceOperandKind.Thickness or ToleranceOperandKind.Compensator
                         && surface.Thickness + operand.Minimum < 0)
                     {
@@ -197,7 +197,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
         CancellationTokenSource linked;
         lock (Gate)
         {
-            snapshot = Optic.FromSnapshot(Connector.CurrentOptic.ToSnapshot());
+            snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
@@ -215,7 +215,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
             {
                 linked.Token.ThrowIfCancellationRequested();
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
-                var worker = new OpticalWorkspaceModel(snapshot);
+                var worker = new WorkbenchRuntime(snapshot);
                 var view = worker.RunTolerancing(
                     worker.Surfaces.FirstOrDefault(surface => surface.Number == request.SurfaceNumber),
                     request.RadiusSigma,

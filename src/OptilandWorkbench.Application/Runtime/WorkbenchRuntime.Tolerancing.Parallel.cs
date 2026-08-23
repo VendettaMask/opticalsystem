@@ -8,9 +8,9 @@ using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Tolerancing;
 
-namespace OptilandWorkbench.Application.Legacy;
+namespace OptilandWorkbench.Application.Runtime;
 
-public partial class OpticalWorkspaceModel
+public partial class WorkbenchRuntime
 {
     private Tolerancing BuildConfiguredTolerancingWorker(
         Optic optic,

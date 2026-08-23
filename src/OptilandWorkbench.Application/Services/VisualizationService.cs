@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -45,10 +45,10 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         lock (Gate)
         {
             return new VisualizationOptionsDto(
-                Connector.CurrentOptic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
-                Connector.CurrentOptic.Fields.Select((field, index) =>
+                Runtime.CurrentOptic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
+                Runtime.CurrentOptic.Fields.Select((field, index) =>
                     new VisualizationSelectorOptionDto(index, field.Label)).ToArray(),
-                Connector.CurrentOptic.Wavelengths.Select((wavelength, index) =>
+                Runtime.CurrentOptic.Wavelengths.Select((wavelength, index) =>
                     new VisualizationSelectorOptionDto(
                         index,
                         $"{wavelength.Label}  {wavelength.Nanometers:0.####} nm")).ToArray());
@@ -67,7 +67,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         {
             sourceRevision = Workspace.Revision;
             summary = Workspace.GetDocumentSnapshot();
-            snapshot = Optic.FromSnapshot(Connector.CurrentOptic.ToSnapshot());
+            snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 

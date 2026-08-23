@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core.FileIO;
 
 if (args.Length is < 3 or > 5)
@@ -36,7 +36,7 @@ jsonOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCas
 
 var sourceBytes = await File.ReadAllBytesAsync(sourcePath);
 var optic = await new ZemaxZmxImporter().ImportFileAsync(sourcePath);
-var workspace = new OpticalWorkspaceModel(optic);
+var workspace = new WorkbenchRuntime(optic);
 var settingsManifest = JsonSerializer.Deserialize<SettingsManifest>(
     await File.ReadAllTextAsync(settingsManifestPath),
     new JsonSerializerOptions { PropertyNameCaseInsensitive = true })

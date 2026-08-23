@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -194,9 +195,7 @@ public sealed partial class AnalysisPanel
         var byKey = descriptors.ToDictionary(descriptor => descriptor.Key);
         var panel = new StackPanel
         {
-            Spacing = 4,
-            MinWidth = 780,
-            MaxWidth = 960
+            Spacing = 4
         };
         AddSection(
             "源位图设置",
@@ -237,7 +236,7 @@ public sealed partial class AnalysisPanel
             var rows = Math.Max(leftKeys.Count, rightKeys.Count);
             var grid = new Grid
             {
-                ColumnDefinitions = new ColumnDefinitions("Auto,240,24,Auto,240"),
+                ColumnDefinitions = new ColumnDefinitions("Auto,*,10,Auto,*"),
                 RowDefinitions = new RowDefinitions(
                     string.Join(',', Enumerable.Repeat("34", rows)))
             };
@@ -293,26 +292,21 @@ public sealed partial class AnalysisPanel
             button.Margin = new Thickness(3, 4);
         }
 
-        var footer = new Grid
+        var footer = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"),
+            Orientation = Orientation.Horizontal,
             Children =
             {
                 _parameterAutoApply,
-                new WrapPanel
-                {
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Children = { applyButton, okButton, cancelButton }
-                },
-                new WrapPanel
-                {
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    Children = { saveButton, loadButton, resetButton }
-                }
+                applyButton,
+                okButton,
+                cancelButton,
+                saveButton,
+                loadButton,
+                resetButton
             }
         };
-        Grid.SetColumn(footer.Children[1], 1);
-        Grid.SetColumn(footer.Children[2], 2);
+        _parameterAutoApply.Margin = new Thickness(3, 8, 8, 4);
         return footer;
     }
 
@@ -450,9 +444,9 @@ public sealed partial class AnalysisPanel
             additionalRows: 1,
             addAdditionalRows: (grid, row) =>
             {
-                var pupilGrid = new Grid
+                var pupilGrid = new WrapPanel
                 {
-                    ColumnDefinitions = new ColumnDefinitions("Auto,Auto,*,Auto,*,Auto,*"),
+                    Orientation = Orientation.Horizontal,
                     Margin = new Thickness(8, 0, 4, 0)
                 };
                 pupilGrid.Children.Add(new TextBlock
@@ -461,14 +455,14 @@ public sealed partial class AnalysisPanel
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Thickness(0, 0, 14, 0)
                 });
-                AddPupilSetting("PupilSx", "Sx:", 1, 2);
-                AddPupilSetting("PupilSy", "Sy:", 3, 4);
-                AddPupilSetting("PupilSr", "Sr:", 5, 6);
+                AddPupilSetting("PupilSx", "Sx:");
+                AddPupilSetting("PupilSy", "Sy:");
+                AddPupilSetting("PupilSr", "Sr:");
                 Grid.SetRow(pupilGrid, row);
                 Grid.SetColumnSpan(pupilGrid, 5);
                 grid.Children.Add(pupilGrid);
 
-                void AddPupilSetting(string key, string labelText, int labelColumn, int controlColumn)
+                void AddPupilSetting(string key, string labelText)
                 {
                     var descriptor = byKey[key];
                     var label = new TextBlock
@@ -481,12 +475,9 @@ public sealed partial class AnalysisPanel
                         ? saved
                         : descriptor.DefaultValue;
                     var control = CreateParameterControl(descriptor, value);
-                    control.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    control.Margin = new Thickness(2, 0, 8, 0);
+                    control.Margin = new Thickness(2, 0, 10, 0);
                     _parameterControls[key] = control;
                     WireSpotAutoApply(control);
-                    Grid.SetColumn(label, labelColumn);
-                    Grid.SetColumn(control, controlColumn);
                     pupilGrid.Children.Add(label);
                     pupilGrid.Children.Add(control);
                 }
@@ -508,10 +499,8 @@ public sealed partial class AnalysisPanel
             : string.Join(',', Enumerable.Repeat("34", rowCount)) + ",Auto,42";
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,240,24,Auto,240"),
-            RowDefinitions = new RowDefinitions(rowDefinitions),
-            MinWidth = 780,
-            MaxWidth = 960
+            ColumnDefinitions = new ColumnDefinitions("Auto,*,10,Auto,*"),
+            RowDefinitions = new RowDefinitions(rowDefinitions)
         };
 
         for (var row = 0; row < settingRowCount; row++)
@@ -568,22 +557,18 @@ public sealed partial class AnalysisPanel
             }
         };
 
-        var footer = new Grid
+        var footer = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"),
+            Orientation = Orientation.Horizontal,
             Children =
             {
                 _parameterAutoApply,
-                new WrapPanel
-                {
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Children = { applyButton, okButton, cancelButton }
-                },
-                new WrapPanel
-                {
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    Children = { saveButton, loadButton, resetButton }
-                }
+                applyButton,
+                okButton,
+                cancelButton,
+                saveButton,
+                loadButton,
+                resetButton
             }
         };
         foreach (var button in new[] { applyButton, okButton, cancelButton, saveButton, loadButton, resetButton })
@@ -591,8 +576,7 @@ public sealed partial class AnalysisPanel
             button.Margin = new Thickness(3, 4);
         }
 
-        Grid.SetColumn(footer.Children[1], 1);
-        Grid.SetColumn(footer.Children[2], 2);
+        _parameterAutoApply.Margin = new Thickness(3, 8, 8, 4);
         Grid.SetRow(footer, rowCount + 1);
         Grid.SetColumnSpan(footer, 5);
         grid.Children.Add(footer);
@@ -787,7 +771,7 @@ public sealed partial class AnalysisPanel
 
     private Control CreateParameterControl(AnalysisParameterDescriptor descriptor, string value)
     {
-        return descriptor.Kind switch
+        Control control = descriptor.Kind switch
         {
             AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
             AnalysisParameterKind.Boolean => BooleanInput(value),
@@ -796,6 +780,10 @@ public sealed partial class AnalysisPanel
             AnalysisParameterKind.File => FileInput(value),
             _ => NumericInput(descriptor, value)
         };
+        var automationTarget = control is FilePathInput file ? file.Input : control;
+        AutomationProperties.SetName(automationTarget, descriptor.DisplayName);
+        AutomationProperties.SetAutomationId(automationTarget, $"analysis-parameter-{descriptor.Key}");
+        return control;
     }
 
     private static NumericUpDown NumericInput(AnalysisParameterDescriptor descriptor, string value)
@@ -897,7 +885,7 @@ public sealed partial class AnalysisPanel
             Input = new TextBox
             {
                 Text = value,
-                MinWidth = 220,
+                MinWidth = 0,
                 PlaceholderText = placeholder
             };
             var button = new Button
@@ -905,6 +893,7 @@ public sealed partial class AnalysisPanel
                 Content = "\u6D4F\u89C8\u2026",
                 Margin = new Thickness(6, 0, 0, 0)
             };
+            AutomationProperties.SetName(button, "浏览文件");
             button.Click += async (_, _) =>
             {
                 var selected = await browse();

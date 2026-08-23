@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -243,36 +244,44 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Children = { toggle, synchronize }
         };
         var container = new StackPanel { Children = { header, settingsContent } };
-        return SettingsPanelChrome.CreateCard(
+        var card = SettingsPanelChrome.CreateCard(
             container,
             new Thickness(10),
             HorizontalAlignment.Left);
+        card.MaxWidth = 520;
+        return card;
     }
 
     private Control BuildSettingsContent()
     {
-        var settings = new Grid
+        var settings = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,150,Auto,150"),
+            Orientation = Orientation.Horizontal,
             Margin = new Thickness(12, 8, 12, 4)
         };
-        AddSettingRow(settings, 0, "起始面", _startSurfacePicker, "波长", _wavelengthPicker);
-        AddSettingRow(settings, 1, "终止面", _endSurfacePicker, "视场", _fieldPicker);
-        AddSettingRow(settings, 2, "光线数", _rayCount, "颜色显示", _colorModePicker);
-        AddSettingRow(settings, 3, "比例尺", _scalePicker, "Y 拉伸", _yStretch);
-        AddSettingRow(settings, 4, "上光瞳", _upperPupil, "下光瞳", _lowerPupil);
-        AddSettingRow(settings, 5, "线宽", _lineWidthPicker, string.Empty, new Border());
+        AddSetting(settings, "起始面", _startSurfacePicker);
+        AddSetting(settings, "波长", _wavelengthPicker);
+        AddSetting(settings, "终止面", _endSurfacePicker);
+        AddSetting(settings, "视场", _fieldPicker);
+        AddSetting(settings, "光线数", _rayCount);
+        AddSetting(settings, "颜色显示", _colorModePicker);
+        AddSetting(settings, "比例尺", _scalePicker);
+        AddSetting(settings, "Y 拉伸", _yStretch);
+        AddSetting(settings, "上光瞳", _upperPupil);
+        AddSetting(settings, "下光瞳", _lowerPupil);
+        AddSetting(settings, "线宽", _lineWidthPicker);
 
-        var checks = new Grid
+        var checks = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("*,*"),
-            RowDefinitions = new RowDefinitions("Auto,Auto"),
+            Orientation = Orientation.Horizontal,
             Margin = new Thickness(12, 2, 12, 8)
         };
-        AddCheck(checks, _suppressFrame, 0, 0);
-        AddCheck(checks, _deleteVignetted, 0, 1);
-        AddCheck(checks, _rayArrows, 1, 0);
-        AddCheck(checks, _marginalAndChiefOnly, 1, 1);
+        foreach (var check in new[] { _suppressFrame, _deleteVignetted, _rayArrows, _marginalAndChiefOnly })
+        {
+            check.Width = 190;
+            check.Margin = new Thickness(0, 4);
+            checks.Children.Add(check);
+        }
 
         var apply = new Button { Content = "应用", MinWidth = 72 };
         apply.Click += (_, _) =>
@@ -282,13 +291,15 @@ public sealed class ViewerPanel : UserControl, IDisposable
         };
         var reset = new Button { Content = "重置", MinWidth = 72 };
         reset.Click += (_, _) => ResetSettings();
-        var footer = new StackPanel
+        var footer = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 8,
             Margin = new Thickness(12, 8, 12, 10),
             Children = { _autoApply, apply, reset }
         };
+        _autoApply.Margin = new Thickness(0, 4, 8, 4);
+        apply.Margin = new Thickness(0, 4, 8, 4);
+        reset.Margin = new Thickness(0, 4, 8, 4);
 
         WatchSettingsChanges();
         return new StackPanel
@@ -573,57 +584,25 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return grid;
     }
 
-    private static void AddSettingRow(
-        Grid grid,
-        int row,
-        string firstLabel,
-        Control firstControl,
-        string secondLabel,
-        Control secondControl)
+    private static void AddSetting(WrapPanel panel, string label, Control control)
     {
-        while (grid.RowDefinitions.Count <= row)
+        control.HorizontalAlignment = HorizontalAlignment.Stretch;
+        AutomationProperties.SetName(control, label);
+        panel.Children.Add(new StackPanel
         {
-            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-        }
-
-        AddSettingCell(grid, new TextBlock
-        {
-            Text = firstLabel,
-            Margin = new Thickness(0, 5, 8, 5),
-            VerticalAlignment = VerticalAlignment.Center
-        }, row, 0);
-        AddSettingCell(grid, firstControl, row, 1);
-        if (!string.IsNullOrEmpty(secondLabel))
-        {
-            AddSettingCell(grid, new TextBlock
+            Width = 190,
+            Margin = new Thickness(0, 3, 10, 5),
+            Children =
             {
-                Text = secondLabel,
-                Margin = new Thickness(22, 5, 8, 5),
-                VerticalAlignment = VerticalAlignment.Center
-            }, row, 2);
-            AddSettingCell(grid, secondControl, row, 3);
-        }
-    }
-
-    private static void AddSettingCell(Grid grid, Control control, int row, int column)
-    {
-        Grid.SetRow(control, row);
-        Grid.SetColumn(control, column);
-        control.Margin = control.Margin + new Thickness(0, 3);
-        grid.Children.Add(control);
-    }
-
-    private static void AddCheck(Grid grid, CheckBox checkBox, int row, int column)
-    {
-        Grid.SetRow(checkBox, row);
-        Grid.SetColumn(checkBox, column);
-        checkBox.Margin = new Thickness(0, 4);
-        grid.Children.Add(checkBox);
+                new TextBlock { Text = label, Margin = new Thickness(0, 0, 0, 3) },
+                control
+            }
+        });
     }
 
     private static ComboBox SettingPicker() => new()
     {
-        MinWidth = 140,
+        MinWidth = 0,
         Height = 30,
         VerticalAlignment = VerticalAlignment.Center
     };
@@ -634,7 +613,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         decimal increment,
         decimal value) => new()
         {
-            MinWidth = 140,
+            MinWidth = 0,
             Height = 30,
             Minimum = minimum,
             Maximum = maximum,

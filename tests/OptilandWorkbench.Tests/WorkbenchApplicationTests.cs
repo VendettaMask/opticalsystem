@@ -620,7 +620,7 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(sourceRevision, result.SourceRevision);
         Assert.Equal("First Order", result.CanonicalAnalysisKey);
         Assert.Equal(64, result.RequestFingerprint.Length);
-        Assert.Equal("Legacy.OpticalWorkspaceModel.BuildAnalysisView/v1", result.ExecutorId);
+        Assert.Equal("Application.WorkbenchRuntime.BuildAnalysisView/v1", result.ExecutorId);
         Assert.NotEmpty(result.View.Rows);
     }
 

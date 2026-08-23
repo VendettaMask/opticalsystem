@@ -1,5 +1,5 @@
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Application.Services;
@@ -15,11 +15,11 @@ internal abstract class WorkbenchServiceBase
 
     protected object Gate => Workspace.Gate;
 
-    protected OpticalWorkspaceModel Connector => Workspace.Connector;
+    protected WorkbenchRuntime Runtime => Workspace.Runtime;
 
     protected OpticalSurface? FindSurface(int surfaceNumber)
     {
-        return Connector.Surfaces.FirstOrDefault(surface => surface.Number == surfaceNumber);
+        return Runtime.Surfaces.FirstOrDefault(surface => surface.Number == surfaceNumber);
     }
 
     protected void Mutate(WorkspaceChangeCategory category, Action action)

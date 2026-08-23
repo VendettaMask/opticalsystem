@@ -1,5 +1,7 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -25,6 +27,10 @@ public sealed class WavefrontSurfaceControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        AutomationProperties.SetName(this, "波前表面图");
+        AutomationProperties.SetHelpText(
+            this,
+            "使用方向键旋转，按住 Shift 和方向键平移，使用加号或减号缩放，按 Home 重置视图。");
     }
 
 
@@ -95,6 +101,60 @@ public sealed class WavefrontSurfaceControl : Control
     {
         InitializeView();
         InvalidateVisual();
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new InteractiveCanvasAutomationPeer(this);
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (!IsSurfaceMode || !InteractiveCanvasKeyboard.TryGetCommand(e.Key, out var command))
+        {
+            return;
+        }
+
+        switch (command)
+        {
+            case InteractiveCanvasCommand.Reset:
+                ResetView();
+                break;
+            case InteractiveCanvasCommand.ZoomIn:
+                ZoomView(1.2);
+                break;
+            case InteractiveCanvasCommand.ZoomOut:
+                ZoomView(1 / 1.2);
+                break;
+            default:
+                NavigateWithKeyboard(command, e.KeyModifiers.HasFlag(KeyModifiers.Shift));
+                break;
+        }
+
+        e.Handled = true;
+    }
+
+    private void NavigateWithKeyboard(InteractiveCanvasCommand command, bool pan)
+    {
+        var x = command switch
+        {
+            InteractiveCanvasCommand.Left => -1,
+            InteractiveCanvasCommand.Right => 1,
+            _ => 0
+        };
+        var y = command switch
+        {
+            InteractiveCanvasCommand.Up => -1,
+            InteractiveCanvasCommand.Down => 1,
+            _ => 0
+        };
+        if (pan)
+        {
+            PanView(new Vector(x * 24, y * 24));
+        }
+        else
+        {
+            RotateView(x * 5, y * -4);
+        }
     }
 
     internal void RotateView(double yawDeltaDegrees, double pitchDeltaDegrees)

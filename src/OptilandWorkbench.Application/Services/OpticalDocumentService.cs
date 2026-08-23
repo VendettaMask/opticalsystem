@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -37,11 +37,11 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         return Workspace.GetDocumentSnapshot();
     }
 
-    public void NewBlank() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Connector.NewBlank);
+    public void NewBlank() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Runtime.NewBlank);
 
-    public void NewCooke() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Connector.NewDemo);
+    public void NewCooke() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Runtime.NewDemo);
 
-    public void NewTessar() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Connector.NewTessar);
+    public void NewTessar() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Runtime.NewTessar);
 
     public async Task OpenAsync(string path, CancellationToken cancellationToken = default)
     {
@@ -49,14 +49,14 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         Workspace.CancelDocumentTasks();
         using var linked = Workspace.LinkDocumentToken(cancellationToken);
         var fullPath = Path.GetFullPath(path);
-        var document = await OpticalWorkspaceModel.ReadDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
+        var document = await WorkbenchRuntime.ReadDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
         linked.Token.ThrowIfCancellationRequested();
         lock (Gate)
         {
             linked.Token.ThrowIfCancellationRequested();
             Workspace.CurrentPath = fullPath;
             Workspace.SetPendingCategory(WorkspaceChangeCategory.Document);
-            Connector.ApplyLoadedDocument(document, fullPath);
+            Runtime.ApplyLoadedDocument(document, fullPath);
         }
     }
 
@@ -67,12 +67,12 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         long documentGeneration;
         lock (Gate)
         {
-            document = Connector.CaptureDocument();
+            document = Runtime.CaptureDocument();
             documentGeneration = Workspace.DocumentGeneration;
         }
 
         var fullPath = Path.GetFullPath(path);
-        await OpticalWorkspaceModel.SaveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
+        await WorkbenchRuntime.SaveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         lock (Gate)
         {
@@ -83,11 +83,11 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
 
             Workspace.SetPendingCategory(WorkspaceChangeCategory.Document);
             Workspace.CurrentPath = fullPath;
-            Connector.NotifySaved(fullPath);
+            Runtime.NotifySaved(fullPath);
         }
     }
 
-    public bool Undo() => Mutate(WorkspaceChangeCategory.Prescription, Connector.Undo);
+    public bool Undo() => Mutate(WorkspaceChangeCategory.Prescription, Runtime.Undo);
 
-    public bool Redo() => Mutate(WorkspaceChangeCategory.Prescription, Connector.Redo);
+    public bool Redo() => Mutate(WorkspaceChangeCategory.Prescription, Runtime.Redo);
 }

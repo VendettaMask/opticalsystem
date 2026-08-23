@@ -27,7 +27,7 @@ internal sealed class CadExportService : WorkbenchServiceBase, ICadExportService
         Optic optic;
         lock (Gate)
         {
-            optic = Optic.FromSnapshot(Connector.CurrentOptic.ToSnapshot());
+            optic = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
         }
 
         var document = await Task.Run(

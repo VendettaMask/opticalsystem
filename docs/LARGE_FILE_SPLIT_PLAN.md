@@ -6,7 +6,7 @@
 
 - `AnalysisFramework` 已按分析族拆分；
 - Python Optiland JSON 读写已按模型责任拆分；
-- `OptilandConnector` 的生产责任已迁入 `OpticalWorkspaceModel` 和独立应用服务；
+- `OptilandConnector` 的生产责任已迁入规范 `WorkbenchRuntime` 和独立应用服务；
 - `WorkbenchApplication` 成为组合根，`WorkspaceCoordinator` 负责修订、写锁、取消和事件；
 - `OpticalDrawingRenderer` 已拆成外观及制造绘制分部；
 - `MainWindow` 已拆为生命周期、动作、Shell、文档、工作区和导入文件；
@@ -32,9 +32,9 @@ OptilandWorkbench.Core
 OptilandWorkbench.Application
   WorkbenchApplication
   WorkspaceCoordinator
-  OpticalWorkspaceModel
+  Runtime/WorkbenchRuntime.*
   独立文档/处方/分析/可视化/优化/公差/多配置服务
-  OptilandConnector 兼容外观
+  Legacy/OptilandConnector 兼容外观（无新增成员）
 
 OptilandWorkbench.App
   MainWindow.*

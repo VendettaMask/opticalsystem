@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -30,7 +30,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     {
     }
 
-    public IReadOnlyList<string> OptimizerNames => Connector.OptimizerNames;
+    public IReadOnlyList<string> OptimizerNames => Runtime.OptimizerNames;
 
     public IReadOnlyList<MeritOperandTypeDto> GetMeritOperandTypes()
     {
@@ -45,7 +45,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
         using var evaluationBatch = MeritFunctionCatalog.BeginEvaluationBatch();
         lock (Gate)
         {
-            var operands = Connector.CurrentOptic.MeritFunctionOperands.ToArray();
+            var operands = Runtime.CurrentOptic.MeritFunctionOperands.ToArray();
             var weightSum = operands
                 .Where(operand => operand.Enabled
                     && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
@@ -53,7 +53,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             return operands
                 .Select((operand, index) =>
                 {
-                    var evaluation = MeritFunctionCatalog.Evaluate(Connector.CurrentOptic, operand);
+                    var evaluation = MeritFunctionCatalog.Evaluate(Runtime.CurrentOptic, operand);
                     return new MeritOperandRowDto(
                         index + 1,
                         operand.Enabled,
@@ -85,7 +85,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
 
     public void SetMeritFunction(IReadOnlyList<MeritOperandRowDto> operands)
     {
-        Mutate(WorkspaceChangeCategory.Optimization, () => Connector.ReplaceMeritFunction(
+        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.ReplaceMeritFunction(
             operands.Select(operand =>
             {
                 var type = MeritFunctionCatalog.CanonicalType(operand.Type);
@@ -124,7 +124,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
 
     public void GenerateDefaultMeritFunction(MeritFunctionPreset preset)
     {
-        Mutate(WorkspaceChangeCategory.Optimization, () => Connector.GenerateDefaultMeritFunction(preset));
+        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateDefaultMeritFunction(preset));
     }
 
     public void GenerateMeritFunction(OptimizationWizardSettingsDto settings)
@@ -157,7 +157,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             settings.XWeight,
             settings.YWeight,
             settings.IgnoreLateralColor);
-        Mutate(WorkspaceChangeCategory.Optimization, () => Connector.GenerateMeritFunction(
+        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateMeritFunction(
             coreSettings,
             settings.StartRow,
             settings.ReplaceExisting));
@@ -168,10 +168,10 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     {
         return Mutate(WorkspaceChangeCategory.Optimization, () =>
         {
-            var lastSurfaceNumber = Connector.Surfaces.Count == 0
+            var lastSurfaceNumber = Runtime.Surfaces.Count == 0
                 ? -1
-                : Connector.Surfaces[^1].Number;
-            var editable = Connector.Surfaces
+                : Runtime.Surfaces[^1].Number;
+            var editable = Runtime.Surfaces
                 .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
                 .ToArray();
             if (editable.Length == 0)
@@ -179,7 +179,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                 return new OptimizationVariableUpdateResultDto(mode, 0, 0);
             }
 
-            Connector.CaptureCurrentState();
+            Runtime.CaptureCurrentState();
             foreach (var surface in editable)
             {
                 switch (mode)
@@ -199,7 +199,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                 }
             }
 
-            Connector.CommitSurfaceEdit(editable[0], nameof(OpticalSurface.RadiusVariable));
+            Runtime.CommitSurfaceEdit(editable[0], nameof(OpticalSurface.RadiusVariable));
             return new OptimizationVariableUpdateResultDto(
                 mode,
                 editable.Count(surface => surface.RadiusVariable),

@@ -88,11 +88,18 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _settingsHost = new Border
         {
             IsVisible = false,
-            HorizontalAlignment = HorizontalAlignment.Left,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(12, 8, 0, 0),
+            Margin = new Thickness(12, 8, 12, 0),
             Padding = new Thickness(12, 10),
-            Child = _parameterPanel
+            MaxWidth = 960,
+            MaxHeight = 640,
+            Child = new ScrollViewer
+            {
+                HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+                VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+                Content = _parameterPanel
+            }
         };
         SettingsPanelChrome.ApplyCardStyle(_settingsHost);
         settingsButton.Click += (_, _) =>

@@ -1,10 +1,10 @@
 # UI 符合性审计
 
-日期：2026-08-04。
+日期：2026-08-04。最后整改复核：2026-08-24。
 
 范围：`src/OptilandWorkbench.App` 全部桌面 UI 源码、主题资源、公共控件、分析结果页、窗口、面板和现有 UI 文档。
 
-结论：项目已经有主题资源、分析图契约和部分公共 chrome，但还没有稳定设计系统。当前最大问题不是某一张图不好看，而是 UI 规则分散：颜色、字号、固定尺寸、卡片、图表和可访问性分别由各页面自己决定。结果是同一类区域在不同分析页高度、颜色、字体和背景不一致，后续改动容易再次回退。
+原始结论：项目当时已有主题资源、分析图契约和部分公共 chrome，但固定尺寸和可访问性规则仍分散。2026-08-24 已完成 P1-01 和 P1-02 的基础整改：关键 Dock 文档支持断点重排，自绘交互画布具备自动化 Peer 和键盘路径；其余条目按下文状态维护。
 
 ## 扫描结果
 
@@ -24,7 +24,7 @@
 | 固定/最小/最大高度数值 | 126 |
 | `Viewbox` | 0 |
 | `BindThemeResource` | 127 |
-| `AutomationProperties` / `AutomationPeer` | 0 |
+| `AutomationProperties` / `AutomationPeer` | 已覆盖 Ribbon、分析参数、Viewer 设置和 4 个自绘交互画布 |
 
 正向结果：
 
@@ -38,6 +38,8 @@
 
 ### P1-01：窄 Dock 下仍有大量固定最小宽度
 
+状态：已整改。
+
 证据：
 
 - `src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs`：材料库存在 520、980、1040 等大最小宽度。
@@ -49,7 +51,16 @@
 
 整改：把普通页面改为响应式 `Grid`/`WrapPanel`/滚动布局；大宽度只作为对话框初始尺寸或最小产品窗口尺寸，不用于 Dock 内部文档内容。
 
+处理结果：
+
+- 主窗口最小和恢复宽度下限由 1100/980 调整为 720px；Ribbon 自身保留横向滚动。
+- 材料库、设计镜头库、商用镜头目录和材料分析使用 `ResponsiveTwoPaneGrid`，宽布局左右并列，窄布局上下重排。
+- Viewer 设置字段与复选项改为 `WrapPanel` 自动换行；分析设置卡改为可伸缩列、垂直滚动和换行操作区。
+- 上述 Dock 页面已清除 500px 及以上的固定 `MinWidth`，并由 `DockDocumentsDoNotRestoreLargeFixedMinimumWidths` 防回归测试保护。
+
 ### P1-02：可访问性基础缺失
+
+状态：基础整改已完成。
 
 证据：
 
@@ -60,6 +71,13 @@
 影响：键盘用户、屏幕阅读器、自动化测试和可访问性检查都无法稳定理解界面。图表缩放、复位、拖拽等功能对非鼠标路径不可达。
 
 整改：先为所有命令按钮、输入项、菜单项、图表画布补自动化名称；再给自绘画布补键盘缩放、平移、复位和焦点状态。
+
+处理结果：
+
+- `AnalysisPlotControl`、`DrawingPreviewControl`、`OpticSceneControl`、`WavefrontSurfaceControl` 均可聚焦，发布自动化名称、帮助文本和自定义 `ControlAutomationPeer`。
+- 四类画布统一支持 `Home` 重置、`+/-` 缩放和方向键导航；3D 场景与波前表面使用方向键旋转、`Shift+方向键` 平移。
+- Ribbon 按钮/菜单项、分析参数输入、文件浏览按钮、Viewer 设置和图表导出命令已发布稳定自动化名称；分析参数同时发布稳定 Automation ID。
+- Headless Avalonia 测试会实际创建四个自动化 Peer；键盘映射由独立合同测试覆盖。后续新增的纯图标控件仍必须在各自改动中设置名称。
 
 ### P1-03：字体体系分散
 

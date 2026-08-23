@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -103,6 +104,7 @@ public sealed partial class AnalysisPanel
             Content = new LocalIconLabel(iconName, text),
             MinWidth = minWidth
         };
+        AutomationProperties.SetName(button, text);
         StyleToolbarButton(button, iconOnly: false);
         return button;
     }
@@ -115,6 +117,7 @@ public sealed partial class AnalysisPanel
             MinWidth = 0,
             MinHeight = 0
         };
+        AutomationProperties.SetName(button, tooltip);
         StyleToolbarButton(button, iconOnly: true);
         ToolTip.SetTip(button, tooltip);
         return button;

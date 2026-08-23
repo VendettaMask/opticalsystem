@@ -1,0 +1,85 @@
+using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
+using Avalonia.Controls;
+using Avalonia.Headless;
+using Avalonia.Input;
+using OptilandWorkbench.App.Controls;
+
+namespace OptilandWorkbench.Tests;
+
+[Collection(HeadlessAvaloniaCollection.Name)]
+public sealed class AccessibilityAndResponsiveLayoutTests
+{
+    [Fact]
+    public async Task InteractiveCanvasesExposeNamedAutomationPeers()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            Control[] controls =
+            {
+                new AnalysisPlotControl(),
+                new OpticSceneControl(),
+                new WavefrontSurfaceControl(),
+                new DrawingPreviewControl()
+            };
+
+            foreach (var control in controls)
+            {
+                Assert.True(control.Focusable);
+                Assert.False(string.IsNullOrWhiteSpace(AutomationProperties.GetName(control)));
+                Assert.False(string.IsNullOrWhiteSpace(AutomationProperties.GetHelpText(control)));
+                Assert.IsType<InteractiveCanvasAutomationPeer>(
+                    ControlAutomationPeer.CreatePeerForElement(control));
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task TwoPaneLayoutReflowsBelowItsBreakpoint()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            var first = new Border { MinHeight = 100 };
+            var second = new Border { MinHeight = 100 };
+            var layout = new ResponsiveTwoPaneGrid(
+                first,
+                second,
+                "3*,16,2*",
+                "Auto,16,Auto",
+                breakpoint: 800);
+
+            layout.Measure(new Size(600, 800));
+            Assert.True(layout.IsNarrow);
+            Assert.Equal(2, Grid.GetRow(second));
+            Assert.Equal(0, Grid.GetColumn(second));
+
+            layout.Measure(new Size(1000, 800));
+            Assert.False(layout.IsNarrow);
+            Assert.Equal(0, Grid.GetRow(second));
+            Assert.Equal(2, Grid.GetColumn(second));
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public void CanvasKeyboardCommandsAreStable()
+    {
+        var cases = new[]
+        {
+            (Key.Home, InteractiveCanvasCommand.Reset),
+            (Key.OemPlus, InteractiveCanvasCommand.ZoomIn),
+            (Key.OemMinus, InteractiveCanvasCommand.ZoomOut),
+            (Key.Left, InteractiveCanvasCommand.Left),
+            (Key.Right, InteractiveCanvasCommand.Right),
+            (Key.Up, InteractiveCanvasCommand.Up),
+            (Key.Down, InteractiveCanvasCommand.Down)
+        };
+        foreach (var (key, expected) in cases)
+        {
+            Assert.True(InteractiveCanvasKeyboard.TryGetCommand(key, out var actual));
+            Assert.Equal(expected, actual);
+        }
+    }
+}

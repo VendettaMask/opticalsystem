@@ -1,5 +1,5 @@
 using System.Text.Json;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.FileIO;
 using Xunit.Abstractions;
@@ -23,7 +23,7 @@ public sealed class ZemaxRmsWavefrontVsFieldParityTests
             File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
 
-        var workspace = new OpticalWorkspaceModel(optic);
+        var workspace = new WorkbenchRuntime(optic);
         var settings = workspace.MergeAnalysisSettings("RMS vs Field", null);
         Assert.Equal("wavefront", settings["Data"]);
         Assert.Equal("chief", settings["Reference"]);

@@ -1,6 +1,6 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -48,19 +48,19 @@ internal sealed partial class OptimizationService
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
                 lock (Gate)
                 {
-                    if (Connector.Surfaces.Count < 2)
+                    if (Runtime.Surfaces.Count < 2)
                     {
                         throw new InvalidOperationException(
                             "快速聚焦至少需要一个物方表面和一个像面。");
                     }
 
-                    var summary = FocusMetricEvaluator.Evaluate(Connector.CurrentOptic);
+                    var summary = FocusMetricEvaluator.Evaluate(Runtime.CurrentOptic);
                     if (!double.IsFinite(summary.BestFocusShift))
                     {
                         throw new InvalidOperationException("快速聚焦未得到有限的焦移结果。");
                     }
 
-                    var focusSurface = Connector.Surfaces[^2];
+                    var focusSurface = Runtime.Surfaces[^2];
                     var initialThickness = focusSurface.Thickness;
                     var finalThickness = Math.Max(
                         0.001,
@@ -68,9 +68,9 @@ internal sealed partial class OptimizationService
                     var appliedShift = finalThickness - initialThickness;
                     return Mutate(WorkspaceChangeCategory.Optimization, () =>
                     {
-                        Connector.CaptureCurrentState();
+                        Runtime.CaptureCurrentState();
                         focusSurface.Thickness = finalThickness;
-                        Connector.CommitSurfaceEdit(
+                        Runtime.CommitSurfaceEdit(
                             focusSurface,
                             nameof(OpticalSurface.Thickness));
                         linked.Token.ThrowIfCancellationRequested();
@@ -121,12 +121,12 @@ internal sealed partial class OptimizationService
                     var initial = surface.Radius;
                     var result = Mutate(
                         WorkspaceChangeCategory.Optimization,
-                        () => Connector.OptimizeSurfaceRadius(surface, optimizerName, maxIterations));
+                        () => Runtime.OptimizeSurfaceRadius(surface, optimizerName, maxIterations));
                     Workspace.RefreshAutomaticSemiDiameters();
                     linked.Token.ThrowIfCancellationRequested();
                     return new OptimizationResultDto(
                         optimizerName,
-                        OpticalWorkspaceModel.DisplayOptimizerMessage(result.Message),
+                        WorkbenchRuntime.DisplayOptimizerMessage(result.Message),
                         initial,
                         surface.Radius,
                         result.FinalMerit,
@@ -164,10 +164,10 @@ internal sealed partial class OptimizationService
                 lock (Gate)
                 {
                     linked.Token.ThrowIfCancellationRequested();
-                    var lastSurfaceNumber = Connector.Surfaces.Count == 0
+                    var lastSurfaceNumber = Runtime.Surfaces.Count == 0
                         ? -1
-                        : Connector.Surfaces[^1].Number;
-                    var selected = Connector.Surfaces
+                        : Runtime.Surfaces[^1].Number;
+                    var selected = Runtime.Surfaces
                         .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
                         .SelectMany(surface => new[]
                         {
@@ -198,7 +198,7 @@ internal sealed partial class OptimizationService
 
                     var result = Mutate(
                         WorkspaceChangeCategory.Optimization,
-                        () => Connector.OptimizeMarkedVariables(optimizerName, maxIterations));
+                        () => Runtime.OptimizeMarkedVariables(optimizerName, maxIterations));
                     Workspace.RefreshAutomaticSemiDiameters();
                     var variables = selected.Select(variable =>
                     {
@@ -212,7 +212,7 @@ internal sealed partial class OptimizationService
                     linked.Token.ThrowIfCancellationRequested();
                     return new OptimizationRunResultDto(
                         optimizerName,
-                        OpticalWorkspaceModel.DisplayOptimizerMessage(result.Message),
+                        WorkbenchRuntime.DisplayOptimizerMessage(result.Message),
                         result.InitialMerit,
                         result.FinalMerit,
                         result.Iterations,

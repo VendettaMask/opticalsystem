@@ -81,31 +81,25 @@ public sealed class MaterialLibraryPanel : UserControl
         var catalogRow = new Grid
         {
             Margin = new Thickness(18, 14, 18, 10),
-            MinWidth = 520,
-            ColumnDefinitions = new ColumnDefinitions("Auto,420,*")
+            ColumnDefinitions = new ColumnDefinitions("Auto,*")
         };
         Add(catalogRow, FieldLabel("分类："), 0);
         Add(catalogRow, _catalog, 1);
-        var catalogScroller = new ScrollViewer
-        {
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-            Content = catalogRow
-        };
-        Grid.SetRow(catalogScroller, 1);
-        root.Children.Add(catalogScroller);
+        Grid.SetRow(catalogRow, 1);
+        root.Children.Add(catalogRow);
 
-        var body = new Grid
+        var body = new ResponsiveTwoPaneGrid(
+            BuildGlassSelector(),
+            BuildDetails(),
+            "5*,18,5.5*",
+            "Auto,18,Auto",
+            breakpoint: 900)
         {
-            Margin = new Thickness(18, 0, 18, 12),
-            MinWidth = 1040,
-            ColumnDefinitions = new ColumnDefinitions("5*,18,5.5*")
+            Margin = new Thickness(18, 0, 18, 12)
         };
-        Add(body, BuildGlassSelector(), 0);
-        Add(body, BuildDetails(), 2);
         var bodyScroller = new ScrollViewer
         {
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
             VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             Content = body
         };
@@ -177,13 +171,15 @@ public sealed class MaterialLibraryPanel : UserControl
             properties.Children.Add(LabeledControl($"{name}：", field));
         }
 
-        var detailGrid = new Grid
+        var detailGrid = new ResponsiveTwoPaneGrid(
+            coefficients,
+            properties,
+            "*,24,*",
+            "Auto,12,Auto",
+            breakpoint: 560)
         {
-            ColumnDefinitions = new ColumnDefinitions("*,24,*"),
             Margin = new Thickness(6, 0, 6, 0)
         };
-        Add(detailGrid, coefficients, 0);
-        Add(detailGrid, properties, 2);
 
         var details = new Border
         {
@@ -653,36 +649,34 @@ internal sealed class LensLibraryPanel : UserControl
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
 
-        var header = new Grid
+        var header = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,12,Auto,12,Auto,*,Auto"),
-            Margin = new Thickness(18, 14, 18, 10)
+            Orientation = Orientation.Horizontal,
+            Margin = new Thickness(18, 14, 18, 10),
+            VerticalAlignment = VerticalAlignment.Center
         };
-        Add(header, new LocalIcon
+        header.Children.Add(new LocalIcon
         {
             IconName = "search",
             Width = 18,
             Height = 18,
+            Margin = new Thickness(0, 8, 8, 8),
             VerticalAlignment = VerticalAlignment.Center
-        }, 0);
-        Add(header, _search, 2);
-        Add(header, _category, 4);
-        Add(header, _count, 6);
+        });
+        _search.Margin = new Thickness(0, 4, 12, 4);
+        _category.Margin = new Thickness(0, 4, 12, 4);
+        _count.Margin = new Thickness(0, 10, 0, 4);
+        header.Children.Add(_search);
+        header.Children.Add(_category);
+        header.Children.Add(_count);
         Grid.SetRow(header, 0);
         root.Children.Add(header);
 
-        var body = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("330,16,*"),
-            Margin = new Thickness(18, 0, 18, 14),
-            MinWidth = 980
-        };
         var listFrame = new Border
         {
             Child = _list
         };
         SettingsPanelChrome.ApplyControlFrameStyle(listFrame);
-        Add(body, listFrame, 0);
 
         var details = new Grid
         {
@@ -691,6 +685,7 @@ internal sealed class LensLibraryPanel : UserControl
         };
         var previewFrame = new Border
         {
+            MinHeight = 260,
             ClipToBounds = true,
             Child = _preview
         };
@@ -709,12 +704,20 @@ internal sealed class LensLibraryPanel : UserControl
         };
         Grid.SetRow(statusBar, 2);
         details.Children.Add(statusBar);
-        Add(body, details, 2);
+        var body = new ResponsiveTwoPaneGrid(
+            listFrame,
+            details,
+            "330,16,*",
+            "260,16,Auto",
+            breakpoint: 820)
+        {
+            Margin = new Thickness(18, 0, 18, 14)
+        };
 
         var scroller = new ScrollViewer
         {
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             Content = body
         };
         Grid.SetRow(scroller, 1);

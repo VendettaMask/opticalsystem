@@ -19,9 +19,9 @@ using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
 using ContractMeritFunctionPreset = OptilandWorkbench.Application.Contracts.MeritFunctionPreset;
 
-namespace OptilandWorkbench.Application.Legacy;
+namespace OptilandWorkbench.Application.Runtime;
 
-public partial class OpticalWorkspaceModel
+public partial class WorkbenchRuntime
 {
     public static string DisplayOptimizerMessage(string message)
     {

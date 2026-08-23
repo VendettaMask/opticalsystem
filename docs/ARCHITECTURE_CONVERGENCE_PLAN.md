@@ -4,7 +4,7 @@
 
 - 状态：执行中（尚未全部完成）
 - 编写日期：2026-08-02
-- 最后更新：2026-08-04
+- 最后更新：2026-08-24
 - 适用范围：`OptilandWorkbench.Core`、`OptilandWorkbench.Application`、`OptilandWorkbench.App` 及相关测试
 - 核心目标：同一个镜头、同一份设置和同一修订号，无论从哪个受支持入口执行，都必须进入同一条规范计算链路并得到一致结果
 
@@ -18,14 +18,23 @@
 | Telecentric / Apodization | 已完成 | 光线生成只读取 `Optic` 的规范状态，不再叠加旧设置对象 |
 | 审计中的分析缺陷 | 部分完成 | 已修正 GQ 权重、无数据语义、RMS 偏振/去渐晕、PSF 表面选择、Full Field 全失败伪零、RMS 元数据和无语义图表回退；仍需完成全参数行为矩阵 |
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
-| Legacy 依赖冻结 | 已完成 | 架构测试固定当前生产服务允许清单，禁止新增 `Legacy` 依赖；现存依赖只能减少 |
+| Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 最近一次 CI 参数构建为 `0` 警告、`0` 错误；最近一次全量测试为 `663/663`；仓库当前记录 671 项，新增的分析布局、追迹、入射角、报告菜单、目录退场和 Zemax 评价函数导入只记录对应定向结果，不伪装成新全量基线 |
-| 单一分析描述符与执行器 | 部分完成 | `WorkbenchAnalysisCatalog` 已统一规范键、显示名、别名、展示类型和 Ribbon 元数据，并作为参数/构造前置路由；具体参数定义与产品预设构造仍待从 Legacy 分部迁出 |
-| 工作区状态与领域服务迁移 | 未完成 | `OpticContext`、`WorkspaceCoordinator` 及多个服务仍以 `OpticalWorkspaceModel` 为实际状态/执行主体 |
-| 兼容层隔离与旧链路删除 | 未完成 | `OptilandConnector` 和 14 个 `OpticalWorkspaceModel` 分部文件仍在生产程序集内 |
+| 当前验证记录 | 持续维护 | 最近一次 CI 参数构建为 `0` 警告、`0` 错误；最近一次全量测试为 `663/663`；仓库当前记录 675 项，新增的分析布局、追迹、入射角、报告菜单、目录退场、Zemax 评价函数导入以及本轮架构/可访问性/响应式合同只记录对应定向结果，不伪装成新全量基线 |
+| 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
+| 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
+| 兼容层隔离与旧链路删除 | 部分完成 | `OptilandConnector` 仍为源码兼容入口，但无新增成员并直接复用规范 `WorkbenchRuntime`；独立兼容程序集和最终 API 删除仍是计划行为 |
 
-“已完成”只表示对应工作项已有代码和定向测试证明，不代表整个收敛计划已经完成。阶段 1 至阶段 5 的主体迁移仍需继续执行。
+“已完成”只表示对应工作项已有代码和定向测试证明，不代表整个收敛计划已经完成。当前已消除生产 Services 的新旧双轨执行；显式命令化、独立兼容程序集和兼容 API 最终删除仍需继续执行。
+
+### 2026-08-24 生产运行时单轨收敛
+
+- 已实现：原 `Legacy.OpticalWorkspaceModel` 提升并重命名为 `Application.Runtime.WorkbenchRuntime`；文档、处方、分析、可视化、优化、公差、多配置、材料和 CAD 服务统一使用该运行时。
+- 已实现：分析和公差快照 worker 也构造 `WorkbenchRuntime`，执行器来源标识更新为 `Application.WorkbenchRuntime.BuildAnalysisView/v1`，不再出现“新服务内部创建旧模型”的路径。
+- 已实现：`OptilandConnector` 仅保留无新增成员的兼容类型；兼容调用与 GUI/Services 复用同一运行时实现，不保存第二份状态、默认值或算法。
+- 已实现：`LayeringArchitectureTests` 禁止生产 Services 引用 `Application.Legacy`，并禁止 `OpticalWorkspaceModel`、`Connector.` 词汇重新进入服务层。
+- 兼容保留：现有测试和外部源码仍可构造 `OptilandConnector`。把该 API 移入独立兼容程序集并最终删除是后续计划，不应描述为已完成。
+- 验证记录：解决方案构建 `0` 警告、`0` 错误；架构、可访问性和响应式布局定向测试 `14/14`；遵循本轮要求未重跑全量测试，因此全量基线仍沿用上次记录。
 
 ### 2026-08-03 逻辑冗余清理
 
@@ -33,14 +42,14 @@
 - 已实现：QR 最小二乘、Airy 圈半径/系列、常规波长选择和 MTF 数据类型映射各自收敛为一个共享实现；保留 MTF“负数表示仅主波长”的独立选择语义，避免错误合并。
 - 已实现：删除会把任意名称和 Glass Expert 悄悄映射为正交下降的 `NamedOptimizer`/`GlassExpert` 伪实现；`OptimizerCatalog` 对未实现 Glass Expert 抛出 `NotSupportedException`，对未知名称抛出 `ArgumentException`。
 - 兼容保留：`RealRayTracer` 外观、`OpticalSurface` 兼容投影、Legacy 单镜头适配器、插件加载器、Telecentric 独立字段和未接线但语义独立的反射填充算法不按“零引用”直接删除。
-- 计划中：`OpticalWorkspaceModel` 分域迁移和兼容层最终删除仍属于后续架构阶段；主题资源辅助函数只属于低风险 UI 去重，不与计算链收敛混做。
+- 后续状态：当时计划的 `OpticalWorkspaceModel` 分域迁移已于 2026-08-24 完成生产运行时收敛；兼容层最终删除仍属于后续架构阶段。
 
 ### 2026-08-03 Workbench 分析描述符收敛
 
 - 已实现：`WorkbenchAnalysisDescriptor` 统一保存规范键、中文显示名、兼容别名、`AnalysisPresentationKind` 和对应 Ribbon 命令；App 不再维护独立分析命令/菜单类型与静态注册表。
 - 已实现：Legacy 本地化入口、Application 分析服务、参数选择和分析构造前置路由均通过 `WorkbenchAnalysisCatalog`；未知分析不会越过目录进入任意执行分支。
 - 分层边界：Core `AnalysisCatalog` 继续负责通用默认构造，不吸收中文、Ribbon 或产品预设，避免 UI 默认值污染 Core 公共 API。
-- 尚未完成：参数描述符和带 Workbench 产品默认值的具体构造代码仍位于 `OpticalWorkspaceModel.Analysis*`；下一步按执行器迁移将其移到非 Legacy 服务。
+- 后续状态：参数描述符和 Workbench 产品构造现位于规范 `WorkbenchRuntime.Analysis*`；这完成了 Legacy 退场，但进一步拆分专用分析执行器仍可作为可维护性工作，不能再描述为双轨修复前置条件。
 
 ### 2026-08-03 报告入口与报告执行收敛
 
@@ -90,12 +99,12 @@
 | Full Field 全失败伪零 | 已修正；全部采样失败抛出 `AnalysisDataUnavailableException`，部分失败记录数量 |
 | 通用图表 fallback | 已删除；没有分析声明的系列就不生成跨单位柱状图 |
 | Telecentric 两个布尔值 | 暂不合并：二者分别对应 Python Optiland `fields.telecentric` 与 `fields.object_space_telecentric` 的独立序列化字段；在缺少上游语义证据前，强行合并会破坏无损往返。当前仅确认两者在发射路径行为相同，列入语义核验项 |
-| 分析注册多处维护 | 部分完成；Workbench 产品元数据与入口路由已收敛到 `WorkbenchAnalysisCatalog`，Core 通用默认目录按层次边界保留，参数定义和产品预设构造仍待迁出 Legacy |
-| `Legacy.OpticalWorkspaceModel` 仍是主流程 | 尚未完成；已冻结新增依赖并给结果增加真实执行器标识，下一步逐域迁出 |
+| 分析注册多处维护 | 主链已完成；Workbench 产品元数据与入口路由由 `WorkbenchAnalysisCatalog` 统一，Core 通用默认目录按层次边界保留，参数定义和产品预设构造位于规范 `WorkbenchRuntime` |
+| `Legacy.OpticalWorkspaceModel` 仍是主流程 | 已修正；类型和分部已提升为 `Application.Runtime.WorkbenchRuntime`，生产 Services 不再引用 Legacy；仅保留无新增成员的 `OptilandConnector` 兼容入口 |
 
-## 1. 问题定性
+## 1. 原问题定性（历史基线）
 
-当前问题不是“大量随机垃圾代码”，也不只是普通的重复代码。项目已经建立 `WorkbenchApplication`、领域服务接口和 `WorkspaceCoordinator`，但旧的 `OpticalWorkspaceModel` 仍然承担状态、文档、处方、分析、优化、公差和多配置等生产职责。结果是：
+以下内容描述 2026-08-02 的双轨风险，用于保留迁移动机；其中“旧模型仍承担生产职责”已在 2026-08-24 修正。当时的问题不是“大量随机垃圾代码”，也不只是普通的重复代码。项目已经建立 `WorkbenchApplication`、领域服务接口和 `WorkspaceCoordinator`，但旧的 `OpticalWorkspaceModel` 仍然承担状态、文档、处方、分析、优化、公差和多配置等生产职责。结果是：
 
 - 新架构已经成为 GUI 的公开入口；
 - 旧架构仍是新服务内部的状态容器和执行器；
@@ -104,7 +113,7 @@
 
 因此，风险不在于“代码看起来重复”，而在于两套控制流同时有效。同一个镜头可能因入口不同而得到不同结果，并且这种差异很难从界面或结果对象中追溯。
 
-## 2. 当前事实基线
+## 2. 2026-08-02 事实基线（历史）
 
 以下结论来自 2026-08-02 的代码静态检查：
 
@@ -119,34 +128,42 @@
 9. 至少 8 个测试文件直接引用旧架构，`AnalysisGuiContractTests` 等测试大量直接构造 `OptilandConnector`。这使测试可能验证旧入口，却未证明 GUI 的新入口与旧入口一致。
 10. 现有 `LayeringArchitectureTests.LegacyConnectorIsAThinCompatibilityFacade` 只检查 `OptilandConnector` 自身没有声明方法，没有检查其基类是否仍承担生产逻辑，也没有阻止新服务依赖 `Legacy` 命名空间。
 
-### 2.1 历史审计与当前复核
+### 2.1 2026-08-24 迁移后事实
+
+1. `OpticContext` 和 `WorkspaceCoordinator` 只公开 `WorkbenchRuntime Runtime`，不再公开 `Connector`。
+2. Application Services 中对 `Application.Legacy`、`OpticalWorkspaceModel` 和 `Connector.` 的引用均为零，并由架构测试持续扫描。
+3. `AnalysisService` 和 `TolerancingService` 的隔离快照 worker 构造规范 `WorkbenchRuntime`。
+4. 原 14 个 `OpticalWorkspaceModel` 分部已迁入 `Application/Runtime/WorkbenchRuntime.*`；不存在另一套旧模型实现。
+5. `OptilandConnector` 仍可被兼容测试和外部源码构造，但该类型没有声明方法，基类明确为 `WorkbenchRuntime`。
+6. 当前剩余工作是进一步拆分单体运行时职责、建立独立兼容程序集和最终删除兼容 API；这些是维护性与兼容生命周期工作，不构成两条生产执行链。
+
+### 2.2 历史审计与当前复核
 
 历史审计材料只作为线索，不作为当前事实。早期材料中关于 `PlaceholderAnalysis`、`AnalysisRunner`、旧 `IRayAimer` 和 `SimpleOptimizer` “仍然存在”的描述已经失效；这些入口现已删除。本文后续阶段说明的是迁移计划和历史风险，不得解释为这些已删除类型仍在当前代码中。
 
 2026-08-02 对当前代码逐项复核后的结论如下：
 
 - 已证实并修正：`SurfaceGroup` 的破坏性组件重建、Legacy 几何同步副本、表面追迹双流程、入口瞳旧矩阵、光阑瞄准死参数、`SimpleOptimizer`、未规范化请求指纹、Full Field 全失败伪零、RMS Field Map 错误元数据和无语义图表 fallback。
-- 已证实但尚未完成：材料名称解析仍依赖持有目录的服务；Workbench 分析元数据已统一，但参数定义和产品预设构造仍在 Legacy；`OpticalWorkspaceModel` 仍作为分析和其他领域的生产执行主体。
+- 后续已修正：材料名称解析继续由持有目录的领域服务负责；Workbench 分析元数据已统一，参数定义和产品预设构造已迁入规范 `WorkbenchRuntime`，`OpticalWorkspaceModel` 已退出。
 - 不能按缺陷直接修改：Semi-Diameter 与 `PhysicalAperture` 是机械包络和光学裁剪两个概念；Telecentric 的两个字段对应外部格式中的不同键。除非取得格式语义证据和兼容迁移方案，否则不得为了减少字段数而合并。
 - 需要语义证据后再迁移：Telecentric 模式枚举会改变外部序列化及编辑契约，必须先取得上游字段定义，并建立导入、保存、重新打开和追迹等价测试。
 
-当前实际依赖关系可概括为：
+2026-08-24 的实际依赖关系可概括为：
 
 ```text
 App / GUI
   -> IWorkbenchApplication
     -> 新领域服务
       -> WorkspaceCoordinator
-        -> OpticalWorkspaceModel（旧状态与行为中心）
+        -> WorkbenchRuntime（唯一应用运行时）
           -> Core Optic / Analysis / Optimization / Tolerancing
 
-兼容入口与部分测试
+兼容入口与兼容测试
   -> OptilandConnector
-    -> OpticalWorkspaceModel
-      -> Core
+    -> WorkbenchRuntime（与生产服务相同实现）
 ```
 
-这是一套“新外壳包裹旧内核，同时旧入口仍可直达旧内核”的双轨结构。
+因此生产执行已经是单轨结构。兼容类型仍存在，但没有独立状态、算法、默认值或缓存；它的最终删除仍按兼容生命周期推进。
 
 ## 3. 目标架构
 
@@ -238,6 +255,8 @@ App / CLI / 兼容适配器 / 测试
 - 未实现能力不会出现在正式能力清单中。
 
 回滚策略：错误类型和 UI 禁用可先兼容旧会话读取，但禁止恢复伪造数值结果。
+
+以下阶段条目保留原始迁移检查表。已实现状态以文首“当前实施进度”和带日期的实施记录为准；条目中的将来时不表示对应旧类型仍存在。
 
 ### 阶段 0：冻结扩散并建立路径账本
 
@@ -441,7 +460,7 @@ App / CLI / 兼容适配器 / 测试
 
 禁止以“文件已经拆小”“类已经改名”“接口已经增加”作为架构收敛完成的证据。完成证据必须是运行路径消失、依赖方向正确和跨入口结果一致。
 
-## 11. 建议的首个迭代
+## 11. 首个迭代（历史计划）
 
 首个迭代只做四件事：
 
@@ -451,7 +470,7 @@ App / CLI / 兼容适配器 / 测试
 4. 建立跨入口一致性测试框架，以“一阶数据 + 光斑图 + 单光线追迹”为首批样本。
 5. 设计并评审新的工作区状态所有权与 `OpticalSurface` 单一真相来源，确定分步退场边界。
 
-该迭代结束时不要求删除全部旧代码，但必须让双轨现状可见、可测、不可继续扩散，并为下一迭代迁移分析链路提供可靠基线。
+该历史迭代结束时不要求删除全部旧代码，但必须让当时的双轨现状可见、可测、不可继续扩散，并为下一迭代迁移分析链路提供可靠基线。2026-08-24 已完成生产 Services 的单轨运行时迁移。
 
 ## 12. 最终退出条件
 

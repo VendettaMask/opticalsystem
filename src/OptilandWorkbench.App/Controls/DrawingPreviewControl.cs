@@ -1,4 +1,6 @@
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -18,6 +20,8 @@ public sealed class DrawingPreviewControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        AutomationProperties.SetName(this, "光学图纸预览");
+        AutomationProperties.SetHelpText(this, "使用方向键平移，使用加号或减号缩放，按 Home 重置视图。");
     }
 
     public IImage? Source
@@ -48,6 +52,45 @@ public sealed class DrawingPreviewControl : Control
         _viewport.Reset();
         InvalidateVisual();
         ViewChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new InteractiveCanvasAutomationPeer(this);
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (!InteractiveCanvasKeyboard.TryGetCommand(e.Key, out var command))
+        {
+            return;
+        }
+
+        switch (command)
+        {
+            case InteractiveCanvasCommand.Reset:
+                ResetView();
+                break;
+            case InteractiveCanvasCommand.ZoomIn:
+                ZoomIn();
+                break;
+            case InteractiveCanvasCommand.ZoomOut:
+                ZoomOut();
+                break;
+            case InteractiveCanvasCommand.Left:
+                PanBy(new Vector(-24, 0));
+                break;
+            case InteractiveCanvasCommand.Right:
+                PanBy(new Vector(24, 0));
+                break;
+            case InteractiveCanvasCommand.Up:
+                PanBy(new Vector(0, -24));
+                break;
+            case InteractiveCanvasCommand.Down:
+                PanBy(new Vector(0, 24));
+                break;
+        }
+
+        e.Handled = true;
     }
 
     protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
@@ -149,6 +192,13 @@ public sealed class DrawingPreviewControl : Control
             factor,
             new Point(Bounds.Width / 2, Bounds.Height / 2),
             Bounds.Size);
+        InvalidateVisual();
+        ViewChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PanBy(Vector delta)
+    {
+        _viewport.PanBy(delta);
         InvalidateVisual();
         ViewChanged?.Invoke(this, EventArgs.Empty);
     }

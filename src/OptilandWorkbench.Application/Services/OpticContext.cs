@@ -1,4 +1,4 @@
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 
 namespace OptilandWorkbench.Application.Services;
@@ -7,7 +7,7 @@ internal interface IOpticContext : IDisposable
 {
     object SyncRoot { get; }
 
-    OpticalWorkspaceModel Connector { get; }
+    WorkbenchRuntime Runtime { get; }
 
     CancellationTokenSource LinkDocumentToken(CancellationToken cancellationToken);
 
@@ -21,12 +21,12 @@ internal sealed class OpticContext : IOpticContext
 
     public OpticContext(Optic optic)
     {
-        Connector = new OpticalWorkspaceModel(optic);
+        Runtime = new WorkbenchRuntime(optic);
     }
 
     public object SyncRoot { get; } = new();
 
-    public OpticalWorkspaceModel Connector { get; }
+    public WorkbenchRuntime Runtime { get; }
 
     public CancellationTokenSource LinkDocumentToken(CancellationToken cancellationToken)
     {

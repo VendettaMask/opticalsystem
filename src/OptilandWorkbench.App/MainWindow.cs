@@ -146,9 +146,9 @@ public sealed partial class MainWindow : Window
 
         Title = "Optical System Design";
         Icon = BrandAssets.LoadWindowIcon();
-        Width = Math.Clamp(_settings.WindowWidth, 980, 4096);
+        Width = Math.Clamp(_settings.WindowWidth, 720, 4096);
         Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
-        MinWidth = 1100;
+        MinWidth = 720;
         MinHeight = 640;
         ApplyTheme(save: false);
         Content = BuildShell();

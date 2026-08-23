@@ -88,15 +88,8 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         SettingsPanelChrome.ApplySurfaceCardStyle(filterCard);
         root.Children.Add(filterCard);
 
-        var body = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("3*,16,2*"),
-            Margin = new Thickness(16, 0, 16, 14),
-            MinWidth = 1020
-        };
         var resultsFrame = new Border { Child = _results };
         SettingsPanelChrome.ApplyControlFrameStyle(resultsFrame);
-        body.Children.Add(resultsFrame);
 
         var detailFrame = new Border
         {
@@ -109,13 +102,20 @@ internal sealed class CommercialLensCatalogPanel : UserControl
             }
         };
         SettingsPanelChrome.ApplySurfaceCardStyle(detailFrame);
-        Grid.SetColumn(detailFrame, 2);
-        body.Children.Add(detailFrame);
+        var body = new ResponsiveTwoPaneGrid(
+            resultsFrame,
+            detailFrame,
+            "3*,16,2*",
+            "360,16,Auto",
+            breakpoint: 850)
+        {
+            Margin = new Thickness(16, 0, 16, 14)
+        };
 
         var scroller = new ScrollViewer
         {
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
             Content = body
         };
         Grid.SetRow(scroller, 1);

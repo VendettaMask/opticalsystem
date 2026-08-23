@@ -86,7 +86,7 @@ await application.Documents.OpenAsync(path);
 await application.Documents.SaveAsync(path);
 ```
 
-`OpticalDocumentService` 委托 `OpticalWorkspaceModel` 按内容和扩展名识别 STAROPT、旧 Workbench JSON、Python Optiland JSON 或商业格式适配器。`OptilandConnector` 仅保留为源代码兼容外观。
+`OpticalDocumentService` 委托规范 `WorkbenchRuntime` 按内容和扩展名识别 STAROPT、旧 Workbench JSON、Python Optiland JSON 或商业格式适配器。`OptilandConnector` 仅保留为源代码兼容外观，生产 Services 不引用 `Application.Legacy`。
 
 ## 插件模型
 

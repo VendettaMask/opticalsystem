@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Globalization;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
@@ -37,13 +37,13 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
     {
     }
 
-    public IReadOnlyList<string> AnalysisNames => Connector.AnalysisDisplayNames;
+    public IReadOnlyList<string> AnalysisNames => Runtime.AnalysisDisplayNames;
 
     public string CanonicalKey(string analysisName) => WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
 
     public IReadOnlyList<ContractAnalysisParameterDescriptor> GetParameters(string analysisName)
     {
-        return Connector.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
+        return Runtime.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
             parameter.Key,
             parameter.DisplayName,
             (ContractAnalysisParameterKind)(int)parameter.Kind,
@@ -58,7 +58,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         string analysisName,
         IReadOnlyDictionary<string, string>? saved)
     {
-        return Connector.MergeAnalysisSettings(analysisName, saved);
+        return Runtime.MergeAnalysisSettings(analysisName, saved);
     }
 
     public Task<AnalysisResultDto> RunAsync(
@@ -71,7 +71,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         lock (Gate)
         {
             sourceRevision = Workspace.Revision;
-            snapshot = Optic.FromSnapshot(Connector.CurrentOptic.ToSnapshot());
+            snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             snapshot.ConfigureRayTraceCache(_rayTraceCache, sourceRevision);
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
@@ -90,7 +90,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
             return await Task.Run(() =>
             {
                 linked.Token.ThrowIfCancellationRequested();
-                var worker = new OpticalWorkspaceModel(snapshot);
+                var worker = new WorkbenchRuntime(snapshot);
                 var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
                 var normalizedSettings = NormalizeAnalysisSettings(
                     worker,
@@ -109,13 +109,13 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                     new AnalysisExecutionProvenanceDto(
                         canonicalAnalysisKey,
                         CreateRequestFingerprint(canonicalAnalysisKey, normalizedSettings),
-                        "Legacy.OpticalWorkspaceModel.BuildAnalysisView/v1"));
+                        "Application.WorkbenchRuntime.BuildAnalysisView/v1"));
             }, linked.Token).ConfigureAwait(false);
         }
     }
 
     private static IReadOnlyDictionary<string, string> NormalizeAnalysisSettings(
-        OpticalWorkspaceModel worker,
+        WorkbenchRuntime worker,
         string canonicalAnalysisKey,
         IReadOnlyDictionary<string, string> settings)
     {
@@ -132,17 +132,17 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
 
             merged[key] = descriptor.Kind switch
             {
-                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Integer when int.TryParse(
+                OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Integer when int.TryParse(
                     merged[key],
                     NumberStyles.Integer,
                     CultureInfo.InvariantCulture,
                     out var integer) => integer.ToString(CultureInfo.InvariantCulture),
-                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Double when double.TryParse(
+                OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Double when double.TryParse(
                     merged[key],
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
                     out var number) => number.ToString("R", CultureInfo.InvariantCulture),
-                OptilandWorkbench.Application.Legacy.AnalysisParameterKind.Boolean when bool.TryParse(merged[key], out var flag) =>
+                OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Boolean when bool.TryParse(merged[key], out var flag) =>
                     flag ? "true" : "false",
                 _ => merged[key].Trim()
             };

@@ -1,4 +1,6 @@
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -145,6 +147,10 @@ public sealed class OpticSceneControl : Control
     {
         Focusable = true;
         ClipToBounds = true;
+        AutomationProperties.SetName(this, "光学系统视图");
+        AutomationProperties.SetHelpText(
+            this,
+            "使用加号或减号缩放，按 Home 重置。二维视图用方向键平移；三维视图用方向键旋转，按住 Shift 平移。");
     }
 
 
@@ -350,6 +356,72 @@ public sealed class OpticSceneControl : Control
         _viewport.Reset();
         _yaw = -0.72;
         _pitch = 0.38;
+        InvalidateVisual();
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new InteractiveCanvasAutomationPeer(this);
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+        if (!InteractiveCanvasKeyboard.TryGetCommand(e.Key, out var command))
+        {
+            return;
+        }
+
+        switch (command)
+        {
+            case InteractiveCanvasCommand.Reset:
+                ResetView();
+                break;
+            case InteractiveCanvasCommand.ZoomIn:
+                ZoomAtCenter(1.25);
+                break;
+            case InteractiveCanvasCommand.ZoomOut:
+                ZoomAtCenter(0.8);
+                break;
+            default:
+                NavigateWithKeyboard(command, e.KeyModifiers.HasFlag(KeyModifiers.Shift));
+                break;
+        }
+
+        e.Handled = true;
+    }
+
+    private void NavigateWithKeyboard(InteractiveCanvasCommand command, bool pan)
+    {
+        var x = command switch
+        {
+            InteractiveCanvasCommand.Left => -1,
+            InteractiveCanvasCommand.Right => 1,
+            _ => 0
+        };
+        var y = command switch
+        {
+            InteractiveCanvasCommand.Up => -1,
+            InteractiveCanvasCommand.Down => 1,
+            _ => 0
+        };
+        if (ViewMode == OpticSceneViewMode.ThreeDimensional && !pan)
+        {
+            _yaw += x * 0.08;
+            _pitch = Math.Clamp(_pitch + (y * 0.08), -1.25, 1.25);
+        }
+        else
+        {
+            _viewport.PanBy(new Vector(x * 24, y * 24));
+        }
+
+        InvalidateVisual();
+    }
+
+    private void ZoomAtCenter(double factor)
+    {
+        _viewport.ZoomAt(
+            factor,
+            new Point(Bounds.Width / 2, Bounds.Height / 2),
+            Bounds.Size);
         InvalidateVisual();
     }
 

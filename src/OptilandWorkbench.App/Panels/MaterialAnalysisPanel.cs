@@ -30,7 +30,6 @@ public sealed class MaterialAnalysisPanel : UserControl
     };
     private readonly AnalysisPlotControl _plot = new()
     {
-        MinWidth = 520,
         MinHeight = 380,
         HorizontalAlignment = HorizontalAlignment.Stretch,
         VerticalAlignment = VerticalAlignment.Stretch
@@ -111,7 +110,6 @@ public sealed class MaterialAnalysisPanel : UserControl
 
         var detailsFrame = new Border
         {
-            Width = 280,
             Padding = new Thickness(14),
             BorderThickness = new Thickness(1, 0, 0, 0),
             Child = new ScrollViewer { Content = _details }
@@ -119,11 +117,12 @@ public sealed class MaterialAnalysisPanel : UserControl
         detailsFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
         detailsFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
 
-        var body = new Grid { ColumnDefinitions = new ColumnDefinitions("*,280") };
-        Grid.SetColumn(_plot, 0);
-        Grid.SetColumn(detailsFrame, 1);
-        body.Children.Add(_plot);
-        body.Children.Add(detailsFrame);
+        var body = new ResponsiveTwoPaneGrid(
+            _plot,
+            detailsFrame,
+            "*,0,280",
+            "380,0,Auto",
+            breakpoint: 700);
 
         var content = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
         var toolbarFrame = new Border

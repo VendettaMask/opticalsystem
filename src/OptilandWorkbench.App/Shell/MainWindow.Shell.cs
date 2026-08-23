@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
@@ -256,6 +257,8 @@ public sealed partial class MainWindow
             VerticalContentAlignment = VerticalAlignment.Center,
             Content = content
         };
+        AutomationProperties.SetName(button, label);
+        AutomationProperties.SetAutomationId(button, $"ribbon-{actionId}");
         button.Classes.Add("ribbon-command");
         AttachRibbonCommandHover(button, content);
         var action = _actions.Find(actionId);
@@ -284,6 +287,8 @@ public sealed partial class MainWindow
                 MinWidth = 190,
                 Padding = new Thickness(10, 8)
             };
+            AutomationProperties.SetName(item, command.Label);
+            AutomationProperties.SetAutomationId(item, $"ribbon-{command.Id}");
             item.Classes.Add("ribbon-menu-item");
             AttachRibbonMenuItemHover(item, header);
             item.Click += async (_, _) => await _actions.ExecuteAsync(action);
@@ -306,6 +311,8 @@ public sealed partial class MainWindow
             Flyout = flyout,
             Content = content
         };
+        AutomationProperties.SetName(button, menu.Label);
+        AutomationProperties.SetAutomationId(button, $"ribbon-menu-{menu.IconName}");
         button.Classes.Add("ribbon-command");
         button.Classes.Add("ribbon-dropdown");
         AttachRibbonCommandHover(button, content);
@@ -334,6 +341,8 @@ public sealed partial class MainWindow
                 MinWidth = 230,
                 Padding = new Thickness(10, 8)
             };
+            AutomationProperties.SetName(item, label);
+            AutomationProperties.SetAutomationId(item, $"ribbon-{actionId}");
             item.Classes.Add("ribbon-menu-item");
             AttachRibbonMenuItemHover(item, header);
             item.Click += async (_, _) => await _actions.ExecuteAsync(action);
@@ -356,6 +365,8 @@ public sealed partial class MainWindow
             Flyout = flyout,
             Content = content
         };
+        AutomationProperties.SetName(button, "材料分析");
+        AutomationProperties.SetAutomationId(button, "ribbon-menu-material-analysis");
         button.Classes.Add("ribbon-command");
         button.Classes.Add("ribbon-dropdown");
         AttachRibbonCommandHover(button, content);
