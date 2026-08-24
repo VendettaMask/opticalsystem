@@ -57,6 +57,11 @@ public sealed class MultiConfiguration
 
     public int AddConfiguration(int sourceConfigIndex = 0)
     {
+        if (sourceConfigIndex < 0 || sourceConfigIndex >= Configurations.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sourceConfigIndex));
+        }
+
         var source = Configurations[sourceConfigIndex];
         Configurations.Add(Optic.FromSnapshot(source.ToSnapshot()));
         var addedIndex = Configurations.Count - 1;
@@ -66,6 +71,47 @@ public sealed class MultiConfiguration
         }
 
         return addedIndex;
+    }
+
+    public int AddSurfaceBeforeImage()
+    {
+        ValidateCompatibleSurfaceStructures();
+        var insertedSurfaceNumber = Math.Max(0, Configurations[0].SurfaceGroup.Items.Count - 1);
+        foreach (var configuration in Configurations)
+        {
+            configuration.Pickups.InsertSurface(insertedSurfaceNumber);
+            configuration.SurfaceGroup.AddDefaultSurface();
+        }
+
+        RemapBrokenLinks(surfaceNumber =>
+            surfaceNumber >= insertedSurfaceNumber ? surfaceNumber + 1 : surfaceNumber);
+        return insertedSurfaceNumber;
+    }
+
+    public void RemoveSurface(int surfaceNumber)
+    {
+        ValidateCompatibleSurfaceStructures();
+        var surfaceCount = Configurations[0].SurfaceGroup.Items.Count;
+        if (surfaceCount <= 2 || surfaceNumber <= 0 || surfaceNumber >= surfaceCount - 1)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(surfaceNumber),
+                "Object and image surfaces cannot be removed, and at least two surfaces are required.");
+        }
+
+        foreach (var configuration in Configurations)
+        {
+            var surface = FindSurface(configuration, surfaceNumber);
+            configuration.Pickups.RemoveSurface(surfaceNumber);
+            configuration.SurfaceGroup.Remove(surface);
+        }
+
+        RemapBrokenLinks(surfaceNumberToMap => surfaceNumberToMap switch
+        {
+            var value when value == surfaceNumber => null,
+            var value when value > surfaceNumber => value - 1,
+            var value => value
+        });
     }
 
     public void SetRadius(int configIndex, int surfaceNumber, double value)
@@ -144,6 +190,7 @@ public sealed class MultiConfiguration
 
     public void PropagateBaseLinks()
     {
+        ValidateCompatibleSurfaceStructures();
         var baseOptic = Configurations[0];
         for (var config = 1; config < Configurations.Count; config++)
         {
@@ -178,7 +225,40 @@ public sealed class MultiConfiguration
     }
 
     private static OpticalSurface FindSurface(Optic optic, int surfaceNumber) =>
-        optic.SurfaceGroup.Items.First(surface => surface.Number == surfaceNumber);
+        optic.SurfaceGroup.Items.SingleOrDefault(surface => surface.Number == surfaceNumber)
+        ?? throw new InvalidOperationException($"Configuration does not contain surface {surfaceNumber}.");
+
+    private void ValidateCompatibleSurfaceStructures()
+    {
+        var expectedNumbers = Configurations[0].SurfaceGroup.Items
+            .Select(surface => surface.Number)
+            .ToArray();
+        for (var configIndex = 1; configIndex < Configurations.Count; configIndex++)
+        {
+            var actualNumbers = Configurations[configIndex].SurfaceGroup.Items
+                .Select(surface => surface.Number)
+                .ToArray();
+            if (!expectedNumbers.SequenceEqual(actualNumbers))
+            {
+                throw new InvalidOperationException(
+                    $"Configuration {configIndex} has an incompatible surface structure.");
+            }
+        }
+    }
+
+    private void RemapBrokenLinks(Func<int, int?> mapSurfaceNumber)
+    {
+        var remapped = _brokenLinks
+            .Select(link => (Link: link, Surface: mapSurfaceNumber(link.Surface)))
+            .Where(item => item.Surface.HasValue)
+            .Select(item => (item.Link.Config, item.Surface!.Value, item.Link.Property))
+            .ToArray();
+        _brokenLinks.Clear();
+        foreach (var link in remapped)
+        {
+            _brokenLinks.Add(link);
+        }
+    }
 
     private static void CopyProperty(OpticalSurface source, OpticalSurface target, string property)
     {

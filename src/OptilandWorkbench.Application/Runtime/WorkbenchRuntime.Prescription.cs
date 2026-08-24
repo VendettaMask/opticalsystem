@@ -110,9 +110,10 @@ public partial class WorkbenchRuntime
     public void AddSurface()
     {
         CaptureCurrentState();
-        var insertedSurfaceNumber = Math.Max(0, Surfaces.Count - 1);
-        CurrentOptic.Pickups.InsertSurface(insertedSurfaceNumber);
-        CurrentOptic.SurfaceGroup.AddDefaultSurface();
+        SyncActiveConfigurationFromCurrent();
+        _multiConfiguration.AddSurfaceBeforeImage();
+        CurrentOptic = Optic.FromSnapshot(
+            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
         SetStatus("已添加表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -133,8 +134,10 @@ public partial class WorkbenchRuntime
         }
 
         CaptureCurrentState();
-        CurrentOptic.Pickups.RemoveSurface(index);
-        CurrentOptic.SurfaceGroup.Remove(surface);
+        SyncActiveConfigurationFromCurrent();
+        _multiConfiguration.RemoveSurface(index);
+        CurrentOptic = Optic.FromSnapshot(
+            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
         SetStatus("已删除表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);

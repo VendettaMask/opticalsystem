@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
@@ -129,39 +130,39 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             manufacturers.Children.Add(check);
         }
 
-        var inputs = new Grid
+        var inputs = new WrapPanel
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,260,32,Auto,160,32,Auto,160"),
-            RowDefinitions = new RowDefinitions("Auto,Auto,Auto"),
-            RowSpacing = 9,
-            ColumnSpacing = 8
+            Orientation = Orientation.Horizontal,
+            ItemSpacing = 18,
+            LineSpacing = 10,
+            Children =
+            {
+                FieldBlock("面", _surfaceScope),
+                FieldBlock("显示匹配结果", _maximumResults),
+                FieldBlock("EFL 公差 (%)", _eflTolerance),
+                FieldBlock("EPD 公差 (%)", _epdTolerance)
+            }
         };
-        AddField(inputs, 0, 0, "面", _surfaceScope);
-        AddField(inputs, 0, 3, "显示匹配结果", _maximumResults);
-        AddField(inputs, 0, 6, "EFL 公差 (%)", _eflTolerance);
-        AddField(inputs, 1, 0, "目标参数", _targetSummary);
-        Grid.SetColumnSpan(_targetSummary, 5);
-        AddField(inputs, 1, 6, "EPD 公差 (%)", _epdTolerance);
 
         var options = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
+            ItemSpacing = 18,
+            LineSpacing = 8,
             VerticalAlignment = VerticalAlignment.Center,
             Children = { _matchShape, _matchDirection }
         };
-        _matchShape.Margin = new Thickness(0, 0, 22, 0);
-        Grid.SetRow(options, 2);
-        Grid.SetColumn(options, 0);
-        Grid.SetColumnSpan(options, 5);
-        inputs.Children.Add(options);
 
         var run = CommandButton("search", "开始匹配");
         run.MinWidth = 120;
         run.Click += (_, _) => RunMatch();
-        Grid.SetRow(run, 2);
-        Grid.SetColumn(run, 6);
-        Grid.SetColumnSpan(run, 2);
-        inputs.Children.Add(run);
+        var actions = new WrapPanel
+        {
+            Orientation = Orientation.Horizontal,
+            ItemSpacing = 18,
+            LineSpacing = 8,
+            Children = { options, run }
+        };
 
         return new StackPanel
         {
@@ -171,6 +172,8 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
                 Text("库存镜头匹配", 18, FontWeight.SemiBold),
                 Labeled("生产厂商", manufacturers),
                 inputs,
+                Labeled("目标参数", _targetSummary),
+                actions,
                 new TextBlock
                 {
                     Text = "匹配使用当前系统的一阶 EFL 和入瞳直径，仅返回目录候选；ZMF 目录头不含可授权替换的处方，因此本页不会假装执行空气厚度补偿或再优化。",
@@ -228,14 +231,17 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
-        if (_disposed)
+        Dispatcher.UIThread.Post(() =>
         {
-            return;
-        }
+            if (_disposed)
+            {
+                return;
+            }
 
-        var snapshot = _documents.GetSnapshot();
-        _targetSummary.Text = $"EFL {Number(snapshot.EffectiveFocalLength)} mm · EPD {Number(snapshot.EntrancePupilDiameter)} mm";
-        _status.Text = "当前系统已改变，请重新执行匹配。";
+            var snapshot = _documents.GetSnapshot();
+            _targetSummary.Text = $"EFL {Number(snapshot.EffectiveFocalLength)} mm · EPD {Number(snapshot.EntrancePupilDiameter)} mm";
+            _status.Text = "当前系统已改变，请重新执行匹配。";
+        });
     }
 
     private void UpdateSelectionActions()
@@ -263,24 +269,19 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
     private int ParseMaximumResults() =>
         int.TryParse(_maximumResults.SelectedItem as string, out var value) ? value : 5;
 
-    private static void AddField(Grid grid, int row, int column, string label, Control control)
-    {
-        var text = Text($"{label}：");
-        text.VerticalAlignment = VerticalAlignment.Center;
-        Grid.SetRow(text, row);
-        Grid.SetColumn(text, column);
-        grid.Children.Add(text);
-        Grid.SetRow(control, row);
-        Grid.SetColumn(control, column + 1);
-        grid.Children.Add(control);
-    }
-
     private static Control Labeled(string label, Control control) => new StackPanel
     {
         Orientation = Orientation.Horizontal,
         Spacing = 12,
         VerticalAlignment = VerticalAlignment.Center,
         Children = { Text($"{label}：", 14, FontWeight.SemiBold), control }
+    };
+
+    private static Control FieldBlock(string label, Control control) => new StackPanel
+    {
+        Spacing = 4,
+        MinWidth = 150,
+        Children = { Text(label, 13, FontWeight.SemiBold), control }
     };
 
     private static string ManufacturerLabel(string manufacturer) => manufacturer switch

@@ -5,6 +5,7 @@ using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Tests;
@@ -567,7 +568,7 @@ public sealed class PythonAnalysisParityTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void GeometricMtfMatchesPythonOptilandPointForPoint(string sampleName, Func<Optic> createOptic)
+    public void GeometricMtfRemainsCloseToPythonOptilandWithIntensityWeighting(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("geometric_mtf");
@@ -589,8 +590,12 @@ public sealed class PythonAnalysisParityTests
             for (var index = 0; index < tangential.Points.Count; index++)
             {
                 AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
-                AssertClose(expected.GetProperty("tangential")[field][index].GetDouble(), tangential.Points[index].Y);
-                AssertClose(expected.GetProperty("sagittal")[field][index].GetDouble(), sagittal.Points[index].Y);
+                AssertGeometricMtfReferenceClose(
+                    expected.GetProperty("tangential")[field][index].GetDouble(),
+                    tangential.Points[index].Y);
+                AssertGeometricMtfReferenceClose(
+                    expected.GetProperty("sagittal")[field][index].GetDouble(),
+                    sagittal.Points[index].Y);
             }
         }
 
@@ -599,6 +604,7 @@ public sealed class PythonAnalysisParityTests
         Assert.Equal(1, data.PlotOptions.YMaximum);
         Assert.True(data.PlotOptions.ShowLegend);
         Assert.Equal("Geometric", data.Values["Method"]);
+        Assert.Equal("Image-plane intensity", data.Values["RayWeighting"]);
     }
 
     [Fact]
@@ -633,6 +639,40 @@ public sealed class PythonAnalysisParityTests
             fullRange.PlotSeries[0].Points[1].Y,
             lowerRange.PlotSeries[0].Points[^1].Y);
         Assert.True(lowerRange.PlotSeries[0].Points[^1].Y > 0);
+    }
+
+    [Fact]
+    public void GeometricMtfUsesRayIntensityWhenComputingModulation()
+    {
+        var frequency = new[] { 0.0, 0.5 };
+        var scale = new[] { 1.0, 1.0 };
+        var uniform = GeometricMtfAnalysis.Compute(
+            new[] { 0.0, 1.0 },
+            new[] { 1.0, 1.0 },
+            frequency,
+            scale);
+        var weighted = GeometricMtfAnalysis.Compute(
+            new[] { 0.0, 1.0 },
+            new[] { 3.0, 1.0 },
+            frequency,
+            scale);
+
+        Assert.Equal(1, weighted[0], 12);
+        Assert.NotEqual(uniform[1], weighted[1]);
+        Assert.True(weighted[1] > uniform[1]);
+    }
+
+    [Fact]
+    public void GeometricMtfRejectsAFieldWithNoPositiveIntensityRays()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Apodization = new ZeroApodization();
+
+        var exception = Assert.Throws<AnalysisDataUnavailableException>(() =>
+            new GeometricMtfAnalysis(optic, numRays: 5, numPoints: 8).GenerateData());
+
+        Assert.Equal("Geometric MTF", exception.AnalysisName);
+        Assert.Contains("positive-intensity", exception.Reason, StringComparison.Ordinal);
     }
 
     [Theory]
@@ -1776,12 +1816,29 @@ public sealed class PythonAnalysisParityTests
             $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}.");
     }
 
+    private sealed class ZeroApodization : IApodizationModel
+    {
+        public string Kind => "zero-test";
+
+        public double Intensity(double normalizedPupilX, double normalizedPupilY) => 0;
+
+        public IApodizationModel Clone() => new ZeroApodization();
+    }
+
     private static void AssertMtfClose(double expected, double actual)
     {
         var tolerance = 1e-3 * Math.Max(1, Math.Abs(expected));
         Assert.True(
             Math.Abs(expected - actual) <= tolerance,
             $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}. Zemax Fringe term 37 is active.");
+    }
+
+    private static void AssertGeometricMtfReferenceClose(double expected, double actual)
+    {
+        var tolerance = 2e-5 * Math.Max(1, Math.Abs(expected));
+        Assert.True(
+            Math.Abs(expected - actual) <= tolerance,
+            $"Expected {expected:R}, actual {actual:R}, tolerance {tolerance:R}. The current calculation uses image-plane ray intensity weights.");
     }
 
     private static void AssertDiffractionReferenceClose(double expected, double actual)

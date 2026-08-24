@@ -164,6 +164,10 @@ public sealed partial class MainWindow : Window
         Closed += OnClosed;
         KeyDown += OnWindowKeyDown;
         RefreshStatus();
+        if (!string.IsNullOrWhiteSpace(_settings.LoadWarning))
+        {
+            _statusText.Text = $"{_settings.LoadWarning}   |   {_statusText.Text}";
+        }
     }
 
     private async void OnOpened(object? sender, EventArgs args)

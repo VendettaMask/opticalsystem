@@ -110,10 +110,11 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         {
             BorderThickness = new Thickness(0, 0, 0, 1),
             Padding = new Thickness(10, 6),
-            Child = new StackPanel
+            Child = new WrapPanel
             {
                 Orientation = Orientation.Horizontal,
-                Spacing = 8,
+                ItemSpacing = 8,
+                LineSpacing = 6,
                 Children =
                 {
                     new TextBlock
@@ -141,7 +142,6 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var settings = BuildSettings();
         var settingsPane = new Border
         {
-            Width = 340,
             BorderThickness = new Thickness(0, 0, 1, 0),
             Child = new ScrollViewer
             {
@@ -154,6 +154,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var previewFrame = new Border
         {
             BorderThickness = new Thickness(1),
+            MinHeight = 200,
             Child = _preview
         };
         previewFrame.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
@@ -163,12 +164,12 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Child = previewFrame
         };
         previewPane.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandWorkspaceBrush"));
-        var workspace = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("340,*"),
-            Children = { settingsPane, previewPane }
-        };
-        Grid.SetColumn(previewPane, 1);
+        var workspace = new ResponsiveTwoPaneGrid(
+            settingsPane,
+            previewPane,
+            "340,12,*",
+            "2*,12,3*",
+            breakpoint: 900);
 
         var root = new DockPanel();
         DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
@@ -723,7 +724,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Padding = new Thickness(8, 3)
     };
 
-    private static Button IconButton(string iconName, string tooltip)
+    internal static Button IconButton(string iconName, string tooltip)
     {
         var button = new Button
         {
@@ -738,6 +739,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Padding = new Thickness(7)
         };
         ToolTip.SetTip(button, tooltip);
+        Avalonia.Automation.AutomationProperties.SetName(button, tooltip);
         return button;
     }
 

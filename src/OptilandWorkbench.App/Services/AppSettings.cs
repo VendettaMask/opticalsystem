@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -37,6 +38,9 @@ public sealed class AppSettings
     public Dictionary<int, WorkspaceLayoutState> LayoutSlots { get; set; } = new();
 
     public Dictionary<string, Dictionary<string, string>> AnalysisSettings { get; set; } = new();
+
+    [JsonIgnore]
+    public string? LoadWarning { get; private set; }
 
     public WorkspaceLayoutState CurrentLayout => new(LeftPaneWidth, LeftTabIndex, RightTabIndex);
 
@@ -87,23 +91,34 @@ public sealed class AppSettings
         return LayoutSlots.TryGetValue(slot, out var layout) ? layout : null;
     }
 
-    public static AppSettings Load()
+    public static AppSettings Load() => Load(SettingsPath);
+
+    internal static AppSettings Load(string settingsPath)
     {
         try
         {
-            if (!File.Exists(SettingsPath))
+            if (!File.Exists(settingsPath))
             {
                 return new AppSettings();
             }
 
-            var json = File.ReadAllText(SettingsPath);
+            var json = File.ReadAllText(settingsPath);
             var settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
             settings.NormalizeDisplaySettings();
             return settings;
         }
-        catch
+        catch (Exception exception) when (exception is JsonException
+            or IOException
+            or UnauthorizedAccessException
+            or NotSupportedException)
         {
-            return new AppSettings();
+            var backupPath = QuarantineInvalidSettings(settingsPath);
+            return new AppSettings
+            {
+                LoadWarning = backupPath is null
+                    ? $"设置文件无法读取，已使用默认设置：{exception.Message}"
+                    : $"设置文件无法读取，已备份为 {Path.GetFileName(backupPath)} 并使用默认设置：{exception.Message}"
+            };
         }
     }
 
@@ -152,6 +167,33 @@ public sealed class AppSettings
                 ? AppContext.BaseDirectory
                 : appData;
             return Path.Combine(root, "OptilandWorkbench", "settings.json");
+        }
+    }
+
+    private static string? QuarantineInvalidSettings(string settingsPath)
+    {
+        try
+        {
+            if (!File.Exists(settingsPath))
+            {
+                return null;
+            }
+
+            var backupPath = $"{settingsPath}.invalid-{DateTimeOffset.Now:yyyyMMdd-HHmmss}-{Guid.NewGuid():N}.bak";
+            File.Move(settingsPath, backupPath);
+            return backupPath;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return null;
+        }
+        catch (NotSupportedException)
+        {
+            return null;
         }
     }
 }

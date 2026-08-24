@@ -44,17 +44,19 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
         }
     }
 
-    public int Add() => Mutate(WorkspaceChangeCategory.Configuration, Runtime.AddMultiConfiguration);
+    public int Add() => MutateTransactional(
+        WorkspaceChangeCategory.Configuration,
+        Runtime.AddMultiConfiguration);
 
     public void Activate(int configurationIndex)
     {
         Workspace.CancelDocumentTasks();
-        Mutate(
+        MutateTransactional(
             WorkspaceChangeCategory.Configuration,
             () => Runtime.ActivateMultiConfiguration(configurationIndex));
     }
 
-    public void SetThickness(int configurationIndex, int surfaceNumber, double thickness) => Mutate(
+    public void SetThickness(int configurationIndex, int surfaceNumber, double thickness) => MutateTransactional(
         WorkspaceChangeCategory.Configuration,
         () => Runtime.SetMultiConfigurationThickness(configurationIndex, surfaceNumber, thickness));
 }

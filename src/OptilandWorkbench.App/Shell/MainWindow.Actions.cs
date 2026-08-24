@@ -179,7 +179,7 @@ public sealed partial class MainWindow
         _actions.Register("toggle-page-lock", "切换当前页面更新锁定", "窗口", _panels.ToggleActiveDocumentLocked);
         _actions.Register("close-all-pages", "关闭镜头数据以外的页面", "窗口", _panels.CloseAllDocuments);
         _actions.Register("save-default-layout", "保存默认布局", "窗口", () => _panels.SaveDefaultLayoutAsync());
-        _actions.Register("restore-default-layout", "载入已保存的默认布局", "窗口", () => _panels.RestoreDefaultLayoutAsync());
+        _actions.Register("restore-default-layout", "载入已保存的默认布局", "窗口", RestoreDefaultLayoutAsync);
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
         _actions.Register("about", "关于 Optical System Design", "帮助", ShowAboutAsync);
         foreach (var analysis in AnalysisRibbonCommands)

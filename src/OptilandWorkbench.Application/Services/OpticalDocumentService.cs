@@ -26,7 +26,7 @@ namespace OptilandWorkbench.Application.Services;
 internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDocumentService
 {
     private readonly Func<LoadedOpticalDocument, string, CancellationToken, Task> _saveDocumentAsync;
-    private readonly SemaphoreSlim _saveGate = new(1, 1);
+    private Task _saveTail = Task.CompletedTask;
 
     public OpticalDocumentService(WorkspaceCoordinator workspace)
         : this(workspace, WorkbenchRuntime.SaveDocumentAsync)
@@ -71,23 +71,48 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         }
     }
 
-    public async Task SaveAsync(string path, CancellationToken cancellationToken = default)
+    public Task SaveAsync(string path, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        var fullPath = Path.GetFullPath(path);
         LoadedOpticalDocument document;
         long documentGeneration;
         long sourceRevision;
+        Task predecessor;
+        TaskCompletionSource completion;
         lock (Gate)
         {
             document = Runtime.CaptureDocument();
             documentGeneration = Workspace.DocumentGeneration;
             sourceRevision = Workspace.Revision;
+            predecessor = _saveTail;
+            completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            _saveTail = completion.Task;
         }
 
-        var fullPath = Path.GetFullPath(path);
-        await _saveGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        return SaveQueuedAsync(
+            predecessor,
+            completion,
+            document,
+            documentGeneration,
+            sourceRevision,
+            fullPath,
+            cancellationToken);
+    }
+
+    private async Task SaveQueuedAsync(
+        Task predecessor,
+        TaskCompletionSource completion,
+        LoadedOpticalDocument document,
+        long documentGeneration,
+        long sourceRevision,
+        string fullPath,
+        CancellationToken cancellationToken)
+    {
         try
         {
+            await predecessor.ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
             await _saveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
             lock (Gate)
@@ -106,7 +131,7 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         }
         finally
         {
-            _saveGate.Release();
+            completion.TrySetResult();
         }
     }
 

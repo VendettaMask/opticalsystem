@@ -70,6 +70,72 @@ public sealed class DocumentRevisionAndSaveTests
     }
 
     [Fact]
+    public async Task QueuedSavesWriteSnapshotsInCaptureOrderAndLeaveTheNewestRevisionClean()
+    {
+        var firstStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var releaseFirst = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var secondStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var writtenRadii = new List<double>();
+        using var workspace = new WorkspaceCoordinator(new OpticContext(Optic.CreateCookeTriplet()));
+        var callIndex = 0;
+        var documents = new OpticalDocumentService(
+            workspace,
+            async (document, _, cancellationToken) =>
+            {
+                var currentCall = Interlocked.Increment(ref callIndex);
+                if (currentCall == 1)
+                {
+                    firstStarted.SetResult();
+                    await releaseFirst.Task.WaitAsync(cancellationToken);
+                }
+                else
+                {
+                    secondStarted.SetResult();
+                }
+
+                writtenRadii.Add(document.ActiveOptic.SurfaceGroup.Items[1].Radius);
+            });
+        var prescription = new PrescriptionService(workspace);
+        var path = Path.Combine(Path.GetTempPath(), $"ordered-save-{Guid.NewGuid():N}.staropt");
+
+        var firstSave = documents.SaveAsync(path);
+        await firstStarted.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        var surface = prescription.GetSurfaces()[1];
+        var latestRadius = surface.Radius + 4.5;
+        prescription.UpdateSurface(surface with { Radius = latestRadius });
+        var secondSave = documents.SaveAsync(path);
+
+        Assert.False(secondStarted.Task.IsCompleted);
+        releaseFirst.SetResult();
+        await Task.WhenAll(firstSave, secondSave);
+
+        Assert.Equal(2, writtenRadii.Count);
+        Assert.Equal(latestRadius, writtenRadii[^1], 12);
+        Assert.False(documents.GetSnapshot().IsDirty);
+    }
+
+    [Fact]
+    public async Task FailedQueuedSaveDoesNotBlockTheNextSnapshot()
+    {
+        using var workspace = new WorkspaceCoordinator(new OpticContext(Optic.CreateCookeTriplet()));
+        var callIndex = 0;
+        var documents = new OpticalDocumentService(
+            workspace,
+            (_, _, _) => Interlocked.Increment(ref callIndex) == 1
+                ? Task.FromException(new IOException("Injected save failure."))
+                : Task.CompletedTask);
+        var path = Path.Combine(Path.GetTempPath(), $"failed-queued-save-{Guid.NewGuid():N}.staropt");
+
+        var failed = documents.SaveAsync(path);
+        var succeeded = documents.SaveAsync(path);
+
+        await Assert.ThrowsAsync<IOException>(() => failed);
+        await succeeded;
+        Assert.Equal(2, callIndex);
+        Assert.False(documents.GetSnapshot().IsDirty);
+    }
+
+    [Fact]
     public void RejectedDeletesUpdateStatusWithoutChangingTheOpticRevision()
     {
         using var application = WorkbenchApplication.Create("blank");
@@ -103,10 +169,13 @@ public sealed class DocumentRevisionAndSaveTests
             using var restored = WorkbenchApplication.Create("blank");
             await restored.Documents.OpenAsync(path);
             Assert.False(restored.Documents.GetSnapshot().IsDirty);
+            var events = new List<WorkspaceChangedEventArgs>();
+            restored.Events.Changed += (_, args) => events.Add(args);
 
             restored.MultiConfiguration.Activate(1);
 
             Assert.True(restored.Documents.GetSnapshot().IsDirty);
+            Assert.False(events.Single().FileSwitched);
         }
         finally
         {

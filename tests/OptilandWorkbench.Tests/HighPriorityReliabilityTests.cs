@@ -152,6 +152,66 @@ public sealed class HighPriorityReliabilityTests
     }
 
     [Fact]
+    public void StructuralSurfaceEditsKeepConfigurationsAlignedAndRemapBrokenLinks()
+    {
+        var runtime = new WorkbenchRuntime(Optic.CreateDemo());
+        var alternateIndex = runtime.AddMultiConfiguration();
+        runtime.ActivateMultiConfiguration(alternateIndex);
+        var overridden = runtime.Surfaces[3];
+        var overriddenRadius = overridden.Radius + 12.5;
+        overridden.Radius = overriddenRadius;
+        runtime.CommitSurfaceEdit(overridden, nameof(overridden.Radius));
+        runtime.ActivateMultiConfiguration(0);
+
+        runtime.AddSurface();
+        var afterAdd = runtime.CaptureDocument();
+        Assert.Equal(2, afterAdd.Configurations.Count);
+        Assert.Single(afterAdd.Configurations.Select(configuration => configuration.SurfaceGroup.Items.Count).Distinct());
+
+        runtime.RemoveSurface(runtime.Surfaces[2]);
+        var afterRemove = runtime.CaptureDocument();
+        Assert.Single(afterRemove.Configurations.Select(configuration => configuration.SurfaceGroup.Items.Count).Distinct());
+        Assert.Equal(
+            overriddenRadius,
+            afterRemove.Configurations[alternateIndex].SurfaceGroup.Items[2].Radius,
+            12);
+        Assert.Contains(
+            afterRemove.BrokenLinks ?? Array.Empty<MultiConfigurationLinkOverride>(),
+            link => link.ConfigurationIndex == alternateIndex
+                && link.SurfaceNumber == 2
+                && link.Property == "radius");
+    }
+
+    [Fact]
+    public void ConfigurationAddActivateAndThicknessEditsAreUndoable()
+    {
+        var runtime = new WorkbenchRuntime(Optic.CreateDemo());
+        var original = SerializeDocument(runtime.CaptureDocument());
+
+        var alternateIndex = runtime.AddMultiConfiguration();
+        Assert.True(runtime.Undo());
+        Assert.Equal(original, SerializeDocument(runtime.CaptureDocument()));
+        Assert.True(runtime.Redo());
+        Assert.Equal(2, runtime.CaptureDocument().Configurations.Count);
+
+        runtime.ActivateMultiConfiguration(alternateIndex);
+        Assert.Equal(alternateIndex, runtime.CaptureDocument().ActiveConfigurationIndex);
+        Assert.True(runtime.Undo());
+        Assert.Equal(0, runtime.CaptureDocument().ActiveConfigurationIndex);
+
+        var beforeThickness = SerializeDocument(runtime.CaptureDocument());
+        var changedThickness = runtime.CaptureDocument().Configurations[alternateIndex]
+            .SurfaceGroup.Items[2].Thickness + 3;
+        runtime.SetMultiConfigurationThickness(alternateIndex, 2, changedThickness);
+        Assert.Equal(
+            changedThickness,
+            runtime.CaptureDocument().Configurations[alternateIndex].SurfaceGroup.Items[2].Thickness,
+            12);
+        Assert.True(runtime.Undo());
+        Assert.Equal(beforeThickness, SerializeDocument(runtime.CaptureDocument()));
+    }
+
+    [Fact]
     public void FailedPrescriptionEditRollsBackCurrentAndLinkedConfigurations()
     {
         using var application = WorkbenchApplication.Create("cooke");

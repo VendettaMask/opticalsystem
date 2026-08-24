@@ -166,6 +166,7 @@ public sealed class AnalysisPlotControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        InteractiveCanvasFocus.Attach(this);
         AutomationProperties.SetName(this, "分析图表");
         AutomationProperties.SetHelpText(this, "使用方向键平移，使用加号或减号缩放，按 Home 重置视图。");
     }
@@ -384,6 +385,7 @@ public sealed class AnalysisPlotControl : Control
             .ToArray();
         if (visibleSeries.Length == 0 || Bounds.Width < 48 || Bounds.Height < 48)
         {
+            InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -535,6 +537,7 @@ public sealed class AnalysisPlotControl : Control
         }
 
         DrawInteractionOverlay(context, visibleSeries, plot, MapX, MapY);
+        InteractiveCanvasFocus.Draw(context, this);
     }
 
     private void DrawInteractionOverlay(

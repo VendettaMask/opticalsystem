@@ -41,9 +41,9 @@ public sealed class ToleranceWizardWindow : Window
     {
         _prescription = prescription;
         Title = "公差数据编辑器";
-        Width = 1120;
+        Width = 960;
         Height = 720;
-        MinWidth = 920;
+        MinWidth = 640;
         MinHeight = 620;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
@@ -178,21 +178,17 @@ public sealed class ToleranceWizardWindow : Window
         };
         rightContent.Children[3].BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Border);
 
-        var editorContent = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("170,*"),
-            Children =
+        var editorContent = new ResponsiveTwoPaneGrid(
+            Navigation(),
+            new ScrollViewer
             {
-                Navigation(),
-                new ScrollViewer
-                {
-                    HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-                    VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-                    Content = rightContent
-                }
-            }
-        };
-        Grid.SetColumn(editorContent.Children[1], 1);
+                HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+                VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+                Content = rightContent
+            },
+            "170,0,*",
+            "Auto,0,*",
+            breakpoint: 760);
 
         var editorGrid = new Grid
         {
@@ -353,10 +349,11 @@ public sealed class ToleranceWizardWindow : Window
         {
             Padding = new Thickness(8, 6),
             BorderThickness = new Thickness(0, 0, 0, 1),
-            Child = new StackPanel
+            Child = new WrapPanel
             {
                 Orientation = Orientation.Horizontal,
-                Spacing = 6,
+                ItemSpacing = 6,
+                LineSpacing = 6,
                 Children =
                 {
                     ToolButton("save", "保存", enabled: false),

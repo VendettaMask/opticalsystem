@@ -99,13 +99,18 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         };
 
         var editor = BuildOperandEditor();
-        var editorLayout = new Grid
+        var editorScroller = new ScrollViewer
         {
-            ColumnDefinitions = new ColumnDefinitions("3*,320"),
-            ColumnSpacing = 10,
-            Children = { _operandGrid, editor }
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            Content = editor
         };
-        Grid.SetColumn(editor, 1);
+        var editorLayout = new ResponsiveTwoPaneGrid(
+            _operandGrid,
+            editorScroller,
+            "3*,10,320",
+            "*,10,*",
+            breakpoint: 800);
 
         var content = new Grid
         {

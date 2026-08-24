@@ -61,32 +61,53 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         for (var fieldIndex = 0; fieldIndex < result.Fields.Count; fieldIndex++)
         {
             var field = result.Fields[fieldIndex];
-            var totalWeight = wavelengths.Sum(item => item.Weight);
-            var useEqualWeights = totalWeight <= 1e-30;
+            var validWavelengths = wavelengths
+                .Select((wavelength, wavelengthIndex) => new
+                {
+                    Wavelength = wavelength,
+                    Rays = field.Wavelengths[wavelengthIndex].Rays
+                        .Where(ray => double.IsFinite(ray.X)
+                            && double.IsFinite(ray.Y)
+                            && double.IsFinite(ray.Intensity)
+                            && ray.Intensity > 0)
+                        .ToArray()
+                })
+                .Where(item => item.Rays.Length > 0)
+                .ToArray();
+            if (validWavelengths.Length == 0)
+            {
+                throw new AnalysisDataUnavailableException(
+                    Name,
+                    $"no finite positive-intensity rays reached the image for field {fieldIndex + 1}");
+            }
+
+            var totalWeight = validWavelengths.Sum(item => Math.Max(0, item.Wavelength.Weight));
+            var useEqualWeights = totalWeight <= 1e-30 || !double.IsFinite(totalWeight);
             if (useEqualWeights)
             {
-                totalWeight = wavelengths.Count;
+                totalWeight = validWavelengths.Length;
             }
 
             var tangential = new double[frequency.Length];
             var sagittal = new double[frequency.Length];
-            for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Count; wavelengthIndex++)
+            foreach (var item in validWavelengths)
             {
-                var wavelength = wavelengths[wavelengthIndex];
+                var wavelength = item.Wavelength;
                 var cutoff = fNumber <= 1e-30
                     ? 0
                     : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
                 var diffractionScale = frequency.Select(value => DiffractionScale(value, cutoff)).ToArray();
-                var rays = field.Wavelengths[wavelengthIndex].Rays;
                 var wavelengthTangential = Compute(
-                    rays.Select(ray => ray.Y).ToArray(),
+                    item.Rays.Select(ray => ray.Y).ToArray(),
+                    item.Rays.Select(ray => ray.Intensity).ToArray(),
                     frequency,
                     diffractionScale);
                 var wavelengthSagittal = Compute(
-                    rays.Select(ray => ray.X).ToArray(),
+                    item.Rays.Select(ray => ray.X).ToArray(),
+                    item.Rays.Select(ray => ray.Intensity).ToArray(),
                     frequency,
                     diffractionScale);
-                var weight = useEqualWeights ? 1.0 : wavelength.Weight;
+                var weight = useEqualWeights ? 1.0 : Math.Max(0, wavelength.Weight);
                 for (var index = 0; index < frequency.Length; index++)
                 {
                     tangential[index] += wavelengthTangential[index] * weight;
@@ -123,6 +144,7 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "Geometric",
+            ["RayWeighting"] = "Image-plane intensity",
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
             ["PlotPointCount"] = _numPoints,
@@ -160,14 +182,25 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         return (2 / Math.PI) * (phi - (Math.Cos(phi) * Math.Sin(phi)));
     }
 
-    private static double[] Compute(
+    internal static double[] Compute(
         IReadOnlyList<double> coordinates,
+        IReadOnlyList<double> intensities,
         IReadOnlyList<double> frequency,
         IReadOnlyList<double> scale)
     {
+        if (coordinates.Count != intensities.Count)
+        {
+            throw new ArgumentException("Coordinate and intensity arrays must have the same length.");
+        }
+
+        if (frequency.Count != scale.Count)
+        {
+            throw new ArgumentException("Frequency and scale arrays must have the same length.");
+        }
+
         if (coordinates.Count == 0)
         {
-            return frequency.Select(_ => 0.0).ToArray();
+            throw new AnalysisDataUnavailableException("Geometric MTF", "no valid rays");
         }
 
         var binCount = frequency.Count + 1;
@@ -180,19 +213,27 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         }
 
         var binWidth = (maximum - minimum) / binCount;
-        var counts = new double[binCount];
-        foreach (var coordinate in coordinates)
+        var weights = new double[binCount];
+        for (var rayIndex = 0; rayIndex < coordinates.Count; rayIndex++)
         {
+            var coordinate = coordinates[rayIndex];
             var index = coordinate == maximum
                 ? binCount - 1
                 : Math.Clamp((int)Math.Floor((coordinate - minimum) / binWidth), 0, binCount - 1);
-            counts[index]++;
+            weights[index] += intensities[rayIndex];
         }
 
         var centers = Enumerable.Range(0, binCount)
             .Select(index => minimum + ((index + 0.5) * binWidth))
             .ToArray();
-        var denominator = counts.Sum() * binWidth;
+        var denominator = weights.Sum();
+        if (!(denominator > 0) || !double.IsFinite(denominator))
+        {
+            throw new AnalysisDataUnavailableException(
+                "Geometric MTF",
+                "valid rays have no finite positive intensity");
+        }
+
         var output = new double[frequency.Count];
         for (var index = 0; index < frequency.Count; index++)
         {
@@ -201,8 +242,8 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             for (var bin = 0; bin < binCount; bin++)
             {
                 var phase = 2 * Math.PI * frequency[index] * centers[bin];
-                cosine += counts[bin] * Math.Cos(phase) * binWidth;
-                sine += counts[bin] * Math.Sin(phase) * binWidth;
+                cosine += weights[bin] * Math.Cos(phase);
+                sine += weights[bin] * Math.Sin(phase);
             }
 
             cosine /= denominator;

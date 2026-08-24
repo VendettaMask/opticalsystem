@@ -56,7 +56,7 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/Optil
 - “切换锁定”用于冻结或恢复当前页面更新；“关闭其他页”保留镜头数据页。
 - “保存默认”保存用户布局，“载入默认”载入该布局；命令面板中的“重置为系统初始布局”是另一项操作。
 - 在“数据库 > 镜头库”查看打包镜头，在“加工与图纸”执行可制造性检查和制图。
-- 新建、打开、镜头库载入和退出共用未保存确认；公差文件独立于 STAROPT 保存，但与项目修改一起受保护。撤销/重做保存完整多配置文档和断开链接；所有处方写入与自动半口径刷新共用事务，失败时恢复当前配置、链接配置、撤销历史和工作区修订。优化取消同样恢复完整文档，成功结果仅在自动半口径刷新完成后发布。
+- 新建、打开、镜头库载入和退出共用未保存确认；公差文件独立于 STAROPT 保存，但与项目修改一起受保护，重置或载入布局也会在销毁公差编辑器前确认。撤销/重做保存完整多配置文档和断开链接；配置添加、激活、厚度编辑及表面结构增删均进入同一事务和撤销历史，结构增删同步到全部配置并重映射断开链接。优化取消同样恢复完整文档，成功结果仅在自动半口径刷新完成后发布。
 - STEP 输出从真实 Sag 和表面坐标系构建自适应分面镜片装配，并在写出前验证闭合、方向、体积和自相交；它仍不保留解析曲面、材料、镀膜或公差语义，进入制造流程前必须在目标 CAD 中复核。
 
 ## 构建与测试
@@ -67,7 +67,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至 2026-08-24，仓库当前记录和最近一次全量基线均为 `739/739`。该基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚，以及既有的公差结果修订和保存期间继续编辑回归；STEP CAD 导出专项为 `17/17`，覆盖真实 Sag 与坐标变换、弦高误差、分面装配、胶合组分件、物理孔径、非法几何、三角形上限、取消/异常原子写入和 FreeCAD 样例生成，Linux CI 继续承担 OpenCascade 实际导入验收。
+截至 2026-08-25，正式产品测试项目包含 `747` 项回归测试；最近一次完整基线仍为变更前的 `739/739`。本轮没有运行正式产品全量测试，相关状态、保存、MTF、可访问性和响应式子集为 `34/34`；独立智能初始结构实验室构建为 `0` 警告、`0` 错误，其定向测试为 `7/7`，不并入正式产品基线。历史全量基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚；STEP CAD 导出专项为 `17/17`，Linux CI 继续承担 OpenCascade 实际导入验收。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -94,7 +94,7 @@ docs                               架构、格式、兼容、验证和发布文
 
 ## 文档索引
 
-- 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
+- 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[智能初始结构实验室计划](docs/INITIAL_STRUCTURE_LAB_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
 - 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计规范](docs/UI_DESIGN_SPEC.md)、[UI 符合性审计](docs/UI_CONFORMANCE_AUDIT_2026-08-04.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
 - 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。

@@ -146,6 +146,7 @@ public sealed class OpticSceneControl : Control
     public OpticSceneControl()
     {
         Focusable = true;
+        InteractiveCanvasFocus.Attach(this);
         ClipToBounds = true;
         AutomationProperties.SetName(this, "光学系统视图");
         AutomationProperties.SetHelpText(
@@ -522,6 +523,7 @@ public sealed class OpticSceneControl : Control
             Bounds);
         if (Scene is null)
         {
+            InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -532,6 +534,7 @@ public sealed class OpticSceneControl : Control
                 Draw3D(context, Scene.ThreeDimensional);
             }
 
+            InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -539,6 +542,8 @@ public sealed class OpticSceneControl : Control
         {
             Draw2D(context, Scene.TwoDimensional);
         }
+
+        InteractiveCanvasFocus.Draw(context, this);
     }
 
     private void Draw2D(DrawingContext context, Layout2DScene scene)

@@ -799,6 +799,7 @@ internal sealed class LensLibraryPanel : UserControl
 
     private async Task ShowSelectedLensAsync()
     {
+        var generation = ++_previewGeneration;
         var lens = SelectedLens();
         if (lens is null)
         {
@@ -842,7 +843,6 @@ internal sealed class LensLibraryPanel : UserControl
                 : $"{Number(lens.MinimumWavelengthNanometers)}–{Number(lens.MaximumWavelengthNanometers)} nm";
         _status.Text = $"库文件：{lens.NativePath}";
 
-        var generation = ++_previewGeneration;
         try
         {
             var scene = await _lenses.BuildPreviewAsync(lens.Id);

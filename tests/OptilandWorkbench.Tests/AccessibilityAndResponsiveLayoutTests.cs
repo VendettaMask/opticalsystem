@@ -5,6 +5,8 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Panels;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.Tests;
 
@@ -80,6 +82,41 @@ public sealed class AccessibilityAndResponsiveLayoutTests
         {
             Assert.True(InteractiveCanvasKeyboard.TryGetCommand(key, out var actual));
             Assert.Equal(expected, actual);
+        }
+    }
+
+    [Fact]
+    public async Task OpticalDrawingIconButtonsExposeTheirCommandName()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            var button = OpticalDrawingPanel.IconButton("zoom-in", "放大");
+
+            Assert.Equal("放大", AutomationProperties.GetName(button));
+            Assert.Equal("放大", ToolTip.GetTip(button));
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public void CorruptSettingsAreQuarantinedAndReported()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), $"settings-recovery-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(directory);
+        var path = Path.Combine(directory, "settings.json");
+        try
+        {
+            File.WriteAllText(path, "{ invalid json");
+
+            var settings = AppSettings.Load(path);
+
+            Assert.NotNull(settings.LoadWarning);
+            Assert.False(File.Exists(path));
+            Assert.Single(Directory.GetFiles(directory, "settings.json.invalid-*.bak"));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
         }
     }
 }

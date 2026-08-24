@@ -38,7 +38,7 @@ public partial class WorkbenchRuntime
 
     public int AddMultiConfiguration()
     {
-        SyncActiveConfigurationFromCurrent();
+        CaptureCurrentState();
         var index = _multiConfiguration.AddConfiguration(_activeConfigurationIndex);
         SetStatus($"已添加配置 {index}。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -52,12 +52,17 @@ public partial class WorkbenchRuntime
             return;
         }
 
-        SyncActiveConfigurationFromCurrent();
+        if (configIndex == _activeConfigurationIndex)
+        {
+            return;
+        }
+
+        CaptureCurrentState();
         _activeConfigurationIndex = configIndex;
         CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
-        _undoRedo.Clear();
         SetStatus($"已激活配置 {configIndex}。");
-        OpticLoaded?.Invoke(this, EventArgs.Empty);
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void SetMultiConfigurationThickness(int configIndex, int surfaceNumber, double thickness)
@@ -68,6 +73,19 @@ public partial class WorkbenchRuntime
         }
 
         SyncActiveConfigurationFromCurrent();
+        var surface = _multiConfiguration.Configurations[configIndex].SurfaceGroup.Items
+            .SingleOrDefault(item => item.Number == surfaceNumber);
+        if (surface is null)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
+        }
+
+        if (surface.Thickness.Equals(Math.Max(0, thickness)))
+        {
+            return;
+        }
+
+        CaptureCurrentState();
         _multiConfiguration.SetThickness(configIndex, surfaceNumber, Math.Max(0, thickness));
         if (configIndex == 0)
         {
@@ -77,14 +95,10 @@ public partial class WorkbenchRuntime
         if (configIndex == _activeConfigurationIndex)
         {
             CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
-            _undoRedo.Clear();
-            SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
-            OpticLoaded?.Invoke(this, EventArgs.Empty);
+            SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         }
-        else
-        {
-            SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
-            OpticChanged?.Invoke(this, EventArgs.Empty);
-        }
+
+        SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
+        OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 }

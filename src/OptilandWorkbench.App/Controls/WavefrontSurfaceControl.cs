@@ -27,6 +27,7 @@ public sealed class WavefrontSurfaceControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        InteractiveCanvasFocus.Attach(this);
         AutomationProperties.SetName(this, "波前表面图");
         AutomationProperties.SetHelpText(
             this,
@@ -270,6 +271,7 @@ public sealed class WavefrontSurfaceControl : Control
         context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, Brushes.White), null, Bounds);
         if (!TryBuildGrid(out var grid) || Bounds.Width < 260 || Bounds.Height < 220)
         {
+            InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -288,6 +290,8 @@ public sealed class WavefrontSurfaceControl : Control
         {
             RenderPlanar(context, grid, minimum, maximum, IsContourMode);
         }
+
+        InteractiveCanvasFocus.Draw(context, this);
     }
 
     private bool IsSurfaceMode => DisplayAs.Contains("表面", StringComparison.Ordinal)

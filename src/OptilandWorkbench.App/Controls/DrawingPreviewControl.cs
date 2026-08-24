@@ -20,6 +20,7 @@ public sealed class DrawingPreviewControl : Control
     {
         ClipToBounds = true;
         Focusable = true;
+        InteractiveCanvasFocus.Attach(this);
         AutomationProperties.SetName(this, "光学图纸预览");
         AutomationProperties.SetHelpText(this, "使用方向键平移，使用加号或减号缩放，按 Home 重置视图。");
     }
@@ -163,6 +164,7 @@ public sealed class DrawingPreviewControl : Control
         context.DrawRectangle(background, null, Bounds);
         if (_source is null || Bounds.Width <= 0 || Bounds.Height <= 0)
         {
+            InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -184,6 +186,7 @@ public sealed class DrawingPreviewControl : Control
             topLeft,
             new Size(baseRect.Width * _viewport.Zoom, baseRect.Height * _viewport.Zoom));
         context.DrawImage(_source, new Rect(_source.Size), destination);
+        InteractiveCanvasFocus.Draw(context, this);
     }
 
     private void ZoomAtCenter(double factor)

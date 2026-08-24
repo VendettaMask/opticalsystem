@@ -148,8 +148,13 @@ public sealed partial class MainWindow
             ? brush
             : Brushes.Transparent;
 
-    private void ResetLayout()
+    private async Task ResetLayout()
     {
+        if (!await ConfirmUnsavedToleranceChangesAsync("重置工作区布局"))
+        {
+            return;
+        }
+
         Width = 1440;
         Height = 900;
         _panels.ResetLayout();
@@ -163,8 +168,33 @@ public sealed partial class MainWindow
 
     private async Task LoadLayoutSlot(int slot)
     {
+        if (!await ConfirmUnsavedToleranceChangesAsync($"加载布局槽位 {slot}"))
+        {
+            return;
+        }
+
         await _panels.LoadLayoutSlotAsync(slot);
         SaveLayout();
+    }
+
+    private async Task RestoreDefaultLayoutAsync()
+    {
+        if (!await ConfirmUnsavedToleranceChangesAsync("载入已保存的默认布局"))
+        {
+            return;
+        }
+
+        await _panels.RestoreDefaultLayoutAsync();
+        SaveLayout();
+    }
+
+    private Task<bool> ConfirmUnsavedToleranceChangesAsync(string operationDescription)
+    {
+        return UnsavedChangesGuard.CanContinueAsync(
+            _panels.HasUnsavedToleranceChanges,
+            () => new UnsavedChangesWindow(operationDescription)
+                .ShowDialog<UnsavedChangesChoice>(this),
+            () => _panels.SaveUnsavedToleranceChangesAsync(this));
     }
 
     private async Task ShowCommandPaletteAsync()
