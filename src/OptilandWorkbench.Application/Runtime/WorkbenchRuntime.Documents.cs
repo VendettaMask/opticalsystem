@@ -24,28 +24,32 @@ public partial class WorkbenchRuntime
 {
     public bool Undo()
     {
-        var changed = _undoRedo.TryUndo(CurrentOptic);
-        if (changed)
+        var current = CaptureDocument();
+        if (!_undoRedo.TryUndo(current, out var previous))
         {
-            SetStatus("撤销完成。");
-            SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
-            OpticChanged?.Invoke(this, EventArgs.Empty);
+            return false;
         }
 
-        return changed;
+        ReplaceDocumentState(previous!);
+        SetStatus("撤销完成。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return true;
     }
 
     public bool Redo()
     {
-        var changed = _undoRedo.TryRedo(CurrentOptic);
-        if (changed)
+        var current = CaptureDocument();
+        if (!_undoRedo.TryRedo(current, out var next))
         {
-            SetStatus("重做完成。");
-            SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
-            OpticChanged?.Invoke(this, EventArgs.Empty);
+            return false;
         }
 
-        return changed;
+        ReplaceDocumentState(next!);
+        SetStatus("重做完成。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return true;
     }
 
     public static async Task SaveOpticAsync(
@@ -67,7 +71,10 @@ public partial class WorkbenchRuntime
         if (IsStarOptProjectPath(path))
         {
             await StarOptProjectStore.SaveAsync(
-                new StarOptProjectDocument(document.Configurations, document.ActiveConfigurationIndex),
+                new StarOptProjectDocument(
+                    document.Configurations,
+                    document.ActiveConfigurationIndex,
+                    document.BrokenLinks),
                 path,
                 cancellationToken).ConfigureAwait(false);
         }
@@ -91,13 +98,13 @@ public partial class WorkbenchRuntime
         await SaveDocumentAsync(CaptureDocument(), path, cancellationToken).ConfigureAwait(false);
 
         SetStatus($"已保存 {Path.GetFileName(path)}。");
-        OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void NotifySaved(string path)
+    public void NotifySaved(string path, bool includesCurrentRevision = true)
     {
-        SetStatus($"已保存 {Path.GetFileName(path)}。");
-        OpticChanged?.Invoke(this, EventArgs.Empty);
+        SetStatus(includesCurrentRevision
+            ? $"已保存 {Path.GetFileName(path)}。"
+            : $"已保存 {Path.GetFileName(path)} 的较早版本，当前修改尚未保存。");
     }
 
     public static async Task<Optic> ReadOpticAsync(
@@ -118,7 +125,8 @@ public partial class WorkbenchRuntime
             return new LoadedOpticalDocument(
                 project.Configurations[project.ActiveConfigurationIndex],
                 project.Configurations,
-                project.ActiveConfigurationIndex);
+                project.ActiveConfigurationIndex,
+                project.BrokenLinks);
         }
 
         if (IsNativeJsonPath(path))
@@ -159,18 +167,42 @@ public partial class WorkbenchRuntime
     public void ApplyLoadedDocument(LoadedOpticalDocument document, string path)
     {
         _undoRedo.Clear();
-        _multiConfiguration = new MultiConfiguration(document.Configurations);
+        ReplaceDocumentState(document);
+        var configurationSummary = _multiConfiguration.Configurations.Count > 1
+            ? $"，{_multiConfiguration.Configurations.Count} 个配置"
+            : string.Empty;
+        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。");
+        OpticLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    internal void ExecuteTransactionalEdit(Action action)
+    {
+        ArgumentNullException.ThrowIfNull(action);
+        var initialDocument = CaptureDocument();
+        var initialUndoState = _undoRedo.CreateCheckpoint();
+        var initialStatus = Status;
+        try
+        {
+            action();
+        }
+        catch
+        {
+            ReplaceDocumentState(initialDocument);
+            _undoRedo.RestoreCheckpoint(initialUndoState);
+            SetStatus(initialStatus);
+            throw;
+        }
+    }
+
+    private void ReplaceDocumentState(LoadedOpticalDocument document)
+    {
+        _multiConfiguration = new MultiConfiguration(document.Configurations, document.BrokenLinks);
         _activeConfigurationIndex = Math.Clamp(
             document.ActiveConfigurationIndex,
             0,
             _multiConfiguration.Configurations.Count - 1);
         CurrentOptic = Optic.FromSnapshot(
             _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
-        var configurationSummary = _multiConfiguration.Configurations.Count > 1
-            ? $"，{_multiConfiguration.Configurations.Count} 个配置"
-            : string.Empty;
-        SetStatus($"已打开 {Path.GetFileName(path)}（{FormatNameForPath(path)}{configurationSummary}）。");
-        OpticLoaded?.Invoke(this, EventArgs.Empty);
     }
 
     public LoadedOpticalDocument CaptureDocument()
@@ -182,6 +214,7 @@ public partial class WorkbenchRuntime
         return new LoadedOpticalDocument(
             configurations[_activeConfigurationIndex],
             configurations,
-            _activeConfigurationIndex);
+            _activeConfigurationIndex,
+            _multiConfiguration.BrokenLinks);
     }
 }

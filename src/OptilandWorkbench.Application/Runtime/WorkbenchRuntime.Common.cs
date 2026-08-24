@@ -25,5 +25,6 @@ public partial class WorkbenchRuntime
     private void SetStatus(string status)
     {
         Status = status;
+        StatusChanged?.Invoke(this, EventArgs.Empty);
     }
 }

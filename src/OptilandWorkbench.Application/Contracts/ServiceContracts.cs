@@ -4,6 +4,8 @@ public interface IWorkspaceEventStream
 {
     event EventHandler<WorkspaceChangedEventArgs>? Changed;
 
+    event EventHandler? StatusChanged;
+
     long Revision { get; }
 }
 

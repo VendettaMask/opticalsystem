@@ -26,14 +26,19 @@ public sealed class WorkspaceDockFactory : Factory
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
+    private readonly Func<string, Task<bool>>? _openProjectAsync;
     private readonly SurfaceSelectionService _surfaceSelection = new();
     private readonly Dictionary<string, WorkspaceDocumentDescriptor> _descriptors = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Control> _content = new(StringComparer.Ordinal);
 
-    public WorkspaceDockFactory(IWorkbenchApplication application, AppSettings settings)
+    public WorkspaceDockFactory(
+        IWorkbenchApplication application,
+        AppSettings settings,
+        Func<string, Task<bool>>? openProjectAsync = null)
     {
         _application = application;
         _settings = settings;
+        _openProjectAsync = openProjectAsync;
         HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>
         {
             [nameof(IDockWindow)] = () => new HostWindow()
@@ -47,6 +52,22 @@ public sealed class WorkspaceDockFactory : Factory
     public IDocumentDock? PrimaryDocumentDock { get; private set; }
 
     public IReadOnlyCollection<WorkspaceDocumentDescriptor> Descriptors => _descriptors.Values;
+
+    public bool HasUnsavedToleranceChanges => TolerancingPanels()
+        .Any(panel => panel.HasUnsavedChanges);
+
+    public async Task<bool> SaveUnsavedToleranceChangesAsync(TopLevel owner)
+    {
+        foreach (var panel in TolerancingPanels().Where(panel => panel.HasUnsavedChanges))
+        {
+            if (!await panel.TrySaveChangesAsync(owner))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public void ApplyDisplaySettings()
     {
@@ -300,9 +321,14 @@ public sealed class WorkspaceDockFactory : Factory
     {
         if (dockable is not null)
         {
-            if (_content.Remove(dockable.Id, out var control) && control is IDisposable disposable)
+            if (_content.TryGetValue(dockable.Id, out var control)
+                && control is not TolerancingPanel { HasUnsavedChanges: true })
             {
-                disposable.Dispose();
+                _content.Remove(dockable.Id);
+                if (control is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
             }
 
             _descriptors.Remove(dockable.Id);
@@ -505,12 +531,26 @@ public sealed class WorkspaceDockFactory : Factory
 
     internal async Task OpenLensLibraryProjectAsync(string path)
     {
-        await _application.Documents.OpenAsync(path);
+        if (_openProjectAsync is null)
+        {
+            throw new InvalidOperationException(
+                "Opening a lens-library project requires the host unsaved-changes workflow.");
+        }
+
+        if (!await _openProjectAsync(path))
+        {
+            return;
+        }
+
         OpenDocument(new WorkspaceDocumentDescriptor(
             LensDocumentId,
             WorkspaceDocumentTypes.LensEditor,
             "镜头数据"));
     }
+
+    private IEnumerable<TolerancingPanel> TolerancingPanels() => _content.Values
+        .OfType<TolerancingPanel>()
+        .Distinct();
 
     private Control CreateSystemToolContent()
     {

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
@@ -9,6 +10,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
+using OptilandWorkbench.App;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
@@ -23,6 +25,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly ITolerancingService _tolerancing;
     private readonly IWorkspaceEventStream _events;
     private readonly ObservableCollection<ToleranceOperandEditorRow> _operands = new();
+    private readonly HashSet<ToleranceOperandEditorRow> _trackedOperands = new();
     private readonly DataGrid _operandGrid = CreateGrid();
     private readonly DataGrid _sensitivityGrid = CreateGrid();
     private readonly DataGrid _monteCarloGrid = CreateGrid();
@@ -50,6 +53,9 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private int _worstSensitivityCount;
     private bool _showMonteCarloTrials = true;
     private int _generation;
+    private string? _currentTolerancePath;
+    private bool _hasUnsavedChanges;
+    private bool _suppressDirtyTracking;
     private bool _updatingEditor;
     private bool _disposed;
 
@@ -63,6 +69,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _prescription = prescription;
         _tolerancing = tolerancing;
         _events = events;
+        _operands.CollectionChanged += OnOperandsCollectionChanged;
         ConfigureGrids();
         ConfigureEditor();
 
@@ -123,7 +130,13 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _events.Changed += OnWorkspaceChanged;
         RefreshSurfaces();
         AddOperand();
+        AttachDirtyTracking();
+        _hasUnsavedChanges = false;
     }
+
+    internal bool HasUnsavedChanges => _hasUnsavedChanges;
+
+    internal Task<bool> TrySaveChangesAsync(TopLevel owner) => SaveToleranceFileAsync(owner);
 
     public void Dispose()
     {
@@ -135,6 +148,13 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _disposed = true;
         _generation++;
         _events.Changed -= OnWorkspaceChanged;
+        _operands.CollectionChanged -= OnOperandsCollectionChanged;
+        foreach (var operand in _trackedOperands)
+        {
+            operand.PropertyChanged -= OnOperandPropertyChanged;
+        }
+        _trackedOperands.Clear();
+
         TrackSelectedOperand(null);
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
@@ -174,6 +194,87 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             .ToArray();
         _kindPicker.DisplayMemberBinding = new Binding(nameof(ToleranceKindChoice.Display));
         _kindPicker.SelectedIndex = 0;
+    }
+
+    private void AttachDirtyTracking()
+    {
+        _enabled.IsCheckedChanged += (_, _) => MarkDirtyFromEditor();
+        _kindPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _surfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _distributionPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _minimum.ValueChanged += (_, _) => MarkDirtyFromEditor();
+        _maximum.ValueChanged += (_, _) => MarkDirtyFromEditor();
+        _comment.TextChanged += (_, _) => MarkDirtyFromEditor();
+        _criterion.SelectionChanged += (_, _) => MarkDirty();
+        _trials.ValueChanged += (_, _) => MarkDirty();
+        _seed.ValueChanged += (_, _) => MarkDirty();
+        _compensationIterations.ValueChanged += (_, _) => MarkDirty();
+        _yieldLimit.ValueChanged += (_, _) => MarkDirty();
+    }
+
+    private void MarkDirtyFromEditor()
+    {
+        if (_selectedOperandForEditor is not null)
+        {
+            MarkDirty();
+        }
+    }
+
+    private void MarkDirty()
+    {
+        if (!_suppressDirtyTracking && !_updatingEditor)
+        {
+            _hasUnsavedChanges = true;
+        }
+    }
+
+    private void OnOperandsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
+    {
+        if (args.Action == NotifyCollectionChangedAction.Reset)
+        {
+            foreach (var operand in _trackedOperands)
+            {
+                operand.PropertyChanged -= OnOperandPropertyChanged;
+            }
+
+            _trackedOperands.Clear();
+            foreach (var operand in _operands)
+            {
+                operand.PropertyChanged += OnOperandPropertyChanged;
+                _trackedOperands.Add(operand);
+            }
+
+            MarkDirty();
+            return;
+        }
+
+        if (args.OldItems is not null)
+        {
+            foreach (ToleranceOperandEditorRow operand in args.OldItems)
+            {
+                operand.PropertyChanged -= OnOperandPropertyChanged;
+                _trackedOperands.Remove(operand);
+            }
+        }
+
+        if (args.NewItems is not null)
+        {
+            foreach (ToleranceOperandEditorRow operand in args.NewItems)
+            {
+                operand.PropertyChanged += OnOperandPropertyChanged;
+                _trackedOperands.Add(operand);
+            }
+        }
+
+        MarkDirty();
+    }
+
+    private void OnOperandPropertyChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        if (args.PropertyName != nameof(ToleranceOperandEditorRow.Index))
+        {
+            MarkDirty();
+        }
     }
 
     private Border BuildOperandEditor()
@@ -479,6 +580,13 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 return false;
             }
 
+            if (result.SourceRevision != _events.Revision)
+            {
+                InvalidateResults(
+                    "公差分析使用的系统版本已经过期，结果未显示。");
+                return false;
+            }
+
             if (options.Mode == ToleranceAnalysisMode.Sensitivity
                 && result.SensitivityRows.Count == 0)
             {
@@ -525,38 +633,108 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         }
     }
 
-    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) =>
-        Dispatcher.UIThread.Post(() =>
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        if (Dispatcher.UIThread.CheckAccess())
         {
-            if (!_disposed)
-            {
-                RefreshSurfaces();
-            }
-        });
+            InvalidateForWorkspaceChange(args);
+            return;
+        }
 
-    private async Task SaveToleranceFileAsync()
+        Dispatcher.UIThread.Post(() => InvalidateForWorkspaceChange(args));
+    }
+
+    private void InvalidateForWorkspaceChange(WorkspaceChangedEventArgs args)
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _generation++;
+        _runCancellation?.Cancel();
+        InvalidateResults("当前系统已改变，之前的公差分析结果已作废。");
+        RefreshSurfaces();
+        if (args.Category == WorkspaceChangeCategory.Document && args.FileSwitched)
+        {
+            ResetToleranceDocument();
+        }
+    }
+
+    private void ResetToleranceDocument()
+    {
+        _suppressDirtyTracking = true;
+        try
+        {
+            TrackSelectedOperand(null);
+            _currentTolerancePath = null;
+            _operands.Clear();
+            AddOperand();
+            _criterion.SelectedIndex = 0;
+            _trials.Value = 20;
+            _seed.Value = 1234;
+            _compensationIterations.Value = 3;
+            _yieldLimit.Value = 0;
+            _operandGrid.SelectedItem = _operands.FirstOrDefault();
+            _summary.Text = "已为当前光学系统创建新的公差数据。";
+            _hasUnsavedChanges = false;
+        }
+        finally
+        {
+            _suppressDirtyTracking = false;
+        }
+    }
+
+    private void InvalidateResults(string message)
+    {
+        if (_lastResult is null && _operationStatus.Kind == OperationStatusKind.Idle)
+        {
+            return;
+        }
+
+        _lastResult = null;
+        _sensitivityGrid.ItemsSource = Array.Empty<TolerancingSensitivityRowDto>();
+        _monteCarloGrid.ItemsSource = Array.Empty<TolerancingTrialRowDto>();
+        _statistics.Text = "尚未运行公差分析。";
+        _summary.Text = message;
+        _operationStatus.MarkStale("结果已过期，请重新运行");
+    }
+
+    private async Task<bool> SaveToleranceFileAsync(TopLevel? owner = null)
     {
         try
         {
-            var topLevel = TopLevel.GetTopLevel(this);
-            if (topLevel is null)
+            ApplySelectedOperand();
+            if (!Validate(showSuccess: false))
             {
-                return;
+                return false;
             }
 
-            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            var path = _currentTolerancePath;
+            if (string.IsNullOrWhiteSpace(path))
             {
-                Title = "保存公差数据",
-                SuggestedFileName = "tolerances.startol.json",
-                DefaultExtension = "json",
-                FileTypeChoices = new[]
+                var topLevel = TopLevel.GetTopLevel(this) ?? owner;
+                if (topLevel is null)
                 {
-                    new FilePickerFileType("STAR 公差数据") { Patterns = new[] { "*.startol.json", "*.json" } }
+                    return false;
                 }
-            });
-            if (file is null)
-            {
-                return;
+
+                var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+                {
+                    Title = "保存公差数据",
+                    SuggestedFileName = "tolerances.startol.json",
+                    DefaultExtension = "json",
+                    FileTypeChoices = new[]
+                    {
+                        new FilePickerFileType("STAR 公差数据") { Patterns = new[] { "*.startol.json", "*.json" } }
+                    }
+                });
+                if (file is null)
+                {
+                    return false;
+                }
+
+                path = file.Path.LocalPath;
             }
 
             var document = new ToleranceFileDto(
@@ -574,12 +752,35 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                     WriteIndented = true,
                     Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
                 });
-            await File.WriteAllTextAsync(file.Path.LocalPath, json);
+            var fullPath = Path.GetFullPath(path);
+            var directory = Path.GetDirectoryName(fullPath)
+                ?? throw new InvalidOperationException("无法确定公差文件目录。");
+            Directory.CreateDirectory(directory);
+            var temporaryPath = Path.Combine(
+                directory,
+                $".{Path.GetFileName(fullPath)}.{Guid.NewGuid():N}.tmp");
+            try
+            {
+                await File.WriteAllTextAsync(temporaryPath, json);
+                File.Move(temporaryPath, fullPath, overwrite: true);
+            }
+            finally
+            {
+                if (File.Exists(temporaryPath))
+                {
+                    File.Delete(temporaryPath);
+                }
+            }
+
+            _currentTolerancePath = fullPath;
+            _hasUnsavedChanges = false;
             _summary.Text = "公差数据已保存。";
+            return true;
         }
         catch (Exception exception)
         {
             _summary.Text = $"保存公差数据失败：{exception.Message}";
+            return false;
         }
     }
 
@@ -588,12 +789,21 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         try
         {
             var topLevel = TopLevel.GetTopLevel(this);
-            if (topLevel is null)
+            if (topLevel is not Window owner)
             {
                 return;
             }
 
-            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            if (!await UnsavedChangesGuard.CanContinueAsync(
+                    _hasUnsavedChanges,
+                    () => new UnsavedChangesWindow("载入另一份公差数据")
+                        .ShowDialog<UnsavedChangesChoice>(owner),
+                    () => SaveToleranceFileAsync(owner)))
+            {
+                return;
+            }
+
+            var files = await owner.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "载入公差数据",
                 AllowMultiple = false,
@@ -625,19 +835,30 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 throw new InvalidDataException(string.Join("；", validation.Messages));
             }
 
-            _operands.Clear();
-            foreach (var operand in document.Operands)
+            _suppressDirtyTracking = true;
+            try
             {
-                _operands.Add(new ToleranceOperandEditorRow(operand));
-            }
+                TrackSelectedOperand(null);
+                _operands.Clear();
+                foreach (var operand in document.Operands)
+                {
+                    _operands.Add(new ToleranceOperandEditorRow(operand));
+                }
 
-            Renumber();
-            _criterion.SelectedIndex = document.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
-            _trials.Value = document.Trials;
-            _seed.Value = document.Seed;
-            _compensationIterations.Value = document.CompensationIterations;
-            _yieldLimit.Value = ToDecimal(document.YieldLimit);
-            _operandGrid.SelectedItem = _operands.FirstOrDefault();
+                Renumber();
+                _criterion.SelectedIndex = document.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
+                _trials.Value = document.Trials;
+                _seed.Value = document.Seed;
+                _compensationIterations.Value = document.CompensationIterations;
+                _yieldLimit.Value = ToDecimal(document.YieldLimit);
+                _operandGrid.SelectedItem = _operands.FirstOrDefault();
+                _currentTolerancePath = Path.GetFullPath(files[0].Path.LocalPath);
+                _hasUnsavedChanges = false;
+            }
+            finally
+            {
+                _suppressDirtyTracking = false;
+            }
             _summary.Text = $"已载入 {_operands.Count} 个公差操作数。";
         }
         catch (Exception exception)
@@ -778,6 +999,12 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         if (_lastResult is null)
         {
             builder.AppendLine("尚未运行灵敏度或 Monte Carlo 公差分析。");
+            return builder.ToString();
+        }
+
+        if (_lastResult.SourceRevision != document.Revision)
+        {
+            builder.AppendLine("之前的公差分析结果对应旧系统版本，已禁止写入当前系统报告。请重新运行公差分析。");
             return builder.ToString();
         }
 

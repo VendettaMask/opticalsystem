@@ -9,12 +9,65 @@ using Dock.Model.Mvvm.Core;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
+using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace OptilandWorkbench.Tests;
 
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class WorkspaceDockModelTests
 {
+    [Fact]
+    public async Task LensLibraryOpenUsesHostUnsavedChangesWorkflowAndHonorsCancellation()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var requestedPath = string.Empty;
+        var factory = new WorkspaceDockFactory(
+            application,
+            new AppSettings(),
+            path =>
+            {
+                requestedPath = path;
+                return Task.FromResult(false);
+            });
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
+        var documentsBefore = factory.OpenDocuments().Count;
+
+        await factory.OpenLensLibraryProjectAsync("blocked.staropt");
+
+        Assert.Equal("blocked.staropt", requestedPath);
+        Assert.Equal(documentsBefore, factory.OpenDocuments().Count);
+        factory.DisposeContent();
+    }
+
+    [Fact]
+    public void ClosingDirtyTolerancingDocumentPreservesItForTheGlobalSaveGuard()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var factory = new WorkspaceDockFactory(application, new AppSettings());
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
+        var descriptor = new WorkspaceDocumentDescriptor(
+            "document:tolerancing",
+            WorkspaceDocumentTypes.Tolerancing,
+            "公差数据编辑器");
+        var document = factory.OpenDocument(descriptor);
+        var panel = Assert.IsType<TolerancingPanel>(document.Context);
+        var operands = Assert.IsType<ObservableCollection<ToleranceOperandEditorRow>>(
+            typeof(TolerancingPanel)
+                .GetField("_operands", BindingFlags.Instance | BindingFlags.NonPublic)!
+                .GetValue(panel));
+        operands[0].Comment = "关闭面板后仍需保存";
+
+        factory.CloseDockable(document);
+
+        Assert.True(factory.HasUnsavedToleranceChanges);
+        var reopened = factory.OpenDocument(descriptor);
+        Assert.Same(panel, reopened.Context);
+        factory.DisposeContent();
+    }
+
     [Theory]
     [InlineData(1, 1600, 900, 1, 1)]
     [InlineData(2, 1600, 900, 1, 2)]

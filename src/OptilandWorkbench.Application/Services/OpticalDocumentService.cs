@@ -25,9 +25,20 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDocumentService
 {
+    private readonly Func<LoadedOpticalDocument, string, CancellationToken, Task> _saveDocumentAsync;
+    private readonly SemaphoreSlim _saveGate = new(1, 1);
+
     public OpticalDocumentService(WorkspaceCoordinator workspace)
+        : this(workspace, WorkbenchRuntime.SaveDocumentAsync)
+    {
+    }
+
+    internal OpticalDocumentService(
+        WorkspaceCoordinator workspace,
+        Func<LoadedOpticalDocument, string, CancellationToken, Task> saveDocumentAsync)
         : base(workspace)
     {
+        _saveDocumentAsync = saveDocumentAsync ?? throw new ArgumentNullException(nameof(saveDocumentAsync));
     }
 
     public string? CurrentPath => Workspace.CurrentPath;
@@ -65,29 +76,41 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         cancellationToken.ThrowIfCancellationRequested();
         LoadedOpticalDocument document;
         long documentGeneration;
+        long sourceRevision;
         lock (Gate)
         {
             document = Runtime.CaptureDocument();
             documentGeneration = Workspace.DocumentGeneration;
+            sourceRevision = Workspace.Revision;
         }
 
         var fullPath = Path.GetFullPath(path);
-        await WorkbenchRuntime.SaveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
-        cancellationToken.ThrowIfCancellationRequested();
-        lock (Gate)
+        await _saveGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
         {
-            if (documentGeneration != Workspace.DocumentGeneration)
+            await _saveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+            lock (Gate)
             {
-                return;
-            }
+                if (documentGeneration != Workspace.DocumentGeneration)
+                {
+                    return;
+                }
 
-            Workspace.SetPendingCategory(WorkspaceChangeCategory.Document);
-            Workspace.CurrentPath = fullPath;
-            Runtime.NotifySaved(fullPath);
+                Workspace.CurrentPath = fullPath;
+                Workspace.MarkSavedRevision(sourceRevision);
+                Runtime.NotifySaved(
+                    fullPath,
+                    includesCurrentRevision: sourceRevision == Workspace.Revision);
+            }
+        }
+        finally
+        {
+            _saveGate.Release();
         }
     }
 
-    public bool Undo() => Mutate(WorkspaceChangeCategory.Prescription, Runtime.Undo);
+    public bool Undo() => MutateTransactional(WorkspaceChangeCategory.Prescription, Runtime.Undo);
 
-    public bool Redo() => Mutate(WorkspaceChangeCategory.Prescription, Runtime.Redo);
+    public bool Redo() => MutateTransactional(WorkspaceChangeCategory.Prescription, Runtime.Redo);
 }

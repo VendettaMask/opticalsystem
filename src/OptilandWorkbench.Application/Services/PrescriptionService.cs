@@ -136,15 +136,15 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         }
     }
 
-    public void AddSurface() => Mutate(WorkspaceChangeCategory.Surface, Runtime.AddSurface);
+    public void AddSurface() => MutateTransactional(WorkspaceChangeCategory.Surface, Runtime.AddSurface);
 
-    public void RemoveSurface(int surfaceNumber) => Mutate(
+    public void RemoveSurface(int surfaceNumber) => MutateTransactional(
         WorkspaceChangeCategory.Surface,
         () => Runtime.RemoveSurface(FindSurface(surfaceNumber)));
 
     public void UpdateSurface(SurfaceRowDto surface)
     {
-        Mutate(WorkspaceChangeCategory.Surface, () =>
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
         {
             var target = FindSurface(surface.Number);
             if (target is null)
@@ -172,6 +172,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             target.RadiusVariable = surface.RadiusVariable;
             target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable;
             Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
+            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Conic));
             if (!isImageSurface)
             {
                 Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
@@ -184,7 +185,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
     public void UpdateSurfaceComponents(int surfaceNumber, SurfaceComponentUpdateDto update)
     {
-        Mutate(WorkspaceChangeCategory.Surface, () => Runtime.ApplySurfaceComponents(
+        MutateTransactional(WorkspaceChangeCategory.Surface, () => Runtime.ApplySurfaceComponents(
             FindSurface(surfaceNumber),
             update.GeometryKind,
             update.ApertureKind,
@@ -194,15 +195,15 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             update.ThinLensFocalLength));
     }
 
-    public void AddField() => Mutate(WorkspaceChangeCategory.Field, Runtime.AddField);
+    public void AddField() => MutateTransactional(WorkspaceChangeCategory.Field, Runtime.AddField);
 
-    public void RemoveField(int index) => Mutate(
+    public void RemoveField(int index) => MutateTransactional(
         WorkspaceChangeCategory.Field,
         () => Runtime.RemoveField(ElementAtOrDefault(Runtime.Fields, index)));
 
     public void UpdateField(FieldRowDto field)
     {
-        Mutate(WorkspaceChangeCategory.Field, () =>
+        MutateTransactional(WorkspaceChangeCategory.Field, () =>
         {
             var target = ElementAtOrDefault(Runtime.Fields, field.Index);
             if (target is null)
@@ -221,15 +222,15 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         });
     }
 
-    public void AddWavelength() => Mutate(WorkspaceChangeCategory.Wavelength, Runtime.AddWavelength);
+    public void AddWavelength() => MutateTransactional(WorkspaceChangeCategory.Wavelength, Runtime.AddWavelength);
 
-    public void RemoveWavelength(int index) => Mutate(
+    public void RemoveWavelength(int index) => MutateTransactional(
         WorkspaceChangeCategory.Wavelength,
         () => Runtime.RemoveWavelength(ElementAtOrDefault(Runtime.Wavelengths, index)));
 
     public void UpdateWavelength(WavelengthRowDto wavelength)
     {
-        Mutate(WorkspaceChangeCategory.Wavelength, () =>
+        MutateTransactional(WorkspaceChangeCategory.Wavelength, () =>
         {
             var target = ElementAtOrDefault(Runtime.Wavelengths, wavelength.Index);
             if (target is null)
@@ -248,7 +249,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
     public void UpdateSystemSettings(SystemSettingsDto settings)
     {
-        Mutate(WorkspaceChangeCategory.SystemSettings, () => Runtime.ApplySystemSettings(
+        MutateTransactional(WorkspaceChangeCategory.SystemSettings, () => Runtime.ApplySystemSettings(
             settings.Backend,
             settings.ApertureKind,
             settings.ApertureValue,
@@ -261,7 +262,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
     public void UpdateEnvironmentSettings(EnvironmentSettingsDto settings)
     {
-        Mutate(WorkspaceChangeCategory.SystemSettings, () =>
+        MutateTransactional(WorkspaceChangeCategory.SystemSettings, () =>
         {
             var environment = Runtime.CurrentOptic.Environment;
             Runtime.CaptureCurrentState();
@@ -282,7 +283,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
                 nameof(catalogs));
         }
 
-        Mutate(WorkspaceChangeCategory.SystemSettings, () =>
+        MutateTransactional(WorkspaceChangeCategory.SystemSettings, () =>
         {
             Runtime.CaptureCurrentState();
             Runtime.CurrentOptic.Materials.SetPreferredGlassCatalogs(catalogs);

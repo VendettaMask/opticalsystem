@@ -38,12 +38,13 @@ public sealed class PanelManager : IDisposable
     public PanelManager(
         IWorkbenchApplication application,
         AppSettings settings,
-        WorkspaceSessionStore? sessionStore = null)
+        WorkspaceSessionStore? sessionStore = null,
+        Func<string, Task<bool>>? openProjectAsync = null)
     {
         _application = application;
         _settings = settings;
         _sessionStore = sessionStore ?? new WorkspaceSessionStore();
-        Factory = new WorkspaceDockFactory(application, settings);
+        Factory = new WorkspaceDockFactory(application, settings, openProjectAsync);
         Layout = Factory.CreateLayout();
         Factory.InitLayout(Layout);
         WorkspaceControl = new DockControl
@@ -69,6 +70,11 @@ public sealed class PanelManager : IDisposable
     public DockControl WorkspaceControl { get; }
 
     public Control WorkspaceGrid => WorkspaceControl;
+
+    public bool HasUnsavedToleranceChanges => Factory.HasUnsavedToleranceChanges;
+
+    public Task<bool> SaveUnsavedToleranceChangesAsync(TopLevel owner) =>
+        Factory.SaveUnsavedToleranceChangesAsync(owner);
 
     public void ApplyDisplaySettings()
     {

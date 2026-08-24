@@ -1,6 +1,7 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Scattering;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
@@ -93,6 +94,44 @@ public sealed class CoreArchitectureTests
             Assert.Equal(1, loaded.ActiveConfigurationIndex);
             Assert.Equal("Alternate configuration", loaded.Configurations[1].Name);
             Assert.Equal(17.25, loaded.Configurations[1].SurfaceGroup.Items[2].Thickness, precision: 12);
+        }
+        finally
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task StarOptProjectPreservesMultiConfigurationBrokenLinks()
+    {
+        var multiConfiguration = new MultiConfiguration(Optic.CreateDemo());
+        var alternateIndex = multiConfiguration.AddConfiguration();
+        multiConfiguration.SetThickness(alternateIndex, 2, 17.25);
+        var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.staropt");
+
+        try
+        {
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(
+                    multiConfiguration.Configurations,
+                    0,
+                    multiConfiguration.BrokenLinks),
+                path);
+
+            var loaded = await StarOptProjectStore.LoadAsync(path);
+            var restored = new MultiConfiguration(loaded.Configurations, loaded.BrokenLinks);
+            restored.SetThickness(0, 2, 6.5);
+            restored.PropagateBaseLinks();
+
+            Assert.Equal(17.25, restored.Configurations[alternateIndex].SurfaceGroup.Items[2].Thickness, 12);
+            Assert.Contains(
+                restored.BrokenLinks,
+                link => link.ConfigurationIndex == alternateIndex
+                    && link.SurfaceNumber == 2
+                    && link.Property == "thickness");
         }
         finally
         {

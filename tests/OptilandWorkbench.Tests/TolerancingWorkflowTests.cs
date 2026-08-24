@@ -221,6 +221,37 @@ public sealed class TolerancingWorkflowTests
     }
 
     [Fact]
+    public async Task TolerancingResultRetainsRevisionOfItsImmutableOpticSnapshot()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var sourceRevision = application.Events.Revision;
+        var operand = new ToleranceOperandDto(
+            1,
+            true,
+            ToleranceOperandKind.Thickness,
+            2,
+            -0.01,
+            0.01);
+
+        var running = application.Tolerancing.RunAsync(new TolerancingRequestDto(
+            2,
+            0,
+            0,
+            Trials: 0,
+            Seed: 42,
+            CompensationIterations: 0,
+            Operands: new[] { operand },
+            Mode: ToleranceAnalysisMode.Sensitivity));
+        var surface = application.Prescription.GetSurfaces().First(item => item.Number == 2);
+        application.Prescription.UpdateSurface(surface with { Thickness = surface.Thickness + 0.01 });
+
+        var result = await running;
+
+        Assert.Equal(sourceRevision, result.SourceRevision);
+        Assert.NotEqual(application.Events.Revision, result.SourceRevision);
+    }
+
+    [Fact]
     public async Task HighNaZemaxLensKeepsValidRaysForToleranceCriterion()
     {
         using var application = WorkbenchApplication.Create();

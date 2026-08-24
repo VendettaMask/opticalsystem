@@ -1,5 +1,6 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Runtime;
+using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Application.Services;
@@ -7,22 +8,36 @@ namespace OptilandWorkbench.Application.Services;
 internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
 {
     private readonly IOpticContext _context;
+    private readonly Action<Optic> _automaticSemiDiameterUpdater;
     private WorkspaceChangeCategory _pendingCategory = WorkspaceChangeCategory.Prescription;
     private long _documentGeneration;
     private long _revision;
+    private long _savedRevision;
     private int _mutationDepth;
     private bool _deferredEvent;
     private bool _deferredFileSwitch;
     private bool _disposed;
 
     public WorkspaceCoordinator(IOpticContext context)
+        : this(context, AutomaticSemiDiameterSolver.Update)
+    {
+    }
+
+    internal WorkspaceCoordinator(
+        IOpticContext context,
+        Action<Optic> automaticSemiDiameterUpdater)
     {
         _context = context;
+        _automaticSemiDiameterUpdater = automaticSemiDiameterUpdater
+            ?? throw new ArgumentNullException(nameof(automaticSemiDiameterUpdater));
         Runtime.OpticLoaded += OnOpticLoaded;
         Runtime.OpticChanged += OnOpticChanged;
+        Runtime.StatusChanged += OnStatusChanged;
     }
 
     public event EventHandler<WorkspaceChangedEventArgs>? Changed;
+
+    public event EventHandler? StatusChanged;
 
     public object Gate => _context.SyncRoot;
 
@@ -53,7 +68,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                 optic.SurfaceGroup.Items.Count,
                 optic.Fields.Count,
                 optic.Wavelengths.Count,
-                optic.Paraxial.EstimateEntrancePupilDiameter());
+                optic.Paraxial.EstimateEntrancePupilDiameter(),
+                Revision != Interlocked.Read(ref _savedRevision));
         }
     }
 
@@ -82,6 +98,21 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         _pendingCategory = category;
     }
 
+    public void MarkSavedRevision(long revision)
+    {
+        var currentRevision = Revision;
+        if (revision < 0 || revision > currentRevision)
+        {
+            throw new ArgumentOutOfRangeException(nameof(revision));
+        }
+
+        var savedRevision = Interlocked.Read(ref _savedRevision);
+        if (revision > savedRevision)
+        {
+            Interlocked.Exchange(ref _savedRevision, revision);
+        }
+    }
+
     public void Mutate(WorkspaceChangeCategory category, Action action)
     {
         lock (Gate)
@@ -94,12 +125,17 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             }
             finally
             {
-                if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                try
                 {
-                    RefreshAutomaticSemiDiameters();
+                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    {
+                        RefreshAutomaticSemiDiameters();
+                    }
                 }
-
-                CompleteMutation();
+                finally
+                {
+                    CompleteMutation();
+                }
             }
         }
     }
@@ -116,14 +152,77 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             }
             finally
             {
-                if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                try
                 {
-                    RefreshAutomaticSemiDiameters();
+                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    {
+                        RefreshAutomaticSemiDiameters();
+                    }
                 }
-
-                CompleteMutation();
+                finally
+                {
+                    CompleteMutation();
+                }
             }
         }
+    }
+
+    public void MutateTransactional(
+        WorkspaceChangeCategory category,
+        Action action,
+        CancellationToken automaticSemiDiameterCancellationToken = default)
+    {
+        lock (Gate)
+        {
+            var previousCategory = _pendingCategory;
+            var previousDeferredEvent = _deferredEvent;
+            var previousDeferredFileSwitch = _deferredFileSwitch;
+            _pendingCategory = category;
+            _mutationDepth++;
+            try
+            {
+                Runtime.ExecuteTransactionalEdit(() =>
+                {
+                    action();
+                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    {
+                        RefreshAutomaticSemiDiameters(automaticSemiDiameterCancellationToken);
+                        automaticSemiDiameterCancellationToken.ThrowIfCancellationRequested();
+                    }
+                });
+            }
+            catch
+            {
+                _deferredEvent = previousDeferredEvent;
+                _deferredFileSwitch = previousDeferredFileSwitch;
+                throw;
+            }
+            finally
+            {
+                CompleteMutation();
+                if (_mutationDepth > 0)
+                {
+                    _pendingCategory = previousCategory;
+                }
+            }
+        }
+    }
+
+    public T MutateTransactional<T>(
+        WorkspaceChangeCategory category,
+        Func<T> action,
+        CancellationToken automaticSemiDiameterCancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(action);
+        T result = default!;
+        MutateTransactional(
+            category,
+            () =>
+            {
+                result = action();
+            },
+            automaticSemiDiameterCancellationToken);
+        return result;
     }
 
     public void Dispose()
@@ -136,12 +235,18 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         _disposed = true;
         Runtime.OpticLoaded -= OnOpticLoaded;
         Runtime.OpticChanged -= OnOpticChanged;
+        Runtime.StatusChanged -= OnStatusChanged;
         _context.Dispose();
     }
 
     private void OnOpticLoaded(object? sender, EventArgs args)
     {
-        Interlocked.Increment(ref _documentGeneration);
+        var documentReplaced = _pendingCategory == WorkspaceChangeCategory.Document;
+        if (documentReplaced)
+        {
+            Interlocked.Increment(ref _documentGeneration);
+        }
+
         if (_mutationDepth > 0)
         {
             _deferredEvent = true;
@@ -150,7 +255,10 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         }
 
         RefreshAutomaticSemiDiameters();
-        Publish(_pendingCategory, fileSwitched: true);
+        Publish(
+            _pendingCategory,
+            fileSwitched: true,
+            markCurrentRevisionSaved: documentReplaced && CurrentPath is not null);
     }
 
     private void OnOpticChanged(object? sender, EventArgs args)
@@ -164,9 +272,22 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         Publish(_pendingCategory, fileSwitched: false);
     }
 
-    private void Publish(WorkspaceChangeCategory category, bool fileSwitched)
+    private void OnStatusChanged(object? sender, EventArgs args)
+    {
+        StatusChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Publish(
+        WorkspaceChangeCategory category,
+        bool fileSwitched,
+        bool markCurrentRevisionSaved = false)
     {
         var revision = Interlocked.Increment(ref _revision);
+        if (markCurrentRevisionSaved)
+        {
+            Interlocked.Exchange(ref _savedRevision, revision);
+        }
+
         using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
         Changed?.Invoke(this, new WorkspaceChangedEventArgs(
             revision,
@@ -175,10 +296,10 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             fileSwitched));
     }
 
-    public void RefreshAutomaticSemiDiameters()
+    public void RefreshAutomaticSemiDiameters(CancellationToken cancellationToken = default)
     {
-        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
-        AutomaticSemiDiameterSolver.Update(Runtime.CurrentOptic);
+        using var cancellationScope = ComputationCancellation.Push(cancellationToken);
+        _automaticSemiDiameterUpdater(Runtime.CurrentOptic);
     }
 
     private static bool UpdatesAutomaticSemiDiameters(WorkspaceChangeCategory category) => category is
@@ -188,7 +309,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         or WorkspaceChangeCategory.Field
         or WorkspaceChangeCategory.Wavelength
         or WorkspaceChangeCategory.SystemSettings
-        or WorkspaceChangeCategory.Configuration;
+        or WorkspaceChangeCategory.Configuration
+        or WorkspaceChangeCategory.Optimization;
 
     private void CompleteMutation()
     {
@@ -201,6 +323,10 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         var fileSwitched = _deferredFileSwitch;
         _deferredEvent = false;
         _deferredFileSwitch = false;
-        Publish(_pendingCategory, fileSwitched);
+        Publish(
+            _pendingCategory,
+            fileSwitched,
+            markCurrentRevisionSaved: _pendingCategory == WorkspaceChangeCategory.Document
+                && CurrentPath is not null);
     }
 }

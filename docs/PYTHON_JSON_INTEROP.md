@@ -8,7 +8,7 @@
 - Python Optiland 0.5.8 `Optic.to_dict()` 递归字典；
 - 原生 STAROPT。
 
-显式 Python 导出使用“文件 > 导出 Python Optiland JSON”或 `.optiland-python.json`。普通“保存”写入 `.staropt`。
+桌面应用只保留 Python Optiland JSON 导入兼容，不再提供 Python JSON 导出入口。普通“保存”始终写入 `.staropt`。
 
 ## GUI 工作流
 

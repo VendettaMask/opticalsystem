@@ -36,6 +36,11 @@ public sealed partial class MainWindow
         });
         if (files.Count > 0)
         {
+            if (!await ConfirmUnsavedChangesAsync("打开另一个光学系统"))
+            {
+                return;
+            }
+
             await _panels.SaveCurrentSessionAsync();
             await _application.Documents.OpenAsync(files[0].Path.LocalPath);
             if (_application.MultiConfiguration.GetRows().Count > 1)
@@ -45,7 +50,7 @@ public sealed partial class MainWindow
         }
     }
 
-    private async Task SaveAsAsync()
+    private async Task<bool> TrySaveAsAsync()
     {
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
@@ -54,37 +59,68 @@ public sealed partial class MainWindow
             DefaultExtension = "staropt",
             FileTypeChoices = new[] { NativeOpticFileType }
         });
-        if (file is not null)
+        if (file is null)
         {
-            await _application.Documents.SaveAsync(file.Path.LocalPath);
+            return false;
         }
+
+        await _application.Documents.SaveAsync(file.Path.LocalPath);
+        return true;
     }
 
     private async Task SaveProjectAsync()
+    {
+        await TrySaveProjectAsync();
+    }
+
+    private async Task<bool> TrySaveProjectAsync()
     {
         var currentPath = _application.Documents.CurrentPath;
         if (currentPath is not null &&
             currentPath.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
         {
             await _application.Documents.SaveAsync(currentPath);
-            return;
+            return true;
         }
 
-        await SaveAsAsync();
+        return await TrySaveAsAsync();
     }
 
-    private async Task ExportPythonJsonAsync()
+    private Task<bool> ConfirmUnsavedChangesAsync(string operationDescription)
     {
-        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        return UnsavedChangesGuard.CanContinueAsync(
+            _application.Documents.GetSnapshot().IsDirty || _panels.HasUnsavedToleranceChanges,
+            () => new UnsavedChangesWindow(operationDescription)
+                .ShowDialog<UnsavedChangesChoice>(this),
+            TrySaveAllChangesAsync);
+    }
+
+    private async Task<bool> TrySaveAllChangesAsync()
+    {
+        if (_application.Documents.GetSnapshot().IsDirty && !await TrySaveProjectAsync())
         {
-            Title = "导出 Python Optiland JSON",
-            SuggestedFileName = "optic.optiland-python.json",
-            FileTypeChoices = new[] { PythonOptilandJsonFileType }
-        });
-        if (file is not null)
-        {
-            await _application.Documents.SaveAsync(file.Path.LocalPath);
+            return false;
         }
+
+        return !_panels.HasUnsavedToleranceChanges
+            || await _panels.SaveUnsavedToleranceChangesAsync(this);
+    }
+
+    private async Task<bool> OpenLensLibraryProjectAsync(string path)
+    {
+        if (!await ConfirmUnsavedChangesAsync("打开镜头库中的光学系统"))
+        {
+            return false;
+        }
+
+        await _panels.SaveCurrentSessionAsync();
+        await _application.Documents.OpenAsync(path);
+        if (_application.MultiConfiguration.GetRows().Count > 1)
+        {
+            _panels.Show(WorkspacePanelId.MultiConfiguration);
+        }
+
+        return true;
     }
 
     private async Task ExportCadAsync()

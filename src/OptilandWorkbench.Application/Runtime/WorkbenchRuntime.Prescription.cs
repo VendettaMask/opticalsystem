@@ -49,7 +49,7 @@ public partial class WorkbenchRuntime
 
     public void CaptureCurrentState()
     {
-        _undoRedo.Capture(CurrentOptic);
+        _undoRedo.Capture(CaptureDocument());
     }
 
     public void CommitSurfaceEdit(OpticalSurface? surface, string? propertyName)
@@ -79,6 +79,22 @@ public partial class WorkbenchRuntime
         CurrentOptic.Pickups.ApplyAll();
         CurrentOptic.Solves.ApplyAll();
         CurrentOptic.SurfaceGroup.Renumber();
+        switch (propertyName)
+        {
+            case nameof(OpticalSurface.Radius):
+                SynchronizeMultiConfigurationProperty(surface, "radius");
+                break;
+            case nameof(OpticalSurface.Thickness):
+                SynchronizeMultiConfigurationProperty(surface, "thickness");
+                break;
+            case nameof(OpticalSurface.Conic):
+                SynchronizeMultiConfigurationProperty(surface, "conic");
+                break;
+            case nameof(OpticalSurface.Material):
+                SynchronizeMultiConfigurationProperty(surface, "material");
+                break;
+        }
+
         SetStatus("表面数据已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -113,7 +129,6 @@ public partial class WorkbenchRuntime
         if (Surfaces.Count <= 2 || index <= 0 || index == Surfaces.Count - 1)
         {
             SetStatus("物面和像面不能删除，系统必须至少保留两个表面。");
-            OpticChanged?.Invoke(this, EventArgs.Empty);
             return;
         }
 
@@ -148,6 +163,8 @@ public partial class WorkbenchRuntime
             gratingPeriodMicrometers,
             grooveOrientationAngleDegrees);
         ApplyPhysicalAperture(surface, physicalApertureKind);
+        SynchronizeMultiConfigurationProperty(surface, "radius");
+        SynchronizeMultiConfigurationProperty(surface, "conic");
         SetStatus($"表面 {surface.Number} 组件已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -181,6 +198,9 @@ public partial class WorkbenchRuntime
             gratingPeriodMicrometers,
             grooveOrientationAngleDegrees);
         ApplyPhysicalAperture(surface, physicalApertureKind);
+        SynchronizeMultiConfigurationProperty(surface, "radius");
+        SynchronizeMultiConfigurationProperty(surface, "conic");
+        SynchronizeMultiConfigurationProperty(surface, "material");
         SetStatus($"表面 {surface.Number} 组件已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -209,7 +229,6 @@ public partial class WorkbenchRuntime
         if (Fields.Count <= 1)
         {
             SetStatus("系统必须至少保留一个视场。");
-            OpticChanged?.Invoke(this, EventArgs.Empty);
             return;
         }
 
@@ -244,7 +263,6 @@ public partial class WorkbenchRuntime
         if (Wavelengths.Count <= 1)
         {
             SetStatus("系统必须至少保留一个波长。");
-            OpticChanged?.Invoke(this, EventArgs.Empty);
             return;
         }
 

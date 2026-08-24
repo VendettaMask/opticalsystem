@@ -29,6 +29,11 @@ public sealed partial class MainWindow
         });
         if (files.Count > 0)
         {
+            if (!await ConfirmUnsavedChangesAsync("导入 Zemax 光学系统"))
+            {
+                return;
+            }
+
             await _panels.SaveCurrentSessionAsync();
             await _application.Documents.OpenAsync(files[0].Path.LocalPath);
             if (_application.MultiConfiguration.GetRows().Count > 1)

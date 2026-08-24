@@ -155,6 +155,12 @@ public sealed class CommercialLensCatalogPanelTests
             remove { }
         }
 
+        public event EventHandler? StatusChanged
+        {
+            add { }
+            remove { }
+        }
+
         public long Revision => 0;
     }
 }

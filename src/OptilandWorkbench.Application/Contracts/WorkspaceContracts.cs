@@ -33,7 +33,8 @@ public sealed record OpticalDocumentSnapshot(
     int SurfaceCount,
     int FieldCount,
     int WavelengthCount,
-    double EntrancePupilDiameter = 0);
+    double EntrancePupilDiameter = 0,
+    bool IsDirty = false);
 
 public sealed record MaterialCatalogDto(
     string Manufacturer,
@@ -927,7 +928,8 @@ public sealed record TolerancingResultDto(
     IReadOnlyList<TolerancingTrialRowDto> TrialRows,
     string Details,
     TolerancingStatisticsDto? Statistics = null,
-    TolerancingSensitivityStatisticsDto? SensitivityStatistics = null);
+    TolerancingSensitivityStatisticsDto? SensitivityStatistics = null,
+    long SourceRevision = 0);
 
 public sealed record MultiConfigurationRowDto(
     int Index,

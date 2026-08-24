@@ -59,7 +59,8 @@ public sealed partial class MainWindow
     private void RefreshStatus()
     {
         var snapshot = _application.Documents.GetSnapshot();
-        Title = $"{snapshot.Name} - Optical System Design";
+        var dirtyMarker = snapshot.IsDirty ? " *" : string.Empty;
+        Title = $"{snapshot.Name}{dirtyMarker} - Optical System Design";
         _statusText.Text = $"{snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
@@ -69,11 +70,21 @@ public sealed partial class MainWindow
 
     private async Task SwitchDocumentAsync(Action createDocument)
     {
+        if (!await ConfirmUnsavedChangesAsync("新建光学系统"))
+        {
+            return;
+        }
+
         await _panels.SaveCurrentSessionAsync();
         createDocument();
     }
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        Dispatcher.UIThread.Post(RefreshStatus);
+    }
+
+    private void OnWorkspaceStatusChanged(object? sender, EventArgs args)
     {
         Dispatcher.UIThread.Post(RefreshStatus);
     }

@@ -24,12 +24,13 @@ namespace OptilandWorkbench.Application.Runtime;
 public sealed record LoadedOpticalDocument(
     Optic ActiveOptic,
     IReadOnlyList<Optic> Configurations,
-    int ActiveConfigurationIndex);
+    int ActiveConfigurationIndex,
+    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null);
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public partial class WorkbenchRuntime
 {
-    private readonly UndoRedoManager _undoRedo = new();
+    private readonly DocumentUndoRedoManager _undoRedo = new();
     private MultiConfiguration _multiConfiguration;
     private int _activeConfigurationIndex;
 
@@ -43,6 +44,8 @@ public partial class WorkbenchRuntime
     public event EventHandler? OpticLoaded;
 
     public event EventHandler? OpticChanged;
+
+    public event EventHandler? StatusChanged;
 
     public event EventHandler? SurfaceDataChanged;
 

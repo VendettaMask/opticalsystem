@@ -31,4 +31,36 @@ internal abstract class WorkbenchServiceBase
     {
         return Workspace.Mutate(category, action);
     }
+
+    protected void MutateTransactional(WorkspaceChangeCategory category, Action action)
+    {
+        Workspace.MutateTransactional(category, action);
+    }
+
+    protected T MutateTransactional<T>(WorkspaceChangeCategory category, Func<T> action)
+    {
+        return Workspace.MutateTransactional(category, action);
+    }
+
+    protected void MutateTransactional(
+        WorkspaceChangeCategory category,
+        Action action,
+        CancellationToken automaticSemiDiameterCancellationToken)
+    {
+        Workspace.MutateTransactional(
+            category,
+            action,
+            automaticSemiDiameterCancellationToken);
+    }
+
+    protected T MutateTransactional<T>(
+        WorkspaceChangeCategory category,
+        Func<T> action,
+        CancellationToken automaticSemiDiameterCancellationToken)
+    {
+        return Workspace.MutateTransactional(
+            category,
+            action,
+            automaticSemiDiameterCancellationToken);
+    }
 }

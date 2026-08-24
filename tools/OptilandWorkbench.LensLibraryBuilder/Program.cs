@@ -7,6 +7,7 @@ using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.LensLibraryBuilder;
 
 if (args.Length == 2 && args[0].Equals("--reindex", StringComparison.OrdinalIgnoreCase))
 {
@@ -141,7 +142,7 @@ try
     await File.WriteAllTextAsync(
         Path.Combine(stagingDirectory, "index.json"),
         JsonSerializer.Serialize(catalog, new JsonSerializerOptions { WriteIndented = true }));
-    PublishLibrary(stagingDirectory, outputDirectory);
+    LensLibraryPublisher.Publish(stagingDirectory, outputDirectory);
     Console.WriteLine($"Output: {outputDirectory}");
     Console.WriteLine($"Lenses: {entries.Count}");
     Console.WriteLine($"Failed: {failures.Count}");
@@ -275,62 +276,6 @@ static void ExtractZip(string archivePath, string outputDirectory)
         var outputPath = SafeChildPath(outputDirectory, entry.FullName);
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
         entry.ExtractToFile(outputPath, overwrite: true);
-    }
-}
-
-static void PublishLibrary(string stagingDirectory, string outputDirectory)
-{
-    Directory.CreateDirectory(outputDirectory);
-    var legacyCatalogDirectory = Path.Combine(outputDirectory, "catalogs");
-    if (Directory.Exists(legacyCatalogDirectory))
-    {
-        Directory.Delete(legacyCatalogDirectory, recursive: true);
-    }
-
-    foreach (var name in new[] { "projects" })
-    {
-        var destination = Path.Combine(outputDirectory, name);
-        if (Directory.Exists(destination))
-        {
-            Directory.Delete(destination, recursive: true);
-        }
-
-        var source = Path.Combine(stagingDirectory, name);
-        if (Directory.Exists(source))
-        {
-            CopyDirectory(source, destination);
-        }
-    }
-
-    File.Move(
-        Path.Combine(stagingDirectory, "index.json"),
-        Path.Combine(outputDirectory, "index.json"),
-        overwrite: true);
-}
-
-static void CopyDirectory(string sourceDirectory, string destinationDirectory)
-{
-    Directory.CreateDirectory(destinationDirectory);
-    foreach (var directory in Directory.EnumerateDirectories(
-                 sourceDirectory,
-                 "*",
-                 SearchOption.AllDirectories))
-    {
-        Directory.CreateDirectory(Path.Combine(
-            destinationDirectory,
-            Path.GetRelativePath(sourceDirectory, directory)));
-    }
-
-    foreach (var file in Directory.EnumerateFiles(
-                 sourceDirectory,
-                 "*",
-                 SearchOption.AllDirectories))
-    {
-        var destination = Path.Combine(
-            destinationDirectory,
-            Path.GetRelativePath(sourceDirectory, file));
-        Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
-        File.Copy(file, destination, overwrite: true);
     }
 }
 

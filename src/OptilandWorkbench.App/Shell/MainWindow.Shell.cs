@@ -53,7 +53,6 @@ public sealed partial class MainWindow
                         RibbonButton("open", "folder-open", "打开"),
                         RibbonButton("import-zemax", "file-input", "Zemax 导入"),
                         RibbonButton("save-as", "save", "保存"),
-                        RibbonButton("export-python-json", "upload", "导出"),
                         RibbonButton("export-cad", "box", "导出 CAD")),
                     RibbonGroup("示例",
                         RibbonButton("new-demo", "aperture", "Cooke 示例"),

@@ -194,18 +194,21 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
         CancellationToken cancellationToken = default)
     {
         Optic snapshot;
+        long sourceRevision;
         CancellationTokenSource linked;
         lock (Gate)
         {
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
+            sourceRevision = Workspace.Revision;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
-        return RunTolerancingWorkerAsync(snapshot, request, linked);
+        return RunTolerancingWorkerAsync(snapshot, sourceRevision, request, linked);
     }
 
     private static async Task<TolerancingResultDto> RunTolerancingWorkerAsync(
         Optic snapshot,
+        long sourceRevision,
         TolerancingRequestDto request,
         CancellationTokenSource linked)
     {
@@ -261,7 +264,8 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                         : new TolerancingSensitivityStatisticsDto(
                             view.SensitivityStatistics.Nominal,
                             view.SensitivityStatistics.RssEstimatedChange,
-                            view.SensitivityStatistics.EstimatedCriterion));
+                            view.SensitivityStatistics.EstimatedCriterion),
+                    sourceRevision);
             }, linked.Token).ConfigureAwait(false);
         }
     }

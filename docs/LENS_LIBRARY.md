@@ -84,7 +84,7 @@ Windows 可把 `.zmx` 拖到 `Convert-Zemax-Lens.cmd`，或执行：
 .\Convert-Zemax-Lens.cmd "D:\lenses\example.zmx"
 ```
 
-工具会导入支持配置、写入并重读 STAROPT 校验、发布到 `samples/lenses` 和打包镜头库，并按稳定 ID 更新索引。相同来源重新导入会更新条目，不创建重复项。全部输出先暂存，任一步失败都保留旧库。
+工具会导入支持配置、写入并重读 STAROPT 校验、发布到 `samples/lenses` 和打包镜头库，并按稳定 ID 更新索引。相同来源重新导入会更新条目，不创建重复项。全部输出先暂存；发布时在目标目录的同一父目录准备完整替换副本，保留 `commercial-index.json` 等非生成器管理内容，再把旧库改名为事务备份并激活新库。新库激活失败会立即恢复旧目录，故障测试覆盖“旧库已经移入备份、新库尚未激活”的窗口；只有回滚本身也遭遇文件系统故障时才保留显式备份路径供人工恢复。
 
 可通过 `--name`、`--category`、`--source-name`、`--source-url`、`--license`、`--lens-type`、`--application` 和 `--design-organization` 提供元数据；未给出类型和用途时按分类写入保守值，设计单位未知时写入“未注明”。运行 `--help` 查看完整参数。
 

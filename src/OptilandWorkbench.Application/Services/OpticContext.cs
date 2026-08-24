@@ -16,6 +16,7 @@ internal interface IOpticContext : IDisposable
 
 internal sealed class OpticContext : IOpticContext
 {
+    private readonly object _lifetimeGate = new();
     private CancellationTokenSource _documentLifetime = new();
     private bool _disposed;
 
@@ -30,7 +31,7 @@ internal sealed class OpticContext : IOpticContext
 
     public CancellationTokenSource LinkDocumentToken(CancellationToken cancellationToken)
     {
-        lock (SyncRoot)
+        lock (_lifetimeGate)
         {
             ObjectDisposedException.ThrowIf(_disposed, this);
             return CancellationTokenSource.CreateLinkedTokenSource(
@@ -42,7 +43,7 @@ internal sealed class OpticContext : IOpticContext
     public void CancelDocumentTasks()
     {
         CancellationTokenSource previous;
-        lock (SyncRoot)
+        lock (_lifetimeGate)
         {
             if (_disposed)
             {
@@ -60,7 +61,7 @@ internal sealed class OpticContext : IOpticContext
     public void Dispose()
     {
         CancellationTokenSource lifetime;
-        lock (SyncRoot)
+        lock (_lifetimeGate)
         {
             if (_disposed)
             {

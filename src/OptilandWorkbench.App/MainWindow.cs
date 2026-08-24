@@ -139,7 +139,10 @@ public sealed partial class MainWindow : Window
             UserGlassCatalogDirectory(),
             BundledLensLibraryDirectory(),
             InstalledZemaxStockCatalogDirectory());
-        _panels = new PanelManager(_application, _settings);
+        _panels = new PanelManager(
+            _application,
+            _settings,
+            openProjectAsync: OpenLensLibraryProjectAsync);
         RegisterActions();
         _actions.ExecutionFailed += OnActionExecutionFailed;
         _panels.PersistenceFailed += OnWorkspacePersistenceFailed;
@@ -155,6 +158,7 @@ public sealed partial class MainWindow : Window
         DisplayTypography.Apply(this);
 
         _application.Events.Changed += OnWorkspaceChanged;
+        _application.Events.StatusChanged += OnWorkspaceStatusChanged;
         Opened += OnOpened;
         Closing += OnClosing;
         Closed += OnClosed;
@@ -204,8 +208,15 @@ public sealed partial class MainWindow : Window
         _closeInProgress = true;
         try
         {
+            if (!await ConfirmUnsavedChangesAsync("退出程序"))
+            {
+                return;
+            }
+
             SaveLayout();
             await _panels.SaveCurrentSessionAsync();
+            _closeAfterPersistence = true;
+            Close();
         }
         catch (Exception exception)
         {
@@ -213,8 +224,7 @@ public sealed partial class MainWindow : Window
         }
         finally
         {
-            _closeAfterPersistence = true;
-            Close();
+            _closeInProgress = false;
         }
     }
 
@@ -228,6 +238,7 @@ public sealed partial class MainWindow : Window
         _actions.ExecutionFailed -= OnActionExecutionFailed;
         _panels.PersistenceFailed -= OnWorkspacePersistenceFailed;
         _application.Events.Changed -= OnWorkspaceChanged;
+        _application.Events.StatusChanged -= OnWorkspaceStatusChanged;
         _panels.Dispose();
         _application.Dispose();
     }

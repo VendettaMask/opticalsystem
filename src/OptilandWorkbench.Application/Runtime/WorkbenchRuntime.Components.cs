@@ -35,6 +35,23 @@ public partial class WorkbenchRuntime
         }
     }
 
+    private void SynchronizeMultiConfigurationProperty(
+        OpticalSurface surface,
+        string property)
+    {
+        SyncActiveConfigurationFromCurrent();
+        if (_activeConfigurationIndex == 0)
+        {
+            _multiConfiguration.PropagateBaseProperty(surface.Number, property);
+            return;
+        }
+
+        _multiConfiguration.UpdateLinkState(
+            _activeConfigurationIndex,
+            surface.Number,
+            property);
+    }
+
     private static void SetSurfaceRadius(OpticalSurface surface, double radius)
     {
         surface.Radius = Math.Abs(radius) < 1e-9

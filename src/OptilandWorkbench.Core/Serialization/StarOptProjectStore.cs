@@ -3,12 +3,14 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.Core.Multiconfig;
 
 namespace OptilandWorkbench.Core.Serialization;
 
 public sealed record StarOptProjectDocument(
     IReadOnlyList<Optic> Configurations,
-    int ActiveConfigurationIndex);
+    int ActiveConfigurationIndex,
+    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null);
 
 public static class StarOptProjectStore
 {
@@ -48,7 +50,8 @@ public static class StarOptProjectStore
             ProjectFormatVersion,
             "Optical System Design",
             document.ActiveConfigurationIndex,
-            configurations);
+            configurations,
+            document.BrokenLinks?.ToList());
         var json = JsonSerializer.SerializeToUtf8Bytes(project, JsonOptions);
         if (json.Length > MaximumPayloadLength)
         {
@@ -210,7 +213,11 @@ public static class StarOptProjectStore
         var configurations = project.Configurations
             .Select(Optic.FromSnapshot)
             .ToArray();
-        return new StarOptProjectDocument(configurations, project.ActiveConfigurationIndex);
+        ValidateBrokenLinks(project.BrokenLinks, configurations);
+        return new StarOptProjectDocument(
+            configurations,
+            project.ActiveConfigurationIndex,
+            project.BrokenLinks);
     }
 
     private static byte[] BuildHeader(ReadOnlySpan<byte> json, int compressedLength)
@@ -300,11 +307,38 @@ public static class StarOptProjectStore
                 nameof(document),
                 "The active configuration index is outside the configuration table.");
         }
+
+        ValidateBrokenLinks(document.BrokenLinks, document.Configurations);
+    }
+
+    private static void ValidateBrokenLinks(
+        IReadOnlyList<MultiConfigurationLinkOverride>? links,
+        IReadOnlyList<Optic> configurations)
+    {
+        if (links is null)
+        {
+            return;
+        }
+
+        foreach (var link in links)
+        {
+            if (link.ConfigurationIndex <= 0 || link.ConfigurationIndex >= configurations.Count
+                || string.IsNullOrWhiteSpace(link.Property)
+                || link.Property.Trim().ToLowerInvariant() is not ("radius" or "thickness" or "conic" or "material")
+                || configurations[0].SurfaceGroup.Items.All(
+                    surface => surface.Number != link.SurfaceNumber)
+                || configurations[link.ConfigurationIndex].SurfaceGroup.Items.All(
+                    surface => surface.Number != link.SurfaceNumber))
+            {
+                throw new InvalidDataException("The STAROPT multi-configuration link table is invalid.");
+            }
+        }
     }
 
     private sealed record StarOptProjectSnapshot(
         int FormatVersion,
         string Application,
         int ActiveConfigurationIndex,
-        List<OpticSnapshot> Configurations);
+        List<OpticSnapshot> Configurations,
+        List<MultiConfigurationLinkOverride>? BrokenLinks = null);
 }

@@ -66,21 +66,23 @@ internal sealed partial class OptimizationService
                         0.001,
                         initialThickness + summary.BestFocusShift);
                     var appliedShift = finalThickness - initialThickness;
-                    return Mutate(WorkspaceChangeCategory.Optimization, () =>
-                    {
-                        Runtime.CaptureCurrentState();
-                        focusSurface.Thickness = finalThickness;
-                        Runtime.CommitSurfaceEdit(
-                            focusSurface,
-                            nameof(OpticalSurface.Thickness));
-                        linked.Token.ThrowIfCancellationRequested();
-                        return new QuickFocusResultDto(
-                            focusSurface.Number,
-                            initialThickness,
-                            appliedShift,
-                            finalThickness,
-                            summary.BestRmsSpotRadius);
-                    });
+                    return MutateTransactional(
+                        WorkspaceChangeCategory.Optimization,
+                        () =>
+                        {
+                            Runtime.CaptureCurrentState();
+                            focusSurface.Thickness = finalThickness;
+                            Runtime.CommitSurfaceEdit(
+                                focusSurface,
+                                nameof(OpticalSurface.Thickness));
+                            return new QuickFocusResultDto(
+                                focusSurface.Number,
+                                initialThickness,
+                                appliedShift,
+                                finalThickness,
+                                summary.BestRmsSpotRadius);
+                        },
+                        linked.Token);
                 }
             }, linked.Token).ConfigureAwait(false);
         }
@@ -119,11 +121,10 @@ internal sealed partial class OptimizationService
                     var surface = FindSurface(surfaceNumber)
                         ?? throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
                     var initial = surface.Radius;
-                    var result = Mutate(
+                    var result = MutateTransactional(
                         WorkspaceChangeCategory.Optimization,
-                        () => Runtime.OptimizeSurfaceRadius(surface, optimizerName, maxIterations));
-                    Workspace.RefreshAutomaticSemiDiameters();
-                    linked.Token.ThrowIfCancellationRequested();
+                        () => Runtime.OptimizeSurfaceRadius(surface, optimizerName, maxIterations),
+                        linked.Token);
                     return new OptimizationResultDto(
                         optimizerName,
                         WorkbenchRuntime.DisplayOptimizerMessage(result.Message),
@@ -196,10 +197,10 @@ internal sealed partial class OptimizationService
                         throw new InvalidOperationException("请先在镜头数据中设置优化变量。");
                     }
 
-                    var result = Mutate(
+                    var result = MutateTransactional(
                         WorkspaceChangeCategory.Optimization,
-                        () => Runtime.OptimizeMarkedVariables(optimizerName, maxIterations));
-                    Workspace.RefreshAutomaticSemiDiameters();
+                        () => Runtime.OptimizeMarkedVariables(optimizerName, maxIterations),
+                        linked.Token);
                     var variables = selected.Select(variable =>
                     {
                         var surface = FindSurface(variable.SurfaceNumber)
@@ -209,7 +210,6 @@ internal sealed partial class OptimizationService
                             : surface.Thickness;
                         return variable with { FinalValue = finalValue };
                     }).ToArray();
-                    linked.Token.ThrowIfCancellationRequested();
                     return new OptimizationRunResultDto(
                         optimizerName,
                         WorkbenchRuntime.DisplayOptimizerMessage(result.Message),

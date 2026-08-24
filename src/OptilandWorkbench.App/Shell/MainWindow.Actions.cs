@@ -27,7 +27,6 @@ public sealed partial class MainWindow
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
         _actions.Register("import-zemax", "导入 Zemax ZMX", "文件", ImportZemaxAsync);
         _actions.Register("save-as", "保存项目", "文件", SaveProjectAsync);
-        _actions.Register("export-python-json", "导出 Python Optiland JSON", "文件", ExportPythonJsonAsync);
         _actions.Register("export-cad", "导出 CAD（STEP）", "文件", ExportCadAsync);
         _actions.Register("exit", "退出", "文件", Close);
         _actions.Register("undo", "撤销", "编辑", () => _application.Documents.Undo());

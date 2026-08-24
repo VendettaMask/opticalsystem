@@ -85,7 +85,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
 
     public void SetMeritFunction(IReadOnlyList<MeritOperandRowDto> operands)
     {
-        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.ReplaceMeritFunction(
+        MutateTransactional(WorkspaceChangeCategory.Optimization, () => Runtime.ReplaceMeritFunction(
             operands.Select(operand =>
             {
                 var type = MeritFunctionCatalog.CanonicalType(operand.Type);
@@ -124,7 +124,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
 
     public void GenerateDefaultMeritFunction(MeritFunctionPreset preset)
     {
-        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateDefaultMeritFunction(preset));
+        MutateTransactional(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateDefaultMeritFunction(preset));
     }
 
     public void GenerateMeritFunction(OptimizationWizardSettingsDto settings)
@@ -157,7 +157,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             settings.XWeight,
             settings.YWeight,
             settings.IgnoreLateralColor);
-        Mutate(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateMeritFunction(
+        MutateTransactional(WorkspaceChangeCategory.Optimization, () => Runtime.GenerateMeritFunction(
             coreSettings,
             settings.StartRow,
             settings.ReplaceExisting));
@@ -166,7 +166,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     public OptimizationVariableUpdateResultDto UpdateAllSurfaceVariables(
         OptimizationVariableUpdateMode mode)
     {
-        return Mutate(WorkspaceChangeCategory.Optimization, () =>
+        return MutateTransactional(WorkspaceChangeCategory.Optimization, () =>
         {
             var lastSurfaceNumber = Runtime.Surfaces.Count == 0
                 ? -1
