@@ -10,6 +10,8 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.NonSequential;
+using NonSequentialObjectKind = OptilandWorkbench.Core.NonSequential.NonSequentialObjectKind;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
@@ -26,9 +28,17 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizationService
 {
-    public VisualizationService(WorkspaceCoordinator workspace)
+    private readonly IWorkbenchModeService? _modes;
+    private readonly NonSequentialAnalysisSession? _nonSequentialAnalysisSession;
+
+    public VisualizationService(
+        WorkspaceCoordinator workspace,
+        IWorkbenchModeService? modes = null,
+        NonSequentialAnalysisSession? nonSequentialAnalysisSession = null)
         : base(workspace)
     {
+        _modes = modes;
+        _nonSequentialAnalysisSession = nonSequentialAnalysisSession;
     }
 
     public Task<SceneDto> BuildSceneAsync(
@@ -44,6 +54,19 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
     {
         lock (Gate)
         {
+            if (_modes?.CurrentMode == OpticalWorkbenchMode.NonSequential)
+            {
+                var document = Runtime.CurrentNonSequentialDocument;
+                return new VisualizationOptionsDto(
+                    Enumerable.Range(1, document.Objects.Count).ToArray(),
+                    document.Objects.Where(item => item.Enabled && item.Kind is
+                            NonSequentialObjectKind.SourceRay or NonSequentialObjectKind.SourcePoint
+                                or NonSequentialObjectKind.SourceRectangle or NonSequentialObjectKind.SourceGaussian)
+                        .Select((item, index) => new VisualizationSelectorOptionDto(index, item.Name)).ToArray(),
+                    document.Wavelengths.Select((item, index) => new VisualizationSelectorOptionDto(
+                        index, $"{item.Label}  {item.Nanometers:0.####} nm")).ToArray());
+            }
+
             return new VisualizationOptionsDto(
                 Runtime.CurrentOptic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
                 Runtime.CurrentOptic.Fields.Select((field, index) =>
@@ -60,6 +83,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         CancellationToken cancellationToken = default)
     {
         Optic snapshot;
+        NonSequentialDocument? nonSequentialSnapshot;
         long sourceRevision;
         OpticalDocumentSnapshot summary;
         CancellationTokenSource linked;
@@ -68,10 +92,44 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             sourceRevision = Workspace.Revision;
             summary = Workspace.GetDocumentSnapshot();
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
+            nonSequentialSnapshot = _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? Runtime.CurrentNonSequentialDocument.Clone()
+                : null;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
-        return BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked);
+        return nonSequentialSnapshot is null
+            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked)
+            : BuildNonSequentialSceneWorkerAsync(
+                snapshot,
+                nonSequentialSnapshot,
+                sourceRevision,
+                summary,
+                request,
+                linked,
+                _nonSequentialAnalysisSession);
+    }
+
+    private static async Task<SceneDto> BuildNonSequentialSceneWorkerAsync(
+        Optic optic,
+        NonSequentialDocument document,
+        long sourceRevision,
+        OpticalDocumentSnapshot summary,
+        VisualizationRequestDto request,
+        CancellationTokenSource linked,
+        NonSequentialAnalysisSession? analysisSession)
+    {
+        using (linked)
+        {
+            return await Task.Run(() =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                var databaseBranches = analysisSession?.LoadLayoutBranches(document);
+                var scene = NonSequentialVisualizationBuilder.Build(optic, document, request, databaseBranches);
+                return new SceneDto(sourceRevision, SceneDimension.ThreeDimensional, null, scene, summary);
+            }, linked.Token).ConfigureAwait(false);
+        }
     }
 
     private static async Task<SceneDto> BuildSceneWorkerAsync(

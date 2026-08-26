@@ -60,8 +60,11 @@ public sealed partial class MainWindow
     {
         var snapshot = _application.Documents.GetSnapshot();
         var dirtyMarker = snapshot.IsDirty ? " *" : string.Empty;
-        Title = $"{snapshot.Name}{dirtyMarker} - Optical System Design";
-        _statusText.Text = $"{snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
+        var modeName = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+            ? "非序列模式"
+            : "顺序模式";
+        Title = $"{snapshot.Name}{dirtyMarker} - {modeName} - Optical System Design";
+        _statusText.Text = $"{modeName}   |   {snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
         _apertureText.Text = $"APER: {NumericDisplayFormatter.Format(snapshot.ApertureValue)}";

@@ -1,10 +1,23 @@
 using System.Diagnostics;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.NonSequential;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Tolerancing;
+
+if (args.Length > 0 && args[0].Equals("--non-sequential", StringComparison.OrdinalIgnoreCase))
+{
+    var rayCount = args.Length > 1 ? int.Parse(args[1]) : 1_000_000;
+    var databasePath = args.Length > 2
+        ? Path.GetFullPath(args[2])
+        : Path.Combine(Path.GetTempPath(), $"optiland-non-sequential-{rayCount}.starrdb");
+    RunNonSequentialDatabase(rayCount, databasePath);
+    return;
+}
 
 var rayCounts = args.Length == 0
     ? new[] { 10_000, 100_000 }
@@ -25,6 +38,77 @@ foreach (var rayCount in rayCounts)
 }
 
 RunMonteCarlo(trials: 100, raysPerTrial: 128);
+
+static void RunNonSequentialDatabase(int rayCount, string databasePath)
+{
+    if (rayCount is <= 0 or > 1_000_000)
+    {
+        throw new ArgumentOutOfRangeException(nameof(rayCount), "Non-sequential benchmark rays must be between 1 and 1,000,000.");
+    }
+
+    var optic = Optic.CreateBlank();
+    var document = NonSequentialDocument.CreateDefault(
+        "Non-sequential database benchmark",
+        new[] { new NonSequentialWavelength("d", 587.6, 1, true) });
+    document.TraceSettings = document.TraceSettings with
+    {
+        AnalysisRaysPerSource = rayCount,
+        MaximumTotalSourceRays = rayCount,
+        SplitFresnelRays = false
+    };
+    document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourcePoint) with
+    {
+        Name = "Benchmark source",
+        Parameters = new SourcePointParameters(
+            ConeHalfAngleDegrees: 5,
+            AnalysisRayCount: rayCount)
+    });
+    document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+    {
+        Name = "Benchmark detector",
+        LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+        Parameters = new DetectorRectangleParameters(
+            WidthMillimeters: 100,
+            HeightMillimeters: 100,
+            PixelsX: 100,
+            PixelsY: 100)
+    });
+
+    Directory.CreateDirectory(Path.GetDirectoryName(databasePath)!);
+    if (File.Exists(databasePath)) File.Delete(databasePath);
+    GC.Collect();
+    GC.WaitForPendingFinalizers();
+    GC.Collect();
+    var allocatedBefore = GC.GetTotalAllocatedBytes(precise: true);
+    var stopwatch = Stopwatch.StartNew();
+    long branches;
+    long segments;
+    using (var stream = new FileStream(databasePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+    using (var writer = new NonSequentialRayDatabaseWriter(
+        stream,
+        NonSequentialRayDatabaseHeader.Create(document)))
+    {
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(OutputMode: NonSequentialTraceOutputMode.RayDatabase),
+            writer);
+        writer.Complete();
+        branches = result.TotalBranchCount;
+        segments = result.TotalSegmentCount;
+    }
+    stopwatch.Stop();
+
+    var databaseBytes = new FileInfo(databasePath).Length;
+    var allocatedBytes = GC.GetTotalAllocatedBytes(precise: true) - allocatedBefore;
+    var managedHeapBytes = GC.GetGCMemoryInfo().HeapSizeBytes;
+    var peakWorkingSetBytes = Process.GetCurrentProcess().PeakWorkingSet64;
+    var raysPerSecond = branches / stopwatch.Elapsed.TotalSeconds;
+    Console.WriteLine("Mode,Rays,Branches,Segments,ElapsedMs,RaysPerSecond,AllocatedBytes,ManagedHeapBytes,ProcessPeakWorkingSetBytes,DatabaseBytes,DatabasePath");
+    Console.WriteLine(
+        $"NonSequentialRayDatabase,{rayCount},{branches},{segments},{stopwatch.Elapsed.TotalMilliseconds:F3},"
+        + $"{raysPerSecond:F0},{allocatedBytes},{managedHeapBytes},{peakWorkingSetBytes},{databaseBytes},{databasePath}");
+}
 
 static void RunTrace(int rayCount, TraceRequest request, string mode)
 {

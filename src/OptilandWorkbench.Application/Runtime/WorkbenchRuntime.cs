@@ -11,6 +11,7 @@ using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Multiconfig;
+using OptilandWorkbench.Core.NonSequential;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Serialization;
@@ -25,7 +26,8 @@ public sealed record LoadedOpticalDocument(
     Optic ActiveOptic,
     IReadOnlyList<Optic> Configurations,
     int ActiveConfigurationIndex,
-    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null);
+    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null,
+    NonSequentialDocument? NonSequentialDocument = null);
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public partial class WorkbenchRuntime
@@ -33,11 +35,19 @@ public partial class WorkbenchRuntime
     private readonly DocumentUndoRedoManager _undoRedo = new();
     private MultiConfiguration _multiConfiguration;
     private int _activeConfigurationIndex;
+    private NonSequentialDocument _nonSequentialDocument;
+    private readonly IReadOnlyList<NonSequentialDetectorFrame>? _databaseDetectorFrames;
 
-    public WorkbenchRuntime(Optic optic)
+    public WorkbenchRuntime(
+        Optic optic,
+        NonSequentialDocument? nonSequentialDocument = null,
+        IReadOnlyList<NonSequentialDetectorFrame>? databaseDetectorFrames = null)
     {
         CurrentOptic = optic;
         _multiConfiguration = new MultiConfiguration(optic);
+        _nonSequentialDocument = (nonSequentialDocument
+            ?? StarOptProjectStore.CreateDefaultNonSequentialDocument(optic)).Clone();
+        _databaseDetectorFrames = databaseDetectorFrames;
         Status = "就绪";
     }
 
@@ -50,6 +60,8 @@ public partial class WorkbenchRuntime
     public event EventHandler? SurfaceDataChanged;
 
     public Optic CurrentOptic { get; private set; }
+
+    public NonSequentialDocument CurrentNonSequentialDocument => _nonSequentialDocument;
 
     public ObservableCollection<OpticalSurface> Surfaces => CurrentOptic.SurfaceGroup.Items;
 

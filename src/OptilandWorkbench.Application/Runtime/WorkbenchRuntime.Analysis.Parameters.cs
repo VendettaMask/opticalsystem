@@ -12,6 +12,7 @@ using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Multiconfig;
+using OptilandWorkbench.Core.NonSequential;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Serialization;
@@ -102,6 +103,56 @@ public partial class WorkbenchRuntime
                     new[] { "方向余弦", "正切角", "Ym, Um, Yc, Uc" }),
                 BoolParameter("UseRayAiming", "使用系统光线瞄准", "true"),
                 BoolParameter("ShowRaySegments", "显示光线段", "false")
+            },
+            "Non-Sequential Ray Trace" => new[]
+            {
+                ChoiceParameter(
+                    "SourceNumber",
+                    "光源对象（0=全部）",
+                    "0",
+                    new[] { "0" }.Concat(
+                        Enumerable.Range(1, CurrentNonSequentialDocument.Objects.Count(item => item.Enabled && item.Kind is
+                            NonSequentialObjectKind.SourceRay
+                                or NonSequentialObjectKind.SourcePoint
+                                or NonSequentialObjectKind.SourceRectangle
+                                or NonSequentialObjectKind.SourceGaussian))
+                            .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                BoolParameter("DirectRay", "使用直接 XYZ/LMN 射线", "false"),
+                DoubleParameter("X", "起点 X (mm)", "0", -1_000_000, 1_000_000, 0.1),
+                DoubleParameter("Y", "起点 Y (mm)", "0", -1_000_000, 1_000_000, 0.1),
+                DoubleParameter("Z", "起点 Z (mm)", "0", -1_000_000, 1_000_000, 0.1),
+                DoubleParameter("L", "方向 L", "0", -1, 1, 0.01),
+                DoubleParameter("M", "方向 M", "0", -1, 1, 0.01),
+                DoubleParameter("N", "方向 N", "1", -1, 1, 0.01),
+                ChoiceParameter(
+                    "WavelengthNumber",
+                    "波长",
+                    "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentNonSequentialDocument.Wavelengths.Count))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                DoubleParameter("PowerWatts", "直接射线功率 (W)", "1", 0.000000001, 1_000_000, 0.1),
+                BoolParameter("LayoutRays", "使用布局射线数", "false"),
+                BoolParameter("SplitFresnelRays", "Fresnel 分支", "true")
+            },
+            "Non-Sequential Detector Viewer" => new[]
+            {
+                ChoiceParameter(
+                    "DetectorNumber",
+                    "探测器对象",
+                    "1",
+                    Enumerable.Range(1, Math.Max(1, CurrentNonSequentialDocument.Objects.Count(item =>
+                            item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter(
+                    "SourceNumber",
+                    "光源对象（0=全部）",
+                    "0",
+                    new[] { "0" }.Concat(Enumerable.Range(1, CurrentNonSequentialDocument.Objects.Count(item =>
+                            item.Enabled && item.Kind is NonSequentialObjectKind.SourceRay
+                                or NonSequentialObjectKind.SourcePoint
+                                or NonSequentialObjectKind.SourceRectangle
+                                or NonSequentialObjectKind.SourceGaussian))
+                        .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray())
             },
             "Full Field Spot Diagram" => new[]
             {

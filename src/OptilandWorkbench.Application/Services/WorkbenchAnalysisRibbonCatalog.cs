@@ -98,6 +98,25 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-y-ybar", "Y-Ybar", "Y-Ybar", "chart-no-axes-column", "光线迹点"),
     };
 
+    public static IReadOnlyList<AnalysisRibbonCommand> NonSequentialRibbonCommands = new AnalysisRibbonCommand[]
+    {
+        new(
+            "analysis-non-sequential-ray-trace",
+            "Non-Sequential Ray Trace",
+            "非序列单光线追迹",
+            "route",
+            "非序列光线"),
+        new(
+            "analysis-non-sequential-detector-viewer",
+            "Non-Sequential Detector Viewer",
+            "非序列探测器查看",
+            "scan-eye",
+            "探测器")
+    };
+
+    public static IReadOnlyList<AnalysisRibbonCommand> AllRibbonCommands =>
+        RibbonCommands.Concat(NonSequentialRibbonCommands).ToArray();
+
     public static string[] RibbonGroupOrder =
     {
         "光线迹点",
@@ -109,6 +128,12 @@ public static partial class WorkbenchAnalysisCatalog
         "RMS",
         "圈入能量",
         "扩展图像分析"
+    };
+
+    public static string[] NonSequentialRibbonGroupOrder =
+    {
+        "非序列光线",
+        "探测器"
     };
 
     public static IReadOnlyList<AnalysisRibbonMenu> RibbonMenus = new AnalysisRibbonMenu[]
@@ -213,6 +238,18 @@ public static partial class WorkbenchAnalysisCatalog
             "-",
             "viewer-ima-bim",
             "viewer-bitmap"
+        })
+    };
+
+    public static IReadOnlyList<AnalysisRibbonMenu> NonSequentialRibbonMenus = new AnalysisRibbonMenu[]
+    {
+        new("非序列光线", "非序列光线", "route", new[]
+        {
+            "analysis-non-sequential-ray-trace"
+        }),
+        new("探测器", "探测器", "scan-eye", new[]
+        {
+            "analysis-non-sequential-detector-viewer"
         })
     };
 }

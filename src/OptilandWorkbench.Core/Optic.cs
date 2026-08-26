@@ -23,6 +23,7 @@ public sealed class Optic
         _state = new OpticState(this, name);
         RealRayTracer = new RealRayTracer(this);
         SequentialRayTracer = new SequentialRayTracer(this);
+        NonSequentialRayTracer = new NonSequentialRayTracer(this);
         Paraxial = new Paraxial(this);
         Analyses = new AnalysisCatalog(this);
     }
@@ -117,6 +118,8 @@ public sealed class Optic
     public RealRayTracer RealRayTracer { get; }
 
     public SequentialRayTracer SequentialRayTracer { get; }
+
+    public NonSequentialRayTracer NonSequentialRayTracer { get; }
 
     public Paraxial Paraxial { get; }
 

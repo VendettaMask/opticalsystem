@@ -74,20 +74,24 @@ public partial class WorkbenchRuntime
                 new StarOptProjectDocument(
                     document.Configurations,
                     document.ActiveConfigurationIndex,
-                    document.BrokenLinks),
+                    document.BrokenLinks,
+                    document.NonSequentialDocument),
                 path,
                 cancellationToken).ConfigureAwait(false);
         }
         else if (IsPythonOptilandJsonPath(path))
         {
+            RejectLossyNonSequentialExport(document, path);
             await PythonOptilandJsonStore.SaveAsync(document.ActiveOptic, path, cancellationToken).ConfigureAwait(false);
         }
         else if (IsNativeJsonPath(path))
         {
+            RejectLossyNonSequentialExport(document, path);
             await OpticJsonStore.SaveAsync(document.ActiveOptic, path, cancellationToken).ConfigureAwait(false);
         }
         else
         {
+            RejectLossyNonSequentialExport(document, path);
             var text = OpticalFormatCatalog.Export(document.ActiveOptic, Path.GetExtension(path));
             await File.WriteAllTextAsync(path, text, cancellationToken).ConfigureAwait(false);
         }
@@ -126,7 +130,8 @@ public partial class WorkbenchRuntime
                 project.Configurations[project.ActiveConfigurationIndex],
                 project.Configurations,
                 project.ActiveConfigurationIndex,
-                project.BrokenLinks);
+                project.BrokenLinks,
+                project.NonSequentialDocument);
         }
 
         if (IsNativeJsonPath(path))
@@ -203,6 +208,8 @@ public partial class WorkbenchRuntime
             _multiConfiguration.Configurations.Count - 1);
         CurrentOptic = Optic.FromSnapshot(
             _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
+        _nonSequentialDocument = (document.NonSequentialDocument
+            ?? StarOptProjectStore.CreateDefaultNonSequentialDocument(CurrentOptic)).Clone();
     }
 
     public LoadedOpticalDocument CaptureDocument()
@@ -215,6 +222,16 @@ public partial class WorkbenchRuntime
             configurations[_activeConfigurationIndex],
             configurations,
             _activeConfigurationIndex,
-            _multiConfiguration.BrokenLinks);
+            _multiConfiguration.BrokenLinks,
+            _nonSequentialDocument.Clone());
+    }
+
+    private static void RejectLossyNonSequentialExport(LoadedOpticalDocument document, string path)
+    {
+        if (document.NonSequentialDocument?.Objects.Count > 0)
+        {
+            throw new InvalidOperationException(
+                $"{Path.GetExtension(path)} 格式不能保存非序列场景，请使用 STAROPT 工程格式。");
+        }
     }
 }

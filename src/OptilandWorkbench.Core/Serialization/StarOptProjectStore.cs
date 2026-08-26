@@ -4,24 +4,27 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core.Multiconfig;
+using OptilandWorkbench.Core.NonSequential;
 
 namespace OptilandWorkbench.Core.Serialization;
 
 public sealed record StarOptProjectDocument(
     IReadOnlyList<Optic> Configurations,
     int ActiveConfigurationIndex,
-    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null);
+    IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null,
+    NonSequentialDocument? NonSequentialDocument = null);
 
 public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
-    public const ushort ContainerVersion = 1;
-    public const int ProjectFormatVersion = 1;
+    public const ushort ContainerVersion = 2;
+    public const int ProjectFormatVersion = 3;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
     private const ushort BrotliCompressionFlag = 1;
     private const int HeaderLength = 52;
+    private const int AssetHeaderLength = 64;
     private static readonly byte[] Magic = "STAROPT\x1a"u8.ToArray();
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -51,7 +54,9 @@ public static class StarOptProjectStore
             "Optical System Design",
             document.ActiveConfigurationIndex,
             configurations,
-            document.BrokenLinks?.ToList());
+            document.BrokenLinks?.ToList(),
+            (document.NonSequentialDocument ?? CreateDefaultNonSequentialDocument(
+                document.Configurations[document.ActiveConfigurationIndex])).Clone());
         var json = JsonSerializer.SerializeToUtf8Bytes(project, JsonOptions);
         if (json.Length > MaximumPayloadLength)
         {
@@ -66,7 +71,24 @@ public static class StarOptProjectStore
                 "The STAROPT compressed project payload is too large to be reopened by this application.");
         }
 
-        var header = BuildHeader(json, compressed.Length);
+        var meshAssets = project.NonSequentialDocument?.MeshAssets.ToArray()
+            ?? Array.Empty<NonSequentialMeshAsset>();
+        if (meshAssets.Any(asset => !asset.HasGeometry))
+        {
+            throw new InvalidDataException("The STAROPT project contains a mesh asset without embedded geometry.");
+        }
+        var compressedAssets = meshAssets.Select(asset =>
+        {
+            var data = asset.CanonicalData!;
+            return (Asset: asset, Data: data, Compressed: Compress(data));
+        }).ToArray();
+        if (compressedAssets.Sum(item => (long)item.Data.Length) > NonSequentialDocument.MaximumMeshAssetBytes
+            || compressedAssets.Sum(item => (long)item.Compressed.Length) > NonSequentialDocument.MaximumMeshAssetBytes)
+        {
+            throw new InvalidDataException("The STAROPT embedded mesh assets exceed the 512 MiB project limit.");
+        }
+
+        var header = BuildHeader(json, compressed.Length, ContainerVersion);
         var fullPath = Path.GetFullPath(path);
         var directory = Path.GetDirectoryName(fullPath)
             ?? throw new InvalidOperationException("The project path does not have a parent directory.");
@@ -87,6 +109,12 @@ public static class StarOptProjectStore
             {
                 await stream.WriteAsync(header, cancellationToken).ConfigureAwait(false);
                 await stream.WriteAsync(compressed, cancellationToken).ConfigureAwait(false);
+                foreach (var asset in compressedAssets)
+                {
+                    await stream.WriteAsync(BuildAssetHeader(asset.Asset, asset.Data.Length, asset.Compressed.Length), cancellationToken)
+                        .ConfigureAwait(false);
+                    await stream.WriteAsync(asset.Compressed, cancellationToken).ConfigureAwait(false);
+                }
                 await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
             }
 
@@ -106,7 +134,10 @@ public static class StarOptProjectStore
         CancellationToken cancellationToken = default)
     {
         var fileLength = new FileInfo(path).Length;
-        if (fileLength < HeaderLength || fileLength > HeaderLength + MaximumPayloadLength)
+        var maximumFileLength = HeaderLength + (long)MaximumPayloadLength
+            + NonSequentialDocument.MaximumMeshAssetBytes
+            + (long)NonSequentialDocument.MaximumMeshAssetCount * AssetHeaderLength;
+        if (fileLength < HeaderLength || fileLength > maximumFileLength)
         {
             throw new InvalidDataException("The STAROPT project file length is invalid.");
         }
@@ -155,7 +186,7 @@ public static class StarOptProjectStore
         }
 
         var containerVersion = BinaryPrimitives.ReadUInt16LittleEndian(bytes.Slice(8, 2));
-        if (containerVersion != ContainerVersion)
+        if (containerVersion is < 1 or > ContainerVersion)
         {
             throw new InvalidDataException(
                 $"STAROPT container version {containerVersion} is not supported by this application.");
@@ -170,13 +201,14 @@ public static class StarOptProjectStore
         var uncompressedLength = BinaryPrimitives.ReadInt32LittleEndian(bytes.Slice(12, 4));
         var compressedLength = BinaryPrimitives.ReadInt32LittleEndian(bytes.Slice(16, 4));
         if (uncompressedLength <= 0 || uncompressedLength > MaximumPayloadLength ||
-            compressedLength <= 0 || compressedLength != bytes.Length - HeaderLength)
+            compressedLength <= 0 || HeaderLength + compressedLength > bytes.Length
+            || containerVersion == 1 && compressedLength != bytes.Length - HeaderLength)
         {
             throw new InvalidDataException("The STAROPT project payload length is invalid.");
         }
 
         var expectedHash = bytes.Slice(20, SHA256.HashSizeInBytes);
-        var json = Decompress(bytes[HeaderLength..], uncompressedLength);
+        var json = Decompress(bytes.Slice(HeaderLength, compressedLength), uncompressedLength);
         var actualHash = SHA256.HashData(json);
         if (!CryptographicOperations.FixedTimeEquals(expectedHash, actualHash))
         {
@@ -194,7 +226,7 @@ public static class StarOptProjectStore
             throw new InvalidDataException("The STAROPT project payload is not valid JSON.", exception);
         }
 
-        if (project.FormatVersion != ProjectFormatVersion)
+        if (project.FormatVersion is < 1 or > ProjectFormatVersion)
         {
             throw new InvalidDataException(
                 $"STAROPT project format version {project.FormatVersion} is not supported by this application.");
@@ -214,22 +246,100 @@ public static class StarOptProjectStore
             .Select(Optic.FromSnapshot)
             .ToArray();
         ValidateBrokenLinks(project.BrokenLinks, configurations);
+        var nonSequentialDocument = project.NonSequentialDocument
+            ?? CreateDefaultNonSequentialDocument(configurations[project.ActiveConfigurationIndex]);
+        if (containerVersion == 1 && nonSequentialDocument.MeshAssets.Count > 0)
+        {
+            throw new InvalidDataException("STAROPT container version 1 cannot contain embedded mesh assets.");
+        }
+        if (containerVersion == 2)
+        {
+            AttachMeshAssets(bytes, HeaderLength + compressedLength, nonSequentialDocument);
+        }
+        nonSequentialDocument.Validate();
         return new StarOptProjectDocument(
             configurations,
             project.ActiveConfigurationIndex,
-            project.BrokenLinks);
+            project.BrokenLinks,
+            nonSequentialDocument);
     }
 
-    private static byte[] BuildHeader(ReadOnlySpan<byte> json, int compressedLength)
+    private static byte[] BuildHeader(ReadOnlySpan<byte> json, int compressedLength, ushort containerVersion)
     {
         var header = new byte[HeaderLength];
         Magic.CopyTo(header, 0);
-        BinaryPrimitives.WriteUInt16LittleEndian(header.AsSpan(8, 2), ContainerVersion);
+        BinaryPrimitives.WriteUInt16LittleEndian(header.AsSpan(8, 2), containerVersion);
         BinaryPrimitives.WriteUInt16LittleEndian(header.AsSpan(10, 2), BrotliCompressionFlag);
         BinaryPrimitives.WriteInt32LittleEndian(header.AsSpan(12, 4), json.Length);
         BinaryPrimitives.WriteInt32LittleEndian(header.AsSpan(16, 4), compressedLength);
         SHA256.HashData(json).CopyTo(header, 20);
         return header;
+    }
+
+    private static byte[] BuildAssetHeader(
+        NonSequentialMeshAsset asset,
+        int uncompressedLength,
+        int compressedLength)
+    {
+        var header = new byte[AssetHeaderLength];
+        if (!asset.Id.TryWriteBytes(header.AsSpan(0, 16)))
+        {
+            throw new InvalidOperationException("Unable to encode the mesh asset id.");
+        }
+        BinaryPrimitives.WriteInt64LittleEndian(header.AsSpan(16, 8), uncompressedLength);
+        BinaryPrimitives.WriteInt64LittleEndian(header.AsSpan(24, 8), compressedLength);
+        Convert.FromHexString(asset.Sha256).CopyTo(header, 32);
+        return header;
+    }
+
+    private static void AttachMeshAssets(
+        ReadOnlySpan<byte> bytes,
+        int startOffset,
+        NonSequentialDocument document)
+    {
+        var offset = startOffset;
+        long totalUncompressed = 0;
+        var seen = new HashSet<Guid>();
+        while (offset < bytes.Length)
+        {
+            if (bytes.Length - offset < AssetHeaderLength)
+            {
+                throw new InvalidDataException("The STAROPT mesh asset table is truncated.");
+            }
+            var id = new Guid(bytes.Slice(offset, 16));
+            var uncompressedLength = BinaryPrimitives.ReadInt64LittleEndian(bytes.Slice(offset + 16, 8));
+            var compressedLength = BinaryPrimitives.ReadInt64LittleEndian(bytes.Slice(offset + 24, 8));
+            var expectedHash = bytes.Slice(offset + 32, SHA256.HashSizeInBytes);
+            offset += AssetHeaderLength;
+            if (id == Guid.Empty || !seen.Add(id)
+                || uncompressedLength <= 0 || compressedLength <= 0
+                || uncompressedLength > NonSequentialDocument.MaximumMeshAssetBytes
+                || compressedLength > NonSequentialDocument.MaximumMeshAssetBytes
+                || compressedLength > bytes.Length - offset)
+            {
+                throw new InvalidDataException("The STAROPT mesh asset header is invalid.");
+            }
+            totalUncompressed = checked(totalUncompressed + uncompressedLength);
+            if (totalUncompressed > NonSequentialDocument.MaximumMeshAssetBytes)
+            {
+                throw new InvalidDataException("The STAROPT mesh assets expand beyond the 512 MiB limit.");
+            }
+
+            var data = Decompress(bytes.Slice(offset, checked((int)compressedLength)), checked((int)uncompressedLength));
+            var actualHash = SHA256.HashData(data);
+            if (!CryptographicOperations.FixedTimeEquals(expectedHash, actualHash))
+            {
+                throw new InvalidDataException($"The STAROPT mesh asset '{id}' checksum does not match its contents.");
+            }
+            document.AttachMeshAssetData(id, data);
+            offset += checked((int)compressedLength);
+        }
+
+        if (seen.Count != document.MeshAssets.Count
+            || document.MeshAssets.Any(asset => !seen.Contains(asset.Id)))
+        {
+            throw new InvalidDataException("The STAROPT mesh asset manifest and binary asset table do not match.");
+        }
     }
 
     private static byte[] Compress(ReadOnlySpan<byte> data)
@@ -309,6 +419,18 @@ public static class StarOptProjectStore
         }
 
         ValidateBrokenLinks(document.BrokenLinks, document.Configurations);
+        document.NonSequentialDocument?.Validate();
+    }
+
+    public static NonSequentialDocument CreateDefaultNonSequentialDocument(Optic optic)
+    {
+        ArgumentNullException.ThrowIfNull(optic);
+        var wavelengths = optic.Wavelengths.Select(wavelength => new NonSequentialWavelength(
+            wavelength.Label,
+            wavelength.Nanometers,
+            wavelength.Weight,
+            wavelength.IsPrimary));
+        return NonSequentialDocument.CreateDefault($"{optic.Name} 非序列场景", wavelengths);
     }
 
     private static void ValidateBrokenLinks(
@@ -340,5 +462,6 @@ public static class StarOptProjectStore
         string Application,
         int ActiveConfigurationIndex,
         List<OpticSnapshot> Configurations,
-        List<MultiConfigurationLinkOverride>? BrokenLinks = null);
+        List<MultiConfigurationLinkOverride>? BrokenLinks = null,
+        NonSequentialDocument? NonSequentialDocument = null);
 }

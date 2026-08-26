@@ -25,9 +25,9 @@ public sealed partial class MainWindow
     private Control BuildShell()
     {
         var root = new DockPanel();
-        var ribbon = BuildRibbon();
-        DockPanel.SetDock(ribbon, Avalonia.Controls.Dock.Top);
-        root.Children.Add(ribbon);
+        _ribbonHost.Content = BuildRibbon();
+        DockPanel.SetDock(_ribbonHost, Avalonia.Controls.Dock.Top);
+        root.Children.Add(_ribbonHost);
 
         var status = BuildStatusBar();
         DockPanel.SetDock(status, Avalonia.Controls.Dock.Bottom);
@@ -36,7 +36,11 @@ public sealed partial class MainWindow
         return root;
     }
 
-    private Control BuildRibbon()
+    private Control BuildRibbon() => _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+        ? BuildNonSequentialRibbon()
+        : BuildSequentialRibbon();
+
+    private Control BuildSequentialRibbon()
     {
         var analysisGroups = AnalysisRibbonMenus
             .OrderBy(menu => AnalysisRibbonGroupOrder.IndexOf(menu.Group))
@@ -58,6 +62,8 @@ public sealed partial class MainWindow
                         RibbonButton("new-demo", "aperture", "Cooke 示例"),
                         RibbonButton("new-tessar", "disc-2", "Tessar 示例")))),
                 RibbonTab("设置", BuildRibbonPage(
+                    RibbonGroup("工作模式",
+                        RibbonButton("enter-non-sequential-mode", "route", "非序列模式")),
                     RibbonGroup("系统",
                         RibbonButton("show-system", "settings", "系统选项"),
                         RibbonButton("show-lens-editor", "table-2", "镜头数据"),
@@ -143,6 +149,64 @@ public sealed partial class MainWindow
                     RibbonGroup("布局",
                         RibbonButton("save-default-layout", "save", "保存默认"),
                         RibbonButton("restore-default-layout", "rotate-ccw", "载入默认")))),
+                RibbonTab("帮助", BuildRibbonPage(
+                    RibbonGroup("支持",
+                        RibbonButton("about", "circle-question-mark", "关于"))))
+            }
+        };
+        tabs.Background = Brushes.Transparent;
+        var ribbonLayer = new Grid();
+        ribbonLayer.Children.Add(new IsekaiRibbonChrome());
+        ribbonLayer.Children.Add(tabs);
+        var ribbon = new Border
+        {
+            MinHeight = 126,
+            BorderThickness = new Thickness(0, 0, 0, 1),
+            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
+            Child = ribbonLayer
+        };
+        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        ribbon.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        return ribbon;
+    }
+
+    private Control BuildNonSequentialRibbon()
+    {
+        var analysisGroups = WorkbenchAnalysisCatalog.NonSequentialRibbonMenus
+            .OrderBy(menu => Array.IndexOf(WorkbenchAnalysisCatalog.NonSequentialRibbonGroupOrder, menu.Group))
+            .Select(menu => RibbonGroup(string.Empty, false, RibbonAnalysisMenuButton(menu)))
+            .ToArray();
+        var tabs = new TabControl
+        {
+            SelectedIndex = 1,
+            ItemsSource = new object[]
+            {
+                RibbonTab("文件", BuildRibbonPage(
+                    RibbonGroup("文件",
+                        RibbonButton("new", "file-plus", "新建"),
+                        RibbonButton("open", "folder-open", "打开"),
+                        RibbonButton("save-as", "save", "保存")))),
+                RibbonTab("非序列", BuildRibbonPage(
+                    RibbonGroup("工作模式",
+                        RibbonButton("enter-sequential-mode", "rows-3", "顺序模式")),
+                    RibbonGroup("对象",
+                        RibbonButton("show-non-sequential-objects", "boxes", "对象数据")))),
+                RibbonTab("视图", BuildRibbonPage(
+                    RibbonGroup("非序列布局",
+                        RibbonButton("show-viewer-3d", "box", "3D视图"),
+                        RibbonButton("show-solid-model", "cylinder", "实体模型")))),
+                RibbonTab("分析", BuildRibbonPage(analysisGroups)),
+                RibbonTab("窗口", BuildRibbonPage(
+                    RibbonGroup("页面窗口布局",
+                        RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),
+                        RibbonButton("dock-single-pane", "panels-top-left", "合并单窗格"),
+                        RibbonButton("analysis-float-all", "picture-in-picture-2", "全部独立浮动"),
+                        RibbonButton("analysis-tile-all", "grid-2x2", "平铺全部"),
+                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")),
+                    RibbonGroup("页面",
+                        RibbonButton("analysis-clone", "copy", "克隆分析"),
+                        RibbonButton("toggle-page-lock", "lock-keyhole", "切换锁定"),
+                        RibbonButton("close-all-pages", "x", "关闭其他页")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
                         RibbonButton("about", "circle-question-mark", "关于"))))
@@ -276,7 +340,7 @@ public sealed partial class MainWindow
                 continue;
             }
 
-            var command = AnalysisRibbonCommands.First(candidate =>
+            var command = WorkbenchAnalysisCatalog.AllRibbonCommands.First(candidate =>
                 string.Equals(candidate.Id, commandId, StringComparison.Ordinal));
             var action = _actions.Find(command.Id);
             var header = new LocalIconLabel(command.IconName, command.Label, 20);

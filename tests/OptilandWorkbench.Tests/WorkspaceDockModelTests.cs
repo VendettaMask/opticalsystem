@@ -6,6 +6,7 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using Dock.Model.Mvvm.Core;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
@@ -17,6 +18,26 @@ namespace OptilandWorkbench.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class WorkspaceDockModelTests
 {
+    [Fact]
+    public void NonSequentialModeCreatesIndependentObjectWorkspace()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+        var factory = new WorkspaceDockFactory(application, new AppSettings());
+
+        var layout = factory.CreateLayout();
+        factory.InitLayout(layout);
+
+        var primary = Assert.Single(factory.OpenDocuments());
+        Assert.Equal(WorkspaceDockFactory.NonSequentialObjectDocumentId, primary.Id);
+        Assert.IsType<NonSequentialObjectEditorPanel>(primary.Context);
+        var systemTool = WorkspaceDockFactory.EnumerateDockables(layout)
+            .Single(dockable => dockable.Id == WorkspaceDockFactory.SystemToolId);
+        Assert.Equal("非序列设置", systemTool.Title);
+        Assert.IsType<NonSequentialModePanel>(systemTool.Context);
+        factory.DisposeContent();
+    }
+
     [Fact]
     public async Task LensLibraryOpenUsesHostUnsavedChangesWorkflowAndHonorsCancellation()
     {

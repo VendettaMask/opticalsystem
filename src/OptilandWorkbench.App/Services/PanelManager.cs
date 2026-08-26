@@ -14,6 +14,7 @@ namespace OptilandWorkbench.App.Services;
 public enum WorkspacePanelId
 {
     LensEditor,
+    NonSequentialObjectEditor,
     SystemProperties,
     Viewer,
     Analysis,
@@ -92,6 +93,12 @@ public sealed class PanelManager : IDisposable
     {
         switch (id)
         {
+            case WorkspacePanelId.NonSequentialObjectEditor:
+                OpenStable(
+                    WorkspaceDockFactory.NonSequentialObjectDocumentId,
+                    WorkspaceDocumentTypes.NonSequentialObjectEditor,
+                    "非序列对象数据");
+                break;
             case WorkspacePanelId.SystemProperties:
                 FocusSystemTool();
                 break;
@@ -114,6 +121,12 @@ public sealed class PanelManager : IDisposable
                 OpenStable(WorkspaceDockFactory.LensDocumentId, WorkspaceDocumentTypes.LensEditor, "镜头数据");
                 break;
         }
+    }
+
+    public void SwitchMode()
+    {
+        ReplaceLayout(Factory.CreateLayout());
+        ScheduleSave();
     }
 
     public void ShowViewer(OpticSceneViewMode mode)
@@ -287,7 +300,8 @@ public sealed class PanelManager : IDisposable
     public void CloseAllDocuments()
     {
         foreach (var document in Factory.OpenDocuments()
-                     .Where(document => document.Id != WorkspaceDockFactory.LensDocumentId)
+                     .Where(document => document.Id is not WorkspaceDockFactory.LensDocumentId
+                         and not WorkspaceDockFactory.NonSequentialObjectDocumentId)
                      .ToArray())
         {
             Factory.CloseDockable(document);
@@ -579,6 +593,14 @@ public sealed class PanelManager : IDisposable
 
         try
         {
+            var requiredPrimaryType = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? WorkspaceDocumentTypes.NonSequentialObjectEditor
+                : WorkspaceDocumentTypes.LensEditor;
+            if (!session.Documents.Any(descriptor => descriptor.TypeId == requiredPrimaryType))
+            {
+                return false;
+            }
+
             var knownAnalyses = _application.Analyses.AnalysisNames
                 .Select(_application.Analyses.CanonicalKey)
                 .ToHashSet(StringComparer.Ordinal);

@@ -1575,6 +1575,12 @@ public sealed class AnalysisGuiContractTests
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
+            new[] { "非序列单光线追迹", "非序列探测器查看" },
+            MainWindow.NonSequentialAnalysisRibbonCommands.Select(command => command.Label));
+        Assert.Equal(
+            new[] { "analysis-non-sequential-ray-trace", "analysis-non-sequential-detector-viewer" },
+            MainWindow.NonSequentialAnalysisRibbonMenus.SelectMany(menu => menu.CommandIds));
+        Assert.Equal(
             new[]
             {
                 "表面数据报告",
@@ -2321,7 +2327,8 @@ public sealed class AnalysisGuiContractTests
             Theme = "Dark",
             FontFamily = "Arial",
             FontShape = "BoldItalic",
-            FontSize = 16
+            FontSize = 16,
+            WorkbenchMode = AnalysisContracts.OpticalWorkbenchMode.NonSequential.ToString()
         };
 
         var restored = JsonSerializer.Deserialize<AppSettings>(JsonSerializer.Serialize(settings));
@@ -2334,6 +2341,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("Arial", restored.FontFamily);
         Assert.Equal("BoldItalic", restored.FontShape);
         Assert.Equal(16, restored.FontSize);
+        Assert.Equal(AnalysisContracts.OpticalWorkbenchMode.NonSequential.ToString(), restored.WorkbenchMode);
     }
 
     [Theory]
@@ -2481,6 +2489,21 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(new[] { 1e-5, -2e-8 }, asphere.Coefficients);
         Assert.IsType<RectangularAperture>(richSurface.PhysicalAperture);
         Assert.IsType<SimpleCoatingModel>(richSurface.CoatingModel);
+    }
+
+    [Fact]
+    public void RemovingSurfacePreservesRemainingSurfaceInstances()
+    {
+        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var firstSurface = connector.Surfaces[1];
+        var image = connector.Surfaces[^1];
+        var removed = connector.Surfaces[2];
+
+        connector.RemoveSurface(removed);
+
+        Assert.DoesNotContain(removed, connector.Surfaces);
+        Assert.Same(firstSurface, connector.Surfaces[1]);
+        Assert.Same(image, connector.Surfaces[^1]);
     }
 
     [Fact]

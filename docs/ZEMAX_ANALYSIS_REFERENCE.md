@@ -10,7 +10,7 @@ Workbench 的 GUI 对比只使用
 `comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current`
 中的真实 Avalonia `AnalysisPanel` 截图。截图进程通过
 `--capture-analysis-gui` 启动，导入已提交的 `123456.ZMX`，应用保存的逐项
-分析设置，并在 `capture-manifest.json` 中记录该次固定捕获的 69 个分析页面状态。这个数字描述历史捕获集合，不是当前 Core `AnalysisCatalog` 的数量；当前目录为 70 个规范分析。
+分析设置，并在 `capture-manifest.json` 中记录该次固定捕获的 69 个分析页面状态。这个数字描述历史捕获集合，不是当前 Core `AnalysisCatalog` 的数量；当前目录为 72 个规范分析。
 
 `images/current` 中的文件是结构化分析 JSON 的离线 Matplotlib 重绘图，
 不是软件界面截图，不能用于 GUI 一致性结论。

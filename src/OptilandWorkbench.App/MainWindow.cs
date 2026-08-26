@@ -74,6 +74,12 @@ public sealed partial class MainWindow : Window
     private static IReadOnlyList<AnalysisRibbonMenu> AnalysisRibbonMenus =>
         WorkbenchAnalysisCatalog.RibbonMenus;
 
+    internal static IReadOnlyList<AnalysisRibbonCommand> NonSequentialAnalysisRibbonCommands =>
+        WorkbenchAnalysisCatalog.NonSequentialRibbonCommands;
+
+    internal static IReadOnlyList<AnalysisRibbonMenu> NonSequentialAnalysisRibbonMenus =>
+        WorkbenchAnalysisCatalog.NonSequentialRibbonMenus;
+
     internal static IReadOnlyList<string> AnalysisRibbonCategories => AnalysisRibbonGroupOrder;
 
     internal static IReadOnlyList<string> NativeProjectFilePatterns =>
@@ -120,6 +126,7 @@ public sealed partial class MainWindow : Window
     private readonly TextBlock _fNumberText = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _apertureText = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _trackText = new() { VerticalAlignment = VerticalAlignment.Center };
+    private readonly ContentControl _ribbonHost = new();
     private bool _closeAfterPersistence;
     private bool _closeInProgress;
     private bool _closed;
@@ -139,6 +146,11 @@ public sealed partial class MainWindow : Window
             UserGlassCatalogDirectory(),
             BundledLensLibraryDirectory(),
             InstalledZemaxStockCatalogDirectory());
+        if (Enum.TryParse<OpticalWorkbenchMode>(_settings.WorkbenchMode, out var savedMode))
+        {
+            _application.Modes.SwitchTo(savedMode);
+        }
+
         _panels = new PanelManager(
             _application,
             _settings,

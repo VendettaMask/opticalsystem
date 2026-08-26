@@ -1,5 +1,273 @@
 namespace OptilandWorkbench.Application.Contracts;
 
+public enum NonSequentialObjectKind
+{
+    SourceRay,
+    SourcePoint,
+    SourceRectangle,
+    SourceGaussian,
+    PlaneRectangle,
+    Sphere,
+    Cylinder,
+    Box,
+    StandardLens,
+    Mesh,
+    DetectorRectangle
+}
+
+public enum NonSequentialSurfaceBehavior
+{
+    Refractive,
+    Reflective,
+    Absorbing
+}
+
+public sealed record NonSequentialVector3(double X, double Y, double Z);
+
+public sealed record NonSequentialTraceSettings(
+    int LayoutRaysPerSource,
+    int AnalysisRaysPerSource,
+    int MaximumTotalSourceRays,
+    int MaximumSegmentsPerRay,
+    int MaximumActiveBranches,
+    double MinimumRelativeIntensity,
+    int RandomSeed,
+    bool SplitFresnelRays);
+
+public abstract record NonSequentialObjectParameters;
+
+public abstract record SourceParameters(
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : NonSequentialObjectParameters;
+
+public sealed record SourceRayParameters(
+    double PowerWatts,
+    int WavelengthNumber,
+    NonSequentialVector3 Origin,
+    NonSequentialVector3 Direction) : SourceParameters(PowerWatts, WavelengthNumber, 1, 1);
+
+public sealed record SourcePointParameters(
+    double PowerWatts,
+    int WavelengthNumber,
+    double ConeHalfAngleDegrees,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceRectangleParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    double AngularHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceGaussianParameters(
+    double WaistXMillimeters,
+    double WaistYMillimeters,
+    double DivergenceHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record PlaneRectangleParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    NonSequentialSurfaceBehavior Behavior,
+    string MaterialBefore,
+    string MaterialAfter) : NonSequentialObjectParameters;
+
+public sealed record SphereParameters(
+    double RadiusMillimeters,
+    string Material,
+    NonSequentialSurfaceBehavior Behavior) : NonSequentialObjectParameters;
+
+public sealed record CylinderParameters(
+    double RadiusMillimeters,
+    double LengthMillimeters,
+    string Material,
+    NonSequentialSurfaceBehavior Behavior) : NonSequentialObjectParameters;
+
+public sealed record BoxParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    double LengthMillimeters,
+    string Material,
+    NonSequentialSurfaceBehavior Behavior) : NonSequentialObjectParameters;
+
+public sealed record StandardLensParameters(
+    double FrontRadiusMillimeters,
+    double BackRadiusMillimeters,
+    double FrontConic,
+    double BackConic,
+    double CenterThicknessMillimeters,
+    double SemiDiameterMillimeters,
+    string Material) : NonSequentialObjectParameters;
+
+public sealed record MeshObjectParameters(
+    Guid MeshAssetId,
+    NonSequentialSurfaceBehavior Behavior,
+    string Material,
+    bool TwoSided,
+    string OriginalFileName,
+    string Sha256,
+    int VertexCount,
+    int TriangleCount,
+    bool IsClosed,
+    IReadOnlyList<string> Warnings) : NonSequentialObjectParameters;
+
+public sealed record DetectorRectangleParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    int PixelsX,
+    int PixelsY,
+    bool FrontOnly,
+    bool Absorb) : NonSequentialObjectParameters;
+
+public enum OpticalWorkbenchMode
+{
+    Sequential,
+    NonSequential
+}
+
+public sealed record WorkbenchModeChangedEventArgs(
+    OpticalWorkbenchMode PreviousMode,
+    OpticalWorkbenchMode CurrentMode);
+
+public sealed record NonSequentialObjectRowDto(
+    Guid Id,
+    int ObjectNumber,
+    bool Enabled,
+    bool Visible,
+    NonSequentialObjectKind Kind,
+    string Name,
+    string Role,
+    Guid? ReferenceObjectId,
+    Guid? ContainingObjectId,
+    double X,
+    double Y,
+    double Z,
+    double TiltXDegrees,
+    double TiltYDegrees,
+    double TiltZDegrees,
+    string Material,
+    NonSequentialObjectParameters Parameters,
+    string ParameterSummary);
+
+public sealed record NonSequentialWavelengthDto(
+    int Index,
+    string Label,
+    double Nanometers,
+    double Weight,
+    bool IsPrimary);
+
+public sealed record NonSequentialDocumentDto(
+    string Name,
+    string AmbientMaterial,
+    IReadOnlyList<NonSequentialWavelengthDto> Wavelengths,
+    IReadOnlyList<NonSequentialObjectRowDto> Objects,
+    NonSequentialTraceSettings TraceSettings);
+
+public sealed record NonSequentialObjectUpdateDto(
+    Guid Id,
+    bool Enabled,
+    bool Visible,
+    NonSequentialObjectKind Kind,
+    string Name,
+    Guid? ReferenceObjectId,
+    Guid? ContainingObjectId,
+    double X,
+    double Y,
+    double Z,
+    double TiltXDegrees,
+    double TiltYDegrees,
+    double TiltZDegrees,
+    NonSequentialObjectParameters Parameters);
+
+public sealed record NonSequentialConversionResultDto(
+    int ObjectCount,
+    IReadOnlyList<string> Warnings);
+
+public enum NonSequentialMeshUnit
+{
+    Millimeter,
+    Centimeter,
+    Meter,
+    Inch
+}
+
+public sealed record NonSequentialMeshImportOptionsDto(
+    NonSequentialMeshUnit Unit = NonSequentialMeshUnit.Millimeter,
+    NonSequentialSurfaceBehavior Behavior = NonSequentialSurfaceBehavior.Absorbing,
+    string Material = "Air",
+    bool TwoSided = true,
+    int? InsertionIndex = null);
+
+public sealed record NonSequentialMeshImportResultDto(
+    Guid ObjectId,
+    Guid AssetId,
+    string Name,
+    int VertexCount,
+    int TriangleCount,
+    bool IsClosed,
+    bool IsManifold,
+    double SignedVolumeCubicMillimeters,
+    IReadOnlyList<string> Warnings);
+
+public enum NonSequentialTraceOutputMode
+{
+    LayoutSample,
+    InMemory,
+    RayDatabase,
+    SummaryOnly
+}
+
+public sealed record NonSequentialTraceRunRequestDto(
+    NonSequentialTraceOutputMode OutputMode = NonSequentialTraceOutputMode.InMemory,
+    Guid? SourceObjectId = null,
+    bool AnalysisRays = true,
+    bool? SplitFresnelRays = null,
+    int MaximumRetainedBranches = 2_000,
+    string? PathFilterExpression = null,
+    string? RayDatabasePath = null);
+
+public sealed record NonSequentialTraceRunResultDto(
+    int TotalBranchCount,
+    int MatchedBranchCount,
+    int RetainedBranchCount,
+    long SegmentCount,
+    double SourcePowerWatts,
+    double DetectorPowerWatts,
+    double AbsorbedPowerWatts,
+    double EscapedPowerWatts,
+    double TruncatedPowerWatts,
+    string? RayDatabasePath,
+    long RayDatabaseBytes);
+
+public sealed record NonSequentialPathSummaryDto(
+    string Path,
+    string FilterExpression,
+    int RayCount,
+    double TotalPowerWatts,
+    double PowerFraction,
+    double MinimumOpticalPathLength,
+    double AverageOpticalPathLength,
+    double MaximumOpticalPathLength,
+    string TerminationReason);
+
+public sealed record NonSequentialRayDatabaseDto(
+    string Path,
+    string SceneHash,
+    long SourceRevision,
+    DateTimeOffset CreatedUtc,
+    long BranchCount,
+    bool IsStale,
+    string? StoredFilterExpression,
+    IReadOnlyList<NonSequentialPathSummaryDto> Paths);
+
 public enum WorkspaceChangeCategory
 {
     Document,
@@ -10,7 +278,8 @@ public enum WorkspaceChangeCategory
     SystemSettings,
     Configuration,
     Optimization,
-    Tolerancing
+    Tolerancing,
+    NonSequential
 }
 
 public sealed record WorkspaceChangedEventArgs(

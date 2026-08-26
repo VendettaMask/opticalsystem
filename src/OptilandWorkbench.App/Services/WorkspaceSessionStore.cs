@@ -13,6 +13,7 @@ namespace OptilandWorkbench.App.Services;
 public static class WorkspaceDocumentTypes
 {
     public const string LensEditor = "lens-editor";
+    public const string NonSequentialObjectEditor = "non-sequential-object-editor";
     public const string Viewer2D = "viewer-2d";
     public const string Viewer3D = "viewer-3d";
     public const string Optimization = "optimization";
@@ -35,6 +36,7 @@ public static class WorkspaceDocumentTypes
     private static readonly HashSet<string> Known = new(StringComparer.Ordinal)
     {
         LensEditor,
+        NonSequentialObjectEditor,
         Viewer2D,
         Viewer3D,
         Optimization,

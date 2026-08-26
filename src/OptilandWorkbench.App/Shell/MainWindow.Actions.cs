@@ -32,6 +32,21 @@ public sealed partial class MainWindow
         _actions.Register("undo", "撤销", "编辑", () => _application.Documents.Undo());
         _actions.Register("redo", "重做", "编辑", () => _application.Documents.Redo());
         _actions.Register("show-lens-editor", "显示镜头编辑器", "面板", () => _panels.Show(WorkspacePanelId.LensEditor));
+        _actions.Register(
+            "show-non-sequential-objects",
+            "显示非序列对象数据",
+            "面板",
+            () => _panels.Show(WorkspacePanelId.NonSequentialObjectEditor));
+        _actions.Register(
+            "enter-sequential-mode",
+            "进入顺序模式",
+            "模式",
+            () => SwitchWorkbenchModeAsync(OpticalWorkbenchMode.Sequential));
+        _actions.Register(
+            "enter-non-sequential-mode",
+            "进入非序列模式",
+            "模式",
+            () => SwitchWorkbenchModeAsync(OpticalWorkbenchMode.NonSequential));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
         _actions.Register("display-settings", "显示格式设置", "设置", ShowDisplaySettingsAsync);
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
@@ -182,7 +197,7 @@ public sealed partial class MainWindow
         _actions.Register("restore-default-layout", "载入已保存的默认布局", "窗口", RestoreDefaultLayoutAsync);
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
         _actions.Register("about", "关于 Optical System Design", "帮助", ShowAboutAsync);
-        foreach (var analysis in AnalysisRibbonCommands)
+        foreach (var analysis in WorkbenchAnalysisCatalog.AllRibbonCommands)
         {
             _actions.Register(
                 analysis.Id,
@@ -199,5 +214,24 @@ public sealed partial class MainWindow
                     }
                 });
         }
+    }
+
+    private async Task SwitchWorkbenchModeAsync(OpticalWorkbenchMode mode)
+    {
+        if (_application.Modes.CurrentMode == mode
+            || !await ConfirmUnsavedToleranceChangesAsync(
+                mode == OpticalWorkbenchMode.NonSequential ? "进入非序列模式" : "返回顺序模式"))
+        {
+            return;
+        }
+
+        await _panels.SaveCurrentSessionAsync();
+        _application.Modes.SwitchTo(mode);
+        _settings.WorkbenchMode = mode.ToString();
+        _settings.Save();
+        _panels.SwitchMode();
+        _ribbonHost.Content = BuildRibbon();
+        DisplayTypography.Apply(this);
+        RefreshStatus();
     }
 }

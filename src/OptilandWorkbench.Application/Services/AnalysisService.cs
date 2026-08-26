@@ -18,6 +18,7 @@ using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.NonSequential;
 using ContractAnalysisColorMap = OptilandWorkbench.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisLineStyle = OptilandWorkbench.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OptilandWorkbench.Application.Contracts.AnalysisMarkerStyle;
@@ -31,18 +32,29 @@ namespace OptilandWorkbench.Application.Services;
 internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
 {
     private readonly RayTraceCache _rayTraceCache = new();
+    private readonly IWorkbenchModeService _modes;
+    private readonly NonSequentialAnalysisSession? _nonSequentialAnalysisSession;
 
-    public AnalysisService(WorkspaceCoordinator workspace)
+    public AnalysisService(
+        WorkspaceCoordinator workspace,
+        IWorkbenchModeService modes,
+        NonSequentialAnalysisSession? nonSequentialAnalysisSession = null)
         : base(workspace)
     {
+        _modes = modes ?? throw new ArgumentNullException(nameof(modes));
+        _nonSequentialAnalysisSession = nonSequentialAnalysisSession;
     }
 
-    public IReadOnlyList<string> AnalysisNames => Runtime.AnalysisDisplayNames;
+    public IReadOnlyList<string> AnalysisNames => WorkbenchAnalysisCatalog
+        .DescriptorsForMode(_modes.CurrentMode)
+        .Select(descriptor => descriptor.DisplayName)
+        .ToArray();
 
     public string CanonicalKey(string analysisName) => WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
 
     public IReadOnlyList<ContractAnalysisParameterDescriptor> GetParameters(string analysisName)
     {
+        EnsureAvailable(analysisName);
         return Runtime.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
             parameter.Key,
             parameter.DisplayName,
@@ -58,6 +70,7 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         string analysisName,
         IReadOnlyDictionary<string, string>? saved)
     {
+        EnsureAvailable(analysisName);
         return Runtime.MergeAnalysisSettings(analysisName, saved);
     }
 
@@ -65,32 +78,56 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         AnalysisRequestDto request,
         CancellationToken cancellationToken = default)
     {
+        EnsureAvailable(request.AnalysisKey);
         Optic snapshot;
+        NonSequentialDocument nonSequentialSnapshot;
         long sourceRevision;
         CancellationTokenSource linked;
         lock (Gate)
         {
             sourceRevision = Workspace.Revision;
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
+            nonSequentialSnapshot = Runtime.CurrentNonSequentialDocument.Clone();
             snapshot.ConfigureRayTraceCache(_rayTraceCache, sourceRevision);
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
-        return RunAnalysisWorkerAsync(snapshot, sourceRevision, request, linked);
+        return RunAnalysisWorkerAsync(
+            snapshot,
+            nonSequentialSnapshot,
+            sourceRevision,
+            request,
+            linked,
+            _nonSequentialAnalysisSession);
+    }
+
+    private void EnsureAvailable(string analysisName)
+    {
+        if (!WorkbenchAnalysisCatalog.IsAvailableInMode(analysisName, _modes.CurrentMode))
+        {
+            throw new InvalidOperationException(
+                $"分析“{WorkbenchAnalysisCatalog.DisplayName(WorkbenchAnalysisCatalog.CanonicalKey(analysisName))}”不属于当前{(_modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? "非序列" : "顺序")}模式。");
+        }
     }
 
     private static async Task<AnalysisResultDto> RunAnalysisWorkerAsync(
         Optic snapshot,
+        NonSequentialDocument nonSequentialSnapshot,
         long sourceRevision,
         AnalysisRequestDto request,
-        CancellationTokenSource linked)
+        CancellationTokenSource linked,
+        NonSequentialAnalysisSession? analysisSession)
     {
         using (linked)
         {
             return await Task.Run(() =>
             {
                 linked.Token.ThrowIfCancellationRequested();
-                var worker = new WorkbenchRuntime(snapshot);
+                var databaseDetectors = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey)
+                    == "Non-Sequential Detector Viewer"
+                    ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot)
+                    : null;
+                var worker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot, databaseDetectors);
                 var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
                 var normalizedSettings = NormalizeAnalysisSettings(
                     worker,

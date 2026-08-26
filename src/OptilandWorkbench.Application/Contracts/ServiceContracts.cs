@@ -9,6 +9,51 @@ public interface IWorkspaceEventStream
     long Revision { get; }
 }
 
+public interface IWorkbenchModeService
+{
+    event EventHandler<WorkbenchModeChangedEventArgs>? ModeChanged;
+
+    OpticalWorkbenchMode CurrentMode { get; }
+
+    void SwitchTo(OpticalWorkbenchMode mode);
+}
+
+public interface INonSequentialDocumentService
+{
+    NonSequentialDocumentDto GetDocument();
+
+    IReadOnlyList<NonSequentialObjectKind> GetObjectKinds();
+
+    IReadOnlyList<string> GetMaterialNames();
+
+    Guid AddObject(NonSequentialObjectKind kind, int? insertionIndex = null);
+
+    Guid DuplicateObject(Guid id);
+
+    Guid PasteObject(NonSequentialObjectUpdateDto template, int insertionIndex);
+
+    void DeleteObject(Guid id);
+
+    void MoveObject(Guid id, int destinationIndex);
+
+    void UpdateObject(NonSequentialObjectUpdateDto update);
+
+    void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths);
+
+    NonSequentialConversionResultDto ConvertFromSequential();
+
+    Task<NonSequentialMeshImportResultDto> ImportStlAsync(
+        string path,
+        NonSequentialMeshImportOptionsDto options,
+        CancellationToken cancellationToken = default);
+
+    Task<NonSequentialTraceRunResultDto> TraceAsync(
+        NonSequentialTraceRunRequestDto request,
+        CancellationToken cancellationToken = default);
+
+    NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null);
+}
+
 public interface IOpticalDocumentService
 {
     OpticalDocumentSnapshot GetSnapshot();
@@ -195,6 +240,10 @@ public interface ILensLibraryService
 
 public interface IWorkbenchApplication : IDisposable
 {
+    IWorkbenchModeService Modes { get; }
+
+    INonSequentialDocumentService NonSequential { get; }
+
     IOpticalDocumentService Documents { get; }
 
     IPrescriptionService Prescription { get; }

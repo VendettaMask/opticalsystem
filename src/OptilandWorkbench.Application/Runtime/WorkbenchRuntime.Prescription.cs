@@ -42,6 +42,7 @@ public partial class WorkbenchRuntime
         CurrentOptic = optic;
         _multiConfiguration = new MultiConfiguration(CurrentOptic);
         _activeConfigurationIndex = 0;
+        _nonSequentialDocument = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
         _undoRedo.Clear();
         SetStatus(status);
         OpticLoaded?.Invoke(this, EventArgs.Empty);
@@ -111,9 +112,10 @@ public partial class WorkbenchRuntime
     {
         CaptureCurrentState();
         SyncActiveConfigurationFromCurrent();
-        _multiConfiguration.AddSurfaceBeforeImage();
-        CurrentOptic = Optic.FromSnapshot(
-            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
+        var insertedSurfaceNumber = _multiConfiguration.AddSurfaceBeforeImage();
+        CurrentOptic.Pickups.InsertSurface(insertedSurfaceNumber);
+        CurrentOptic.SurfaceGroup.AddDefaultSurface();
+        SyncActiveConfigurationFromCurrent();
         SetStatus("已添加表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -136,8 +138,9 @@ public partial class WorkbenchRuntime
         CaptureCurrentState();
         SyncActiveConfigurationFromCurrent();
         _multiConfiguration.RemoveSurface(index);
-        CurrentOptic = Optic.FromSnapshot(
-            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
+        CurrentOptic.Pickups.RemoveSurface(index);
+        CurrentOptic.SurfaceGroup.Remove(surface);
+        SyncActiveConfigurationFromCurrent();
         SetStatus("已删除表面。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);

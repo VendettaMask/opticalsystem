@@ -23,6 +23,7 @@ public sealed class WorkspaceDockFactory : Factory
     public const string SystemToolId = "tool:system-options";
     public const string DocumentDockId = "workspace:documents";
     public const string LensDocumentId = "document:lens-editor";
+    public const string NonSequentialObjectDocumentId = "document:non-sequential-object-editor";
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
@@ -102,24 +103,31 @@ public sealed class WorkspaceDockFactory : Factory
     {
         _descriptors.Clear();
         DisposeContent();
-        var lensDescriptor = new WorkspaceDocumentDescriptor(
-            LensDocumentId,
-            WorkspaceDocumentTypes.LensEditor,
-            "镜头数据");
-        _descriptors[lensDescriptor.Id] = lensDescriptor;
-        var lens = CreateDocument(lensDescriptor);
+        var primaryDescriptor = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+            ? new WorkspaceDocumentDescriptor(
+                NonSequentialObjectDocumentId,
+                WorkspaceDocumentTypes.NonSequentialObjectEditor,
+                "非序列对象数据")
+            : new WorkspaceDocumentDescriptor(
+                LensDocumentId,
+                WorkspaceDocumentTypes.LensEditor,
+                "镜头数据");
+        _descriptors[primaryDescriptor.Id] = primaryDescriptor;
+        var primaryDocument = CreateDocument(primaryDescriptor);
         var documentDock = (DocumentDock)CreateDocumentDock();
         documentDock.Id = DocumentDockId;
         documentDock.Title = "文档";
-        documentDock.VisibleDockables = CreateList<IDockable>(lens);
-        documentDock.ActiveDockable = lens;
+        documentDock.VisibleDockables = CreateList<IDockable>(primaryDocument);
+        documentDock.ActiveDockable = primaryDocument;
 
         var systemContent = CreateSystemToolContent();
         _content[SystemToolId] = systemContent;
         var systemTool = new Tool
         {
             Id = SystemToolId,
-            Title = "系统选项",
+            Title = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? "非序列设置"
+                : "系统选项",
             CanClose = false,
             CanFloat = true,
             CanPin = true,
@@ -206,12 +214,20 @@ public sealed class WorkspaceDockFactory : Factory
             _descriptors[descriptor.Id] = descriptor;
         }
 
-        if (!_descriptors.ContainsKey(LensDocumentId))
+        var primaryId = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+            ? NonSequentialObjectDocumentId
+            : LensDocumentId;
+        if (!_descriptors.ContainsKey(primaryId))
         {
-            _descriptors[LensDocumentId] = new WorkspaceDocumentDescriptor(
-                LensDocumentId,
-                WorkspaceDocumentTypes.LensEditor,
-                "镜头数据");
+            _descriptors[primaryId] = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? new WorkspaceDocumentDescriptor(
+                    NonSequentialObjectDocumentId,
+                    WorkspaceDocumentTypes.NonSequentialObjectEditor,
+                    "非序列对象数据")
+                : new WorkspaceDocumentDescriptor(
+                    LensDocumentId,
+                    WorkspaceDocumentTypes.LensEditor,
+                    "镜头数据");
         }
     }
 
@@ -309,7 +325,7 @@ public sealed class WorkspaceDockFactory : Factory
 
     public override bool OnDockableClosing(IDockable? dockable)
     {
-        if (dockable?.Id == LensDocumentId)
+        if (dockable?.Id is LensDocumentId or NonSequentialObjectDocumentId)
         {
             return false;
         }
@@ -391,7 +407,8 @@ public sealed class WorkspaceDockFactory : Factory
         {
             Id = descriptor.Id,
             Title = descriptor.Title,
-            CanClose = descriptor.TypeId != WorkspaceDocumentTypes.LensEditor,
+            CanClose = descriptor.TypeId is not WorkspaceDocumentTypes.LensEditor
+                and not WorkspaceDocumentTypes.NonSequentialObjectEditor,
             CanFloat = true,
             CanDrag = true,
             CanDrop = true,
@@ -429,6 +446,9 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Prescription,
                 _application.Events,
                 _surfaceSelection),
+            WorkspaceDocumentTypes.NonSequentialObjectEditor => new NonSequentialObjectEditorPanel(
+                _application.NonSequential,
+                _application.Events),
             WorkspaceDocumentTypes.Viewer2D => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,
@@ -554,6 +574,15 @@ public sealed class WorkspaceDockFactory : Factory
 
     private Control CreateSystemToolContent()
     {
+        if (_application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential)
+        {
+            var nonSequentialPanel = new NonSequentialModePanel(
+                _application.NonSequential,
+                _application.Events);
+            DisplayTypography.Apply(nonSequentialPanel);
+            return nonSequentialPanel;
+        }
+
         var panel = new SystemPropertiesPanel(
             _application.Prescription,
             _application.Materials,

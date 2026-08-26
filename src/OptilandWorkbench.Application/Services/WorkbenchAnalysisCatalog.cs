@@ -14,6 +14,8 @@ public static partial class WorkbenchAnalysisCatalog
     private static readonly IReadOnlyDictionary<string, string> DisplayNamesByKey = new Dictionary<string, string>
     {
         ["Single Ray Trace"] = "单光线追迹",
+        ["Non-Sequential Ray Trace"] = "非序列单光线追迹",
+        ["Non-Sequential Detector Viewer"] = "非序列探测器查看",
         ["First Order"] = "系统数据摘要",
         ["Seidel Coefficients"] = "赛德尔系数",
         ["Seidel Diagram"] = "赛德尔图",
@@ -119,6 +121,10 @@ public static partial class WorkbenchAnalysisCatalog
             ["赛德尔图"] = "Seidel Diagram",
             ["点列图"] = "Spot Diagram",
             ["光线扇形图"] = "Ray Fan",
+            ["非顺序光线追迹"] = "Non-Sequential Ray Trace",
+            ["非顺序单光线追迹"] = "Non-Sequential Ray Trace",
+            ["非序列光线追迹"] = "Non-Sequential Ray Trace",
+            ["非序列探测器查看"] = "Non-Sequential Detector Viewer",
             ["离焦扫描"] = "Through Focus",
             ["点扩散函数 PSF"] = "PSF",
             ["惠更斯 PSF"] = "Huygens PSF"
@@ -198,6 +204,20 @@ public static partial class WorkbenchAnalysisCatalog
             ? presentationKind
             : AnalysisPresentationKind.Standard;
 
+    public static bool IsAvailableInMode(string name, OpticalWorkbenchMode mode)
+    {
+        var canonical = CanonicalKey(name);
+        var isNonSequential = canonical is "Non-Sequential Ray Trace" or "Non-Sequential Detector Viewer";
+        return isNonSequential
+            ? mode == OpticalWorkbenchMode.NonSequential
+            : mode == OpticalWorkbenchMode.Sequential;
+    }
+
+    public static IReadOnlyList<WorkbenchAnalysisDescriptor> DescriptorsForMode(
+        OpticalWorkbenchMode mode) => Descriptors
+        .Where(descriptor => IsAvailableInMode(descriptor.CanonicalKey, mode))
+        .ToArray();
+
     public static bool TryGetDescriptor(string name, out WorkbenchAnalysisDescriptor descriptor) =>
         DescriptorsByKey.TryGetValue(CanonicalKey(name), out descriptor!);
 
@@ -213,7 +233,7 @@ public static partial class WorkbenchAnalysisCatalog
                 .Where(alias => !string.Equals(alias, item.Key, StringComparison.Ordinal))
                 .Distinct(StringComparer.Ordinal)
                 .ToArray();
-            var ribbonCommand = RibbonCommands.FirstOrDefault(command =>
+            var ribbonCommand = AllRibbonCommands.FirstOrDefault(command =>
                 command.Kind == AnalysisRibbonCommandKind.Analysis
                 && string.Equals(CanonicalKey(command.Name), item.Key, StringComparison.Ordinal));
             descriptors.Add(item.Key, new WorkbenchAnalysisDescriptor(

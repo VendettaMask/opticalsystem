@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.Application.Contracts;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -31,6 +32,8 @@ public sealed class AppSettings
 
     public double LeftPaneWidth { get; set; } = 286;
 
+    public string WorkbenchMode { get; set; } = nameof(OpticalWorkbenchMode.Sequential);
+
     public int LeftTabIndex { get; set; }
 
     public int RightTabIndex { get; set; }
@@ -60,6 +63,9 @@ public sealed class AppSettings
             ? FontShape
             : "Regular";
         FontSize = Math.Clamp(double.IsFinite(FontSize) ? FontSize : DefaultFontSize, 9, 32);
+        WorkbenchMode = Enum.TryParse<OpticalWorkbenchMode>(WorkbenchMode, out var mode)
+            ? mode.ToString()
+            : nameof(OpticalWorkbenchMode.Sequential);
     }
 
     public void ResetDisplaySettings()

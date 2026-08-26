@@ -17,6 +17,8 @@ public sealed class AnalysisCatalog
     public IReadOnlyList<string> Names { get; } = new[]
     {
         "Single Ray Trace",
+        "Non-Sequential Ray Trace",
+        "Non-Sequential Detector Viewer",
         "First Order",
         "Seidel Coefficients",
         "Seidel Diagram",
@@ -93,6 +95,8 @@ public sealed class AnalysisCatalog
         return name switch
         {
             "Single Ray Trace" => new SingleRayTraceAnalysis(_optic),
+            "Non-Sequential Ray Trace" => new NonSequentialRayTraceAnalysis(_optic),
+            "Non-Sequential Detector Viewer" => new NonSequentialDetectorViewerAnalysis(_optic),
             "First Order" => new FirstOrderAnalysis(_optic),
             "Seidel Coefficients" => new SeidelCoefficientsAnalysis(_optic),
             "Seidel Diagram" => new SeidelDiagramAnalysis(_optic),
