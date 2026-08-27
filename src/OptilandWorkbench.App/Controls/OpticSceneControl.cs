@@ -94,7 +94,7 @@ public sealed class OpticSceneControl : Control
     };
     private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(104, 105, 151, 185));
     private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
-    private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(134, 146, 166)), 1);
+    private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromArgb(115, 134, 146, 166)), 0.8, DashStyle.Dash);
     private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
     private static readonly Pen ApertureStopPen = new(new SolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
     private static readonly Pen SurfacePen = new(new SolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
@@ -108,9 +108,17 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen SolidLensEdgePen = new(new SolidColorBrush(Color.FromArgb(150, 170, 207, 218)), 1.05);
     private static readonly Pen SolidLensHighlightPen = new(new SolidColorBrush(Color.FromArgb(205, 235, 250, 252)), 1.15);
     private static readonly Pen SolidLensMeridianPen = new(new SolidColorBrush(Color.FromArgb(72, 177, 222, 235)), 0.75);
-    private static readonly Pen SolidAxisPen = new(new SolidColorBrush(Color.FromArgb(90, 154, 174, 190)), 0.9);
+    private static readonly Pen SolidAxisPen = new(new SolidColorBrush(Color.FromArgb(75, 154, 174, 190)), 0.8, DashStyle.Dash);
     private static readonly Pen SolidReferencePlanePen = new(new SolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
     private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
+    private static readonly Pen SourceObjectPen = new(new SolidColorBrush(Color.FromRgb(218, 112, 28)), 1.5);
+    private static readonly Pen SourceObjectMeshPen = new(new SolidColorBrush(Color.FromArgb(68, 218, 112, 28)), 0.4);
+    private static readonly Pen DetectorObjectPen = new(new SolidColorBrush(Color.FromRgb(25, 117, 166)), 1.5);
+    private static readonly Pen NonSequentialGeometryPen = new(new SolidColorBrush(Color.FromArgb(62, 75, 89, 102)), 0.4);
+    private static readonly IBrush SourceObjectBrush = new SolidColorBrush(Color.FromArgb(78, 244, 155, 55));
+    private static readonly IBrush DetectorObjectBrush = new SolidColorBrush(Color.FromArgb(58, 60, 169, 211));
+    private static readonly IBrush NonSequentialGlassBrush = new SolidColorBrush(Color.FromArgb(58, 85, 169, 202));
+    private static readonly IBrush NonSequentialMechanicalBrush = new SolidColorBrush(Color.FromArgb(82, 116, 126, 136));
     private static readonly IBrush SelectedSurfaceFaceBrush = new SolidColorBrush(Color.FromArgb(205, 255, 176, 46));
     private static readonly IBrush SolidLensCutBrush = new SolidColorBrush(Color.FromArgb(156, 83, 155, 174));
     private static readonly IBrush ThreeDLensCutBrush = new SolidColorBrush(Color.FromArgb(170, 225, 139, 48));
@@ -846,9 +854,20 @@ public sealed class OpticSceneControl : Control
         var surfacesToDraw = RenderMode == OpticSceneRenderMode.Solid
             ? scene.Surfaces.Where(surface => !elementSurfaceNumbers.Contains(surface.SurfaceNumber)).ToArray()
             : scene.Surfaces;
+        var objectSurfaces = surfacesToDraw
+            .Where(surface => surface.RenderRole != SceneSurfaceRenderRole.OpticalSurface)
+            .ToArray();
+        Draw3DNonSequentialObjects(
+            context,
+            objectSurfaces,
+            Project,
+            Depth,
+            RenderMode,
+            CutawayEnabled,
+            HighlightedSurfaceNumber);
         Draw3DSurfaces(
             context,
-            surfacesToDraw,
+            surfacesToDraw.Where(surface => surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface).ToArray(),
             Project,
             showMeridians: !solidModelStyle,
             CutawayEnabled,
@@ -869,6 +888,54 @@ public sealed class OpticSceneControl : Control
             DrawScaleBar(context, scale * _viewport.Zoom, solidModelStyle);
         }
     }
+
+    private static void Draw3DNonSequentialObjects(
+        DrawingContext context,
+        IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
+        Func<Layout3DPoint, Point> project,
+        Func<Layout3DPoint, double> depth,
+        OpticSceneRenderMode renderMode,
+        bool cutawayEnabled,
+        int? highlightedSurfaceNumber)
+    {
+        var faces = surfaces.SelectMany(surface => surface.Faces.Select(face => new ObjectProjectedFace(
+                cutawayEnabled ? ClipPolygonToCutaway(face.Points) : face.Points,
+                face.Points.Count == 0 ? 0 : face.Points.Average(depth),
+                surface)))
+            .Where(face => face.Points.Count >= 3)
+            .OrderBy(face => face.Depth)
+            .ToArray();
+        foreach (var face in faces)
+        {
+            var highlighted = face.Surface.SurfaceNumber == highlightedSurfaceNumber;
+            DrawProjectedPolygon(
+                context,
+                renderMode == OpticSceneRenderMode.Wireframe
+                    ? Brushes.Transparent
+                    : highlighted
+                        ? SelectedSurfaceFaceBrush
+                        : NonSequentialObjectBrush(face.Surface),
+                face.Points,
+                project,
+                highlighted ? SelectedSurfacePen : NonSequentialOutlinePen(face.Surface));
+        }
+    }
+
+    private static IBrush NonSequentialObjectBrush(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
+    {
+        SceneSurfaceRenderRole.Source => SourceObjectBrush,
+        SceneSurfaceRenderRole.Detector => DetectorObjectBrush,
+        _ when surface.Material.Equals("Air", StringComparison.OrdinalIgnoreCase) => NonSequentialMechanicalBrush,
+        _ => NonSequentialGlassBrush
+    };
+
+    private static Pen NonSequentialOutlinePen(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
+    {
+        SceneSurfaceRenderRole.Source when surface.Faces.Count > 8 => SourceObjectMeshPen,
+        SceneSurfaceRenderRole.Source => SourceObjectPen,
+        SceneSurfaceRenderRole.Detector => DetectorObjectPen,
+        _ => NonSequentialGeometryPen
+    };
 
     private void DrawSurfaces(
         DrawingContext context,
@@ -1809,7 +1876,8 @@ public sealed class OpticSceneControl : Control
         DrawingContext context,
         IBrush fill,
         IReadOnlyList<Layout3DPoint> points,
-        Func<Layout3DPoint, Point> project)
+        Func<Layout3DPoint, Point> project,
+        Pen? outline = null)
     {
         if (points.Count < 3)
         {
@@ -1828,13 +1896,18 @@ public sealed class OpticSceneControl : Control
             stream.EndFigure(true);
         }
 
-        context.DrawGeometry(fill, null, geometry);
+        context.DrawGeometry(fill, outline, geometry);
     }
 
     private sealed record ProjectedFace(
         IReadOnlyList<Layout3DPoint> Points,
         double Depth,
         IBrush Fill);
+
+    private sealed record ObjectProjectedFace(
+        IReadOnlyList<Layout3DPoint> Points,
+        double Depth,
+        Layout3DSurfacePrimitive Surface);
 
     private readonly record struct GlassRenderParameters(
         double RefractiveIndex,

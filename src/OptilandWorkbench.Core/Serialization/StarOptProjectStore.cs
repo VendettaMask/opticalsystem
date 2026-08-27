@@ -18,7 +18,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 3;
+    public const int ProjectFormatVersion = 4;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 

@@ -15,7 +15,7 @@ public static partial class WorkbenchAnalysisCatalog
     {
         ["Single Ray Trace"] = "单光线追迹",
         ["Non-Sequential Ray Trace"] = "非序列单光线追迹",
-        ["Non-Sequential Detector Viewer"] = "非序列探测器查看",
+        ["Non-Sequential Detector Viewer"] = "探测器查看器",
         ["First Order"] = "系统数据摘要",
         ["Seidel Coefficients"] = "赛德尔系数",
         ["Seidel Diagram"] = "赛德尔图",

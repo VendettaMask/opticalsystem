@@ -29,15 +29,16 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
     {
         var detectors = _document.Objects.Where(item => item.Enabled
             && item.Kind == NonSequentialObjectKind.DetectorRectangle).ToArray();
-        var sources = _document.Objects.Where(item => item.Enabled && item.Kind is
-            NonSequentialObjectKind.SourceRay or NonSequentialObjectKind.SourcePoint
-                or NonSequentialObjectKind.SourceRectangle or NonSequentialObjectKind.SourceGaussian).ToArray();
-        if (detectors.Length == 0 || sources.Length == 0 && _databaseFrames is null)
+        var sources = _document.Objects
+            .Where(item => item.Enabled && item.Parameters is SourceParameters).ToArray();
+        if (detectors.Length == 0 || _databaseFrames is null)
         {
             return new AnalysisData(Name, new Dictionary<string, object>
             {
-                ["Status"] = detectors.Length == 0 ? "No detector objects" : "No source objects"
-            }, ReportText: detectors.Length == 0 ? "场景没有启用的矩形探测器。" : "场景没有启用的光源对象。");
+                ["Status"] = detectors.Length == 0 ? "No detector objects" : "No trace result"
+            }, ReportText: detectors.Length == 0
+                ? "场景没有启用的矩形探测器。"
+                : "没有可用的非序列追迹结果。请先在追迹控制中运行追迹；探测器查看器不会隐式重新追迹。");
         }
 
         var detectorIndex = Math.Clamp(_detectorNumber - 1, 0, detectors.Length - 1);
@@ -46,15 +47,8 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
         var sourceId = _sourceNumber > 0
             ? sources[Math.Clamp(_sourceNumber - 1, 0, sources.Length - 1)].Id
             : (Guid?)null;
-        var frame = _databaseFrames?.SingleOrDefault(item => item.DetectorId == detectorObject.Id);
-        if (frame is null)
-        {
-            var result = new NonSequentialDocumentTracer().Trace(
-                _document,
-                Optic.Materials,
-                new NonSequentialDocumentTraceRequest(SourceObjectId: sourceId));
-            frame = result.Detectors.Single(item => item.DetectorId == detectorObject.Id);
-        }
+        var frame = _databaseFrames.SingleOrDefault(item => item.DetectorId == detectorObject.Id)
+            ?? throw new InvalidOperationException("当前追迹结果不包含所选探测器。");
         var combined = new double[frame.PixelsX * frame.PixelsY];
         foreach (var wavelength in frame.PowerByWavelength.Values)
         {

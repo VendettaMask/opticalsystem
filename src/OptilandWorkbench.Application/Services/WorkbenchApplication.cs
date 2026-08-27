@@ -20,7 +20,8 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         _nonSequentialAnalysisSession = new NonSequentialAnalysisSession(_workspace);
 
         Modes = new WorkbenchModeService(_workspace);
-        NonSequential = new NonSequentialDocumentService(_workspace, _nonSequentialAnalysisSession);
+        NonSequentialAnalysis = new NonSequentialAnalysisService(_workspace, _nonSequentialAnalysisSession);
+        NonSequential = new NonSequentialDocumentService(_workspace, NonSequentialAnalysis);
 
         Documents = new OpticalDocumentService(_workspace);
         Prescription = new PrescriptionService(_workspace);
@@ -40,6 +41,8 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     public IWorkbenchModeService Modes { get; }
 
     public INonSequentialDocumentService NonSequential { get; }
+
+    public INonSequentialAnalysisService NonSequentialAnalysis { get; }
 
     public IPrescriptionService Prescription { get; }
 

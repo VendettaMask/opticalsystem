@@ -35,7 +35,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         _events = events;
         _addKind.ItemsSource = service.GetObjectKinds();
         _addKind.SelectedIndex = 0;
-        _kind.ItemsSource = Enum.GetValues<NonSequentialObjectKind>();
+        _kind.ItemsSource = service.GetObjectKinds();
         _grid = CreateGrid();
 
         var body = new Grid { ColumnDefinitions = new ColumnDefinitions("3*,8,2*") };
@@ -73,16 +73,6 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     {
         var import = CommandButton("导入 STL");
         import.Click += async (_, _) => await ImportStlAsync();
-        var trace = CommandButton("追迹控制");
-        trace.Click += async (_, _) =>
-        {
-            if (TopLevel.GetTopLevel(this) is Window owner)
-            {
-                await new NonSequentialTraceControlWindow(_service).ShowDialog(owner);
-            }
-        };
-        var database = CommandButton("光线数据库/路径分析");
-        database.Click += async (_, _) => await OpenRayDatabaseAsync();
         var add = CommandButton("添加");
         add.Click += (_, _) =>
         {
@@ -117,7 +107,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         {
             Orientation = Orientation.Horizontal,
             Margin = new Avalonia.Thickness(10, 6),
-            Children = { _addKind, add, import, remove, copy, paste, up, down, convert, trace, database, _summary }
+            Children = { _addKind, add, import, remove, copy, paste, up, down, convert, _summary }
         };
         var border = new Border { BorderThickness = new Avalonia.Thickness(0, 0, 0, 1), Child = content };
         border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
@@ -249,6 +239,25 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             case SourceGaussianParameters p:
                 Source(p); Field("waistX", "X 束腰 (mm)", p.WaistXMillimeters); Field("waistY", "Y 束腰 (mm)", p.WaistYMillimeters);
                 Field("cone", "发散半角 (°)", p.DivergenceHalfAngleDegrees); break;
+            case SourceEllipseParameters p:
+                Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
+                Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+            case SourceTwoAngleParameters p:
+                Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
+                Field("shape", "发光面形状", p.Shape); Field("angleX", "X 发散半角 (°)", p.AngularHalfAngleXDegrees);
+                Field("angleY", "Y 发散半角 (°)", p.AngularHalfAngleYDegrees); break;
+            case SourceRadialParameters p:
+                Source(p); Field("samples", "角度:相对强度", string.Join("; ", p.Samples.Select(sample =>
+                    $"{sample.AngleDegrees.ToString("G17", CultureInfo.InvariantCulture)}:{sample.RelativeIntensity.ToString("G17", CultureInfo.InvariantCulture)}"))); break;
+            case SourceVolumeRectangleParameters p:
+                Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
+                Field("depth", "深度 (mm)", p.DepthMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+            case SourceVolumeEllipseParameters p:
+                Source(p); Field("semiX", "X 半轴 (mm)", p.SemiAxisXMillimeters); Field("semiY", "Y 半轴 (mm)", p.SemiAxisYMillimeters);
+                Field("semiZ", "Z 半轴 (mm)", p.SemiAxisZMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+            case SourceVolumeCylinderParameters p:
+                Source(p); Field("radiusX", "X 半径 (mm)", p.RadiusXMillimeters); Field("radiusY", "Y 半径 (mm)", p.RadiusYMillimeters);
+                Field("length", "轴向长度 (mm)", p.LengthMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
             case PlaneRectangleParameters p:
                 Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
                 Field("behavior", "交互", p.Behavior); Field("before", "前侧材料", p.MaterialBefore); Field("after", "后侧材料", p.MaterialAfter); break;
@@ -292,7 +301,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     {
         if (_grid.SelectedItem is not ObjectRow row) return;
         var kind = _kind.SelectedItem is NonSequentialObjectKind selected ? selected : row.Kind;
-        var parameters = kind == row.Kind ? ReadParameters(row.Parameters) : row.Parameters;
+        var parameters = kind == row.Kind ? ReadParameters(row.Parameters) : _service.GetDefaultParameters(kind);
         _service.UpdateObject(row.ToUpdate() with
         {
             Kind = kind,
@@ -309,6 +318,12 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         SourcePointParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), ConeHalfAngleDegrees = D("cone") },
         SourceRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone") },
         SourceGaussianParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WaistXMillimeters = D("waistX"), WaistYMillimeters = D("waistY"), DivergenceHalfAngleDegrees = D("cone") },
+        SourceEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone") },
+        SourceTwoAngleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), Shape = E<NonSequentialSourceApertureShape>("shape"), AngularHalfAngleXDegrees = D("angleX"), AngularHalfAngleYDegrees = D("angleY") },
+        SourceRadialParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), Samples = RadialSamples("samples") },
+        SourceVolumeRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), DepthMillimeters = D("depth"), AngularHalfAngleDegrees = D("cone") },
+        SourceVolumeEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), SemiAxisXMillimeters = D("semiX"), SemiAxisYMillimeters = D("semiY"), SemiAxisZMillimeters = D("semiZ"), AngularHalfAngleDegrees = D("cone") },
+        SourceVolumeCylinderParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), RadiusXMillimeters = D("radiusX"), RadiusYMillimeters = D("radiusY"), LengthMillimeters = D("length"), AngularHalfAngleDegrees = D("cone") },
         PlaneRectangleParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), Behavior = E<NonSequentialSurfaceBehavior>("behavior"), MaterialBefore = S("before"), MaterialAfter = S("after") },
         SphereParameters p => p with { RadiusMillimeters = D("radius"), Material = S("material"), Behavior = E<NonSequentialSurfaceBehavior>("behavior") },
         CylinderParameters p => p with { RadiusMillimeters = D("radius"), LengthMillimeters = D("length"), Material = S("material"), Behavior = E<NonSequentialSurfaceBehavior>("behavior") },
@@ -365,19 +380,6 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         }
     }
 
-    private async Task OpenRayDatabaseAsync()
-    {
-        if (TopLevel.GetTopLevel(this) is not Window owner) return;
-        var files = await owner.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-        {
-            Title = "打开非序列光线数据库",
-            AllowMultiple = false,
-            FileTypeFilter = new[] { new FilePickerFileType("STAR 光线数据库") { Patterns = new[] { "*.starrdb" } } }
-        });
-        if (files.Count == 0) return;
-        await new NonSequentialRayDatabaseWindow(_service, files[0].Path.LocalPath).ShowDialog(owner);
-    }
-
     private void SelectAfter(Func<Guid> operation) { var id = operation(); Refresh(select: id); }
     private void WithSelection(Action<ObjectRow> action) { if (_grid.SelectedItem is ObjectRow row) action(row); }
     private void Vector(string key, string label, NonSequentialVector3 value) { Field(key + "X", label + " X", value.X); Field(key + "Y", label + " Y", value.Y); Field(key + "Z", label + " Z", value.Z); }
@@ -399,6 +401,19 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private bool B(string key) => bool.TryParse(S(key), out var value) ? value : throw new FormatException($"参数“{key}”不是有效布尔值。");
     private T E<T>(string key) where T : struct, Enum => Enum.TryParse<T>(S(key), true, out var value) ? value : throw new FormatException($"参数“{key}”不是有效类型。");
     private NonSequentialVector3 V(string key) => new(D(key + "X"), D(key + "Y"), D(key + "Z"));
+    private IReadOnlyList<SourceRadialSample> RadialSamples(string key) => S(key)
+        .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Select(entry =>
+        {
+            var parts = entry.Split(':', StringSplitOptions.TrimEntries);
+            if (parts.Length != 2
+                || !double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out var angle)
+                || !double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var intensity))
+            {
+                throw new FormatException("径向分布必须使用“角度:相对强度; …”格式。");
+            }
+            return new SourceRadialSample(angle, intensity);
+        }).ToArray();
 
     private static Button CommandButton(string text) => new() { Content = text, Margin = new Avalonia.Thickness(3, 0), MinHeight = 30 };
     private static TextBlock Label(string text) => new() { Text = text, Margin = new Avalonia.Thickness(5), VerticalAlignment = VerticalAlignment.Center };

@@ -4,7 +4,13 @@ public enum AnalysisRibbonCommandKind
 {
     Analysis,
     ImaBimViewer,
-    BitmapViewer
+    BitmapViewer,
+    NonSequentialTraceControl,
+    NonSequentialDetectorViewer,
+    NonSequentialClearDetectors,
+    NonSequentialRayDatabaseViewer,
+    NonSequentialPathAnalysis,
+    NonSequentialLayout
 }
 
 public sealed record AnalysisRibbonCommand(
@@ -101,17 +107,53 @@ public static partial class WorkbenchAnalysisCatalog
     public static IReadOnlyList<AnalysisRibbonCommand> NonSequentialRibbonCommands = new AnalysisRibbonCommand[]
     {
         new(
+            "non-sequential-trace-control",
+            "Non-Sequential Trace Control",
+            "追迹控制",
+            "play",
+            "光线追迹",
+            AnalysisRibbonCommandKind.NonSequentialTraceControl),
+        new(
             "analysis-non-sequential-ray-trace",
             "Non-Sequential Ray Trace",
-            "非序列单光线追迹",
+            "单光线追迹",
             "route",
-            "非序列光线"),
+            "光线追迹"),
         new(
             "analysis-non-sequential-detector-viewer",
             "Non-Sequential Detector Viewer",
-            "非序列探测器查看",
+            "探测器查看器",
             "scan-eye",
-            "探测器")
+            "探测器",
+            AnalysisRibbonCommandKind.NonSequentialDetectorViewer),
+        new(
+            "non-sequential-clear-detectors",
+            "Clear Non-Sequential Detectors",
+            "清空探测器",
+            "trash-2",
+            "探测器",
+            AnalysisRibbonCommandKind.NonSequentialClearDetectors),
+        new(
+            "non-sequential-ray-database-viewer",
+            "Non-Sequential Ray Database Viewer",
+            "光线数据库查看器",
+            "database",
+            "光线数据库",
+            AnalysisRibbonCommandKind.NonSequentialRayDatabaseViewer),
+        new(
+            "non-sequential-path-analysis",
+            "Non-Sequential Path Analysis",
+            "路径分析",
+            "list-tree",
+            "光线数据库",
+            AnalysisRibbonCommandKind.NonSequentialPathAnalysis),
+        new(
+            "non-sequential-3d-layout",
+            "Non-Sequential 3D Layout",
+            "非序列 3D 布局",
+            "box",
+            "布局",
+            AnalysisRibbonCommandKind.NonSequentialLayout)
     };
 
     public static IReadOnlyList<AnalysisRibbonCommand> AllRibbonCommands =>
@@ -132,8 +174,10 @@ public static partial class WorkbenchAnalysisCatalog
 
     public static string[] NonSequentialRibbonGroupOrder =
     {
-        "非序列光线",
-        "探测器"
+        "光线追迹",
+        "探测器",
+        "光线数据库",
+        "布局"
     };
 
     public static IReadOnlyList<AnalysisRibbonMenu> RibbonMenus = new AnalysisRibbonMenu[]
@@ -243,13 +287,24 @@ public static partial class WorkbenchAnalysisCatalog
 
     public static IReadOnlyList<AnalysisRibbonMenu> NonSequentialRibbonMenus = new AnalysisRibbonMenu[]
     {
-        new("非序列光线", "非序列光线", "route", new[]
+        new("光线追迹", "光线追迹", "route", new[]
         {
+            "non-sequential-trace-control",
             "analysis-non-sequential-ray-trace"
         }),
         new("探测器", "探测器", "scan-eye", new[]
         {
-            "analysis-non-sequential-detector-viewer"
+            "analysis-non-sequential-detector-viewer",
+            "non-sequential-clear-detectors"
+        }),
+        new("光线数据库", "光线数据库", "database", new[]
+        {
+            "non-sequential-ray-database-viewer",
+            "non-sequential-path-analysis"
+        }),
+        new("布局", "布局", "box", new[]
+        {
+            "non-sequential-3d-layout"
         })
     };
 }

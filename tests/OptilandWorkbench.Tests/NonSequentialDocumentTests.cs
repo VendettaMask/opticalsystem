@@ -140,9 +140,7 @@ public sealed class NonSequentialDocumentTests
         Assert.True(result.ObjectCount > 0);
         Assert.Contains(objects, item => item.Kind == ContractKind.StandardLens);
         Assert.Equal(ContractKind.DetectorRectangle, objects[^1].Kind);
-        Assert.DoesNotContain(objects, item => item.Kind is ContractKind.SourceRay
-            or ContractKind.SourcePoint or ContractKind.SourceRectangle
-            or ContractKind.SourceGaussian);
+        Assert.DoesNotContain(objects, item => item.Parameters is OptilandWorkbench.Application.Contracts.SourceParameters);
         Assert.Contains(result.Warnings, warning => warning.Contains("光源", StringComparison.Ordinal));
     }
 
@@ -222,18 +220,28 @@ public sealed class NonSequentialDocumentTests
     }
 
     [Fact]
-    public void FirstVersionRejectsNonAbsorbingDetectorWithoutMutation()
+    public void NonAbsorbingDetectorRecordsPowerAndAllowsRayToReachFollowingDetector()
     {
-        using var application = WorkbenchApplication.Create("blank");
-        var id = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
-        var row = application.NonSequential.GetDocument().Objects.Single(item => item.Id == id);
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay));
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle, "近场") with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+            Parameters = new DetectorRectangleParameters(20, 20, 20, 20, Absorb: false)
+        });
+        document.Insert(2, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle, "远场") with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 20)),
+            Parameters = new DetectorRectangleParameters(20, 20, 20, 20)
+        });
 
-        Assert.Throws<InvalidDataException>(() => application.NonSequential.UpdateObject(
-            ToUpdate(row) with
-            {
-                Parameters = ((ContractDetectorRectangleParameters)row.Parameters) with { Absorb = false }
-            }));
-        Assert.True(((ContractDetectorRectangleParameters)application.NonSequential.GetDocument().Objects.Single().Parameters).Absorb);
+        var result = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+
+        Assert.Equal(2, result.Detectors.Count);
+        Assert.All(result.Detectors, detector => Assert.Equal(1, detector.TotalPowerWatts, 12));
+        Assert.Equal(1, result.EnergyBalance.DetectorPowerWatts, 12);
+        Assert.Equal(NonSequentialTerminationReason.DetectorHit, Assert.Single(result.Branches).TerminationReason);
     }
 
     [Fact]
@@ -283,10 +291,50 @@ public sealed class NonSequentialDocumentTests
         var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
         var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
 
-        Assert.Equal(2, threeDimensional.Surfaces.Count);
+        Assert.Equal(3, threeDimensional.Surfaces.Count);
         Assert.NotEmpty(threeDimensional.Surfaces.SelectMany(surface => surface.Faces));
-        Assert.NotEmpty(threeDimensional.Rays);
+        Assert.Equal(SceneSurfaceRenderRole.Source, threeDimensional.Surfaces[0].RenderRole);
+        Assert.Equal(SceneSurfaceRenderRole.NonSequentialObject, threeDimensional.Surfaces[1].RenderRole);
+        Assert.Equal(SceneSurfaceRenderRole.Detector, threeDimensional.Surfaces[2].RenderRole);
+        Assert.False(threeDimensional.Surfaces[2].IsReferencePlane);
+        Assert.Empty(threeDimensional.Surfaces[1].Rim);
+        Assert.Equal(5, threeDimensional.Surfaces[2].Rim.Count);
+        Assert.Equal(threeDimensional.Surfaces[2].Rim[0], threeDimensional.Surfaces[2].Rim[^1]);
+        Assert.Empty(threeDimensional.Rays);
         Assert.Empty(threeDimensional.LensElements);
+
+        await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var traced = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(traced.ThreeDimensional).Rays);
+    }
+
+    [Fact]
+    public async Task LayoutSessionIsCreatedOnceAndReusedUntilSceneChanges()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var first = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+        var second = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+
+        Assert.Equal(first.Id, second.Id);
+        Assert.Equal(1, second.TracePassCount);
+        Assert.Equal(20, second.BranchCount);
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Equal(20, Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays.Count);
+
+        var source = application.NonSequential.GetDocument().Objects[0];
+        application.NonSequential.UpdateObject(ToUpdate(source) with { X = 1 });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentSession()!.IsStale);
+
+        var refreshed = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+
+        Assert.NotEqual(first.Id, refreshed.Id);
+        Assert.False(refreshed.IsStale);
     }
 
     [Fact]

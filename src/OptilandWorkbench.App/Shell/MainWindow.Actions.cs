@@ -207,6 +207,12 @@ public sealed partial class MainWindow
                 {
                     AnalysisRibbonCommandKind.ImaBimViewer => OpenImaBimViewerAsync,
                     AnalysisRibbonCommandKind.BitmapViewer => OpenBitmapViewerAsync,
+                    AnalysisRibbonCommandKind.NonSequentialTraceControl => OpenNonSequentialTraceControlAsync,
+                    AnalysisRibbonCommandKind.NonSequentialDetectorViewer => OpenNonSequentialDetectorViewerAsync,
+                    AnalysisRibbonCommandKind.NonSequentialClearDetectors => ClearNonSequentialDetectorsAsync,
+                    AnalysisRibbonCommandKind.NonSequentialRayDatabaseViewer => () => OpenNonSequentialDatabaseAsync(false),
+                    AnalysisRibbonCommandKind.NonSequentialPathAnalysis => () => OpenNonSequentialDatabaseAsync(true),
+                    AnalysisRibbonCommandKind.NonSequentialLayout => OpenNonSequentialLayoutAsync,
                     _ => () =>
                     {
                         _panels.ShowAnalysis(analysis.Name);
@@ -214,6 +220,55 @@ public sealed partial class MainWindow
                     }
                 });
         }
+    }
+
+    private async Task OpenNonSequentialTraceControlAsync()
+    {
+        await new Panels.NonSequentialTraceControlWindow(
+            _application.NonSequential,
+            _application.NonSequentialAnalysis).ShowDialog(this);
+    }
+
+    private async Task OpenNonSequentialLayoutAsync()
+    {
+        await _application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+        _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+    }
+
+    private Task OpenNonSequentialDetectorViewerAsync()
+    {
+        _panels.ShowNonSequentialDetectorViewer();
+        return Task.CompletedTask;
+    }
+
+    private Task ClearNonSequentialDetectorsAsync()
+    {
+        _application.NonSequentialAnalysis.ClearDetectors();
+        _statusText.Text = "非序列探测器和当前追迹结果已清空";
+        return Task.CompletedTask;
+    }
+
+    private async Task OpenNonSequentialDatabaseAsync(bool showPathAnalysis)
+    {
+        var path = _application.NonSequentialAnalysis.GetCurrentSession()?.RayDatabasePath;
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        {
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "打开非序列光线数据库",
+                AllowMultiple = false,
+                FileTypeFilter = new[]
+                {
+                    new FilePickerFileType("STAR 光线数据库") { Patterns = new[] { "*.starrdb" } }
+                }
+            });
+            if (files.Count == 0) return;
+            path = files[0].Path.LocalPath;
+        }
+        await new Panels.NonSequentialRayDatabaseWindow(
+            _application.NonSequentialAnalysis,
+            path,
+            showPathAnalysis).ShowDialog(this);
     }
 
     private async Task SwitchWorkbenchModeAsync(OpticalWorkbenchMode mode)

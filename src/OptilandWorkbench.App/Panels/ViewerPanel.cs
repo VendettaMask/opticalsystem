@@ -551,9 +551,17 @@ public sealed class ViewerPanel : UserControl, IDisposable
             {
                 _scene.Scene = scene;
                 _scene.InvalidateVisual();
-                _summary.Text = $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    " +
-                    $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    " +
-                    $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
+                var nonSequential = scene.ThreeDimensional is { } threeDimensional
+                    && threeDimensional.Surfaces.Any(surface =>
+                        surface.RenderRole != SceneSurfaceRenderRole.OpticalSurface);
+                _summary.Text = nonSequential
+                    ? $"非序列对象 {scene.ThreeDimensional!.Surfaces.Count}    "
+                        + $"显示光线 {scene.ThreeDimensional.Rays.Count}    "
+                        + $"Z 范围 {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} 至 "
+                        + $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm"
+                    : $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
+                        + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
+                        + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
             });
         }
         catch (OperationCanceledException)

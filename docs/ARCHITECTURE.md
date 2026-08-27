@@ -48,7 +48,7 @@ OpticalSurface
 
 Core 通过 `AnalysisCatalog` 注册当前 `72` 个规范分析，其中包含非序列光线追迹和探测器查看器。应用层 `IWorkbenchModeService` 只负责顺序/非序列模式边界，`INonSequentialDocumentService` 负责独立非序列文档的对象、波长和显式转换事务。`AnalysisService` 按模式分别暴露顺序 70 项或非序列 2 项并拒绝跨模式执行；桌面端根据同一状态重建 Ribbon、主编辑文档和左侧工具页。Workbench 的规范键、中文显示名、兼容别名、展示类型和两套 Ribbon 目录由 `WorkbenchAnalysisCatalog` 统一描述。独立 `Distortion` 已退出公开目录，旧名称兼容映射到 `Field Curvature and Distortion`。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放、缓存身份或导出逻辑。
 
-`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT容器版本为2、工程负载版本为3；旧容器/负载继续有界迁移，v3额外保存内容寻址的网格资产。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。STL对象使用对象级BVH之外的三角形级BVH；`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。应用层分析会话保存当前数据库/筛选，3D只抽样路径，探测器流式重新累计像素，且该会话不进入工程脏状态。
+`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT容器版本为2、工程负载版本为4；旧容器/负载继续有界迁移，v3保存内容寻址的网格资产，v4增加扩展原生光源。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。STL对象使用对象级BVH之外的三角形级BVH；`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。应用层 `INonSequentialAnalysisService` 统一管理清空/累积/替换追迹、临时数据库、场景过期、分页数据库和探测器重建；3D、路径和探测器读取同一会话且不隐式追迹。分析会话不进入工程脏状态。
 
 报告入口属于分析体系，不是独立旧页面：“表面数据报告”逐面输出处方，“系统数据报告”按系统/孔径/视场/波长/近轴量组织，“分类数据报告”按角色/材料/几何类型汇总，“系统数据摘要”复用规范 `First Order` 分析，“基面数据”使用规范 `Cardinal Points Data`。旧“一阶量、处方报告”仅作为兼容别名解析。
 

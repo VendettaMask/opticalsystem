@@ -16,7 +16,19 @@ public enum NonSequentialObjectKind
     Box,
     StandardLens,
     Mesh,
-    DetectorRectangle
+    DetectorRectangle,
+    SourceEllipse,
+    SourceTwoAngle,
+    SourceRadial,
+    SourceVolumeRectangle,
+    SourceVolumeEllipse,
+    SourceVolumeCylinder
+}
+
+public enum NonSequentialSourceApertureShape
+{
+    Rectangle,
+    Ellipse
 }
 
 public enum NonSequentialSurfaceBehavior
@@ -43,6 +55,12 @@ public sealed record NonSequentialTraceSettings(
 [JsonDerivedType(typeof(SourcePointParameters), "source-point")]
 [JsonDerivedType(typeof(SourceRectangleParameters), "source-rectangle")]
 [JsonDerivedType(typeof(SourceGaussianParameters), "source-gaussian")]
+[JsonDerivedType(typeof(SourceEllipseParameters), "source-ellipse")]
+[JsonDerivedType(typeof(SourceTwoAngleParameters), "source-two-angle")]
+[JsonDerivedType(typeof(SourceRadialParameters), "source-radial")]
+[JsonDerivedType(typeof(SourceVolumeRectangleParameters), "source-volume-rectangle")]
+[JsonDerivedType(typeof(SourceVolumeEllipseParameters), "source-volume-ellipse")]
+[JsonDerivedType(typeof(SourceVolumeCylinderParameters), "source-volume-cylinder")]
 [JsonDerivedType(typeof(PlaneRectangleParameters), "plane-rectangle")]
 [JsonDerivedType(typeof(SphereParameters), "sphere")]
 [JsonDerivedType(typeof(CylinderParameters), "cylinder")]
@@ -88,6 +106,70 @@ public sealed record SourceGaussianParameters(
     double WaistXMillimeters = 1,
     double WaistYMillimeters = 1,
     double DivergenceHalfAngleDegrees = 5,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceEllipseParameters(
+    double WidthMillimeters = 10,
+    double HeightMillimeters = 10,
+    double AngularHalfAngleDegrees = 20,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceTwoAngleParameters(
+    double WidthMillimeters = 10,
+    double HeightMillimeters = 10,
+    NonSequentialSourceApertureShape Shape = NonSequentialSourceApertureShape.Rectangle,
+    double AngularHalfAngleXDegrees = 20,
+    double AngularHalfAngleYDegrees = 10,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceRadialSample(double AngleDegrees, double RelativeIntensity);
+
+public sealed record SourceRadialParameters(
+    IReadOnlyList<SourceRadialSample>? Samples = null,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount)
+{
+    [JsonIgnore]
+    public IReadOnlyList<SourceRadialSample> Distribution => Samples ??
+        new[] { new SourceRadialSample(0, 1), new SourceRadialSample(30, 0) };
+}
+
+public sealed record SourceVolumeRectangleParameters(
+    double WidthMillimeters = 10,
+    double HeightMillimeters = 10,
+    double DepthMillimeters = 10,
+    double AngularHalfAngleDegrees = 20,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceVolumeEllipseParameters(
+    double SemiAxisXMillimeters = 5,
+    double SemiAxisYMillimeters = 5,
+    double SemiAxisZMillimeters = 5,
+    double AngularHalfAngleDegrees = 20,
+    double PowerWatts = 1,
+    int WavelengthNumber = 1,
+    int LayoutRayCount = 20,
+    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceVolumeCylinderParameters(
+    double RadiusXMillimeters = 5,
+    double RadiusYMillimeters = 5,
+    double LengthMillimeters = 10,
+    double AngularHalfAngleDegrees = 20,
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
@@ -169,6 +251,12 @@ public sealed record NonSequentialObjectDefinition(
         NonSequentialObjectKind.SourcePoint => new SourcePointParameters(),
         NonSequentialObjectKind.SourceRectangle => new SourceRectangleParameters(),
         NonSequentialObjectKind.SourceGaussian => new SourceGaussianParameters(),
+        NonSequentialObjectKind.SourceEllipse => new SourceEllipseParameters(),
+        NonSequentialObjectKind.SourceTwoAngle => new SourceTwoAngleParameters(),
+        NonSequentialObjectKind.SourceRadial => new SourceRadialParameters(),
+        NonSequentialObjectKind.SourceVolumeRectangle => new SourceVolumeRectangleParameters(),
+        NonSequentialObjectKind.SourceVolumeEllipse => new SourceVolumeEllipseParameters(),
+        NonSequentialObjectKind.SourceVolumeCylinder => new SourceVolumeCylinderParameters(),
         NonSequentialObjectKind.PlaneRectangle => new PlaneRectangleParameters(),
         NonSequentialObjectKind.Sphere => new SphereParameters(),
         NonSequentialObjectKind.Cylinder => new CylinderParameters(),
@@ -185,6 +273,12 @@ public sealed record NonSequentialObjectDefinition(
         NonSequentialObjectKind.SourcePoint => "点光源",
         NonSequentialObjectKind.SourceRectangle => "矩形光源",
         NonSequentialObjectKind.SourceGaussian => "高斯光源",
+        NonSequentialObjectKind.SourceEllipse => "椭圆面光源",
+        NonSequentialObjectKind.SourceTwoAngle => "双角度面光源",
+        NonSequentialObjectKind.SourceRadial => "径向分布光源",
+        NonSequentialObjectKind.SourceVolumeRectangle => "矩形体光源",
+        NonSequentialObjectKind.SourceVolumeEllipse => "椭球体光源",
+        NonSequentialObjectKind.SourceVolumeCylinder => "圆柱体光源",
         NonSequentialObjectKind.PlaneRectangle => "矩形平面",
         NonSequentialObjectKind.Sphere => "球体",
         NonSequentialObjectKind.Cylinder => "圆柱体",
@@ -456,6 +550,12 @@ public sealed class NonSequentialDocument
             (NonSequentialObjectKind.SourcePoint, SourcePointParameters) => true,
             (NonSequentialObjectKind.SourceRectangle, SourceRectangleParameters) => true,
             (NonSequentialObjectKind.SourceGaussian, SourceGaussianParameters) => true,
+            (NonSequentialObjectKind.SourceEllipse, SourceEllipseParameters) => true,
+            (NonSequentialObjectKind.SourceTwoAngle, SourceTwoAngleParameters) => true,
+            (NonSequentialObjectKind.SourceRadial, SourceRadialParameters) => true,
+            (NonSequentialObjectKind.SourceVolumeRectangle, SourceVolumeRectangleParameters) => true,
+            (NonSequentialObjectKind.SourceVolumeEllipse, SourceVolumeEllipseParameters) => true,
+            (NonSequentialObjectKind.SourceVolumeCylinder, SourceVolumeCylinderParameters) => true,
             (NonSequentialObjectKind.PlaneRectangle, PlaneRectangleParameters) => true,
             (NonSequentialObjectKind.Sphere, SphereParameters) => true,
             (NonSequentialObjectKind.Cylinder, CylinderParameters) => true,
@@ -488,6 +588,38 @@ public sealed class NonSequentialDocument
                 ValidateSource(name, gaussian);
                 RequirePositive(gaussian.WaistXMillimeters, gaussian.WaistYMillimeters);
                 RequireRange(gaussian.DivergenceHalfAngleDegrees, 0, 90, name);
+                break;
+            case SourceEllipseParameters ellipse:
+                ValidateSource(name, ellipse);
+                RequirePositive(ellipse.WidthMillimeters, ellipse.HeightMillimeters);
+                RequireRange(ellipse.AngularHalfAngleDegrees, 0, 90, name);
+                break;
+            case SourceTwoAngleParameters twoAngle:
+                ValidateSource(name, twoAngle);
+                RequirePositive(twoAngle.WidthMillimeters, twoAngle.HeightMillimeters);
+                if (!Enum.IsDefined(twoAngle.Shape))
+                    throw new InvalidDataException($"光源“{name}”的发光面形状无效。");
+                RequireRange(twoAngle.AngularHalfAngleXDegrees, 0, 90, name);
+                RequireRange(twoAngle.AngularHalfAngleYDegrees, 0, 90, name);
+                break;
+            case SourceRadialParameters radial:
+                ValidateSource(name, radial);
+                ValidateRadialDistribution(name, radial.Distribution);
+                break;
+            case SourceVolumeRectangleParameters volumeRectangle:
+                ValidateSource(name, volumeRectangle);
+                RequirePositive(volumeRectangle.WidthMillimeters, volumeRectangle.HeightMillimeters, volumeRectangle.DepthMillimeters);
+                RequireRange(volumeRectangle.AngularHalfAngleDegrees, 0, 90, name);
+                break;
+            case SourceVolumeEllipseParameters volumeEllipse:
+                ValidateSource(name, volumeEllipse);
+                RequirePositive(volumeEllipse.SemiAxisXMillimeters, volumeEllipse.SemiAxisYMillimeters, volumeEllipse.SemiAxisZMillimeters);
+                RequireRange(volumeEllipse.AngularHalfAngleDegrees, 0, 90, name);
+                break;
+            case SourceVolumeCylinderParameters volumeCylinder:
+                ValidateSource(name, volumeCylinder);
+                RequirePositive(volumeCylinder.RadiusXMillimeters, volumeCylinder.RadiusYMillimeters, volumeCylinder.LengthMillimeters);
+                RequireRange(volumeCylinder.AngularHalfAngleDegrees, 0, 90, name);
                 break;
             case PlaneRectangleParameters plane:
                 RequirePositive(plane.WidthMillimeters, plane.HeightMillimeters);
@@ -527,11 +659,6 @@ public sealed class NonSequentialDocument
                     || (long)detector.PixelsX * detector.PixelsY > 67_108_864)
                 {
                     throw new InvalidDataException($"探测器“{name}”的像素尺寸无效或过大。");
-                }
-
-                if (!detector.Absorb)
-                {
-                    throw new InvalidDataException($"首版探测器“{name}”必须启用吸收终止。");
                 }
 
                 break;
@@ -594,6 +721,22 @@ public sealed class NonSequentialDocument
             || source.AnalysisRayCount <= 0 || source.AnalysisRayCount > 1_000_000)
         {
             throw new InvalidDataException($"光源“{name}”的功率、波长或射线数量无效。");
+        }
+    }
+
+    private static void ValidateRadialDistribution(string name, IReadOnlyList<SourceRadialSample> samples)
+    {
+        if (samples.Count is < 2 or > 4_096
+            || Math.Abs(samples[0].AngleDegrees) > 1e-12
+            || samples.Any(sample => !double.IsFinite(sample.AngleDegrees)
+                || !double.IsFinite(sample.RelativeIntensity)
+                || sample.AngleDegrees < 0 || sample.AngleDegrees > 180
+                || sample.RelativeIntensity < 0)
+            || samples.Zip(samples.Skip(1), (left, right) => right.AngleDegrees > left.AngleDegrees).Any(valid => !valid)
+            || samples.All(sample => sample.RelativeIntensity <= 0))
+        {
+            throw new InvalidDataException(
+                $"径向光源“{name}”需要 2 到 4096 个从 0° 开始、角度严格递增且强度非负的样本。");
         }
     }
 

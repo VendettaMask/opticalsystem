@@ -23,7 +23,8 @@ public sealed record NonSequentialRayDatabaseHeader(
     IReadOnlyList<NonSequentialRayDatabaseObject> Objects,
     NonSequentialTraceSettings TraceSettings,
     int RandomSeed,
-    string? PathFilterExpression = null)
+    string? PathFilterExpression = null,
+    NonSequentialSplittingMode? SplittingMode = null)
 {
     public static NonSequentialRayDatabaseHeader Create(
         NonSequentialDocument document,
@@ -42,7 +43,10 @@ public sealed record NonSequentialRayDatabaseHeader(
                 item.Kind)).ToArray(),
             document.TraceSettings,
             document.TraceSettings.RandomSeed,
-            pathFilterExpression);
+            pathFilterExpression,
+            document.TraceSettings.SplitFresnelRays
+                ? NonSequentialSplittingMode.FullFresnel
+                : NonSequentialSplittingMode.None);
 }
 
 public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, IDisposable

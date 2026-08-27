@@ -1,5 +1,5 @@
 {
-  "Version": 1,
+  "Version": 2,
   "Name": "STAROPT non-sequential teaching samples",
   "LengthUnit": "Millimeter",
   "Samples": [
@@ -16,6 +16,19 @@
       "SuggestedFilters": [
         "D3",
         "SEQ(Q1,H2,T2,D3)"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "像面探测器",
+          "PowerWatts": 0.9578349434409706,
+          "PeakPixelPowerWatts": 0.00622593159159955,
+          "CentroidXMillimeters": -0.015234360557557136,
+          "CentroidYMillimeters": 0.02484373668776769,
+          "RmsXMillimeters": 1.5076661625259717,
+          "RmsYMillimeters": 1.5209426520795564
+        }
       ]
     },
     {
@@ -33,6 +46,28 @@
         "D4",
         "SEQ(Q1,H2,R2,D4)",
         "R2"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "前向主光探测器",
+          "PowerWatts": 0.9578356227117596,
+          "PeakPixelPowerWatts": 0.0574701383911694,
+          "CentroidXMillimeters": 0.0156250016122507,
+          "CentroidYMillimeters": 0.01718749785048996,
+          "RmsXMillimeters": 0.5217439906364288,
+          "RmsYMillimeters": 0.5396373696881261
+        },
+        {
+          "Name": "后向鬼像探测器",
+          "PowerWatts": 0.042164377288240386,
+          "PeakPixelPowerWatts": 0.0005270546430115384,
+          "CentroidXMillimeters": 0.01640634122832309,
+          "CentroidYMillimeters": 0.03359389316591291,
+          "RmsXMillimeters": 1.597643952294654,
+          "RmsYMillimeters": 1.6629714569789829
+        }
       ]
     },
     {
@@ -49,6 +84,19 @@
         "D3",
         "R1 & D3",
         "SEQ(Q2,R1,D3)"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "光管出口探测器",
+          "PowerWatts": 0.9610628205227948,
+          "PeakPixelPowerWatts": 0.002,
+          "CentroidXMillimeters": -0.08927812848225433,
+          "CentroidYMillimeters": -0.04676600272658553,
+          "RmsXMillimeters": 2.780172646112531,
+          "RmsYMillimeters": 2.7960727881338214
+        }
       ]
     },
     {
@@ -64,6 +112,19 @@
       "SuggestedFilters": [
         "D4",
         "SEQ(Q1,H2,R2,H3,R3,D4)"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "折叠光路探测器",
+          "PowerWatts": 1,
+          "PeakPixelPowerWatts": 1,
+          "CentroidXMillimeters": -0.15625,
+          "CentroidYMillimeters": 0.15625,
+          "RmsXMillimeters": 0,
+          "RmsYMillimeters": 0
+        }
       ]
     },
     {
@@ -81,6 +142,19 @@
         "W2 & D4",
         "W3 & D4",
         "Q2 & D4"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "三色探测器",
+          "PowerWatts": 0.9999999999999974,
+          "PeakPixelPowerWatts": 0.008749999999999999,
+          "CentroidXMillimeters": 0.023906250000000104,
+          "CentroidYMillimeters": -0.0006249999999996452,
+          "RmsXMillimeters": 5.758764954719977,
+          "RmsYMillimeters": 0.9810706444364743
+        }
       ]
     },
     {
@@ -98,6 +172,247 @@
         "H2 & A",
         "SEQ(Q1,H2,A)",
         "M2 & D3"
+      ],
+      "SourceKind": null,
+      "PreviewFile": null,
+      "DetectorResults": [
+        {
+          "Name": "杂散光探测器",
+          "PowerWatts": 0.4897499999999829,
+          "PeakPixelPowerWatts": 0.00125,
+          "CentroidXMillimeters": 0.1113450740173597,
+          "CentroidYMillimeters": -0.00899693721286214,
+          "RmsXMillimeters": 4.1555664637170935,
+          "RmsYMillimeters": 4.180283567100372
+        }
+      ]
+    },
+    {
+      "File": "07-ellipse-source-footprint.staropt",
+      "Title": "椭圆面光源空间轮廓",
+      "Lesson": "比较近场椭圆发光口径与传播后的远场光斑，练习探测器空间分布查看。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceEllipse",
+      "PreviewFile": "previews/07-ellipse-source-footprint.svg",
+      "DetectorResults": [
+        {
+          "Name": "近场探测器",
+          "PowerWatts": 0.9999999999999951,
+          "PeakPixelPowerWatts": 0.0015000000000000005,
+          "CentroidXMillimeters": 0.04372500000000025,
+          "CentroidYMillimeters": 0.001818749999999608,
+          "RmsXMillimeters": 2.9714060223024106,
+          "RmsYMillimeters": 1.511174462015703
+        },
+        {
+          "Name": "远场探测器",
+          "PowerWatts": 0.9999999999999496,
+          "PeakPixelPowerWatts": 0.0011000000000000003,
+          "CentroidXMillimeters": -0.022266666666667895,
+          "CentroidYMillimeters": -0.0583000000000018,
+          "RmsXMillimeters": 6.385648298767893,
+          "RmsYMillimeters": 5.745889448505439
+        }
+      ]
+    },
+    {
+      "File": "08-two-angle-anisotropic-source.staropt",
+      "Title": "双角度各向异性光源",
+      "Lesson": "观察X/Y独立发散角形成的椭圆远场光斑，并比较空间口径与角度分布。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceTwoAngle",
+      "PreviewFile": "previews/08-two-angle-anisotropic-source.svg",
+      "DetectorResults": [
+        {
+          "Name": "近场探测器",
+          "PowerWatts": 0.9999999999999976,
+          "PeakPixelPowerWatts": 0.004299999999999998,
+          "CentroidXMillimeters": -0.019750000000000042,
+          "CentroidYMillimeters": -0.00878000000000019,
+          "RmsXMillimeters": 0.5919965688245172,
+          "RmsYMillimeters": 0.5075637020118758
+        },
+        {
+          "Name": "远场角分布探测器",
+          "PowerWatts": 0.9999999999999485,
+          "PeakPixelPowerWatts": 0.0009000000000000002,
+          "CentroidXMillimeters": -0.34476000000001816,
+          "CentroidYMillimeters": 0.06753333333333177,
+          "RmsXMillimeters": 12.948437610090583,
+          "RmsYMillimeters": 3.5483102902023806
+        }
+      ]
+    },
+    {
+      "File": "09-radial-intensity-distribution.staropt",
+      "Title": "径向强度分布光源",
+      "Lesson": "使用角度—相对强度表建立轴对称光源，并在不同传播距离验证同一角分布。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceRadial",
+      "PreviewFile": "previews/09-radial-intensity-distribution.svg",
+      "DetectorResults": [
+        {
+          "Name": "中距离探测器",
+          "PowerWatts": 0.99999999999996,
+          "PeakPixelPowerWatts": 0.0011000000000000003,
+          "CentroidXMillimeters": 0.027960000000000998,
+          "CentroidYMillimeters": -0.07623000000000382,
+          "RmsXMillimeters": 5.00544326093114,
+          "RmsYMillimeters": 5.0032772246899215
+        },
+        {
+          "Name": "远场径向探测器",
+          "PowerWatts": 0.9999999999999329,
+          "PeakPixelPowerWatts": 0.0007000000000000001,
+          "CentroidXMillimeters": 0.13990000000000946,
+          "CentroidYMillimeters": -0.3697000000000055,
+          "RmsXMillimeters": 25.030855518540406,
+          "RmsYMillimeters": 25.006999458352528
+        }
+      ]
+    },
+    {
+      "File": "10-volume-rectangle-source.staropt",
+      "Title": "长方体体光源",
+      "Lesson": "观察三维长方体内部均匀起点投影到近场和远场探测器的变化。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceVolumeRectangle",
+      "PreviewFile": "previews/10-volume-rectangle-source.svg",
+      "DetectorResults": [
+        {
+          "Name": "体源近场探测器",
+          "PowerWatts": 0.9999999999999729,
+          "PeakPixelPowerWatts": 0.0015000000000000005,
+          "CentroidXMillimeters": 0.00016666666666658898,
+          "CentroidYMillimeters": 0.008100000000000648,
+          "RmsXMillimeters": 3.4691273278256833,
+          "RmsYMillimeters": 1.7378262127024198
+        },
+        {
+          "Name": "体源远场探测器",
+          "PowerWatts": 0.9999999999999731,
+          "PeakPixelPowerWatts": 0.0015000000000000005,
+          "CentroidXMillimeters": -0.01987500000000051,
+          "CentroidYMillimeters": -0.019575000000004082,
+          "RmsXMillimeters": 4.083807045438779,
+          "RmsYMillimeters": 2.728132020151379
+        }
+      ]
+    },
+    {
+      "File": "11-volume-ellipse-source.staropt",
+      "Title": "椭球体光源",
+      "Lesson": "比较椭球体发射区域的平滑近场轮廓与传播后的远场分布。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceVolumeEllipse",
+      "PreviewFile": "previews/11-volume-ellipse-source.svg",
+      "DetectorResults": [
+        {
+          "Name": "椭球近场探测器",
+          "PowerWatts": 0.9999999999999899,
+          "PeakPixelPowerWatts": 0.0017000000000000006,
+          "CentroidXMillimeters": -0.012400000000000211,
+          "CentroidYMillimeters": 0.0011333333333345104,
+          "RmsXMillimeters": 2.711200352447449,
+          "RmsYMillimeters": 1.3476724148611923
+        },
+        {
+          "Name": "椭球远场探测器",
+          "PowerWatts": 0.9999999999999792,
+          "PeakPixelPowerWatts": 0.0018000000000000006,
+          "CentroidXMillimeters": 0.010175000000000127,
+          "CentroidYMillimeters": 0.03835000000000035,
+          "RmsXMillimeters": 3.439534339031261,
+          "RmsYMillimeters": 2.482648138077595
+        }
+      ]
+    },
+    {
+      "File": "12-volume-cylinder-source.staropt",
+      "Title": "椭圆柱体光源",
+      "Lesson": "观察椭圆柱体内部均匀发射，并与椭球体的近场边缘形态进行比较。",
+      "ObjectCount": 3,
+      "MeshAssetCount": 0,
+      "BranchCount": 10000,
+      "SourcePowerWatts": 0.9999999999999062,
+      "DetectorPowerWatts": 0.9999999999999062,
+      "AbsorbedPowerWatts": 0,
+      "SuggestedFilters": [
+        "H2",
+        "D3",
+        "SEQ(Q1,H2,D3)"
+      ],
+      "SourceKind": "SourceVolumeCylinder",
+      "PreviewFile": "previews/12-volume-cylinder-source.svg",
+      "DetectorResults": [
+        {
+          "Name": "圆柱近场探测器",
+          "PowerWatts": 0.9999999999999847,
+          "PeakPixelPowerWatts": 0.0013000000000000004,
+          "CentroidXMillimeters": -0.012333333333333769,
+          "CentroidYMillimeters": 0.016083333333333238,
+          "RmsXMillimeters": 3.0073517512182892,
+          "RmsYMillimeters": 1.5100817467754777
+        },
+        {
+          "Name": "圆柱远场探测器",
+          "PowerWatts": 0.9999999999999792,
+          "PeakPixelPowerWatts": 0.0017000000000000006,
+          "CentroidXMillimeters": -0.03410000000000067,
+          "CentroidYMillimeters": 0.015474999999998896,
+          "RmsXMillimeters": 3.6788958520186803,
+          "RmsYMillimeters": 2.579343041236498
+        }
       ]
     }
   ]

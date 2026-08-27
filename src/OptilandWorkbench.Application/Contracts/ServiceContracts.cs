@@ -24,6 +24,8 @@ public interface INonSequentialDocumentService
 
     IReadOnlyList<NonSequentialObjectKind> GetObjectKinds();
 
+    NonSequentialObjectParameters GetDefaultParameters(NonSequentialObjectKind kind);
+
     IReadOnlyList<string> GetMaterialNames();
 
     Guid AddObject(NonSequentialObjectKind kind, int? insertionIndex = null);
@@ -52,6 +54,31 @@ public interface INonSequentialDocumentService
         CancellationToken cancellationToken = default);
 
     NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null);
+}
+
+public interface INonSequentialAnalysisService
+{
+    event EventHandler<NonSequentialTraceSessionDto?>? SessionChanged;
+
+    NonSequentialTraceSessionDto? GetCurrentSession();
+
+    Task<NonSequentialTraceSessionDto> EnsureLayoutSessionAsync(CancellationToken cancellationToken = default);
+
+    Task<NonSequentialTraceRunResultDto> TraceAsync(
+        NonSequentialTraceRunRequestDto request,
+        CancellationToken cancellationToken = default);
+
+    void ClearDetectors();
+
+    NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null);
+
+    NonSequentialRayDatabasePageDto GetRayDatabasePage(
+        string? path = null,
+        int pageIndex = 0,
+        int pageSize = 100,
+        string? pathFilterExpression = null);
+
+    NonSequentialDetectorViewDto GetDetectorView(NonSequentialDetectorViewRequestDto request);
 }
 
 public interface IOpticalDocumentService
@@ -243,6 +270,8 @@ public interface IWorkbenchApplication : IDisposable
     IWorkbenchModeService Modes { get; }
 
     INonSequentialDocumentService NonSequential { get; }
+
+    INonSequentialAnalysisService NonSequentialAnalysis { get; }
 
     IOpticalDocumentService Documents { get; }
 

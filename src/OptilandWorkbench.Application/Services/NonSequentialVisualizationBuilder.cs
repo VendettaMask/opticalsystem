@@ -12,6 +12,16 @@ using PlaneRectangleParameters = OptilandWorkbench.Core.NonSequential.PlaneRecta
 using SphereParameters = OptilandWorkbench.Core.NonSequential.SphereParameters;
 using StandardLensParameters = OptilandWorkbench.Core.NonSequential.StandardLensParameters;
 using MeshObjectParameters = OptilandWorkbench.Core.NonSequential.MeshObjectParameters;
+using SourceRayParameters = OptilandWorkbench.Core.NonSequential.SourceRayParameters;
+using SourcePointParameters = OptilandWorkbench.Core.NonSequential.SourcePointParameters;
+using SourceRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceRectangleParameters;
+using SourceGaussianParameters = OptilandWorkbench.Core.NonSequential.SourceGaussianParameters;
+using SourceEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceEllipseParameters;
+using SourceTwoAngleParameters = OptilandWorkbench.Core.NonSequential.SourceTwoAngleParameters;
+using SourceRadialParameters = OptilandWorkbench.Core.NonSequential.SourceRadialParameters;
+using SourceVolumeRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters;
+using SourceVolumeEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeEllipseParameters;
+using SourceVolumeCylinderParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeCylinderParameters;
 
 namespace OptilandWorkbench.Application.Services;
 
@@ -25,20 +35,13 @@ internal static class NonSequentialVisualizationBuilder
     {
         var numberById = document.Objects.Select((item, index) => (item.Id, Number: index + 1))
             .ToDictionary(item => item.Id, item => item.Number);
-        var surfaces = document.Objects.Where(item => item.Visible && !IsSource(item.Kind))
+        var surfaces = document.Objects.Where(item => item.Visible)
             .Select(item => BuildObject(document, item, numberById[item.Id]))
             .ToArray();
-        var branches = databaseBranches ?? new NonSequentialDocumentTracer().Trace(
-            document,
-            optic.Materials,
-            new NonSequentialDocumentTraceRequest(
-                NonSequentialTracePurpose.Layout,
-                SourceObjectId: request.FieldIndex is int sourceIndex && sourceIndex >= 0
-                    ? document.Objects.Where(item => item.Enabled && IsSource(item.Kind)).ElementAtOrDefault(sourceIndex)?.Id
-                    : null,
-                SplitFresnelRays: true,
-                OutputMode: OptilandWorkbench.Core.NonSequential.NonSequentialTraceOutputMode.LayoutSample,
-                MaximumRetainedBranches: 2_000)).Branches;
+        // Non-sequential analysis views must agree on one trace result. Before a
+        // trace session exists the 3D layout intentionally shows geometry only;
+        // refreshing a viewer must never launch a new random trace implicitly.
+        var branches = databaseBranches ?? Array.Empty<NonSequentialRayBranch>();
         var rays = branches.Select((branch, index) =>
         {
             var points = branch.Segments.SelectMany(segment => new[] { segment.Start, segment.End })
@@ -87,22 +90,42 @@ internal static class NonSequentialVisualizationBuilder
             BoxParameters value => Box(value.WidthMillimeters, value.HeightMillimeters, value.LengthMillimeters),
             StandardLensParameters value => Lens(value),
             MeshObjectParameters value => Mesh(document.FindMeshAsset(value.MeshAssetId)),
+            SourceRayParameters or SourcePointParameters or SourceRadialParameters => Plane(0.5, 0.5),
+            SourceRectangleParameters value => Plane(value.WidthMillimeters, value.HeightMillimeters),
+            SourceGaussianParameters value => Ellipse(value.WaistXMillimeters * 2, value.WaistYMillimeters * 2),
+            SourceEllipseParameters value => Ellipse(value.WidthMillimeters, value.HeightMillimeters),
+            SourceTwoAngleParameters value => value.Shape == OptilandWorkbench.Core.NonSequential.NonSequentialSourceApertureShape.Ellipse
+                ? Ellipse(value.WidthMillimeters, value.HeightMillimeters)
+                : Plane(value.WidthMillimeters, value.HeightMillimeters),
+            SourceVolumeRectangleParameters value => Box(value.WidthMillimeters, value.HeightMillimeters, value.DepthMillimeters),
+            SourceVolumeEllipseParameters value => Ellipsoid(
+                value.SemiAxisXMillimeters, value.SemiAxisYMillimeters, value.SemiAxisZMillimeters),
+            SourceVolumeCylinderParameters value => Cylinder(
+                value.RadiusXMillimeters, value.RadiusYMillimeters, value.LengthMillimeters),
             _ => Array.Empty<Vector3D[]>()
         };
         var faces = localFaces.Select(face => new SceneSurfaceFace3Dto(
             face.Select(point => ToPoint(document.ToWorldPoint(item.Id, point))).ToArray())).ToArray();
-        var rim = localFaces.SelectMany(face => face).Distinct()
-            .Select(point => ToPoint(document.ToWorldPoint(item.Id, point))).ToArray();
+        var rim = localFaces.Length == 1 && localFaces[0].Length > 0
+            ? localFaces[0].Append(localFaces[0][0])
+                .Select(point => ToPoint(document.ToWorldPoint(item.Id, point))).ToArray()
+            : Array.Empty<ScenePoint3Dto>();
         return new SceneSurface3Dto(
             number,
             item.Name,
             false,
-            item.Kind == NonSequentialObjectKind.DetectorRectangle,
+            false,
             Material(item),
             rim,
             Array.Empty<ScenePoint3Dto>(),
             Array.Empty<ScenePoint3Dto>(),
-            faces);
+            faces,
+            RenderRole: item.Parameters switch
+            {
+                OptilandWorkbench.Core.NonSequential.SourceParameters => SceneSurfaceRenderRole.Source,
+                DetectorRectangleParameters => SceneSurfaceRenderRole.Detector,
+                _ => SceneSurfaceRenderRole.NonSequentialObject
+            });
     }
 
     private static Vector3D[][] Plane(double width, double height) => new[]
@@ -112,6 +135,14 @@ internal static class NonSequentialVisualizationBuilder
             new Vector3D(-width / 2, -height / 2, 0), new Vector3D(width / 2, -height / 2, 0),
             new Vector3D(width / 2, height / 2, 0), new Vector3D(-width / 2, height / 2, 0)
         }
+    };
+
+    private static Vector3D[][] Ellipse(double width, double height) => new[]
+    {
+        Enumerable.Range(0, 32).Select(index => new Vector3D(
+            width / 2 * Math.Cos(2 * Math.PI * index / 32),
+            height / 2 * Math.Sin(2 * Math.PI * index / 32),
+            0)).ToArray()
     };
 
     private static Vector3D[][] Box(double width, double height, double length)
@@ -131,10 +162,13 @@ internal static class NonSequentialVisualizationBuilder
     }
 
     private static Vector3D[][] Cylinder(double radius, double length)
+        => Cylinder(radius, radius, length);
+
+    private static Vector3D[][] Cylinder(double radiusX, double radiusY, double length)
     {
         const int count = 32;
-        var lower = Ring(radius, -length / 2, count);
-        var upper = Ring(radius, length / 2, count);
+        var lower = Ring(radiusX, radiusY, -length / 2, count);
+        var upper = Ring(radiusX, radiusY, length / 2, count);
         var faces = new List<Vector3D[]> { lower.Reverse().ToArray(), upper };
         for (var index = 0; index < count; index++)
         {
@@ -145,6 +179,9 @@ internal static class NonSequentialVisualizationBuilder
     }
 
     private static Vector3D[][] Sphere(double radius)
+        => Ellipsoid(radius, radius, radius);
+
+    private static Vector3D[][] Ellipsoid(double radiusX, double radiusY, double radiusZ)
     {
         const int latitude = 12;
         const int longitude = 24;
@@ -162,9 +199,9 @@ internal static class NonSequentialVisualizationBuilder
         }
         return faces.ToArray();
         Vector3D Point(double latitudeAngle, double longitudeAngle) => new(
-            radius * Math.Cos(latitudeAngle) * Math.Cos(longitudeAngle),
-            radius * Math.Cos(latitudeAngle) * Math.Sin(longitudeAngle),
-            radius * Math.Sin(latitudeAngle));
+            radiusX * Math.Cos(latitudeAngle) * Math.Cos(longitudeAngle),
+            radiusY * Math.Cos(latitudeAngle) * Math.Sin(longitudeAngle),
+            radiusZ * Math.Sin(latitudeAngle));
     }
 
     private static Vector3D[][] Lens(StandardLensParameters lens)
@@ -230,8 +267,8 @@ internal static class NonSequentialVisualizationBuilder
             .ToArray();
     }
 
-    private static Vector3D[] Ring(double radius, double z, int count) => Enumerable.Range(0, count)
-        .Select(index => new Vector3D(radius * Math.Cos(2 * Math.PI * index / count), radius * Math.Sin(2 * Math.PI * index / count), z)).ToArray();
+    private static Vector3D[] Ring(double radiusX, double radiusY, double z, int count) => Enumerable.Range(0, count)
+        .Select(index => new Vector3D(radiusX * Math.Cos(2 * Math.PI * index / count), radiusY * Math.Sin(2 * Math.PI * index / count), z)).ToArray();
 
     private static string Material(NonSequentialObjectDefinition item) => item.Parameters switch
     {
@@ -242,6 +279,10 @@ internal static class NonSequentialVisualizationBuilder
         MeshObjectParameters value => value.Material,
         DetectorRectangleParameters => "DETECTOR",
         PlaneRectangleParameters value => value.MaterialAfter,
+        SourceRayParameters or SourcePointParameters or SourceRectangleParameters or SourceGaussianParameters
+            or SourceEllipseParameters or SourceTwoAngleParameters or SourceRadialParameters
+            or SourceVolumeRectangleParameters or SourceVolumeEllipseParameters
+            or SourceVolumeCylinderParameters => "SOURCE",
         _ => string.Empty
     };
 
@@ -268,8 +309,6 @@ internal static class NonSequentialVisualizationBuilder
         _ => SceneRayInteractionType.None
     };
 
-    private static bool IsSource(NonSequentialObjectKind kind) => kind is NonSequentialObjectKind.SourceRay
-        or NonSequentialObjectKind.SourcePoint or NonSequentialObjectKind.SourceRectangle or NonSequentialObjectKind.SourceGaussian;
     private static ScenePoint3Dto ToPoint(Vector3D point) => new(point.X, point.Y, point.Z);
     private static SceneRayDirection3Dto ToDirection(Vector3D direction) => new(direction.X, direction.Y, direction.Z);
 }

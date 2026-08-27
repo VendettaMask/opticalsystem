@@ -40,7 +40,7 @@ dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkb
 dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbench.NonSequentialSamples.csproj -- samples/non-sequential
 ```
 
-生成器使用固定对象GUID和随机种子，先追迹验证全部场景、能量平衡及建议路径筛选，再原子更新6个STAROPT工程和`index.json`。样例清单、课堂步骤与预期结果见[`samples/non-sequential/README.md`](../samples/non-sequential/README.md)。
+生成器使用固定对象GUID和随机种子，逐个追迹验证场景、能量平衡及建议路径筛选，再分别原子写入12个STAROPT工程、6张光源效果SVG和`index.json`。样例清单、课堂步骤与预期结果见[`samples/non-sequential/README.md`](../samples/non-sequential/README.md)。
 
 ## 启动桌面应用
 
@@ -91,7 +91,7 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 截至 2026-08-04：
 
 - 截至2026-08-26，正式产品严格构建为 `0` 警告、`0` 错误，全量回归测试为 `793/793`；
-- 全部非序列测试为 `45/45`，STL、STARRDB和路径联动专项为 `11/11`，教学样例专项为`7/7`；独立智能初始结构实验室构建为 `0` 警告、`0` 错误，定向测试为 `7/7`，不并入正式发布基线；
+- 全部非序列测试为 `58/58`，覆盖10类原生光源、统一追迹会话、临时数据库回收、Simple Stochastic、STL、STARRDB、吸收/非吸收探测器、探测器重建、3D布局会话和路径联动，教学样例专项为`13/13`；独立智能初始结构实验室构建为 `0` 警告、`0` 错误，定向测试为 `7/7`，不并入正式发布基线；
 - 最近一次架构、可访问性和响应式布局定向结果为 `14/14`；
 - 2 项新增 Avalonia 首帧/主题回归通过相关 16 项定向子集；
 - 4 项新增 Dock 空宿主、会话和锁定回归通过 `12/12` 窗口布局子集；

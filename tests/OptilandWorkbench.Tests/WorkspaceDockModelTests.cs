@@ -319,6 +319,25 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
+    public void NonSequentialDetectorViewerIsAStableWorkspaceDocument()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+        using var manager = new PanelManager(application, new AppSettings());
+
+        manager.ShowNonSequentialDetectorViewer();
+        manager.ShowNonSequentialDetectorViewer();
+
+        var document = Assert.Single(
+            manager.Factory.OpenDocuments(),
+            item => item.Id == WorkspaceDockFactory.NonSequentialDetectorViewerDocumentId);
+        Assert.Equal("探测器查看器", document.Title);
+        Assert.IsType<NonSequentialDetectorViewerPanel>(document.Context);
+        Assert.IsAssignableFrom<IDocumentDock>(document.Owner);
+        Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.NonSequentialDetectorViewer));
+    }
+
+    [Fact]
     public void ManufacturingDocumentsCreateTheirExpectedPanels()
     {
         using var application = WorkbenchApplication.Create("cooke");

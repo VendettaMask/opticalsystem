@@ -59,9 +59,8 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
                 var document = Runtime.CurrentNonSequentialDocument;
                 return new VisualizationOptionsDto(
                     Enumerable.Range(1, document.Objects.Count).ToArray(),
-                    document.Objects.Where(item => item.Enabled && item.Kind is
-                            NonSequentialObjectKind.SourceRay or NonSequentialObjectKind.SourcePoint
-                                or NonSequentialObjectKind.SourceRectangle or NonSequentialObjectKind.SourceGaussian)
+                    document.Objects.Where(item => item.Enabled
+                        && item.Parameters is OptilandWorkbench.Core.NonSequential.SourceParameters)
                         .Select((item, index) => new VisualizationSelectorOptionDto(index, item.Name)).ToArray(),
                     document.Wavelengths.Select((item, index) => new VisualizationSelectorOptionDto(
                         index, $"{item.Label}  {item.Nanometers:0.####} nm")).ToArray());

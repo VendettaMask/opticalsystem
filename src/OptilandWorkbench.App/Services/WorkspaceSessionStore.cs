@@ -16,6 +16,7 @@ public static class WorkspaceDocumentTypes
     public const string NonSequentialObjectEditor = "non-sequential-object-editor";
     public const string Viewer2D = "viewer-2d";
     public const string Viewer3D = "viewer-3d";
+    public const string NonSequentialDetectorViewer = "non-sequential-detector-viewer";
     public const string Optimization = "optimization";
     public const string Tolerancing = "tolerancing";
     public const string MultiConfiguration = "multi-configuration";
@@ -39,6 +40,7 @@ public static class WorkspaceDocumentTypes
         NonSequentialObjectEditor,
         Viewer2D,
         Viewer3D,
+        NonSequentialDetectorViewer,
         Optimization,
         Tolerancing,
         MultiConfiguration,

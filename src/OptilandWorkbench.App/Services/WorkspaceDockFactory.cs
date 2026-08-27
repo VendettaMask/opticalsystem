@@ -24,6 +24,7 @@ public sealed class WorkspaceDockFactory : Factory
     public const string DocumentDockId = "workspace:documents";
     public const string LensDocumentId = "document:lens-editor";
     public const string NonSequentialObjectDocumentId = "document:non-sequential-object-editor";
+    public const string NonSequentialDetectorViewerDocumentId = "document:non-sequential-detector-viewer";
 
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
@@ -459,6 +460,9 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Events,
                 _surfaceSelection,
                 SceneDimension.ThreeDimensional),
+            WorkspaceDocumentTypes.NonSequentialDetectorViewer => new NonSequentialDetectorViewerPanel(
+                _application.NonSequential,
+                _application.NonSequentialAnalysis),
             WorkspaceDocumentTypes.SolidModel => new ViewerPanel(
                 _application.Visualization,
                 _application.Events,

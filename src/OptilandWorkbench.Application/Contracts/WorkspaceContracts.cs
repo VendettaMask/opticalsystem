@@ -12,7 +12,19 @@ public enum NonSequentialObjectKind
     Box,
     StandardLens,
     Mesh,
-    DetectorRectangle
+    DetectorRectangle,
+    SourceEllipse,
+    SourceTwoAngle,
+    SourceRadial,
+    SourceVolumeRectangle,
+    SourceVolumeEllipse,
+    SourceVolumeCylinder
+}
+
+public enum NonSequentialSourceApertureShape
+{
+    Rectangle,
+    Ellipse
 }
 
 public enum NonSequentialSurfaceBehavior
@@ -68,6 +80,65 @@ public sealed record SourceGaussianParameters(
     double WaistXMillimeters,
     double WaistYMillimeters,
     double DivergenceHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceEllipseParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    double AngularHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceTwoAngleParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    NonSequentialSourceApertureShape Shape,
+    double AngularHalfAngleXDegrees,
+    double AngularHalfAngleYDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceRadialSample(double AngleDegrees, double RelativeIntensity);
+
+public sealed record SourceRadialParameters(
+    IReadOnlyList<SourceRadialSample> Samples,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceVolumeRectangleParameters(
+    double WidthMillimeters,
+    double HeightMillimeters,
+    double DepthMillimeters,
+    double AngularHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceVolumeEllipseParameters(
+    double SemiAxisXMillimeters,
+    double SemiAxisYMillimeters,
+    double SemiAxisZMillimeters,
+    double AngularHalfAngleDegrees,
+    double PowerWatts,
+    int WavelengthNumber,
+    int LayoutRayCount,
+    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+
+public sealed record SourceVolumeCylinderParameters(
+    double RadiusXMillimeters,
+    double RadiusYMillimeters,
+    double LengthMillimeters,
+    double AngularHalfAngleDegrees,
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
@@ -225,6 +296,30 @@ public enum NonSequentialTraceOutputMode
     SummaryOnly
 }
 
+public enum NonSequentialTraceCommand
+{
+    ClearAndTrace,
+    TraceOnly,
+    ClearOnly
+}
+
+public enum NonSequentialSplittingMode
+{
+    None,
+    FullFresnel,
+    SimpleStochastic
+}
+
+public enum NonSequentialTraceSessionState
+{
+    Empty,
+    Running,
+    Completed,
+    Warning,
+    Failed,
+    Canceled
+}
+
 public sealed record NonSequentialTraceRunRequestDto(
     NonSequentialTraceOutputMode OutputMode = NonSequentialTraceOutputMode.InMemory,
     Guid? SourceObjectId = null,
@@ -232,7 +327,15 @@ public sealed record NonSequentialTraceRunRequestDto(
     bool? SplitFresnelRays = null,
     int MaximumRetainedBranches = 2_000,
     string? PathFilterExpression = null,
-    string? RayDatabasePath = null);
+    string? RayDatabasePath = null,
+    NonSequentialTraceCommand Command = NonSequentialTraceCommand.ClearAndTrace,
+    NonSequentialSplittingMode? SplittingMode = null,
+    int? RandomSeed = null,
+    int? MaximumSegmentsPerRay = null,
+    int? MaximumActiveBranches = null,
+    double? MinimumRelativeIntensity = null,
+    int? RayCountOverride = null,
+    IReadOnlyList<Guid>? SourceObjectIds = null);
 
 public sealed record NonSequentialTraceRunResultDto(
     int TotalBranchCount,
@@ -245,7 +348,128 @@ public sealed record NonSequentialTraceRunResultDto(
     double EscapedPowerWatts,
     double TruncatedPowerWatts,
     string? RayDatabasePath,
-    long RayDatabaseBytes);
+    long RayDatabaseBytes,
+    Guid? SessionId = null,
+    NonSequentialTraceSessionState SessionState = NonSequentialTraceSessionState.Completed,
+    TimeSpan? Elapsed = null,
+    int TracePassCount = 1,
+    bool IsStale = false,
+    IReadOnlyList<string>? Warnings = null);
+
+public sealed record NonSequentialTraceSessionDto(
+    Guid Id,
+    NonSequentialTraceSessionState State,
+    string SceneHash,
+    long SourceRevision,
+    DateTimeOffset CreatedUtc,
+    DateTimeOffset UpdatedUtc,
+    int TracePassCount,
+    int RandomSeed,
+    NonSequentialSplittingMode SplittingMode,
+    IReadOnlyList<Guid> SourceObjectIds,
+    long BranchCount,
+    long SegmentCount,
+    double SourcePowerWatts,
+    double DetectorPowerWatts,
+    double AbsorbedPowerWatts,
+    double EscapedPowerWatts,
+    double TruncatedPowerWatts,
+    double GeometryErrorPowerWatts,
+    int GeometryErrorCount,
+    TimeSpan Elapsed,
+    string RayDatabasePath,
+    bool IsTemporaryDatabase,
+    bool IsStale,
+    string? FilterExpression,
+    IReadOnlyList<string> Warnings,
+    string? TraceConfigurationFingerprint = null);
+
+public enum NonSequentialDetectorSpace
+{
+    Position,
+    Angle
+}
+
+public enum NonSequentialDetectorDataType
+{
+    PixelPower,
+    IncoherentIrradiance,
+    HitCount,
+    RadiantIntensity
+}
+
+public sealed record NonSequentialDetectorViewRequestDto(
+    Guid DetectorId,
+    NonSequentialDetectorSpace Space = NonSequentialDetectorSpace.Position,
+    NonSequentialDetectorDataType DataType = NonSequentialDetectorDataType.IncoherentIrradiance,
+    int WavelengthNumber = 0,
+    string? PathFilterExpression = null,
+    string? RayDatabasePath = null);
+
+public sealed record NonSequentialDetectorStatisticsDto(
+    double TotalPowerWatts,
+    long TotalHits,
+    double PeakValue,
+    double CentroidX,
+    double CentroidY,
+    double RmsX,
+    double RmsY,
+    double Uniformity);
+
+public sealed record NonSequentialDetectorViewDto(
+    Guid DetectorId,
+    string DetectorName,
+    int PixelsX,
+    int PixelsY,
+    double XMinimum,
+    double XMaximum,
+    double YMinimum,
+    double YMaximum,
+    string XUnit,
+    string YUnit,
+    string ValueUnit,
+    IReadOnlyList<double> Values,
+    IReadOnlyList<double> XProfile,
+    IReadOnlyList<double> YProfile,
+    NonSequentialDetectorStatisticsDto Statistics,
+    bool IsStale,
+    string ResultSource);
+
+public sealed record NonSequentialRaySegmentDto(
+    long BranchId,
+    Guid? ObjectId,
+    int ObjectNumber,
+    string ObjectName,
+    int FaceNumber,
+    string Interaction,
+    double X,
+    double Y,
+    double Z,
+    double L,
+    double M,
+    double N,
+    double PowerWatts,
+    double WavelengthNanometers,
+    double GeometricPathLength,
+    double OpticalPathLength);
+
+public sealed record NonSequentialRayBranchDto(
+    long Id,
+    long? ParentId,
+    int Level,
+    Guid? SourceObjectId,
+    string TerminationReason,
+    double FinalPowerWatts,
+    double WavelengthNanometers,
+    IReadOnlyList<NonSequentialRaySegmentDto> Segments);
+
+public sealed record NonSequentialRayDatabasePageDto(
+    string Path,
+    long TotalBranchCount,
+    int PageIndex,
+    int PageSize,
+    bool IsStale,
+    IReadOnlyList<NonSequentialRayBranchDto> Branches);
 
 public sealed record NonSequentialPathSummaryDto(
     string Path,
@@ -840,6 +1064,14 @@ public sealed record SceneRaySegment3Dto(
 
 public sealed record SceneSurfaceFace3Dto(IReadOnlyList<ScenePoint3Dto> Points);
 
+public enum SceneSurfaceRenderRole
+{
+    OpticalSurface,
+    NonSequentialObject,
+    Source,
+    Detector
+}
+
 public sealed record SceneSurface2Dto(
     int SurfaceNumber,
     string Label,
@@ -890,7 +1122,8 @@ public sealed record SceneSurface3Dto(
     IReadOnlyList<ScenePoint3Dto> MeridianY,
     IReadOnlyList<ScenePoint3Dto> MeridianX,
     IReadOnlyList<SceneSurfaceFace3Dto> Faces,
-    bool IsStandaloneStop = false);
+    bool IsStandaloneStop = false,
+    SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,

@@ -49,9 +49,8 @@ public sealed class NonSequentialRayTraceAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var sourceObjects = _document.Objects.Where(item => item.Enabled && item.Kind is
-            NonSequentialObjectKind.SourceRay or NonSequentialObjectKind.SourcePoint
-                or NonSequentialObjectKind.SourceRectangle or NonSequentialObjectKind.SourceGaussian).ToArray();
+        var sourceObjects = _document.Objects
+            .Where(item => item.Enabled && item.Parameters is SourceParameters).ToArray();
         if (!_directRay && sourceObjects.Length == 0)
         {
             return new AnalysisData(Name, new Dictionary<string, object>

@@ -146,6 +146,14 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:solid-model", WorkspaceDocumentTypes.SolidModel, "实体模型");
     }
 
+    public void ShowNonSequentialDetectorViewer()
+    {
+        OpenStable(
+            WorkspaceDockFactory.NonSequentialDetectorViewerDocumentId,
+            WorkspaceDocumentTypes.NonSequentialDetectorViewer,
+            "探测器查看器");
+    }
+
     public void ShowTolerancingDataViewer() =>
         OpenStable("document:tolerancing", WorkspaceDocumentTypes.Tolerancing, "公差数据编辑器");
 

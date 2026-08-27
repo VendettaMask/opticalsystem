@@ -1575,10 +1575,20 @@ public sealed class AnalysisGuiContractTests
             },
             MainWindow.AnalysisRibbonCommandsByMenu["光线迹点"]);
         Assert.Equal(
-            new[] { "非序列单光线追迹", "非序列探测器查看" },
+            new[]
+            {
+                "追迹控制", "单光线追迹", "探测器查看器", "清空探测器",
+                "光线数据库查看器", "路径分析", "非序列 3D 布局"
+            },
             MainWindow.NonSequentialAnalysisRibbonCommands.Select(command => command.Label));
         Assert.Equal(
-            new[] { "analysis-non-sequential-ray-trace", "analysis-non-sequential-detector-viewer" },
+            new[]
+            {
+                "non-sequential-trace-control", "analysis-non-sequential-ray-trace",
+                "analysis-non-sequential-detector-viewer", "non-sequential-clear-detectors",
+                "non-sequential-ray-database-viewer", "non-sequential-path-analysis",
+                "non-sequential-3d-layout"
+            },
             MainWindow.NonSequentialAnalysisRibbonMenus.SelectMany(menu => menu.CommandIds));
         Assert.Equal(
             new[]

@@ -8,7 +8,7 @@
 - 表面采用 `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + Scattering + CoordinateSystem` 组合模型，同时保留镜头表格所需的兼容字段。
 - 内置 Optiland 兼容玻璃数据以及由 63 个 Zemax AGF 目录转换的玻璃库，支持厂商消歧、13 种 Zemax 色散公式和热学、机械、透过率数据。
 - 顺序实光线追迹支持局部坐标、孔径裁剪、折射、反射、衍射和全反射的显式交互类型；大批量追迹可选择仅末面、指定表面或完整历史保留模式。
-- 桌面端提供相互隔离的顺序与非序列工作模式。同一STAROPT工程并列保存顺序处方和独立非序列文档；非序列对象编辑器支持类型化光源、原生几何、像素探测器和内嵌ASCII/Binary STL机械对象。追迹内核使用对象/三角形两级BVH、实体介质传播和Fresnel反射/透射分支光线树，并可流式保存 `.starrdb`，通过统一路径筛选联动路径分析、3D布局和探测器重建。
+- 桌面端提供相互隔离的顺序与非序列工作模式。同一STAROPT工程并列保存顺序处方和独立非序列文档；非序列对象编辑器支持10类原生光源、原生几何、像素探测器和内嵌ASCII/Binary STL机械对象。光源覆盖单射线、点、矩形、Gaussian、椭圆面、双角度、径向表格、矩形体、椭球体和椭圆截面圆柱体。追迹内核使用对象/三角形两级BVH、实体介质传播，以及无分裂、完整Fresnel和Simple Stochastic分裂；统一结果会话通过同一 `.starrdb` 联动探测器、分页数据库、路径分析和3D布局，查看窗口不会隐式重新追迹。
 - 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等几何模型；尚未实现的自由曲面保持明确边界。
 - Core 当前注册 `72` 个规范分析；桌面端按模式暴露其中顺序 `70` 项或非序列 `2` 项，禁止跨模式运行。顺序模式覆盖报告、点列图、光线像差、波前、Zernike、PSF、MTF、RMS、圈入能量、相对照度、辐照度、Jones 光瞳和图像模拟等工作流。
 - 优化模块包括手动调整、评价函数、局部优化、差分进化和盆地跳跃；公差模块包括 TDE 风格编辑器、向导、灵敏度、补偿和确定性 Monte Carlo。
@@ -49,7 +49,7 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/Optil
 ## 桌面工作流
 
 - 在顶部 Ribbon 切换文件、设置、视图、分析、优化、公差、加工与图纸、数据库和窗口命令。
-- 在顺序模式“设置 > 工作模式”进入非序列模式；此时主页面切换为可编辑的“非序列对象数据”，功能区仅保留非序列对象、三维视图和专用分析。模式切换不转换或修改数据；如需从顺序处方生成对象，必须在编辑器中显式执行转换命令。
+- 在顺序模式“设置 > 工作模式”进入非序列模式；此时主页面切换为可编辑的“非序列对象数据”，功能区按光线追迹、探测器、光线数据库和布局组织。追迹控制支持清空并追迹、兼容累积和仅清空；模式切换不转换或修改数据，如需从顺序处方生成对象，必须在编辑器中显式执行转换命令。
 - 在“视图”中打开二维布局、三维布局或实体模型。
 - 在“分析”中按像质类别选择方法；分析结果作为可关闭文档打开，底部提供绘图、数据和文本页。
 - “分析 > 报告”依次提供表面数据报告、系统数据报告、分类数据报告、系统数据摘要和基面数据；旧“一阶量、处方报告”只作为兼容别名保留。
@@ -69,7 +69,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至2026-08-26，正式产品严格构建为 `0` 警告、`0` 错误，全量回归测试为 `793/793`；其中全部非序列测试 `45/45`，杂散光专项 `11/11`、非序列教学样例专项 `7/7`，覆盖STAROPT v1/v2迁移与v3网格往返、ASCII/Binary STL、单位、网格约束和求交、路径语法、STARRDB、场景过期、损坏输入、取消原子性、数据库筛选联动，以及6个可直接打开样例的确定性加载/追迹/能量/筛选验收。独立智能初始结构实验室构建为 `0` 警告、`0` 错误，其定向测试为 `7/7`，不并入正式产品基线。全量基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚；STEP CAD 导出专项为 `17/17`，Linux CI 继续承担 OpenCascade 实际导入验收。
+截至2026-08-27，正式产品严格构建为 `0` 警告、`0` 错误，全量回归测试为 `807/807`；其中全部非序列测试 `58/58`，覆盖10类原生光源的空间/角度分布、功率归一、固定种子、非法径向表和STAROPT v4往返，以及统一追迹会话、清空/累积语义、临时数据库回收、Simple Stochastic确定性、STARRDB分页、吸收/非吸收探测器、探测器重建、探测器查看器工作区停靠、3D布局会话与对象角色渲染、STAROPT v1–v3迁移、ASCII/Binary STL、网格约束和求交、路径语法、场景过期、取消原子性、数据库筛选联动及12个教学样例和6张光源效果基线。独立智能初始结构实验室构建为 `0` 警告、`0` 错误，其定向测试为 `7/7`，不并入正式产品基线。全量基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚；STEP CAD 导出专项为 `17/17`，Linux CI 继续承担 OpenCascade 实际导入验收。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -102,7 +102,7 @@ docs                               架构、格式、兼容、验证和发布文
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
 - 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
 - Zemax 边界：[分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)、[基准配置边界](docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)、[操作数支持规范](docs/ZEMAX_OPERAND_SUPPORT.md)。
-- 工程工作流：[非序列教学样例](samples/non-sequential/README.md)、[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
+- 工程工作流：[非序列工作模式](docs/NON_SEQUENTIAL_TRACING.md)、[非序列光源](docs/NONSEQUENTIAL_SOURCES.md)、[Zemax非序列工作流对齐路线图](docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)、[非序列教学样例](samples/non-sequential/README.md)、[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
 
 ## 兼容声明
 

@@ -306,6 +306,82 @@ public sealed class NonSequentialStrayLightTests
         }
     }
 
+    [Fact]
+    public async Task AnalysisSessionAccumulatesTraceOnlyAndDrivesDetectorAndDatabaseViews()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(OptilandWorkbench.Application.Contracts.NonSequentialObjectKind.SourceRay);
+        var detectorId = application.NonSequential.AddObject(
+            OptilandWorkbench.Application.Contracts.NonSequentialObjectKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+            detector.Id, true, true, detector.Kind, detector.Name, null, null,
+            0, 0, 10, 0, 0, 0, detector.Parameters));
+
+        var first = await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var firstSession = application.NonSequentialAnalysis.GetCurrentSession();
+
+        Assert.NotNull(firstSession);
+        Assert.Equal(1, firstSession!.TracePassCount);
+        Assert.True(firstSession.IsTemporaryDatabase);
+        Assert.True(File.Exists(firstSession.RayDatabasePath));
+        Assert.Equal(1, first.TotalBranchCount);
+
+        var second = await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto(
+            Command: NonSequentialTraceCommand.TraceOnly));
+        var accumulated = application.NonSequentialAnalysis.GetCurrentSession();
+        var view = application.NonSequentialAnalysis.GetDetectorView(new NonSequentialDetectorViewRequestDto(
+            detectorId,
+            DataType: NonSequentialDetectorDataType.PixelPower));
+        var angularHits = application.NonSequentialAnalysis.GetDetectorView(new NonSequentialDetectorViewRequestDto(
+            detectorId,
+            Space: NonSequentialDetectorSpace.Angle,
+            DataType: NonSequentialDetectorDataType.HitCount));
+        var page = application.NonSequentialAnalysis.GetRayDatabasePage(pageSize: 10);
+
+        Assert.Equal(2, accumulated!.TracePassCount);
+        Assert.Equal(2, accumulated.BranchCount);
+        Assert.Equal(2, view.Statistics.TotalHits);
+        Assert.Equal(2.0, view.Statistics.TotalPowerWatts, 12);
+        Assert.Equal(2, angularHits.Values.Sum());
+        Assert.Equal(2, angularHits.Statistics.TotalHits);
+        Assert.Equal(new long[] { 1, 2 }, page.Branches.Select(branch => branch.Id));
+        Assert.Equal(1, second.TracePassCount - first.TracePassCount);
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto(
+                Command: NonSequentialTraceCommand.TraceOnly,
+                MaximumSegmentsPerRay: 25)));
+
+        var managedPath = accumulated.RayDatabasePath;
+        application.NonSequentialAnalysis.ClearDetectors();
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.False(File.Exists(managedPath));
+    }
+
+    [Fact]
+    public async Task OpeningExternalDatabaseReleasesReplacedManagedSession()
+    {
+        var externalPath = Path.Combine(Path.GetTempPath(), $"external-{Guid.NewGuid():N}.starrdb");
+        try
+        {
+            using var application = WorkbenchApplication.Create("blank");
+            application.NonSequential.AddObject(OptilandWorkbench.Application.Contracts.NonSequentialObjectKind.SourceRay);
+            var trace = await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+            var managedPath = Assert.IsType<string>(trace.RayDatabasePath);
+            File.Copy(managedPath, externalPath);
+
+            application.NonSequentialAnalysis.OpenRayDatabase(externalPath);
+
+            Assert.False(File.Exists(managedPath));
+            application.NonSequentialAnalysis.ClearDetectors();
+            Assert.True(File.Exists(externalPath));
+        }
+        finally
+        {
+            if (File.Exists(externalPath)) File.Delete(externalPath);
+        }
+    }
+
     private static byte[] BinaryTriangle()
     {
         var bytes = new byte[84 + 50];

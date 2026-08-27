@@ -15,6 +15,9 @@ using OptilandWorkbench.Core.Serialization;
 using ContractKind = OptilandWorkbench.Application.Contracts.NonSequentialObjectKind;
 using DetectorRectangleParameters = OptilandWorkbench.Core.NonSequential.DetectorRectangleParameters;
 using NonSequentialObjectKind = OptilandWorkbench.Core.NonSequential.NonSequentialObjectKind;
+using CoreObjectParameters = OptilandWorkbench.Core.NonSequential.NonSequentialObjectParameters;
+using CoreSourceApertureShape = OptilandWorkbench.Core.NonSequential.NonSequentialSourceApertureShape;
+using CoreSourceRadialSample = OptilandWorkbench.Core.NonSequential.SourceRadialSample;
 using NonSequentialSurfaceBehavior = OptilandWorkbench.Core.NonSequential.NonSequentialSurfaceBehavior;
 using PlaneRectangleParameters = OptilandWorkbench.Core.NonSequential.PlaneRectangleParameters;
 
@@ -151,7 +154,7 @@ public sealed class NonSequentialRayTracerTests
     {
         using var application = WorkbenchApplication.Create("cooke");
         Assert.Equal(OpticalWorkbenchMode.Sequential, application.Modes.CurrentMode);
-        Assert.DoesNotContain("非序列单光线追迹", application.Analyses.AnalysisNames);
+        Assert.DoesNotContain("探测器查看器", application.Analyses.AnalysisNames);
         Assert.Throws<InvalidOperationException>(() =>
             application.Analyses.GetParameters("Non-Sequential Ray Trace"));
 
@@ -162,7 +165,7 @@ public sealed class NonSequentialRayTracerTests
         Assert.Equal(OpticalWorkbenchMode.NonSequential, application.Modes.CurrentMode);
         Assert.Equal(OpticalWorkbenchMode.Sequential, modeChange?.PreviousMode);
         Assert.Equal(OpticalWorkbenchMode.NonSequential, modeChange?.CurrentMode);
-        Assert.Equal(new[] { "非序列单光线追迹", "非序列探测器查看" }, application.Analyses.AnalysisNames);
+        Assert.Equal(new[] { "非序列单光线追迹", "探测器查看器" }, application.Analyses.AnalysisNames);
         var sourceId = application.NonSequential.AddObject(ContractKind.SourceRay);
         var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
         var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
@@ -187,6 +190,7 @@ public sealed class NonSequentialRayTracerTests
         Assert.Contains(parameters, parameter => parameter.Key == "SourceNumber");
         Assert.Contains(parameters, parameter => parameter.Key == "SplitFresnelRays");
 
+        await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
         var detectorParameters = application.Analyses.GetParameters("Non-Sequential Detector Viewer");
         var detectorResult = await application.Analyses.RunAsync(new AnalysisRequestDto(
             Guid.NewGuid(),
@@ -218,6 +222,8 @@ public sealed class NonSequentialRayTracerTests
         Assert.Equal(1.0, frame.TotalPowerWatts, 12);
         Assert.Equal(1.0, result.EnergyBalance.AccountedPowerWatts, 12);
         Assert.Equal(1.0, frame.PowerByWavelength[1].Sum(), 12);
+        Assert.Equal(1, frame.HitCountByWavelength![1].Sum());
+        Assert.Equal(1.0, frame.AngularPowerByWavelength![1].Sum(), 12);
     }
 
     [Fact]
@@ -243,6 +249,144 @@ public sealed class NonSequentialRayTracerTests
         Assert.InRange(Math.Abs(result.EnergyBalance.SourcePowerWatts - result.EnergyBalance.AccountedPowerWatts), 0, 1e-12);
         Assert.InRange(result.EnergyBalance.DetectorPowerWatts, 0.8, 1.0);
         Assert.True(result.EnergyBalance.EscapedPowerWatts > 0);
+    }
+
+    [Fact]
+    public void SimpleStochasticSplittingIsDeterministicAndKeepsWholeRayPower()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourcePoint) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourcePointParameters(1, 1, 0, 20, 2000)
+        });
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5)),
+            Parameters = new PlaneRectangleParameters(20, 20, NonSequentialSurfaceBehavior.Refractive, "Air", "N-BK7")
+        });
+        document.Insert(2, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
+        });
+        var request = new NonSequentialDocumentTraceRequest(
+            SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.SimpleStochastic,
+            RandomSeed: 17);
+
+        var first = new NonSequentialDocumentTracer().Trace(document, optic.Materials, request);
+        var second = new NonSequentialDocumentTracer().Trace(document, optic.Materials, request);
+
+        Assert.Equal(first.EnergyBalance, second.EnergyBalance);
+        Assert.Equal(first.Detectors.Single().PowerByWavelength[1], second.Detectors.Single().PowerByWavelength[1]);
+        Assert.DoesNotContain(first.Branches, branch => branch.TerminationReason == NonSequentialTerminationReason.Split);
+        Assert.InRange(Math.Abs(first.EnergyBalance.SourcePowerWatts - first.EnergyBalance.AccountedPowerWatts), 0, 1e-12);
+    }
+
+    [Fact]
+    public void ExtendedNativeSourcesRespectSpatialBoundsPowerAndSeed()
+    {
+        var sources = new (NonSequentialObjectKind Kind, CoreObjectParameters Parameters)[]
+        {
+            (NonSequentialObjectKind.SourceEllipse,
+                new OptilandWorkbench.Core.NonSequential.SourceEllipseParameters(10, 6, 10, 2, 1, 20, 500)),
+            (NonSequentialObjectKind.SourceTwoAngle,
+                new OptilandWorkbench.Core.NonSequential.SourceTwoAngleParameters(
+                    8, 4, CoreSourceApertureShape.Rectangle, 25, 5, 2, 1, 20, 500)),
+            (NonSequentialObjectKind.SourceRadial,
+                new OptilandWorkbench.Core.NonSequential.SourceRadialParameters(
+                    new[] { new CoreSourceRadialSample(0, 1), new CoreSourceRadialSample(20, 0.7), new CoreSourceRadialSample(60, 0) },
+                    2, 1, 20, 500)),
+            (NonSequentialObjectKind.SourceVolumeRectangle,
+                new OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters(8, 6, 4, 10, 2, 1, 20, 500)),
+            (NonSequentialObjectKind.SourceVolumeEllipse,
+                new OptilandWorkbench.Core.NonSequential.SourceVolumeEllipseParameters(4, 3, 2, 10, 2, 1, 20, 500)),
+            (NonSequentialObjectKind.SourceVolumeCylinder,
+                new OptilandWorkbench.Core.NonSequential.SourceVolumeCylinderParameters(4, 2, 6, 10, 2, 1, 20, 500))
+        };
+
+        foreach (var (kind, parameters) in sources)
+        {
+            var first = TraceSource(kind, parameters);
+            var second = TraceSource(kind, parameters);
+            var starts = first.Branches.Select(branch => branch.Segments.Single().Start).ToArray();
+
+            Assert.Equal(500, first.TotalBranchCount);
+            Assert.Equal(2, first.EnergyBalance.SourcePowerWatts, 12);
+            Assert.Equal(2, first.EnergyBalance.DetectorPowerWatts, 12);
+            Assert.Equal(
+                first.Branches.Select(branch => branch.Segments.Single().Start),
+                second.Branches.Select(branch => branch.Segments.Single().Start));
+            Assert.Equal(
+                first.Branches.Select(branch => branch.Segments.Single().End),
+                second.Branches.Select(branch => branch.Segments.Single().End));
+
+            Assert.All(starts, point => AssertSourcePoint(kind, point));
+            if (kind == NonSequentialObjectKind.SourceRadial)
+            {
+                Assert.All(first.Branches, branch =>
+                {
+                    var segment = branch.Segments.Single();
+                    var direction = (segment.End - segment.Start) / (segment.End - segment.Start).Length;
+                    var angle = Math.Acos(Math.Clamp(direction.Z, -1, 1)) * 180 / Math.PI;
+                    Assert.InRange(angle, 0, 60.1);
+                });
+            }
+        }
+    }
+
+    [Fact]
+    public async Task ExtendedNativeSourcesRoundTripThroughStarOpt()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"sources-{Guid.NewGuid():N}.staropt");
+        var kinds = new[]
+        {
+            ContractKind.SourceEllipse,
+            ContractKind.SourceTwoAngle,
+            ContractKind.SourceRadial,
+            ContractKind.SourceVolumeRectangle,
+            ContractKind.SourceVolumeEllipse,
+            ContractKind.SourceVolumeCylinder
+        };
+        try
+        {
+            using (var application = WorkbenchApplication.Create("blank"))
+            {
+                foreach (var kind in kinds)
+                {
+                    Assert.IsAssignableFrom<OptilandWorkbench.Application.Contracts.SourceParameters>(
+                        application.NonSequential.GetDefaultParameters(kind));
+                    application.NonSequential.AddObject(kind);
+                }
+                await application.Documents.SaveAsync(path);
+            }
+
+            using var restored = WorkbenchApplication.Create("blank");
+            await restored.Documents.OpenAsync(path);
+
+            Assert.Equal(kinds, restored.NonSequential.GetDocument().Objects.Select(item => item.Kind));
+            Assert.All(restored.NonSequential.GetDocument().Objects, item => Assert.Equal("光源", item.Role));
+        }
+        finally
+        {
+            if (File.Exists(path)) File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public void RadialSourceRejectsUnorderedOrNegativeDistribution()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRadial) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourceRadialParameters(new[]
+            {
+                new CoreSourceRadialSample(0, 1),
+                new CoreSourceRadialSample(20, -0.1)
+            })
+        };
+
+        Assert.Throws<InvalidDataException>(() => document.Insert(0, source));
+        Assert.Empty(document.Objects);
     }
 
     [Fact]
@@ -294,4 +438,58 @@ public sealed class NonSequentialRayTracerTests
         origin,
         direction,
         587.6);
+
+    private static NonSequentialDocumentTraceResult TraceSource(
+        NonSequentialObjectKind kind,
+        CoreObjectParameters parameters)
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(kind) with { Parameters = parameters });
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 100)),
+            Parameters = new DetectorRectangleParameters(1_000, 1_000, 10, 10)
+        });
+        return new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                RandomSeed: 42));
+    }
+
+    private static void AssertSourcePoint(NonSequentialObjectKind kind, Vector3D point)
+    {
+        const double tolerance = 1e-10;
+        switch (kind)
+        {
+            case NonSequentialObjectKind.SourceEllipse:
+                Assert.True(point.X * point.X / 25 + point.Y * point.Y / 9 <= 1 + tolerance);
+                Assert.Equal(0, point.Z, 12);
+                break;
+            case NonSequentialObjectKind.SourceTwoAngle:
+                Assert.InRange(point.X, -4, 4);
+                Assert.InRange(point.Y, -2, 2);
+                Assert.Equal(0, point.Z, 12);
+                break;
+            case NonSequentialObjectKind.SourceRadial:
+                Assert.Equal(Vector3D.Zero, point);
+                break;
+            case NonSequentialObjectKind.SourceVolumeRectangle:
+                Assert.InRange(point.X, -4, 4);
+                Assert.InRange(point.Y, -3, 3);
+                Assert.InRange(point.Z, -2, 2);
+                break;
+            case NonSequentialObjectKind.SourceVolumeEllipse:
+                Assert.True(point.X * point.X / 16 + point.Y * point.Y / 9 + point.Z * point.Z / 4 <= 1 + tolerance);
+                break;
+            case NonSequentialObjectKind.SourceVolumeCylinder:
+                Assert.True(point.X * point.X / 16 + point.Y * point.Y / 4 <= 1 + tolerance);
+                Assert.InRange(point.Z, -3, 3);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(kind));
+        }
+    }
 }

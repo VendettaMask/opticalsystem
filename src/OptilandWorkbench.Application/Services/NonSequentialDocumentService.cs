@@ -9,10 +9,17 @@ using CoreObjectKind = OptilandWorkbench.Core.NonSequential.NonSequentialObjectK
 using CoreObjectParameters = OptilandWorkbench.Core.NonSequential.NonSequentialObjectParameters;
 using CorePlaneRectangleParameters = OptilandWorkbench.Core.NonSequential.PlaneRectangleParameters;
 using CoreSourceGaussianParameters = OptilandWorkbench.Core.NonSequential.SourceGaussianParameters;
+using CoreSourceEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceEllipseParameters;
 using CoreSourceParameters = OptilandWorkbench.Core.NonSequential.SourceParameters;
 using CoreSourcePointParameters = OptilandWorkbench.Core.NonSequential.SourcePointParameters;
 using CoreSourceRayParameters = OptilandWorkbench.Core.NonSequential.SourceRayParameters;
+using CoreSourceRadialParameters = OptilandWorkbench.Core.NonSequential.SourceRadialParameters;
+using CoreSourceRadialSample = OptilandWorkbench.Core.NonSequential.SourceRadialSample;
 using CoreSourceRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceRectangleParameters;
+using CoreSourceTwoAngleParameters = OptilandWorkbench.Core.NonSequential.SourceTwoAngleParameters;
+using CoreSourceVolumeCylinderParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeCylinderParameters;
+using CoreSourceVolumeEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeEllipseParameters;
+using CoreSourceVolumeRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters;
 using CoreSphereParameters = OptilandWorkbench.Core.NonSequential.SphereParameters;
 using CoreStandardLensParameters = OptilandWorkbench.Core.NonSequential.StandardLensParameters;
 using CoreMeshObjectParameters = OptilandWorkbench.Core.NonSequential.MeshObjectParameters;
@@ -26,13 +33,13 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonSequentialDocumentService
 {
-    private readonly NonSequentialAnalysisSession _analysisSession;
+    private readonly INonSequentialAnalysisService _analysisService;
 
     public NonSequentialDocumentService(
         WorkspaceCoordinator workspace,
-        NonSequentialAnalysisSession analysisSession) : base(workspace)
+        INonSequentialAnalysisService analysisService) : base(workspace)
     {
-        _analysisSession = analysisSession ?? throw new ArgumentNullException(nameof(analysisSession));
+        _analysisService = analysisService ?? throw new ArgumentNullException(nameof(analysisService));
     }
 
     public NonSequentialDocumentDto GetDocument()
@@ -56,6 +63,9 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
 
     public IReadOnlyList<NonSequentialObjectKind> GetObjectKinds() =>
         Enum.GetValues<NonSequentialObjectKind>().Where(item => item != NonSequentialObjectKind.Mesh).ToArray();
+
+    public NonSequentialObjectParameters GetDefaultParameters(NonSequentialObjectKind kind) =>
+        ToDto(CoreObjectDefinition.DefaultParameters(ToCore(kind)));
 
     public IReadOnlyList<string> GetMaterialNames()
     {
@@ -345,136 +355,10 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     public async Task<NonSequentialTraceRunResultDto> TraceAsync(
         NonSequentialTraceRunRequestDto request,
         CancellationToken cancellationToken = default)
-    {
-        ArgumentNullException.ThrowIfNull(request);
-        CoreDocument document;
-        OptilandWorkbench.Core.Materials.MaterialRegistry materials;
-        long revision;
-        lock (Gate)
-        {
-            document = Runtime.CurrentNonSequentialDocument.Clone();
-            materials = Runtime.CurrentOptic.Materials;
-            revision = Workspace.Revision;
-        }
-
-        var databasePath = string.IsNullOrWhiteSpace(request.RayDatabasePath)
-            ? null
-            : Path.GetFullPath(request.RayDatabasePath);
-        using var linkedCancellation = Workspace.LinkDocumentToken(cancellationToken);
-        var traceCancellationToken = linkedCancellation.Token;
-        return await Task.Run(() =>
-        {
-            traceCancellationToken.ThrowIfCancellationRequested();
-            if (request.OutputMode == NonSequentialTraceOutputMode.RayDatabase && databasePath is null)
-            {
-                throw new ArgumentException("光线数据库输出模式必须提供 .starrdb 文件路径。", nameof(request));
-            }
-
-            string? temporaryPath = null;
-            FileStream? stream = null;
-            OptilandWorkbench.Core.NonSequential.NonSequentialRayDatabaseWriter? writer = null;
-            try
-            {
-                if (databasePath is not null)
-                {
-                    var directory = Path.GetDirectoryName(databasePath)
-                        ?? throw new InvalidOperationException("光线数据库路径没有父目录。");
-                    Directory.CreateDirectory(directory);
-                    temporaryPath = Path.Combine(directory, $".{Path.GetFileName(databasePath)}.{Guid.NewGuid():N}.tmp");
-                    stream = new FileStream(temporaryPath, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-                    writer = new OptilandWorkbench.Core.NonSequential.NonSequentialRayDatabaseWriter(
-                        stream,
-                        OptilandWorkbench.Core.NonSequential.NonSequentialRayDatabaseHeader.Create(
-                            document,
-                            revision,
-                            request.PathFilterExpression),
-                        leaveOpen: true);
-                }
-
-                var sink = writer is null ? null : new CancellationTraceSink(writer, traceCancellationToken);
-                using var cancellationScope = OptilandWorkbench.Core.Services.ComputationCancellation.Push(traceCancellationToken);
-                var result = new OptilandWorkbench.Core.NonSequential.NonSequentialDocumentTracer().Trace(
-                    document,
-                    materials,
-                    new OptilandWorkbench.Core.NonSequential.NonSequentialDocumentTraceRequest(
-                        request.AnalysisRays
-                            ? OptilandWorkbench.Core.NonSequential.NonSequentialTracePurpose.Analysis
-                            : OptilandWorkbench.Core.NonSequential.NonSequentialTracePurpose.Layout,
-                        request.SourceObjectId,
-                        SplitFresnelRays: request.SplitFresnelRays,
-                        OutputMode: (OptilandWorkbench.Core.NonSequential.NonSequentialTraceOutputMode)(int)request.OutputMode,
-                        MaximumRetainedBranches: request.MaximumRetainedBranches,
-                        PathFilterExpression: request.PathFilterExpression),
-                    sink);
-                traceCancellationToken.ThrowIfCancellationRequested();
-                writer?.Complete();
-                writer?.Dispose();
-                writer = null;
-                stream?.Dispose();
-                stream = null;
-                if (temporaryPath is not null && databasePath is not null)
-                {
-                    File.Move(temporaryPath, databasePath, overwrite: true);
-                    temporaryPath = null;
-                    _analysisSession.Set(databasePath, request.PathFilterExpression);
-                }
-
-                var energy = result.EnergyBalance;
-                return new NonSequentialTraceRunResultDto(
-                    result.TotalBranchCount,
-                    result.MatchedBranchCount,
-                    result.Branches.Count,
-                    result.TotalSegmentCount,
-                    energy.SourcePowerWatts,
-                    energy.DetectorPowerWatts,
-                    energy.AbsorbedPowerWatts,
-                    energy.EscapedPowerWatts,
-                    energy.TruncatedPowerWatts,
-                    databasePath,
-                    databasePath is null ? 0 : new FileInfo(databasePath).Length);
-            }
-            finally
-            {
-                writer?.Dispose();
-                stream?.Dispose();
-                if (temporaryPath is not null && File.Exists(temporaryPath)) File.Delete(temporaryPath);
-            }
-        }, traceCancellationToken).ConfigureAwait(false);
-    }
+        => await _analysisService.TraceAsync(request, cancellationToken).ConfigureAwait(false);
 
     public NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(path);
-        CoreDocument document;
-        lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
-        using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-        using var reader = new OptilandWorkbench.Core.NonSequential.NonSequentialRayDatabaseReader(stream);
-        var filter = OptilandWorkbench.Core.NonSequential.NonSequentialPathFilter.Parse(pathFilterExpression);
-        var paths = OptilandWorkbench.Core.NonSequential.NonSequentialPathAnalyzer.Analyze(
-                document,
-                reader.ReadBranches(filter))
-            .Select(item => new NonSequentialPathSummaryDto(
-                item.Path,
-                item.FilterExpression,
-                item.RayCount,
-                item.TotalPowerWatts,
-                item.PowerFraction,
-                item.MinimumOpticalPathLength,
-                item.AverageOpticalPathLength,
-                item.MaximumOpticalPathLength,
-                item.TerminationReason.ToString()))
-            .ToArray();
-        _analysisSession.Set(path, pathFilterExpression);
-        return new NonSequentialRayDatabaseDto(
-            Path.GetFullPath(path),
-            reader.Header.SceneHash,
-            reader.Header.SourceRevision,
-            reader.Header.CreatedUtc,
-            reader.BranchCount,
-            reader.IsStale(document),
-            reader.Header.PathFilterExpression,
-            paths);
-    }
+        => _analysisService.OpenRayDatabase(path, pathFilterExpression);
 
     private void ValidateMaterials(CoreDocument document)
     {
@@ -519,7 +403,10 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     private static string Role(CoreObjectKind kind) => kind switch
     {
         CoreObjectKind.SourceRay or CoreObjectKind.SourcePoint
-            or CoreObjectKind.SourceRectangle or CoreObjectKind.SourceGaussian => "光源",
+            or CoreObjectKind.SourceRectangle or CoreObjectKind.SourceGaussian
+            or CoreObjectKind.SourceEllipse or CoreObjectKind.SourceTwoAngle or CoreObjectKind.SourceRadial
+            or CoreObjectKind.SourceVolumeRectangle or CoreObjectKind.SourceVolumeEllipse
+            or CoreObjectKind.SourceVolumeCylinder => "光源",
         CoreObjectKind.DetectorRectangle => "探测器",
         _ => "几何对象"
     };
@@ -578,6 +465,30 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         CoreSourceGaussianParameters source => new SourceGaussianParameters(
             source.WaistXMillimeters, source.WaistYMillimeters, source.DivergenceHalfAngleDegrees,
             source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceEllipseParameters source => new SourceEllipseParameters(
+            source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceTwoAngleParameters source => new SourceTwoAngleParameters(
+            source.WidthMillimeters, source.HeightMillimeters,
+            (NonSequentialSourceApertureShape)(int)source.Shape,
+            source.AngularHalfAngleXDegrees, source.AngularHalfAngleYDegrees,
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceRadialParameters source => new SourceRadialParameters(
+            source.Distribution.Select(sample => new SourceRadialSample(
+                sample.AngleDegrees, sample.RelativeIntensity)).ToArray(),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceVolumeRectangleParameters source => new SourceVolumeRectangleParameters(
+            source.WidthMillimeters, source.HeightMillimeters, source.DepthMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceVolumeEllipseParameters source => new SourceVolumeEllipseParameters(
+            source.SemiAxisXMillimeters, source.SemiAxisYMillimeters, source.SemiAxisZMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
+        CoreSourceVolumeCylinderParameters source => new SourceVolumeCylinderParameters(
+            source.RadiusXMillimeters, source.RadiusYMillimeters, source.LengthMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
         CorePlaneRectangleParameters plane => new PlaneRectangleParameters(
             plane.WidthMillimeters, plane.HeightMillimeters, ToDto(plane.Behavior),
             plane.MaterialBefore, plane.MaterialAfter),
@@ -610,6 +521,30 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         SourceGaussianParameters source => new CoreSourceGaussianParameters(
             source.WaistXMillimeters, source.WaistYMillimeters, source.DivergenceHalfAngleDegrees,
             source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        SourceEllipseParameters source => new CoreSourceEllipseParameters(
+            source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        SourceTwoAngleParameters source => new CoreSourceTwoAngleParameters(
+            source.WidthMillimeters, source.HeightMillimeters,
+            (OptilandWorkbench.Core.NonSequential.NonSequentialSourceApertureShape)(int)source.Shape,
+            source.AngularHalfAngleXDegrees, source.AngularHalfAngleYDegrees,
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        SourceRadialParameters source => new CoreSourceRadialParameters(
+            source.Samples.Select(sample => new CoreSourceRadialSample(
+                sample.AngleDegrees, sample.RelativeIntensity)).ToArray(),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+        SourceVolumeRectangleParameters source => new CoreSourceVolumeRectangleParameters(
+            source.WidthMillimeters, source.HeightMillimeters, source.DepthMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
+        SourceVolumeEllipseParameters source => new CoreSourceVolumeEllipseParameters(
+            source.SemiAxisXMillimeters, source.SemiAxisYMillimeters, source.SemiAxisZMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
+        SourceVolumeCylinderParameters source => new CoreSourceVolumeCylinderParameters(
+            source.RadiusXMillimeters, source.RadiusYMillimeters, source.LengthMillimeters,
+            source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
+            source.LayoutRayCount, source.AnalysisRayCount),
         PlaneRectangleParameters plane => new CorePlaneRectangleParameters(
             plane.WidthMillimeters, plane.HeightMillimeters, ToCore(plane.Behavior),
             plane.MaterialBefore, plane.MaterialAfter),

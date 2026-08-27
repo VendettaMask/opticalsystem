@@ -12,9 +12,9 @@ public sealed class NonSequentialTeachingSampleTests
     {
         var directory = SampleDirectory();
         var manifest = ReadManifest(directory);
-        Assert.Equal(1, manifest.Version);
+        Assert.Equal(2, manifest.Version);
         Assert.Equal("Millimeter", manifest.LengthUnit);
-        Assert.Equal(6, manifest.Samples.Count);
+        Assert.Equal(12, manifest.Samples.Count);
         Assert.Equal(
             manifest.Samples.Select(item => item.File).Order(StringComparer.Ordinal).ToArray(),
             Directory.EnumerateFiles(directory, "*.staropt")
@@ -27,6 +27,14 @@ public sealed class NonSequentialTeachingSampleTests
             Assert.False(string.IsNullOrWhiteSpace(item.Title));
             Assert.False(string.IsNullOrWhiteSpace(item.Lesson));
             Assert.NotEmpty(item.SuggestedFilters);
+            Assert.NotEmpty(item.DetectorResults);
+            if (item.SourceKind is not null)
+            {
+                Assert.False(string.IsNullOrWhiteSpace(item.PreviewFile));
+                var previewPath = Path.Combine(directory, item.PreviewFile!.Replace('/', Path.DirectorySeparatorChar));
+                Assert.True(File.Exists(previewPath), $"Missing preview: {item.PreviewFile}");
+                Assert.Contains("<svg", File.ReadAllText(previewPath), StringComparison.Ordinal);
+            }
         });
     }
 
@@ -37,6 +45,12 @@ public sealed class NonSequentialTeachingSampleTests
     [InlineData("04-two-mirror-folded-path.staropt")]
     [InlineData("05-three-wavelength-sources.staropt")]
     [InlineData("06-embedded-stl-baffle.staropt")]
+    [InlineData("07-ellipse-source-footprint.staropt")]
+    [InlineData("08-two-angle-anisotropic-source.staropt")]
+    [InlineData("09-radial-intensity-distribution.staropt")]
+    [InlineData("10-volume-rectangle-source.staropt")]
+    [InlineData("11-volume-ellipse-source.staropt")]
+    [InlineData("12-volume-cylinder-source.staropt")]
     public async Task TeachingSampleLoadsAndReproducesDocumentedTrace(string fileName)
     {
         var directory = SampleDirectory();
@@ -58,6 +72,11 @@ public sealed class NonSequentialTeachingSampleTests
         Assert.Equal(expected.DetectorPowerWatts, trace.EnergyBalance.DetectorPowerWatts, 10);
         Assert.Equal(expected.AbsorbedPowerWatts, trace.EnergyBalance.AbsorbedPowerWatts, 10);
         Assert.Equal(trace.EnergyBalance.SourcePowerWatts, trace.EnergyBalance.AccountedPowerWatts, 8);
+        Assert.Equal(expected.DetectorResults.Count, trace.Detectors.Count);
+        Assert.Equal(
+            expected.DetectorResults.Select(item => item.PowerWatts).ToArray(),
+            trace.Detectors.Select(item => item.TotalPowerWatts).ToArray(),
+            new DoubleArrayComparer(1e-10));
         foreach (var expression in expected.SuggestedFilters)
         {
             var filter = NonSequentialPathFilter.Parse(expression);
@@ -89,6 +108,19 @@ public sealed class NonSequentialTeachingSampleTests
                 Assert.Equal(8, asset.TriangleCount);
                 Assert.False(asset.IsClosed);
                 Assert.True(trace.EnergyBalance.AbsorbedPowerWatts > 0);
+                break;
+            case "07-ellipse-source-footprint.staropt":
+            case "08-two-angle-anisotropic-source.staropt":
+            case "09-radial-intensity-distribution.staropt":
+            case "10-volume-rectangle-source.staropt":
+            case "11-volume-ellipse-source.staropt":
+            case "12-volume-cylinder-source.staropt":
+                var source = Assert.Single(document.Objects, item => item.Parameters is SourceParameters);
+                Assert.Equal(expected.SourceKind, source.Kind.ToString());
+                Assert.Equal(2, trace.Detectors.Count);
+                Assert.False(((DetectorRectangleParameters)document.Objects[1].Parameters).Absorb);
+                Assert.True(((DetectorRectangleParameters)document.Objects[2].Parameters).Absorb);
+                Assert.All(trace.Detectors, detector => Assert.True(detector.TotalPowerWatts > 0.99));
                 break;
         }
     }
@@ -127,5 +159,28 @@ public sealed class NonSequentialTeachingSampleTests
         double SourcePowerWatts,
         double DetectorPowerWatts,
         double AbsorbedPowerWatts,
-        IReadOnlyList<string> SuggestedFilters);
+        IReadOnlyList<string> SuggestedFilters,
+        string? SourceKind,
+        string? PreviewFile,
+        IReadOnlyList<DetectorResult> DetectorResults);
+
+    private sealed record DetectorResult(
+        string Name,
+        double PowerWatts,
+        double PeakPixelPowerWatts,
+        double CentroidXMillimeters,
+        double CentroidYMillimeters,
+        double RmsXMillimeters,
+        double RmsYMillimeters);
+
+    private sealed class DoubleArrayComparer(double tolerance) : IEqualityComparer<double[]>
+    {
+        public bool Equals(double[]? x, double[]? y)
+        {
+            if (x is null || y is null || x.Length != y.Length) return false;
+            return x.Zip(y).All(pair => Math.Abs(pair.First - pair.Second) <= tolerance);
+        }
+
+        public int GetHashCode(double[] obj) => obj.Length;
+    }
 }

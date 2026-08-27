@@ -111,11 +111,8 @@ public partial class WorkbenchRuntime
                     "光源对象（0=全部）",
                     "0",
                     new[] { "0" }.Concat(
-                        Enumerable.Range(1, CurrentNonSequentialDocument.Objects.Count(item => item.Enabled && item.Kind is
-                            NonSequentialObjectKind.SourceRay
-                                or NonSequentialObjectKind.SourcePoint
-                                or NonSequentialObjectKind.SourceRectangle
-                                or NonSequentialObjectKind.SourceGaussian))
+                        Enumerable.Range(1, CurrentNonSequentialDocument.Objects.Count(item =>
+                            item.Enabled && item.Parameters is SourceParameters))
                             .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
                 BoolParameter("DirectRay", "使用直接 XYZ/LMN 射线", "false"),
                 DoubleParameter("X", "起点 X (mm)", "0", -1_000_000, 1_000_000, 0.1),
@@ -148,10 +145,7 @@ public partial class WorkbenchRuntime
                     "光源对象（0=全部）",
                     "0",
                     new[] { "0" }.Concat(Enumerable.Range(1, CurrentNonSequentialDocument.Objects.Count(item =>
-                            item.Enabled && item.Kind is NonSequentialObjectKind.SourceRay
-                                or NonSequentialObjectKind.SourcePoint
-                                or NonSequentialObjectKind.SourceRectangle
-                                or NonSequentialObjectKind.SourceGaussian))
+                            item.Enabled && item.Parameters is SourceParameters))
                         .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray())
             },
             "Full Field Spot Diagram" => new[]
