@@ -69,7 +69,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-截至2026-08-26，正式产品严格构建为 `0` 警告、`0` 错误，全量回归测试为 `786/786`；其中全部非序列测试 `38/38`，新增杂散光专项 `11/11`，覆盖STAROPT v1/v2迁移与v3网格往返、ASCII/Binary STL、单位、网格约束和求交、路径语法、STARRDB、场景过期、损坏输入、取消原子性及数据库筛选联动。独立智能初始结构实验室构建为 `0` 警告、`0` 错误，其定向测试为 `7/7`，不并入正式产品基线。全量基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚；STEP CAD 导出专项为 `17/17`，Linux CI 继续承担 OpenCascade 实际导入验收。
+截至2026-08-26，正式产品严格构建为 `0` 警告、`0` 错误，全量回归测试为 `793/793`；其中全部非序列测试 `45/45`，杂散光专项 `11/11`、非序列教学样例专项 `7/7`，覆盖STAROPT v1/v2迁移与v3网格往返、ASCII/Binary STL、单位、网格约束和求交、路径语法、STARRDB、场景过期、损坏输入、取消原子性、数据库筛选联动，以及6个可直接打开样例的确定性加载/追迹/能量/筛选验收。独立智能初始结构实验室构建为 `0` 警告、`0` 错误，其定向测试为 `7/7`，不并入正式产品基线。全量基线包含多配置链接持久化/旧文件推断、完整文档撤销/重做、材料传播、公差未保存保护、镜头库安全打开与事务发布、全部处方写入和优化自动半口径事务回滚；STEP CAD 导出专项为 `17/17`，Linux CI 继续承担 OpenCascade 实际导入验收。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -91,6 +91,7 @@ src/OptilandWorkbench.Core         计算模型、追迹、分析、优化、公
 src/OptilandWorkbench.Application  无 UI 的应用服务、规范 WorkbenchRuntime、工作区协调和 DTO 映射
 src/OptilandWorkbench.App          Avalonia 桌面端、Dock 工作区和会话持久化
 tests/OptilandWorkbench.Tests      核心、兼容、GUI 契约和回归测试
+samples/non-sequential             可直接打开的非序列功能测试与教学工程
 docs                               架构、格式、兼容、验证和发布文档
 ```
 
@@ -101,7 +102,7 @@ docs                               架构、格式、兼容、验证和发布文
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
 - 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
 - Zemax 边界：[分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)、[基准配置边界](docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)、[操作数支持规范](docs/ZEMAX_OPERAND_SUPPORT.md)。
-- 工程工作流：[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
+- 工程工作流：[非序列教学样例](samples/non-sequential/README.md)、[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
 
 ## 兼容声明
 

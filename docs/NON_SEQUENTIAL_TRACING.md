@@ -39,6 +39,12 @@
 
 第二阶段增加 `.starrdb` 流式光线数据库和统一路径筛选。筛选支持 `Q/H/R/T/D/M/W`、`A/E/X`、布尔运算与 `SEQ(...)`，并驱动路径统计、3D布局抽样和探测器像素重新累计。完整格式和边界见[非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)。
 
+## 教学与功能测试工程
+
+仓库的[`samples/non-sequential`](../samples/non-sequential/README.md)提供6个可直接打开的STAROPT工程，依次覆盖基础镜片与探测器、Fresnel主光/鬼像分支、矩形光管全反射、双镜折叠光路、三波长多光源探测和内嵌STL机械挡光。每个工程都有固定GUID、随机种子、建议路径筛选和确定性能量结果，并由自动测试重新载入和追迹。
+
+样例生成器位于`tools/OptilandWorkbench.NonSequentialSamples`。它先执行真实追迹、能量守恒和筛选命中验证，再原子保存STAROPT文件；教学样例不复制或转换Zemax文件，只借鉴其公开教程中的非序列工作流。
+
 ## 数值与安全规则
 
 - 默认布局射线数为每光源 20，分析射线数为每光源 10000，单次光源射线上限为 1000000。
