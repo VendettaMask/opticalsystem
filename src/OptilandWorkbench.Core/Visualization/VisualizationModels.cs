@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
@@ -165,6 +166,7 @@ public sealed class Layout2DBuilder
         int surfaceSamples = DefaultSurfaceSamples,
         LayoutBuildOptions? options = null)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.Visualization, "2D 布局");
         surfaceSamples = NormalizeSampleCount(surfaceSamples);
         options ??= new LayoutBuildOptions();
 
@@ -215,6 +217,7 @@ public sealed class Layout2DBuilder
         int rimSamples = DefaultRimSamples,
         LayoutBuildOptions? options = null)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.Visualization, "3D 布局");
         surfaceSamples = NormalizeSampleCount(surfaceSamples);
         rimSamples = Math.Max(12, rimSamples);
         options ??= new LayoutBuildOptions(RayCount: 5);

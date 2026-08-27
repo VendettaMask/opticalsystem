@@ -29,13 +29,6 @@ public partial class WorkbenchRuntime
         if (message.StartsWith(optimizedWith, StringComparison.Ordinal))
         {
             var optimizer = message[optimizedWith.Length..];
-            const string fallback = " using orthogonal descent fallback";
-            if (optimizer.EndsWith(fallback, StringComparison.Ordinal))
-            {
-                optimizer = optimizer[..^fallback.Length];
-                return $"已使用 {optimizer} 的正交下降回退完成优化";
-            }
-
             return $"已使用 {optimizer} 完成优化";
         }
 

@@ -21,6 +21,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
 {
     private readonly IVisualizationService _visualization;
     private readonly IWorkspaceEventStream _events;
+    private readonly IWorkbenchModeService? _modes;
+    private readonly INonSequentialAnalysisService? _nonSequentialAnalysis;
     private readonly SurfaceSelectionService _surfaceSelection;
     private readonly SceneDimension _dimension;
     private readonly ViewerPresentationMode _presentationMode;
@@ -47,16 +49,22 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private bool _locked;
     private bool _disposed;
     private bool _updatingSettings;
+    private bool _layoutSessionPreparationPending;
+    private int _preparingLayoutSession;
 
     public ViewerPanel(
         IVisualizationService visualization,
         IWorkspaceEventStream events,
         SurfaceSelectionService surfaceSelection,
         SceneDimension dimension,
-        ViewerPresentationMode presentationMode = ViewerPresentationMode.OpticalLayout)
+        ViewerPresentationMode presentationMode = ViewerPresentationMode.OpticalLayout,
+        IWorkbenchModeService? modes = null,
+        INonSequentialAnalysisService? nonSequentialAnalysis = null)
     {
         _visualization = visualization;
         _events = events;
+        _modes = modes;
+        _nonSequentialAnalysis = nonSequentialAnalysis;
         _surfaceSelection = surfaceSelection;
         _dimension = dimension;
         _presentationMode = presentationMode;
@@ -99,8 +107,12 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         ApplyDisplaySettings();
         _events.Changed += OnWorkspaceChanged;
+        if (_nonSequentialAnalysis is not null)
+        {
+            _nonSequentialAnalysis.SessionChanged += OnNonSequentialSessionChanged;
+        }
         _surfaceSelection.Changed += OnSurfaceSelectionChanged;
-        QueueRefresh(TimeSpan.Zero);
+        QueueRefresh(TimeSpan.Zero, ensureLayoutSession: IsNonSequential3D());
     }
 
     public bool IsLocked
@@ -130,6 +142,10 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        if (_nonSequentialAnalysis is not null)
+        {
+            _nonSequentialAnalysis.SessionChanged -= OnNonSequentialSessionChanged;
+        }
         _surfaceSelection.Changed -= OnSurfaceSelectionChanged;
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
@@ -234,7 +250,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         synchronize.Click += (_, _) =>
         {
             ApplyDisplaySettings();
-            QueueRefresh(TimeSpan.Zero);
+            QueueRefresh(TimeSpan.Zero, ensureLayoutSession: IsNonSequential3D());
         };
 
         var header = new StackPanel
@@ -519,13 +535,29 @@ public sealed class ViewerPanel : UserControl, IDisposable
         Dispatcher.UIThread.Post(() => _scene.HighlightedSurfaceNumber = args.SurfaceNumber);
     }
 
-    private void QueueRefresh(TimeSpan delay)
+    private void OnNonSequentialSessionChanged(
+        object? sender,
+        NonSequentialTraceSessionDto? session)
+    {
+        if (!IsNonSequential3D() || Volatile.Read(ref _preparingLayoutSession) != 0)
+        {
+            return;
+        }
+
+        Dispatcher.UIThread.Post(() => QueueRefresh(TimeSpan.Zero));
+    }
+
+    private void QueueRefresh(TimeSpan delay, bool ensureLayoutSession = false)
     {
         if (_disposed || _locked)
         {
             return;
         }
 
+        if (ensureLayoutSession)
+        {
+            Volatile.Write(ref _layoutSessionPreparationPending, true);
+        }
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
         _refreshCancellation = new CancellationTokenSource();
@@ -539,6 +571,20 @@ public sealed class ViewerPanel : UserControl, IDisposable
             if (delay > TimeSpan.Zero)
             {
                 await Task.Delay(delay, cancellationToken);
+            }
+
+            if (Volatile.Read(ref _layoutSessionPreparationPending) && IsNonSequential3D())
+            {
+                Interlocked.Increment(ref _preparingLayoutSession);
+                try
+                {
+                    await _nonSequentialAnalysis!.EnsureLayoutSessionAsync(cancellationToken);
+                    Volatile.Write(ref _layoutSessionPreparationPending, false);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _preparingLayoutSession);
+                }
             }
 
             var scene = await _visualization.BuildSceneAsync(CreateRequest(), cancellationToken);
@@ -579,6 +625,11 @@ public sealed class ViewerPanel : UserControl, IDisposable
             });
         }
     }
+
+    private bool IsNonSequential3D() =>
+        _dimension == SceneDimension.ThreeDimensional
+        && _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential
+        && _nonSequentialAnalysis is not null;
 
     private static Control SceneWithOverlay(Control scene, params Control[] overlays)
     {

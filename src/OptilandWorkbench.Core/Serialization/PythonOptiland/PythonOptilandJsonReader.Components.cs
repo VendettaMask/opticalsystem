@@ -227,15 +227,21 @@ internal static partial class PythonOptilandJsonReader
         var parsedInteraction = hasInteraction
             ? ReadInteractionModel(interactionElement)
             : new ParsedInteraction(new RefractiveReflectiveInteractionModel(), false, new NoneCoatingModel());
-        if (parsedInteraction.Interaction is PhaseInteractionModel && parsedGeometry is not PlaneGeometry)
+        if (parsedGeometry is not INonComputableGeometry
+            && parsedInteraction.Interaction is PhaseInteractionModel
+            && parsedGeometry is not PlaneGeometry)
         {
             throw new NotSupportedException("Python Optiland phase interactions require Plane geometry.");
         }
-        if (parsedInteraction.Interaction is DiffractiveInteractionModel && parsedGeometry is not IGratingGeometry)
+        if (parsedGeometry is not INonComputableGeometry
+            && parsedInteraction.Interaction is DiffractiveInteractionModel
+            && parsedGeometry is not IGratingGeometry)
         {
             throw new NotSupportedException("Python Optiland diffractive interactions require grating geometry.");
         }
-        if (parsedGeometry is IGratingGeometry && parsedInteraction.Interaction is not DiffractiveInteractionModel)
+        if (parsedGeometry is not INonComputableGeometry
+            && parsedGeometry is IGratingGeometry
+            && parsedInteraction.Interaction is not DiffractiveInteractionModel)
         {
             throw new NotSupportedException("Python Optiland grating geometry requires DiffractiveInteractionModel.");
         }
@@ -276,32 +282,55 @@ internal static partial class PythonOptilandJsonReader
         var geometryType = GetString(geometry, "type", "Plane");
         var radius = GetDouble(geometry, "radius", 0);
         var conic = GetDouble(geometry, "conic", 0);
-        return geometryType switch
+        try
         {
-            "Plane" => new PlaneGeometry(),
-            "PlaneGrating" => ReadPlaneGratingGeometry(geometry),
-            "StandardGratingGeometry" => ReadStandardGratingGeometry(geometry),
-            "StandardGeometry" => new StandardGeometry(radius, conic),
-            "EvenAsphere" => new EvenAsphereGeometry(
-                radius,
-                conic,
-                ReadHighOrderAsphereCoefficients(geometry, geometryType)),
-            "OddAsphere" => new OddAsphereGeometry(
-                radius,
-                conic,
-                ReadHighOrderAsphereCoefficients(geometry, geometryType)),
-            "BiconicGeometry" => new SeparableBiconicGeometry(
-                GetDouble(geometry, "radius_x", radius),
-                GetDouble(geometry, "radius_y", radius),
-                GetDouble(geometry, "conic_x", conic),
-                GetDouble(geometry, "conic_y", conic)),
-            "ToroidalGeometry" => ReadToroidalGeometry(geometry),
-            "PolynomialGeometry" => ReadPolynomialGeometry(geometry),
-            "ChebyshevPolynomialGeometry" => ReadChebyshevGeometry(geometry),
-            "ZernikePolynomialGeometry" => ReadZernikeGeometry(geometry),
-            var type => throw new NotSupportedException($"Python Optiland geometry '{type}' is not supported yet.")
-        };
+            return geometryType switch
+            {
+                "Plane" => new PlaneGeometry(),
+                "PlaneGrating" => ReadPlaneGratingGeometry(geometry),
+                "StandardGratingGeometry" => ReadStandardGratingGeometry(geometry),
+                "StandardGeometry" => new StandardGeometry(radius, conic),
+                "EvenAsphere" => new EvenAsphereGeometry(
+                    radius,
+                    conic,
+                    ReadHighOrderAsphereCoefficients(geometry, geometryType)),
+                "OddAsphere" => new OddAsphereGeometry(
+                    radius,
+                    conic,
+                    ReadHighOrderAsphereCoefficients(geometry, geometryType)),
+                "BiconicGeometry" => new SeparableBiconicGeometry(
+                    GetDouble(geometry, "radius_x", radius),
+                    GetDouble(geometry, "radius_y", radius),
+                    GetDouble(geometry, "conic_x", conic),
+                    GetDouble(geometry, "conic_y", conic)),
+                "ToroidalGeometry" => ReadToroidalGeometry(geometry),
+                "PolynomialGeometry" => ReadPolynomialGeometry(geometry),
+                "ChebyshevPolynomialGeometry" => ReadChebyshevGeometry(geometry),
+                "ZernikePolynomialGeometry" => ReadZernikeGeometry(geometry),
+                _ => OpaquePythonGeometry(
+                    geometryType,
+                    geometry,
+                    $"当前版本不支持 Python Optiland 几何“{geometryType}”；原始 JSON 仅作为不可计算数据保存。")
+            };
+        }
+        catch (NotSupportedException exception)
+        {
+            return OpaquePythonGeometry(geometryType, geometry, exception.Message);
+        }
     }
+
+    private static OpaqueGeometryPayload OpaquePythonGeometry(
+        string geometryType,
+        JsonElement geometry,
+        string reason) => new(new ComponentSnapshot(
+            geometryType,
+            new Dictionary<string, double>(),
+            new Dictionary<string, string>
+            {
+                ["optiland.sourceFormat"] = "Python Optiland JSON",
+                ["optiland.rawJson"] = geometry.GetRawText(),
+                ["optiland.blockingReason"] = reason
+            }));
 
     private static PlaneGratingGeometry ReadPlaneGratingGeometry(JsonElement geometry)
     {

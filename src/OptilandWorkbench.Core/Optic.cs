@@ -3,6 +3,7 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Optimization;
@@ -221,6 +222,7 @@ public sealed class Optic
 
     public Optimization.OptimizationProblem CreateOptimizationProblem()
     {
+        OpticCapabilityPreflight.EnsureSupported(this, OpticCapabilityOperation.Optimization);
         return new Optimization.OptimizationProblem();
     }
 

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Rays;
@@ -141,6 +142,7 @@ public sealed partial class SequentialRayTracer
     }
     internal RayTraceSample? TraceToSurface(RealRay sourceRay, int surfaceIndex)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         if (surfaceIndex < 0 || surfaceIndex >= _optic.SurfaceGroup.Items.Count)
         {
             return null;
@@ -194,6 +196,7 @@ public sealed partial class SequentialRayTracer
     {
         ArgumentNullException.ThrowIfNull(bundle);
         ArgumentNullException.ThrowIfNull(request);
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
 
         if (request.MaxDegreeOfParallelism is 0 or < -1)
         {

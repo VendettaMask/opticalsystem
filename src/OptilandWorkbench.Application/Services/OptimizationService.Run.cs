@@ -125,13 +125,20 @@ internal sealed partial class OptimizationService
                         WorkspaceChangeCategory.Optimization,
                         () => Runtime.OptimizeSurfaceRadius(surface, optimizerName, maxIterations),
                         linked.Token);
+                    LogOptimizationResult(result);
                     return new OptimizationResultDto(
-                        optimizerName,
-                        WorkbenchRuntime.DisplayOptimizerMessage(result.Message),
+                        result.Algorithm,
+                        BuildOptimizationMessage(result),
                         initial,
                         surface.Radius,
                         result.FinalMerit,
-                        result.Iterations);
+                        result.Iterations,
+                        result.AlgorithmVersion,
+                        result.StopReason,
+                        result.GradientNorm,
+                        result.FunctionEvaluations,
+                        result.RandomSeed,
+                        result.Warnings);
                 }
             }, linked.Token).ConfigureAwait(false);
         }
@@ -201,6 +208,7 @@ internal sealed partial class OptimizationService
                         WorkspaceChangeCategory.Optimization,
                         () => Runtime.OptimizeMarkedVariables(optimizerName, maxIterations),
                         linked.Token);
+                    LogOptimizationResult(result);
                     var variables = selected.Select(variable =>
                     {
                         var surface = FindSurface(variable.SurfaceNumber)
@@ -211,14 +219,49 @@ internal sealed partial class OptimizationService
                         return variable with { FinalValue = finalValue };
                     }).ToArray();
                     return new OptimizationRunResultDto(
-                        optimizerName,
-                        WorkbenchRuntime.DisplayOptimizerMessage(result.Message),
+                        result.Algorithm,
+                        BuildOptimizationMessage(result),
                         result.InitialMerit,
                         result.FinalMerit,
                         result.Iterations,
-                        variables);
+                        variables,
+                        result.AlgorithmVersion,
+                        result.StopReason,
+                        result.GradientNorm,
+                        result.FunctionEvaluations,
+                        result.RandomSeed,
+                        result.Warnings);
                 }
             }, linked.Token).ConfigureAwait(false);
+        }
+    }
+
+    private static string BuildOptimizationMessage(OptimizerResult result)
+    {
+        var message = WorkbenchRuntime.DisplayOptimizerMessage(result.Message);
+        return result.Warnings.Count == 0
+            ? message
+            : $"{message} 警告：{string.Join("；", result.Warnings)}";
+    }
+
+    private static void LogOptimizationResult(OptimizerResult result)
+    {
+        var gradient = result.GradientNorm?.ToString("G17", System.Globalization.CultureInfo.InvariantCulture)
+            ?? "n/a";
+        var seed = result.RandomSeed?.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            ?? "n/a";
+        System.Diagnostics.Trace.TraceInformation(
+            "Optimization algorithm={0} version={1} stop={2} iterations={3} evaluations={4} gradientNorm={5} randomSeed={6}",
+            result.Algorithm,
+            result.AlgorithmVersion,
+            result.StopReason,
+            result.Iterations,
+            result.FunctionEvaluations,
+            gradient,
+            seed);
+        foreach (var warning in result.Warnings)
+        {
+            System.Diagnostics.Trace.TraceWarning("Optimization compatibility warning: {0}", warning);
         }
     }
 }

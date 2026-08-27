@@ -111,11 +111,8 @@ public sealed class OpticSceneControl : Control
     private static readonly Pen SolidAxisPen = new(new SolidColorBrush(Color.FromArgb(75, 154, 174, 190)), 0.8, DashStyle.Dash);
     private static readonly Pen SolidReferencePlanePen = new(new SolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
     private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
-    private static readonly Pen SourceObjectPen = new(new SolidColorBrush(Color.FromRgb(218, 112, 28)), 1.5);
-    private static readonly Pen SourceObjectMeshPen = new(new SolidColorBrush(Color.FromArgb(68, 218, 112, 28)), 0.4);
     private static readonly Pen DetectorObjectPen = new(new SolidColorBrush(Color.FromRgb(25, 117, 166)), 1.5);
     private static readonly Pen NonSequentialGeometryPen = new(new SolidColorBrush(Color.FromArgb(62, 75, 89, 102)), 0.4);
-    private static readonly IBrush SourceObjectBrush = new SolidColorBrush(Color.FromArgb(78, 244, 155, 55));
     private static readonly IBrush DetectorObjectBrush = new SolidColorBrush(Color.FromArgb(58, 60, 169, 211));
     private static readonly IBrush NonSequentialGlassBrush = new SolidColorBrush(Color.FromArgb(58, 85, 169, 202));
     private static readonly IBrush NonSequentialMechanicalBrush = new SolidColorBrush(Color.FromArgb(82, 116, 126, 136));
@@ -923,7 +920,7 @@ public sealed class OpticSceneControl : Control
 
     private static IBrush NonSequentialObjectBrush(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
     {
-        SceneSurfaceRenderRole.Source => SourceObjectBrush,
+        SceneSurfaceRenderRole.Source => new SolidColorBrush(WithAlpha(NonSequentialSourceColor(surface.DisplayWavelengthNanometers), 78)),
         SceneSurfaceRenderRole.Detector => DetectorObjectBrush,
         _ when surface.Material.Equals("Air", StringComparison.OrdinalIgnoreCase) => NonSequentialMechanicalBrush,
         _ => NonSequentialGlassBrush
@@ -931,11 +928,23 @@ public sealed class OpticSceneControl : Control
 
     private static Pen NonSequentialOutlinePen(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
     {
-        SceneSurfaceRenderRole.Source when surface.Faces.Count > 8 => SourceObjectMeshPen,
-        SceneSurfaceRenderRole.Source => SourceObjectPen,
+        SceneSurfaceRenderRole.Source when surface.Faces.Count > 8 =>
+            new Pen(new SolidColorBrush(WithAlpha(NonSequentialSourceColor(surface.DisplayWavelengthNanometers), 68)), 0.4),
+        SceneSurfaceRenderRole.Source =>
+            new Pen(new SolidColorBrush(NonSequentialSourceColor(surface.DisplayWavelengthNanometers)), 1.5),
         SceneSurfaceRenderRole.Detector => DetectorObjectPen,
         _ => NonSequentialGeometryPen
     };
+
+    internal static Color NonSequentialSourceColor(double? wavelengthNanometers) =>
+        wavelengthNanometers is double wavelength
+        && double.IsFinite(wavelength)
+        && wavelength > 0
+            ? SpectralColorMap.FromNanometers(wavelength)
+            : Color.FromRgb(244, 155, 55);
+
+    private static Color WithAlpha(Color color, byte alpha) =>
+        Color.FromArgb(alpha, color.R, color.G, color.B);
 
     private void DrawSurfaces(
         DrawingContext context,

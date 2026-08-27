@@ -6,6 +6,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
@@ -38,6 +39,7 @@ public partial class WorkbenchRuntime
             ToleranceAnalysisMode mode = ToleranceAnalysisMode.Sensitivity)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        OpticCapabilityPreflight.EnsureSupported(CurrentOptic, OpticCapabilityOperation.Tolerancing);
         surface ??= Surfaces.FirstOrDefault(item => item.Number > 1) ?? Surfaces.FirstOrDefault();
         if (surface is null)
         {

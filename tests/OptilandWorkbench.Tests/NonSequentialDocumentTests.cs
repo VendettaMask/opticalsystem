@@ -294,6 +294,11 @@ public sealed class NonSequentialDocumentTests
         Assert.Equal(3, threeDimensional.Surfaces.Count);
         Assert.NotEmpty(threeDimensional.Surfaces.SelectMany(surface => surface.Faces));
         Assert.Equal(SceneSurfaceRenderRole.Source, threeDimensional.Surfaces[0].RenderRole);
+        Assert.Equal(
+            application.NonSequential.GetDocument().Wavelengths[0].Nanometers,
+            threeDimensional.Surfaces[0].DisplayWavelengthNanometers);
+        Assert.Null(threeDimensional.Surfaces[1].DisplayWavelengthNanometers);
+        Assert.Null(threeDimensional.Surfaces[2].DisplayWavelengthNanometers);
         Assert.Equal(SceneSurfaceRenderRole.NonSequentialObject, threeDimensional.Surfaces[1].RenderRole);
         Assert.Equal(SceneSurfaceRenderRole.Detector, threeDimensional.Surfaces[2].RenderRole);
         Assert.False(threeDimensional.Surfaces[2].IsReferencePlane);

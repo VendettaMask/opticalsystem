@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Capabilities;
+
 namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class AnalysisCatalog
@@ -92,6 +94,10 @@ public sealed class AnalysisCatalog
 
     public BaseAnalysis Create(string name)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            _optic,
+            OpticCapabilityOperation.Analysis,
+            name);
         return name switch
         {
             "Single Ray Trace" => new SingleRayTraceAnalysis(_optic),

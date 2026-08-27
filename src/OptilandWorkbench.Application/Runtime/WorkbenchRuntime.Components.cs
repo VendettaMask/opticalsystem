@@ -189,9 +189,8 @@ public partial class WorkbenchRuntime
                 surface.Geometry = new ForbesQGeometry(radius, surface.Conic, Math.Max(1, surface.SemiDiameter), new[] { 0.0, 0.0 });
                 break;
             default:
-                surface.Radius = radius;
-                surface.Geometry = new StandardGeometry(radius, surface.Conic);
-                break;
+                throw new NotSupportedException(
+                    $"不支持几何类型“{geometryKind}”；不会将其静默替换为标准面。");
         }
     }
 

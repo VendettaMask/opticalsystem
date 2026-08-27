@@ -756,6 +756,20 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void NonSequentialSourcesUseTheirWavelengthColorAndOrangeOnlyAsFallback()
+    {
+        Assert.Equal(
+            AnalysisPlotControl.WavelengthColor(486.1),
+            OpticSceneControl.NonSequentialSourceColor(486.1));
+        Assert.Equal(
+            AnalysisPlotControl.WavelengthColor(656.3),
+            OpticSceneControl.NonSequentialSourceColor(656.3));
+        Assert.Equal(
+            Avalonia.Media.Color.FromRgb(244, 155, 55),
+            OpticSceneControl.NonSequentialSourceColor(null));
+    }
+
+    [Fact]
     public void MultiPanePlotsKeepConfiguredShapeWithoutExposingAUiToggle()
     {
         var bounds = OptionalSquarePlotHost.SquareBounds(new Avalonia.Size(420, 180), true);

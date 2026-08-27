@@ -436,17 +436,24 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void MaterialsOwnPropagationModelsUsedBySurfaceKernel()
+    public void MaterialsExposeEntranceDirectionApproximationHonestly()
     {
-        var material = new ConstantIndexMaterial("GRIN test", 1.2, propagationModel: new GrinPropagationModel(0.02));
+        var material = new ConstantIndexMaterial(
+            "Entrance approximation test",
+            1.2,
+            propagationModel: new EntranceDirectionApproximationPropagationModel(0.02));
         var clone = material.Clone();
 
-        Assert.Equal("grin", clone.PropagationModel.Kind);
+        Assert.Equal("entrance-direction-approximation", clone.PropagationModel.Kind);
+        Assert.Contains(
+            "不求解 eikonal/Hamilton 方程",
+            EntranceDirectionApproximationPropagationModel.Limitation,
+            StringComparison.Ordinal);
 
         var surface = new OpticalSurface
         {
             Number = 2,
-            Label = "GRIN surface",
+            Label = "Approximation target surface",
             Geometry = new PlaneGeometry(),
             PhysicalAperture = new CircularAperture(10),
             InteractionModel = new RefractiveReflectiveInteractionModel(),
@@ -459,6 +466,21 @@ public sealed class OptilandParityTests
 
         Assert.True(result.Sample.CumulativeOpticalPathLength > result.Sample.SegmentLength);
         Assert.NotEqual(0, result.Ray.Direction.X, precision: 6);
+    }
+
+    [Fact]
+    public void EntranceDirectionApproximationRejectsInvalidInputs()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new EntranceDirectionApproximationPropagationModel(double.NaN));
+
+        var model = new EntranceDirectionApproximationPropagationModel(0.1);
+        var ray = new RealRay(
+            new Vector3D(0, 0, 0),
+            new Vector3D(0, 0, 1),
+            587.6);
+        Assert.Throws<ArgumentOutOfRangeException>(() => model.Propagate(ray, double.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => model.Propagate(ray, -1));
     }
 
     [Fact]
@@ -1293,8 +1315,55 @@ public sealed class OptilandParityTests
     public void OptimizerCatalogOnlyListsDistinctImplementedAlgorithms()
     {
         Assert.Equal(
-            new[] { "LM / DLS", "Nelder-Mead", "Powell", "Orthogonal Descent" },
+            new[]
+            {
+                "Damped Least Squares",
+                "Nelder-Mead",
+                "Coordinate Pattern Search",
+                "Momentum Gradient Descent",
+                "Greedy Random Perturbation"
+            },
             OptimizerCatalog.Names);
+    }
+
+    [Fact]
+    public void OptimizerResultsReportAlgorithmDiagnostics()
+    {
+        var value = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            "x", () => value, next => value = next, -2, 2, stepHint: 0.25));
+        problem.AddOperand(new Operand("target", 1, 1, () => value));
+
+        var result = new GreedyRandomPerturbationOptimizer(randomSeed: 77)
+            .Optimize(problem, maxIterations: 3);
+
+        Assert.Equal("Greedy Random Perturbation", result.Algorithm);
+        Assert.Equal("greedy-random-perturbation/1", result.AlgorithmVersion);
+        Assert.Equal("MaximumIterations", result.StopReason);
+        Assert.True(result.FunctionEvaluations > 0);
+        Assert.Equal(77, result.RandomSeed);
+        Assert.Null(result.GradientNorm);
+        Assert.Empty(result.Warnings);
+    }
+
+    [Fact]
+    public void MomentumGradientDescentReportsFinalGradientNorm()
+    {
+        var value = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable(
+            "x", () => value, next => value = next, -2, 2, stepHint: 0.25));
+        problem.AddOperand(new Operand("target", 1, 1, () => value));
+
+        var result = new MomentumGradientDescentOptimizer().Optimize(problem, maxIterations: 3);
+
+        Assert.Equal("Momentum Gradient Descent", result.Algorithm);
+        Assert.Equal("momentum-gradient-descent/1", result.AlgorithmVersion);
+        Assert.False(string.IsNullOrWhiteSpace(result.StopReason));
+        Assert.True(result.FunctionEvaluations > 0);
+        Assert.NotNull(result.GradientNorm);
+        Assert.Null(result.RandomSeed);
     }
 
     [Fact]

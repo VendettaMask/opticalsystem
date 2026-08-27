@@ -5,6 +5,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
@@ -24,6 +25,10 @@ public partial class WorkbenchRuntime
 {
     public OptimizerResult OptimizeSurfaceRadius(OpticalSurface surface, string optimizerName, int maxIterations)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            CurrentOptic,
+            OpticCapabilityOperation.Optimization,
+            optimizerName);
         var initialDocument = CaptureDocument();
         try
         {
@@ -69,6 +74,10 @@ public partial class WorkbenchRuntime
 
     public OptimizerResult OptimizeMarkedVariables(string optimizerName, int maxIterations)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            CurrentOptic,
+            OpticCapabilityOperation.Optimization,
+            optimizerName);
         var lastSurfaceNumber = Surfaces.Count == 0 ? -1 : Surfaces[^1].Number;
         var selected = Surfaces
             .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)

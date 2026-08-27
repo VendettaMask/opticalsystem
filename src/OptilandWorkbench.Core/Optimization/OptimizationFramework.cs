@@ -148,6 +148,7 @@ public sealed class OptimizationProblem
     private readonly List<IOptimizationVariable> _variables = new();
     private readonly List<Operand> _operands = new();
     private Func<IReadOnlyList<double>, double[]>? _independentValueEvaluator;
+    private long _functionEvaluationCount;
 
     public IReadOnlyList<IOptimizationVariable> Variables => _variables;
 
@@ -156,6 +157,8 @@ public sealed class OptimizationProblem
     public bool BatchingEnabled { get; private set; } = true;
 
     public bool SupportsParallelResidualEvaluation => _independentValueEvaluator is not null;
+
+    public long FunctionEvaluationCount => Interlocked.Read(ref _functionEvaluationCount);
 
     public void AddVariable(IOptimizationVariable variable) => _variables.Add(variable);
 
@@ -205,6 +208,7 @@ public sealed class OptimizationProblem
     {
         if (_independentValueEvaluator is not null)
         {
+            Interlocked.Increment(ref _functionEvaluationCount);
             return BuildEvaluation(_independentValueEvaluator(VariableVectorFromScaled(scaledValues)));
         }
 
@@ -222,6 +226,7 @@ public sealed class OptimizationProblem
 
     private OptimizationEvaluation EvaluateCurrent()
     {
+        Interlocked.Increment(ref _functionEvaluationCount);
         using var batch = BatchingEnabled ? MeritFunctionCatalog.BeginEvaluationBatch() : null;
         return BuildEvaluation(_operands.Select(operand => operand.Evaluate()).ToArray());
     }
@@ -285,6 +290,20 @@ public sealed class OptimizerResult
     public IReadOnlyList<double> BestVariables { get; init; } = Array.Empty<double>();
 
     public IReadOnlyList<double> MeritHistory { get; init; } = Array.Empty<double>();
+
+    public string Algorithm { get; init; } = string.Empty;
+
+    public string AlgorithmVersion { get; init; } = string.Empty;
+
+    public string StopReason { get; init; } = string.Empty;
+
+    public double? GradientNorm { get; init; }
+
+    public long FunctionEvaluations { get; init; }
+
+    public int? RandomSeed { get; init; }
+
+    public IReadOnlyList<string> Warnings { get; init; } = Array.Empty<string>();
 }
 
 public interface IOptimizer
@@ -294,85 +313,18 @@ public interface IOptimizer
     OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100);
 }
 
+[Obsolete("Use CoordinatePatternSearchOptimizer. This type is retained only for source compatibility.")]
 public sealed class OrthogonalDescentOptimizer : IOptimizer
 {
-    public string Name => "Orthogonal Descent";
+    private readonly CoordinatePatternSearchOptimizer _inner = new();
+
+    public string Name => _inner.Name;
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
-        var initial = problem.SumSquared();
-        var best = initial;
-        var bestVector = problem.VariableVector();
-        var stepByVariable = problem.Variables.ToDictionary(
-            variable => variable,
-            variable => Math.Max(1e-9, variable.StepHint));
-        var history = new List<double> { initial };
-
-        var iterations = 0;
-        var stagnantIterations = 0;
-        for (; iterations < maxIterations; iterations++)
-        {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            var iterationStart = best;
-            var improved = false;
-            foreach (var variable in problem.Variables)
-            {
-                var original = variable.Value;
-                var step = stepByVariable[variable];
-                foreach (var candidate in new[] { original - step, original + step })
-                {
-                    variable.Value = candidate;
-                    var merit = problem.SumSquared();
-                    if (merit < best)
-                    {
-                        best = merit;
-                        original = variable.Value;
-                        bestVector = problem.VariableVector();
-                        improved = true;
-                    }
-                }
-
-                variable.Value = original;
-            }
-
-            var meaningfulImprovement = iterationStart - best
-                > 1e-9 * Math.Max(1, Math.Abs(iterationStart));
-            if (!improved || !meaningfulImprovement)
-            {
-                if (!improved)
-                {
-                    foreach (var variable in problem.Variables)
-                    {
-                        stepByVariable[variable] *= 0.5;
-                    }
-                }
-
-                stagnantIterations++;
-                if (stagnantIterations >= 6)
-                {
-                    iterations++;
-                    break;
-                }
-            }
-            else
-            {
-                stagnantIterations = 0;
-            }
-
-            history.Add(best);
-        }
-
-        problem.SetVariableVector(bestVector);
-        return new OptimizerResult
-        {
-            Success = best <= initial,
-            InitialMerit = initial,
-            FinalMerit = best,
-            Iterations = iterations,
-            BestVariables = bestVector,
-            MeritHistory = history,
-            Message = $"Optimized with {Name}"
-        };
+        return OptimizationResults.WithWarning(
+            _inner.Optimize(problem, maxIterations),
+            OptimizerCatalog.CompatibilityWarning("Orthogonal Descent", Name));
     }
 }
 
@@ -380,10 +332,11 @@ public static class OptimizerCatalog
 {
     public static IReadOnlyList<string> Names { get; } = new[]
     {
-        "LM / DLS",
+        "Damped Least Squares",
         "Nelder-Mead",
-        "Powell",
-        "Orthogonal Descent"
+        "Coordinate Pattern Search",
+        "Momentum Gradient Descent",
+        "Greedy Random Perturbation"
     };
 
     public static IOptimizer Create(string name)
@@ -392,18 +345,43 @@ public static class OptimizerCatalog
 
         return name switch
         {
-            "LM / DLS" or "Least Squares" => new LeastSquaresOptimizer(),
+            "Damped Least Squares" => new DampedLeastSquaresOptimizer(),
             "Nelder-Mead" => new NelderMeadOptimizer(),
-            "Powell" => new PowellOptimizer(),
-            "BFGS" => new GradientOptimizer("BFGS", useMomentum: true),
-            "L-BFGS-B" => new GradientOptimizer("L-BFGS-B", useMomentum: true),
-            "COBYLA" => new PowellOptimizer("COBYLA"),
-            "Orthogonal Descent" => new OrthogonalDescentOptimizer(),
-            "Differential Evolution" => new PopulationSearchOptimizer("Differential Evolution"),
-            "Dual Annealing" => new PopulationSearchOptimizer("Dual Annealing"),
-            "Basin Hopping" => new PopulationSearchOptimizer("Basin Hopping"),
+            "Coordinate Pattern Search" => new CoordinatePatternSearchOptimizer(),
+            "Momentum Gradient Descent" => new MomentumGradientDescentOptimizer(),
+            "Greedy Random Perturbation" => new GreedyRandomPerturbationOptimizer(),
+            "LM / DLS" or "Least Squares" => Alias(name, new DampedLeastSquaresOptimizer()),
+            "Powell" or "COBYLA" or "Orthogonal Descent" => Alias(name, new CoordinatePatternSearchOptimizer()),
+            "BFGS" or "L-BFGS-B" => Alias(name, new MomentumGradientDescentOptimizer()),
+            "Differential Evolution" or "Dual Annealing" or "Basin Hopping" =>
+                Alias(name, new GreedyRandomPerturbationOptimizer()),
             "Glass Expert" => throw new NotSupportedException("Glass Expert is not implemented."),
             _ => throw new ArgumentException($"Unknown optimizer '{name}'.", nameof(name))
         };
+    }
+
+    internal static string CompatibilityWarning(string alias, string canonicalName) =>
+        $"兼容名称“{alias}”不是当前实现的真实算法名称；本次实际执行“{canonicalName}”。请更新调用。";
+
+    private static IOptimizer Alias(string alias, IOptimizer optimizer) =>
+        new CompatibilityAliasOptimizer(alias, optimizer);
+
+    private sealed class CompatibilityAliasOptimizer : IOptimizer
+    {
+        private readonly string _alias;
+        private readonly IOptimizer _optimizer;
+
+        public CompatibilityAliasOptimizer(string alias, IOptimizer optimizer)
+        {
+            _alias = alias;
+            _optimizer = optimizer;
+        }
+
+        public string Name => _optimizer.Name;
+
+        public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100) =>
+            OptimizationResults.WithWarning(
+                _optimizer.Optimize(problem, maxIterations),
+                CompatibilityWarning(_alias, _optimizer.Name));
     }
 }

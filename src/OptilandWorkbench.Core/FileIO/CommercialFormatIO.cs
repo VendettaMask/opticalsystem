@@ -1,5 +1,6 @@
 using System.Globalization;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.FileIO;
@@ -111,6 +112,10 @@ public static class OpticalFormatCatalog
 
     public static string Export(Optic optic, string extension)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            extension);
         return FindExporter(extension).Export(optic);
     }
 
@@ -164,6 +169,10 @@ public sealed class SequentialLensTextExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            FormatName);
         return string.Join(Environment.NewLine, SequentialLensDocument.FromOptic(optic).Surfaces.Select(surface =>
             string.Join(" ", new[]
             {
@@ -227,6 +236,10 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            FormatName);
         var lines = new List<string>
         {
             "! OptilandWorkbench Zemax ZMX sequential export",
@@ -397,6 +410,10 @@ public sealed class CodeVSeqExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            FormatName);
         var lines = new List<string>
         {
             "! OptilandWorkbench CODE V SEQ common sequential subset"
@@ -448,6 +465,10 @@ public sealed class OsloLenExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            FormatName);
         var lines = new List<string>
         {
             "! OptilandWorkbench OSLO LEN common sequential subset"

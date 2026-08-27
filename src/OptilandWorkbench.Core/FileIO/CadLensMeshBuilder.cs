@@ -105,9 +105,6 @@ internal static class CadLensMeshBuilder
         StepCadExportOptions options,
         CancellationToken cancellationToken)
     {
-        RejectUnsupportedGeometry(front);
-        RejectUnsupportedGeometry(back);
-
         var radialSegments = Math.Max(4, (NormalizeSurfaceSamples(options.SurfaceSamples) - 1) / 2);
         var angularSegments = Math.Clamp(options.AngularSamples, 32, 192);
         var chordTolerance = options.MaximumChordErrorMillimeters;
@@ -484,15 +481,6 @@ internal static class CadLensMeshBuilder
         {
             throw new InvalidOperationException(
                 $"镜片表面 {surface.Number} 在 ({x:G8}, {y:G8}) mm 处产生非有限全局坐标。");
-        }
-    }
-
-    private static void RejectUnsupportedGeometry(OpticalSurface surface)
-    {
-        if (surface.Geometry is PlaceholderFreeformGeometry)
-        {
-            throw new InvalidOperationException(
-                $"镜片表面 {surface.Number} 使用占位几何“{surface.Geometry.Kind}”，不能导出可靠 CAD 实体。");
         }
     }
 

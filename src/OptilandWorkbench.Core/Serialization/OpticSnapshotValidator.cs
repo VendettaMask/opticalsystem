@@ -326,7 +326,14 @@ public static class OpticSnapshotValidator
         SurfaceComponentSnapshot components,
         string path)
     {
-        RequireKnownKind(components.GeometryKind, GeometryKinds, $"{path}.geometryKind");
+        RequireText(components.GeometryKind, $"{path}.geometryKind");
+        if (!GeometryKinds.Contains(components.GeometryKind)
+            && components.Geometry is null)
+        {
+            Invalid(
+                $"{path}.geometry",
+                "unknown geometry kinds must include an opaque component payload");
+        }
         RequireText(components.MaterialBefore, $"{path}.materialBefore");
         RequireText(components.MaterialAfter, $"{path}.materialAfter");
         RequireKnownKind(components.CoatingKind, CoatingKinds, $"{path}.coatingKind");
@@ -590,7 +597,16 @@ public static class OpticSnapshotValidator
             Invalid(path, "component nesting is too deep");
         }
 
-        RequireKnownKind(component.Kind, AllowedKinds(role), $"{path}.kind");
+        var opaqueGeometry = role == ComponentRole.Geometry
+            && !GeometryKinds.Contains(component.Kind);
+        if (opaqueGeometry)
+        {
+            RequireText(component.Kind, $"{path}.kind");
+        }
+        else
+        {
+            RequireKnownKind(component.Kind, AllowedKinds(role), $"{path}.kind");
+        }
         if (component.Numbers is null)
         {
             Invalid($"{path}.numbers", "the numeric component table cannot be null");
@@ -631,8 +647,81 @@ public static class OpticSnapshotValidator
             }
         }
 
+        if (opaqueGeometry)
+        {
+            ValidateOpaqueChildren(component.Children, path, depth);
+            return;
+        }
+
         ValidateEncodedCollectionSizes(component, role, path);
         ValidateComponentChildren(component, role, path, depth);
+    }
+
+    private static void ValidateOpaqueChildren(
+        Dictionary<string, ComponentSnapshot>? children,
+        string path,
+        int depth)
+    {
+        if (children is null)
+        {
+            return;
+        }
+
+        if (children.Count > MaximumComponentTextCount)
+        {
+            Invalid($"{path}.children", "the opaque child component table is too large");
+        }
+
+        foreach (var item in children)
+        {
+            RequireText(item.Key, $"{path}.children key");
+            if (item.Value is null)
+            {
+                Invalid($"{path}.children['{item.Key}']", "opaque child components cannot be null");
+            }
+
+            ValidateOpaqueComponent(item.Value, $"{path}.children['{item.Key}']", depth + 1);
+        }
+    }
+
+    private static void ValidateOpaqueComponent(
+        ComponentSnapshot component,
+        string path,
+        int depth)
+    {
+        if (depth > MaximumComponentDepth)
+        {
+            Invalid(path, "component nesting is too deep");
+        }
+
+        RequireText(component.Kind, $"{path}.kind");
+        if (component.Numbers is null || component.Numbers.Count > MaximumComponentNumberCount)
+        {
+            Invalid($"{path}.numbers", "the opaque numeric component table is null or too large");
+        }
+
+        if (component.Text is null || component.Text.Count > MaximumComponentTextCount)
+        {
+            Invalid($"{path}.text", "the opaque text component table is null or too large");
+        }
+
+        foreach (var item in component.Numbers)
+        {
+            if (!double.IsFinite(item.Value))
+            {
+                Invalid($"{path}.numbers['{item.Key}']", "opaque numeric values must be finite");
+            }
+        }
+
+        foreach (var item in component.Text)
+        {
+            if (item.Value is null)
+            {
+                Invalid($"{path}.text['{item.Key}']", "opaque text values cannot be null");
+            }
+        }
+
+        ValidateOpaqueChildren(component.Children, path, depth);
     }
 
     private static void ValidateComponentChildren(

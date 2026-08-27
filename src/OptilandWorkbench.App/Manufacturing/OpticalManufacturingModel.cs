@@ -99,6 +99,17 @@ public static class OpticalManufacturingModel
     public static IReadOnlyList<OpticalElementDefinition> BuildElements(
         IReadOnlyList<SurfaceRowDto> surfaces)
     {
+        var unsupported = surfaces.Where(surface => !surface.GeometryComputable).ToArray();
+        if (unsupported.Length > 0)
+        {
+            var details = string.Join(
+                "；",
+                unsupported.Select(surface =>
+                    $"表面 {surface.Number}，原始类型“{surface.GeometryKind.Replace("不支持：", string.Empty, StringComparison.Ordinal)}”：当前版本不支持该几何"));
+            throw new InvalidOperationException(
+                $"无法导出制造数据/图纸。{details}；不会将其按标准面或平面处理。");
+        }
+
         var elements = new List<OpticalElementDefinition>();
         for (var index = 0; index + 1 < surfaces.Count; index++)
         {

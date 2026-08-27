@@ -300,6 +300,12 @@ public sealed class WorkbenchApplicationTests
         Assert.True(double.IsFinite(result.FinalMerit));
         Assert.True(result.FinalMerit <= result.InitialMerit + 1e-12);
         Assert.All(result.Variables, variable => Assert.True(double.IsFinite(variable.FinalValue)));
+        Assert.Equal("Coordinate Pattern Search", result.Optimizer);
+        Assert.Equal("coordinate-pattern-search/1", result.AlgorithmVersion);
+        Assert.False(string.IsNullOrWhiteSpace(result.StopReason));
+        Assert.True(result.FunctionEvaluations > 0);
+        Assert.Contains("兼容名称", result.Message, StringComparison.Ordinal);
+        Assert.Single(Assert.IsAssignableFrom<IReadOnlyList<string>>(result.Warnings));
     }
 
     [Fact]
@@ -361,17 +367,35 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
-    public void OptimizerCatalogCreatesRibbonGlobalSearchAlgorithms()
+    public void OptimizerCatalogMapsLegacyNamesToTruthfulAlgorithmsWithWarnings()
     {
-        Assert.Equal(
-            "Differential Evolution",
-            OptimizerCatalog.Create("Differential Evolution").Name);
-        Assert.Equal(
-            "Dual Annealing",
-            OptimizerCatalog.Create("Dual Annealing").Name);
-        Assert.Equal(
-            "Basin Hopping",
-            OptimizerCatalog.Create("Basin Hopping").Name);
+        var aliases = new Dictionary<string, string>
+        {
+            ["BFGS"] = "Momentum Gradient Descent",
+            ["L-BFGS-B"] = "Momentum Gradient Descent",
+            ["COBYLA"] = "Coordinate Pattern Search",
+            ["Differential Evolution"] = "Greedy Random Perturbation",
+            ["Dual Annealing"] = "Greedy Random Perturbation",
+            ["Basin Hopping"] = "Greedy Random Perturbation"
+        };
+
+        foreach (var (alias, canonicalName) in aliases)
+        {
+            var value = 0.0;
+            var problem = new OptimizationProblem();
+            problem.AddVariable(new DelegateVariable(
+                "x", () => value, next => value = next, -2, 2, stepHint: 0.25));
+            problem.AddOperand(new Operand("target", 1, 1, () => value));
+
+            var optimizer = OptimizerCatalog.Create(alias);
+            var result = optimizer.Optimize(problem, maxIterations: 1);
+
+            Assert.Equal(canonicalName, optimizer.Name);
+            Assert.Equal(canonicalName, result.Algorithm);
+            var warning = Assert.Single(result.Warnings);
+            Assert.Contains(alias, warning, StringComparison.Ordinal);
+            Assert.Contains(canonicalName, warning, StringComparison.Ordinal);
+        }
     }
 
     [Fact]

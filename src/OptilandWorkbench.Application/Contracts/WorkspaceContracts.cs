@@ -692,7 +692,8 @@ public sealed record SurfaceRowDto(
     double ThinLensFocalLength,
     bool RadiusVariable,
     bool ThicknessVariable,
-    bool SemiDiameterFixed = false);
+    bool SemiDiameterFixed = false,
+    bool GeometryComputable = true);
 
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
@@ -1123,7 +1124,8 @@ public sealed record SceneSurface3Dto(
     IReadOnlyList<ScenePoint3Dto> MeridianX,
     IReadOnlyList<SceneSurfaceFace3Dto> Faces,
     bool IsStandaloneStop = false,
-    SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface);
+    SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface,
+    double? DisplayWavelengthNanometers = null);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,
@@ -1190,7 +1192,13 @@ public sealed record OptimizationResultDto(
     double InitialRadius,
     double FinalRadius,
     double Merit,
-    int Iterations);
+    int Iterations,
+    string AlgorithmVersion = "",
+    string StopReason = "",
+    double? GradientNorm = null,
+    long FunctionEvaluations = 0,
+    int? RandomSeed = null,
+    IReadOnlyList<string>? Warnings = null);
 
 public enum OptimizationVariableUpdateMode
 {
@@ -1304,7 +1312,13 @@ public sealed record OptimizationRunResultDto(
     double InitialMerit,
     double FinalMerit,
     int Iterations,
-    IReadOnlyList<OptimizationVariableResultDto> Variables);
+    IReadOnlyList<OptimizationVariableResultDto> Variables,
+    string AlgorithmVersion = "",
+    string StopReason = "",
+    double? GradientNorm = null,
+    long FunctionEvaluations = 0,
+    int? RandomSeed = null,
+    IReadOnlyList<string>? Warnings = null);
 
 public enum ToleranceOperandKind
 {

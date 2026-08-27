@@ -12,10 +12,10 @@
 | 非序列追迹 | `NonSequentialDocument`、`INonSequentialDocumentService`、`NonSequentialDocumentTracer` | 与顺序处方并存的独立文档、类型化光源/实体/探测器编辑器、GUID 参考/包含链、STAROPT v2、BVH 最近命中、实体介质、Fresnel 反射/透射光线树、像素功率与能量平衡；CAD/布尔、散射、偏振/相干、非序列优化/公差和 Zemax NSC 导入未完成 |
 | 几何 | `Geometries` | 平面、标准面、光栅、非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q；其余自由曲面有明确占位边界 |
 | 材料 | `Materials` | Air、Vacuum、常数、Cauchy、Sellmeier、Abbe、目录 n/k 及厂商消歧 |
-| 传播 | `Propagation` | 均匀介质和简化 GRIN |
+| 传播 | `Propagation` | 均匀介质和“入口方向近似”；后者仅在每段入口修正一次方向，不是 GRIN eikonal/Hamilton 求解器 |
 | 镀膜 | `Coatings` | 镀膜栈和四分之一波合成骨架；完整薄膜 TMM 未完成 |
 | 分析 | `Analysis` | 72 个规范分析、Workbench 单一描述符目录和按模式隔离的两套入口；顺序 70 项、非序列 2 项，独立畸变入口已合并到场曲/畸变，报告菜单含 5 个真实入口 |
-| 优化 | `Optimization` | 变量、操作数、缩放、局部/全局优化；ZMX 参考评价函数 103 行按源顺序可见，`TRAR` 可执行，未实现类型禁用只读保留；当前 51 个代码/兼容类型不等同 Zemax 333 项完整支持；Glass Expert 未实现且明确返回不支持 |
+| 优化 | `Optimization` | 变量、操作数、缩放，以及五种按真实实现命名的本地搜索；没有实现真正的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES 或信赖域 LM；ZMX 参考评价函数 103 行按源顺序可见，`TRAR` 可执行，未实现类型禁用只读保留；当前 51 个代码/兼容类型不等同 Zemax 333 项完整支持；Glass Expert 未实现且明确返回不支持 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
 | 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |
 | 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集；Zemax 只读评价函数参数往返时不裁剪 |

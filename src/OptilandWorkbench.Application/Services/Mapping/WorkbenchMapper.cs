@@ -56,7 +56,8 @@ internal static class WorkbenchMapper
             thinLens?.FocalLength ?? 50,
             surface.RadiusVariable,
             surface.ThicknessVariable,
-            surface.SemiDiameterFixed);
+            surface.SemiDiameterFixed,
+            surface.Geometry is not INonComputableGeometry);
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
@@ -72,7 +73,8 @@ internal static class WorkbenchMapper
         ChebyshevGeometry => "Chebyshev 曲面",
         ZernikeGeometry => "Zernike 曲面",
         ForbesQGeometry => "Forbes Q 曲面",
-        _ => "标准球面/圆锥"
+        INonComputableGeometry opaque => $"不支持：{opaque.OriginalType}",
+        _ => $"其他：{surface.Geometry.Kind}"
     };
 
     internal static string CoatingKind(OpticalSurface surface)

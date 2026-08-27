@@ -8,6 +8,7 @@ using Dock.Model.Mvvm.Controls;
 using Dock.Model.Mvvm.Core;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
 using System.Collections.ObjectModel;
@@ -335,6 +336,50 @@ public sealed class WorkspaceDockModelTests
         Assert.IsType<NonSequentialDetectorViewerPanel>(document.Context);
         Assert.IsAssignableFrom<IDocumentDock>(document.Owner);
         Assert.True(WorkspaceDocumentTypes.IsKnown(WorkspaceDocumentTypes.NonSequentialDetectorViewer));
+    }
+
+    [Fact]
+    public async Task NonSequentialThreeDimensionalViewerPreparesLayoutRaysFromTheViewEntryPoint()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
+        var detectorId = application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+            detector.Id,
+            detector.Enabled,
+            detector.Visible,
+            detector.Kind,
+            detector.Name,
+            detector.ReferenceObjectId,
+            detector.ContainingObjectId,
+            detector.X,
+            detector.Y,
+            20,
+            detector.TiltXDegrees,
+            detector.TiltYDegrees,
+            detector.TiltZDegrees,
+            detector.Parameters));
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+        using var manager = new PanelManager(application, new AppSettings());
+
+        manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+        Assert.Single(
+            manager.Factory.OpenDocuments(),
+            item => item.Id == "document:viewer-3d");
+
+        for (var attempt = 0;
+             attempt < 100 && application.NonSequentialAnalysis.GetCurrentSession() is null;
+             attempt++)
+        {
+            await Task.Delay(20);
+        }
+
+        var session = application.NonSequentialAnalysis.GetCurrentSession();
+        Assert.NotNull(session);
+        Assert.True(session!.BranchCount > 0);
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays);
     }
 
     [Fact]

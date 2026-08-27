@@ -6,6 +6,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
@@ -53,6 +54,10 @@ public partial class WorkbenchRuntime
             throw new UnknownAnalysisException(analysisName);
         }
         var canonicalName = descriptor.CanonicalKey;
+        OpticCapabilityPreflight.EnsureSupported(
+            CurrentOptic,
+            OpticCapabilityOperation.Analysis,
+            canonicalName);
         settings ??= new Dictionary<string, string>();
         var analysis = CreateAnalysis(canonicalName, settings);
         var data = analysis.GenerateData(cancellationToken);

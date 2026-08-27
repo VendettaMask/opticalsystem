@@ -3,6 +3,7 @@ using System.Text.Json;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
@@ -30,6 +31,10 @@ internal static partial class PythonOptilandJsonWriter
 
     public static string Serialize(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            "Python Optiland JSON");
         var root = new Dictionary<string, object?>
         {
             ["version"] = 1.0,

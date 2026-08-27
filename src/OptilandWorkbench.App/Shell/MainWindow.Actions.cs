@@ -130,7 +130,7 @@ public sealed partial class MainWindow
             "run-optimization",
             "执行优化",
             "优化",
-            () => RunRibbonOptimizationAsync("LM / DLS", 80, "局部优化"));
+            () => RunRibbonOptimizationAsync("Damped Least Squares", 80, "阻尼最小二乘优化"));
         _actions.Register(
             "clear-optimization-variables",
             "移除所有变量",
@@ -153,21 +153,13 @@ public sealed partial class MainWindow
                 OptimizationVariableUpdateMode.SetAllThicknesses,
                 "已设置全部厚度变量"));
         _actions.Register(
-            "run-global-optimization",
-            "全局优化",
+            "run-random-perturbation",
+            "随机扰动搜索",
             "优化",
             () => RunRibbonOptimizationAsync(
-                "Differential Evolution",
+                "Greedy Random Perturbation",
                 120,
-                "全局优化"));
-        _actions.Register(
-            "run-hammer-optimization",
-            "锤形优化",
-            "优化",
-            () => RunRibbonOptimizationAsync(
-                "Basin Hopping",
-                200,
-                "锤形优化"));
+                "贪心随机扰动搜索"));
         _actions.Register(
             "glass-replacement-template",
             "玻璃替换模板",

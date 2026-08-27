@@ -680,25 +680,59 @@ public sealed class ForbesQGeometry : IGeometry
     public IGeometry Clone() => new ForbesQGeometry(Base.Radius, Base.Conic, NormalizationRadius, QCoefficients);
 }
 
-public sealed class PlaceholderFreeformGeometry : IGeometry
+public interface INonComputableGeometry
 {
-    public PlaceholderFreeformGeometry(string kind)
+    string OriginalType { get; }
+
+    string BlockingReason { get; }
+}
+
+public sealed class OpaqueGeometryPayload : IGeometry, INonComputableGeometry
+{
+    private readonly Serialization.ComponentSnapshot _payload;
+
+    public OpaqueGeometryPayload(Serialization.ComponentSnapshot payload)
     {
-        Kind = kind;
+        ArgumentNullException.ThrowIfNull(payload);
+        if (string.IsNullOrWhiteSpace(payload.Kind))
+        {
+            throw new ArgumentException("Opaque geometry type cannot be empty.", nameof(payload));
+        }
+
+        _payload = ClonePayload(payload);
     }
 
-    public string Kind { get; }
+    public string Kind => _payload.Kind;
 
-    public double Sag(double x, double y) => 0;
+    public string OriginalType => _payload.Kind;
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
-    {
-        return new PlaneGeometry().DistanceToIntersection(origin, direction);
-    }
+    public string BlockingReason => _payload.Text.TryGetValue("optiland.blockingReason", out var reason)
+        && !string.IsNullOrWhiteSpace(reason)
+            ? reason
+            : "当前版本不支持该几何；原始数据仅作为不可计算的 opaque payload 保存。";
 
-    public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
+    public Serialization.ComponentSnapshot Payload => ClonePayload(_payload);
 
-    public IGeometry Clone() => new PlaceholderFreeformGeometry(Kind);
+    public double Sag(double x, double y) => throw CannotCompute("Sag");
+
+    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+        throw CannotCompute("光线交点");
+
+    public Vector3D SurfaceNormal(Vector3D localPoint) => throw CannotCompute("表面法线");
+
+    public IGeometry Clone() => new OpaqueGeometryPayload(_payload);
+
+    private InvalidOperationException CannotCompute(string quantity) => new(
+        $"不可计算几何“{OriginalType}”不能求取{quantity}。{BlockingReason}");
+
+    private static Serialization.ComponentSnapshot ClonePayload(Serialization.ComponentSnapshot source) => new(
+        source.Kind,
+        new Dictionary<string, double>(source.Numbers, StringComparer.Ordinal),
+        new Dictionary<string, string>(source.Text, StringComparer.Ordinal),
+        source.Children?.ToDictionary(
+            item => item.Key,
+            item => ClonePayload(item.Value),
+            StringComparer.Ordinal));
 }
 
 internal static class GeometryMath

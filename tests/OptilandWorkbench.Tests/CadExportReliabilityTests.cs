@@ -2,8 +2,10 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.Tests;
 
@@ -99,14 +101,15 @@ public sealed class CadExportReliabilityTests
     }
 
     [Fact]
-    public void CadMeshRejectsPlaceholderGeometryAndTriangleLimit()
+    public void CadMeshRejectsOpaqueGeometryAndTriangleLimit()
     {
-        var placeholder = Optic.CreateCookeTriplet();
-        placeholder.SurfaceGroup.Items[1].Geometry = new PlaceholderFreeformGeometry("unsupported-freeform");
-        var unsupported = Assert.Throws<InvalidOperationException>(() =>
-            StepCadExporter.Build(placeholder));
-        Assert.Contains("占位几何", unsupported.Message, StringComparison.Ordinal);
+        var opaque = Optic.CreateCookeTriplet();
+        opaque.SurfaceGroup.Items[1].Geometry = new OpaqueGeometryPayload(
+            ComponentSnapshot.Empty("unsupported-freeform"));
+        var unsupported = Assert.Throws<OpticCapabilityException>(() =>
+            StepCadExporter.Build(opaque));
         Assert.Contains("表面 1", unsupported.Message, StringComparison.Ordinal);
+        Assert.Contains("unsupported-freeform", unsupported.Message, StringComparison.Ordinal);
 
         var limited = Assert.Throws<InvalidOperationException>(() =>
             StepCadExporter.Build(

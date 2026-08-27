@@ -1,3 +1,4 @@
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
@@ -291,6 +292,7 @@ public sealed class SensitivityAnalysis
 
     public SensitivityAnalysis(Optic optic, Tolerancing tolerancing)
     {
+        OpticCapabilityPreflight.EnsureSupported(optic, OpticCapabilityOperation.Tolerancing);
         _optic = optic;
         _tolerancing = tolerancing;
     }
@@ -421,7 +423,7 @@ public sealed class SensitivityAnalysis
         }
 
         var problem = _tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
+        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
         cancellationToken.ThrowIfCancellationRequested();
         return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
     }
@@ -447,6 +449,7 @@ public sealed class MonteCarlo
 
     public MonteCarlo(Optic optic, Tolerancing tolerancing)
     {
+        OpticCapabilityPreflight.EnsureSupported(optic, OpticCapabilityOperation.Tolerancing);
         _optic = optic;
         _tolerancing = tolerancing;
     }
@@ -627,7 +630,7 @@ public sealed class MonteCarlo
         }
 
         var problem = tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
+        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
         cancellationToken.ThrowIfCancellationRequested();
         return new ToleranceEvaluation(problem.SumSquared(), tolerancing.Criterion());
     }
@@ -656,7 +659,7 @@ public sealed class MonteCarlo
         }
 
         var problem = _tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("LM / DLS").Optimize(problem, compensationIterations);
+        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
         cancellationToken.ThrowIfCancellationRequested();
         return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
     }

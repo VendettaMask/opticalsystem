@@ -157,7 +157,7 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 工具栏用两个 `WrapPanel` 承载新增、删除、上移、下移、向导、刷新、运行等动作，见 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:80` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:94`。动作多但层级不明显，用户不容易区分“编辑评价函数”和“运行优化”的主次。
 
-2026-07-29 的 Ribbon 更新在面板之外增加了“手动调整 / 自动优化 / 全局优化”三级入口，覆盖快速聚焦、快速调整、变量滑块、评价函数编辑器、向导、执行优化、批量变量操作、差分进化全局搜索和基于 basin hopping 的锤形搜索。玻璃替换模板当前明确为玻璃目录与评价函数的人工替换工作流，不表示已经实现 Zemax Glass Expert 等价算法。
+2026-08-27 已纠正优化入口的名称失实：Ribbon 只显示实际实现的阻尼最小二乘与贪心随机扰动搜索，不再把随机坐标扰动称为差分进化、盆地跳跃或“锤形优化”。玻璃替换模板当前明确为玻璃目录与评价函数的人工替换工作流，不表示已经实现 Zemax Glass Expert 等价算法。
 
 ### P2：多配置面板过于简化，容易误导功能边界
 

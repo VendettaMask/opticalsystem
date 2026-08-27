@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Capabilities;
+
 namespace OptilandWorkbench.Core.FileIO;
 
 public sealed record StepCadExportOptions(
@@ -23,6 +25,10 @@ public static class StepCadExporter
     {
         ArgumentNullException.ThrowIfNull(optic);
         options ??= new StepCadExportOptions();
+        OpticCapabilityPreflight.EnsureSupported(
+            optic,
+            OpticCapabilityOperation.Export,
+            "STEP");
         return StepCadAssemblyWriter.Build(optic, options, cancellationToken);
     }
 }

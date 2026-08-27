@@ -104,9 +104,8 @@ public sealed partial class MainWindow
                             "set-all-thickness-variables",
                             "move-vertical",
                             "设全部厚度变量")),
-                    RibbonGroup("全局优化",
-                        RibbonButton("run-global-optimization", "globe", "全局优化"),
-                        RibbonButton("run-hammer-optimization", "hammer", "锤形优化"),
+                    RibbonGroup("搜索算法",
+                        RibbonButton("run-random-perturbation", "shuffle", "随机扰动搜索"),
                         RibbonButton(
                             "glass-replacement-template",
                             "replace",

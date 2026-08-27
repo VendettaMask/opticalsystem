@@ -1,4 +1,5 @@
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coordinates;
 using CoreBoxParameters = OptilandWorkbench.Core.NonSequential.BoxParameters;
 using CoreCylinderParameters = OptilandWorkbench.Core.NonSequential.CylinderParameters;
@@ -199,6 +200,10 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         () =>
         {
             var optic = Runtime.CurrentOptic;
+            OpticCapabilityPreflight.EnsureSupported(
+                optic,
+                OpticCapabilityOperation.Conversion,
+                "顺序模式转非序列模式");
             var warnings = new List<string>();
             var converted = new List<CoreObjectDefinition>();
             var surfaces = optic.SurfaceGroup.Items;

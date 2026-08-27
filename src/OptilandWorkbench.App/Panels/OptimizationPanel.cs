@@ -401,7 +401,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         var generation = ++_generation;
         var optimizer = _optimizerPicker.SelectedItem as string
             ?? _optimization.OptimizerNames.FirstOrDefault()
-            ?? "Orthogonal Descent";
+            ?? "Damped Least Squares";
         var iterations = _iterationsInput.Value.HasValue
             ? decimal.ToInt32(_iterationsInput.Value.Value)
             : 80;
@@ -421,7 +421,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
 
             _result.Text =
                 $"{result.Message}　评价函数：{NumericDisplayFormatter.Format(result.InitialMerit)} → {NumericDisplayFormatter.Format(result.FinalMerit)}　" +
-                $"迭代：{result.Iterations}";
+                $"迭代：{result.Iterations}　函数评价：{result.FunctionEvaluations}　停止原因：{result.StopReason}";
             _operationStatus.MarkSynced("优化完成");
             Refresh();
         }

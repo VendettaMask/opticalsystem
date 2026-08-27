@@ -160,8 +160,9 @@ public static class ComponentSnapshotFactory
                 ["conic"] = forbes.Base.Conic,
                 ["normalizationRadius"] = forbes.NormalizationRadius
             }, "q"), new Dictionary<string, string>()),
-            PlaceholderFreeformGeometry placeholder => ComponentSnapshot.Empty(placeholder.Kind),
-            _ => ComponentSnapshot.Empty(geometry.Kind)
+            OpaqueGeometryPayload opaque => opaque.Payload,
+            _ => throw new NotSupportedException(
+                $"Geometry '{geometry.Kind}' has no lossless component serializer and cannot be saved as an empty placeholder.")
         };
     }
 
@@ -196,7 +197,7 @@ public static class ComponentSnapshotFactory
             "chebyshev" => new ChebyshevGeometry(ReadPairCoefficients(n), Get(n, "normalizationX", 1), Get(n, "normalizationY", 1)),
             "zernike" => new ZernikeGeometry(ReadPairCoefficients(n), Get(n, "pupilRadius", 1)),
             "forbes_q" => new ForbesQGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), Get(n, "normalizationRadius", 1), ReadCoefficients(n, "q")),
-            _ => new PlaceholderFreeformGeometry(snapshot.Kind)
+            _ => new OpaqueGeometryPayload(snapshot)
         };
     }
 

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Propagation;
@@ -16,6 +17,7 @@ public sealed partial class OpticalSurface
         double cumulativeOpticalPathLength,
         bool ignorePhysicalAperture = false)
     {
+        OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
         var refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
         var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Services;
+using OptilandWorkbench.Core.Capabilities;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -6,6 +7,7 @@ public abstract class BaseAnalysis
 {
     protected BaseAnalysis(Optic optic)
     {
+        OpticCapabilityPreflight.EnsureSupported(optic, OpticCapabilityOperation.Analysis);
         Optic = optic;
     }
 

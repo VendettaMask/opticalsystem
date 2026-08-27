@@ -1,5 +1,6 @@
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Services;
@@ -60,6 +61,7 @@ public sealed class RayGenerator
         bool applyFieldWeight = true,
         bool applyWavelengthWeight = true)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         var apertureRadius = EntrancePupilRadius();
         var samples = ApertureSampler.Generate(Settings.SamplesPerField, Settings.Sampling);
         var rays = new List<RealRay>();
@@ -105,6 +107,7 @@ public sealed class RayGenerator
         int sampleCount,
         string distribution)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var sampling = ParseSampling(distribution);
@@ -137,6 +140,7 @@ public sealed class RayGenerator
         (double X, double Y)? resolvedRealImageLaunch = null,
         bool allowOutsideUnitPupil = false)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         ValidateNormalized(normalizedPupilX, nameof(normalizedPupilX));
@@ -175,6 +179,7 @@ public sealed class RayGenerator
         bool applyVignettingFactors = true,
         IReadOnlyList<(double X, double Y)>? stopTargets = null)
     {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);

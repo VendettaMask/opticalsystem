@@ -2,20 +2,34 @@ using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Optimization;
 
-public sealed class LeastSquaresOptimizer : IOptimizer
+public sealed class DampedLeastSquaresOptimizer : IOptimizer
 {
-    public string Name => "LM / DLS";
+    public string Name => "Damped Least Squares";
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
-        return LevenbergMarquardtSearch.Run(problem, Name, maxIterations);
+        return DampedLeastSquaresSearch.Run(problem, Name, maxIterations);
     }
 }
 
-internal static class LevenbergMarquardtSearch
+[Obsolete("Use DampedLeastSquaresOptimizer. This type is retained only for source compatibility.")]
+public sealed class LeastSquaresOptimizer : IOptimizer
+{
+    private readonly DampedLeastSquaresOptimizer _inner = new();
+
+    public string Name => _inner.Name;
+
+    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100) =>
+        OptimizationResults.WithWarning(
+            _inner.Optimize(problem, maxIterations),
+            OptimizerCatalog.CompatibilityWarning("Least Squares", Name));
+}
+
+internal static class DampedLeastSquaresSearch
 {
     public static OptimizerResult Run(OptimizationProblem problem, string name, int maxIterations)
     {
+        var evaluationStart = problem.FunctionEvaluationCount;
         var current = problem.ScaledVariableVector();
         var evaluation = problem.EvaluateAtScaled(current);
         var initial = ReportedMerit(evaluation);
@@ -25,15 +39,19 @@ internal static class LevenbergMarquardtSearch
         var lambda = 1e-3;
         var iterations = 0;
         var stagnantIterations = 0;
+        var stopReason = "MaximumIterations";
+        double? finalGradientNorm = null;
 
         for (; iterations < maxIterations; iterations++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var jacobian = EstimateJacobian(problem, current, evaluation);
             var gradientNorm = GradientNorm(jacobian.Objective, evaluation.ObjectiveResiduals);
+            finalGradientNorm = gradientNorm;
             if ((!double.IsFinite(gradientNorm) || gradientNorm <= 1e-10)
                 && evaluation.ConstraintError <= 1e-16)
             {
+                stopReason = "GradientTolerance";
                 break;
             }
 
@@ -76,13 +94,24 @@ internal static class LevenbergMarquardtSearch
             stagnantIterations = accepted && meaningful ? 0 : stagnantIterations + 1;
             if (stagnantIterations >= 4)
             {
+                stopReason = "StepOrMeritStagnation";
                 iterations++;
                 break;
             }
         }
 
         problem.SetScaledVariableVector(bestScaled);
-        return OptimizationResults.Create(name, initial, best, iterations, problem.VariableVector(), history);
+        return OptimizationResults.Create(
+            name,
+            "damped-least-squares/1",
+            stopReason,
+            initial,
+            best,
+            iterations,
+            problem.VariableVector(),
+            history,
+            problem.FunctionEvaluationCount - evaluationStart,
+            finalGradientNorm);
     }
 
     private static Jacobian EstimateJacobian(
@@ -506,35 +535,43 @@ internal static class LevenbergMarquardtSearch
         double Threshold);
 }
 
+public sealed class MomentumGradientDescentOptimizer : IOptimizer
+{
+    public string Name => "Momentum Gradient Descent";
+
+    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
+    {
+        return GradientSearch.Run(problem, Name, maxIterations, useMomentum: true);
+    }
+}
+
+[Obsolete("Use MomentumGradientDescentOptimizer. This type is retained only for source compatibility.")]
 public sealed class GradientOptimizer : IOptimizer
 {
+    private readonly string _legacyName;
     private readonly bool _useMomentum;
 
     public GradientOptimizer(string name, bool useMomentum)
     {
-        Name = name;
+        _legacyName = name;
         _useMomentum = useMomentum;
     }
 
-    public string Name { get; }
+    public string Name => _useMomentum ? "Momentum Gradient Descent" : "Gradient Descent";
 
-    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
-    {
-        return GradientSearch.Run(problem, Name, maxIterations, _useMomentum);
-    }
+    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100) =>
+        OptimizationResults.WithWarning(
+            GradientSearch.Run(problem, Name, maxIterations, _useMomentum),
+            OptimizerCatalog.CompatibilityWarning(_legacyName, Name));
 }
 
-public sealed class PowellOptimizer : IOptimizer
+public sealed class CoordinatePatternSearchOptimizer : IOptimizer
 {
-    public PowellOptimizer(string name = "Powell")
-    {
-        Name = name;
-    }
-
-    public string Name { get; }
+    public string Name => "Coordinate Pattern Search";
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
+        var evaluationStart = problem.FunctionEvaluationCount;
         var initial = problem.SumSquared();
         var best = initial;
         var bestVector = problem.VariableVector();
@@ -543,6 +580,7 @@ public sealed class PowellOptimizer : IOptimizer
 
         var iterations = 0;
         var stagnantIterations = 0;
+        var stopReason = "MaximumIterations";
         for (; iterations < maxIterations; iterations++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -585,6 +623,7 @@ public sealed class PowellOptimizer : IOptimizer
                 stagnantIterations++;
                 if (stagnantIterations >= 6)
                 {
+                    stopReason = "StepOrMeritStagnation";
                     iterations++;
                     break;
                 }
@@ -598,8 +637,36 @@ public sealed class PowellOptimizer : IOptimizer
         }
 
         problem.SetVariableVector(bestVector);
-        return OptimizationResults.Create(Name, initial, best, iterations, bestVector, history);
+        return OptimizationResults.Create(
+            Name,
+            "coordinate-pattern-search/1",
+            stopReason,
+            initial,
+            best,
+            iterations,
+            bestVector,
+            history,
+            problem.FunctionEvaluationCount - evaluationStart);
     }
+}
+
+[Obsolete("Use CoordinatePatternSearchOptimizer. This type is retained only for source compatibility.")]
+public sealed class PowellOptimizer : IOptimizer
+{
+    private readonly string _legacyName;
+    private readonly CoordinatePatternSearchOptimizer _inner = new();
+
+    public PowellOptimizer(string name = "Powell")
+    {
+        _legacyName = name;
+    }
+
+    public string Name => _inner.Name;
+
+    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100) =>
+        OptimizationResults.WithWarning(
+            _inner.Optimize(problem, maxIterations),
+            OptimizerCatalog.CompatibilityWarning(_legacyName, Name));
 }
 
 public sealed class NelderMeadOptimizer : IOptimizer
@@ -608,11 +675,21 @@ public sealed class NelderMeadOptimizer : IOptimizer
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
+        var evaluationStart = problem.FunctionEvaluationCount;
         var dimension = problem.Variables.Count;
         var initial = problem.SumSquared();
         if (dimension == 0)
         {
-            return OptimizationResults.Create(Name, initial, initial, 0, Array.Empty<double>(), new[] { initial });
+            return OptimizationResults.Create(
+                Name,
+                "nelder-mead/1",
+                "NoVariables",
+                initial,
+                initial,
+                0,
+                Array.Empty<double>(),
+                new[] { initial },
+                problem.FunctionEvaluationCount - evaluationStart);
         }
 
         var simplex = new List<double[]> { problem.VariableVector() };
@@ -628,6 +705,7 @@ public sealed class NelderMeadOptimizer : IOptimizer
         var iterations = 0;
         var stagnantIterations = 0;
         var previousBest = values.Min();
+        var stopReason = "MaximumIterations";
 
         for (; iterations < maxIterations; iterations++)
         {
@@ -692,6 +770,7 @@ public sealed class NelderMeadOptimizer : IOptimizer
                 stagnantIterations++;
                 if (stagnantIterations >= 8)
                 {
+                    stopReason = "MeritStagnation";
                     iterations++;
                     break;
                 }
@@ -708,7 +787,16 @@ public sealed class NelderMeadOptimizer : IOptimizer
         var bestVector = simplex[bestIndex];
         var final = Evaluate(problem, bestVector);
         problem.SetVariableVector(bestVector);
-        return OptimizationResults.Create(Name, initial, final, iterations, problem.VariableVector(), history);
+        return OptimizationResults.Create(
+            Name,
+            "nelder-mead/1",
+            stopReason,
+            initial,
+            final,
+            iterations,
+            problem.VariableVector(),
+            history,
+            problem.FunctionEvaluationCount - evaluationStart);
     }
 
     private static double Evaluate(OptimizationProblem problem, IReadOnlyList<double> vector)
@@ -740,18 +828,21 @@ public sealed class NelderMeadOptimizer : IOptimizer
     }
 }
 
-public sealed class PopulationSearchOptimizer : IOptimizer
+public sealed class GreedyRandomPerturbationOptimizer : IOptimizer
 {
-    public PopulationSearchOptimizer(string name)
+    private readonly int _randomSeed;
+
+    public GreedyRandomPerturbationOptimizer(int randomSeed = 12345)
     {
-        Name = name;
+        _randomSeed = randomSeed;
     }
 
-    public string Name { get; }
+    public string Name => "Greedy Random Perturbation";
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
-        var random = new Random(12345);
+        var evaluationStart = problem.FunctionEvaluationCount;
+        var random = new Random(_randomSeed);
         var initial = problem.SumSquared();
         var best = initial;
         var bestVector = problem.VariableVector();
@@ -780,14 +871,44 @@ public sealed class PopulationSearchOptimizer : IOptimizer
         }
 
         problem.SetVariableVector(bestVector);
-        return OptimizationResults.Create(Name, initial, best, maxIterations, bestVector, history);
+        return OptimizationResults.Create(
+            Name,
+            "greedy-random-perturbation/1",
+            "MaximumIterations",
+            initial,
+            best,
+            maxIterations,
+            bestVector,
+            history,
+            problem.FunctionEvaluationCount - evaluationStart,
+            randomSeed: _randomSeed);
     }
+}
+
+[Obsolete("Use GreedyRandomPerturbationOptimizer. This type is retained only for source compatibility.")]
+public sealed class PopulationSearchOptimizer : IOptimizer
+{
+    private readonly string _legacyName;
+    private readonly GreedyRandomPerturbationOptimizer _inner = new();
+
+    public PopulationSearchOptimizer(string name)
+    {
+        _legacyName = name;
+    }
+
+    public string Name => _inner.Name;
+
+    public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100) =>
+        OptimizationResults.WithWarning(
+            _inner.Optimize(problem, maxIterations),
+            OptimizerCatalog.CompatibilityWarning(_legacyName, Name));
 }
 
 internal static class GradientSearch
 {
     public static OptimizerResult Run(OptimizationProblem problem, string name, int maxIterations, bool useMomentum)
     {
+        var evaluationStart = problem.FunctionEvaluationCount;
         var initial = problem.SumSquared();
         var best = initial;
         var bestVector = problem.ScaledVariableVector();
@@ -796,6 +917,8 @@ internal static class GradientSearch
         var learningRate = 0.2;
         var iterations = 0;
         var stagnantIterations = 0;
+        var stopReason = "MaximumIterations";
+        double? finalGradientNorm = null;
 
         for (; iterations < maxIterations; iterations++)
         {
@@ -804,8 +927,10 @@ internal static class GradientSearch
             var current = problem.ScaledVariableVector();
             var gradient = EstimateGradient(problem, current, best);
             var gradientNorm = Math.Sqrt(gradient.Sum(component => component * component));
+            finalGradientNorm = gradientNorm;
             if (!double.IsFinite(gradientNorm) || gradientNorm <= 1e-10)
             {
+                stopReason = "GradientTolerance";
                 break;
             }
 
@@ -855,13 +980,24 @@ internal static class GradientSearch
             history.Add(best);
             if (stagnantIterations >= 4 || learningRate <= 1e-6)
             {
+                stopReason = "StepOrMeritStagnation";
                 iterations++;
                 break;
             }
         }
 
         problem.SetScaledVariableVector(bestVector);
-        return OptimizationResults.Create(name, initial, best, iterations, problem.VariableVector(), history);
+        return OptimizationResults.Create(
+            name,
+            useMomentum ? "momentum-gradient-descent/1" : "gradient-descent/1",
+            stopReason,
+            initial,
+            best,
+            iterations,
+            problem.VariableVector(),
+            history,
+            problem.FunctionEvaluationCount - evaluationStart,
+            finalGradientNorm);
     }
 
     private static double[] EstimateGradient(
@@ -893,11 +1029,17 @@ internal static class OptimizationResults
 {
     public static OptimizerResult Create(
         string name,
+        string algorithmVersion,
+        string stopReason,
         double initial,
         double final,
         int iterations,
         IReadOnlyList<double> bestVector,
-        IReadOnlyList<double> history)
+        IReadOnlyList<double> history,
+        long functionEvaluations,
+        double? gradientNorm = null,
+        int? randomSeed = null,
+        IReadOnlyList<string>? warnings = null)
     {
         return new OptimizerResult
         {
@@ -907,7 +1049,37 @@ internal static class OptimizationResults
             Iterations = iterations,
             BestVariables = bestVector.ToArray(),
             MeritHistory = history.ToArray(),
-            Message = $"Optimized with {name}"
+            Message = $"Optimized with {name}",
+            Algorithm = name,
+            AlgorithmVersion = algorithmVersion,
+            StopReason = stopReason,
+            GradientNorm = gradientNorm,
+            FunctionEvaluations = functionEvaluations,
+            RandomSeed = randomSeed,
+            Warnings = warnings?.ToArray() ?? Array.Empty<string>()
+        };
+    }
+
+    public static OptimizerResult WithWarning(OptimizerResult source, string warning)
+    {
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentException.ThrowIfNullOrWhiteSpace(warning);
+        return new OptimizerResult
+        {
+            Success = source.Success,
+            Message = source.Message,
+            InitialMerit = source.InitialMerit,
+            FinalMerit = source.FinalMerit,
+            Iterations = source.Iterations,
+            BestVariables = source.BestVariables,
+            MeritHistory = source.MeritHistory,
+            Algorithm = source.Algorithm,
+            AlgorithmVersion = source.AlgorithmVersion,
+            StopReason = source.StopReason,
+            GradientNorm = source.GradientNorm,
+            FunctionEvaluations = source.FunctionEvaluations,
+            RandomSeed = source.RandomSeed,
+            Warnings = source.Warnings.Append(warning).ToArray()
         };
     }
 }

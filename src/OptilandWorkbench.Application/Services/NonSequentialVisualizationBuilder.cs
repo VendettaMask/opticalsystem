@@ -125,7 +125,23 @@ internal static class NonSequentialVisualizationBuilder
                 OptilandWorkbench.Core.NonSequential.SourceParameters => SceneSurfaceRenderRole.Source,
                 DetectorRectangleParameters => SceneSurfaceRenderRole.Detector,
                 _ => SceneSurfaceRenderRole.NonSequentialObject
-            });
+            },
+            DisplayWavelengthNanometers: SourceDisplayWavelength(document, item));
+    }
+
+    private static double? SourceDisplayWavelength(
+        NonSequentialDocument document,
+        NonSequentialObjectDefinition item)
+    {
+        if (item.Parameters is not OptilandWorkbench.Core.NonSequential.SourceParameters source
+            || source.WavelengthNumber < 1
+            || source.WavelengthNumber > document.Wavelengths.Count)
+        {
+            return null;
+        }
+
+        var wavelength = document.Wavelengths[source.WavelengthNumber - 1].Nanometers;
+        return double.IsFinite(wavelength) && wavelength > 0 ? wavelength : null;
     }
 
     private static Vector3D[][] Plane(double width, double height) => new[]

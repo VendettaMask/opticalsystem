@@ -258,61 +258,67 @@ public sealed class CookeTripletGoldenTests
     [Theory]
     [InlineData("0.25", "[]", "conic_yz")]
     [InlineData("0.0", "[1e-6]", "coeffs_poly_y")]
-    public void PythonJsonImportRejectsUnsupportedToroidalTermsExplicitly(
+    public void PythonJsonImportPreservesUnsupportedToroidalTermsAsOpaquePayload(
         string conicYz,
         string coeffsPolyY,
         string expectedTerm)
     {
         var json = PythonJsonWithToroidalGeometry(conicYz, coeffsPolyY);
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
 
-        Assert.Contains("ToroidalGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains(expectedTerm, error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("ToroidalGeometry", geometry.OriginalType);
+        Assert.Contains(expectedTerm, geometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(expectedTerm, geometry.Payload.Text["optiland.rawJson"], StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void PythonJsonImportRejectsUnsupportedPolynomialBaseExplicitly()
+    public void PythonJsonImportPreservesUnsupportedPolynomialBaseAsOpaquePayload()
     {
         var json = PythonJsonWithPolynomialGeometry("42.0");
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
 
-        Assert.Contains("PolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("PolynomialGeometry", geometry.OriginalType);
+        Assert.Contains("finite base radius", geometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void PythonJsonImportRejectsUnsupportedChebyshevBaseExplicitly()
+    public void PythonJsonImportPreservesUnsupportedChebyshevBaseAsOpaquePayload()
     {
         var json = PythonJsonWithChebyshevGeometry("42.0");
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
 
-        Assert.Contains("ChebyshevPolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("ChebyshevPolynomialGeometry", geometry.OriginalType);
+        Assert.Contains("finite base radius", geometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void PythonJsonImportRejectsUnsupportedZernikeBaseExplicitly()
+    public void PythonJsonImportPreservesUnsupportedZernikeBaseAsOpaquePayload()
     {
         var json = PythonJsonWithZernikeGeometry("42.0", "fringe");
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
 
-        Assert.Contains("ZernikePolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("finite base radius", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("ZernikePolynomialGeometry", geometry.OriginalType);
+        Assert.Contains("finite base radius", geometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void PythonJsonImportRejectsUnsupportedZernikeTypeExplicitly()
+    public void PythonJsonImportPreservesUnsupportedZernikeTypeAsOpaquePayload()
     {
         var json = PythonJsonWithZernikeGeometry("Infinity", "standard");
 
-        var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Deserialize(json));
+        var optic = PythonOptilandJsonStore.Deserialize(json);
+        var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
 
-        Assert.Contains("ZernikePolynomialGeometry", error.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("standard", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("ZernikePolynomialGeometry", geometry.OriginalType);
+        Assert.Contains("standard", geometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -922,11 +928,12 @@ public sealed class CookeTripletGoldenTests
         }
 
         var planeCase = reference.RootElement.GetProperty("cases")[0];
-        var missingPlaneData = Assert.Throws<NotSupportedException>(() =>
-            PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
-                planeCase.GetProperty("geometry_dictionary").GetRawText(),
-                interactionJson: planeCase.GetProperty("interaction_dictionary").GetRawText())));
-        Assert.Contains("order/period/angle", missingPlaneData.Message, StringComparison.OrdinalIgnoreCase);
+        var missingPlaneData = PythonOptilandJsonStore.Deserialize(PythonJsonWithSurfaceGeometry(
+            planeCase.GetProperty("geometry_dictionary").GetRawText(),
+            interactionJson: planeCase.GetProperty("interaction_dictionary").GetRawText()));
+        var missingPlaneGeometry = Assert.IsType<OpaqueGeometryPayload>(
+            missingPlaneData.SurfaceGroup.Items[1].Geometry);
+        Assert.Contains("order/period/angle", missingPlaneGeometry.BlockingReason, StringComparison.OrdinalIgnoreCase);
 
         var invalidPeriodGeometry = PythonGratingGeometry(planeCase)
             .Replace("\"period\": 1.2", "\"period\": 0", StringComparison.Ordinal);
