@@ -235,13 +235,13 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                 Source(p); Field("cone", "圆锥半角 (°)", p.ConeHalfAngleDegrees); break;
             case SourceRectangleParameters p:
                 Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
-                Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+                Field("cone", "兼容圆锥半角 (°)", p.AngularHalfAngleDegrees); SurfaceSourceDistribution(p); break;
             case SourceGaussianParameters p:
                 Source(p); Field("waistX", "X 束腰 (mm)", p.WaistXMillimeters); Field("waistY", "Y 束腰 (mm)", p.WaistYMillimeters);
                 Field("cone", "发散半角 (°)", p.DivergenceHalfAngleDegrees); break;
             case SourceEllipseParameters p:
                 Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
-                Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+                Field("cone", "兼容圆锥半角 (°)", p.AngularHalfAngleDegrees); SurfaceSourceDistribution(p); break;
             case SourceTwoAngleParameters p:
                 Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
                 Field("shape", "发光面形状", p.Shape); Field("angleX", "X 发散半角 (°)", p.AngularHalfAngleXDegrees);
@@ -251,13 +251,16 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                     $"{sample.AngleDegrees.ToString("G17", CultureInfo.InvariantCulture)}:{sample.RelativeIntensity.ToString("G17", CultureInfo.InvariantCulture)}"))); break;
             case SourceVolumeRectangleParameters p:
                 Source(p); Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
-                Field("depth", "深度 (mm)", p.DepthMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+                Field("depth", "深度 (mm)", p.DepthMillimeters); Field("cone", "兼容圆锥半角 (°)", p.AngularHalfAngleDegrees);
+                VolumeSourceDistribution(p.AngularDistribution); break;
             case SourceVolumeEllipseParameters p:
                 Source(p); Field("semiX", "X 半轴 (mm)", p.SemiAxisXMillimeters); Field("semiY", "Y 半轴 (mm)", p.SemiAxisYMillimeters);
-                Field("semiZ", "Z 半轴 (mm)", p.SemiAxisZMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+                Field("semiZ", "Z 半轴 (mm)", p.SemiAxisZMillimeters); Field("cone", "兼容圆锥半角 (°)", p.AngularHalfAngleDegrees);
+                VolumeSourceDistribution(p.AngularDistribution); break;
             case SourceVolumeCylinderParameters p:
                 Source(p); Field("radiusX", "X 半径 (mm)", p.RadiusXMillimeters); Field("radiusY", "Y 半径 (mm)", p.RadiusYMillimeters);
-                Field("length", "轴向长度 (mm)", p.LengthMillimeters); Field("cone", "角分布半角 (°)", p.AngularHalfAngleDegrees); break;
+                Field("length", "轴向长度 (mm)", p.LengthMillimeters); Field("cone", "兼容圆锥半角 (°)", p.AngularHalfAngleDegrees);
+                VolumeSourceDistribution(p.AngularDistribution); break;
             case PlaneRectangleParameters p:
                 Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
                 Field("behavior", "交互", p.Behavior); Field("before", "前侧材料", p.MaterialBefore); Field("after", "后侧材料", p.MaterialAfter); break;
@@ -297,6 +300,41 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         Field("analysis", "分析射线数", p.AnalysisRayCount);
     }
 
+    private void SurfaceSourceDistribution(SourceRectangleParameters p) => SurfaceSourceDistribution(
+        p.AngularDistribution, p.SourceDistanceMillimeters, p.CosineExponent, p.GaussianX, p.GaussianY,
+        p.SourceX, p.SourceY, p.MinimumXHalfWidthMillimeters, p.MinimumYHalfWidthMillimeters);
+
+    private void SurfaceSourceDistribution(SourceEllipseParameters p) => SurfaceSourceDistribution(
+        p.AngularDistribution, p.SourceDistanceMillimeters, p.CosineExponent, p.GaussianX, p.GaussianY,
+        p.SourceX, p.SourceY, p.MinimumXHalfWidthMillimeters, p.MinimumYHalfWidthMillimeters);
+
+    private void SurfaceSourceDistribution(
+        NonSequentialSurfaceSourceAngularDistribution distribution,
+        double sourceDistance,
+        double cosineExponent,
+        double gaussianX,
+        double gaussianY,
+        double sourceX,
+        double sourceY,
+        double minimumXHalfWidth,
+        double minimumYHalfWidth)
+    {
+        Field("angularDistribution", "Zemax 方向分布", distribution);
+        Field("sourceDistance", "虚拟点距离 (mm)", sourceDistance);
+        Field("cosineExponent", "Cosine 指数", cosineExponent);
+        Field("gaussianX", "Gaussian X 系数", gaussianX);
+        Field("gaussianY", "Gaussian Y 系数", gaussianY);
+        Field("sourceX", "Source X", sourceX);
+        Field("sourceY", "Source Y", sourceY);
+        Field("minimumXHalfWidth", "最小 X 半宽 (mm)", minimumXHalfWidth);
+        Field("minimumYHalfWidth", "最小 Y 半宽 (mm)", minimumYHalfWidth);
+    }
+
+    private void VolumeSourceDistribution(NonSequentialVolumeSourceAngularDistribution distribution)
+    {
+        Field("angularDistribution", "Zemax 方向分布", distribution);
+    }
+
     private void ApplyProperties()
     {
         if (_grid.SelectedItem is not ObjectRow row) return;
@@ -316,14 +354,14 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     {
         SourceRayParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), Origin = V("origin"), Direction = V("direction") },
         SourcePointParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), ConeHalfAngleDegrees = D("cone") },
-        SourceRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone") },
+        SourceRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone"), AngularDistribution = E<NonSequentialSurfaceSourceAngularDistribution>("angularDistribution"), SourceDistanceMillimeters = D("sourceDistance"), CosineExponent = D("cosineExponent"), GaussianX = D("gaussianX"), GaussianY = D("gaussianY"), SourceX = D("sourceX"), SourceY = D("sourceY"), MinimumXHalfWidthMillimeters = D("minimumXHalfWidth"), MinimumYHalfWidthMillimeters = D("minimumYHalfWidth") },
         SourceGaussianParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WaistXMillimeters = D("waistX"), WaistYMillimeters = D("waistY"), DivergenceHalfAngleDegrees = D("cone") },
-        SourceEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone") },
+        SourceEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), AngularHalfAngleDegrees = D("cone"), AngularDistribution = E<NonSequentialSurfaceSourceAngularDistribution>("angularDistribution"), SourceDistanceMillimeters = D("sourceDistance"), CosineExponent = D("cosineExponent"), GaussianX = D("gaussianX"), GaussianY = D("gaussianY"), SourceX = D("sourceX"), SourceY = D("sourceY"), MinimumXHalfWidthMillimeters = D("minimumXHalfWidth"), MinimumYHalfWidthMillimeters = D("minimumYHalfWidth") },
         SourceTwoAngleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), Shape = E<NonSequentialSourceApertureShape>("shape"), AngularHalfAngleXDegrees = D("angleX"), AngularHalfAngleYDegrees = D("angleY") },
         SourceRadialParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), Samples = RadialSamples("samples") },
-        SourceVolumeRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), DepthMillimeters = D("depth"), AngularHalfAngleDegrees = D("cone") },
-        SourceVolumeEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), SemiAxisXMillimeters = D("semiX"), SemiAxisYMillimeters = D("semiY"), SemiAxisZMillimeters = D("semiZ"), AngularHalfAngleDegrees = D("cone") },
-        SourceVolumeCylinderParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), RadiusXMillimeters = D("radiusX"), RadiusYMillimeters = D("radiusY"), LengthMillimeters = D("length"), AngularHalfAngleDegrees = D("cone") },
+        SourceVolumeRectangleParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), WidthMillimeters = D("width"), HeightMillimeters = D("height"), DepthMillimeters = D("depth"), AngularHalfAngleDegrees = D("cone"), AngularDistribution = E<NonSequentialVolumeSourceAngularDistribution>("angularDistribution") },
+        SourceVolumeEllipseParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), SemiAxisXMillimeters = D("semiX"), SemiAxisYMillimeters = D("semiY"), SemiAxisZMillimeters = D("semiZ"), AngularHalfAngleDegrees = D("cone"), AngularDistribution = E<NonSequentialVolumeSourceAngularDistribution>("angularDistribution") },
+        SourceVolumeCylinderParameters p => p with { PowerWatts = D("power"), WavelengthNumber = I("wavelength"), LayoutRayCount = I("layout"), AnalysisRayCount = I("analysis"), RadiusXMillimeters = D("radiusX"), RadiusYMillimeters = D("radiusY"), LengthMillimeters = D("length"), AngularHalfAngleDegrees = D("cone"), AngularDistribution = E<NonSequentialVolumeSourceAngularDistribution>("angularDistribution") },
         PlaneRectangleParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), Behavior = E<NonSequentialSurfaceBehavior>("behavior"), MaterialBefore = S("before"), MaterialAfter = S("after") },
         SphereParameters p => p with { RadiusMillimeters = D("radius"), Material = S("material"), Behavior = E<NonSequentialSurfaceBehavior>("behavior") },
         CylinderParameters p => p with { RadiusMillimeters = D("radius"), LengthMillimeters = D("length"), Material = S("material"), Behavior = E<NonSequentialSurfaceBehavior>("behavior") },

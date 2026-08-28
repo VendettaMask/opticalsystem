@@ -21,6 +21,8 @@ using CoreSourceTwoAngleParameters = OptilandWorkbench.Core.NonSequential.Source
 using CoreSourceVolumeCylinderParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeCylinderParameters;
 using CoreSourceVolumeEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeEllipseParameters;
 using CoreSourceVolumeRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters;
+using CoreSurfaceSourceAngularDistribution = OptilandWorkbench.Core.NonSequential.NonSequentialSurfaceSourceAngularDistribution;
+using CoreVolumeSourceAngularDistribution = OptilandWorkbench.Core.NonSequential.NonSequentialVolumeSourceAngularDistribution;
 using CoreSphereParameters = OptilandWorkbench.Core.NonSequential.SphereParameters;
 using CoreStandardLensParameters = OptilandWorkbench.Core.NonSequential.StandardLensParameters;
 using CoreMeshObjectParameters = OptilandWorkbench.Core.NonSequential.MeshObjectParameters;
@@ -466,13 +468,19 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             source.LayoutRayCount, source.AnalysisRayCount),
         CoreSourceRectangleParameters source => new SourceRectangleParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
-            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount,
+            (NonSequentialSurfaceSourceAngularDistribution)(int)source.AngularDistribution,
+            source.SourceDistanceMillimeters, source.CosineExponent, source.GaussianX, source.GaussianY,
+            source.SourceX, source.SourceY, source.MinimumXHalfWidthMillimeters, source.MinimumYHalfWidthMillimeters),
         CoreSourceGaussianParameters source => new SourceGaussianParameters(
             source.WaistXMillimeters, source.WaistYMillimeters, source.DivergenceHalfAngleDegrees,
             source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
         CoreSourceEllipseParameters source => new SourceEllipseParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
-            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount,
+            (NonSequentialSurfaceSourceAngularDistribution)(int)source.AngularDistribution,
+            source.SourceDistanceMillimeters, source.CosineExponent, source.GaussianX, source.GaussianY,
+            source.SourceX, source.SourceY, source.MinimumXHalfWidthMillimeters, source.MinimumYHalfWidthMillimeters),
         CoreSourceTwoAngleParameters source => new SourceTwoAngleParameters(
             source.WidthMillimeters, source.HeightMillimeters,
             (NonSequentialSourceApertureShape)(int)source.Shape,
@@ -485,15 +493,18 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         CoreSourceVolumeRectangleParameters source => new SourceVolumeRectangleParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.DepthMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (NonSequentialVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         CoreSourceVolumeEllipseParameters source => new SourceVolumeEllipseParameters(
             source.SemiAxisXMillimeters, source.SemiAxisYMillimeters, source.SemiAxisZMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (NonSequentialVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         CoreSourceVolumeCylinderParameters source => new SourceVolumeCylinderParameters(
             source.RadiusXMillimeters, source.RadiusYMillimeters, source.LengthMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (NonSequentialVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         CorePlaneRectangleParameters plane => new PlaneRectangleParameters(
             plane.WidthMillimeters, plane.HeightMillimeters, ToDto(plane.Behavior),
             plane.MaterialBefore, plane.MaterialAfter),
@@ -522,13 +533,19 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             source.LayoutRayCount, source.AnalysisRayCount),
         SourceRectangleParameters source => new CoreSourceRectangleParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
-            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount,
+            (CoreSurfaceSourceAngularDistribution)(int)source.AngularDistribution,
+            source.SourceDistanceMillimeters, source.CosineExponent, source.GaussianX, source.GaussianY,
+            source.SourceX, source.SourceY, source.MinimumXHalfWidthMillimeters, source.MinimumYHalfWidthMillimeters),
         SourceGaussianParameters source => new CoreSourceGaussianParameters(
             source.WaistXMillimeters, source.WaistYMillimeters, source.DivergenceHalfAngleDegrees,
             source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
         SourceEllipseParameters source => new CoreSourceEllipseParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.AngularHalfAngleDegrees,
-            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount),
+            source.PowerWatts, source.WavelengthNumber, source.LayoutRayCount, source.AnalysisRayCount,
+            (CoreSurfaceSourceAngularDistribution)(int)source.AngularDistribution,
+            source.SourceDistanceMillimeters, source.CosineExponent, source.GaussianX, source.GaussianY,
+            source.SourceX, source.SourceY, source.MinimumXHalfWidthMillimeters, source.MinimumYHalfWidthMillimeters),
         SourceTwoAngleParameters source => new CoreSourceTwoAngleParameters(
             source.WidthMillimeters, source.HeightMillimeters,
             (OptilandWorkbench.Core.NonSequential.NonSequentialSourceApertureShape)(int)source.Shape,
@@ -541,15 +558,18 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         SourceVolumeRectangleParameters source => new CoreSourceVolumeRectangleParameters(
             source.WidthMillimeters, source.HeightMillimeters, source.DepthMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (CoreVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         SourceVolumeEllipseParameters source => new CoreSourceVolumeEllipseParameters(
             source.SemiAxisXMillimeters, source.SemiAxisYMillimeters, source.SemiAxisZMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (CoreVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         SourceVolumeCylinderParameters source => new CoreSourceVolumeCylinderParameters(
             source.RadiusXMillimeters, source.RadiusYMillimeters, source.LengthMillimeters,
             source.AngularHalfAngleDegrees, source.PowerWatts, source.WavelengthNumber,
-            source.LayoutRayCount, source.AnalysisRayCount),
+            source.LayoutRayCount, source.AnalysisRayCount,
+            (CoreVolumeSourceAngularDistribution)(int)source.AngularDistribution),
         PlaneRectangleParameters plane => new CorePlaneRectangleParameters(
             plane.WidthMillimeters, plane.HeightMillimeters, ToCore(plane.Behavior),
             plane.MaterialBefore, plane.MaterialAfter),

@@ -351,6 +351,48 @@ public sealed class NonSequentialDocumentTests
     }
 
     [Fact]
+    public async Task RefreshLayoutSessionRetracesEvenWhenCurrentSessionIsValid()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var prepared = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var reused = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var refreshed = await application.NonSequentialAnalysis.RefreshLayoutSessionAsync();
+
+        Assert.Equal(prepared.Id, reused.Id);
+        Assert.NotEqual(prepared.Id, refreshed.Id);
+        Assert.False(refreshed.IsStale);
+        Assert.Equal(1, refreshed.TracePassCount);
+        Assert.Equal(refreshed.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+    }
+
+    [Fact]
+    public async Task VisualizationDrawsEscapedSourceOnlyLayoutRays()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourceEllipse);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
+
+        Assert.Equal(20, threeDimensional.Rays.Count);
+        Assert.All(threeDimensional.Rays, ray =>
+        {
+            var segment = Assert.Single(ray.Segments);
+            Assert.Equal(SceneRaySegmentType.Unspecified, segment.SegmentType);
+            Assert.Equal(SceneRayInteractionType.None, segment.InteractionType);
+            Assert.Null(segment.TargetSurfaceNumber);
+            Assert.Equal(1, segment.Direction.Z, 12);
+            Assert.True(segment.End.Z > segment.Start.Z);
+        });
+        Assert.True(threeDimensional.ZMax > 0);
+    }
+
+    [Fact]
     public async Task AnalysisAndLayoutSessionsRemainIndependent()
     {
         using var application = WorkbenchApplication.Create("blank");

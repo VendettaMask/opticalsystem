@@ -50,10 +50,15 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             return current;
         }
 
-        await TraceCoreAsync(new NonSequentialTraceRunRequestDto(
-            OutputMode: OptilandWorkbench.Application.Contracts.NonSequentialTraceOutputMode.RayDatabase,
-            AnalysisRays: false,
-            Command: NonSequentialTraceCommand.ClearAndTrace), _layoutSession, cancellationToken).ConfigureAwait(false);
+        await TraceCoreAsync(CreateLayoutTraceRequest(), _layoutSession, cancellationToken).ConfigureAwait(false);
+        return GetCurrentLayoutSession()
+            ?? throw new InvalidOperationException("非序列布局追迹完成后未建立结果会话。");
+    }
+
+    public async Task<NonSequentialTraceSessionDto> RefreshLayoutSessionAsync(
+        CancellationToken cancellationToken = default)
+    {
+        await TraceCoreAsync(CreateLayoutTraceRequest(), _layoutSession, cancellationToken).ConfigureAwait(false);
         return GetCurrentLayoutSession()
             ?? throw new InvalidOperationException("非序列布局追迹完成后未建立结果会话。");
     }
@@ -71,6 +76,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     {
         return await TraceCoreAsync(request, _analysisSession, cancellationToken).ConfigureAwait(false);
     }
+
+    private static NonSequentialTraceRunRequestDto CreateLayoutTraceRequest() => new(
+        OutputMode: OptilandWorkbench.Application.Contracts.NonSequentialTraceOutputMode.RayDatabase,
+        AnalysisRays: false,
+        Command: NonSequentialTraceCommand.ClearAndTrace);
 
     private async Task<NonSequentialTraceRunResultDto> TraceCoreAsync(
         NonSequentialTraceRunRequestDto request,

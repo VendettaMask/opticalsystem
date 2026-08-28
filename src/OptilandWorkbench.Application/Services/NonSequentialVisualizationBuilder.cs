@@ -22,6 +22,7 @@ using SourceRadialParameters = OptilandWorkbench.Core.NonSequential.SourceRadial
 using SourceVolumeRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters;
 using SourceVolumeEllipseParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeEllipseParameters;
 using SourceVolumeCylinderParameters = OptilandWorkbench.Core.NonSequential.SourceVolumeCylinderParameters;
+using CoreTerminationReason = OptilandWorkbench.Core.Raytrace.NonSequentialTerminationReason;
 
 namespace OptilandWorkbench.Application.Services;
 
@@ -38,14 +39,11 @@ internal static class NonSequentialVisualizationBuilder
         var surfaces = document.Objects.Where(item => item.Visible)
             .Select(item => BuildObject(document, item, numberById[item.Id]))
             .ToArray();
-        // Non-sequential analysis views must agree on one trace result. Before a
-        // trace session exists the 3D layout intentionally shows geometry only;
-        // refreshing a viewer must never launch a new random trace implicitly.
         var branches = databaseBranches ?? Array.Empty<NonSequentialRayBranch>();
+        var geometryPoints = surfaces.SelectMany(surface => surface.Faces.SelectMany(face => face.Points)).ToArray();
+        var escapeTailLength = EscapeTailLength(geometryPoints);
         var rays = branches.Select((branch, index) =>
         {
-            var points = branch.Segments.SelectMany(segment => new[] { segment.Start, segment.End })
-                .Distinct().Select(ToPoint).ToArray();
             var segments = branch.Segments.Select((segment, segmentIndex) => new SceneRaySegment3Dto(
                 ToPoint(segment.Start),
                 ToPoint(segment.End),
@@ -55,7 +53,25 @@ internal static class NonSequentialVisualizationBuilder
                 segmentIndex == 0 ? null : branch.Segments[segmentIndex - 1].ObjectId is Guid previous
                     ? numberById.GetValueOrDefault(previous)
                     : null,
-                segment.ObjectId is Guid current ? numberById.GetValueOrDefault(current) : null)).ToArray();
+                segment.ObjectId is Guid current ? numberById.GetValueOrDefault(current) : null)).ToList();
+            if (branch.TerminationReason == CoreTerminationReason.Escaped
+                && EscapeState(branch) is { } escape)
+            {
+                var end = escape.Origin + escape.Direction * escapeTailLength;
+                segments.Add(new SceneRaySegment3Dto(
+                    ToPoint(escape.Origin),
+                    ToPoint(end),
+                    ToDirection(escape.Direction),
+                    SceneRaySegmentType.Unspecified,
+                    SceneRayInteractionType.None,
+                    branch.Segments.LastOrDefault()?.ObjectId is Guid previous
+                        ? numberById.GetValueOrDefault(previous)
+                        : null,
+                    null));
+            }
+
+            var points = segments.SelectMany(segment => new[] { segment.Start, segment.End })
+                .Distinct().ToArray();
             return new SceneRay3Dto(
                 index + 1,
                 0,
@@ -65,7 +81,7 @@ internal static class NonSequentialVisualizationBuilder
                 false,
                 branch.FinalIntensity,
                 points,
-                segments);
+                segments.ToArray());
         }).ToArray();
         var allPoints = surfaces.SelectMany(surface => surface.Faces.SelectMany(face => face.Points))
             .Concat(rays.SelectMany(ray => ray.Points)).ToArray();
@@ -74,6 +90,33 @@ internal static class NonSequentialVisualizationBuilder
         var zMin = allPoints.Length == 0 ? -10 : allPoints.Min(point => point.Z);
         var zMax = allPoints.Length == 0 ? 10 : allPoints.Max(point => point.Z);
         return new Scene3Dto(surfaces, Array.Empty<SceneLensElement3Dto>(), rays, extentX, extentY, zMin, zMax);
+    }
+
+    private static (Vector3D Origin, Vector3D Direction)? EscapeState(NonSequentialRayBranch branch)
+    {
+        if (branch.FinalOrigin is Vector3D origin
+            && branch.FinalDirection is Vector3D direction
+            && direction.Length > 1e-15)
+        {
+            return (origin, direction / direction.Length);
+        }
+
+        return branch.Segments.LastOrDefault() is { } last && last.OutgoingDirection.Length > 1e-15
+            ? (last.End, last.OutgoingDirection / last.OutgoingDirection.Length)
+            : null;
+    }
+
+    private static double EscapeTailLength(IReadOnlyList<ScenePoint3Dto> geometryPoints)
+    {
+        if (geometryPoints.Count == 0)
+        {
+            return 10;
+        }
+
+        var spanX = geometryPoints.Max(point => point.X) - geometryPoints.Min(point => point.X);
+        var spanY = geometryPoints.Max(point => point.Y) - geometryPoints.Min(point => point.Y);
+        var spanZ = geometryPoints.Max(point => point.Z) - geometryPoints.Min(point => point.Z);
+        return Math.Max(10, Math.Max(spanX, Math.Max(spanY, spanZ)) * 0.75);
     }
 
     private static SceneSurface3Dto BuildObject(

@@ -339,7 +339,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public async Task NonSequentialThreeDimensionalViewerDoesNotTraceUntilExplicitlyRequested()
+    public async Task NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically()
     {
         using var application = WorkbenchApplication.Create("blank");
         var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
@@ -368,19 +368,17 @@ public sealed class WorkspaceDockModelTests
             manager.Factory.OpenDocuments(),
             item => item.Id == "document:viewer-3d");
 
-        await Task.Delay(150);
         Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
-        Assert.Null(application.NonSequentialAnalysis.GetCurrentLayoutSession());
-        var emptyScene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
-        Assert.Empty(Assert.IsType<Scene3Dto>(emptyScene.ThreeDimensional).Rays);
-        Assert.False(Assert.IsType<NonSequentialLayoutResultDto>(
-            emptyScene.NonSequentialLayoutResult).HasResult);
-
-        var session = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var session = await WaitForFreshLayoutSessionAsync(application);
         Assert.True(session.BranchCount > 0);
-        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.False(session.IsStale);
         var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
         Assert.NotEmpty(Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays);
+        Assert.True(Assert.IsType<NonSequentialLayoutResultDto>(
+            scene.NonSequentialLayoutResult).HasResult);
+
+        var reused = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.Equal(session.Id, reused.Id);
 
         var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
         application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
@@ -406,7 +404,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void OpeningViewerDoesNotDeleteExistingStaleManagedLayoutDatabase()
+    public async Task OpeningViewerRefreshesExistingStaleManagedLayoutDatabase()
     {
         using var application = WorkbenchApplication.Create("blank");
         var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
@@ -439,12 +437,9 @@ public sealed class WorkspaceDockModelTests
         using var manager = new PanelManager(application, new AppSettings());
         manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
 
-        var afterOpen = application.NonSequentialAnalysis.GetCurrentLayoutSession();
-        Assert.NotNull(afterOpen);
-        Assert.Equal(session.Id, afterOpen!.Id);
-        Assert.Equal(session.RayDatabasePath, afterOpen.RayDatabasePath);
-        Assert.True(File.Exists(session.RayDatabasePath));
-        Assert.True(afterOpen.IsStale);
+        var afterOpen = await WaitForFreshLayoutSessionAsync(application, session.Id);
+        Assert.NotEqual(session.RayDatabasePath, afterOpen.RayDatabasePath);
+        Assert.True(File.Exists(afterOpen.RayDatabasePath));
     }
 
     [Fact]
@@ -669,6 +664,34 @@ public sealed class WorkspaceDockModelTests
         {
             [nameof(IDockWindow)] = () => new TestHostWindow()
         };
+    }
+
+    private static async Task<NonSequentialTraceSessionDto> WaitForFreshLayoutSessionAsync(
+        WorkbenchApplication application,
+        Guid? differentFrom = null)
+    {
+        var deadline = DateTimeOffset.UtcNow.AddSeconds(3);
+        while (DateTimeOffset.UtcNow < deadline)
+        {
+            var current = application.NonSequentialAnalysis.GetCurrentLayoutSession();
+            if (current is { IsStale: false }
+                && (differentFrom is not Guid id || current.Id != id))
+            {
+                return current;
+            }
+
+            await Task.Delay(50);
+        }
+
+        var final = application.NonSequentialAnalysis.GetCurrentLayoutSession();
+        Assert.NotNull(final);
+        Assert.False(final!.IsStale);
+        if (differentFrom is Guid expectedDifferent)
+        {
+            Assert.NotEqual(expectedDifferent, final.Id);
+        }
+
+        return final;
     }
 
     private sealed class TestHostWindow : IHostWindow

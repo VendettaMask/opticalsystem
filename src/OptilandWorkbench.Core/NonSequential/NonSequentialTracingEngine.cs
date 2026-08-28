@@ -73,7 +73,9 @@ public sealed record NonSequentialRayBranch(
     IReadOnlyList<NonSequentialRaySegment> Segments,
     NonSequentialTerminationReason TerminationReason,
     double FinalIntensity,
-    double WavelengthNanometers = 0);
+    double WavelengthNanometers = 0,
+    Vector3D? FinalOrigin = null,
+    Vector3D? FinalDirection = null);
 
 public sealed record NonSequentialDetectorFrame(
     Guid DetectorId,
@@ -529,21 +531,14 @@ public sealed class NonSequentialDocumentTracer
                 {
                     SourceRayParameters ray => (ray.Origin, Normalize(ray.Direction)),
                     SourcePointParameters point => (Vector3D.Zero, ConeDirection(random, point.ConeHalfAngleDegrees)),
-                    SourceRectangleParameters rectangle => (
-                        new Vector3D(
-                            (random.NextDouble() - 0.5) * rectangle.WidthMillimeters,
-                            (random.NextDouble() - 0.5) * rectangle.HeightMillimeters,
-                            0),
-                        ConeDirection(random, rectangle.AngularHalfAngleDegrees)),
+                    SourceRectangleParameters rectangle => SurfaceSourceRay(random, rectangle),
                     SourceGaussianParameters gaussian => (
                         new Vector3D(
                             NextGaussian(random) * gaussian.WaistXMillimeters / 2,
                             NextGaussian(random) * gaussian.WaistYMillimeters / 2,
                             0),
                         GaussianDirection(random, gaussian.DivergenceHalfAngleDegrees)),
-                    SourceEllipseParameters ellipse => (
-                        EllipsePoint(random, ellipse.WidthMillimeters / 2, ellipse.HeightMillimeters / 2),
-                        ConeDirection(random, ellipse.AngularHalfAngleDegrees)),
+                    SourceEllipseParameters ellipse => SurfaceSourceRay(random, ellipse),
                     SourceTwoAngleParameters twoAngle => (
                         twoAngle.Shape == NonSequentialSourceApertureShape.Ellipse
                             ? EllipsePoint(random, twoAngle.WidthMillimeters / 2, twoAngle.HeightMillimeters / 2)
@@ -561,21 +556,30 @@ public sealed class NonSequentialDocumentTracer
                             volumeRectangle.WidthMillimeters,
                             volumeRectangle.HeightMillimeters,
                             volumeRectangle.DepthMillimeters),
-                        ConeDirection(random, volumeRectangle.AngularHalfAngleDegrees)),
+                        VolumeDirection(
+                            random,
+                            volumeRectangle.AngularDistribution,
+                            volumeRectangle.AngularHalfAngleDegrees)),
                     SourceVolumeEllipseParameters volumeEllipse => (
                         EllipsoidPoint(
                             random,
                             volumeEllipse.SemiAxisXMillimeters,
                             volumeEllipse.SemiAxisYMillimeters,
                             volumeEllipse.SemiAxisZMillimeters),
-                        ConeDirection(random, volumeEllipse.AngularHalfAngleDegrees)),
+                        VolumeDirection(
+                            random,
+                            volumeEllipse.AngularDistribution,
+                            volumeEllipse.AngularHalfAngleDegrees)),
                     SourceVolumeCylinderParameters volumeCylinder => (
                         CylinderPoint(
                             random,
                             volumeCylinder.RadiusXMillimeters,
                             volumeCylinder.RadiusYMillimeters,
                             volumeCylinder.LengthMillimeters),
-                        ConeDirection(random, volumeCylinder.AngularHalfAngleDegrees)),
+                        VolumeDirection(
+                            random,
+                            volumeCylinder.AngularDistribution,
+                            volumeCylinder.AngularHalfAngleDegrees)),
                     _ => throw new InvalidOperationException("Unknown source object.")
                 };
                 yield return new GeneratedRay(
@@ -844,7 +848,9 @@ public sealed class NonSequentialDocumentTracer
         state.Segments.ToArray(),
         reason,
         state.Ray.Intensity,
-        state.Ray.WavelengthNanometers);
+        state.Ray.WavelengthNanometers,
+        state.Ray.Origin,
+        state.Ray.Direction);
 
     private static OpticalResult RefractAndFresnel(Vector3D direction, Vector3D normal, double n1, double n2)
     {
@@ -880,6 +886,140 @@ public sealed class NonSequentialDocumentTracer
         or NonSequentialObjectKind.SourceEllipse or NonSequentialObjectKind.SourceTwoAngle or NonSequentialObjectKind.SourceRadial
         or NonSequentialObjectKind.SourceVolumeRectangle or NonSequentialObjectKind.SourceVolumeEllipse
         or NonSequentialObjectKind.SourceVolumeCylinder;
+
+    private static (Vector3D Origin, Vector3D Direction) SurfaceSourceRay(
+        Random random,
+        SourceRectangleParameters source)
+    {
+        var origin = RectangleSourcePoint(
+            random,
+            source.WidthMillimeters,
+            source.HeightMillimeters,
+            source.MinimumXHalfWidthMillimeters,
+            source.MinimumYHalfWidthMillimeters);
+        return (origin, SurfaceSourceDirection(
+            random,
+            origin,
+            source.AngularDistribution,
+            source.AngularHalfAngleDegrees,
+            source.SourceDistanceMillimeters,
+            source.CosineExponent,
+            source.GaussianX,
+            source.GaussianY,
+            source.SourceX,
+            source.SourceY));
+    }
+
+    private static (Vector3D Origin, Vector3D Direction) SurfaceSourceRay(
+        Random random,
+        SourceEllipseParameters source)
+    {
+        var origin = EllipseSourcePoint(
+            random,
+            source.WidthMillimeters / 2,
+            source.HeightMillimeters / 2,
+            source.MinimumXHalfWidthMillimeters,
+            source.MinimumYHalfWidthMillimeters);
+        return (origin, SurfaceSourceDirection(
+            random,
+            origin,
+            source.AngularDistribution,
+            source.AngularHalfAngleDegrees,
+            source.SourceDistanceMillimeters,
+            source.CosineExponent,
+            source.GaussianX,
+            source.GaussianY,
+            source.SourceX,
+            source.SourceY));
+    }
+
+    private static Vector3D SurfaceSourceDirection(
+        Random random,
+        Vector3D origin,
+        NonSequentialSurfaceSourceAngularDistribution distribution,
+        double legacyConeHalfAngleDegrees,
+        double sourceDistance,
+        double cosineExponent,
+        double gaussianX,
+        double gaussianY,
+        double sourceX,
+        double sourceY) => distribution switch
+        {
+            NonSequentialSurfaceSourceAngularDistribution.LegacyUniformCone =>
+                ConeDirection(random, legacyConeHalfAngleDegrees),
+            NonSequentialSurfaceSourceAngularDistribution.VirtualPoint =>
+                VirtualPointDirection(origin, sourceDistance, sourceX, sourceY),
+            NonSequentialSurfaceSourceAngularDistribution.Cosine =>
+                CosineDirection(random, cosineExponent),
+            NonSequentialSurfaceSourceAngularDistribution.Gaussian =>
+                GaussianDirectionCosines(random, gaussianX, gaussianY),
+            _ => throw new InvalidOperationException("Unknown surface-source angular distribution.")
+        };
+
+    private static Vector3D VirtualPointDirection(
+        Vector3D origin,
+        double sourceDistance,
+        double sourceX,
+        double sourceY)
+    {
+        if (Math.Abs(sourceDistance) <= 1e-15)
+        {
+            var z = Math.Sqrt(Math.Max(0, 1 - sourceX * sourceX - sourceY * sourceY));
+            return Normalize(new Vector3D(sourceX, sourceY, z));
+        }
+
+        return Normalize(origin - new Vector3D(sourceX, sourceY, -sourceDistance));
+    }
+
+    private static Vector3D CosineDirection(Random random, double exponent)
+    {
+        var cosTheta = Math.Pow(random.NextDouble(), 1 / (exponent + 1));
+        var sinTheta = Math.Sqrt(Math.Max(0, 1 - cosTheta * cosTheta));
+        var phi = random.NextDouble() * Math.PI * 2;
+        return new Vector3D(sinTheta * Math.Cos(phi), sinTheta * Math.Sin(phi), cosTheta);
+    }
+
+    private static Vector3D GaussianDirectionCosines(Random random, double gaussianX, double gaussianY)
+    {
+        for (var attempt = 0; attempt < 100_000; attempt++)
+        {
+            var l = random.NextDouble() * 2 - 1;
+            var m = random.NextDouble() * 2 - 1;
+            var radiusSquared = l * l + m * m;
+            if (radiusSquared >= 1)
+            {
+                continue;
+            }
+
+            var relative = Math.Exp(-(gaussianX * l * l + gaussianY * m * m));
+            if (random.NextDouble() <= relative)
+            {
+                return new Vector3D(l, m, Math.Sqrt(1 - radiusSquared));
+            }
+        }
+
+        return new Vector3D(0, 0, 1);
+    }
+
+    private static Vector3D VolumeDirection(
+        Random random,
+        NonSequentialVolumeSourceAngularDistribution distribution,
+        double legacyConeHalfAngleDegrees) => distribution switch
+        {
+            NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone =>
+                ConeDirection(random, legacyConeHalfAngleDegrees),
+            NonSequentialVolumeSourceAngularDistribution.UniformSphere =>
+                UniformSphereDirection(random),
+            _ => throw new InvalidOperationException("Unknown volume-source angular distribution.")
+        };
+
+    private static Vector3D UniformSphereDirection(Random random)
+    {
+        var z = random.NextDouble() * 2 - 1;
+        var radius = Math.Sqrt(Math.Max(0, 1 - z * z));
+        var phi = random.NextDouble() * Math.PI * 2;
+        return new Vector3D(radius * Math.Cos(phi), radius * Math.Sin(phi), z);
+    }
 
     private static Vector3D ConeDirection(Random random, double halfAngleDegrees)
     {
@@ -957,6 +1097,47 @@ public sealed class NonSequentialDocumentTracer
         var radius = Math.Sqrt(random.NextDouble());
         var angle = random.NextDouble() * Math.PI * 2;
         return new Vector3D(radiusX * radius * Math.Cos(angle), radiusY * radius * Math.Sin(angle), 0);
+    }
+
+    private static Vector3D EllipseSourcePoint(
+        Random random,
+        double radiusX,
+        double radiusY,
+        double minimumRadiusX,
+        double minimumRadiusY)
+    {
+        while (true)
+        {
+            var point = EllipsePoint(random, radiusX, radiusY);
+            if (minimumRadiusX <= 0 || minimumRadiusY <= 0
+                || point.X * point.X / (minimumRadiusX * minimumRadiusX)
+                    + point.Y * point.Y / (minimumRadiusY * minimumRadiusY) >= 1)
+            {
+                return point;
+            }
+        }
+    }
+
+    private static Vector3D RectangleSourcePoint(
+        Random random,
+        double width,
+        double height,
+        double minimumXHalfWidth,
+        double minimumYHalfWidth)
+    {
+        while (true)
+        {
+            var point = new Vector3D(
+                (random.NextDouble() - 0.5) * width,
+                (random.NextDouble() - 0.5) * height,
+                0);
+            if (minimumXHalfWidth <= 0 || minimumYHalfWidth <= 0
+                || Math.Abs(point.X) >= minimumXHalfWidth
+                || Math.Abs(point.Y) >= minimumYHalfWidth)
+            {
+                return point;
+            }
+        }
     }
 
     private static Vector3D BoxPoint(Random random, double width, double height, double depth) => new(

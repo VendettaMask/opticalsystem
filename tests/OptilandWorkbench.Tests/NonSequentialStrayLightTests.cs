@@ -213,7 +213,7 @@ public sealed class NonSequentialStrayLightTests
     }
 
     [Fact]
-    public void RayDatabaseRejectsCorruptedCompressedChunk()
+    public void RayDatabaseRejectsCorruptedChunkChecksum()
     {
         var optic = Optic.CreateBlank();
         var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
@@ -230,8 +230,8 @@ public sealed class NonSequentialStrayLightTests
         }
         var bytes = stream.ToArray();
         var headerCompressedLength = BinaryPrimitives.ReadInt32LittleEndian(bytes.AsSpan(16, 4));
-        var chunkPayload = 52 + headerCompressedLength + 48;
-        bytes[chunkPayload + 1] ^= 0x40;
+        var chunkHeader = 52 + headerCompressedLength;
+        bytes[chunkHeader + 16] ^= 0x40;
         using var corrupted = new MemoryStream(bytes);
         using var reader = new NonSequentialRayDatabaseReader(corrupted);
         Assert.Throws<InvalidDataException>(() => reader.ReadAllBranches());

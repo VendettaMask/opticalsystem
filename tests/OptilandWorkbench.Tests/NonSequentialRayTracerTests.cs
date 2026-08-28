@@ -18,6 +18,8 @@ using NonSequentialObjectKind = OptilandWorkbench.Core.NonSequential.NonSequenti
 using CoreObjectParameters = OptilandWorkbench.Core.NonSequential.NonSequentialObjectParameters;
 using CoreSourceApertureShape = OptilandWorkbench.Core.NonSequential.NonSequentialSourceApertureShape;
 using CoreSourceRadialSample = OptilandWorkbench.Core.NonSequential.SourceRadialSample;
+using CoreSurfaceSourceAngularDistribution = OptilandWorkbench.Core.NonSequential.NonSequentialSurfaceSourceAngularDistribution;
+using CoreVolumeSourceAngularDistribution = OptilandWorkbench.Core.NonSequential.NonSequentialVolumeSourceAngularDistribution;
 using NonSequentialSurfaceBehavior = OptilandWorkbench.Core.NonSequential.NonSequentialSurfaceBehavior;
 using PlaneRectangleParameters = OptilandWorkbench.Core.NonSequential.PlaneRectangleParameters;
 
@@ -335,6 +337,144 @@ public sealed class NonSequentialRayTracerTests
     }
 
     [Fact]
+    public void EscapedSourceOnlyBranchesRetainFinalStateForVisualization()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceEllipse));
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                NonSequentialTracePurpose.Layout,
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                RandomSeed: 7));
+
+        Assert.Equal(20, result.TotalBranchCount);
+        Assert.All(result.Branches, branch =>
+        {
+            Assert.Equal(NonSequentialTerminationReason.Escaped, branch.TerminationReason);
+            Assert.Empty(branch.Segments);
+            if (branch.FinalOrigin is not { } origin || branch.FinalDirection is not { } direction)
+            {
+                throw new Xunit.Sdk.XunitException("Escaped branch did not publish a final ray state.");
+            }
+
+            Assert.True(origin.X * origin.X / 25 + origin.Y * origin.Y / 25 <= 1 + 1e-12);
+            Assert.Equal(0, origin.Z, 12);
+            Assert.Equal(0, direction.X, 12);
+            Assert.Equal(0, direction.Y, 12);
+            Assert.Equal(1, direction.Z, 12);
+        });
+    }
+
+    [Fact]
+    public void SurfaceEllipseSourceSupportsZemaxStyleVirtualPointAndInnerEllipse()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceEllipse) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourceEllipseParameters(
+                10,
+                8,
+                20,
+                LayoutRayCount: 20,
+                AnalysisRayCount: 200,
+                AngularDistribution: CoreSurfaceSourceAngularDistribution.VirtualPoint,
+                SourceDistanceMillimeters: 40,
+                SourceX: 0.5,
+                SourceY: -0.25,
+                MinimumXHalfWidthMillimeters: 1.5,
+                MinimumYHalfWidthMillimeters: 0.75)
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                RandomSeed: 11));
+
+        Assert.Equal(200, result.TotalBranchCount);
+        Assert.All(result.Branches, branch =>
+        {
+            if (branch.FinalOrigin is not { } origin || branch.FinalDirection is not { } direction)
+            {
+                throw new Xunit.Sdk.XunitException("Escaped branch did not publish a final ray state.");
+            }
+
+            Assert.True(origin.X * origin.X / 25 + origin.Y * origin.Y / 16 <= 1 + 1e-12);
+            Assert.True(origin.X * origin.X / 2.25 + origin.Y * origin.Y / 0.5625 >= 1 - 1e-12);
+            var expected = Normalize(origin - new Vector3D(0.5, -0.25, -40));
+            Assert.Equal(1, Dot(expected, Normalize(direction)), 12);
+        });
+    }
+
+    [Fact]
+    public void NewVolumeSourcesCanEmitAcrossTheFullSphere()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceVolumeRectangle) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourceVolumeRectangleParameters(
+                8,
+                6,
+                4,
+                20,
+                LayoutRayCount: 20,
+                AnalysisRayCount: 1_000,
+                AngularDistribution: CoreVolumeSourceAngularDistribution.UniformSphere)
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                RandomSeed: 23));
+        var directions = result.Branches.Select(branch => branch.FinalDirection!.Value).ToArray();
+
+        Assert.Equal(1_000, directions.Length);
+        Assert.InRange(directions.Count(direction => direction.Z > 0), 400, 600);
+        Assert.InRange(directions.Count(direction => direction.Z < 0), 400, 600);
+        Assert.All(directions, direction => Assert.Equal(1, direction.Length, 12));
+    }
+
+    [Fact]
+    public void PositionalSourceConstructorsKeepLegacyConeDistribution()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceEllipse) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourceEllipseParameters(10, 6, 10, 2, 1, 20, 200)
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                RandomSeed: 31));
+        var minimumZ = Math.Cos(10 * Math.PI / 180);
+
+        Assert.Equal(200, result.TotalBranchCount);
+        Assert.All(result.Branches, branch =>
+        {
+            if (branch.FinalDirection is not { } direction)
+            {
+                throw new Xunit.Sdk.XunitException("Escaped branch did not publish a final direction.");
+            }
+
+            Assert.InRange(direction.Z, minimumZ - 1e-12, 1);
+        });
+        Assert.Contains(result.Branches, branch => branch.FinalDirection!.Value.Z < 0.999);
+    }
+
+    [Fact]
     public async Task ExtendedNativeSourcesRoundTripThroughStarOpt()
     {
         var path = Path.Combine(Path.GetTempPath(), $"sources-{Guid.NewGuid():N}.staropt");
@@ -438,6 +578,11 @@ public sealed class NonSequentialRayTracerTests
         origin,
         direction,
         587.6);
+
+    private static Vector3D Normalize(Vector3D value) => value / value.Length;
+
+    private static double Dot(Vector3D left, Vector3D right) =>
+        left.X * right.X + left.Y * right.Y + left.Z * right.Z;
 
     private static NonSequentialDocumentTraceResult TraceSource(
         NonSequentialObjectKind kind,

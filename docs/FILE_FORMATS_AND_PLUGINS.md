@@ -18,7 +18,7 @@
 
 顺序组件快照的新建内容使用 `approximate_transmission_ripple`、`main_ray_scatter_loss_approximation` 和 `mean_measured_scatter_loss`，明确表示这些是 Experimental 损耗近似。旧 `thin_film_stack`、`lambertian` 和 `measured_bsdf` kind 继续只读兼容，加载后迁移到准确命名的模型；它们不表示已经实现真实薄膜或 BSDF 物理。
 
-非序列光线可另存为 `.starrdb`。该文件保存场景哈希、来源修订、追迹设置、随机种子、可选分裂模式和分块压缩光线树；它是可重新生成的结果，不嵌入STAROPT。应用分别管理完整分析结果和有界3D布局结果：前者驱动数据库、路径和探测器，后者只在用户点击“准备布局光线”后生成。任何布局读取都会核对数据库头与当前场景哈希，过期光线默认不加载；显式查看时仍保留过期标记。详见[非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)。
+非序列光线可另存为 `.starrdb`。该文件保存场景哈希、来源修订、追迹设置、随机种子、可选分裂模式、分支终止状态和分块压缩光线树；它是可重新生成的结果，不嵌入STAROPT。应用分别管理完整分析结果和有界3D布局结果：前者驱动数据库、路径和探测器，后者由非序列3D页面在打开、过期或用户手动刷新时生成。任何布局读取都会核对数据库头与当前场景哈希，过期光线默认不加载；显式查看时仍保留过期标记。详见[非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)。
 
 旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可继续读取用于迁移，但桌面“保存”不再生成这些格式。二进制结构见 [STAROPT 工程格式](STAROPT_FILE_FORMAT.md)。
 

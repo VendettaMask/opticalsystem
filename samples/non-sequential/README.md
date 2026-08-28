@@ -9,6 +9,8 @@
 - [复杂非序列对象与全反射光管](https://optics.ansys.com/hc/en-us/articles/42661740806675-How-to-create-complex-non-sequential-objects)
 - [杂散光分析概览](https://optics.ansys.com/hc/en-us/articles/45146457845395-Stray-Light-Analysis-Overview)
 
+07号椭圆面源以及10—12号体源样例为了演示前向投影，显式保留旧的兼容圆锥方向分布；在对象编辑器中新建矩形/椭圆面源时默认使用 Zemax 风格 `VirtualPoint`，新建体源默认使用全空间均匀球面方向。
+
 ## 建议学习顺序
 
 ### 01 基础镜片与探测器

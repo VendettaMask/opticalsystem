@@ -27,6 +27,20 @@ public enum NonSequentialSourceApertureShape
     Ellipse
 }
 
+public enum NonSequentialSurfaceSourceAngularDistribution
+{
+    LegacyUniformCone,
+    VirtualPoint,
+    Cosine,
+    Gaussian
+}
+
+public enum NonSequentialVolumeSourceAngularDistribution
+{
+    LegacyForwardCone,
+    UniformSphere
+}
+
 public enum NonSequentialSurfaceBehavior
 {
     Refractive,
@@ -74,7 +88,16 @@ public sealed record SourceRectangleParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount,
+    NonSequentialSurfaceSourceAngularDistribution AngularDistribution = NonSequentialSurfaceSourceAngularDistribution.LegacyUniformCone,
+    double SourceDistanceMillimeters = 0,
+    double CosineExponent = 1,
+    double GaussianX = 1,
+    double GaussianY = 1,
+    double SourceX = 0,
+    double SourceY = 0,
+    double MinimumXHalfWidthMillimeters = 0,
+    double MinimumYHalfWidthMillimeters = 0) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceGaussianParameters(
     double WaistXMillimeters,
@@ -92,7 +115,16 @@ public sealed record SourceEllipseParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount,
+    NonSequentialSurfaceSourceAngularDistribution AngularDistribution = NonSequentialSurfaceSourceAngularDistribution.LegacyUniformCone,
+    double SourceDistanceMillimeters = 0,
+    double CosineExponent = 1,
+    double GaussianX = 1,
+    double GaussianY = 1,
+    double SourceX = 0,
+    double SourceY = 0,
+    double MinimumXHalfWidthMillimeters = 0,
+    double MinimumYHalfWidthMillimeters = 0) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceTwoAngleParameters(
     double WidthMillimeters,
@@ -122,7 +154,9 @@ public sealed record SourceVolumeRectangleParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceVolumeEllipseParameters(
     double SemiAxisXMillimeters,
@@ -132,7 +166,9 @@ public sealed record SourceVolumeEllipseParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceVolumeCylinderParameters(
     double RadiusXMillimeters,
@@ -142,7 +178,9 @@ public sealed record SourceVolumeCylinderParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record PlaneRectangleParameters(
     double WidthMillimeters,

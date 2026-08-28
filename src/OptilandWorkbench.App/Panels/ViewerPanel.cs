@@ -614,6 +614,11 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 await Task.Delay(delay, cancellationToken);
             }
 
+            if (IsNonSequential3D() && _nonSequentialAnalysis is not null)
+            {
+                await EnsureLayoutRaysAsync(cancellationToken);
+            }
+
             var scene = await _visualization.BuildSceneAsync(CreateRequest(), cancellationToken);
             if (cancellationToken.IsCancellationRequested || scene.SourceRevision != _events.Revision)
             {
@@ -667,7 +672,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
     private async Task PrepareLayoutRaysAsync()
     {
-        if (!IsNonSequential3D() || Interlocked.CompareExchange(ref _preparingLayoutSession, 1, 0) != 0)
+        if (!IsNonSequential3D())
         {
             return;
         }
@@ -676,7 +681,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _prepareLayoutRays.Content = "正在准备…";
         try
         {
-            await _nonSequentialAnalysis!.PrepareLayoutSessionAsync();
+            await EnsureLayoutRaysAsync(CancellationToken.None, forceRefresh: true);
             _showStaleLayoutRays.IsChecked = false;
             QueueRefresh(TimeSpan.Zero);
         }
@@ -687,6 +692,33 @@ public sealed class ViewerPanel : UserControl, IDisposable
         finally
         {
             _prepareLayoutRays.IsEnabled = true;
+        }
+    }
+
+    private async Task EnsureLayoutRaysAsync(
+        CancellationToken cancellationToken,
+        bool forceRefresh = false)
+    {
+        if (!IsNonSequential3D()
+            || _nonSequentialAnalysis is null
+            || Interlocked.CompareExchange(ref _preparingLayoutSession, 1, 0) != 0)
+        {
+            return;
+        }
+
+        try
+        {
+            if (forceRefresh)
+            {
+                await _nonSequentialAnalysis.RefreshLayoutSessionAsync(cancellationToken);
+            }
+            else
+            {
+                await _nonSequentialAnalysis.PrepareLayoutSessionAsync(cancellationToken);
+            }
+        }
+        finally
+        {
             Interlocked.Exchange(ref _preparingLayoutSession, 0);
         }
     }

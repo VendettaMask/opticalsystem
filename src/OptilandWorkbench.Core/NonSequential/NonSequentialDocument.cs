@@ -31,6 +31,20 @@ public enum NonSequentialSourceApertureShape
     Ellipse
 }
 
+public enum NonSequentialSurfaceSourceAngularDistribution
+{
+    LegacyUniformCone,
+    VirtualPoint,
+    Cosine,
+    Gaussian
+}
+
+public enum NonSequentialVolumeSourceAngularDistribution
+{
+    LegacyForwardCone,
+    UniformSphere
+}
+
 public enum NonSequentialSurfaceBehavior
 {
     Refractive,
@@ -100,7 +114,16 @@ public sealed record SourceRectangleParameters(
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
-    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount = 10_000,
+    NonSequentialSurfaceSourceAngularDistribution AngularDistribution = NonSequentialSurfaceSourceAngularDistribution.LegacyUniformCone,
+    double SourceDistanceMillimeters = 0,
+    double CosineExponent = 1,
+    double GaussianX = 1,
+    double GaussianY = 1,
+    double SourceX = 0,
+    double SourceY = 0,
+    double MinimumXHalfWidthMillimeters = 0,
+    double MinimumYHalfWidthMillimeters = 0) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceGaussianParameters(
     double WaistXMillimeters = 1,
@@ -118,7 +141,16 @@ public sealed record SourceEllipseParameters(
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
-    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount = 10_000,
+    NonSequentialSurfaceSourceAngularDistribution AngularDistribution = NonSequentialSurfaceSourceAngularDistribution.LegacyUniformCone,
+    double SourceDistanceMillimeters = 0,
+    double CosineExponent = 1,
+    double GaussianX = 1,
+    double GaussianY = 1,
+    double SourceX = 0,
+    double SourceY = 0,
+    double MinimumXHalfWidthMillimeters = 0,
+    double MinimumYHalfWidthMillimeters = 0) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceTwoAngleParameters(
     double WidthMillimeters = 10,
@@ -153,7 +185,9 @@ public sealed record SourceVolumeRectangleParameters(
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
-    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount = 10_000,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceVolumeEllipseParameters(
     double SemiAxisXMillimeters = 5,
@@ -163,7 +197,9 @@ public sealed record SourceVolumeEllipseParameters(
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
-    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount = 10_000,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record SourceVolumeCylinderParameters(
     double RadiusXMillimeters = 5,
@@ -173,7 +209,9 @@ public sealed record SourceVolumeCylinderParameters(
     double PowerWatts = 1,
     int WavelengthNumber = 1,
     int LayoutRayCount = 20,
-    int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
+    int AnalysisRayCount = 10_000,
+    NonSequentialVolumeSourceAngularDistribution AngularDistribution = NonSequentialVolumeSourceAngularDistribution.LegacyForwardCone)
+    : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount);
 
 public sealed record PlaneRectangleParameters(
     double WidthMillimeters = 20,
@@ -249,14 +287,21 @@ public sealed record NonSequentialObjectDefinition(
     {
         NonSequentialObjectKind.SourceRay => new SourceRayParameters(),
         NonSequentialObjectKind.SourcePoint => new SourcePointParameters(),
-        NonSequentialObjectKind.SourceRectangle => new SourceRectangleParameters(),
+        NonSequentialObjectKind.SourceRectangle => new SourceRectangleParameters(
+            AngularHalfAngleDegrees: 0,
+            AngularDistribution: NonSequentialSurfaceSourceAngularDistribution.VirtualPoint),
         NonSequentialObjectKind.SourceGaussian => new SourceGaussianParameters(),
-        NonSequentialObjectKind.SourceEllipse => new SourceEllipseParameters(),
+        NonSequentialObjectKind.SourceEllipse => new SourceEllipseParameters(
+            AngularHalfAngleDegrees: 0,
+            AngularDistribution: NonSequentialSurfaceSourceAngularDistribution.VirtualPoint),
         NonSequentialObjectKind.SourceTwoAngle => new SourceTwoAngleParameters(),
         NonSequentialObjectKind.SourceRadial => new SourceRadialParameters(),
-        NonSequentialObjectKind.SourceVolumeRectangle => new SourceVolumeRectangleParameters(),
-        NonSequentialObjectKind.SourceVolumeEllipse => new SourceVolumeEllipseParameters(),
-        NonSequentialObjectKind.SourceVolumeCylinder => new SourceVolumeCylinderParameters(),
+        NonSequentialObjectKind.SourceVolumeRectangle => new SourceVolumeRectangleParameters(
+            AngularDistribution: NonSequentialVolumeSourceAngularDistribution.UniformSphere),
+        NonSequentialObjectKind.SourceVolumeEllipse => new SourceVolumeEllipseParameters(
+            AngularDistribution: NonSequentialVolumeSourceAngularDistribution.UniformSphere),
+        NonSequentialObjectKind.SourceVolumeCylinder => new SourceVolumeCylinderParameters(
+            AngularDistribution: NonSequentialVolumeSourceAngularDistribution.UniformSphere),
         NonSequentialObjectKind.PlaneRectangle => new PlaneRectangleParameters(),
         NonSequentialObjectKind.Sphere => new SphereParameters(),
         NonSequentialObjectKind.Cylinder => new CylinderParameters(),
@@ -583,6 +628,19 @@ public sealed class NonSequentialDocument
                 ValidateSource(name, rectangle);
                 RequirePositive(rectangle.WidthMillimeters, rectangle.HeightMillimeters);
                 RequireRange(rectangle.AngularHalfAngleDegrees, 0, 90, name);
+                ValidateSurfaceSourceDistribution(
+                    name,
+                    rectangle.AngularDistribution,
+                    rectangle.SourceDistanceMillimeters,
+                    rectangle.CosineExponent,
+                    rectangle.GaussianX,
+                    rectangle.GaussianY,
+                    rectangle.SourceX,
+                    rectangle.SourceY,
+                    rectangle.MinimumXHalfWidthMillimeters,
+                    rectangle.MinimumYHalfWidthMillimeters,
+                    rectangle.WidthMillimeters / 2,
+                    rectangle.HeightMillimeters / 2);
                 break;
             case SourceGaussianParameters gaussian:
                 ValidateSource(name, gaussian);
@@ -593,6 +651,19 @@ public sealed class NonSequentialDocument
                 ValidateSource(name, ellipse);
                 RequirePositive(ellipse.WidthMillimeters, ellipse.HeightMillimeters);
                 RequireRange(ellipse.AngularHalfAngleDegrees, 0, 90, name);
+                ValidateSurfaceSourceDistribution(
+                    name,
+                    ellipse.AngularDistribution,
+                    ellipse.SourceDistanceMillimeters,
+                    ellipse.CosineExponent,
+                    ellipse.GaussianX,
+                    ellipse.GaussianY,
+                    ellipse.SourceX,
+                    ellipse.SourceY,
+                    ellipse.MinimumXHalfWidthMillimeters,
+                    ellipse.MinimumYHalfWidthMillimeters,
+                    ellipse.WidthMillimeters / 2,
+                    ellipse.HeightMillimeters / 2);
                 break;
             case SourceTwoAngleParameters twoAngle:
                 ValidateSource(name, twoAngle);
@@ -610,16 +681,19 @@ public sealed class NonSequentialDocument
                 ValidateSource(name, volumeRectangle);
                 RequirePositive(volumeRectangle.WidthMillimeters, volumeRectangle.HeightMillimeters, volumeRectangle.DepthMillimeters);
                 RequireRange(volumeRectangle.AngularHalfAngleDegrees, 0, 90, name);
+                ValidateVolumeSourceDistribution(name, volumeRectangle.AngularDistribution);
                 break;
             case SourceVolumeEllipseParameters volumeEllipse:
                 ValidateSource(name, volumeEllipse);
                 RequirePositive(volumeEllipse.SemiAxisXMillimeters, volumeEllipse.SemiAxisYMillimeters, volumeEllipse.SemiAxisZMillimeters);
                 RequireRange(volumeEllipse.AngularHalfAngleDegrees, 0, 90, name);
+                ValidateVolumeSourceDistribution(name, volumeEllipse.AngularDistribution);
                 break;
             case SourceVolumeCylinderParameters volumeCylinder:
                 ValidateSource(name, volumeCylinder);
                 RequirePositive(volumeCylinder.RadiusXMillimeters, volumeCylinder.RadiusYMillimeters, volumeCylinder.LengthMillimeters);
                 RequireRange(volumeCylinder.AngularHalfAngleDegrees, 0, 90, name);
+                ValidateVolumeSourceDistribution(name, volumeCylinder.AngularDistribution);
                 break;
             case PlaneRectangleParameters plane:
                 RequirePositive(plane.WidthMillimeters, plane.HeightMillimeters);
@@ -721,6 +795,66 @@ public sealed class NonSequentialDocument
             || source.AnalysisRayCount <= 0 || source.AnalysisRayCount > 1_000_000)
         {
             throw new InvalidDataException($"光源“{name}”的功率、波长或射线数量无效。");
+        }
+    }
+
+    private static void ValidateSurfaceSourceDistribution(
+        string name,
+        NonSequentialSurfaceSourceAngularDistribution distribution,
+        double sourceDistance,
+        double cosineExponent,
+        double gaussianX,
+        double gaussianY,
+        double sourceX,
+        double sourceY,
+        double minimumXHalfWidth,
+        double minimumYHalfWidth,
+        double outerXHalfWidth,
+        double outerYHalfWidth)
+    {
+        if (!Enum.IsDefined(distribution))
+        {
+            throw new InvalidDataException($"光源“{name}”的方向分布无效。");
+        }
+
+        RequireFinite(
+            sourceDistance,
+            cosineExponent,
+            gaussianX,
+            gaussianY,
+            sourceX,
+            sourceY,
+            minimumXHalfWidth,
+            minimumYHalfWidth);
+        if (cosineExponent is < 0 or > 100 || gaussianX < 0 || gaussianY < 0
+            || minimumXHalfWidth < 0 || minimumYHalfWidth < 0
+            || minimumXHalfWidth >= outerXHalfWidth || minimumYHalfWidth >= outerYHalfWidth
+            || (minimumXHalfWidth == 0) != (minimumYHalfWidth == 0))
+        {
+            throw new InvalidDataException($"光源“{name}”的 Zemax 风格分布参数超出允许范围。");
+        }
+
+        if (distribution == NonSequentialSurfaceSourceAngularDistribution.VirtualPoint
+            && Math.Abs(sourceDistance) <= 1e-15
+            && sourceX * sourceX + sourceY * sourceY > 1 + 1e-12)
+        {
+            throw new InvalidDataException($"光源“{name}”的平行光方向余弦无效。");
+        }
+
+        if (distribution == NonSequentialSurfaceSourceAngularDistribution.Gaussian
+            && gaussianX <= 0 && gaussianY <= 0)
+        {
+            throw new InvalidDataException($"光源“{name}”的 Gaussian X/Y 系数不能同时为零。");
+        }
+    }
+
+    private static void ValidateVolumeSourceDistribution(
+        string name,
+        NonSequentialVolumeSourceAngularDistribution distribution)
+    {
+        if (!Enum.IsDefined(distribution))
+        {
+            throw new InvalidDataException($"体光源“{name}”的方向分布无效。");
         }
     }
 
