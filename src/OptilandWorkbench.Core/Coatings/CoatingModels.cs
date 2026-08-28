@@ -46,14 +46,17 @@ public sealed class SimpleCoatingModel : ICoatingModel
 
 public sealed record ThinFilmLayer(string MaterialName, double ThicknessNanometers);
 
-public sealed class ThinFilmStackCoating : ICoatingModel
+public class ApproximateTransmissionRippleCoating : ICoatingModel
 {
-    public ThinFilmStackCoating(IEnumerable<ThinFilmLayer> layers)
+    public ApproximateTransmissionRippleCoating(IEnumerable<ThinFilmLayer> layers)
     {
         Layers = layers.ToList();
     }
 
-    public string Kind => "thin_film_stack";
+    public virtual string Kind => "approximate_transmission_ripple";
+
+    public string ExperimentalWarning =>
+        "Experimental：仅按总物理厚度生成经验透过率起伏；不计算膜层折射率、入射角、偏振、相位或吸收。";
 
     public IReadOnlyList<ThinFilmLayer> Layers { get; }
 
@@ -63,7 +66,7 @@ public sealed class ThinFilmStackCoating : ICoatingModel
         return ray with { Intensity = ray.Intensity * transmission };
     }
 
-    public ICoatingModel Clone() => new ThinFilmStackCoating(Layers);
+    public virtual ICoatingModel Clone() => new ApproximateTransmissionRippleCoating(Layers);
 
     public double EstimateTransmission(double wavelengthNanometers)
     {
@@ -78,16 +81,26 @@ public sealed class ThinFilmStackCoating : ICoatingModel
     }
 }
 
-public sealed class NeedleSynthesisDesigner
+[Obsolete("Compatibility alias only; this is not a physical thin-film solver. Use ApproximateTransmissionRippleCoating.")]
+public sealed class ThinFilmStackCoating : ApproximateTransmissionRippleCoating
 {
-    public ThinFilmStackCoating DesignQuarterWaveStack(
+    public ThinFilmStackCoating(IEnumerable<ThinFilmLayer> layers) : base(layers)
+    {
+    }
+
+    public override ICoatingModel Clone() => new ThinFilmStackCoating(Layers);
+}
+
+public sealed class ApproximateTransmissionRippleDesigner
+{
+    public ApproximateTransmissionRippleCoating DesignAlternatingLayers(
         IReadOnlyList<string> candidateMaterials,
         double targetWavelengthNanometers,
         int layers)
     {
         if (candidateMaterials.Count == 0)
         {
-            return new ThinFilmStackCoating(Array.Empty<ThinFilmLayer>());
+            return new ApproximateTransmissionRippleCoating(Array.Empty<ThinFilmLayer>());
         }
 
         var stack = Enumerable.Range(0, Math.Max(1, layers))
@@ -96,6 +109,22 @@ public sealed class NeedleSynthesisDesigner
                 targetWavelengthNanometers / 4.0))
             .ToArray();
 
-        return new ThinFilmStackCoating(stack);
+        return new ApproximateTransmissionRippleCoating(stack);
+    }
+}
+
+[Obsolete("Compatibility alias only; this does not perform needle synthesis or a physical quarter-wave design. Use ApproximateTransmissionRippleDesigner.")]
+public sealed class NeedleSynthesisDesigner
+{
+    public ThinFilmStackCoating DesignQuarterWaveStack(
+        IReadOnlyList<string> candidateMaterials,
+        double targetWavelengthNanometers,
+        int layers)
+    {
+        var approximation = new ApproximateTransmissionRippleDesigner().DesignAlternatingLayers(
+            candidateMaterials,
+            targetWavelengthNanometers,
+            layers);
+        return new ThinFilmStackCoating(approximation.Layers);
     }
 }

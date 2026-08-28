@@ -278,7 +278,7 @@ public static class ComponentSnapshotFactory
             }, new Dictionary<string, string>());
         }
 
-        if (coating is ThinFilmStackCoating stack)
+        if (coating is ApproximateTransmissionRippleCoating stack)
         {
             var numbers = new Dictionary<string, double> { ["count"] = stack.Layers.Count };
             var text = new Dictionary<string, string>();
@@ -288,7 +288,7 @@ public static class ComponentSnapshotFactory
                 text[$"material_{index}"] = stack.Layers[index].MaterialName;
             }
 
-            return new ComponentSnapshot("thin_film_stack", numbers, text);
+            return new ComponentSnapshot("approximate_transmission_ripple", numbers, text);
         }
 
         return ComponentSnapshot.Empty("none");
@@ -303,7 +303,7 @@ public static class ComponentSnapshotFactory
                 Get(snapshot.Numbers, "reflectance", 0));
         }
 
-        if (snapshot?.Kind != "thin_film_stack")
+        if (snapshot?.Kind is not ("thin_film_stack" or "approximate_transmission_ripple"))
         {
             return new NoneCoatingModel();
         }
@@ -314,7 +314,7 @@ public static class ComponentSnapshotFactory
                 snapshot.Text.TryGetValue($"material_{index}", out var material) ? material : "N-BK7",
                 Get(snapshot.Numbers, $"thickness_{index}", 100)))
             .ToArray();
-        return new ThinFilmStackCoating(layers);
+        return new ApproximateTransmissionRippleCoating(layers);
     }
 
     public static ComponentSnapshot FromInteraction(IInteractionModel interaction)
@@ -537,8 +537,11 @@ public static class ComponentSnapshotFactory
         return scattering switch
         {
             null => null,
-            LambertianScatteringModel lambertian => new ComponentSnapshot("lambertian", new Dictionary<string, double> { ["scatterFraction"] = lambertian.ScatterFraction }, new Dictionary<string, string>()),
-            MeasuredBsdfScatteringModel measured => FromMeasuredBsdf(measured),
+            MainRayScatterLossApproximation approximation => new ComponentSnapshot(
+                "main_ray_scatter_loss_approximation",
+                new Dictionary<string, double> { ["scatterFraction"] = approximation.ScatterFraction },
+                new Dictionary<string, string>()),
+            MeanMeasuredScatterLoss measured => FromMeasuredScatterLoss(measured),
             _ => ComponentSnapshot.Empty(scattering.Kind)
         };
     }
@@ -547,13 +550,15 @@ public static class ComponentSnapshotFactory
     {
         return snapshot?.Kind switch
         {
-            "lambertian" => new LambertianScatteringModel(Get(snapshot.Numbers, "scatterFraction", 0.02)),
-            "measured_bsdf" => new MeasuredBsdfScatteringModel(ReadMeasuredBsdfSamples(snapshot.Numbers)),
+            "lambertian" or "main_ray_scatter_loss_approximation" =>
+                new MainRayScatterLossApproximation(Get(snapshot.Numbers, "scatterFraction", 0.02)),
+            "measured_bsdf" or "mean_measured_scatter_loss" =>
+                new MeanMeasuredScatterLoss(ReadMeasuredBsdfSamples(snapshot.Numbers)),
             _ => null
         };
     }
 
-    private static ComponentSnapshot FromMeasuredBsdf(MeasuredBsdfScatteringModel measured)
+    private static ComponentSnapshot FromMeasuredScatterLoss(MeanMeasuredScatterLoss measured)
     {
         var numbers = new Dictionary<string, double>
         {
@@ -565,7 +570,7 @@ public static class ComponentSnapshotFactory
             numbers[$"value{index}"] = measured.Samples[index].Value;
         }
 
-        return new ComponentSnapshot("measured_bsdf", numbers, new Dictionary<string, string>());
+        return new ComponentSnapshot("mean_measured_scatter_loss", numbers, new Dictionary<string, string>());
     }
 
     private static IReadOnlyList<(double AngleDegrees, double Value)> ReadMeasuredBsdfSamples(

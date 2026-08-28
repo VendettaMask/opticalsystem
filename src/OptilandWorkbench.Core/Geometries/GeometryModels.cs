@@ -8,15 +8,24 @@ public sealed class PlaneGeometry : IGeometry
 
     public double Sag(double x, double y) => 0;
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
+        if (!GeometryIntersectionSolver.IsFinite(origin)
+            || !GeometryIntersectionSolver.IsFiniteNonZero(direction))
+        {
+            return IntersectionResult.Failure(IntersectionStatus.InvalidInput);
+        }
+
         if (Math.Abs(direction.Z) < 1e-12)
         {
-            return null;
+            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         }
 
         var distance = -origin.Z / direction.Z;
-        return distance >= 0 ? distance : null;
+        return distance >= 0
+            ? GeometryIntersectionSolver.CreateVerifiedResult(
+                origin, direction, distance, Sag, SurfaceNormal, 0)
+            : IntersectionResult.Failure(IntersectionStatus.NoRoot);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
@@ -52,7 +61,7 @@ public sealed class PlaneGratingGeometry : IGratingGeometry
 
     public double Sag(double x, double y) => _plane.Sag(x, y);
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
         _plane.DistanceToIntersection(origin, direction);
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => _plane.SurfaceNormal(localPoint);
@@ -102,7 +111,7 @@ public sealed class StandardGratingGeometry : IGratingGeometry
 
     public double Sag(double x, double y) => Base.Sag(x, y);
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
         Base.DistanceToIntersection(origin, direction);
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => Base.SurfaceNormal(localPoint);
@@ -180,7 +189,7 @@ public sealed class StandardGeometry : IGeometry
         return c * r2 / (1 + root);
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
         if (Math.Abs(Radius) < 1e-12 || double.IsInfinity(Radius))
         {
@@ -205,7 +214,7 @@ public sealed class StandardGeometry : IGeometry
         {
             if (Math.Abs(b) < 1e-15)
             {
-                return null;
+                return IntersectionResult.Failure(IntersectionStatus.NoRoot);
             }
 
             var linearDistance = -c / b;
@@ -215,7 +224,7 @@ public sealed class StandardGeometry : IGeometry
         var discriminant = (b * b) - (4.0 * a * c);
         if (discriminant < 0)
         {
-            return null;
+            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         }
 
         var root = Math.Sqrt(discriminant);
@@ -223,36 +232,29 @@ public sealed class StandardGeometry : IGeometry
         var second = (-b + root) / (2.0 * a);
         var firstDistance = ValidateExplicitSagDistance(first, origin, direction);
         var secondDistance = ValidateExplicitSagDistance(second, origin, direction);
-        if (!firstDistance.HasValue)
+        if (!firstDistance.IsHit)
         {
             return secondDistance;
         }
 
-        if (!secondDistance.HasValue)
+        if (!secondDistance.IsHit)
         {
             return firstDistance;
         }
 
-        return Math.Min(firstDistance.Value, secondDistance.Value);
+        return firstDistance.Distance <= secondDistance.Distance ? firstDistance : secondDistance;
     }
 
-    private double? ValidateExplicitSagDistance(double distance, Vector3D origin, Vector3D direction)
+    private IntersectionResult ValidateExplicitSagDistance(double distance, Vector3D origin, Vector3D direction)
     {
         if (!double.IsFinite(distance) || distance < -ConicDomainTolerance)
         {
-            return null;
+            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         }
 
         var clampedDistance = Math.Max(0, distance);
-        var point = origin + (direction * clampedDistance);
-        var sag = Sag(point.X, point.Y);
-        if (!double.IsFinite(sag))
-        {
-            return null;
-        }
-
-        var tolerance = 1e-8 * Math.Max(1.0, Math.Max(Math.Abs(point.Z), Math.Abs(sag)));
-        return Math.Abs(point.Z - sag) <= tolerance ? clampedDistance : null;
+        return GeometryIntersectionSolver.CreateVerifiedResult(
+            origin, direction, clampedDistance, Sag, SurfaceNormal, 0);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
@@ -279,48 +281,12 @@ public sealed class StandardGeometry : IGeometry
 
     public IGeometry Clone() => new StandardGeometry(Radius, Conic);
 
-    internal static double? NewtonSolveDistance(Vector3D origin, Vector3D direction, Func<double, double, double> sag)
-    {
-        var t = Math.Abs(direction.Z) < 1e-12 ? 0 : -origin.Z / direction.Z;
-        t = Math.Max(0, t);
-
-        for (var iteration = 0; iteration < 32; iteration++)
-        {
-            var point = origin + (direction * t);
-            var residual = point.Z - sag(point.X, point.Y);
-            if (!double.IsFinite(residual))
-            {
-                return null;
-            }
-
-            if (Math.Abs(residual) < 1e-8)
-            {
-                return double.IsFinite(t) && t >= 0 ? t : null;
-            }
-
-            var dt = 1e-5;
-            var next = origin + (direction * (t + dt));
-            var residualNext = next.Z - sag(next.X, next.Y);
-            if (!double.IsFinite(residualNext))
-            {
-                return null;
-            }
-
-            var derivative = (residualNext - residual) / dt;
-            if (!double.IsFinite(derivative) || Math.Abs(derivative) < 1e-12)
-            {
-                return null;
-            }
-
-            t -= residual / derivative;
-            if (!double.IsFinite(t) || t < -1e-8)
-            {
-                return null;
-            }
-        }
-
-        return double.IsFinite(t) && t >= 0 ? t : null;
-    }
+    internal static IntersectionResult NewtonSolveDistance(
+        Vector3D origin,
+        Vector3D direction,
+        Func<double, double, double> sag,
+        Func<Vector3D, Vector3D> normal) =>
+        GeometryIntersectionSolver.Solve(origin, direction, sag, normal);
 }
 
 public sealed class EvenAsphereGeometry : IGeometry
@@ -351,9 +317,9 @@ public sealed class EvenAsphereGeometry : IGeometry
         return sag;
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
@@ -392,9 +358,9 @@ public sealed class OddAsphereGeometry : IGeometry
         return sag;
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
@@ -446,9 +412,9 @@ public sealed class BiconicGeometry : IGeometry
         return numerator / (1.0 + Math.Sqrt(Math.Max(0, rootArgument)));
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -486,9 +452,9 @@ public sealed class SeparableBiconicGeometry : IGeometry
             + new StandardGeometry(RadiusY, ConicY).Sag(0, y);
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -536,9 +502,9 @@ public sealed class ToroidalGeometry : IGeometry
         return yzSag + offset - (Math.Sign(offset) * Math.Sqrt(radicand));
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -562,9 +528,9 @@ public sealed class PolynomialGeometry : IGeometry
         return Coefficients.Sum(term => term.Value * Math.Pow(x, term.Key.X) * Math.Pow(y, term.Key.Y));
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -599,9 +565,9 @@ public sealed class ChebyshevGeometry : IGeometry
             * GeometryMath.Chebyshev(term.Key.YOrder, yn));
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -628,9 +594,9 @@ public sealed class ZernikeGeometry : IGeometry
         return Coefficients.Sum(term => term.Value * GeometryMath.Zernike(term.Key.RadialOrder, term.Key.AzimuthalFrequency, x, y, PupilRadius));
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -670,9 +636,9 @@ public sealed class ForbesQGeometry : IGeometry
         return Base.Sag(x, y) + correction;
     }
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag);
+        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
@@ -715,7 +681,7 @@ public sealed class OpaqueGeometryPayload : IGeometry, INonComputableGeometry
 
     public double Sag(double x, double y) => throw CannotCompute("Sag");
 
-    public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
         throw CannotCompute("光线交点");
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => throw CannotCompute("表面法线");

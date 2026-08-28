@@ -309,12 +309,18 @@ public sealed class NonSequentialDocumentTests
         Assert.Empty(threeDimensional.LensElements);
 
         await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var analysisOnly = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(analysisOnly.ThreeDimensional).Rays);
+        Assert.NotNull(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentLayoutSession());
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
         var traced = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
         Assert.NotEmpty(Assert.IsType<Scene3Dto>(traced.ThreeDimensional).Rays);
     }
 
     [Fact]
-    public async Task LayoutSessionIsCreatedOnceAndReusedUntilSceneChanges()
+    public async Task ExplicitLayoutSessionIsCreatedOnceAndReusedUntilSceneChanges()
     {
         using var application = WorkbenchApplication.Create("blank");
         application.NonSequential.AddObject(ContractKind.SourcePoint);
@@ -323,10 +329,12 @@ public sealed class NonSequentialDocumentTests
         application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
         application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
 
-        var first = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
-        var second = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+        var first = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var second = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
 
         Assert.Equal(first.Id, second.Id);
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.Equal(first.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
         Assert.Equal(1, second.TracePassCount);
         Assert.Equal(20, second.BranchCount);
         var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
@@ -334,12 +342,99 @@ public sealed class NonSequentialDocumentTests
 
         var source = application.NonSequential.GetDocument().Objects[0];
         application.NonSequential.UpdateObject(ToUpdate(source) with { X = 1 });
-        Assert.True(application.NonSequentialAnalysis.GetCurrentSession()!.IsStale);
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
 
-        var refreshed = await application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
+        var refreshed = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
 
         Assert.NotEqual(first.Id, refreshed.Id);
         Assert.False(refreshed.IsStale);
+    }
+
+    [Fact]
+    public async Task AnalysisAndLayoutSessionsRemainIndependent()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var analysis = Assert.IsType<NonSequentialTraceSessionDto>(
+            application.NonSequentialAnalysis.GetCurrentSession());
+        var layout = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+
+        Assert.NotEqual(analysis.Id, layout.Id);
+        Assert.NotEqual(analysis.RayDatabasePath, layout.RayDatabasePath);
+        Assert.Equal(analysis.Id, application.NonSequentialAnalysis.GetCurrentSession()!.Id);
+        Assert.Equal(layout.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+        Assert.True(File.Exists(analysis.RayDatabasePath));
+        Assert.True(File.Exists(layout.RayDatabasePath));
+    }
+
+    [Fact]
+    public async Task StaleLayoutRaysAreHiddenUntilExplicitlyRequested()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        var sourceId = application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var sphereId = application.NonSequential.AddObject(ContractKind.Sphere);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var sphereAtStart = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphereAtStart) with { Z = 10 });
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var layout = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var current = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(current.ThreeDimensional).Rays);
+        Assert.False(Assert.IsType<NonSequentialLayoutResultDto>(current.NonSequentialLayoutResult).IsStale);
+
+        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+        application.NonSequential.UpdateObject(ToUpdate(source) with
+        {
+            Parameters = ((OptilandWorkbench.Application.Contracts.SourcePointParameters)source.Parameters) with
+            {
+                ConeHalfAngleDegrees = 12
+            }
+        });
+
+        var hidden = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        var hiddenLayout = Assert.IsType<NonSequentialLayoutResultDto>(hidden.NonSequentialLayoutResult);
+        Assert.True(hiddenLayout.IsStale);
+        Assert.False(hiddenLayout.RaysLoaded);
+        Assert.NotEqual(hiddenLayout.ResultSceneHash, hiddenLayout.CurrentSceneHash);
+        Assert.Empty(Assert.IsType<Scene3Dto>(hidden.ThreeDimensional).Rays);
+        Assert.Equal(layout.RayDatabasePath, hiddenLayout.DatabasePath);
+        Assert.True(File.Exists(layout.RayDatabasePath));
+
+        var visible = await application.Visualization.BuildSceneAsync(new VisualizationRequestDto(
+            SceneDimension.ThreeDimensional,
+            IncludeStaleNonSequentialRays: true));
+        var visibleLayout = Assert.IsType<NonSequentialLayoutResultDto>(visible.NonSequentialLayoutResult);
+        Assert.True(visibleLayout.IsStale);
+        Assert.True(visibleLayout.RaysLoaded);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(visible.ThreeDimensional).Rays);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.False(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var sphere = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphere) with { X = sphere.X + 1 });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var moved = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(moved.ThreeDimensional).Rays);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.False(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        sphere = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphere) with
+        {
+            Parameters = ((ContractSphereParameters)sphere.Parameters) with { Material = "SCHOTT:F2" }
+        });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var materialChanged = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(materialChanged.ThreeDimensional).Rays);
     }
 
     [Fact]

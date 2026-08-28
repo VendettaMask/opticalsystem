@@ -176,8 +176,8 @@ public partial class WorkbenchRuntime
     public IReadOnlyList<string> CoatingKinds { get; } = new[]
     {
         "无镀膜",
-        "MgF2 单层",
-        "四分之一波堆栈"
+        "Experimental：单层透过率起伏近似",
+        "Experimental：交替层透过率起伏近似"
     };
 
     public IReadOnlyList<string> InteractionKinds { get; } = new[]

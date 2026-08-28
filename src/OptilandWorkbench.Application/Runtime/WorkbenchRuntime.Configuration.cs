@@ -4,6 +4,7 @@ using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apodization;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Domain;
@@ -32,7 +33,9 @@ public partial class WorkbenchRuntime
                 index == _activeConfigurationIndex,
                 optic.SurfaceGroup.Items.Count,
                 NumericDisplayFormatter.Format(optic.SurfaceGroup.TotalTrack),
-                NumericDisplayFormatter.Format(optic.Paraxial.EstimateEffectiveFocalLength())))
+                OpticCapabilityPreflight.Inspect(optic).Count == 0
+                    ? NumericDisplayFormatter.Format(optic.Paraxial.EstimateEffectiveFocalLength())
+                    : "不可计算"))
             .ToArray();
     }
 

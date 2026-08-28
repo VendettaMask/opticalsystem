@@ -3,13 +3,13 @@ using OptilandWorkbench.Core.NonSequential;
 
 namespace OptilandWorkbench.Application.Services;
 
-internal sealed class NonSequentialAnalysisSession : IDisposable
+internal abstract class NonSequentialResultSession : IDisposable
 {
     private readonly object _gate = new();
     private readonly IWorkspaceEventStream _events;
     private Selection? _selection;
 
-    public NonSequentialAnalysisSession(IWorkspaceEventStream events)
+    protected NonSequentialResultSession(IWorkspaceEventStream events)
     {
         _events = events;
         _events.Changed += OnWorkspaceChanged;
@@ -101,16 +101,38 @@ internal sealed class NonSequentialAnalysisSession : IDisposable
         get { lock (_gate) return _selection?.FilterExpression; }
     }
 
-    public IReadOnlyList<NonSequentialRayBranch>? LoadLayoutBranches(
+    public NonSequentialLayoutBranchSet? LoadLayoutBranches(
         NonSequentialDocument document,
+        bool includeStale = false,
         int maximumCount = 2_000)
     {
         var selection = SelectionSnapshot();
         if (selection is null || !File.Exists(selection.Path)) return null;
         using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
+        var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+        var stale = !reader.Header.SceneHash.Equals(
+            currentSceneHash,
+            StringComparison.OrdinalIgnoreCase);
+        if (stale && !includeStale)
+        {
+            return new NonSequentialLayoutBranchSet(
+                reader.Header.SceneHash,
+                currentSceneHash,
+                reader.Header.SourceRevision,
+                true,
+                selection.Path,
+                Array.Empty<NonSequentialRayBranch>());
+        }
+
         var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
-        return reader.ReadBranches(filter, maximumCount).ToArray();
+        return new NonSequentialLayoutBranchSet(
+            reader.Header.SceneHash,
+            currentSceneHash,
+            reader.Header.SourceRevision,
+            stale,
+            selection.Path,
+            reader.ReadBranches(filter, maximumCount).ToArray());
     }
 
     public IReadOnlyList<NonSequentialDetectorFrame>? ReconstructDetectors(NonSequentialDocument document)
@@ -119,6 +141,7 @@ internal sealed class NonSequentialAnalysisSession : IDisposable
         if (selection is null || !File.Exists(selection.Path)) return null;
         using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
+        if (reader.IsStale(document)) return null;
         var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
         return NonSequentialDetectorReconstruction.Reconstruct(document, reader.ReadBranches(filter));
     }
@@ -171,3 +194,27 @@ internal sealed class NonSequentialAnalysisSession : IDisposable
         NonSequentialTraceSessionDto Session,
         bool OwnsDatabase);
 }
+
+internal sealed class NonSequentialAnalysisSession : NonSequentialResultSession
+{
+    public NonSequentialAnalysisSession(IWorkspaceEventStream events)
+        : base(events)
+    {
+    }
+}
+
+internal sealed class NonSequentialLayoutSession : NonSequentialResultSession
+{
+    public NonSequentialLayoutSession(IWorkspaceEventStream events)
+        : base(events)
+    {
+    }
+}
+
+internal sealed record NonSequentialLayoutBranchSet(
+    string SceneHash,
+    string CurrentSceneHash,
+    long SourceRevision,
+    bool IsStale,
+    string DatabasePath,
+    IReadOnlyList<NonSequentialRayBranch> Branches);

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Interactions;
 
@@ -30,12 +31,14 @@ public sealed class Paraxial
 
     public double EstimateEffectiveFocalLength()
     {
+        EnsureComputable();
         var matrix = TraceSystemMatrix(PrimaryWavelengthNanometers());
         return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
     }
 
     public double EstimateFNumber()
     {
+        EnsureComputable();
         var focalLength = Math.Abs(EstimateEffectiveFocalLength());
         var apertureDiameter = EstimateEntrancePupilDiameter();
         return apertureDiameter <= 0 || focalLength <= 0 ? 0 : focalLength / apertureDiameter;
@@ -43,6 +46,7 @@ public sealed class Paraxial
 
     public double EstimateEntrancePupilDiameter()
     {
+        EnsureComputable();
         var fallbackDiameter = _optic.SurfaceGroup.ApertureRadius() * 2.0;
         return _optic.Aperture.Kind switch
         {
@@ -76,6 +80,7 @@ public sealed class Paraxial
 
     public double EstimateEntrancePupilLocation()
     {
+        EnsureComputable();
         var wavelengthNanometers = PrimaryWavelengthNanometers();
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
@@ -95,6 +100,7 @@ public sealed class Paraxial
 
     public CardinalPointEstimate EstimateCardinalPoints()
     {
+        EnsureComputable();
         var positions = SurfacePositions();
         if (positions.Count == 0)
         {
@@ -129,11 +135,13 @@ public sealed class Paraxial
 
     public double EstimateExitPupilLocation()
     {
+        EnsureComputable();
         return EstimateExitPupilLocation(PrimaryWavelengthNanometers() / 1000.0);
     }
 
     public double EstimateExitPupilLocation(double wavelengthMicrometers)
     {
+        EnsureComputable();
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex < 0 || stopIndex >= _optic.SurfaceGroup.Items.Count - 1)
         {
@@ -154,11 +162,13 @@ public sealed class Paraxial
 
     public double EstimateExitPupilDiameter()
     {
+        EnsureComputable();
         return EstimateExitPupilDiameter(PrimaryWavelengthNanometers() / 1000.0);
     }
 
     public double EstimateExitPupilDiameter(double wavelengthMicrometers)
     {
+        EnsureComputable();
         var marginal = MarginalRay(wavelengthMicrometers);
         var imageHeight = marginal.Heights[^1][0];
         var imageSlope = marginal.Slopes[^1][0];
@@ -170,6 +180,7 @@ public sealed class Paraxial
         IReadOnlyList<double> normalizedPupilY,
         double wavelengthMicrometers)
     {
+        EnsureComputable();
         var positions = SurfacePositions();
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
         var entrancePupilLocation = EstimateEntrancePupilLocation();
@@ -239,6 +250,7 @@ public sealed class Paraxial
 
     public ParaxialTrace MarginalRay(double wavelengthMicrometers)
     {
+        EnsureComputable();
         var positions = SurfacePositions();
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
@@ -261,6 +273,7 @@ public sealed class Paraxial
 
     public ParaxialTrace ChiefRay(double wavelengthMicrometers)
     {
+        EnsureComputable();
         var maximumRadius = FieldCoordinates.MaximumRadius(_optic.Fields);
         var maximumY = _optic.Fields
             .OrderByDescending(field => Math.Abs(field.Y))
@@ -330,6 +343,7 @@ public sealed class Paraxial
         double wavelengthMicrometers,
         int startSurfaceIndex = 0)
     {
+        EnsureComputable();
         return TraceGenericCore(
             initialHeights,
             initialSlopes,
@@ -346,6 +360,7 @@ public sealed class Paraxial
         double wavelengthMicrometers,
         int skipSurfaceCount = 0)
     {
+        EnsureComputable();
         return TraceGenericCore(
             initialHeights,
             initialSlopes,
@@ -501,6 +516,14 @@ public sealed class Paraxial
     {
         return (_optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? _optic.Wavelengths.FirstOrDefault())?.Nanometers
             ?? 587.6;
+    }
+
+    private void EnsureComputable()
+    {
+        OpticCapabilityPreflight.EnsureSupported(
+            _optic,
+            OpticCapabilityOperation.Analysis,
+            "Paraxial / First Order");
     }
 
     private static RayMatrix Refract(RayMatrix matrix, double radius, double indexBefore, double indexAfter)

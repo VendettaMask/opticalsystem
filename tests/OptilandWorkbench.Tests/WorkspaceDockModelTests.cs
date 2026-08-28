@@ -339,10 +339,10 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public async Task NonSequentialThreeDimensionalViewerPreparesLayoutRaysFromTheViewEntryPoint()
+    public async Task NonSequentialThreeDimensionalViewerDoesNotTraceUntilExplicitlyRequested()
     {
         using var application = WorkbenchApplication.Create("blank");
-        application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
+        var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
         var detectorId = application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
         var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
         application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
@@ -368,18 +368,83 @@ public sealed class WorkspaceDockModelTests
             manager.Factory.OpenDocuments(),
             item => item.Id == "document:viewer-3d");
 
-        for (var attempt = 0;
-             attempt < 100 && application.NonSequentialAnalysis.GetCurrentSession() is null;
-             attempt++)
-        {
-            await Task.Delay(20);
-        }
+        await Task.Delay(150);
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentLayoutSession());
+        var emptyScene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(emptyScene.ThreeDimensional).Rays);
+        Assert.False(Assert.IsType<NonSequentialLayoutResultDto>(
+            emptyScene.NonSequentialLayoutResult).HasResult);
 
-        var session = application.NonSequentialAnalysis.GetCurrentSession();
-        Assert.NotNull(session);
-        Assert.True(session!.BranchCount > 0);
+        var session = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.True(session.BranchCount > 0);
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
         var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
         Assert.NotEmpty(Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays);
+
+        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+            source.Id,
+            source.Enabled,
+            source.Visible,
+            source.Kind,
+            source.Name,
+            source.ReferenceObjectId,
+            source.ContainingObjectId,
+            source.X + 1,
+            source.Y,
+            source.Z,
+            source.TiltXDegrees,
+            source.TiltYDegrees,
+            source.TiltZDegrees,
+            source.Parameters));
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        Assert.Equal(session.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+        Assert.True(File.Exists(session.RayDatabasePath));
+        var staleScene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(staleScene.ThreeDimensional).Rays);
+    }
+
+    [Fact]
+    public void OpeningViewerDoesNotDeleteExistingStaleManagedLayoutDatabase()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
+        application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+#pragma warning disable xUnit1031 // This headless-Avalonia test must remain on its UI test thread after preparation.
+        var session = application.NonSequentialAnalysis
+            .PrepareLayoutSessionAsync()
+            .GetAwaiter()
+            .GetResult();
+#pragma warning restore xUnit1031
+        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+            source.Id,
+            source.Enabled,
+            source.Visible,
+            source.Kind,
+            source.Name,
+            source.ReferenceObjectId,
+            source.ContainingObjectId,
+            source.X + 1,
+            source.Y,
+            source.Z,
+            source.TiltXDegrees,
+            source.TiltYDegrees,
+            source.TiltZDegrees,
+            source.Parameters));
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+
+        using var manager = new PanelManager(application, new AppSettings());
+        manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+
+        var afterOpen = application.NonSequentialAnalysis.GetCurrentLayoutSession();
+        Assert.NotNull(afterOpen);
+        Assert.Equal(session.Id, afterOpen!.Id);
+        Assert.Equal(session.RayDatabasePath, afterOpen.RayDatabasePath);
+        Assert.True(File.Exists(session.RayDatabasePath));
+        Assert.True(afterOpen.IsStale);
     }
 
     [Fact]

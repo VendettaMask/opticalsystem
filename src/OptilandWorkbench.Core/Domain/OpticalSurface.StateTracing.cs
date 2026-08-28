@@ -23,8 +23,8 @@ public sealed partial class OpticalSurface
         var refractiveIndexAfter = materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
         var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
-        var distance = Geometry.DistanceToIntersection(localOrigin, localDirection);
-        if (distance is null)
+        var intersection = Geometry.DistanceToIntersection(localOrigin, localDirection);
+        if (!intersection.IsHit)
         {
             var stopped = ray with { Intensity = 0 };
             return new SurfaceRayTraceStateResult(
@@ -46,7 +46,7 @@ public sealed partial class OpticalSurface
                 true);
         }
 
-        var segmentLength = Math.Max(0, distance.Value);
+        var segmentLength = Math.Max(0, intersection.Distance);
         var segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
         var nextCumulativePathLength = cumulativePathLength + segmentLength;
         var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;

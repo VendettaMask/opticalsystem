@@ -201,7 +201,11 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             YUnit: AnalysisAxisUnit.Micrometer,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
-        var title = wavelengths.Length > 1 ? "复色光惠更斯PSF" : "惠更斯PSF";
+        var title = _usePolarization
+            ? wavelengths.Length > 1
+                ? "复色光 Polarization-weighted scalar Huygens PSF（Experimental）"
+                : "Polarization-weighted scalar Huygens PSF（Experimental）"
+            : wavelengths.Length > 1 ? "复色光惠更斯PSF" : "惠更斯PSF";
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "Huygens-Fresnel",
@@ -224,6 +228,12 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["Type"] = _type,
             ["DisplayAs"] = _displayAs,
             ["UsePolarization"] = _usePolarization,
+            ["PolarizationModel"] = _usePolarization
+                ? "Polarization-weighted scalar approximation"
+                : "Scalar",
+            ["PolarizationLimit"] = _usePolarization
+                ? "Jones component powers are collapsed before scalar Huygens summation; complex cross-polarization interference and longitudinal high-NA fields are not modeled."
+                : string.Empty,
             ["Normalized"] = _normalize,
             ["UseCentroid"] = _useCentroid,
             ["CentroidXMicrometers"] = (centerColumn - (_imageSize / 2)) * sampleSpacingMicrometers,

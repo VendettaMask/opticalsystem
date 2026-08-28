@@ -158,7 +158,7 @@ public sealed class TracingEdgeCaseTests
 
         public double Sag(double x, double y) => 0;
 
-        public double? DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+        public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
             throw new InvalidOperationException("Synthetic surface failure.");
 
         public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);

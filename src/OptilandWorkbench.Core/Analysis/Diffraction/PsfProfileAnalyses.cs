@@ -53,7 +53,9 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             normalize: _normalize).GenerateData();
         return PsfProfilePresentation.CreateCrossSectionData(
             Name,
-            "PSF截面图",
+            _usePolarization
+                ? "Polarization-weighted scalar FFT PSF 截面（Experimental）"
+                : "PSF截面图",
             source,
             _type,
             _row,
@@ -176,7 +178,9 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             : 0;
         return PsfProfilePresentation.CreateCrossSectionData(
             Name,
-            "惠更斯 PSF 截面图",
+            _usePolarization
+                ? "Polarization-weighted scalar Huygens PSF 截面（Experimental）"
+                : "惠更斯 PSF 截面图",
             source,
             _profileType,
             graphScaleMicrometers: graphScaleMicrometers);

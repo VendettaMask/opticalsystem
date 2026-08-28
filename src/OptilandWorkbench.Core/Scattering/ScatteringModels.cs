@@ -12,14 +12,17 @@ public interface IScatteringModel
     IScatteringModel Clone();
 }
 
-public sealed class LambertianScatteringModel : IScatteringModel
+public class MainRayScatterLossApproximation : IScatteringModel
 {
-    public LambertianScatteringModel(double scatterFraction)
+    public MainRayScatterLossApproximation(double scatterFraction)
     {
         ScatterFraction = Math.Clamp(scatterFraction, 0, 1);
     }
 
-    public string Kind => "lambertian";
+    public virtual string Kind => "main_ray_scatter_loss_approximation";
+
+    public string ExperimentalWarning =>
+        "Experimental：仅从主光线扣除散射能量，不生成 Lambertian 散射方向或分支。";
 
     public double ScatterFraction { get; }
 
@@ -28,17 +31,30 @@ public sealed class LambertianScatteringModel : IScatteringModel
         return ray with { Intensity = ray.Intensity * (1.0 - ScatterFraction) };
     }
 
-    public IScatteringModel Clone() => new LambertianScatteringModel(ScatterFraction);
+    public virtual IScatteringModel Clone() => new MainRayScatterLossApproximation(ScatterFraction);
 }
 
-public sealed class MeasuredBsdfScatteringModel : IScatteringModel
+[Obsolete("Compatibility alias only; no Lambertian direction sampling is performed. Use MainRayScatterLossApproximation.")]
+public sealed class LambertianScatteringModel : MainRayScatterLossApproximation
 {
-    public MeasuredBsdfScatteringModel(IReadOnlyList<(double AngleDegrees, double Value)> samples)
+    public LambertianScatteringModel(double scatterFraction) : base(scatterFraction)
+    {
+    }
+
+    public override IScatteringModel Clone() => new LambertianScatteringModel(ScatterFraction);
+}
+
+public class MeanMeasuredScatterLoss : IScatteringModel
+{
+    public MeanMeasuredScatterLoss(IReadOnlyList<(double AngleDegrees, double Value)> samples)
     {
         Samples = samples.ToArray();
     }
 
-    public string Kind => "measured_bsdf";
+    public virtual string Kind => "mean_measured_scatter_loss";
+
+    public string ExperimentalWarning =>
+        "Experimental：仅使用测量样本均值作为主光线损耗，不执行 BSDF Evaluate、Sample 或 Pdf。";
 
     public IReadOnlyList<(double AngleDegrees, double Value)> Samples { get; }
 
@@ -48,5 +64,15 @@ public sealed class MeasuredBsdfScatteringModel : IScatteringModel
         return ray with { Intensity = ray.Intensity * (1.0 - loss) };
     }
 
-    public IScatteringModel Clone() => new MeasuredBsdfScatteringModel(Samples);
+    public virtual IScatteringModel Clone() => new MeanMeasuredScatterLoss(Samples);
+}
+
+[Obsolete("Compatibility alias only; no BSDF evaluation or direction sampling is performed. Use MeanMeasuredScatterLoss.")]
+public sealed class MeasuredBsdfScatteringModel : MeanMeasuredScatterLoss
+{
+    public MeasuredBsdfScatteringModel(IReadOnlyList<(double AngleDegrees, double Value)> samples) : base(samples)
+    {
+    }
+
+    public override IScatteringModel Clone() => new MeasuredBsdfScatteringModel(Samples);
 }

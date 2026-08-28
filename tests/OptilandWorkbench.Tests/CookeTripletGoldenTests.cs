@@ -1352,14 +1352,14 @@ public sealed class CookeTripletGoldenTests
     public void PythonJsonExportRejectsUnsupportedCoatingExplicitly()
     {
         var optic = Optic.CreateTessarLens();
-        optic.SurfaceGroup.Items[1].CoatingModel = new ThinFilmStackCoating(new[]
+        optic.SurfaceGroup.Items[1].CoatingModel = new ApproximateTransmissionRippleCoating(new[]
         {
             new ThinFilmLayer("MgF2", 120)
         });
 
         var error = Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(optic));
 
-        Assert.Contains("thin_film_stack", error.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("approximate_transmission_ripple", error.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     private static void AssertSample(string traceName, JsonElement expected, RayTraceSample actual)

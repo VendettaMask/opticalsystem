@@ -60,8 +60,15 @@ public interface INonSequentialAnalysisService
 {
     event EventHandler<NonSequentialTraceSessionDto?>? SessionChanged;
 
+    event EventHandler<NonSequentialTraceSessionDto?>? LayoutSessionChanged;
+
     NonSequentialTraceSessionDto? GetCurrentSession();
 
+    NonSequentialTraceSessionDto? GetCurrentLayoutSession();
+
+    Task<NonSequentialTraceSessionDto> PrepareLayoutSessionAsync(CancellationToken cancellationToken = default);
+
+    [Obsolete("Compatibility alias. Layout tracing must be an explicit user action; use PrepareLayoutSessionAsync.")]
     Task<NonSequentialTraceSessionDto> EnsureLayoutSessionAsync(CancellationToken cancellationToken = default);
 
     Task<NonSequentialTraceRunResultDto> TraceAsync(

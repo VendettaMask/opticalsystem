@@ -175,7 +175,11 @@ public sealed class PsfAnalysis : BaseAnalysis
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var centerValue = values[gridSize / 2, gridSize / 2];
-        var title = wavelengths.Length > 1 ? "复色光FFT PSF" : "FFT PSF";
+        var title = _usePolarization
+            ? wavelengths.Length > 1
+                ? "复色光 Polarization-weighted scalar FFT PSF（Experimental）"
+                : "Polarization-weighted scalar FFT PSF（Experimental）"
+            : wavelengths.Length > 1 ? "复色光FFT PSF" : "FFT PSF";
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "FFT",
@@ -195,6 +199,12 @@ public sealed class PsfAnalysis : BaseAnalysis
             ["Type"] = _type,
             ["DisplayAs"] = _displayAs,
             ["UsePolarization"] = _usePolarization,
+            ["PolarizationModel"] = _usePolarization
+                ? "Polarization-weighted scalar approximation"
+                : "Scalar",
+            ["PolarizationLimit"] = _usePolarization
+                ? "Jones component powers are collapsed before scalar diffraction; complex cross-polarization interference and longitudinal high-NA fields are not modeled."
+                : string.Empty,
             ["Normalized"] = _normalize
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,

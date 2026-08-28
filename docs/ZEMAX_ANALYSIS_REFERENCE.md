@@ -308,7 +308,7 @@ Workbench 一侧引用 `images/gui-current`。
 
 ### FFT PSF
 
-- Workbench 将追迹 `Intensity` 视为功率/通量；FFT、MMDFT 与 Huygens 的复场振幅统一使用 `sqrt(Intensity)`（偏振也先按功率合成再开方），避免膜层透过率、吸收、渐晕或 apodization 在 PSF 中被再次平方。
+- Workbench 将追迹 `Intensity` 视为功率/通量；FFT、MMDFT 与 Huygens 的复场振幅统一使用 `sqrt(Intensity)`，避免膜层透过率、吸收、渐晕或 apodization 在 PSF 中被再次平方。当前偏振选项会先把 Jones 四分量模平方合成为功率再进入标量复光瞳，因此结果和 UI 明确命名为 `Polarization-weighted scalar PSF（Experimental）`；它不保留 Jones 分量复相位、交叉偏振干涉或高 NA 纵向场，不能称为矢量 PSF。
 - 设置内容：`Sampling`、`Display`、`Rotation`、`Wavelength`、`Field`、`Type`（linear/log/phase/real/imaginary）、`Show As`（surface、contour、grey scale、false color）、`Use Polarization`、`Image Delta`、`Normalize`、`Surface`。
 - 结果展现：二维 PSF surface/contour/grey/false color 图，也可输出线性强度、对数强度、相位、实部、虚部。
 - 实现方式：在与参考波长 chief ray 垂直、以 chief ray 为中心的假想平面上计算点源衍射强度。算法在 pupil space coordinates 中完成，采样后进行 zero padding，使 image-space sampling 为 pupil sampling 的两倍以降低 aliasing。
@@ -517,7 +517,7 @@ Workbench 一侧引用 `images/gui-current`。
 - Workbench 的图像模拟入口默认使用 `Geometric`，以匹配 Zemax 设置页示例；也可切换 `Diffraction` 或 `None`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍，或 Huygens 计算失效时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。`Geometric` 和 `None` 不再经过固定 FFT PSF。
 - 源图和仿真结果均可按设置翻转；`Reference` 可选择主光线或质心。显式 pixel size 会覆盖自动估算的像面采样间距；非零 X/Y detector pixels 会重采样最终输出。`显示为` 可选择仿真图或源位图，输出文件支持 BMP/JPG/PNG。
 - Workbench 当前 `GuardBand` 数值仍表示每边加入的像素数；它与 OpticStudio 界面中的 guard-band level 表示法不同，但边界内容和管线位置遵循上述定义。
-- `Use Polarization`、`Apply Fixed Apertures` 和 `Compress Frame` 已作为 Zemax 设置兼容项保存并显示；当前标量 PSF 管线尚未进行 Jones/Mueller 偏振传播，固定孔径仍采用现有顺序追迹的固定孔径行为，`Compress Frame` 尚不改变无框架的栅格输出。PSF-grid 单独显示仍未接入本入口。
+- `Use Polarization`、`Apply Fixed Apertures` 和 `Compress Frame` 已作为 Zemax 设置兼容项保存并显示；`Use Polarization` 当前在 PSF 界面显示为“偏振加权（标量近似，Experimental）”，结果元数据同时给出 `PolarizationModel` 和限制说明。真正的 Ex/Ey 复场传播、高 NA 纵向场及 Richards–Wolf/Debye 积分尚未实现。固定孔径仍采用现有顺序追迹的固定孔径行为，`Compress Frame` 尚不改变无框架的栅格输出。PSF-grid 单独显示仍未接入本入口。
 
 ### Geometric Image Analysis
 

@@ -12,51 +12,75 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService
 {
-    private readonly NonSequentialAnalysisSession _session;
+    private readonly NonSequentialAnalysisSession _analysisSession;
+    private readonly NonSequentialLayoutSession _layoutSession;
 
     public NonSequentialAnalysisService(
         WorkspaceCoordinator workspace,
-        NonSequentialAnalysisSession session) : base(workspace)
+        NonSequentialAnalysisSession analysisSession,
+        NonSequentialLayoutSession layoutSession) : base(workspace)
     {
-        _session = session ?? throw new ArgumentNullException(nameof(session));
-        _session.Changed += (_, _) => SessionChanged?.Invoke(this, GetCurrentSession());
+        _analysisSession = analysisSession ?? throw new ArgumentNullException(nameof(analysisSession));
+        _layoutSession = layoutSession ?? throw new ArgumentNullException(nameof(layoutSession));
+        _analysisSession.Changed += (_, _) => SessionChanged?.Invoke(this, GetCurrentSession());
+        _layoutSession.Changed += (_, _) => LayoutSessionChanged?.Invoke(this, GetCurrentLayoutSession());
     }
 
     public event EventHandler<NonSequentialTraceSessionDto?>? SessionChanged;
 
+    public event EventHandler<NonSequentialTraceSessionDto?>? LayoutSessionChanged;
+
     public NonSequentialTraceSessionDto? GetCurrentSession()
     {
-        lock (Gate) return _session.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+        lock (Gate) return _analysisSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
     }
 
-    public async Task<NonSequentialTraceSessionDto> EnsureLayoutSessionAsync(
+    public NonSequentialTraceSessionDto? GetCurrentLayoutSession()
+    {
+        lock (Gate) return _layoutSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+    }
+
+    public async Task<NonSequentialTraceSessionDto> PrepareLayoutSessionAsync(
         CancellationToken cancellationToken = default)
     {
-        var current = GetCurrentSession();
+        var current = GetCurrentLayoutSession();
         if (current is { IsStale: false }
             && current.State is NonSequentialTraceSessionState.Completed or NonSequentialTraceSessionState.Warning)
         {
             return current;
         }
 
-        await TraceAsync(new NonSequentialTraceRunRequestDto(
+        await TraceCoreAsync(new NonSequentialTraceRunRequestDto(
             OutputMode: OptilandWorkbench.Application.Contracts.NonSequentialTraceOutputMode.RayDatabase,
             AnalysisRays: false,
-            Command: NonSequentialTraceCommand.ClearAndTrace), cancellationToken).ConfigureAwait(false);
-        return GetCurrentSession()
+            Command: NonSequentialTraceCommand.ClearAndTrace), _layoutSession, cancellationToken).ConfigureAwait(false);
+        return GetCurrentLayoutSession()
             ?? throw new InvalidOperationException("非序列布局追迹完成后未建立结果会话。");
     }
 
-    public void ClearDetectors() => _session.Clear();
+    [Obsolete("Compatibility alias. Layout tracing must be an explicit user action; use PrepareLayoutSessionAsync.")]
+    public Task<NonSequentialTraceSessionDto> EnsureLayoutSessionAsync(
+        CancellationToken cancellationToken = default) =>
+        PrepareLayoutSessionAsync(cancellationToken);
+
+    public void ClearDetectors() => _analysisSession.Clear();
 
     public async Task<NonSequentialTraceRunResultDto> TraceAsync(
         NonSequentialTraceRunRequestDto request,
         CancellationToken cancellationToken = default)
     {
+        return await TraceCoreAsync(request, _analysisSession, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<NonSequentialTraceRunResultDto> TraceCoreAsync(
+        NonSequentialTraceRunRequestDto request,
+        NonSequentialResultSession targetSession,
+        CancellationToken cancellationToken)
+    {
         ArgumentNullException.ThrowIfNull(request);
         if (request.Command == NonSequentialTraceCommand.ClearOnly)
         {
-            ClearDetectors();
+            targetSession.Clear();
             return new NonSequentialTraceRunResultDto(
                 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,
                 SessionState: NonSequentialTraceSessionState.Empty,
@@ -73,7 +97,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             revision = Workspace.Revision;
         }
 
-        var previous = GetCurrentSession();
+        NonSequentialTraceSessionDto? previous;
+        lock (Gate)
+        {
+            previous = targetSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+        }
         var sceneHash = NonSequentialSceneHasher.Compute(document);
         var splitting = request.SplittingMode
             ?? ((request.SplitFresnelRays ?? document.TraceSettings.SplitFresnelRays)
@@ -236,7 +264,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 }
                 PublishFile(temporaryPath, targetPath);
                 response = response with { RayDatabaseBytes = new FileInfo(targetPath).Length };
-                _session.Publish(session, ownsDatabase);
+                targetSession.Publish(session, ownsDatabase);
                 return response;
             }
             finally
@@ -261,7 +289,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 item.AverageOpticalPathLength, item.MaximumOpticalPathLength,
                 item.TerminationReason.ToString()))
             .ToArray();
-        _session.Set(path, pathFilterExpression);
+        _analysisSession.Set(path, pathFilterExpression);
         return new NonSequentialRayDatabaseDto(
             Path.GetFullPath(path), reader.Header.SceneHash, reader.Header.SourceRevision,
             reader.Header.CreatedUtc, reader.BranchCount, reader.IsStale(document),
@@ -276,13 +304,13 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     {
         if (pageIndex < 0) throw new ArgumentOutOfRangeException(nameof(pageIndex));
         if (pageSize <= 0 || pageSize > 1_000) throw new ArgumentOutOfRangeException(nameof(pageSize));
-        path = string.IsNullOrWhiteSpace(path) ? _session.SelectedPath : Path.GetFullPath(path);
+        path = string.IsNullOrWhiteSpace(path) ? _analysisSession.SelectedPath : Path.GetFullPath(path);
         if (string.IsNullOrWhiteSpace(path)) throw new InvalidOperationException("当前没有可用的光线数据库。");
         NonSequentialDocument document;
         lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
-        var filter = NonSequentialPathFilter.Parse(pathFilterExpression ?? _session.SelectedFilter);
+        var filter = NonSequentialPathFilter.Parse(pathFilterExpression ?? _analysisSession.SelectedFilter);
         var objectMap = reader.Header.Objects.ToDictionary(item => item.Id);
         var branches = reader.ReadBranches(filter)
             .Skip(checked(pageIndex * pageSize))
@@ -304,7 +332,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             revision = Workspace.Revision;
         }
         var path = string.IsNullOrWhiteSpace(request.RayDatabasePath)
-            ? _session.SelectedPath
+            ? _analysisSession.SelectedPath
             : Path.GetFullPath(request.RayDatabasePath);
         if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
         {
@@ -317,7 +345,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         var detector = (CoreDetectorRectangleParameters)detectorObject.Parameters;
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
-        var filter = NonSequentialPathFilter.Parse(request.PathFilterExpression ?? _session.SelectedFilter);
+        var filter = NonSequentialPathFilter.Parse(request.PathFilterExpression ?? _analysisSession.SelectedFilter);
         var frame = NonSequentialDetectorReconstruction.Reconstruct(document, reader.ReadBranches(filter))
             .Single(item => item.DetectorId == request.DetectorId);
         var values = BuildDetectorValues(frame, detector, request);
@@ -337,7 +365,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             NonSequentialDetectorDataType.HitCount => "count",
             _ => "W/sr"
         };
-        var selectedSession = _session.Snapshot(document, revision);
+        var selectedSession = _analysisSession.Snapshot(document, revision);
         var selectedSessionIsStale = selectedSession is not null
             && Path.GetFullPath(path).Equals(selectedSession.RayDatabasePath, StringComparison.OrdinalIgnoreCase)
             && selectedSession.IsStale;

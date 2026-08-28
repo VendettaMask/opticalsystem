@@ -1016,7 +1016,8 @@ public sealed record VisualizationRequestDto(
     double LowerPupil = -0.85,
     double UpperPupil = 0.85,
     bool DeleteVignetted = true,
-    bool MarginalAndChiefOnly = false);
+    bool MarginalAndChiefOnly = false,
+    bool IncludeStaleNonSequentialRays = false);
 
 public sealed record ScenePoint2Dto(double Z, double Y);
 
@@ -1158,12 +1159,22 @@ public sealed record Scene3Dto(
     double ZMin,
     double ZMax);
 
+public sealed record NonSequentialLayoutResultDto(
+    bool HasResult,
+    string CurrentSceneHash,
+    string? ResultSceneHash,
+    long? ResultRevision,
+    bool IsStale,
+    bool RaysLoaded,
+    string? DatabasePath);
+
 public sealed record SceneDto(
     long SourceRevision,
     SceneDimension Dimension,
     Scene2Dto? TwoDimensional,
     Scene3Dto? ThreeDimensional,
-    OpticalDocumentSnapshot Summary);
+    OpticalDocumentSnapshot Summary,
+    NonSequentialLayoutResultDto? NonSequentialLayoutResult = null);
 
 public enum CadExportFormat
 {

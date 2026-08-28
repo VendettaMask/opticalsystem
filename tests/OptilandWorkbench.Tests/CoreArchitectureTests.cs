@@ -1,5 +1,6 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Coatings;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Scattering;
@@ -248,13 +249,52 @@ public sealed class CoreArchitectureTests
             (AngleDegrees: 12.5, Value: 0.08),
             (AngleDegrees: 40.0, Value: 0.22)
         };
-        optic.SurfaceGroup.Items[2].ScatteringModel = new MeasuredBsdfScatteringModel(samples);
+        optic.SurfaceGroup.Items[2].ScatteringModel = new MeanMeasuredScatterLoss(samples);
 
         var restored = Optic.FromSnapshot(optic.ToSnapshot());
 
-        var measured = Assert.IsType<MeasuredBsdfScatteringModel>(
+        var measured = Assert.IsType<MeanMeasuredScatterLoss>(
             restored.SurfaceGroup.Items[2].ScatteringModel);
         Assert.Equal(samples, measured.Samples);
+    }
+
+    [Fact]
+    public void ExperimentalLossApproximationsUseTruthfulKindsAndMigrateLegacySnapshots()
+    {
+        var coating = new ApproximateTransmissionRippleCoating(
+            new[] { new ThinFilmLayer("MgF2", 120) });
+        var mainRayLoss = new MainRayScatterLossApproximation(0.1);
+        var measuredLoss = new MeanMeasuredScatterLoss(
+            new[] { (AngleDegrees: 0.0, Value: 0.05) });
+
+        Assert.Equal("approximate_transmission_ripple", coating.Kind);
+        Assert.Contains("Experimental", coating.ExperimentalWarning, StringComparison.Ordinal);
+        Assert.Equal("main_ray_scatter_loss_approximation", mainRayLoss.Kind);
+        Assert.Contains("不生成", mainRayLoss.ExperimentalWarning, StringComparison.Ordinal);
+        Assert.Equal("mean_measured_scatter_loss", measuredLoss.Kind);
+        Assert.Contains("BSDF", measuredLoss.ExperimentalWarning, StringComparison.Ordinal);
+
+        var legacyCoating = ComponentSnapshotFactory.ToCoating(new ComponentSnapshot(
+            "thin_film_stack",
+            new Dictionary<string, double> { ["count"] = 1, ["thickness_0"] = 120 },
+            new Dictionary<string, string> { ["material_0"] = "MgF2" }));
+        var legacyLambertian = ComponentSnapshotFactory.ToScattering(new ComponentSnapshot(
+            "lambertian",
+            new Dictionary<string, double> { ["scatterFraction"] = 0.2 },
+            new Dictionary<string, string>()));
+        var legacyMeasured = ComponentSnapshotFactory.ToScattering(new ComponentSnapshot(
+            "measured_bsdf",
+            new Dictionary<string, double>
+            {
+                ["sampleCount"] = 1,
+                ["angle0"] = 12,
+                ["value0"] = 0.3
+            },
+            new Dictionary<string, string>()));
+
+        Assert.IsType<ApproximateTransmissionRippleCoating>(legacyCoating);
+        Assert.IsType<MainRayScatterLossApproximation>(legacyLambertian);
+        Assert.IsType<MeanMeasuredScatterLoss>(legacyMeasured);
     }
 
     [Fact]

@@ -41,8 +41,8 @@ public sealed class BatchedBackendKernelTests
             var expected = geometry.DistanceToIntersection(
                 new Vector3D(originX[index], originY[index], originZ[index]),
                 new Vector3D(directionX[index], directionY[index], directionZ[index]));
-            Assert.Equal(expected.HasValue, intersects[index]);
-            Assert.Equal(expected!.Value, distance[index], precision: 11);
+            Assert.Equal(expected.IsHit, intersects[index]);
+            Assert.Equal(expected.Distance, distance[index], precision: 11);
         }
     }
 

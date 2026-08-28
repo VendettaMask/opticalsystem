@@ -221,10 +221,10 @@ public sealed partial class MainWindow
             _application.NonSequentialAnalysis).ShowDialog(this);
     }
 
-    private async Task OpenNonSequentialLayoutAsync()
+    private Task OpenNonSequentialLayoutAsync()
     {
-        await _application.NonSequentialAnalysis.EnsureLayoutSessionAsync();
         _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+        return Task.CompletedTask;
     }
 
     private Task OpenNonSequentialDetectorViewerAsync()

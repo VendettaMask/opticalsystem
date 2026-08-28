@@ -206,7 +206,8 @@ public sealed class CadExportReliabilityTests
 
         public double Sag(double x, double y) => double.NaN;
 
-        public double? DistanceToIntersection(Vector3D origin, Vector3D direction) => null;
+        public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+            IntersectionResult.Failure(IntersectionStatus.DomainError);
 
         public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
 

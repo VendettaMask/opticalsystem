@@ -20,7 +20,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 正式产品截至 2026-08-26 严格构建为 `0` 警告、`0` 错误，全量测试 `793/793`，其中全部非序列测试 `45/45`、杂散光专项 `11/11`、教学样例专项 `7/7`。独立实验室构建为 `0` 警告、`0` 错误，定向测试 `7/7`，不并入正式基线 |
+| 当前验证记录 | 持续维护 | 正式产品截至 2026-08-28 严格构建为 `0` 警告、`0` 错误，全量测试 `831/831`。独立实验室使用独立解决方案与基线，不并入正式基线 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
 | 兼容层隔离与旧链路删除 | 部分完成 | `OptilandConnector` 仍为源码兼容入口，但无新增成员并直接复用规范 `WorkbenchRuntime`；独立兼容程序集和最终 API 删除仍是计划行为 |
@@ -42,7 +42,7 @@
 - 已实现：`OptilandConnector` 仅保留无新增成员的兼容类型；兼容调用与 GUI/Services 复用同一运行时实现，不保存第二份状态、默认值或算法。
 - 已实现：`LayeringArchitectureTests` 禁止生产 Services 引用 `Application.Legacy`，并禁止 `OpticalWorkspaceModel`、`Connector.` 词汇重新进入服务层。
 - 兼容保留：现有测试和外部源码仍可构造 `OptilandConnector`。把该 API 移入独立兼容程序集并最终删除是后续计划，不应描述为已完成。
-- 历史验证记录：截至2026-08-24的全量测试为 `739/739`，2026-08-25为 `775/775`，2026-08-26建立教学样例前为`786/786`；这些记录已由当前`793/793`全量基线取代。
+- 历史验证记录：截至2026-08-24的全量测试为 `739/739`，2026-08-25为 `775/775`，2026-08-26建立教学样例前为`786/786`；这些记录已由2026-08-28的当前`831/831`全量基线取代。
 
 ### 2026-08-03 逻辑冗余清理
 

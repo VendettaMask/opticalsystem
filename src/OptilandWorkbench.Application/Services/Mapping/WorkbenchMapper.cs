@@ -79,8 +79,10 @@ internal static class WorkbenchMapper
 
     internal static string CoatingKind(OpticalSurface surface)
     {
-        return surface.CoatingModel is ThinFilmStackCoating stack
-            ? stack.Layers.Count > 1 ? "四分之一波堆栈" : "MgF2 单层"
+        return surface.CoatingModel is ApproximateTransmissionRippleCoating stack
+            ? stack.Layers.Count > 1
+                ? "Experimental：交替层透过率起伏近似（非薄膜求解）"
+                : "Experimental：单层透过率起伏近似（非薄膜求解）"
             : "无镀膜";
     }
 

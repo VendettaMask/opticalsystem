@@ -115,8 +115,8 @@ public partial class WorkbenchRuntime
         return value switch
         {
             "无镀膜" => "None",
-            "MgF2 单层" => "MgF2",
-            "四分之一波堆栈" => "Quarter-wave Stack",
+            "MgF2 单层" or "Experimental：单层透过率起伏近似" => "Approximate Single Layer",
+            "四分之一波堆栈" or "Experimental：交替层透过率起伏近似" => "Approximate Alternating Layers",
             _ => value
         };
     }

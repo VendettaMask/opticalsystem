@@ -764,7 +764,7 @@ public partial class WorkbenchRuntime
                     0,
                     1_000_000,
                     0.1),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -809,7 +809,7 @@ public partial class WorkbenchRuntime
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 ChoiceParameter("Row", "行", "中心", new[] { "中心" }),
                 DoubleParameter("GraphScaleMicrometers", "图形缩放", "0", 0, 1_000_000, 0.1),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -843,7 +843,7 @@ public partial class WorkbenchRuntime
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 ChoiceParameter("Spread", "扩散", "线", new[] { "线", "边缘" }),
                 DoubleParameter("GraphScaleMicrometers", "图形缩放", "0", 0, 1_000_000, 0.1),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -877,7 +877,7 @@ public partial class WorkbenchRuntime
                 IntParameter("SurfaceNumber", "表面（0 为像面）", "0", 0, 1024),
                 ChoiceParameter("Type", "类型", "调制", new[] { "调制", "实部", "虚部", "相位", "方波" }),
                 BoolParameter("ShowDiffractionLimit", "显示衍射极限", "false"),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 BoolParameter("UseDashes", "使用虚线", "false")
             },
             "Huygens PSF" => new[]
@@ -900,7 +900,7 @@ public partial class WorkbenchRuntime
                     1_000_000,
                     0.1),
                 ChoiceParameter("Rotation", "旋转", "0", new[] { "0", "90", "180", "270" }),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 BoolParameter("UseCentroid", "使用质心", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -935,7 +935,7 @@ public partial class WorkbenchRuntime
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场", "1", 1, 256),
                 ChoiceParameter("ProfileType", "截面", "X", new[] { "X", "Y", "Both" }),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
+                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
                 BoolParameter("UseCentroid", "使用质心", "false")
             },
             "Huygens MTF" => new[]

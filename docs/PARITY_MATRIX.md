@@ -13,7 +13,7 @@
 | 几何 | `Geometries` | 平面、标准面、光栅、非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q；其余自由曲面有明确占位边界 |
 | 材料 | `Materials` | Air、Vacuum、常数、Cauchy、Sellmeier、Abbe、目录 n/k 及厂商消歧 |
 | 传播 | `Propagation` | 均匀介质和“入口方向近似”；后者仅在每段入口修正一次方向，不是 GRIN eikonal/Hamilton 求解器 |
-| 镀膜 | `Coatings` | 镀膜栈和四分之一波合成骨架；完整薄膜 TMM 未完成 |
+| 镀膜/散射近似 | `Coatings`、`Scattering` | 仅提供标为 Experimental 的经验透过率起伏、主光线散射损耗和测量样本均值损耗；旧 Thin Film/Lambertian/Measured BSDF 名称只作兼容别名，稳定 S-matrix 与 BSDF 方向抽样未完成 |
 | 分析 | `Analysis` | 72 个规范分析、Workbench 单一描述符目录和按模式隔离的两套入口；顺序 70 项、非序列 2 项，独立畸变入口已合并到场曲/畸变，报告菜单含 5 个真实入口 |
 | 优化 | `Optimization` | 变量、操作数、缩放，以及五种按真实实现命名的本地搜索；没有实现真正的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES 或信赖域 LM；ZMX 参考评价函数 103 行按源顺序可见，`TRAR` 可执行，未实现类型禁用只读保留；当前 51 个代码/兼容类型不等同 Zemax 333 项完整支持；Glass Expert 未实现且明确返回不支持 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |

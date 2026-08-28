@@ -45,11 +45,28 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private readonly CheckBox _deleteVignetted = new() { Content = "删除渐晕光线" };
     private readonly CheckBox _marginalAndChiefOnly = new() { Content = "仅边缘和主光线" };
     private readonly CheckBox _autoApply = new() { Content = "自动应用", IsChecked = true };
+    private readonly Button _prepareLayoutRays = new()
+    {
+        Content = "准备布局光线",
+        MinWidth = 112,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+    private readonly CheckBox _showStaleLayoutRays = new()
+    {
+        Content = "查看过期光线",
+        IsVisible = false,
+        VerticalAlignment = VerticalAlignment.Center
+    };
+    private readonly TextBlock _staleLayoutMessage = new()
+    {
+        Foreground = Brushes.White,
+        FontWeight = FontWeight.SemiBold
+    };
+    private readonly Border _staleLayoutBanner;
     private CancellationTokenSource? _refreshCancellation;
     private bool _locked;
     private bool _disposed;
     private bool _updatingSettings;
-    private bool _layoutSessionPreparationPending;
     private int _preparingLayoutSession;
 
     public ViewerPanel(
@@ -88,6 +105,22 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _lineWidthPicker.ItemsSource = new[] { "细", "标准", "粗" };
         _lineWidthPicker.SelectedIndex = 1;
         _deleteVignetted.IsChecked = true;
+        _staleLayoutBanner = new Border
+        {
+            IsVisible = false,
+            Background = Brushes.DarkRed,
+            BorderBrush = Brushes.Red,
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(4),
+            Padding = new Thickness(12, 7),
+            Margin = new Thickness(12, 54, 12, 0),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Top,
+            Child = _staleLayoutMessage
+        };
+        _prepareLayoutRays.IsVisible = IsNonSequential3D();
+        _prepareLayoutRays.Click += async (_, _) => await PrepareLayoutRaysAsync();
+        _showStaleLayoutRays.IsCheckedChanged += (_, _) => QueueRefresh(TimeSpan.Zero);
 
         var root = new DockPanel();
         _summaryBar = new Border
@@ -109,10 +142,10 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _events.Changed += OnWorkspaceChanged;
         if (_nonSequentialAnalysis is not null)
         {
-            _nonSequentialAnalysis.SessionChanged += OnNonSequentialSessionChanged;
+            _nonSequentialAnalysis.LayoutSessionChanged += OnNonSequentialSessionChanged;
         }
         _surfaceSelection.Changed += OnSurfaceSelectionChanged;
-        QueueRefresh(TimeSpan.Zero, ensureLayoutSession: IsNonSequential3D());
+        QueueRefresh(TimeSpan.Zero);
     }
 
     public bool IsLocked
@@ -144,7 +177,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _events.Changed -= OnWorkspaceChanged;
         if (_nonSequentialAnalysis is not null)
         {
-            _nonSequentialAnalysis.SessionChanged -= OnNonSequentialSessionChanged;
+            _nonSequentialAnalysis.LayoutSessionChanged -= OnNonSequentialSessionChanged;
         }
         _surfaceSelection.Changed -= OnSurfaceSelectionChanged;
         _refreshCancellation?.Cancel();
@@ -213,6 +246,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
                     FontWeight = FontWeight.SemiBold,
                     VerticalAlignment = VerticalAlignment.Center
                 },
+                _prepareLayoutRays,
+                _showStaleLayoutRays,
                 cutaway,
                 showRays,
                 renderMode
@@ -235,7 +270,12 @@ public sealed class ViewerPanel : UserControl, IDisposable
             },
             HorizontalAlignment.Center,
             VerticalAlignment.Bottom);
-        return SceneWithOverlay(_scene, topToolbar, presetToolbar, BuildSettingsOverlay());
+        return SceneWithOverlay(
+            _scene,
+            topToolbar,
+            presetToolbar,
+            BuildSettingsOverlay(),
+            _staleLayoutBanner);
     }
 
     private Control BuildSettingsOverlay()
@@ -250,7 +290,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         synchronize.Click += (_, _) =>
         {
             ApplyDisplaySettings();
-            QueueRefresh(TimeSpan.Zero, ensureLayoutSession: IsNonSequential3D());
+            QueueRefresh(TimeSpan.Zero);
         };
 
         var header = new StackPanel
@@ -429,7 +469,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
             LowerPupil: (double)(_lowerPupil.Value ?? -1),
             UpperPupil: (double)(_upperPupil.Value ?? 1),
             DeleteVignetted: _deleteVignetted.IsChecked == true,
-            MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true);
+            MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true,
+            IncludeStaleNonSequentialRays: _showStaleLayoutRays.IsChecked == true);
     }
 
     private void RefreshSelectorOptions(bool preserveSelection)
@@ -524,6 +565,10 @@ public sealed class ViewerPanel : UserControl, IDisposable
         {
             Dispatcher.UIThread.Post(() =>
             {
+                if (args.Category == WorkspaceChangeCategory.NonSequential)
+                {
+                    _showStaleLayoutRays.IsChecked = false;
+                }
                 RefreshSelectorOptions(preserveSelection: true);
                 QueueRefresh(TimeSpan.FromMilliseconds(120));
             });
@@ -547,17 +592,13 @@ public sealed class ViewerPanel : UserControl, IDisposable
         Dispatcher.UIThread.Post(() => QueueRefresh(TimeSpan.Zero));
     }
 
-    private void QueueRefresh(TimeSpan delay, bool ensureLayoutSession = false)
+    private void QueueRefresh(TimeSpan delay)
     {
         if (_disposed || _locked)
         {
             return;
         }
 
-        if (ensureLayoutSession)
-        {
-            Volatile.Write(ref _layoutSessionPreparationPending, true);
-        }
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
         _refreshCancellation = new CancellationTokenSource();
@@ -573,20 +614,6 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 await Task.Delay(delay, cancellationToken);
             }
 
-            if (Volatile.Read(ref _layoutSessionPreparationPending) && IsNonSequential3D())
-            {
-                Interlocked.Increment(ref _preparingLayoutSession);
-                try
-                {
-                    await _nonSequentialAnalysis!.EnsureLayoutSessionAsync(cancellationToken);
-                    Volatile.Write(ref _layoutSessionPreparationPending, false);
-                }
-                finally
-                {
-                    Interlocked.Decrement(ref _preparingLayoutSession);
-                }
-            }
-
             var scene = await _visualization.BuildSceneAsync(CreateRequest(), cancellationToken);
             if (cancellationToken.IsCancellationRequested || scene.SourceRevision != _events.Revision)
             {
@@ -600,11 +627,23 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 var nonSequential = scene.ThreeDimensional is { } threeDimensional
                     && threeDimensional.Surfaces.Any(surface =>
                         surface.RenderRole != SceneSurfaceRenderRole.OpticalSurface);
+                _prepareLayoutRays.IsVisible = IsNonSequential3D();
+                if (nonSequential)
+                {
+                    UpdateNonSequentialLayoutState(scene.NonSequentialLayoutResult);
+                }
+                else
+                {
+                    _staleLayoutBanner.IsVisible = false;
+                    _showStaleLayoutRays.IsVisible = false;
+                }
+
                 _summary.Text = nonSequential
                     ? $"非序列对象 {scene.ThreeDimensional!.Surfaces.Count}    "
                         + $"显示光线 {scene.ThreeDimensional.Rays.Count}    "
                         + $"Z 范围 {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} 至 "
                         + $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm"
+                        + LayoutStateSummary(scene.NonSequentialLayoutResult)
                     : $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
                         + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
                         + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
@@ -625,6 +664,59 @@ public sealed class ViewerPanel : UserControl, IDisposable
             });
         }
     }
+
+    private async Task PrepareLayoutRaysAsync()
+    {
+        if (!IsNonSequential3D() || Interlocked.CompareExchange(ref _preparingLayoutSession, 1, 0) != 0)
+        {
+            return;
+        }
+
+        _prepareLayoutRays.IsEnabled = false;
+        _prepareLayoutRays.Content = "正在准备…";
+        try
+        {
+            await _nonSequentialAnalysis!.PrepareLayoutSessionAsync();
+            _showStaleLayoutRays.IsChecked = false;
+            QueueRefresh(TimeSpan.Zero);
+        }
+        catch (Exception exception)
+        {
+            _summary.Text = $"布局光线准备失败：{exception.Message}";
+        }
+        finally
+        {
+            _prepareLayoutRays.IsEnabled = true;
+            Interlocked.Exchange(ref _preparingLayoutSession, 0);
+        }
+    }
+
+    private void UpdateNonSequentialLayoutState(NonSequentialLayoutResultDto? result)
+    {
+        var stale = result is { HasResult: true, IsStale: true };
+        _staleLayoutBanner.IsVisible = stale;
+        _showStaleLayoutRays.IsVisible = stale;
+        _prepareLayoutRays.Content = result switch
+        {
+            { HasResult: false } => "准备布局光线",
+            { IsStale: true } => "重新准备布局光线",
+            _ => "更新布局光线"
+        };
+        if (stale)
+        {
+            _staleLayoutMessage.Text = result!.RaysLoaded
+                ? "警告：正在把过期光线显示在新场景中，仅供对比。"
+                : "布局结果已过期，旧光线已隐藏。请重新准备布局光线。";
+        }
+    }
+
+    private static string LayoutStateSummary(NonSequentialLayoutResultDto? result) => result switch
+    {
+        null or { HasResult: false } => "    尚未准备布局光线",
+        { IsStale: true, RaysLoaded: true } => "    警告：正在查看过期结果",
+        { IsStale: true } => "    布局结果已过期并隐藏",
+        _ => "    布局结果与当前场景一致"
+    };
 
     private bool IsNonSequential3D() =>
         _dimension == SceneDimension.ThreeDimensional

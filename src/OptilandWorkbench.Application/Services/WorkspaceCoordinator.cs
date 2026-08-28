@@ -1,6 +1,7 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Application.Services;
@@ -54,6 +55,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         lock (Gate)
         {
             var optic = Runtime.CurrentOptic;
+            var computable = OpticCapabilityPreflight.Inspect(optic).Count == 0;
             return new OpticalDocumentSnapshot(
                 optic.Name,
                 CurrentPath,
@@ -61,14 +63,14 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                 Runtime.Status,
                 Runtime.CanUndo,
                 Runtime.CanRedo,
-                optic.Paraxial.EstimateEffectiveFocalLength(),
-                optic.Paraxial.EstimateFNumber(),
+                computable ? optic.Paraxial.EstimateEffectiveFocalLength() : double.NaN,
+                computable ? optic.Paraxial.EstimateFNumber() : double.NaN,
                 optic.Aperture.Value,
                 optic.SurfaceGroup.TotalTrack,
                 optic.SurfaceGroup.Items.Count,
                 optic.Fields.Count,
                 optic.Wavelengths.Count,
-                optic.Paraxial.EstimateEntrancePupilDiameter(),
+                computable ? optic.Paraxial.EstimateEntrancePupilDiameter() : double.NaN,
                 Revision != Interlocked.Read(ref _savedRevision));
         }
     }

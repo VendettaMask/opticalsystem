@@ -29,16 +29,16 @@ namespace OptilandWorkbench.Application.Services;
 internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizationService
 {
     private readonly IWorkbenchModeService? _modes;
-    private readonly NonSequentialAnalysisSession? _nonSequentialAnalysisSession;
+    private readonly NonSequentialLayoutSession? _nonSequentialLayoutSession;
 
     public VisualizationService(
         WorkspaceCoordinator workspace,
         IWorkbenchModeService? modes = null,
-        NonSequentialAnalysisSession? nonSequentialAnalysisSession = null)
+        NonSequentialLayoutSession? nonSequentialLayoutSession = null)
         : base(workspace)
     {
         _modes = modes;
-        _nonSequentialAnalysisSession = nonSequentialAnalysisSession;
+        _nonSequentialLayoutSession = nonSequentialLayoutSession;
     }
 
     public Task<SceneDto> BuildSceneAsync(
@@ -106,7 +106,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
                 summary,
                 request,
                 linked,
-                _nonSequentialAnalysisSession);
+                _nonSequentialLayoutSession);
     }
 
     private static async Task<SceneDto> BuildNonSequentialSceneWorkerAsync(
@@ -116,7 +116,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         OpticalDocumentSnapshot summary,
         VisualizationRequestDto request,
         CancellationTokenSource linked,
-        NonSequentialAnalysisSession? analysisSession)
+        NonSequentialLayoutSession? layoutSession)
     {
         using (linked)
         {
@@ -124,9 +124,39 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             {
                 linked.Token.ThrowIfCancellationRequested();
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
-                var databaseBranches = analysisSession?.LoadLayoutBranches(document);
-                var scene = NonSequentialVisualizationBuilder.Build(optic, document, request, databaseBranches);
-                return new SceneDto(sourceRevision, SceneDimension.ThreeDimensional, null, scene, summary);
+                var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+                var layout = layoutSession?.LoadLayoutBranches(
+                    document,
+                    request.IncludeStaleNonSequentialRays);
+                var scene = NonSequentialVisualizationBuilder.Build(
+                    optic,
+                    document,
+                    request,
+                    layout?.Branches);
+                var provenance = layout is null
+                    ? new NonSequentialLayoutResultDto(
+                        false,
+                        currentSceneHash,
+                        null,
+                        null,
+                        false,
+                        false,
+                        null)
+                    : new NonSequentialLayoutResultDto(
+                        true,
+                        layout.CurrentSceneHash,
+                        layout.SceneHash,
+                        layout.SourceRevision,
+                        layout.IsStale,
+                        layout.Branches.Count > 0,
+                        layout.DatabasePath);
+                return new SceneDto(
+                    sourceRevision,
+                    SceneDimension.ThreeDimensional,
+                    null,
+                    scene,
+                    summary,
+                    provenance);
             }, linked.Token).ConfigureAwait(false);
         }
     }

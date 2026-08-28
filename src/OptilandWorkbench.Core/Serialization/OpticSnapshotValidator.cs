@@ -52,7 +52,8 @@ public static class OpticSnapshotValidator
     private static readonly IReadOnlySet<string> CoatingKinds = Kinds(
         "none",
         "simple",
-        "thin_film_stack");
+        "thin_film_stack",
+        "approximate_transmission_ripple");
 
     private static readonly IReadOnlySet<string> InteractionKinds = Kinds(
         "reflective",
@@ -75,7 +76,9 @@ public static class OpticSnapshotValidator
 
     private static readonly IReadOnlySet<string> ScatteringKinds = Kinds(
         "lambertian",
-        "measured_bsdf");
+        "measured_bsdf",
+        "main_ray_scatter_loss_approximation",
+        "mean_measured_scatter_loss");
 
     private static readonly IReadOnlySet<string> PhaseProfileKinds = Kinds(
         "constant",
@@ -791,7 +794,8 @@ public static class OpticSnapshotValidator
         ComponentRole role,
         string path)
     {
-        if (role == ComponentRole.Coating && component.Kind == "thin_film_stack")
+        if (role == ComponentRole.Coating
+            && component.Kind is "thin_film_stack" or "approximate_transmission_ripple")
         {
             var count = RequireEncodedCount(
                 component,
@@ -831,7 +835,8 @@ public static class OpticSnapshotValidator
                 path);
         }
 
-        if (role == ComponentRole.Scattering && component.Kind == "measured_bsdf")
+        if (role == ComponentRole.Scattering
+            && component.Kind is "measured_bsdf" or "mean_measured_scatter_loss")
         {
             var count = RequireEncodedCount(
                 component,

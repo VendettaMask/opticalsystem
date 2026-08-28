@@ -83,7 +83,7 @@ public sealed partial class OpticalSurface : NotifyObject
 
             CoatingModel = normalized.Equals("None", StringComparison.OrdinalIgnoreCase)
                 ? new NoneCoatingModel()
-                : new ThinFilmStackCoating(new[] { new ThinFilmLayer(normalized, 120) });
+                : new ApproximateTransmissionRippleCoating(new[] { new ThinFilmLayer(normalized, 120) });
         }
     }
 
@@ -296,7 +296,7 @@ public sealed partial class OpticalSurface : NotifyObject
         MaterialAfter = new MaterialRegistry().Resolve(Material);
         CoatingModel = Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
             ? new NoneCoatingModel()
-            : new ThinFilmStackCoating(new[] { new ThinFilmLayer(Coating, 120) });
+            : new ApproximateTransmissionRippleCoating(new[] { new ThinFilmLayer(Coating, 120) });
         InteractionModel = new RefractiveReflectiveInteractionModel(IsReflective);
         PhysicalAperture = null;
         CoordinateSystem = new CoordinateSystem(new Backend.Vector3D(0, 0, zPosition));
@@ -307,8 +307,8 @@ public sealed partial class OpticalSurface : NotifyObject
         return coating switch
         {
             NoneCoatingModel => "None",
-            ThinFilmStackCoating { Layers.Count: 1 } stack => stack.Layers[0].MaterialName,
-            ThinFilmStackCoating => "Stack",
+            ApproximateTransmissionRippleCoating { Layers.Count: 1 } stack => stack.Layers[0].MaterialName,
+            ApproximateTransmissionRippleCoating => "Experimental Ripple Approximation",
             SimpleCoatingModel => "Simple",
             _ => coating.Kind
         };

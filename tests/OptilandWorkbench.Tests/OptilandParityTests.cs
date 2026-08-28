@@ -188,7 +188,8 @@ public sealed class OptilandParityTests
         foreach (var geometry in geometries)
         {
             Assert.True(double.IsFinite(geometry.Sag(1, 1)));
-            Assert.NotNull(geometry.DistanceToIntersection(new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)));
+            Assert.True(geometry.DistanceToIntersection(
+                new Vector3D(0, 0, -5), new Vector3D(0, 0, 1)).IsHit);
         }
     }
 
@@ -203,7 +204,8 @@ public sealed class OptilandParityTests
 
         Assert.Equal(standard.Sag(x, y), biconic.Sag(x, y), precision: 12);
         Assert.NotEqual(separable.Sag(x, y), biconic.Sag(x, y), precision: 12);
-        Assert.NotNull(biconic.DistanceToIntersection(new Vector3D(x, y, -5), new Vector3D(0, 0, 1)));
+        Assert.True(biconic.DistanceToIntersection(
+            new Vector3D(x, y, -5), new Vector3D(0, 0, 1)).IsHit);
         Assert.All(new[]
         {
             biconic.SurfaceNormal(new Vector3D(x, y, biconic.Sag(x, y))).X,
@@ -238,10 +240,14 @@ public sealed class OptilandParityTests
         var asphere = new EvenAsphereGeometry(1, 0, new[] { 1e-6 });
         var biconic = new BiconicGeometry(1, 1, 0, 0);
 
-        Assert.Null(standard.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
-        Assert.Null(asphere.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
-        Assert.Null(biconic.DistanceToIntersection(new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)));
-        Assert.Equal(3, standard.DistanceToIntersection(new Vector3D(0, 0, 3), new Vector3D(0, 0, -1))!.Value, precision: 12);
+        Assert.False(standard.DistanceToIntersection(
+            new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)).IsHit);
+        Assert.False(asphere.DistanceToIntersection(
+            new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)).IsHit);
+        Assert.False(biconic.DistanceToIntersection(
+            new Vector3D(1.01, 0, -5), new Vector3D(0, 0, 1)).IsHit);
+        Assert.Equal(3, standard.DistanceToIntersection(
+            new Vector3D(0, 0, 3), new Vector3D(0, 0, -1)).Distance, precision: 12);
     }
 
     [Theory]
@@ -1702,14 +1708,14 @@ public sealed class OptilandParityTests
         surface.Geometry = new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 });
         surface.MaterialBefore = new ConstantIndexMaterial("custom-before", 1.23);
         surface.MaterialAfter = new CauchyMaterial("custom-after", 1.49, 0.004, 1e-5);
-        surface.CoatingModel = new ThinFilmStackCoating(new[]
+        surface.CoatingModel = new ApproximateTransmissionRippleCoating(new[]
         {
             new ThinFilmLayer("TiO2", 120),
             new ThinFilmLayer("SiO2", 95)
         });
         surface.InteractionModel = new ThinLensInteractionModel(75);
         surface.PhysicalAperture = new RectangularAperture(3, 4);
-        surface.ScatteringModel = new LambertianScatteringModel(0.17);
+        surface.ScatteringModel = new MainRayScatterLossApproximation(0.17);
 
         var path = Path.Combine(Path.GetTempPath(), $"optiland-roundtrip-{Guid.NewGuid():N}.optiland.json");
         try
@@ -1732,7 +1738,7 @@ public sealed class OptilandParityTests
             Assert.Equal(1.49, materialAfter.A, precision: 12);
             Assert.Equal(0.004, materialAfter.B, precision: 12);
 
-            var coating = Assert.IsType<ThinFilmStackCoating>(roundTrippedSurface.CoatingModel);
+            var coating = Assert.IsType<ApproximateTransmissionRippleCoating>(roundTrippedSurface.CoatingModel);
             Assert.Equal(2, coating.Layers.Count);
             Assert.Equal("TiO2", coating.Layers[0].MaterialName);
             Assert.Equal(120, coating.Layers[0].ThicknessNanometers, precision: 12);
@@ -1744,7 +1750,7 @@ public sealed class OptilandParityTests
             Assert.Equal(3, aperture.HalfWidth, precision: 12);
             Assert.Equal(4, aperture.HalfHeight, precision: 12);
 
-            var scattering = Assert.IsType<LambertianScatteringModel>(roundTrippedSurface.ScatteringModel);
+            var scattering = Assert.IsType<MainRayScatterLossApproximation>(roundTrippedSurface.ScatteringModel);
             Assert.Equal(0.17, scattering.ScatterFraction, precision: 12);
             Assert.Equal(22, roundTrippedSurface.CoordinateSystem.Origin.Z, precision: 12);
         }

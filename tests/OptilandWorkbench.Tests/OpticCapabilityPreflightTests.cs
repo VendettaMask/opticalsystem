@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json;
 using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.Application.Services;
@@ -61,6 +62,44 @@ public sealed class OpticCapabilityPreflightTests
             Assert.Equal(1, issue.SurfaceNumber);
             Assert.Equal("VendorXYFreeform", issue.OriginalType);
             Assert.Contains("opaque payload", issue.Reason, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("表面 1", exception.Message, StringComparison.Ordinal);
+            Assert.Contains("VendorXYFreeform", exception.Message, StringComparison.Ordinal);
+        }
+    }
+
+    [Fact]
+    public void EveryPublicParaxialEntryPointBlocksOpaqueGeometry()
+    {
+        var paraxial = CreateOpaqueOptic().Paraxial;
+        var methods = paraxial.GetType()
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            .Where(method => !method.IsSpecialName)
+            .OrderBy(method => method.Name, StringComparer.Ordinal)
+            .ThenBy(method => method.GetParameters().Length)
+            .ToArray();
+
+        Assert.NotEmpty(methods);
+        foreach (var method in methods)
+        {
+            var arguments = method.GetParameters()
+                .Select(parameter => parameter.ParameterType switch
+                {
+                    var type when type == typeof(double) =>
+                        parameter.Name?.Contains("wavelength", StringComparison.OrdinalIgnoreCase) == true
+                            ? (object)0.5876
+                            : 0.0,
+                    var type when type == typeof(int) => 0,
+                    var type when type == typeof(IReadOnlyList<double>) => new[] { 0.0 },
+                    _ => throw new InvalidOperationException(
+                        $"Test argument mapping is missing for {method.Name}.{parameter.Name}.")
+                })
+                .ToArray();
+
+            var invocation = Assert.Throws<TargetInvocationException>(() =>
+                method.Invoke(paraxial, arguments));
+            var exception = Assert.IsType<OpticCapabilityException>(invocation.InnerException);
+            Assert.Equal(OpticCapabilityOperation.Analysis, exception.Operation);
+            Assert.Equal("Paraxial / First Order", exception.Context);
             Assert.Contains("表面 1", exception.Message, StringComparison.Ordinal);
             Assert.Contains("VendorXYFreeform", exception.Message, StringComparison.Ordinal);
         }
@@ -133,6 +172,14 @@ public sealed class OpticCapabilityPreflightTests
             Assert.Equal(
                 JsonSerializer.Serialize(jsonGeometry.Payload),
                 JsonSerializer.Serialize(projectGeometry.Payload));
+
+            using var application = WorkbenchApplication.Create("blank");
+            await application.Documents.OpenAsync(projectPath);
+            var summary = application.Documents.GetSnapshot();
+            Assert.True(double.IsNaN(summary.EffectiveFocalLength));
+            Assert.True(double.IsNaN(summary.FNumber));
+            Assert.True(double.IsNaN(summary.EntrancePupilDiameter));
+            Assert.False(application.Prescription.GetSurfaces()[1].GeometryComputable);
         }
         finally
         {

@@ -28,9 +28,11 @@ OpticalSurface
 
 ## 几何与交点
 
-所有几何实现统一提供弧矢、交点距离和局部法线。解析曲面与自由曲面共用受控的 Newton 回退。标准面半径为零或无穷时按平面处理；只有物面厚度为正无穷才表示无限共轭，零厚度仍是有限共轭。
+所有几何实现统一返回结构化 `IntersectionResult`，包含状态、距离、交点、法线、最终残差、迭代次数和条件估计。通用非球面使用自适应中心差分导数、阻尼 Newton、前向区间搜索及割线/二分回退；返回前必须重新计算 Sag、尺度相关残差和法线，未收敛结果不得标记为成功。调用方只接受 `Success` 或 `Tangent`，并可区分 `NoRoot`、`DomainError`、`MaxIterations`、`InvalidNormal` 和 `InvalidInput`。标准面半径为零或无穷时按平面处理；只有物面厚度为正无穷才表示无限共轭，零厚度仍是有限共轭。
 
 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等模型。非物理平方根域返回 `NaN` 并拒绝交点，不延伸不存在的曲面分支。
+
+现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。稳定 S-matrix、复折射率/角度/偏振膜层响应，以及 BSDF `Evaluate + Sample + Pdf` 尚未实现。
 
 ## 数值后端与光线追迹
 
@@ -48,9 +50,9 @@ OpticalSurface
 
 Core 通过 `AnalysisCatalog` 注册当前 `72` 个规范分析，其中包含非序列光线追迹和探测器查看器。应用层 `IWorkbenchModeService` 只负责顺序/非序列模式边界，`INonSequentialDocumentService` 负责独立非序列文档的对象、波长和显式转换事务。`AnalysisService` 按模式分别暴露顺序 70 项或非序列 2 项并拒绝跨模式执行；桌面端根据同一状态重建 Ribbon、主编辑文档和左侧工具页。Workbench 的规范键、中文显示名、兼容别名、展示类型和两套 Ribbon 目录由 `WorkbenchAnalysisCatalog` 统一描述。独立 `Distortion` 已退出公开目录，旧名称兼容映射到 `Field Curvature and Distortion`。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放、缓存身份或导出逻辑。
 
-`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT容器版本为2、工程负载版本为4；旧容器/负载继续有界迁移，v3保存内容寻址的网格资产，v4增加扩展原生光源。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。STL对象使用对象级BVH之外的三角形级BVH；`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。应用层 `INonSequentialAnalysisService` 统一管理清空/累积/替换追迹、临时数据库、场景过期、分页数据库和探测器重建；3D、路径和探测器读取同一会话且不隐式追迹。分析会话不进入工程脏状态。
+`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT容器版本为2、工程负载版本为4；旧容器/负载继续有界迁移，v3保存内容寻址的网格资产，v4增加扩展原生光源。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。STL对象使用对象级BVH之外的三角形级BVH；`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。应用层把分析结果和3D布局结果保存在不同会话：分析会话服务探测器、分页数据库和路径分析，布局会话只保存有界确定性3D样本。打开/刷新窗口不创建会话；用户显式准备布局光线后才追迹。布局数据库头的场景哈希必须与当前文档一致才会默认加载；过期结果只能在显式选择后显示，并携带结果哈希、当前哈希、来源修订和红色过期状态。两类会话均不进入工程脏状态。
 
-未知顺序几何由 `OpaqueGeometryPayload` 保存完整组件类型、数值、文本和递归子组件；其 Sag、交点和法线接口始终抛出确定错误。`OpticCapabilityPreflight` 是追迹、分析、优化、公差、顺序转非序列、二维/三维布局和导出的统一阻断入口，错误包含面号、原始类型及原因。STAROPT和原生光学快照可无损往返 opaque 数据；STEP、Python Optiland JSON、ZMX、SEQ、LEN和制造图纸等有损目标默认禁止输出。
+未知顺序几何由 `OpaqueGeometryPayload` 保存完整组件类型、数值、文本和递归子组件；其 Sag、交点和法线接口始终抛出确定错误。`OpticCapabilityPreflight` 是实光线追迹、全部公共旁轴/一阶入口、分析、优化、公差、顺序转非序列、二维/三维布局和导出的统一阻断入口，错误包含面号、原始类型及原因。STAROPT和原生光学快照可无损往返 opaque 数据；STEP、Python Optiland JSON、ZMX、SEQ、LEN和制造图纸等有损目标默认禁止输出。
 
 报告入口属于分析体系，不是独立旧页面：“表面数据报告”逐面输出处方，“系统数据报告”按系统/孔径/视场/波长/近轴量组织，“分类数据报告”按角色/材料/几何类型汇总，“系统数据摘要”复用规范 `First Order` 分析，“基面数据”使用规范 `Cardinal Points Data`。旧“一阶量、处方报告”仅作为兼容别名解析。
 

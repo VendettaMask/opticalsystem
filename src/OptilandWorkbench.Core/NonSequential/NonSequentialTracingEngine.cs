@@ -754,15 +754,15 @@ public sealed class NonSequentialDocumentTracer
         void AddSurface(StandardGeometry geometry, double vertexZ, bool front, int face)
         {
             var shiftedOrigin = origin - new Vector3D(0, 0, vertexZ);
-            var distance = geometry.DistanceToIntersection(shiftedOrigin, direction);
-            if (distance is null || distance <= OriginOffset) return;
-            var point = origin + direction * distance.Value;
+            var intersection = geometry.DistanceToIntersection(shiftedOrigin, direction);
+            if (!intersection.IsHit || intersection.Distance <= OriginOffset) return;
+            var point = origin + direction * intersection.Distance;
             if (point.X * point.X + point.Y * point.Y > lens.SemiDiameterMillimeters * lens.SemiDiameterMillimeters) return;
             var localOnGeometry = point - new Vector3D(0, 0, vertexZ);
             var sag = geometry.Sag(localOnGeometry.X, localOnGeometry.Y);
             if (!double.IsFinite(sag) || Math.Abs(localOnGeometry.Z - sag) > 1e-7) return;
-            var normal = Normalize(geometry.SurfaceNormal(localOnGeometry));
-            hits.Add((distance.Value, front ? -normal : normal, face));
+            var normal = intersection.Normal;
+            hits.Add((intersection.Distance, front ? -normal : normal, face));
         }
     }
 

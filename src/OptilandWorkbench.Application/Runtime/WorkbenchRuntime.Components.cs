@@ -253,12 +253,16 @@ public partial class WorkbenchRuntime
         switch (CanonicalCoatingKind(coatingKind))
         {
             case "MgF2":
-                surface.Coating = "MgF2";
-                surface.CoatingModel = new ThinFilmStackCoating(new[] { new ThinFilmLayer("MgF2", 120) });
+            case "Approximate Single Layer":
+                surface.Coating = "Experimental Ripple Approximation";
+                surface.CoatingModel = new ApproximateTransmissionRippleCoating(
+                    new[] { new ThinFilmLayer("MgF2", 120) });
                 break;
             case "Quarter-wave Stack":
-                surface.Coating = "Quarter-wave Stack";
-                surface.CoatingModel = new NeedleSynthesisDesigner().DesignQuarterWaveStack(new[] { "MgF2", "TiO2" }, 587.6, 4);
+            case "Approximate Alternating Layers":
+                surface.Coating = "Experimental Ripple Approximation";
+                surface.CoatingModel = new ApproximateTransmissionRippleDesigner().DesignAlternatingLayers(
+                    new[] { "MgF2", "TiO2" }, 587.6, 4);
                 break;
             default:
                 surface.Coating = "None";

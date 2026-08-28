@@ -326,26 +326,26 @@ public sealed class NonSequentialRayTracer
             var surface = item.Surface;
             var localOrigin = surface.CoordinateSystem.ToLocalPoint(ray.Origin);
             var localDirection = surface.CoordinateSystem.ToLocalDirection(ray.Direction);
-            var distance = surface.Geometry.DistanceToIntersection(localOrigin, localDirection);
-            if (distance is null
-                || !double.IsFinite(distance.Value)
-                || distance.Value <= options.OriginOffsetMillimeters)
+            var intersection = surface.Geometry.DistanceToIntersection(localOrigin, localDirection);
+            if (!intersection.IsHit
+                || !double.IsFinite(intersection.Distance)
+                || intersection.Distance <= options.OriginOffsetMillimeters)
             {
                 continue;
             }
 
-            var localHit = localOrigin + (localDirection * distance.Value);
+            var localHit = intersection.Point;
             if (!Contains(surface, localHit, options.UseSemiDiameterWhenPhysicalApertureIsMissing))
             {
                 continue;
             }
 
-            if (nearest is not null && distance.Value >= nearest.Distance)
+            if (nearest is not null && intersection.Distance >= nearest.Distance)
             {
                 continue;
             }
 
-            var localNormal = surface.Geometry.SurfaceNormal(localHit);
+            var localNormal = intersection.Normal;
             if (!IsFiniteNonZero(localNormal))
             {
                 continue;
@@ -354,7 +354,7 @@ public sealed class NonSequentialRayTracer
             var globalNormal = surface.CoordinateSystem.ToGlobalDirection(localNormal);
             nearest = new CandidateHit(
                 item,
-                distance.Value,
+                intersection.Distance,
                 globalNormal / globalNormal.Length,
                 Dot(localDirection, localNormal) > 0);
         }

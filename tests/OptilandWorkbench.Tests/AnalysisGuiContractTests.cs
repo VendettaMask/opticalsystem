@@ -2551,7 +2551,7 @@ public sealed class AnalysisGuiContractTests
 
         surface.Coating = "MgF2";
         connector.CommitSurfaceEdit(surface, nameof(surface.Coating));
-        var coating = Assert.IsType<ThinFilmStackCoating>(surface.CoatingModel);
+        var coating = Assert.IsType<ApproximateTransmissionRippleCoating>(surface.CoatingModel);
         Assert.Equal("MgF2", Assert.Single(coating.Layers).MaterialName);
     }
 

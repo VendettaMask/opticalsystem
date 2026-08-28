@@ -331,7 +331,7 @@ public sealed class ArchitectureConvergenceTests
         var surface = Assert.Single(optic.SurfaceGroup.Items);
         Assert.IsType<StandardGeometry>(surface.Geometry);
         Assert.Equal("N-BK7", surface.MaterialAfter.Name);
-        Assert.IsType<ThinFilmStackCoating>(surface.CoatingModel);
+        Assert.IsType<ApproximateTransmissionRippleCoating>(surface.CoatingModel);
         Assert.False(Assert.IsType<RefractiveReflectiveInteractionModel>(surface.InteractionModel).IsReflective);
     }
 
@@ -343,7 +343,7 @@ public sealed class ArchitectureConvergenceTests
         surface.Coating = "MgF2";
 
         Assert.Equal("MgF2", Assert.Single(
-            Assert.IsType<ThinFilmStackCoating>(surface.CoatingModel).Layers).MaterialName);
+            Assert.IsType<ApproximateTransmissionRippleCoating>(surface.CoatingModel).Layers).MaterialName);
 
         surface.MaterialAfter = new ConstantIndexMaterial("CustomGlass", 1.7);
         surface.CoatingModel = new SimpleCoatingModel(0.8, 0.1);

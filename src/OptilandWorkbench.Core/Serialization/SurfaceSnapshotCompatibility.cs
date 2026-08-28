@@ -179,7 +179,7 @@ internal static class SurfaceSnapshotCompatibility
             return "None";
         }
 
-        if (coating.Kind == "thin_film_stack"
+        if (coating.Kind is "thin_film_stack" or "approximate_transmission_ripple"
             && coating.Numbers is not null
             && coating.Text is not null
             && Get(coating.Numbers, "count", 0) == 1
@@ -191,7 +191,7 @@ internal static class SurfaceSnapshotCompatibility
 
         return coating.Kind switch
         {
-            "thin_film_stack" => "Stack",
+            "thin_film_stack" or "approximate_transmission_ripple" => "Experimental Ripple Approximation",
             "simple" => "Simple",
             _ => string.IsNullOrWhiteSpace(fallback) ? coating.Kind : fallback
         };
