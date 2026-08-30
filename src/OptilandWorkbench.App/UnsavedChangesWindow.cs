@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -84,5 +85,6 @@ internal sealed class UnsavedChangesWindow : Window
 
         Grid.SetRow(((Grid)Content).Children[1], 1);
         Grid.SetRow(buttons, 2);
+        ThemeChrome.ApplyDialogDecoration(this);
     }
 }

@@ -8,6 +8,7 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -48,6 +49,7 @@ internal sealed class NonSequentialStlImportWindow : Window
                 new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Spacing = 8, Children = { cancel, ok } }
             }
         };
+        ThemeChrome.ApplyDialogDecoration(this);
     }
 
     private static Control Row(string label, Control editor) => new Grid
@@ -141,6 +143,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
                 new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Spacing = 8, Children = { cancel, clear, traceOnly, clearAndTrace, close } }
             }
         };
+        ThemeChrome.ApplyDialogDecoration(this);
         ShowSession();
     }
 
@@ -324,6 +327,7 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
             Margin = new Avalonia.Thickness(12),
             Children = { Dock(_header, Avalonia.Controls.Dock.Top), Dock(top, Avalonia.Controls.Dock.Top), tabs }
         };
+        ThemeChrome.ApplyDialogDecoration(this);
         Closed += (_, _) =>
         {
             _closed = true;

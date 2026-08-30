@@ -84,9 +84,9 @@ internal static class GuiAnalysisCaptureRunner
             WindowHeight = CaptureHeight
         };
 
-        if (global::Avalonia.Application.Current is not null)
+        if (global::Avalonia.Application.Current is App currentApp)
         {
-            global::Avalonia.Application.Current.RequestedThemeVariant = ThemeVariant.Light;
+            currentApp.ApplyTheme("Light");
         }
 
         using var application = WorkbenchApplication.Create();

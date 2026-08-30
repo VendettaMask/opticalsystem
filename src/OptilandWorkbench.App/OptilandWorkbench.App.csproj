@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
+    <AvaloniaResource Remove="Assets/Icons/game-icons-isekai.json" />
     <AvaloniaResource Include="Assets/Author.jpg" />
     <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
     <AvaloniaResource Include="Assets/Brand/Splash.png" />
@@ -34,6 +35,9 @@
                       LogicalName="OptilandWorkbench.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />
     <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"
                       LogicalName="OptilandWorkbench.App.Assets.Icons.lucide-icon-nodes.json" />
+    <EmbeddedResource Include="Assets/Icons/game-icons-isekai.json"
+                      LogicalName="OptilandWorkbench.App.Assets.Icons.game-icons-isekai.json" />
+    <Content Include="Assets/Icons/GAME-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

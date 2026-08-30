@@ -100,7 +100,11 @@ public sealed class HeadlessTestApplication : Avalonia.Application
 {
     public override void Initialize()
     {
-        Resources.ThemeDictionaries[ThemeVariant.Light] = ThemePalette.Light.ToResourceDictionary();
-        RequestedThemeVariant = ThemeVariant.Light;
+        foreach (var theme in ThemeRegistry.ConcreteThemes)
+        {
+            Resources.ThemeDictionaries[theme.RequestedVariant] = theme.BuildResources();
+        }
+
+        ThemeApplicationService.Apply(this, "Light");
     }
 }

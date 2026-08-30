@@ -32,7 +32,15 @@ public sealed partial class MainWindow
         var status = BuildStatusBar();
         DockPanel.SetDock(status, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(status);
-        root.Children.Add(_panels.WorkspaceGrid);
+        var workspaceLayer = new Grid
+        {
+            Children =
+            {
+                _panels.WorkspaceGrid,
+                new ThemeChromeOverlay { Role = ThemeChromeRole.Workspace }
+            }
+        };
+        root.Children.Add(workspaceLayer);
         return root;
     }
 
@@ -155,17 +163,15 @@ public sealed partial class MainWindow
         };
         tabs.Background = Brushes.Transparent;
         var ribbonLayer = new Grid();
-        ribbonLayer.Children.Add(new IsekaiRibbonChrome());
+        ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon });
         ribbonLayer.Children.Add(tabs);
         var ribbon = new Border
         {
             MinHeight = 126,
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
             Child = ribbonLayer
         };
+        ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
-        ribbon.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
         return ribbon;
     }
 
@@ -213,17 +219,15 @@ public sealed partial class MainWindow
         };
         tabs.Background = Brushes.Transparent;
         var ribbonLayer = new Grid();
-        ribbonLayer.Children.Add(new IsekaiRibbonChrome());
+        ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon });
         ribbonLayer.Children.Add(tabs);
         var ribbon = new Border
         {
             MinHeight = 126,
-            BorderThickness = new Thickness(0, 0, 0, 1),
-            BoxShadow = BoxShadows.Parse("0 3 8 0 #14000000"),
             Child = ribbonLayer
         };
+        ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
-        ribbon.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
         return ribbon;
     }
 
@@ -314,7 +318,6 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Content = content
@@ -367,7 +370,6 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
@@ -421,7 +423,6 @@ public sealed partial class MainWindow
             Background = Brushes.Transparent,
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
@@ -608,11 +609,10 @@ public sealed partial class MainWindow
 
         var status = new Border
         {
-            BorderThickness = new Thickness(0, 1, 0, 0),
             Child = grid
         };
+        ThemeChrome.Apply(status, ThemeChromeRole.StatusBar, shadow: false);
         status.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSubtleSurfaceBrush"));
-        status.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
         return status;
     }
 

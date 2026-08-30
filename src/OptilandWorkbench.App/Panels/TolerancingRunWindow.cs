@@ -5,6 +5,7 @@ using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -96,6 +97,7 @@ public sealed class TolerancingRunWindow : Window
             Children = { tabs, footer }
         };
         Grid.SetRow(footer, 1);
+        ThemeChrome.ApplyDialogDecoration(this);
     }
 
     public static TolerancingRunOptions DefaultOptions() => new(

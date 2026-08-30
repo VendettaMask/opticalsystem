@@ -5,6 +5,7 @@ using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -151,6 +152,7 @@ public sealed class OptimizationWizardWindow : Window
             }
         });
         Content = root;
+        ThemeChrome.ApplyDialogDecoration(this);
 
         _quality.SelectionChanged += (_, _) => UpdateModeAndPreview();
         _criterion.SelectionChanged += (_, _) => UpdatePreview();
@@ -325,8 +327,6 @@ public sealed class OptimizationWizardWindow : Window
     {
         var card = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(8),
             Padding = new Thickness(16),
             Child = new StackPanel
             {
@@ -338,8 +338,8 @@ public sealed class OptimizationWizardWindow : Window
                 }
             }
         };
+        ThemeChrome.Apply(card, ThemeChromeRole.SurfaceCard);
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return card;
     }
 

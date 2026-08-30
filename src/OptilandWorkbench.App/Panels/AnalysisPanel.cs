@@ -27,7 +27,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private readonly Dictionary<string, Control> _parameterControls = new();
     private readonly StackPanel _parameterPanel = new()
     {
-        VerticalAlignment = VerticalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Top,
         HorizontalAlignment = HorizontalAlignment.Left
     };
     private readonly ContentControl _resultHost = new();
@@ -88,12 +88,10 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         _settingsHost = new Border
         {
             IsVisible = false,
-            HorizontalAlignment = HorizontalAlignment.Stretch,
+            HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(12, 8, 12, 0),
+            Margin = new Thickness(12, 0, 12, 0),
             Padding = new Thickness(12, 10),
-            MaxWidth = 960,
-            MaxHeight = 640,
             Child = new ScrollViewer
             {
                 HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,

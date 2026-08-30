@@ -133,7 +133,6 @@ public sealed partial class AnalysisPanel
         button.Height = 28;
         button.MinHeight = 28;
         button.Padding = iconOnly ? new Thickness(0) : new Thickness(7, 2);
-        button.CornerRadius = SettingsPanelChrome.ControlCornerRadius;
         button.BorderThickness = new Thickness(1);
         if (iconOnly)
         {

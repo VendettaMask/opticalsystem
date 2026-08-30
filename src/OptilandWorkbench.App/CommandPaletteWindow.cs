@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -29,6 +30,7 @@ public sealed class CommandPaletteWindow : Window
         MinHeight = 320;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Content = BuildContent();
+        ThemeChrome.ApplyDialogDecoration(this);
 
         _search.TextChanged += (_, _) => Refresh();
         _search.KeyDown += async (_, args) =>

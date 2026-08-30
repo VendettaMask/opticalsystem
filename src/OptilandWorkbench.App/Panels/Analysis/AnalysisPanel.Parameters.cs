@@ -242,7 +242,8 @@ public sealed partial class AnalysisPanel
             var rows = Math.Max(leftKeys.Count, rightKeys.Count);
             var grid = new Grid
             {
-                ColumnDefinitions = new ColumnDefinitions("Auto,*,10,Auto,*"),
+                ColumnDefinitions = new ColumnDefinitions("Auto,Auto,16,Auto,Auto"),
+                HorizontalAlignment = HorizontalAlignment.Left,
                 RowDefinitions = new RowDefinitions(
                     string.Join(',', Enumerable.Repeat("34", rows)))
             };
@@ -500,14 +501,15 @@ public sealed partial class AnalysisPanel
         var byKey = descriptors.ToDictionary(descriptor => descriptor.Key);
         var settingRowCount = Math.Max(leftKeys.Count, rightKeys.Count);
         var rowCount = settingRowCount + Math.Max(0, additionalRows);
-        var rowDefinitions = rowCount == 0
-            ? "Auto,42"
-            : string.Join(',', Enumerable.Repeat("34", rowCount)) + ",Auto,42";
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,*,10,Auto,*"),
-            RowDefinitions = new RowDefinitions(rowDefinitions)
+            ColumnDefinitions = new ColumnDefinitions("Auto,Auto,16,Auto,Auto"),
+            HorizontalAlignment = HorizontalAlignment.Left
         };
+        for (var row = 0; row < rowCount; row++)
+        {
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(34) });
+        }
 
         for (var row = 0; row < settingRowCount; row++)
         {
@@ -530,9 +532,6 @@ public sealed partial class AnalysisPanel
             VerticalAlignment = VerticalAlignment.Center
         };
         separator.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Border);
-        Grid.SetRow(separator, rowCount);
-        Grid.SetColumnSpan(separator, 5);
-        grid.Children.Add(separator);
 
         var applyButton = new Button { Content = "应用", MinWidth = 86 };
         applyButton.Click += async (_, _) => await RunAsync();
@@ -583,10 +582,11 @@ public sealed partial class AnalysisPanel
         }
 
         _parameterAutoApply.Margin = new Thickness(3, 8, 8, 4);
-        Grid.SetRow(footer, rowCount + 1);
-        Grid.SetColumnSpan(footer, 5);
-        grid.Children.Add(footer);
-        return grid;
+        return new StackPanel
+        {
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Children = { grid, separator, footer }
+        };
     }
 
     private void AddSpotSetting(

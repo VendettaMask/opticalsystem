@@ -4,7 +4,7 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using OptilandWorkbench.App.Theming;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -164,9 +164,12 @@ public sealed class DrawingPreviewControl : Control, IInteractiveCanvasAutomatio
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        var background = IsekaiTheme.IsDarkLike(ActualThemeVariant)
-            ? new SolidColorBrush(Color.FromRgb(14, 17, 21))
-            : new SolidColorBrush(Color.FromRgb(220, 223, 228));
+        var background = this.TryFindResource(
+            ThemeResourceBindings.Workspace,
+            ActualThemeVariant,
+            out var resource) && resource is IBrush brush
+                ? brush
+                : Brushes.Transparent;
         context.DrawRectangle(background, null, Bounds);
         if (_source is null || Bounds.Width <= 0 || Bounds.Height <= 0)
         {

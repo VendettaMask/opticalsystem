@@ -5,6 +5,7 @@ using Avalonia.Media;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -29,6 +30,20 @@ public sealed class DisplaySettingsWindow : Window
     {
         MinHeight = 20
     };
+    private readonly Border _themeSample = new()
+    {
+        Padding = new Thickness(12, 9)
+    };
+    private readonly TextBlock _themeSampleText = new()
+    {
+        Text = "主题预览 · Optical System",
+        VerticalAlignment = VerticalAlignment.Center
+    };
+    private readonly Border _themeSampleAccent = new()
+    {
+        Padding = new Thickness(10, 5),
+        Child = new TextBlock { Text = "强调状态" }
+    };
     private readonly Button _save = new() { Content = "应用并保存", MinWidth = 108 };
 
     public DisplaySettingsWindow(AppSettings settings)
@@ -47,15 +62,11 @@ public sealed class DisplaySettingsWindow : Window
         _lowerExponent.Value = settings.LowerScientificExponent;
         _fontSize.Value = (decimal)settings.FontSize;
 
-        var themes = new[]
-        {
-            new ThemeOption("Light", "普通模式"),
-            new ThemeOption("Dark", "暗夜模式"),
-            new ThemeOption("Isekai", "异世界"),
-            new ThemeOption("System", "跟随系统")
-        };
+        var themes = ThemeRegistry.SelectableThemes;
         _theme.ItemsSource = themes;
-        _theme.SelectedItem = themes.First(option => option.Value == settings.Theme);
+        _theme.SelectedItem = ThemeRegistry.FromSettings(settings.Theme);
+        _theme.SelectionChanged += (_, _) => UpdateThemeSample();
+        ActualThemeVariantChanged += (_, _) => UpdateThemeSample();
 
         var fontFamilies = FontManager.Current.SystemFonts
             .Select(font => font.Name)
@@ -108,7 +119,8 @@ public sealed class DisplaySettingsWindow : Window
                 {
                     At(Section(
                         "主题",
-                        SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界或跟随系统外观")), 0),
+                        SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界或跟随系统外观"),
+                        BuildThemeSample()), 0),
                     At(Section(
                         "数字格式",
                         SettingRow("小数位数", _decimalPlaces, "普通与科学计数法尾数最多保留的位数"),
@@ -149,6 +161,8 @@ public sealed class DisplaySettingsWindow : Window
             }
         };
 
+        ThemeChrome.ApplyDialogDecoration(this);
+        UpdateThemeSample();
         UpdatePreview();
     }
 
@@ -176,8 +190,7 @@ public sealed class DisplaySettingsWindow : Window
         _decimalPlaces.Value = AppSettings.DefaultDecimalPlaces;
         _upperExponent.Value = AppSettings.DefaultUpperScientificExponent;
         _lowerExponent.Value = AppSettings.DefaultLowerScientificExponent;
-        _theme.SelectedItem = (_theme.ItemsSource as IEnumerable<ThemeOption>)?
-            .First(option => option.Value == AppSettings.DefaultTheme);
+        _theme.SelectedItem = ThemeRegistry.FromSettings(AppSettings.DefaultTheme);
         _fontFamily.SelectedItem = SystemDefaultFont;
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
@@ -237,7 +250,45 @@ public sealed class DisplaySettingsWindow : Window
     }
 
     private string SelectedTheme() =>
-        (_theme.SelectedItem as ThemeOption)?.Value ?? AppSettings.DefaultTheme;
+        (_theme.SelectedItem as ThemeDefinition)?.SettingsValue ?? AppSettings.DefaultTheme;
+
+    private Control BuildThemeSample()
+    {
+        _themeSample.Child = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            ColumnSpacing = 12,
+            Children =
+            {
+                _themeSampleText,
+                InColumn(_themeSampleAccent, 1)
+            }
+        };
+        return _themeSample;
+    }
+
+    private void UpdateThemeSample()
+    {
+        var selected = _theme.SelectedItem as ThemeDefinition;
+        var visualTheme = (selected ?? ThemeRegistry.FromSettings(AppSettings.DefaultTheme))
+            .ResolveVisual(ActualThemeVariant);
+        var palette = visualTheme.Palette ?? ThemePalette.Light;
+        var cardChrome = visualTheme.Chrome[ThemeChromeRole.SettingsCard];
+        var controlChrome = visualTheme.Chrome[ThemeChromeRole.ControlFrame];
+
+        _themeSample.Background = new SolidColorBrush(palette.SettingsSurface);
+        _themeSample.BorderBrush = new SolidColorBrush(palette.Border);
+        _themeSample.BorderThickness = cardChrome.BorderThickness;
+        _themeSample.CornerRadius = cardChrome.CornerRadius;
+        _themeSample.BoxShadow = cardChrome.BoxShadow;
+        _themeSampleText.Foreground = new SolidColorBrush(palette.TextPrimary);
+        _themeSampleAccent.Background = new SolidColorBrush(palette.TextAccent);
+        _themeSampleAccent.CornerRadius = controlChrome.CornerRadius;
+        if (_themeSampleAccent.Child is TextBlock accentText)
+        {
+            accentText.Foreground = new SolidColorBrush(palette.TextOnAccent);
+        }
+    }
 
     private string SelectedFontShape()
     {
@@ -328,8 +379,4 @@ public sealed class DisplaySettingsWindow : Window
         public override string ToString() => Label;
     }
 
-    private sealed record ThemeOption(string Value, string Label)
-    {
-        public override string ToString() => Label;
-    }
 }

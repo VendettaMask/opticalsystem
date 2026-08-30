@@ -44,7 +44,7 @@
 
 - `src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs`：材料库存在 520、980、1040 等大最小宽度。
 - `src/OptilandWorkbench.App/Panels/MaterialAnalysisPanel.cs`：面板最小宽度 520。
-- `src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs`：参数页存在 780 到 960 的宽度约束。
+- `src/OptilandWorkbench.App/Panels/AnalysisPanel.cs`：分析设置浮层曾以 `Stretch + MaxWidth` 在宽结果区内居中，并把少量参数撑出大块空白。
 - `src/OptilandWorkbench.App/Panels/ViewerPanel.cs`：设置网格使用 `Auto,150,Auto,150` 固定列。
 
 影响：Dock 分栏、浮动窗口回收和小屏恢复时，面板会强制横向空间，导致内容裁切、滚动异常或挤压中央工作区。
@@ -55,8 +55,9 @@
 
 - 主窗口最小和恢复宽度下限由 1100/980 调整为 640px；Ribbon 自身保留横向滚动。
 - 材料库、设计镜头库、商用镜头目录和材料分析使用 `ResponsiveTwoPaneGrid`，宽布局左右并列，窄布局上下重排。
-- Viewer 设置字段与复选项改为 `WrapPanel` 自动换行；分析设置卡改为可伸缩列、垂直滚动和换行操作区。
+- Viewer 设置字段与复选项改为 `WrapPanel` 自动换行；分析设置卡锚定在工具栏“设置”按钮正下方，参数列改为内容测量，垂直滚动和操作区仍按可用空间工作。
 - 上述 Dock 页面已清除 500px 及以上的固定 `MinWidth`，并由 `DockDocumentsDoNotRestoreLargeFixedMinimumWidths` 防回归测试保护。
+- `AnalysisSettingsOverlayAnchorsBelowToolbarAndSizesToContent` 通过真实 Avalonia 布局测量保护分析设置浮层的左侧锚点和非铺满宽度。
 
 ### P1-02：可访问性基础缺失
 
@@ -131,7 +132,7 @@
 
 整改结果：
 
-- `SettingsPanelChrome` 现在提供 `CardCornerRadius = 8`、`ControlCornerRadius = 5`、`CardShadow`、`ApplySurfaceCardStyle` 和 `ApplyControlFrameStyle`。
+- `SettingsPanelChrome` 现在提供 `ApplyCardStyle`、`ApplySurfaceCardStyle` 和 `ApplyControlFrameStyle`，实际圆角、边框与阴影由当前主题的 `ThemeChromeRole` 动态资源提供；普通/暗夜仍保持卡片 8、控件 5。
 - `MaterialDatabasePanels`、`ViewerPanel`、`TolerancingPanel`、`DisplaySettingsWindow`、`SystemPropertiesPanel`、`LensEditorPanel`、`MainWindow.Shell`、`AnalysisPanel.Export` 等普通 UI 已迁移到公共入口。
 - 普通卡片阴影不再散落在各面板；`LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens` 会阻止新增局部卡片阴影和 6/7/9 这类分裂圆角。
 - 保留的 4/18/20 圆角只用于图例数据标记、Dock 文档 pill 和 Splash 装饰，不作为普通卡片/控件样式。
@@ -237,4 +238,4 @@
 
 ## 当前判定
 
-本审计列出的 P1/P2 工程问题已完成基础整改，并由公共资源、公共组件和定向契约保护。2026-08-30增量验证为桌面应用构建`0`警告、`0`错误，以及13项可访问性、响应式布局和架构测试通过（10项 Headless UI、3项分层契约）；镜头库定向验证另有6项通过。遵照当前任务约束未运行全量测试。后续新增页面仍须接受多DPI、三主题和窄Dock的发布前视觉复核，这属于持续质量门禁，不再作为本轮遗留功能。
+本审计列出的 P1/P2 工程问题已完成基础整改，并由公共资源、公共组件和定向契约保护。2026-08-30 本轮主题增量验证为桌面应用构建 `0` 警告、`0` 错误，以及 27 项主题资源、对比度、图标包、Chrome、运行时切换和架构边界测试通过；其中 Headless 测试验证明亮、异世界、暗夜连续切换不会改变受测内容边界，系统选项按代理解析实际视觉主题，对话框装饰不会把 `ScrollViewer` 重复挂接到逻辑树。遵照当前任务约束未运行全量测试。公司品牌、启动页、物理波长/光线色、工程图和导出版式为明确例外；后续新增页面仍须接受多 DPI、三主题和窄 Dock 的发布前视觉复核，这属于持续质量门禁，不作为本轮已自动完成的像素验收。

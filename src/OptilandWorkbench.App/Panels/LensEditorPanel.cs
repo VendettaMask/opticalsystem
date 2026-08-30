@@ -127,7 +127,6 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HorizontalAlignment = HorizontalAlignment.Left,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Padding = new Avalonia.Thickness(12, 0),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
             Content = componentToggleContent
         };

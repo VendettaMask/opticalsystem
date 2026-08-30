@@ -5,8 +5,10 @@ using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Layout;
 using Avalonia.VisualTree;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Panels;
@@ -167,6 +169,54 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     }
 
     [Fact]
+    public async Task AnalysisSettingsOverlayAnchorsBelowToolbarAndSizesToContent()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var panel = new AnalysisPanel(
+                application.Analyses,
+                application.Visualization,
+                application.Documents,
+                application.Events,
+                new AppSettings(),
+                "单光线追迹");
+
+            var settingsHost = PrivateField<Border>(panel, "_settingsHost");
+            var parameterPanel = PrivateField<StackPanel>(panel, "_parameterPanel");
+
+            Assert.Equal(HorizontalAlignment.Left, settingsHost.HorizontalAlignment);
+            Assert.Equal(VerticalAlignment.Top, settingsHost.VerticalAlignment);
+            Assert.Equal(new Thickness(12, 0, 12, 0), settingsHost.Margin);
+            Assert.True(double.IsPositiveInfinity(settingsHost.MaxWidth));
+            Assert.True(double.IsPositiveInfinity(settingsHost.MaxHeight));
+            Assert.Equal(HorizontalAlignment.Left, parameterPanel.HorizontalAlignment);
+            Assert.Equal(VerticalAlignment.Top, parameterPanel.VerticalAlignment);
+
+            settingsHost.IsVisible = true;
+            var window = ShowInWindow(panel, new Size(1400, 900));
+            try
+            {
+                Assert.Equal(12, settingsHost.Bounds.X);
+                Assert.InRange(settingsHost.Bounds.Width, 1, 899);
+                var twoColumnParameterGrids = parameterPanel.GetVisualDescendants()
+                    .OfType<Grid>()
+                    .Where(grid => grid.ColumnDefinitions.Count == 5)
+                    .ToArray();
+                Assert.NotEmpty(twoColumnParameterGrids);
+                Assert.All(
+                    twoColumnParameterGrids,
+                    grid => Assert.Equal(HorizontalAlignment.Left, grid.HorizontalAlignment));
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public void CanvasKeyboardCommandsAreStable()
     {
         var cases = new[]
@@ -256,7 +306,8 @@ public sealed class AccessibilityAndResponsiveLayoutTests
 
             Assert.True(window.CanResize);
             Assert.True(window.MinHeight <= 320);
-            var scroll = Assert.IsType<ScrollViewer>(window.Content);
+            var chrome = Assert.IsType<OptilandWorkbench.App.Theming.ThemeChromeLayer>(window.Content);
+            var scroll = Assert.IsType<ScrollViewer>(chrome.Children[0]);
             Assert.NotNull(scroll.Content);
             window.Close();
         }, CancellationToken.None);

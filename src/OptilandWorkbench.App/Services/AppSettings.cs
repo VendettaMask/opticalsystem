@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -52,7 +53,7 @@ public sealed class AppSettings
 
     public void NormalizeDisplaySettings()
     {
-        Theme = Theme is "Dark" or "Isekai" or "System" ? Theme : DefaultTheme;
+        Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
         LowerScientificExponent = Math.Clamp(LowerScientificExponent, -15, -1);

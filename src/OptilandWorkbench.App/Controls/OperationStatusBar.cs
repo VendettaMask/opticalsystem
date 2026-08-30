@@ -43,8 +43,7 @@ internal sealed class OperationStatusBar : DockPanel, IDisposable
         Height = 28,
         Margin = new Thickness(8, 0, 0, 0),
         Padding = new Thickness(8, 2),
-        VerticalAlignment = VerticalAlignment.Center,
-        CornerRadius = SettingsPanelChrome.ControlCornerRadius
+        VerticalAlignment = VerticalAlignment.Center
     };
     private readonly TextBlock _longRunningHint = new()
     {

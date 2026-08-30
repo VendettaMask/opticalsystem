@@ -1,15 +1,12 @@
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 
 namespace OptilandWorkbench.App.Theming;
 
-/// <summary>
-/// Theme-only decoration for the existing Ribbon header. It never participates in
-/// layout or input, so changing to the Isekai theme cannot move or rename commands.
-/// </summary>
-internal sealed class IsekaiRibbonChrome : Control
+internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
 {
+    public static IsekaiThemeDecorationRenderer Instance { get; } = new();
+
     private static readonly IBrush LeatherBrush = new LinearGradientBrush
     {
         StartPoint = RelativePoint.TopLeft,
@@ -43,28 +40,74 @@ internal sealed class IsekaiRibbonChrome : Control
     private static readonly IBrush TextureBrush =
         new SolidColorBrush(Color.FromArgb(36, 231, 194, 119));
 
-    public IsekaiRibbonChrome()
+    private IsekaiThemeDecorationRenderer()
     {
-        IsHitTestVisible = false;
-        ClipToBounds = true;
     }
 
-    public override void Render(DrawingContext context)
+    public void Render(ThemeChromeRole role, DrawingContext context, Rect bounds)
     {
-        base.Render(context);
-        if (ActualThemeVariant != IsekaiTheme.Variant || Bounds.Width <= 0 || Bounds.Height <= 0)
+        if (bounds.Width <= 0 || bounds.Height <= 0)
         {
             return;
         }
 
-        var headerHeight = Math.Min(42, Bounds.Height);
-        var header = new Rect(0, 0, Bounds.Width, headerHeight);
+        if (role == ThemeChromeRole.Ribbon)
+        {
+            DrawRibbon(context, bounds);
+            return;
+        }
+
+        if (role is ThemeChromeRole.Workspace or ThemeChromeRole.Viewport or ThemeChromeRole.Dialog)
+        {
+            DrawWorkspaceFrame(context, bounds);
+        }
+    }
+
+    private static void DrawRibbon(DrawingContext context, Rect bounds)
+    {
+        var headerHeight = Math.Min(42, bounds.Height);
+        var header = new Rect(0, 0, bounds.Width, headerHeight);
         context.DrawRectangle(LeatherBrush, null, header);
 
         DrawLeatherTexture(context, header);
         DrawTabBays(context, header);
         DrawSword(context, header);
         DrawFrame(context, header);
+    }
+
+    private static void DrawWorkspaceFrame(DrawingContext context, Rect bounds)
+    {
+        var outer = new Rect(0.5, 0.5, Math.Max(0, bounds.Width - 1), Math.Max(0, bounds.Height - 1));
+        var inner = outer.Deflate(3);
+        context.DrawRectangle(null, new Pen(GoldShadowBrush, 1.8), outer);
+        if (inner.Width > 0 && inner.Height > 0)
+        {
+            context.DrawRectangle(null, new Pen(GoldHighlightBrush, 0.55), inner);
+        }
+
+        const double corner = 15;
+        var runePen = new Pen(GoldBrush, 1.1, lineCap: PenLineCap.Square, lineJoin: PenLineJoin.Miter);
+        DrawCorner(context, runePen, outer.TopLeft, new Vector(1, 1), corner);
+        DrawCorner(context, runePen, outer.TopRight, new Vector(-1, 1), corner);
+        DrawCorner(context, runePen, outer.BottomLeft, new Vector(1, -1), corner);
+        DrawCorner(context, runePen, outer.BottomRight, new Vector(-1, -1), corner);
+    }
+
+    private static void DrawCorner(
+        DrawingContext context,
+        Pen pen,
+        Point origin,
+        Vector direction,
+        double length)
+    {
+        var horizontal = origin + new Vector(direction.X * length, 0);
+        var vertical = origin + new Vector(0, direction.Y * length);
+        context.DrawLine(pen, origin, horizontal);
+        context.DrawLine(pen, origin, vertical);
+        context.DrawLine(
+            pen,
+            origin + new Vector(direction.X * 4, 0),
+            origin + new Vector(0, direction.Y * 4));
     }
 
     private static void DrawLeatherTexture(DrawingContext context, Rect header)

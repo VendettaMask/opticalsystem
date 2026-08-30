@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -18,9 +19,16 @@ public sealed class LocalIcon : Control
     public static readonly StyledProperty<double> StrokeWidthProperty =
         AvaloniaProperty.Register<LocalIcon, double>(nameof(StrokeWidth), 2);
 
+    public static readonly StyledProperty<IBrush?> AccentStrokeProperty =
+        AvaloniaProperty.Register<LocalIcon, IBrush?>(nameof(AccentStroke));
+
     static LocalIcon()
     {
-        AffectsRender<LocalIcon>(IconNameProperty, StrokeProperty, StrokeWidthProperty);
+        AffectsRender<LocalIcon>(
+            IconNameProperty,
+            StrokeProperty,
+            StrokeWidthProperty,
+            AccentStrokeProperty);
     }
 
     public string IconName
@@ -41,6 +49,17 @@ public sealed class LocalIcon : Control
         set => SetValue(StrokeWidthProperty, value);
     }
 
+    public IBrush? AccentStroke
+    {
+        get => GetValue(AccentStrokeProperty);
+        set => SetValue(AccentStrokeProperty, value);
+    }
+
+    public LocalIcon()
+    {
+        ActualThemeVariantChanged += (_, _) => InvalidateVisual();
+    }
+
     protected override Size MeasureOverride(Size availableSize) => new(24, 24);
 
     public override void Render(DrawingContext context)
@@ -51,8 +70,7 @@ public sealed class LocalIcon : Control
             return;
         }
 
-        if (!LocalIconLibrary.TryGet(IconName, out var definition) &&
-            !LocalIconLibrary.TryGet("circle-question-mark", out definition))
+        if (!ThemeIconResolver.TryResolve(ActualThemeVariant, IconName, out var definition))
         {
             return;
         }
@@ -63,10 +81,30 @@ public sealed class LocalIcon : Control
         var transform = Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offsetX, offsetY);
         using (context.PushTransform(transform))
         {
-            var pen = new Pen(Stroke, Math.Max(0.5, StrokeWidth), lineCap: PenLineCap.Round, lineJoin: PenLineJoin.Round);
-            foreach (var primitive in definition.Primitives)
+            var pen = new Pen(
+                Stroke,
+                Math.Max(0.5, StrokeWidth * definition.StrokeWidthScale),
+                lineCap: definition.LineCap,
+                lineJoin: definition.LineJoin);
+            using (context.PushTransform(definition.ContentTransform))
             {
-                primitive.Draw(context, pen);
+                foreach (var primitive in definition.Primitives)
+                {
+                    primitive.Draw(context, pen);
+                }
+            }
+
+            if (AccentStroke is not null && definition.AccentPrimitives.Count > 0)
+            {
+                var accentPen = new Pen(
+                    AccentStroke,
+                    Math.Max(0.5, StrokeWidth * 0.78),
+                    lineCap: PenLineCap.Square,
+                    lineJoin: PenLineJoin.Miter);
+                foreach (var primitive in definition.AccentPrimitives)
+                {
+                    primitive.Draw(context, accentPen);
+                }
             }
         }
     }
@@ -103,7 +141,7 @@ public static class LocalIconLibrary
 
     public static bool Contains(string iconName) => Definitions.Value.ContainsKey(iconName);
 
-    internal static bool TryGet(string iconName, out IconDefinition definition) =>
+    internal static bool TryGetStandard(string iconName, out IconDefinition definition) =>
         Definitions.Value.TryGetValue(iconName, out definition!);
 
     private static IReadOnlyDictionary<string, IconDefinition> Load()
@@ -140,7 +178,7 @@ public static class LocalIconLibrary
                 }
             }
 
-            definitions[icon.Name] = new IconDefinition(primitives);
+            definitions[icon.Name] = IconDefinition.Standard(primitives);
         }
 
         return definitions;
@@ -229,7 +267,56 @@ public static class LocalIconLibrary
             : fallback;
 }
 
-internal sealed record IconDefinition(IReadOnlyList<IconPrimitive> Primitives);
+internal sealed record IconDefinition(
+    IReadOnlyList<IconPrimitive> Primitives,
+    IReadOnlyList<IconPrimitive> AccentPrimitives,
+    Matrix ContentTransform,
+    PenLineCap LineCap,
+    PenLineJoin LineJoin,
+    double StrokeWidthScale)
+{
+    public static IconDefinition Standard(IReadOnlyList<IconPrimitive> primitives) => new(
+        primitives,
+        Array.Empty<IconPrimitive>(),
+        Matrix.Identity,
+        PenLineCap.Round,
+        PenLineJoin.Round,
+        1);
+}
+
+internal interface IThemeIconPack
+{
+    string Id { get; }
+
+    bool TryResolve(string iconName, out IconDefinition definition);
+}
+
+internal sealed class StandardThemeIconPack : IThemeIconPack
+{
+    public static StandardThemeIconPack Instance { get; } = new();
+
+    public string Id => "StandardLucide";
+
+    private StandardThemeIconPack()
+    {
+    }
+
+    public bool TryResolve(string iconName, out IconDefinition definition) =>
+        LocalIconLibrary.TryGetStandard(iconName, out definition!) ||
+        LocalIconLibrary.TryGetStandard("circle-question-mark", out definition!);
+}
+
+internal static class ThemeIconResolver
+{
+    public static string PackId(Avalonia.Styling.ThemeVariant? variant) =>
+        ThemeRegistry.FromActualVariant(variant).IconPack.Id;
+
+    public static bool TryResolve(
+        Avalonia.Styling.ThemeVariant? variant,
+        string iconName,
+        out IconDefinition definition) =>
+        ThemeRegistry.FromActualVariant(variant).IconPack.TryResolve(iconName, out definition!);
+}
 
 internal abstract record IconPrimitive
 {
@@ -242,6 +329,14 @@ internal sealed record PathPrimitive(string PathData) : IconPrimitive
 
     public override void Draw(DrawingContext context, Pen pen) =>
         context.DrawGeometry(null, pen, _geometry.Value);
+}
+
+internal sealed record FilledPathPrimitive(string PathData) : IconPrimitive
+{
+    private readonly Lazy<Geometry> _geometry = new(() => Geometry.Parse(PathData));
+
+    public override void Draw(DrawingContext context, Pen pen) =>
+        context.DrawGeometry(pen.Brush, null, _geometry.Value);
 }
 
 internal sealed record LinePrimitive(Point Start, Point End) : IconPrimitive

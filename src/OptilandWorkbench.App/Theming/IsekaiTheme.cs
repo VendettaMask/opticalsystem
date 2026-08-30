@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -62,13 +63,6 @@ internal static class IsekaiTheme
         SceneOrientationFill: Color.FromArgb(218, 38, 29, 21),
         SceneOrientationBorder: Color.FromRgb(166, 121, 54));
 
-    public static ResourceDictionary CreateResourceDictionary()
-    {
-        var resources = Palette.ToResourceDictionary();
-        ApplyAccentResources(resources);
-        return resources;
-    }
-
     public static void ApplyAccentResources(IResourceDictionary resources)
     {
         var accent = Color.FromRgb(202, 148, 50);
@@ -86,7 +80,7 @@ internal static class IsekaiTheme
             new SolidColorBrush(Color.FromRgb(184, 130, 39));
         resources["AccentFillColorTertiaryBrush"] =
             new SolidColorBrush(Color.FromRgb(158, 108, 31));
-        foreach (var resourceKey in App.UnifiedDockAccentResourceKeys)
+        foreach (var resourceKey in StandardTheme.UnifiedDockAccentResourceKeys)
         {
             resources[resourceKey] = accentBrush;
         }
@@ -96,7 +90,4 @@ internal static class IsekaiTheme
         resources["DockDocumentTabSelectedForegroundBrush"] = selectedForeground;
         resources["DockDocumentTabCloseSelectedForegroundBrush"] = selectedForeground;
     }
-
-    public static bool IsDarkLike(ThemeVariant? variant) =>
-        variant == ThemeVariant.Dark || variant == Variant;
 }

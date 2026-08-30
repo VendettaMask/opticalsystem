@@ -4,6 +4,7 @@ using Avalonia.Layout;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -101,6 +102,7 @@ public sealed class OptimizationVariableSliderWindow : Window
                 })
             }
         };
+        ThemeChrome.ApplyDialogDecoration(this);
 
         if (_choices.Count == 0)
         {

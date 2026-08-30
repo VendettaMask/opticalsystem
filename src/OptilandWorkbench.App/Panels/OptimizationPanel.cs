@@ -502,7 +502,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         var visual = MeritOperandRowPalette.ResolveVisual(
             operand.Type,
             !string.IsNullOrWhiteSpace(operand.Error),
-            IsekaiTheme.IsDarkLike(row.ActualThemeVariant));
+            ThemeRegistry.IsDarkVisual(row.ActualThemeVariant));
         row.Background = new SolidColorBrush(visual.Background);
         row.Foreground = new SolidColorBrush(visual.Foreground);
     }

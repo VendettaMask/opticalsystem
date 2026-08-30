@@ -7,6 +7,7 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -455,30 +456,21 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Padding = new Avalonia.Thickness(10, 0),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Avalonia.Thickness(1),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
         };
+        header.Classes.Add("system-property-card-header");
 
         var isExpanded = expanded;
         var isHovered = false;
-        IDisposable? arrowBinding = null;
-        IDisposable? titleBinding = null;
-        IDisposable? backgroundBinding = null;
-        IDisposable? borderBinding = null;
 
         void UpdateVisuals()
         {
             var emphasized = isExpanded || isHovered;
-            RebindThemeResource(ref arrowBinding, arrow, LocalIcon.StrokeProperty,
-                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextMuted);
-            RebindThemeResource(ref titleBinding, titleText, TextBlock.ForegroundProperty,
-                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextPrimary);
-            RebindThemeResource(ref backgroundBinding, header, Button.BackgroundProperty,
-                emphasized ? ThemeResourceBindings.Hover : ThemeResourceBindings.Surface);
-            RebindThemeResource(ref borderBinding, header, Button.BorderBrushProperty,
-                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
+            header.Classes.Set("theme-emphasized", emphasized);
+            arrow.Classes.Set("theme-emphasized", emphasized);
+            titleText.Classes.Set("theme-emphasized", emphasized);
         }
 
         void SetExpanded(bool value)
@@ -756,7 +748,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Padding = new Thickness(10, 0),
             BorderBrush = Brushes.Transparent,
             BorderThickness = new Thickness(1),
-            CornerRadius = SettingsPanelChrome.ControlCornerRadius,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
@@ -764,30 +755,21 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var card = new Border
         {
             BorderThickness = new Thickness(1),
-            CornerRadius = SettingsPanelChrome.CardCornerRadius,
             Child = new StackPanel { Children = { header, contentHost } }
         };
+        header.Classes.Add("system-property-card-header");
+        card.Classes.Add("system-property-card");
+        ThemeChrome.Apply(card, ThemeChromeRole.SurfaceCard, borderBrush: false);
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         var isHovered = false;
-        IDisposable? arrowBinding = null;
-        IDisposable? titleBinding = null;
-        IDisposable? headerBackgroundBinding = null;
-        IDisposable? headerBorderBinding = null;
-        IDisposable? cardBorderBinding = null;
 
         void UpdateVisuals(bool expanded)
         {
             var emphasized = expanded || isHovered;
-            RebindThemeResource(ref headerBackgroundBinding, header, Button.BackgroundProperty,
-                emphasized ? ThemeResourceBindings.Hover : ThemeResourceBindings.Surface);
-            RebindThemeResource(ref headerBorderBinding, header, Button.BorderBrushProperty,
-                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
-            RebindThemeResource(ref cardBorderBinding, card, Border.BorderBrushProperty,
-                emphasized ? ThemeResourceBindings.HoverBorder : ThemeResourceBindings.Border);
-            RebindThemeResource(ref arrowBinding, arrow, LocalIcon.StrokeProperty,
-                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextMuted);
-            RebindThemeResource(ref titleBinding, titleText, TextBlock.ForegroundProperty,
-                emphasized ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.TextPrimary);
+            header.Classes.Set("theme-emphasized", emphasized);
+            card.Classes.Set("theme-emphasized", emphasized);
+            arrow.Classes.Set("theme-emphasized", emphasized);
+            titleText.Classes.Set("theme-emphasized", emphasized);
         }
 
         void SetExpanded(bool expanded)
@@ -819,16 +801,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         };
         header.Click += (_, _) => SetExpanded(!contentHost.IsVisible);
         return (card, summaryText);
-    }
-
-    private static void RebindThemeResource(
-        ref IDisposable? subscription,
-        AvaloniaObject target,
-        AvaloniaProperty property,
-        string resourceKey)
-    {
-        subscription?.Dispose();
-        subscription = target.BindThemeResource(property, resourceKey);
     }
 
     private static TextBlock MutedText(string text, double fontSize)

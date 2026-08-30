@@ -7,6 +7,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 using SkiaSharp;
 
 namespace OptilandWorkbench.App.Panels;
@@ -118,6 +119,7 @@ internal sealed class ImageFileViewerWindow : Window
         Grid.SetRow(root.Children[1], 1);
         Grid.SetRow(root.Children[2], 2);
         Content = root;
+        ThemeChrome.ApplyDialogDecoration(this);
         Closed += (_, _) => _bitmap?.Dispose();
     }
 

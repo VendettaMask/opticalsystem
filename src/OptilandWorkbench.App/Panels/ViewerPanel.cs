@@ -8,6 +8,7 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -59,7 +60,6 @@ public sealed class ViewerPanel : UserControl, IDisposable
     };
     private readonly TextBlock _staleLayoutMessage = new()
     {
-        Foreground = Brushes.White,
         FontWeight = FontWeight.SemiBold
     };
     private readonly Border _staleLayoutBanner;
@@ -108,16 +108,26 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _staleLayoutBanner = new Border
         {
             IsVisible = false,
-            Background = Brushes.DarkRed,
-            BorderBrush = Brushes.Red,
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(4),
             Padding = new Thickness(12, 7),
             Margin = new Thickness(12, 54, 12, 0),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top,
             Child = _staleLayoutMessage
         };
+        ThemeChrome.Apply(
+            _staleLayoutBanner,
+            ThemeChromeRole.ControlFrame,
+            shadow: false,
+            borderBrush: false);
+        _staleLayoutBanner.BindThemeResource(
+            Border.BackgroundProperty,
+            ThemeResourceBindings.ErrorSurface);
+        _staleLayoutBanner.BindThemeResource(
+            Border.BorderBrushProperty,
+            ThemeResourceBindings.TextError);
+        _staleLayoutMessage.BindThemeResource(
+            TextBlock.ForegroundProperty,
+            ThemeResourceBindings.TextError);
         _prepareLayoutRays.IsVisible = IsNonSequential3D();
         _prepareLayoutRays.Click += async (_, _) => await PrepareLayoutRaysAsync();
         _showStaleLayoutRays.IsCheckedChanged += (_, _) => QueueRefresh(TimeSpan.Zero);
@@ -196,10 +206,12 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
         reset.Click += (_, _) => _scene.ResetView();
-        return SceneWithOverlay(
-            _scene,
-            Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right),
-            BuildSettingsOverlay());
+        return ThemeChrome.WrapWithDecoration(
+            SceneWithOverlay(
+                _scene,
+                Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right),
+                BuildSettingsOverlay()),
+            ThemeChromeRole.Viewport);
     }
 
     private Control Build3DWorkspace()
@@ -270,12 +282,14 @@ public sealed class ViewerPanel : UserControl, IDisposable
             },
             HorizontalAlignment.Center,
             VerticalAlignment.Bottom);
-        return SceneWithOverlay(
-            _scene,
-            topToolbar,
-            presetToolbar,
-            BuildSettingsOverlay(),
-            _staleLayoutBanner);
+        return ThemeChrome.WrapWithDecoration(
+            SceneWithOverlay(
+                _scene,
+                topToolbar,
+                presetToolbar,
+                BuildSettingsOverlay(),
+                _staleLayoutBanner),
+            ThemeChromeRole.Viewport);
     }
 
     private Control BuildSettingsOverlay()

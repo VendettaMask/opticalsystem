@@ -1,17 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Avalonia.Media;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Controls;
 
 internal static class SettingsPanelChrome
 {
-    public static CornerRadius CardCornerRadius { get; } = new(8);
-    public static CornerRadius ControlCornerRadius { get; } = new(5);
-    public static BoxShadows CardShadow { get; } = BoxShadows.Parse("0 5 16 0 #20000000");
-
     public static Button CreateToggleButton()
     {
         var button = new Button
@@ -44,27 +40,19 @@ internal static class SettingsPanelChrome
 
     public static void ApplyCardStyle(Border card)
     {
-        card.CornerRadius = CardCornerRadius;
-        card.BorderThickness = new Thickness(1);
-        card.BoxShadow = CardShadow;
+        ThemeChrome.Apply(card, ThemeChromeRole.SettingsCard);
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SettingsOverlaySurface);
-        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
     }
 
     public static void ApplySurfaceCardStyle(Border card, bool shadow = true)
     {
-        card.CornerRadius = CardCornerRadius;
-        card.BorderThickness = new Thickness(1);
-        card.BoxShadow = shadow ? CardShadow : default;
+        ThemeChrome.Apply(card, ThemeChromeRole.SurfaceCard, shadow);
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
     }
 
     public static void ApplyControlFrameStyle(Border frame)
     {
-        frame.CornerRadius = ControlCornerRadius;
-        frame.BorderThickness = new Thickness(1);
+        ThemeChrome.Apply(frame, ThemeChromeRole.ControlFrame, shadow: false);
         frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
     }
 }

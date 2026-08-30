@@ -5,6 +5,7 @@ using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
@@ -249,6 +250,7 @@ public sealed class ToleranceWizardWindow : Window
         };
         Grid.SetRow(operandGrid, 1);
         Content = root;
+        ThemeChrome.ApplyDialogDecoration(this);
 
         _preset.SelectionChanged += (_, _) => ApplyPreset(_preset.SelectedIndex);
         _startSurface.ValueChanged += (_, _) => UpdatePreview();
@@ -460,8 +462,6 @@ public sealed class ToleranceWizardWindow : Window
     {
         var group = new Border
         {
-            BorderThickness = new Thickness(1),
-            CornerRadius = new CornerRadius(5),
             Padding = new Thickness(10, 9),
             ClipToBounds = true,
             Child = new StackPanel
@@ -479,8 +479,8 @@ public sealed class ToleranceWizardWindow : Window
                 }
             }
         };
-        group.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
-        group.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        ThemeChrome.Apply(group, ThemeChromeRole.ControlFrame, shadow: false);
+        group.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         return group;
     }
 

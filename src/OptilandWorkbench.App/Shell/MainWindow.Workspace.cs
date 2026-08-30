@@ -131,14 +131,7 @@ public sealed partial class MainWindow
 
     private void ApplyTheme(bool save = true)
     {
-        Avalonia.Application.Current!.RequestedThemeVariant = _settings.Theme switch
-        {
-            "Dark" => ThemeVariant.Dark,
-            IsekaiTheme.SettingsValue => IsekaiTheme.Variant,
-            "System" => ThemeVariant.Default,
-            _ => ThemeVariant.Light
-        };
-        ((App)Avalonia.Application.Current!).ApplyThemeAccent(_settings.Theme);
+        ((App)Avalonia.Application.Current!).ApplyTheme(_settings.Theme);
         if (save)
         {
             _settings.Save();

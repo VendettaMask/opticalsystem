@@ -24,15 +24,18 @@ public sealed class App : Avalonia.Application
         Name = "Optical System Design";
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
-        ApplyBlueAccent();
         AddThemeResources();
+        ThemeApplicationService.Apply(this, AppSettings.DefaultTheme);
         Styles.Add(new Style(selector => selector.OfType<LocalIcon>())
         {
             Setters =
             {
                 new Setter(
                     LocalIcon.StrokeProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.MutedText))
+                    new DynamicResourceExtension(ThemeResourceBindings.MutedText)),
+                new Setter(
+                    LocalIcon.AccentStrokeProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextAccent))
             }
         });
         DataTemplates.Add(new WorkspaceViewLocator());
@@ -76,8 +79,86 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(Button.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(Button.PaddingProperty, new Thickness(10, 4)),
-                new Setter(Button.CornerRadiusProperty, new CornerRadius(5)),
-                new Setter(Button.BorderThicknessProperty, new Thickness(1))
+                new Setter(
+                    Button.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame))),
+                new Setter(
+                    Button.BorderThicknessProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.BorderThickness(ThemeChromeRole.ControlFrame)))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<Button>()
+            .Class("system-property-card-header"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Button.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Surface)),
+                new Setter(
+                    Button.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<Button>()
+            .Class("system-property-card-header")
+            .Class("theme-emphasized"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Button.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Hover)),
+                new Setter(
+                    Button.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.HoverBorder))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<Border>()
+            .Class("system-property-card"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<Border>()
+            .Class("system-property-card")
+            .Class("theme-emphasized"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.HoverBorder))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<LocalIcon>()
+            .Class("theme-emphasized"))
+        {
+            Setters =
+            {
+                new Setter(
+                    LocalIcon.StrokeProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextAccent))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<TextBlock>()
+            .Class("theme-emphasized"))
+        {
+            Setters =
+            {
+                new Setter(
+                    TextBlock.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextAccent))
             }
         });
         Styles.Add(new Style(selector => selector
@@ -113,7 +194,9 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     TextElement.ForegroundProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(Border.CornerRadiusProperty, SettingsPanelChrome.ControlCornerRadius)
+                new Setter(
+                    Border.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(RibbonMenuItemPointerOverSelector)
@@ -128,7 +211,9 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     TextElement.ForegroundProperty,
                     new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(Border.CornerRadiusProperty, SettingsPanelChrome.ControlCornerRadius)
+                new Setter(
+                    Border.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<TextBox>())
@@ -136,7 +221,9 @@ public sealed class App : Avalonia.Application
             Setters =
             {
                 new Setter(TextBox.MinHeightProperty, UiDensity.StandardControlHeight),
-                new Setter(TextBox.CornerRadiusProperty, new CornerRadius(5))
+                new Setter(
+                    TextBox.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<ComboBox>())
@@ -144,7 +231,9 @@ public sealed class App : Avalonia.Application
             Setters =
             {
                 new Setter(ComboBox.MinHeightProperty, UiDensity.StandardControlHeight),
-                new Setter(ComboBox.CornerRadiusProperty, new CornerRadius(5))
+                new Setter(
+                    ComboBox.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<NumericUpDown>())
@@ -152,7 +241,9 @@ public sealed class App : Avalonia.Application
             Setters =
             {
                 new Setter(NumericUpDown.MinHeightProperty, UiDensity.StandardControlHeight),
-                new Setter(NumericUpDown.CornerRadiusProperty, new CornerRadius(5))
+                new Setter(
+                    NumericUpDown.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<DataGridColumnHeader>())
@@ -207,58 +298,22 @@ public sealed class App : Avalonia.Application
         .OfType<DataGridRow>()
         .Class(":selected");
 
-    internal static Color BrandAccentColor => Color.FromRgb(0, 122, 255);
+    internal static Color BrandAccentColor => StandardTheme.AccentColor;
 
     internal static IReadOnlyList<string> UnifiedDockAccentResourceKeys { get; } =
-        new[]
-        {
-            "DockSurfaceHeaderActiveBrush",
-            "DockTabActiveBackgroundBrush",
-            "DockTabActiveIndicatorBrush",
-            "DockTargetIndicatorBrush",
-            "DockSplitterDragBrush"
-        };
+        StandardTheme.UnifiedDockAccentResourceKeys;
 
-    internal void ApplyThemeAccent(string settingsValue)
+    internal void ApplyTheme(string settingsValue)
     {
-        if (settingsValue == IsekaiTheme.SettingsValue)
-        {
-            IsekaiTheme.ApplyAccentResources(Resources);
-            return;
-        }
-
-        ApplyBlueAccent();
-    }
-
-    private void ApplyBlueAccent()
-    {
-        var accent = BrandAccentColor;
-        var accentBrush = new SolidColorBrush(accent);
-        Resources["SystemAccentColor"] = accent;
-        Resources["SystemAccentColorDark1"] = Color.FromRgb(0, 102, 204);
-        Resources["SystemAccentColorDark2"] = Color.FromRgb(0, 82, 164);
-        Resources["SystemAccentColorDark3"] = Color.FromRgb(0, 64, 128);
-        Resources["SystemAccentColorLight1"] = Color.FromRgb(64, 156, 255);
-        Resources["SystemAccentColorLight2"] = Color.FromRgb(128, 190, 255);
-        Resources["SystemAccentColorLight3"] = Color.FromRgb(204, 229, 255);
-        Resources["AccentFillColorDefaultBrush"] = accentBrush;
-        Resources["AccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 112, 235));
-        Resources["AccentFillColorTertiaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 102, 214));
-        foreach (var resourceKey in UnifiedDockAccentResourceKeys)
-        {
-            Resources[resourceKey] = accentBrush;
-        }
-
-        Resources["DockTabActiveForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-        Resources["DockDocumentTabSelectedForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-        Resources["DockDocumentTabCloseSelectedForegroundBrush"] = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        ThemeApplicationService.Apply(this, settingsValue);
     }
 
     private void AddThemeResources()
     {
-        Resources.ThemeDictionaries[ThemeVariant.Light] = ThemePalette.Light.ToResourceDictionary();
-        Resources.ThemeDictionaries[ThemeVariant.Dark] = ThemePalette.DarkOpticStudio.ToResourceDictionary();
-        Resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiTheme.CreateResourceDictionary();
+        foreach (var theme in ThemeRegistry.ConcreteThemes)
+        {
+            Resources.ThemeDictionaries[theme.RequestedVariant] = theme.BuildResources();
+        }
     }
     private void AddDockIconStyles()
     {
@@ -297,7 +352,9 @@ public sealed class App : Avalonia.Application
         style.Setters.Add(new Setter(Button.MinHeightProperty, size));
         style.Setters.Add(new Setter(Button.PaddingProperty, new Thickness(padding)));
         style.Setters.Add(new Setter(Button.MarginProperty, margin));
-        style.Setters.Add(new Setter(Button.CornerRadiusProperty, new CornerRadius(5)));
+        style.Setters.Add(new Setter(
+            Button.CornerRadiusProperty,
+            new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame))));
         style.Setters.Add(new Setter(Button.BackgroundProperty, Brushes.Transparent));
         style.Setters.Add(new Setter(Button.BorderBrushProperty, Brushes.Transparent));
         style.Setters.Add(new Setter(Button.BorderThicknessProperty, new Thickness(0)));

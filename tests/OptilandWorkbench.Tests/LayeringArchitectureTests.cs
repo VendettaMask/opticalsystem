@@ -187,7 +187,7 @@ public sealed class LayeringArchitectureTests
         var allowedShadowFiles = new HashSet<string>(StringComparer.Ordinal)
         {
             "Controls/SettingsPanelChrome.cs",
-            "Shell/MainWindow.Shell.cs"
+            "Theming/ThemeChrome.cs"
         };
         var scatteredShadows = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
             .SelectMany(path => File.ReadLines(path)
@@ -207,14 +207,64 @@ public sealed class LayeringArchitectureTests
 
         Assert.True(
             scatteredShadows.Length == 0,
-            "Use SettingsPanelChrome.CardShadow instead of local card shadow strings:"
+            "Card shadows must come from theme Chrome profiles instead of local strings:"
             + Environment.NewLine
             + string.Join(Environment.NewLine, scatteredShadows));
         Assert.True(
             splitCardRadii.Length == 0,
-            "Use SettingsPanelChrome.CardCornerRadius or ControlCornerRadius instead of split card/control radius values:"
+            "Card and control radii must come from theme Chrome roles:"
             + Environment.NewLine
             + string.Join(Environment.NewLine, splitCardRadii));
+    }
+
+    [Fact]
+    public void ThemeSpecificUiCodeStaysInsideRegisteredThemePackages()
+    {
+        var appRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.App");
+        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !Path.GetRelativePath(appRoot, path)
+                .Replace('\\', '/')
+                .StartsWith("Theming/", StringComparison.Ordinal))
+            .SelectMany(path => File.ReadLines(path)
+                .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
+            .Where(item => item.Line.Contains("IsekaiTheme", StringComparison.Ordinal)
+                || item.Line.Contains("\"Isekai\"", StringComparison.Ordinal))
+            .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
+
+        Assert.True(
+            violations.Length == 0,
+            "Theme-specific decisions belong in registered theme packages, not business UI:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, violations));
+
+        var settingsSource = File.ReadAllText(Path.Combine(appRoot, "DisplaySettingsWindow.cs"));
+        var workspaceSource = File.ReadAllText(Path.Combine(appRoot, "Shell", "MainWindow.Workspace.cs"));
+        var resolverSource = File.ReadAllText(Path.Combine(appRoot, "Controls", "LocalIcon.cs"));
+        Assert.Contains("ThemeRegistry.SelectableThemes", settingsSource);
+        Assert.Contains("ApplyTheme(_settings.Theme)", workspaceSource);
+        Assert.DoesNotContain("Isekai", resolverSource, StringComparison.Ordinal);
+
+        var globalThemeMutations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !string.Equals(
+                Path.GetRelativePath(appRoot, path).Replace('\\', '/'),
+                "Theming/ThemeApplicationService.cs",
+                StringComparison.Ordinal))
+            .SelectMany(path => File.ReadLines(path)
+                .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
+            .Where(item => item.Line.Contains(
+                "Application.Current.RequestedThemeVariant",
+                StringComparison.Ordinal))
+            .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
+        Assert.True(
+            globalThemeMutations.Length == 0,
+            "Global runtime theme changes must use ThemeApplicationService:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, globalThemeMutations));
     }
 
     [Fact]
