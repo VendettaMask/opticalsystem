@@ -22,7 +22,7 @@ public sealed class MaterialLibraryPanel : UserControl
     private IReadOnlyList<GlassMaterialDto> _visibleGlasses = Array.Empty<GlassMaterialDto>();
     private readonly ComboBox _catalog = new() { MinHeight = 34 };
     private readonly TextBox _search = new() { MinHeight = 34, PlaceholderText = "输入玻璃名称" };
-    private readonly ListBox _glassList = new() { MinHeight = 270 };
+    private readonly ListBox _glassList = new();
     private readonly TextBox _name = ReadOnlyField();
     private readonly TextBox _formula = ReadOnlyField();
     private readonly TextBox _state = ReadOnlyField();
@@ -92,19 +92,13 @@ public sealed class MaterialLibraryPanel : UserControl
             BuildGlassSelector(),
             BuildDetails(),
             "5*,18,5.5*",
-            "Auto,18,Auto",
+            "2*,18,3*",
             breakpoint: 900)
         {
             Margin = new Thickness(18, 0, 18, 12)
         };
-        var bodyScroller = new ScrollViewer
-        {
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-            Content = body
-        };
-        Grid.SetRow(bodyScroller, 2);
-        root.Children.Add(bodyScroller);
+        Grid.SetRow(body, 2);
+        root.Children.Add(body);
 
         var commandBar = BuildCommandBar();
         Grid.SetRow(commandBar, 3);
@@ -116,7 +110,7 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var panel = new Grid
         {
-            RowDefinitions = new RowDefinitions("Auto,280,Auto,Auto,Auto,Auto,Auto"),
+            RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto,Auto,Auto,Auto"),
             RowSpacing = 8
         };
 
@@ -587,13 +581,12 @@ internal sealed class LensLibraryPanel : UserControl
         MinHeight = 34,
         PlaceholderText = "搜索镜头、来源"
     };
-    private readonly ListBox _list = new() { MinHeight = 300 };
+    private readonly ListBox _list = new();
     private readonly OpticSceneControl _preview = new()
     {
         ViewMode = OpticSceneViewMode.TwoDimensional,
         ShowRays = true,
-        ShowScaleBar = true,
-        MinHeight = 320
+        ShowScaleBar = true
     };
     private readonly TextBlock _count = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _status = new()
@@ -680,12 +673,11 @@ internal sealed class LensLibraryPanel : UserControl
 
         var details = new Grid
         {
-            RowDefinitions = new RowDefinitions("3*,Auto,Auto"),
+            RowDefinitions = new RowDefinitions("3*,2*,Auto"),
             RowSpacing = 12
         };
         var previewFrame = new Border
         {
-            MinHeight = 260,
             ClipToBounds = true,
             Child = _preview
         };
@@ -693,9 +685,14 @@ internal sealed class LensLibraryPanel : UserControl
         Grid.SetRow(previewFrame, 0);
         details.Children.Add(previewFrame);
 
-        var parameterGrid = BuildParameterGrid();
-        Grid.SetRow(parameterGrid, 1);
-        details.Children.Add(parameterGrid);
+        var parameterScroller = new ScrollViewer
+        {
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            Content = BuildParameterGrid()
+        };
+        Grid.SetRow(parameterScroller, 1);
+        details.Children.Add(parameterScroller);
 
         var statusBar = new Border
         {
@@ -708,20 +705,14 @@ internal sealed class LensLibraryPanel : UserControl
             listFrame,
             details,
             "330,16,*",
-            "260,16,Auto",
+            "2*,16,3*",
             breakpoint: 820)
         {
             Margin = new Thickness(18, 0, 18, 14)
         };
 
-        var scroller = new ScrollViewer
-        {
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
-            Content = body
-        };
-        Grid.SetRow(scroller, 1);
-        root.Children.Add(scroller);
+        Grid.SetRow(body, 1);
+        root.Children.Add(body);
         return root;
     }
 

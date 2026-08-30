@@ -39,8 +39,7 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         IsReadOnly = true,
         CanUserResizeColumns = true,
         GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
-        SelectionMode = DataGridSelectionMode.Single,
-        MinHeight = 360
+        SelectionMode = DataGridSelectionMode.Single
     };
     private readonly TextBlock _count = ValueText();
     private readonly TextBlock _title = ValueText(18, FontWeight.SemiBold);
@@ -106,20 +105,14 @@ internal sealed class CommercialLensCatalogPanel : UserControl
             resultsFrame,
             detailFrame,
             "3*,16,2*",
-            "360,16,Auto",
+            "2*,16,3*",
             breakpoint: 850)
         {
             Margin = new Thickness(16, 0, 16, 14)
         };
 
-        var scroller = new ScrollViewer
-        {
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            Content = body
-        };
-        Grid.SetRow(scroller, 1);
-        root.Children.Add(scroller);
+        Grid.SetRow(body, 1);
+        root.Children.Add(body);
         return root;
     }
 
