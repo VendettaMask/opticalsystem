@@ -171,6 +171,17 @@ public sealed class WorkspaceSessionTests
         Assert.Equal(610, bounds.Y);
         Assert.Equal(1200, bounds.Width);
         Assert.Equal(240, bounds.Height);
+
+        var recovered = WorkspaceSessionStore.ClampWindowBounds(
+            double.NaN,
+            double.PositiveInfinity,
+            double.NaN,
+            double.NegativeInfinity,
+            double.NaN,
+            double.NaN,
+            double.NaN,
+            double.NaN);
+        Assert.Equal((0d, 0d, 920d, 680d), recovered);
     }
 
     private static string TemporaryDirectory()

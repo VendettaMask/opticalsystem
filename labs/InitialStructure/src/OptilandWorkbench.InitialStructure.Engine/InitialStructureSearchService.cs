@@ -8,12 +8,13 @@ public sealed record SearchProgress(int Completed, int Total, string Stage, stri
 public sealed class InitialStructureSearchService
 {
     private static readonly AlgorithmIdentity Algorithm = new(
-        "paraxial-expansion",
+        "flat-to-usable-hybrid",
         "1",
         "Managed CPU",
         true);
 
     private readonly FirstOrderSeedGenerator _seedGenerator;
+    private readonly HybridCandidateRefiner _refiner;
     private readonly TimeProvider _timeProvider;
 
     public InitialStructureSearchService(
@@ -21,22 +22,41 @@ public sealed class InitialStructureSearchService
         TimeProvider? timeProvider = null)
     {
         _seedGenerator = seedGenerator ?? new FirstOrderSeedGenerator();
+        _refiner = new HybridCandidateRefiner();
         _timeProvider = timeProvider ?? TimeProvider.System;
     }
 
     public async Task<SearchRunManifest> RunAsync(
         InitialStructureSpecification specification,
         IProgress<SearchProgress>? progress = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        SearchCheckpoint? checkpoint = null,
+        Func<SearchCheckpoint, CancellationToken, ValueTask>? checkpointSink = null)
     {
         SpecificationValidator.Validate(specification);
         var specificationFingerprint = ContentFingerprint.Compute(specification);
-        var createdUtc = _timeProvider.GetUtcNow();
-        var runId = $"run-{createdUtc:yyyyMMdd-HHmmssfff}-{specificationFingerprint[..10]}";
-        var candidates = new ConcurrentBag<CandidateSnapshot>();
-        var diagnostics = new ConcurrentBag<SearchDiagnostic>();
-        var workItems = CreateWorkItems(specification).ToArray();
-        var completed = 0;
+        ValidateCheckpoint(checkpoint, specificationFingerprint, specification);
+        var createdUtc = checkpoint?.CreatedUtc ?? _timeProvider.GetUtcNow();
+        var runId = checkpoint?.RunId
+            ?? $"run-{createdUtc:yyyyMMdd-HHmmssfff}-{specificationFingerprint[..10]}-{Guid.NewGuid():N}";
+        var candidates = new ConcurrentBag<CandidateSnapshot>(checkpoint?.SeedCandidates ?? []);
+        var diagnostics = new ConcurrentBag<SearchDiagnostic>(checkpoint?.Diagnostics ?? []);
+        var allWorkItems = CreateWorkItems(specification).ToArray();
+        var completedSeedIndices = new ConcurrentDictionary<int, byte>(
+            (checkpoint?.CompletedInitialSeedIndices ?? [])
+                .Select(index => new KeyValuePair<int, byte>(index, 0)));
+        var workItems = allWorkItems
+            .Where(item => !completedSeedIndices.ContainsKey(item.SeedIndex))
+            .ToArray();
+        if (allWorkItems.Length < specification.Budget.InitialSeedCount
+            && !diagnostics.Any(item => item.Code == "run.evaluation-limit"))
+        {
+            diagnostics.Add(new SearchDiagnostic(
+                "run.evaluation-limit",
+                $"MaximumEvaluations limited the initial seed run to {allWorkItems.Length} candidates."));
+        }
+        var completed = completedSeedIndices.Count;
+        using var checkpointGate = new SemaphoreSlim(1, 1);
         using var timeLimit = new CancellationTokenSource(specification.Budget.TimeLimit);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(
             cancellationToken,
@@ -52,7 +72,7 @@ public sealed class InitialStructureSearchService
                     CancellationToken = linked.Token,
                     MaxDegreeOfParallelism = specification.Budget.MaximumParallelism
                 },
-                (workItem, token) =>
+                async (workItem, token) =>
                 {
                     token.ThrowIfCancellationRequested();
                     try
@@ -73,7 +93,7 @@ public sealed class InitialStructureSearchService
                         var current = Interlocked.Increment(ref completed);
                         progress?.Report(new SearchProgress(
                             current,
-                            workItems.Length,
+                            allWorkItems.Length,
                             "First-order expansion",
                             candidate.CandidateId));
                     }
@@ -89,12 +109,15 @@ public sealed class InitialStructureSearchService
                         var current = Interlocked.Increment(ref completed);
                         progress?.Report(new SearchProgress(
                             current,
-                            workItems.Length,
+                            allWorkItems.Length,
                             "Candidate failed"));
                     }
 
-                    return ValueTask.CompletedTask;
+                    completedSeedIndices.TryAdd(workItem.SeedIndex, 0);
+                    await PersistCheckpointAsync("initial-seeds", token);
                 });
+
+            await PersistCheckpointAsync("refinement-ready", linked.Token);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
@@ -105,8 +128,57 @@ public sealed class InitialStructureSearchService
         }
 
         cancellationToken.ThrowIfCancellationRequested();
-        var orderedCandidates = candidates
+        var orderedSeeds = candidates
             .OrderBy(candidate => candidate.Lineage.ElementCount)
+            .ThenBy(candidate => candidate.Lineage.StopVariant)
+            .ThenBy(candidate => candidate.Lineage.SeedIndex)
+            .ToArray();
+        var refinementEvaluations = 0;
+        if (state == SearchRunState.Completed)
+        {
+            try
+            {
+                var remainingEvaluations = Math.Max(
+                    0,
+                    specification.Budget.MaximumEvaluations - allWorkItems.Length);
+                var refinement = _refiner.Refine(
+                    specification,
+                    orderedSeeds,
+                    remainingEvaluations,
+                    progress,
+                    linked.Token);
+                refinementEvaluations = refinement.EvaluationCount;
+                foreach (var candidate in refinement.Candidates)
+                {
+                    candidates.Add(candidate);
+                }
+                foreach (var diagnostic in refinement.Diagnostics)
+                {
+                    diagnostics.Add(diagnostic);
+                }
+            }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+            {
+                state = SearchRunState.Cancelled;
+                diagnostics.Add(new SearchDiagnostic(
+                    "run.time-limit",
+                    $"The run reached its {specification.Budget.TimeLimit} time limit during refinement."));
+            }
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
+        diagnostics.Add(new SearchDiagnostic(
+            "run.evaluation-count",
+            $"Consumed {allWorkItems.Length + refinementEvaluations} of {specification.Budget.MaximumEvaluations} evaluations."));
+        var orderedCandidates = candidates
+            .GroupBy(candidate => candidate.OpticFingerprint, StringComparer.Ordinal)
+            .Select(group => group
+                .OrderByDescending(candidate => candidate.Lineage.Generation)
+                .ThenBy(candidate => candidate.CandidateId, StringComparer.Ordinal)
+                .First())
+            .OrderBy(candidate => candidate.Lineage.ElementCount)
+            .ThenBy(candidate => candidate.Lineage.StopVariant)
+            .ThenBy(candidate => candidate.Lineage.Generation)
             .ThenBy(candidate => candidate.Lineage.SeedIndex)
             .ToArray();
         return new SearchRunManifest
@@ -124,6 +196,97 @@ public sealed class InitialStructureSearchService
                 .ThenBy(diagnostic => diagnostic.Code, StringComparer.Ordinal)
                 .ToArray()
         };
+
+        async ValueTask PersistCheckpointAsync(string stage, CancellationToken token)
+        {
+            if (checkpointSink is null)
+            {
+                return;
+            }
+
+            await checkpointGate.WaitAsync(token);
+            try
+            {
+                var snapshot = new SearchCheckpoint
+                {
+                    RunId = runId,
+                    CreatedUtc = createdUtc,
+                    UpdatedUtc = _timeProvider.GetUtcNow(),
+                    Stage = stage,
+                    Specification = specification,
+                    SpecificationFingerprint = specificationFingerprint,
+                    Algorithm = Algorithm,
+                    CompletedInitialSeedIndices = completedSeedIndices.Keys
+                        .Order()
+                        .ToArray(),
+                    SeedCandidates = candidates
+                        .Where(candidate =>
+                            candidate.Lineage.Generation == 1
+                            && completedSeedIndices.ContainsKey(candidate.Lineage.SeedIndex))
+                        .OrderBy(candidate => candidate.Lineage.ElementCount)
+                        .ThenBy(candidate => candidate.Lineage.StopVariant)
+                        .ThenBy(candidate => candidate.Lineage.SeedIndex)
+                        .ToArray(),
+                    Diagnostics = diagnostics
+                        .OrderBy(diagnostic => diagnostic.CandidateId, StringComparer.Ordinal)
+                        .ThenBy(diagnostic => diagnostic.Code, StringComparer.Ordinal)
+                        .ToArray()
+                };
+                await checkpointSink(snapshot, token);
+            }
+            finally
+            {
+                checkpointGate.Release();
+            }
+        }
+    }
+
+    private static void ValidateCheckpoint(
+        SearchCheckpoint? checkpoint,
+        string specificationFingerprint,
+        InitialStructureSpecification specification)
+    {
+        if (checkpoint is null)
+        {
+            return;
+        }
+
+        if (checkpoint.SchemaVersion != SearchCheckpoint.CurrentSchemaVersion
+            || checkpoint.Specification is null
+            || checkpoint.Algorithm is null
+            || checkpoint.CompletedInitialSeedIndices is null
+            || checkpoint.SeedCandidates is null
+            || checkpoint.Diagnostics is null
+            || !StringComparer.Ordinal.Equals(
+                checkpoint.SpecificationFingerprint,
+                specificationFingerprint)
+            || !StringComparer.Ordinal.Equals(
+                ContentFingerprint.Compute(checkpoint.Specification),
+                specificationFingerprint))
+        {
+            throw new InvalidDataException(
+                "The checkpoint schema or specification fingerprint does not match the requested search.");
+        }
+
+        if (!StringComparer.Ordinal.Equals(checkpoint.Algorithm.Name, Algorithm.Name)
+            || !StringComparer.Ordinal.Equals(checkpoint.Algorithm.Version, Algorithm.Version))
+        {
+            throw new InvalidDataException(
+                "The checkpoint was created by an incompatible search algorithm version.");
+        }
+
+        var maximumInitialSeedIndex = Math.Min(
+            specification.Budget.InitialSeedCount,
+            specification.Budget.MaximumEvaluations);
+        var completed = checkpoint.CompletedInitialSeedIndices.ToHashSet();
+        if (completed.Count != checkpoint.CompletedInitialSeedIndices.Count
+            || completed.Any(index => index < 0 || index >= maximumInitialSeedIndex)
+            || checkpoint.SeedCandidates.Any(candidate =>
+                candidate.Lineage.Generation != 1
+                || !completed.Contains(candidate.Lineage.SeedIndex)))
+        {
+            throw new InvalidDataException("The checkpoint contains invalid or duplicate seed progress.");
+        }
     }
 
     private static IEnumerable<SearchWorkItem> CreateWorkItems(
@@ -132,7 +295,10 @@ public sealed class InitialStructureSearchService
         var elementRange = specification.MaximumElementCount
             - specification.MinimumElementCount
             + 1;
-        for (var seedIndex = 0; seedIndex < specification.Budget.InitialSeedCount; seedIndex++)
+        var evaluationLimit = Math.Min(
+            specification.Budget.InitialSeedCount,
+            specification.Budget.MaximumEvaluations);
+        for (var seedIndex = 0; seedIndex < evaluationLimit; seedIndex++)
         {
             yield return new SearchWorkItem(
                 specification.MinimumElementCount + (seedIndex % elementRange),

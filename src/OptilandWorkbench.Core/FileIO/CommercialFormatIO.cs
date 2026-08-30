@@ -208,7 +208,11 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
         string path,
         CancellationToken cancellationToken = default)
     {
-        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        var bytes = await BoundedFile.ReadAllBytesAsync(
+            path,
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "ZMX document",
+            cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         return Import(ZemaxZmxReader.Decode(bytes));
     }
@@ -217,7 +221,11 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
         string path,
         CancellationToken cancellationToken = default)
     {
-        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        var bytes = await BoundedFile.ReadAllBytesAsync(
+            path,
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "ZMX document",
+            cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         return ImportConfigurationSet(ZemaxZmxReader.Decode(bytes));
     }

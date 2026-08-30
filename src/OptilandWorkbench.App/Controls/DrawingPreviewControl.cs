@@ -8,7 +8,7 @@ using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class DrawingPreviewControl : Control
+public sealed class DrawingPreviewControl : Control, IInteractiveCanvasAutomationSource
 {
     private const double ZoomStep = 1.25;
     private readonly SceneViewport _viewport = new();
@@ -57,6 +57,12 @@ public sealed class DrawingPreviewControl : Control
 
     protected override AutomationPeer OnCreateAutomationPeer() =>
         new InteractiveCanvasAutomationPeer(this);
+
+    string IInteractiveCanvasAutomationSource.AutomationValue => _source is null
+        ? "光学图纸预览；没有可用图纸。"
+        : $"光学图纸预览；图像尺寸 {_source.Size.Width:G6} × {_source.Size.Height:G6}；缩放 {Zoom:P0}。";
+
+    void IInteractiveCanvasAutomationSource.InvokeAutomationAction() => ResetView();
 
     protected override void OnKeyDown(KeyEventArgs e)
     {

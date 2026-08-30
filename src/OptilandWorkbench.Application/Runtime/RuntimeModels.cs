@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
@@ -58,7 +59,10 @@ public sealed record TolerancingView(
     IReadOnlyList<TolerancingTrialRow> TrialRows,
     string Details,
     TolerancingStatistics? Statistics = null,
-    TolerancingSensitivityStatistics? SensitivityStatistics = null)
+    TolerancingSensitivityStatistics? SensitivityStatistics = null,
+    IReadOnlyList<TolerancingInverseRow>? InverseRows = null,
+    IReadOnlyList<ToleranceOperandDto>? AdjustedOperands = null,
+    string InverseTarget = "")
 {
     public static TolerancingView Empty(string message)
     {
@@ -94,5 +98,17 @@ public sealed record TolerancingSensitivityStatistics(
     string Nominal,
     string RssEstimatedChange,
     string EstimatedCriterion);
+
+public sealed record TolerancingInverseEndpoint(
+    string OriginalTolerance,
+    string AdjustedTolerance,
+    string Criterion,
+    ToleranceInverseEndpointStatus Status,
+    int Iterations);
+
+public sealed record TolerancingInverseRow(
+    string Perturbation,
+    TolerancingInverseEndpoint Minimum,
+    TolerancingInverseEndpoint Maximum);
 
 public sealed record MultiConfigurationRow(int Index, string Name, bool Active, int SurfaceCount, string TotalTrack, string EffectiveFocalLength);

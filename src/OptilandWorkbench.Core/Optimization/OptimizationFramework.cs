@@ -351,10 +351,11 @@ public static class OptimizerCatalog
             "Momentum Gradient Descent" => new MomentumGradientDescentOptimizer(),
             "Greedy Random Perturbation" => new GreedyRandomPerturbationOptimizer(),
             "LM / DLS" or "Least Squares" => Alias(name, new DampedLeastSquaresOptimizer()),
-            "Powell" or "COBYLA" or "Orthogonal Descent" => Alias(name, new CoordinatePatternSearchOptimizer()),
-            "BFGS" or "L-BFGS-B" => Alias(name, new MomentumGradientDescentOptimizer()),
-            "Differential Evolution" or "Dual Annealing" or "Basin Hopping" =>
-                Alias(name, new GreedyRandomPerturbationOptimizer()),
+            "Orthogonal Descent" => Alias(name, new CoordinatePatternSearchOptimizer()),
+            "Powell" or "COBYLA" or "BFGS" or "L-BFGS-B"
+                or "Differential Evolution" or "Dual Annealing" or "Basin Hopping" =>
+                throw new NotSupportedException(
+                    $"Optimizer '{name}' is not implemented. Choose one of the canonical optimizer names."),
             "Glass Expert" => throw new NotSupportedException("Glass Expert is not implemented."),
             _ => throw new ArgumentException($"Unknown optimizer '{name}'.", nameof(name))
         };

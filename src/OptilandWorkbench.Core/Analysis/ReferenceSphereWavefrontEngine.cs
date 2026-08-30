@@ -36,7 +36,23 @@ public static class ReferenceSphereWavefrontEngine
         ReferenceSphereStrategy strategy,
         double robustTrimStandardDeviations = 3)
     {
-        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(Math.Max(1, numRings), "hexapolar");
+        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(wavelength);
+        if (!Enum.IsDefined(strategy))
+        {
+            throw new ArgumentOutOfRangeException(nameof(strategy));
+        }
+        if (numRings is < 2 or > Raytrace.ApertureSampler.MaximumHexapolarRings)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numRings));
+        }
+        if (!double.IsFinite(robustTrimStandardDeviations)
+            || robustTrimStandardDeviations is < 0 or > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(robustTrimStandardDeviations));
+        }
+
+        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(numRings, "hexapolar");
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
             field.Hy,

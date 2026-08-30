@@ -8,11 +8,11 @@
 - 表面采用 `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + Scattering + CoordinateSystem` 组合模型，同时保留镜头表格所需的兼容字段。
 - 内置 Optiland 兼容玻璃数据以及由 63 个 Zemax AGF 目录转换的玻璃库，支持厂商消歧、13 种 Zemax 色散公式和热学、机械、透过率数据。
 - 顺序实光线追迹支持局部坐标、孔径裁剪、折射、反射、衍射和全反射的显式交互类型；大批量追迹可选择仅末面、指定表面或完整历史保留模式。
-- 桌面端提供相互隔离的顺序与非序列工作模式。同一STAROPT工程并列保存顺序处方和独立非序列文档；非序列对象编辑器支持10类原生光源、原生几何、像素探测器和内嵌ASCII/Binary STL机械对象。光源覆盖单射线、点、矩形、Gaussian、椭圆面、双角度、径向表格、矩形体、椭球体和椭圆截面圆柱体。追迹内核使用对象/三角形两级BVH、实体介质传播，以及无分裂、完整Fresnel和Simple Stochastic分裂；分析结果会话服务探测器、分页数据库和路径分析，独立布局会话服务3D抽样。非序列3D布局会在打开或场景过期时自动准备有界布局光线，旋转、缩放和显示选项只重绘；旧光线默认隐藏，只有显式选择后才可带红色过期警告查看。
+- 桌面端提供相互隔离的顺序与非序列工作模式。同一STAROPT工程并列保存顺序处方和独立非序列文档；非序列对象编辑器支持10类原生光源、原生几何、像素探测器和内嵌ASCII/Binary STL机械对象。光源覆盖单射线、点、矩形、Gaussian、椭圆面、双角度、径向表格、矩形体、椭球体和椭圆截面圆柱体。追迹内核使用对象/三角形两级BVH、实体介质传播，以及无分裂、完整Fresnel和Simple Stochastic分裂；分析结果会话服务带显示变换、剖面及CSV/PNG导出的探测器、分页数据库和路径分析，独立布局会话服务3D抽样。非序列3D布局会在打开或场景过期时自动准备有界布局光线，旋转、缩放和显示选项只重绘；旧光线默认隐藏，只有显式选择后才可带红色过期警告查看。
 - 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等几何模型；尚未实现的自由曲面只作为不可计算的 opaque payload 无损保存，追迹、分析、优化、公差、可视化和有损导出会在统一能力预检中明确阻断，不会退化成平面。
 - 当前径向介质传播功能明确标记为“入口方向近似”，仅在每段入口修正一次方向，不代表 GRIN eikonal/Hamilton 求解器；自适应曲线积分、表面事件检测和连续 OPL 积分尚未实现。
 - Core 当前注册 `72` 个规范分析；桌面端按模式暴露其中顺序 `70` 项或非序列 `2` 项，禁止跨模式运行。顺序模式覆盖报告、点列图、光线像差、波前、Zernike、PSF、MTF、RMS、圈入能量、相对照度、辐照度、Jones 光瞳和图像模拟等工作流。
-- 优化模块只公开已实现的阻尼最小二乘、Nelder-Mead、坐标模式搜索、动量梯度下降和贪心随机扰动；BFGS、L-BFGS-B、COBYLA、差分进化等旧名称仅作带警告的兼容输入，不代表对应算法已经实现。公差模块包括 TDE 风格编辑器、向导、灵敏度、补偿和确定性 Monte Carlo。详见 [`docs/OPTIMIZATION_ALGORITHMS.md`](docs/OPTIMIZATION_ALGORITHMS.md)。
+- 优化模块只公开已实现的阻尼最小二乘、Nelder-Mead、坐标模式搜索、动量梯度下降和贪心随机扰动；BFGS、L-BFGS-B、COBYLA、Powell、差分进化、双重退火和盆地跳跃在真实实现完成前明确返回不支持，不会映射到其它算法。公差模块包括 TDE 风格编辑器、向导、灵敏度、补偿和确定性 Monte Carlo。详见 [`docs/OPTIMIZATION_ALGORITHMS.md`](docs/OPTIMIZATION_ALGORITHMS.md)。
 - Zemax ZMX 评价函数按源顺序导入；当前参考 `[MS-L7]` 文件的 103 行均可见，其中已实现的操作数参与计算，尚未实现的类型以禁用只读行保留原参数，不伪装为 Zemax 数值等价。
 - 原生 `.staropt` 项目采用版本头、Brotli 压缩、SHA-256 校验、语义验证和原子保存，并保留多配置属性继承断开关系；Python Optiland JSON、Zemax ZMX、CODE V SEQ、OSLO LEN 是显式交换格式。
 - Dock.Avalonia 工作区支持标签拖放、分栏、合并、独立浮动、重新停靠、平铺、层叠、页面锁定和按文件保存工作区会话。
@@ -92,6 +92,7 @@ src/OptilandWorkbench.Core         计算模型、追迹、分析、优化、公
 src/OptilandWorkbench.Application  无 UI 的应用服务、规范 WorkbenchRuntime、工作区协调和 DTO 映射
 src/OptilandWorkbench.App          Avalonia 桌面端、Dock 工作区和会话持久化
 tests/OptilandWorkbench.Tests      核心、兼容、GUI 契约和回归测试
+src/OptilandWorkbench.Compatibility  只向旧源码调用者提供的单向兼容程序集
 samples/non-sequential             可直接打开的非序列功能测试与教学工程
 docs                               架构、格式、兼容、验证和发布文档
 ```

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>Source compatibility facade for pre-convergence Optiland Workbench callers.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OptilandWorkbench.Application\OptilandWorkbench.Application.csproj" />
+    <ProjectReference Include="..\OptilandWorkbench.Core\OptilandWorkbench.Core.csproj" />
+  </ItemGroup>
+
+</Project>

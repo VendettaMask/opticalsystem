@@ -549,7 +549,10 @@ public sealed class Optic
                 operand.PupilSampling,
                 operand.SpatialFrequency,
                 operand.IgnoreLateralColor,
-                operand.PolychromaticReference)).ToList(),
+                operand.PolychromaticReference,
+                operand.CompatibilityOnly,
+                operand.ZemaxIntegerParameters?.ToList() ?? [],
+                operand.ZemaxDataParameters?.ToList() ?? [])).ToList(),
             Environment: new EnvironmentSnapshot(
                 Environment.MatchRefractiveIndexData,
                 Environment.TemperatureCelsius,
@@ -731,7 +734,10 @@ public sealed class Optic
                 PupilSampling = operand.PupilSampling,
                 SpatialFrequency = operand.SpatialFrequency,
                 IgnoreLateralColor = operand.IgnoreLateralColor,
-                PolychromaticReference = operand.PolychromaticReference
+                PolychromaticReference = operand.PolychromaticReference,
+                CompatibilityOnly = operand.CompatibilityOnly,
+                ZemaxIntegerParameters = operand.ZemaxIntegerParameters?.ToArray() ?? [],
+                ZemaxDataParameters = operand.ZemaxDataParameters?.ToArray() ?? []
             });
         }
     }

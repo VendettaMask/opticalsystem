@@ -175,6 +175,13 @@ public partial class WorkbenchRuntime
                 operand,
                 coordinate => coordinate.RotationYDegrees,
                 (coordinate, value) => coordinate with { RotationYDegrees = value }),
+            ToleranceOperandKind.ElementDecenterX
+                or ToleranceOperandKind.ElementDecenterY
+                or ToleranceOperandKind.ElementTiltX
+                or ToleranceOperandKind.ElementTiltY =>
+                ElementCoordinateVariable(optic, operand),
+            ToleranceOperandKind.AsphereCoefficient =>
+                AsphereCoefficientVariable(optic, operand),
             ToleranceOperandKind.RefractiveIndex => GlassVariable(optic, operand, useAbbeNumber: false),
             ToleranceOperandKind.AbbeNumber => GlassVariable(optic, operand, useAbbeNumber: true),
             _ => throw new NotSupportedException($"Unsupported tolerance operand: {operand.Kind}.")

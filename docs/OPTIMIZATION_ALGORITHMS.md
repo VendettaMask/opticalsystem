@@ -14,18 +14,16 @@
 
 `Greedy Random Perturbation` 是启发式局部/区域搜索，不宣称具有全局最优保证。
 
-## 旧名称兼容
+## 名称兼容与拒绝边界
 
-旧工程或外部调用仍可传入以下名称，但每次运行都会显示并记录兼容警告；返回结果的 `Algorithm` 始终是右侧真实名称。
+只有确实指向同一实现的旧称保留为兼容别名，每次运行都会显示并记录兼容警告；返回结果的 `Algorithm` 始终是右侧真实名称。
 
 | 旧名称 | 实际执行 |
 |---|---|
 | `LM / DLS`、`Least Squares` | `Damped Least Squares` |
-| `Powell`、`COBYLA`、`Orthogonal Descent` | `Coordinate Pattern Search` |
-| `BFGS`、`L-BFGS-B` | `Momentum Gradient Descent` |
-| `Differential Evolution`、`Dual Annealing`、`Basin Hopping` | `Greedy Random Perturbation` |
+| `Orthogonal Descent` | `Coordinate Pattern Search` |
 
-兼容别名不会出现在算法选择器、Ribbon、能力清单或宣传文案中。它们只用于旧调用迁移，后续可按主版本策略移除。
+`Powell`、`COBYLA`、`BFGS`、`L-BFGS-B`、`Differential Evolution`、`Dual Annealing` 和 `Basin Hopping` 不再作为兼容别名映射到不同算法；调用这些名称会明确返回 `NotSupportedException`。兼容别名不会出现在算法选择器、Ribbon、能力清单或宣传文案中。
 
 ## 尚未实现
 

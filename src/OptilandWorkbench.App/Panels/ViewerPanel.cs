@@ -310,33 +310,32 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
     private Control BuildSettingsContent()
     {
-        var settings = new WrapPanel
+        var settings = new ResponsiveSettingsGrid(
+        [
+            Setting("起始面", _startSurfacePicker),
+            Setting("波长", _wavelengthPicker),
+            Setting("终止面", _endSurfacePicker),
+            Setting("视场", _fieldPicker),
+            Setting("光线数", _rayCount),
+            Setting("颜色显示", _colorModePicker),
+            Setting("比例尺", _scalePicker),
+            Setting("Y 拉伸", _yStretch),
+            Setting("上光瞳", _upperPupil),
+            Setting("下光瞳", _lowerPupil),
+            Setting("线宽", _lineWidthPicker)
+        ])
         {
-            Orientation = Orientation.Horizontal,
             Margin = new Thickness(12, 8, 12, 4)
         };
-        AddSetting(settings, "起始面", _startSurfacePicker);
-        AddSetting(settings, "波长", _wavelengthPicker);
-        AddSetting(settings, "终止面", _endSurfacePicker);
-        AddSetting(settings, "视场", _fieldPicker);
-        AddSetting(settings, "光线数", _rayCount);
-        AddSetting(settings, "颜色显示", _colorModePicker);
-        AddSetting(settings, "比例尺", _scalePicker);
-        AddSetting(settings, "Y 拉伸", _yStretch);
-        AddSetting(settings, "上光瞳", _upperPupil);
-        AddSetting(settings, "下光瞳", _lowerPupil);
-        AddSetting(settings, "线宽", _lineWidthPicker);
 
-        var checks = new WrapPanel
+        var checks = new ResponsiveSettingsGrid(
+            new Control[] { _suppressFrame, _deleteVignetted, _rayArrows, _marginalAndChiefOnly })
         {
-            Orientation = Orientation.Horizontal,
             Margin = new Thickness(12, 2, 12, 8)
         };
         foreach (var check in new[] { _suppressFrame, _deleteVignetted, _rayArrows, _marginalAndChiefOnly })
         {
-            check.Width = 190;
             check.Margin = new Thickness(0, 4);
-            checks.Children.Add(check);
         }
 
         var apply = new Button { Content = "应用", MinWidth = 72 };
@@ -767,26 +766,25 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return grid;
     }
 
-    private static void AddSetting(WrapPanel panel, string label, Control control)
+    private static Control Setting(string label, Control control)
     {
         control.HorizontalAlignment = HorizontalAlignment.Stretch;
         AutomationProperties.SetName(control, label);
-        panel.Children.Add(new StackPanel
+        return new StackPanel
         {
-            Width = 190,
-            Margin = new Thickness(0, 3, 10, 5),
+            Margin = new Thickness(0, 3, 0, 5),
             Children =
             {
                 new TextBlock { Text = label, Margin = new Thickness(0, 0, 0, 3) },
                 control
             }
-        });
+        };
     }
 
     private static ComboBox SettingPicker() => new()
     {
         MinWidth = 0,
-        Height = 30,
+        Height = UiDensity.StandardControlHeight,
         VerticalAlignment = VerticalAlignment.Center
     };
 
@@ -797,7 +795,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         decimal value) => new()
         {
             MinWidth = 0,
-            Height = 30,
+            Height = UiDensity.StandardControlHeight,
             Minimum = minimum,
             Maximum = maximum,
             Increment = increment,
@@ -851,7 +849,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Content = icon,
             Width = 36,
             MinWidth = 0,
-            Height = 30,
+            Height = UiDensity.StandardControlHeight,
             Padding = new Thickness(0)
         };
         ToolTip.SetTip(button, tooltip);

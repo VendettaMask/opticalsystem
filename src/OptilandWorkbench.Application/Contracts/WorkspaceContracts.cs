@@ -864,7 +864,9 @@ public enum AnalysisAxisQuantity
     Pixel,
     ChromaticPower,
     ThermalOpticalPower,
-    Transmission
+    Transmission,
+    Power,
+    Count
 }
 
 public enum AnalysisAxisUnit
@@ -884,7 +886,8 @@ public enum AnalysisAxisUnit
     Decibel,
     WattsPerSteradian,
     WattsPerSquareMillimeter,
-    PartsPerMillionPerKelvin
+    PartsPerMillionPerKelvin,
+    Watt
 }
 
 public sealed record AnalysisPointDto(
@@ -1340,7 +1343,8 @@ public sealed record MeritOperandRowDto(
     string PupilSampling = "hexapolar",
     double SpatialFrequency = 30,
     bool IgnoreLateralColor = false,
-    bool PolychromaticReference = false);
+    bool PolychromaticReference = false,
+    bool CompatibilityOnly = false);
 
 public enum OptimizationVariableKind
 {
@@ -1378,6 +1382,11 @@ public enum ToleranceOperandKind
     DecenterY,
     TiltX,
     TiltY,
+    ElementDecenterX,
+    ElementDecenterY,
+    ElementTiltX,
+    ElementTiltY,
+    AsphereCoefficient,
     RefractiveIndex,
     AbbeNumber,
     Compensator
@@ -1398,7 +1407,17 @@ public enum ToleranceCriterion
 public enum ToleranceAnalysisMode
 {
     Sensitivity,
+    InverseLimit,
+    InverseIncrement,
     SkipSensitivity
+}
+
+public enum ToleranceInverseEndpointStatus
+{
+    UnchangedWithinTarget,
+    Tightened,
+    ZeroRange,
+    UnsupportedPerturbation
 }
 
 public enum RadiusToleranceMode
@@ -1415,7 +1434,9 @@ public sealed record ToleranceOperandDto(
     double Minimum,
     double Maximum,
     ToleranceDistribution Distribution = ToleranceDistribution.Normal,
-    string Comment = "");
+    string Comment = "",
+    int EndSurfaceNumber = -1,
+    int ParameterIndex = 0);
 
 public sealed record ToleranceWizardSettingsDto(
     int StartSurface,
@@ -1439,7 +1460,10 @@ public sealed record ToleranceWizardSettingsDto(
     ToleranceDistribution Distribution = ToleranceDistribution.Normal,
     bool ReplaceExisting = true,
     bool IncludeConic = false,
-    double ConicTolerance = 0);
+    double ConicTolerance = 0,
+    bool UseElementGroups = false,
+    bool IncludeAsphereCoefficients = false,
+    double AsphereCoefficientTolerance = 0);
 
 public sealed record ToleranceValidationResultDto(
     bool IsValid,
@@ -1456,7 +1480,8 @@ public sealed record TolerancingRequestDto(
     ToleranceCriterion Criterion = ToleranceCriterion.RmsSpotRadius,
     double YieldLimit = 0,
     int MaxDegreeOfParallelism = -1,
-    ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity);
+    ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity,
+    double InverseValue = 0);
 
 public sealed record TolerancingSensitivityRowDto(
     string Perturbation,
@@ -1487,6 +1512,18 @@ public sealed record TolerancingSensitivityStatisticsDto(
     string RssEstimatedChange,
     string EstimatedCriterion);
 
+public sealed record TolerancingInverseEndpointDto(
+    string OriginalTolerance,
+    string AdjustedTolerance,
+    string Criterion,
+    ToleranceInverseEndpointStatus Status,
+    int Iterations);
+
+public sealed record TolerancingInverseRowDto(
+    string Perturbation,
+    TolerancingInverseEndpointDto Minimum,
+    TolerancingInverseEndpointDto Maximum);
+
 public sealed record TolerancingResultDto(
     string Summary,
     IReadOnlyList<TolerancingSensitivityRowDto> SensitivityRows,
@@ -1494,7 +1531,10 @@ public sealed record TolerancingResultDto(
     string Details,
     TolerancingStatisticsDto? Statistics = null,
     TolerancingSensitivityStatisticsDto? SensitivityStatistics = null,
-    long SourceRevision = 0);
+    long SourceRevision = 0,
+    IReadOnlyList<TolerancingInverseRowDto>? InverseRows = null,
+    IReadOnlyList<ToleranceOperandDto>? AdjustedOperands = null,
+    string InverseTarget = "");
 
 public sealed record MultiConfigurationRowDto(
     int Index,

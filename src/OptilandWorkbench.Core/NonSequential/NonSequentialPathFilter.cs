@@ -16,6 +16,10 @@ public sealed class NonSequentialPathFilterException : FormatException
 
 public sealed class NonSequentialPathFilter
 {
+    public const int MaximumExpressionLength = 4_096;
+    public const int MaximumNestingDepth = 64;
+    public const int MaximumNodeCount = 256;
+    public const int MaximumSequenceLength = 128;
     private readonly FilterNode _root;
 
     private NonSequentialPathFilter(string expression, FilterNode root)
@@ -33,6 +37,13 @@ public sealed class NonSequentialPathFilter
         if (string.IsNullOrWhiteSpace(expression))
         {
             return MatchAll;
+        }
+
+        if (expression.Length > MaximumExpressionLength)
+        {
+            throw new NonSequentialPathFilterException(
+                $"路径筛选表达式不能超过 {MaximumExpressionLength} 个字符",
+                MaximumExpressionLength);
         }
 
         var parser = new Parser(expression);
@@ -97,6 +108,11 @@ public sealed class NonSequentialPathFilter
             {
                 if (segment.ObjectId is not Guid objectId || !numbers.TryGetValue(objectId, out var number)) continue;
                 result.Add(new PathEvent(AtomKind.Hit, number));
+                if (document.Objects.FirstOrDefault(item => item.Id == objectId)?.Kind
+                    == NonSequentialObjectKind.DetectorRectangle)
+                {
+                    result.Add(new PathEvent(AtomKind.Detected, number));
+                }
                 if (segment.InteractionKind is RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection)
                 {
                     result.Add(new PathEvent(AtomKind.Reflected, number));
@@ -107,12 +123,6 @@ public sealed class NonSequentialPathFilter
                 }
             }
 
-            if (branch.TerminationReason == NonSequentialTerminationReason.DetectorHit
-                && branch.Segments.LastOrDefault()?.ObjectId is Guid detectorId
-                && numbers.TryGetValue(detectorId, out var detectorNumber))
-            {
-                result.Add(new PathEvent(AtomKind.Detected, detectorNumber));
-            }
             result.Add(new PathEvent(branch.TerminationReason switch
             {
                 NonSequentialTerminationReason.Absorbed => AtomKind.Absorbed,
@@ -201,12 +211,13 @@ public sealed class NonSequentialPathFilter
     {
         private readonly string _text;
         private int _position;
+        private int _nodeCount;
 
         public Parser(string text) => _text = text;
 
         public FilterNode Parse()
         {
-            var result = ParseOr();
+            var result = ParseOr(0);
             SkipWhiteSpace();
             if (_position != _text.Length)
             {
@@ -215,32 +226,34 @@ public sealed class NonSequentialPathFilter
             return result;
         }
 
-        private FilterNode ParseOr()
+        private FilterNode ParseOr(int depth)
         {
-            var left = ParseAnd();
-            while (Consume('|')) left = new OrNode(left, ParseAnd());
+            var left = ParseAnd(depth);
+            while (Consume('|')) left = Node(new OrNode(left, ParseAnd(depth)));
             return left;
         }
 
-        private FilterNode ParseAnd()
+        private FilterNode ParseAnd(int depth)
         {
-            var left = ParseUnary();
-            while (Consume('&')) left = new AndNode(left, ParseUnary());
+            var left = ParseUnary(depth);
+            while (Consume('&')) left = Node(new AndNode(left, ParseUnary(depth)));
             return left;
         }
 
-        private FilterNode ParseUnary()
+        private FilterNode ParseUnary(int depth)
         {
-            if (Consume('!')) return new NotNode(ParseUnary());
-            return ParsePrimary();
+            EnsureDepth(depth);
+            if (Consume('!')) return Node(new NotNode(ParseUnary(depth + 1)));
+            return ParsePrimary(depth);
         }
 
-        private FilterNode ParsePrimary()
+        private FilterNode ParsePrimary(int depth)
         {
             SkipWhiteSpace();
             if (Consume('('))
             {
-                var value = ParseOr();
+                EnsureDepth(depth + 1);
+                var value = ParseOr(depth + 1);
                 Require(')', "缺少右括号");
                 return value;
             }
@@ -252,14 +265,37 @@ public sealed class NonSequentialPathFilter
                 var atoms = new List<Atom>();
                 do
                 {
+                    if (atoms.Count >= MaximumSequenceLength)
+                    {
+                        throw Error($"SEQ 最多包含 {MaximumSequenceLength} 个路径事件");
+                    }
                     atoms.Add(ParseAtom());
                 }
                 while (Consume(','));
                 if (atoms.Count == 0) throw Error("SEQ 至少需要一个路径事件");
                 Require(')', "SEQ 缺少右括号");
-                return new SequenceNode(atoms);
+                return Node(new SequenceNode(atoms));
             }
-            return new AtomNode(ParseAtom());
+            return Node(new AtomNode(ParseAtom()));
+        }
+
+        private T Node<T>(T node) where T : FilterNode
+        {
+            _nodeCount++;
+            if (_nodeCount > MaximumNodeCount)
+            {
+                throw Error($"路径筛选表达式最多包含 {MaximumNodeCount} 个节点");
+            }
+
+            return node;
+        }
+
+        private void EnsureDepth(int depth)
+        {
+            if (depth > MaximumNestingDepth)
+            {
+                throw Error($"路径筛选表达式嵌套不能超过 {MaximumNestingDepth} 层");
+            }
         }
 
         private Atom ParseAtom()
@@ -348,14 +384,17 @@ public static class NonSequentialPathAnalyzer
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(branches);
-        var numbers = document.Objects.Select((item, index) => (item.Id, Number: index + 1))
-            .ToDictionary(item => item.Id, item => item.Number);
+        var objectInfo = document.Objects.Select((item, index) => (
+                item.Id,
+                Number: index + 1,
+                item.Kind))
+            .ToDictionary(item => item.Id);
         var groups = new Dictionary<(string Path, string Filter), PathAccumulator>();
         var totalPower = 0.0;
         foreach (var branch in branches)
         {
             if (!IsTerminal(branch)) continue;
-            var key = Key(branch, numbers);
+            var key = Key(branch, objectInfo);
             if (!groups.TryGetValue(key, out var accumulator))
             {
                 accumulator = new PathAccumulator(
@@ -390,27 +429,28 @@ public static class NonSequentialPathAnalyzer
 
     private static (string Path, string Filter) Key(
         NonSequentialRayBranch branch,
-        IReadOnlyDictionary<Guid, int> numbers)
+        IReadOnlyDictionary<Guid, (Guid Id, int Number, NonSequentialObjectKind Kind)> objectInfo)
     {
         var labels = new List<string>();
         var filters = new List<string>();
-        if (branch.SourceObjectId is Guid source && numbers.TryGetValue(source, out var sourceNumber))
+        if (branch.SourceObjectId is Guid source && objectInfo.TryGetValue(source, out var sourceInfo))
         {
-            labels.Add($"Q{sourceNumber}");
-            filters.Add($"Q{sourceNumber}");
+            labels.Add($"Q{sourceInfo.Number}");
+            filters.Add($"Q{sourceInfo.Number}");
         }
         foreach (var segment in branch.Segments)
         {
-            if (segment.ObjectId is not Guid id || !numbers.TryGetValue(id, out var number)) continue;
-            var code = segment.InteractionKind switch
-            {
-                RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection => "R",
-                RayInteractionKind.Transmitted => "T",
-                _ when branch.TerminationReason == NonSequentialTerminationReason.DetectorHit => "D",
-                _ => "H"
-            };
-            labels.Add($"{code}{number}:F{segment.FaceNumber}");
-            filters.Add($"{code}{number}");
+            if (segment.ObjectId is not Guid id || !objectInfo.TryGetValue(id, out var info)) continue;
+            var code = info.Kind == NonSequentialObjectKind.DetectorRectangle
+                ? "D"
+                : segment.InteractionKind switch
+                {
+                    RayInteractionKind.Reflected or RayInteractionKind.TotalInternalReflection => "R",
+                    RayInteractionKind.Transmitted => "T",
+                    _ => "H"
+                };
+            labels.Add($"{code}{info.Number}:F{segment.FaceNumber}");
+            filters.Add($"{code}{info.Number}");
         }
         labels.Add(branch.TerminationReason.ToString());
         var filter = filters.Count == 0 ? TerminationFilter(branch.TerminationReason) : $"SEQ({string.Join(',', filters)})";

@@ -7,6 +7,10 @@ public sealed record ZernikeCoefficient(int Number, int RadialOrder, int Azimuth
 public static class ZernikeFitEngine
 {
     public const int MaximumFringeTerm = 37;
+    public const int MaximumStandardTerm = 231;
+    public const long MaximumFitMatrixValues = 20_000_000;
+
+    private const int MaximumAnnularCacheEntries = 512;
 
     private static readonly (int N, int M)[] ZemaxFringeIndices =
     {
@@ -40,6 +44,8 @@ public static class ZernikeFitEngine
         IReadOnlyList<WavefrontSample> samples,
         int numTerms)
     {
+        ArgumentNullException.ThrowIfNull(samples);
+        ValidateTermCount(numTerms, MaximumFringeTerm);
         return Fit(
             samples,
             FringeIndices(numTerms),
@@ -50,6 +56,8 @@ public static class ZernikeFitEngine
         IReadOnlyList<WavefrontSample> samples,
         int numTerms)
     {
+        ArgumentNullException.ThrowIfNull(samples);
+        ValidateTermCount(numTerms, MaximumStandardTerm);
         return Fit(
             samples,
             StandardIndices(numTerms),
@@ -61,7 +69,15 @@ public static class ZernikeFitEngine
         int numTerms,
         double obscurationRatio)
     {
-        var obscuration = Math.Clamp(obscurationRatio, 0, 0.95);
+        ArgumentNullException.ThrowIfNull(samples);
+        ValidateTermCount(numTerms, MaximumStandardTerm);
+        if (!double.IsFinite(obscurationRatio) || obscurationRatio is < 0 or > 0.95)
+        {
+            throw new ArgumentOutOfRangeException(nameof(obscurationRatio));
+        }
+
+        TrimAnnularCache();
+        var obscuration = obscurationRatio;
         return Fit(
             samples,
             StandardIndices(numTerms),
@@ -82,6 +98,12 @@ public static class ZernikeFitEngine
             return sample.Intensity > 0
                 && radiusSquared >= (minimumRadius * minimumRadius) - 1e-12;
         }).ToArray();
+        if (checked((long)valid.Length * indices.Count) > MaximumFitMatrixValues)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(samples),
+                $"Zernike fit matrix cannot exceed {MaximumFitMatrixValues:N0} values.");
+        }
         var design = new double[valid.Length, indices.Count];
         var target = new double[valid.Length];
         for (var row = 0; row < valid.Length; row++)
@@ -148,9 +170,16 @@ public static class ZernikeFitEngine
         double y,
         double obscurationRatio)
     {
+        ArgumentNullException.ThrowIfNull(coefficients);
+        if (!double.IsFinite(obscurationRatio) || obscurationRatio is < 0 or > 0.95)
+        {
+            throw new ArgumentOutOfRangeException(nameof(obscurationRatio));
+        }
+
+        TrimAnnularCache();
         var radius = Math.Sqrt((x * x) + (y * y));
         var angle = Math.Atan2(y, x);
-        var obscuration = Math.Clamp(obscurationRatio, 0, 0.95);
+        var obscuration = obscurationRatio;
         return coefficients.Sum(coefficient =>
             coefficient.Value * AnnularBasis(
                 coefficient.RadialOrder,
@@ -191,6 +220,22 @@ public static class ZernikeFitEngine
         }
 
         return result;
+    }
+
+    private static void ValidateTermCount(int count, int maximum)
+    {
+        if (count < 1 || count > maximum)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+    }
+
+    private static void TrimAnnularCache()
+    {
+        if (AnnularRadialCache.Count >= MaximumAnnularCacheEntries)
+        {
+            AnnularRadialCache.Clear();
+        }
     }
 
     private static double Basis(

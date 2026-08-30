@@ -93,7 +93,12 @@ public partial class WorkbenchRuntime
         {
             RejectLossyNonSequentialExport(document, path);
             var text = OpticalFormatCatalog.Export(document.ActiveOptic, Path.GetExtension(path));
-            await File.WriteAllTextAsync(path, text, cancellationToken).ConfigureAwait(false);
+            await BoundedFile.WriteAllTextAtomicAsync(
+                path,
+                text,
+                BoundedFile.MaximumOpticalDocumentBytes,
+                "Optical document",
+                cancellationToken).ConfigureAwait(false);
         }
     }
 
@@ -151,7 +156,11 @@ public partial class WorkbenchRuntime
                 imported.ActiveConfigurationIndex);
         }
 
-        var text = await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false);
+        var text = await BoundedFile.ReadAllTextAsync(
+            path,
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "Optical document",
+            cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         var loaded = OpticalFormatCatalog.Import(text, Path.GetExtension(path));
         return new LoadedOpticalDocument(loaded, new[] { loaded }, 0);

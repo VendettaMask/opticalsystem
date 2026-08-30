@@ -10,7 +10,7 @@ using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class WavefrontSurfaceControl : Control
+public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomationSource
 {
     private const double InitialPitchDegrees = 28;
     private const double InitialYawOffsetDegrees = 35;
@@ -106,6 +106,31 @@ public sealed class WavefrontSurfaceControl : Control
 
     protected override AutomationPeer OnCreateAutomationPeer() =>
         new InteractiveCanvasAutomationPeer(this);
+
+    string IInteractiveCanvasAutomationSource.AutomationValue
+    {
+        get
+        {
+            var valueCount = 0;
+            var minimum = double.PositiveInfinity;
+            var maximum = double.NegativeInfinity;
+            foreach (var point in Series?.Points ?? Array.Empty<AnalysisPointDto>())
+            {
+                if (point.Value is not double value || !double.IsFinite(value)) continue;
+                valueCount++;
+                minimum = Math.Min(minimum, value);
+                maximum = Math.Max(maximum, value);
+            }
+            if (valueCount == 0)
+            {
+                return $"{DisplayAs}；没有可用表面数据。";
+            }
+            return $"{DisplayAs}；{valueCount} 个有效点；{ColorBarTitle}范围 "
+                + $"{minimum:G6} 到 {maximum:G6} {ColorBarUnit}。";
+        }
+    }
+
+    void IInteractiveCanvasAutomationSource.InvokeAutomationAction() => ResetView();
 
     protected override void OnKeyDown(KeyEventArgs e)
     {

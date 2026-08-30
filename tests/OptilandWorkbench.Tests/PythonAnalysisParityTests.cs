@@ -12,6 +12,52 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class PythonAnalysisParityTests
 {
+    [Fact]
+    public void ImageSimulationSupportsSinglePointPsfFieldGrid()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
+        var basis = ImageSimulationEngine.GenerateBasis(optic, wavelength, new ImageSimulationConfig
+        {
+            AberrationMode = "None",
+            PsfGridRows = 1,
+            PsfGridColumns = 1,
+            PsfSize = 8,
+            NumRays = 4,
+            Components = 1,
+            ImageWidth = 16,
+            ImageHeight = 16,
+            Padding = 0
+        });
+
+        Assert.Equal(1, basis.GridRows);
+        Assert.Equal(1, basis.GridColumns);
+        Assert.Single(basis.EigenPsfs);
+    }
+
+    [Fact]
+    public void ImageSimulationRejectsPreparedImageAboveMemoryBudget()
+    {
+        var source = ImageSimulationEngine.CreateSourceImage(
+            ImageSimulationSourcePattern.ColorChart,
+            512,
+            512);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => ImageSimulationEngine.Simulate(
+            Optic.CreateCookeTriplet(),
+            source,
+            new ImageSimulationConfig
+            {
+                Oversampling = 2,
+                Padding = 0,
+                PsfGridRows = 1,
+                PsfGridColumns = 1,
+                PsfSize = 8,
+                NumRays = 4,
+                Components = 1
+            }));
+    }
+
     public static IEnumerable<object[]> OfficialSamples()
     {
         yield return new object[] { "cooke", (Func<Optic>)Optic.CreateCookeTriplet };

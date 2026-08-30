@@ -131,17 +131,19 @@ public sealed class NonSequentialDocumentTracer
         {
             throw new ArgumentOutOfRangeException(nameof(request), "临时覆盖射线数必须在 1 到 1000000 之间。");
         }
-        if (request.MaximumSegmentsPerRay is <= 0 or > 2_000_000)
+        if (request.MaximumSegmentsPerRay is <= 0 or > NonSequentialDocument.MaximumSegmentsPerRay)
         {
-            throw new ArgumentOutOfRangeException(nameof(request), "每条光线最大段数必须在 1 到 2000000 之间。");
+            throw new ArgumentOutOfRangeException(
+                nameof(request),
+                $"每条光线最大段数必须在 1 到 {NonSequentialDocument.MaximumSegmentsPerRay} 之间。");
         }
         if (request.MaximumActiveBranches is <= 0 or > 10_000_000)
         {
             throw new ArgumentOutOfRangeException(nameof(request), "最大活动分支数必须在 1 到 10000000 之间。");
         }
-        if (request.MinimumRelativeIntensity is <= 0 or >= 1 || double.IsNaN(request.MinimumRelativeIntensity ?? 0))
+        if (request.MinimumRelativeIntensity is < 0 or >= 1 || double.IsNaN(request.MinimumRelativeIntensity ?? 0))
         {
-            throw new ArgumentOutOfRangeException(nameof(request), "最小相对能量必须大于 0 且小于 1。");
+            throw new ArgumentOutOfRangeException(nameof(request), "最小相对能量必须大于等于 0 且小于 1。");
         }
         var pathFilter = NonSequentialPathFilter.Parse(request.PathFilterExpression);
         var settings = document.TraceSettings with
@@ -181,8 +183,6 @@ public sealed class NonSequentialDocumentTracer
         var absorbedPower = 0.0;
         var escapedPower = 0.0;
         var truncatedPower = 0.0;
-        var createdBranchCount = sourceCount;
-
         while (queue.Count > 0 || hasSource)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -200,7 +200,8 @@ public sealed class NonSequentialDocumentTracer
                     new HashSet<Guid>(),
                     new List<NonSequentialRaySegment>(),
                     0,
-                    0));
+                    0,
+                    source.Ray.Intensity));
                 hasSource = sourceEnumerator.MoveNext();
             }
 
@@ -218,7 +219,7 @@ public sealed class NonSequentialDocumentTracer
                     break;
                 }
 
-                if (state.Ray.Intensity < settings.MinimumRelativeIntensity)
+                if (state.Ray.Intensity < settings.MinimumRelativeIntensity * state.InitialIntensity)
                 {
                     termination = NonSequentialTerminationReason.MinimumIntensity;
                     truncatedPower += state.Ray.Intensity;
@@ -349,7 +350,8 @@ public sealed class NonSequentialDocumentTracer
                 if (splittingMode == NonSequentialSplittingMode.FullFresnel
                     && optical.Reflectance > 0 && optical.Reflectance < 1)
                 {
-                    state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, RayInteractionKind.Transmitted));
+                    var pathPrefix = state.Segments.ToArray();
+                    state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
                     Emit(Complete(state, NonSequentialTerminationReason.Split));
                     var reflectedPower = incomingIntensity * optical.Reflectance;
                     var transmittedPower = incomingIntensity - reflectedPower;
@@ -371,14 +373,26 @@ public sealed class NonSequentialDocumentTracer
                         HashSet<Guid> inside,
                         RayInteractionKind interaction)
                     {
-                        if (intensity < settings.MinimumRelativeIntensity || createdBranchCount >= settings.MaximumActiveBranches)
+                        if (intensity < settings.MinimumRelativeIntensity * state.InitialIntensity
+                            || queue.Count >= settings.MaximumActiveBranches)
                         {
                             truncatedPower += intensity;
                             return;
                         }
 
                         var childId = nextBranchId++;
-                        createdBranchCount++;
+                        var childSegments = pathPrefix.ToList();
+                        childSegments.Add(Segment(
+                            state,
+                            hit,
+                            path,
+                            opticalPath,
+                            direction,
+                            interaction) with
+                        {
+                            BranchId = childId,
+                            Intensity = intensity
+                        });
                         queue.Enqueue(new BranchState(
                             childId,
                             state.Id,
@@ -392,25 +406,10 @@ public sealed class NonSequentialDocumentTracer
                             },
                             materialName,
                             new HashSet<Guid>(inside),
-                            new List<NonSequentialRaySegment>
-                            {
-                                new(
-                                    childId,
-                                    hit.Item.Id,
-                                    hit.FaceNumber,
-                                    hit.WorldPoint,
-                                    hit.WorldPoint,
-                                    direction,
-                                    hit.WorldNormal,
-                                    state.Ray.WavelengthNanometers,
-                                    intensity,
-                                    0,
-                                    path,
-                                    opticalPath,
-                                    interaction)
-                            },
+                            childSegments,
                             path,
-                            opticalPath));
+                            opticalPath,
+                            state.InitialIntensity));
                     }
                 }
 
@@ -449,7 +448,7 @@ public sealed class NonSequentialDocumentTracer
             }
         }
 
-        var frames = detectors.Values.Select(item => item.ToFrame(document)).ToArray();
+        var frames = detectors.Values.Select(item => item.ToFrame()).ToArray();
         return new NonSequentialDocumentTraceResult(
             branches,
             frames,
@@ -467,7 +466,7 @@ public sealed class NonSequentialDocumentTracer
             sink?.OnBranch(branch);
             var retain = request.OutputMode switch
             {
-                NonSequentialTraceOutputMode.InMemory => true,
+                NonSequentialTraceOutputMode.InMemory => branches.Count < request.MaximumRetainedBranches,
                 NonSequentialTraceOutputMode.LayoutSample => branches.Count < request.MaximumRetainedBranches,
                 _ => false
             };
@@ -981,17 +980,26 @@ public sealed class NonSequentialDocumentTracer
 
     private static Vector3D GaussianDirectionCosines(Random random, double gaussianX, double gaussianY)
     {
-        for (var attempt = 0; attempt < 100_000; attempt++)
+        for (var attempt = 0; attempt < 4_096; attempt++)
         {
-            var l = random.NextDouble() * 2 - 1;
-            var m = random.NextDouble() * 2 - 1;
+            if ((attempt & 63) == 0) ComputationCancellation.ThrowIfCancellationRequested();
+            var gaussianProposalX = gaussianX >= 1;
+            var gaussianProposalY = gaussianY >= 1;
+            var l = gaussianProposalX
+                ? NextGaussian(random) / Math.Sqrt(2 * gaussianX)
+                : random.NextDouble() * 2 - 1;
+            var m = gaussianProposalY
+                ? NextGaussian(random) / Math.Sqrt(2 * gaussianY)
+                : random.NextDouble() * 2 - 1;
             var radiusSquared = l * l + m * m;
             if (radiusSquared >= 1)
             {
                 continue;
             }
 
-            var relative = Math.Exp(-(gaussianX * l * l + gaussianY * m * m));
+            var relative = Math.Exp(
+                -(gaussianProposalX ? 0 : gaussianX * l * l)
+                - (gaussianProposalY ? 0 : gaussianY * m * m));
             if (random.NextDouble() <= relative)
             {
                 return new Vector3D(l, m, Math.Sqrt(1 - radiusSquared));
@@ -1106,16 +1114,36 @@ public sealed class NonSequentialDocumentTracer
         double minimumRadiusX,
         double minimumRadiusY)
     {
-        while (true)
+        if (minimumRadiusX <= 0 || minimumRadiusY <= 0)
         {
+            return EllipsePoint(random, radiusX, radiusY);
+        }
+
+        var ratioX = minimumRadiusX / radiusX;
+        var ratioY = minimumRadiusY / radiusY;
+        if (Math.Abs(ratioX - ratioY) <= 1e-12)
+        {
+            var radius = Math.Sqrt((ratioX * ratioX) + random.NextDouble() * (1 - ratioX * ratioX));
+            var angle = random.NextDouble() * Math.PI * 2;
+            return new Vector3D(radiusX * radius * Math.Cos(angle), radiusY * radius * Math.Sin(angle), 0);
+        }
+
+        for (var attempt = 0; attempt < 4_096; attempt++)
+        {
+            if ((attempt & 63) == 0) ComputationCancellation.ThrowIfCancellationRequested();
             var point = EllipsePoint(random, radiusX, radiusY);
-            if (minimumRadiusX <= 0 || minimumRadiusY <= 0
-                || point.X * point.X / (minimumRadiusX * minimumRadiusX)
+            if (point.X * point.X / (minimumRadiusX * minimumRadiusX)
                     + point.Y * point.Y / (minimumRadiusY * minimumRadiusY) >= 1)
             {
                 return point;
             }
         }
+
+        var fallbackAngle = random.NextDouble() * Math.PI * 2;
+        return new Vector3D(
+            radiusX * Math.Cos(fallbackAngle),
+            radiusY * Math.Sin(fallbackAngle),
+            0);
     }
 
     private static Vector3D RectangleSourcePoint(
@@ -1125,19 +1153,26 @@ public sealed class NonSequentialDocumentTracer
         double minimumXHalfWidth,
         double minimumYHalfWidth)
     {
-        while (true)
+        var outerX = width / 2;
+        var outerY = height / 2;
+        if (minimumXHalfWidth <= 0 || minimumYHalfWidth <= 0)
         {
-            var point = new Vector3D(
+            return new Vector3D(
                 (random.NextDouble() - 0.5) * width,
                 (random.NextDouble() - 0.5) * height,
                 0);
-            if (minimumXHalfWidth <= 0 || minimumYHalfWidth <= 0
-                || Math.Abs(point.X) >= minimumXHalfWidth
-                || Math.Abs(point.Y) >= minimumYHalfWidth)
-            {
-                return point;
-            }
         }
+
+        var sideArea = (outerX - minimumXHalfWidth) * outerY;
+        var capArea = minimumXHalfWidth * (outerY - minimumYHalfWidth);
+        if (random.NextDouble() * (sideArea + capArea) < sideArea)
+        {
+            var x = minimumXHalfWidth + random.NextDouble() * (outerX - minimumXHalfWidth);
+            return new Vector3D(random.Next(2) == 0 ? -x : x, (random.NextDouble() * 2 - 1) * outerY, 0);
+        }
+
+        var y = minimumYHalfWidth + random.NextDouble() * (outerY - minimumYHalfWidth);
+        return new Vector3D((random.NextDouble() * 2 - 1) * minimumXHalfWidth, random.Next(2) == 0 ? -y : y, 0);
     }
 
     private static Vector3D BoxPoint(Random random, double width, double height, double depth) => new(
@@ -1153,14 +1188,14 @@ public sealed class NonSequentialDocumentTracer
 
     private static Vector3D EllipsoidPoint(Random random, double radiusX, double radiusY, double radiusZ)
     {
-        while (true)
-        {
-            var x = random.NextDouble() * 2 - 1;
-            var y = random.NextDouble() * 2 - 1;
-            var z = random.NextDouble() * 2 - 1;
-            if (x * x + y * y + z * z > 1) continue;
-            return new Vector3D(x * radiusX, y * radiusY, z * radiusZ);
-        }
+        var z = random.NextDouble() * 2 - 1;
+        var azimuth = random.NextDouble() * Math.PI * 2;
+        var transverse = Math.Sqrt(Math.Max(0, 1 - z * z));
+        var radius = Math.Cbrt(random.NextDouble());
+        return new Vector3D(
+            radiusX * radius * transverse * Math.Cos(azimuth),
+            radiusY * radius * transverse * Math.Sin(azimuth),
+            radiusZ * radius * z);
     }
 
     private static double NextGaussian(Random random)
@@ -1199,7 +1234,8 @@ public sealed class NonSequentialDocumentTracer
         HashSet<Guid> InsideObjects,
         List<NonSequentialRaySegment> Segments,
         double PathLength,
-        double OpticalPathLength);
+        double OpticalPathLength,
+        double InitialIntensity);
 
     private sealed class DetectorAccumulator
     {
@@ -1253,15 +1289,11 @@ public sealed class NonSequentialDocumentTracer
             angularHitValues[angularY * _parameters.PixelsX + angularX]++;
         }
 
-        public NonSequentialDetectorFrame ToFrame(NonSequentialDocument document)
+        public NonSequentialDetectorFrame ToFrame()
         {
-            var byWavelength = new Dictionary<int, IReadOnlyList<double>>();
-            foreach (var wavelength in document.Wavelengths.Select((value, index) => (value, index)))
-            {
-                byWavelength[wavelength.index + 1] = _pixels.TryGetValue(wavelength.index + 1, out var values)
-                    ? values.ToArray()
-                    : new double[_parameters.PixelsX * _parameters.PixelsY];
-            }
+            var byWavelength = _pixels.ToDictionary(
+                item => item.Key,
+                item => (IReadOnlyList<double>)item.Value);
             return new NonSequentialDetectorFrame(
                 _item.Id,
                 _item.Name,
@@ -1269,21 +1301,9 @@ public sealed class NonSequentialDocumentTracer
                 _parameters.PixelsY,
                 byWavelength,
                 byWavelength.Values.Sum(values => values.Sum()),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<long>)(_hits.TryGetValue(wavelength, out var values)
-                        ? values.ToArray()
-                        : new long[_parameters.PixelsX * _parameters.PixelsY])),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<double>)(_angularPixels.TryGetValue(wavelength, out var values)
-                        ? values.ToArray()
-                        : new double[_parameters.PixelsX * _parameters.PixelsY])),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<long>)(_angularHits.TryGetValue(wavelength, out var values)
-                        ? values.ToArray()
-                        : new long[_parameters.PixelsX * _parameters.PixelsY])));
+                _hits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value),
+                _angularPixels.ToDictionary(item => item.Key, item => (IReadOnlyList<double>)item.Value),
+                _angularHits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value));
         }
     }
 

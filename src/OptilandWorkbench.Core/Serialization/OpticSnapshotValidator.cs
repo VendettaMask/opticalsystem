@@ -525,7 +525,8 @@ public static class OpticSnapshotValidator
                 Invalid($"{path}.type", $"'{operand.Type}' is not a supported merit operand type");
             }
 
-            if (!MeritFunctionCatalog.HasOpaqueZemaxParameters(canonicalType))
+            if (!operand.CompatibilityOnly
+                && !MeritFunctionCatalog.HasOpaqueZemaxParameters(canonicalType))
             {
                 if (operand.Surface < 0
                     || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface)))
@@ -556,6 +557,26 @@ public static class OpticSnapshotValidator
             RequireFinite(operand.Target, $"{path}.target");
             RequireFinite(operand.Weight, $"{path}.weight");
             RequireText(operand.Comment, $"{path}.comment");
+            if (operand.ZemaxIntegerParameters is { Count: > 16 })
+            {
+                Invalid(
+                    $"{path}.zemaxIntegerParameters",
+                    "no more than 16 raw integer parameters are allowed");
+            }
+            if (operand.ZemaxDataParameters is { Count: > 16 })
+            {
+                Invalid(
+                    $"{path}.zemaxDataParameters",
+                    "no more than 16 raw data parameters are allowed");
+            }
+            for (var parameterIndex = 0;
+                 parameterIndex < (operand.ZemaxDataParameters?.Count ?? 0);
+                 parameterIndex++)
+            {
+                RequireFinite(
+                    operand.ZemaxDataParameters![parameterIndex],
+                    $"{path}.zemaxDataParameters[{parameterIndex}]");
+            }
 
             if (operand.PupilRings is < 1 or > 20)
             {

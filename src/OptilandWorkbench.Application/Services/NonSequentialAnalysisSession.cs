@@ -24,11 +24,13 @@ internal abstract class NonSequentialResultSession : IDisposable
         lock (_gate)
         {
             previous = _selection;
+            var file = new FileInfo(session.RayDatabasePath);
             _selection = new Selection(
                 Path.GetFullPath(session.RayDatabasePath),
                 session.FilterExpression,
                 session,
-                ownsDatabase);
+                ownsDatabase,
+                file.Length);
         }
         DeleteOwned(previous, session.RayDatabasePath);
         Changed?.Invoke(this, EventArgs.Empty);
@@ -38,11 +40,30 @@ internal abstract class NonSequentialResultSession : IDisposable
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         var fullPath = Path.GetFullPath(path);
+        using var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new NonSequentialRayDatabaseReader(stream);
+        var splitting = reader.Header.SplittingMode is { } storedSplitting
+            ? (OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode)(int)storedSplitting
+            : reader.Header.TraceSettings.SplitFresnelRays
+                ? OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode.FullFresnel
+                : OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode.None;
+        var loadedSession = new NonSequentialTraceSessionDto(
+            Guid.NewGuid(), NonSequentialTraceSessionState.Completed,
+            reader.Header.SceneHash, reader.Header.SourceRevision,
+            reader.Header.CreatedUtc, DateTimeOffset.UtcNow, 1,
+            reader.Header.RandomSeed, splitting, Array.Empty<Guid>(),
+            reader.BranchCount, 0, 0, 0, 0, 0, 0, 0, 0,
+            TimeSpan.Zero, fullPath, false, false, filterExpression,
+            Array.Empty<string>());
         Selection? previous = null;
         lock (_gate)
         {
             if (_selection is { } existing
-                && fullPath.Equals(existing.Path, StringComparison.OrdinalIgnoreCase))
+                && fullPath.Equals(existing.Path, StringComparison.Ordinal)
+                && existing.FileLength == stream.Length
+                && existing.Session.SceneHash.Equals(reader.Header.SceneHash, StringComparison.OrdinalIgnoreCase)
+                && existing.Session.CreatedUtc == reader.Header.CreatedUtc
+                && existing.Session.BranchCount == reader.BranchCount)
             {
                 _selection = existing with
                 {
@@ -53,26 +74,21 @@ internal abstract class NonSequentialResultSession : IDisposable
             else
             {
                 previous = _selection;
-                using var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                using var reader = new NonSequentialRayDatabaseReader(stream);
-                var splitting = reader.Header.SplittingMode is { } storedSplitting
-                    ? (OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode)(int)storedSplitting
-                    : reader.Header.TraceSettings.SplitFresnelRays
-                        ? OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode.FullFresnel
-                        : OptilandWorkbench.Application.Contracts.NonSequentialSplittingMode.None;
-                var session = new NonSequentialTraceSessionDto(
-                    Guid.NewGuid(), NonSequentialTraceSessionState.Completed,
-                    reader.Header.SceneHash, reader.Header.SourceRevision,
-                    reader.Header.CreatedUtc, DateTimeOffset.UtcNow, 1,
-                    reader.Header.RandomSeed, splitting, Array.Empty<Guid>(),
-                    reader.BranchCount, 0, 0, 0, 0, 0, 0, 0, 0,
-                    TimeSpan.Zero, fullPath, false, false, filterExpression,
-                    Array.Empty<string>());
-                _selection = new Selection(fullPath, filterExpression, session, false);
+                var ownsDatabase = existingOwnsDatabase(_selection, fullPath);
+                _selection = new Selection(
+                    fullPath,
+                    filterExpression,
+                    loadedSession with { IsTemporaryDatabase = ownsDatabase },
+                    ownsDatabase,
+                    stream.Length);
             }
         }
         DeleteOwned(previous, fullPath);
         Changed?.Invoke(this, EventArgs.Empty);
+
+        static bool existingOwnsDatabase(Selection? selection, string candidatePath) =>
+            selection is { OwnsDatabase: true }
+            && candidatePath.Equals(selection.Path, StringComparison.Ordinal);
     }
 
     public NonSequentialTraceSessionDto? Snapshot(NonSequentialDocument document, long revision)
@@ -135,7 +151,9 @@ internal abstract class NonSequentialResultSession : IDisposable
             reader.ReadBranches(filter, maximumCount).ToArray());
     }
 
-    public IReadOnlyList<NonSequentialDetectorFrame>? ReconstructDetectors(NonSequentialDocument document)
+    public IReadOnlyList<NonSequentialDetectorFrame>? ReconstructDetectors(
+        NonSequentialDocument document,
+        Guid? sourceObjectId = null)
     {
         var selection = SelectionSnapshot();
         if (selection is null || !File.Exists(selection.Path)) return null;
@@ -143,7 +161,10 @@ internal abstract class NonSequentialResultSession : IDisposable
         using var reader = new NonSequentialRayDatabaseReader(stream);
         if (reader.IsStale(document)) return null;
         var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
-        return NonSequentialDetectorReconstruction.Reconstruct(document, reader.ReadBranches(filter));
+        return NonSequentialDetectorReconstruction.Reconstruct(
+            document,
+            reader.ReadBranches(filter),
+            sourceObjectId);
     }
 
     public void Clear()
@@ -192,7 +213,8 @@ internal abstract class NonSequentialResultSession : IDisposable
         string Path,
         string? FilterExpression,
         NonSequentialTraceSessionDto Session,
-        bool OwnsDatabase);
+        bool OwnsDatabase,
+        long FileLength);
 }
 
 internal sealed class NonSequentialAnalysisSession : NonSequentialResultSession

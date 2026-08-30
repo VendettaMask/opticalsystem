@@ -192,8 +192,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HeadersVisibility = DataGridHeadersVisibility.Column,
             IsReadOnly = false,
             BorderThickness = new Avalonia.Thickness(1, 0, 1, 1),
-            RowHeight = 28,
-            ColumnHeaderHeight = 30,
+            RowHeight = UiDensity.CompactTableRowHeight,
+            ColumnHeaderHeight = UiDensity.TableHeaderHeight,
             FrozenColumnCount = 2
         };
         grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);

@@ -1,6 +1,7 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Coordinates;
+using OptilandWorkbench.Core.FileIO;
 using CoreBoxParameters = OptilandWorkbench.Core.NonSequential.BoxParameters;
 using CoreCylinderParameters = OptilandWorkbench.Core.NonSequential.CylinderParameters;
 using CoreDetectorRectangleParameters = OptilandWorkbench.Core.NonSequential.DetectorRectangleParameters;
@@ -212,6 +213,10 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             var consumedAsLensBoundary = new HashSet<int>();
             for (var index = 1; index < surfaces.Count - 1; index++)
             {
+                if (consumedAsLensBoundary.Contains(index))
+                {
+                    continue;
+                }
                 var front = surfaces[index];
                 var material = front.MaterialAfter.Name;
                 if (IsAmbient(material) || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase))
@@ -219,7 +224,27 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
                     continue;
                 }
 
+                var groupEnd = index + 1;
+                while (groupEnd < surfaces.Count - 1
+                    && !IsAmbient(surfaces[groupEnd].MaterialAfter.Name))
+                {
+                    groupEnd++;
+                }
+                var lastBoundary = Math.Min(groupEnd, surfaces.Count - 2);
                 var back = surfaces[index + 1];
+                if (groupEnd != index + 1
+                    || !IsAmbient(front.MaterialBefore.Name)
+                    || !IsAmbient(back.MaterialAfter.Name))
+                {
+                    warnings.Add(
+                        $"表面组 {front.Number}–{surfaces[lastBoundary].Number} 位于胶合或浸没介质中，当前标准镜片对象无法无损表示，已跳过整个玻璃边界组。");
+                    for (var boundary = index; boundary <= lastBoundary; boundary++)
+                    {
+                        consumedAsLensBoundary.Add(boundary);
+                    }
+                    index = lastBoundary;
+                    continue;
+                }
                 if (!double.IsFinite(front.Thickness) || front.Thickness <= 0
                     || !Aligned(front.CoordinateSystem, back.CoordinateSystem))
                 {
@@ -319,7 +344,11 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         ArgumentNullException.ThrowIfNull(options);
-        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        var bytes = await BoundedFile.ReadAllBytesAsync(
+            path,
+            CoreStlImporter.MaximumInputBytes,
+            "STL mesh",
+            cancellationToken).ConfigureAwait(false);
         var imported = await Task.Run(
             () => CoreStlImporter.Import(bytes, Path.GetFileName(path), (CoreMeshUnit)(int)options.Unit),
             cancellationToken).ConfigureAwait(false);

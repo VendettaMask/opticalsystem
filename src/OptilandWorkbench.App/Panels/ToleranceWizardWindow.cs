@@ -20,6 +20,8 @@ public sealed class ToleranceWizardWindow : Window
     private readonly NumericUpDown _radius = Number(0.05m, 0, 1_000_000, 0.01m);
     private readonly CheckBox _conicEnabled = Check("圆锥系数", false);
     private readonly NumericUpDown _conic = Number(0.02m, 0, 100, 0.001m);
+    private readonly CheckBox _asphereEnabled = Check("非球面参数", false);
+    private readonly NumericUpDown _asphere = Number(0.000001m, 0, 1_000_000, 0.000001m);
     private readonly CheckBox _thicknessEnabled = Check("厚度和空气间隔", true);
     private readonly NumericUpDown _thickness = Number(0.05m, 0, 1_000_000, 0.01m);
     private readonly CheckBox _decenterEnabled = Check("元件偏心 X/Y", true);
@@ -43,8 +45,8 @@ public sealed class ToleranceWizardWindow : Window
         Title = "公差数据编辑器";
         Width = 960;
         Height = 720;
-        MinWidth = 640;
-        MinHeight = 620;
+        MinWidth = 560;
+        MinHeight = 480;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
         _preview.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
@@ -101,15 +103,17 @@ public sealed class ToleranceWizardWindow : Window
                 ToleranceRow(_radiusEnabled, _radiusMode, _radius),
                 ToleranceRow(_thicknessEnabled, UnitLabel("毫米"), _thickness),
                 ToleranceRow(_conicEnabled, UnitLabel("系数"), _conic),
+                ToleranceRow(_asphereEnabled, UnitLabel("系数"), _asphere),
                 DisabledToleranceRow("S + A 不规则度", "光圈"),
                 DisabledToleranceRow("Zernike 不规则度", "光圈")
             }
         };
         Grid.SetRow(surfaceGrid.Children[1], 1);
         Grid.SetRow(surfaceGrid.Children[2], 2);
-        Grid.SetColumn(surfaceGrid.Children[3], 2);
+        Grid.SetRow(surfaceGrid.Children[3], 3);
         Grid.SetColumn(surfaceGrid.Children[4], 2);
-        Grid.SetRow(surfaceGrid.Children[4], 1);
+        Grid.SetColumn(surfaceGrid.Children[5], 2);
+        Grid.SetRow(surfaceGrid.Children[5], 1);
         var surfaceToleranceGroup = Group("表面公差", surfaceGrid);
 
         var lower = new Grid
@@ -251,6 +255,7 @@ public sealed class ToleranceWizardWindow : Window
         _endSurface.ValueChanged += (_, _) => UpdatePreview();
         _radiusEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _conicEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
+        _asphereEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _thicknessEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _decenterEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _tiltEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
@@ -286,7 +291,10 @@ public sealed class ToleranceWizardWindow : Window
             _distribution.SelectedIndex == 1 ? ToleranceDistribution.Uniform : ToleranceDistribution.Normal,
             _replaceExisting.IsChecked == true,
             IncludeConic: _conicEnabled.IsChecked == true,
-            ConicTolerance: DoubleValue(_conic, 0.02)));
+            ConicTolerance: DoubleValue(_conic, 0.02),
+            UseElementGroups: true,
+            IncludeAsphereCoefficients: _asphereEnabled.IsChecked == true,
+            AsphereCoefficientTolerance: DoubleValue(_asphere, 0.000001)));
     }
 
     private void ApplyPreset(int preset)
@@ -333,13 +341,15 @@ public sealed class ToleranceWizardWindow : Window
         var perSurface = (_radiusEnabled.IsChecked == true ? 1 : 0)
             + (_conicEnabled.IsChecked == true ? 1 : 0)
             + (_thicknessEnabled.IsChecked == true ? 1 : 0)
-            + (_decenterEnabled.IsChecked == true ? 2 : 0)
-            + (_tiltEnabled.IsChecked == true ? 2 : 0);
+            + (_asphereEnabled.IsChecked == true ? 1 : 0);
         var material = (_indexEnabled.IsChecked == true ? 1 : 0)
             + (_abbeEnabled.IsChecked == true ? 1 : 0);
-        var maximum = (count * (perSurface + material)) + (_compensatorEnabled.IsChecked == true ? 1 : 0);
+        var elementRows = (_decenterEnabled.IsChecked == true ? 2 : 0)
+            + (_tiltEnabled.IsChecked == true ? 2 : 0);
+        var maximum = (count * (perSurface + material + elementRows))
+            + (_compensatorEnabled.IsChecked == true ? 1 : 0);
         _preview.Text = $"表面范围：{start}–{end}。{Environment.NewLine}"
-            + $"预计最多生成 {maximum} 行；平面会跳过 TRAD/TCON，空气面会跳过 TIND/TABB。{Environment.NewLine}"
+            + $"预计最多生成 {maximum} 行；元件项按连续玻璃组生成，平面会跳过 TRAD/TCON，空气面会跳过 TIND/TABB，TPAR 只作用于已有非球面参数。{Environment.NewLine}"
             + $"统计分布：{(_distribution.SelectedIndex == 1 ? "均匀" : "正态，公差极限为 ±2σ")}。";
     }
 

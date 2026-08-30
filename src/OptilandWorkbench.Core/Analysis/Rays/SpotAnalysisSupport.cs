@@ -77,6 +77,8 @@ internal static class MtfPresentation
 
 internal static class SpotAnalysisEngine
 {
+    private const int MaximumUniformAxisSamples = 1_024;
+
     public static IReadOnlyList<(double Hx, double Hy)> DefinedFields(Optic optic)
     {
         var maxField = FieldCoordinates.MaximumRadius(optic.Fields);
@@ -332,6 +334,13 @@ internal static class SpotAnalysisEngine
 
         if (string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase))
         {
+            if (sampleParameter is < 1 or > MaximumUniformAxisSamples)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(sampleParameter),
+                    $"Uniform pupil axis sampling must be between 1 and {MaximumUniformAxisSamples}.");
+            }
+
             var axis = Enumerable.Range(0, sampleParameter)
                 .Select(index => sampleParameter == 1 ? 0 : -1 + (2.0 * index / (sampleParameter - 1)))
                 .ToArray();

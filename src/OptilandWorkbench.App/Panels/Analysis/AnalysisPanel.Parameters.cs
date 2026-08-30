@@ -13,6 +13,7 @@ using Avalonia.VisualTree;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
@@ -20,6 +21,11 @@ namespace OptilandWorkbench.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
+    private static readonly System.Text.Json.JsonSerializerOptions SettingsJsonOptions = new()
+    {
+        WriteIndented = true
+    };
+
     private void RebuildParameterPanel()
     {
         _parameterPanel.Children.Clear();
@@ -670,8 +676,12 @@ public sealed partial class AnalysisPanel
             var settings = CaptureParameterSettings();
             var json = System.Text.Json.JsonSerializer.Serialize(
                 settings,
-                new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
-            await File.WriteAllTextAsync(file.Path.LocalPath, json);
+                SettingsJsonOptions);
+            await BoundedApplicationFile.WriteAllTextAtomicAsync(
+                file.Path.LocalPath,
+                json,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "Analysis settings");
             _operationStatus.MarkSynced($"{AnalysisName}设置已保存");
         }
         catch (Exception exception)
@@ -704,8 +714,13 @@ public sealed partial class AnalysisPanel
                 return;
             }
 
-            var json = await File.ReadAllTextAsync(files[0].Path.LocalPath);
-            var saved = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(json)
+            var json = await BoundedApplicationFile.ReadAllTextAsync(
+                files[0].Path.LocalPath,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "Analysis settings");
+            var saved = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(
+                    json,
+                    SettingsJsonOptions)
                 ?? new Dictionary<string, string>();
             _settings = _analyses.MergeSettings(AnalysisName, saved);
             RebuildParameterPanel();

@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.NonSequential;
@@ -120,8 +121,45 @@ public static class NonSequentialMeshCodec
     {
         ArgumentNullException.ThrowIfNull(vertices);
         ArgumentNullException.ThrowIfNull(triangles);
-        var length = checked(HeaderLength + vertices.Count * 24 + triangles.Count * 16);
-        var data = new byte[length];
+        if (vertices.Count is < 1 or > NonSequentialStlImporter.MaximumVertexCount
+            || triangles.Count is < 1 or > NonSequentialStlImporter.MaximumTriangleCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(vertices),
+                "STARMESH vertex or triangle count exceeds the supported range.");
+        }
+
+        var length = HeaderLength + ((long)vertices.Count * 24) + ((long)triangles.Count * 16);
+        if (length > NonSequentialStlImporter.MaximumInputBytes)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(vertices),
+                $"STARMESH data cannot exceed {NonSequentialStlImporter.MaximumInputBytes:N0} bytes.");
+        }
+
+        for (var index = 0; index < vertices.Count; index++)
+        {
+            if (!Finite(vertices[index]))
+            {
+                throw new ArgumentException($"STARMESH vertex {index + 1} is not finite.", nameof(vertices));
+            }
+        }
+        for (var index = 0; index < triangles.Count; index++)
+        {
+            var triangle = triangles[index];
+            if (triangle.A < 0 || triangle.A >= vertices.Count
+                || triangle.B < 0 || triangle.B >= vertices.Count
+                || triangle.C < 0 || triangle.C >= vertices.Count
+                || triangle.A == triangle.B || triangle.B == triangle.C || triangle.A == triangle.C
+                || triangle.FaceNumber <= 0)
+            {
+                throw new ArgumentException(
+                    $"STARMESH triangle {index + 1} has invalid indices or face number.",
+                    nameof(triangles));
+            }
+        }
+
+        var data = new byte[checked((int)length)];
         Magic.CopyTo(data, 0);
         BinaryPrimitives.WriteUInt16LittleEndian(data.AsSpan(8, 2), Version);
         BinaryPrimitives.WriteUInt16LittleEndian(data.AsSpan(10, 2), 0);
@@ -150,21 +188,26 @@ public static class NonSequentialMeshCodec
 
     public static NonSequentialMeshGeometry Decode(ReadOnlySpan<byte> data)
     {
-        if (data.Length < HeaderLength || !data[..Magic.Length].SequenceEqual(Magic))
+        if (data.Length < HeaderLength
+            || data.Length > NonSequentialStlImporter.MaximumInputBytes
+            || !data[..Magic.Length].SequenceEqual(Magic))
         {
             throw new InvalidDataException("内嵌网格数据缺少有效的 STARMESH 文件头。");
         }
 
         var version = BinaryPrimitives.ReadUInt16LittleEndian(data.Slice(8, 2));
+        var flags = BinaryPrimitives.ReadUInt16LittleEndian(data.Slice(10, 2));
         var vertexCount = BinaryPrimitives.ReadInt32LittleEndian(data.Slice(12, 4));
         var triangleCount = BinaryPrimitives.ReadInt32LittleEndian(data.Slice(16, 4));
-        if (version != Version || vertexCount <= 0 || triangleCount <= 0
+        if (version != Version || flags != 0
+            || vertexCount <= 0 || vertexCount > NonSequentialStlImporter.MaximumVertexCount
+            || triangleCount <= 0
             || triangleCount > NonSequentialStlImporter.MaximumTriangleCount)
         {
             throw new InvalidDataException("内嵌网格数据的版本或集合大小无效。");
         }
 
-        var expectedLength = checked(HeaderLength + vertexCount * 24 + triangleCount * 16);
+        var expectedLength = HeaderLength + ((long)vertexCount * 24) + ((long)triangleCount * 16);
         if (data.Length != expectedLength)
         {
             throw new InvalidDataException("内嵌网格数据已截断或包含多余字节。");
@@ -196,6 +239,9 @@ public static class NonSequentialMeshCodec
             if (triangles[index].A < 0 || triangles[index].A >= vertexCount
                 || triangles[index].B < 0 || triangles[index].B >= vertexCount
                 || triangles[index].C < 0 || triangles[index].C >= vertexCount
+                || triangles[index].A == triangles[index].B
+                || triangles[index].B == triangles[index].C
+                || triangles[index].A == triangles[index].C
                 || triangles[index].FaceNumber <= 0)
             {
                 throw new InvalidDataException($"内嵌网格三角形 {index + 1} 的索引或面编号无效。");
@@ -213,13 +259,18 @@ public static class NonSequentialMeshCodec
 public static class NonSequentialStlImporter
 {
     public const int MaximumTriangleCount = 2_000_000;
+    public const int MaximumVertexCount = MaximumTriangleCount * 3;
+    public const long MaximumInputBytes = 256L * 1024 * 1024;
 
     public static NonSequentialMeshAsset Import(
         string path,
         NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
-        return Import(File.ReadAllBytes(path), Path.GetFileName(path), unit);
+        return Import(
+            BoundedFile.ReadAllBytes(path, MaximumInputBytes, "STL mesh"),
+            Path.GetFileName(path),
+            unit);
     }
 
     public static NonSequentialMeshAsset Import(
@@ -230,6 +281,10 @@ public static class NonSequentialStlImporter
         if (bytes.Length == 0)
         {
             throw new InvalidDataException("STL 文件为空。");
+        }
+        if (bytes.Length > MaximumInputBytes)
+        {
+            throw new InvalidDataException("STL 文件超过 256 MiB 输入上限。");
         }
 
         var scale = unit switch
@@ -548,7 +603,6 @@ public static class NonSequentialStlImporter
             {
                 if (second <= first) continue;
                 var b = triangles[second];
-                if (SharesVertex(a, b)) continue;
                 if (TrianglesIntersect(vertices, a, b)) return true;
             }
         }
@@ -571,7 +625,9 @@ public static class NonSequentialStlImporter
             if (Cross(normalizedFirst, normalizedSecond).Length <= 1e-10
                 && Math.Abs(Dot(normalizedFirst, b[0] - a[0])) <= 1e-9)
             {
-                return CoplanarTrianglesOverlap(a, b, normalizedFirst);
+                return SharesVertex(first, second)
+                    ? CoplanarTriangleInteriorsOverlap(a, b, normalizedFirst)
+                    : CoplanarTrianglesOverlap(a, b, normalizedFirst);
             }
         }
         for (var index = 0; index < 3; index++)
@@ -583,6 +639,52 @@ public static class NonSequentialStlImporter
             }
         }
         return false;
+    }
+
+    private static bool CoplanarTriangleInteriorsOverlap(
+        IReadOnlyList<Vector3D> first,
+        IReadOnlyList<Vector3D> second,
+        Vector3D normal)
+    {
+        var axis = Math.Abs(normal.X) >= Math.Abs(normal.Y) && Math.Abs(normal.X) >= Math.Abs(normal.Z)
+            ? 0
+            : Math.Abs(normal.Y) >= Math.Abs(normal.Z) ? 1 : 2;
+        var a = first.Select(Project).ToArray();
+        var b = second.Select(Project).ToArray();
+        for (var firstEdge = 0; firstEdge < 3; firstEdge++)
+        {
+            for (var secondEdge = 0; secondEdge < 3; secondEdge++)
+            {
+                if (SegmentsCrossStrictly(
+                    a[firstEdge], a[(firstEdge + 1) % 3],
+                    b[secondEdge], b[(secondEdge + 1) % 3]))
+                {
+                    return true;
+                }
+            }
+        }
+        return a.Any(point => PointInTriangleStrict(point, b))
+            || b.Any(point => PointInTriangleStrict(point, a));
+
+        Point2 Project(Vector3D point) => axis switch
+        {
+            0 => new Point2(point.Y, point.Z),
+            1 => new Point2(point.X, point.Z),
+            _ => new Point2(point.X, point.Y)
+        };
+    }
+
+    private static bool SegmentsCrossStrictly(Point2 a, Point2 b, Point2 c, Point2 d) =>
+        Orientation(a, b, c) * Orientation(a, b, d) < -1e-20
+        && Orientation(c, d, a) * Orientation(c, d, b) < -1e-20;
+
+    private static bool PointInTriangleStrict(Point2 point, IReadOnlyList<Point2> triangle)
+    {
+        var first = Orientation(triangle[0], triangle[1], point);
+        var second = Orientation(triangle[1], triangle[2], point);
+        var third = Orientation(triangle[2], triangle[0], point);
+        return first > 1e-10 && second > 1e-10 && third > 1e-10
+            || first < -1e-10 && second < -1e-10 && third < -1e-10;
     }
 
     private static bool CoplanarTrianglesOverlap(

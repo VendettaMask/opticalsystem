@@ -2,6 +2,24 @@ using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.InitialStructure.Contracts;
 
+public static class InitialStructureLimits
+{
+    public const int MaximumNameLength = 256;
+    public const int MaximumIdentifierLength = 128;
+    public const int MaximumMessageLength = 16_384;
+    public const int MaximumWavelengthCount = 64;
+    public const int MaximumGlassCatalogCount = 128;
+    public const int MaximumInitialSeedCount = 10_000;
+    public const int MaximumEvaluations = 100_000;
+    public const int MaximumParallelism = 256;
+    public const int MaximumViolationsPerCandidate = 1_024;
+    public const int MaximumDiagnosticCount = 100_000;
+    public const double MaximumFieldAngleDegrees = 89;
+    public const long MaximumSettingsBytes = 4L * 1024 * 1024;
+    public const long MaximumManifestBytes = 64L * 1024 * 1024;
+    public static readonly TimeSpan MaximumTimeLimit = TimeSpan.FromHours(24);
+}
+
 public enum ObjectConjugateMode
 {
     Infinite
@@ -92,6 +110,10 @@ public sealed record InitialStructureSpecification
     public double MinimumBackFocusMillimeters { get; init; } = 5;
 
     public double SemiDiameterMarginFactor { get; init; } = 1.25;
+
+    public double MaximumRmsSpotRadiusMillimeters { get; init; } = 0.25;
+
+    public double MaximumSpotRadiusMillimeters { get; init; } = 1.0;
 
     public string InitialGlass { get; init; } = "N-BK7";
 
@@ -197,6 +219,34 @@ public sealed record SearchRunManifest
         new("unassigned", "0", "Managed CPU", true);
 
     public IReadOnlyList<CandidateSnapshot> Candidates { get; init; } = [];
+
+    public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
+}
+
+public sealed record SearchCheckpoint
+{
+    public const int CurrentSchemaVersion = 1;
+
+    public int SchemaVersion { get; init; } = CurrentSchemaVersion;
+
+    public string RunId { get; init; } = string.Empty;
+
+    public DateTimeOffset CreatedUtc { get; init; }
+
+    public DateTimeOffset UpdatedUtc { get; init; }
+
+    public string Stage { get; init; } = "initial-seeds";
+
+    public InitialStructureSpecification Specification { get; init; } = new();
+
+    public string SpecificationFingerprint { get; init; } = string.Empty;
+
+    public AlgorithmIdentity Algorithm { get; init; } =
+        new("unassigned", "0", "Managed CPU", true);
+
+    public IReadOnlyList<int> CompletedInitialSeedIndices { get; init; } = [];
+
+    public IReadOnlyList<CandidateSnapshot> SeedCandidates { get; init; } = [];
 
     public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
 }

@@ -18,11 +18,17 @@ public sealed record TolerancingRunOptions(
     double YieldLimit,
     ToleranceDistribution? DistributionOverride,
     int WorstSensitivityCount,
-    bool ShowMonteCarloTrials);
+    bool ShowMonteCarloTrials,
+    double InverseValue);
 
 public sealed class TolerancingRunWindow : Window
 {
-    private readonly ComboBox _mode = Picker(0, "灵敏度", "跳过灵敏度（仅 Monte Carlo）");
+    private readonly ComboBox _mode = Picker(
+        0,
+        "灵敏度",
+        "反向极限",
+        "反向增量",
+        "跳过灵敏度（仅 Monte Carlo）");
     private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前误差");
     private readonly ComboBox _compensation = Picker(1, "无", "优化全部（DLS）");
     private readonly NumericUpDown _cycles = Number(3, 0, 500, 1);
@@ -37,20 +43,23 @@ public sealed class TolerancingRunWindow : Window
     private readonly ComboBox _distribution = Picker(0, "使用公差数据编辑器定义", "正态（极限为 ±2σ）", "均匀");
     private readonly NumericUpDown _worstCount = Number(0, 0, 100_000, 1);
     private readonly CheckBox _showMonteCarlo = Check("在报告中列出 Monte Carlo 试验", true);
+    private readonly NumericUpDown _inverseValue = Number(0.05m, 0.000000001m, 1_000_000, 0.001m);
 
     public TolerancingRunWindow(TolerancingRunOptions defaults)
     {
         Title = "公差分析";
         Width = 720;
         Height = 560;
-        MinWidth = 640;
-        MinHeight = 500;
+        MinWidth = 480;
+        MinHeight = 400;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
 
         Apply(defaults);
+        _mode.SelectionChanged += (_, _) => UpdateModeControls();
         _compensation.SelectionChanged += (_, _) =>
             _cycles.IsEnabled = _compensation.SelectedIndex == 1;
+        UpdateModeControls();
 
         var run = Button("运行");
         run.Click += (_, _) => Close(BuildOptions());
@@ -99,13 +108,15 @@ public sealed class TolerancingRunWindow : Window
         0,
         null,
         0,
-        true);
+        true,
+        0.05);
 
     private Control SetupTab() => Page(
         Section("分析方式",
             Row("模式", _mode),
+            Row("反求极限 / 增量", _inverseValue),
             Row("并行 CPU 数", _cpuCount)),
-        Note("灵敏度模式逐项计算每个公差的最小和最大极限；“跳过灵敏度”只执行 Monte Carlo。"));
+        Note("反向极限按绝对评价上限逐项收紧公差；反向增量按名义评价值加正增量逐项收紧。满足目标的现有公差不会被放宽；“跳过灵敏度”只执行 Monte Carlo。"));
 
     private Control CriterionTab() => Page(
         Section("评价标准",
@@ -129,9 +140,13 @@ public sealed class TolerancingRunWindow : Window
         Note("显示选项只控制报告内容，不改变公差计算。"));
 
     private TolerancingRunOptions BuildOptions() => new(
-        _mode.SelectedIndex == 1
-            ? ToleranceAnalysisMode.SkipSensitivity
-            : ToleranceAnalysisMode.Sensitivity,
+        _mode.SelectedIndex switch
+        {
+            1 => ToleranceAnalysisMode.InverseLimit,
+            2 => ToleranceAnalysisMode.InverseIncrement,
+            3 => ToleranceAnalysisMode.SkipSensitivity,
+            _ => ToleranceAnalysisMode.Sensitivity
+        },
         _criterion.SelectedIndex == 1
             ? ToleranceCriterion.RmsWavefront
             : ToleranceCriterion.RmsSpotRadius,
@@ -147,11 +162,18 @@ public sealed class TolerancingRunWindow : Window
             _ => null
         },
         IntValue(_worstCount, 0),
-        _showMonteCarlo.IsChecked == true);
+        _showMonteCarlo.IsChecked == true,
+        DoubleValue(_inverseValue, 0.05));
 
     private void Apply(TolerancingRunOptions options)
     {
-        _mode.SelectedIndex = options.Mode == ToleranceAnalysisMode.SkipSensitivity ? 1 : 0;
+        _mode.SelectedIndex = options.Mode switch
+        {
+            ToleranceAnalysisMode.InverseLimit => 1,
+            ToleranceAnalysisMode.InverseIncrement => 2,
+            ToleranceAnalysisMode.SkipSensitivity => 3,
+            _ => 0
+        };
         _criterion.SelectedIndex = options.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
         _compensation.SelectedIndex = options.CompensationIterations > 0 ? 1 : 0;
         _cycles.Value = options.CompensationIterations;
@@ -168,6 +190,13 @@ public sealed class TolerancingRunWindow : Window
         };
         _worstCount.Value = options.WorstSensitivityCount;
         _showMonteCarlo.IsChecked = options.ShowMonteCarloTrials;
+        _inverseValue.Value = ToDecimal(options.InverseValue);
+        UpdateModeControls();
+    }
+
+    private void UpdateModeControls()
+    {
+        _inverseValue.IsEnabled = _mode.SelectedIndex is 1 or 2;
     }
 
     private static Control Page(params Control[] children)

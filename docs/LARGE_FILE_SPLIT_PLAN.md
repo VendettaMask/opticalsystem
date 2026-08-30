@@ -11,8 +11,10 @@
 - `OpticalDrawingRenderer` 已拆成外观及制造绘制分部；
 - `MainWindow` 已拆为生命周期、动作、Shell、文档、工作区和导入文件；
 - `AnalysisPanel` 已拆为生命周期、参数、结果、绘图和导出文件。
+- `ToleranceOperandEditorRow` 已从公差主面板拆为独立可测试编辑模型，`TolerancingPanel` 不再同时定义整套行模型与代码解析；后续报告与文件持久化仍可按同样边界继续拆分。
+- 非序列探测器的归一化、平滑和剖面计算已从窗口文件抽为无 UI 状态的 `NonSequentialDetectorDisplay`，算法可独立测试，显示变换不会混入数据库重建或物理统计。
 
-`OptilandConnector` 仍作为旧调用者和测试的薄兼容外观存在，不应重新承载新生产逻辑。
+`OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集，仍作为旧调用者和兼容测试的薄外观存在，不应重新承载新生产逻辑。主 Application/App 不引用该程序集。
 
 ## 拆分约束
 
@@ -34,7 +36,9 @@ OptilandWorkbench.Application
   WorkspaceCoordinator
   Runtime/WorkbenchRuntime.*
   独立文档/处方/分析/可视化/优化/公差/多配置服务
-  Legacy/OptilandConnector 兼容外观（无新增成员）
+
+OptilandWorkbench.Compatibility
+  OptilandConnector 兼容外观（无新增成员，单向依赖 Application/Core）
 
 OptilandWorkbench.App
   MainWindow.*

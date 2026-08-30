@@ -192,6 +192,7 @@ public sealed class MeritOperandEditorRow
         SpatialFrequency = source.SpatialFrequency;
         IgnoreLateralColor = source.IgnoreLateralColor;
         PolychromaticReference = source.PolychromaticReference;
+        CompatibilityOnly = source.CompatibilityOnly;
     }
 
     public int Index { get; set; }
@@ -217,6 +218,7 @@ public sealed class MeritOperandEditorRow
     public double SpatialFrequency { get; set; }
     public bool IgnoreLateralColor { get; set; }
     public bool PolychromaticReference { get; set; }
+    public bool CompatibilityOnly { get; set; }
 
     public bool IsDirective => Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
 
@@ -251,7 +253,8 @@ public sealed class MeritOperandEditorRow
         PupilSampling,
         SpatialFrequency,
         IgnoreLateralColor,
-        PolychromaticReference);
+        PolychromaticReference,
+        CompatibilityOnly);
 }
 
 public sealed class FieldEditorRow

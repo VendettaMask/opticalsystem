@@ -4,6 +4,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
@@ -107,7 +108,11 @@ public sealed class ToleranceTextDocumentPanel : UserControl
         });
         if (file is not null)
         {
-            await File.WriteAllTextAsync(file.Path.LocalPath, _text.Text ?? string.Empty);
+            await BoundedApplicationFile.WriteAllTextAtomicAsync(
+                file.Path.LocalPath,
+                _text.Text ?? string.Empty,
+                BoundedApplicationFile.MaximumExportBytes,
+                "Tolerance text export");
         }
     }
 

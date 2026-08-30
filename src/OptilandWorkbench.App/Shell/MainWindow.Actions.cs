@@ -233,11 +233,10 @@ public sealed partial class MainWindow
         return Task.CompletedTask;
     }
 
-    private Task ClearNonSequentialDetectorsAsync()
+    private async Task ClearNonSequentialDetectorsAsync()
     {
-        _application.NonSequentialAnalysis.ClearDetectors();
+        await _application.NonSequentialAnalysis.ClearDetectorsAsync();
         _statusText.Text = "非序列探测器和当前追迹结果已清空";
-        return Task.CompletedTask;
     }
 
     private async Task OpenNonSequentialDatabaseAsync(bool showPathAnalysis)

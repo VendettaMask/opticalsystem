@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.Core.FileIO;
 
 namespace OptilandWorkbench.Core.Serialization;
 
@@ -16,12 +17,21 @@ public static class OpticJsonStore
         var snapshot = optic.ToSnapshot();
         OpticSnapshotValidator.Validate(snapshot);
         var json = JsonSerializer.Serialize(snapshot, Options);
-        await File.WriteAllTextAsync(path, json, cancellationToken);
+        await BoundedFile.WriteAllTextAtomicAsync(
+            path,
+            json,
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "Optic JSON document",
+            cancellationToken).ConfigureAwait(false);
     }
 
     public static async Task<Optic> LoadAsync(string path, CancellationToken cancellationToken = default)
     {
-        var json = await File.ReadAllTextAsync(path, cancellationToken);
+        var json = await BoundedFile.ReadAllTextAsync(
+            path,
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "Optic JSON document",
+            cancellationToken).ConfigureAwait(false);
         if (PythonOptilandJsonStore.LooksLike(json))
         {
             return PythonOptilandJsonStore.Deserialize(json, Path.GetFileNameWithoutExtension(path));

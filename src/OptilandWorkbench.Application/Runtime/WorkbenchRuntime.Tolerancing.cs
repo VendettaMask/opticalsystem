@@ -36,7 +36,8 @@ public partial class WorkbenchRuntime
             double yieldLimit = 0,
             CancellationToken cancellationToken = default,
             int maxDegreeOfParallelism = -1,
-            ToleranceAnalysisMode mode = ToleranceAnalysisMode.Sensitivity)
+            ToleranceAnalysisMode mode = ToleranceAnalysisMode.Sensitivity,
+            double inverseValue = 0)
     {
         cancellationToken.ThrowIfCancellationRequested();
         OpticCapabilityPreflight.EnsureSupported(CurrentOptic, OpticCapabilityOperation.Tolerancing);
@@ -46,7 +47,8 @@ public partial class WorkbenchRuntime
             return TolerancingView.Empty("没有可用于公差分析的表面。");
         }
 
-        var configuredOperands = operands?.Where(item => item.Enabled).ToArray();
+        var requestedOperands = operands?.ToArray();
+        var configuredOperands = requestedOperands?.Where(item => item.Enabled).ToArray();
         var tolerancing = configuredOperands is { Length: > 0 }
             ? BuildConfiguredTolerancing(configuredOperands, criterion)
             : BuildDefaultTolerancing(
@@ -67,6 +69,32 @@ public partial class WorkbenchRuntime
         if (!double.IsFinite(nominal))
         {
             return TolerancingView.Empty("名义系统没有可用于公差评价的有效光线。");
+        }
+
+        IReadOnlyList<ToleranceOperandDto>? adjustedOperands = null;
+        var inverseRows = Array.Empty<TolerancingInverseRow>();
+        var inverseTarget = double.NaN;
+        if (mode is ToleranceAnalysisMode.InverseLimit or ToleranceAnalysisMode.InverseIncrement)
+        {
+            if (configuredOperands is not { Length: > 0 })
+            {
+                throw new InvalidOperationException("反向灵敏度需要显式公差操作数表。");
+            }
+
+            inverseTarget = mode == ToleranceAnalysisMode.InverseLimit
+                ? inverseValue
+                : nominal + inverseValue;
+            var inverseResults = sensitivityAnalysis.RunInverse(
+                inverseTarget,
+                compensationIterations,
+                cancellationToken);
+            adjustedOperands = ApplyInverseResults(
+                requestedOperands ?? configuredOperands,
+                inverseResults);
+            configuredOperands = adjustedOperands.Where(item => item.Enabled).ToArray();
+            tolerancing = BuildConfiguredTolerancing(configuredOperands, criterion);
+            sensitivityAnalysis = new SensitivityAnalysis(CurrentOptic, tolerancing);
+            inverseRows = inverseResults.Select(ToInverseRow).ToArray();
         }
 
         var sensitivityResults = mode == ToleranceAnalysisMode.SkipSensitivity
@@ -141,15 +169,83 @@ public partial class WorkbenchRuntime
                 values.Length > 0 ? NumericDisplayFormatter.Format(Percentile(values, 0.95)) : "失效",
                 yield);
 
+        var inverseDetail = inverseRows.Length == 0
+            ? string.Empty
+            : $"    反求目标：{FormatCriterion(inverseTarget)}    收紧端点：{inverseRows.Sum(row => CountTightened(row))}";
         SetStatus($"公差分析完成：表面 {surface.Number}，{monteCarlo.Length} 次 Monte Carlo。");
         return new TolerancingView(
             $"{(criterion == ToleranceCriterion.RmsWavefront ? "RMS 波前" : "RMS 点列半径")}公差分析",
             sensitivity,
             monteCarlo,
-            $"公差数：{tolerancing.Perturbations.Count}    补偿器：{tolerancing.Compensators.Count}    Monte Carlo：{monteCarlo.Length}    失效试验：{invalidTrials}    补偿迭代：{Math.Max(0, compensationIterations)}",
+            $"公差数：{tolerancing.Perturbations.Count}    补偿器：{tolerancing.Compensators.Count}    Monte Carlo：{monteCarlo.Length}    失效试验：{invalidTrials}    补偿迭代：{Math.Max(0, compensationIterations)}{inverseDetail}",
             statistics,
-            sensitivityStatistics);
+            sensitivityStatistics,
+            inverseRows,
+            adjustedOperands,
+            double.IsFinite(inverseTarget) ? FormatCriterion(inverseTarget) : string.Empty);
     }
+
+    private static IReadOnlyList<ToleranceOperandDto> ApplyInverseResults(
+        IReadOnlyList<ToleranceOperandDto> operands,
+        IReadOnlyList<InverseSensitivityResult> results)
+    {
+        var resultIndex = 0;
+        var adjusted = new ToleranceOperandDto[operands.Count];
+        for (var index = 0; index < operands.Count; index++)
+        {
+            var operand = operands[index];
+            if (!operand.Enabled || operand.Kind == ToleranceOperandKind.Compensator)
+            {
+                adjusted[index] = operand;
+                continue;
+            }
+
+            if (resultIndex >= results.Count)
+            {
+                throw new InvalidOperationException("反向灵敏度结果与公差表不一致。");
+            }
+
+            var result = results[resultIndex++];
+            adjusted[index] = operand with
+            {
+                Minimum = result.Minimum.AdjustedTolerance,
+                Maximum = result.Maximum.AdjustedTolerance
+            };
+        }
+
+        if (resultIndex != results.Count)
+        {
+            throw new InvalidOperationException("反向灵敏度返回了多余结果。");
+        }
+
+        return adjusted;
+    }
+
+    private static TolerancingInverseRow ToInverseRow(InverseSensitivityResult result) => new(
+        result.Perturbation,
+        ToInverseEndpoint(result.Minimum),
+        ToInverseEndpoint(result.Maximum));
+
+    private static TolerancingInverseEndpoint ToInverseEndpoint(
+        InverseToleranceEndpointResult endpoint) => new(
+            FormatCriterion(endpoint.OriginalTolerance),
+            FormatCriterion(endpoint.AdjustedTolerance),
+            FormatCriterion(endpoint.Criterion),
+            endpoint.Status switch
+            {
+                InverseToleranceEndpointStatus.UnchangedWithinTarget =>
+                    ToleranceInverseEndpointStatus.UnchangedWithinTarget,
+                InverseToleranceEndpointStatus.Tightened =>
+                    ToleranceInverseEndpointStatus.Tightened,
+                InverseToleranceEndpointStatus.ZeroRange =>
+                    ToleranceInverseEndpointStatus.ZeroRange,
+                _ => ToleranceInverseEndpointStatus.UnsupportedPerturbation
+            },
+            endpoint.Iterations);
+
+    private static int CountTightened(TolerancingInverseRow row) =>
+        (row.Minimum.Status == ToleranceInverseEndpointStatus.Tightened ? 1 : 0)
+        + (row.Maximum.Status == ToleranceInverseEndpointStatus.Tightened ? 1 : 0);
 
     private static double CalculateSensitivityRss(
         IReadOnlyList<SensitivityResult> results,

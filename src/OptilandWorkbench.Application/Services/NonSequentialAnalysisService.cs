@@ -12,8 +12,15 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService
 {
+    private const int MaximumCachedFilterIndices = 1_000_000;
     private readonly NonSequentialAnalysisSession _analysisSession;
     private readonly NonSequentialLayoutSession _layoutSession;
+    private readonly SemaphoreSlim _analysisTraceGate = new(1, 1);
+    private readonly SemaphoreSlim _layoutTraceGate = new(1, 1);
+    private readonly object _cacheGate = new();
+    private long _cacheGeneration;
+    private FilterIndexCacheEntry? _filterIndexCache;
+    private DetectorFrameCacheEntry? _detectorFrameCache;
 
     public NonSequentialAnalysisService(
         WorkspaceCoordinator workspace,
@@ -22,13 +29,24 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     {
         _analysisSession = analysisSession ?? throw new ArgumentNullException(nameof(analysisSession));
         _layoutSession = layoutSession ?? throw new ArgumentNullException(nameof(layoutSession));
-        _analysisSession.Changed += (_, _) => SessionChanged?.Invoke(this, GetCurrentSession());
+        _analysisSession.Changed += OnAnalysisSessionChanged;
         _layoutSession.Changed += (_, _) => LayoutSessionChanged?.Invoke(this, GetCurrentLayoutSession());
     }
 
     public event EventHandler<NonSequentialTraceSessionDto?>? SessionChanged;
 
     public event EventHandler<NonSequentialTraceSessionDto?>? LayoutSessionChanged;
+
+    private void OnAnalysisSessionChanged(object? sender, EventArgs args)
+    {
+        lock (_cacheGate)
+        {
+            _cacheGeneration++;
+            _filterIndexCache = null;
+            _detectorFrameCache = null;
+        }
+        SessionChanged?.Invoke(this, GetCurrentSession());
+    }
 
     public NonSequentialTraceSessionDto? GetCurrentSession()
     {
@@ -50,7 +68,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             return current;
         }
 
-        await TraceCoreAsync(CreateLayoutTraceRequest(), _layoutSession, cancellationToken).ConfigureAwait(false);
+        await TraceSerializedAsync(
+            CreateLayoutTraceRequest(),
+            _layoutSession,
+            _layoutTraceGate,
+            cancellationToken).ConfigureAwait(false);
         return GetCurrentLayoutSession()
             ?? throw new InvalidOperationException("非序列布局追迹完成后未建立结果会话。");
     }
@@ -58,7 +80,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     public async Task<NonSequentialTraceSessionDto> RefreshLayoutSessionAsync(
         CancellationToken cancellationToken = default)
     {
-        await TraceCoreAsync(CreateLayoutTraceRequest(), _layoutSession, cancellationToken).ConfigureAwait(false);
+        await TraceSerializedAsync(
+            CreateLayoutTraceRequest(),
+            _layoutSession,
+            _layoutTraceGate,
+            cancellationToken).ConfigureAwait(false);
         return GetCurrentLayoutSession()
             ?? throw new InvalidOperationException("非序列布局追迹完成后未建立结果会话。");
     }
@@ -68,13 +94,45 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         CancellationToken cancellationToken = default) =>
         PrepareLayoutSessionAsync(cancellationToken);
 
-    public void ClearDetectors() => _analysisSession.Clear();
+    public async Task ClearDetectorsAsync(CancellationToken cancellationToken = default)
+    {
+        await _analysisTraceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            _analysisSession.Clear();
+        }
+        finally
+        {
+            _analysisTraceGate.Release();
+        }
+    }
 
     public async Task<NonSequentialTraceRunResultDto> TraceAsync(
         NonSequentialTraceRunRequestDto request,
         CancellationToken cancellationToken = default)
     {
-        return await TraceCoreAsync(request, _analysisSession, cancellationToken).ConfigureAwait(false);
+        return await TraceSerializedAsync(
+            request,
+            _analysisSession,
+            _analysisTraceGate,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<NonSequentialTraceRunResultDto> TraceSerializedAsync(
+        NonSequentialTraceRunRequestDto request,
+        NonSequentialResultSession targetSession,
+        SemaphoreSlim traceGate,
+        CancellationToken cancellationToken)
+    {
+        await traceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            return await TraceCoreAsync(request, targetSession, cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            traceGate.Release();
+        }
     }
 
     private static NonSequentialTraceRunRequestDto CreateLayoutTraceRequest() => new(
@@ -159,7 +217,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 NonSequentialDocumentTraceResult result;
                 NonSequentialTraceSessionDto session;
                 NonSequentialTraceRunResultDto response;
-                var priorBranches = previous?.BranchCount ?? 0;
+                long branchIdOffset = 0;
                 using (var stream = new FileStream(temporaryPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
                 using (var writer = new NonSequentialRayDatabaseWriter(
                     stream,
@@ -180,12 +238,15 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 {
                     if (request.Command == NonSequentialTraceCommand.TraceOnly && previous is not null)
                     {
-                        CopyExistingBranches(previous.RayDatabasePath, writer, linkedCancellation.Token);
+                        branchIdOffset = CopyExistingBranches(
+                            previous.RayDatabasePath,
+                            writer,
+                            linkedCancellation.Token);
                     }
 
                     using var cancellationScope = OptilandWorkbench.Core.Services.ComputationCancellation.Push(linkedCancellation.Token);
-                    INonSequentialTraceSink sink = priorBranches > 0
-                        ? new OffsetTraceSink(writer, priorBranches)
+                    INonSequentialTraceSink sink = branchIdOffset > 0
+                        ? new OffsetTraceSink(writer, branchIdOffset)
                         : writer;
                     result = new NonSequentialDocumentTracer().Trace(
                         document,
@@ -214,7 +275,6 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                     var priorAbsorbed = previous?.AbsorbedPowerWatts ?? 0;
                     var priorEscaped = previous?.EscapedPowerWatts ?? 0;
                     var priorTruncated = previous?.TruncatedPowerWatts ?? 0;
-                    var priorSegments = previous?.SegmentCount ?? 0;
                     var energy = result.EnergyBalance;
                     var warnings = new List<string>();
                     if (energy.TruncatedPowerWatts > Math.Max(1e-15, energy.SourcePowerWatts * 1e-9))
@@ -235,8 +295,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                         baseRandomSeed,
                         splitting,
                         sourceIds,
-                        priorBranches + result.TotalBranchCount,
-                        priorSegments + result.TotalSegmentCount,
+                        writer.BranchCount,
+                        writer.SegmentCount,
                         priorSource + energy.SourcePowerWatts,
                         priorDetector + energy.DetectorPowerWatts,
                         priorAbsorbed + energy.AbsorbedPowerWatts,
@@ -286,31 +346,83 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
 
     public NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null)
     {
+        var result = InspectRayDatabase(path, pathFilterExpression);
+        SelectRayDatabase(path, pathFilterExpression);
+        return result;
+    }
+
+    public NonSequentialRayDatabaseDto InspectRayDatabase(
+        string path,
+        string? pathFilterExpression = null,
+        CancellationToken cancellationToken = default)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         NonSequentialDocument document;
         lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
+        long cacheGeneration;
+        lock (_cacheGate) cacheGeneration = _cacheGeneration;
         var filter = NonSequentialPathFilter.Parse(pathFilterExpression);
-        var paths = NonSequentialPathAnalyzer.Analyze(document, reader.ReadBranches(filter))
+        List<long>? matchedIndices = new();
+        IEnumerable<NonSequentialRayBranch> IndexedBranches()
+        {
+            foreach (var (index, branch) in reader.ReadBranchesWithIndices(filter))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (matchedIndices is { } indices)
+                {
+                    if (indices.Count < MaximumCachedFilterIndices)
+                    {
+                        indices.Add(index);
+                    }
+                    else
+                    {
+                        matchedIndices = null;
+                    }
+                }
+                yield return branch;
+            }
+        }
+        var paths = NonSequentialPathAnalyzer.Analyze(reader.CreateHeaderDocument(), IndexedBranches())
             .Select(item => new NonSequentialPathSummaryDto(
                 item.Path, item.FilterExpression, item.RayCount, item.TotalPowerWatts,
                 item.PowerFraction, item.MinimumOpticalPathLength,
                 item.AverageOpticalPathLength, item.MaximumOpticalPathLength,
                 item.TerminationReason.ToString()))
             .ToArray();
-        _analysisSession.Set(path, pathFilterExpression);
+        cancellationToken.ThrowIfCancellationRequested();
+        var cacheKey = DatabaseCacheKey.Create(
+            path,
+            pathFilterExpression,
+            NonSequentialSceneHasher.Compute(document),
+            stream.Length,
+            reader.Header,
+            reader.BranchCount);
+        lock (_cacheGate)
+        {
+            if (_cacheGeneration == cacheGeneration)
+            {
+                _filterIndexCache = matchedIndices is null
+                    ? null
+                    : new FilterIndexCacheEntry(cacheKey, matchedIndices.ToArray());
+            }
+        }
         return new NonSequentialRayDatabaseDto(
             Path.GetFullPath(path), reader.Header.SceneHash, reader.Header.SourceRevision,
             reader.Header.CreatedUtc, reader.BranchCount, reader.IsStale(document),
             reader.Header.PathFilterExpression, paths);
     }
 
+    public void SelectRayDatabase(string path, string? pathFilterExpression = null) =>
+        _analysisSession.Set(path, pathFilterExpression);
+
     public NonSequentialRayDatabasePageDto GetRayDatabasePage(
         string? path = null,
         int pageIndex = 0,
         int pageSize = 100,
-        string? pathFilterExpression = null)
+        string? pathFilterExpression = null,
+        CancellationToken cancellationToken = default)
     {
         if (pageIndex < 0) throw new ArgumentOutOfRangeException(nameof(pageIndex));
         if (pageSize <= 0 || pageSize > 1_000) throw new ArgumentOutOfRangeException(nameof(pageSize));
@@ -320,20 +432,73 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
+        cancellationToken.ThrowIfCancellationRequested();
         var filter = NonSequentialPathFilter.Parse(pathFilterExpression ?? _analysisSession.SelectedFilter);
         var objectMap = reader.Header.Objects.ToDictionary(item => item.Id);
-        var branches = reader.ReadBranches(filter)
-            .Skip(checked(pageIndex * pageSize))
-            .Take(pageSize)
+        var offset = checked((long)pageIndex * pageSize);
+        var selectedFilter = pathFilterExpression ?? _analysisSession.SelectedFilter;
+        IReadOnlyList<NonSequentialRayBranch> storedBranches;
+        if (string.IsNullOrWhiteSpace(selectedFilter))
+        {
+            storedBranches = reader.ReadRange(offset, pageSize);
+        }
+        else
+        {
+            var cacheKey = DatabaseCacheKey.Create(
+                path,
+                selectedFilter,
+                NonSequentialSceneHasher.Compute(document),
+                stream.Length,
+                reader.Header,
+                reader.BranchCount);
+            long[]? matchedIndices;
+            lock (_cacheGate)
+            {
+                matchedIndices = _filterIndexCache is { } cached && cached.Key == cacheKey
+                    ? cached.Indices
+                    : null;
+            }
+            storedBranches = matchedIndices is not null
+                ? reader.ReadIndices(matchedIndices.Skip(checked(pageIndex * pageSize)).Take(pageSize).ToArray())
+                : WithCancellation(reader.ReadBranches(filter), cancellationToken)
+                    .Skip(checked(pageIndex * pageSize))
+                    .Take(pageSize)
+                    .ToArray();
+        }
+        var branches = storedBranches
             .Select(branch => MapBranch(branch, objectMap))
             .ToArray();
         return new NonSequentialRayDatabasePageDto(
             path, reader.BranchCount, pageIndex, pageSize, reader.IsStale(document), branches);
+
+        static IEnumerable<NonSequentialRayBranch> WithCancellation(
+            IEnumerable<NonSequentialRayBranch> branches,
+            CancellationToken cancellationToken)
+        {
+            foreach (var branch in branches)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                yield return branch;
+            }
+        }
     }
 
-    public NonSequentialDetectorViewDto GetDetectorView(NonSequentialDetectorViewRequestDto request)
+    public NonSequentialDetectorViewDto GetDetectorView(
+        NonSequentialDetectorViewRequestDto request,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (request.Space == NonSequentialDetectorSpace.Position
+            && request.DataType == NonSequentialDetectorDataType.RadiantIntensity)
+        {
+            throw new ArgumentException("位置空间不能显示辐射强度；请选择像素功率、辐照度或命中数。", nameof(request));
+        }
+        if (request.Space == NonSequentialDetectorSpace.Angle
+            && request.DataType == NonSequentialDetectorDataType.IncoherentIrradiance)
+        {
+            throw new ArgumentException("角度空间不能显示辐照度；请选择像素功率、辐射强度或命中数。", nameof(request));
+        }
         NonSequentialDocument document;
         long revision;
         lock (Gate)
@@ -355,19 +520,59 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         var detector = (CoreDetectorRectangleParameters)detectorObject.Parameters;
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
+        cancellationToken.ThrowIfCancellationRequested();
+        long cacheGeneration;
+        lock (_cacheGate) cacheGeneration = _cacheGeneration;
         var filter = NonSequentialPathFilter.Parse(request.PathFilterExpression ?? _analysisSession.SelectedFilter);
-        var frame = NonSequentialDetectorReconstruction.Reconstruct(document, reader.ReadBranches(filter))
+        var detectorCacheKey = DatabaseCacheKey.Create(
+            path,
+            request.PathFilterExpression ?? _analysisSession.SelectedFilter,
+            NonSequentialSceneHasher.Compute(document),
+            stream.Length,
+            reader.Header,
+            reader.BranchCount);
+        IReadOnlyList<NonSequentialDetectorFrame>? cachedFrames;
+        lock (_cacheGate)
+        {
+            cachedFrames = _detectorFrameCache is { } cached && cached.Key == detectorCacheKey
+                ? cached.Frames
+                : null;
+        }
+        var frames = cachedFrames ?? NonSequentialDetectorReconstruction.Reconstruct(
+            document,
+            reader.ReadBranches(filter),
+            cancellationToken: cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (cachedFrames is null)
+        {
+            lock (_cacheGate)
+            {
+                if (_cacheGeneration == cacheGeneration)
+                {
+                    _detectorFrameCache = new DetectorFrameCacheEntry(detectorCacheKey, frames);
+                }
+            }
+        }
+        var frame = frames
             .Single(item => item.DetectorId == request.DetectorId);
-        var values = BuildDetectorValues(frame, detector, request);
+        var values = BuildDetectorValues(frame, detector, request, cancellationToken);
         var xMin = request.Space == NonSequentialDetectorSpace.Position ? -detector.WidthMillimeters / 2 : -90;
         var xMax = request.Space == NonSequentialDetectorSpace.Position ? detector.WidthMillimeters / 2 : 90;
         var yMin = request.Space == NonSequentialDetectorSpace.Position ? -detector.HeightMillimeters / 2 : -90;
         var yMax = request.Space == NonSequentialDetectorSpace.Position ? detector.HeightMillimeters / 2 : 90;
-        var statistics = Statistics(values, frame, request, xMin, xMax, yMin, yMax);
-        var xProfile = Enumerable.Range(0, frame.PixelsX)
-            .Select(x => Enumerable.Range(0, frame.PixelsY).Sum(y => values[y * frame.PixelsX + x])).ToArray();
-        var yProfile = Enumerable.Range(0, frame.PixelsY)
-            .Select(y => Enumerable.Range(0, frame.PixelsX).Sum(x => values[y * frame.PixelsX + x])).ToArray();
+        var statistics = Statistics(values, frame, request, xMin, xMax, yMin, yMax, cancellationToken);
+        var xProfile = new double[frame.PixelsX];
+        var yProfile = new double[frame.PixelsY];
+        for (var y = 0; y < frame.PixelsY; y++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            for (var x = 0; x < frame.PixelsX; x++)
+            {
+                var value = values[y * frame.PixelsX + x];
+                xProfile[x] += value;
+                yProfile[y] += value;
+            }
+        }
         var valueUnit = request.DataType switch
         {
             NonSequentialDetectorDataType.PixelPower => "W",
@@ -432,18 +637,21 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         return available;
     }
 
-    private static void CopyExistingBranches(
+    private static long CopyExistingBranches(
         string path,
         NonSequentialRayDatabaseWriter writer,
         CancellationToken cancellationToken)
     {
+        long maximumBranchId = 0;
         using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(input);
         foreach (var branch in reader.ReadBranches())
         {
             cancellationToken.ThrowIfCancellationRequested();
             writer.OnBranch(branch);
+            maximumBranchId = Math.Max(maximumBranchId, branch.Id);
         }
+        return maximumBranchId;
     }
 
     private static string CreateManagedDatabasePath()
@@ -469,7 +677,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             {
                 var item = segment.ObjectId is Guid id && objects.TryGetValue(id, out var value) ? value : null;
                 return new NonSequentialRaySegmentDto(
-                    branch.Id, segment.ObjectId, item?.ObjectNumber ?? 0, item?.Name ?? "-",
+                    segment.BranchId, segment.ObjectId, item?.ObjectNumber ?? 0, item?.Name ?? "-",
                     segment.FaceNumber, segment.InteractionKind?.ToString() ?? "-",
                     segment.End.X, segment.End.Y, segment.End.Z,
                     segment.OutgoingDirection.X, segment.OutgoingDirection.Y, segment.OutgoingDirection.Z,
@@ -481,7 +689,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     private static double[] BuildDetectorValues(
         NonSequentialDetectorFrame frame,
         CoreDetectorRectangleParameters detector,
-        NonSequentialDetectorViewRequestDto request)
+        NonSequentialDetectorViewRequestDto request,
+        CancellationToken cancellationToken)
     {
         var length = frame.PixelsX * frame.PixelsY;
         var selectedWavelengths = request.WavelengthNumber > 0
@@ -490,6 +699,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         var values = new double[length];
         foreach (var wavelength in selectedWavelengths)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (request.DataType == NonSequentialDetectorDataType.HitCount)
             {
                 var hitMap = request.Space == NonSequentialDetectorSpace.Angle
@@ -513,10 +723,34 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         }
         else if (request.DataType == NonSequentialDetectorDataType.RadiantIntensity)
         {
-            var solidAngle = Math.PI / frame.PixelsX * Math.PI / frame.PixelsY;
-            for (var index = 0; index < length; index++) values[index] /= solidAngle;
+            for (var y = 0; y < frame.PixelsY; y++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                for (var x = 0; x < frame.PixelsX; x++)
+                {
+                    var solidAngle = AngularPixelSolidAngle(x, y, frame.PixelsX, frame.PixelsY);
+                    values[y * frame.PixelsX + x] /= solidAngle;
+                }
+            }
         }
         return values;
+    }
+
+    private static double AngularPixelSolidAngle(int x, int y, int pixelsX, int pixelsY)
+    {
+        var alpha0 = -Math.PI / 2 + x * Math.PI / pixelsX;
+        var alpha1 = -Math.PI / 2 + (x + 1) * Math.PI / pixelsX;
+        var beta0 = -Math.PI / 2 + y * Math.PI / pixelsY;
+        var beta1 = -Math.PI / 2 + (y + 1) * Math.PI / pixelsY;
+        var u0 = Math.Tan(alpha0);
+        var u1 = Math.Tan(alpha1);
+        var v0 = Math.Tan(beta0);
+        var v1 = Math.Tan(beta1);
+        var value = Corner(u1, v1) - Corner(u0, v1) - Corner(u1, v0) + Corner(u0, v0);
+        return Math.Max(1e-15, Math.Abs(value));
+
+        static double Corner(double u, double v) =>
+            Math.Atan2(u * v, Math.Sqrt(1 + u * u + v * v));
     }
 
     private static NonSequentialDetectorStatisticsDto Statistics(
@@ -526,7 +760,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         double xMin,
         double xMax,
         double yMin,
-        double yMax)
+        double yMax,
+        CancellationToken cancellationToken)
     {
         var total = values.Sum();
         var centroidX = 0.0;
@@ -534,12 +769,15 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         if (total > 0)
         {
             for (var y = 0; y < frame.PixelsY; y++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
                 for (var x = 0; x < frame.PixelsX; x++)
                 {
                     var weight = values[y * frame.PixelsX + x];
                     centroidX += (xMin + (x + 0.5) * (xMax - xMin) / frame.PixelsX) * weight;
                     centroidY += (yMin + (y + 0.5) * (yMax - yMin) / frame.PixelsY) * weight;
                 }
+            }
             centroidX /= total;
             centroidY /= total;
         }
@@ -548,6 +786,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         if (total > 0)
         {
             for (var y = 0; y < frame.PixelsY; y++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
                 for (var x = 0; x < frame.PixelsX; x++)
                 {
                     var weight = values[y * frame.PixelsX + x];
@@ -556,6 +796,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                     varianceX += (px - centroidX) * (px - centroidX) * weight;
                     varianceY += (py - centroidY) * (py - centroidY) * weight;
                 }
+            }
         }
         var maximum = values.Count == 0 ? 0 : values.Max();
         var minimum = values.Count == 0 ? 0 : values.Min();
@@ -595,8 +836,48 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             {
                 Id = id,
                 ParentId = branch.ParentId is long parentId ? checked(parentId + _offset) : null,
-                Segments = branch.Segments.Select(segment => segment with { BranchId = id }).ToArray()
+                Segments = branch.Segments.Select(segment => segment with
+                {
+                    BranchId = checked(segment.BranchId + _offset)
+                }).ToArray()
             });
+        }
+    }
+
+    private sealed record FilterIndexCacheEntry(DatabaseCacheKey Key, long[] Indices);
+
+    private sealed record DetectorFrameCacheEntry(
+        DatabaseCacheKey Key,
+        IReadOnlyList<NonSequentialDetectorFrame> Frames);
+
+    private readonly record struct DatabaseCacheKey(
+        string Path,
+        long Length,
+        string DatabaseSceneHash,
+        long DatabaseCreatedUtcTicks,
+        long BranchCount,
+        long SourceRevision,
+        string Filter,
+        string SceneHash)
+    {
+        public static DatabaseCacheKey Create(
+            string path,
+            string? filter,
+            string sceneHash,
+            long length,
+            NonSequentialRayDatabaseHeader header,
+            long branchCount)
+        {
+            var fullPath = System.IO.Path.GetFullPath(path);
+            return new DatabaseCacheKey(
+                fullPath,
+                length,
+                header.SceneHash,
+                header.CreatedUtc.UtcTicks,
+                branchCount,
+                header.SourceRevision,
+                filter?.Trim() ?? string.Empty,
+                sceneHash);
         }
     }
 }

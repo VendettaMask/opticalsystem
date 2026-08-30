@@ -40,6 +40,21 @@ public sealed class SeidelCoefficientsAnalysisTests
     }
 
     [Fact]
+    public void SurfacePresentationNamesDoNotSelectImageRow()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var baseline = new SeidelCoefficientsAnalysis(optic).GenerateData();
+
+        optic.SurfaceGroup.Items[1].Label = "Image";
+        optic.SurfaceGroup.Items[^1].Label = "Sensor plane";
+        var relabeled = new SeidelCoefficientsAnalysis(optic).GenerateData();
+
+        Assert.Equal(
+            baseline.Table!.Rows.Select(row => row[0]),
+            relabeled.Table!.Rows.Select(row => row[0]));
+    }
+
+    [Fact]
     public void DiagramProvidesSevenBarSeriesAndTotalGroup()
     {
         var optic = Optic.CreateCookeTriplet();

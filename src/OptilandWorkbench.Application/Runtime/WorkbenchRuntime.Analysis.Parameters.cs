@@ -45,7 +45,7 @@ public partial class WorkbenchRuntime
                 $"{index + 1} - {field.Label}").ToArray();
         var fftSamplingChoices = new[]
         {
-            "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384"
+            "32", "64", "128", "256", "512", "1024"
         };
         if (!WorkbenchAnalysisCatalog.TryGetDescriptor(analysisName, out var descriptor))
         {
@@ -604,7 +604,7 @@ public partial class WorkbenchRuntime
             },
             "Through Focus MTF" => new[]
             {
-                ChoiceParameter("Sampling", "采样", "64", new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" }),
+                ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),
                 DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
                 DoubleParameter("Frequency", "频率 (cycles/mm)", "0", 0, 10000, 1),
                 IntParameter("NumberOfSteps", "步长数", "5", 1, 101),
@@ -616,7 +616,7 @@ public partial class WorkbenchRuntime
             },
             "Fourier Through Focus MTF" => new[]
             {
-                ChoiceParameter("Sampling", "采样", "64", new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" }),
+                ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),
                 DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
                 DoubleParameter("Frequency", "频率 (cycles/mm)", "0", 0, 10000, 1),
                 IntParameter("NumberOfSteps", "步长数", "5", 1, 101),
@@ -1275,8 +1275,8 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Reference", "参考", "主光线", new[] { "主光线", "质心" }),
                 ChoiceParameter("ImageFlip", "翻转图像", "无", new[] { "无", "水平", "垂直", "水平和垂直" }),
                 DoubleParameter("PixelSize", "像素大小", "0", 0, 1_000_000, 0.001),
-                IntParameter("DetectorXPixels", "X 像素", "0", 0, 16_000),
-                IntParameter("DetectorYPixels", "Y 像素", "0", 0, 16_000),
+                IntParameter("DetectorXPixels", "X 像素", "0", 0, AnalysisResourceLimits.MaximumImageDimension),
+                IntParameter("DetectorYPixels", "Y 像素", "0", 0, AnalysisResourceLimits.MaximumImageDimension),
                 BoolParameter("CompressFrame", "压缩框架", "false"),
                 FileParameter("OutputFile", "输出文件"),
                 IntParameter("EigenPsfComponents", "EigenPSF 分量数", "3", 1, 12),

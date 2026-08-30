@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
@@ -62,6 +63,11 @@ internal static partial class PythonOptilandJsonWriter
 
     public static async Task SaveAsync(Optic optic, string path, CancellationToken cancellationToken = default)
     {
-        await File.WriteAllTextAsync(path, Serialize(optic), cancellationToken);
+        await BoundedFile.WriteAllTextAtomicAsync(
+            path,
+            Serialize(optic),
+            BoundedFile.MaximumOpticalDocumentBytes,
+            "Python Optiland JSON document",
+            cancellationToken).ConfigureAwait(false);
     }
 }

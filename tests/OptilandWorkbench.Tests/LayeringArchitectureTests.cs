@@ -61,8 +61,11 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
-    public void LegacyConnectorAddsNoMembersAndDelegatesToTheCanonicalRuntime()
+    public void LegacyConnectorLivesInTheCompatibilityAssemblyAndAddsNoMembers()
     {
+        Assert.Equal(
+            "OptilandWorkbench.Compatibility",
+            typeof(OptilandConnector).Assembly.GetName().Name);
         Assert.Equal(typeof(WorkbenchRuntime), typeof(OptilandConnector).BaseType);
 
         var declaredMethods = typeof(OptilandConnector).GetMethods(
@@ -72,6 +75,40 @@ public sealed class LayeringArchitectureTests
             | BindingFlags.Static
             | BindingFlags.DeclaredOnly);
         Assert.Empty(declaredMethods);
+        Assert.DoesNotContain(
+            typeof(IWorkbenchApplication).Assembly.GetReferencedAssemblies(),
+            reference => reference.Name == typeof(OptilandConnector).Assembly.GetName().Name);
+    }
+
+    [Fact]
+    public void MainApplicationProjectDoesNotCompileTheLegacyNamespace()
+    {
+        var applicationRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.Application");
+        var legacyFiles = Directory.EnumerateFiles(applicationRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => File.ReadAllText(path).Contains(
+                "namespace OptilandWorkbench.Application.Legacy",
+                StringComparison.Ordinal))
+            .ToArray();
+
+        Assert.Empty(legacyFiles);
+    }
+
+    [Fact]
+    public void GlobalNumericInputStyleKeepsSpinnerControlsAvailable()
+    {
+        var appSource = File.ReadAllText(Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.App",
+            "App.cs"));
+
+        Assert.DoesNotContain(
+            "new Setter(NumericUpDown.ShowButtonSpinnerProperty, false)",
+            appSource,
+            StringComparison.Ordinal);
     }
 
     [Fact]
@@ -181,6 +218,26 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
+    public void AppUiTableDensityUsesSharedTokens()
+    {
+        var appRoot = Path.Combine(FindRepositoryRoot(), "src", "OptilandWorkbench.App");
+        var literalTableHeights = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => File.ReadLines(path)
+                .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
+            .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
+                item.Line,
+                @"\b(?:RowHeight|ColumnHeaderHeight)\s*=\s*\d"))
+            .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
+
+        Assert.True(
+            literalTableHeights.Length == 0,
+            "Use UiDensity table tokens instead of literal row/header heights:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, literalTableHeights));
+    }
+
+    [Fact]
     public void DockDocumentsDoNotRestoreLargeFixedMinimumWidths()
     {
         var appRoot = Path.Combine(
@@ -215,8 +272,8 @@ public sealed class LayeringArchitectureTests
             + string.Join(Environment.NewLine, violations));
 
         var mainWindow = File.ReadAllText(Path.Combine(appRoot, "MainWindow.cs"));
-        Assert.Contains("MinWidth = 720;", mainWindow);
-        Assert.Contains("Math.Clamp(_settings.WindowWidth, 720, 4096)", mainWindow);
+        Assert.Contains("MinWidth = 640;", mainWindow);
+        Assert.Contains("Math.Clamp(_settings.WindowWidth, 640, 4096)", mainWindow);
     }
 
     [Fact]

@@ -77,7 +77,8 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         operand.PupilSampling,
                         operand.SpatialFrequency,
                         operand.IgnoreLateralColor,
-                        operand.PolychromaticReference);
+                        operand.PolychromaticReference,
+                        operand.CompatibilityOnly);
                 })
                 .ToArray();
         }
@@ -89,7 +90,8 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             operands.Select(operand =>
             {
                 var type = MeritFunctionCatalog.CanonicalType(operand.Type);
-                var preservesZemaxSlots = MeritFunctionCatalog.HasOpaqueZemaxParameters(type);
+                var preservesZemaxSlots = operand.CompatibilityOnly
+                    || MeritFunctionCatalog.HasOpaqueZemaxParameters(type);
                 return new MeritOperandDefinition
                 {
                     Enabled = preservesZemaxSlots ? false : operand.Enabled,
@@ -117,7 +119,14 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         ? Math.Max(0, operand.SpatialFrequency)
                         : 30,
                     IgnoreLateralColor = operand.IgnoreLateralColor,
-                    PolychromaticReference = operand.PolychromaticReference
+                    PolychromaticReference = operand.PolychromaticReference,
+                    CompatibilityOnly = preservesZemaxSlots,
+                    ZemaxIntegerParameters = preservesZemaxSlots
+                        ? [operand.Surface, operand.Wavelength]
+                        : [],
+                    ZemaxDataParameters = preservesZemaxSlots
+                        ? [operand.Hx, operand.Hy, operand.Px, operand.Py]
+                        : []
                 };
             })));
     }
@@ -136,7 +145,10 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                 OptimizationImageQuality.RmsSpot => MeritImageQuality.RmsSpot,
                 OptimizationImageQuality.Contrast => MeritImageQuality.Contrast,
                 OptimizationImageQuality.Angular => MeritImageQuality.Angular,
-                _ => throw new ArgumentOutOfRangeException(nameof(settings.ImageQuality))
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(settings),
+                    settings.ImageQuality,
+                    "The optimization image-quality mode is invalid.")
             },
             settings.PupilSampling == OptimizationPupilSampling.RectangularArray
                 ? MeritPupilSampling.RectangularArray

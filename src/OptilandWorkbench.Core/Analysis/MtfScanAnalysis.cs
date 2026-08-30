@@ -1167,13 +1167,5 @@ internal static class MtfMethodEvaluator
     }
 
     private static int NextPowerOfTwo(int value)
-    {
-        var result = 1;
-        while (result < value)
-        {
-            result <<= 1;
-        }
-
-        return result;
-    }
+        => AnalysisResourceLimits.RoundUpPowerOfTwo(value, nameof(value));
 }

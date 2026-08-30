@@ -95,6 +95,8 @@
 | 普通边框 | 1 |
 | 卡片阴影 | 统一使用 `SettingsPanelChrome.CardShadow`，不新增局部阴影参数 |
 
+上述控件与表格尺寸必须从 `UiDensity` 读取；普通 UI 不得为 `DataGrid.RowHeight` 或 `ColumnHeaderHeight` 新增数字字面量。工具内确有不同密度时，应先增加具名语义令牌并说明使用边界。
+
 约束：
 
 - 普通设置卡片、工具卡片、状态卡片、预览卡片和可编辑表面必须通过 `SettingsPanelChrome.ApplySurfaceCardStyle`、`SettingsPanelChrome.ApplyCardStyle` 或等价公共组件获得卡片圆角、边框、主题背景和阴影。
@@ -116,6 +118,8 @@
 - 分析结果底部信息区这类产品级固定 chrome；
 - 方形二维空间图的正方形约束。
 
+查看器和分析设置浮层的字段布局必须响应容器宽度。两列设置应使用 `ResponsiveSettingsGrid` 或等价断点容器，在窄于400px时保持原阅读顺序重排为单列，不得靠固定字段宽度后被父容器裁切。
+
 禁止：
 
 - 用 `Viewbox` 包住含文字的 UI 来适配窗口。
@@ -129,7 +133,7 @@
 - 设置项按两列字段阅读，底部保留自动应用、应用、确定/取消或重置等操作区。
 - 参数数量较少时，卡片宽度由内容决定；不得用横向 `WrapPanel` 把字段从左到右排到窗口最右侧。
 - 双栏文档使用容器断点：材料、目录和详情页在可用宽度不足时改为上下排列，不能用横向滚动代替重排。
-- 主窗口支持 720px 最小宽度；Ribbon 可横向滚动，Dock 文档不得设置 500px 及以上的内容 `MinWidth`。
+- 主窗口支持 640px 最小宽度；Ribbon 可横向滚动，Dock 文档不得设置 500px 及以上的内容 `MinWidth`。
 
 分析图布局：
 

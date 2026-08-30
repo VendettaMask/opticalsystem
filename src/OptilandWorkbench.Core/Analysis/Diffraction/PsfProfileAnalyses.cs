@@ -215,7 +215,8 @@ internal static class PsfProfilePresentation
                     0,
                     AnalysisLineStyle.Solid,
                     normalize: false,
-                    logarithmic)
+                    logarithmic,
+                    independentAxisIsX: true)
             }
             : profileType.StartsWith("Y", StringComparison.OrdinalIgnoreCase)
                 ? new[]
@@ -226,7 +227,8 @@ internal static class PsfProfilePresentation
                         0,
                         AnalysisLineStyle.Solid,
                         normalize: false,
-                        logarithmic)
+                        logarithmic,
+                        independentAxisIsX: false)
                 }
                 : new[]
                 {
@@ -236,14 +238,16 @@ internal static class PsfProfilePresentation
                         0,
                         AnalysisLineStyle.Solid,
                         normalize: true,
-                        logarithmic: false),
+                        logarithmic: false,
+                        independentAxisIsX: true),
                     CreateProfileSeries(
                         vertical,
                         "Y 截面",
                         1,
                         AnalysisLineStyle.Dashed,
                         normalize: true,
-                        logarithmic: false)
+                        logarithmic: false,
+                        independentAxisIsX: false)
                 };
         var values = CopyValues(source, ("Display", "Cross Section")).ToDictionary(
             item => item.Key,
@@ -413,11 +417,10 @@ internal static class PsfProfilePresentation
         int colorIndex,
         AnalysisLineStyle lineStyle,
         bool normalize,
-        bool logarithmic)
+        bool logarithmic,
+        bool independentAxisIsX)
     {
-        var axisLabel = name.StartsWith("Y", StringComparison.OrdinalIgnoreCase)
-            ? "Y-位置 µm"
-            : "X-位置 µm";
+        var axisLabel = independentAxisIsX ? "X-位置 µm" : "Y-位置 µm";
         return new AnalysisSeries(
             axisLabel,
             logarithmic ? "相对辐射照度 (dB)" : "相对辐射照度",

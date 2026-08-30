@@ -77,17 +77,27 @@ public interface INonSequentialAnalysisService
         NonSequentialTraceRunRequestDto request,
         CancellationToken cancellationToken = default);
 
-    void ClearDetectors();
+    Task ClearDetectorsAsync(CancellationToken cancellationToken = default);
 
     NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null);
+
+    NonSequentialRayDatabaseDto InspectRayDatabase(
+        string path,
+        string? pathFilterExpression = null,
+        CancellationToken cancellationToken = default);
+
+    void SelectRayDatabase(string path, string? pathFilterExpression = null);
 
     NonSequentialRayDatabasePageDto GetRayDatabasePage(
         string? path = null,
         int pageIndex = 0,
         int pageSize = 100,
-        string? pathFilterExpression = null);
+        string? pathFilterExpression = null,
+        CancellationToken cancellationToken = default);
 
-    NonSequentialDetectorViewDto GetDetectorView(NonSequentialDetectorViewRequestDto request);
+    NonSequentialDetectorViewDto GetDetectorView(
+        NonSequentialDetectorViewRequestDto request,
+        CancellationToken cancellationToken = default);
 }
 
 public interface IOpticalDocumentService

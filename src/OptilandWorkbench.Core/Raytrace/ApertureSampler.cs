@@ -18,7 +18,11 @@ public sealed record PupilSample(double X, double Y, double Weight);
 
 public static class ApertureSampler
 {
-    private const int MaximumCachedSamplingPlans = 512;
+    public const int MaximumPupilSampleCount = 1_000_000;
+    public const int MaximumHexapolarRings = 576;
+
+    private const int MaximumCachedSamplingPlans = 128;
+    private const int MaximumCacheableSampleCount = 4_096;
     private static readonly ConcurrentDictionary<GaussianSamplingKey, IReadOnlyList<PupilSample>>
         GaussianCache = new();
     private static readonly ConcurrentDictionary<int, IReadOnlyList<PupilSample>> HexapolarRingCache = new();
@@ -119,7 +123,26 @@ public static class ApertureSampler
 
     public static IReadOnlyList<PupilSample> GenerateHexapolarRings(int numRings)
     {
-        numRings = Math.Max(0, numRings);
+        if (numRings is < 0 or > MaximumHexapolarRings)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(numRings),
+                $"Hexapolar ring count must be between 0 and {MaximumHexapolarRings}.");
+        }
+
+        var sampleCount = checked(1L + (3L * numRings * (numRings + 1L)));
+        if (sampleCount > MaximumPupilSampleCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(numRings),
+                $"Hexapolar sampling cannot exceed {MaximumPupilSampleCount:N0} pupil samples.");
+        }
+
+        if (sampleCount > MaximumCacheableSampleCount)
+        {
+            return BuildHexapolarRings(numRings);
+        }
+
         TrimSamplingCachesIfNeeded();
         return HexapolarRingCache.GetOrAdd(numRings, static rings => BuildHexapolarRings(rings));
     }
@@ -145,7 +168,23 @@ public static class ApertureSampler
 
     public static IReadOnlyList<PupilSample> Generate(int sampleCount, PupilSampling sampling, int seed = 1234)
     {
-        sampleCount = Math.Max(1, sampleCount);
+        if (sampleCount is < 1 or > MaximumPupilSampleCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(sampleCount),
+                $"Pupil sample count must be between 1 and {MaximumPupilSampleCount:N0}.");
+        }
+
+        if (!Enum.IsDefined(sampling))
+        {
+            throw new ArgumentOutOfRangeException(nameof(sampling));
+        }
+
+        if (sampleCount > MaximumCacheableSampleCount)
+        {
+            return Build(sampleCount, sampling, seed);
+        }
+
         TrimSamplingCachesIfNeeded();
         return SamplingCache.GetOrAdd(
             new SamplingKey(sampleCount, sampling, seed),
@@ -165,7 +204,8 @@ public static class ApertureSampler
             PupilSampling.LineX => LineX(sampleCount),
             PupilSampling.LineY => LineY(sampleCount),
             PupilSampling.Ring => Ring(sampleCount),
-            _ => UniformGrid(sampleCount)
+            PupilSampling.UniformGrid => UniformGrid(sampleCount),
+            _ => throw new ArgumentOutOfRangeException(nameof(sampling))
         };
         return samples is PupilSample[] array
             ? Array.AsReadOnly(array)
@@ -215,28 +255,32 @@ public static class ApertureSampler
     private static IReadOnlyList<PupilSample> Random(int sampleCount, int seed)
     {
         var random = new Random(seed);
-        return Enumerable.Range(0, sampleCount)
-            .Select(_ =>
-            {
-                var radius = Math.Sqrt(random.NextDouble());
-                var angle = random.NextDouble() * 2 * Math.PI;
-                return new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
-            })
-            .ToArray();
+        var samples = new PupilSample[sampleCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var radius = Math.Sqrt(random.NextDouble());
+            var angle = random.NextDouble() * 2 * Math.PI;
+            samples[index] = new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
+        }
+
+        return samples;
     }
 
     private static IReadOnlyList<PupilSample> SobolLike(int sampleCount)
     {
-        return Enumerable.Range(0, sampleCount)
-            .Select(index =>
-            {
-                var u = VanDerCorput(index + 1, 2);
-                var v = VanDerCorput(index + 1, 3);
-                var radius = Math.Sqrt(u);
-                var angle = 2 * Math.PI * v;
-                return new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
-            })
-            .ToArray();
+        var samples = new PupilSample[sampleCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var u = VanDerCorput(index + 1, 2);
+            var v = VanDerCorput(index + 1, 3);
+            var radius = Math.Sqrt(u);
+            var angle = 2 * Math.PI * v;
+            samples[index] = new PupilSample(radius * Math.Cos(angle), radius * Math.Sin(angle), 1);
+        }
+
+        return samples;
     }
 
     private static IReadOnlyList<PupilSample> LineX(int sampleCount)
@@ -246,9 +290,14 @@ public static class ApertureSampler
             return new[] { new PupilSample(0, 0, 1) };
         }
 
-        return Enumerable.Range(0, sampleCount)
-            .Select(index => new PupilSample(-1 + (2.0 * index / (sampleCount - 1)), 0, 1))
-            .ToArray();
+        var samples = new PupilSample[sampleCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            samples[index] = new PupilSample(-1 + (2.0 * index / (sampleCount - 1)), 0, 1);
+        }
+
+        return samples;
     }
 
     private static IReadOnlyList<PupilSample> LineY(int sampleCount)
@@ -258,20 +307,27 @@ public static class ApertureSampler
             return new[] { new PupilSample(0, 0, 1) };
         }
 
-        return Enumerable.Range(0, sampleCount)
-            .Select(index => new PupilSample(0, -1 + (2.0 * index / (sampleCount - 1)), 1))
-            .ToArray();
+        var samples = new PupilSample[sampleCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            samples[index] = new PupilSample(0, -1 + (2.0 * index / (sampleCount - 1)), 1);
+        }
+
+        return samples;
     }
 
     private static IReadOnlyList<PupilSample> Ring(int sampleCount)
     {
-        return Enumerable.Range(0, sampleCount)
-            .Select(index =>
-            {
-                var angle = 2 * Math.PI * index / sampleCount;
-                return new PupilSample(Math.Cos(angle), Math.Sin(angle), 1);
-            })
-            .ToArray();
+        var samples = new PupilSample[sampleCount];
+        for (var index = 0; index < samples.Length; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var angle = 2 * Math.PI * index / sampleCount;
+            samples[index] = new PupilSample(Math.Cos(angle), Math.Sin(angle), 1);
+        }
+
+        return samples;
     }
 
     private static double VanDerCorput(int n, int basis)

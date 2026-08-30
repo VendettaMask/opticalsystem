@@ -1,4 +1,5 @@
 using Avalonia.Automation.Peers;
+using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -38,10 +39,34 @@ internal static class InteractiveCanvasKeyboard
     }
 }
 
-internal sealed class InteractiveCanvasAutomationPeer(Control owner) : ControlAutomationPeer(owner)
+public interface IInteractiveCanvasAutomationSource
 {
+    string AutomationValue { get; }
+
+    void InvokeAutomationAction();
+}
+
+internal sealed class InteractiveCanvasAutomationPeer : ControlAutomationPeer, IInvokeProvider, IValueProvider
+{
+    private readonly IInteractiveCanvasAutomationSource _source;
+
+    public InteractiveCanvasAutomationPeer(Control owner) : base(owner)
+    {
+        _source = owner as IInteractiveCanvasAutomationSource
+            ?? throw new ArgumentException("Interactive canvas must expose an automation source.", nameof(owner));
+    }
+
     protected override AutomationControlType GetAutomationControlTypeCore() =>
         AutomationControlType.Custom;
+
+    void IInvokeProvider.Invoke() => _source.InvokeAutomationAction();
+
+    bool IValueProvider.IsReadOnly => true;
+
+    string IValueProvider.Value => _source.AutomationValue;
+
+    void IValueProvider.SetValue(string? value) =>
+        throw new InvalidOperationException("Interactive canvas automation values are read-only.");
 }
 
 internal static class InteractiveCanvasFocus

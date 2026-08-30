@@ -115,6 +115,7 @@ public static class ImageSimulationEngine
         int width = 96,
         int height = 64)
     {
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Built-in source image");
         return pattern switch
         {
             ImageSimulationSourcePattern.ResolutionTarget => CreateResolutionTarget(width, height),
@@ -127,10 +128,7 @@ public static class ImageSimulationEngine
     public static ImageSimulationResult Simulate(Optic optic, RgbImage source, ImageSimulationConfig? config = null)
     {
         config ??= new ImageSimulationConfig();
-        if (source.Channels is not (1 or 3))
-        {
-            throw new ArgumentException("Source image must contain one or three channels.", nameof(source));
-        }
+        AnalysisResourceLimits.ValidateImageSimulation(source, config);
 
         if (config.WavelengthsMicrometers.Count == 0)
         {
@@ -142,8 +140,8 @@ public static class ImageSimulationEngine
             source.Values,
             config.SourceFlip,
             config.SourceRotationDegrees);
-        var oversampled = NearestNeighborOversample(orientedSource, Math.Clamp(config.Oversampling, 1, 16));
-        var prepared = ZeroPad(oversampled, Math.Max(0, config.Padding));
+        var oversampled = NearestNeighborOversample(orientedSource, config.Oversampling);
+        var prepared = ZeroPad(oversampled, config.Padding);
         var (halfFieldX, halfFieldY) = ResolveNormalizedFieldExtent(
             workingOptic,
             config.FieldHeight,
@@ -259,6 +257,7 @@ public static class ImageSimulationEngine
     {
         width = Math.Max(16, width);
         height = Math.Max(16, height);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Test chart");
         var values = new double[3, height, width];
         var patches = new[]
         {
@@ -303,6 +302,7 @@ public static class ImageSimulationEngine
     {
         width = Math.Max(16, width);
         height = Math.Max(16, height);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Resolution target");
         var values = new double[3, height, width];
         for (var row = 0; row < height; row++)
         {
@@ -331,6 +331,7 @@ public static class ImageSimulationEngine
     {
         width = Math.Max(16, width);
         height = Math.Max(16, height);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Distortion grid");
         var values = new double[3, height, width];
         var spacing = Math.Max(4, Math.Min(width, height) / 8);
         for (var row = 0; row < height; row++)
@@ -357,6 +358,7 @@ public static class ImageSimulationEngine
     {
         width = Math.Max(16, width);
         height = Math.Max(16, height);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Siemens star");
         var values = new double[3, height, width];
         var centerX = (width - 1) / 2.0;
         var centerY = (height - 1) / 2.0;
@@ -394,6 +396,11 @@ public static class ImageSimulationEngine
 
     public static PsfBasisResult GenerateBasis(Optic optic, Wavelength wavelength, ImageSimulationConfig config)
     {
+        AnalysisResourceLimits.ValidatePsfConfiguration(config);
+        AnalysisResourceLimits.ValidateImageDimensions(
+            Math.Max(1, config.ImageWidth),
+            Math.Max(1, config.ImageHeight),
+            "PSF basis image field");
         var (halfFieldX, halfFieldY) = ResolveNormalizedFieldExtent(
             optic,
             config.FieldHeight,
@@ -421,8 +428,8 @@ public static class ImageSimulationEngine
         double halfFieldY,
         double pixelPitchMillimeters)
     {
-        var rows = Math.Max(2, config.PsfGridRows);
-        var columns = Math.Max(2, config.PsfGridColumns);
+        var rows = config.PsfGridRows;
+        var columns = config.PsfGridColumns;
         var psfCount = rows * columns;
         var featureCount = config.PsfSize * config.PsfSize;
         var psfs = new double[psfCount, featureCount];
@@ -433,12 +440,16 @@ public static class ImageSimulationEngine
         {
             var minimumY = Math.Max(-1, config.FieldCenterY - halfFieldY);
             var maximumY = Math.Min(1, config.FieldCenterY + halfFieldY);
-            var hy = minimumY + ((maximumY - minimumY) * row / (rows - 1));
+            var hy = rows == 1
+                ? (minimumY + maximumY) / 2
+                : minimumY + ((maximumY - minimumY) * row / (rows - 1));
             for (var column = 0; column < columns; column++)
             {
                 var minimumX = Math.Max(-1, config.FieldCenterX - halfFieldX);
                 var maximumX = Math.Min(1, config.FieldCenterX + halfFieldX);
-                var hx = minimumX + ((maximumX - minimumX) * column / (columns - 1));
+                var hx = columns == 1
+                    ? (minimumX + maximumX) / 2
+                    : minimumX + ((maximumX - minimumX) * column / (columns - 1));
                 var requestedMode = NormalizeAberrationMode(config.AberrationMode);
                 (double[,] Psf, double RmsRadiusMillimeters)? geometric = requestedMode is "Geometric" or "Diffraction"
                     ? ComputeGeometricPsf(
@@ -481,7 +492,9 @@ public static class ImageSimulationEngine
                             config.PsfSize,
                             pixelPitchMillimeters).Values;
                     }
-                    catch (Exception exception) when (exception is not OperationCanceledException)
+                    catch (Exception exception) when (exception is InvalidOperationException
+                        or ArgumentException
+                        or ArithmeticException)
                     {
                         values = geometric.Value.Psf;
                         actualMode = "Geometric";
@@ -740,7 +753,9 @@ public static class ImageSimulationEngine
                 return pitch;
             }
         }
-        catch (Exception exception) when (exception is not OperationCanceledException)
+        catch (Exception exception) when (exception is InvalidOperationException
+            or ArgumentException
+            or ArithmeticException)
         {
         }
 

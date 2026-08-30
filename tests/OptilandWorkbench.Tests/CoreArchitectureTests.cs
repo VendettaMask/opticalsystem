@@ -1,6 +1,7 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Scattering;
@@ -43,6 +44,26 @@ public sealed class CoreArchitectureTests
                 Assert.True(double.IsFinite(segment.End.Y));
             });
         });
+    }
+
+    [Fact]
+    public void ParaxialTraceUsesFirstSurfaceRoleInsteadOfPresentationLabel()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wavelength = optic.Wavelengths.First(item => item.IsPrimary).Micrometers;
+        var baseline = optic.Paraxial.MarginalRay(wavelength);
+
+        optic.SurfaceGroup.Items[0].Label = "Source plane";
+        optic.SurfaceGroup.Items[1].Label = "Object";
+        optic.SurfaceGroup.Items[^1].Label = "Sensor plane";
+        var relabeled = optic.Paraxial.MarginalRay(wavelength);
+
+        Assert.Equal(
+            baseline.Heights.SelectMany(values => values),
+            relabeled.Heights.SelectMany(values => values));
+        Assert.Equal(
+            baseline.Slopes.SelectMany(values => values),
+            relabeled.Slopes.SelectMany(values => values));
     }
 
     [Fact]
@@ -222,6 +243,22 @@ public sealed class CoreArchitectureTests
         Assert.True(undoRedo.TryUndo(optic));
         Assert.Single(optic.Pickups.RadiusPickups);
         Assert.Equal(42, optic.Solves.DesiredBackFocus, precision: 12);
+    }
+
+    [Fact]
+    public void BackFocusSolveUsesImageSurfaceRoleInsteadOfEnglishLabel()
+    {
+        var optic = Optic.CreateDemo();
+        optic.SurfaceGroup.Items[^1].Label = "像面";
+        optic.Solves.KeepImageAtBackFocus = true;
+        optic.Solves.DesiredBackFocus = 75;
+
+        optic.Solves.ApplyAll();
+
+        var poweredTrack = optic.SurfaceGroup.Items.Take(optic.SurfaceGroup.Items.Count - 1)
+            .Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
+            .Sum(surface => surface.Thickness);
+        Assert.Equal(Math.Max(0, 75 - poweredTrack), optic.SurfaceGroup.Items[^1].Thickness, 12);
     }
 
     [Fact]

@@ -235,6 +235,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 "实光线",
                 sample.SurfaceNumber,
                 sample.SurfaceLabel,
+                ReferenceEquals(surface, Optic.SurfaceGroup.Items[0]),
                 position,
                 direction,
                 normal,
@@ -304,6 +305,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 "近轴光线",
                 surface.Number,
                 surface.Label,
+                index == 0,
                 position,
                 direction,
                 normal,
@@ -472,8 +474,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             },
             rows.Select(row => (IReadOnlyList<string>)new[]
             {
-                row.SurfaceNumber == 0
-                    || row.SurfaceLabel.Equals("Object", StringComparison.OrdinalIgnoreCase)
+                row.IsObjectSurface
                         ? "OBJ"
                         : row.SurfaceNumber.ToString(CultureInfo.InvariantCulture),
                 Format(row.Position.X),
@@ -548,11 +549,9 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
 
     private static string ZemaxReportRow(TraceDisplayRow row)
     {
-        var isObject = row.SurfaceNumber == 0
-            || row.SurfaceLabel.Equals("Object", StringComparison.OrdinalIgnoreCase);
         return string.Join('\t', new[]
         {
-            isObject ? "OBJ" : row.SurfaceNumber.ToString(CultureInfo.InvariantCulture),
+            row.IsObjectSurface ? "OBJ" : row.SurfaceNumber.ToString(CultureInfo.InvariantCulture),
             ZemaxCoordinate(row.Position.X),
             ZemaxCoordinate(row.Position.Y),
             ZemaxCoordinate(row.Position.Z),
@@ -650,6 +649,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
         string Section,
         int SurfaceNumber,
         string SurfaceLabel,
+        bool IsObjectSurface,
         Vector3D Position,
         Vector3D Direction,
         Vector3D Normal,

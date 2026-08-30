@@ -19,25 +19,42 @@ public static class SpecificationValidator
     {
         ArgumentNullException.ThrowIfNull(specification);
         var errors = new List<string>();
+        var budget = specification.Budget ?? new SearchBudget();
 
         if (specification.SchemaVersion != InitialStructureSpecification.CurrentSchemaVersion)
         {
             errors.Add($"unsupported schema version {specification.SchemaVersion}");
         }
 
-        if (string.IsNullOrWhiteSpace(specification.Name))
+        if (!Enum.IsDefined(specification.Conjugate))
         {
-            errors.Add("name is required");
+            errors.Add("object conjugate mode is invalid");
+        }
+
+        if (string.IsNullOrWhiteSpace(specification.Name)
+            || specification.Name.Length > InitialStructureLimits.MaximumNameLength)
+        {
+            errors.Add($"name is required and cannot exceed {InitialStructureLimits.MaximumNameLength} characters");
         }
 
         Positive(specification.EffectiveFocalLengthMillimeters, "effective focal length", errors);
         Positive(specification.FNumber, "F-number", errors);
         FiniteNonNegative(specification.MaximumFieldAngleDegrees, "maximum field angle", errors);
+        if (specification.MaximumFieldAngleDegrees > InitialStructureLimits.MaximumFieldAngleDegrees)
+        {
+            errors.Add($"maximum field angle cannot exceed {InitialStructureLimits.MaximumFieldAngleDegrees} degrees");
+        }
         Positive(specification.MaximumTrackLengthMillimeters, "maximum track length", errors);
         Positive(specification.MinimumCenterThicknessMillimeters, "minimum center thickness", errors);
         Positive(specification.MinimumAirGapMillimeters, "minimum air gap", errors);
         Positive(specification.MinimumBackFocusMillimeters, "minimum back focus", errors);
         Positive(specification.SemiDiameterMarginFactor, "semi-diameter margin factor", errors);
+        Positive(specification.MaximumRmsSpotRadiusMillimeters, "maximum RMS spot radius", errors);
+        Positive(specification.MaximumSpotRadiusMillimeters, "maximum spot radius", errors);
+        if (specification.MaximumSpotRadiusMillimeters < specification.MaximumRmsSpotRadiusMillimeters)
+        {
+            errors.Add("maximum spot radius cannot be smaller than maximum RMS spot radius");
+        }
 
         if (specification.MinimumElementCount is < 3 or > 8)
         {
@@ -59,10 +76,21 @@ public static class SpecificationValidator
             + ((specification.MaximumElementCount - 1)
                 * specification.MinimumAirGapMillimeters)
             + specification.MinimumBackFocusMillimeters;
-        if (double.IsFinite(minimumTrack)
-            && specification.MaximumTrackLengthMillimeters < minimumTrack)
+        if (!double.IsFinite(minimumTrack))
+        {
+            errors.Add("minimum structural track overflows the supported numeric range");
+        }
+        else if (specification.MaximumTrackLengthMillimeters < minimumTrack)
         {
             errors.Add("maximum track length is smaller than the minimum structural track");
+        }
+
+        var apertureRadius = specification.EffectiveFocalLengthMillimeters
+            / (2 * specification.FNumber);
+        var semiDiameter = apertureRadius * specification.SemiDiameterMarginFactor;
+        if (!double.IsFinite(apertureRadius) || !double.IsFinite(semiDiameter))
+        {
+            errors.Add("focal length, F-number, and semi-diameter margin produce an unsupported aperture size");
         }
 
         if (specification.Wavelengths is not { Count: > 0 })
@@ -71,11 +99,22 @@ public static class SpecificationValidator
         }
         else
         {
+            if (specification.Wavelengths.Count > InitialStructureLimits.MaximumWavelengthCount)
+            {
+                errors.Add($"wavelength count cannot exceed {InitialStructureLimits.MaximumWavelengthCount}");
+            }
+
             var primaryCount = 0;
             for (var index = 0; index < specification.Wavelengths.Count; index++)
             {
                 var wavelength = specification.Wavelengths[index];
-                if (string.IsNullOrWhiteSpace(wavelength.Label))
+                if (wavelength is null)
+                {
+                    errors.Add($"wavelength {index + 1} is null");
+                    continue;
+                }
+                if (string.IsNullOrWhiteSpace(wavelength.Label)
+                    || wavelength.Label.Length > InitialStructureLimits.MaximumNameLength)
                 {
                     errors.Add($"wavelength {index + 1} requires a label");
                 }
@@ -99,24 +138,46 @@ public static class SpecificationValidator
             errors.Add("an initial glass is required");
         }
 
-        if (specification.Budget.InitialSeedCount <= 0)
+        else if (specification.InitialGlass.Length > InitialStructureLimits.MaximumNameLength)
         {
-            errors.Add("initial seed count must be positive");
+            errors.Add($"initial glass cannot exceed {InitialStructureLimits.MaximumNameLength} characters");
         }
 
-        if (specification.Budget.MaximumEvaluations < specification.Budget.InitialSeedCount)
+        if (specification.GlassCatalogs is null
+            || specification.GlassCatalogs.Count > InitialStructureLimits.MaximumGlassCatalogCount
+            || specification.GlassCatalogs.Any(item => string.IsNullOrWhiteSpace(item)
+                || item.Length > InitialStructureLimits.MaximumNameLength))
         {
-            errors.Add("maximum evaluations cannot be smaller than the initial seed count");
+            errors.Add("glass catalog list is too large or contains an invalid name");
         }
 
-        if (specification.Budget.MaximumParallelism <= 0)
+        if (specification.Budget is null)
         {
-            errors.Add("maximum parallelism must be positive");
+            errors.Add("search budget is required");
         }
 
-        if (specification.Budget.TimeLimit <= TimeSpan.Zero)
+        if (budget.InitialSeedCount is <= 0
+            or > InitialStructureLimits.MaximumInitialSeedCount)
         {
-            errors.Add("time limit must be positive");
+            errors.Add($"initial seed count must be between 1 and {InitialStructureLimits.MaximumInitialSeedCount}");
+        }
+
+        if (budget.MaximumEvaluations is <= 0
+            or > InitialStructureLimits.MaximumEvaluations)
+        {
+            errors.Add($"maximum evaluations must be between 1 and {InitialStructureLimits.MaximumEvaluations}");
+        }
+
+        if (budget.MaximumParallelism is <= 0
+            or > InitialStructureLimits.MaximumParallelism)
+        {
+            errors.Add($"maximum parallelism must be between 1 and {InitialStructureLimits.MaximumParallelism}");
+        }
+
+        if (budget.TimeLimit <= TimeSpan.Zero
+            || budget.TimeLimit > InitialStructureLimits.MaximumTimeLimit)
+        {
+            errors.Add($"time limit must be positive and no longer than {InitialStructureLimits.MaximumTimeLimit}");
         }
 
         if (errors.Count > 0)

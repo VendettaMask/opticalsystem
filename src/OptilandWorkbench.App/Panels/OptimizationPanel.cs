@@ -173,8 +173,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             HeadersVisibility = DataGridHeadersVisibility.Column,
             SelectionMode = DataGridSelectionMode.Extended,
             IsReadOnly = false,
-            RowHeight = 27,
-            ColumnHeaderHeight = 30,
+            RowHeight = UiDensity.CompactTableRowHeight,
+            ColumnHeaderHeight = UiDensity.TableHeaderHeight,
             FrozenColumnCount = 2,
             BorderThickness = new Avalonia.Thickness(1),
             RowBackground = new SolidColorBrush(MeritOperandRowPalette.Resolve(null))

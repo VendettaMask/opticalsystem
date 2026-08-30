@@ -254,6 +254,138 @@ public sealed class NonSequentialRayTracerTests
     }
 
     [Fact]
+    public void FresnelTerminalBranchesCarryCompleteFilterablePaths()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay);
+        var splitter = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5)),
+            Parameters = new PlaneRectangleParameters(
+                20, 20, NonSequentialSurfaceBehavior.Refractive, "Air", "N-BK7")
+        };
+        var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
+        };
+        document.Insert(0, source);
+        document.Insert(1, splitter);
+        document.Insert(2, detector);
+
+        var result = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+        var transmitted = Assert.Single(result.Branches, branch =>
+            branch.TerminationReason == NonSequentialTerminationReason.DetectorHit);
+        var reflected = Assert.Single(result.Branches, branch =>
+            branch.TerminationReason == NonSequentialTerminationReason.Escaped);
+
+        Assert.Collection(
+            transmitted.Segments,
+            segment => Assert.Equal(splitter.Id, segment.ObjectId),
+            segment => Assert.Equal(detector.Id, segment.ObjectId));
+        Assert.Equal(
+            new RayInteractionKind?[] { RayInteractionKind.Transmitted, null },
+            transmitted.Segments.Select(segment => segment.InteractionKind));
+        Assert.Equal(splitter.Id, Assert.Single(reflected.Segments).ObjectId);
+        Assert.Equal(RayInteractionKind.Reflected, reflected.Segments[0].InteractionKind);
+        Assert.True(NonSequentialPathFilter.Parse("SEQ(Q1,T2,D3)").IsMatch(document, transmitted));
+        Assert.True(NonSequentialPathFilter.Parse("SEQ(Q1,R2,E)").IsMatch(document, reflected));
+        Assert.Contains(
+            NonSequentialPathAnalyzer.Analyze(document, result.Branches),
+            path => path.FilterExpression == "SEQ(Q1,T2,D3)");
+    }
+
+    [Fact]
+    public void DatabaseReconstructionKeepsNonAbsorbingDetectorHitOnceAcrossSplitChildren()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay));
+        var monitor = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 3)),
+            Parameters = new DetectorRectangleParameters(20, 20, 8, 8, FrontOnly: true, Absorb: false)
+        };
+        document.Insert(1, monitor);
+        document.Insert(2, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5)),
+            Parameters = new PlaneRectangleParameters(
+                20, 20, NonSequentialSurfaceBehavior.Refractive, "Air", "N-BK7")
+        });
+        document.Insert(3, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
+        });
+
+        var trace = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+        var reconstructed = NonSequentialDetectorReconstruction.Reconstruct(document, trace.Branches);
+        var monitorFrame = reconstructed.Single(frame => frame.DetectorId == monitor.Id);
+
+        Assert.Equal(1, trace.Detectors.Single(frame => frame.DetectorId == monitor.Id).TotalPowerWatts, 12);
+        Assert.Equal(1, monitorFrame.TotalPowerWatts, 12);
+        Assert.Equal(1, monitorFrame.HitCountByWavelength![1].Sum());
+        Assert.Contains(
+            NonSequentialPathAnalyzer.Analyze(document, trace.Branches),
+            path => path.FilterExpression.Contains("D2", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void RelativeIntensityThresholdUsesEachSourceRaysInitialPower()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourcePoint) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourcePointParameters(
+                1e-6, 1, 0, LayoutRayCount: 10, AnalysisRayCount: 10)
+        });
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10))
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+
+        Assert.Equal(10, result.TotalBranchCount);
+        Assert.Equal(1e-6, result.EnergyBalance.DetectorPowerWatts, 15);
+        Assert.Equal(0, result.EnergyBalance.TruncatedPowerWatts, 15);
+    }
+
+    [Fact]
+    public void ActiveBranchLimitUsesQueueOccupancyAndInMemoryRetentionIsBounded()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourcePoint) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourcePointParameters(
+                1, 1, 0, LayoutRayCount: 2, AnalysisRayCount: 2)
+        });
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5)),
+            Parameters = new PlaneRectangleParameters(
+                20, 20, NonSequentialSurfaceBehavior.Refractive, "Air", "N-BK7")
+        });
+
+        var split = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(MaximumActiveBranches: 1));
+        var retained = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(
+                SplittingMode: OptilandWorkbench.Core.NonSequential.NonSequentialSplittingMode.None,
+                MaximumRetainedBranches: 1));
+
+        Assert.Equal(2, split.Branches.Count(branch => branch.ParentId is not null));
+        Assert.Single(retained.Branches);
+        Assert.Equal(2, retained.TotalBranchCount);
+    }
+
+    [Fact]
     public void SimpleStochasticSplittingIsDeterministicAndKeepsWholeRayPower()
     {
         var optic = Optic.CreateBlank();

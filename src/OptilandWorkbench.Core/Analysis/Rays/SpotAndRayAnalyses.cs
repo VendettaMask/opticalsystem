@@ -519,8 +519,7 @@ public sealed class RayFanAnalysis : BaseAnalysis
         }
 
         return optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.Number == _surfaceNumber)
-            ?? throw new ArgumentOutOfRangeException(
-                nameof(_surfaceNumber),
+            ?? throw new InvalidOperationException(
                 $"Ray Fan surface {_surfaceNumber} does not exist.");
     }
 

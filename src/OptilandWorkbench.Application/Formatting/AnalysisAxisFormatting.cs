@@ -34,6 +34,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.WattsPerSteradian => "W/sr",
         AnalysisAxisUnit.WattsPerSquareMillimeter => "W/mm²",
         AnalysisAxisUnit.PartsPerMillionPerKelvin => "10⁻⁶/K",
+        AnalysisAxisUnit.Watt => "W",
         _ => string.Empty
     };
 

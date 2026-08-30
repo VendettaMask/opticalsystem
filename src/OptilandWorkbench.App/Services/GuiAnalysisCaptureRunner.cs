@@ -16,6 +16,16 @@ internal static class GuiAnalysisCaptureRunner
 {
     private const int CaptureWidth = 1600;
     private const int CaptureHeight = 1000;
+    private static readonly JsonSerializerOptions ReadJsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+    private static readonly JsonSerializerOptions WriteJsonOptions = new()
+    {
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.Never
+    };
 
     public static async Task RunAndShutdownAsync(
         IClassicDesktopStyleApplicationLifetime desktop,
@@ -57,8 +67,11 @@ internal static class GuiAnalysisCaptureRunner
             "OPTILAND_SETTINGS_DIRECTORY",
             Path.Combine(request.OutputDirectory, ".settings"));
         var manifest = JsonSerializer.Deserialize<CaptureSettingsManifest>(
-            await File.ReadAllTextAsync(request.SettingsManifestPath),
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+            await BoundedApplicationFile.ReadAllTextAsync(
+                request.SettingsManifestPath,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "GUI capture settings"),
+            ReadJsonOptions)
             ?? throw new InvalidOperationException("GUI capture settings manifest is invalid.");
         var settingsByName = manifest.Analyses.ToDictionary(
             analysis => analysis.Name,
@@ -189,16 +202,11 @@ internal static class GuiAnalysisCaptureRunner
             started,
             DateTimeOffset.UtcNow,
             manifestRuns);
-        await File.WriteAllTextAsync(
+        await BoundedApplicationFile.WriteAllTextAtomicAsync(
             captureManifestPath,
-            JsonSerializer.Serialize(
-                result,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    DefaultIgnoreCondition = JsonIgnoreCondition.Never
-                }));
+            JsonSerializer.Serialize(result, WriteJsonOptions),
+            BoundedApplicationFile.MaximumSettingsBytes,
+            "GUI capture manifest");
         return runs.All(run => run.Status == "captured") ? 0 : 1;
     }
 
@@ -216,8 +224,11 @@ internal static class GuiAnalysisCaptureRunner
         try
         {
             var existing = JsonSerializer.Deserialize<GuiCaptureManifest>(
-                await File.ReadAllTextAsync(manifestPath),
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                await BoundedApplicationFile.ReadAllTextAsync(
+                    manifestPath,
+                    BoundedApplicationFile.MaximumSettingsBytes,
+                    "GUI capture manifest"),
+                ReadJsonOptions);
             if (existing is null)
             {
                 return currentRuns;

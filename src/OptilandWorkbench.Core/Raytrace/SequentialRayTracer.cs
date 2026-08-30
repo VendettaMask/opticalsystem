@@ -221,7 +221,22 @@ public sealed partial class SequentialRayTracer
 
         var rayCount = bundle.Rays.Count;
         var retainedCount = retainedSurfaceIndices.Length;
-        var sampleCount = checked(rayCount * retainedCount);
+        if (rayCount > SequentialTraceLimits.MaximumRayCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(bundle),
+                $"A sequential trace cannot contain more than {SequentialTraceLimits.MaximumRayCount:N0} rays.");
+        }
+
+        var requestedSampleCount = checked((long)rayCount * retainedCount);
+        if (requestedSampleCount > SequentialTraceLimits.MaximumRetainedSamples)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(request),
+                $"A sequential trace cannot retain more than {SequentialTraceLimits.MaximumRetainedSamples:N0} ray/surface samples.");
+        }
+
+        var sampleCount = checked((int)requestedSampleCount);
         var samples = System.Buffers.ArrayPool<RayTraceSampleValue>.Shared.Rent(Math.Max(1, sampleCount));
         var hasSamples = System.Buffers.ArrayPool<bool>.Shared.Rent(Math.Max(1, sampleCount));
         Array.Clear(hasSamples, 0, Math.Max(1, sampleCount));
@@ -233,7 +248,9 @@ public sealed partial class SequentialRayTracer
         }
 
         RayTraceCacheKey? cacheKey = null;
-        if (!request.RecordSurfaceData && _traceCache is not null)
+        if (!request.RecordSurfaceData
+            && _traceCache is not null
+            && _traceCache.CanCache(sampleCount))
         {
             cacheKey = RayTraceCacheKey.Create(
                 _cacheOpticRevision,

@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.Core.FileIO;
 
 namespace OptilandWorkbench.Core.Materials;
 
@@ -172,7 +173,11 @@ public static class ZemaxAgfCatalogReader
         string path,
         CancellationToken cancellationToken = default)
     {
-        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
+        var bytes = await BoundedFile.ReadAllBytesAsync(
+            path,
+            BoundedFile.MaximumCatalogBytes,
+            "Zemax AGF catalog",
+            cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         return Import(Decode(bytes), Path.GetFileNameWithoutExtension(path));
     }
@@ -358,15 +363,24 @@ public static class OptilandGlassCatalogStore
         string path,
         CancellationToken cancellationToken = default)
     {
-        await using var stream = File.Create(path);
-        await JsonSerializer.SerializeAsync(stream, document, Options, cancellationToken).ConfigureAwait(false);
+        ArgumentNullException.ThrowIfNull(document);
+        var json = JsonSerializer.SerializeToUtf8Bytes(document, Options);
+        await BoundedFile.WriteAllBytesAtomicAsync(
+            path,
+            json,
+            BoundedFile.MaximumCatalogBytes,
+            "Glass catalog",
+            cancellationToken).ConfigureAwait(false);
     }
 
     public static async Task<OpticalGlassCatalogDocument> LoadAsync(
         string path,
         CancellationToken cancellationToken = default)
     {
-        await using var stream = File.OpenRead(path);
+        await using var stream = BoundedFile.OpenRead(
+            path,
+            BoundedFile.MaximumCatalogBytes,
+            "Glass catalog");
         var document = await JsonSerializer.DeserializeAsync<OpticalGlassCatalogDocument>(
             stream,
             Options,
@@ -381,7 +395,7 @@ public static class OptilandGlassCatalogStore
 
     public static OpticalGlassCatalogDocument Load(string path)
     {
-        using var stream = File.OpenRead(path);
+        using var stream = BoundedFile.OpenRead(path, BoundedFile.MaximumCatalogBytes, "Glass catalog");
         var document = JsonSerializer.Deserialize<OpticalGlassCatalogDocument>(stream, Options);
         if (document is null || document.SchemaVersion != 1 || document.Glasses.Count == 0)
         {
@@ -396,15 +410,33 @@ public static class OptilandGlassCatalogStore
         string path,
         CancellationToken cancellationToken = default)
     {
-        await using var stream = File.Create(path);
-        await stream.WriteAsync(BundleMagic, cancellationToken).ConfigureAwait(false);
-        await using var compressed = new GZipStream(stream, CompressionLevel.SmallestSize, leaveOpen: false);
-        await JsonSerializer.SerializeAsync(compressed, bundle, Options, cancellationToken).ConfigureAwait(false);
+        ArgumentNullException.ThrowIfNull(bundle);
+        var json = JsonSerializer.SerializeToUtf8Bytes(bundle, Options);
+        if (json.Length > BoundedFile.MaximumExpandedCatalogBytes)
+        {
+            throw new InvalidDataException(
+                $"Glass-catalog bundle exceeds the {BoundedFile.MaximumExpandedCatalogBytes:N0}-byte expanded-data limit.");
+        }
+
+        await BoundedFile.WriteAtomicAsync(
+            path,
+            BoundedFile.MaximumCatalogBytes,
+            "Glass-catalog bundle",
+            async (stream, token) =>
+            {
+                await stream.WriteAsync(BundleMagic, token).ConfigureAwait(false);
+                await using var compressed = new GZipStream(
+                    stream,
+                    CompressionLevel.SmallestSize,
+                    leaveOpen: true);
+                await compressed.WriteAsync(json, token).ConfigureAwait(false);
+            },
+            cancellationToken).ConfigureAwait(false);
     }
 
     public static OpticalGlassCatalogBundle LoadBundle(string path)
     {
-        using var stream = File.OpenRead(path);
+        using var stream = BoundedFile.OpenRead(path, BoundedFile.MaximumCatalogBytes, "Glass-catalog bundle");
         return LoadBundle(stream);
     }
 
@@ -418,7 +450,11 @@ public static class OptilandGlassCatalogStore
         }
 
         using var compressed = new GZipStream(stream, CompressionMode.Decompress, leaveOpen: true);
-        var bundle = JsonSerializer.Deserialize<OpticalGlassCatalogBundle>(compressed, Options);
+        var expanded = BoundedFile.ReadToEnd(
+            compressed,
+            BoundedFile.MaximumExpandedCatalogBytes,
+            "Glass-catalog bundle");
+        var bundle = JsonSerializer.Deserialize<OpticalGlassCatalogBundle>(expanded, Options);
         if (bundle is null || bundle.SchemaVersion != 1 || bundle.Catalogs.Count == 0 ||
             bundle.Catalogs.Any(catalog => catalog.SchemaVersion != 1 || catalog.Glasses.Count == 0))
         {

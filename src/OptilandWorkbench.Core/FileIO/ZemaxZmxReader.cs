@@ -350,6 +350,12 @@ internal static class ZemaxZmxReader
                         ? string.Join(" ", tokens.Skip(1)).Trim('"')
                         : string.Empty;
                     break;
+                default:
+                    if (ZemaxOperandRegistry.TryGet(command, out _))
+                    {
+                        ReadPreservedMeritOperand(document, tokens, command);
+                    }
+                    break;
             }
         }
 
@@ -823,7 +829,9 @@ internal static class ZemaxZmxReader
             Px = RequiredDouble(tokens, 5, command),
             Py = RequiredDouble(tokens, 6, command),
             Target = RequiredDouble(tokens, 7, command),
-            Weight = RequiredDouble(tokens, 8, command)
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
         });
     }
 
@@ -839,7 +847,9 @@ internal static class ZemaxZmxReader
             Wavelength = RequiredInt(tokens, 2, command),
             Field = RequiredInt(tokens, 3, command),
             Target = RequiredDouble(tokens, 7, command),
-            Weight = RequiredDouble(tokens, 8, command)
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
         };
         if (command is "MECS" or "MECT")
         {
@@ -859,6 +869,7 @@ internal static class ZemaxZmxReader
         document.MeritOperands.Add(new MeritOperandDefinition
         {
             Enabled = false,
+            CompatibilityOnly = true,
             Type = command,
             Surface = RequiredInt(tokens, 1, command),
             Wavelength = RequiredInt(tokens, 2, command),
@@ -868,9 +879,29 @@ internal static class ZemaxZmxReader
             Py = RequiredDouble(tokens, 6, command),
             Target = RequiredDouble(tokens, 7, command),
             Weight = RequiredDouble(tokens, 8, command),
-            Comment = $"Zemax 只读记录：{string.Join(" ", tokens.Skip(1))}"
+            Comment = $"Zemax 只读记录：{string.Join(" ", tokens.Skip(1))}",
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
         });
     }
+
+    private static int[] ReadZemaxIntegerParameters(
+        IReadOnlyList<string> tokens,
+        string command) =>
+    [
+        RequiredInt(tokens, 1, command),
+        RequiredInt(tokens, 2, command)
+    ];
+
+    private static double[] ReadZemaxDataParameters(
+        IReadOnlyList<string> tokens,
+        string command) =>
+    [
+        RequiredDouble(tokens, 3, command),
+        RequiredDouble(tokens, 4, command),
+        RequiredDouble(tokens, 5, command),
+        RequiredDouble(tokens, 6, command)
+    ];
 
     private static void ReadFieldComment(
         ZemaxDocument document,

@@ -202,7 +202,7 @@ public partial class WorkbenchRuntime
             return new MtfComputationSettings(
                 PupilSampling: pupilSampling,
                 ImageSize: zemaxCompatible && !useHuygensImageSampling
-                    ? pupilSampling * 2
+                    ? checked(pupilSampling * 2)
                     : Int("ImageSampling", Int("ImageSize", 64)),
                 PixelPitchMillimeters: imageDeltaMicrometers > 0
                     ? imageDeltaMicrometers / 1000.0
@@ -798,6 +798,7 @@ public partial class WorkbenchRuntime
                 LeadingInt("FieldNumber", 1)),
             "Zernike Fringe" => new ZernikeAnalysis(
                 CurrentOptic,
+                ZernikeAnalysisKind.ZemaxFringe,
                 LeadingInt("PupilSampling", 32),
                 Int("ZernikeTerms", 37),
                 mapSize: 65,
@@ -806,6 +807,7 @@ public partial class WorkbenchRuntime
                 name: "Zernike Fringe"),
             "Zernike Standard" => new ZernikeAnalysis(
                 CurrentOptic,
+                ZernikeAnalysisKind.Standard,
                 Int("NumRings", 15),
                 Int("ZernikeTerms", 37),
                 mapSize: 65,
@@ -814,6 +816,7 @@ public partial class WorkbenchRuntime
                 name: "Zernike Standard"),
             "Zernike Annular" => new ZernikeAnalysis(
                 CurrentOptic,
+                ZernikeAnalysisKind.Annular,
                 Int("NumRings", 15),
                 Int("ZernikeTerms", 37),
                 mapSize: 65,
@@ -957,6 +960,9 @@ public partial class WorkbenchRuntime
             throw new InvalidDataException("Extended Source Encircled Energy requires a text .IMA file.");
         }
 
-        return ExtendedSourceImage.ParseZemaxTextIma(File.ReadAllText(fullPath));
+        return ExtendedSourceImage.ParseZemaxTextIma(BoundedFile.ReadAllText(
+            fullPath,
+            BoundedFile.MaximumImageDataBytes,
+            "Extended-source IMA image"));
     }
 }

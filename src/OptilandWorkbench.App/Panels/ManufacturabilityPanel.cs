@@ -119,8 +119,8 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
             IsReadOnly = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
-            RowHeight = 30,
-            ColumnHeaderHeight = 32,
+            RowHeight = UiDensity.CompactTableRowHeight,
+            ColumnHeaderHeight = UiDensity.TableHeaderHeight,
             BorderThickness = new Thickness(0)
         };
         grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-error"))

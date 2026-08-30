@@ -9,6 +9,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Visualization;
@@ -17,6 +18,55 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxImportTests
 {
+    [Fact]
+    public void RequiredSequentialOperandRegistryContainsExactlyTheDocumented333Codes()
+    {
+        Assert.Equal(333, ZemaxOperandRegistry.Descriptors.Count);
+        Assert.Equal(
+            333,
+            ZemaxOperandRegistry.Descriptors
+                .Select(descriptor => descriptor.Code)
+                .Distinct(StringComparer.Ordinal)
+                .Count());
+        Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
+        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, descriptor.SupportLevel);
+        Assert.False(ZemaxOperandRegistry.TryGet("NSDC", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("PnGT", out _));
+    }
+
+    [Fact]
+    public void GenericZemaxOperandSlotsRoundTripWithoutBecomingExecutable()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 100
+            SURF 1
+              DISZ 0
+            ABCD 11 12 1.25 -2.5 3.75 -4.125 5 6 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var imported = Assert.Single(optic.MeritFunctionOperands);
+        Assert.False(imported.Enabled);
+        Assert.True(imported.CompatibilityOnly);
+        Assert.Equal(new[] { 11, 12 }, imported.ZemaxIntegerParameters);
+        Assert.Equal(new[] { 1.25, -2.5, 3.75, -4.125 }, imported.ZemaxDataParameters);
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+        Assert.True(operand.CompatibilityOnly);
+        Assert.Equal(imported.ZemaxIntegerParameters, operand.ZemaxIntegerParameters);
+        Assert.Equal(imported.ZemaxDataParameters, operand.ZemaxDataParameters);
+
+        operand.Enabled = true;
+        var evaluation = MeritFunctionCatalog.Evaluate(restored, operand);
+        Assert.True(double.IsNaN(evaluation.Value));
+        Assert.True(double.IsPositiveInfinity(evaluation.Contribution));
+        Assert.Contains("not executable", evaluation.Error, StringComparison.OrdinalIgnoreCase);
+    }
+
     [Fact]
     public void ZemaxSpecificMeritRowsArePreservedAsDisabledReadOnlyRecords()
     {

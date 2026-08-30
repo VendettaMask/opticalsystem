@@ -66,11 +66,23 @@ internal static class MacOsBranding
 
     private static nint Selector(string name) => SelectorRegisterName(name);
 
-    [DllImport(ObjectiveCLibrary, EntryPoint = "objc_getClass")]
+    [DllImport(
+        ObjectiveCLibrary,
+        EntryPoint = "objc_getClass",
+        ExactSpelling = true,
+        CharSet = CharSet.Ansi,
+        BestFitMapping = false,
+        ThrowOnUnmappableChar = true)]
     private static extern nint ObjectiveCGetClass(
         [MarshalAs(UnmanagedType.LPUTF8Str)] string name);
 
-    [DllImport(ObjectiveCLibrary, EntryPoint = "sel_registerName")]
+    [DllImport(
+        ObjectiveCLibrary,
+        EntryPoint = "sel_registerName",
+        ExactSpelling = true,
+        CharSet = CharSet.Ansi,
+        BestFitMapping = false,
+        ThrowOnUnmappableChar = true)]
     private static extern nint SelectorRegisterName(
         [MarshalAs(UnmanagedType.LPUTF8Str)] string name);
 

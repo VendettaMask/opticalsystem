@@ -1,12 +1,11 @@
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.FileIO;
 using SkiaSharp;
 
 namespace OptilandWorkbench.Application.Services;
 
 internal static class ImageFileLoader
 {
-    private const int MaximumDimension = 16_000;
-
     internal static RgbImage LoadRgb(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -20,14 +19,22 @@ internal static class ImageFileLoader
             throw new FileNotFoundException("The image simulation input bitmap does not exist.", fullPath);
         }
 
-        using var stream = File.OpenRead(fullPath);
+        using var stream = BoundedFile.OpenRead(
+            fullPath,
+            BoundedFile.MaximumImageDataBytes,
+            "Image-simulation bitmap");
+        using (var codec = SKCodec.Create(stream)
+            ?? throw new InvalidDataException("The image simulation input file is not a supported bitmap."))
+        {
+            AnalysisResourceLimits.ValidateImageDimensions(codec.Info.Width, codec.Info.Height, "Input bitmap");
+        }
+
+        stream.Position = 0;
         using var bitmap = SKBitmap.Decode(stream)
             ?? throw new InvalidDataException("The image simulation input file is not a supported bitmap.");
-        if (bitmap.Width is < 2 or > MaximumDimension
-            || bitmap.Height is < 2 or > MaximumDimension)
+        if (bitmap.Width < 2 || bitmap.Height < 2)
         {
-            throw new InvalidDataException(
-                $"Image dimensions must be between 2 and {MaximumDimension} pixels.");
+            throw new InvalidDataException("Image dimensions must be at least 2 by 2 pixels.");
         }
 
         var values = new double[3, bitmap.Height, bitmap.Width];
@@ -53,8 +60,14 @@ internal static class ImageFileLoader
             .FirstOrDefault(item => item.Kind == AnalysisSeriesKind.Raster)
             ?? data.PlotSeries.FirstOrDefault(item => item.Kind == AnalysisSeriesKind.Raster)
             ?? throw new InvalidOperationException("Image simulation did not produce a raster result.");
+        if (series.Points.Count > AnalysisResourceLimits.MaximumImagePixels
+            || series.Points.Any(point => !double.IsFinite(point.X) || !double.IsFinite(point.Y)))
+        {
+            throw new InvalidDataException("Image simulation raster coordinates exceed the supported range.");
+        }
         var width = Math.Max(1, (int)Math.Round(series.Points.Select(point => point.X).DefaultIfEmpty(0).Max()) + 1);
         var height = Math.Max(1, (int)Math.Round(series.Points.Select(point => point.Y).DefaultIfEmpty(0).Max()) + 1);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Analysis raster");
         using var bitmap = new SKBitmap(width, height, SKColorType.Rgba8888, SKAlphaType.Opaque);
         foreach (var point in series.Points)
         {
@@ -77,8 +90,11 @@ internal static class ImageFileLoader
         using var image = SKImage.FromBitmap(bitmap);
         using var encoded = image.Encode(format, 95)
             ?? throw new InvalidOperationException("Unable to encode the image simulation output.");
-        using var stream = File.Create(fullPath);
-        encoded.SaveTo(stream);
+        BoundedFile.WriteAllBytesAtomic(
+            fullPath,
+            encoded.ToArray(),
+            BoundedFile.MaximumImageDataBytes,
+            "Analysis raster");
 
         static byte Channel(double? value) => (byte)Math.Round(
             255 * Math.Clamp(value ?? 0, 0, 1));

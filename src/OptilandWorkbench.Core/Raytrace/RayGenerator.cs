@@ -280,6 +280,7 @@ public sealed class RayGenerator
 
     public static PupilSampling ParseSampling(string distribution)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(distribution);
         return distribution.Trim().ToLowerInvariant() switch
         {
             "hexapolar" => PupilSampling.Hexapolar,
@@ -289,7 +290,9 @@ public sealed class RayGenerator
             "line_y" or "liney" => PupilSampling.LineY,
             "ring" => PupilSampling.Ring,
             "grid" or "uniform_grid" or "uniform" => PupilSampling.UniformGrid,
-            _ => PupilSampling.Hexapolar
+            _ => throw new ArgumentException(
+                $"Pupil sampling distribution '{distribution}' is not supported.",
+                nameof(distribution))
         };
     }
 

@@ -393,11 +393,7 @@ public sealed partial class AnalysisPanel
             {
                 XAxisLabel = string.Empty,
                 YAxisLabel = string.Empty,
-                Name = configurationMatrix ? series.Name : string.Empty,
-                XQuantity = AnalysisAxisQuantity.Unspecified,
-                XUnit = AnalysisAxisUnit.Unspecified,
-                YQuantity = AnalysisAxisQuantity.Unspecified,
-                YUnit = AnalysisAxisUnit.Unspecified
+                Name = configurationMatrix ? series.Name : string.Empty
             }).ToArray();
             var plot = new AnalysisPlotControl
             {
@@ -620,11 +616,7 @@ public sealed partial class AnalysisPanel
                 Series = pane.Series.Select(series => series with
                 {
                     XAxisLabel = string.Empty,
-                    YAxisLabel = string.Empty,
-                    XQuantity = AnalysisAxisQuantity.Unspecified,
-                    XUnit = AnalysisAxisUnit.Unspecified,
-                    YQuantity = AnalysisAxisQuantity.Unspecified,
-                    YUnit = AnalysisAxisUnit.Unspecified
+                    YAxisLabel = string.Empty
                 }).ToArray(),
                 PlotOptions = pane.PlotOptions with
                 {

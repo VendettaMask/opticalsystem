@@ -68,7 +68,7 @@ public sealed record OpticSceneAnnotation2D(
     Color Color,
     OpticSceneAnnotationPlacement2D Placement = OpticSceneAnnotationPlacement2D.Auto);
 
-public sealed class OpticSceneControl : Control
+public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSource
 {
     private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
     private static readonly IBrush ThreeDBackgroundBrush = new LinearGradientBrush
@@ -367,6 +367,26 @@ public sealed class OpticSceneControl : Control
 
     protected override AutomationPeer OnCreateAutomationPeer() =>
         new InteractiveCanvasAutomationPeer(this);
+
+    string IInteractiveCanvasAutomationSource.AutomationValue
+    {
+        get
+        {
+            if (ViewMode == OpticSceneViewMode.ThreeDimensional && Scene?.ThreeDimensional is { } scene3)
+            {
+                return $"三维光学系统；{scene3.Surfaces.Count} 个表面，{scene3.LensElements.Count} 个镜片，"
+                    + $"{scene3.Rays.Count} 条光线；Z 范围 {scene3.ZMin:G6} 到 {scene3.ZMax:G6}。";
+            }
+            if (Scene?.TwoDimensional is { } scene2)
+            {
+                return $"二维光学系统；{scene2.Surfaces.Count} 个表面，{scene2.LensElements.Count} 个镜片，"
+                    + $"{scene2.Rays.Count} 条光线；Z 范围 {scene2.ZMin:G6} 到 {scene2.ZMax:G6}。";
+            }
+            return "光学系统视图；没有可用场景。";
+        }
+    }
+
+    void IInteractiveCanvasAutomationSource.InvokeAutomationAction() => ResetView();
 
     protected override void OnKeyDown(KeyEventArgs e)
     {

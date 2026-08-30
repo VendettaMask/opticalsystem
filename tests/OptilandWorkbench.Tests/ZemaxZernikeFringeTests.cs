@@ -55,6 +55,7 @@ public sealed class ZemaxZernikeFringeTests
     {
         var data = new ZernikeAnalysis(
             Optic.CreateCookeTriplet(),
+            ZernikeAnalysisKind.ZemaxFringe,
             numRings: 32,
             numTerms: 37,
             mapSize: 17,

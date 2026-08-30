@@ -27,14 +27,39 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         bool symmetricMagnification = false,
         double fieldWidth = 0) : base(optic)
     {
-        _numPoints = Math.Max(2, numPoints);
-        _wavelengthNumber = Math.Max(1, wavelengthNumber);
-        _referenceFieldNumber = Math.Max(1, referenceFieldNumber);
+        if (numPoints is < 2 or > AnalysisResourceLimits.MaximumGridDistortionDimension)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numPoints));
+        }
+        if (wavelengthNumber < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(wavelengthNumber));
+        }
+        if (referenceFieldNumber < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(referenceFieldNumber));
+        }
+        if (!double.IsFinite(scale) || scale < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(scale));
+        }
+        if (!double.IsFinite(heightWidthAspect) || heightWidthAspect <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(heightWidthAspect));
+        }
+        if (!double.IsFinite(fieldWidth) || fieldWidth < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(fieldWidth));
+        }
+
+        _numPoints = numPoints;
+        _wavelengthNumber = wavelengthNumber;
+        _referenceFieldNumber = referenceFieldNumber;
         _displayMode = AnalysisTrace.NormalizeGridDisplayMode(displayMode);
-        _scale = Math.Max(0, scale);
-        _heightWidthAspect = Math.Max(1e-6, heightWidthAspect);
+        _scale = scale;
+        _heightWidthAspect = heightWidthAspect;
         _symmetricMagnification = symmetricMagnification;
-        _fieldWidth = Math.Max(0, fieldWidth);
+        _fieldWidth = fieldWidth;
     }
 
     public override string Name => "Grid Distortion";
@@ -88,6 +113,7 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
 
         for (var row = 0; row < _numPoints; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < _numPoints; column++)
             {
                 var linearX = horizontal[column];

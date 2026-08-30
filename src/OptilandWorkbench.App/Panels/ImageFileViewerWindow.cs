@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Services;
 using SkiaSharp;
 
@@ -12,6 +13,8 @@ namespace OptilandWorkbench.App.Panels;
 
 internal sealed class ImageFileViewerWindow : Window
 {
+    private const int MaximumBitmapDimension = 32_768;
+    private const long MaximumDecodedBitmapPixels = 33_554_432;
     private readonly Image _image = new()
     {
         Stretch = Stretch.Uniform,
@@ -66,7 +69,16 @@ internal sealed class ImageFileViewerWindow : Window
         }
         else
         {
-            using var stream = File.OpenRead(path);
+            using var stream = BoundedApplicationFile.OpenRead(
+                path,
+                BoundedApplicationFile.MaximumImageDataBytes,
+                "Bitmap image");
+            using (var codec = SKCodec.Create(stream)
+                ?? throw new InvalidDataException("The selected file is not a supported bitmap."))
+            {
+                ValidateBitmapDimensions(codec.Info.Width, codec.Info.Height);
+            }
+            stream.Position = 0;
             _bitmap = new Bitmap(stream);
             _image.Source = _bitmap;
             _status.Text = $"{_bitmap.PixelSize.Width} × {_bitmap.PixelSize.Height}";
@@ -107,6 +119,18 @@ internal sealed class ImageFileViewerWindow : Window
         Grid.SetRow(root.Children[2], 2);
         Content = root;
         Closed += (_, _) => _bitmap?.Dispose();
+    }
+
+    internal static void ValidateBitmapDimensions(int width, int height)
+    {
+        if (width <= 0 || height <= 0
+            || width > MaximumBitmapDimension
+            || height > MaximumBitmapDimension
+            || (long)width * height > MaximumDecodedBitmapPixels)
+        {
+            throw new InvalidDataException(
+                $"Bitmap dimensions exceed the {MaximumDecodedBitmapPixels:N0}-pixel display limit.");
+        }
     }
 
     private static IReadOnlyList<string> BuildDisplayChoices(ZemaxImageData image)
@@ -213,8 +237,8 @@ internal sealed record ZemaxImageData(
 
 internal static class ZemaxImageFile
 {
-    private const int MaximumDimension = 8000;
-    private const long MaximumSampleCount = 96_000_000;
+    private const int MaximumDimension = 4_096;
+    private const long MaximumSampleCount = 4_194_304;
 
     public static ZemaxImageData Read(string path)
     {
@@ -230,7 +254,10 @@ internal static class ZemaxImageFile
         }
 
         var prefix = new byte[2];
-        using (var stream = File.OpenRead(path))
+        using (var stream = BoundedApplicationFile.OpenRead(
+                   path,
+                   BoundedApplicationFile.MaximumImageDataBytes,
+                   "Zemax image"))
         {
             if (stream.Read(prefix, 0, prefix.Length) != prefix.Length)
             {
@@ -245,15 +272,24 @@ internal static class ZemaxImageFile
 
     private static ZemaxImageData ReadTextIma(string path)
     {
-        var lines = File.ReadAllLines(path);
-        if (lines.Length == 0
+        using var stream = BoundedApplicationFile.OpenRead(
+            path,
+            BoundedApplicationFile.MaximumImageDataBytes,
+            "IMA image");
+        using var reader = new StreamReader(stream);
+        var lines = new List<string>();
+        while (reader.ReadLine() is { } line)
+        {
+            lines.Add(line);
+        }
+        if (lines.Count == 0
             || !int.TryParse(lines[0].Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var size))
         {
             throw new InvalidDataException("文本 IMA 缺少有效的图像尺寸。");
         }
 
         ValidateDimensions(size, size, 1);
-        if (lines.Length < size + 1)
+        if (lines.Count < size + 1)
         {
             throw new InvalidDataException("文本 IMA 的像素行数不足。");
         }
@@ -278,7 +314,10 @@ internal static class ZemaxImageFile
 
     private static ZemaxImageData ReadBinaryIma(string path)
     {
-        using var stream = File.OpenRead(path);
+        using var stream = BoundedApplicationFile.OpenRead(
+            path,
+            BoundedApplicationFile.MaximumImageDataBytes,
+            "Binary IMA image");
         using var reader = new BinaryReader(stream);
         var marker = reader.ReadInt16();
         var size = reader.ReadInt16();
@@ -306,7 +345,10 @@ internal static class ZemaxImageFile
 
     private static ZemaxImageData ReadBim(string path)
     {
-        using var stream = File.OpenRead(path);
+        using var stream = BoundedApplicationFile.OpenRead(
+            path,
+            BoundedApplicationFile.MaximumImageDataBytes,
+            "BIM image");
         using var reader = new BinaryReader(stream);
         if (stream.Length < 8)
         {

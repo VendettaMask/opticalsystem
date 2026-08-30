@@ -523,7 +523,8 @@ public sealed class WorkspaceDockFactory : Factory
                 descriptor.AnalysisName ?? descriptor.Title,
                 descriptor.InstanceId,
                 descriptor.Settings),
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new InvalidDataException(
+                $"Unsupported workspace document type '{descriptor.TypeId}'.")
         };
         SetLocked(control, descriptor.IsLocked);
         if (control is TemplatedControl templated)

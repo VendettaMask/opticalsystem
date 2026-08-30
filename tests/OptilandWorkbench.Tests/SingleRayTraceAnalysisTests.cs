@@ -117,6 +117,25 @@ public sealed class SingleRayTraceAnalysisTests
     }
 
     [Fact]
+    public void ObjectMarkerUsesFirstSurfaceRoleInsteadOfPresentationLabel()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[0].Label = "Source plane";
+        optic.SurfaceGroup.Items[1].Label = "Object";
+
+        var data = new SingleRayTraceAnalysis(
+            optic,
+            type: "方向余弦",
+            useRayAiming: false).GenerateData();
+
+        var paraxialRows = data.Table!.Rows
+            .Where((_, index) => data.Table.RowGroups![index] == "近轴光线")
+            .ToArray();
+        Assert.Equal("OBJ", paraxialRows[0][0]);
+        Assert.DoesNotContain(paraxialRows.Skip(1), row => row[0] == "OBJ");
+    }
+
+    [Fact]
     public void RayAimingTrialIgnoresPreStopApertureButFinalTraceReportsVignetting()
     {
         var optic = Optic.CreateCookeTriplet();

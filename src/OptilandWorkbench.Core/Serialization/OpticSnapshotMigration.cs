@@ -53,7 +53,8 @@ internal static class OpticSnapshotMigration
         var meritOperands = snapshot.MeritOperands?
             .Where(operand =>
                 operand is not null
-                && (MeritFunctionCatalog.HasOpaqueZemaxParameters(operand.Type)
+                && (operand.CompatibilityOnly
+                    || MeritFunctionCatalog.HasOpaqueZemaxParameters(operand.Type)
                     || (operand.Surface >= 0
                         && (operand.Surface == 0 || surfaceNumbers.Contains(operand.Surface))
                         && operand.Field >= 0

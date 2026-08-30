@@ -18,9 +18,23 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         int fieldNumber = 1) : base(optic)
     {
+        if (!Enum.IsDefined(strategy))
+        {
+            throw new ArgumentOutOfRangeException(nameof(strategy));
+        }
+        if (numRings is < 2 or > Raytrace.ApertureSampler.MaximumHexapolarRings)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numRings));
+        }
+        if (!double.IsFinite(robustTrimStandardDeviations)
+            || robustTrimStandardDeviations is < 0 or > 100)
+        {
+            throw new ArgumentOutOfRangeException(nameof(robustTrimStandardDeviations));
+        }
+
         _strategy = strategy;
-        _numRings = Math.Max(2, numRings);
-        _mapSize = Math.Max(17, mapSize);
+        _numRings = numRings;
+        _mapSize = AnalysisResourceLimits.ValidateWavefrontMapSize(mapSize, nameof(mapSize));
         _robustTrimStandardDeviations = robustTrimStandardDeviations;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(0, fieldNumber);

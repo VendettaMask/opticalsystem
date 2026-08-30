@@ -148,7 +148,7 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
 
     private static string SurfaceLabel(OpticalSurface surface, bool isLast)
     {
-        if (isLast || surface.Label.Equals("Image", StringComparison.OrdinalIgnoreCase))
+        if (isLast)
         {
             return "像面";
         }

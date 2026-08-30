@@ -367,34 +367,23 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
-    public void OptimizerCatalogMapsLegacyNamesToTruthfulAlgorithmsWithWarnings()
+    public void OptimizerCatalogRejectsNamesWhoseAlgorithmsAreNotImplemented()
     {
-        var aliases = new Dictionary<string, string>
+        var unimplementedNames = new[]
         {
-            ["BFGS"] = "Momentum Gradient Descent",
-            ["L-BFGS-B"] = "Momentum Gradient Descent",
-            ["COBYLA"] = "Coordinate Pattern Search",
-            ["Differential Evolution"] = "Greedy Random Perturbation",
-            ["Dual Annealing"] = "Greedy Random Perturbation",
-            ["Basin Hopping"] = "Greedy Random Perturbation"
+            "Powell",
+            "COBYLA",
+            "BFGS",
+            "L-BFGS-B",
+            "Differential Evolution",
+            "Dual Annealing",
+            "Basin Hopping"
         };
 
-        foreach (var (alias, canonicalName) in aliases)
+        foreach (var name in unimplementedNames)
         {
-            var value = 0.0;
-            var problem = new OptimizationProblem();
-            problem.AddVariable(new DelegateVariable(
-                "x", () => value, next => value = next, -2, 2, stepHint: 0.25));
-            problem.AddOperand(new Operand("target", 1, 1, () => value));
-
-            var optimizer = OptimizerCatalog.Create(alias);
-            var result = optimizer.Optimize(problem, maxIterations: 1);
-
-            Assert.Equal(canonicalName, optimizer.Name);
-            Assert.Equal(canonicalName, result.Algorithm);
-            var warning = Assert.Single(result.Warnings);
-            Assert.Contains(alias, warning, StringComparison.Ordinal);
-            Assert.Contains(canonicalName, warning, StringComparison.Ordinal);
+            var error = Assert.Throws<NotSupportedException>(() => OptimizerCatalog.Create(name));
+            Assert.Contains(name, error.Message, StringComparison.Ordinal);
         }
     }
 

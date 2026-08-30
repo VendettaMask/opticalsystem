@@ -68,11 +68,21 @@ public sealed class DistortionAnalysis : BaseAnalysis
         for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
         {
             var wavelength = wavelengths[wavelengthIndex];
-            var mapping = AnalysisTrace.BuildDistortionReferenceMapping(
-                workingOptic,
-                wavelength.Micrometers,
-                _referenceFieldNumber,
-                _distortionType);
+            DistortionReferenceMapping mapping;
+            try
+            {
+                mapping = AnalysisTrace.BuildDistortionReferenceMapping(
+                    workingOptic,
+                    wavelength.Micrometers,
+                    _referenceFieldNumber,
+                    _distortionType);
+            }
+            catch (InvalidOperationException exception) when (_distortionType == "smia-tv")
+            {
+                throw new AnalysisDataUnavailableException(
+                    "SMIA-TV distortion",
+                    $"reference calibration failed: {exception.Message}");
+            }
             var points = new AnalysisPoint[fields.Count];
 
             for (var index = 0; index < fields.Count; index++)
@@ -151,7 +161,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
     {
         if (optic.Fields.Count == 0)
         {
-            return 0;
+            throw new AnalysisDataUnavailableException("SMIA-TV distortion", "the optical system has no fields");
         }
 
         var maxX = optic.Fields.Select(field => Math.Abs(field.X)).DefaultIfEmpty(0).Max();
@@ -169,7 +179,9 @@ public sealed class DistortionAnalysis : BaseAnalysis
 
         if (maxX <= 1e-12 || maxY <= 1e-12)
         {
-            return 0;
+            throw new AnalysisDataUnavailableException(
+                "SMIA-TV distortion",
+                "the defined fields do not span both image axes");
         }
 
         try
@@ -183,11 +195,24 @@ public sealed class DistortionAnalysis : BaseAnalysis
             var a1 = Distance(leftTop, leftBottom);
             var a2 = Distance(rightTop, rightBottom);
             var b = Distance(centerTop, centerBottom);
-            return b <= 1e-30 ? 0 : 100.0 * ((((a1 + a2) / 2.0) - b) / b);
+            if (b <= 1e-30 || !double.IsFinite(b))
+            {
+                throw new AnalysisDataUnavailableException(
+                    "SMIA-TV distortion",
+                    "the center-edge image height is zero or non-finite");
+            }
+
+            return 100.0 * ((((a1 + a2) / 2.0) - b) / b);
         }
-        catch (InvalidOperationException)
+        catch (AnalysisDataUnavailableException)
         {
-            return 0;
+            throw;
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new AnalysisDataUnavailableException(
+                "SMIA-TV distortion",
+                $"chief-ray tracing failed: {exception.Message}");
         }
     }
 

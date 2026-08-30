@@ -14,7 +14,7 @@ using AnalysisPlotOptions = OptilandWorkbench.Application.Contracts.AnalysisPlot
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class AnalysisPlotControl : Control
+public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationSource
 {
     internal const double PlotTextSize = 11.5;
 
@@ -202,6 +202,42 @@ public sealed class AnalysisPlotControl : Control
 
     protected override AutomationPeer OnCreateAutomationPeer() =>
         new InteractiveCanvasAutomationPeer(this);
+
+    string IInteractiveCanvasAutomationSource.AutomationValue
+    {
+        get
+        {
+            var title = string.IsNullOrWhiteSpace(_plotOptions.Title) ? "分析图表" : _plotOptions.Title;
+            long pointCount = 0;
+            var xMinimum = double.PositiveInfinity;
+            var xMaximum = double.NegativeInfinity;
+            var yMinimum = double.PositiveInfinity;
+            var yMaximum = double.NegativeInfinity;
+            foreach (var point in _series.SelectMany(series => series.Points))
+            {
+                if (!double.IsFinite(point.X) || !double.IsFinite(point.Y)) continue;
+                pointCount++;
+                xMinimum = Math.Min(xMinimum, point.X);
+                xMaximum = Math.Max(xMaximum, point.X);
+                yMinimum = Math.Min(yMinimum, point.Y);
+                yMaximum = Math.Max(yMaximum, point.Y);
+            }
+            if (pointCount == 0)
+            {
+                return $"{title}；没有可用数据。";
+            }
+            var names = string.Join("，", _series.Select(series => series.Name)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .Distinct(StringComparer.Ordinal)
+                .Take(8));
+            return $"{title}；{_series.Count} 个系列，{pointCount} 个点；"
+                + $"X 范围 {xMinimum:G6} 到 {xMaximum:G6}；"
+                + $"Y 范围 {yMinimum:G6} 到 {yMaximum:G6}。"
+                + (names.Length == 0 ? string.Empty : $" 系列：{names}。");
+        }
+    }
+
+    void IInteractiveCanvasAutomationSource.InvokeAutomationAction() => ResetView();
 
     protected override void OnKeyDown(KeyEventArgs e)
     {

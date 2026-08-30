@@ -36,10 +36,10 @@ public sealed class DisplaySettingsWindow : Window
         Title = "显示格式设置";
         Width = 560;
         Height = 630;
-        MinWidth = 520;
-        MinHeight = 600;
+        MinWidth = 420;
+        MinHeight = 320;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        CanResize = false;
+        CanResize = true;
         _validation.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextError);
 
         _decimalPlaces.Value = settings.DecimalPlaces;
@@ -95,52 +95,57 @@ public sealed class DisplaySettingsWindow : Window
         _fontFamily.SelectionChanged += (_, _) => UpdatePreview();
         _fontShape.SelectionChanged += (_, _) => UpdatePreview();
 
-        Content = new Grid
+        Content = new ScrollViewer
         {
-            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,*,Auto"),
-            Margin = new Thickness(22),
-            RowSpacing = 14,
-            Children =
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            Content = new Grid
             {
-                At(Section(
-                    "主题",
-                    SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界或跟随系统外观")), 0),
-                At(Section(
-                    "数字格式",
-                    SettingRow("小数位数", _decimalPlaces, "普通与科学计数法尾数最多保留的位数"),
-                    SettingRow("以上指数", _upperExponent, "数量级达到此指数时使用科学计数法"),
-                    SettingRow("以下指数", _lowerExponent, "非零数量级低于或等于此指数时使用科学计数法")), 1),
-                At(Section(
-                    "界面字体",
-                    SettingRow("字体", _fontFamily),
-                    SettingRow("字形", _fontShape),
-                    SettingRow("大小", _fontSize, "单位：pt")), 2),
-                At(PreviewBox(new Border
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
+                Margin = new Thickness(22),
+                RowSpacing = 14,
+                Children =
                 {
-                    BorderThickness = new Thickness(1),
-                    Padding = new Thickness(14),
-                    Child = new StackPanel
+                    At(Section(
+                        "主题",
+                        SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界或跟随系统外观")), 0),
+                    At(Section(
+                        "数字格式",
+                        SettingRow("小数位数", _decimalPlaces, "普通与科学计数法尾数最多保留的位数"),
+                        SettingRow("以上指数", _upperExponent, "数量级达到此指数时使用科学计数法"),
+                        SettingRow("以下指数", _lowerExponent, "非零数量级低于或等于此指数时使用科学计数法")), 1),
+                    At(Section(
+                        "界面字体",
+                        SettingRow("字体", _fontFamily),
+                        SettingRow("字形", _fontShape),
+                        SettingRow("大小", _fontSize, "单位：pt")), 2),
+                    At(PreviewBox(new Border
                     {
-                        Spacing = 8,
+                        BorderThickness = new Thickness(1),
+                        Padding = new Thickness(14),
+                        Child = new StackPanel
+                        {
+                            Spacing = 8,
+                            Children =
+                            {
+                                new TextBlock { Text = "预览", FontWeight = FontWeight.SemiBold },
+                                _preview,
+                                _validation
+                            }
+                        }
+                    }), 3),
+                    At(new Grid
+                    {
+                        ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
+                        ColumnSpacing = 8,
                         Children =
                         {
-                            new TextBlock { Text = "预览", FontWeight = FontWeight.SemiBold },
-                            _preview,
-                            _validation
+                            InColumn(reset, 0),
+                            InColumn(cancel, 2),
+                            InColumn(_save, 3)
                         }
-                    }
-                }), 3),
-                At(new Grid
-                {
-                    ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
-                    ColumnSpacing = 8,
-                    Children =
-                    {
-                        InColumn(reset, 0),
-                        InColumn(cancel, 2),
-                        InColumn(_save, 3)
-                    }
-                }, 4)
+                    }, 4)
+                }
             }
         };
 

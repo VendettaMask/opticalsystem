@@ -413,7 +413,7 @@ public sealed class Paraxial
         for (var surfaceIndex = Math.Clamp(skipSurfaceCount, 0, surfaces.Length); surfaceIndex < surfaces.Length; surfaceIndex++)
         {
             var surface = surfaces[surfaceIndex];
-            if (surface.Label.Equals("Object", StringComparison.OrdinalIgnoreCase))
+            if (ReferenceEquals(surface, _optic.SurfaceGroup.Items[0]))
             {
                 heights.Add(y.ToArray());
                 slopes.Add(u.ToArray());

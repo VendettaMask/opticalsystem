@@ -1,6 +1,7 @@
 using System.Text.Json;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Visualization;
 
@@ -203,14 +204,14 @@ internal sealed class LensLibraryService : ILensLibraryService
 
         try
         {
-            var json = File.ReadAllText(path);
+            var json = BoundedFile.ReadAllText(path, BoundedFile.MaximumCatalogBytes, "Lens-library catalog");
             var catalog = JsonSerializer.Deserialize<LensLibraryCatalogDocument>(json, JsonOptions);
             return _catalog = catalog is { Version: SupportedCatalogVersion }
                 ? catalog
                 : EmptyCatalog();
         }
         catch (Exception exception) when (
-            exception is JsonException or IOException or UnauthorizedAccessException)
+            exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
         {
             return _catalog = EmptyCatalog();
         }
@@ -231,14 +232,14 @@ internal sealed class LensLibraryService : ILensLibraryService
 
         try
         {
-            var json = File.ReadAllText(path);
+            var json = BoundedFile.ReadAllText(path, BoundedFile.MaximumCatalogBytes, "Commercial-lens catalog");
             var catalog = JsonSerializer.Deserialize<CommercialLensCatalogDocument>(json, JsonOptions);
             return _commercialCatalog = catalog is { Version: SupportedCommercialCatalogVersion }
                 ? catalog
                 : EmptyCommercialCatalog();
         }
         catch (Exception exception) when (
-            exception is JsonException or IOException or UnauthorizedAccessException)
+            exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
         {
             return _commercialCatalog = EmptyCommercialCatalog();
         }

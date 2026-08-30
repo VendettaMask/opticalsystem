@@ -15,11 +15,18 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.ViewModels;
+using OptilandWorkbench.Application.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
 public sealed class TolerancingPanel : UserControl, IDisposable
 {
+    private static readonly System.Text.Json.JsonSerializerOptions ToleranceJsonOptions = new()
+    {
+        WriteIndented = true,
+        Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+    };
+
     private readonly IOpticalDocumentService _documents;
     private readonly IPrescriptionService _prescription;
     private readonly ITolerancingService _tolerancing;
@@ -31,6 +38,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly DataGrid _monteCarloGrid = CreateGrid();
     private readonly ComboBox _kindPicker = new() { MinWidth = 180 };
     private readonly ComboBox _surfacePicker = new() { MinWidth = 180 };
+    private readonly ComboBox _endSurfacePicker = new() { MinWidth = 180 };
+    private readonly NumericUpDown _parameterIndex = Number(1, 0, 256, 1, 150);
     private readonly ComboBox _distributionPicker = Picker(0, "正态（公差极限为 ±2σ）", "均匀");
     private readonly CheckBox _enabled = new() { Content = "启用", IsChecked = true };
     private readonly NumericUpDown _minimum = Number(-0.1m, -1_000_000, 1_000_000, 0.01m, 150);
@@ -52,6 +61,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private int _maxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount);
     private int _worstSensitivityCount;
     private bool _showMonteCarloTrials = true;
+    private double _inverseValue = 0.05;
     private int _generation;
     private string? _currentTolerancePath;
     private bool _hasUnsavedChanges;
@@ -173,6 +183,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _operandGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "启用", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Enabled)), Width = Pixels(56) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "类型", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Code)), Width = Pixels(82) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "表面", Binding = TwoWay(nameof(ToleranceOperandEditorRow.SurfaceNumber)), Width = Pixels(62) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "终止面", Binding = TwoWay(nameof(ToleranceOperandEditorRow.EndSurfaceNumber)), Width = Pixels(72) });
+        _operandGrid.Columns.Add(new DataGridTextColumn { Header = "参数", Binding = TwoWay(nameof(ToleranceOperandEditorRow.ParameterIndex)), Width = Pixels(62) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最小偏差", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Minimum)), Width = Pixels(110) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "最大偏差", Binding = TwoWay(nameof(ToleranceOperandEditorRow.Maximum)), Width = Pixels(110) });
         _operandGrid.Columns.Add(new DataGridTextColumn { Header = "统计", Binding = TwoWay(nameof(ToleranceOperandEditorRow.DistributionText)), Width = Pixels(90) });
@@ -206,6 +218,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _enabled.IsCheckedChanged += (_, _) => MarkDirtyFromEditor();
         _kindPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _surfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _endSurfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _parameterIndex.ValueChanged += (_, _) => MarkDirtyFromEditor();
         _distributionPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _minimum.ValueChanged += (_, _) => MarkDirtyFromEditor();
         _maximum.ValueChanged += (_, _) => MarkDirtyFromEditor();
@@ -300,6 +314,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 _enabled,
                 Labeled("类型", _kindPicker),
                 Labeled("表面", _surfacePicker),
+                Labeled("元件终止面", _endSurfacePicker),
+                Labeled("非球面参数序号", _parameterIndex),
                 Labeled("最小偏差", _minimum),
                 Labeled("最大偏差", _maximum),
                 Labeled("统计分布", _distributionPicker),
@@ -434,6 +450,10 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             _surfacePicker.SelectedItem = _surfacePicker.ItemsSource?
                 .Cast<SurfaceEditorRow>()
                 .FirstOrDefault(item => item.Number == row.SurfaceNumber);
+            _endSurfacePicker.SelectedItem = _endSurfacePicker.ItemsSource?
+                .Cast<SurfaceEditorRow>()
+                .FirstOrDefault(item => item.Number == row.EndSurfaceNumber);
+            _parameterIndex.Value = row.ParameterIndex;
             _minimum.Value = ToDecimal(row.Minimum);
             _maximum.Value = ToDecimal(row.Maximum);
             _distributionPicker.SelectedIndex = row.Distribution == ToleranceDistribution.Uniform ? 1 : 0;
@@ -460,6 +480,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             selected.Enabled = _enabled.IsChecked == true;
             selected.Kind = kind.Kind;
             selected.SurfaceNumber = surface.Number;
+            selected.EndSurfaceNumber = (_endSurfacePicker.SelectedItem as SurfaceEditorRow)?.Number ?? -1;
+            selected.ParameterIndex = IntValue(_parameterIndex, 0);
             selected.Minimum = DoubleValue(_minimum, -0.1);
             selected.Maximum = DoubleValue(_maximum, 0.1);
             selected.Distribution = _distributionPicker.SelectedIndex == 1
@@ -515,6 +537,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _maxDegreeOfParallelism = options.MaxDegreeOfParallelism;
         _worstSensitivityCount = options.WorstSensitivityCount;
         _showMonteCarloTrials = options.ShowMonteCarloTrials;
+        _inverseValue = options.InverseValue;
         return await RunAsync(options);
     }
 
@@ -530,7 +553,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         DoubleValue(_yieldLimit, 0),
         _distributionOverride,
         _worstSensitivityCount,
-        _showMonteCarloTrials);
+        _showMonteCarloTrials,
+        _inverseValue);
 
     private async Task<bool> RunAsync(TolerancingRunOptions options)
     {
@@ -554,6 +578,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _operationStatus.Start("正在运行公差分析…", () => _runCancellation?.Cancel());
         _summary.Text = options.Mode == ToleranceAnalysisMode.SkipSensitivity
             ? "正在运行 Monte Carlo 公差分析…"
+            : options.Mode is ToleranceAnalysisMode.InverseLimit or ToleranceAnalysisMode.InverseIncrement
+                ? "正在反求并验证公差范围…"
             : options.MonteCarloRuns == 0
                 ? "正在运行灵敏度公差分析…"
                 : "正在运行灵敏度和 Monte Carlo 公差分析…";
@@ -579,7 +605,8 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 options.Criterion,
                 options.YieldLimit,
                 options.MaxDegreeOfParallelism,
-                options.Mode), cancellationToken);
+                options.Mode,
+                options.InverseValue), cancellationToken);
             if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
             {
                 return false;
@@ -592,13 +619,23 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 return false;
             }
 
-            if (options.Mode == ToleranceAnalysisMode.Sensitivity
+            if (options.Mode != ToleranceAnalysisMode.SkipSensitivity
                 && result.SensitivityRows.Count == 0)
             {
                 throw new InvalidOperationException(
                     string.IsNullOrWhiteSpace(result.Details)
                         ? "灵敏度分析未生成结果。"
                         : result.Details);
+            }
+
+            if (options.Mode is ToleranceAnalysisMode.InverseLimit or ToleranceAnalysisMode.InverseIncrement)
+            {
+                if (result.AdjustedOperands is null || result.InverseRows is not { Count: > 0 })
+                {
+                    throw new InvalidOperationException("反向灵敏度未返回调整后的公差范围。");
+                }
+
+                ApplyInverseOperands(result.AdjustedOperands);
             }
 
             if (options.MonteCarloRuns > 0 && result.TrialRows.Count == 0)
@@ -636,6 +673,31 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
             throw;
         }
+    }
+
+    private void ApplyInverseOperands(IReadOnlyList<ToleranceOperandDto> adjustedOperands)
+    {
+        var adjustedByIndex = adjustedOperands.ToDictionary(operand => operand.Index);
+        _suppressDirtyTracking = true;
+        try
+        {
+            foreach (var row in _operands)
+            {
+                if (!adjustedByIndex.TryGetValue(row.Index, out var adjusted))
+                {
+                    continue;
+                }
+
+                row.Minimum = adjusted.Minimum;
+                row.Maximum = adjusted.Maximum;
+            }
+        }
+        finally
+        {
+            _suppressDirtyTracking = false;
+        }
+
+        _hasUnsavedChanges = true;
     }
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
@@ -743,39 +805,28 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             }
 
             var document = new ToleranceFileDto(
-                SchemaVersion: 1,
+                SchemaVersion: 2,
                 _operands.Select(row => row.ToDto()).ToArray(),
                 _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
                 IntValue(_trials, 1000),
                 IntValue(_seed, 1234),
                 IntValue(_compensationIterations, 20),
-                DoubleValue(_yieldLimit, 0));
+                DoubleValue(_yieldLimit, 0),
+                _analysisMode,
+                _inverseValue,
+                _distributionOverride,
+                _maxDegreeOfParallelism,
+                _worstSensitivityCount,
+                _showMonteCarloTrials);
             var json = System.Text.Json.JsonSerializer.Serialize(
                 document,
-                new System.Text.Json.JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
-                });
+                ToleranceJsonOptions);
             var fullPath = Path.GetFullPath(path);
-            var directory = Path.GetDirectoryName(fullPath)
-                ?? throw new InvalidOperationException("无法确定公差文件目录。");
-            Directory.CreateDirectory(directory);
-            var temporaryPath = Path.Combine(
-                directory,
-                $".{Path.GetFileName(fullPath)}.{Guid.NewGuid():N}.tmp");
-            try
-            {
-                await File.WriteAllTextAsync(temporaryPath, json);
-                File.Move(temporaryPath, fullPath, overwrite: true);
-            }
-            finally
-            {
-                if (File.Exists(temporaryPath))
-                {
-                    File.Delete(temporaryPath);
-                }
-            }
+            await BoundedApplicationFile.WriteAllTextAtomicAsync(
+                fullPath,
+                json,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "Tolerance data");
 
             _currentTolerancePath = fullPath;
             _hasUnsavedChanges = false;
@@ -822,16 +873,24 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 return;
             }
 
-            var json = await File.ReadAllTextAsync(files[0].Path.LocalPath);
+            var json = await BoundedApplicationFile.ReadAllTextAsync(
+                files[0].Path.LocalPath,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "Tolerance settings");
             var document = System.Text.Json.JsonSerializer.Deserialize<ToleranceFileDto>(
                 json,
-                new System.Text.Json.JsonSerializerOptions
-                {
-                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
-                });
-            if (document is null || document.SchemaVersion != 1)
+                ToleranceJsonOptions);
+            if (document is null || document.SchemaVersion is < 1 or > 2)
             {
                 throw new InvalidDataException("不支持的公差文件版本。");
+            }
+            if (!Enum.IsDefined(document.Mode)
+                || !double.IsFinite(document.InverseValue)
+                || document.InverseValue <= 0
+                || document.MaxDegreeOfParallelism <= 0
+                || document.WorstSensitivityCount < 0)
+            {
+                throw new InvalidDataException("公差文件包含无效的分析运行设置。");
             }
 
             var validation = _tolerancing.ValidateOperands(document.Operands);
@@ -856,6 +915,15 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 _seed.Value = document.Seed;
                 _compensationIterations.Value = document.CompensationIterations;
                 _yieldLimit.Value = ToDecimal(document.YieldLimit);
+                _analysisMode = document.Mode;
+                _inverseValue = document.InverseValue;
+                _distributionOverride = document.DistributionOverride;
+                _maxDegreeOfParallelism = Math.Clamp(
+                    document.MaxDegreeOfParallelism,
+                    1,
+                    Math.Max(1, Environment.ProcessorCount));
+                _worstSensitivityCount = document.WorstSensitivityCount;
+                _showMonteCarloTrials = document.ShowMonteCarloTrials;
                 _operandGrid.SelectedItem = _operands.FirstOrDefault();
                 _currentTolerancePath = Path.GetFullPath(files[0].Path.LocalPath);
                 _hasUnsavedChanges = false;
@@ -897,7 +965,11 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 return;
             }
 
-            await File.WriteAllTextAsync(file.Path.LocalPath, BuildToleranceReportText());
+            await BoundedApplicationFile.WriteAllTextAtomicAsync(
+                file.Path.LocalPath,
+                BuildToleranceReportText(),
+                BoundedApplicationFile.MaximumExportBytes,
+                "Tolerance report");
             _summary.Text = "公差分析报告已导出。";
         }
         catch (Exception exception)
@@ -985,13 +1057,13 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine();
         builder.AppendLine("公差操作数:");
         builder.AppendLine();
-        builder.AppendLine(FixedColumns("#", "类型", "表面", "最小", "最大", "统计", "标注"));
+        builder.AppendLine(FixedColumns("#", "类型", "位置", "最小", "最大", "统计", "标注"));
         foreach (var operand in operands)
         {
             builder.AppendLine(FixedColumns(
                 operand.Index.ToString(),
                 ToleranceOperandEditorRow.CodeFor(operand.Kind),
-                operand.SurfaceNumber.ToString(),
+                ToleranceLocation(operand),
                 FormatNumber(operand.Minimum),
                 FormatNumber(operand.Maximum),
                 operand.Distribution == ToleranceDistribution.Normal ? "正态" : "均匀",
@@ -1016,6 +1088,34 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine(_lastResult.Summary);
         builder.AppendLine(_lastResult.Details);
         builder.AppendLine();
+        if (_lastResult.InverseRows is { Count: > 0 } inverseRows)
+        {
+            builder.AppendLine(_analysisMode == ToleranceAnalysisMode.InverseIncrement
+                ? $"反向增量结果（目标评价值 {_lastResult.InverseTarget}）"
+                : $"反向极限结果（目标评价值 {_lastResult.InverseTarget}）");
+            builder.AppendLine(FixedColumns(
+                "操作数",
+                "原最小",
+                "调整最小",
+                "原最大",
+                "调整最大",
+                "负端状态",
+                "正端状态"));
+            foreach (var row in inverseRows)
+            {
+                builder.AppendLine(FixedColumns(
+                    row.Perturbation,
+                    row.Minimum.OriginalTolerance,
+                    row.Minimum.AdjustedTolerance,
+                    row.Maximum.OriginalTolerance,
+                    row.Maximum.AdjustedTolerance,
+                    InverseStatusText(row.Minimum.Status),
+                    InverseStatusText(row.Maximum.Status)));
+            }
+
+            builder.AppendLine();
+        }
+
         if (_lastResult.SensitivityStatistics is not null)
         {
             builder.AppendLine("灵敏度 RSS 预计性能");
@@ -1078,6 +1178,26 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
         return builder.ToString();
     }
+
+    private static string InverseStatusText(ToleranceInverseEndpointStatus status) => status switch
+    {
+        ToleranceInverseEndpointStatus.UnchangedWithinTarget => "保留",
+        ToleranceInverseEndpointStatus.Tightened => "已收紧",
+        ToleranceInverseEndpointStatus.ZeroRange => "零范围",
+        _ => "不支持"
+    };
+
+    private static string ToleranceLocation(ToleranceOperandDto operand) => operand.Kind switch
+    {
+        ToleranceOperandKind.ElementDecenterX
+            or ToleranceOperandKind.ElementDecenterY
+            or ToleranceOperandKind.ElementTiltX
+            or ToleranceOperandKind.ElementTiltY =>
+            $"{operand.SurfaceNumber}-{operand.EndSurfaceNumber}",
+        ToleranceOperandKind.AsphereCoefficient =>
+            $"{operand.SurfaceNumber}:P{operand.ParameterIndex}",
+        _ => operand.SurfaceNumber.ToString(CultureInfo.InvariantCulture)
+    };
 
     internal ToleranceChartView BuildHistogramChartView() =>
         ToleranceChartBuilder.Histogram(
@@ -1149,10 +1269,14 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private void RefreshSurfaces()
     {
         var selected = (_surfacePicker.SelectedItem as SurfaceEditorRow)?.Number;
+        var selectedEnd = (_endSurfacePicker.SelectedItem as SurfaceEditorRow)?.Number;
         var surfaces = _prescription.GetSurfaces().Select(surface => new SurfaceEditorRow(surface)).ToArray();
         _surfacePicker.ItemsSource = surfaces;
+        _endSurfacePicker.ItemsSource = surfaces;
         _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selected)
             ?? surfaces.ElementAtOrDefault(Math.Min(1, Math.Max(0, surfaces.Length - 1)));
+        _endSurfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selectedEnd)
+            ?? surfaces.ElementAtOrDefault(Math.Min(2, Math.Max(0, surfaces.Length - 1)));
     }
 
     private void Renumber()
@@ -1192,6 +1316,11 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         ToleranceOperandKind.DecenterY => "表面 Y 偏心",
         ToleranceOperandKind.TiltX => "表面 X 倾斜",
         ToleranceOperandKind.TiltY => "表面 Y 倾斜",
+        ToleranceOperandKind.ElementDecenterX => "元件 X 偏心",
+        ToleranceOperandKind.ElementDecenterY => "元件 Y 偏心",
+        ToleranceOperandKind.ElementTiltX => "元件 X 倾斜",
+        ToleranceOperandKind.ElementTiltY => "元件 Y 倾斜",
+        ToleranceOperandKind.AsphereCoefficient => "非球面参数",
         ToleranceOperandKind.RefractiveIndex => "折射率",
         ToleranceOperandKind.AbbeNumber => "阿贝数",
         ToleranceOperandKind.Compensator => "补偿器",
@@ -1283,223 +1412,11 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         int Trials,
         int Seed,
         int CompensationIterations,
-        double YieldLimit);
-}
-
-public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
-{
-    private int _index;
-    private bool _enabled;
-    private ToleranceOperandKind _kind;
-    private int _surfaceNumber;
-    private double _minimum;
-    private double _maximum;
-    private ToleranceDistribution _distribution;
-    private string _comment = string.Empty;
-
-    public ToleranceOperandEditorRow(ToleranceOperandDto source)
-    {
-        Index = source.Index;
-        Enabled = source.Enabled;
-        Kind = source.Kind;
-        SurfaceNumber = source.SurfaceNumber;
-        Minimum = source.Minimum;
-        Maximum = source.Maximum;
-        Distribution = source.Distribution;
-        Comment = source.Comment;
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    public int Index
-    {
-        get => _index;
-        set => SetField(ref _index, value, nameof(Index));
-    }
-
-    public bool Enabled
-    {
-        get => _enabled;
-        set => SetField(ref _enabled, value, nameof(Enabled));
-    }
-
-    public ToleranceOperandKind Kind
-    {
-        get => _kind;
-        set
-        {
-            if (SetField(ref _kind, value, nameof(Kind)))
-            {
-                OnPropertyChanged(nameof(Code));
-            }
-        }
-    }
-
-    public string Code
-    {
-        get => CodeFor(Kind);
-        set
-        {
-            if (TryParseCode(value, out var kind))
-            {
-                Kind = kind;
-                return;
-            }
-
-            OnPropertyChanged(nameof(Code));
-        }
-    }
-
-    public int SurfaceNumber
-    {
-        get => _surfaceNumber;
-        set => SetField(ref _surfaceNumber, value, nameof(SurfaceNumber));
-    }
-
-    public double Minimum
-    {
-        get => _minimum;
-        set => SetField(ref _minimum, value, nameof(Minimum));
-    }
-
-    public double Maximum
-    {
-        get => _maximum;
-        set => SetField(ref _maximum, value, nameof(Maximum));
-    }
-
-    public ToleranceDistribution Distribution
-    {
-        get => _distribution;
-        set
-        {
-            if (SetField(ref _distribution, value, nameof(Distribution)))
-            {
-                OnPropertyChanged(nameof(DistributionText));
-            }
-        }
-    }
-
-    public string DistributionText
-    {
-        get => Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
-        set
-        {
-            if (TryParseDistribution(value, out var distribution))
-            {
-                Distribution = distribution;
-                return;
-            }
-
-            OnPropertyChanged(nameof(DistributionText));
-        }
-    }
-
-    public string Comment
-    {
-        get => _comment;
-        set => SetField(ref _comment, value ?? string.Empty, nameof(Comment));
-    }
-
-    public ToleranceOperandDto ToDto() => new(
-        Index,
-        Enabled,
-        Kind,
-        SurfaceNumber,
-        Minimum,
-        Maximum,
-        Distribution,
-        Comment);
-
-    public static string CodeFor(ToleranceOperandKind kind) => kind switch
-    {
-        ToleranceOperandKind.Radius => "TRAD",
-        ToleranceOperandKind.Thickness => "TTHI",
-        ToleranceOperandKind.Conic => "TCON",
-        ToleranceOperandKind.DecenterX => "TSDX",
-        ToleranceOperandKind.DecenterY => "TSDY",
-        ToleranceOperandKind.TiltX => "TSTX",
-        ToleranceOperandKind.TiltY => "TSTY",
-        ToleranceOperandKind.RefractiveIndex => "TIND",
-        ToleranceOperandKind.AbbeNumber => "TABB",
-        ToleranceOperandKind.Compensator => "COMP",
-        _ => kind.ToString().ToUpperInvariant()
-    };
-
-    private static bool TryParseCode(string? text, out ToleranceOperandKind kind)
-    {
-        switch ((text ?? string.Empty).Trim().ToUpperInvariant())
-        {
-            case "TRAD":
-                kind = ToleranceOperandKind.Radius;
-                return true;
-            case "TTHI":
-                kind = ToleranceOperandKind.Thickness;
-                return true;
-            case "TCON":
-                kind = ToleranceOperandKind.Conic;
-                return true;
-            case "TSDX":
-                kind = ToleranceOperandKind.DecenterX;
-                return true;
-            case "TSDY":
-                kind = ToleranceOperandKind.DecenterY;
-                return true;
-            case "TSTX":
-                kind = ToleranceOperandKind.TiltX;
-                return true;
-            case "TSTY":
-                kind = ToleranceOperandKind.TiltY;
-                return true;
-            case "TIND":
-                kind = ToleranceOperandKind.RefractiveIndex;
-                return true;
-            case "TABB":
-                kind = ToleranceOperandKind.AbbeNumber;
-                return true;
-            case "COMP":
-                kind = ToleranceOperandKind.Compensator;
-                return true;
-        }
-
-        return Enum.TryParse(text, ignoreCase: true, out kind);
-    }
-
-    private static bool TryParseDistribution(string? text, out ToleranceDistribution distribution)
-    {
-        var normalized = (text ?? string.Empty).Trim();
-        if (normalized.Contains("均", StringComparison.Ordinal)
-            || normalized.Equals("uniform", StringComparison.OrdinalIgnoreCase)
-            || normalized.Equals("u", StringComparison.OrdinalIgnoreCase))
-        {
-            distribution = ToleranceDistribution.Uniform;
-            return true;
-        }
-
-        if (normalized.Contains("正", StringComparison.Ordinal)
-            || normalized.Equals("normal", StringComparison.OrdinalIgnoreCase)
-            || normalized.Equals("gaussian", StringComparison.OrdinalIgnoreCase)
-            || normalized.Equals("n", StringComparison.OrdinalIgnoreCase))
-        {
-            distribution = ToleranceDistribution.Normal;
-            return true;
-        }
-
-        return Enum.TryParse(text, ignoreCase: true, out distribution);
-    }
-
-    private bool SetField<T>(ref T field, T value, string propertyName)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-        {
-            return false;
-        }
-
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
-
-    private void OnPropertyChanged(string propertyName) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        double YieldLimit,
+        ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity,
+        double InverseValue = 0.05,
+        ToleranceDistribution? DistributionOverride = null,
+        int MaxDegreeOfParallelism = 1,
+        int WorstSensitivityCount = 0,
+        bool ShowMonteCarloTrials = true);
 }

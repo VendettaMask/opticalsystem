@@ -339,8 +339,14 @@ public sealed class NonSequentialDocument
 {
     public const int MaximumObjectCount = 100_000;
     public const int MaximumWavelengthCount = 1_024;
+    public const int MaximumSegmentsPerRay = 100_000;
     public const int MaximumMeshAssetCount = 4_096;
     public const long MaximumMeshAssetBytes = 512L * 1024 * 1024;
+    public const int MaximumDetectorDimension = 4_096;
+    public const long MaximumDetectorPixels = 1_048_576;
+    public const long MaximumTotalDetectorPixels = 4_194_304;
+    public const long MaximumDetectorPixelWavelengths = 8_388_608;
+    private const double MinimumOpenSourceAreaFraction = 0.01;
     private readonly List<NonSequentialWavelength> _wavelengths;
     private readonly List<NonSequentialObjectDefinition> _objects;
     private readonly List<NonSequentialMeshAsset> _meshAssets;
@@ -564,6 +570,23 @@ public sealed class NonSequentialDocument
             _ = ContainmentChain(item);
         }
 
+        var totalDetectorPixels = _objects
+            .Where(item => item.Enabled)
+            .Select(item => item.Parameters)
+            .OfType<DetectorRectangleParameters>()
+            .Sum(detector => checked((long)detector.PixelsX * detector.PixelsY));
+        if (totalDetectorPixels > MaximumTotalDetectorPixels)
+        {
+            throw new InvalidDataException(
+                $"启用探测器的总像素数不能超过 {MaximumTotalDetectorPixels:N0}。");
+        }
+        var detectorPixelWavelengths = checked(totalDetectorPixels * _wavelengths.Count);
+        if (detectorPixelWavelengths > MaximumDetectorPixelWavelengths)
+        {
+            throw new InvalidDataException(
+                $"启用探测器的像素-波长总预算不能超过 {MaximumDetectorPixelWavelengths:N0}。");
+        }
+
         ValidateTraceSettings(TraceSettings);
     }
 
@@ -729,8 +752,9 @@ public sealed class NonSequentialDocument
                 break;
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
-                if (detector.PixelsX <= 0 || detector.PixelsX > 16_384 || detector.PixelsY <= 0 || detector.PixelsY > 16_384
-                    || (long)detector.PixelsX * detector.PixelsY > 67_108_864)
+                if (detector.PixelsX <= 0 || detector.PixelsX > MaximumDetectorDimension
+                    || detector.PixelsY <= 0 || detector.PixelsY > MaximumDetectorDimension
+                    || (long)detector.PixelsX * detector.PixelsY > MaximumDetectorPixels)
                 {
                     throw new InvalidDataException($"探测器“{name}”的像素尺寸无效或过大。");
                 }
@@ -834,6 +858,18 @@ public sealed class NonSequentialDocument
             throw new InvalidDataException($"光源“{name}”的 Zemax 风格分布参数超出允许范围。");
         }
 
+        if (minimumXHalfWidth > 0 && minimumYHalfWidth > 0)
+        {
+            var openFraction = 1
+                - (minimumXHalfWidth * minimumYHalfWidth
+                    / (outerXHalfWidth * outerYHalfWidth));
+            if (!double.IsFinite(openFraction) || openFraction < MinimumOpenSourceAreaFraction)
+            {
+                throw new InvalidDataException(
+                    $"光源“{name}”的发光区域小于外形面积的 {MinimumOpenSourceAreaFraction:P0}，无法可靠采样。");
+            }
+        }
+
         if (distribution == NonSequentialSurfaceSourceAngularDistribution.VirtualPoint
             && Math.Abs(sourceDistance) <= 1e-15
             && sourceX * sourceX + sourceY * sourceY > 1 + 1e-12)
@@ -879,7 +915,7 @@ public sealed class NonSequentialDocument
         if (settings.LayoutRaysPerSource <= 0 || settings.LayoutRaysPerSource > 10_000
             || settings.AnalysisRaysPerSource <= 0 || settings.AnalysisRaysPerSource > 1_000_000
             || settings.MaximumTotalSourceRays <= 0 || settings.MaximumTotalSourceRays > 10_000_000
-            || settings.MaximumSegmentsPerRay <= 0 || settings.MaximumSegmentsPerRay > 100_000
+            || settings.MaximumSegmentsPerRay <= 0 || settings.MaximumSegmentsPerRay > MaximumSegmentsPerRay
             || settings.MaximumActiveBranches <= 0 || settings.MaximumActiveBranches > 10_000_000
             || !double.IsFinite(settings.MinimumRelativeIntensity)
             || settings.MinimumRelativeIntensity < 0 || settings.MinimumRelativeIntensity >= 1)

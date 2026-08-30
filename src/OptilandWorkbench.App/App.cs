@@ -64,7 +64,9 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(
                     TextElement.ForegroundProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary))
+                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary)),
+                new Setter(DataGrid.RowHeightProperty, UiDensity.CompactTableRowHeight),
+                new Setter(DataGrid.ColumnHeaderHeightProperty, UiDensity.TableHeaderHeight)
             }
         });
 
@@ -72,7 +74,7 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
-                new Setter(Button.MinHeightProperty, 29d),
+                new Setter(Button.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(Button.PaddingProperty, new Thickness(10, 4)),
                 new Setter(Button.CornerRadiusProperty, new CornerRadius(5)),
                 new Setter(Button.BorderThicknessProperty, new Thickness(1))
@@ -133,7 +135,7 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
-                new Setter(TextBox.MinHeightProperty, 29d),
+                new Setter(TextBox.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(TextBox.CornerRadiusProperty, new CornerRadius(5))
             }
         });
@@ -141,7 +143,7 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
-                new Setter(ComboBox.MinHeightProperty, 29d),
+                new Setter(ComboBox.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(ComboBox.CornerRadiusProperty, new CornerRadius(5))
             }
         });
@@ -149,8 +151,7 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
-                new Setter(NumericUpDown.ShowButtonSpinnerProperty, false),
-                new Setter(NumericUpDown.MinHeightProperty, 29d),
+                new Setter(NumericUpDown.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(NumericUpDown.CornerRadiusProperty, new CornerRadius(5))
             }
         });

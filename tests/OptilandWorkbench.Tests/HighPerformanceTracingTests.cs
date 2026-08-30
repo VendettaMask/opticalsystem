@@ -10,6 +10,42 @@ namespace OptilandWorkbench.Tests;
 public sealed class HighPerformanceTracingTests
 {
     [Fact]
+    public void SamplingAndTraceRetentionRejectUnboundedRequests()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => ApertureSampler.Generate(
+            ApertureSampler.MaximumPupilSampleCount + 1,
+            PupilSampling.Random));
+        Assert.Throws<ArgumentOutOfRangeException>(() => ApertureSampler.Generate(
+            16,
+            (PupilSampling)999));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            ApertureSampler.GenerateHexapolarRings(ApertureSampler.MaximumHexapolarRings + 1));
+        Assert.Throws<ArgumentException>(() => RayGenerator.ParseSampling("unknown"));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new RayTraceCache(maximumSamples: SequentialTraceLimits.MaximumRetainedSamples + 1L));
+
+        var optic = Optic.CreateBlank();
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalized(
+            0,
+            0,
+            0.5876,
+            2_000,
+            "random");
+        var prototype = optic.SurfaceGroup.Items[1];
+        optic.SurfaceGroup.Replace(Enumerable.Range(0, 1_001)
+            .Select(index =>
+            {
+                var surface = prototype.Clone();
+                surface.Label = index == 0 ? "Object" : index == 1_000 ? "Image" : $"S{index}";
+                surface.Thickness = index == 0 ? double.PositiveInfinity : 1;
+                return surface;
+            }));
+
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            optic.SequentialRayTracer.Trace(bundle, TraceRequest.FullHistory()));
+    }
+
+    [Fact]
     public void SelectedSurfaceTraceMatchesSerialAndParallelExecution()
     {
         var optic = Optic.CreateDemo();

@@ -43,29 +43,12 @@ internal sealed class CadExportService : WorkbenchServiceBase, ICadExportService
             cancellationToken).ConfigureAwait(false);
 
         var fullPath = Path.GetFullPath(path);
-        var directory = Path.GetDirectoryName(fullPath)
-            ?? throw new InvalidOperationException("CAD 导出路径没有有效目录。");
-        Directory.CreateDirectory(directory);
-        var temporaryPath = Path.Combine(
-            directory,
-            $".{Path.GetFileName(fullPath)}.{Guid.NewGuid():N}.tmp");
-        try
-        {
-            await File.WriteAllTextAsync(
-                temporaryPath,
-                document.Content,
-                new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
-                cancellationToken).ConfigureAwait(false);
-            cancellationToken.ThrowIfCancellationRequested();
-            File.Move(temporaryPath, fullPath, overwrite: true);
-        }
-        finally
-        {
-            if (File.Exists(temporaryPath))
-            {
-                File.Delete(temporaryPath);
-            }
-        }
+        await BoundedFile.WriteAllTextAtomicAsync(
+            fullPath,
+            document.Content,
+            BoundedFile.MaximumExportBytes,
+            "STEP CAD export",
+            cancellationToken).ConfigureAwait(false);
 
         return new CadExportResultDto(
             fullPath,

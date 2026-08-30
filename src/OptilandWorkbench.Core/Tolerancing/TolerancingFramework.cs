@@ -30,6 +30,13 @@ public interface IRangePerturbation : ISampledPerturbation
     void ApplyMaximum(Optic optic);
 }
 
+public interface IScaledRangePerturbation : IRangePerturbation
+{
+    void ApplyScaledMinimum(Optic optic, double scale);
+
+    void ApplyScaledMaximum(Optic optic, double scale);
+}
+
 public sealed class DelegatePerturbation : IPerturbation
 {
     private readonly Action<Optic> _apply;
@@ -136,7 +143,7 @@ public sealed class VariablePerturbation : ISampledPerturbation
     }
 }
 
-public sealed class VariableRangePerturbation : IRangePerturbation
+public sealed class VariableRangePerturbation : IScaledRangePerturbation
 {
     private readonly IOptimizationVariable _variable;
     private readonly bool _normalDistribution;
@@ -181,6 +188,12 @@ public sealed class VariableRangePerturbation : IRangePerturbation
 
     public void ApplyMaximum(Optic optic) => ApplyDelta(Maximum);
 
+    public void ApplyScaledMinimum(Optic optic, double scale) =>
+        ApplyDelta(Minimum * ValidateScale(scale));
+
+    public void ApplyScaledMaximum(Optic optic, double scale) =>
+        ApplyDelta(Maximum * ValidateScale(scale));
+
     public void Revert(Optic optic) => _variable.Value = _previousValue;
 
     private void ApplyDelta(double delta)
@@ -215,6 +228,16 @@ public sealed class VariableRangePerturbation : IRangePerturbation
         }
 
         return midpoint;
+    }
+
+    private static double ValidateScale(double scale)
+    {
+        if (!double.IsFinite(scale) || scale < 0 || scale > 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(scale));
+        }
+
+        return scale;
     }
 }
 
@@ -251,7 +274,11 @@ public sealed class Tolerancing
             var value = _criterionEvaluator?.Invoke() ?? Math.Sqrt(Math.Max(0, Merit()));
             return double.IsFinite(value) ? value : double.PositiveInfinity;
         }
-        catch (Exception exception) when (exception is not OperationCanceledException)
+        catch (Exception exception) when (exception is InvalidOperationException
+            or ArgumentException
+            or ArithmeticException
+            or KeyNotFoundException
+            or NotSupportedException)
         {
             return double.PositiveInfinity;
         }
@@ -285,8 +312,29 @@ public sealed record SensitivityResult(
     double PositiveCriterion = double.NaN,
     double WorstCriterion = double.NaN);
 
+public enum InverseToleranceEndpointStatus
+{
+    UnchangedWithinTarget,
+    Tightened,
+    ZeroRange,
+    UnsupportedPerturbation
+}
+
+public sealed record InverseToleranceEndpointResult(
+    double OriginalTolerance,
+    double AdjustedTolerance,
+    double Criterion,
+    InverseToleranceEndpointStatus Status,
+    int Iterations);
+
+public sealed record InverseSensitivityResult(
+    string Perturbation,
+    InverseToleranceEndpointResult Minimum,
+    InverseToleranceEndpointResult Maximum);
+
 public sealed class SensitivityAnalysis
 {
+    public const int MaximumInverseIterations = 48;
     private readonly Optic _optic;
     private readonly Tolerancing _tolerancing;
 
@@ -363,6 +411,65 @@ public sealed class SensitivityAnalysis
             .ToArray();
     }
 
+    public IReadOnlyList<InverseSensitivityResult> RunInverse(
+        double targetCriterion,
+        int compensationIterations = 0,
+        CancellationToken cancellationToken = default)
+    {
+        if (!double.IsFinite(targetCriterion) || targetCriterion <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(targetCriterion));
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
+        var baseline = EvaluateNominal(compensationIterations, cancellationToken);
+        if (!double.IsFinite(baseline.Criterion) || targetCriterion <= baseline.Criterion)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(targetCriterion),
+                "The inverse tolerance target must be greater than the nominal criterion.");
+        }
+
+        var results = new List<InverseSensitivityResult>();
+        foreach (var perturbation in _tolerancing.Perturbations)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (perturbation is not IScaledRangePerturbation range)
+            {
+                var unsupported = new InverseToleranceEndpointResult(
+                    double.NaN,
+                    double.NaN,
+                    baseline.Criterion,
+                    InverseToleranceEndpointStatus.UnsupportedPerturbation,
+                    0);
+                results.Add(new InverseSensitivityResult(
+                    perturbation.Name,
+                    unsupported,
+                    unsupported));
+                continue;
+            }
+
+            results.Add(new InverseSensitivityResult(
+                perturbation.Name,
+                SolveInverseEndpoint(
+                    range,
+                    useMaximum: false,
+                    baseline.Criterion,
+                    targetCriterion,
+                    compensationIterations,
+                    cancellationToken),
+                SolveInverseEndpoint(
+                    range,
+                    useMaximum: true,
+                    baseline.Criterion,
+                    targetCriterion,
+                    compensationIterations,
+                    cancellationToken)));
+        }
+
+        return results;
+    }
+
     public ToleranceEvaluation EvaluateNominal(
         int compensationIterations,
         CancellationToken cancellationToken)
@@ -394,6 +501,116 @@ public sealed class SensitivityAnalysis
             else
             {
                 perturbation.ApplyMinimum(_optic);
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            return CompensatedEvaluation(compensationIterations, cancellationToken);
+        }
+        finally
+        {
+            try
+            {
+                perturbation.Revert(_optic);
+            }
+            finally
+            {
+                _optic.RestoreTrustedSnapshot(snapshot);
+            }
+        }
+    }
+
+    private InverseToleranceEndpointResult SolveInverseEndpoint(
+        IScaledRangePerturbation perturbation,
+        bool useMaximum,
+        double nominalCriterion,
+        double targetCriterion,
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        var originalTolerance = useMaximum ? perturbation.Maximum : perturbation.Minimum;
+        if (Math.Abs(originalTolerance) <= 1e-15)
+        {
+            return new InverseToleranceEndpointResult(
+                originalTolerance,
+                originalTolerance,
+                nominalCriterion,
+                InverseToleranceEndpointStatus.ZeroRange,
+                0);
+        }
+
+        var endpoint = EvaluateScaledEndpoint(
+            perturbation,
+            useMaximum,
+            1,
+            compensationIterations,
+            cancellationToken);
+        if (double.IsFinite(endpoint.Criterion) && endpoint.Criterion <= targetCriterion)
+        {
+            return new InverseToleranceEndpointResult(
+                originalTolerance,
+                originalTolerance,
+                endpoint.Criterion,
+                InverseToleranceEndpointStatus.UnchangedWithinTarget,
+                0);
+        }
+
+        var lowerScale = 0.0;
+        var upperScale = 1.0;
+        var lowerCriterion = nominalCriterion;
+        var iterations = 0;
+        var scaleTolerance = Math.Max(1e-12, 1e-7 / Math.Max(1, Math.Abs(originalTolerance)));
+        for (; iterations < MaximumInverseIterations; iterations++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var middleScale = (lowerScale + upperScale) / 2.0;
+            var middle = EvaluateScaledEndpoint(
+                perturbation,
+                useMaximum,
+                middleScale,
+                compensationIterations,
+                cancellationToken);
+            if (double.IsFinite(middle.Criterion) && middle.Criterion <= targetCriterion)
+            {
+                lowerScale = middleScale;
+                lowerCriterion = middle.Criterion;
+            }
+            else
+            {
+                upperScale = middleScale;
+            }
+
+            if (upperScale - lowerScale <= scaleTolerance)
+            {
+                iterations++;
+                break;
+            }
+        }
+
+        return new InverseToleranceEndpointResult(
+            originalTolerance,
+            originalTolerance * lowerScale,
+            lowerCriterion,
+            InverseToleranceEndpointStatus.Tightened,
+            iterations);
+    }
+
+    private ToleranceEvaluation EvaluateScaledEndpoint(
+        IScaledRangePerturbation perturbation,
+        bool useMaximum,
+        double scale,
+        int compensationIterations,
+        CancellationToken cancellationToken)
+    {
+        var snapshot = _optic.ToSnapshot();
+        try
+        {
+            if (useMaximum)
+            {
+                perturbation.ApplyScaledMaximum(_optic, scale);
+            }
+            else
+            {
+                perturbation.ApplyScaledMinimum(_optic, scale);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -444,6 +661,8 @@ public sealed record TolerancingTrialResult(
 
 public sealed class MonteCarlo
 {
+    public const int MaximumTrialCount = 10_000;
+    public const int MaximumCompensationIterations = 500;
     private readonly Optic _optic;
     private readonly Tolerancing _tolerancing;
 
@@ -548,9 +767,20 @@ public sealed class MonteCarlo
         {
             throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism));
         }
+        if (trials < 0 || trials > MaximumTrialCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(trials),
+                $"Monte Carlo trial count must be between 0 and {MaximumTrialCount:N0}.");
+        }
+        if (compensationIterations < 0 || compensationIterations > MaximumCompensationIterations)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(compensationIterations),
+                $"Compensation iterations must be between 0 and {MaximumCompensationIterations:N0}.");
+        }
 
-
-        var trialCount = Math.Max(0, trials);
+        var trialCount = trials;
         if (trialCount == 0)
         {
             return Array.Empty<TolerancingTrialResult>();

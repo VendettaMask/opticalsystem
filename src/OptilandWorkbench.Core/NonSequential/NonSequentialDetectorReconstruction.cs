@@ -4,7 +4,9 @@ public static class NonSequentialDetectorReconstruction
 {
     public static IReadOnlyList<NonSequentialDetectorFrame> Reconstruct(
         NonSequentialDocument document,
-        IEnumerable<NonSequentialRayBranch> branches)
+        IEnumerable<NonSequentialRayBranch> branches,
+        Guid? sourceObjectId = null,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(branches);
@@ -13,23 +15,43 @@ public static class NonSequentialDetectorReconstruction
             .ToDictionary(item => item.Id, item => new Accumulator(item));
         foreach (var branch in branches)
         {
-            if (branch.TerminationReason != Raytrace.NonSequentialTerminationReason.DetectorHit
-                || branch.Segments.LastOrDefault() is not { ObjectId: Guid detectorId } segment
-                || !detectors.TryGetValue(detectorId, out var detector))
+            cancellationToken.ThrowIfCancellationRequested();
+            if (sourceObjectId is Guid selectedSource && branch.SourceObjectId != selectedSource)
             {
                 continue;
             }
-            var local = document.ToLocalPoint(detectorId, segment.End);
-            var localDirection = document.ToLocalDirection(detectorId, segment.OutgoingDirection);
-            var wavelength = branch.WavelengthNanometers > 0
-                ? branch.WavelengthNanometers
-                : segment.WavelengthNanometers;
-            var wavelengthNumber = document.Wavelengths.ToList().FindIndex(item =>
-                Math.Abs(item.Nanometers - wavelength) <= 1e-9) + 1;
-            detector.Add(local, localDirection, Math.Max(1, wavelengthNumber), segment.Intensity);
+
+            var recordedHits = new HashSet<DetectorHitKey>();
+            foreach (var segment in branch.Segments)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (segment.ObjectId is not Guid detectorId
+                    || !detectors.TryGetValue(detectorId, out var detector)
+                    || !recordedHits.Add(new DetectorHitKey(
+                        detectorId,
+                        segment.FaceNumber,
+                        BitConverter.DoubleToInt64Bits(segment.CumulativePathLength))))
+                {
+                    continue;
+                }
+
+                var local = document.ToLocalPoint(detectorId, segment.End);
+                var localDirection = document.ToLocalDirection(detectorId, segment.OutgoingDirection);
+                var wavelength = branch.WavelengthNanometers > 0
+                    ? branch.WavelengthNanometers
+                    : segment.WavelengthNanometers;
+                var wavelengthNumber = document.Wavelengths.ToList().FindIndex(item =>
+                    Math.Abs(item.Nanometers - wavelength) <= 1e-9) + 1;
+                detector.Add(local, localDirection, Math.Max(1, wavelengthNumber), segment.Intensity);
+            }
         }
-        return detectors.Values.Select(item => item.ToFrame(document)).ToArray();
+        return detectors.Values.Select(item => item.ToFrame()).ToArray();
     }
+
+    private readonly record struct DetectorHitKey(
+        Guid DetectorId,
+        int FaceNumber,
+        long CumulativePathBits);
 
     private sealed class Accumulator
     {
@@ -85,15 +107,11 @@ public static class NonSequentialDetectorReconstruction
             angularHitValues[angularY * _parameters.PixelsX + angularX]++;
         }
 
-        public NonSequentialDetectorFrame ToFrame(NonSequentialDocument document)
+        public NonSequentialDetectorFrame ToFrame()
         {
-            var values = new Dictionary<int, IReadOnlyList<double>>();
-            for (var wavelength = 1; wavelength <= document.Wavelengths.Count; wavelength++)
-            {
-                values[wavelength] = _pixels.TryGetValue(wavelength, out var pixels)
-                    ? pixels.ToArray()
-                    : new double[_parameters.PixelsX * _parameters.PixelsY];
-            }
+            var values = _pixels.ToDictionary(
+                item => item.Key,
+                item => (IReadOnlyList<double>)item.Value);
             return new NonSequentialDetectorFrame(
                 _item.Id,
                 _item.Name,
@@ -101,21 +119,9 @@ public static class NonSequentialDetectorReconstruction
                 _parameters.PixelsY,
                 values,
                 values.Values.Sum(pixels => pixels.Sum()),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<long>)(_hits.TryGetValue(wavelength, out var pixels)
-                        ? pixels.ToArray()
-                        : new long[_parameters.PixelsX * _parameters.PixelsY])),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<double>)(_angularPixels.TryGetValue(wavelength, out var pixels)
-                        ? pixels.ToArray()
-                        : new double[_parameters.PixelsX * _parameters.PixelsY])),
-                document.Wavelengths.Select((_, index) => index + 1).ToDictionary(
-                    wavelength => wavelength,
-                    wavelength => (IReadOnlyList<long>)(_angularHits.TryGetValue(wavelength, out var pixels)
-                        ? pixels.ToArray()
-                        : new long[_parameters.PixelsX * _parameters.PixelsY])));
+                _hits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value),
+                _angularPixels.ToDictionary(item => item.Key, item => (IReadOnlyList<double>)item.Value),
+                _angularHits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value));
         }
     }
 }

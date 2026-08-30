@@ -6,6 +6,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Panels;
@@ -22,7 +23,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private readonly ComboBox _container = new() { MinWidth = 165 };
     private readonly CheckBox _visible = new() { Content = "可见" };
     private readonly StackPanel _parameters = new() { Spacing = 6 };
-    private readonly Dictionary<string, TextBox> _fields = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Control> _fields = new(StringComparer.Ordinal);
     private NonSequentialObjectUpdateDto? _clipboard;
     private bool _loading;
     private bool _disposed;
@@ -126,8 +127,8 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
             FrozenColumnCount = 3,
-            RowHeight = 28,
-            ColumnHeaderHeight = 30
+            RowHeight = UiDensity.CompactTableRowHeight,
+            ColumnHeaderHeight = UiDensity.TableHeaderHeight
         };
         grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
@@ -338,16 +339,28 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private void ApplyProperties()
     {
         if (_grid.SelectedItem is not ObjectRow row) return;
-        var kind = _kind.SelectedItem is NonSequentialObjectKind selected ? selected : row.Kind;
-        var parameters = kind == row.Kind ? ReadParameters(row.Parameters) : _service.GetDefaultParameters(kind);
-        _service.UpdateObject(row.ToUpdate() with
+        try
         {
-            Kind = kind,
-            Visible = _visible.IsChecked == true,
-            ReferenceObjectId = (_reference.SelectedItem as ObjectChoice)?.Id,
-            ContainingObjectId = (_container.SelectedItem as ObjectChoice)?.Id,
-            Parameters = parameters
-        });
+            var kind = _kind.SelectedItem is NonSequentialObjectKind selected ? selected : row.Kind;
+            var parameters = kind == row.Kind ? ReadParameters(row.Parameters) : _service.GetDefaultParameters(kind);
+            _service.UpdateObject(row.ToUpdate() with
+            {
+                Kind = kind,
+                Visible = _visible.IsChecked == true,
+                ReferenceObjectId = (_reference.SelectedItem as ObjectChoice)?.Id,
+                ContainingObjectId = (_container.SelectedItem as ObjectChoice)?.Id,
+                Parameters = parameters
+            });
+            _summary.Text = $"对象 {row.Number} 的属性已更新。";
+        }
+        catch (Exception exception) when (
+            exception is FormatException
+            or InvalidDataException
+            or ArgumentException
+            or KeyNotFoundException)
+        {
+            _summary.Text = $"对象属性无效：{exception.Message}";
+        }
     }
 
     private NonSequentialObjectParameters ReadParameters(NonSequentialObjectParameters value) => value switch
@@ -424,7 +437,36 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     private void Field(string key, string label, object value)
     {
-        var editor = new TextBox { Text = Convert.ToString(value, CultureInfo.InvariantCulture), MinWidth = 120 };
+        Control editor;
+        if (value is bool boolean)
+        {
+            editor = new CheckBox { IsChecked = boolean };
+        }
+        else if (value.GetType().IsEnum)
+        {
+            var values = Enum.GetValues(value.GetType()).Cast<object>().ToArray();
+            editor = new ComboBox { ItemsSource = values, SelectedItem = value, MinWidth = 160 };
+        }
+        else if (key is "material" or "before" or "after")
+        {
+            var selected = Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
+            var materials = _service.GetMaterialNames()
+                .Append(selected)
+                .Where(item => !string.IsNullOrWhiteSpace(item))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(item => item, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+            editor = new ComboBox
+            {
+                ItemsSource = materials,
+                SelectedItem = materials.FirstOrDefault(item => item.Equals(selected, StringComparison.OrdinalIgnoreCase)),
+                MinWidth = 160
+            };
+        }
+        else
+        {
+            editor = new TextBox { Text = Convert.ToString(value, CultureInfo.InvariantCulture), MinWidth = 120 };
+        }
         _fields[key] = editor;
         var row = new Grid { ColumnDefinitions = new ColumnDefinitions("145,*") };
         row.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center });
@@ -433,7 +475,17 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         _parameters.Children.Add(row);
     }
 
-    private string S(string key) => _fields.TryGetValue(key, out var value) ? value.Text?.Trim() ?? string.Empty : throw new KeyNotFoundException(key);
+    private string S(string key)
+    {
+        if (!_fields.TryGetValue(key, out var value)) throw new KeyNotFoundException(key);
+        return value switch
+        {
+            TextBox text => text.Text?.Trim() ?? string.Empty,
+            CheckBox check => (check.IsChecked == true).ToString(CultureInfo.InvariantCulture),
+            ComboBox choice => Convert.ToString(choice.SelectedItem, CultureInfo.InvariantCulture)?.Trim() ?? string.Empty,
+            _ => throw new InvalidOperationException($"参数“{key}”没有可读取的编辑器。")
+        };
+    }
     private double D(string key) => double.TryParse(S(key), NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : throw new FormatException($"参数“{key}”不是有效数值。");
     private int I(string key) => int.TryParse(S(key), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : throw new FormatException($"参数“{key}”不是有效整数。");
     private bool B(string key) => bool.TryParse(S(key), out var value) ? value : throw new FormatException($"参数“{key}”不是有效布尔值。");

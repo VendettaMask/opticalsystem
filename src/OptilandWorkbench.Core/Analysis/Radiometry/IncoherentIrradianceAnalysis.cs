@@ -23,9 +23,16 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         string distribution = "random",
         bool normalize = true) : base(optic)
     {
-        _numRays = Math.Max(1, numRays);
-        _resolutionX = Math.Max(1, resolutionX);
-        _resolutionY = Math.Max(1, resolutionY);
+        if (numRays is < 1 or > ApertureSampler.MaximumPupilSampleCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numRays));
+        }
+
+        AnalysisResourceLimits.ValidateAnalysisGrid(resolutionX, resolutionY, "Irradiance resolution");
+        _ = RayGenerator.ParseSampling(distribution);
+        _numRays = numRays;
+        _resolutionX = resolutionX;
+        _resolutionY = resolutionY;
         _detectorSurfaceIndex = detectorSurfaceIndex;
         _distribution = distribution;
         _normalize = normalize;
@@ -61,16 +68,27 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
             return Status("No fields or wavelengths");
         }
 
+        AnalysisResourceLimits.ValidateAggregateGridWork(
+            _resolutionX,
+            _resolutionY,
+            fields.Count,
+            wavelengths.Length,
+            _numRays,
+            "Incoherent irradiance");
+
         var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
         var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
         var pixelArea = xStep * yStep;
-        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(_numRays, _distribution);
+        var pupilSamples = ApertureSampler.Generate(
+            _numRays,
+            RayGenerator.ParseSampling(_distribution));
         var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
         var peaks = new List<double>(fields.Count * wavelengths.Length);
         var validRayCount = 0;
 
         for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var field = fields[fieldIndex];
             for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
             {
@@ -110,6 +128,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                 var points = new List<AnalysisPoint>(_resolutionX * _resolutionY);
                 for (var x = 0; x < _resolutionX; x++)
                 {
+                    ComputationCancellation.ThrowIfCancellationRequested();
                     var xCenter = extent.XMinimum + ((x + 0.5) * xStep);
                     for (var y = 0; y < _resolutionY; y++)
                     {

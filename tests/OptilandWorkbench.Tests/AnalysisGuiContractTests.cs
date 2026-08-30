@@ -26,6 +26,27 @@ namespace OptilandWorkbench.Tests;
 public sealed class AnalysisGuiContractTests
 {
     [Fact]
+    public async Task AnalysisServiceRejectsValuesOutsidePublishedParameterContracts()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var settings = application.Analyses.MergeSettings("傅里叶 MTF", null);
+
+        settings["Sampling"] = "16384";
+        await Assert.ThrowsAsync<ArgumentException>(() => application.Analyses.RunAsync(
+            new AnalysisContracts.AnalysisRequestDto(Guid.NewGuid(), 1, "傅里叶 MTF", settings)));
+
+        settings["Sampling"] = "64";
+        settings["MaximumFrequency"] = "NaN";
+        await Assert.ThrowsAsync<ArgumentException>(() => application.Analyses.RunAsync(
+            new AnalysisContracts.AnalysisRequestDto(Guid.NewGuid(), 2, "傅里叶 MTF", settings)));
+
+        settings["MaximumFrequency"] = "100";
+        settings["Type"] = "not-a-choice";
+        await Assert.ThrowsAsync<ArgumentException>(() => application.Analyses.RunAsync(
+            new AnalysisContracts.AnalysisRequestDto(Guid.NewGuid(), 3, "傅里叶 MTF", settings)));
+    }
+
+    [Fact]
     public void DesktopNativeProjectPickerOnlyOffersStarOpt()
     {
         Assert.Equal(new[] { "*.staropt" }, MainWindow.NativeProjectFilePatterns);
@@ -322,7 +343,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(view.Rows, row => row.Metric == "GEO 半径 (µm)");
         Assert.Contains(view.Rows, row => row.Metric == "缩放标尺 (µm)");
 
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -412,7 +433,7 @@ public sealed class AnalysisGuiContractTests
         {
             ["RayDensity"] = "3"
         });
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -457,8 +478,8 @@ public sealed class AnalysisGuiContractTests
             {
                 Assert.Empty(series.XAxisLabel);
                 Assert.Empty(series.YAxisLabel);
-                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
-                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
+                Assert.NotEqual(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
+                Assert.NotEqual(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
             });
         });
         Assert.All(
@@ -492,7 +513,7 @@ public sealed class AnalysisGuiContractTests
         Assert.All(
             view.PlotPanes,
             pane => Assert.Equal(optic.Wavelengths.Count, pane.Series.Count));
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -641,7 +662,7 @@ public sealed class AnalysisGuiContractTests
                 ["RayDensity"] = "1"
             });
         Assert.True(view.PlotOptions.DefaultSquareViewport);
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -780,7 +801,7 @@ public sealed class AnalysisGuiContractTests
 
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView("Pupil Aberration");
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -813,7 +834,7 @@ public sealed class AnalysisGuiContractTests
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView(analysisName);
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -997,7 +1018,7 @@ public sealed class AnalysisGuiContractTests
         var optic = Optic.CreateCookeTriplet();
         var connector = new OptilandConnector(optic);
         var view = connector.BuildAnalysisView("Pupil Aberration");
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -1160,7 +1181,7 @@ public sealed class AnalysisGuiContractTests
         {
             ["RayDensity"] = "3"
         });
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -1267,7 +1288,7 @@ public sealed class AnalysisGuiContractTests
             Assert.Contains(pane.Series, series => series.Points.Count > 0);
         });
 
-        var mapperType = typeof(OptilandConnector).Assembly.GetType(
+        var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
         Assert.NotNull(mapperType);
         var mapMethod = mapperType.GetMethod(
@@ -1304,8 +1325,8 @@ public sealed class AnalysisGuiContractTests
             {
                 Assert.Empty(series.XAxisLabel);
                 Assert.Empty(series.YAxisLabel);
-                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
-                Assert.Equal(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
+                Assert.NotEqual(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.XQuantity);
+                Assert.NotEqual(AnalysisContracts.AnalysisAxisQuantity.Unspecified, series.YQuantity);
             });
         });
         Assert.All(
@@ -2238,7 +2259,7 @@ public sealed class AnalysisGuiContractTests
             },
             fftMtfDescriptors.Select(item => item.Key));
         Assert.Equal(
-            new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" },
+            new[] { "32", "64", "128", "256", "512", "1024" },
             fftMtfDescriptors.Single(item => item.Key == "Sampling").Choices);
         Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "MaximumFrequency").DefaultValue);
         Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "SurfaceNumber").DefaultValue);
@@ -2262,7 +2283,7 @@ public sealed class AnalysisGuiContractTests
             },
             fftThroughFocusDescriptors.Select(item => item.Key));
         Assert.Equal(
-            new[] { "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192", "16384" },
+            new[] { "32", "64", "128", "256", "512", "1024" },
             fftThroughFocusDescriptors.Single(item => item.Key == "Sampling").Choices);
         Assert.Equal("0", fftThroughFocusDescriptors.Single(item => item.Key == "Frequency").DefaultValue);
         Assert.Equal("5", fftThroughFocusDescriptors.Single(item => item.Key == "NumberOfSteps").DefaultValue);

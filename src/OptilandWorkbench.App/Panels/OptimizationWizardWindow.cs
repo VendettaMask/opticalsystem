@@ -48,8 +48,8 @@ public sealed class OptimizationWizardWindow : Window
         Title = "优化向导";
         Width = 920;
         Height = 650;
-        MinWidth = 720;
-        MinHeight = 500;
+        MinWidth = 520;
+        MinHeight = 420;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
         _preview.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
@@ -60,13 +60,6 @@ public sealed class OptimizationWizardWindow : Window
         var reset = new Button { Content = "重置", MinWidth = 90 };
         reset.Click += (_, _) => Reset();
 
-        var columns = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,*"),
-            RowDefinitions = new RowDefinitions("Auto,Auto"),
-            ColumnSpacing = 12,
-            RowSpacing = 12
-        };
         var functionCard = Card("优化函数", new StackPanel
         {
             Spacing = 10,
@@ -95,10 +88,6 @@ public sealed class OptimizationWizardWindow : Window
                 Labeled("中心遮拦", _obscuration)
             }
         });
-        Grid.SetColumn(samplingCard, 1);
-        columns.Children.Add(functionCard);
-        columns.Children.Add(samplingCard);
-
         var generationCard = Card("生成位置", new StackPanel
         {
             Spacing = 10,
@@ -109,12 +98,21 @@ public sealed class OptimizationWizardWindow : Window
                 _includeCommon
             }
         });
-        Grid.SetRow(generationCard, 1);
         var previewCard = Card("向导摘要", _preview);
-        Grid.SetRow(previewCard, 1);
-        Grid.SetColumn(previewCard, 1);
-        columns.Children.Add(generationCard);
-        columns.Children.Add(previewCard);
+        var columns = new ResponsiveTwoPaneGrid(
+            new StackPanel
+            {
+                Spacing = 12,
+                Children = { functionCard, generationCard }
+            },
+            new StackPanel
+            {
+                Spacing = 12,
+                Children = { samplingCard, previewCard }
+            },
+            "*,12,*",
+            "Auto,12,Auto",
+            breakpoint: 700);
 
         var footer = new Border
         {

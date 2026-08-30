@@ -1,11 +1,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 
 namespace OptilandWorkbench.App.Services;
 
 public sealed class AppSettings
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
+
     public const string DefaultTheme = "Light";
     public const int DefaultDecimalPlaces = 6;
     public const int DefaultUpperScientificExponent = 6;
@@ -108,12 +111,16 @@ public sealed class AppSettings
                 return new AppSettings();
             }
 
-            var json = File.ReadAllText(settingsPath);
-            var settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+            var json = BoundedApplicationFile.ReadAllText(
+                settingsPath,
+                BoundedApplicationFile.MaximumSettingsBytes,
+                "Application settings");
+            var settings = JsonSerializer.Deserialize<AppSettings>(json, JsonOptions) ?? new AppSettings();
             settings.NormalizeDisplaySettings();
             return settings;
         }
         catch (Exception exception) when (exception is JsonException
+            or InvalidDataException
             or IOException
             or UnauthorizedAccessException
             or NotSupportedException)
@@ -136,26 +143,12 @@ public sealed class AppSettings
             Directory.CreateDirectory(directory);
         }
 
-        var json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-        var temporaryPath = $"{SettingsPath}.{Environment.ProcessId}.{Guid.NewGuid():N}.tmp";
-        try
-        {
-            File.WriteAllText(temporaryPath, json);
-            File.Move(temporaryPath, SettingsPath, overwrite: true);
-        }
-        finally
-        {
-            try
-            {
-                File.Delete(temporaryPath);
-            }
-            catch (IOException)
-            {
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
-        }
+        var json = JsonSerializer.Serialize(this, JsonOptions);
+        BoundedApplicationFile.WriteAllTextAtomic(
+            SettingsPath,
+            json,
+            BoundedApplicationFile.MaximumSettingsBytes,
+            "Application settings");
     }
 
     private static string SettingsPath

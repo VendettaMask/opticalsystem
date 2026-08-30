@@ -9,6 +9,12 @@ using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Tolerancing;
 
+if (args.Length > 0 && args[0].Equals("--ci-smoke", StringComparison.OrdinalIgnoreCase))
+{
+    RunCiSmoke();
+    return;
+}
+
 if (args.Length > 0 && args[0].Equals("--non-sequential", StringComparison.OrdinalIgnoreCase))
 {
     var rayCount = args.Length > 1 ? int.Parse(args[1]) : 1_000_000;
@@ -38,6 +44,59 @@ foreach (var rayCount in rayCounts)
 }
 
 RunMonteCarlo(trials: 100, raysPerTrial: 128);
+
+static void RunCiSmoke()
+{
+    const long maximumAllocatedBytes = 2L * 1024 * 1024 * 1024;
+    const long maximumDatabaseBytes = 128L * 1024 * 1024;
+    var maximumElapsed = TimeSpan.FromMinutes(2);
+    var databasePath = Path.Combine(
+        Path.GetTempPath(),
+        $"optiland-ci-smoke-{Guid.NewGuid():N}.starrdb");
+
+    GC.Collect();
+    GC.WaitForPendingFinalizers();
+    GC.Collect();
+    var allocatedBefore = GC.GetTotalAllocatedBytes(precise: true);
+    var stopwatch = Stopwatch.StartNew();
+    try
+    {
+        RunTrace(10_000, TraceRequest.FinalOnly(false), "CiFinalOnly");
+        RunGeometricMtf(2_000);
+        RunMonteCarlo(trials: 20, raysPerTrial: 64);
+        RunNonSequentialDatabase(10_000, databasePath);
+        var databaseBytes = new FileInfo(databasePath).Length;
+        if (databaseBytes <= 0 || databaseBytes > maximumDatabaseBytes)
+        {
+            throw new InvalidOperationException(
+                $"CI benchmark database size {databaseBytes:N0} is outside the expected range.");
+        }
+    }
+    finally
+    {
+        stopwatch.Stop();
+        if (File.Exists(databasePath))
+        {
+            File.Delete(databasePath);
+        }
+    }
+
+    var allocatedBytes = GC.GetTotalAllocatedBytes(precise: true) - allocatedBefore;
+    if (allocatedBytes > maximumAllocatedBytes)
+    {
+        throw new InvalidOperationException(
+            $"CI benchmark allocated {allocatedBytes:N0} bytes, exceeding {maximumAllocatedBytes:N0}.");
+    }
+    if (stopwatch.Elapsed > maximumElapsed)
+    {
+        throw new InvalidOperationException(
+            $"CI benchmark took {stopwatch.Elapsed}, exceeding {maximumElapsed}.");
+    }
+
+    Console.WriteLine(
+        $"CI performance smoke passed in {stopwatch.Elapsed.TotalSeconds:F2}s with "
+        + $"{allocatedBytes:N0} allocated bytes.");
+}
 
 static void RunNonSequentialDatabase(int rayCount, string databasePath)
 {

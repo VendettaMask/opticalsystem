@@ -28,11 +28,6 @@ public sealed class SolveManager
         }
 
         var image = _optic.SurfaceGroup.Items[^1];
-        if (!image.Label.Contains("Image", StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
         var poweredTrack = _optic.SurfaceGroup.Items.Take(_optic.SurfaceGroup.Items.Count - 1)
             .Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
             .Sum(surface => surface.Thickness);

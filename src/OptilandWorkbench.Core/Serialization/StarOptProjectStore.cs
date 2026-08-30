@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.NonSequential;
 
@@ -89,60 +90,46 @@ public static class StarOptProjectStore
         }
 
         var header = BuildHeader(json, compressed.Length, ContainerVersion);
-        var fullPath = Path.GetFullPath(path);
-        var directory = Path.GetDirectoryName(fullPath)
-            ?? throw new InvalidOperationException("The project path does not have a parent directory.");
-        Directory.CreateDirectory(directory);
-        var temporaryPath = Path.Combine(
-            directory,
-            $".{Path.GetFileName(fullPath)}.{Guid.NewGuid():N}.tmp");
-
-        try
-        {
-            await using (var stream = new FileStream(
-                temporaryPath,
-                FileMode.CreateNew,
-                FileAccess.Write,
-                FileShare.None,
-                bufferSize: 64 * 1024,
-                FileOptions.Asynchronous))
+        var maximumFileLength = HeaderLength + (long)MaximumPayloadLength
+            + NonSequentialDocument.MaximumMeshAssetBytes
+            + (long)NonSequentialDocument.MaximumMeshAssetCount * AssetHeaderLength;
+        await BoundedFile.WriteAtomicAsync(
+            path,
+            maximumFileLength,
+            "STAROPT project",
+            async (stream, token) =>
             {
-                await stream.WriteAsync(header, cancellationToken).ConfigureAwait(false);
-                await stream.WriteAsync(compressed, cancellationToken).ConfigureAwait(false);
+                await stream.WriteAsync(header, token).ConfigureAwait(false);
+                await stream.WriteAsync(compressed, token).ConfigureAwait(false);
                 foreach (var asset in compressedAssets)
                 {
-                    await stream.WriteAsync(BuildAssetHeader(asset.Asset, asset.Data.Length, asset.Compressed.Length), cancellationToken)
+                    token.ThrowIfCancellationRequested();
+                    await stream.WriteAsync(
+                            BuildAssetHeader(asset.Asset, asset.Data.Length, asset.Compressed.Length),
+                            token)
                         .ConfigureAwait(false);
-                    await stream.WriteAsync(asset.Compressed, cancellationToken).ConfigureAwait(false);
+                    await stream.WriteAsync(asset.Compressed, token).ConfigureAwait(false);
                 }
-                await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
-            }
-
-            File.Move(temporaryPath, fullPath, overwrite: true);
-        }
-        finally
-        {
-            if (File.Exists(temporaryPath))
-            {
-                File.Delete(temporaryPath);
-            }
-        }
+            },
+            cancellationToken).ConfigureAwait(false);
     }
 
     public static async Task<StarOptProjectDocument> LoadAsync(
         string path,
         CancellationToken cancellationToken = default)
     {
-        var fileLength = new FileInfo(path).Length;
         var maximumFileLength = HeaderLength + (long)MaximumPayloadLength
             + NonSequentialDocument.MaximumMeshAssetBytes
             + (long)NonSequentialDocument.MaximumMeshAssetCount * AssetHeaderLength;
-        if (fileLength < HeaderLength || fileLength > maximumFileLength)
+        var bytes = await BoundedFile.ReadAllBytesAsync(
+            path,
+            maximumFileLength,
+            "STAROPT project",
+            cancellationToken).ConfigureAwait(false);
+        if (bytes.Length < HeaderLength)
         {
             throw new InvalidDataException("The STAROPT project file length is invalid.");
         }
-
-        var bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
         return Deserialize(bytes);
     }
 
@@ -178,28 +165,30 @@ public static class StarOptProjectStore
         return HasMagic(prefix);
     }
 
-    internal static StarOptProjectDocument Deserialize(ReadOnlySpan<byte> bytes)
+    internal static StarOptProjectDocument Deserialize(byte[] bytes)
     {
-        if (bytes.Length < HeaderLength || !HasMagic(bytes))
+        ArgumentNullException.ThrowIfNull(bytes);
+        var span = bytes.AsSpan();
+        if (span.Length < HeaderLength || !HasMagic(span))
         {
             throw new InvalidDataException("The selected file is not a STAROPT project.");
         }
 
-        var containerVersion = BinaryPrimitives.ReadUInt16LittleEndian(bytes.Slice(8, 2));
+        var containerVersion = BinaryPrimitives.ReadUInt16LittleEndian(span.Slice(8, 2));
         if (containerVersion is < 1 or > ContainerVersion)
         {
             throw new InvalidDataException(
                 $"STAROPT container version {containerVersion} is not supported by this application.");
         }
 
-        var flags = BinaryPrimitives.ReadUInt16LittleEndian(bytes.Slice(10, 2));
+        var flags = BinaryPrimitives.ReadUInt16LittleEndian(span.Slice(10, 2));
         if (flags != BrotliCompressionFlag)
         {
             throw new InvalidDataException($"STAROPT compression flags 0x{flags:x4} are not supported.");
         }
 
-        var uncompressedLength = BinaryPrimitives.ReadInt32LittleEndian(bytes.Slice(12, 4));
-        var compressedLength = BinaryPrimitives.ReadInt32LittleEndian(bytes.Slice(16, 4));
+        var uncompressedLength = BinaryPrimitives.ReadInt32LittleEndian(span.Slice(12, 4));
+        var compressedLength = BinaryPrimitives.ReadInt32LittleEndian(span.Slice(16, 4));
         if (uncompressedLength <= 0 || uncompressedLength > MaximumPayloadLength ||
             compressedLength <= 0 || HeaderLength + compressedLength > bytes.Length
             || containerVersion == 1 && compressedLength != bytes.Length - HeaderLength)
@@ -207,8 +196,8 @@ public static class StarOptProjectStore
             throw new InvalidDataException("The STAROPT project payload length is invalid.");
         }
 
-        var expectedHash = bytes.Slice(20, SHA256.HashSizeInBytes);
-        var json = Decompress(bytes.Slice(HeaderLength, compressedLength), uncompressedLength);
+        var expectedHash = span.Slice(20, SHA256.HashSizeInBytes);
+        var json = Decompress(bytes, HeaderLength, compressedLength, uncompressedLength);
         var actualHash = SHA256.HashData(json);
         if (!CryptographicOperations.FixedTimeEquals(expectedHash, actualHash))
         {
@@ -293,29 +282,30 @@ public static class StarOptProjectStore
     }
 
     private static void AttachMeshAssets(
-        ReadOnlySpan<byte> bytes,
+        byte[] bytes,
         int startOffset,
         NonSequentialDocument document)
     {
+        var span = bytes.AsSpan();
         var offset = startOffset;
         long totalUncompressed = 0;
         var seen = new HashSet<Guid>();
         while (offset < bytes.Length)
         {
-            if (bytes.Length - offset < AssetHeaderLength)
+            if (span.Length - offset < AssetHeaderLength)
             {
                 throw new InvalidDataException("The STAROPT mesh asset table is truncated.");
             }
-            var id = new Guid(bytes.Slice(offset, 16));
-            var uncompressedLength = BinaryPrimitives.ReadInt64LittleEndian(bytes.Slice(offset + 16, 8));
-            var compressedLength = BinaryPrimitives.ReadInt64LittleEndian(bytes.Slice(offset + 24, 8));
-            var expectedHash = bytes.Slice(offset + 32, SHA256.HashSizeInBytes);
+            var id = new Guid(span.Slice(offset, 16));
+            var uncompressedLength = BinaryPrimitives.ReadInt64LittleEndian(span.Slice(offset + 16, 8));
+            var compressedLength = BinaryPrimitives.ReadInt64LittleEndian(span.Slice(offset + 24, 8));
+            var expectedHash = span.Slice(offset + 32, SHA256.HashSizeInBytes);
             offset += AssetHeaderLength;
             if (id == Guid.Empty || !seen.Add(id)
                 || uncompressedLength <= 0 || compressedLength <= 0
                 || uncompressedLength > NonSequentialDocument.MaximumMeshAssetBytes
                 || compressedLength > NonSequentialDocument.MaximumMeshAssetBytes
-                || compressedLength > bytes.Length - offset)
+                || compressedLength > span.Length - offset)
             {
                 throw new InvalidDataException("The STAROPT mesh asset header is invalid.");
             }
@@ -325,7 +315,11 @@ public static class StarOptProjectStore
                 throw new InvalidDataException("The STAROPT mesh assets expand beyond the 512 MiB limit.");
             }
 
-            var data = Decompress(bytes.Slice(offset, checked((int)compressedLength)), checked((int)uncompressedLength));
+            var data = Decompress(
+                bytes,
+                offset,
+                checked((int)compressedLength),
+                checked((int)uncompressedLength));
             var actualHash = SHA256.HashData(data);
             if (!CryptographicOperations.FixedTimeEquals(expectedHash, actualHash))
             {
@@ -353,36 +347,40 @@ public static class StarOptProjectStore
         return output.ToArray();
     }
 
-    private static byte[] Decompress(ReadOnlySpan<byte> data, int expectedLength)
+    private static byte[] Decompress(
+        byte[] data,
+        int offset,
+        int length,
+        int expectedLength)
     {
         try
         {
-            using var source = new MemoryStream(data.ToArray(), writable: false);
+            using var source = new MemoryStream(
+                data,
+                offset,
+                length,
+                writable: false,
+                publiclyVisible: false);
             using var compressed = new BrotliStream(source, CompressionMode.Decompress);
-            using var output = new MemoryStream(expectedLength);
-            var buffer = new byte[64 * 1024];
-            while (true)
+            var output = new byte[expectedLength];
+            var outputOffset = 0;
+            while (outputOffset < output.Length)
             {
-                var read = compressed.Read(buffer);
+                var read = compressed.Read(output, outputOffset, output.Length - outputOffset);
                 if (read == 0)
                 {
-                    break;
+                    throw new InvalidDataException("The STAROPT project payload is truncated.");
                 }
 
-                if (output.Length + read > expectedLength)
-                {
-                    throw new InvalidDataException("The STAROPT project expands beyond its declared payload length.");
-                }
-
-                output.Write(buffer, 0, read);
+                outputOffset += read;
             }
 
-            if (output.Length != expectedLength)
+            if (compressed.ReadByte() >= 0)
             {
-                throw new InvalidDataException("The STAROPT project payload is truncated.");
+                throw new InvalidDataException("The STAROPT project expands beyond its declared payload length.");
             }
 
-            return output.ToArray();
+            return output;
         }
         catch (InvalidOperationException exception)
         {

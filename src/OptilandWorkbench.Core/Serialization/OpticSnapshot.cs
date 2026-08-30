@@ -43,7 +43,10 @@ public sealed record MeritOperandSnapshot(
     string PupilSampling = "hexapolar",
     double SpatialFrequency = 30,
     bool IgnoreLateralColor = false,
-    bool PolychromaticReference = false);
+    bool PolychromaticReference = false,
+    bool CompatibilityOnly = false,
+    List<int>? ZemaxIntegerParameters = null,
+    List<double>? ZemaxDataParameters = null);
 
 public sealed record ApertureSnapshot(
     string Kind,

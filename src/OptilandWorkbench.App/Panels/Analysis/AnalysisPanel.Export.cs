@@ -13,6 +13,7 @@ using Avalonia.VisualTree;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
 
@@ -77,7 +78,11 @@ public sealed partial class AnalysisPanel
                 var content = isCsv
                     ? AnalysisCsvFormatter.Format(_view)
                     : _view.ReportText;
-                await File.WriteAllTextAsync(file.Path.LocalPath, content);
+                await BoundedApplicationFile.WriteAllTextAtomicAsync(
+                    file.Path.LocalPath,
+                    content,
+                    BoundedApplicationFile.MaximumExportBytes,
+                    "Analysis export");
                 _operationStatus.MarkSynced(isCsv ? "CSV 数据已导出" : "报告文本已导出");
             }
         }

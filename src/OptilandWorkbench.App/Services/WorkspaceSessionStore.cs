@@ -7,6 +7,7 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using Dock.Serializer.SystemTextJson;
+using OptilandWorkbench.Application.Services;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -253,6 +254,14 @@ public sealed class WorkspaceSessionStore
         double workWidth,
         double workHeight)
     {
+        workX = double.IsFinite(workX) ? workX : 0;
+        workY = double.IsFinite(workY) ? workY : 0;
+        workWidth = double.IsFinite(workWidth) && workWidth > 0 ? workWidth : 1440;
+        workHeight = double.IsFinite(workHeight) && workHeight > 0 ? workHeight : 900;
+        width = double.IsFinite(width) && width > 0 ? width : Math.Min(920, workWidth);
+        height = double.IsFinite(height) && height > 0 ? height : Math.Min(680, workHeight);
+        x = double.IsFinite(x) ? x : workX;
+        y = double.IsFinite(y) ? y : workY;
         width = Math.Clamp(width, 360, Math.Max(360, workWidth));
         height = Math.Clamp(height, 240, Math.Max(240, workHeight));
         x = Math.Clamp(x, workX, workX + Math.Max(0, workWidth - width));
@@ -264,8 +273,8 @@ public sealed class WorkspaceSessionStore
     {
         try
         {
-            var backup = $"{path}.invalid-{DateTime.UtcNow:yyyyMMddHHmmss}.bak";
-            File.Move(path, backup, overwrite: true);
+            var backup = $"{path}.invalid-{DateTime.UtcNow:yyyyMMddHHmmss}-{Guid.NewGuid():N}.bak";
+            File.Move(path, backup);
         }
         catch (IOException)
         {
@@ -285,7 +294,10 @@ public sealed class WorkspaceSessionStore
         try
         {
             WorkspaceSession? session;
-            await using (var stream = File.OpenRead(path))
+            await using (var stream = BoundedApplicationFile.OpenRead(
+                             path,
+                             BoundedApplicationFile.MaximumSettingsBytes,
+                             "Workspace session"))
             {
                 session = await JsonSerializer.DeserializeAsync<WorkspaceSession>(
                     stream,
@@ -301,7 +313,8 @@ public sealed class WorkspaceSessionStore
 
             return session;
         }
-        catch (Exception exception) when (exception is JsonException or IOException or UnauthorizedAccessException)
+        catch (Exception exception) when (
+            exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
         {
             BackupInvalidFile(path);
             return null;
@@ -313,34 +326,13 @@ public sealed class WorkspaceSessionStore
         WorkspaceSession session,
         CancellationToken cancellationToken)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        var temporaryPath = $"{path}.{Environment.ProcessId}.{Guid.NewGuid():N}.tmp";
-        try
-        {
-            await using (var stream = File.Create(temporaryPath))
-            {
-                await JsonSerializer.SerializeAsync(
-                    stream,
-                    session,
-                    JsonOptions,
-                    cancellationToken).ConfigureAwait(false);
-            }
-
-            File.Move(temporaryPath, path, overwrite: true);
-        }
-        finally
-        {
-            try
-            {
-                File.Delete(temporaryPath);
-            }
-            catch (IOException)
-            {
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
-        }
+        var json = JsonSerializer.Serialize(session, JsonOptions);
+        await BoundedApplicationFile.WriteAllTextAtomicAsync(
+            path,
+            json,
+            BoundedApplicationFile.MaximumSettingsBytes,
+            "Workspace session",
+            cancellationToken).ConfigureAwait(false);
     }
 }
 

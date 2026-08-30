@@ -111,14 +111,16 @@ internal static class CadLensMeshBuilder
         if (!double.IsFinite(chordTolerance) || chordTolerance <= 0)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(options.MaximumChordErrorMillimeters),
+                nameof(options),
+                options.MaximumChordErrorMillimeters,
                 "STEP 最大弦高误差必须是有限正数。");
         }
 
         if (options.MaximumTrianglesPerPart < 4)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(options.MaximumTrianglesPerPart),
+                nameof(options),
+                options.MaximumTrianglesPerPart,
                 "STEP 单零件三角形上限至少为 4。");
         }
 
@@ -455,7 +457,10 @@ internal static class CadLensMeshBuilder
         {
             sag = surface.Geometry.Sag(x, y);
         }
-        catch (Exception exception) when (exception is not OperationCanceledException)
+        catch (Exception exception) when (exception is InvalidOperationException
+            or ArgumentException
+            or ArithmeticException
+            or NotSupportedException)
         {
             throw new InvalidOperationException(
                 $"镜片表面 {surface.Number} 在 ({x:G8}, {y:G8}) mm 处无法计算 Sag：{exception.Message}",

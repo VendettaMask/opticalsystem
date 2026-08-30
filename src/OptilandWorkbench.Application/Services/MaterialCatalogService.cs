@@ -92,7 +92,10 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
                 MaterialAnalysisKind.DispersionVsWavelength => BuildDispersionVsWavelength(
                     selected,
                     request.SampleCount),
-                _ => throw new ArgumentOutOfRangeException(nameof(request.Kind))
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(request),
+                    request.Kind,
+                    "The material analysis kind is invalid.")
             };
         }
     }

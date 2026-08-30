@@ -44,9 +44,9 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
         var detectorIndex = Math.Clamp(_detectorNumber - 1, 0, detectors.Length - 1);
         var detectorObject = detectors[detectorIndex];
         var detectorParameters = (DetectorRectangleParameters)detectorObject.Parameters;
-        var sourceId = _sourceNumber > 0
-            ? sources[Math.Clamp(_sourceNumber - 1, 0, sources.Length - 1)].Id
-            : (Guid?)null;
+        var sourceName = _sourceNumber > 0 && sources.Length > 0
+            ? sources[Math.Clamp(_sourceNumber - 1, 0, sources.Length - 1)].Name
+            : "全部光源";
         var frame = _databaseFrames.SingleOrDefault(item => item.DetectorId == detectorObject.Id)
             ?? throw new InvalidOperationException("当前追迹结果不包含所选探测器。");
         var combined = new double[frame.PixelsX * frame.PixelsY];
@@ -56,15 +56,33 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
         }
         var pixelArea = detectorParameters.WidthMillimeters / frame.PixelsX
             * detectorParameters.HeightMillimeters / frame.PixelsY;
-        var points = new AnalysisPoint[combined.Length];
-        for (var y = 0; y < frame.PixelsY; y++)
-            for (var x = 0; x < frame.PixelsX; x++)
+        var displayStep = Math.Max(
+            1,
+            (int)Math.Ceiling(Math.Sqrt(combined.Length / (double)AnalysisResourceLimits.MaximumImagePixels)));
+        var displayWidth = (frame.PixelsX + displayStep - 1) / displayStep;
+        var displayHeight = (frame.PixelsY + displayStep - 1) / displayStep;
+        var points = new AnalysisPoint[displayWidth * displayHeight];
+        for (var displayY = 0; displayY < displayHeight; displayY++)
+            for (var displayX = 0; displayX < displayWidth; displayX++)
             {
-                var index = y * frame.PixelsX + x;
-                points[index] = new AnalysisPoint(
-                    -detectorParameters.WidthMillimeters / 2 + (x + 0.5) * detectorParameters.WidthMillimeters / frame.PixelsX,
-                    -detectorParameters.HeightMillimeters / 2 + (y + 0.5) * detectorParameters.HeightMillimeters / frame.PixelsY,
-                    Value: combined[index] / pixelArea);
+                var firstX = displayX * displayStep;
+                var firstY = displayY * displayStep;
+                var lastX = Math.Min(frame.PixelsX, firstX + displayStep);
+                var lastY = Math.Min(frame.PixelsY, firstY + displayStep);
+                var blockPower = 0.0;
+                for (var y = firstY; y < lastY; y++)
+                    for (var x = firstX; x < lastX; x++)
+                    {
+                        blockPower += combined[y * frame.PixelsX + x];
+                    }
+
+                var blockPixels = (lastX - firstX) * (lastY - firstY);
+                points[displayY * displayWidth + displayX] = new AnalysisPoint(
+                    -detectorParameters.WidthMillimeters / 2
+                        + ((firstX + lastX) / 2.0) * detectorParameters.WidthMillimeters / frame.PixelsX,
+                    -detectorParameters.HeightMillimeters / 2
+                        + ((firstY + lastY) / 2.0) * detectorParameters.HeightMillimeters / frame.PixelsY,
+                    Value: blockPower / (pixelArea * blockPixels));
             }
         var series = new AnalysisSeries(
             "X (mm)",
@@ -88,8 +106,10 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
                 ["DetectorName"] = detectorObject.Name,
                 ["PixelsX"] = frame.PixelsX,
                 ["PixelsY"] = frame.PixelsY,
+                ["DisplaySamplingStep"] = displayStep,
                 ["TotalPowerWatts"] = frame.TotalPowerWatts,
                 ["MaximumIrradianceWattsPerSquareMillimeter"] = combined.Length == 0 ? 0 : combined.Max() / pixelArea,
+                ["SelectedSource"] = sourceName,
                 ["Source"] = _databaseFrames is null ? "Current trace" : "Filtered ray database"
             },
             series,

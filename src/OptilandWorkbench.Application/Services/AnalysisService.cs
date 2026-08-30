@@ -123,16 +123,31 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
             return await Task.Run(() =>
             {
                 linked.Token.ThrowIfCancellationRequested();
-                var databaseDetectors = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey)
-                    == "Non-Sequential Detector Viewer"
-                    ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot)
-                    : null;
-                var worker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot, databaseDetectors);
                 var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
+                var parameterWorker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot);
                 var normalizedSettings = NormalizeAnalysisSettings(
-                    worker,
+                    parameterWorker,
                     canonicalAnalysisKey,
                     request.Settings);
+                Guid? selectedSourceId = null;
+                if (canonicalAnalysisKey == "Non-Sequential Detector Viewer"
+                    && normalizedSettings.TryGetValue("SourceNumber", out var sourceText)
+                    && int.TryParse(sourceText, out var sourceNumber)
+                    && sourceNumber > 0)
+                {
+                    var sources = nonSequentialSnapshot.Objects
+                        .Where(item => item.Enabled
+                            && item.Parameters is OptilandWorkbench.Core.NonSequential.SourceParameters)
+                        .ToArray();
+                    if (sources.Length > 0)
+                    {
+                        selectedSourceId = sources[Math.Clamp(sourceNumber - 1, 0, sources.Length - 1)].Id;
+                    }
+                }
+                var databaseDetectors = canonicalAnalysisKey == "Non-Sequential Detector Viewer"
+                    ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot, selectedSourceId)
+                    : null;
+                var worker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot, databaseDetectors);
                 var view = worker.BuildAnalysisView(canonicalAnalysisKey, normalizedSettings, linked.Token);
                 linked.Token.ThrowIfCancellationRequested();
                 return new AnalysisResultDto(
@@ -167,25 +182,47 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                 continue;
             }
 
-            merged[key] = descriptor.Kind switch
+            var normalized = descriptor.Kind switch
             {
                 OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Integer when int.TryParse(
                     merged[key],
                     NumberStyles.Integer,
                     CultureInfo.InvariantCulture,
-                    out var integer) => integer.ToString(CultureInfo.InvariantCulture),
+                    out var integer) && integer >= descriptor.Minimum && integer <= descriptor.Maximum =>
+                    integer.ToString(CultureInfo.InvariantCulture),
                 OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Double when double.TryParse(
                     merged[key],
                     NumberStyles.Float,
                     CultureInfo.InvariantCulture,
-                    out var number) => number.ToString("R", CultureInfo.InvariantCulture),
+                    out var number) && double.IsFinite(number)
+                    && number >= descriptor.Minimum && number <= descriptor.Maximum =>
+                    number.ToString("R", CultureInfo.InvariantCulture),
                 OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Boolean when bool.TryParse(merged[key], out var flag) =>
                     flag ? "true" : "false",
-                _ => merged[key].Trim()
+                OptilandWorkbench.Application.Runtime.AnalysisParameterKind.Choice => NormalizeChoice(descriptor, merged[key]),
+                OptilandWorkbench.Application.Runtime.AnalysisParameterKind.File => merged[key].Trim(),
+                _ => throw InvalidParameter(descriptor, merged[key])
             };
+            merged[key] = normalized;
         }
 
         return merged;
+
+        static string NormalizeChoice(
+            OptilandWorkbench.Application.Runtime.AnalysisParameterDescriptor descriptor,
+            string value)
+        {
+            var normalized = value.Trim();
+            return descriptor.Choices?.Contains(normalized, StringComparer.Ordinal) == true
+                ? normalized
+                : throw InvalidParameter(descriptor, value);
+        }
+
+        static ArgumentException InvalidParameter(
+            OptilandWorkbench.Application.Runtime.AnalysisParameterDescriptor descriptor,
+            string value) => new(
+                $"Analysis parameter '{descriptor.Key}' has invalid value '{value}'.",
+                descriptor.Key);
     }
 
     private static string CreateRequestFingerprint(

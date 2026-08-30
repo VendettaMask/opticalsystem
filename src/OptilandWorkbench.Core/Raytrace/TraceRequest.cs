@@ -10,6 +10,12 @@ public enum TraceRetention
     FullHistory
 }
 
+public static class SequentialTraceLimits
+{
+    public const int MaximumRayCount = 1_000_000;
+    public const int MaximumRetainedSamples = 2_000_000;
+}
+
 public sealed record TraceRequest
 {
     public TraceRetention Retention { get; init; } = TraceRetention.FinalOnly;
@@ -59,6 +65,13 @@ public sealed record TraceRequest
 
     internal int[] ResolveSurfaceIndices(int surfaceCount)
     {
+        ArgumentOutOfRangeException.ThrowIfNegative(surfaceCount);
+        if (!Enum.IsDefined(Retention))
+        {
+            throw new InvalidOperationException(
+                $"Trace retention value '{Retention}' is not supported.");
+        }
+
         if (surfaceCount == 0)
         {
             return Array.Empty<int>();
@@ -74,14 +87,13 @@ public sealed record TraceRequest
                 .Select(index => index < 0 ? surfaceCount + index : index)
                 .Select(index => index >= 0 && index < surfaceCount
                     ? index
-                    : throw new ArgumentOutOfRangeException(
-                        nameof(SurfaceIndices),
-                        index,
-                        "A requested surface index is outside the optical system."))
+                    : throw new InvalidOperationException(
+                        $"Requested surface index {index} is outside the optical system."))
                 .Distinct()
                 .Order()
                 .ToArray(),
-            _ => throw new ArgumentOutOfRangeException(nameof(Retention))
+            _ => throw new InvalidOperationException(
+                $"Trace retention value '{Retention}' is not supported.")
         };
     }
 }

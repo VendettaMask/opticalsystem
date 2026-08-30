@@ -30,6 +30,83 @@ namespace OptilandWorkbench.Tests;
 public sealed class NonSequentialDocumentTests
 {
     [Fact]
+    public void DetectorAndSurfaceSourceBudgetsRejectUnsafeDocuments()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var oversizedDetector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            Parameters = new DetectorRectangleParameters(10, 10, 2_048, 1_024)
+        };
+        Assert.Throws<InvalidDataException>(() => document.Insert(0, oversizedDetector));
+
+        var thinEllipse = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceEllipse) with
+        {
+            Parameters = new OptilandWorkbench.Core.NonSequential.SourceEllipseParameters(
+                WidthMillimeters: 10,
+                HeightMillimeters: 10,
+                MinimumXHalfWidthMillimeters: 4.999,
+                MinimumYHalfWidthMillimeters: 4.999)
+        };
+        Assert.Throws<InvalidDataException>(() => document.Insert(0, thinEllipse));
+        Assert.Empty(document.Objects);
+    }
+
+    [Fact]
+    public void DetectorPixelWavelengthBudgetRejectsUnsafeDocuments()
+    {
+        var wavelengths = Enumerable.Range(0, NonSequentialDocument.MaximumWavelengthCount)
+            .Select(index => new NonSequentialWavelength($"W{index}", 400 + index, 1, index == 0))
+            .ToArray();
+        var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            Parameters = new DetectorRectangleParameters(10, 10, 128, 128)
+        };
+
+        Assert.Throws<InvalidDataException>(() =>
+            new NonSequentialDocument("unsafe detector budget", wavelengths, new[] { detector }));
+    }
+
+    [Fact]
+    public void DetectorReconstructionDoesNotAllocateEmptyWavelengthPlanes()
+    {
+        var wavelengths = Enumerable.Range(0, 64)
+            .Select(index => new NonSequentialWavelength($"W{index}", 500 + index, 1, index == 0))
+            .ToArray();
+        var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle);
+        var document = new NonSequentialDocument("sparse detector", wavelengths, new[] { detector });
+
+        var frame = Assert.Single(NonSequentialDetectorReconstruction.Reconstruct(
+            document,
+            Array.Empty<NonSequentialRayBranch>()));
+
+        Assert.Empty(frame.PowerByWavelength);
+        Assert.Empty(frame.HitCountByWavelength!);
+        Assert.Empty(frame.AngularPowerByWavelength!);
+    }
+
+    [Fact]
+    public void DetectorReconstructionHonorsCancellation()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var branch = new NonSequentialRayBranch(
+            1,
+            null,
+            0,
+            null,
+            Array.Empty<NonSequentialRaySegment>(),
+            NonSequentialTerminationReason.Escaped,
+            1);
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        Assert.ThrowsAny<OperationCanceledException>(() =>
+            NonSequentialDetectorReconstruction.Reconstruct(
+                document,
+                new[] { branch },
+                cancellationToken: cancellation.Token));
+    }
+
+    [Fact]
     public async Task StarOptVersionOneMigratesToEmptyIndependentScene()
     {
         var optic = Optic.CreateDemo();
@@ -142,6 +219,51 @@ public sealed class NonSequentialDocumentTests
         Assert.Equal(ContractKind.DetectorRectangle, objects[^1].Kind);
         Assert.DoesNotContain(objects, item => item.Parameters is OptilandWorkbench.Application.Contracts.SourceParameters);
         Assert.Contains(result.Warnings, warning => warning.Contains("光源", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void SequentialConversionRejectsCementedGlassGroupInsteadOfCreatingInvalidSolids()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.Prescription.AddSurface();
+        application.Prescription.AddSurface();
+        application.Prescription.AddSurface();
+        var surfaces = application.Prescription.GetSurfaces();
+        application.Prescription.UpdateSurface(surfaces[1] with
+        {
+            Radius = 40,
+            Thickness = 4,
+            Material = "N-BK7",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+        application.Prescription.UpdateSurface(surfaces[2] with
+        {
+            Radius = -35,
+            Thickness = 3,
+            Material = "N-F2",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+        application.Prescription.UpdateSurface(surfaces[3] with
+        {
+            Radius = -80,
+            Thickness = 20,
+            Material = "Air",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+
+        var conversion = application.NonSequential.ConvertFromSequential();
+
+        Assert.Contains(conversion.Warnings, warning =>
+            warning.Contains("胶合或浸没", StringComparison.Ordinal));
+        Assert.DoesNotContain(
+            application.NonSequential.GetDocument().Objects,
+            item => item.Kind == ContractKind.StandardLens);
+        Assert.DoesNotContain(
+            application.NonSequential.GetDocument().Objects,
+            item => item.Kind == ContractKind.PlaneRectangle);
     }
 
     [Fact]

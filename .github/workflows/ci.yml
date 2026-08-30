@@ -3,6 +3,9 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 2 * * 1'
 
 permissions:
   contents: read
@@ -31,11 +34,23 @@ jobs:
       - name: Restore locked dependencies
         run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
 
+      - name: Restore Initial Structure Lab
+        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
       - name: Build
         run: dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
 
+      - name: Build Initial Structure Lab
+        run: dotnet build labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+
       - name: Test
         run: dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
+
+      - name: Test Initial Structure Lab
+        run: >-
+          dotnet test
+          labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
+          --no-build /m:1 /nr:false
 
   repository-quality:
     name: Repository quality
@@ -53,13 +68,79 @@ jobs:
       - name: Restore locked dependencies
         run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
 
+      - name: Restore Initial Structure Lab
+        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
       - name: Verify formatting
         run: dotnet format OptilandWorkbench.slnx --no-restore --verify-no-changes
+
+      - name: Verify Initial Structure Lab formatting
+        run: >-
+          dotnet format
+          labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx
+          --no-restore --verify-no-changes
 
       - name: Validate shell scripts
         run: |
           bash -n Run-Optiland.command
           bash -n scripts/publish-cross-platform.sh
+
+  dependency-audit:
+    name: Dependency vulnerability audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore locked dependencies
+        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
+      - name: Restore Initial Structure Lab
+        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
+      - name: Audit direct and transitive packages
+        run: >-
+          dotnet list OptilandWorkbench.slnx package
+          --vulnerable --include-transitive --no-restore
+
+      - name: Audit Initial Structure Lab packages
+        run: >-
+          dotnet list labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx package
+          --vulnerable --include-transitive --no-restore
+
+  performance-smoke:
+    name: Performance smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore locked dependencies
+        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+
+      - name: Build benchmark tool
+        run: >-
+          dotnet build
+          tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
+          --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+
+      - name: Run bounded performance smoke
+        run: >-
+          dotnet run
+          --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
+          --no-build -- --ci-smoke
 
   step-cad-validation:
     name: STEP CAD import

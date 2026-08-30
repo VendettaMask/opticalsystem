@@ -48,12 +48,6 @@ public sealed class FirstOrderSeedGenerator
         RecoverEffectiveFocalLength(optic, specification.EffectiveFocalLengthMillimeters, elementCount);
         RecoverImagePlane(optic, specification, elementCount);
 
-        var evaluation = Evaluate(optic, primary.Nanometers / 1000.0);
-        var violations = EvaluateConstraints(optic, specification, evaluation);
-        var status = Classify(evaluation, violations, specification);
-        var opticSnapshot = optic.ToSnapshot();
-        OpticSnapshotValidator.Validate(opticSnapshot);
-        var opticFingerprint = ContentFingerprint.Compute(opticSnapshot);
         var lineage = new CandidateLineage
         {
             RootFingerprint = rootFingerprint,
@@ -63,11 +57,37 @@ public sealed class FirstOrderSeedGenerator
             StopVariant = stopVariant,
             SeedIndex = seedIndex
         };
+        return CreateEvaluatedCandidate(
+            specification,
+            root,
+            optic,
+            lineage,
+            "paraxial-expansion/v2",
+            rayDensity: 2,
+            allowLabAccepted: false);
+    }
+
+    internal static CandidateSnapshot CreateEvaluatedCandidate(
+        InitialStructureSpecification specification,
+        OpticSnapshot flatRoot,
+        Optic optic,
+        CandidateLineage lineage,
+        string algorithm,
+        int rayDensity,
+        bool allowLabAccepted)
+    {
+        var evaluation = EvaluateOptic(optic, specification, rayDensity);
+        var violations = EvaluateConstraints(optic, specification, evaluation);
+        var status = Classify(evaluation, violations, specification, allowLabAccepted);
+        var opticSnapshot = optic.ToSnapshot();
+        OpticSnapshotValidator.Validate(opticSnapshot);
+        var opticFingerprint = ContentFingerprint.Compute(opticSnapshot);
         var candidateIdentity = ContentFingerprint.Compute(new
         {
             opticFingerprint,
             lineage,
-            Algorithm = "paraxial-expansion/v1"
+            algorithm,
+            EvaluationStage = allowLabAccepted ? "independent-dense" : "search"
         });
 
         return new CandidateSnapshot
@@ -75,7 +95,7 @@ public sealed class FirstOrderSeedGenerator
             CandidateId = $"candidate-{candidateIdentity[..16]}",
             OpticFingerprint = opticFingerprint,
             Status = status,
-            FlatRootOptic = root,
+            FlatRootOptic = flatRoot,
             Optic = opticSnapshot,
             Lineage = lineage,
             Evaluation = evaluation,
@@ -133,7 +153,7 @@ public sealed class FirstOrderSeedGenerator
         optic.SurfaceGroup.Renumber();
     }
 
-    private static void RecoverEffectiveFocalLength(Optic optic, double target, int elementCount)
+    internal static void RecoverEffectiveFocalLength(Optic optic, double target, int elementCount)
     {
         for (var iteration = 0; iteration < 5; iteration++)
         {
@@ -166,7 +186,7 @@ public sealed class FirstOrderSeedGenerator
         }
     }
 
-    private static void RecoverImagePlane(
+    internal static void RecoverImagePlane(
         Optic optic,
         InitialStructureSpecification specification,
         int elementCount)
@@ -184,7 +204,10 @@ public sealed class FirstOrderSeedGenerator
         optic.SurfaceGroup.Renumber();
     }
 
-    private static EvaluationVector Evaluate(Optic optic, double wavelengthMicrometers)
+    internal static EvaluationVector EvaluateOptic(
+        Optic optic,
+        InitialStructureSpecification specification,
+        int rayDensity)
     {
         double? effectiveFocalLength = null;
         double? fNumber = null;
@@ -209,35 +232,38 @@ public sealed class FirstOrderSeedGenerator
         };
         var evaluatedRayCount = 0;
         var validRayCount = 0;
-        foreach (var field in normalizedFields)
+        foreach (var wavelength in specification.Wavelengths.Where(item => item.Weight > 0))
         {
-            foreach (var pupil in normalizedPupils)
+            foreach (var field in normalizedFields)
             {
-                evaluatedRayCount++;
-                try
+                foreach (var pupil in normalizedPupils)
                 {
-                    var sample = optic.TraceGenericFinalSample(
-                        0,
-                        field,
-                        pupil.X,
-                        pupil.Y,
-                        wavelengthMicrometers);
-                    if (sample is not null
-                        && !sample.Vignetted
-                        && sample.Intensity > 0
-                        && double.IsFinite(sample.Position.X)
-                        && double.IsFinite(sample.Position.Y)
-                        && double.IsFinite(sample.Position.Z))
+                    evaluatedRayCount++;
+                    try
                     {
-                        validRayCount++;
+                        var sample = optic.TraceGenericFinalSample(
+                            0,
+                            field,
+                            pupil.X,
+                            pupil.Y,
+                            wavelength.Nanometers / 1000.0);
+                        if (sample is not null
+                            && !sample.Vignetted
+                            && sample.Intensity > 0
+                            && double.IsFinite(sample.Position.X)
+                            && double.IsFinite(sample.Position.Y)
+                            && double.IsFinite(sample.Position.Z))
+                        {
+                            validRayCount++;
+                        }
                     }
-                }
-                catch (Exception exception) when (
-                    exception is InvalidOperationException
-                    or ArithmeticException
-                    or ArgumentException)
-                {
-                    // A failed ray contributes to the explicit valid-ray fraction.
+                    catch (Exception exception) when (
+                        exception is InvalidOperationException
+                        or ArithmeticException
+                        or ArgumentException)
+                    {
+                        // A failed ray contributes to the explicit valid-ray fraction.
+                    }
                 }
             }
         }
@@ -248,7 +274,7 @@ public sealed class FirstOrderSeedGenerator
         {
             try
             {
-                var spot = SpotMetricEvaluator.Evaluate(optic, rayDensity: 2);
+                var spot = SpotMetricEvaluator.Evaluate(optic, rayDensity: rayDensity);
                 rmsSpotRadius = spot.RmsSpotRadius;
                 maximumSpotRadius = spot.MaximumSpotRadius;
             }
@@ -273,7 +299,7 @@ public sealed class FirstOrderSeedGenerator
         };
     }
 
-    private static IReadOnlyList<ConstraintViolation> EvaluateConstraints(
+    internal static IReadOnlyList<ConstraintViolation> EvaluateConstraints(
         Optic optic,
         InitialStructureSpecification specification,
         EvaluationVector evaluation)
@@ -311,6 +337,38 @@ public sealed class FirstOrderSeedGenerator
                 0.8));
         }
 
+        if (evaluation.FNumber is not { } fNumber)
+        {
+            violations.Add(new ConstraintViolation(
+                "paraxial.f-number.unavailable",
+                ConstraintSeverity.Hard,
+                "F-number could not be evaluated."));
+        }
+        else
+        {
+            var relativeError = Math.Abs(fNumber - specification.FNumber) / specification.FNumber;
+            if (relativeError > 0.1)
+            {
+                violations.Add(new ConstraintViolation(
+                    "paraxial.f-number.relative-error",
+                    relativeError > 0.3 ? ConstraintSeverity.Hard : ConstraintSeverity.Warning,
+                    "F-number is outside the initial-structure target window.",
+                    fNumber,
+                    specification.FNumber));
+            }
+        }
+
+        AddSpotConstraint(
+            evaluation.RmsSpotRadiusMillimeters,
+            specification.MaximumRmsSpotRadiusMillimeters,
+            "image.rms-spot-radius",
+            "RMS spot radius");
+        AddSpotConstraint(
+            evaluation.MaximumSpotRadiusMillimeters,
+            specification.MaximumSpotRadiusMillimeters,
+            "image.maximum-spot-radius",
+            "Maximum spot radius");
+
         var totalTrack = optic.SurfaceGroup.TotalTrack;
         if (!double.IsFinite(totalTrack) || totalTrack > specification.MaximumTrackLengthMillimeters)
         {
@@ -323,12 +381,34 @@ public sealed class FirstOrderSeedGenerator
         }
 
         return violations;
+
+        void AddSpotConstraint(double? actual, double limit, string code, string label)
+        {
+            if (actual is not { } value)
+            {
+                violations.Add(new ConstraintViolation(
+                    code + ".unavailable",
+                    ConstraintSeverity.Hard,
+                    $"{label} could not be evaluated."));
+                return;
+            }
+            if (value > limit)
+            {
+                violations.Add(new ConstraintViolation(
+                    code,
+                    value > limit * 2 ? ConstraintSeverity.Hard : ConstraintSeverity.Warning,
+                    $"{label} exceeds the refinable-candidate limit.",
+                    value,
+                    limit));
+            }
+        }
     }
 
-    private static CandidateStatus Classify(
+    internal static CandidateStatus Classify(
         EvaluationVector evaluation,
         IReadOnlyList<ConstraintViolation> violations,
-        InitialStructureSpecification specification)
+        InitialStructureSpecification specification,
+        bool allowLabAccepted)
     {
         if (violations.Any(violation => violation.Severity == ConstraintSeverity.Hard))
         {
@@ -340,16 +420,33 @@ public sealed class FirstOrderSeedGenerator
             return CandidateStatus.Exploratory;
         }
 
+        if (violations.Any(violation => violation.Severity == ConstraintSeverity.Warning))
+        {
+            return CandidateStatus.TraceValid;
+        }
+
         var relativeError = evaluation.EffectiveFocalLengthMillimeters is { } effective
             ? Math.Abs(effective - specification.EffectiveFocalLengthMillimeters)
                 / specification.EffectiveFocalLengthMillimeters
             : double.PositiveInfinity;
-        return relativeError <= 0.05
-            ? CandidateStatus.Refinable
-            : CandidateStatus.TraceValid;
+        var passesAcceptance = relativeError <= 0.05
+            && evaluation.FNumber is { } fNumber
+            && Math.Abs(fNumber - specification.FNumber) / specification.FNumber <= 0.1
+            && evaluation.RmsSpotRadiusMillimeters is { } rms
+            && rms <= specification.MaximumRmsSpotRadiusMillimeters
+            && evaluation.MaximumSpotRadiusMillimeters is { } maximum
+            && maximum <= specification.MaximumSpotRadiusMillimeters;
+        if (!passesAcceptance)
+        {
+            return CandidateStatus.TraceValid;
+        }
+
+        return allowLabAccepted
+            ? CandidateStatus.LabAccepted
+            : CandidateStatus.Refinable;
     }
 
-    private static double RadiusFromCurvature(double curvature) =>
+    internal static double RadiusFromCurvature(double curvature) =>
         Math.Abs(curvature) < 1e-12 ? 0 : 1 / curvature;
 
     private static double? FiniteOrNull(double? value) =>

@@ -44,6 +44,12 @@ public sealed class MeritOperandDefinition
 
     public bool PolychromaticReference { get; set; }
 
+    public bool CompatibilityOnly { get; set; }
+
+    public int[] ZemaxIntegerParameters { get; set; } = [];
+
+    public double[] ZemaxDataParameters { get; set; } = [];
+
     public MeritOperandDefinition Clone() => new()
     {
         Enabled = Enabled,
@@ -64,7 +70,10 @@ public sealed class MeritOperandDefinition
         PupilSampling = PupilSampling,
         SpatialFrequency = SpatialFrequency,
         IgnoreLateralColor = IgnoreLateralColor,
-        PolychromaticReference = PolychromaticReference
+        PolychromaticReference = PolychromaticReference,
+        CompatibilityOnly = CompatibilityOnly,
+        ZemaxIntegerParameters = ZemaxIntegerParameters?.ToArray() ?? [],
+        ZemaxDataParameters = ZemaxDataParameters?.ToArray() ?? []
     };
 }
 
@@ -125,7 +134,7 @@ public static class MeritFunctionCatalog
         return new EvaluationBatchScope(previous);
     }
 
-    public static IReadOnlyList<MeritOperandType> Types { get; } = new[]
+    private static readonly IReadOnlyList<MeritOperandType> WorkbenchTypes = new[]
     {
         new MeritOperandType("DMFS", "默认评价函数设置", "默认评价函数向导生成的说明行"),
         new MeritOperandType("BLNK", "空白/注释", "不参与评价函数计算"),
@@ -179,6 +188,18 @@ public static class MeritFunctionCatalog
         new MeritOperandType("RADI", "表面曲率半径", "指定表面的曲率半径"),
         new MeritOperandType("THIC", "表面厚度", "指定表面后的轴向厚度")
     };
+
+    public static IReadOnlyList<MeritOperandType> Types { get; } = WorkbenchTypes
+        .Concat(ZemaxOperandRegistry.Descriptors
+            .Where(descriptor => WorkbenchTypes.All(type => type.Code != descriptor.Code))
+            .Select(descriptor => new MeritOperandType(
+                descriptor.Code,
+                $"Zemax {descriptor.Code}",
+                descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable
+                    ? "已连接当前 Workbench 计算引擎"
+                    : "可无损保留；尚未提供可执行语义")))
+        .OrderBy(type => type.Code, StringComparer.Ordinal)
+        .ToArray();
 
     private sealed class EvaluationBatch
     {
@@ -238,13 +259,27 @@ public static class MeritFunctionCatalog
 
     public static MeritOperandEvaluation Evaluate(Optic optic, MeritOperandDefinition definition)
     {
-        if (!definition.Enabled || CanonicalType(definition.Type) is "BLNK" or "DMFS")
+        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(definition);
+        if (!definition.Enabled)
         {
             return new MeritOperandEvaluation(0, 0);
         }
 
         try
         {
+            var canonicalType = CanonicalType(definition.Type);
+            if (canonicalType is "BLNK" or "DMFS")
+            {
+                return new MeritOperandEvaluation(0, 0);
+            }
+
+            if (definition.CompatibilityOnly || HasOpaqueZemaxParameters(canonicalType))
+            {
+                throw new NotSupportedException(
+                    $"Merit operand '{canonicalType}' is preserved for compatibility but is not executable.");
+            }
+
             var value = EvaluateValue(optic, definition);
             if (!double.IsFinite(value))
             {
@@ -256,7 +291,11 @@ public static class MeritFunctionCatalog
                 value,
                 Math.Abs(definition.Weight) * error * error);
         }
-        catch (Exception exception) when (exception is not OperationCanceledException)
+        catch (Exception exception) when (exception is InvalidOperationException
+            or ArgumentException
+            or ArithmeticException
+            or KeyNotFoundException
+            or NotSupportedException)
         {
             return new MeritOperandEvaluation(double.NaN, double.PositiveInfinity, exception.Message);
         }
@@ -741,18 +780,19 @@ public static class MeritFunctionCatalog
     public static string CanonicalType(string? type)
     {
         var canonical = (type ?? string.Empty).Trim().ToUpperInvariant();
-        return Types.Any(item => item.Code == canonical) ? canonical : "BLNK";
+        if (Types.Any(item => item.Code == canonical))
+        {
+            return canonical;
+        }
+
+        throw new ArgumentException(
+            $"Unknown merit operand type '{type}'.",
+            nameof(type));
     }
 
-    // Compatibility rows still carry raw Zemax integer slots in legacy Workbench
-    // fields. They are not complete operand implementations; see
-    // docs/ZEMAX_OPERAND_SUPPORT.md.
     public static bool HasOpaqueZemaxParameters(string? type) =>
-        (type ?? string.Empty).Trim().ToUpperInvariant() is
-            "CONF" or "RANG" or "CONS" or "PROD" or "OPLT"
-            or "MNCA" or "MXCA" or "MNEA" or "MNCG" or "MXCG" or "MNEG" or "MXEG"
-            or "TTHI" or "CTGT" or "PMAG" or "REAR" or "DIMX" or "PETZ"
-            or "SINE" or "DIVI";
+        ZemaxOperandRegistry.TryGet(type, out var descriptor)
+        && descriptor.SupportLevel == ZemaxOperandSupportLevel.CompatibilityOnly;
 
     private static double EvaluateValue(Optic optic, MeritOperandDefinition definition)
     {
@@ -787,7 +827,8 @@ public static class MeritFunctionCatalog
             "TOTR" => optic.SurfaceGroup.TotalTrack,
             "RADI" => ResolveSurface(optic, definition.Surface).Radius,
             "THIC" => ResolveSurface(optic, definition.Surface).Thickness,
-            _ => 0
+            _ => throw new NotSupportedException(
+                $"Merit operand '{CanonicalType(definition.Type)}' is not executable.")
         };
     }
 
@@ -1297,7 +1338,10 @@ public static class MeritFunctionCatalog
                 .First();
         if (surfaceIndex < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(definition.Surface));
+            throw new ArgumentOutOfRangeException(
+                nameof(definition),
+                definition.Surface,
+                "The requested merit-function surface does not exist.");
         }
 
         using var trace = optic.SequentialRayTracer.Trace(

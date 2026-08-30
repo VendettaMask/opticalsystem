@@ -1,5 +1,6 @@
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -31,15 +32,31 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
         string distribution = "random",
         bool? normalize = null) : base(optic)
     {
-        _binsX = Math.Max(1, binsX);
-        _binsY = Math.Max(1, binsY);
+        AnalysisResourceLimits.ValidateAnalysisGrid(binsX, binsY, "Radiant-intensity bins");
+        if (numRays is < 1 or > ApertureSampler.MaximumPupilSampleCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numRays));
+        }
+        if (!double.IsFinite(angleXMinimum)
+            || !double.IsFinite(angleXMaximum)
+            || !double.IsFinite(angleYMinimum)
+            || !double.IsFinite(angleYMaximum)
+            || angleXMinimum == angleXMaximum
+            || angleYMinimum == angleYMaximum)
+        {
+            throw new ArgumentException("Radiant-intensity angle ranges must be finite and non-empty.");
+        }
+
+        _ = RayGenerator.ParseSampling(distribution);
+        _binsX = binsX;
+        _binsY = binsY;
         _angleXMinimum = Math.Min(angleXMinimum, angleXMaximum);
         _angleXMaximum = Math.Max(angleXMinimum, angleXMaximum);
         _angleYMinimum = Math.Min(angleYMinimum, angleYMaximum);
         _angleYMaximum = Math.Max(angleYMinimum, angleYMaximum);
         _useAbsoluteUnits = useAbsoluteUnits;
         _referenceSurfaceIndex = referenceSurfaceIndex;
-        _numRays = Math.Max(1, numRays);
+        _numRays = numRays;
         _distribution = distribution;
         _normalize = normalize ?? !useAbsoluteUnits;
     }
@@ -68,15 +85,26 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No fields or wavelengths" });
         }
 
+        AnalysisResourceLimits.ValidateAggregateGridWork(
+            _binsX,
+            _binsY,
+            fields.Count,
+            wavelengths.Length,
+            _numRays,
+            "Radiant intensity");
+
         var xStep = (_angleXMaximum - _angleXMinimum) / _binsX;
         var yStep = (_angleYMaximum - _angleYMinimum) / _binsY;
         var solidAngle = DegreesToRadians(xStep) * DegreesToRadians(yStep);
-        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(_numRays, _distribution);
+        var pupilSamples = ApertureSampler.Generate(
+            _numRays,
+            RayGenerator.ParseSampling(_distribution));
         var maps = new List<IntensityMap>(fields.Count * wavelengths.Length);
         var validRayCount = 0;
 
         for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var field = fields[fieldIndex];
             for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
             {
@@ -141,6 +169,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
         var panes = new List<AnalysisPlotPane>(maps.Count * 2);
         foreach (var map in maps)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var peak = map.Values.Cast<double>().DefaultIfEmpty(0).Max();
             var display = new double[_binsX, _binsY];
             for (var x = 0; x < _binsX; x++)
@@ -157,6 +186,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             var heatmapPoints = new List<AnalysisPoint>(_binsX * _binsY);
             for (var x = 0; x < _binsX; x++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var xCenter = _angleXMinimum + ((x + 0.5) * xStep);
                 for (var y = 0; y < _binsY; y++)
                 {

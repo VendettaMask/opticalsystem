@@ -11,6 +11,11 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class OpticSnapshotValidationTests
 {
+    private static readonly JsonSerializerOptions SnapshotJsonOptions = new()
+    {
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
+    };
+
     [Fact]
     public void ValidatorRejectsIllegalSystemStateAndReferences()
     {
@@ -273,6 +278,44 @@ public sealed class OpticSnapshotValidationTests
         Assert.Equal(185, operand.SpatialFrequency, precision: 12);
         Assert.True(operand.IgnoreLateralColor);
         Assert.True(operand.PolychromaticReference);
+    }
+
+    [Fact]
+    public void MeritOperandSnapshotRejectsOversizedOrNonFiniteRawZemaxSlots()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var operand = new MeritOperandSnapshot(
+            Enabled: false,
+            Type: "ABCD",
+            Surface: 0,
+            Field: 0,
+            Wavelength: 0,
+            Hx: 0,
+            Hy: 0,
+            Px: 0,
+            Py: 0,
+            Target: 0,
+            Weight: 0,
+            Comment: string.Empty,
+            CompatibilityOnly: true,
+            ZemaxIntegerParameters: Enumerable.Range(0, 17).ToList(),
+            ZemaxDataParameters: [double.NaN]);
+        var snapshot = valid with { MeritOperands = [operand] };
+
+        var exception = Assert.Throws<InvalidDataException>(() =>
+            OpticSnapshotValidator.Validate(snapshot));
+
+        Assert.Contains("zemaxIntegerParameters", exception.Message, StringComparison.Ordinal);
+
+        var nonFinite = operand with
+        {
+            ZemaxIntegerParameters = [],
+            ZemaxDataParameters = [double.NaN]
+        };
+        var nonFiniteSnapshot = valid with { MeritOperands = [nonFinite] };
+        var nonFiniteException = Assert.Throws<InvalidDataException>(() =>
+            OpticSnapshotValidator.Validate(nonFiniteSnapshot));
+        Assert.Contains("zemaxDataParameters[0]", nonFiniteException.Message, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -540,10 +583,7 @@ public sealed class OpticSnapshotValidationTests
 
     private static string SerializeSnapshot(OpticSnapshot snapshot)
     {
-        return JsonSerializer.Serialize(snapshot, new JsonSerializerOptions
-        {
-            NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
-        });
+        return JsonSerializer.Serialize(snapshot, SnapshotJsonOptions);
     }
 
     private static byte[] CreateStarOptContainer(OpticSnapshot snapshot)
@@ -556,10 +596,7 @@ public sealed class OpticSnapshotValidationTests
                 ActiveConfigurationIndex = 0,
                 Configurations = new[] { snapshot }
             },
-            new JsonSerializerOptions
-            {
-                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
-            });
+            SnapshotJsonOptions);
         byte[] compressed;
         using (var output = new MemoryStream())
         {

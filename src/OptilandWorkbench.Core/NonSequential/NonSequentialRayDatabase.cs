@@ -52,9 +52,13 @@ public sealed record NonSequentialRayDatabaseHeader(
 public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, IDisposable
 {
     public const int CurrentVersion = 1;
+    public const int MaximumHeaderUncompressedBytes = 64 * 1024 * 1024;
+    public const int MaximumChunkUncompressedBytes = 256 * 1024 * 1024;
+    public const int MaximumIndexEntryCount = 1_000_000;
     private const int FileHeaderLength = 52;
     private const int ChunkHeaderLength = 48;
     private const int BranchesPerChunk = 512;
+    private const int MaximumSegmentsPerChunk = NonSequentialDocument.MaximumSegmentsPerRay;
     private static readonly byte[] Magic = "STARRDB\x1a"u8.ToArray();
     private static readonly byte[] ChunkMagic = "CHNK"u8.ToArray();
     private static readonly byte[] IndexMagic = "INDX"u8.ToArray();
@@ -68,6 +72,7 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     private readonly bool _leaveOpen;
     private readonly List<NonSequentialRayBranch> _pending = new(BranchesPerChunk);
     private readonly List<ChunkIndex> _index = new();
+    private int _pendingSegmentCount;
     private bool _completed;
     private bool _disposed;
 
@@ -100,10 +105,25 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         ObjectDisposedException.ThrowIf(_disposed, this);
         if (_completed) throw new InvalidOperationException("光线数据库已完成，不能继续写入。");
         ArgumentNullException.ThrowIfNull(branch);
+        if (branch.Segments.Count > NonSequentialDocument.MaximumSegmentsPerRay)
+        {
+            throw new InvalidDataException(
+                $"单个光线分支不能包含超过 {NonSequentialDocument.MaximumSegmentsPerRay:N0} 个分段。");
+        }
+        if (_pending.Count > 0
+            && (_pending.Count >= BranchesPerChunk
+                || checked(_pendingSegmentCount + branch.Segments.Count) > MaximumSegmentsPerChunk))
+        {
+            FlushChunk();
+        }
         _pending.Add(branch);
+        _pendingSegmentCount = checked(_pendingSegmentCount + branch.Segments.Count);
         BranchCount++;
         SegmentCount += branch.Segments.Count;
-        if (_pending.Count >= BranchesPerChunk) FlushChunk();
+        if (_pending.Count >= BranchesPerChunk || _pendingSegmentCount >= MaximumSegmentsPerChunk)
+        {
+            FlushChunk();
+        }
     }
 
     public void Complete()
@@ -147,6 +167,10 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     private void WriteHeader(NonSequentialRayDatabaseHeader header)
     {
         var json = JsonSerializer.SerializeToUtf8Bytes(header, JsonOptions);
+        if (json.Length > MaximumHeaderUncompressedBytes)
+        {
+            throw new InvalidDataException("光线数据库文件头超过读取器支持的大小。");
+        }
         var compressed = Compress(json);
         var fixedHeader = new byte[FileHeaderLength];
         Magic.CopyTo(fixedHeader, 0);
@@ -162,7 +186,15 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     private void FlushChunk()
     {
         if (_pending.Count == 0) return;
+        if (_index.Count >= MaximumIndexEntryCount)
+        {
+            throw new InvalidDataException("光线数据库分块索引数量超过读取器支持的上限。");
+        }
         var json = JsonSerializer.SerializeToUtf8Bytes(_pending, JsonOptions);
+        if (json.Length > MaximumChunkUncompressedBytes)
+        {
+            throw new InvalidDataException("光线数据库分块超过读取器支持的大小。");
+        }
         var compressed = Compress(json);
         var offset = _stream.Position;
         var header = new byte[ChunkHeaderLength];
@@ -175,6 +207,7 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         _stream.Write(compressed);
         _index.Add(new ChunkIndex(offset, _pending.Count, json.Length, compressed.Length));
         _pending.Clear();
+        _pendingSegmentCount = 0;
     }
 
     private static byte[] Compress(ReadOnlySpan<byte> data)
@@ -187,7 +220,7 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         return output.ToArray();
     }
 
-    private sealed record ChunkIndex(long Offset, int BranchCount, int UncompressedLength, int CompressedLength);
+    private readonly record struct ChunkIndex(long Offset, int BranchCount, int UncompressedLength, int CompressedLength);
 }
 
 public sealed class NonSequentialRayDatabaseReader : IDisposable
@@ -232,7 +265,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
     {
         if (maximumCount <= 0) throw new ArgumentOutOfRangeException(nameof(maximumCount));
         filter ??= NonSequentialPathFilter.MatchAll;
-        var document = HeaderDocument();
+        var document = CreateHeaderDocument();
         var count = 0;
         foreach (var entry in _index)
         {
@@ -246,9 +279,94 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         }
     }
 
+    public IEnumerable<(long Index, NonSequentialRayBranch Branch)> ReadBranchesWithIndices(
+        NonSequentialPathFilter? filter = null)
+    {
+        filter ??= NonSequentialPathFilter.MatchAll;
+        var document = CreateHeaderDocument();
+        long index = 0;
+        foreach (var entry in _index)
+        {
+            foreach (var branch in ReadChunk(entry))
+            {
+                if (filter.IsMatch(document, branch)) yield return (index, branch);
+                index++;
+            }
+        }
+    }
+
     public IEnumerable<IReadOnlyList<NonSequentialRayBranch>> ReadChunks()
     {
         foreach (var entry in _index) yield return ReadChunk(entry);
+    }
+
+    public IReadOnlyList<NonSequentialRayBranch> ReadRange(long offset, int count)
+    {
+        if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
+        if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count));
+        if (offset >= BranchCount) return Array.Empty<NonSequentialRayBranch>();
+
+        var result = new List<NonSequentialRayBranch>(count);
+        long chunkStart = 0;
+        foreach (var entry in _index)
+        {
+            var chunkEnd = chunkStart + entry.BranchCount;
+            if (chunkEnd <= offset)
+            {
+                chunkStart = chunkEnd;
+                continue;
+            }
+
+            var branches = ReadChunk(entry);
+            var localStart = (int)Math.Max(0, offset - chunkStart);
+            for (var index = localStart; index < branches.Count && result.Count < count; index++)
+            {
+                result.Add(branches[index]);
+            }
+            if (result.Count >= count) break;
+            chunkStart = chunkEnd;
+        }
+        return result;
+    }
+
+    public IReadOnlyList<NonSequentialRayBranch> ReadIndices(IReadOnlyList<long> indices)
+    {
+        ArgumentNullException.ThrowIfNull(indices);
+        if (indices.Count == 0) return Array.Empty<NonSequentialRayBranch>();
+        if (indices.Any(index => index < 0 || index >= BranchCount))
+        {
+            throw new ArgumentOutOfRangeException(nameof(indices));
+        }
+        for (var index = 1; index < indices.Count; index++)
+        {
+            if (indices[index] <= indices[index - 1])
+            {
+                throw new ArgumentException("光线数据库索引必须严格递增。", nameof(indices));
+            }
+        }
+
+        var result = new List<NonSequentialRayBranch>(indices.Count);
+        var target = 0;
+        long chunkStart = 0;
+        foreach (var entry in _index)
+        {
+            var chunkEnd = chunkStart + entry.BranchCount;
+            if (indices[target] >= chunkEnd)
+            {
+                chunkStart = chunkEnd;
+                continue;
+            }
+
+            var branches = ReadChunk(entry);
+            while (target < indices.Count && indices[target] < chunkEnd)
+            {
+                result.Add(branches[checked((int)(indices[target] - chunkStart))]);
+                target++;
+            }
+            if (target >= indices.Count) break;
+            chunkStart = chunkEnd;
+        }
+        return result;
     }
 
     public void Dispose()
@@ -273,7 +391,8 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var uncompressedLength = BinaryPrimitives.ReadInt32LittleEndian(fixedHeader.Slice(12, 4));
         var compressedLength = BinaryPrimitives.ReadInt32LittleEndian(fixedHeader.Slice(16, 4));
         if (version != NonSequentialRayDatabaseWriter.CurrentVersion
-            || uncompressedLength <= 0 || uncompressedLength > 64 * 1024 * 1024
+            || uncompressedLength <= 0
+            || uncompressedLength > NonSequentialRayDatabaseWriter.MaximumHeaderUncompressedBytes
             || compressedLength <= 0 || compressedLength > _stream.Length - FileHeaderLength)
         {
             throw new InvalidDataException("光线数据库版本或文件头长度无效。");
@@ -306,7 +425,9 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         ReadExactly(indexHeader);
         if (!indexHeader[..4].SequenceEqual(IndexMagic)) throw new InvalidDataException("光线数据库索引标记无效。");
         var count = BinaryPrimitives.ReadInt32LittleEndian(indexHeader.Slice(4, 4));
-        if (count < 0 || count > 10_000_000 || indexOffset + 8L + count * 24L + 20 != _stream.Length)
+        if (count < 0
+            || count > NonSequentialRayDatabaseWriter.MaximumIndexEntryCount
+            || indexOffset + 8L + count * 24L + 20 != _stream.Length)
         {
             throw new InvalidDataException("光线数据库索引长度无效。");
         }
@@ -322,7 +443,13 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
                 BinaryPrimitives.ReadInt32LittleEndian(value.Slice(8, 4)),
                 BinaryPrimitives.ReadInt32LittleEndian(value.Slice(12, 4)),
                 BinaryPrimitives.ReadInt32LittleEndian(value.Slice(16, 4)));
-            if (!entries[index].IsValid(indexOffset)) throw new InvalidDataException("光线数据库包含无效分块索引。");
+            var minimumOffset = FileHeaderLength + compressedLength;
+            if (!entries[index].IsValid(minimumOffset, indexOffset)
+                || index > 0 && entries[index].Offset
+                    < entries[index - 1].Offset + ChunkHeaderLength + entries[index - 1].CompressedLength)
+            {
+                throw new InvalidDataException("光线数据库包含无效、无序或重叠的分块索引。");
+            }
             indexedBranches += entries[index].BranchCount;
         }
         if (indexedBranches != branchCount) throw new InvalidDataException("光线数据库分支总数与索引不一致。");
@@ -354,13 +481,18 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         return branches;
     }
 
-    private NonSequentialDocument HeaderDocument()
+    public NonSequentialDocument CreateHeaderDocument()
     {
         var primary = Header.Wavelengths.Any(item => item.IsPrimary)
             ? Header.Wavelengths
             : Header.Wavelengths.Select((item, index) => item with { IsPrimary = index == 0 }).ToArray();
         var objects = Header.Objects.Select(item =>
-            NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay, item.Name, item.Id)).ToArray();
+            NonSequentialObjectDefinition.Create(
+                item.Kind == NonSequentialObjectKind.DetectorRectangle
+                    ? NonSequentialObjectKind.DetectorRectangle
+                    : NonSequentialObjectKind.SourceRay,
+                item.Name,
+                item.Id)).ToArray();
         return new NonSequentialDocument("STARRDB", primary, objects);
     }
 
@@ -381,17 +513,16 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         {
             using var source = new MemoryStream(compressed, writable: false);
             using var brotli = new BrotliStream(source, CompressionMode.Decompress);
-            using var output = new MemoryStream(expectedLength);
-            var buffer = new byte[64 * 1024];
-            while (true)
+            var output = new byte[expectedLength];
+            var offset = 0;
+            while (offset < output.Length)
             {
-                var read = brotli.Read(buffer);
-                if (read == 0) break;
-                if (output.Length + read > expectedLength) throw new InvalidDataException("光线数据库分块解压超过声明长度。");
-                output.Write(buffer, 0, read);
+                var read = brotli.Read(output, offset, output.Length - offset);
+                if (read == 0) throw new InvalidDataException("光线数据库分块已截断。");
+                offset += read;
             }
-            if (output.Length != expectedLength) throw new InvalidDataException("光线数据库分块已截断。");
-            return output.ToArray();
+            if (brotli.ReadByte() >= 0) throw new InvalidDataException("光线数据库分块解压超过声明长度。");
+            return output;
         }
         catch (InvalidDataException)
         {
@@ -403,12 +534,14 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         }
     }
 
-    private sealed record ChunkIndex(long Offset, int BranchCount, int UncompressedLength, int CompressedLength)
+    private readonly record struct ChunkIndex(long Offset, int BranchCount, int UncompressedLength, int CompressedLength)
     {
-        public bool IsValid(long indexOffset) => Offset >= FileHeaderLength
+        public bool IsValid(long minimumOffset, long indexOffset) => Offset >= minimumOffset
             && BranchCount > 0 && BranchCount <= 512
-            && UncompressedLength > 0 && UncompressedLength <= 256 * 1024 * 1024
-            && CompressedLength > 0 && Offset + ChunkHeaderLength + CompressedLength <= indexOffset;
+            && UncompressedLength > 0
+            && UncompressedLength <= NonSequentialRayDatabaseWriter.MaximumChunkUncompressedBytes
+            && CompressedLength > 0
+            && Offset <= indexOffset - ChunkHeaderLength - CompressedLength;
     }
 }
 

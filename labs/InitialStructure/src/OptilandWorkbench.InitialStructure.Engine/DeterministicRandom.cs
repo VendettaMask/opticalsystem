@@ -15,6 +15,16 @@ internal struct DeterministicRandom
         return value * (1.0 / (1UL << 53));
     }
 
+    public int NextInt32(int exclusiveMaximum)
+    {
+        if (exclusiveMaximum <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(exclusiveMaximum));
+        }
+
+        return (int)(NextUnitDouble() * exclusiveMaximum);
+    }
+
     private ulong NextUInt64()
     {
         var value = (_state += 0x9E3779B97F4A7C15UL);

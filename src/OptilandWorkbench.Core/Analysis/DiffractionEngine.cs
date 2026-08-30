@@ -110,10 +110,7 @@ public static class DiffractionEngine
         bool zemaxFftSampling = false,
         bool ignoreOpd = false)
     {
-        if (gridSize < pupilSampling || !IsPowerOfTwo(gridSize))
-        {
-            throw new ArgumentException("FFT grid size must be a power of two and at least as large as the pupil sampling.");
-        }
+        AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
         var pupilGridStretch = zemaxFftSampling
             ? Math.Sqrt(pupilSampling / 32.0)
@@ -763,6 +760,8 @@ public static class DiffractionEngine
             throw new ArgumentOutOfRangeException(nameof(imageSize), "Image size must be positive.");
         }
 
+        AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
+
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays);
         var pupil = CreateUniformPupil(wavefront, numRays);
         var fNumber = WorkingFNumber(optic, field, wavelength);
@@ -831,6 +830,9 @@ public static class DiffractionEngine
         {
             throw new ArgumentOutOfRangeException(nameof(imageSize), "Image size must be positive.");
         }
+
+
+        AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
 
         if (!double.IsFinite(pixelPitchMillimeters) || pixelPitchMillimeters <= 0)
         {

@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Core.FileIO;
 
 namespace OptilandWorkbench.Application.Services;
 
@@ -8,6 +9,8 @@ public static class ZemaxStockCatalogReader
 {
     private const uint SupportedVersion = 1001;
     private const int RecordHeaderSize = 144;
+    private const int MaximumElementCount = 1_024;
+    private const int MaximumRecordCount = 100_000;
     private const string ShapeCodes = "?EBPM";
 
     private static readonly IReadOnlyDictionary<string, string> VendorNames =
@@ -103,7 +106,7 @@ public static class ZemaxStockCatalogReader
     public static IReadOnlyList<CommercialLensEntryDto> ReadFile(string path)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
-        using var stream = File.OpenRead(path);
+        using var stream = BoundedFile.OpenRead(path, BoundedFile.MaximumCatalogBytes, "ZMF stock catalog");
         using var reader = new BinaryReader(stream, Encoding.Latin1, leaveOpen: false);
         if (stream.Length < sizeof(uint) || reader.ReadUInt32() != SupportedVersion)
         {
@@ -118,6 +121,10 @@ public static class ZemaxStockCatalogReader
         var recordIndex = 0;
         while (stream.Position < stream.Length)
         {
+            if (recordIndex >= MaximumRecordCount)
+            {
+                throw new InvalidDataException($"ZMF 库 {Path.GetFileName(path)} 的记录数量超过上限。");
+            }
             if (stream.Length - stream.Position < RecordHeaderSize)
             {
                 throw new InvalidDataException($"ZMF 库 {Path.GetFileName(path)} 的记录头不完整。");
@@ -133,9 +140,10 @@ public static class ZemaxStockCatalogReader
             var descriptionLength = reader.ReadUInt32();
             var effectiveFocalLength = reader.ReadDouble();
             var entrancePupilDiameter = reader.ReadDouble();
-            if (descriptionLength > stream.Length - stream.Position)
+            if (elementCount > MaximumElementCount
+                || descriptionLength > stream.Length - stream.Position)
             {
-                throw new InvalidDataException($"ZMF 库 {Path.GetFileName(path)} 的记录正文长度无效。");
+                throw new InvalidDataException($"ZMF 库 {Path.GetFileName(path)} 的元件数或记录正文长度无效。");
             }
 
             stream.Seek(descriptionLength, SeekOrigin.Current);
@@ -160,7 +168,7 @@ public static class ZemaxStockCatalogReader
                 LensType(shapeCode, surfaceType, elementCount),
                 shapeCode,
                 surfaceType,
-                checked((int)elementCount),
+                (int)elementCount,
                 FiniteOrZero(effectiveFocalLength),
                 0,
                 0,

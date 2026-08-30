@@ -1386,6 +1386,46 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void MeritFunctionNeverConvertsUnknownOrCompatibilityOperandsToSuccessfulZero()
+    {
+        var optic = Optic.CreateCookeTriplet();
+
+        Assert.Throws<ArgumentException>(() => MeritFunctionCatalog.CanonicalType("TYPO"));
+
+        var unknown = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "TYPO",
+            Target = 0,
+            Weight = 1
+        });
+        Assert.True(double.IsNaN(unknown.Value));
+        Assert.True(double.IsPositiveInfinity(unknown.Contribution));
+        Assert.Contains("Unknown merit operand", unknown.Error, StringComparison.Ordinal);
+
+        var compatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "TTHI",
+            Enabled = true,
+            Target = 0,
+            Weight = 1
+        });
+        Assert.True(double.IsNaN(compatibility.Value));
+        Assert.True(double.IsPositiveInfinity(compatibility.Contribution));
+        Assert.Contains("not executable", compatibility.Error, StringComparison.Ordinal);
+
+        var disabledCompatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "TTHI",
+            Enabled = false,
+            Target = 0,
+            Weight = 1
+        });
+        Assert.Equal(0, disabledCompatibility.Value);
+        Assert.Equal(0, disabledCompatibility.Contribution);
+        Assert.Empty(disabledCompatibility.Error);
+    }
+
+    [Fact]
     public void MeritFunctionEvaluatesCommonZemaxStyleOperands()
     {
         var optic = Optic.CreateCookeTriplet();

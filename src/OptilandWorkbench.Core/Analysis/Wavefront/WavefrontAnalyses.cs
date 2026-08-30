@@ -7,6 +7,14 @@ using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
+public enum ZernikeAnalysisKind
+{
+    Fringe,
+    ZemaxFringe,
+    Standard,
+    Annular
+}
+
 public sealed class WavefrontAnalysis : BaseAnalysis
 {
     private readonly int _numRings;
@@ -49,9 +57,18 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         string name = "Wavefront",
         bool defaultSquareViewport = false) : base(optic)
     {
-        _numRings = Math.Max(2, numRings);
-        _mapSize = Math.Max(17, mapSize);
-        _pupilSampling = pupilSampling.HasValue ? Math.Clamp(pupilSampling.Value, 8, 512) : null;
+        if (numRings is < 2 or > Raytrace.ApertureSampler.MaximumHexapolarRings)
+        {
+            throw new ArgumentOutOfRangeException(nameof(numRings));
+        }
+        if (pupilSampling is < 8 or > 512)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pupilSampling));
+        }
+
+        _numRings = numRings;
+        _mapSize = AnalysisResourceLimits.ValidateWavefrontMapSize(mapSize, nameof(mapSize));
+        _pupilSampling = pupilSampling;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(0, fieldNumber);
         _removeTilt = removeTilt;
@@ -258,9 +275,26 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         IReadOnlyList<WavefrontSample> samples,
         int mapSize)
     {
-        var points = new List<AnalysisPoint>(mapSize * mapSize);
+        ArgumentNullException.ThrowIfNull(samples);
+        AnalysisResourceLimits.ValidateWavefrontMapSize(mapSize, nameof(mapSize));
+        if (samples.Count == 0)
+        {
+            return Array.Empty<AnalysisPoint>();
+        }
+        if (checked((long)mapSize * mapSize * samples.Count)
+            > AnalysisResourceLimits.MaximumWavefrontInterpolationWork)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(samples),
+                "Wavefront map interpolation exceeds the supported work budget.");
+        }
+
+        var points = new List<AnalysisPoint>(checked(mapSize * mapSize));
+        var nearestSamples = new WavefrontSample?[8];
+        var nearestDistances = new double[8];
         for (var row = 0; row < mapSize; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var y = -1 + (2.0 * row / (mapSize - 1.0));
             for (var column = 0; column < mapSize; column++)
             {
@@ -270,18 +304,50 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                     continue;
                 }
 
-                var nearest = samples
-                    .Select(sample => (Sample: sample, DistanceSquared:
+                Array.Fill(nearestSamples, null);
+                Array.Fill(nearestDistances, double.PositiveInfinity);
+                foreach (var sample in samples)
+                {
+                    var distanceSquared =
                         ((sample.NormalizedPupilX - x) * (sample.NormalizedPupilX - x))
-                        + ((sample.NormalizedPupilY - y) * (sample.NormalizedPupilY - y))))
-                    .OrderBy(item => item.DistanceSquared)
-                    .Take(8)
-                    .ToArray();
-                var exact = nearest.FirstOrDefault(item => item.DistanceSquared <= 1e-20);
-                var value = exact.Sample is not null
-                    ? exact.Sample.OpdWaves
-                    : nearest.Sum(item => item.Sample.OpdWaves / Math.Max(1e-20, item.DistanceSquared))
-                        / nearest.Sum(item => 1 / Math.Max(1e-20, item.DistanceSquared));
+                        + ((sample.NormalizedPupilY - y) * (sample.NormalizedPupilY - y));
+                    if (distanceSquared >= nearestDistances[^1])
+                    {
+                        continue;
+                    }
+
+                    var insert = nearestDistances.Length - 1;
+                    while (insert > 0 && distanceSquared < nearestDistances[insert - 1])
+                    {
+                        nearestDistances[insert] = nearestDistances[insert - 1];
+                        nearestSamples[insert] = nearestSamples[insert - 1];
+                        insert--;
+                    }
+                    nearestDistances[insert] = distanceSquared;
+                    nearestSamples[insert] = sample;
+                }
+
+                double value;
+                if (nearestDistances[0] <= 1e-20)
+                {
+                    value = nearestSamples[0]!.OpdWaves;
+                }
+                else
+                {
+                    var weighted = 0.0;
+                    var totalWeight = 0.0;
+                    for (var index = 0; index < nearestSamples.Length; index++)
+                    {
+                        if (nearestSamples[index] is not { } sample)
+                        {
+                            break;
+                        }
+                        var weight = 1 / Math.Max(1e-20, nearestDistances[index]);
+                        weighted += sample.OpdWaves * weight;
+                        totalWeight += weight;
+                    }
+                    value = weighted / totalWeight;
+                }
                 points.Add(new AnalysisPoint(x, y, Value: value));
             }
         }
@@ -292,6 +358,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
 
 public sealed class ZernikeAnalysis : BaseAnalysis
 {
+    private readonly ZernikeAnalysisKind _kind;
     private readonly int _numRings;
     private readonly bool _useUniformGrid;
     private readonly int _numTerms;
@@ -309,20 +376,64 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         int fieldNumber = 0,
         string name = "Zernike",
+        double obscurationRatio = 0.5)
+        : this(
+            optic,
+            ZernikeAnalysisKind.Fringe,
+            numRings,
+            numTerms,
+            mapSize,
+            wavelengthNumber,
+            fieldNumber,
+            name,
+            obscurationRatio)
+    {
+    }
+
+    public ZernikeAnalysis(
+        Optic optic,
+        ZernikeAnalysisKind kind,
+        int numRings = 15,
+        int numTerms = 37,
+        int mapSize = 65,
+        int wavelengthNumber = 0,
+        int fieldNumber = 0,
+        string? name = null,
         double obscurationRatio = 0.5) : base(optic)
     {
-        _useUniformGrid = string.Equals(name, "Zernike Fringe", StringComparison.OrdinalIgnoreCase);
+        if (!Enum.IsDefined(kind))
+        {
+            throw new ArgumentOutOfRangeException(nameof(kind));
+        }
+
+        _kind = kind;
+        _useUniformGrid = kind == ZernikeAnalysisKind.ZemaxFringe;
         _numRings = _useUniformGrid
-            ? Math.Clamp(numRings, 8, 512)
-            : Math.Max(2, numRings);
-        _numTerms = _useUniformGrid
-            ? Math.Clamp(numTerms, 1, ZernikeFitEngine.MaximumFringeTerm)
-            : Math.Max(1, numTerms);
-        _mapSize = Math.Max(17, mapSize);
+            ? ValidateRange(numRings, 8, 512, nameof(numRings))
+            : ValidateRange(
+                numRings,
+                2,
+                Raytrace.ApertureSampler.MaximumHexapolarRings,
+                nameof(numRings));
+        var maximumTerms = kind is ZernikeAnalysisKind.Fringe or ZernikeAnalysisKind.ZemaxFringe
+            ? ZernikeFitEngine.MaximumFringeTerm
+            : ZernikeFitEngine.MaximumStandardTerm;
+        _numTerms = ValidateRange(numTerms, 1, maximumTerms, nameof(numTerms));
+        _mapSize = AnalysisResourceLimits.ValidateWavefrontMapSize(mapSize, nameof(mapSize));
         _wavelengthNumber = wavelengthNumber;
         _fieldNumber = fieldNumber;
-        _name = name;
-        _obscurationRatio = Math.Clamp(obscurationRatio, 0, 0.95);
+        _name = name ?? kind switch
+        {
+            ZernikeAnalysisKind.ZemaxFringe => "Zernike Fringe",
+            ZernikeAnalysisKind.Standard => "Zernike Standard",
+            ZernikeAnalysisKind.Annular => "Zernike Annular",
+            _ => "Zernike"
+        };
+        if (!double.IsFinite(obscurationRatio) || obscurationRatio is < 0 or > 0.95)
+        {
+            throw new ArgumentOutOfRangeException(nameof(obscurationRatio));
+        }
+        _obscurationRatio = obscurationRatio;
     }
 
     public override string Name => _name;
@@ -345,8 +456,9 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         var wavefront = _useUniformGrid
             ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings)
             : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
-        var isStandard = string.Equals(Name, "Zernike Standard", StringComparison.OrdinalIgnoreCase);
-        var isAnnular = string.Equals(Name, "Zernike Annular", StringComparison.OrdinalIgnoreCase);
+        var isStandard = _kind == ZernikeAnalysisKind.Standard;
+        var isAnnular = _kind == ZernikeAnalysisKind.Annular;
+        var isZemaxFringe = _kind == ZernikeAnalysisKind.ZemaxFringe;
         var coefficients = isAnnular
             ? ZernikeFitEngine.FitAnnular(wavefront.Samples, _numTerms, _obscurationRatio)
             : isStandard
@@ -361,7 +473,12 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         var values = coefficients.ToDictionary(
             coefficient => $"Z{coefficient.Number} (n={coefficient.RadialOrder}, m={coefficient.AzimuthalOrder})",
             coefficient => (object)coefficient.Value);
-        values["ZernikeType"] = "fringe";
+        values["ZernikeType"] = _kind switch
+        {
+            ZernikeAnalysisKind.Standard => "standard",
+            ZernikeAnalysisKind.Annular => "annular",
+            _ => "fringe"
+        };
         values["WavelengthMicrometers"] = wavelength.Micrometers;
         values["FieldHx"] = field.Hx;
         values["FieldHy"] = field.Hy;
@@ -419,6 +536,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         var heatmapPoints = new List<AnalysisPoint>(_mapSize * _mapSize);
         for (var row = 0; row < _mapSize; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var y = -1 + (2.0 * row / (_mapSize - 1.0));
             for (var column = 0; column < _mapSize; column++)
             {
@@ -461,13 +579,18 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             coefficientBars,
             new[] { heatmap },
             new AnalysisPlotOptions(
-                Title: "Zernike Fringe Fit",
+                Title: _kind switch
+                {
+                    ZernikeAnalysisKind.Standard => "Zernike Standard Fit",
+                    ZernikeAnalysisKind.Annular => "Zernike Annular Fit",
+                    _ => "Zernike Fringe Fit"
+                },
                 EqualAspect: true,
                 XMinimum: -1,
                 XMaximum: 1,
                 YMinimum: -1,
                 YMaximum: 1),
-            ReportText: string.Equals(Name, "Zernike Fringe", StringComparison.OrdinalIgnoreCase)
+            ReportText: isZemaxFringe
                 ? BuildFringeReport(
                     field,
                     wavelength.Micrometers,
@@ -507,6 +630,16 @@ public sealed class ZernikeAnalysis : BaseAnalysis
                             rmsFitError,
                             maximumFitError)
                 : null);
+    }
+
+    private static int ValidateRange(int value, int minimum, int maximum, string parameterName)
+    {
+        if (value < minimum || value > maximum)
+        {
+            throw new ArgumentOutOfRangeException(parameterName);
+        }
+
+        return value;
     }
 
     private string BuildFringeReport(

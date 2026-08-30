@@ -18,6 +18,18 @@ public sealed class ParallelMonteCarloConfigurationTests
             CancellationToken.None,
             worker => worker.CreateTolerancing(),
             maxDegreeOfParallelism: 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => monteCarlo.RunDetailed(
+            MonteCarlo.MaximumTrialCount + 1,
+            1,
+            0,
+            CancellationToken.None,
+            worker => worker.CreateTolerancing()));
+        Assert.Throws<ArgumentOutOfRangeException>(() => monteCarlo.RunDetailed(
+            1,
+            1,
+            MonteCarlo.MaximumCompensationIterations + 1,
+            CancellationToken.None,
+            worker => worker.CreateTolerancing()));
 
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();

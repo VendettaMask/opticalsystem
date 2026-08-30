@@ -161,10 +161,10 @@ public sealed partial class MainWindow : Window
 
         Title = "Optical System Design";
         Icon = BrandAssets.LoadWindowIcon();
-        Width = Math.Clamp(_settings.WindowWidth, 720, 4096);
-        Height = Math.Clamp(_settings.WindowHeight, 640, 2160);
-        MinWidth = 720;
-        MinHeight = 640;
+        Width = Math.Clamp(_settings.WindowWidth, 640, 4096);
+        Height = Math.Clamp(_settings.WindowHeight, 480, 2160);
+        MinWidth = 640;
+        MinHeight = 480;
         ApplyTheme(save: false);
         Content = BuildShell();
         DisplayTypography.Apply(this);

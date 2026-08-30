@@ -11,6 +11,8 @@ public sealed record RayTraceCacheStatistics(
 
 public sealed class RayTraceCache
 {
+    public const int MaximumCacheEntries = 4_096;
+
     private readonly object _gate = new();
     private readonly Dictionary<RayTraceCacheKey, RayTraceCacheEntry> _entries = new();
     private readonly Queue<RayTraceCacheKey> _insertionOrder = new();
@@ -23,8 +25,18 @@ public sealed class RayTraceCache
 
     public RayTraceCache(int maximumEntries = 256, long maximumSamples = 500_000)
     {
-        _maximumEntries = Math.Max(1, maximumEntries);
-        _maximumSamples = Math.Max(1, maximumSamples);
+        if (maximumEntries is < 1 or > MaximumCacheEntries)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maximumEntries));
+        }
+
+        if (maximumSamples is < 1 or > SequentialTraceLimits.MaximumRetainedSamples)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maximumSamples));
+        }
+
+        _maximumEntries = maximumEntries;
+        _maximumSamples = maximumSamples;
     }
 
     public RayTraceCacheStatistics Statistics
@@ -89,6 +101,8 @@ public sealed class RayTraceCache
         }
     }
 
+    internal bool CanCache(int sampleCount) => sampleCount > 0 && sampleCount <= _maximumSamples;
+
     internal void Store(
         RayTraceCacheKey key,
         RayTraceSampleValue[] samples,
@@ -99,11 +113,6 @@ public sealed class RayTraceCache
         {
             return;
         }
-
-        var cachedSamples = new RayTraceSampleValue[sampleCount];
-        var cachedPresence = new bool[sampleCount];
-        Array.Copy(samples, cachedSamples, sampleCount);
-        Array.Copy(hasSamples, cachedPresence, sampleCount);
 
         lock (_gate)
         {
@@ -118,6 +127,10 @@ public sealed class RayTraceCache
                 EvictOldest();
             }
 
+            var cachedSamples = new RayTraceSampleValue[sampleCount];
+            var cachedPresence = new bool[sampleCount];
+            Array.Copy(samples, cachedSamples, sampleCount);
+            Array.Copy(hasSamples, cachedPresence, sampleCount);
             _entries.Add(key, new RayTraceCacheEntry(cachedSamples, cachedPresence));
             _insertionOrder.Enqueue(key);
             _sampleCount += sampleCount;
