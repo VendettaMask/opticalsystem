@@ -224,8 +224,7 @@ static TeachingSample EmbeddedStlBaffle()
     const int scene = 6;
     var asset = NonSequentialStlImporter.Import(
         Encoding.ASCII.GetBytes(SquareRingStl()),
-        "teaching-square-baffle.stl") with
-    { Id = Id(scene, 90) };
+        "teaching-square-baffle.stl").WithId(Id(scene, 90));
     var objects = new[]
     {
         Object(scene, 1, "宽角矩形光源", NonSequentialObjectKind.SourceRectangle, new Vector3D(0, 0, 0),

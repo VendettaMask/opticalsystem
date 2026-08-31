@@ -67,6 +67,53 @@ public sealed class NonSequentialDocumentTests
     }
 
     [Fact]
+    public void ValidateAcceptsLongReferenceChainThroughIndexedGraphPass()
+    {
+        var objects = new List<NonSequentialObjectDefinition>();
+        Guid? previous = null;
+        for (var index = 0; index < 2_048; index++)
+        {
+            var item = NonSequentialObjectDefinition.Create(
+                NonSequentialObjectKind.SourceRay,
+                $"ray {index}");
+            objects.Add(item with { ReferenceObjectId = previous });
+            previous = item.Id;
+        }
+
+        var document = new NonSequentialDocument(
+            "long reference chain",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            objects);
+
+        Assert.Equal(objects.Count, document.Objects.Count);
+    }
+
+    [Fact]
+    public void ValidateDetectsReferenceAndContainmentCyclesWithIndexedGraphPass()
+    {
+        var first = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay, "first");
+        var second = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay, "second");
+
+        Assert.Throws<InvalidDataException>(() => new NonSequentialDocument(
+            "reference cycle",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[]
+            {
+                first with { ReferenceObjectId = second.Id },
+                second with { ReferenceObjectId = first.Id }
+            }));
+
+        Assert.Throws<InvalidDataException>(() => new NonSequentialDocument(
+            "containment cycle",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[]
+            {
+                first with { ContainingObjectId = second.Id },
+                second with { ContainingObjectId = first.Id }
+            }));
+    }
+
+    [Fact]
     public void DetectorReconstructionDoesNotAllocateEmptyWavelengthPlanes()
     {
         var wavelengths = Enumerable.Range(0, 64)

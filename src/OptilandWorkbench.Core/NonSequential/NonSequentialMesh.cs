@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core.Backend;
-using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.NonSequential;
@@ -26,29 +25,125 @@ public sealed record NonSequentialMeshHit(
     int FaceNumber,
     bool Entering);
 
-public sealed record NonSequentialMeshAsset(
-    Guid Id,
-    string OriginalFileName,
-    string SourceFormat,
-    string Sha256,
-    double UnitScaleToMillimeters,
-    int VertexCount,
-    int TriangleCount,
-    Vector3D BoundsMinimum,
-    Vector3D BoundsMaximum,
-    bool IsClosed,
-    bool IsManifold,
-    bool IsConnected,
-    bool IsOrientable,
-    bool HasSelfIntersections,
-    double SignedVolumeCubicMillimeters,
-    IReadOnlyList<string>? Warnings = null,
-    [property: JsonIgnore] byte[]? CanonicalData = null)
+public sealed class NonSequentialMeshAsset
 {
+    private readonly byte[]? _canonicalData;
     private NonSequentialMeshGeometry? _geometry;
 
+    [JsonConstructor]
+    public NonSequentialMeshAsset(
+        Guid id,
+        string originalFileName,
+        string sourceFormat,
+        string sha256,
+        double unitScaleToMillimeters,
+        int vertexCount,
+        int triangleCount,
+        Vector3D boundsMinimum,
+        Vector3D boundsMaximum,
+        bool isClosed,
+        bool isManifold,
+        bool isConnected,
+        bool isOrientable,
+        bool hasSelfIntersections,
+        double signedVolumeCubicMillimeters,
+        IReadOnlyList<string>? warnings = null)
+        : this(
+            id,
+            originalFileName,
+            sourceFormat,
+            sha256,
+            unitScaleToMillimeters,
+            vertexCount,
+            triangleCount,
+            boundsMinimum,
+            boundsMaximum,
+            isClosed,
+            isManifold,
+            isConnected,
+            isOrientable,
+            hasSelfIntersections,
+            signedVolumeCubicMillimeters,
+            warnings,
+            canonicalData: null)
+    {
+    }
+
+    public NonSequentialMeshAsset(
+        Guid id,
+        string originalFileName,
+        string sourceFormat,
+        string sha256,
+        double unitScaleToMillimeters,
+        int vertexCount,
+        int triangleCount,
+        Vector3D boundsMinimum,
+        Vector3D boundsMaximum,
+        bool isClosed,
+        bool isManifold,
+        bool isConnected,
+        bool isOrientable,
+        bool hasSelfIntersections,
+        double signedVolumeCubicMillimeters,
+        IReadOnlyList<string>? warnings,
+        byte[]? canonicalData)
+    {
+        Id = id;
+        OriginalFileName = originalFileName;
+        SourceFormat = sourceFormat;
+        Sha256 = sha256;
+        UnitScaleToMillimeters = unitScaleToMillimeters;
+        VertexCount = vertexCount;
+        TriangleCount = triangleCount;
+        BoundsMinimum = boundsMinimum;
+        BoundsMaximum = boundsMaximum;
+        IsClosed = isClosed;
+        IsManifold = isManifold;
+        IsConnected = isConnected;
+        IsOrientable = isOrientable;
+        HasSelfIntersections = hasSelfIntersections;
+        SignedVolumeCubicMillimeters = signedVolumeCubicMillimeters;
+        Warnings = warnings is null ? null : Array.AsReadOnly(warnings.ToArray());
+        _canonicalData = canonicalData?.ToArray();
+    }
+
+    public Guid Id { get; }
+
+    public string OriginalFileName { get; }
+
+    public string SourceFormat { get; }
+
+    public string Sha256 { get; }
+
+    public double UnitScaleToMillimeters { get; }
+
+    public int VertexCount { get; }
+
+    public int TriangleCount { get; }
+
+    public Vector3D BoundsMinimum { get; }
+
+    public Vector3D BoundsMaximum { get; }
+
+    public bool IsClosed { get; }
+
+    public bool IsManifold { get; }
+
+    public bool IsConnected { get; }
+
+    public bool IsOrientable { get; }
+
+    public bool HasSelfIntersections { get; }
+
+    public double SignedVolumeCubicMillimeters { get; }
+
+    public IReadOnlyList<string>? Warnings { get; }
+
     [JsonIgnore]
-    public bool HasGeometry => CanonicalData is { Length: > 0 };
+    public ReadOnlyMemory<byte> CanonicalData => _canonicalData;
+
+    [JsonIgnore]
+    public bool HasGeometry => _canonicalData is { Length: > 0 };
 
     public NonSequentialMeshGeometry GetGeometry()
     {
@@ -57,7 +152,7 @@ public sealed record NonSequentialMeshAsset(
             return _geometry;
         }
 
-        if (CanonicalData is not { Length: > 0 } data)
+        if (_canonicalData is not { Length: > 0 } data)
         {
             throw new InvalidDataException($"网格资产“{OriginalFileName}”缺少内嵌几何数据。");
         }
@@ -81,22 +176,72 @@ public sealed record NonSequentialMeshAsset(
             throw new InvalidDataException($"网格资产“{OriginalFileName}”的 SHA-256 校验失败。");
         }
 
-        return this with { CanonicalData = canonicalData };
+        return new NonSequentialMeshAsset(
+            Id,
+            OriginalFileName,
+            SourceFormat,
+            Sha256,
+            UnitScaleToMillimeters,
+            VertexCount,
+            TriangleCount,
+            BoundsMinimum,
+            BoundsMaximum,
+            IsClosed,
+            IsManifold,
+            IsConnected,
+            IsOrientable,
+            HasSelfIntersections,
+            SignedVolumeCubicMillimeters,
+            Warnings,
+            canonicalData);
+    }
+
+    public NonSequentialMeshAsset WithId(Guid id) => new(
+        id,
+        OriginalFileName,
+        SourceFormat,
+        Sha256,
+        UnitScaleToMillimeters,
+        VertexCount,
+        TriangleCount,
+        BoundsMinimum,
+        BoundsMaximum,
+        IsClosed,
+        IsManifold,
+        IsConnected,
+        IsOrientable,
+        HasSelfIntersections,
+        SignedVolumeCubicMillimeters,
+        Warnings,
+        _canonicalData);
+
+    public byte[] CopyCanonicalData()
+    {
+        if (_canonicalData is not { Length: > 0 } data)
+        {
+            throw new InvalidDataException($"网格资产“{OriginalFileName}”缺少内嵌几何数据。");
+        }
+
+        return data.ToArray();
     }
 }
 
 public sealed class NonSequentialMeshGeometry
 {
+    private readonly Vector3D[] _vertices;
+    private readonly NonSequentialMeshTriangle[] _triangles;
     private readonly Lazy<NonSequentialTriangleBvh> _bvh;
 
     public NonSequentialMeshGeometry(
         IReadOnlyList<Vector3D> vertices,
         IReadOnlyList<NonSequentialMeshTriangle> triangles)
     {
-        Vertices = vertices?.ToArray() ?? throw new ArgumentNullException(nameof(vertices));
-        Triangles = triangles?.ToArray() ?? throw new ArgumentNullException(nameof(triangles));
+        _vertices = vertices?.ToArray() ?? throw new ArgumentNullException(nameof(vertices));
+        _triangles = triangles?.ToArray() ?? throw new ArgumentNullException(nameof(triangles));
+        Vertices = Array.AsReadOnly(_vertices);
+        Triangles = Array.AsReadOnly(_triangles);
         _bvh = new Lazy<NonSequentialTriangleBvh>(
-            () => new NonSequentialTriangleBvh(Vertices, Triangles),
+            () => new NonSequentialTriangleBvh(_vertices, _triangles),
             LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
@@ -261,29 +406,54 @@ public static class NonSequentialStlImporter
     public const int MaximumTriangleCount = 2_000_000;
     public const int MaximumVertexCount = MaximumTriangleCount * 3;
     public const long MaximumInputBytes = 256L * 1024 * 1024;
+    public const long MaximumEstimatedImportWorkingSetBytes = 512L * 1024 * 1024;
+    private const long EstimatedWorkingSetBytesPerTriangle = 512;
 
     public static NonSequentialMeshAsset Import(
         string path,
-        NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter)
+        NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter,
+        CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
+        cancellationToken.ThrowIfCancellationRequested();
         var fullPath = Path.GetFullPath(path);
-        if (new FileInfo(fullPath).Length > MaximumInputBytes)
+        var length = new FileInfo(fullPath).Length;
+        if (length <= 0)
+        {
+            throw new InvalidDataException("STL 文件为空。");
+        }
+        if (length > MaximumInputBytes)
         {
             throw new InvalidDataException("STL 文件超过 256 MiB 输入上限。");
         }
 
-        return Import(
-            BoundedFile.ReadAllBytes(fullPath, MaximumInputBytes, "STL mesh"),
+        var scale = UnitScale(unit);
+        using var stream = new FileStream(
+            fullPath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read,
+            bufferSize: 64 * 1024,
+            FileOptions.SequentialScan);
+        var binary = LooksLikeBinary(stream, length, cancellationToken);
+        var raw = binary
+            ? ParseBinary(stream, length, scale, cancellationToken)
+            : ParseAscii(stream, scale, cancellationToken);
+        return BuildAsset(
+            raw,
             Path.GetFileName(fullPath),
-            unit);
+            binary ? "Binary STL" : "ASCII STL",
+            scale,
+            cancellationToken);
     }
 
     public static NonSequentialMeshAsset Import(
         ReadOnlySpan<byte> bytes,
         string originalFileName,
-        NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter)
+        NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter,
+        CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         if (bytes.Length == 0)
         {
             throw new InvalidDataException("STL 文件为空。");
@@ -293,28 +463,40 @@ public static class NonSequentialStlImporter
             throw new InvalidDataException("STL 文件超过 256 MiB 输入上限。");
         }
 
-        var scale = unit switch
-        {
-            NonSequentialMeshUnit.Millimeter => 1.0,
-            NonSequentialMeshUnit.Centimeter => 10.0,
-            NonSequentialMeshUnit.Meter => 1000.0,
-            NonSequentialMeshUnit.Inch => 25.4,
-            _ => throw new ArgumentOutOfRangeException(nameof(unit))
-        };
+        var scale = UnitScale(unit);
         var binary = LooksLikeBinary(bytes);
-        var raw = binary ? ParseBinary(bytes, scale) : ParseAscii(bytes, scale);
+        var raw = binary
+            ? ParseBinary(bytes, scale, cancellationToken)
+            : ParseAscii(bytes, scale, cancellationToken);
+        return BuildAsset(
+            raw,
+            string.IsNullOrWhiteSpace(originalFileName) ? "Imported.stl" : originalFileName.Trim(),
+            binary ? "Binary STL" : "ASCII STL",
+            scale,
+            cancellationToken);
+    }
+
+    private static NonSequentialMeshAsset BuildAsset(
+        IReadOnlyList<RawTriangle> raw,
+        string originalFileName,
+        string sourceFormat,
+        double scale,
+        CancellationToken cancellationToken)
+    {
         if (raw.Count == 0)
         {
             throw new InvalidDataException("STL 文件没有可用三角形。");
         }
+        ValidateTriangleBudget(raw.Count);
 
-        var normalized = Normalize(raw);
+        var normalized = Normalize(raw, cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
         var data = NonSequentialMeshCodec.Encode(normalized.Vertices, normalized.Triangles);
         var hash = Convert.ToHexString(SHA256.HashData(data));
         return new NonSequentialMeshAsset(
             Guid.NewGuid(),
             string.IsNullOrWhiteSpace(originalFileName) ? "Imported.stl" : originalFileName.Trim(),
-            binary ? "Binary STL" : "ASCII STL",
+            sourceFormat,
             hash,
             scale,
             normalized.Vertices.Count,
@@ -331,6 +513,15 @@ public static class NonSequentialStlImporter
             data);
     }
 
+    private static double UnitScale(NonSequentialMeshUnit unit) => unit switch
+    {
+        NonSequentialMeshUnit.Millimeter => 1.0,
+        NonSequentialMeshUnit.Centimeter => 10.0,
+        NonSequentialMeshUnit.Meter => 1000.0,
+        NonSequentialMeshUnit.Inch => 25.4,
+        _ => throw new ArgumentOutOfRangeException(nameof(unit))
+    };
+
     private static bool LooksLikeBinary(ReadOnlySpan<byte> bytes)
     {
         if (bytes.Length < 84)
@@ -342,24 +533,83 @@ public static class NonSequentialStlImporter
         return count <= MaximumTriangleCount && 84L + count * 50L == bytes.Length;
     }
 
-    private static List<RawTriangle> ParseBinary(ReadOnlySpan<byte> bytes, double scale)
+    private static bool LooksLikeBinary(Stream stream, long length, CancellationToken cancellationToken)
     {
+        if (length < 84)
+        {
+            return false;
+        }
+
+        Span<byte> header = stackalloc byte[84];
+        stream.Position = 0;
+        ReadExactly(stream, header, cancellationToken);
+        stream.Position = 0;
+        var count = BinaryPrimitives.ReadUInt32LittleEndian(header.Slice(80, 4));
+        return count <= MaximumTriangleCount && 84L + count * 50L == length;
+    }
+
+    private static List<RawTriangle> ParseBinary(
+        ReadOnlySpan<byte> bytes,
+        double scale,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
         var count = checked((int)BinaryPrimitives.ReadUInt32LittleEndian(bytes.Slice(80, 4)));
         if (count <= 0 || count > MaximumTriangleCount || 84L + count * 50L != bytes.Length)
         {
             throw new InvalidDataException("Binary STL 的三角形数量或文件长度无效。");
         }
+        ValidateTriangleBudget(count);
 
         var result = new List<RawTriangle>(count);
         var offset = 84;
         for (var index = 0; index < count; index++)
         {
+            if ((index & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
             offset += 12;
             var a = ReadVector(bytes, offset, scale);
             var b = ReadVector(bytes, offset + 12, scale);
             var c = ReadVector(bytes, offset + 24, scale);
             result.Add(new RawTriangle(a, b, c));
             offset += 38;
+        }
+        return result;
+    }
+
+    private static List<RawTriangle> ParseBinary(
+        Stream stream,
+        long length,
+        double scale,
+        CancellationToken cancellationToken)
+    {
+        Span<byte> header = stackalloc byte[84];
+        stream.Position = 0;
+        ReadExactly(stream, header, cancellationToken);
+        var count = checked((int)BinaryPrimitives.ReadUInt32LittleEndian(header.Slice(80, 4)));
+        if (count <= 0 || count > MaximumTriangleCount || 84L + count * 50L != length)
+        {
+            throw new InvalidDataException("Binary STL 的三角形数量或文件长度无效。");
+        }
+        ValidateTriangleBudget(count);
+
+        var result = new List<RawTriangle>(count);
+        var record = new byte[50];
+        for (var index = 0; index < count; index++)
+        {
+            if ((index & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
+            ReadExactly(stream, record, cancellationToken);
+            var span = record.AsSpan();
+            var a = ReadVector(span, 12, scale);
+            var b = ReadVector(span, 24, scale);
+            var c = ReadVector(span, 36, scale);
+            result.Add(new RawTriangle(a, b, c));
         }
         return result;
     }
@@ -377,8 +627,12 @@ public static class NonSequentialStlImporter
         return value;
     }
 
-    private static List<RawTriangle> ParseAscii(ReadOnlySpan<byte> bytes, double scale)
+    private static List<RawTriangle> ParseAscii(
+        ReadOnlySpan<byte> bytes,
+        double scale,
+        CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         string text;
         try
         {
@@ -389,10 +643,17 @@ public static class NonSequentialStlImporter
             throw new InvalidDataException("STL 既不是有效 Binary STL，也不是 UTF-8 ASCII STL。", exception);
         }
 
-        var vertices = new List<Vector3D>();
+        var result = new List<RawTriangle>();
+        var vertices = new Vector3D[3];
+        var vertexOffset = 0;
         using var reader = new StringReader(text);
         while (reader.ReadLine() is { } line)
         {
+            if ((result.Count & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var trimmed = line.Trim();
             if (!trimmed.StartsWith("vertex", StringComparison.OrdinalIgnoreCase))
             {
@@ -413,31 +674,160 @@ public static class NonSequentialStlImporter
             {
                 throw new InvalidDataException("ASCII STL 包含非有限顶点坐标。");
             }
-            vertices.Add(value);
-            if (vertices.Count / 3 > MaximumTriangleCount)
+            vertices[vertexOffset++] = value;
+            if (vertexOffset == 3)
             {
-                throw new InvalidDataException($"STL 超过 {MaximumTriangleCount} 个三角形上限。");
+                result.Add(new RawTriangle(vertices[0], vertices[1], vertices[2]));
+                vertexOffset = 0;
+                if (result.Count > MaximumTriangleCount)
+                {
+                    throw new InvalidDataException($"STL 超过 {MaximumTriangleCount} 个三角形上限。");
+                }
+                ValidateTriangleBudget(result.Count);
             }
         }
 
-        if (vertices.Count == 0 || vertices.Count % 3 != 0)
+        if (result.Count == 0 || vertexOffset != 0)
         {
             throw new InvalidDataException("ASCII STL 的顶点数量不是三角形所需的三倍数。");
         }
 
-        var result = new List<RawTriangle>(vertices.Count / 3);
-        for (var index = 0; index < vertices.Count; index += 3)
-        {
-            result.Add(new RawTriangle(vertices[index], vertices[index + 1], vertices[index + 2]));
-        }
         return result;
     }
 
-    private static NormalizedMesh Normalize(IReadOnlyList<RawTriangle> raw)
+    private static List<RawTriangle> ParseAscii(
+        Stream stream,
+        double scale,
+        CancellationToken cancellationToken)
     {
-        var all = raw.SelectMany(item => new[] { item.A, item.B, item.C }).ToArray();
-        var minimum = new Vector3D(all.Min(item => item.X), all.Min(item => item.Y), all.Min(item => item.Z));
-        var maximum = new Vector3D(all.Max(item => item.X), all.Max(item => item.Y), all.Max(item => item.Z));
+        stream.Position = 0;
+        var result = new List<RawTriangle>();
+        var vertices = new Vector3D[3];
+        var vertexOffset = 0;
+        try
+        {
+            using var reader = new StreamReader(
+                stream,
+                new UTF8Encoding(false, true),
+                detectEncodingFromByteOrderMarks: true,
+                bufferSize: 64 * 1024,
+                leaveOpen: true);
+            while (reader.ReadLine() is { } line)
+            {
+                if ((result.Count & 0x3ff) == 0)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+
+                var trimmed = line.Trim();
+                if (!trimmed.StartsWith("vertex", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                vertices[vertexOffset++] = ParseAsciiVertex(trimmed, scale);
+                if (vertexOffset == 3)
+                {
+                    result.Add(new RawTriangle(vertices[0], vertices[1], vertices[2]));
+                    vertexOffset = 0;
+                    if (result.Count > MaximumTriangleCount)
+                    {
+                        throw new InvalidDataException($"STL 超过 {MaximumTriangleCount} 个三角形上限。");
+                    }
+                    ValidateTriangleBudget(result.Count);
+                }
+            }
+        }
+        catch (DecoderFallbackException exception)
+        {
+            throw new InvalidDataException("STL 既不是有效 Binary STL，也不是 UTF-8 ASCII STL。", exception);
+        }
+
+        if (result.Count == 0 || vertexOffset != 0)
+        {
+            throw new InvalidDataException("ASCII STL 的顶点数量不是三角形所需的三倍数。");
+        }
+
+        return result;
+    }
+
+    private static Vector3D ParseAsciiVertex(string trimmed, double scale)
+    {
+        var parts = trimmed.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length != 4
+            || !double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var x)
+            || !double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var y)
+            || !double.TryParse(parts[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var z))
+        {
+            throw new InvalidDataException($"ASCII STL 顶点行无效：“{trimmed}”。");
+        }
+
+        var value = new Vector3D(x * scale, y * scale, z * scale);
+        if (!Finite(value))
+        {
+            throw new InvalidDataException("ASCII STL 包含非有限顶点坐标。");
+        }
+
+        return value;
+    }
+
+    private static void ValidateTriangleBudget(int triangleCount)
+    {
+        if (triangleCount <= 0 || triangleCount > MaximumTriangleCount)
+        {
+            throw new InvalidDataException($"STL 超过 {MaximumTriangleCount} 个三角形上限。");
+        }
+
+        var estimated = checked((long)triangleCount * EstimatedWorkingSetBytesPerTriangle);
+        if (estimated > MaximumEstimatedImportWorkingSetBytes)
+        {
+            throw new InvalidDataException(
+                $"STL 导入预计峰值内存超过 {MaximumEstimatedImportWorkingSetBytes / 1024 / 1024:N0} MiB；请先简化网格或使用外存导入管线。");
+        }
+    }
+
+    private static void ReadExactly(
+        Stream stream,
+        Span<byte> buffer,
+        CancellationToken cancellationToken)
+    {
+        while (!buffer.IsEmpty)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var read = stream.Read(buffer);
+            if (read <= 0)
+            {
+                throw new InvalidDataException("STL 文件已截断。");
+            }
+            buffer = buffer[read..];
+        }
+    }
+
+    private static NormalizedMesh Normalize(
+        IReadOnlyList<RawTriangle> raw,
+        CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var minimum = new Vector3D(
+            double.PositiveInfinity,
+            double.PositiveInfinity,
+            double.PositiveInfinity);
+        var maximum = new Vector3D(
+            double.NegativeInfinity,
+            double.NegativeInfinity,
+            double.NegativeInfinity);
+        for (var index = 0; index < raw.Count; index++)
+        {
+            if ((index & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
+            Include(raw[index].A);
+            Include(raw[index].B);
+            Include(raw[index].C);
+        }
+
         var extent = (maximum - minimum).Length;
         var tolerance = Math.Max(1e-9, extent * 1e-12);
         var vertices = new List<Vector3D>();
@@ -450,6 +840,11 @@ public static class NonSequentialStlImporter
 
         foreach (var item in raw)
         {
+            if ((triangles.Count & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var a = Vertex(item.A);
             var b = Vertex(item.B);
             var c = Vertex(item.C);
@@ -476,15 +871,20 @@ public static class NonSequentialStlImporter
         if (degenerate > 0) warnings.Add($"已移除 {degenerate} 个退化三角形。");
         if (duplicate > 0) warnings.Add($"已移除 {duplicate} 个重复三角形。");
 
-        var edgeMap = BuildEdges(triangles);
+        var edgeMap = BuildEdges(triangles, cancellationToken);
         var manifold = edgeMap.Values.All(items => items.Count <= 2);
         var closed = manifold && edgeMap.Values.All(items => items.Count == 2);
-        var (connected, orientable) = Orient(triangles, edgeMap);
+        var (connected, orientable) = Orient(triangles, edgeMap, cancellationToken);
         var volume = SignedVolume(vertices, triangles);
         if (closed && orientable && volume < 0)
         {
             for (var index = 0; index < triangles.Count; index++)
             {
+                if ((index & 0x3ff) == 0)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var triangle = triangles[index];
                 triangles[index] = triangle with { B = triangle.C, C = triangle.B };
             }
@@ -492,7 +892,7 @@ public static class NonSequentialStlImporter
             warnings.Add("已统一翻转网格朝向以获得正体积和外法线。");
         }
 
-        var selfIntersections = HasSelfIntersections(vertices, triangles);
+        var selfIntersections = HasSelfIntersections(vertices, triangles, cancellationToken);
         if (!manifold) warnings.Add("网格包含非流形边。");
         if (!closed) warnings.Add("网格未闭合，只能用于吸收或反射交互。");
         if (!connected) warnings.Add("网格包含多个互不连接的区域。");
@@ -515,14 +915,32 @@ public static class NonSequentialStlImporter
             lookup.Add(key, index);
             return index;
         }
+
+        void Include(Vector3D value)
+        {
+            minimum = new Vector3D(
+                Math.Min(minimum.X, value.X),
+                Math.Min(minimum.Y, value.Y),
+                Math.Min(minimum.Z, value.Z));
+            maximum = new Vector3D(
+                Math.Max(maximum.X, value.X),
+                Math.Max(maximum.Y, value.Y),
+                Math.Max(maximum.Z, value.Z));
+        }
     }
 
     private static Dictionary<EdgeKey, List<EdgeOccurrence>> BuildEdges(
-        IReadOnlyList<NonSequentialMeshTriangle> triangles)
+        IReadOnlyList<NonSequentialMeshTriangle> triangles,
+        CancellationToken cancellationToken)
     {
         var result = new Dictionary<EdgeKey, List<EdgeOccurrence>>();
         for (var index = 0; index < triangles.Count; index++)
         {
+            if ((index & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var triangle = triangles[index];
             Add(triangle.A, triangle.B);
             Add(triangle.B, triangle.C);
@@ -544,11 +962,13 @@ public static class NonSequentialStlImporter
 
     private static (bool Connected, bool Orientable) Orient(
         List<NonSequentialMeshTriangle> triangles,
-        IReadOnlyDictionary<EdgeKey, List<EdgeOccurrence>> edgeMap)
+        IReadOnlyDictionary<EdgeKey, List<EdgeOccurrence>> edgeMap,
+        CancellationToken cancellationToken)
     {
         var adjacency = Enumerable.Range(0, triangles.Count).Select(_ => new List<(int Other, bool Flip)>()).ToArray();
         foreach (var occurrences in edgeMap.Values.Where(value => value.Count == 2))
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var first = occurrences[0];
             var second = occurrences[1];
             var flip = first.Forward == second.Forward;
@@ -561,6 +981,11 @@ public static class NonSequentialStlImporter
         var orientable = true;
         for (var start = 0; start < triangles.Count; start++)
         {
+            if ((start & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (states[start] != 0) continue;
             components++;
             states[start] = 1;
@@ -568,6 +993,11 @@ public static class NonSequentialStlImporter
             queue.Enqueue(start);
             while (queue.Count > 0)
             {
+                if ((queue.Count & 0x3ff) == 0)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var current = queue.Dequeue();
                 foreach (var (other, flip) in adjacency[current])
                 {
@@ -589,6 +1019,11 @@ public static class NonSequentialStlImporter
         {
             for (var index = 0; index < triangles.Count; index++)
             {
+                if ((index & 0x3ff) == 0)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 if (states[index] >= 0) continue;
                 var triangle = triangles[index];
                 triangles[index] = triangle with { B = triangle.C, C = triangle.B };
@@ -599,11 +1034,18 @@ public static class NonSequentialStlImporter
 
     private static bool HasSelfIntersections(
         IReadOnlyList<Vector3D> vertices,
-        IReadOnlyList<NonSequentialMeshTriangle> triangles)
+        IReadOnlyList<NonSequentialMeshTriangle> triangles,
+        CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         var index = new NonSequentialTriangleBvh(vertices, triangles);
         for (var first = 0; first < triangles.Count; first++)
         {
+            if ((first & 0x3ff) == 0)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var a = triangles[first];
             foreach (var second in index.Candidates(first))
             {

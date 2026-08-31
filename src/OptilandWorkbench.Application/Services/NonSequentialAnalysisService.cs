@@ -161,7 +161,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         lock (Gate)
         {
             document = Runtime.CurrentNonSequentialDocument.Clone();
-            materials = Runtime.CurrentOptic.Materials;
+            materials = Runtime.CurrentOptic.Materials.CreateSnapshot();
             revision = Workspace.Revision;
         }
 

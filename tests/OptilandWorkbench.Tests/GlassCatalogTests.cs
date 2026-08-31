@@ -25,6 +25,35 @@ public sealed class GlassCatalogTests
     }
 
     [Fact]
+    public void MaterialRegistrySnapshotKeepsIndependentCatalogResolutionCache()
+    {
+        var registry = new MaterialRegistry();
+        registry.SetPreferredGlassCatalogs(new[] { "CDGM" });
+        var snapshot = registry.CreateSnapshot();
+
+        registry.SetPreferredGlassCatalogs(new[] { "SCHOTT" });
+
+        var snapshotMaterial = Assert.IsType<CatalogGlassMaterial>(snapshot.Resolve("F2"));
+        var currentMaterial = Assert.IsType<CatalogGlassMaterial>(registry.Resolve("F2"));
+        Assert.Equal("CDGM", snapshotMaterial.Manufacturer);
+        Assert.Equal("SCHOTT", currentMaterial.Manufacturer);
+    }
+
+    [Fact]
+    public void MaterialRegistryAllowsConcurrentLazyCatalogResolution()
+    {
+        var registry = new MaterialRegistry();
+
+        Parallel.For(0, 256, index =>
+        {
+            var name = index % 2 == 0 ? "F2" : "N-BK7";
+            var material = registry.Resolve(name, new[] { "SCHOTT" });
+
+            Assert.True(double.IsFinite(material.RefractiveIndex(587.6)));
+        });
+    }
+
+    [Fact]
     public void BundledZemaxDatabaseResolvesHzlaf96WithoutImport()
     {
         var registry = new MaterialRegistry();

@@ -18,6 +18,7 @@ public sealed class MaterialRegistry
         "555CHINESES"
     };
 
+    private readonly object _gate = new();
     private readonly Dictionary<string, IMaterial> _materials = new(StringComparer.OrdinalIgnoreCase);
     private IReadOnlyList<string> _preferredGlassCatalogs =
         DefaultGlassCatalogPriority.ToArray();
@@ -37,12 +38,24 @@ public sealed class MaterialRegistry
         RegisterAlias("Silica", Resolve("Fused Silica"));
     }
 
-    public IReadOnlyCollection<string> Names => _materials.Keys
-        .Concat(ExternalGlassCatalogDatabase.Names)
-        .Concat(Catalog.Names)
-        .Distinct(StringComparer.OrdinalIgnoreCase)
-        .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
-        .ToArray();
+    public IReadOnlyCollection<string> Names
+    {
+        get
+        {
+            string[] registeredNames;
+            lock (_gate)
+            {
+                registeredNames = _materials.Keys.ToArray();
+            }
+
+            return registeredNames
+                .Concat(ExternalGlassCatalogDatabase.Names)
+                .Concat(Catalog.Names)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+    }
 
     public IReadOnlyCollection<string> GlassManufacturers => ExternalGlassCatalogDatabase.Manufacturers
         .Concat(Catalog.Manufacturers)
@@ -50,7 +63,16 @@ public sealed class MaterialRegistry
         .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
         .ToArray();
 
-    public IReadOnlyList<string> PreferredGlassCatalogs => _preferredGlassCatalogs;
+    public IReadOnlyList<string> PreferredGlassCatalogs
+    {
+        get
+        {
+            lock (_gate)
+            {
+                return _preferredGlassCatalogs.ToArray();
+            }
+        }
+    }
 
     public int CatalogGlassCount => Catalog.Count;
 
@@ -61,14 +83,21 @@ public sealed class MaterialRegistry
             .Select(name => name.Trim())
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToArray();
-        _preferredGlassCatalogs = normalized.Length > 0
-            ? normalized
-            : DefaultGlassCatalogPriority.ToArray();
+        lock (_gate)
+        {
+            _preferredGlassCatalogs = normalized.Length > 0
+                ? normalized
+                : DefaultGlassCatalogPriority.ToArray();
+        }
     }
 
     public void Register(IMaterial material)
     {
-        _materials[material.Name] = material;
+        ArgumentNullException.ThrowIfNull(material);
+        lock (_gate)
+        {
+            _materials[material.Name] = material.Clone();
+        }
     }
 
     public IMaterial Resolve(string name)
@@ -104,28 +133,37 @@ public sealed class MaterialRegistry
         var normalized = string.IsNullOrWhiteSpace(name) ? "Air" : name.Trim();
         var effectiveManufacturers = preferredManufacturers is { Count: > 0 }
             ? preferredManufacturers
-            : PreferredGlassCatalogs;
-        if (_materials.TryGetValue(normalized, out var registered))
+                .Where(item => !string.IsNullOrWhiteSpace(item))
+                .Select(item => item.Trim())
+                .ToArray()
+            : PreferredGlassCatalogs.ToArray();
+        lock (_gate)
         {
-            material = registered.Clone();
-            return true;
+            if (_materials.TryGetValue(normalized, out var registered))
+            {
+                material = registered.Clone();
+                return true;
+            }
         }
 
         if (Catalog.TryResolve(normalized, effectiveManufacturers, out var catalogMaterial))
         {
-            _materials[catalogMaterial.Name] = catalogMaterial;
-            if (!catalogMaterial.Name.Contains(':', StringComparison.Ordinal))
+            lock (_gate)
             {
-                _materials[normalized] = catalogMaterial;
+                _materials[catalogMaterial.Name] = catalogMaterial.Clone();
+                if (!catalogMaterial.Name.Contains(':', StringComparison.Ordinal))
+                {
+                    _materials[normalized] = catalogMaterial.Clone();
+                }
             }
 
-            material = catalogMaterial;
+            material = catalogMaterial.Clone();
             return true;
         }
 
         if (TryResolveExternalGlass(normalized, effectiveManufacturers, out var externalMaterial))
         {
-            material = externalMaterial;
+            material = externalMaterial.Clone();
             return true;
         }
 
@@ -146,20 +184,33 @@ public sealed class MaterialRegistry
         Register(new AbbeMaterial(name, nd, vd));
     }
 
+    public MaterialRegistry CreateSnapshot() => Clone();
+
     internal MaterialRegistry Clone()
     {
         var clone = new MaterialRegistry();
-        foreach (var material in _materials.Values)
+        KeyValuePair<string, IMaterial>[] entries;
+        string[] preferredGlassCatalogs;
+        lock (_gate)
         {
-            clone.Register(material.Clone());
+            entries = _materials.ToArray();
+            preferredGlassCatalogs = _preferredGlassCatalogs.ToArray();
         }
 
-        clone.SetPreferredGlassCatalogs(PreferredGlassCatalogs);
+        foreach (var (key, material) in entries)
+        {
+            clone.RegisterAlias(key, material);
+        }
+
+        clone.SetPreferredGlassCatalogs(preferredGlassCatalogs);
         return clone;
     }
 
     private void RegisterAlias(string alias, IMaterial material)
     {
-        _materials[alias] = material.Clone();
+        lock (_gate)
+        {
+            _materials[alias] = material.Clone();
+        }
     }
 }

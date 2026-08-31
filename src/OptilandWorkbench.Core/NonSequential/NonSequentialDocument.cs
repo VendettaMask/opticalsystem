@@ -555,20 +555,28 @@ public sealed class NonSequentialDocument
             throw new InvalidDataException("非序列对象数量超过 100000 个上限。");
         }
 
-        if (_objects.Any(item => item.Id == Guid.Empty)
-            || _objects.Select(item => item.Id).Distinct().Count() != _objects.Count)
+        var byId = new Dictionary<Guid, NonSequentialObjectDefinition>(_objects.Count);
+        foreach (var item in _objects)
+        {
+            if (item.Id == Guid.Empty || !byId.TryAdd(item.Id, item))
+            {
+                throw new InvalidDataException("非序列对象必须具有非空且唯一的稳定 ID。");
+            }
+        }
+
+        if (byId.Count != _objects.Count)
         {
             throw new InvalidDataException("非序列对象必须具有非空且唯一的稳定 ID。");
         }
 
-        var ids = _objects.Select(item => item.Id).ToHashSet();
         ValidateMeshAssets(requireGeometry: false);
+        var meshAssetsById = _meshAssets.ToDictionary(item => item.Id);
         foreach (var item in _objects)
         {
-            ValidateObject(item, ids);
-            _ = ReferenceChain(item);
-            _ = ContainmentChain(item);
+            ValidateObject(item, byId, meshAssetsById);
         }
+        ValidateAcyclicLinks(byId, item => item.ReferenceObjectId, "参考");
+        ValidateAcyclicLinks(byId, item => item.ContainingObjectId, "包含");
 
         var totalDetectorPixels = _objects
             .Where(item => item.Enabled)
@@ -590,12 +598,15 @@ public sealed class NonSequentialDocument
         ValidateTraceSettings(TraceSettings);
     }
 
-    private void ValidateObject(NonSequentialObjectDefinition item, HashSet<Guid> ids)
+    private void ValidateObject(
+        NonSequentialObjectDefinition item,
+        IReadOnlyDictionary<Guid, NonSequentialObjectDefinition> objectsById,
+        IReadOnlyDictionary<Guid, NonSequentialMeshAsset> meshAssetsById)
     {
         if (string.IsNullOrWhiteSpace(item.Name) || item.Parameters is null || !Enum.IsDefined(item.Kind)
             || item.ReferenceObjectId == item.Id || item.ContainingObjectId == item.Id
-            || item.ReferenceObjectId is Guid reference && !ids.Contains(reference)
-            || item.ContainingObjectId is Guid container && !ids.Contains(container))
+            || item.ReferenceObjectId is Guid reference && !objectsById.ContainsKey(reference)
+            || item.ContainingObjectId is Guid container && !objectsById.ContainsKey(container))
         {
             throw new InvalidDataException($"非序列对象“{item.Name}”的公共数据或引用无效。");
         }
@@ -608,7 +619,50 @@ public sealed class NonSequentialDocument
             throw new InvalidDataException($"非序列对象“{item.Name}”的类型与参数不匹配。");
         }
 
-        ValidateParameters(item.Name, item.Parameters);
+        ValidateParameters(item.Name, item.Parameters, meshAssetsById);
+    }
+
+    private static void ValidateAcyclicLinks(
+        IReadOnlyDictionary<Guid, NonSequentialObjectDefinition> objectsById,
+        Func<NonSequentialObjectDefinition, Guid?> nextIdSelector,
+        string relationshipName)
+    {
+        var states = new Dictionary<Guid, byte>(objectsById.Count);
+        foreach (var start in objectsById.Values)
+        {
+            if (states.TryGetValue(start.Id, out var startState) && startState == 2)
+            {
+                continue;
+            }
+
+            var path = new List<Guid>();
+            var current = start;
+            while (true)
+            {
+                if (states.TryGetValue(current.Id, out var state))
+                {
+                    if (state == 1)
+                    {
+                        throw new InvalidDataException($"非序列对象{relationshipName}关系形成循环。");
+                    }
+                    break;
+                }
+
+                states[current.Id] = 1;
+                path.Add(current.Id);
+                if (nextIdSelector(current) is not Guid nextId)
+                {
+                    break;
+                }
+
+                current = objectsById[nextId];
+            }
+
+            foreach (var id in path)
+            {
+                states[id] = 2;
+            }
+        }
     }
 
     private static bool ParametersMatch(NonSequentialObjectKind kind, NonSequentialObjectParameters parameters) =>
@@ -634,7 +688,10 @@ public sealed class NonSequentialDocument
             _ => false
         };
 
-    private void ValidateParameters(string name, NonSequentialObjectParameters parameters)
+    private void ValidateParameters(
+        string name,
+        NonSequentialObjectParameters parameters,
+        IReadOnlyDictionary<Guid, NonSequentialMeshAsset> meshAssetsById)
     {
         switch (parameters)
         {
@@ -740,8 +797,10 @@ public sealed class NonSequentialDocument
                 RequireMaterials(name, lens.Material);
                 break;
             case MeshObjectParameters mesh:
-                var asset = _meshAssets.FirstOrDefault(item => item.Id == mesh.MeshAssetId)
-                    ?? throw new InvalidDataException($"网格对象“{name}”引用不存在的网格资产。");
+                if (!meshAssetsById.TryGetValue(mesh.MeshAssetId, out var asset))
+                {
+                    throw new InvalidDataException($"网格对象“{name}”引用不存在的网格资产。");
+                }
                 RequireMaterials(name, mesh.Material);
                 if (mesh.Behavior == NonSequentialSurfaceBehavior.Refractive
                     && (!asset.IsClosed || !asset.IsManifold || !asset.IsConnected || !asset.IsOrientable
@@ -791,10 +850,11 @@ public sealed class NonSequentialDocument
                 throw new InvalidDataException($"网格资产“{asset.OriginalFileName}”的元数据或几何数据无效。");
             }
 
-            if (asset.CanonicalData is { } data)
+            if (asset.HasGeometry)
             {
+                var data = asset.CanonicalData;
                 totalBytes = checked(totalBytes + data.Length);
-                var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(data));
+                var hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(data.Span));
                 if (!hash.Equals(asset.Sha256, StringComparison.OrdinalIgnoreCase))
                 {
                     throw new InvalidDataException($"网格资产“{asset.OriginalFileName}”的内容哈希无效。");

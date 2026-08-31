@@ -19,6 +19,39 @@ public interface IOptimizationVariable
     double ScaledValue { get; set; }
 }
 
+internal static class OptimizationGuards
+{
+    public static string RequireName(string? value, string parameterName)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ArgumentException("Optimization names cannot be empty.", parameterName);
+        }
+
+        return value.Trim();
+    }
+
+    public static double RequireFiniteArgument(double value, string parameterName)
+    {
+        if (!double.IsFinite(value))
+        {
+            throw new ArgumentOutOfRangeException(parameterName, "Optimization numeric inputs must be finite.");
+        }
+
+        return value;
+    }
+
+    public static double RequireFiniteState(double value, string description)
+    {
+        if (!double.IsFinite(value))
+        {
+            throw new InvalidOperationException($"{description} must be finite.");
+        }
+
+        return value;
+    }
+}
+
 public sealed class DelegateVariable : IOptimizationVariable
 {
     private readonly Func<double> _getter;
@@ -33,23 +66,58 @@ public sealed class DelegateVariable : IOptimizationVariable
         double? stepHint = null,
         IVariableScaler? scaler = null)
     {
-        Name = name;
-        _getter = getter;
-        _setter = setter;
-        LowerBound = lowerBound;
-        UpperBound = upperBound;
+        Name = OptimizationGuards.RequireName(name, nameof(name));
+        _getter = getter ?? throw new ArgumentNullException(nameof(getter));
+        _setter = setter ?? throw new ArgumentNullException(nameof(setter));
+        LowerBound = OptimizationGuards.RequireFiniteArgument(lowerBound, nameof(lowerBound));
+        UpperBound = OptimizationGuards.RequireFiniteArgument(upperBound, nameof(upperBound));
+        if (LowerBound > UpperBound)
+        {
+            throw new ArgumentOutOfRangeException(nameof(lowerBound), "Variable lower bound must not exceed upper bound.");
+        }
+
         Scaler = scaler ?? new LinearScaler();
+        if (stepHint is { } explicitStep
+            && (!double.IsFinite(explicitStep) || explicitStep <= 0))
+        {
+            throw new ArgumentOutOfRangeException(nameof(stepHint), "Variable step hint must be finite and positive.");
+        }
+
         StepHint = stepHint is > 0
             ? stepHint.Value
             : Math.Max(1e-6, Math.Abs(upperBound - lowerBound) * 0.05);
+        if (!double.IsFinite(StepHint) || StepHint <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(stepHint), "Variable step hint must be finite and positive.");
+        }
+
+        var current = OptimizationGuards.RequireFiniteState(
+            _getter(),
+            $"Optimization variable '{Name}' current value");
+        var scaled = Scaler.ToScaled(Math.Clamp(current, LowerBound, UpperBound));
+        OptimizationGuards.RequireFiniteState(
+            scaled,
+            $"Optimization variable '{Name}' scaled value");
+        OptimizationGuards.RequireFiniteState(
+            Scaler.FromScaled(scaled),
+            $"Optimization variable '{Name}' inverse scaled value");
     }
 
     public string Name { get; }
 
     public double Value
     {
-        get => _getter();
-        set => _setter(Math.Clamp(value, LowerBound, UpperBound));
+        get => OptimizationGuards.RequireFiniteState(
+            _getter(),
+            $"Optimization variable '{Name}' current value");
+        set
+        {
+            OptimizationGuards.RequireFiniteArgument(value, nameof(value));
+            _setter(Math.Clamp(value, LowerBound, UpperBound));
+            OptimizationGuards.RequireFiniteState(
+                _getter(),
+                $"Optimization variable '{Name}' current value");
+        }
     }
 
     public double LowerBound { get; }
@@ -62,14 +130,37 @@ public sealed class DelegateVariable : IOptimizationVariable
 
     public double ScaledValue
     {
-        get => Scaler.ToScaled(Value);
-        set => Value = Scaler.FromScaled(value);
+        get => OptimizationGuards.RequireFiniteState(
+            Scaler.ToScaled(Value),
+            $"Optimization variable '{Name}' scaled value");
+        set
+        {
+            OptimizationGuards.RequireFiniteArgument(value, nameof(value));
+            Value = OptimizationGuards.RequireFiniteState(
+                Scaler.FromScaled(value),
+                $"Optimization variable '{Name}' inverse scaled value");
+        }
     }
 }
 
 public sealed record Operand(string Name, double Target, double Weight, Func<double> Evaluate)
 {
-    public double Error() => Evaluate() - Target;
+    public string Name { get; init; } = OptimizationGuards.RequireName(Name, nameof(Name));
+
+    public double Target { get; init; } = OptimizationGuards.RequireFiniteArgument(Target, nameof(Target));
+
+    public double Weight { get; init; } = OptimizationGuards.RequireFiniteArgument(Weight, nameof(Weight));
+
+    public Func<double> Evaluate { get; init; } =
+        Evaluate ?? throw new ArgumentNullException(nameof(Evaluate));
+
+    public double Error()
+    {
+        var value = OptimizationGuards.RequireFiniteState(
+            Evaluate(),
+            $"Optimization operand '{Name}' value");
+        return value - Target;
+    }
 
     public double Residual() => Math.Sqrt(Math.Abs(Weight)) * Error();
 
@@ -93,6 +184,7 @@ public sealed record OptimizationEvaluation(
         var total = 0.0;
         foreach (var value in values)
         {
+            OptimizationGuards.RequireFiniteState(value, "Optimization residual");
             total += value * value;
         }
 
@@ -113,9 +205,11 @@ public sealed class LinearScaler : IVariableScaler
 {
     public string Name => "linear";
 
-    public double ToScaled(double value) => value;
+    public double ToScaled(double value) =>
+        OptimizationGuards.RequireFiniteArgument(value, nameof(value));
 
-    public double FromScaled(double value) => value;
+    public double FromScaled(double value) =>
+        OptimizationGuards.RequireFiniteArgument(value, nameof(value));
 }
 
 public sealed class UnitRangeScaler : IVariableScaler
@@ -125,21 +219,31 @@ public sealed class UnitRangeScaler : IVariableScaler
 
     public UnitRangeScaler(double lowerBound, double upperBound)
     {
-        _lowerBound = lowerBound;
-        _upperBound = upperBound;
+        _lowerBound = OptimizationGuards.RequireFiniteArgument(lowerBound, nameof(lowerBound));
+        _upperBound = OptimizationGuards.RequireFiniteArgument(upperBound, nameof(upperBound));
+        if (_lowerBound > _upperBound)
+        {
+            throw new ArgumentOutOfRangeException(nameof(lowerBound), "Scaler lower bound must not exceed upper bound.");
+        }
     }
 
     public string Name => "unit-range";
 
     public double ToScaled(double value)
     {
+        OptimizationGuards.RequireFiniteArgument(value, nameof(value));
         var span = _upperBound - _lowerBound;
-        return Math.Abs(span) < 1e-12 ? 0 : (value - _lowerBound) / span;
+        return OptimizationGuards.RequireFiniteState(
+            Math.Abs(span) < 1e-12 ? 0 : (value - _lowerBound) / span,
+            "Scaled optimization value");
     }
 
     public double FromScaled(double value)
     {
-        return _lowerBound + (value * (_upperBound - _lowerBound));
+        OptimizationGuards.RequireFiniteArgument(value, nameof(value));
+        return OptimizationGuards.RequireFiniteState(
+            _lowerBound + (value * (_upperBound - _lowerBound)),
+            "Unscaled optimization value");
     }
 }
 
@@ -160,9 +264,22 @@ public sealed class OptimizationProblem
 
     public long FunctionEvaluationCount => Interlocked.Read(ref _functionEvaluationCount);
 
-    public void AddVariable(IOptimizationVariable variable) => _variables.Add(variable);
+    public void AddVariable(IOptimizationVariable variable)
+    {
+        ArgumentNullException.ThrowIfNull(variable);
+        ValidateVariable(variable);
+        _variables.Add(variable);
+    }
 
-    public void AddOperand(Operand operand) => _operands.Add(operand);
+    public void AddOperand(Operand operand)
+    {
+        ArgumentNullException.ThrowIfNull(operand);
+        OptimizationGuards.RequireName(operand.Name, nameof(operand));
+        OptimizationGuards.RequireFiniteArgument(operand.Target, nameof(operand));
+        OptimizationGuards.RequireFiniteArgument(operand.Weight, nameof(operand));
+        ArgumentNullException.ThrowIfNull(operand.Evaluate);
+        _operands.Add(operand);
+    }
 
     public void SetIndependentValueEvaluator(Func<IReadOnlyList<double>, double[]> evaluator)
     {
@@ -191,12 +308,16 @@ public sealed class OptimizationProblem
 
     public double[] VariableVectorFromScaled(IReadOnlyList<double> scaledValues)
     {
-        var values = new double[Math.Min(scaledValues.Count, _variables.Count)];
+        RequireVectorLength(scaledValues, _variables.Count, nameof(scaledValues));
+        var values = new double[_variables.Count];
         for (var index = 0; index < values.Length; index++)
         {
             var variable = _variables[index];
+            OptimizationGuards.RequireFiniteArgument(scaledValues[index], nameof(scaledValues));
             values[index] = Math.Clamp(
-                variable.Scaler.FromScaled(scaledValues[index]),
+                OptimizationGuards.RequireFiniteState(
+                    variable.Scaler.FromScaled(scaledValues[index]),
+                    $"Optimization variable '{variable.Name}' inverse scaled value"),
                 variable.LowerBound,
                 variable.UpperBound);
         }
@@ -233,25 +354,47 @@ public sealed class OptimizationProblem
 
     private OptimizationEvaluation BuildEvaluation(IReadOnlyList<double> values)
     {
+        ArgumentNullException.ThrowIfNull(values);
         if (values.Count != _operands.Count)
         {
             throw new InvalidOperationException("独立评价器返回的值数量与操作数数量不一致。");
         }
 
-        var weightSum = _operands.Sum(operand => Math.Abs(operand.Weight));
+        var weightSum = 0.0;
+        foreach (var operand in _operands)
+        {
+            OptimizationGuards.RequireFiniteState(
+                operand.Target,
+                $"Optimization operand '{operand.Name}' target");
+            OptimizationGuards.RequireFiniteState(
+                operand.Weight,
+                $"Optimization operand '{operand.Name}' weight");
+            weightSum += Math.Abs(operand.Weight);
+        }
+        OptimizationGuards.RequireFiniteState(weightSum, "Optimization operand weight sum");
         var objective = new List<double>();
         var constraints = new List<double>();
         for (var index = 0; index < _operands.Count; index++)
         {
             var operand = _operands[index];
-            var error = values[index] - operand.Target;
+            var value = OptimizationGuards.RequireFiniteState(
+                values[index],
+                $"Optimization operand '{operand.Name}' value");
+            var error = value - operand.Target;
+            OptimizationGuards.RequireFiniteState(
+                error,
+                $"Optimization operand '{operand.Name}' error");
             if (operand.Weight > 0 && weightSum > 0)
             {
-                objective.Add(Math.Sqrt(operand.Weight / weightSum) * error);
+                objective.Add(OptimizationGuards.RequireFiniteState(
+                    Math.Sqrt(operand.Weight / weightSum) * error,
+                    $"Optimization operand '{operand.Name}' objective residual"));
             }
             else if (operand.Weight < 0 && weightSum > 0)
             {
-                constraints.Add(Math.Sqrt(Math.Abs(operand.Weight) / weightSum) * error);
+                constraints.Add(OptimizationGuards.RequireFiniteState(
+                    Math.Sqrt(Math.Abs(operand.Weight) / weightSum) * error,
+                    $"Optimization operand '{operand.Name}' constraint residual"));
             }
         }
 
@@ -260,18 +403,69 @@ public sealed class OptimizationProblem
 
     public void SetVariableVector(IReadOnlyList<double> values)
     {
-        for (var index = 0; index < Math.Min(values.Count, _variables.Count); index++)
+        RequireVectorLength(values, _variables.Count, nameof(values));
+        var committedValues = new double[values.Count];
+        for (var index = 0; index < committedValues.Length; index++)
         {
-            _variables[index].Value = values[index];
+            var variable = _variables[index];
+            committedValues[index] = Math.Clamp(
+                OptimizationGuards.RequireFiniteArgument(values[index], nameof(values)),
+                variable.LowerBound,
+                variable.UpperBound);
+        }
+
+        for (var index = 0; index < committedValues.Length; index++)
+        {
+            _variables[index].Value = committedValues[index];
         }
     }
 
     public void SetScaledVariableVector(IReadOnlyList<double> values)
     {
-        for (var index = 0; index < Math.Min(values.Count, _variables.Count); index++)
+        RequireVectorLength(values, _variables.Count, nameof(values));
+        SetVariableVector(VariableVectorFromScaled(values));
+    }
+
+    private static void RequireVectorLength<T>(
+        IReadOnlyList<T>? values,
+        int expectedCount,
+        string parameterName)
+    {
+        ArgumentNullException.ThrowIfNull(values, parameterName);
+        if (values.Count != expectedCount)
         {
-            _variables[index].ScaledValue = values[index];
+            throw new ArgumentException(
+                $"Optimization vector length must be exactly {expectedCount}, but received {values.Count}.",
+                parameterName);
         }
+    }
+
+    private static void ValidateVariable(IOptimizationVariable variable)
+    {
+        OptimizationGuards.RequireName(variable.Name, nameof(variable));
+        OptimizationGuards.RequireFiniteState(variable.LowerBound, $"Optimization variable '{variable.Name}' lower bound");
+        OptimizationGuards.RequireFiniteState(variable.UpperBound, $"Optimization variable '{variable.Name}' upper bound");
+        if (variable.LowerBound > variable.UpperBound)
+        {
+            throw new ArgumentOutOfRangeException(nameof(variable), "Variable lower bound must not exceed upper bound.");
+        }
+
+        OptimizationGuards.RequireFiniteState(variable.StepHint, $"Optimization variable '{variable.Name}' step hint");
+        if (variable.StepHint <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(variable), "Variable step hint must be positive.");
+        }
+
+        ArgumentNullException.ThrowIfNull(variable.Scaler);
+        var current = OptimizationGuards.RequireFiniteState(
+            variable.Value,
+            $"Optimization variable '{variable.Name}' current value");
+        var scaled = OptimizationGuards.RequireFiniteState(
+            variable.Scaler.ToScaled(Math.Clamp(current, variable.LowerBound, variable.UpperBound)),
+            $"Optimization variable '{variable.Name}' scaled value");
+        OptimizationGuards.RequireFiniteState(
+            variable.Scaler.FromScaled(scaled),
+            $"Optimization variable '{variable.Name}' inverse scaled value");
     }
 }
 

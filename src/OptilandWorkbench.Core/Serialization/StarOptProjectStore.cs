@@ -80,7 +80,7 @@ public static class StarOptProjectStore
         }
         var compressedAssets = meshAssets.Select(asset =>
         {
-            var data = asset.CanonicalData!;
+            var data = asset.CopyCanonicalData();
             return (Asset: asset, Data: data, Compressed: Compress(data));
         }).ToArray();
         if (compressedAssets.Sum(item => (long)item.Data.Length) > NonSequentialDocument.MaximumMeshAssetBytes

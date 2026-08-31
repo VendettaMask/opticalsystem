@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.Security.Cryptography;
 using System.Text;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
@@ -196,6 +197,58 @@ public sealed class NonSequentialStrayLightTests
     }
 
     [Fact]
+    public void MeshAssetCanonicalBytesAndGeometryCannotBeMutatedByCaller()
+    {
+        var imported = NonSequentialStlImporter.Import(
+            Encoding.UTF8.GetBytes(CubeStl),
+            "cube.stl");
+        var metadataOnly = new NonSequentialMeshAsset(
+            imported.Id,
+            imported.OriginalFileName,
+            imported.SourceFormat,
+            imported.Sha256,
+            imported.UnitScaleToMillimeters,
+            imported.VertexCount,
+            imported.TriangleCount,
+            imported.BoundsMinimum,
+            imported.BoundsMaximum,
+            imported.IsClosed,
+            imported.IsManifold,
+            imported.IsConnected,
+            imported.IsOrientable,
+            imported.HasSelfIntersections,
+            imported.SignedVolumeCubicMillimeters,
+            imported.Warnings);
+        var originalBytes = imported.CopyCanonicalData();
+        var attached = metadataOnly.AttachCanonicalData(originalBytes);
+
+        originalBytes[0] ^= 0xff;
+        var exportedBytes = attached.CopyCanonicalData();
+        exportedBytes[1] ^= 0xff;
+
+        Assert.Equal(attached.Sha256, Convert.ToHexString(SHA256.HashData(attached.CanonicalData.Span)));
+        var geometry = attached.GetGeometry();
+        Assert.IsNotType<Vector3D[]>(geometry.Vertices);
+        Assert.IsNotType<NonSequentialMeshTriangle[]>(geometry.Triangles);
+        var mutableVertexList = Assert.IsAssignableFrom<IList<Vector3D>>(geometry.Vertices);
+        Assert.Throws<NotSupportedException>(() =>
+            mutableVertexList[0] = new Vector3D(9, 9, 9));
+    }
+
+    [Fact]
+    public void StlImportHonorsCancellationBeforeParsing()
+    {
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        Assert.ThrowsAny<OperationCanceledException>(() =>
+            NonSequentialStlImporter.Import(
+                Encoding.UTF8.GetBytes(CubeStl),
+                "cube.stl",
+                cancellationToken: cancellation.Token));
+    }
+
+    [Fact]
     public void BinaryStlIsDetectedAndUnitScaleIsApplied()
     {
         var bytes = BinaryTriangle();
@@ -287,6 +340,32 @@ public sealed class NonSequentialStrayLightTests
     }
 
     [Fact]
+    public void StlPathImportRejectsEstimatedWorkingSetBeforeReadingRecords()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"oversized-working-set-{Guid.NewGuid():N}.stl");
+        const int triangleCount = 1_100_000;
+        try
+        {
+            using (var stream = new FileStream(path, FileMode.CreateNew, FileAccess.Write))
+            {
+                Span<byte> header = stackalloc byte[84];
+                BinaryPrimitives.WriteUInt32LittleEndian(header.Slice(80, 4), (uint)triangleCount);
+                stream.Write(header);
+                stream.SetLength(84L + (triangleCount * 50L));
+            }
+
+            var exception = Assert.Throws<InvalidDataException>(() =>
+                NonSequentialStlImporter.Import(path));
+
+            Assert.Contains("预计峰值内存", exception.Message, StringComparison.Ordinal);
+        }
+        finally
+        {
+            if (File.Exists(path)) File.Delete(path);
+        }
+    }
+
+    [Fact]
     public void OpenMeshCannotBeUsedAsRefractiveSolid()
     {
         var optic = Optic.CreateBlank();
@@ -342,7 +421,7 @@ public sealed class NonSequentialStrayLightTests
             var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
             var asset = NonSequentialStlImporter.Import(Encoding.UTF8.GetBytes(CubeStl), "中文机械件.stl");
             var firstId = document.AddMeshAsset(asset);
-            var secondId = document.AddMeshAsset(asset with { Id = Guid.NewGuid() });
+            var secondId = document.AddMeshAsset(asset.WithId(Guid.NewGuid()));
             Assert.Equal(firstId, secondId);
             document.Insert(0, new NonSequentialObjectDefinition(
                 Guid.NewGuid(), "网格机械件", CoreKind.Mesh, true, true,

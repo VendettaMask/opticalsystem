@@ -1318,6 +1318,59 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void OptimizationProblemRejectsInvalidVariablesOperandsAndVectorDimensions()
+    {
+        var value = 0.0;
+
+        Assert.Throws<ArgumentNullException>(() =>
+            new DelegateVariable("x", null!, next => value = next, -1, 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new DelegateVariable("x", () => value, next => value = next, double.NaN, 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new DelegateVariable("x", () => value, next => value = next, 2, 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new DelegateVariable("x", () => value, next => value = next, -1, 1, stepHint: double.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new UnitRangeScaler(1, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Operand("bad weight", 0, double.NaN, () => 0));
+
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable("x", () => value, next => value = next, -1, 1));
+
+        Assert.Throws<ArgumentException>(() => problem.SetVariableVector(Array.Empty<double>()));
+        Assert.Throws<ArgumentException>(() => problem.SetScaledVariableVector(new[] { 0.0, 1.0 }));
+        Assert.Throws<ArgumentException>(() => problem.VariableVectorFromScaled(Array.Empty<double>()));
+        Assert.Throws<ArgumentOutOfRangeException>(() => problem.SetVariableVector(new[] { double.NaN }));
+        Assert.Equal(0, value, precision: 12);
+
+        var x = 0.0;
+        var y = 0.0;
+        var twoVariableProblem = new OptimizationProblem();
+        twoVariableProblem.AddVariable(new DelegateVariable("x", () => x, next => x = next, -1, 1));
+        twoVariableProblem.AddVariable(new DelegateVariable("y", () => y, next => y = next, -1, 1));
+
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            twoVariableProblem.SetVariableVector(new[] { 0.5, double.NaN }));
+        Assert.Equal(0, x, precision: 12);
+        Assert.Equal(0, y, precision: 12);
+
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            twoVariableProblem.SetScaledVariableVector(new[] { 0.5, double.NaN }));
+        Assert.Equal(0, x, precision: 12);
+        Assert.Equal(0, y, precision: 12);
+    }
+
+    [Fact]
+    public void OptimizationProblemRejectsNonFiniteOperandEvaluations()
+    {
+        var problem = new OptimizationProblem();
+        problem.AddOperand(new Operand("bad value", 0, 1, () => double.NaN));
+
+        var exception = Assert.Throws<InvalidOperationException>(() => problem.SumSquared());
+
+        Assert.Contains("bad value", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void OptimizerCatalogOnlyListsDistinctImplementedAlgorithms()
     {
         Assert.Equal(
