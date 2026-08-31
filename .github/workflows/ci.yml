@@ -10,17 +10,46 @@ on:
 permissions:
   contents: read
 
+env:
+  DOTNET_CI_ARGS: -p:ContinuousIntegrationBuild=true
+  MAIN_SOLUTION: OptilandWorkbench.slnx
+  MAIN_TEST_PROJECT: tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
+  LAB_SOLUTION: labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx
+  LAB_TEST_PROJECT: labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
+
 jobs:
-  build-and-test:
-    name: ${{ matrix.os }}
+  build-main:
+    name: Build main
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore locked dependencies
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
+
+      - name: Build main solution
+        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+
+  test-main:
+    name: Main tests (${{ matrix.label }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+        include:
+          - os: ubuntu-22.04
+            label: linux
+          - os: macos-latest
+            label: macos
+          - os: windows-latest
+            label: windows
 
     steps:
       - uses: actions/checkout@v4
@@ -32,29 +61,96 @@ jobs:
           cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore locked dependencies
-        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
+
+      - name: Build main solution
+        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+
+      - name: Test main solution
+        run: >-
+          dotnet test
+          ${{ env.MAIN_TEST_PROJECT }}
+          --no-build
+          --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
+          --results-directory "${{ runner.temp }}/test-results/main"
+          /m:1 /nr:false
+
+      - name: Upload main test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-main-${{ matrix.label }}
+          path: ${{ runner.temp }}/test-results/main
+          if-no-files-found: warn
+
+  build-lab:
+    name: Build Initial Structure Lab
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore Initial Structure Lab
-        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
-
-      - name: Build
-        run: dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.LAB_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build Initial Structure Lab
-        run: dotnet build labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+        run: dotnet build ${{ env.LAB_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
-      - name: Test
-        run: dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
+  test-lab:
+    name: Initial Structure Lab tests (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            label: linux
+          - os: macos-latest
+            label: macos
+          - os: windows-latest
+            label: windows
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore Initial Structure Lab
+        run: dotnet restore ${{ env.LAB_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
+
+      - name: Build Initial Structure Lab
+        run: dotnet build ${{ env.LAB_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Test Initial Structure Lab
         run: >-
           dotnet test
-          labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
-          --no-build /m:1 /nr:false
+          ${{ env.LAB_TEST_PROJECT }}
+          --no-build
+          --logger "trx;LogFileName=lab-${{ matrix.label }}.trx"
+          --results-directory "${{ runner.temp }}/test-results/lab"
+          /m:1 /nr:false
 
-  repository-quality:
+      - name: Upload Initial Structure Lab test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-lab-${{ matrix.label }}
+          path: ${{ runner.temp }}/test-results/lab
+          if-no-files-found: warn
+
+  quality:
     name: Repository quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -66,28 +162,31 @@ jobs:
           cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore locked dependencies
-        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
-
-      - name: Restore Initial Structure Lab
-        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Verify formatting
-        run: dotnet format OptilandWorkbench.slnx --no-restore --verify-no-changes
+        run: dotnet format ${{ env.MAIN_SOLUTION }} --no-restore --verify-no-changes
+
+      - name: Restore Initial Structure Lab
+        if: ${{ always() }}
+        run: dotnet restore ${{ env.LAB_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Verify Initial Structure Lab formatting
+        if: ${{ always() }}
         run: >-
           dotnet format
-          labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx
+          ${{ env.LAB_SOLUTION }}
           --no-restore --verify-no-changes
 
       - name: Validate shell scripts
+        if: ${{ always() }}
         run: |
           bash -n Run-Optiland.command
           bash -n scripts/publish-cross-platform.sh
 
   dependency-audit:
     name: Dependency vulnerability audit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -99,24 +198,27 @@ jobs:
           cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore locked dependencies
-        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
-
-      - name: Restore Initial Structure Lab
-        run: dotnet restore labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Audit direct and transitive packages
+        if: ${{ always() }}
         run: >-
-          dotnet list OptilandWorkbench.slnx package
+          dotnet list ${{ env.MAIN_SOLUTION }} package
           --vulnerable --include-transitive --no-restore
 
+      - name: Restore Initial Structure Lab
+        if: ${{ always() }}
+        run: dotnet restore ${{ env.LAB_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
+
       - name: Audit Initial Structure Lab packages
+        if: ${{ always() }}
         run: >-
-          dotnet list labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx package
+          dotnet list ${{ env.LAB_SOLUTION }} package
           --vulnerable --include-transitive --no-restore
 
   performance-smoke:
     name: Performance smoke
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -128,13 +230,13 @@ jobs:
           cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore locked dependencies
-        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build benchmark tool
         run: >-
           dotnet build
           tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
-          --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+          --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Run bounded performance smoke
         run: >-
@@ -142,9 +244,9 @@ jobs:
           --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
           --no-build -- --ci-smoke
 
-  step-cad-validation:
-    name: STEP CAD import
-    runs-on: ubuntu-latest
+  step-fixtures:
+    name: Generate STEP fixtures
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -156,30 +258,111 @@ jobs:
           cache-dependency-path: '**/packages.lock.json'
 
       - name: Restore locked dependencies
-        run: dotnet restore OptilandWorkbench.slnx --locked-mode -p:ContinuousIntegrationBuild=true
+        run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
-      - name: Build
-        run: dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
+      - name: Build main solution
+        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Generate STEP validation fixtures
         env:
           OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
         run: >-
-          dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
+          dotnet test
+          ${{ env.MAIN_TEST_PROJECT }}
           --no-build
           --filter FullyQualifiedName~CadExportFreeCadFixtureTests
+          --logger "trx;LogFileName=step-fixtures.trx"
+          --results-directory "${{ runner.temp }}/test-results/step-fixtures"
           /m:1 /nr:false
 
-      - name: Install FreeCAD validation runtime
+      - name: Upload STEP validation fixtures
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-validation-fixtures
+          path: ${{ runner.temp }}/step-fixtures
+          if-no-files-found: warn
+
+      - name: Upload STEP fixture test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-fixture-test-results
+          path: ${{ runner.temp }}/test-results/step-fixtures
+          if-no-files-found: warn
+
+  step-validation:
+    name: STEP OpenCascade validation
+    runs-on: ubuntu-22.04
+    needs: step-fixtures
+    if: ${{ always() && needs.step-fixtures.result == 'success' }}
+    env:
+      FREECAD_APT_VERSION: 0.19.2+dfsg1-3ubuntu1
+      STEP_VALIDATION_LOG_DIR: ${{ runner.temp }}/step-validation-logs
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download STEP validation fixtures
+        uses: actions/download-artifact@v4
+        with:
+          name: step-validation-fixtures
+          path: ${{ runner.temp }}/step-fixtures
+
+      - name: Install fixed FreeCAD validation runtime
+        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes freecad
+          set -euo pipefail
+          mkdir -p "$STEP_VALIDATION_LOG_DIR"
+          sudo apt-get update 2>&1 | tee "$STEP_VALIDATION_LOG_DIR/apt-update.log"
+          apt-cache policy \
+            freecad \
+            freecad-common \
+            freecad-python3 \
+            libfreecad-python3-0.19 \
+            | tee "$STEP_VALIDATION_LOG_DIR/freecad-apt-policy.log"
+          sudo apt-get install --yes --no-install-recommends \
+            "freecad=${FREECAD_APT_VERSION}" \
+            "freecad-common=${FREECAD_APT_VERSION}" \
+            "freecad-python3=${FREECAD_APT_VERSION}" \
+            "libfreecad-python3-0.19=${FREECAD_APT_VERSION}" \
+            2>&1 | tee "$STEP_VALIDATION_LOG_DIR/freecad-install.log"
+          freecad_cmd="$(command -v FreeCADCmd || command -v freecadcmd || true)"
+          if [ -z "$freecad_cmd" ]; then
+            echo "FreeCAD command-line runtime was not installed." \
+              | tee "$STEP_VALIDATION_LOG_DIR/freecad-version.log"
+            exit 1
+          fi
+          {
+            echo "Runner image: ubuntu-22.04"
+            echo "Pinned FreeCAD apt version: ${FREECAD_APT_VERSION}"
+            echo "FreeCAD command: ${freecad_cmd}"
+            "$freecad_cmd" --version || true
+          } | tee "$STEP_VALIDATION_LOG_DIR/freecad-version.log"
 
       - name: Validate STEP with OpenCascade
+        shell: bash
         env:
           OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
         run: |
-          freecad_cmd="$(command -v FreeCADCmd || command -v freecadcmd)"
+          set -euo pipefail
+          mkdir -p "$STEP_VALIDATION_LOG_DIR"
+          freecad_cmd="$(command -v FreeCADCmd || command -v freecadcmd || true)"
+          if [ -z "$freecad_cmd" ]; then
+            echo "FreeCAD command-line runtime is not available." \
+              | tee "$STEP_VALIDATION_LOG_DIR/opencascade-validation.log"
+            exit 1
+          fi
           validator_path="$PWD/tools/step_validation/validate_freecad_import.py"
           printf "exec(compile(open(r'%s','rb').read(),r'%s','exec'))\n" \
-            "$validator_path" "$validator_path" | "$freecad_cmd" -c
+            "$validator_path" "$validator_path" \
+            | "$freecad_cmd" -c 2>&1 \
+            | tee "$STEP_VALIDATION_LOG_DIR/opencascade-validation.log"
+
+      - name: Upload STEP validation logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: step-validation-logs
+          path: ${{ env.STEP_VALIDATION_LOG_DIR }}
+          if-no-files-found: warn

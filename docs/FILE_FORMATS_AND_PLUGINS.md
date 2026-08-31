@@ -56,7 +56,7 @@
 - 写出前检查非有限 Sag、占位自由曲面、退化面、非流形边、法向、正体积和三角网格自相交。错误包含镜片或表面编号；没有基底实体定义的反射面跳过并返回警告。
 - 文件先写入目标目录中的临时文件，再原子替换目标；取消或失败不会破坏已有 STEP。
 
-CI 在 Linux 上生成 Cooke、非球面、偏心双锥面和胶合 Tessar 样例，并使用 FreeCAD/OpenCascade 检查可导入性、唯一实体数量、形状有效性和正体积。商业 CAD 仍需按发布清单抽检。
+CI 在固定 `ubuntu-22.04` 生成 Cooke、非球面、偏心双锥面和胶合 Tessar STEP 样例，并把 fixture 作为 artifact 上传。FreeCAD/OpenCascade 导入验证在独立 job 中运行，固定使用 Ubuntu Jammy 的 `FreeCAD 0.19.2+dfsg1-3ubuntu1` 包，检查可导入性、唯一实体数量、形状有效性和正体积，并始终上传安装、版本和验证日志。验证环境安装失败只表示第三方验证环境不可用；商业 CAD 仍需按发布清单抽检。
 
 SolidWorks 启用 3D Interconnect 并保留组件链接时，FeatureManager 会在 SolidWorks 文档根节点下显示一个带链接箭头的 STEP 根组件，再列出镜片零件；外层是宿主文档包装，不是文件中重复的装配体。若需要原生 SolidWorks 层级，可在“工具 > 选项 > 系统选项 > 导入 > 常规”中关闭 3D Interconnect 后重新导入，或对已导入根组件执行“断开链接”。
 
