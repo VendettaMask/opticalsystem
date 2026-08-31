@@ -6,6 +6,14 @@ namespace OptilandWorkbench.Tests;
 public sealed class ZemaxZernikeFringeTests
 {
     [Fact]
+    public void FringeFitRejectsNonPositiveTermRequests()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => ZernikeFitEngine.FitFringe(
+            Array.Empty<WavefrontSample>(),
+            numTerms: 0));
+    }
+
+    [Fact]
     public void FringeFitUsesZemaxFixedThirtySevenTermTable()
     {
         var coefficients = ZernikeFitEngine.FitFringe(
@@ -57,7 +65,7 @@ public sealed class ZemaxZernikeFringeTests
             Optic.CreateCookeTriplet(),
             ZernikeAnalysisKind.ZemaxFringe,
             numRings: 32,
-            numTerms: 37,
+            numTerms: 128,
             mapSize: 17,
             wavelengthNumber: 2,
             fieldNumber: 1,
@@ -65,7 +73,26 @@ public sealed class ZemaxZernikeFringeTests
 
         Assert.Equal("32 x 32", data.Values["Sampling"]);
         Assert.Equal(740, Convert.ToInt32(data.Values["RayCount"]));
+        Assert.Equal(37, data.Values["ZernikeTerms"]);
+        Assert.Equal(128, data.Values["RequestedZernikeTerms"]);
+        Assert.Equal(37, data.Values["ActualZernikeTerms"]);
         Assert.Contains("Z  37", data.ReportText, StringComparison.Ordinal);
         Assert.Contains("924p^12 - 2772p^10", data.ReportText, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ZernikeFieldSweepUsesActualFringeTermCountForSeriesAndMetadata()
+    {
+        var data = new ZernikeVsFieldAnalysis(
+            Optic.CreateCookeTriplet(),
+            fieldDensity: 2,
+            numRings: 2,
+            numTerms: 128,
+            wavelengthNumber: 1).GenerateData();
+
+        Assert.Equal(128, data.Values["RequestedZernikeTerms"]);
+        Assert.Equal(37, data.Values["ActualZernikeTerms"]);
+        Assert.Equal(37, data.Values["ZernikeTerms"]);
+        Assert.Equal(37, data.SeriesList?.Count);
     }
 }

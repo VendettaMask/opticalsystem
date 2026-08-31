@@ -114,6 +114,11 @@ public sealed class ReliabilityHardeningTests
                 optic,
                 ZernikeAnalysisKind.Standard,
                 numTerms: ZernikeFitEngine.MaximumStandardTerm + 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new ZernikeAnalysis(
+                optic,
+                ZernikeAnalysisKind.Annular,
+                numTerms: ZernikeFitEngine.MaximumStandardTerm + 1));
     }
 
     [Fact]

@@ -45,11 +45,20 @@ public static class ZernikeFitEngine
         int numTerms)
     {
         ArgumentNullException.ThrowIfNull(samples);
-        ValidateMinimumTermCount(numTerms);
         return Fit(
             samples,
             FringeIndices(numTerms),
             (n, m, radius, angle) => Basis(n, m, radius, angle, standardNormalization: false));
+    }
+
+    public static int ResolveFringeTermCount(int requestedTermCount)
+    {
+        if (requestedTermCount < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(requestedTermCount));
+        }
+
+        return Math.Min(requestedTermCount, MaximumFringeTerm);
     }
 
     public static IReadOnlyList<ZernikeCoefficient> FitStandard(
@@ -191,7 +200,7 @@ public static class ZernikeFitEngine
 
     private static IReadOnlyList<(int Number, int N, int M)> FringeIndices(int count)
     {
-        count = Math.Clamp(count, 1, MaximumFringeTerm);
+        count = ResolveFringeTermCount(count);
         return ZemaxFringeIndices
             .Take(count)
             .Select((index, position) => (position + 1, index.N, index.M))
@@ -225,14 +234,6 @@ public static class ZernikeFitEngine
     private static void ValidateTermCount(int count, int maximum)
     {
         if (count < 1 || count > maximum)
-        {
-            throw new ArgumentOutOfRangeException(nameof(count));
-        }
-    }
-
-    private static void ValidateMinimumTermCount(int count)
-    {
-        if (count < 1)
         {
             throw new ArgumentOutOfRangeException(nameof(count));
         }

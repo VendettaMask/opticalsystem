@@ -384,7 +384,8 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
 {
     private readonly int _fieldDensity;
     private readonly int _numRings;
-    private readonly int _numTerms;
+    private readonly int _requestedNumTerms;
+    private readonly int _actualNumTerms;
     private readonly int _wavelengthNumber;
 
     public ZernikeVsFieldAnalysis(
@@ -396,7 +397,8 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
     {
         _fieldDensity = Math.Clamp(fieldDensity, 2, 200);
         _numRings = Math.Clamp(numRings, 2, 32);
-        _numTerms = Math.Clamp(numTerms, 1, 64);
+        _requestedNumTerms = numTerms;
+        _actualNumTerms = ZernikeFitEngine.ResolveFringeTermCount(numTerms);
         _wavelengthNumber = wavelengthNumber;
     }
 
@@ -433,12 +435,12 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
                         (edgeHx * fraction, edgeHy * fraction),
                         wavelength,
                         _numRings).Samples,
-                    _numTerms);
+                    _requestedNumTerms);
                 return (Coordinate: coordinate, Coefficients: coefficients);
             })
             .ToArray();
         var axisUnit = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "度" : "毫米";
-        var series = Enumerable.Range(1, _numTerms)
+        var series = Enumerable.Range(1, _actualNumTerms)
             .Select(term => new AnalysisSeries(
                 $"视场为 {axisUnit}",
                 "波前差 (waves)",
@@ -468,7 +470,9 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
             {
                 ["FieldDensity"] = _fieldDensity,
                 ["NumRings"] = _numRings,
-                ["ZernikeTerms"] = _numTerms,
+                ["ZernikeTerms"] = _actualNumTerms,
+                ["RequestedZernikeTerms"] = _requestedNumTerms,
+                ["ActualZernikeTerms"] = _actualNumTerms,
                 ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
                 ["WavelengthMicrometers"] = wavelength.Micrometers,
                 ["MaximumField"] = maximumField,

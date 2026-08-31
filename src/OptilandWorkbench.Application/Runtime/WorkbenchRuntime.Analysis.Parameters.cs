@@ -555,7 +555,7 @@ public partial class WorkbenchRuntime
             {
                 IntParameter("FieldDensity", "视场密度", "20", 2, 200),
                 IntParameter("NumRings", "六角采样环数", "12", 2, 32),
-                IntParameter("ZernikeTerms", "Zernike 系数项数", "8", 1, 64),
+                IntParameter("ZernikeTerms", "Zernike 系数项数", "8", 1, 128),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -1115,7 +1115,7 @@ public partial class WorkbenchRuntime
                     "\u77b3\u9762\u91c7\u6837",
                     "32 x 32",
                     new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
-                IntParameter("ZernikeTerms", "Zernike \u62df\u5408\u9879\u6570", "37", 1, 37),
+                IntParameter("ZernikeTerms", "Zernike \u62df\u5408\u9879\u6570", "37", 1, 128),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "\u6ce2\u957f",

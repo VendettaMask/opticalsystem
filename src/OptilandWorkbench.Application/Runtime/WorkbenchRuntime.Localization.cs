@@ -446,6 +446,8 @@ public partial class WorkbenchRuntime
         ["FitRings"] = "拟合球六角采样环数",
         ["ReferenceCenters"] = "最佳拟合球中心",
         ["ZernikeTerms"] = "Zernike 拟合项数",
+        ["RequestedZernikeTerms"] = "请求 Zernike 拟合项数",
+        ["ActualZernikeTerms"] = "实际 Zernike 输出项数",
         ["WorkingFNumber"] = "工作 F/#",
         ["StrehlRatio"] = "斯特列尔比",
         ["PeakStrehlRatio"] = "峰值斯特列尔比",

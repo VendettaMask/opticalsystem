@@ -361,6 +361,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
     private readonly ZernikeAnalysisKind _kind;
     private readonly int _numRings;
     private readonly bool _useUniformGrid;
+    private readonly int _requestedNumTerms;
     private readonly int _numTerms;
     private readonly int _mapSize;
     private readonly int _wavelengthNumber;
@@ -415,10 +416,10 @@ public sealed class ZernikeAnalysis : BaseAnalysis
                 2,
                 Raytrace.ApertureSampler.MaximumHexapolarRings,
                 nameof(numRings));
-        var maximumTerms = kind is ZernikeAnalysisKind.Fringe or ZernikeAnalysisKind.ZemaxFringe
-            ? ZernikeFitEngine.MaximumFringeTerm
-            : ZernikeFitEngine.MaximumStandardTerm;
-        _numTerms = ValidateRange(numTerms, 1, maximumTerms, nameof(numTerms));
+        _requestedNumTerms = numTerms;
+        _numTerms = kind is ZernikeAnalysisKind.Fringe or ZernikeAnalysisKind.ZemaxFringe
+            ? ZernikeFitEngine.ResolveFringeTermCount(numTerms)
+            : ValidateRange(numTerms, 1, ZernikeFitEngine.MaximumStandardTerm, nameof(numTerms));
         _mapSize = AnalysisResourceLimits.ValidateWavefrontMapSize(mapSize, nameof(mapSize));
         _wavelengthNumber = wavelengthNumber;
         _fieldNumber = fieldNumber;
@@ -479,6 +480,9 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             ZernikeAnalysisKind.Annular => "annular",
             _ => "fringe"
         };
+        values["ZernikeTerms"] = coefficients.Count;
+        values["RequestedZernikeTerms"] = _requestedNumTerms;
+        values["ActualZernikeTerms"] = coefficients.Count;
         values["WavelengthMicrometers"] = wavelength.Micrometers;
         values["FieldHx"] = field.Hx;
         values["FieldHy"] = field.Hy;

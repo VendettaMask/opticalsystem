@@ -1768,7 +1768,7 @@ public sealed class AnalysisGuiContractTests
             zernikeFringeParameters.Select(parameter => parameter.Key));
         Assert.Equal("32 x 32", zernikeFringeParameters
             .Single(parameter => parameter.Key == "PupilSampling").DefaultValue);
-        Assert.Equal(37, zernikeFringeParameters
+        Assert.Equal(128, zernikeFringeParameters
             .Single(parameter => parameter.Key == "ZernikeTerms").Maximum);
         Assert.Equal("1 - 轴上视场", zernikeFringeParameters
             .Single(parameter => parameter.Key == "FieldNumber").DefaultValue);
@@ -1777,14 +1777,19 @@ public sealed class AnalysisGuiContractTests
             new Dictionary<string, string>
             {
                 ["PupilSampling"] = "32 x 32",
-                ["ZernikeTerms"] = "12",
+                ["ZernikeTerms"] = "128",
                 ["WavelengthNumber"] = "1",
                 ["FieldNumber"] = "1 - 轴上视场"
             });
         Assert.Equal("Zernike Fringe系数", zernikeFringeView.Name);
+        Assert.Contains(zernikeFringeView.Rows, row =>
+            row.Metric == "请求 Zernike 拟合项数" && row.Value == "128");
+        Assert.Contains(zernikeFringeView.Rows, row =>
+            row.Metric == "实际 Zernike 输出项数" && row.Value == "37");
         Assert.Contains("使用 Zernike Fringe 多项式", zernikeFringeView.ReportText);
         Assert.Contains("RMS 匹配误差", zernikeFringeView.ReportText);
         Assert.Contains("Z   1", zernikeFringeView.ReportText);
+        Assert.Contains("Z  37", zernikeFringeView.ReportText);
         Assert.Contains(":  1", zernikeFringeView.ReportText);
         Assert.Contains("COS (A)", zernikeFringeView.ReportText);
         Assert.Equal("Zernike Standard", connector.CanonicalAnalysisKey("Zernike Standard系数"));
@@ -1840,6 +1845,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[] { "FieldDensity", "NumRings", "ZernikeTerms", "WavelengthNumber" },
             zernikeVsFieldParameters.Select(parameter => parameter.Key));
+        Assert.Equal(128, zernikeVsFieldParameters
+            .Single(parameter => parameter.Key == "ZernikeTerms").Maximum);
         var zernikeVsFieldView = connector.BuildAnalysisView(
             "Zernike系数 vs. 视场",
             new Dictionary<string, string>
