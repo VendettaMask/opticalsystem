@@ -100,6 +100,8 @@ public sealed class SellmeierMaterial : IMaterial
         IReadOnlyList<double>? extinctionWavelengthsNanometers = null,
         IReadOnlyList<double>? extinctionCoefficients = null)
     {
+        ArgumentNullException.ThrowIfNull(b);
+        ArgumentNullException.ThrowIfNull(c);
         if (b.Count != c.Count)
         {
             throw new ArgumentException("Sellmeier B and C coefficient arrays must have equal length.");
@@ -111,10 +113,11 @@ public sealed class SellmeierMaterial : IMaterial
         }
 
         Name = name;
-        B = b.ToArray();
-        C = c.ToArray();
-        ExtinctionWavelengthsNanometers = extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>();
-        ExtinctionCoefficients = extinctionCoefficients?.ToArray() ?? Array.Empty<double>();
+        B = Array.AsReadOnly(b.ToArray());
+        C = Array.AsReadOnly(c.ToArray());
+        ExtinctionWavelengthsNanometers =
+            Array.AsReadOnly(extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>());
+        ExtinctionCoefficients = Array.AsReadOnly(extinctionCoefficients?.ToArray() ?? Array.Empty<double>());
         PropagationModel = propagationModel?.Clone() ?? new HomogeneousPropagationModel();
     }
 
@@ -169,6 +172,7 @@ public sealed class PolynomialDispersionMaterial : IMaterial
         IReadOnlyList<double>? extinctionWavelengthsNanometers = null,
         IReadOnlyList<double>? extinctionCoefficients = null)
     {
+        ArgumentNullException.ThrowIfNull(coefficients);
         if (coefficients.Count < 1 || coefficients.Count % 2 == 0)
         {
             throw new ArgumentException(
@@ -182,9 +186,10 @@ public sealed class PolynomialDispersionMaterial : IMaterial
         }
 
         Name = name;
-        Coefficients = coefficients.ToArray();
-        ExtinctionWavelengthsNanometers = extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>();
-        ExtinctionCoefficients = extinctionCoefficients?.ToArray() ?? Array.Empty<double>();
+        Coefficients = Array.AsReadOnly(coefficients.ToArray());
+        ExtinctionWavelengthsNanometers =
+            Array.AsReadOnly(extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>());
+        ExtinctionCoefficients = Array.AsReadOnly(extinctionCoefficients?.ToArray() ?? Array.Empty<double>());
         PropagationModel = propagationModel?.Clone() ?? new HomogeneousPropagationModel();
     }
 

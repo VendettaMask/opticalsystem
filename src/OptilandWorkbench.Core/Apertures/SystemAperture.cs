@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Domain;
+
 namespace OptilandWorkbench.Core.Apertures;
 
 public enum ApertureKind
@@ -23,7 +25,7 @@ public sealed class SystemAperture : OptilandWorkbench.Core.Domain.NotifyObject
     public double Value
     {
         get => _value;
-        set => SetProperty(ref _value, value);
+        set => SetProperty(ref _value, NumericParameterGuard.RequireFinite(value, nameof(Value)));
     }
 
     public bool ObjectSpaceTelecentric

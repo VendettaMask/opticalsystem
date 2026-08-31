@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Reflection;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Geometries;
@@ -16,20 +17,51 @@ public sealed class PluginRegistry
 {
     private readonly Dictionary<string, Func<IGeometry>> _geometries = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, Func<Optic, BaseAnalysis>> _analyses = new(StringComparer.OrdinalIgnoreCase);
+    private readonly List<string> _warnings = new();
+    private readonly ReadOnlyDictionary<string, Func<IGeometry>> _geometryView;
+    private readonly ReadOnlyDictionary<string, Func<Optic, BaseAnalysis>> _analysisView;
+    private readonly IReadOnlyList<string> _warningsView;
+
+    public PluginRegistry()
+    {
+        _geometryView = new ReadOnlyDictionary<string, Func<IGeometry>>(_geometries);
+        _analysisView = new ReadOnlyDictionary<string, Func<Optic, BaseAnalysis>>(_analyses);
+        _warningsView = _warnings.AsReadOnly();
+    }
 
     public MaterialRegistry Materials { get; } = new();
 
-    public IReadOnlyDictionary<string, Func<IGeometry>> Geometries => _geometries;
+    public IReadOnlyDictionary<string, Func<IGeometry>> Geometries => _geometryView;
 
-    public IReadOnlyDictionary<string, Func<Optic, BaseAnalysis>> Analyses => _analyses;
+    public IReadOnlyDictionary<string, Func<Optic, BaseAnalysis>> Analyses => _analysisView;
 
-    public List<string> Warnings { get; } = new();
+    public IReadOnlyList<string> Warnings => _warningsView;
 
-    public void RegisterGeometry(string key, Func<IGeometry> factory) => _geometries[key] = factory;
+    public bool LoadsPluginsInProcessWithFullTrust => true;
+
+    public void RegisterGeometry(string key, Func<IGeometry> factory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+        ArgumentNullException.ThrowIfNull(factory);
+        _geometries[key] = factory;
+    }
 
     public void RegisterMaterial(IMaterial material) => Materials.Register(material);
 
-    public void RegisterAnalysis(string key, Func<Optic, BaseAnalysis> factory) => _analyses[key] = factory;
+    public void RegisterAnalysis(string key, Func<Optic, BaseAnalysis> factory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(key);
+        ArgumentNullException.ThrowIfNull(factory);
+        _analyses[key] = factory;
+    }
+
+    internal void AddWarning(string warning)
+    {
+        if (!string.IsNullOrWhiteSpace(warning))
+        {
+            _warnings.Add(warning);
+        }
+    }
 }
 
 public sealed class PluginLoader
@@ -51,7 +83,7 @@ public sealed class PluginLoader
             }
             catch (Exception ex)
             {
-                registry.Warnings.Add($"{Path.GetFileName(file)}: {ex.Message}");
+                registry.AddWarning($"{Path.GetFileName(file)}: {ex.Message}");
             }
         }
 
@@ -72,7 +104,7 @@ public sealed class PluginLoader
             }
             catch (Exception ex)
             {
-                registry.Warnings.Add($"{assembly.GetName().Name}/{type.FullName}: {ex.GetBaseException().Message}");
+                registry.AddWarning($"{assembly.GetName().Name}/{type.FullName}: {ex.GetBaseException().Message}");
             }
         }
 
@@ -92,7 +124,7 @@ public sealed class PluginLoader
         }
         catch (ReflectionTypeLoadException ex)
         {
-            registry.Warnings.Add($"{assembly.GetName().Name}: {ex.Message}");
+            registry.AddWarning($"{assembly.GetName().Name}: {ex.Message}");
             return ex.Types
                 .Where(type => type is not null
                     && typeof(IOptilandPlugin).IsAssignableFrom(type)

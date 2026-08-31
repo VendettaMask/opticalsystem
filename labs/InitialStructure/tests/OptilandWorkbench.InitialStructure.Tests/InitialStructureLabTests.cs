@@ -407,6 +407,36 @@ public sealed class InitialStructureLabTests
     }
 
     [Fact]
+    public async Task CandidateExportCancellationPreservesExistingTarget()
+    {
+        var manifest = await new InitialStructureSearchService().RunAsync(Specification(seedCount: 3));
+        var candidate = manifest.Candidates.First(item => item.Status == CandidateStatus.LabAccepted);
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "initial-structure-export-tests",
+            Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        var target = Path.Combine(root, "candidate.staropt");
+        await File.WriteAllTextAsync(target, "existing project content");
+
+        try
+        {
+            using var cancellation = new CancellationTokenSource();
+            cancellation.Cancel();
+
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+                new CandidateExportService().ExportStarOptAsync(candidate, target, cancellation.Token));
+
+            Assert.Equal("existing project content", await File.ReadAllTextAsync(target));
+            Assert.Empty(Directory.EnumerateFiles(root, ".*.tmp"));
+        }
+        finally
+        {
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void StrictImageQualityLimitsPreventRefinableClassification()
     {
         var specification = Specification(seedCount: 3) with

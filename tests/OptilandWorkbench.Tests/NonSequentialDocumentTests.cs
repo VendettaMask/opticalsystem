@@ -30,6 +30,22 @@ namespace OptilandWorkbench.Tests;
 public sealed class NonSequentialDocumentTests
 {
     [Fact]
+    public void DocumentCollectionsDoNotExposeMutableBackingLists()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay);
+
+        document.Insert(0, source);
+
+        Assert.IsNotType<List<NonSequentialWavelength>>(document.Wavelengths);
+        Assert.IsNotType<List<NonSequentialObjectDefinition>>(document.Objects);
+        Assert.IsNotType<List<NonSequentialMeshAsset>>(document.MeshAssets);
+        Assert.Throws<NotSupportedException>(() =>
+            ((IList<NonSequentialObjectDefinition>)document.Objects).Clear());
+        Assert.Single(document.Objects);
+    }
+
+    [Fact]
     public void DetectorAndSurfaceSourceBudgetsRejectUnsafeDocuments()
     {
         var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());

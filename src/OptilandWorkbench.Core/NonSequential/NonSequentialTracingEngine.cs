@@ -589,7 +589,7 @@ public sealed class NonSequentialDocumentTracer
                         wavelength,
                         power),
                     item.ContainingObjectId is Guid containerId
-                        ? document.Objects.FirstOrDefault(value => value.Id == containerId) is { } container
+                        ? document.TryFindObject(containerId, out var container)
                             ? SolidMaterial(container)
                             : document.AmbientMaterial
                         : document.AmbientMaterial);
@@ -811,8 +811,9 @@ public sealed class NonSequentialDocumentTracer
     private static string OutsideMaterial(NonSequentialDocument document, NonSequentialObjectDefinition item)
     {
         if (item.ContainingObjectId is not Guid containerId) return document.AmbientMaterial;
-        var container = document.Objects.FirstOrDefault(value => value.Id == containerId);
-        return container is null ? document.AmbientMaterial : SolidMaterial(container);
+        return document.TryFindObject(containerId, out var container)
+            ? SolidMaterial(container)
+            : document.AmbientMaterial;
     }
 
     private static string PlaneDestination(PlaneRectangleParameters plane, Vector3D localDirection) =>
@@ -1291,9 +1292,7 @@ public sealed class NonSequentialDocumentTracer
 
         public NonSequentialDetectorFrame ToFrame()
         {
-            var byWavelength = _pixels.ToDictionary(
-                item => item.Key,
-                item => (IReadOnlyList<double>)item.Value);
+            var byWavelength = Snapshot(_pixels);
             return new NonSequentialDetectorFrame(
                 _item.Id,
                 _item.Name,
@@ -1301,10 +1300,22 @@ public sealed class NonSequentialDocumentTracer
                 _parameters.PixelsY,
                 byWavelength,
                 byWavelength.Values.Sum(values => values.Sum()),
-                _hits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value),
-                _angularPixels.ToDictionary(item => item.Key, item => (IReadOnlyList<double>)item.Value),
-                _angularHits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value));
+                Snapshot(_hits),
+                Snapshot(_angularPixels),
+                Snapshot(_angularHits));
         }
+
+        private static IReadOnlyDictionary<int, IReadOnlyList<double>> Snapshot(Dictionary<int, double[]> source) =>
+            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<double>>(
+                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
+
+        private static IReadOnlyDictionary<int, IReadOnlyList<long>> Snapshot(Dictionary<int, long[]> source) =>
+            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<long>>(
+                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
+
+        private static IReadOnlyList<double> Snapshot(double[] values) => Array.AsReadOnly(values.ToArray());
+
+        private static IReadOnlyList<long> Snapshot(long[] values) => Array.AsReadOnly(values.ToArray());
     }
 
     private sealed record Aabb(Vector3D Minimum, Vector3D Maximum)

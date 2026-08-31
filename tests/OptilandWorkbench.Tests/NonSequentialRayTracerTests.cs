@@ -226,6 +226,8 @@ public sealed class NonSequentialRayTracerTests
         Assert.Equal(1.0, frame.PowerByWavelength[1].Sum(), 12);
         Assert.Equal(1, frame.HitCountByWavelength![1].Sum());
         Assert.Equal(1.0, frame.AngularPowerByWavelength![1].Sum(), 12);
+        Assert.IsNotType<Dictionary<int, IReadOnlyList<double>>>(frame.PowerByWavelength);
+        Assert.Throws<NotSupportedException>(() => ((IList<double>)frame.PowerByWavelength[1]).Clear());
     }
 
     [Fact]

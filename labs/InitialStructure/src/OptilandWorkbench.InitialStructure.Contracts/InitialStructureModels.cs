@@ -11,6 +11,7 @@ public static class InitialStructureLimits
     public const int MaximumGlassCatalogCount = 128;
     public const int MaximumInitialSeedCount = 10_000;
     public const int MaximumEvaluations = 100_000;
+    public const int MaximumCandidateCount = MaximumEvaluations;
     public const int MaximumParallelism = 256;
     public const int MaximumViolationsPerCandidate = 1_024;
     public const int MaximumDiagnosticCount = 100_000;

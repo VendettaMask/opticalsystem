@@ -20,6 +20,7 @@ public sealed class FieldPoint : NotifyObject
         get => _x;
         set
         {
+            NumericParameterGuard.RequireFinite(value, nameof(X));
             if (SetProperty(ref _x, value))
             {
                 RaisePropertyChanged(nameof(XAngleDegrees));
@@ -32,6 +33,7 @@ public sealed class FieldPoint : NotifyObject
         get => _y;
         set
         {
+            NumericParameterGuard.RequireFinite(value, nameof(Y));
             if (SetProperty(ref _y, value))
             {
                 RaisePropertyChanged(nameof(YAngleDegrees));
@@ -54,19 +56,19 @@ public sealed class FieldPoint : NotifyObject
     public double Weight
     {
         get => _weight;
-        set => SetProperty(ref _weight, Math.Max(0, value));
+        set => SetProperty(ref _weight, NumericParameterGuard.ClampNonNegativeFinite(value, nameof(Weight)));
     }
 
     public double VignetteFactorX
     {
         get => _vignetteFactorX;
-        set => SetProperty(ref _vignetteFactorX, value);
+        set => SetProperty(ref _vignetteFactorX, NumericParameterGuard.RequireFinite(value, nameof(VignetteFactorX)));
     }
 
     public double VignetteFactorY
     {
         get => _vignetteFactorY;
-        set => SetProperty(ref _vignetteFactorY, value);
+        set => SetProperty(ref _vignetteFactorY, NumericParameterGuard.RequireFinite(value, nameof(VignetteFactorY)));
     }
 
     public FieldPoint Clone()

@@ -285,10 +285,10 @@ public sealed class RunDirectoryStore
             throw new InvalidDataException("A run candidate list is required.");
         }
 
-        if (candidates.Count > InitialStructureLimits.MaximumInitialSeedCount)
+        if (candidates.Count > InitialStructureLimits.MaximumCandidateCount)
         {
             throw new InvalidDataException(
-                $"A run cannot contain more than {InitialStructureLimits.MaximumInitialSeedCount} candidates.");
+                $"A run cannot contain more than {InitialStructureLimits.MaximumCandidateCount} candidates.");
         }
 
         var identifiers = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

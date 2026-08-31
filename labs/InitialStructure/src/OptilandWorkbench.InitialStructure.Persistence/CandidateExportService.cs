@@ -32,13 +32,19 @@ public sealed class CandidateExportService
 
         var optic = Optic.FromSnapshot(candidate.Optic);
         OpticSnapshotValidator.Validate(optic.ToSnapshot());
+        var directory = Path.GetDirectoryName(fullPath)
+            ?? throw new InvalidOperationException("The export path does not have a parent directory.");
+        Directory.CreateDirectory(directory);
+        var temporaryPath = Path.Combine(
+            directory,
+            $".{Path.GetFileName(fullPath)}.{Environment.ProcessId}.{Guid.NewGuid():N}.tmp");
         try
         {
             await StarOptProjectStore.SaveAsync(
                 new StarOptProjectDocument([optic], 0),
-                fullPath,
+                temporaryPath,
                 cancellationToken);
-            var restored = await StarOptProjectStore.LoadAsync(fullPath, cancellationToken);
+            var restored = await StarOptProjectStore.LoadAsync(temporaryPath, cancellationToken);
             var restoredSnapshot = restored.Configurations[restored.ActiveConfigurationIndex].ToSnapshot();
             OpticSnapshotValidator.Validate(restoredSnapshot);
             var expectedHash = SHA256.HashData(
@@ -51,16 +57,25 @@ public sealed class CandidateExportService
                     "The exported STAROPT project did not reproduce the selected candidate snapshot.");
             }
 
+            cancellationToken.ThrowIfCancellationRequested();
+            File.Move(temporaryPath, fullPath, overwrite: true);
             return fullPath;
         }
-        catch
+        finally
         {
-            if (File.Exists(fullPath))
+            try
             {
-                File.Delete(fullPath);
+                if (File.Exists(temporaryPath))
+                {
+                    File.Delete(temporaryPath);
+                }
             }
-
-            throw;
+            catch (IOException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
         }
     }
 }

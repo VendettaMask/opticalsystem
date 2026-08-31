@@ -124,4 +124,4 @@ public sealed class ExamplePlugin : IOptilandPlugin
 }
 ```
 
-目录发现使用 `new PluginLoader().LoadFromDirectory("plugins")`，进程内测试可使用 `LoadFromAssembly`。单个插件加载或注册失败只记录到 `PluginRegistry.Warnings`，不得阻止其他插件。
+目录发现使用 `new PluginLoader().LoadFromDirectory("plugins")`，进程内测试可使用 `LoadFromAssembly`。单个插件加载或注册失败只记录到 `PluginRegistry.Warnings`，不得阻止其他插件。当前插件模型是进程内全信任模型：DLL 会被加载到 Workbench 进程中执行，适用于本地受信任扩展，不适合作为运行未知第三方代码的沙箱。注册表对外发布只读集合视图，插件仍只能通过 `RegisterGeometry`、`RegisterMaterial` 和 `RegisterAnalysis` 增加能力。

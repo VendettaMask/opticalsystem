@@ -11,6 +11,8 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --locked-mode
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 ```
 
+仓库通过 `Directory.Build.targets` 关闭 Avalonia BuildServices 的构建统计目标；这不是编译能力的一部分，关闭后受限本地环境不需要写入用户 AppData/Home 目录即可构建 App 和测试程序集。
+
 有意修改依赖时再更新锁文件：
 
 ```bash
@@ -24,6 +26,12 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 ```
 
 VSTest 会打开本地套接字；受限沙箱可能需要额外权限。普通修改优先运行相关定向子集，只有跨模块、高风险或发布验证才要求全量测试。
+
+CI 中正式产品与 Initial Structure Lab 测试均启用 hang 诊断：测试进程长时间无响应时会产生日志/转储线索，而不是无限等待或让后续结果失真。
+
+## 换行符
+
+仓库文本默认使用 LF；Windows 批处理脚本保留 CRLF。`.editorconfig` 和 `.gitattributes` 必须保持一致。Windows 开发者建议使用仓库属性控制换行，而不是依赖全局 `core.autocrlf=true`。
 
 ## 性能基准
 

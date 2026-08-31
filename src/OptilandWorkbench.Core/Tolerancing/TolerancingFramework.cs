@@ -44,9 +44,9 @@ public sealed class DelegatePerturbation : IPerturbation
 
     public DelegatePerturbation(string name, Action<Optic> apply, Action<Optic> revert)
     {
-        Name = name;
-        _apply = apply;
-        _revert = revert;
+        Name = OptimizationGuards.RequireName(name, nameof(name));
+        _apply = apply ?? throw new ArgumentNullException(nameof(apply));
+        _revert = revert ?? throw new ArgumentNullException(nameof(revert));
     }
 
     public string Name { get; }
@@ -65,8 +65,12 @@ public sealed class NormalSampler : ISampler
 {
     public NormalSampler(double mean, double sigma)
     {
-        Mean = mean;
-        Sigma = sigma;
+        Mean = OptimizationGuards.RequireFiniteArgument(mean, nameof(mean));
+        Sigma = OptimizationGuards.RequireFiniteArgument(sigma, nameof(sigma));
+        if (Sigma < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sigma), "Normal sampler sigma must be non-negative.");
+        }
     }
 
     public double Mean { get; }
@@ -85,8 +89,12 @@ public sealed class UniformSampler : ISampler
 {
     public UniformSampler(double minimum, double maximum)
     {
-        Minimum = minimum;
-        Maximum = maximum;
+        Minimum = OptimizationGuards.RequireFiniteArgument(minimum, nameof(minimum));
+        Maximum = OptimizationGuards.RequireFiniteArgument(maximum, nameof(maximum));
+        if (Minimum > Maximum)
+        {
+            throw new ArgumentOutOfRangeException(nameof(minimum), "Uniform sampler minimum must not exceed maximum.");
+        }
     }
 
     public double Minimum { get; }
@@ -103,7 +111,7 @@ public sealed class ConstantSampler : ISampler
 {
     public ConstantSampler(double value)
     {
-        Value = value;
+        Value = OptimizationGuards.RequireFiniteArgument(value, nameof(value));
     }
 
     public double Value { get; }
@@ -119,9 +127,9 @@ public sealed class VariablePerturbation : ISampledPerturbation
 
     public VariablePerturbation(string name, IOptimizationVariable variable, ISampler sampler)
     {
-        Name = name;
-        _variable = variable;
-        _sampler = sampler;
+        Name = OptimizationGuards.RequireName(name, nameof(name));
+        _variable = variable ?? throw new ArgumentNullException(nameof(variable));
+        _sampler = sampler ?? throw new ArgumentNullException(nameof(sampler));
     }
 
     public string Name { get; }
@@ -134,7 +142,12 @@ public sealed class VariablePerturbation : ISampledPerturbation
     public void Apply(Optic optic, Random random)
     {
         _previousValue = _variable.Value;
-        _variable.Value = _previousValue + _sampler.Sample(random);
+        var sample = OptimizationGuards.RequireFiniteState(
+            _sampler.Sample(random),
+            $"Tolerance perturbation '{Name}' sampled delta");
+        _variable.Value = OptimizationGuards.RequireFiniteState(
+            _previousValue + sample,
+            $"Tolerance perturbation '{Name}' applied value");
     }
 
     public void Revert(Optic optic)
@@ -161,8 +174,8 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
             throw new ArgumentOutOfRangeException(nameof(minimum), "Tolerance limits must be finite and ordered.");
         }
 
-        Name = name;
-        _variable = variable;
+        Name = OptimizationGuards.RequireName(name, nameof(name));
+        _variable = variable ?? throw new ArgumentNullException(nameof(variable));
         Minimum = minimum;
         Maximum = maximum;
         _normalDistribution = normalDistribution;
@@ -254,11 +267,23 @@ public sealed class Tolerancing
 
     public IReadOnlyList<IOptimizationVariable> Compensators => _compensators;
 
-    public void AddPerturbation(IPerturbation perturbation) => _perturbations.Add(perturbation);
+    public void AddPerturbation(IPerturbation perturbation)
+    {
+        ArgumentNullException.ThrowIfNull(perturbation);
+        _perturbations.Add(perturbation);
+    }
 
-    public void AddOperand(Operand operand) => _operands.Add(operand);
+    public void AddOperand(Operand operand)
+    {
+        ArgumentNullException.ThrowIfNull(operand);
+        _operands.Add(operand);
+    }
 
-    public void AddCompensator(IOptimizationVariable variable) => _compensators.Add(variable);
+    public void AddCompensator(IOptimizationVariable variable)
+    {
+        ArgumentNullException.ThrowIfNull(variable);
+        _compensators.Add(variable);
+    }
 
     public void SetCriterionEvaluator(Func<double> evaluator)
     {

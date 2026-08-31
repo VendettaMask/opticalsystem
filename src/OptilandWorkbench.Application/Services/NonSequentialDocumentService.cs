@@ -344,13 +344,8 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         ArgumentNullException.ThrowIfNull(options);
-        var bytes = await BoundedFile.ReadAllBytesAsync(
-            path,
-            CoreStlImporter.MaximumInputBytes,
-            "STL mesh",
-            cancellationToken).ConfigureAwait(false);
         var imported = await Task.Run(
-            () => CoreStlImporter.Import(bytes, Path.GetFileName(path), (CoreMeshUnit)(int)options.Unit),
+            () => CoreStlImporter.Import(path, (CoreMeshUnit)(int)options.Unit, cancellationToken),
             cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         return MutateTransactional(WorkspaceChangeCategory.NonSequential, () =>

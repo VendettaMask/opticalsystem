@@ -51,6 +51,7 @@ public sealed partial class OpticalSurface : NotifyObject
         get => _radius;
         set
         {
+            NumericParameterGuard.RequireNotNaN(value, nameof(Radius));
             if (SetProperty(ref _radius, value))
             {
                 SynchronizeGeometryFromLegacyParameters();
@@ -61,7 +62,9 @@ public sealed partial class OpticalSurface : NotifyObject
     public double Thickness
     {
         get => _thickness;
-        set => SetProperty(ref _thickness, value);
+        set => SetProperty(
+            ref _thickness,
+            NumericParameterGuard.RequireFiniteOrPositiveInfinity(value, nameof(Thickness)));
     }
 
     public string Material
@@ -90,7 +93,9 @@ public sealed partial class OpticalSurface : NotifyObject
     public double SemiDiameter
     {
         get => _semiDiameter;
-        set => SetProperty(ref _semiDiameter, Math.Max(0.1, value));
+        set => SetProperty(
+            ref _semiDiameter,
+            NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter)));
     }
 
     public bool SemiDiameterFixed
@@ -104,6 +109,7 @@ public sealed partial class OpticalSurface : NotifyObject
         get => _conic;
         set
         {
+            NumericParameterGuard.RequireFinite(value, nameof(Conic));
             if (SetProperty(ref _conic, value))
             {
                 SynchronizeGeometryFromLegacyParameters();

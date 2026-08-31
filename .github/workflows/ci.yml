@@ -73,6 +73,7 @@ jobs:
           --no-build
           --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
+          --blame-hang --blame-hang-timeout 5m
           /m:1 /nr:false
 
       - name: Upload main test results
@@ -138,6 +139,7 @@ jobs:
           --no-build
           --logger "trx;LogFileName=lab-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/lab"
+          --blame-hang --blame-hang-timeout 5m
           /m:1 /nr:false
 
       - name: Upload Initial Structure Lab test results

@@ -350,6 +350,11 @@ public sealed class NonSequentialDocument
     private readonly List<NonSequentialWavelength> _wavelengths;
     private readonly List<NonSequentialObjectDefinition> _objects;
     private readonly List<NonSequentialMeshAsset> _meshAssets;
+    private readonly IReadOnlyList<NonSequentialWavelength> _wavelengthsView;
+    private readonly IReadOnlyList<NonSequentialObjectDefinition> _objectsView;
+    private readonly IReadOnlyList<NonSequentialMeshAsset> _meshAssetsView;
+    private Dictionary<Guid, NonSequentialObjectDefinition>? _objectLookup;
+    private Dictionary<Guid, NonSequentialMeshAsset>? _meshAssetLookup;
 
     public NonSequentialDocument(
         string name,
@@ -365,15 +370,18 @@ public sealed class NonSequentialDocument
         _wavelengths = wavelengths?.ToList() ?? throw new ArgumentNullException(nameof(wavelengths));
         _objects = objects?.ToList() ?? new List<NonSequentialObjectDefinition>();
         _meshAssets = meshAssets?.ToList() ?? new List<NonSequentialMeshAsset>();
+        _wavelengthsView = _wavelengths.AsReadOnly();
+        _objectsView = _objects.AsReadOnly();
+        _meshAssetsView = _meshAssets.AsReadOnly();
         Validate();
     }
 
     public string Name { get; set; }
     public string AmbientMaterial { get; set; }
     public NonSequentialTraceSettings TraceSettings { get; set; }
-    public IReadOnlyList<NonSequentialWavelength> Wavelengths => _wavelengths;
-    public IReadOnlyList<NonSequentialObjectDefinition> Objects => _objects;
-    public IReadOnlyList<NonSequentialMeshAsset> MeshAssets => _meshAssets;
+    public IReadOnlyList<NonSequentialWavelength> Wavelengths => _wavelengthsView;
+    public IReadOnlyList<NonSequentialObjectDefinition> Objects => _objectsView;
+    public IReadOnlyList<NonSequentialMeshAsset> MeshAssets => _meshAssetsView;
 
     public static NonSequentialDocument CreateDefault(string name, IEnumerable<NonSequentialWavelength> wavelengths) =>
         new(name, wavelengths.ToArray());
@@ -387,8 +395,12 @@ public sealed class NonSequentialDocument
         _meshAssets.ToArray());
 
     public NonSequentialMeshAsset FindMeshAsset(Guid id) =>
-        _meshAssets.FirstOrDefault(item => item.Id == id)
-        ?? throw new KeyNotFoundException($"Non-sequential mesh asset '{id}' was not found.");
+        MeshAssetLookup.TryGetValue(id, out var asset)
+            ? asset
+            : throw new KeyNotFoundException($"Non-sequential mesh asset '{id}' was not found.");
+
+    public bool TryFindObject(Guid id, out NonSequentialObjectDefinition item) =>
+        ObjectLookup.TryGetValue(id, out item!);
 
     public Guid AddMeshAsset(NonSequentialMeshAsset asset)
     {
@@ -404,11 +416,13 @@ public sealed class NonSequentialDocument
         try
         {
             ValidateMeshAssets(requireGeometry: true);
+            InvalidateMeshAssetLookup();
             return asset.Id;
         }
         catch
         {
             _meshAssets.Remove(asset);
+            InvalidateMeshAssetLookup();
             throw;
         }
     }
@@ -423,6 +437,7 @@ public sealed class NonSequentialDocument
         }
 
         _meshAssets[index] = _meshAssets[index].AttachCanonicalData(canonicalData);
+        InvalidateMeshAssetLookup();
     }
 
     public void RemoveUnusedMeshAssets()
@@ -433,6 +448,7 @@ public sealed class NonSequentialDocument
             .Select(item => item.MeshAssetId)
             .ToHashSet();
         _meshAssets.RemoveAll(asset => !used.Contains(asset.Id));
+        InvalidateMeshAssetLookup();
     }
 
     public void ReplaceWavelengths(IEnumerable<NonSequentialWavelength> wavelengths)
@@ -459,6 +475,7 @@ public sealed class NonSequentialDocument
         catch
         {
             _objects.RemoveAt(insertionIndex);
+            InvalidateObjectLookup();
             throw;
         }
     }
@@ -482,6 +499,7 @@ public sealed class NonSequentialDocument
         catch
         {
             _objects[index] = previous;
+            InvalidateObjectLookup();
             throw;
         }
     }
@@ -496,6 +514,7 @@ public sealed class NonSequentialDocument
 
         _objects.RemoveAt(IndexOf(id));
         RemoveUnusedMeshAssets();
+        InvalidateObjectLookup();
     }
 
     public void Move(Guid id, int destinationIndex)
@@ -504,6 +523,7 @@ public sealed class NonSequentialDocument
         var item = _objects[sourceIndex];
         _objects.RemoveAt(sourceIndex);
         _objects.Insert(Math.Clamp(destinationIndex, 0, _objects.Count), item);
+        InvalidateObjectLookup();
     }
 
     public Vector3D ToWorldPoint(Guid objectId, Vector3D localPoint) =>
@@ -596,6 +616,8 @@ public sealed class NonSequentialDocument
         }
 
         ValidateTraceSettings(TraceSettings);
+        _objectLookup = byId;
+        _meshAssetLookup = meshAssetsById;
     }
 
     private void ValidateObject(
@@ -984,13 +1006,31 @@ public sealed class NonSequentialDocument
         }
     }
 
-    private NonSequentialObjectDefinition Find(Guid id) => _objects.FirstOrDefault(item => item.Id == id)
-        ?? throw new KeyNotFoundException($"Non-sequential object '{id}' was not found.");
+    private NonSequentialObjectDefinition Find(Guid id) =>
+        ObjectLookup.TryGetValue(id, out var item)
+            ? item
+            : throw new KeyNotFoundException($"Non-sequential object '{id}' was not found.");
 
     private int IndexOf(Guid id)
     {
         var index = _objects.FindIndex(item => item.Id == id);
         return index >= 0 ? index : throw new KeyNotFoundException($"Non-sequential object '{id}' was not found.");
+    }
+
+    private Dictionary<Guid, NonSequentialObjectDefinition> ObjectLookup =>
+        _objectLookup ??= _objects.ToDictionary(item => item.Id);
+
+    private Dictionary<Guid, NonSequentialMeshAsset> MeshAssetLookup =>
+        _meshAssetLookup ??= _meshAssets.ToDictionary(item => item.Id);
+
+    private void InvalidateObjectLookup()
+    {
+        _objectLookup = null;
+    }
+
+    private void InvalidateMeshAssetLookup()
+    {
+        _meshAssetLookup = null;
     }
 
     private List<NonSequentialObjectDefinition> ReferenceChain(NonSequentialObjectDefinition item)

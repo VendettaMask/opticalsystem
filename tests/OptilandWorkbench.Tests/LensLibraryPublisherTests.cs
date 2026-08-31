@@ -66,6 +66,41 @@ public sealed class LensLibraryPublisherTests
         }
     }
 
+    [Fact]
+    public void PublishSkipsReparsePointEntries()
+    {
+        var root = CreateTemporaryDirectory();
+        try
+        {
+            var staging = CreateStagingLibrary(root);
+            var output = Path.Combine(root, "library");
+            var external = Path.Combine(root, "external");
+            Directory.CreateDirectory(external);
+            File.WriteAllText(Path.Combine(external, "outside.txt"), "outside");
+            var link = Path.Combine(staging, "projects", "linked");
+            try
+            {
+                Directory.CreateSymbolicLink(link, external);
+            }
+            catch (Exception exception) when (
+                exception is IOException
+                or UnauthorizedAccessException
+                or PlatformNotSupportedException)
+            {
+                return;
+            }
+
+            LensLibraryPublisher.Publish(staging, output);
+
+            Assert.False(File.Exists(Path.Combine(output, "projects", "linked", "outside.txt")));
+            Assert.Equal("new-project", File.ReadAllText(Path.Combine(output, "projects", "new.staropt")));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
     private static string CreateTemporaryDirectory()
     {
         var path = Path.Combine(Path.GetTempPath(), $"lens-library-publish-{Guid.NewGuid():N}");

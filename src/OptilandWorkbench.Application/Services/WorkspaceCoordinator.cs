@@ -1,3 +1,4 @@
+using System.Runtime.ExceptionServices;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
@@ -117,6 +118,9 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
 
     public void Mutate(WorkspaceChangeCategory category, Action action)
     {
+        ArgumentNullException.ThrowIfNull(action);
+        WorkspaceChangedEventArgs? change = null;
+        Exception? pendingException = null;
         lock (Gate)
         {
             _pendingCategory = category;
@@ -125,48 +129,86 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             {
                 action();
             }
+            catch (Exception exception)
+            {
+                pendingException = exception;
+            }
             finally
             {
                 try
                 {
-                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    if (pendingException is null
+                        && _mutationDepth == 1
+                        && UpdatesAutomaticSemiDiameters(category))
                     {
                         RefreshAutomaticSemiDiameters();
                     }
                 }
+                catch (Exception exception) when (pendingException is null)
+                {
+                    pendingException = exception;
+                }
                 finally
                 {
-                    CompleteMutation();
+                    change = CompleteMutation();
                 }
             }
+        }
+
+        Publish(change);
+        if (pendingException is not null)
+        {
+            ExceptionDispatchInfo.Capture(pendingException).Throw();
         }
     }
 
     public T Mutate<T>(WorkspaceChangeCategory category, Func<T> action)
     {
+        ArgumentNullException.ThrowIfNull(action);
+        WorkspaceChangedEventArgs? change = null;
+        Exception? pendingException = null;
+        T result = default!;
         lock (Gate)
         {
             _pendingCategory = category;
             _mutationDepth++;
             try
             {
-                return action();
+                result = action();
+            }
+            catch (Exception exception)
+            {
+                pendingException = exception;
             }
             finally
             {
                 try
                 {
-                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    if (pendingException is null
+                        && _mutationDepth == 1
+                        && UpdatesAutomaticSemiDiameters(category))
                     {
                         RefreshAutomaticSemiDiameters();
                     }
                 }
+                catch (Exception exception) when (pendingException is null)
+                {
+                    pendingException = exception;
+                }
                 finally
                 {
-                    CompleteMutation();
+                    change = CompleteMutation();
                 }
             }
         }
+
+        Publish(change);
+        if (pendingException is not null)
+        {
+            ExceptionDispatchInfo.Capture(pendingException).Throw();
+        }
+
+        return result;
     }
 
     public void MutateTransactional(
@@ -174,6 +216,9 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         Action action,
         CancellationToken automaticSemiDiameterCancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(action);
+        WorkspaceChangedEventArgs? change = null;
+        Exception? pendingException = null;
         lock (Gate)
         {
             var previousCategory = _pendingCategory;
@@ -193,20 +238,26 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                     }
                 });
             }
-            catch
+            catch (Exception exception)
             {
                 _deferredEvent = previousDeferredEvent;
                 _deferredFileSwitch = previousDeferredFileSwitch;
-                throw;
+                pendingException = exception;
             }
             finally
             {
-                CompleteMutation();
+                change = CompleteMutation();
                 if (_mutationDepth > 0)
                 {
                     _pendingCategory = previousCategory;
                 }
             }
+        }
+
+        Publish(change);
+        if (pendingException is not null)
+        {
+            ExceptionDispatchInfo.Capture(pendingException).Throw();
         }
     }
 
@@ -257,10 +308,10 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         }
 
         RefreshAutomaticSemiDiameters();
-        Publish(
+        Publish(CreateChangeEvent(
             _pendingCategory,
             fileSwitched: true,
-            markCurrentRevisionSaved: documentReplaced && CurrentPath is not null);
+            markCurrentRevisionSaved: documentReplaced && CurrentPath is not null));
     }
 
     private void OnOpticChanged(object? sender, EventArgs args)
@@ -271,7 +322,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             return;
         }
 
-        Publish(_pendingCategory, fileSwitched: false);
+        Publish(CreateChangeEvent(_pendingCategory, fileSwitched: false));
     }
 
     private void OnStatusChanged(object? sender, EventArgs args)
@@ -279,7 +330,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         StatusChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void Publish(
+    private WorkspaceChangedEventArgs CreateChangeEvent(
         WorkspaceChangeCategory category,
         bool fileSwitched,
         bool markCurrentRevisionSaved = false)
@@ -290,12 +341,22 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             Interlocked.Exchange(ref _savedRevision, revision);
         }
 
-        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
-        Changed?.Invoke(this, new WorkspaceChangedEventArgs(
+        return new WorkspaceChangedEventArgs(
             revision,
             category,
             Runtime.Status,
-            fileSwitched));
+            fileSwitched);
+    }
+
+    private void Publish(WorkspaceChangedEventArgs? change)
+    {
+        if (change is null)
+        {
+            return;
+        }
+
+        using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
+        Changed?.Invoke(this, change);
     }
 
     public void RefreshAutomaticSemiDiameters(CancellationToken cancellationToken = default)
@@ -314,18 +375,18 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         or WorkspaceChangeCategory.Configuration
         or WorkspaceChangeCategory.Optimization;
 
-    private void CompleteMutation()
+    private WorkspaceChangedEventArgs? CompleteMutation()
     {
         _mutationDepth--;
         if (_mutationDepth != 0 || !_deferredEvent)
         {
-            return;
+            return null;
         }
 
         var fileSwitched = _deferredFileSwitch;
         _deferredEvent = false;
         _deferredFileSwitch = false;
-        Publish(
+        return CreateChangeEvent(
             _pendingCategory,
             fileSwitched,
             markCurrentRevisionSaved: _pendingCategory == WorkspaceChangeCategory.Document

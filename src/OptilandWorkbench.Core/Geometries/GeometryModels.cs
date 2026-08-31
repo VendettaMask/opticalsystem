@@ -293,8 +293,9 @@ public sealed class EvenAsphereGeometry : IGeometry
 {
     public EvenAsphereGeometry(double radius, double conic, IReadOnlyList<double> coefficients)
     {
+        ArgumentNullException.ThrowIfNull(coefficients);
         Base = new StandardGeometry(radius, conic);
-        Coefficients = coefficients.ToArray();
+        Coefficients = Array.AsReadOnly(coefficients.ToArray());
     }
 
     public string Kind => "even_asphere";
@@ -334,8 +335,9 @@ public sealed class OddAsphereGeometry : IGeometry
 {
     public OddAsphereGeometry(double radius, double conic, IReadOnlyList<double> coefficients)
     {
+        ArgumentNullException.ThrowIfNull(coefficients);
         Base = new StandardGeometry(radius, conic);
-        Coefficients = coefficients.ToArray();
+        Coefficients = Array.AsReadOnly(coefficients.ToArray());
     }
 
     public string Kind => "odd_asphere";
@@ -516,7 +518,10 @@ public sealed class PolynomialGeometry : IGeometry
 {
     public PolynomialGeometry(IReadOnlyDictionary<(int X, int Y), double> coefficients)
     {
-        Coefficients = new Dictionary<(int X, int Y), double>(coefficients);
+        ArgumentNullException.ThrowIfNull(coefficients);
+        Coefficients =
+            new System.Collections.ObjectModel.ReadOnlyDictionary<(int X, int Y), double>(
+                new Dictionary<(int X, int Y), double>(coefficients));
     }
 
     public string Kind => "polynomial";
@@ -542,7 +547,10 @@ public sealed class ChebyshevGeometry : IGeometry
 {
     public ChebyshevGeometry(IReadOnlyDictionary<(int XOrder, int YOrder), double> coefficients, double normalizationX = 1, double normalizationY = 1)
     {
-        Coefficients = new Dictionary<(int XOrder, int YOrder), double>(coefficients);
+        ArgumentNullException.ThrowIfNull(coefficients);
+        Coefficients =
+            new System.Collections.ObjectModel.ReadOnlyDictionary<(int XOrder, int YOrder), double>(
+                new Dictionary<(int XOrder, int YOrder), double>(coefficients));
         NormalizationX = Math.Max(1e-12, Math.Abs(normalizationX));
         NormalizationY = Math.Max(1e-12, Math.Abs(normalizationY));
     }
@@ -579,7 +587,10 @@ public sealed class ZernikeGeometry : IGeometry
 {
     public ZernikeGeometry(IReadOnlyDictionary<(int RadialOrder, int AzimuthalFrequency), double> coefficients, double pupilRadius = 1)
     {
-        Coefficients = new Dictionary<(int RadialOrder, int AzimuthalFrequency), double>(coefficients);
+        ArgumentNullException.ThrowIfNull(coefficients);
+        Coefficients =
+            new System.Collections.ObjectModel.ReadOnlyDictionary<(int RadialOrder, int AzimuthalFrequency), double>(
+                new Dictionary<(int RadialOrder, int AzimuthalFrequency), double>(coefficients));
         PupilRadius = Math.Max(1e-12, Math.Abs(pupilRadius));
     }
 
@@ -608,9 +619,10 @@ public sealed class ForbesQGeometry : IGeometry
 {
     public ForbesQGeometry(double radius, double conic, double normalizationRadius, IReadOnlyList<double> qCoefficients)
     {
+        ArgumentNullException.ThrowIfNull(qCoefficients);
         Base = new StandardGeometry(radius, conic);
         NormalizationRadius = Math.Max(1e-12, Math.Abs(normalizationRadius));
-        QCoefficients = qCoefficients.ToArray();
+        QCoefficients = Array.AsReadOnly(qCoefficients.ToArray());
     }
 
     public string Kind => "forbes_q";

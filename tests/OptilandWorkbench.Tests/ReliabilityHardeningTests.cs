@@ -4,6 +4,9 @@ using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.FileIO;
+using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Materials;
+using OptilandWorkbench.Core.Phase;
 
 namespace OptilandWorkbench.Tests;
 
@@ -73,6 +76,40 @@ public sealed class ReliabilityHardeningTests
         {
             if (File.Exists(path)) File.Delete(path);
         }
+    }
+
+    [Fact]
+    public void NumericModelCollectionsDoNotExposeMutableBackingStorage()
+    {
+        var coefficients = new[] { 0.1, 0.2 };
+        var material = new CatalogGlassMaterial(
+            "TEST",
+            "TEST",
+            "formula 1",
+            400,
+            700,
+            coefficients: coefficients);
+        coefficients[0] = 99;
+
+        Assert.Equal(0.1, material.Coefficients[0], precision: 12);
+        Assert.Throws<NotSupportedException>(() => ((IList<double>)material.Coefficients)[0] = 1);
+
+        var geometry = new EvenAsphereGeometry(10, 0, coefficients);
+        coefficients[0] = 123;
+        Assert.Equal(99, geometry.Coefficients[0], precision: 12);
+        Assert.Throws<NotSupportedException>(() => ((IList<double>)geometry.Coefficients).Clear());
+
+        var phaseGrid = new double[4, 4];
+        phaseGrid[0, 0] = 0.25;
+        var phase = new GridPhaseProfile(
+            new[] { 0d, 1d, 2d, 3d },
+            new[] { 0d, 1d, 2d, 3d },
+            phaseGrid);
+        phaseGrid[0, 0] = 7;
+        var exposed = phase.PhaseGrid;
+        exposed[0, 0] = 8;
+
+        Assert.Equal(0.25, phase.PhaseGrid[0, 0], precision: 12);
     }
 
     [Fact]

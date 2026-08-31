@@ -13,6 +13,22 @@ namespace OptilandWorkbench.Tests;
 public sealed class TolerancingWorkflowTests
 {
     [Fact]
+    public void TolerancingRejectsInvalidPerturbationInputs()
+    {
+        Assert.Throws<ArgumentException>(() => new DelegatePerturbation("", _ => { }, _ => { }));
+        Assert.Throws<ArgumentNullException>(() => new DelegatePerturbation("shift", null!, _ => { }));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new NormalSampler(0, double.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new NormalSampler(0, -1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new UniformSampler(2, 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new ConstantSampler(double.PositiveInfinity));
+
+        var tolerancing = new Tolerancing();
+        Assert.Throws<ArgumentNullException>(() => tolerancing.AddPerturbation(null!));
+        Assert.Throws<ArgumentNullException>(() => tolerancing.AddOperand(null!));
+        Assert.Throws<ArgumentNullException>(() => tolerancing.AddCompensator(null!));
+    }
+
+    [Fact]
     public void ToleranceHistogramUsesMonteCarloValuesToBuildRealBars()
     {
         var result = CreateChartResult("1", "2", "2", "3", "4", "5");

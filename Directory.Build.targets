@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <!--
+      Avalonia.BuildServices uses UsedAvaloniaProducts only to decide whether
+      to run its build telemetry target. Keeping it empty makes local and CI
+      builds reproducible in restricted environments where AppData/Home writes
+      are intentionally unavailable.
+    -->
+    <UsedAvaloniaProducts></UsedAvaloniaProducts>
+  </PropertyGroup>
+</Project>

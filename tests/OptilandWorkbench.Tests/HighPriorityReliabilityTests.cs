@@ -354,6 +354,32 @@ public sealed class HighPriorityReliabilityTests
     }
 
     [Fact]
+    public void WorkspaceChangedEventIsPublishedAfterMutationLockIsReleased()
+    {
+        using var workspace = new WorkspaceCoordinator(new OpticContext(Optic.CreateDemo()));
+        var observedUnlockedGate = false;
+        workspace.Changed += (_, _) =>
+        {
+            observedUnlockedGate = Task.Run(() =>
+            {
+                if (!Monitor.TryEnter(workspace.Gate, TimeSpan.FromMilliseconds(100)))
+                {
+                    return false;
+                }
+
+                Monitor.Exit(workspace.Gate);
+                return true;
+            }).GetAwaiter().GetResult();
+        };
+
+        workspace.Mutate(
+            WorkspaceChangeCategory.Optimization,
+            () => workspace.Runtime.GenerateDefaultMeritFunction(MeritFunctionPreset.RmsSpot));
+
+        Assert.True(observedUnlockedGate);
+    }
+
+    [Fact]
     public void CancelledOptimizationRestoresTheCompleteInitialState()
     {
         var runtime = new WorkbenchRuntime(Optic.CreateDemo());

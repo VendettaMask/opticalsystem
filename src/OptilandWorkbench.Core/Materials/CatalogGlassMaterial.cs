@@ -23,11 +23,13 @@ public sealed class CatalogGlassMaterial : IMaterial
         Formula = formula;
         MinimumWavelengthNanometers = minimumWavelengthNanometers;
         MaximumWavelengthNanometers = maximumWavelengthNanometers;
-        Coefficients = coefficients?.ToArray() ?? Array.Empty<double>();
-        RefractiveIndexWavelengthsNanometers = refractiveIndexWavelengthsNanometers?.ToArray() ?? Array.Empty<double>();
-        RefractiveIndices = refractiveIndices?.ToArray() ?? Array.Empty<double>();
-        ExtinctionWavelengthsNanometers = extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>();
-        ExtinctionCoefficients = extinctionCoefficients?.ToArray() ?? Array.Empty<double>();
+        Coefficients = Array.AsReadOnly(coefficients?.ToArray() ?? Array.Empty<double>());
+        RefractiveIndexWavelengthsNanometers =
+            Array.AsReadOnly(refractiveIndexWavelengthsNanometers?.ToArray() ?? Array.Empty<double>());
+        RefractiveIndices = Array.AsReadOnly(refractiveIndices?.ToArray() ?? Array.Empty<double>());
+        ExtinctionWavelengthsNanometers =
+            Array.AsReadOnly(extinctionWavelengthsNanometers?.ToArray() ?? Array.Empty<double>());
+        ExtinctionCoefficients = Array.AsReadOnly(extinctionCoefficients?.ToArray() ?? Array.Empty<double>());
         PropagationModel = propagationModel?.Clone() ?? new HomogeneousPropagationModel();
         ZemaxData = zemaxData;
 

@@ -111,9 +111,7 @@ public static class NonSequentialDetectorReconstruction
 
         public NonSequentialDetectorFrame ToFrame()
         {
-            var values = _pixels.ToDictionary(
-                item => item.Key,
-                item => (IReadOnlyList<double>)item.Value);
+            var values = Snapshot(_pixels);
             return new NonSequentialDetectorFrame(
                 _item.Id,
                 _item.Name,
@@ -121,9 +119,21 @@ public static class NonSequentialDetectorReconstruction
                 _parameters.PixelsY,
                 values,
                 values.Values.Sum(pixels => pixels.Sum()),
-                _hits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value),
-                _angularPixels.ToDictionary(item => item.Key, item => (IReadOnlyList<double>)item.Value),
-                _angularHits.ToDictionary(item => item.Key, item => (IReadOnlyList<long>)item.Value));
+                Snapshot(_hits),
+                Snapshot(_angularPixels),
+                Snapshot(_angularHits));
         }
+
+        private static IReadOnlyDictionary<int, IReadOnlyList<double>> Snapshot(Dictionary<int, double[]> source) =>
+            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<double>>(
+                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
+
+        private static IReadOnlyDictionary<int, IReadOnlyList<long>> Snapshot(Dictionary<int, long[]> source) =>
+            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<long>>(
+                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
+
+        private static IReadOnlyList<double> Snapshot(double[] values) => Array.AsReadOnly(values.ToArray());
+
+        private static IReadOnlyList<long> Snapshot(long[] values) => Array.AsReadOnly(values.ToArray());
     }
 }

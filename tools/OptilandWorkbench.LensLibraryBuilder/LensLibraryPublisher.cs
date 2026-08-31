@@ -8,6 +8,12 @@ internal enum LensLibraryPublishPhase
 
 internal static class LensLibraryPublisher
 {
+    private static readonly EnumerationOptions SafeRecursiveEnumeration = new()
+    {
+        RecurseSubdirectories = true,
+        AttributesToSkip = FileAttributes.ReparsePoint
+    };
+
     private static readonly HashSet<string> ManagedEntries = new(StringComparer.OrdinalIgnoreCase)
     {
         "catalogs",
@@ -106,6 +112,11 @@ internal static class LensLibraryPublisher
     {
         foreach (var entry in Directory.EnumerateFileSystemEntries(sourceDirectory))
         {
+            if (IsReparsePoint(entry))
+            {
+                continue;
+            }
+
             if (ManagedEntries.Contains(Path.GetFileName(entry)))
             {
                 continue;
@@ -129,7 +140,7 @@ internal static class LensLibraryPublisher
         foreach (var directory in Directory.EnumerateDirectories(
                      sourceDirectory,
                      "*",
-                     SearchOption.AllDirectories))
+                     SafeRecursiveEnumeration))
         {
             Directory.CreateDirectory(Path.Combine(
                 destinationDirectory,
@@ -139,7 +150,7 @@ internal static class LensLibraryPublisher
         foreach (var file in Directory.EnumerateFiles(
                      sourceDirectory,
                      "*",
-                     SearchOption.AllDirectories))
+                     SafeRecursiveEnumeration))
         {
             var destination = Path.Combine(
                 destinationDirectory,
@@ -147,6 +158,11 @@ internal static class LensLibraryPublisher
             Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
             File.Copy(file, destination, overwrite: true);
         }
+    }
+
+    private static bool IsReparsePoint(string path)
+    {
+        return (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0;
     }
 
     private static void TryDeleteDirectory(string path)

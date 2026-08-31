@@ -207,20 +207,41 @@ public sealed class CoreArchitectureTests
     }
 
     [Fact]
+    public void RuntimeNumericParametersRejectNonFiniteValues()
+    {
+        var optic = Optic.CreateDemo();
+        var surface = optic.SurfaceGroup.Items[0];
+
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Wavelengths[0].Nanometers = double.NaN);
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Wavelengths[0].Weight = double.PositiveInfinity);
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Fields[0].X = double.NaN);
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Fields[0].Weight = double.NegativeInfinity);
+        Assert.Throws<ArgumentOutOfRangeException>(() => optic.Aperture.Value = double.PositiveInfinity);
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.Radius = double.NaN);
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.Thickness = double.NaN);
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.Thickness = double.NegativeInfinity);
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.SemiDiameter = double.NaN);
+        Assert.Throws<ArgumentOutOfRangeException>(() => surface.Conic = double.PositiveInfinity);
+
+        surface.Thickness = double.PositiveInfinity;
+        Assert.True(double.IsPositiveInfinity(surface.Thickness));
+    }
+
+    [Fact]
     public void UndoFailureLeavesHistoryStacksUnchanged()
     {
         var optic = Optic.CreateDemo();
-        var originalWavelength = optic.Wavelengths[0].Nanometers;
+        var originalThickness = optic.SurfaceGroup.Items[1].Thickness;
         var undoRedo = new UndoRedoManager();
 
-        optic.Wavelengths[0].Nanometers = double.NaN;
+        optic.SurfaceGroup.Items[1].Thickness = double.PositiveInfinity;
         undoRedo.Capture(optic);
-        optic.Wavelengths[0].Nanometers = originalWavelength;
+        optic.SurfaceGroup.Items[1].Thickness = originalThickness;
 
         Assert.Throws<InvalidDataException>(() => undoRedo.TryUndo(optic));
         Assert.True(undoRedo.CanUndo);
         Assert.False(undoRedo.CanRedo);
-        Assert.Equal(originalWavelength, optic.Wavelengths[0].Nanometers, precision: 12);
+        Assert.Equal(originalThickness, optic.SurfaceGroup.Items[1].Thickness, precision: 12);
     }
 
     [Fact]

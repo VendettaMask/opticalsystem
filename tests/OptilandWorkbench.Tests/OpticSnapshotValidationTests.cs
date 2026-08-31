@@ -450,7 +450,7 @@ public sealed class OpticSnapshotValidationTests
     public async Task StarOptSaveRejectsIllegalInMemoryStateBeforeCreatingAFile()
     {
         var optic = Optic.CreateDemo();
-        optic.SurfaceGroup.Items[1].Thickness = double.NaN;
+        optic.SurfaceGroup.Items[1].Thickness = double.PositiveInfinity;
         var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.staropt");
 
         try

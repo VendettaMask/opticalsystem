@@ -16,7 +16,7 @@ public sealed class Wavelength : NotifyObject
     public double Nanometers
     {
         get => _nanometers;
-        set => SetProperty(ref _nanometers, Math.Max(1, value));
+        set => SetProperty(ref _nanometers, NumericParameterGuard.ClampMinimumFinite(value, 1, nameof(Nanometers)));
     }
 
     public double Micrometers
@@ -28,7 +28,7 @@ public sealed class Wavelength : NotifyObject
     public double Weight
     {
         get => _weight;
-        set => SetProperty(ref _weight, Math.Max(0, value));
+        set => SetProperty(ref _weight, NumericParameterGuard.ClampNonNegativeFinite(value, nameof(Weight)));
     }
 
     public bool IsPrimary

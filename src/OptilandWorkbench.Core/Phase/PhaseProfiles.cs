@@ -100,7 +100,8 @@ public sealed class RadialPhaseProfile : IPhaseProfile
 {
     public RadialPhaseProfile(IEnumerable<double> coefficients)
     {
-        Coefficients = coefficients.ToArray();
+        ArgumentNullException.ThrowIfNull(coefficients);
+        Coefficients = Array.AsReadOnly(coefficients.ToArray());
     }
 
     public string Kind => "radial";
@@ -144,13 +145,18 @@ public sealed class RadialPhaseProfile : IPhaseProfile
 
 public sealed class GridPhaseProfile : IPhaseProfile
 {
+    private readonly double[,] _phaseGrid;
+
     public GridPhaseProfile(
         IEnumerable<double> xCoordinates,
         IEnumerable<double> yCoordinates,
         double[,] phaseGrid)
     {
-        XCoordinates = xCoordinates.ToArray();
-        YCoordinates = yCoordinates.ToArray();
+        ArgumentNullException.ThrowIfNull(xCoordinates);
+        ArgumentNullException.ThrowIfNull(yCoordinates);
+        ArgumentNullException.ThrowIfNull(phaseGrid);
+        XCoordinates = Array.AsReadOnly(xCoordinates.ToArray());
+        YCoordinates = Array.AsReadOnly(yCoordinates.ToArray());
         if (XCoordinates.Count < 4 || YCoordinates.Count < 4)
         {
             throw new ArgumentException("Grid phase profiles require at least four coordinates per axis.");
@@ -163,7 +169,7 @@ public sealed class GridPhaseProfile : IPhaseProfile
             throw new ArgumentException("Phase grid shape must be [yCoordinates, xCoordinates].", nameof(phaseGrid));
         }
 
-        PhaseGrid = (double[,])phaseGrid.Clone();
+        _phaseGrid = (double[,])phaseGrid.Clone();
     }
 
     public string Kind => "grid";
@@ -174,7 +180,7 @@ public sealed class GridPhaseProfile : IPhaseProfile
 
     public IReadOnlyList<double> YCoordinates { get; }
 
-    public double[,] PhaseGrid { get; }
+    public double[,] PhaseGrid => (double[,])_phaseGrid.Clone();
 
     public double Phase(double x, double y, double wavelengthNanometers)
     {
@@ -196,7 +202,7 @@ public sealed class GridPhaseProfile : IPhaseProfile
         return Gradient(0, y, wavelengthNanometers).Dy;
     }
 
-    public IPhaseProfile Clone() => new GridPhaseProfile(XCoordinates, YCoordinates, PhaseGrid);
+    public IPhaseProfile Clone() => new GridPhaseProfile(XCoordinates, YCoordinates, _phaseGrid);
 
     private double[] EvaluateRows(double x, bool derivative)
     {
@@ -206,7 +212,7 @@ public sealed class GridPhaseProfile : IPhaseProfile
         {
             for (var xIndex = 0; xIndex < XCoordinates.Count; xIndex++)
             {
-                row[xIndex] = PhaseGrid[yIndex, xIndex];
+                row[xIndex] = _phaseGrid[yIndex, xIndex];
             }
 
             var spline = new NotAKnotCubicSpline(XCoordinates, row);
@@ -232,7 +238,10 @@ public sealed class PolynomialPhaseProfile : IPhaseProfile
 {
     public PolynomialPhaseProfile(IReadOnlyDictionary<(int X, int Y), double> coefficients)
     {
-        Coefficients = new Dictionary<(int X, int Y), double>(coefficients);
+        ArgumentNullException.ThrowIfNull(coefficients);
+        Coefficients =
+            new System.Collections.ObjectModel.ReadOnlyDictionary<(int X, int Y), double>(
+                new Dictionary<(int X, int Y), double>(coefficients));
     }
 
     public string Kind => "polynomial_phase";
