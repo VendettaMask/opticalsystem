@@ -9,7 +9,7 @@ public sealed class InitialStructureSearchService
 {
     private static readonly AlgorithmIdentity Algorithm = new(
         "flat-to-usable-hybrid",
-        "1",
+        "2",
         "Managed CPU",
         true);
 
@@ -170,17 +170,14 @@ public sealed class InitialStructureSearchService
         diagnostics.Add(new SearchDiagnostic(
             "run.evaluation-count",
             $"Consumed {allWorkItems.Length + refinementEvaluations} of {specification.Budget.MaximumEvaluations} evaluations."));
-        var orderedCandidates = candidates
+        var uniqueCandidates = candidates
             .GroupBy(candidate => candidate.OpticFingerprint, StringComparer.Ordinal)
             .Select(group => group
                 .OrderByDescending(candidate => candidate.Lineage.Generation)
                 .ThenBy(candidate => candidate.CandidateId, StringComparer.Ordinal)
                 .First())
-            .OrderBy(candidate => candidate.Lineage.ElementCount)
-            .ThenBy(candidate => candidate.Lineage.StopVariant)
-            .ThenBy(candidate => candidate.Lineage.Generation)
-            .ThenBy(candidate => candidate.Lineage.SeedIndex)
             .ToArray();
+        var orderedCandidates = CandidateDiversityOrdering.Order(specification, uniqueCandidates);
         return new SearchRunManifest
         {
             RunId = runId,

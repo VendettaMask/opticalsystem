@@ -285,6 +285,74 @@ public sealed class HighPriorityReliabilityTests
     }
 
     [Fact]
+    public void FailedDocumentReplacementRestoresPathGenerationAndCompleteDocument()
+    {
+        var failNextRefresh = true;
+        using var workspace = new WorkspaceCoordinator(
+            new OpticContext(Optic.CreateDemo()),
+            optic =>
+            {
+                if (failNextRefresh)
+                {
+                    failNextRefresh = false;
+                    throw new InvalidOperationException("Injected document refresh failure.");
+                }
+
+                AutomaticSemiDiameterSolver.Update(optic);
+            });
+        var documents = new OpticalDocumentService(workspace);
+        workspace.CurrentPath = "/tmp/original.staropt";
+        var before = SerializeDocument(workspace.Runtime.CaptureDocument());
+        var generationBefore = workspace.DocumentGeneration;
+        var revisionBefore = workspace.Revision;
+        var changedCount = 0;
+        workspace.Changed += (_, _) => changedCount++;
+
+        Assert.Throws<InvalidOperationException>(documents.NewBlank);
+
+        Assert.Equal(before, SerializeDocument(workspace.Runtime.CaptureDocument()));
+        Assert.Equal("/tmp/original.staropt", documents.CurrentPath);
+        Assert.Equal(generationBefore, workspace.DocumentGeneration);
+        Assert.Equal(revisionBefore, workspace.Revision);
+        Assert.Equal(0, changedCount);
+        Assert.False(workspace.Runtime.CanUndo);
+
+        documents.NewBlank();
+        Assert.Null(documents.CurrentPath);
+        Assert.Equal(generationBefore + 1, workspace.DocumentGeneration);
+        Assert.Equal(revisionBefore + 1, workspace.Revision);
+    }
+
+    [Fact]
+    public async Task OpenCancelsComputationsStartedWhileTheFileWasLoading()
+    {
+        var readStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var releaseRead = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var workspace = new WorkspaceCoordinator(new OpticContext(Optic.CreateDemo()));
+        var loaded = new WorkbenchRuntime(Optic.CreateTessarLens()).CaptureDocument();
+        var documents = new OpticalDocumentService(
+            workspace,
+            async (_, _) =>
+            {
+                readStarted.SetResult();
+                await releaseRead.Task;
+                return loaded;
+            },
+            (_, _, _) => Task.CompletedTask);
+
+        var open = documents.OpenAsync("during-load.staropt");
+        await readStarted.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        using var computationStartedDuringLoad = workspace.LinkDocumentToken(CancellationToken.None);
+        releaseRead.SetResult();
+
+        await open;
+
+        Assert.True(computationStartedDuringLoad.IsCancellationRequested);
+        Assert.Equal(loaded.ActiveOptic.Name, documents.GetSnapshot().Name);
+        Assert.EndsWith("during-load.staropt", documents.CurrentPath, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task OptimizationRunPublishesOnlyAfterAutomaticSemiDiametersAreCurrent()
     {
         const double refreshedSemiDiameter = 123.456;

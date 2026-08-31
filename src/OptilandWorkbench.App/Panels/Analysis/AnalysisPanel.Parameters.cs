@@ -770,18 +770,47 @@ public sealed partial class AnalysisPanel
             : null;
     }
 
-    private void SaveAnalysisSettings()
+    private string? SaveAnalysisSettings()
     {
-        if (_settings.Count == 0)
+        var hadPrevious = _appSettings.AnalysisSettings.TryGetValue(
+            AnalysisKey,
+            out var previous);
+        try
         {
-            _appSettings.AnalysisSettings.Remove(AnalysisKey);
+            if (_settings.Count == 0)
+            {
+                _appSettings.AnalysisSettings.Remove(AnalysisKey);
+            }
+            else
+            {
+                _appSettings.AnalysisSettings[AnalysisKey] = new Dictionary<string, string>(_settings);
+            }
+
+            if (_appSettings.TrySave(out var errorMessage))
+            {
+                return null;
+            }
+
+            RestorePrevious();
+            return errorMessage ?? "无法写入应用设置。";
         }
-        else
+        catch
         {
-            _appSettings.AnalysisSettings[AnalysisKey] = new Dictionary<string, string>(_settings);
+            RestorePrevious();
+            throw;
         }
 
-        _appSettings.Save();
+        void RestorePrevious()
+        {
+            if (hadPrevious)
+            {
+                _appSettings.AnalysisSettings[AnalysisKey] = previous!;
+            }
+            else
+            {
+                _appSettings.AnalysisSettings.Remove(AnalysisKey);
+            }
+        }
     }
 
     private Control CreateParameterControl(AnalysisParameterDescriptor descriptor, string value)

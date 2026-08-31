@@ -19,7 +19,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly IMaterialCatalogService _materials;
     private readonly IWorkspaceEventStream _events;
     private readonly IVisualizationService _visualization;
-    private readonly ComboBox _elementPicker = new() { MinWidth = 260 };
+    private readonly ComboBox _elementPicker = new() { MinWidth = 160, MaxWidth = 260 };
     private readonly ComboBox _pageSize = new() { MinWidth = 110 };
     private readonly OpticalDrawingStandard _drawingStandard;
     private readonly TextBox _drawingNumber = Text("OPT-001");

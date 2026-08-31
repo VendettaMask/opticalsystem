@@ -197,7 +197,7 @@ internal static class ToleranceChartBuilder
 public sealed class ToleranceChartDocumentPanel : UserControl
 {
     private readonly Func<ToleranceChartView> _viewProvider;
-    private readonly AnalysisPlotControl _plot = new() { MinHeight = 320 };
+    private readonly AnalysisPlotControl _plot = new() { MinHeight = 240 };
     private readonly TextBlock _summary = new()
     {
         Margin = new Thickness(12, 8),

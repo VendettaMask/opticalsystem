@@ -1,4 +1,6 @@
 using Avalonia;
+using Avalonia.Automation.Peers;
+using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OptilandWorkbench.Core.Serialization;
@@ -14,6 +16,9 @@ public sealed class CandidatePreviewControl : Control
     private static readonly IBrush StopBrush = new SolidColorBrush(Color.Parse("#D69A26"));
     private CandidateSnapshot? _primary;
     private CandidateSnapshot? _secondary;
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new CandidatePreviewAutomationPeer(this);
 
     public CandidateSnapshot? Primary
     {
@@ -171,5 +176,39 @@ public sealed class CandidatePreviewControl : Control
             }
         }
         return positions;
+    }
+
+    private string AutomationValue
+    {
+        get
+        {
+            var primary = _primary is null
+                ? "未选择候选 A"
+                : $"候选 A {_primary.CandidateId}，{_primary.Lineage.ElementCount} 片";
+            var secondary = _secondary is null
+                ? "未选择候选 B"
+                : $"候选 B {_secondary.CandidateId}，{_secondary.Lineage.ElementCount} 片";
+            return $"候选镜头剖面比较图；{primary}；{secondary}。";
+        }
+    }
+
+    private sealed class CandidatePreviewAutomationPeer : ControlAutomationPeer, IValueProvider
+    {
+        private readonly CandidatePreviewControl _owner;
+
+        public CandidatePreviewAutomationPeer(CandidatePreviewControl owner) : base(owner)
+        {
+            _owner = owner;
+        }
+
+        protected override AutomationControlType GetAutomationControlTypeCore() =>
+            AutomationControlType.Custom;
+
+        bool IValueProvider.IsReadOnly => true;
+
+        string IValueProvider.Value => _owner.AutomationValue;
+
+        void IValueProvider.SetValue(string? value) =>
+            throw new InvalidOperationException("Candidate preview automation values are read-only.");
     }
 }

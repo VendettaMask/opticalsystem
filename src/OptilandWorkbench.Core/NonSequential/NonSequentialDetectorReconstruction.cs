@@ -13,7 +13,10 @@ public static class NonSequentialDetectorReconstruction
         var detectors = document.Objects
             .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)
             .ToDictionary(item => item.Id, item => new Accumulator(item));
-        var recordedHits = new HashSet<DetectorHitKey>();
+        var wavelengths = document.Wavelengths
+            .Select((item, index) => (item.Nanometers, Number: index + 1))
+            .OrderBy(item => item.Nanometers)
+            .ToArray();
         foreach (var branch in branches)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -22,35 +25,89 @@ public static class NonSequentialDetectorReconstruction
                 continue;
             }
 
+            HashSet<DetectorHitWithinBranch>? recordedHits = null;
             foreach (var segment in branch.Segments)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                if (segment.ObjectId is not Guid detectorId
-                    || !detectors.TryGetValue(detectorId, out var detector)
-                    || !recordedHits.Add(new DetectorHitKey(
-                        segment.BranchId,
-                        detectorId,
-                        segment.FaceNumber,
-                        BitConverter.DoubleToInt64Bits(segment.CumulativePathLength))))
+                if (segment.BranchId != branch.Id
+                    || segment.ObjectId is not Guid detectorId
+                    || !detectors.TryGetValue(detectorId, out var detector))
                 {
                     continue;
                 }
 
                 var local = document.ToLocalPoint(detectorId, segment.End);
                 var localDirection = document.ToLocalDirection(detectorId, segment.OutgoingDirection);
+                if (!detector.Accepts(localDirection))
+                {
+                    continue;
+                }
+                if (!(recordedHits ??= new HashSet<DetectorHitWithinBranch>()).Add(
+                        new DetectorHitWithinBranch(
+                            detectorId,
+                            segment.FaceNumber,
+                            BitConverter.DoubleToInt64Bits(segment.CumulativePathLength))))
+                {
+                    continue;
+                }
+
                 var wavelength = branch.WavelengthNanometers > 0
                     ? branch.WavelengthNanometers
                     : segment.WavelengthNanometers;
-                var wavelengthNumber = document.Wavelengths.ToList().FindIndex(item =>
-                    Math.Abs(item.Nanometers - wavelength) <= 1e-9) + 1;
-                detector.Add(local, localDirection, Math.Max(1, wavelengthNumber), segment.Intensity);
+                detector.Add(
+                    local,
+                    localDirection,
+                    ResolveWavelengthNumber(wavelengths, wavelength),
+                    segment.Intensity);
             }
         }
         return detectors.Values.Select(item => item.ToFrame()).ToArray();
     }
 
-    private readonly record struct DetectorHitKey(
-        long OriginalBranchId,
+    private static int ResolveWavelengthNumber(
+        (double Nanometers, int Number)[] wavelengths,
+        double value)
+    {
+        if (wavelengths.Length == 0 || !double.IsFinite(value))
+        {
+            return 1;
+        }
+
+        var low = 0;
+        var high = wavelengths.Length - 1;
+        while (low <= high)
+        {
+            var middle = low + ((high - low) / 2);
+            var comparison = wavelengths[middle].Nanometers.CompareTo(value);
+            if (comparison == 0)
+            {
+                return wavelengths[middle].Number;
+            }
+
+            if (comparison < 0)
+            {
+                low = middle + 1;
+            }
+            else
+            {
+                high = middle - 1;
+            }
+        }
+
+        var insertion = low;
+        var nearest = insertion switch
+        {
+            0 => wavelengths[0],
+            _ when insertion == wavelengths.Length => wavelengths[^1],
+            _ => Math.Abs(wavelengths[insertion - 1].Nanometers - value)
+                <= Math.Abs(wavelengths[insertion].Nanometers - value)
+                ? wavelengths[insertion - 1]
+                : wavelengths[insertion]
+        };
+        return Math.Abs(nearest.Nanometers - value) <= 1e-9 ? nearest.Number : 1;
+    }
+
+    private readonly record struct DetectorHitWithinBranch(
         Guid DetectorId,
         int FaceNumber,
         long CumulativePathBits);
@@ -69,6 +126,9 @@ public static class NonSequentialDetectorReconstruction
             _item = item;
             _parameters = (DetectorRectangleParameters)item.Parameters;
         }
+
+        public bool Accepts(Backend.Vector3D direction) =>
+            !_parameters.FrontOnly || direction.Z > 0;
 
         public void Add(Backend.Vector3D point, Backend.Vector3D direction, int wavelength, double power)
         {

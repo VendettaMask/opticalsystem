@@ -31,7 +31,7 @@ internal sealed class HybridCandidateRefiner
                 candidate.Lineage.ElementCount,
                 candidate.Lineage.StopVariant))
             .Select(group => group
-                .OrderBy(candidate => Score(
+                .OrderBy(candidate => CandidateObjective.Score(
                     specification,
                     candidate.Evaluation,
                     candidate.Violations))
@@ -105,13 +105,13 @@ internal sealed class HybridCandidateRefiner
         var population = new double[populationSize][];
         var scores = new double[populationSize];
         population[0] = parentVector;
-        scores[0] = Score(specification, parent.Evaluation, parent.Violations);
+        scores[0] = CandidateObjective.Score(specification, parent.Evaluation, parent.Violations);
         var evaluations = 0;
 
         for (var index = 1; index < populationSize && CanSpendSearch(1); index++)
         {
             population[index] = Jitter(parentVector, ref random);
-            scores[index] = Evaluate(
+            scores[index] = CandidateObjective.Evaluate(
                 parameterization,
                 specification,
                 population[index],
@@ -153,7 +153,7 @@ internal sealed class HybridCandidateRefiner
                         : population[targetIndex][parameterIndex];
                 }
 
-                var trialScore = Evaluate(
+                var trialScore = CandidateObjective.Evaluate(
                     parameterization,
                     specification,
                     trial,
@@ -198,7 +198,7 @@ internal sealed class HybridCandidateRefiner
 
                 perturbed[parameterIndex] = CandidateParameterization.Clamp(
                     perturbed[parameterIndex] + actualStep);
-                var perturbedScore = Evaluate(
+                var perturbedScore = CandidateObjective.Evaluate(
                     parameterization,
                     specification,
                     perturbed,
@@ -221,7 +221,7 @@ internal sealed class HybridCandidateRefiner
                     bestVector[parameterIndex] + Math.Clamp(step, -0.25, 0.25));
             }
 
-            var trialScore = Evaluate(
+            var trialScore = CandidateObjective.Evaluate(
                 parameterization,
                 specification,
                 trial,
@@ -277,67 +277,6 @@ internal sealed class HybridCandidateRefiner
         return new FamilyRefinementResult(candidate, null, evaluations);
 
         bool CanSpendSearch(int count) => evaluations + count + 1 <= evaluationBudget;
-    }
-
-    private static double Evaluate(
-        CandidateParameterization parameterization,
-        InitialStructureSpecification specification,
-        IReadOnlyList<double> vector,
-        int rayDensity,
-        CancellationToken cancellationToken)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-        try
-        {
-            var optic = parameterization.CreateOptic(vector);
-            var evaluation = FirstOrderSeedGenerator.EvaluateOptic(
-                optic,
-                specification,
-                rayDensity);
-            var violations = FirstOrderSeedGenerator.EvaluateConstraints(
-                optic,
-                specification,
-                evaluation);
-            return Score(specification, evaluation, violations);
-        }
-        catch (Exception exception) when (
-            exception is InvalidOperationException
-            or ArgumentException
-            or ArithmeticException
-            or KeyNotFoundException)
-        {
-            return 1e12;
-        }
-    }
-
-    private static double Score(
-        InitialStructureSpecification specification,
-        EvaluationVector evaluation,
-        IReadOnlyList<ConstraintViolation> violations)
-    {
-        static double RelativeSquared(double? actual, double target) =>
-            actual is { } value && double.IsFinite(value)
-                ? Math.Pow((value - target) / target, 2)
-                : 100;
-        static double LimitSquared(double? actual, double limit) =>
-            actual is { } value && double.IsFinite(value)
-                ? Math.Pow(value / limit, 2)
-                : 100;
-
-        var score = 8 * RelativeSquared(
-            evaluation.EffectiveFocalLengthMillimeters,
-            specification.EffectiveFocalLengthMillimeters);
-        score += 4 * RelativeSquared(evaluation.FNumber, specification.FNumber);
-        score += 20 * Math.Pow(1 - Math.Clamp(evaluation.ValidRayFraction, 0, 1), 2);
-        score += LimitSquared(
-            evaluation.RmsSpotRadiusMillimeters,
-            specification.MaximumRmsSpotRadiusMillimeters);
-        score += 0.25 * LimitSquared(
-            evaluation.MaximumSpotRadiusMillimeters,
-            specification.MaximumSpotRadiusMillimeters);
-        score += 100 * violations.Count(item => item.Severity == ConstraintSeverity.Hard);
-        score += 10 * violations.Count(item => item.Severity == ConstraintSeverity.Warning);
-        return double.IsFinite(score) ? score : 1e12;
     }
 
     private static double[] Jitter(IReadOnlyList<double> parent, ref DeterministicRandom random)

@@ -94,6 +94,7 @@ internal sealed partial class OptimizationService
         int maxIterations,
         CancellationToken cancellationToken = default)
     {
+        OptimizationLimits.RequireIterationCount(maxIterations);
         CancellationTokenSource linked;
         lock (Gate)
         {
@@ -149,6 +150,7 @@ internal sealed partial class OptimizationService
         int maxIterations,
         CancellationToken cancellationToken = default)
     {
+        OptimizationLimits.RequireIterationCount(maxIterations);
         CancellationTokenSource linked;
         lock (Gate)
         {

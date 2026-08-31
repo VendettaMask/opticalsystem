@@ -219,8 +219,18 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             return;
         }
 
-        _settings = CaptureParameterSettings();
-        SaveAnalysisSettings();
+        string? settingsPersistenceWarning;
+        try
+        {
+            _settings = CaptureParameterSettings();
+            settingsPersistenceWarning = SaveAnalysisSettings();
+        }
+        catch (Exception exception)
+        {
+            _operationStatus.MarkFailed($"分析设置无效：{exception.Message}");
+            return;
+        }
+
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
         _runCancellation = new CancellationTokenSource();
@@ -281,7 +291,9 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 }
                 else
                 {
-                    _operationStatus.MarkSynced("已同步");
+                    _operationStatus.MarkSynced(settingsPersistenceWarning is null
+                        ? "已同步"
+                        : $"已同步；设置未保存：{settingsPersistenceWarning}");
                 }
             });
         }

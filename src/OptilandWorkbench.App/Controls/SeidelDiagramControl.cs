@@ -1,5 +1,7 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
@@ -7,8 +9,15 @@ using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class SeidelDiagramControl : Control
+public sealed class SeidelDiagramControl : Control, IReadOnlyChartAutomationSource
 {
+    public SeidelDiagramControl()
+    {
+        ClipToBounds = true;
+        AutomationProperties.SetName(this, "Seidel 像差图");
+        AutomationProperties.SetHelpText(this, "只读图表；可在分析结果的数据页查看完整系数表。");
+    }
+
     private IBrush ThemeBrush(string key, IBrush fallback) =>
         this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
             ? brush
@@ -44,6 +53,14 @@ public sealed class SeidelDiagramControl : Control
     public double MaximumAberration { get; init; } = 0.1;
 
     public double GridInterval { get; init; } = 0.01;
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new ReadOnlyChartAutomationPeer(this);
+
+    string IReadOnlyChartAutomationSource.AutomationValue => Table is null || Table.Rows.Count == 0
+        ? "Seidel 像差图；没有可用数据。"
+        : $"Seidel 像差图；{Table.Rows.Count} 个表面，{Math.Max(0, Table.Columns.Count - 1)} 类像差系数；"
+          + $"显示范围正负 {MaximumAberration:G6}。";
 
     public override void Render(DrawingContext context)
     {

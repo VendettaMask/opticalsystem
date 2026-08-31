@@ -1,6 +1,6 @@
 # UI 符合性审计
 
-日期：2026-08-04。最后整改复核：2026-08-30。
+日期：2026-08-04。最后整改复核：2026-09-01。
 
 范围：`src/OptilandWorkbench.App` 全部桌面 UI 源码、主题资源、公共控件、分析结果页、窗口、面板和现有 UI 文档。
 
@@ -24,12 +24,12 @@
 | 固定/最小/最大高度数值 | 126 |
 | `Viewbox` | 0 |
 | `BindThemeResource` | 127 |
-| `AutomationProperties` / `AutomationPeer` | 已覆盖 Ribbon、分析参数、Viewer 设置和 4 个自绘交互画布 |
+| `AutomationProperties` / `AutomationPeer` | 已覆盖 Ribbon、分析参数、Viewer 设置、4 个自绘交互画布、3 个只读分析图和实验室候选剖面 |
 
 正向结果：
 
 - `Viewbox` 已清零，标准点列图字体被异常放大的直接风险已移除。
-- 普通 UI 的数字字面量字号已清零，`DisplayTypography` 提供命名字号 token，并由 `AppUiFontSizesUseTypographyTokens` 防回归测试保护。
+- 普通 UI 的数字字面量字号已清零，`DisplayTypography` 提供命名字号 token，并由 `AppUiFontSizesUseTypographyTokens` 防回归测试保护。运行时修改字号会递归重算已实例化控件的局部 token 值，同时保留标题、正文和注释的设计比例；主窗口与 Dock 内容重复遍历为幂等更新。
 - 主题资源和动态绑定已经覆盖大量常规区域。
 - 分析图波长颜色、fan 图按视场成组、Dock 浮动页回收、空宿主过滤等近期契约已经落地。
 - 分析结果底部区和品牌资产已经有统一方向，但仍需要继续收敛到公共组件。
@@ -58,6 +58,7 @@
 - Viewer 设置字段与复选项改为 `WrapPanel` 自动换行；分析设置卡锚定在工具栏“设置”按钮正下方，参数列改为内容测量，垂直滚动和操作区仍按可用空间工作。
 - 上述 Dock 页面已清除 500px 及以上的固定 `MinWidth`，并由 `DockDocumentsDoNotRestoreLargeFixedMinimumWidths` 防回归测试保护。
 - `AnalysisSettingsOverlayAnchorsBelowToolbarAndSizesToContent` 通过真实 Avalonia 布局测量保护分析设置浮层的左侧锚点和非铺满宽度。
+- 2026-09-01 将分析结果画布最小高度从 420 调整为 280，公差图和 Viewer 最小高度降至 240；玻璃库工具栏允许换行，材料筛选和工程图元件选择器使用可伸缩宽度。现有产品最小窗口约束未取消，仍需在实机 Dock 组合中继续验收极窄布局。
 
 ### P1-02：可访问性基础缺失
 
@@ -77,6 +78,7 @@
 
 - `AnalysisPlotControl`、`DrawingPreviewControl`、`OpticSceneControl`、`WavefrontSurfaceControl` 均可聚焦，发布自动化名称、帮助文本和自定义 `ControlAutomationPeer`。
 - 四类画布统一支持 `Home` 重置、`+/-` 缩放和方向键导航；3D 场景与波前表面使用方向键旋转、`Shift+方向键` 平移。
+- `FullFieldAberrationControl`、`FoucaultPlotControl` 和 `SeidelDiagramControl` 发布只读 `IValueProvider` 摘要，不伪造点击命令或键盘焦点；独立实验室候选剖面采用相同的只读语义。
 - Ribbon 按钮/菜单项、分析参数输入、文件浏览按钮、Viewer 设置和图表导出命令已发布稳定自动化名称；分析参数同时发布稳定 Automation ID。
 - Headless Avalonia 测试会实际创建四个自动化 Peer；键盘映射由独立合同测试覆盖。后续新增的纯图标控件仍必须在各自改动中设置名称。
 

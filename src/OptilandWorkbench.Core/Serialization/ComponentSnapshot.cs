@@ -665,8 +665,14 @@ public static class ComponentSnapshotFactory
 
     private static GridPhaseProfile ReadGridPhaseProfile(IReadOnlyDictionary<string, double> numbers)
     {
-        var xCount = Math.Max(4, (int)Get(numbers, "xCount", 4));
-        var yCount = Math.Max(4, (int)Get(numbers, "yCount", 4));
+        var xCount = ReadCount(numbers, "xCount", 4, PhaseProfileLimits.MaximumGridAxisCount);
+        var yCount = ReadCount(numbers, "yCount", 4, PhaseProfileLimits.MaximumGridAxisCount);
+        if ((long)xCount * yCount > PhaseProfileLimits.MaximumGridCellCount)
+        {
+            throw new InvalidDataException(
+                $"Phase grid must not exceed {PhaseProfileLimits.MaximumGridCellCount:N0} cells.");
+        }
+
         var xCoordinates = Enumerable.Range(0, xCount)
             .Select(index => Get(numbers, $"x{index}", index))
             .ToArray();
@@ -683,6 +689,25 @@ public static class ComponentSnapshotFactory
         }
 
         return new GridPhaseProfile(xCoordinates, yCoordinates, grid);
+    }
+
+    private static int ReadCount(
+        IReadOnlyDictionary<string, double> numbers,
+        string key,
+        int minimum,
+        int maximum)
+    {
+        var value = Get(numbers, key, minimum);
+        if (!double.IsFinite(value)
+            || value != Math.Truncate(value)
+            || value < minimum
+            || value > maximum)
+        {
+            throw new InvalidDataException(
+                $"Encoded collection count '{key}' must be an integer between {minimum:N0} and {maximum:N0}.");
+        }
+
+        return checked((int)value);
     }
 
     private static Dictionary<string, double> Coefficients(IReadOnlyList<double> coefficients, Dictionary<string, double> seed, string prefix = "c")

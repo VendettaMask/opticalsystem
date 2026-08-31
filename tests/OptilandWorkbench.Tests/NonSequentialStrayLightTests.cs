@@ -749,12 +749,41 @@ public sealed class NonSequentialStrayLightTests
         var database = application.NonSequentialAnalysis.OpenRayDatabase(session.RayDatabasePath, "D3");
         var page = application.NonSequentialAnalysis.GetRayDatabasePage(
             session.RayDatabasePath, 0, 100, "D3");
+        var pageBeyondEnd = application.NonSequentialAnalysis.GetRayDatabasePage(
+            session.RayDatabasePath, int.MaxValue, 1_000, "D3");
 
         Assert.True(result.TotalBranchCount > result.MatchedBranchCount);
         Assert.Equal(result.MatchedBranchCount, session.BranchCount);
         Assert.Equal(session.BranchCount, database.BranchCount);
         Assert.Equal(session.BranchCount, page.Branches.Count);
         Assert.All(page.Branches, branch => Assert.Equal(nameof(NonSequentialTerminationReason.DetectorHit), branch.TerminationReason));
+        Assert.Empty(pageBeyondEnd.Branches);
+    }
+
+    [Fact]
+    public async Task TracePublishesObserversOutsideWorkspaceLockAndIsolatesObserverFailures()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(
+            OptilandWorkbench.Application.Contracts.NonSequentialObjectKind.SourceRay);
+        var observerReached = false;
+        var observerReadCompleted = false;
+        application.NonSequentialAnalysis.SessionChanged += (_, _) =>
+            throw new InvalidOperationException("Injected observer failure.");
+        application.NonSequentialAnalysis.SessionChanged += (_, _) =>
+        {
+            observerReached = true;
+            var read = Task.Run(application.NonSequential.GetDocument);
+            observerReadCompleted = read.Wait(TimeSpan.FromSeconds(2));
+        };
+
+        var result = await application.NonSequentialAnalysis.TraceAsync(
+            new NonSequentialTraceRunRequestDto());
+
+        Assert.True(observerReached);
+        Assert.True(observerReadCompleted);
+        Assert.True(result.TotalBranchCount > 0);
+        Assert.NotNull(application.NonSequentialAnalysis.GetCurrentSession());
     }
 
     [Fact]
@@ -893,9 +922,11 @@ public sealed class NonSequentialStrayLightTests
             }
 
             using var session = new NonSequentialAnalysisSession(new StubWorkspaceEvents());
-            session.Publish(
+            Assert.True(session.TryPublish(
                 application.NonSequentialAnalysis.GetCurrentSession()! with { RayDatabasePath = ownedPath },
-                ownsDatabase: true);
+                ownsDatabase: true,
+                session.PublicationGeneration,
+                () => { }));
             session.Set(externalPath, null);
             session.Clear();
 
@@ -905,6 +936,29 @@ public sealed class NonSequentialStrayLightTests
         {
             if (Directory.Exists(directory)) Directory.Delete(directory, recursive: true);
         }
+    }
+
+    [Fact]
+    public async Task ClearedSessionRejectsAnOlderTracePublicationBeforeMovingItsFile()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(
+            OptilandWorkbench.Application.Contracts.NonSequentialObjectKind.SourceRay);
+        var trace = await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var tracedSession = application.NonSequentialAnalysis.GetCurrentSession()!;
+        using var session = new NonSequentialAnalysisSession(new StubWorkspaceEvents());
+        var generation = session.PublicationGeneration;
+        var publishFileCalled = false;
+
+        session.Clear();
+        var published = session.TryPublish(
+            tracedSession,
+            ownsDatabase: false,
+            generation,
+            () => publishFileCalled = true);
+
+        Assert.False(published);
+        Assert.False(publishFileCalled);
     }
 
     private sealed class StubWorkspaceEvents : IWorkspaceEventStream

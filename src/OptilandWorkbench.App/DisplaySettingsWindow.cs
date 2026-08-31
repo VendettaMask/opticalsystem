@@ -173,6 +173,14 @@ public sealed class DisplaySettingsWindow : Window
             return;
         }
 
+        var previous = new DisplaySettingsSnapshot(
+            settings.DecimalPlaces,
+            settings.Theme,
+            settings.UpperScientificExponent,
+            settings.LowerScientificExponent,
+            settings.FontFamily,
+            settings.FontShape,
+            settings.FontSize);
         settings.DecimalPlaces = options.DecimalPlaces;
         settings.Theme = SelectedTheme();
         settings.UpperScientificExponent = options.UpperScientificExponent;
@@ -181,8 +189,35 @@ public sealed class DisplaySettingsWindow : Window
         settings.FontShape = SelectedFontShape();
         settings.FontSize = (double)(_fontSize.Value ?? (decimal)AppSettings.DefaultFontSize);
         settings.NormalizeDisplaySettings();
-        settings.Save();
+        if (!settings.TrySave(out var errorMessage))
+        {
+            previous.Restore(settings);
+            _validation.Text = $"保存失败：{errorMessage}";
+            return;
+        }
+
         Close(true);
+    }
+
+    private sealed record DisplaySettingsSnapshot(
+        int DecimalPlaces,
+        string Theme,
+        int UpperScientificExponent,
+        int LowerScientificExponent,
+        string FontFamily,
+        string FontShape,
+        double FontSize)
+    {
+        public void Restore(AppSettings settings)
+        {
+            settings.DecimalPlaces = DecimalPlaces;
+            settings.Theme = Theme;
+            settings.UpperScientificExponent = UpperScientificExponent;
+            settings.LowerScientificExponent = LowerScientificExponent;
+            settings.FontFamily = FontFamily;
+            settings.FontShape = FontShape;
+            settings.FontSize = FontSize;
+        }
     }
 
     private void ResetControls()

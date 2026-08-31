@@ -8,6 +8,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     private readonly WorkspaceCoordinator _workspace;
     private readonly NonSequentialAnalysisSession _nonSequentialAnalysisSession;
     private readonly NonSequentialLayoutSession _nonSequentialLayoutSession;
+    private readonly NonSequentialAnalysisService _nonSequentialAnalysisService;
     private bool _disposed;
 
     private WorkbenchApplication(
@@ -22,10 +23,11 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         _nonSequentialLayoutSession = new NonSequentialLayoutSession(_workspace);
 
         Modes = new WorkbenchModeService(_workspace);
-        NonSequentialAnalysis = new NonSequentialAnalysisService(
+        _nonSequentialAnalysisService = new NonSequentialAnalysisService(
             _workspace,
             _nonSequentialAnalysisSession,
             _nonSequentialLayoutSession);
+        NonSequentialAnalysis = _nonSequentialAnalysisService;
         NonSequential = new NonSequentialDocumentService(_workspace, NonSequentialAnalysis);
 
         Documents = new OpticalDocumentService(_workspace);
@@ -108,6 +110,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         }
 
         _disposed = true;
+        _nonSequentialAnalysisService.Dispose();
         _nonSequentialLayoutSession.Dispose();
         _nonSequentialAnalysisSession.Dispose();
         _workspace.Dispose();

@@ -10,7 +10,7 @@ using CoreSourceParameters = OptilandWorkbench.Core.NonSequential.SourceParamete
 
 namespace OptilandWorkbench.Application.Services;
 
-internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService
+internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonSequentialAnalysisService, IDisposable
 {
     private const int MaximumCachedFilterIndices = 1_000_000;
     private readonly NonSequentialAnalysisSession _analysisSession;
@@ -21,6 +21,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     private long _cacheGeneration;
     private FilterIndexCacheEntry? _filterIndexCache;
     private DetectorFrameCacheEntry? _detectorFrameCache;
+    private bool _disposed;
 
     public NonSequentialAnalysisService(
         WorkspaceCoordinator workspace,
@@ -30,7 +31,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         _analysisSession = analysisSession ?? throw new ArgumentNullException(nameof(analysisSession));
         _layoutSession = layoutSession ?? throw new ArgumentNullException(nameof(layoutSession));
         _analysisSession.Changed += OnAnalysisSessionChanged;
-        _layoutSession.Changed += (_, _) => LayoutSessionChanged?.Invoke(this, GetCurrentLayoutSession());
+        _layoutSession.Changed += OnLayoutSessionChanged;
     }
 
     public event EventHandler<NonSequentialTraceSessionDto?>? SessionChanged;
@@ -45,8 +46,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             _filterIndexCache = null;
             _detectorFrameCache = null;
         }
-        SessionChanged?.Invoke(this, GetCurrentSession());
+        NotifySessionObservers(SessionChanged, GetCurrentSession(), nameof(SessionChanged));
     }
+
+    private void OnLayoutSessionChanged(object? sender, EventArgs args) =>
+        NotifySessionObservers(LayoutSessionChanged, GetCurrentLayoutSession(), nameof(LayoutSessionChanged));
 
     public NonSequentialTraceSessionDto? GetCurrentSession()
     {
@@ -158,18 +162,21 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         NonSequentialDocument document;
         OptilandWorkbench.Core.Materials.MaterialRegistry materials;
         long revision;
+        long documentGeneration;
+        long publicationGeneration;
+        NonSequentialTraceSessionDto? previous;
+        CancellationTokenSource linkedCancellation;
         lock (Gate)
         {
             document = Runtime.CurrentNonSequentialDocument.Clone();
             materials = Runtime.CurrentOptic.Materials.CreateSnapshot();
             revision = Workspace.Revision;
-        }
-
-        NonSequentialTraceSessionDto? previous;
-        lock (Gate)
-        {
+            documentGeneration = Workspace.DocumentGeneration;
+            publicationGeneration = targetSession.PublicationGeneration;
             previous = targetSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+            linkedCancellation = Workspace.LinkDocumentToken(cancellationToken);
         }
+        using var linkedCancellationScope = linkedCancellation;
         var sceneHash = NonSequentialSceneHasher.Compute(document);
         var splitting = request.SplittingMode
             ?? ((request.SplitFresnelRays ?? document.TraceSettings.SplitFresnelRays)
@@ -203,7 +210,6 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             ? (previous?.TracePassCount ?? 0) + 1
             : 1;
         var randomSeed = checked(baseRandomSeed + passCount - 1);
-        using var linkedCancellation = Workspace.LinkDocumentToken(cancellationToken);
 
         return await Task.Run(() =>
         {
@@ -332,9 +338,31 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                         warnings);
                     stream.Flush(true);
                 }
-                PublishFile(temporaryPath, targetPath);
+                var published = false;
+                lock (Gate)
+                {
+                    linkedCancellation.Token.ThrowIfCancellationRequested();
+                    if (Workspace.DocumentGeneration != documentGeneration)
+                    {
+                        throw new OperationCanceledException("文档已切换，旧非序列追迹结果不会发布。", linkedCancellation.Token);
+                    }
+                    published = targetSession.TryPublish(
+                        session,
+                        ownsDatabase,
+                        publicationGeneration,
+                        () =>
+                        {
+                            linkedCancellation.Token.ThrowIfCancellationRequested();
+                            PublishFile(temporaryPath, targetPath);
+                        },
+                        notifyChanged: false);
+                }
+                if (!published)
+                {
+                    throw new OperationCanceledException("非序列结果会话已更新，旧追迹结果不会发布。", linkedCancellation.Token);
+                }
+                targetSession.NotifyChanged();
                 response = response with { RayDatabaseBytes = new FileInfo(targetPath).Length };
-                targetSession.Publish(session, ownsDatabase);
                 return response;
             }
             finally
@@ -458,12 +486,23 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                     ? cached.Indices
                     : null;
             }
-            storedBranches = matchedIndices is not null
-                ? reader.ReadIndices(matchedIndices.Skip(checked(pageIndex * pageSize)).Take(pageSize).ToArray())
-                : WithCancellation(reader.ReadBranches(filter), cancellationToken)
-                    .Skip(checked(pageIndex * pageSize))
-                    .Take(pageSize)
-                    .ToArray();
+            if (matchedIndices is not null)
+            {
+                storedBranches = offset >= matchedIndices.LongLength
+                    ? Array.Empty<NonSequentialRayBranch>()
+                    : reader.ReadIndices(matchedIndices
+                        .Skip(checked((int)offset))
+                        .Take(pageSize)
+                        .ToArray());
+            }
+            else
+            {
+                storedBranches = offset >= reader.BranchCount
+                    ? Array.Empty<NonSequentialRayBranch>()
+                    : SkipLong(WithCancellation(reader.ReadBranches(filter), cancellationToken), offset)
+                        .Take(pageSize)
+                        .ToArray();
+            }
         }
         var branches = storedBranches
             .Select(branch => MapBranch(branch, objectMap))
@@ -479,6 +518,22 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 yield return branch;
+            }
+        }
+
+        static IEnumerable<NonSequentialRayBranch> SkipLong(
+            IEnumerable<NonSequentialRayBranch> branches,
+            long count)
+        {
+            using var enumerator = branches.GetEnumerator();
+            while (count > 0 && enumerator.MoveNext())
+            {
+                count--;
+            }
+
+            while (enumerator.MoveNext())
+            {
+                yield return enumerator.Current;
             }
         }
     }
@@ -664,6 +719,43 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     private static void PublishFile(string temporaryPath, string targetPath)
     {
         File.Move(temporaryPath, targetPath, overwrite: true);
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+        _analysisSession.Changed -= OnAnalysisSessionChanged;
+        _layoutSession.Changed -= OnLayoutSessionChanged;
+        _analysisTraceGate.Dispose();
+        _layoutTraceGate.Dispose();
+    }
+
+    private void NotifySessionObservers(
+        EventHandler<NonSequentialTraceSessionDto?>? observers,
+        NonSequentialTraceSessionDto? session,
+        string eventName)
+    {
+        if (observers is null)
+        {
+            return;
+        }
+
+        foreach (EventHandler<NonSequentialTraceSessionDto?> observer in observers.GetInvocationList())
+        {
+            try
+            {
+                observer(this, session);
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError($"Non-sequential {eventName} observer failed: {exception}");
+            }
+        }
     }
 
     private static NonSequentialRayBranchDto MapBranch(

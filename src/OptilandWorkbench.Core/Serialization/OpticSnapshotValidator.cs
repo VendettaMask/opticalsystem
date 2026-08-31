@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Optimization;
+using OptilandWorkbench.Core.Phase;
 
 namespace OptilandWorkbench.Core.Serialization;
 
@@ -878,15 +879,15 @@ public static class OpticSnapshotValidator
                 component,
                 "xCount",
                 4,
-                MaximumEncodedCollectionCount,
+                PhaseProfileLimits.MaximumGridAxisCount,
                 path);
             var yCount = RequireEncodedCount(
                 component,
                 "yCount",
                 4,
-                MaximumEncodedCollectionCount,
+                PhaseProfileLimits.MaximumGridAxisCount,
                 path);
-            if ((long)xCount * yCount > MaximumEncodedCollectionCount)
+            if ((long)xCount * yCount > PhaseProfileLimits.MaximumGridCellCount)
             {
                 Invalid($"{path}.numbers", "the encoded phase grid is too large");
             }

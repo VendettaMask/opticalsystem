@@ -56,7 +56,7 @@ public partial class WorkbenchRuntime
                 1,
                 () => SpotMetricEvaluator.Evaluate(CurrentOptic).RmsSpotRadius));
 
-            var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
+            var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, maxIterations);
             SetSurfaceRadius(surface, surface.Radius);
             SynchronizeMultiConfigurationProperty(surface, "radius");
             _undoRedo.Capture(initialDocument);
@@ -171,7 +171,7 @@ public partial class WorkbenchRuntime
                 evaluationOperands,
                 values));
 
-            var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, Math.Clamp(maxIterations, 1, 1_000));
+            var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, maxIterations);
             CurrentOptic.SurfaceGroup.Renumber();
             foreach (var binding in variableBindings.Distinct())
             {

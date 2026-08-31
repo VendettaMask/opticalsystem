@@ -329,6 +329,32 @@ public sealed class InitialStructureLabTests
     }
 
     [Fact]
+    public async Task CandidateDiversityOrderingIsDeterministicAndPreservesEveryCandidate()
+    {
+        var specification = Specification(seedCount: 9) with
+        {
+            Budget = Specification(seedCount: 9).Budget with
+            {
+                MaximumEvaluations = 60,
+                MaximumParallelism = 1
+            }
+        };
+        var manifest = await new InitialStructureSearchService().RunAsync(specification);
+
+        var reordered = CandidateDiversityOrdering.Order(
+            specification,
+            manifest.Candidates.Reverse());
+
+        Assert.Equal("2", manifest.Algorithm.Version);
+        Assert.Equal(
+            manifest.Candidates.Select(candidate => candidate.CandidateId),
+            reordered.Select(candidate => candidate.CandidateId));
+        Assert.Equal(
+            manifest.Candidates.Select(candidate => candidate.CandidateId).Order(),
+            reordered.Select(candidate => candidate.CandidateId).Order());
+    }
+
+    [Fact]
     public async Task CheckpointStoreRoundTripsAndRejectsCandidateProgressMismatch()
     {
         SearchCheckpoint? captured = null;
@@ -369,6 +395,28 @@ public sealed class InitialStructureLabTests
 
             store.Delete(root, captured.RunId);
             Assert.Null(await store.LoadLatestAsync(root));
+        }
+        finally
+        {
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task CheckpointStoreReportsMalformedJsonAsInvalidData()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "initial-structure-checkpoint-tests",
+            Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        try
+        {
+            var path = SearchCheckpointStore.GetPath(root, "run-malformed");
+            await File.WriteAllTextAsync(path, "{ invalid json");
+
+            await Assert.ThrowsAsync<InvalidDataException>(() =>
+                new SearchCheckpointStore().LoadLatestAsync(root));
         }
         finally
         {
@@ -571,10 +619,13 @@ public sealed class InitialStructureLabTests
         Assert.Contains("AutomationProperties.NameProperty", mainWindow, StringComparison.Ordinal);
         Assert.Contains("SpecificationValidator.Validate", mainWindow, StringComparison.Ordinal);
         Assert.Contains("SearchCheckpointStore", mainWindow, StringComparison.Ordinal);
+        Assert.Contains("_resumeLoading", mainWindow, StringComparison.Ordinal);
+        Assert.Contains("_resumeRefreshGeneration", mainWindow, StringComparison.Ordinal);
         Assert.Contains("SetComparison", mainWindow, StringComparison.Ordinal);
         Assert.Contains("CandidateExportService", mainWindow, StringComparison.Ordinal);
         Assert.Contains("TryGetLocalPath", mainWindow, StringComparison.Ordinal);
         Assert.Contains("surface.Radius", preview, StringComparison.Ordinal);
+        Assert.Contains("OnCreateAutomationPeer", preview, StringComparison.Ordinal);
         Assert.DoesNotContain("TraceGeneric", preview, StringComparison.Ordinal);
     }
 

@@ -1,5 +1,7 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
@@ -7,8 +9,15 @@ using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class FoucaultPlotControl : Control
+public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSource
 {
+    public FoucaultPlotControl()
+    {
+        ClipToBounds = true;
+        AutomationProperties.SetName(this, "刀口阴影图");
+        AutomationProperties.SetHelpText(this, "只读图表；可在分析结果的数据页查看完整采样数据。");
+    }
+
     private IBrush ThemeBrush(string key, IBrush fallback) =>
         this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
             ? brush
@@ -26,6 +35,12 @@ public sealed class FoucaultPlotControl : Control
     public AnalysisSeriesDto? Series { get; init; }
 
     public string DisplayAs { get; init; } = "灰度";
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new ReadOnlyChartAutomationPeer(this);
+
+    string IReadOnlyChartAutomationSource.AutomationValue =>
+        ReadOnlyChartSummary.Series("刀口阴影图", Series);
 
     public override void Render(DrawingContext context)
     {

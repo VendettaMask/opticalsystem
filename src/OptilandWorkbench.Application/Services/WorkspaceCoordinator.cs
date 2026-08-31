@@ -81,24 +81,39 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         return _context.LinkDocumentToken(cancellationToken);
     }
 
-    public void ReplaceDocument(WorkspaceChangeCategory category, Action action)
+    public void ReplaceDocument(
+        WorkspaceChangeCategory category,
+        Action action,
+        string? path = null,
+        CancellationToken cancellationToken = default)
     {
-        CancelDocumentTasks();
-        Mutate(category, () =>
-        {
-            CurrentPath = null;
-            action();
-        });
+        ArgumentNullException.ThrowIfNull(action);
+        string? previousPath = null;
+        var pathCaptured = false;
+        MutateTransactional(
+            category,
+            () =>
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                previousPath = CurrentPath;
+                pathCaptured = true;
+                CancelDocumentTasks();
+                CurrentPath = path;
+                action();
+            },
+            cancellationToken,
+            rollbackState: () =>
+            {
+                if (pathCaptured)
+                {
+                    CurrentPath = previousPath;
+                }
+            });
     }
 
     public void CancelDocumentTasks()
     {
         _context.CancelDocumentTasks();
-    }
-
-    public void SetPendingCategory(WorkspaceChangeCategory category)
-    {
-        _pendingCategory = category;
     }
 
     public void MarkSavedRevision(long revision)
@@ -214,7 +229,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
     public void MutateTransactional(
         WorkspaceChangeCategory category,
         Action action,
-        CancellationToken automaticSemiDiameterCancellationToken = default)
+        CancellationToken automaticSemiDiameterCancellationToken = default,
+        Action? rollbackState = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         WorkspaceChangedEventArgs? change = null;
@@ -224,12 +240,14 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             var previousCategory = _pendingCategory;
             var previousDeferredEvent = _deferredEvent;
             var previousDeferredFileSwitch = _deferredFileSwitch;
+            var previousDocumentGeneration = _documentGeneration;
             _pendingCategory = category;
             _mutationDepth++;
             try
             {
                 Runtime.ExecuteTransactionalEdit(() =>
                 {
+                    automaticSemiDiameterCancellationToken.ThrowIfCancellationRequested();
                     action();
                     if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
                     {
@@ -242,7 +260,19 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             {
                 _deferredEvent = previousDeferredEvent;
                 _deferredFileSwitch = previousDeferredFileSwitch;
-                pendingException = exception;
+                Interlocked.Exchange(ref _documentGeneration, previousDocumentGeneration);
+                try
+                {
+                    rollbackState?.Invoke();
+                    pendingException = exception;
+                }
+                catch (Exception rollbackException)
+                {
+                    pendingException = new AggregateException(
+                        "The workspace mutation failed and its external state could not be fully restored.",
+                        exception,
+                        rollbackException);
+                }
             }
             finally
             {

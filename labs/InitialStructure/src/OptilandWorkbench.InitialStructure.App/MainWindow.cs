@@ -44,13 +44,16 @@ public sealed class MainWindow : Window
     private readonly TextBlock _selectionDetails = new() { TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _comparisonDetails = new() { TextWrapping = TextWrapping.Wrap };
     private readonly ObservableCollection<CandidateRow> _rows = [];
-    private readonly CandidatePreviewControl _preview = new() { MinHeight = 220, Focusable = true };
+    private readonly CandidatePreviewControl _preview = new() { MinHeight = 220 };
     private readonly DataGrid _dataGrid;
     private readonly Grid _workspace = new();
     private readonly Border _inspector;
     private CancellationTokenSource? _runCancellation;
     private CandidateRow? _comparisonA;
     private CandidateRow? _comparisonB;
+    private int _resumeRefreshGeneration;
+    private int _runGeneration;
+    private bool _resumeLoading;
     private bool _running;
 
     public MainWindow()
@@ -269,18 +272,30 @@ public sealed class MainWindow : Window
 
     private async void RunClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
+        if (_running || _resumeLoading)
+        {
+            return;
+        }
+
         await RunSearchAsync(BuildSpecification(), checkpoint: null);
     }
 
     private async void ResumeClicked(object? sender, Avalonia.Interactivity.RoutedEventArgs args)
     {
+        if (_running || _resumeLoading)
+        {
+            return;
+        }
+
+        _resumeLoading = true;
+        Interlocked.Increment(ref _resumeRefreshGeneration);
+        _resumeButton.IsEnabled = false;
         try
         {
             var checkpoint = await new SearchCheckpointStore().LoadLatestAsync(CheckpointRootDirectory());
             if (checkpoint is null)
             {
                 _status.Text = "没有可恢复的检查点";
-                await RefreshResumeAvailabilityAsync();
                 return;
             }
 
@@ -295,14 +310,26 @@ public sealed class MainWindow : Window
         {
             _status.Text = exception.Message;
         }
+        finally
+        {
+            _resumeLoading = false;
+            await RefreshResumeAvailabilityAsync();
+        }
     }
 
     private async Task RunSearchAsync(
         InitialStructureSpecification specification,
         SearchCheckpoint? checkpoint)
     {
+        if (_running)
+        {
+            return;
+        }
+
         _runCancellation?.Dispose();
         _runCancellation = new CancellationTokenSource();
+        var runCancellation = _runCancellation;
+        var runGeneration = Interlocked.Increment(ref _runGeneration);
         _rows.Clear();
         _comparisonA = null;
         _comparisonB = null;
@@ -314,6 +341,11 @@ public sealed class MainWindow : Window
         {
             var progress = new Progress<SearchProgress>(value => Dispatcher.UIThread.Post(() =>
             {
+                if (!_running || runGeneration != Volatile.Read(ref _runGeneration))
+                {
+                    return;
+                }
+
                 _progress.Maximum = Math.Max(1, value.Total);
                 _progress.Value = Math.Clamp(value.Completed, 0, _progress.Maximum);
                 _status.Text = $"{value.Stage} {value.Completed}/{value.Total}";
@@ -321,7 +353,7 @@ public sealed class MainWindow : Window
             var manifest = await new InitialStructureSearchService().RunAsync(
                 specification,
                 progress,
-                _runCancellation.Token,
+                runCancellation.Token,
                 checkpoint,
                 (value, token) => checkpointStore.SaveAsync(
                     value,
@@ -335,7 +367,7 @@ public sealed class MainWindow : Window
             var manifestPath = await new RunDirectoryStore().SaveAsync(
                 manifest,
                 RunRootDirectory(),
-                _runCancellation.Token);
+                runCancellation.Token);
             if (manifest.State == SearchRunState.Completed)
             {
                 checkpointStore.Delete(CheckpointRootDirectory(), manifest.RunId);
@@ -365,8 +397,11 @@ public sealed class MainWindow : Window
         }
         finally
         {
-            SetRunning(false);
-            await RefreshResumeAvailabilityAsync();
+            if (runGeneration == Volatile.Read(ref _runGeneration))
+            {
+                SetRunning(false);
+                await RefreshResumeAvailabilityAsync();
+            }
         }
     }
 
@@ -506,6 +541,7 @@ public sealed class MainWindow : Window
     private void SetRunning(bool running)
     {
         _running = running;
+        Interlocked.Increment(ref _resumeRefreshGeneration);
         _validateButton.IsEnabled = !running;
         _runButton.IsEnabled = !running;
         _resumeButton.IsEnabled = false;
@@ -522,23 +558,34 @@ public sealed class MainWindow : Window
 
     private async Task RefreshResumeAvailabilityAsync()
     {
-        if (_running)
+        var generation = Interlocked.Increment(ref _resumeRefreshGeneration);
+        if (_running || _resumeLoading)
         {
             return;
         }
 
         try
         {
-            _resumeButton.IsEnabled = await new SearchCheckpointStore().LoadLatestAsync(
+            var available = await new SearchCheckpointStore().LoadLatestAsync(
                 CheckpointRootDirectory()) is not null;
+            if (generation == Volatile.Read(ref _resumeRefreshGeneration)
+                && !_running
+                && !_resumeLoading)
+            {
+                _resumeButton.IsEnabled = available;
+            }
         }
         catch (Exception exception) when (
             exception is IOException
             or UnauthorizedAccessException
-            or InvalidDataException)
+            or InvalidDataException
+            or ArgumentException)
         {
-            _resumeButton.IsEnabled = false;
-            _status.Text = exception.Message;
+            if (generation == Volatile.Read(ref _resumeRefreshGeneration))
+            {
+                _resumeButton.IsEnabled = false;
+                _status.Text = exception.Message;
+            }
         }
     }
 

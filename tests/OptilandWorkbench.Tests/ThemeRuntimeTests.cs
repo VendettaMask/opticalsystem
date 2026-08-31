@@ -7,6 +7,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.Tests;
@@ -14,6 +15,47 @@ namespace OptilandWorkbench.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class ThemeRuntimeTests
 {
+    [Fact]
+    public async Task RuntimeTypographyRefreshRescalesExistingLocalFontSizesExactlyOnce()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            var defaults = new AppSettings { FontSize = AppSettings.DefaultFontSize };
+            var enlarged = new AppSettings { FontSize = AppSettings.DefaultFontSize * 2 };
+            DisplayTypography.Configure(defaults);
+            var title = new TextBlock
+            {
+                Text = "Section",
+                FontSize = DisplayTypography.SectionTitle
+            };
+            var body = new TextBlock
+            {
+                Text = "Body",
+                FontSize = DisplayTypography.Body
+            };
+            var root = new UserControl
+            {
+                Content = new StackPanel { Children = { title, body } }
+            };
+
+            try
+            {
+                DisplayTypography.Configure(enlarged);
+                DisplayTypography.ApplyRecursively(root, defaults.FontSize);
+                DisplayTypography.ApplyRecursively(root, defaults.FontSize);
+
+                Assert.Equal(32, title.FontSize, precision: 12);
+                Assert.Equal(26, body.FontSize, precision: 12);
+                Assert.Equal(26, root.FontSize, precision: 12);
+            }
+            finally
+            {
+                DisplayTypography.Configure(defaults);
+            }
+        }, CancellationToken.None);
+    }
+
     [Fact]
     public async Task RuntimeSwitchUpdatesPackageResourcesWithoutChangingLayoutBounds()
     {

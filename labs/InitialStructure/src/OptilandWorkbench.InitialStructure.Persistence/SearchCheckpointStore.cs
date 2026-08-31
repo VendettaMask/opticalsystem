@@ -43,8 +43,17 @@ public sealed class SearchCheckpointStore
             InitialStructureLimits.MaximumManifestBytes,
             "initial-structure checkpoint",
             cancellationToken);
-        var checkpoint = JsonSerializer.Deserialize<SearchCheckpoint>(bytes, Options)
-            ?? throw new InvalidDataException("The initial-structure checkpoint is empty or invalid.");
+        SearchCheckpoint checkpoint;
+        try
+        {
+            checkpoint = JsonSerializer.Deserialize<SearchCheckpoint>(bytes, Options)
+                ?? throw new InvalidDataException("The initial-structure checkpoint is empty or invalid.");
+        }
+        catch (JsonException exception)
+        {
+            throw new InvalidDataException("The initial-structure checkpoint JSON is invalid.", exception);
+        }
+
         Validate(checkpoint);
         return checkpoint;
     }

@@ -1360,6 +1360,43 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
+    public void OptimizationVariableVectorCommitRollsBackEarlierAndFailingSetters()
+    {
+        var x = 0.0;
+        var y = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable("x", () => x, next => x = next, -1, 1));
+        problem.AddVariable(new DelegateVariable("y", () => y, next =>
+        {
+            y = next;
+            if (Math.Abs(next - 0.5) < 1e-12)
+            {
+                throw new InvalidOperationException("Injected setter failure.");
+            }
+        }, -1, 1));
+
+        Assert.Throws<InvalidOperationException>(() =>
+            problem.SetVariableVector(new[] { 0.25, 0.5 }));
+
+        Assert.Equal(0, x, precision: 12);
+        Assert.Equal(0, y, precision: 12);
+    }
+
+    [Fact]
+    public void EvaluateAtScaledRestoresVariablesWhenAnOperandFails()
+    {
+        var value = 0.0;
+        var problem = new OptimizationProblem();
+        problem.AddVariable(new DelegateVariable("x", () => value, next => value = next, -1, 1));
+        problem.AddOperand(new Operand("failing", 0, 1, () =>
+            throw new InvalidOperationException("Injected operand failure.")));
+
+        Assert.Throws<InvalidOperationException>(() => problem.EvaluateAtScaled(new[] { 0.75 }));
+
+        Assert.Equal(0, value, precision: 12);
+    }
+
+    [Fact]
     public void OptimizationProblemRejectsNonFiniteOperandEvaluations()
     {
         var problem = new OptimizationProblem();
@@ -1383,6 +1420,25 @@ public sealed class OptilandParityTests
                 "Greedy Random Perturbation"
             },
             OptimizerCatalog.Names);
+    }
+
+    [Fact]
+    public void EveryCanonicalOptimizerRejectsIterationCountsOutsideTheSupportedBoundary()
+    {
+        foreach (var optimizerName in OptimizerCatalog.Names)
+        {
+            var problem = new OptimizationProblem();
+            var value = 0.0;
+            problem.AddVariable(new DelegateVariable("x", () => value, next => value = next, -1, 1));
+            problem.AddOperand(new Operand("target", 0, 1, () => value));
+            var optimizer = OptimizerCatalog.Create(optimizerName);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => optimizer.Optimize(problem, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => optimizer.Optimize(problem, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                optimizer.Optimize(problem, OptimizationLimits.MaximumIterations + 1));
+            Assert.Equal(0, problem.FunctionEvaluationCount);
+        }
     }
 
     [Fact]

@@ -352,6 +352,7 @@ public sealed class NonSequentialDocumentTracer
                 {
                     var pathPrefix = state.Segments.ToArray();
                     state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
+                    termination = NonSequentialTerminationReason.Split;
                     Emit(Complete(state, NonSequentialTerminationReason.Split));
                     var reflectedPower = incomingIntensity * optical.Reflectance;
                     var transmittedPower = incomingIntensity - reflectedPower;

@@ -87,7 +87,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _presentationMode = presentationMode;
         _scene = new OpticSceneControl
         {
-            MinHeight = 320,
+            MinHeight = 240,
             ViewMode = dimension == SceneDimension.TwoDimensional
                 ? OpticSceneViewMode.TwoDimensional
                 : OpticSceneViewMode.ThreeDimensional,

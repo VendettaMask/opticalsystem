@@ -23,6 +23,7 @@ public sealed partial class AnalysisPanel
     internal static double AnalysisFooterTitleSize => DisplayTypography.CardTitle;
     internal static double AnalysisFooterCaptionSize => DisplayTypography.Caption;
     internal const double AnalysisFooterHeight = 132;
+    internal const double AnalysisPlotMinimumHeight = 280;
 
     private static Control BuildResultContent(
         AnalysisViewDto view,
@@ -167,7 +168,7 @@ public sealed partial class AnalysisPanel
             RotationDegrees = FindRowNumber(view, "旋转", 0),
             DisplayScale = FindRowNumber(view, "显示缩放", 1),
             DisplayAs = FindRowText(view, "显示为", "表面"),
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -191,7 +192,7 @@ public sealed partial class AnalysisPanel
             XAxisLabel = "X 像面（µm）",
             YAxisLabel = "Y 像面（µm）",
             ValueMinimum = logarithmic ? null : 0,
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -215,7 +216,7 @@ public sealed partial class AnalysisPanel
             XAxisLabel = "X 像面（µm）",
             YAxisLabel = "Y 像面（µm）",
             ValueMinimum = logarithmic ? null : 0,
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -230,7 +231,7 @@ public sealed partial class AnalysisPanel
         {
             Series = view.Series.FirstOrDefault(),
             DisplayAs = FindRowText(view, "显示为", "灰度"),
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -243,7 +244,7 @@ public sealed partial class AnalysisPanel
             YFieldWidth = FindRowNumber(view, "Y 视场宽度", 1),
             DisplayAs = FindRowText(view, "显示为", "图标"),
             DisplayMode = FindRowText(view, "显示", "绝对值"),
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -263,7 +264,7 @@ public sealed partial class AnalysisPanel
             Table = view.Table,
             MaximumAberration = FindRowNumber(view, "最大像差范围", 0.1),
             GridInterval = FindRowNumber(view, "网格线间隔", 0.01),
-            MinHeight = 420
+            MinHeight = AnalysisPlotMinimumHeight
         };
     }
 
@@ -390,7 +391,7 @@ public sealed partial class AnalysisPanel
             ShowRays = true,
             ShowRayArrows = false,
             ShowScaleBar = true,
-            MinHeight = 420,
+            MinHeight = AnalysisPlotMinimumHeight,
             Annotations2D = annotations
         };
         var table = BuildCardinalPointsTable(view, referenceSurface.SurfaceNumber);

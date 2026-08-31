@@ -7,6 +7,21 @@ namespace OptilandWorkbench.Tests;
 public sealed class ZemaxEncircledEnergyParityTests
 {
     [Fact]
+    public void ExtendedSourceImageValidatesConstructionAndPixelCoordinates()
+    {
+        var source = new[] { 1d, 2d, 3d, 4d };
+        var image = new ExtendedSourceImage(2, 2, source);
+        source[0] = 99;
+
+        Assert.Equal(1, image.Value(0, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => image.Value(0, 2));
+        Assert.Throws<ArgumentOutOfRangeException>(() => image.Value(-1, 0));
+        Assert.Throws<ArgumentException>(() => new ExtendedSourceImage(2, 2, [1d, 2d]));
+        Assert.Throws<ArgumentException>(() =>
+            new ExtendedSourceImage(2, 2, [1d, 2d, double.NaN, 4d]));
+    }
+
+    [Fact]
     public void DiffractionEncircledEnergyUsesZemaxFftSamplingAndPixelAreaIntegration()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");

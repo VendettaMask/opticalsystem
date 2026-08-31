@@ -136,9 +136,34 @@ public sealed class AppSettings
         }
     }
 
-    public void Save()
+    public void Save() => Save(SettingsPath);
+
+    public bool TrySave(out string? errorMessage) => TrySave(SettingsPath, out errorMessage);
+
+    internal bool TrySave(string settingsPath, out string? errorMessage)
     {
-        var directory = Path.GetDirectoryName(SettingsPath);
+        try
+        {
+            Save(settingsPath);
+            errorMessage = null;
+            return true;
+        }
+        catch (Exception exception) when (exception is JsonException
+            or InvalidDataException
+            or IOException
+            or UnauthorizedAccessException
+            or NotSupportedException)
+        {
+            errorMessage = exception.Message;
+            return false;
+        }
+    }
+
+    internal void Save(string settingsPath)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(settingsPath);
+        var fullPath = Path.GetFullPath(settingsPath);
+        var directory = Path.GetDirectoryName(fullPath);
         if (!string.IsNullOrWhiteSpace(directory))
         {
             Directory.CreateDirectory(directory);
@@ -146,7 +171,7 @@ public sealed class AppSettings
 
         var json = JsonSerializer.Serialize(this, JsonOptions);
         BoundedApplicationFile.WriteAllTextAtomic(
-            SettingsPath,
+            fullPath,
             json,
             BoundedApplicationFile.MaximumSettingsBytes,
             "Application settings");

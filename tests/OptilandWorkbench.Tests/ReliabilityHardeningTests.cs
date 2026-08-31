@@ -113,6 +113,66 @@ public sealed class ReliabilityHardeningTests
     }
 
     [Fact]
+    public void PublicPhaseProfilesRejectNonFiniteOrUnboundedDefinitions()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new ConstantPhaseProfile(double.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new LinearGratingPhaseProfile(1, double.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new LinearGratingPhaseProfile(1, order: 1_000_001));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new RadialPhaseProfile(Enumerable.Repeat(1.0, 4_097)));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+            new RadialPhaseProfile(InfiniteZeros()));
+        Assert.Throws<ArgumentException>(() =>
+            new PolynomialPhaseProfile(new Dictionary<(int X, int Y), double>
+            {
+                [(-1, 0)] = 1
+            }));
+
+        var grid = new double[4, 4];
+        grid[2, 2] = double.NaN;
+        Assert.Throws<ArgumentException>(() => new GridPhaseProfile(
+            [0d, 1d, 2d, 3d],
+            [0d, 1d, 2d, 3d],
+            grid));
+
+        static IEnumerable<double> InfiniteZeros()
+        {
+            while (true)
+            {
+                yield return 0;
+            }
+        }
+    }
+
+    [Fact]
+    public void DirectComponentConversionRejectsOversizedPhaseGridCounts()
+    {
+        var profile = new OptilandWorkbench.Core.Serialization.ComponentSnapshot(
+            "grid",
+            new Dictionary<string, double>
+            {
+                ["xCount"] = 4_097,
+                ["yCount"] = 4
+            },
+            new Dictionary<string, string>());
+        var interaction = new OptilandWorkbench.Core.Serialization.ComponentSnapshot(
+            "phase",
+            new Dictionary<string, double>(),
+            new Dictionary<string, string>(),
+            new Dictionary<string, OptilandWorkbench.Core.Serialization.ComponentSnapshot>
+            {
+                ["profile"] = profile
+            });
+
+        Assert.Throws<InvalidDataException>(() =>
+            OptilandWorkbench.Core.Serialization.ComponentSnapshotFactory.ToInteraction(
+                interaction,
+                isReflective: false));
+    }
+
+    [Fact]
     public void DiffractionAndDirectPsfRejectWorkAboveSafetyBudgets()
     {
         var optic = Optic.CreateCookeTriplet();

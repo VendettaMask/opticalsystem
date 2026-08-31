@@ -274,10 +274,13 @@ public sealed partial class MainWindow
         await _panels.SaveCurrentSessionAsync();
         _application.Modes.SwitchTo(mode);
         _settings.WorkbenchMode = mode.ToString();
-        _settings.Save();
         _panels.SwitchMode();
         _ribbonHost.Content = BuildRibbon();
         DisplayTypography.Apply(this);
         RefreshStatus();
+        if (!_settings.TrySave(out var errorMessage))
+        {
+            _statusText.Text = $"模式已切换；设置未保存：{errorMessage}";
+        }
     }
 }

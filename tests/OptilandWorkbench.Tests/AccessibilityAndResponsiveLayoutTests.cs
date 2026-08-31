@@ -50,6 +50,43 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     }
 
     [Fact]
+    public async Task ReadOnlyAnalysisChartsExposeNamedValuePeersWithoutFakeCommands()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            var series = new AnalysisSeriesDto(
+                "X field",
+                "Aberration",
+                [new AnalysisPointDto(0, 0, Value: 0.125)]);
+            Control[] controls =
+            {
+                new FullFieldAberrationControl { Series = series },
+                new FoucaultPlotControl { Series = series },
+                new SeidelDiagramControl
+                {
+                    Table = new AnalysisTableDto(
+                        ["Surface", "Spherical"],
+                        [new[] { "1", "0.125" }])
+                }
+            };
+
+            foreach (var control in controls)
+            {
+                Assert.False(control.Focusable);
+                Assert.False(string.IsNullOrWhiteSpace(AutomationProperties.GetName(control)));
+                Assert.False(string.IsNullOrWhiteSpace(AutomationProperties.GetHelpText(control)));
+                var peer = Assert.IsType<ReadOnlyChartAutomationPeer>(
+                    ControlAutomationPeer.CreatePeerForElement(control));
+                var value = Assert.IsAssignableFrom<IValueProvider>(peer);
+                Assert.True(value.IsReadOnly);
+                Assert.False(string.IsNullOrWhiteSpace(value.Value));
+                Assert.False((object)peer is IInvokeProvider);
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public async Task TwoPaneLayoutReflowsBelowItsBreakpoint()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
@@ -293,6 +330,27 @@ public sealed class AccessibilityAndResponsiveLayoutTests
         finally
         {
             Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void SettingsTrySaveReportsAnUnwritableTargetWithoutThrowing()
+    {
+        var targetDirectory = Path.Combine(Path.GetTempPath(), $"settings-write-failure-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(targetDirectory);
+        try
+        {
+            var settings = new AppSettings { Theme = "Dark" };
+
+            var saved = settings.TrySave(targetDirectory, out var errorMessage);
+
+            Assert.False(saved);
+            Assert.False(string.IsNullOrWhiteSpace(errorMessage));
+            Assert.True(Directory.Exists(targetDirectory));
+        }
+        finally
+        {
+            Directory.Delete(targetDirectory, recursive: true);
         }
     }
 

@@ -1,11 +1,15 @@
+using System.Runtime.CompilerServices;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Controls.Primitives;
+using Avalonia.LogicalTree;
 using Avalonia.Media;
 
 namespace OptilandWorkbench.App.Services;
 
 public static class DisplayTypography
 {
+    private static readonly ConditionalWeakTable<Control, LocalFontSizeState> LocalFontSizes = new();
     private static string _fontFamily = string.Empty;
     private static string _fontShape = "Regular";
     private static double _fontSize = AppSettings.DefaultFontSize;
@@ -42,6 +46,24 @@ public static class DisplayTypography
         control.FontWeight = FontWeight();
     }
 
+    public static void ApplyRecursively(Control root, double previousFontSize)
+    {
+        ArgumentNullException.ThrowIfNull(root);
+        var normalizedPrevious = double.IsFinite(previousFontSize) && previousFontSize > 0
+            ? previousFontSize
+            : AppSettings.DefaultFontSize;
+        RescaleLocalFontSize(root, normalizedPrevious);
+        foreach (var descendant in root.GetLogicalDescendants().OfType<Control>())
+        {
+            RescaleLocalFontSize(descendant, normalizedPrevious);
+        }
+
+        if (root is TemplatedControl templated)
+        {
+            Apply(templated);
+        }
+    }
+
     public static Typeface Typeface(FontWeight? weight = null)
     {
         return new Typeface(
@@ -53,6 +75,31 @@ public static class DisplayTypography
     public static double Scale(double designedSize)
     {
         return designedSize * (_fontSize / AppSettings.DefaultFontSize);
+    }
+
+    private static void RescaleLocalFontSize(Control control, double previousFontSize)
+    {
+        if (!control.IsSet(TextElement.FontSizeProperty))
+        {
+            return;
+        }
+
+        var current = TextElement.GetFontSize(control);
+        if (!double.IsFinite(current) || current <= 0)
+        {
+            return;
+        }
+
+        var state = LocalFontSizes.GetOrCreateValue(control);
+        if (!state.Initialized || Math.Abs(current - state.LastAppliedSize) > 1e-9)
+        {
+            state.DesignedSize = current * AppSettings.DefaultFontSize / previousFontSize;
+            state.Initialized = true;
+        }
+
+        var target = Scale(state.DesignedSize);
+        TextElement.SetFontSize(control, target);
+        state.LastAppliedSize = target;
     }
 
     private static FontFamily FontFamily()
@@ -74,5 +121,14 @@ public static class DisplayTypography
         return _fontShape is "Bold" or "BoldItalic"
             ? Avalonia.Media.FontWeight.Bold
             : Avalonia.Media.FontWeight.Normal;
+    }
+
+    private sealed class LocalFontSizeState
+    {
+        public bool Initialized { get; set; }
+
+        public double DesignedSize { get; set; }
+
+        public double LastAppliedSize { get; set; }
     }
 }

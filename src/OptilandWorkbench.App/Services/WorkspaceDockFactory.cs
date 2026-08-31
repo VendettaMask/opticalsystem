@@ -71,14 +71,11 @@ public sealed class WorkspaceDockFactory : Factory
         return true;
     }
 
-    public void ApplyDisplaySettings()
+    public void ApplyDisplaySettings(double previousFontSize)
     {
         foreach (var control in _content.Values)
         {
-            if (control is TemplatedControl templated)
-            {
-                DisplayTypography.Apply(templated);
-            }
+            DisplayTypography.ApplyRecursively(control, previousFontSize);
 
             if (control is IDisplaySettingsAware aware)
             {

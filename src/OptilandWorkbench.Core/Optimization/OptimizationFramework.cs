@@ -1,6 +1,26 @@
+using System.Runtime.ExceptionServices;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Optimization;
+
+public static class OptimizationLimits
+{
+    public const int MinimumIterations = 1;
+    public const int MaximumIterations = 1_000;
+
+    public static int RequireIterationCount(int value, string parameterName = "maxIterations")
+    {
+        if (value is < MinimumIterations or > MaximumIterations)
+        {
+            throw new ArgumentOutOfRangeException(
+                parameterName,
+                value,
+                $"Optimization iteration count must be between {MinimumIterations} and {MaximumIterations}.");
+        }
+
+        return value;
+    }
+}
 
 public interface IOptimizationVariable
 {
@@ -334,14 +354,30 @@ public sealed class OptimizationProblem
         }
 
         var original = ScaledVariableVector();
+        Exception? evaluationFailure = null;
         try
         {
             SetScaledVariableVector(scaledValues);
             return EvaluateCurrent();
         }
+        catch (Exception exception)
+        {
+            evaluationFailure = exception;
+            throw;
+        }
         finally
         {
-            SetScaledVariableVector(original);
+            try
+            {
+                SetScaledVariableVector(original);
+            }
+            catch (Exception restorationFailure) when (evaluationFailure is not null)
+            {
+                throw new AggregateException(
+                    "Optimization evaluation failed and the original variable vector could not be fully restored.",
+                    evaluationFailure,
+                    restorationFailure);
+            }
         }
     }
 
@@ -414,9 +450,39 @@ public sealed class OptimizationProblem
                 variable.UpperBound);
         }
 
-        for (var index = 0; index < committedValues.Length; index++)
+        var originalValues = VariableVector();
+        var attemptedIndex = -1;
+        try
         {
-            _variables[index].Value = committedValues[index];
+            for (var index = 0; index < committedValues.Length; index++)
+            {
+                attemptedIndex = index;
+                _variables[index].Value = committedValues[index];
+            }
+        }
+        catch (Exception commitFailure)
+        {
+            List<Exception>? rollbackFailures = null;
+            for (var index = attemptedIndex; index >= 0; index--)
+            {
+                try
+                {
+                    _variables[index].Value = originalValues[index];
+                }
+                catch (Exception rollbackFailure)
+                {
+                    (rollbackFailures ??= new List<Exception>()).Add(rollbackFailure);
+                }
+            }
+
+            if (rollbackFailures is null)
+            {
+                ExceptionDispatchInfo.Capture(commitFailure).Throw();
+            }
+
+            throw new AggregateException(
+                "Optimization variable update failed and its previous vector could not be fully restored.",
+                new[] { commitFailure }.Concat(rollbackFailures!));
         }
     }
 

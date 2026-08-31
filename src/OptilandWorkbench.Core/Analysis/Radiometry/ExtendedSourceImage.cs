@@ -2,8 +2,54 @@ using System.Globalization;
 
 namespace OptilandWorkbench.Core.Analysis;
 
-public sealed record ExtendedSourceImage(int Width, int Height, IReadOnlyList<double> Values)
+public sealed record ExtendedSourceImage
 {
+    public const int MaximumDimension = 8_000;
+    public const long MaximumPixelCount = 64_000_000;
+
+    public ExtendedSourceImage(int width, int height, IReadOnlyList<double> values)
+        : this(width, height, values, copyValues: true, valuesAlreadyValidated: false)
+    {
+    }
+
+    private ExtendedSourceImage(
+        int width,
+        int height,
+        IReadOnlyList<double> values,
+        bool copyValues,
+        bool valuesAlreadyValidated)
+    {
+        ArgumentNullException.ThrowIfNull(values);
+        if (width is < 1 or > MaximumDimension)
+        {
+            throw new ArgumentOutOfRangeException(nameof(width));
+        }
+        if (height is < 1 or > MaximumDimension)
+        {
+            throw new ArgumentOutOfRangeException(nameof(height));
+        }
+
+        var pixelCount = checked((long)width * height);
+        if (pixelCount > MaximumPixelCount || values.Count != pixelCount)
+        {
+            throw new ArgumentException("Extended-source image dimensions are inconsistent.", nameof(values));
+        }
+        if (!valuesAlreadyValidated && values.Any(value => !double.IsFinite(value) || value < 0))
+        {
+            throw new ArgumentException("Extended-source image intensities must be finite and non-negative.", nameof(values));
+        }
+
+        Width = width;
+        Height = height;
+        Values = copyValues ? Array.AsReadOnly(values.ToArray()) : values;
+    }
+
+    public int Width { get; }
+
+    public int Height { get; }
+
+    public IReadOnlyList<double> Values { get; }
+
     public static ExtendedSourceImage ParseZemaxTextIma(string content)
     {
         var lines = content.Replace("\r", string.Empty, StringComparison.Ordinal)
@@ -11,7 +57,7 @@ public sealed record ExtendedSourceImage(int Width, int Height, IReadOnlyList<do
         if (lines.Length == 0
             || !int.TryParse(lines[0].Trim(), NumberStyles.Integer,
                 CultureInfo.InvariantCulture, out var size)
-            || size is < 1 or > 8000)
+            || size is < 1 or > MaximumDimension)
         {
             throw new InvalidDataException("Text IMA is missing a valid image size.");
         }
@@ -39,16 +85,32 @@ public sealed record ExtendedSourceImage(int Width, int Height, IReadOnlyList<do
             }
         }
 
-        return new ExtendedSourceImage(size, size, values);
+        return new ExtendedSourceImage(
+            size,
+            size,
+            Array.AsReadOnly(values),
+            copyValues: false,
+            valuesAlreadyValidated: true);
     }
 
     public double Value(int row, int column)
     {
-        if (Width < 1 || Height < 1 || Values.Count != Width * Height)
+        if ((uint)row >= (uint)Height)
         {
-            throw new InvalidDataException("Extended-source image dimensions are inconsistent.");
+            throw new ArgumentOutOfRangeException(nameof(row));
+        }
+        if ((uint)column >= (uint)Width)
+        {
+            throw new ArgumentOutOfRangeException(nameof(column));
         }
 
-        return Values[(row * Width) + column];
+        return Values[checked((row * Width) + column)];
+    }
+
+    public void Deconstruct(out int width, out int height, out IReadOnlyList<double> values)
+    {
+        width = Width;
+        height = Height;
+        values = Values;
     }
 }

@@ -1019,8 +1019,8 @@ public sealed class GlassCatalogPanel : UserControl
 {
     private readonly IReadOnlyList<GlassMaterialDto> _glasses;
     private readonly DataGrid _grid = MaterialLibraryPanel.DatabaseGrid();
-    private readonly TextBox _search = new() { Width = 230, PlaceholderText = "搜索玻璃名称" };
-    private readonly ComboBox _manufacturer = new() { Width = 160 };
+    private readonly TextBox _search = new() { MinWidth = 150, MaxWidth = 230, PlaceholderText = "搜索玻璃名称" };
+    private readonly ComboBox _manufacturer = new() { MinWidth = 130, MaxWidth = 160 };
     private readonly TextBlock _count = new() { VerticalAlignment = VerticalAlignment.Center };
 
     public GlassCatalogPanel(IMaterialCatalogService materials)
@@ -1036,10 +1036,11 @@ public sealed class GlassCatalogPanel : UserControl
         _search.TextChanged += (_, _) => Refresh();
         _manufacturer.SelectionChanged += (_, _) => Refresh();
 
-        var toolbar = new StackPanel
+        var toolbar = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 8,
+            ItemSpacing = 8,
+            LineSpacing = 6,
             Margin = new Thickness(0, 0, 0, 10),
             Children =
             {

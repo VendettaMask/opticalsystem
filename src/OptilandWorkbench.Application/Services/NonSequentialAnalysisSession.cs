@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Core.NonSequential;
 
@@ -8,6 +9,7 @@ internal abstract class NonSequentialResultSession : IDisposable
     private readonly object _gate = new();
     private readonly IWorkspaceEventStream _events;
     private Selection? _selection;
+    private long _publicationGeneration;
 
     protected NonSequentialResultSession(IWorkspaceEventStream events)
     {
@@ -17,12 +19,29 @@ internal abstract class NonSequentialResultSession : IDisposable
 
     public event EventHandler? Changed;
 
-    public void Publish(NonSequentialTraceSessionDto session, bool ownsDatabase)
+    public long PublicationGeneration
+    {
+        get { lock (_gate) return _publicationGeneration; }
+    }
+
+    public bool TryPublish(
+        NonSequentialTraceSessionDto session,
+        bool ownsDatabase,
+        long expectedPublicationGeneration,
+        Action publishFile,
+        bool notifyChanged = true)
     {
         ArgumentNullException.ThrowIfNull(session);
+        ArgumentNullException.ThrowIfNull(publishFile);
         Selection? previous;
         lock (_gate)
         {
+            if (_publicationGeneration != expectedPublicationGeneration)
+            {
+                return false;
+            }
+
+            publishFile();
             previous = _selection;
             var file = new FileInfo(session.RayDatabasePath);
             _selection = new Selection(
@@ -33,7 +52,33 @@ internal abstract class NonSequentialResultSession : IDisposable
                 file.Length);
         }
         DeleteOwned(previous, session.RayDatabasePath);
-        Changed?.Invoke(this, EventArgs.Empty);
+        if (notifyChanged)
+        {
+            NotifyChanged();
+        }
+
+        return true;
+    }
+
+    internal void NotifyChanged()
+    {
+        var handlers = Changed;
+        if (handlers is null)
+        {
+            return;
+        }
+
+        foreach (EventHandler handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(this, EventArgs.Empty);
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError($"Non-sequential session observer failed: {exception}");
+            }
+        }
     }
 
     public void Set(string path, string? filterExpression)
@@ -58,6 +103,7 @@ internal abstract class NonSequentialResultSession : IDisposable
         Selection? previous = null;
         lock (_gate)
         {
+            _publicationGeneration++;
             if (_selection is { } existing
                 && fullPath.Equals(existing.Path, StringComparison.Ordinal)
                 && existing.FileLength == stream.Length
@@ -84,7 +130,7 @@ internal abstract class NonSequentialResultSession : IDisposable
             }
         }
         DeleteOwned(previous, fullPath);
-        Changed?.Invoke(this, EventArgs.Empty);
+        NotifyChanged();
 
         static bool existingOwnsDatabase(Selection? selection, string candidatePath) =>
             selection is { OwnsDatabase: true }
@@ -172,11 +218,12 @@ internal abstract class NonSequentialResultSession : IDisposable
         Selection? previous;
         lock (_gate)
         {
+            _publicationGeneration++;
             previous = _selection;
             _selection = null;
         }
         DeleteOwned(previous);
-        Changed?.Invoke(this, EventArgs.Empty);
+        NotifyChanged();
     }
 
     public void Dispose()
@@ -193,7 +240,7 @@ internal abstract class NonSequentialResultSession : IDisposable
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
         if (args.FileSwitched) Clear();
-        else Changed?.Invoke(this, EventArgs.Empty);
+        else NotifyChanged();
     }
 
     private static void DeleteOwned(Selection? selection, string? exceptPath = null)

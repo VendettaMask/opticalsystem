@@ -1,5 +1,7 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OptilandWorkbench.Application.Contracts;
@@ -8,8 +10,15 @@ using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
-public sealed class FullFieldAberrationControl : Control
+public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomationSource
 {
+    public FullFieldAberrationControl()
+    {
+        ClipToBounds = true;
+        AutomationProperties.SetName(this, "全视场像差图");
+        AutomationProperties.SetHelpText(this, "只读图表；可在分析结果的数据页查看完整数据。");
+    }
+
     private IBrush ThemeBrush(string key, IBrush fallback) =>
         this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
             ? brush
@@ -33,6 +42,12 @@ public sealed class FullFieldAberrationControl : Control
     public string DisplayAs { get; init; } = "图标";
 
     public string DisplayMode { get; init; } = "绝对值";
+
+    protected override AutomationPeer OnCreateAutomationPeer() =>
+        new ReadOnlyChartAutomationPeer(this);
+
+    string IReadOnlyChartAutomationSource.AutomationValue =>
+        ReadOnlyChartSummary.Series("全视场像差图", Series);
 
     public override void Render(DrawingContext context)
     {

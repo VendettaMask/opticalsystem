@@ -324,6 +324,7 @@ public sealed class NonSequentialRayTracerTests
         var reconstructed = NonSequentialDetectorReconstruction.Reconstruct(document, trace.Branches);
         var monitorFrame = reconstructed.Single(frame => frame.DetectorId == monitor.Id);
 
+        Assert.Equal(trace.Branches.Count, trace.Branches.Select(branch => branch.Id).Distinct().Count());
         Assert.Equal(1, trace.Detectors.Single(frame => frame.DetectorId == monitor.Id).TotalPowerWatts, 12);
         Assert.Equal(1, monitorFrame.TotalPowerWatts, 12);
         Assert.Equal(1, monitorFrame.HitCountByWavelength![1].Sum());

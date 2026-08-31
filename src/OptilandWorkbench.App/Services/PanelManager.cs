@@ -77,9 +77,9 @@ public sealed class PanelManager : IDisposable
     public Task<bool> SaveUnsavedToleranceChangesAsync(TopLevel owner) =>
         Factory.SaveUnsavedToleranceChangesAsync(owner);
 
-    public void ApplyDisplaySettings()
+    public void ApplyDisplaySettings(double previousFontSize)
     {
-        Factory.ApplyDisplaySettings();
+        Factory.ApplyDisplaySettings(previousFontSize);
         WorkspaceControl.InvalidateVisual();
     }
 

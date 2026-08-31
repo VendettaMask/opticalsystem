@@ -1,5 +1,31 @@
 namespace OptilandWorkbench.Core.Phase;
 
+internal static class PhaseProfileLimits
+{
+    public const int MaximumCoefficientCount = 4_096;
+    public const int MaximumGridAxisCount = 4_096;
+    public const long MaximumGridCellCount = 1_000_000;
+    public const int MaximumPolynomialExponent = 64;
+    public const int MaximumDiffractionOrderMagnitude = 1_000_000;
+
+    public static double[] MaterializeBounded(
+        IEnumerable<double> values,
+        int maximumCount,
+        string parameterName,
+        string description)
+    {
+        var materialized = values.Take(maximumCount + 1).ToArray();
+        if (materialized.Length > maximumCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                parameterName,
+                $"{description} supports at most {maximumCount:N0} values.");
+        }
+
+        return materialized;
+    }
+}
+
 public interface IPhaseProfile
 {
     string Kind { get; }
@@ -19,6 +45,11 @@ public sealed class ConstantPhaseProfile : IPhaseProfile
 {
     public ConstantPhaseProfile(double phase = 0)
     {
+        if (!double.IsFinite(phase))
+        {
+            throw new ArgumentOutOfRangeException(nameof(phase), "Phase must be finite.");
+        }
+
         PhaseValue = phase;
     }
 
@@ -53,6 +84,18 @@ public sealed class LinearGratingPhaseProfile : IPhaseProfile
         if (!double.IsFinite(efficiency) || efficiency < 0 || efficiency > 1)
         {
             throw new ArgumentOutOfRangeException(nameof(efficiency), "Efficiency must be finite and in [0, 1].");
+        }
+
+        if (!double.IsFinite(angle))
+        {
+            throw new ArgumentOutOfRangeException(nameof(angle), "Angle must be finite.");
+        }
+
+        if (order is < -PhaseProfileLimits.MaximumDiffractionOrderMagnitude
+            or > PhaseProfileLimits.MaximumDiffractionOrderMagnitude)
+        {
+            throw new ArgumentOutOfRangeException(nameof(order),
+                $"Diffraction order magnitude must not exceed {PhaseProfileLimits.MaximumDiffractionOrderMagnitude:N0}.");
         }
 
         Period = period;
@@ -91,7 +134,7 @@ public sealed class LinearGratingPhaseProfile : IPhaseProfile
 
     private (double Dx, double Dy) WaveVector()
     {
-        var magnitude = Order * 2 * Math.PI / Period;
+        var magnitude = (double)Order * 2 * Math.PI / Period;
         return (magnitude * Math.Cos(Angle), magnitude * Math.Sin(Angle));
     }
 }
@@ -101,7 +144,13 @@ public sealed class RadialPhaseProfile : IPhaseProfile
     public RadialPhaseProfile(IEnumerable<double> coefficients)
     {
         ArgumentNullException.ThrowIfNull(coefficients);
-        Coefficients = Array.AsReadOnly(coefficients.ToArray());
+        var values = PhaseProfileLimits.MaterializeBounded(
+            coefficients,
+            PhaseProfileLimits.MaximumCoefficientCount,
+            nameof(coefficients),
+            "A radial phase profile");
+        ValidateCoefficients(values, nameof(coefficients));
+        Coefficients = Array.AsReadOnly(values);
     }
 
     public string Kind => "radial";
@@ -141,6 +190,20 @@ public sealed class RadialPhaseProfile : IPhaseProfile
     }
 
     public IPhaseProfile Clone() => new RadialPhaseProfile(Coefficients);
+
+    private static void ValidateCoefficients(IReadOnlyList<double> coefficients, string parameterName)
+    {
+        if (coefficients.Count > PhaseProfileLimits.MaximumCoefficientCount)
+        {
+            throw new ArgumentOutOfRangeException(parameterName,
+                $"A radial phase profile supports at most {PhaseProfileLimits.MaximumCoefficientCount:N0} coefficients.");
+        }
+
+        if (coefficients.Any(coefficient => !double.IsFinite(coefficient)))
+        {
+            throw new ArgumentException("Radial phase coefficients must be finite.", parameterName);
+        }
+    }
 }
 
 public sealed class GridPhaseProfile : IPhaseProfile
@@ -155,11 +218,27 @@ public sealed class GridPhaseProfile : IPhaseProfile
         ArgumentNullException.ThrowIfNull(xCoordinates);
         ArgumentNullException.ThrowIfNull(yCoordinates);
         ArgumentNullException.ThrowIfNull(phaseGrid);
-        XCoordinates = Array.AsReadOnly(xCoordinates.ToArray());
-        YCoordinates = Array.AsReadOnly(yCoordinates.ToArray());
+        XCoordinates = Array.AsReadOnly(PhaseProfileLimits.MaterializeBounded(
+            xCoordinates,
+            PhaseProfileLimits.MaximumGridAxisCount,
+            nameof(xCoordinates),
+            "A phase grid axis"));
+        YCoordinates = Array.AsReadOnly(PhaseProfileLimits.MaterializeBounded(
+            yCoordinates,
+            PhaseProfileLimits.MaximumGridAxisCount,
+            nameof(yCoordinates),
+            "A phase grid axis"));
         if (XCoordinates.Count < 4 || YCoordinates.Count < 4)
         {
             throw new ArgumentException("Grid phase profiles require at least four coordinates per axis.");
+        }
+
+        if (XCoordinates.Count > PhaseProfileLimits.MaximumGridAxisCount
+            || YCoordinates.Count > PhaseProfileLimits.MaximumGridAxisCount
+            || checked((long)XCoordinates.Count * YCoordinates.Count) > PhaseProfileLimits.MaximumGridCellCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(phaseGrid),
+                $"A phase grid supports at most {PhaseProfileLimits.MaximumGridAxisCount:N0} coordinates per axis and {PhaseProfileLimits.MaximumGridCellCount:N0} cells.");
         }
 
         ValidateIncreasing(XCoordinates, nameof(xCoordinates));
@@ -167,6 +246,14 @@ public sealed class GridPhaseProfile : IPhaseProfile
         if (phaseGrid.GetLength(0) != YCoordinates.Count || phaseGrid.GetLength(1) != XCoordinates.Count)
         {
             throw new ArgumentException("Phase grid shape must be [yCoordinates, xCoordinates].", nameof(phaseGrid));
+        }
+
+        foreach (var phase in phaseGrid)
+        {
+            if (!double.IsFinite(phase))
+            {
+                throw new ArgumentException("Phase grid values must be finite.", nameof(phaseGrid));
+            }
         }
 
         _phaseGrid = (double[,])phaseGrid.Clone();
@@ -239,6 +326,22 @@ public sealed class PolynomialPhaseProfile : IPhaseProfile
     public PolynomialPhaseProfile(IReadOnlyDictionary<(int X, int Y), double> coefficients)
     {
         ArgumentNullException.ThrowIfNull(coefficients);
+        if (coefficients.Count > PhaseProfileLimits.MaximumCoefficientCount)
+        {
+            throw new ArgumentOutOfRangeException(nameof(coefficients),
+                $"A polynomial phase profile supports at most {PhaseProfileLimits.MaximumCoefficientCount:N0} terms.");
+        }
+
+        if (coefficients.Any(term =>
+            term.Key.X is < 0 or > PhaseProfileLimits.MaximumPolynomialExponent
+            || term.Key.Y is < 0 or > PhaseProfileLimits.MaximumPolynomialExponent
+            || !double.IsFinite(term.Value)))
+        {
+            throw new ArgumentException(
+                $"Polynomial phase exponents must be between 0 and {PhaseProfileLimits.MaximumPolynomialExponent}, and coefficients must be finite.",
+                nameof(coefficients));
+        }
+
         Coefficients =
             new System.Collections.ObjectModel.ReadOnlyDictionary<(int X, int Y), double>(
                 new Dictionary<(int X, int Y), double>(coefficients));

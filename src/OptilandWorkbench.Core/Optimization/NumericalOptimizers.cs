@@ -29,6 +29,8 @@ internal static class DampedLeastSquaresSearch
 {
     public static OptimizerResult Run(OptimizationProblem problem, string name, int maxIterations)
     {
+        ArgumentNullException.ThrowIfNull(problem);
+        OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
         var current = problem.ScaledVariableVector();
         var evaluation = problem.EvaluateAtScaled(current);
@@ -571,6 +573,8 @@ public sealed class CoordinatePatternSearchOptimizer : IOptimizer
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
+        ArgumentNullException.ThrowIfNull(problem);
+        OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
         var initial = problem.SumSquared();
         var best = initial;
@@ -675,6 +679,8 @@ public sealed class NelderMeadOptimizer : IOptimizer
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
+        ArgumentNullException.ThrowIfNull(problem);
+        OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
         var dimension = problem.Variables.Count;
         var initial = problem.SumSquared();
@@ -841,6 +847,8 @@ public sealed class GreedyRandomPerturbationOptimizer : IOptimizer
 
     public OptimizerResult Optimize(OptimizationProblem problem, int maxIterations = 100)
     {
+        ArgumentNullException.ThrowIfNull(problem);
+        OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
         var random = new Random(_randomSeed);
         var initial = problem.SumSquared();
@@ -908,6 +916,8 @@ internal static class GradientSearch
 {
     public static OptimizerResult Run(OptimizationProblem problem, string name, int maxIterations, bool useMomentum)
     {
+        ArgumentNullException.ThrowIfNull(problem);
+        OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
         var initial = problem.SumSquared();
         var best = initial;

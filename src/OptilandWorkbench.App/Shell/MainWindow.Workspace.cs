@@ -121,10 +121,11 @@ public sealed partial class MainWindow
             return;
         }
 
+        var previousFontSize = DisplayTypography.FontSize;
         ConfigureDisplaySettings();
         ApplyTheme(save: false);
-        DisplayTypography.Apply(this);
-        _panels.ApplyDisplaySettings();
+        DisplayTypography.ApplyRecursively(this, previousFontSize);
+        _panels.ApplyDisplaySettings(previousFontSize);
         RefreshStatus();
         InvalidateVisual();
     }
@@ -132,9 +133,9 @@ public sealed partial class MainWindow
     private void ApplyTheme(bool save = true)
     {
         ((App)Avalonia.Application.Current!).ApplyTheme(_settings.Theme);
-        if (save)
+        if (save && !_settings.TrySave(out var errorMessage))
         {
-            _settings.Save();
+            _statusText.Text = $"主题已应用；设置未保存：{errorMessage}";
         }
     }
 
@@ -203,7 +204,10 @@ public sealed partial class MainWindow
         _settings.WindowWidth = Math.Max(MinWidth, Width);
         _settings.WindowHeight = Math.Max(MinHeight, Height);
         _settings.ApplyLayout(_panels.CaptureLayout());
-        _settings.Save();
+        if (!_settings.TrySave(out var errorMessage))
+        {
+            _statusText.Text = $"布局未保存：{errorMessage}";
+        }
     }
 
     private MenuItem MenuItem(AppAction action)

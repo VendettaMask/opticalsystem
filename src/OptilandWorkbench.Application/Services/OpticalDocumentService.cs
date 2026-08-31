@@ -25,19 +25,29 @@ namespace OptilandWorkbench.Application.Services;
 
 internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDocumentService
 {
+    private readonly Func<string, CancellationToken, Task<LoadedOpticalDocument>> _readDocumentAsync;
     private readonly Func<LoadedOpticalDocument, string, CancellationToken, Task> _saveDocumentAsync;
     private Task _saveTail = Task.CompletedTask;
 
     public OpticalDocumentService(WorkspaceCoordinator workspace)
-        : this(workspace, WorkbenchRuntime.SaveDocumentAsync)
+        : this(workspace, WorkbenchRuntime.ReadDocumentAsync, WorkbenchRuntime.SaveDocumentAsync)
     {
     }
 
     internal OpticalDocumentService(
         WorkspaceCoordinator workspace,
         Func<LoadedOpticalDocument, string, CancellationToken, Task> saveDocumentAsync)
+        : this(workspace, WorkbenchRuntime.ReadDocumentAsync, saveDocumentAsync)
+    {
+    }
+
+    internal OpticalDocumentService(
+        WorkspaceCoordinator workspace,
+        Func<string, CancellationToken, Task<LoadedOpticalDocument>> readDocumentAsync,
+        Func<LoadedOpticalDocument, string, CancellationToken, Task> saveDocumentAsync)
         : base(workspace)
     {
+        _readDocumentAsync = readDocumentAsync ?? throw new ArgumentNullException(nameof(readDocumentAsync));
         _saveDocumentAsync = saveDocumentAsync ?? throw new ArgumentNullException(nameof(saveDocumentAsync));
     }
 
@@ -60,15 +70,13 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         Workspace.CancelDocumentTasks();
         using var linked = Workspace.LinkDocumentToken(cancellationToken);
         var fullPath = Path.GetFullPath(path);
-        var document = await WorkbenchRuntime.ReadDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
+        var document = await _readDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
         linked.Token.ThrowIfCancellationRequested();
-        lock (Gate)
-        {
-            linked.Token.ThrowIfCancellationRequested();
-            Workspace.CurrentPath = fullPath;
-            Workspace.SetPendingCategory(WorkspaceChangeCategory.Document);
-            Runtime.ApplyLoadedDocument(document, fullPath);
-        }
+        Workspace.ReplaceDocument(
+            WorkspaceChangeCategory.Document,
+            () => Runtime.ApplyLoadedDocument(document, fullPath),
+            fullPath,
+            cancellationToken);
     }
 
     public Task SaveAsync(string path, CancellationToken cancellationToken = default)
