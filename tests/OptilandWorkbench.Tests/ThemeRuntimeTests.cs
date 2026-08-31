@@ -1,6 +1,9 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 using OptilandWorkbench.App.Controls;
@@ -14,7 +17,7 @@ public sealed class ThemeRuntimeTests
     [Fact]
     public async Task RuntimeSwitchUpdatesPackageResourcesWithoutChangingLayoutBounds()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var application = Assert.IsType<HeadlessTestApplication>(global::Avalonia.Application.Current);
@@ -70,7 +73,7 @@ public sealed class ThemeRuntimeTests
     [Fact]
     public async Task SystemSelectionRemainsAProxyForTheResolvedVisualTheme()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var application = Assert.IsType<HeadlessTestApplication>(global::Avalonia.Application.Current);
@@ -90,7 +93,7 @@ public sealed class ThemeRuntimeTests
     [Fact]
     public async Task DialogDecorationDetachesScrollViewerBeforeReparenting()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var scrollViewer = new ScrollViewer
@@ -124,7 +127,7 @@ public sealed class ThemeRuntimeTests
     [Fact]
     public async Task ImportedGameIconCatalogRendersEverySvgPath()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var application = Assert.IsType<HeadlessTestApplication>(global::Avalonia.Application.Current);
@@ -158,6 +161,85 @@ public sealed class ThemeRuntimeTests
 
                 Assert.Equal(IsekaiThemeIconPack.Names.Count, icons.Length);
                 Assert.All(icons, icon => Assert.Equal(IsekaiTheme.Variant, icon.ActualThemeVariant));
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task IsekaiDecorationReusesRenderResourcesDuringResizeFrames()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        await session.Dispatch(() =>
+        {
+            var application = Assert.IsType<HeadlessTestApplication>(global::Avalonia.Application.Current);
+            ThemeApplicationService.Apply(application, IsekaiTheme.SettingsValue);
+            var overlay = new ThemeChromeOverlay
+            {
+                Role = ThemeChromeRole.Ribbon,
+                Width = 733,
+                Height = 48
+            };
+            var window = new Window
+            {
+                Width = 733,
+                Height = 48,
+                Content = overlay
+            };
+
+            try
+            {
+                window.Show();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                using var bitmap = new RenderTargetBitmap(new PixelSize(960, 64));
+                bitmap.Render(overlay);
+                var afterFirstRender = IsekaiThemeDecorationRenderer.Instance.BladeGeometryBuildCount;
+
+                for (var frame = 0; frame < 12; frame++)
+                {
+                    bitmap.Render(overlay);
+                }
+
+                Assert.Equal(
+                    afterFirstRender,
+                    IsekaiThemeDecorationRenderer.Instance.BladeGeometryBuildCount);
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                var allocatedBefore = GC.GetAllocatedBytesForCurrentThread();
+                const int frames = 48;
+                for (var frame = 0; frame < frames; frame++)
+                {
+                    var width = 733 + ((frame % 4) * 47);
+                    window.Width = width;
+                    overlay.Width = width;
+                    overlay.Measure(new Size(width, 48));
+                    overlay.Arrange(new Rect(0, 0, width, 48));
+                    if (frame == frames / 2)
+                    {
+                        ThemeApplicationService.Apply(application, "Light");
+                        ThemeApplicationService.Apply(application, IsekaiTheme.SettingsValue);
+                    }
+
+                    bitmap.Render(overlay);
+                }
+
+                var allocatedPerFrame =
+                    (GC.GetAllocatedBytesForCurrentThread() - allocatedBefore) / frames;
+
+                Assert.True(
+                    allocatedPerFrame < 96_000,
+                    $"Isekai decoration render allocated {allocatedPerFrame:N0} bytes per frame.");
+                var cachedResourceCount = typeof(IsekaiThemeDecorationRenderer)
+                    .GetFields(BindingFlags.NonPublic | BindingFlags.Static)
+                    .Count(field =>
+                        typeof(IImmutableBrush).IsAssignableFrom(field.FieldType)
+                        || typeof(IPen).IsAssignableFrom(field.FieldType));
+                Assert.True(cachedResourceCount >= 30);
             }
             finally
             {

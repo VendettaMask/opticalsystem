@@ -23,7 +23,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task InteractiveCanvasesExposeNamedAutomationPeers()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             Control[] controls =
@@ -52,7 +52,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task TwoPaneLayoutReflowsBelowItsBreakpoint()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var first = new Border { MinHeight = 100 };
@@ -79,7 +79,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task LensLibraryKeepsSelectedDetailsInFiniteWideAndNarrowViewports()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var lenses = Enumerable.Range(1, 925)
@@ -131,7 +131,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task MasterDetailDataPagesPlaceResponsiveBodyDirectlyInFiniteRootRow()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var lenses = new LayoutLensLibraryService([LensEntry(1)]);
@@ -147,7 +147,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task SettingsGridReflowsWithoutFixedItemWidths()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var first = new TextBox();
@@ -171,7 +171,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task AnalysisSettingsOverlayAnchorsBelowToolbarAndSizesToContent()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             using var application = WorkbenchApplication.Create("cooke");
@@ -239,7 +239,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task OpticalDrawingIconButtonsExposeTheirCommandName()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var button = OpticalDrawingPanel.IconButton("zoom-in", "放大");
@@ -299,7 +299,7 @@ public sealed class AccessibilityAndResponsiveLayoutTests
     [Fact]
     public async Task DisplaySettingsRemainReachableInShortWindows()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var window = new DisplaySettingsWindow(new AppSettings());

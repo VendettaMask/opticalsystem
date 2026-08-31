@@ -12,7 +12,7 @@ public sealed class CommercialLensCatalogPanelTests
     [Fact]
     public async Task SelectingVendorImmediatelyFiltersVisibleCatalogRows()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var service = new StubLensLibraryService(new[]
@@ -37,7 +37,7 @@ public sealed class CommercialLensCatalogPanelTests
     [Fact]
     public async Task StockLensMatchingPageBuildsRankedRowsFromCurrentFirstOrderTarget()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var service = new StubLensLibraryService(new[]

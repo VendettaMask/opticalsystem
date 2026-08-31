@@ -267,9 +267,15 @@ public static class NonSequentialStlImporter
         NonSequentialMeshUnit unit = NonSequentialMeshUnit.Millimeter)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
+        var fullPath = Path.GetFullPath(path);
+        if (new FileInfo(fullPath).Length > MaximumInputBytes)
+        {
+            throw new InvalidDataException("STL 文件超过 256 MiB 输入上限。");
+        }
+
         return Import(
-            BoundedFile.ReadAllBytes(path, MaximumInputBytes, "STL mesh"),
-            Path.GetFileName(path),
+            BoundedFile.ReadAllBytes(fullPath, MaximumInputBytes, "STL mesh"),
+            Path.GetFileName(fullPath),
             unit);
     }
 

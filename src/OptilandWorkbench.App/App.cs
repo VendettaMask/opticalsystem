@@ -19,6 +19,9 @@ namespace OptilandWorkbench.App;
 
 public sealed class App : Avalonia.Application
 {
+    internal const int StartupTimeoutMilliseconds = 30_000;
+    private static readonly TimeSpan MinimumSplashDisplay = TimeSpan.FromMilliseconds(900);
+
     public override void Initialize()
     {
         Name = "Optical System Design";
@@ -385,40 +388,71 @@ public sealed class App : Avalonia.Application
             splash.ReportProgress(12, "正在初始化应用...");
             splash.Show();
             Dispatcher.UIThread.Post(
-                () => OpenMainWindowAsync(desktop, splash),
+                () => StartMainWindowStartup(desktop, splash),
                 DispatcherPriority.Background);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static async void OpenMainWindowAsync(
+    private static void StartMainWindowStartup(
         IClassicDesktopStyleApplicationLifetime desktop,
         SplashWindow splash)
     {
-        var minimumDisplay = Task.Delay(900);
+        var startupTask = OpenMainWindowAsync(desktop, splash);
+        _ = startupTask.ContinueWith(
+            task => System.Diagnostics.Trace.TraceError(
+                $"Unhandled startup task fault after failure handling: {task.Exception}"),
+            CancellationToken.None,
+            TaskContinuationOptions.OnlyOnFaulted,
+            TaskScheduler.Default);
+    }
+
+    private static async Task OpenMainWindowAsync(
+        IClassicDesktopStyleApplicationLifetime desktop,
+        SplashWindow splash)
+    {
+        using var startupCancellation = new CancellationTokenSource();
+        var startupTimeout = TimeSpan.FromMilliseconds(StartupTimeoutMilliseconds);
+        var minimumDisplay = Task.Delay(MinimumSplashDisplay, startupCancellation.Token);
+        var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        MainWindow? mainWindow = null;
+        EventHandler? readyHandler = null;
+        EventHandler? closedHandler = null;
+        EventHandler? splashClosedHandler = null;
+        var splashClosed = false;
         try
         {
             splash.ReportProgress(28, "正在创建主工作区...");
-            var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            var mainWindow = new MainWindow
+            mainWindow = new MainWindow
             {
                 Opacity = 0,
                 ShowInTaskbar = false
             };
-            EventHandler? readyHandler = null;
+            var window = mainWindow;
             readyHandler = (_, _) =>
             {
-                mainWindow.StartupCompleted -= readyHandler;
+                window.StartupCompleted -= readyHandler;
                 splash.ReportProgress(92, "正在完成界面准备...");
                 ready.TrySetResult();
             };
+            closedHandler = (_, _) =>
+                ready.TrySetException(new OperationCanceledException("主窗口在启动完成前关闭。"));
+            splashClosedHandler = (_, _) =>
+            {
+                splashClosed = true;
+                startupCancellation.Cancel();
+            };
             mainWindow.StartupCompleted += readyHandler;
+            mainWindow.Closed += closedHandler;
+            splash.Closed += splashClosedHandler;
             desktop.MainWindow = mainWindow;
             mainWindow.Show();
             splash.ReportProgress(58, "正在恢复工作区与分析页面...");
 
-            await Task.WhenAll(minimumDisplay, ready.Task);
+            await Task.WhenAll(
+                minimumDisplay,
+                AwaitStartupCompletedAsync(ready.Task, startupTimeout, startupCancellation.Token));
             splash.Complete();
             await Task.Delay(120);
             mainWindow.ShowInTaskbar = true;
@@ -427,11 +461,116 @@ public sealed class App : Avalonia.Application
             splash.Close();
             mainWindow.Activate();
         }
-        catch
+        catch (Exception exception)
         {
-            splash.Close();
-            desktop.Shutdown(-1);
-            throw;
+            var diagnosticsPath = WriteStartupFailureLog(exception);
+            if (splashClosed)
+            {
+                desktop.Shutdown(-1);
+                return;
+            }
+
+            if (mainWindow is not null)
+            {
+                mainWindow.Opacity = 0;
+                mainWindow.ShowInTaskbar = false;
+            }
+
+            desktop.MainWindow = splash;
+            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            if (!splash.IsVisible)
+            {
+                splash.Show();
+            }
+            splash.ReportFailure(StartupFailureMessage(exception), diagnosticsPath);
+            splash.Activate();
+        }
+        finally
+        {
+            if (mainWindow is not null)
+            {
+                if (readyHandler is not null)
+                {
+                    mainWindow.StartupCompleted -= readyHandler;
+                }
+                if (closedHandler is not null)
+                {
+                    mainWindow.Closed -= closedHandler;
+                }
+            }
+            if (splashClosedHandler is not null)
+            {
+                splash.Closed -= splashClosedHandler;
+            }
         }
     }
+
+    internal static async Task AwaitStartupCompletedAsync(
+        Task startupCompleted,
+        TimeSpan timeout,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(startupCompleted);
+        if (timeout <= TimeSpan.Zero)
+        {
+            throw new ArgumentOutOfRangeException(nameof(timeout));
+        }
+
+        var timeoutTask = Task.Delay(timeout, cancellationToken);
+        var completed = await Task.WhenAny(startupCompleted, timeoutTask);
+        if (completed == startupCompleted)
+        {
+            await startupCompleted;
+            return;
+        }
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        throw new TimeoutException(
+            $"Main window startup timed out after {timeout.TotalSeconds:0.#} seconds.");
+    }
+
+    internal static string StartupDiagnosticsLogPath()
+    {
+        var localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        if (string.IsNullOrWhiteSpace(localApplicationData))
+        {
+            localApplicationData = AppContext.BaseDirectory;
+        }
+
+        return Path.Combine(
+            localApplicationData,
+            "Optical System Design",
+            "Logs",
+            "startup.log");
+    }
+
+    private static string? WriteStartupFailureLog(Exception exception)
+    {
+        try
+        {
+            var path = StartupDiagnosticsLogPath();
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.AppendAllText(
+                path,
+                $"{DateTimeOffset.Now:O} Startup failed{Environment.NewLine}{exception}{Environment.NewLine}");
+            return path;
+        }
+        catch (Exception logException)
+        {
+            System.Diagnostics.Trace.TraceError($"Failed to write startup diagnostics: {logException}");
+            return null;
+        }
+    }
+
+    private static string StartupFailureMessage(Exception exception) => exception switch
+    {
+        TimeoutException => "主窗口启动超过 30 秒仍未完成。请退出后重试；如果仍然失败，请带上诊断日志反馈。",
+        OperationCanceledException => "启动在主窗口准备完成前被取消或关闭。",
+        _ when !string.IsNullOrWhiteSpace(exception.Message) => exception.Message,
+        _ => "应用初始化时发生未知错误。"
+    };
 }

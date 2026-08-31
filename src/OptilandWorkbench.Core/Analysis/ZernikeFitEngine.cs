@@ -45,7 +45,7 @@ public static class ZernikeFitEngine
         int numTerms)
     {
         ArgumentNullException.ThrowIfNull(samples);
-        ValidateTermCount(numTerms, MaximumFringeTerm);
+        ValidateMinimumTermCount(numTerms);
         return Fit(
             samples,
             FringeIndices(numTerms),
@@ -225,6 +225,14 @@ public static class ZernikeFitEngine
     private static void ValidateTermCount(int count, int maximum)
     {
         if (count < 1 || count > maximum)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count));
+        }
+    }
+
+    private static void ValidateMinimumTermCount(int count)
+    {
+        if (count < 1)
         {
             throw new ArgumentOutOfRangeException(nameof(count));
         }

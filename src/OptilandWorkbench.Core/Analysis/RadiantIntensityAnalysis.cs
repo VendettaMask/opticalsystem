@@ -47,7 +47,8 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             throw new ArgumentException("Radiant-intensity angle ranges must be finite and non-empty.");
         }
 
-        _ = RayGenerator.ParseSampling(distribution);
+        var sampling = RayGenerator.ParseSampling(distribution);
+        ValidateSamplingBudget(numRays, sampling);
         _binsX = binsX;
         _binsY = binsY;
         _angleXMinimum = Math.Min(angleXMinimum, angleXMaximum);
@@ -90,13 +91,15 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             _binsY,
             fields.Count,
             wavelengths.Length,
-            _numRays,
+            EffectivePythonCompatiblePupilSampleCount(
+                _numRays,
+                RayGenerator.ParseSampling(_distribution)),
             "Radiant intensity");
 
         var xStep = (_angleXMaximum - _angleXMinimum) / _binsX;
         var yStep = (_angleYMaximum - _angleYMinimum) / _binsY;
         var solidAngle = DegreesToRadians(xStep) * DegreesToRadians(yStep);
-        var pupilSamples = ApertureSampler.Generate(
+        var pupilSamples = GeneratePythonCompatiblePupilSamples(
             _numRays,
             RayGenerator.ParseSampling(_distribution));
         var maps = new List<IntensityMap>(fields.Count * wavelengths.Length);
@@ -275,6 +278,28 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
     }
 
     private static double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
+
+    private static void ValidateSamplingBudget(int numRays, PupilSampling sampling)
+    {
+        if (sampling == PupilSampling.Hexapolar)
+        {
+            _ = ApertureSampler.CountHexapolarRingSamples(numRays);
+        }
+    }
+
+    private static IReadOnlyList<PupilSample> GeneratePythonCompatiblePupilSamples(
+        int numRays,
+        PupilSampling sampling) =>
+        sampling == PupilSampling.Hexapolar
+            ? ApertureSampler.GenerateHexapolarRings(numRays)
+            : ApertureSampler.Generate(numRays, sampling);
+
+    private static int EffectivePythonCompatiblePupilSampleCount(
+        int numRays,
+        PupilSampling sampling) =>
+        sampling == PupilSampling.Hexapolar
+            ? ApertureSampler.CountHexapolarRingSamples(numRays)
+            : numRays;
 
     private sealed record IntensityMap(
         int FieldIndex,

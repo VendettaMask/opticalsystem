@@ -108,11 +108,11 @@ public static class AnalysisResourceLimits
 
     public static int ValidateWavefrontMapSize(int mapSize, string parameterName)
     {
-        if (mapSize is < 17 or > MaximumWavefrontMapDimension)
+        if (mapSize is < 16 or > MaximumWavefrontMapDimension)
         {
             throw new ArgumentOutOfRangeException(
                 parameterName,
-                $"Wavefront map size must be between 17 and {MaximumWavefrontMapDimension}.");
+                $"Wavefront map size must be between 16 and {MaximumWavefrontMapDimension}.");
         }
 
         return mapSize;

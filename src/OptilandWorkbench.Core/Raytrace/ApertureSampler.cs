@@ -123,6 +123,19 @@ public static class ApertureSampler
 
     public static IReadOnlyList<PupilSample> GenerateHexapolarRings(int numRings)
     {
+        var sampleCount = CountHexapolarRingSamples(numRings);
+
+        if (sampleCount > MaximumCacheableSampleCount)
+        {
+            return BuildHexapolarRings(numRings);
+        }
+
+        TrimSamplingCachesIfNeeded();
+        return HexapolarRingCache.GetOrAdd(numRings, static rings => BuildHexapolarRings(rings));
+    }
+
+    public static int CountHexapolarRingSamples(int numRings)
+    {
         if (numRings is < 0 or > MaximumHexapolarRings)
         {
             throw new ArgumentOutOfRangeException(
@@ -138,13 +151,7 @@ public static class ApertureSampler
                 $"Hexapolar sampling cannot exceed {MaximumPupilSampleCount:N0} pupil samples.");
         }
 
-        if (sampleCount > MaximumCacheableSampleCount)
-        {
-            return BuildHexapolarRings(numRings);
-        }
-
-        TrimSamplingCachesIfNeeded();
-        return HexapolarRingCache.GetOrAdd(numRings, static rings => BuildHexapolarRings(rings));
+        return checked((int)sampleCount);
     }
 
     private static IReadOnlyList<PupilSample> BuildHexapolarRings(int numRings)

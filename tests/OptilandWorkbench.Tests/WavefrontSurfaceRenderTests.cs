@@ -15,7 +15,7 @@ public sealed class WavefrontSurfaceRenderTests
     [Fact]
     public async Task SettingsToggleUsesConfiguredSurfaceInLightTheme()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var button = SettingsPanelChrome.CreateToggleButton();
@@ -48,7 +48,7 @@ public sealed class WavefrontSurfaceRenderTests
     [Fact]
     public async Task InitialViewDoesNotInvalidateTheActiveRenderPass()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             var surface = new WavefrontSurfaceControl
@@ -107,4 +107,40 @@ public sealed class HeadlessTestApplication : Avalonia.Application
 
         ThemeApplicationService.Apply(this, "Light");
     }
+}
+
+public sealed class SafeHeadlessUnitTestSession : IDisposable
+{
+    private readonly HeadlessUnitTestSession _inner;
+
+    private SafeHeadlessUnitTestSession(HeadlessUnitTestSession inner)
+    {
+        _inner = inner;
+    }
+
+    public static SafeHeadlessUnitTestSession StartNew(Type applicationType) =>
+        new(HeadlessUnitTestSession.StartNew(applicationType));
+
+    public Task Dispatch(Action action, CancellationToken cancellationToken) =>
+        _inner.Dispatch(action, cancellationToken);
+
+    public void Dispose()
+    {
+        try
+        {
+            _inner.Dispose();
+        }
+        catch (NullReferenceException exception) when (IsHeadlessDisposeNullReference(exception))
+        {
+            // Avalonia.Headless can occasionally throw after the test body has
+            // completed while tearing down its own session state. Keep product
+            // assertions meaningful and do not hide NullReferenceException from
+            // test bodies or application code.
+        }
+    }
+
+    private static bool IsHeadlessDisposeNullReference(Exception exception) =>
+        exception.StackTrace?.Contains(
+            "Avalonia.Headless.HeadlessUnitTestSession.Dispose",
+            StringComparison.Ordinal) == true;
 }

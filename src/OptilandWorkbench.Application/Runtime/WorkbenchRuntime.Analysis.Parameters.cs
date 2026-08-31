@@ -750,7 +750,7 @@ public partial class WorkbenchRuntime
                     "Sampling",
                     "采样",
                     "64 x 64",
-                    new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
+                    new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 ChoiceParameter(
                     "Display",
                     "显示",

@@ -29,7 +29,8 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         }
 
         AnalysisResourceLimits.ValidateAnalysisGrid(resolutionX, resolutionY, "Irradiance resolution");
-        _ = RayGenerator.ParseSampling(distribution);
+        var sampling = RayGenerator.ParseSampling(distribution);
+        ValidateSamplingBudget(numRays, sampling);
         _numRays = numRays;
         _resolutionX = resolutionX;
         _resolutionY = resolutionY;
@@ -73,13 +74,15 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
             _resolutionY,
             fields.Count,
             wavelengths.Length,
-            _numRays,
+            EffectivePythonCompatiblePupilSampleCount(
+                _numRays,
+                RayGenerator.ParseSampling(_distribution)),
             "Incoherent irradiance");
 
         var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
         var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
         var pixelArea = xStep * yStep;
-        var pupilSamples = ApertureSampler.Generate(
+        var pupilSamples = GeneratePythonCompatiblePupilSamples(
             _numRays,
             RayGenerator.ParseSampling(_distribution));
         var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
@@ -221,4 +224,26 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
 
         return Math.Clamp((int)Math.Floor((value - minimum) / (maximum - minimum) * count), 0, count - 1);
     }
+
+    private static void ValidateSamplingBudget(int numRays, PupilSampling sampling)
+    {
+        if (sampling == PupilSampling.Hexapolar)
+        {
+            _ = ApertureSampler.CountHexapolarRingSamples(numRays);
+        }
+    }
+
+    private static IReadOnlyList<PupilSample> GeneratePythonCompatiblePupilSamples(
+        int numRays,
+        PupilSampling sampling) =>
+        sampling == PupilSampling.Hexapolar
+            ? ApertureSampler.GenerateHexapolarRings(numRays)
+            : ApertureSampler.Generate(numRays, sampling);
+
+    private static int EffectivePythonCompatiblePupilSampleCount(
+        int numRays,
+        PupilSampling sampling) =>
+        sampling == PupilSampling.Hexapolar
+            ? ApertureSampler.CountHexapolarRingSamples(numRays)
+            : numRays;
 }

@@ -25,7 +25,8 @@ internal sealed class SplashWindow : Window
     {
         Text = "正在初始化光学工作区...",
         FontSize = DisplayTypography.BodySmall,
-        Foreground = new SolidColorBrush(Color.FromRgb(210, 214, 220))
+        Foreground = new SolidColorBrush(Color.FromRgb(210, 214, 220)),
+        TextWrapping = TextWrapping.Wrap
     };
     private readonly TextBlock _progressText = new()
     {
@@ -37,6 +38,16 @@ internal sealed class SplashWindow : Window
     private readonly DispatcherTimer _progressTimer = new()
     {
         Interval = TimeSpan.FromMilliseconds(20)
+    };
+    private readonly Button _exitButton = new()
+    {
+        Content = "退出",
+        IsVisible = false,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        MinWidth = 72,
+        Padding = new Thickness(14, 6),
+        Background = new SolidColorBrush(Color.FromRgb(122, 43, 37)),
+        Foreground = Brushes.White
     };
     private double _targetProgress = 8;
 
@@ -54,6 +65,7 @@ internal sealed class SplashWindow : Window
         Background = Brushes.Transparent;
         Icon = BrandAssets.LoadWindowIcon();
         Content = BuildContent();
+        _exitButton.Click += OnExitButtonClick;
         _progressTimer.Tick += OnProgressTimerTick;
         _progressTimer.Start();
         Closed += OnClosed;
@@ -73,6 +85,22 @@ internal sealed class SplashWindow : Window
         _progressBar.Value = 100;
         _progressText.Text = "100%";
         _statusText.Text = "准备就绪";
+    }
+
+    internal void ReportFailure(string message, string? diagnosticsPath)
+    {
+        _progressTimer.Stop();
+        _targetProgress = 100;
+        _progressBar.Value = 100;
+        _progressBar.Foreground = new SolidColorBrush(Color.FromRgb(222, 84, 72));
+        _progressText.Text = "启动失败";
+        _progressText.Foreground = new SolidColorBrush(Color.FromRgb(255, 148, 132));
+        _statusText.Foreground = new SolidColorBrush(Color.FromRgb(255, 206, 196));
+        _statusText.Text = diagnosticsPath is null
+            ? $"启动失败：{message}"
+            : $"启动失败：{message}\n诊断日志：{diagnosticsPath}";
+        _exitButton.IsVisible = true;
+        Topmost = false;
     }
 
     private Control BuildContent()
@@ -158,7 +186,8 @@ internal sealed class SplashWindow : Window
             Children =
             {
                 statusGrid,
-                _progressBar
+                _progressBar,
+                _exitButton
             }
         };
         Grid.SetRow(progressArea, 1);
@@ -185,6 +214,11 @@ internal sealed class SplashWindow : Window
         _progressText.Text = $"{_progressBar.Value:0}%";
     }
 
+    private void OnExitButtonClick(object? sender, EventArgs args)
+    {
+        Close();
+    }
+
     private static string ProductVersion()
     {
         var version = typeof(SplashWindow).Assembly.GetName().Version;
@@ -198,6 +232,7 @@ internal sealed class SplashWindow : Window
         Closed -= OnClosed;
         _progressTimer.Stop();
         _progressTimer.Tick -= OnProgressTimerTick;
+        _exitButton.Click -= OnExitButtonClick;
         _image.Dispose();
     }
 }

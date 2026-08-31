@@ -64,7 +64,7 @@ internal sealed class IsekaiThemeIconPack : IThemeIconPack
             var item = property.Value;
             var primitives = item.GetProperty("paths")
                 .EnumerateArray()
-                .Select(path => (IconPrimitive) new FilledPathPrimitive(path.GetString() ?? string.Empty))
+                .Select(path => (IconPrimitive)new FilledPathPrimitive(path.GetString() ?? string.Empty))
                 .ToArray();
             var transform = CreateTransform(
                 item.GetProperty("rotation").GetDouble(),

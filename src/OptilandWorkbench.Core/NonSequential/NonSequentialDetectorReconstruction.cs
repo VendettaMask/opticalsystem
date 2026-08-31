@@ -13,6 +13,7 @@ public static class NonSequentialDetectorReconstruction
         var detectors = document.Objects
             .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)
             .ToDictionary(item => item.Id, item => new Accumulator(item));
+        var recordedHits = new HashSet<DetectorHitKey>();
         foreach (var branch in branches)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -21,13 +22,13 @@ public static class NonSequentialDetectorReconstruction
                 continue;
             }
 
-            var recordedHits = new HashSet<DetectorHitKey>();
             foreach (var segment in branch.Segments)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (segment.ObjectId is not Guid detectorId
                     || !detectors.TryGetValue(detectorId, out var detector)
                     || !recordedHits.Add(new DetectorHitKey(
+                        segment.BranchId,
                         detectorId,
                         segment.FaceNumber,
                         BitConverter.DoubleToInt64Bits(segment.CumulativePathLength))))
@@ -49,6 +50,7 @@ public static class NonSequentialDetectorReconstruction
     }
 
     private readonly record struct DetectorHitKey(
+        long OriginalBranchId,
         Guid DetectorId,
         int FaceNumber,
         long CumulativePathBits);

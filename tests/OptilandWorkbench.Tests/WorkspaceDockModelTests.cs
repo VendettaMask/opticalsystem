@@ -178,7 +178,7 @@ public sealed class WorkspaceDockModelTests
     [Fact]
     public async Task MergeSinglePaneReturnsAllDocumentsAndUsesTabbedLayout()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(OptilandWorkbench.App.App));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OptilandWorkbench.App.App));
         await session.Dispatch(() =>
         {
             using var application = WorkbenchApplication.Create("cooke");

@@ -12,7 +12,7 @@ public sealed class TolerancingPanelRevisionTests
     [Fact]
     public async Task WorkspaceChangeCancelsRunAndPreventsStaleResultFromEnteringReport()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         WorkbenchApplication? application = null;
         TolerancingPanel? panel = null;
         CancellationTokenSource? runningCancellation = null;
@@ -62,7 +62,7 @@ public sealed class TolerancingPanelRevisionTests
     [Fact]
     public async Task OperandEditsAreDirtyAndDocumentReplacementResetsToleranceState()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
         {
             using var application = WorkbenchApplication.Create("cooke");
