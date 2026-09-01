@@ -14,12 +14,13 @@ public sealed class ThemeResourceTests
     public void ThemeRegistryOwnsSelectionResourcesIconsAndChrome()
     {
         Assert.Equal(
-            new[] { "Light", "Dark", "Isekai", "System" },
+            new[] { "Light", "Dark", "Isekai", "Pixel", "System" },
             ThemeRegistry.SelectableThemes.Select(theme => theme.SettingsValue));
-        Assert.Equal(3, ThemeRegistry.ConcreteThemes.Count);
+        Assert.Equal(4, ThemeRegistry.ConcreteThemes.Count);
         Assert.Equal(ThemeVariant.Light, ThemeRegistry.FromSettings("Light").RequestedVariant);
         Assert.Equal(ThemeVariant.Dark, ThemeRegistry.FromSettings("Dark").RequestedVariant);
         Assert.Equal(IsekaiTheme.Variant, ThemeRegistry.FromSettings("Isekai").RequestedVariant);
+        Assert.Equal(PixelTheme.Variant, ThemeRegistry.FromSettings("Pixel").RequestedVariant);
         Assert.True(ThemeRegistry.FromSettings("System").FollowsSystem);
         Assert.Equal("Light", ThemeRegistry.NormalizeSettingsValue("unknown"));
 
@@ -32,11 +33,12 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void DarkAndIsekaiThemesDefineAnalysisAndSceneRenderingResources()
+    public void CustomThemesDefineAnalysisAndSceneRenderingResources()
     {
         var lightResources = ThemePalette.Light.ToResourceDictionary();
         var resources = ThemePalette.DarkOpticStudio.ToResourceDictionary();
         var isekaiResources = ThemeRegistry.FromSettings(IsekaiTheme.SettingsValue).BuildResources();
+        var pixelResources = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).BuildResources();
         var settings = new AppSettings { Theme = IsekaiTheme.SettingsValue };
         settings.NormalizeDisplaySettings();
 
@@ -44,6 +46,7 @@ public sealed class ThemeResourceTests
         AssertAllThemeBrushes(lightResources);
         AssertAllThemeBrushes(resources);
         AssertAllThemeBrushes(isekaiResources);
+        AssertAllThemeBrushes(pixelResources);
 
         AssertBrush(resources, ThemeResourceBindings.TextPrimary);
         AssertBrush(resources, ThemeResourceBindings.TextSecondary);
@@ -70,6 +73,10 @@ public sealed class ThemeResourceTests
         AssertBrush(isekaiResources, ThemeResourceBindings.PlotBackground);
         AssertBrush(isekaiResources, ThemeResourceBindings.SceneBackground);
         AssertBrush(isekaiResources, "AccentFillColorDefaultBrush");
+        AssertBrush(pixelResources, ThemeResourceBindings.TextPrimary);
+        AssertBrush(pixelResources, ThemeResourceBindings.PlotBackground);
+        AssertBrush(pixelResources, ThemeResourceBindings.SceneBackground);
+        AssertBrush(pixelResources, "AccentFillColorDefaultBrush");
         var applicationResources = new ResourceDictionary
         {
             ["AccentFillColorDefaultBrush"] = new SolidColorBrush(Color.FromRgb(0, 122, 255))
@@ -79,6 +86,7 @@ public sealed class ThemeResourceTests
             Color.FromRgb(202, 148, 50),
             ColorOf(applicationResources, "AccentFillColorDefaultBrush"));
         Assert.True(ThemeRegistry.IsDarkVisual(IsekaiTheme.Variant));
+        Assert.False(ThemeRegistry.IsDarkVisual(PixelTheme.Variant));
         Assert.False(ThemeRegistry.IsDarkVisual(ThemeVariant.Light));
         Assert.Equal(
             Color.FromRgb(255, 255, 255),
@@ -87,6 +95,7 @@ public sealed class ThemeResourceTests
         Assert.True(ColorOf(lightResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
         Assert.True(ColorOf(resources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
         Assert.True(ColorOf(isekaiResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
+        Assert.True(ColorOf(pixelResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
     }
 
     [Fact]
@@ -95,6 +104,7 @@ public sealed class ThemeResourceTests
         var light = ThemePalette.Light.ToResourceDictionary();
         var dark = ThemePalette.DarkOpticStudio.ToResourceDictionary();
         var isekai = ThemeRegistry.FromSettings(IsekaiTheme.SettingsValue).BuildResources();
+        var pixel = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).BuildResources();
 
         Assert.True(Luminance(ColorOf(dark, ThemeResourceBindings.PlotBackground))
             < Luminance(ColorOf(light, ThemeResourceBindings.PlotBackground)));
@@ -126,6 +136,16 @@ public sealed class ThemeResourceTests
         AssertReadable(dark, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
         AssertReadable(isekai, ThemeResourceBindings.AnalysisRealRayRowForeground, ThemeResourceBindings.AnalysisRealRayRowBackground);
         AssertReadable(isekai, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
+        AssertReadable(pixel, ThemeResourceBindings.TextPrimary, ThemeResourceBindings.Surface);
+        AssertReadable(pixel, ThemeResourceBindings.TextSecondary, ThemeResourceBindings.Surface);
+        AssertReadable(pixel, ThemeResourceBindings.TextMuted, ThemeResourceBindings.Surface);
+        AssertReadable(pixel, ThemeResourceBindings.TextAccent, ThemeResourceBindings.Surface);
+        AssertReadable(pixel, ThemeResourceBindings.TextWarning, ThemeResourceBindings.WarningSurface);
+        AssertReadable(pixel, ThemeResourceBindings.TextError, ThemeResourceBindings.ErrorSurface);
+        AssertReadable(pixel, ThemeResourceBindings.TextSuccess, ThemeResourceBindings.SuccessSurface);
+        AssertReadable(pixel, ThemeResourceBindings.AnalysisRealRayRowForeground, ThemeResourceBindings.AnalysisRealRayRowBackground);
+        AssertReadable(pixel, ThemeResourceBindings.AnalysisParaxialRayRowForeground, ThemeResourceBindings.AnalysisParaxialRayRowBackground);
+        AssertReadable(pixel, ThemeResourceBindings.TextOnAccent, "AccentFillColorDefaultBrush");
 
     }
 
@@ -200,6 +220,34 @@ public sealed class ThemeResourceTests
                 standard[role].BorderThickness,
                 isekai[role].BorderThickness);
         }
+    }
+
+    [Fact]
+    public void PixelThemeUsesSquaredIconsAndChromeWithoutChangingStructuralThickness()
+    {
+        Assert.Equal(PixelThemeIconPack.Instance.Id, ThemeIconResolver.PackId(PixelTheme.Variant));
+        Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var standard));
+        Assert.True(ThemeIconResolver.TryResolve(PixelTheme.Variant, "save", out var pixel));
+        Assert.NotSame(standard, pixel);
+        Assert.Same(standard.Primitives, pixel.Primitives);
+        Assert.Equal(PenLineCap.Square, pixel.LineCap);
+        Assert.Equal(PenLineJoin.Miter, pixel.LineJoin);
+        Assert.Equal(1.1, pixel.StrokeWidthScale, precision: 12);
+        Assert.All(LocalIconLibrary.Names, iconName =>
+            Assert.True(PixelThemeIconPack.Instance.TryResolve(iconName, out _)));
+        Assert.True(PixelThemeIconPack.Instance.TryResolve("not-a-real-icon", out var fallback));
+        Assert.True(PixelThemeIconPack.Instance.TryResolve("circle-question-mark", out var question));
+        Assert.Same(question, fallback);
+
+        var standardChrome = ThemeRegistry.FromSettings("Light").Chrome;
+        var pixelChrome = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).Chrome;
+        foreach (var role in Enum.GetValues<ThemeChromeRole>())
+        {
+            Assert.Equal(standardChrome[role].BorderThickness, pixelChrome[role].BorderThickness);
+            Assert.Equal(new CornerRadius(0), pixelChrome[role].CornerRadius);
+        }
+
+        Assert.NotEqual(default, pixelChrome[ThemeChromeRole.SettingsCard].BoxShadow);
     }
 
     [Fact]

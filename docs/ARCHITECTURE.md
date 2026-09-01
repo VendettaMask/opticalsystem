@@ -107,7 +107,7 @@ MainWindow
 - 平铺、层叠和合并不会在软件外保留内容窗口，只有独立浮动命令会创建原生宿主；
 - 空宿主在操作后、保存前和旧会话恢复时过滤。
 
-主题由 `ThemeRegistry` 注册完整主题包，每个具体 `ThemeDefinition` 同时拥有色板、强调色应用器、实际图标包、Chrome 配置、装饰渲染器和明暗特征。`ThemeApplicationService` 是运行时切换的唯一入口；`ThemeResourceBindings` 保持颜色语义，`ThemeIconResolver` 按实际主题解析稳定图标名，`ThemeChromeRole` 为 Ribbon、工作区、卡片、控件框、状态栏、对话框和视口提供语义边框。明亮、暗夜、异世界主题提供相同颜色和 Chrome 资源键；`System` 仅作为跟随操作系统的选择代理。结构边框厚度、布局、文案、命令 ID 和分析语义色独立于主题。扩展规则见 [主题包开发规范](THEME_PACKAGES.md)。
+主题由 `ThemeRegistry` 注册完整主题包，每个具体 `ThemeDefinition` 同时拥有色板、强调色应用器、实际图标包、Chrome 配置、装饰渲染器和明暗特征。`ThemeApplicationService` 是运行时切换的唯一入口；`ThemeResourceBindings` 保持颜色语义，`ThemeIconResolver` 按实际主题解析稳定图标名，`ThemeChromeRole` 为 Ribbon、工作区、卡片、控件框、状态栏、对话框和视口提供语义边框。明亮、暗夜、异世界和像素风格主题提供相同颜色和 Chrome 资源键；`System` 仅作为跟随操作系统的选择代理。结构边框厚度、布局、文案、命令 ID 和分析语义色独立于主题。扩展规则见 [主题包开发规范](THEME_PACKAGES.md)。
 
 ## 会话与持久化
 

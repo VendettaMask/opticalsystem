@@ -96,6 +96,24 @@ internal sealed class ThemeChromeProfile
             [ThemeChromeRole.Viewport] = new(gold, new Thickness(1), new CornerRadius(0), none)
         });
     }
+
+    public static ThemeChromeProfile CreatePixel()
+    {
+        var navy = Color.FromRgb(23, 50, 77);
+        var none = default(BoxShadows);
+        var pixelShadow = BoxShadows.Parse("2 2 0 0 #6617324D");
+        return new ThemeChromeProfile(new Dictionary<ThemeChromeRole, ThemeChromeStyle>
+        {
+            [ThemeChromeRole.Ribbon] = new(navy, new Thickness(0, 0, 0, 1), new CornerRadius(0), none),
+            [ThemeChromeRole.Workspace] = new(navy, new Thickness(0), new CornerRadius(0), none),
+            [ThemeChromeRole.SettingsCard] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
+            [ThemeChromeRole.SurfaceCard] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
+            [ThemeChromeRole.ControlFrame] = new(navy, new Thickness(1), new CornerRadius(0), none),
+            [ThemeChromeRole.StatusBar] = new(navy, new Thickness(0, 1, 0, 0), new CornerRadius(0), none),
+            [ThemeChromeRole.Dialog] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
+            [ThemeChromeRole.Viewport] = new(navy, new Thickness(1), new CornerRadius(0), none)
+        });
+    }
 }
 
 internal static class ThemeChromeResources

@@ -73,6 +73,17 @@ internal static class ThemeRegistry
         IsekaiTheme.ApplyAccentResources,
         IsDarkLike: true);
 
+    private static readonly ThemeDefinition Pixel = new(
+        PixelTheme.SettingsValue,
+        "像素风格",
+        PixelTheme.Variant,
+        PixelTheme.Palette,
+        PixelThemeIconPack.Instance,
+        ThemeChromeProfile.CreatePixel(),
+        PixelThemeDecorationRenderer.Instance,
+        PixelTheme.ApplyAccentResources,
+        IsDarkLike: false);
+
     private static readonly ThemeDefinition System = new(
         "System",
         "跟随系统",
@@ -86,10 +97,10 @@ internal static class ThemeRegistry
         FollowsSystem: true);
 
     public static IReadOnlyList<ThemeDefinition> SelectableThemes { get; } =
-        new[] { Light, Dark, Isekai, System };
+        new[] { Light, Dark, Isekai, Pixel, System };
 
     public static IReadOnlyList<ThemeDefinition> ConcreteThemes { get; } =
-        new[] { Light, Dark, Isekai };
+        new[] { Light, Dark, Isekai, Pixel };
 
     public static bool IsSupportedSettingsValue(string? value) =>
         SelectableThemes.Any(theme => string.Equals(

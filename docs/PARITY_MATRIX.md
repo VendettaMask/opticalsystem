@@ -21,7 +21,7 @@
 | 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集；Zemax 只读评价函数参数往返时不裁剪 |
 | 插件 | `Plugins` | 程序集/目录发现，几何、材料、分析注册和失败隔离 |
 | 可视化 | `Visualization` | 二维/三维、显式光段方向和交互类型、主题资源 |
-| GUI | `OptilandWorkbench.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、三主题和按文件会话 |
+| GUI | `OptilandWorkbench.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、四个具体主题和按文件会话 |
 
 ## 当前里程碑
 

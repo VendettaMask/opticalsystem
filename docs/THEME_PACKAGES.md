@@ -2,7 +2,7 @@
 
 状态：已实现架构规范。
 
-应用主题由 `ThemeRegistry` 统一注册。业务窗口、Ribbon、分析页面和面板只声明颜色、图标和边框的语义，不得根据 `Light`、`Dark`、`Isekai` 等主题名编写显示分支。
+应用主题由 `ThemeRegistry` 统一注册。业务窗口、Ribbon、分析页面和面板只声明颜色、图标和边框的语义，不得根据 `Light`、`Dark`、`Isekai`、`Pixel` 等主题名编写显示分支。
 
 ## 当前主题包
 
@@ -11,9 +11,10 @@
 | `Light` | 普通模式 | Avalonia Light | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Isekai` | 异世界 | Dark 派生 | `GameIconsFantasy` | 旧金锐角框、工作区/视口/对话框双框、皮革剑刃 Ribbon |
+| `Pixel` | 像素风格 | Light 派生 | `PixelLucide` | 明亮 8-bit 色板、方角硬边、无模糊像素阴影与点阵 Ribbon |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
 
-`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度和 Ribbon 阴影保持改造前参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID、文案、结构边框厚度、布局尺寸或输入命中区域。
+`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度和 Ribbon 阴影保持改造前参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID、文案、结构边框厚度、布局尺寸或输入命中区域。像素风格复用固定版本 Lucide 的语义几何，但由独立 `PixelLucide` 包改为方形线帽、直角连接和加粗像素轮廓；亮蓝点阵、阶梯角标与硬阴影只通过主题 Chrome 和装饰层表达。
 
 ## 主题包组成
 
@@ -29,7 +30,7 @@
 
 `App` 只遍历注册中心建立资源字典；`ThemeApplicationService` 在 UI 线程中先准备 Fluent/Dock 兼容强调资源，再发布主题变体切换。显示设置窗口直接读取注册中心，并在不改变全局主题的独立样例中预览所选色板和 Chrome。新增主题不得修改 `MainWindow`、`DisplaySettingsWindow` 或业务面板的主题 switch。
 
-`System` 是选择代理，不拥有第四套视觉资源。它请求 `ThemeVariant.Default`，实际颜色、图标、Chrome 和装饰由控件的 `ActualThemeVariant` 解析到明亮或暗夜主题，避免系统模式维护一份会过期的复制色板。
+`System` 是选择代理，不拥有独立视觉资源。它请求 `ThemeVariant.Default`，实际颜色、图标、Chrome 和装饰由控件的 `ActualThemeVariant` 解析到明亮或暗夜主题，避免系统模式维护一份会过期的复制色板。
 
 ## 图标规则
 
@@ -37,6 +38,7 @@
 
 - 普通和暗夜主题直接返回固定版本 Lucide 定义，确保现有显示不变；
 - 异世界主题由 `GameIconsFantasy` 包直接加载 Game-icons.net 上游填充式 SVG 路径；每项都记录作者和原始文件，未映射语义回退到同套 `help.svg`；
+- 像素风格由 `PixelLucide` 包复用同一批稳定语义几何并改为方形线帽、直角连接和 1.1 倍描边，未知语义回退到像素化的 `circle-question-mark`；
 - 未知语义统一回退到 `circle-question-mark`，不得显示空白；
 - 主题切换会使现有 `LocalIcon` 失效重绘，不要求重启。
 

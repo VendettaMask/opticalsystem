@@ -99,6 +99,13 @@ public sealed class ThemeRuntimeTests
                 Assert.NotEqual(lightCorner, content.CornerRadius);
                 Assert.Equal(lightBounds, content.Bounds.Size);
 
+                ThemeApplicationService.Apply(application, PixelTheme.SettingsValue);
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                Assert.Equal(PixelTheme.Variant, content.ActualThemeVariant);
+                Assert.Equal(PixelThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
+                Assert.Equal(new CornerRadius(0), content.CornerRadius);
+                Assert.Equal(lightBounds, content.Bounds.Size);
+
                 ThemeApplicationService.Apply(application, "Dark");
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 Assert.Equal(ThemeVariant.Dark, content.ActualThemeVariant);
