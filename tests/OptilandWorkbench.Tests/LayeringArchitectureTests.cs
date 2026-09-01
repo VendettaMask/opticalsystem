@@ -97,6 +97,20 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
+    public void RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog()
+    {
+        var sourceRoot = Path.Combine(FindRepositoryRoot(), "src");
+        var source = string.Join(
+            '\n',
+            Directory.EnumerateFiles(sourceRoot, "*.cs", SearchOption.AllDirectories)
+                .Select(File.ReadAllText));
+
+        Assert.DoesNotContain("ZemaxStockCatalogReader", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("zemaxStockCatalogDirectory", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("\"Stockcat\"", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void GlobalNumericInputStyleKeepsSpinnerControlsAvailable()
     {
         var appSource = File.ReadAllText(Path.Combine(

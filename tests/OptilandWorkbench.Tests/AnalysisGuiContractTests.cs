@@ -91,10 +91,10 @@ public sealed class AnalysisGuiContractTests
             typeof(ContractLensLibraryService),
             typeof(AnalysisContracts.IWorkspaceEventStream)
         }));
-        Assert.EndsWith(
-            Path.Combine("Zemax", "Stockcat"),
-            MainWindow.InstalledZemaxStockCatalogDirectory(),
-            StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain(
+            typeof(WorkbenchApplication).GetMethod(nameof(WorkbenchApplication.Create))!.GetParameters(),
+            parameter => parameter.Name!.Contains("zemax", StringComparison.OrdinalIgnoreCase)
+                || parameter.Name.Contains("stock", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

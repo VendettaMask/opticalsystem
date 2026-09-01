@@ -144,8 +144,7 @@ public sealed partial class MainWindow : Window
         _application = WorkbenchApplication.Create(
             startup.Sample,
             UserGlassCatalogDirectory(),
-            BundledLensLibraryDirectory(),
-            InstalledZemaxStockCatalogDirectory());
+            BundledLensLibraryDirectory());
         if (Enum.TryParse<OpticalWorkbenchMode>(_settings.WorkbenchMode, out var savedMode))
         {
             _application.Modes.SwitchTo(savedMode);

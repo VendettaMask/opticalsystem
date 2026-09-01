@@ -19,21 +19,14 @@ internal sealed class LensLibraryService : ILensLibraryService
     private readonly object _gate = new();
     private LensLibraryCatalogDocument? _catalog;
     private CommercialLensCatalogDocument? _commercialCatalog;
-    private IReadOnlyList<CommercialLensEntryDto>? _installedCommercialEntries;
-    private IReadOnlyList<CommercialLensEntryDto>? _mergedCommercialEntries;
 
-    public LensLibraryService(string libraryDirectory, string? zemaxStockCatalogDirectory = null)
+    public LensLibraryService(string libraryDirectory)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(libraryDirectory);
         LibraryDirectory = Path.GetFullPath(libraryDirectory);
-        ZemaxStockCatalogDirectory = string.IsNullOrWhiteSpace(zemaxStockCatalogDirectory)
-            ? null
-            : Path.GetFullPath(zemaxStockCatalogDirectory);
     }
 
     public string LibraryDirectory { get; }
-
-    public string? ZemaxStockCatalogDirectory { get; }
 
     public IReadOnlyList<LensLibraryEntryDto> GetLenses()
     {
@@ -50,13 +43,11 @@ internal sealed class LensLibraryService : ILensLibraryService
     {
         lock (_gate)
         {
-            return _mergedCommercialEntries ??= MergeCommercialEntries(
-                        LoadCommercialCatalog().Entries,
-                        LoadInstalledCommercialEntries())
-                    .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
-                    .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
-                    .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
-                    .ToArray();
+            return LoadCommercialCatalog().Entries
+                .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
+                .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
+                .ToArray();
         }
     }
 
@@ -162,7 +153,7 @@ internal sealed class LensLibraryService : ILensLibraryService
     {
         lock (_gate)
         {
-            return (_mergedCommercialEntries ??= GetCommercialLenses()).FirstOrDefault(entry =>
+            return GetCommercialLenses().FirstOrDefault(entry =>
                 entry.Id.Equals(id, StringComparison.Ordinal));
         }
     }
@@ -224,16 +215,9 @@ internal sealed class LensLibraryService : ILensLibraryService
             return _commercialCatalog;
         }
 
-        var path = Path.Combine(LibraryDirectory, "commercial-index.json");
-        if (!File.Exists(path))
-        {
-            return _commercialCatalog = EmptyCommercialCatalog();
-        }
-
         try
         {
-            var json = BoundedFile.ReadAllText(path, BoundedFile.MaximumCatalogBytes, "Commercial-lens catalog");
-            var catalog = JsonSerializer.Deserialize<CommercialLensCatalogDocument>(json, JsonOptions);
+            var catalog = CommercialLensCatalogStore.LoadDirectory(LibraryDirectory);
             return _commercialCatalog = catalog is { Version: SupportedCommercialCatalogVersion }
                 ? catalog
                 : EmptyCommercialCatalog();
@@ -244,50 +228,6 @@ internal sealed class LensLibraryService : ILensLibraryService
             return _commercialCatalog = EmptyCommercialCatalog();
         }
     }
-
-    private IReadOnlyList<CommercialLensEntryDto> LoadInstalledCommercialEntries() =>
-        _installedCommercialEntries ??= ZemaxStockCatalogReader.ReadDirectory(ZemaxStockCatalogDirectory);
-
-    private static IReadOnlyList<CommercialLensEntryDto> MergeCommercialEntries(
-        IReadOnlyList<CommercialLensEntryDto> packaged,
-        IReadOnlyList<CommercialLensEntryDto> installed)
-    {
-        var entries = new Dictionary<string, CommercialLensEntryDto>(StringComparer.Ordinal);
-        foreach (var entry in packaged)
-        {
-            entries[CommercialKey(entry)] = entry;
-        }
-
-        foreach (var entry in installed)
-        {
-            var key = CommercialKey(entry);
-            if (!entries.TryGetValue(key, out var existing))
-            {
-                entries[key] = entry;
-                continue;
-            }
-
-            entries[key] = existing with
-            {
-                EntrancePupilDiameter = existing.EntrancePupilDiameter > 0
-                    ? existing.EntrancePupilDiameter
-                    : entry.EntrancePupilDiameter,
-                ShapeCode = existing.ShapeCode == "?" ? entry.ShapeCode : existing.ShapeCode,
-                SurfaceType = string.IsNullOrWhiteSpace(existing.SurfaceType)
-                    ? entry.SurfaceType
-                    : existing.SurfaceType,
-                SourceNote = $"{existing.SourceNote} {entry.SourceNote}"
-            };
-        }
-
-        return entries.Values.ToArray();
-    }
-
-    private static string CommercialKey(CommercialLensEntryDto entry) =>
-        $"{Canonical(entry.Manufacturer)}:{Canonical(entry.PartNumber)}";
-
-    private static string Canonical(string value) =>
-        string.Concat(value.Where(char.IsLetterOrDigit)).ToUpperInvariant();
 
     private static LensLibraryCatalogDocument EmptyCatalog() => new(
         SupportedCatalogVersion,

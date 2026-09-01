@@ -78,7 +78,7 @@ WorkbenchApplication
   CadExportService
 ```
 
-`LensLibraryService` 只读加载两类明确分离的资源：版本 2 的设计镜头库 `index.json`/`projects/*.staropt`，以及库存镜头目录。库存目录合并版本 1 的离线 `commercial-index.json` 与当前用户 `Documents/Zemax/Stockcat` 中版本 1001 ZMF 的目录头，但 `StockLensCatalogPolicy` 在读取入口和合并出口都限制为 Thorlabs、Edmund Optics、Daheng Optics、Newport、Sigma Koki 五家；`ZemaxStockCatalogReader` 跳过 ZMF 处方正文，只发布料号、分类、EFL 和 EPD 等目录元数据。`StockLensMatcher` 使用当前文档快照的一阶 EFL/EPD 做厂商、方向和公差过滤，并按归一化双参数偏差排序。设计库条目具有可校验的原生工程和预览；库存目录只有条目显式指向库内 `.staropt` 且文件存在时才提供载入能力，不能从目录元数据或受限 ZMF 正文伪造光学处方。
+`LensLibraryService` 只读加载两类明确分离、随应用版本分发的资源：版本 2 的设计镜头库 `index.json`/`projects/*.staropt`，以及 `StockCatalogs/<厂商>.json` 下版本 1 的库存镜头。库存资源按 Thorlabs、Edmund Optics、Daheng Optics、Newport、Sigma Koki 分文件保存目录头元数据；加载时校验文件名与条目厂商一致并拒绝重复 ID。桌面运行时不发现、不读取用户目录中的 ZMF，也不依赖 Zemax 安装。`StockLensMatcher` 使用当前文档快照的一阶 EFL/EPD 做厂商、方向和公差过滤，并按归一化双参数偏差排序。设计库条目具有可校验的原生工程和预览；库存目录只有条目显式指向库内 `.staropt` 且文件存在时才提供载入能力，不能从目录元数据伪造光学处方。ZMF 到自有目录的转换只存在于离线维护工具中，不属于应用运行时依赖。
 
 `WorkspaceCoordinator` 串行化写操作、控制文档生命周期取消令牌、递增修订号并发布分类事件。模型读写锁与生命周期取消锁分离，因此打开、新建或切换配置可以立即向正在运行的优化发出取消。文件读取在锁外完成；实际替换在工作区事务内再次取消读取期间启动的计算，并将当前路径、完整文档、撤销/重做历史、状态、文档代次和延迟事件一起提交。应用文档或自动半口径刷新失败时全部恢复，不发布文件切换事件。撤销/重做快照包含所有配置、活动配置索引和断开链接；表面、组件、视场、波长、系统环境和玻璃库等全部处方写入以完整文档、撤销/重做历史、状态和延迟事件为事务边界。材料解析、多配置传播或自动半口径刷新任一失败都会恢复更新前状态，不增加修订号或虚假撤销记录。分析、可视化和公差针对快照运行，生产 Services 统一调用 `Application.Runtime.WorkbenchRuntime`，不得引用 `Application.Legacy`。`OptilandConnector` 已移入独立 `OptilandWorkbench.Compatibility` 程序集，只作为无新增成员的源码兼容入口保留；主 Application 和 App 都不引用该程序集，它只能单向复用同一个 `WorkbenchRuntime`。架构测试检查程序集依赖、Services 命名空间依赖和运行时类型词汇。
 

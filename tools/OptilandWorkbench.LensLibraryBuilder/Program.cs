@@ -14,11 +14,23 @@ if (args.Length == 2 && args[0].Equals("--reindex", StringComparison.OrdinalIgno
     return await ReindexExistingLibraryAsync(Path.GetFullPath(args[1]));
 }
 
+if (args.Length is 3 or 4 && args[0].Equals("--stock-catalog", StringComparison.OrdinalIgnoreCase))
+{
+    var catalog = await StockLensCatalogConverter.ConvertAsync(
+        args[1],
+        args[2],
+        args.Length == 4 ? args[3] : null);
+    Console.WriteLine($"Output: {Path.GetFullPath(args[2])}");
+    Console.WriteLine($"Stock lenses: {catalog.Entries.Count}");
+    return 0;
+}
+
 if (args.Length != 2)
 {
     Console.Error.WriteLine(
         "Usage: OptilandWorkbench.LensLibraryBuilder <manifest.json> <output-directory>\n"
-        + "   or: OptilandWorkbench.LensLibraryBuilder --reindex <library-directory>");
+        + "   or: OptilandWorkbench.LensLibraryBuilder --reindex <library-directory>\n"
+        + "   or: OptilandWorkbench.LensLibraryBuilder --stock-catalog <zmf-directory> <output-directory> [seed-catalog.json]");
     return 2;
 }
 

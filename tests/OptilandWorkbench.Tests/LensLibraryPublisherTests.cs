@@ -21,7 +21,7 @@ public sealed class LensLibraryPublisherTests
             Assert.False(Directory.Exists(Path.Combine(output, "catalogs")));
             Assert.Equal(
                 "preserved",
-                File.ReadAllText(Path.Combine(output, "commercial-index.json")));
+                File.ReadAllText(Path.Combine(output, "StockCatalogs", "Thorlabs.json")));
             Assert.Empty(TransactionDirectories(root));
         }
         finally
@@ -56,7 +56,7 @@ public sealed class LensLibraryPublisherTests
             Assert.Equal("legacy", File.ReadAllText(Path.Combine(output, "catalogs", "legacy.txt")));
             Assert.Equal(
                 "preserved",
-                File.ReadAllText(Path.Combine(output, "commercial-index.json")));
+                File.ReadAllText(Path.Combine(output, "StockCatalogs", "Thorlabs.json")));
             Assert.False(File.Exists(Path.Combine(output, "projects", "new.staropt")));
             Assert.Empty(TransactionDirectories(root));
         }
@@ -122,10 +122,11 @@ public sealed class LensLibraryPublisherTests
         var output = Path.Combine(root, "library");
         Directory.CreateDirectory(Path.Combine(output, "projects"));
         Directory.CreateDirectory(Path.Combine(output, "catalogs"));
+        Directory.CreateDirectory(Path.Combine(output, "StockCatalogs"));
         File.WriteAllText(Path.Combine(output, "index.json"), "old-index");
         File.WriteAllText(Path.Combine(output, "projects", "old.staropt"), "old-project");
         File.WriteAllText(Path.Combine(output, "catalogs", "legacy.txt"), "legacy");
-        File.WriteAllText(Path.Combine(output, "commercial-index.json"), "preserved");
+        File.WriteAllText(Path.Combine(output, "StockCatalogs", "Thorlabs.json"), "preserved");
         return output;
     }
 

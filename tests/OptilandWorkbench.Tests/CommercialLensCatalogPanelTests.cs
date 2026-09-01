@@ -58,7 +58,7 @@ public sealed class CommercialLensCatalogPanelTests
         manufacturer,
         partNumber,
         partNumber,
-        "本机 Zemax Stockcat",
+        "同步库存目录",
         "https://example.com",
         string.Empty,
         "目录镜头",

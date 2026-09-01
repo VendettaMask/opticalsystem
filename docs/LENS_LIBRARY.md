@@ -7,8 +7,13 @@
 ```text
 LensLibrary/
   index.json
-  commercial-index.json
   projects/*.staropt
+  StockCatalogs/
+    Daheng Optics.json
+    Edmund Optics.json
+    Newport.json
+    Sigma Koki.json
+    Thorlabs.json
 ```
 
 应用启动时读取版本 2 的 `index.json`，参数和二维预览只打开 `.staropt`。镜头库页面位于“数据库 > 镜头库”，与材料库分离。选中条目只更新预览，不改变当前设计；双击条目打开打包工程并激活镜头编辑器。搜索同时覆盖镜头名、来源、镜头类型、应用场景和设计单位。页面在有限工作区内让镜头列表和元数据各自滚动，并为光学预览保留有限画布；925 条目录不会再把右侧详情推到列表末尾，窄 Dock 下列表和详情按当前视口上下分配空间。
@@ -21,9 +26,19 @@ LensLibrary/
 
 “数据库 > 库存镜头匹配”参考 [Ansys Zemax Stock Lens Matching](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Stock_Lens_Matching.html) 的候选筛选思路，但使用当前软件实际拥有的数据实现：目标值来自当前系统的一阶有效焦距和入瞳直径；用户选择五家厂商、结果数、EFL 公差、EPD 公差和光焦度方向约束；候选先经过条件过滤，再按归一化 EFL/EPD 综合偏差排序。当前目标范围是“所有面（当前系统）”，完整系统没有唯一的单镜片形状，因此形状匹配不会被伪造为已生效。
 
-桌面主窗口明确把当前用户的 `Documents/Zemax/Stockcat` 传给应用服务。目录存在时，服务只读取上述五个版本 1001 ZMF 的目录头并与打包目录合并；读取字段仅包括料号、目录版本、元件数、形状、非球面/GRIN/环曲面标记、EFL 和 EPD，处方正文被跳过，不解码、不复制、不写入仓库。本机目录可以包含更多厂商文件，但不再把它们载入内存或发布到界面。
+2026-09-01 起，桌面运行时不再发现或解析当前用户的 `Documents/Zemax/Stockcat`。五家厂商共 16,289 条目录头元数据已转换为版本 1 的应用自有明文 JSON，并在 `StockCatalogs` 下按厂商名字分别保存，随应用和源码版本同步；任意电脑运行同一版本都会看到同一库存目录，不需要安装 Zemax。目录只保存料号、元件数、形状、表面类别、EFL、EPD、厂商主页和来源说明，不包含 ZMF 处方正文、价格或实时库存。
 
-没有安装 Zemax Stockcat 时，版本 1 的 `commercial-index.json` 提供 6 个由厂商官方页面核验的离线条目，覆盖 Thorlabs 和 Edmund Optics。目录不保存价格或实时库存；厂商状态可能在核验后变化。ZMF 和离线条目均不随附厂商处方，因此“载入模型”保持禁用。只有取得明确许可、转换为 STAROPT 并通过校验的本地模型，才允许从目录载入；不能依据公开规格反推并冒充厂商处方。
+原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。所有库存条目默认不能“载入模型”；只有取得明确许可、转换为 STAROPT 并通过校验的模型才允许载入，不能依据目录规格反推并冒充厂商处方。
+
+ZMF 解析仅保留在离线维护工具 `OptilandWorkbench.LensLibraryBuilder` 中。维护人员显式提供来源目录并更新同步资源：
+
+```powershell
+dotnet run --project tools\OptilandWorkbench.LensLibraryBuilder -- `
+  --stock-catalog <ZMF来源目录> `
+  src\OptilandWorkbench.App\Assets\LensLibrary\StockCatalogs
+```
+
+转换器要求五家源目录齐全，限制文件和记录大小，跳过处方正文，并分别原子替换五个厂商 JSON 文件。转换得到的数据仍继承其来源授权；改成自有 JSON 格式不代表获得重新分发许可，发布前必须审核来源许可。
 
 匹配页返回的是真实目录候选和可复算的偏差，不是自动替换。由于当前合法可读的 ZMF 目录头不包含可授权的光学处方、中心厚度和空气补偿数据，本阶段不执行镜片替换、空气厚度补偿、组合保存或再优化，也不提供看似可点击但没有真实作用的控件。只有将来取得明确许可的本地处方模型后，这些能力才可以接入。
 
@@ -74,7 +89,7 @@ dotnet run \
 local-data/lens-library/originals/user-zmx/public/
 ```
 
-仓库内测试样例位于相邻 `user-zmx/project/`。只有审核后的 `index.json` 与 `.staropt` 随应用打包。来源许可必须记录；不支持的结构离线构建时明确失败，不能近似替代。
+仓库内测试样例位于相邻 `user-zmx/project/`。只有审核后的 `index.json`、`.staropt` 与 `StockCatalogs/<厂商>.json` 随应用打包。来源许可必须记录；不支持的结构离线构建时明确失败，不能近似替代。
 
 ## 单文件转换与安装
 
@@ -84,7 +99,7 @@ Windows 可把 `.zmx` 拖到 `Convert-Zemax-Lens.cmd`，或执行：
 .\Convert-Zemax-Lens.cmd "D:\lenses\example.zmx"
 ```
 
-工具会导入支持配置、写入并重读 STAROPT 校验、发布到 `samples/lenses` 和打包镜头库，并按稳定 ID 更新索引。相同来源重新导入会更新条目，不创建重复项。全部输出先暂存；发布时在目标目录的同一父目录准备完整替换副本，保留 `commercial-index.json` 等非生成器管理内容，再把旧库改名为事务备份并激活新库。新库激活失败会立即恢复旧目录，故障测试覆盖“旧库已经移入备份、新库尚未激活”的窗口；只有回滚本身也遭遇文件系统故障时才保留显式备份路径供人工恢复。
+工具会导入支持配置、写入并重读 STAROPT 校验、发布到 `samples/lenses` 和打包镜头库，并按稳定 ID 更新索引。相同来源重新导入会更新条目，不创建重复项。全部输出先暂存；发布时在目标目录的同一父目录准备完整替换副本，保留 `StockCatalogs` 等非生成器管理内容，再把旧库改名为事务备份并激活新库。新库激活失败会立即恢复旧目录，故障测试覆盖“旧库已经移入备份、新库尚未激活”的窗口；只有回滚本身也遭遇文件系统故障时才保留显式备份路径供人工恢复。
 
 可通过 `--name`、`--category`、`--source-name`、`--source-url`、`--license`、`--lens-type`、`--application` 和 `--design-organization` 提供元数据；未给出类型和用途时按分类写入保守值，设计单位未知时写入“未注明”。运行 `--help` 查看完整参数。
 

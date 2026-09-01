@@ -14,8 +14,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     private WorkbenchApplication(
         Optic optic,
         string? userCatalogDirectory,
-        string lensLibraryDirectory,
-        string? zemaxStockCatalogDirectory)
+        string lensLibraryDirectory)
     {
         var context = new OpticContext(optic);
         _workspace = new WorkspaceCoordinator(context);
@@ -39,7 +38,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         Tolerancing = new TolerancingService(_workspace);
         MultiConfiguration = new MultiConfigurationService(_workspace);
         Materials = new MaterialCatalogService(_workspace, userCatalogDirectory);
-        Lenses = new LensLibraryService(lensLibraryDirectory, zemaxStockCatalogDirectory);
+        Lenses = new LensLibraryService(lensLibraryDirectory);
         Events = _workspace;
     }
 
@@ -74,8 +73,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     public static WorkbenchApplication Create(
         string? sample = null,
         string? userCatalogDirectory = null,
-        string? lensLibraryDirectory = null,
-        string? zemaxStockCatalogDirectory = null)
+        string? lensLibraryDirectory = null)
     {
         MaterialCatalogService.LoadUserCatalogs(userCatalogDirectory);
         var optic = sample?.ToLowerInvariant() switch
@@ -84,22 +82,12 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
             "tessar" => Optic.CreateTessarLens(),
             _ => Optic.CreateBlank()
         };
-        var usesPackagedLensLibrary = lensLibraryDirectory is null;
         lensLibraryDirectory ??= Path.Combine(AppContext.BaseDirectory, "LensLibrary");
-        if (usesPackagedLensLibrary && string.IsNullOrWhiteSpace(zemaxStockCatalogDirectory))
-        {
-            var candidate = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "Zemax",
-                "Stockcat");
-            zemaxStockCatalogDirectory = Directory.Exists(candidate) ? candidate : null;
-        }
 
         return new WorkbenchApplication(
             optic,
             userCatalogDirectory,
-            lensLibraryDirectory,
-            zemaxStockCatalogDirectory);
+            lensLibraryDirectory);
     }
 
     public void Dispose()

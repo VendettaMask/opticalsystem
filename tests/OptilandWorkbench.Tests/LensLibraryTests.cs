@@ -5,6 +5,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.LensLibraryBuilder;
 
 namespace OptilandWorkbench.Tests;
 
@@ -41,13 +42,31 @@ public sealed class LensLibraryTests
         });
 
         var commercial = application.Lenses.GetCommercialLenses();
-        Assert.Equal(6, commercial.Count);
+        var stockCatalogDirectory = Path.Combine(root, CommercialLensCatalogStore.DirectoryName);
         Assert.Equal(
-            new[] { "Edmund Optics", "Thorlabs" },
+            new[]
+            {
+                "Daheng Optics.json",
+                "Edmund Optics.json",
+                "Newport.json",
+                "Sigma Koki.json",
+                "Thorlabs.json"
+            },
+            Directory.EnumerateFiles(stockCatalogDirectory, "*.json")
+                .Select(Path.GetFileName)
+                .Order(StringComparer.OrdinalIgnoreCase));
+        Assert.Equal(16_289, commercial.Count);
+        Assert.Equal(
+            new[] { "Daheng Optics", "Edmund Optics", "Newport", "Sigma Koki", "Thorlabs" },
             commercial
                 .Select(entry => entry.Manufacturer)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .Order(StringComparer.OrdinalIgnoreCase));
+        Assert.Equal(302, commercial.Count(entry => entry.Manufacturer == "Daheng Optics"));
+        Assert.Equal(9_546, commercial.Count(entry => entry.Manufacturer == "Edmund Optics"));
+        Assert.Equal(1_556, commercial.Count(entry => entry.Manufacturer == "Newport"));
+        Assert.Equal(1_771, commercial.Count(entry => entry.Manufacturer == "Sigma Koki"));
+        Assert.Equal(3_114, commercial.Count(entry => entry.Manufacturer == "Thorlabs"));
         Assert.All(commercial, entry =>
         {
             Assert.False(string.IsNullOrWhiteSpace(entry.PartNumber));
@@ -176,12 +195,10 @@ public sealed class LensLibraryTests
     }
 
     [Fact]
-    public void InstalledZemaxStockCatalogPublishesAllHeaderEntriesWithoutExtractingPrescriptions()
+    public void OfflineStockCatalogConverterPublishesHeaderEntriesWithoutExtractingPrescriptions()
     {
         var container = Path.Combine(Path.GetTempPath(), $"zemax-stockcat-{Guid.NewGuid():N}");
-        var library = Path.Combine(container, "library");
-        var stockCatalog = Path.Combine(container, "Stockcat");
-        Directory.CreateDirectory(library);
+        var stockCatalog = Path.Combine(container, "source");
         Directory.CreateDirectory(stockCatalog);
 
         try
@@ -195,21 +212,9 @@ public sealed class LensLibraryTests
                 WriteZmfRecord(writer, "ACL25416U-A", 2, 4, 1, 0, 0, 16, 22);
             }
 
-            var excludedPath = Path.Combine(stockCatalog, "ANTERYON.ZMF");
-            using (var stream = File.Create(excludedPath))
-            using (var writer = new BinaryWriter(stream, System.Text.Encoding.Latin1))
-            {
-                writer.Write((uint)1001);
-                WriteZmfRecord(writer, "AC-044", 2, 2, 0, 0, 0, 18.86, 4.4);
-            }
-
-            using var application = WorkbenchApplication.Create(
-                lensLibraryDirectory: library,
-                zemaxStockCatalogDirectory: stockCatalog);
-            var entries = application.Lenses.GetCommercialLenses();
+            var entries = StockLensCatalogConverter.ReadFile(path);
 
             Assert.Equal(2, entries.Count);
-            Assert.DoesNotContain(entries, entry => entry.Manufacturer == "Anteryon");
             var achromat = Assert.Single(entries, entry => entry.PartNumber == "AC254-100-A");
             Assert.Equal("Thorlabs", achromat.Manufacturer);
             Assert.Equal("B", achromat.ShapeCode);
@@ -218,7 +223,7 @@ public sealed class LensLibraryTests
             Assert.Equal(100.1, achromat.EffectiveFocalLength, precision: 8);
             Assert.Equal(25.4, achromat.EntrancePupilDiameter, precision: 8);
             Assert.Null(achromat.NativePath);
-            Assert.Contains("未解码或复制处方正文", achromat.SourceNote, StringComparison.Ordinal);
+            Assert.Contains("不包含处方正文", achromat.SourceNote, StringComparison.Ordinal);
 
             var asphere = Assert.Single(entries, entry => entry.PartNumber == "ACL25416U-A");
             Assert.Equal("M", asphere.ShapeCode);

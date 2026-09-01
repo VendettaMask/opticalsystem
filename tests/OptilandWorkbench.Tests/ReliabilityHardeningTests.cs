@@ -7,6 +7,7 @@ using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Phase;
+using OptilandWorkbench.LensLibraryBuilder;
 
 namespace OptilandWorkbench.Tests;
 
@@ -279,7 +280,7 @@ public sealed class ReliabilityHardeningTests
                 writer.Write(10.0);
             }
 
-            Assert.Throws<InvalidDataException>(() => ZemaxStockCatalogReader.ReadFile(path));
+            Assert.Throws<InvalidDataException>(() => StockLensCatalogConverter.ReadFile(path));
         }
         finally
         {
