@@ -41,6 +41,8 @@ public sealed class ThemeRuntimeTests
             try
             {
                 window.Show();
+                DisplayTypography.Configure(new AppSettings());
+                DisplayTypography.Apply(window);
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
 
                 Assert.Equal(PixelTheme.Variant, button.ActualThemeVariant);
@@ -49,10 +51,96 @@ public sealed class ThemeRuntimeTests
                 Assert.Equal(Color.FromRgb(255, 249, 220), Assert.IsAssignableFrom<ISolidColorBrush>(input.Background).Color);
                 Assert.Equal(new CornerRadius(0), button.CornerRadius);
                 Assert.Equal(new CornerRadius(0), input.CornerRadius);
+                Assert.Contains("Fusion Pixel 10px Mono zh_hans", window.FontFamily.Name, StringComparison.Ordinal);
+                Assert.Equal(TextRenderingMode.Alias, TextOptions.GetTextRenderingMode(window));
                 var presenter = button.GetVisualDescendants()
                     .OfType<ContentPresenter>()
                     .Single(control => control.Name == "PART_ContentPresenter");
                 Assert.NotEqual(default, presenter.BoxShadow);
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task PixelThemeOverridesTheRenderedDataGridSelectionRectangle()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OptilandWorkbench.App.App));
+        await session.Dispatch(() =>
+        {
+            var application = Assert.IsType<global::OptilandWorkbench.App.App>(global::Avalonia.Application.Current);
+            ThemeApplicationService.Apply(application, PixelTheme.SettingsValue);
+            var grid = new DataGrid
+            {
+                Width = 360,
+                Height = 160,
+                AutoGenerateColumns = false,
+                ItemsSource = new[] { "第一行", "第二行" },
+                SelectedIndex = 0
+            };
+            grid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "名称",
+                Binding = new Avalonia.Data.Binding(".")
+            });
+            var window = new Window { Width = 400, Height = 220, Content = grid };
+
+            try
+            {
+                window.Show();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                grid.SelectedIndex = 0;
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+
+                var row = grid.GetVisualDescendants().OfType<DataGridRow>().First();
+                Assert.True(row.IsSelected);
+                var selection = row.GetVisualDescendants()
+                    .OfType<Avalonia.Controls.Shapes.Rectangle>()
+                    .Single(shape => shape.Name == "BackgroundRectangle");
+                Assert.Equal(
+                    Color.FromRgb(247, 201, 72),
+                    Assert.IsAssignableFrom<ISolidColorBrush>(selection.Fill).Color);
+                Assert.Equal(1d, selection.Opacity);
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task PixelThemeOverridesTheRenderedListBoxSelectionPresenter()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OptilandWorkbench.App.App));
+        await session.Dispatch(() =>
+        {
+            var application = Assert.IsType<global::OptilandWorkbench.App.App>(global::Avalonia.Application.Current);
+            ThemeApplicationService.Apply(application, PixelTheme.SettingsValue);
+            var list = new ListBox
+            {
+                Width = 320,
+                Height = 140,
+                ItemsSource = new[] { "第一行", "第二行" },
+                SelectedIndex = 0
+            };
+            var window = new Window { Width = 360, Height = 190, Content = list };
+
+            try
+            {
+                window.Show();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+
+                var item = list.GetVisualDescendants().OfType<ListBoxItem>().First(candidate => candidate.IsSelected);
+                var presenter = item.GetVisualDescendants()
+                    .OfType<ContentPresenter>()
+                    .Single(control => control.Name == "PART_ContentPresenter");
+                Assert.Equal(
+                    Color.FromRgb(247, 201, 72),
+                    Assert.IsAssignableFrom<ISolidColorBrush>(presenter.Background).Color);
             }
             finally
             {

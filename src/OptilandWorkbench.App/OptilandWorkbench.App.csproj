@@ -18,6 +18,8 @@
   <ItemGroup>
     <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
     <AvaloniaResource Remove="Assets/Icons/game-icons-isekai.json" />
+    <AvaloniaResource Remove="Assets/Icons/farm-fresh-icons.json" />
+    <AvaloniaResource Remove="Assets/Icons/FarmFresh32/*.png" />
     <AvaloniaResource Include="Assets/Author.jpg" />
     <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
     <AvaloniaResource Include="Assets/Brand/Splash.png" />
@@ -37,7 +39,15 @@
                       LogicalName="OptilandWorkbench.App.Assets.Icons.lucide-icon-nodes.json" />
     <EmbeddedResource Include="Assets/Icons/game-icons-isekai.json"
                       LogicalName="OptilandWorkbench.App.Assets.Icons.game-icons-isekai.json" />
+    <EmbeddedResource Include="Assets/Icons/farm-fresh-icons.json"
+                      LogicalName="OptilandWorkbench.App.Assets.Icons.farm-fresh-icons.json" />
+    <EmbeddedResource Include="Assets/Icons/FarmFresh32/*.png">
+      <LogicalName>OptilandWorkbench.App.Assets.Icons.FarmFresh32.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <AvaloniaResource Include="Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" />
     <Content Include="Assets/Icons/GAME-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Icons/FARM-FRESH-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

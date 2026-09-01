@@ -55,7 +55,7 @@ internal sealed class PixelThemeDecorationRenderer : IThemeDecorationRenderer
 
     private static void DrawRibbon(DrawingContext context, Rect bounds)
     {
-        var headerHeight = Math.Min(42, bounds.Height);
+        var headerHeight = Math.Min(32, bounds.Height);
         var header = new Rect(0, 0, bounds.Width, headerHeight);
         context.DrawRectangle(HeaderBrush, null, header);
 

@@ -29,6 +29,12 @@ public static class ThemeResourceBindings
     public const string RibbonHover = "OptilandRibbonHoverBrush";
     public const string RibbonHoverBorder = "OptilandRibbonHoverBorderBrush";
     public const string RibbonTabHover = "OptilandRibbonTabHoverBrush";
+    public const string RibbonCommandBackground = "OptilandRibbonCommandBackgroundBrush";
+    public const string RibbonCommandBorder = "OptilandRibbonCommandBorderBrush";
+    public const string RibbonGroupBackground = "OptilandRibbonGroupBackgroundBrush";
+    public const string RibbonGroupBorder = "OptilandRibbonGroupBorderBrush";
+    public const string RibbonGroupCaptionBackground = "OptilandRibbonGroupCaptionBackgroundBrush";
+    public const string RibbonGroupCaptionForeground = "OptilandRibbonGroupCaptionForegroundBrush";
     public const string SectionHeaderBackground = "OptilandSectionHeaderBackgroundBrush";
     public const string SectionHeaderForeground = "OptilandSectionHeaderForegroundBrush";
     public const string SectionHeaderEmphasizedBackground = "OptilandSectionHeaderEmphasizedBackgroundBrush";

@@ -167,9 +167,9 @@ public sealed partial class MainWindow
         ribbonLayer.Children.Add(tabs);
         var ribbon = new Border
         {
-            MinHeight = 126,
             Child = ribbonLayer
         };
+        ribbon.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonMinHeight));
         ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
         return ribbon;
@@ -223,9 +223,9 @@ public sealed partial class MainWindow
         ribbonLayer.Children.Add(tabs);
         var ribbon = new Border
         {
-            MinHeight = 126,
             Child = ribbonLayer
         };
+        ribbon.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonMinHeight));
         ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
         return ribbon;
@@ -237,9 +237,10 @@ public sealed partial class MainWindow
         {
             Header = title,
             Content = content,
-            FontSize = DisplayTypography.Body,
-            Padding = new Thickness(14, 7)
+            FontSize = DisplayTypography.Body
         };
+        tab.Bind(TabItem.PaddingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonTabPadding));
+        tab.Bind(TabItem.HeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonTabHeight));
         tab.Classes.Add("ribbon-tab");
         return tab;
     }
@@ -248,10 +249,10 @@ public sealed partial class MainWindow
     {
         var panel = new StackPanel
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = 2,
-            Margin = new Thickness(4, 2, 4, 0)
+            Orientation = Orientation.Horizontal
         };
+        panel.Bind(StackPanel.SpacingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonPageSpacing));
+        panel.Bind(StackPanel.MarginProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonPageMargin));
         foreach (var group in groups)
         {
             panel.Children.Add(group);
@@ -272,16 +273,16 @@ public sealed partial class MainWindow
     {
         var commandPanel = new StackPanel
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = 2,
-            Margin = new Thickness(5, 2, 5, 0)
+            Orientation = Orientation.Horizontal
         };
+        commandPanel.Bind(StackPanel.SpacingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupSpacing));
+        commandPanel.Bind(StackPanel.MarginProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCommandMargin));
         foreach (var command in commands)
         {
             commandPanel.Children.Add(command);
         }
 
-        var grid = new Grid { RowDefinitions = new RowDefinitions("Auto,18") };
+        var grid = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto") };
         var caption = new TextBlock
         {
             Text = title,
@@ -289,11 +290,19 @@ public sealed partial class MainWindow
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
-        caption.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
+        caption.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupCaptionForeground));
+        var captionBar = new Border
+        {
+            Child = caption
+        };
+        captionBar.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionHeight));
+        captionBar.Bind(Border.MaxHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionMaxHeight));
+        captionBar.Bind(Border.PaddingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionPadding));
+        captionBar.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupCaptionBackground));
         Grid.SetRow(commandPanel, 0);
-        Grid.SetRow(caption, 1);
+        Grid.SetRow(captionBar, 1);
         grid.Children.Add(commandPanel);
-        grid.Children.Add(caption);
+        grid.Children.Add(captionBar);
 
         var group = new Border
         {
@@ -302,7 +311,9 @@ public sealed partial class MainWindow
                 : new Thickness(0),
             Child = grid
         };
-        group.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
+        group.Bind(Border.MarginProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupMargin));
+        group.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupBackground));
+        group.Bind(Border.BorderBrushProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupBorder));
         return group;
     }
 
@@ -311,17 +322,12 @@ public sealed partial class MainWindow
         var content = RibbonCommandContent(iconName, label);
         var button = new Button
         {
-            MinWidth = 78,
-            MinHeight = 66,
-            Margin = new Thickness(1, 0, 1, 2),
-            Padding = new Thickness(4),
-            Background = Brushes.Transparent,
-            BorderBrush = Brushes.Transparent,
-            BorderThickness = new Thickness(1),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Content = content
         };
+        BindRibbonCommandLayout(button);
+        BindRibbonCommandChrome(button);
         AutomationProperties.SetName(button, label);
         AutomationProperties.SetAutomationId(button, $"ribbon-{actionId}");
         button.Classes.Add("ribbon-command");
@@ -363,18 +369,13 @@ public sealed partial class MainWindow
         var content = RibbonDropDownCommandContent(menu.IconName, menu.Label);
         var button = new DropDownButton
         {
-            MinWidth = 78,
-            MinHeight = 66,
-            Margin = new Thickness(1, 0, 1, 2),
-            Padding = new Thickness(4),
-            Background = Brushes.Transparent,
-            BorderBrush = Brushes.Transparent,
-            BorderThickness = new Thickness(1),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
             Content = content
         };
+        BindRibbonCommandLayout(button);
+        BindRibbonCommandChrome(button);
         AutomationProperties.SetName(button, menu.Label);
         AutomationProperties.SetAutomationId(button, $"ribbon-menu-{menu.IconName}");
         button.Classes.Add("ribbon-command");
@@ -416,18 +417,13 @@ public sealed partial class MainWindow
         var content = RibbonDropDownCommandContent("chart-scatter", "材料分析");
         var button = new DropDownButton
         {
-            MinWidth = 78,
-            MinHeight = 66,
-            Margin = new Thickness(1, 0, 1, 2),
-            Padding = new Thickness(4),
-            Background = Brushes.Transparent,
-            BorderBrush = Brushes.Transparent,
-            BorderThickness = new Thickness(1),
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Flyout = flyout,
             Content = content
         };
+        BindRibbonCommandLayout(button);
+        BindRibbonCommandChrome(button);
         AutomationProperties.SetName(button, "材料分析");
         AutomationProperties.SetAutomationId(button, "ribbon-menu-material-analysis");
         button.Classes.Add("ribbon-command");
@@ -441,8 +437,6 @@ public sealed partial class MainWindow
     {
         var grid = new Grid
         {
-            MinWidth = 66,
-            MinHeight = 52,
             RowDefinitions = new RowDefinitions("29,Auto"),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
@@ -450,24 +444,21 @@ public sealed partial class MainWindow
         var icon = new LocalIcon
         {
             IconName = iconName,
-            Width = 26,
-            Height = 26,
-            StrokeWidth = 1.8,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
+        BindRibbonCommandIconLayout(icon);
         icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var text = new TextBlock
         {
             Text = label,
             FontSize = DisplayTypography.RibbonText,
-            MinWidth = 66,
-            MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
             TextAlignment = TextAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top
         };
+        BindRibbonCommandContentLayout(grid, text);
         Grid.SetRow(icon, 0);
         Grid.SetRow(text, 1);
         grid.Children.Add(icon);
@@ -479,8 +470,6 @@ public sealed partial class MainWindow
     {
         var grid = new Grid
         {
-            MinWidth = 66,
-            MinHeight = 52,
             RowDefinitions = new RowDefinitions("27,Auto,7"),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
@@ -488,24 +477,21 @@ public sealed partial class MainWindow
         var icon = new LocalIcon
         {
             IconName = iconName,
-            Width = 26,
-            Height = 26,
-            StrokeWidth = 1.8,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
+        BindRibbonCommandIconLayout(icon);
         icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var text = new TextBlock
         {
             Text = label,
             FontSize = DisplayTypography.RibbonText,
-            MinWidth = 66,
-            MaxWidth = 132,
             TextWrapping = TextWrapping.Wrap,
             TextAlignment = TextAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Top
         };
+        BindRibbonCommandContentLayout(grid, text);
         var arrow = new Polygon
         {
             Width = 6,
@@ -530,6 +516,31 @@ public sealed partial class MainWindow
         grid.Children.Add(text);
         grid.Children.Add(arrow);
         return grid;
+    }
+
+    private static void BindRibbonCommandLayout(Button button)
+    {
+        button.Bind(Button.MinWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandMinWidth));
+        button.Bind(Button.WidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandWidth));
+        button.Bind(Button.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandMinHeight));
+        button.Bind(Button.MarginProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandMargin));
+        button.Bind(Button.PaddingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandPadding));
+        button.Bind(Button.BorderThicknessProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandBorderThickness));
+    }
+
+    private static void BindRibbonCommandContentLayout(Grid grid, TextBlock text)
+    {
+        grid.Bind(Grid.MinWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandContentMinWidth));
+        grid.Bind(Grid.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandContentMinHeight));
+        text.Bind(TextBlock.MinWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandContentMinWidth));
+        text.Bind(TextBlock.MaxWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandTextMaxWidth));
+    }
+
+    private static void BindRibbonCommandIconLayout(LocalIcon icon)
+    {
+        icon.Bind(LocalIcon.WidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandIconSize));
+        icon.Bind(LocalIcon.HeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandIconSize));
+        icon.Bind(LocalIcon.StrokeWidthProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandStrokeWidth));
     }
 
     private static void AttachRibbonCommandHover(Button button, Control content)
@@ -562,9 +573,10 @@ public sealed partial class MainWindow
         };
         button.PointerExited += (_, _) =>
         {
-            button.Background = Brushes.Transparent;
-            button.BorderBrush = Brushes.Transparent;
-            icon.StrokeWidth = 1.8;
+            BindRibbonCommandChrome(button);
+            icon.Bind(
+                LocalIcon.StrokeWidthProperty,
+                new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandStrokeWidth));
             text.ClearValue(TextBlock.ForegroundProperty);
             if (arrow is not null)
             {
@@ -572,6 +584,16 @@ public sealed partial class MainWindow
                 arrow.Opacity = 0.72;
             }
         };
+    }
+
+    private static void BindRibbonCommandChrome(Button button)
+    {
+        button.Bind(
+            Button.BackgroundProperty,
+            new DynamicResourceExtension(ThemeResourceBindings.RibbonCommandBackground));
+        button.Bind(
+            Button.BorderBrushProperty,
+            new DynamicResourceExtension(ThemeResourceBindings.RibbonCommandBorder));
     }
 
     private static void AttachRibbonMenuItemHover(MenuItem item, LocalIconLabel header)

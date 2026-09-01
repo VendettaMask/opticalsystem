@@ -4,6 +4,7 @@ using Avalonia.Controls.Documents;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Services;
 
@@ -40,10 +41,12 @@ public static class DisplayTypography
 
     public static void Apply(TemplatedControl control)
     {
-        control.FontFamily = FontFamily();
+        var theme = ThemeRegistry.FromActualVariant(control.ActualThemeVariant);
+        control.FontFamily = FontFamily(theme.UiFontFamily);
         control.FontSize = _fontSize;
         control.FontStyle = FontStyle();
         control.FontWeight = FontWeight();
+        TextOptions.SetTextRenderingMode(control, theme.TextRenderingMode);
     }
 
     public static void ApplyRecursively(Control root, double previousFontSize)
@@ -102,10 +105,10 @@ public static class DisplayTypography
         state.LastAppliedSize = target;
     }
 
-    private static FontFamily FontFamily()
+    private static FontFamily FontFamily(FontFamily? themeDefault = null)
     {
         return string.IsNullOrWhiteSpace(_fontFamily)
-            ? Avalonia.Media.FontFamily.Default
+            ? themeDefault ?? Avalonia.Media.FontFamily.Default
             : new FontFamily(_fontFamily);
     }
 

@@ -169,7 +169,7 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(
                     LocalIcon.StrokeProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.TextAccent))
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderEmphasizedForeground))
             }
         });
         Styles.Add(new Style(selector => selector
@@ -180,7 +180,7 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(
                     TextBlock.ForegroundProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.TextAccent))
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderEmphasizedForeground))
             }
         });
         Styles.Add(new Style(selector => selector
@@ -203,7 +203,8 @@ public sealed class App : Avalonia.Application
                     new DynamicResourceExtension(ThemeResourceBindings.RibbonHover)),
                 new Setter(
                     ContentPresenter.BorderBrushProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.RibbonHoverBorder))
+                    new DynamicResourceExtension(ThemeResourceBindings.RibbonHoverBorder)),
+                new Setter(ContentPresenter.BorderThicknessProperty, new Thickness(1))
             }
         });
         Styles.Add(new Style(RibbonTabPointerOverSelector)
@@ -248,6 +249,19 @@ public sealed class App : Avalonia.Application
                     new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
             }
         });
+        Styles.Add(new Style(selector => selector
+            .OfType<TextBox>()
+            .Template()
+            .OfType<Border>()
+            .Name("PART_BorderElement"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BoxShadowProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.BoxShadow(ThemeChromeRole.ControlFrame)))
+            }
+        });
         Styles.Add(new Style(selector => selector.OfType<ComboBox>())
         {
             Setters =
@@ -256,6 +270,19 @@ public sealed class App : Avalonia.Application
                 new Setter(
                     ComboBox.CornerRadiusProperty,
                     new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame)))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<ComboBox>()
+            .Template()
+            .OfType<Border>()
+            .Name("Background"))
+        {
+            Setters =
+            {
+                new Setter(
+                    Border.BoxShadowProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.BoxShadow(ThemeChromeRole.ControlFrame)))
             }
         });
         Styles.Add(new Style(selector => selector.OfType<NumericUpDown>())
@@ -285,6 +312,62 @@ public sealed class App : Avalonia.Application
                 new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
             }
         });
+        Styles.Add(new Style(selector => selector.OfType<ListBox>())
+        {
+            Setters =
+            {
+                new Setter(
+                    ListBox.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SettingsSurface)),
+                new Setter(
+                    ListBox.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border)),
+                new Setter(
+                    ListBox.BorderThicknessProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.BorderThickness(ThemeChromeRole.ControlFrame)))
+            }
+        });
+        Styles.Add(new Style(selector => selector.OfType<ListBoxItem>())
+        {
+            Setters =
+            {
+                new Setter(ListBoxItem.BackgroundProperty, Brushes.Transparent),
+                new Setter(
+                    ListBoxItem.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary)),
+                new Setter(
+                    ListBoxItem.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border)),
+                new Setter(ListBoxItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1)),
+                new Setter(ListBoxItem.CornerRadiusProperty, new CornerRadius(0)),
+                new Setter(ListBoxItem.PaddingProperty, new Thickness(7, 4))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<ListBoxItem>()
+            .Class(":pointerover"))
+        {
+            Setters =
+            {
+                new Setter(
+                    ListBoxItem.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Hover))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<ListBoxItem>()
+            .Class(":selected"))
+        {
+            Setters =
+            {
+                new Setter(
+                    ListBoxItem.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                new Setter(
+                    ListBoxItem.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionForeground))
+            }
+        });
         Styles.Add(new Style(DataGridSelectedRowSelector)
         {
             Setters =
@@ -300,6 +383,7 @@ public sealed class App : Avalonia.Application
                     new DynamicResourceExtension(ThemeResourceBindings.SelectionForeground))
             }
         });
+        AddDataGridSelectionVisualStyles();
         AddDockIconStyles();
     }
 
@@ -330,6 +414,53 @@ public sealed class App : Avalonia.Application
     internal static Selector DataGridSelectedRowSelector(Selector? selector) => selector
         .OfType<DataGridRow>()
         .Class(":selected");
+
+    private void AddDataGridSelectionVisualStyles()
+    {
+        var selectors = new[]
+        {
+            DataGridSelectionRectangleSelector(null, pointerOver: false, focused: false),
+            DataGridSelectionRectangleSelector(null, pointerOver: true, focused: false),
+            DataGridSelectionRectangleSelector(null, pointerOver: false, focused: true),
+            DataGridSelectionRectangleSelector(null, pointerOver: true, focused: true)
+        };
+        foreach (var selector in selectors)
+        {
+            Styles.Add(new Style(_ => selector)
+            {
+                Setters =
+                {
+                    new Setter(
+                        Avalonia.Controls.Shapes.Shape.FillProperty,
+                        new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                    new Setter(Visual.OpacityProperty, 1d)
+                }
+            });
+        }
+    }
+
+    private static Selector DataGridSelectionRectangleSelector(
+        Selector? selector,
+        bool pointerOver,
+        bool focused)
+    {
+        selector = selector
+            .OfType<DataGridRow>()
+            .Class(":selected");
+        if (pointerOver)
+        {
+            selector = selector.Class(":pointerover");
+        }
+        if (focused)
+        {
+            selector = selector.Class(":focus");
+        }
+
+        return selector
+            .Template()
+            .OfType<Avalonia.Controls.Shapes.Rectangle>()
+            .Name("BackgroundRectangle");
+    }
 
     internal static Color BrandAccentColor => StandardTheme.AccentColor;
 

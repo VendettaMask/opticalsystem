@@ -11,10 +11,10 @@
 | `Light` | 普通模式 | Avalonia Light | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Isekai` | 异世界 | Dark 派生 | `GameIconsFantasy` | 旧金锐角框、工作区/视口/对话框双框、皮革剑刃 Ribbon |
-| `Pixel` | 像素风格 | Light 派生 | `PixelLucide` | 明亮 8-bit 色板、方角硬边、无模糊像素阴影与点阵 Ribbon |
+| `Pixel` | 像素风格 | Light 派生 | `FarmFresh32` | 明亮 8-bit 色板、中文像素字、彩色 32×32 图标、方角硬边与紧凑点阵 Ribbon |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
 
-`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度和 Ribbon 阴影保持改造前参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID、文案、结构边框厚度、布局尺寸或输入命中区域。像素风格复用固定版本 Lucide 的语义几何，但由独立 `PixelLucide` 包使用无抗锯齿边缘、方形线帽、直角连接和 1.35 倍描边形成点阵轮廓；亮蓝标题带、珊瑚红活动页签、向日葵黄选中行、绿色复选状态和按钮硬阴影由主题语义资源、Fluent 控件资源及 Chrome 共同表达。
+`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度、Ribbon 尺寸和阴影保持既有主题参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID 或文案。像素风格改用 CC BY 3.0 授权的 FatCow Farm-Fresh 3.92 彩色 32×32 PNG 目录，并以 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 矢量 TTF 提供中文像素字；亮蓝标题带、珊瑚红活动页签、向日葵黄选中行、绿色复选状态、连续浅蓝紧凑 Ribbon 及其悬停硬框只由像素主题资源表达，不改动其他主题布局。
 
 ## 主题包组成
 
@@ -38,7 +38,9 @@
 
 - 普通和暗夜主题直接返回固定版本 Lucide 定义，确保现有显示不变；
 - 异世界主题由 `GameIconsFantasy` 包直接加载 Game-icons.net 上游填充式 SVG 路径；每项都记录作者和原始文件，未映射语义回退到同套 `help.svg`；
-- 像素风格由 `PixelLucide` 包复用同一批稳定语义几何并启用无抗锯齿边缘、方形线帽、直角连接和 1.35 倍描边，未知语义回退到像素化的 `circle-question-mark`；
+- 像素风格由 `FarmFresh32` 包加载固定 3.92 版彩色 PNG 并使用最近邻插值保持像素边缘，目录逐项记录原始文件名，未知语义回退到同一包的 `question.png`；许可副本为 `Assets/Icons/FARM-FRESH-ICONS-LICENSE.txt`；
+
+像素字体固定使用 Fusion Pixel Font `2026.07.20` 的 `fusion-pixel-font-10px-monospaced-ttf` 发布包，下载包 SHA256 为 `3d2719a7720d405167b494b7fa1c8e721bfbda59183cccc696ef5d43b0be5945`。应用内嵌 `zh_hans` 矢量 TTF；用户显式选择显示字体时仍以用户设置优先。字体许可副本为 `Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt`。
 - 未知语义统一回退到 `circle-question-mark`，不得显示空白；
 - 主题切换会使现有 `LocalIcon` 失效重绘，不要求重启。
 

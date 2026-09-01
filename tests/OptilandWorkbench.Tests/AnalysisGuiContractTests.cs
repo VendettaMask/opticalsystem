@@ -1383,8 +1383,6 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(3, content.RowDefinitions.Count);
         Assert.True(double.IsNaN(content.Width));
         Assert.True(double.IsNaN(content.Height));
-        Assert.Equal(66, content.MinWidth);
-        Assert.Equal(52, content.MinHeight);
 
         var arrow = Assert.Single(content.Children.OfType<Avalonia.Controls.Shapes.Polygon>());
         Assert.Equal(2, Avalonia.Controls.Grid.GetRow(arrow));

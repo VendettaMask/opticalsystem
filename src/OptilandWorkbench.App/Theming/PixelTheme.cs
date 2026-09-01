@@ -98,6 +98,7 @@ internal static class PixelTheme
         var blue = Brush(Color.FromRgb(59, 131, 189));
         var deepBlue = Brush(Color.FromRgb(41, 105, 157));
         var cream = Brush(Color.FromRgb(255, 244, 199));
+        var paleBlue = Brush(Color.FromRgb(221, 239, 242));
         var yellow = Brush(Color.FromRgb(247, 201, 72));
 
         resources[ThemeResourceBindings.SectionHeaderBackground] = blue;
@@ -106,6 +107,35 @@ internal static class PixelTheme
         resources[ThemeResourceBindings.SectionHeaderEmphasizedForeground] = cream;
         resources[ThemeResourceBindings.SelectionBackground] = yellow;
         resources[ThemeResourceBindings.SelectionForeground] = navy;
+        resources[ThemeResourceBindings.RibbonCommandBackground] = Brushes.Transparent;
+        resources[ThemeResourceBindings.RibbonCommandBorder] = Brushes.Transparent;
+        resources[ThemeResourceBindings.RibbonGroupBackground] = paleBlue;
+        resources[ThemeResourceBindings.RibbonGroupBorder] = Brushes.Transparent;
+        resources[ThemeResourceBindings.RibbonGroupCaptionBackground] = paleBlue;
+        resources[ThemeResourceBindings.RibbonGroupCaptionForeground] = navy;
+        resources[ThemeLayoutResources.RibbonMinHeight] = 96d;
+        resources[ThemeLayoutResources.RibbonTabPadding] = new Thickness(8, 3);
+        resources[ThemeLayoutResources.RibbonTabHeight] = 32d;
+        resources[ThemeLayoutResources.RibbonPageSpacing] = 1d;
+        resources[ThemeLayoutResources.RibbonPageMargin] = new Thickness(3, 1, 3, 0);
+        resources[ThemeLayoutResources.RibbonGroupSpacing] = 1d;
+        resources[ThemeLayoutResources.RibbonGroupCommandMargin] = new Thickness(3, 1, 3, 0);
+        resources[ThemeLayoutResources.RibbonGroupCaptionHeight] = 0d;
+        resources[ThemeLayoutResources.RibbonGroupCaptionPadding] = new Thickness(4, 0);
+        resources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight] = 0d;
+        resources[ThemeLayoutResources.RibbonGroupMargin] = new Thickness(0, 0, 1, 0);
+        resources[ThemeLayoutResources.RibbonCommandMinWidth] = 48d;
+        resources[ThemeLayoutResources.RibbonCommandWidth] = 48d;
+        resources[ThemeLayoutResources.RibbonCommandMinHeight] = 50d;
+        resources[ThemeLayoutResources.RibbonCommandMargin] = new Thickness(1, 0, 1, 1);
+        resources[ThemeLayoutResources.RibbonCommandPadding] = new Thickness(2);
+        resources[ThemeLayoutResources.RibbonCommandBorderThickness] = new Thickness(0);
+        resources[ThemeLayoutResources.RibbonCommandContentMinWidth] = 44d;
+        resources[ThemeLayoutResources.RibbonCommandContentMinHeight] = 42d;
+        resources[ThemeLayoutResources.RibbonCommandIconSize] = 22d;
+        resources[ThemeLayoutResources.RibbonCommandStrokeWidth] = 1.6d;
+        resources[ThemeLayoutResources.RibbonCommandTextMaxWidth] = 92d;
+        resources["TabItemMinHeight"] = 32d;
     }
 
     private static void ApplyFluentControlResources(IResourceDictionary resources)
@@ -202,16 +232,73 @@ internal static class PixelTheme
             "TreeViewItemBackgroundSelectedPointerOver", "TreeViewItemBackgroundSelectedPressed");
         Set(resources, navy, "TreeViewItemForeground", "TreeViewItemForegroundPointerOver", "TreeViewItemForegroundPressed",
             "TreeViewItemForegroundSelected", "TreeViewItemForegroundSelectedPointerOver", "TreeViewItemForegroundSelectedPressed");
+
+        Set(resources, paper, "ListBoxBackground");
+        Set(resources, lightYellow, "ListBoxItemBackgroundPointerOver");
+        Set(resources, yellow, "ListBoxItemBackgroundPressed", "ListBoxItemBackgroundSelected",
+            "ListBoxItemBackgroundSelectedPointerOver", "ListBoxItemBackgroundSelectedPressed");
+        Set(resources, navy, "ListBoxItemForeground", "ListBoxItemForegroundPointerOver", "ListBoxItemForegroundPressed",
+            "ListBoxItemForegroundSelected", "ListBoxItemForegroundSelectedPointerOver", "ListBoxItemForegroundSelectedPressed");
+        Set(resources, lightYellow, "SystemControlHighlightListLowBrush");
+        Set(resources, yellow, "SystemControlHighlightListMediumBrush",
+            "SystemControlHighlightListAccentLowBrush", "SystemControlHighlightListAccentMediumBrush",
+            "SystemControlHighlightListAccentHighBrush");
+        Set(resources, navy, "SystemControlHighlightAltBaseHighBrush");
+
+        Set(resources, paper, "DataGridRowBackgroundBrush", "DataGridCellBackgroundBrush");
+        Set(resources, lightYellow, "DataGridRowHoveredBackgroundColor");
+        Set(resources, yellow, "DataGridRowSelectedBackgroundBrush", "DataGridRowSelectedHoveredBackgroundBrush",
+            "DataGridRowSelectedUnfocusedBackgroundBrush", "DataGridRowSelectedHoveredUnfocusedBackgroundBrush");
+        Set(resources, navy, "DataGridGridLinesBrush", "DataGridCellFocusVisualPrimaryBrush");
+        resources["DataGridRowSelectedBackgroundOpacity"] = 1d;
+        resources["DataGridRowSelectedHoveredBackgroundOpacity"] = 1d;
+        resources["DataGridRowSelectedUnfocusedBackgroundOpacity"] = 1d;
+        resources["DataGridRowSelectedHoveredUnfocusedBackgroundOpacity"] = 1d;
     }
 
     private static void ApplyDockResources(IResourceDictionary resources, IBrush accentBrush)
     {
+        var navy = Brush(Color.FromRgb(23, 50, 77));
+        var cream = Brush(Color.FromRgb(255, 244, 199));
+        var paper = Brush(Color.FromRgb(255, 249, 220));
+        var paleBlue = Brush(Color.FromRgb(221, 239, 242));
+        var sky = Brush(Color.FromRgb(168, 216, 240));
         var blue = Brush(Color.FromRgb(59, 131, 189));
-        resources["DockSurfaceHeaderActiveBrush"] = blue;
+        var deepBlue = Brush(Color.FromRgb(41, 105, 157));
+        var yellow = Brush(Color.FromRgb(247, 201, 72));
+        var lightYellow = Brush(Color.FromRgb(255, 225, 123));
+
+        Set(resources, navy,
+            "DockThemeBorderLowBrush", "DockThemeForegroundBrush", "DockBorderSubtleBrush",
+            "DockBorderStrongBrush", "DockSeparatorBrush", "DockSplitterIdleBrush",
+            "DockChromeButtonForegroundBrush", "DockToolChromeIconBrush",
+            "DockDocumentContentBorderBrush");
+        Set(resources, paper, "DockThemeBackgroundBrush", "DockSurfacePanelBrush");
+        Set(resources, cream, "DockThemeControlBackgroundBrush", "DockSurfaceEditorBrush");
+        resources["DockSurfaceWorkbenchBrush"] = sky;
+        resources["DockSurfaceSidebarBrush"] = paleBlue;
+        resources["DockSurfaceHeaderBrush"] = blue;
+        resources["DockSurfaceHeaderActiveBrush"] = deepBlue;
+        resources["DockTabBackgroundBrush"] = blue;
+        resources["DockDocumentTabStripBackgroundBrush"] = blue;
+        resources["DockTabHoverBackgroundBrush"] = lightYellow;
         resources["DockTabActiveBackgroundBrush"] = accentBrush;
         resources["DockTabActiveIndicatorBrush"] = accentBrush;
-        resources["DockTargetIndicatorBrush"] = blue;
-        resources["DockSplitterDragBrush"] = blue;
+        resources["DockTabForegroundBrush"] = cream;
+        resources["DockTabSelectedForegroundBrush"] = navy;
+        resources["DockTabActiveForegroundBrush"] = cream;
+        resources["DockDocumentTabSelectedForegroundBrush"] = navy;
+        resources["DockDocumentTabPointerOverForegroundBrush"] = navy;
+        resources["DockDocumentTabCloseSelectedForegroundBrush"] = navy;
+        resources["DockDocumentTabClosePointerOverForegroundBrush"] = navy;
+        resources["DockTabCloseHoverBackgroundBrush"] = yellow;
+        resources["DockChromeButtonHoverBackgroundBrush"] = lightYellow;
+        resources["DockChromeButtonPressedBackgroundBrush"] = yellow;
+        resources["DockTargetIndicatorBrush"] = deepBlue;
+        resources["DockSplitterHoverBrush"] = yellow;
+        resources["DockSplitterDragBrush"] = deepBlue;
+        resources["DockCornerRadiusSmall"] = 0d;
+        resources["DockFontSizeNormal"] = 11d;
     }
 
     private static void Set(IResourceDictionary resources, IBrush brush, params string[] keys)

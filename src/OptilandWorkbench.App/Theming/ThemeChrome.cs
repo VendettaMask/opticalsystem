@@ -101,7 +101,7 @@ internal sealed class ThemeChromeProfile
     {
         var navy = Color.FromRgb(23, 50, 77);
         var none = default(BoxShadows);
-        var pixelShadow = BoxShadows.Parse("2 2 0 0 #6617324D");
+        var pixelShadow = BoxShadows.Parse("3 3 0 0 #A617324D");
         return new ThemeChromeProfile(new Dictionary<ThemeChromeRole, ThemeChromeStyle>
         {
             [ThemeChromeRole.Ribbon] = new(navy, new Thickness(0, 0, 0, 1), new CornerRadius(0), none),

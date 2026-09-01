@@ -3,6 +3,7 @@ using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using OptilandWorkbench.App.Theming;
 
@@ -72,6 +73,24 @@ public sealed class LocalIcon : Control
 
         if (!ThemeIconResolver.TryResolve(ActualThemeVariant, IconName, out var definition))
         {
+            return;
+        }
+
+        if (definition.Image is not null)
+        {
+            var image = definition.Image.Value;
+            var side = Math.Min(Bounds.Width, Bounds.Height);
+            var destination = new Rect(
+                (Bounds.Width - side) / 2.0,
+                (Bounds.Height - side) / 2.0,
+                side,
+                side);
+            using var imageRenderOptions = context.PushRenderOptions(new RenderOptions
+            {
+                BitmapInterpolationMode = BitmapInterpolationMode.None,
+                EdgeMode = EdgeMode.Aliased
+            });
+            context.DrawImage(image, new Rect(image.Size), destination);
             return;
         }
 
@@ -277,7 +296,8 @@ internal sealed record IconDefinition(
     PenLineCap LineCap,
     PenLineJoin LineJoin,
     double StrokeWidthScale,
-    bool UseAliasedEdges)
+    bool UseAliasedEdges,
+    Lazy<IImage>? Image = null)
 {
     public static IconDefinition Standard(IReadOnlyList<IconPrimitive> primitives) => new(
         primitives,

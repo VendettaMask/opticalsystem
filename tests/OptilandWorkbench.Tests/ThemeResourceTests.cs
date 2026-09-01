@@ -223,18 +223,24 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void PixelThemeUsesSquaredIconsAndChromeWithoutChangingStructuralThickness()
+    public void PixelThemeUsesColoredRasterIconsAndSquaredChrome()
     {
         Assert.Equal(PixelThemeIconPack.Instance.Id, ThemeIconResolver.PackId(PixelTheme.Variant));
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var standard));
         Assert.True(ThemeIconResolver.TryResolve(PixelTheme.Variant, "save", out var pixel));
         Assert.NotSame(standard, pixel);
-        Assert.Same(standard.Primitives, pixel.Primitives);
+        Assert.Empty(pixel.Primitives);
+        Assert.Null(standard.Image);
+        Assert.NotNull(pixel.Image);
+        Assert.Equal(Matrix.Identity, pixel.ContentTransform);
         Assert.Equal(PenLineCap.Square, pixel.LineCap);
         Assert.Equal(PenLineJoin.Miter, pixel.LineJoin);
-        Assert.Equal(1.35, pixel.StrokeWidthScale, precision: 12);
+        Assert.Equal(1, pixel.StrokeWidthScale, precision: 12);
         Assert.True(pixel.UseAliasedEdges);
         Assert.False(standard.UseAliasedEdges);
+        Assert.Equal(87, PixelThemeIconPack.Names.Count);
+        Assert.True(PixelThemeIconPack.TryGetSource("save", out var saveSource));
+        Assert.Equal("diskette.png", saveSource);
         Assert.All(LocalIconLibrary.Names, iconName =>
             Assert.True(PixelThemeIconPack.Instance.TryResolve(iconName, out _)));
         Assert.True(PixelThemeIconPack.Instance.TryResolve("not-a-real-icon", out var fallback));
@@ -265,9 +271,36 @@ public sealed class ThemeResourceTests
         Assert.Equal(Color.FromRgb(59, 131, 189), ColorOf(resources, "TabItemHeaderBackgroundUnselected"));
         Assert.Equal(Color.FromRgb(239, 91, 91), ColorOf(resources, "TabItemHeaderBackgroundSelected"));
         Assert.Equal(Color.FromRgb(247, 201, 72), ColorOf(resources, ThemeResourceBindings.SelectionBackground));
+        Assert.Equal(Color.FromRgb(247, 201, 72), ColorOf(resources, "DataGridRowSelectedBackgroundBrush"));
+        Assert.Equal(1d, Assert.IsType<double>(resources["DataGridRowSelectedBackgroundOpacity"]));
         Assert.Equal(Color.FromRgb(23, 50, 77), ColorOf(resources, ThemeResourceBindings.SelectionForeground));
         Assert.Equal(Color.FromRgb(59, 131, 189), ColorOf(resources, ThemeResourceBindings.SectionHeaderBackground));
+        Assert.Equal(Colors.Transparent, ColorOf(resources, ThemeResourceBindings.RibbonCommandBackground));
+        Assert.Equal(Color.FromRgb(221, 239, 242), ColorOf(resources, ThemeResourceBindings.RibbonGroupBackground));
+        Assert.Equal(96d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonMinHeight]));
+        Assert.Equal(48d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinWidth]));
+        Assert.Equal(48d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandWidth]));
+        Assert.Equal(50d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinHeight]));
+        Assert.Equal(22d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandIconSize]));
+        Assert.Equal(32d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonTabHeight]));
+        Assert.Equal(0d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonGroupCaptionHeight]));
+        Assert.Equal(0d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight]));
+        Assert.Equal(new Thickness(0), Assert.IsType<Thickness>(resources[ThemeLayoutResources.RibbonCommandBorderThickness]));
+        Assert.Equal(32d, Assert.IsType<double>(resources["TabItemMinHeight"]));
+
+        var lightResources = ThemeRegistry.FromSettings("Light").BuildResources();
+        Assert.Equal(126d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonMinHeight]));
+        Assert.Equal(78d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinWidth]));
+        Assert.True(double.IsNaN(Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandWidth])));
+        Assert.Equal(66d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinHeight]));
+        Assert.Equal(26d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandIconSize]));
+        Assert.Equal(new Thickness(1), Assert.IsType<Thickness>(lightResources[ThemeLayoutResources.RibbonCommandBorderThickness]));
+        Assert.True(double.IsNaN(Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonTabHeight])));
+        Assert.Equal(double.PositiveInfinity, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight]));
         Assert.Equal(new CornerRadius(0), Assert.IsType<CornerRadius>(resources["ControlCornerRadius"]));
+        var definition = ThemeRegistry.FromSettings(PixelTheme.SettingsValue);
+        Assert.Contains("Fusion Pixel 10px Mono zh_hans", definition.UiFontFamily.Name, StringComparison.Ordinal);
+        Assert.Equal(TextRenderingMode.Alias, definition.TextRenderingMode);
     }
 
     [Fact]
@@ -347,6 +380,8 @@ public sealed class ThemeResourceTests
             new ThemeVariant("TestPackage", ThemeVariant.Light),
             ThemePalette.Light,
             TestThemeIconPack.Instance,
+            FontFamily.Default,
+            TextRenderingMode.Unspecified,
             ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border),
             NoThemeDecorationRenderer.Instance,
             StandardTheme.ApplyAccentResources,
