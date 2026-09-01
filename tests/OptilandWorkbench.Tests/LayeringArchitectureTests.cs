@@ -111,6 +111,23 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
+    public void DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var windowsLauncher = File.ReadAllText(Path.Combine(repositoryRoot, "Run-Optiland.cmd"));
+        var unixLauncher = File.ReadAllText(Path.Combine(repositoryRoot, "Run-Optiland.command"));
+
+        Assert.True(
+            windowsLauncher.IndexOf("dotnet restore", StringComparison.Ordinal) <
+            windowsLauncher.IndexOf("dotnet clean", StringComparison.Ordinal));
+        Assert.Contains("dotnet build \"%PROJECT%\" --no-restore", windowsLauncher, StringComparison.Ordinal);
+        Assert.True(
+            unixLauncher.IndexOf("restore \"$PROJECT\"", StringComparison.Ordinal) <
+            unixLauncher.IndexOf("clean \"$PROJECT\"", StringComparison.Ordinal));
+        Assert.Contains("build \"$PROJECT\" --no-restore", unixLauncher, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void GlobalNumericInputStyleKeepsSpinnerControlsAvailable()
     {
         var appSource = File.ReadAllText(Path.Combine(

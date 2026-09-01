@@ -17,19 +17,30 @@ echo Preparing Optical System Design ^(S.T.A.R. Labs^)...
 echo Project: %PROJECT%
 echo.
 
-echo [1/3] Cleaning previous build outputs...
+echo [1/4] Restoring package dependencies...
+dotnet restore "%PROJECT%" --nologo --verbosity minimal
+if errorlevel 1 goto restore_failed
+
+echo.
+echo [2/4] Cleaning previous build outputs...
 dotnet clean "%PROJECT%" --nologo --verbosity minimal
 if errorlevel 1 goto clean_failed
 
 echo.
-echo [2/3] Rebuilding the application...
-dotnet build "%PROJECT%" --nologo --verbosity minimal
+echo [3/4] Rebuilding the application...
+dotnet build "%PROJECT%" --no-restore --nologo --verbosity minimal
 if errorlevel 1 goto build_failed
 
 echo.
-echo [3/3] Starting the rebuilt application...
+echo [4/4] Starting the rebuilt application...
 dotnet run --project "%PROJECT%" --no-build
 set "EXITCODE=%ERRORLEVEL%"
+goto report
+
+:restore_failed
+set "EXITCODE=%ERRORLEVEL%"
+echo.
+echo Restoring package dependencies failed with code %EXITCODE%.
 goto report
 
 :clean_failed

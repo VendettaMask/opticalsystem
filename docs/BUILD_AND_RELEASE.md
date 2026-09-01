@@ -55,7 +55,7 @@ dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbe
 - Windows：`Run-Optiland.cmd`
 - macOS：`Run-Optiland.command`
 
-脚本依次执行 `dotnet clean`、`dotnet build` 和 `dotnet run --no-build`。清理只涉及项目构建输出，不删除 `%APPDATA%/OptilandWorkbench` 或 macOS 对应用户目录中的工程、主题和会话数据。
+脚本依次执行 `dotnet restore`、`dotnet clean`、`dotnet build --no-restore` 和 `dotnet run --no-build`。还原放在清理之前，因为 `dotnet clean` 同样会解析现有 NuGet 资产文件；全局包缓存缺失时，这个顺序会先补齐依赖，避免清理阶段触发 `NETSDK1064`。清理只涉及项目构建输出，不删除 `%APPDATA%/OptilandWorkbench` 或 macOS 对应用户目录中的工程、主题和会话数据。
 
 终端等价命令：
 

@@ -35,11 +35,12 @@
 
 两个脚本都会依次执行：
 
-1. `dotnet clean` 清理 App 项目的旧构建输出。
-2. `dotnet build` 重新构建。
-3. `dotnet run --no-build` 启动刚生成的程序。
+1. `dotnet restore` 根据锁文件补齐或修复 NuGet 依赖。
+2. `dotnet clean` 清理 App 项目的旧构建输出。
+3. `dotnet build --no-restore` 重新构建。
+4. `dotnet run --no-build` 启动刚生成的程序。
 
-清理不会删除用户工程、主题、默认布局或按文件保存的工作区会话。
+还原必须先于清理，因为 `dotnet clean` 也会解析现有 NuGet 资产文件；全局包缓存缺失时，先还原可避免在清理阶段触发 `NETSDK1064`。清理不会删除用户工程、主题、默认布局或按文件保存的工作区会话。
 
 终端启动：
 

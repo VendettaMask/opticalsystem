@@ -30,19 +30,26 @@ echo "Preparing Optical System Design (S.T.A.R. Labs)..."
 echo "Project: $PROJECT"
 echo
 
-echo "[1/3] Cleaning previous build outputs..."
-"$DOTNET" clean "$PROJECT" --nologo --verbosity minimal
+echo "[1/4] Restoring package dependencies..."
+"$DOTNET" restore "$PROJECT" --nologo --verbosity minimal
 STATUS=$?
 if [ "$STATUS" -eq 0 ]; then
   echo
-  echo "[2/3] Rebuilding the application..."
-  "$DOTNET" build "$PROJECT" --nologo --verbosity minimal
+  echo "[2/4] Cleaning previous build outputs..."
+  "$DOTNET" clean "$PROJECT" --nologo --verbosity minimal
   STATUS=$?
 fi
 
 if [ "$STATUS" -eq 0 ]; then
   echo
-  echo "[3/3] Starting the rebuilt application..."
+  echo "[3/4] Rebuilding the application..."
+  "$DOTNET" build "$PROJECT" --no-restore --nologo --verbosity minimal
+  STATUS=$?
+fi
+
+if [ "$STATUS" -eq 0 ]; then
+  echo
+  echo "[4/4] Starting the rebuilt application..."
   "$DOTNET" run --project "$PROJECT" --no-build
   STATUS=$?
 fi
