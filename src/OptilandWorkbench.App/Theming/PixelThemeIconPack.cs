@@ -35,7 +35,8 @@ internal sealed class PixelThemeIconPack : IThemeIconPack
                 standard.ContentTransform,
                 PenLineCap.Square,
                 PenLineJoin.Miter,
-                1.1);
+                1.35,
+                true);
         }
 
         return definitions;

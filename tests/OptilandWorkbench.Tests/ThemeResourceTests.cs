@@ -232,7 +232,9 @@ public sealed class ThemeResourceTests
         Assert.Same(standard.Primitives, pixel.Primitives);
         Assert.Equal(PenLineCap.Square, pixel.LineCap);
         Assert.Equal(PenLineJoin.Miter, pixel.LineJoin);
-        Assert.Equal(1.1, pixel.StrokeWidthScale, precision: 12);
+        Assert.Equal(1.35, pixel.StrokeWidthScale, precision: 12);
+        Assert.True(pixel.UseAliasedEdges);
+        Assert.False(standard.UseAliasedEdges);
         Assert.All(LocalIconLibrary.Names, iconName =>
             Assert.True(PixelThemeIconPack.Instance.TryResolve(iconName, out _)));
         Assert.True(PixelThemeIconPack.Instance.TryResolve("not-a-real-icon", out var fallback));
@@ -248,6 +250,24 @@ public sealed class ThemeResourceTests
         }
 
         Assert.NotEqual(default, pixelChrome[ThemeChromeRole.SettingsCard].BoxShadow);
+        Assert.NotEqual(default, pixelChrome[ThemeChromeRole.ControlFrame].BoxShadow);
+    }
+
+    [Fact]
+    public void PixelThemeOverridesFluentControlsWithEightBitColorRoles()
+    {
+        var resources = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).BuildResources();
+
+        Assert.Equal(Color.FromRgb(221, 239, 242), ColorOf(resources, "ButtonBackground"));
+        Assert.Equal(Color.FromRgb(23, 50, 77), ColorOf(resources, "ButtonBorderBrush"));
+        Assert.Equal(Color.FromRgb(255, 249, 220), ColorOf(resources, "TextControlBackground"));
+        Assert.Equal(Color.FromRgb(48, 139, 78), ColorOf(resources, "CheckBoxCheckBackgroundFillChecked"));
+        Assert.Equal(Color.FromRgb(59, 131, 189), ColorOf(resources, "TabItemHeaderBackgroundUnselected"));
+        Assert.Equal(Color.FromRgb(239, 91, 91), ColorOf(resources, "TabItemHeaderBackgroundSelected"));
+        Assert.Equal(Color.FromRgb(247, 201, 72), ColorOf(resources, ThemeResourceBindings.SelectionBackground));
+        Assert.Equal(Color.FromRgb(23, 50, 77), ColorOf(resources, ThemeResourceBindings.SelectionForeground));
+        Assert.Equal(Color.FromRgb(59, 131, 189), ColorOf(resources, ThemeResourceBindings.SectionHeaderBackground));
+        Assert.Equal(new CornerRadius(0), Assert.IsType<CornerRadius>(resources["ControlCornerRadius"]));
     }
 
     [Fact]

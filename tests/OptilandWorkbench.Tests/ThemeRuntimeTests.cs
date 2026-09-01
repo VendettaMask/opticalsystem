@@ -1,6 +1,7 @@
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -15,6 +16,51 @@ namespace OptilandWorkbench.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class ThemeRuntimeTests
 {
+    [Fact]
+    public async Task PixelThemeReachesLiveFluentButtonAndTextBoxTemplates()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OptilandWorkbench.App.App));
+        await session.Dispatch(() =>
+        {
+            var application = Assert.IsType<global::OptilandWorkbench.App.App>(global::Avalonia.Application.Current);
+            ThemeApplicationService.Apply(application, PixelTheme.SettingsValue);
+            var button = new Button { Content = "应用" };
+            var input = new TextBox { Text = "10" };
+            var window = new Window
+            {
+                Width = 280,
+                Height = 140,
+                Content = new StackPanel
+                {
+                    Margin = new Thickness(16),
+                    Spacing = 10,
+                    Children = { input, button }
+                }
+            };
+
+            try
+            {
+                window.Show();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+
+                Assert.Equal(PixelTheme.Variant, button.ActualThemeVariant);
+                Assert.Equal(Color.FromRgb(221, 239, 242), Assert.IsAssignableFrom<ISolidColorBrush>(button.Background).Color);
+                Assert.Equal(Color.FromRgb(23, 50, 77), Assert.IsAssignableFrom<ISolidColorBrush>(button.BorderBrush).Color);
+                Assert.Equal(Color.FromRgb(255, 249, 220), Assert.IsAssignableFrom<ISolidColorBrush>(input.Background).Color);
+                Assert.Equal(new CornerRadius(0), button.CornerRadius);
+                Assert.Equal(new CornerRadius(0), input.CornerRadius);
+                var presenter = button.GetVisualDescendants()
+                    .OfType<ContentPresenter>()
+                    .Single(control => control.Name == "PART_ContentPresenter");
+                Assert.NotEqual(default, presenter.BoxShadow);
+            }
+            finally
+            {
+                window.Close();
+            }
+        }, CancellationToken.None);
+    }
+
     [Fact]
     public async Task RuntimeTypographyRefreshRescalesExistingLocalFontSizesExactlyOnce()
     {

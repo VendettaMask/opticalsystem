@@ -76,7 +76,8 @@ internal sealed class IsekaiThemeIconPack : IThemeIconPack
                 transform,
                 PenLineCap.Square,
                 PenLineJoin.Miter,
-                1);
+                1,
+                false);
             var attribution = new GameIconAttribution(
                 item.GetProperty("author").GetString() ?? string.Empty,
                 item.GetProperty("source").GetString() ?? string.Empty);

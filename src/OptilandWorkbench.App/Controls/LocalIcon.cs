@@ -79,6 +79,9 @@ public sealed class LocalIcon : Control
         var offsetX = (Bounds.Width - (24 * scale)) / 2.0;
         var offsetY = (Bounds.Height - (24 * scale)) / 2.0;
         var transform = Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offsetX, offsetY);
+        using var renderOptions = definition.UseAliasedEdges
+            ? context.PushRenderOptions(new RenderOptions { EdgeMode = EdgeMode.Aliased })
+            : default;
         using (context.PushTransform(transform))
         {
             var pen = new Pen(
@@ -273,7 +276,8 @@ internal sealed record IconDefinition(
     Matrix ContentTransform,
     PenLineCap LineCap,
     PenLineJoin LineJoin,
-    double StrokeWidthScale)
+    double StrokeWidthScale,
+    bool UseAliasedEdges)
 {
     public static IconDefinition Standard(IReadOnlyList<IconPrimitive> primitives) => new(
         primitives,
@@ -281,7 +285,8 @@ internal sealed record IconDefinition(
         Matrix.Identity,
         PenLineCap.Round,
         PenLineJoin.Round,
-        1);
+        1,
+        false);
 }
 
 internal interface IThemeIconPack

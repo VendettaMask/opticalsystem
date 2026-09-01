@@ -14,7 +14,7 @@
 | `Pixel` | 像素风格 | Light 派生 | `PixelLucide` | 明亮 8-bit 色板、方角硬边、无模糊像素阴影与点阵 Ribbon |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
 
-`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度和 Ribbon 阴影保持改造前参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID、文案、结构边框厚度、布局尺寸或输入命中区域。像素风格复用固定版本 Lucide 的语义几何，但由独立 `PixelLucide` 包改为方形线帽、直角连接和加粗像素轮廓；亮蓝点阵、阶梯角标与硬阴影只通过主题 Chrome 和装饰层表达。
+`Light` 和 `Dark` 的图标几何、卡片圆角、控件圆角、边框厚度和 Ribbon 阴影保持改造前参数。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID、文案、结构边框厚度、布局尺寸或输入命中区域。像素风格复用固定版本 Lucide 的语义几何，但由独立 `PixelLucide` 包使用无抗锯齿边缘、方形线帽、直角连接和 1.35 倍描边形成点阵轮廓；亮蓝标题带、珊瑚红活动页签、向日葵黄选中行、绿色复选状态和按钮硬阴影由主题语义资源、Fluent 控件资源及 Chrome 共同表达。
 
 ## 主题包组成
 
@@ -38,7 +38,7 @@
 
 - 普通和暗夜主题直接返回固定版本 Lucide 定义，确保现有显示不变；
 - 异世界主题由 `GameIconsFantasy` 包直接加载 Game-icons.net 上游填充式 SVG 路径；每项都记录作者和原始文件，未映射语义回退到同套 `help.svg`；
-- 像素风格由 `PixelLucide` 包复用同一批稳定语义几何并改为方形线帽、直角连接和 1.1 倍描边，未知语义回退到像素化的 `circle-question-mark`；
+- 像素风格由 `PixelLucide` 包复用同一批稳定语义几何并启用无抗锯齿边缘、方形线帽、直角连接和 1.35 倍描边，未知语义回退到像素化的 `circle-question-mark`；
 - 未知语义统一回退到 `circle-question-mark`，不得显示空白；
 - 主题切换会使现有 `LocalIcon` 失效重绘，不要求重启。
 
@@ -46,7 +46,7 @@
 
 ## Chrome 角色
 
-`ThemeChromeRole` 当前包括 Ribbon、工作区、设置卡片、普通表面卡片、控件框、状态栏、对话框和视口。公共组件通过 `ThemeChrome.Apply` 绑定角色资源；按钮、输入框和 Dock 外壳按钮也从 `ControlFrame` 动态资源读取圆角/边框。只负责装饰的绘制层使用 `ThemeChromeOverlay`。
+`ThemeChromeRole` 当前包括 Ribbon、工作区、设置卡片、普通表面卡片、控件框、状态栏、对话框和视口。公共组件通过 `ThemeChrome.Apply` 绑定角色资源；按钮、输入框和 Dock 外壳按钮也从 `ControlFrame` 动态资源读取圆角、边框和阴影。折叠标题、选中行等状态通过独立语义画刷绑定，使像素主题可以使用蓝色标题与黄色选择，同时普通、暗夜和异世界主题保持原强调语义。只负责装饰的绘制层使用 `ThemeChromeOverlay`。
 
 约束：
 

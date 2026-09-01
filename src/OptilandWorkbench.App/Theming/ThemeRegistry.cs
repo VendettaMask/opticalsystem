@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Theming;
 
@@ -159,6 +160,9 @@ internal static class StandardTheme
         resources["AccentFillColorDefaultBrush"] = accentBrush;
         resources["AccentFillColorSecondaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 112, 235));
         resources["AccentFillColorTertiaryBrush"] = new SolidColorBrush(Color.FromRgb(0, 102, 214));
+        resources[ThemeResourceBindings.SelectionBackground] = accentBrush;
+        resources[ThemeResourceBindings.SelectionForeground] =
+            new SolidColorBrush(Color.FromRgb(255, 255, 255));
         foreach (var resourceKey in UnifiedDockAccentResourceKeys)
         {
             resources[resourceKey] = accentBrush;

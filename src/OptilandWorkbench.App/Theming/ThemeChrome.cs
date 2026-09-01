@@ -108,7 +108,7 @@ internal sealed class ThemeChromeProfile
             [ThemeChromeRole.Workspace] = new(navy, new Thickness(0), new CornerRadius(0), none),
             [ThemeChromeRole.SettingsCard] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
             [ThemeChromeRole.SurfaceCard] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
-            [ThemeChromeRole.ControlFrame] = new(navy, new Thickness(1), new CornerRadius(0), none),
+            [ThemeChromeRole.ControlFrame] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
             [ThemeChromeRole.StatusBar] = new(navy, new Thickness(0, 1, 0, 0), new CornerRadius(0), none),
             [ThemeChromeRole.Dialog] = new(navy, new Thickness(1), new CornerRadius(0), pixelShadow),
             [ThemeChromeRole.Viewport] = new(navy, new Thickness(1), new CornerRadius(0), none)

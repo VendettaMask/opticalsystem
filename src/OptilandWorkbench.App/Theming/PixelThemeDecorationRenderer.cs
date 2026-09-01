@@ -8,8 +8,8 @@ internal sealed class PixelThemeDecorationRenderer : IThemeDecorationRenderer
 {
     public static PixelThemeDecorationRenderer Instance { get; } = new();
 
-    private static readonly IImmutableBrush HeaderBrush = Brush(Color.FromRgb(168, 216, 240));
-    private static readonly IImmutableBrush HeaderDitherBrush = Brush(Color.FromArgb(80, 59, 131, 189));
+    private static readonly IImmutableBrush HeaderBrush = Brush(Color.FromRgb(59, 131, 189));
+    private static readonly IImmutableBrush HeaderDitherBrush = Brush(Color.FromArgb(110, 41, 105, 157));
     private static readonly IImmutableBrush NavyBrush = Brush(Color.FromRgb(23, 50, 77));
     private static readonly IImmutableBrush BlueBrush = Brush(Color.FromRgb(59, 131, 189));
     private static readonly IImmutableBrush CreamBrush = Brush(Color.FromRgb(255, 244, 199));

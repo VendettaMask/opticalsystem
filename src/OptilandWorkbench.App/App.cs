@@ -92,16 +92,32 @@ public sealed class App : Avalonia.Application
         });
         Styles.Add(new Style(selector => selector
             .OfType<Button>()
+            .Template()
+            .OfType<ContentPresenter>()
+            .Name("PART_ContentPresenter"))
+        {
+            Setters =
+            {
+                new Setter(
+                    ContentPresenter.BoxShadowProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.BoxShadow(ThemeChromeRole.ControlFrame)))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .OfType<Button>()
             .Class("system-property-card-header"))
         {
             Setters =
             {
                 new Setter(
                     Button.BackgroundProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.Surface)),
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderBackground)),
                 new Setter(
                     Button.BorderBrushProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.Border))
+                    new DynamicResourceExtension(ThemeResourceBindings.Border)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderForeground))
             }
         });
         Styles.Add(new Style(selector => selector
@@ -113,10 +129,13 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(
                     Button.BackgroundProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.Hover)),
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderEmphasizedBackground)),
                 new Setter(
                     Button.BorderBrushProperty,
-                    new DynamicResourceExtension(ThemeResourceBindings.HoverBorder))
+                    new DynamicResourceExtension(ThemeResourceBindings.HoverBorder)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderEmphasizedForeground))
             }
         });
         Styles.Add(new Style(selector => selector
@@ -253,6 +272,15 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
+                new Setter(
+                    DataGridColumnHeader.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderBackground)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SectionHeaderForeground)),
+                new Setter(
+                    DataGridColumnHeader.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border)),
                 new Setter(DataGridColumnHeader.BorderThicknessProperty, new Thickness(0, 0, 1, 1)),
                 new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
             }
@@ -263,11 +291,13 @@ public sealed class App : Avalonia.Application
             {
                 new Setter(
                     DataGridRow.BackgroundProperty,
-                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
                 new Setter(
                     DataGridRow.BorderBrushProperty,
-                    new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(TextElement.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextOnAccent))
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                new Setter(
+                    TextElement.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionForeground))
             }
         });
         AddDockIconStyles();

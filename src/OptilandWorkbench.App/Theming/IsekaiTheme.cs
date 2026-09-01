@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Theming;
 
@@ -80,6 +81,9 @@ internal static class IsekaiTheme
             new SolidColorBrush(Color.FromRgb(184, 130, 39));
         resources["AccentFillColorTertiaryBrush"] =
             new SolidColorBrush(Color.FromRgb(158, 108, 31));
+        resources[ThemeResourceBindings.SelectionBackground] = accentBrush;
+        resources[ThemeResourceBindings.SelectionForeground] =
+            new SolidColorBrush(Palette.TextOnAccent);
         foreach (var resourceKey in StandardTheme.UnifiedDockAccentResourceKeys)
         {
             resources[resourceKey] = accentBrush;
