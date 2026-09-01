@@ -75,6 +75,16 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             surfaceNumber: _settings.SurfaceNumber,
             reference: _settings.Reference,
             usePolarization: _settings.UsePolarization);
+        var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
+            Optic,
+            _settings.SurfaceNumber);
+        var displayScale = imageSpace.IsAfocalAngle ? 1.0 : 1_000.0;
+        var displayUnitLabel = imageSpace.IsAfocalAngle
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "µm";
+        var displayAxisUnit = imageSpace.IsAfocalAngle
+            ? AnalysisAxisUnit.Milliradian
+            : AnalysisAxisUnit.Micrometer;
         var magnification = double.IsFinite(_settings.Magnification)
             ? Math.Max(0, _settings.Magnification)
             : 1;
@@ -86,7 +96,7 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             {
                 var x = absoluteRay.X + ((magnification - 1) * referencedRay.X);
                 var y = absoluteRay.Y + ((magnification - 1) * referencedRay.Y);
-                return new AnalysisPoint(x * 1000, y * 1000);
+                return new AnalysisPoint(x * displayScale, y * displayScale);
             }).ToArray();
         }
 
@@ -98,8 +108,8 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                     .SelectMany(wavelengthIndex => BuildPoints(fieldIndex, wavelengthIndex))
                     .ToArray();
                 return new AnalysisSeries(
-                    "X (µm)",
-                    "Y (µm)",
+                    $"X ({displayUnitLabel})",
+                    $"Y ({displayUnitLabel})",
                     points,
                     AnalysisSeriesKind.Scatter,
                     MtfPresentation.FieldName(Optic, field),
@@ -110,14 +120,14 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                     MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
                     Opacity: 0.75,
                     LegendKey: $"field:{globalFieldIndex}",
-                    XQuantity: AnalysisAxisQuantity.ImageHeight,
-                    XUnit: AnalysisAxisUnit.Micrometer,
-                    YQuantity: AnalysisAxisQuantity.ImageHeight,
-                    YUnit: AnalysisAxisUnit.Micrometer);
+                    XQuantity: imageSpace.Quantity,
+                    XUnit: displayAxisUnit,
+                    YQuantity: imageSpace.Quantity,
+                    YUnit: displayAxisUnit);
             }).ToArray()
             : wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-                "X (µm)",
-                "Y (µm)",
+                $"X ({displayUnitLabel})",
+                $"Y ({displayUnitLabel})",
                 fields.SelectMany((_, fieldIndex) => BuildPoints(fieldIndex, wavelengthIndex)).ToArray(),
                 AnalysisSeriesKind.Scatter,
                 $"{wavelength.Micrometers:0.0000} µm",
@@ -128,10 +138,10 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                 MarkerSize: _settings.UseSymbols ? 2.8 : 2.2,
                 Opacity: 0.75,
                 LegendKey: $"wavelength:{wavelength.Micrometers:R}",
-                XQuantity: AnalysisAxisQuantity.ImageHeight,
-                XUnit: AnalysisAxisUnit.Micrometer,
-                YQuantity: AnalysisAxisQuantity.ImageHeight,
-                YUnit: AnalysisAxisUnit.Micrometer)).ToArray();
+                XQuantity: imageSpace.Quantity,
+                XUnit: displayAxisUnit,
+                YQuantity: imageSpace.Quantity,
+                YUnit: displayAxisUnit)).ToArray();
         var allPoints = series.SelectMany(item => item.Points)
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
@@ -148,12 +158,12 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             .SelectMany(field => field.Wavelengths)
             .SelectMany(wavelength => wavelength.Rays)
             .ToArray();
-        var rmsRadiusMicrometers = SpotAnalysisEngine.RmsRadius(referencedRays) * 1000;
-        var geometricRadiusMicrometers = referencedRays
+        var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(referencedRays) * displayScale;
+        var geometricRadiusDisplay = referencedRays
             .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
             .DefaultIfEmpty(0)
-            .Max() * 1000;
-        var scaleBarMicrometers = NiceScale(span);
+            .Max() * displayScale;
+        var scaleBar = NiceScale(span);
         var values = new Dictionary<string, object>
         {
             ["Variant"] = Name,
@@ -173,12 +183,22 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             ["SurfaceNumber"] = _settings.SurfaceNumber,
             ["DisplayScale"] = _settings.DisplayScale,
             ["PlotScaleMicrometers"] = _settings.PlotScaleMicrometers,
-            ["ScaleBarMicrometers"] = scaleBarMicrometers,
+            ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _settings.PlotScaleMicrometers : 0,
+            ["ScaleBarMicrometers"] = imageSpace.IsAfocalAngle ? 0 : scaleBar,
+            ["ScaleBarMilliradians"] = imageSpace.IsAfocalAngle ? scaleBar : 0,
             ["ScatterRays"] = _settings.ScatterRays,
             ["UseSymbols"] = _settings.UseSymbols,
-            ["RmsRadiusMicrometers"] = rmsRadiusMicrometers,
-            ["GeometricRadiusMicrometers"] = geometricRadiusMicrometers,
-            ["MaximumGeometricSpotRadius"] = geometricRadiusMicrometers / 1000
+            ["ImageSpaceAfocal"] = imageSpace.IsAfocalAngle,
+            ["ImageCoordinateUnit"] = displayUnitLabel,
+            ["RmsRadius"] = rmsRadiusDisplay,
+            ["RmsRadiusUnit"] = displayUnitLabel,
+            ["RmsRadiusMicrometers"] = imageSpace.IsAfocalAngle ? 0 : rmsRadiusDisplay,
+            ["RmsRadiusMilliradians"] = imageSpace.IsAfocalAngle ? rmsRadiusDisplay : 0,
+            ["GeometricRadius"] = geometricRadiusDisplay,
+            ["GeometricRadiusUnit"] = displayUnitLabel,
+            ["GeometricRadiusMicrometers"] = imageSpace.IsAfocalAngle ? 0 : geometricRadiusDisplay,
+            ["GeometricRadiusMilliradians"] = imageSpace.IsAfocalAngle ? geometricRadiusDisplay : 0,
+            ["MaximumGeometricSpotRadius"] = geometricRadiusDisplay / displayScale
         };
         return new AnalysisData(
             Name,
@@ -256,12 +276,16 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         var matrixValues = values.ToDictionary(item => item.Key, item => item.Value);
         if (!configurationMatrix)
         {
+            var imageSpaceAfocal = matrixValues.TryGetValue("ImageSpaceAfocal", out var afocalValue)
+                && afocalValue is bool afocal
+                && afocal;
             var firstOptions = panes.FirstOrDefault()?.PlotOptions;
-            var scaleBarMicrometers = firstOptions?.XMinimum is { } xMinimum
+            var scaleBar = firstOptions?.XMinimum is { } xMinimum
                 && firstOptions.XMaximum is { } xMaximum
-                    ? Math.Abs(xMaximum - xMinimum) * 1000
+                    ? Math.Abs(xMaximum - xMinimum) * (imageSpaceAfocal ? 1 : 1000)
                     : 0;
-            matrixValues["ScaleBarMicrometers"] = scaleBarMicrometers;
+            matrixValues["ScaleBarMicrometers"] = imageSpaceAfocal ? 0 : scaleBar;
+            matrixValues["ScaleBarMilliradians"] = imageSpaceAfocal ? scaleBar : 0;
         }
 
         var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();

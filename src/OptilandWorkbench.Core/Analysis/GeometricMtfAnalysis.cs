@@ -49,13 +49,18 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         var result = SpotAnalysisEngine.Generate(Optic, fields, wavelengths, _numRays, _distribution);
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
-        var diffractionCutoff = fNumber <= 1e-30
-            ? 0
-            : 1 / (referenceWavelength.Micrometers * 1e-3 * fNumber);
+        var afocalImageSpace = Optic.ImageSpaceAfocal;
+        var diffractionCutoff = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(Optic, referenceWavelength)
+            : fNumber <= 1e-30
+                ? 0
+                : 1 / (referenceWavelength.Micrometers * 1e-3 * fNumber);
         var maximumFrequency = _maximumFrequency ?? diffractionCutoff;
         var frequency = Enumerable.Range(0, _numPoints)
             .Select(index => maximumFrequency * index / (_numPoints - 1.0))
             .ToArray();
+        var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(Optic);
+        var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(Optic);
 
         var series = new List<AnalysisSeries>(result.Fields.Count * 2);
         for (var fieldIndex = 0; fieldIndex < result.Fields.Count; fieldIndex++)
@@ -93,9 +98,11 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             foreach (var item in validWavelengths)
             {
                 var wavelength = item.Wavelength;
-                var cutoff = fNumber <= 1e-30
-                    ? 0
-                    : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+                var cutoff = afocalImageSpace
+                    ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(Optic, wavelength)
+                    : fNumber <= 1e-30
+                        ? 0
+                        : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
                 var diffractionScale = frequency.Select(value => DiffractionScale(value, cutoff)).ToArray();
                 var wavelengthTangential = Compute(
                     item.Rays.Select(ray => ray.Y).ToArray(),
@@ -119,24 +126,24 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             sagittal = sagittal.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
             var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Tangential"),
                 ColorIndex: colorIndex,
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, (field.Hx, field.Hy), "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: colorIndex,
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -151,6 +158,8 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
             ["ScaleByDiffractionLimit"] = _scale,
             ["MaximumFrequency"] = maximumFrequency,
             ["CutoffFrequency"] = diffractionCutoff,
+            ["FrequencyUnit"] = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(Optic),
+            ["ImageSpaceAfocal"] = afocalImageSpace,
             ["FNumber"] = fNumber,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),

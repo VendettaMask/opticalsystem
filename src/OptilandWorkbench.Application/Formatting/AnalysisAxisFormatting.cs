@@ -8,10 +8,10 @@ namespace OptilandWorkbench.Application.Formatting;
 public static class AnalysisAxisFormatting
 {
     private static readonly Regex ParenthesizedUnit = new(
-        @"[（(]\s*(?:mm|µm|μm|nm|waves?|deg(?:rees)?|°|%|cycles/mm|µm⁻¹|μm⁻¹|radians?|rad|px|dB|W/sr|W/mm²|10⁻⁶/K|-)\s*[）)]",
+        @"[（(]\s*(?:mm|µm|μm|nm|waves?|deg(?:rees)?|°|%|cycles/mm|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D|-)\s*[）)]",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
     private static readonly Regex ExplicitUnit = new(
-        @"(?:单位\s*[:：]\s*)?(?:毫米|微米|µm|μm|mm|nm|waves?|degrees?|deg|°|%|cycles/mm|µm⁻¹|μm⁻¹|radians?|rad|px|dB|W/sr|W/mm²|10⁻⁶/K)\s*$",
+        @"(?:单位\s*[:：]\s*)?(?:毫米|微米|µm|μm|mm|nm|waves?|degrees?|deg|°|%|cycles/mm|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D)\s*$",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
     private static readonly Regex EnglishInUnit = new(
         @"\s+in\s+(?:millimeters?|micrometers?|degrees?|waves?)\s*$",
@@ -30,11 +30,14 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.InverseMicrometer => "µm⁻¹",
         AnalysisAxisUnit.Pixel => "px",
         AnalysisAxisUnit.Radian => "rad",
+        AnalysisAxisUnit.Milliradian => "mrad",
         AnalysisAxisUnit.Decibel => "dB",
         AnalysisAxisUnit.WattsPerSteradian => "W/sr",
         AnalysisAxisUnit.WattsPerSquareMillimeter => "W/mm²",
         AnalysisAxisUnit.PartsPerMillionPerKelvin => "10⁻⁶/K",
         AnalysisAxisUnit.Watt => "W",
+        AnalysisAxisUnit.CyclesPerMilliradian => "cycles/mrad",
+        AnalysisAxisUnit.Diopter => "D",
         _ => string.Empty
     };
 
@@ -95,8 +98,18 @@ public static class AnalysisAxisFormatting
 
         if (IsAngle(source) && IsAngle(target))
         {
-            var radians = source == AnalysisAxisUnit.Degree ? value * Math.PI / 180 : value;
-            return target == AnalysisAxisUnit.Degree ? radians * 180 / Math.PI : radians;
+            var radians = source switch
+            {
+                AnalysisAxisUnit.Degree => value * Math.PI / 180,
+                AnalysisAxisUnit.Milliradian => value / 1000,
+                _ => value
+            };
+            return target switch
+            {
+                AnalysisAxisUnit.Degree => radians * 180 / Math.PI,
+                AnalysisAxisUnit.Milliradian => radians * 1000,
+                _ => radians
+            };
         }
 
         throw new ArgumentException($"Cannot convert axis unit {source} to {target}.");
@@ -106,7 +119,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.Millimeter or AnalysisAxisUnit.Micrometer or AnalysisAxisUnit.Nanometer;
 
     private static bool IsAngle(AnalysisAxisUnit unit) => unit is
-        AnalysisAxisUnit.Degree or AnalysisAxisUnit.Radian;
+        AnalysisAxisUnit.Degree or AnalysisAxisUnit.Radian or AnalysisAxisUnit.Milliradian;
 
     private static double MillimetersPerUnit(AnalysisAxisUnit unit) => unit switch
     {
@@ -135,6 +148,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisQuantity.Distortion => "畸变",
         AnalysisAxisQuantity.RayHeight => "光线高度",
         AnalysisAxisQuantity.IncidentAngle => "入射角",
+        AnalysisAxisQuantity.Angle => "角度",
         AnalysisAxisQuantity.ZernikeTerm => "Zernike 项",
         AnalysisAxisQuantity.Coefficient => "系数",
         AnalysisAxisQuantity.SurfaceNumber => "表面序号",

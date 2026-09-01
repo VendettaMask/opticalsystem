@@ -131,12 +131,31 @@ public partial class WorkbenchRuntime
     private static void ApplyGeometry(OpticalSurface surface, string geometryKind)
     {
         geometryKind = CanonicalGeometryKind(geometryKind);
+        if (surface.Geometry is INonComputableGeometry opaque
+            && geometryKind.StartsWith("不支持：", StringComparison.Ordinal)
+            && string.Equals(
+                geometryKind["不支持：".Length..],
+                opaque.OriginalType,
+                StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        if (GeometryKind(surface.Geometry) == geometryKind)
+        {
+            return;
+        }
+
         var radius = Math.Abs(surface.Radius) < 1e-9 ? 40 : surface.Radius;
         switch (geometryKind)
         {
             case "Plane":
                 surface.Radius = 0;
                 surface.Geometry = new PlaneGeometry();
+                break;
+            case "Standard":
+                surface.Radius = radius;
+                surface.Geometry = new StandardGeometry(radius, surface.Conic);
                 break;
             case "Plane Grating":
                 surface.Radius = 0;
@@ -193,6 +212,23 @@ public partial class WorkbenchRuntime
                     $"不支持几何类型“{geometryKind}”；不会将其静默替换为标准面。");
         }
     }
+
+    private static string GeometryKind(IGeometry geometry) => geometry switch
+    {
+        PlaneGeometry => "Plane",
+        StandardGeometry => "Standard",
+        PlaneGratingGeometry => "Plane Grating",
+        StandardGratingGeometry => "Standard Grating",
+        EvenAsphereGeometry => "Even Asphere",
+        OddAsphereGeometry => "Odd Asphere",
+        BiconicGeometry => "Biconic",
+        ToroidalGeometry => "Toroidal",
+        PolynomialGeometry => "Polynomial",
+        ChebyshevGeometry => "Chebyshev",
+        ZernikeGeometry => "Zernike",
+        ForbesQGeometry => "Forbes Q",
+        _ => geometry.Kind
+    };
 
     private void ApplyMaterial(OpticalSurface surface, string materialName)
     {
@@ -344,7 +380,13 @@ public partial class WorkbenchRuntime
 
     private static void ApplyPhysicalAperture(OpticalSurface surface, string physicalApertureKind)
     {
-        surface.PhysicalAperture = CanonicalPhysicalApertureKind(physicalApertureKind) switch
+        physicalApertureKind = CanonicalPhysicalApertureKind(physicalApertureKind);
+        if (PhysicalApertureKind(surface.PhysicalAperture) == physicalApertureKind)
+        {
+            return;
+        }
+
+        surface.PhysicalAperture = physicalApertureKind switch
         {
             "Annular" => new AnnularAperture(surface.SemiDiameter, surface.SemiDiameter * 0.5),
             "Offset Radial" => new OffsetRadialAperture(
@@ -366,6 +408,19 @@ public partial class WorkbenchRuntime
             _ => new CircularAperture(surface.SemiDiameter)
         };
     }
+
+    private static string PhysicalApertureKind(IPhysicalAperture? aperture) => aperture switch
+    {
+        null => "None",
+        AnnularAperture => "Annular",
+        OffsetRadialAperture => "Offset Radial",
+        RectangularAperture => "Rectangular",
+        EllipticalAperture => "Elliptical",
+        FileAperture => "Polygon",
+        PolygonAperture => "Polygon",
+        BooleanAperture => "Boolean",
+        _ => "Circular"
+    };
 
     private void SetPrimaryWavelengthGuard(Wavelength? preferred = null)
     {

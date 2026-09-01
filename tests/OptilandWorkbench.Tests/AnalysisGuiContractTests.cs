@@ -2613,19 +2613,22 @@ public sealed class AnalysisGuiContractTests
             5.6,
             "物高",
             objectSpaceTelecentric: false,
-            "高斯",
-            0.72,
-            1);
+            apodizationKind: "高斯",
+            firstApodizationParameter: 0.72,
+            secondApodizationParameter: 1,
+            imageSpaceAfocal: true);
 
         Assert.Equal(ApertureKind.FNumber, connector.CurrentOptic.Aperture.Kind);
         Assert.Equal(5.6, connector.CurrentOptic.Aperture.Value, precision: 12);
         Assert.Equal(FieldDefinitionKind.ObjectHeight, connector.CurrentOptic.FieldDefinition);
+        Assert.True(connector.CurrentOptic.ImageSpaceAfocal);
         Assert.IsType<GaussianApodization>(connector.CurrentOptic.Apodization);
 
         Assert.True(connector.Undo());
         Assert.Equal(originalKind, connector.CurrentOptic.Aperture.Kind);
         Assert.Equal(originalValue, connector.CurrentOptic.Aperture.Value, precision: 12);
         Assert.Equal(originalFieldDefinition, connector.CurrentOptic.FieldDefinition);
+        Assert.False(connector.CurrentOptic.ImageSpaceAfocal);
         Assert.Null(connector.CurrentOptic.Apodization);
         Assert.False(connector.Undo());
     }

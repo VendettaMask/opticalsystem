@@ -28,6 +28,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
     private readonly NumericUpDown _thinLensFocalLength = Number(92, -1_000_000, 1_000_000, 1, 50);
     private readonly CheckBox _infiniteGratingPeriod = new() { Content = "∞", VerticalAlignment = VerticalAlignment.Center };
     private readonly CheckBox _infiniteThinLensFocalLength = new() { Content = "∞", VerticalAlignment = VerticalAlignment.Center };
+    private readonly Button _applyComponentsButton;
     private readonly TextBlock _componentSummary = new()
     {
         MinWidth = 160,
@@ -64,8 +65,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                 _prescription.RemoveSurface(row.Number);
             }
         };
-        var applyComponentsButton = CommandButton("check", "应用组件", 112);
-        applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
+        _applyComponentsButton = CommandButton("check", "应用组件", 112);
+        _applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
         var toolbar = new StackPanel
         {
@@ -86,7 +87,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                 Label("周期 (μm)"), _gratingPeriod, _infiniteGratingPeriod,
                 Label("槽角 (°)"), _gratingAngle,
                 Label("焦距 (mm)"), _thinLensFocalLength, _infiniteThinLensFocalLength,
-                applyComponentsButton,
+                _applyComponentsButton,
                 _componentSummary
             }
         };
@@ -307,12 +308,32 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         }
 
         _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}";
+        var canEditComponents = row.GeometryComputable;
+        _geometryPicker.IsEnabled = canEditComponents;
+        _aperturePicker.IsEnabled = canEditComponents;
+        _gratingOrder.IsEnabled = canEditComponents;
+        _gratingPeriod.IsEnabled = canEditComponents && _infiniteGratingPeriod.IsChecked != true;
+        _infiniteGratingPeriod.IsEnabled = canEditComponents;
+        _gratingAngle.IsEnabled = canEditComponents;
+        _thinLensFocalLength.IsEnabled = canEditComponents && _infiniteThinLensFocalLength.IsChecked != true;
+        _infiniteThinLensFocalLength.IsEnabled = canEditComponents;
+        _applyComponentsButton.IsEnabled = canEditComponents;
+        if (!canEditComponents)
+        {
+            _componentSummary.Text += "（只读：暂不支持计算/编辑该 Zemax 面型）";
+        }
     }
 
     private void ApplySelectedComponents()
     {
         if (_grid.SelectedItem is not SurfaceEditorRow row)
         {
+            return;
+        }
+
+        if (!row.GeometryComputable)
+        {
+            _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}（只读：暂不支持计算/编辑该 Zemax 面型）";
             return;
         }
 

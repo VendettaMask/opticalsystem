@@ -57,15 +57,18 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
         foreach (var field in fields)
         {
             var waves = new List<OpdWave>(wavelengths.Length);
-            var wavelengthReferenceSpheres = wavelengths.Select(wavelength =>
-                WavefrontEngine.CreateChiefRayReferenceSphere(
-                    analysisOptic,
-                    field,
-                    wavelength,
-                    aimAtStop: _vignettedPupil)).ToArray();
+            var wavelengthReferenceSpheres = analysisOptic.ImageSpaceAfocal
+                ? Array.Empty<WavefrontReferenceSphere>()
+                : wavelengths.Select(wavelength =>
+                    WavefrontEngine.CreateChiefRayReferenceSphere(
+                        analysisOptic,
+                        field,
+                        wavelength,
+                        aimAtStop: _vignettedPupil)).ToArray();
             var primaryWavelength = allWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
                 ?? allWavelengths.FirstOrDefault();
-            var primaryReferenceSphere = _wavelengthNumber == 0
+            var primaryReferenceSphere = !analysisOptic.ImageSpaceAfocal
+                && _wavelengthNumber == 0
                 && wavelengths.Length > 1
                 && primaryWavelength is not null
                     ? WavefrontEngine.CreateChiefRayReferenceSphere(
@@ -133,6 +136,10 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
             ["WavelengthNumber"] = _wavelengthNumber,
             ["FieldNumber"] = _fieldNumber,
             ["SurfaceNumber"] = targetSurface,
+            ["ImageSpaceAfocal"] = analysisOptic.ImageSpaceAfocal,
+            ["ReferenceGeometry"] = analysisOptic.ImageSpaceAfocal
+                ? "chief-ray plane"
+                : "reference sphere",
             ["UseDashes"] = _useDashes,
             ["VignettedPupil"] = _vignettedPupil,
             ["CheckApertures"] = _checkApertures,

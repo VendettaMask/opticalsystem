@@ -107,6 +107,7 @@ public sealed class SystemDataReportAnalysis : BaseAnalysis
             Row("孔径", "光阑面", stop?.Number ?? -1),
             Row("孔径", "物方远心", Optic.ObjectSpaceTelecentric ? "是" : "否"),
             Row("视场", "视场定义", Optic.FieldDefinition),
+            Row("视场", "像方无焦", Optic.ImageSpaceAfocal ? "是" : "否"),
             Row("视场", "光线瞄准", Optic.RayAimingEnabled ? "启用" : "关闭"),
             Row("波长", "主波长 (μm)", primary?.Micrometers ?? 0),
             Row("近轴", "有效焦距 (mm)", cardinal.EffectiveFocalLength),

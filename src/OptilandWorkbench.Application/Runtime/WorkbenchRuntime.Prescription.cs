@@ -287,13 +287,15 @@ public partial class WorkbenchRuntime
         bool objectSpaceTelecentric,
         string apodizationKind,
         double firstApodizationParameter,
-        double secondApodizationParameter)
+        double secondApodizationParameter,
+        bool imageSpaceAfocal = false)
     {
         CaptureCurrentState();
         ApplyBackendValue(backendName);
         ApplySystemApertureValue(apertureKindName, apertureValue);
         ApplyFieldDefinitionValue(fieldDefinitionName, objectSpaceTelecentric);
         ApplyApodizationValue(apodizationKind, firstApodizationParameter, secondApodizationParameter);
+        CurrentOptic.ImageSpaceAfocal = imageSpaceAfocal;
         SetStatus("系统设置已更新。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }

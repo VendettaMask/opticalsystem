@@ -70,6 +70,10 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             reference: _settings.Reference,
             usePolarization: _settings.UsePolarization,
             ignoreLateralColor: _settings.IgnoreLateralColor);
+        var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
+            analysisOptic,
+            _settings.SurfaceNumber,
+            _settings.DirectionCosines);
         var maximumRadius = result.Fields
             .SelectMany(field => field.Wavelengths)
             .SelectMany(wavelength => wavelength.Rays)
@@ -79,12 +83,14 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
         var airyRadius = AiryDiskSupport.CalculateRadius(analysisOptic, fields, wavelengths, _settings.ShowAiryDisk);
         var requiredRadius = Math.Max(maximumRadius, airyRadius);
         var axisLimit = _settings.PlotScaleMicrometers > 0
-            ? _settings.PlotScaleMicrometers / 1000.0
+            ? imageSpace.IsAfocalAngle
+                ? _settings.PlotScaleMicrometers
+                : _settings.PlotScaleMicrometers / 1000.0
             : NiceAxisLimit((requiredRadius <= 1e-12 ? 0.01 : requiredRadius) * 1.05);
         var panes = result.Fields.Select((field, fieldIndex) =>
         {
             var fieldTitle = MtfPresentation.FieldName(analysisOptic, (field.Hx, field.Hy));
-            var axisUnit = _settings.DirectionCosines ? "direction cosine" : "mm";
+            var axisUnit = imageSpace.AxisUnitLabel;
             var series = field.Wavelengths.Select((wavelength, index) => new AnalysisSeries(
                 $"X ({axisUnit})",
                 $"Y ({axisUnit})",
@@ -100,21 +106,23 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 LegendKey: IsColorByField()
                     ? $"field:{fieldIndex}"
                     : $"wavelength:{wavelength.Wavelength.Micrometers:R}",
-                XQuantity: AnalysisAxisQuantity.ImageHeight,
-                XUnit: _settings.DirectionCosines ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter,
-                YQuantity: AnalysisAxisQuantity.ImageHeight,
-                YUnit: _settings.DirectionCosines ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter)).ToList();
-            if (_settings.ShowAiryDisk && !_settings.DirectionCosines && airyRadius > 0)
+                XQuantity: imageSpace.Quantity,
+                XUnit: imageSpace.Unit,
+                YQuantity: imageSpace.Quantity,
+                YUnit: imageSpace.Unit)).ToList();
+            if (_settings.ShowAiryDisk
+                && imageSpace.Kind != ImageSpaceCoordinateKind.DirectionCosine
+                && airyRadius > 0)
             {
-                series.Add(AiryDiskSupport.CreateSeries(airyRadius));
+                series.Add(AiryDiskSupport.CreateSeries(airyRadius, imageSpace));
             }
 
             var fieldRays = field.Wavelengths.SelectMany(wavelength => wavelength.Rays).ToArray();
-            var rmsRadiusMicrometers = SpotAnalysisEngine.RmsRadius(fieldRays) * 1000;
-            var geometricRadiusMicrometers = fieldRays
+            var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(fieldRays) * imageSpace.MetricScale;
+            var geometricRadiusDisplay = fieldRays
                 .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
                 .DefaultIfEmpty(0)
-                .Max() * 1000;
+                .Max() * imageSpace.MetricScale;
             return new AnalysisPlotPane(
                 fieldTitle,
                 series,
@@ -130,8 +138,8 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 _settings.UseSymbols
                     ? new[]
                 {
-                    new AnalysisPlotMetric("RMS 半径", rmsRadiusMicrometers, "µm"),
-                    new AnalysisPlotMetric("GEO 半径", geometricRadiusMicrometers, "µm")
+                    new AnalysisPlotMetric("RMS 半径", rmsRadiusDisplay, imageSpace.MetricUnitLabel),
+                    new AnalysisPlotMetric("GEO 半径", geometricRadiusDisplay, imageSpace.MetricUnitLabel)
                 }
                     : null,
                 _settings.UseSymbols
@@ -156,10 +164,13 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             ["Reference"] = _settings.Reference,
             ["UsePolarization"] = _settings.UsePolarization,
             ["DirectionCosines"] = _settings.DirectionCosines,
+            ["ImageSpaceAfocal"] = imageSpace.IsAfocalAngle,
+            ["ImageCoordinateUnit"] = imageSpace.AxisUnitLabel,
             ["ShowAiryDisk"] = _settings.ShowAiryDisk,
             ["AiryRadius"] = airyRadius,
             ["DisplayScale"] = _settings.DisplayScale,
             ["PlotScaleMicrometers"] = _settings.PlotScaleMicrometers,
+            ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _settings.PlotScaleMicrometers : 0,
             ["ScatterRays"] = _settings.ScatterRays,
             ["UseSymbols"] = _settings.UseSymbols,
             ["IgnoreLateralColor"] = _settings.IgnoreLateralColor,
@@ -286,6 +297,9 @@ public sealed class RayFanAnalysis : BaseAnalysis
         var primaryIndex = Array.FindIndex(wavelengths, wavelength => wavelength.IsPrimary);
         primaryIndex = primaryIndex < 0 ? 0 : primaryIndex;
         var targetSurface = ResolveTargetSurface(analysisOptic);
+        var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
+            analysisOptic,
+            targetSurface.Number);
         var pupil = Enumerable.Range(0, _numPoints)
             .Select(index => -1 + (2.0 * index / (_numPoints - 1.0)))
             .ToArray();
@@ -306,7 +320,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
                     pupilAxisY: false,
                     _sagittalComponent,
                     _vignettedPupil,
-                    _zemaxCompatible);
+                    _zemaxCompatible,
+                    imageSpace);
                 var ySamples = TraceFan(
                     analysisOptic,
                     targetSurface,
@@ -316,7 +331,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
                     pupilAxisY: true,
                     _tangentialComponent,
                     _vignettedPupil,
-                    _zemaxCompatible);
+                    _zemaxCompatible,
+                    imageSpace);
                 waves.Add(new RayFanWave(
                     wavelength,
                     wavelengthIndices[wavelengthIndex],
@@ -349,7 +365,9 @@ public sealed class RayFanAnalysis : BaseAnalysis
         var yMaximum = allFinite.DefaultIfEmpty(1).Max();
         if (_plotScaleMicrometers > 0)
         {
-            var limit = _plotScaleMicrometers / 1000.0;
+            var limit = imageSpace.IsAfocalAngle
+                ? _plotScaleMicrometers
+                : _plotScaleMicrometers / 1000.0;
             yMinimum = -limit;
             yMaximum = limit;
         }
@@ -375,7 +393,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
                 pupil,
                 yFan: true,
                 _tangentialComponent,
-                _useDashes), new AnalysisPlotOptions(
+                _useDashes,
+                imageSpace), new AnalysisPlotOptions(
                 Title: title,
                 ShowVerticalZeroLine: true,
                 ShowHorizontalZeroLine: true,
@@ -389,7 +408,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
                 pupil,
                 yFan: false,
                 _sagittalComponent,
-                _useDashes), new AnalysisPlotOptions(
+                _useDashes,
+                imageSpace), new AnalysisPlotOptions(
                 Title: title,
                 ShowVerticalZeroLine: true,
                 ShowHorizontalZeroLine: true,
@@ -414,6 +434,9 @@ public sealed class RayFanAnalysis : BaseAnalysis
             ["SurfaceNumber"] = targetSurface.Number,
             ["SurfaceLabel"] = targetSurface.Label,
             ["PlotScaleMicrometers"] = _plotScaleMicrometers,
+            ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _plotScaleMicrometers : 0,
+            ["ImageSpaceAfocal"] = imageSpace.IsAfocalAngle,
+            ["RayAberrationUnit"] = imageSpace.AxisUnitLabel,
             ["UseDashes"] = _useDashes,
             ["VignettedPupil"] = _vignettedPupil,
             ["CheckApertures"] = _checkApertures,
@@ -427,14 +450,17 @@ public sealed class RayFanAnalysis : BaseAnalysis
         IReadOnlyList<double> pupil,
         bool yFan,
         RayFanAberrationComponent component,
-        bool useDashes)
+        bool useDashes,
+        ImageSpaceCoordinateDescriptor imageSpace)
     {
         return waves.Select(wave =>
         {
             var samples = yFan ? wave.Y : wave.X;
             return new AnalysisSeries(
                 yFan ? "P_y" : "P_x",
-                component == RayFanAberrationComponent.Y ? "epsilon_y (mm)" : "epsilon_x (mm)",
+                component == RayFanAberrationComponent.Y
+                    ? $"epsilon_y ({imageSpace.AxisUnitLabel})"
+                    : $"epsilon_x ({imageSpace.AxisUnitLabel})",
                 samples.Select((sample, index) => new AnalysisPoint(
                     pupil[index],
                     sample.Intensity > 0 ? sample.Value : double.NaN)).ToArray(),
@@ -450,8 +476,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
                 ColorIndex: wave.WavelengthIndex,
                 XQuantity: AnalysisAxisQuantity.PupilCoordinate,
                 XUnit: AnalysisAxisUnit.Dimensionless,
-                YQuantity: AnalysisAxisQuantity.ImageHeight,
-                YUnit: AnalysisAxisUnit.Millimeter);
+                YQuantity: imageSpace.Quantity,
+                YUnit: imageSpace.Unit);
         }).ToArray();
     }
 
@@ -464,7 +490,8 @@ public sealed class RayFanAnalysis : BaseAnalysis
         bool pupilAxisY,
         RayFanAberrationComponent component,
         bool vignettedPupil,
-        bool localCoordinates)
+        bool localCoordinates,
+        ImageSpaceCoordinateDescriptor imageSpace)
     {
         var pupilSamples = pupil.Select(value => new PupilSample(
             pupilAxisY ? 0 : value,
@@ -485,6 +512,15 @@ public sealed class RayFanAnalysis : BaseAnalysis
             if (sampleValue is not { } sample || sample.Vignetted || sample.Intensity <= 0)
             {
                 return new RayFanSample(double.NaN, 0);
+            }
+
+            if (imageSpace.Kind == ImageSpaceCoordinateKind.AfocalAngle)
+            {
+                var angle = ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(
+                    targetSurface,
+                    sample.Direction);
+                var angleValue = component == RayFanAberrationComponent.Y ? angle.Y : angle.X;
+                return new RayFanSample(angleValue, sample.Intensity);
             }
 
             var position = localCoordinates

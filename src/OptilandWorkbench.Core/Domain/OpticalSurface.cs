@@ -361,7 +361,7 @@ public sealed partial class OpticalSurface : NotifyObject
                     biconic.RadiusY,
                     Conic,
                     biconic.ConicY),
-                ToroidalGeometry toroidal => new ToroidalGeometry(toroidal.TangentialRadius, Radius),
+                ToroidalGeometry toroidal => new ToroidalGeometry(Radius, toroidal.SagittalRadius),
                 StandardGeometry when Math.Abs(Radius) < 1e-9 => new PlaneGeometry(),
                 StandardGeometry => new StandardGeometry(Radius, Conic),
                 PlaneGeometry when Math.Abs(Radius) >= 1e-9 => new StandardGeometry(Radius, Conic),
@@ -395,7 +395,7 @@ public sealed partial class OpticalSurface : NotifyObject
                 ForbesQGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
                 BiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
                 SeparableBiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
-                ToroidalGeometry toroidal => (toroidal.SagittalRadius, 0.0),
+                ToroidalGeometry toroidal => (toroidal.TangentialRadius, 0.0),
                 _ => (_radius, _conic)
             };
             SetProperty(ref _radius, parameters.Item1, nameof(Radius));

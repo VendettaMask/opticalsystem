@@ -34,12 +34,17 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
         }
 
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
-        var cutoff = _maximumFrequency
-            ?? (fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber));
+        var afocalImageSpace = Optic.ImageSpaceAfocal;
+        var diffractionCutoff = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(Optic, wavelength)
+            : fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+        var cutoff = _maximumFrequency ?? diffractionCutoff;
         var frequency = Enumerable.Range(0, _numPoints)
             .Select(index => cutoff * index / (_numPoints - 1.0))
             .ToArray();
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(Optic);
+        var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(Optic);
         var series = new List<AnalysisSeries>(fields.Count * 2);
         for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
         {
@@ -48,24 +53,24 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
             var tangential = frequency.Select(value => evaluator.Calculate(0, value)).ToArray();
             var sagittal = frequency.Select(value => evaluator.Calculate(value, 0)).ToArray();
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: fieldIndex,
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 frequency.Select((value, index) => new AnalysisPoint(value, sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: fieldIndex,
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -77,6 +82,9 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
             ["ZernikeTerms"] = _zernikeTerms,
             ["PlotPointCount"] = _numPoints,
             ["CutoffFrequency"] = cutoff,
+            ["DiffractionCutoffFrequency"] = diffractionCutoff,
+            ["FrequencyUnit"] = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(Optic),
+            ["ImageSpaceAfocal"] = afocalImageSpace,
             ["FNumber"] = fNumber,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldCount"] = fields.Count

@@ -397,6 +397,7 @@ public sealed class ZemaxImportTests
         var toroidal = Assert.IsType<ToroidalGeometry>(optic.SurfaceGroup.Items[3].Geometry);
         Assert.Equal(100, toroidal.TangentialRadius, precision: 12);
         Assert.Equal(80, toroidal.SagittalRadius, precision: 12);
+        Assert.Equal(100, optic.SurfaceGroup.Items[3].Radius, precision: 12);
         var importedFlint = Assert.IsType<CatalogGlassMaterial>(optic.SurfaceGroup.Items[3].MaterialAfter);
         Assert.Equal("N-F2", importedFlint.Name);
         Assert.Equal("SCHOTT", importedFlint.Manufacturer);
@@ -404,6 +405,15 @@ public sealed class ZemaxImportTests
         var positions = optic.SurfaceGroup.Items.Select(surface => surface.CoordinateSystem.Origin.Z).ToArray();
         Assert.Equal(0, positions[0]);
         Assert.Equal(new[] { 0.0, 4.0, 6.0, 14.0 }, positions.Skip(1));
+
+        var exported = OpticalFormatCatalog.Export(optic, ".zmx");
+        Assert.Contains("UNIT MM", exported, StringComparison.Ordinal);
+        Assert.Contains("  CURV 0.01", exported, StringComparison.Ordinal);
+        Assert.Contains("  PARM 2 80", exported, StringComparison.Ordinal);
+        var restoredToroidal = Assert.IsType<ToroidalGeometry>(
+            OpticalFormatCatalog.Import(exported, ".zmx").SurfaceGroup.Items[3].Geometry);
+        Assert.Equal(100, restoredToroidal.TangentialRadius, precision: 12);
+        Assert.Equal(80, restoredToroidal.SagittalRadius, precision: 12);
     }
 
     [Fact]
@@ -500,6 +510,46 @@ public sealed class ZemaxImportTests
 
         Assert.True(restored.SurfaceGroup.Items[1].SemiDiameterFixed);
         Assert.Equal(8.85, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxExportRoundTripsAnnularPhysicalAperture()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var surface = optic.SurfaceGroup.Items[1];
+        surface.SemiDiameter = 4.5;
+        surface.SemiDiameterFixed = true;
+        surface.PhysicalAperture = new AnnularAperture(4.5, 1.25);
+
+        var exported = OpticalFormatCatalog.Export(optic, ".zmx");
+
+        Assert.Contains("  DIAM 4.5 1 0 0 1 \"\"", exported, StringComparison.Ordinal);
+        Assert.Contains("  APMN 1.25", exported, StringComparison.Ordinal);
+        var restored = OpticalFormatCatalog.Import(exported, ".zmx");
+        var aperture = Assert.IsType<AnnularAperture>(restored.SurfaceGroup.Items[1].PhysicalAperture);
+        Assert.Equal(4.5, restored.SurfaceGroup.Items[1].SemiDiameter, precision: 12);
+        Assert.Equal(4.5, aperture.OuterRadius, precision: 12);
+        Assert.Equal(1.25, aperture.InnerRadius, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard()
+    {
+        var geometryOptic = Optic.CreateCookeTriplet();
+        geometryOptic.SurfaceGroup.Items[1].Geometry = new BiconicGeometry(40, 30, -0.2, -0.4);
+
+        var geometryError = Assert.Throws<NotSupportedException>(() =>
+            OpticalFormatCatalog.Export(geometryOptic, ".zmx"));
+        Assert.Contains("cannot losslessly map geometry", geometryError.Message, StringComparison.Ordinal);
+        Assert.Contains("biconic", geometryError.Message, StringComparison.OrdinalIgnoreCase);
+
+        var apertureOptic = Optic.CreateCookeTriplet();
+        apertureOptic.SurfaceGroup.Items[1].PhysicalAperture = new RectangularAperture(2, 1);
+
+        var apertureError = Assert.Throws<NotSupportedException>(() =>
+            OpticalFormatCatalog.Export(apertureOptic, ".zmx"));
+        Assert.Contains("cannot losslessly map physical aperture", apertureError.Message, StringComparison.Ordinal);
+        Assert.Contains("rectangular", apertureError.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -1134,15 +1184,132 @@ public sealed class ZemaxImportTests
         Assert.Equal(expectedSag, optic.SurfaceGroup.Items[0].Geometry.Sag(3, 4), precision: 12);
     }
 
+    [Fact]
+    public void ZemaxUnitScalesLengthsFieldsCurvaturesAndAsphereCoefficients()
+    {
+        const string source = """
+            MODE SEQ
+            UNIT CM
+            ENPD 1
+            MNUM 2
+            FTYP 1 0 1 1 0 0 0
+            XFLN 0.2
+            YFLN 0.3
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              DISZ 10
+              DIAM 1
+            SURF 1
+              TYPE EVENASPH
+              CURV 0
+              DISZ 0.4
+              DIAM 0.6
+              APMN 0.1
+              PARM 1 0.02
+            SURF 2
+              DISZ 0
+              DIAM 0.2
+            THIC 1 2 0.8
+            APMX 1 2 0.7
+            APMN 1 2 0.2
+            """;
+
+        var imported = new ZemaxZmxImporter().ImportConfigurationSet(source);
+        var active = imported.ActiveOptic;
+
+        Assert.Equal(10, active.Aperture.Value, precision: 12);
+        Assert.Equal(2, active.Fields[0].X, precision: 12);
+        Assert.Equal(3, active.Fields[0].Y, precision: 12);
+        Assert.Equal(-100, active.SurfaceGroup.Items[0].CoordinateSystem.Origin.Z, precision: 12);
+
+        var surface = active.SurfaceGroup.Items[1];
+        Assert.Equal(4, surface.Thickness, precision: 12);
+        Assert.Equal(6, surface.SemiDiameter, precision: 12);
+        var even = Assert.IsType<EvenAsphereGeometry>(surface.Geometry);
+        Assert.Equal(0.002, even.Coefficients[0], precision: 15);
+        Assert.Equal(0.2, even.Sag(10, 0), precision: 12);
+        var aperture = Assert.IsType<AnnularAperture>(surface.PhysicalAperture);
+        Assert.Equal(6, aperture.OuterRadius, precision: 12);
+        Assert.Equal(1, aperture.InnerRadius, precision: 12);
+
+        var secondConfigurationSurface = imported.Configurations[1].SurfaceGroup.Items[1];
+        Assert.Equal(8, secondConfigurationSurface.Thickness, precision: 12);
+        Assert.Equal(7, secondConfigurationSurface.SemiDiameter, precision: 12);
+        var configuredAperture = Assert.IsType<AnnularAperture>(secondConfigurationSurface.PhysicalAperture);
+        Assert.Equal(7, configuredAperture.OuterRadius, precision: 12);
+        Assert.Equal(2, configuredAperture.InnerRadius, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 20
+            SURF 1
+              TYPE BINARY_2
+              CURV 0.01
+              DISZ 5
+              CONI -1
+              PARM 1 2.5
+            SURF 2
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        var opaque = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
+        Assert.Equal("Zemax TYPE BINARY_2", opaque.OriginalType);
+        Assert.Equal("BINARY_2", opaque.Payload.Text["zemax.type"]);
+        Assert.Equal(100, opaque.Payload.Numbers["radius"], precision: 12);
+        Assert.Equal(-1, opaque.Payload.Numbers["conic"], precision: 12);
+        Assert.Equal(2.5, opaque.Payload.Numbers["parm1"], precision: 12);
+
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        var restoredOpaque = Assert.IsType<OpaqueGeometryPayload>(restored.SurfaceGroup.Items[1].Geometry);
+        Assert.Equal(opaque.OriginalType, restoredOpaque.OriginalType);
+        Assert.Equal(2.5, restoredOpaque.Payload.Numbers["parm1"], precision: 12);
+    }
+
     [Theory]
     [InlineData("MODE NSC\nENPD 10\nSURF 0\nSURF 1", "MODE SEQ")]
-    [InlineData("MODE SEQ\nENPD 10\nSURF 0\nTYPE BINARY_2\nSURF 1", "BINARY_2")]
-    [InlineData("MODE SEQ\nENPD 10\nFTYP 0 0 1 1 0 0 1\nSURF 0\nSURF 1", "afocal image space")]
     public void ZemaxImportRejectsUnsupportedPhysicalContracts(string source, string expectedMessage)
     {
         var exception = Assert.ThrowsAny<Exception>(() => OpticalFormatCatalog.Import(source, ".zmx"));
 
         Assert.Contains(expectedMessage, exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ZemaxImportPreservesAfocalImageSpaceFlag()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 1 1 0 0 1
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              DISZ 100
+            SURF 1
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var snapshot = optic.ToSnapshot();
+        var restored = Optic.FromSnapshot(snapshot);
+        var exported = OpticalFormatCatalog.Export(restored, ".zmx");
+
+        Assert.True(optic.ImageSpaceAfocal);
+        Assert.True(snapshot.ImageSpaceAfocal);
+        Assert.True(restored.ImageSpaceAfocal);
+        Assert.Contains("FTYP 0 0 1 1 0 0 1", exported, StringComparison.Ordinal);
+        Assert.True(OpticalFormatCatalog.Import(exported, ".zmx").ImageSpaceAfocal);
     }
 
     [Fact]

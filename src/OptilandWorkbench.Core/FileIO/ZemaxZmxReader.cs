@@ -44,6 +44,7 @@ internal static class ZemaxZmxReader
 
         ConfigureAperture(optic, document, configurationIndex);
         optic.RayAimingEnabled = document.RayAimingEnabled;
+        optic.ImageSpaceAfocal = document.AfocalImageSpace;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
         ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
@@ -146,6 +147,9 @@ internal static class ZemaxZmxReader
             var command = tokens[0].ToUpperInvariant();
             switch (command)
             {
+                case "UNIT":
+                    ReadUnit(document, tokens);
+                    break;
                 case "NAME":
                     document.Name = tokens.Length > 1
                         ? string.Join(" ", tokens.Skip(1)).Trim('"')
@@ -163,7 +167,10 @@ internal static class ZemaxZmxReader
                     ReadFNumber(document, tokens);
                     break;
                 case "ENPD":
-                    document.UpsertAperture("EPD", ApertureKind.EntrancePupilDiameter, RequiredDouble(tokens, 1, command));
+                    document.UpsertAperture(
+                        "EPD",
+                        ApertureKind.EntrancePupilDiameter,
+                        ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "OBNA":
                     ReadObjectNumericalAperture(document, tokens);
@@ -197,10 +204,12 @@ internal static class ZemaxZmxReader
                     document.VignetteY = ReadValues(tokens, 1, document.FieldCount);
                     break;
                 case "APMN" when tokens.Length <= 2 && current is not null:
-                    RequireSurface(current, command).MinimumAperture = Math.Abs(RequiredDouble(tokens, 1, command));
+                    RequireSurface(current, command).MinimumAperture =
+                        Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "APMX" when tokens.Length <= 2 && current is not null:
-                    RequireSurface(current, command).SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, command));
+                    RequireSurface(current, command).SemiDiameter =
+                        Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "VDXN":
                 case "VDYN":
@@ -311,16 +320,21 @@ internal static class ZemaxZmxReader
                         throw new InvalidDataException("Zemax PARM indices are one-based positive integers.");
                     }
 
-                    RequireSurface(current, command).Parameters[parameterIndex] = RequiredDouble(tokens, 2, command);
+                    var parameterSurface = RequireSurface(current, command);
+                    parameterSurface.Parameters[parameterIndex] = ScaleSurfaceParameter(
+                        document,
+                        parameterSurface.Type,
+                        parameterIndex,
+                        RequiredDouble(tokens, 2, command));
                     break;
                 case "CURV":
                     var curvature = RequiredDouble(tokens, 1, command);
-                    RequireSurface(current, command).Radius = Math.Abs(curvature) < 1e-15
-                        ? double.PositiveInfinity
-                        : 1.0 / curvature;
+                    RequireSurface(current, command).Radius = RadiusFromCurvature(
+                        curvature,
+                        document.LengthScaleToMillimeters);
                     break;
                 case "DISZ":
-                    RequireSurface(current, command).Thickness = RequiredDistance(tokens, 1, command);
+                    RequireSurface(current, command).Thickness = RequiredDistance(document, tokens, 1, command);
                     break;
                 case "MAZH":
                     RequireSurface(current, command).MarginalRayHeightSolve = new ZemaxMarginalRayHeightSolve(
@@ -343,7 +357,7 @@ internal static class ZemaxZmxReader
                     }
                     break;
                 case "DIAM":
-                    ReadSemiDiameter(RequireSurface(current, command), tokens);
+                    ReadSemiDiameter(document, RequireSurface(current, command), tokens);
                     break;
                 case "COMM":
                     RequireSurface(current, command).Comment = tokens.Length > 1
@@ -379,11 +393,6 @@ internal static class ZemaxZmxReader
             throw new InvalidDataException("A Zemax document must contain at least object and image surfaces.");
         }
 
-        if (document.AfocalImageSpace)
-        {
-            throw new NotSupportedException("Zemax afocal image space is not supported.");
-        }
-
         var stopCount = document.Surfaces.Count(surface => surface.IsStop);
         if (stopCount > 1)
         {
@@ -405,24 +414,34 @@ internal static class ZemaxZmxReader
                 Type = source.Type,
                 Comment = source.Comment,
                 Radius = RadiusFromConfiguredCurvature(
+                    document,
                     document.ConfigurationDouble("CRVT", source.Number, configurationIndex),
                     source.Radius),
-                Thickness = document.ConfigurationDouble(
+                Thickness = ScaleConfiguredDistance(
+                    document,
+                    document.ConfigurationDouble(
                     "THIC",
                     source.Number,
-                    configurationIndex) ?? source.Thickness,
+                    configurationIndex),
+                    source.Thickness),
                 Conic = source.Conic,
                 Material = string.IsNullOrWhiteSpace(material) ? "Air" : material,
                 RefractiveIndex = source.RefractiveIndex,
                 AbbeNumber = source.AbbeNumber,
-                SemiDiameter = document.ConfigurationDouble(
+                SemiDiameter = ScaleConfiguredLength(
+                    document,
+                    document.ConfigurationDouble(
                     "APMX",
                     source.Number,
-                    configurationIndex) ?? source.SemiDiameter,
-                MinimumAperture = document.ConfigurationDouble(
+                    configurationIndex),
+                    source.SemiDiameter),
+                MinimumAperture = ScaleConfiguredOptionalLength(
+                    document,
+                    document.ConfigurationDouble(
                     "APMN",
                     source.Number,
-                    configurationIndex) ?? source.MinimumAperture,
+                    configurationIndex),
+                    source.MinimumAperture),
                 SemiDiameterFixed = source.SemiDiameterFixed,
                 IsStop = configuredStop.HasValue
                     ? source.Number == (int)Math.Round(configuredStop.Value)
@@ -442,7 +461,11 @@ internal static class ZemaxZmxReader
             {
                 if (operand.AuxiliaryIndex >= 0 && TryParseDouble(operand.Value, out var value))
                 {
-                    configured.Parameters[operand.AuxiliaryIndex] = value;
+                    configured.Parameters[operand.AuxiliaryIndex] = ScaleSurfaceParameter(
+                        document,
+                        configured.Type,
+                        operand.AuxiliaryIndex,
+                        value);
                 }
             }
 
@@ -592,9 +615,29 @@ internal static class ZemaxZmxReader
                 surface.Conic,
                 Enumerable.Range(0, 8).Select(surface.Parameter).ToArray()),
             "TOROIDAL" => CreateToroidalGeometry(surface),
-            _ => throw new NotSupportedException(
-                $"Zemax surface type '{surface.Type}' is not supported (SURF {surface.Number}).")
+            _ => CreateOpaqueZemaxGeometry(surface)
         };
+    }
+
+    private static IGeometry CreateOpaqueZemaxGeometry(ZemaxSurface surface)
+    {
+        var numbers = new Dictionary<string, double>(StringComparer.Ordinal)
+        {
+            ["radius"] = surface.Radius,
+            ["conic"] = surface.Conic
+        };
+        foreach (var parameter in surface.Parameters.OrderBy(item => item.Key))
+        {
+            numbers[$"parm{parameter.Key + 1}"] = parameter.Value;
+        }
+
+        var text = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["zemax.type"] = surface.Type,
+            ["optiland.blockingReason"] =
+                $"Zemax 面型 TYPE {surface.Type} 尚未映射到可计算几何；原始曲率、圆锥常数和 PARM 参数已保留为只读数据。"
+        };
+        return new OpaqueGeometryPayload(new ComponentSnapshot($"Zemax TYPE {surface.Type}", numbers, text));
     }
 
     private static IGeometry CreateToroidalGeometry(ZemaxSurface surface)
@@ -629,8 +672,10 @@ internal static class ZemaxZmxReader
 
         var aperture = document.Apertures[0];
         optic.Aperture.Kind = aperture.Kind;
-        optic.Aperture.Value = document.ConfigurationDouble("APER", 0, configurationIndex)
-            ?? aperture.Value;
+        var configuredValue = document.ConfigurationDouble("APER", 0, configurationIndex);
+        optic.Aperture.Value = configuredValue.HasValue
+            ? ScaleApertureValue(document, aperture.Kind, configuredValue.Value)
+            : aperture.Value;
     }
 
     private static void ConfigureFields(
@@ -658,10 +703,14 @@ internal static class ZemaxZmxReader
 
         var fields = Enumerable.Range(0, count)
             .Select(index => new ParsedField(
-                document.ConfigurationDouble("XFIE", index + 1, configurationIndex)
-                    ?? ValueAt(document.FieldX, index),
-                document.ConfigurationDouble("YFIE", index + 1, configurationIndex)
-                    ?? ValueAt(document.FieldY, index),
+                ScaleFieldValue(
+                    document,
+                    document.ConfigurationDouble("XFIE", index + 1, configurationIndex)
+                        ?? ValueAt(document.FieldX, index)),
+                ScaleFieldValue(
+                    document,
+                    document.ConfigurationDouble("YFIE", index + 1, configurationIndex)
+                        ?? ValueAt(document.FieldY, index)),
                 ValueAt(document.FieldWeights, index, 1),
                 ValueAt(document.VignetteX, index),
                 ValueAt(document.VignetteY, index),
@@ -921,16 +970,17 @@ internal static class ZemaxZmxReader
         document.FieldComments[index] = comment;
     }
 
-    private static double RadiusFromConfiguredCurvature(double? curvature, double fallbackRadius)
+    private static double RadiusFromConfiguredCurvature(
+        ZemaxDocument document,
+        double? curvature,
+        double fallbackRadius)
     {
         if (!curvature.HasValue)
         {
             return fallbackRadius;
         }
 
-        return Math.Abs(curvature.Value) < 1e-15
-            ? double.PositiveInfinity
-            : 1.0 / curvature.Value;
+        return RadiusFromCurvature(curvature.Value, document.LengthScaleToMillimeters);
     }
 
     private static void ReadConfigurationOperand(
@@ -977,6 +1027,22 @@ internal static class ZemaxZmxReader
         }
 
         return count;
+    }
+
+    private static void ReadUnit(ZemaxDocument document, IReadOnlyList<string> tokens)
+    {
+        var unit = RequiredToken(tokens, 1, "UNIT").Trim().Trim('"').ToUpperInvariant();
+        document.UnitName = unit;
+        document.LengthScaleToMillimeters = unit switch
+        {
+            "MM" or "MILLIMETER" or "MILLIMETERS" => 1.0,
+            "CM" or "CENTIMETER" or "CENTIMETERS" => 10.0,
+            "M" or "METER" or "METERS" => 1000.0,
+            "IN" or "INCH" or "INCHES" => 25.4,
+            "UM" or "MICRON" or "MICRONS" or "MICROMETER" or "MICROMETERS" => 0.001,
+            "NM" or "NANOMETER" or "NANOMETERS" => 0.000001,
+            _ => throw new InvalidDataException($"Zemax UNIT '{unit}' is not supported.")
+        };
     }
 
     private static void ReadFNumber(ZemaxDocument document, IReadOnlyList<string> tokens)
@@ -1047,10 +1113,11 @@ internal static class ZemaxZmxReader
     }
 
     private static void ReadSemiDiameter(
+        ZemaxDocument document,
         ZemaxSurface surface,
         IReadOnlyList<string> tokens)
     {
-        surface.SemiDiameter = Math.Abs(RequiredDouble(tokens, 1, "DIAM"));
+        surface.SemiDiameter = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, "DIAM")));
         var solveCode = tokens.Count > 2
             ? RequiredInt(tokens, 2, "DIAM")
             : 0;
@@ -1116,13 +1183,80 @@ internal static class ZemaxZmxReader
             : throw new InvalidDataException($"Zemax {command} value '{token}' is not numeric.");
     }
 
-    private static double RequiredDistance(IReadOnlyList<string> tokens, int index, string command)
+    private static double RequiredDistance(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        int index,
+        string command)
     {
         var token = RequiredToken(tokens, index, command);
         return token.Equals("INFINITY", StringComparison.OrdinalIgnoreCase)
             ? double.PositiveInfinity
-            : RequiredDouble(tokens, index, command);
+            : ScaleLength(document, RequiredDouble(tokens, index, command));
     }
+
+    private static double ScaleConfiguredDistance(
+        ZemaxDocument document,
+        double? configuredValue,
+        double fallback) =>
+        configuredValue.HasValue ? ScaleDistance(document, configuredValue.Value) : fallback;
+
+    private static double? ScaleConfiguredOptionalLength(
+        ZemaxDocument document,
+        double? configuredValue,
+        double? fallback) =>
+        configuredValue.HasValue ? ScaleLength(document, configuredValue.Value) : fallback;
+
+    private static double? ScaleConfiguredLength(
+        ZemaxDocument document,
+        double? configuredValue,
+        double? fallback) =>
+        configuredValue.HasValue ? ScaleLength(document, configuredValue.Value) : fallback;
+
+    private static double ScaleDistance(ZemaxDocument document, double value) =>
+        double.IsInfinity(value) ? value : ScaleLength(document, value);
+
+    private static double ScaleLength(ZemaxDocument document, double value) =>
+        value * document.LengthScaleToMillimeters;
+
+    private static double ScaleFieldValue(ZemaxDocument document, double value) =>
+        document.FieldType is 1 or 2 or 3 ? ScaleLength(document, value) : value;
+
+    private static double ScaleApertureValue(
+        ZemaxDocument document,
+        ApertureKind kind,
+        double value) =>
+        kind == ApertureKind.EntrancePupilDiameter ? ScaleLength(document, value) : value;
+
+    private static double ScaleSurfaceParameter(
+        ZemaxDocument document,
+        string type,
+        int zeroBasedIndex,
+        double value)
+    {
+        var scale = document.LengthScaleToMillimeters;
+        if (Math.Abs(scale - 1.0) <= 1e-15)
+        {
+            return value;
+        }
+
+        return type switch
+        {
+            "EVENASPH" => ScalePowerCoefficient(value, scale, 2 * (zeroBasedIndex + 1)),
+            "ODDASPHE" => ScalePowerCoefficient(value, scale, zeroBasedIndex + 1),
+            "TOROIDAL" when zeroBasedIndex == 1 => value * scale,
+            "COORDBRK" when zeroBasedIndex is 0 or 1 => value * scale,
+            _ => value
+        };
+    }
+
+    private static double ScalePowerCoefficient(double coefficient, double lengthScale, int power) =>
+        coefficient * Math.Pow(lengthScale, 1 - power);
+
+    private static double RadiusFromCurvature(double curvature, double lengthScaleToMillimeters) =>
+        Math.Abs(curvature) < 1e-15
+            ? double.PositiveInfinity
+            : lengthScaleToMillimeters / curvature;
 
     private static bool TryParseDouble(string token, out double value)
     {
@@ -1229,6 +1363,8 @@ internal static class ZemaxZmxReader
         public string Name { get; set; } = "Imported Zemax ZMX";
         public bool SequentialModeSeen { get; set; }
         public bool FloatingStop { get; set; }
+        public string UnitName { get; set; } = "MM";
+        public double LengthScaleToMillimeters { get; set; } = 1.0;
         public List<ZemaxAperture> Apertures { get; } = new();
         public int FieldType { get; set; }
         public int FieldCount { get; set; }

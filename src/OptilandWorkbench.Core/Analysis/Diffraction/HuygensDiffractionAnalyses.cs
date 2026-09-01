@@ -129,6 +129,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 field,
                 imageDeltaWavelength,
                 _numRays);
+        var afocalImageSpace = Optic.ImageSpaceAfocal;
         var results = wavelengths
             .Select(wavelength => (
                 Wavelength: wavelength,
@@ -173,32 +174,41 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             : (_imageSize / 2, _imageSize / 2);
         var logarithmic = _type.Contains("对数", StringComparison.Ordinal)
             || _type.Contains("log", StringComparison.OrdinalIgnoreCase);
-        var sampleSpacingMicrometers = pixelPitchMillimeters * 1000;
+        var sampleSpacing = afocalImageSpace ? pixelPitchMillimeters : pixelPitchMillimeters * 1000;
+        var imageUnitLabel = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "µm";
+        var imageAxisUnit = afocalImageSpace
+            ? AnalysisAxisUnit.Milliradian
+            : AnalysisAxisUnit.Micrometer;
+        var imageQuantity = afocalImageSpace
+            ? AnalysisAxisQuantity.IncidentAngle
+            : AnalysisAxisQuantity.ImageHeight;
         var points = new List<AnalysisPoint>(_imageSize * _imageSize);
         for (var row = 0; row < _imageSize; row++)
         {
-            var y = (row - centerRow) * sampleSpacingMicrometers;
+            var y = (row - centerRow) * sampleSpacing;
             for (var column = 0; column < _imageSize; column++)
             {
                 var value = values[row, column];
                 points.Add(new AnalysisPoint(
-                    (column - centerColumn) * sampleSpacingMicrometers,
+                    (column - centerColumn) * sampleSpacing,
                     y,
                     Value: logarithmic ? 10 * Math.Log10(Math.Max(1e-12, value)) : value));
             }
         }
 
-        var extent = _imageSize * sampleSpacingMicrometers;
+        var extent = _imageSize * sampleSpacing;
         var series = new AnalysisSeries(
-            "X (\u00B5m)",
-            "Y (\u00B5m)",
+            $"X ({imageUnitLabel})",
+            $"Y ({imageUnitLabel})",
             points,
             AnalysisSeriesKind.Heatmap,
             ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity",
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
-            YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: imageQuantity,
+            XUnit: imageAxisUnit,
+            YQuantity: imageQuantity,
+            YUnit: imageAxisUnit,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var title = _usePolarization
@@ -213,9 +223,14 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["PupilSampling"] = _numRays,
             ["ImageSize"] = _imageSize,
             ["GridSize"] = _imageSize,
-            ["ImageDeltaMicrometers"] = sampleSpacingMicrometers,
-            ["PixelPitchMicrometers"] = sampleSpacingMicrometers,
-            ["ImageExtentMicrometers"] = extent,
+            ["ImageDeltaMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
+            ["PixelPitchMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
+            ["ImageExtentMicrometers"] = afocalImageSpace ? 0 : extent,
+            ["ImageDeltaMilliradians"] = afocalImageSpace ? sampleSpacing : 0,
+            ["PixelPitchMilliradians"] = afocalImageSpace ? sampleSpacing : 0,
+            ["ImageExtentMilliradians"] = afocalImageSpace ? extent : 0,
+            ["ImageSpaceAfocal"] = afocalImageSpace,
+            ["ImageCoordinateUnit"] = imageUnitLabel,
             ["WorkingFNumber"] = results.Average(item => item.Result.WorkingFNumber),
             ["StrehlRatio"] = rawCenter,
             ["PeakStrehlRatio"] = rawPeak,
@@ -236,8 +251,10 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 : string.Empty,
             ["Normalized"] = _normalize,
             ["UseCentroid"] = _useCentroid,
-            ["CentroidXMicrometers"] = (centerColumn - (_imageSize / 2)) * sampleSpacingMicrometers,
-            ["CentroidYMicrometers"] = (centerRow - (_imageSize / 2)) * sampleSpacingMicrometers
+            ["CentroidXMicrometers"] = afocalImageSpace ? 0 : (centerColumn - (_imageSize / 2)) * sampleSpacing,
+            ["CentroidYMicrometers"] = afocalImageSpace ? 0 : (centerRow - (_imageSize / 2)) * sampleSpacing,
+            ["CentroidXMilliradians"] = afocalImageSpace ? (centerColumn - (_imageSize / 2)) * sampleSpacing : 0,
+            ["CentroidYMilliradians"] = afocalImageSpace ? (centerRow - (_imageSize / 2)) * sampleSpacing : 0
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
@@ -334,6 +351,9 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 new MtfComputationSettings(PupilSampling: _numRays, PixelPitchMillimeters: 0));
         var series = new List<AnalysisSeries>();
         var maximumFrequency = 0.0;
+        var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(Optic);
+        var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(Optic);
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(Optic);
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
@@ -385,24 +405,24 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
             maximumFrequency = Math.Max(maximumFrequency, fullMtf.Frequency.DefaultIfEmpty(0).Max());
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: fieldIndices[fieldIndex],
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: fieldIndices[fieldIndex],
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -417,9 +437,12 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,
             ["PixelPitchMillimeters"] = sharedPixelPitchMillimeters,
-            ["ImageDeltaMicrometers"] = sharedPixelPitchMillimeters * 1000,
+            ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal ? 0 : sharedPixelPitchMillimeters * 1000,
+            ["ImageDeltaMilliradians"] = Optic.ImageSpaceAfocal ? sharedPixelPitchMillimeters : 0,
             ["MaximumFrequency"] = plottedMaximum,
             ["CutoffFrequency"] = maximumFrequency,
+            ["FrequencyUnit"] = frequencyUnitLabel,
+            ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["FieldNumber"] = _fieldNumber,
@@ -448,6 +471,13 @@ internal static class DiffractionAnalysisPresentation
         double strehlRatio)
     {
         var extent = psf.GridSize * psf.SampleSpacingMicrometers;
+        var afocalImageSpace = psf.SampleSpacingUnit == AnalysisAxisUnit.Milliradian;
+        var imageUnitLabel = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "µm";
+        var imageQuantity = afocalImageSpace
+            ? AnalysisAxisQuantity.IncidentAngle
+            : AnalysisAxisQuantity.ImageHeight;
         var points = new List<AnalysisPoint>(psf.GridSize * psf.GridSize);
         for (var row = 0; row < psf.GridSize; row++)
         {
@@ -460,15 +490,15 @@ internal static class DiffractionAnalysisPresentation
         }
 
         var series = new AnalysisSeries(
-            "X (\u00B5m)",
-            "Y (\u00B5m)",
+            $"X ({imageUnitLabel})",
+            $"Y ({imageUnitLabel})",
             points,
             AnalysisSeriesKind.Heatmap,
             ValueLabel: "Relative Intensity (%)",
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
-            YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: imageQuantity,
+            XUnit: psf.SampleSpacingUnit,
+            YQuantity: imageQuantity,
+            YUnit: psf.SampleSpacingUnit,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: AnalysisAxisUnit.Percent);
         return new AnalysisData(name, new Dictionary<string, object>
@@ -477,7 +507,10 @@ internal static class DiffractionAnalysisPresentation
             ["PupilSampling"] = psf.PupilSampling,
             ["ImageSize"] = psf.GridSize,
             ["GridSize"] = psf.GridSize,
-            ["PixelPitchMicrometers"] = psf.SampleSpacingMicrometers,
+            ["PixelPitchMicrometers"] = afocalImageSpace ? 0 : psf.SampleSpacingMicrometers,
+            ["PixelPitchMilliradians"] = afocalImageSpace ? psf.SampleSpacingMicrometers : 0,
+            ["ImageSpaceAfocal"] = afocalImageSpace,
+            ["ImageCoordinateUnit"] = imageUnitLabel,
             ["WorkingFNumber"] = psf.WorkingFNumber,
             ["StrehlRatio"] = strehlRatio,
             ["PeakStrehlRatio"] = psf.PeakStrehlRatio,

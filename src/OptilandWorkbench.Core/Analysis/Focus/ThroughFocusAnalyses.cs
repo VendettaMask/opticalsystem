@@ -82,6 +82,9 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         var wavelengths = AnalysisTrace.SelectWavelengths(
             analysisOptic,
             _settings.WavelengthNumber);
+        var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
+            analysisOptic,
+            _settings.SurfaceNumber);
         var deltaFocus = _settings.DefocusStepMicrometers / 1000.0;
         var sweep = FocusSweepEvaluator.Evaluate(
             analysisOptic,
@@ -109,7 +112,9 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         axisLimit = Math.Max(axisLimit, airyRadius * 1.05);
         if (_settings.PlotScaleMicrometers > 0)
         {
-            axisLimit = _settings.PlotScaleMicrometers / 1000.0;
+            axisLimit = imageSpace.IsAfocalAngle
+                ? _settings.PlotScaleMicrometers
+                : _settings.PlotScaleMicrometers / 1000.0;
         }
 
         var panes = new List<AnalysisPlotPane>(_settings.FocusPlaneCount * fields.Length);
@@ -120,12 +125,12 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                 var field = fields[fieldIndex];
                 var fieldTitle = MtfPresentation.FieldName(analysisOptic, field);
                 var title = fieldIndex == 0
-                    ? $"Defocus: {offsets[stepIndex]:+0.000;-0.000;+0.000} mm\n{fieldTitle}"
+                    ? $"Defocus: {offsets[stepIndex]:+0.000;-0.000;+0.000} {ImageSpaceAnalysisSupport.DefocusUnitLabel(analysisOptic)}\n{fieldTitle}"
                     : fieldTitle;
                 var series = results[stepIndex].Fields[fieldIndex].Wavelengths
                     .Select((wavelength, wavelengthIndex) => new AnalysisSeries(
-                        fieldIndex == fields.Length - 1 ? "X (mm)" : "",
-                        stepIndex == 0 ? "Y (mm)" : "",
+                        fieldIndex == fields.Length - 1 ? $"X ({imageSpace.AxisUnitLabel})" : "",
+                        stepIndex == 0 ? $"Y ({imageSpace.AxisUnitLabel})" : "",
                         wavelength.Rays.Select(ray => new AnalysisPoint(ray.X, ray.Y)).ToArray(),
                         AnalysisSeriesKind.Scatter,
                         $"{wavelength.Wavelength.Micrometers:0.0000} \u00B5m",
@@ -138,13 +143,13 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                         LegendKey: IsColorByField()
                             ? $"field:{fieldIndex}"
                             : $"wavelength:{wavelength.Wavelength.Micrometers:R}",
-                        XQuantity: AnalysisAxisQuantity.ImageHeight,
-                        XUnit: AnalysisAxisUnit.Millimeter,
-                        YQuantity: AnalysisAxisQuantity.ImageHeight,
-                        YUnit: AnalysisAxisUnit.Millimeter)).ToList();
+                        XQuantity: imageSpace.Quantity,
+                        XUnit: imageSpace.Unit,
+                        YQuantity: imageSpace.Quantity,
+                        YUnit: imageSpace.Unit)).ToList();
                 if (_settings.ShowAiryDisk && airyRadius > 0)
                 {
-                    series.Add(AiryDiskSupport.CreateSeries(airyRadius));
+                    series.Add(AiryDiskSupport.CreateSeries(airyRadius, imageSpace));
                 }
 
                 var fieldRays = results[stepIndex].Fields[fieldIndex].Wavelengths
@@ -155,15 +160,15 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                     {
                         new AnalysisPlotMetric(
                             "RMS 半径",
-                            SpotAnalysisEngine.RmsRadius(fieldRays) * 1000,
-                            "µm"),
+                            SpotAnalysisEngine.RmsRadius(fieldRays) * imageSpace.MetricScale,
+                            imageSpace.MetricUnitLabel),
                         new AnalysisPlotMetric(
                             "GEO 半径",
                             fieldRays
                                 .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
                                 .DefaultIfEmpty(0)
-                                .Max() * 1000,
-                            "µm")
+                                .Max() * imageSpace.MetricScale,
+                            imageSpace.MetricUnitLabel)
                     }
                     : null;
                 panes.Add(new AnalysisPlotPane(title, series, new AnalysisPlotOptions(
@@ -183,17 +188,20 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
         var points = sweep.Points;
         var best = sweep.Best;
         var metricSeries = new AnalysisSeries(
-            "Focus shift (mm)",
-            "RMS spot radius (mm)",
+            ImageSpaceAnalysisSupport.DefocusLabel(analysisOptic),
+            $"RMS spot radius ({imageSpace.AxisUnitLabel})",
             points.Select(point => new AnalysisPoint(point.FocusShift, point.RmsSpotRadius)).ToArray(),
             XQuantity: AnalysisAxisQuantity.Defocus,
-            XUnit: AnalysisAxisUnit.Millimeter,
+            XUnit: ImageSpaceAnalysisSupport.DefocusUnit(analysisOptic),
             YQuantity: AnalysisAxisQuantity.Radius,
-            YUnit: AnalysisAxisUnit.Millimeter);
+            YUnit: imageSpace.Unit);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["FocusStep"] = deltaFocus,
+            ["FocusStepDiopters"] = imageSpace.IsAfocalAngle ? deltaFocus : 0,
             ["DefocusStepMicrometers"] = _settings.DefocusStepMicrometers,
+            ["DefocusStepDiopters"] = imageSpace.IsAfocalAngle ? deltaFocus : 0,
+            ["DefocusUnit"] = ImageSpaceAnalysisSupport.DefocusUnitLabel(analysisOptic),
             ["FocusPlaneCount"] = _settings.FocusPlaneCount,
             ["NumRings"] = _settings.RayDensity,
             ["RayDensity"] = _settings.RayDensity,
@@ -207,9 +215,13 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
             ["UsePolarization"] = _settings.UsePolarization,
             ["ShowAiryDisk"] = _settings.ShowAiryDisk,
             ["AiryRadius"] = airyRadius,
+            ["ImageSpaceAfocal"] = imageSpace.IsAfocalAngle,
+            ["ImageCoordinateUnit"] = imageSpace.AxisUnitLabel,
             ["DisplayScale"] = _settings.DisplayScale,
             ["PlotScaleMicrometers"] = _settings.PlotScaleMicrometers,
-            ["ScaleBarMicrometers"] = axisLimit * 2 * 1000,
+            ["PlotScaleMilliradians"] = imageSpace.IsAfocalAngle ? _settings.PlotScaleMicrometers : 0,
+            ["ScaleBarMicrometers"] = imageSpace.IsAfocalAngle ? 0 : axisLimit * 2 * 1000,
+            ["ScaleBarMilliradians"] = imageSpace.IsAfocalAngle ? axisLimit * 2 : 0,
             ["ScatterRays"] = _settings.ScatterRays,
             ["UseSymbols"] = _settings.UseSymbols,
             ["Minus2StepRms"] = points.ElementAtOrDefault(0)?.RmsSpotRadius ?? 0,
@@ -287,29 +299,57 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
         var tangential = fields.Select(_ => new double[_numSteps]).ToArray();
         var sagittal = fields.Select(_ => new double[_numSteps]).ToArray();
         var originalCoordinateSystem = imageSurface.CoordinateSystem;
-        try
+        if (Optic.ImageSpaceAfocal)
         {
             for (var step = 0; step < _numSteps; step++)
             {
-                imageSurface.CoordinateSystem = originalCoordinateSystem with
-                {
-                    Origin = originalCoordinateSystem.Origin with
-                    {
-                        Z = originalCoordinateSystem.Origin.Z + defocus[step]
-                    }
-                };
                 for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
                 {
                     tangential[fieldIndex][step] = SampledMtfEngine.Calculate(
-                        Optic, fields[fieldIndex], wavelength, 0, _spatialFrequency, _pupilSampling);
+                        Optic,
+                        fields[fieldIndex],
+                        wavelength,
+                        0,
+                        _spatialFrequency,
+                        _pupilSampling,
+                        defocus: defocus[step]);
                     sagittal[fieldIndex][step] = SampledMtfEngine.Calculate(
-                        Optic, fields[fieldIndex], wavelength, _spatialFrequency, 0, _pupilSampling);
+                        Optic,
+                        fields[fieldIndex],
+                        wavelength,
+                        _spatialFrequency,
+                        0,
+                        _pupilSampling,
+                        defocus: defocus[step]);
                 }
             }
         }
-        finally
+        else
         {
-            imageSurface.CoordinateSystem = originalCoordinateSystem;
+            try
+            {
+                for (var step = 0; step < _numSteps; step++)
+                {
+                    imageSurface.CoordinateSystem = originalCoordinateSystem with
+                    {
+                        Origin = originalCoordinateSystem.Origin with
+                        {
+                            Z = originalCoordinateSystem.Origin.Z + defocus[step]
+                        }
+                    };
+                    for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
+                    {
+                        tangential[fieldIndex][step] = SampledMtfEngine.Calculate(
+                            Optic, fields[fieldIndex], wavelength, 0, _spatialFrequency, _pupilSampling);
+                        sagittal[fieldIndex][step] = SampledMtfEngine.Calculate(
+                            Optic, fields[fieldIndex], wavelength, _spatialFrequency, 0, _pupilSampling);
+                    }
+                }
+            }
+            finally
+            {
+                imageSurface.CoordinateSystem = originalCoordinateSystem;
+            }
         }
 
         var smoothDefocus = _numSteps < 2
@@ -318,30 +358,33 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
                 .Select(index => defocus[0] + ((defocus[^1] - defocus[0]) * index / 255.0))
                 .ToArray();
         var series = new List<AnalysisSeries>(fields.Count * 2);
+        var defocusLabel = ImageSpaceAnalysisSupport.DefocusLabel(Optic);
+        var defocusUnit = ImageSpaceAnalysisSupport.DefocusUnit(Optic);
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(Optic);
         for (var fieldIndex = 0; fieldIndex < fields.Count; fieldIndex++)
         {
             var field = fields[fieldIndex];
             var tangentialSmooth = Interpolate(defocus, tangential[fieldIndex], smoothDefocus);
             var sagittalSmooth = Interpolate(defocus, sagittal[fieldIndex], smoothDefocus);
             series.Add(new AnalysisSeries(
-                "Defocus (mm)",
+                defocusLabel,
                 "MTF",
                 smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(tangentialSmooth[index], 0, 1))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: fieldIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: defocusUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Defocus (mm)",
+                defocusLabel,
                 "MTF",
                 smoothDefocus.Select((x, index) => new AnalysisPoint(x, Math.Clamp(sagittalSmooth[index], 0, 1))).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: fieldIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: defocusUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -349,15 +392,19 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
         var values = new Dictionary<string, object>
         {
             ["SpatialFrequency"] = _spatialFrequency,
+            ["FrequencyUnit"] = frequencyUnitLabel,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FocusPlaneCount"] = _numSteps,
             ["FocusStep"] = _deltaFocus,
+            ["FocusStepDiopters"] = Optic.ImageSpaceAfocal ? _deltaFocus : 0,
+            ["DefocusUnit"] = ImageSpaceAnalysisSupport.DefocusUnitLabel(Optic),
+            ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
             ["PupilSampling"] = _pupilSampling,
             ["RawTangential"] = tangential,
             ["RawSagittal"] = sagittal
         };
         return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            Title: $"Through-Focus MTF at {_spatialFrequency:0.###} cycles/mm, \u03BB={wavelength.Micrometers:0.000} \u00B5m",
+            Title: $"Through-Focus MTF at {_spatialFrequency:0.###} {frequencyUnitLabel}, \u03BB={wavelength.Micrometers:0.000} \u00B5m",
             XMinimum: defocus[0],
             XMaximum: defocus[^1],
             YMinimum: 0,

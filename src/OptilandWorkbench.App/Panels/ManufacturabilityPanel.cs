@@ -32,6 +32,7 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         Text = "规则用于设计阶段筛查，最终结论应由加工和检验人员审核。",
         VerticalAlignment = VerticalAlignment.Center
     };
+    private readonly DataGrid _metricGrid;
     private readonly DataGrid _grid;
     private bool _disposed;
 
@@ -41,6 +42,7 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
     {
         _prescription = prescription;
         _events = events;
+        _metricGrid = BuildMetricGrid();
         _grid = BuildGrid();
 
         var evaluate = new Button
@@ -88,12 +90,27 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         summaryBand.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         summaryBand.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
 
+        var body = new Grid
+        {
+            RowDefinitions = new RowDefinitions("Auto,*,Auto,2*")
+        };
+        var metricHeader = SectionHeader("几何加工指标");
+        var findingsHeader = SectionHeader("规则评估结论");
+        Grid.SetRow(metricHeader, 0);
+        Grid.SetRow(_metricGrid, 1);
+        Grid.SetRow(findingsHeader, 2);
+        Grid.SetRow(_grid, 3);
+        body.Children.Add(metricHeader);
+        body.Children.Add(_metricGrid);
+        body.Children.Add(findingsHeader);
+        body.Children.Add(_grid);
+
         var root = new DockPanel();
         DockPanel.SetDock(settingsBand, Avalonia.Controls.Dock.Top);
         DockPanel.SetDock(summaryBand, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(settingsBand);
         root.Children.Add(summaryBand);
-        root.Children.Add(_grid);
+        root.Children.Add(body);
         Content = root;
 
         _events.Changed += OnWorkspaceChanged;
@@ -111,18 +128,25 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
         _events.Changed -= OnWorkspaceChanged;
     }
 
+    private static DataGrid BuildMetricGrid()
+    {
+        var grid = BaseGrid();
+        grid.Columns.Add(Column("元件", nameof(ManufacturabilityGeometryMetric.ElementNumber), 64));
+        grid.Columns.Add(Column("表面", nameof(ManufacturabilityGeometryMetric.Surfaces), 86));
+        grid.Columns.Add(Column("项目", nameof(ManufacturabilityGeometryMetric.Item), 180));
+        grid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "计算值",
+            Binding = new Binding(nameof(ManufacturabilityGeometryMetric.Value)),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star)
+        });
+        grid.Columns.Add(Column("说明", nameof(ManufacturabilityGeometryMetric.Note), 220));
+        return grid;
+    }
+
     private DataGrid BuildGrid()
     {
-        var grid = new DataGrid
-        {
-            AutoGenerateColumns = false,
-            IsReadOnly = true,
-            GridLinesVisibility = DataGridGridLinesVisibility.All,
-            HeadersVisibility = DataGridHeadersVisibility.Column,
-            RowHeight = UiDensity.CompactTableRowHeight,
-            ColumnHeaderHeight = UiDensity.TableHeaderHeight,
-            BorderThickness = new Thickness(0)
-        };
+        var grid = BaseGrid();
         grid.Styles.Add(new Style(selector => selector.OfType<DataGridRow>().Class("severity-error"))
         {
             Setters = { new Setter(DataGridRow.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.ErrorSurface)) }
@@ -179,11 +203,31 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
             (double)(_minimumRadiusRatio.Value ?? 0.55m),
             (double)(_maximumEdgeSlope.Value ?? 60));
         var report = OpticalManufacturingModel.Evaluate(_prescription.GetSurfaces(), settings);
+        _metricGrid.ItemsSource = report.GeometryMetrics;
         _grid.ItemsSource = report.Findings;
         _summary.Text = report.Elements.Count == 0
             ? "没有识别到可评估的玻璃元件"
             : $"元件 {report.Elements.Count} · 不可加工 {report.ErrorCount} · 需评审 {report.WarningCount} · 通过 {report.PassCount}";
     }
+
+    private static DataGrid BaseGrid() => new()
+    {
+        AutoGenerateColumns = false,
+        IsReadOnly = true,
+        GridLinesVisibility = DataGridGridLinesVisibility.All,
+        HeadersVisibility = DataGridHeadersVisibility.Column,
+        RowHeight = UiDensity.CompactTableRowHeight,
+        ColumnHeaderHeight = UiDensity.TableHeaderHeight,
+        BorderThickness = new Thickness(0)
+    };
+
+    private static TextBlock SectionHeader(string text) => new()
+    {
+        Text = text,
+        FontWeight = FontWeight.SemiBold,
+        Margin = new Thickness(10, 6, 10, 4),
+        VerticalAlignment = VerticalAlignment.Center
+    };
 
     private static DataGridTextColumn Column(string header, string property, double width) => new()
     {

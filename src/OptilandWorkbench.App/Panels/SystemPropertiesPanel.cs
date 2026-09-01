@@ -28,6 +28,11 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         Content = "物方远心",
         VerticalAlignment = VerticalAlignment.Center
     };
+    private readonly CheckBox _imageSpaceAfocal = new()
+    {
+        Content = "像方无焦",
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly ComboBox _apodizationPicker = new() { MinWidth = 128 };
     private readonly TextBlock _firstApodizationLabel = ParameterLabel("σ");
     private readonly TextBlock _secondApodizationLabel = ParameterLabel("p");
@@ -164,6 +169,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             ScheduleSystemUpdate();
         };
         _objectSpaceTelecentric.IsCheckedChanged += (_, _) => ScheduleSystemUpdate();
+        _imageSpaceAfocal.IsCheckedChanged += (_, _) => ScheduleSystemUpdate();
         _apodizationPicker.ItemsSource = options.ApodizationKinds;
         _apodizationPicker.SelectionChanged += (_, _) =>
         {
@@ -217,7 +223,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             {
                 Form(
                     ("视场类型", _fieldDefinitionPicker),
-                    (string.Empty, _objectSpaceTelecentric)),
+                    (string.Empty, _objectSpaceTelecentric),
+                    (string.Empty, _imageSpaceAfocal)),
                 BuildHeader("视场数据", addField),
                 _fieldsHost
             }
@@ -834,6 +841,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _fieldDefinitionPicker.SelectedItem = settings.FieldDefinition;
         _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
         _objectSpaceTelecentric.IsChecked = settings.ObjectSpaceTelecentric;
+        _imageSpaceAfocal.IsChecked = settings.ImageSpaceAfocal;
         SetApodizationControls(
             settings.ApodizationKind,
             settings.FirstApodizationParameter,
@@ -877,7 +885,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             _objectSpaceTelecentric.IsChecked == true,
             apodizationKind,
             firstApodizationParameter,
-            secondApodizationParameter)));
+            secondApodizationParameter,
+            _imageSpaceAfocal.IsChecked == true)));
     }
 
     private void ApplyLocalChange(Action action)

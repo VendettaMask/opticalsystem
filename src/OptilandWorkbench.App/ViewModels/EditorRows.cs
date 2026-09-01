@@ -34,8 +34,9 @@ public sealed class SurfaceEditorRow
                 ? "像面"
                 : IsStop
                     ? "光阑"
-                    : "(孔径)";
+                    : "普通面";
         SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
+        GeometryComputable = source.GeometryComputable;
         MechanicalSemiDiameter = SemiDiameter;
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
@@ -131,6 +132,7 @@ public sealed class SurfaceEditorRow
     public bool RadiusVariable { get; set; }
     public bool ThicknessVariable { get; set; }
     public bool CanOptimize { get; }
+    public bool GeometryComputable { get; }
     public string SurfaceRole { get; }
     public string SurfaceType { get; }
     public double ExtensionZone { get; } = 0;

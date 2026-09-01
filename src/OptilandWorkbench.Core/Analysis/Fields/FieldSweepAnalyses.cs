@@ -259,13 +259,19 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             : wavelengths.FirstOrDefault();
         var fieldResults = fields.Select(field =>
         {
-            var wavelengthReferenceSpheres = wavelengths.Select(wavelength =>
-                WavefrontEngine.CreateChiefRayReferenceSphere(
-                    workingOptic,
-                    (field.Hx, field.Hy),
-                    wavelength,
-                    aimAtStop: workingOptic.RayAimingEnabled)).ToArray();
-            var primaryReferenceSphere = referenceWavelength is null
+            var useSharedReferenceSphere = !workingOptic.ImageSpaceAfocal
+                && _zemaxCompatibleOutput
+                && _wavelengthNumber == 0
+                && wavelengths.Length > 1;
+            var wavelengthReferenceSpheres = useSharedReferenceSphere
+                ? wavelengths.Select(wavelength =>
+                    WavefrontEngine.CreateChiefRayReferenceSphere(
+                        workingOptic,
+                        (field.Hx, field.Hy),
+                        wavelength,
+                        aimAtStop: workingOptic.RayAimingEnabled)).ToArray()
+                : Array.Empty<WavefrontReferenceSphere>();
+            var primaryReferenceSphere = !useSharedReferenceSphere || referenceWavelength is null
                 ? null
                 : wavelengthReferenceSpheres[Array.IndexOf(wavelengths, referenceWavelength)];
             var monochromaticWavefronts = wavelengths.Select(wavelength => WavefrontEngine.GenerateChiefRaySamples(
@@ -274,9 +280,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                 wavelength,
                 pupilCoordinates,
                 aimAtStop: workingOptic.RayAimingEnabled)).ToArray();
-            var polychromaticWavefronts = _zemaxCompatibleOutput
-                && _wavelengthNumber == 0
-                && wavelengths.Length > 1
+            var polychromaticWavefronts = useSharedReferenceSphere
                 ? wavelengths.Select((wavelength, wavelengthIndex) => WavefrontEngine.GenerateChiefRaySamples(
                     workingOptic,
                     (field.Hx, field.Hy),

@@ -1,6 +1,7 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Manufacturing;
+using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.Tests;
 
@@ -26,6 +27,63 @@ public sealed class ManufacturingDrawingTests
         });
         Assert.Equal(elements.Count, report.Elements.Count);
         Assert.NotEmpty(report.Findings);
+        Assert.Equal(elements.Count * 7, report.GeometryMetrics.Count);
+        var firstElementMetrics = report.GeometryMetrics
+            .Where(metric => metric.ElementNumber == 1)
+            .ToArray();
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "机械直径" && metric.Value.EndsWith(" mm", StringComparison.Ordinal));
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "中心厚度" && metric.Value.EndsWith(" mm", StringComparison.Ordinal));
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "有光焦度面半径绝对值");
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "全口径弧高");
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "全口径边厚");
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "球面边缘倾角");
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "表面类型" && metric.Value.Contains("标准面", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void ManufacturabilityGeometryMetricsUseLargestSurfaceDiameter()
+    {
+        var surfaces = new[]
+        {
+            Surface(0, "Front", "N-BK7", thickness: 2, semiDiameter: 3, radius: 50),
+            Surface(1, "Back", "Air", thickness: 0, semiDiameter: 5, radius: -50)
+        };
+
+        var report = OpticalManufacturingModel.Evaluate(surfaces, new ManufacturabilitySettings());
+        var element = Assert.Single(report.Elements);
+
+        Assert.Equal(10, element.MechanicalDiameter, precision: 12);
+        Assert.Equal(10, element.Diameter, precision: 12);
+        var diameter = Assert.Single(report.GeometryMetrics, metric => metric.Item == "机械直径");
+        Assert.Equal("10 mm", diameter.Value);
+    }
+
+    [Fact]
+    public void StandardGeometrySurfacesDisplayAsStandardFaces()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var surfaces = application.Prescription.GetSurfaces().ToArray();
+
+        Assert.DoesNotContain(surfaces, surface =>
+            surface.GeometryKind.Equals("其他：standard", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(surfaces, surface =>
+            surface.GeometryKind == "标准球面/圆锥");
+        Assert.All(
+            surfaces.Where(surface => surface.GeometryKind is "平面" or "标准球面/圆锥"),
+            surface =>
+            {
+                var row = new SurfaceEditorRow(
+                    surface,
+                    isLastSurface: surface.Number == surfaces[^1].Number);
+                Assert.Equal("标准面", row.SurfaceType);
+            });
+
+        var report = OpticalManufacturingModel.Evaluate(
+            surfaces,
+            new ManufacturabilitySettings());
+        Assert.DoesNotContain(report.Findings, finding =>
+            finding.Check.Contains("面型", StringComparison.Ordinal)
+            && finding.Recommendation.Contains("特殊面型", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -297,4 +355,32 @@ public sealed class ManufacturingDrawingTests
         "10 nm/cm",
         "2 × 0.1",
         "2；2");
+
+    private static SurfaceRowDto Surface(
+        int number,
+        string label,
+        string material,
+        double thickness,
+        double semiDiameter,
+        double radius) => new(
+            Number: number,
+            Label: label,
+            Radius: radius,
+            Thickness: thickness,
+            Material: material,
+            Coating: "None",
+            SemiDiameter: semiDiameter,
+            Conic: 0,
+            IsStop: false,
+            GeometryKind: Math.Abs(radius) < 1e-12 ? "平面" : "标准球面/圆锥",
+            CoatingKind: "无镀膜",
+            InteractionKind: "折射",
+            ApertureKind: "无",
+            GratingOrder: 1,
+            GratingPeriodMicrometers: 1,
+            GrooveOrientationAngleDegrees: 0,
+            ThinLensFocalLength: 50,
+            RadiusVariable: false,
+            ThicknessVariable: false,
+            SemiDiameterFixed: true);
 }

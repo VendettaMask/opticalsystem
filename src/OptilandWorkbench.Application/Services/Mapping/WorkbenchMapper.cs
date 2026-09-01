@@ -63,6 +63,7 @@ internal static class WorkbenchMapper
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
     {
         PlaneGeometry => "平面",
+        StandardGeometry => "标准球面/圆锥",
         PlaneGratingGeometry => "平面光栅",
         StandardGratingGeometry => "标准曲面光栅",
         EvenAsphereGeometry => "偶次非球面",

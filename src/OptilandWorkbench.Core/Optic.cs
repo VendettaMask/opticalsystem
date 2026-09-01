@@ -112,6 +112,19 @@ public sealed class Optic
         }
     }
 
+    public bool ImageSpaceAfocal
+    {
+        get => _state.ImageSpaceAfocal;
+        set
+        {
+            if (_state.ImageSpaceAfocal != value)
+            {
+                _state.ImageSpaceAfocal = value;
+                InvalidateRayTraceCache();
+            }
+        }
+    }
+
     public ObservableCollection<Wavelength> Wavelengths => _state.Wavelengths;
 
     public SurfaceGroup SurfaceGroup => _state.SurfaceGroup;
@@ -522,6 +535,7 @@ public sealed class Optic
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
             FieldGroupTelecentric: FieldGroupTelecentric,
             RayAimingEnabled: RayAimingEnabled,
+            ImageSpaceAfocal: ImageSpaceAfocal,
             RadiusPickups: Pickups.RadiusPickups.Select(pickup => new RadiusPickupSnapshot(
                 pickup.SourceSurface,
                 pickup.TargetSurface,
@@ -609,6 +623,7 @@ public sealed class Optic
         ObjectSpaceTelecentric = snapshot.ObjectSpaceTelecentric;
         FieldGroupTelecentric = snapshot.FieldGroupTelecentric;
         RayAimingEnabled = snapshot.RayAimingEnabled;
+        ImageSpaceAfocal = snapshot.ImageSpaceAfocal;
         Environment.MatchRefractiveIndexData = snapshot.Environment?.MatchRefractiveIndexData ?? true;
         Environment.TemperatureCelsius = snapshot.Environment?.TemperatureCelsius ?? 20.0;
         Environment.PressureAtmospheres = snapshot.Environment?.PressureAtmospheres ?? 1.0;
@@ -813,6 +828,8 @@ public sealed class Optic
         public bool FieldGroupTelecentric { get; set; }
 
         public bool RayAimingEnabled { get; set; }
+
+        public bool ImageSpaceAfocal { get; set; }
 
         public ObservableCollection<Wavelength> Wavelengths { get; } = new();
 

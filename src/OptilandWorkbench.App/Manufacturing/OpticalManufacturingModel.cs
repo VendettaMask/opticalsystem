@@ -19,7 +19,11 @@ public sealed record OpticalElementDefinition(
 
     public string Material => FrontSurface.Material;
 
-    public double Diameter => FrontSurface.SemiDiameter * 2;
+    public double Diameter => MechanicalDiameter;
+
+    public double MechanicalDiameter => Math.Max(
+        FrontSurface.SemiDiameter,
+        BackSurface.SemiDiameter) * 2;
 
     public double CenterThickness => FrontSurface.Thickness;
 
@@ -83,8 +87,16 @@ public sealed record ManufacturabilityFinding(
     };
 }
 
+public sealed record ManufacturabilityGeometryMetric(
+    int ElementNumber,
+    string Surfaces,
+    string Item,
+    string Value,
+    string Note = "");
+
 public sealed record ManufacturabilityReport(
     IReadOnlyList<OpticalElementDefinition> Elements,
+    IReadOnlyList<ManufacturabilityGeometryMetric> GeometryMetrics,
     IReadOnlyList<ManufacturabilityFinding> Findings)
 {
     public int ErrorCount => Findings.Count(item => item.Severity == ManufacturabilitySeverity.Error);
@@ -163,13 +175,14 @@ public static class OpticalManufacturingModel
         ManufacturabilitySettings settings)
     {
         var elements = BuildElements(surfaces);
+        var metrics = elements.SelectMany(BuildGeometryMetrics).ToArray();
         var findings = new List<ManufacturabilityFinding>();
         foreach (var element in elements)
         {
             EvaluateElement(element, settings, findings);
         }
 
-        return new ManufacturabilityReport(elements, findings);
+        return new ManufacturabilityReport(elements, metrics, findings);
     }
 
     public static double? Sag(double radius, double conic, double height)
@@ -219,6 +232,112 @@ public static class OpticalManufacturingModel
 
         return minimum;
     }
+
+    private static IReadOnlyList<ManufacturabilityGeometryMetric> BuildGeometryMetrics(
+        OpticalElementDefinition element)
+    {
+        var surfaces = SurfaceRange(element);
+        var result = new List<ManufacturabilityGeometryMetric>
+        {
+            Metric(element, "机械直径", FormatMillimeters(element.MechanicalDiameter), "按前后表面较大半口径计算"),
+            Metric(element, "中心厚度", FormatMillimeters(element.CenterThickness)),
+            Metric(element, "有光焦度面半径绝对值", PoweredRadiusText(element)),
+            Metric(element, "全口径弧高", FullApertureSagText(element), "按共同净半口径计算"),
+            Metric(element, "全口径边厚", FullApertureEdgeThicknessText(element), "按共同净半口径计算"),
+            Metric(element, "球面边缘倾角", EdgeSlopeText(element), "按共同净半口径的局部切线角计算"),
+            Metric(element, "表面类型", SurfaceTypeText(element))
+        };
+        return result;
+
+        ManufacturabilityGeometryMetric Metric(
+            OpticalElementDefinition item,
+            string name,
+            string value,
+            string note = "") =>
+            new(item.ElementNumber, surfaces, name, value, note);
+    }
+
+    private static string PoweredRadiusText(OpticalElementDefinition element)
+    {
+        var powered = Surfaces(element)
+            .Where(surface => double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
+            .Select(surface => $"S{surface.Number} |R| {FormatNumber(Math.Abs(surface.Radius))} mm")
+            .ToArray();
+        return powered.Length == 0 ? "无有光焦度面" : string.Join("；", powered);
+    }
+
+    private static string FullApertureSagText(OpticalElementDefinition element)
+    {
+        var values = Surfaces(element).Select(surface =>
+        {
+            var sag = Sag(surface.Radius, surface.Conic, element.ClearSemiDiameter);
+            return sag is null
+                ? $"S{surface.Number} 超出实数矢高范围"
+                : $"S{surface.Number} {FormatSignedMillimeters(sag.Value)}";
+        });
+        return string.Join("；", values);
+    }
+
+    private static string FullApertureEdgeThicknessText(OpticalElementDefinition element)
+    {
+        var edgeThickness = EdgeThicknessAt(element, element.ClearSemiDiameter);
+        return edgeThickness is null
+            ? "超出实数矢高范围"
+            : FormatMillimeters(edgeThickness.Value);
+    }
+
+    private static string EdgeSlopeText(OpticalElementDefinition element)
+    {
+        var values = Surfaces(element)
+            .Where(surface => double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
+            .Select(surface =>
+            {
+                var slope = EdgeSlopeDegrees(surface, element.ClearSemiDiameter);
+                return slope is null
+                    ? $"S{surface.Number} 超出实数矢高范围"
+                    : $"S{surface.Number} {slope.Value:0.###}°";
+            })
+            .ToArray();
+        return values.Length == 0 ? "0°（平面）" : string.Join("；", values);
+    }
+
+    private static string SurfaceTypeText(OpticalElementDefinition element) =>
+        string.Join("；", Surfaces(element)
+            .Select(surface => $"S{surface.Number} {SurfaceTypeDisplay(surface.GeometryKind)}"));
+
+    private static string SurfaceTypeDisplay(string geometryKind) =>
+        geometryKind is "平面" or "标准球面/圆锥" ? "标准面" : geometryKind;
+
+    private static IEnumerable<SurfaceRowDto> Surfaces(OpticalElementDefinition element)
+    {
+        yield return element.FrontSurface;
+        yield return element.BackSurface;
+    }
+
+    private static string SurfaceRange(OpticalElementDefinition element) =>
+        $"S{element.FrontSurface.Number}-S{element.BackSurface.Number}";
+
+    private static double? EdgeThicknessAt(OpticalElementDefinition element, double height)
+    {
+        var frontSag = Sag(
+            element.FrontSurface.Radius,
+            element.FrontSurface.Conic,
+            height);
+        var backSag = Sag(
+            element.BackSurface.Radius,
+            element.BackSurface.Conic,
+            height);
+        return frontSag is null || backSag is null
+            ? null
+            : element.CenterThickness + backSag.Value - frontSag.Value;
+    }
+
+    private static string FormatMillimeters(double value) => $"{FormatNumber(value)} mm";
+
+    private static string FormatSignedMillimeters(double value) =>
+        $"{(value >= 0 ? "+" : string.Empty)}{FormatNumber(value)} mm";
+
+    private static string FormatNumber(double value) => value.ToString("0.###");
 
     private static void EvaluateElement(
         OpticalElementDefinition element,

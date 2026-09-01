@@ -100,6 +100,26 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 sagittal[fieldIndex] = values.Sagittal;
             }
         }
+        else if (Optic.ImageSpaceAfocal)
+        {
+            for (var focusIndex = 0; focusIndex < focus.Length; focusIndex++)
+            {
+                for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
+                {
+                    var value = MtfMethodEvaluator.EvaluatePolychromatic(
+                        Optic,
+                        _method,
+                        fields[fieldIndex],
+                        wavelengths,
+                        _spatialFrequency,
+                        _settings,
+                        _dataType,
+                        defocusMillimeters: focus[focusIndex]);
+                    tangential[fieldIndex][focusIndex] = value.Tangential;
+                    sagittal[fieldIndex][focusIndex] = value.Sagittal;
+                }
+            }
+        }
         else
         {
             try
@@ -145,6 +165,9 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                         / (displayPointCount - 1.0)))
                 .ToArray();
         var series = new List<AnalysisSeries>(fields.Length * 2);
+        var defocusLabel = ImageSpaceAnalysisSupport.DefocusLabel(Optic);
+        var defocusUnit = ImageSpaceAnalysisSupport.DefocusUnit(Optic);
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(Optic);
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
@@ -156,7 +179,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 : ThroughFocusMtfAnalysis.Interpolate(focus, sagittal[fieldIndex], displayFocus);
             var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
-                "Defocus (mm)",
+                defocusLabel,
                 MtfDataTypeSupport.Label(_dataType, "MTF"),
                 displayFocus.Select((value, index) => new AnalysisPoint(
                     value,
@@ -164,11 +187,11 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: _useDashes ? 0 : colorIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: defocusUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Defocus (mm)",
+                defocusLabel,
                 MtfDataTypeSupport.Label(_dataType, "MTF"),
                 displayFocus.Select((value, index) => new AnalysisPoint(
                     value,
@@ -177,7 +200,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: _useDashes ? 0 : colorIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: defocusUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
         }
@@ -191,12 +214,22 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             FftMtfDataType.Phase => (-Math.PI, Math.PI),
             _ => (0.0, 1.05)
         };
+        var resolvedImageDelta = _method == MtfComputationMethod.Huygens
+            ? fields.Select(field => MtfMethodEvaluator.ResolveHuygensImageDeltaMillimeters(
+                Optic,
+                field,
+                wavelengths,
+                _settings)).ToArray()
+            : Array.Empty<double>();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
             ["FrequencyInput"] = _frequencyInput,
             ["SpatialFrequency"] = _spatialFrequency,
             ["DeltaFocus"] = _deltaFocus,
+            ["DefocusUnit"] = ImageSpaceAnalysisSupport.DefocusUnitLabel(Optic),
+            ["FrequencyUnit"] = frequencyUnitLabel,
+            ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
             ["Steps"] = _focusPlaneCount,
             ["NumberOfSteps"] = _focusPlaneCount,
             ["WavelengthNumber"] = _wavelengthNumber,
@@ -207,19 +240,23 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["ZemaxCompatible"] = _settings.ZemaxCompatible,
             ["PupilSampling"] = _settings.PupilSampling,
             ["ImageSampling"] = _settings.ImageSize,
-            ["ImageDeltaMicrometers"] = _settings.PixelPitchMillimeters * 1000,
-            ["ResolvedImageDeltaMicrometers"] = _method == MtfComputationMethod.Huygens
-                ? fields.Select(field => MtfMethodEvaluator.ResolveHuygensImageDeltaMillimeters(
-                    Optic,
-                    field,
-                    wavelengths,
-                    _settings) * 1000).ToArray()
+            ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal
+                ? 0
+                : _settings.PixelPitchMillimeters * 1000,
+            ["ImageDeltaMilliradians"] = Optic.ImageSpaceAfocal
+                ? _settings.PixelPitchMillimeters
+                : 0,
+            ["ResolvedImageDeltaMicrometers"] = Optic.ImageSpaceAfocal
+                ? Array.Empty<double>()
+                : resolvedImageDelta.Select(value => value * 1000).ToArray(),
+            ["ResolvedImageDeltaMilliradians"] = Optic.ImageSpaceAfocal
+                ? resolvedImageDelta
                 : Array.Empty<double>(),
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["RawTangential"] = tangential,
             ["RawSagittal"] = sagittal
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} cycles/mm, {wavelengthLabel}",
+            Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} {frequencyUnitLabel}, {wavelengthLabel}",
             XMinimum: -_deltaFocus,
             XMaximum: _deltaFocus,
             YMinimum: yMinimum,
@@ -399,6 +436,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         var plotCoordinates = _zemaxCompatibleOutput
             ? Enumerable.Range(0, 300).Select(index => index / 299.0).ToArray()
             : calculationCoordinates;
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(workingOptic);
         var series = new List<AnalysisSeries>(_spatialFrequencies.Length * 2);
         for (var frequencyIndex = 0; frequencyIndex < _spatialFrequencies.Length; frequencyIndex++)
         {
@@ -422,7 +460,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     value,
                     tangentialDisplay[index],
                     Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
-                Name: $"{frequency:0.###} cycles/mm, Tangential",
+                Name: $"{frequency:0.###} {frequencyUnitLabel}, Tangential",
                 LineStyle: _useDashes && frequencyIndex % 2 == 1
                     ? AnalysisLineStyle.Dashed
                     : AnalysisLineStyle.Solid,
@@ -438,7 +476,7 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     value,
                     sagittalDisplay[index],
                     Label: _zemaxCompatibleOutput ? string.Empty : fields[index].Label)).ToArray(),
-                Name: $"{frequency:0.###} cycles/mm, Sagittal",
+                Name: $"{frequency:0.###} {frequencyUnitLabel}, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: frequencyIndex,
                 XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
@@ -452,6 +490,8 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
             ["SpatialFrequency"] = _spatialFrequencies[0],
             ["SpatialFrequencies"] = _spatialFrequencies,
+            ["FrequencyUnit"] = frequencyUnitLabel,
+            ["ImageSpaceAfocal"] = workingOptic.ImageSpaceAfocal,
             ["FieldPointCount"] = fields.Count,
             ["FieldDensity"] = _fieldPointCount,
             ["PlotPointCount"] = plotCoordinates.Length,
@@ -521,13 +561,26 @@ internal static class MtfMethodEvaluator
         (double Hx, double Hy) field,
         Wavelength wavelength,
         double spatialFrequency,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         return method switch
         {
             MtfComputationMethod.Fourier => EvaluateFourier(optic, field, wavelength, spatialFrequency, settings),
-            MtfComputationMethod.Huygens => EvaluateHuygens(optic, field, wavelength, spatialFrequency, settings),
-            MtfComputationMethod.Geometric => EvaluateGeometric(optic, field, wavelength, spatialFrequency, settings),
+            MtfComputationMethod.Huygens => EvaluateHuygens(
+                optic,
+                field,
+                wavelength,
+                spatialFrequency,
+                settings,
+                defocus),
+            MtfComputationMethod.Geometric => EvaluateGeometric(
+                optic,
+                field,
+                wavelength,
+                spatialFrequency,
+                settings,
+                defocus),
             _ => throw new ArgumentOutOfRangeException(nameof(method))
         };
     }
@@ -592,7 +645,7 @@ internal static class MtfMethodEvaluator
         foreach (var wavelength in wavelengths)
         {
             var weight = useEqualWeights ? 1.0 : wavelength.Weight;
-            var value = Evaluate(optic, method, field, wavelength, spatialFrequency, settings);
+            var value = Evaluate(optic, method, field, wavelength, spatialFrequency, settings, defocusMillimeters);
             tangential += value.Tangential * weight;
             sagittal += value.Sagittal * weight;
         }
@@ -858,7 +911,8 @@ internal static class MtfMethodEvaluator
         (double Hx, double Hy) field,
         Wavelength wavelength,
         double spatialFrequency,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         var resolvedSettings = settings.PixelPitchMillimeters > 0
             ? settings
@@ -877,7 +931,9 @@ internal static class MtfMethodEvaluator
             Math.Max(2, resolvedSettings.PupilSampling),
             Math.Max(4, resolvedSettings.ImageSize),
             resolvedSettings.PixelPitchMillimeters,
-            aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled);
+            usePolarization: resolvedSettings.UsePolarization,
+            aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
+            defocus: optic.ImageSpaceAfocal ? defocus : 0);
         return AtFrequency(DiffractionEngine.ComputePsfMtf(psf), spatialFrequency);
     }
 
@@ -975,7 +1031,10 @@ internal static class MtfMethodEvaluator
             pupilSampling,
             imageSize,
             results.Average(item => item.Psf.WorkingFNumber),
-            pixelPitchMillimeters * 1000);
+            optic.ImageSpaceAfocal ? pixelPitchMillimeters : pixelPitchMillimeters * 1000,
+            SampleSpacingUnit: optic.ImageSpaceAfocal
+                ? AnalysisAxisUnit.Milliradian
+                : AnalysisAxisUnit.Micrometer);
         return combinedPsf;
     }
 
@@ -1004,18 +1063,22 @@ internal static class MtfMethodEvaluator
         (double Hx, double Hy) field,
         Wavelength wavelength,
         double spatialFrequency,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         var result = SpotAnalysisEngine.Generate(
             optic,
             new[] { field },
             new[] { wavelength },
             Math.Max(2, settings.GeometricRayCount),
-            settings.Distribution);
+            settings.Distribution,
+            imagePlaneOffset: optic.ImageSpaceAfocal ? defocus : 0);
         var rays = result.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
             ?? Array.Empty<SpotRayData>();
         var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
-        var cutoff = fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
+        var cutoff = optic.ImageSpaceAfocal
+            ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(optic, wavelength)
+            : fNumber <= 1e-30 ? 0 : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
         var scale = settings.ScaleGeometricByDiffractionLimit
             ? DiffractionScale(spatialFrequency, cutoff)
             : 1.0;

@@ -105,11 +105,18 @@ public sealed class PsfAnalysis : BaseAnalysis
             primary = results[0];
         }
 
+        var afocalImageSpace = analysisOptic.ImageSpaceAfocal;
         var sampleSpacing = _imageDeltaMicrometers > 0
             ? _imageDeltaMicrometers
             : _zemaxCompatible
                 ? results.Min(item => item.Result.SampleSpacingMicrometers)
                 : primary.Result.SampleSpacingMicrometers;
+        var imageUnitLabel = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "µm";
+        var imageAxisUnit = afocalImageSpace
+            ? AnalysisAxisUnit.Milliradian
+            : AnalysisAxisUnit.Micrometer;
         var values = new double[gridSize, gridSize];
         var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
         var totalWeight = results.Sum(item =>
@@ -163,15 +170,15 @@ public sealed class PsfAnalysis : BaseAnalysis
         }
 
         var series = new AnalysisSeries(
-            "X (\u00B5m)",
-            "Y (\u00B5m)",
+            $"X ({imageUnitLabel})",
+            $"Y ({imageUnitLabel})",
             points,
             AnalysisSeriesKind.Heatmap,
             ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity",
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
-            YQuantity: AnalysisAxisQuantity.ImageHeight,
-            YUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: afocalImageSpace ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.ImageHeight,
+            XUnit: imageAxisUnit,
+            YQuantity: afocalImageSpace ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.ImageHeight,
+            YUnit: imageAxisUnit,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var centerValue = values[gridSize / 2, gridSize / 2];
@@ -185,7 +192,10 @@ public sealed class PsfAnalysis : BaseAnalysis
             ["Method"] = "FFT",
             ["PupilSampling"] = pupilSampling,
             ["GridSize"] = gridSize,
-            ["ImageDeltaMicrometers"] = sampleSpacing,
+            ["ImageDeltaMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
+            ["ImageDeltaMilliradians"] = afocalImageSpace ? sampleSpacing : 0,
+            ["ImageSpaceAfocal"] = afocalImageSpace,
+            ["ImageCoordinateUnit"] = imageUnitLabel,
             ["WorkingFNumber"] = results.Average(item => item.Result.WorkingFNumber),
             ["StrehlRatio"] = centerValue,
             ["PeakStrehlRatio"] = values.Cast<double>().DefaultIfEmpty(0).Max(),
@@ -338,6 +348,9 @@ public sealed class MtfAnalysis : BaseAnalysis
         var cutoff = 0.0;
         IReadOnlyList<AnalysisPoint>? diffractionLimit = null;
         var yAxisLabel = MtfDataTypeSupport.Label(_dataType, "Modulation");
+        var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(analysisOptic);
+        var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(analysisOptic);
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(analysisOptic);
         for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
         {
             var field = fields[fieldIndex];
@@ -369,24 +382,24 @@ public sealed class MtfAnalysis : BaseAnalysis
             }
 
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 yAxisLabel,
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
                 ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 yAxisLabel,
                 mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
                 Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
         }
@@ -394,13 +407,13 @@ public sealed class MtfAnalysis : BaseAnalysis
         if (diffractionLimit is not null)
         {
             series.Add(new AnalysisSeries(
-                "Frequency (cycles/mm)",
+                frequencyLabel,
                 "Modulation",
                 diffractionLimit,
                 Name: "Diffraction Limit",
                 ColorIndex: fields.Length,
                 XQuantity: AnalysisAxisQuantity.SpatialFrequency,
-                XUnit: AnalysisAxisUnit.CyclesPerMillimeter,
+                XUnit: frequencyUnit,
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -417,6 +430,8 @@ public sealed class MtfAnalysis : BaseAnalysis
             ["GridSize"] = gridSize,
             ["MaximumFrequency"] = plottedMaximum,
             ["CutoffFrequency"] = cutoff,
+            ["FrequencyUnit"] = frequencyUnitLabel,
+            ["ImageSpaceAfocal"] = analysisOptic.ImageSpaceAfocal,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["FieldNumber"] = _fieldNumber,

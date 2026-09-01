@@ -84,7 +84,8 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
                 optic.ObjectSpaceTelecentric,
                 apodizationKind,
                 first,
-                second);
+                second,
+                optic.ImageSpaceAfocal);
         }
     }
 
@@ -257,7 +258,8 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             settings.ObjectSpaceTelecentric,
             settings.ApodizationKind,
             settings.FirstApodizationParameter,
-            settings.SecondApodizationParameter));
+            settings.SecondApodizationParameter,
+            settings.ImageSpaceAfocal));
     }
 
     public void UpdateEnvironmentSettings(EnvironmentSettingsDto settings)

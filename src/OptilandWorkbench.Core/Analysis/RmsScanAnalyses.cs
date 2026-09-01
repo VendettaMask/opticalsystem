@@ -64,7 +64,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
             })
             .ToArray();
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
-        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
+        var yAxisLabel = RmsScanSupport.AxisLabel(Optic, _data);
         var series = fields.Select((field, fieldIndex) => new AnalysisSeries(
             "Wavelength (\u00B5m)",
             yAxisLabel,
@@ -85,7 +85,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
             XQuantity: AnalysisAxisQuantity.Wavelength,
             XUnit: AnalysisAxisUnit.Micrometer,
             YQuantity: RmsScanSupport.MetricQuantity(_data),
-            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
+            YUnit: RmsScanSupport.MetricUnit(Optic, _data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
@@ -101,7 +101,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                 XQuantity: AnalysisAxisQuantity.Wavelength,
                 XUnit: AnalysisAxisUnit.Micrometer,
                 YQuantity: RmsScanSupport.MetricQuantity(_data),
-                YUnit: RmsScanSupport.MetricUnit(_data)));
+                YUnit: RmsScanSupport.MetricUnit(Optic, _data)));
         }
 
         return new AnalysisData(
@@ -116,9 +116,12 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                 ["FieldNumber"] = _fieldNumber,
                 ["Reference"] = _reference,
                 ["ShowDiffractionLimit"] = _showDiffractionLimit,
-                ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+                ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal && RmsScanSupport.NormalizeData(_data) == "spot",
+                ["MetricUnit"] = RmsScanSupport.MetricUnitLabel(Optic, _data),
+                ["DiffractionLimitMillimeters"] = _data == "spot" && !Optic.ImageSpaceAfocal ? diffractionLimit : 0,
+                ["DiffractionLimitMilliradians"] = _data == "spot" && Optic.ImageSpaceAfocal ? diffractionLimit : 0,
                 ["DiffractionLimitValue"] = diffractionLimit,
-                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
+                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(Optic, _data),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting,
                 ["MinimumWavelengthMicrometers"] = minimum,
@@ -198,9 +201,9 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 + ((_maximumFocus - _minimumFocus) * index / (_focusDensity - 1.0)))
             .ToArray();
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
-        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
+        var yAxisLabel = RmsScanSupport.AxisLabel(Optic, _data);
         var series = fields.Select((field, fieldIndex) => new AnalysisSeries(
-            "Focus Shift (mm)",
+            ImageSpaceAnalysisSupport.DefocusLabel(Optic),
             yAxisLabel,
             focusValues.Select(focus => new AnalysisPoint(
                 focus,
@@ -218,23 +221,23 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
             Name: field.Label,
             ColorIndex: fieldIndex,
             XQuantity: AnalysisAxisQuantity.Defocus,
-            XUnit: AnalysisAxisUnit.Millimeter,
+            XUnit: ImageSpaceAnalysisSupport.DefocusUnit(Optic),
             YQuantity: RmsScanSupport.MetricQuantity(_data),
-            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
+            YUnit: RmsScanSupport.MetricUnit(Optic, _data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
             series.Add(new AnalysisSeries(
-                "Focus Shift (mm)",
+                ImageSpaceAnalysisSupport.DefocusLabel(Optic),
                 yAxisLabel,
                 focusValues.Select(focus => new AnalysisPoint(focus, diffractionLimit)).ToArray(),
                 Name: "Diffraction Limit",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: series.Count,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: ImageSpaceAnalysisSupport.DefocusUnit(Optic),
                 YQuantity: RmsScanSupport.MetricQuantity(_data),
-                YUnit: RmsScanSupport.MetricUnit(_data)));
+                YUnit: RmsScanSupport.MetricUnit(Optic, _data)));
         }
 
         return new AnalysisData(
@@ -251,9 +254,13 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
                 ["ShowDiffractionLimit"] = _showDiffractionLimit,
-                ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+                ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal && RmsScanSupport.NormalizeData(_data) == "spot",
+                ["DefocusUnit"] = ImageSpaceAnalysisSupport.DefocusUnitLabel(Optic),
+                ["MetricUnit"] = RmsScanSupport.MetricUnitLabel(Optic, _data),
+                ["DiffractionLimitMillimeters"] = _data == "spot" && !Optic.ImageSpaceAfocal ? diffractionLimit : 0,
+                ["DiffractionLimitMilliradians"] = _data == "spot" && Optic.ImageSpaceAfocal ? diffractionLimit : 0,
                 ["DiffractionLimitValue"] = diffractionLimit,
-                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
+                ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(Optic, _data),
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting
             },
@@ -358,7 +365,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             points,
             AnalysisSeriesKind.Heatmap,
             Name: RmsScanSupport.SeriesName(_data),
-            ValueLabel: RmsScanSupport.AxisLabel(_data),
+            ValueLabel: RmsScanSupport.AxisLabel(Optic, _data),
             ValueMinimum: minimum,
             ValueMaximum: maximum,
             XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
@@ -366,7 +373,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
             YQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
             YUnit: AnalysisTrace.FieldAxisUnit(Optic),
             ValueQuantity: RmsScanSupport.MetricQuantity(_data),
-            ValueUnit: RmsScanSupport.MetricUnit(_data));
+            ValueUnit: RmsScanSupport.MetricUnit(Optic, _data));
         return new AnalysisData(
             Name,
             new Dictionary<string, object>
@@ -381,7 +388,14 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                 ["Distribution"] = effectiveDistribution,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["Reference"] = _reference,
-                ["DiffractionLimitMillimeters"] = RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
+                ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal && RmsScanSupport.NormalizeData(_data) == "spot",
+                ["MetricUnit"] = RmsScanSupport.MetricUnitLabel(Optic, _data),
+                ["DiffractionLimitMillimeters"] = Optic.ImageSpaceAfocal
+                    ? 0
+                    : RmsScanSupport.DiffractionLimitMillimeters(Optic, wavelengths),
+                ["DiffractionLimitMilliradians"] = Optic.ImageSpaceAfocal
+                    ? RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data)
+                    : 0,
                 ["UsePolarization"] = _usePolarization,
                 ["RemoveVignetting"] = _removeVignetting,
                 ["MinimumMetricValue"] = minimum,
@@ -463,6 +477,18 @@ internal static class RmsScanSupport
     {
         return NormalizeData(data) == "wavefront"
             ? "RMS Wavefront Error (waves)"
+            : "RMS Spot Radius (mm)";
+    }
+
+    public static string AxisLabel(Optic optic, string data)
+    {
+        if (NormalizeData(data) == "wavefront")
+        {
+            return "RMS Wavefront Error (waves)";
+        }
+
+        return optic.ImageSpaceAfocal
+            ? $"RMS Spot Radius ({ImageSpaceAnalysisSupport.MilliradianLabel})"
             : "RMS Spot Radius (mm)";
     }
 
@@ -739,8 +765,21 @@ internal static class RmsScanSupport
             return 0.8;
         }
 
-        return NormalizeData(data) == "wavefront"
-            ? 0.072
+        if (NormalizeData(data) == "wavefront")
+        {
+            return 0.072;
+        }
+
+        var wavelength = wavelengths.Count == 0
+            ? optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? optic.Wavelengths.FirstOrDefault()
+            : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
+        if (wavelength is null)
+        {
+            return 0;
+        }
+
+        return optic.ImageSpaceAfocal
+            ? ImageSpaceAnalysisSupport.AfocalAiryRadiusMilliradians(optic, wavelength)
             : DiffractionLimitMillimeters(optic, wavelengths);
     }
 
@@ -752,6 +791,23 @@ internal static class RmsScanSupport
         }
 
         return NormalizeData(data) == "wavefront" ? "waves" : "mm";
+    }
+
+    public static string DiffractionLimitUnit(Optic optic, string data)
+    {
+        if (string.Equals(data, "strehl", StringComparison.OrdinalIgnoreCase))
+        {
+            return "ratio";
+        }
+
+        if (NormalizeData(data) == "wavefront")
+        {
+            return "waves";
+        }
+
+        return optic.ImageSpaceAfocal
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "mm";
     }
 
     public static AnalysisAxisQuantity MetricQuantity(string data)
@@ -771,6 +827,35 @@ internal static class RmsScanSupport
         return NormalizeData(data) == "wavefront"
             ? AnalysisAxisUnit.Wave
             : AnalysisAxisUnit.Millimeter;
+    }
+
+    public static AnalysisAxisUnit MetricUnit(Optic optic, string data)
+    {
+        if (string.Equals(data, "strehl", StringComparison.OrdinalIgnoreCase))
+        {
+            return AnalysisAxisUnit.Dimensionless;
+        }
+
+        if (NormalizeData(data) == "wavefront")
+        {
+            return AnalysisAxisUnit.Wave;
+        }
+
+        return optic.ImageSpaceAfocal
+            ? AnalysisAxisUnit.Milliradian
+            : AnalysisAxisUnit.Millimeter;
+    }
+
+    public static string MetricUnitLabel(Optic optic, string data)
+    {
+        return MetricUnit(optic, data) switch
+        {
+            AnalysisAxisUnit.Wave => "waves",
+            AnalysisAxisUnit.Milliradian => ImageSpaceAnalysisSupport.MilliradianLabel,
+            AnalysisAxisUnit.Millimeter => "mm",
+            AnalysisAxisUnit.Dimensionless => "ratio",
+            _ => string.Empty
+        };
     }
 
     public static string FieldXAxisLabel(Optic optic)

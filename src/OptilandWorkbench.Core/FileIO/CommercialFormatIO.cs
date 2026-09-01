@@ -252,10 +252,11 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         {
             "! OptilandWorkbench Zemax ZMX sequential export",
             "MODE SEQ",
+            "UNIT MM",
             $"NAME {optic.Name}",
             ApertureLine(optic),
             $"RAIM 0 {(optic.RayAimingEnabled ? 1 : 0)} 1 1 0 0 0 0 0 1",
-            $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 0",
+            $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 {(optic.ImageSpaceAfocal ? 1 : 0)}",
             $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
             $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",
             $"FWGN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Weight)))}",
@@ -286,17 +287,19 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         foreach (var surface in SequentialLensDocument.FromOptic(optic).Surfaces)
         {
+            var opticSurface = optic.SurfaceGroup.Items[surface.Number];
             lines.Add($"SURF {surface.Number}");
-            lines.Add($"  TYPE {SurfaceType(optic.SurfaceGroup.Items[surface.Number].Geometry)}");
+            lines.Add($"  TYPE {SurfaceType(opticSurface.Geometry)}");
             lines.Add($"  COMM {surface.Label}");
             lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
             lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
-            lines.Add(GlassLine(optic.SurfaceGroup.Items[surface.Number]));
+            lines.Add(GlassLine(opticSurface));
             lines.Add(
-                $"  DIAM {FormatDouble(surface.SemiDiameter)} " +
-                $"{(optic.SurfaceGroup.Items[surface.Number].SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\"");
+                $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} " +
+                $"{(opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\"");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
-            WriteSurfaceParameters(lines, optic.SurfaceGroup.Items[surface.Number].Geometry);
+            WriteSurfaceAperture(lines, opticSurface);
+            WriteSurfaceParameters(lines, opticSurface.Geometry);
             if (surface.IsStop)
             {
                 lines.Add("  STOP");
@@ -331,11 +334,32 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     private static string SurfaceType(Geometries.IGeometry geometry) => geometry switch
     {
+        Geometries.PlaneGeometry => "STANDARD",
+        Geometries.StandardGeometry => "STANDARD",
         Geometries.EvenAsphereGeometry => "EVENASPH",
         Geometries.OddAsphereGeometry => "ODDASPHE",
         Geometries.ToroidalGeometry => "TOROIDAL",
-        _ => "STANDARD"
+        _ => throw new NotSupportedException(
+            $"Zemax ZMX export cannot losslessly map geometry '{geometry.Kind}' to a supported TYPE.")
     };
+
+    private static double ZemaxSemiDiameter(OpticalSurface surface) => surface.PhysicalAperture switch
+    {
+        null => surface.SemiDiameter,
+        CircularAperture circular => circular.Radius,
+        AnnularAperture annular => annular.OuterRadius,
+        _ => throw new NotSupportedException(
+            $"Zemax ZMX export cannot losslessly map physical aperture '{surface.PhysicalAperture.Kind}'.")
+    };
+
+    private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface)
+    {
+        if (surface.PhysicalAperture is AnnularAperture annular
+            && annular.InnerRadius > 1e-12)
+        {
+            lines.Add($"  APMN {FormatDouble(annular.InnerRadius)}");
+        }
+    }
 
     private static void WriteSurfaceParameters(List<string> lines, Geometries.IGeometry geometry)
     {

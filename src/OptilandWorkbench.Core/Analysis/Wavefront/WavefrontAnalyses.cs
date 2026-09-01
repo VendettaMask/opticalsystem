@@ -159,12 +159,20 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["PeakToValleyOpticalPathDifference"] = (maximum - minimum) * wavelength.Micrometers * 1e-3,
             ["RmsWaves"] = Rms(valid, removePiston: _pupilSampling.HasValue),
             ["PeakToValleyWaves"] = maximum - minimum,
-            ["ReferenceSphereRadius"] = wavefront.Radius,
-            ["PupilDiameterMillimeters"] = Math.Abs(Optic.Paraxial.EstimateExitPupilDiameter(wavelength.Micrometers)),
+            ["ReferenceSphereRadius"] = wavefront.ImageSpaceAfocal ? 0 : wavefront.Radius,
+            ["ReferenceGeometry"] = wavefront.ImageSpaceAfocal
+                ? "chief-ray plane"
+                : "reference sphere",
+            ["ImageSpaceAfocal"] = wavefront.ImageSpaceAfocal,
+            ["PupilDiameterMillimeters"] = wavefront.ImageSpaceAfocal
+                ? wavefront.AfocalPupilDiameterMillimeters
+                : Math.Abs(Optic.Paraxial.EstimateExitPupilDiameter(wavelength.Micrometers)),
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
-            ["Reference"] = _referenceChiefRay ? "chief_ray" : "reference_sphere",
+            ["Reference"] = wavefront.ImageSpaceAfocal
+                ? "chief_ray_plane"
+                : _referenceChiefRay ? "chief_ray" : "reference_sphere",
             ["Sampling"] = $"{sampling} x {sampling}",
             ["RotationDegrees"] = _rotationDegrees,
             ["DisplayScale"] = _displayScale,

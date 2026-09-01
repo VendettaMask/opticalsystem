@@ -52,6 +52,7 @@ public enum AnalysisAxisQuantity
     Distortion,
     RayHeight,
     IncidentAngle,
+    Angle,
     ZernikeTerm,
     Coefficient,
     SurfaceNumber,
@@ -79,10 +80,14 @@ public enum AnalysisAxisUnit
     InverseMicrometer,
     Pixel,
     Radian,
+    Milliradian,
     Decibel,
     WattsPerSteradian,
     WattsPerSquareMillimeter,
-    PartsPerMillionPerKelvin
+    PartsPerMillionPerKelvin,
+    Watt,
+    CyclesPerMilliradian,
+    Diopter
 }
 
 public sealed record AnalysisPoint(

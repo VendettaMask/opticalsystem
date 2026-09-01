@@ -124,32 +124,24 @@ internal static class SpotAnalysisEngine
                     bundle = WithPolarization(bundle);
                 }
 
-                var selectedSamples = SelectSamples(
+                var surfaceIndex = ImageSpaceAnalysisSupport.ResolveSurfaceIndex(optic, surfaceNumber);
+                var targetSurface = surfaceIndex < 0
+                    ? null
+                    : optic.SurfaceGroup.Items[surfaceIndex];
+                var descriptor = ImageSpaceAnalysisSupport.CoordinateDescriptor(
                     optic,
-                    bundle,
                     surfaceNumber,
                     directionCosines);
+                var selectedSamples = SelectSamples(optic, bundle, surfaceNumber);
                 var valid = selectedSamples
-                    .Where(sample => sample.Intensity > 0)
+                    .Where(sample => sample.Intensity > 0 && targetSurface is not null)
                     .Select(sample =>
-                    {
-                        if (directionCosines)
-                        {
-                            return new SpotRayData(
-                                sample.Direction.X,
-                                sample.Direction.Y,
-                                sample.Intensity);
-                        }
-
-                        var position = sample.Position;
-                        if (Math.Abs(imagePlaneOffset) > 1e-12
-                            && Math.Abs(sample.Direction.Z) > 1e-12)
-                        {
-                            position += sample.Direction * (imagePlaneOffset / sample.Direction.Z);
-                        }
-
-                        return new SpotRayData(position.X, position.Y, sample.Intensity);
-                    })
+                        ImageSpaceAnalysisSupport.ToImageSpaceRayData(
+                            optic,
+                            sample,
+                            targetSurface!,
+                            descriptor,
+                            imagePlaneOffset))
                     .ToArray();
                 rayCount += selectedSamples.Length;
                 vignettedRayCount += selectedSamples.Length - valid.Length;
@@ -222,17 +214,9 @@ internal static class SpotAnalysisEngine
     private static RayTraceSample[] SelectSamples(
         Optic optic,
         RealRayBundle bundle,
-        int surfaceNumber,
-        bool directionCosines)
+        int surfaceNumber)
     {
-        var surfaceIndex = surfaceNumber < 0
-            ? optic.SurfaceGroup.Items.Count - 1
-            : optic.SurfaceGroup.Items
-                .Select((surface, index) => (surface, index))
-                .Where(item => item.surface.Number == surfaceNumber)
-                .Select(item => item.index)
-                .DefaultIfEmpty(-1)
-                .First();
+        var surfaceIndex = ImageSpaceAnalysisSupport.ResolveSurfaceIndex(optic, surfaceNumber);
         if (surfaceIndex < 0)
         {
             return Array.Empty<RayTraceSample>();
@@ -272,25 +256,29 @@ internal static class SpotAnalysisEngine
             bundle = WithPolarization(bundle);
         }
 
-        var sample = SelectSamples(optic, bundle, surfaceNumber, directionCosines)
+        var targetSurface = ImageSpaceAnalysisSupport.ResolveSurface(optic, surfaceNumber);
+        if (targetSurface is null)
+        {
+            return null;
+        }
+
+        var sample = SelectSamples(optic, bundle, surfaceNumber)
             .FirstOrDefault();
         if (sample is null || sample.Intensity <= 0)
         {
             return null;
         }
 
-        if (directionCosines)
-        {
-            return new SpotRayData(sample.Direction.X, sample.Direction.Y, sample.Intensity);
-        }
-
-        var position = sample.Position;
-        if (Math.Abs(imagePlaneOffset) > 1e-12 && Math.Abs(sample.Direction.Z) > 1e-12)
-        {
-            position += sample.Direction * (imagePlaneOffset / sample.Direction.Z);
-        }
-
-        return new SpotRayData(position.X, position.Y, sample.Intensity);
+        var descriptor = ImageSpaceAnalysisSupport.CoordinateDescriptor(
+            optic,
+            surfaceNumber,
+            directionCosines);
+        return ImageSpaceAnalysisSupport.ToImageSpaceRayData(
+            optic,
+            sample,
+            targetSurface,
+            descriptor,
+            imagePlaneOffset);
     }
 
     private static RealRayBundle WithPolarization(RealRayBundle bundle)

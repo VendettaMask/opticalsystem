@@ -1,3 +1,5 @@
+using OptilandWorkbench.Core.Domain;
+
 namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
@@ -62,6 +64,11 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
         var field = _fieldNumber > 0
             ? fields[Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, fields.Count - 1))]
             : fields.LastOrDefault();
+        if (Optic.ImageSpaceAfocal)
+        {
+            return GenerateAfocalPlaneData(wavelengths, wavelength, fields, field);
+        }
+
         var wavefront = ReferenceSphereWavefrontEngine.Generate(
             Optic,
             field,
@@ -105,6 +112,58 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
             ["Reference"] = reference
+        }, series, new[] { series }, new AnalysisPlotOptions(
+            Title: $"OPD Map: RMS={wavefront.Rms:0.000} waves",
+            EqualAspect: true,
+            XMinimum: -1,
+            XMaximum: 1,
+            YMinimum: -1,
+            YMaximum: 1));
+    }
+
+    private AnalysisData GenerateAfocalPlaneData(
+        IReadOnlyList<Wavelength> wavelengths,
+        Wavelength wavelength,
+        IReadOnlyList<(double Hx, double Hy)> fields,
+        (double Hx, double Hy) field)
+    {
+        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
+        var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
+        var mean = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average();
+        var minimum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Min();
+        var maximum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Max();
+        var series = new AnalysisSeries(
+            "Pupil X",
+            "Pupil Y",
+            WavefrontAnalysis.BuildWavefrontMap(valid, _mapSize),
+            AnalysisSeriesKind.Heatmap,
+            ValueLabel: "OPD (waves)",
+            XQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            XUnit: AnalysisAxisUnit.Dimensionless,
+            YQuantity: AnalysisAxisQuantity.PupilCoordinate,
+            YUnit: AnalysisAxisUnit.Dimensionless,
+            ValueQuantity: AnalysisAxisQuantity.WavefrontError,
+            ValueUnit: AnalysisAxisUnit.Wave);
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["RayCount"] = wavefront.Samples.Count,
+            ["VignettedRayCount"] = wavefront.VignettedRayCount,
+            ["ReferenceOpticalPathLength"] = wavefront.ReferenceOpticalPath,
+            ["MeanOpticalPathDifference"] = mean * wavelength.Micrometers * 1e-3,
+            ["RmsOpticalPathDifference"] = wavefront.Rms * wavelength.Micrometers * 1e-3,
+            ["PeakToValleyOpticalPathDifference"] = (maximum - minimum) * wavelength.Micrometers * 1e-3,
+            ["RmsWaves"] = wavefront.Rms,
+            ["ReferenceSphereCenter"] = string.Empty,
+            ["ReferenceSphereRadius"] = 0,
+            ["ReferenceGeometry"] = "chief-ray plane",
+            ["ImageSpaceAfocal"] = true,
+            ["PupilDiameterMillimeters"] = wavefront.AfocalPupilDiameterMillimeters,
+            ["FieldHx"] = field.Hx,
+            ["FieldHy"] = field.Hy,
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["WavelengthNumber"] = Array.IndexOf(wavelengths.ToArray(), wavelength) + 1,
+            ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
+            ["Reference"] = "chief_ray_plane"
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"OPD Map: RMS={wavefront.Rms:0.000} waves",
             EqualAspect: true,

@@ -765,7 +765,8 @@ public sealed record SystemSettingsDto(
     bool ObjectSpaceTelecentric,
     string ApodizationKind,
     double FirstApodizationParameter,
-    double SecondApodizationParameter);
+    double SecondApodizationParameter,
+    bool ImageSpaceAfocal = false);
 
 public sealed record EnvironmentSettingsDto(
     bool MatchRefractiveIndexData,
@@ -854,6 +855,7 @@ public enum AnalysisAxisQuantity
     Distortion,
     RayHeight,
     IncidentAngle,
+    Angle,
     ZernikeTerm,
     Coefficient,
     SurfaceNumber,
@@ -883,11 +885,14 @@ public enum AnalysisAxisUnit
     InverseMicrometer,
     Pixel,
     Radian,
+    Milliradian,
     Decibel,
     WattsPerSteradian,
     WattsPerSquareMillimeter,
     PartsPerMillionPerKelvin,
-    Watt
+    Watt,
+    CyclesPerMilliradian,
+    Diopter
 }
 
 public sealed record AnalysisPointDto(

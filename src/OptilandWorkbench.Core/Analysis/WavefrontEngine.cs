@@ -21,7 +21,9 @@ public sealed record WavefrontResult(
     double ReferenceOpticalPath,
     int VignettedRayCount,
     double ChiefImageDirectionZ = 1,
-    double ImageRefractiveIndex = 1)
+    double ImageRefractiveIndex = 1,
+    bool ImageSpaceAfocal = false,
+    double AfocalPupilDiameterMillimeters = 0)
 {
     public double Rms => Samples.Where(sample => sample.Intensity > 0)
         .Select(sample => sample.OpdWaves * sample.OpdWaves)
@@ -193,6 +195,22 @@ public static class WavefrontEngine
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
         }
 
+        var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
+            .RefractiveIndex(wavelength.Nanometers);
+        if (optic.ImageSpaceAfocal)
+        {
+            return GenerateAfocalChiefRay(
+                optic,
+                field,
+                wavelength,
+                pupilSamples,
+                aimAtStop,
+                resolvedRealImageLaunch,
+                usePolarization,
+                chief,
+                imageIndex);
+        }
+
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
             optic,
             field,
@@ -201,8 +219,6 @@ public static class WavefrontEngine
             resolvedRealImageLaunch,
             usePolarization);
         var radius = sphere.Radius;
-        var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
-            .RefractiveIndex(wavelength.Nanometers);
         var chiefImagePath = ImageToReferenceSphere(
             chief,
             sphere.CenterX,
@@ -278,6 +294,86 @@ public static class WavefrontEngine
             imageIndex);
     }
 
+    private static WavefrontResult GenerateAfocalChiefRay(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        IReadOnlyList<PupilSample> pupilSamples,
+        bool aimAtStop,
+        (double X, double Y)? resolvedRealImageLaunch,
+        bool usePolarization,
+        RayTraceSample chief,
+        double imageIndex)
+    {
+        var chiefDirection = Normalize(chief.Direction);
+        var referenceOpticalPath = chief.CumulativeOpticalPathLength;
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+            field.Hx,
+            field.Hy,
+            wavelength.Micrometers,
+            pupilSamples,
+            aimAtStop,
+            resolvedRealImageLaunch);
+        if (usePolarization)
+        {
+            bundle = WithPolarization(bundle);
+        }
+
+        var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
+        var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
+        var samples = new List<WavefrontSample>(pupilSamples.Count);
+        var vignetted = 0;
+        for (var index = 0; index < pupilSamples.Count; index++)
+        {
+            var pupil = pupilSamples[index];
+            var ray = finalSamples[index];
+            if (ray is null)
+            {
+                samples.Add(new WavefrontSample(pupil.X, pupil.Y, 0, 0, 0, 0, 0));
+                vignetted++;
+                continue;
+            }
+
+            var imagePath = ImageToReferencePlane(
+                ray,
+                chief.Position,
+                chiefDirection,
+                imageIndex);
+            var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);
+            var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
+            var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
+            var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
+            var pupilPosition = ray.Position - (ray.Direction * t);
+            var intensity = ray.Intensity;
+            if (intensity <= 0)
+            {
+                vignetted++;
+            }
+
+            samples.Add(new WavefrontSample(
+                pupil.X,
+                pupil.Y,
+                pupilPosition.X,
+                pupilPosition.Y,
+                pupilPosition.Z,
+                opdWaves,
+                intensity,
+                Dot(Normalize(ray.Direction), chiefDirection)));
+        }
+
+        return new WavefrontResult(
+            samples,
+            double.PositiveInfinity,
+            referenceOpticalPath,
+            vignetted,
+            1,
+            imageIndex,
+            ImageSpaceAfocal: true,
+            AfocalPupilDiameterMillimeters:
+                ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic));
+    }
+
     private static RealRayBundle WithPolarization(RealRayBundle bundle)
     {
         return new RealRayBundle(bundle.Rays.Select(ray => ray with
@@ -341,8 +437,31 @@ public static class WavefrontEngine
         return imageIndex * t;
     }
 
+    private static double ImageToReferencePlane(
+        RayTraceSample ray,
+        Vector3D planePoint,
+        Vector3D planeNormal,
+        double imageIndex)
+    {
+        var direction = Normalize(ray.Direction);
+        var denominator = Dot(direction, planeNormal);
+        if (Math.Abs(denominator) <= 1e-30)
+        {
+            return 0;
+        }
+
+        var t = Dot(ray.Position - planePoint, planeNormal) / denominator;
+        return imageIndex * t;
+    }
+
     private static double Dot(Vector3D left, Vector3D right)
     {
         return (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
+    }
+
+    private static Vector3D Normalize(Vector3D value)
+    {
+        var length = value.Length;
+        return length <= 1e-30 ? Vector3D.Zero : value / length;
     }
 }
