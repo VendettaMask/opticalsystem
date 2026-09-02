@@ -159,7 +159,7 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 已于 2026-07-29 修正评价函数表的单一状态色：编辑器现在按 Zemax 操作数类型应用稳定的浅色行色，参考系统中出现的 `TTHI`、`OPLT`、`EFFL`、`PMAG`、`CONS`、`DIVI`、`REAR`、`PETZ`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG` 和 `DMFS` 均有对应色；`BLNK` 保持白色，同族操作数使用一致色系，未知类型使用中性回退色。错误状态优先覆盖为红色。
 
-2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-02 进一步把常见操作数束扩展到 111 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF`；注册表按 2026 R1 实测扩展到 383 个顺序兼容代码，`DIMX` 等语义不完整项按八个 Zemax 参数槽位显示为只读记录。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
+2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-02 进一步把常见操作数束扩展到 114 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表按 2026 R1 实测扩展到 383 个顺序兼容代码，`DIMX` 等语义不完整项按八个 Zemax 参数槽位显示为只读记录。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
 
 选中行不再使用全局强调色覆盖整行，而是保留类型底色、恢复深色文字并使用强调色边框，因此颜色语义在键盘或鼠标选择后仍然可见。实现见 `src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs`。
 

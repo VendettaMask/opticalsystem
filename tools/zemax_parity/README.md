@@ -10,6 +10,7 @@
 - `zosapi_export.py`：通过官方 Python ZOS-API Standalone 连接加载顺序模式 ZMX，并导出 FFT MTF。
 - `zosapi_through_focus_export.py`：通过官方 Python ZOS-API 导出 FFT Through Focus MTF 与相关波前/追迹参考数据。
 - `zosapi_merit_function_export.py`：加载指定 ZMX，导出 MFE 行顺序、六个原始参数槽、目标、权重、当前值、贡献和总评价函数，并记录源文件 SHA-256。
+- `zosapi_merit_control_probe.py`：在不保存源镜头的前提下，用 `SKIS/SKIN`、两个可区分的执行区间和真实贡献值探测 MFE 条件控制流。
 - `zosapi_capture_baseline.py`：为一个镜头枚举完整 `AnalysisIDM` 目录，并记录每项分析状态。
 - `capture_analysis_window.zpl`：在存在对应窗口代码时捕获真实 OpticStudio 分析窗口。
 - `verify_baseline.py`：验证清单、源文件哈希、JSON、设置/文本引用和截图。
@@ -55,6 +56,13 @@
 ```powershell
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
   "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_merit_function_export.py"
+```
+
+实测评价函数条件控制流：
+
+```powershell
+& "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
+  "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_merit_control_probe.py"
 ```
 
 ## Workbench 图像口径

@@ -67,7 +67,7 @@ public static class ZemaxOperandRegistry
             "WLEN", "INDX",
             "CONS", "SINE", "COSI", "TANG", "ASIN", "ACOS", "ATAN", "ABSO", "SQRT",
             "RECI", "LOGE", "LOGT", "SUMM", "PROD", "DIVI", "DIFF", "MAXX", "MINN",
-            "GOTO", "ENDX", "OOFF"
+            "GOTO", "ENDX", "OOFF", "SKIN", "SKIS", "USYM"
         },
         StringComparer.Ordinal);
 
@@ -466,7 +466,7 @@ public static class ZemaxOperandRegistry
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
-            "GOTO" =>
+            "GOTO" or "SKIN" or "SKIS" =>
             [
                 new("Int1", "Operand row", ZemaxOperandParameterValueKind.RowReference, "row"),
                 new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
@@ -475,7 +475,7 @@ public static class ZemaxOperandRegistry
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
-            "ENDX" or "OOFF" =>
+            "ENDX" or "OOFF" or "USYM" =>
             [
                 new("Int1", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),

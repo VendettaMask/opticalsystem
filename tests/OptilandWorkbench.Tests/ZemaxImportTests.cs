@@ -8,6 +8,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
@@ -149,7 +150,7 @@ public sealed class ZemaxImportTests
                 .Distinct(StringComparer.Ordinal)
                 .Count());
         Assert.Equal(
-            111,
+            114,
             ZemaxOperandRegistry.Descriptors.Count(
                 descriptor => descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable));
         Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
@@ -459,6 +460,71 @@ public sealed class ZemaxImportTests
         Assert.True(double.IsPositiveInfinity(backward[1].Contribution));
         Assert.Contains("within", outOfRange[0].Error, StringComparison.Ordinal);
         Assert.True(double.IsPositiveInfinity(outOfRange[0].Contribution));
+    }
+
+    [Fact]
+    public void ZemaxConditionalSkipsFollowDetectedRotationalSymmetry()
+    {
+        var symmetric = Optic.CreateCookeTriplet();
+        var operands = new[]
+        {
+            new MeritOperandDefinition { Type = "SKIS", Surface = 3, ZemaxIntegerParameters = [3, 0] },
+            new MeritOperandDefinition { Type = "CONS", Target = 20, Weight = 0 },
+            new MeritOperandDefinition { Type = "CONS", Target = 3, Weight = 0 },
+            new MeritOperandDefinition { Type = "SKIN", Surface = 6, ZemaxIntegerParameters = [6, 0] },
+            new MeritOperandDefinition { Type = "CONS", Target = 5, Weight = 0 },
+            new MeritOperandDefinition { Type = "CONS", Target = 6, Weight = 0 }
+        };
+
+        var symmetricEvaluations = MeritFunctionCatalog.EvaluateAll(symmetric, operands);
+        Assert.Equal(0, symmetricEvaluations[1].Value, precision: 12);
+        Assert.Equal(3, symmetricEvaluations[2].Value, precision: 12);
+        Assert.Equal(5, symmetricEvaluations[4].Value, precision: 12);
+
+        var asymmetric = Optic.CreateCookeTriplet();
+        var surface = asymmetric.SurfaceGroup.Items[1];
+        surface.CoordinateSystem = new CoordinateSystem(
+            new Vector3D(0.1, 0, surface.CoordinateSystem.Origin.Z));
+
+        var asymmetricEvaluations = MeritFunctionCatalog.EvaluateAll(asymmetric, operands);
+        Assert.Equal(20, asymmetricEvaluations[1].Value, precision: 12);
+        Assert.Equal(3, asymmetricEvaluations[2].Value, precision: 12);
+        Assert.Equal(0, asymmetricEvaluations[4].Value, precision: 12);
+        Assert.Equal(6, asymmetricEvaluations[5].Value, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxUsymOverridesDetectedAsymmetryForConditionalSkips()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var surface = optic.SurfaceGroup.Items[1];
+        surface.CoordinateSystem = new CoordinateSystem(
+            new Vector3D(0, -0.1, surface.CoordinateSystem.Origin.Z));
+        var operands = new[]
+        {
+            new MeritOperandDefinition { Type = "USYM" },
+            new MeritOperandDefinition { Type = "SKIS", Surface = 4, ZemaxIntegerParameters = [4, 0] },
+            new MeritOperandDefinition { Type = "CONS", Target = 33, Weight = 0 },
+            new MeritOperandDefinition { Type = "CONS", Target = 4, Weight = 0 }
+        };
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, operands);
+
+        Assert.Equal(0, evaluations[0].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[2].Value, precision: 12);
+        Assert.Equal(4, evaluations[3].Value, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxConditionalSkipRejectsInvalidTargetWhenConditionMatches()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var evaluations = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            [new MeritOperandDefinition { Type = "SKIS", Surface = 2, ZemaxIntegerParameters = [2, 0] }]);
+
+        Assert.Contains("within", evaluations[0].Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(evaluations[0].Contribution));
     }
 
     [Fact]

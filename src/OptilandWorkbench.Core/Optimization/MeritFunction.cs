@@ -1,5 +1,7 @@
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Optimization;
@@ -415,6 +417,11 @@ public static class MeritFunctionCatalog
         using var evaluationBatch = BeginEvaluationBatch();
         var evaluations = new MeritOperandEvaluation[definitions.Count];
         var context = new OrderedMeritEvaluationContext(definitions, evaluations);
+        var rotationallySymmetric = definitions.Any(definition =>
+                definition is not null
+                && definition.Enabled
+                && CanonicalType(definition.Type) == "USYM")
+            || IsRotationallySymmetric(optic);
         for (var index = 0; index < definitions.Count; index++)
         {
             var definition = definitions[index]
@@ -439,7 +446,10 @@ public static class MeritFunctionCatalog
                 break;
             }
 
-            if (canonicalType != "GOTO")
+            var shouldJump = canonicalType == "GOTO"
+                || (canonicalType == "SKIS" && rotationallySymmetric)
+                || (canonicalType == "SKIN" && !rotationallySymmetric);
+            if (!shouldJump)
             {
                 continue;
             }
@@ -451,7 +461,7 @@ public static class MeritFunctionCatalog
                 evaluations[index] = new MeritOperandEvaluation(
                     double.NaN,
                     double.PositiveInfinity,
-                    $"GOTO target row {targetRow} must be after row {index + 1} and within the merit function.");
+                    $"{canonicalType} target row {targetRow} must be after row {index + 1} and within the merit function.");
                 context.Record(index, evaluations[index]);
                 continue;
             }
@@ -521,7 +531,7 @@ public static class MeritFunctionCatalog
         try
         {
             var canonicalType = CanonicalType(definition.Type);
-            if (canonicalType is "BLNK" or "DMFS" or "GOTO" or "ENDX" or "OOFF")
+            if (canonicalType is "BLNK" or "DMFS" or "GOTO" or "ENDX" or "OOFF" or "SKIN" or "SKIS" or "USYM")
             {
                 return new MeritOperandEvaluation(0, 0);
             }
@@ -2745,6 +2755,53 @@ public static class MeritFunctionCatalog
         return optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.Number == surfaceNumber)
             ?? throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "找不到指定表面。");
     }
+
+    private static bool IsRotationallySymmetric(Optic optic)
+    {
+        return optic.SurfaceGroup.Items.All(surface =>
+            IsNearlyZero(surface.CoordinateSystem.Origin.X)
+            && IsNearlyZero(surface.CoordinateSystem.Origin.Y)
+            && IsNearlyZero(surface.CoordinateSystem.RotationXDegrees)
+            && IsNearlyZero(surface.CoordinateSystem.RotationYDegrees)
+            && IsRotationallySymmetric(surface.Geometry)
+            && IsRotationallySymmetric(surface.PhysicalAperture));
+    }
+
+    private static bool IsRotationallySymmetric(IGeometry geometry)
+    {
+        return geometry switch
+        {
+            PlaneGeometry or StandardGeometry or EvenAsphereGeometry or OddAsphereGeometry or ForbesQGeometry => true,
+            BiconicGeometry biconic => IsNearlyEqual(biconic.RadiusX, biconic.RadiusY)
+                && IsNearlyEqual(biconic.ConicX, biconic.ConicY),
+            ZernikeGeometry zernike => zernike.Coefficients.All(term =>
+                term.Key.AzimuthalFrequency == 0 || IsNearlyZero(term.Value)),
+            _ => false
+        };
+    }
+
+    private static bool IsRotationallySymmetric(IPhysicalAperture? aperture)
+    {
+        return aperture switch
+        {
+            null or CircularAperture or AnnularAperture => true,
+            OffsetRadialAperture offset => IsNearlyZero(offset.OffsetX) && IsNearlyZero(offset.OffsetY),
+            EllipticalAperture ellipse => IsNearlyEqual(ellipse.SemiAxisX, ellipse.SemiAxisY)
+                && IsNearlyZero(ellipse.OffsetX)
+                && IsNearlyZero(ellipse.OffsetY),
+            BooleanAperture boolean => IsRotationallySymmetric(boolean.Left)
+                && IsRotationallySymmetric(boolean.Right),
+            _ => false
+        };
+    }
+
+    private static bool IsNearlyZero(double value) => Math.Abs(value) <= 1e-12;
+
+    private static bool IsNearlyEqual(double left, double right) =>
+        left.Equals(right)
+        || (double.IsFinite(left)
+            && double.IsFinite(right)
+            && Math.Abs(left - right) <= 1e-12 * Math.Max(1, Math.Max(Math.Abs(left), Math.Abs(right))));
 
     private static double[] NormalizeWeights(IReadOnlyList<double> weights)
     {
