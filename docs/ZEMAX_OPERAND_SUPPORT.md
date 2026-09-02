@@ -191,13 +191,15 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 当前基线与差距
 
-截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 108 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
+截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 111 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
 
 `MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。Application 合同把这些描述符和六个原始槽位直接发布给桌面编辑器；编辑器按当前行显示参数名与单位，把 `Unused` 和兼容只读槽位锁定，并在保存时保持原始槽位为权威数据，再由描述符恢复 Workbench 类型化字段。ZMX 导入器除已有类型化分支外，会识别全部 383 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
 
 参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
-`[MS-L7]` 的 103 行已通过本机 OpticStudio 2026 R1 ZOS-API 采集为可重复 golden：源 SHA-256、行顺序和 400 余个活动参数槽已锁定；`OPLT`、`CTGT`、`EFFL`、`CONS`、`REAR`、`PETZ`、`MNCA`、`MNCG`、`MNEG`、`MXCG` 十个代表行通过当前数值对照，`PETZ` 已据此修正像方曲率符号。其余新增路径仍必须继续经过 golden 收敛，才能标为完整兼容；当前已确认的差异集中在高 NA 光线、边厚、范围厚度、近轴放大率及依赖数学行。
+有序评价控制流已接入 `GOTO`、`ENDX` 和 `OOFF`：`GOTO` 仅允许跳向函数内的后续行，被跳过的行不进入引用上下文；`ENDX` 终止后续评价；`OOFF` 保留为零贡献惰性行。非法向后或越界跳转返回明确错误。`SKIN/SKIS` 的条件对称控制仍保持兼容只读，不能据此宣称控制行已经全部完成。
+
+`[MS-L7]` 的 103 行已通过本机 OpticStudio 2026 R1 ZOS-API 采集为可重复 golden：源 SHA-256、行顺序和 400 余个活动参数槽已锁定；两行 `TTHI` 以及 `OPLT`、`CTGT`、`EFFL`、`CONS`、`REAR`、`PETZ`、`MNCA`、`MNCG`、`MNEG`、`MXCG` 共 12 个代表行通过当前数值对照。`PETZ` 已据此修正像方曲率符号；`TTHI/TGTH` 按官方“起止表面厚度均包含”定义修正终止端点。其余新增路径仍必须继续经过 golden 收敛，才能标为完整兼容；当前已确认的差异集中在高 NA 光线、边厚、近轴放大率及依赖数学行。
 
 本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
 

@@ -16,8 +16,8 @@ non-finite values in inactive cells are represented as JSON `null`.
 
 The automated baseline currently proves row order, source identity and more
 than 400 active parameter-slot comparisons. Numerical equality is locked for
-ten representative executable rows (`OPLT`, `CTGT`, `EFFL`, `CONS`, `REAR`,
-`PETZ`, `MNCA`, `MNCG`, `MNEG`, `MXCG`). It does not claim complete Zemax
+12 representative executable rows (`TTHI` twice, `OPLT`, `CTGT`, `EFFL`,
+`CONS`, `REAR`, `PETZ`, `MNCA`, `MNCG`, `MNEG`, `MXCG`). It does not claim complete Zemax
 operand parity. Remaining observed differences are concentrated in high-NA
 ray operands, edge-thickness geometry, range thickness, paraxial
 magnification and the downstream math rows that depend on them.

@@ -422,6 +422,46 @@ public static class MeritFunctionCatalog
             context.CurrentRowIndex = index;
             evaluations[index] = EvaluateCore(optic, definition, context);
             context.Record(index, evaluations[index]);
+
+            if (!definition.Enabled || !string.IsNullOrEmpty(evaluations[index].Error))
+            {
+                continue;
+            }
+
+            var canonicalType = CanonicalType(definition.Type);
+            if (canonicalType == "ENDX")
+            {
+                for (var skipped = index + 1; skipped < definitions.Count; skipped++)
+                {
+                    evaluations[skipped] = new MeritOperandEvaluation(0, 0);
+                }
+
+                break;
+            }
+
+            if (canonicalType != "GOTO")
+            {
+                continue;
+            }
+
+            var targetRow = ZemaxIntegerParameter(definition, 0, definition.Surface);
+            var targetIndex = targetRow - 1;
+            if (targetIndex <= index || targetIndex >= definitions.Count)
+            {
+                evaluations[index] = new MeritOperandEvaluation(
+                    double.NaN,
+                    double.PositiveInfinity,
+                    $"GOTO target row {targetRow} must be after row {index + 1} and within the merit function.");
+                context.Record(index, evaluations[index]);
+                continue;
+            }
+
+            for (var skipped = index + 1; skipped < targetIndex; skipped++)
+            {
+                evaluations[skipped] = new MeritOperandEvaluation(0, 0);
+            }
+
+            index = targetIndex - 1;
         }
 
         return evaluations;
@@ -481,7 +521,7 @@ public static class MeritFunctionCatalog
         try
         {
             var canonicalType = CanonicalType(definition.Type);
-            if (canonicalType is "BLNK" or "DMFS")
+            if (canonicalType is "BLNK" or "DMFS" or "GOTO" or "ENDX" or "OOFF")
             {
                 return new MeritOperandEvaluation(0, 0);
             }
@@ -1934,7 +1974,7 @@ public static class MeritFunctionCatalog
         }
 
         var thickness = 0.0;
-        for (var surfaceNumber = startSurface; surfaceNumber < endSurface; surfaceNumber++)
+        for (var surfaceNumber = startSurface; surfaceNumber <= endSurface; surfaceNumber++)
         {
             if (!surfacesByNumber.TryGetValue(surfaceNumber, out var surface))
             {

@@ -94,7 +94,7 @@ public sealed class ZemaxImportTests
         var expectedRows = golden.RootElement.GetProperty("rows").EnumerateArray().ToArray();
         var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
         var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
-        var validatedRows = new HashSet<int> { 9, 11, 13, 15, 19, 23, 25, 27, 28, 30 };
+        var validatedRows = new HashSet<int> { 6, 8, 9, 11, 13, 15, 19, 23, 25, 27, 28, 30 };
         var validatedValues = 0;
         var differences = new List<string>();
 
@@ -149,7 +149,7 @@ public sealed class ZemaxImportTests
                 .Distinct(StringComparer.Ordinal)
                 .Count());
         Assert.Equal(
-            108,
+            111,
             ZemaxOperandRegistry.Descriptors.Count(
                 descriptor => descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable));
         Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
@@ -384,6 +384,81 @@ public sealed class ZemaxImportTests
         Assert.Equal(16, evaluations[6].Value, precision: 12);
         Assert.Equal(1, evaluations[7].Value, precision: 12);
         Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void ZemaxGotoEndxAndOoffControlOrderedEvaluation()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var operands = new[]
+        {
+            new MeritOperandDefinition { Type = "CONS", Target = 2, Weight = 0 },
+            new MeritOperandDefinition
+            {
+                Type = "GOTO",
+                Surface = 4,
+                ZemaxIntegerParameters = [4, 0]
+            },
+            new MeritOperandDefinition { Type = "CONS", Target = 999, Weight = 1 },
+            new MeritOperandDefinition { Type = "CONS", Target = 3, Weight = 0 },
+            new MeritOperandDefinition
+            {
+                Type = "SUMM",
+                Surface = 1,
+                Wavelength = 4,
+                ZemaxIntegerParameters = [1, 4],
+                Target = 5,
+                Weight = 1
+            },
+            new MeritOperandDefinition { Type = "OOFF", Target = 999, Weight = 1 },
+            new MeritOperandDefinition { Type = "ENDX" },
+            new MeritOperandDefinition { Type = "CONS", Target = 123, Weight = 1 }
+        };
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, operands);
+
+        Assert.Equal(2, evaluations[0].Value, precision: 12);
+        Assert.Equal(0, evaluations[1].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[2].Value, precision: 12);
+        Assert.Equal(3, evaluations[3].Value, precision: 12);
+        Assert.Equal(5, evaluations[4].Value, precision: 12);
+        Assert.Equal(0, evaluations[4].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[5].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[6].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[7].Value, precision: 12);
+        Assert.Equal(0, evaluations[7].Contribution, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxGotoRejectsBackwardAndOutOfRangeTargets()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var backward = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            [
+                new MeritOperandDefinition { Type = "CONS", Target = 1 },
+                new MeritOperandDefinition
+                {
+                    Type = "GOTO",
+                    Surface = 1,
+                    ZemaxIntegerParameters = [1, 0]
+                }
+            ]);
+        var outOfRange = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            [
+                new MeritOperandDefinition
+                {
+                    Type = "GOTO",
+                    Surface = 3,
+                    ZemaxIntegerParameters = [3, 0]
+                }
+            ]);
+
+        Assert.Contains("must be after", backward[1].Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(backward[1].Contribution));
+        Assert.Contains("within", outOfRange[0].Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(outOfRange[0].Contribution));
     }
 
     [Fact]

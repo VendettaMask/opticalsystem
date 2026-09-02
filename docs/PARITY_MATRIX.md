@@ -15,7 +15,7 @@
 | 传播 | `Propagation` | 均匀介质和“入口方向近似”；后者仅在每段入口修正一次方向，不是 GRIN eikonal/Hamilton 求解器 |
 | 镀膜/散射近似 | `Coatings`、`Scattering` | 仅提供标为 Experimental 的经验透过率起伏、主光线散射损耗和测量样本均值损耗；旧 Thin Film/Lambertian/Measured BSDF 名称只作兼容别名，稳定 S-matrix 与 BSDF 方向抽样未完成 |
 | 分析 | `Analysis` | 72 个规范分析、Workbench 单一描述符目录和按模式隔离的两套入口；顺序 70 项、非序列 2 项，独立畸变入口已合并到场曲/畸变，报告菜单含 5 个真实入口 |
-| 优化 | `Optimization` | 变量、操作数、缩放，以及五种按真实实现命名的本地搜索；没有实现真正的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES 或信赖域 LM，这些名称明确返回不支持而不映射到其它算法；ZMX 参考评价函数 103 行按源顺序可见，108 个 Zemax 顺序操作数已定义级可执行，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG`；注册表按本机 2026 R1 实测包含 383 个顺序兼容代码，`DIMX` 等未完整实现类型禁用只读保留，启用兼容行与未知代码明确失败；当前可见代码/兼容类型不等同 383 项完整数值支持，新增执行路径仍需 Zemax/ZOS-API golden 对照；Glass Expert 未实现且明确返回不支持 |
+| 优化 | `Optimization` | 变量、操作数、缩放，以及五种按真实实现命名的本地搜索；没有实现真正的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES 或信赖域 LM，这些名称明确返回不支持而不映射到其它算法；ZMX 参考评价函数 103 行按源顺序可见，111 个 Zemax 顺序操作数已定义级可执行，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF`；注册表按本机 2026 R1 实测包含 383 个顺序兼容代码，`DIMX` 等未完整实现类型禁用只读保留，启用兼容行与未知代码明确失败；当前可见代码/兼容类型不等同 383 项完整数值支持，新增执行路径仍需 Zemax/ZOS-API golden 对照；Glass Expert 未实现且明确返回不支持 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
 | 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |
 | 文件 | `Serialization`、`FileIO` | STAROPT schema 4、旧 schema 安全迁移、Python JSON 子集、ZMX 与 SEQ/LEN 子集；Zemax 只读评价函数参数往返时不裁剪 |

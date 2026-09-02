@@ -21,7 +21,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 最近一次正式产品完整基线为 2026-09-02 的构建 `0` 错误及主测试 `1000/1000`；构建仅有 NuGet 漏洞数据源 SSL 警告。独立实验室最近一次完整测试为 `21/21`，使用独立解决方案与基线 |
+| 当前验证记录 | 持续维护 | 最近一次正式产品完整基线为 2026-09-02 的构建 `0` 错误及主测试 `1002/1002`；构建仅有 NuGet 漏洞数据源 SSL 警告。独立实验室最近一次完整测试为 `21/21`，使用独立解决方案与基线 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
 | 兼容层隔离与旧链路删除 | 已完成隔离 | `OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集；Application/App 不引用或编译 Legacy 命名空间。兼容类型仍为外部源码迁移保留，最终 API 删除属于版本兼容决策 |
@@ -77,10 +77,10 @@
 ### 2026-08-04 Zemax 评价函数导入对齐
 
 - 已实现：参考 `[MS-L7]` ZMX 的评价函数由约 29 行恢复为源文件中的 103 行，行顺序不变；此前漏掉的 63 行 `TRAR` 进入现有光线像差计算路径。
-- 兼容边界：当前 108 个 Zemax 顺序操作数已接入定义级可执行路径，覆盖 `TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG`；`DIMX` 因 Field/Absolute 语义未完成而降为兼容只读。其它尚无完整语义的 Zemax 行继续按八个参数槽位无损保留并禁用，不伪造当前值或贡献量。新增执行路径仍需 Zemax/ZOS-API golden 对照后才能标记完整兼容。
+- 兼容边界：当前 111 个 Zemax 顺序操作数已接入定义级可执行路径，覆盖 `TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF`；`DIMX` 因 Field/Absolute 语义未完成而降为兼容只读。其它尚无完整语义的 Zemax 行继续按八个参数槽位无损保留并禁用，不伪造当前值或贡献量。新增执行路径仍需 Zemax/ZOS-API golden 对照后才能标记完整兼容。
 - 已完成 2026 R1 目录实测校准：注册表包含 383 项顺序兼容代码，移除 10 个非真实或当前 MFE 不可选代码，并展开 `I1`–`I6` 梯度折射率族。
 - 尚未完成：383 项顺序模式操作数的逐类型参数语义、校验规则和计算引擎仍按 `ZEMAX_OPERAND_SUPPORT.md` 推进；本轮不能描述为 Zemax 优化数值完全等价。
-- 验证记录：实际 `[MS-L7]` 的 103 行顺序、兼容参数槽位、光线操作数映射、常见操作数束、描述符驱动编辑往返和 ZOS-API MFE golden 通过定向测试；2026-09-02 全量主测试 `1000/1000` 通过。
+- 验证记录：实际 `[MS-L7]` 的 103 行顺序、兼容参数槽位、光线操作数映射、常见操作数束、描述符驱动编辑往返和 ZOS-API MFE golden 通过定向测试；2026-09-02 全量主测试 `1002/1002` 通过。
 
 ### 外部审计条目的当前处理结果
 
