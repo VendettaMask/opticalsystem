@@ -14,8 +14,10 @@ env:
   DOTNET_CI_ARGS: -p:ContinuousIntegrationBuild=true
   MAIN_SOLUTION: OptilandWorkbench.slnx
   MAIN_TEST_PROJECT: tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
+  MAIN_TEST_HANG_TIMEOUT: 12m
   LAB_SOLUTION: labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx
   LAB_TEST_PROJECT: labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
+  LAB_TEST_HANG_TIMEOUT: 8m
 
 jobs:
   build-main:
@@ -73,7 +75,7 @@ jobs:
           --no-build
           --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
-          --blame-hang --blame-hang-timeout 5m
+          --blame-hang --blame-hang-timeout ${{ env.MAIN_TEST_HANG_TIMEOUT }}
           /m:1 /nr:false
 
       - name: Upload main test results
@@ -139,7 +141,7 @@ jobs:
           --no-build
           --logger "trx;LogFileName=lab-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/lab"
-          --blame-hang --blame-hang-timeout 5m
+          --blame-hang --blame-hang-timeout ${{ env.LAB_TEST_HANG_TIMEOUT }}
           /m:1 /nr:false
 
       - name: Upload Initial Structure Lab test results
@@ -311,11 +313,30 @@ jobs:
           name: step-validation-fixtures
           path: ${{ runner.temp }}/step-fixtures
 
+      - name: Restore fixed FreeCAD package cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/freecad-debs
+          key: freecad-ubuntu-22.04-${{ env.FREECAD_APT_VERSION }}-v1
+
       - name: Install fixed FreeCAD validation runtime
         shell: bash
+        env:
+          FREECAD_DEB_CACHE_DIR: ${{ runner.temp }}/freecad-debs
         run: |
           set -euo pipefail
           mkdir -p "$STEP_VALIDATION_LOG_DIR"
+          mkdir -p "$FREECAD_DEB_CACHE_DIR"
+          packages=(
+            freecad
+            freecad-common
+            freecad-python3
+            libfreecad-python3-0.19
+          )
+          specs=()
+          for package in "${packages[@]}"; do
+            specs+=("${package}=${FREECAD_APT_VERSION}")
+          done
           sudo apt-get update 2>&1 | tee "$STEP_VALIDATION_LOG_DIR/apt-update.log"
           apt-cache policy \
             freecad \
@@ -323,11 +344,19 @@ jobs:
             freecad-python3 \
             libfreecad-python3-0.19 \
             | tee "$STEP_VALIDATION_LOG_DIR/freecad-apt-policy.log"
+          if ! find "$FREECAD_DEB_CACHE_DIR" -maxdepth 1 -type f -name '*.deb' | grep -q .; then
+            (
+              cd "$FREECAD_DEB_CACHE_DIR"
+              apt-get download "${specs[@]}"
+            ) 2>&1 | tee "$STEP_VALIDATION_LOG_DIR/freecad-download.log"
+          else
+            echo "Using cached FreeCAD deb packages from $FREECAD_DEB_CACHE_DIR" \
+              | tee "$STEP_VALIDATION_LOG_DIR/freecad-download.log"
+          fi
+          sha256sum "$FREECAD_DEB_CACHE_DIR"/*.deb \
+            | tee "$STEP_VALIDATION_LOG_DIR/freecad-deb-sha256.log"
           sudo apt-get install --yes --no-install-recommends \
-            "freecad=${FREECAD_APT_VERSION}" \
-            "freecad-common=${FREECAD_APT_VERSION}" \
-            "freecad-python3=${FREECAD_APT_VERSION}" \
-            "libfreecad-python3-0.19=${FREECAD_APT_VERSION}" \
+            "$FREECAD_DEB_CACHE_DIR"/*.deb \
             2>&1 | tee "$STEP_VALIDATION_LOG_DIR/freecad-install.log"
           freecad_cmd="$(command -v FreeCADCmd || command -v freecadcmd || true)"
           if [ -z "$freecad_cmd" ]; then

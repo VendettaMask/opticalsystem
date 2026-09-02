@@ -27,7 +27,7 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 
 VSTest 会打开本地套接字；受限沙箱可能需要额外权限。普通修改优先运行相关定向子集，只有跨模块、高风险或发布验证才要求全量测试。
 
-CI 中正式产品与 Initial Structure Lab 测试均启用 hang 诊断：测试进程长时间无响应时会产生日志/转储线索，而不是无限等待或让后续结果失真。
+CI 中正式产品与 Initial Structure Lab 测试均启用 hang 诊断：测试进程长时间无响应时会产生日志/转储线索，而不是无限等待或让后续结果失真。主测试 hang 阈值为 `12m`，Initial Structure Lab 为 `8m`；这个阈值覆盖已知 4 分钟级长测试在较慢 CI 机器上的波动，不把接近完成的慢测试误判成挂死。
 
 ## 换行符
 
@@ -117,7 +117,7 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 - 2026-08-29 对正式解决方案执行 NuGet.org 直接与传递依赖漏洞查询，当前未报告已知易受攻击包；后续发布仍应重新查询。
 - 2026-08-29 能力真实性修复后，评价函数/优化器目录、ZMX 只读行、快照校验和应用优化入口定向子集通过 `8/8`；未运行正式全量测试。
 - CI 现将正式解决方案与独立 Initial Structure Lab 的构建、三平台测试拆成独立 job：主测试失败不会跳过 Lab 测试，Lab 构建成功也不再被解释为 Lab 测试已运行。两套测试分别输出 TRX 并以独立 artifact 上传；仓库质量任务分别验证两套解决方案格式。固定种子格式模糊回归覆盖 STAROPT、STARMESH、STARRDB 和 ZMX，当前定向结果 `6/6`。
-- STEP CAD CI 分为“生成 fixture”和“FreeCAD/OpenCascade 第三方导入验证”两个 job。生成出的 STEP fixture 始终上传；验证 job 固定在 `ubuntu-22.04`，安装固定版本 `FreeCAD 0.19.2+dfsg1-3ubuntu1`，并始终上传 apt、FreeCAD 版本和 OpenCascade 验证日志。若验证环境安装失败，红灯表示第三方验证环境未建立，不等同于 STEP 输出已被证明错误。
+- STEP CAD CI 分为“生成 fixture”和“FreeCAD/OpenCascade 第三方导入验证”两个 job。生成出的 STEP fixture 始终上传；验证 job 固定在 `ubuntu-22.04`，安装固定版本 `FreeCAD 0.19.2+dfsg1-3ubuntu1`，通过 GitHub Actions 缓存复用固定 FreeCAD `.deb` 包，并上传 apt、FreeCAD 版本、`.deb` SHA-256 和 OpenCascade 验证日志。若验证环境安装失败，红灯表示第三方验证环境未建立，不等同于 STEP 输出已被证明错误。完全脱离 apt 镜像变化仍需要后续维护预构建容器或随仓库托管的校验运行时。
 - 独立 CI 性能烟测覆盖 10,000 条顺序末面追迹、2,000 条几何 MTF、20 次公差 Monte Carlo 和 10,000 条非序列 STARRDB；本机当前约 `0.8 s`、累计分配约 `705 MiB`，闸门上限为 `2 min`、`2 GiB` 和 `128 MiB` 数据库。该宽松闸门用于捕获数量级退化，不替代正式性能基准。
 - CI 在提交、拉取请求、手动运行和每周计划任务中执行直接与传递 NuGet 漏洞查询；在线查询结果具有时效性。
 - 2026-08-30最终收口重新构建正式产品和独立实验室，均为`0`警告、`0`错误；两套`dotnet format --verify-no-changes`、启动/发布脚本语法和`git diff --check`通过。评价函数/优化器、333代码注册、公差逆向/元件/非球面、非序列探测器及其类型化物理轴、兼容程序集、Application/App分层、可访问性、响应式布局和主题的高风险组合筛选为`56/56`；受限文件与固定种子格式模糊组合为`14/14`；实验室冻结基准、密集验收、断点续算、STAROPT导出和响应式源码关键路径为`5/5`。这些仍是定向结果。

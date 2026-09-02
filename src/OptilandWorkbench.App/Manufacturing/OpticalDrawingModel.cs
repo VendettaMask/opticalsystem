@@ -11,6 +11,7 @@ public enum OpticalDrawingPageSize
 public enum OpticalDrawingStandard
 {
     Iso10110,
+    GbT13323_1991,
     GbT13323_2009
 }
 

@@ -22,6 +22,8 @@ using NonSequentialSurfaceBehavior = OptilandWorkbench.Core.NonSequential.NonSeq
 using NonSequentialTraceSettings = OptilandWorkbench.Core.NonSequential.NonSequentialTraceSettings;
 using PlaneRectangleParameters = OptilandWorkbench.Core.NonSequential.PlaneRectangleParameters;
 using SourceRectangleParameters = OptilandWorkbench.Core.NonSequential.SourceRectangleParameters;
+using CoreSourceRadialParameters = OptilandWorkbench.Core.NonSequential.SourceRadialParameters;
+using CoreSourceRadialSample = OptilandWorkbench.Core.NonSequential.SourceRadialSample;
 using SphereParameters = OptilandWorkbench.Core.NonSequential.SphereParameters;
 using StandardLensParameters = OptilandWorkbench.Core.NonSequential.StandardLensParameters;
 
@@ -43,6 +45,49 @@ public sealed class NonSequentialDocumentTests
         Assert.Throws<NotSupportedException>(() =>
             ((IList<NonSequentialObjectDefinition>)document.Objects).Clear());
         Assert.Single(document.Objects);
+    }
+
+    [Fact]
+    public void SourceRadialSamplesAreDefensivelyCopied()
+    {
+        var samples = new List<CoreSourceRadialSample>
+        {
+            new(0, 1),
+            new(30, 0.25)
+        };
+        var parameters = new CoreSourceRadialParameters(samples);
+
+        samples[1] = new CoreSourceRadialSample(45, 0);
+
+        Assert.Equal(30, parameters.Distribution[1].AngleDegrees);
+        Assert.IsNotType<List<CoreSourceRadialSample>>(parameters.Samples);
+        Assert.Throws<NotSupportedException>(() =>
+            ((IList<CoreSourceRadialSample>)parameters.Distribution).Clear());
+
+        var replacement = new List<CoreSourceRadialSample>
+        {
+            new(0, 1),
+            new(60, 0)
+        };
+        var copied = parameters with { Samples = replacement };
+        replacement[1] = new CoreSourceRadialSample(90, 0);
+
+        Assert.Equal(60, copied.Distribution[1].AngleDegrees);
+
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRadial) with
+        {
+            Parameters = copied
+        };
+        var document = new NonSequentialDocument(
+            "radial immutable",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[] { source });
+
+        replacement.Add(new CoreSourceRadialSample(120, 0));
+
+        var stored = Assert.IsType<CoreSourceRadialParameters>(document.Objects.Single().Parameters);
+        Assert.Equal(2, stored.Distribution.Count);
+        Assert.Equal(60, stored.Distribution[1].AngleDegrees);
     }
 
     [Fact]

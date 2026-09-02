@@ -753,10 +753,23 @@ public sealed class WorkspaceDockFactory : Factory
     }
 
     private static OpticalDrawingStandard OpticalDrawingStandardFrom(
-        IReadOnlyDictionary<string, string>? settings) =>
-        settings is not null
-        && settings.TryGetValue("standard", out var value)
-        && Enum.TryParse<OpticalDrawingStandard>(value, out var standard)
-            ? standard
-            : OpticalDrawingStandard.Iso10110;
+        IReadOnlyDictionary<string, string>? settings)
+    {
+        if (settings is null || !settings.TryGetValue("standard", out var value))
+        {
+            return OpticalDrawingStandard.Iso10110;
+        }
+
+        if (Enum.TryParse<OpticalDrawingStandard>(value, out var standard))
+        {
+            return standard;
+        }
+
+        return value switch
+        {
+            "GB/T 13323—1991" or "GB/T 13323-1991" => OpticalDrawingStandard.GbT13323_1991,
+            "GB/T 13323—2009" or "GB/T 13323-2009" or "GbT13323" => OpticalDrawingStandard.GbT13323_2009,
+            _ => OpticalDrawingStandard.Iso10110
+        };
+    }
 }

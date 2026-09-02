@@ -102,6 +102,11 @@ public sealed partial class MainWindow
             "GB/T 13323—2009 光学制图",
             "加工与图纸",
             () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009));
+        _actions.Register(
+            "show-optical-drawing-gb-1991",
+            "GB/T 13323—1991 光学制图",
+            "加工与图纸",
+            () => _panels.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991));
         _actions.Register("show-analysis", "显示分析面板", "面板", () => _panels.Show(WorkspacePanelId.Analysis));
         _actions.Register("show-optimization", "显示优化面板", "面板", () => _panels.Show(WorkspacePanelId.Optimization));
         _actions.Register("quick-focus", "快速聚焦", "优化", QuickFocusAsync);

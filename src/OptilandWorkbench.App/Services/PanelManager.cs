@@ -236,16 +236,30 @@ public sealed class PanelManager : IDisposable
 
     public void ShowOpticalDrawing(OpticalDrawingStandard standard)
     {
-        var isGb = standard == OpticalDrawingStandard.GbT13323_2009;
+        var document = OpticalDrawingDocument(standard);
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            isGb ? "document:optical-drawing-gb" : "document:optical-drawing-iso",
+            document.Id,
             WorkspaceDocumentTypes.OpticalDrawing,
-            isGb ? "光学制图 · GB/T 13323—2009" : "光学制图 · ISO 10110",
+            document.Title,
             Settings: new Dictionary<string, string>
             {
                 ["standard"] = standard.ToString()
             }));
     }
+
+    private static (string Id, string Title) OpticalDrawingDocument(OpticalDrawingStandard standard) =>
+        standard switch
+        {
+            OpticalDrawingStandard.GbT13323_1991 => (
+                "document:optical-drawing-gb-1991",
+                "光学制图 · GB/T 13323—1991"),
+            OpticalDrawingStandard.GbT13323_2009 => (
+                "document:optical-drawing-gb",
+                "光学制图 · GB/T 13323—2009"),
+            _ => (
+                "document:optical-drawing-iso",
+                "光学制图 · ISO 10110")
+        };
 
     public void ShowAnalysis(string analysisName)
     {

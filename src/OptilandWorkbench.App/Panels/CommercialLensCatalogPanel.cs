@@ -54,7 +54,10 @@ internal sealed class CommercialLensCatalogPanel : UserControl
     private readonly DispatcherTimer _filterTimer = new() { Interval = TimeSpan.FromMilliseconds(220) };
     private IReadOnlyList<CommercialLensEntryDto> _all = Array.Empty<CommercialLensEntryDto>();
     private IReadOnlyList<CommercialLensRow> _visible = Array.Empty<CommercialLensRow>();
+    private long _reloadGeneration;
     private bool _suppressFilter;
+
+    internal Task CatalogLoadTask { get; private set; } = Task.CompletedTask;
 
     public CommercialLensCatalogPanel(
         ILensLibraryService lenses,
@@ -70,7 +73,8 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _dataSheet.Click += async (_, _) => await OpenSelectedUriAsync(dataSheet: true);
         _openModel.Click += async (_, _) => await OpenSelectedModelAsync();
         Content = BuildPage();
-        Reload();
+        ClearDetails();
+        BeginReload();
     }
 
     private Control BuildPage()
@@ -274,14 +278,85 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _results.Columns.Add(Column("模型", nameof(CommercialLensRow.ModelAvailability), 110));
     }
 
-    private void Reload()
+    private void BeginReload()
     {
-        _all = _lenses.GetCommercialLenses();
-        _vendor.ItemsSource = new[] { "全部厂商" }
-            .Concat(_all.Select(entry => entry.Manufacturer).Distinct(StringComparer.OrdinalIgnoreCase))
-            .ToArray();
-        _vendor.SelectedIndex = 0;
-        ApplyFilter(selectFirst: true);
+        var generation = Interlocked.Increment(ref _reloadGeneration);
+        var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        CatalogLoadTask = completion.Task;
+        _filterTimer.Stop();
+        _all = Array.Empty<CommercialLensEntryDto>();
+        _visible = Array.Empty<CommercialLensRow>();
+        _results.ItemsSource = _visible;
+        _count.Text = "正在后台加载库存镜头目录…";
+        _productPage.IsEnabled = false;
+        _dataSheet.IsEnabled = false;
+        _openModel.IsEnabled = false;
+        _ = ReloadAsync(generation, completion);
+    }
+
+    private async Task ReloadAsync(
+        long generation,
+        TaskCompletionSource completion)
+    {
+        IReadOnlyList<CommercialLensEntryDto> entries;
+        try
+        {
+            entries = await Task.Run(() => _lenses.GetCommercialLenses()).ConfigureAwait(false);
+        }
+        catch (Exception exception)
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (generation != Interlocked.Read(ref _reloadGeneration))
+                {
+                    completion.TrySetResult();
+                    return;
+                }
+
+                try
+                {
+                    _count.Text = $"库存目录加载失败：{exception.Message}";
+                    ClearDetails();
+                }
+                finally
+                {
+                    completion.TrySetResult();
+                }
+            });
+            return;
+        }
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (generation != Interlocked.Read(ref _reloadGeneration))
+            {
+                completion.TrySetResult();
+                return;
+            }
+
+            try
+            {
+                _suppressFilter = true;
+                try
+                {
+                    _all = entries;
+                    _vendor.ItemsSource = new[] { "全部厂商" }
+                        .Concat(_all.Select(entry => entry.Manufacturer).Distinct(StringComparer.OrdinalIgnoreCase))
+                        .ToArray();
+                    _vendor.SelectedIndex = 0;
+                }
+                finally
+                {
+                    _suppressFilter = false;
+                }
+
+                ApplyFilter(selectFirst: true);
+            }
+            finally
+            {
+                completion.TrySetResult();
+            }
+        });
     }
 
     private void ApplyFilter(bool selectFirst)
@@ -297,38 +372,23 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         var surfaceType = (_surfaceType.SelectedItem as string)?.Split('·')[0].Trim();
         var elements = _elementCount.SelectedItem as string;
 
-        _visible = _all
-            .Where(entry => vendor is null or "全部厂商"
-                || entry.Manufacturer.Equals(vendor, StringComparison.OrdinalIgnoreCase))
-            .Where(entry => string.IsNullOrEmpty(query)
-                || entry.PartNumber.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || entry.Name.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || entry.LensType.Contains(query, StringComparison.OrdinalIgnoreCase))
-            .Where(entry => _useEfl.IsChecked != true
-                || entry.EffectiveFocalLength >= eflMinimum
-                && entry.EffectiveFocalLength <= eflMaximum)
-            .Where(entry => _useDiameter.IsChecked != true
-                || entry.EntrancePupilDiameter >= diameterMinimum
-                && entry.EntrancePupilDiameter <= diameterMaximum)
-            .Where(entry => shapeCode is null or "全部形状"
-                || entry.ShapeCode.Equals(shapeCode, StringComparison.OrdinalIgnoreCase))
-            .Where(entry => surfaceType is null or "全部曲面"
-                || entry.SurfaceType.Equals(surfaceType, StringComparison.OrdinalIgnoreCase))
-            .Where(entry => elements switch
-            {
-                "1" => entry.ElementCount == 1,
-                "2" => entry.ElementCount == 2,
-                "3+" => entry.ElementCount >= 3,
-                _ => true
-            })
-            .Select(entry => new CommercialLensRow(entry))
-            .ToArray();
+        var filtered = CommercialLensCatalogProjection.Filter(
+            _all,
+            new CommercialLensCatalogFilter(
+                vendor,
+                query,
+                _useEfl.IsChecked == true,
+                eflMinimum,
+                eflMaximum,
+                _useDiameter.IsChecked == true,
+                diameterMinimum,
+                diameterMaximum,
+                shapeCode,
+                surfaceType,
+                elements));
+        _visible = filtered.VisibleRows;
         _results.ItemsSource = _visible;
-        var vendorCount = _all
-            .Select(entry => entry.Manufacturer)
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .Count();
-        _count.Text = $"{_visible.Count} / {_all.Count} 项 · {vendorCount} 家厂商";
+        _count.Text = filtered.CountText;
         var selected = _visible.FirstOrDefault(row => row.Entry.Id == selectedId)
             ?? (selectFirst ? _visible.FirstOrDefault() : null);
         _results.SelectedItem = selected;
@@ -392,7 +452,7 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _productPage.IsEnabled = Uri.IsWellFormedUriString(entry.ProductUrl, UriKind.Absolute);
         _dataSheet.IsEnabled = Uri.IsWellFormedUriString(entry.DataSheetUrl, UriKind.Absolute);
         _openModel.IsEnabled = _openLensProject is not null
-            && _lenses.GetCommercialNativeProjectPath(entry.Id) is not null;
+            && !string.IsNullOrWhiteSpace(entry.NativePath);
         ToolTip.SetTip(
             _openModel,
             _openModel.IsEnabled
@@ -412,32 +472,50 @@ internal sealed class CommercialLensCatalogPanel : UserControl
 
     private async Task OpenSelectedUriAsync(bool dataSheet)
     {
-        var entry = SelectedEntry();
-        var value = dataSheet ? entry?.DataSheetUrl : entry?.ProductUrl;
-        if (value is null || !Uri.TryCreate(value, UriKind.Absolute, out var uri))
+        try
         {
-            return;
-        }
+            var entry = SelectedEntry();
+            var value = dataSheet ? entry?.DataSheetUrl : entry?.ProductUrl;
+            if (value is null || !Uri.TryCreate(value, UriKind.Absolute, out var uri))
+            {
+                _count.Text = dataSheet ? "当前条目没有可打开的数据表地址。" : "当前条目没有可打开的厂商页面地址。";
+                return;
+            }
 
-        var launcher = TopLevel.GetTopLevel(this)?.Launcher;
-        if (launcher is not null)
+            var launcher = TopLevel.GetTopLevel(this)?.Launcher;
+            if (launcher is null || !await launcher.LaunchUriAsync(uri))
+            {
+                _count.Text = $"无法打开链接：{uri}";
+            }
+        }
+        catch (Exception exception)
         {
-            await launcher.LaunchUriAsync(uri);
+            _count.Text = $"打开链接失败：{exception.Message}";
         }
     }
 
     private async Task OpenSelectedModelAsync()
     {
-        var entry = SelectedEntry();
-        if (entry is null || _openLensProject is null)
+        try
         {
-            return;
-        }
+            var entry = SelectedEntry();
+            if (entry is null || _openLensProject is null)
+            {
+                return;
+            }
 
-        var path = _lenses.GetCommercialNativeProjectPath(entry.Id);
-        if (path is not null)
-        {
+            var path = await Task.Run(() => _lenses.GetCommercialNativeProjectPath(entry.Id));
+            if (path is null)
+            {
+                _count.Text = "当前目录条目没有可载入的本地模型。";
+                return;
+            }
+
             await _openLensProject(path);
+        }
+        catch (Exception exception)
+        {
+            _count.Text = $"载入模型失败：{exception.Message}";
         }
     }
 
@@ -568,23 +646,4 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         "T" => "T · 环曲面",
         _ => code
     };
-
-    private sealed record CommercialLensRow(CommercialLensEntryDto Entry)
-    {
-        public string Manufacturer => Entry.Manufacturer;
-
-        public string PartNumber => Entry.PartNumber;
-
-        public string Name => Entry.Name;
-
-        public string EffectiveFocalLength => Number(Entry.EffectiveFocalLength);
-
-        public string EntrancePupilDiameter => Number(Entry.EntrancePupilDiameter);
-
-        public string Classification => $"{Entry.ShapeCode}/{Entry.SurfaceType}";
-
-        public int ElementCount => Entry.ElementCount;
-
-        public string ModelAvailability => string.IsNullOrWhiteSpace(Entry.NativePath) ? "仅目录" : "可载入";
-    }
 }

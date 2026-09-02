@@ -236,6 +236,42 @@ public sealed class LensLibraryTests
     }
 
     [Fact]
+    public async Task CommercialLensServiceCachesFilteredSortedStockCatalog()
+    {
+        var root = Path.Combine(Path.GetTempPath(), $"staropt-stock-cache-{Guid.NewGuid():N}");
+        try
+        {
+            await CommercialLensCatalogStore.SaveDirectoryAsync(
+                new CommercialLensCatalogDocument(
+                    1,
+                    DateTimeOffset.UtcNow,
+                    new[]
+                    {
+                        CommercialEntry("stock-2", "Thorlabs", "B"),
+                        CommercialEntry("stock-1", "Newport", "A"),
+                        CommercialEntry("stock-other", "Other Vendor", "C")
+                    }),
+                Path.Combine(root, CommercialLensCatalogStore.DirectoryName));
+            var service = new LensLibraryService(root);
+
+            var first = service.GetCommercialLenses();
+            Directory.Delete(Path.Combine(root, CommercialLensCatalogStore.DirectoryName), recursive: true);
+            var second = service.GetCommercialLenses();
+
+            Assert.Same(first, second);
+            Assert.Equal(new[] { "Newport", "Thorlabs" }, first.Select(entry => entry.Manufacturer));
+            Assert.Equal(new[] { "A", "B" }, first.Select(entry => entry.PartNumber));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
     public void RuntimeLensLibraryIsReadOnlyAndEmptyCatalogDoesNotCreateFiles()
     {
         var root = Path.Combine(Path.GetTempPath(), $"staropt-lenses-empty-{Guid.NewGuid():N}");
@@ -316,6 +352,36 @@ public sealed class LensLibraryTests
             importedAt: DateTimeOffset.UnixEpoch,
             importerVersion: "test-importer");
     }
+
+    private static CommercialLensEntryDto CommercialEntry(
+        string id,
+        string manufacturer,
+        string partNumber) => new(
+        id,
+        manufacturer,
+        partNumber,
+        partNumber,
+        "同步库存目录",
+        "https://example.com",
+        string.Empty,
+        "目录镜头",
+        "B",
+        "S",
+        1,
+        25,
+        10,
+        9,
+        20,
+        0.1,
+        486,
+        656,
+        0,
+        0,
+        "仅目录",
+        null,
+        "测试目录头",
+        DateTimeOffset.UtcNow,
+        8);
 
     private static void WriteZmfRecord(
         BinaryWriter writer,

@@ -132,7 +132,8 @@ public sealed partial class MainWindow
                         RibbonButton("show-manufacturability", "clipboard-check", "可加工性评估")),
                     RibbonGroup("光学制图",
                         RibbonButton("show-optical-drawing-iso", "drafting-compass", "ISO 10110"),
-                        RibbonButton("show-optical-drawing-gb", "ruler", "GB/T 13323")))),
+                        RibbonButton("show-optical-drawing-gb", "ruler", "GB/T 13323—2009"),
+                        RibbonButton("show-optical-drawing-gb-1991", "ruler", "GB/T 13323—1991")))),
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),

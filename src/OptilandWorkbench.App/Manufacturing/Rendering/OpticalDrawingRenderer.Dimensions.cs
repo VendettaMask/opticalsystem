@@ -6,26 +6,198 @@ namespace OptilandWorkbench.App.Manufacturing;
 
 internal static partial class OpticalDrawingRendererCore
 {
-    private static IReadOnlyList<SKPoint> SurfacePoints(
-            double radius,
-            double conic,
-            double semiDiameter,
-            float centerX,
-            float centerY,
-            float xScale,
-            float yScale)
+    internal const int ManufacturingSurfaceSamples = 65;
+
+    internal sealed record ManufacturingProfilePoint(double Z, double Y);
+
+    internal sealed record ManufacturingComponentProfile(
+        OpticalElementDefinition Component,
+        IReadOnlyList<ManufacturingProfilePoint> Front,
+        IReadOnlyList<ManufacturingProfilePoint> Back,
+        IReadOnlyList<ManufacturingProfilePoint> Boundary,
+        double FrontVertexZ,
+        double BackVertexZ,
+        double ProfileSemiDiameter);
+
+    internal static ManufacturingComponentProfile BuildManufacturingComponentProfile(
+        OpticalElementDefinition component,
+        double frontVertexZ,
+        int surfaceSamples = ManufacturingSurfaceSamples)
     {
-        var points = new List<SKPoint>(65);
-        for (var sample = 0; sample <= 64; sample++)
+        ArgumentNullException.ThrowIfNull(component);
+
+        surfaceSamples = NormalizeManufacturingSampleCount(surfaceSamples);
+        var backVertexZ = frontVertexZ + component.CenterThickness;
+        var profileSemiDiameter = ElementProfileExtent(
+            component.FrontSurface,
+            component.BackSurface,
+            frontVertexZ,
+            backVertexZ);
+        var front = BuildExtendedManufacturingSurfaceCurve(
+            component.FrontSurface,
+            frontVertexZ,
+            surfaceSamples,
+            profileSemiDiameter);
+        var back = BuildExtendedManufacturingSurfaceCurve(
+            component.BackSurface,
+            backVertexZ,
+            surfaceSamples,
+            profileSemiDiameter);
+        var boundary = new List<ManufacturingProfilePoint>(front.Count + back.Count);
+        boundary.AddRange(front);
+        for (var pointIndex = back.Count - 1; pointIndex >= 0; pointIndex--)
         {
-            var height = -semiDiameter + ((2 * semiDiameter * sample) / 64);
-            var sag = OpticalManufacturingModel.Sag(radius, conic, Math.Abs(height)) ?? 0;
-            points.Add(new SKPoint(
-                centerX + ((float)sag * xScale),
-                centerY + ((float)height * yScale)));
+            boundary.Add(back[pointIndex]);
+        }
+
+        return new ManufacturingComponentProfile(
+            component,
+            front,
+            back,
+            boundary,
+            frontVertexZ,
+            backVertexZ,
+            profileSemiDiameter);
+    }
+
+    private static IReadOnlyList<ManufacturingProfilePoint> BuildExtendedManufacturingSurfaceCurve(
+        SurfaceRowDto surface,
+        double vertexZ,
+        int surfaceSamples,
+        double targetExtent)
+    {
+        var surfaceExtent = ManufacturingSurfaceExtent(surface);
+        var points = BuildManufacturingSurfaceCurvePoints(
+            surface,
+            vertexZ,
+            surfaceSamples,
+            surfaceExtent);
+        if (targetExtent <= surfaceExtent + 1e-9)
+        {
+            return points;
+        }
+
+        var extended = new List<ManufacturingProfilePoint>(points.Count + 2)
+        {
+            new(points[0].Z, -targetExtent)
+        };
+        extended.AddRange(points);
+        extended.Add(new ManufacturingProfilePoint(points[^1].Z, targetExtent));
+        return extended;
+    }
+
+    private static IReadOnlyList<ManufacturingProfilePoint> BuildManufacturingSurfaceCurvePoints(
+        SurfaceRowDto surface,
+        double vertexZ,
+        int surfaceSamples,
+        double extent)
+    {
+        var points = new List<ManufacturingProfilePoint>(surfaceSamples);
+        for (var sample = 0; sample < surfaceSamples; sample++)
+        {
+            var fraction = sample / (double)(surfaceSamples - 1);
+            var height = -extent + (2 * extent * fraction);
+            points.Add(new ManufacturingProfilePoint(
+                vertexZ + ManufacturingSagOrZero(surface, height),
+                height));
         }
 
         return points;
+    }
+
+    private static double ElementProfileExtent(
+        SurfaceRowDto front,
+        SurfaceRowDto back,
+        double frontVertexZ,
+        double backVertexZ)
+    {
+        var target = Math.Max(
+            ManufacturingSurfaceExtent(front),
+            ManufacturingSurfaceExtent(back));
+        var previous = 0.0;
+        const int searchSteps = 256;
+        const double minimumGap = 1e-6;
+
+        for (var index = 1; index <= searchSteps; index++)
+        {
+            var current = target * index / searchSteps;
+            if (ManufacturingElementGap(front, back, frontVertexZ, backVertexZ, current) > minimumGap)
+            {
+                previous = current;
+                continue;
+            }
+
+            var low = previous;
+            var high = current;
+            for (var iteration = 0; iteration < 48; iteration++)
+            {
+                var middle = (low + high) / 2.0;
+                if (ManufacturingElementGap(front, back, frontVertexZ, backVertexZ, middle) > minimumGap)
+                {
+                    low = middle;
+                }
+                else
+                {
+                    high = middle;
+                }
+            }
+
+            return Math.Max(0.1, low * 0.995);
+        }
+
+        return target;
+    }
+
+    private static double ManufacturingElementGap(
+        SurfaceRowDto front,
+        SurfaceRowDto back,
+        double frontVertexZ,
+        double backVertexZ,
+        double y) =>
+        Math.Min(
+            ManufacturingSurfaceZ(back, backVertexZ, y) - ManufacturingSurfaceZ(front, frontVertexZ, y),
+            ManufacturingSurfaceZ(back, backVertexZ, -y) - ManufacturingSurfaceZ(front, frontVertexZ, -y));
+
+    private static double ManufacturingSurfaceZ(
+        SurfaceRowDto surface,
+        double vertexZ,
+        double y)
+    {
+        var extent = ManufacturingSurfaceExtent(surface);
+        var sampledY = Math.Clamp(y, -extent, extent);
+        return vertexZ + ManufacturingSagOrZero(surface, sampledY);
+    }
+
+    private static double ManufacturingSurfaceExtent(SurfaceRowDto surface)
+    {
+        var extent = Math.Max(0.1, surface.SemiDiameter);
+        if (Math.Abs(surface.Radius) < 1e-12
+            || !double.IsFinite(surface.Radius)
+            || !double.IsFinite(surface.Conic)
+            || 1.0 + surface.Conic <= 0)
+        {
+            return extent;
+        }
+
+        var realDomain = Math.Abs(surface.Radius) / Math.Sqrt(1.0 + surface.Conic);
+        return Math.Min(extent, realDomain * 0.98);
+    }
+
+    private static double ManufacturingSagOrZero(SurfaceRowDto surface, double height)
+    {
+        var sag = OpticalManufacturingModel.Sag(
+            surface.Radius,
+            surface.Conic,
+            Math.Abs(height));
+        return sag is { } value && double.IsFinite(value)
+            ? value
+            : 0;
+    }
+
+    private static int NormalizeManufacturingSampleCount(int surfaceSamples)
+    {
+        surfaceSamples = Math.Max(3, surfaceSamples);
+        return surfaceSamples % 2 == 0 ? surfaceSamples + 1 : surfaceSamples;
     }
 
     private static void DrawVerticalDimension(

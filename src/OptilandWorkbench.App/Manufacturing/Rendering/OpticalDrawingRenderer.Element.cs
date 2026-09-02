@@ -33,7 +33,7 @@ internal static partial class OpticalDrawingRendererCore
         using var dimension = Stroke(new SKColor(43, 43, 46), 0.7f);
         using var hatch = Stroke(new SKColor(112, 142, 164), 0.42f);
         using var axis = Stroke(new SKColor(110, 110, 116), 0.6f);
-        axis.PathEffect = SKPathEffect.CreateDash(new[] { 9f, 4f, 2f, 4f }, 0);
+        axis.PathEffect = SKPathEffect.CreateDash(OpticalAxisDashPattern(sheet.Standard), 0);
         using var headerFill = new SKPaint
         {
             Color = new SKColor(242, 244, 247),
@@ -94,50 +94,49 @@ internal static partial class OpticalDrawingRendererCore
         var element = sheet.Element;
         var centerX = area.MidX;
         var centerY = area.Top + (area.Height * 0.50f);
-        var semiDiameter = Math.Max(0.1, element.Diameter / 2);
         var scaleRatio = DrawingScaleRatio(element);
         var drawingScale = (float)scaleRatio * MillimetersToPoints;
         var yScale = drawingScale;
         var xScale = drawingScale;
-        var centerThickness = Math.Max(0.1, element.CenterThickness);
-        var frontVertexX = centerX - ((float)centerThickness * xScale / 2);
-        var backVertexX = centerX + ((float)centerThickness * xScale / 2);
+        var componentProfiles = new List<ManufacturingComponentProfile>();
+        var cursorZ = 0.0;
+        foreach (var component in element.Components)
+        {
+            var profile = BuildManufacturingComponentProfile(component, cursorZ);
+            componentProfiles.Add(profile);
+            cursorZ = profile.BackVertexZ;
+        }
+
+        var profilePoints = componentProfiles
+            .SelectMany(profile => profile.Boundary)
+            .ToArray();
+        var zCenter = (profilePoints.Min(point => point.Z) + profilePoints.Max(point => point.Z)) / 2;
+        var semiDiameter = Math.Max(0.1, profilePoints.Max(point => Math.Abs(point.Y)));
+
+        SKPoint MapProfilePoint(ManufacturingProfilePoint point) => new(
+            centerX + ((float)(point.Z - zCenter) * xScale),
+            centerY + ((float)point.Y * yScale));
+
+        float MapZ(double z) => centerX + ((float)(z - zCenter) * xScale);
+        float MapY(double y) => centerY + ((float)y * yScale);
+
+        var frontVertexX = MapZ(componentProfiles[0].FrontVertexZ);
+        var backVertexX = MapZ(componentProfiles[^1].BackVertexZ);
         var componentGeometry = new List<(
             OpticalElementDefinition Component,
             IReadOnlyList<SKPoint> Front,
             IReadOnlyList<SKPoint> Back,
             float FrontVertex,
             float BackVertex)>();
-        var cursorX = frontVertexX;
-        foreach (var component in element.Components)
+        foreach (var profile in componentProfiles)
         {
-            var componentSemiDiameter = Math.Max(0.1, component.Diameter / 2);
-            var componentBackX = cursorX + ((float)component.CenterThickness * xScale);
-            var componentFront = SurfacePoints(
-                component.FrontSurface.Radius,
-                component.FrontSurface.Conic,
-                componentSemiDiameter,
-                cursorX,
-                centerY,
-                xScale,
-                yScale);
-            var componentBack = SurfacePoints(
-                component.BackSurface.Radius,
-                component.BackSurface.Conic,
-                componentSemiDiameter,
-                componentBackX,
-                centerY,
-                xScale,
-                yScale);
+            var componentFront = profile.Front.Select(MapProfilePoint).ToArray();
+            var componentBack = profile.Back.Select(MapProfilePoint).ToArray();
+            var componentBoundary = profile.Boundary.Select(MapProfilePoint).ToArray();
 
             using var lens = new SKPath();
-            lens.MoveTo(componentFront[0]);
-            foreach (var point in componentFront.Skip(1))
-            {
-                lens.LineTo(point);
-            }
-
-            foreach (var point in componentBack.Reverse())
+            lens.MoveTo(componentBoundary[0]);
+            foreach (var point in componentBoundary.Skip(1))
             {
                 lens.LineTo(point);
             }
@@ -145,8 +144,12 @@ internal static partial class OpticalDrawingRendererCore
             lens.Close();
             DrawOpticalGlassHatch(canvas, lens, hatch, sheet.Standard);
             canvas.DrawPath(lens, outline);
-            componentGeometry.Add((component, componentFront, componentBack, cursorX, componentBackX));
-            cursorX = componentBackX;
+            componentGeometry.Add((
+                profile.Component,
+                componentFront,
+                componentBack,
+                MapZ(profile.FrontVertexZ),
+                MapZ(profile.BackVertexZ)));
         }
         canvas.DrawLine(area.Left + 8, centerY, area.Right - 8, centerY, axis);
         DrawText(canvas, "光轴", area.Right - 9, centerY - 5, 6.2f, SKTextAlign.Right);
@@ -165,8 +168,8 @@ internal static partial class OpticalDrawingRendererCore
         }
 
 
-        var topY = centerY - ((float)semiDiameter * yScale);
-        var bottomY = centerY + ((float)semiDiameter * yScale);
+        var topY = MapY(-semiDiameter);
+        var bottomY = MapY(semiDiameter);
         var allPoints = componentGeometry
             .SelectMany(geometry => geometry.Front.Concat(geometry.Back))
             .ToArray();

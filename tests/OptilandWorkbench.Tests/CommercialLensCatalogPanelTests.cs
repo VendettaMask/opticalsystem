@@ -1,56 +1,66 @@
-using System.Reflection;
-using Avalonia.Controls;
-using Avalonia.Headless;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Panels;
 
 namespace OptilandWorkbench.Tests;
 
-[Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class CommercialLensCatalogPanelTests
 {
     [Fact]
-    public async Task SelectingVendorImmediatelyFiltersVisibleCatalogRows()
+    public void SelectingVendorImmediatelyFiltersVisibleCatalogRows()
     {
-        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
-        await session.Dispatch(() =>
-        {
-            var service = new StubLensLibraryService(new[]
+        var result = CommercialLensCatalogProjection.Filter(
+            new[]
             {
                 Entry("thorlabs", "Thorlabs", "AC254-100-A"),
                 Entry("newport", "Newport", "KPX100")
-            });
-            var panel = new CommercialLensCatalogPanel(service);
-            var vendor = PrivateField<ComboBox>(panel, "_vendor");
-            var results = PrivateField<DataGrid>(panel, "_results");
+            },
+            new CommercialLensCatalogFilter(Vendor: "Newport"));
 
-            Assert.Equal(2, Assert.IsAssignableFrom<IEnumerable<object>>(results.ItemsSource).Count());
-
-            vendor.SelectedItem = "Newport";
-
-            var row = Assert.Single(Assert.IsAssignableFrom<IEnumerable<object>>(results.ItemsSource));
-            var manufacturer = row.GetType().GetProperty("Manufacturer")?.GetValue(row) as string;
-            Assert.Equal("Newport", manufacturer);
-        }, CancellationToken.None);
+        var row = Assert.Single(result.VisibleRows);
+        Assert.Equal("Newport", row.Manufacturer);
+        Assert.Equal(1, result.FilteredCount);
+        Assert.Equal(2, result.TotalCount);
     }
 
     [Fact]
-    public async Task StockLensMatchingPageBuildsRankedRowsFromCurrentFirstOrderTarget()
+    public void CommercialCatalogBindsOnlyFirstVisiblePageAfterBackgroundLoad()
     {
-        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
-        await session.Dispatch(() =>
-        {
-            var service = new StubLensLibraryService(new[]
+        var result = CommercialLensCatalogProjection.Filter(
+            Enumerable.Range(0, 510)
+                .Select(index => Entry($"thorlabs-{index}", "Thorlabs", $"AC{index:0000}")),
+            new CommercialLensCatalogFilter());
+
+        Assert.Equal(CommercialLensCatalogProjection.MaximumVisibleRows, result.VisibleRows.Count);
+        Assert.Equal(510, result.FilteredCount);
+        Assert.Equal(510, result.TotalCount);
+        Assert.Contains("显示前 500 / 510", result.CountText);
+    }
+
+    [Fact]
+    public void StockLensMatchingBuildsRankedRowsFromCurrentFirstOrderTarget()
+    {
+        var request = new StockLensMatchRequestDto(
+            TargetEffectiveFocalLength: 25,
+            TargetEntrancePupilDiameter: 8,
+            Manufacturers: Array.Empty<string>(),
+            MaximumResults: 5,
+            EffectiveFocalLengthTolerancePercent: 25,
+            EntrancePupilDiameterTolerancePercent: 25,
+            MatchShape: false,
+            TargetShapeCode: "?",
+            MatchPowerDirection: true);
+
+        var matches = StockLensMatcher.Match(
+            new[]
             {
                 Entry("thorlabs", "Thorlabs", "AC254-100-A"),
                 Entry("newport", "Newport", "KPX100")
-            });
-            var panel = new StockLensMatchingPanel(new StubDocuments(), service, new StubEvents());
-            var results = PrivateField<DataGrid>(panel, "_results");
+            },
+            request);
 
-            Assert.Equal(2, Assert.IsAssignableFrom<IEnumerable<object>>(results.ItemsSource).Count());
-            panel.Dispose();
-        }, CancellationToken.None);
+        Assert.Equal(2, matches.Count);
+        Assert.All(matches, match => Assert.True(match.DirectionMatches));
     }
 
     private static CommercialLensEntryDto Entry(string id, string manufacturer, string partNumber) => new(
@@ -80,87 +90,4 @@ public sealed class CommercialLensCatalogPanelTests
         new DateTimeOffset(2026, 8, 16, 0, 0, 0, TimeSpan.Zero),
         8);
 
-    private static T PrivateField<T>(object instance, string name) where T : class =>
-        Assert.IsType<T>(instance.GetType().GetField(
-            name,
-            BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(instance));
-
-    private sealed class StubLensLibraryService(IReadOnlyList<CommercialLensEntryDto> entries) : ILensLibraryService
-    {
-        public string LibraryDirectory => string.Empty;
-
-        public IReadOnlyList<LensLibraryEntryDto> GetLenses() => Array.Empty<LensLibraryEntryDto>();
-
-        public IReadOnlyList<CommercialLensEntryDto> GetCommercialLenses() => entries;
-
-        public string? GetNativeProjectPath(string lensId) => null;
-
-        public string? GetCommercialNativeProjectPath(string lensId) => null;
-
-        public Task<SceneDto?> BuildPreviewAsync(
-            string lensId,
-            CancellationToken cancellationToken = default) => Task.FromResult<SceneDto?>(null);
-
-        public Task<SceneDto?> BuildCommercialPreviewAsync(
-            string lensId,
-            CancellationToken cancellationToken = default) => Task.FromResult<SceneDto?>(null);
-    }
-
-    private sealed class StubDocuments : IOpticalDocumentService
-    {
-        public string? CurrentPath => null;
-
-        public OpticalDocumentSnapshot GetSnapshot() => new(
-            "测试系统",
-            null,
-            0,
-            "就绪",
-            false,
-            false,
-            25,
-            1,
-            25,
-            10,
-            4,
-            1,
-            1,
-            8);
-
-        public void NewBlank()
-        {
-        }
-
-        public void NewCooke()
-        {
-        }
-
-        public void NewTessar()
-        {
-        }
-
-        public Task OpenAsync(string path, CancellationToken cancellationToken = default) => Task.CompletedTask;
-
-        public Task SaveAsync(string path, CancellationToken cancellationToken = default) => Task.CompletedTask;
-
-        public bool Undo() => false;
-
-        public bool Redo() => false;
-    }
-
-    private sealed class StubEvents : IWorkspaceEventStream
-    {
-        public event EventHandler<WorkspaceChangedEventArgs>? Changed
-        {
-            add { }
-            remove { }
-        }
-
-        public event EventHandler? StatusChanged
-        {
-            add { }
-            remove { }
-        }
-
-        public long Revision => 0;
-    }
 }

@@ -9,6 +9,7 @@ using Dock.Model.Mvvm.Core;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
 using System.Collections.ObjectModel;
@@ -462,6 +463,26 @@ public sealed class WorkspaceDockModelTests
         Assert.IsType<ManufacturabilityPanel>(manufacturability.Context);
         Assert.IsType<OpticalDrawingPanel>(drawing.Context);
         factory.DisposeContent();
+    }
+
+    [Fact]
+    public void OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        using var manager = new PanelManager(application, new AppSettings());
+
+        manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991);
+        manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009);
+
+        var legacy = manager.Factory.Descriptor("document:optical-drawing-gb-1991");
+        var current = manager.Factory.Descriptor("document:optical-drawing-gb");
+
+        Assert.NotNull(legacy);
+        Assert.NotNull(current);
+        Assert.Equal("光学制图 · GB/T 13323—1991", legacy.Title);
+        Assert.Equal("光学制图 · GB/T 13323—2009", current.Title);
+        Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991), legacy.Settings!["standard"]);
+        Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_2009), current.Settings!["standard"]);
     }
 
     [Fact]

@@ -172,9 +172,22 @@ public sealed record SourceRadialParameters(
     int LayoutRayCount = 20,
     int AnalysisRayCount = 10_000) : SourceParameters(PowerWatts, WavelengthNumber, LayoutRayCount, AnalysisRayCount)
 {
+    private static readonly IReadOnlyList<SourceRadialSample> DefaultDistribution =
+        Array.AsReadOnly(new[] { new SourceRadialSample(0, 1), new SourceRadialSample(30, 0) });
+    private readonly IReadOnlyList<SourceRadialSample>? _samples = CopySamples(Samples);
+
+    public IReadOnlyList<SourceRadialSample>? Samples
+    {
+        get => _samples;
+        init => _samples = CopySamples(value);
+    }
+
     [JsonIgnore]
-    public IReadOnlyList<SourceRadialSample> Distribution => Samples ??
-        new[] { new SourceRadialSample(0, 1), new SourceRadialSample(30, 0) };
+    public IReadOnlyList<SourceRadialSample> Distribution => Samples ?? DefaultDistribution;
+
+    private static IReadOnlyList<SourceRadialSample>? CopySamples(
+        IReadOnlyList<SourceRadialSample>? samples) =>
+        samples is null ? null : Array.AsReadOnly(samples.ToArray());
 }
 
 public sealed record SourceVolumeRectangleParameters(

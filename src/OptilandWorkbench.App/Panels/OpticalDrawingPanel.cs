@@ -252,9 +252,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
         var note = new TextBlock
         {
-            Text = _drawingStandard == OpticalDrawingStandard.GbT13323_2009
-                ? "当前图样：GB/T 13323—2009《光学制图》。"
-                : "当前图样：ISO 10110 系列表格式。",
+            Text = StandardNote(_drawingStandard),
             TextWrapping = TextWrapping.Wrap,
             Margin = new Thickness(0, 12, 0, 8)
         };
@@ -491,7 +489,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
 
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "导出 ISO 光学图纸",
+                Title = $"导出 {OpticalDrawingRenderer.StandardDesignation(_drawingStandard)} PDF",
                 SuggestedFileName = $"{SafeFileName(sheet.DrawingNumber)}-{SafeFileName(sheet.PartName)}.pdf",
                 FileTypeChoices = new[]
                 {
@@ -685,6 +683,15 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             .Where(glass => glass.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
             .OrderBy(glass => glass.Manufacturer.Equals("Compatibility", StringComparison.OrdinalIgnoreCase))
             .FirstOrDefault();
+
+    private static string StandardNote(OpticalDrawingStandard standard) => standard switch
+    {
+        OpticalDrawingStandard.GbT13323_1991 =>
+            "当前图样：GB/T 13323—1991《光学制图》旧版兼容布局，使用材料/零件要求表和旧版常用标注。",
+        OpticalDrawingStandard.GbT13323_2009 =>
+            "当前图样：GB/T 13323—2009《光学制图》。",
+        _ => "当前图样：ISO 10110 系列表格式。"
+    };
 
     private static string Value(TextBox textBox, string fallback) =>
         string.IsNullOrWhiteSpace(textBox.Text) ? fallback : textBox.Text.Trim();

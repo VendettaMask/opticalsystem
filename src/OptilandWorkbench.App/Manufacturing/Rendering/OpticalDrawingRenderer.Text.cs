@@ -100,6 +100,7 @@ internal static partial class OpticalDrawingRendererCore
 
     internal static string StandardDesignation(OpticalDrawingStandard standard) => standard switch
     {
+        OpticalDrawingStandard.GbT13323_1991 => "GB/T 13323—1991 光学制图",
         OpticalDrawingStandard.GbT13323_2009 => "GB/T 13323—2009 光学制图",
         _ => "ISO 10110-1:2019 表格式"
     };

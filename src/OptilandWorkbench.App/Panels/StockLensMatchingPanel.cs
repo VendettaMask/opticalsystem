@@ -37,7 +37,11 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         MinHeight = 360
     };
     private readonly Button _productPage = CommandButton("external-link", "厂商页面");
+    private CancellationTokenSource? _matchCancellation;
+    private long _matchGeneration;
     private bool _disposed;
+
+    internal Task MatchTask { get; private set; } = Task.CompletedTask;
 
     public StockLensMatchingPanel(
         IOpticalDocumentService documents,
@@ -58,7 +62,8 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         _results.SelectionChanged += (_, _) => UpdateSelectionActions();
         _events.Changed += OnWorkspaceChanged;
         Content = BuildPage();
-        RunMatch();
+        RefreshTargetSummary();
+        _status.Text = "设置厂商和公差后点击“开始匹配”；目录扫描会在后台执行。";
     }
 
     public void Dispose()
@@ -69,6 +74,8 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         }
 
         _disposed = true;
+        _matchCancellation?.Cancel();
+        _matchCancellation?.Dispose();
         _events.Changed -= OnWorkspaceChanged;
     }
 
@@ -155,7 +162,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
 
         var run = CommandButton("search", "开始匹配");
         run.MinWidth = 120;
-        run.Click += (_, _) => RunMatch();
+        run.Click += (_, _) => BeginMatch();
         var actions = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
@@ -196,16 +203,27 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         _results.Columns.Add(Column("综合分数", nameof(MatchRow.Score), 105));
     }
 
-    private void RunMatch()
+    private void BeginMatch()
     {
+        if (_disposed)
+        {
+            return;
+        }
+
         var snapshot = _documents.GetSnapshot();
         var targetEfl = snapshot.EffectiveFocalLength;
         var targetEpd = snapshot.EntrancePupilDiameter;
-        _targetSummary.Text = $"EFL {Number(targetEfl)} mm · EPD {Number(targetEpd)} mm";
+        RefreshTargetSummary(snapshot);
+        var generation = Interlocked.Increment(ref _matchGeneration);
+        _matchCancellation?.Cancel();
+        _matchCancellation?.Dispose();
+        _matchCancellation = new CancellationTokenSource();
         if (!double.IsFinite(targetEfl) || Math.Abs(targetEfl) <= 1e-12
             || !double.IsFinite(targetEpd) || targetEpd <= 0)
         {
+            MatchTask = Task.CompletedTask;
             _results.ItemsSource = Array.Empty<MatchRow>();
+            _productPage.IsEnabled = false;
             _status.Text = "当前系统无法得到有效的一阶 EFL 或入瞳直径，不能进行库存镜头匹配。";
             return;
         }
@@ -220,13 +238,88 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             MatchShape: false,
             TargetShapeCode: "?",
             MatchPowerDirection: _matchDirection.IsChecked == true);
-        var matches = StockLensMatcher.Match(_lenses.GetCommercialLenses(), request);
-        var rows = matches.Select((match, index) => new MatchRow(index + 1, match)).ToArray();
+        _results.ItemsSource = Array.Empty<MatchRow>();
+        _productPage.IsEnabled = false;
+        _status.Text = "正在后台扫描库存镜头目录…";
+        var cancellationToken = _matchCancellation.Token;
+        var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        MatchTask = completion.Task;
+        _ = RunMatchAsync(request, generation, cancellationToken, completion);
+    }
+
+    private async Task RunMatchAsync(
+        StockLensMatchRequestDto request,
+        long generation,
+        CancellationToken cancellationToken,
+        TaskCompletionSource completion)
+    {
+        MatchRow[] rows;
+        try
+        {
+            rows = await Task.Run(() =>
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var matches = StockLensMatcher.Match(_lenses.GetCommercialLenses(), request);
+                cancellationToken.ThrowIfCancellationRequested();
+                return matches.Select((match, index) => new MatchRow(index + 1, match)).ToArray();
+            }, cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            completion.TrySetResult();
+            return;
+        }
+        catch (Exception exception)
+        {
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (_disposed || generation != Interlocked.Read(ref _matchGeneration))
+                {
+                    completion.TrySetResult();
+                    return;
+                }
+
+                try
+                {
+                    _results.ItemsSource = Array.Empty<MatchRow>();
+                    _productPage.IsEnabled = false;
+                    _status.Text = $"库存镜头匹配失败：{exception.Message}";
+                }
+                finally
+                {
+                    completion.TrySetResult();
+                }
+            });
+            return;
+        }
+
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (_disposed || generation != Interlocked.Read(ref _matchGeneration))
+            {
+                completion.TrySetResult();
+                return;
+            }
+
+            try
+            {
+                ApplyMatchRows(rows);
+            }
+            finally
+            {
+                completion.TrySetResult();
+            }
+        });
+    }
+
+    private void ApplyMatchRows(IReadOnlyList<MatchRow> rows)
+    {
         _results.ItemsSource = rows;
         _results.SelectedItem = rows.FirstOrDefault();
-        _status.Text = rows.Length == 0
+        _status.Text = rows.Count == 0
             ? "没有候选满足当前厂商、方向和公差条件。"
-            : $"找到 {rows.Length} 个候选；分数越小越接近当前系统。";
+            : $"找到 {rows.Count} 个候选；分数越小越接近当前系统。";
+        UpdateSelectionActions();
     }
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
@@ -238,10 +331,20 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
                 return;
             }
 
-            var snapshot = _documents.GetSnapshot();
-            _targetSummary.Text = $"EFL {Number(snapshot.EffectiveFocalLength)} mm · EPD {Number(snapshot.EntrancePupilDiameter)} mm";
+            _matchCancellation?.Cancel();
+            Interlocked.Increment(ref _matchGeneration);
+            _results.ItemsSource = Array.Empty<MatchRow>();
+            _productPage.IsEnabled = false;
+            RefreshTargetSummary();
             _status.Text = "当前系统已改变，请重新执行匹配。";
         });
+    }
+
+    private void RefreshTargetSummary(OpticalDocumentSnapshot? snapshot = null)
+    {
+        snapshot ??= _documents.GetSnapshot();
+        _targetSummary.Text =
+            $"EFL {Number(snapshot.EffectiveFocalLength)} mm · EPD {Number(snapshot.EntrancePupilDiameter)} mm";
     }
 
     private void UpdateSelectionActions()
@@ -253,16 +356,24 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
 
     private async Task OpenSelectedProductPageAsync()
     {
-        var value = (_results.SelectedItem as MatchRow)?.Match.Entry.ProductUrl;
-        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri))
+        try
         {
-            return;
-        }
+            var value = (_results.SelectedItem as MatchRow)?.Match.Entry.ProductUrl;
+            if (!Uri.TryCreate(value, UriKind.Absolute, out var uri))
+            {
+                _status.Text = "当前候选没有可打开的厂商页面地址。";
+                return;
+            }
 
-        var launcher = TopLevel.GetTopLevel(this)?.Launcher;
-        if (launcher is not null)
+            var launcher = TopLevel.GetTopLevel(this)?.Launcher;
+            if (launcher is null || !await launcher.LaunchUriAsync(uri))
+            {
+                _status.Text = $"无法打开厂商页面：{uri}";
+            }
+        }
+        catch (Exception exception)
         {
-            await launcher.LaunchUriAsync(uri);
+            _status.Text = $"打开厂商页面失败：{exception.Message}";
         }
     }
 

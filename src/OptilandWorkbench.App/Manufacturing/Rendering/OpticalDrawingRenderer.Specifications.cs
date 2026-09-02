@@ -25,8 +25,7 @@ internal static partial class OpticalDrawingRendererCore
         var maximum = Math.Min(
             330 / (diameter * MillimetersToPoints),
             190 / (axialExtent * MillimetersToPoints));
-        var preferred = new[] { 10d, 5d, 2d, 1d, 0.5d, 0.2d, 0.1d };
-        return preferred.FirstOrDefault(scale => scale <= maximum, 0.1d);
+        return PreferredDrawingScales.FirstOrDefault(scale => scale <= maximum, PreferredDrawingScales[^1]);
     }
 
     private static string ScaleDesignation(double scale) => scale >= 1
@@ -72,9 +71,9 @@ internal static partial class OpticalDrawingRendererCore
 
     internal static IReadOnlyList<float> OpticalGlassHatchHalfLengths(
         OpticalDrawingStandard standard) =>
-        standard == OpticalDrawingStandard.Iso10110
-            ? new[] { 3.0f, 5.6f, 3.0f }
-            : new[] { 4.6f, 4.6f, 4.6f };
+        IsLegacyGb1991(standard)
+            ? LegacyGbOpticalGlassHatchHalfLengths
+            : CurrentOpticalGlassHatchHalfLengths;
 
     private static void DrawSpecificationTable(
         SKCanvas canvas,
@@ -87,6 +86,21 @@ internal static partial class OpticalDrawingRendererCore
         SKPaint medium,
         SKPaint headerFill)
     {
+        if (sheet.Standard == OpticalDrawingStandard.GbT13323_1991)
+        {
+            DrawGb1991SpecificationTable(
+                canvas,
+                sheet,
+                x,
+                y,
+                width,
+                height,
+                thin,
+                medium,
+                headerFill);
+            return;
+        }
+
         if (sheet.Element.IsCemented)
         {
             DrawCementedSpecificationTable(
@@ -104,7 +118,7 @@ internal static partial class OpticalDrawingRendererCore
 
         if (sheet.Standard == OpticalDrawingStandard.GbT13323_2009)
         {
-            DrawGbSpecificationTable(
+            DrawGb2009SpecificationTable(
                 canvas,
                 sheet,
                 x,
@@ -242,7 +256,118 @@ internal static partial class OpticalDrawingRendererCore
         };
 
 
-    private static void DrawGbSpecificationTable(
+    private static void DrawGb1991SpecificationTable(
+        SKCanvas canvas,
+        OpticalDrawingSheet sheet,
+        float x,
+        float y,
+        float width,
+        float height,
+        SKPaint thin,
+        SKPaint medium,
+        SKPaint headerFill)
+    {
+        const float titleHeight = 22;
+        const float sectionWidth = 66;
+        const float itemWidth = 82;
+        const float materialHeight = 66;
+        const float partHeaderHeight = 17;
+        var titleBottom = y + titleHeight;
+        var materialBottom = titleBottom + materialHeight;
+        var partTop = materialBottom;
+        var partBodyTop = partTop + partHeaderHeight;
+        var materialItemX = x + sectionWidth;
+        var materialValueX = materialItemX + itemWidth;
+
+        canvas.DrawRect(x, y, width, titleHeight, headerFill);
+        canvas.DrawRect(x, y, width, height, medium);
+        canvas.DrawLine(x, titleBottom, x + width, titleBottom, thin);
+        canvas.DrawLine(x, materialBottom, x + width, materialBottom, medium);
+        canvas.DrawLine(materialItemX, titleBottom, materialItemX, materialBottom, thin);
+        canvas.DrawLine(materialValueX, titleBottom, materialValueX, materialBottom, thin);
+
+        DrawText(
+            canvas,
+            "GB/T 13323—1991 旧版光学零件技术要求",
+            x + (width / 2),
+            y + 15,
+            8.4f,
+            SKTextAlign.Center,
+            true);
+        DrawText(canvas, "对材料的要求", x + (sectionWidth / 2), titleBottom + 38, 7.2f, SKTextAlign.Center, true);
+
+        var materialRows = Gb1991MaterialSpecificationRows(sheet);
+        var materialRowHeight = materialHeight / materialRows.Count;
+        for (var index = 0; index < materialRows.Count; index++)
+        {
+            var rowTop = titleBottom + (index * materialRowHeight);
+            if (index > 0)
+            {
+                canvas.DrawLine(materialItemX, rowTop, x + width, rowTop, thin);
+            }
+
+            DrawFittedText(
+                canvas,
+                materialRows[index].Item,
+                materialItemX + 5,
+                rowTop + (materialRowHeight / 2) + 3,
+                itemWidth - 10,
+                6.7f,
+                SKTextAlign.Left,
+                true);
+            DrawFittedText(
+                canvas,
+                materialRows[index].Value,
+                materialValueX + 6,
+                rowTop + (materialRowHeight / 2) + 3,
+                x + width - materialValueX - 12,
+                6.6f,
+                SKTextAlign.Left);
+        }
+
+        var surfaceX = x + sectionWidth;
+        var apertureX = surfaceX + 39;
+        var radiusX = apertureX + 70;
+        var requirementX = radiusX + 82;
+        canvas.DrawLine(surfaceX, partTop, surfaceX, y + height, thin);
+        canvas.DrawLine(apertureX, partTop, apertureX, y + height, thin);
+        canvas.DrawLine(radiusX, partTop, radiusX, y + height, thin);
+        canvas.DrawLine(requirementX, partTop, requirementX, y + height, thin);
+        DrawHorizontalRule(partBodyTop);
+
+        DrawText(canvas, "对零件的要求", x + (sectionWidth / 2), partTop + ((height - (partTop - y)) / 2), 7.2f, SKTextAlign.Center, true);
+        DrawText(canvas, "表面", surfaceX + 19.5f, partTop + 12, 6.6f, SKTextAlign.Center, true);
+        DrawText(canvas, "D", apertureX + 35, partTop + 12, 6.6f, SKTextAlign.Center, true);
+        DrawText(canvas, "R", radiusX + 41, partTop + 12, 6.6f, SKTextAlign.Center, true);
+        DrawText(canvas, "旧版项目与要求", requirementX + ((x + width - requirementX) / 2), partTop + 12, 6.6f, SKTextAlign.Center, true);
+
+        var partRows = Gb1991PartSpecificationRows(sheet);
+        var partRowHeight = (y + height - partBodyTop) / partRows.Count;
+        for (var index = 0; index < partRows.Count; index++)
+        {
+            var rowTop = partBodyTop + (index * partRowHeight);
+            if (index > 0)
+            {
+                canvas.DrawLine(surfaceX, rowTop, x + width, rowTop, thin);
+            }
+
+            DrawText(canvas, partRows[index].Surface, surfaceX + 19.5f, rowTop + (partRowHeight / 2) + 3, 7, SKTextAlign.Center, true);
+            DrawFittedText(canvas, partRows[index].Aperture, apertureX + 5, rowTop + (partRowHeight / 2) + 3, 60, 6.5f, SKTextAlign.Left);
+            DrawFittedText(canvas, partRows[index].Radius, radiusX + 5, rowTop + (partRowHeight / 2) + 3, 72, 6.5f, SKTextAlign.Left);
+            DrawFittedText(
+                canvas,
+                partRows[index].Requirement,
+                requirementX + 6,
+                rowTop + (partRowHeight / 2) + 3,
+                x + width - requirementX - 12,
+                6.2f,
+                SKTextAlign.Left);
+        }
+
+        void DrawHorizontalRule(float lineY) => canvas.DrawLine(x, lineY, x + width, lineY, thin);
+    }
+
+    private static void DrawGb2009SpecificationTable(
         SKCanvas canvas,
         OpticalDrawingSheet sheet,
         float x,
@@ -346,6 +471,50 @@ internal static partial class OpticalDrawingRendererCore
             $"气泡和夹杂  {sheet.BubblesAndInclusions}",
             $"均匀性和条纹  {sheet.HomogeneityAndStriae}"
         };
+    }
+
+    private static IReadOnlyList<(string Item, string Value)> Gb1991MaterialSpecificationRows(
+        OpticalDrawingSheet sheet)
+    {
+        var material = sheet.MaterialData;
+        return new[]
+        {
+            ("玻璃牌号", $"{sheet.Element.Material}；{material?.Manufacturer ?? "当前玻璃库"}"),
+            material is null
+                ? ("折射率/阿贝数", "n[d]、V[d] 由玻璃库解析")
+                : (
+                    "折射率/阿贝数",
+                    $"n[d] {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}；V[d] {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}"),
+            ("均匀性/条纹", sheet.HomogeneityAndStriae),
+            ("应力/气泡", $"{sheet.StressBirefringence}；{sheet.BubblesAndInclusions}")
+        };
+    }
+
+    private static IReadOnlyList<(string Surface, string Aperture, string Radius, string Requirement)> Gb1991PartSpecificationRows(
+        OpticalDrawingSheet sheet)
+    {
+        var surfaces = sheet.Element.Surfaces;
+        var rows = new List<(string Surface, string Aperture, string Radius, string Requirement)>(surfaces.Count);
+        for (var index = 0; index < surfaces.Count; index++)
+        {
+            var surface = surfaces[index];
+            var form = index == 0
+                ? sheet.FrontSurfaceFormNanometers
+                : index == surfaces.Count - 1
+                    ? sheet.BackSurfaceFormNanometers
+                    : Math.Max(sheet.FrontSurfaceFormNanometers, sheet.BackSurfaceFormNanometers);
+            var coating = string.IsNullOrWhiteSpace(surface.Coating)
+                || surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
+                    ? sheet.Coating
+                    : surface.Coating;
+            rows.Add((
+                $"S{index + 1}",
+                $"⌀{sheet.Element.ClearSemiDiameter * 2:0.###}",
+                RadiusText(surface.Radius),
+                $"面形 {form:0.#} nm；偏心 {sheet.CenteringToleranceArcMinutes:0.###}′；B {sheet.SurfaceImperfection}；Rq {sheet.SurfaceTextureNanometers:0.###} nm；膜 {coating}；边 {sheet.EdgeTreatment}"));
+        }
+
+        return rows;
     }
 
     private static IReadOnlyList<string> SurfaceSpecificationLines(

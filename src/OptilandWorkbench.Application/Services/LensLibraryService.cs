@@ -19,6 +19,7 @@ internal sealed class LensLibraryService : ILensLibraryService
     private readonly object _gate = new();
     private LensLibraryCatalogDocument? _catalog;
     private CommercialLensCatalogDocument? _commercialCatalog;
+    private IReadOnlyList<CommercialLensEntryDto>? _commercialEntries;
 
     public LensLibraryService(string libraryDirectory)
     {
@@ -43,11 +44,11 @@ internal sealed class LensLibraryService : ILensLibraryService
     {
         lock (_gate)
         {
-            return LoadCommercialCatalog().Entries
-                .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
-                .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
-                .ToArray();
+            return _commercialEntries ??= LoadCommercialCatalog().Entries
+                    .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
+                    .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
+                    .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
+                    .ToArray();
         }
     }
 
