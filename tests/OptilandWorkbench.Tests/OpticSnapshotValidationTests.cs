@@ -363,7 +363,7 @@ public sealed class OpticSnapshotValidationTests
             {
                 new(
                     Enabled: false,
-                    Type: "MNEA",
+                    Type: "ABCD",
                     Surface: 1,
                     Field: 0,
                     Wavelength: 15,
@@ -380,9 +380,98 @@ public sealed class OpticSnapshotValidationTests
         var restored = Optic.FromSnapshot(legacy);
         var operand = Assert.Single(restored.MeritFunctionOperands);
 
-        Assert.Equal("MNEA", operand.Type);
+        Assert.Equal("ABCD", operand.Type);
         Assert.False(operand.Enabled);
         Assert.Equal(15, operand.Wavelength);
+    }
+
+    [Fact]
+    public void CurrentSchemaLegacyReadOnlyZemaxRowsStayCompatibilityWhenOperandBecomesExecutable()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var snapshot = valid with
+        {
+            MeritOperands = new List<MeritOperandSnapshot>
+            {
+                new(
+                    Enabled: false,
+                    Type: "CTGT",
+                    Surface: 10_000,
+                    Field: 0,
+                    Wavelength: 1,
+                    Hx: 0,
+                    Hy: 0,
+                    Px: 0,
+                    Py: 0,
+                    Target: 6,
+                    Weight: 1,
+                    Comment: "Zemax 只读记录：10000 1 0 0 0 0 6 1 0 0")
+            }
+        };
+
+        var restored = Optic.FromSnapshot(snapshot);
+        var operand = Assert.Single(restored.MeritFunctionOperands);
+
+        Assert.Equal("CTGT", operand.Type);
+        Assert.False(operand.Enabled);
+        Assert.True(operand.CompatibilityOnly);
+        Assert.Equal(10_000, operand.Surface);
+    }
+
+    [Fact]
+    public void CurrentSchemaEnabledZemaxExecutableRowsStillValidateReferences()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var snapshot = valid with
+        {
+            MeritOperands = new List<MeritOperandSnapshot>
+            {
+                new(
+                    Enabled: true,
+                    Type: "CTGT",
+                    Surface: 10_000,
+                    Field: 0,
+                    Wavelength: 1,
+                    Hx: 0,
+                    Hy: 0,
+                    Px: 0,
+                    Py: 0,
+                    Target: 6,
+                    Weight: 1,
+                    Comment: string.Empty)
+            }
+        };
+
+        var exception = Assert.Throws<InvalidDataException>(() => Optic.FromSnapshot(snapshot));
+
+        Assert.Contains("$.meritOperands[0].surface", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ZemaxOperandsOnlyValidateFieldWhenDescriptorUsesFieldSlot()
+    {
+        var valid = Optic.CreateDemo().ToSnapshot();
+        var snapshot = valid with
+        {
+            MeritOperands = new List<MeritOperandSnapshot>
+            {
+                new(
+                    Enabled: true,
+                    Type: "PMAG",
+                    Surface: 0,
+                    Field: 10_000,
+                    Wavelength: 1,
+                    Hx: 0,
+                    Hy: 0,
+                    Px: 0,
+                    Py: 0,
+                    Target: 0,
+                    Weight: 0,
+                    Comment: string.Empty)
+            }
+        };
+
+        OpticSnapshotValidator.Validate(snapshot);
     }
 
     [Fact]

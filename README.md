@@ -100,7 +100,7 @@ docs                               架构、格式、兼容、验证和发布文
 
 ## 文档索引
 
-- 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[智能初始结构实验室计划](docs/INITIAL_STRUCTURE_LAB_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
+- 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[系统未完成能力收口计划](docs/SYSTEM_COMPLETION_PLAN_2026-09-02.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[智能初始结构实验室计划](docs/INITIAL_STRUCTURE_LAB_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
 - 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计规范](docs/UI_DESIGN_SPEC.md)、[UI 符合性审计](docs/UI_CONFORMANCE_AUDIT_2026-08-04.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
 - 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。

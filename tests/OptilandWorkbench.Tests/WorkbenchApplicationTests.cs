@@ -501,7 +501,7 @@ public sealed class WorkbenchApplicationTests
         application.Optimization.SetMeritFunction(new[]
         {
             new MeritOperandRowDto(
-                1, true, "TTHI", 0, 0, 15, 195, -12, 6, -8,
+                1, true, "ABCD", 0, 0, 15, 195, -12, 6, -8,
                 40, 0.02, 0, 0, "Zemax 只读记录")
         });
 
@@ -515,6 +515,46 @@ public sealed class WorkbenchApplicationTests
         Assert.Equal(-8, restored.Py);
         Assert.Equal(40, restored.Target);
         Assert.Equal(0.02, restored.Weight);
+    }
+
+    [Fact]
+    public void MeritFunctionEditorPreservesExecutableZemaxParameterSlotsWithoutClamping()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        application.Optimization.SetMeritFunction(new[]
+        {
+            new MeritOperandRowDto(
+                1, true, "CONS", 0, 0, 0, 0, 0, 0, 0,
+                Math.PI / 2, 0, 0, 0, "常数"),
+            new MeritOperandRowDto(
+                2, true, "SINE", 1, 0, 99, 195, -12, 6, -8,
+                1, 2, 0, 0, "Zemax 数学行")
+        });
+
+        var restored = application.Optimization.GetMeritFunction().ToArray();
+
+        Assert.Collection(
+            restored,
+            constant =>
+            {
+                Assert.True(constant.Enabled);
+                Assert.Equal("CONS", constant.Type);
+                Assert.Equal(Math.PI / 2, constant.Value, precision: 12);
+            },
+            sine =>
+            {
+                Assert.True(sine.Enabled);
+                Assert.False(sine.CompatibilityOnly);
+                Assert.Equal("SINE", sine.Type);
+                Assert.Equal(1, sine.Surface);
+                Assert.Equal(99, sine.Wavelength);
+                Assert.Equal(195, sine.Hx);
+                Assert.Equal(-12, sine.Hy);
+                Assert.Equal(6, sine.Px);
+                Assert.Equal(-8, sine.Py);
+                Assert.Equal(Math.Sin((Math.PI / 2) * Math.PI / 180.0), sine.Value, precision: 12);
+                Assert.Empty(sine.Error);
+            });
     }
 
     [Fact]

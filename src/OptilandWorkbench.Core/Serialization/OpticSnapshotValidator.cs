@@ -529,8 +529,22 @@ public static class OpticSnapshotValidator
             if (!operand.CompatibilityOnly
                 && !MeritFunctionCatalog.HasOpaqueZemaxParameters(canonicalType))
             {
-                if (operand.Surface < 0
-                    || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface)))
+                var descriptor = ZemaxOperandRegistry.TryGet(canonicalType, out var zemaxDescriptor)
+                    ? zemaxDescriptor
+                    : null;
+                var surfaceSlotIsReference = descriptor is null
+                    || descriptor.UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface);
+                var fieldSlotIsReference = descriptor is null
+                    || descriptor.UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field);
+                var wavelengthSlotIsReference = descriptor is null
+                    || descriptor.UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength);
+                var secondSlotIsEndSurface = descriptor?.UsesSlotAs(
+                    "Int2",
+                    ZemaxOperandParameterValueKind.EndSurface) == true;
+
+                if (surfaceSlotIsReference
+                    && (operand.Surface < 0
+                        || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface))))
                 {
                     Invalid(
                         $"{path}.surface",
@@ -545,11 +559,27 @@ public static class OpticSnapshotValidator
                         $"operand {canonicalType} requires an existing surface");
                 }
 
-                RequireOneBasedReferenceOrDefault(operand.Field, fieldCount, $"{path}.field");
-                RequireOneBasedReferenceOrDefault(
-                    operand.Wavelength,
-                    wavelengthCount,
-                    $"{path}.wavelength");
+                if (secondSlotIsEndSurface
+                    && (operand.Wavelength < 0
+                        || (operand.Wavelength > 0 && !surfaceNumbers.Contains(operand.Wavelength))))
+                {
+                    Invalid(
+                        $"{path}.wavelength",
+                        $"end-surface reference {operand.Wavelength} does not exist");
+                }
+
+                if (fieldSlotIsReference)
+                {
+                    RequireOneBasedReferenceOrDefault(operand.Field, fieldCount, $"{path}.field");
+                }
+
+                if (wavelengthSlotIsReference)
+                {
+                    RequireOneBasedReferenceOrDefault(
+                        operand.Wavelength,
+                        wavelengthCount,
+                        $"{path}.wavelength");
+                }
             }
             RequireFinite(operand.Hx, $"{path}.hx");
             RequireFinite(operand.Hy, $"{path}.hy");

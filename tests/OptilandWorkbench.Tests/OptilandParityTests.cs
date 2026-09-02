@@ -1513,7 +1513,7 @@ public sealed class OptilandParityTests
 
         var compatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
         {
-            Type = "TTHI",
+            Type = "ABCD",
             Enabled = true,
             Target = 0,
             Weight = 1
@@ -1524,7 +1524,7 @@ public sealed class OptilandParityTests
 
         var disabledCompatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
         {
-            Type = "TTHI",
+            Type = "ABCD",
             Enabled = false,
             Target = 0,
             Weight = 1
@@ -1559,12 +1559,31 @@ public sealed class OptilandParityTests
             Px = 0,
             Py = 0.5
         });
+        var rayRadius = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "REAR",
+            Field = 2,
+            Wavelength = 2,
+            Px = 0,
+            Py = 0.5
+        });
+        var totalRangeThickness = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
+        {
+            Type = "TTHI",
+            Surface = 0,
+            Wavelength = optic.SurfaceGroup.Items[^1].Number,
+            Target = optic.SurfaceGroup.TotalTrack + 1,
+            Weight = 3
+        });
 
         Assert.Equal(optic.SurfaceGroup.Items[1].Radius, radius.Value, precision: 10);
         Assert.Equal(2, radius.Contribution, precision: 10);
         Assert.True(double.IsFinite(focalLength.Value));
         Assert.True(double.IsFinite(rayHeight.Value));
-        Assert.All(new[] { radius, focalLength, rayHeight }, evaluation => Assert.Empty(evaluation.Error));
+        Assert.True(rayRadius.Value >= Math.Abs(rayHeight.Value));
+        Assert.Equal(optic.SurfaceGroup.TotalTrack, totalRangeThickness.Value, precision: 10);
+        Assert.Equal(3, totalRangeThickness.Contribution, precision: 10);
+        Assert.All(new[] { radius, focalLength, rayHeight, rayRadius, totalRangeThickness }, evaluation => Assert.Empty(evaluation.Error));
     }
 
     [Fact]

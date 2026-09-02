@@ -1,12 +1,12 @@
 # Zemax 顺序模式操作数支持规范
 
-当前状态复核：2026-08-30。本文是顺序模式操作数的目标规范与验收矩阵；“必须支持”不等于当前版本已经实现，实际完成度以文末“当前基线与差距”为准。代码、文件字段和产品专有名词保留原始英文标识。
+当前状态复核：2026-09-02。本文是顺序模式操作数的目标规范与验收矩阵；“必须支持”不等于当前版本已经实现，实际完成度以文末“当前基线与差距”为准。代码、文件字段和产品专有名词保留原始英文标识。
 
 ## 目的
 
 本文定义 Optical System Design 对 Zemax OpticStudio 评价函数操作数的完整支持边界。它既是实现规范，也是验收矩阵，不是对当前代码覆盖率的夸大声明。
 
-目录基线取自 [光学课堂 Zemax OpticStudio 操作数手册](https://www.optkt.com/hb/operands/)，核对日期为 2026-07-29。该页面的分类清单共有 337 个条目；去除跨分类重复的 `CONF`、`MNPD`、`ZTHI` 和 `POPD` 后，本项目必须支持 333 个唯一的顺序模式操作数。
+目录基线优先对照 Ansys Zemax OpticStudio 官方帮助的 [Optimization Operands Alphabetically](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optimization_Operands_Alphabetically.html)，并与 [光学课堂 Zemax OpticStudio 操作数手册](https://www.optkt.com/hb/operands/) 分类清单交叉核对，复核日期为 2026-09-02。清单共有 337 个分类条目；去除跨分类重复的 `CONF`、`MNPD`、`ZTHI` 和 `POPD` 后，本项目必须支持 333 个唯一的顺序模式操作数。
 
 除下述两类明确排除项外，不得因为实现困难、计算成本、需要其他分析引擎或当前 UI 没有对应入口而省略操作数：
 
@@ -181,20 +181,20 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 当前基线与差距
 
-截至 2026-08-30，`ZemaxOperandRegistry` 精确注册本文的 333 个唯一顺序目标代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 27 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
+截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本文的 333 个唯一顺序目标代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 109 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
 
-`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。ZMX 导入器除已有类型化分支外，会识别全部 333 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
+`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。ZMX 导入器除已有类型化分支外，会识别全部 333 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
 
-参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI`、`CTGT`、`PMAG`、`DIVI`、`REAR`、`DIMX`、`PETZ`、`MXEG` 和 `SINE` 保持禁用兼容记录。禁用兼容只表示识别和往返，不表示已经具备 Zemax 等价计算。
+参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `DIMX/PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`EFNO` 仍作为用户扩展/采样语义项兼容保留，直到真实 Field/Samp/Wave/Pol 执行协议完成。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
-本次修正消除了目标目录代码静默丢弃和原始槽位借用友好字段作为唯一存储的问题，但没有把“333 项可无损显示”扩大宣称为“333 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
+本次修正消除了目标目录代码静默丢弃和原始槽位借用友好字段作为唯一存储的问题，并开始为已知操作数补充参数描述符，但没有把“333 项可无损显示”扩大宣称为“333 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
 
 当前仍需消除以下技术债：
 
 - 编辑器仍以 `Surface/Field/Wavelength/Hx/Hy/Px/Py` 显示友好视图，尚未按描述符切换全部 333 项的列名和单位；
-- 对所有类型套用同一表面/视场/波长校验；
+- 快照校验已经能区分 `TTHI/TGTH`、常见 `MN*/MX*/X*` 厚度范围项的终止表面槽位以及基础数学操作数的行引用槽位，但大多数 Zemax 操作数仍需逐类型校验规则；
 - 参考文件之外的未注册代码仍可能被导入器忽略；
-- 数学、控制和质心类操作数缺少有序行执行上下文；
+- 控制和质心类操作数仍缺少完整有序行执行语义；基础数学行已具备前序行读取、Flag 角度处理、Zemax 双行/范围区分和错误报告，且 `OPLT/OPGT/ABGT/ABLT/OPVA` 已可按前序行约束求值；`EQUA/PROB/OSUM/QSUM/DIVB` 的 Zemax 特殊贡献语义仍需继续实现；
 - 分析型操作数缺少统一的参数化缓存和取消边界。
 
 2026-08-29 已完成能力真实性闸门：`CanonicalType` 对未知代码明确失败；启用的只读兼容操作数返回不可执行错误；只有禁用兼容行以及显式 `BLNK/DMFS` 才产生零贡献。未实现代码不再被规范化为 `BLNK` 或作为成功零值参与优化。
@@ -203,12 +203,12 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 实施顺序
 
-1. **注册表与快照模型**：333 项代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；逐类型参数元数据及验证继续补齐。
+1. **注册表与快照模型**：333 项代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；已补充首批光线、RMS、Moore-Elliott、`EFFL/TOTR/TTHI/TGTH`、常见镜头/厚度/曲率/圆锥/半口径/玻璃折射率与基础数学行描述符；逐类型参数元数据及验证继续补齐。
 2. **ZMX 导入/导出**：元数据驱动解析所有目标代码，保留源顺序和参数，拒绝非序列/废弃项并给出诊断。
 3. **基础约束和一阶量**：完成系统、镜头、玻璃、参数、一阶和属性类。
 4. **光线与像差**：复用按需追迹、波前、像差和介质状态正确性基线。
 5. **分析型操作数**：接入 MTF、能量、鬼像、光纤、POP、高斯、GRIN、镀膜和偏振引擎。
-6. **数学与控制流**：实现有序评价函数虚拟机及循环/错误防护。
+6. **数学与控制流**：基础数学行已接入有序评价函数入口，支持前序行引用、除零和非法数学域错误；控制流和 Zemax 特殊约束数学仍需继续实现。
 7. **宏和用户扩展**：实现受限提供程序协议。
 8. **全量验收**：对 333 个代码逐项完成导入、参数、数值、往返和非法输入测试。
 

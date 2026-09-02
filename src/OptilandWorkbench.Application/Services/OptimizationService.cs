@@ -42,10 +42,10 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     public IReadOnlyList<MeritOperandRowDto> GetMeritFunction()
     {
         using var cancellationScope = ComputationCancellation.Push(CancellationToken.None);
-        using var evaluationBatch = MeritFunctionCatalog.BeginEvaluationBatch();
         lock (Gate)
         {
             var operands = Runtime.CurrentOptic.MeritFunctionOperands.ToArray();
+            var evaluations = MeritFunctionCatalog.EvaluateAll(Runtime.CurrentOptic, operands);
             var weightSum = operands
                 .Where(operand => operand.Enabled
                     && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
@@ -53,7 +53,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             return operands
                 .Select((operand, index) =>
                 {
-                    var evaluation = MeritFunctionCatalog.Evaluate(Runtime.CurrentOptic, operand);
+                    var evaluation = evaluations[index];
                     return new MeritOperandRowDto(
                         index + 1,
                         operand.Enabled,
@@ -90,19 +90,20 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             operands.Select(operand =>
             {
                 var type = MeritFunctionCatalog.CanonicalType(operand.Type);
-                var preservesZemaxSlots = operand.CompatibilityOnly
+                var isZemaxOperand = ZemaxOperandRegistry.TryGet(type, out _);
+                var forceCompatibilityOnly = operand.CompatibilityOnly
                     || MeritFunctionCatalog.HasOpaqueZemaxParameters(type);
                 return new MeritOperandDefinition
                 {
-                    Enabled = preservesZemaxSlots ? false : operand.Enabled,
+                    Enabled = forceCompatibilityOnly ? false : operand.Enabled,
                     Type = type,
-                    Surface = preservesZemaxSlots ? operand.Surface : Math.Max(0, operand.Surface),
-                    Field = preservesZemaxSlots ? operand.Field : Math.Max(0, operand.Field),
-                    Wavelength = preservesZemaxSlots ? operand.Wavelength : Math.Max(0, operand.Wavelength),
-                    Hx = preservesZemaxSlots ? operand.Hx : Math.Clamp(operand.Hx, -1, 1),
-                    Hy = preservesZemaxSlots ? operand.Hy : Math.Clamp(operand.Hy, -1, 1),
-                    Px = preservesZemaxSlots ? operand.Px : Math.Clamp(operand.Px, -1, 1),
-                    Py = preservesZemaxSlots ? operand.Py : Math.Clamp(operand.Py, -1, 1),
+                    Surface = isZemaxOperand ? operand.Surface : Math.Max(0, operand.Surface),
+                    Field = isZemaxOperand ? operand.Field : Math.Max(0, operand.Field),
+                    Wavelength = isZemaxOperand ? operand.Wavelength : Math.Max(0, operand.Wavelength),
+                    Hx = isZemaxOperand ? operand.Hx : Math.Clamp(operand.Hx, -1, 1),
+                    Hy = isZemaxOperand ? operand.Hy : Math.Clamp(operand.Hy, -1, 1),
+                    Px = isZemaxOperand ? operand.Px : Math.Clamp(operand.Px, -1, 1),
+                    Py = isZemaxOperand ? operand.Py : Math.Clamp(operand.Py, -1, 1),
                     Target = double.IsFinite(operand.Target) ? operand.Target : 0,
                     Weight = double.IsFinite(operand.Weight) ? operand.Weight : 0,
                     Comment = operand.Comment ?? string.Empty,
@@ -120,11 +121,11 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         : 30,
                     IgnoreLateralColor = operand.IgnoreLateralColor,
                     PolychromaticReference = operand.PolychromaticReference,
-                    CompatibilityOnly = preservesZemaxSlots,
-                    ZemaxIntegerParameters = preservesZemaxSlots
+                    CompatibilityOnly = forceCompatibilityOnly,
+                    ZemaxIntegerParameters = isZemaxOperand
                         ? [operand.Surface, operand.Wavelength]
                         : [],
-                    ZemaxDataParameters = preservesZemaxSlots
+                    ZemaxDataParameters = isZemaxOperand
                         ? [operand.Hx, operand.Hy, operand.Px, operand.Py]
                         : []
                 };

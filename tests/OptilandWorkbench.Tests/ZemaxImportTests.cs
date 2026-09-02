@@ -3,6 +3,7 @@ using System.Text.Json;
 using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
@@ -30,6 +31,52 @@ public sealed class ZemaxImportTests
                 .Count());
         Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
         Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, descriptor.SupportLevel);
+        var thicknessDescriptor = ZemaxOperandRegistry.Get("TTHI");
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, thicknessDescriptor.SupportLevel);
+        Assert.Equal(new[] { "Int1", "Int2", "Data1", "Data2", "Data3", "Data4" }, thicknessDescriptor.ParameterSlots);
+        Assert.True(thicknessDescriptor.UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("REAR").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("RANG").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("CTGT").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("MXEG").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PMAG").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PETZ").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("DIMX").SupportLevel);
+        Assert.True(ZemaxOperandRegistry.Get("MXEG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("PMAG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
+        Assert.True(ZemaxOperandRegistry.Get("PETZ").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
+        Assert.True(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
+        Assert.False(ZemaxOperandRegistry.Get("PMAG").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
+        Assert.False(ZemaxOperandRegistry.Get("PETZ").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
+        Assert.False(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
+        Assert.True(ZemaxOperandRegistry.Get("SINE").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("DIVI").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("SUMM").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("PROD").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("MAXX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowRangeEnd));
+        foreach (var code in new[]
+        {
+            "CTLT", "CTVA", "ETGT", "ETLT", "ETVA", "FTGT", "FTLT", "STHI",
+            "MNCT", "MXCT", "MNET", "MXET", "MNCV", "MXCV", "MNSD", "MXSD",
+            "XNEA", "XXEA", "XNEG", "XXEG", "XNET", "XXET", "TGTH", "TTGT", "TTLT", "TTVA",
+            "WLEN", "INDX", "ENPP", "EPDI", "EXPP", "EXPD", "ISNA", "ISFN", "SFNO", "WFNO"
+        })
+        {
+            Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get(code).SupportLevel);
+        }
+
+        Assert.True(ZemaxOperandRegistry.Get("ETGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("FTGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("STHI").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Numeric));
+        Assert.True(ZemaxOperandRegistry.Get("MNCT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("MNET").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("XNET").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("TGTH").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("TTGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("EFLX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("WLEN").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
+        Assert.True(ZemaxOperandRegistry.Get("INDX").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
+        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("EFNO").SupportLevel);
         Assert.False(ZemaxOperandRegistry.TryGet("NSDC", out _));
         Assert.False(ZemaxOperandRegistry.TryGet("PnGT", out _));
     }
@@ -79,7 +126,7 @@ public sealed class ZemaxImportTests
               STOP
               DISZ 0
             CONF 2 0 0 0 0 0 0 0 0 0
-            MNCA 1 1 0 0 0 0 1 1 0 0
+            ABCD 1 1 0 0 0 0 1 1 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -94,7 +141,7 @@ public sealed class ZemaxImportTests
             },
             operand =>
             {
-                Assert.Equal("MNCA", operand.Type);
+                Assert.Equal("ABCD", operand.Type);
                 Assert.False(operand.Enabled);
                 Assert.Equal(1, operand.Surface);
                 Assert.Equal(1, operand.Wavelength);
@@ -104,7 +151,179 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void ZemaxReadOnlyConstraintColumnsAreNotTreatedAsWavelengthReferences()
+    public void ExecutableZemaxMeritRowsDoNotFallThroughToCompatibilityImport()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 20
+            SURF 1
+              STOP
+              CURV 0
+              DISZ 0
+            RSCE 0 1 1 0 0 0 0 1 0 0
+            TOTR 0 0 0 0 0 0 20 1 0 0
+            TTHI 0 1 0 0 0 0 20 1 0 0
+            REAR 0 1 0 0 0 0 0 1 0 0
+            CONS 0 0 0 0 0 0 1 0 0 0
+            SINE 5 0 0 0 0 0 0.8414709848078965 1 0 0
+            DIVI 5 2 0 0 0 0 0.05 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        Assert.Equal(
+            new[] { "RSCE", "TOTR", "TTHI", "REAR", "CONS", "SINE", "DIVI" },
+            optic.MeritFunctionOperands.Select(operand => operand.Type));
+        Assert.All(optic.MeritFunctionOperands, operand =>
+        {
+            Assert.True(operand.Enabled);
+            Assert.False(operand.CompatibilityOnly);
+        });
+
+        var totalTrack = MeritFunctionCatalog.Evaluate(optic, optic.MeritFunctionOperands[1]);
+        var rangeThickness = MeritFunctionCatalog.Evaluate(optic, optic.MeritFunctionOperands[2]);
+        Assert.Equal(20, totalTrack.Value, precision: 12);
+        Assert.Equal(20, rangeThickness.Value, precision: 12);
+        Assert.Empty(totalTrack.Error);
+        Assert.Empty(rangeThickness.Error);
+    }
+
+    [Fact]
+    public void OrderedZemaxMathOperandsEvaluatePreviousRows()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 100
+            SURF 1
+              STOP
+              DISZ 0
+            CONS 0 0 0 0 0 0 1.5707963267948966 0 0 0
+            SINE 1 0 0 0 0 0 1 2 0 0
+            CONS 0 0 0 0 0 0 4 0 0 0
+            DIVI 3 2 0 0 0 0 4 3 0 0
+            SUMM 1 4 0 0 0 0 5.570796326794897 1 0 0
+            PROD 3 4 0 0 0 0 16 1 0 0
+            MAXX 1 6 0 0 0 0 16 1 0 0
+            MINN 1 6 0 0 0 0 1 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
+
+        Assert.All(optic.MeritFunctionOperands, operand =>
+        {
+            Assert.True(operand.Enabled);
+            Assert.False(operand.CompatibilityOnly);
+        });
+        Assert.Equal(Math.PI / 2, evaluations[0].Value, precision: 12);
+        Assert.Equal(1, evaluations[1].Value, precision: 12);
+        Assert.Equal(4, evaluations[2].Value, precision: 12);
+        Assert.Equal(4, evaluations[3].Value, precision: 12);
+        Assert.Equal((Math.PI / 2) + 4, evaluations[4].Value, precision: 12);
+        Assert.Equal(16, evaluations[5].Value, precision: 12);
+        Assert.Equal(16, evaluations[6].Value, precision: 12);
+        Assert.Equal(1, evaluations[7].Value, precision: 12);
+        Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void ZemaxTrigonometricMathOperandsHonorDegreeFlag()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 100
+            SURF 1
+              STOP
+              DISZ 0
+            CONS 0 0 0 0 0 0 90 0 0 0
+            SINE 1 1 0 0 0 0 1 1 0 0
+            COSI 1 1 0 0 0 0 0 1 0 0
+            ASIN 2 1 0 0 0 0 90 1 0 0
+            ACOS 3 1 0 0 0 0 90 1 0 0
+            ATAN 2 1 0 0 0 0 45 1 0 0
+            CONS 0 0 0 0 0 0 -1 0 0 0
+            LOGE 7 0 0 0 0 0 0 1 0 0
+            LOGT 7 0 0 0 0 0 0 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
+
+        Assert.Equal(1, evaluations[1].Value, precision: 12);
+        Assert.Equal(0, evaluations[2].Value, precision: 12);
+        Assert.Equal(90, evaluations[3].Value, precision: 12);
+        Assert.Equal(90, evaluations[4].Value, precision: 12);
+        Assert.Equal(45, evaluations[5].Value, precision: 12);
+        Assert.Equal(0, evaluations[7].Value, precision: 12);
+        Assert.Equal(0, evaluations[8].Value, precision: 12);
+        Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void OrderedZemaxMathOperandsReportInvalidReferencesAndDomains()
+    {
+        var optic = new Optic("math");
+        var futureReference = new[]
+        {
+            new MeritOperandDefinition { Type = "SINE", Surface = 2 },
+            new MeritOperandDefinition { Type = "CONS", Target = 1 }
+        };
+        var divideByZero = new[]
+        {
+            new MeritOperandDefinition { Type = "CONS", Target = 2 },
+            new MeritOperandDefinition { Type = "CONS", Target = 0 },
+            new MeritOperandDefinition { Type = "DIVI", Surface = 1, Wavelength = 2 }
+        };
+        var negativeRoot = new[]
+        {
+            new MeritOperandDefinition { Type = "CONS", Target = -1 },
+            new MeritOperandDefinition { Type = "SQRT", Surface = 1 }
+        };
+
+        var futureEvaluation = MeritFunctionCatalog.EvaluateAll(optic, futureReference);
+        var divideEvaluation = MeritFunctionCatalog.EvaluateAll(optic, divideByZero);
+        var rootEvaluation = MeritFunctionCatalog.EvaluateAll(optic, negativeRoot);
+
+        Assert.Contains("前序行", futureEvaluation[0].Error, StringComparison.Ordinal);
+        Assert.Contains("分母", divideEvaluation[2].Error, StringComparison.Ordinal);
+        Assert.Contains("不能为负数", rootEvaluation[1].Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(futureEvaluation[0].Contribution));
+        Assert.True(double.IsPositiveInfinity(divideEvaluation[2].Contribution));
+        Assert.True(double.IsPositiveInfinity(rootEvaluation[1].Contribution));
+    }
+
+    [Fact]
+    public void SingleRowZemaxMathOperandRequiresOrderedEvaluation()
+    {
+        var optic = new Optic("math");
+        var evaluation = MeritFunctionCatalog.Evaluate(
+            optic,
+            new MeritOperandDefinition
+            {
+                Type = "SINE",
+                Surface = 1
+            });
+
+        Assert.Contains("有序评价函数入口", evaluation.Error, StringComparison.Ordinal);
+        Assert.True(double.IsNaN(evaluation.Value));
+    }
+
+    [Fact]
+    public void ZemaxCompatibilityOperandSlotsAreNotTreatedAsWavelengthReferences()
     {
         const string source = """
             MODE SEQ
@@ -118,7 +337,7 @@ public sealed class ZemaxImportTests
               DISZ 100
             SURF 1
               DISZ 0
-            MNEA 1 15 0 0 0 0 0.1 1 0 0
+            ABCD 1 15 0 0 0 0 0.1 1 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -128,7 +347,7 @@ public sealed class ZemaxImportTests
         var restored = Optic.FromSnapshot(snapshot);
         var operand = Assert.Single(restored.MeritFunctionOperands);
 
-        Assert.Equal("MNEA", operand.Type);
+        Assert.Equal("ABCD", operand.Type);
         Assert.False(operand.Enabled);
         Assert.Equal(1, operand.Surface);
         Assert.Equal(15, operand.Wavelength);
@@ -210,14 +429,14 @@ public sealed class ZemaxImportTests
               CURV 0
               DISZ 0
             SINE 3 0 0 0 0 0 0 0 0 0
-            TTHI 0 15 0.25 0 0 0 195 0.02 0 0
-            CTGT 15 2 0 0 0 0 0.33 0.02 0 0
+            TTHI 0 1 0.25 0 0 0 20 0.02 0 0
+            CTGT 1 2 0 0 0 0 0.33 0.02 0 0
             PMAG 0 1 0 0 0 0 -0.018 0 0 0
-            DIVI 15 14 0 0 0 0 -10 0.1 0 0
+            DIVI 3 2 0 0 0 0 -10 0.1 0 0
             REAR 0 1 0 1 0 0 0 0 0 0
             DIMX 0 1 0 0 0 0 2 0 0 0
             PETZ 0 1 0 0 0 0 -99.794 0 0 0
-            MXEG 1 15 0 0 0 0 6 0.01 0 0
+            MXEG 1 1 0 0 0 0 6 0.01 0 0
             TRAR 0 1 0 -1 0.335710687 0 0 0.0969627362 0 0
             """;
 
@@ -228,15 +447,33 @@ public sealed class ZemaxImportTests
         Assert.Equal(
             new[] { "SINE", "TTHI", "CTGT", "PMAG", "DIVI", "REAR", "DIMX", "PETZ", "MXEG", "TRAR" },
             optic.MeritFunctionOperands.Select(operand => operand.Type));
-        Assert.All(optic.MeritFunctionOperands.Take(9), operand => Assert.False(operand.Enabled));
+        Assert.All(optic.MeritFunctionOperands, operand =>
+        {
+            Assert.True(operand.Enabled);
+            Assert.False(operand.CompatibilityOnly);
+        });
 
         var thickness = optic.MeritFunctionOperands[1];
+        Assert.True(thickness.Enabled);
         Assert.Equal(0, thickness.Surface);
-        Assert.Equal(15, thickness.Wavelength);
+        Assert.Equal(1, thickness.Wavelength);
         Assert.Equal(0.25, thickness.Hx, precision: 12);
         Assert.Equal(0, thickness.Field);
-        Assert.Equal(195, thickness.Target, precision: 12);
+        Assert.Equal(20, thickness.Target, precision: 12);
         Assert.Equal(0.02, thickness.Weight, precision: 12);
+        var thicknessEvaluation = MeritFunctionCatalog.Evaluate(optic, thickness);
+        Assert.Equal(20, thicknessEvaluation.Value, precision: 12);
+        Assert.Empty(thicknessEvaluation.Error);
+
+        var radialRay = optic.MeritFunctionOperands[5];
+        Assert.True(radialRay.Enabled);
+        Assert.Equal("REAR", radialRay.Type);
+        Assert.Equal(0, radialRay.Surface);
+        Assert.Equal(1, radialRay.Wavelength);
+        Assert.Equal(0, radialRay.Hx, precision: 12);
+        Assert.Equal(1, radialRay.Hy, precision: 12);
+        Assert.Equal(0, radialRay.Px, precision: 12);
+        Assert.Equal(0, radialRay.Py, precision: 12);
 
         var ray = optic.MeritFunctionOperands[^1];
         Assert.True(ray.Enabled);
@@ -247,6 +484,274 @@ public sealed class ZemaxImportTests
         Assert.Equal(0.335710687, ray.Px, precision: 12);
         Assert.Equal(0, ray.Py, precision: 12);
         Assert.Equal(0.0969627362, ray.Weight, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxBoundaryAndFirstOrderOperandsEvaluateWithZemaxStyleTargets()
+    {
+        const string source = """
+            MODE SEQ
+            NAME "Zemax boundary operands"
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 10
+            SURF 1
+              STOP
+              CURV 0
+              DISZ 4
+              GLAS N-BK7
+              DIAM 5 1 0 0 1 ""
+            SURF 2
+              CURV 0
+              DISZ 10
+              DIAM 5 1 0 0 1 ""
+            SURF 3
+              CURV 0
+              DISZ 0
+            CTGT 1 0 0 0 0 0 3 1 0 0
+            CTGT 1 0 0 0 0 0 5 1 0 0
+            MXEG 1 1 0 0 0 0 6 1 0 0
+            MXEG 1 1 0 0 0 0 3 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        const string finiteConjugateSource = """
+            MODE SEQ
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 10
+            SURF 1
+              STOP
+              CURV 0
+              DISZ 10
+            SURF 2
+              CURV 0
+              DISZ 0
+            PMAG 0 1 0 0 0 0 -1 1 0 0
+            """;
+        var finiteConjugateOptic = OpticalFormatCatalog.Import(finiteConjugateSource, ".zmx");
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
+        var paraxialMagnification = MeritFunctionCatalog.Evaluate(
+            finiteConjugateOptic,
+            finiteConjugateOptic.MeritFunctionOperands.Single());
+
+        Assert.Equal(3, evaluations[0].Value, precision: 12);
+        Assert.Equal(4, evaluations[1].Value, precision: 12);
+        Assert.Equal(6, evaluations[2].Value, precision: 12);
+        Assert.Equal(4, evaluations[3].Value, precision: 12);
+        Assert.Equal(-1, paraxialMagnification.Value, precision: 12);
+        Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+        Assert.Empty(paraxialMagnification.Error);
+        Assert.Equal(0, evaluations[0].Contribution, precision: 12);
+        Assert.Equal(1, evaluations[1].Contribution, precision: 12);
+        Assert.Equal(0, evaluations[2].Contribution, precision: 12);
+        Assert.Equal(1, evaluations[3].Contribution, precision: 12);
+    }
+
+    [Fact]
+    public void ZemaxCommonThicknessAndLensDataOperandsEvaluateWithZemaxSlots()
+    {
+        const string source = """
+            MODE SEQ
+            NAME "Zemax common operand bundle"
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 10
+            SURF 1
+              STOP
+              CURV 0
+              DISZ 4
+              GLAS N-BK7
+              DIAM 5 1 0 0 1 ""
+            SURF 2
+              CURV 0
+              DISZ 10
+              DIAM 5 1 0 0 1 ""
+            SURF 3
+              CURV 0.25
+              CONI -1
+              DISZ 6
+              GLAS N-BK7
+              DIAM 5 1 0 0 1 ""
+            SURF 4
+              CURV 0
+              DISZ 0
+            WLEN 0 1 0 0 0 0 0.5875618 1 0 0
+            INDX 1 1 0 0 0 0 1.5 1 0 0
+            EFLX 1 4 0 0 0 0 0 0 0 0
+            EFLY 1 4 0 0 0 0 0 0 0 0
+            ENPP 0 0 0 0 0 0 0 0 0 0
+            EPDI 0 0 0 0 0 0 10 1 0 0
+            EXPP 0 0 0 0 0 0 0 0 0 0
+            EXPD 0 0 0 0 0 0 0 0 0 0
+            ISNA 0 0 0 0 0 0 0 0 0 0
+            ISFN 0 0 0 0 0 0 0 0 0 0
+            SFNO 0 0 0 0 0 0 0 0 0 0
+            WFNO 0 0 0 0 0 0 0 0 0 0
+            CTLT 1 0 0 0 0 0 3 1 0 0
+            CTVA 1 0 0 0 0 0 4 1 0 0
+            ETGT 1 0 0 0 0 0 3 1 0 0
+            ETLT 1 0 0 0 0 0 3 1 0 0
+            ETVA 1 0 0 0 0 0 4 1 0 0
+            TTGT 1 0 0 0 0 0 3 1 0 0
+            TTLT 1 0 0 0 0 0 3 1 0 0
+            TTVA 1 0 0 0 0 0 4 1 0 0
+            FTGT 2 0 0 0 0 0 9 1 0 0
+            FTLT 2 0 0 0 0 0 11 1 0 0
+            STHI 1 0 0 2 0 0 4 1 0 0
+            CVVA 3 0 0 0 0 0 0.25 1 0 0
+            MNCV 1 3 0 0 0 0 0 1 0 0
+            MXCV 1 3 0 0 0 0 0.2 1 0 0
+            COVA 3 0 0 0 0 0 -1 1 0 0
+            MNSD 1 3 0 0 0 0 5 1 0 0
+            MXSD 1 3 0 0 0 0 4 1 0 0
+            MNCA 2 2 0 0 0 0 8 1 0 0
+            MXCA 2 2 0 0 0 0 8 1 0 0
+            MNEA 2 2 0 0 0 0 8 1 0 0
+            MXEA 2 2 0 0 0 0 8 1 0 0
+            MNCG 1 1 0 0 0 0 3 1 0 0
+            MXCG 1 1 0 0 0 0 3 1 0 0
+            MNEG 1 1 0 0 0 0 3 1 0 0
+            MNCT 1 2 0 0 0 0 4 1 0 0
+            MXCT 1 2 0 0 0 0 6 1 0 0
+            MNET 1 1 0 0 0 0 3 1 0 0
+            MXET 1 1 0 0 0 0 3 1 0 0
+            XNEA 2 2 0 0 0 0 8 1 0 0
+            XXEA 2 2 0 0 0 0 8 1 0 0
+            XNEG 1 1 0 0 0 0 3 1 0 0
+            XXEG 1 1 0 0 0 0 3 1 0 0
+            XNET 1 2 0 0 0 0 3 1 0 0
+            XXET 1 2 0 0 0 0 12 1 0 0
+            TGTH 1 4 0 0 0 0 10 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var evaluations = MeritFunctionCatalog
+            .EvaluateAll(optic, optic.MeritFunctionOperands)
+            .Select((evaluation, index) => (Type: optic.MeritFunctionOperands[index].Type, Evaluation: evaluation))
+            .ToDictionary(item => item.Type, item => item.Evaluation, StringComparer.Ordinal);
+
+        var wavelength = optic.Wavelengths.Single().Nanometers;
+        var expectedGlassIndex = optic.SurfaceGroup.Items.Single(surface => surface.Number == 1)
+            .MaterialAfter
+            .RefractiveIndex(wavelength);
+        const double curvedAirEdgeThickness = 13.125;
+
+        Assert.Equal(0.5875618, evaluations["WLEN"].Value, precision: 12);
+        Assert.Equal(expectedGlassIndex, evaluations["INDX"].Value, precision: 12);
+        Assert.True(double.IsFinite(evaluations["EFLX"].Value));
+        Assert.Equal(evaluations["EFLX"].Value, evaluations["EFLY"].Value, precision: 12);
+        Assert.Equal(10, evaluations["EPDI"].Value, precision: 12);
+        Assert.True(double.IsFinite(evaluations["ENPP"].Value));
+        Assert.True(double.IsFinite(evaluations["EXPP"].Value));
+        Assert.True(double.IsFinite(evaluations["EXPD"].Value));
+        Assert.True(evaluations["ISNA"].Value >= 0);
+        Assert.Equal(evaluations["ISFN"].Value, evaluations["SFNO"].Value, precision: 12);
+        Assert.Equal(evaluations["ISFN"].Value, evaluations["WFNO"].Value, precision: 12);
+        Assert.Equal(4, evaluations["CTLT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["CTVA"].Value, precision: 12);
+        Assert.Equal(3, evaluations["ETGT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["ETLT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["ETVA"].Value, precision: 12);
+        Assert.Equal(3, evaluations["TTGT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["TTLT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["TTVA"].Value, precision: 12);
+        Assert.Equal(9, evaluations["FTGT"].Value, precision: 12);
+        Assert.Equal(curvedAirEdgeThickness, evaluations["FTLT"].Value, precision: 12);
+        Assert.Equal(4, evaluations["STHI"].Value, precision: 12);
+        Assert.Equal(0.25, evaluations["CVVA"].Value, precision: 12);
+        Assert.Equal(0, evaluations["MNCV"].Value, precision: 12);
+        Assert.Equal(0.25, evaluations["MXCV"].Value, precision: 12);
+        Assert.Equal(-1, evaluations["COVA"].Value, precision: 12);
+        Assert.Equal(5, evaluations["MNSD"].Value, precision: 12);
+        Assert.Equal(5, evaluations["MXSD"].Value, precision: 12);
+        Assert.Equal(8, evaluations["MNCA"].Value, precision: 12);
+        Assert.Equal(10, evaluations["MXCA"].Value, precision: 12);
+        Assert.Equal(8, evaluations["MNEA"].Value, precision: 12);
+        Assert.Equal(curvedAirEdgeThickness, evaluations["MXEA"].Value, precision: 12);
+        Assert.Equal(3, evaluations["MNCG"].Value, precision: 12);
+        Assert.Equal(4, evaluations["MXCG"].Value, precision: 12);
+        Assert.Equal(3, evaluations["MNEG"].Value, precision: 12);
+        Assert.Equal(4, evaluations["MNCT"].Value, precision: 12);
+        Assert.Equal(10, evaluations["MXCT"].Value, precision: 12);
+        Assert.Equal(3, evaluations["MNET"].Value, precision: 12);
+        Assert.Equal(4, evaluations["MXET"].Value, precision: 12);
+        Assert.Equal(8, evaluations["XNEA"].Value, precision: 12);
+        Assert.Equal(curvedAirEdgeThickness, evaluations["XXEA"].Value, precision: 12);
+        Assert.Equal(3, evaluations["XNEG"].Value, precision: 12);
+        Assert.Equal(4, evaluations["XXEG"].Value, precision: 12);
+        Assert.Equal(3, evaluations["XNET"].Value, precision: 12);
+        Assert.Equal(curvedAirEdgeThickness, evaluations["XXET"].Value, precision: 12);
+        Assert.Equal(10, evaluations["TGTH"].Value, precision: 12);
+        Assert.All(evaluations.Values, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void ZemaxPetzvalAndDistortionOperandsReuseAnalysisEngines()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var petzval = new MeritOperandDefinition
+        {
+            Type = "PETZ",
+            Wavelength = 1,
+            ZemaxIntegerParameters = new[] { 0, 1 },
+            Target = 0,
+            Weight = 0
+        };
+        var distortion = new DistortionAnalysis(
+            optic,
+            numPoints: 33,
+            wavelengthNumber: 1,
+            displayMode: "percent")
+            .GenerateData()
+            .Values["MaximumAbsoluteDistortionPercent"];
+        var expectedDistortion = Assert.IsType<double>(distortion);
+        var distortionWithinLimit = new MeritOperandDefinition
+        {
+            Type = "DIMX",
+            Wavelength = 1,
+            ZemaxIntegerParameters = new[] { 0, 1 },
+            Target = expectedDistortion + 1,
+            Weight = 1
+        };
+        var distortionAboveLimit = new MeritOperandDefinition
+        {
+            Type = "DIMX",
+            Wavelength = 1,
+            ZemaxIntegerParameters = new[] { 0, 1 },
+            Target = expectedDistortion / 2,
+            Weight = 1
+        };
+
+        var petzvalEvaluation = MeritFunctionCatalog.Evaluate(optic, petzval);
+        var distortionWithinEvaluation = MeritFunctionCatalog.Evaluate(optic, distortionWithinLimit);
+        var distortionAboveEvaluation = MeritFunctionCatalog.Evaluate(optic, distortionAboveLimit);
+
+        Assert.True(double.IsFinite(petzvalEvaluation.Value));
+        Assert.Empty(petzvalEvaluation.Error);
+        Assert.Equal(expectedDistortion + 1, distortionWithinEvaluation.Value, precision: 12);
+        Assert.Equal(expectedDistortion, distortionAboveEvaluation.Value, precision: 12);
+        Assert.Empty(distortionWithinEvaluation.Error);
+        Assert.Empty(distortionAboveEvaluation.Error);
     }
 
     [Fact]

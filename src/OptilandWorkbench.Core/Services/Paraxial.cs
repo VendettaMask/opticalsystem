@@ -36,6 +36,40 @@ public sealed class Paraxial
         return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
     }
 
+    public double EstimateEffectiveFocalLengthBetweenSurfaces(int startSurface, int endSurface)
+    {
+        EnsureComputable();
+        var surfaces = _optic.SurfaceGroup.Items;
+        if (surfaces.Count == 0)
+        {
+            throw new InvalidOperationException("The optical system has no surfaces.");
+        }
+
+        var startIndex = startSurface <= 0
+            ? 0
+            : surfaces.ToList().FindIndex(surface => surface.Number == startSurface);
+        if (startIndex < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startSurface), startSurface, "Start surface was not found.");
+        }
+
+        var endIndex = endSurface <= 0
+            ? surfaces.Count - 1
+            : surfaces.ToList().FindIndex(surface => surface.Number == endSurface);
+        if (endIndex < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(endSurface), endSurface, "End surface was not found.");
+        }
+
+        if (endIndex < startIndex)
+        {
+            throw new ArgumentOutOfRangeException(nameof(endSurface), endSurface, "End surface must be at or after start surface.");
+        }
+
+        var matrix = TraceMatrix(startIndex, endIndex + 1, PrimaryWavelengthNanometers());
+        return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
+    }
+
     public double EstimateFNumber()
     {
         EnsureComputable();

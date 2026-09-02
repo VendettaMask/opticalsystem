@@ -152,12 +152,13 @@ public partial class WorkbenchRuntime
         Optic optic,
         IReadOnlyList<MeritOperandDefinition> definitions)
     {
-        using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, definitions);
         var contribution = 0.0;
         var requestedWeight = 0.0;
         var includedWeight = 0.0;
-        foreach (var definition in definitions)
+        for (var index = 0; index < definitions.Count; index++)
         {
+            var definition = definitions[index];
             if (!definition.Enabled || Math.Abs(definition.Weight) <= 0)
             {
                 continue;
@@ -165,7 +166,7 @@ public partial class WorkbenchRuntime
 
             var weight = Math.Abs(definition.Weight);
             requestedWeight += weight;
-            var evaluation = MeritFunctionCatalog.Evaluate(optic, definition);
+            var evaluation = evaluations[index];
             if (!string.IsNullOrEmpty(evaluation.Error)
                 || !double.IsFinite(evaluation.Value)
                 || !double.IsFinite(evaluation.Contribution))

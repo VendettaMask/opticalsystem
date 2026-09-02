@@ -82,7 +82,7 @@ ZMX 导入边界包括编码检测、顺序模式验证、`UNIT` 长度单位缩
 
 ZMX 导出写入 `UNIT MM`、系统孔径、视场、像方无焦标志、波长、主波长和有序 `GCAT`。导出只对可无损表达为 Zemax `STANDARD`、`EVENASPH`、`ODDASPHE` 和基础 `TOROIDAL` 的几何写出 `TYPE`；环形物理孔径写为 `APMN`，其它 Workbench 特有或尚未映射到 Zemax 的几何/孔径会明确失败，不再静默降级为 `TYPE STANDARD`。像方无焦按 Zemax 风格作为像空间角度坐标处理：点列图、光线扇形、RMS Spot、FFT/MMDFT/Huygens PSF、MTF 和波前/OPD 会在最终像面使用相对主光线的角度坐标（mrad）、角频率（cycles/mrad）和屈光度离焦（D）；波前参考由参考球切换为垂直主光线的平面。CODE V、OSLO 和通用顺序文本只覆盖公共表面字段。完整状态应使用 STAROPT。
 
-Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。当前 `[MS-L7]` 参考文件的 103 行评价函数已按源顺序导入：63 行 `TRAR` 使用现有执行路径，九类未实现计算的操作数按 `Int1`、`Int2`、`Data1`–`Data4`、`Target`、`Weight` 原样禁用只读保留。兼容表中出现或能够往返的操作数不等于已经完成参数语义、求值和 Zemax 数值等价。
+Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。当前 `[MS-L7]` 参考文件的 103 行评价函数已按源顺序导入；109 个 Zemax 顺序操作数已有定义级可执行路径，覆盖 `TRAR`、范围厚度 `TTHI/TGTH`、实际光线径向坐标 `REAR`、实际光线角度 `RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`DIMX`、`PETZ`、`MXEG`。兼容表中出现或能够往返的操作数不等于已经完成参数语义、求值和 Zemax 数值等价；新增执行路径也必须通过 Zemax/ZOS-API golden 对照后才能标为完整兼容。
 
 ## 文档服务
 

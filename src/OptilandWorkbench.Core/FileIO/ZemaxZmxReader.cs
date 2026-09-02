@@ -255,33 +255,113 @@ internal static class ZemaxZmxReader
                 case "ANAY":
                 case "REAX":
                 case "REAY":
+                case "REAR":
+                case "RANG":
                     ReadPupilRayMeritOperand(document, tokens, command);
                     break;
+                case "RSCE":
+                case "RSCH":
+                case "RSRE":
+                case "RSRH":
                 case "MECS":
                 case "MECT":
                 case "EFFL":
+                case "EFLX":
+                case "EFLY":
+                case "ENPP":
+                case "EPDI":
+                case "EXPP":
+                case "EXPD":
+                case "ISNA":
+                case "ISFN":
+                case "SFNO":
+                case "WFNO":
+                case "WLEN":
+                case "INDX":
+                case "PMAG":
+                case "PETZ":
+                case "DIMX":
                     ReadStandardMeritOperand(document, tokens, command);
                     break;
-                case "CONF":
-                case "RANG":
-                case "CONS":
-                case "PROD":
-                case "OPLT":
+                case "TOTR":
+                    ReadSystemMeritOperand(document, tokens, command);
+                    break;
+                case "TTHI":
+                case "TGTH":
+                    ReadRangeThicknessMeritOperand(document, tokens, command);
+                    break;
+                case "ETGT":
+                case "ETLT":
+                case "ETVA":
+                case "FTGT":
+                case "FTLT":
+                case "STHI":
+                case "TTGT":
+                case "TTLT":
+                case "TTVA":
+                    ReadSurfaceBoundaryMeritOperand(document, tokens, command);
+                    break;
+                case "CTGT":
+                case "CTLT":
+                case "CTVA":
+                case "CVGT":
+                case "CVLT":
+                case "CVVA":
+                case "COGT":
+                case "COLT":
+                case "COVA":
+                    ReadSurfaceBoundaryMeritOperand(document, tokens, command);
+                    break;
                 case "MNCA":
                 case "MXCA":
                 case "MNEA":
+                case "MXEA":
                 case "MNCG":
                 case "MXCG":
                 case "MNEG":
                 case "MXEG":
-                case "TTHI":
-                case "CTGT":
-                case "PMAG":
-                case "REAR":
-                case "DIMX":
-                case "PETZ":
+                case "MNCT":
+                case "MXCT":
+                case "MNET":
+                case "MXET":
+                case "MNCV":
+                case "MXCV":
+                case "MNSD":
+                case "MXSD":
+                case "XNEA":
+                case "XXEA":
+                case "XNEG":
+                case "XXEG":
+                case "XNET":
+                case "XXET":
+                    ReadRangeThicknessMeritOperand(document, tokens, command);
+                    break;
+                case "CONS":
                 case "SINE":
+                case "COSI":
+                case "TANG":
+                case "ASIN":
+                case "ACOS":
+                case "ATAN":
+                case "ABSO":
+                case "SQRT":
+                case "RECI":
+                case "LOGE":
+                case "LOGT":
+                case "SUMM":
+                case "PROD":
                 case "DIVI":
+                case "DIFF":
+                case "MAXX":
+                case "MINN":
+                case "OPGT":
+                case "OPLT":
+                case "ABGT":
+                case "ABLT":
+                case "OPVA":
+                    ReadMathMeritOperand(document, tokens, command);
+                    break;
+                case "CONF":
                     ReadPreservedMeritOperand(document, tokens, command);
                     break;
                 case "MNUM":
@@ -908,6 +988,90 @@ internal static class ZemaxZmxReader
         }
 
         document.MeritOperands.Add(operand);
+    }
+
+    private static void ReadRangeThicknessMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
+        });
+    }
+
+    private static void ReadSystemMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
+        });
+    }
+
+    private static void ReadMathMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
+        });
+    }
+
+    private static void ReadSurfaceBoundaryMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            Surface = RequiredInt(tokens, 1, command),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Px = RequiredDouble(tokens, 5, command),
+            Py = RequiredDouble(tokens, 6, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
+        });
     }
 
     private static void ReadPreservedMeritOperand(

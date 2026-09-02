@@ -139,25 +139,59 @@ public static class MeritFunctionCatalog
         new MeritOperandType("DMFS", "默认评价函数设置", "默认评价函数向导生成的说明行"),
         new MeritOperandType("BLNK", "空白/注释", "不参与评价函数计算"),
         new MeritOperandType("CONF", "Zemax 配置切换", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("RANG", "Zemax 范围运算", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("CONS", "Zemax 常数", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("PROD", "Zemax 乘积运算", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("OPLT", "Zemax 小于约束", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MNCA", "最小空气中心厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MXCA", "最大空气中心厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MNEA", "最小空气边缘厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MNCG", "最小玻璃中心厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MXCG", "最大玻璃中心厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MNEG", "最小玻璃边缘厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("MXEG", "最大玻璃边缘厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("TTHI", "总厚度", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("CTGT", "中心厚度下限", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("PMAG", "近轴放大率", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("REAR", "实际光线径向坐标", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("DIMX", "最大畸变", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("PETZ", "佩兹伐曲率", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("SINE", "正弦", "从 Zemax 导入并作为只读记录保留"),
-        new MeritOperandType("DIVI", "除法", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("RANG", "实际光线角度", "指定光线在表面处相对光轴的角度（弧度）"),
+        new MeritOperandType("CONS", "Zemax 常数", "按 Zemax 行顺序把目标值作为当前值"),
+        new MeritOperandType("PROD", "Zemax 乘积运算", "按 Zemax 行顺序计算两个前序行的乘积"),
+        new MeritOperandType("OPLT", "Zemax 小于约束", "指定前序行值的上限约束"),
+        new MeritOperandType("OPGT", "Zemax 大于约束", "指定前序行值的下限约束"),
+        new MeritOperandType("ABLT", "绝对值小于约束", "指定前序行绝对值的上限约束"),
+        new MeritOperandType("ABGT", "绝对值大于约束", "指定前序行绝对值的下限约束"),
+        new MeritOperandType("OPVA", "操作数值", "读取指定前序行的当前值"),
+        new MeritOperandType("MNCA", "最小空气中心厚度", "指定范围内空气空间中心厚度的最小值下限"),
+        new MeritOperandType("MXCA", "最大空气中心厚度", "指定范围内空气空间中心厚度的最大值上限"),
+        new MeritOperandType("MNEA", "最小空气边缘厚度", "指定范围内空气空间 +Y 边缘厚度的最小值下限"),
+        new MeritOperandType("MXEA", "最大空气边缘厚度", "指定范围内空气空间 +Y 边缘厚度的最大值上限"),
+        new MeritOperandType("MNCG", "最小玻璃中心厚度", "指定范围内玻璃空间中心厚度的最小值下限"),
+        new MeritOperandType("MXCG", "最大玻璃中心厚度", "指定范围内玻璃空间中心厚度的最大值上限"),
+        new MeritOperandType("MNCT", "最小中心厚度", "指定范围内全部空间中心厚度的最小值下限"),
+        new MeritOperandType("MXCT", "最大中心厚度", "指定范围内全部空间中心厚度的最大值上限"),
+        new MeritOperandType("MNEG", "最小玻璃边缘厚度", "指定范围内玻璃空间 +Y 边缘厚度的最小值下限"),
+        new MeritOperandType("MXEG", "最大玻璃边缘厚度", "指定范围内玻璃空间 +Y 边缘厚度的最大值上限"),
+        new MeritOperandType("MNET", "最小边缘厚度", "指定范围内全部空间 +Y 边缘厚度的最小值下限"),
+        new MeritOperandType("MXET", "最大边缘厚度", "指定范围内全部空间 +Y 边缘厚度的最大值上限"),
+        new MeritOperandType("XNEA", "最小空气边缘厚度（全周）", "指定范围内空气空间全周边厚的最小值下限"),
+        new MeritOperandType("XXEA", "最大空气边缘厚度（全周）", "指定范围内空气空间全周边厚的最大值上限"),
+        new MeritOperandType("XNEG", "最小玻璃边缘厚度（全周）", "指定范围内玻璃空间全周边厚的最小值下限"),
+        new MeritOperandType("XXEG", "最大玻璃边缘厚度（全周）", "指定范围内玻璃空间全周边厚的最大值上限"),
+        new MeritOperandType("XNET", "最小边缘厚度（全周）", "指定范围内全部空间全周边厚的最小值下限"),
+        new MeritOperandType("XXET", "最大边缘厚度（全周）", "指定范围内全部空间全周边厚的最大值上限"),
+        new MeritOperandType("TGTH", "玻璃总厚度", "指定起止表面之间玻璃空间中心厚度总和"),
+        new MeritOperandType("TTHI", "Zemax 范围厚度", "指定起止表面之间的轴向总厚度"),
+        new MeritOperandType("CTGT", "中心厚度下限", "指定表面后的中心厚度下限"),
+        new MeritOperandType("CTLT", "中心厚度上限", "指定表面后的中心厚度上限"),
+        new MeritOperandType("CTVA", "中心厚度值", "指定表面后的中心厚度"),
+        new MeritOperandType("ETGT", "边缘厚度下限", "指定表面后边缘厚度的下限约束"),
+        new MeritOperandType("ETLT", "边缘厚度上限", "指定表面后边缘厚度的上限约束"),
+        new MeritOperandType("ETVA", "边缘厚度值", "指定表面后边缘厚度"),
+        new MeritOperandType("FTGT", "全口径厚度下限", "指定表面后径向全厚度的最小值下限"),
+        new MeritOperandType("FTLT", "全口径厚度上限", "指定表面后径向全厚度的最大值上限"),
+        new MeritOperandType("STHI", "指定点厚度", "指定表面后给定 X/Y 坐标处的厚度"),
+        new MeritOperandType("CVGT", "曲率下限", "指定表面曲率的下限约束"),
+        new MeritOperandType("CVLT", "曲率上限", "指定表面曲率的上限约束"),
+        new MeritOperandType("CVVA", "曲率值", "指定表面的曲率"),
+        new MeritOperandType("MNCV", "最小曲率", "指定范围内表面曲率的最小值下限"),
+        new MeritOperandType("MXCV", "最大曲率", "指定范围内表面曲率的最大值上限"),
+        new MeritOperandType("COGT", "圆锥常数下限", "指定表面圆锥常数的下限约束"),
+        new MeritOperandType("COLT", "圆锥常数上限", "指定表面圆锥常数的上限约束"),
+        new MeritOperandType("COVA", "圆锥常数值", "指定表面的圆锥常数"),
+        new MeritOperandType("MNSD", "最小半口径", "指定范围内表面半口径的最小值下限"),
+        new MeritOperandType("MXSD", "最大半口径", "指定范围内表面半口径的最大值上限"),
+        new MeritOperandType("PMAG", "近轴放大率", "有限物方共轭的近轴横向放大率"),
+        new MeritOperandType("REAR", "实际光线径向坐标", "指定光线在表面上的径向坐标"),
+        new MeritOperandType("DIMX", "最大畸变", "按现有畸变分析计算最大绝对畸变百分比上限"),
+        new MeritOperandType("PETZ", "佩兹伐半径", "按 Seidel Petzval sum 计算佩兹伐半径"),
+        new MeritOperandType("SINE", "正弦", "按 Zemax 行顺序对指定前序行取正弦"),
+        new MeritOperandType("DIVI", "除法", "按 Zemax 行顺序计算两个前序行的商"),
         new MeritOperandType("RSCE", "RMS 点列半径", "指定视场和波长的 RMS 点列半径"),
         new MeritOperandType("RSCH", "RMS 点列半径（主光线参考）", "使用高斯求积采样的主光线参考 RMS 点列半径"),
         new MeritOperandType("RSRE", "RMS 点列半径（矩形采样）", "使用矩形阵列采样的质心参考 RMS 点列半径"),
@@ -183,8 +217,23 @@ public static class MeritFunctionCatalog
         new MeritOperandType("REAX", "实际光线 X", "指定光线在表面上的 X 坐标"),
         new MeritOperandType("REAY", "实际光线 Y", "指定光线在表面上的 Y 坐标"),
         new MeritOperandType("EFFL", "有效焦距", "系统有效焦距"),
+        new MeritOperandType("EFLX", "X 向有效焦距", "X 截面的系统有效焦距"),
+        new MeritOperandType("EFLY", "Y 向有效焦距", "Y 截面的系统有效焦距"),
+        new MeritOperandType("ENPP", "入瞳位置", "系统入瞳相对位置"),
+        new MeritOperandType("EPDI", "入瞳直径", "系统入瞳直径"),
+        new MeritOperandType("EXPP", "出瞳位置", "系统出瞳相对位置"),
+        new MeritOperandType("EXPD", "出瞳直径", "系统出瞳直径"),
+        new MeritOperandType("ISFN", "像方 F 数", "系统像方 F 数"),
+        new MeritOperandType("SFNO", "系统 F 数", "系统 F 数"),
+        new MeritOperandType("WFNO", "工作 F 数", "系统工作 F 数"),
+        new MeritOperandType("ISNA", "像方数值孔径", "近轴边缘光线给出的像方数值孔径"),
+        new MeritOperandType("WLEN", "波长", "指定波长编号的波长值（µm）"),
+        new MeritOperandType("INDX", "折射率", "指定表面后材料在指定波长处的折射率"),
         new MeritOperandType("FNUM", "像方 F 数", "系统像方 F 数"),
         new MeritOperandType("TOTR", "系统总长", "系统总光程长度"),
+        new MeritOperandType("TTGT", "总厚度下限", "指定表面后给定边缘方向总厚度的下限约束"),
+        new MeritOperandType("TTLT", "总厚度上限", "指定表面后给定边缘方向总厚度的上限约束"),
+        new MeritOperandType("TTVA", "总厚度值", "指定表面后给定边缘方向总厚度"),
         new MeritOperandType("RADI", "表面曲率半径", "指定表面的曲率半径"),
         new MeritOperandType("THIC", "表面厚度", "指定表面后的轴向厚度")
     };
@@ -257,10 +306,173 @@ public static class MeritFunctionCatalog
         string PupilSampling,
         bool PolychromaticReference);
 
+    private sealed class OrderedMeritEvaluationContext
+    {
+        private readonly IReadOnlyList<MeritOperandDefinition> _definitions;
+        private readonly MeritOperandEvaluation[] _evaluations;
+        private readonly double[] _values;
+        private readonly bool[] _hasFiniteValue;
+
+        public OrderedMeritEvaluationContext(
+            IReadOnlyList<MeritOperandDefinition> definitions,
+            MeritOperandEvaluation[] evaluations)
+        {
+            _definitions = definitions;
+            _evaluations = evaluations;
+            _values = new double[definitions.Count];
+            _hasFiniteValue = new bool[definitions.Count];
+        }
+
+        public int CurrentRowIndex { get; set; }
+
+        public void Record(int rowIndex, MeritOperandEvaluation evaluation)
+        {
+            var definition = _definitions[rowIndex];
+            var canonicalType = (definition.Type ?? string.Empty).Trim().ToUpperInvariant();
+            var usableValue = definition.Enabled
+                && canonicalType is not ("BLNK" or "DMFS")
+                && string.IsNullOrEmpty(evaluation.Error)
+                && double.IsFinite(evaluation.Value);
+            _values[rowIndex] = evaluation.Value;
+            _hasFiniteValue[rowIndex] = usableValue;
+        }
+
+        public double RowValue(int oneBasedRow)
+        {
+            if (oneBasedRow <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(oneBasedRow),
+                    oneBasedRow,
+                    "Zemax 行引用必须是从 1 开始的评价函数行号。");
+            }
+
+            var rowIndex = oneBasedRow - 1;
+            if (rowIndex >= _definitions.Count)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(oneBasedRow),
+                    oneBasedRow,
+                    "Zemax 行引用超出评价函数范围。");
+            }
+
+            if (rowIndex >= CurrentRowIndex)
+            {
+                throw new InvalidOperationException("Zemax 数学操作数只能引用已经计算完成的前序行。");
+            }
+
+            if (!_hasFiniteValue[rowIndex])
+            {
+                var referenced = _evaluations[rowIndex];
+                var reason = !string.IsNullOrEmpty(referenced.Error)
+                    ? referenced.Error
+                    : "被引用行不是可用的有限数值。";
+                throw new InvalidOperationException($"Zemax 行 {oneBasedRow} 不能作为数学操作数输入：{reason}");
+            }
+
+            return _values[rowIndex];
+        }
+
+        public double[] RowRangeValues(int firstOneBasedRow, int lastOneBasedRow)
+        {
+            if (lastOneBasedRow < firstOneBasedRow)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(lastOneBasedRow),
+                    lastOneBasedRow,
+                    "Zemax 行范围终点不能小于起点。");
+            }
+
+            var values = new double[lastOneBasedRow - firstOneBasedRow + 1];
+            for (var offset = 0; offset < values.Length; offset++)
+            {
+                values[offset] = RowValue(firstOneBasedRow + offset);
+            }
+
+            return values;
+        }
+    }
+
     public static MeritOperandEvaluation Evaluate(Optic optic, MeritOperandDefinition definition)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(definition);
+        if (!definition.Enabled)
+        {
+            return new MeritOperandEvaluation(0, 0);
+        }
+
+        return EvaluateCore(optic, definition, context: null);
+    }
+
+    public static IReadOnlyList<MeritOperandEvaluation> EvaluateAll(
+        Optic optic,
+        IReadOnlyList<MeritOperandDefinition> definitions)
+    {
+        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(definitions);
+
+        using var evaluationBatch = BeginEvaluationBatch();
+        var evaluations = new MeritOperandEvaluation[definitions.Count];
+        var context = new OrderedMeritEvaluationContext(definitions, evaluations);
+        for (var index = 0; index < definitions.Count; index++)
+        {
+            var definition = definitions[index]
+                ?? throw new ArgumentException("评价函数操作数不能为 null。", nameof(definitions));
+            context.CurrentRowIndex = index;
+            evaluations[index] = EvaluateCore(optic, definition, context);
+            context.Record(index, evaluations[index]);
+        }
+
+        return evaluations;
+    }
+
+    public static Operand CreateOperand(Optic optic, MeritOperandDefinition definition)
+    {
+        return new Operand(
+            CanonicalType(definition.Type),
+            definition.Target,
+            definition.Weight,
+            () =>
+            {
+                var value = Evaluate(optic, definition);
+                return string.IsNullOrEmpty(value.Error) && double.IsFinite(value.Value)
+                    ? value.Value
+                    : 1_000_000;
+            });
+    }
+
+    public static IReadOnlyList<Operand> CreateOperands(
+        Optic optic,
+        IReadOnlyList<MeritOperandDefinition> definitions)
+    {
+        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(definitions);
+
+        return definitions
+            .Select((definition, index) => (Definition: definition, Index: index))
+            .Where(item => item.Definition.Enabled
+                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS"))
+            .Select(item => new Operand(
+                $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}",
+                item.Definition.Target,
+                item.Definition.Weight,
+                () =>
+                {
+                    var evaluations = EvaluateAll(optic, definitions);
+                    var evaluation = evaluations[item.Index];
+                    return string.IsNullOrEmpty(evaluation.Error) && double.IsFinite(evaluation.Value)
+                        ? evaluation.Value
+                        : 1_000_000;
+                }))
+            .ToArray();
+    }
+
+    private static MeritOperandEvaluation EvaluateCore(
+        Optic optic,
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context)
+    {
         if (!definition.Enabled)
         {
             return new MeritOperandEvaluation(0, 0);
@@ -280,7 +492,7 @@ public static class MeritFunctionCatalog
                     $"Merit operand '{canonicalType}' is preserved for compatibility but is not executable.");
             }
 
-            var value = EvaluateValue(optic, definition);
+            var value = EvaluateValue(optic, definition, context);
             if (!double.IsFinite(value))
             {
                 throw new InvalidOperationException("计算结果不是有限数值。");
@@ -299,21 +511,6 @@ public static class MeritFunctionCatalog
         {
             return new MeritOperandEvaluation(double.NaN, double.PositiveInfinity, exception.Message);
         }
-    }
-
-    public static Operand CreateOperand(Optic optic, MeritOperandDefinition definition)
-    {
-        return new Operand(
-            CanonicalType(definition.Type),
-            definition.Target,
-            definition.Weight,
-            () =>
-            {
-                var value = Evaluate(optic, definition);
-                return string.IsNullOrEmpty(value.Error) && double.IsFinite(value.Value)
-                    ? value.Value
-                    : 1_000_000;
-            });
     }
 
     public static IReadOnlyList<MeritOperandDefinition> CreateDefaultRmsSpot(Optic optic)
@@ -794,10 +991,53 @@ public static class MeritFunctionCatalog
         ZemaxOperandRegistry.TryGet(type, out var descriptor)
         && descriptor.SupportLevel == ZemaxOperandSupportLevel.CompatibilityOnly;
 
-    private static double EvaluateValue(Optic optic, MeritOperandDefinition definition)
+    private static double EvaluateValue(
+        Optic optic,
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context)
     {
         return CanonicalType(definition.Type) switch
         {
+            "CONS" => definition.Target,
+            "SINE" => EvaluateForwardTrigonometricRowMath(definition, context, Math.Sin),
+            "COSI" => EvaluateForwardTrigonometricRowMath(definition, context, Math.Cos),
+            "TANG" => EvaluateForwardTrigonometricRowMath(definition, context, Math.Tan),
+            "ASIN" => EvaluateInverseTrigonometricRowMath(definition, context, value =>
+                value is < -1 or > 1
+                    ? throw new ArithmeticException("ASIN 的输入必须在 [-1, 1] 内。")
+                    : Math.Asin(value)),
+            "ACOS" => EvaluateInverseTrigonometricRowMath(definition, context, value =>
+                value is < -1 or > 1
+                    ? throw new ArithmeticException("ACOS 的输入必须在 [-1, 1] 内。")
+                    : Math.Acos(value)),
+            "ATAN" => EvaluateInverseTrigonometricRowMath(definition, context, Math.Atan),
+            "ABSO" => EvaluateUnaryRowMath(definition, context, Math.Abs),
+            "SQRT" => EvaluateUnaryRowMath(definition, context, value =>
+                value < 0
+                    ? throw new ArithmeticException("SQRT 的输入不能为负数。")
+                    : Math.Sqrt(value)),
+            "RECI" => EvaluateUnaryRowMath(definition, context, value =>
+                Math.Abs(value) <= 1e-30
+                    ? throw new DivideByZeroException("RECI 的输入不能为 0。")
+                    : 1 / value),
+            "LOGE" => EvaluateUnaryRowMath(definition, context, value =>
+                value <= 0 ? 0 : Math.Log(value)),
+            "LOGT" => EvaluateUnaryRowMath(definition, context, value =>
+                value <= 0 ? 0 : Math.Log10(value)),
+            "SUMM" => EvaluateBinaryRowMath(definition, context, (first, second) => first + second),
+            "PROD" => EvaluateBinaryRowMath(definition, context, (first, second) => first * second),
+            "MAXX" => EvaluateRowRangeMath(definition, context, values => values.Max()),
+            "MINN" => EvaluateRowRangeMath(definition, context, values => values.Min()),
+            "DIFF" => EvaluateBinaryRowMath(definition, context, (first, second) => first - second),
+            "DIVI" => EvaluateBinaryRowMath(definition, context, (first, second) =>
+                Math.Abs(second) <= 1e-30
+                    ? throw new DivideByZeroException("DIVI 的分母不能为 0。")
+                    : first / second),
+            "OPVA" => EvaluateOperandValue(definition, context),
+            "OPGT" => BoundaryGreaterThanOrEqual(EvaluateOperandValue(definition, context), definition.Target),
+            "OPLT" => BoundaryLessThanOrEqual(EvaluateOperandValue(definition, context), definition.Target),
+            "ABGT" => BoundaryGreaterThanOrEqual(Math.Abs(EvaluateOperandValue(definition, context)), definition.Target),
+            "ABLT" => BoundaryLessThanOrEqual(Math.Abs(EvaluateOperandValue(definition, context)), definition.Target),
             "RSCE" => EvaluateRmsSpot(optic, definition),
             "RSCH" => EvaluateRmsSpot(optic, definition),
             "RSRE" => EvaluateRmsSpot(optic, definition),
@@ -822,14 +1062,924 @@ public static class MeritFunctionCatalog
             "MECT" => EvaluateMooreElliottDifference(optic, definition, sagittal: false),
             "REAX" => SampleAtSurface(optic, definition).Position.X,
             "REAY" => SampleAtSurface(optic, definition).Position.Y,
+            "REAR" => EvaluateRealRayRadius(optic, definition),
+            "RANG" => EvaluateRealRayAngle(optic, definition),
             "EFFL" => optic.Paraxial.EstimateEffectiveFocalLength(),
+            "EFLX" => EvaluateEffectiveFocalLengthBetweenSurfaces(optic, definition),
+            "EFLY" => EvaluateEffectiveFocalLengthBetweenSurfaces(optic, definition),
+            "ENPP" => optic.Paraxial.EstimateEntrancePupilLocation(),
+            "EPDI" => optic.Paraxial.EstimateEntrancePupilDiameter(),
+            "EXPP" => optic.Paraxial.EstimateExitPupilLocation(),
+            "EXPD" => optic.Paraxial.EstimateExitPupilDiameter(),
+            "ISFN" => optic.Paraxial.EstimateFNumber(),
+            "SFNO" => optic.Paraxial.EstimateFNumber(),
+            "WFNO" => optic.Paraxial.EstimateFNumber(),
+            "ISNA" => EvaluateImageSpaceNumericalAperture(optic, definition),
+            "WLEN" => EvaluateWavelengthMicrometers(optic, definition),
+            "INDX" => EvaluateRefractiveIndex(optic, definition),
             "FNUM" => optic.Paraxial.EstimateFNumber(),
             "TOTR" => optic.SurfaceGroup.TotalTrack,
+            "TTGT" => BoundaryGreaterThanOrEqual(EvaluateDirectedEdgeThickness(optic, definition), definition.Target),
+            "TTLT" => BoundaryLessThanOrEqual(EvaluateDirectedEdgeThickness(optic, definition), definition.Target),
+            "TTVA" => EvaluateDirectedEdgeThickness(optic, definition),
+            "TTHI" => EvaluateRangeThickness(optic, definition),
+            "TGTH" => EvaluateGlassThicknessSum(optic, definition),
+            "CTGT" => BoundaryGreaterThanOrEqual(EvaluateCenterThickness(optic, definition), definition.Target),
+            "CTLT" => BoundaryLessThanOrEqual(EvaluateCenterThickness(optic, definition), definition.Target),
+            "CTVA" => EvaluateCenterThickness(optic, definition),
+            "ETGT" => BoundaryGreaterThanOrEqual(EvaluateDirectedEdgeThickness(optic, definition), definition.Target),
+            "ETLT" => BoundaryLessThanOrEqual(EvaluateDirectedEdgeThickness(optic, definition), definition.Target),
+            "ETVA" => EvaluateDirectedEdgeThickness(optic, definition),
+            "FTGT" => BoundaryGreaterThanOrEqual(EvaluateFullThicknessExtreme(optic, definition, maximum: false), definition.Target),
+            "FTLT" => BoundaryLessThanOrEqual(EvaluateFullThicknessExtreme(optic, definition, maximum: true), definition.Target),
+            "STHI" => EvaluateThicknessAtCoordinate(optic, definition),
+            "CVGT" => BoundaryGreaterThanOrEqual(EvaluateSurfaceCurvature(optic, definition), definition.Target),
+            "CVLT" => BoundaryLessThanOrEqual(EvaluateSurfaceCurvature(optic, definition), definition.Target),
+            "CVVA" => EvaluateSurfaceCurvature(optic, definition),
+            "MNCV" => BoundaryGreaterThanOrEqual(EvaluateRangeScalarExtreme(
+                optic, definition, EvaluateSurfaceCurvature, maximum: false), definition.Target),
+            "MXCV" => BoundaryLessThanOrEqual(EvaluateRangeScalarExtreme(
+                optic, definition, EvaluateSurfaceCurvature, maximum: true), definition.Target),
+            "COGT" => BoundaryGreaterThanOrEqual(EvaluateSurfaceConic(optic, definition), definition.Target),
+            "COLT" => BoundaryLessThanOrEqual(EvaluateSurfaceConic(optic, definition), definition.Target),
+            "COVA" => EvaluateSurfaceConic(optic, definition),
+            "MNSD" => BoundaryGreaterThanOrEqual(EvaluateRangeScalarExtreme(
+                optic, definition, EvaluateSurfaceSemiDiameter, maximum: false), definition.Target),
+            "MXSD" => BoundaryLessThanOrEqual(EvaluateRangeScalarExtreme(
+                optic, definition, EvaluateSurfaceSemiDiameter, maximum: true), definition.Target),
+            "MNCA" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: false, perimeter: false, maximum: false), definition.Target),
+            "MXCA" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: false, perimeter: false, maximum: true), definition.Target),
+            "MNEA" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: true, perimeter: false, maximum: false), definition.Target),
+            "MXEA" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: true, perimeter: false, maximum: true), definition.Target),
+            "MNCG" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: false, perimeter: false, maximum: false), definition.Target),
+            "MXCG" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: false, perimeter: false, maximum: true), definition.Target),
+            "MNEG" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: true, perimeter: false, maximum: false), definition.Target),
+            "MXEG" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: true, perimeter: false, maximum: true), definition.Target),
+            "MNCT" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: false, perimeter: false, maximum: false), definition.Target),
+            "MXCT" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: false, perimeter: false, maximum: true), definition.Target),
+            "MNET" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: true, perimeter: false, maximum: false), definition.Target),
+            "MXET" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: true, perimeter: false, maximum: true), definition.Target),
+            "XNEA" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: true, perimeter: true, maximum: false), definition.Target),
+            "XXEA" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Air, edge: true, perimeter: true, maximum: true), definition.Target),
+            "XNEG" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: true, perimeter: true, maximum: false), definition.Target),
+            "XXEG" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Glass, edge: true, perimeter: true, maximum: true), definition.Target),
+            "XNET" => BoundaryGreaterThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: true, perimeter: true, maximum: false), definition.Target),
+            "XXET" => BoundaryLessThanOrEqual(EvaluateThicknessExtreme(
+                optic, definition, ThicknessMaterialFilter.Any, edge: true, perimeter: true, maximum: true), definition.Target),
+            "PMAG" => EvaluateParaxialMagnification(optic, definition),
+            "PETZ" => EvaluatePetzvalRadius(optic, definition),
+            "DIMX" => BoundaryLessThanOrEqual(EvaluateMaximumDistortion(optic, definition), definition.Target),
             "RADI" => ResolveSurface(optic, definition.Surface).Radius,
             "THIC" => ResolveSurface(optic, definition.Surface).Thickness,
             _ => throw new NotSupportedException(
                 $"Merit operand '{CanonicalType(definition.Type)}' is not executable.")
         };
+    }
+
+    private static double EvaluateUnaryRowMath(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context,
+        Func<double, double> operation)
+    {
+        return operation(RequiredOrderedContext(context).RowValue(
+            ZemaxIntegerParameter(definition, 0, definition.Surface)));
+    }
+
+    private static double EvaluateForwardTrigonometricRowMath(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context,
+        Func<double, double> operation)
+    {
+        var value = RequiredOrderedContext(context).RowValue(
+            ZemaxIntegerParameter(definition, 0, definition.Surface));
+        if (UsesDegreeFlag(definition))
+        {
+            value *= Math.PI / 180.0;
+        }
+
+        return operation(value);
+    }
+
+    private static double EvaluateInverseTrigonometricRowMath(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context,
+        Func<double, double> operation)
+    {
+        var radians = operation(RequiredOrderedContext(context).RowValue(
+            ZemaxIntegerParameter(definition, 0, definition.Surface)));
+        return UsesDegreeFlag(definition)
+            ? radians * 180.0 / Math.PI
+            : radians;
+    }
+
+    private static bool UsesDegreeFlag(MeritOperandDefinition definition) =>
+        ZemaxIntegerParameter(definition, 1, definition.Wavelength) != 0;
+
+    private static double EvaluateBinaryRowMath(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context,
+        Func<double, double, double> operation)
+    {
+        var ordered = RequiredOrderedContext(context);
+        var first = ordered.RowValue(ZemaxIntegerParameter(definition, 0, definition.Surface));
+        var second = ordered.RowValue(ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        return operation(first, second);
+    }
+
+    private static double EvaluateRowRangeMath(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context,
+        Func<IReadOnlyList<double>, double> operation)
+    {
+        var ordered = RequiredOrderedContext(context);
+        var firstRow = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var lastRow = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        if (lastRow <= 0)
+        {
+            lastRow = firstRow;
+        }
+
+        var values = ordered.RowRangeValues(firstRow, lastRow);
+        if (values.Length == 0)
+        {
+            throw new InvalidOperationException("Zemax 行范围没有可计算输入。");
+        }
+
+        return operation(values);
+    }
+
+    private static OrderedMeritEvaluationContext RequiredOrderedContext(
+        OrderedMeritEvaluationContext? context)
+    {
+        return context
+            ?? throw new InvalidOperationException("该 Zemax 数学操作数必须通过有序评价函数入口计算。");
+    }
+
+    private static double EvaluateOperandValue(
+        MeritOperandDefinition definition,
+        OrderedMeritEvaluationContext? context)
+    {
+        return RequiredOrderedContext(context).RowValue(
+            ZemaxIntegerParameter(definition, 0, definition.Surface));
+    }
+
+    private static double EvaluateRealRayRadius(Optic optic, MeritOperandDefinition definition)
+    {
+        var sample = SampleAtSurface(optic, definition);
+        return Math.Sqrt((sample.Position.X * sample.Position.X) + (sample.Position.Y * sample.Position.Y));
+    }
+
+    private static double EvaluateRealRayAngle(Optic optic, MeritOperandDefinition definition)
+    {
+        var direction = SampleAtSurface(optic, definition).Direction;
+        var transverse = Math.Sqrt((direction.X * direction.X) + (direction.Y * direction.Y));
+        var axial = Math.Abs(direction.Z);
+        if (!double.IsFinite(transverse) || !double.IsFinite(axial))
+        {
+            throw new InvalidOperationException("实际光线方向余弦不是有限数值。");
+        }
+
+        return Math.Atan2(transverse, axial);
+    }
+
+    private static double BoundaryGreaterThanOrEqual(double value, double target)
+    {
+        if (!double.IsFinite(target))
+        {
+            throw new ArgumentOutOfRangeException(nameof(target), target, "边界目标值必须是有限数值。");
+        }
+
+        return value >= target ? target : value;
+    }
+
+    private static double BoundaryLessThanOrEqual(double value, double target)
+    {
+        if (!double.IsFinite(target))
+        {
+            throw new ArgumentOutOfRangeException(nameof(target), target, "边界目标值必须是有限数值。");
+        }
+
+        return value <= target ? target : value;
+    }
+
+    private enum ThicknessMaterialFilter
+    {
+        Any,
+        Air,
+        Glass
+    }
+
+    private static double EvaluateEffectiveFocalLengthBetweenSurfaces(
+        Optic optic,
+        MeritOperandDefinition definition)
+    {
+        var startSurface = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var endSurface = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        return optic.Paraxial.EstimateEffectiveFocalLengthBetweenSurfaces(startSurface, endSurface);
+    }
+
+    private static double EvaluateWavelengthMicrometers(Optic optic, MeritOperandDefinition definition)
+    {
+        var wavelength = ResolveWavelength(
+            optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        return wavelength.Micrometers;
+    }
+
+    private static double EvaluateRefractiveIndex(Optic optic, MeritOperandDefinition definition)
+    {
+        var surface = ResolveSurface(optic, ZemaxIntegerParameter(definition, 0, definition.Surface));
+        var wavelength = ResolveWavelength(
+            optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        var index = surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers);
+        if (!double.IsFinite(index))
+        {
+            throw new InvalidOperationException($"表面 {surface.Number} 后材料折射率不是有限数值。");
+        }
+
+        return index;
+    }
+
+    private static double EvaluateCenterThickness(Optic optic, MeritOperandDefinition definition)
+    {
+        var surfaceNumber = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var surface = ResolveSurface(optic, surfaceNumber);
+        if (!double.IsFinite(surface.Thickness))
+        {
+            throw new InvalidOperationException("中心厚度不是有限数值。");
+        }
+
+        return surface.Thickness;
+    }
+
+    private static double EvaluateDirectedEdgeThickness(Optic optic, MeritOperandDefinition definition)
+    {
+        var surfaceNumber = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var surface = ResolveSurface(optic, surfaceNumber);
+        var nextSurface = ResolveNextSurface(optic, surfaceNumber);
+        var edgeCode = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        var coordinate = EdgeCoordinate(surface, edgeCode, zone: 1.0);
+        return ThicknessAtCoordinate(surface, nextSurface, coordinate.X, coordinate.Y);
+    }
+
+    private static double EvaluateFullThicknessExtreme(
+        Optic optic,
+        MeritOperandDefinition definition,
+        bool maximum)
+    {
+        var surfaceNumber = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var surface = ResolveSurface(optic, surfaceNumber);
+        var nextSurface = ResolveNextSurface(optic, surfaceNumber);
+        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter <= 0)
+        {
+            throw new InvalidOperationException("全口径厚度所在表面的半口径不是有效正数。");
+        }
+
+        const int sampleCount = 200;
+        var extreme = maximum ? double.NegativeInfinity : double.PositiveInfinity;
+        for (var index = 0; index <= sampleCount; index++)
+        {
+            var y = surface.SemiDiameter * index / sampleCount;
+            var value = ThicknessAtCoordinate(surface, nextSurface, 0, y);
+            extreme = maximum ? Math.Max(extreme, value) : Math.Min(extreme, value);
+        }
+
+        return extreme;
+    }
+
+    private static double EvaluateThicknessAtCoordinate(Optic optic, MeritOperandDefinition definition)
+    {
+        var surfaceNumber = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var surface = ResolveSurface(optic, surfaceNumber);
+        var nextSurface = ResolveNextSurface(optic, surfaceNumber);
+        return ThicknessAtCoordinate(
+            surface,
+            nextSurface,
+            ZemaxDataParameter(definition, 0, definition.Hx),
+            ZemaxDataParameter(definition, 1, definition.Hy));
+    }
+
+    private static double EvaluateSurfaceCurvature(Optic optic, MeritOperandDefinition definition)
+    {
+        var surface = ResolveSurface(optic, ZemaxIntegerParameter(definition, 0, definition.Surface));
+        return surface.IsPlane ? 0.0 : 1.0 / surface.Radius;
+    }
+
+    private static double EvaluateSurfaceConic(Optic optic, MeritOperandDefinition definition)
+    {
+        return ResolveSurface(
+            optic,
+            ZemaxIntegerParameter(definition, 0, definition.Surface)).Conic;
+    }
+
+    private static double EvaluateSurfaceSemiDiameter(Optic optic, MeritOperandDefinition definition)
+    {
+        var surface = ResolveSurface(optic, ZemaxIntegerParameter(definition, 0, definition.Surface));
+        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter < 0)
+        {
+            throw new InvalidOperationException("表面半口径不是有限非负数值。");
+        }
+
+        return surface.SemiDiameter;
+    }
+
+    private static double EvaluateRangeScalarExtreme(
+        Optic optic,
+        MeritOperandDefinition definition,
+        Func<Optic, MeritOperandDefinition, double> evaluator,
+        bool maximum)
+    {
+        var extreme = maximum ? double.NegativeInfinity : double.PositiveInfinity;
+        var found = false;
+        foreach (var surface in SurfaceRange(optic, definition, includeEndSurface: true))
+        {
+            var localDefinition = definition.Clone();
+            localDefinition.Surface = surface.Number;
+            localDefinition.ZemaxIntegerParameters = [surface.Number, 0];
+            var value = evaluator(
+                optic,
+                localDefinition);
+            if (!double.IsFinite(value))
+            {
+                throw new InvalidOperationException("范围标量计算得到非有限数值。");
+            }
+
+            extreme = maximum ? Math.Max(extreme, value) : Math.Min(extreme, value);
+            found = true;
+        }
+
+        if (!found || !double.IsFinite(extreme))
+        {
+            throw new InvalidOperationException("指定范围内没有可计算的表面。");
+        }
+
+        return extreme;
+    }
+
+    private static double EvaluateThicknessExtreme(
+        Optic optic,
+        MeritOperandDefinition definition,
+        ThicknessMaterialFilter materialFilter,
+        bool edge,
+        bool perimeter,
+        bool maximum)
+    {
+        var wavelength = ResolveWavelength(optic, 0).Nanometers;
+        var extreme = maximum ? double.NegativeInfinity : double.PositiveInfinity;
+        var found = false;
+        foreach (var surface in SurfaceRange(optic, definition, includeEndSurface: true))
+        {
+            if (surface.Number == 0 && ObjectConjugate.IsInfinite(surface))
+            {
+                continue;
+            }
+
+            if (!MatchesThicknessMaterialFilter(surface, wavelength, materialFilter))
+            {
+                continue;
+            }
+
+            var values = edge
+                ? ThicknessEdgeSamples(optic, surface, definition, perimeter)
+                : [CenterThickness(surface)];
+            foreach (var value in values)
+            {
+                if (!double.IsFinite(value))
+                {
+                    throw new InvalidOperationException("厚度计算得到非有限数值。");
+                }
+
+                extreme = maximum
+                    ? Math.Max(extreme, value)
+                    : Math.Min(extreme, value);
+                found = true;
+            }
+        }
+
+        if (!found || !double.IsFinite(extreme))
+        {
+            var materialName = materialFilter switch
+            {
+                ThicknessMaterialFilter.Air => "空气",
+                ThicknessMaterialFilter.Glass => "玻璃",
+                _ => "任意介质"
+            };
+            var thicknessName = edge ? "边厚" : "中心厚度";
+            throw new InvalidOperationException($"指定范围内没有可计算的{materialName}{thicknessName}。");
+        }
+
+        return extreme;
+    }
+
+    private static double EvaluateGlassThicknessSum(Optic optic, MeritOperandDefinition definition)
+    {
+        var wavelength = ResolveWavelength(optic, 0).Nanometers;
+        var thickness = 0.0;
+        var found = false;
+        foreach (var surface in SurfaceRange(optic, definition, includeEndSurface: false))
+        {
+            if (surface.Number == 0 && ObjectConjugate.IsInfinite(surface))
+            {
+                continue;
+            }
+
+            if (!MatchesThicknessMaterialFilter(surface, wavelength, ThicknessMaterialFilter.Glass))
+            {
+                continue;
+            }
+
+            thickness += CenterThickness(surface);
+            found = true;
+        }
+
+        if (!found)
+        {
+            throw new InvalidOperationException("指定范围内没有可计算的玻璃中心厚度。");
+        }
+
+        return thickness;
+    }
+
+    private static IReadOnlyList<double> ThicknessEdgeSamples(
+        Optic optic,
+        OpticalSurface surface,
+        MeritOperandDefinition definition,
+        bool perimeter)
+    {
+        var nextSurface = ResolveNextSurface(optic, surface.Number);
+        var zone = ZemaxDataParameter(definition, 0, definition.Hx);
+        if (Math.Abs(zone) <= 1e-15)
+        {
+            zone = 1.0;
+        }
+
+        if (!double.IsFinite(zone) || zone <= 0 || zone > 1)
+        {
+            throw new InvalidOperationException("边厚 Zone 必须在 (0, 1] 范围内。");
+        }
+
+        var coordinates = perimeter
+            ? PerimeterCoordinates(surface, zone)
+            : new[] { EdgeCoordinate(surface, edgeCode: 0, zone) };
+        return coordinates
+            .Select(coordinate => ThicknessAtCoordinate(surface, nextSurface, coordinate.X, coordinate.Y))
+            .ToArray();
+    }
+
+    private static bool MatchesThicknessMaterialFilter(
+        OpticalSurface surface,
+        double wavelengthNanometers,
+        ThicknessMaterialFilter materialFilter)
+    {
+        return materialFilter switch
+        {
+            ThicknessMaterialFilter.Any => !surface.IsReflective,
+            ThicknessMaterialFilter.Air => IsAirSpace(surface, wavelengthNanometers),
+            ThicknessMaterialFilter.Glass => IsGlassSpace(surface, wavelengthNanometers),
+            _ => false
+        };
+    }
+
+    private static OpticalSurface ResolveNextSurface(Optic optic, int surfaceNumber)
+    {
+        var surfaces = optic.SurfaceGroup.Items;
+        var index = surfaces.ToList().FindIndex(surface => surface.Number == surfaceNumber);
+        if (index < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), surfaceNumber, "找不到指定表面。");
+        }
+
+        if (index >= surfaces.Count - 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), surfaceNumber, "指定表面之后没有下一表面。");
+        }
+
+        return surfaces[index + 1];
+    }
+
+    private static IReadOnlyList<OpticalSurface> SurfaceRange(
+        Optic optic,
+        MeritOperandDefinition definition,
+        bool includeEndSurface)
+    {
+        var startSurface = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var endSurface = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        if (endSurface <= 0)
+        {
+            endSurface = Math.Max(0, optic.SurfaceGroup.Items.Count - 2);
+        }
+
+        if (startSurface < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), startSurface, "起始表面不能为负数。");
+        }
+
+        if (endSurface < startSurface)
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "范围终点不能小于起点。");
+        }
+
+        var surfacesByNumber = optic.SurfaceGroup.Items.ToDictionary(surface => surface.Number);
+        if (!surfacesByNumber.ContainsKey(startSurface))
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), startSurface, "找不到范围起始表面。");
+        }
+
+        if (!surfacesByNumber.ContainsKey(endSurface))
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "找不到范围终止表面。");
+        }
+
+        var lastSurface = includeEndSurface ? endSurface : endSurface - 1;
+        if (lastSurface < startSurface)
+        {
+            return [];
+        }
+
+        var range = new List<OpticalSurface>(lastSurface - startSurface + 1);
+        for (var surfaceNumber = startSurface; surfaceNumber <= lastSurface; surfaceNumber++)
+        {
+            if (!surfacesByNumber.TryGetValue(surfaceNumber, out var surface))
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(definition),
+                    surfaceNumber,
+                    "范围中的表面编号不连续。");
+            }
+
+            range.Add(surface);
+        }
+
+        return range;
+    }
+
+    private static IReadOnlyList<(double X, double Y)> PerimeterCoordinates(
+        OpticalSurface surface,
+        double zone)
+    {
+        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter <= 0)
+        {
+            throw new InvalidOperationException("边厚所在表面的半口径不是有效正数。");
+        }
+
+        const int sampleCount = 64;
+        var radius = surface.SemiDiameter * zone;
+        var coordinates = new (double X, double Y)[sampleCount];
+        for (var index = 0; index < sampleCount; index++)
+        {
+            var angle = 2.0 * Math.PI * index / sampleCount;
+            coordinates[index] = (radius * Math.Cos(angle), radius * Math.Sin(angle));
+        }
+
+        return coordinates;
+    }
+
+    private static (double X, double Y) EdgeCoordinate(
+        OpticalSurface surface,
+        int edgeCode,
+        double zone)
+    {
+        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter <= 0)
+        {
+            throw new InvalidOperationException("边厚所在表面的半口径不是有效正数。");
+        }
+
+        var radius = surface.SemiDiameter * zone;
+        return edgeCode switch
+        {
+            0 => (0, radius),
+            1 => (radius, 0),
+            2 => (0, -radius),
+            3 => (-radius, 0),
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(edgeCode),
+                edgeCode,
+                "边缘方向代码必须是 0(+Y)、1(+X)、2(-Y) 或 3(-X)。")
+        };
+    }
+
+    private static double ThicknessAtCoordinate(
+        OpticalSurface surface,
+        OpticalSurface nextSurface,
+        double x,
+        double y)
+    {
+        if (!double.IsFinite(surface.Thickness))
+        {
+            throw new InvalidOperationException("厚度所在空间的中心厚度不是有限数值。");
+        }
+
+        if (!double.IsFinite(x) || !double.IsFinite(y))
+        {
+            throw new InvalidOperationException("厚度采样坐标必须是有限数值。");
+        }
+
+        var currentSag = surface.Geometry.Sag(x, y);
+        var nextSag = nextSurface.Geometry.Sag(x, y);
+        if (!double.IsFinite(currentSag) || !double.IsFinite(nextSag))
+        {
+            throw new InvalidOperationException("厚度所在表面的 sag 不是有限数值。");
+        }
+
+        var thickness = surface.Thickness + nextSag - currentSag;
+        return surface.IsReflective ? Math.Abs(thickness) : thickness;
+    }
+
+    private static bool IsGlassSpace(OpticalSurface surface, double wavelengthNanometers)
+    {
+        if (surface.IsReflective)
+        {
+            return false;
+        }
+
+        var material = surface.MaterialAfter;
+        var name = material.Name.Trim();
+        if (name.Equals("Air", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Vacuum", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("None", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("MIRROR", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        var index = material.RefractiveIndex(wavelengthNanometers);
+        if (!double.IsFinite(index))
+        {
+            throw new InvalidOperationException($"材料 {material.Name} 的折射率不是有限数值。");
+        }
+
+        return Math.Abs(index - 1.0) > 1e-9
+            || material.GetType().Name.Contains("Glass", StringComparison.Ordinal);
+    }
+
+    private static bool IsAirSpace(OpticalSurface surface, double wavelengthNanometers)
+    {
+        if (surface.IsReflective)
+        {
+            return false;
+        }
+
+        var material = surface.MaterialAfter;
+        var name = material.Name.Trim();
+        if (name.Equals("Air", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Vacuum", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("None", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        var index = material.RefractiveIndex(wavelengthNanometers);
+        if (!double.IsFinite(index))
+        {
+            throw new InvalidOperationException($"材料 {material.Name} 的折射率不是有限数值。");
+        }
+
+        return Math.Abs(index - 1.0) <= 1e-9
+            && !material.GetType().Name.Contains("Glass", StringComparison.Ordinal);
+    }
+
+    private static double CenterThickness(OpticalSurface surface)
+    {
+        if (!double.IsFinite(surface.Thickness))
+        {
+            throw new InvalidOperationException("中心厚度不是有限数值。");
+        }
+
+        return surface.Thickness;
+    }
+
+    private static double EdgeThickness(OpticalSurface surface, OpticalSurface nextSurface)
+    {
+        if (!double.IsFinite(surface.Thickness))
+        {
+            throw new InvalidOperationException("边厚所在空间的中心厚度不是有限数值。");
+        }
+
+        var y = surface.SemiDiameter;
+        if (!double.IsFinite(y) || y <= 0)
+        {
+            throw new InvalidOperationException("边厚所在表面的半口径不是有效正数。");
+        }
+
+        var currentSag = surface.Geometry.Sag(0, y);
+        var nextSag = nextSurface.Geometry.Sag(0, Math.Min(y, nextSurface.SemiDiameter));
+        if (!double.IsFinite(currentSag) || !double.IsFinite(nextSag))
+        {
+            throw new InvalidOperationException("边厚所在表面的 sag 不是有限数值。");
+        }
+
+        return surface.Thickness + nextSag - currentSag;
+    }
+
+    private static double EvaluateParaxialMagnification(Optic optic, MeritOperandDefinition definition)
+    {
+        var objectSurface = optic.SurfaceGroup.Items.FirstOrDefault()
+            ?? throw new InvalidOperationException("系统没有物面。");
+        if (ObjectConjugate.IsInfinite(objectSurface))
+        {
+            throw new InvalidOperationException("无穷远物方没有有限物高，无法计算近轴横向放大率 PMAG。");
+        }
+
+        var wavelength = ResolveWavelength(
+            optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        var objectPosition = objectSurface.CoordinateSystem.Origin.Z;
+        var entrancePupilPosition = optic.Paraxial.EstimateEntrancePupilLocation();
+        var denominator = entrancePupilPosition - objectPosition;
+        if (Math.Abs(denominator) <= 1e-15)
+        {
+            throw new InvalidOperationException("入瞳与物面重合，无法建立近轴主光线。");
+        }
+
+        const double objectHeight = 1.0;
+        var initialSlope = -objectHeight / denominator;
+        var trace = optic.Paraxial.TraceGeneric(
+            new[] { objectHeight },
+            new[] { initialSlope },
+            objectPosition,
+            wavelength.Micrometers);
+        var imageHeight = trace.Heights[^1][0];
+        if (!double.IsFinite(imageHeight))
+        {
+            throw new InvalidOperationException("PMAG 近轴追迹得到非有限像高。");
+        }
+
+        return imageHeight / objectHeight;
+    }
+
+    private static double EvaluatePetzvalRadius(Optic optic, MeritOperandDefinition definition)
+    {
+        var wavelength = ResolveWavelength(
+            optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        var surfaces = optic.SurfaceGroup.Items.ToArray();
+        var petzvalSum = 0.0;
+        for (var index = 1; index < surfaces.Length; index++)
+        {
+            var surface = surfaces[index];
+            var previous = surfaces[index - 1];
+            var nBefore = SafeIndex(previous.MaterialAfter.RefractiveIndex(wavelength.Nanometers));
+            var nAfter = SafeIndex(surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers));
+            var curvature = surface.IsPlane ? 0.0 : 1.0 / surface.Radius;
+            petzvalSum += curvature * (nAfter - nBefore) / (nBefore * nAfter);
+        }
+
+        if (Math.Abs(petzvalSum) <= 1e-15)
+        {
+            throw new InvalidOperationException("Petzval sum is zero; Petzval radius is infinite.");
+        }
+
+        return 1.0 / petzvalSum;
+    }
+
+    private static double SafeIndex(double value) =>
+        double.IsFinite(value) && Math.Abs(value) > 1e-12 ? value : 1.0;
+
+    private static double EvaluateMaximumDistortion(Optic optic, MeritOperandDefinition definition)
+    {
+        var wavelengthNumber = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        var analysis = new DistortionAnalysis(
+            optic,
+            numPoints: 33,
+            wavelengthNumber: wavelengthNumber,
+            displayMode: "percent");
+        var data = analysis.GenerateData();
+        if (data.Values.TryGetValue("MaximumAbsoluteDistortionPercent", out var value)
+            && value is double distortion
+            && double.IsFinite(distortion))
+        {
+            return distortion;
+        }
+
+        throw new InvalidOperationException("DIMX 无法从畸变分析取得最大畸变值。");
+    }
+
+    private static double EvaluateImageSpaceNumericalAperture(Optic optic, MeritOperandDefinition definition)
+    {
+        var wavelength = ResolveWavelength(
+            optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
+        var marginal = optic.Paraxial.MarginalRay(wavelength.Micrometers);
+        var finalSlope = marginal.Slopes[^1][0];
+        if (!double.IsFinite(finalSlope))
+        {
+            throw new InvalidOperationException("像方边缘光线斜率不是有限数值。");
+        }
+
+        var imageMaterial = optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter
+            ?? optic.Materials.Resolve("Air");
+        var imageIndex = imageMaterial.RefractiveIndex(wavelength.Nanometers);
+        if (!double.IsFinite(imageIndex) || imageIndex <= 0)
+        {
+            throw new InvalidOperationException("像方介质折射率不是有效正数。");
+        }
+
+        return Math.Abs(imageIndex * Math.Sin(Math.Atan(finalSlope)));
+    }
+
+
+    private static double EvaluateRangeThickness(Optic optic, MeritOperandDefinition definition)
+    {
+        if (optic.SurfaceGroup.Items.Count < 2)
+        {
+            throw new InvalidOperationException("系统至少需要物面和像面才能计算范围厚度。");
+        }
+
+        var startSurface = ZemaxIntegerParameter(definition, 0, definition.Surface);
+        var endSurface = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
+        if (endSurface <= 0)
+        {
+            endSurface = optic.SurfaceGroup.Items[^1].Number;
+        }
+
+        if (startSurface < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), startSurface, "起始表面不能为负数。");
+        }
+
+        if (endSurface <= startSurface)
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "终止表面必须大于起始表面。");
+        }
+
+        var surfacesByNumber = optic.SurfaceGroup.Items.ToDictionary(surface => surface.Number);
+        if (!surfacesByNumber.ContainsKey(startSurface))
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), startSurface, "找不到范围厚度起始表面。");
+        }
+
+        if (!surfacesByNumber.ContainsKey(endSurface))
+        {
+            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "找不到范围厚度终止表面。");
+        }
+
+        var thickness = 0.0;
+        for (var surfaceNumber = startSurface; surfaceNumber < endSurface; surfaceNumber++)
+        {
+            if (!surfacesByNumber.TryGetValue(surfaceNumber, out var surface))
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(definition),
+                    surfaceNumber,
+                    "范围厚度中的表面编号不连续。");
+            }
+
+            if (surfaceNumber == 0 && ObjectConjugate.IsInfinite(surface))
+            {
+                continue;
+            }
+
+            if (!double.IsFinite(surface.Thickness))
+            {
+                throw new InvalidOperationException("范围厚度包含非有限表面厚度。");
+            }
+
+            thickness += surface.Thickness;
+        }
+
+        return thickness;
+    }
+
+    private static int ZemaxIntegerParameter(
+        MeritOperandDefinition definition,
+        int index,
+        int fallback)
+    {
+        return definition.ZemaxIntegerParameters is { Length: > 0 } parameters
+            && index >= 0
+            && index < parameters.Length
+                ? parameters[index]
+                : fallback;
+    }
+
+    private static double ZemaxDataParameter(
+        MeritOperandDefinition definition,
+        int index,
+        double fallback)
+    {
+        return definition.ZemaxDataParameters is { Length: > 0 } parameters
+            && index >= 0
+            && index < parameters.Length
+                ? parameters[index]
+                : fallback;
     }
 
     private static double EvaluateRmsSpot(Optic optic, MeritOperandDefinition definition)

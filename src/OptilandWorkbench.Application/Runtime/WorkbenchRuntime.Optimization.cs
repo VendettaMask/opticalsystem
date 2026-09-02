@@ -142,11 +142,16 @@ public partial class WorkbenchRuntime
                 }
             }
 
-            var meritOperands = CurrentOptic.MeritFunctionOperands
-                .Where(operand => operand.Enabled
-                    && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
+            var allMeritOperands = CurrentOptic.MeritFunctionOperands
+                .Select(operand => operand.Clone())
                 .ToArray();
-            if (meritOperands.Length == 0)
+            var enabledMeritRows = allMeritOperands
+                .Select((operand, index) => (operand, index))
+                .Where(item => item.operand.Enabled
+                    && MeritFunctionCatalog.CanonicalType(item.operand.Type) is not ("BLNK" or "DMFS"))
+                .Select(item => item.index)
+                .ToArray();
+            if (enabledMeritRows.Length == 0)
             {
                 problem.AddOperand(new Operand(
                     "RMS spot radius",
@@ -156,19 +161,20 @@ public partial class WorkbenchRuntime
             }
             else
             {
-                foreach (var operand in meritOperands)
+                foreach (var operand in MeritFunctionCatalog.CreateOperands(CurrentOptic, allMeritOperands))
                 {
-                    problem.AddOperand(MeritFunctionCatalog.CreateOperand(CurrentOptic, operand));
+                    problem.AddOperand(operand);
                 }
             }
 
             var evaluationSnapshot = CurrentOptic.ToSnapshot();
-            var evaluationOperands = meritOperands.Select(operand => operand.Clone()).ToArray();
+            var evaluationOperands = allMeritOperands.Select(operand => operand.Clone()).ToArray();
             using var evaluationOptics = new ThreadLocal<Optic>(() => Optic.FromSnapshot(evaluationSnapshot));
             problem.SetIndependentValueEvaluator(values => EvaluateIndependentValues(
                 evaluationOptics.Value!,
                 variableBindings,
                 evaluationOperands,
+                enabledMeritRows,
                 values));
 
             var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, maxIterations);
@@ -208,6 +214,7 @@ public partial class WorkbenchRuntime
                 Optic optic,
                 IReadOnlyList<(int SurfaceNumber, bool IsRadius)> bindings,
                 IReadOnlyList<MeritOperandDefinition> operands,
+                IReadOnlyList<int> enabledRows,
                 IReadOnlyList<double> values)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
@@ -226,7 +233,7 @@ public partial class WorkbenchRuntime
                 }
 
                 optic.SurfaceGroup.Renumber();
-                if (operands.Count == 0)
+                if (enabledRows.Count == 0)
                 {
                     try
                     {
@@ -243,10 +250,10 @@ public partial class WorkbenchRuntime
                     }
                 }
 
-                using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
-                return operands.Select(operand =>
+                var evaluations = MeritFunctionCatalog.EvaluateAll(optic, operands);
+                return enabledRows.Select(rowIndex =>
                 {
-                    var evaluation = MeritFunctionCatalog.Evaluate(optic, operand);
+                    var evaluation = evaluations[rowIndex];
                     return string.IsNullOrEmpty(evaluation.Error) && double.IsFinite(evaluation.Value)
                         ? evaluation.Value
                         : 1_000_000;

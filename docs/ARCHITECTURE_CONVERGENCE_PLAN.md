@@ -4,7 +4,7 @@
 
 - 状态：执行中（尚未全部完成）
 - 编写日期：2026-08-02
-- 最后更新：2026-08-30
+- 最后更新：2026-09-02
 - 适用范围：`OptilandWorkbench.Core`、`OptilandWorkbench.Application`、`OptilandWorkbench.App` 及相关测试
 - 核心目标：同一个镜头、同一份设置和同一修订号，无论从哪个受支持入口执行，都必须进入同一条规范计算链路并得到一致结果
 
@@ -21,7 +21,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 最近一次正式产品完整基线为 2026-08-31 的严格构建 `0` 警告、`0` 错误及主测试 `935/935`；其后修改按任务约束只运行构建和相关定向测试，不把筛选数量表述为新全量基线。独立实验室最近一次完整测试为 `21/21`，使用独立解决方案与基线 |
+| 当前验证记录 | 持续维护 | 最近一次正式产品完整基线为 2026-09-02 的严格构建 `0` 警告、`0` 错误及主测试 `997/997`；独立实验室最近一次完整测试为 `21/21`，使用独立解决方案与基线 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
 | 兼容层隔离与旧链路删除 | 已完成隔离 | `OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集；Application/App 不引用或编译 Legacy 命名空间。兼容类型仍为外部源码迁移保留，最终 API 删除属于版本兼容决策 |
@@ -77,9 +77,9 @@
 ### 2026-08-04 Zemax 评价函数导入对齐
 
 - 已实现：参考 `[MS-L7]` ZMX 的评价函数由约 29 行恢复为源文件中的 103 行，行顺序不变；此前漏掉的 63 行 `TRAR` 进入现有光线像差计算路径。
-- 兼容边界：`TTHI`、`CTGT`、`PMAG`、`DIVI`、`REAR`、`DIMX`、`PETZ`、`MXEG` 和 `SINE` 仅按 Zemax 八个参数槽位无损保留并禁用，不伪造当前值或贡献量。
-- 尚未完成：333 项顺序模式操作数的元数据注册表、逐类型参数语义和计算引擎仍按 `ZEMAX_OPERAND_SUPPORT.md` 推进；本轮不能描述为 Zemax 优化数值完全等价。
-- 验证记录：实际 `[MS-L7]` 的 103 行顺序、兼容参数槽位、光线操作数映射、既有约束兼容以及编辑往返不裁剪通过 `6/6` 定向测试；未重跑全量测试。
+- 兼容边界：当前 109 个 Zemax 顺序操作数已接入定义级可执行路径，覆盖 `TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`DIMX`、`PETZ`、`MXEG`；其它尚无完整语义的 Zemax 行继续按八个参数槽位无损保留并禁用，不伪造当前值或贡献量。新增执行路径仍需 Zemax/ZOS-API golden 对照后才能标记完整兼容。
+- 尚未完成：333 项顺序模式操作数的逐类型参数语义、校验规则和计算引擎仍按 `ZEMAX_OPERAND_SUPPORT.md` 推进；本轮不能描述为 Zemax 优化数值完全等价。
+- 验证记录：实际 `[MS-L7]` 的 103 行顺序、兼容参数槽位、光线操作数映射、常见操作数束和编辑往返不裁剪通过定向测试；2026-09-02 全量主测试 `997/997` 通过。
 
 ### 外部审计条目的当前处理结果
 
