@@ -6,7 +6,7 @@
 
 本文定义 Optical System Design 对 Zemax OpticStudio 评价函数操作数的完整支持边界。它既是实现规范，也是验收矩阵，不是对当前代码覆盖率的夸大声明。
 
-目录基线优先对照 Ansys Zemax OpticStudio 官方帮助的 [Optimization Operands Alphabetically](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optimization_Operands_Alphabetically.html)，并与 [光学课堂 Zemax OpticStudio 操作数手册](https://www.optkt.com/hb/operands/) 分类清单交叉核对，复核日期为 2026-09-02。清单共有 337 个分类条目；去除跨分类重复的 `CONF`、`MNPD`、`ZTHI` 和 `POPD` 后，本项目必须支持 333 个唯一的顺序模式操作数。
+目录基线以本机 Ansys Zemax OpticStudio 2026 R1（26.1.0）实际运行的 ZOS-API 为准，并对照官方 `Optimization Operands Summary`。2026-09-02 实测 `MeritOperandType` 枚举有 448 项，新建顺序系统的 MFE 可选择 442 项；剔除其中 24 个 `PnGT/PnLT/PnVA` 废弃代码和 35 个在该列表中出现的非序列/遗留代码后，本项目注册 383 个可用于顺序兼容的代码。`NSRW/NSTW` 只出现在非序列 MFE，不计入上述 442 项。
 
 除下述两类明确排除项外，不得因为实现困难、计算成本、需要其他分析引擎或当前 UI 没有对应入口而省略操作数：
 
@@ -51,7 +51,7 @@ ZemaxOperandDescriptor
 
 导入时先保存 ZMX 行的通用槽位，再由描述符生成类型化访问。快照应保存通用槽位及必要的扩展数据，而不是把第二个整数槽位无条件写进 `Wavelength`。已有 Workbench 友好字段可以继续作为类型化视图，但不能成为原始数据的唯一存储。
 
-操作数代码统一使用大写；参考目录中的 `InGT`、`InLT`、`InVA` 在内部规范化为 `INGT`、`INLT`、`INVA`。
+操作数代码统一使用大写。官方手册中的 `InGT`、`InLT`、`InVA` 是族名，其中 `n` 为 1–6；实际代码必须展开为 `I1GT`–`I6GT`、`I1LT`–`I6LT` 和 `I1VA`–`I6VA`，不得注册并不存在的 `INGT/INLT/INVA`。
 
 
 ## 行颜色语义
@@ -75,11 +75,10 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 | 分类 | 数量 | 必须支持的代码 |
 | --- | ---: | --- |
 | 系统数据 | 8 | `CONF`, `IMSF`, `PRIM`, `SVIG`, `WLEN`, `CVIG`, `FDMO`, `FDRE` |
-| 镜头参数约束 | 50 | `COGT`, `COLT`, `COVA`, `CTGT`, `CTLT`, `CTVA`, `CVGT`, `CVLT`, `CVVA`, `BLTH`, `DMGT`, `DMLT`, `DMVA`, `ETGT`, `ETLT`, `ETVA`, `FTGT`, `FTLT`, `MNCA`, `MNCG`, `MNCT`, `MNCV`, `MNEA`, `MNEG`, `MNET`, `MNPD`, `MXCA`, `MXCG`, `MXCT`, `MXCV`, `MXEA`, `MXEG`, `MXET`, `MNSD`, `MXSD`, `OMMI`, `OMMX`, `OMSD`, `TGTH`, `TTGT`, `TTHI`, `TTLT`, `TTVA`, `XNEA`, `XNET`, `XNEG`, `XXEA`, `XXEG`, `XXET`, `ZTHI` |
+| 镜头参数约束 | 52 | `COGT`, `COLT`, `COVA`, `CTGT`, `CTLT`, `CTVA`, `CVGT`, `CVLT`, `CVVA`, `BLTH`, `DCRV`, `DMGT`, `DMLT`, `DMVA`, `DPHS`, `DSAG`, `DSLP`, `ETGT`, `ETLT`, `ETVA`, `FTGT`, `FTLT`, `MNCA`, `MNCG`, `MNCT`, `MNCV`, `MNEA`, `MNEG`, `MNET`, `MNPD`, `MXCA`, `MXCG`, `MXCT`, `MXCV`, `MXEA`, `MXEG`, `MXET`, `MNSD`, `MXSD`, `QSLP`, `TGTH`, `TTGT`, `TTHI`, `TTLT`, `TTVA`, `XNEA`, `XNET`, `XNEG`, `XXEA`, `XXEG`, `XXET`, `ZTHI` |
 | 玻璃数据约束 | 10 | `GCOS`, `GTCE`, `INDX`, `MNAB`, `MNIN`, `MNPD`, `MXAB`, `MXIN`, `MXPD`, `RGLA` |
 | 组件位置约束 | 7 | `GLCA`, `GLCB`, `GLCC`, `GLCR`, `GLCX`, `GLCY`, `GLCZ` |
 | 参数数据约束 | 3 | `PMGT`, `PMLT`, `PMVA` |
-| 额外数据约束 | 3 | `XDGT`, `XDLT`, `XDVA` |
 | 热膨胀系数数据 | 3 | `TCGT`, `TCLT`, `TCVA` |
 | 多重结构数据 | 5 | `CONF`, `MCOG`, `MCOL`, `MCOV`, `ZTHI` |
 
@@ -94,10 +93,10 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 | 分类 | 数量 | 必须支持的代码 |
 | --- | ---: | --- |
-| 一阶光学性能 | 20 | `AMAG`, `ENPP`, `EFFL`, `EFLX`, `EFLY`, `EPDI`, `EXPD`, `EXPP`, `ISFN`, `ISNA`, `LINV`, `OBSN`, `PIMH`, `PMAG`, `POWF`, `POWP`, `POWR`, `SFNO`, `TFNO`, `WFNO` |
-| 镜头属性约束 | 16 | `CVOL`, `MNDT`, `MXDT`, `SAGX`, `SAGY`, `SSAG`, `STHI`, `TMAS`, `TOTR`, `VOLU`, `NORX`, `NORY`, `NORZ`, `NORD`, `SCUR`, `SDRV` |
+| 一阶光学性能 | 22 | `AMAG`, `CARD`, `ENPP`, `EFFL`, `EFLA`, `EFLX`, `EFLY`, `EPDI`, `EXPD`, `EXPP`, `ISFN`, `ISNA`, `LINV`, `OBSN`, `PIMH`, `PMAG`, `POWF`, `POWP`, `POWR`, `SFNO`, `TFNO`, `WFNO` |
+| 镜头属性约束 | 20 | `CVOL`, `MNDT`, `MXDT`, `PSLP`, `SAGX`, `SAGY`, `SCRV`, `SPHS`, `SSLP`, `SSAG`, `STHI`, `TMAS`, `TOTR`, `VOLU`, `NORX`, `NORY`, `NORZ`, `NORD`, `SCUR`, `SDRV` |
 | 近轴光线数据约束 | 13 | `PANA`, `PANB`, `PANC`, `PARA`, `PARB`, `PARC`, `PARR`, `PARX`, `PARY`, `PARZ`, `PATX`, `PATY`, `YNIP` |
-| 实际光线数据约束 | 43 | `CEHX`, `CEHY`, `CENX`, `CENY`, `CNAX`, `CNAY`, `CNPX`, `CNPY`, `DXDX`, `DXDY`, `DYDX`, `DYDY`, `HHCN`, `IMAE`, `MNRE`, `MNRI`, `MXRE`, `MXRI`, `OPTH`, `PLEN`, `RAED`, `RAEN`, `RAGA`, `RAGB`, `RAGC`, `RAGX`, `RAGY`, `RAGZ`, `RAID`, `RAIN`, `RANG`, `REAA`, `REAB`, `REAC`, `REAR`, `REAX`, `REAY`, `REAZ`, `RENA`, `RENB`, `RENC`, `RETX`, `RETY` |
+| 实际光线数据约束 | 44 | `CEHX`, `CEHY`, `CENX`, `CENY`, `CNAX`, `CNAY`, `CNPX`, `CNPY`, `DXDX`, `DXDY`, `DYDX`, `DYDY`, `HHCN`, `HYLD`, `IMAE`, `MNRE`, `MNRI`, `MXRE`, `MXRI`, `OPTH`, `PLEN`, `RAED`, `RAEN`, `RAGA`, `RAGB`, `RAGC`, `RAGX`, `RAGY`, `RAGZ`, `RAID`, `RAIN`, `RANG`, `REAA`, `REAB`, `REAC`, `REAR`, `REAX`, `REAY`, `REAZ`, `RENA`, `RENB`, `RENC`, `RETX`, `RETY` |
 
 实现要求：
 
@@ -110,12 +109,12 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 | 分类 | 数量 | 必须支持的代码 |
 | --- | ---: | --- |
-| MTF 数据 | 15 | `GMTA`, `GMTS`, `GMTT`, `MECA`, `MECS`, `MECT`, `MSWA`, `MSWS`, `MSWT`, `MTFA`, `MTFS`, `MTFT`, `MTHA`, `MTHS`, `MTHT` |
+| MTF 数据 | 23 | `GMTA`, `GMTN`, `GMTS`, `GMTT`, `GMTX`, `MECA`, `MECS`, `MECT`, `MSWA`, `MSWN`, `MSWS`, `MSWT`, `MSWX`, `MTFA`, `MTFN`, `MTFS`, `MTFT`, `MTFX`, `MTHA`, `MTHN`, `MTHS`, `MTHT`, `MTHX` |
+| PSF/Strehl 数据 | 1 | `STRH` |
 | 傅科分析 | 1 | `FOUC` |
-| 像差 | 50 | `ABCD`, `ANAC`, `ANAR`, `ANAX`, `ANAY`, `ANCX`, `ANCY`, `ASTI`, `AXCL`, `BIOC`, `BIOD`, `BSER`, `COMA`, `DIMX`, `DISA`, `DISC`, `DISG`, `DIST`, `FCGS`, `FCGT`, `FCUR`, `LACL`, `LONA`, `OPDC`, `OPDM`, `OPDX`, `OSCD`, `PETC`, `PETZ`, `RSCE`, `RSCH`, `RSRE`, `RSRH`, `RWCE`, `RWCH`, `RWRE`, `RWRH`, `SMIA`, `SPCH`, `SPHA`, `TRAC`, `TRAD`, `TRAE`, `TRAI`, `TRAR`, `TRAX`, `TRAY`, `TRCX`, `TRCY`, `ZERN` |
-| 鬼像聚焦控制 | 6 | `GPIM`, `GPRT`, `GPRX`, `GPRY`, `GPSX`, `GPSY` |
+| 像差 | 58 | `ABCD`, `ANAC`, `ANAR`, `ANAX`, `ANAY`, `ANCX`, `ANCY`, `ASTI`, `AXCL`, `BIOC`, `BIOD`, `BSER`, `COMA`, `DIMX`, `DISA`, `DISC`, `DISG`, `DIST`, `FCGS`, `FCGT`, `FCUR`, `GSCE`, `GSCH`, `GSRE`, `GSRH`, `LACL`, `LONA`, `MWCE`, `MWCH`, `MWRE`, `MWRH`, `OPDC`, `OPDM`, `OPDX`, `OSCD`, `PETC`, `PETZ`, `RSCE`, `RSCH`, `RSRE`, `RSRH`, `RWCE`, `RWCH`, `RWRE`, `RWRH`, `SMIA`, `SPCH`, `SPHA`, `TRAC`, `TRAD`, `TRAE`, `TRAI`, `TRAR`, `TRAX`, `TRAY`, `TRCX`, `TRCY`, `ZERN` |
+| 鬼像聚焦控制 | 7 | `GAOI`, `GPIM`, `GPRT`, `GPRX`, `GPRY`, `GPSX`, `GPSY` |
 | 光纤耦合 | 3 | `FICL`, `FICP`, `POPD` |
-| 相对照度 | 1 | `ZPLM` |
 | 圈入能量 | 7 | `DENC`, `DENF`, `ERFP`, `GENC`, `GENF`, `XENC`, `XENF` |
 | 光学制造全息图约束 | 1 | `CMFV` |
 | 最佳拟合球面 | 1 | `BFSD` |
@@ -133,7 +132,7 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 | 分类 | 数量 | 必须支持的代码 |
 | --- | ---: | --- |
 | 高斯光束数据 | 11 | `GBPD`, `GBPP`, `GBPR`, `GBPS`, `GBPW`, `GBPZ`, `GBSD`, `GBSP`, `GBSR`, `GBSS`, `GBSW` |
-| 梯度折射率控制 | 7 | `DLTN`, `GRMN`, `GRMX`, `INGT`, `INLT`, `INVA`, `LPTD` |
+| 梯度折射率控制 | 22 | `DLTN`, `GRMN`, `GRMX`, `I1GT`, `I1LT`, `I1VA`, `I2GT`, `I2LT`, `I2VA`, `I3GT`, `I3LT`, `I3VA`, `I4GT`, `I4LT`, `I4VA`, `I5GT`, `I5LT`, `I5VA`, `I6GT`, `I6LT`, `I6VA`, `LPTD` |
 | 镀膜与偏振追迹 | 10 | `CMGT`, `CMLT`, `CMVA`, `CODA`, `CEGT`, `CELT`, `CEVA`, `CIGT`, `CILT`, `CIVA` |
 | 物理光学传播 | 2 | `POPD`, `POPI` |
 
@@ -150,14 +149,21 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 | --- | ---: | --- |
 | 通用数学 | 28 | `ABSO`, `ACOS`, `ASIN`, `ATAN`, `CONS`, `COSI`, `DIFF`, `DIVB`, `DIVI`, `EQUA`, `LOGE`, `LOGT`, `MAXX`, `MINN`, `OPGT`, `OPLT`, `OPVA`, `OSUM`, `PROB`, `PROD`, `QSUM`, `RECI`, `SQRT`, `SUMM`, `SINE`, `TANG`, `ABGT`, `ABLT` |
 | 评价函数控制 | 8 | `BLNK`, `DMFS`, `ENDX`, `GOTO`, `OOFF`, `SKIN`, `SKIS`, `USYM` |
-| ZPL 宏优化 | 2 | `UDOC`, `UDOP` |
-| 用户自定义 | 2 | `RELI`, `EFNO` |
+| 相对照度/有效 F/# | 2 | `RELI`, `EFNO` |
+| ZPL 宏优化 | 1 | `ZPLM` |
+| 用户自定义 | 1 | `UDOC` |
 
 实现要求：
 
 - 数学和控制操作数在稳定的行号模型上执行，支持向前/向后范围、条件跳转、跳过和关闭行。
 - 除零、非法对数/反三角输入、循环跳转和越界行引用必须产生确定且可诊断的错误。
-- `UDOC`、`UDOP`、`RELI`、`EFNO` 通过受限扩展提供程序执行。完整支持指宿主协议、参数传递、超时、取消、异常隔离和确定性返回均已实现；没有安装用户提供程序时必须明确报告缺失，不能返回伪值。
+- `UDOC` 通过受限扩展提供程序执行。`RELI/EFNO` 是内置分析操作数，参数依次为 `Samp/Wave/Field/Pol?`，不得再归入用户扩展。
+
+### 2026 R1 专用兼容项
+
+以下 12 项由当前 ZOS-API 顺序 MFE 实际暴露，但官方 quick-reference 分类表未完整归类；先作为只读兼容项注册：
+
+`BIPF`, `COSA`, `HACG`, `MNAI`, `MXAI`, `OGSS`, `QOAC`, `REQS`, `RRET`, `SPHD`, `TRAN`, `TSAG`
 
 ## 明确排除
 
@@ -169,11 +175,15 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ### 非序列光线追迹和探测器
 
-以下 13 个分类条目属于非序列追迹/探测器，不在本轮范围内：
+以下 15 个非序列或遗留分类条目不在本轮范围内：
 
-`NSDC`, `NSDD`, `NSDE`, `NSDP`, `NSLT`, `NSRA`, `NSRD`, `NSRM`, `NSRW`, `NSST`, `NSTR`, `NSTW`, `REVR`
+`NPAF`, `NSDC`, `NSDD`, `NSDE`, `NSDP`, `NSLT`, `NSRA`, `NSRD`, `NSRM`, `NSRW`, `NSST`, `NSTR`, `NSTW`, `REVR`, `RSNC`
 
-`NSRM` 同时出现在两个非序列分类中，因此非序列排除集共有 35 个唯一代码。
+`NSRM` 同时出现在两个非序列分类中，因此非序列/遗留排除集共有 37 个唯一代码。其中 `NSRW/NSTW` 只出现在非序列系统 MFE，其余 35 项也会由顺序 MFE 的 `AvailableOperandTypes()` 返回，仍必须依据类别排除。
+
+### 当前 API 不可选择或非真实代码
+
+`INGT/INLT/INVA` 是误读族名产生的非真实代码；`OMMI/OMMX/OMSD` 不存在于 2026 R1 ZOS-API 枚举；`UDOP/XDGT/XDLT/XDVA` 虽保留于枚举但无法在新建顺序系统的 MFE 中选择。这 10 项不进入当前注册表。
 
 ### 废弃操作数
 
@@ -181,17 +191,19 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 当前基线与差距
 
-截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本文的 333 个唯一顺序目标代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 109 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
+截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 108 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
 
-`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。ZMX 导入器除已有类型化分支外，会识别全部 333 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
+`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。ZMX 导入器除已有类型化分支外，会识别全部 383 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
 
-参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `DIMX/PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`EFNO` 仍作为用户扩展/采样语义项兼容保留，直到真实 Field/Samp/Wave/Pol 执行协议完成。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
+参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
-本次修正消除了目标目录代码静默丢弃和原始槽位借用友好字段作为唯一存储的问题，并开始为已知操作数补充参数描述符，但没有把“333 项可无损显示”扩大宣称为“333 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
+本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
+
+本次修正消除了目标目录代码静默丢弃和原始槽位借用友好字段作为唯一存储的问题，并开始为已知操作数补充参数描述符，但没有把“383 项可无损显示”扩大宣称为“383 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
 
 当前仍需消除以下技术债：
 
-- 编辑器仍以 `Surface/Field/Wavelength/Hx/Hy/Px/Py` 显示友好视图，尚未按描述符切换全部 333 项的列名和单位；
+- 编辑器仍以 `Surface/Field/Wavelength/Hx/Hy/Px/Py` 显示友好视图，尚未按描述符切换全部 383 项的列名和单位；
 - 快照校验已经能区分 `TTHI/TGTH`、常见 `MN*/MX*/X*` 厚度范围项的终止表面槽位以及基础数学操作数的行引用槽位，但大多数 Zemax 操作数仍需逐类型校验规则；
 - 参考文件之外的未注册代码仍可能被导入器忽略；
 - 控制和质心类操作数仍缺少完整有序行执行语义；基础数学行已具备前序行读取、Flag 角度处理、Zemax 双行/范围区分和错误报告，且 `OPLT/OPGT/ABGT/ABLT/OPVA` 已可按前序行约束求值；`EQUA/PROB/OSUM/QSUM/DIVB` 的 Zemax 特殊贡献语义仍需继续实现；
@@ -203,19 +215,19 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 实施顺序
 
-1. **注册表与快照模型**：333 项代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；已补充首批光线、RMS、Moore-Elliott、`EFFL/TOTR/TTHI/TGTH`、常见镜头/厚度/曲率/圆锥/半口径/玻璃折射率与基础数学行描述符；逐类型参数元数据及验证继续补齐。
+1. **注册表与快照模型**：383 项 2026 R1 实测代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；已补充首批光线、RMS、Moore-Elliott、`EFFL/TOTR/TTHI/TGTH`、常见镜头/厚度/曲率/圆锥/半口径/玻璃折射率与基础数学行描述符；逐类型参数元数据及验证继续补齐。
 2. **ZMX 导入/导出**：元数据驱动解析所有目标代码，保留源顺序和参数，拒绝非序列/废弃项并给出诊断。
 3. **基础约束和一阶量**：完成系统、镜头、玻璃、参数、一阶和属性类。
 4. **光线与像差**：复用按需追迹、波前、像差和介质状态正确性基线。
 5. **分析型操作数**：接入 MTF、能量、鬼像、光纤、POP、高斯、GRIN、镀膜和偏振引擎。
 6. **数学与控制流**：基础数学行已接入有序评价函数入口，支持前序行引用、除零和非法数学域错误；控制流和 Zemax 特殊约束数学仍需继续实现。
 7. **宏和用户扩展**：实现受限提供程序协议。
-8. **全量验收**：对 333 个代码逐项完成导入、参数、数值、往返和非法输入测试。
+8. **全量验收**：对 383 个代码逐项完成导入、参数、数值、往返和非法输入测试。
 
 ## 验收门槛
 
-- 注册表包含且只包含 333 个本规范目标代码，另可保留有文档依据的 Workbench 别名。
-- 非序列 35 个唯一代码和废弃三族不会进入可执行评价函数。
+- 注册表包含且只包含 383 个本规范目标代码，另可保留有文档依据的 Workbench 别名。
+- 非序列/遗留 37 个唯一代码和 24 个废弃 `Pn*` 代码不会进入顺序注册表。
 - 每个目标代码至少一个有效数值用例和一个非法参数用例。
 - ZMX 全目录夹具导入后不产生未知代码、列错位或引用误判。
 - STAROPT 往返保持所有操作数及其类型化参数。

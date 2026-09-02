@@ -20,15 +20,19 @@ namespace OptilandWorkbench.Tests;
 public sealed class ZemaxImportTests
 {
     [Fact]
-    public void RequiredSequentialOperandRegistryContainsExactlyTheDocumented333Codes()
+    public void RequiredSequentialOperandRegistryContainsExactlyTheVerified2026R1Codes()
     {
-        Assert.Equal(333, ZemaxOperandRegistry.Descriptors.Count);
+        Assert.Equal(383, ZemaxOperandRegistry.Descriptors.Count);
         Assert.Equal(
-            333,
+            383,
             ZemaxOperandRegistry.Descriptors
                 .Select(descriptor => descriptor.Code)
                 .Distinct(StringComparer.Ordinal)
                 .Count());
+        Assert.Equal(
+            108,
+            ZemaxOperandRegistry.Descriptors.Count(
+                descriptor => descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable));
         Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
         Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, descriptor.SupportLevel);
         var thicknessDescriptor = ZemaxOperandRegistry.Get("TTHI");
@@ -41,14 +45,18 @@ public sealed class ZemaxImportTests
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("MXEG").SupportLevel);
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PMAG").SupportLevel);
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PETZ").SupportLevel);
-        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("DIMX").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("DIMX").SupportLevel);
         Assert.True(ZemaxOperandRegistry.Get("MXEG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("PMAG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("PETZ").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.False(ZemaxOperandRegistry.Get("PMAG").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
         Assert.False(ZemaxOperandRegistry.Get("PETZ").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
-        Assert.False(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
+        Assert.True(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Field));
+        Assert.True(ZemaxOperandRegistry.Get("DIMX").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("RSCE").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Integer));
+        Assert.True(ZemaxOperandRegistry.Get("RSCE").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.NormalizedField));
+        Assert.False(ZemaxOperandRegistry.Get("MECS").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
         Assert.True(ZemaxOperandRegistry.Get("SINE").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.RowReference));
         Assert.True(ZemaxOperandRegistry.Get("DIVI").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
         Assert.True(ZemaxOperandRegistry.Get("SUMM").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
@@ -65,19 +73,32 @@ public sealed class ZemaxImportTests
             Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get(code).SupportLevel);
         }
 
-        Assert.True(ZemaxOperandRegistry.Get("ETGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
-        Assert.True(ZemaxOperandRegistry.Get("FTGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("ETGT").UsesSlotAs("Data2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("FTGT").UsesSlotAs("Data2", ZemaxOperandParameterValueKind.Flag));
         Assert.True(ZemaxOperandRegistry.Get("STHI").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Numeric));
+        Assert.True(ZemaxOperandRegistry.Get("STHI").UsesSlotAs("Data3", ZemaxOperandParameterValueKind.Flag));
         Assert.True(ZemaxOperandRegistry.Get("MNCT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("MNET").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("XNET").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("TGTH").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
-        Assert.True(ZemaxOperandRegistry.Get("TTGT").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Flag));
+        Assert.True(ZemaxOperandRegistry.Get("TTGT").UsesSlotAs("Data2", ZemaxOperandParameterValueKind.Flag));
         Assert.True(ZemaxOperandRegistry.Get("EFLX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("WLEN").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("INDX").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
         Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("EFNO").SupportLevel);
+        Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Integer));
+        Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
+        Assert.True(ZemaxOperandRegistry.TryGet("CARD", out _));
+        Assert.True(ZemaxOperandRegistry.TryGet("I1GT", out _));
+        Assert.True(ZemaxOperandRegistry.TryGet("I6VA", out _));
+        Assert.True(ZemaxOperandRegistry.TryGet("STRH", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("INGT", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("OMMI", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("UDOP", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("XDGT", out _));
         Assert.False(ZemaxOperandRegistry.TryGet("NSDC", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("NPAF", out _));
+        Assert.False(ZemaxOperandRegistry.TryGet("RSNC", out _));
         Assert.False(ZemaxOperandRegistry.TryGet("PnGT", out _));
     }
 
@@ -187,6 +208,15 @@ public sealed class ZemaxImportTests
             Assert.True(operand.Enabled);
             Assert.False(operand.CompatibilityOnly);
         });
+
+        var rms = optic.MeritFunctionOperands[0];
+        Assert.Equal(1, rms.PupilRings);
+        Assert.Equal(0, rms.ZemaxIntegerParameters[0]);
+        Assert.Equal(0, rms.Surface);
+        Assert.Equal(0, rms.Field);
+        Assert.Equal(1, rms.Wavelength);
+        Assert.Equal(1, rms.Hx, precision: 12);
+        Assert.Equal(0, rms.Hy, precision: 12);
 
         var totalTrack = MeritFunctionCatalog.Evaluate(optic, optic.MeritFunctionOperands[1]);
         var rangeThickness = MeritFunctionCatalog.Evaluate(optic, optic.MeritFunctionOperands[2]);
@@ -447,11 +477,14 @@ public sealed class ZemaxImportTests
         Assert.Equal(
             new[] { "SINE", "TTHI", "CTGT", "PMAG", "DIVI", "REAR", "DIMX", "PETZ", "MXEG", "TRAR" },
             optic.MeritFunctionOperands.Select(operand => operand.Type));
-        Assert.All(optic.MeritFunctionOperands, operand =>
+        Assert.All(optic.MeritFunctionOperands.Where(operand => operand.Type != "DIMX"), operand =>
         {
             Assert.True(operand.Enabled);
             Assert.False(operand.CompatibilityOnly);
         });
+        var distortion = optic.MeritFunctionOperands.Single(operand => operand.Type == "DIMX");
+        Assert.False(distortion.Enabled);
+        Assert.True(distortion.CompatibilityOnly);
 
         var thickness = optic.MeritFunctionOperands[1];
         Assert.True(thickness.Enabled);
@@ -706,7 +739,7 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void ZemaxPetzvalAndDistortionOperandsReuseAnalysisEngines()
+    public void ZemaxPetzvalOperandUsesAnalysisEngineWhileDimxRemainsCompatibilityOnly()
     {
         var optic = Optic.CreateCookeTriplet();
         var petzval = new MeritOperandDefinition
@@ -717,41 +750,24 @@ public sealed class ZemaxImportTests
             Target = 0,
             Weight = 0
         };
-        var distortion = new DistortionAnalysis(
-            optic,
-            numPoints: 33,
-            wavelengthNumber: 1,
-            displayMode: "percent")
-            .GenerateData()
-            .Values["MaximumAbsoluteDistortionPercent"];
-        var expectedDistortion = Assert.IsType<double>(distortion);
-        var distortionWithinLimit = new MeritOperandDefinition
+        var dimx = new MeritOperandDefinition
         {
             Type = "DIMX",
+            CompatibilityOnly = true,
             Wavelength = 1,
             ZemaxIntegerParameters = new[] { 0, 1 },
-            Target = expectedDistortion + 1,
-            Weight = 1
-        };
-        var distortionAboveLimit = new MeritOperandDefinition
-        {
-            Type = "DIMX",
-            Wavelength = 1,
-            ZemaxIntegerParameters = new[] { 0, 1 },
-            Target = expectedDistortion / 2,
+            Target = 1,
             Weight = 1
         };
 
         var petzvalEvaluation = MeritFunctionCatalog.Evaluate(optic, petzval);
-        var distortionWithinEvaluation = MeritFunctionCatalog.Evaluate(optic, distortionWithinLimit);
-        var distortionAboveEvaluation = MeritFunctionCatalog.Evaluate(optic, distortionAboveLimit);
+        var dimxEvaluation = MeritFunctionCatalog.Evaluate(optic, dimx);
 
         Assert.True(double.IsFinite(petzvalEvaluation.Value));
         Assert.Empty(petzvalEvaluation.Error);
-        Assert.Equal(expectedDistortion + 1, distortionWithinEvaluation.Value, precision: 12);
-        Assert.Equal(expectedDistortion, distortionAboveEvaluation.Value, precision: 12);
-        Assert.Empty(distortionWithinEvaluation.Error);
-        Assert.Empty(distortionAboveEvaluation.Error);
+        Assert.True(double.IsNaN(dimxEvaluation.Value));
+        Assert.True(double.IsPositiveInfinity(dimxEvaluation.Contribution));
+        Assert.Contains("not executable", dimxEvaluation.Error, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

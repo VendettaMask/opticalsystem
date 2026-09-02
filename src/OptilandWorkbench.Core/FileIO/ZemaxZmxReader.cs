@@ -263,6 +263,8 @@ internal static class ZemaxZmxReader
                 case "RSCH":
                 case "RSRE":
                 case "RSRH":
+                    ReadRmsSpotMeritOperand(document, tokens, command);
+                    break;
                 case "MECS":
                 case "MECT":
                 case "EFFL":
@@ -280,7 +282,6 @@ internal static class ZemaxZmxReader
                 case "INDX":
                 case "PMAG":
                 case "PETZ":
-                case "DIMX":
                     ReadStandardMeritOperand(document, tokens, command);
                     break;
                 case "TOTR":
@@ -988,6 +989,25 @@ internal static class ZemaxZmxReader
         }
 
         document.MeritOperands.Add(operand);
+    }
+
+    private static void ReadRmsSpotMeritOperand(
+        ZemaxDocument document,
+        IReadOnlyList<string> tokens,
+        string command)
+    {
+        document.MeritOperands.Add(new MeritOperandDefinition
+        {
+            Type = command,
+            PupilRings = Math.Max(1, RequiredInt(tokens, 1, command)),
+            Wavelength = RequiredInt(tokens, 2, command),
+            Hx = RequiredDouble(tokens, 3, command),
+            Hy = RequiredDouble(tokens, 4, command),
+            Target = RequiredDouble(tokens, 7, command),
+            Weight = RequiredDouble(tokens, 8, command),
+            ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
+            ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
+        });
     }
 
     private static void ReadRangeThicknessMeritOperand(

@@ -45,7 +45,7 @@ public sealed record ZemaxOperandDescriptor(
 public static class ZemaxOperandRegistry
 {
     private const string RequiredSequentialCodes = """
-        ABCD ABGT ABLT ABSO ACOS AMAG ANAC ANAR ANAX ANAY ANCX ANCY ASIN ASTI ATAN AXCL BFSD BIOC BIOD BLNK BLTH BSER CEGT CEHX CEHY CELT CENX CENY CEVA CIGT CILT CIVA CMFV CMGT CMLT CMVA CNAX CNAY CNPX CNPY CODA COGT COLT COMA CONF CONS COSI COVA CTGT CTLT CTVA CVGT CVIG CVLT CVOL CVVA DENC DENF DIFF DIMX DISA DISC DISG DIST DIVB DIVI DLTN DMFS DMGT DMLT DMVA DXDX DXDY DYDX DYDY EFFL EFLX EFLY EFNO ENDX ENPP EPDI EQUA ERFP ETGT ETLT ETVA EXPD EXPP FCGS FCGT FCUR FDMO FDRE FICL FICP FOUC FTGT FTLT GBPD GBPP GBPR GBPS GBPW GBPZ GBSD GBSP GBSR GBSS GBSW GCOS GENC GENF GLCA GLCB GLCC GLCR GLCX GLCY GLCZ GMTA GMTS GMTT GOTO GPIM GPRT GPRX GPRY GPSX GPSY GRMN GRMX GTCE HHCN IMAE IMSF INDX INGT INLT INVA ISFN ISNA LACL LINV LOGE LOGT LONA LPTD MAXX MCOG MCOL MCOV MECA MECS MECT MINN MNAB MNCA MNCG MNCT MNCV MNDT MNEA MNEG MNET MNIN MNPD MNRE MNRI MNSD MSWA MSWS MSWT MTFA MTFS MTFT MTHA MTHS MTHT MXAB MXCA MXCG MXCT MXCV MXDT MXEA MXEG MXET MXIN MXPD MXRE MXRI MXSD NORD NORX NORY NORZ OBSN OMMI OMMX OMSD OOFF OPDC OPDM OPDX OPGT OPLT OPTH OPVA OSCD OSUM PANA PANB PANC PARA PARB PARC PARR PARX PARY PARZ PATX PATY PETC PETZ PIMH PLEN PMAG PMGT PMLT PMVA POPD POPI POWF POWP POWR PRIM PROB PROD QSUM RAED RAEN RAGA RAGB RAGC RAGX RAGY RAGZ RAID RAIN RANG REAA REAB REAC REAR REAX REAY REAZ RECI RELI RENA RENB RENC RETX RETY RGLA RSCE RSCH RSRE RSRH RWCE RWCH RWRE RWRH SAGX SAGY SCUR SDRV SFNO SINE SKIN SKIS SMIA SPCH SPHA SQRT SSAG STHI SUMM SVIG TANG TCGT TCLT TCVA TFNO TGTH TMAS TOLR TOTR TRAC TRAD TRAE TRAI TRAR TRAX TRAY TRCX TRCY TTGT TTHI TTLT TTVA UDOC UDOP USYM VOLU WFNO WLEN XDGT XDLT XDVA XENC XENF XNEA XNEG XNET XXEA XXEG XXET YNIP ZERN ZPLM ZTHI
+        ABCD ABGT ABLT ABSO ACOS AMAG ANAC ANAR ANAX ANAY ANCX ANCY ASIN ASTI ATAN AXCL BFSD BIOC BIOD BIPF BLNK BLTH BSER CARD CEGT CEHX CEHY CELT CENX CENY CEVA CIGT CILT CIVA CMFV CMGT CMLT CMVA CNAX CNAY CNPX CNPY CODA COGT COLT COMA CONF CONS COSA COSI COVA CTGT CTLT CTVA CVGT CVIG CVLT CVOL CVVA DCRV DENC DENF DIFF DIMX DISA DISC DISG DIST DIVB DIVI DLTN DMFS DMGT DMLT DMVA DPHS DSAG DSLP DXDX DXDY DYDX DYDY EFFL EFLA EFLX EFLY EFNO ENDX ENPP EPDI EQUA ERFP ETGT ETLT ETVA EXPD EXPP FCGS FCGT FCUR FDMO FDRE FICL FICP FOUC FTGT FTLT GAOI GBPD GBPP GBPR GBPS GBPW GBPZ GBSD GBSP GBSR GBSS GBSW GCOS GENC GENF GLCA GLCB GLCC GLCR GLCX GLCY GLCZ GMTA GMTN GMTS GMTT GMTX GOTO GPIM GPRT GPRX GPRY GPSX GPSY GRMN GRMX GSCE GSCH GSRE GSRH GTCE HACG HHCN HYLD I1GT I1LT I1VA I2GT I2LT I2VA I3GT I3LT I3VA I4GT I4LT I4VA I5GT I5LT I5VA I6GT I6LT I6VA IMAE IMSF INDX ISFN ISNA LACL LINV LOGE LOGT LONA LPTD MAXX MCOG MCOL MCOV MECA MECS MECT MINN MNAB MNAI MNCA MNCG MNCT MNCV MNDT MNEA MNEG MNET MNIN MNPD MNRE MNRI MNSD MSWA MSWN MSWS MSWT MSWX MTFA MTFN MTFS MTFT MTFX MTHA MTHN MTHS MTHT MTHX MWCE MWCH MWRE MWRH MXAB MXAI MXCA MXCG MXCT MXCV MXDT MXEA MXEG MXET MXIN MXPD MXRE MXRI MXSD NORD NORX NORY NORZ OBSN OOFF OGSS OPDC OPDM OPDX OPGT OPLT OPTH OPVA OSCD OSUM PANA PANB PANC PARA PARB PARC PARR PARX PARY PARZ PATX PATY PETC PETZ PIMH PLEN PMAG PMGT PMLT PMVA POPD POPI POWF POWP POWR PRIM PROB PROD PSLP QOAC QSLP QSUM RAED RAEN RAGA RAGB RAGC RAGX RAGY RAGZ RAID RAIN RANG REAA REAB REAC REAR REAX REAY REAZ RECI RELI RENA RENB RENC REQS RETX RETY RGLA RRET RSCE RSCH RSRE RSRH RWCE RWCH RWRE RWRH SAGX SAGY SCRV SCUR SDRV SFNO SINE SKIN SKIS SMIA SPCH SPHA SPHD SPHS SQRT SSAG SSLP STHI STRH SUMM SVIG TANG TCGT TCLT TCVA TFNO TGTH TMAS TOLR TOTR TRAC TRAD TRAE TRAI TRAN TRAR TRAX TRAY TRCX TRCY TSAG TTGT TTHI TTLT TTVA UDOC USYM VOLU WFNO WLEN XENC XENF XNEA XNEG XNET XXEA XXEG XXET YNIP ZERN ZPLM ZTHI
         """;
 
     private static readonly IReadOnlySet<string> ExecutableCodes = new HashSet<string>(
@@ -55,7 +55,7 @@ public static class ZemaxOperandRegistry
             "OPDX", "OPDM", "OPDC", "TRAC", "TRAR", "TRCX", "TRCY",
             "TRAX", "TRAY", "ANAC", "ANAR", "ANCX", "ANCY", "ANAX", "ANAY",
             "MECS", "MECT", "REAX", "REAY", "REAR", "RANG", "EFFL", "TOTR", "TTHI",
-            "CTGT", "MXEG", "PMAG", "PETZ", "DIMX",
+            "CTGT", "MXEG", "PMAG", "PETZ",
             "OPGT", "OPLT", "ABGT", "ABLT", "OPVA",
             "CTLT", "CTVA", "CVGT", "CVLT", "CVVA", "COGT", "COLT", "COVA",
             "ETGT", "ETLT", "ETVA", "FTGT", "FTLT", "STHI",
@@ -81,6 +81,17 @@ public static class ZemaxOperandRegistry
     private static readonly string[] RmsOperandCodes =
     [
         "RSCE", "RSCH", "RSRE", "RSRH"
+    ];
+
+    private static readonly string[] CenterThicknessRangeOperandCodes =
+    [
+        "MNCA", "MXCA", "MNCG", "MXCG", "MNCT", "MXCT"
+    ];
+
+    private static readonly string[] EdgeThicknessRangeOperandCodes =
+    [
+        "MNEA", "MXEA", "MNEG", "MXEG", "MNET", "MXET",
+        "XNEA", "XXEA", "XNEG", "XXEG", "XNET", "XXET"
     ];
 
     private static readonly string[] UnaryRowMathOperandCodes =
@@ -124,14 +135,6 @@ public static class ZemaxOperandRegistry
     private static readonly string[] SpecialThicknessOperandCodes =
     [
         "STHI"
-    ];
-
-    private static readonly string[] RangeThicknessOperandCodes =
-    [
-        "MNCA", "MXCA", "MNEA", "MXEA",
-        "MNCG", "MXCG", "MNEG", "MXEG",
-        "MNCT", "MXCT", "MNET", "MXET",
-        "XNEA", "XXEA", "XNEG", "XXEG", "XNET", "XXET"
     ];
 
     private static readonly string[] RangeCurvatureOperandCodes =
@@ -215,10 +218,10 @@ public static class ZemaxOperandRegistry
         {
             return
             [
-                new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
+                new("Int1", "Rings", ZemaxOperandParameterValueKind.Integer),
                 new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
-                new("Data1", "Field", ZemaxOperandParameterValueKind.Field),
-                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data1", "Hx", ZemaxOperandParameterValueKind.NormalizedField),
+                new("Data2", "Hy", ZemaxOperandParameterValueKind.NormalizedField),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ];
@@ -268,7 +271,7 @@ public static class ZemaxOperandRegistry
             return
             [
                 new("Int1", "Operand row", ZemaxOperandParameterValueKind.RowReference, "row"),
-                new("Int2", "Flag", ZemaxOperandParameterValueKind.Flag),
+                new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
@@ -280,7 +283,7 @@ public static class ZemaxOperandRegistry
         {
             return
             [
-                new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
+                new("Int1", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
                 new("Data1", "Field", ZemaxOperandParameterValueKind.Field),
                 new("Data2", "Spatial frequency", ZemaxOperandParameterValueKind.SpatialFrequency, "lp/mm"),
@@ -294,8 +297,8 @@ public static class ZemaxOperandRegistry
             _ when SurfaceScalarOperandCodes.Contains(code, StringComparer.Ordinal) =>
             [
                 new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
-                new("Int2", "Mode", ZemaxOperandParameterValueKind.Flag),
-                new("Data1", "Zone", ZemaxOperandParameterValueKind.Numeric),
+                new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
@@ -304,30 +307,39 @@ public static class ZemaxOperandRegistry
             [
                 new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
                 new("Int2", "Edge code", ZemaxOperandParameterValueKind.Flag),
-                new("Data1", "Mode", ZemaxOperandParameterValueKind.Flag),
-                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Mode", ZemaxOperandParameterValueKind.Flag),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
             _ when FullThicknessOperandCodes.Contains(code, StringComparer.Ordinal) =>
             [
                 new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
-                new("Int2", "Mode", ZemaxOperandParameterValueKind.Flag),
+                new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
-                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Mode", ZemaxOperandParameterValueKind.Flag),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
             _ when SpecialThicknessOperandCodes.Contains(code, StringComparer.Ordinal) =>
             [
                 new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
-                new("Int2", "Mode", ZemaxOperandParameterValueKind.Flag),
+                new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Data1", "X", ZemaxOperandParameterValueKind.Numeric, "lens"),
                 new("Data2", "Y", ZemaxOperandParameterValueKind.Numeric, "lens"),
+                new("Data3", "Mode", ZemaxOperandParameterValueKind.Flag),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ],
+            _ when CenterThicknessRangeOperandCodes.Contains(code, StringComparer.Ordinal) =>
+            [
+                new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
+                new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
-            _ when RangeThicknessOperandCodes.Contains(code, StringComparer.Ordinal) =>
+            _ when EdgeThicknessRangeOperandCodes.Contains(code, StringComparer.Ordinal) =>
             [
                 new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
                 new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
@@ -349,7 +361,7 @@ public static class ZemaxOperandRegistry
             [
                 new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
                 new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
-                new("Data1", "Mode", ZemaxOperandParameterValueKind.Flag),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
@@ -358,7 +370,7 @@ public static class ZemaxOperandRegistry
             [
                 new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
                 new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
-                new("Data1", "Pickup/solve data", ZemaxOperandParameterValueKind.Numeric),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
@@ -417,12 +429,30 @@ public static class ZemaxOperandRegistry
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],
-            "PMAG" or "PETZ" or "DIMX" =>
+            "PMAG" or "PETZ" =>
             [
                 new("Int1", "Unused", ZemaxOperandParameterValueKind.Integer),
                 new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
                 new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ],
+            "DIMX" =>
+            [
+                new("Int1", "Field", ZemaxOperandParameterValueKind.Field),
+                new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
+                new("Data1", "Absolute", ZemaxOperandParameterValueKind.Flag),
+                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ],
+            "EFNO" or "RELI" =>
+            [
+                new("Int1", "Sampling", ZemaxOperandParameterValueKind.Integer),
+                new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
+                new("Data1", "Field", ZemaxOperandParameterValueKind.Field),
+                new("Data2", "Polarization", ZemaxOperandParameterValueKind.Flag),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
             ],

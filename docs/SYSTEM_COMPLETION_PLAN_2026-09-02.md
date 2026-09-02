@@ -5,7 +5,7 @@
 - 复核日期：2026-09-02
 - 范围：正式 Workbench、Zemax/Optiland 互操作、非序列模式、优化与公差、Initial Structure Lab、UI 产品表达
 - 性质：实施计划，不是当前完成能力清单
-- 当前仓库状态：计划文档已建立；Zemax 评价函数真实化已启动，109 个顺序 Zemax 操作数完成定义级可执行接入；未完成项主要来自明确的兼容边界、实验性模型、Zemax golden 对照缺口和路线图差距
+- 当前仓库状态：计划文档已建立；Zemax 评价函数真实化已启动，本机 OpticStudio 2026 R1 实测目录已同步为 383 个顺序兼容代码，108 个操作数完成定义级可执行接入；未完成项主要来自明确的兼容边界、实验性模型、Zemax golden 对照缺口和路线图差距
 
 本文把当前项目中“已经显式标注但尚未完成”的能力收拢成可执行计划。所有阶段都必须继续遵守：
 
@@ -31,11 +31,11 @@
 
 ### 当前状态
 
-`ZemaxOperandRegistry` 已注册 333 个顺序模式目标代码，其中当前 109 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。ZMX 导入器能按源顺序保留更多行，但禁用兼容行不参与 Workbench 数值评价。2026-09-02 已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，三角函数 Flag 采用 Zemax 弧度/角度语义。常见操作数束已完成定义级可执行接入，但仍需 Zemax/ZOS-API golden 数值对照后才能标为完整兼容。
+`ZemaxOperandRegistry` 已按实际运行的 OpticStudio 2026 R1 注册 383 个顺序兼容代码，其中当前 108 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。本轮目录校准已完成：移除 10 个非真实或当前顺序 MFE 不可选代码，补入 60 个当前 API 可选代码，展开 `I1`–`I6` 梯度折射率族，并补全 `NPAF/RSNC` 非序列排除。ZMX 导入器能按源顺序保留注册行，但禁用兼容行不参与 Workbench 数值评价。已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，三角函数 Flag 采用 Zemax 弧度/角度语义。常见操作数束已完成定义级可执行接入，但仍需 Zemax/ZOS-API golden 数值对照后才能标为完整兼容。
 
 仍需完成：
 
-- 333 项操作数的逐类型参数语义、单位、默认值和验证；
+- 383 项操作数的逐类型参数语义、单位、默认值和验证；
 - Merit Function 编辑器按描述符切换列名、单位和可编辑状态；
 - 剩余数学约束、控制、质心、MTF、圈入能量、鬼像、POP、GRIN、偏振等操作数执行；
 - ZOS-API 行色 `Color1`–`Color16`、逐行无颜色和全局 `Color Rows` 偏好往返；
@@ -47,7 +47,7 @@
    - 为每个操作数定义参数槽：名称、类型、单位、默认值、是否引用表面/视场/波长/配置。
    - 将现有 `Int1`、`Int2`、`Data1`–`Data4` 作为原始槽位保存，描述符只提供类型化视图。
    - 增加快照迁移和非法槽位验证。
-   - 进度：已为瞳孔光线类、RMS 类、Moore-Elliott 类、`EFFL/TOTR/TTHI/TGTH`、常见厚度/曲率/圆锥/半口径/玻璃折射率/一阶量与基础数学行建立首批槽位描述；快照校验已能区分范围厚度项的 `Int2` 终止表面、数学行引用、边缘方向代码和常规波长。
+   - 进度：已为瞳孔光线类、RMS 类、Moore-Elliott 类、`EFFL/TOTR/TTHI/TGTH`、常见厚度/曲率/圆锥/半口径/玻璃折射率/一阶量与基础数学行建立首批槽位描述；本机 ZOS-API 实测已校正 RMS 的 `Ring/Wave/Hx/Hy`、Moore-Elliott 空首列、厚度 Mode 位置、中心范围与半口径范围空列及行边界单列语义。快照校验已能区分范围厚度项的 `Int2` 终止表面、数学行引用、边缘方向代码和常规波长。
 
 2. **编辑器切换**
    - Merit Function 表按操作数描述符显示列标题、单位、范围和只读状态。
@@ -55,9 +55,9 @@
    - 行色偏好作为编辑器元数据保存，不影响贡献值。
 
 3. **基础可执行操作数**
-   - 已完成真实 ZMX 已出现的首批只读提升：`CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`DIMX`、`PETZ`。
-   - 已完成：光线/RMS/Moore-Elliott 首批、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、`CT*/ET*/FT*/TT*/STHI` 厚度项、`MN*/MX*/X*` 常见范围厚度/曲率/半口径项、`CO*/CV*` 表面标量项、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO`、`PMAG/DIMX/PETZ`。
-   - 再扩展剩余系统、一阶、玻璃、参数、复杂镜头属性和高级分析类；`EFNO` 仍需 Field/Samp/Wave/Pol 或受限扩展协议，不能伪实现为普通 F/#。
+   - 已完成真实 ZMX 已出现的首批只读提升：`CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`PETZ`。
+   - 已完成：光线/RMS/Moore-Elliott 首批、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、`CT*/ET*/FT*/TT*/STHI` 厚度项、`MN*/MX*/X*` 常见范围厚度/曲率/半口径项、`CO*/CV*` 表面标量项、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO`、`PMAG/PETZ`。
+   - `DIMX` 已校正为 `Field/Wave/Absolute`，在指定视场和绝对长度模式完成前保持兼容只读；`EFNO` 已确认是内置有效 F/# 操作数，后续按 `Samp/Wave/Field/Pol?` 接入，不能伪实现为普通 F/# 或用户扩展。
 
 4. **有序评价函数虚拟机**
    - 已支持 `CONS`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX`、`MINN` 及基础一元数学行按前序行执行，其中 `SUMM/PROD/DIFF/DIVI` 为双行引用，`MAXX/MINN` 为范围引用。
@@ -312,7 +312,7 @@ Initial Structure Lab 是独立实验室功能，不属于正式产品能力。L
 
 1. Zemax 操作数描述符模型；
 2. Merit Function 描述符驱动 UI；
-3. `[MS-L7]` 中 `CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`DIMX`、`PETZ` 已完成定义级可执行接入，下一步补 Zemax/ZOS-API golden；
+3. `[MS-L7]` 中 `CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`PETZ` 已完成定义级可执行接入，下一步补 Zemax/ZOS-API golden；`DIMX` 在完整 `Field/Absolute` 语义完成前保持兼容只读；
 4. 已完成基础数学行最小虚拟机和常见厚度/边界束；下一步扩展控制行、质心类、剩余玻璃/参数约束和 Zemax 特殊贡献语义；
 5. 对应 ZMX/STAROPT 往返和贡献测试。
 
