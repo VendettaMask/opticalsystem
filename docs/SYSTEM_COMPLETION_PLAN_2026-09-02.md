@@ -36,7 +36,7 @@
 仍需完成：
 
 - 383 项操作数的逐类型参数语义、单位、默认值和验证；
-- Merit Function 编辑器按描述符切换列名、单位和可编辑状态；
+- Merit Function 编辑器的参数范围/默认值提示与逐类型校验；六个原始槽位的描述符列名、单位和只读状态已接入；
 - 剩余数学约束、控制、质心、MTF、圈入能量、鬼像、POP、GRIN、偏振等操作数执行；
 - ZOS-API 行色 `Color1`–`Color16`、逐行无颜色和全局 `Color Rows` 偏好往返；
 - ZMX 坐标断点顺序、复杂 toroidal、theodolite field、部分 FNUM/OBNA 子类型。
@@ -53,6 +53,7 @@
    - Merit Function 表按操作数描述符显示列标题、单位、范围和只读状态。
    - 兼容行继续可见但不可执行，启用时必须给出明确错误。
    - 行色偏好作为编辑器元数据保存，不影响贡献值。
+   - 进度：已完成描述符通过 Application DTO 下发，编辑器按当前行切换 `Int1/Int2/Data1`–`Data4` 的名称与单位，隐藏第七个旧友好字段，并把 `Unused` 和 `CompatibilityOnly` 槽位设为只读。编辑保存现在以六个原始槽位为权威数据，再由描述符重建 Workbench 类型化视图；范围和默认值提示、行色偏好仍待完成。
 
 3. **基础可执行操作数**
    - 已完成真实 ZMX 已出现的首批只读提升：`CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`PETZ`。

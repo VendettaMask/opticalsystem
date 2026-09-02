@@ -169,7 +169,9 @@ public sealed class SurfaceEditorRow
 
 public sealed class MeritOperandEditorRow
 {
-    public MeritOperandEditorRow(MeritOperandRowDto source)
+    private MeritOperandTypeDto? _typeMetadata;
+
+    public MeritOperandEditorRow(MeritOperandRowDto source, MeritOperandTypeDto? typeMetadata = null)
     {
         Index = source.Index;
         Enabled = source.Enabled;
@@ -195,6 +197,26 @@ public sealed class MeritOperandEditorRow
         IgnoreLateralColor = source.IgnoreLateralColor;
         PolychromaticReference = source.PolychromaticReference;
         CompatibilityOnly = source.CompatibilityOnly;
+        ApplyTypeMetadata(typeMetadata);
+        if (HasZemaxParameters)
+        {
+            Parameter1 = source.ZemaxInt1 ?? source.Surface;
+            Parameter2 = source.ZemaxInt2 ?? source.Wavelength;
+            Parameter3 = source.ZemaxData1 ?? source.Hx;
+            Parameter4 = source.ZemaxData2 ?? source.Hy;
+            Parameter5 = source.ZemaxData3 ?? source.Px;
+            Parameter6 = source.ZemaxData4 ?? source.Py;
+        }
+        else
+        {
+            Parameter1 = source.Surface;
+            Parameter2 = source.Field;
+            Parameter3 = source.Wavelength;
+            Parameter4 = source.Hx;
+            Parameter5 = source.Hy;
+            Parameter6 = source.Px;
+            Parameter7 = source.Py;
+        }
     }
 
     public int Index { get; set; }
@@ -221,6 +243,57 @@ public sealed class MeritOperandEditorRow
     public bool IgnoreLateralColor { get; set; }
     public bool PolychromaticReference { get; set; }
     public bool CompatibilityOnly { get; set; }
+    public double Parameter1 { get; set; }
+    public double Parameter2 { get; set; }
+    public double Parameter3 { get; set; }
+    public double Parameter4 { get; set; }
+    public double Parameter5 { get; set; }
+    public double Parameter6 { get; set; }
+    public double Parameter7 { get; set; }
+
+    public bool HasZemaxParameters => _typeMetadata?.Parameters is { Count: 6 };
+
+    public void ApplyTypeMetadata(MeritOperandTypeDto? metadata)
+    {
+        _typeMetadata = metadata;
+        if (metadata is not null)
+        {
+            CompatibilityOnly = metadata.CompatibilityOnly;
+        }
+    }
+
+    public string ParameterLabel(int index)
+    {
+        if (HasZemaxParameters && index < 6)
+        {
+            var parameter = _typeMetadata!.Parameters![index];
+            return string.IsNullOrWhiteSpace(parameter.Unit)
+                ? parameter.DisplayName
+                : $"{parameter.DisplayName} ({parameter.Unit})";
+        }
+
+        if (HasZemaxParameters)
+        {
+            return "Unused";
+        }
+
+        return index switch
+        {
+            0 => "Surface",
+            1 => "Field",
+            2 => "Wavelength",
+            3 => "Hx",
+            4 => "Hy",
+            5 => "Px",
+            6 => "Py",
+            _ => string.Empty
+        };
+    }
+
+    public bool IsParameterEditable(int index) =>
+        HasZemaxParameters
+            ? index < 6 && _typeMetadata!.Parameters![index].IsEditable && !CompatibilityOnly
+            : index is >= 0 and < 7;
 
     public bool IsDirective => Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
 
@@ -232,31 +305,57 @@ public sealed class MeritOperandEditorRow
 
     public string ContributionDisplay => double.IsFinite(Contribution) ? NumericDisplayFormatter.Format(Contribution) : "-";
 
-    public MeritOperandRowDto ToDto() => new(
-        Index,
-        Enabled,
-        Type,
-        Surface,
-        Field,
-        Wavelength,
-        Hx,
-        Hy,
-        Px,
-        Py,
-        Target,
-        Weight,
-        Value,
-        Contribution,
-        Comment,
-        Error,
-        PupilRings,
-        PupilArms,
-        PupilObscuration,
-        PupilSampling,
-        SpatialFrequency,
-        IgnoreLateralColor,
-        PolychromaticReference,
-        CompatibilityOnly);
+    public MeritOperandRowDto ToDto()
+    {
+        var surface = HasZemaxParameters ? Surface : CheckedInteger(Parameter1);
+        var field = HasZemaxParameters ? Field : CheckedInteger(Parameter2);
+        var wavelength = HasZemaxParameters ? Wavelength : CheckedInteger(Parameter3);
+        var hx = HasZemaxParameters ? Hx : Parameter4;
+        var hy = HasZemaxParameters ? Hy : Parameter5;
+        var px = HasZemaxParameters ? Px : Parameter6;
+        var py = HasZemaxParameters ? Py : Parameter7;
+        return new MeritOperandRowDto(
+            Index,
+            Enabled,
+            Type,
+            surface,
+            field,
+            wavelength,
+            hx,
+            hy,
+            px,
+            py,
+            Target,
+            Weight,
+            Value,
+            Contribution,
+            Comment,
+            Error,
+            PupilRings,
+            PupilArms,
+            PupilObscuration,
+            PupilSampling,
+            SpatialFrequency,
+            IgnoreLateralColor,
+            PolychromaticReference,
+            CompatibilityOnly,
+            HasZemaxParameters ? CheckedInteger(Parameter1) : null,
+            HasZemaxParameters ? CheckedInteger(Parameter2) : null,
+            HasZemaxParameters ? Parameter3 : null,
+            HasZemaxParameters ? Parameter4 : null,
+            HasZemaxParameters ? Parameter5 : null,
+            HasZemaxParameters ? Parameter6 : null);
+    }
+
+    private static int CheckedInteger(double value)
+    {
+        if (!double.IsFinite(value) || value < int.MinValue || value > int.MaxValue || value != Math.Truncate(value))
+        {
+            throw new InvalidOperationException($"Zemax integer parameter must be an integer, but was {value}.");
+        }
+
+        return checked((int)value);
+    }
 }
 
 public sealed class FieldEditorRow

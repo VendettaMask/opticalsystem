@@ -558,6 +558,52 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
+    public void MeritFunctionEditorPublishesDescriptorsAndRoundTripsRawZemaxSlots()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var rsce = application.Optimization.GetMeritOperandTypes().Single(type => type.Code == "RSCE");
+
+        Assert.False(rsce.CompatibilityOnly);
+        Assert.Collection(
+            rsce.Parameters!,
+            parameter => Assert.Equal(("Int1", "Rings", "Integer", "", true), ParameterTuple(parameter)),
+            parameter => Assert.Equal(("Int2", "Wavelength", "Wavelength", "wave", true), ParameterTuple(parameter)),
+            parameter => Assert.Equal(("Data1", "Hx", "NormalizedField", "", true), ParameterTuple(parameter)),
+            parameter => Assert.Equal(("Data2", "Hy", "NormalizedField", "", true), ParameterTuple(parameter)),
+            parameter => Assert.Equal(("Data3", "Unused", "Numeric", "", false), ParameterTuple(parameter)),
+            parameter => Assert.Equal(("Data4", "Unused", "Numeric", "", false), ParameterTuple(parameter)));
+
+        application.Optimization.SetMeritFunction(
+        [
+            new MeritOperandRowDto(
+                1, true, "RSCE", 0, 0, 0, 0, 0, 0, 0,
+                0, 1, 0, 0, "descriptor round trip",
+                ZemaxInt1: 5,
+                ZemaxInt2: 2,
+                ZemaxData1: 0.25,
+                ZemaxData2: -0.75,
+                ZemaxData3: 11.5,
+                ZemaxData4: -12.5)
+        ]);
+
+        var restored = Assert.Single(application.Optimization.GetMeritFunction());
+        Assert.Equal(5, restored.PupilRings);
+        Assert.Equal(2, restored.Wavelength);
+        Assert.Equal(0.25, restored.Hx);
+        Assert.Equal(-0.75, restored.Hy);
+        Assert.Equal(5, restored.ZemaxInt1);
+        Assert.Equal(2, restored.ZemaxInt2);
+        Assert.Equal(0.25, restored.ZemaxData1);
+        Assert.Equal(-0.75, restored.ZemaxData2);
+        Assert.Equal(11.5, restored.ZemaxData3);
+        Assert.Equal(-12.5, restored.ZemaxData4);
+    }
+
+    private static (string Slot, string DisplayName, string ValueKind, string Unit, bool IsEditable) ParameterTuple(
+        MeritOperandParameterDto parameter) =>
+        (parameter.Slot, parameter.DisplayName, parameter.ValueKind, parameter.Unit, parameter.IsEditable);
+
+    [Fact]
     public void DefaultMeritFunctionCanGenerateSpotAndWavefrontOperands()
     {
         using var application = WorkbenchApplication.Create("cooke");

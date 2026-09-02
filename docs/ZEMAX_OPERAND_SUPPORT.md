@@ -193,17 +193,17 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 108 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
 
-`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。ZMX 导入器除已有类型化分支外，会识别全部 383 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
+`MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。Application 合同把这些描述符和六个原始槽位直接发布给桌面编辑器；编辑器按当前行显示参数名与单位，把 `Unused` 和兼容只读槽位锁定，并在保存时保持原始槽位为权威数据，再由描述符恢复 Workbench 类型化字段。ZMX 导入器除已有类型化分支外，会识别全部 383 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
 
 参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
 本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
 
-本次修正消除了目标目录代码静默丢弃和原始槽位借用友好字段作为唯一存储的问题，并开始为已知操作数补充参数描述符，但没有把“383 项可无损显示”扩大宣称为“383 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
+本次修正消除了目标目录代码静默丢弃、编辑保存时原始槽位被固定友好字段覆盖的问题，并开始为已知操作数补充参数描述符，但没有把“383 项可无损显示”扩大宣称为“383 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
 
 当前仍需消除以下技术债：
 
-- 编辑器仍以 `Surface/Field/Wavelength/Hx/Hy/Px/Py` 显示友好视图，尚未按描述符切换全部 383 项的列名和单位；
+- 编辑器已经消费描述符并按当前行切换六个原始槽位的列名、单位和只读状态；尚未补齐全部 383 项的专用参数语义、范围、默认值和枚举选择器；
 - 快照校验已经能区分 `TTHI/TGTH`、常见 `MN*/MX*/X*` 厚度范围项的终止表面槽位以及基础数学操作数的行引用槽位，但大多数 Zemax 操作数仍需逐类型校验规则；
 - 参考文件之外的未注册代码仍可能被导入器忽略；
 - 控制和质心类操作数仍缺少完整有序行执行语义；基础数学行已具备前序行读取、Flag 角度处理、Zemax 双行/范围区分和错误报告，且 `OPLT/OPGT/ABGT/ABLT/OPVA` 已可按前序行约束求值；`EQUA/PROB/OSUM/QSUM/DIVB` 的 Zemax 特殊贡献语义仍需继续实现；

@@ -1323,7 +1323,16 @@ public sealed record OptimizationWizardSettingsDto(
 public sealed record MeritOperandTypeDto(
     string Code,
     string DisplayName,
-    string Description);
+    string Description,
+    IReadOnlyList<MeritOperandParameterDto>? Parameters = null,
+    bool CompatibilityOnly = false);
+
+public sealed record MeritOperandParameterDto(
+    string Slot,
+    string DisplayName,
+    string ValueKind,
+    string Unit,
+    bool IsEditable);
 
 public sealed record MeritOperandRowDto(
     int Index,
@@ -1349,7 +1358,13 @@ public sealed record MeritOperandRowDto(
     double SpatialFrequency = 30,
     bool IgnoreLateralColor = false,
     bool PolychromaticReference = false,
-    bool CompatibilityOnly = false);
+    bool CompatibilityOnly = false,
+    int? ZemaxInt1 = null,
+    int? ZemaxInt2 = null,
+    double? ZemaxData1 = null,
+    double? ZemaxData2 = null,
+    double? ZemaxData3 = null,
+    double? ZemaxData4 = null);
 
 public enum OptimizationVariableKind
 {

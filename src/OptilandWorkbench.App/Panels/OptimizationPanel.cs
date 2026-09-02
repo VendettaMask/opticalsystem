@@ -25,6 +25,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     private readonly ObservableCollection<MeritOperandEditorRow> _rows = new();
     private readonly DataGrid _grid;
     private readonly string[] _operandCodes;
+    private readonly IReadOnlyDictionary<string, MeritOperandTypeDto> _operandTypes;
+    private readonly DataGridColumn[] _parameterColumns = new DataGridColumn[7];
     private readonly ComboBox _optimizerPicker = new() { MinWidth = 165, SelectedIndex = 0 };
     private readonly NumericUpDown _iterationsInput = new()
     {
@@ -62,7 +64,9 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         _prescription = prescription;
         _optimization = optimization;
         _events = events;
-        _operandCodes = optimization.GetMeritOperandTypes().Select(type => type.Code).ToArray();
+        var operandTypes = optimization.GetMeritOperandTypes();
+        _operandCodes = operandTypes.Select(type => type.Code).ToArray();
+        _operandTypes = operandTypes.ToDictionary(type => type.Code, StringComparer.OrdinalIgnoreCase);
         _optimizerPicker.ItemsSource = optimization.OptimizerNames;
         _grid = CreateGrid();
 
@@ -195,13 +199,11 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         grid.LoadingRow += (_, args) => ApplyRowAppearance(args.Row);
         grid.Columns.Add(TextColumn("#", nameof(MeritOperandEditorRow.Index), 44, true));
         grid.Columns.Add(TypeColumn());
-        grid.Columns.Add(TextColumn("表面", nameof(MeritOperandEditorRow.Surface), 62));
-        grid.Columns.Add(TextColumn("视场", nameof(MeritOperandEditorRow.Field), 62));
-        grid.Columns.Add(TextColumn("波长", nameof(MeritOperandEditorRow.Wavelength), 62));
-        grid.Columns.Add(TextColumn("Hx", nameof(MeritOperandEditorRow.Hx), 68));
-        grid.Columns.Add(TextColumn("Hy", nameof(MeritOperandEditorRow.Hy), 68));
-        grid.Columns.Add(TextColumn("Px", nameof(MeritOperandEditorRow.Px), 68));
-        grid.Columns.Add(TextColumn("Py", nameof(MeritOperandEditorRow.Py), 68));
+        for (var index = 0; index < _parameterColumns.Length; index++)
+        {
+            _parameterColumns[index] = ParameterColumn(index);
+            grid.Columns.Add(_parameterColumns[index]);
+        }
         grid.Columns.Add(TextColumn("目标", nameof(MeritOperandEditorRow.Target), 88));
         grid.Columns.Add(TextColumn("权重", nameof(MeritOperandEditorRow.Weight), 82));
         grid.Columns.Add(TextColumn("当前值", nameof(MeritOperandEditorRow.ValueDisplay), 104, true));
@@ -215,6 +217,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
                 PersistRows();
             }
         };
+        grid.SelectionChanged += (_, _) =>
+            UpdateParameterHeaders(grid.SelectedItem as MeritOperandEditorRow);
         return grid;
     }
 
@@ -239,6 +243,8 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
 
                 row.Type = type;
                 row.Enabled = !row.IsBlank;
+                row.ApplyTypeMetadata(_operandTypes.GetValueOrDefault(type));
+                UpdateParameterHeaders(row);
                 PersistRows();
             };
             return picker;
@@ -271,7 +277,9 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             _rows.Clear();
             foreach (var operand in data)
             {
-                _rows.Add(new MeritOperandEditorRow(operand));
+                _rows.Add(new MeritOperandEditorRow(
+                    operand,
+                    _operandTypes.GetValueOrDefault(operand.Type)));
             }
 
             _grid.SelectedItem = _rows.FirstOrDefault(row => row.Index == selectedIndex);
@@ -313,7 +321,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             1,
             0,
             0,
-            string.Empty)));
+            string.Empty), _operandTypes.GetValueOrDefault("RSCE")));
         _grid.SelectedItem = _rows[^1];
         PersistRows();
     }
@@ -472,6 +480,57 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         Width = new DataGridLength(width),
         IsReadOnly = readOnly
     };
+
+    private static DataGridTemplateColumn ParameterColumn(int parameterIndex)
+    {
+        var property = $"Parameter{parameterIndex + 1}";
+        return new DataGridTemplateColumn
+        {
+            Header = $"参数 {parameterIndex + 1}",
+            Width = new DataGridLength(88),
+            CellTemplate = new FuncDataTemplate<MeritOperandEditorRow>((row, _) =>
+            {
+                var value = new TextBlock
+                {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    TextAlignment = TextAlignment.Right
+                };
+                value.Bind(TextBlock.TextProperty, new Binding(property));
+                if (row is not null)
+                {
+                    ToolTip.SetTip(value, row.ParameterLabel(parameterIndex));
+                }
+
+                return value;
+            }),
+            CellEditingTemplate = new FuncDataTemplate<MeritOperandEditorRow>((row, _) =>
+            {
+                var editor = new TextBox
+                {
+                    HorizontalContentAlignment = HorizontalAlignment.Right,
+                    IsReadOnly = row is null || !row.IsParameterEditable(parameterIndex)
+                };
+                editor.Bind(TextBox.TextProperty, new Binding(property) { Mode = BindingMode.TwoWay });
+                if (row is not null)
+                {
+                    ToolTip.SetTip(editor, row.ParameterLabel(parameterIndex));
+                }
+
+                return editor;
+            })
+        };
+    }
+
+    private void UpdateParameterHeaders(MeritOperandEditorRow? row)
+    {
+        for (var index = 0; index < _parameterColumns.Length; index++)
+        {
+            var label = row?.ParameterLabel(index) ?? $"参数 {index + 1}";
+            _parameterColumns[index].Header = string.IsNullOrWhiteSpace(label) ? "—" : label;
+            _parameterColumns[index].IsVisible = row is null || row.IsParameterEditable(index)
+                || !label.Equals("Unused", StringComparison.OrdinalIgnoreCase);
+        }
+    }
 
     private static Button CommandButton(string iconName, string text) => new()
     {
