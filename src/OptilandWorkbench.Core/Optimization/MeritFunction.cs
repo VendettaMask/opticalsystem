@@ -1847,7 +1847,9 @@ public static class MeritFunctionCatalog
             throw new InvalidOperationException("Petzval sum is zero; Petzval radius is infinite.");
         }
 
-        return 1.0 / petzvalSum;
+        // Zemax reports the Petzval image-surface radius with the image-space
+        // curvature sign, which is opposite to the accumulated surface sum.
+        return -1.0 / petzvalSum;
     }
 
     private static double SafeIndex(double value) =>

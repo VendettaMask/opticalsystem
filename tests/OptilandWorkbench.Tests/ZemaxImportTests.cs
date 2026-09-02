@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using OptilandWorkbench.Application.Legacy;
@@ -19,6 +21,123 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxImportTests
 {
+    [Fact]
+    public void MsL7MeritFunctionMatchesCommittedZosApiGoldenStructureAndSlots()
+    {
+        var sourcePath = FixturePath("zemax-ms-l7-high-na.ZMX");
+        var goldenPath = FixturePath("zemax-ms-l7-merit-function.json");
+        using var golden = JsonDocument.Parse(File.ReadAllText(goldenPath));
+        var root = golden.RootElement;
+        var expectedHash = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(sourcePath))).ToLowerInvariant();
+        Assert.Equal(1, root.GetProperty("schemaVersion").GetInt32());
+        Assert.Equal("Ansys Zemax OpticStudio 2026 R1 ZOS-API", root.GetProperty("source").GetString());
+        Assert.Equal(expectedHash, root.GetProperty("sourceSha256").GetString());
+
+        var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
+        var rows = root.GetProperty("rows").EnumerateArray().ToArray();
+        Assert.Equal(root.GetProperty("rowCount").GetInt32(), rows.Length);
+        Assert.Equal(rows.Length, optic.MeritFunctionOperands.Count);
+        var validatedSlots = 0;
+
+        for (var index = 0; index < rows.Length; index++)
+        {
+            var expected = rows[index];
+            var actual = optic.MeritFunctionOperands[index];
+            Assert.Equal(index + 1, expected.GetProperty("row").GetInt32());
+            Assert.Equal(expected.GetProperty("type").GetString(), actual.Type);
+            if (!ZemaxOperandRegistry.TryGet(actual.Type, out var descriptor))
+            {
+                continue;
+            }
+
+            foreach (var parameter in descriptor.Parameters.Where(parameter => parameter.DisplayName != "Unused"))
+            {
+                if (parameter.Slot is "Int1" or "Int2")
+                {
+                    if (actual.ZemaxIntegerParameters.Length < 2)
+                    {
+                        continue;
+                    }
+
+                    var slotIndex = parameter.Slot == "Int1" ? 0 : 1;
+                    Assert.True(
+                        expected.GetProperty(parameter.Slot.ToLowerInvariant()).GetInt32()
+                            == actual.ZemaxIntegerParameters[slotIndex],
+                        $"Row {index + 1} {actual.Type} {parameter.Slot} mismatch.");
+                    validatedSlots++;
+                    continue;
+                }
+
+                if (actual.ZemaxDataParameters.Length < 4)
+                {
+                    continue;
+                }
+
+                var dataIndex = int.Parse(parameter.Slot.AsSpan(4), CultureInfo.InvariantCulture) - 1;
+                var expectedData = expected.GetProperty(parameter.Slot.ToLowerInvariant());
+                Assert.True(
+                    expectedData.ValueKind != JsonValueKind.Number
+                    || Math.Abs(expectedData.GetDouble() - actual.ZemaxDataParameters[dataIndex]) <= 1e-12,
+                    $"Row {index + 1} {actual.Type} {parameter.Slot} mismatch.");
+                validatedSlots++;
+            }
+        }
+
+        Assert.True(validatedSlots >= 400, $"Expected at least 400 active slot comparisons, got {validatedSlots}.");
+    }
+
+    [Fact]
+    public void MsL7ExecutableMeritRowsMatchCommittedZosApiGoldenValues()
+    {
+        var sourcePath = FixturePath("zemax-ms-l7-high-na.ZMX");
+        using var golden = JsonDocument.Parse(File.ReadAllText(FixturePath("zemax-ms-l7-merit-function.json")));
+        var expectedRows = golden.RootElement.GetProperty("rows").EnumerateArray().ToArray();
+        var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
+        var validatedRows = new HashSet<int> { 9, 11, 13, 15, 19, 23, 25, 27, 28, 30 };
+        var validatedValues = 0;
+        var differences = new List<string>();
+
+        for (var index = 0; index < expectedRows.Length; index++)
+        {
+            var operand = optic.MeritFunctionOperands[index];
+            if (!validatedRows.Contains(index + 1)
+                || !operand.Enabled
+                || !ZemaxOperandRegistry.TryGet(operand.Type, out var descriptor)
+                || descriptor.SupportLevel != ZemaxOperandSupportLevel.Executable)
+            {
+                continue;
+            }
+
+            var expectedValue = expectedRows[index].GetProperty("value");
+            if (expectedValue.ValueKind != JsonValueKind.Number)
+            {
+                continue;
+            }
+
+            var evaluation = evaluations[index];
+            if (!string.IsNullOrEmpty(evaluation.Error))
+            {
+                differences.Add($"Row {index + 1} {operand.Type}: {evaluation.Error}");
+                continue;
+            }
+
+            var expected = expectedValue.GetDouble();
+            var tolerance = Math.Max(1e-8, Math.Abs(expected) * 5e-4);
+            if (Math.Abs(expected - evaluation.Value) > tolerance)
+            {
+                differences.Add(
+                    $"Row {index + 1} {operand.Type}: Zemax={expected:R}, Workbench={evaluation.Value:R}, tolerance={tolerance:R}.");
+                continue;
+            }
+
+            validatedValues++;
+        }
+
+        Assert.True(differences.Count == 0, string.Join(Environment.NewLine, differences));
+        Assert.Equal(validatedRows.Count, validatedValues);
+    }
+
     [Fact]
     public void RequiredSequentialOperandRegistryContainsExactlyTheVerified2026R1Codes()
     {

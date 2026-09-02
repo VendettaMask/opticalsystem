@@ -197,6 +197,8 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
+`[MS-L7]` 的 103 行已通过本机 OpticStudio 2026 R1 ZOS-API 采集为可重复 golden：源 SHA-256、行顺序和 400 余个活动参数槽已锁定；`OPLT`、`CTGT`、`EFFL`、`CONS`、`REAR`、`PETZ`、`MNCA`、`MNCG`、`MNEG`、`MXCG` 十个代表行通过当前数值对照，`PETZ` 已据此修正像方曲率符号。其余新增路径仍必须继续经过 golden 收敛，才能标为完整兼容；当前已确认的差异集中在高 NA 光线、边厚、范围厚度、近轴放大率及依赖数学行。
+
 本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
 
 本次修正消除了目标目录代码静默丢弃、编辑保存时原始槽位被固定友好字段覆盖的问题，并开始为已知操作数补充参数描述符，但没有把“383 项可无损显示”扩大宣称为“383 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。

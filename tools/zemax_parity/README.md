@@ -3,12 +3,13 @@
 本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
 当前保留的入口均为 Python 或 ZPL 工具；历史外部探针和临时接口探针已删除，不属于当前基线采集链路。
 
-本目录只处理分析数据、设置和截图基线，不验证 Zemax Merit Function Editor。`[MS-L7]` 的 103 行评价函数导入、51 个当前代码/兼容类型及禁用只读边界由 Core 导入测试和 [Zemax 顺序模式操作数支持规范](../../docs/ZEMAX_OPERAND_SUPPORT.md) 管理，不能用这里的 69 页截图或 30 项数值映射替代。
+本目录同时处理分析数据、设置、截图和 Merit Function Editor golden 基线。`[MS-L7]` 的评价函数目录与导入边界由 Core 测试和 [Zemax 顺序模式操作数支持规范](../../docs/ZEMAX_OPERAND_SUPPORT.md) 管理；MFE golden 只能证明指定文件、版本和行参数下的数值，不得用它替代 383 项操作数的完整验收。
 
 ## 工具用途
 
 - `zosapi_export.py`：通过官方 Python ZOS-API Standalone 连接加载顺序模式 ZMX，并导出 FFT MTF。
 - `zosapi_through_focus_export.py`：通过官方 Python ZOS-API 导出 FFT Through Focus MTF 与相关波前/追迹参考数据。
+- `zosapi_merit_function_export.py`：加载指定 ZMX，导出 MFE 行顺序、六个原始参数槽、目标、权重、当前值、贡献和总评价函数，并记录源文件 SHA-256。
 - `zosapi_capture_baseline.py`：为一个镜头枚举完整 `AnalysisIDM` 目录，并记录每项分析状态。
 - `capture_analysis_window.zpl`：在存在对应窗口代码时捕获真实 OpticStudio 分析窗口。
 - `verify_baseline.py`：验证清单、源文件哈希、JSON、设置/文本引用和截图。
@@ -47,6 +48,13 @@
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
   "D:\Projects\opticalsystem\tools\zemax_parity\verify_baseline.py" `
   "D:\Projects\opticalsystem\artifacts\zemax\123456-zemax-2026-r1-baseline"
+```
+
+采集 `[MS-L7]` 的 MFE golden：
+
+```powershell
+& "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
+  "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_merit_function_export.py"
 ```
 
 ## Workbench 图像口径

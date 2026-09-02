@@ -31,13 +31,14 @@
 
 ### 当前状态
 
-`ZemaxOperandRegistry` 已按实际运行的 OpticStudio 2026 R1 注册 383 个顺序兼容代码，其中当前 108 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。本轮目录校准已完成：移除 10 个非真实或当前顺序 MFE 不可选代码，补入 60 个当前 API 可选代码，展开 `I1`–`I6` 梯度折射率族，并补全 `NPAF/RSNC` 非序列排除。ZMX 导入器能按源顺序保留注册行，但禁用兼容行不参与 Workbench 数值评价。已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，三角函数 Flag 采用 Zemax 弧度/角度语义。常见操作数束已完成定义级可执行接入，但仍需 Zemax/ZOS-API golden 数值对照后才能标为完整兼容。
+`ZemaxOperandRegistry` 已按实际运行的 OpticStudio 2026 R1 注册 383 个顺序兼容代码，其中当前 108 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。本轮目录校准已完成：移除 10 个非真实或当前顺序 MFE 不可选代码，补入 60 个当前 API 可选代码，展开 `I1`–`I6` 梯度折射率族，并补全 `NPAF/RSNC` 非序列排除。ZMX 导入器能按源顺序保留注册行，但禁用兼容行不参与 Workbench 数值评价。已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，三角函数 Flag 采用 Zemax 弧度/角度语义。`[MS-L7]` 的 103 行 ZOS-API golden 已落库，源哈希、行序和 400 余个活动参数槽受测试保护，10 个代表性执行行已通过数值对照并修正 `PETZ` 符号；其余高 NA 光线、边厚、范围厚度和依赖行差异仍待收敛。
 
 仍需完成：
 
 - 383 项操作数的逐类型参数语义、单位、默认值和验证；
 - Merit Function 编辑器的参数范围/默认值提示与逐类型校验；六个原始槽位的描述符列名、单位和只读状态已接入；
 - 剩余数学约束、控制、质心、MTF、圈入能量、鬼像、POP、GRIN、偏振等操作数执行；
+- `[MS-L7]` golden 已暴露的高 NA 边缘光线、边厚、范围厚度、近轴放大率及依赖数学行数值差异；
 - ZOS-API 行色 `Color1`–`Color16`、逐行无颜色和全局 `Color Rows` 偏好往返；
 - ZMX 坐标断点顺序、复杂 toroidal、theodolite field、部分 FNUM/OBNA 子类型。
 
