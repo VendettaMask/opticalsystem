@@ -1386,8 +1386,7 @@ public static class MeritFunctionCatalog
         var surface = ResolveSurface(optic, surfaceNumber);
         var nextSurface = ResolveNextSurface(optic, surfaceNumber);
         var edgeCode = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
-        var coordinate = EdgeCoordinate(surface, edgeCode, zone: 1.0);
-        return ThicknessAtCoordinate(surface, nextSurface, coordinate.X, coordinate.Y);
+        return EdgeThicknessAtDirection(surface, nextSurface, edgeCode, zone: 1.0);
     }
 
     private static double EvaluateFullThicknessExtreme(
@@ -1586,11 +1585,18 @@ public static class MeritFunctionCatalog
             throw new InvalidOperationException("边厚 Zone 必须在 (0, 1] 范围内。");
         }
 
-        var coordinates = perimeter
-            ? PerimeterCoordinates(surface, zone)
-            : new[] { EdgeCoordinate(surface, edgeCode: 0, zone) };
-        return coordinates
-            .Select(coordinate => ThicknessAtCoordinate(surface, nextSurface, coordinate.X, coordinate.Y))
+        if (!perimeter)
+        {
+            return [EdgeThicknessAtDirection(surface, nextSurface, edgeCode: 0, zone)];
+        }
+
+        const int sampleCount = 64;
+        return Enumerable.Range(0, sampleCount)
+            .Select(index => EdgeThicknessAtAngle(
+                surface,
+                nextSurface,
+                2.0 * Math.PI * index / sampleCount,
+                zone))
             .ToArray();
     }
 
@@ -1681,49 +1687,58 @@ public static class MeritFunctionCatalog
         return range;
     }
 
-    private static IReadOnlyList<(double X, double Y)> PerimeterCoordinates(
+    private static double EdgeThicknessAtDirection(
         OpticalSurface surface,
-        double zone)
-    {
-        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter <= 0)
-        {
-            throw new InvalidOperationException("边厚所在表面的半口径不是有效正数。");
-        }
-
-        const int sampleCount = 64;
-        var radius = surface.SemiDiameter * zone;
-        var coordinates = new (double X, double Y)[sampleCount];
-        for (var index = 0; index < sampleCount; index++)
-        {
-            var angle = 2.0 * Math.PI * index / sampleCount;
-            coordinates[index] = (radius * Math.Cos(angle), radius * Math.Sin(angle));
-        }
-
-        return coordinates;
-    }
-
-    private static (double X, double Y) EdgeCoordinate(
-        OpticalSurface surface,
+        OpticalSurface nextSurface,
         int edgeCode,
         double zone)
     {
-        if (!double.IsFinite(surface.SemiDiameter) || surface.SemiDiameter <= 0)
+        var angle = edgeCode switch
         {
-            throw new InvalidOperationException("边厚所在表面的半口径不是有效正数。");
-        }
-
-        var radius = surface.SemiDiameter * zone;
-        return edgeCode switch
-        {
-            0 => (0, radius),
-            1 => (radius, 0),
-            2 => (0, -radius),
-            3 => (-radius, 0),
+            0 => Math.PI / 2.0,
+            1 => 0.0,
+            2 => -Math.PI / 2.0,
+            3 => Math.PI,
             _ => throw new ArgumentOutOfRangeException(
                 nameof(edgeCode),
                 edgeCode,
                 "边缘方向代码必须是 0(+Y)、1(+X)、2(-Y) 或 3(-X)。")
         };
+        return EdgeThicknessAtAngle(surface, nextSurface, angle, zone);
+    }
+
+    private static double EdgeThicknessAtAngle(
+        OpticalSurface surface,
+        OpticalSurface nextSurface,
+        double angle,
+        double zone)
+    {
+        if (!double.IsFinite(surface.Thickness))
+        {
+            throw new InvalidOperationException("厚度所在空间的中心厚度不是有限数值。");
+        }
+
+        if (!double.IsFinite(surface.SemiDiameter)
+            || surface.SemiDiameter <= 0
+            || !double.IsFinite(nextSurface.SemiDiameter)
+            || nextSurface.SemiDiameter <= 0)
+        {
+            throw new InvalidOperationException("边厚相邻表面的半口径不是有效正数。");
+        }
+
+        var cosine = Math.Cos(angle);
+        var sine = Math.Sin(angle);
+        var currentRadius = surface.SemiDiameter * zone;
+        var nextRadius = nextSurface.SemiDiameter * zone;
+        var currentSag = surface.Geometry.Sag(currentRadius * cosine, currentRadius * sine);
+        var nextSag = nextSurface.Geometry.Sag(nextRadius * cosine, nextRadius * sine);
+        if (!double.IsFinite(currentSag) || !double.IsFinite(nextSag))
+        {
+            throw new InvalidOperationException("边厚所在表面的 sag 不是有限数值。");
+        }
+
+        var thickness = surface.Thickness + nextSag - currentSag;
+        return surface.IsReflective ? Math.Abs(thickness) : thickness;
     }
 
     private static double ThicknessAtCoordinate(
@@ -1852,7 +1867,7 @@ public static class MeritFunctionCatalog
             optic,
             ZemaxIntegerParameter(definition, 1, definition.Wavelength));
         var objectPosition = objectSurface.CoordinateSystem.Origin.Z;
-        var entrancePupilPosition = optic.Paraxial.EstimateEntrancePupilLocation();
+        var entrancePupilPosition = optic.Paraxial.EstimateEntrancePupilLocation(wavelength.Micrometers);
         var denominator = entrancePupilPosition - objectPosition;
         if (Math.Abs(denominator) <= 1e-15)
         {
@@ -1866,7 +1881,18 @@ public static class MeritFunctionCatalog
             new[] { initialSlope },
             objectPosition,
             wavelength.Micrometers);
-        var imageHeight = trace.Heights[^1][0];
+        var marginal = optic.Paraxial.MarginalRay(wavelength.Micrometers);
+        var marginalHeight = marginal.Heights[^1][0];
+        var marginalSlope = marginal.Slopes[^1][0];
+        if (!double.IsFinite(marginalHeight)
+            || !double.IsFinite(marginalSlope)
+            || Math.Abs(marginalSlope) <= 1e-15)
+        {
+            throw new InvalidOperationException("PMAG 无法由近轴边缘光线确定近轴像面。");
+        }
+
+        var paraxialImageDistance = -marginalHeight / marginalSlope;
+        var imageHeight = trace.Heights[^1][0] + (paraxialImageDistance * trace.Slopes[^1][0]);
         if (!double.IsFinite(imageHeight))
         {
             throw new InvalidOperationException("PMAG 近轴追迹得到非有限像高。");
@@ -2529,8 +2555,9 @@ public static class MeritFunctionCatalog
             normalized.Y,
             Math.Clamp(definition.Px, -1, 1),
             Math.Clamp(definition.Py, -1, 1),
-            wavelength.Micrometers);
-        var surfaceIndex = definition.Surface <= 0
+            wavelength.Micrometers,
+            aimAtStop: optic.RayAimingEnabled);
+        var surfaceIndex = definition.Surface == 0 && SurfaceZeroMeansImage(definition.Type)
             ? optic.SurfaceGroup.Items.Count - 1
             : optic.SurfaceGroup.Items
                 .Select((surface, index) => (surface, index))
@@ -2561,6 +2588,14 @@ public static class MeritFunctionCatalog
         }
 
         return sample;
+    }
+
+    private static bool SurfaceZeroMeansImage(string operandType)
+    {
+        var type = CanonicalType(operandType);
+        return type.StartsWith("TR", StringComparison.Ordinal)
+            || type.StartsWith("AN", StringComparison.Ordinal)
+            || type.StartsWith("OPD", StringComparison.Ordinal);
     }
 
     private static RaySampleCacheKey CreateRaySampleCacheKey(

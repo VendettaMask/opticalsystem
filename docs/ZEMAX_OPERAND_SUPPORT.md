@@ -199,7 +199,7 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 有序评价控制流已接入 `GOTO`、`ENDX`、`OOFF`、`SKIN`、`SKIS` 和 `USYM`：`GOTO` 仅允许跳向函数内的后续行，被跳过的行不进入引用上下文；`ENDX` 终止后续评价；`OOFF` 保留为零贡献惰性行；`SKIN/SKIS` 按系统旋转对称性选择是否跳转，`USYM` 在整份评价函数中强制采用对称分支。非法向后或越界跳转返回明确错误。对称检测只认可可证明的同轴旋转对称几何、坐标和孔径，不确定类型保守判为非对称；对称分支已通过本机 OpticStudio 2026 R1 ZOS-API 贡献值探针验证。
 
-`[MS-L7]` 的 103 行已通过本机 OpticStudio 2026 R1 ZOS-API 采集为可重复 golden：源 SHA-256、行顺序和 400 余个活动参数槽已锁定；两行 `TTHI` 以及 `OPLT`、`CTGT`、`EFFL`、`CONS`、`REAR`、`PETZ`、`MNCA`、`MNCG`、`MNEG`、`MXCG` 共 12 个代表行通过当前数值对照。`PETZ` 已据此修正像方曲率符号；`TTHI/TGTH` 按官方“起止表面厚度均包含”定义修正终止端点。其余新增路径仍必须继续经过 golden 收敛，才能标为完整兼容；当前已确认的差异集中在高 NA 光线、边厚、近轴放大率及依赖数学行。
+`[MS-L7]` 的 103 行已通过本机 OpticStudio 2026 R1 ZOS-API 采集为可重复 golden：源 SHA-256、行顺序和 400 余个活动参数槽已锁定；除保持禁用只读的 `DIMX` 外，全部 82 个当前可执行数值行通过对照，包括 63 个高 NA `TRAR` 行，以及 `RANG/SINE`、两行 `TTHI`、`OPLT`、`CTGT`、`EFFL`、`PMAG/CONS/DIVI`、两行 `REAR`、`PETZ` 和各项范围约束。由此修正了 ray aiming 传播、`TRAR` 默认像面与 `REAR` 物面零号面的分类型语义、`PMAG` 所选波长近轴像面、相邻表面各自半口径边厚、`PETZ` 像方曲率符号和 `TTHI/TGTH` 包含终止端点语义。这只完成该固定系统中已执行行的数值闭环；其余操作数和其它系统仍必须经过独立 Zemax/ZOS-API golden 后才能标为完整兼容。
 
 本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
 

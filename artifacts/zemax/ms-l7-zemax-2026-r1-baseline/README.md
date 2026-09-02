@@ -14,10 +14,12 @@ tracked `[MS-L7](10X大NA大视场).ZMX` source with the official OpticStudio
 `tools/zemax_parity/zosapi_merit_function_export.py`. Non-numeric cells and
 non-finite values in inactive cells are represented as JSON `null`.
 
-The automated baseline currently proves row order, source identity and more
-than 400 active parameter-slot comparisons. Numerical equality is locked for
-12 representative executable rows (`TTHI` twice, `OPLT`, `CTGT`, `EFFL`,
-`CONS`, `REAR`, `PETZ`, `MNCA`, `MNCG`, `MNEG`, `MXCG`). It does not claim complete Zemax
-operand parity. Remaining observed differences are concentrated in high-NA
-ray operands, edge-thickness geometry, range thickness, paraxial
-magnification and the downstream math rows that depend on them.
+The automated baseline proves row order, source identity and more than 400
+active parameter-slot comparisons. Numerical equality is locked for all 82
+active numeric rows whose operand types are currently executable in Workbench:
+the 63 `TRAR` rows plus `RANG`, `SINE`, both `TTHI` rows, `OPLT`, `CTGT`,
+`EFFL`, `PMAG`, `CONS`, `DIVI`, both `REAR` rows, `PETZ`, `MNCA`, `MNEA`,
+`MNCG`, `MNEG`, `MXCG` and `MXEG`. The remaining numeric row is `DIMX`, which
+stays disabled and compatibility-only until its Field/Absolute semantics are
+implemented. This fixture does not claim complete parity for all Zemax operand
+types or all optical systems.

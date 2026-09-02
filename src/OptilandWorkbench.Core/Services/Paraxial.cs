@@ -114,8 +114,21 @@ public sealed class Paraxial
 
     public double EstimateEntrancePupilLocation()
     {
+        return EstimateEntrancePupilLocation(PrimaryWavelengthNanometers() / 1000.0);
+    }
+
+    public double EstimateEntrancePupilLocation(double wavelengthMicrometers)
+    {
         EnsureComputable();
-        var wavelengthNanometers = PrimaryWavelengthNanometers();
+        if (!double.IsFinite(wavelengthMicrometers) || wavelengthMicrometers <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(wavelengthMicrometers),
+                wavelengthMicrometers,
+                "Wavelength must be finite and positive.");
+        }
+
+        var wavelengthNanometers = wavelengthMicrometers * 1000.0;
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         var endSurfaceExclusive = stopIndex < 0 ? _optic.SurfaceGroup.Items.Count : stopIndex;
@@ -298,7 +311,7 @@ public sealed class Paraxial
         }
 
         var objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
-        var pupilDistance = EstimateEntrancePupilLocation() - objectPosition;
+        var pupilDistance = EstimateEntrancePupilLocation(wavelengthMicrometers) - objectPosition;
         var slope = Math.Abs(pupilDistance) <= 1e-15
             ? 0
             : EstimateEntrancePupilDiameter() / (2 * pupilDistance);

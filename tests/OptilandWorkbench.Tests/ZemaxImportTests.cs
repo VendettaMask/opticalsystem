@@ -95,7 +95,11 @@ public sealed class ZemaxImportTests
         var expectedRows = golden.RootElement.GetProperty("rows").EnumerateArray().ToArray();
         var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
         var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
-        var validatedRows = new HashSet<int> { 6, 8, 9, 11, 13, 15, 19, 23, 25, 27, 28, 30 };
+        var validatedRows = new HashSet<int> { 3, 4, 6, 8, 9, 11, 13, 14, 15, 16, 18, 19, 23, 25, 26, 27, 28, 30, 31 };
+        foreach (var row in Enumerable.Range(39, 65).Except(new[] { 48, 76 }))
+        {
+            validatedRows.Add(row);
+        }
         var validatedValues = 0;
         var differences = new List<string>();
 
@@ -137,6 +141,26 @@ public sealed class ZemaxImportTests
 
         Assert.True(differences.Count == 0, string.Join(Environment.NewLine, differences));
         Assert.Equal(validatedRows.Count, validatedValues);
+    }
+
+    [Fact]
+    public void ZemaxRearSurfaceZeroUsesTheObjectSurface()
+    {
+        var optic = OpticalFormatCatalog.Import(
+            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            ".zmx");
+        var operand = optic.MeritFunctionOperands[17];
+        var launch = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+            0,
+            1,
+            0,
+            0,
+            optic.Wavelengths[1].Micrometers);
+
+        Assert.Equal(15, Math.Abs(launch.Rays[0].Origin.Y), precision: 10);
+        var evaluation = MeritFunctionCatalog.Evaluate(optic, operand);
+        Assert.Empty(evaluation.Error);
+        Assert.Equal(15, evaluation.Value, precision: 10);
     }
 
     [Fact]
@@ -845,7 +869,7 @@ public sealed class ZemaxImportTests
         Assert.Equal(4, evaluations[1].Value, precision: 12);
         Assert.Equal(6, evaluations[2].Value, precision: 12);
         Assert.Equal(4, evaluations[3].Value, precision: 12);
-        Assert.Equal(-1, paraxialMagnification.Value, precision: 12);
+        Assert.Equal(1, paraxialMagnification.Value, precision: 12);
         Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
         Assert.Empty(paraxialMagnification.Error);
         Assert.Equal(0, evaluations[0].Contribution, precision: 12);
