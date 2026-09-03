@@ -30,7 +30,7 @@ public sealed class OperandHelpPanel : UserControl
     private readonly TextBlock _count = new();
     private readonly TextBlock _title = new()
     {
-        FontSize = 20,
+        FontSize = DisplayTypography.LargeTitle,
         FontWeight = FontWeight.SemiBold,
         TextWrapping = TextWrapping.Wrap
     };
@@ -285,7 +285,7 @@ public sealed class OperandHelpPanel : UserControl
     private static TextBlock SectionTitle(string text) => new()
     {
         Text = text,
-        FontSize = 15,
+        FontSize = DisplayTypography.SectionTitle,
         FontWeight = FontWeight.SemiBold,
         Margin = new Thickness(0, 8, 0, 0)
     };
