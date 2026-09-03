@@ -164,6 +164,305 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
+    public void MsL7MeritSampleCacheResolvesActualZeroSurfaceSemanticsByTypeAndOrder()
+    {
+        var optic = OpticalFormatCatalog.Import(
+            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            ".zmx");
+        var trar = optic.MeritFunctionOperands[38];
+        Assert.Equal("TRAR", trar.Type);
+        var rear = trar.Clone();
+        rear.Type = "REAR";
+
+        var rearStandalone = MeritFunctionCatalog.Evaluate(optic, rear);
+        var trarStandalone = MeritFunctionCatalog.Evaluate(optic, trar);
+        Assert.Empty(rearStandalone.Error);
+        Assert.Empty(trarStandalone.Error);
+        Assert.NotEqual(
+            rearStandalone.Value,
+            trarStandalone.Value,
+            precision: 12);
+
+        var trarThenRear = MeritFunctionCatalog.EvaluateAll(optic, new[] { trar, rear });
+        Assert.Empty(trarThenRear[0].Error);
+        Assert.Empty(trarThenRear[1].Error);
+        Assert.Equal(trarStandalone.Value, trarThenRear[0].Value, precision: 12);
+        Assert.Equal(rearStandalone.Value, trarThenRear[1].Value, precision: 12);
+
+        var rearThenTrar = MeritFunctionCatalog.EvaluateAll(optic, new[] { rear, trar });
+        Assert.Empty(rearThenTrar[0].Error);
+        Assert.Empty(rearThenTrar[1].Error);
+        Assert.Equal(rearStandalone.Value, rearThenTrar[0].Value, precision: 12);
+        Assert.Equal(trarStandalone.Value, rearThenTrar[1].Value, precision: 12);
+    }
+
+    [Theory]
+    [InlineData("RSCH")]
+    [InlineData("RSRH")]
+    public void MsL7RmsSpotZeroSurfaceUsesImageConventions(string rmsType)
+    {
+        var optic = OpticalFormatCatalog.Import(
+            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            ".zmx");
+        var imageSurface = optic.SurfaceGroup.Items[^1].Number;
+        var zeroSurface = new MeritOperandDefinition
+        {
+            Type = rmsType,
+            Surface = 0,
+            Field = 1,
+            Wavelength = 2,
+            Hx = 0,
+            Hy = 1,
+            PupilRings = 3,
+            PupilArms = 6,
+            PupilSampling = "uniform"
+        };
+        var explicitImageSurface = zeroSurface.Clone();
+        explicitImageSurface.Surface = imageSurface;
+
+        var zeroStandalone = MeritFunctionCatalog.Evaluate(optic, zeroSurface);
+        var explicitStandalone = MeritFunctionCatalog.Evaluate(optic, explicitImageSurface);
+        Assert.Empty(zeroStandalone.Error);
+        Assert.Empty(explicitStandalone.Error);
+        Assert.Equal(
+            explicitStandalone.Value,
+            zeroStandalone.Value,
+            precision: 12);
+
+        var zeroThenExplicit = MeritFunctionCatalog.EvaluateAll(optic, new[] { zeroSurface, explicitImageSurface });
+        Assert.Empty(zeroThenExplicit[0].Error);
+        Assert.Empty(zeroThenExplicit[1].Error);
+        Assert.Equal(zeroStandalone.Value, zeroThenExplicit[0].Value, precision: 12);
+        Assert.Equal(explicitStandalone.Value, zeroThenExplicit[1].Value, precision: 12);
+
+        var explicitThenZero = MeritFunctionCatalog.EvaluateAll(optic, new[] { explicitImageSurface, zeroSurface });
+        Assert.Empty(explicitThenZero[0].Error);
+        Assert.Empty(explicitThenZero[1].Error);
+        Assert.Equal(explicitStandalone.Value, explicitThenZero[0].Value, precision: 12);
+        Assert.Equal(zeroStandalone.Value, explicitThenZero[1].Value, precision: 12);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void MsL7SpotAndSingleRaySamplesUseRayAimingConsistency(bool rayAimingEnabled)
+    {
+        var optic = OpticalFormatCatalog.Import(
+            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            ".zmx");
+        optic.RayAimingEnabled = rayAimingEnabled;
+        var imageSurface = optic.SurfaceGroup.Items[^1].Number;
+        var rms = new MeritOperandDefinition
+        {
+            Type = "RSCE",
+            Surface = imageSurface,
+            Field = 1,
+            Wavelength = 2,
+            PupilRings = 3,
+            PupilArms = 6,
+            PupilSampling = "uniform",
+            PupilObscuration = 0
+        };
+        var reax = rms.Clone();
+        reax.Type = "REAX";
+        reax.Px = 1.0 / 3.0;
+
+        var reaxStandalone = MeritFunctionCatalog.Evaluate(optic, reax);
+        Assert.Empty(reaxStandalone.Error);
+
+        var rmsThenReax = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            new[] { rms, reax });
+        Assert.Empty(rmsThenReax[0].Error);
+        Assert.Empty(rmsThenReax[1].Error);
+        Assert.Equal(rmsThenReax[1].Value, reaxStandalone.Value, precision: 12);
+
+        var reaxThenRms = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            new[] { reax, rms });
+        Assert.Empty(reaxThenRms[0].Error);
+        Assert.Empty(reaxThenRms[1].Error);
+        Assert.Equal(reaxThenRms[0].Value, reaxStandalone.Value, precision: 12);
+    }
+
+    [Theory]
+    [InlineData("MECS")]
+    [InlineData("MECT")]
+    [InlineData("OPDX")]
+    public void ZeroSurfaceAndExplicitSurfaceSemanticsMatchForNonSequentialSurfaceNumbersInMecsMectAndWavefrontRows(string rowType)
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 3 0 1 1 0 0 0 5
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              TYPE STANDARD
+              CURV 0
+              DISZ 2500
+            SURF 1
+              TYPE STANDARD
+              CURV 0.025
+              DISZ 3
+              GLAS H-K9L 0 0 1.5 40
+              STOP
+              DIAM 1000
+            SURF 2
+              TYPE STANDARD
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        optic.SurfaceGroup.Items[0].Number = 11;
+        optic.SurfaceGroup.Items[1].Number = 127;
+        optic.SurfaceGroup.Items[2].Number = 203;
+        var imageSurface = optic.SurfaceGroup.Items[^1].Number;
+        Assert.NotEqual(2, imageSurface);
+
+        var baseRow = new MeritOperandDefinition
+        {
+            Type = rowType,
+            Surface = 0,
+            Field = 1,
+            Wavelength = 1,
+            Px = 0.2,
+            Py = 0.2,
+            PupilRings = 3,
+            PupilArms = 6,
+            PupilSampling = "uniform"
+        };
+        if (rowType == "MECS")
+        {
+            baseRow.Px = 0.2;
+            baseRow.Py = 0;
+        }
+        else if (rowType == "MECT")
+        {
+            baseRow.Px = 0;
+            baseRow.Py = 0.2;
+        }
+        else
+        {
+            baseRow.Px = 0.1;
+            baseRow.Py = 0.12;
+        }
+
+        var explicitRow = baseRow.Clone();
+        explicitRow.Surface = imageSurface;
+
+        var zeroSurfaceValue = MeritFunctionCatalog.Evaluate(optic, baseRow);
+        var explicitSurfaceValue = MeritFunctionCatalog.Evaluate(optic, explicitRow);
+        Assert.Empty(zeroSurfaceValue.Error);
+        Assert.Empty(explicitSurfaceValue.Error);
+        Assert.True(double.IsFinite(zeroSurfaceValue.Value));
+        Assert.True(double.IsFinite(explicitSurfaceValue.Value));
+        Assert.Equal(
+            explicitSurfaceValue.Value,
+            zeroSurfaceValue.Value,
+            precision: 12);
+
+        var zeroThenExplicit = MeritFunctionCatalog.EvaluateAll(optic, new[] { baseRow, explicitRow });
+        Assert.Empty(zeroThenExplicit[0].Error);
+        Assert.Empty(zeroThenExplicit[1].Error);
+        Assert.True(double.IsFinite(zeroThenExplicit[0].Value));
+        Assert.True(double.IsFinite(zeroThenExplicit[1].Value));
+        Assert.Equal(zeroSurfaceValue.Value, zeroThenExplicit[0].Value, precision: 12);
+        Assert.Equal(explicitSurfaceValue.Value, zeroThenExplicit[1].Value, precision: 12);
+
+        var explicitThenZero = MeritFunctionCatalog.EvaluateAll(optic, new[] { explicitRow, baseRow });
+        Assert.Empty(explicitThenZero[0].Error);
+        Assert.Empty(explicitThenZero[1].Error);
+        Assert.True(double.IsFinite(explicitThenZero[0].Value));
+        Assert.True(double.IsFinite(explicitThenZero[1].Value));
+        Assert.Equal(explicitSurfaceValue.Value, explicitThenZero[0].Value, precision: 12);
+        Assert.Equal(zeroSurfaceValue.Value, explicitThenZero[1].Value, precision: 12);
+    }
+
+    [Theory]
+    [InlineData(100)]
+    public void ZeroSurfaceAndExplicitSurfaceSemanticsMatchForRmsSpotRowsWhenImageSurfaceIsRenumbered(int imageSurfaceNumber)
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            FTYP 3 0 1 1 0 0 0 5
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              TYPE STANDARD
+              CURV 0
+              DISZ 2500
+            SURF 1
+              TYPE STANDARD
+              CURV 0.025
+              DISZ 3
+              GLAS H-K9L 0 0 1.5 40
+              STOP
+              DIAM 1000
+            SURF 2
+              TYPE STANDARD
+              CURV 0
+              DISZ 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        optic.SurfaceGroup.Items[0].Number = 11;
+        optic.SurfaceGroup.Items[1].Number = 127;
+        optic.SurfaceGroup.Items[2].Number = imageSurfaceNumber;
+        var imageSurface = optic.SurfaceGroup.Items[^1].Number;
+        Assert.Equal(imageSurfaceNumber, imageSurface);
+
+        var zeroSurface = new MeritOperandDefinition
+        {
+            Type = "RSCH",
+            Surface = 0,
+            PupilRings = 3,
+            PupilArms = 6,
+            Field = 1,
+            Wavelength = 1,
+            Hx = 0,
+            Hy = 1,
+            PupilSampling = "uniform"
+        };
+        var explicitSurface = zeroSurface.Clone();
+        explicitSurface.Surface = imageSurface;
+
+        var zeroStandalone = MeritFunctionCatalog.Evaluate(optic, zeroSurface);
+        var explicitStandalone = MeritFunctionCatalog.Evaluate(optic, explicitSurface);
+        Assert.Empty(zeroStandalone.Error);
+        Assert.Empty(explicitStandalone.Error);
+        Assert.True(double.IsFinite(zeroStandalone.Value));
+        Assert.True(double.IsFinite(explicitStandalone.Value));
+        Assert.Equal(explicitStandalone.Value, zeroStandalone.Value, precision: 12);
+
+        var zeroThenExplicit = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            new[] { zeroSurface, explicitSurface });
+        Assert.Empty(zeroThenExplicit[0].Error);
+        Assert.Empty(zeroThenExplicit[1].Error);
+        Assert.True(double.IsFinite(zeroThenExplicit[0].Value));
+        Assert.True(double.IsFinite(zeroThenExplicit[1].Value));
+        Assert.Equal(zeroStandalone.Value, zeroThenExplicit[0].Value, precision: 12);
+        Assert.Equal(explicitStandalone.Value, zeroThenExplicit[1].Value, precision: 12);
+
+        var explicitThenZero = MeritFunctionCatalog.EvaluateAll(
+            optic,
+            new[] { explicitSurface, zeroSurface });
+        Assert.Empty(explicitThenZero[0].Error);
+        Assert.Empty(explicitThenZero[1].Error);
+        Assert.True(double.IsFinite(explicitThenZero[0].Value));
+        Assert.True(double.IsFinite(explicitThenZero[1].Value));
+        Assert.Equal(explicitStandalone.Value, explicitThenZero[0].Value, precision: 12);
+        Assert.Equal(zeroStandalone.Value, explicitThenZero[1].Value, precision: 12);
+    }
+
+    [Fact]
     public void RequiredSequentialOperandRegistryContainsExactlyTheVerified2026R1Codes()
     {
         Assert.Equal(383, ZemaxOperandRegistry.Descriptors.Count);

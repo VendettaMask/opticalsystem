@@ -271,13 +271,14 @@ public static class MeritFunctionCatalog
 
     private readonly record struct RaySampleCacheKey(
         Optic Optic,
-        int Surface,
+        int SurfaceNumber,
         int Field,
         int Wavelength,
         double Hx,
         double Hy,
         double Px,
-        double Py);
+        double Py,
+        bool AimAtStop);
 
     private readonly record struct AberrationReferenceCacheKey(
         Optic Optic,
@@ -2159,12 +2160,14 @@ public static class MeritFunctionCatalog
             normalized.X,
             normalized.Y,
             wavelength.Micrometers,
-            pupilSamples);
-        var surfaceIndex = definition.Surface <= 0
-            ? optic.SurfaceGroup.Items.Count - 1
-            : optic.SurfaceGroup.Items
+            pupilSamples,
+            aimAtStop: optic.RayAimingEnabled);
+        var surfaceNumber = definition.Surface <= 0
+            ? ResolveImageSurfaceNumber(optic)
+            : definition.Surface;
+        var surfaceIndex = optic.SurfaceGroup.Items
                 .Select((surface, index) => (surface, index))
-                .Where(item => item.surface.Number == definition.Surface)
+                .Where(item => item.surface.Number == surfaceNumber)
                 .Select(item => item.index)
                 .DefaultIfEmpty(-1)
                 .First();
@@ -2198,7 +2201,9 @@ public static class MeritFunctionCatalog
                     definition,
                     wavelengthIndex,
                     pupil.X,
-                    pupil.Y)] = sample;
+                    pupil.Y,
+                    surfaceNumber,
+                    optic.RayAimingEnabled)] = sample;
             }
         }
 
@@ -2244,7 +2249,9 @@ public static class MeritFunctionCatalog
             optic,
             angular,
             chiefReference,
-            definition.Surface,
+            definition.Surface == 0 && SurfaceZeroMeansImage(definition.Type)
+                ? ResolveImageSurfaceNumber(optic)
+                : definition.Surface,
             definition.Field,
             chiefReference || definition.PolychromaticReference ? 0 : definition.Wavelength,
             definition.Hx,
@@ -2387,10 +2394,13 @@ public static class MeritFunctionCatalog
                 / Math.Max(1e-12, wavelengthMillimeters);
         }
 
+        var wavefrontSurface = definition.Surface == 0 && SurfaceZeroMeansImage(definition.Type)
+            ? ResolveImageSurfaceNumber(optic)
+            : definition.Surface;
         var cacheKey = new WavefrontReferenceCacheKey(
             optic,
             type,
-            definition.Surface,
+            wavefrontSurface,
             definition.Field,
             definition.Wavelength,
             definition.Hx,
@@ -2408,7 +2418,7 @@ public static class MeritFunctionCatalog
                 optic,
                 definition,
                 37,
-                definition.Surface,
+                wavefrontSurface,
                 out var targetSurfaceIndex);
             var surfaceSamples = trace.GetSurfaceSamples(targetSurfaceIndex);
             var fitted = new List<(
@@ -2536,12 +2546,17 @@ public static class MeritFunctionCatalog
 
     private static RayTraceSample SampleAtSurface(Optic optic, MeritOperandDefinition definition)
     {
+        var targetSurfaceNumber = definition.Surface == 0 && SurfaceZeroMeansImage(definition.Type)
+            ? ResolveImageSurfaceNumber(optic)
+            : definition.Surface;
         var cacheKey = CreateRaySampleCacheKey(
             optic,
             definition,
             definition.Wavelength,
             definition.Px,
-            definition.Py);
+            definition.Py,
+            targetSurfaceNumber,
+            optic.RayAimingEnabled);
         var batch = ActiveEvaluationBatch.Value;
         if (batch is not null && batch.RaySamples.TryGetValue(cacheKey, out var cached))
         {
@@ -2557,11 +2572,9 @@ public static class MeritFunctionCatalog
             Math.Clamp(definition.Py, -1, 1),
             wavelength.Micrometers,
             aimAtStop: optic.RayAimingEnabled);
-        var surfaceIndex = definition.Surface == 0 && SurfaceZeroMeansImage(definition.Type)
-            ? optic.SurfaceGroup.Items.Count - 1
-            : optic.SurfaceGroup.Items
+        var surfaceIndex = optic.SurfaceGroup.Items
                 .Select((surface, index) => (surface, index))
-                .Where(item => item.surface.Number == definition.Surface)
+                .Where(item => item.surface.Number == targetSurfaceNumber)
                 .Select(item => item.index)
                 .DefaultIfEmpty(-1)
                 .First();
@@ -2593,7 +2606,8 @@ public static class MeritFunctionCatalog
     private static bool SurfaceZeroMeansImage(string operandType)
     {
         var type = CanonicalType(operandType);
-        return type.StartsWith("TR", StringComparison.Ordinal)
+        return type is "RSCH" or "RSRH" or "MECS" or "MECT"
+            || type.StartsWith("TR", StringComparison.Ordinal)
             || type.StartsWith("AN", StringComparison.Ordinal)
             || type.StartsWith("OPD", StringComparison.Ordinal);
     }
@@ -2603,17 +2617,20 @@ public static class MeritFunctionCatalog
         MeritOperandDefinition definition,
         int wavelength,
         double px,
-        double py)
+        double py,
+        int surfaceNumber,
+        bool aimAtStop)
     {
         return new RaySampleCacheKey(
             optic,
-            definition.Surface,
+            surfaceNumber,
             definition.Field,
             wavelength,
             Quantize(definition.Hx),
             Quantize(definition.Hy),
             Quantize(px),
-            Quantize(py));
+            Quantize(py),
+            aimAtStop);
     }
 
     private static int FindWavelengthIndex(Optic optic, Wavelength wavelength)
@@ -2630,6 +2647,13 @@ public static class MeritFunctionCatalog
         return 0;
     }
 
+    private static int ResolveImageSurfaceNumber(Optic optic)
+    {
+        return optic.SurfaceGroup.Items.Count == 0
+            ? 0
+            : optic.SurfaceGroup.Items[^1].Number;
+    }
+
     private static double Quantize(double value) => Math.Round(value, 12);
 
     private static Raytrace.RequestedTrace TraceBundleAtSurface(
@@ -2642,12 +2666,16 @@ public static class MeritFunctionCatalog
         var normalized = ResolveNormalizedField(optic, definition);
         var wavelength = ResolveWavelength(optic, definition.Wavelength);
         var pupilSamples = CreateWizardPupilSamples(definition, sampleCount);
+        var targetSurfaceNumber = surfaceNumber <= 0
+            ? ResolveImageSurfaceNumber(optic)
+            : surfaceNumber;
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             normalized.X,
             normalized.Y,
             wavelength.Micrometers,
-            pupilSamples);
-        surfaceIndex = ResolveSurfaceIndex(optic, surfaceNumber);
+            pupilSamples,
+            aimAtStop: optic.RayAimingEnabled);
+        surfaceIndex = ResolveSurfaceIndex(optic, targetSurfaceNumber);
         var request = surfaceIndex == optic.SurfaceGroup.Items.Count - 1
             ? Raytrace.TraceRequest.FinalOnly(false)
             : Raytrace.TraceRequest.Selected(new[] { surfaceIndex });

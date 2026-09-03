@@ -23,3 +23,10 @@ the 63 `TRAR` rows plus `RANG`, `SINE`, both `TTHI` rows, `OPLT`, `CTGT`,
 stays disabled and compatibility-only until its Field/Absolute semantics are
 implemented. This fixture does not claim complete parity for all Zemax operand
 types or all optical systems.
+
+Additional regression tests cover mixed operand ordering and independent versus
+batched evaluation. They distinguish object-surface zero from default image
+surface zero and keep ray aiming consistent across single-ray and bundle paths.
+These checks supplement, rather than change, the 82-row captured golden. The
+2026-09-03 full main test suite passes 1015/1015; the registered/executable code
+counts remain 383/114 and are not a claim of complete Zemax parity.
