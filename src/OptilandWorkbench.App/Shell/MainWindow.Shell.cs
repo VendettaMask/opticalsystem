@@ -159,6 +159,7 @@ public sealed partial class MainWindow
                         RibbonButton("restore-default-layout", "rotate-ccw", "载入默认")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
+                        RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
@@ -215,6 +216,7 @@ public sealed partial class MainWindow
                         RibbonButton("close-all-pages", "x", "关闭其他页")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
+                        RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };

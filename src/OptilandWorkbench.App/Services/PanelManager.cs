@@ -214,6 +214,11 @@ public sealed class PanelManager : IDisposable
         OpenStable("document:glass-catalog", WorkspaceDocumentTypes.GlassCatalog, "玻璃");
     }
 
+    public void ShowOperandHelp()
+    {
+        OpenStable("document:operand-help", WorkspaceDocumentTypes.OperandHelp, "操作数帮助");
+    }
+
     public void ShowMaterialAnalysis(MaterialAnalysisKind kind)
     {
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(

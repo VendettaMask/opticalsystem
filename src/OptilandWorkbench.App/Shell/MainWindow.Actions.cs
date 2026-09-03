@@ -193,6 +193,7 @@ public sealed partial class MainWindow
         _actions.Register("save-default-layout", "保存默认布局", "窗口", () => _panels.SaveDefaultLayoutAsync());
         _actions.Register("restore-default-layout", "载入已保存的默认布局", "窗口", RestoreDefaultLayoutAsync);
         _actions.Register("command-palette", "命令面板", "工具", ShowCommandPaletteAsync);
+        _actions.Register("show-operand-help", "操作数帮助", "帮助", _panels.ShowOperandHelp);
         _actions.Register("about", "关于 Optical System Design", "帮助", ShowAboutAsync);
         foreach (var analysis in WorkbenchAnalysisCatalog.AllRibbonCommands)
         {

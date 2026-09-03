@@ -510,6 +510,7 @@ public sealed class WorkspaceDockFactory : Factory
                 () => TolerancingEditor().BuildHistogramChartView()),
             WorkspaceDocumentTypes.ToleranceYield => new ToleranceChartDocumentPanel(
                 () => TolerancingEditor().BuildYieldChartView()),
+            WorkspaceDocumentTypes.OperandHelp => new OperandHelpPanel(_application.Optimization),
             WorkspaceDocumentTypes.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
             WorkspaceDocumentTypes.Analysis => new AnalysisPanel(
                 _application.Analyses,

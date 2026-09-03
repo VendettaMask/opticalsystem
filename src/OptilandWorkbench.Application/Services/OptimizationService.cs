@@ -39,9 +39,21 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             {
                 if (!ZemaxOperandRegistry.TryGet(type.Code, out var descriptor))
                 {
-                    return new MeritOperandTypeDto(type.Code, type.DisplayName, type.Description);
+                    var reference = MeritOperandReferenceCatalog.Describe(
+                        type.Code,
+                        compatibilityOnly: false);
+                    return new MeritOperandTypeDto(
+                        type.Code,
+                        type.DisplayName,
+                        type.Description,
+                        Category: reference.Category,
+                        Calculation: reference.Calculation);
                 }
 
+                var compatibilityOnly = descriptor.SupportLevel == ZemaxOperandSupportLevel.CompatibilityOnly;
+                var descriptorReference = MeritOperandReferenceCatalog.Describe(
+                    type.Code,
+                    compatibilityOnly);
                 return new MeritOperandTypeDto(
                     type.Code,
                     type.DisplayName,
@@ -52,7 +64,9 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         parameter.ValueKind.ToString(),
                         parameter.Unit,
                         !parameter.DisplayName.Equals("Unused", StringComparison.OrdinalIgnoreCase))).ToArray(),
-                    descriptor.SupportLevel == ZemaxOperandSupportLevel.CompatibilityOnly);
+                    compatibilityOnly,
+                    descriptorReference.Category,
+                    descriptorReference.Calculation);
             })
             .ToArray();
     }

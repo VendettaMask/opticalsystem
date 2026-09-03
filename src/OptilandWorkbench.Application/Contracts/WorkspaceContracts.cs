@@ -1325,7 +1325,9 @@ public sealed record MeritOperandTypeDto(
     string DisplayName,
     string Description,
     IReadOnlyList<MeritOperandParameterDto>? Parameters = null,
-    bool CompatibilityOnly = false);
+    bool CompatibilityOnly = false,
+    string Category = "",
+    string Calculation = "");
 
 public sealed record MeritOperandParameterDto(
     string Slot,
