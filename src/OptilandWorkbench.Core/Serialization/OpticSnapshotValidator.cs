@@ -18,6 +18,7 @@ public static class OpticSnapshotValidator
     private const int MaximumEncodedCollectionCount = 1_000_000;
 
     private static readonly IReadOnlySet<string> ApodizationKinds = Kinds(
+        "zemax_pupil",
         "uniform",
         "gaussian",
         "cosine_squared",
@@ -42,6 +43,7 @@ public static class OpticSnapshotValidator
         "forbes_q");
 
     private static readonly IReadOnlySet<string> MaterialKinds = Kinds(
+        "unresolved",
         "air",
         "constant",
         "cauchy",
@@ -709,6 +711,15 @@ public static class OpticSnapshotValidator
         }
 
         ValidateEncodedCollectionSizes(component, role, path);
+        if (role == ComponentRole.Apodization && component.Kind == "zemax_pupil")
+        {
+            RequireNumberKey(component, "type", path);
+            RequireNumberKey(component, "factor", path);
+            if (component.Numbers["type"] is not (0 or 1 or 2) || component.Numbers["factor"] < 0)
+            {
+                Invalid(path, "Zemax apodization requires type 0, 1 or 2 and a non-negative factor");
+            }
+        }
         ValidateComponentChildren(component, role, path, depth);
     }
 

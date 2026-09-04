@@ -77,7 +77,7 @@
 ### 2026-08-04 Zemax 评价函数导入对齐
 
 - 已实现：参考 `[MS-L7]` ZMX 的评价函数由约 29 行恢复为源文件中的 103 行，行顺序不变；此前漏掉的 63 行 `TRAR` 进入现有光线像差计算路径。
-- 兼容边界：当前 114 个 Zemax 顺序操作数已接入定义级可执行路径，覆盖 `TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；`DIMX` 因 Field/Absolute 语义未完成而降为兼容只读。其它尚无完整语义的 Zemax 行继续按八个参数槽位无损保留并禁用，不伪造当前值或贡献量。新增执行路径仍需 Zemax/ZOS-API golden 对照后才能标记完整兼容。
+- 兼容边界：当前 124 个 Zemax 顺序操作数已接入定义级可执行路径，覆盖 `TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；`DIMX` 因 Field/Absolute 语义未完成而降为兼容只读。其它尚无完整语义的 Zemax 行继续按八个参数槽位无损保留并禁用，不伪造当前值或贡献量。新增执行路径仍需 Zemax/ZOS-API golden 对照后才能标记完整兼容。
 - 已完成 2026 R1 目录实测校准：注册表包含 383 项顺序兼容代码，移除 10 个非真实或当前 MFE 不可选代码，并展开 `I1`–`I6` 梯度折射率族。
 - 尚未完成：383 项顺序模式操作数的逐类型参数语义、校验规则和计算引擎仍按 `ZEMAX_OPERAND_SUPPORT.md` 推进；本轮不能描述为 Zemax 优化数值完全等价。
 - 验证记录：实际 `[MS-L7]` 的 103 行顺序、兼容参数槽位、光线操作数映射、常见操作数束、描述符驱动编辑往返、ZOS-API MFE golden 和条件控制流探针通过定向测试；2026-09-03 全量主测试 `1015/1015` 通过。

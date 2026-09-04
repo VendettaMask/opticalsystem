@@ -1,7 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
@@ -250,6 +253,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var currentActions = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
+            Margin = new Thickness(0, 0, 0, 4),
             Children =
             {
                 _moveGlassCatalogUp,
@@ -261,30 +265,30 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         {
             Orientation = Orientation.Horizontal,
             HorizontalAlignment = HorizontalAlignment.Left,
+            Margin = new Thickness(0, 0, 0, 4),
             Children = { _addGlassCatalog }
         };
         return new StackPanel
         {
-            Spacing = 8,
+            Spacing = 10,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
-                LabeledRow("当前玻璃库", _currentGlassCatalogs),
+                MaterialLibraryHeader("当前玻璃库"),
+                _currentGlassCatalogs,
                 currentActions,
-                LabeledRow("可用玻璃库", _availableGlassCatalogs),
+                MaterialLibraryHeader("可用玻璃库"),
+                _availableGlassCatalogs,
                 availableActions,
-                new TextBlock
-                {
-                    Text = "当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。",
-                    FontSize = DisplayTypography.RibbonText,
-                    TextWrapping = TextWrapping.Wrap
-                }
+                MutedText("当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。", DisplayTypography.RibbonText)
             }
         };
     }
 
     private void ConfigureGlassCatalogControls()
     {
+        ConfigureGlassCatalogList(_currentGlassCatalogs);
+        ConfigureGlassCatalogList(_availableGlassCatalogs);
         ToolTip.SetTip(_addGlassCatalog, "将选中的可用玻璃库加入当前系统。");
         ToolTip.SetTip(_removeGlassCatalog, "将选中的当前玻璃库移回可用列表。");
         ToolTip.SetTip(_moveGlassCatalogUp, "提高当前玻璃库的同名玻璃解析优先级。");
@@ -295,6 +299,74 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _removeGlassCatalog.Click += (_, _) => RemoveSelectedGlassCatalog();
         _moveGlassCatalogUp.Click += (_, _) => MoveSelectedGlassCatalog(-1);
         _moveGlassCatalogDown.Click += (_, _) => MoveSelectedGlassCatalog(1);
+    }
+
+    private static void ConfigureGlassCatalogList(ListBox listBox)
+    {
+        listBox.ItemTemplate = new FuncDataTemplate<string>((catalog, _) => new TextBlock
+        {
+            Text = catalog ?? string.Empty,
+            FontSize = DisplayTypography.BodySmall,
+            FontWeight = FontWeight.SemiBold,
+            TextTrimming = TextTrimming.CharacterEllipsis,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        listBox.Background = Brushes.Transparent;
+        listBox.BorderBrush = Brushes.Transparent;
+        listBox.BorderThickness = new Thickness(0);
+        listBox.Styles.Add(new Style(selector => selector.OfType<ListBoxItem>())
+        {
+            Setters =
+            {
+                new Setter(ListBoxItem.MinHeightProperty, 42d),
+                new Setter(ListBoxItem.MarginProperty, new Thickness(0, 0, 0, 6)),
+                new Setter(ListBoxItem.PaddingProperty, new Thickness(12, 8)),
+                new Setter(ListBoxItem.BorderThicknessProperty, new Thickness(1)),
+                new Setter(
+                    ListBoxItem.CornerRadiusProperty,
+                    new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.SurfaceCard))),
+                new Setter(
+                    ListBoxItem.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Surface)),
+                new Setter(
+                    ListBoxItem.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Border)),
+                new Setter(
+                    ListBoxItem.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.TextPrimary))
+            }
+        });
+        listBox.Styles.Add(new Style(selector => selector
+            .OfType<ListBoxItem>()
+            .Class(":pointerover"))
+        {
+            Setters =
+            {
+                new Setter(
+                    ListBoxItem.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.Hover)),
+                new Setter(
+                    ListBoxItem.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.HoverBorder))
+            }
+        });
+        listBox.Styles.Add(new Style(selector => selector
+            .OfType<ListBoxItem>()
+            .Class(":selected"))
+        {
+            Setters =
+            {
+                new Setter(
+                    ListBoxItem.BackgroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                new Setter(
+                    ListBoxItem.BorderBrushProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                new Setter(
+                    ListBoxItem.ForegroundProperty,
+                    new DynamicResourceExtension(ThemeResourceBindings.SelectionForeground))
+            }
+        });
     }
 
     private void AddSelectedGlassCatalog()
@@ -425,6 +497,13 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             }
         };
     }
+
+    private static TextBlock MaterialLibraryHeader(string title) => new()
+    {
+        Text = title,
+        FontSize = DisplayTypography.BodySmall,
+        FontWeight = FontWeight.SemiBold
+    };
 
     private static Control Section(string title, Control content, bool expanded = false)
     {
@@ -970,6 +1049,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     {
         var configuration = kind switch
         {
+            "均匀（Zemax）" => ("因子", string.Empty, 0.0, 1.0),
+            "高斯（Zemax）" => ("因子", string.Empty, 1.0, 1.0),
+            "余弦立方（Zemax）" => ("因子", string.Empty, 0.0, 1.0),
             "高斯" => ("σ", string.Empty, 1.0, 1.0),
             "余弦平方" => ("R", string.Empty, 1.0, 1.0),
             "Hann" => ("D", string.Empty, 2.0, 1.0),

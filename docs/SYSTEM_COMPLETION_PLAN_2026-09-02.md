@@ -2,10 +2,10 @@
 
 ## 文档状态
 
-- 复核日期：2026-09-03
+- 复核日期：2026-09-04
 - 范围：正式 Workbench、Zemax/Optiland 互操作、非序列模式、优化与公差、Initial Structure Lab、UI 产品表达
 - 性质：实施计划，不是当前完成能力清单
-- 当前仓库状态：计划文档已建立；Zemax 评价函数真实化已启动，本机 OpticStudio 2026 R1 实测目录已同步为 383 个顺序兼容代码，114 个操作数完成定义级可执行接入；`[MS-L7]` 中 82 个当前可执行数值行已全部通过本机 golden，对其余系统和兼容只读类型仍不作等价声明
+- 当前仓库状态：计划文档已建立；Zemax 评价函数真实化已启动，本机 OpticStudio 2026 R1 实测目录已同步为 383 个顺序兼容代码，124 个操作数完成定义级可执行接入；`[MS-L7]` 中 82 个当前可执行数值行已全部通过本机 golden，本轮新增 `DIVB/PROB/OSUM/QSUM/EQUA` 的定义级行序语义，以及 `MNIN/MXIN/MNAB/MXAB/POWR` 的玻璃范围和表面光焦度语义；对其余系统和兼容只读类型仍不作等价声明
 
 本文把当前项目中“已经显式标注但尚未完成”的能力收拢成可执行计划。所有阶段都必须继续遵守：
 
@@ -31,16 +31,18 @@
 
 ### 当前状态
 
-`ZemaxOperandRegistry` 已按实际运行的 OpticStudio 2026 R1 注册 383 个顺序兼容代码，其中当前 114 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。本轮目录校准已完成：移除 10 个非真实或当前顺序 MFE 不可选代码，补入 60 个当前 API 可选代码，展开 `I1`–`I6` 梯度折射率族，并补全 `NPAF/RSNC` 非序列排除。ZMX 导入器能按源顺序保留注册行，但禁用兼容行不参与 Workbench 数值评价。已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，三角函数 Flag 采用 Zemax 弧度/角度语义，`GOTO/ENDX/OOFF/SKIN/SKIS/USYM` 已执行有序控制语义。`[MS-L7]` 的 103 行 ZOS-API golden 已落库，源哈希、行序和 400 余个活动参数槽受测试保护；其中全部 82 个当前可执行数值行已经通过对照，包括 63 个高 NA `TRAR` 行。`RANG/TRAR` 已遵循导入的 ray aiming，`TRAR` 的零号面按默认像面处理而 `REAR` 的零号面保持物面语义，`PMAG` 在所选波长的近轴像面求值，边厚按相邻表面各自半口径计算；`PETZ` 像方曲率符号和 `TTHI/TGTH` 端点包含语义也已据官方定义修正。
+`ZemaxOperandRegistry` 已按实际运行的 OpticStudio 2026 R1 注册 383 个顺序兼容代码，其中当前 124 个已接计算引擎并标为 `Executable`，其余为 `CompatibilityOnly`。本轮目录校准已完成：移除 10 个非真实或当前顺序 MFE 不可选代码，补入 60 个当前 API 可选代码，展开 `I1`–`I6` 梯度折射率族，并补全 `NPAF/RSNC` 非序列排除。ZMX 导入器能按源顺序保留注册行，但禁用兼容行不参与 Workbench 数值评价。已加入首批描述符槽位语义，并让 `TTHI/TGTH`、`REAR/RANG`、基础数学行、厚度/曲率/圆锥/半口径边界、`WLEN/INDX`、玻璃范围约束 `MNIN/MXIN/MNAB/MXAB`、标准面光焦度 `POWR` 以及若干一阶量通过有序评价或现有近轴/几何引擎执行；`SUMM/PROD/DIFF/DIVI` 采用 Zemax 双行引用语义，`DIVB/PROB` 采用 `Int1` 前序行和 `Data1` Factor，`OSUM/QSUM/EQUA` 采用 `Int1..Int2` 闭区间行范围，`EQUA` 把 Target 作为相等容差并使用专用贡献语义，三角函数 Flag 采用 Zemax 弧度/角度语义，`MNIN/MXIN` 约束范围内玻璃 d 线 Nd，`MNAB/MXAB` 约束玻璃 Vd，`POWR` 使用 `(n_after − n_before) / Radius` 且仅执行标准折射面，`GOTO/ENDX/OOFF/SKIN/SKIS/USYM` 已执行有序控制语义。`[MS-L7]` 的 103 行 ZOS-API golden 已落库，源哈希、行序和 400 余个活动参数槽受测试保护；其中全部 82 个当前可执行数值行已经通过对照，包括 63 个高 NA `TRAR` 行。`RANG/TRAR` 已遵循导入的 ray aiming，`TRAR` 的零号面按默认像面处理而 `REAR` 的零号面保持物面语义，`PMAG` 在所选波长的近轴像面求值，边厚按相邻表面各自半口径计算；`PETZ` 像方曲率符号和 `TTHI/TGTH` 端点包含语义也已据官方定义修正。
 
 2026-09-03 本批审核修复：三处已复现的一致性缺陷已闭环——物面/像面缓存冲突、RMS 主光线默认面错误、单光线与多光线瞄准设置不一致。补充默认/显式像面、双向行序、非连续面号及瞄准开关共 9 个回归用例；正式全量测试 `1015/1015`、Release 构建 `0` 警告 `0` 错误。按用户要求，本轮在该批修复、审核和同步后停止；以下剩余 Zemax 项及后续阶段仍未完成，不将整个第一主线或整份计划标为完成。
+
+2026-09-04 本批继续计划：补齐 `DIVB`、`PROB`、`OSUM`、`QSUM` 和 `EQUA` 五个通用数学操作数的定义级参数描述符、ZMX 导入、行序求值、错误报告、STAROPT 快照往返、帮助说明和行色归类；随后继续补齐 `MNIN`、`MXIN`、`MNAB`、`MXAB` 和 `POWR` 五个常见玻璃/表面功率操作数的定义级参数描述符、ZMX 导入、计算、错误报告、STAROPT 快照往返、帮助说明和行色归类。相关定向回归 `84/84` 与解决方案 Debug 构建 `0` 警告 `0` 错误通过。由于当前环境没有可用的本机 OpticStudio/ZOS-API 运行时，本批新增语义尚未取得 Zemax golden 闭环，仍不能宣称完整数值等价。
 
 仍需完成：
 
 - 383 项操作数的逐类型参数语义、单位、默认值和验证；
 - Merit Function 编辑器的参数范围/默认值提示与逐类型校验；六个原始槽位的描述符列名、单位和只读状态已接入；
 - 剩余数学约束、控制、质心、MTF、圈入能量、鬼像、POP、GRIN、偏振等操作数执行；
-- 扩展到更多真实 ZMX 的系统级 golden，验证当前 114 个可执行代码在不同孔径、共轭、坐标断点和材料条件下的数值边界；
+- 扩展到更多真实 ZMX 的系统级 golden，验证当前 124 个可执行代码在不同孔径、共轭、坐标断点和材料条件下的数值边界；
 - ZOS-API 行色 `Color1`–`Color16`、逐行无颜色和全局 `Color Rows` 偏好往返；
 - ZMX 坐标断点顺序、复杂 toroidal、theodolite field、部分 FNUM/OBNA 子类型。
 
@@ -50,7 +52,7 @@
    - 为每个操作数定义参数槽：名称、类型、单位、默认值、是否引用表面/视场/波长/配置。
    - 将现有 `Int1`、`Int2`、`Data1`–`Data4` 作为原始槽位保存，描述符只提供类型化视图。
    - 增加快照迁移和非法槽位验证。
-   - 进度：已为瞳孔光线类、RMS 类、Moore-Elliott 类、`EFFL/TOTR/TTHI/TGTH`、常见厚度/曲率/圆锥/半口径/玻璃折射率/一阶量与基础数学行建立首批槽位描述；本机 ZOS-API 实测已校正 RMS 的 `Ring/Wave/Hx/Hy`、Moore-Elliott 空首列、厚度 Mode 位置、中心范围与半口径范围空列及行边界单列语义。快照校验已能区分范围厚度项的 `Int2` 终止表面、数学行引用、边缘方向代码和常规波长。
+   - 进度：已为瞳孔光线类、RMS 类、Moore-Elliott 类、`EFFL/TOTR/TTHI/TGTH`、常见厚度/曲率/圆锥/半口径/玻璃折射率/玻璃范围/表面光焦度/一阶量与基础数学行建立首批槽位描述；本机 ZOS-API 实测已校正 RMS 的 `Ring/Wave/Hx/Hy`、Moore-Elliott 空首列、厚度 Mode 位置、中心范围与半口径范围空列及行边界单列语义。本轮补入 `DIVB/PROB` 的 `Data1=Factor`、`EQUA/OSUM/QSUM` 的行范围描述、`MNIN/MXIN/MNAB/MXAB` 的 `Surf1/Surf2` 描述以及 `POWR` 的 `Surf/Wave` 描述。快照校验已能区分范围厚度项和玻璃范围项的 `Int2` 终止表面、数学行引用/行范围/Factor、边缘方向代码、表面功率常规波长和常规波长。
 
 2. **编辑器切换**
    - Merit Function 表按操作数描述符显示列标题、单位、范围和只读状态。
@@ -60,14 +62,14 @@
 
 3. **基础可执行操作数**
    - 已完成真实 ZMX 已出现的首批只读提升：`CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`PETZ`。
-   - 已完成：光线/RMS/Moore-Elliott 首批、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、`CT*/ET*/FT*/TT*/STHI` 厚度项、`MN*/MX*/X*` 常见范围厚度/曲率/半口径项、`CO*/CV*` 表面标量项、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO`、`PMAG/PETZ`。
+   - 已完成：光线/RMS/Moore-Elliott 首批、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、`CT*/ET*/FT*/TT*/STHI` 厚度项、`MN*/MX*/X*` 常见范围厚度/曲率/半口径项、`CO*/CV*` 表面标量项、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO`、`PMAG/PETZ`。
    - `DIMX` 已校正为 `Field/Wave/Absolute`，在指定视场和绝对长度模式完成前保持兼容只读；`EFNO` 已确认是内置有效 F/# 操作数，后续按 `Samp/Wave/Field/Pol?` 接入，不能伪实现为普通 F/# 或用户扩展。
 
 4. **有序评价函数虚拟机**
-   - 已支持 `CONS`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX`、`MINN` 及基础一元数学行按前序行执行，其中 `SUMM/PROD/DIFF/DIVI` 为双行引用，`MAXX/MINN` 为范围引用。
+   - 已支持 `CONS`、`SUMM`、`PROD`、`DIVB`、`DIVI`、`DIFF`、`PROB`、`EQUA`、`MAXX`、`MINN`、`OSUM`、`QSUM` 及基础一元数学行按前序行执行，其中 `SUMM/PROD/DIFF/DIVI` 为双行引用，`DIVB/PROB` 为单行引用加 Factor，`MAXX/MINN/OSUM/QSUM/EQUA` 为范围引用。
    - 已支持 `GOTO` 前向跳转、`ENDX` 终止、`OOFF` 惰性行、`SKIN/SKIS` 按检测到的旋转对称性条件跳转和 `USYM` 强制对称标记；跳转目标必须位于当前行之后且不超过评价函数末行。
    - `SKIN/SKIS` 已通过本机 OpticStudio 2026 R1 ZOS-API 的真实贡献值探针验证对称系统分支；非对称检测按可证明的轴对称几何、坐标和孔径保守分类。
-   - 当前已检测基础数学行的越界引用、未来行引用、非法数学域、除零和非法跳转；前向跳转约束从结构上排除了循环跳转。
+   - 当前已检测基础数学行的越界引用、未来行引用、非法数学域、除零、非法 Factor、非法 EQUA 容差和非法跳转；前向跳转约束从结构上排除了循环跳转。
 
 5. **分析型和高级操作数**
    - 接入 MTF、圈入能量、光纤耦合、鬼像、POP、高斯光束、GRIN、镀膜/偏振。
@@ -318,7 +320,7 @@ Initial Structure Lab 是独立实验室功能，不属于正式产品能力。L
 1. Zemax 操作数描述符模型；
 2. Merit Function 描述符驱动 UI；
 3. `[MS-L7]` 中 `CTGT`、`OPLT`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG`、`PMAG`、`PETZ` 已完成定义级可执行接入，下一步补 Zemax/ZOS-API golden；`DIMX` 在完整 `Field/Absolute` 语义完成前保持兼容只读；
-4. 已完成基础数学行最小虚拟机和常见厚度/边界束；下一步扩展控制行、质心类、剩余玻璃/参数约束和 Zemax 特殊贡献语义；
+4. 已完成基础数学行最小虚拟机和常见厚度/边界束，并补齐 `DIVB/PROB/OSUM/QSUM/EQUA` 的定义级特殊数学语义，以及 `MNIN/MXIN/MNAB/MXAB/POWR` 的常见玻璃/表面功率语义；下一步扩展质心类、剩余玻璃/参数约束和分析型操作数；
 5. 对应 ZMX/STAROPT 往返和贡献测试。
 
 ### 第 2 阶段：非序列查看与路径联动

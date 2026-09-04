@@ -141,6 +141,9 @@ public partial class WorkbenchRuntime
 
     public IReadOnlyList<string> ApodizationKinds { get; } = new[]
     {
+        "均匀（Zemax）",
+        "高斯（Zemax）",
+        "余弦立方（Zemax）",
         "无",
         "均匀",
         "高斯",

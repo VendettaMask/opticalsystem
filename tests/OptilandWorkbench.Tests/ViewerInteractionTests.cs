@@ -9,6 +9,16 @@ namespace OptilandWorkbench.Tests;
 public sealed class ViewerInteractionTests
 {
     [Fact]
+    public void GaussianRayBrightnessUsesRelativeIntensity()
+    {
+        var edgeIntensity = Math.Exp(-2 * 1.44 * 0.85 * 0.85);
+        Assert.Equal(1, OpticSceneControl.RayOpacityFor(1, 1));
+        Assert.Equal(edgeIntensity, OpticSceneControl.RayOpacityFor(edgeIntensity, 1), 12);
+        Assert.Equal(1, OpticSceneControl.RayOpacityFor(0.3, 0.3));
+        Assert.Equal(0, OpticSceneControl.RayOpacityFor(0, 1));
+    }
+
+    [Fact]
     public void AnnotationLabelsUseAdditionalLanesOnlyWhenTheyOverlap()
     {
         var lanes = OpticSceneControl.AssignAnnotationLanes(new[]

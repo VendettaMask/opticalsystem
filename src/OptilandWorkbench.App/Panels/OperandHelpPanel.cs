@@ -275,7 +275,7 @@ public sealed class OperandHelpPanel : UserControl
     {
         var text = new TextBlock
         {
-            Text = "通用贡献：除说明和控制行外，贡献 = |Weight| × (Value − Target)²。边界操作数满足约束时会把 Value 钳到 Target，因此贡献为 0。",
+            Text = "通用贡献：除说明、控制行和 EQUA 外，贡献 = |Weight| × (Value − Target)²。边界操作数满足约束时会把 Value 钳到 Target，因此贡献为 0；EQUA 使用 Target 作为相等容差，贡献 = |Weight| × Value²。",
             TextWrapping = TextWrapping.Wrap
         };
         text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);

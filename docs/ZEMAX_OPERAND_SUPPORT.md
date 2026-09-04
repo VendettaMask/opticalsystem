@@ -1,6 +1,6 @@
 # Zemax 顺序模式操作数支持规范
 
-当前状态复核：2026-09-02。本文是顺序模式操作数的目标规范与验收矩阵；“必须支持”不等于当前版本已经实现，实际完成度以文末“当前基线与差距”为准。代码、文件字段和产品专有名词保留原始英文标识。
+当前状态复核：2026-09-04。本文是顺序模式操作数的目标规范与验收矩阵；“必须支持”不等于当前版本已经实现，实际完成度以文末“当前基线与差距”为准。代码、文件字段和产品专有名词保留原始英文标识。
 
 ## 目的
 
@@ -191,11 +191,11 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 当前基线与差距
 
-截至 2026-09-02，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 114 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
+截至 2026-09-04，`ZemaxOperandRegistry` 精确注册本机 2026 R1 实测边界内的 383 个顺序兼容代码，`MeritFunctionCatalog.Types` 另保留 `RWFE`、`FNUM`、`RADI`、`THIC` 四个 Workbench 友好代码。注册表把当前已连接计算引擎的 124 个 Zemax 代码标为 `Executable`，其余标为 `CompatibilityOnly`；这只是代码级计算连接状态，不自动满足本文“支持”的九项定义。
 
 `MeritOperandDefinition` 和 `MeritOperandSnapshot` 现在独立保存 `Int1`、`Int2` 与 `Data1`–`Data4` 原始槽位，并保存逐行 `CompatibilityOnly` 状态。`ZemaxOperandDescriptor` 进一步记录槽位名称、引用类型和单位，用于区分 `Int2` 是波长、终止表面、行引用还是普通整数。Application 合同把这些描述符和六个原始槽位直接发布给桌面编辑器；编辑器按当前行显示参数名与单位，把 `Unused` 和兼容只读槽位锁定，并在保存时保持原始槽位为权威数据，再由描述符恢复 Workbench 类型化字段。ZMX 导入器除已有类型化分支外，会识别全部 383 个目标代码并将尚无参数语义的行禁用保留；STAROPT 往返保持原始槽位。即使外部调用强行启用兼容行，评价仍返回不可执行错误和无限贡献，不能成为成功零值。单行原始整数或数据槽位最多 16 项，数据必须有限。
 
-参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVI`、`DIFF`、`MAXX` 和 `MINN` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`MAXX/MINN` 按行范围求值，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
+参考镜头 `[MS-L7](10X大NA大视场).ZMX` 的 103 行继续按源顺序全部进入内存；其中 `TRAR` 使用现有类型化光线分支，`TTHI` 按起止表面计算轴向范围厚度，`REAR` 按实际光线位置计算径向坐标，`RANG` 按实际光线方向角计算弧度值，`CONS`、`SINE`、`COSI`、`TANG`、`ASIN`、`ACOS`、`ATAN`、`ABSO`、`SQRT`、`RECI`、`LOGE`、`LOGT`、`SUMM`、`PROD`、`DIVB`、`DIVI`、`DIFF`、`EQUA`、`MAXX`、`MINN`、`OSUM`、`PROB` 和 `QSUM` 已接入有序评价函数上下文。`SUMM/PROD/DIFF/DIVI` 按 Zemax 双行引用求值，`DIVB/PROB` 按 `Int1` 前序行和 `Data1` Factor 求值，`MAXX/MINN/OSUM/QSUM/EQUA` 按闭区间行范围求值，`EQUA` 把 Target 解释为相等容差且贡献为 `|Weight| × Value²`，三角函数 Flag 按 Zemax 的弧度/角度语义处理，`LOGE/LOGT` 对非正输入返回 0。常见镜头/厚度/一阶/玻璃数据束已完成定义级可执行接入：`CTGT/CTLT/CTVA`、`ETGT/ETLT/ETVA`、`FTGT/FTLT`、`STHI`、`TTGT/TTLT/TTVA`、`TTHI/TGTH`、`MNCA/MXCA/MNEA/MXEA/MNCG/MXCG/MNEG/MXEG/MNCT/MXCT/MNET/MXET`、`XNEA/XXEA/XNEG/XXEG/XNET/XXET`、`CVGT/CVLT/CVVA/MNCV/MXCV`、`COGT/COLT/COVA`、`MNSD/MXSD`、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、`EFFL/EFLX/EFLY/ENPP/EPDI/EXPP/EXPD/ISNA/ISFN/SFNO/WFNO` 以及 `PMAG/PETZ`。边界操作数采用 Zemax 风格“满足时返回目标值、越界时返回实际值”；`MNIN/MXIN` 在 `Surf1..Surf2` 范围内约束玻璃 d 线 Nd，`MNAB/MXAB` 约束玻璃 Vd，空气、真空与反射空间不参与；`POWR` 按标准折射面 `(n_after − n_before) / Radius` 计算表面光焦度，平面返回 0，非标准面或反射面明确报错。`TTGT/TTLT/TTVA` 按官方定义计算指定表面至下一表面、指定边缘方向处的总厚度，不再误用系统总长。`DIMX` 已按实测改为 `Field/Wave/Absolute` 描述符，但在指定视场和绝对长度模式尚未实现前降为兼容只读；`EFNO` 也按内置 `Samp/Wave/Field/Pol?` 协议兼容保留。上述新增路径仍必须经过 Zemax/ZOS-API golden 数值对照后，才能标为完整兼容。
 
 有序评价控制流已接入 `GOTO`、`ENDX`、`OOFF`、`SKIN`、`SKIS` 和 `USYM`：`GOTO` 仅允许跳向函数内的后续行，被跳过的行不进入引用上下文；`ENDX` 终止后续评价；`OOFF` 保留为零贡献惰性行；`SKIN/SKIS` 按系统旋转对称性选择是否跳转，`USYM` 在整份评价函数中强制采用对称分支。非法向后或越界跳转返回明确错误。对称检测只认可可证明的同轴旋转对称几何、坐标和孔径，不确定类型保守判为非对称；对称分支已通过本机 OpticStudio 2026 R1 ZOS-API 贡献值探针验证。
 
@@ -209,16 +209,16 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 同时，上述行在 `Surface=0` 与显式像面号下结果一致，并已按本次修复统一对应缓存目标面。该表述不代表其它运行场景下对任意光学模型修改后的通用缓存安全性结论。
 
-本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围和半口径范围项只使用 `Surf1/Surf2`；行边界操作数只使用 `Op#`。
+本机实测还校正了已执行项的槽位：`RSCE/RSCH/RSRE/RSRH` 使用 `Ring/Wave/Hx/Hy`；`MECS/MECT` 的第一个参数为空；`CT*/CV*/CO*` 只使用 `Surf`；`ET*/TT*` 的 `Mode` 位于 `Data2`，`FT*` 的 `Mode` 位于 `Data2`，`STHI` 的 `Mode` 位于 `Data3`；中心厚度范围、半口径范围和玻璃范围项只使用 `Surf1/Surf2`；`POWR` 使用 `Surf/Wave`；行边界操作数只使用 `Op#`；`DIVB/PROB` 使用 `Op#/Factor`，其中 Factor 位于 `Data1`；`EQUA/OSUM/QSUM` 使用 `Op#1/Op#2` 行范围。
 
 本次修正消除了目标目录代码静默丢弃、编辑保存时原始槽位被固定友好字段覆盖的问题，并开始为已知操作数补充参数描述符，但没有把“383 项可无损显示”扩大宣称为“383 项完整 Zemax 评价函数支持”。描述符的逐类型参数名、单位、校验规则和计算引擎仍需按下述实施顺序完成。
 
 当前仍需消除以下技术债：
 
 - 编辑器已经消费描述符并按当前行切换六个原始槽位的列名、单位和只读状态；尚未补齐全部 383 项的专用参数语义、范围、默认值和枚举选择器；
-- 快照校验已经能区分 `TTHI/TGTH`、常见 `MN*/MX*/X*` 厚度范围项的终止表面槽位以及基础数学操作数的行引用槽位，但大多数 Zemax 操作数仍需逐类型校验规则；
+- 快照校验已经能区分 `TTHI/TGTH`、常见 `MN*/MX*/X*` 厚度范围项、玻璃范围项的终止表面槽位以及基础数学操作数的行引用、行范围和 Factor 槽位，但大多数 Zemax 操作数仍需逐类型校验规则；
 - 参考文件之外的未注册代码仍可能被导入器忽略；
-- 控制和质心类操作数仍缺少完整有序行执行语义；基础数学行已具备前序行读取、Flag 角度处理、Zemax 双行/范围区分和错误报告，且 `OPLT/OPGT/ABGT/ABLT/OPVA` 已可按前序行约束求值；`EQUA/PROB/OSUM/QSUM/DIVB` 的 Zemax 特殊贡献语义仍需继续实现；
+- 控制和质心类操作数仍缺少完整有序行执行语义；基础数学行已具备前序行读取、Flag 角度处理、Zemax 双行/范围/Factor 区分和错误报告，且 `OPLT/OPGT/ABGT/ABLT/OPVA`、`DIVB/PROB/OSUM/QSUM/EQUA` 已可按前序行约束求值；`EQUA` 已采用 Target 容差与专用贡献语义，但仍需真实 ZOS-API golden 覆盖更多边界；
 - 分析型操作数缺少统一的参数化缓存和取消边界。
 
 2026-08-29 已完成能力真实性闸门：`CanonicalType` 对未知代码明确失败；启用的只读兼容操作数返回不可执行错误；只有禁用兼容行以及显式 `BLNK/DMFS` 才产生零贡献。未实现代码不再被规范化为 `BLNK` 或作为成功零值参与优化。
@@ -227,12 +227,12 @@ Zemax 在编辑器首选项启用 `Color Rows` 时按操作数类型显示默认
 
 ## 实施顺序
 
-1. **注册表与快照模型**：383 项 2026 R1 实测代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；已补充首批光线、RMS、Moore-Elliott、`EFFL/TOTR/TTHI/TGTH`、常见镜头/厚度/曲率/圆锥/半口径/玻璃折射率与基础数学行描述符；逐类型参数元数据及验证继续补齐。
+1. **注册表与快照模型**：383 项 2026 R1 实测代码注册、通用原始参数槽位、行级兼容状态和旧 schema 默认迁移已完成；已补充首批光线、RMS、Moore-Elliott、`EFFL/TOTR/TTHI/TGTH`、常见镜头/厚度/曲率/圆锥/半口径/玻璃折射率/玻璃范围/表面光焦度与基础数学行描述符，并补入 `DIVB/PROB` 的 Factor 槽位、`EQUA/OSUM/QSUM` 的行范围槽位、`MNIN/MXIN/MNAB/MXAB` 的 `Surf1/Surf2` 槽位及 `POWR` 的 `Surf/Wave` 槽位；逐类型参数元数据及验证继续补齐。
 2. **ZMX 导入/导出**：元数据驱动解析所有目标代码，保留源顺序和参数，拒绝非序列/废弃项并给出诊断。
 3. **基础约束和一阶量**：完成系统、镜头、玻璃、参数、一阶和属性类。
 4. **光线与像差**：复用按需追迹、波前、像差和介质状态正确性基线。
 5. **分析型操作数**：接入 MTF、能量、鬼像、光纤、POP、高斯、GRIN、镀膜和偏振引擎。
-6. **数学与控制流**：基础数学行已接入有序评价函数入口，支持前序行引用、除零和非法数学域错误；控制流和 Zemax 特殊约束数学仍需继续实现。
+6. **数学与控制流**：基础数学行已接入有序评价函数入口，支持前序行引用、行范围、Factor、除零和非法数学域错误；`EQUA` 已接入 Target 容差与专用贡献语义；控制流和后续质心/分析型操作数仍需继续实现。
 7. **宏和用户扩展**：实现受限提供程序协议。
 8. **全量验收**：对 383 个代码逐项完成导入、参数、数值、往返和非法输入测试。
 

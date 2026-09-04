@@ -1,5 +1,6 @@
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
@@ -87,7 +88,7 @@ public sealed class RayGenerator
                     var fieldWeight = applyFieldWeight ? field.Weight : 1.0;
                     var wavelengthWeight = applyWavelengthWeight ? wavelength.Weight : 1.0;
 
-                    var apodization = _optic.Apodization?.Intensity(sample.X, sample.Y) ?? 1.0;
+                    var apodization = ApodizationIntensity(sample.X, sample.Y, apertureRadius);
                     rays.Add(new RealRay(
                         rayGeometry.Origin,
                         rayGeometry.Direction,
@@ -346,8 +347,23 @@ public sealed class RayGenerator
             aimAtStop: aimAtStop,
             paraxialStopTarget: paraxialStopTarget,
             fieldRayContext: fieldRayContext);
-        var apodization = _optic.Apodization?.Intensity(normalizedPupilX, normalizedPupilY) ?? 1.0;
+        var apodization = ApodizationIntensity(normalizedPupilX, normalizedPupilY, apertureRadius);
         return new RealRay(geometry.Origin, geometry.Direction, wavelengthNanometers, intensity * apodization);
+    }
+
+    private double ApodizationIntensity(double pupilX, double pupilY, double apertureRadius)
+    {
+        if (_optic.Apodization is not ZemaxApodization { Type: ZemaxApodizationType.CosineCubed } cosine)
+        {
+            return _optic.Apodization?.Intensity(pupilX, pupilY) ?? 1;
+        }
+
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        var marginalSlope = ObjectConjugate.IsInfinite(objectSurface)
+            ? 0
+            : apertureRadius / (_optic.Paraxial.EstimateEntrancePupilLocation()
+                - (objectSurface?.CoordinateSystem.Origin.Z ?? 0));
+        return cosine.Intensity(pupilX, pupilY, marginalSlope);
     }
 
     private static Vector3D Normalize(Vector3D vector)

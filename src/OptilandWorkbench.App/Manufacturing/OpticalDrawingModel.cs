@@ -55,7 +55,8 @@ public sealed record OpticalDrawingSheet(
     OpticalDrawingStandard Standard = OpticalDrawingStandard.Iso10110,
     double FrontRadiusTolerance = 0.1,
     double BackRadiusTolerance = 0.1,
-    IReadOnlyList<GlassMaterialDto?>? ComponentMaterialData = null)
+    IReadOnlyList<GlassMaterialDto?>? ComponentMaterialData = null,
+    string LaserDamageThreshold = "-")
 {
     public IReadOnlyList<string> Validate()
     {
@@ -101,4 +102,30 @@ public sealed record OpticalDrawingSheet(
             }
         }
     }
+
+    public static string LaserDamageThresholdIndication(string? value)
+    {
+        var payload = LaserDamageThresholdPayload(value);
+        return IsUnspecifiedLaserDamageThreshold(payload)
+            ? "6/-"
+            : $"6/{payload}";
+    }
+
+    private static string LaserDamageThresholdPayload(string? value)
+    {
+        var trimmed = string.IsNullOrWhiteSpace(value) ? "-" : value.Trim();
+        return trimmed.StartsWith("6/", StringComparison.OrdinalIgnoreCase)
+            ? trimmed[2..].Trim()
+            : trimmed;
+    }
+
+    private static bool IsUnspecifiedLaserDamageThreshold(string value)
+    {
+        var normalized = value.Trim();
+        return normalized is "-" or "−" or "—" or "–"
+            || normalized.Equals("无", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals("未规定", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals("不规定", StringComparison.OrdinalIgnoreCase);
+    }
+
 }

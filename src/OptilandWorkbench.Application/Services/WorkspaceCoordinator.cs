@@ -3,6 +3,7 @@ using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Capabilities;
+using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Application.Services;
@@ -57,11 +58,18 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         {
             var optic = Runtime.CurrentOptic;
             var computable = OpticCapabilityPreflight.Inspect(optic).Count == 0;
+            var missingGlasses = optic.SurfaceGroup.Items
+                .Where(surface => surface.MaterialAfter is UnresolvedMaterial)
+                .GroupBy(surface => surface.MaterialAfter.Name)
+                .Select(group => $"{group.Key}（表面 {string.Join("、", group.Select(surface => surface.Number))}）")
+                .ToArray();
+            var status = missingGlasses.Length == 0 ? Runtime.Status
+                : $"找不到玻璃：{string.Join("；", missingGlasses)}。请匹配材料后再计算。 | {Runtime.Status}";
             return new OpticalDocumentSnapshot(
                 optic.Name,
                 CurrentPath,
                 Revision,
-                Runtime.Status,
+                status,
                 Runtime.CanUndo,
                 Runtime.CanRedo,
                 computable ? optic.Paraxial.EstimateEffectiveFocalLength() : double.NaN,

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Materials;
 
 namespace OptilandWorkbench.Core.Capabilities;
 
@@ -68,8 +69,7 @@ public static class OpticCapabilityPreflight
     {
         ArgumentNullException.ThrowIfNull(optic);
         return optic.SurfaceGroup.Items
-            .Where(surface => surface.Geometry is INonComputableGeometry)
-            .Select(CreateIssue)
+            .SelectMany(surface => InspectSurface(surface, includeMaterials: true))
             .ToArray();
     }
 
@@ -78,8 +78,10 @@ public static class OpticCapabilityPreflight
         OpticCapabilityOperation operation,
         string? context = null)
     {
-        var issues = Inspect(optic);
-        if (issues.Count > 0)
+        var issues = optic.SurfaceGroup.Items
+            .SelectMany(surface => InspectSurface(surface, operation != OpticCapabilityOperation.Visualization))
+            .ToArray();
+        if (issues.Length > 0)
         {
             throw new OpticCapabilityException(operation, issues, context);
         }
@@ -91,10 +93,22 @@ public static class OpticCapabilityPreflight
         string? context = null)
     {
         ArgumentNullException.ThrowIfNull(surface);
-        if (surface.Geometry is INonComputableGeometry)
+        var issues = InspectSurface(surface, operation != OpticCapabilityOperation.Visualization).ToArray();
+        if (issues.Length > 0)
         {
-            throw new OpticCapabilityException(operation, new[] { CreateIssue(surface) }, context);
+            throw new OpticCapabilityException(operation, issues, context);
         }
+    }
+
+    private static IEnumerable<OpticCapabilityIssue> InspectSurface(Domain.OpticalSurface surface, bool includeMaterials)
+    {
+        if (surface.Geometry is INonComputableGeometry)
+            yield return CreateIssue(surface);
+        if (!includeMaterials)
+            yield break;
+        foreach (var material in new[] { surface.MaterialBefore, surface.MaterialAfter }
+                     .OfType<UnresolvedMaterial>().DistinctBy(material => material.Name))
+            yield return new OpticCapabilityIssue(surface.Number, material.Name, $"找不到玻璃“{material.Name}”，请匹配材料后再计算。");
     }
 
     private static OpticCapabilityIssue CreateIssue(Domain.OpticalSurface surface)

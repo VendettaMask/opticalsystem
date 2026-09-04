@@ -65,6 +65,7 @@ public sealed partial class MainWindow
             : "顺序模式";
         Title = $"{snapshot.Name}{dirtyMarker} - {modeName} - Optical System Design";
         _statusText.Text = $"{modeName}   |   {snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
+        ToolTip.SetTip(_statusText, _statusText.Text);
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";
         _apertureText.Text = $"APER: {NumericDisplayFormatter.Format(snapshot.ApertureValue)}";

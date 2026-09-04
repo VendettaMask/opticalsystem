@@ -219,6 +219,45 @@ public sealed class ManufacturingDrawingTests
     }
 
     [Fact]
+    public void OpticalDrawingLoadsBuiltInXmlTemplatesAndKnownBindings()
+    {
+        var templates = OpticalDrawingTemplateCatalog.All;
+
+        Assert.Equal(Enum.GetValues<OpticalDrawingStandard>().Length, templates.Count);
+        Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.Iso10110);
+        Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.GbT13323_1991);
+        Assert.Contains(templates, template => template.Standard == OpticalDrawingStandard.GbT13323_2009);
+        Assert.All(templates, template =>
+        {
+            Assert.True(template.Page.OuterMargin > 0);
+            Assert.True(template.Page.InnerMargin > template.Page.OuterMargin);
+            Assert.True(template.Page.SpecificationTop > template.Page.InnerMargin);
+            Assert.True(template.Page.TitleTop > template.Page.SpecificationTop);
+            Assert.NotEmpty(template.TitleBlock.FieldBindings);
+            Assert.NotEmpty(template.Specification.FieldBindings);
+            Assert.DoesNotContain(
+                template.FieldBindings,
+                binding => !OpticalDrawingRendererCore.CanResolveTemplateField(binding));
+        });
+    }
+
+    [Fact]
+    public void OpticalDrawingXmlTemplatesKeepSpecificationRowsInsideCells()
+    {
+        using var application = WorkbenchApplication.Create("tessar");
+        var drawings = OpticalManufacturingModel.BuildDrawingElements(
+            application.Prescription.GetSurfaces());
+        var single = Sheet(drawings.First(drawing => !drawing.IsCemented));
+        var cemented = Sheet(Assert.Single(drawings, drawing => drawing.IsCemented));
+
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single));
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single with { Standard = OpticalDrawingStandard.GbT13323_1991 }));
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(single with { Standard = OpticalDrawingStandard.GbT13323_2009 }));
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(cemented));
+        Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(cemented with { Standard = OpticalDrawingStandard.GbT13323_2009 }));
+    }
+
+    [Fact]
     public void OpticalDrawingElementProfileMatchesTwoDimensionalLayoutBoundary()
     {
         var optic = Optic.CreateDemo();
@@ -276,6 +315,121 @@ public sealed class ManufacturingDrawingTests
 
         Assert.Contains(errors, error => error.StartsWith("5/", StringComparison.Ordinal));
         Assert.Contains(errors, error => error.StartsWith("1/", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void OpticalDrawingFormatsIsoLaserDamageThresholdIndication()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var sheet = Sheet(element);
+        var specified = sheet with
+        {
+            LaserDamageThreshold = "25 J/cm²；1064 nm；20 ns"
+        };
+        var prefixed = sheet with
+        {
+            LaserDamageThreshold = "6/10 kW/cm²；10.6 μm；1 s"
+        };
+        var compactIso = sheet with
+        {
+            LaserDamageThreshold = "10；1064；2"
+        };
+
+        Assert.Equal("6/-", OpticalDrawingRenderer.LaserDamageThresholdIndication(sheet));
+        Assert.Equal(
+            "6/25 J/cm²；1064 nm；20 ns",
+            OpticalDrawingRenderer.LaserDamageThresholdIndication(specified));
+        Assert.Equal(
+            "6/10 kW/cm²；10.6 μm；1 s",
+            OpticalDrawingRenderer.LaserDamageThresholdIndication(prefixed));
+        Assert.Equal(
+            "6/10；1064；2",
+            OpticalDrawingRenderer.LaserDamageThresholdIndication(compactIso));
+        Assert.Empty(specified.Validate());
+        Assert.Empty(compactIso.Validate());
+
+        var defaultPreview = OpticalDrawingRenderer.RenderPreview(sheet, 800);
+        var specifiedPreview = OpticalDrawingRenderer.RenderPreview(specified, 800);
+        Assert.False(defaultPreview.SequenceEqual(specifiedPreview));
+    }
+
+    [Fact]
+    public void OpticalDrawingAllowsFreeformLaserDamageThresholdText()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var blank = Sheet(element) with { LaserDamageThreshold = " " };
+        var partial = Sheet(element) with { LaserDamageThreshold = "25 J/cm²；1064 nm" };
+        var contractText = Sheet(element) with { LaserDamageThreshold = "按采购规范 LDT-001" };
+        var unspecified = Sheet(element) with { LaserDamageThreshold = "6/-" };
+
+        Assert.DoesNotContain(blank.Validate(), error => error.StartsWith("6/", StringComparison.Ordinal));
+        Assert.Empty(partial.Validate());
+        Assert.Empty(contractText.Validate());
+        Assert.DoesNotContain(unspecified.Validate(), error => error.StartsWith("6/", StringComparison.Ordinal));
+        Assert.Equal("6/-", OpticalDrawingRenderer.LaserDamageThresholdIndication(blank));
+        Assert.Equal(
+            "6/25 J/cm²；1064 nm",
+            OpticalDrawingRenderer.LaserDamageThresholdIndication(partial));
+        Assert.Equal(
+            "6/按采购规范 LDT-001",
+            OpticalDrawingRenderer.LaserDamageThresholdIndication(contractText));
+    }
+
+    [Fact]
+    public void OpticalDrawingPlacesIsoLaserDamageThresholdWithSurfaceIndications()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var element = OpticalManufacturingModel.BuildElements(
+            application.Prescription.GetSurfaces())[0];
+        var sheet = Sheet(element) with
+        {
+            LaserDamageThreshold = "按采购规范 LDT-001"
+        };
+        var isoTemplate = OpticalDrawingTemplateCatalog.For(OpticalDrawingStandard.Iso10110);
+        var isoLines = OpticalDrawingRendererCore.SurfaceSpecificationLines(
+            sheet,
+            element.FrontSurface,
+            isFront: true);
+        var gbLines = OpticalDrawingRendererCore.SurfaceSpecificationLines(
+            sheet with { Standard = OpticalDrawingStandard.GbT13323_2009 },
+            element.FrontSurface,
+            isFront: true);
+
+        var isoLineArray = isoLines.ToArray();
+        var aperture = Array.FindIndex(isoLineArray, line => line.StartsWith("⌀e", StringComparison.Ordinal));
+        var coating = Array.FindIndex(isoLineArray, line => line.StartsWith("λ", StringComparison.Ordinal));
+        var three = Array.FindIndex(isoLineArray, line => line.StartsWith("3/", StringComparison.Ordinal));
+        var five = Array.FindIndex(isoLineArray, line => line.StartsWith("5/", StringComparison.Ordinal));
+        var six = Array.FindIndex(isoLineArray, line => line.StartsWith("6/", StringComparison.Ordinal));
+
+        Assert.Equal(
+            new[]
+            {
+                "surface.radius",
+                "element.clearAperture",
+                "surface.coating",
+                "surface.edgeTreatment",
+                "iso.surface.3.form",
+                "iso.surface.4.centering",
+                "iso.surface.5.imperfection",
+                "iso.surface.6.laserDamageThreshold"
+            },
+            isoTemplate.Specification.SurfaceFields.ToArray());
+        Assert.DoesNotContain(
+            OpticalDrawingTemplateCatalog.All.SelectMany(template => template.FieldBindings),
+            field => field == "iso.surface.7.texture");
+        Assert.True(aperture >= 0);
+        Assert.True(coating > aperture);
+        Assert.True(three > coating);
+        Assert.True(five >= 0);
+        Assert.True(six > five);
+        Assert.DoesNotContain(isoLines, line => line.StartsWith("7/", StringComparison.Ordinal));
+        Assert.DoesNotContain(gbLines, line => line.StartsWith("6/", StringComparison.Ordinal));
+        Assert.DoesNotContain(gbLines, line => line.StartsWith("7/", StringComparison.Ordinal));
     }
 
     [Fact]

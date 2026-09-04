@@ -32,6 +32,9 @@
              Link="LensLibrary/%(RecursiveDir)%(Filename)%(Extension)" />
     <EmbeddedResource Include="Assets/Brand/CompanyLogo.png"
                       LogicalName="OptilandWorkbench.App.Assets.Brand.CompanyLogo.png" />
+    <EmbeddedResource Include="Assets/DrawingTemplates/*.xml">
+      <LogicalName>OptilandWorkbench.App.Assets.DrawingTemplates.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
     <Content Include="Assets/Fonts/OFL-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets/Fonts/NotoSansCJKsc-Regular.otf"
                       LogicalName="OptilandWorkbench.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />

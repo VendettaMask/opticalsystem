@@ -115,6 +115,13 @@ internal static class WorkbenchMapper
     {
         return apodization switch
         {
+            ZemaxApodization value => (value.Type switch
+            {
+                ZemaxApodizationType.Uniform => "均匀（Zemax）",
+                ZemaxApodizationType.Gaussian => "高斯（Zemax）",
+                ZemaxApodizationType.CosineCubed => "余弦立方（Zemax）",
+                _ => throw new InvalidOperationException("Unknown Zemax apodization type.")
+            }, value.Factor, 1),
             UniformApodization => ("均匀", 1, 1),
             GaussianApodization value => ("高斯", value.Sigma, 1),
             CosineSquaredApodization value => ("余弦平方", value.Radius, 1),

@@ -10,6 +10,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
@@ -110,6 +111,9 @@ public partial class WorkbenchRuntime
     {
         CurrentOptic.Apodization = CanonicalApodizationKind(apodizationKind) switch
         {
+            "均匀（Zemax）" => new ZemaxApodization(ZemaxApodizationType.Uniform, firstParameter),
+            "高斯（Zemax）" => new ZemaxApodization(ZemaxApodizationType.Gaussian, firstParameter),
+            "余弦立方（Zemax）" => new ZemaxApodization(ZemaxApodizationType.CosineCubed, firstParameter),
             "None" => null,
             "Uniform" => new UniformApodization(),
             "Gaussian" => new GaussianApodization(Math.Max(0.001, firstParameter)),
@@ -237,8 +241,23 @@ public partial class WorkbenchRuntime
         surface.Material = isMirror ? "MIRROR" : selectedMaterial;
         surface.MaterialAfter = isMirror
             ? surface.MaterialBefore.Clone()
-            : CurrentOptic.Materials.Resolve(selectedMaterial);
+            : CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var resolved)
+                ? resolved
+                : surface.MaterialAfter is UnresolvedMaterial missing
+                    && missing.Name.Equals(selectedMaterial, StringComparison.OrdinalIgnoreCase)
+                    ? missing
+                    : CurrentOptic.Materials.Resolve(selectedMaterial);
         SyncInteractionReflectivity(surface, isMirror);
+        // Update the adjoining incident medium, including intervening mirrors.
+        var index = CurrentOptic.SurfaceGroup.Items.IndexOf(surface);
+        for (var nextIndex = index + 1; nextIndex < CurrentOptic.SurfaceGroup.Items.Count; nextIndex++)
+        {
+            var next = CurrentOptic.SurfaceGroup.Items[nextIndex];
+            next.MaterialBefore = CurrentOptic.SurfaceGroup.Items[nextIndex - 1].MaterialAfter.Clone();
+            if (!next.IsReflective)
+                break;
+            next.MaterialAfter = next.MaterialBefore.Clone();
+        }
     }
 
     private static void SyncInteractionForEditedGeometry(

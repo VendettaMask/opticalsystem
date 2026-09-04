@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -15,17 +16,15 @@ public enum ViewCubeFace
     Bottom
 }
 
-public sealed class ViewCubeIcon(ViewCubeFace face) : Control
+public sealed class ViewCubeIcon : Control
 {
-    private static readonly IBrush NeutralTop = new SolidColorBrush(Color.FromRgb(239, 243, 247));
-    private static readonly IBrush NeutralLeft = new SolidColorBrush(Color.FromRgb(224, 230, 236));
-    private static readonly IBrush NeutralRight = new SolidColorBrush(Color.FromRgb(207, 216, 225));
-    private static readonly IBrush HighlightTop = new SolidColorBrush(Color.FromRgb(126, 176, 216));
-    private static readonly IBrush HighlightLeft = new SolidColorBrush(Color.FromRgb(91, 151, 201));
-    private static readonly IBrush HighlightRight = new SolidColorBrush(Color.FromRgb(70, 126, 174));
-    private static readonly Pen Outline = new(new SolidColorBrush(Color.FromRgb(52, 68, 82)), 1);
+    public ViewCubeIcon(ViewCubeFace face)
+    {
+        Face = face;
+        ActualThemeVariantChanged += (_, _) => InvalidateVisual();
+    }
 
-    public ViewCubeFace Face { get; } = face;
+    public ViewCubeFace Face { get; }
 
     protected override Size MeasureOverride(Size availableSize) => new(26, 24);
 
@@ -52,20 +51,58 @@ public sealed class ViewCubeIcon(ViewCubeFace face) : Control
             mirrorX,
             mirrorY);
 
-        var (topBrush, leftBrush, rightBrush) = BrushesForFace();
-        DrawPolygon(context, top, topBrush);
-        DrawPolygon(context, left, leftBrush);
-        DrawPolygon(context, right, rightBrush);
+        var palette = CreatePalette();
+        var (topBrush, leftBrush, rightBrush) = BrushesForFace(palette);
+        DrawPolygon(context, top, topBrush, palette.Outline);
+        DrawPolygon(context, left, leftBrush, palette.Outline);
+        DrawPolygon(context, right, rightBrush, palette.Outline);
     }
 
-    private (IBrush Top, IBrush Left, IBrush Right) BrushesForFace() => Face switch
+    private ViewCubePalette CreatePalette()
     {
-        ViewCubeFace.Isometric => (HighlightTop, HighlightLeft, HighlightRight),
-        ViewCubeFace.Top or ViewCubeFace.Bottom => (HighlightTop, NeutralLeft, NeutralRight),
-        ViewCubeFace.Front or ViewCubeFace.Back => (NeutralTop, HighlightLeft, NeutralRight),
-        ViewCubeFace.Left or ViewCubeFace.Right => (NeutralTop, NeutralLeft, HighlightRight),
-        _ => (NeutralTop, NeutralLeft, NeutralRight)
+        var neutral = ThemeColor(ThemeResourceBindings.SceneOrientationFill);
+        var highlight = ThemeColor(ThemeResourceBindings.SelectionBackground);
+        return new ViewCubePalette(
+            new SolidColorBrush(Shade(neutral, 0.10)),
+            new SolidColorBrush(Shade(neutral, -0.03)),
+            new SolidColorBrush(Shade(neutral, -0.14)),
+            new SolidColorBrush(Shade(highlight, 0.14)),
+            new SolidColorBrush(Shade(highlight, -0.02)),
+            new SolidColorBrush(Shade(highlight, -0.16)),
+            new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder), 1));
+    }
+
+    private (IBrush Top, IBrush Left, IBrush Right) BrushesForFace(ViewCubePalette palette) => Face switch
+    {
+        ViewCubeFace.Isometric => (palette.HighlightTop, palette.HighlightLeft, palette.HighlightRight),
+        ViewCubeFace.Top or ViewCubeFace.Bottom => (palette.HighlightTop, palette.NeutralLeft, palette.NeutralRight),
+        ViewCubeFace.Front or ViewCubeFace.Back => (palette.NeutralTop, palette.HighlightLeft, palette.NeutralRight),
+        ViewCubeFace.Left or ViewCubeFace.Right => (palette.NeutralTop, palette.NeutralLeft, palette.HighlightRight),
+        _ => (palette.NeutralTop, palette.NeutralLeft, palette.NeutralRight)
     };
+
+    private IBrush ThemeBrush(string key) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush
+            ? brush
+            : Brushes.Transparent;
+
+    private Color ThemeColor(string key) =>
+        ThemeBrush(key) is ISolidColorBrush solid
+            ? solid.Color
+            : Colors.Transparent;
+
+    private static Color Shade(Color color, double amount) => new(
+        color.A,
+        Component(color.R, amount),
+        Component(color.G, amount),
+        Component(color.B, amount));
+
+    private static byte Component(byte value, double amount)
+    {
+        var target = amount >= 0 ? byte.MaxValue : byte.MinValue;
+        var adjusted = value + ((target - value) * Math.Abs(amount));
+        return (byte)Math.Clamp(Math.Round(adjusted), byte.MinValue, byte.MaxValue);
+    }
 
     private Point[] Transform(IReadOnlyList<Point> points, bool mirrorX, bool mirrorY)
     {
@@ -79,7 +116,7 @@ public sealed class ViewCubeIcon(ViewCubeFace face) : Control
             .ToArray();
     }
 
-    private static void DrawPolygon(DrawingContext context, IReadOnlyList<Point> points, IBrush fill)
+    private static void DrawPolygon(DrawingContext context, IReadOnlyList<Point> points, IBrush fill, Pen outline)
     {
         var geometry = new StreamGeometry();
         using (var stream = geometry.Open())
@@ -93,6 +130,15 @@ public sealed class ViewCubeIcon(ViewCubeFace face) : Control
             stream.EndFigure(true);
         }
 
-        context.DrawGeometry(fill, Outline, geometry);
+        context.DrawGeometry(fill, outline, geometry);
     }
+
+    private sealed record ViewCubePalette(
+        IBrush NeutralTop,
+        IBrush NeutralLeft,
+        IBrush NeutralRight,
+        IBrush HighlightTop,
+        IBrush HighlightLeft,
+        IBrush HighlightRight,
+        Pen Outline);
 }

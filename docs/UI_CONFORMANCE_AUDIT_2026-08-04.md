@@ -1,6 +1,6 @@
 # UI 符合性审计
 
-日期：2026-08-04。最后整改复核：2026-09-01。
+日期：2026-08-04。最后整改复核：2026-09-04。
 
 范围：`src/OptilandWorkbench.App` 全部桌面 UI 源码、主题资源、公共控件、分析结果页、窗口、面板和现有 UI 文档。
 
@@ -12,25 +12,25 @@
 
 | 项 | 结果 |
 | --- | ---: |
-| App UI C# 文件 | 86 |
-| Panel 文件 | 20 |
-| 自绘 Control 文件 | 14 |
+| App UI C# 文件 | 118 |
+| Panel 文件 | 33 |
+| 自绘 Control 文件 | 20 |
 | Window 类型约 | 12 |
-| `Color.FromRgb/Argb` 或 `Colors` | 362 |
-| `Brushes.` | 62 |
-| 显式 `FontSize =` | 80，均为命名 token、图表契约或变量 |
+| `Color.FromRgb/Argb` 或 `Colors` | 460，集中在主题包、制造图纸、分析/场景色标和受审计语义调色板 |
+| `Brushes.` | 67，普通 UI 只允许透明或主题绑定，非透明固定色需在豁免清单中 |
+| 显式 `FontSize =` | 103，均为命名 token、图表契约、标准图纸版式或变量 |
 | 普通 UI `FontSize` 数字字面量 | 0 |
 | 固定/最小/最大宽度数值 | 176 |
 | 固定/最小/最大高度数值 | 126 |
 | `Viewbox` | 0 |
-| `BindThemeResource` | 127 |
+| `BindThemeResource` | 176 |
 | `AutomationProperties` / `AutomationPeer` | 已覆盖 Ribbon、分析参数、Viewer 设置、4 个自绘交互画布、3 个只读分析图和实验室候选剖面 |
 
 正向结果：
 
 - `Viewbox` 已清零，标准点列图字体被异常放大的直接风险已移除。
 - 普通 UI 的数字字面量字号已清零，`DisplayTypography` 提供命名字号 token，并由 `AppUiFontSizesUseTypographyTokens` 防回归测试保护。运行时修改字号会递归重算已实例化控件的局部 token 值，同时保留标题、正文和注释的设计比例；主窗口与 Dock 内容重复遍历为幂等更新。
-- 主题资源和动态绑定已经覆盖大量常规区域。
+- 主题资源和动态绑定已经覆盖大量常规区域；2026-09-04 新增 `OrdinaryAppUiColorsUseThemeResources`，普通交互 UI 不允许新增裸非透明 `Brushes.*` 或 `Color.FromRgb/Argb`。
 - 分析图波长颜色、fan 图按视场成组、Dock 浮动页回收、空宿主过滤等近期契约已经落地。
 - 分析结果底部区和品牌资产已经有统一方向，但仍需要继续收敛到公共组件。
 
@@ -115,6 +115,7 @@
 - 基点/焦平面/主平面/节平面等分析注释色集中到 `AnalysisSemanticColors`。
 - `OptimizationPanel` 不再写死评价函数行前景色；`MeritOperandRowPalette` 统一输出明/暗主题背景和前景组合。
 - 新增对比度测试，分析表格行色和评价函数业务行色必须达到 4.5:1。
+- 2026-09-04 进一步把视图方向 `ViewCubeIcon` 和交互画布焦点框迁到主题资源；新增 `OrdinaryAppUiColorsUseThemeResources` 架构测试，阻止普通面板、窗口、Shell 和交互控件重新写入裸 UI 色。
 
 保留边界：物理波长色、光线/图表数据色、制造图纸输出色和算法色标仍是允许的工程/物理语义例外，但必须集中命名，不能作为普通 UI 色使用。
 

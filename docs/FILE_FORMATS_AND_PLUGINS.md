@@ -64,6 +64,8 @@ SolidWorks 启用 3D Interconnect 并保留组件链接时，FeatureManager 会�
 
 ## 商业顺序格式
 
+ZMX 切趾设置现已读取 `GFAC <因子> <类型>`，支持均匀（0）、高斯（1）和余弦立方（2），并在 STAROPT 保存、重开和 ZMX 导出中保留原始类型及因子。系统属性用带“Zemax”后缀的选项显示这些设置，参数标为“因子”；原有高斯模型仍使用 σ。高斯光线强度为 `exp(-2Gρ²)`，G=0 为均匀强度；余弦立方按当前入瞳半径和物面到入瞳的距离计算，因子仅保留、不参与计算。Python JSON 兼容导出将 Zemax 高斯换算为 `σ=1/(2√G)`，零因子/均匀换算为均匀；余弦立方仍明确拒绝导出。验证范围和依据见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
+
 支持的扩展名：
 
 - Zemax `.zmx`；
@@ -76,13 +78,13 @@ ZMX 导入边界包括编码检测、顺序模式验证、`UNIT` 长度单位缩
 
 当前 ZMX 顺序导入器明确拒绝 Zemax 非序列文件、未支持的坐标断点顺序、经纬仪视场以及不可表示的环曲面项。有符号厚度按源值保留，不再把负厚度笼统视为非法。未映射到 Workbench 可计算几何的顺序 `TYPE` 不会让整个导入失败；导入器会把原始 Zemax `TYPE`、曲率、圆锥常数和 `PARM` 数据保存为不可计算的只读 opaque payload，UI 显示为不支持面型，追迹、分析、优化、布局和有损导出前由能力检查明确拦截。ZMX 不可靠保存 UI 活动配置，因此导入固定激活配置 1，同时保留全部配置。
 
-`GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 Optiland 兼容数据。无厂商同名玻璃按有序 `GCAT` 消歧；只有 `GLAS` 给出有效 nd/Vd 时，未知玻璃才可回退为 `AbbeMaterial`，否则导入失败。
+`GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 Optiland 兼容数据。无厂商同名玻璃按有序 `GCAT` 消歧。未匹配玻璃不会终止导入：保留原名称和其余处方数据，以 `UnresolvedMaterial` 标识，底部状态栏持续提示材料名与表面号；禁止用 GLAS 的 nd/Vd 参数或空气替代。STAROPT 保存/重开保留该状态。几何布局正常显示，但不生成依赖缺失材料的光线或分析结果；补选有效材料后恢复计算。缺失材料时保留文件中的厚度值，不执行依赖光线的 MAZH 厚度求解。`CORNING3` 中的 `C7980` 显式匹配本地目录的 `C79-80`，使用目录色散数据，不是参数近似。验证与示例见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
 
 63 个 AGF 目录转换为一个版本化压缩 `zemax-glass-catalogs.ogdb`，包含 5,502 条记录。解析器支持公式 1–13 以及真实 Glasscat 文件中的 UTF-16、缺失值、旧式短记录和重复名称。用户补充目录转换为用户目录中的 `.ogcat`，成为可复用材料目录。
 
 ZMX 导出写入 `UNIT MM`、系统孔径、视场、像方无焦标志、波长、主波长和有序 `GCAT`。导出只对可无损表达为 Zemax `STANDARD`、`EVENASPH`、`ODDASPHE` 和基础 `TOROIDAL` 的几何写出 `TYPE`；环形物理孔径写为 `APMN`，其它 Workbench 特有或尚未映射到 Zemax 的几何/孔径会明确失败，不再静默降级为 `TYPE STANDARD`。像方无焦按 Zemax 风格作为像空间角度坐标处理：点列图、光线扇形、RMS Spot、FFT/MMDFT/Huygens PSF、MTF 和波前/OPD 会在最终像面使用相对主光线的角度坐标（mrad）、角频率（cycles/mrad）和屈光度离焦（D）；波前参考由参考球切换为垂直主光线的平面。CODE V、OSLO 和通用顺序文本只覆盖公共表面字段。完整状态应使用 STAROPT。
 
-Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。当前 `[MS-L7]` 参考文件的 103 行评价函数已按源顺序导入；114 个 Zemax 顺序操作数已有定义级可执行路径，覆盖 `TRAR`、范围厚度 `TTHI/TGTH`、实际光线径向坐标 `REAR`、实际光线角度 `RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`。当前 383 个 2026 R1 实测顺序兼容代码中，`DIMX` 等未完成全部参数语义的类型保持禁用只读。兼容表中出现或能够往返的操作数不等于已经完成参数语义、求值和 Zemax 数值等价；新增执行路径也必须通过 Zemax/ZOS-API golden 对照后才能标为完整兼容。
+Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。当前 `[MS-L7]` 参考文件的 103 行评价函数已按源顺序导入；124 个 Zemax 顺序操作数已有定义级可执行路径，覆盖 `TRAR`、范围厚度 `TTHI/TGTH`、实际光线径向坐标 `REAR`、实际光线角度 `RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`。当前 383 个 2026 R1 实测顺序兼容代码中，`DIMX` 等未完成全部参数语义的类型保持禁用只读。兼容表中出现或能够往返的操作数不等于已经完成参数语义、求值和 Zemax 数值等价；新增执行路径也必须通过 Zemax/ZOS-API golden 对照后才能标为完整兼容。
 
 ## 文档服务
 

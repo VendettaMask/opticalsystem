@@ -3,6 +3,7 @@ using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using OptilandWorkbench.App.Services;
 
 namespace OptilandWorkbench.App.Controls;
 
@@ -84,15 +85,30 @@ internal static class InteractiveCanvasFocus
             return;
         }
 
-        var brush = control.TryFindResource(
-            "AccentFillColorDefaultBrush",
-            control.ActualThemeVariant,
-            out var value) && value is IBrush resourceBrush
-                ? resourceBrush
-                : Brushes.DodgerBlue;
+        var brush = FocusBrush(control);
         context.DrawRectangle(
             null,
             new Pen(brush, 2),
             new Avalonia.Rect(2, 2, control.Bounds.Width - 4, control.Bounds.Height - 4));
+    }
+
+    private static IBrush FocusBrush(Control control)
+    {
+        if (control.TryFindResource(
+                ThemeResourceBindings.TextAccent,
+                control.ActualThemeVariant,
+                out var themedValue)
+            && themedValue is IBrush themedBrush)
+        {
+            return themedBrush;
+        }
+
+        return control.TryFindResource(
+            "AccentFillColorDefaultBrush",
+            control.ActualThemeVariant,
+            out var fluentValue)
+            && fluentValue is IBrush fluentBrush
+                ? fluentBrush
+                : Brushes.Transparent;
     }
 }

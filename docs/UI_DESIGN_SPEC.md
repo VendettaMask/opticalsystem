@@ -41,6 +41,7 @@
 - 明亮主题下分析页外层和绘图区必须一致，不允许出现“页面偏灰、图内纯白”的割裂。
 - `Brushes.White`、`Brushes.LightGray`、`Color.FromRgb` 等硬编码只能用于物理/工程语义：波长颜色、光线颜色、制造图纸标准线色、导出图像画布、算法数据可视化的固定色标。其它场景必须抽成主题资源。
 - 普通窗口、面板、工具栏、状态栏、分隔线、说明文字和表格行前景色不得直接使用白/灰/RGB 字面量；应绑定 `Surface`、`PlotBackground`、`Border`、`TextSecondary`、`TextMuted`、`TextError` 等主题资源。
+- 普通 UI 色彩约束由 `OrdinaryAppUiColorsUseThemeResources` 契约测试保护；新增普通交互界面不得绕过 `ThemeResourceBindings` 写裸 `Brushes.*` 或 `Color.FromRgb/Argb`。确需固定色时必须属于工程/物理/标准语义，并集中到受审计的命名调色板或明确豁免文件。
 - 分析结果表格的业务行色使用主题资源，例如 `AnalysisRealRayRowBackground/Foreground` 和 `AnalysisParaxialRayRowBackground/Foreground`，必须同时覆盖明亮、暗夜、异世界和像素风格主题。
 - Zemax 评价函数行色属于业务分类色，不直接散落在面板里；统一由 `MeritOperandRowPalette` 输出背景/前景组合，并通过明暗主题对比度测试。该业务色不得复用为状态色、波长色或普通控件色。
 - 基点、焦平面、主平面、节平面等分析注释色属于光学分析语义色，应集中在命名语义调色板中；不得在结果页局部直接写匿名 RGB。

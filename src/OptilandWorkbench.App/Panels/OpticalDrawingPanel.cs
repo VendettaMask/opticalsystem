@@ -45,6 +45,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private readonly TextBox _stress = Text("10 nm/cm");
     private readonly TextBox _bubbles = Text("2 × 0.1");
     private readonly TextBox _homogeneity = Text("2；2");
+    private readonly TextBox _laserDamageThreshold = Text("-");
     private readonly TextBlock _logoStatus = new()
     {
         Text = "内置 S.T.A.R.Labs",
@@ -241,11 +242,20 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("S1 面形偏差 (nm)", _frontForm, ref row);
         AddRow("S2 面形偏差 (nm)", _backForm, ref row);
         AddRow("偏心/倾斜 (′)", _centering, ref row);
-        AddRow("表面纹理 Rq (nm)", _texture, ref row);
+        if (_drawingStandard != OpticalDrawingStandard.Iso10110)
+        {
+            AddRow("表面纹理 Rq (nm)", _texture, ref row);
+        }
+
         AddRow("表面缺陷", _imperfection, ref row);
         AddRow("应力双折射", _stress, ref row);
         AddRow("气泡和夹杂", _bubbles, ref row);
         AddRow("均匀性和条纹", _homogeneity, ref row);
+        if (_drawingStandard == OpticalDrawingStandard.Iso10110)
+        {
+            AddRow("6/ 激光损伤阈值", _laserDamageThreshold, ref row);
+        }
+
         AddSection("工艺说明", ref row);
         AddRow("膜层", _coating, ref row);
         AddRow("边缘处理", _edgeTreatment, ref row);
@@ -675,7 +685,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             _drawingStandard,
             (double)(_frontRadiusTolerance.Value ?? 0.1m),
             (double)(_backRadiusTolerance.Value ?? 0.1m),
-            element.Components.Select(component => FindMaterial(component.Material)).ToArray());
+            element.Components.Select(component => FindMaterial(component.Material)).ToArray(),
+            Value(_laserDamageThreshold, "-"));
     }
 
     private GlassMaterialDto? FindMaterial(string name) =>
@@ -690,7 +701,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             "当前图样：GB/T 13323—1991《光学制图》旧版兼容布局，使用材料/零件要求表和旧版常用标注。",
         OpticalDrawingStandard.GbT13323_2009 =>
             "当前图样：GB/T 13323—2009《光学制图》。",
-        _ => "当前图样：ISO 10110 系列表格式。"
+        _ => "当前图样：ISO 10110 系列表格式；6/- 表示未规定激光损伤阈值。"
     };
 
     private static string Value(TextBox textBox, string fallback) =>

@@ -1075,13 +1075,15 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Func<double, double> mapZ,
         Func<double, double> mapY)
     {
+        var referenceIntensity = rays.Select(ray => ray.FinalIntensity).DefaultIfEmpty(1).Max();
         foreach (var path in rays)
         {
             var pen = RayPenFor(
                 path.FieldIndex,
                 path.WavelengthNanometers,
                 path.Vignetted,
-                RayLineWidth);
+                RayLineWidth,
+                RayOpacityFor(path.FinalIntensity, referenceIntensity));
             foreach (var segment in path.Segments)
             {
                 var oriented = OrientSegment(segment);
@@ -1331,6 +1333,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         bool isSideWall,
         bool opticalLayoutStyle)
     {
+        if (!double.IsFinite(refractiveIndex))
+            return ThreeDLensCutBrush;
         var normal = PolygonNormal(points);
         var facing = Math.Abs(Dot(normal, viewDirection));
         var keyLightDirection = Normalize(new Layout3DPoint(-0.38, -0.64, 0.67));
@@ -1514,13 +1518,15 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Func<Layout3DPoint, Point> project,
         bool clipToCutaway)
     {
+        var referenceIntensity = rays.Select(ray => ray.FinalIntensity).DefaultIfEmpty(1).Max();
         foreach (var ray in rays)
         {
             var pen = RayPenFor(
                 ray.FieldIndex,
                 ray.WavelengthNanometers,
                 ray.Vignetted,
-                RayLineWidth);
+                RayLineWidth,
+                RayOpacityFor(ray.FinalIntensity, referenceIntensity));
             foreach (var segment in ray.Segments)
             {
                 var oriented = OrientSegment(segment);
@@ -1610,7 +1616,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         int fieldIndex,
         double wavelengthNanometers,
         bool vignetted,
-        double thickness)
+        double thickness,
+        double opacity)
     {
         if (vignetted)
         {
@@ -1620,8 +1627,13 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         var color = RayColorMode == OpticSceneRayColorMode.Wavelength
             ? SpectralColorMap.FromNanometers(wavelengthNanometers)
             : RayColors[Math.Abs(fieldIndex) % RayColors.Length];
-        return new Pen(new SolidColorBrush(color), thickness);
+        return new Pen(new SolidColorBrush(color, opacity), thickness);
     }
+
+    internal static double RayOpacityFor(double intensity, double referenceIntensity) =>
+        double.IsFinite(intensity) && double.IsFinite(referenceIntensity) && referenceIntensity > 0
+            ? Math.Clamp(intensity / referenceIntensity, 0, 1)
+            : 1;
 
     private void DrawScaleBar(DrawingContext context, double pixelsPerUnit, bool darkBackground = false)
     {

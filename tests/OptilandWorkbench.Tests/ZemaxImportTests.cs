@@ -473,7 +473,7 @@ public sealed class ZemaxImportTests
                 .Distinct(StringComparer.Ordinal)
                 .Count());
         Assert.Equal(
-            114,
+            124,
             ZemaxOperandRegistry.Descriptors.Count(
                 descriptor => descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable));
         Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
@@ -504,13 +504,22 @@ public sealed class ZemaxImportTests
         Assert.True(ZemaxOperandRegistry.Get("DIVI").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
         Assert.True(ZemaxOperandRegistry.Get("SUMM").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
         Assert.True(ZemaxOperandRegistry.Get("PROD").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("DIVB").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("DIVB").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Numeric));
+        Assert.True(ZemaxOperandRegistry.Get("PROB").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.RowReference));
+        Assert.True(ZemaxOperandRegistry.Get("PROB").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Numeric));
+        Assert.Equal("Factor", ZemaxOperandRegistry.Get("PROB").Parameters.Single(parameter => parameter.Slot == "Data1").DisplayName);
+        Assert.True(ZemaxOperandRegistry.Get("EQUA").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowRangeEnd));
+        Assert.True(ZemaxOperandRegistry.Get("OSUM").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowRangeEnd));
+        Assert.True(ZemaxOperandRegistry.Get("QSUM").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowRangeEnd));
         Assert.True(ZemaxOperandRegistry.Get("MAXX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.RowRangeEnd));
         foreach (var code in new[]
         {
             "CTLT", "CTVA", "ETGT", "ETLT", "ETVA", "FTGT", "FTLT", "STHI",
             "MNCT", "MXCT", "MNET", "MXET", "MNCV", "MXCV", "MNSD", "MXSD",
             "XNEA", "XXEA", "XNEG", "XXEG", "XNET", "XXET", "TGTH", "TTGT", "TTLT", "TTVA",
-            "WLEN", "INDX", "ENPP", "EPDI", "EXPP", "EXPD", "ISNA", "ISFN", "SFNO", "WFNO"
+            "WLEN", "INDX", "MNIN", "MXIN", "MNAB", "MXAB", "POWR",
+            "ENPP", "EPDI", "EXPP", "EXPD", "ISNA", "ISFN", "SFNO", "WFNO"
         })
         {
             Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get(code).SupportLevel);
@@ -528,6 +537,12 @@ public sealed class ZemaxImportTests
         Assert.True(ZemaxOperandRegistry.Get("EFLX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("WLEN").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("INDX").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
+        Assert.True(ZemaxOperandRegistry.Get("MNIN").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("MXIN").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("MNAB").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("MXAB").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
+        Assert.True(ZemaxOperandRegistry.Get("POWR").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
+        Assert.True(ZemaxOperandRegistry.Get("POWR").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("EFNO").SupportLevel);
         Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Integer));
         Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
@@ -708,6 +723,68 @@ public sealed class ZemaxImportTests
         Assert.Equal(16, evaluations[6].Value, precision: 12);
         Assert.Equal(1, evaluations[7].Value, precision: 12);
         Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void OrderedZemaxSpecialMathOperandsUseRangeFactorAndEqualitySemantics()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              DISZ 100
+            SURF 1
+              STOP
+              DISZ 0
+            CONS 0 0 0 0 0 0 2 0 0 0
+            CONS 0 0 0 0 0 0 4 0 0 0
+            PROB 1 0 10 0 0 0 20 1 0 0
+            DIVB 2 0 2 0 0 0 2 1 0 0
+            OSUM 1 4 0 0 0 0 28 1 0 0
+            QSUM 1 4 0 0 0 0 20.591260281974 0 0 0
+            EQUA 1 2 0 0 0 0 0.5 2 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+
+        var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        var restoredEvaluations = MeritFunctionCatalog.EvaluateAll(restored, restored.MeritFunctionOperands);
+
+        Assert.Equal(new[] { "CONS", "CONS", "PROB", "DIVB", "OSUM", "QSUM", "EQUA" },
+            optic.MeritFunctionOperands.Select(operand => operand.Type));
+        Assert.All(optic.MeritFunctionOperands, operand =>
+        {
+            Assert.True(operand.Enabled);
+            Assert.False(operand.CompatibilityOnly);
+        });
+
+        var scaledProduct = optic.MeritFunctionOperands[2];
+        Assert.Equal(new[] { 1, 0 }, scaledProduct.ZemaxIntegerParameters);
+        Assert.Equal(10, scaledProduct.Hx, precision: 12);
+        Assert.Equal(10, scaledProduct.ZemaxDataParameters[0], precision: 12);
+
+        Assert.Equal(2, evaluations[0].Value, precision: 12);
+        Assert.Equal(4, evaluations[1].Value, precision: 12);
+        Assert.Equal(20, evaluations[2].Value, precision: 12);
+        Assert.Equal(2, evaluations[3].Value, precision: 12);
+        Assert.Equal(28, evaluations[4].Value, precision: 12);
+        Assert.Equal(Math.Sqrt(424), evaluations[5].Value, precision: 12);
+        Assert.Equal(2, evaluations[6].Value, precision: 12);
+        Assert.Equal(8, evaluations[6].Contribution, precision: 12);
+        Assert.All(evaluations, evaluation => Assert.Empty(evaluation.Error));
+
+        Assert.Equal(
+            optic.MeritFunctionOperands.Select(operand => operand.Type),
+            restored.MeritFunctionOperands.Select(operand => operand.Type));
+        Assert.Equal(scaledProduct.ZemaxIntegerParameters, restored.MeritFunctionOperands[2].ZemaxIntegerParameters);
+        Assert.Equal(scaledProduct.ZemaxDataParameters, restored.MeritFunctionOperands[2].ZemaxDataParameters);
+        for (var index = 0; index < evaluations.Count; index++)
+        {
+            Assert.Equal(evaluations[index].Value, restoredEvaluations[index].Value, precision: 12);
+            Assert.Equal(evaluations[index].Contribution, restoredEvaluations[index].Contribution, precision: 12);
+            Assert.Equal(evaluations[index].Error, restoredEvaluations[index].Error);
+        }
     }
 
     [Fact]
@@ -906,17 +983,41 @@ public sealed class ZemaxImportTests
             new MeritOperandDefinition { Type = "CONS", Target = -1 },
             new MeritOperandDefinition { Type = "SQRT", Surface = 1 }
         };
+        var divideByFactorZero = new[]
+        {
+            new MeritOperandDefinition { Type = "CONS", Target = 2 },
+            new MeritOperandDefinition
+            {
+                Type = "DIVB",
+                Surface = 1,
+                Hx = 0,
+                ZemaxIntegerParameters = [1, 0],
+                ZemaxDataParameters = [0, 0, 0, 0]
+            }
+        };
+        var negativeEqualityTolerance = new[]
+        {
+            new MeritOperandDefinition { Type = "CONS", Target = 2 },
+            new MeritOperandDefinition { Type = "CONS", Target = 4 },
+            new MeritOperandDefinition { Type = "EQUA", Surface = 1, Wavelength = 2, Target = -0.1 }
+        };
 
         var futureEvaluation = MeritFunctionCatalog.EvaluateAll(optic, futureReference);
         var divideEvaluation = MeritFunctionCatalog.EvaluateAll(optic, divideByZero);
         var rootEvaluation = MeritFunctionCatalog.EvaluateAll(optic, negativeRoot);
+        var factorEvaluation = MeritFunctionCatalog.EvaluateAll(optic, divideByFactorZero);
+        var equalityEvaluation = MeritFunctionCatalog.EvaluateAll(optic, negativeEqualityTolerance);
 
         Assert.Contains("前序行", futureEvaluation[0].Error, StringComparison.Ordinal);
         Assert.Contains("分母", divideEvaluation[2].Error, StringComparison.Ordinal);
         Assert.Contains("不能为负数", rootEvaluation[1].Error, StringComparison.Ordinal);
+        Assert.Contains("Factor", factorEvaluation[1].Error, StringComparison.Ordinal);
+        Assert.Contains("EQUA", equalityEvaluation[2].Error, StringComparison.Ordinal);
         Assert.True(double.IsPositiveInfinity(futureEvaluation[0].Contribution));
         Assert.True(double.IsPositiveInfinity(divideEvaluation[2].Contribution));
         Assert.True(double.IsPositiveInfinity(rootEvaluation[1].Contribution));
+        Assert.True(double.IsPositiveInfinity(factorEvaluation[1].Contribution));
+        Assert.True(double.IsPositiveInfinity(equalityEvaluation[2].Contribution));
     }
 
     [Fact]
@@ -1319,6 +1420,137 @@ public sealed class ZemaxImportTests
         Assert.Equal(curvedAirEdgeThickness, evaluations["XXET"].Value, precision: 12);
         Assert.Equal(10, evaluations["TGTH"].Value, precision: 12);
         Assert.All(evaluations.Values, evaluation => Assert.Empty(evaluation.Error));
+    }
+
+    [Fact]
+    public void ZemaxGlassConstraintAndSurfacePowerOperandsEvaluateAndRoundTrip()
+    {
+        const string source = """
+            MODE SEQ
+            NAME "Zemax glass constraints and surface power"
+            ENPD 10
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 0.5875618 1
+            PWAV 1
+            SURF 0
+              CURV 0
+              DISZ 10
+            SURF 1
+              STOP
+              CURV 0.02
+              DISZ 4
+              GLAS N-BK7
+              DIAM 5 1 0 0 1 ""
+            SURF 2
+              CURV -0.01
+              DISZ 6
+              GLAS N-SF10
+              DIAM 5 1 0 0 1 ""
+            SURF 3
+              CURV 0
+              DISZ 0
+            POWR 1 1 0 0 0 0 0 0 0 0
+            MNIN 1 2 0 0 0 0 1.55 1 0 0
+            MXIN 1 2 0 0 0 0 1.65 1 0 0
+            MNAB 1 2 0 0 0 0 50 1 0 0
+            MXAB 1 2 0 0 0 0 60 1 0 0
+            """;
+
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var evaluations = MeritFunctionCatalog
+            .EvaluateAll(optic, optic.MeritFunctionOperands)
+            .Select((evaluation, index) => (Type: optic.MeritFunctionOperands[index].Type, Evaluation: evaluation))
+            .ToDictionary(item => item.Type, item => item.Evaluation, StringComparer.Ordinal);
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        var restoredEvaluations = MeritFunctionCatalog
+            .EvaluateAll(restored, restored.MeritFunctionOperands)
+            .Select((evaluation, index) => (Type: restored.MeritFunctionOperands[index].Type, Evaluation: evaluation))
+            .ToDictionary(item => item.Type, item => item.Evaluation, StringComparer.Ordinal);
+
+        var surface1 = optic.SurfaceGroup.Items.Single(surface => surface.Number == 1);
+        var surface2 = optic.SurfaceGroup.Items.Single(surface => surface.Number == 2);
+        var glass1 = Assert.IsType<CatalogGlassMaterial>(surface1.MaterialAfter);
+        var glass2 = Assert.IsType<CatalogGlassMaterial>(surface2.MaterialAfter);
+        var indices = new[] { glass1, glass2 }.Select(glass => glass.RefractiveIndex(587.5618)).ToArray();
+        var abbeNumbers = new[] { glass1, glass2 }.Select(glass =>
+            (glass.RefractiveIndex(587.5618) - 1) / (glass.RefractiveIndex(486.1327) - glass.RefractiveIndex(656.2725))).ToArray();
+        var wavelength = optic.Wavelengths.Single().Nanometers;
+        var expectedPower = (surface1.MaterialAfter.RefractiveIndex(wavelength)
+            - surface1.MaterialBefore.RefractiveIndex(wavelength)) / surface1.Radius;
+
+        Assert.Equal(new[] { "POWR", "MNIN", "MXIN", "MNAB", "MXAB" },
+            optic.MeritFunctionOperands.Select(operand => operand.Type));
+        Assert.All(optic.MeritFunctionOperands, operand =>
+        {
+            Assert.True(operand.Enabled);
+            Assert.False(operand.CompatibilityOnly);
+        });
+        Assert.Equal(new[] { 1, 1 }, optic.MeritFunctionOperands[0].ZemaxIntegerParameters);
+        Assert.Equal(new[] { 1, 2 }, optic.MeritFunctionOperands[1].ZemaxIntegerParameters);
+        Assert.Equal(expectedPower, evaluations["POWR"].Value, precision: 12);
+        Assert.Equal(indices.Min(), evaluations["MNIN"].Value, precision: 12);
+        Assert.Equal(indices.Max(), evaluations["MXIN"].Value, precision: 12);
+        Assert.Equal(abbeNumbers.Min(), evaluations["MNAB"].Value, precision: 12);
+        Assert.Equal(abbeNumbers.Max(), evaluations["MXAB"].Value, precision: 12);
+        Assert.All(evaluations.Values, evaluation => Assert.Empty(evaluation.Error));
+
+        Assert.Equal(
+            optic.MeritFunctionOperands.Select(operand => operand.Type),
+            restored.MeritFunctionOperands.Select(operand => operand.Type));
+        foreach (var type in evaluations.Keys)
+        {
+            Assert.Equal(evaluations[type].Value, restoredEvaluations[type].Value, precision: 12);
+            Assert.Equal(evaluations[type].Contribution, restoredEvaluations[type].Contribution, precision: 12);
+            Assert.Equal(evaluations[type].Error, restoredEvaluations[type].Error);
+        }
+    }
+
+    [Fact]
+    public void ZemaxGlassConstraintAndSurfacePowerOperandsReportInvalidInputs()
+    {
+        const string allAirSource = """
+            MODE SEQ
+            ENPD 10
+            SURF 0
+              CURV 0
+              DISZ 10
+            SURF 1
+              CURV 0
+              DISZ 0
+            """;
+        var allAir = OpticalFormatCatalog.Import(allAirSource, ".zmx");
+        var noGlass = MeritFunctionCatalog.EvaluateAll(
+            allAir,
+            [
+                new MeritOperandDefinition
+                {
+                    Type = "MNIN",
+                    Surface = 0,
+                    Wavelength = 1,
+                    Target = 1.4,
+                    ZemaxIntegerParameters = [0, 1]
+                }
+            ]);
+
+        var nonStandard = Optic.CreateCookeTriplet();
+        var surface = nonStandard.SurfaceGroup.Items.First(item => item.Number == 1);
+        surface.Geometry = new EvenAsphereGeometry(surface.Radius, surface.Conic, new double[8]);
+        var power = MeritFunctionCatalog.Evaluate(
+            nonStandard,
+            new MeritOperandDefinition
+            {
+                Type = "POWR",
+                Surface = 1,
+                Wavelength = 1,
+                ZemaxIntegerParameters = [1, 1]
+            });
+
+        Assert.Contains("玻璃", noGlass[0].Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(noGlass[0].Contribution));
+        Assert.Contains("标准面", power.Error, StringComparison.Ordinal);
+        Assert.True(double.IsPositiveInfinity(power.Contribution));
     }
 
     [Fact]
@@ -1823,7 +2055,7 @@ public sealed class ZemaxImportTests
             SURF 1
               CURV 0.02
               DISZ 2
-              GLAS CUSTOM-Z 0 0 1.7 30
+              GLAS N-BK7
               STOP
               DIAM 4
             SURF 2
@@ -1856,11 +2088,9 @@ public sealed class ZemaxImportTests
         var mirror = optic.SurfaceGroup.Items[2];
         Assert.True(mirror.IsReflective);
         Assert.Equal("MIRROR", mirror.Material);
-        Assert.Equal("CUSTOM-Z", mirror.MaterialBefore.Name);
-        Assert.Equal("CUSTOM-Z", mirror.MaterialAfter.Name);
-        var customGlass = Assert.IsType<AbbeMaterial>(mirror.MaterialAfter);
-        Assert.Equal(1.7, customGlass.Nd, precision: 12);
-        Assert.Equal(30, customGlass.Vd, precision: 12);
+        Assert.Equal("N-BK7", mirror.MaterialBefore.Name);
+        Assert.Equal("N-BK7", mirror.MaterialAfter.Name);
+        Assert.IsType<CatalogGlassMaterial>(mirror.MaterialAfter);
         Assert.Equal(4, mirror.CoordinateSystem.Origin.X, precision: 10);
         Assert.Equal(0, mirror.CoordinateSystem.Origin.Y, precision: 10);
         Assert.Equal(2, mirror.CoordinateSystem.Origin.Z, precision: 10);

@@ -18,6 +18,12 @@ internal static partial class OpticalDrawingRendererCore
             throw new ArgumentException(string.Join("；", validationErrors), nameof(sheet));
         }
 
+        var templateErrors = ValidateTemplateLayout(sheet);
+        if (templateErrors.Count > 0)
+        {
+            throw new ArgumentException(string.Join("；", templateErrors), nameof(sheet));
+        }
+
         canvas.Clear(SKColors.White);
         canvas.Save();
         canvas.Scale(pageWidth / A4Width, pageHeight / A4Height);
@@ -27,6 +33,7 @@ internal static partial class OpticalDrawingRendererCore
 
     private static void RenderA4Layout(SKCanvas canvas, OpticalDrawingSheet sheet)
     {
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
         using var thin = Stroke(SKColors.Black, 0.65f);
         using var medium = Stroke(SKColors.Black, 1.05f);
         using var heavy = Stroke(SKColors.Black, 1.7f);
@@ -41,10 +48,10 @@ internal static partial class OpticalDrawingRendererCore
             Style = SKPaintStyle.Fill
         };
 
-        const float outer = 12;
-        const float inner = 18;
-        const float specificationTop = 576;
-        const float titleTop = 754;
+        var outer = template.Page.OuterMargin;
+        var inner = template.Page.InnerMargin;
+        var specificationTop = template.Page.SpecificationTop;
+        var titleTop = template.Page.TitleTop;
         var right = A4Width - inner;
         var bottom = A4Height - inner;
 
@@ -54,7 +61,11 @@ internal static partial class OpticalDrawingRendererCore
         var scaleDesignation = DrawElementGeometry(
             canvas,
             sheet,
-            new SKRect(inner + 12, inner + 12, right - 12, specificationTop - 7),
+            new SKRect(
+                inner + template.Geometry.HorizontalInset,
+                inner + template.Geometry.TopInset,
+                right - template.Geometry.HorizontalInset,
+                specificationTop - template.Geometry.SpecificationGap),
             medium,
             dimension,
             axis,

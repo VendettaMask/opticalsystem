@@ -625,6 +625,7 @@ public sealed partial class MainWindow
 
     private Control BuildStatusBar()
     {
+        _statusText.TextTrimming = TextTrimming.CharacterEllipsis;
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto,Auto") };
         grid.Children.Add(StatusCell(_statusText, 0, 0));
         grid.Children.Add(StatusCell(_eflText, 1, 128));

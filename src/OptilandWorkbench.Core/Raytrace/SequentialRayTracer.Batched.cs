@@ -76,10 +76,11 @@ public sealed partial class SequentialRayTracer
                     }
 
                     ComputationCancellation.ThrowIfCancellationRequested();
-                    var result = surface.TraceRayState(
+                    var result = TraceSequentialSurface(
+                        surface,
+                        surfaceIndex,
                         states[rayIndex],
                         materials[rayIndex],
-                        surface.MaterialAfter,
                         cumulativePaths[rayIndex],
                         cumulativeOpticalPaths[rayIndex]);
                     var slot = surfaceSlots[surfaceIndex];

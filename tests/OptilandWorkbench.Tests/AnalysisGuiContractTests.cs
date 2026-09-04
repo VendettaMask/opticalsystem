@@ -1135,6 +1135,10 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(addMethod);
         var current = Assert.IsType<Avalonia.Controls.ListBox>(currentField.GetValue(panel));
         var available = Assert.IsType<Avalonia.Controls.ListBox>(availableField.GetValue(panel));
+        Assert.NotNull(current.ItemTemplate);
+        Assert.NotNull(available.ItemTemplate);
+        Assert.True(current.Styles.Count >= 3);
+        Assert.True(available.Styles.Count >= 3);
         var currentNames = Assert.IsAssignableFrom<IEnumerable<string>>(current.ItemsSource).ToArray();
         var availableNames = Assert.IsAssignableFrom<IEnumerable<string>>(available.ItemsSource).ToArray();
         Assert.NotEmpty(currentNames);
@@ -2413,7 +2417,7 @@ public sealed class AnalysisGuiContractTests
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
 
         Assert.Equal(
-            new[] { "无", "均匀", "高斯", "余弦平方", "Hann", "多项式", "超高斯", "Tukey" },
+            new[] { "均匀（Zemax）", "高斯（Zemax）", "余弦立方（Zemax）", "无", "均匀", "高斯", "余弦平方", "Hann", "多项式", "超高斯", "Tukey" },
             connector.ApodizationKinds);
 
         connector.SetApodization("超高斯", 0.7, 1.0);

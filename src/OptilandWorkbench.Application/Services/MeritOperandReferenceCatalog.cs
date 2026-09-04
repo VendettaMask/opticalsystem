@@ -23,16 +23,18 @@ internal static class MeritOperandReferenceCatalog
         "BLNK" or "DMFS" or "GOTO" or "ENDX" or "OOFF" or "SKIN" or "SKIS" or "USYM" => "说明与控制",
         "CONS" or "SINE" or "COSI" or "TANG" or "ASIN" or "ACOS" or "ATAN"
             or "ABSO" or "SQRT" or "RECI" or "LOGE" or "LOGT" or "SUMM" or "PROD"
-            or "DIVI" or "DIFF" or "MAXX" or "MINN" or "OPVA" or "OPGT" or "OPLT"
+            or "PROB" or "DIVB" or "DIVI" or "DIFF" or "EQUA" or "MAXX" or "MINN"
+            or "OSUM" or "QSUM" or "OPVA" or "OPGT" or "OPLT"
             or "ABGT" or "ABLT" => "行数学与约束",
         "RSCE" or "RSCH" or "RSRE" or "RSRH" or "RWFE" or "OPDX" or "OPDM" or "OPDC"
             or "TRAC" or "TRAR" or "TRCX" or "TRCY" or "TRAX" or "TRAY"
             or "ANAC" or "ANAR" or "ANCX" or "ANCY" or "ANAX" or "ANAY"
             or "MECS" or "MECT" => "像质与波前",
         "REAX" or "REAY" or "REAR" or "RANG" => "实际光线",
+        "MNIN" or "MXIN" or "MNAB" or "MXAB" or "INDX" => "玻璃数据约束",
         "EFFL" or "EFLX" or "EFLY" or "ENPP" or "EPDI" or "EXPP" or "EXPD"
             or "ISFN" or "SFNO" or "WFNO" or "FNUM" or "ISNA" or "PMAG" or "PETZ"
-            or "WLEN" or "INDX" or "TOTR" => "一阶量与系统数据",
+            or "WLEN" or "POWR" or "TOTR" => "一阶量与系统数据",
         "RADI" or "THIC" or "CVGT" or "CVLT" or "CVVA" or "COGT" or "COLT" or "COVA"
             or "MNCV" or "MXCV" or "MNSD" or "MXSD" => "表面数据与边界",
         _ => "厚度与结构边界"
@@ -62,10 +64,15 @@ internal static class MeritOperandReferenceCatalog
         "LOGT" => "对 Int1 指定前序行计算常用对数 log10(x)；x <= 0 时当前实现返回 0。",
         "SUMM" => "当前值 = Int1 指定前序行值 + Int2 指定前序行值。",
         "PROD" => "当前值 = Int1 指定前序行值 × Int2 指定前序行值。",
+        "PROB" => "当前值 = Int1 指定前序行值 × Data1(Factor)。",
+        "DIVB" => "当前值 = Int1 指定前序行值 / Data1(Factor)；Factor 为零或极小时会报告错误。",
         "DIVI" => "当前值 = Int1 指定前序行值 / Int2 指定前序行值；零或极小分母会报告错误。",
         "DIFF" => "当前值 = Int1 指定前序行值 − Int2 指定前序行值。",
+        "EQUA" => "读取 Int1 到 Int2 的闭区间前序行，以 Target 作为相等容差；先求平均值，再把超过容差的绝对偏差求和作为当前值。本行贡献 = |Weight| × Value²。",
         "MAXX" => "读取 Int1 到 Int2 的闭区间前序行，当前值取其中最大值。",
         "MINN" => "读取 Int1 到 Int2 的闭区间前序行，当前值取其中最小值。",
+        "OSUM" => "读取 Int1 到 Int2 的闭区间前序行，当前值为所有输入当前值之和。",
+        "QSUM" => "读取 Int1 到 Int2 的闭区间前序行，当前值 = sqrt(Σ value²)。",
         "OPVA" => "当前值等于 Int1 指定的已完成前序行当前值。",
         "OPGT" => "读取 Int1 指定前序行。值达到或超过 Target 时钳到 Target，使本行贡献为 0；不足部分形成平方误差。",
         "OPLT" => "读取 Int1 指定前序行。值不超过 Target 时钳到 Target，使本行贡献为 0；超出部分形成平方误差。",
@@ -107,6 +114,11 @@ internal static class MeritOperandReferenceCatalog
         "ISNA" => "追迹所选波长的近轴边缘光线，当前值 = |n_image × sin(atan(u_image))|。",
         "WLEN" => "返回 Int2 指定波长编号的波长值，单位为微米。编号 0 使用主波长。",
         "INDX" => "读取 Int1 指定表面之后的材料，在 Int2 指定波长处计算折射率。",
+        "MNIN" => LowerBoundary("Int1 到 Int2 表面范围内玻璃材料的 d 线 Nd 最小值"),
+        "MXIN" => UpperBoundary("Int1 到 Int2 表面范围内玻璃材料的 d 线 Nd 最大值"),
+        "MNAB" => LowerBoundary("Int1 到 Int2 表面范围内玻璃材料的 Vd 阿贝数最小值"),
+        "MXAB" => UpperBoundary("Int1 到 Int2 表面范围内玻璃材料的 Vd 阿贝数最大值"),
+        "POWR" => "读取 Int1 指定标准折射表面和 Int2 指定波长；当前值 = (n_after − n_before) / Radius，平面返回 0，非标准面或反射面报告错误。",
         "PMAG" => "仅用于有限物距。以单位物高建立近轴主光线，并在近轴像面求像高；当前值 = 近轴像高 / 单位物高。",
         "PETZ" => "逐面累加 Petzval sum：Σ[c × (n_after − n_before)/(n_before × n_after)]，当前值取带像方曲率符号的 −1/sum。",
         "TOTR" => "返回光学系统表面组的总轴向长度 TotalTrack；无穷远物面厚度不作为有限传播距离累加。",

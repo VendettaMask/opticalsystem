@@ -110,6 +110,18 @@ public static class OpticalDrawingRenderer
         return OpticalDrawingRendererCore.RadiusDimensionText(radius, tolerance);
     }
 
+    internal static string LaserDamageThresholdIndication(OpticalDrawingSheet sheet)
+    {
+        ArgumentNullException.ThrowIfNull(sheet);
+        return OpticalDrawingRendererCore.LaserDamageThresholdIndication(sheet);
+    }
+
+    internal static IReadOnlyList<string> ValidateTemplateLayout(OpticalDrawingSheet sheet)
+    {
+        ArgumentNullException.ThrowIfNull(sheet);
+        return OpticalDrawingRendererCore.ValidateTemplateLayout(sheet);
+    }
+
     private static int ValidatePreviewDimensions(int width, float pageWidth, float pageHeight)
     {
         if (width is < 1 or > 4_096

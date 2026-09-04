@@ -32,8 +32,12 @@ internal static class MeritOperandRowPalette
             "OPLT",
             "EFFL",
             "PMAG",
+            "POWR",
+            "MNIN",
             "CONS",
             "DIVI",
+            "EQUA",
+            "OSUM",
             "MNEA",
             "MNCG",
             "RSCE",
@@ -67,19 +71,19 @@ internal static class MeritOperandRowPalette
             "TTHI" or "PETZ" or "MNCA" or "MXEG" or "CONF" or "RANG"
                 => Color.FromRgb(188, 188, 248),
 
-            "OPLT" or "CTGT" or "PROD"
+            "OPLT" or "CTGT" or "PROD" or "PROB" or "EQUA"
                 => Color.FromRgb(231, 237, 224),
 
-            "EFFL" or "FNUM" or "TOTR" or "MNEG" or "REAX" or "REAY"
+            "EFFL" or "FNUM" or "TOTR" or "MNEG" or "REAX" or "REAY" or "POWR"
                 => Color.FromRgb(190, 218, 242),
 
-            "PMAG" or "REAR" or "DIMX" or "RADI" or "THIC"
+            "PMAG" or "REAR" or "DIMX" or "RADI" or "THIC" or "MNIN" or "MXIN" or "MNAB" or "MXAB"
                 => Color.FromRgb(246, 243, 190),
 
-            "CONS" or "SINE"
+            "CONS" or "SINE" or "OSUM" or "QSUM"
                 => Color.FromRgb(211, 231, 232),
 
-            "DIVI"
+            "DIVI" or "DIVB"
                 => Color.FromRgb(255, 198, 198),
 
             "MNEA"

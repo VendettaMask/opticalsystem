@@ -1,5 +1,6 @@
 using System.Globalization;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 
@@ -255,6 +256,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             "UNIT MM",
             $"NAME {optic.Name}",
             ApertureLine(optic),
+            ApodizationLine(optic),
             $"RAIM 0 {(optic.RayAimingEnabled ? 1 : 0)} 1 1 0 0 0 0 0 1",
             $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 {(optic.ImageSpaceAfocal ? 1 : 0)}",
             $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
@@ -313,6 +315,14 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
         return string.Join(Environment.NewLine, lines);
     }
+
+    private static string ApodizationLine(Optic optic) => optic.Apodization switch
+    {
+        null or UniformApodization => "GFAC 0 0",
+        ZemaxApodization value => $"GFAC {value.Factor.ToString("R", CultureInfo.InvariantCulture)} {(int)value.Type}",
+        GaussianApodization value => $"GFAC {(1 / (4 * value.Sigma * value.Sigma)).ToString("R", CultureInfo.InvariantCulture)} 1",
+        _ => throw new NotSupportedException($"ZMX export cannot represent apodization '{optic.Apodization.Kind}'.")
+    };
 
     private static double RadiusToCurvature(double radius) => Math.Abs(radius) < 1e-12 ? 0 : 1.0 / radius;
 

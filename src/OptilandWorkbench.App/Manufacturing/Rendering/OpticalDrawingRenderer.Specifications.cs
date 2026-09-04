@@ -86,10 +86,12 @@ internal static partial class OpticalDrawingRendererCore
         SKPaint medium,
         SKPaint headerFill)
     {
-        if (sheet.Standard == OpticalDrawingStandard.GbT13323_1991)
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        if (template.Specification.Kind == "gb1991")
         {
             DrawGb1991SpecificationTable(
                 canvas,
+                template,
                 sheet,
                 x,
                 y,
@@ -105,6 +107,7 @@ internal static partial class OpticalDrawingRendererCore
         {
             DrawCementedSpecificationTable(
                 canvas,
+                template,
                 sheet,
                 x,
                 y,
@@ -116,10 +119,11 @@ internal static partial class OpticalDrawingRendererCore
             return;
         }
 
-        if (sheet.Standard == OpticalDrawingStandard.GbT13323_2009)
+        if (template.Specification.Kind == "gb2009")
         {
             DrawGb2009SpecificationTable(
                 canvas,
+                template,
                 sheet,
                 x,
                 y,
@@ -131,31 +135,22 @@ internal static partial class OpticalDrawingRendererCore
             return;
         }
 
-        const float headerHeight = 24;
-        var leftWidth = width * 0.35f;
-        var materialWidth = width * 0.30f;
-        var materialX = x + leftWidth;
-        var rightX = materialX + materialWidth;
-        canvas.DrawRect(x, y, width, headerHeight, headerFill);
-        canvas.DrawRect(x, y, width, height, medium);
-        canvas.DrawLine(x, y + headerHeight, x + width, y + headerHeight, thin);
-        canvas.DrawLine(materialX, y, materialX, y + height, thin);
-        canvas.DrawLine(rightX, y, rightX, y + height, thin);
-
-        DrawText(canvas, "左表面（S1）", x + (leftWidth / 2), y + 16, 9, SKTextAlign.Center, true);
-        DrawText(canvas, "材料", materialX + (materialWidth / 2), y + 16, 9, SKTextAlign.Center, true);
-        DrawText(canvas, "右表面（S2）", rightX + ((width - leftWidth - materialWidth) / 2), y + 16, 9, SKTextAlign.Center, true);
-
-        var bodyTop = y + headerHeight + 14;
-        var leftLines = SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true);
-        var rightLines = SurfaceSpecificationLines(sheet, sheet.Element.BackSurface, isFront: false);
-        var materialLines = MaterialSpecificationLines(sheet);
-        DrawColumnLines(canvas, leftLines, x + 9, bodyTop, leftWidth - 18);
-        DrawColumnLines(canvas, materialLines, materialX + 9, bodyTop, materialWidth - 18);
-        DrawColumnLines(canvas, rightLines, rightX + 9, bodyTop, width - leftWidth - materialWidth - 18);
+        DrawIsoSpecificationTable(
+            canvas,
+            template,
+            sheet,
+            x,
+            y,
+            width,
+            height,
+            thin,
+            medium,
+            headerFill);
     }
-    private static void DrawCementedSpecificationTable(
+
+    private static void DrawIsoSpecificationTable(
         SKCanvas canvas,
+        OpticalDrawingTemplate template,
         OpticalDrawingSheet sheet,
         float x,
         float y,
@@ -165,7 +160,50 @@ internal static partial class OpticalDrawingRendererCore
         SKPaint medium,
         SKPaint headerFill)
     {
-        const float headerHeight = 24;
+        var headerHeight = template.Specification.HeaderHeight;
+        var columns = template.Specification.Columns;
+        if (columns.Count != 3)
+        {
+            throw new InvalidDataException(
+                $"ISO optical drawing template '{template.Id}' must define exactly three specification columns.");
+        }
+
+        var leftWidth = width * columns[0].WidthRatio;
+        var materialWidth = width * columns[1].WidthRatio;
+        var materialX = x + leftWidth;
+        var rightX = materialX + materialWidth;
+        canvas.DrawRect(x, y, width, headerHeight, headerFill);
+        canvas.DrawRect(x, y, width, height, medium);
+        canvas.DrawLine(x, y + headerHeight, x + width, y + headerHeight, thin);
+        canvas.DrawLine(materialX, y, materialX, y + height, thin);
+        canvas.DrawLine(rightX, y, rightX, y + height, thin);
+
+        DrawText(canvas, columns[0].Title, x + (leftWidth / 2), y + 16, 9, SKTextAlign.Center, true);
+        DrawText(canvas, columns[1].Title, materialX + (materialWidth / 2), y + 16, 9, SKTextAlign.Center, true);
+        DrawText(canvas, columns[2].Title, rightX + ((width - leftWidth - materialWidth) / 2), y + 16, 9, SKTextAlign.Center, true);
+
+        var bodyTop = y + headerHeight + 14;
+        var leftLines = SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true);
+        var rightLines = SurfaceSpecificationLines(sheet, sheet.Element.BackSurface, isFront: false);
+        var materialLines = MaterialSpecificationLines(sheet);
+        var bodyHeight = y + height - bodyTop;
+        DrawColumnLines(canvas, leftLines, x + 9, bodyTop, leftWidth - 18, bodyHeight);
+        DrawColumnLines(canvas, materialLines, materialX + 9, bodyTop, materialWidth - 18, bodyHeight);
+        DrawColumnLines(canvas, rightLines, rightX + 9, bodyTop, width - leftWidth - materialWidth - 18, bodyHeight);
+    }
+    private static void DrawCementedSpecificationTable(
+        SKCanvas canvas,
+        OpticalDrawingTemplate template,
+        OpticalDrawingSheet sheet,
+        float x,
+        float y,
+        float width,
+        float height,
+        SKPaint thin,
+        SKPaint medium,
+        SKPaint headerFill)
+    {
+        var headerHeight = template.Specification.HeaderHeight;
         var columnCount = (sheet.Element.Components.Count * 2) + 1;
         var columnWidth = width / columnCount;
         canvas.DrawRect(x, y, width, headerHeight, headerFill);
@@ -200,7 +238,8 @@ internal static partial class OpticalDrawingRendererCore
                         isFront: surfaceIndex == 0),
                     columnX + 5,
                     bodyTop,
-                    columnWidth - 10);
+                    columnWidth - 10,
+                    y + height - bodyTop);
                 continue;
             }
 
@@ -221,7 +260,8 @@ internal static partial class OpticalDrawingRendererCore
                 ComponentMaterialSpecificationLines(sheet, component, material),
                 columnX + 5,
                 bodyTop,
-                columnWidth - 10);
+                columnWidth - 10,
+                y + height - bodyTop);
         }
     }
 
@@ -238,26 +278,25 @@ internal static partial class OpticalDrawingRendererCore
     private static IReadOnlyList<string> ComponentMaterialSpecificationLines(
         OpticalDrawingSheet sheet,
         OpticalElementDefinition component,
-        GlassMaterialDto? material) =>
-        new[]
-        {
-            $"GLASS  {component.Material}",
-            $"MAKER  {material?.Manufacturer ?? "CATALOG"}",
-            material is null
-                ? "n[d]  CATALOG"
-                : $"n[d]  {material.RefractiveIndexD:0.000000} +/-{sheet.RefractiveIndexTolerance:0.000000}",
-            material is null
-                ? "V[d]  CATALOG"
-                : $"V[d]  {material.AbbeNumber:0.###} +/-{sheet.AbbeNumberTolerance:0.###}",
-            $"CT  {component.CenterThickness:0.###} mm",
-            $"0/  {sheet.StressBirefringence}",
-            $"1/  {sheet.BubblesAndInclusions}",
-            $"2/  {sheet.HomogeneityAndStriae}"
-        };
+        GlassMaterialDto? material)
+    {
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        return ResolveFields(
+            template.Specification.ComponentMaterialFields,
+            new OpticalDrawingFieldContext(
+                sheet,
+                Surface: null,
+                IsFront: false,
+                SurfaceIndex: -1,
+                SurfaceCount: sheet.Element.Surfaces.Count,
+                Component: component,
+                Material: material));
+    }
 
 
     private static void DrawGb1991SpecificationTable(
         SKCanvas canvas,
+        OpticalDrawingTemplate template,
         OpticalDrawingSheet sheet,
         float x,
         float y,
@@ -267,11 +306,11 @@ internal static partial class OpticalDrawingRendererCore
         SKPaint medium,
         SKPaint headerFill)
     {
-        const float titleHeight = 22;
-        const float sectionWidth = 66;
-        const float itemWidth = 82;
-        const float materialHeight = 66;
-        const float partHeaderHeight = 17;
+        var titleHeight = template.Specification.TitleHeight;
+        var sectionWidth = template.Specification.SectionWidth;
+        var itemWidth = template.Specification.ItemWidth;
+        var materialHeight = template.Specification.MaterialHeight;
+        var partHeaderHeight = template.Specification.PartHeaderHeight;
         var titleBottom = y + titleHeight;
         var materialBottom = titleBottom + materialHeight;
         var partTop = materialBottom;
@@ -288,7 +327,7 @@ internal static partial class OpticalDrawingRendererCore
 
         DrawText(
             canvas,
-            "GB/T 13323—1991 旧版光学零件技术要求",
+            template.Specification.Title ?? "GB/T 13323—1991 旧版光学零件技术要求",
             x + (width / 2),
             y + 15,
             8.4f,
@@ -369,6 +408,7 @@ internal static partial class OpticalDrawingRendererCore
 
     private static void DrawGb2009SpecificationTable(
         SKCanvas canvas,
+        OpticalDrawingTemplate template,
         OpticalDrawingSheet sheet,
         float x,
         float y,
@@ -378,13 +418,13 @@ internal static partial class OpticalDrawingRendererCore
         SKPaint medium,
         SKPaint headerFill)
     {
-        const float headerHeight = 24;
-        const float subheaderHeight = 19;
-        var materialWidth = width * 0.34f;
+        var headerHeight = template.Specification.HeaderHeight;
+        var subheaderHeight = template.Specification.SubheaderHeight;
+        var materialWidth = width * template.Specification.MaterialWidthRatio;
         var partX = x + materialWidth;
         var partWidth = width - materialWidth;
-        var surfaceWidth = 42f;
-        var apertureWidth = 80f;
+        var surfaceWidth = template.Specification.SurfaceWidth;
+        var apertureWidth = template.Specification.ApertureWidth;
         var apertureX = partX + surfaceWidth;
         var requirementX = apertureX + apertureWidth;
         var bodyTop = y + headerHeight + subheaderHeight;
@@ -405,13 +445,20 @@ internal static partial class OpticalDrawingRendererCore
         DrawText(canvas, "D（有效孔径）", apertureX + (apertureWidth / 2), y + headerHeight + 13, 6.7f, SKTextAlign.Center, true);
         DrawText(canvas, "技术要求", requirementX + ((x + width - requirementX) / 2), y + headerHeight + 13, 7, SKTextAlign.Center, true);
 
-        DrawColumnLines(canvas, GbMaterialSpecificationLines(sheet), x + 9, y + headerHeight + 17, materialWidth - 18);
-        DrawGbSurfaceRequirement(canvas, sheet, sheet.Element.FrontSurface, true, partX, apertureX, requirementX, bodyTop, rowHeight, x + width);
-        DrawGbSurfaceRequirement(canvas, sheet, sheet.Element.BackSurface, false, partX, apertureX, requirementX, bodyTop + rowHeight, rowHeight, x + width);
+        DrawColumnLines(
+            canvas,
+            GbMaterialSpecificationLines(template, sheet),
+            x + 9,
+            y + headerHeight + 17,
+            materialWidth - 18,
+            y + height - (y + headerHeight + 17));
+        DrawGbSurfaceRequirement(canvas, template, sheet, sheet.Element.FrontSurface, true, partX, apertureX, requirementX, bodyTop, rowHeight, x + width);
+        DrawGbSurfaceRequirement(canvas, template, sheet, sheet.Element.BackSurface, false, partX, apertureX, requirementX, bodyTop + rowHeight, rowHeight, x + width);
     }
 
     private static void DrawGbSurfaceRequirement(
         SKCanvas canvas,
+        OpticalDrawingTemplate template,
         OpticalDrawingSheet sheet,
         SurfaceRowDto surface,
         bool isFront,
@@ -422,26 +469,22 @@ internal static partial class OpticalDrawingRendererCore
         float rowHeight,
         float right)
     {
-        var coating = string.IsNullOrWhiteSpace(surface.Coating)
-            || surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
-                ? sheet.Coating
-                : surface.Coating;
         var surfaceName = isFront ? "S1" : "S2";
         DrawText(canvas, surfaceName, (partX + apertureX) / 2, rowTop + (rowHeight / 2) + 3, 8, SKTextAlign.Center, true);
         DrawText(canvas, $"⌀{sheet.Element.ClearSemiDiameter * 2:0.###}", (apertureX + requirementX) / 2, rowTop + (rowHeight / 2) + 3, 7, SKTextAlign.Center);
 
-        var form = isFront ? sheet.FrontSurfaceFormNanometers : sheet.BackSurfaceFormNanometers;
-        var lines = new[]
-        {
-            $"R {RadiusText(surface.Radius)}",
-            $"面形偏差 {form:0.#} nm；偏心/倾斜 {sheet.CenteringToleranceArcMinutes:0.###}′",
-            $"表面缺陷 {sheet.SurfaceImperfection}",
-            $"表面纹理 Rq {sheet.SurfaceTextureNanometers:0.###} nm",
-            $"膜层 {coating}",
-            $"边缘 {sheet.EdgeTreatment}"
-        };
-        var lineHeight = Math.Min(11.5f, (rowHeight - 9) / lines.Length);
-        for (var index = 0; index < lines.Length; index++)
+        var lines = ResolveFields(
+            template.Specification.Gb2009SurfaceRequirementFields,
+            new OpticalDrawingFieldContext(
+                sheet,
+                surface,
+                isFront,
+                SurfaceIndex: isFront ? 0 : sheet.Element.Surfaces.Count - 1,
+                SurfaceCount: sheet.Element.Surfaces.Count,
+                Component: null,
+                Material: null));
+        var lineHeight = Math.Min(11.5f, (rowHeight - 9) / lines.Count);
+        for (var index = 0; index < lines.Count; index++)
         {
             DrawFittedText(
                 canvas,
@@ -454,118 +497,398 @@ internal static partial class OpticalDrawingRendererCore
         }
     }
 
-    private static IReadOnlyList<string> GbMaterialSpecificationLines(OpticalDrawingSheet sheet)
-    {
-        var material = sheet.MaterialData;
-        return new[]
-        {
-            $"光学材料  {sheet.Element.Material}",
-            $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
-            material is null
-                ? "n[d]  折射率由玻璃库解析"
-                : $"n[d]  折射率 {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
-            material is null
-                ? "V[d]  阿贝数由玻璃库解析"
-                : $"V[d]  阿贝数 {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
-            $"应力双折射  {sheet.StressBirefringence}",
-            $"气泡和夹杂  {sheet.BubblesAndInclusions}",
-            $"均匀性和条纹  {sheet.HomogeneityAndStriae}"
-        };
-    }
+    private static IReadOnlyList<string> GbMaterialSpecificationLines(
+        OpticalDrawingTemplate template,
+        OpticalDrawingSheet sheet) =>
+        ResolveFields(
+            template.Specification.Gb2009MaterialFields,
+            new OpticalDrawingFieldContext(
+                sheet,
+                Surface: null,
+                IsFront: false,
+                SurfaceIndex: -1,
+                SurfaceCount: sheet.Element.Surfaces.Count,
+                Component: null,
+                Material: sheet.MaterialData));
 
     private static IReadOnlyList<(string Item, string Value)> Gb1991MaterialSpecificationRows(
         OpticalDrawingSheet sheet)
     {
-        var material = sheet.MaterialData;
-        return new[]
-        {
-            ("玻璃牌号", $"{sheet.Element.Material}；{material?.Manufacturer ?? "当前玻璃库"}"),
-            material is null
-                ? ("折射率/阿贝数", "n[d]、V[d] 由玻璃库解析")
-                : (
-                    "折射率/阿贝数",
-                    $"n[d] {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}；V[d] {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}"),
-            ("均匀性/条纹", sheet.HomogeneityAndStriae),
-            ("应力/气泡", $"{sheet.StressBirefringence}；{sheet.BubblesAndInclusions}")
-        };
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        var context = new OpticalDrawingFieldContext(
+            sheet,
+            Surface: null,
+            IsFront: false,
+            SurfaceIndex: -1,
+            SurfaceCount: sheet.Element.Surfaces.Count,
+            Component: null,
+            Material: sheet.MaterialData);
+        return template.Specification.Gb1991MaterialRows
+            .Select(row => (row.Item, ResolveField(row.ValueBinding, context)))
+            .ToArray();
     }
 
     private static IReadOnlyList<(string Surface, string Aperture, string Radius, string Requirement)> Gb1991PartSpecificationRows(
         OpticalDrawingSheet sheet)
     {
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
         var surfaces = sheet.Element.Surfaces;
         var rows = new List<(string Surface, string Aperture, string Radius, string Requirement)>(surfaces.Count);
         for (var index = 0; index < surfaces.Count; index++)
         {
             var surface = surfaces[index];
-            var form = index == 0
-                ? sheet.FrontSurfaceFormNanometers
-                : index == surfaces.Count - 1
-                    ? sheet.BackSurfaceFormNanometers
-                    : Math.Max(sheet.FrontSurfaceFormNanometers, sheet.BackSurfaceFormNanometers);
-            var coating = string.IsNullOrWhiteSpace(surface.Coating)
-                || surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
-                    ? sheet.Coating
-                    : surface.Coating;
+            var context = new OpticalDrawingFieldContext(
+                sheet,
+                surface,
+                IsFront: index == 0,
+                SurfaceIndex: index,
+                SurfaceCount: surfaces.Count,
+                Component: null,
+                Material: null);
             rows.Add((
                 $"S{index + 1}",
                 $"⌀{sheet.Element.ClearSemiDiameter * 2:0.###}",
                 RadiusText(surface.Radius),
-                $"面形 {form:0.#} nm；偏心 {sheet.CenteringToleranceArcMinutes:0.###}′；B {sheet.SurfaceImperfection}；Rq {sheet.SurfaceTextureNanometers:0.###} nm；膜 {coating}；边 {sheet.EdgeTreatment}"));
+                string.Join("；", template.Specification.Gb1991PartRequirementFields
+                    .Select(binding => ResolveField(binding, context)))));
         }
 
         return rows;
     }
 
-    private static IReadOnlyList<string> SurfaceSpecificationLines(
+    internal static IReadOnlyList<string> SurfaceSpecificationLines(
         OpticalDrawingSheet sheet,
         SurfaceRowDto surface,
         bool isFront)
     {
-        var coating = string.IsNullOrWhiteSpace(surface.Coating)
-            || surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
-                ? sheet.Coating
-                : surface.Coating;
-        return new[]
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        return ResolveFields(
+            template.Specification.SurfaceFields,
+            new OpticalDrawingFieldContext(
+                sheet,
+                surface,
+                isFront,
+                SurfaceIndex: isFront ? 0 : sheet.Element.Surfaces.Count - 1,
+                SurfaceCount: sheet.Element.Surfaces.Count,
+                Component: null,
+                Material: null));
+    }
+
+    internal static string LaserDamageThresholdIndication(OpticalDrawingSheet sheet) =>
+        OpticalDrawingSheet.LaserDamageThresholdIndication(sheet.LaserDamageThreshold);
+
+    internal static IReadOnlyList<string> ValidateTemplateLayout(OpticalDrawingSheet sheet)
+    {
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        var issues = new List<string>();
+        if (template.Page.TitleTop <= template.Page.SpecificationTop)
         {
-            $"R  {RadiusText(surface.Radius)}",
-            $"⌀e  {sheet.Element.ClearSemiDiameter * 2:0.###}",
-            $"边缘  {sheet.EdgeTreatment}",
-            $"3/  {(isFront ? sheet.FrontSurfaceFormNanometers : sheet.BackSurfaceFormNanometers):0.#} nm",
-            $"4/  {sheet.CenteringToleranceArcMinutes:0.###}′",
-            $"5/  {sheet.SurfaceImperfection}",
-            $"7/  Rq {sheet.SurfaceTextureNanometers:0.###} nm",
-            $"λ  {coating}"
-        };
+            issues.Add($"模板 {template.Id} 的标题栏不能位于规格表之前。");
+        }
+
+        foreach (var binding in template.FieldBindings)
+        {
+            if (!CanResolveTemplateField(binding))
+            {
+                issues.Add($"模板 {template.Id} 包含未注册字段绑定：{binding}");
+            }
+        }
+
+        var specificationHeight = template.Page.TitleTop - template.Page.SpecificationTop;
+        if (sheet.Element.IsCemented && template.Specification.Kind != "gb1991")
+        {
+            var bodyHeight = specificationHeight - template.Specification.HeaderHeight - 14;
+            for (var index = 0; index < sheet.Element.Surfaces.Count; index++)
+            {
+                CheckColumn(
+                    SurfaceSpecificationLines(
+                        sheet,
+                        sheet.Element.Surfaces[index],
+                        isFront: index == 0),
+                    bodyHeight,
+                    $"模板 {template.Id} 胶合面 S{index + 1}");
+            }
+
+            for (var index = 0; index < sheet.Element.Components.Count; index++)
+            {
+                var material = sheet.ComponentMaterialData?.ElementAtOrDefault(index)
+                    ?? (index == 0 ? sheet.MaterialData : null);
+                CheckColumn(
+                    ComponentMaterialSpecificationLines(sheet, sheet.Element.Components[index], material),
+                    bodyHeight,
+                    $"模板 {template.Id} 胶合材料 L{index + 1}");
+            }
+
+            return issues;
+        }
+
+        switch (template.Specification.Kind)
+        {
+            case "iso-three-column":
+                {
+                    var bodyHeight = specificationHeight - template.Specification.HeaderHeight - 14;
+                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true), bodyHeight, $"{template.Id} 左表面");
+                    CheckColumn(MaterialSpecificationLines(sheet), bodyHeight, $"{template.Id} 材料");
+                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.BackSurface, isFront: false), bodyHeight, $"{template.Id} 右表面");
+                    break;
+                }
+
+            case "gb2009":
+                {
+                    var materialTopOffset = template.Specification.HeaderHeight + 17;
+                    CheckColumn(
+                        GbMaterialSpecificationLines(template, sheet),
+                        specificationHeight - materialTopOffset,
+                        $"{template.Id} 材料");
+                    if (template.Specification.Gb2009SurfaceRequirementFields.Count * 9f
+                        > (specificationHeight - template.Specification.HeaderHeight - template.Specification.SubheaderHeight) / 2)
+                    {
+                        issues.Add($"模板 {template.Id} 的 2009 零件要求行数过多，可能溢出。");
+                    }
+
+                    break;
+                }
+
+            case "gb1991":
+                if (template.Specification.Gb1991MaterialRows.Count == 0
+                    || template.Specification.Gb1991PartRequirementFields.Count == 0)
+                {
+                    issues.Add($"模板 {template.Id} 缺少 1991 材料行或零件要求字段。");
+                }
+
+                break;
+        }
+
+        return issues;
+
+        void CheckColumn(IReadOnlyList<string> lines, float availableHeight, string label)
+        {
+            if (!ColumnLinesFit(lines.Count, availableHeight))
+            {
+                issues.Add($"{label} 的字段行无法放入规格表单元格。");
+            }
+        }
     }
 
     private static IReadOnlyList<string> MaterialSpecificationLines(OpticalDrawingSheet sheet)
     {
-        var material = sheet.MaterialData;
-        return new[]
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
+        return ResolveFields(
+            template.Specification.MaterialFields,
+            new OpticalDrawingFieldContext(
+                sheet,
+                Surface: null,
+                IsFront: false,
+                SurfaceIndex: -1,
+                SurfaceCount: sheet.Element.Surfaces.Count,
+                Component: null,
+                Material: sheet.MaterialData));
+    }
+
+    internal static bool CanResolveTemplateField(string binding) =>
+        KnownTemplateFields.Contains(binding);
+
+    private static IReadOnlyList<string> ResolveFields(
+        IReadOnlyList<string> bindings,
+        OpticalDrawingFieldContext context) =>
+        bindings.Select(binding => ResolveField(binding, context)).ToArray();
+
+    private static string ResolveField(string binding, OpticalDrawingFieldContext context)
+    {
+        var sheet = context.Sheet;
+        var surface = context.Surface;
+        var material = context.Material;
+        var component = context.Component;
+        return binding switch
         {
-            $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
-            $"玻璃牌号  {sheet.Element.Material}",
-            material is null
+            "title.standardDesignation" => StandardDesignation(sheet.Standard),
+            "title.partName" => sheet.PartName,
+            "title.revision" => sheet.Revision,
+            "title.drawingNumber" => sheet.DrawingNumber,
+            "title.pageSize" => sheet.PageSize == OpticalDrawingPageSize.A3 ? "A3" : "A4",
+            "title.designer" => sheet.Designer,
+            "title.reviewer" => sheet.Reviewer,
+            "title.scale" => ScaleDesignation(sheet),
+
+            "surface.radius" => $"R  {RadiusText(RequireSurface(surface, binding).Radius)}",
+            "surface.radius.value" => RadiusText(RequireSurface(surface, binding).Radius),
+            "element.clearAperture" => $"⌀e  {sheet.Element.ClearSemiDiameter * 2:0.###}",
+            "element.clearAperture.value" => $"⌀{sheet.Element.ClearSemiDiameter * 2:0.###}",
+            "surface.edgeTreatment" => $"边缘  {sheet.EdgeTreatment}",
+            "surface.coating" => $"λ  {CoatingText(sheet, RequireSurface(surface, binding))}",
+
+            "iso.surface.3.form" => $"3/  {SurfaceFormNanometers(context):0.#} nm",
+            "iso.surface.4.centering" => $"4/  {sheet.CenteringToleranceArcMinutes:0.###}′",
+            "iso.surface.5.imperfection" => $"5/  {sheet.SurfaceImperfection}",
+            "iso.surface.6.laserDamageThreshold" => LaserDamageThresholdIndication(sheet),
+            "iso.material.0.stressBirefringence" => $"0/  {sheet.StressBirefringence}",
+            "iso.material.1.bubblesAndInclusions" => $"1/  {sheet.BubblesAndInclusions}",
+            "iso.material.2.homogeneityAndStriae" => $"2/  {sheet.HomogeneityAndStriae}",
+
+            "material.manufacturer" => $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
+            "material.name" => $"玻璃牌号  {sheet.Element.Material}",
+            "material.refractiveIndexD" => material is null
                 ? "n[d]  由玻璃库解析"
                 : $"n[d]  {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
-            material is null
+            "material.abbeNumber" => material is null
                 ? "V[d]  由玻璃库解析"
                 : $"V[d]  {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
-            $"0/  {sheet.StressBirefringence}",
-            $"1/  {sheet.BubblesAndInclusions}",
-            $"2/  {sheet.HomogeneityAndStriae}"
+
+            "component.material.name" => $"GLASS  {RequireComponent(component, binding).Material}",
+            "component.material.manufacturer" => $"MAKER  {material?.Manufacturer ?? "CATALOG"}",
+            "component.material.refractiveIndexD" => material is null
+                ? "n[d]  CATALOG"
+                : $"n[d]  {material.RefractiveIndexD:0.000000} +/-{sheet.RefractiveIndexTolerance:0.000000}",
+            "component.material.abbeNumber" => material is null
+                ? "V[d]  CATALOG"
+                : $"V[d]  {material.AbbeNumber:0.###} +/-{sheet.AbbeNumberTolerance:0.###}",
+            "component.centerThickness" => $"CT  {RequireComponent(component, binding).CenterThickness:0.###} mm",
+
+            "gb.material.name" => $"光学材料  {sheet.Element.Material}",
+            "gb.material.manufacturer" => $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
+            "gb.material.refractiveIndexD" => material is null
+                ? "n[d]  折射率由玻璃库解析"
+                : $"n[d]  折射率 {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
+            "gb.material.abbeNumber" => material is null
+                ? "V[d]  阿贝数由玻璃库解析"
+                : $"V[d]  阿贝数 {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
+            "gb.material.stressBirefringence" => $"应力双折射  {sheet.StressBirefringence}",
+            "gb.material.bubblesAndInclusions" => $"气泡和夹杂  {sheet.BubblesAndInclusions}",
+            "gb.material.homogeneityAndStriae" => $"均匀性和条纹  {sheet.HomogeneityAndStriae}",
+            "gb.surface.radius" => $"R {RadiusText(RequireSurface(surface, binding).Radius)}",
+            "gb.surface.formAndCentering" => $"面形偏差 {SurfaceFormNanometers(context):0.#} nm；偏心/倾斜 {sheet.CenteringToleranceArcMinutes:0.###}′",
+            "gb.surface.imperfection" => $"表面缺陷 {sheet.SurfaceImperfection}",
+            "gb.surface.texture" => $"表面纹理 Rq {sheet.SurfaceTextureNanometers:0.###} nm",
+            "gb.surface.coating" => $"膜层 {CoatingText(sheet, RequireSurface(surface, binding))}",
+            "gb.surface.edgeTreatment" => $"边缘 {sheet.EdgeTreatment}",
+
+            "gb1991.material.glassAndMaker" => $"{sheet.Element.Material}；{material?.Manufacturer ?? "当前玻璃库"}",
+            "gb1991.material.indexAndAbbe" => material is null
+                ? "n[d]、V[d] 由玻璃库解析"
+                : $"n[d] {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}；V[d] {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
+            "gb1991.material.homogeneityAndStriae" => sheet.HomogeneityAndStriae,
+            "gb1991.material.stressAndBubbles" => $"{sheet.StressBirefringence}；{sheet.BubblesAndInclusions}",
+            "gb1991.part.form" => $"面形 {SurfaceFormNanometers(context):0.#} nm",
+            "gb1991.part.centering" => $"偏心 {sheet.CenteringToleranceArcMinutes:0.###}′",
+            "gb1991.part.imperfection" => $"B {sheet.SurfaceImperfection}",
+            "gb1991.part.texture" => $"Rq {sheet.SurfaceTextureNanometers:0.###} nm",
+            "gb1991.part.coating" => $"膜 {CoatingText(sheet, RequireSurface(surface, binding))}",
+            "gb1991.part.edgeTreatment" => $"边 {sheet.EdgeTreatment}",
+
+            _ => $"[missing:{binding}]"
         };
     }
+
+    private static SurfaceRowDto RequireSurface(SurfaceRowDto? surface, string binding) =>
+        surface ?? throw new InvalidDataException($"Template field '{binding}' requires a surface context.");
+
+    private static OpticalElementDefinition RequireComponent(OpticalElementDefinition? component, string binding) =>
+        component ?? throw new InvalidDataException($"Template field '{binding}' requires a component context.");
+
+    private static string CoatingText(OpticalDrawingSheet sheet, SurfaceRowDto surface) =>
+        string.IsNullOrWhiteSpace(surface.Coating)
+        || surface.Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
+            ? sheet.Coating
+            : surface.Coating;
+
+    private static double SurfaceFormNanometers(OpticalDrawingFieldContext context)
+    {
+        var sheet = context.Sheet;
+        if (context.SurfaceIndex == 0 || context.IsFront)
+        {
+            return sheet.FrontSurfaceFormNanometers;
+        }
+
+        if (context.SurfaceIndex == context.SurfaceCount - 1)
+        {
+            return sheet.BackSurfaceFormNanometers;
+        }
+
+        return Math.Max(sheet.FrontSurfaceFormNanometers, sheet.BackSurfaceFormNanometers);
+    }
+
+    private static readonly IReadOnlySet<string> KnownTemplateFields = new HashSet<string>(
+        new[]
+        {
+            "title.standardDesignation",
+            "title.partName",
+            "title.revision",
+            "title.drawingNumber",
+            "title.pageSize",
+            "title.designer",
+            "title.reviewer",
+            "title.scale",
+            "surface.radius",
+            "surface.radius.value",
+            "element.clearAperture",
+            "element.clearAperture.value",
+            "surface.edgeTreatment",
+            "surface.coating",
+            "iso.surface.3.form",
+            "iso.surface.4.centering",
+            "iso.surface.5.imperfection",
+            "iso.surface.6.laserDamageThreshold",
+            "iso.material.0.stressBirefringence",
+            "iso.material.1.bubblesAndInclusions",
+            "iso.material.2.homogeneityAndStriae",
+            "material.manufacturer",
+            "material.name",
+            "material.refractiveIndexD",
+            "material.abbeNumber",
+            "component.material.name",
+            "component.material.manufacturer",
+            "component.material.refractiveIndexD",
+            "component.material.abbeNumber",
+            "component.centerThickness",
+            "gb.material.name",
+            "gb.material.manufacturer",
+            "gb.material.refractiveIndexD",
+            "gb.material.abbeNumber",
+            "gb.material.stressBirefringence",
+            "gb.material.bubblesAndInclusions",
+            "gb.material.homogeneityAndStriae",
+            "gb.surface.radius",
+            "gb.surface.formAndCentering",
+            "gb.surface.imperfection",
+            "gb.surface.texture",
+            "gb.surface.coating",
+            "gb.surface.edgeTreatment",
+            "gb1991.material.glassAndMaker",
+            "gb1991.material.indexAndAbbe",
+            "gb1991.material.homogeneityAndStriae",
+            "gb1991.material.stressAndBubbles",
+            "gb1991.part.form",
+            "gb1991.part.centering",
+            "gb1991.part.imperfection",
+            "gb1991.part.texture",
+            "gb1991.part.coating",
+            "gb1991.part.edgeTreatment"
+        },
+        StringComparer.Ordinal);
+
+    private readonly record struct OpticalDrawingFieldContext(
+        OpticalDrawingSheet Sheet,
+        SurfaceRowDto? Surface,
+        bool IsFront,
+        int SurfaceIndex,
+        int SurfaceCount,
+        OpticalElementDefinition? Component,
+        GlassMaterialDto? Material);
 
     private static void DrawColumnLines(
         SKCanvas canvas,
         IReadOnlyList<string> lines,
         float x,
         float y,
-        float maxWidth)
+        float maxWidth,
+        float? availableHeight = null)
     {
-        const float lineHeight = 19;
+        if (availableHeight is { } height && !ColumnLinesFit(lines.Count, height))
+        {
+            throw new InvalidDataException("Optical drawing template column lines exceed the available cell height.");
+        }
+
+        var lineHeight = ColumnLineHeight(lines.Count, availableHeight);
         for (var index = 0; index < lines.Count; index++)
         {
             var lineY = y + (index * lineHeight);
@@ -579,6 +902,26 @@ internal static partial class OpticalDrawingRendererCore
                 DrawFittedText(canvas, lines[index], x, lineY, maxWidth, 7.5f, SKTextAlign.Left);
             }
         }
+    }
+
+    private static float ColumnLineHeight(int lineCount, float? availableHeight) =>
+        availableHeight is { } height && lineCount > 1
+            ? Math.Min(19f, Math.Max(9f, (height - 8f) / (lineCount - 1)))
+            : 19f;
+
+    private static bool ColumnLinesFit(int lineCount, float availableHeight)
+    {
+        if (lineCount <= 0)
+        {
+            return true;
+        }
+
+        if (availableHeight <= 0 || !float.IsFinite(availableHeight))
+        {
+            return false;
+        }
+
+        return ((lineCount - 1) * ColumnLineHeight(lineCount, availableHeight)) <= availableHeight - 2;
     }
 
     private static void DrawSubscriptLine(

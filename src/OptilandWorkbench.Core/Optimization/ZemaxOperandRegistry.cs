@@ -64,9 +64,10 @@ public static class ZemaxOperandRegistry
             "XNEA", "XXEA", "XNEG", "XXEG", "XNET", "XXET", "TGTH",
             "TTGT", "TTLT", "TTVA",
             "EFLX", "EFLY", "ENPP", "EPDI", "EXPP", "EXPD", "ISNA", "ISFN", "SFNO", "WFNO",
-            "WLEN", "INDX",
+            "WLEN", "INDX", "MNIN", "MXIN", "MNAB", "MXAB", "POWR",
             "CONS", "SINE", "COSI", "TANG", "ASIN", "ACOS", "ATAN", "ABSO", "SQRT",
-            "RECI", "LOGE", "LOGT", "SUMM", "PROD", "DIVI", "DIFF", "MAXX", "MINN",
+            "RECI", "LOGE", "LOGT", "SUMM", "PROD", "DIVB", "DIVI", "DIFF",
+            "EQUA", "MAXX", "MINN", "OSUM", "PROB", "QSUM",
             "GOTO", "ENDX", "OOFF", "SKIN", "SKIS", "USYM"
         },
         StringComparer.Ordinal);
@@ -105,9 +106,14 @@ public static class ZemaxOperandRegistry
         "DIFF", "DIVI", "SUMM", "PROD"
     ];
 
+    private static readonly string[] ScaledRowMathOperandCodes =
+    [
+        "DIVB", "PROB"
+    ];
+
     private static readonly string[] RowRangeMathOperandCodes =
     [
-        "MAXX", "MINN"
+        "EQUA", "MAXX", "MINN", "OSUM", "QSUM"
     ];
 
     private static readonly string[] RowBoundaryMathOperandCodes =
@@ -146,6 +152,16 @@ public static class ZemaxOperandRegistry
     private static readonly string[] RangeSemiDiameterOperandCodes =
     [
         "MNSD", "MXSD"
+    ];
+
+    private static readonly string[] GlassRangeOperandCodes =
+    [
+        "MNIN", "MXIN", "MNAB", "MXAB"
+    ];
+
+    private static readonly string[] SurfacePowerOperandCodes =
+    [
+        "POWR"
     ];
 
     private static readonly string[] SumThicknessOperandCodes =
@@ -248,6 +264,19 @@ public static class ZemaxOperandRegistry
                 new("Int1", "Operand row 1", ZemaxOperandParameterValueKind.RowReference, "row"),
                 new("Int2", "Operand row 2", ZemaxOperandParameterValueKind.RowReference, "row"),
                 new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ];
+        }
+
+        if (ScaledRowMathOperandCodes.Contains(code, StringComparer.Ordinal))
+        {
+            return
+            [
+                new("Int1", "Operand row", ZemaxOperandParameterValueKind.RowReference, "row"),
+                new("Int2", "Unused", ZemaxOperandParameterValueKind.Integer),
+                new("Data1", "Factor", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
@@ -362,6 +391,24 @@ public static class ZemaxOperandRegistry
             [
                 new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
                 new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ],
+            _ when GlassRangeOperandCodes.Contains(code, StringComparer.Ordinal) =>
+            [
+                new("Int1", "Start surface", ZemaxOperandParameterValueKind.Surface, "surface"),
+                new("Int2", "End surface", ZemaxOperandParameterValueKind.EndSurface, "surface"),
+                new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),
+                new("Data4", "Unused", ZemaxOperandParameterValueKind.Numeric)
+            ],
+            _ when SurfacePowerOperandCodes.Contains(code, StringComparer.Ordinal) =>
+            [
+                new("Int1", "Surface", ZemaxOperandParameterValueKind.Surface, "surface"),
+                new("Int2", "Wavelength", ZemaxOperandParameterValueKind.Wavelength, "wave"),
                 new("Data1", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data2", "Unused", ZemaxOperandParameterValueKind.Numeric),
                 new("Data3", "Unused", ZemaxOperandParameterValueKind.Numeric),

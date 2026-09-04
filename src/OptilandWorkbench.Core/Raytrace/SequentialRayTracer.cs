@@ -157,10 +157,11 @@ public sealed partial class SequentialRayTracer
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
-            var result = surface.TraceRayValue(
-                ray,
+            var result = TraceSequentialSurface(
+                surface,
+                index,
+                RayState.FromRealRay(ray),
                 currentMaterial,
-                surface.MaterialAfter,
                 cumulativePathLength,
                 cumulativeOpticalPathLength,
                 ignorePhysicalAperture: true);
@@ -174,13 +175,44 @@ public sealed partial class SequentialRayTracer
                 return null;
             }
 
-            ray = result.Ray;
+            ray = result.Ray.ToRealRay();
             currentMaterial = result.OutgoingMaterial;
             cumulativePathLength = result.CumulativePathLength;
             cumulativeOpticalPathLength = result.CumulativeOpticalPathLength;
         }
 
         return null;
+    }
+
+    private static SurfaceRayTraceStateResult TraceSequentialSurface(
+        OpticalSurface surface,
+        int surfaceIndex,
+        RayState ray,
+        IMaterial materialBefore,
+        double cumulativePathLength,
+        double cumulativeOpticalPathLength,
+        bool ignorePhysicalAperture = false)
+    {
+        if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
+        {
+            // An infinite object has no finite intercept plane. Keep the launch
+            // point; advancing to its placeholder Z can jump past a concave face.
+            return new SurfaceRayTraceStateResult(
+                ray,
+                new RayTraceSampleValue(surface.Number, surface.Label, ray.Origin,
+                    ray.Direction, ray.Intensity, false,
+                    CumulativePathLength: cumulativePathLength,
+                    CumulativeOpticalPathLength: cumulativeOpticalPathLength),
+                surface.MaterialAfter.RefractiveIndex(ray.WavelengthNanometers),
+                surface.MaterialAfter,
+                null,
+                cumulativePathLength,
+                cumulativeOpticalPathLength,
+                !ray.CanTrace);
+        }
+
+        return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
+            cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture);
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)

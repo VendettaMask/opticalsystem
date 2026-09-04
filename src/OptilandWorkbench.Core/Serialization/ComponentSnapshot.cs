@@ -25,6 +25,10 @@ public static class ComponentSnapshotFactory
         return apodization switch
         {
             null => null,
+            ZemaxApodization zemax => ComponentSnapshot.Empty(zemax.Kind) with
+            {
+                Numbers = new Dictionary<string, double> { ["type"] = (int)zemax.Type, ["factor"] = zemax.Factor }
+            },
             UniformApodization => ComponentSnapshot.Empty("uniform"),
             GaussianApodization gaussian => ComponentSnapshot.Empty("gaussian") with
             {
@@ -71,6 +75,9 @@ public static class ComponentSnapshotFactory
         return snapshot?.Kind switch
         {
             null => null,
+            "zemax_pupil" => new ZemaxApodization(
+                (ZemaxApodizationType)Get(snapshot.Numbers, "type", 0),
+                Get(snapshot.Numbers, "factor", 0)),
             "uniform" => new UniformApodization(),
             "gaussian" => new GaussianApodization(Get(snapshot.Numbers, "sigma", 1)),
             "cosine_squared" => new CosineSquaredApodization(Get(snapshot.Numbers, "radius", 1)),
@@ -206,6 +213,8 @@ public static class ComponentSnapshotFactory
         return material switch
         {
             AirMaterial => ComponentSnapshot.Empty("air"),
+            UnresolvedMaterial unresolved => new ComponentSnapshot("unresolved", new Dictionary<string, double>(),
+                new Dictionary<string, string> { ["name"] = unresolved.Name, ["catalogs"] = unresolved.Catalogs }),
             ConstantIndexMaterial constant => new ComponentSnapshot("constant", new Dictionary<string, double>
             {
                 ["index"] = constant.Index,
@@ -249,6 +258,7 @@ public static class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "unresolved" => new UnresolvedMaterial(name, snapshot.Text.GetValueOrDefault("catalogs", "")),
             "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
             "cauchy" => new CauchyMaterial(name, Get(snapshot.Numbers, "a", 1.5), Get(snapshot.Numbers, "b", 0), Get(snapshot.Numbers, "c", 0)),
             "sellmeier" => new SellmeierMaterial(

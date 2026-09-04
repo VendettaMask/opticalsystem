@@ -80,6 +80,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 2026-08-04 主题颜色硬编码收敛：IMA/BIM 图像查看器的边框和画布、显示设置窗口的错误/边框/说明文字、分析结果实光线/近轴光线行色均改为主题资源；实光线和近轴光线新增成对的行背景/前景资源并覆盖明亮、暗夜、异世界三套主题。基点、焦平面、主平面、节平面等分析注释色集中到 `AnalysisSemanticColors`，评价函数行色由 `MeritOperandRowPalette` 统一输出明/暗主题的背景和前景，不再由 `OptimizationPanel` 局部写死。新增对比度契约要求分析行色和评价函数业务行色达到 4.5:1；物理波长、光线、制造图纸和算法色标继续作为明确工程语义例外保留。
 
+2026-09-04 主题约束加固：新增 `OrdinaryAppUiColorsUseThemeResources` 架构契约，普通面板、窗口、Shell 和交互控件不得新增裸 `Brushes.*` 或 `Color.FromRgb/Argb` UI 色；主题包自身、制造图纸标准线、物理波长/光线、分析色标和 Zemax 行分类色作为命名工程语义例外。视图方向 `ViewCubeIcon` 与交互画布焦点框改为从主题资源取色，主题切换时同步重绘。
+
 2026-08-04 卡片 chrome 收敛（2026-08-30 主题化复核）：`SettingsPanelChrome` 是普通 UI 卡片/控件框架的公共入口，具体圆角、边框和阴影来自 `ThemeChromeRole` 动态资源，不再由公共类暴露固定数值。普通/暗夜仍为卡片 8、控件 5；异世界可有独立锐角外观，但同角色结构边框厚度一致。材料库列表与详情卡、查看器工具卡、公差操作数编辑卡、显示设置预览框、系统属性编辑卡、Ribbon 命令按钮、Dock 外壳按钮和分析导出按钮已接入公共角色；镜头编辑器移除局部工具栏阴影。`AppUiCardsUseSharedChromeTokens` 阻止新增局部卡片阴影和分裂圆角。图例数据标记、圆形头像裁切、Dock 文档 pill、Splash 装饰和导出版式继续作为明确例外保留。
 
 2026-08-04 长耗时运行状态收敛：新增 `OperationStatusBar` 作为分析、优化和公差这类长耗时操作的统一状态入口。公共控件负责执行中、已同步、结果过期、失败和空闲状态，运行超过 500 ms 后显示不确定进度；可取消任务显示“取消”按钮并调用现有取消令牌，不可取消任务超过 2 秒后显示不可取消说明。`AnalysisPanel`、`OptimizationPanel`、`TolerancingPanel` 已接入该控件，新增 `LongRunningPanelsUseSharedOperationStatusBar` 契约测试，避免后续页面重新散落局部 `ProgressBar` 或只靠文本表达运行中。
@@ -124,6 +126,8 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 已于 2026-07-29 按明确需求在系统选项中加入“材料库”折叠区。界面使用“当前玻璃库 / 可用玻璃库”双列表以及加入、移出、优先级上移和优先级下移操作；当前列表顺序参与未限定厂商玻璃名的解析，并进入撤销、STAROPT 快照及 ZMX `GCAT` 往返。至少保留一个当前目录，避免空选择产生隐式回退。
 
+2026-09-04 更新：系统属性里的玻璃库双列表改为局部卡片式条目模板，去掉原生 `ListBox` 表格分隔线和外框，列表项的圆角、边框、悬停与选中状态统一使用主题资源，因此与同面板的视场/波长卡片保持一致。该变更只调整“当前玻璃库 / 可用玻璃库”的显示样式和说明文字层级，不改变目录加入、移出、排序、撤销、ZMX `GCAT` 往返或材料解析逻辑；现有契约测试同时覆盖目录转移行为和局部条目模板存在性。
+
 ### P2：分析设置布局窄屏表现弱，且结果导航存在例外
 
 分析面板默认参数区是 `WrapPanel`，见 `src/OptilandWorkbench.App/Panels/AnalysisPanel.cs:28`；部分 Zemax 风格设置页则是固定列宽 Grid，见 `src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs:361`、`src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs:376`。两套布局在不同分析之间切换时，用户会感到设置项位置和阅读顺序不稳定。
@@ -159,7 +163,7 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 已于 2026-07-29 修正评价函数表的单一状态色：编辑器现在按 Zemax 操作数类型应用稳定的浅色行色，参考系统中出现的 `TTHI`、`OPLT`、`EFFL`、`PMAG`、`CONS`、`DIVI`、`REAR`、`PETZ`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG` 和 `DMFS` 均有对应色；`BLNK` 保持白色，同族操作数使用一致色系，未知类型使用中性回退色。错误状态优先覆盖为红色。
 
-2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-02 进一步把常见操作数束扩展到 114 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表按 2026 R1 实测扩展到 383 个顺序兼容代码，`DIMX` 等语义不完整项按八个 Zemax 参数槽位显示为只读记录。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
+2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-04 进一步把常见操作数束扩展到 124 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表按 2026 R1 实测扩展到 383 个顺序兼容代码，`DIMX` 等语义不完整项按八个 Zemax 参数槽位显示为只读记录。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
 
 选中行不再使用全局强调色覆盖整行，而是保留类型底色、恢复深色文字并使用强调色边框，因此颜色语义在键盘或鼠标选择后仍然可见。实现见 `src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs`。
 

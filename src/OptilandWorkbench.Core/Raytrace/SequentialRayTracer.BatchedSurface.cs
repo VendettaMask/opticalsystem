@@ -32,7 +32,8 @@ public sealed partial class SequentialRayTracer
         double[]? finalOpticalPaths,
         bool[]? hasFinalOpticalPath)
     {
-        if (!request.UseBatchedBackend
+        if ((surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
+            || !request.UseBatchedBackend
             || surface.Geometry is not (PlaneGeometry or StandardGeometry)
             || surface.PhysicalAperture is not (null or CircularAperture)
             || surface.InteractionModel is not RefractiveReflectiveInteractionModel

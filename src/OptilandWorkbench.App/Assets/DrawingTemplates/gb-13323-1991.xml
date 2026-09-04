@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opticalDrawingTemplate id="gb-13323-1991" name="GB/T 13323—1991" standard="GbT13323_1991">
+  <page outerMargin="12" innerMargin="18" specificationTop="576" titleTop="754" />
+  <geometry horizontalInset="12" topInset="12" specificationGap="7" systemHorizontalInset="14" systemTopInset="14" systemTitleGap="12" />
+  <titleBlock kind="standard">
+    <field binding="title.standardDesignation" />
+    <field binding="title.partName" />
+    <field binding="title.revision" />
+    <field binding="title.drawingNumber" />
+    <field binding="title.pageSize" />
+    <field binding="title.designer" />
+    <field binding="title.reviewer" />
+    <field binding="title.scale" />
+  </titleBlock>
+  <specification kind="gb1991" headerHeight="24">
+    <surfaceFields>
+      <field binding="surface.radius" />
+      <field binding="element.clearAperture" />
+      <field binding="surface.coating" />
+      <field binding="surface.edgeTreatment" />
+      <field binding="iso.surface.3.form" />
+      <field binding="iso.surface.4.centering" />
+      <field binding="iso.surface.5.imperfection" />
+    </surfaceFields>
+    <gb1991 title="GB/T 13323—1991 旧版光学零件技术要求" titleHeight="22" sectionWidth="66" itemWidth="82" materialHeight="66" partHeaderHeight="17">
+      <materialRows>
+        <row item="玻璃牌号" valueBinding="gb1991.material.glassAndMaker" />
+        <row item="折射率/阿贝数" valueBinding="gb1991.material.indexAndAbbe" />
+        <row item="均匀性/条纹" valueBinding="gb1991.material.homogeneityAndStriae" />
+        <row item="应力/气泡" valueBinding="gb1991.material.stressAndBubbles" />
+      </materialRows>
+      <partRequirementFields>
+        <field binding="gb1991.part.form" />
+        <field binding="gb1991.part.centering" />
+        <field binding="gb1991.part.imperfection" />
+        <field binding="gb1991.part.texture" />
+        <field binding="gb1991.part.coating" />
+        <field binding="gb1991.part.edgeTreatment" />
+      </partRequirementFields>
+    </gb1991>
+  </specification>
+</opticalDrawingTemplate>

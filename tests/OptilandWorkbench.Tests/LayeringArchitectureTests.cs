@@ -299,6 +299,58 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
+    public void OrdinaryAppUiColorsUseThemeResources()
+    {
+        var appRoot = Path.Combine(
+            FindRepositoryRoot(),
+            "src",
+            "OptilandWorkbench.App");
+        var engineeringOrThemeFiles = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Controls/AnalysisPlotControl.cs",
+            "Controls/DielectricGlassMaterial.cs",
+            "Controls/FoucaultPlotControl.cs",
+            "Controls/FullFieldAberrationControl.cs",
+            "Controls/LocalIcon.cs",
+            "Controls/OpticSceneControl.cs",
+            "Controls/SeidelDiagramControl.cs",
+            "Controls/SpectralColorMap.cs",
+            "Controls/WavefrontSurfaceControl.cs",
+            "Panels/Analysis/AnalysisPanel.Plots.cs",
+            "Panels/Analysis/AnalysisSemanticColors.cs",
+            "Panels/MeritOperandRowPalette.cs",
+            "Panels/OptimizationPanel.cs",
+            "SplashWindow.cs"
+        };
+        var themeOwnedPrefixes = new[]
+        {
+            "Theming/",
+            "Manufacturing/"
+        };
+        var directColorPattern = new System.Text.RegularExpressions.Regex(
+            @"\bColor\.From(?:Rgb|Argb)\s*\(|\bBrushes\.(?!Transparent\b)|\bColors\.(?!Transparent\b)",
+            System.Text.RegularExpressions.RegexOptions.Compiled);
+        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .Select(path => (Path: path, RelativePath: Path.GetRelativePath(appRoot, path).Replace('\\', '/')))
+            .Where(item => !themeOwnedPrefixes.Any(prefix =>
+                item.RelativePath.StartsWith(prefix, StringComparison.Ordinal)))
+            .Where(item => !engineeringOrThemeFiles.Contains(item.RelativePath))
+            .SelectMany(item => File.ReadLines(item.Path)
+                .Select((line, index) => (item.RelativePath, Line: line, LineNumber: index + 1)))
+            .Where(item => directColorPattern.IsMatch(item.Line))
+            .Select(item => $"{item.RelativePath}:{item.LineNumber}: {item.Line.Trim()}")
+            .ToArray();
+
+        Assert.True(
+            violations.Length == 0,
+            "Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. "
+            + "Only engineering semantics such as drawings, wavelength colors, ray colors, "
+            + "analysis color maps and Zemax row palettes may use fixed colors:"
+            + Environment.NewLine
+            + string.Join(Environment.NewLine, violations));
+    }
+
+    [Fact]
     public void AppUiTableDensityUsesSharedTokens()
     {
         var appRoot = Path.Combine(FindRepositoryRoot(), "src", "OptilandWorkbench.App");

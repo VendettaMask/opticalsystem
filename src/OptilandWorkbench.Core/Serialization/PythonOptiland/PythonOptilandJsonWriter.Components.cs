@@ -439,6 +439,21 @@ internal static partial class PythonOptilandJsonWriter
 
     private static object? WriteApodization(IApodizationModel? apodization)
     {
+        // Python's Gaussian parameter is sigma, not Zemax's amplitude factor.
+        if (apodization is ZemaxApodization zemax)
+        {
+            if (zemax.Type == ZemaxApodizationType.Uniform
+                || (zemax.Type == ZemaxApodizationType.Gaussian && zemax.Factor == 0))
+            {
+                return WriteApodization(new UniformApodization());
+            }
+
+            if (zemax.Type == ZemaxApodizationType.Gaussian)
+            {
+                return WriteApodization(new GaussianApodization(0.5 / Math.Sqrt(zemax.Factor)));
+            }
+        }
+
         return apodization switch
         {
             null => null,

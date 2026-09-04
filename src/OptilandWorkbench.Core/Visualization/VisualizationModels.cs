@@ -3,6 +3,7 @@ using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Rays;
 
@@ -378,7 +379,8 @@ public sealed class Layout2DBuilder
                     surface.Number,
                     next.Number,
                     surface.MaterialAfterName,
-                    surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()),
+                    surface.MaterialAfter is UnresolvedMaterial ? double.NaN
+                        : surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()),
                     BuildRevolvedRim(frontProfile[^1], angularSegments),
                     BuildRevolvedRim(backProfile[^1], angularSegments),
                     BuildRevolvedSurfaceFaces(frontProfile, angularSegments),
@@ -395,6 +397,10 @@ public sealed class Layout2DBuilder
 
     private IReadOnlyList<Layout3DRayPath> BuildRayPaths(bool includeDepth, LayoutBuildOptions options)
     {
+        if (_optic.SurfaceGroup.Items.Any(surface => surface.MaterialBefore is UnresolvedMaterial
+                || surface.MaterialAfter is UnresolvedMaterial))
+            return Array.Empty<Layout3DRayPath>();
+
         var specs = BuildViewerRays(includeDepth, options);
         if (specs.Count == 0)
         {
@@ -517,9 +523,11 @@ public sealed class Layout2DBuilder
                         field.NormalizedY,
                         sample.X,
                         sample.Y,
-                        RayGenerator.NanometersToMicrometers(wavelength.Nanometers)).Rays.Single() with
+                        RayGenerator.NanometersToMicrometers(wavelength.Nanometers),
+                        aimAtStop: _optic.RayAimingEnabled).Rays.Single();
+                    ray = ray with
                     {
-                        Intensity = field.Weight
+                        Intensity = ray.Intensity * field.Weight
                     };
                     specs.Add(new ViewerRaySpec(
                         ray,
@@ -652,12 +660,15 @@ public sealed class Layout2DBuilder
         {
             var source = history[index - 1];
             var target = history[index];
+            var fromInfiniteObject = _optic.SurfaceGroup.Items.Count > 0
+                && source.SurfaceNumber == _optic.SurfaceGroup.Items[0].Number
+                && ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items[0]);
             segments.Add(new Layout3DRaySegment(
                 ToLayoutPoint(source.Position),
                 ToLayoutPoint(target.Position),
                 ToLayoutDirection(source.Direction),
-                SegmentTypeFor(source.InteractionKind),
-                InteractionTypeFor(source.SurfaceNumber),
+                fromInfiniteObject ? LayoutRaySegmentType.Incident : SegmentTypeFor(source.InteractionKind),
+                fromInfiniteObject ? LayoutRayInteractionType.None : InteractionTypeFor(source.SurfaceNumber),
                 source.SurfaceNumber,
                 target.SurfaceNumber));
         }
@@ -933,7 +944,8 @@ public sealed class Layout2DBuilder
 
     private bool HasOpticalMaterialAfter(OpticalSurface surface)
     {
-        return surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
+        return surface.MaterialAfter is UnresolvedMaterial
+            || surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()) > 1.0001;
     }
 
     private bool IsStandaloneStop(OpticalSurface surface)
@@ -948,6 +960,8 @@ public sealed class Layout2DBuilder
         var materialBefore = surfaceIndex > 0
             ? _optic.SurfaceGroup.Items[surfaceIndex - 1].MaterialAfter
             : surface.MaterialBefore;
+        if (materialBefore is UnresolvedMaterial || surface.MaterialAfter is UnresolvedMaterial)
+            return false;
         var indexBefore = materialBefore.RefractiveIndex(wavelength);
         var indexAfter = surface.MaterialAfter.RefractiveIndex(wavelength);
         return Math.Abs(indexAfter - indexBefore) <= 1e-9;

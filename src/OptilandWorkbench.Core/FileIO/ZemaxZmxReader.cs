@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
@@ -43,11 +44,15 @@ internal static class ZemaxZmxReader
         InstallConvertedSurfaces(optic, converted);
 
         ConfigureAperture(optic, document, configurationIndex);
+        optic.Apodization = document.Apodization?.Clone();
         optic.RayAimingEnabled = document.RayAimingEnabled;
         optic.ImageSpaceAfocal = document.AfocalImageSpace;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
-        ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
+        // Keep the file's stored thicknesses when dispersion is unavailable.
+        // A ray-based solve must not prevent the rest of the document from importing.
+        if (!optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is UnresolvedMaterial))
+            ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
         ConfigureMeritFunction(optic, document);
         return optic;
     }
@@ -178,6 +183,16 @@ internal static class ZemaxZmxReader
                 case "FLOA":
                     document.FloatingStop = true;
                     break;
+                case "GFAC":
+                    var factor = RequiredDouble(tokens, 1, command);
+                    var apodizationType = RequiredInt(tokens, 2, command);
+                    if (apodizationType is < 0 or > 2)
+                    {
+                        throw new NotSupportedException($"Zemax GFAC apodization type {apodizationType} is not supported.");
+                    }
+
+                    document.Apodization = new ZemaxApodization((ZemaxApodizationType)apodizationType, factor);
+                    break;
                 case "RAIM":
                     document.RayAimingEnabled = tokens.Length > 2
                         && RequiredInt(tokens, 2, command) != 0;
@@ -280,6 +295,7 @@ internal static class ZemaxZmxReader
                 case "WFNO":
                 case "WLEN":
                 case "INDX":
+                case "POWR":
                 case "PMAG":
                 case "PETZ":
                     ReadStandardMeritOperand(document, tokens, command);
@@ -329,6 +345,10 @@ internal static class ZemaxZmxReader
                 case "MXCV":
                 case "MNSD":
                 case "MXSD":
+                case "MNIN":
+                case "MXIN":
+                case "MNAB":
+                case "MXAB":
                 case "XNEA":
                 case "XXEA":
                 case "XNEG":
@@ -350,11 +370,16 @@ internal static class ZemaxZmxReader
                 case "LOGE":
                 case "LOGT":
                 case "SUMM":
+                case "PROB":
                 case "PROD":
+                case "DIVB":
                 case "DIVI":
                 case "DIFF":
+                case "EQUA":
                 case "MAXX":
                 case "MINN":
+                case "OSUM":
+                case "QSUM":
                 case "OPGT":
                 case "OPLT":
                 case "ABGT":
@@ -1328,15 +1353,19 @@ internal static class ZemaxZmxReader
             return resolved;
         }
 
-        if (surface.RefractiveIndex is > 1 && surface.AbbeNumber is > 0)
+        // CORNING3 uses the compact C7980 name; the bundled catalog stores
+        // Corning 7980 as C79-80. This is an explicit catalog alias, not an nd/Vd approximation.
+        if (material.Equals("C7980", StringComparison.OrdinalIgnoreCase)
+            && glassCatalogs.Any(catalog => Path.GetFileNameWithoutExtension(catalog)
+                .Equals("CORNING3", StringComparison.OrdinalIgnoreCase))
+            && optic.Materials.TryResolve("C79-80", glassCatalogs, out var corning7980))
         {
-            optic.Materials.RegisterAbbeGlass(material, surface.RefractiveIndex.Value, surface.AbbeNumber.Value);
-            return optic.Materials.Resolve(material);
+            return corning7980;
         }
 
-        var catalogs = glassCatalogs.Count == 0 ? "none declared" : string.Join(", ", glassCatalogs);
-        throw new KeyNotFoundException(
-            $"Zemax glass '{material}' was not found in the local catalog (GCAT: {catalogs}) and GLAS did not provide valid nd/Vd fallback data.");
+        var unresolved = new UnresolvedMaterial(material, string.Join(", ", glassCatalogs));
+        optic.Materials.Register(unresolved);
+        return unresolved;
     }
 
     private static ZemaxSurface RequireSurface(ZemaxSurface? surface, string command)
@@ -1547,6 +1576,7 @@ internal static class ZemaxZmxReader
         public string Name { get; set; } = "Imported Zemax ZMX";
         public bool SequentialModeSeen { get; set; }
         public bool FloatingStop { get; set; }
+        public ZemaxApodization? Apodization { get; set; }
         public string UnitName { get; set; } = "MM";
         public double LengthScaleToMillimeters { get; set; } = 1.0;
         public List<ZemaxAperture> Apertures { get; } = new();

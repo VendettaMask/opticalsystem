@@ -12,6 +12,7 @@ internal static partial class OpticalDrawingRendererCore
         float pageWidth,
         float pageHeight)
     {
+        var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
         canvas.Clear(SKColors.White);
         canvas.Save();
         canvas.Scale(pageWidth / A4Width, pageHeight / A4Height);
@@ -20,9 +21,9 @@ internal static partial class OpticalDrawingRendererCore
         using var heavy = Stroke(SKColors.Black, 1.7f);
         using var dimension = Stroke(new SKColor(43, 43, 46), 0.7f);
 
-        const float outer = 12;
-        const float inner = 18;
-        const float titleTop = 754;
+        var outer = template.Page.OuterMargin;
+        var inner = template.Page.InnerMargin;
+        var titleTop = template.Page.TitleTop;
         var right = A4Width - inner;
         var bottom = A4Height - inner;
         canvas.DrawRect(outer, outer, A4Width - (outer * 2), A4Height - (outer * 2), heavy);
@@ -31,7 +32,11 @@ internal static partial class OpticalDrawingRendererCore
         var scaleDesignation = DrawSystemScene(
             canvas,
             sheet.Scene,
-            new SKRect(inner + 14, inner + 14, right - 14, titleTop - 12),
+            new SKRect(
+                inner + template.Geometry.SystemHorizontalInset,
+                inner + template.Geometry.SystemTopInset,
+                right - template.Geometry.SystemHorizontalInset,
+                titleTop - template.Geometry.SystemTitleGap),
             medium,
             dimension);
         DrawSystemTitleBlock(

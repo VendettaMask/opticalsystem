@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opticalDrawingTemplate id="gb-13323-2009" name="GB/T 13323—2009" standard="GbT13323_2009">
+  <page outerMargin="12" innerMargin="18" specificationTop="576" titleTop="754" />
+  <geometry horizontalInset="12" topInset="12" specificationGap="7" systemHorizontalInset="14" systemTopInset="14" systemTitleGap="12" />
+  <titleBlock kind="standard">
+    <field binding="title.standardDesignation" />
+    <field binding="title.partName" />
+    <field binding="title.revision" />
+    <field binding="title.drawingNumber" />
+    <field binding="title.pageSize" />
+    <field binding="title.designer" />
+    <field binding="title.reviewer" />
+    <field binding="title.scale" />
+  </titleBlock>
+  <specification kind="gb2009" headerHeight="24">
+    <surfaceFields>
+      <field binding="surface.radius" />
+      <field binding="element.clearAperture" />
+      <field binding="surface.coating" />
+      <field binding="surface.edgeTreatment" />
+      <field binding="iso.surface.3.form" />
+      <field binding="iso.surface.4.centering" />
+      <field binding="iso.surface.5.imperfection" />
+    </surfaceFields>
+    <componentMaterialFields>
+      <field binding="component.material.name" />
+      <field binding="component.material.manufacturer" />
+      <field binding="component.material.refractiveIndexD" />
+      <field binding="component.material.abbeNumber" />
+      <field binding="component.centerThickness" />
+      <field binding="iso.material.0.stressBirefringence" />
+      <field binding="iso.material.1.bubblesAndInclusions" />
+      <field binding="iso.material.2.homogeneityAndStriae" />
+    </componentMaterialFields>
+    <gb2009 materialWidthRatio="0.34" subheaderHeight="19" surfaceWidth="42" apertureWidth="80">
+      <materialFields>
+        <field binding="gb.material.name" />
+        <field binding="gb.material.manufacturer" />
+        <field binding="gb.material.refractiveIndexD" />
+        <field binding="gb.material.abbeNumber" />
+        <field binding="gb.material.stressBirefringence" />
+        <field binding="gb.material.bubblesAndInclusions" />
+        <field binding="gb.material.homogeneityAndStriae" />
+      </materialFields>
+      <surfaceRequirementFields>
+        <field binding="gb.surface.radius" />
+        <field binding="gb.surface.formAndCentering" />
+        <field binding="gb.surface.imperfection" />
+        <field binding="gb.surface.texture" />
+        <field binding="gb.surface.coating" />
+        <field binding="gb.surface.edgeTreatment" />
+      </surfaceRequirementFields>
+    </gb2009>
+  </specification>
+</opticalDrawingTemplate>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opticalDrawingTemplate id="iso-10110" name="ISO 10110" standard="Iso10110">
+  <page outerMargin="12" innerMargin="18" specificationTop="576" titleTop="754" />
+  <geometry horizontalInset="12" topInset="12" specificationGap="7" systemHorizontalInset="14" systemTopInset="14" systemTitleGap="12" />
+  <titleBlock kind="standard">
+    <field binding="title.standardDesignation" />
+    <field binding="title.partName" />
+    <field binding="title.revision" />
+    <field binding="title.drawingNumber" />
+    <field binding="title.pageSize" />
+    <field binding="title.designer" />
+    <field binding="title.reviewer" />
+    <field binding="title.scale" />
+  </titleBlock>
+  <specification kind="iso-three-column" headerHeight="24">
+    <columns>
+      <column role="frontSurface" title="左表面（S1）" widthRatio="0.35" />
+      <column role="material" title="材料" widthRatio="0.30" />
+      <column role="backSurface" title="右表面（S2）" widthRatio="0.35" />
+    </columns>
+    <surfaceFields>
+      <field binding="surface.radius" />
+      <field binding="element.clearAperture" />
+      <field binding="surface.coating" />
+      <field binding="surface.edgeTreatment" />
+      <field binding="iso.surface.3.form" />
+      <field binding="iso.surface.4.centering" />
+      <field binding="iso.surface.5.imperfection" />
+      <field binding="iso.surface.6.laserDamageThreshold" />
+    </surfaceFields>
+    <materialFields>
+      <field binding="material.manufacturer" />
+      <field binding="material.name" />
+      <field binding="material.refractiveIndexD" />
+      <field binding="material.abbeNumber" />
+      <field binding="iso.material.0.stressBirefringence" />
+      <field binding="iso.material.1.bubblesAndInclusions" />
+      <field binding="iso.material.2.homogeneityAndStriae" />
+    </materialFields>
+    <componentMaterialFields>
+      <field binding="component.material.name" />
+      <field binding="component.material.manufacturer" />
+      <field binding="component.material.refractiveIndexD" />
+      <field binding="component.material.abbeNumber" />
+      <field binding="component.centerThickness" />
+      <field binding="iso.material.0.stressBirefringence" />
+      <field binding="iso.material.1.bubblesAndInclusions" />
+      <field binding="iso.material.2.homogeneityAndStriae" />
+    </componentMaterialFields>
+  </specification>
+</opticalDrawingTemplate>
