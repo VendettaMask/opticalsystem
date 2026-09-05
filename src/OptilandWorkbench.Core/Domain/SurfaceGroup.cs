@@ -29,9 +29,21 @@ public sealed class SurfaceGroup
         .Sum(surface => surface.Thickness);
 
     public OpticalSurface AddDefaultSurface()
+        => InsertDefaultSurfaceCore(Math.Max(0, Items.Count - 1));
+
+    public OpticalSurface InsertDefaultSurface(int surfaceNumber)
     {
-        var imageIndex = Math.Max(0, Items.Count - 1);
-        var previous = imageIndex > 0 ? Items[imageIndex - 1] : Items.LastOrDefault();
+        if (surfaceNumber <= 0 || surfaceNumber >= Items.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "Insert between the object and image surfaces.");
+        }
+
+        return InsertDefaultSurfaceCore(surfaceNumber);
+    }
+
+    private OpticalSurface InsertDefaultSurfaceCore(int surfaceNumber)
+    {
+        var previous = surfaceNumber > 0 ? Items[surfaceNumber - 1] : Items.LastOrDefault();
         var surface = new OpticalSurface
         {
             Label = "Surface",
@@ -42,7 +54,7 @@ public sealed class SurfaceGroup
         };
 
         surface.InitializeFromLegacyProperties(0);
-        Items.Insert(imageIndex, surface);
+        Items.Insert(surfaceNumber, surface);
         return surface;
     }
 

@@ -68,7 +68,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
     {
         if (Optic.SurfaceGroup.Items.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No reference surface" });
+            return AnalysisData.Unavailable(Name, "No reference surface");
         }
 
         var referenceIndex = _referenceSurfaceIndex < 0
@@ -76,14 +76,14 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             : _referenceSurfaceIndex;
         if (referenceIndex < 0 || referenceIndex >= Optic.SurfaceGroup.Items.Count)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "Reference surface index is out of range" });
+            return AnalysisData.Unavailable(Name, "Reference surface index is out of range");
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
         var wavelengths = Optic.Wavelengths.ToArray();
         if (fields.Count == 0 || wavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No fields or wavelengths" });
+            return AnalysisData.Unavailable(Name, "No fields or wavelengths");
         }
 
         AnalysisResourceLimits.ValidateAggregateGridWork(

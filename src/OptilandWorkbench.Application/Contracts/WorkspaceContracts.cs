@@ -731,7 +731,27 @@ public sealed record SurfaceRowDto(
     bool RadiusVariable,
     bool ThicknessVariable,
     bool SemiDiameterFixed = false,
-    bool GeometryComputable = true);
+    bool GeometryComputable = true,
+    SurfaceInspectionDto? Inspection = null,
+    RadiusSolveDto? RadiusSolve = null);
+
+public enum RadiusSolveKind { Fixed, Variable, Pickup }
+
+public sealed record RadiusSolveDto(
+    RadiusSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1,
+    bool PickupEditable = true);
+
+public sealed record RadiusSolveUpdateDto(
+    RadiusSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1);
+
+public sealed record SurfaceInspectionDto(
+    string ScatteringKind,
+    double OriginX, double OriginY, double OriginZ,
+    double TiltXDegrees, double TiltYDegrees, double TiltZDegrees);
 
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
@@ -739,7 +759,11 @@ public sealed record SurfaceComponentUpdateDto(
     int GratingOrder,
     double GratingPeriodMicrometers,
     double GrooveOrientationAngleDegrees,
-    double ThinLensFocalLength);
+    double ThinLensFocalLength,
+    bool? IsStop = null,
+    string? Coating = null,
+    bool? SemiDiameterFixed = null,
+    double? SemiDiameter = null);
 
 public sealed record FieldRowDto(
     int Index,
@@ -868,7 +892,8 @@ public enum AnalysisAxisQuantity
     ThermalOpticalPower,
     Transmission,
     Power,
-    Count
+    Count,
+    NormalizedField
 }
 
 public enum AnalysisAxisUnit
@@ -999,7 +1024,26 @@ public enum AnalysisPresentationKind
     LateralColor,
     ColorFocusShift,
     FieldCurvatureAndDistortion,
-    FieldCurvature
+    FieldCurvature,
+    AngleVsImageHeight,
+    Interferogram
+}
+
+public sealed record InterferogramSummaryDto(
+    double? WavelengthMicrometers,
+    double? FieldX,
+    double? FieldY,
+    AnalysisAxisUnit FieldUnit,
+    double? PeakToValleyWaves,
+    int? SurfaceNumber,
+    bool IsImageSurface,
+    double? ExitPupilDiameterMillimeters);
+
+public enum AnalysisOutcome
+{
+    Success,
+    Unavailable,
+    NotApplicable
 }
 
 public sealed record AnalysisViewDto(
@@ -1011,7 +1055,10 @@ public sealed record AnalysisViewDto(
     IReadOnlyList<AnalysisPlotPaneDto> PlotPanes,
     int PlotPaneColumns,
     AnalysisTableDto? Table = null,
-    AnalysisPresentationKind PresentationKind = AnalysisPresentationKind.Standard);
+    AnalysisPresentationKind PresentationKind = AnalysisPresentationKind.Standard,
+    InterferogramSummaryDto? InterferogramSummary = null,
+    AnalysisOutcome Outcome = AnalysisOutcome.Success,
+    string? OutcomeReason = null);
 
 public sealed record AnalysisRequestDto(
     Guid InstanceId,
@@ -1220,7 +1267,8 @@ public sealed record SceneDto(
     Scene2Dto? TwoDimensional,
     Scene3Dto? ThreeDimensional,
     OpticalDocumentSnapshot Summary,
-    NonSequentialLayoutResultDto? NonSequentialLayoutResult = null);
+    NonSequentialLayoutResultDto? NonSequentialLayoutResult = null,
+    IReadOnlyList<string>? Warnings = null);
 
 public enum CadExportFormat
 {

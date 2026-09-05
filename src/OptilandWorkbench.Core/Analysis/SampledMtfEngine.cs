@@ -74,6 +74,9 @@ public sealed class SampledMtfEvaluator
     }
 
     public double Calculate(double frequencyX, double frequencyY)
+        => Math.Clamp(CalculateOtf(frequencyX, frequencyY).Magnitude, 0, 1);
+
+    public Complex CalculateOtf(double frequencyX, double frequencyY)
     {
         if (Math.Abs(_exitPupilDiameter) <= 1e-30)
         {
@@ -88,7 +91,7 @@ public sealed class SampledMtfEvaluator
         }
 
         var otf = ComputeOtf(shiftX, shiftY);
-        return Math.Clamp(otf.Magnitude / _otfAtZero.Magnitude, 0, 1);
+        return otf / _otfAtZero;
     }
 
     private Complex ComputeOtf(double shiftX, double shiftY)

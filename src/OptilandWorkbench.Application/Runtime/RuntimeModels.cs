@@ -30,7 +30,10 @@ public sealed record AnalysisView(
     AnalysisPlotOptions PlotOptions,
     IReadOnlyList<AnalysisPlotPane> PlotPanes,
     int PlotPaneColumns,
-    AnalysisTable? Table = null);
+    AnalysisTable? Table = null,
+    InterferogramSummaryDto? InterferogramSummary = null,
+    Core.Analysis.AnalysisOutcome Outcome = Core.Analysis.AnalysisOutcome.Success,
+    string? OutcomeReason = null);
 
 public sealed record AnalysisRow(string Metric, string Value);
 

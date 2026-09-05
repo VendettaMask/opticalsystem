@@ -918,7 +918,7 @@ internal static class EnergyCurveSupport
 {
     public static AnalysisData Empty(string name)
     {
-        return new AnalysisData(name, new Dictionary<string, object> { ["Status"] = "No energy data" });
+        return AnalysisData.Unavailable(name, "No energy data");
     }
 
     public static (double Hx, double Hy) SelectedField(Optic optic, int fieldNumber)
@@ -931,7 +931,7 @@ internal static class EnergyCurveSupport
 
     public static double WavelengthWeight(Wavelength wavelength)
     {
-        return wavelength.Weight > 0 ? wavelength.Weight : 1;
+        return double.IsFinite(wavelength.Weight) ? Math.Max(0, wavelength.Weight) : 0;
     }
 
     public static (double X, double Y) Centroid(IReadOnlyList<EnergySample> samples)

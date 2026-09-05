@@ -1,3 +1,4 @@
+using System.Numerics;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -38,7 +39,7 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var allFields = SpotAnalysisEngine.DefinedFields(Optic);
@@ -93,8 +94,8 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                 totalWeight = validWavelengths.Length;
             }
 
-            var tangential = new double[frequency.Length];
-            var sagittal = new double[frequency.Length];
+            var tangentialOtf = new Complex[frequency.Length];
+            var sagittalOtf = new Complex[frequency.Length];
             foreach (var item in validWavelengths)
             {
                 var wavelength = item.Wavelength;
@@ -104,12 +105,12 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                         ? 0
                         : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
                 var diffractionScale = frequency.Select(value => DiffractionScale(value, cutoff)).ToArray();
-                var wavelengthTangential = Compute(
+                var wavelengthTangential = ComputeOtf(
                     item.Rays.Select(ray => ray.Y).ToArray(),
                     item.Rays.Select(ray => ray.Intensity).ToArray(),
                     frequency,
                     diffractionScale);
-                var wavelengthSagittal = Compute(
+                var wavelengthSagittal = ComputeOtf(
                     item.Rays.Select(ray => ray.X).ToArray(),
                     item.Rays.Select(ray => ray.Intensity).ToArray(),
                     frequency,
@@ -117,13 +118,13 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                 var weight = useEqualWeights ? 1.0 : Math.Max(0, wavelength.Weight);
                 for (var index = 0; index < frequency.Length; index++)
                 {
-                    tangential[index] += wavelengthTangential[index] * weight;
-                    sagittal[index] += wavelengthSagittal[index] * weight;
+                    tangentialOtf[index] += wavelengthTangential[index] * weight;
+                    sagittalOtf[index] += wavelengthSagittal[index] * weight;
                 }
             }
 
-            tangential = tangential.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
-            sagittal = sagittal.Select(value => Math.Clamp(value / totalWeight, 0, 1)).ToArray();
+            var tangential = tangentialOtf.Select(value => Math.Clamp(value.Magnitude / totalWeight, 0, 1)).ToArray();
+            var sagittal = sagittalOtf.Select(value => Math.Clamp(value.Magnitude / totalWeight, 0, 1)).ToArray();
             var colorIndex = fieldIndices[fieldIndex];
             series.Add(new AnalysisSeries(
                 frequencyLabel,
@@ -195,6 +196,13 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         IReadOnlyList<double> coordinates,
         IReadOnlyList<double> intensities,
         IReadOnlyList<double> frequency,
+        IReadOnlyList<double> scale) => ComputeOtf(coordinates, intensities, frequency, scale)
+            .Select(value => Math.Clamp(value.Magnitude, 0, 1)).ToArray();
+
+    internal static Complex[] ComputeOtf(
+        IReadOnlyList<double> coordinates,
+        IReadOnlyList<double> intensities,
+        IReadOnlyList<double> frequency,
         IReadOnlyList<double> scale)
     {
         if (coordinates.Count != intensities.Count)
@@ -217,8 +225,10 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
         var maximum = coordinates.Max();
         if (Math.Abs(maximum - minimum) <= 1e-30)
         {
-            minimum -= 0.5;
-            maximum += 0.5;
+            if (!(intensities.Sum() > 0))
+                throw new AnalysisDataUnavailableException("Geometric MTF", "no positive intensity");
+            return frequency.Select((value, index) =>
+                Complex.FromPolarCoordinates(scale[index], -2 * Math.PI * value * minimum)).ToArray();
         }
 
         var binWidth = (maximum - minimum) / binCount;
@@ -243,7 +253,7 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
                 "valid rays have no finite positive intensity");
         }
 
-        var output = new double[frequency.Count];
+        var output = new Complex[frequency.Count];
         for (var index = 0; index < frequency.Count; index++)
         {
             var cosine = 0.0;
@@ -257,7 +267,7 @@ public sealed class GeometricMtfAnalysis : BaseAnalysis
 
             cosine /= denominator;
             sine /= denominator;
-            output[index] = Math.Sqrt((cosine * cosine) + (sine * sine)) * scale[index];
+            output[index] = new Complex(cosine, -sine) * scale[index];
         }
 
         return output;

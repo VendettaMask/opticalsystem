@@ -121,6 +121,30 @@ public partial class WorkbenchRuntime
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public int InsertSurface(int surfaceNumber, bool after)
+    {
+        if (surfaceNumber < 0 || surfaceNumber >= Surfaces.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "所选表面不存在。");
+        }
+        var insertedSurfaceNumber = surfaceNumber + (after ? 1 : 0);
+        if (insertedSurfaceNumber <= 0 || insertedSurfaceNumber >= Surfaces.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "不能在物面之前或像面之后插入。");
+        }
+
+        CaptureCurrentState();
+        SyncActiveConfigurationFromCurrent();
+        _multiConfiguration.InsertSurface(insertedSurfaceNumber);
+        CurrentOptic.Pickups.InsertSurface(insertedSurfaceNumber);
+        CurrentOptic.SurfaceGroup.InsertDefaultSurface(insertedSurfaceNumber);
+        SyncActiveConfigurationFromCurrent();
+        SetStatus($"已在表面 {surfaceNumber} {(after ? "下方" : "上方")}插入表面。");
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
+        return insertedSurfaceNumber;
+    }
+
     public void RemoveSurface(OpticalSurface? surface)
     {
         if (surface is null)
@@ -153,11 +177,32 @@ public partial class WorkbenchRuntime
         int gratingOrder = 1,
         double gratingPeriodMicrometers = 1,
         double grooveOrientationAngleDegrees = 0,
-        double thinLensFocalLength = 50)
+        double thinLensFocalLength = 50,
+        bool? isStop = null,
+        string? coating = null,
+        bool? semiDiameterFixed = null,
+        double? semiDiameter = null)
     {
         if (surface is null)
         {
             return;
+        }
+
+        if (surface.Geometry is INonComputableGeometry)
+        {
+            throw new NotSupportedException("该导入面型只读，不能编辑表面属性。");
+        }
+        if (isStop == true && (ReferenceEquals(surface, Surfaces[0]) || ReferenceEquals(surface, Surfaces[^1])))
+        {
+            throw new ArgumentException("物面和像面不能设为光阑。", nameof(isStop));
+        }
+        if (isStop == false && surface.IsStop)
+        {
+            throw new ArgumentException("请选择另一个表面作为光阑，不能直接移除当前光阑。", nameof(isStop));
+        }
+        if (semiDiameter.HasValue && (!double.IsFinite(semiDiameter.Value) || semiDiameter.Value < 0.1))
+        {
+            throw new ArgumentOutOfRangeException(nameof(semiDiameter), "净半径必须是至少 0.1 mm 的有限数值。");
         }
 
         CaptureCurrentState();
@@ -168,6 +213,25 @@ public partial class WorkbenchRuntime
             gratingOrder,
             gratingPeriodMicrometers,
             grooveOrientationAngleDegrees);
+        if (coating is not null && coating != surface.Coating)
+        {
+            surface.Coating = string.IsNullOrWhiteSpace(coating) ? "None" : coating.Trim();
+        }
+        if (isStop == true)
+        {
+            foreach (var candidate in Surfaces)
+            {
+                candidate.IsStop = ReferenceEquals(candidate, surface);
+            }
+        }
+        if (semiDiameterFixed.HasValue)
+        {
+            surface.SemiDiameterFixed = semiDiameterFixed.Value;
+        }
+        if (surface.SemiDiameterFixed && semiDiameter.HasValue)
+        {
+            surface.SemiDiameter = semiDiameter.Value;
+        }
         ApplyPhysicalAperture(surface, physicalApertureKind);
         SynchronizeMultiConfigurationProperty(surface, "radius");
         SynchronizeMultiConfigurationProperty(surface, "conic");

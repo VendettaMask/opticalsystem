@@ -2,6 +2,8 @@
 
 This directory contains the isolated experimental implementation of the intelligent initial-structure generator. It is not part of the formal product solution, runtime, installer, compatibility surface, or release baseline.
 
+Current verification (2026-09-05): the complete laboratory suite passes **24/24**, with no skips. Algorithm version **3** evaluates parents, differential-evolution trials and local refinement at density 2; final acceptance remains a separate density-4 evaluation. All ten frozen specifications pass their unchanged minimum family gates. Build uses locked cached dependencies; no new online vulnerability audit was completed. Earlier dated results below are historical.
+
 ## Current implementation
 
 - versioned specification, run, candidate, evaluation, violation, and lineage contracts;

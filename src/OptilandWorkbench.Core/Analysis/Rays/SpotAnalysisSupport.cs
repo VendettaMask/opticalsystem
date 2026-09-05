@@ -23,7 +23,14 @@ internal sealed record SpotWavelengthData(Wavelength Wavelength, IReadOnlyList<S
 internal sealed record SpotFieldData(
     double Hx,
     double Hy,
-    IReadOnlyList<SpotWavelengthData> Wavelengths);
+    IReadOnlyList<SpotWavelengthData> Wavelengths)
+{
+    // Rays retain monochromatic throughput; apply the spectral weight exactly
+    // once when pooling wavelengths for a physical statistic.
+    public IEnumerable<SpotRayData> WeightedRays => Wavelengths.SelectMany(wave =>
+        wave.Rays.Select(ray => ray with { Intensity = ray.Intensity * Math.Max(0, wave.Wavelength.Weight) }))
+        .Where(ray => ray.Intensity > 0 && double.IsFinite(ray.Intensity));
+}
 
 internal sealed record SpotAnalysisResult(
     IReadOnlyList<SpotFieldData> Fields,
@@ -160,9 +167,6 @@ internal static class SpotAnalysisEngine
                 return field;
             }
 
-            var referenceRays = field.Wavelengths.Count == 0
-                ? Array.Empty<SpotRayData>()
-                : field.Wavelengths[Math.Min(referenceIndex, field.Wavelengths.Count - 1)].Rays;
             var useChiefRay = string.Equals(reference, "chief", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(reference, "主光线", StringComparison.Ordinal);
             var referencePoint = useChiefRay
@@ -175,10 +179,9 @@ internal static class SpotAnalysisEngine
                         usePolarization,
                         imagePlaneOffset)
                     : null;
-            var centroidX = referencePoint?.X
-                ?? referenceRays.Select(ray => ray.X).DefaultIfEmpty(0).Average();
-            var centroidY = referencePoint?.Y
-                ?? referenceRays.Select(ray => ray.Y).DefaultIfEmpty(0).Average();
+            var centroid = Centroid(field.WeightedRays);
+            var centroidX = referencePoint?.X ?? centroid.X;
+            var centroidY = referencePoint?.Y ?? centroid.Y;
             var centeredWavelengths = field.Wavelengths.Select(wavelength =>
             {
                 var wavelengthReference = ignoreLateralColor && useChiefRay
@@ -191,13 +194,14 @@ internal static class SpotAnalysisEngine
                         usePolarization,
                         imagePlaneOffset)
                     : null;
+                var wavelengthCentroid = Centroid(wavelength.Rays);
                 var wavelengthCenterX = ignoreLateralColor
                     ? wavelengthReference?.X
-                        ?? wavelength.Rays.Select(ray => ray.X).DefaultIfEmpty(0).Average()
+                        ?? wavelengthCentroid.X
                     : centroidX;
                 var wavelengthCenterY = ignoreLateralColor
                     ? wavelengthReference?.Y
-                        ?? wavelength.Rays.Select(ray => ray.Y).DefaultIfEmpty(0).Average()
+                        ?? wavelengthCentroid.Y
                     : centroidY;
                 return new SpotWavelengthData(
                     wavelength.Wavelength,
@@ -311,6 +315,21 @@ internal static class SpotAnalysisEngine
             var weight = Math.Max(0, ray.Intensity);
             return weight * ((ray.X * ray.X) + (ray.Y * ray.Y));
         }) / totalWeight);
+    }
+
+    internal static (double X, double Y) Centroid(IEnumerable<SpotRayData> rays)
+    {
+        var total = 0.0;
+        var x = 0.0;
+        var y = 0.0;
+        foreach (var ray in rays)
+        {
+            if (!(ray.Intensity > 0) || !double.IsFinite(ray.Intensity)) continue;
+            total += ray.Intensity;
+            x += ray.X * ray.Intensity;
+            y += ray.Y * ray.Intensity;
+        }
+        return total > 0 ? (x / total, y / total) : (0, 0);
     }
 
     public static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)

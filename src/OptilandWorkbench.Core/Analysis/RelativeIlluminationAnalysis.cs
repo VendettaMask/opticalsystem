@@ -267,10 +267,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             : 0.5 * Math.Sqrt(Math.PI / projectedCosineArea) / imageSpaceIndex;
     }
 
-    private AnalysisData Status(string message) => new(Name, new Dictionary<string, object>
-    {
-        ["Status"] = message
-    });
+    private AnalysisData Status(string message) => AnalysisData.Unavailable(Name, message);
 
     private static Vector3D TangentX(Vector3D normal)
     {

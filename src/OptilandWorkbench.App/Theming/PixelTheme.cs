@@ -298,6 +298,7 @@ internal static class PixelTheme
         resources["DockSplitterHoverBrush"] = yellow;
         resources["DockSplitterDragBrush"] = deepBlue;
         resources["DockCornerRadiusSmall"] = 0d;
+        resources["DockDocumentTabItemCornerRadius"] = new CornerRadius(0);
         resources["DockFontSizeNormal"] = 11d;
     }
 

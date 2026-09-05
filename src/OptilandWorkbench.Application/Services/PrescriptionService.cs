@@ -52,7 +52,10 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
     {
         lock (Gate)
         {
-            return Runtime.Surfaces.Select(ToSurfaceDto).ToArray();
+            return Runtime.Surfaces.Select(surface => ToSurfaceDto(surface) with
+            {
+                RadiusSolve = Runtime.GetRadiusSolve(surface.Number)
+            }).ToArray();
         }
     }
 
@@ -139,6 +142,18 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
     public void AddSurface() => MutateTransactional(WorkspaceChangeCategory.Surface, Runtime.AddSurface);
 
+    public void SetRadiusSolve(int surfaceNumber, RadiusSolveUpdateDto update, long? expectedRevision = null) =>
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
+        {
+            if (expectedRevision.HasValue && expectedRevision != Workspace.Revision)
+                throw new InvalidOperationException("工程已变化，请重新打开求解设置。");
+            Runtime.SetRadiusSolve(surfaceNumber, update);
+        });
+
+    public int InsertSurface(int surfaceNumber, bool after) => MutateTransactional(
+        WorkspaceChangeCategory.Surface,
+        () => Runtime.InsertSurface(surfaceNumber, after));
+
     public void RemoveSurface(int surfaceNumber) => MutateTransactional(
         WorkspaceChangeCategory.Surface,
         () => Runtime.RemoveSurface(FindSurface(surfaceNumber)));
@@ -155,8 +170,10 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
 
             Runtime.CaptureCurrentState();
             var isImageSurface = ReferenceEquals(target, Runtime.Surfaces[^1]);
+            var hasRadiusPickup = Runtime.CurrentOptic.Pickups.RadiusPickups
+                .Any(pickup => pickup.TargetSurface == surface.Number);
             target.Label = surface.Label;
-            target.Radius = surface.Radius;
+            if (!hasRadiusPickup) target.Radius = surface.Radius;
             if (!isImageSurface)
             {
                 target.Thickness = surface.Thickness;
@@ -170,7 +187,7 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             }
             target.Conic = surface.Conic;
             target.IsStop = surface.IsStop;
-            target.RadiusVariable = surface.RadiusVariable;
+            target.RadiusVariable = surface.RadiusVariable && !hasRadiusPickup;
             target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable;
             Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
             Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Conic));
@@ -193,7 +210,11 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             update.GratingOrder,
             update.GratingPeriodMicrometers,
             update.GrooveOrientationAngleDegrees,
-            update.ThinLensFocalLength));
+            update.ThinLensFocalLength,
+            update.IsStop,
+            update.Coating,
+            update.SemiDiameterFixed,
+            update.SemiDiameter));
     }
 
     public void AddField() => MutateTransactional(WorkspaceChangeCategory.Field, Runtime.AddField);

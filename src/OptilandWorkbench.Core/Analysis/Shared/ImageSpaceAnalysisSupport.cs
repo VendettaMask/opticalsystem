@@ -107,11 +107,12 @@ internal static class ImageSpaceAnalysisSupport
         ImageSpaceCoordinateDescriptor descriptor,
         double defocus = 0)
     {
+        var localDirection = targetSurface.CoordinateSystem.ToLocalDirection(sample.Direction);
         if (descriptor.Kind == ImageSpaceCoordinateKind.DirectionCosine)
         {
             return new SpotRayData(
-                sample.Direction.X,
-                sample.Direction.Y,
+                localDirection.X,
+                localDirection.Y,
                 sample.Intensity);
         }
 
@@ -129,11 +130,11 @@ internal static class ImageSpaceAnalysisSupport
             return new SpotRayData(angle.X, angle.Y, sample.Intensity);
         }
 
-        var position = sample.Position;
+        var position = targetSurface.CoordinateSystem.ToLocalPoint(sample.Position);
         if (Math.Abs(defocus) > 1e-12
-            && Math.Abs(sample.Direction.Z) > 1e-12)
+            && Math.Abs(localDirection.Z) > 1e-12)
         {
-            position += sample.Direction * (defocus / sample.Direction.Z);
+            position += localDirection * (defocus / localDirection.Z);
         }
 
         return new SpotRayData(position.X, position.Y, sample.Intensity);

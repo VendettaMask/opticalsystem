@@ -1,6 +1,6 @@
 # Zemax 分析设置与实现方式参考
 
-当前状态复核：2026-08-04。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。
+当前状态复核：2026-09-05。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。
 
 本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。评价函数导入属于另一条兼容链路，当前 103 行 `[MS-L7]` 夹具及 51 个代码/兼容类型的边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)，不得并入本文的 69 页分析结论。
 
@@ -222,6 +222,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Wavelength`。
 - 结果展现：文本/表格，按表面和系统总和列出 unconverted Seidel、transverse、longitudinal 和 wavefront coefficients。
 - 实现方式：基于近轴光线计算三阶像差项。输出包括 SPHA/S1、COMA/S2、ASTI/S3、FCUR/S4、DIST/S5、CLA/CL、CTR/CT，以及 transverse、longitudinal 和 wavefront 系数。官方说明该计算只对轴对称球面、圆锥、二阶/四阶非球面等受支持面型可靠。
+- Workbench 2026-09-04 已补齐四组逐面文本表和波前汇总，修正 S5 与色差换算定义。官方面型支持范围不是本程序已验证的兼容范围；`123456` 全系统重算仍存在未解决差异。具体实现、TXT/CSV 边界及验证结果见 [赛德尔系数报告](SEIDEL_COEFFICIENT_REPORT.md)。
 
 ### 赛德尔图 / Seidel Diagram
 
@@ -562,6 +563,11 @@ Workbench 一侧引用 `images/gui-current`。
 ## Workbench 当前实现对照注意点
 
 - 本文描述 Zemax/OpticStudio 官方方法。Workbench 当前实现可能只覆盖其中一部分设置或用简化参数名映射。
+- 2026-09-04 修正 MS-L7 高 NA 镜头 FFT PSF 的工作 F 数探针缺失：失败时协调切换光阑瞄准、波前和偏振光瞳，保留真实遮挡/取消错误。定向数值回归及默认桌面构建占用的待办见 [FFT PSF 光阑瞄准修正](FFT_PSF_STOP_AIMING.md)，不等同于 Zemax 精度验收。
 - Workbench 不再提供独立“畸变”入口；场曲与畸变统一由 `Field Curvature and Distortion` 页面展示。底层 `DistortionAnalysis` 仍负责组合页中的畸变曲线，旧 `Distortion`/“畸变”名称会迁移到组合分析。
-- Workbench 当前“干涉图”若复用 wavefront map，则还缺少独立干涉条纹显示方式。
+- Workbench 当前“干涉图”实际复用 `WavefrontAnalysis` 的 OPD 热图，仍缺少独立干涉条纹显示、条纹数/波长及参考波 X/Y 倾斜设置。2026-09-04 仅补齐左下角专用摘要（实际波长/视场、PV、分析面、出瞳直径），未提供的条纹/倾斜项显示 `—`；不能将该页脚外观修正视为干涉图计算已与 Zemax 等价。
 - 官方菜单包含 `FFT Surface MTF`、`FFT MTF Map`、`Huygens Surface MTF`、`Geometric MTF Map` 等 MTF 变体；若需要“所有 Zemax 方法”完全覆盖，应在 Workbench MTF 分组中补齐这些入口。
+
+## 2026-09-05 数值修复
+
+复色 OTF 先复数加权再求模，FFT 恢复 PSF 物理原点；波前/PSF 共用主波长参考中心。浮动光阑按前组旁轴倍率计算入瞳，光斑使用谱权重与光线强度一致的质心及统计，像面量转到局部坐标，光扇使用系统 Ray Aiming。赛德尔固定基准四表按原 1e−6 门槛端到端通过。对比工具现检查物理坐标、必需系列和最差误差，旧分类不再作为当前结论。详见 [项目修复与验证](PROJECT_REPAIR_2026-09-05.md)。

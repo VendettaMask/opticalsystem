@@ -22,7 +22,7 @@ public sealed class YYbarAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var marginal = Optic.Paraxial.MarginalRay(wavelength.Micrometers);

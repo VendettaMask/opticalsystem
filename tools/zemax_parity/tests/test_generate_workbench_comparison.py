@@ -15,6 +15,117 @@ MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 
 
+class PhysicalCoordinateComparisonTests(unittest.TestCase):
+    @staticmethod
+    def curve(xs=(0, 1, 2), ys=(0, 1, 2)):
+        return {"seriesList": [{"name": "field", "xQuantity": "defocus", "xUnit": "millimeter",
+                               "yQuantity": "modulation", "yUnit": "dimensionless",
+                               "points": [{"x": x, "y": y} for x, y in zip(xs, ys)]}]}
+
+    @staticmethod
+    def reference(xs=(0, 1, 2), ys=(0, 1, 2)):
+        return {"dataSeries": [{"x": list(xs), "y": [[y] for y in ys], "seriesLabels": ["field"]}]}
+
+    @staticmethod
+    def mapping():
+        return {"axisContract": ["defocus", "millimeter", "modulation", "dimensionless"],
+                "details": [{"currentSeries": "field", "zemaxSeries": "field", "valueAxis": "y"}]}
+
+    def test_hundredfold_coordinate_error_cannot_pass(self):
+        details, _ = MODULE.compare_curves("synthetic", self.curve((0, 100, 200)), self.reference(), self.mapping())
+        self.assertEqual("coordinate-mismatch", MODULE.classification(details)[0])
+
+    def test_nonuniform_samples_interpolate_on_physical_coordinates(self):
+        details, _ = MODULE.compare_curves("synthetic", self.curve((0, .2, 2), (0, .2, 2)), self.reference(), self.mapping())
+        self.assertEqual("high-agreement", MODULE.classification(details)[0])
+        self.assertLess(details[0]["valueNrmse"], 1e-12)
+
+    def test_missing_named_series_does_not_use_another_field(self):
+        current = self.curve()
+        current["seriesList"][0]["name"] = "wrong field"
+        details, _ = MODULE.compare_curves("synthetic", current, self.reference(), self.mapping())
+        self.assertEqual("not-compared", MODULE.classification(details)[0])
+        self.assertIn("missing", details[0]["error"])
+
+    def test_insufficient_or_nonfinite_values_fail(self):
+        for x, y in [([0], [1]), ([0, 1], [0, float("nan")]), ([0, 0, 1], [1, 2, 3])]:
+            details, _ = MODULE.compare_curves("synthetic", self.curve(x, y), self.reference(), self.mapping())
+            self.assertEqual("not-compared", MODULE.classification(details)[0])
+
+    def test_unit_conversion_uses_typed_metadata(self):
+        current = self.curve((0, 1000, 2000))
+        current["seriesList"][0]["xUnit"] = "micrometer"
+        details, _ = MODULE.compare_curves("synthetic", current, self.reference(), self.mapping())
+        self.assertEqual("high-agreement", MODULE.classification(details)[0])
+        current["seriesList"][0]["xUnit"] = "degree"
+        details, _ = MODULE.compare_curves("synthetic", current, self.reference(), self.mapping())
+        self.assertEqual("not-compared", MODULE.classification(details)[0])
+
+    def test_decreasing_storage_order_is_not_a_physical_mirror(self):
+        details, _ = MODULE.compare_curves("synthetic", self.curve((2, 1, 0), (2, 1, 0)), self.reference(), self.mapping())
+        self.assertEqual("high-agreement", MODULE.classification(details)[0])
+
+    def test_mtf_field_mapping_uses_twenty_cycles_group(self):
+        details = MODULE.stable_curve_details(("Fourier MTF vs Field", "FftMtfvsField"), [])
+        self.assertEqual([1, 1], [item["zemaxGroup"] for item in details])
+        candidates = [{"name": "子午", "group": 0}, {"name": "子午", "group": 1}]
+        self.assertEqual(1, MODULE.select_named(candidates, set(), "子午", group=1)[0])
+
+    @staticmethod
+    def grid(mirror=False, coordinate_scale=1):
+        values = np.asarray([[0., 1, 4], [2, 0, 8], [1, 2, 3]])
+        current = np.fliplr(values) if mirror else values
+        view = {"seriesList": [{"xQuantity": "imageHeight", "yQuantity": "imageHeight",
+                                "xUnit": "millimeter", "yUnit": "millimeter", "valueQuantity": "irradiance",
+                                "valueUnit": "dimensionless", "points": [
+            {"x": x * coordinate_scale, "y": y * coordinate_scale, "value": float(current[y, x])}
+            for y in range(3) for x in range(3)]}]}
+        reference = {"dataGrids": [{"minX": 0, "minY": 0, "dx": 1, "dy": 1, "values": values.tolist()}]}
+        mapping = {"coordinateUnit": "millimeter", "details": [{"label": "grid"}]}
+        return view, reference, mapping
+
+    def test_asymmetric_mirrored_grid_cannot_choose_best_flip(self):
+        details, _ = MODULE.compare_grids(*self.grid(mirror=True))
+        self.assertEqual("identity", details[0]["orientation"])
+        self.assertEqual("different", MODULE.classification(details)[0])
+
+    def test_grid_coordinate_scale_error_is_rejected(self):
+        details, _ = MODULE.compare_grids(*self.grid(coordinate_scale=100))
+        self.assertEqual("coordinate-mismatch", MODULE.classification(details)[0])
+
+    def test_grid_coverage_measures_area_without_extrapolating_edge_pixels(self):
+        details, plots = MODULE.compare_grids(*self.grid(coordinate_scale=.999))
+        self.assertGreater(details[0]["coordinateCoverage"], .99)
+        self.assertTrue(np.isnan(plots[0][1][-1]).all())
+
+    def test_missing_interior_grid_data_reduces_coverage(self):
+        view, reference, mapping = self.grid()
+        view["seriesList"][0]["points"][4]["value"] = float("nan")
+        details, _ = MODULE.compare_grids(view, reference, mapping)
+        self.assertEqual("coordinate-mismatch", MODULE.classification(details)[0])
+
+    def test_missing_grid_is_not_replaced_by_the_last_grid(self):
+        view, reference, mapping = self.grid()
+        mapping["details"].append({"label": "required second grid"})
+        details, _ = MODULE.compare_grids(view, reference, mapping)
+        self.assertEqual("not-compared", MODULE.classification(details)[0])
+        self.assertIn("missing", details[-1]["error"])
+
+    def test_grid_needs_coordinate_metadata_and_declared_transform(self):
+        view, reference, mapping = self.grid()
+        del reference["dataGrids"][0]["dx"]
+        details, _ = MODULE.compare_grids(view, reference, mapping)
+        self.assertEqual("not-compared", MODULE.classification(details)[0])
+        view, reference, mapping = self.grid()
+        mapping["details"][0]["coordinateTransform"] = "flip-x"
+        details, _ = MODULE.compare_grids(view, reference, mapping)
+        self.assertEqual("not-compared", MODULE.classification(details)[0])
+
+    def test_one_bad_series_cannot_hide_behind_the_median(self):
+        details = [{"valueNrmse": 0.01}] * 20 + [{"valueNrmse": 0.8}]
+        self.assertEqual("different", MODULE.classification(details)[0])
+
+
 class NumericMappingSemanticsTests(unittest.TestCase):
     def test_centroid_sphere_fit_is_not_zemax_remove_tilt(self) -> None:
         reason = MODULE.numeric_mapping_exclusion({
@@ -93,25 +204,21 @@ class NumericMappingSemanticsTests(unittest.TestCase):
         self.assertEqual(1e-6, maximum)
 
     def test_wavefront_even_grid_restores_zemax_center_index(self) -> None:
-        view = {
-            "rows": [{"metric": "采样", "value": "64 x 64"}],
-            "seriesList": [{
-                "points": [
-                    {"x": 0.0, "y": 0.0, "value": 1.0},
-                    {"x": -1.0, "y": 0.0, "value": 2.0},
-                    {"x": 1.0, "y": 0.0, "value": 3.0},
-                ]
-            }],
-            "plotPanes": [],
-        }
-
-        grid = MODULE.zemax_centered_wavefront_grids(view)[0]
-
-        self.assertEqual((64, 64), grid.shape)
-        self.assertEqual(1.0, grid[32, 32])
-        self.assertEqual(2.0, grid[32, 1])
-        self.assertEqual(3.0, grid[32, 63])
-        self.assertTrue(np.isnan(grid[32, 0]))
+        coordinates = (np.arange(64) - 32) / 31
+        values = coordinates[None, :] + 2 * coordinates[:, None]
+        view = {"seriesList": [{"xQuantity": "pupilCoordinate", "yQuantity": "pupilCoordinate",
+                                "xUnit": "dimensionless", "yUnit": "dimensionless",
+                                "valueQuantity": "wavefrontError", "valueUnit": "wave",
+                                "points": [{"x": float(x), "y": float(y), "value": float(x + 2*y)}
+                                           for y in coordinates for x in coordinates]}]}
+        reference = {"dataGrids": [{"minX": 0, "minY": 0, "dx": 1, "dy": 1,
+                                    "values": values.tolist()}]}
+        mapping = {"analysis": "Wavefront", "zemaxAnalysis": "WavefrontMap",
+                   "details": [{"label": "wavefront"}]}
+        details, plots = MODULE.compare_grids(view, reference, mapping)
+        self.assertEqual("high-agreement", MODULE.classification(details)[0])
+        self.assertAlmostEqual(0, plots[0][1][32, 32])
+        self.assertTrue(np.isnan(plots[0][2][32, 0]))
 
     def test_five_field_two_direction_pages_keep_zemax_style_layout(self) -> None:
         panes = [{"series": []} for _ in range(10)]

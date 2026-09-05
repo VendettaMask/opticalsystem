@@ -50,7 +50,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var result = SpotAnalysisEngine.Generate(
@@ -182,10 +182,26 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (primary is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
-        var result = SpotAnalysisEngine.Generate(Optic, fields, new[] { primary }, _numRays, _distribution);
+        var absolute = SpotAnalysisEngine.Generate(Optic, fields, new[] { primary }, _numRays, _distribution, reference: "absolute");
+        // This explicitly requested auxiliary compatibility mode retains 0.5.8's
+        // unweighted monochromatic origin; production energy uses physical weights.
+        var result = absolute with
+        {
+            Fields = absolute.Fields.Select(field =>
+        {
+            var rays = field.Wavelengths[0].Rays;
+            var x = rays.Select(ray => ray.X).DefaultIfEmpty(0).Average();
+            var y = rays.Select(ray => ray.Y).DefaultIfEmpty(0).Average();
+            return field with
+            {
+                Wavelengths = new[] { new SpotWavelengthData(primary,
+                rays.Select(ray => ray with { X = ray.X - x, Y = ray.Y - y }).ToArray()) }
+            };
+        }).ToArray()
+        };
         var fieldRadii = result.Fields.Select(field => field.Wavelengths[0].Rays
             .Select(ray => (
                 Radius: Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)),
@@ -346,7 +362,7 @@ public sealed class PupilAberrationAnalysis : BaseAnalysis
             ?? wavelengths.FirstOrDefault();
         if (primary is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var stopIndex = Optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);

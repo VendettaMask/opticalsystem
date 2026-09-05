@@ -21,7 +21,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 最近一次正式产品完整基线为 2026-09-03 的构建 `0` 错误及主测试 `1015/1015`；本轮构建无警告。独立实验室最近一次完整测试为 `21/21`，使用独立解决方案与基线 |
+| 当前验证记录 | 持续维护 | 2026-09-05 正式解决方案默认 Debug 输出构建 `0` 警告、`0` 错误，正式主测试 `1214/1214` 通过，零失败、零跳过；独立实验室 `24/24`、Python 对比工具 `28/28` 通过。依赖按锁文件使用本地缓存还原，本轮未完成在线漏洞审计。详见 [项目修复与验证](PROJECT_REPAIR_2026-09-05.md)。 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
 | 兼容层隔离与旧链路删除 | 已完成隔离 | `OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集；Application/App 不引用或编译 Legacy 命名空间。兼容类型仍为外部源码迁移保留，最终 API 删除属于版本兼容决策 |

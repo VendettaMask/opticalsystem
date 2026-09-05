@@ -1,8 +1,10 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
@@ -301,6 +303,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         toggle.Click += (_, _) => settingsContent.IsVisible = !settingsContent.IsVisible;
 
         var synchronize = CompactButton("refresh-cw", "同步并重新生成视图");
+        synchronize.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
         synchronize.Click += (_, _) =>
         {
             ApplyDisplaySettings();
@@ -324,7 +327,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
     private Control BuildSettingsContent()
     {
-        var settings = new ResponsiveSettingsGrid(
+        var settings = new ViewerSettingsForm(
         [
             Setting("起始面", _startSurfacePicker),
             Setting("波长", _wavelengthPicker),
@@ -333,8 +336,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Setting("光线数", _rayCount),
             Setting("颜色显示", _colorModePicker),
             Setting("比例尺", _scalePicker),
-            Setting("Y 拉伸", _yStretch),
             Setting("上光瞳", _upperPupil),
+            Setting("Y 拉伸", _yStretch),
             Setting("下光瞳", _lowerPupil),
             Setting("线宽", _lineWidthPicker)
         ])
@@ -780,33 +783,79 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return grid;
     }
 
-    private static Control Setting(string label, Control control)
+    private static (Control Label, Control Editor) Setting(string label, Control control)
     {
         control.HorizontalAlignment = HorizontalAlignment.Stretch;
+        control.VerticalAlignment = VerticalAlignment.Center;
+        control.MinWidth = 96;
         AutomationProperties.SetName(control, label);
-        return new StackPanel
-        {
-            Margin = new Thickness(0, 3, 0, 5),
-            Children =
-            {
-                new TextBlock { Text = label, Margin = new Thickness(0, 0, 0, 3) },
-                control
-            }
-        };
+        control.Margin = new Thickness(0, 2);
+        return (new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center }, control);
     }
 
-    private static ComboBox SettingPicker() => new()
+    private sealed class ViewerSettingsForm : Grid
     {
-        MinWidth = 0,
-        Height = UiDensity.StandardControlHeight,
-        VerticalAlignment = VerticalAlignment.Center
-    };
+        private readonly (Control Label, Control Editor)[] _fields;
+        private bool _isNarrow;
+
+        public ViewerSettingsForm(IEnumerable<(Control Label, Control Editor)> fields)
+        {
+            _fields = fields.ToArray();
+            foreach (var (label, editor) in _fields)
+            {
+                Children.Add(label);
+                Children.Add(editor);
+            }
+            ApplyLayout(false);
+        }
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            var narrow = double.IsFinite(availableSize.Width) && availableSize.Width < 400;
+            if (narrow != _isNarrow)
+            {
+                ApplyLayout(narrow);
+            }
+            return base.MeasureOverride(availableSize);
+        }
+
+        private void ApplyLayout(bool narrow)
+        {
+            _isNarrow = narrow;
+            var pairsPerRow = narrow ? 1 : 2;
+            ColumnDefinitions = new ColumnDefinitions(narrow ? "Auto,8,*" : "Auto,8,*,16,Auto,8,*");
+            RowDefinitions = new RowDefinitions(string.Join(',',
+                Enumerable.Repeat("Auto", (_fields.Length + pairsPerRow - 1) / pairsPerRow)));
+            for (var index = 0; index < _fields.Length; index++)
+            {
+                var (label, editor) = _fields[index];
+                var column = (index % pairsPerRow) * 4;
+                SetColumn(label, column);
+                SetColumn(editor, column + 2);
+                SetRow(label, index / pairsPerRow);
+                SetRow(editor, index / pairsPerRow);
+            }
+        }
+    }
+
+    private static ComboBox SettingPicker()
+    {
+        var picker = new ComboBox
+        {
+            MinWidth = 0,
+            Height = UiDensity.StandardControlHeight,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        return picker;
+    }
 
     private static NumericUpDown SettingNumber(
         decimal minimum,
         decimal maximum,
         decimal increment,
-        decimal value) => new()
+        decimal value)
+    {
+        var input = new NumericUpDown
         {
             MinWidth = 0,
             Height = UiDensity.StandardControlHeight,
@@ -816,6 +865,21 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Value = value,
             ShowButtonSpinner = false
         };
+        input.BindThemeResource(NumericUpDown.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
+        // Fluent's inner spinner minimum is taller than our compact input. Keep
+        // its frame and editor inside the outer control instead of clipping the border.
+        input.Styles.Add(new Style(selector => selector.OfType<NumericUpDown>()
+            .Template().OfType<ButtonSpinner>().Name("PART_Spinner"))
+        {
+            Setters = { new Setter(ButtonSpinner.MinHeightProperty, 0d) }
+        });
+        input.Styles.Add(new Style(selector => selector.OfType<NumericUpDown>()
+            .Template().OfType<TextBox>().Name("PART_TextBox"))
+        {
+            Setters = { new Setter(TextBox.MinHeightProperty, 0d) }
+        });
+        return input;
+    }
 
     private static int? SelectedValue(ComboBox picker) =>
         (picker.SelectedItem as SelectorItem)?.Index;

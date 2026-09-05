@@ -152,8 +152,7 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
                     series.Add(AiryDiskSupport.CreateSeries(airyRadius, imageSpace));
                 }
 
-                var fieldRays = results[stepIndex].Fields[fieldIndex].Wavelengths
-                    .SelectMany(wavelength => wavelength.Rays)
+                var fieldRays = results[stepIndex].Fields[fieldIndex].WeightedRays
                     .ToArray();
                 var metrics = stepIndex == _settings.FocusPlaneCount / 2
                     ? new[]
@@ -289,7 +288,7 @@ public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
         var imageSurface = Optic.SurfaceGroup.Items.LastOrDefault();
         if (wavelength is null || imageSurface is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);

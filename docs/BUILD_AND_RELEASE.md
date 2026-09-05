@@ -65,6 +65,52 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/Optil
 
 ## 发布目标
 
+### Windows 一键生成带安装向导的 EXE
+
+在仓库根目录双击 `Build-Installer.cmd`（原入口 `Build-Exe.cmd` 等效）。默认生成 Windows x64 Release **Setup 安装程序**，不再只是便携目录。需要安装 `global.json` 指定的 .NET SDK（当前为 `10.0.300`，允许同功能带更新补丁）；首次打包需联网还原 NuGet、Windows 运行时和准备安装包编译器。
+
+```text
+artifacts/installers/OpticalSystemDesign-win-x64-<时间戳>-<唯一编号>/
+  OpticalSystemDesign-1.0.0-win-x64-Setup.exe
+  OpticalSystemDesign-1.0.0-win-x64-Setup.exe.sha256
+  payload/app-<唯一编号>/
+```
+
+分发时只需提供 `*-Setup.exe`；SHA-256 文件可用于核验，不需要携带 `payload`。安装程序包含 .NET 运行时与全部资源，目标电脑不必另装 .NET；安装时无需联网。安装包使用 Inno Setup 的现代向导，提供简体中文/英文、欢迎页、安装目录、开始菜单目录、可选桌面快捷方式、安装进度和完成页。完成页的启动程序选项默认不勾选。
+
+默认按当前用户安装至 `%LOCALAPPDATA%\Programs\S.T.A.R. Labs\Optical System Design`，不要求管理员权限；在 Windows“设置 > 应用”或开始菜单卸载。安装目录与快捷方式选项在重复安装时保留。升级/卸载前请正常退出应用；安装程序不会自动关闭正在运行且可能有未保存内容的窗口。
+
+安装包与厂商镜头 JSON 均不压缩，厂商资源仍分别保存于 `LensLibrary/StockCatalogs/<厂商名>.json`。卸载使用已安装文件日志，不递归清空安装目录，也不删除用户设置、会话或另外创建的工程文件。**随安装包分发的文件归安装程序管理**，修改过的内置示例/目录仍可能在重复安装时被覆盖、卸载时被移除；编辑后应另存到用户工程目录。
+
+`scripts/build-installer.ps1` 先调用 `scripts/publish-windows.ps1` 发布，再编译 `packaging/windows/OpticalSystemDesign.iss`。优先使用指定路径或本机已安装的 Inno Setup；否则从官方 GitHub 发布下载固定 `6.7.3`，验证固定 SHA-256 后，以便携模式准备到忽略版本控制的 `artifacts/tools/inno-setup-6.7.3`，不注册系统安装、快捷方式或文件关联。语言文件、授权和来源见 `packaging/windows/inno/`；商用前应查阅上游授权与商业许可政策。
+
+可选命令（相对输出路径按仓库根目录解析）：
+
+```powershell
+# 自定义输出目录，支持路径包含空格；建议保持路径较短
+.\Build-Installer.cmd -OutputRoot "D:\Releases\Optical System Design"
+# 使用已准备好的编译器（Inno Setup 6.3+），不触发编译器下载
+.\Build-Installer.cmd -InnoSetupCompiler "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+# Windows ARM64（脚本支持，尚未在 ARM64 机器上验证安装/运行）
+.\Build-Installer.cmd -Runtime win-arm64
+# 只预览，不下载工具、不执行还原、不创建输出目录
+.\Build-Installer.cmd -WhatIf
+# 仍需便携版时，直接使用原发布脚本
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/publish-windows.ps1
+```
+
+自动化可直接调用 PowerShell 脚本，或者为 CMD 入口设置 `OPTILAND_PACKAGE_NO_PAUSE=1`。脚本先验证已提交的平台无关锁文件，再把 RID 专用锁文件写入各项目 `obj` 目录，不覆盖源代码中的 `packages.lock.json`。发布关闭裁剪、AOT 和单文件合并，保留 Avalonia/Skia 原生依赖、外部资源及授权说明。每次使用新目录；失败输出保留 `.partial` 后缀，不删除旧发布包和用户数据。安装包内部暂存目录使用短名称以避免 Inno Setup 6 的源文件路径长度限制。成功前检查 EXE、运行时、品牌/授权资源和厂商目录，编译后生成安装包 SHA-256。
+
+便携版仍输出到 `artifacts/windows/OpticalSystemDesign-win-x64-<时间戳>-<唯一编号>/`，运行其中的 `OptilandWorkbench.App.exe`，分发时必须复制**整个目录**。Windows 打包专用 `WindowsPackage=true` 使 App 使用 `WinExe` 子系统，启动时不附带控制台；日常构建和其他平台不受影响。安装程序与应用目前均未签名，Windows 可能提示未知发布者；不要绕过组织安全策略。
+
+2026-09-04 安装包验证：实际生成 `win-x64` Setup；使用独立测试 AppId 在项目临时目录完成安装、同版本重复安装和卸载，退出码均为 `0`。安装后的 **1178 个载荷文件**逐一哈希一致，授权文件存在，卸载后测试安装注册与应用 EXE 已移除，另行创建的工程文件保留。测试没有启动产品、覆盖正式安装或创建用户快捷方式；这是静默安装链路验证，不等同于安装向导逐页操作或目标电脑上的完整 GUI 验收。`WindowsPackagingTests` **7/7** 定向通过（便携发布契约、中文安装/安全卸载契约、编译器来源/哈希校验、含空格路径预览、非法 RID、缺失指定编译器），CMD 入口 `-WhatIf` 通过；未执行全量测试，不替代下文历史全量基线。
+
+最终重建的 Setup 约 **260.4 MiB**，SHA-256 核对通过；与上述安装烟测载荷相比，仅补充了 `README.txt` 中对随包文件的卸载/覆盖说明，全部二进制及镜头资源哈希保持一致。隔离测试安装已正常卸载，临时安装目录内仅保留测试自建工程。
+
+同日早先便携版验证：约 258 MiB，PE 头确认 x64 / Windows GUI，`runtimeconfig.json` 声明随包携带 .NET 10.0.8，931 个镜头库文件逐一哈希核对与源资源一致。这是早先的便携输出验证记录，不是当前默认入口的产物类型。
+
+### 跨平台发布
+
 一次发布主要平台：
 
 ```bash
@@ -96,7 +142,11 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 
 ## 当前验证基线
 
-截至 2026-09-03：
+2026-09-05 正式解决方案默认 Debug 输出构建 `0` 警告、`0` 错误，正式主测试 `1214/1214` 通过，零失败、零跳过；独立实验室 `24/24`、Python 对比工具 `28/28` 通过。依赖按锁文件使用本地缓存还原，本轮未完成在线漏洞审计。详见 [项目修复与验证](PROJECT_REPAIR_2026-09-05.md)。
+
+## 历史验证记录
+
+以下保留各日期当时的定向和全量结果，不作为当前数量：
 
 - 2026-08-28变更前历史基线为正式产品严格构建 `0` 警告、`0` 错误、全量回归 `837/837`；该数量已经由下文 2026-09-03 的 `1015/1015` 完整基线取代，不作为当前结果；
 - 2026-08-29可靠性加固前，相关桌面可访问性、分析 GUI、镜头编辑器和 Dock 契约子集记录为 `95/95`；本轮修改后未把该旧数量沿用为当前结果；
@@ -136,6 +186,14 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 
 - 2026-09-04 远端同步前复核：ZMX 切趾、实际 266 nm 扩束文件、缺失玻璃保留与底部提示、文档编辑/保存和相邻追迹路径的定向回归 `280/280` 通过；制图模板、架构约束、操作数行色及帮助的补充定向回归 `56/56` 通过。桌面默认输出目录构建 `0` 警告、`0` 错误；扩束布局预览随仓库保存至 `artifacts/validation/beam-expander-266nm-6x-layout.png`。这些结果不是全量测试或新的 Zemax 数值基线，具体修复边界见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
 
-完整发布前仍应重新运行锁定还原、解决方案构建和全量测试，不得把定向验证表述成新的全量基线。
+- 2026-09-05 镜头数据移除“添加 / 删除”工具栏，新增右键“下插入、上插入、删除”。默认 App 项目已重建为 `0` 警告、`0` 错误，旧进程不再占用默认输出；插入/删除与相邻结构回归 `21/21`，此前待跑的切趾、数值框、表面属性和文档标签界面回归 `19/19`，组合筛选 `40/40` 通过。独立 Skia 右键子集 `5/5` 再次通过，并复核菜单截图，重复用例不累加。未运行全量测试、打包或新的 Zemax 数值对标；不替代历史完整基线。界面截图测试不得与使用模拟字体的 Headless 测试混用渲染后端，应另起测试进程，避免 `HeadlessPlatformTypeface`/`SkiaTypeface` 混用错误。详细边界见 [镜头数据右键操作](UI_DESIGN_REVIEW.md#2026-09-05-镜头数据右键插入与删除)。
+
+- 2026-09-05 普通主题默认操作按钮改为淡蓝底，悬停/按下依次加深；其他主题及专用按钮样式保留。默认 App 构建 `0` 警告、`0` 错误，状态、交互、动态控件、主题隔离及相邻布局定向检查 `8/8` 通过；独立 Skia 真实鼠标用例 `1/1` 再次通过并核对三种状态截图。未运行全量测试或打包，不修改历史全量基线。详见 [操作按钮状态](UI_DESIGN_REVIEW.md#2026-09-05-普通主题操作按钮蓝色状态)。
+
+- 2026-09-05 半径求解入口改为单元格右侧标记区，支持固定、变量和前序面曲率拾取。默认 App Debug 构建 `0` 警告、`0` 错误；计算/服务、撤销保存、插入、界面和优化组合定向检查 **43/43** 通过，0 跳过。独立 Skia 界面复跑 **3/3** 通过，并复核变量/拾取截图；重复用例不累加。本轮没有运行全量测试、发布或打包，不更新历史全量数量，也不构成新的 Zemax 实机数值对标。详细边界见[曲率半径求解入口](RADIUS_SOLVE_EDITOR.md)。
+
+2026-09-05 审计修复后已补跑上述完整验证；安装包构建和 Windows 安装/卸载实测不包含在本次数值与源码回归中。
+
+- 2026-09-05 表面属性标题简化为“展开/收起 + 表面 N 属性 + 上一面/下一面”圆形按钮横条。默认 App Debug 构建 `0` 警告、`0` 错误；属性布局/导航、半径求解和右键行操作定向组合 **14/14** 通过，0 跳过，独立 Skia 属性面板 **6/6** 重复验证通过并复核紧凑横条截图。没有运行全量测试或打包，不更新历史全量数量；[属性面板文档](SURFACE_PROPERTIES_EDITOR.md) 记录功能与验证边界。
 
 Python 基准夹具只在有意更新固定的 `optiland==0.5.8` 契约时重新生成；生成后必须审核差异并运行全量测试。

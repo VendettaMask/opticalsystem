@@ -143,15 +143,7 @@ public partial class WorkbenchRuntime
     {
         "均匀（Zemax）",
         "高斯（Zemax）",
-        "余弦立方（Zemax）",
-        "无",
-        "均匀",
-        "高斯",
-        "余弦平方",
-        "Hann",
-        "多项式",
-        "超高斯",
-        "Tukey"
+        "余弦立方（Zemax）"
     };
 
     public IReadOnlyList<string> GeometryKinds { get; } = new[]

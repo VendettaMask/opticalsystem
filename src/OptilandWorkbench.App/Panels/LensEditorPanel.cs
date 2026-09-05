@@ -12,7 +12,7 @@ using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
+public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private const string NumericColumnTag = "numeric";
 
@@ -55,110 +55,14 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         _infiniteThinLensFocalLength.IsCheckedChanged += (_, _) =>
             _thinLensFocalLength.IsEnabled = _infiniteThinLensFocalLength.IsChecked != true;
 
-        var addButton = CommandButton("plus", "添加", 74);
-        addButton.Click += (_, _) => _prescription.AddSurface();
-        var removeButton = CommandButton("trash-2", "删除", 74);
-        removeButton.Click += (_, _) =>
-        {
-            if (_grid.SelectedItem is SurfaceEditorRow row)
-            {
-                _prescription.RemoveSurface(row.Number);
-            }
-        };
-        _applyComponentsButton = CommandButton("check", "应用组件", 112);
+        ConfigureSurfaceContextMenu();
+        _applyComponentsButton = CommandButton("check", "应用", 72);
         _applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
-        var toolbar = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 6,
-            VerticalAlignment = VerticalAlignment.Center,
-            Children = { addButton, removeButton }
-        };
-        var componentEditor = new WrapPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Margin = new Avalonia.Thickness(8),
-            Children =
-            {
-                Label("几何"), _geometryPicker,
-                Label("物理孔径"), _aperturePicker,
-                Label("级次"), _gratingOrder,
-                Label("周期 (μm)"), _gratingPeriod, _infiniteGratingPeriod,
-                Label("槽角 (°)"), _gratingAngle,
-                Label("焦距 (mm)"), _thinLensFocalLength, _infiniteThinLensFocalLength,
-                _applyComponentsButton,
-                _componentSummary
-            }
-        };
-        var commandBar = new Border
-        {
-            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
-            Padding = new Avalonia.Thickness(10, 5),
-            Child = toolbar
-        };
-        var componentToggleIcon = new LocalIcon
-        {
-            IconName = "chevron-down",
-            Width = 16,
-            Height = 16,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        componentToggleIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.MutedText);
-        var componentToggleContent = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
-            Children =
-            {
-                new TextBlock
-                {
-                    Text = "表面属性与组件",
-                    FontWeight = FontWeight.SemiBold,
-                    VerticalAlignment = VerticalAlignment.Center
-                },
-                componentToggleIcon
-            }
-        };
-        Grid.SetColumn(componentToggleIcon, 1);
-        var componentToggle = new Button
-        {
-            Width = 240,
-            Height = 34,
-            MinHeight = 34,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            Padding = new Avalonia.Thickness(12, 0),
-            BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
-            Content = componentToggleContent
-        };
-        var componentEditorBorder = new Border
-        {
-            IsVisible = false,
-            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
-            Child = componentEditor
-        };
-        componentToggle.Click += (_, _) =>
-        {
-            componentEditorBorder.IsVisible = !componentEditorBorder.IsVisible;
-            componentToggleIcon.IconName = componentEditorBorder.IsVisible
-                ? "chevron-up"
-                : "chevron-down";
-        };
-        var componentSection = new StackPanel
-        {
-            Children = { componentToggle, componentEditorBorder }
-        };
-        commandBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        commandBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        componentToggle.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
-        componentToggle.BindThemeResource(Button.BorderBrushProperty, ThemeResourceBindings.Border);
-        componentEditorBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
-        componentEditorBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        var componentSection = BuildSurfacePropertiesSection();
         var root = new DockPanel();
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
-        DockPanel.SetDock(commandBar, Avalonia.Controls.Dock.Top);
         DockPanel.SetDock(componentSection, Avalonia.Controls.Dock.Top);
-        root.Children.Add(commandBar);
         root.Children.Add(componentSection);
         root.Children.Add(_grid);
         Content = root;
@@ -176,6 +80,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         }
 
         _disposed = true;
+        ClearSurfaceContext();
+        CloseRadiusSolve();
         _events.Changed -= OnWorkspaceChanged;
     }
 
@@ -185,6 +91,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
     {
         var grid = new DataGrid
         {
+            Name = "LensSurfaceGrid",
             AutoGenerateColumns = false,
             CanUserReorderColumns = true,
             CanUserResizeColumns = true,
@@ -221,9 +128,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(RadiusColumn());
-        grid.Columns.Add(OptimizationVariableColumn("R 变量", radius: true));
         grid.Columns.Add(ThicknessColumn());
-        grid.Columns.Add(OptimizationVariableColumn("T 变量", radius: false));
+        grid.Columns.Add(ThicknessVariableColumn());
         grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
@@ -265,6 +171,12 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             return;
         }
 
+        if (_surfaceContextRevision != _events.Revision)
+        {
+            ClearSurfaceContext();
+        }
+        if (_radiusSolveRevision != _events.Revision) CloseRadiusSolve();
+
         var selectedNumber = preserveSelection
             ? (_grid.SelectedItem as SurfaceEditorRow)?.Number
             : null;
@@ -282,15 +194,23 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
 
     private void LoadComponentSelection()
     {
+        UpdateSurfacePropertiesHeader();
         if (_grid.SelectedItem is not SurfaceEditorRow row)
         {
             _componentSummary.Text = "未选择表面";
+            _propertyBody.IsEnabled = false;
+            _applyComponentsButton.IsEnabled = false;
             _surfaceSelection.Select(null);
             return;
         }
 
         _surfaceSelection.Select(row.Number);
+        _propertyBody.IsEnabled = true;
 
+        var geometryKinds = _prescription.GetOptions().GeometryKinds;
+        _geometryPicker.ItemsSource = geometryKinds.Contains(row.GeometryKind)
+            ? geometryKinds
+            : geometryKinds.Append(row.GeometryKind).ToArray();
         _geometryPicker.SelectedItem = row.GeometryKind;
         _aperturePicker.SelectedItem = row.ApertureKind;
         _gratingOrder.Value = row.GratingOrder;
@@ -318,6 +238,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         _thinLensFocalLength.IsEnabled = canEditComponents && _infiniteThinLensFocalLength.IsChecked != true;
         _infiniteThinLensFocalLength.IsEnabled = canEditComponents;
         _applyComponentsButton.IsEnabled = canEditComponents;
+        LoadSurfaceProperties(row);
         if (!canEditComponents)
         {
             _componentSummary.Text += "（只读：暂不支持计算/编辑该 Zemax 面型）";
@@ -337,7 +258,9 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             return;
         }
 
-        _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
+        try
+        {
+            _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
             _geometryPicker.SelectedItem as string ?? row.GeometryKind,
             _aperturePicker.SelectedItem as string ?? row.ApertureKind,
             (int)(_gratingOrder.Value ?? row.GratingOrder),
@@ -347,7 +270,16 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             (double)(_gratingAngle.Value ?? 0),
             _infiniteThinLensFocalLength.IsChecked == true
                 ? Math.CopySign(double.PositiveInfinity, (double)(_thinLensFocalLength.Value ?? 1))
-                : (double)(_thinLensFocalLength.Value ?? 50)));
+                : (double)(_thinLensFocalLength.Value ?? 50),
+            _stopSurface.IsChecked == true,
+            _surfaceCoating.Text,
+            _fixedSemiDiameter.IsChecked == true,
+            (double)(_surfaceSemiDiameter.Value ?? (decimal)row.SemiDiameter)));
+        }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
+        {
+            _componentSummary.Text = $"未应用：{exception.Message}";
+        }
     }
 
     private static DataGridTextColumn Column(string header, string property, double width, bool readOnly = false) => new()
@@ -384,19 +316,8 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
     {
         Header = NumericHeader("曲率半径"),
         Tag = NumericColumnTag,
-        Width = new DataGridLength(112),
-        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateNumericEditor(
-            row?.RadiusDisplay ?? string.Empty,
-            text =>
-            {
-                if (row is null)
-                {
-                    return;
-                }
-
-                row.RadiusDisplay = text;
-                _prescription.UpdateSurface(row.ToDto());
-            }))
+        Width = new DataGridLength(136),
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateRadiusCell(row))
     };
 
     private DataGridTemplateColumn ThicknessColumn() => new()
@@ -498,7 +419,14 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
             HorizontalAlignment = HorizontalAlignment.Stretch,
             TextAlignment = TextAlignment.Right
         };
-        editor.LostFocus += (_, _) => commit(editor.Text ?? string.Empty);
+        var committedText = value;
+        editor.LostFocus += (_, _) =>
+        {
+            var text = editor.Text ?? string.Empty;
+            if (text == committedText) return;
+            commit(text);
+            committedText = text;
+        };
         return editor;
     }
 
@@ -539,9 +467,9 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
         }, supportsRecycling: true)
     };
 
-    private DataGridTemplateColumn OptimizationVariableColumn(string header, bool radius) => new()
+    private DataGridTemplateColumn ThicknessVariableColumn() => new()
     {
-        Header = header,
+        Header = "T 变量",
         IsReadOnly = true,
         Width = new DataGridLength(68),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
@@ -551,7 +479,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 IsEnabled = row?.CanOptimize == true,
-                IsChecked = radius ? row?.RadiusVariable : row?.ThicknessVariable
+                IsChecked = row?.ThicknessVariable
             };
             checkBox.IsCheckedChanged += (_, _) =>
             {
@@ -560,15 +488,7 @@ public sealed class LensEditorPanel : UserControl, IDisposable, IDisplaySettings
                     return;
                 }
 
-                if (radius)
-                {
-                    row.RadiusVariable = checkBox.IsChecked == true;
-                }
-                else
-                {
-                    row.ThicknessVariable = checkBox.IsChecked == true;
-                }
-
+                row.ThicknessVariable = checkBox.IsChecked == true;
                 _prescription.UpdateSurface(row.ToDto());
             };
             return checkBox;

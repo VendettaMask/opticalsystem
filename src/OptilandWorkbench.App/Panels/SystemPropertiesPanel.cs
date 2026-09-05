@@ -86,6 +86,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _prescription = prescription;
         _materials = materials;
         _events = events;
+        SettingsPanelChrome.ApplyInputStyles(this);
         _systemUpdateTimer.Tick += OnSystemUpdateTimerTick;
         _environmentUpdateTimer.Tick += OnEnvironmentUpdateTimerTick;
         ConfigurePickers();
@@ -99,7 +100,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
 
         var sections = new StackPanel
         {
-            Spacing = 1,
+            Margin = new Avalonia.Thickness(8),
+            Spacing = 8,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
@@ -174,10 +176,22 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _objectSpaceTelecentric.IsCheckedChanged += (_, _) => ScheduleSystemUpdate();
         _imageSpaceAfocal.IsCheckedChanged += (_, _) => ScheduleSystemUpdate();
         _apodizationPicker.ItemsSource = options.ApodizationKinds;
+        // Display the three Zemax names without conflating their persisted keys with legacy models.
+        _apodizationPicker.ItemTemplate = new FuncDataTemplate<string>((kind, _) => new TextBlock
+        {
+            Text = kind switch
+            {
+                "均匀（Zemax）" => "均匀",
+                "高斯（Zemax）" => "高斯",
+                "余弦立方（Zemax）" => "余弦立方",
+                _ => kind
+            }
+        });
         _apodizationPicker.SelectionChanged += (_, _) =>
         {
             if (!_refreshing)
             {
+                ToolTip.SetTip(_apodizationPicker, null);
                 ConfigureApodizationParameters(_apodizationPicker.SelectedItem as string, useDefaults: true);
             }
 
@@ -538,15 +552,29 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var header = new Button
         {
             Height = 35,
-            Margin = new Avalonia.Thickness(6, 3),
             Padding = new Avalonia.Thickness(10, 0),
             BorderBrush = Brushes.Transparent,
-            BorderThickness = new Avalonia.Thickness(1),
+            BorderThickness = new Avalonia.Thickness(0),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = headerContent
         };
+        header.Bind(Button.CornerRadiusProperty, new DynamicResourceExtension(
+            ThemeChromeResources.CornerRadius(ThemeChromeRole.SurfaceCard)));
         header.Classes.Add("system-property-card-header");
+        var section = new Border
+        {
+            ClipToBounds = true,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Child = new StackPanel
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Children = { header, contentHost }
+            }
+        };
+        section.Classes.Add("system-property-card");
+        ThemeChrome.Apply(section, ThemeChromeRole.SurfaceCard, shadow: false, borderBrush: false);
+        section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
 
         var isExpanded = expanded;
         var isHovered = false;
@@ -554,6 +582,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         void UpdateVisuals()
         {
             var emphasized = isExpanded || isHovered;
+            section.Classes.Set("theme-emphasized", emphasized);
             header.Classes.Set("theme-emphasized", emphasized);
             arrow.Classes.Set("theme-emphasized", emphasized);
             titleText.Classes.Set("theme-emphasized", emphasized);
@@ -583,19 +612,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             isExpanded = !isExpanded;
             SetExpanded(isExpanded);
         };
-
-        var section = new Border
-        {
-            BorderThickness = new Avalonia.Thickness(0, 0, 0, 1),
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            Child = new StackPanel
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Children = { header, contentHost }
-            }
-        };
-        section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        section.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return section;
     }
 
@@ -951,10 +967,16 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var value = _apertureValue.Value.HasValue
             ? decimal.ToDouble(_apertureValue.Value.Value)
             : current.ApertureValue;
-        var apodizationKind = _apodizationPicker.SelectedItem as string ?? "无";
+        var selectedApodization = _apodizationPicker.SelectedItem as string;
+        // A legacy model is not a selectable option. Keep it intact when another system setting changes.
+        var apodizationKind = selectedApodization ?? current.ApodizationKind;
         var fieldDefinition = _fieldDefinitionPicker.SelectedItem as string ?? "角度";
-        var firstApodizationParameter = DecimalValue(_firstApodizationParameter, 1);
-        var secondApodizationParameter = DecimalValue(_secondApodizationParameter, 1);
+        var firstApodizationParameter = selectedApodization is null
+            ? current.FirstApodizationParameter
+            : DecimalValue(_firstApodizationParameter, current.FirstApodizationParameter);
+        var secondApodizationParameter = selectedApodization is null
+            ? current.SecondApodizationParameter
+            : DecimalValue(_secondApodizationParameter, current.SecondApodizationParameter);
 
         ApplyLocalChange(() => _prescription.UpdateSystemSettings(new SystemSettingsDto(
             backendName,
@@ -1039,8 +1061,14 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
 
     private void SetApodizationControls(string kind, double first, double second)
     {
-        _apodizationPicker.SelectedItem = kind;
-        ConfigureApodizationParameters(kind, useDefaults: false);
+        var selectable = _apodizationPicker.Items.Contains(kind);
+        _apodizationPicker.SelectedItem = selectable ? kind : null;
+        var uniform = kind is "无" or "均匀";
+        _apodizationPicker.PlaceholderText = uniform ? "均匀" : "旧版设置（保留）";
+        ToolTip.SetTip(_apodizationPicker, selectable || uniform
+            ? null
+            : $"旧工程切趾：{kind}。保留现有设置；选择新类型后才替换。");
+        ConfigureApodizationParameters(selectable ? kind : null, useDefaults: false);
         _firstApodizationParameter.Value = (decimal)first;
         _secondApodizationParameter.Value = (decimal)second;
     }
@@ -1052,12 +1080,6 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             "均匀（Zemax）" => ("因子", string.Empty, 0.0, 1.0),
             "高斯（Zemax）" => ("因子", string.Empty, 1.0, 1.0),
             "余弦立方（Zemax）" => ("因子", string.Empty, 0.0, 1.0),
-            "高斯" => ("σ", string.Empty, 1.0, 1.0),
-            "余弦平方" => ("R", string.Empty, 1.0, 1.0),
-            "Hann" => ("D", string.Empty, 2.0, 1.0),
-            "多项式" => ("R", "p", 1.0, 1.0),
-            "超高斯" => ("w", "n", 1.0, 2.0),
-            "Tukey" => ("R", "α", 1.0, 0.5),
             _ => (string.Empty, string.Empty, 1.0, 1.0)
         };
         var firstVisible = configuration.Item1.Length > 0;

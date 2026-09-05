@@ -9,7 +9,7 @@ public sealed class InitialStructureSearchService
 {
     private static readonly AlgorithmIdentity Algorithm = new(
         "flat-to-usable-hybrid",
-        "2",
+        "3",
         "Managed CPU",
         true);
 

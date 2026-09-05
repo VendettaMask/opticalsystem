@@ -30,7 +30,7 @@ public sealed class MmdftPsfAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var field = SpotAnalysisEngine.DefinedFields(Optic).LastOrDefault();
@@ -100,7 +100,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         var allWavelengths = Optic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var wavelengths = _wavelengthNumber switch
@@ -329,7 +329,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var allFields = _fields ?? SpotAnalysisEngine.DefinedFields(Optic);
@@ -339,7 +339,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
         if (fields.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No fields" });
+            return AnalysisData.Unavailable(Name, "No fields");
         }
 
         var sharedPixelPitchMillimeters = _pixelPitchMillimeters > 0

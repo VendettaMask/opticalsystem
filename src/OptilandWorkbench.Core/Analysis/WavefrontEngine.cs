@@ -57,7 +57,8 @@ public static class WavefrontEngine
         bool cellCentered = false,
         bool aimAtStop = false,
         double pupilGridStretch = 1,
-        bool zemaxCentered = false)
+        bool zemaxCentered = false,
+        Wavelength? referenceWavelength = null)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
         var pupilSamples = new List<PupilSample>();
@@ -82,7 +83,8 @@ public static class WavefrontEngine
             }
         }
 
-        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop);
+        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
+            referenceWavelength: referenceWavelength);
     }
 
     private static double PupilGridCoordinate(
@@ -112,7 +114,8 @@ public static class WavefrontEngine
         bool aimAtStop = true,
         (double X, double Y)? resolvedRealImageLaunch = null,
         WavefrontReferenceSphere? referenceSphere = null,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        Wavelength? referenceWavelength = null)
     {
         return GenerateChiefRay(
             optic,
@@ -122,7 +125,8 @@ public static class WavefrontEngine
             aimAtStop,
             resolvedRealImageLaunch,
             referenceSphere,
-            usePolarization);
+            usePolarization,
+            referenceWavelength);
     }
 
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
@@ -175,7 +179,8 @@ public static class WavefrontEngine
         bool aimAtStop,
         (double X, double Y)? resolvedRealImageLaunch = null,
         WavefrontReferenceSphere? referenceSphere = null,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        Wavelength? referenceWavelength = null)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -197,6 +202,11 @@ public static class WavefrontEngine
 
         var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
+        var referenceChief = referenceWavelength is null || referenceWavelength.Nanometers == wavelength.Nanometers
+            ? chief
+            : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch)).Single()
+                ?? throw new InvalidOperationException("Reference chief ray did not reach the image surface.");
         if (optic.ImageSpaceAfocal)
         {
             return GenerateAfocalChiefRay(
@@ -208,7 +218,8 @@ public static class WavefrontEngine
                 resolvedRealImageLaunch,
                 usePolarization,
                 chief,
-                imageIndex);
+                imageIndex,
+                referenceChief);
         }
 
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
@@ -218,6 +229,15 @@ public static class WavefrontEngine
             aimAtStop,
             resolvedRealImageLaunch,
             usePolarization);
+        if (referenceSphere is null && referenceWavelength is not null)
+        {
+            sphere = sphere with
+            {
+                CenterX = referenceChief.Position.X,
+                CenterY = referenceChief.Position.Y,
+                CenterZ = referenceChief.Position.Z
+            };
+        }
         var radius = sphere.Radius;
         var chiefImagePath = ImageToReferenceSphere(
             chief,
@@ -303,10 +323,12 @@ public static class WavefrontEngine
         (double X, double Y)? resolvedRealImageLaunch,
         bool usePolarization,
         RayTraceSample chief,
-        double imageIndex)
+        double imageIndex,
+        RayTraceSample referenceChief)
     {
-        var chiefDirection = Normalize(chief.Direction);
-        var referenceOpticalPath = chief.CumulativeOpticalPathLength;
+        var chiefDirection = Normalize(referenceChief.Direction);
+        var referenceOpticalPath = chief.CumulativeOpticalPathLength
+            - ImageToReferencePlane(chief, referenceChief.Position, chiefDirection, imageIndex);
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
             field.Hy,
@@ -337,7 +359,7 @@ public static class WavefrontEngine
 
             var imagePath = ImageToReferencePlane(
                 ray,
-                chief.Position,
+                referenceChief.Position,
                 chiefDirection,
                 imageIndex);
             var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);

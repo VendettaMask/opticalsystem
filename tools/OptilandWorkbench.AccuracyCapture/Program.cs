@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core.FileIO;
+using OptilandWorkbench.Core.Analysis;
 
 if (args.Length is < 3 or > 5)
 {
@@ -35,6 +36,13 @@ var jsonOptions = new JsonSerializerOptions
 jsonOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
 
 var sourceBytes = await File.ReadAllBytesAsync(sourcePath);
+var sourceHash = Convert.ToHexString(SHA256.HashData(sourceBytes)).ToLowerInvariant();
+var codeFingerprint = string.Join(":", new[] { typeof(WorkbenchRuntime).Assembly, typeof(OptilandWorkbench.Core.Optic).Assembly }
+    .Select(assembly => Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(assembly.Location))).ToLowerInvariant()));
+var previousManifestPath = Path.Combine(outputDirectory, "current-manifest.json");
+var previous = File.Exists(previousManifestPath)
+    ? JsonSerializer.Deserialize<CurrentManifest>(await File.ReadAllTextAsync(previousManifestPath), jsonOptions)
+    : null;
 var optic = await new ZemaxZmxImporter().ImportFileAsync(sourcePath);
 var workspace = new WorkbenchRuntime(optic);
 var settingsManifest = JsonSerializer.Deserialize<SettingsManifest>(
@@ -48,6 +56,7 @@ var settingsByName = settingsManifest.Analyses.ToDictionary(
 
 var started = DateTimeOffset.UtcNow;
 var runs = new List<AnalysisRun>();
+var analysisCount = workspace.AnalysisNames.Count;
 foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, index) => (name, index)))
 {
     var index = zeroBasedIndex + 1;
@@ -57,7 +66,11 @@ foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, ind
     var slug = Slug(name);
     var relativeOutput = $"current/{index:D3}-{slug}.json";
     var outputPath = Path.Combine(outputDirectory, relativeOutput.Replace('/', Path.DirectorySeparatorChar));
-    if ((index < startIndex || index > endIndex) && File.Exists(outputPath))
+    var prior = previous?.Analyses.FirstOrDefault(run => run.Name == name && run.Output == relativeOutput);
+    if ((index < startIndex || index > endIndex) && File.Exists(outputPath)
+        && previous?.SourceSha256 == sourceHash && previous.CodeFingerprint == codeFingerprint
+        && prior is not null && prior.Settings.Count == settings.Count
+        && settings.All(pair => prior.Settings.TryGetValue(pair.Key, out var value) && value == pair.Value))
     {
         var existing = JsonSerializer.Deserialize<AnalysisView>(
             await File.ReadAllTextAsync(outputPath),
@@ -68,15 +81,17 @@ foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, ind
         runs.Add(new AnalysisRun(
             index,
             name,
-            "captured",
-            0,
+            CaptureStatus(existing),
+            prior.ElapsedMilliseconds,
             settings,
             existingSeries.Length,
             existing.PlotPanes.Count,
             existingSeries.Sum(item => item.Points.Count),
             relativeOutput,
-            null));
-        Console.WriteLine($"{index:D3}/069 {name}: reused");
+            null,
+            existing.OutcomeReason,
+            Reused: true));
+        Console.WriteLine($"{index:D3}/{analysisCount:D3} {name}: reused ({CaptureStatus(existing)})");
         continue;
     }
 
@@ -92,16 +107,17 @@ foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, ind
         runs.Add(new AnalysisRun(
             index,
             name,
-            "captured",
+            CaptureStatus(view),
             stopwatch.ElapsedMilliseconds,
             settings,
             series.Length,
             view.PlotPanes.Count,
             series.Sum(item => item.Points.Count),
             relativeOutput,
-            null));
+            null,
+            view.OutcomeReason));
         Console.WriteLine(
-            $"{index:D3}/069 {name}: captured, {series.Length} series, " +
+            $"{index:D3}/{analysisCount:D3} {name}: {CaptureStatus(view)}, {series.Length} series, " +
             $"{series.Sum(item => item.Points.Count)} points, {stopwatch.Elapsed.TotalSeconds:F2}s");
     }
     catch (Exception exception)
@@ -118,27 +134,37 @@ foreach (var (name, zeroBasedIndex) in workspace.AnalysisNames.Select((name, ind
             0,
             null,
             exception.ToString()));
-        Console.WriteLine($"{index:D3}/069 {name}: FAILED, {stopwatch.Elapsed.TotalSeconds:F2}s");
+        Console.WriteLine($"{index:D3}/{analysisCount:D3} {name}: FAILED, {stopwatch.Elapsed.TotalSeconds:F2}s");
     }
 }
 
 var manifest = new CurrentManifest(
     DateTimeOffset.UtcNow,
     sourcePath,
-    Convert.ToHexString(SHA256.HashData(sourceBytes)).ToLowerInvariant(),
+    sourceHash,
     optic.SurfaceGroup.Items.Count,
     optic.Fields.Count,
     optic.Wavelengths.Count,
     runs,
     started,
-    DateTimeOffset.UtcNow);
+    DateTimeOffset.UtcNow,
+    codeFingerprint);
 await File.WriteAllTextAsync(
     Path.Combine(outputDirectory, "current-manifest.json"),
     JsonSerializer.Serialize(manifest, jsonOptions));
 
-var failed = runs.Count(run => run.Status != "captured");
-Console.WriteLine($"Completed {runs.Count - failed}/{runs.Count}; failed={failed}");
+var failed = runs.Count(run => run.Status == "failed");
+Console.WriteLine($"Completed {runs.Count}; numerical={runs.Count(run => run.Status == "captured")}; " +
+    $"unavailable={runs.Count(run => run.Status == "unavailable")}; not-applicable={runs.Count(run => run.Status == "not-applicable")}; failed={failed}");
 return failed == 0 ? 0 : 1;
+
+static string CaptureStatus(AnalysisView view) => view.Outcome switch
+{
+    AnalysisOutcome.Success => "captured",
+    AnalysisOutcome.Unavailable => "unavailable",
+    AnalysisOutcome.NotApplicable => "not-applicable",
+    _ => throw new ArgumentOutOfRangeException(nameof(view))
+};
 
 static string Slug(string value)
 {
@@ -165,7 +191,9 @@ internal sealed record AnalysisRun(
     int PaneCount,
     int PointCount,
     string? Output,
-    string? Error);
+    string? Error,
+    string? OutcomeReason = null,
+    bool Reused = false);
 
 internal sealed record CurrentManifest(
     DateTimeOffset CreatedUtc,
@@ -176,4 +204,5 @@ internal sealed record CurrentManifest(
     int WavelengthCount,
     IReadOnlyList<AnalysisRun> Analyses,
     DateTimeOffset StartedUtc,
-    DateTimeOffset CompletedUtc);
+    DateTimeOffset CompletedUtc,
+    string CodeFingerprint = "");

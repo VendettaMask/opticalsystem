@@ -84,10 +84,7 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
         var wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object>
-            {
-                ["Status"] = "No wavelengths"
-            });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         const string coordinateModel = "f-tan";

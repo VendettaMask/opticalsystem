@@ -28,7 +28,8 @@ public static class JonesPupilEngine
         Wavelength wavelength,
         int gridSize = 65,
         bool useFresnelCoatings = true,
-        bool cellCentered = false)
+        bool cellCentered = false,
+        bool aimAtStop = false)
     {
         gridSize = Math.Max(3, gridSize);
         var samples = new List<JonesPupilSample>(gridSize * gridSize);
@@ -55,7 +56,7 @@ public static class JonesPupilEngine
                     px,
                     py,
                     useFresnelCoatings,
-                    aimAtStop: cellCentered));
+                    aimAtStop: cellCentered || aimAtStop));
             }
         }
 

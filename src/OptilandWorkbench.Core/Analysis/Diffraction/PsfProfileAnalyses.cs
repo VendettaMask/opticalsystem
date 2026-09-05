@@ -458,6 +458,8 @@ internal static class PsfProfilePresentation
             name,
             source.Values.Count > 0
                 ? source.Values
-                : new Dictionary<string, object> { ["Status"] = "No PSF data" });
+                : new Dictionary<string, object> { ["Status"] = "No PSF data" },
+            Outcome: source.Outcome == AnalysisOutcome.Success ? AnalysisOutcome.Unavailable : source.Outcome,
+            OutcomeReason: source.OutcomeReason ?? "No PSF data");
     }
 }

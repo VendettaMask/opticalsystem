@@ -141,6 +141,7 @@ public static partial class WorkbenchAnalysisCatalog
             ["Seidel Diagram"] = AnalysisPresentationKind.SeidelDiagram,
             ["Full Field Aberration"] = AnalysisPresentationKind.FullFieldAberration,
             ["Wavefront Map"] = AnalysisPresentationKind.WavefrontMap,
+            ["Interferogram"] = AnalysisPresentationKind.Interferogram,
             ["PSF"] = AnalysisPresentationKind.FftPsf,
             ["Huygens PSF"] = AnalysisPresentationKind.HuygensPsf,
             ["Foucault Analysis"] = AnalysisPresentationKind.Foucault,
@@ -157,7 +158,10 @@ public static partial class WorkbenchAnalysisCatalog
             ["Lateral Color"] = AnalysisPresentationKind.LateralColor,
             ["Color Focus Shift"] = AnalysisPresentationKind.ColorFocusShift,
             ["Field Curvature and Distortion"] = AnalysisPresentationKind.FieldCurvatureAndDistortion,
-            ["Field Curvature"] = AnalysisPresentationKind.FieldCurvature
+            ["Field Curvature"] = AnalysisPresentationKind.FieldCurvature,
+            ["Angle vs Image Height"] = AnalysisPresentationKind.AngleVsImageHeight,
+            ["Angle vs Image Height - Through Pupil"] = AnalysisPresentationKind.AngleVsImageHeight,
+            ["Angle vs Image Height - Through Field"] = AnalysisPresentationKind.AngleVsImageHeight
         };
 
     private static readonly IReadOnlyDictionary<string, WorkbenchAnalysisDescriptor> DescriptorsByKey;

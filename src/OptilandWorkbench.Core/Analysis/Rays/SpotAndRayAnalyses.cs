@@ -117,7 +117,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
                 series.Add(AiryDiskSupport.CreateSeries(airyRadius, imageSpace));
             }
 
-            var fieldRays = field.Wavelengths.SelectMany(wavelength => wavelength.Rays).ToArray();
+            var fieldRays = field.WeightedRays.ToArray();
             var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(fieldRays) * imageSpace.MetricScale;
             var geometricRadiusDisplay = fieldRays
                 .Select(ray => Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)))
@@ -502,6 +502,7 @@ public sealed class RayFanAnalysis : BaseAnalysis
             field.Hy,
             wavelength.Micrometers,
             pupilSamples,
+            aimAtStop: optic.RayAimingEnabled,
             applyVignettingFactors: !vignettedPupil);
         var surfaceIndex = optic.SurfaceGroup.Items.IndexOf(targetSurface);
         using var trace = optic.SequentialRayTracer.Trace(

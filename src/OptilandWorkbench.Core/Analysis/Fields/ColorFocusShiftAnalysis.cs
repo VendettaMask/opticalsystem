@@ -24,7 +24,7 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
         var definedWavelengths = Optic.Wavelengths.ToArray();
         if (definedWavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var primary = definedWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)

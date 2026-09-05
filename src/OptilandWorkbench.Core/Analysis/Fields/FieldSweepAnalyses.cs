@@ -416,10 +416,7 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
         if (wavelength is null || Optic.Fields.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object>
-            {
-                ["Status"] = "No optical data"
-            });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var maximumField = FieldCoordinates.MaximumRadius(Optic.Fields);
@@ -530,10 +527,7 @@ public sealed class IncidentAngleVsImageHeightAnalysis : BaseAnalysis
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
         if (wavelength is null || Optic.SurfaceGroup.Items.Count == 0 || Optic.Fields.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object>
-            {
-                ["Status"] = "No optical data"
-            });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var surfaceIndex = _surfaceIndex < 0
@@ -696,7 +690,7 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null || Optic.SurfaceGroup.Items.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var surfaceIndex = _surfaceIndex < 0

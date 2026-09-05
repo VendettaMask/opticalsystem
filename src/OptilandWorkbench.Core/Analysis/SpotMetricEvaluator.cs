@@ -77,8 +77,7 @@ public static class SpotMetricEvaluator
         string analysisName)
     {
         var rays = result.Fields
-            .SelectMany(field => field.Wavelengths)
-            .SelectMany(wavelength => wavelength.Rays)
+            .SelectMany(field => field.WeightedRays)
             .ToArray();
         if (rays.Length == 0)
         {

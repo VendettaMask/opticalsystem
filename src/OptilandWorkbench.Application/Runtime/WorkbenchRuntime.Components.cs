@@ -44,6 +44,13 @@ public partial class WorkbenchRuntime
         if (_activeConfigurationIndex == 0)
         {
             _multiConfiguration.PropagateBaseProperty(surface.Number, property);
+            if (property == "radius")
+            {
+                foreach (var target in CurrentOptic.Pickups.RadiusPickups.Select(pickup => pickup.TargetSurface).Distinct())
+                    _multiConfiguration.PropagateBaseProperty(target, "radius");
+                foreach (var configuration in _multiConfiguration.Configurations)
+                    configuration.Pickups.ApplyAll();
+            }
             return;
         }
 

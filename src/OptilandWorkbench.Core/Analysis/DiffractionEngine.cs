@@ -90,11 +90,26 @@ public static class DiffractionEngine
 
         return new MtfResult(
             frequency,
-            tangential,
-            sagittal,
+            tangentialOtf?.Select(value => value.Magnitude).ToArray() ?? (IReadOnlyList<double>)tangential,
+            sagittalOtf?.Select(value => value.Magnitude).ToArray() ?? (IReadOnlyList<double>)sagittal,
             result.CutoffFrequency,
             tangentialOtf,
-            sagittalOtf);
+            sagittalOtf,
+            LimitAxis(result.TangentialFrequency),
+            LimitAxis(result.SagittalFrequency));
+
+        IReadOnlyList<double>? LimitAxis(IReadOnlyList<double>? axis)
+        {
+            if (axis is null) return null;
+            var limited = axis.Take(index).ToList();
+            if (frequency.Count > limited.Count && index > 0 && index < axis.Count)
+            {
+                var fraction = (limit - result.Frequency[index - 1])
+                    / (result.Frequency[index] - result.Frequency[index - 1]);
+                limited.Add(axis[index - 1] + (axis[index] - axis[index - 1]) * fraction);
+            }
+            return limited;
+        }
     }
 
     public static PsfResult ComputeFftPsf(
@@ -109,10 +124,33 @@ public static class DiffractionEngine
         WavefrontResult? preparedWavefront = null,
         JonesPupilResult? preparedPolarization = null,
         bool zemaxFftSampling = false,
-        bool ignoreOpd = false)
+        bool ignoreOpd = false,
+        bool aimAtStop = false,
+        Wavelength? referenceWavelength = null)
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
+        var pupilAimAtStop = cellCenteredPupil || aimAtStop;
+        if (!TryWorkingFNumbers(optic, field, wavelength, aimAtStop, false, out var workingAxes))
+        {
+            // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
+            // Retry the entire pupil convention, not just the F-number used to scale its FFT.
+            if (aimAtStop)
+            {
+                throw new InvalidOperationException("Working-F-number ray did not reach the image surface after stop aiming.");
+            }
+
+            if (!pupilAimAtStop && (preparedWavefront is not null || preparedPolarization is not null))
+            {
+                throw new InvalidOperationException(
+                    "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
+            }
+
+            workingAxes = WorkingFNumbers(optic, field, wavelength, aimAtStop: true);
+            pupilAimAtStop = true;
+        }
+
+        var fNumber = CombineWorkingFNumbers(workingAxes);
         var pupilGridStretch = zemaxFftSampling
             ? Math.Sqrt(pupilSampling / 32.0)
             : 1;
@@ -122,8 +160,9 @@ public static class DiffractionEngine
             wavelength,
             pupilSampling,
             cellCenteredPupil,
-            aimAtStop: cellCenteredPupil,
-            pupilGridStretch: pupilGridStretch);
+            aimAtStop: pupilAimAtStop,
+            pupilGridStretch: pupilGridStretch,
+            referenceWavelength: referenceWavelength);
         var polarization = usePolarization
             ? preparedPolarization ?? JonesPupilEngine.Generate(
                     optic,
@@ -131,9 +170,9 @@ public static class DiffractionEngine
                     wavelength,
                     pupilSampling,
                     useFresnelCoatings: true,
-                    cellCentered: cellCenteredPupil)
+                    cellCentered: cellCenteredPupil,
+                    aimAtStop: pupilAimAtStop)
             : null;
-        var fNumber = WorkingFNumber(optic, field, wavelength);
         var (tangentialFNumber, sagittalFNumber) = cellCenteredPupil
             ? WorkingFNumbers(
                 optic,
@@ -211,7 +250,8 @@ public static class DiffractionEngine
         double defocusMillimeters,
         bool usePolarization,
         WavefrontResult preparedWavefront,
-        JonesPupilResult? preparedPolarization = null)
+        JonesPupilResult? preparedPolarization = null,
+        Wavelength? referenceWavelength = null)
     {
         var (tangentialFNumber, sagittalFNumber) = WorkingFNumbers(
             optic,
@@ -259,7 +299,8 @@ public static class DiffractionEngine
                     defocusMillimeters,
                     tangentialFNumber,
                     sagittalFNumber,
-                    preparedWavefront),
+                    preparedWavefront,
+                    referenceWavelength),
                 SparsePupilAutocorrelation(
                     optic,
                     field,
@@ -270,7 +311,8 @@ public static class DiffractionEngine
                     defocusMillimeters,
                     tangentialFNumber,
                     sagittalFNumber,
-                    preparedWavefront));
+                    preparedWavefront,
+                    referenceWavelength));
         }
 
         return (
@@ -288,7 +330,8 @@ public static class DiffractionEngine
         double defocusMillimeters,
         double tangentialFNumber,
         double sagittalFNumber,
-        WavefrontResult normalizationWavefront)
+        WavefrontResult normalizationWavefront,
+        Wavelength? referenceWavelength)
     {
         if (Math.Abs(shiftX) >= 2 || Math.Abs(shiftY) >= 2)
         {
@@ -354,7 +397,8 @@ public static class DiffractionEngine
             field,
             wavelength,
             coordinates,
-            defocusMillimeters);
+            defocusMillimeters,
+            referenceWavelength);
         var normalizationSamples = normalizationWavefront.Samples
             .Where(sample => sample.Intensity > 0)
             .ToArray();
@@ -388,7 +432,8 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         IReadOnlyList<(double X, double Y)> coordinates,
-        double defocusMillimeters)
+        double defocusMillimeters,
+        Wavelength? referenceWavelength = null)
     {
         if (optic.ImageSpaceAfocal)
         {
@@ -397,7 +442,8 @@ public static class DiffractionEngine
                 field,
                 wavelength,
                 coordinates,
-                aimAtStop: true);
+                aimAtStop: true,
+                referenceWavelength: referenceWavelength);
             return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
         }
 
@@ -408,7 +454,8 @@ public static class DiffractionEngine
                 field,
                 wavelength,
                 coordinates,
-                aimAtStop: true);
+                aimAtStop: true,
+                referenceWavelength: referenceWavelength);
         }
 
         lock (optic)
@@ -421,7 +468,8 @@ public static class DiffractionEngine
                     field,
                     wavelength,
                     coordinates,
-                    aimAtStop: true);
+                    aimAtStop: true,
+                    referenceWavelength: referenceWavelength);
             }
 
             var previous = surfaces[^2];
@@ -458,7 +506,8 @@ public static class DiffractionEngine
                     wavelength,
                     coordinates,
                     aimAtStop: true,
-                    nominalRealImageLaunch);
+                    nominalRealImageLaunch,
+                    referenceWavelength: referenceWavelength);
             }
             finally
             {
@@ -580,7 +629,8 @@ public static class DiffractionEngine
                     wavelength,
                     coordinates,
                     aimAtStop: true,
-                    usePolarization: usePolarization);
+                    usePolarization: usePolarization,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
                 return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
             }).ToArray();
         }
@@ -759,17 +809,21 @@ public static class DiffractionEngine
         Wavelength wavelength)
     {
         var complex = new Complex[psf.GridSize, psf.GridSize];
+        var center = psf.GridSize / 2;
         for (var row = 0; row < psf.GridSize; row++)
         {
             for (var column = 0; column < psf.GridSize; column++)
             {
-                complex[row, column] = new Complex(psf.Values[row, column], 0);
+                // PSF arrays store the physical origin at N/2. Move it to the
+                // DFT origin before transforming so interpolation and spectral
+                // combination retain physical phase, not an alternating sign.
+                complex[(row - center + psf.GridSize) % psf.GridSize,
+                    (column - center + psf.GridSize) % psf.GridSize] = new Complex(psf.Values[row, column], 0);
             }
         }
 
         Fft2D(complex);
         var shifted = FftShift(complex);
-        var center = psf.GridSize / 2;
         var dc = shifted[center, center];
         var normalization = dc.Magnitude <= 1e-30 ? Complex.One : dc;
         var tangentialOtf = Enumerable.Range(center, psf.GridSize - center)
@@ -912,7 +966,8 @@ public static class DiffractionEngine
         double pixelPitchMillimeters,
         bool usePolarization = false,
         bool aimAtStop = false,
-        double defocus = 0)
+        double defocus = 0,
+        Wavelength? referenceWavelength = null)
     {
         if (numRays < 2)
         {
@@ -937,7 +992,8 @@ public static class DiffractionEngine
             field,
             wavelength,
             numRays,
-            aimAtStop: aimAtStop);
+            aimAtStop: aimAtStop,
+            referenceWavelength: optic.ImageSpaceAfocal ? referenceWavelength : null);
         var polarization = usePolarization
             ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true)
             : null;
@@ -997,7 +1053,8 @@ public static class DiffractionEngine
                 SampleSpacingUnit: AnalysisAxisUnit.Milliradian);
         }
 
-        var imageCoordinates = CreateHuygensImageCoordinates(optic, field, wavelength, imageSize, pixelPitchMillimeters);
+        var imageCoordinates = CreateHuygensImageCoordinates(optic, field, referenceWavelength ?? wavelength,
+            imageSize, pixelPitchMillimeters, aimAtStop);
         var raw = HuygensSummation(
             imageCoordinates,
             wavefront,
@@ -1158,6 +1215,11 @@ public static class DiffractionEngine
         bool aimAtStop = false)
     {
         var axes = WorkingFNumbers(optic, field, wavelength, aimAtStop);
+        return CombineWorkingFNumbers(axes);
+    }
+
+    private static double CombineWorkingFNumbers((double Tangential, double Sagittal) axes)
+    {
         var inverseSquared = (1 / (axes.Tangential * axes.Tangential)
             + (1 / (axes.Sagittal * axes.Sagittal))) / 2;
         return inverseSquared <= 0 ? 10000 : Math.Min(10000, 1 / Math.Sqrt(inverseSquared));
@@ -1170,9 +1232,25 @@ public static class DiffractionEngine
         bool aimAtStop = false,
         bool zemaxDirectionalAverage = false)
     {
+        return TryWorkingFNumbers(optic, field, wavelength, aimAtStop, zemaxDirectionalAverage, out var axes)
+            ? axes
+            : throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
+    }
+
+    private static bool TryWorkingFNumbers(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        bool aimAtStop,
+        bool zemaxDirectionalAverage,
+        out (double Tangential, double Sagittal) axes)
+    {
+        axes = default;
         var pupil = new[] { (0.0, 0.0), (0.0, 1.0), (0.0, -1.0), (1.0, 0.0), (-1.0, 0.0) };
-        var directions = pupil.Select(item =>
+        var directions = new Vector3D[pupil.Length];
+        for (var index = 0; index < pupil.Length; index++)
         {
+            var item = pupil[index];
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
                 field.Hx,
                 field.Hy,
@@ -1180,10 +1258,14 @@ public static class DiffractionEngine
                 item.Item2,
                 wavelength.Micrometers,
                 aimAtStop);
-            var sample = optic.SequentialRayTracer.TraceFinalSamples(bundle).Single()
-                ?? throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
-            return sample.Direction;
-        }).ToArray();
+            var sample = optic.SequentialRayTracer.TraceFinalSamples(bundle).Single();
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
+            {
+                return false;
+            }
+
+            directions[index] = sample.Direction;
+        }
         var chief = directions[0];
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
         double DirectionalFNumber(IEnumerable<Vector3D> marginalDirections)
@@ -1205,9 +1287,10 @@ public static class DiffractionEngine
                 : Math.Min(10000, 1 / (2 * equivalentNumericalAperture));
         }
 
-        return (
+        axes = (
             DirectionalFNumber(directions.Skip(1).Take(2)),
             DirectionalFNumber(directions.Skip(3).Take(2)));
+        return true;
     }
 
     private static void Fft2D(Complex[,] data)
@@ -1303,7 +1386,8 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         int imageSize,
-        double pixelPitchMillimeters)
+        double pixelPitchMillimeters,
+        bool aimAtStop = false)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
@@ -1311,7 +1395,8 @@ public static class DiffractionEngine
             field.Hy,
             0,
             0,
-            wavelength.Micrometers);
+            wavelength.Micrometers,
+            aimAtStop: aimAtStop);
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).SingleOrDefault()
             ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
         var center = chief.Position;

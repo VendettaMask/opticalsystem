@@ -96,7 +96,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
@@ -455,7 +455,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var fields = SpotAnalysisEngine.DefinedFields(Optic);

@@ -1013,6 +1013,72 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
+    public void AngleVsImageHeightFooterOmitsDataWithoutChangingOtherAnalysisSummaries()
+    {
+        foreach (var key in new[]
+        {
+            "Angle vs Image Height",
+            "Angle vs Image Height - Through Pupil",
+            "Angle vs Image Height - Through Field"
+        })
+        {
+            Assert.Equal(
+                AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight,
+                WorkbenchAnalysisCatalog.PresentationKind(key));
+        }
+
+        var rows = Enumerable.Range(1, 7)
+            .Select(index => new AnalysisContracts.AnalysisRowDto($"Metric {index}", index.ToString()))
+            .ToArray();
+        var view = new AnalysisContracts.AnalysisViewDto(
+            "Renamed analysis",
+            rows,
+            "Full report remains available",
+            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+            new AnalysisContracts.AnalysisPlotOptionsDto(),
+            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+            1,
+            PresentationKind: AnalysisContracts.AnalysisPresentationKind.AngleVsImageHeight);
+        var document = new AnalysisContracts.OpticalDocumentSnapshot(
+            "test", null, 0, string.Empty, false, false, 0, 0, 0, 0, 0, 0, 0);
+        var generatedAt = new DateTimeOffset(2026, 9, 4, 12, 0, 0, TimeSpan.FromHours(8));
+        var factory = typeof(AnalysisPanel).GetMethod(
+            "BuildAnalysisTitleBlock",
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(factory);
+
+        Avalonia.Controls.StackPanel BuildLeft(AnalysisContracts.AnalysisViewDto candidate)
+        {
+            var border = Assert.IsType<Avalonia.Controls.Border>(
+                factory.Invoke(null, new object[] { candidate, document, generatedAt }));
+            var grid = Assert.IsType<Avalonia.Controls.Grid>(border.Child);
+            Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.Height);
+            Assert.Equal(2, grid.Children.Count);
+            return Assert.IsType<Avalonia.Controls.StackPanel>(grid.Children[0]);
+        }
+
+        var angleLeft = BuildLeft(view);
+        Assert.Equal(2, angleLeft.Children.Count);
+        Assert.Equal(view.Name, Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[0]).Text);
+        Assert.Equal(
+            generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
+            Assert.IsType<Avalonia.Controls.TextBlock>(angleLeft.Children[1]).Text);
+        Assert.Same(rows, view.Rows);
+        Assert.Equal("Full report remains available", view.ReportText);
+
+        // The visible name must not dispatch footer behavior.
+        var standardLeft = BuildLeft(view with
+        {
+            Name = "入射角 vs. 像高",
+            PresentationKind = AnalysisContracts.AnalysisPresentationKind.Standard
+        });
+        Assert.Equal(3, standardLeft.Children.Count);
+        var summary = Assert.IsType<Avalonia.Controls.TextBlock>(standardLeft.Children[2]);
+        Assert.Contains("Metric 1: 1", summary.Text);
+        Assert.Contains("其余 3 项", summary.Text);
+    }
+
+    [Fact]
     public void PupilAberrationSummaryMatchesTheCompactSharedScaleLayout()
     {
         var optic = Optic.CreateCookeTriplet();
@@ -2412,12 +2478,12 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void ConnectorExposesAndAppliesApodizationSettings()
+    public void ConnectorOffersOnlyZemaxApodizationsButRetainsLegacyModelCompatibility()
     {
         var connector = new OptilandConnector(Optic.CreateCookeTriplet());
 
         Assert.Equal(
-            new[] { "均匀（Zemax）", "高斯（Zemax）", "余弦立方（Zemax）", "无", "均匀", "高斯", "余弦平方", "Hann", "多项式", "超高斯", "Tukey" },
+            new[] { "均匀（Zemax）", "高斯（Zemax）", "余弦立方（Zemax）" },
             connector.ApodizationKinds);
 
         connector.SetApodization("超高斯", 0.7, 1.0);
@@ -2649,7 +2715,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(ApertureKind.FloatByStopSize, connector.CurrentOptic.Aperture.Kind);
         Assert.Equal(stop.SemiDiameter, connector.CurrentOptic.Aperture.Value, precision: 12);
         stop.SemiDiameter = 4.5;
-        Assert.Equal(9, connector.CurrentOptic.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
+        var stopIndex = connector.CurrentOptic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        var primary = connector.CurrentOptic.Wavelengths.First(wave => wave.IsPrimary);
+        Assert.Equal(4.5, connector.CurrentOptic.Paraxial.MarginalRay(primary.Micrometers).Heights[stopIndex][0], 10);
     }
 
     [Fact]

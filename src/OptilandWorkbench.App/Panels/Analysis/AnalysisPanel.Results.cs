@@ -640,6 +640,7 @@ public sealed partial class AnalysisPanel
         }
 
         var compactSummary = BuildCompactAnalysisSummary(view);
+        var useFanFooter = IsRayFanView(view) || IsOpticalPathDifferenceView(view);
         var showPaneMetrics = !IsConfigurationMatrixSpotView(view);
         var hasPaneMetrics = showPaneMetrics
             && view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
@@ -681,7 +682,9 @@ public sealed partial class AnalysisPanel
         left.Children.Add(analysisTitle);
         var generatedAtText = new TextBlock
         {
-            Text = generatedAt.LocalDateTime.ToString(compactSummary is null ? "yyyy/MM/dd HH:mm:ss" : "yyyy/M/d"),
+            Text = generatedAt.LocalDateTime.ToString(compactSummary is null && !useFanFooter
+                ? "yyyy/MM/dd HH:mm:ss"
+                : "yyyy/M/d"),
             FontSize = AnalysisFooterCaptionSize
         };
         generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
@@ -694,27 +697,40 @@ public sealed partial class AnalysisPanel
             TextWrapping = TextWrapping.Wrap
         };
         resultSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
+        if (view.PresentationKind == AnalysisPresentationKind.Interferogram)
+        {
+            resultSummary.TextWrapping = TextWrapping.NoWrap;
+            resultSummary.TextTrimming = TextTrimming.CharacterEllipsis;
+            ToolTip.SetTip(resultSummary, "当前干涉图复用 OPD 波前图；条纹数/波长及 X/Y 倾斜未提供，以 — 表示。");
+        }
         var paneMetrics = showPaneMetrics
             ? BuildPaneMetricsSummary(view.PlotPanes)
             : null;
-        if (paneMetrics is null)
+        if (useFanFooter)
         {
-            left.Children.Add(resultSummary);
+            left.Children.Add(BuildAberrationFanFooterSummary(view, document));
         }
-        else if (visibleRows.Length == 0)
+        else if (view.PresentationKind != AnalysisPresentationKind.AngleVsImageHeight)
         {
-            left.Children.Add(paneMetrics);
-        }
-        else
-        {
-            var summaryBody = new Grid
+            if (paneMetrics is null)
             {
-                ColumnDefinitions = new ColumnDefinitions("Auto,*")
-            };
-            summaryBody.Children.Add(resultSummary);
-            Grid.SetColumn(paneMetrics, 1);
-            summaryBody.Children.Add(paneMetrics);
-            left.Children.Add(summaryBody);
+                left.Children.Add(resultSummary);
+            }
+            else if (visibleRows.Length == 0)
+            {
+                left.Children.Add(paneMetrics);
+            }
+            else
+            {
+                var summaryBody = new Grid
+                {
+                    ColumnDefinitions = new ColumnDefinitions("Auto,*")
+                };
+                summaryBody.Children.Add(resultSummary);
+                Grid.SetColumn(paneMetrics, 1);
+                summaryBody.Children.Add(paneMetrics);
+                left.Children.Add(summaryBody);
+            }
         }
 
         var productLogo = new Image
@@ -789,7 +805,11 @@ public sealed partial class AnalysisPanel
             Height = AnalysisFooterHeight,
             ClipToBounds = true
         };
-        grid.Children.Add(left);
+        // Analysis-specific summaries occupy only the left region. Keep the brand
+        // and document controls, typography and full-height layout shared.
+        grid.Children.Add(view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
+            ? BuildFieldCurvatureAndDistortionSummary(view, generatedAt)
+            : left);
         var rightBorder = new Border
         {
             BorderThickness = new Thickness(1, 0, 0, 0),
@@ -807,6 +827,205 @@ public sealed partial class AnalysisPanel
         titleBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         titleBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return titleBorder;
+    }
+
+    private static Control BuildFieldCurvatureAndDistortionSummary(
+        AnalysisViewDto view,
+        DateTimeOffset generatedAt)
+    {
+        var curvaturePane = view.PlotPanes.ElementAtOrDefault(0);
+        var distortionPane = view.PlotPanes.ElementAtOrDefault(1);
+        var model = view.Rows.FirstOrDefault(row => row.Metric == "畸变.畸变模型")?.Value;
+        var distortionTitle = model switch
+        {
+            "f-tan" => "F-Tan(Theta) 畸变",
+            "f-theta" => "F-Theta 畸变",
+            "smia-tv" => "SMIA-TV 畸变",
+            _ => "畸变"
+        };
+        var content = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            RowDefinitions = new RowDefinitions("26,*"),
+            ClipToBounds = true
+        };
+        AddHeader("场曲", 0);
+        AddHeader(distortionTitle, 1);
+        AddBody(new[]
+        {
+            generatedAt.LocalDateTime.ToString("yyyy/M/d"),
+            MaximumFieldSummary(curvaturePane),
+            CurvatureSummary("弧矢场曲", "场曲.最大弧矢场曲 (mm)"),
+            CurvatureSummary("子午场曲", "场曲.最大子午场曲 (mm)"),
+            "图例对应于波长"
+        }, 0);
+        var distortion = MaximumPaneCoordinate(distortionPane, useX: true);
+        var distortionUnit = distortionPane?.Series.FirstOrDefault()?.XUnit ?? AnalysisAxisUnit.Unspecified;
+        AddBody(new[]
+        {
+            generatedAt.LocalDateTime.ToString("yyyy/M/d"),
+            MaximumFieldSummary(distortionPane),
+            $"最大畸变 = {FormatFooterNumber(distortion, "0.0000")}{(distortionUnit == AnalysisAxisUnit.Percent ? "" : " ")}{FooterUnit(distortionUnit)}"
+        }, 1);
+
+        return content;
+
+        string CurvatureSummary(string label, string metric)
+        {
+            var value = view.Rows.FirstOrDefault(row => row.Metric == metric)?.Value;
+            var number = double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed)
+                && double.IsFinite(parsed) ? parsed : (double?)null;
+            return $"{label} = {FormatFooterNumber(number, "0.0000")} 毫米";
+        }
+
+        void AddHeader(string title, int column)
+        {
+            var text = new TextBlock
+            {
+                Text = title,
+                FontSize = AnalysisFooterTitleSize,
+                FontWeight = FontWeight.SemiBold,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+            var header = new Border
+            {
+                BorderThickness = new Thickness(column == 0 ? 0 : 1, 0, 0, 1),
+                Child = text
+            };
+            header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+            Grid.SetColumn(header, column);
+            content.Children.Add(header);
+        }
+
+        void AddBody(IEnumerable<string> lines, int column)
+        {
+            var body = new StackPanel { Spacing = 1, Margin = new Thickness(16, 6) };
+            foreach (var line in lines)
+            {
+                var text = new TextBlock
+                {
+                    Text = line,
+                    FontSize = AnalysisFooterTextSize,
+                    TextTrimming = TextTrimming.CharacterEllipsis
+                };
+                text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+                body.Children.Add(text);
+            }
+            var bodyBorder = new Border
+            {
+                BorderThickness = new Thickness(column == 0 ? 0 : 1, 0, 0, 0),
+                Child = body
+            };
+            bodyBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+            Grid.SetColumn(bodyBorder, column);
+            Grid.SetRow(bodyBorder, 1);
+            content.Children.Add(bodyBorder);
+        }
+    }
+
+    private static string MaximumFieldSummary(AnalysisPlotPaneDto? pane)
+    {
+        var unit = pane?.Series.FirstOrDefault()?.YUnit ?? AnalysisAxisUnit.Unspecified;
+        return $"最大视场是 {FormatFooterNumber(MaximumPaneCoordinate(pane, useX: false), "0.000")} {FooterUnit(unit)}。";
+    }
+
+    private static double? MaximumPaneCoordinate(AnalysisPlotPaneDto? pane, bool useX)
+    {
+        var first = pane?.Series.FirstOrDefault();
+        if (first is null)
+        {
+            return null;
+        }
+        var unit = useX ? first.XUnit : first.YUnit;
+        return pane!.Series.SelectMany(series => series.Points
+                .Select(point => useX ? point.X : point.Y)
+                .Where(double.IsFinite)
+                .Select(value => (double?)Math.Abs(AnalysisAxisFormatting.Convert(
+                    value, useX ? series.XUnit : series.YUnit, unit))))
+            .DefaultIfEmpty(null)
+            .Max();
+    }
+
+    private static string FormatFooterNumber(double? value, string format) =>
+        value?.ToString(format, CultureInfo.InvariantCulture) ?? "—";
+
+    private static string FooterUnit(AnalysisAxisUnit unit) => unit switch
+    {
+        AnalysisAxisUnit.Millimeter => "毫米",
+        AnalysisAxisUnit.Degree => "度",
+        _ => AnalysisAxisFormatting.UnitSymbol(unit)
+    };
+
+    private static Control BuildAberrationFanFooterSummary(
+        AnalysisViewDto view,
+        OpticalDocumentSnapshot document)
+    {
+        var sourceUnit = view.PlotPanes.SelectMany(pane => pane.Series)
+            .FirstOrDefault()?.YUnit ?? AnalysisAxisUnit.Unspecified;
+        var displayUnit = AnalysisAxisFormatting.CanConvert(sourceUnit, AnalysisAxisUnit.Micrometer)
+            ? AnalysisAxisUnit.Micrometer
+            : sourceUnit;
+        var maximumScale = view.PlotPanes
+            .Where(pane => pane.Series.Count > 0)
+            .SelectMany(pane => new[] { pane.PlotOptions.YMinimum, pane.PlotOptions.YMaximum }
+                .Where(value => value.HasValue && double.IsFinite(value.Value))
+                .Select(value => Math.Abs(AnalysisAxisFormatting.Convert(
+                    value!.Value, pane.Series[0].YUnit, displayUnit))))
+            .DefaultIfEmpty(0)
+            .Max();
+        var scaleUnit = displayUnit == AnalysisAxisUnit.Wave
+            ? "Waves"
+            : AnalysisAxisFormatting.UnitSymbol(displayUnit);
+        var scale = new TextBlock
+        {
+            Text = $"最大缩放比例：± {maximumScale.ToString("0.000", CultureInfo.InvariantCulture)} {scaleUnit}",
+            FontSize = AnalysisFooterTextSize
+        };
+        scale.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+
+        var legend = new WrapPanel();
+        var wavelengths = view.PlotPanes.FirstOrDefault()?.Series
+            .GroupBy(series => string.IsNullOrWhiteSpace(series.LegendKey) ? series.Name : series.LegendKey,
+                StringComparer.Ordinal)
+            .Select(group => group.First()) ?? Enumerable.Empty<AnalysisSeriesDto>();
+        foreach (var series in wavelengths)
+        {
+            var brush = SeriesBrush(series);
+            legend.Children.Add(new Border
+            {
+                BorderBrush = brush,
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                Padding = new Thickness(0, 0, 0, 2),
+                Margin = new Thickness(0, 2, 4, 2),
+                MinWidth = 82,
+                Child = new TextBlock
+                {
+                    Text = PupilWavelengthLabel(series.LegendLabel is { Length: > 0 }
+                        ? series.LegendLabel : series.Name),
+                    Foreground = brush,
+                    FontSize = AnalysisFooterTextSize,
+                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                }
+            });
+        }
+
+        var surfaceValue = view.Rows.FirstOrDefault(row => row.Metric == "表面序号")?.Value;
+        var surfaceLabel = int.TryParse(surfaceValue, NumberStyles.Integer, CultureInfo.InvariantCulture,
+            out var surfaceNumber)
+                ? surfaceNumber < 0 || surfaceNumber == document.SurfaceCount - 1
+                    ? "像面"
+                    : surfaceNumber.ToString(CultureInfo.InvariantCulture)
+                : "—";
+        var surface = new TextBlock
+        {
+            Text = $"面：{surfaceLabel}",
+            FontSize = AnalysisFooterTextSize
+        };
+        surface.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
+        return new StackPanel { Spacing = 2, Children = { scale, legend, surface } };
     }
 
     private static Control BuildPupilAberrationTitleBlock(
@@ -940,6 +1159,31 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
+        if (view.PresentationKind == AnalysisPresentationKind.Interferogram)
+        {
+            var data = view.InterferogramSummary;
+            static string Number(double? value, string format) => value is { } finite && double.IsFinite(finite)
+                ? finite.ToString(format, CultureInfo.InvariantCulture) : "—";
+            var fieldUnit = data?.FieldUnit switch
+            {
+                AnalysisAxisUnit.Degree => "°",
+                AnalysisAxisUnit.Millimeter => "mm",
+                _ => "—"
+            };
+            var field = data?.FieldX is { } x && double.IsFinite(x) && Math.Abs(x) > 1e-12
+                ? $"(X={Number(x, "0.00")}, Y={Number(data.FieldY, "0.00")})"
+                : data?.FieldX is { } zero && double.IsFinite(zero)
+                    ? Number(data.FieldY, "0.00") : "—";
+            var surface = data?.IsImageSurface == true ? "像面"
+                : data?.SurfaceNumber?.ToString(CultureInfo.InvariantCulture) ?? "—";
+            return new CompactAnalysisSummary("干涉图", string.Join(Environment.NewLine,
+                $"{Number(data?.WavelengthMicrometers, "0.0000")} µm 对于 {field} {fieldUnit}",
+                $"峰谷 = {Number(data?.PeakToValleyWaves, "0.0000")} 个波长，条纹数/波长 = —",
+                $"面：{surface}",
+                $"出瞳直径：{Number(data?.ExitPupilDiameterMillimeters, "0.0000E+00")} 毫米",
+                "X倾斜 = —，Y倾斜 = —"));
+        }
+
         if (view.PresentationKind == AnalysisPresentationKind.FootprintDiagram)
         {
             var surfaceNumber = FindRowText(view, "表面序号", "0");
@@ -1136,38 +1380,6 @@ public sealed partial class AnalysisPanel
                 $"单位是 µm。        图例对应于波长{Environment.NewLine}"
                 + $"RMS 半径：{rmsRadius}    GEO 半径：{geometricRadius}{Environment.NewLine}"
                 + $"缩放标尺：{scale}    参考：{reference}");
-        }
-
-        if (view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
-        {
-            var curvatureMaximum = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("场曲.最大像面偏移", StringComparison.Ordinal));
-            var distortionMaximum = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("畸变.最大绝对畸变", StringComparison.Ordinal));
-            var distortionModel = view.Rows.FirstOrDefault(row =>
-                row.Metric.Contains("畸变.畸变模型", StringComparison.Ordinal));
-            var combinedLines = new List<string>();
-            if (curvatureMaximum is not null)
-            {
-                combinedLines.Add($"最大像面偏移 = {curvatureMaximum.Value} mm");
-            }
-
-            if (distortionMaximum is not null)
-            {
-                var combinedDistortionUnit = distortionMaximum.Metric.Contains("mm", StringComparison.OrdinalIgnoreCase)
-                    ? " mm"
-                    : "%";
-                combinedLines.Add($"最大畸变 = {distortionMaximum.Value}{combinedDistortionUnit}");
-            }
-
-            if (distortionModel is not null)
-            {
-                combinedLines.Add($"畸变模型 = {distortionModel.Value}");
-            }
-
-            return new CompactAnalysisSummary(
-                "场曲/畸变",
-                combinedLines.Count == 0 ? "暂无摘要数据" : string.Join(Environment.NewLine, combinedLines));
         }
 
         if (view.PresentationKind == AnalysisPresentationKind.FieldCurvature)

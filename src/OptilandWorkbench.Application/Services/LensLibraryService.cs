@@ -4,6 +4,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Visualization;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Application.Services;
 
@@ -110,34 +111,32 @@ internal sealed class LensLibraryService : ILensLibraryService
     {
         var project = await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false);
         var optic = project.Configurations[project.ActiveConfigurationIndex];
-        var scene = await Task.Run(
+        var (scene, warning) = await Task.Run(
             () => BuildPreviewScene(optic),
             cancellationToken).ConfigureAwait(false);
         var summary = CreateSummary(optic, nativePath);
-        return new SceneDto(0, SceneDimension.TwoDimensional, WorkbenchMapper.ToScene2Dto(scene), null, summary);
+        return new SceneDto(0, SceneDimension.TwoDimensional, WorkbenchMapper.ToScene2Dto(scene), null, summary,
+            Warnings: warning is null ? Array.Empty<string>() : new[] { warning });
     }
 
-    private static Layout2DScene BuildPreviewScene(Optic optic)
+    internal static (Layout2DScene Scene, string? Warning) BuildPreviewScene(Optic optic)
     {
         var builder = new Layout2DBuilder(optic);
         try
         {
-            return builder.Build(
+            return (builder.Build(
                 options: new LayoutBuildOptions(
                     IncludeAllWavelengths: false,
                     RayCount: 3,
-                    MarginalAndChiefOnly: true));
+                    MarginalAndChiefOnly: true)), null);
         }
-        catch (InvalidOperationException exception) when (
-            exception.Message.StartsWith(
-                "Cannot find rays to yield requested real image height",
-                StringComparison.Ordinal))
+        catch (InvalidOperationException exception) when (exception is RayAimingException or FieldAimingException)
         {
-            return builder.Build(
+            return (builder.Build(
                 options: new LayoutBuildOptions(
                     IncludeAllWavelengths: false,
                     RayCount: 0,
-                    MarginalAndChiefOnly: true));
+                    MarginalAndChiefOnly: true)), $"仅显示镜片几何；预览光线追迹失败：{exception.Message}");
         }
     }
 

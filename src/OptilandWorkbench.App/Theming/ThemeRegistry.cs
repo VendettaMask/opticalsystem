@@ -161,6 +161,8 @@ internal static class StandardTheme
 
     public static void ApplyAccentResources(IResourceDictionary resources)
     {
+        // Dock binds this to the tab body in every state, not just on pointer-over.
+        resources["DockDocumentTabItemCornerRadius"] = ThemeChromeResources.StandardDocumentTabCornerRadius;
         var accentBrush = new SolidColorBrush(AccentColor);
         resources["SystemAccentColor"] = AccentColor;
         resources["SystemAccentColorDark1"] = Color.FromRgb(0, 102, 204);

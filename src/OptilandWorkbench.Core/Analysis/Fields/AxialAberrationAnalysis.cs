@@ -27,7 +27,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
         var allWavelengths = Optic.Wavelengths.OrderBy(wavelength => wavelength.Micrometers).ToArray();
         if (allWavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var wavelengths = _wavelengthNumber <= 0

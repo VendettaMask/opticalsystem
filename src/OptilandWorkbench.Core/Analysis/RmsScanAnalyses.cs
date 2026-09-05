@@ -566,8 +566,7 @@ internal static class RmsScanSupport
             imagePlaneOffset,
             reference: reference,
             usePolarization: usePolarization);
-        var rays = result.Fields.FirstOrDefault()?.Wavelengths
-            .SelectMany(wavelength => wavelength.Rays)
+        var rays = result.Fields.FirstOrDefault()?.WeightedRays
             .ToArray() ?? Array.Empty<SpotRayData>();
         if (rays.Length == 0)
         {

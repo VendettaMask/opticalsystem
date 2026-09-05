@@ -843,6 +843,10 @@ internal sealed class LensLibraryPanel : UserControl
             }
 
             _preview.Scene = scene;
+            if (scene?.Warnings is { Count: > 0 })
+            {
+                _status.Text = string.Join(Environment.NewLine, scene.Warnings);
+            }
             _preview.InvalidateVisual();
         }
         catch (Exception exception)

@@ -1094,8 +1094,7 @@ public sealed class RayGenerator
             imagePoint = EvaluateRealImageChief(launchX, launchY, aimAtStop);
             return true;
         }
-        catch (InvalidOperationException exception) when (
-            exception.Message.StartsWith("Cannot find rays to yield requested real image height", StringComparison.Ordinal))
+        catch (FieldAimingException)
         {
             imagePoint = default;
             return false;
@@ -1180,7 +1179,7 @@ public sealed class RayGenerator
         var suffix = double.IsFinite(targetX) && double.IsFinite(targetY)
             ? $" ({targetX:R}, {targetY:R})"
             : string.Empty;
-        return new InvalidOperationException($"Cannot find rays to yield requested real image height{suffix}.");
+        return new FieldAimingException($"Cannot find rays to yield requested real image height{suffix}.");
     }
 
     private static double RadiansToDegrees(double radians)
@@ -1258,6 +1257,11 @@ public sealed class RayGenerator
             throw new ArgumentOutOfRangeException(parameterName, "Normalized coordinates must be finite values in [-1, 1].");
         }
     }
+}
+
+public sealed class FieldAimingException : InvalidOperationException
+{
+    public FieldAimingException(string message) : base(message) { }
 }
 
 public sealed class RayAimingException : InvalidOperationException

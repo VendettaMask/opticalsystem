@@ -193,7 +193,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         {
             ["Status"] = message,
             ["PythonRequirement"] = "Set a physical aperture on the detector surface"
-        });
+        }, Outcome: AnalysisOutcome.Unavailable, OutcomeReason: message);
     }
 
     private static bool TryGetExtent(

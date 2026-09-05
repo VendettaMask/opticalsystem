@@ -48,6 +48,7 @@ public sealed class DisplaySettingsWindow : Window
 
     public DisplaySettingsWindow(AppSettings settings)
     {
+        SettingsPanelChrome.ApplyInputStyles(this);
         Title = "显示格式设置";
         Width = 560;
         Height = 630;

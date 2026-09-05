@@ -115,7 +115,7 @@ internal sealed class HybridCandidateRefiner
                 parameterization,
                 specification,
                 population[index],
-                rayDensity: 1,
+                rayDensity: 2,
                 cancellationToken);
             evaluations++;
         }
@@ -157,7 +157,7 @@ internal sealed class HybridCandidateRefiner
                     parameterization,
                     specification,
                     trial,
-                    rayDensity: 1,
+                    rayDensity: 2,
                     cancellationToken);
                 evaluations++;
                 if (trialScore < scores[targetIndex])
@@ -270,7 +270,7 @@ internal sealed class HybridCandidateRefiner
             parent.FlatRootOptic,
             finalOptic,
             lineage,
-            "flat-to-usable-hybrid/v1",
+            "flat-to-usable-hybrid/v3",
             rayDensity: 4,
             allowLabAccepted: true);
         evaluations++;

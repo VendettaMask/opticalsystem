@@ -93,7 +93,7 @@ public sealed class FieldDefinitionParityTests
     }
 
     [Fact]
-    public void FieldDefinitionsMatchPython058ParaxialNormalizedTrace()
+    public void NonImageFieldsMatchPython058AndImageFieldsSatisfyTheLinearConjugates()
     {
         using var reference = LoadReference();
         var root = reference.RootElement;
@@ -115,6 +115,16 @@ public sealed class FieldDefinitionParityTests
                 ? PythonOptilandJsonStore.Deserialize(finiteJson, name)
                 : Optic.CreateCookeTriplet();
             Configure(optic, expectedCase);
+            if (optic.FieldDefinition is FieldDefinitionKind.ParaxialImageHeight or FieldDefinitionKind.RealImageHeight)
+            {
+                // Optiland 0.5.8's finite reverse-chief fixture leaves the object
+                // height at zero. Validate the defining first-order boundary values.
+                var chief = optic.Paraxial.TraceNormalizedPupil(hy, new[] { 0.0 }, wavelength);
+                var stop = optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+                AssertClose(0, chief.Heights[stop][0], name);
+                AssertClose(hy * FieldCoordinates.MaximumRadius(optic.Fields), chief.Heights[^1][0], name);
+                continue;
+            }
             var actual = optic.Paraxial.TraceNormalizedPupil(hy, new[] { py }, wavelength);
             var actualHeights = actual.Heights.Select(values => values[0]).ToArray();
             var actualSlopes = actual.Slopes.Select(values => values[0]).ToArray();

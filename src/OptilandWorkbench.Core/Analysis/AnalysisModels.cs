@@ -63,7 +63,8 @@ public enum AnalysisAxisQuantity
     Pixel,
     ChromaticPower,
     ThermalOpticalPower,
-    Transmission
+    Transmission,
+    NormalizedField
 }
 
 public enum AnalysisAxisUnit
@@ -163,6 +164,13 @@ public sealed record AnalysisTable(
     IReadOnlyList<IReadOnlyList<string>> Rows,
     IReadOnlyList<string>? RowGroups = null);
 
+public enum AnalysisOutcome
+{
+    Success,
+    Unavailable,
+    NotApplicable
+}
+
 public sealed record AnalysisData(
     string Name,
     IReadOnlyDictionary<string, object> Values,
@@ -172,8 +180,14 @@ public sealed record AnalysisData(
     IReadOnlyList<AnalysisPlotPane>? PlotPanes = null,
     int PlotPaneColumns = 3,
     AnalysisTable? Table = null,
-    string? ReportText = null)
+    string? ReportText = null,
+    AnalysisOutcome Outcome = AnalysisOutcome.Success,
+    string? OutcomeReason = null)
 {
+    public static AnalysisData Unavailable(string name, string reason) => new(name,
+        new Dictionary<string, object> { ["Status"] = reason },
+        Outcome: AnalysisOutcome.Unavailable, OutcomeReason: reason);
+
     public IReadOnlyList<AnalysisSeries> PlotSeries => SeriesList
         ?? (Series is null ? Array.Empty<AnalysisSeries>() : new[] { Series });
 

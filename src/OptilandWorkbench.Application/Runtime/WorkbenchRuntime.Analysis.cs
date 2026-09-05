@@ -81,7 +81,31 @@ public partial class WorkbenchRuntime
             data.PlotOptions ?? new AnalysisPlotOptions(),
             data.PlotPanes ?? Array.Empty<AnalysisPlotPane>(),
             data.PlotPaneColumns,
-            data.Table);
+            data.Table,
+            InterferogramSummary: canonicalName == "Interferogram" ? BuildInterferogramSummary(data) : null,
+            Outcome: data.Outcome,
+            OutcomeReason: data.OutcomeReason);
+    }
+
+    private Contracts.InterferogramSummaryDto BuildInterferogramSummary(AnalysisData data)
+    {
+        // Preserve typed, unrounded result metadata; do not parse localized rows
+        // or mistake normalized Hy for a physical field height/angle.
+        double? Number(string key) => data.Values.TryGetValue(key, out var value)
+            && value is double number && double.IsFinite(number) ? number : null;
+        var radius = FieldCoordinates.MaximumRadius(CurrentOptic.Fields);
+        var surfaceNumber = data.Values.TryGetValue("SurfaceNumber", out var surface) && surface is int number
+            ? (int?)number : null;
+        return new Contracts.InterferogramSummaryDto(
+            Number("WavelengthMicrometers"),
+            Number("FieldHx") * radius,
+            Number("FieldHy") * radius,
+            CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle
+                ? Contracts.AnalysisAxisUnit.Degree : Contracts.AnalysisAxisUnit.Millimeter,
+            Number("PeakToValleyWaves"),
+            surfaceNumber,
+            surfaceNumber.HasValue && surfaceNumber == CurrentOptic.SurfaceGroup.Items.LastOrDefault()?.Number,
+            Number("PupilDiameterMillimeters"));
     }
 
     public string CanonicalAnalysisKey(string analysisName)

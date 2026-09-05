@@ -161,9 +161,11 @@ public sealed class GlassCatalogTests
         Assert.Equal("SCHOTT", legacyF2.Manufacturer);
         Assert.Equal("F2", legacyF2.CatalogName);
         Assert.Throws<KeyNotFoundException>(() => registry.Resolve("NOT-A-REAL-GLASS"));
-        var exception = Assert.Throws<KeyNotFoundException>(() =>
-            OpticalFormatCatalog.Import(ZemaxSource("SCHOTT", "NOT-A-REAL-GLASS"), ".zmx"));
-        Assert.Contains("did not provide valid nd/Vd", exception.Message, StringComparison.Ordinal);
+        var imported = OpticalFormatCatalog.Import(ZemaxSource("SCHOTT", "NOT-A-REAL-GLASS"), ".zmx");
+        var missing = Assert.Single(imported.SurfaceGroup.Items.Select(surface => surface.MaterialAfter).OfType<UnresolvedMaterial>());
+        Assert.Equal("NOT-A-REAL-GLASS", missing.Name);
+        Assert.Throws<InvalidOperationException>(() => missing.RefractiveIndex(587.6));
+        Assert.Throws<OptilandWorkbench.Core.Capabilities.OpticCapabilityException>(() => imported.Paraxial.EstimateEffectiveFocalLength());
     }
 
     [Fact]

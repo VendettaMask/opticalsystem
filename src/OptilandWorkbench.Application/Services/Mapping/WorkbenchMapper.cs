@@ -57,7 +57,15 @@ internal static class WorkbenchMapper
             surface.RadiusVariable,
             surface.ThicknessVariable,
             surface.SemiDiameterFixed,
-            surface.Geometry is not INonComputableGeometry);
+            surface.Geometry is not INonComputableGeometry,
+            new SurfaceInspectionDto(
+                surface.ScatteringModel?.Kind ?? "none",
+                surface.CoordinateSystem.Origin.X,
+                surface.CoordinateSystem.Origin.Y,
+                surface.CoordinateSystem.Origin.Z,
+                surface.CoordinateSystem.RotationXDegrees,
+                surface.CoordinateSystem.RotationYDegrees,
+                surface.CoordinateSystem.RotationZDegrees));
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch
@@ -156,7 +164,16 @@ internal static class WorkbenchMapper
                 : new AnalysisTableDto(
                     view.Table.Columns,
                     view.Table.Rows,
-                    view.Table.RowGroups));
+                    view.Table.RowGroups),
+            InterferogramSummary: view.InterferogramSummary,
+            Outcome: view.Outcome switch
+            {
+                Core.Analysis.AnalysisOutcome.Success => Contracts.AnalysisOutcome.Success,
+                Core.Analysis.AnalysisOutcome.Unavailable => Contracts.AnalysisOutcome.Unavailable,
+                Core.Analysis.AnalysisOutcome.NotApplicable => Contracts.AnalysisOutcome.NotApplicable,
+                _ => throw new ArgumentOutOfRangeException(nameof(view))
+            },
+            OutcomeReason: view.OutcomeReason);
     }
 
     internal static AnalysisSeriesDto ToSeriesDto(AnalysisSeries series)
@@ -187,13 +204,18 @@ internal static class WorkbenchMapper
             series.ValueMaximum,
             series.LegendKey,
             series.LegendLabel,
-            (ContractAnalysisAxisQuantity)(int)series.XQuantity,
+            MapAxisQuantity(series.XQuantity),
             (ContractAnalysisAxisUnit)(int)series.XUnit,
-            (ContractAnalysisAxisQuantity)(int)series.YQuantity,
+            MapAxisQuantity(series.YQuantity),
             (ContractAnalysisAxisUnit)(int)series.YUnit,
-            (ContractAnalysisAxisQuantity)(int)series.ValueQuantity,
+            MapAxisQuantity(series.ValueQuantity),
             (ContractAnalysisAxisUnit)(int)series.ValueUnit);
     }
+
+    private static ContractAnalysisAxisQuantity MapAxisQuantity(Core.Analysis.AnalysisAxisQuantity quantity) =>
+        quantity == Core.Analysis.AnalysisAxisQuantity.NormalizedField
+            ? ContractAnalysisAxisQuantity.NormalizedField
+            : (ContractAnalysisAxisQuantity)(int)quantity;
 
     internal static AnalysisPlotOptionsDto ToPlotOptionsDto(AnalysisPlotOptions options)
     {

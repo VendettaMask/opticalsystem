@@ -90,6 +90,7 @@ public sealed class App : Avalonia.Application
                     new DynamicResourceExtension(ThemeChromeResources.BorderThickness(ThemeChromeRole.ControlFrame)))
             }
         });
+        Styles.Add(new StandardActionButtonStyles());
         Styles.Add(new Style(selector => selector
             .OfType<Button>()
             .Template()
@@ -289,6 +290,8 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
+                // All numeric editors use direct text entry, including dialogs and dynamically created fields.
+                new Setter(NumericUpDown.ShowButtonSpinnerProperty, false),
                 new Setter(NumericUpDown.MinHeightProperty, UiDensity.StandardControlHeight),
                 new Setter(
                     NumericUpDown.CornerRadiusProperty,

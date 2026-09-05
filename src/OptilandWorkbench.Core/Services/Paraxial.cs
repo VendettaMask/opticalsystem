@@ -86,9 +86,28 @@ public sealed class Paraxial
         {
             ApertureKind.FNumber => Math.Abs(EstimateEffectiveFocalLength()) / Math.Max(1e-12, _optic.Aperture.Value),
             ApertureKind.NumericalAperture => EntrancePupilDiameterFromObjectNumericalAperture(),
-            ApertureKind.FloatByStopSize => fallbackDiameter,
+            ApertureKind.FloatByStopSize => EntrancePupilDiameterFromStop(fallbackDiameter),
             _ => _optic.Aperture.Diameter(fallbackDiameter)
         };
+    }
+
+    private double EntrancePupilDiameterFromStop(double stopDiameter)
+    {
+        var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
+        if (stopIndex < 0)
+        {
+            throw new InvalidOperationException("Float by stop size requires an aperture stop.");
+        }
+
+        // y(stop) = A*y(object) + B*u(object). At the entrance pupil B/A
+        // from the object, the transverse magnification to the stop is A.
+        var magnification = TraceMatrix(0, stopIndex, PrimaryWavelengthNanometers()).A;
+        if (!double.IsFinite(magnification) || Math.Abs(magnification) <= 1e-15)
+        {
+            throw new InvalidOperationException("The aperture stop has no finite entrance pupil diameter.");
+        }
+
+        return stopDiameter / Math.Abs(magnification);
     }
 
     private double EntrancePupilDiameterFromObjectNumericalAperture()
@@ -251,27 +270,15 @@ public sealed class Paraxial
                 objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
                 break;
             case FieldDefinitionKind.ParaxialImageHeight:
+            case FieldDefinitionKind.RealImageHeight:
+                // A paraxial report uses the specified image height in its linear
+                // conjugate mapping; real-ray aiming includes higher-order distortion.
                 (objectHeight, objectPosition) = ParaxialImageObjectPosition(
                     fieldY,
                     entrancePupilLocation,
                     firstSurfacePosition,
                     objectSurface,
                     objectAtInfinity);
-                break;
-            case FieldDefinitionKind.RealImageHeight:
-                var launch = _optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(0, fieldY);
-                if (objectAtInfinity)
-                {
-                    var slope = Math.Tan(launch.Y * Math.PI / 180.0);
-                    objectHeight = -slope * entrancePupilLocation;
-                    objectPosition = firstSurfacePosition;
-                }
-                else
-                {
-                    objectHeight = -launch.Y;
-                    objectPosition = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
-                }
-
                 break;
             default:
                 var angleSlope = Math.Tan(fieldY * Math.PI / 180.0);
@@ -322,11 +329,12 @@ public sealed class Paraxial
     {
         EnsureComputable();
         var maximumRadius = FieldCoordinates.MaximumRadius(_optic.Fields);
-        var maximumY = _optic.Fields
-            .OrderByDescending(field => Math.Abs(field.Y))
-            .Select(field => field.Y)
+        var maximumField = _optic.Fields
+            .OrderByDescending(field => (field.X * field.X) + (field.Y * field.Y))
             .FirstOrDefault();
-        var normalizedY = maximumRadius <= 1e-15 ? 0 : maximumY / maximumRadius;
+        // Scalar paraxial rays describe the meridional plane of the radial field.
+        var sign = maximumField is null ? 1 : Math.Sign(maximumField.Y != 0 ? maximumField.Y : maximumField.X);
+        var normalizedY = maximumRadius <= 1e-15 ? 0 : sign;
         return TraceNormalizedPupil(normalizedY, new[] { 0.0 }, wavelengthMicrometers);
     }
 
@@ -337,7 +345,11 @@ public sealed class Paraxial
         OpticalSurface? objectSurface,
         bool objectAtInfinity)
     {
-        var (imageHeightUnit, objectHeightUnit, objectSlopeUnit) = TraceUnitChiefRay();
+        var objectPosition = objectAtInfinity ? firstSurfacePosition : objectSurface?.CoordinateSystem.Origin.Z ?? 0;
+        var objectHeightUnit = -(entrancePupilLocation - objectPosition);
+        var trace = TraceGeneric(new[] { objectHeightUnit }, new[] { 1.0 }, objectPosition,
+            PrimaryWavelengthNanometers() / 1000.0);
+        var imageHeightUnit = trace.Heights[^1][0];
         if (Math.Abs(imageHeightUnit) <= 1e-15)
         {
             throw new InvalidOperationException("The paraxial image height cannot be resolved for this optical system.");
@@ -345,42 +357,12 @@ public sealed class Paraxial
 
         if (objectAtInfinity)
         {
-            var slope = objectSlopeUnit * imageHeight / imageHeightUnit;
-            return (-slope * entrancePupilLocation, firstSurfacePosition);
+            return (objectHeightUnit * imageHeight / imageHeightUnit, firstSurfacePosition);
         }
 
         return (
             objectHeightUnit * imageHeight / imageHeightUnit,
             objectSurface?.CoordinateSystem.Origin.Z ?? 0);
-    }
-
-    private (double ImageHeight, double ObjectHeight, double ObjectSlope) TraceUnitChiefRay()
-    {
-        var surfaces = _optic.SurfaceGroup.Items;
-        var stopIndex = surfaces.ToList().FindIndex(surface => surface.IsStop);
-        if (stopIndex < 0)
-        {
-            throw new InvalidOperationException("Image-height fields require an aperture stop.");
-        }
-
-        var positions = SurfacePositions();
-        var wavelength = PrimaryWavelengthNanometers() / 1000.0;
-        var imageTrace = TraceGeneric(
-            new[] { 0.0 },
-            new[] { 1.0 },
-            positions[stopIndex],
-            wavelength,
-            stopIndex);
-        var objectTrace = TraceGenericReverse(
-            new[] { 0.0 },
-            new[] { 1.0 },
-            positions[^1] - positions[stopIndex],
-            wavelength,
-            surfaces.Count - stopIndex);
-        return (
-            imageTrace.Heights[^1][0],
-            objectTrace.Heights[^1][0],
-            objectTrace.Slopes[^1][0]);
     }
 
     public ParaxialTrace TraceGeneric(

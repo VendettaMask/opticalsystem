@@ -60,7 +60,7 @@ public sealed class PsfAnalysis : BaseAnalysis
         var allWavelengths = analysisOptic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var wavelengths = _wavelengthNumber switch
@@ -97,7 +97,8 @@ public sealed class PsfAnalysis : BaseAnalysis
                     usePolarization: _usePolarization,
                     cellCenteredPupil: _zemaxCompatible,
                     zemaxFftSampling: _zemaxCompatible,
-                    ignoreOpd: _ignoreOpd)))
+                    ignoreOpd: _ignoreOpd,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0])))
             .ToArray();
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
@@ -332,7 +333,7 @@ public sealed class MtfAnalysis : BaseAnalysis
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(analysisOptic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var pupilSampling = _gridSize.HasValue
@@ -363,7 +364,8 @@ public sealed class MtfAnalysis : BaseAnalysis
                     pupilSampling,
                     gridSize,
                     _usePolarization,
-                    cellCenteredPupil: _zemaxCompatible);
+                    cellCenteredPupil: _zemaxCompatible,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
                 return (wavelength, DiffractionEngine.ComputeFftMtf(psf, analysisOptic, wavelength));
             }).ToArray();
             var fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
@@ -500,90 +502,9 @@ public sealed class MtfAnalysis : BaseAnalysis
         var frequency = Enumerable.Range(0, pointCount)
             .Select(index => maximumFrequency * index / (pointCount - 1.0))
             .ToArray();
-        var tangential = frequency.Select(value => Sample(source, value, type, tangential: true)).ToArray();
-        var sagittal = frequency.Select(value => Sample(source, value, type, tangential: false)).ToArray();
+        var tangential = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: true)).ToArray();
+        var sagittal = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: false)).ToArray();
         return new MtfResult(frequency, tangential, sagittal, source.CutoffFrequency);
-    }
-
-    private static double Sample(
-        MtfResult source,
-        double frequency,
-        FftMtfDataType type,
-        bool tangential)
-    {
-        var complex = tangential ? source.TangentialOtf : source.SagittalOtf;
-        var scalar = tangential ? source.Tangential : source.Sagittal;
-        var sourceFrequency = tangential
-            ? source.TangentialFrequency ?? source.Frequency
-            : source.SagittalFrequency ?? source.Frequency;
-        if (type == FftMtfDataType.SquareWave)
-        {
-            if (frequency <= 1e-12)
-            {
-                return 1;
-            }
-
-            var sum = 0.0;
-            var sign = 1.0;
-            for (var harmonic = 1; harmonic <= 999; harmonic += 2)
-            {
-                var harmonicFrequency = harmonic * frequency;
-                if (sourceFrequency.Count == 0 || harmonicFrequency > sourceFrequency[^1])
-                {
-                    break;
-                }
-
-                var modulation = InterpolateUnbounded(sourceFrequency, scalar, harmonicFrequency);
-                sum += sign * modulation / harmonic;
-                sign *= -1;
-            }
-
-            return Math.Max(0, 4 * sum / Math.PI);
-        }
-
-        if (complex is null || type == FftMtfDataType.Modulation)
-        {
-            return InterpolateUnbounded(sourceFrequency, scalar, frequency);
-        }
-
-        var value = MtfMethodEvaluator.InterpolateComplex(sourceFrequency, complex, frequency);
-        return type switch
-        {
-            FftMtfDataType.Real => value.Real,
-            FftMtfDataType.Imaginary => value.Imaginary,
-            FftMtfDataType.Phase => value.Phase,
-            _ => value.Magnitude
-        };
-    }
-
-    private static double InterpolateUnbounded(
-        IReadOnlyList<double> x,
-        IReadOnlyList<double> y,
-        double target)
-    {
-        if (x.Count == 0 || y.Count == 0 || target > x[^1])
-        {
-            return 0;
-        }
-
-        if (target <= x[0])
-        {
-            return y[0];
-        }
-
-        for (var index = 1; index < x.Count; index++)
-        {
-            if (target > x[index])
-            {
-                continue;
-            }
-
-            var width = x[index] - x[index - 1];
-            var fraction = width <= 1e-30 ? 0 : (target - x[index - 1]) / width;
-            return y[index - 1] + ((y[index] - y[index - 1]) * fraction);
-        }
-
-        return 0;
     }
 
     private static double DiffractionLimit(

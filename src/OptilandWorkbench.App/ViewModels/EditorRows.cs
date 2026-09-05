@@ -27,6 +27,8 @@ public sealed class SurfaceEditorRow
         GrooveOrientationAngleDegrees = source.GrooveOrientationAngleDegrees;
         ThinLensFocalLength = source.ThinLensFocalLength;
         RadiusVariable = source.RadiusVariable;
+        RadiusSolve = source.RadiusSolve ?? new RadiusSolveDto(
+            source.RadiusVariable ? RadiusSolveKind.Variable : RadiusSolveKind.Fixed);
         ThicknessVariable = source.ThicknessVariable;
         SurfaceRole = Number == 0
             ? "物面"
@@ -37,6 +39,7 @@ public sealed class SurfaceEditorRow
                     : "普通面";
         SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
         GeometryComputable = source.GeometryComputable;
+        Inspection = source.Inspection;
         MechanicalSemiDiameter = SemiDiameter;
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
@@ -130,9 +133,11 @@ public sealed class SurfaceEditorRow
     public double GrooveOrientationAngleDegrees { get; set; }
     public double ThinLensFocalLength { get; set; }
     public bool RadiusVariable { get; set; }
+    public RadiusSolveDto RadiusSolve { get; }
     public bool ThicknessVariable { get; set; }
     public bool CanOptimize { get; }
     public bool GeometryComputable { get; }
+    public SurfaceInspectionDto? Inspection { get; }
     public string SurfaceRole { get; }
     public string SurfaceType { get; }
     public double ExtensionZone { get; } = 0;
@@ -162,7 +167,10 @@ public sealed class SurfaceEditorRow
         ThinLensFocalLength,
         RadiusVariable,
         ThicknessVariable,
-        SemiDiameterFixed);
+        SemiDiameterFixed,
+        GeometryComputable,
+        Inspection,
+        RadiusSolve);
 
     public override string ToString() => $"{Number}: {Label}";
 }

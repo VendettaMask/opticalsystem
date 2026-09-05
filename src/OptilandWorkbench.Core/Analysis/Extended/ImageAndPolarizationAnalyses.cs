@@ -145,7 +145,7 @@ public sealed class JonesPupilAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var result = JonesPupilEngine.Generate(Optic, (0, 0), wavelength, _gridSize, useFresnelCoatings: true);

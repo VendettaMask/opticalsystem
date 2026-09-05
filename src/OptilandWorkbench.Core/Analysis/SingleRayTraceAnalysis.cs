@@ -50,10 +50,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
     {
         if (Optic.Wavelengths.Count == 0 || Optic.SurfaceGroup.Items.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object>
-            {
-                ["Status"] = "No optical data"
-            });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var definedFields = SpotAnalysisEngine.DefinedFields(Optic);

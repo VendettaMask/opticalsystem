@@ -127,6 +127,8 @@ public interface IPrescriptionService
 
     IReadOnlyList<SurfaceRowDto> GetSurfaces();
 
+    void SetRadiusSolve(int surfaceNumber, RadiusSolveUpdateDto update, long? expectedRevision = null);
+
     SystemSettingsDto GetSystemSettings();
 
     EnvironmentSettingsDto GetEnvironmentSettings();
@@ -138,6 +140,9 @@ public interface IPrescriptionService
     IReadOnlyList<WavelengthRowDto> GetWavelengths();
 
     void AddSurface();
+
+    /// <summary>Inserts above/below the specified row and returns the new surface number.</summary>
+    int InsertSurface(int surfaceNumber, bool after);
 
     void RemoveSurface(int surfaceNumber);
 

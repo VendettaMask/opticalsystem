@@ -1,0 +1,425 @@
+{
+  "verificationDate": "2026-09-05",
+  "environment": "Windows, .NET SDK 10.0.300",
+  "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+  "codeFingerprint": "e39e0a545b3b898c0b2a762e49892689461ed79b7cf87368d0a8d560d520ea87:4f4afb11021f9d0be1171c1864acbcea7b2306cabedd259854b5b56f795000b4",
+  "baseline": "artifacts/zemax/123456-zemax-2026-r1-baseline",
+  "baselineIntegrity": {
+    "total": 165,
+    "captured": 148,
+    "notApplicableOrFailed": 17,
+    "timeout": 0,
+    "screenshots": 148,
+    "opticStudioScreenshots": 106,
+    "fallbackScreenshots": 42,
+    "files": 1453,
+    "bytes": 242710835,
+    "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+  },
+  "mainTests": {
+    "total": 1214,
+    "executed": 1214,
+    "passed": 1214,
+    "failed": 0
+  },
+  "independentLabTests": {
+    "total": 24,
+    "executed": 24,
+    "passed": 24,
+    "failed": 0
+  },
+  "pythonReportTests": {
+    "passed": 28,
+    "failed": 0
+  },
+  "build": {
+    "configuration": "Debug",
+    "mainWarnings": 0,
+    "mainErrors": 0,
+    "labWarnings": 0,
+    "labErrors": 0
+  },
+  "formatVerification": {
+    "main": "passed",
+    "independentLab": "passed"
+  },
+  "onlineVulnerabilityAudit": "not completed; locked local-cache restore",
+  "captureStatuses": {
+    "captured": 69,
+    "not-applicable": 2,
+    "unavailable": 1
+  },
+  "captureStartedUtc": "2026-09-05T03:37:16.4363951+00:00",
+  "captureCompletedUtc": "2026-09-05T03:43:43.7143095+00:00",
+  "numericSummary": {
+    "mappingEntries": 30,
+    "analysesCompared": 29,
+    "highAgreement": 26,
+    "close": 0,
+    "different": 0,
+    "coordinateMismatch": 3,
+    "notCompared": 1,
+    "excludedAsNonEquivalent": 2
+  },
+  "numericResults": [
+    {
+      "analysis": "Axial Aberration",
+      "zemaxAnalysis": "LongitudinalAberration",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.00655033644642916,
+      "worstValueNrmse": 0.006634749006270989,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Color Focus Shift",
+      "zemaxAnalysis": "FocalShiftDiagram",
+      "classification": "high-agreement",
+      "medianValueNrmse": 4.321167453615065e-05,
+      "worstValueNrmse": 4.321167453615065e-05,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Contrast Loss Map",
+      "zemaxAnalysis": "ContrastLoss",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.007111724384222131,
+      "worstValueNrmse": 0.007111724384222131,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 0.978494623655914,
+      "errors": []
+    },
+    {
+      "analysis": "Diffraction Encircled Energy",
+      "zemaxAnalysis": "DiffractionEncircledEnergy",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.011278289990909632,
+      "worstValueNrmse": 0.012834108502425721,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Distortion",
+      "zemaxAnalysis": "FieldCurvatureAndDistortion",
+      "classification": "not-compared",
+      "medianValueNrmse": null,
+      "worstValueNrmse": null,
+      "maximumCoordinateNrmse": 0,
+      "minimumPhysicalCoverage": 1,
+      "errors": [
+        "Required analysis is missing, failed, unavailable or not applicable"
+      ]
+    },
+    {
+      "analysis": "Encircled Energy",
+      "zemaxAnalysis": "GeometricEncircledEnergy",
+      "classification": "coordinate-mismatch",
+      "medianValueNrmse": 0.0033854641268448423,
+      "worstValueNrmse": 0.003900722911461474,
+      "maximumCoordinateNrmse": 0.09700848925947793,
+      "minimumPhysicalCoverage": 0.8793599713562591,
+      "errors": []
+    },
+    {
+      "analysis": "Extended Source Encircled Energy",
+      "zemaxAnalysis": "ExtendedSourceEncircledEnergy",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.01910951224922897,
+      "worstValueNrmse": 0.01910951224922897,
+      "maximumCoordinateNrmse": 0.001790143749839323,
+      "minimumPhysicalCoverage": 0.9974747474747475,
+      "errors": []
+    },
+    {
+      "analysis": "Field Curvature",
+      "zemaxAnalysis": "FieldCurvatureAndDistortion",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.020858678595175963,
+      "worstValueNrmse": 0.08173004974366409,
+      "maximumCoordinateNrmse": 0.0004473297430205575,
+      "minimumPhysicalCoverage": 0.9993673802105675,
+      "errors": []
+    },
+    {
+      "analysis": "Field Curvature and Distortion",
+      "zemaxAnalysis": "FieldCurvatureAndDistortion",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.014376531660418749,
+      "worstValueNrmse": 0.08173004974366409,
+      "maximumCoordinateNrmse": 0.0004473297430205575,
+      "minimumPhysicalCoverage": 0.9993673802105675,
+      "errors": []
+    },
+    {
+      "analysis": "Fourier MTF vs Field",
+      "zemaxAnalysis": "FftMtfvsField",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.0010346058313667902,
+      "worstValueNrmse": 0.0011014899908397132,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Fourier Through Focus MTF",
+      "zemaxAnalysis": "FftThroughFocusMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.004988613547198232,
+      "worstValueNrmse": 0.005150755322306128,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Geometric Line Edge Spread",
+      "zemaxAnalysis": "GeometricLineEdgeSpread",
+      "classification": "coordinate-mismatch",
+      "medianValueNrmse": 0.030480505558384045,
+      "worstValueNrmse": 0.0546390308649789,
+      "maximumCoordinateNrmse": 0.27720075387612325,
+      "minimumPhysicalCoverage": 0.4455984922477535,
+      "errors": []
+    },
+    {
+      "analysis": "Geometric MTF",
+      "zemaxAnalysis": "GeometricMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.008674909802061499,
+      "worstValueNrmse": 0.041320143463590656,
+      "maximumCoordinateNrmse": 0.02295996708136982,
+      "minimumPhysicalCoverage": 0.967529703161887,
+      "errors": []
+    },
+    {
+      "analysis": "Geometric MTF vs Field",
+      "zemaxAnalysis": "GeometricMtfvsField",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.001001769181815146,
+      "worstValueNrmse": 0.0010692503868896615,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Geometric Through Focus MTF",
+      "zemaxAnalysis": "GeometricThroughFocusMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.008242719368540721,
+      "worstValueNrmse": 0.07041665483722927,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Huygens MTF",
+      "zemaxAnalysis": "HuygensMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.0018107497424939881,
+      "worstValueNrmse": 0.004418096201859195,
+      "maximumCoordinateNrmse": 0.0003814908579623423,
+      "minimumPhysicalCoverage": 0.999460781368347,
+      "errors": []
+    },
+    {
+      "analysis": "Huygens MTF vs Field",
+      "zemaxAnalysis": "HuygensMtfvsField",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.00433522174390414,
+      "worstValueNrmse": 0.004372024623893747,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Huygens PSF",
+      "zemaxAnalysis": "HuygensPsf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.004442170833168474,
+      "worstValueNrmse": 0.004442170833168474,
+      "maximumCoordinateNrmse": 0.00027830639053058506,
+      "minimumPhysicalCoverage": 0.9989218534934268,
+      "errors": []
+    },
+    {
+      "analysis": "Huygens Through Focus MTF",
+      "zemaxAnalysis": "HuygensThroughFocusMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.01767736423079503,
+      "worstValueNrmse": 0.018063322250366335,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Lateral Color",
+      "zemaxAnalysis": "LateralColor",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.0023242339136497984,
+      "worstValueNrmse": 0.0023242339136497984,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "MTF",
+      "zemaxAnalysis": "FftMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.008705778850953763,
+      "worstValueNrmse": 0.00879241902614461,
+      "maximumCoordinateNrmse": 0.014590888866447384,
+      "minimumPhysicalCoverage": 0.9793653670779915,
+      "errors": []
+    },
+    {
+      "analysis": "Optical Path Difference",
+      "zemaxAnalysis": "OpticalPathFan",
+      "classification": "high-agreement",
+      "medianValueNrmse": 5.384984889362401e-08,
+      "worstValueNrmse": 1.302983220345769e-06,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "PSF",
+      "zemaxAnalysis": "FftPsf",
+      "classification": "coordinate-mismatch",
+      "medianValueNrmse": 0.010600481671044255,
+      "worstValueNrmse": 0.010600481671044255,
+      "maximumCoordinateNrmse": 0.2477818608057507,
+      "minimumPhysicalCoverage": 0.45183022987813243,
+      "errors": []
+    },
+    {
+      "analysis": "Pupil Aberration",
+      "zemaxAnalysis": "PupilAberrationFan",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.002094837823088932,
+      "worstValueNrmse": 0.004469977060329039,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "RMS Wavefront vs Field",
+      "zemaxAnalysis": "RMSField",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.001533645609511222,
+      "worstValueNrmse": 0.0019270598221105555,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Ray Fan",
+      "zemaxAnalysis": "RayFan",
+      "classification": "high-agreement",
+      "medianValueNrmse": 7.493707661406392e-09,
+      "worstValueNrmse": 1.8976414763346695e-08,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Relative Illumination",
+      "zemaxAnalysis": "RelativeIllumination",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.0004259454916979909,
+      "worstValueNrmse": 0.0004259454916979909,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Sampled MTF",
+      "zemaxAnalysis": "FftMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.014375808983158307,
+      "worstValueNrmse": 0.057068556923272014,
+      "maximumCoordinateNrmse": 0.02295996708136982,
+      "minimumPhysicalCoverage": 0.967529703161887,
+      "errors": []
+    },
+    {
+      "analysis": "Through Focus MTF",
+      "zemaxAnalysis": "FftThroughFocusMtf",
+      "classification": "high-agreement",
+      "medianValueNrmse": 0.004988613547198232,
+      "worstValueNrmse": 0.005150755322306128,
+      "maximumCoordinateNrmse": 0.0,
+      "minimumPhysicalCoverage": 1.0,
+      "errors": []
+    },
+    {
+      "analysis": "Wavefront",
+      "zemaxAnalysis": "WavefrontMap",
+      "classification": "high-agreement",
+      "medianValueNrmse": 8.309940197503784e-09,
+      "worstValueNrmse": 8.309940197503784e-09,
+      "maximumCoordinateNrmse": 0.015873015873015872,
+      "minimumPhysicalCoverage": 0.9685059208868734,
+      "errors": []
+    }
+  ],
+  "realGuiScreenshotAcceptance": "not performed",
+  "seidel": {
+    "capturedWavelengthNumber": 2,
+    "fourTablesEndToEnd": "passed",
+    "absoluteTolerance": 1e-06
+  },
+  "supplementaryExplicitRangeValidation": {
+    "scope": "Same optical prescription, wavelengths, field choices and sampling counts; three explicit output ranges taken from immutable captured coordinate metadata. Does not replace original automatic-range results.",
+    "overrides": {
+      "Encircled Energy": {
+        "MaximumDistanceMicrometers": "4.987373737373738"
+      },
+      "Geometric Line Edge Spread": {
+        "MaximumRadiusMicrometers": "2.0"
+      },
+      "PSF": {
+        "ImageDeltaMicrometers": "0.3946521566267988"
+      }
+    },
+    "freshAnalyses": 3,
+    "reusedAnalyses": 69,
+    "codeFingerprint": "e39e0a545b3b898c0b2a762e49892689461ed79b7cf87368d0a8d560d520ea87:4f4afb11021f9d0be1171c1864acbcea7b2306cabedd259854b5b56f795000b4",
+    "numericSummary": {
+      "mappingEntries": 30,
+      "analysesCompared": 29,
+      "highAgreement": 29,
+      "close": 0,
+      "different": 0,
+      "coordinateMismatch": 0,
+      "notCompared": 1,
+      "excludedAsNonEquivalent": 2
+    },
+    "results": [
+      {
+        "analysis": "Encircled Energy",
+        "classification": "high-agreement",
+        "medianValueNrmse": 0.003387208051948444,
+        "worstValueNrmse": 0.003907265406684264,
+        "minimumPhysicalCoverage": 1.0
+      },
+      {
+        "analysis": "Geometric Line Edge Spread",
+        "classification": "high-agreement",
+        "medianValueNrmse": 0.014254371705689214,
+        "worstValueNrmse": 0.0220472947376048,
+        "minimumPhysicalCoverage": 1.0
+      },
+      {
+        "analysis": "PSF",
+        "classification": "high-agreement",
+        "medianValueNrmse": 0.011178329208976432,
+        "worstValueNrmse": 0.011178329208976432,
+        "minimumPhysicalCoverage": 0.9921414842829689
+      }
+    ],
+    "psfScope": "Peak-normalized shape comparison; absolute irradiance and Strehl are not validated by this mapping."
+  }
+}

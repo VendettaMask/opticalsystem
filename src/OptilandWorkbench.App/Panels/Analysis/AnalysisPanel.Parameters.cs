@@ -266,25 +266,25 @@ public sealed partial class AnalysisPanel
 
     private Control BuildImageSimulationFooter()
     {
-        var applyButton = new Button { Content = "应用", MinWidth = 86 };
+        var applyButton = CreateSettingsFooterButton("应用");
         applyButton.Click += async (_, _) => await RunAsync();
-        var okButton = new Button { Content = "确定", MinWidth = 86 };
+        var okButton = CreateSettingsFooterButton("确定");
         okButton.Click += async (_, _) =>
         {
             await RunAsync();
             _settingsHost.IsVisible = false;
         };
-        var cancelButton = new Button { Content = "取消", MinWidth = 86 };
+        var cancelButton = CreateSettingsFooterButton("取消");
         cancelButton.Click += (_, _) =>
         {
             RebuildParameterPanel();
             _settingsHost.IsVisible = false;
         };
-        var saveButton = new Button { Content = "保存", MinWidth = 86 };
+        var saveButton = CreateSettingsFooterButton("保存");
         saveButton.Click += async (_, _) => await SaveSettingsPresetAsync();
-        var loadButton = new Button { Content = "载入", MinWidth = 86 };
+        var loadButton = CreateSettingsFooterButton("载入");
         loadButton.Click += async (_, _) => await LoadSettingsPresetAsync();
-        var resetButton = new Button { Content = "重置", MinWidth = 86 };
+        var resetButton = CreateSettingsFooterButton("重置");
         resetButton.Click += async (_, _) =>
         {
             _settings = _analyses.MergeSettings(AnalysisName, null);
@@ -294,11 +294,6 @@ public sealed partial class AnalysisPanel
                 await RunAsync();
             }
         };
-        foreach (var button in new[] { applyButton, okButton, cancelButton, saveButton, loadButton, resetButton })
-        {
-            button.Margin = new Thickness(3, 4);
-        }
-
         var footer = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
@@ -316,6 +311,16 @@ public sealed partial class AnalysisPanel
         _parameterAutoApply.Margin = new Thickness(3, 8, 8, 4);
         return footer;
     }
+
+    private static Button CreateSettingsFooterButton(string text) => new()
+    {
+        Content = text,
+        MinWidth = 64,
+        Padding = new Thickness(10, 3),
+        Margin = new Thickness(2, 4),
+        HorizontalContentAlignment = HorizontalAlignment.Center,
+        VerticalContentAlignment = VerticalAlignment.Center
+    };
 
     private Control BuildSpotDiagramSettings(
         IReadOnlyList<AnalysisParameterDescriptor> descriptors)
@@ -533,25 +538,25 @@ public sealed partial class AnalysisPanel
         };
         separator.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Border);
 
-        var applyButton = new Button { Content = "应用", MinWidth = 86 };
+        var applyButton = CreateSettingsFooterButton("应用");
         applyButton.Click += async (_, _) => await RunAsync();
-        var okButton = new Button { Content = "确定", MinWidth = 86 };
+        var okButton = CreateSettingsFooterButton("确定");
         okButton.Click += async (_, _) =>
         {
             await RunAsync();
             _settingsHost.IsVisible = false;
         };
-        var cancelButton = new Button { Content = "取消", MinWidth = 86 };
+        var cancelButton = CreateSettingsFooterButton("取消");
         cancelButton.Click += (_, _) =>
         {
             RebuildParameterPanel();
             _settingsHost.IsVisible = false;
         };
-        var saveButton = new Button { Content = "保存", MinWidth = 86 };
+        var saveButton = CreateSettingsFooterButton("保存");
         saveButton.Click += async (_, _) => await SaveSettingsPresetAsync();
-        var loadButton = new Button { Content = "载入", MinWidth = 86 };
+        var loadButton = CreateSettingsFooterButton("载入");
         loadButton.Click += async (_, _) => await LoadSettingsPresetAsync();
-        var resetButton = new Button { Content = "重置", MinWidth = 86 };
+        var resetButton = CreateSettingsFooterButton("重置");
         resetButton.Click += async (_, _) =>
         {
             _settings = _analyses.MergeSettings(AnalysisName, null);
@@ -576,11 +581,6 @@ public sealed partial class AnalysisPanel
                 resetButton
             }
         };
-        foreach (var button in new[] { applyButton, okButton, cancelButton, saveButton, loadButton, resetButton })
-        {
-            button.Margin = new Thickness(3, 4);
-        }
-
         _parameterAutoApply.Margin = new Thickness(3, 8, 8, 4);
         return new StackPanel
         {

@@ -68,7 +68,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
         var imageSurface = Optic.SurfaceGroup.Items.LastOrDefault();
         if (wavelengths.Count == 0 || imageSurface is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var allFields = SpotAnalysisEngine.DefinedFields(Optic);
@@ -393,12 +393,12 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(workingOptic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var fields = _zemaxCompatibleOutput
             ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, _fieldPointCount + 1)
-            : AnalysisTrace.DefinedFieldSamples(workingOptic);
+            : AnalysisTrace.DefinedFieldSamples(workingOptic).OrderBy(field => field.Coordinate).ToArray();
         var calculationCoordinates = _zemaxCompatibleOutput
             ? Enumerable.Range(0, fields.Count)
                 .Select(index => index / (fields.Count - 1.0))
@@ -465,8 +465,8 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                     ? AnalysisLineStyle.Dashed
                     : AnalysisLineStyle.Solid,
                 ColorIndex: frequencyIndex,
-                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
-                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                XQuantity: _zemaxCompatibleOutput ? AnalysisAxisQuantity.NormalizedField : AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: _zemaxCompatibleOutput ? AnalysisAxisUnit.Dimensionless : AnalysisTrace.FieldAxisUnit(Optic),
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
             series.Add(new AnalysisSeries(
@@ -479,8 +479,8 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
                 Name: $"{frequency:0.###} {frequencyUnitLabel}, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: frequencyIndex,
-                XQuantity: AnalysisTrace.FieldAxisQuantity(Optic),
-                XUnit: AnalysisTrace.FieldAxisUnit(Optic),
+                XQuantity: _zemaxCompatibleOutput ? AnalysisAxisQuantity.NormalizedField : AnalysisTrace.FieldAxisQuantity(Optic),
+                XUnit: _zemaxCompatibleOutput ? AnalysisAxisUnit.Dimensionless : AnalysisTrace.FieldAxisUnit(Optic),
                 YQuantity: AnalysisAxisQuantity.Modulation,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -614,7 +614,8 @@ internal static class MtfMethodEvaluator
                     gridSize,
                     settings.UsePolarization,
                     cellCenteredPupil: settings.ZemaxCompatible,
-                    defocusMillimeters: defocusMillimeters);
+                    defocusMillimeters: defocusMillimeters,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
                 return (wavelength, DiffractionEngine.ComputeFftMtf(psf, optic, wavelength));
             }).ToArray();
             var combined = CombinePolychromatic(results);
@@ -623,7 +624,7 @@ internal static class MtfMethodEvaluator
                 Sample(combined, spatialFrequency, dataType, tangential: false));
         }
 
-        if (method == MtfComputationMethod.Huygens && settings.UseZemaxHuygensSemantics)
+        if (method == MtfComputationMethod.Huygens)
         {
             return EvaluateHuygensPolychromatic(
                 optic,
@@ -640,19 +641,19 @@ internal static class MtfMethodEvaluator
             totalWeight = wavelengths.Count;
         }
 
-        var tangential = 0.0;
-        var sagittal = 0.0;
+        var tangential = Complex.Zero;
+        var sagittal = Complex.Zero;
         foreach (var wavelength in wavelengths)
         {
             var weight = useEqualWeights ? 1.0 : wavelength.Weight;
-            var value = Evaluate(optic, method, field, wavelength, spatialFrequency, settings, defocusMillimeters);
+            var value = EvaluateGeometricOtf(optic, field, wavelength, spatialFrequency, settings, defocusMillimeters);
             tangential += value.Tangential * weight;
             sagittal += value.Sagittal * weight;
         }
 
         return (
-            Math.Clamp(tangential / totalWeight, 0, 1),
-            Math.Clamp(sagittal / totalWeight, 0, 1));
+            DataTypeValue(tangential / totalWeight, dataType),
+            DataTypeValue(sagittal / totalWeight, dataType));
     }
 
     internal static (double[] Tangential, double[] Sagittal) EvaluateFourierThroughFocus(
@@ -664,8 +665,14 @@ internal static class MtfMethodEvaluator
         MtfComputationSettings settings,
         FftMtfDataType dataType)
     {
+        if (dataType == FftMtfDataType.SquareWave)
+        {
+            var responses = focus.Select(defocus => EvaluatePolychromatic(optic, MtfComputationMethod.Fourier,
+                field, wavelengths, spatialFrequency, settings, dataType, defocus)).ToArray();
+            return (responses.Select(item => item.Tangential).ToArray(), responses.Select(item => item.Sagittal).ToArray());
+        }
         var pupilSampling = Math.Max(8, settings.PupilSampling);
-        var gridSize = NextPowerOfTwo(Math.Max(pupilSampling, settings.ImageSize));
+        var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var wavelengthResults = wavelengths.Select(wavelength =>
         {
             var wavefront = WavefrontEngine.GenerateChiefRayUniform(
@@ -674,7 +681,8 @@ internal static class MtfMethodEvaluator
                 wavelength,
                 pupilSampling,
                 cellCentered: true,
-                aimAtStop: true);
+                aimAtStop: true,
+                referenceWavelength: referenceWavelength);
             var polarization = settings.UsePolarization
                 ? JonesPupilEngine.Generate(
                     optic,
@@ -685,55 +693,17 @@ internal static class MtfMethodEvaluator
                     cellCentered: true)
                 : null;
             var results = focus.Select(defocus =>
-            {
-                if (dataType == FftMtfDataType.Modulation)
-                {
-                    return DiffractionEngine.ComputeFastFftMtfAtFrequency(
-                        optic,
-                        field,
-                        wavelength,
-                        pupilSampling,
-                        spatialFrequency,
-                        defocus,
-                        settings.UsePolarization,
-                        wavefront,
-                        polarization);
-                }
-
-                var defocusedWavefront = Math.Abs(defocus) <= 1e-30
-                    ? wavefront
-                    : DiffractionEngine.GenerateDefocusedWavefront(
-                        optic,
-                        field,
-                        wavelength,
-                        wavefront.Samples
-                            .Select(sample => (
-                                sample.NormalizedPupilX,
-                                sample.NormalizedPupilY))
-                            .ToArray(),
-                        defocus);
-                var psf = DiffractionEngine.ComputeFftPsf(
+                DiffractionEngine.ComputeFastFftMtfAtFrequency(
                     optic,
                     field,
                     wavelength,
                     pupilSampling,
-                    gridSize,
+                    spatialFrequency,
+                    defocus,
                     settings.UsePolarization,
-                    cellCenteredPupil: true,
-                    defocusMillimeters: 0,
-                    preparedWavefront: defocusedWavefront,
-                    preparedPolarization: polarization);
-                var mtf = DiffractionEngine.ComputeFftMtf(psf, optic, wavelength);
-                return (
-                    Tangential: InterpolateComplex(
-                        mtf.TangentialFrequency ?? mtf.Frequency,
-                        mtf.TangentialOtf ?? Array.Empty<Complex>(),
-                        spatialFrequency),
-                    Sagittal: InterpolateComplex(
-                        mtf.SagittalFrequency ?? mtf.Frequency,
-                        mtf.SagittalOtf ?? Array.Empty<Complex>(),
-                        spatialFrequency));
-            }).ToArray();
+                    wavefront,
+                    polarization,
+                    referenceWavelength)).ToArray();
             return (Wavelength: wavelength, Results: results);
         }).ToArray();
 
@@ -750,24 +720,18 @@ internal static class MtfMethodEvaluator
         {
             var tangentialComplex = Complex.Zero;
             var sagittalComplex = Complex.Zero;
-            var tangentialModulation = 0.0;
-            var sagittalModulation = 0.0;
             foreach (var item in wavelengthResults)
             {
                 var weight = useEqualWeights ? 1 : item.Wavelength.Weight;
                 tangentialComplex += item.Results[focusIndex].Tangential * weight;
                 sagittalComplex += item.Results[focusIndex].Sagittal * weight;
-                tangentialModulation += item.Results[focusIndex].Tangential.Magnitude * weight;
-                sagittalModulation += item.Results[focusIndex].Sagittal.Magnitude * weight;
             }
 
             tangential[focusIndex] = DataTypeValue(
                 tangentialComplex / totalWeight,
-                tangentialModulation / totalWeight,
                 dataType);
             sagittal[focusIndex] = DataTypeValue(
                 sagittalComplex / totalWeight,
-                sagittalModulation / totalWeight,
                 dataType);
         }
 
@@ -776,7 +740,6 @@ internal static class MtfMethodEvaluator
 
     private static double DataTypeValue(
         Complex value,
-        double modulation,
         FftMtfDataType dataType)
     {
         return dataType switch
@@ -784,8 +747,7 @@ internal static class MtfMethodEvaluator
             FftMtfDataType.Real => value.Real,
             FftMtfDataType.Imaginary => value.Imaginary,
             FftMtfDataType.Phase => value.Phase,
-            FftMtfDataType.SquareWave => modulation,
-            _ => modulation
+            _ => Math.Clamp(value.Magnitude, 0, 1)
         };
     }
 
@@ -797,12 +759,6 @@ internal static class MtfMethodEvaluator
             return new MtfResult(Array.Empty<double>(), Array.Empty<double>(), Array.Empty<double>(), 0);
         }
 
-        var reference = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
-        if (reference.Wavelength is null)
-        {
-            reference = results[0];
-        }
-
         var totalWeight = results.Sum(item => item.Wavelength.Weight);
         var useEqualWeights = totalWeight <= 1e-30;
         if (useEqualWeights)
@@ -810,16 +766,23 @@ internal static class MtfMethodEvaluator
             totalWeight = results.Count;
         }
 
-        var tangentialFrequency = (reference.Result.TangentialFrequency ?? reference.Result.Frequency).ToArray();
-        var sagittalFrequency = (reference.Result.SagittalFrequency ?? reference.Result.Frequency).ToArray();
+        var active = results.Where(item => useEqualWeights || item.Wavelength.Weight > 0).ToArray();
+        var tangentialFrequency = active.Select(item => item.Result.TangentialFrequency ?? item.Result.Frequency)
+            .MaxBy(axis => axis.LastOrDefault())!.ToArray();
+        var sagittalFrequency = active.Select(item => item.Result.SagittalFrequency ?? item.Result.Frequency)
+            .MaxBy(axis => axis.LastOrDefault())!.ToArray();
         var tangential = new double[tangentialFrequency.Length];
         var sagittal = new double[sagittalFrequency.Length];
-        var hasComplexOtf = results.All(item =>
+        var hasComplexOtf = active.All(item =>
             item.Result.TangentialOtf is not null
             && item.Result.SagittalOtf is not null);
+        if (active.Length > 1 && !hasComplexOtf)
+        {
+            throw new ArgumentException("Polychromatic MTF requires complex OTF data for every active wavelength.", nameof(results));
+        }
         var tangentialOtf = hasComplexOtf ? new Complex[tangentialFrequency.Length] : null;
         var sagittalOtf = hasComplexOtf ? new Complex[sagittalFrequency.Length] : null;
-        foreach (var item in results)
+        foreach (var item in active)
         {
             var weight = useEqualWeights ? 1.0 : item.Wavelength.Weight;
             var itemTangentialFrequency = item.Result.TangentialFrequency ?? item.Result.Frequency;
@@ -860,13 +823,13 @@ internal static class MtfMethodEvaluator
             for (var index = 0; index < tangentialFrequency.Length; index++)
             {
                 tangentialOtf![index] /= totalWeight;
-                tangential[index] = Math.Clamp(tangential[index] / totalWeight, 0, 1);
+                tangential[index] = Math.Clamp(tangentialOtf[index].Magnitude, 0, 1);
             }
 
             for (var index = 0; index < sagittalFrequency.Length; index++)
             {
                 sagittalOtf![index] /= totalWeight;
-                sagittal[index] = Math.Clamp(sagittal[index] / totalWeight, 0, 1);
+                sagittal[index] = Math.Clamp(sagittalOtf[index].Magnitude, 0, 1);
             }
         }
         else
@@ -879,7 +842,7 @@ internal static class MtfMethodEvaluator
             tangentialFrequency,
             tangential,
             sagittal,
-            results.Min(item => item.Result.CutoffFrequency),
+            active.Max(item => item.Result.CutoffFrequency),
             tangentialOtf,
             sagittalOtf,
             tangentialFrequency,
@@ -1004,7 +967,7 @@ internal static class MtfMethodEvaluator
         {
             var wavelengthWeight = useConfiguredWeights ? wavelength.Weight : 1;
             var zemaxHuygensWeight = wavelengthWeight
-                * Math.Pow(shortestWavelength / wavelength.Micrometers, 2);
+                * (settings.UseZemaxHuygensSemantics ? Math.Pow(shortestWavelength / wavelength.Micrometers, 2) : 1);
             var psf = DiffractionEngine.ComputeHuygensPsf(
                 optic,
                 field,
@@ -1013,7 +976,8 @@ internal static class MtfMethodEvaluator
                 imageSize,
                 pixelPitchMillimeters,
                 settings.UsePolarization,
-                aimAtStop: optic.RayAimingEnabled);
+                aimAtStop: optic.RayAimingEnabled,
+                referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
             return (Psf: psf, Weight: zemaxHuygensWeight);
         }).ToArray();
         var combinedValues = new double[imageSize, imageSize];
@@ -1066,13 +1030,26 @@ internal static class MtfMethodEvaluator
         MtfComputationSettings settings,
         double defocus = 0)
     {
+        var otf = EvaluateGeometricOtf(optic, field, wavelength, spatialFrequency, settings, defocus);
+        return (otf.Tangential.Magnitude, otf.Sagittal.Magnitude);
+    }
+
+    private static (Complex Tangential, Complex Sagittal) EvaluateGeometricOtf(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        double spatialFrequency,
+        MtfComputationSettings settings,
+        double defocus = 0)
+    {
         var result = SpotAnalysisEngine.Generate(
             optic,
             new[] { field },
             new[] { wavelength },
             Math.Max(2, settings.GeometricRayCount),
             settings.Distribution,
-            imagePlaneOffset: optic.ImageSpaceAfocal ? defocus : 0);
+            imagePlaneOffset: optic.ImageSpaceAfocal ? defocus : 0,
+            reference: "absolute");
         var rays = result.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
             ?? Array.Empty<SpotRayData>();
         var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
@@ -1083,8 +1060,8 @@ internal static class MtfMethodEvaluator
             ? DiffractionScale(spatialFrequency, cutoff)
             : 1.0;
         return (
-            GeometricAtFrequency(rays.Select(ray => ray.Y), spatialFrequency) * scale,
-            GeometricAtFrequency(rays.Select(ray => ray.X), spatialFrequency) * scale);
+            GeometricOtfAtFrequency(rays, spatialFrequency, tangential: true) * scale,
+            GeometricOtfAtFrequency(rays, spatialFrequency, tangential: false) * scale);
     }
 
     private static (double Tangential, double Sagittal) AtFrequency(MtfResult result, double frequency)
@@ -1096,7 +1073,7 @@ internal static class MtfMethodEvaluator
             Interpolate(sagittalFrequency, result.Sagittal, frequency));
     }
 
-    private static double Sample(
+    internal static double Sample(
         MtfResult result,
         double frequency,
         FftMtfDataType type,
@@ -1131,7 +1108,7 @@ internal static class MtfMethodEvaluator
             return Math.Max(0, 4 * sum / Math.PI);
         }
 
-        if (complex is null || type == FftMtfDataType.Modulation)
+        if (complex is null)
         {
             return Interpolate(sourceFrequency, scalar, frequency);
         }
@@ -1203,18 +1180,20 @@ internal static class MtfMethodEvaluator
         return Complex.Zero;
     }
 
-    private static double GeometricAtFrequency(IEnumerable<double> coordinateValues, double frequency)
+    private static Complex GeometricOtfAtFrequency(IReadOnlyList<SpotRayData> rays, double frequency, bool tangential)
     {
-        var coordinates = coordinateValues.ToArray();
-        if (coordinates.Length == 0)
+        var totalWeight = rays.Sum(ray => Math.Max(0, ray.Intensity));
+        if (!(totalWeight > 0) || !double.IsFinite(totalWeight))
         {
-            return 0;
+            throw new AnalysisDataUnavailableException("Geometric MTF", "no finite positive-intensity rays");
         }
-
-        var center = coordinates.Average();
-        var real = coordinates.Average(value => Math.Cos(2 * Math.PI * frequency * (value - center)));
-        var imaginary = coordinates.Average(value => Math.Sin(2 * Math.PI * frequency * (value - center)));
-        return Math.Clamp(Math.Sqrt((real * real) + (imaginary * imaginary)), 0, 1);
+        var otf = Complex.Zero;
+        foreach (var ray in rays)
+        {
+            otf += Math.Max(0, ray.Intensity) * Complex.FromPolarCoordinates(1,
+                -2 * Math.PI * frequency * (tangential ? ray.Y : ray.X));
+        }
+        return otf / totalWeight;
     }
 
     private static double DiffractionScale(double frequency, double cutoff)

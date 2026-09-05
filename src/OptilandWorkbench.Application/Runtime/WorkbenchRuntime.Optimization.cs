@@ -25,6 +25,8 @@ public partial class WorkbenchRuntime
 {
     public OptimizerResult OptimizeSurfaceRadius(OpticalSurface surface, string optimizerName, int maxIterations)
     {
+        if (CurrentOptic.Pickups.RadiusPickups.Any(pickup => pickup.TargetSurface == surface.Number))
+            throw new InvalidOperationException("拾取半径不能独立优化，请优化源表面或先改为变量。");
         OpticCapabilityPreflight.EnsureSupported(
             CurrentOptic,
             OpticCapabilityOperation.Optimization,
@@ -45,7 +47,11 @@ public partial class WorkbenchRuntime
             problem.AddVariable(new DelegateVariable(
                 $"Surface {surface.Number} radius",
                 () => surface.Radius,
-                next => SetSurfaceRadius(surface, next),
+                next =>
+                {
+                    SetSurfaceRadius(surface, next);
+                    CurrentOptic.Pickups.ApplyAll();
+                },
                 lower,
                 upper,
                 stepHint: Math.Max(0.25, span * 0.1),
@@ -85,7 +91,7 @@ public partial class WorkbenchRuntime
             .ToArray();
         if (selected.Length == 0)
         {
-            throw new InvalidOperationException("请先在镜头数据中勾选至少一个半径变量或厚度变量。");
+            throw new InvalidOperationException("请先在镜头数据中设置至少一个半径变量或厚度变量。");
         }
 
         var initialDocument = CaptureDocument();
@@ -95,7 +101,7 @@ public partial class WorkbenchRuntime
             var variableBindings = new List<(int SurfaceNumber, bool IsRadius)>();
             foreach (var surface in selected)
             {
-                if (surface.RadiusVariable)
+                if (surface.RadiusVariable && !CurrentOptic.Pickups.RadiusPickups.Any(pickup => pickup.TargetSurface == surface.Number))
                 {
                     if (surface.IsPlane)
                     {
@@ -113,7 +119,11 @@ public partial class WorkbenchRuntime
                     problem.AddVariable(new DelegateVariable(
                         $"表面 {surface.Number} 半径",
                         () => surface.Radius,
-                        value => SetSurfaceRadius(surface, value),
+                        value =>
+                        {
+                            SetSurfaceRadius(surface, value);
+                            CurrentOptic.Pickups.ApplyAll();
+                        },
                         Math.Max(-1_000_000, lower),
                         Math.Min(1_000_000, upper),
                         Math.Max(0.1, Math.Abs(initial) * 0.05),
@@ -142,6 +152,9 @@ public partial class WorkbenchRuntime
                 }
             }
 
+            CurrentOptic.Pickups.ApplyAll();
+            if (problem.Variables.Count == 0)
+                throw new InvalidOperationException("拾取半径不能作为独立变量，请设置源表面为变量。");
             var allMeritOperands = CurrentOptic.MeritFunctionOperands
                 .Select(operand => operand.Clone())
                 .ToArray();
@@ -178,6 +191,7 @@ public partial class WorkbenchRuntime
                 values));
 
             var result = OptimizerCatalog.Create(optimizerName).Optimize(problem, maxIterations);
+            CurrentOptic.Pickups.ApplyAll();
             CurrentOptic.SurfaceGroup.Renumber();
             foreach (var binding in variableBindings.Distinct())
             {
@@ -232,6 +246,7 @@ public partial class WorkbenchRuntime
                     }
                 }
 
+                optic.Pickups.ApplyAll();
                 optic.SurfaceGroup.Renumber();
                 if (enabledRows.Count == 0)
                 {

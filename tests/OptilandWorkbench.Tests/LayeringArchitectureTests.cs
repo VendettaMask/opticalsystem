@@ -128,7 +128,7 @@ public sealed class LayeringArchitectureTests
     }
 
     [Fact]
-    public void GlobalNumericInputStyleKeepsSpinnerControlsAvailable()
+    public void GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome()
     {
         var appSource = File.ReadAllText(Path.Combine(
             FindRepositoryRoot(),
@@ -136,7 +136,7 @@ public sealed class LayeringArchitectureTests
             "OptilandWorkbench.App",
             "App.cs"));
 
-        Assert.DoesNotContain(
+        Assert.Contains(
             "new Setter(NumericUpDown.ShowButtonSpinnerProperty, false)",
             appSource,
             StringComparison.Ordinal);

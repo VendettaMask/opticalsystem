@@ -98,13 +98,124 @@ CURVE_NRMSE_ABSOLUTE_FLOORS: dict[str, float] = {
     "Pupil Aberration": 1e-4,
 }
 
+# These contracts describe the committed 123456.ZMX / 2026 R1 export, not
+# universal OpticStudio defaults. Current quantities/units come from typed axes.
+REFERENCE_CURVE_AXES = {
+    "Axial Aberration": ("pupilCoordinate", "dimensionless", "defocus", "millimeter"),
+    "Color Focus Shift": ("wavelength", "micrometer", "defocus", "millimeter"),
+    "Diffraction Encircled Energy": ("radius", "micrometer", "energyFraction", "dimensionless"),
+    "Encircled Energy": ("radius", "micrometer", "energyFraction", "dimensionless"),
+    "Extended Source Encircled Energy": ("radius", "micrometer", "energyFraction", "dimensionless"),
+    "Field Curvature": ("fieldHeight", "millimeter", "defocus", "millimeter"),
+    "Field Curvature and Distortion": ("fieldHeight", "millimeter", "defocus", "millimeter"),
+    "Fourier MTF vs Field": ("fieldHeight", "millimeter", "modulation", "dimensionless"),
+    "Geometric MTF vs Field": ("fieldHeight", "millimeter", "modulation", "dimensionless"),
+    "Huygens MTF vs Field": ("fieldHeight", "millimeter", "modulation", "dimensionless"),
+    "Fourier Through Focus MTF": ("defocus", "millimeter", "modulation", "dimensionless"),
+    "Geometric Through Focus MTF": ("defocus", "millimeter", "modulation", "dimensionless"),
+    "Huygens Through Focus MTF": ("defocus", "millimeter", "modulation", "dimensionless"),
+    "Through Focus MTF": ("defocus", "millimeter", "modulation", "dimensionless"),
+    "Geometric Line Edge Spread": ("imageHeight", "micrometer", "irradiance", "dimensionless"),
+    "Geometric MTF": ("spatialFrequency", "cyclesPerMillimeter", "modulation", "dimensionless"),
+    "Huygens MTF": ("spatialFrequency", "cyclesPerMillimeter", "modulation", "dimensionless"),
+    "MTF": ("spatialFrequency", "cyclesPerMillimeter", "modulation", "dimensionless"),
+    "Sampled MTF": ("spatialFrequency", "cyclesPerMillimeter", "modulation", "dimensionless"),
+    "Lateral Color": ("fieldHeight", "millimeter", "imageHeight", "micrometer"),
+    "Optical Path Difference": ("pupilCoordinate", "dimensionless", "wavefrontError", "wave"),
+    "Pupil Aberration": ("pupilCoordinate", "dimensionless", "distortion", "percent"),
+    "RMS Wavefront vs Field": ("fieldHeight", "millimeter", "wavefrontError", "wave"),
+    "Ray Fan": ("pupilCoordinate", "dimensionless", "imageHeight", "micrometer"),
+    "Relative Illumination": ("fieldHeight", "millimeter", "irradiance", "dimensionless"),
+}
+UNIT_FACTORS = {
+    "millimeter": ("length", 1.0), "micrometer": ("length", 0.001),
+    "nanometer": ("length", 0.000001), "dimensionless": ("ratio", 1.0),
+    "percent": ("ratio", 0.01), "wave": ("wave", 1.0),
+    "degree": ("angle", math.pi / 180), "radian": ("angle", 1.0),
+    "milliradian": ("angle", 0.001),
+    "cyclesPerMillimeter": ("spatialFrequency", 1.0),
+    "cyclesPerMilliradian": ("angularFrequency", 1.0),
+}
+
+
+def unit_scale(source: str, target: str) -> float:
+    if source not in UNIT_FACTORS or target not in UNIT_FACTORS:
+        raise ValueError(f"Missing or unsupported typed axis unit: {source} / {target}")
+    a, b = UNIT_FACTORS[source], UNIT_FACTORS[target]
+    if a[0] != b[0]:
+        raise ValueError(f"Incompatible physical units: {source} / {target}")
+    return a[1] / b[1]
+
+
+def physical_curve_coordinates(analysis, current, reference, zemax, value_axis, cx, rx, mapping):
+    contract = mapping.get("axisContract") or REFERENCE_CURVE_AXES.get(analysis)
+    if contract is None or len(contract) != 4:
+        raise ValueError("No verified physical-axis contract for this analysis mapping")
+    coordinate_axis = "y" if value_axis == "x" else "x"
+    coordinate_quantity, coordinate_unit, value_quantity, value_unit = contract
+    relative_field = current.get(coordinate_axis + "Quantity") == "normalizedField" and coordinate_quantity == "fieldHeight"
+    if (not relative_field and current.get(coordinate_axis + "Quantity") != coordinate_quantity) or current.get(value_axis + "Quantity") != value_quantity:
+        raise ValueError("Current typed axis quantity differs from the reference contract")
+    # Validate value units here; conversion is applied before calculating errors.
+    unit_scale(current.get(value_axis + "Unit"), value_unit)
+    cx = cx * (4.5 * unit_scale(current.get(coordinate_axis + "Unit"), "dimensionless") if relative_field
+               else unit_scale(current.get(coordinate_axis + "Unit"), coordinate_unit))
+    if analysis in {"Lateral Color", "Fourier MTF vs Field", "Geometric MTF vs Field", "Huygens MTF vs Field"}:
+        # The captured file defines five real-image fields with maximum radius 4.5 mm.
+        # Its native exports for these analyses use relative field, independent of sampling.
+        rx = rx * 4.5
+    if analysis in {"Field Curvature", "Field Curvature and Distortion"}:
+        # Native Field Curvature exports angle plus real/paraxial image height.
+        # Column 2 at the primary wavelength supplies the physical input image height.
+        groups = zemax.get("dataSeries") or []
+        if len(groups) < 2:
+            raise ValueError("Missing primary-wavelength real image height coordinates")
+        angles = finite_array(groups[1].get("x") or [])
+        heights = np.asarray(groups[1].get("y") or [], dtype=float)
+        if heights.ndim != 2 or heights.shape[1] < 3 or len(angles) != len(heights):
+            raise ValueError("Invalid captured angle-to-image-height table")
+        order = np.argsort(angles)
+        if np.min(rx) < np.min(angles) or np.max(rx) > np.max(angles):
+            raise ValueError("Field-curvature coordinates extend beyond the captured conjugate table")
+        rx = np.interp(rx, angles[order], heights[order, 2])
+    return cx, rx
+
+
+def align_physical_curve(cx, cy, rx, ry):
+    def checked(x, y):
+        if len(x) != len(y) or len(x) < 2 or not np.all(np.isfinite(x)) or not np.all(np.isfinite(y)):
+            raise ValueError("Curve needs at least two finite coordinate/value pairs")
+        order = np.argsort(x)
+        if not np.all(np.diff(x[order]) > 0):
+            raise ValueError("Curve has duplicate physical coordinates")
+        return x[order], y[order]
+    cx, cy = checked(cx, cy)
+    rx, ry = checked(rx, ry)
+    lower, upper = max(cx[0], rx[0]), min(cx[-1], rx[-1])
+    if upper <= lower:
+        raise ValueError("Curves have no overlapping physical coordinate interval")
+    span = max(rx[-1] - rx[0], 1e-15)
+    endpoint_error = float(np.sqrt(((cx[0] - rx[0]) ** 2 + (cx[-1] - rx[-1]) ** 2) / 2) / span)
+    coverage = float((upper - lower) / max(cx[-1] - cx[0], span))
+    target = np.linspace(lower, upper, 257)
+    return target, np.interp(target, cx, cy), np.interp(target, rx, ry), endpoint_error, coverage
+
 
 def stable_curve_details(
     mapping_key: tuple[str, str],
     details: Iterable[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     source = CURVE_DETAIL_OVERRIDES.get(mapping_key, tuple(details))
+    if mapping_key[0] in {"Fourier MTF vs Field", "Geometric MTF vs Field", "Huygens MTF vs Field"}:
+        source = (
+            {"label": "20 cycles/mm tangential", "currentSeries": "20 cycles/mm, Tangential", "zemaxSeries": "子午", "zemaxGroup": 1, "valueAxis": "y"},
+            {"label": "20 cycles/mm sagittal", "currentSeries": "20 cycles/mm, Sagittal", "zemaxSeries": "弧矢", "zemaxGroup": 1, "valueAxis": "y"},
+        )
     result = [dict(item) for item in source]
+    if mapping_key[0] == "Field Curvature and Distortion":
+        for item in result:
+            if item.get("zemaxSeries") == "畸变":
+                item["axisContract"] = ("fieldHeight", "millimeter", "distortion", "percent")
     if mapping_key in FORWARD_REFERENCE_CURVES:
         for item in result:
             item["referenceReversed"] = False
@@ -194,38 +305,20 @@ def select_named(
     candidates: list[dict[str, Any]],
     used: set[int],
     name: str | None,
+    group: int | None = None,
 ) -> tuple[int, dict[str, Any]] | None:
     normalized = None if name in (None, "", "None") else name
     if normalized is not None:
         for index, candidate in enumerate(candidates):
-            if index not in used and candidate.get("name", "") == normalized:
+            if index not in used and candidate.get("name", "") == normalized and (group is None or candidate.get("group") == group):
                 used.add(index)
                 return index, candidate
+        return None
     for index, candidate in enumerate(candidates):
-        if index not in used:
+        if index not in used and candidate.get("name", "") in (None, "", "None") and (group is None or candidate.get("group") == group):
             used.add(index)
             return index, candidate
     return None
-
-
-def interpolate_parameter(values: np.ndarray, count: int = 257) -> np.ndarray:
-    values = np.asarray(values, dtype=float)
-    valid = np.isfinite(values)
-    if valid.sum() == 0:
-        return np.full(count, math.nan)
-    if valid.sum() == 1:
-        return np.full(count, values[valid][0])
-    source = np.linspace(0.0, 1.0, len(values))[valid]
-    target = np.linspace(0.0, 1.0, count)
-    return np.interp(target, source, values[valid])
-
-
-def curve_value_scales(analysis: str, value_axis: str) -> tuple[float, float]:
-    if analysis == "Ray Fan" and value_axis == "y":
-        return 1000.0, 1.0
-    if analysis == "Color Focus Shift" and value_axis == "x":
-        return 1.0, 1000.0
-    return 1.0, 1.0
 
 
 def nrmse(
@@ -267,8 +360,10 @@ def compare_curves(
         selected_current = select_named(
             current_candidates, current_used, item.get("currentSeries"))
         selected_zemax = select_named(
-            zemax_candidates, zemax_used, item.get("zemaxSeries"))
+            zemax_candidates, zemax_used, item.get("zemaxSeries"), item.get("zemaxGroup"))
         if selected_current is None or selected_zemax is None:
+            details.append({"label": item.get("label", "missing curve"),
+                            "error": "Required named series is missing", "valueNrmse": math.nan})
             continue
         _, current = selected_current
         _, reference = selected_zemax
@@ -279,21 +374,24 @@ def compare_curves(
             point.get("y" if axis == "x" else "x") for point in points)
         reference_value = np.asarray(reference["y"], dtype=float)
         reference_coordinate = np.asarray(reference["x"], dtype=float)
-        if item.get("referenceReversed"):
-            reference_value = reference_value[::-1]
-            reference_coordinate = reference_coordinate[::-1]
-        current_value = interpolate_parameter(current_value)
-        reference_value = interpolate_parameter(reference_value)
-        current_coordinate = interpolate_parameter(current_coordinate)
-        reference_coordinate = interpolate_parameter(reference_coordinate)
-        current_scale, reference_scale = curve_value_scales(analysis, axis)
-        current_value = current_value * current_scale
-        reference_value = reference_value * reference_scale
+        try:
+            contract = item.get("axisContract") or mapping.get("axisContract") or REFERENCE_CURVE_AXES.get(analysis)
+            if contract is None:
+                raise ValueError("No verified physical-axis contract")
+            current_scale = unit_scale(current.get(axis + "Unit"), contract[3])
+            reference_scale = 1.0
+            current_value = current_value * current_scale
+            current_coordinate, reference_coordinate = physical_curve_coordinates(
+                analysis, current, reference, zemax, axis, current_coordinate, reference_coordinate, {**mapping, **item})
+            target, current_value, reference_value, coordinate_error, coverage = align_physical_curve(
+                current_coordinate, current_value, reference_coordinate, reference_value)
+        except ValueError as error:
+            details.append({"label": item.get("label", "invalid curve"),
+                            "error": str(error), "valueNrmse": math.nan})
+            continue
         normalization_floor = CURVE_NRMSE_ABSOLUTE_FLOORS.get(analysis, 1e-15)
         value_error, maximum_error, correlation = nrmse(
             current_value, reference_value, normalization_floor)
-        coordinate_error, _, _ = nrmse(
-            current_coordinate, reference_coordinate)
         details.append({
             "label": item.get("label", f"curve {len(details) + 1}"),
             "currentSeries": current.get("name", ""),
@@ -303,11 +401,14 @@ def compare_curves(
             "zemaxUnitScale": reference_scale,
             "valueNrmse": value_error,
             "coordinateNrmse": coordinate_error,
+            "coordinateCoverage": coverage,
+            "physicalCoordinateMinimum": float(target[0]),
+            "physicalCoordinateMaximum": float(target[-1]),
             "correlation": correlation,
             "maximumAbsoluteError": maximum_error,
             "referenceMaximumAbsolute": float(np.nanmax(np.abs(reference_value))),
             "absoluteNormalizationFloor": normalization_floor,
-            "referenceReversed": bool(item.get("referenceReversed")),
+            "referenceReversed": False,
         })
         plot_pairs.append((details[-1]["label"], current_value, reference_value))
     return details, plot_pairs
@@ -349,35 +450,6 @@ def series_grid(series: dict[str, Any]) -> np.ndarray | None:
     return grid
 
 
-def zemax_centered_wavefront_grids(view: dict[str, Any]) -> list[np.ndarray]:
-    sampling = 0
-    for row in view.get("rows") or []:
-        if row.get("metric") in {"Sampling", "采样"}:
-            match = re.search(r"\d+", str(row.get("value", "")))
-            sampling = int(match.group()) if match else 0
-            break
-    if sampling < 4 or sampling % 2:
-        return current_grids(view)
-    center = sampling // 2
-    radius = center - 1
-    grids: list[np.ndarray] = []
-    for series in current_series(view):
-        points = series.get("points") or []
-        if not points:
-            continue
-        grid = np.full((sampling, sampling), math.nan)
-        for point in points:
-            value = point.get("value")
-            if value is None:
-                continue
-            column = int(round((float(point["x"]) * radius) + center))
-            row = int(round((float(point["y"]) * radius) + center))
-            if 0 <= row < sampling and 0 <= column < sampling:
-                grid[row, column] = float(value)
-        grids.append(grid)
-    return grids
-
-
 def zemax_grids(data: dict[str, Any]) -> list[np.ndarray]:
     grids: list[np.ndarray] = []
     for item in data.get("dataGrids") or []:
@@ -390,33 +462,6 @@ def zemax_grids(data: dict[str, Any]) -> list[np.ndarray]:
         if rows:
             grids.append(np.asarray(rows, dtype=float))
     return grids
-
-
-def resize_grid(grid: np.ndarray, shape: tuple[int, int]) -> np.ndarray:
-    if grid.shape == shape:
-        return grid
-    source_y = np.linspace(0.0, 1.0, grid.shape[0])
-    source_x = np.linspace(0.0, 1.0, grid.shape[1])
-    target_y = np.linspace(0.0, 1.0, shape[0])
-    target_x = np.linspace(0.0, 1.0, shape[1])
-    valid = np.isfinite(grid).astype(float)
-    filled = np.nan_to_num(grid)
-    horizontal = np.vstack([
-        np.interp(target_x, source_x, row) for row in filled
-    ])
-    horizontal_mask = np.vstack([
-        np.interp(target_x, source_x, row) for row in valid
-    ])
-    result = np.vstack([
-        np.interp(target_y, source_y, horizontal[:, column])
-        for column in range(horizontal.shape[1])
-    ]).T
-    mask = np.vstack([
-        np.interp(target_y, source_y, horizontal_mask[:, column])
-        for column in range(horizontal_mask.shape[1])
-    ]).T
-    result[mask < 0.5] = math.nan
-    return result
 
 
 def orientations(grid: np.ndarray) -> list[tuple[str, np.ndarray]]:
@@ -441,15 +486,9 @@ def compare_grids(
         str(mapping.get("analysis", "")),
         str(mapping.get("zemaxAnalysis", "")),
     )
-    current_candidates = (
-        zemax_centered_wavefront_grids(view)
-        if mapping_key in {
-            ("Wavefront", "WavefrontMap"),
-            ("Wavefront Map", "WavefrontMap"),
-        }
-        else current_grids(view)
-    )
-    reference_candidates = zemax_grids(zemax)
+    current_candidates = [(series, grid) for series in current_series(view)
+                          if (grid := series_grid(series)) is not None]
+    reference_candidates = [item for item in zemax.get("dataGrids", []) if item.get("values")]
     details: list[dict[str, Any]] = []
     plots: list[tuple[str, np.ndarray, np.ndarray]] = []
     detail_items = mapping.get("details") or []
@@ -458,46 +497,114 @@ def compare_grids(
         tuple((index, index) for index in range(len(detail_items))),
     )
     for index, item in enumerate(detail_items):
-        if not current_candidates or not reference_candidates:
-            break
-        current_index, reference_index = pair_indices[min(index, len(pair_indices) - 1)]
-        current = current_candidates[min(current_index, len(current_candidates) - 1)]
-        reference = reference_candidates[min(reference_index, len(reference_candidates) - 1)]
-        best: tuple[float, float, str, np.ndarray, float] | None = None
-        for orientation, oriented in orientations(current):
-            aligned = resize_grid(oriented, reference.shape)
-            current_values = aligned.copy()
-            reference_values = reference.copy()
+        label = item.get("label", f"grid {index + 1}")
+        try:
+            if index >= len(pair_indices):
+                raise ValueError("Missing explicit grid pairing")
+            current_index, reference_index = pair_indices[index]
+            if current_index >= len(current_candidates) or reference_index >= len(reference_candidates):
+                raise ValueError("Required grid is missing")
+            series, current = current_candidates[current_index]
+            native = reference_candidates[reference_index]
+            reference = np.asarray(native["values"], dtype=float)
+            if reference.ndim != 2 or min(reference.shape) < 2:
+                raise ValueError("Grid needs at least two rows and columns")
+            if not all(isinstance(native.get(key), (float, int)) for key in ("minX", "minY", "dx", "dy")):
+                raise ValueError("Reference grid lacks physical coordinate metadata")
+            rx = native["minX"] + np.arange(reference.shape[1]) * native["dx"]
+            ry = native["minY"] + np.arange(reference.shape[0]) * native["dy"]
+            if native["dx"] <= 0 or native["dy"] <= 0:
+                raise ValueError("Reference grid coordinates must increase")
+            cx = np.asarray(sorted({point["x"] for point in series["points"]}), dtype=float)
+            cy = np.asarray(sorted({point["y"] for point in series["points"]}), dtype=float)
+            pupil = mapping_key[1] in {"WavefrontMap", "ContrastLoss"}
+            unit = mapping.get("coordinateUnit", "dimensionless" if pupil else "micrometer")
+            quantity = mapping.get("coordinateQuantity", "pupilCoordinate" if pupil else "imageHeight")
+            if series.get("xQuantity") != quantity or series.get("yQuantity") != quantity:
+                raise ValueError("Grid typed coordinate quantity does not match the reference")
+            value_quantity = mapping.get("valueQuantity", "wavefrontError" if mapping_key[1] == "WavefrontMap"
+                                         else "modulation" if mapping_key[1] == "ContrastLoss" else "irradiance")
+            value_unit = mapping.get("valueUnit", "wave" if mapping_key[1] == "WavefrontMap" else "dimensionless")
+            if series.get("valueQuantity") != value_quantity:
+                raise ValueError("Grid typed value quantity does not match the reference")
+            current = current * unit_scale(series.get("valueUnit"), value_unit)
+            cx *= unit_scale(series.get("xUnit"), unit)
+            cy *= unit_scale(series.get("yUnit"), unit)
+            orientation = item.get("coordinateTransform", "identity")
+            if orientation != "identity" and not item.get("coordinateConvention"):
+                raise ValueError("A grid transform needs an explicit coordinate convention")
+            variants = dict(orientations(current))
+            if orientation not in variants:
+                raise ValueError("Unknown grid coordinate transform")
+            current = variants[orientation]
+            if orientation.startswith("transpose"):
+                cx, cy = cy, cx
+            if "flip-x" in orientation or orientation.endswith("flip-xy"):
+                cx = -cx[::-1]
+            if "flip-y" in orientation or orientation.endswith("flip-xy"):
+                cy = -cy[::-1]
+            if mapping_key[1] == "WavefrontMap":
+                # Native Wavefront Map exports an even N grid with its chief-ray
+                # cell at N/2 and physical pupil edge at N/2-1. This fixed export
+                # convention is independent of the computed phase values.
+                count = reference.shape[0]
+                if count != reference.shape[1] or count % 2:
+                    raise ValueError("Unsupported native Wavefront Map grid convention")
+                cx = native["minX"] + (cx * (count / 2 - 1) + count / 2) * native["dx"]
+                cy = native["minY"] + (cy * (count / 2 - 1) + count / 2) * native["dy"]
+                yy, xx = np.indices(reference.shape)
+                reference = reference.copy()
+                reference[(xx - count / 2) ** 2 + (yy - count / 2) ** 2 > (count / 2 - 1) ** 2] = math.nan
+            coordinate_error = max(
+                abs(cx[0] - rx[0]) / max(rx[-1] - rx[0], 1e-15),
+                abs(cx[-1] - rx[-1]) / max(rx[-1] - rx[0], 1e-15),
+                abs(cy[0] - ry[0]) / max(ry[-1] - ry[0], 1e-15),
+                abs(cy[-1] - ry[-1]) / max(ry[-1] - ry[0], 1e-15))
+            horizontal = np.asarray([np.interp(rx, cx, row, left=np.nan, right=np.nan) for row in current])
+            aligned = np.asarray([np.interp(ry, cy, column, left=np.nan, right=np.nan) for column in horizontal.T]).T
+            current_values, reference_values = aligned.copy(), reference.copy()
             if item.get("peakNormalized"):
-                current_peak = np.nanmax(np.abs(current_values))
-                reference_peak = np.nanmax(np.abs(reference_values))
-                if current_peak > 0:
-                    current_values /= current_peak
-                if reference_peak > 0:
-                    reference_values /= reference_peak
-            value_error, _, correlation = nrmse(
-                current_values.ravel(), reference_values.ravel())
-            compared = int(np.sum(
-                np.isfinite(current_values) & np.isfinite(reference_values)))
-            candidate = (value_error, -compared, orientation, current_values, correlation)
-            if best is None or candidate[:2] < best[:2]:
-                best = candidate
-        if best is None:
+                for values in (current_values, reference_values):
+                    peak = np.nanmax(np.abs(values))
+                    if not math.isfinite(peak) or peak <= 0:
+                        raise ValueError("Cannot peak-normalize an empty or zero grid")
+                    values /= peak
+            mask = np.isfinite(current_values) & np.isfinite(reference_values)
+            compared = int(mask.sum())
+            if compared < 4:
+                raise ValueError("Insufficient overlapping finite grid samples")
+            # Measure physical overlap, then penalize missing data inside it.
+            # Counting discarded boundary pixels as lost area makes a tiny
+            # grid-spacing difference fail more severely on coarse grids.
+            lower_x, upper_x = max(cx[0], rx[0]), min(cx[-1], rx[-1])
+            lower_y, upper_y = max(cy[0], ry[0]), min(cy[-1], ry[-1])
+            overlap_area = max(0, upper_x - lower_x) * max(0, upper_y - lower_y)
+            domain_area = max((cx[-1] - cx[0]) * (cy[-1] - cy[0]),
+                              (rx[-1] - rx[0]) * (ry[-1] - ry[0]))
+            inside = ((ry >= lower_y) & (ry <= upper_y))[:, None] & ((rx >= lower_x) & (rx <= upper_x))[None, :]
+            expected = int((inside & np.isfinite(reference)).sum())
+            coverage = overlap_area / max(domain_area, 1e-30) * compared / max(1, expected)
+            value_error, _, correlation = nrmse(current_values.ravel(), reference_values.ravel())
+        except (ValueError, TypeError, IndexError) as error:
+            details.append({"label": label, "error": str(error), "valueNrmse": math.nan})
             continue
-        value_error, negative_compared, orientation, aligned, correlation = best
         details.append({
-            "label": item.get("label", f"grid {index + 1}"),
+            "label": label,
             "valueNrmse": value_error,
             "correlation": correlation,
             "orientation": orientation,
-            "comparedPixels": -negative_compared,
+            "comparedPixels": compared,
+            "coordinateNrmse": coordinate_error,
+            "coordinateCoverage": coverage,
             "peakNormalized": bool(item.get("peakNormalized")),
         })
-        plots.append((details[-1]["label"], aligned, reference))
+        plots.append((details[-1]["label"], current_values, reference_values))
     return details, plots
 
 
 def classification(details: list[dict[str, Any]]) -> tuple[str, float, float, float]:
+    if any(detail.get("error") or not math.isfinite(float(detail.get("valueNrmse", math.nan))) for detail in details):
+        return "not-compared", math.nan, math.nan, math.nan
     values = sorted(
         float(detail["valueNrmse"]) for detail in details
         if math.isfinite(float(detail.get("valueNrmse", math.nan)))
@@ -507,9 +614,12 @@ def classification(details: list[dict[str, Any]]) -> tuple[str, float, float, fl
     median = statistics.median(values)
     percentile90 = float(np.percentile(values, 90))
     worst = max(values)
-    if median <= 0.03 and percentile90 <= 0.10:
+    if any(float(detail.get("coordinateNrmse", 0)) > 0.05
+           or float(detail.get("coordinateCoverage", 1)) < 0.95 for detail in details):
+        return "coordinate-mismatch", median, percentile90, worst
+    if median <= 0.03 and worst <= 0.10:
         label = "high-agreement"
-    elif median <= 0.10 and percentile90 <= 0.25:
+    elif median <= 0.10 and worst <= 0.25:
         label = "close"
     else:
         label = "different"
@@ -806,7 +916,7 @@ def render_current_page(path: Path, analysis: str, view: dict[str, Any]) -> None
             lines.extend(" | ".join(map(str, row)) for row in (table.get("rows") or [])[:16])
         if not lines:
             lines = [str(view.get("reportText") or "")[:4000]]
-        axis.text(0.02, 0.98, "\n".join(lines), va="top", family="monospace", fontsize=8)
+        axis.text(0.02, 0.98, "\n".join(lines), va="top", fontsize=8)
     figure.tight_layout()
     figure.savefig(path)
     plt.close(figure)
@@ -870,6 +980,9 @@ def main() -> int:
     output.mkdir(parents=True, exist_ok=True)
 
     manifest = read_json(output / "current-manifest.json")
+    source_hash = hashlib.sha256((baseline / "source" / "123456.ZMX").read_bytes()).hexdigest()
+    if manifest.get("sourceSha256") != source_hash:
+        raise ValueError("Current capture and Zemax baseline refer to different source files")
     baseline_manifest = read_json(baseline / "manifest.json")
     previous_data = read_json(previous / "comparison.json")
     baseline_entries = {
@@ -913,7 +1026,13 @@ def main() -> int:
                 mapping_key, mapping.get("details") or [])
         entry = current_entries.get(analysis)
         baseline_entry = baseline_entries.get(mapping["zemaxAnalysis"])
-        if not entry or not entry.get("output") or not baseline_entry:
+        if not entry or not entry.get("output") or entry.get("status") != "captured" or not baseline_entry:
+            numeric_results.append({
+                "analysis": analysis, "zemaxAnalysis": mapping["zemaxAnalysis"], "kind": mapping["kind"],
+                "classification": "not-compared", "medianValueNrmse": math.nan,
+                "percentile90ValueNrmse": math.nan, "worstValueNrmse": math.nan, "comparedSeries": 0,
+                "details": [{"error": "Required analysis is missing, failed, unavailable or not applicable"}],
+            })
             continue
         view = read_json(output / entry["output"])
         zemax = read_json(
@@ -931,7 +1050,7 @@ def main() -> int:
             "medianValueNrmse": median,
             "percentile90ValueNrmse": percentile90,
             "worstValueNrmse": worst,
-            "comparedSeries": len(details),
+            "comparedSeries": sum(not detail.get("error") for detail in details),
             "details": details,
         }
         numeric_results.append(result)
@@ -981,12 +1100,14 @@ def main() -> int:
         })
 
     summary = {
-        "analysesCompared": len(numeric_results),
+        "mappingEntries": len(numeric_results),
+        "analysesCompared": sum(result["classification"] != "not-compared" for result in numeric_results),
         "highAgreement": sum(
             result["classification"] == "high-agreement" for result in numeric_results),
         "close": sum(result["classification"] == "close" for result in numeric_results),
         "different": sum(
             result["classification"] == "different" for result in numeric_results),
+        "coordinateMismatch": sum(result["classification"] == "coordinate-mismatch" for result in numeric_results),
         "notCompared": sum(
             result["classification"] == "not-compared" for result in numeric_results),
         "excludedAsNonEquivalent": len(non_equivalent_mappings),
@@ -1011,7 +1132,9 @@ def main() -> int:
         "currentRun": {
             "total": len(manifest["analyses"]),
             "captured": sum(item["status"] == "captured" for item in manifest["analyses"]),
-            "failed": sum(item["status"] != "captured" for item in manifest["analyses"]),
+            "failed": sum(item["status"] == "failed" for item in manifest["analyses"]),
+            "unavailable": sum(item["status"] == "unavailable" for item in manifest["analyses"]),
+            "notApplicable": sum(item["status"] == "not-applicable" for item in manifest["analyses"]),
             "elapsedSeconds": sum(
                 item.get("elapsedMilliseconds", 0) for item in manifest["analyses"]) / 1000.0,
         },
@@ -1039,13 +1162,13 @@ def main() -> int:
         "method": {
             "curves": (
                 "Current Workbench values and the captured Zemax data are paired by the "
-                "tracked physical-series mapping and resampled to 257 normalized scan points."),
+                "explicit series mapping, checked against typed physical axes, and interpolated on 257 common physical coordinates. Missing series fail comparison."),
             "grids": (
-                "Current and captured grids are resampled to one shape; eight axis "
-                "orientations are checked and the selected orientation is recorded."),
+                "Grids are interpolated using their physical coordinates. Identity orientation is the default; only a declared coordinate convention permits a fixed transform. No best-fit orientation search is performed."),
             "thresholds": {
-                "highAgreement": "median <= 3% and P90 <= 10%",
-                "close": "median <= 10% and P90 <= 25%",
+                "highAgreement": "median <= 3% and worst <= 10%",
+                "close": "median <= 10% and worst <= 25%",
+                "coordinateGate": "endpoint coordinate NRMSE <= 5% and physical coverage >= 95%",
             },
             "semanticMapping": (
                 "A numerical result is emitted only when the Workbench and Zemax "
@@ -1073,6 +1196,7 @@ def main() -> int:
     ]
     labels = {
         "high-agreement": "高度一致",
+        "coordinate-mismatch": "坐标不一致",
         "close": "接近",
         "different": "明显差异",
         "not-compared": "未完成",
@@ -1094,9 +1218,9 @@ def main() -> int:
 
 ## 覆盖
 
-- 当前 Workbench 页面：{comparison['currentRun']['captured']}/{comparison['currentRun']['total']} 成功。
+- 当前 Workbench：{comparison['currentRun']['captured']} 项有效结果，{comparison['currentRun']['unavailable']} 项不可用，{comparison['currentRun']['notApplicable']} 项不适用，{comparison['currentRun']['failed']} 项异常，共 {comparison['currentRun']['total']} 项。
 - 页面截图：{len(screenshot_rows)} 张，每张均为当前 Workbench 结构化页面重绘；可映射项右侧使用已验证的 Zemax 2026 R1 截图。
-- 数值对齐：{summary['analysesCompared']} 项；高度一致 {summary['highAgreement']}，接近 {summary['close']}，明显差异 {summary['different']}，未完成 {summary['notCompared']}。
+- 数值映射：{summary['mappingEntries']} 项，取得可比较数据 {summary['analysesCompared']} 项；高度一致 {summary['highAgreement']}，接近 {summary['close']}，明显差异 {summary['different']}，坐标不一致 {summary['coordinateMismatch']}，未完成 {summary['notCompared']}。
 - 镜头结构：23 个表面、5 个视场、3 个波长；源文件 SHA-256 `{source_hash}`。
 - Huygens Through Focus MTF：本次 {current_huygens_ms / 1000.0:.2f} 秒，旧版 {previous_huygens_ms / 1000.0:.2f} 秒，耗时比 {huygens_ratio:.2f}×。
 
@@ -1117,8 +1241,9 @@ def main() -> int:
 - Zemax 一侧来自仓库中已校验的 2026 R1 捕获基线，本次没有重新启动 OpticStudio。
 - Workbench 一侧全部由本次当前代码重新计算，旧报告仅提供分析名称和物理系列映射，不复用旧 Workbench 数值。
 - 只有物理量定义等价的分析才进入数值精度统计；名称相似但定义不同的映射会列入“排除的非等价数值映射”。
-- 曲线以 257 个归一化扫描位置重采样；二维网格统一尺寸并记录采用的坐标方向。
-- “高度一致”为中位 NRMSE ≤ 3% 且 P90 ≤ 10%；“接近”为中位 ≤ 10% 且 P90 ≤ 25%。
+- 曲线在真实物理坐标的公共区间插值；网格使用坐标步距与原点，不搜索最优翻转。报告中的离线曲线图以公共物理区间的相对位置展示。
+- 缺失指定系列、无有效数据或单位不兼容会阻止比较；坐标端点误差须 ≤ 5%，共同坐标覆盖率须 ≥ 95%。
+- “高度一致”为中位 NRMSE ≤ 3% 且最差系列 ≤ 10%；“接近”为中位 ≤ 10% 且最差系列 ≤ 25%。P90 仅作为描述统计。
 - Pupil Aberration 在 ray aiming 下是近零量；其 NRMSE 只在分母使用 `1e-4%` 绝对数值分辨率下限，避免放大约 `1e-6%` 的舍入噪声，不修改光线或分析结果。
 - 页面截图用于显示内容、曲线、表格和 Zemax 参考的人工复核，不做 UI 像素相似度判定。
 """

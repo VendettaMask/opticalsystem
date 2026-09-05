@@ -384,7 +384,8 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         surface.ThicknessVariable = false;
                         break;
                     case OptimizationVariableUpdateMode.SetAllRadii:
-                        surface.RadiusVariable = true;
+                        surface.RadiusVariable = !Runtime.CurrentOptic.Pickups.RadiusPickups
+                            .Any(pickup => pickup.TargetSurface == surface.Number);
                         break;
                     case OptimizationVariableUpdateMode.SetAllThicknesses:
                         surface.ThicknessVariable = true;

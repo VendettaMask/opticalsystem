@@ -30,7 +30,7 @@ public sealed class SampledMtfAnalysis : BaseAnalysis
             ?? Optic.Wavelengths.FirstOrDefault();
         if (wavelength is null)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var fNumber = Math.Abs(Optic.Paraxial.EstimateFNumber());
@@ -132,7 +132,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
         if (wavelengths.Length == 0 || fields.Count == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No optical data" });
+            return AnalysisData.Unavailable(Name, "No optical data");
         }
 
         var wavelength = _wavelengthNumber > 0

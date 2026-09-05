@@ -56,7 +56,8 @@ public sealed class NonSequentialRayTraceAnalysis : BaseAnalysis
             return new AnalysisData(Name, new Dictionary<string, object>
             {
                 ["Status"] = "No non-sequential source objects"
-            }, ReportText: "非序列场景没有启用的光源对象。请在对象编辑器中添加光源后再追迹。");
+            }, ReportText: "非序列场景没有启用的光源对象。请在对象编辑器中添加光源后再追迹。",
+                Outcome: AnalysisOutcome.NotApplicable, OutcomeReason: "No non-sequential source objects");
         }
 
         if (_directRay && (!double.IsFinite(_direction.Length) || _direction.Length <= 1e-15))

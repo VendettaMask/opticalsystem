@@ -345,7 +345,7 @@ public sealed class InitialStructureLabTests
             specification,
             manifest.Candidates.Reverse());
 
-        Assert.Equal("2", manifest.Algorithm.Version);
+        Assert.Equal("3", manifest.Algorithm.Version);
         Assert.Equal(
             manifest.Candidates.Select(candidate => candidate.CandidateId),
             reordered.Select(candidate => candidate.CandidateId));

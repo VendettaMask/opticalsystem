@@ -32,7 +32,7 @@ public sealed class LateralColorAnalysis : BaseAnalysis
         var wavelengths = Optic.Wavelengths.OrderBy(wavelength => wavelength.Micrometers).ToArray();
         if (wavelengths.Length == 0)
         {
-            return new AnalysisData(Name, new Dictionary<string, object> { ["Status"] = "No wavelengths" });
+            return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
         var primary = wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)

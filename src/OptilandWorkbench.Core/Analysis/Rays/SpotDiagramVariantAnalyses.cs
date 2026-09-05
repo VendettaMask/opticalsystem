@@ -155,8 +155,7 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         var xCenter = (xMinimum + xMaximum) / 2;
         var yCenter = (yMinimum + yMaximum) / 2;
         var referencedRays = referenced.Fields
-            .SelectMany(field => field.Wavelengths)
-            .SelectMany(wavelength => wavelength.Rays)
+            .SelectMany(field => field.WeightedRays)
             .ToArray();
         var rmsRadiusDisplay = SpotAnalysisEngine.RmsRadius(referencedRays) * displayScale;
         var geometricRadiusDisplay = referencedRays

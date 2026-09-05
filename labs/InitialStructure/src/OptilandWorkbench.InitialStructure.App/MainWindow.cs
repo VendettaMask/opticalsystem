@@ -92,7 +92,7 @@ public sealed class MainWindow : Window
                     },
                     new TextBlock
                     {
-                        Text = "实验版本 · flat-to-usable-hybrid/v1",
+                        Text = "实验版本 · flat-to-usable-hybrid/v3",
                         Opacity = 0.7
                     }
                 }

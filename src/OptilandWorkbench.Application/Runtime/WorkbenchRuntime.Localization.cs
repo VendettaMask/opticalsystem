@@ -341,6 +341,7 @@ public partial class WorkbenchRuntime
         ["PixelPitchMillimeters"] = "像素间距 (mm)",
         ["ImagePlane"] = "像面平面",
         ["Samples"] = "采样点数",
+        ["SampleCount"] = "采样点数",
         ["NumberOfRaysEachSide"] = "原点每侧光线数",
         ["PlotScaleMicrometers"] = "图形缩放 (µm)",
         ["ScaleBarMicrometers"] = "缩放标尺 (µm)",

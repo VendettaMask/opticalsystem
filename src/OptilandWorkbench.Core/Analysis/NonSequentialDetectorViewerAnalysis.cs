@@ -38,7 +38,9 @@ public sealed class NonSequentialDetectorViewerAnalysis : BaseAnalysis
                 ["Status"] = detectors.Length == 0 ? "No detector objects" : "No trace result"
             }, ReportText: detectors.Length == 0
                 ? "场景没有启用的矩形探测器。"
-                : "没有可用的非序列追迹结果。请先在追迹控制中运行追迹；探测器查看器不会隐式重新追迹。");
+                : "没有可用的非序列追迹结果。请先在追迹控制中运行追迹；探测器查看器不会隐式重新追迹。",
+                Outcome: detectors.Length == 0 ? AnalysisOutcome.NotApplicable : AnalysisOutcome.Unavailable,
+                OutcomeReason: detectors.Length == 0 ? "No detector objects" : "No trace result");
         }
 
         var detectorIndex = Math.Clamp(_detectorNumber - 1, 0, detectors.Length - 1);

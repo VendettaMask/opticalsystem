@@ -89,6 +89,8 @@ internal static class IsekaiTheme
             resources[resourceKey] = accentBrush;
         }
 
+        // Preserve this theme's square tabs when switching from a standard theme.
+        resources["DockDocumentTabItemCornerRadius"] = new CornerRadius(0);
         var selectedForeground = new SolidColorBrush(Palette.TextOnAccent);
         resources["DockTabActiveForegroundBrush"] = selectedForeground;
         resources["DockDocumentTabSelectedForegroundBrush"] = selectedForeground;

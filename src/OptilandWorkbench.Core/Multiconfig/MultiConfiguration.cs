@@ -88,6 +88,23 @@ public sealed class MultiConfiguration
         return insertedSurfaceNumber;
     }
 
+    public void InsertSurface(int surfaceNumber)
+    {
+        ValidateCompatibleSurfaceStructures();
+        if (surfaceNumber <= 0 || surfaceNumber >= Configurations[0].SurfaceGroup.Items.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "Insert between the object and image surfaces.");
+        }
+
+        foreach (var configuration in Configurations)
+        {
+            configuration.Pickups.InsertSurface(surfaceNumber);
+            configuration.SurfaceGroup.InsertDefaultSurface(surfaceNumber);
+        }
+
+        RemapBrokenLinks(number => number >= surfaceNumber ? number + 1 : number);
+    }
+
     public void RemoveSurface(int surfaceNumber)
     {
         ValidateCompatibleSurfaceStructures();
