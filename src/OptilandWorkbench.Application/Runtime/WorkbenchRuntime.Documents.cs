@@ -68,6 +68,7 @@ public partial class WorkbenchRuntime
         string path,
         CancellationToken cancellationToken = default)
     {
+        RejectUnsupportedJsonExtension(path);
         if (IsStarOptProjectPath(path))
         {
             await StarOptProjectStore.SaveAsync(
@@ -78,11 +79,6 @@ public partial class WorkbenchRuntime
                     document.NonSequentialDocument),
                 path,
                 cancellationToken).ConfigureAwait(false);
-        }
-        else if (IsPythonOptilandJsonPath(path))
-        {
-            RejectLossyNonSequentialExport(document, path);
-            await PythonOptilandJsonStore.SaveAsync(document.ActiveOptic, path, cancellationToken).ConfigureAwait(false);
         }
         else if (IsNativeJsonPath(path))
         {
@@ -127,6 +123,7 @@ public partial class WorkbenchRuntime
         string path,
         CancellationToken cancellationToken = default)
     {
+        RejectUnsupportedJsonExtension(path);
         if (IsStarOptProjectPath(path) ||
             await StarOptProjectStore.HasMagicAsync(path, cancellationToken).ConfigureAwait(false))
         {

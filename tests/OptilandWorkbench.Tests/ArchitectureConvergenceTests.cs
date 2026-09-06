@@ -1,5 +1,5 @@
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Services;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
@@ -111,7 +111,7 @@ public sealed class ArchitectureConvergenceTests
     }
 
     [Fact]
-    public void FullFieldAberrationUsesSelectedFieldAsMapCenterAndClampsFringeTerms()
+    public void FullFieldAberrationUsesSelectedFieldAsMapCenterAndClampsStandardTerms()
     {
         var optic = Optic.CreateCookeTriplet();
         var selected = optic.Fields[1];
@@ -123,8 +123,8 @@ public sealed class ArchitectureConvergenceTests
             fieldNumber: 2,
             xFieldSamples: 3,
             yFieldSamples: 3,
-            pupilSampling: 8).GenerateData();
-        Assert.Equal(ZernikeFitEngine.MaximumFringeTerm, data.Values["MaximumTerm"]);
+            pupilSampling: 32).GenerateData();
+        Assert.Equal(ZernikeFitEngine.MaximumStandardTerm, data.Values["MaximumTerm"]);
         Assert.Equal(selected.X, Assert.IsType<double>(data.Values["FieldCenterX"]), 12);
         Assert.Equal(selected.Y, Assert.IsType<double>(data.Values["FieldCenterY"]), 12);
     }
@@ -160,13 +160,13 @@ public sealed class ArchitectureConvergenceTests
     [Fact]
     public void FullFieldUiDoesNotOfferAChoiceWithOnlyOneImplementation()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         Assert.DoesNotContain(
             connector.GetAnalysisParameters("Full Field Aberration"),
             parameter => parameter.Key == "Decomposition");
         Assert.Equal(
-            ZernikeFitEngine.MaximumFringeTerm,
+            231,
             connector.GetAnalysisParameters("Full Field Aberration")
                 .Single(parameter => parameter.Key == "MaximumTerm").Maximum);
     }
@@ -174,7 +174,7 @@ public sealed class ArchitectureConvergenceTests
     [Fact]
     public void RmsFieldMapDoesNotOfferAnOverlayThatItCannotRender()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         Assert.DoesNotContain(
             connector.GetAnalysisParameters("RMS Field Map"),

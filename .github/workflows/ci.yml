@@ -14,6 +14,7 @@ env:
   DOTNET_CI_ARGS: -p:ContinuousIntegrationBuild=true
   MAIN_SOLUTION: OptilandWorkbench.slnx
   MAIN_TEST_PROJECT: tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
+  COMPARISON_TEST_PROJECT: tests/OptilandWorkbench.ZemaxComparison.Tests/OptilandWorkbench.ZemaxComparison.Tests.csproj
   MAIN_TEST_HANG_TIMEOUT: 12m
   LAB_SOLUTION: labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx
   LAB_TEST_PROJECT: labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
@@ -76,6 +77,16 @@ jobs:
           --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
           --blame-hang --blame-hang-timeout ${{ env.MAIN_TEST_HANG_TIMEOUT }}
+          /m:1 /nr:false
+
+      - name: Test portable Zemax comparison (no licensed application)
+        run: >-
+          dotnet test
+          ${{ env.COMPARISON_TEST_PROJECT }}
+          --no-build --no-restore
+          --logger "trx;LogFileName=comparison-${{ matrix.label }}.trx"
+          --results-directory "${{ runner.temp }}/test-results/main"
+          --blame-hang --blame-hang-timeout 3m
           /m:1 /nr:false
 
       - name: Upload main test results

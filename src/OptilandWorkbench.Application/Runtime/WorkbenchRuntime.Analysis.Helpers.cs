@@ -25,7 +25,8 @@ public partial class WorkbenchRuntime
     private static string FormatAnalysisData(AnalysisData data)
     {
         var lines = new List<string> { $"分析：{DisplayAnalysisName(data.Name)}" };
-        lines.AddRange(data.Values.Select(item => $"{DisplayAnalysisKey(item.Key)}：{FormatAnalysisValue(item.Value)}"));
+        lines.AddRange(data.Values.Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
+            .Select(item => $"{DisplayAnalysisKey(item.Key)}：{FormatAnalysisValue(item.Value)}"));
         if (data.Table is not null)
         {
             lines.Add(string.Empty);

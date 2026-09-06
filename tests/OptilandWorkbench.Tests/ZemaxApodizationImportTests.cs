@@ -50,23 +50,6 @@ public sealed class ZemaxApodizationImportTests
         Assert.Equal(optic.Apodization.Intensity(0, 1), restored.Apodization!.Intensity(0, 1), 12);
     }
 
-    [Theory]
-    [InlineData(0, 3)]
-    [InlineData(1, 0)]
-    [InlineData(1, 2.75)]
-    public void PythonCompatibilityConversionPreservesIllumination(int type, double factor)
-    {
-        var optic = Import($"GFAC {factor.ToString("R", CultureInfo.InvariantCulture)} {type}");
-        var restored = PythonOptilandJsonStore.Deserialize(PythonOptilandJsonStore.Serialize(optic));
-        Assert.Equal(optic.Apodization!.Intensity(0, 1), restored.Apodization!.Intensity(0, 1), 12);
-    }
-
-    [Fact]
-    public void PythonCompatibilityRejectsUnrepresentableCosineCubed()
-    {
-        Assert.Throws<NotSupportedException>(() => PythonOptilandJsonStore.Serialize(Import("GFAC 0 2")));
-    }
-
     [Fact]
     public void CosineCubedUsesPupilDistanceAndUpdatesAfterObjectDistanceChanges()
     {

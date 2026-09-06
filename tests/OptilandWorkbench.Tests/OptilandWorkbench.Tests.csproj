@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -22,30 +22,22 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\OptilandWorkbench.App\OptilandWorkbench.App.csproj" />
     <ProjectReference Include="..\..\src\OptilandWorkbench.Application\OptilandWorkbench.Application.csproj" />
-    <ProjectReference Include="..\..\src\OptilandWorkbench.Compatibility\OptilandWorkbench.Compatibility.csproj" />
     <ProjectReference Include="..\..\src\OptilandWorkbench.Core\OptilandWorkbench.Core.csproj" />
     <ProjectReference Include="..\..\tools\OptilandWorkbench.LensLibraryBuilder\OptilandWorkbench.LensLibraryBuilder.csproj" />
     <ProjectReference Include="..\..\tools\OptilandWorkbench.ZemaxLibraryImporter\OptilandWorkbench.ZemaxLibraryImporter.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Fixtures\optiland-0.5.8-cooke.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\beam-expander-266nm-6x.zmx" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-tessar.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-cooke-native.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-tessar-native.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-analysis-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-aperture-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-apodization-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-phase-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-diffractive-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-thin-lens-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-field-definition-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="..\..\local-data\lens-library\originals\user-zmx\project\tests\Fixtures\optiland-0.5.8-zemax-reference.zmx"
-          Link="Fixtures\optiland-0.5.8-zemax-reference.zmx"
+    <None Include="..\..\validation\zemax\2026-r1\huygens-mtf-sampling-2026-09-06\**\*"
+          Link="Validation\Zemax\HuygensMtfSampling\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-zemax-reference.json" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="Fixtures\optiland-0.5.8-glass-reference.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\numerical-repair-2026-09-06\**\*"
+          Link="Validation\Zemax\NumericalRepair\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\history\optiland-0.5.8\**\*"
+          Link="Validation\History\optiland-0.5.8\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\beam-expander-266nm-6x.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\packaging\macos\Info.plist"
           Link="Fixtures\macos-Info.plist"
           CopyToOutputDirectory="PreserveNewest" />

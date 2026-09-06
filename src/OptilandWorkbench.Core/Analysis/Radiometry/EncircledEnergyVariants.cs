@@ -643,8 +643,8 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
             new[] { field },
             wavelengths,
             _pupilSampling,
-            "uniform",
-            reference: "chief");
+            "uniform-intervals",
+            reference: "chief", aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
         var useXLine = _orientation.StartsWith("X", StringComparison.OrdinalIgnoreCase);
         var samples = result.Fields
             .SelectMany(item => item.Wavelengths)
@@ -661,9 +661,10 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
             : Math.Max(1e-9, automaticRadius);
         var histogram = new double[_numPoints];
         var step = 2 * radius / (_numPoints - 1.0);
+        var binWidth = 2 * radius / _numPoints;
         foreach (var sample in samples)
         {
-            var index = (int)Math.Round((sample.Coordinate + radius) / step);
+            var index = (int)Math.Floor(sample.Coordinate / binWidth + (_numPoints - 1) / 2d + 0.5);
             if (index >= 0 && index < histogram.Length)
             {
                 histogram[index] += sample.Weight;
@@ -684,7 +685,7 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
                 peak > 0 ? histogram[index] / peak : 0);
             edgePoints[index] = new AnalysisPoint(
                 coordinate,
-                total > 0 ? cumulative / total : 0);
+                total > 0 ? (cumulative - histogram[index] / 2) / total : 0);
         }
 
         var series = new List<AnalysisSeries>();
@@ -728,6 +729,10 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
                 ["Orientation"] = _orientation,
                 ["Display"] = _display,
                 ["MaximumRadiusMicrometers"] = radius,
+                ["HistogramBinWidthMicrometers"] = binWidth,
+                ["DisplayCoordinateStepMicrometers"] = step,
+                ["PupilGridConvention"] = "N intervals, N+1 axis nodes, inclusive disk boundary",
+                ["EdgeIntegration"] = "Cumulative histogram through the center of each bin",
                 ["RayCount"] = result.RayCount,
                 ["VignettedRayCount"] = result.VignettedRayCount
             },
@@ -747,6 +752,7 @@ public sealed class GeometricLineEdgeSpreadAnalysis : BaseAnalysis
 
 public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
 {
+    public bool ZemaxCompatibleOutput { get; init; }
     private readonly double _fieldSize;
     private readonly int _sourceSampling;
     private readonly int _numRays;
@@ -814,7 +820,8 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
             wavelengths,
             raysPerSource,
             "sobol",
-            reference: "absolute");
+            reference: "absolute", aimAtStop: Optic.RayAimingEnabled,
+            includeSurfaceTransmission: false);
         var samples = result.Fields
             .SelectMany((field, sourceIndex) => field.Wavelengths
                 .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
@@ -857,7 +864,7 @@ public sealed class ExtendedSourceEncircledEnergyAnalysis : BaseAnalysis
                 ["Reference"] = _reference,
                 ["ReferenceXMicrometers"] = center.X,
                 ["ReferenceYMicrometers"] = center.Y
-            });
+            }, zemaxExtendedPlot: ZemaxCompatibleOutput);
     }
 
     private (double Hx, double Hy, double Weight)[] CreateSourceFields(
@@ -981,7 +988,8 @@ internal static class EnergyCurveSupport
         string type,
         double requestedMaximumDistance,
         int numPoints,
-        IReadOnlyDictionary<string, object> values)
+        IReadOnlyDictionary<string, object> values,
+        bool zemaxExtendedPlot = false)
     {
         if (samples.Count == 0)
         {
@@ -1011,22 +1019,34 @@ internal static class EnergyCurveSupport
             cumulative[index] = total;
         }
 
-        var points = Enumerable.Range(0, numPoints)
+        var knotCount = zemaxExtendedPlot ? 100 : numPoints;
+        IReadOnlyList<AnalysisPoint> points = Enumerable.Range(0, knotCount)
             .Select(index =>
             {
-                var distance = maximumDistance * index / (numPoints - 1.0);
-                var insertion = UpperBound(weightedDistances, distance);
+                var distance = maximumDistance * index / (knotCount - 1.0);
+                // The captured 2026 R1 extended-source histogram displays each cumulative
+                // knot at the next bin boundary. Independent 5/10/20 µm captures verify
+                // this one-bin convention; it does not move or rescale the traced rays.
+                var evaluationRadius = zemaxExtendedPlot
+                    ? maximumDistance * (index - 1) / (knotCount - 1.0)
+                    : distance;
+                var insertion = UpperBound(weightedDistances, evaluationRadius);
                 var energy = insertion == 0 || total <= 0
                     ? 0
                     : cumulative[insertion - 1] / total;
                 return new AnalysisPoint(distance, energy);
             })
             .ToArray();
+        if (zemaxExtendedPlot) points = EnergyPlotSampling.Geometric(points);
         var resultValues = values.ToDictionary(item => item.Key, item => item.Value);
         resultValues["Type"] = type;
         resultValues["MaximumDistanceMicrometers"] = maximumDistance;
         resultValues["TotalWeight"] = total;
         resultValues["SampleCount"] = weightedDistances.Length;
+        resultValues["ZemaxCompatibleOutput"] = zemaxExtendedPlot;
+        resultValues["CumulativeKnotCount"] = knotCount;
+        resultValues["PlotPointCount"] = points.Count;
+        resultValues["CumulativeKnotEvaluationOffsetMicrometers"] = zemaxExtendedPlot ? -maximumDistance / (knotCount - 1) : 0;
         var series = new AnalysisSeries(
             "Distance (\u00B5m)",
             "Fraction of Energy",

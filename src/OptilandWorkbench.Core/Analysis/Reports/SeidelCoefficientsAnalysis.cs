@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -43,6 +44,23 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         var marginal = Optic.Paraxial.MarginalRay(wavelengthMicrometers);
         var chief = Optic.Paraxial.ChiefRay(wavelengthMicrometers);
         var surfaces = Optic.SurfaceGroup.Items.ToArray();
+        var stop = Array.FindIndex(surfaces, s => s.IsStop);
+        if (stop > 0)
+        {
+            // Keep the physical stop fixed as wavelength changes. Entrance-pupil position and pupil
+            // magnification are chromatic; reusing a primary EPD with a selected-wavelength pupil position
+            // changes the marginal height at the stop and the Seidel normalization.
+            var primary = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+            var primaryMarginal = Optic.Paraxial.MarginalRay(primary.Micrometers);
+            var stopHeight = marginal.Heights[stop][0];
+            if (Math.Abs(stopHeight) > 1e-15)
+            {
+                var marginalScale = primaryMarginal.Heights[stop][0] / stopHeight;
+                var chiefCorrection = chief.Heights[stop][0] / stopHeight;
+                chief = Combine(chief, marginal, 1, -chiefCorrection);
+                marginal = Combine(marginal, marginal, marginalScale, 0);
+            }
+        }
         var shortWavelength = wavelengths.Min(item => item.Nanometers);
         var longWavelength = wavelengths.Max(item => item.Nanometers);
         var contributions = new List<SurfaceCoefficients>();
@@ -122,8 +140,15 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
             ["PetzvalRadius"] = petzvalRadius,
             ["OpticalInvariant"] = invariant,
             ["ImageSpaceRefractiveIndex"] = imageIndex,
-            ["SurfaceCount"] = Math.Max(0, surfaces.Length - 1)
+            ["SurfaceCount"] = Math.Max(0, surfaces.Length - 1),
+            ["SeidelCoefficientsMillimeters"] = contributions.Select(c => c.Values.ToArray()).ToArray()
         };
+        var marginalSlope = LastSlope(marginal);
+        var transverseFactor = Math.Abs(marginalSlope) > 1e-15 ? -1 / (2 * imageIndex * marginalSlope) : double.NaN;
+        var longitudinalFactor = Math.Abs(marginalSlope) > 1e-15 ? 1 / (2 * imageIndex * marginalSlope * marginalSlope) : double.NaN;
+        values["WaveAberrationCoefficients"] = contributions.Select(c => WaveCoefficients(c.Values, wavelengthMicrometers / 1000)).ToArray();
+        values["TransverseAberrationCoefficientsMillimeters"] = contributions.Select(c => RayAberrationCoefficients(c.Values, transverseFactor, -2 * transverseFactor)).ToArray();
+        values["LongitudinalAberrationCoefficientsMillimeters"] = contributions.Select(c => RayAberrationCoefficients(c.Values, longitudinalFactor, 2 * longitudinalFactor)).ToArray();
 
         var table = CoefficientTable(SeidelColumns, contributions, coefficients => coefficients);
         return new AnalysisData(
@@ -142,6 +167,10 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
 
         return wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
     }
+
+    private static ParaxialTrace Combine(ParaxialTrace first, ParaxialTrace second, double a, double b) => new(
+        first.Heights.Select((row, i) => (IReadOnlyList<double>)row.Select((v, j) => a * v + b * second.Heights[i][j]).ToArray()).ToArray(),
+        first.Slopes.Select((row, i) => (IReadOnlyList<double>)row.Select((v, j) => a * v + b * second.Slopes[i][j]).ToArray()).ToArray());
 
     private static string SurfaceLabel(OpticalSurface surface, bool isLast)
     {
@@ -316,18 +345,16 @@ public sealed class SeidelDiagramAnalysis : BaseAnalysis
                 "",
                 rows.Select((row, surfaceIndex) => new AnalysisPoint(
                     surfaceIndex,
-                    double.TryParse(
-                        row[coefficientIndex + 1],
-                        NumberStyles.Float,
-                        CultureInfo.InvariantCulture,
-                        out var coefficient)
-                            ? coefficient
-                            : 0))
+                    ((double[][])coefficients.Values["SeidelCoefficientsMillimeters"])[surfaceIndex][coefficientIndex]))
                     .ToArray(),
                 AnalysisSeriesKind.Bar,
                 AberrationNames[coefficientIndex],
                 ColorIndex: coefficientIndex,
-                Opacity: 1))
+                Opacity: 1,
+                XQuantity: AnalysisAxisQuantity.Coordinate,
+                XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.Coefficient,
+                YUnit: AnalysisAxisUnit.Millimeter))
             .ToArray();
         var values = coefficients.Values.ToDictionary(item => item.Key, item => item.Value);
         values["MaximumAberration"] = _maximumAberration;

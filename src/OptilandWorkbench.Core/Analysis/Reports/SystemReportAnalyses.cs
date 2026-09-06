@@ -30,7 +30,12 @@ public sealed class PrescriptionReportAnalysis : BaseAnalysis
         var table = new AnalysisTable(
             new[] { "面", "标签", "类型", "曲率半径", "厚度", "材料", "半口径", "圆锥系数", "光阑", "镀膜" },
             rows);
-        var values = SystemValues(Optic);
+        var values = SystemValues(Optic).ToDictionary(p => p.Key, p => p.Value);
+        values["SurfacePrescription"] = surfaces.Select(surface => new[]
+        {
+            (double)surface.Number, double.IsInfinity(surface.Radius) || Math.Abs(surface.Radius) < 1e-30 ? 0 : 1 / surface.Radius,
+            surface.Thickness, surface.SemiDiameter, surface.Conic
+        }).ToArray();
         return new AnalysisData(
             Name,
             values,
@@ -119,7 +124,11 @@ public sealed class SystemDataReportAnalysis : BaseAnalysis
             new[] { "分类", "项目", "值" },
             rows,
             rows.Select(row => row[0]).ToArray());
-        var values = PrescriptionReportAnalysis.SystemValues(Optic);
+        var values = PrescriptionReportAnalysis.SystemValues(Optic).ToDictionary(p => p.Key, p => p.Value);
+        values["EffectiveFocalLength"] = cardinal.EffectiveFocalLength;
+        values["FNumber"] = Optic.Paraxial.EstimateFNumber();
+        values["EntrancePupilDiameter"] = Optic.Paraxial.EstimateEntrancePupilDiameter();
+        values["ExitPupilDiameter"] = Optic.Paraxial.EstimateExitPupilDiameter();
         return new AnalysisData(
             Name,
             values,

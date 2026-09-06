@@ -140,7 +140,8 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                     _numRays,
                     _imageSize,
                     pixelPitchMillimeters,
-                    _usePolarization)))
+                    _usePolarization,
+                    aimAtStop: Optic.RayAimingEnabled)))
             .ToArray();
         var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
         var totalWeight = results.Sum(item =>
@@ -396,7 +397,7 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                         wavelength,
                         _numRays,
                         _imageSize,
-                        sharedPixelPitchMillimeters);
+                        sharedPixelPitchMillimeters, aimAtStop: Optic.RayAimingEnabled);
                     return (wavelength, DiffractionEngine.ComputePsfMtf(psf));
                 }).ToArray();
                 fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
@@ -437,6 +438,8 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,
             ["PixelPitchMillimeters"] = sharedPixelPitchMillimeters,
+            ["MtfTransformSize"] = _imageSize * (_zemaxCompatible ? 2 : 1),
+            ["FrequencySampling"] = _zemaxCompatible ? "NaturalCubicEndpointSpan" : "LinearDftPeriod",
             ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal ? 0 : sharedPixelPitchMillimeters * 1000,
             ["ImageDeltaMilliradians"] = Optic.ImageSpaceAfocal ? sharedPixelPitchMillimeters : 0,
             ["MaximumFrequency"] = plottedMaximum,

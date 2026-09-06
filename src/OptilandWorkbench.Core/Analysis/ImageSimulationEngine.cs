@@ -474,7 +474,7 @@ public static class ImageSimulationEngine
                 else if (ShouldFallbackToGeometric(
                     geometric!.Value.RmsRadiusMillimeters,
                     1.22 * wavelength.Micrometers * 1e-3
-                        * DiffractionEngine.WorkingFNumber(optic, (hx, hy), wavelength)))
+                        * DiffractionEngine.WorkingFNumber(optic, (hx, hy), wavelength, aimAtStop: optic.RayAimingEnabled)))
                 {
                     values = geometric.Value.Psf;
                     actualMode = "Geometric";
@@ -490,7 +490,7 @@ public static class ImageSimulationEngine
                             wavelength,
                             Math.Max(2, config.NumRays),
                             config.PsfSize,
-                            pixelPitchMillimeters).Values;
+                            pixelPitchMillimeters, aimAtStop: optic.RayAimingEnabled).Values;
                     }
                     catch (Exception exception) when (exception is InvalidOperationException
                         or ArgumentException
@@ -759,7 +759,7 @@ public static class ImageSimulationEngine
         {
         }
 
-        var fNumber = Math.Max(1e-6, DiffractionEngine.WorkingFNumber(optic, (0, 0), wavelength));
+        var fNumber = Math.Max(1e-6, DiffractionEngine.WorkingFNumber(optic, (0, 0), wavelength, aimAtStop: optic.RayAimingEnabled));
         return Math.Max(1e-6, wavelength.Micrometers * 1e-3 * fNumber / 2);
     }
 

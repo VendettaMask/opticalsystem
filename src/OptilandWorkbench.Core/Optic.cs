@@ -208,13 +208,15 @@ public sealed class Optic
         double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
-        double wavelengthMicrometers) =>
+        double wavelengthMicrometers,
+        bool aimAtStop = false) =>
         SequentialRayTracer.TraceGenericFinalSample(
             normalizedFieldX,
             normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
-            wavelengthMicrometers);
+            wavelengthMicrometers,
+            aimAtStop);
 
     public Rays.RayTraceSample? TraceGenericSurfaceSample(
         double normalizedFieldX,

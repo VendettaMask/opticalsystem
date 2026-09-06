@@ -32,11 +32,6 @@ public static class OpticJsonStore
             BoundedFile.MaximumOpticalDocumentBytes,
             "Optic JSON document",
             cancellationToken).ConfigureAwait(false);
-        if (PythonOptilandJsonStore.LooksLike(json))
-        {
-            return PythonOptilandJsonStore.Deserialize(json, Path.GetFileNameWithoutExtension(path));
-        }
-
         var snapshot = JsonSerializer.Deserialize<OpticSnapshot>(json, Options)
             ?? throw new InvalidDataException("The selected file is not a valid optic JSON document.");
 

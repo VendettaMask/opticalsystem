@@ -73,14 +73,16 @@ public sealed partial class SequentialRayTracer
         double normalizedFieldY,
         double normalizedPupilX,
         double normalizedPupilY,
-        double wavelengthMicrometers)
+        double wavelengthMicrometers,
+        bool aimAtStop = false)
     {
         var bundle = RayGenerator.GenerateGeneric(
             normalizedFieldX,
             normalizedFieldY,
             normalizedPupilX,
             normalizedPupilY,
-            wavelengthMicrometers);
+            wavelengthMicrometers,
+            aimAtStop: aimAtStop);
         if (_optic.SurfaceGroup.Items.Count == 0)
         {
             return null;

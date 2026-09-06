@@ -1,4 +1,4 @@
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 
@@ -107,7 +107,7 @@ public sealed class RelativeIlluminationTests
     [Fact]
     public void ConnectorExposesRelativeIlluminationAnalysisContract()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         Assert.Equal("Relative Illumination", connector.CanonicalAnalysisKey("相对照度"));
         var parameters = connector.GetAnalysisParameters("相对照度");

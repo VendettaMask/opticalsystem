@@ -18,7 +18,7 @@ public sealed record ComponentSnapshot(
     public static ComponentSnapshot Empty(string kind) => new(kind, new Dictionary<string, double>(), new Dictionary<string, string>());
 }
 
-public static class ComponentSnapshotFactory
+public static partial class ComponentSnapshotFactory
 {
     public static ComponentSnapshot? FromApodization(IApodizationModel? apodization)
     {
@@ -213,6 +213,7 @@ public static class ComponentSnapshotFactory
         return material switch
         {
             AirMaterial => ComponentSnapshot.Empty("air"),
+            CatalogGlassMaterial catalog => FromCatalogGlass(catalog),
             UnresolvedMaterial unresolved => new ComponentSnapshot("unresolved", new Dictionary<string, double>(),
                 new Dictionary<string, string> { ["name"] = unresolved.Name, ["catalogs"] = unresolved.Catalogs }),
             ConstantIndexMaterial constant => new ComponentSnapshot("constant", new Dictionary<string, double>
@@ -258,6 +259,7 @@ public static class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "catalog_glass" => ToCatalogGlass(snapshot, name),
             "unresolved" => new UnresolvedMaterial(name, snapshot.Text.GetValueOrDefault("catalogs", "")),
             "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
             "cauchy" => new CauchyMaterial(name, Get(snapshot.Numbers, "a", 1.5), Get(snapshot.Numbers, "b", 0), Get(snapshot.Numbers, "c", 0)),

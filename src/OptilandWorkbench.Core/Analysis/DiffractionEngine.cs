@@ -126,7 +126,8 @@ public static class DiffractionEngine
         bool zemaxFftSampling = false,
         bool ignoreOpd = false,
         bool aimAtStop = false,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        double imageDelta = 0)
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
@@ -154,6 +155,23 @@ public static class DiffractionEngine
         var pupilGridStretch = zemaxFftSampling
             ? Math.Sqrt(pupilSampling / 32.0)
             : 1;
+        if (!double.IsFinite(imageDelta) || imageDelta < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(imageDelta));
+        }
+        if (zemaxFftSampling && imageDelta > 0)
+        {
+            if (preparedWavefront is not null || preparedPolarization is not null)
+            {
+                throw new ArgumentException("Explicit FFT image sampling requires regenerating the pupil grid.");
+            }
+            // Fourier-conjugate grids: requesting image pitch changes the pupil
+            // spacing before tracing; resampling an existing PSF is not equivalent.
+            pupilGridStretch = optic.ImageSpaceAfocal
+                ? ImageSpaceAnalysisSupport.FftSampleSpacingMilliradians(
+                    optic, wavelength, pupilSampling, gridSize, true, 1) / imageDelta
+                : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
+        }
         var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayUniform(
             optic,
             field,
@@ -162,6 +180,7 @@ public static class DiffractionEngine
             cellCenteredPupil,
             aimAtStop: pupilAimAtStop,
             pupilGridStretch: pupilGridStretch,
+            zemaxCentered: zemaxFftSampling,
             referenceWavelength: referenceWavelength);
         var polarization = usePolarization
             ? preparedPolarization ?? JonesPupilEngine.Generate(
@@ -171,7 +190,9 @@ public static class DiffractionEngine
                     pupilSampling,
                     useFresnelCoatings: true,
                     cellCentered: cellCenteredPupil,
-                    aimAtStop: pupilAimAtStop)
+                    aimAtStop: pupilAimAtStop,
+                    pupilGridStretch: pupilGridStretch,
+                    zemaxCentered: zemaxFftSampling)
             : null;
         var (tangentialFNumber, sagittalFNumber) = cellCenteredPupil
             ? WorkingFNumbers(
@@ -191,7 +212,8 @@ public static class DiffractionEngine
             cellCenteredPupil,
             defocusMillimeters,
             pupilGridStretch,
-            ignoreOpd);
+            ignoreOpd,
+            zemaxCentered: zemaxFftSampling);
 
         var nonzeroCount = pupil.Cast<Complex>().Count(value => value.Magnitude > 0);
         var normalization = Math.Max(1, nonzeroCount * nonzeroCount);
@@ -711,17 +733,16 @@ public static class DiffractionEngine
         bool cellCenteredPupil,
         double defocusMillimeters,
         double pupilGridStretch = 1,
-        bool ignoreOpd = false)
+        bool ignoreOpd = false,
+        bool zemaxCentered = false)
     {
         var pupil = new Complex[pupilSampling, pupilSampling];
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         var meanIntensity = valid.Select(sample => sample.Intensity).DefaultIfEmpty(0).Average();
         foreach (var sample in wavefront.Samples)
         {
-            var column = (int)Math.Round(
-                ((sample.NormalizedPupilX / pupilGridStretch) + 1) / 2 * (pupilSampling - 1));
-            var row = (int)Math.Round(
-                ((sample.NormalizedPupilY / pupilGridStretch) + 1) / 2 * (pupilSampling - 1));
+            var column = PupilIndex(sample.NormalizedPupilX);
+            var row = PupilIndex(sample.NormalizedPupilY);
             var relativeIntensity = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
             if (polarization is not null)
             {
@@ -745,6 +766,10 @@ public static class DiffractionEngine
         }
 
         return pupil;
+
+        int PupilIndex(double coordinate) => (int)Math.Round(zemaxCentered && pupilSampling % 2 == 0
+            ? coordinate / pupilGridStretch * (pupilSampling / 2.0 - 1) + pupilSampling / 2.0
+            : ((coordinate / pupilGridStretch) + 1) / 2 * (pupilSampling - 1));
     }
 
     private static Complex PupilAutocorrelation(
@@ -837,7 +862,9 @@ public static class DiffractionEngine
         var sampleCount = psf.FrequencySampleCount > 0
             ? psf.FrequencySampleCount
             : psf.PupilSampling - 1;
-        var legacyFNumber = WorkingFNumber(optic, (0, 0), wavelength);
+        var legacyFNumber = psf.TangentialWorkingFNumber > 0 && psf.SagittalWorkingFNumber > 0
+            ? 0
+            : WorkingFNumber(optic, (0, 0), wavelength, aimAtStop: optic.RayAimingEnabled);
         var tangentialFNumber = psf.TangentialWorkingFNumber > 0
             ? psf.TangentialWorkingFNumber
             : legacyFNumber;
@@ -895,9 +922,10 @@ public static class DiffractionEngine
 
         AnalysisResourceLimits.ValidateDirectPsfWork(numRays, imageSize);
 
-        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays);
+        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, numRays,
+            aimAtStop: optic.RayAimingEnabled);
         var pupil = CreateUniformPupil(wavefront, numRays);
-        var fNumber = WorkingFNumber(optic, field, wavelength);
+        var fNumber = WorkingFNumber(optic, field, wavelength, aimAtStop: optic.RayAimingEnabled);
         var clearSize = numRays - 1;
         var afocalImageSpace = optic.ImageSpaceAfocal;
         var pupilDiameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
@@ -995,7 +1023,7 @@ public static class DiffractionEngine
             aimAtStop: aimAtStop,
             referenceWavelength: optic.ImageSpaceAfocal ? referenceWavelength : null);
         var polarization = usePolarization
-            ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true)
+            ? JonesPupilEngine.Generate(optic, field, wavelength, numRays, useFresnelCoatings: true, aimAtStop: aimAtStop)
             : null;
         if (optic.ImageSpaceAfocal)
         {
@@ -1024,7 +1052,7 @@ public static class DiffractionEngine
                         (0, 0),
                         wavelength,
                         numRays,
-                        useFresnelCoatings: true);
+                        useFresnelCoatings: true, aimAtStop: aimAtStop);
             var afocalNormalization = HuygensFarFieldSummation(
                 afocalNormalizationWavefront,
                 wavelength,
@@ -1078,8 +1106,8 @@ public static class DiffractionEngine
                     (0, 0),
                     wavelength,
                     numRays,
-                    useFresnelCoatings: true);
-        var normalizationPoint = CreateHuygensImageCoordinates(optic, (0, 0), wavelength, 1, pixelPitchMillimeters);
+                    useFresnelCoatings: true, aimAtStop: aimAtStop);
+        var normalizationPoint = CreateHuygensImageCoordinates(optic, (0, 0), wavelength, 1, pixelPitchMillimeters, aimAtStop);
         var normalization = HuygensSummation(
             normalizationPoint,
             normalizationWavefront,
@@ -1128,9 +1156,19 @@ public static class DiffractionEngine
         return Math.Max(1e-12, deltaMicrometers / 1000.0);
     }
 
-    public static MtfResult ComputePsfMtf(PsfResult psf)
+    public static MtfResult ComputePsfMtf(PsfResult psf, bool doubleTransformSize = false)
     {
-        var complex = new Complex[psf.GridSize, psf.GridSize];
+        var transformSize = doubleTransformSize ? checked(2 * psf.GridSize) : psf.GridSize;
+        if (doubleTransformSize && transformSize > AnalysisResourceLimits.MaximumFftGridSize)
+        {
+            throw new ArgumentOutOfRangeException(nameof(psf),
+                $"The padded MTF transform must not exceed {AnalysisResourceLimits.MaximumFftGridSize} samples per side.");
+        }
+
+        // Padding changes the frequency spacing, not the PSF pixel pitch.
+        // A spatial translation contributes only phase, so placement at the
+        // array origin preserves the modulation on both transform axes.
+        var complex = new Complex[transformSize, transformSize];
         for (var row = 0; row < psf.GridSize; row++)
         {
             for (var column = 0; column < psf.GridSize; column++)
@@ -1141,8 +1179,8 @@ public static class DiffractionEngine
 
         Transform2D(complex);
         var shifted = FftShift(complex);
-        var center = psf.GridSize / 2;
-        var count = psf.GridSize / 2;
+        var center = transformSize / 2;
+        var count = transformSize / 2;
         var dc = Math.Max(1e-300, shifted[center, center].Magnitude);
         var tangential = Enumerable.Range(0, count)
             .Select(index => Math.Clamp(shifted[center + index, center].Magnitude / dc, 0, 1))
@@ -1151,8 +1189,8 @@ public static class DiffractionEngine
             .Select(index => Math.Clamp(shifted[center, center + index].Magnitude / dc, 0, 1))
             .ToArray();
         var frequencyStep = psf.SampleSpacingUnit == AnalysisAxisUnit.Milliradian
-            ? 1.0 / (psf.GridSize * psf.SampleSpacingMicrometers)
-            : 1000.0 / (psf.GridSize * psf.SampleSpacingMicrometers);
+            ? 1.0 / (transformSize * psf.SampleSpacingMicrometers)
+            : 1000.0 / (transformSize * psf.SampleSpacingMicrometers);
         var frequency = Enumerable.Range(0, count).Select(index => index * frequencyStep).ToArray();
         var cutoff = count == 0 ? 0 : frequency[^1];
         return new MtfResult(frequency, tangential, sagittal, cutoff);

@@ -1,0 +1,1176 @@
+{
+  "date": "2026-09-06",
+  "status": "Local review only; no commit, push or PR",
+  "confirmedInput": {
+    "confirmedByUserOn": "2026-09-06",
+    "path": "C:\\Users\\19851\\Desktop\\[MS-L7](10X大NA大视场).ZMX",
+    "sha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+    "matchesExistingFinalRun": true
+  },
+  "primaryAuthority": "Committed Zemax OpticStudio 2026 R1 baseline, tied to each source hash and explicit settings",
+  "fixedProblems": [
+    "Missing configured stop aiming in analysis scale and Huygens paths",
+    "Nonpolar standard spot transmission weighting and omitted ray accounting",
+    "Name-only catalog glass snapshots changed dispersion",
+    "FFT PSF pupil/image sampling, physical origin and Nyquist boundary"
+  ],
+  "configurationUnchanged": true,
+  "runs": [
+    {
+      "report": "artifacts/zemax-comparisons/ms-l7-final-2026-09-06/COMPARISON_REPORT.md",
+      "reportSha256": "ff844180c91a35deeaab2d6232769c39f4750f172b87030c1cadbf885ebae896",
+      "manifestSha256": "53c6d2a673e6df96434bb2af97b428ec554df9ad91ada07f809805e111c533cb",
+      "input": "C:\\Users\\19851\\Desktop\\[MS-L7](10X大NA大视场).ZMX",
+      "sourceSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+      "originalFileUnchanged": true,
+      "toolAssemblySha256": "19bab79dba64125499b31928c4c86741b3403c61c01eaaeaf2bbda6495d1a56f",
+      "configurationSha256": "5e648bf1f14ff2daeea7834089469648cd89b6d52bfca8fc54bc4e861bd315af",
+      "exitCode": 0,
+      "counts": {
+        "Pass": 10,
+        "Close": 0,
+        "Difference": 0,
+        "Incomparable": 59,
+        "Skipped": 108,
+        "Error": 0
+      },
+      "enumerated": 177,
+      "workbenchCaptured": 69,
+      "zemaxCaptured": 10,
+      "nativeScreenshots": 9,
+      "comparisons": [
+        {
+          "key": "First Order",
+          "conclusion": "Pass",
+          "maximumNrmse": 1.1627637212181251E-16,
+          "settings": {
+            "canonicalAnalysisKey": "First Order",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 2,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "FieldNumber": "1",
+              "WavelengthNumber": "2",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "EffectiveFocalLength": {
+              "absolute": 1E-08,
+              "relative": 1E-06,
+              "nrmse": 1E-06,
+              "closeNrmse": 1E-05,
+              "minimumCoverage": 0.95
+            },
+            "FNumber": {
+              "absolute": 1E-08,
+              "relative": 1E-06,
+              "nrmse": 1E-06,
+              "closeNrmse": 1E-05,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Huygens MTF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0027813795500326436,
+          "settings": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 32,
+            "imageSampling": 32,
+            "rayCount": 20,
+            "gridSize": 32,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PupilSampling": "32",
+              "ImageSampling": "32",
+              "ImageDeltaMicrometers": "0.25",
+              "MaximumFrequency": "50",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True",
+              "Normalized": "False",
+              "Rotation": "0",
+              "UseCentroid": "False",
+              "Display": "32"
+            }
+          },
+          "tolerances": {
+            "Modulation": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Huygens PSF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0017215037218125187,
+          "settings": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 32,
+            "imageSampling": 32,
+            "rayCount": 20,
+            "gridSize": 32,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PupilSampling": "32",
+              "ImageSampling": "32",
+              "ImageDeltaMicrometers": "0.25",
+              "Rotation": "0",
+              "UsePolarization": "False",
+              "UseCentroid": "False",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "Type": "线性",
+              "DisplayAs": "伪彩色",
+              "Normalized": "False",
+              "SurfaceNumber": "-1",
+              "UseRayAiming": "True",
+              "Display": "32"
+            }
+          },
+          "tolerances": {
+            "Irradiance": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "MTF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0004562005259767144,
+          "settings": {
+            "canonicalAnalysisKey": "MTF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "MaximumFrequency": "50",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "Type": "调制",
+              "ShowDiffractionLimit": "false",
+              "UsePolarization": "False",
+              "UseDashes": "false",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "Modulation": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Optical Path Difference",
+          "conclusion": "Pass",
+          "maximumNrmse": 8.511590968694696E-07,
+          "settings": {
+            "canonicalAnalysisKey": "Optical Path Difference",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "GraphScale": "0",
+              "NumberOfRays": "20",
+              "UseDashes": "false",
+              "VignettedPupil": "True",
+              "CheckApertures": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "WavefrontError": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "PSF",
+          "conclusion": "Pass",
+          "maximumNrmse": 4.2494624517566984E-05,
+          "settings": {
+            "canonicalAnalysisKey": "PSF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 128,
+            "rayCount": 20,
+            "gridSize": 128,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "Display": "128",
+              "Rotation": "0",
+              "ImageDeltaMicrometers": "0.25",
+              "UsePolarization": "False",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "Type": "线性",
+              "DisplayAs": "伪彩色",
+              "SurfaceNumber": "-1",
+              "Normalized": "False",
+              "UseRayAiming": "True",
+              "UseCentroid": "False"
+            }
+          },
+          "tolerances": {
+            "Irradiance": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Pupil Aberration",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0012495651320292287,
+          "settings": {
+            "canonicalAnalysisKey": "Pupil Aberration",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "NumberOfRays": "20",
+              "FieldNumber": "1",
+              "WavelengthNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True",
+              "CheckApertures": "True",
+              "VignettedPupil": "True"
+            }
+          },
+          "tolerances": {
+            "Distortion": {
+              "absolute": 0.0001,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Ray Fan",
+          "conclusion": "Pass",
+          "maximumNrmse": 2.935602430167823E-09,
+          "settings": {
+            "canonicalAnalysisKey": "Ray Fan",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PlotScaleMicrometers": "0",
+              "NumberOfRays": "20",
+              "UseDashes": "false",
+              "VignettedPupil": "True",
+              "CheckApertures": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "TangentialAberration": "Y Aberration",
+              "SagittalAberration": "X Aberration",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "ImageHeight": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Spot Diagram",
+          "conclusion": "Pass",
+          "maximumNrmse": 9.76983025725769E-10,
+          "settings": {
+            "canonicalAnalysisKey": "Spot Diagram",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "RayDensity": "20",
+              "Pattern": "hexapolar",
+              "ColorRaysBy": "波长",
+              "Reference": "chief",
+              "UsePolarization": "False",
+              "DirectionCosines": "False",
+              "ShowAiryDisk": "false",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "DisplayScale": "比例尺",
+              "PlotScaleMicrometers": "0",
+              "ScatterRays": "false",
+              "UseSymbols": "True",
+              "UseRayAiming": "True",
+              "DeltaFocus": "0"
+            }
+          },
+          "tolerances": {
+            "RmsSpotRadius": {
+              "absolute": 0.001,
+              "relative": 0.01,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            },
+            "GeoSpotRadius": {
+              "absolute": 0.001,
+              "relative": 0.01,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Wavefront",
+          "conclusion": "Pass",
+          "maximumNrmse": 7.269620321039516E-07,
+          "settings": {
+            "canonicalAnalysisKey": "Wavefront",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "Rotation": "0",
+              "DisplayScale": "1",
+              "Apodization": "无",
+              "ReferenceChiefRay": "False",
+              "UseExitPupilShape": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "DisplayAs": "表面",
+              "RemoveTilt": "False",
+              "PupilSx": "0",
+              "PupilSy": "0",
+              "PupilSr": "1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "WavefrontError": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        }
+      ],
+      "limitations": "Only implemented adapters provide numerical comparisons. Skipped/incomparable entries are not passes."
+    },
+    {
+      "report": "artifacts/zemax-comparisons/123456-fixed-2026-09-06/COMPARISON_REPORT.md",
+      "reportSha256": "29f3ee7076dba4317eaf62c069a665824c3ee40121df05928186c0c007d86fa9",
+      "manifestSha256": "d42f1ffb3a921ad5204273753c2e066d3209b14ade1086a1b8a408e59d4273e6",
+      "input": "D:\\Projects\\opticalsystem\\artifacts\\zemax\\123456-zemax-2026-r1-baseline\\source\\123456.ZMX",
+      "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "originalFileUnchanged": true,
+      "toolAssemblySha256": "19bab79dba64125499b31928c4c86741b3403c61c01eaaeaf2bbda6495d1a56f",
+      "configurationSha256": "5e648bf1f14ff2daeea7834089469648cd89b6d52bfca8fc54bc4e861bd315af",
+      "exitCode": 0,
+      "counts": {
+        "Pass": 10,
+        "Close": 0,
+        "Difference": 0,
+        "Incomparable": 0,
+        "Skipped": 167,
+        "Error": 0
+      },
+      "enumerated": 177,
+      "workbenchCaptured": 10,
+      "zemaxCaptured": 10,
+      "nativeScreenshots": 9,
+      "comparisons": [
+        {
+          "key": "First Order",
+          "conclusion": "Pass",
+          "maximumNrmse": 1.660185763860518E-16,
+          "settings": {
+            "canonicalAnalysisKey": "First Order",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 2,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "FieldNumber": "1",
+              "WavelengthNumber": "2",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "EffectiveFocalLength": {
+              "absolute": 1E-08,
+              "relative": 1E-06,
+              "nrmse": 1E-06,
+              "closeNrmse": 1E-05,
+              "minimumCoverage": 0.95
+            },
+            "FNumber": {
+              "absolute": 1E-08,
+              "relative": 1E-06,
+              "nrmse": 1E-06,
+              "closeNrmse": 1E-05,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Huygens MTF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0032470898139897618,
+          "settings": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 32,
+            "imageSampling": 32,
+            "rayCount": 20,
+            "gridSize": 32,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PupilSampling": "32",
+              "ImageSampling": "32",
+              "ImageDeltaMicrometers": "0.25",
+              "MaximumFrequency": "50",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True",
+              "Normalized": "False",
+              "Rotation": "0",
+              "UseCentroid": "False",
+              "Display": "32"
+            }
+          },
+          "tolerances": {
+            "Modulation": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Huygens PSF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0029568417843826747,
+          "settings": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 32,
+            "imageSampling": 32,
+            "rayCount": 20,
+            "gridSize": 32,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PupilSampling": "32",
+              "ImageSampling": "32",
+              "ImageDeltaMicrometers": "0.25",
+              "Rotation": "0",
+              "UsePolarization": "False",
+              "UseCentroid": "False",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "Type": "线性",
+              "DisplayAs": "伪彩色",
+              "Normalized": "False",
+              "SurfaceNumber": "-1",
+              "UseRayAiming": "True",
+              "Display": "32"
+            }
+          },
+          "tolerances": {
+            "Irradiance": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "MTF",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0011192596886655058,
+          "settings": {
+            "canonicalAnalysisKey": "MTF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "MaximumFrequency": "50",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "Type": "调制",
+              "ShowDiffractionLimit": "false",
+              "UsePolarization": "False",
+              "UseDashes": "false",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "Modulation": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Optical Path Difference",
+          "conclusion": "Pass",
+          "maximumNrmse": 4.433228977903088E-08,
+          "settings": {
+            "canonicalAnalysisKey": "Optical Path Difference",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "GraphScale": "0",
+              "NumberOfRays": "20",
+              "UseDashes": "false",
+              "VignettedPupil": "True",
+              "CheckApertures": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "WavefrontError": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "PSF",
+          "conclusion": "Pass",
+          "maximumNrmse": 1.3606696885294388E-05,
+          "settings": {
+            "canonicalAnalysisKey": "PSF",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 128,
+            "rayCount": 20,
+            "gridSize": 128,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "Display": "128",
+              "Rotation": "0",
+              "ImageDeltaMicrometers": "0.25",
+              "UsePolarization": "False",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "Type": "线性",
+              "DisplayAs": "伪彩色",
+              "SurfaceNumber": "-1",
+              "Normalized": "False",
+              "UseRayAiming": "True",
+              "UseCentroid": "False"
+            }
+          },
+          "tolerances": {
+            "Irradiance": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Pupil Aberration",
+          "conclusion": "Pass",
+          "maximumNrmse": 0.0019279646122108579,
+          "settings": {
+            "canonicalAnalysisKey": "Pupil Aberration",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "NumberOfRays": "20",
+              "FieldNumber": "1",
+              "WavelengthNumber": "1",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True",
+              "CheckApertures": "True",
+              "VignettedPupil": "True"
+            }
+          },
+          "tolerances": {
+            "Distortion": {
+              "absolute": 0.0001,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Ray Fan",
+          "conclusion": "Pass",
+          "maximumNrmse": 8.25206562194632E-09,
+          "settings": {
+            "canonicalAnalysisKey": "Ray Fan",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "PlotScaleMicrometers": "0",
+              "NumberOfRays": "20",
+              "UseDashes": "false",
+              "VignettedPupil": "True",
+              "CheckApertures": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "TangentialAberration": "Y Aberration",
+              "SagittalAberration": "X Aberration",
+              "SurfaceNumber": "-1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "ImageHeight": {
+              "absolute": 0.001,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Spot Diagram",
+          "conclusion": "Pass",
+          "maximumNrmse": 7.293703099480812E-10,
+          "settings": {
+            "canonicalAnalysisKey": "Spot Diagram",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "RayDensity": "20",
+              "Pattern": "hexapolar",
+              "ColorRaysBy": "波长",
+              "Reference": "chief",
+              "UsePolarization": "False",
+              "DirectionCosines": "False",
+              "ShowAiryDisk": "false",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "DisplayScale": "比例尺",
+              "PlotScaleMicrometers": "0",
+              "ScatterRays": "false",
+              "UseSymbols": "True",
+              "UseRayAiming": "True",
+              "DeltaFocus": "0"
+            }
+          },
+          "tolerances": {
+            "RmsSpotRadius": {
+              "absolute": 0.001,
+              "relative": 0.01,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            },
+            "GeoSpotRadius": {
+              "absolute": 0.001,
+              "relative": 0.01,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          }
+        },
+        {
+          "key": "Wavefront",
+          "conclusion": "Pass",
+          "maximumNrmse": 4.6186775090740846E-08,
+          "settings": {
+            "canonicalAnalysisKey": "Wavefront",
+            "configuration": 1,
+            "field": 1,
+            "wavelength": 1,
+            "surface": -1,
+            "pupilSampling": 64,
+            "imageSampling": 64,
+            "rayCount": 20,
+            "gridSize": 64,
+            "imageDeltaMicrometers": 0.25,
+            "maximumFrequency": 50,
+            "focusMinimum": -0.1,
+            "focusMaximum": 0.1,
+            "reference": "ChiefRay",
+            "polarization": false,
+            "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+            "deleteVignetted": true,
+            "useRayAiming": true,
+            "normalization": "NativePhysical",
+            "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+            "outputUnits": "TypedAxes",
+            "settingsOrigin": "CapturedSettings",
+            "workbenchSettings": {
+              "Sampling": "64",
+              "Rotation": "0",
+              "DisplayScale": "1",
+              "Apodization": "无",
+              "ReferenceChiefRay": "False",
+              "UseExitPupilShape": "True",
+              "WavelengthNumber": "1",
+              "FieldNumber": "1",
+              "SurfaceNumber": "-1",
+              "DisplayAs": "表面",
+              "RemoveTilt": "False",
+              "PupilSx": "0",
+              "PupilSy": "0",
+              "PupilSr": "1",
+              "UsePolarization": "False",
+              "UseRayAiming": "True"
+            }
+          },
+          "tolerances": {
+            "WavefrontError": {
+              "absolute": 1E-05,
+              "relative": 0.001,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          }
+        }
+      ],
+      "limitations": "Only implemented adapters provide numerical comparisons. Skipped/incomparable entries are not passes."
+    }
+  ],
+  "verification": {
+    "lockedRestore": "Passed using local NuGet cache, --locked-mode --force -p:NuGetAudit=false",
+    "fullSolutionBuild": "Passed default Debug output, zero warnings/errors",
+    "releaseToolBuild": "Passed zero warnings/errors",
+    "fullSolutionTests": {
+      "mainPassed": 1212,
+      "toolPassed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1257
+    },
+    "format": "dotnet format OptilandWorkbench.slnx --verify-no-changes --no-restore: exit 0",
+    "notRun": [
+      "Online NuGet audit",
+      "Independent initial-structure laboratory solution",
+      "Legacy external Zemax report tool suite",
+      "Other operating systems"
+    ],
+    "logs": [
+      {
+        "file": "artifacts/numerical-fixes/restore.log",
+        "sha256": "a3e649e3912256ad8c699054916dc2d206237700d6558e6af9a3e79caf2b2e2c"
+      },
+      {
+        "file": "artifacts/numerical-fixes/final-build.log",
+        "sha256": "0d204ef79007afc2c99f6a3abb437b55c2860a575be5b5d757def28f95852170"
+      },
+      {
+        "file": "artifacts/numerical-fixes/final-release-build.log",
+        "sha256": "f736b6ae909d6cd2064a915a7a2c381c4ceb78f2bb56dc1958884aaa4d4a18a0"
+      },
+      {
+        "file": "artifacts/numerical-fixes/final-full-tests.log",
+        "sha256": "7bb6f193dc8d9a7125a9705f15acbdfaf9cd74a0c0f1b74a74eb9045149d7a4d"
+      },
+      {
+        "file": "artifacts/numerical-fixes/final-format.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "compatibility": "Legacy catalog snapshots remain readable; older releases may reject new catalog_glass components. STAROPT/ZMX/SEQ/LEN remain. No Python runtime or Python Optiland document feature added."
+}

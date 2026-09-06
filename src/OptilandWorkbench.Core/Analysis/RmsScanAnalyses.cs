@@ -5,6 +5,8 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
 {
+    public int GaussianAzimuthalSamples { get; init; } = 6;
+
     private readonly int _waveDensity;
     private readonly int _numRings;
     private readonly string _distribution;
@@ -79,7 +81,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
                     _data,
                     _reference,
                     usePolarization: _usePolarization,
-                    removeVignetting: _removeVignetting))).ToArray(),
+                    removeVignetting: _removeVignetting, gaussianAzimuthalSamples: GaussianAzimuthalSamples))).ToArray(),
             Name: field.Label,
             ColorIndex: fieldIndex,
             XQuantity: AnalysisAxisQuantity.Wavelength,
@@ -110,6 +112,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
             {
                 ["WaveDensity"] = _waveDensity,
                 ["RayDensity"] = _numRings,
+                ["GaussianAzimuthalSamples"] = Math.Clamp(GaussianAzimuthalSamples, 1, 72),
                 ["Method"] = _method,
                 ["Data"] = _data,
                 ["Distribution"] = effectiveDistribution,
@@ -143,6 +146,8 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
 
 public sealed class RmsVsFocusAnalysis : BaseAnalysis
 {
+    public int GaussianAzimuthalSamples { get; init; } = 6;
+
     private readonly int _focusDensity;
     private readonly double _minimumFocus;
     private readonly double _maximumFocus;
@@ -217,7 +222,7 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                     _reference,
                     focus,
                     _usePolarization,
-                    _removeVignetting))).ToArray(),
+                    _removeVignetting, GaussianAzimuthalSamples))).ToArray(),
             Name: field.Label,
             ColorIndex: fieldIndex,
             XQuantity: AnalysisAxisQuantity.Defocus,
@@ -248,6 +253,7 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
                 ["MinimumFocus"] = _minimumFocus,
                 ["MaximumFocus"] = _maximumFocus,
                 ["RayDensity"] = _numRings,
+                ["GaussianAzimuthalSamples"] = Math.Clamp(GaussianAzimuthalSamples, 1, 72),
                 ["Method"] = _method,
                 ["Data"] = _data,
                 ["Distribution"] = effectiveDistribution,
@@ -280,6 +286,8 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
 
 public sealed class RmsFieldMapAnalysis : BaseAnalysis
 {
+    public int GaussianAzimuthalSamples { get; init; } = 6;
+
     private readonly int _xFieldSamples;
     private readonly int _yFieldSamples;
     private readonly double _xFieldWidth;
@@ -351,7 +359,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                     _data,
                     _reference,
                     usePolarization: _usePolarization,
-                    removeVignetting: _removeVignetting);
+                    removeVignetting: _removeVignetting, gaussianAzimuthalSamples: GaussianAzimuthalSamples);
                 points.Add(new AnalysisPoint(x, y, Value: rms));
             }
         }
@@ -383,6 +391,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
                 ["XFieldWidth"] = _xFieldWidth,
                 ["YFieldWidth"] = _yFieldWidth,
                 ["RayDensity"] = _numRings,
+                ["GaussianAzimuthalSamples"] = Math.Clamp(GaussianAzimuthalSamples, 1, 72),
                 ["Method"] = _method,
                 ["Data"] = _data,
                 ["Distribution"] = effectiveDistribution,
@@ -470,7 +479,7 @@ internal static class RmsScanSupport
     {
         return NormalizeMethod(method) == "RA"
             ? "uniform"
-            : string.IsNullOrWhiteSpace(distribution) ? "hexapolar" : distribution;
+            : "gaussian";
     }
 
     public static string AxisLabel(string data)
@@ -523,7 +532,8 @@ internal static class RmsScanSupport
         string reference,
         double imagePlaneOffset = 0,
         bool usePolarization = false,
-        bool removeVignetting = true)
+        bool removeVignetting = true,
+        int gaussianAzimuthalSamples = 6)
     {
         var workingOptic = AnalysisTrace.PrepareVignettingFactors(optic, removeVignetting);
         return NormalizeData(data) == "wavefront"
@@ -535,7 +545,7 @@ internal static class RmsScanSupport
                 distribution,
                 reference,
                 imagePlaneOffset,
-                usePolarization)
+                usePolarization, gaussianAzimuthalSamples)
             : SpotRadius(
                 workingOptic,
                 field,
@@ -544,7 +554,7 @@ internal static class RmsScanSupport
                 distribution,
                 reference,
                 imagePlaneOffset,
-                usePolarization);
+                usePolarization, gaussianAzimuthalSamples);
     }
 
     public static double SpotRadius(
@@ -555,7 +565,8 @@ internal static class RmsScanSupport
         string distribution,
         string reference,
         double imagePlaneOffset = 0,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        int gaussianAzimuthalSamples = 6)
     {
         var result = SpotAnalysisEngine.Generate(
             optic,
@@ -565,7 +576,10 @@ internal static class RmsScanSupport
             distribution,
             imagePlaneOffset,
             reference: reference,
-            usePolarization: usePolarization);
+            usePolarization: usePolarization,
+            aimAtStop: optic.RayAimingEnabled,
+            includeSurfaceTransmission: usePolarization,
+            gaussianAzimuthalSamples: gaussianAzimuthalSamples);
         var rays = result.Fields.FirstOrDefault()?.WeightedRays
             .ToArray() ?? Array.Empty<SpotRayData>();
         if (rays.Length == 0)
@@ -586,7 +600,8 @@ internal static class RmsScanSupport
         string distribution,
         string reference,
         double imagePlaneOffset = 0,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        int gaussianAzimuthalSamples = 6)
     {
         if (wavelengths.Count == 0)
         {
@@ -595,7 +610,7 @@ internal static class RmsScanSupport
 
         var pupil = string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase)
             ? ApertureSampler.Generate(numRings * numRings, PupilSampling.UniformGrid)
-            : ApertureSampler.GenerateGaussianQuadrature(numRings, 6);
+            : ApertureSampler.GenerateGaussianQuadrature(numRings, gaussianAzimuthalSamples);
         var coordinates = pupil.Select(sample => (sample.X, sample.Y)).ToArray();
         var wavefronts = DiffractionEngine.GenerateDefocusedPolychromaticWavefronts(
             optic,

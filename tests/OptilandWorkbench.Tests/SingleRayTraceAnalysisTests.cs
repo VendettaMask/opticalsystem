@@ -1,4 +1,4 @@
-using OptilandWorkbench.Application.Legacy;
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
@@ -65,7 +65,7 @@ public sealed class SingleRayTraceAnalysisTests
     [Fact]
     public void ConnectorExposesZemaxStyleInputsAndDocumentReport()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("单光线追迹");
 
         Assert.Equal(

@@ -1,4 +1,5 @@
 using System.Numerics;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -122,16 +123,20 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
         }
         else
         {
+            var previous = Optic.SurfaceGroup.Items[^2];
+            var originalThickness = previous.Thickness;
+            // Defocus is a displacement along the preceding surface's local axis.
+            // Keep the prescription gap and the traced image coordinate consistent.
+            Optic.InvalidateRayTraceCache();
             try
             {
                 for (var focusIndex = 0; focusIndex < focus.Length; focusIndex++)
                 {
+                    var shift = previous.CoordinateSystem.ToGlobalDirection(new Vector3D(0, 0, focus[focusIndex]));
+                    previous.Thickness = originalThickness + focus[focusIndex];
                     imageSurface.CoordinateSystem = originalCoordinateSystem with
                     {
-                        Origin = originalCoordinateSystem.Origin with
-                        {
-                            Z = originalCoordinateSystem.Origin.Z + focus[focusIndex]
-                        }
+                        Origin = originalCoordinateSystem.Origin + shift
                     };
                     for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
                     {
@@ -150,6 +155,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             }
             finally
             {
+                previous.Thickness = originalThickness;
                 imageSurface.CoordinateSystem = originalCoordinateSystem;
             }
         }
@@ -240,6 +246,9 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["ZemaxCompatible"] = _settings.ZemaxCompatible,
             ["PupilSampling"] = _settings.PupilSampling,
             ["ImageSampling"] = _settings.ImageSize,
+            ["HuygensMtfTransformSize"] = _method == MtfComputationMethod.Huygens ? Math.Max(4, _settings.ImageSize) : 0,
+            ["HuygensFrequencySampling"] = _method != MtfComputationMethod.Huygens ? "NotApplicable"
+                : _settings.UseZemaxHuygensSemantics ? "NaturalCubicEndpointSpan" : "LinearDftPeriod",
             ["ImageDeltaMicrometers"] = Optic.ImageSpaceAfocal
                 ? 0
                 : _settings.PixelPitchMillimeters * 1000,
@@ -490,6 +499,10 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
             ["SpatialFrequency"] = _spatialFrequencies[0],
             ["SpatialFrequencies"] = _spatialFrequencies,
+            ["HuygensMtfTransformSize"] = _method == MtfComputationMethod.Huygens
+                ? Math.Max(4, _settings.ImageSize) * (_settings.UseZemaxHuygensSemantics ? 2 : 1) : 0,
+            ["HuygensFrequencySampling"] = _method != MtfComputationMethod.Huygens ? "NotApplicable"
+                : _settings.UseZemaxHuygensSemantics ? "NaturalCubicEndpointSpan" : "LinearDftPeriod",
             ["FrequencyUnit"] = frequencyUnitLabel,
             ["ImageSpaceAfocal"] = workingOptic.ImageSpaceAfocal,
             ["FieldPointCount"] = fields.Count,
@@ -602,6 +615,14 @@ internal static class MtfMethodEvaluator
 
         if (method == MtfComputationMethod.Fourier)
         {
+            if (settings.ZemaxCompatible && dataType != FftMtfDataType.SquareWave)
+            {
+                // Field scans and focus scans use the same pupil autocorrelation.
+                // A short, unpadded image FFT aliases the pupil overlap at low frequencies.
+                var value = EvaluateFourierThroughFocus(optic, field, wavelengths,
+                    new[] { defocusMillimeters }, spatialFrequency, settings, dataType);
+                return (value.Tangential[0], value.Sagittal[0]);
+            }
             var pupilSampling = Math.Max(8, settings.PupilSampling);
             var gridSize = NextPowerOfTwo(Math.Max(pupilSampling, settings.ImageSize));
             var results = wavelengths.Select(wavelength =>
@@ -897,7 +918,9 @@ internal static class MtfMethodEvaluator
             usePolarization: resolvedSettings.UsePolarization,
             aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
             defocus: optic.ImageSpaceAfocal ? defocus : 0);
-        return AtFrequency(DiffractionEngine.ComputePsfMtf(psf), spatialFrequency);
+        return SampleHuygensMtf(
+            DiffractionEngine.ComputePsfMtf(psf), psf.GridSize, spatialFrequency,
+            resolvedSettings.UseZemaxHuygensSemantics);
     }
 
     internal static (double Tangential, double Sagittal)[] EvaluatePolychromaticFrequencies(
@@ -911,9 +934,11 @@ internal static class MtfMethodEvaluator
         if (method == MtfComputationMethod.Huygens && settings.UseZemaxHuygensSemantics)
         {
             var psf = ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings);
-            var mtf = DiffractionEngine.ComputePsfMtfAtFrequencies(psf, spatialFrequencies);
-            return Enumerable.Range(0, spatialFrequencies.Count)
-                .Select(index => (mtf.Tangential[index], mtf.Sagittal[index]))
+            // Frequency/field plots use a 2N transform; through-focus uses N.
+            // Both native contracts interpolate on the transform endpoint span.
+            var mtf = DiffractionEngine.ComputePsfMtf(psf, doubleTransformSize: true);
+            return spatialFrequencies
+                .Select(frequency => SampleHuygensMtf(mtf, 2 * psf.GridSize, frequency, true))
                 .ToArray();
         }
 
@@ -933,9 +958,36 @@ internal static class MtfMethodEvaluator
         double spatialFrequency,
         MtfComputationSettings settings)
     {
-        return AtFrequency(
+        return SampleHuygensMtf(
             ComputeHuygensPolychromaticMtf(optic, field, wavelengths, settings),
-            spatialFrequency);
+            Math.Max(4, settings.ImageSize), spatialFrequency, settings.UseZemaxHuygensSemantics);
+    }
+
+    internal static (double Tangential, double Sagittal) SampleHuygensMtf(
+        MtfResult result, int transformSize, double frequency, bool zemaxCompatible)
+    {
+        if (!zemaxCompatible)
+        {
+            return AtFrequency(result, frequency);
+        }
+
+        // Captured 2026 R1 Huygens output uses the endpoint span (N-1)*dx
+        // for its frequency axis, then a natural cubic spline. Keep this display
+        // convention separate from the physical DFT grid, whose period is N*dx.
+        var target = Math.Max(0, frequency) * (transformSize - 1.0) / transformSize;
+        double SampleCurve(IReadOnlyList<double> axis, IReadOnlyList<double> values)
+        {
+            if (axis.Count < 2 || target > axis[^1])
+            {
+                return Interpolate(axis, values, target);
+            }
+
+            return Math.Clamp(MtfThroughFocusAnalysis.CubicSplineInterpolate(axis, values, [target])[0], 0, 1);
+        }
+
+        return (
+            SampleCurve(result.TangentialFrequency ?? result.Frequency, result.Tangential),
+            SampleCurve(result.SagittalFrequency ?? result.Frequency, result.Sagittal));
     }
 
     private static MtfResult ComputeHuygensPolychromaticMtf(
@@ -1049,7 +1101,8 @@ internal static class MtfMethodEvaluator
             Math.Max(2, settings.GeometricRayCount),
             settings.Distribution,
             imagePlaneOffset: optic.ImageSpaceAfocal ? defocus : 0,
-            reference: "absolute");
+            reference: "absolute", aimAtStop: optic.RayAimingEnabled,
+            includeSurfaceTransmission: settings.UsePolarization, usePolarization: settings.UsePolarization);
         var rays = result.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
             ?? Array.Empty<SpotRayData>();
         var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());

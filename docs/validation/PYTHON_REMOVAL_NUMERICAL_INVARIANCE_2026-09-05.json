@@ -1,0 +1,539 @@
+{
+  "date": "2026-09-05",
+  "purpose": "Verify this refactor preserves current C# product results, separately from external Zemax accuracy acceptance.",
+  "source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+  "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+  "externalReferenceVersion": "Zemax OpticStudio 2026 R1",
+  "settingsManifest": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json",
+  "settingsManifestSha256": "f3a96a8f6ba2b7aafcae619e0ef31aff4ce7fd1b006e5e4c6f8f8216a9065316",
+  "unitsAndSampling": "Per-analysis settings in the pinned manifest; result axes retain their typed quantities/units. No sampling overrides or universal-default assumptions.",
+  "invarianceTolerance": 0,
+  "comparison": "Exact parsed JSON equality, including numeric leaves, formatted rows, grids, axes, tables, reports and outcomes. Only the explicitly listed unavailable-detector label change is allowed.",
+  "analyses": 72,
+  "numericLeavesCompared": 1786839,
+  "identicalResults": 71,
+  "allowedPresentationChanges": [
+    {
+      "path": "044-incoherent-irradiance.json/reportText",
+      "before": "分析：非相干照度\r\n状态：Detector surface has no supported physical aperture\r\nPython Optiland 要求：Set a physical aperture on the detector surface",
+      "after": "分析：非相干照度\r\n状态：Detector surface has no supported physical aperture\r\n探测器孔径要求：Set a physical aperture on the detector surface"
+    },
+    {
+      "path": "044-incoherent-irradiance.json/rows/1/metric",
+      "before": "Python Optiland 要求",
+      "after": "探测器孔径要求"
+    }
+  ],
+  "unexpectedChanges": [],
+  "outcomes": {
+    "success": 69,
+    "notApplicable": 2,
+    "unavailable": 1
+  },
+  "files": [
+    {
+      "file": "001-single-ray-trace.json",
+      "beforeSha256": "f0d3afeb96063860cc1c7b954adac331b838784dbd25539a41f2e97e0a5093a9",
+      "afterSha256": "f0d3afeb96063860cc1c7b954adac331b838784dbd25539a41f2e97e0a5093a9",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "002-non-sequential-ray-trace.json",
+      "beforeSha256": "e5ebdf8f76b315258111c2d53db4f739a7ba5b8c4c174c95a6c87b69f9ff8626",
+      "afterSha256": "e5ebdf8f76b315258111c2d53db4f739a7ba5b8c4c174c95a6c87b69f9ff8626",
+      "identicalJsonValue": true,
+      "outcome": "notApplicable"
+    },
+    {
+      "file": "003-non-sequential-detector-viewer.json",
+      "beforeSha256": "d6867cbe12cc99ce1fdee4d564b674fd2ec65e761a6ada3815a9419ecbf03018",
+      "afterSha256": "d6867cbe12cc99ce1fdee4d564b674fd2ec65e761a6ada3815a9419ecbf03018",
+      "identicalJsonValue": true,
+      "outcome": "notApplicable"
+    },
+    {
+      "file": "004-first-order.json",
+      "beforeSha256": "3a8d7ad5c25616766ceb3cc9e17b929c7f8bc1819e43965d25bdfd954880adeb",
+      "afterSha256": "3a8d7ad5c25616766ceb3cc9e17b929c7f8bc1819e43965d25bdfd954880adeb",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "005-seidel-coefficients.json",
+      "beforeSha256": "e22e56d5d86e92a17be75da277311828b0375d769f6cbae7deea1c61f0d1f4b2",
+      "afterSha256": "e22e56d5d86e92a17be75da277311828b0375d769f6cbae7deea1c61f0d1f4b2",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "006-seidel-diagram.json",
+      "beforeSha256": "fce4a3a822ec7ddc0a1b827291b243d4fa3941198496632e0312b6cad7c75ca2",
+      "afterSha256": "fce4a3a822ec7ddc0a1b827291b243d4fa3941198496632e0312b6cad7c75ca2",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "007-spot-diagram.json",
+      "beforeSha256": "ace2b0f7497117952bd25598b884dd6c6c1f77d618f7a5188413d490eec5ce1a",
+      "afterSha256": "ace2b0f7497117952bd25598b884dd6c6c1f77d618f7a5188413d490eec5ce1a",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "008-full-field-spot-diagram.json",
+      "beforeSha256": "85b8f1e439b5a411ab987548cf1b091438733d47e30fcefbde7e3f976f694cb7",
+      "afterSha256": "85b8f1e439b5a411ab987548cf1b091438733d47e30fcefbde7e3f976f694cb7",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "009-matrix-spot-diagram.json",
+      "beforeSha256": "8cfb10ba28ef57aa7ba947a04e622281058eb22e28e6229668e3706a945c1db6",
+      "afterSha256": "8cfb10ba28ef57aa7ba947a04e622281058eb22e28e6229668e3706a945c1db6",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "010-configuration-matrix-spot-diagram.json",
+      "beforeSha256": "48e84ba70b758ea8e43fae4269a8ea1fde94554dbe24f64f77738859029bbbbe",
+      "afterSha256": "48e84ba70b758ea8e43fae4269a8ea1fde94554dbe24f64f77738859029bbbbe",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "011-ray-fan.json",
+      "beforeSha256": "0d3a7384ee0779607c287dfd03894a1239a0af191aa09cfa457ce20b734d1b84",
+      "afterSha256": "0d3a7384ee0779607c287dfd03894a1239a0af191aa09cfa457ce20b734d1b84",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "012-footprint-diagram.json",
+      "beforeSha256": "f1f83bc087142c4b2ce697d46a4d1604c3f3cfdb5d0102a7480d0fb4b7838a6e",
+      "afterSha256": "f1f83bc087142c4b2ce697d46a4d1604c3f3cfdb5d0102a7480d0fb4b7838a6e",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "013-field-curvature-and-distortion.json",
+      "beforeSha256": "a6e67257c3944cfb3edfe57b76d505a60ea343567fd4a4ff09b3514442b93a03",
+      "afterSha256": "a6e67257c3944cfb3edfe57b76d505a60ea343567fd4a4ff09b3514442b93a03",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "014-grid-distortion.json",
+      "beforeSha256": "6936671af5e0343657af45ff85c57cbe6b9c3e9d32e3655f046ddad5f0362297",
+      "afterSha256": "6936671af5e0343657af45ff85c57cbe6b9c3e9d32e3655f046ddad5f0362297",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "015-field-curvature.json",
+      "beforeSha256": "3162b66f14e085f9fb83b458f4a9a3d3e4fb35616e052014345b0333630cb721",
+      "afterSha256": "3162b66f14e085f9fb83b458f4a9a3d3e4fb35616e052014345b0333630cb721",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "016-color-focus-shift.json",
+      "beforeSha256": "679a21b5437cf1233bac4b499cac7c5757f0ea2fd1242f506dc9c6e45845ee8f",
+      "afterSha256": "679a21b5437cf1233bac4b499cac7c5757f0ea2fd1242f506dc9c6e45845ee8f",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "017-lateral-color.json",
+      "beforeSha256": "64baab92edd4c9e9ef0bc404585075536a25f3cd68818eca998ef691b1c93264",
+      "afterSha256": "64baab92edd4c9e9ef0bc404585075536a25f3cd68818eca998ef691b1c93264",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "018-axial-aberration.json",
+      "beforeSha256": "b64e201804d45fb2549f8bf664d01d2dfadfd43cb579edd99bb703d3a33d3c1a",
+      "afterSha256": "b64e201804d45fb2549f8bf664d01d2dfadfd43cb579edd99bb703d3a33d3c1a",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "019-full-field-aberration.json",
+      "beforeSha256": "bde1f2cd926575c8978330bc03bdab42b9cf0be54b9418b2caf8f51b156bcaf2",
+      "afterSha256": "bde1f2cd926575c8978330bc03bdab42b9cf0be54b9418b2caf8f51b156bcaf2",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "020-encircled-energy.json",
+      "beforeSha256": "e7dd5ea5a26c44a2ddeb929034db17c8aff37c97a30e3b8d1ddf1968935ebd02",
+      "afterSha256": "e7dd5ea5a26c44a2ddeb929034db17c8aff37c97a30e3b8d1ddf1968935ebd02",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "021-diffraction-encircled-energy.json",
+      "beforeSha256": "3f269c347955eb4ffb024e1047ba557c70588f50cace23921578e69544979e02",
+      "afterSha256": "3f269c347955eb4ffb024e1047ba557c70588f50cace23921578e69544979e02",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "022-geometric-line-edge-spread.json",
+      "beforeSha256": "bfebb6df8a4c8cad4082abf691590eb1249c98df6a33c89134940145148564dd",
+      "afterSha256": "bfebb6df8a4c8cad4082abf691590eb1249c98df6a33c89134940145148564dd",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "023-extended-source-encircled-energy.json",
+      "beforeSha256": "c44286a8e5ea850345cc6b48ded2aa05b081d6c676529a6ab28ffeaeb77b4176",
+      "afterSha256": "c44286a8e5ea850345cc6b48ded2aa05b081d6c676529a6ab28ffeaeb77b4176",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "024-pupil-aberration.json",
+      "beforeSha256": "cb1751b96be4936f35889b4e322421b80688bb582df263dcab76e385659ad127",
+      "afterSha256": "cb1751b96be4936f35889b4e322421b80688bb582df263dcab76e385659ad127",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "025-rms-vs-field.json",
+      "beforeSha256": "69e214f80224f729211944b31bab66eb61bab063602154946d350dbdc1186789",
+      "afterSha256": "69e214f80224f729211944b31bab66eb61bab063602154946d350dbdc1186789",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "026-rms-vs-wavelength.json",
+      "beforeSha256": "a75a02d7a0be832f158a926d96cbc4ca49e508ebf469cf4b326b5bed85889692",
+      "afterSha256": "a75a02d7a0be832f158a926d96cbc4ca49e508ebf469cf4b326b5bed85889692",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "027-rms-vs-focus.json",
+      "beforeSha256": "c69c5eed035eeb2c9c96a9409e92e9b5ae2cb4dee694fd0d52fd275b75538699",
+      "afterSha256": "c69c5eed035eeb2c9c96a9409e92e9b5ae2cb4dee694fd0d52fd275b75538699",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "028-rms-field-map.json",
+      "beforeSha256": "a47af2259815f2819643879a28d5666987ad7b2eb4ecf358b196e1cf25d0c0fa",
+      "afterSha256": "a47af2259815f2819643879a28d5666987ad7b2eb4ecf358b196e1cf25d0c0fa",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "029-rms-wavefront-vs-field.json",
+      "beforeSha256": "864b414d242b4ae76699eba422663aa5d3438e1570467d60511bb0c4f4d6e83f",
+      "afterSha256": "864b414d242b4ae76699eba422663aa5d3438e1570467d60511bb0c4f4d6e83f",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "030-through-focus.json",
+      "beforeSha256": "6ef2253313a55cef7063de61fd2c6bafd05c08f0b895cc62ece6648e75dce216",
+      "afterSha256": "6ef2253313a55cef7063de61fd2c6bafd05c08f0b895cc62ece6648e75dce216",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "031-through-focus-mtf.json",
+      "beforeSha256": "f168cd1891edc9c3b1a4f569f94a9e631a332bd986d0c48b2011b8765e66bb67",
+      "afterSha256": "f168cd1891edc9c3b1a4f569f94a9e631a332bd986d0c48b2011b8765e66bb67",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "032-fourier-through-focus-mtf.json",
+      "beforeSha256": "f168cd1891edc9c3b1a4f569f94a9e631a332bd986d0c48b2011b8765e66bb67",
+      "afterSha256": "f168cd1891edc9c3b1a4f569f94a9e631a332bd986d0c48b2011b8765e66bb67",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "033-huygens-through-focus-mtf.json",
+      "beforeSha256": "39004f1af6ed50e46a24675f25c53572fa50b376738c2299de2d0ce3091a7533",
+      "afterSha256": "39004f1af6ed50e46a24675f25c53572fa50b376738c2299de2d0ce3091a7533",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "034-geometric-through-focus-mtf.json",
+      "beforeSha256": "787aee2d6b32d0d6227a8975b02a71d36e472984a20c588ca52d4e467db1a1d5",
+      "afterSha256": "787aee2d6b32d0d6227a8975b02a71d36e472984a20c588ca52d4e467db1a1d5",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "035-fourier-mtf-vs-field.json",
+      "beforeSha256": "55c2540f90b4a3259baa13c4c2ec95fe6cf7da3b67e7eadec5062c87688e7f1d",
+      "afterSha256": "55c2540f90b4a3259baa13c4c2ec95fe6cf7da3b67e7eadec5062c87688e7f1d",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "036-huygens-mtf-vs-field.json",
+      "beforeSha256": "61e375e9245a59abcbd8fc2c19167c50c1bbf6dbb5321b2fb9ca56143b9af6e4",
+      "afterSha256": "61e375e9245a59abcbd8fc2c19167c50c1bbf6dbb5321b2fb9ca56143b9af6e4",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "037-geometric-mtf-vs-field.json",
+      "beforeSha256": "d71cdcb9a0d8aa4673a1340b418ec05bb2f5aa922e99146da9e224f719bf1047",
+      "afterSha256": "d71cdcb9a0d8aa4673a1340b418ec05bb2f5aa922e99146da9e224f719bf1047",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "038-angle-vs-image-height.json",
+      "beforeSha256": "9e727cad0e9caa588e98e58557392e8f38a1e949add798369c3a9013d9c76b9c",
+      "afterSha256": "9e727cad0e9caa588e98e58557392e8f38a1e949add798369c3a9013d9c76b9c",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "039-angle-vs-image-height-through-pupil.json",
+      "beforeSha256": "30018f4fdf2347865ea4ba7bd6bc4e6a7fcc60158ee48f6f95029654290a2c5f",
+      "afterSha256": "30018f4fdf2347865ea4ba7bd6bc4e6a7fcc60158ee48f6f95029654290a2c5f",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "040-angle-vs-image-height-through-field.json",
+      "beforeSha256": "771db26b383c6b0a9f2c71c754d0a8a76ea5a3043b15fe47da8c308b7993e9e5",
+      "afterSha256": "771db26b383c6b0a9f2c71c754d0a8a76ea5a3043b15fe47da8c308b7993e9e5",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "041-cardinal-points-data.json",
+      "beforeSha256": "cc6bafc67017342d2e5082de18fea34a99da480068d713a7eaa1b5e3a7a0dc72",
+      "afterSha256": "cc6bafc67017342d2e5082de18fea34a99da480068d713a7eaa1b5e3a7a0dc72",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "042-vignetting-diagram.json",
+      "beforeSha256": "a00df86607bdeaef354b936173e8f3ea5f0f6a6c8577f28373eff14b881be756",
+      "afterSha256": "a00df86607bdeaef354b936173e8f3ea5f0f6a6c8577f28373eff14b881be756",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "043-relative-illumination.json",
+      "beforeSha256": "d06e0ce18778fc56bc86c29c4ab6317cd05dfc37c8e8689ab8a56ed42cff1da3",
+      "afterSha256": "d06e0ce18778fc56bc86c29c4ab6317cd05dfc37c8e8689ab8a56ed42cff1da3",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "044-incoherent-irradiance.json",
+      "beforeSha256": "c24d377507ae8baa8ecd344429ba6496bddd256bde78b9270f9bdb51e07fdba7",
+      "afterSha256": "7fd21dc1831ff518e83afe8b721ef3844dcecac79111f68e9ab8b386f9c9e464",
+      "identicalJsonValue": false,
+      "outcome": "unavailable"
+    },
+    {
+      "file": "045-radiant-intensity.json",
+      "beforeSha256": "270962532b6696e83c2c8cbc9731540be774941446d8ba417a4814e679f9db1d",
+      "afterSha256": "270962532b6696e83c2c8cbc9731540be774941446d8ba417a4814e679f9db1d",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "046-y-ybar.json",
+      "beforeSha256": "64a629b0637f5cb097b2c265638a7178e80baa5bd237cd0c1b7de2981d016c57",
+      "afterSha256": "64a629b0637f5cb097b2c265638a7178e80baa5bd237cd0c1b7de2981d016c57",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "047-psf.json",
+      "beforeSha256": "64ead19007596ec2d7c5ef2f4f94cd867642f3b30a6ce9dc0e14fce0ae99edaa",
+      "afterSha256": "64ead19007596ec2d7c5ef2f4f94cd867642f3b30a6ce9dc0e14fce0ae99edaa",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "048-fft-psf-cross-section.json",
+      "beforeSha256": "2b85ba3f516f8b87dd2c9a892748b49363abaab69c01a71dfad5c03799687290",
+      "afterSha256": "2b85ba3f516f8b87dd2c9a892748b49363abaab69c01a71dfad5c03799687290",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "049-fft-line-edge-spread.json",
+      "beforeSha256": "d1d5473758ef1b86097f9be181c34db2a62b08dced1da55346b654180c9b9bd2",
+      "afterSha256": "d1d5473758ef1b86097f9be181c34db2a62b08dced1da55346b654180c9b9bd2",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "050-huygens-psf.json",
+      "beforeSha256": "eee6c451d39b8bca82d81ccceeb9f5fcace58b7e4ba58883f709eae02d606cab",
+      "afterSha256": "eee6c451d39b8bca82d81ccceeb9f5fcace58b7e4ba58883f709eae02d606cab",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "051-huygens-psf-cross-section.json",
+      "beforeSha256": "92703aa907a57cd41ece025542a18a8e64cd5984ca1137e5965d2f7c2bba65b1",
+      "afterSha256": "92703aa907a57cd41ece025542a18a8e64cd5984ca1137e5965d2f7c2bba65b1",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "052-mtf.json",
+      "beforeSha256": "6ef14ce689dfb4ce0381d2e3adb328df9d5477fc08488dac0b472e145ec50919",
+      "afterSha256": "6ef14ce689dfb4ce0381d2e3adb328df9d5477fc08488dac0b472e145ec50919",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "053-huygens-mtf.json",
+      "beforeSha256": "cab1c477f59bb58580944d213c89fa8bf763db22799d9cd45b4f5a7d943c4905",
+      "afterSha256": "cab1c477f59bb58580944d213c89fa8bf763db22799d9cd45b4f5a7d943c4905",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "054-geometric-mtf.json",
+      "beforeSha256": "ba2ff98085eee1450febc4316b54a77fd8942beafde0bcdfaadb09a68b84354c",
+      "afterSha256": "ba2ff98085eee1450febc4316b54a77fd8942beafde0bcdfaadb09a68b84354c",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "055-sampled-mtf.json",
+      "beforeSha256": "d7e8c918b77d3d20c7c226b789184d885e0185181fc3340e093fa115f3c75805",
+      "afterSha256": "d7e8c918b77d3d20c7c226b789184d885e0185181fc3340e093fa115f3c75805",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "056-contrast-loss-map.json",
+      "beforeSha256": "5259b0c7cf0e7604a5e6e9811ad1b3b43e4352ecd1f5f05f61dcc991d00883b7",
+      "afterSha256": "5259b0c7cf0e7604a5e6e9811ad1b3b43e4352ecd1f5f05f61dcc991d00883b7",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "057-optical-path-difference.json",
+      "beforeSha256": "337b692aca09108d13e60cad673cd504477cbc326523aae62fa550f7d5074dce",
+      "afterSha256": "337b692aca09108d13e60cad673cd504477cbc326523aae62fa550f7d5074dce",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "058-foucault-analysis.json",
+      "beforeSha256": "bcf0e09c7819941a820816f47850e7c79709c4a71bb2f3ab5ce728acf5ee648f",
+      "afterSha256": "bcf0e09c7819941a820816f47850e7c79709c4a71bb2f3ab5ce728acf5ee648f",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "059-wavefront.json",
+      "beforeSha256": "7307c035d07566d3717724ceb1ec119d63b28707c6d3adf6d57944e513fc385b",
+      "afterSha256": "7307c035d07566d3717724ceb1ec119d63b28707c6d3adf6d57944e513fc385b",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "060-centroid-sphere-wavefront.json",
+      "beforeSha256": "8e288491725ec4ddea9362e7edb62addebcf4036505e879a81661b64ff79b162",
+      "afterSha256": "8e288491725ec4ddea9362e7edb62addebcf4036505e879a81661b64ff79b162",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "061-best-fit-sphere-wavefront.json",
+      "beforeSha256": "0bbb8de51bd20187c465942401a508d71621ebd4ec247f165c55bb29dc76298f",
+      "afterSha256": "0bbb8de51bd20187c465942401a508d71621ebd4ec247f165c55bb29dc76298f",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "062-zernike.json",
+      "beforeSha256": "f6fb2ac02383a92ed22bea3508d7fbbe32b9bd44237cccdc62bd04ddd0b41b26",
+      "afterSha256": "f6fb2ac02383a92ed22bea3508d7fbbe32b9bd44237cccdc62bd04ddd0b41b26",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "063-image-simulation.json",
+      "beforeSha256": "13f34f1da172666c1f45b94847c06bff5f3c782e5972b4657c94716f804dc82a",
+      "afterSha256": "13f34f1da172666c1f45b94847c06bff5f3c782e5972b4657c94716f804dc82a",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "064-geometric-image-analysis.json",
+      "beforeSha256": "e6a41a77531f54e8f99aded7ca77d54cabce6b8e06bf6d0e55c608e9dd5b3434",
+      "afterSha256": "e6a41a77531f54e8f99aded7ca77d54cabce6b8e06bf6d0e55c608e9dd5b3434",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "065-geometric-bitmap-image-analysis.json",
+      "beforeSha256": "93584c51a95ef3964ac597acd302922430309f136164d43b9337ffebd8553f14",
+      "afterSha256": "93584c51a95ef3964ac597acd302922430309f136164d43b9337ffebd8553f14",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "066-light-source-analysis.json",
+      "beforeSha256": "fbcff6de184d387024533b5c09df5ce67a47db3c433eb3a9c76e4ff2bf9d1062",
+      "afterSha256": "fbcff6de184d387024533b5c09df5ce67a47db3c433eb3a9c76e4ff2bf9d1062",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "067-partially-coherent-image-analysis.json",
+      "beforeSha256": "198da17ee3ddc3e343d12c516a71ec43a23a4cbb3d5d8494d548be7c4bd8ec61",
+      "afterSha256": "198da17ee3ddc3e343d12c516a71ec43a23a4cbb3d5d8494d548be7c4bd8ec61",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "068-extended-diffraction-image-analysis.json",
+      "beforeSha256": "44034a6a7e28bc823c3345b20b11e90183b881cbbe35c69278dfefeb5321df22",
+      "afterSha256": "44034a6a7e28bc823c3345b20b11e90183b881cbbe35c69278dfefeb5321df22",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "069-jones-pupil.json",
+      "beforeSha256": "8f6cd4f0246a1d47bd3cd5e7cae4ee9b403e59f50b20e1f486a6265a638384f7",
+      "afterSha256": "8f6cd4f0246a1d47bd3cd5e7cae4ee9b403e59f50b20e1f486a6265a638384f7",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "070-prescription-report.json",
+      "beforeSha256": "34993fe08fc310292aca514a4bdabad6b9a437614d0dd3c83674be77ea1260ce",
+      "afterSha256": "34993fe08fc310292aca514a4bdabad6b9a437614d0dd3c83674be77ea1260ce",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "071-system-data-report.json",
+      "beforeSha256": "0b1e329b2c3fe1bbb04fb764443b8653b921a4389c2e4f610bc0a7ad63568d46",
+      "afterSha256": "0b1e329b2c3fe1bbb04fb764443b8653b921a4389c2e4f610bc0a7ad63568d46",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    },
+    {
+      "file": "072-classified-data-report.json",
+      "beforeSha256": "44ab9ef8c4dd6b553eff47db4391142b6c82fe253f2ca20377c256450d880848",
+      "afterSha256": "44ab9ef8c4dd6b553eff47db4391142b6c82fe253f2ca20377c256450d880848",
+      "identicalJsonValue": true,
+      "outcome": "success"
+    }
+  ]
+}

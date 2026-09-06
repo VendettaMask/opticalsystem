@@ -100,6 +100,12 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 ["TraceType"] = IsTangentAngleType() ? "Tangent Angles" : "Direction Cosines",
                 ["RayAiming"] = _useRayAiming ? "Paraxial" : "Off",
                 ["LastSurface"] = lastSurface,
+                ["RealRayData"] = realRows.Where(row => !row.IsObjectSurface).Select(row => new[]
+                {
+                    (double)row.SurfaceNumber, row.Position.X, row.Position.Y, row.Position.Z,
+                    row.Direction.X, row.Direction.Y, row.Direction.Z, row.Normal.X, row.Normal.Y, row.Normal.Z,
+                    row.IncidenceAngleDegrees, row.PathLength
+                }).ToArray(),
                 ["VignettedSurface"] = vignettedSurface,
                 ["ShowRaySegments"] = _showRaySegments
             },
@@ -223,6 +229,9 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             var localDirection = surface.CoordinateSystem.ToLocalDirection(sample.Direction);
             var localIncident = surface.CoordinateSystem.ToLocalDirection(incidentDirection);
             var localNormal = surface.Geometry.SurfaceNormal(localPosition);
+            // Report the normal facing the incident medium, independently of the geometry's
+            // arbitrary normal orientation. This does not change the traced refraction.
+            if (Dot(localIncident, localNormal) > 0) localNormal = -localNormal;
             var position = _globalCoordinates ? sample.Position : localPosition;
             var direction = _globalCoordinates ? sample.Direction : localDirection;
             var normal = _globalCoordinates

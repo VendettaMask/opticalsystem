@@ -5,7 +5,7 @@
 原计划中的主要机械拆分已经落地：
 
 - `AnalysisFramework` 已按分析族拆分；
-- Python Optiland JSON 读写已按模型责任拆分；
+- Python Optiland 专用读写代码已删除；
 - `OptilandConnector` 的生产责任已迁入规范 `WorkbenchRuntime` 和独立应用服务；
 - `WorkbenchApplication` 成为组合根，`WorkspaceCoordinator` 负责修订、写锁、取消和事件；
 - `OpticalDrawingRenderer` 已拆成外观及制造绘制分部；
@@ -14,7 +14,7 @@
 - `ToleranceOperandEditorRow` 已从公差主面板拆为独立可测试编辑模型，`TolerancingPanel` 不再同时定义整套行模型与代码解析；后续报告与文件持久化仍可按同样边界继续拆分。
 - 非序列探测器的归一化、平滑和剖面计算已从窗口文件抽为无 UI 状态的 `NonSequentialDetectorDisplay`，算法可独立测试，显示变换不会混入数据库重建或物理统计。
 
-`OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集，仍作为旧调用者和兼容测试的薄外观存在，不应重新承载新生产逻辑。主 Application/App 不引用该程序集。
+旧连接器及 Compatibility 项目已删除，旧调用方和行为测试直接使用 WorkbenchRuntime。
 
 ## 拆分约束
 
@@ -36,9 +36,6 @@ OptilandWorkbench.Application
   WorkspaceCoordinator
   Runtime/WorkbenchRuntime.*
   独立文档/处方/分析/可视化/优化/公差/多配置服务
-
-OptilandWorkbench.Compatibility
-  OptilandConnector 兼容外观（无新增成员，单向依赖 Application/Core）
 
 OptilandWorkbench.App
   MainWindow.*
@@ -71,4 +68,4 @@ dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-bu
 - 不在机械拆分中更改第三方兼容默认值；
 - 不把本地化标题用作类型或缓存键；
 - 不通过删除兼容测试来完成拆分；
-- 不在没有验证的情况下移除 `OptilandConnector` 兼容外观。
+- 不恢复旧连接器或专用格式适配器；以架构测试持续守护单一运行链路。

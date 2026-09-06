@@ -2,7 +2,6 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
@@ -1698,7 +1697,7 @@ public sealed class ZemaxImportTests
     [Fact]
     public void Optiland058ZemaxFixtureImportsSystemAndPrescription()
     {
-        var source = File.ReadAllText(FixturePath("optiland-0.5.8-zemax-reference.zmx"));
+        var source = File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
 
         Assert.Equal("Optiland 0.5.8 Zemax Import Reference", optic.Name);
@@ -1970,12 +1969,12 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void ZemaxFixtureMatchesPython058ReferenceContract()
+    public void ZemaxFixtureMatchesFrozenReferenceReferenceContract()
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(
-            FixturePath("optiland-0.5.8-zemax-reference.json")));
+            FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.json")));
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FixturePath("optiland-0.5.8-zemax-reference.zmx")),
+            File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx")),
             ".zmx");
         var root = expected.RootElement;
 
@@ -2012,7 +2011,7 @@ public sealed class ZemaxImportTests
             var expectedPosition = expectedSurfaces[index]
                 .GetProperty("geometry")
                 .GetProperty("position")[2];
-            var expectedZ = ReadPythonNumber(expectedPosition);
+            var expectedZ = ReadFrozenNumber(expectedPosition);
             if (index == 0 && double.IsNegativeInfinity(expectedZ))
             {
                 expectedZ = 0;
@@ -2030,7 +2029,7 @@ public sealed class ZemaxImportTests
                 .GetProperty("geometry")
                 .GetProperty("sag_sample");
             Assert.Equal(
-                ReadPythonNumber(expectedSag.GetProperty("z")),
+                ReadFrozenNumber(expectedSag.GetProperty("z")),
                 optic.SurfaceGroup.Items[index].Geometry.Sag(
                     expectedSag.GetProperty("x").GetDouble(),
                     expectedSag.GetProperty("y").GetDouble()),
@@ -2355,7 +2354,7 @@ public sealed class ZemaxImportTests
         Assert.NotEmpty(scene.Rays);
         Assert.All(scene.Rays, ray => Assert.True(ray.Points.Count >= 2));
 
-        var connector = new OptilandConnector(Optic.CreateBlank());
+        var connector = new WorkbenchRuntime(Optic.CreateBlank());
         connector.ApplyLoadedDocument(new LoadedOpticalDocument(
             imported.ActiveOptic,
             imported.Configurations,
@@ -2369,13 +2368,13 @@ public sealed class ZemaxImportTests
     [Fact]
     public async Task WorkbenchFilePathImportDetectsBomlessUtf16Zemax()
     {
-        var source = File.ReadAllText(FixturePath("optiland-0.5.8-zemax-reference.zmx"));
+        var source = File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
         var path = Path.Combine(Path.GetTempPath(), $"optiland-zemax-{Guid.NewGuid():N}.zmx");
         try
         {
             await File.WriteAllBytesAsync(path, Encoding.Unicode.GetBytes(source));
 
-            var optic = await OptilandConnector.ReadOpticAsync(path);
+            var optic = await WorkbenchRuntime.ReadOpticAsync(path);
 
             Assert.Equal(5, optic.SurfaceGroup.Items.Count);
             Assert.Equal(12.5, optic.Aperture.Value, precision: 12);
@@ -2439,7 +2438,7 @@ public sealed class ZemaxImportTests
         {
             await File.WriteAllBytesAsync(zmxPath, Encoding.Unicode.GetBytes(source));
 
-            var imported = await OptilandConnector.ReadDocumentAsync(zmxPath);
+            var imported = await WorkbenchRuntime.ReadDocumentAsync(zmxPath);
 
             Assert.Equal(2, imported.Configurations.Count);
             Assert.Equal(0, imported.ActiveConfigurationIndex);
@@ -2478,7 +2477,7 @@ public sealed class ZemaxImportTests
             await StarOptProjectStore.SaveAsync(
                 new StarOptProjectDocument(imported.Configurations, imported.ActiveConfigurationIndex),
                 projectPath);
-            var reopened = await OptilandConnector.ReadDocumentAsync(projectPath);
+            var reopened = await WorkbenchRuntime.ReadDocumentAsync(projectPath);
 
             Assert.Equal(imported.Configurations.Count, reopened.Configurations.Count);
             Assert.Equal(imported.ActiveConfigurationIndex, reopened.ActiveConfigurationIndex);
@@ -2670,7 +2669,7 @@ public sealed class ZemaxImportTests
         Core.Domain.FieldPoint field) =>
         (field.X, field.Y, field.Weight, field.VignetteFactorX, field.VignetteFactorY);
 
-    private static double ReadPythonNumber(JsonElement element)
+    private static double ReadFrozenNumber(JsonElement element)
     {
         if (element.ValueKind == JsonValueKind.Number)
         {
@@ -2681,7 +2680,7 @@ public sealed class ZemaxImportTests
         {
             "Infinity" => double.PositiveInfinity,
             "-Infinity" => double.NegativeInfinity,
-            var value => throw new InvalidDataException($"Unexpected Python numeric token '{value}'.")
+            var value => throw new InvalidDataException($"Unexpected Frozen numeric token '{value}'.")
         };
     }
 

@@ -72,7 +72,9 @@ public sealed class ZemaxZernikeFringeTests
             name: "Zernike Fringe").GenerateData();
 
         Assert.Equal("32 x 32", data.Values["Sampling"]);
-        Assert.Equal(740, Convert.ToInt32(data.Values["RayCount"]));
+        // The explicit even Zemax grid contains the chief ray and one unused
+        // border; it is not the endpoint-inclusive general uniform grid.
+        Assert.Equal(709, Convert.ToInt32(data.Values["RayCount"]));
         Assert.Equal(37, data.Values["ZernikeTerms"]);
         Assert.Equal(128, data.Values["RequestedZernikeTerms"]);
         Assert.Equal(37, data.Values["ActualZernikeTerms"]);

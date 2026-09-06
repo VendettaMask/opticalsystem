@@ -1,0 +1,72 @@
+{
+  "canonicalAnalysisKey": "Geometric Image Analysis",
+  "configuration": 1,
+  "field": 1,
+  "wavelength": 1,
+  "surface": -1,
+  "pupilSampling": 64,
+  "imageSampling": 64,
+  "rayCount": 20,
+  "gridSize": 64,
+  "imageDeltaMicrometers": 0.25,
+  "maximumFrequency": 50,
+  "focusMinimum": -0.1,
+  "focusMaximum": 0.1,
+  "reference": "ChiefRay",
+  "polarization": false,
+  "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+  "deleteVignetted": true,
+  "useRayAiming": true,
+  "normalization": "NativePhysical",
+  "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+  "outputUnits": "TypedAxes",
+  "settingsOrigin": "NativeCapabilityInspectionNotAligned",
+  "workbenchSettings": {
+    "SourceImage": "\u5206\u8FA8\u7387\u9776\u6807",
+    "ImageSize": "64",
+    "NumRays": "8",
+    "FieldHeight": "0",
+    "Oversampling": "1",
+    "GuardBand": "4",
+    "RelativeIllumination": "true",
+    "AberrationMode": "Geometric",
+    "FieldNumber": "1",
+    "WavelengthNumber": "1",
+    "SurfaceNumber": "-1",
+    "UsePolarization": "False",
+    "UseRayAiming": "True"
+  },
+  "zemaxSettings": {},
+  "zemaxCfgSettings": {},
+  "wavelengthScope": "Selected",
+  "wavelengthCount": 3,
+  "fieldDefinition": "ObjectHeight",
+  "maximumFieldRadius": 15,
+  "surfaceCount": 17,
+  "fieldCount": 3,
+  "definedFields": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      -10.6
+    ],
+    [
+      0,
+      -15
+    ]
+  ],
+  "fieldScanDirection": "\u002By",
+  "primaryWavelengthMicrometers": 0.5875618,
+  "zemaxSettingsMode": "CapabilityInspection",
+  "sourceImagePath": null,
+  "sourceImageSha256": null,
+  "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+  "input": "D:\\Projects\\opticalsystem\\artifacts\\zemax-comparisons\\ms-l7-analysis-expansion-2026-09-06-x\\input\\[MS-L7](10X\u5927NA\u5927\u89C6\u573A).ZMX",
+  "zemaxVersion": "2026 R1",
+  "adapter": "capability-audit",
+  "analysisType": "GeometricImageAnalysis",
+  "captureScreenshots": false
+}

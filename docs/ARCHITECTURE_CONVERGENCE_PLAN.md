@@ -21,10 +21,10 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 2026-09-05 正式解决方案默认 Debug 输出构建 `0` 警告、`0` 错误，正式主测试 `1214/1214` 通过，零失败、零跳过；独立实验室 `24/24`、Python 对比工具 `28/28` 通过。依赖按锁文件使用本地缓存还原，本轮未完成在线漏洞审计。详见 [项目修复与验证](PROJECT_REPAIR_2026-09-05.md)。 |
+| 当前验证记录 | 持续维护 | 2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。当前证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。详见 [移除审计与验证](PYTHON_OPTILAND_REMOVAL.md)。 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
-| 兼容层隔离与旧链路删除 | 已完成隔离 | `OptilandConnector` 已迁入独立 `OptilandWorkbench.Compatibility` 程序集；Application/App 不引用或编译 Legacy 命名空间。兼容类型仍为外部源码迁移保留，最终 API 删除属于版本兼容决策 |
+| 兼容层隔离与旧链路删除 | 已完成删除 | 空壳连接器、Compatibility 项目和引用均已删除；生产行为测试直接使用 WorkbenchRuntime |
 
 “已完成”只表示对应工作项已有代码和定向测试证明，不代表整个收敛计划已经完成。当前已消除生产 Services 的新旧双轨执行并建立独立兼容程序集；显式命令化和兼容 API 的版本化最终删除仍需继续执行。
 
@@ -40,9 +40,9 @@
 
 - 已实现：原 `Legacy.OpticalWorkspaceModel` 提升并重命名为 `Application.Runtime.WorkbenchRuntime`；文档、处方、分析、可视化、优化、公差、多配置、材料和 CAD 服务统一使用该运行时。
 - 已实现：分析和公差快照 worker 也构造 `WorkbenchRuntime`，执行器来源标识更新为 `Application.WorkbenchRuntime.BuildAnalysisView/v1`，不再出现“新服务内部创建旧模型”的路径。
-- 已实现：`OptilandConnector` 仅保留无新增成员的兼容类型；兼容调用与 GUI/Services 复用同一运行时实现，不保存第二份状态、默认值或算法。
+- 当前状态：旧连接器已删除，GUI/Services 和生产行为测试复用同一 WorkbenchRuntime。
 - 已实现：`LayeringArchitectureTests` 禁止生产 Services 引用 `Application.Legacy`，并禁止 `OpticalWorkspaceModel`、`Connector.` 词汇重新进入服务层。
-- 兼容保留：现有兼容测试和外部源码仍可通过独立 `OptilandWorkbench.Compatibility` 程序集构造 `OptilandConnector`。主 Application 不再包含该命名空间；最终删除需要明确的外部兼容版本边界。
+- 2026-09-05 架构决定：不保留空壳适配器。旧源码调用方需要迁移到 WorkbenchRuntime，不提供兼容开关。
 - 历史验证记录：截至2026-08-24的全量测试为 `739/739`，2026-08-25为 `775/775`，2026-08-26建立教学样例前为`786/786`，2026-08-28变更前为`837/837`。2026-08-29新增回归后未重跑全量，以上均为历史记录。
 
 ### 2026-08-03 逻辑冗余清理
@@ -103,14 +103,14 @@
 | Legacy `SyncSurfaceGeometry` | 已删除；Radius/Conic 与 Geometry 的同步只由 `OpticalSurface` 负责 |
 | `TraceRayValue` 与 `TraceRayState` 双内核 | 已合并；`RealRay` 只适配到 `RayState`，传播、交互、镀膜和散射调用各自正式模型 |
 | 入瞳位置旧近轴循环 | 已改为与焦距相同的统一矩阵路径，反射和薄透镜不再被入口瞳计算忽略 |
-| 光阑瞄准死参数 | 已修正私有契约；标量目标删除视场/波长参数，批量目标仅保留用于渐晕缩放的视场参数。主波长目标与 Python 对照一致，不伪称支持色差目标 |
+| 光阑瞄准死参数 | 已修正私有契约；标量目标删除视场/波长参数，批量目标仅保留用于渐晕缩放的视场参数。主波长目标保留冻结历史回归，不伪称支持色差目标 |
 | `SimpleOptimizer` 第二优化入口 | 已删除；保留 `OptimizationProblem` 与 `OptimizerCatalog` 正式路径 |
 | 请求指纹和来源字段 | 已修正；指纹基于执行时的规范设置，来源字段改为必填 `AnalysisExecutionProvenanceDto` |
 | Full Field 全失败伪零 | 已修正；全部采样失败抛出 `AnalysisDataUnavailableException`，部分失败记录数量 |
 | 通用图表 fallback | 已删除；没有分析声明的系列就不生成跨单位柱状图 |
-| Telecentric 两个布尔值 | 暂不合并：二者分别对应 Python Optiland `fields.telecentric` 与 `fields.object_space_telecentric` 的独立序列化字段；在缺少上游语义证据前，强行合并会破坏无损往返。当前仅确认两者在发射路径行为相同，列入语义核验项 |
+| Telecentric 两个布尔值 | 暂不合并：两者已是原生快照中的独立字段。本次不改变远心计算或已保存文档语义；合并字段需另行验证和模式迁移 |
 | 分析注册多处维护 | 主链已完成；Workbench 产品元数据与入口路由由 `WorkbenchAnalysisCatalog` 统一，Core 通用默认目录按层次边界保留，参数定义和产品预设构造位于规范 `WorkbenchRuntime` |
-| `Legacy.OpticalWorkspaceModel` 仍是主流程 | 已修正；类型和分部已提升为 `Application.Runtime.WorkbenchRuntime`，生产 Services 不再引用 Legacy；仅保留无新增成员的 `OptilandConnector` 兼容入口 |
+| `Legacy.OpticalWorkspaceModel` 仍是主流程 | 已修正；类型和分部已提升为 `Application.Runtime.WorkbenchRuntime`，生产 Services 不再引用 Legacy；旧连接器及 Compatibility 项目已删除 |
 
 ## 1. 原问题定性（历史基线）
 
@@ -144,7 +144,7 @@
 2. Application Services 中对 `Application.Legacy`、`OpticalWorkspaceModel` 和 `Connector.` 的引用均为零，并由架构测试持续扫描。
 3. `AnalysisService` 和 `TolerancingService` 的隔离快照 worker 构造规范 `WorkbenchRuntime`。
 4. 原 14 个 `OpticalWorkspaceModel` 分部已迁入 `Application/Runtime/WorkbenchRuntime.*`；不存在另一套旧模型实现。
-5. `OptilandConnector` 仍可被兼容测试和外部源码构造，但该类型没有声明方法，基类明确为 `WorkbenchRuntime`。
+5. 2026-09-05 补充：该旧类型已经删除，测试直接使用 WorkbenchRuntime。
 6. 当前剩余工作是进一步拆分单体运行时职责、建立独立兼容程序集和最终删除兼容 API；这些是维护性与兼容生命周期工作，不构成两条生产执行链。
 
 ### 2.2 历史审计与当前复核
@@ -318,14 +318,14 @@ App / CLI / 兼容适配器 / 测试
 - 建立单一 `AnalysisDescriptor` 注册表，集中提供规范键、工厂、参数、展示类型、能力声明和别名；Core、Application 与 GUI 不再分别维护 switch。
 - `AnalysisService` 直接调用规范执行器，不再为快照创建 `OpticalWorkspaceModel`。
 - 默认值分成“Core 通用默认值”和“Application 产品预设”，测试捕获的 Zemax 设置必须显式传入。
-- `OptilandConnector.BuildAnalysisView` 改为纯兼容委托：旧参数映射为规范请求，再把规范结果映射为旧结果。
+- 旧连接器已删除；所有调用统一使用规范请求和结果映射。
 - 建立跨入口一致性矩阵，至少覆盖一阶数据、光斑图、单光线追迹、波前、MTF 和照度类分析。
 
 验收条件：
 
 - 规范分析执行器是生产环境中唯一能启动分析计算的入口。
 - 新旧入口的规范请求指纹完全相同；结果的类型元数据、轴量纲、单位和数值通过一致性测试。
-- `AnalysisService`、App 和兼容适配器不再包含第二份分析选择或默认值逻辑。
+- `AnalysisService`、App不再包含第二份分析选择或默认值逻辑。
 
 回滚策略：按分析族逐个切换；每个分析族保留短期可观测回退开关，但开关只用于定位回归，并在该阶段结束前删除。
 
@@ -354,23 +354,9 @@ App / CLI / 兼容适配器 / 测试
 - 新旧入口契约测试通过；
 - 对应文档已从“计划行为”更新为“已实现行为”。
 
-### 阶段 4：隔离兼容层
+### 阶段 4：删除兼容空壳（已完成）
 
-目标：旧 API 即使暂时保留，也不能参与新架构内部实现。
-
-工作项：
-
-- 将 `OptilandConnector` 和剩余旧 DTO 移入独立兼容边界；条件允许时建立单独程序集。
-- Application 主服务不得引用兼容程序集；依赖只能从兼容层指向 Application Contracts。
-- 对旧 API 添加弃用标记、迁移说明和预定删除版本。
-- 把仍直接构造 `OptilandConnector` 的测试分成两类：兼容契约测试和待迁移的生产行为测试。
-- 生产行为测试全部改走 `IWorkbenchApplication`；兼容测试只验证委托映射，不重复验证算法本身。
-
-验收条件：
-
-- 删除兼容层后，主应用和全部非兼容测试仍可编译并运行。
-- 兼容层中不存在 Core 分析、追迹、优化或公差执行器的直接构造。
-- 兼容调用计数在正式 App 运行中为零。
+Compatibility 项目及 OptilandConnector 已删除，行为测试直接构造 WorkbenchRuntime。无双轨执行、兼容开关或待恢复适配器；旧代码引用会编译失败，迁移目标是 Application 的规范 Runtime/Services。
 
 ### 阶段 5：删除旧运行链路
 
@@ -499,3 +485,7 @@ App / CLI / 兼容适配器 / 测试
 ## 13. 2026-08-29 可靠性加固状态
 
 当前已实现描述符驱动的分析参数验证、Core FFT/图像/顺序采样与追迹保留量预算、类型化紧凑图轴元数据和 Zernike/剖面/表面角色分派、有限非序列采样、受限路径表达式、数据库检查/选择分离、有上限且原子发布的文件输出、探测器像素波长预算、可取消重建、受限 STARRDB/STARMESH，以及服务级公差边界。SMIA-TV 无定义时明确失败，不再产生伪零。2026-08-29 当轮正式产品定向子集为 `14/14` 和 `13/13`，实验室筛选为 `3/3` 和 `4/4`，当时未运行全量测试；后续完整与当前增量验证以本文件顶部状态表及[可靠性与资源边界加固](RELIABILITY_HARDENING_2026-08-29.md)为准。这些修复不改变本文件仍标记为计划的兼容程序集退场、完整跨入口矩阵和全量阶段出口。
+
+## 2026-09-05 计算边界收口
+
+Python Optiland 专用格式、生产适配代码、历史专用算法分支及生成器已删除；不再规划互操作或恢复导出。保留通用 .NET 数值后端，已有外部参考只在 validation/history 冻结使用。后续数值验收以提交的 Zemax 2026 R1 镜头和捕获配置为主要权威。原问题定性、旧调用图和旧测试名称仅保留为注明日期的历史审计记录，不能视作当前架构。

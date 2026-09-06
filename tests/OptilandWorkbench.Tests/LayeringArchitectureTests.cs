@@ -1,6 +1,5 @@
 using System.Reflection;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
@@ -58,26 +57,6 @@ public sealed class LayeringArchitectureTests
         Assert.DoesNotContain(typeof(IMultiConfigurationService), interfaces);
         Assert.DoesNotContain(typeof(IMaterialCatalogService), interfaces);
         Assert.DoesNotContain(typeof(IWorkspaceEventStream), interfaces);
-    }
-
-    [Fact]
-    public void LegacyConnectorLivesInTheCompatibilityAssemblyAndAddsNoMembers()
-    {
-        Assert.Equal(
-            "OptilandWorkbench.Compatibility",
-            typeof(OptilandConnector).Assembly.GetName().Name);
-        Assert.Equal(typeof(WorkbenchRuntime), typeof(OptilandConnector).BaseType);
-
-        var declaredMethods = typeof(OptilandConnector).GetMethods(
-            BindingFlags.Public
-            | BindingFlags.NonPublic
-            | BindingFlags.Instance
-            | BindingFlags.Static
-            | BindingFlags.DeclaredOnly);
-        Assert.Empty(declaredMethods);
-        Assert.DoesNotContain(
-            typeof(IWorkbenchApplication).Assembly.GetReferencedAssemblies(),
-            reference => reference.Name == typeof(OptilandConnector).Assembly.GetName().Name);
     }
 
     [Fact]

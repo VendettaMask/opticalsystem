@@ -69,7 +69,9 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             directionCosines: _settings.DirectionCosines,
             reference: _settings.Reference,
             usePolarization: _settings.UsePolarization,
-            ignoreLateralColor: _settings.IgnoreLateralColor);
+            ignoreLateralColor: _settings.IgnoreLateralColor,
+            aimAtStop: analysisOptic.RayAimingEnabled,
+            includeSurfaceTransmission: _settings.UsePolarization);
         var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
             analysisOptic,
             _settings.SurfaceNumber,

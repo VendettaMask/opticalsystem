@@ -70,7 +70,7 @@ public sealed class FootprintDiagramAnalysis : BaseAnalysis
                     field.NormalizedX,
                     field.NormalizedY,
                     wavelength.Micrometers,
-                    pupilSamples);
+                    pupilSamples, aimAtStop: Optic.RayAimingEnabled);
                 var surfaceIndex = Optic.SurfaceGroup.Items.IndexOf(surface);
                 var finalSurfaceIndex = Optic.SurfaceGroup.Items.Count - 1;
                 var retainedSurfaces = _deleteVignetted && surfaceIndex != finalSurfaceIndex

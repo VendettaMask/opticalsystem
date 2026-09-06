@@ -50,6 +50,7 @@ public static class OpticSnapshotValidator
         "sellmeier",
         "polynomial_dispersion",
         "abbe",
+        "catalog_glass",
         "catalog");
 
     private static readonly IReadOnlySet<string> CoatingKinds = Kinds(

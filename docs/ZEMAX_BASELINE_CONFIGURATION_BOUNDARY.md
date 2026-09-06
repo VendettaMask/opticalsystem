@@ -2,6 +2,8 @@
 
 更新时间：2026-08-04。
 
+2026-09-06 补充：[独立 C# 比较工具](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md) 对任意输入保存显式 CanonicalAnalysisRequest、CFG、实际软件版本和容差配置哈希。数值契约配置为 CapturedSettings；未对齐的接口检查单独标为 NativeCapabilityInspectionNotAligned。均不扩展 `123456.ZMX` 的历史适用范围，也不继承该镜头的 4.5 mm 视场或自动范围作为通用值。RMS 工具实验的 12 角向样本不是 native 默认值，Core 默认仍为 6；尚未验证的角度/像高场网格转换必须拒绝，不得仅改轴单位标签。
+
 ## 三类信息必须分开
 
 1. **Zemax 规格/物理定义**：只能来自官方文档、公开 API 契约或可复现的物理定义。例如 Y-Ybar 表示各表面的边缘光线高度 `Y` 与主光线高度 `Ybar`。

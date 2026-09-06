@@ -11,7 +11,13 @@ public sealed record JonesPupilSample(
     Complex Jxy,
     Complex Jyx,
     Complex Jyy,
-    bool IsValid);
+    bool IsValid)
+{
+    // Local image-plane electric field for unit Y Jones input. The Jones
+    // matrix itself uses orthonormal transverse bases at the input and output.
+    public Complex ImageExForY { get; init; }
+    public Complex ImageEyForY { get; init; }
+}
 
 public sealed record JonesPupilResult(
     IReadOnlyList<JonesPupilSample> Samples,
@@ -29,20 +35,19 @@ public static class JonesPupilEngine
         int gridSize = 65,
         bool useFresnelCoatings = true,
         bool cellCentered = false,
-        bool aimAtStop = false)
+        bool aimAtStop = false,
+        double pupilGridStretch = 1,
+        bool zemaxCentered = false,
+        bool includeBulkAbsorption = false)
     {
         gridSize = Math.Max(3, gridSize);
         var samples = new List<JonesPupilSample>(gridSize * gridSize);
         for (var row = 0; row < gridSize; row++)
         {
-            var py = cellCentered
-                ? -1 + ((2.0 * row + 1) / gridSize)
-                : -1 + (2.0 * row / (gridSize - 1));
+            var py = Coordinate(row);
             for (var column = 0; column < gridSize; column++)
             {
-                var px = cellCentered
-                    ? -1 + ((2.0 * column + 1) / gridSize)
-                    : -1 + (2.0 * column / (gridSize - 1));
+                var px = Coordinate(column);
                 if ((px * px) + (py * py) > 1 + 1e-12)
                 {
                     samples.Add(Invalid(px, py));
@@ -56,11 +61,18 @@ public static class JonesPupilEngine
                     px,
                     py,
                     useFresnelCoatings,
-                    aimAtStop: cellCentered || aimAtStop));
+                    aimAtStop: cellCentered || aimAtStop,
+                    includeBulkAbsorption: includeBulkAbsorption));
             }
         }
 
         return new JonesPupilResult(samples, gridSize, field, wavelength, useFresnelCoatings);
+
+        double Coordinate(int index) => pupilGridStretch * (zemaxCentered && gridSize % 2 == 0
+            ? (index - gridSize / 2.0) / Math.Max(1, gridSize / 2.0 - 1)
+            : cellCentered
+                ? -1 + ((2.0 * index + 1) / gridSize)
+                : -1 + (2.0 * index / (gridSize - 1)));
     }
 
     private static JonesPupilSample TraceSample(
@@ -70,7 +82,8 @@ public static class JonesPupilEngine
         double px,
         double py,
         bool useFresnelCoatings,
-        bool aimAtStop)
+        bool aimAtStop,
+        bool includeBulkAbsorption)
     {
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -87,8 +100,10 @@ public static class JonesPupilEngine
             return Invalid(px, py);
         }
 
-        var polarization = ComplexMatrix3x3.Identity;
         var incoming = Normalize(sourceRay.Direction);
+        var inputV = Normalize(Cross(incoming, new Vector3D(1, 0, 0)));
+        var inputU = Normalize(Cross(inputV, incoming));
+        var polarization = ComplexMatrix3x3.FromColumns(inputU, inputV, incoming);
         var materialBefore = optic.Materials.Resolve("Air");
         for (var index = 0; index < history.Count; index++)
         {
@@ -127,6 +142,12 @@ public static class JonesPupilEngine
                     reflected);
             }
 
+            if (includeBulkAbsorption)
+            {
+                var extinction = materialBefore.ExtinctionCoefficient(wavelength.Nanometers);
+                var amplitude = extinction <= 0 ? 1 : Math.Exp(-2 * Math.PI * extinction * sample.SegmentLength * 1000 / wavelength.Micrometers);
+                jones = ComplexMatrix3x3.Diagonal(amplitude, amplitude, amplitude) * jones;
+            }
             polarization = oOut * jones * oIn * polarization;
             incoming = outgoing;
             materialBefore = reflected ? materialBefore : materialAfter;
@@ -137,6 +158,9 @@ public static class JonesPupilEngine
         var u = Normalize(Cross(v, k));
         var xColumn = polarization.Column1;
         var yColumn = polarization.Column2;
+        var imageCoordinates = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        var imageX = imageCoordinates.ToGlobalDirection(new Vector3D(1, 0, 0));
+        var imageY = imageCoordinates.ToGlobalDirection(new Vector3D(0, 1, 0));
         return new JonesPupilSample(
             px,
             py,
@@ -144,7 +168,11 @@ public static class JonesPupilEngine
             Dot(u, yColumn),
             Dot(v, xColumn),
             Dot(v, yColumn),
-            true);
+            true)
+        {
+            ImageExForY = Dot(imageX, yColumn),
+            ImageEyForY = Dot(imageY, yColumn)
+        };
     }
 
     private static ComplexMatrix3x3 FresnelMatrix(double n1, double n2, double cosine, bool reflect)

@@ -1,0 +1,730 @@
+[
+  {
+    "key": "Footprint Diagram",
+    "directory": "footprint-diagram-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "RayXMinimumMillimeters",
+        "unit": "Millimeter",
+        "nrmse": 6.882794313847459E-08,
+        "maxAbsolute": 2.169471221592778E-10,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "RayXMaximumMillimeters",
+        "unit": "Millimeter",
+        "nrmse": 6.882794313847459E-08,
+        "maxAbsolute": 2.169471221592778E-10,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "RayYMinimumMillimeters",
+        "unit": "Millimeter",
+        "nrmse": 2.2685059907088522E-07,
+        "maxAbsolute": 3.991955778524098E-10,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "RayYMaximumMillimeters",
+        "unit": "Millimeter",
+        "nrmse": 1.849414713934242E-07,
+        "maxAbsolute": 2.7660826651398907E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "MaximumRayRadiusMillimeters",
+        "unit": "Millimeter",
+        "nrmse": 1.849414713934242E-07,
+        "maxAbsolute": 2.7660826651398907E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Encircled Energy",
+    "directory": "encircled-energy-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.007663014411231008,
+        "maxAbsolute": 0.04852906469351845,
+        "conclusion": "Close",
+        "coverage": 0.9974747474747476
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.00327426162506394,
+        "maxAbsolute": 0.018332504560814367,
+        "conclusion": "Close",
+        "coverage": 0.9974747474747476
+      },
+      {
+        "id": "curve:2",
+        "unit": "Dimensionless",
+        "nrmse": 0.005894867679981851,
+        "maxAbsolute": 0.02517054566080712,
+        "conclusion": "Close",
+        "coverage": 0.9974747474747476
+      }
+    ]
+  },
+  {
+    "key": "Diffraction Encircled Energy",
+    "directory": "diffraction-encircled-energy-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Difference",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.0138758428941228,
+        "maxAbsolute": 0.050537606551707,
+        "conclusion": "Difference",
+        "coverage": 1
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.011467052054803716,
+        "maxAbsolute": 0.04069219746836811,
+        "conclusion": "Difference",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Geometric Line Edge Spread",
+    "directory": "geometric-line-edge-spread-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Difference",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.028192685282971346,
+        "maxAbsolute": 0.1459510357815459,
+        "conclusion": "Difference",
+        "coverage": 1
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.015189693556873394,
+        "maxAbsolute": 0.0972972972972973,
+        "conclusion": "Difference",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Extended Source Encircled Energy",
+    "directory": "extended-source-encircled-energy-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Difference",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.013431183656909759,
+        "maxAbsolute": 0.028601856192437602,
+        "conclusion": "Difference",
+        "coverage": 0.9974747474747476
+      }
+    ]
+  },
+  {
+    "key": "RMS Field Map",
+    "directory": "rms-field-map-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "rms",
+        "unit": "Wave",
+        "nrmse": 0.0003539083467568435,
+        "maxAbsolute": 0.0008804857098405061,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Fourier MTF vs Field",
+    "directory": "fourier-mtf-vs-field-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.0007091231896823157,
+        "maxAbsolute": 0.0027549784262151933,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.0016057319970828106,
+        "maxAbsolute": 0.004929405410772358,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:2",
+        "unit": "Dimensionless",
+        "nrmse": 0.0012044743281299517,
+        "maxAbsolute": 0.004359982000894824,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:3",
+        "unit": "Dimensionless",
+        "nrmse": 0.0008116943374431123,
+        "maxAbsolute": 0.0031059056989355405,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:4",
+        "unit": "Dimensionless",
+        "nrmse": 0.0016159792280428507,
+        "maxAbsolute": 0.004666694675278915,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:5",
+        "unit": "Dimensionless",
+        "nrmse": 0.0008547044097626634,
+        "maxAbsolute": 0.0015122478771197878,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:6",
+        "unit": "Dimensionless",
+        "nrmse": 0.0021631039817013257,
+        "maxAbsolute": 0.005138933188875705,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:7",
+        "unit": "Dimensionless",
+        "nrmse": 0.0013379942695791644,
+        "maxAbsolute": 0.0031661620992970985,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:8",
+        "unit": "Dimensionless",
+        "nrmse": 0.002945905269149783,
+        "maxAbsolute": 0.007400523722539631,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:9",
+        "unit": "Dimensionless",
+        "nrmse": 0.0014666578391026846,
+        "maxAbsolute": 0.00238786950879577,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:10",
+        "unit": "Dimensionless",
+        "nrmse": 0.004099609224205842,
+        "maxAbsolute": 0.009403879609794497,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:11",
+        "unit": "Dimensionless",
+        "nrmse": 0.002078483415531647,
+        "maxAbsolute": 0.003271701127840032,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Huygens MTF vs Field",
+    "directory": "huygens-mtf-vs-field-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.004606632898493297,
+        "maxAbsolute": 0.01444992596432404,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.0032039445341273108,
+        "maxAbsolute": 0.0050630974709861,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:2",
+        "unit": "Dimensionless",
+        "nrmse": 0.006421852138683848,
+        "maxAbsolute": 0.022048993463067434,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:3",
+        "unit": "Dimensionless",
+        "nrmse": 0.0039826655847311765,
+        "maxAbsolute": 0.006055103939453299,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:4",
+        "unit": "Dimensionless",
+        "nrmse": 0.006166286134040735,
+        "maxAbsolute": 0.024666784854400436,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:5",
+        "unit": "Dimensionless",
+        "nrmse": 0.0027888639912671937,
+        "maxAbsolute": 0.003710163077163875,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:6",
+        "unit": "Dimensionless",
+        "nrmse": 0.004939322301915457,
+        "maxAbsolute": 0.024330503234229472,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:7",
+        "unit": "Dimensionless",
+        "nrmse": 0.0006796978703395466,
+        "maxAbsolute": 0.0011468189068944978,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:8",
+        "unit": "Dimensionless",
+        "nrmse": 0.004799005817526679,
+        "maxAbsolute": 0.02321805861770687,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:9",
+        "unit": "Dimensionless",
+        "nrmse": 0.0038005912640540276,
+        "maxAbsolute": 0.007607956993339826,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:10",
+        "unit": "Dimensionless",
+        "nrmse": 0.0069649651024670895,
+        "maxAbsolute": 0.023649400486496663,
+        "conclusion": "Close",
+        "coverage": 1
+      },
+      {
+        "id": "curve:11",
+        "unit": "Dimensionless",
+        "nrmse": 0.00788362186189127,
+        "maxAbsolute": 0.014692832016947488,
+        "conclusion": "Close",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Geometric MTF vs Field",
+    "directory": "geometric-mtf-vs-field-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005113988648679832,
+        "maxAbsolute": 0.0020369527848757008,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005070782813458967,
+        "maxAbsolute": 0.0020115404663062497,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:2",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005246108698384006,
+        "maxAbsolute": 0.00212096462747402,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:3",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005088330193609331,
+        "maxAbsolute": 0.0020143765778845024,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:4",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005488414903525053,
+        "maxAbsolute": 0.0022616897424102556,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:5",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005113760099397605,
+        "maxAbsolute": 0.0020189715211573755,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:6",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005865793986934422,
+        "maxAbsolute": 0.0024573939448470083,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:7",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005160249961079074,
+        "maxAbsolute": 0.002025129691229033,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:8",
+        "unit": "Dimensionless",
+        "nrmse": 0.000639813878751066,
+        "maxAbsolute": 0.0027165514635401067,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:9",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005238250424292735,
+        "maxAbsolute": 0.0020325817295948623,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:10",
+        "unit": "Dimensionless",
+        "nrmse": 0.000709483315999268,
+        "maxAbsolute": 0.003027854681456721,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "curve:11",
+        "unit": "Dimensionless",
+        "nrmse": 0.0005360325548088106,
+        "maxAbsolute": 0.0020414074730493725,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Angle vs Image Height - Through Pupil",
+    "directory": "angle-vs-image-height---through-pupil-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "height",
+        "unit": "Millimeter",
+        "nrmse": 4.515241991878249E-09,
+        "maxAbsolute": 4.534173037029632E-11,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "angle",
+        "unit": "Degree",
+        "nrmse": 1.7079011461212767E-09,
+        "maxAbsolute": 2.2995053150509648E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "valid",
+        "unit": "Dimensionless",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Angle vs Image Height - Through Field",
+    "directory": "angle-vs-image-height---through-field-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "height",
+        "unit": "Millimeter",
+        "nrmse": 1.303405445544818E-11,
+        "maxAbsolute": 3.36748406937204E-11,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "angle",
+        "unit": "Degree",
+        "nrmse": 1.227328201128297E-08,
+        "maxAbsolute": 1.6151124437868702E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "valid",
+        "unit": "Dimensionless",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Relative Illumination",
+    "directory": "relative-illumination-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.008994666394628816,
+        "maxAbsolute": 0.018440785082891598,
+        "conclusion": "Close",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Contrast Loss Map",
+    "directory": "contrast-loss-map-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Difference",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "loss:0",
+        "unit": "Dimensionless",
+        "nrmse": 1.4396264721006119E-06,
+        "maxAbsolute": 7.610070017483039E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "phase:0:sin",
+        "unit": "Dimensionless",
+        "nrmse": 0.01385280933154912,
+        "maxAbsolute": 0.04830732725395092,
+        "conclusion": "Difference",
+        "coverage": 1
+      },
+      {
+        "id": "phase:0:cos",
+        "unit": "Dimensionless",
+        "nrmse": 0.010058495882038257,
+        "maxAbsolute": 0.03035731120815635,
+        "conclusion": "Difference",
+        "coverage": 1
+      },
+      {
+        "id": "loss:1",
+        "unit": "Dimensionless",
+        "nrmse": 1.4396264721006117E-06,
+        "maxAbsolute": 7.610070017483039E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "phase:1:sin",
+        "unit": "Dimensionless",
+        "nrmse": 0.01385280933154912,
+        "maxAbsolute": 0.04830732725395092,
+        "conclusion": "Difference",
+        "coverage": 1
+      },
+      {
+        "id": "phase:1:cos",
+        "unit": "Dimensionless",
+        "nrmse": 0.010058495882038256,
+        "maxAbsolute": 0.03035731120815635,
+        "conclusion": "Difference",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Zernike",
+    "directory": "zernike-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Pass",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "fringe",
+        "unit": "Wave",
+        "nrmse": 2.608626968054667E-07,
+        "maxAbsolute": 5.034477074949972E-07,
+        "conclusion": "Pass",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "Jones Pupil",
+    "directory": "jones-pupil-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "amplitude:0",
+        "unit": "Dimensionless",
+        "nrmse": 0.002837166247213484,
+        "maxAbsolute": 9.809445261792747E-05,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "amplitude:1",
+        "unit": "Dimensionless",
+        "nrmse": 0.004526623922815458,
+        "maxAbsolute": 0.007171898952678224,
+        "conclusion": "Close",
+        "coverage": 1
+      }
+    ]
+  },
+  {
+    "key": "System Data Report",
+    "directory": "system-data-report-c1",
+    "capturedRun": "ms-l7-analysis-expansion-2026-09-06-x",
+    "conclusion": "Close",
+    "note": "Native comparison tolerances are unchanged. For an open difference, offline tests prevent error regression; a test pass is not a precision pass.",
+    "metrics": [
+      {
+        "id": "SurfaceCount",
+        "unit": "Dimensionless",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "StopSurface",
+        "unit": "Dimensionless",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "PrimaryWavelengthMicrometers",
+        "unit": "Micrometer",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "nrmse": 1.1289105170869792E-16,
+        "maxAbsolute": 1.7763568394002505E-15,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "nrmse": 1.1627637212181251E-16,
+        "maxAbsolute": 1.1102230246251565E-16,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "EntrancePupilDiameter",
+        "unit": "Millimeter",
+        "nrmse": 0,
+        "maxAbsolute": 0,
+        "conclusion": "Pass",
+        "coverage": 1
+      },
+      {
+        "id": "ExitPupilDiameter",
+        "unit": "Millimeter",
+        "nrmse": 2.454288675025622E-06,
+        "maxAbsolute": 2.5295411337111773E-05,
+        "conclusion": "Close",
+        "coverage": 1
+      }
+    ]
+  }
+]

@@ -1,6 +1,9 @@
 # Zemax 一致性采集工具
 
+面向任意新 ZMX 的入口已新增为独立 [C# ZemaxComparison](../OptilandWorkbench.ZemaxComparison/README.md)。本目录保留固定基准维护流程，新工具不会调用这里的脚本；固定镜头的映射/设置不得作为新工具的通用默认值。原生 ZPL 截图方式在新工具中由 C# 调度，并显式加载捕获 CFG。
+
 本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
+这是产品之外的外部验证工具边界：Python 和 pythonnet 只服务于 Zemax ZOS-API 捕获与离线报告，不是产品计算后端，不随产品发布，不得从 `src` 项目引用。这里不使用 Optiland，也不生成 Optiland 对照。主要权威为已提交的 OpticStudio 2026 R1 基准；结论逐项绑定镜头、设置、版本、单位、采样和容差，不能把一个捕获文件的设置称为通用默认值。
 当前保留的入口均为 Python 或 ZPL 工具；历史外部探针和临时接口探针已删除，不属于当前基线采集链路。
 
 本目录同时处理分析数据、设置、截图和 Merit Function Editor golden 基线。`[MS-L7]` 的评价函数目录与导入边界由 Core 测试和 [Zemax 顺序模式操作数支持规范](../../docs/ZEMAX_OPERAND_SUPPORT.md) 管理；MFE golden 只能证明指定文件、版本和行参数下的数值，不得用它替代 383 项操作数的完整验收。
@@ -72,7 +75,7 @@
 - `images/current/*.png`：由结构化结果 JSON 离线绘制的 Matplotlib 图，只用于数据形状诊断，不能证明 GUI 一致。
 - `images/gui-current/*.png`：由真实 Avalonia `AnalysisPanel` 渲染，包含导入镜头、保存的分析设置、明亮主题、工具栏、图表/数据/文本页签和报告页脚；只有这类图像可用于 Workbench 与 Zemax 的 GUI 对比。
 
-构建桌面应用后捕获固定基线清单中的 69 个真实 GUI 分析页。这里的 69 是 `current-manifest.json` 的历史捕获项数，不是当前 Workbench 分析目录总数；当前 Core 目录为 70 项，新增报告类入口以及独立畸变入口退场不自动改写这份 Zemax 图像基线：
+构建桌面应用后捕获固定基线清单中的 69 个真实 GUI 分析页。这里的 69 是 `current-manifest.json` 的历史捕获项数，不是当前 Workbench 分析目录总数；当前 Core 目录为 72 项，新增报告类入口以及独立畸变入口退场不自动改写这份 Zemax 图像基线：
 
 ```powershell
 dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `

@@ -50,7 +50,7 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             type: _type,
             displayAs: "截面",
             usePolarization: _usePolarization,
-            normalize: _normalize).GenerateData();
+            normalize: _normalize, zemaxCompatible: true).GenerateData();
         return PsfProfilePresentation.CreateCrossSectionData(
             Name,
             _usePolarization
@@ -59,7 +59,8 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             source,
             _type,
             _row,
-            _graphScaleMicrometers);
+            _graphScaleMicrometers,
+            interpolateFftProfile: true);
     }
 }
 
@@ -113,14 +114,15 @@ public sealed class FftLineEdgeSpreadAnalysis : BaseAnalysis
             type: "线性",
             displayAs: "截面",
             usePolarization: _usePolarization,
-            normalize: false).GenerateData();
+            normalize: false, zemaxCompatible: true).GenerateData();
         return PsfProfilePresentation.CreateLineEdgeSpreadData(
             Name,
             source,
             _spread,
             _graphScaleMicrometers,
             _type,
-            _useCoherentPsf);
+            _useCoherentPsf,
+            interpolateFftProfile: true);
     }
 }
 
@@ -195,7 +197,8 @@ internal static class PsfProfilePresentation
         AnalysisData source,
         string profileType = "Both",
         string row = "中心",
-        double graphScaleMicrometers = 0)
+        double graphScaleMicrometers = 0,
+        bool interpolateFftProfile = false)
     {
         if (!TryReadHeatmap(source, out var heatmap))
         {
@@ -204,6 +207,11 @@ internal static class PsfProfilePresentation
 
         var horizontal = CenterProfile(heatmap.Points, horizontal: true);
         var vertical = CenterProfile(heatmap.Points, horizontal: false);
+        if (interpolateFftProfile)
+        {
+            horizontal = InterpolatePeriodicFftProfile(horizontal);
+            vertical = InterpolatePeriodicFftProfile(vertical);
+        }
         var logarithmic = profileType.Contains("对数", StringComparison.Ordinal)
             || profileType.Contains("log", StringComparison.OrdinalIgnoreCase);
         var series = profileType.StartsWith("X", StringComparison.OrdinalIgnoreCase)
@@ -298,7 +306,8 @@ internal static class PsfProfilePresentation
         string spread = "线",
         double graphScaleMicrometers = 0,
         string profileType = "X-线性",
-        bool useCoherentPsf = false)
+        bool useCoherentPsf = false,
+        bool interpolateFftProfile = false)
     {
         if (!TryReadHeatmap(source, out var heatmap))
         {
@@ -312,6 +321,7 @@ internal static class PsfProfilePresentation
             heatmap.Points,
             independentAxisIsX: !lineRunsAlongX,
             useCoherentPsf);
+        if (interpolateFftProfile) lineProfile = InterpolatePeriodicFftProfile(lineProfile);
         var linePoints = Normalize(lineProfile);
         var total = linePoints.Sum(point => Math.Max(0, point.Y));
         var cumulative = 0.0;
@@ -373,6 +383,20 @@ internal static class PsfProfilePresentation
         heatmap = source.PlotSeries.FirstOrDefault(series => series.Kind == AnalysisSeriesKind.Heatmap)
             ?? new AnalysisSeries("", "", Array.Empty<AnalysisPoint>());
         return heatmap.Kind == AnalysisSeriesKind.Heatmap && heatmap.Points.Count > 0;
+    }
+
+    private static IReadOnlyList<AnalysisPoint> InterpolatePeriodicFftProfile(IReadOnlyList<AnalysisPoint> points)
+    {
+        if (points.Count < 3) return points;
+        // An FFT samples a periodic interval. Include the matching left endpoint
+        // before interpolation; this is the existing right endpoint, not extrapolation.
+        var spacing = points[1].X - points[0].X;
+        var x = new[] { points[0].X - spacing }.Concat(points.Select(p => p.X)).ToArray();
+        var y = new[] { points[^1].Y }.Concat(points.Select(p => p.Y)).ToArray();
+        var count = Math.Max(201, 2 * points.Count + 1);
+        var coordinates = Enumerable.Range(0, count).Select(i => x[0] + (x[^1] - x[0]) * i / (count - 1.0)).ToArray();
+        var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(x, y, coordinates);
+        return coordinates.Select((v, i) => new AnalysisPoint(v, Math.Max(0, values[i]))).ToArray();
     }
 
     private static IReadOnlyList<AnalysisPoint> CenterProfile(

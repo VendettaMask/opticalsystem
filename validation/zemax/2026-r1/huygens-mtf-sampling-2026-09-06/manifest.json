@@ -1,0 +1,508 @@
+{
+  "schemaVersion": 1,
+  "software": "Zemax OpticStudio 2026 R1, API 260127",
+  "frozenUtc": "2026-09-06T12:41:16.4764023Z",
+  "role": "PSF-to-MTF postprocessing and independent holdout captures; not full PSF-engine agreement or universal defaults",
+  "files": [
+    {
+      "path": "comparison-settings.json",
+      "sha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+      "bytes": 17236
+    },
+    {
+      "path": "focus-125/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "focus-125/captured-settings.json",
+      "sha256": "b34ad59faab992f15347fa8870dd50dd9d06e02d5f8887d39fea55d1f266265b",
+      "bytes": 2630
+    },
+    {
+      "path": "focus-125/data.json",
+      "sha256": "1710cb3084ccc814a315288f0d63ce17ec2be7cf7136dbcda3772018a6e50362",
+      "bytes": 6318
+    },
+    {
+      "path": "focus-125/data.txt",
+      "sha256": "ed15f1676b624d067498f097792f9afada0be813482a195819b8bee5ac84f6e7",
+      "bytes": 9624
+    },
+    {
+      "path": "focus-125/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "focus-125/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "focus-125/settings.CFG",
+      "sha256": "1375685a26a7f8ea7fe48fdad9119035c21606fbf33cda14a80e503da138ed3e",
+      "bytes": 18448
+    },
+    {
+      "path": "focus-125/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "focus-250/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "focus-250/captured-settings.json",
+      "sha256": "20776c0d45ee002a1147dc0b518053136baa0efb134236cf0f562f7348230fb2",
+      "bytes": 2630
+    },
+    {
+      "path": "focus-250/data.json",
+      "sha256": "bb5fc671ba3722f5ed6b9592077a9e884db71c18148593f5436f6fee0f25ee0e",
+      "bytes": 6371
+    },
+    {
+      "path": "focus-250/data.txt",
+      "sha256": "6ecc19141e71d63e94e92024ff59286fe81afaf2a3352f9844288bf359d2d05f",
+      "bytes": 9624
+    },
+    {
+      "path": "focus-250/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "focus-250/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "focus-250/settings.CFG",
+      "sha256": "6f79aa08cf02dfda4b5c263c3adad7a9c3d8f712c960d7affda4857b1c4352e4",
+      "bytes": 18448
+    },
+    {
+      "path": "focus-250/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "focus-500/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "focus-500/captured-settings.json",
+      "sha256": "2524773d9e850d5247a683f8d9daf857f15620a8071c447019d5238e02a77604",
+      "bytes": 2630
+    },
+    {
+      "path": "focus-500/data.json",
+      "sha256": "89bf65e6939a667a5543a815f81ce0af5949fdd3a588b99ae0d877f02f70e54b",
+      "bytes": 6394
+    },
+    {
+      "path": "focus-500/data.txt",
+      "sha256": "0915a566d3008fc6be53f0259b8ea7f950c4fb56346f3b105a8b6734de62189c",
+      "bytes": 9624
+    },
+    {
+      "path": "focus-500/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "focus-500/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "focus-500/settings.CFG",
+      "sha256": "2d2363bbe4051173c7c503b031fe1c270f161288d40a79c54d06c63c81677632",
+      "bytes": 18448
+    },
+    {
+      "path": "focus-500/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-field/capture.json",
+      "sha256": "a60d2f5365648da2601fd233fe9eee2aaa76506f54db7f3bfe407f6019fcbcfa",
+      "bytes": 87
+    },
+    {
+      "path": "ms-field/captured-settings.json",
+      "sha256": "e9f8637d591e59407e3bafcf8702b09c9323e86b17b8968ef3bf250def6d47de",
+      "bytes": 2618
+    },
+    {
+      "path": "ms-field/data.json",
+      "sha256": "59a831e6cf6b2bfb0833f8f88ae0ec14169744241de378b246575193460abdac",
+      "bytes": 111305
+    },
+    {
+      "path": "ms-field/data.txt",
+      "sha256": "1733d39ae58f851b2cfa59694c9a4468f7b069202765475455393c77961aab5b",
+      "bytes": 109598
+    },
+    {
+      "path": "ms-field/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-field/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-field/settings.CFG",
+      "sha256": "e85b9d28c46f476c2bc228ac72fb62730f8537a6cd56f072bc3aedecb1dddb86",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-field/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-focus-50/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "ms-focus-50/captured-settings.json",
+      "sha256": "828a705230a5e3e01943dbfb6b5f10b5cf3362fb561d9932e3c1d2b2fc8ab2b1",
+      "bytes": 2626
+    },
+    {
+      "path": "ms-focus-50/data.json",
+      "sha256": "bc10f0768236bbf418bcb026a3416935e6c43021999ccf8670ac94363b97d357",
+      "bytes": 6298
+    },
+    {
+      "path": "ms-focus-50/data.txt",
+      "sha256": "519d83f6b098ceb8810ed7ed57cb287aab8909cbb57082d791c00240cbebd689",
+      "bytes": 9622
+    },
+    {
+      "path": "ms-focus-50/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-focus-50/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-focus-50/settings.CFG",
+      "sha256": "c3f34ee18f46c2cd44a29121435e0ae92958626781332503f5782427ea6d4b98",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-focus-50/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-image64-mtf/capture.json",
+      "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+      "bytes": 80
+    },
+    {
+      "path": "ms-image64-mtf/captured-settings.json",
+      "sha256": "9de3bbad7bcbfbebdfb12524bc0c30ae67cbaa75422476b28fb63c25844b6a96",
+      "bytes": 1947
+    },
+    {
+      "path": "ms-image64-mtf/data.json",
+      "sha256": "06204d95527312c55044d3ff1b9c6d42afb3eb2ed57300542436bf90d00242fa",
+      "bytes": 18555
+    },
+    {
+      "path": "ms-image64-mtf/data.txt",
+      "sha256": "341c0aba1c467320ad57ec98061a8f1cb877d6965a668d1218c6a27e48c9bffd",
+      "bytes": 9570
+    },
+    {
+      "path": "ms-image64-mtf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-image64-mtf/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-image64-mtf/settings.CFG",
+      "sha256": "d4346a91c11f0b5063e9114f04f290edd923d4ea2892bacb3ca3655ae8e8b427",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-image64-mtf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-image64-psf/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "ms-image64-psf/captured-settings.json",
+      "sha256": "f80989aef20d8b2ef95a6620c116c03eb0ffc476fd1c4ac2a20d2771d055894e",
+      "bytes": 2002
+    },
+    {
+      "path": "ms-image64-psf/data.json",
+      "sha256": "1f9b1f9c566a480ffa0cfcb57cf9b54e67609d2ca4f7be9bd6404173ae41a94c",
+      "bytes": 93457
+    },
+    {
+      "path": "ms-image64-psf/data.txt",
+      "sha256": "d363cb11fac73c437216d9bd670091b2adce1743b1ee9a8fe20a81c870ff7572",
+      "bytes": 107534
+    },
+    {
+      "path": "ms-image64-psf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-image64-psf/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-image64-psf/settings.CFG",
+      "sha256": "ecd87e6dda7ed5c17ca49e6e0d52e89569e74d704c747a727b7738bfd22ff311",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-image64-psf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-l7.ZMX",
+      "sha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+      "bytes": 26250
+    },
+    {
+      "path": "ms-mtf/capture.json",
+      "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+      "bytes": 80
+    },
+    {
+      "path": "ms-mtf/captured-settings.json",
+      "sha256": "61eaf312d9a6b7c9ce14c2ff7776bfc3c161fb073d4eee17acdbb290ef449cf4",
+      "bytes": 1947
+    },
+    {
+      "path": "ms-mtf/data.json",
+      "sha256": "bb98a89956b11d41b3e90af610e9a57af63341eecba7e6b8ed5ef119ebbca1a9",
+      "bytes": 18552
+    },
+    {
+      "path": "ms-mtf/data.txt",
+      "sha256": "463e2a533935e182600072da7119bfd803546c9bd20d566a3e8145fa76d8984d",
+      "bytes": 5070
+    },
+    {
+      "path": "ms-mtf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-mtf/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-mtf/settings.CFG",
+      "sha256": "1e553a36749271bf2ea7717bdcfa3c9b4b8995f9122367b9a38986a9ba5babfa",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-mtf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "ms-psf/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "ms-psf/captured-settings.json",
+      "sha256": "39406ccf8f6efbcaec0ffb70a9942aba2ce954270f4d01770ab4709461c91a01",
+      "bytes": 2002
+    },
+    {
+      "path": "ms-psf/data.json",
+      "sha256": "29136eb6bcbd60f0e640d221209b9a3ea1b43ce1dd649cc17f2c11858be1bc00",
+      "bytes": 23511
+    },
+    {
+      "path": "ms-psf/data.txt",
+      "sha256": "5412cc35ecc40f97c61fed30b28db9ed73f66bf4b0b77ef305bf2bb0d3c0f1b6",
+      "bytes": 27594
+    },
+    {
+      "path": "ms-psf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "ms-psf/model.json",
+      "sha256": "d6abfc7d52b18980593435fc921c475087f6b4d783f8d7f26f41e0f97773dbbd",
+      "bytes": 9072
+    },
+    {
+      "path": "ms-psf/settings.CFG",
+      "sha256": "39f5da03c274cd99f0218ab2c51c0545ac8a5e4dccdbe42191d5eb21c66871e4",
+      "bytes": 18448
+    },
+    {
+      "path": "ms-psf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "primary-focus/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "primary-focus/captured-settings.json",
+      "sha256": "da06a3a58ef77c32edb991faa0695d398e925b149d601fbe133ec0b9e48de3a4",
+      "bytes": 2602
+    },
+    {
+      "path": "primary-focus/data.json",
+      "sha256": "c099496139b31ac11c9a163b52fb463dd9f919935bb394d36c87a90fada46c35",
+      "bytes": 6250
+    },
+    {
+      "path": "primary-focus/data.txt",
+      "sha256": "d84c093db35ce1536782bfb69a7e1747b8cb6e55759d1c9a9248a9a42a43ce73",
+      "bytes": 9554
+    },
+    {
+      "path": "primary-focus/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "primary-focus/model.json",
+      "sha256": "9cd776ec54a20688afc4c112ba0f9814cae1435f8ca6942a8b02003687b58a14",
+      "bytes": 12449
+    },
+    {
+      "path": "primary-focus/settings.CFG",
+      "sha256": "c3f34ee18f46c2cd44a29121435e0ae92958626781332503f5782427ea6d4b98",
+      "bytes": 18448
+    },
+    {
+      "path": "primary-focus/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "primary-mtf/capture.json",
+      "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+      "bytes": 80
+    },
+    {
+      "path": "primary-mtf/captured-settings.json",
+      "sha256": "6f230313409efde7e828b3863edb11a8d770d469b2a4737ec2dbcc48a3e8250c",
+      "bytes": 1923
+    },
+    {
+      "path": "primary-mtf/data.json",
+      "sha256": "a6b88751cf4c1a3cc623aec1507cb7acefee6d16500635a59d1b4f240a893bd6",
+      "bytes": 18532
+    },
+    {
+      "path": "primary-mtf/data.txt",
+      "sha256": "25084244ede16ba5e3638c7b76ed6a0884ac5067e4103b871fbcb89aff2eff22",
+      "bytes": 5002
+    },
+    {
+      "path": "primary-mtf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "primary-mtf/model.json",
+      "sha256": "9cd776ec54a20688afc4c112ba0f9814cae1435f8ca6942a8b02003687b58a14",
+      "bytes": 12449
+    },
+    {
+      "path": "primary-mtf/settings.CFG",
+      "sha256": "1e553a36749271bf2ea7717bdcfa3c9b4b8995f9122367b9a38986a9ba5babfa",
+      "bytes": 18448
+    },
+    {
+      "path": "primary-mtf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "primary-psf/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "primary-psf/captured-settings.json",
+      "sha256": "7ffb2109f7268ff7da9ab19302469669ca21ccd2c10cfb783aba3ce88f94fcca",
+      "bytes": 1978
+    },
+    {
+      "path": "primary-psf/data.json",
+      "sha256": "4d98f0512a3b7b3cdd10670cf5318f13232de9d956d290c939e2a5863a011452",
+      "bytes": 22977
+    },
+    {
+      "path": "primary-psf/data.txt",
+      "sha256": "32e3e68f90959ea94cbfa74b814d7b6790463dd6bd6fb622523cd0a8598b2620",
+      "bytes": 27526
+    },
+    {
+      "path": "primary-psf/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "bytes": 3472
+    },
+    {
+      "path": "primary-psf/model.json",
+      "sha256": "9cd776ec54a20688afc4c112ba0f9814cae1435f8ca6942a8b02003687b58a14",
+      "bytes": 12449
+    },
+    {
+      "path": "primary-psf/settings.CFG",
+      "sha256": "39f5da03c274cd99f0218ab2c51c0545ac8a5e4dccdbe42191d5eb21c66871e4",
+      "bytes": 18448
+    },
+    {
+      "path": "primary-psf/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "primary.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676
+    },
+    {
+      "path": "README.md",
+      "sha256": "b20df6b563ffb8f6f3593d019e8fb5a7d2fc420efeb9d4c426abe4ff300dd2d7",
+      "bytes": 3950
+    }
+  ]
+}

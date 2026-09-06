@@ -1,7 +1,6 @@
 using System.Text.Json;
 using System.Globalization;
 using OptilandWorkbench.Application.Formatting;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App;
@@ -108,7 +107,7 @@ public sealed class AnalysisGuiContractTests
             optic.Fields[index].Y = 4.5 * index / (optic.Fields.Count - 1.0);
         }
 
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var parameters = connector.GetAnalysisParameters("Field Curvature and Distortion");
         var view = connector.BuildAnalysisView(
             "Field Curvature and Distortion",
@@ -145,9 +144,9 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void GridDistortionExposesZemaxGridSettingsWithoutPythonDistortionModel()
+    public void GridDistortionExposesZemaxGridSettings()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("Grid Distortion");
 
         Assert.DoesNotContain(parameters, parameter => parameter.Key == "DistortionType");
@@ -164,7 +163,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void IncidentAngleVsImageHeightMatchesReferenceEntrySettingsAndCurves()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("Angle vs Image Height");
 
         Assert.Equal(
@@ -209,7 +208,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void RayFanExposesZemaxSettings()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("Ray Fan");
 
         Assert.Equal(
@@ -236,7 +235,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void SpotDiagramExposesReferenceSettings()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("Spot Diagram");
 
         Assert.Equal(
@@ -270,7 +269,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void SpotDiagramAppliesSelectionScaleDirectionAndAirySettings()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView("Spot Diagram", new Dictionary<string, string>
         {
             ["RayDensity"] = "3",
@@ -299,7 +298,7 @@ public sealed class AnalysisGuiContractTests
     public void FullFieldSpotDiagramUsesAbsoluteImagePositionsAndWavelengthLegend()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var parameters = connector.GetAnalysisParameters("Full Field Spot Diagram");
 
         Assert.Equal(
@@ -376,7 +375,7 @@ public sealed class AnalysisGuiContractTests
     public void MatrixSpotDiagramUsesFieldRowsAndWavelengthColumns()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var parameters = connector.GetAnalysisParameters("Matrix Spot Diagram");
 
         Assert.Equal(
@@ -428,7 +427,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void MatrixSpotWavelengthLegendUsesSelectableUnifiedLabels()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView("Matrix Spot Diagram", new Dictionary<string, string>
         {
             ["RayDensity"] = "3"
@@ -501,7 +500,7 @@ public sealed class AnalysisGuiContractTests
     public void ConfigurationMatrixSpotGroupsAllWavelengthsInsideEachFieldByConfigurationCell()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var view = connector.BuildAnalysisView(
             "Configuration Matrix Spot Diagram",
             new Dictionary<string, string>
@@ -647,7 +646,7 @@ public sealed class AnalysisGuiContractTests
     public void FootprintLegendAndDefaultFollowTheSelectedColorBasis()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var colorDescriptor = Assert.Single(
             connector.GetAnalysisParameters("Footprint Diagram"),
             descriptor => descriptor.Key == "ColorRaysBy");
@@ -799,7 +798,7 @@ public sealed class AnalysisGuiContractTests
             new Avalonia.Rect(0, 0, 420, 180),
             OptionalSquarePlotHost.SquareBounds(new Avalonia.Size(420, 180), false));
 
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView("Pupil Aberration");
         var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
@@ -832,7 +831,7 @@ public sealed class AnalysisGuiContractTests
         string analysisName,
         AnalysisContracts.AnalysisPresentationKind expectedPresentationKind)
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView(analysisName);
         var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
@@ -1082,7 +1081,7 @@ public sealed class AnalysisGuiContractTests
     public void PupilAberrationSummaryMatchesTheCompactSharedScaleLayout()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var view = connector.BuildAnalysisView("Pupil Aberration");
         var mapperType = typeof(WorkbenchApplication).Assembly.GetType(
             "OptilandWorkbench.Application.Services.WorkbenchMapper");
@@ -1246,7 +1245,7 @@ public sealed class AnalysisGuiContractTests
             },
             fiveFieldPositions);
 
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var view = connector.BuildAnalysisView("Spot Diagram", new Dictionary<string, string>
         {
             ["RayDensity"] = "3"
@@ -1291,7 +1290,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ThroughFocusSpotExposesReferenceSettings()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var parameters = connector.GetAnalysisParameters("Through Focus");
 
         Assert.Equal(
@@ -1326,7 +1325,7 @@ public sealed class AnalysisGuiContractTests
     public void ThroughFocusSpotBuildsVisibleFiveColumnMatrix()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
         var view = connector.BuildAnalysisView("Through Focus", new Dictionary<string, string>
         {
             ["RayDensity"] = "3",
@@ -1579,7 +1578,7 @@ public sealed class AnalysisGuiContractTests
     public void ConnectorExposesAndAppliesAnalysisParameters()
     {
         var optic = Optic.CreateCookeTriplet();
-        var connector = new OptilandConnector(optic);
+        var connector = new WorkbenchRuntime(optic);
 
         Assert.Equal(
             new[]
@@ -2480,7 +2479,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorOffersOnlyZemaxApodizationsButRetainsLegacyModelCompatibility()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         Assert.Equal(
             new[] { "均匀（Zemax）", "高斯（Zemax）", "余弦立方（Zemax）" },
@@ -2503,7 +2502,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorCreatesPhaseInteractionWithSerializableProfile()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
 
         connector.ApplySurfaceComponents(surface, "平面", "Air", "无镀膜", "相位", "无");
@@ -2518,7 +2517,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorCreatesDiffractiveInteractionWithGratingGeometry()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
 
         connector.ApplySurfaceComponents(
@@ -2546,7 +2545,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorCreatesReflectiveThinLensWithEditableFocalLength()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
 
         connector.ApplySurfaceComponents(
@@ -2571,7 +2570,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void MirrorMaterialControlsStandardSurfaceReflection()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var surface = connector.CurrentOptic.SurfaceGroup.Items[1];
 
         surface.Material = "MIRROR";
@@ -2593,7 +2592,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void AddingSurfacePreservesRichComponentsAndInsertsBeforeImage()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var richSurface = connector.Surfaces[1];
         var image = connector.Surfaces[^1];
         richSurface.Geometry = new EvenAsphereGeometry(44, -0.7, new[] { 1e-5, -2e-8 });
@@ -2614,7 +2613,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void RemovingSurfacePreservesRemainingSurfaceInstances()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var firstSurface = connector.Surfaces[1];
         var image = connector.Surfaces[^1];
         var removed = connector.Surfaces[2];
@@ -2629,7 +2628,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void SurfaceTableEditsSynchronizeCompositionWithoutFlatteningAsphere()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var surface = connector.Surfaces[1];
         surface.Geometry = new EvenAsphereGeometry(surface.Radius, -0.5, new[] { 4e-6, -3e-9 });
 
@@ -2654,7 +2653,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorProtectsObjectAndImageSurfacesFromDeletion()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var initialCount = connector.Surfaces.Count;
 
         connector.RemoveSurface(connector.Surfaces[0]);
@@ -2670,7 +2669,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void SystemSettingsApplyAsOneUndoableChange()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var originalKind = connector.CurrentOptic.Aperture.Kind;
         var originalValue = connector.CurrentOptic.Aperture.Value;
         var originalFieldDefinition = connector.CurrentOptic.FieldDefinition;
@@ -2702,9 +2701,9 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void SystemApertureOptionsExposeFourPythonCompatibleModes()
+    public void SystemApertureOptionsExposeFourNativeModes()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         Assert.Equal(
             new[] { "入瞳直径", "像方 F 数", "物方数值孔径", "按光阑面尺寸浮动" },
             connector.ApertureKindNames);
@@ -2723,7 +2722,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void WavelengthEditingMaintainsExactlyOnePrimary()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var selected = connector.Wavelengths[^1];
         selected.IsPrimary = true;
 
@@ -2739,7 +2738,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ConnectorKeepsAtLeastOneFieldAndWavelength()
     {
-        var connector = new OptilandConnector(Optic.CreateBlank());
+        var connector = new WorkbenchRuntime(Optic.CreateBlank());
 
         connector.RemoveField(connector.Fields[0]);
         connector.RemoveWavelength(connector.Wavelengths[0]);
@@ -2752,7 +2751,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void ImageSimulationOffersMultipleSelectableSourceImages()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         var sourceImage = Assert.Single(
             connector.GetAnalysisParameters("Image Simulation"),
@@ -2837,7 +2836,7 @@ public sealed class AnalysisGuiContractTests
     [Fact]
     public void StructuralSurfaceEditsKeepRadiusPickupsOnTheirOriginalSurfaces()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
         var originalImageNumber = connector.Surfaces[^1].Number;
         connector.CurrentOptic.Pickups.LinkRadius(1, originalImageNumber, scale: 2);
 

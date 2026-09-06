@@ -12,7 +12,7 @@
 - 实际依赖方向：`App → Application → Core`；Compatibility 项目同时引用 Application 与 Core。生产 App/Application 不引用 Compatibility。契约不向 App 暴露 Core 类型。
 - Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
 - 桌面 UI 大量使用 C# 构造控件和事件订阅。`ViewModels/EditorRows.cs` 主要是编辑行模型，不能把整个 App 理解成纯 XAML/MVVM 绑定架构。
-- Python 脚本用于参考数据生成、ZOS-API 捕获和报告；正式计算核心不调用 Python Optiland。
+- Python 仅用于产品之外的 Zemax 捕获/报告、FreeCAD 验证和图标维护；Optiland 参考生成器已删除。正式产品无 Python 依赖。
 
 ## 2. 核心模型与顺序追迹
 
@@ -98,9 +98,9 @@
   → BoundedFile 原子替换
 ```
 
-STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。交换格式也不同于原生工程：ZMX、SEQ、LEN、Python JSON 的可表达范围有限，不能假定无损。
+STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。交换格式也不同于原生工程：ZMX、SEQ、LEN 的可表达范围有限，不能假定无损。
 
-Python JSON 读取器会拒绝非空 pickups/solves 等尚未支持的根契约。ZMX 读取器处理系统参数、表面、配置、部分求解和有序评价函数；未知及兼容行为必须以具体分支为准。
+旧专用 JSON 读取器已删除，原生快照仍执行模式验证。ZMX 读取器处理系统参数、表面、配置、部分求解和有序评价函数；未知及兼容行为必须以具体分支为准。
 
 多配置以第一个配置为基础，其他配置有按属性记录的继承断开。结构增删需要同步所有配置并重映射面号；材料传播必须复制实际材料数据，而不只是名称。
 
@@ -164,12 +164,11 @@ Python JSON 读取器会拒绝非空 pickups/solves 等尚未支持的根契约�
 | NonSequentialSamples | 生成确定性的教学场景并验证追迹结果 |
 | Benchmarks | 顺序追迹、MTF、公差和 STARRDB 性能测量与有界 CI 烟测 |
 | AccuracyCapture | 捕获 Workbench 当前计算数据；GUI capture 另有 App 入口 |
-| python-reference | 生成 Optiland 辅助参考夹具和材料数据 |
 | zemax_parity | 外部基线捕获、完整性检查、当前结果对照和 GUI 图片报告 |
 | step_validation | FreeCAD/OpenCascade 导入 STEP 并检查实体有效性与数量 |
 | 同步脚本 | 离线收集公开镜头资料与安全解包，不是桌面启动依赖 |
 
-测试按核心数值、Zemax/Optiland 对照、文件格式、资源边界、事务、并行、架构、GUI 契约和工作区行为分布。部分 GUI 测试读取源码验证契约，部分通过 Avalonia Headless 操作控件；两者均不能自动等同于真实桌面的全流程人工验收。
+测试按核心数值、Zemax 对照及冻结历史回归、文件格式、资源边界、事务、并行、架构、GUI 契约和工作区行为分布。部分 GUI 测试读取源码验证契约，部分通过 Avalonia Headless 操作控件；两者均不能自动等同于真实桌面的全流程人工验收。
 
 基线完整性校验只说明捕获资料完整，不代表当前版本重算一致；数值比较与截图比较也分别有独立工具。Zemax 默认精度权威为 `123456.ZMX` 捕获基线，另有 MS-L7 评价函数 golden；必须保留文件、设置和版本限定。
 
@@ -237,7 +236,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 
 | 文件 | 行数 | 类型或脚本函数 |
 | --- | ---: | --- |
-| [src/OptilandWorkbench.App/App.cs](../src/OptilandWorkbench.App/App.cs) | 737 | App |
+| [src/OptilandWorkbench.App/App.cs](../src/OptilandWorkbench.App/App.cs) | 740 | App |
 | [src/OptilandWorkbench.App/BrandAssets.cs](../src/OptilandWorkbench.App/BrandAssets.cs) | 183 | BrandAssets |
 | [src/OptilandWorkbench.App/CommandPaletteWindow.cs](../src/OptilandWorkbench.App/CommandPaletteWindow.cs) | 112 | CommandPaletteWindow |
 | [src/OptilandWorkbench.App/Controls/AnalysisPlotControl.cs](../src/OptilandWorkbench.App/Controls/AnalysisPlotControl.cs) | 1469 | AnalysisPlotControl, PlotViewport, HoverSample |
@@ -248,21 +247,21 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Controls/InteractiveCanvasAccessibility.cs](../src/OptilandWorkbench.App/Controls/InteractiveCanvasAccessibility.cs) | 114 | InteractiveCanvasCommand, InteractiveCanvasKeyboard, IInteractiveCanvasAutomationSource, InteractiveCanvasAutomationPeer, InteractiveCanvasFocus |
 | [src/OptilandWorkbench.App/Controls/LocalIcon.cs](../src/OptilandWorkbench.App/Controls/LocalIcon.cs) | 398 | LocalIcon, LocalIconLabel, LocalIconLibrary, IconDefinition, IThemeIconPack, StandardThemeIconPack, ThemeIconResolver, IconPrimitive, PathPrimitive, FilledPathPrimitive, LinePrimitive, EllipsePrimitive, RectanglePrimitive, PolylinePrimitive |
 | [src/OptilandWorkbench.App/Controls/OperationStatusBar.cs](../src/OptilandWorkbench.App/Controls/OperationStatusBar.cs) | 165 | OperationStatusKind, OperationStatusBar |
-| [src/OptilandWorkbench.App/Controls/OpticSceneControl.cs](../src/OptilandWorkbench.App/Controls/OpticSceneControl.cs) | 1944 | OpticSceneViewMode, OpticSceneRenderMode, OpticSceneRayColorMode, OpticSceneVisualStyle, OpticSceneViewPreset, OpticSceneAnnotationPlacement2D, OpticSceneAnnotation2D, OpticSceneControl, ProjectedFace, ObjectProjectedFace, GlassRenderParameters |
+| [src/OptilandWorkbench.App/Controls/OpticSceneControl.cs](../src/OptilandWorkbench.App/Controls/OpticSceneControl.cs) | 1956 | OpticSceneViewMode, OpticSceneRenderMode, OpticSceneRayColorMode, OpticSceneVisualStyle, OpticSceneViewPreset, OpticSceneAnnotationPlacement2D, OpticSceneAnnotation2D, OpticSceneControl, ProjectedFace, ObjectProjectedFace, GlassRenderParameters |
 | [src/OptilandWorkbench.App/Controls/OptionalSquarePlotHost.cs](../src/OptilandWorkbench.App/Controls/OptionalSquarePlotHost.cs) | 86 | OptionalSquarePlotHost |
 | [src/OptilandWorkbench.App/Controls/ReadOnlyChartAccessibility.cs](../src/OptilandWorkbench.App/Controls/ReadOnlyChartAccessibility.cs) | 53 | IReadOnlyChartAutomationSource, ReadOnlyChartAutomationPeer, ReadOnlyChartSummary |
 | [src/OptilandWorkbench.App/Controls/ResponsiveSettingsGrid.cs](../src/OptilandWorkbench.App/Controls/ResponsiveSettingsGrid.cs) | 55 | ResponsiveSettingsGrid |
 | [src/OptilandWorkbench.App/Controls/ResponsiveTwoPaneGrid.cs](../src/OptilandWorkbench.App/Controls/ResponsiveTwoPaneGrid.cs) | 70 | ResponsiveTwoPaneGrid |
 | [src/OptilandWorkbench.App/Controls/SceneViewport.cs](../src/OptilandWorkbench.App/Controls/SceneViewport.cs) | 54 | SceneViewport |
 | [src/OptilandWorkbench.App/Controls/SeidelDiagramControl.cs](../src/OptilandWorkbench.App/Controls/SeidelDiagramControl.cs) | 165 | SeidelDiagramControl |
-| [src/OptilandWorkbench.App/Controls/SettingsPanelChrome.cs](../src/OptilandWorkbench.App/Controls/SettingsPanelChrome.cs) | 58 | SettingsPanelChrome |
+| [src/OptilandWorkbench.App/Controls/SettingsPanelChrome.cs](../src/OptilandWorkbench.App/Controls/SettingsPanelChrome.cs) | 81 | SettingsPanelChrome |
 | [src/OptilandWorkbench.App/Controls/SpectralColorMap.cs](../src/OptilandWorkbench.App/Controls/SpectralColorMap.cs) | 63 | SpectralColorMap, SpectralStop |
 | [src/OptilandWorkbench.App/Controls/UiDensity.cs](../src/OptilandWorkbench.App/Controls/UiDensity.cs) | 9 | UiDensity |
 | [src/OptilandWorkbench.App/Controls/ViewCubeIcon.cs](../src/OptilandWorkbench.App/Controls/ViewCubeIcon.cs) | 144 | ViewCubeFace, ViewCubeIcon |
 | [src/OptilandWorkbench.App/Controls/WavefrontSurfaceControl.cs](../src/OptilandWorkbench.App/Controls/WavefrontSurfaceControl.cs) | 977 | WavefrontSurfaceControl, ContourSegment, SurfaceGrid, ProjectedPoint, SurfaceTriangle, SurfaceDragMode |
-| [src/OptilandWorkbench.App/DisplaySettingsWindow.cs](../src/OptilandWorkbench.App/DisplaySettingsWindow.cs) | 417 | DisplaySettingsWindow, DisplaySettingsSnapshot, FontShapeOption |
+| [src/OptilandWorkbench.App/DisplaySettingsWindow.cs](../src/OptilandWorkbench.App/DisplaySettingsWindow.cs) | 418 | DisplaySettingsWindow, DisplaySettingsSnapshot, FontShapeOption |
 | [src/OptilandWorkbench.App/MacOsBranding.cs](../src/OptilandWorkbench.App/MacOsBranding.cs) | 100 | MacOsBranding |
-| [src/OptilandWorkbench.App/MainWindow.cs](../src/OptilandWorkbench.App/MainWindow.cs) | 261 | MainWindow |
+| [src/OptilandWorkbench.App/MainWindow.cs](../src/OptilandWorkbench.App/MainWindow.cs) | 254 | MainWindow |
 | [src/OptilandWorkbench.App/Manufacturing/OpticalDrawingModel.cs](../src/OptilandWorkbench.App/Manufacturing/OpticalDrawingModel.cs) | 131 | OpticalDrawingPageSize, OpticalDrawingStandard, OpticalSystemDrawingSheet, OpticalDrawingSheet |
 | [src/OptilandWorkbench.App/Manufacturing/OpticalDrawingRenderer.cs](../src/OptilandWorkbench.App/Manufacturing/OpticalDrawingRenderer.cs) | 151 | OpticalDrawingRenderer |
 | [src/OptilandWorkbench.App/Manufacturing/OpticalDrawingTemplate.cs](../src/OptilandWorkbench.App/Manufacturing/OpticalDrawingTemplate.cs) | 252 | OpticalDrawingTemplate, OpticalDrawingPageTemplate, OpticalDrawingGeometryTemplate, OpticalDrawingTitleBlockTemplate, OpticalDrawingSpecificationTemplate, OpticalDrawingColumnTemplate, OpticalDrawingMaterialRowTemplate, OpticalDrawingTemplateCatalog |
@@ -277,16 +276,16 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Export.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Export.cs) | 161 | AnalysisPanel |
 | [src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs) | 959 | AnalysisPanel, FilePathInput |
 | [src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Plots.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Plots.cs) | 1124 | AnalysisPanel |
-| [src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs) | 1229 | AnalysisPanel, CompactAnalysisSummary |
+| [src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs) | 1441 | AnalysisPanel, CompactAnalysisSummary |
 | [src/OptilandWorkbench.App/Panels/Analysis/AnalysisSemanticColors.cs](../src/OptilandWorkbench.App/Panels/Analysis/AnalysisSemanticColors.cs) | 13 | AnalysisSemanticColors |
 | [src/OptilandWorkbench.App/Panels/AnalysisPanel.cs](../src/OptilandWorkbench.App/Panels/AnalysisPanel.cs) | 438 | AnalysisPanel |
 | [src/OptilandWorkbench.App/Panels/CommercialLensCatalogPanel.cs](../src/OptilandWorkbench.App/Panels/CommercialLensCatalogPanel.cs) | 649 | CommercialLensCatalogPanel |
 | [src/OptilandWorkbench.App/Panels/CommercialLensCatalogProjection.cs](../src/OptilandWorkbench.App/Panels/CommercialLensCatalogProjection.cs) | 115 | CommercialLensCatalogFilter, CommercialLensCatalogFilterResult, CommercialLensCatalogProjection, CommercialLensRow |
 | [src/OptilandWorkbench.App/Panels/ImageFileViewerWindow.cs](../src/OptilandWorkbench.App/Panels/ImageFileViewerWindow.cs) | 390 | ImageFileViewerWindow, ZemaxImageData, ZemaxImageFile |
-| [src/OptilandWorkbench.App/Panels/LensEditorPanel.cs](../src/OptilandWorkbench.App/Panels/LensEditorPanel.cs) | 634 | LensEditorPanel |
+| [src/OptilandWorkbench.App/Panels/LensEditorPanel.cs](../src/OptilandWorkbench.App/Panels/LensEditorPanel.cs) | 554 | LensEditorPanel |
 | [src/OptilandWorkbench.App/Panels/ManufacturabilityPanel.cs](../src/OptilandWorkbench.App/Panels/ManufacturabilityPanel.cs) | 256 | ManufacturabilityPanel |
 | [src/OptilandWorkbench.App/Panels/MaterialAnalysisPanel.cs](../src/OptilandWorkbench.App/Panels/MaterialAnalysisPanel.cs) | 303 | MaterialAnalysisPanel, GlassOption |
-| [src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs](../src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs) | 1099 | MaterialLibraryPanel, LensLibraryPanel, GlassCatalogPanel |
+| [src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs](../src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs) | 1103 | MaterialLibraryPanel, LensLibraryPanel, GlassCatalogPanel |
 | [src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs](../src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs) | 129 | MeritOperandRowPalette, MeritOperandRowVisual |
 | [src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.cs](../src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.cs) | 161 | MultiConfigurationPanel |
 | [src/OptilandWorkbench.App/Panels/NonSequentialDetectorDisplay.cs](../src/OptilandWorkbench.App/Panels/NonSequentialDetectorDisplay.cs) | 183 | DetectorDisplayNormalization, DetectorProfileAxis, DetectorDisplayFrame, NonSequentialDetectorDisplay |
@@ -299,14 +298,14 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Panels/OptimizationVariableSliderWindow.cs](../src/OptilandWorkbench.App/Panels/OptimizationVariableSliderWindow.cs) | 255 | OptimizationVariableSliderWindow, VariableChoice |
 | [src/OptilandWorkbench.App/Panels/OptimizationWizardWindow.cs](../src/OptilandWorkbench.App/Panels/OptimizationWizardWindow.cs) | 419 | OptimizationWizardWindow |
 | [src/OptilandWorkbench.App/Panels/StockLensMatchingPanel.cs](../src/OptilandWorkbench.App/Panels/StockLensMatchingPanel.cs) | 471 | StockLensMatchingPanel, MatchRow |
-| [src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs](../src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs) | 1120 | SystemPropertiesPanel |
+| [src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs](../src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs) | 1147 | SystemPropertiesPanel |
 | [src/OptilandWorkbench.App/Panels/ToleranceChartDocumentPanel.cs](../src/OptilandWorkbench.App/Panels/ToleranceChartDocumentPanel.cs) | 281 | ToleranceChartView, ToleranceChartBuilder, ToleranceChartDocumentPanel |
 | [src/OptilandWorkbench.App/Panels/ToleranceOperandEditorRow.cs](../src/OptilandWorkbench.App/Panels/ToleranceOperandEditorRow.cs) | 231 | ToleranceOperandEditorRow |
 | [src/OptilandWorkbench.App/Panels/ToleranceTextDocumentPanel.cs](../src/OptilandWorkbench.App/Panels/ToleranceTextDocumentPanel.cs) | 125 | ToleranceTextDocumentPanel |
 | [src/OptilandWorkbench.App/Panels/ToleranceWizardWindow.cs](../src/OptilandWorkbench.App/Panels/ToleranceWizardWindow.cs) | 623 | ToleranceWizardWindow |
 | [src/OptilandWorkbench.App/Panels/TolerancingPanel.cs](../src/OptilandWorkbench.App/Panels/TolerancingPanel.cs) | 1422 | TolerancingPanel, ToleranceKindChoice, ToleranceFileDto |
 | [src/OptilandWorkbench.App/Panels/TolerancingRunWindow.cs](../src/OptilandWorkbench.App/Panels/TolerancingRunWindow.cs) | 299 | TolerancingRunOptions, TolerancingRunWindow |
-| [src/OptilandWorkbench.App/Panels/ViewerPanel.cs](../src/OptilandWorkbench.App/Panels/ViewerPanel.cs) | 877 | ViewerPresentationMode, ViewerPanel, SelectorItem |
+| [src/OptilandWorkbench.App/Panels/ViewerPanel.cs](../src/OptilandWorkbench.App/Panels/ViewerPanel.cs) | 941 | ViewerPresentationMode, ViewerPanel, SelectorItem |
 | [src/OptilandWorkbench.App/Program.cs](../src/OptilandWorkbench.App/Program.cs) | 26 | Program |
 | [src/OptilandWorkbench.App/Properties/AssemblyInfo.cs](../src/OptilandWorkbench.App/Properties/AssemblyInfo.cs) | 3 | 入口、程序集属性、构建或辅助脚本 |
 | [src/OptilandWorkbench.App/Services/ActionManager.cs](../src/OptilandWorkbench.App/Services/ActionManager.cs) | 70 | ActionManager, ActionExecutionFailedEventArgs, AppAction |
@@ -327,51 +326,51 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Services/WorkspaceSessionStore.cs](../src/OptilandWorkbench.App/Services/WorkspaceSessionStore.cs) | 654 | WorkspaceDocumentTypes, WorkspaceDocumentDescriptor, WorkspaceSession, WorkspaceSessionStore, WorkspaceDockLayoutSerializer |
 | [src/OptilandWorkbench.App/Services/WorkspaceViewLocator.cs](../src/OptilandWorkbench.App/Services/WorkspaceViewLocator.cs) | 70 | WorkspaceViewLocator, WorkspaceContentHost |
 | [src/OptilandWorkbench.App/Shell/MainWindow.Actions.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Actions.cs) | 292 | MainWindow |
-| [src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs) | 251 | MainWindow |
+| [src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs) | 250 | MainWindow |
 | [src/OptilandWorkbench.App/Shell/MainWindow.ImageViewers.cs](../src/OptilandWorkbench.App/Shell/MainWindow.ImageViewers.cs) | 68 | MainWindow |
 | [src/OptilandWorkbench.App/Shell/MainWindow.Import.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Import.cs) | 54 | MainWindow |
 | [src/OptilandWorkbench.App/Shell/MainWindow.Optimization.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Optimization.cs) | 86 | MainWindow |
-| [src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs) | 660 | MainWindow |
-| [src/OptilandWorkbench.App/Shell/MainWindow.Workspace.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Workspace.cs) | 277 | MainWindow |
+| [src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs) | 661 | MainWindow |
+| [src/OptilandWorkbench.App/Shell/MainWindow.Workspace.cs](../src/OptilandWorkbench.App/Shell/MainWindow.Workspace.cs) | 278 | MainWindow |
 | [src/OptilandWorkbench.App/SplashWindow.cs](../src/OptilandWorkbench.App/SplashWindow.cs) | 238 | SplashWindow |
-| [src/OptilandWorkbench.App/Theming/IsekaiTheme.cs](../src/OptilandWorkbench.App/Theming/IsekaiTheme.cs) | 97 | IsekaiTheme |
+| [src/OptilandWorkbench.App/Theming/IsekaiTheme.cs](../src/OptilandWorkbench.App/Theming/IsekaiTheme.cs) | 99 | IsekaiTheme |
 | [src/OptilandWorkbench.App/Theming/IsekaiThemeDecorationRenderer.cs](../src/OptilandWorkbench.App/Theming/IsekaiThemeDecorationRenderer.cs) | 259 | IsekaiThemeDecorationRenderer |
 | [src/OptilandWorkbench.App/Theming/IsekaiThemeIconPack.cs](../src/OptilandWorkbench.App/Theming/IsekaiThemeIconPack.cs) | 106 | IsekaiThemeIconPack, ImportedGameIcon, GameIconAttribution |
-| [src/OptilandWorkbench.App/Theming/PixelTheme.cs](../src/OptilandWorkbench.App/Theming/PixelTheme.cs) | 313 | PixelTheme |
+| [src/OptilandWorkbench.App/Theming/PixelTheme.cs](../src/OptilandWorkbench.App/Theming/PixelTheme.cs) | 314 | PixelTheme |
 | [src/OptilandWorkbench.App/Theming/PixelThemeDecorationRenderer.cs](../src/OptilandWorkbench.App/Theming/PixelThemeDecorationRenderer.cs) | 121 | PixelThemeDecorationRenderer |
 | [src/OptilandWorkbench.App/Theming/PixelThemeIconPack.cs](../src/OptilandWorkbench.App/Theming/PixelThemeIconPack.cs) | 104 | PixelThemeIconPack, ImportedPixelIcon |
 | [src/OptilandWorkbench.App/Theming/ThemeApplicationService.cs](../src/OptilandWorkbench.App/Theming/ThemeApplicationService.cs) | 27 | ThemeApplicationService |
-| [src/OptilandWorkbench.App/Theming/ThemeChrome.cs](../src/OptilandWorkbench.App/Theming/ThemeChrome.cs) | 230 | ThemeChromeRole, ThemeChromeStyle, ThemeChromeProfile, ThemeChromeResources, ThemeChrome, ThemeChromeLayer, IThemeDecorationRenderer, NoThemeDecorationRenderer, ThemeChromeOverlay |
+| [src/OptilandWorkbench.App/Theming/ThemeChrome.cs](../src/OptilandWorkbench.App/Theming/ThemeChrome.cs) | 231 | ThemeChromeRole, ThemeChromeStyle, ThemeChromeProfile, ThemeChromeResources, ThemeChrome, ThemeChromeLayer, IThemeDecorationRenderer, NoThemeDecorationRenderer, ThemeChromeOverlay |
 | [src/OptilandWorkbench.App/Theming/ThemePalette.cs](../src/OptilandWorkbench.App/Theming/ThemePalette.cs) | 263 | ThemePalette |
-| [src/OptilandWorkbench.App/Theming/ThemeRegistry.cs](../src/OptilandWorkbench.App/Theming/ThemeRegistry.cs) | 188 | ThemeDefinition, ThemeRegistry, StandardTheme |
+| [src/OptilandWorkbench.App/Theming/ThemeRegistry.cs](../src/OptilandWorkbench.App/Theming/ThemeRegistry.cs) | 190 | ThemeDefinition, ThemeRegistry, StandardTheme |
 | [src/OptilandWorkbench.App/UnsavedChangesWindow.cs](../src/OptilandWorkbench.App/UnsavedChangesWindow.cs) | 90 | UnsavedChangesChoice, UnsavedChangesGuard, UnsavedChangesWindow |
-| [src/OptilandWorkbench.App/ViewModels/EditorRows.cs](../src/OptilandWorkbench.App/ViewModels/EditorRows.cs) | 403 | SurfaceEditorRow, MeritOperandEditorRow, FieldEditorRow, WavelengthEditorRow |
+| [src/OptilandWorkbench.App/ViewModels/EditorRows.cs](../src/OptilandWorkbench.App/ViewModels/EditorRows.cs) | 411 | SurfaceEditorRow, MeritOperandEditorRow, FieldEditorRow, WavelengthEditorRow |
 
 ### src/OptilandWorkbench.Application
 
 | 文件 | 行数 | 类型或脚本函数 |
 | --- | ---: | --- |
-| [src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs](../src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs) | 316 | IWorkspaceEventStream, IWorkbenchModeService, INonSequentialDocumentService, INonSequentialAnalysisService, IOpticalDocumentService, IPrescriptionService, IAnalysisService, IVisualizationService, ICadExportService, IOptimizationService, ITolerancingService, IMultiConfigurationService, IMaterialCatalogService, ILensLibraryService, IWorkbenchApplication |
-| [src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs](../src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs) | 1567 | NonSequentialObjectKind, NonSequentialSourceApertureShape, NonSequentialSurfaceSourceAngularDistribution, NonSequentialVolumeSourceAngularDistribution, NonSequentialSurfaceBehavior, NonSequentialVector3, NonSequentialTraceSettings, NonSequentialObjectParameters, SourceParameters, SourceRayParameters, SourcePointParameters, SourceRectangleParameters, SourceGaussianParameters, SourceEllipseParameters, SourceTwoAngleParameters, SourceRadialSample, SourceRadialParameters, SourceVolumeRectangleParameters, SourceVolumeEllipseParameters, SourceVolumeCylinderParameters, PlaneRectangleParameters, SphereParameters, CylinderParameters, BoxParameters, StandardLensParameters, MeshObjectParameters, DetectorRectangleParameters, OpticalWorkbenchMode, WorkbenchModeChangedEventArgs, NonSequentialObjectRowDto, NonSequentialWavelengthDto, NonSequentialDocumentDto, NonSequentialObjectUpdateDto, NonSequentialConversionResultDto, NonSequentialMeshUnit, NonSequentialMeshImportOptionsDto, NonSequentialMeshImportResultDto, NonSequentialTraceOutputMode, NonSequentialTraceCommand, NonSequentialSplittingMode, NonSequentialTraceSessionState, NonSequentialTraceRunRequestDto, NonSequentialTraceRunResultDto, NonSequentialTraceSessionDto, NonSequentialDetectorSpace, NonSequentialDetectorDataType, NonSequentialDetectorViewRequestDto, NonSequentialDetectorStatisticsDto, NonSequentialDetectorViewDto, NonSequentialRaySegmentDto, NonSequentialRayBranchDto, NonSequentialRayDatabasePageDto, NonSequentialPathSummaryDto, NonSequentialRayDatabaseDto, WorkspaceChangeCategory, WorkspaceChangedEventArgs, OpticalDocumentSnapshot, MaterialCatalogDto, MaterialCatalogImportResultDto, GlassMaterialDto, MaterialAnalysisKind, MaterialAnalysisRequestDto, LensLibraryEntryDto, LensLibraryCatalogDocument, CommercialLensEntryDto, CommercialLensCatalogDocument, StockLensMatchRequestDto, StockLensMatchResultDto, SurfaceRowDto, SurfaceComponentUpdateDto, FieldRowDto, WavelengthRowDto, SystemSettingsDto, EnvironmentSettingsDto, PrescriptionOptionsDto, AnalysisParameterKind, AnalysisParameterDescriptor, AnalysisSeriesKind, AnalysisLineStyle, AnalysisMarkerStyle, AnalysisColorMap, AnalysisAxisQuantity, AnalysisAxisUnit, AnalysisPointDto, AnalysisSeriesDto, AnalysisPlotOptionsDto, AnalysisPlotPaneDto, AnalysisPlotMetricDto, AnalysisRowDto, AnalysisTableDto, AnalysisPresentationKind, AnalysisViewDto, AnalysisRequestDto, AnalysisResultDto, AnalysisExecutionProvenanceDto, SceneDimension, VisualizationSelectorOptionDto, VisualizationOptionsDto, VisualizationRequestDto, ScenePoint2Dto, ScenePoint3Dto, SceneRayDirection2Dto, SceneRayDirection3Dto, SceneRayInteractionType, SceneRaySegmentType, SceneRaySegment2Dto, SceneRaySegment3Dto, SceneSurfaceFace3Dto, SceneSurfaceRenderRole, SceneSurface2Dto, SceneLensEdge2Dto, SceneLensElement2Dto, SceneRay2Dto, Scene2Dto, SceneSurface3Dto, SceneLensElement3Dto, SceneRay3Dto, Scene3Dto, NonSequentialLayoutResultDto, SceneDto, CadExportFormat, CadExportOptionsDto, CadExportResultDto, OptimizationResultDto, OptimizationVariableUpdateMode, OptimizationVariableUpdateResultDto, QuickFocusResultDto, MeritFunctionPreset, OptimizationImageQuality, OptimizationPupilSampling, OptimizationSpotReference, OptimizationWizardSettingsDto, MeritOperandTypeDto, MeritOperandParameterDto, MeritOperandRowDto, OptimizationVariableKind, OptimizationVariableResultDto, OptimizationRunResultDto, ToleranceOperandKind, ToleranceDistribution, ToleranceCriterion, ToleranceAnalysisMode, ToleranceInverseEndpointStatus, RadiusToleranceMode, ToleranceOperandDto, ToleranceWizardSettingsDto, ToleranceValidationResultDto, TolerancingRequestDto, TolerancingSensitivityRowDto, TolerancingTrialRowDto, TolerancingStatisticsDto, TolerancingSensitivityStatisticsDto, TolerancingInverseEndpointDto, TolerancingInverseRowDto, TolerancingResultDto, MultiConfigurationRowDto |
-| [src/OptilandWorkbench.Application/Formatting/AnalysisAxisFormatting.cs](../src/OptilandWorkbench.Application/Formatting/AnalysisAxisFormatting.cs) | 205 | AnalysisAxisFormatting, AnalysisCsvFormatter |
+| [src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs](../src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs) | 321 | IWorkspaceEventStream, IWorkbenchModeService, INonSequentialDocumentService, INonSequentialAnalysisService, IOpticalDocumentService, IPrescriptionService, IAnalysisService, IVisualizationService, ICadExportService, IOptimizationService, ITolerancingService, IMultiConfigurationService, IMaterialCatalogService, ILensLibraryService, IWorkbenchApplication |
+| [src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs](../src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs) | 1615 | NonSequentialObjectKind, NonSequentialSourceApertureShape, NonSequentialSurfaceSourceAngularDistribution, NonSequentialVolumeSourceAngularDistribution, NonSequentialSurfaceBehavior, NonSequentialVector3, NonSequentialTraceSettings, NonSequentialObjectParameters, SourceParameters, SourceRayParameters, SourcePointParameters, SourceRectangleParameters, SourceGaussianParameters, SourceEllipseParameters, SourceTwoAngleParameters, SourceRadialSample, SourceRadialParameters, SourceVolumeRectangleParameters, SourceVolumeEllipseParameters, SourceVolumeCylinderParameters, PlaneRectangleParameters, SphereParameters, CylinderParameters, BoxParameters, StandardLensParameters, MeshObjectParameters, DetectorRectangleParameters, OpticalWorkbenchMode, WorkbenchModeChangedEventArgs, NonSequentialObjectRowDto, NonSequentialWavelengthDto, NonSequentialDocumentDto, NonSequentialObjectUpdateDto, NonSequentialConversionResultDto, NonSequentialMeshUnit, NonSequentialMeshImportOptionsDto, NonSequentialMeshImportResultDto, NonSequentialTraceOutputMode, NonSequentialTraceCommand, NonSequentialSplittingMode, NonSequentialTraceSessionState, NonSequentialTraceRunRequestDto, NonSequentialTraceRunResultDto, NonSequentialTraceSessionDto, NonSequentialDetectorSpace, NonSequentialDetectorDataType, NonSequentialDetectorViewRequestDto, NonSequentialDetectorStatisticsDto, NonSequentialDetectorViewDto, NonSequentialRaySegmentDto, NonSequentialRayBranchDto, NonSequentialRayDatabasePageDto, NonSequentialPathSummaryDto, NonSequentialRayDatabaseDto, WorkspaceChangeCategory, WorkspaceChangedEventArgs, OpticalDocumentSnapshot, MaterialCatalogDto, MaterialCatalogImportResultDto, GlassMaterialDto, MaterialAnalysisKind, MaterialAnalysisRequestDto, LensLibraryEntryDto, LensLibraryCatalogDocument, CommercialLensEntryDto, CommercialLensCatalogDocument, StockLensMatchRequestDto, StockLensMatchResultDto, SurfaceRowDto, SurfaceComponentUpdateDto, FieldRowDto, WavelengthRowDto, SystemSettingsDto, EnvironmentSettingsDto, PrescriptionOptionsDto, AnalysisParameterKind, AnalysisParameterDescriptor, AnalysisSeriesKind, AnalysisLineStyle, AnalysisMarkerStyle, AnalysisColorMap, AnalysisAxisQuantity, AnalysisAxisUnit, AnalysisPointDto, AnalysisSeriesDto, AnalysisPlotOptionsDto, AnalysisPlotPaneDto, AnalysisPlotMetricDto, AnalysisRowDto, AnalysisTableDto, AnalysisPresentationKind, AnalysisViewDto, AnalysisRequestDto, AnalysisResultDto, AnalysisExecutionProvenanceDto, SceneDimension, VisualizationSelectorOptionDto, VisualizationOptionsDto, VisualizationRequestDto, ScenePoint2Dto, ScenePoint3Dto, SceneRayDirection2Dto, SceneRayDirection3Dto, SceneRayInteractionType, SceneRaySegmentType, SceneRaySegment2Dto, SceneRaySegment3Dto, SceneSurfaceFace3Dto, SceneSurfaceRenderRole, SceneSurface2Dto, SceneLensEdge2Dto, SceneLensElement2Dto, SceneRay2Dto, Scene2Dto, SceneSurface3Dto, SceneLensElement3Dto, SceneRay3Dto, Scene3Dto, NonSequentialLayoutResultDto, SceneDto, CadExportFormat, CadExportOptionsDto, CadExportResultDto, OptimizationResultDto, OptimizationVariableUpdateMode, OptimizationVariableUpdateResultDto, QuickFocusResultDto, MeritFunctionPreset, OptimizationImageQuality, OptimizationPupilSampling, OptimizationSpotReference, OptimizationWizardSettingsDto, MeritOperandTypeDto, MeritOperandParameterDto, MeritOperandRowDto, OptimizationVariableKind, OptimizationVariableResultDto, OptimizationRunResultDto, ToleranceOperandKind, ToleranceDistribution, ToleranceCriterion, ToleranceAnalysisMode, ToleranceInverseEndpointStatus, RadiusToleranceMode, ToleranceOperandDto, ToleranceWizardSettingsDto, ToleranceValidationResultDto, TolerancingRequestDto, TolerancingSensitivityRowDto, TolerancingTrialRowDto, TolerancingStatisticsDto, TolerancingSensitivityStatisticsDto, TolerancingInverseEndpointDto, TolerancingInverseRowDto, TolerancingResultDto, MultiConfigurationRowDto |
+| [src/OptilandWorkbench.Application/Formatting/AnalysisAxisFormatting.cs](../src/OptilandWorkbench.Application/Formatting/AnalysisAxisFormatting.cs) | 206 | AnalysisAxisFormatting, AnalysisCsvFormatter |
 | [src/OptilandWorkbench.Application/Formatting/NumericDisplayFormatter.cs](../src/OptilandWorkbench.Application/Formatting/NumericDisplayFormatter.cs) | 73 | NumericDisplayOptions, NumericDisplayFormatter |
 | [src/OptilandWorkbench.Application/Properties/AssemblyInfo.cs](../src/OptilandWorkbench.Application/Properties/AssemblyInfo.cs) | 3 | 入口、程序集属性、构建或辅助脚本 |
 | [src/OptilandWorkbench.Application/Runtime/DocumentUndoRedoManager.cs](../src/OptilandWorkbench.Application/Runtime/DocumentUndoRedoManager.cs) | 105 | DocumentUndoRedoCheckpoint, DocumentUndoRedoManager |
-| [src/OptilandWorkbench.Application/Runtime/RuntimeModels.cs](../src/OptilandWorkbench.Application/Runtime/RuntimeModels.cs) | 114 | AnalysisView, AnalysisRow, AnalysisParameterKind, AnalysisParameterDescriptor, TolerancingView, TolerancingSensitivityRow, TolerancingTrialRow, TolerancingStatistics, TolerancingSensitivityStatistics, TolerancingInverseEndpoint, TolerancingInverseRow, MultiConfigurationRow |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs) | 968 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/RuntimeModels.cs](../src/OptilandWorkbench.Application/Runtime/RuntimeModels.cs) | 117 | AnalysisView, AnalysisRow, AnalysisParameterKind, AnalysisParameterDescriptor, TolerancingView, TolerancingSensitivityRow, TolerancingTrialRow, TolerancingStatistics, TolerancingSensitivityStatistics, TolerancingInverseEndpoint, TolerancingInverseRow, MultiConfigurationRow |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs) | 992 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Helpers.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Helpers.cs) | 231 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs) | 1290 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Common.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Common.cs) | 30 | WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs) | 440 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs) | 466 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Configuration.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Configuration.cs) | 107 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.cs) | 234 | LoadedOpticalDocument, WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Documents.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Documents.cs) | 246 | WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs) | 479 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Documents.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Documents.cs) | 243 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs) | 480 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.NonSequential.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.NonSequential.cs) | 16 | WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs) | 269 | WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Prescription.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Prescription.cs) | 344 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs) | 284 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Prescription.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Prescription.cs) | 408 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.cs) | 305 | WorkbenchRuntime |
-| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs) | 506 | WorkbenchRuntime |
+| [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs) | 288 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Parallel.cs](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Parallel.cs) | 281 | WorkbenchRuntime |
 | [src/OptilandWorkbench.Application/Services/AnalysisService.cs](../src/OptilandWorkbench.Application/Services/AnalysisService.cs) | 244 | AnalysisService |
 | [src/OptilandWorkbench.Application/Services/BoundedApplicationFile.cs](../src/OptilandWorkbench.Application/Services/BoundedApplicationFile.cs) | 50 | BoundedApplicationFile |
@@ -379,8 +378,8 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Application/Services/CommercialLensCatalogStore.cs](../src/OptilandWorkbench.Application/Services/CommercialLensCatalogStore.cs) | 149 | CommercialLensCatalogStore |
 | [src/OptilandWorkbench.Application/Services/ImageFileLoader.cs](../src/OptilandWorkbench.Application/Services/ImageFileLoader.cs) | 102 | ImageFileLoader |
 | [src/OptilandWorkbench.Application/Services/LensLibraryCatalogEntryFactory.cs](../src/OptilandWorkbench.Application/Services/LensLibraryCatalogEntryFactory.cs) | 243 | LensLibraryCatalogEntryFactory |
-| [src/OptilandWorkbench.Application/Services/LensLibraryService.cs](../src/OptilandWorkbench.Application/Services/LensLibraryService.cs) | 275 | LensLibraryService |
-| [src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs](../src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs) | 331 | WorkbenchMapper |
+| [src/OptilandWorkbench.Application/Services/LensLibraryService.cs](../src/OptilandWorkbench.Application/Services/LensLibraryService.cs) | 274 | LensLibraryService |
+| [src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs](../src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs) | 360 | WorkbenchMapper |
 | [src/OptilandWorkbench.Application/Services/MaterialCatalogService.Analysis.cs](../src/OptilandWorkbench.Application/Services/MaterialCatalogService.Analysis.cs) | 572 | MaterialCatalogService |
 | [src/OptilandWorkbench.Application/Services/MaterialCatalogService.cs](../src/OptilandWorkbench.Application/Services/MaterialCatalogService.cs) | 241 | MaterialCatalogService |
 | [src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs](../src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs) | 207 | MeritOperandReference, MeritOperandReferenceCatalog |
@@ -391,86 +390,80 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Application/Services/NonSequentialVisualizationBuilder.cs](../src/OptilandWorkbench.Application/Services/NonSequentialVisualizationBuilder.cs) | 373 | NonSequentialVisualizationBuilder |
 | [src/OptilandWorkbench.Application/Services/OpticalDocumentService.cs](../src/OptilandWorkbench.Application/Services/OpticalDocumentService.cs) | 149 | OpticalDocumentService |
 | [src/OptilandWorkbench.Application/Services/OpticContext.cs](../src/OptilandWorkbench.Application/Services/OpticContext.cs) | 78 | IOpticContext, OpticContext |
-| [src/OptilandWorkbench.Application/Services/OptimizationService.cs](../src/OptilandWorkbench.Application/Services/OptimizationService.cs) | 404 | OptimizationService |
+| [src/OptilandWorkbench.Application/Services/OptimizationService.cs](../src/OptilandWorkbench.Application/Services/OptimizationService.cs) | 405 | OptimizationService |
 | [src/OptilandWorkbench.Application/Services/OptimizationService.Run.cs](../src/OptilandWorkbench.Application/Services/OptimizationService.Run.cs) | 269 | OptimizationService |
-| [src/OptilandWorkbench.Application/Services/PrescriptionService.cs](../src/OptilandWorkbench.Application/Services/PrescriptionService.cs) | 295 | PrescriptionService |
+| [src/OptilandWorkbench.Application/Services/PrescriptionService.cs](../src/OptilandWorkbench.Application/Services/PrescriptionService.cs) | 316 | PrescriptionService |
 | [src/OptilandWorkbench.Application/Services/StockLensMatching.cs](../src/OptilandWorkbench.Application/Services/StockLensMatching.cs) | 93 | StockLensCatalogPolicy, StockLensMatcher |
 | [src/OptilandWorkbench.Application/Services/TolerancingService.cs](../src/OptilandWorkbench.Application/Services/TolerancingService.cs) | 499 | TolerancingService |
 | [src/OptilandWorkbench.Application/Services/VisualizationService.cs](../src/OptilandWorkbench.Application/Services/VisualizationService.cs) | 201 | VisualizationService |
-| [src/OptilandWorkbench.Application/Services/WorkbenchAnalysisCatalog.cs](../src/OptilandWorkbench.Application/Services/WorkbenchAnalysisCatalog.cs) | 249 | WorkbenchAnalysisDescriptor, WorkbenchAnalysisCatalog |
+| [src/OptilandWorkbench.Application/Services/WorkbenchAnalysisCatalog.cs](../src/OptilandWorkbench.Application/Services/WorkbenchAnalysisCatalog.cs) | 253 | WorkbenchAnalysisDescriptor, WorkbenchAnalysisCatalog |
 | [src/OptilandWorkbench.Application/Services/WorkbenchAnalysisRibbonCatalog.cs](../src/OptilandWorkbench.Application/Services/WorkbenchAnalysisRibbonCatalog.cs) | 310 | AnalysisRibbonCommandKind, AnalysisRibbonCommand, AnalysisRibbonMenu, WorkbenchAnalysisCatalog |
 | [src/OptilandWorkbench.Application/Services/WorkbenchApplication.cs](../src/OptilandWorkbench.Application/Services/WorkbenchApplication.cs) | 106 | WorkbenchApplication |
 | [src/OptilandWorkbench.Application/Services/WorkbenchModeService.cs](../src/OptilandWorkbench.Application/Services/WorkbenchModeService.cs) | 34 | WorkbenchModeService |
 | [src/OptilandWorkbench.Application/Services/WorkbenchServiceBase.cs](../src/OptilandWorkbench.Application/Services/WorkbenchServiceBase.cs) | 66 | WorkbenchServiceBase |
-| [src/OptilandWorkbench.Application/Services/WorkspaceCoordinator.cs](../src/OptilandWorkbench.Application/Services/WorkspaceCoordinator.cs) | 425 | WorkspaceCoordinator |
-
-### src/OptilandWorkbench.Compatibility
-
-| 文件 | 行数 | 类型或脚本函数 |
-| --- | ---: | --- |
-| [src/OptilandWorkbench.Compatibility/OptilandConnector.cs](../src/OptilandWorkbench.Compatibility/OptilandConnector.cs) | 13 | OptilandConnector |
+| [src/OptilandWorkbench.Application/Services/WorkspaceCoordinator.cs](../src/OptilandWorkbench.Application/Services/WorkspaceCoordinator.cs) | 433 | WorkspaceCoordinator |
 
 ### src/OptilandWorkbench.Core
 
 | 文件 | 行数 | 类型或脚本函数 |
 | --- | ---: | --- |
 | [src/OptilandWorkbench.Core/Analysis/AnalysisCatalog.cs](../src/OptilandWorkbench.Core/Analysis/AnalysisCatalog.cs) | 197 | AnalysisCatalog, UnknownAnalysisException |
-| [src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs](../src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs) | 184 | AnalysisSeriesKind, AnalysisLineStyle, AnalysisMarkerStyle, AnalysisColorMap, AnalysisAxisQuantity, AnalysisAxisUnit, AnalysisPoint, AnalysisSeries, AnalysisPlotOptions, AnalysisPlotPane, AnalysisPlotMetric, AnalysisTable, AnalysisData |
+| [src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs](../src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs) | 198 | AnalysisSeriesKind, AnalysisLineStyle, AnalysisMarkerStyle, AnalysisColorMap, AnalysisAxisQuantity, AnalysisAxisUnit, AnalysisPoint, AnalysisSeries, AnalysisPlotOptions, AnalysisPlotPane, AnalysisPlotMetric, AnalysisTable, AnalysisData |
 | [src/OptilandWorkbench.Core/Analysis/AnalysisResourceLimits.cs](../src/OptilandWorkbench.Core/Analysis/AnalysisResourceLimits.cs) | 212 | AnalysisResourceLimits |
 | [src/OptilandWorkbench.Core/Analysis/BaseAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/BaseAnalysis.cs) | 28 | BaseAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/BestFitSphereEngine.cs](../src/OptilandWorkbench.Core/Analysis/BestFitSphereEngine.cs) | 33 | BestFitSphereResult, BestFitSphereEngine |
 | [src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs) | 528 | MmdftPsfAnalysis, HuygensPsfAnalysis, HuygensMtfAnalysis, DiffractionAnalysisPresentation |
-| [src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs) | 616 | PsfAnalysis, MtfAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs) | 463 | FftPsfCrossSectionAnalysis, FftLineEdgeSpreadAnalysis, HuygensPsfCrossSectionAnalysis, PsfProfilePresentation |
-| [src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs](../src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs) | 1593 | PsfResult, MtfResult, FftMtfDataType, DiffractionEngine |
+| [src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs) | 537 | PsfAnalysis, MtfAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs) | 465 | FftPsfCrossSectionAnalysis, FftLineEdgeSpreadAnalysis, HuygensPsfCrossSectionAnalysis, PsfProfilePresentation |
+| [src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs](../src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs) | 1678 | PsfResult, MtfResult, FftMtfDataType, DiffractionEngine |
 | [src/OptilandWorkbench.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs) | 390 | GeometricImageAnalysis, GeometricBitmapImageAnalysis, LightSourceAnalysis, PartiallyCoherentImageAnalysis, ExtendedDiffractionImageAnalysis, ExtendedSceneImageSupport |
 | [src/OptilandWorkbench.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs) | 206 | ImageSimulationAnalysis, JonesPupilAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Fields/AxialAberrationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/AxialAberrationAnalysis.cs) | 147 | AxialAberrationAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Fields/ColorFocusShiftAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/ColorFocusShiftAnalysis.cs) | 150 | ColorFocusShiftAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Fields/DistortionAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Fields/DistortionAnalyses.cs) | 473 | DistortionAnalysis, FieldCurvatureAndDistortionAnalysis, FieldCurvatureAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs) | 775 | RmsVsFieldAnalysis, RmsWavefrontVsFieldAnalysis, ZernikeVsFieldAnalysis, AngleScanMode, IncidentAngleVsImageHeightAnalysis, IncidentAngleVsHeightAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs) | 769 | RmsVsFieldAnalysis, RmsWavefrontVsFieldAnalysis, ZernikeVsFieldAnalysis, AngleScanMode, IncidentAngleVsImageHeightAnalysis, IncidentAngleVsHeightAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Fields/FullFieldAberrationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/FullFieldAberrationAnalysis.cs) | 227 | FullFieldAberrationAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Fields/GridDistortionAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/GridDistortionAnalysis.cs) | 321 | GridDistortionAnalysis, DistortionReferenceMapping |
+| [src/OptilandWorkbench.Core/Analysis/Fields/GridDistortionAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/GridDistortionAnalysis.cs) | 318 | GridDistortionAnalysis, DistortionReferenceMapping |
 | [src/OptilandWorkbench.Core/Analysis/Fields/LateralColorAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/LateralColorAnalysis.cs) | 247 | LateralColorAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Fields/YYbarAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Fields/YYbarAnalysis.cs) | 166 | YYbarAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs) | 529 | ThroughFocusSpotSettings, ThroughFocusAnalysis, ThroughFocusMtfAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs) | 528 | ThroughFocusSpotSettings, ThroughFocusAnalysis, ThroughFocusMtfAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/FootprintDiagramAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/FootprintDiagramAnalysis.cs) | 371 | FootprintDiagramAnalysis, SelectedField, PlotExtent |
-| [src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs) | 265 | GeometricMtfAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs) | 275 | GeometricMtfAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs](../src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs) | 1397 | ImageSimulationSourcePattern, ImageSimulationConfig, RgbImage, PsfBasisResult, ImageSimulationResult, ImageSimulationEngine |
-| [src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs](../src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs) | 255 | JonesPupilSample, JonesPupilResult, JonesPupilEngine, ComplexMatrix3x3 |
-| [src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs) | 1234 | MtfComputationMethod, MtfComputationSettings, MtfThroughFocusAnalysis, MtfVsFieldAnalysis, MtfMethodEvaluator |
-| [src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs) | 119 | NonSequentialDetectorViewerAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs) | 172 | NonSequentialRayTraceAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs](../src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs) | 256 | JonesPupilSample, JonesPupilResult, JonesPupilEngine, ComplexMatrix3x3 |
+| [src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs) | 1213 | MtfComputationMethod, MtfComputationSettings, MtfThroughFocusAnalysis, MtfVsFieldAnalysis, MtfMethodEvaluator |
+| [src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs) | 121 | NonSequentialDetectorViewerAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs) | 173 | NonSequentialRayTraceAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/RadiantIntensityAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/RadiantIntensityAnalysis.cs) | 310 | RadiantIntensityAnalysis, IntensityMap |
 | [src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs](../src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs) | 1093 | DiffractionEncircledEnergyAnalysis, DiffractionEnergyCurve, PsfPixelEnergyGrid, Pixel, GeometricLineEdgeSpreadAnalysis, ExtendedSourceEncircledEnergyAnalysis, EnergySample, EnergyCurveSupport |
 | [src/OptilandWorkbench.Core/Analysis/Radiometry/ExtendedSourceImage.cs](../src/OptilandWorkbench.Core/Analysis/Radiometry/ExtendedSourceImage.cs) | 116 | ExtendedSourceImage |
 | [src/OptilandWorkbench.Core/Analysis/Radiometry/IncoherentIrradianceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Radiometry/IncoherentIrradianceAnalysis.cs) | 249 | IncoherentIrradianceAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs) | 524 | EncircledEnergyAnalysis, FieldEnergyCurve, PupilAberrationAnalysis, RayFanSample, PupilWave |
-| [src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs) | 342 | AnalysisFieldSample, SpotRayData, SpotWavelengthData, SpotFieldData, SpotAnalysisResult, MtfPresentation, SpotAnalysisEngine |
-| [src/OptilandWorkbench.Core/Analysis/Rays/SpotAndRayAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotAndRayAnalyses.cs) | 611 | SpotDiagramSettings, SpotDiagramAnalysis, RayFanAnalysis, RayFanSample, RayFanWave, RayFanAberrationComponent |
-| [src/OptilandWorkbench.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs) | 332 | SpotDiagramVariant, SpotDiagramVariantAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs) | 409 | EncircledEnergyAnalysis, FieldEnergyCurve, PupilAberrationAnalysis, RayFanSample, PupilWave |
+| [src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs) | 361 | AnalysisFieldSample, SpotRayData, SpotWavelengthData, SpotFieldData, SpotAnalysisResult, MtfPresentation, SpotAnalysisEngine |
+| [src/OptilandWorkbench.Core/Analysis/Rays/SpotAndRayAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotAndRayAnalyses.cs) | 612 | SpotDiagramSettings, SpotDiagramAnalysis, RayFanAnalysis, RayFanSample, RayFanWave, RayFanAberrationComponent |
+| [src/OptilandWorkbench.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs) | 331 | SpotDiagramVariant, SpotDiagramVariantAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/RealImageFieldConversion.cs](../src/OptilandWorkbench.Core/Analysis/RealImageFieldConversion.cs) | 42 | RealImageFieldConversion |
 | [src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs) | 175 | ReferenceSphereWavefrontAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs](../src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs) | 239 | ReferenceSphereStrategy, ReferenceSphereWavefrontResult, ReferenceSphereWavefrontEngine, PreparedRay, PropagatedRay, Sphere |
-| [src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs) | 303 | RelativeIlluminationAnalysis, PupilNode, IlluminationResult |
+| [src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs) | 300 | RelativeIlluminationAnalysis, PupilNode, IlluminationResult |
 | [src/OptilandWorkbench.Core/Analysis/Reports/CardinalAndVignettingAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Reports/CardinalAndVignettingAnalyses.cs) | 155 | CardinalPointsDataAnalysis, VignettingDiagramAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Reports/FirstOrderAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Reports/FirstOrderAnalysis.cs) | 25 | FirstOrderAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs) | 302 | SeidelCoefficientsAnalysis, SeidelDiagramAnalysis |
+| [src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs) | 350 | SeidelCoefficientsAnalysis, SeidelDiagramAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Reports/SystemReportAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Reports/SystemReportAnalyses.cs) | 219 | PrescriptionReportAnalysis, SystemDataReportAnalysis, ClassifiedDataReportAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs) | 874 | RmsVsWavelengthAnalysis, RmsVsFocusAnalysis, RmsFieldMapAnalysis, RmsScanSupport |
+| [src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs) | 873 | RmsVsWavelengthAnalysis, RmsVsFocusAnalysis, RmsFieldMapAnalysis, RmsScanSupport |
 | [src/OptilandWorkbench.Core/Analysis/SampledMtfAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/SampledMtfAnalysis.cs) | 350 | SampledMtfAnalysis, ContrastLossMapAnalysis, ContrastLossMap |
-| [src/OptilandWorkbench.Core/Analysis/SampledMtfEngine.cs](../src/OptilandWorkbench.Core/Analysis/SampledMtfEngine.cs) | 145 | SampledMtfEngine, SampledMtfEvaluator |
+| [src/OptilandWorkbench.Core/Analysis/SampledMtfEngine.cs](../src/OptilandWorkbench.Core/Analysis/SampledMtfEngine.cs) | 148 | SampledMtfEngine, SampledMtfEvaluator |
 | [src/OptilandWorkbench.Core/Analysis/Shared/AiryDiskSupport.cs](../src/OptilandWorkbench.Core/Analysis/Shared/AiryDiskSupport.cs) | 60 | AiryDiskSupport |
 | [src/OptilandWorkbench.Core/Analysis/Shared/AnalysisTrace.cs](../src/OptilandWorkbench.Core/Analysis/Shared/AnalysisTrace.cs) | 537 | AnalysisTrace |
-| [src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs](../src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs) | 269 | ImageSpaceCoordinateKind, ImageSpaceCoordinateDescriptor, ImageSpaceAnalysisSupport |
+| [src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs](../src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs) | 270 | ImageSpaceCoordinateKind, ImageSpaceCoordinateDescriptor, ImageSpaceAnalysisSupport |
 | [src/OptilandWorkbench.Core/Analysis/Shared/MtfDataTypeSupport.cs](../src/OptilandWorkbench.Core/Analysis/Shared/MtfDataTypeSupport.cs) | 40 | MtfDataTypeSupport |
 | [src/OptilandWorkbench.Core/Analysis/Shared/QrLeastSquares.cs](../src/OptilandWorkbench.Core/Analysis/Shared/QrLeastSquares.cs) | 79 | QrLeastSquares |
-| [src/OptilandWorkbench.Core/Analysis/SingleRayTraceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/SingleRayTraceAnalysis.cs) | 662 | SingleRayTraceAnalysis, TraceDisplayRow |
-| [src/OptilandWorkbench.Core/Analysis/SpotMetricEvaluator.cs](../src/OptilandWorkbench.Core/Analysis/SpotMetricEvaluator.cs) | 243 | SpotMetricSummary, FocusMetricPoint, FocusMetricSummary, AnalysisDataUnavailableException, SpotMetricEvaluator, WeightedRadius, FocusMetricEvaluator, FocusSweepResult, FocusSweepEvaluator |
+| [src/OptilandWorkbench.Core/Analysis/SingleRayTraceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/SingleRayTraceAnalysis.cs) | 659 | SingleRayTraceAnalysis, TraceDisplayRow |
+| [src/OptilandWorkbench.Core/Analysis/SpotMetricEvaluator.cs](../src/OptilandWorkbench.Core/Analysis/SpotMetricEvaluator.cs) | 242 | SpotMetricSummary, FocusMetricPoint, FocusMetricSummary, AnalysisDataUnavailableException, SpotMetricEvaluator, WeightedRadius, FocusMetricEvaluator, FocusSweepResult, FocusSweepEvaluator |
 | [src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs) | 159 | FoucaultAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Wavefront/OpticalPathDifferenceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Wavefront/OpticalPathDifferenceAnalysis.cs) | 230 | OpticalPathDifferenceAnalysis, OpdWave |
 | [src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs) | 926 | ZernikeAnalysisKind, WavefrontAnalysis, ZernikeAnalysis |
-| [src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs](../src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs) | 467 | WavefrontSample, WavefrontResult, WavefrontReferenceSphere, WavefrontEngine |
+| [src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs](../src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs) | 489 | WavefrontSample, WavefrontResult, WavefrontReferenceSphere, WavefrontEngine |
 | [src/OptilandWorkbench.Core/Analysis/ZernikeFitEngine.cs](../src/OptilandWorkbench.Core/Analysis/ZernikeFitEngine.cs) | 377 | ZernikeCoefficient, ZernikeFitEngine |
 | [src/OptilandWorkbench.Core/Apertures/IPhysicalAperture.cs](../src/OptilandWorkbench.Core/Apertures/IPhysicalAperture.cs) | 411 | IPhysicalAperture, CircularAperture, AnnularAperture, OffsetRadialAperture, RectangularAperture, EllipticalAperture, PolygonAperture, FileAperture, BooleanAperture, UnionAperture, IntersectionAperture, DifferenceAperture, PhysicalApertureBounds, PhysicalApertureBoundsCalculator |
 | [src/OptilandWorkbench.Core/Apertures/SystemAperture.cs](../src/OptilandWorkbench.Core/Apertures/SystemAperture.cs) | 58 | ApertureKind, SystemAperture |
@@ -484,7 +477,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Backend/Matrix3x3.cs](../src/OptilandWorkbench.Core/Backend/Matrix3x3.cs) | 42 | Matrix3x3 |
 | [src/OptilandWorkbench.Core/Backend/NumericBackendProvider.cs](../src/OptilandWorkbench.Core/Backend/NumericBackendProvider.cs) | 48 | NumericBackendProvider |
 | [src/OptilandWorkbench.Core/Backend/Vector3D.cs](../src/OptilandWorkbench.Core/Backend/Vector3D.cs) | 38 | Vector3D |
-| [src/OptilandWorkbench.Core/Capabilities/OpticCapabilityPreflight.cs](../src/OptilandWorkbench.Core/Capabilities/OpticCapabilityPreflight.cs) | 108 | OpticCapabilityOperation, OpticCapabilityIssue, OpticCapabilityException, OpticCapabilityPreflight |
+| [src/OptilandWorkbench.Core/Capabilities/OpticCapabilityPreflight.cs](../src/OptilandWorkbench.Core/Capabilities/OpticCapabilityPreflight.cs) | 122 | OpticCapabilityOperation, OpticCapabilityIssue, OpticCapabilityException, OpticCapabilityPreflight |
 | [src/OptilandWorkbench.Core/Coatings/CoatingModels.cs](../src/OptilandWorkbench.Core/Coatings/CoatingModels.cs) | 130 | ICoatingModel, NoneCoatingModel, SimpleCoatingModel, ThinFilmLayer, ApproximateTransmissionRippleCoating, ThinFilmStackCoating, ApproximateTransmissionRippleDesigner, NeedleSynthesisDesigner |
 | [src/OptilandWorkbench.Core/Coordinates/CoordinateSystem.cs](../src/OptilandWorkbench.Core/Coordinates/CoordinateSystem.cs) | 57 | CoordinateSystem |
 | [src/OptilandWorkbench.Core/Domain/FieldCoordinates.cs](../src/OptilandWorkbench.Core/Domain/FieldCoordinates.cs) | 32 | FieldCoordinates |
@@ -497,14 +490,14 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Domain/OpticalSurface.cs](../src/OptilandWorkbench.Core/Domain/OpticalSurface.cs) | 493 | OpticalSurface, SurfaceRayTraceResult, SurfaceRayTraceValueResult |
 | [src/OptilandWorkbench.Core/Domain/OpticalSurface.StateTracing.cs](../src/OptilandWorkbench.Core/Domain/OpticalSurface.StateTracing.cs) | 195 | OpticalSurface, SurfaceInteractionStateContext, RayStateInteractionResult, SurfaceRayTraceStateResult |
 | [src/OptilandWorkbench.Core/Domain/RayPath.cs](../src/OptilandWorkbench.Core/Domain/RayPath.cs) | 13 | RayPoint, RaySegment, RayPath, RayTraceResult |
-| [src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs](../src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs) | 144 | SurfaceGroup |
+| [src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs](../src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs) | 156 | SurfaceGroup |
 | [src/OptilandWorkbench.Core/Domain/Wavelength.cs](../src/OptilandWorkbench.Core/Domain/Wavelength.cs) | 55 | Wavelength |
 | [src/OptilandWorkbench.Core/FileIO/BoundedFile.cs](../src/OptilandWorkbench.Core/FileIO/BoundedFile.cs) | 365 | BoundedFile, MaximumLengthWriteStream |
 | [src/OptilandWorkbench.Core/FileIO/CadLensMeshBuilder.cs](../src/OptilandWorkbench.Core/FileIO/CadLensMeshBuilder.cs) | 877 | CadLensMesh, CadLensMeshBuildResult, CadTriangle, CadLensMeshBuilder, SurfaceGrid, MeshAssembler, MeshIntersectionValidator, BvhNode, TriangleEntry, Bounds3, ValidatedMesh, EdgeKey, EdgeUse, VertexKey |
-| [src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs](../src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs) | 837 | IOpticalFormatImporter, IOpticalFormatExporter, SequentialSurfaceRecord, SequentialLensDocument, OpticalFormatCatalog, SequentialLensTextImporter, SequentialLensTextExporter, ZemaxZmxImporter, ZemaxZmxImportResult, ZemaxZmxExporter, CodeVSeqImporter, CodeVSeqExporter, OsloLenImporter, OsloLenExporter, SequentialLensParser, SequentialSurfaceBuilder |
+| [src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs](../src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs) | 847 | IOpticalFormatImporter, IOpticalFormatExporter, SequentialSurfaceRecord, SequentialLensDocument, OpticalFormatCatalog, SequentialLensTextImporter, SequentialLensTextExporter, ZemaxZmxImporter, ZemaxZmxImportResult, ZemaxZmxExporter, CodeVSeqImporter, CodeVSeqExporter, OsloLenImporter, OsloLenExporter, SequentialLensParser, SequentialSurfaceBuilder |
 | [src/OptilandWorkbench.Core/FileIO/StepCadAssemblyWriter.cs](../src/OptilandWorkbench.Core/FileIO/StepCadAssemblyWriter.cs) | 369 | StepCadDocument, StepCadAssemblyWriter, StepModel, ProductDefinitionIds, PendingPart |
 | [src/OptilandWorkbench.Core/FileIO/StepCadExporter.cs](../src/OptilandWorkbench.Core/FileIO/StepCadExporter.cs) | 34 | StepCadExportOptions, StepCadExporter |
-| [src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs](../src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs) | 1675 | ZemaxZmxReader, ZemaxDocument, ZemaxSurface, ZemaxAperture, ZemaxMarginalRayHeightSolve, ZemaxWavelength, ZemaxConfigurationOperand, ParsedField, ConvertedSurface |
+| [src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs](../src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs) | 1695 | ZemaxZmxReader, ZemaxDocument, ZemaxSurface, ZemaxAperture, ZemaxMarginalRayHeightSolve, ZemaxWavelength, ZemaxConfigurationOperand, ParsedField, ConvertedSurface |
 | [src/OptilandWorkbench.Core/Geometries/GeometryIntersectionSolver.cs](../src/OptilandWorkbench.Core/Geometries/GeometryIntersectionSolver.cs) | 335 | GeometryIntersectionSolver, Evaluation, Bracket, SearchResult |
 | [src/OptilandWorkbench.Core/Geometries/GeometryModels.cs](../src/OptilandWorkbench.Core/Geometries/GeometryModels.cs) | 807 | PlaneGeometry, PlaneGratingGeometry, StandardGratingGeometry, StandardGeometry, EvenAsphereGeometry, OddAsphereGeometry, BiconicGeometry, SeparableBiconicGeometry, ToroidalGeometry, PolynomialGeometry, ChebyshevGeometry, ZernikeGeometry, ForbesQGeometry, INonComputableGeometry, OpaqueGeometryPayload, GeometryMath |
 | [src/OptilandWorkbench.Core/Geometries/IGeometry.cs](../src/OptilandWorkbench.Core/Geometries/IGeometry.cs) | 65 | IntersectionStatus, IntersectionResult, IGeometry, IGratingGeometry |
@@ -516,7 +509,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Materials/IMaterial.cs](../src/OptilandWorkbench.Core/Materials/IMaterial.cs) | 293 | IMaterial, AirMaterial, ConstantIndexMaterial, CauchyMaterial, SellmeierMaterial, PolynomialDispersionMaterial, AbbeMaterial, MaterialInterpolation |
 | [src/OptilandWorkbench.Core/Materials/MaterialRegistry.cs](../src/OptilandWorkbench.Core/Materials/MaterialRegistry.cs) | 216 | MaterialRegistry |
 | [src/OptilandWorkbench.Core/Materials/ZemaxGlassCatalog.cs](../src/OptilandWorkbench.Core/Materials/ZemaxGlassCatalog.cs) | 612 | OpticalGlassCatalogDocument, OpticalGlassCatalogBundle, OpticalGlassDefinition, OpticalGlassTransmission, OpticalGlassStressData, ZemaxAgfCatalogReader, OptilandGlassCatalogStore, ExternalGlassCatalogDatabase |
-| [src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs) | 346 | MultiConfigurationLinkOverride, MultiConfiguration |
+| [src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs) | 363 | MultiConfigurationLinkOverride, MultiConfiguration |
 | [src/OptilandWorkbench.Core/NonSequential/NonSequentialDetectorReconstruction.cs](../src/OptilandWorkbench.Core/NonSequential/NonSequentialDetectorReconstruction.cs) | 199 | NonSequentialDetectorReconstruction, DetectorHitWithinBranch, Accumulator |
 | [src/OptilandWorkbench.Core/NonSequential/NonSequentialDocument.cs](../src/OptilandWorkbench.Core/NonSequential/NonSequentialDocument.cs) | 1114 | NonSequentialObjectKind, NonSequentialSourceApertureShape, NonSequentialSurfaceSourceAngularDistribution, NonSequentialVolumeSourceAngularDistribution, NonSequentialSurfaceBehavior, NonSequentialWavelength, NonSequentialTraceSettings, NonSequentialObjectParameters, SourceParameters, SourceRayParameters, SourcePointParameters, SourceRectangleParameters, SourceGaussianParameters, SourceEllipseParameters, SourceTwoAngleParameters, SourceRadialSample, SourceRadialParameters, SourceVolumeRectangleParameters, SourceVolumeEllipseParameters, SourceVolumeCylinderParameters, PlaneRectangleParameters, SphereParameters, CylinderParameters, BoxParameters, StandardLensParameters, MeshObjectParameters, DetectorRectangleParameters, NonSequentialObjectDefinition, NonSequentialDocument |
 | [src/OptilandWorkbench.Core/NonSequential/NonSequentialMesh.cs](../src/OptilandWorkbench.Core/NonSequential/NonSequentialMesh.cs) | 1428 | NonSequentialMeshUnit, NonSequentialMeshTriangle, NonSequentialMeshHit, NonSequentialMeshAsset, NonSequentialMeshGeometry, NonSequentialMeshCodec, NonSequentialStlImporter, RawTriangle, Point2, VertexKey, FaceKey, EdgeKey, EdgeOccurrence, NormalizedMesh, NonSequentialTriangleBvh, Node, Bounds3 |
@@ -539,40 +532,33 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Raytrace/NonSequentialRayTracer.cs](../src/OptilandWorkbench.Core/Raytrace/NonSequentialRayTracer.cs) | 398 | NonSequentialTerminationReason, NonSequentialTraceOptions, NonSequentialObject, NonSequentialScene, NonSequentialInteraction, NonSequentialRayPath, NonSequentialTrace, NonSequentialRayTracer, CandidateHit |
 | [src/OptilandWorkbench.Core/Raytrace/PooledDirectionBatch.cs](../src/OptilandWorkbench.Core/Raytrace/PooledDirectionBatch.cs) | 102 | PooledDirectionBatch |
 | [src/OptilandWorkbench.Core/Raytrace/PooledRayStateBuffer.cs](../src/OptilandWorkbench.Core/Raytrace/PooledRayStateBuffer.cs) | 135 | PooledRayStateBuffer |
-| [src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs](../src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs) | 1262 | RayGenerationSettings, RayGenerator, FieldRayContext, RayAimingException |
+| [src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs](../src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs) | 1282 | RayGenerationSettings, RayGenerator, FieldRayContext, RayAimingException |
 | [src/OptilandWorkbench.Core/Raytrace/RayTraceCache.cs](../src/OptilandWorkbench.Core/Raytrace/RayTraceCache.cs) | 247 | RayTraceCacheStatistics, RayTraceCache, RayTraceCacheKey, RaySignature, RayTraceCacheEntry |
 | [src/OptilandWorkbench.Core/Raytrace/RayTraceCacheBinding.cs](../src/OptilandWorkbench.Core/Raytrace/RayTraceCacheBinding.cs) | 73 | RayTraceCacheBinding |
-| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Batched.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Batched.cs) | 207 | SequentialRayTracer |
-| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.BatchedSurface.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.BatchedSurface.cs) | 408 | SequentialRayTracer, SurfaceBatchWorkspace |
-| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs) | 449 | SequentialTrace, SequentialRayTracer |
+| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Batched.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Batched.cs) | 208 | SequentialRayTracer |
+| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.BatchedSurface.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.BatchedSurface.cs) | 409 | SequentialRayTracer, SurfaceBatchWorkspace |
+| [src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs) | 481 | SequentialTrace, SequentialRayTracer |
 | [src/OptilandWorkbench.Core/Raytrace/SurfaceTraceData.cs](../src/OptilandWorkbench.Core/Raytrace/SurfaceTraceData.cs) | 43 | SurfaceTraceData, SurfaceTraceRecord |
 | [src/OptilandWorkbench.Core/Raytrace/TraceRequest.cs](../src/OptilandWorkbench.Core/Raytrace/TraceRequest.cs) | 264 | TraceRetention, SequentialTraceLimits, TraceRequest, RequestedTrace, RaySampleView, SurfaceSampleView |
 | [src/OptilandWorkbench.Core/Scattering/ScatteringModels.cs](../src/OptilandWorkbench.Core/Scattering/ScatteringModels.cs) | 78 | IScatteringModel, MainRayScatterLossApproximation, LambertianScatteringModel, MeanMeasuredScatterLoss, MeasuredBsdfScatteringModel |
-| [src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs](../src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs) | 761 | ComponentSnapshot, ComponentSnapshotFactory |
-| [src/OptilandWorkbench.Core/Serialization/OpticJsonStore.cs](../src/OptilandWorkbench.Core/Serialization/OpticJsonStore.cs) | 45 | OpticJsonStore |
+| [src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs](../src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs) | 771 | ComponentSnapshot, ComponentSnapshotFactory |
+| [src/OptilandWorkbench.Core/Serialization/OpticJsonStore.cs](../src/OptilandWorkbench.Core/Serialization/OpticJsonStore.cs) | 40 | OpticJsonStore |
 | [src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs](../src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs) | 120 | OpticSnapshot, EnvironmentSnapshot, MeritOperandSnapshot, ApertureSnapshot, FieldPointSnapshot, WavelengthSnapshot, RadiusPickupSnapshot, SolveSettingsSnapshot, SurfaceSnapshot, CoordinateSystemSnapshot, SurfaceComponentSnapshot |
 | [src/OptilandWorkbench.Core/Serialization/OpticSnapshotMigration.cs](../src/OptilandWorkbench.Core/Serialization/OpticSnapshotMigration.cs) | 164 | OpticSnapshotMigration |
-| [src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs](../src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs) | 1215 | OpticSnapshotValidator, ComponentRole |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonConversion.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonConversion.cs) | 467 | PythonOptilandJsonConversion |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonReader.Components.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonReader.Components.cs) | 721 | PythonOptilandJsonReader |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonReader.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonReader.cs) | 117 | PythonOptilandJsonReader |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonStore.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonStore.cs) | 27 | PythonOptilandJsonStore |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonWriter.Components.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonWriter.Components.cs) | 584 | PythonOptilandJsonWriter |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonWriter.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandJsonWriter.cs) | 73 | PythonOptilandJsonWriter |
-| [src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandModels.cs](../src/OptilandWorkbench.Core/Serialization/PythonOptiland/PythonOptilandModels.cs) | 21 | ParsedSurface, ParsedInteraction |
+| [src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs](../src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs) | 1226 | OpticSnapshotValidator, ComponentRole |
 | [src/OptilandWorkbench.Core/Serialization/StarOptProjectStore.cs](../src/OptilandWorkbench.Core/Serialization/StarOptProjectStore.cs) | 465 | StarOptProjectDocument, StarOptProjectStore, StarOptProjectSnapshot |
 | [src/OptilandWorkbench.Core/Serialization/SurfaceSnapshotCompatibility.cs](../src/OptilandWorkbench.Core/Serialization/SurfaceSnapshotCompatibility.cs) | 226 | SurfaceSnapshotCompatibility |
 | [src/OptilandWorkbench.Core/Services/AutomaticSemiDiameterSolver.cs](../src/OptilandWorkbench.Core/Services/AutomaticSemiDiameterSolver.cs) | 97 | AutomaticSemiDiameterSolver |
 | [src/OptilandWorkbench.Core/Services/ComputationCancellation.cs](../src/OptilandWorkbench.Core/Services/ComputationCancellation.cs) | 28 | ComputationCancellation, Scope |
 | [src/OptilandWorkbench.Core/Services/ComputationParallelism.cs](../src/OptilandWorkbench.Core/Services/ComputationParallelism.cs) | 30 | ComputationParallelism, SuppressionScope |
-| [src/OptilandWorkbench.Core/Services/Paraxial.cs](../src/OptilandWorkbench.Core/Services/Paraxial.cs) | 641 | ParaxialTrace, CardinalPointEstimate, Paraxial, RayMatrix |
-| [src/OptilandWorkbench.Core/Services/PickupManager.cs](../src/OptilandWorkbench.Core/Services/PickupManager.cs) | 80 | RadiusPickup, PickupManager |
+| [src/OptilandWorkbench.Core/Services/Paraxial.cs](../src/OptilandWorkbench.Core/Services/Paraxial.cs) | 623 | ParaxialTrace, CardinalPointEstimate, Paraxial, RayMatrix |
+| [src/OptilandWorkbench.Core/Services/PickupManager.cs](../src/OptilandWorkbench.Core/Services/PickupManager.cs) | 109 | RadiusPickup, PickupManager |
 | [src/OptilandWorkbench.Core/Services/RealRayTracer.cs](../src/OptilandWorkbench.Core/Services/RealRayTracer.cs) | 61 | RealRayTracer |
 | [src/OptilandWorkbench.Core/Services/SolveManager.cs](../src/OptilandWorkbench.Core/Services/SolveManager.cs) | 36 | SolveManager |
 | [src/OptilandWorkbench.Core/Services/UndoRedoManager.cs](../src/OptilandWorkbench.Core/Services/UndoRedoManager.cs) | 76 | UndoRedoManager |
 | [src/OptilandWorkbench.Core/Sources/SourceModels.cs](../src/OptilandWorkbench.Core/Sources/SourceModels.cs) | 112 | ISource, PointSource, SingleModeFiberSource |
 | [src/OptilandWorkbench.Core/Tolerancing/TolerancingFramework.cs](../src/OptilandWorkbench.Core/Tolerancing/TolerancingFramework.cs) | 921 | IPerturbation, ISampledPerturbation, IRangePerturbation, IScaledRangePerturbation, DelegatePerturbation, ISampler, NormalSampler, UniformSampler, ConstantSampler, VariablePerturbation, VariableRangePerturbation, Tolerancing, SensitivityResult, InverseToleranceEndpointStatus, InverseToleranceEndpointResult, InverseSensitivityResult, SensitivityAnalysis, ToleranceEvaluation, TolerancingTrialResult, MonteCarlo |
-| [src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs](../src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs) | 1178 | Layout2DPoint, Layout3DPoint, Layout2DDirection, Layout3DDirection, LayoutRayInteractionType, LayoutRaySegmentType, Layout2DRaySegment, Layout3DRaySegment, Layout3DSurfaceFace, Layout2DSurfaceCurve, Layout2DLensEdge, LayoutBuildOptions, Layout2DLensElement, Layout2DRayPath, Layout2DScene, Layout3DSurfacePrimitive, Layout3DLensElement, Layout3DRayPath, Layout3DScene, Layout2DBuilder, ViewerRaySpec |
+| [src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs](../src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs) | 1192 | Layout2DPoint, Layout3DPoint, Layout2DDirection, Layout3DDirection, LayoutRayInteractionType, LayoutRaySegmentType, Layout2DRaySegment, Layout3DRaySegment, Layout3DSurfaceFace, Layout2DSurfaceCurve, Layout2DLensEdge, LayoutBuildOptions, Layout2DLensElement, Layout2DRayPath, Layout2DScene, Layout3DSurfacePrimitive, Layout3DLensElement, Layout3DRayPath, Layout3DScene, Layout2DBuilder, ViewerRaySpec |
 
 ### tests
 
@@ -581,7 +567,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tests/OptilandWorkbench.Tests/AccessibilityAndResponsiveLayoutTests.cs](../tests/OptilandWorkbench.Tests/AccessibilityAndResponsiveLayoutTests.cs) | 490 | AccessibilityAndResponsiveLayoutTests, LayoutLensLibraryService, EmptyMaterialCatalogService |
 | [tests/OptilandWorkbench.Tests/ActualFieldSamplingTests.cs](../tests/OptilandWorkbench.Tests/ActualFieldSamplingTests.cs) | 98 | ActualFieldSamplingTests |
 | [tests/OptilandWorkbench.Tests/AfocalImageSpaceAnalysisTests.cs](../tests/OptilandWorkbench.Tests/AfocalImageSpaceAnalysisTests.cs) | 241 | AfocalImageSpaceAnalysisTests |
-| [tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs](../tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs) | 2816 | AnalysisGuiContractTests |
+| [tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs](../tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs) | 2883 | AnalysisGuiContractTests |
 | [tests/OptilandWorkbench.Tests/AnalysisPresetBoundaryTests.cs](../tests/OptilandWorkbench.Tests/AnalysisPresetBoundaryTests.cs) | 44 | AnalysisPresetBoundaryTests |
 | [tests/OptilandWorkbench.Tests/AppStartupTests.cs](../tests/OptilandWorkbench.Tests/AppStartupTests.cs) | 52 | AppStartupTests |
 | [tests/OptilandWorkbench.Tests/ArchitectureConvergenceTests.cs](../tests/OptilandWorkbench.Tests/ArchitectureConvergenceTests.cs) | 399 | ArchitectureConvergenceTests, ClosedAperture |
@@ -596,25 +582,25 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tests/OptilandWorkbench.Tests/CadExportTests.cs](../tests/OptilandWorkbench.Tests/CadExportTests.cs) | 98 | CadExportTests |
 | [tests/OptilandWorkbench.Tests/ColorFocusShiftAnalysisTests.cs](../tests/OptilandWorkbench.Tests/ColorFocusShiftAnalysisTests.cs) | 48 | ColorFocusShiftAnalysisTests |
 | [tests/OptilandWorkbench.Tests/CommercialLensCatalogPanelTests.cs](../tests/OptilandWorkbench.Tests/CommercialLensCatalogPanelTests.cs) | 93 | CommercialLensCatalogPanelTests |
-| [tests/OptilandWorkbench.Tests/CookeTripletGoldenTests.cs](../tests/OptilandWorkbench.Tests/CookeTripletGoldenTests.cs) | 2137 | CookeTripletGoldenTests |
+| [tests/OptilandWorkbench.Tests/Validation/History/CookeTripletGoldenTests.cs](../tests/OptilandWorkbench.Tests/Validation/History/CookeTripletGoldenTests.cs) | 1013 | CookeTripletGoldenTests |
 | [tests/OptilandWorkbench.Tests/CoreArchitectureTests.cs](../tests/OptilandWorkbench.Tests/CoreArchitectureTests.cs) | 387 | CoreArchitectureTests |
 | [tests/OptilandWorkbench.Tests/DielectricGlassMaterialTests.cs](../tests/OptilandWorkbench.Tests/DielectricGlassMaterialTests.cs) | 21 | DielectricGlassMaterialTests |
 | [tests/OptilandWorkbench.Tests/DocumentRevisionAndSaveTests.cs](../tests/OptilandWorkbench.Tests/DocumentRevisionAndSaveTests.cs) | 185 | DocumentRevisionAndSaveTests |
 | [tests/OptilandWorkbench.Tests/EncircledEnergyVariantTests.cs](../tests/OptilandWorkbench.Tests/EncircledEnergyVariantTests.cs) | 120 | EncircledEnergyVariantTests |
 | [tests/OptilandWorkbench.Tests/ExtendedImageAnalysisTests.cs](../tests/OptilandWorkbench.Tests/ExtendedImageAnalysisTests.cs) | 123 | ExtendedImageAnalysisTests |
-| [tests/OptilandWorkbench.Tests/FieldDefinitionParityTests.cs](../tests/OptilandWorkbench.Tests/FieldDefinitionParityTests.cs) | 399 | FieldDefinitionParityTests |
+| [tests/OptilandWorkbench.Tests/Validation/History/FieldDefinitionParityTests.cs](../tests/OptilandWorkbench.Tests/Validation/History/FieldDefinitionParityTests.cs) | 394 | FieldDefinitionParityTests |
 | [tests/OptilandWorkbench.Tests/FootprintDiagramLegendTests.cs](../tests/OptilandWorkbench.Tests/FootprintDiagramLegendTests.cs) | 63 | FootprintDiagramLegendTests |
 | [tests/OptilandWorkbench.Tests/FormatFuzzTests.cs](../tests/OptilandWorkbench.Tests/FormatFuzzTests.cs) | 133 | FormatFuzzTests |
 | [tests/OptilandWorkbench.Tests/FoucaultAnalysisTests.cs](../tests/OptilandWorkbench.Tests/FoucaultAnalysisTests.cs) | 49 | FoucaultAnalysisTests |
 | [tests/OptilandWorkbench.Tests/FullFieldAberrationAnalysisTests.cs](../tests/OptilandWorkbench.Tests/FullFieldAberrationAnalysisTests.cs) | 59 | FullFieldAberrationAnalysisTests |
 | [tests/OptilandWorkbench.Tests/GeometryIntersectionResultTests.cs](../tests/OptilandWorkbench.Tests/GeometryIntersectionResultTests.cs) | 113 | GeometryIntersectionResultTests |
-| [tests/OptilandWorkbench.Tests/GlassCatalogTests.cs](../tests/OptilandWorkbench.Tests/GlassCatalogTests.cs) | 347 | GlassCatalogTests |
+| [tests/OptilandWorkbench.Tests/GlassCatalogTests.cs](../tests/OptilandWorkbench.Tests/GlassCatalogTests.cs) | 349 | GlassCatalogTests |
 | [tests/OptilandWorkbench.Tests/GuiAnalysisCaptureRequestTests.cs](../tests/OptilandWorkbench.Tests/GuiAnalysisCaptureRequestTests.cs) | 42 | GuiAnalysisCaptureRequestTests |
 | [tests/OptilandWorkbench.Tests/HighPerformanceTracingTests.cs](../tests/OptilandWorkbench.Tests/HighPerformanceTracingTests.cs) | 288 | HighPerformanceTracingTests |
 | [tests/OptilandWorkbench.Tests/HighPriorityReliabilityTests.cs](../tests/OptilandWorkbench.Tests/HighPriorityReliabilityTests.cs) | 478 | HighPriorityReliabilityTests |
 | [tests/OptilandWorkbench.Tests/IncidentAngleVsImageHeightParityTests.cs](../tests/OptilandWorkbench.Tests/IncidentAngleVsImageHeightParityTests.cs) | 74 | IncidentAngleVsImageHeightParityTests |
 | [tests/OptilandWorkbench.Tests/LateralColorAnalysisTests.cs](../tests/OptilandWorkbench.Tests/LateralColorAnalysisTests.cs) | 47 | LateralColorAnalysisTests |
-| [tests/OptilandWorkbench.Tests/LayeringArchitectureTests.cs](../tests/OptilandWorkbench.Tests/LayeringArchitectureTests.cs) | 543 | LayeringArchitectureTests |
+| [tests/OptilandWorkbench.Tests/LayeringArchitectureTests.cs](../tests/OptilandWorkbench.Tests/LayeringArchitectureTests.cs) | 522 | LayeringArchitectureTests |
 | [tests/OptilandWorkbench.Tests/LensEditorLayoutTests.cs](../tests/OptilandWorkbench.Tests/LensEditorLayoutTests.cs) | 49 | LensEditorLayoutTests |
 | [tests/OptilandWorkbench.Tests/LensLibraryPublisherTests.cs](../tests/OptilandWorkbench.Tests/LensLibraryPublisherTests.cs) | 137 | LensLibraryPublisherTests |
 | [tests/OptilandWorkbench.Tests/LensLibraryTests.cs](../tests/OptilandWorkbench.Tests/LensLibraryTests.cs) | 412 | LensLibraryTests |
@@ -629,17 +615,17 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tests/OptilandWorkbench.Tests/NonSequentialTeachingSampleTests.cs](../tests/OptilandWorkbench.Tests/NonSequentialTeachingSampleTests.cs) | 186 | NonSequentialTeachingSampleTests, SampleManifest, SampleManifestEntry, DetectorResult, DoubleArrayComparer |
 | [tests/OptilandWorkbench.Tests/OperandHelpTests.cs](../tests/OptilandWorkbench.Tests/OperandHelpTests.cs) | 141 | OperandHelpTests |
 | [tests/OptilandWorkbench.Tests/OpticalPathDifferenceAnalysisTests.cs](../tests/OptilandWorkbench.Tests/OpticalPathDifferenceAnalysisTests.cs) | 54 | OpticalPathDifferenceAnalysisTests |
-| [tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs](../tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs) | 232 | OpticCapabilityPreflightTests |
+| [tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs](../tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs) | 231 | OpticCapabilityPreflightTests |
 | [tests/OptilandWorkbench.Tests/OpticSnapshotValidationTests.cs](../tests/OptilandWorkbench.Tests/OpticSnapshotValidationTests.cs) | 716 | OpticSnapshotValidationTests |
 | [tests/OptilandWorkbench.Tests/OptilandParityTests.cs](../tests/OptilandWorkbench.Tests/OptilandParityTests.cs) | 2029 | OptilandParityTests, TestOptilandPlugin, TestPluginAnalysis, FailingOptilandPlugin |
 | [tests/OptilandWorkbench.Tests/ParallelMonteCarloConfigurationTests.cs](../tests/OptilandWorkbench.Tests/ParallelMonteCarloConfigurationTests.cs) | 44 | ParallelMonteCarloConfigurationTests |
 | [tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs](../tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs) | 36 | PolarizationPsfLabelTests |
-| [tests/OptilandWorkbench.Tests/PythonAnalysisParityTests.cs](../tests/OptilandWorkbench.Tests/PythonAnalysisParityTests.cs) | 1904 | PythonAnalysisParityTests, ZeroApodization |
+| [tests/OptilandWorkbench.Tests/Validation/History/FrozenAnalysisRegressionTests.cs](../tests/OptilandWorkbench.Tests/Validation/History/FrozenAnalysisRegressionTests.cs) | 1881 | FrozenAnalysisRegressionTests, ZeroApodization |
 | [tests/OptilandWorkbench.Tests/RelativeIlluminationTests.cs](../tests/OptilandWorkbench.Tests/RelativeIlluminationTests.cs) | 134 | RelativeIlluminationTests |
 | [tests/OptilandWorkbench.Tests/ReliabilityHardeningTests.cs](../tests/OptilandWorkbench.Tests/ReliabilityHardeningTests.cs) | 290 | ReliabilityHardeningTests |
 | [tests/OptilandWorkbench.Tests/RmsAnalysisTests.cs](../tests/OptilandWorkbench.Tests/RmsAnalysisTests.cs) | 146 | RmsAnalysisTests |
 | [tests/OptilandWorkbench.Tests/ScalarBackendAdapterTests.cs](../tests/OptilandWorkbench.Tests/ScalarBackendAdapterTests.cs) | 66 | ScalarBackendAdapterTests, DelegatingScalarBackend |
-| [tests/OptilandWorkbench.Tests/SeidelCoefficientsAnalysisTests.cs](../tests/OptilandWorkbench.Tests/SeidelCoefficientsAnalysisTests.cs) | 74 | SeidelCoefficientsAnalysisTests |
+| [tests/OptilandWorkbench.Tests/SeidelCoefficientsAnalysisTests.cs](../tests/OptilandWorkbench.Tests/SeidelCoefficientsAnalysisTests.cs) | 252 | SeidelCoefficientsAnalysisTests |
 | [tests/OptilandWorkbench.Tests/SingleRayTraceAnalysisTests.cs](../tests/OptilandWorkbench.Tests/SingleRayTraceAnalysisTests.cs) | 162 | SingleRayTraceAnalysisTests |
 | [tests/OptilandWorkbench.Tests/SourceModelTests.cs](../tests/OptilandWorkbench.Tests/SourceModelTests.cs) | 52 | SourceModelTests |
 | [tests/OptilandWorkbench.Tests/SpotDiagramFieldTests.cs](../tests/OptilandWorkbench.Tests/SpotDiagramFieldTests.cs) | 179 | SpotDiagramFieldTests |
@@ -653,7 +639,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs](../tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs) | 747 | TolerancingWorkflowTests |
 | [tests/OptilandWorkbench.Tests/TracingEdgeCaseTests.cs](../tests/OptilandWorkbench.Tests/TracingEdgeCaseTests.cs) | 168 | TracingEdgeCaseTests, ThrowingGeometry |
 | [tests/OptilandWorkbench.Tests/UnsavedChangesGuardTests.cs](../tests/OptilandWorkbench.Tests/UnsavedChangesGuardTests.cs) | 66 | UnsavedChangesGuardTests |
-| [tests/OptilandWorkbench.Tests/ViewerInteractionTests.cs](../tests/OptilandWorkbench.Tests/ViewerInteractionTests.cs) | 251 | ViewerInteractionTests |
+| [tests/OptilandWorkbench.Tests/ViewerInteractionTests.cs](../tests/OptilandWorkbench.Tests/ViewerInteractionTests.cs) | 261 | ViewerInteractionTests |
 | [tests/OptilandWorkbench.Tests/WavefrontMapAnalysisTests.cs](../tests/OptilandWorkbench.Tests/WavefrontMapAnalysisTests.cs) | 36 | WavefrontMapAnalysisTests |
 | [tests/OptilandWorkbench.Tests/WavefrontSurfaceRenderTests.cs](../tests/OptilandWorkbench.Tests/WavefrontSurfaceRenderTests.cs) | 146 | WavefrontSurfaceRenderTests, HeadlessAvaloniaCollection, HeadlessTestApplication, SafeHeadlessUnitTestSession |
 | [tests/OptilandWorkbench.Tests/WindowsFileAssociationTests.cs](../tests/OptilandWorkbench.Tests/WindowsFileAssociationTests.cs) | 76 | WindowsFileAssociationTests |
@@ -684,7 +670,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | 文件 | 行数 | 类型或脚本函数 |
 | --- | ---: | --- |
 | [tools/Import-Public-ZemaxCorpus.ps1](../tools/Import-Public-ZemaxCorpus.ps1) | 207 | Get-SafeName |
-| [tools/OptilandWorkbench.AccuracyCapture/Program.cs](../tools/OptilandWorkbench.AccuracyCapture/Program.cs) | 179 | SettingsManifest, SettingsAnalysis, AnalysisRun, CurrentManifest |
+| [tools/OptilandWorkbench.AccuracyCapture/Program.cs](../tools/OptilandWorkbench.AccuracyCapture/Program.cs) | 208 | SettingsManifest, SettingsAnalysis, AnalysisRun, CurrentManifest |
 | [tools/OptilandWorkbench.Benchmarks/Program.cs](../tools/OptilandWorkbench.Benchmarks/Program.cs) | 345 | 入口、程序集属性、构建或辅助脚本 |
 | [tools/OptilandWorkbench.GlassCatalogConverter/Program.cs](../tools/OptilandWorkbench.GlassCatalogConverter/Program.cs) | 88 | 入口、程序集属性、构建或辅助脚本 |
 | [tools/OptilandWorkbench.LensLibraryBuilder/LensLibraryPublisher.cs](../tools/OptilandWorkbench.LensLibraryBuilder/LensLibraryPublisher.cs) | 184 | LensLibraryPublishPhase, LensLibraryPublisher |
@@ -694,26 +680,14 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tools/OptilandWorkbench.NonSequentialSamples/Program.cs](../tools/OptilandWorkbench.NonSequentialSamples/Program.cs) | 833 | TeachingSample, SampleManifest, SampleManifestEntry, DetectorResult |
 | [tools/OptilandWorkbench.ZemaxLibraryImporter/Program.cs](../tools/OptilandWorkbench.ZemaxLibraryImporter/Program.cs) | 234 | ParsedArguments |
 | [tools/OptilandWorkbench.ZemaxLibraryImporter/ZemaxLibraryInstaller.cs](../tools/OptilandWorkbench.ZemaxLibraryImporter/ZemaxLibraryInstaller.cs) | 362 | ZemaxLibraryInstallOptions, ZemaxLibraryInstallResult, ZemaxLibraryInstaller, PreparedFile |
-| [tools/python-reference/generate_analysis_reference.py](../tools/python-reference/generate_analysis_reference.py) | 991 | array, plot_metadata, save_plot, jones_pupil_data, component, image_test_chart, polynomial_features, distortion_grid, bilinear_warp, value, reference_sphere_wavefront_data, psf_mtf_from_psf, alternate_psf_data, image_simulation_data, analyze, main |
-| [tools/python-reference/generate_aperture_reference.py](../tools/python-reference/generate_aperture_reference.py) | 125 | aperture_case, json_value, main |
-| [tools/python-reference/generate_apodization_reference.py](../tools/python-reference/generate_apodization_reference.py) | 70 | apodization_case, main |
-| [tools/python-reference/generate_cooke_reference.py](../tools/python-reference/generate_cooke_reference.py) | 112 | values, scalar, trace_case, bundle_case, main |
-| [tools/python-reference/generate_diffractive_reference.py](../tools/python-reference/generate_diffractive_reference.py) | 157 | json_value, make_model, real_samples, paraxial_samples, case, main |
-| [tools/python-reference/generate_field_definition_reference.py](../tools/python-reference/generate_field_definition_reference.py) | 205 | json_value, finite_system, configure, coordinate_offset, ray_data, initial_ray, final_generic_ray, unit_chief_ray, paraxial_trace, case, main |
-| [tools/python-reference/generate_glass_catalog.py](../tools/python-reference/generate_glass_catalog.py) | 102 | numbers, table, generate, main |
-| [tools/python-reference/generate_glass_reference.py](../tools/python-reference/generate_glass_reference.py) | 66 | scalar, generate, main |
-| [tools/python-reference/generate_phase_reference.py](../tools/python-reference/generate_phase_reference.py) | 161 | json_value, profile_case, interaction_case, main |
-| [tools/python-reference/generate_tessar_reference.py](../tools/python-reference/generate_tessar_reference.py) | 111 | values, scalar, trace_case, bundle_case, main |
-| [tools/python-reference/generate_thin_lens_reference.py](../tools/python-reference/generate_thin_lens_reference.py) | 150 | json_value, make_model, real_samples, paraxial_samples, case, main |
-| [tools/python-reference/generate_zemax_reference.py](../tools/python-reference/generate_zemax_reference.py) | 95 | scalar, material_name, geometry_data, generate, main |
 | [tools/round_brand_icon.py](../tools/round_brand_icon.py) | 60 | rounded_icon, main |
 | [tools/step_validation/validate_freecad_import.py](../tools/step_validation/validate_freecad_import.py) | 91 | solid_key, validate, main |
 | [tools/Sync-DanReileyLensExchange.ps1](../tools/Sync-DanReileyLensExchange.ps1) | 350 | Get-SafePathSegment, Get-RelativePath, Test-DownloadedContent |
 | [tools/Sync-Public-ZemaxCorpus.ps1](../tools/Sync-Public-ZemaxCorpus.ps1) | 377 | Test-OpenLicense, Get-SafePathSegment, Get-RelativePath, Get-Json, Save-PublicFile, Expand-ZipSafely |
 | [tools/zemax_parity/generate_gui_image_report.py](../tools/zemax_parity/generate_gui_image_report.py) | 216 | _relative, _zemax_screenshot, _reference_kind, build_report, _image_figure, render_html, render_markdown, main |
-| [tools/zemax_parity/generate_workbench_comparison.py](../tools/zemax_parity/generate_workbench_comparison.py) | 1162 | configure_fonts, stable_curve_details, numeric_mapping_exclusion, read_json, slug, finite_array, current_series, zemax_series, select_named, interpolate_parameter, curve_value_scales, nrmse, compare_curves, current_grids, series_grid, zemax_centered_wavefront_grids, zemax_grids, resize_grid, orientations, compare_grids, classification, render_numeric, is_five_field_two_direction_layout, pane_grid_shape, five_field_position, apply_axis_options, render_series_axis, render_pane_placeholder, render_current_plot_panes, render_current_page, fit_image, compose_screenshot, format_percent, main |
+| [tools/zemax_parity/generate_workbench_comparison.py](../tools/zemax_parity/generate_workbench_comparison.py) | 1287 | configure_fonts, stable_curve_details, numeric_mapping_exclusion, read_json, slug, finite_array, current_series, zemax_series, select_named, interpolate_parameter, curve_value_scales, nrmse, compare_curves, current_grids, series_grid, zemax_centered_wavefront_grids, zemax_grids, resize_grid, orientations, compare_grids, classification, render_numeric, is_five_field_two_direction_layout, pane_grid_shape, five_field_position, apply_axis_options, render_series_axis, render_pane_placeholder, render_current_plot_panes, render_current_page, fit_image, compose_screenshot, format_percent, main |
 | [tools/zemax_parity/tests/test_generate_gui_image_report.py](../tools/zemax_parity/tests/test_generate_gui_image_report.py) | 57 | GuiImageReportTests |
-| [tools/zemax_parity/tests/test_generate_workbench_comparison.py](../tools/zemax_parity/tests/test_generate_workbench_comparison.py) | 196 | NumericMappingSemanticsTests |
+| [tools/zemax_parity/tests/test_generate_workbench_comparison.py](../tools/zemax_parity/tests/test_generate_workbench_comparison.py) | 303 | NumericMappingSemanticsTests |
 | [tools/zemax_parity/verify_baseline.py](../tools/zemax_parity/verify_baseline.py) | 101 | read_json, parse_args, main |
 | [tools/zemax_parity/zosapi_capture_baseline.py](../tools/zemax_parity/zosapi_capture_baseline.py) | 906 | utc_now, sha256, slug, finite, vector, matrix, simple_object, serialize_results, write_json, render_fallback, wait_for_analysis, capture_data, capture_zpl_screenshots, parse_args, main |
 | [tools/zemax_parity/zosapi_export.py](../tools/zemax_parity/zosapi_export.py) | 396 | load_zosapi, ensure_no_existing_instance, net_vector, net_matrix_column, read_fft_mtf_series, export_reference_rays, export_fft_mtf, parse_args, main |
@@ -742,9 +716,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Assets/DrawingTemplates/iso-10110.xml](../src/OptilandWorkbench.App/Assets/DrawingTemplates/iso-10110.xml) | 内置图纸布局、规格与字段绑定 |
 | [src/OptilandWorkbench.App/OptilandWorkbench.App.csproj](../src/OptilandWorkbench.App/OptilandWorkbench.App.csproj) | OptilandWorkbench.Application |
 | [src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj](../src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj) | OptilandWorkbench.Core |
-| [src/OptilandWorkbench.Compatibility/OptilandWorkbench.Compatibility.csproj](../src/OptilandWorkbench.Compatibility/OptilandWorkbench.Compatibility.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
 | [src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj](../src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj) | 目标框架、资源或包引用 |
-| [tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj](../tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj) | OptilandWorkbench.App, OptilandWorkbench.Application, OptilandWorkbench.Compatibility, OptilandWorkbench.Core, OptilandWorkbench.LensLibraryBuilder, OptilandWorkbench.ZemaxLibraryImporter |
 | [tools/OptilandWorkbench.AccuracyCapture/OptilandWorkbench.AccuracyCapture.csproj](../tools/OptilandWorkbench.AccuracyCapture/OptilandWorkbench.AccuracyCapture.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
 | [tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj](../tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj) | OptilandWorkbench.Core |
 | [tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj](../tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj) | OptilandWorkbench.Core |

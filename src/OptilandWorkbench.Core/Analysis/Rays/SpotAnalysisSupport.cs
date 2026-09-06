@@ -106,11 +106,13 @@ internal static class SpotAnalysisEngine
         string reference = "centroid",
         bool usePolarization = false,
         bool ignoreLateralColor = false,
-        bool aimAtStop = false)
+        bool aimAtStop = false,
+        bool includeSurfaceTransmission = true,
+        int gaussianAzimuthalSamples = 6)
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
-        var pupilSamples = CreatePupilSamples(sampleParameter, distribution);
+        var pupilSamples = CreatePupilSamples(sampleParameter, distribution, gaussianAzimuthalSamples);
         var rawFields = new List<SpotFieldData>(fieldArray.Length);
         var rayCount = 0;
         var vignettedRayCount = 0;
@@ -141,17 +143,23 @@ internal static class SpotAnalysisEngine
                     directionCosines);
                 var selectedSamples = SelectSamples(optic, bundle, surfaceNumber);
                 var valid = selectedSamples
-                    .Where(sample => sample.Intensity > 0 && targetSurface is not null)
-                    .Select(sample =>
-                        ImageSpaceAnalysisSupport.ToImageSpaceRayData(
+                    .Select((sample, index) => (Sample: sample, IncidentIntensity: bundle.Rays[index].Intensity))
+                    .Where(item => item.Sample is { Vignetted: false, Intensity: > 0 } && targetSurface is not null)
+                    .Select(item =>
+                    {
+                        var ray = ImageSpaceAnalysisSupport.ToImageSpaceRayData(
                             optic,
-                            sample,
+                            item.Sample!,
                             targetSurface!,
                             descriptor,
-                            imagePlaneOffset))
+                            imagePlaneOffset);
+                        // Non-polarized standard spot diagrams retain pupil/apodization weights,
+                        // but do not weight the geometric statistic by surface/bulk transmission.
+                        return includeSurfaceTransmission ? ray : ray with { Intensity = item.IncidentIntensity };
+                    })
                     .ToArray();
-                rayCount += selectedSamples.Length;
-                vignettedRayCount += selectedSamples.Length - valid.Length;
+                rayCount += bundle.Rays.Count;
+                vignettedRayCount += bundle.Rays.Count - valid.Length;
                 waveData.Add(new SpotWavelengthData(wavelength, valid));
             }
 
@@ -177,7 +185,8 @@ internal static class SpotAnalysisEngine
                         surfaceNumber,
                         directionCosines,
                         usePolarization,
-                        imagePlaneOffset)
+                        imagePlaneOffset,
+                        aimAtStop)
                     : null;
             var centroid = Centroid(field.WeightedRays);
             var centroidX = referencePoint?.X ?? centroid.X;
@@ -192,7 +201,8 @@ internal static class SpotAnalysisEngine
                         surfaceNumber,
                         directionCosines,
                         usePolarization,
-                        imagePlaneOffset)
+                        imagePlaneOffset,
+                        aimAtStop)
                     : null;
                 var wavelengthCentroid = Centroid(wavelength.Rays);
                 var wavelengthCenterX = ignoreLateralColor
@@ -215,7 +225,7 @@ internal static class SpotAnalysisEngine
         return new SpotAnalysisResult(centeredFields, rayCount, vignettedRayCount);
     }
 
-    private static RayTraceSample[] SelectSamples(
+    private static RayTraceSample?[] SelectSamples(
         Optic optic,
         RealRayBundle bundle,
         int surfaceNumber)
@@ -230,8 +240,7 @@ internal static class SpotAnalysisEngine
             bundle,
             TraceRequest.Selected(new[] { surfaceIndex }));
         return trace.GetSurfaceSamples(surfaceIndex)
-            .Where(sample => sample.HasValue)
-            .Select(sample => sample!.Value.ToRayTraceSample())
+            .Select(sample => sample.HasValue ? sample.Value.ToRayTraceSample() : null)
             .ToArray();
     }
 
@@ -242,7 +251,8 @@ internal static class SpotAnalysisEngine
         int surfaceNumber,
         bool directionCosines,
         bool usePolarization,
-        double imagePlaneOffset)
+        double imagePlaneOffset,
+        bool aimAtStop)
     {
         if (wavelength is null)
         {
@@ -254,7 +264,8 @@ internal static class SpotAnalysisEngine
             field.Hy,
             0,
             0,
-            wavelength.Micrometers);
+            wavelength.Micrometers,
+            aimAtStop);
         if (usePolarization)
         {
             bundle = WithPolarization(bundle);
@@ -332,8 +343,19 @@ internal static class SpotAnalysisEngine
         return total > 0 ? (x / total, y / total) : (0, 0);
     }
 
-    public static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution)
+    public static IReadOnlyList<PupilSample> CreatePupilSamples(int sampleParameter, string distribution, int gaussianAzimuthalSamples = 6)
     {
+        if (string.Equals(distribution, "uniform-intervals", StringComparison.OrdinalIgnoreCase))
+        {
+            if (sampleParameter is < 1 or >= MaximumUniformAxisSamples)
+                throw new ArgumentOutOfRangeException(nameof(sampleParameter));
+            var axis = Enumerable.Range(0, sampleParameter + 1).Select(i => -1 + 2d * i / sampleParameter).ToArray();
+            return axis.SelectMany(y => axis.Select(x => new PupilSample(x, y, 1)))
+                .Where(p => p.X * p.X + p.Y * p.Y <= 1 + 1e-12).ToArray();
+        }
+        if (string.Equals(distribution, "gaussian", StringComparison.OrdinalIgnoreCase))
+            // Angular order is independent of radial order and explicitly chosen.
+            return ApertureSampler.GenerateGaussianQuadrature(sampleParameter, gaussianAzimuthalSamples);
         if (string.Equals(distribution, "hexapolar", StringComparison.OrdinalIgnoreCase))
         {
             return ApertureSampler.GenerateHexapolarRings(sampleParameter);

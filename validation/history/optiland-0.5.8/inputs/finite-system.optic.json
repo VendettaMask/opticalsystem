@@ -1,0 +1,341 @@
+{
+  "SchemaVersion": 4,
+  "Name": "Imported Python Optiland",
+  "Aperture": {
+    "Kind": "EntrancePupilDiameter",
+    "Value": 8,
+    "ObjectSpaceTelecentric": false
+  },
+  "BackendName": "managed-cpu",
+  "Fields": [
+    {
+      "Label": "On axis",
+      "XAngleDegrees": 0,
+      "YAngleDegrees": 0,
+      "Weight": 1,
+      "VignetteFactorX": 0,
+      "VignetteFactorY": 0
+    },
+    {
+      "Label": "Field 1",
+      "XAngleDegrees": 3,
+      "YAngleDegrees": 4,
+      "Weight": 1,
+      "VignetteFactorX": 0.2,
+      "VignetteFactorY": 0.35
+    }
+  ],
+  "Wavelengths": [
+    {
+      "Label": "W1",
+      "Nanometers": 550,
+      "Weight": 1,
+      "IsPrimary": true
+    }
+  ],
+  "Surfaces": [
+    {
+      "Number": 0,
+      "Label": "Object",
+      "Radius": 0,
+      "Thickness": 100,
+      "Material": "Air",
+      "Coating": "None",
+      "SemiDiameter": 10.06119630548126,
+      "Conic": 0,
+      "IsStop": false,
+      "IsReflective": false,
+      "Components": {
+        "GeometryKind": "plane",
+        "MaterialBefore": "Air",
+        "MaterialAfter": "Air",
+        "CoatingKind": "none",
+        "InteractionKind": "refractive",
+        "PhysicalApertureKind": null,
+        "ScatteringKind": null,
+        "Geometry": {
+          "Kind": "plane",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "MaterialBeforeComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "MaterialAfterComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Coating": {
+          "Kind": "none",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Interaction": {
+          "Kind": "refractive",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "PhysicalAperture": null,
+        "Scattering": null
+      },
+      "RadiusVariable": false,
+      "ThicknessVariable": false,
+      "SemiDiameterFixed": false,
+      "CoordinateSystem": {
+        "OriginX": 0,
+        "OriginY": 0,
+        "OriginZ": 0,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 0
+      }
+    },
+    {
+      "Number": 1,
+      "Label": "Surface 1",
+      "Radius": 40,
+      "Thickness": 5,
+      "Material": "Python Ideal n=1.5",
+      "Coating": "None",
+      "SemiDiameter": 4.619454289716028,
+      "Conic": 0,
+      "IsStop": true,
+      "IsReflective": false,
+      "Components": {
+        "GeometryKind": "standard",
+        "MaterialBefore": "Air",
+        "MaterialAfter": "Python Ideal n=1.5",
+        "CoatingKind": "none",
+        "InteractionKind": "refractive",
+        "PhysicalApertureKind": null,
+        "ScatteringKind": null,
+        "Geometry": {
+          "Kind": "standard",
+          "Numbers": {
+            "radius": 40,
+            "conic": 0
+          },
+          "Text": {},
+          "Children": null
+        },
+        "MaterialBeforeComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "MaterialAfterComponent": {
+          "Kind": "constant",
+          "Numbers": {
+            "index": 1.5,
+            "extinction": 0
+          },
+          "Text": {
+            "name": "Python Ideal n=1.5"
+          },
+          "Children": null
+        },
+        "Coating": {
+          "Kind": "none",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Interaction": {
+          "Kind": "refractive",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "PhysicalAperture": null,
+        "Scattering": null
+      },
+      "RadiusVariable": false,
+      "ThicknessVariable": false,
+      "SemiDiameterFixed": false,
+      "CoordinateSystem": {
+        "OriginX": 0,
+        "OriginY": 0,
+        "OriginZ": 100,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 0
+      }
+    },
+    {
+      "Number": 2,
+      "Label": "Surface 2",
+      "Radius": -40,
+      "Thickness": 30,
+      "Material": "Air",
+      "Coating": "None",
+      "SemiDiameter": 4.73404181818229,
+      "Conic": 0,
+      "IsStop": false,
+      "IsReflective": false,
+      "Components": {
+        "GeometryKind": "standard",
+        "MaterialBefore": "Python Ideal n=1.5",
+        "MaterialAfter": "Air",
+        "CoatingKind": "none",
+        "InteractionKind": "refractive",
+        "PhysicalApertureKind": null,
+        "ScatteringKind": null,
+        "Geometry": {
+          "Kind": "standard",
+          "Numbers": {
+            "radius": -40,
+            "conic": 0
+          },
+          "Text": {},
+          "Children": null
+        },
+        "MaterialBeforeComponent": {
+          "Kind": "constant",
+          "Numbers": {
+            "index": 1.5,
+            "extinction": 0
+          },
+          "Text": {
+            "name": "Python Ideal n=1.5"
+          },
+          "Children": null
+        },
+        "MaterialAfterComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Coating": {
+          "Kind": "none",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Interaction": {
+          "Kind": "refractive",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "PhysicalAperture": null,
+        "Scattering": null
+      },
+      "RadiusVariable": false,
+      "ThicknessVariable": false,
+      "SemiDiameterFixed": false,
+      "CoordinateSystem": {
+        "OriginX": 0,
+        "OriginY": 0,
+        "OriginZ": 105,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 0
+      }
+    },
+    {
+      "Number": 3,
+      "Label": "Surface 3",
+      "Radius": 0,
+      "Thickness": 0,
+      "Material": "Air",
+      "Coating": "None",
+      "SemiDiameter": 4.264850043707221,
+      "Conic": 0,
+      "IsStop": false,
+      "IsReflective": false,
+      "Components": {
+        "GeometryKind": "plane",
+        "MaterialBefore": "Air",
+        "MaterialAfter": "Air",
+        "CoatingKind": "none",
+        "InteractionKind": "refractive",
+        "PhysicalApertureKind": null,
+        "ScatteringKind": null,
+        "Geometry": {
+          "Kind": "plane",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "MaterialBeforeComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "MaterialAfterComponent": {
+          "Kind": "air",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Coating": {
+          "Kind": "none",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "Interaction": {
+          "Kind": "refractive",
+          "Numbers": {},
+          "Text": {},
+          "Children": null
+        },
+        "PhysicalAperture": null,
+        "Scattering": null
+      },
+      "RadiusVariable": false,
+      "ThicknessVariable": false,
+      "SemiDiameterFixed": false,
+      "CoordinateSystem": {
+        "OriginX": 0,
+        "OriginY": 0,
+        "OriginZ": 135,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 0
+      }
+    }
+  ],
+  "Apodization": null,
+  "FieldDefinition": "Angle",
+  "ObjectSpaceTelecentric": false,
+  "FieldGroupTelecentric": false,
+  "RadiusPickups": [],
+  "SolveSettings": {
+    "DesiredBackFocus": 30,
+    "KeepImageAtBackFocus": true
+  },
+  "MeritOperands": [],
+  "Environment": {
+    "MatchRefractiveIndexData": true,
+    "TemperatureCelsius": 20,
+    "PressureAtmospheres": 1
+  },
+  "GlassCatalogs": [
+    "SCHOTT",
+    "OHARA",
+    "HOYA",
+    "HIKARI",
+    "NIKON-HIKARI",
+    "SUMITA",
+    "CDGM-ZEMAX202309",
+    "CDGM",
+    "CHENGDU",
+    "GBJ",
+    "NHG",
+    "555CHINESES"
+  ],
+  "RayAimingEnabled": false,
+  "ImageSpaceAfocal": false
+}

@@ -98,7 +98,9 @@ public sealed class PsfAnalysis : BaseAnalysis
                     cellCenteredPupil: _zemaxCompatible,
                     zemaxFftSampling: _zemaxCompatible,
                     ignoreOpd: _ignoreOpd,
-                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0])))
+                    aimAtStop: analysisOptic.RayAimingEnabled,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
+                    imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0)))
             .ToArray();
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
@@ -182,7 +184,8 @@ public sealed class PsfAnalysis : BaseAnalysis
             YUnit: imageAxisUnit,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
-        var centerValue = values[gridSize / 2, gridSize / 2];
+        var centerIndex = _zemaxCompatible ? (gridSize - 1) / 2 : gridSize / 2;
+        var centerValue = values[centerIndex, centerIndex];
         var title = _usePolarization
             ? wavelengths.Length > 1
                 ? "复色光 Polarization-weighted scalar FFT PSF（Experimental）"
@@ -256,28 +259,34 @@ public sealed class PsfAnalysis : BaseAnalysis
         return clone;
     }
 
-    private static double Coordinate(int index, int size, double spacing)
+    private double Coordinate(int index, int size, double spacing)
     {
-        return ((index + 0.5) - (size / 2.0)) * spacing;
+        return (index - (_zemaxCompatible ? (size - 1) / 2 : size / 2)) * spacing;
     }
 
-    private static double BilinearSample(PsfResult source, double x, double y)
+    internal static double BilinearSample(PsfResult source, double x, double y)
     {
-        var column = (x / source.SampleSpacingMicrometers) + (source.GridSize / 2.0) - 0.5;
-        var row = (y / source.SampleSpacingMicrometers) + (source.GridSize / 2.0) - 0.5;
-        var left = (int)Math.Floor(column);
-        var top = (int)Math.Floor(row);
-        if (left < 0 || top < 0 || left + 1 >= source.GridSize || top + 1 >= source.GridSize)
+        var column = (x / source.SampleSpacingMicrometers) + (source.GridSize / 2);
+        var row = (y / source.SampleSpacingMicrometers) + (source.GridSize / 2);
+        if (column < 0 || row < 0 || column > source.GridSize || row > source.GridSize)
         {
             return 0;
         }
 
-        var tx = column - left;
-        var ty = row - top;
+        // The positive Nyquist boundary is the same Fourier sample as the
+        // negative boundary. Preserve it when presenting Zemax's even grid.
+        var floorColumn = (int)Math.Floor(column);
+        var floorRow = (int)Math.Floor(row);
+        var tx = column - floorColumn;
+        var ty = row - floorRow;
+        var left = floorColumn % source.GridSize;
+        var top = floorRow % source.GridSize;
+        var right = (left + 1) % source.GridSize;
+        var bottom = (top + 1) % source.GridSize;
         var topValue = source.Values[top, left] * (1 - tx)
-            + source.Values[top, left + 1] * tx;
-        var bottomValue = source.Values[top + 1, left] * (1 - tx)
-            + source.Values[top + 1, left + 1] * tx;
+            + source.Values[top, right] * tx;
+        var bottomValue = source.Values[bottom, left] * (1 - tx)
+            + source.Values[bottom, right] * tx;
         return topValue * (1 - ty) + bottomValue * ty;
     }
 }

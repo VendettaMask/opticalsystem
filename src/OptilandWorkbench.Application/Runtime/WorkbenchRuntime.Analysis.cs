@@ -49,6 +49,34 @@ public partial class WorkbenchRuntime
         IReadOnlyDictionary<string, string>? settings,
         CancellationToken cancellationToken)
     {
+        var data = BuildAnalysisData(analysisName, settings, cancellationToken);
+        var canonicalName = WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
+        var rows = data.Values
+            .Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
+            .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
+            .ToArray();
+        var plotSeries = data.PlotSeries;
+        return new AnalysisView(
+            DisplayAnalysisName(data.Name),
+            rows,
+            data.ReportText ?? FormatAnalysisData(data),
+            plotSeries.FirstOrDefault(),
+            plotSeries,
+            data.PlotOptions ?? new AnalysisPlotOptions(),
+            data.PlotPanes ?? Array.Empty<AnalysisPlotPane>(),
+            data.PlotPaneColumns,
+            data.Table,
+            InterferogramSummary: canonicalName == "Interferogram" ? BuildInterferogramSummary(data) : null,
+            Outcome: data.Outcome,
+            OutcomeReason: data.OutcomeReason);
+    }
+
+    /// <summary>Runs the same canonical request as the UI and preserves unrounded, typed numerical output.</summary>
+    public AnalysisData BuildAnalysisData(
+        string analysisName,
+        IReadOnlyDictionary<string, string>? settings = null,
+        CancellationToken cancellationToken = default)
+    {
         if (!WorkbenchAnalysisCatalog.TryGetDescriptor(analysisName, out var descriptor))
         {
             throw new UnknownAnalysisException(analysisName);
@@ -68,23 +96,7 @@ public partial class WorkbenchRuntime
             ImageFileLoader.SaveAnalysisRaster(data, outputFile);
         }
 
-        var rows = data.Values
-            .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
-            .ToArray();
-        var plotSeries = data.PlotSeries;
-        return new AnalysisView(
-            DisplayAnalysisName(data.Name),
-            rows,
-            data.ReportText ?? FormatAnalysisData(data),
-            plotSeries.FirstOrDefault(),
-            plotSeries,
-            data.PlotOptions ?? new AnalysisPlotOptions(),
-            data.PlotPanes ?? Array.Empty<AnalysisPlotPane>(),
-            data.PlotPaneColumns,
-            data.Table,
-            InterferogramSummary: canonicalName == "Interferogram" ? BuildInterferogramSummary(data) : null,
-            Outcome: data.Outcome,
-            OutcomeReason: data.OutcomeReason);
+        return data;
     }
 
     private Contracts.InterferogramSummaryDto BuildInterferogramSummary(AnalysisData data)
@@ -418,7 +430,8 @@ public partial class WorkbenchRuntime
                 Int("WavelengthNumber", 0),
                 Text("Reference", "centroid"),
                 Double("MaximumDistanceMicrometers", 0),
-                Bool("MultiplyByDiffractionLimit", true)),
+                Bool("MultiplyByDiffractionLimit", true))
+            { ZemaxCompatibleOutput = Bool("ZemaxCompatibleOutput", true) },
             "Diffraction Encircled Energy" => new DiffractionEncircledEnergyAnalysis(
                 CurrentOptic,
                 LeadingInt("PupilSampling", 64),
@@ -452,7 +465,8 @@ public partial class WorkbenchRuntime
                 LoadExtendedSourceImage(Text("SourceFile", string.Empty)),
                 string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
                     ? "uniform square"
-                    : Path.GetFileName(Text("SourceFile", string.Empty))),
+                    : Path.GetFileName(Text("SourceFile", string.Empty)))
+            { ZemaxCompatibleOutput = Bool("ZemaxCompatibleOutput", true) },
             "Pupil Aberration" => new PupilAberrationAnalysis(
                 CurrentOptic,
                 settings.ContainsKey("NumberOfRays")
@@ -471,7 +485,8 @@ public partial class WorkbenchRuntime
                 Bool("UsePolarization", false),
                 Bool("RemoveVignetting", true),
                 Int("FieldDensity", 15),
-                Text("ScanDirection", "+y")),
+                Text("ScanDirection", "+y"))
+            { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "RMS vs Wavelength" => new RmsVsWavelengthAnalysis(
                 CurrentOptic,
                 Int("WaveDensity", 21),
@@ -483,7 +498,8 @@ public partial class WorkbenchRuntime
                 Text("Data", "spot"),
                 Bool("ShowDiffractionLimit", false),
                 Bool("UsePolarization", false),
-                Bool("RemoveVignetting", true)),
+                Bool("RemoveVignetting", true))
+            { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "RMS vs Focus" => new RmsVsFocusAnalysis(
                 CurrentOptic,
                 Int("FocusDensity", 16),
@@ -497,7 +513,8 @@ public partial class WorkbenchRuntime
                 Text("Data", "wavefront"),
                 Bool("ShowDiffractionLimit", false),
                 Bool("UsePolarization", false),
-                Bool("RemoveVignetting", true)),
+                Bool("RemoveVignetting", true))
+            { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "RMS Field Map" => new RmsFieldMapAnalysis(
                 CurrentOptic,
                 Int("XFieldSamples", 11),
@@ -511,7 +528,8 @@ public partial class WorkbenchRuntime
                 Text("Method", "GQ"),
                 Text("Data", "spot"),
                 Bool("UsePolarization", false),
-                Bool("RemoveVignetting", true)),
+                Bool("RemoveVignetting", true))
+            { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "RMS Wavefront vs Field" => new RmsWavefrontVsFieldAnalysis(
                 CurrentOptic,
                 Int("NumFields", 32),
@@ -522,7 +540,8 @@ public partial class WorkbenchRuntime
                 Int("WavelengthNumber", 0),
                 Text("ScanType", "+y"),
                 Bool("RemoveVignettingFactors", true),
-                zemaxCompatibleOutput: true),
+                zemaxCompatibleOutput: true)
+            { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "Zernike vs Field" => new ZernikeVsFieldAnalysis(
                 CurrentOptic,
                 Int("FieldDensity", 20),
@@ -582,8 +601,10 @@ public partial class WorkbenchRuntime
                 Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(),
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Fourier MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
-                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings(),
-                Int("WavelengthNumber", 0)),
+                Double("Frequency1", Double("SpatialFrequency", 20)), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
+                Int("WavelengthNumber", 0),
+                settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, i * 10)).ToArray() : null,
+                Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
             "Huygens MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
                 Double("Frequency1", 10), Int("FieldDensity", 10),
                 MtfScanSettings(useHuygensImageSampling: true),
@@ -602,8 +623,10 @@ public partial class WorkbenchRuntime
                 zemaxCompatibleOutput: true,
                 useDashes: Bool("UseDashes", false)),
             "Geometric MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
-                Double("SpatialFrequency", 20), Int("FieldPointCount", 21), MtfScanSettings(),
-                Int("WavelengthNumber", 0)),
+                Double("Frequency1", Double("SpatialFrequency", 20)), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
+                Int("WavelengthNumber", 0),
+                settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, i * 10)).ToArray() : null,
+                Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
             "Angle vs Image Height" => new IncidentAngleVsImageHeightAnalysis(
                 CurrentOptic,
                 Int("FieldDensity", 20),
@@ -649,7 +672,7 @@ public partial class WorkbenchRuntime
                 referenceSurfaceIndex: Int("ReferenceSurfaceIndex", -1),
                 numRays: Int("NumRays", 2048),
                 distribution: Text("Distribution", "random")),
-            "Y-Ybar" => new YYbarAnalysis(CurrentOptic),
+            "Y-Ybar" => new YYbarAnalysis(CurrentOptic, zemaxCompatible: Bool("ZemaxCompatible", true)),
             "PSF" => new PsfAnalysis(
                 CurrentOptic,
                 LeadingInt("Sampling", Int("NumRays", 64)),
@@ -662,7 +685,8 @@ public partial class WorkbenchRuntime
                 Text("Type", "线性"),
                 Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
-                Bool("Normalized", false)),
+                Bool("Normalized", false),
+                zemaxCompatible: true),
             "FFT PSF Cross Section" => new FftPsfCrossSectionAnalysis(
                 CurrentOptic,
                 LeadingInt("Sampling", Int("NumRays", 64)),
@@ -850,9 +874,10 @@ public partial class WorkbenchRuntime
                 obscurationRatio: Double("ObscurationRatio", 0.5)),
             "Zernike" => new ZernikeAnalysis(
                 CurrentOptic,
-                Int("NumRings", 15),
+                settings.ContainsKey("Sampling") ? ZernikeAnalysisKind.ZemaxFringe : ZernikeAnalysisKind.Fringe,
+                Int("Sampling", Int("NumRings", 15)),
                 Int("ZernikeTerms", 37),
-                Int("MapSize", 65)),
+                Int("MapSize", 65), Int("WavelengthNumber", 0), Int("FieldNumber", 0), name: "Zernike"),
             "Geometric Image Analysis" => new GeometricImageAnalysis(
                 CurrentOptic,
                 ParseImageSourcePattern(Text("SourceImage", "分辨率靶标")),

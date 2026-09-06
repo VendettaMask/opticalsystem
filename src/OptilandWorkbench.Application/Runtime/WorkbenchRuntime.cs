@@ -200,7 +200,10 @@ public partial class WorkbenchRuntime
 
     public static bool IsNativeJsonPath(string path)
     {
-        return path.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+        // Retired foreign-format suffixes must not fall through to generic JSON.
+        return (path.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+                && !path.EndsWith(".optiland-python.json", StringComparison.OrdinalIgnoreCase)
+                && !path.EndsWith(".python-optiland.json", StringComparison.OrdinalIgnoreCase))
             || path.EndsWith(".optiland", StringComparison.OrdinalIgnoreCase);
     }
 
@@ -209,21 +212,23 @@ public partial class WorkbenchRuntime
         return path.EndsWith(StarOptProjectStore.Extension, StringComparison.OrdinalIgnoreCase);
     }
 
-    public static bool IsPythonOptilandJsonPath(string path)
-    {
-        return path.EndsWith(".optiland-python.json", StringComparison.OrdinalIgnoreCase)
-            || path.EndsWith(".python-optiland.json", StringComparison.OrdinalIgnoreCase);
-    }
-
     public static string FormatNameForPath(string path)
     {
+        RejectUnsupportedJsonExtension(path);
         return IsStarOptProjectPath(path)
             ? "staropt-project"
-            : IsPythonOptilandJsonPath(path)
-            ? "python-optiland-json"
             : IsNativeJsonPath(path)
             ? "native-json"
             : OpticalFormatCatalog.FindImporter(Path.GetExtension(path)).FormatName;
+    }
+
+    private static void RejectUnsupportedJsonExtension(string path)
+    {
+        if (Path.GetExtension(path).Equals(".json", StringComparison.OrdinalIgnoreCase)
+            && !IsNativeJsonPath(path))
+        {
+            throw new NotSupportedException("The selected JSON file extension is not supported.");
+        }
     }
 
 }

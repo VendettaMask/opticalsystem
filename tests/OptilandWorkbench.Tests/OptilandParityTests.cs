@@ -563,7 +563,7 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void PythonStyleTraceRecordsSurfaceMajorArrays()
+    public void TraceRecordsSurfaceMajorArrays()
     {
         var optic = Optic.CreateDemo();
 
@@ -587,7 +587,7 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void PythonStyleTraceGenericUsesMicrometerWavelengthAndValidatesNormalizedCoordinates()
+    public void TraceGenericUsesMicrometerWavelengthAndValidatesNormalizedCoordinates()
     {
         var optic = Optic.CreateDemo();
 
@@ -602,7 +602,7 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void NormalizedAngleFieldsUsePythonRadialMaximum()
+    public void NormalizedAngleFieldsUseRadialMaximum()
     {
         var optic = Optic.CreateCookeTriplet();
         optic.Fields.Clear();
@@ -617,7 +617,7 @@ public sealed class OptilandParityTests
     }
 
     [Fact]
-    public void WavelengthExposesPythonCompatibleMicrometerUnit()
+    public void WavelengthExposesMicrometerUnit()
     {
         var wavelength = new Wavelength { Nanometers = 550 };
 

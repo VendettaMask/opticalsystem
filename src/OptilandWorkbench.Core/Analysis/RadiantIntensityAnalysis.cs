@@ -91,7 +91,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             _binsY,
             fields.Count,
             wavelengths.Length,
-            EffectivePythonCompatiblePupilSampleCount(
+            RadiometricPupilSampleCount(
                 _numRays,
                 RayGenerator.ParseSampling(_distribution)),
             "Radiant intensity");
@@ -99,7 +99,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
         var xStep = (_angleXMaximum - _angleXMinimum) / _binsX;
         var yStep = (_angleYMaximum - _angleYMinimum) / _binsY;
         var solidAngle = DegreesToRadians(xStep) * DegreesToRadians(yStep);
-        var pupilSamples = GeneratePythonCompatiblePupilSamples(
+        var pupilSamples = GenerateRadiometricPupilSamples(
             _numRays,
             RayGenerator.ParseSampling(_distribution));
         var maps = new List<IntensityMap>(fields.Count * wavelengths.Length);
@@ -287,14 +287,14 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
         }
     }
 
-    private static IReadOnlyList<PupilSample> GeneratePythonCompatiblePupilSamples(
+    private static IReadOnlyList<PupilSample> GenerateRadiometricPupilSamples(
         int numRays,
         PupilSampling sampling) =>
         sampling == PupilSampling.Hexapolar
             ? ApertureSampler.GenerateHexapolarRings(numRays)
             : ApertureSampler.Generate(numRays, sampling);
 
-    private static int EffectivePythonCompatiblePupilSampleCount(
+    private static int RadiometricPupilSampleCount(
         int numRays,
         PupilSampling sampling) =>
         sampling == PupilSampling.Hexapolar

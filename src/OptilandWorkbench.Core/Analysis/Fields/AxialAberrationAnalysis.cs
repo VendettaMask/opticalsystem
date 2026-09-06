@@ -24,7 +24,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var allWavelengths = Optic.Wavelengths.OrderBy(wavelength => wavelength.Micrometers).ToArray();
+        var allWavelengths = Optic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
         {
             return AnalysisData.Unavailable(Name, "No wavelengths");
@@ -116,7 +116,7 @@ public sealed class AxialAberrationAnalysis : BaseAnalysis
 
         try
         {
-            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupil, wavelengthMicrometers);
+            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupil, wavelengthMicrometers, aimAtStop: Optic.RayAimingEnabled);
             if (sample is null || sample.Intensity <= 0 || Math.Abs(sample.Direction.Y) <= 1e-15)
             {
                 return double.NaN;

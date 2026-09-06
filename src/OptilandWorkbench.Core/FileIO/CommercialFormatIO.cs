@@ -191,7 +191,7 @@ public sealed class SequentialLensTextExporter : IOpticalFormatExporter
 
 public sealed class ZemaxZmxImporter : IOpticalFormatImporter
 {
-    public string FormatName => "zemax-zmx-optiland-0.5.8";
+    public string FormatName => "zemax-zmx";
 
     public string[] Extensions { get; } = { ".zmx" };
 
@@ -239,7 +239,7 @@ public sealed record ZemaxZmxImportResult(
 
 public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 {
-    public string FormatName => "zemax-zmx-optiland-0.5.8";
+    public string FormatName => "zemax-zmx";
 
     public string[] Extensions { get; } = { ".zmx" };
 

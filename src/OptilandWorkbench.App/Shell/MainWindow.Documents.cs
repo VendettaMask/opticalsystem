@@ -29,7 +29,6 @@ public sealed partial class MainWindow
             {
                 NativeOpticFileType,
                 LegacyOpticJsonFileType,
-                PythonOptilandJsonFileType,
                 CommercialOpticFileType,
                 PlainSequentialFileType
             }

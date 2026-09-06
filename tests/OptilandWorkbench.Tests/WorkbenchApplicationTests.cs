@@ -1,5 +1,5 @@
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Contracts;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Optimization;
@@ -12,9 +12,9 @@ public sealed class WorkbenchApplicationTests
     [Fact]
     public void StarOptExtensionHasItsOwnDocumentRoute()
     {
-        Assert.True(OptilandConnector.IsStarOptProjectPath("design.STAROPT"));
-        Assert.False(OptilandConnector.IsNativeJsonPath("design.staropt"));
-        Assert.Equal("staropt-project", OptilandConnector.FormatNameForPath("design.staropt"));
+        Assert.True(WorkbenchRuntime.IsStarOptProjectPath("design.STAROPT"));
+        Assert.False(WorkbenchRuntime.IsNativeJsonPath("design.staropt"));
+        Assert.Equal("staropt-project", WorkbenchRuntime.FormatNameForPath("design.staropt"));
     }
 
     [Fact]

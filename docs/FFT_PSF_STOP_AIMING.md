@@ -1,5 +1,7 @@
 # FFT PSF：高 NA 镜头工作 F 数追迹失败修正
 
+2026-09-06 后续修复已覆盖其它分析的瞄准传递、FFT PSF 像面/光瞳采样和物理零坐标，并完成两支镜头的十项数值复验；见 [数值修复记录](NUMERICAL_REPAIR_2026-09-06.md)。下文保留首轮历史边界。
+
 本次核验日期：2026-09-04。范围仅为 FFT PSF 的光瞳瞄准与尺度计算，不是整套衍射分析的 Zemax 精度验收。
 
 ## 复现与原因
@@ -26,7 +28,7 @@ Working-F-number ray did not reach the image surface.
 本次定向测试共 **20 项通过，0 失败、0 跳过**，未运行全量测试或打包程序：
 
 - `PsfWorkingFNumberRegressionTests`：12 项。涵盖产品默认参数复现、三个视场 × 偏振开关（每项覆盖全部波长）、自动重试与显式瞄准逐像素/尺度一致性、保留预计算相位、防止预计算光瞳混用、物理遮挡、取消，以及 `123456.ZMX` 的有限非空输出与原尺度保留。
-- `PythonAnalysisParityTests.FftPsfRetainsPythonReferenceGridWithPowerAmplitude`、`FftMtfRetainsPythonReferenceFrequencyGridWithPowerAmplitude`、`JonesPupilMatchesPythonOptilandPointForPoint`：6 项 Cooke/Tessar 辅助数值回归。
+- `FrozenAnalysisRegressionTests.FftPsfRetainsFrozenReferenceGridWithPowerAmplitude`、`FftMtfRetainsFrozenReferenceFrequencyGridWithPowerAmplitude`、`JonesPupilMatchesFrozenReferencePointForPoint`：6 项 Cooke/Tessar 辅助数值回归。
 - `PolarizationPsfLabelTests`：2 项，继续明确标注标量偏振近似的限制。
 
 上述定向验证属于 2026-09-04 历史记录。2026-09-05 已完成默认 App 和正式解决方案重建，`0` 警告、`0` 错误，并补跑完整主测试；桌面输出锁定已解除。复色参考中心和 OTF 相位的后续修复及最终验证见 [项目修复报告](PROJECT_REPAIR_2026-09-05.md)。

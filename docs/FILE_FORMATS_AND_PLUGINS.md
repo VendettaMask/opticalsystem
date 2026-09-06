@@ -1,5 +1,11 @@
 # 文件格式与插件
 
+Huygens MTF 后处理修复只改变相关分析数值，并增加变换大小、频率取值约定的元数据，
+不改变镜头文件格式。STAROPT、ZMX、SEQ、LEN 入口和通用 JSON 基础设施保持原有边界；
+见 [本轮兼容影响](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。
+
+2026-09-06 能量/相位修复没有更改 STAROPT、ZMX、SEQ、LEN 或通用 JSON 的格式入口。兼容能量图的输出点数变为 396，分析 CSV/JSON 消费者应读取实际点数和类型化单位，不硬编码旧点数；这不恢复 Python Optiland 专用格式。详见 [数值输出边界](ZEMAX_ENERGY_REPAIR_2026-09-06.md)。
+
 ## 原生 STAROPT 工程
 
 桌面端唯一原生工程扩展名是 `.staropt`。它是版本化二进制容器，不是改后缀的 JSON。固定文件头包含 `STAROPT` 魔数、容器版本、Brotli 标志、压缩/解压长度和负载 SHA-256；保存使用临时文件与原子替换。
@@ -22,21 +28,6 @@
 
 旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可继续读取用于迁移，但桌面“保存”不再生成这些格式。二进制结构见 [STAROPT 工程格式](STAROPT_FILE_FORMAT.md)。
 
-## Python Optiland JSON
-
-`OpticJsonStore` 可识别 Python Optiland 0.5.8 `Optic.to_dict()` 的递归字典。已验证的双向子集包括：
-
-- EPD、像方 F 数、物方 NA 和按光阑浮动的系统孔径；
-- 角度、物高、近轴像高视场以及波长权重；
-- 平面、标准面、光栅、可表示的双锥面/环曲面/多项式/Chebyshev/Zernike/高阶非球面及坐标变换；
-- 目录、理想和 Abbe 材料；
-- 径向、矩形、椭圆、多边形、文件及递归布尔物理孔径；
-- uniform、Gaussian、cosine-squared、Hann、polynomial、super-Gaussian 和 Tukey 变迹；
-- 折射、反射、薄透镜、相位和衍射交互；
-- Workbench 适配路径上的简单 Python 镀膜字典。
-
-桌面应用只保留 Python Optiland JSON 导入兼容，不再提供 Python JSON 导出入口。Python 0.5.8 自身可能在 `from_dict()` 中把任意表面镀膜重连为 Fresnel 镀膜，其光栅字典也存在外部重建限制；这些不属于 Workbench 原生保存承诺。
-
 ## 公差文件
 
 公差定义使用 `*.startol.json`，保存版本、操作数顺序和启用状态、类型、表面、上下偏差、分布、注释、评价准则、Monte Carlo 数量/种子、补偿迭代和良率阈值。公差编辑器独立跟踪未保存状态；新建、打开、镜头库载入和退出都会与原生工程一起进入统一保存确认。写入使用同目录临时文件和原子替换。
@@ -50,7 +41,7 @@
 - 顶层是镜头装配体，每个连续光学材料区间是独立命名的平面三角 `MANIFOLD_SOLID_BREP` 镜片零件；三角面共享边拓扑，胶合组按材料分件。
 - 网格直接采样每个表面的真实 `Geometry.Sag(x,y)`，再通过该表面的 `CoordinateSystem` 转换到全局 XYZ；不复用查看器的轴对称旋转网格。
 - 未支持的几何类型不会按平面解释。STAROPT和原生 JSON 将其数字、文本及递归子组件保存为不可计算的 opaque payload；追迹、分析、优化、公差、布局和导出前统一报告面号、原始类型及阻断原因。
-- opaque 几何只允许保存到能完整保留该 payload 的原生格式。STEP、Python Optiland JSON、ZMX、CODE V SEQ、OSLO LEN及制造图纸等有损导出默认拒绝，不提供静默降级开关。
+- opaque 几何只允许保存到能完整保留该 payload 的原生格式。STEP、ZMX、CODE V SEQ、OSLO LEN及制造图纸等有损导出默认拒绝，不提供静默降级开关。
 - 镜片实体外形使用 `SemiDiameter`。物理孔径只表示通光范围，不会被误切成材料孔洞；前后口径不同时，较小表面会在边缘 Sag 高度延伸为平坦环带，再以共同外径侧壁连接，与三维查看器的镜片边缘拓扑保持一致。
 - `SurfaceSamples` 和 `AngularSamples` 是最低种子密度，默认继续细分到最大弦高误差不超过 `0.005 mm`；单片默认上限为 `500,000` 个三角形，超限会失败而不是静默降精度。
 - 写出前检查非有限 Sag、占位自由曲面、退化面、非流形边、法向、正体积和三角网格自相交。错误包含镜片或表面编号；没有基底实体定义的反射面跳过并返回警告。
@@ -64,7 +55,7 @@ SolidWorks 启用 3D Interconnect 并保留组件链接时，FeatureManager 会�
 
 ## 商业顺序格式
 
-ZMX 切趾设置现已读取 `GFAC <因子> <类型>`，支持均匀（0）、高斯（1）和余弦立方（2），并在 STAROPT 保存、重开和 ZMX 导出中保留原始类型及因子。系统属性用带“Zemax”后缀的选项显示这些设置，参数标为“因子”；原有高斯模型仍使用 σ。高斯光线强度为 `exp(-2Gρ²)`，G=0 为均匀强度；余弦立方按当前入瞳半径和物面到入瞳的距离计算，因子仅保留、不参与计算。Python JSON 兼容导出将 Zemax 高斯换算为 `σ=1/(2√G)`，零因子/均匀换算为均匀；余弦立方仍明确拒绝导出。验证范围和依据见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
+ZMX 切趾设置现已读取 `GFAC <因子> <类型>`，支持均匀（0）、高斯（1）和余弦立方（2），并在 STAROPT 保存、重开和 ZMX 导出中保留原始类型及因子。系统属性用带“Zemax”后缀的选项显示这些设置，参数标为“因子”；原有高斯模型仍使用 σ。高斯光线强度为 `exp(-2Gρ²)`，G=0 为均匀强度；余弦立方按当前入瞳半径和物面到入瞳的距离计算，因子仅保留、不参与计算。验证范围和依据见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
 
 支持的扩展名：
 
@@ -78,7 +69,7 @@ ZMX 导入边界包括编码检测、顺序模式验证、`UNIT` 长度单位缩
 
 当前 ZMX 顺序导入器明确拒绝 Zemax 非序列文件、未支持的坐标断点顺序、经纬仪视场以及不可表示的环曲面项。有符号厚度按源值保留，不再把负厚度笼统视为非法。未映射到 Workbench 可计算几何的顺序 `TYPE` 不会让整个导入失败；导入器会把原始 Zemax `TYPE`、曲率、圆锥常数和 `PARM` 数据保存为不可计算的只读 opaque payload，UI 显示为不支持面型，追迹、分析、优化、布局和有损导出前由能力检查明确拦截。ZMX 不可靠保存 UI 活动配置，因此导入固定激活配置 1，同时保留全部配置。
 
-`GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 Optiland 兼容数据。无厂商同名玻璃按有序 `GCAT` 消歧。未匹配玻璃不会终止导入：保留原名称和其余处方数据，以 `UnresolvedMaterial` 标识，底部状态栏持续提示材料名与表面号；禁止用 GLAS 的 nd/Vd 参数或空气替代。STAROPT 保存/重开保留该状态。几何布局正常显示，但不生成依赖缺失材料的光线或分析结果；补选有效材料后恢复计算。缺失材料时保留文件中的厚度值，不执行依赖光线的 MAZH 厚度求解。`CORNING3` 中的 `C7980` 显式匹配本地目录的 `C79-80`，使用目录色散数据，不是参数近似。验证与示例见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
+`GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 独立的 refractiveindex.info 静态材料目录。无厂商同名玻璃按有序 `GCAT` 消歧。未匹配玻璃不会终止导入：保留原名称和其余处方数据，以 `UnresolvedMaterial` 标识，底部状态栏持续提示材料名与表面号；禁止用 GLAS 的 nd/Vd 参数或空气替代。STAROPT 保存/重开保留该状态。几何布局正常显示，但不生成依赖缺失材料的光线或分析结果；补选有效材料后恢复计算。缺失材料时保留文件中的厚度值，不执行依赖光线的 MAZH 厚度求解。`CORNING3` 中的 `C7980` 显式匹配本地目录的 `C79-80`，使用目录色散数据，不是参数近似。验证与示例见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
 
 63 个 AGF 目录转换为一个版本化压缩 `zemax-glass-catalogs.ogdb`，包含 5,502 条记录。解析器支持公式 1–13 以及真实 Glasscat 文件中的 UTF-16、缺失值、旧式短记录和重复名称。用户补充目录转换为用户目录中的 `.ogcat`，成为可复用材料目录。
 
@@ -95,7 +86,7 @@ await application.Documents.OpenAsync(path);
 await application.Documents.SaveAsync(path);
 ```
 
-`OpticalDocumentService` 委托规范 `WorkbenchRuntime` 按内容和扩展名识别 STAROPT、旧 Workbench JSON、Python Optiland JSON 或商业格式适配器。`OptilandConnector` 仅保留为源代码兼容外观，生产 Services 不引用 `Application.Legacy`。
+`OpticalDocumentService` 委托规范 `WorkbenchRuntime` 按内容和扩展名识别 STAROPT、旧 Workbench JSON 或商业格式适配器。旧连接器及 Compatibility 项目已删除，生产调用和行为测试统一使用 `WorkbenchRuntime`。
 
 ## 插件模型
 
@@ -127,3 +118,9 @@ public sealed class ExamplePlugin : IOptilandPlugin
 ```
 
 目录发现使用 `new PluginLoader().LoadFromDirectory("plugins")`，进程内测试可使用 `LoadFromAssembly`。单个插件加载或注册失败只记录到 `PluginRegistry.Warnings`，不得阻止其他插件。当前插件模型是进程内全信任模型：DLL 会被加载到 Workbench 进程中执行，适用于本地受信任扩展，不适合作为运行未知第三方代码的沙箱。注册表对外发布只读集合视图，插件仍只能通过 `RegisterGeometry`、`RegisterMaterial` 和 `RegisterAnalysis` 增加能力。
+
+## 已退役格式
+
+Python Optiland 字典格式不再导入或导出；`.optiland-python.json`、`.python-optiland.json`（大小写不敏感）会在读取和保存前拒绝，也不再提供专用文件筛选器。扩展名拒绝检查只防止它们落入通用 `.json` 分派，不是兼容开关。把旧字典改名为 `.json` 也不能绕过原生快照的模式校验。旧 Workbench `.optiland`/`.optiland.json` 名称属于本项目原生格式，继续保留。
+
+`zemax-zmx` 是 ZMX 的格式标识；不再附带历史参考软件版本。通用 JSON、原生快照、STAROPT、ZMX、SEQ、LEN、通用顺序文本和 .NET 插件基础设施保留。

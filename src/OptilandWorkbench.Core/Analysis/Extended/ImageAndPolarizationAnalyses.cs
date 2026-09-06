@@ -148,7 +148,7 @@ public sealed class JonesPupilAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
-        var result = JonesPupilEngine.Generate(Optic, (0, 0), wavelength, _gridSize, useFresnelCoatings: true);
+        var result = JonesPupilEngine.Generate(Optic, (0, 0), wavelength, _gridSize, useFresnelCoatings: true, aimAtStop: Optic.RayAimingEnabled, includeBulkAbsorption: true);
         var elements = new (string Name, Func<JonesPupilSample, System.Numerics.Complex> Select)[]
         {
             ("Jxx", sample => sample.Jxx),
@@ -200,6 +200,14 @@ public sealed class JonesPupilAnalysis : BaseAnalysis
             ["GridSize"] = _gridSize,
             ["ValidRayCount"] = result.Samples.Count(sample => sample.IsValid),
             ["CoatingMode"] = "Fresnel",
+            ["IncludesBulkAbsorption"] = true,
+            ["InputPolarizationBasis"] = "X axis reference: v=normalize(k cross X), u=v cross k",
+            ["ImagePlaneYInputMagnitudes"] = result.Samples.Select(sample => new[]
+            {
+                sample.Px, sample.Py,
+                sample.IsValid ? sample.ImageExForY.Magnitude : double.NaN,
+                sample.IsValid ? sample.ImageEyForY.Magnitude : double.NaN
+            }).ToArray(),
             ["Layout"] = "2 rows (real, imaginary) x 4 columns (Jxx, Jxy, Jyx, Jyy)"
         }, PlotPanes: panes, PlotPaneColumns: 4);
     }

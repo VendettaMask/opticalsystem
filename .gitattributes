@@ -2,3 +2,6 @@
 *.cmd text eol=crlf
 *.command text eol=lf
 *.sh text eol=lf
+
+# Frozen evidence is hashed byte-for-byte; never normalize it on add/checkout.
+validation/** -text whitespace=cr-at-eol

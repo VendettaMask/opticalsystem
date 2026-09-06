@@ -1,12 +1,16 @@
 # Optical System Design
 
-**Optical System Design** 是 S.T.A.R. Labs 开发的纯 .NET/C# 光学设计工作台。桌面端采用 Avalonia，计算核心不调用 Python Optiland 后端；Windows 与 macOS 是主要目标平台，Linux 原则上可由 Avalonia 支持。
+**Optical System Design** 是 S.T.A.R. Labs 开发的纯 C#/.NET 计算系统，不包含 Python Optiland 运行后端。桌面端采用 Avalonia；Windows 与 macOS 是主要目标平台，Linux 原则上可由 Avalonia 支持。
 
 ## 当前能力
 
+2026-09-06 已修复高 NA 分析瞄准、点列图权重、FFT PSF 采样/坐标和目录玻璃快照问题；两支镜头的实际对比与兼容性边界见 [数值修复记录](docs/NUMERICAL_REPAIR_2026-09-06.md)。
+
+独立 [C# Zemax 比较工具](tools/OptilandWorkbench.ZemaxComparison/README.md) 支持通过命令更换 ZMX，审计全部 72 个规范分析并输出完整状态矩阵；当前 52 项具有显式数值比较契约，另有点列和图像 API 能力审计。契约存在不等于数值通过：剩余差异、物理定义不一致和 5 项图像/光源适配缺口见 [MS-L7 全分析扩展记录](docs/ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)。工具使用本机 OpticStudio API，属于独立验证工具，正式产品不依赖它。
+
 - 以 `Optic` 为中心管理孔径、视场、波长、表面、材料、光线追迹、分析、优化、公差和多配置。
 - 表面采用 `Geometry + MaterialBefore + MaterialAfter + Coating + Interaction + PhysicalAperture + Scattering + CoordinateSystem` 组合模型，同时保留镜头表格所需的兼容字段。
-- 内置 Optiland 兼容玻璃数据以及由 63 个 Zemax AGF 目录转换的玻璃库，支持厂商消歧、13 种 Zemax 色散公式和热学、机械、透过率数据。
+- 内置独立的 refractiveindex.info 静态玻璃目录以及由 63 个 Zemax AGF 目录转换的玻璃库，支持厂商消歧、13 种 Zemax 色散公式和热学、机械、透过率数据。
 - 顺序实光线追迹支持局部坐标、孔径裁剪、折射、反射、衍射和全反射的显式交互类型；大批量追迹可选择仅末面、指定表面或完整历史保留模式。
 - 桌面端提供相互隔离的顺序与非序列工作模式。同一STAROPT工程并列保存顺序处方和独立非序列文档；非序列对象编辑器支持10类原生光源、原生几何、像素探测器和内嵌ASCII/Binary STL机械对象。光源覆盖单射线、点、矩形、Gaussian、椭圆面、双角度、径向表格、矩形体、椭球体和椭圆截面圆柱体。追迹内核使用对象/三角形两级BVH、实体介质传播，以及无分裂、完整Fresnel和Simple Stochastic分裂；分析结果会话服务带显示变换、剖面及CSV/PNG导出的探测器、分页数据库和路径分析，独立布局会话服务3D抽样。非序列3D布局会在打开或场景过期时自动准备有界布局光线，旋转、缩放和显示选项只重绘；旧光线默认隐藏，只有显式选择后才可带红色过期警告查看。
 - 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等几何模型；尚未实现的自由曲面只作为不可计算的 opaque payload 无损保存，追迹、分析、优化、公差、可视化和有损导出会在统一能力预检中明确阻断，不会退化成平面。
@@ -14,7 +18,7 @@
 - Core 当前注册 `72` 个规范分析；桌面端按模式暴露其中顺序 `70` 项或非序列 `2` 项，禁止跨模式运行。顺序模式覆盖报告、点列图、光线像差、波前、Zernike、PSF、MTF、RMS、圈入能量、相对照度、辐照度、Jones 光瞳和图像模拟等工作流。
 - 优化模块只公开已实现的阻尼最小二乘、Nelder-Mead、坐标模式搜索、动量梯度下降和贪心随机扰动；BFGS、L-BFGS-B、COBYLA、Powell、差分进化、双重退火和盆地跳跃在真实实现完成前明确返回不支持，不会映射到其它算法。公差模块包括 TDE 风格编辑器、向导、灵敏度、补偿和确定性 Monte Carlo。详见 [`docs/OPTIMIZATION_ALGORITHMS.md`](docs/OPTIMIZATION_ALGORITHMS.md)。
 - Zemax ZMX 评价函数按源顺序导入；当前参考 `[MS-L7]` 文件的 103 行均可见，其中已实现的操作数参与计算，尚未实现的类型以禁用只读行保留原参数，不伪装为 Zemax 数值等价。
-- 原生 `.staropt` 项目采用版本头、Brotli 压缩、SHA-256 校验、语义验证和原子保存，并保留多配置属性继承断开关系；Python Optiland JSON、Zemax ZMX、CODE V SEQ、OSLO LEN 是显式交换格式。
+- 原生 `.staropt` 项目采用版本头、Brotli 压缩、SHA-256 校验、语义验证和原子保存，并保留多配置属性继承断开关系；Zemax ZMX、CODE V SEQ、OSLO LEN 是显式交换格式；旧 Workbench 原生 JSON 仍可迁移。
 - Dock.Avalonia 工作区支持标签拖放、分栏、合并、独立浮动、重新停靠、平铺、层叠、页面锁定和按文件保存工作区会话。
 - 只有“全部独立浮动”会创建软件外的原生窗口；平铺和层叠会先把全部页面收回主文档区，再使用 Dock 的内部 MDI 布局。空浮动宿主会在操作、保存和旧会话恢复时清理。
 - 明亮、暗夜、异世界和像素风格主题统一使用主题资源；像素风格内嵌 CC BY 3.0 的 Farm-Fresh 彩色 32×32 图标和 OFL 的 Fusion Pixel Font，离线呈现经典桌面式 8-bit 图标、中文像素字及紧凑 Ribbon。设置按钮使用主题设置表面，覆盖在图形区上的设置卡片使用半透明主题浮层。
@@ -74,7 +78,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-正式产品保持严格的 `0` 警告、`0` 错误构建和全量回归测试。非序列基线覆盖10类原生光源、Zemax风格面/体源方向分布、逃逸光线3D尾线、独立分析/布局会话、自动和手动布局准备、场景哈希过期保护、清空/累积语义、临时数据库回收、Simple Stochastic确定性、STARRDB分页、探测器重建、工作区停靠、3D对象角色、STAROPT迁移、STL、路径语法、取消原子性、数据库筛选联动及教学样例。全量基线同时覆盖 opaque 几何在旁轴、追迹、分析、优化、公差、可视化和导出入口的统一阻断。2026-09-05 正式解决方案默认 Debug 输出构建 `0` 警告、`0` 错误，正式主测试 `1214/1214` 通过，零失败、零跳过；独立实验室 `24/24`、Python 对比工具 `28/28` 通过。依赖按锁文件使用本地缓存还原，本轮未完成在线漏洞审计。见[项目修复报告](docs/PROJECT_REPAIR_2026-09-05.md)。
+正式产品保持严格的 `0` 警告、`0` 错误构建和全量回归测试。非序列基线覆盖10类原生光源、Zemax风格面/体源方向分布、逃逸光线3D尾线、独立分析/布局会话、自动和手动布局准备、场景哈希过期保护、清空/累积语义、临时数据库回收、Simple Stochastic确定性、STARRDB分页、探测器重建、工作区停靠、3D对象角色、STAROPT迁移、STL、路径语法、取消原子性、数据库筛选联动及教学样例。全量基线同时覆盖 opaque 几何在旁轴、追迹、分析、优化、公差、可视化和导出入口的统一阻断。2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。当前证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。见[移除审计与验证](docs/PYTHON_OPTILAND_REMOVAL.md)。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 
@@ -97,8 +101,8 @@ dotnet publish src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
 src/OptilandWorkbench.Core         计算模型、追迹、分析、优化、公差、文件和插件
 src/OptilandWorkbench.Application  无 UI 的应用服务、规范 WorkbenchRuntime、工作区协调和 DTO 映射
 src/OptilandWorkbench.App          Avalonia 桌面端、Dock 工作区和会话持久化
-tests/OptilandWorkbench.Tests      核心、兼容、GUI 契约和回归测试
-src/OptilandWorkbench.Compatibility  只向旧源码调用者提供的单向兼容程序集
+tests/OptilandWorkbench.Tests      核心、格式、架构、GUI 契约和回归测试
+validation/history                 冻结的辅助历史数值参考（只供测试）
 samples/non-sequential             可直接打开的非序列功能测试与教学工程
 docs                               架构、格式、兼容、验证和发布文档
 ```
@@ -107,11 +111,13 @@ docs                               架构、格式、兼容、验证和发布文
 
 - 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[系统未完成能力收口计划](docs/SYSTEM_COMPLETION_PLAN_2026-09-02.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[智能初始结构实验室计划](docs/INITIAL_STRUCTURE_LAB_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
 - 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计规范](docs/UI_DESIGN_SPEC.md)、[UI 符合性审计](docs/UI_CONFORMANCE_AUDIT_2026-08-04.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
-- 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[Python JSON 互操作](docs/PYTHON_JSON_INTEROP.md)、[镜头库](docs/LENS_LIBRARY.md)。
-- 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[Python 分析兼容](docs/PYTHON_ANALYSIS_PARITY.md)、[Python 兼容审计](docs/PYTHON_PARITY_AUDIT.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
+- 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[镜头库](docs/LENS_LIBRARY.md)。
+- 数值与兼容：[兼容矩阵](docs/PARITY_MATRIX.md)、[数值兼容](docs/NUMERICAL_PARITY.md)、[冻结历史参考](validation/history/optiland-0.5.8/README.md)、[移除审计](docs/PYTHON_OPTILAND_REMOVAL.md)、[精度验证](docs/ACCURACY_VALIDATION_2026-07-31.md)、[追迹性能](docs/RAY_TRACING_PERFORMANCE.md)。
 - Zemax 边界：[分析参考](docs/ZEMAX_ANALYSIS_REFERENCE.md)、[基准配置边界](docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)、[操作数支持规范](docs/ZEMAX_OPERAND_SUPPORT.md)。
 - 工程工作流：[非序列工作模式](docs/NON_SEQUENTIAL_TRACING.md)、[非序列光源](docs/NONSEQUENTIAL_SOURCES.md)、[Zemax非序列工作流对齐路线图](docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)、[非序列教学样例](samples/non-sequential/README.md)、[公差分析](docs/TOLERANCING.md)、[可制造性与制图](docs/MANUFACTURING_DRAWINGS.md)。
 
 ## 兼容声明
 
-本仓库是依据公开资料完成的纯 .NET 独立实现。Optiland 0.5.8 与 Zemax 2026 R1 基准只约束已记录的镜头、版本和分析设置，不代表第三方软件的通用默认值。通用非球面交点现在返回带状态、残差、迭代次数和条件估计的结构化结果，未收敛不得进入追迹。现有经验膜层/散射损耗统一以 Experimental 近似名称展示，旧 Thin Film、Lambertian 和 Measured BSDF 类名仅作弃用兼容；偏振 FFT/Huygens 结果明确标为 `Polarization-weighted scalar PSF`。当前未完成项包括更广泛的自由曲面 JSON、稳定薄膜 S-matrix、BSDF 方向抽样、Ex/Ey/纵向场矢量衍射、完整 NSC 对象/光源/探测器环境以及可选 GPU/自动微分后端。
+本仓库是依据公开资料完成的纯 .NET 独立实现。后续外部数值验证以提交到仓库的 Zemax OpticStudio 2026 R1 基准为主要权威，必须记录镜头文件、分析设置、版本、单位、采样和容差；单次捕获设置不代表通用 Zemax 默认值。Optiland 0.5.8 已有数据只保留为 validation/history 下冻结的辅助历史回归，不参与产品运行，不再新增对照。通用非球面交点现在返回带状态、残差、迭代次数和条件估计的结构化结果，未收敛不得进入追迹。现有经验膜层/散射损耗统一以 Experimental 近似名称展示，旧 Thin Film、Lambertian 和 Measured BSDF 类名仅作弃用兼容；偏振 FFT/Huygens 结果明确标为 `Polarization-weighted scalar PSF`。当前未完成项包括更多自由曲面的原生快照表达、稳定薄膜 S-matrix、BSDF 方向抽样、Ex/Ey/纵向场矢量衍射、完整 NSC 对象/光源/探测器环境以及可选 GPU/自动微分后端。
+
+现有 `OptilandWorkbench` 程序集、命名空间、解决方案和目录名称暂时保留；它们不表示 Python 后端。品牌重命名单独立项。Python Optiland 专用文件格式及互操作计划已移除，详见移除审计中的旧文件兼容性说明。

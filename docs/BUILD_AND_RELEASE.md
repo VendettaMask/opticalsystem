@@ -6,6 +6,8 @@
 
 ## 本地构建
 
+解决方案新增独立 `OptilandWorkbench.ZemaxComparison` 和其离线测试项目；普通构建/CI 不启动 Zemax，也不需要其程序集。真实捕获时才使用安装目录的 .NET Framework 编译器和 ZOS-API DLL 构建隔离工作进程。发布 App 不包含验证工具。命令及锁定还原说明见 [工具 README](../tools/OptilandWorkbench.ZemaxComparison/README.md)。
+
 ```bash
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --locked-mode
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
@@ -22,10 +24,12 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet restore OptilandWorkbench.slnx --force-evalua
 ## 测试
 
 ```bash
-dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
+dotnet test OptilandWorkbench.slnx --no-build --no-restore /m:1 /nr:false
 ```
 
 VSTest 会打开本地套接字；受限沙箱可能需要额外权限。普通修改优先运行相关定向子集，只有跨模块、高风险或发布验证才要求全量测试。
+
+普通 CI 的 Linux、macOS、Windows 主测试作业均单独运行 `OptilandWorkbench.ZemaxComparison.Tests`；这些测试只使用固定原始夹具和普通子进程，不探测或启动 OpticStudio。其 hang 诊断阈值为 `3m`。许可证集成验证只在明确运行比较工具的 Zemax 机器上执行。
 
 CI 中正式产品与 Initial Structure Lab 测试均启用 hang 诊断：测试进程长时间无响应时会产生日志/转储线索，而不是无限等待或让后续结果失真。主测试 hang 阈值为 `12m`，Initial Structure Lab 为 `8m`；这个阈值覆盖已知 4 分钟级长测试在较慢 CI 机器上的波动，不把接近完成的慢测试误判成挂死。
 
@@ -142,7 +146,7 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 
 ## 当前验证基线
 
-2026-09-05 正式解决方案默认 Debug 输出构建 `0` 警告、`0` 错误，正式主测试 `1214/1214` 通过，零失败、零跳过；独立实验室 `24/24`、Python 对比工具 `28/28` 通过。依赖按锁文件使用本地缓存还原，本轮未完成在线漏洞审计。详见 [项目修复与验证](PROJECT_REPAIR_2026-09-05.md)。
+2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。当前证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。详见 [移除审计与验证](PYTHON_OPTILAND_REMOVAL.md)。
 
 ## 历史验证记录
 
@@ -196,4 +200,4 @@ macOS 脚本还会生成 `Optical System Design.app`，声明 `.staropt` 文档�
 
 - 2026-09-05 表面属性标题简化为“展开/收起 + 表面 N 属性 + 上一面/下一面”圆形按钮横条。默认 App Debug 构建 `0` 警告、`0` 错误；属性布局/导航、半径求解和右键行操作定向组合 **14/14** 通过，0 跳过，独立 Skia 属性面板 **6/6** 重复验证通过并复核紧凑横条截图。没有运行全量测试或打包，不更新历史全量数量；[属性面板文档](SURFACE_PROPERTIES_EDITOR.md) 记录功能与验证边界。
 
-Python 基准夹具只在有意更新固定的 `optiland==0.5.8` 契约时重新生成；生成后必须审核差异并运行全量测试。
+Optiland 0.5.8 历史资料只保留在 validation/history，禁止重新生成或新增对照。锁定还原、构建和产品发布不依赖 Python、pythonnet、tools/python-reference 或历史测试数据。Zemax 捕获/报告与 FreeCAD STEP 检查属于产品之外的验证工具，使用它们不意味着产品运行需要 Python。

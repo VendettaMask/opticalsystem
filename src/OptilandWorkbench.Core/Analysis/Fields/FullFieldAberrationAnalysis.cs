@@ -36,7 +36,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic));
         _xFieldWidth = xFieldWidth > 0 ? xFieldWidth : defaultWidth;
         _yFieldWidth = yFieldWidth > 0 ? yFieldWidth : defaultWidth;
-        _maximumTerm = Math.Clamp(maximumTerm, 4, ZernikeFitEngine.MaximumFringeTerm);
+        _maximumTerm = Math.Clamp(maximumTerm, 4, ZernikeFitEngine.MaximumStandardTerm);
         _aberration = aberration;
         _fieldNumber = Math.Max(1, fieldNumber);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
@@ -69,6 +69,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             : (definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].X,
                 definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].Y);
         var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
+        var components = new List<double[]>();
         var failedFieldSamples = 0;
         for (var row = 0; row < _yFieldSamples; row++)
         {
@@ -90,18 +91,17 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                         (x / systemMaximumField, y / systemMaximumField),
                         wavelength,
                         _pupilSampling,
-                        cellCentered: true,
-                        aimAtStop: true);
-                    var coefficients = ZernikeFitEngine.FitFringe(wavefront.Samples, _maximumTerm);
-                    var value = SelectAberration(coefficients, wavefront);
-                    if (_displayMode.Contains("绝对", StringComparison.Ordinal))
-                    {
-                        value = Math.Abs(value);
-                    }
+                        cellCentered: false,
+                        aimAtStop: Optic.RayAimingEnabled,
+                        zemaxCentered: true);
+                    var coefficients = ZernikeFitEngine.FitStandard(wavefront.Samples, _maximumTerm);
+                    var selected = SelectComponents(coefficients, wavefront);
+                    var value = Magnitude(selected);
 
                     if (double.IsFinite(value))
                     {
                         points.Add(new AnalysisPoint(x, y, Value: value));
+                        components.Add(selected);
                     }
                 }
                 catch (InvalidOperationException)
@@ -116,6 +116,17 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             throw new AnalysisDataUnavailableException(
                 Name,
                 $"all {failedFieldSamples} attempted field samples failed ray tracing or wavefront fitting");
+        }
+
+        // Absolute means the signed coefficient itself, not Math.Abs. For vector aberrations,
+        // Relative/Average operate on the components before computing the magnitude.
+        var relative = _displayMode.Contains("相对", StringComparison.Ordinal) || _displayMode.Equals("Relative", StringComparison.OrdinalIgnoreCase);
+        var average = _displayMode.Contains("平均", StringComparison.Ordinal) || _displayMode.Equals("Average", StringComparison.OrdinalIgnoreCase);
+        if (relative || average)
+        {
+            var meanComponents = Enumerable.Range(0, components[0].Length).Select(i => components.Average(c => c[i])).ToArray();
+            for (var i = 0; i < points.Count; i++)
+                points[i] = points[i] with { Value = Magnitude(average ? meanComponents : components[i].Select((v, j) => v - meanComponents[j]).ToArray()) };
         }
 
         var valuesOnly = points.Select(point => point.Value ?? 0).ToArray();
@@ -146,7 +157,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 ["FieldShape"] = _fieldShape,
                 ["XFieldWidth"] = _xFieldWidth,
                 ["YFieldWidth"] = _yFieldWidth,
-                ["Decomposition"] = "Zernike Fringe",
+                ["Decomposition"] = "Zernike Standard",
                 ["MaximumTerm"] = _maximumTerm,
                 ["Aberration"] = _aberration,
                 ["FieldNumber"] = _fieldNumber,
@@ -186,13 +197,14 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         return (normalizedX * normalizedX) + (normalizedY * normalizedY) > 1 + 1e-12;
     }
 
-    private double SelectAberration(
+    private double[] SelectComponents(
         IReadOnlyList<ZernikeCoefficient> coefficients,
         WavefrontResult wavefront)
     {
         if (_aberration.Contains("RMS", StringComparison.OrdinalIgnoreCase))
         {
-            return wavefront.Rms;
+            var mean = wavefront.Samples.Average(s => s.OpdWaves);
+            return new[] { Math.Sqrt(wavefront.Samples.Average(s => Math.Pow(s.OpdWaves - mean, 2))) };
         }
 
         var numbers = _aberration switch
@@ -200,16 +212,16 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             "离焦" => new[] { 4 },
             "像散" => new[] { 5, 6 },
             "彗差" => new[] { 7, 8 },
-            "球差" => new[] { 9 },
+            "球差" => new[] { 11 },
             "X 倾斜" => new[] { 2 },
             "Y 倾斜" => new[] { 3 },
             _ => new[] { 4 }
         };
         var selected = coefficients.Where(coefficient => numbers.Contains(coefficient.Number)).ToArray();
-        return selected.Length == 1
-            ? selected[0].Value
-            : Math.Sqrt(selected.Sum(coefficient => coefficient.Value * coefficient.Value));
+        return selected.Select(c => c.Value).ToArray();
     }
+
+    private static double Magnitude(double[] components) => components.Length == 1 ? components[0] : Math.Sqrt(components.Sum(v => v * v));
 
     private string FieldXAxisLabel()
     {

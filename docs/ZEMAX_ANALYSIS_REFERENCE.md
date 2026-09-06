@@ -1,10 +1,14 @@
 # Zemax 分析设置与实现方式参考
 
-当前状态复核：2026-09-05。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。
+2026-09-06 后续 Huygens 后处理复核见 [当前修复记录](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。MS-L7 的 52 项数值契约为 44 Pass、6 Close、2 Difference；Pass 仅指各项声明的物理量和捕获设置。
+
+当前状态复核：2026-09-06。本文保留官方分析名称和链接中的英文专有名词；设置与实现边界以当前 Workbench 代码和固定 `123456.ZMX` 捕获基线为准，不把单一工程的捕获值解释为 Zemax 通用默认值。最新 52 项比较契约、MS-L7 实测及渐晕/Foucault/部分相干物理定义差异见 [全分析扩展记录](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)，下文已有能力描述不能代替该逐项数值结论。
 
 本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。评价函数导入属于另一条兼容链路，当前 103 行 `[MS-L7]` 夹具及 51 个代码/兼容类型的边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)，不得并入本文的 69 页分析结论。
 
 ## GUI 对比证据规范
+
+新建任意镜头捕获使用 [独立 C# 工具](ZEMAX_COMPARISON_TOOL.md)。原生截图由相同镜头的工作副本和本次保存的 CFG 生成，ZPL 只负责原生图像导出，主要数值通过 C# ZOS-API 获得；离线重绘仍单独标识。下述 `123456.ZMX` GUI 目录说明属于既有固定基准。
 
 Workbench 的 GUI 对比只使用
 `comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current`
@@ -248,7 +252,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Sampling`、`Rotation`、`Scale`、`Polarization`、`Wavelength`、`Field`、`Reference To Primary`、`Use Exit Pupil Shape`、`STAR Data`、`Show As`、`Surface`、`Remove Tilt`、`Contour Format`、`Subaperture Data Sx/Sy/Sr`。
 - 结果展现：surface plot、contour map、grey scale 或 false color map，显示 pupil 上 wavefront error。
 - 实现方式：在 pupil ray grid 上采样 OPD。若选择 polarization 分量，会把相应电场分量的偏振相位加入 OPD；若相位超过一波，官方提示不做 phase unwrapping。`Remove Tilt` 等价于把 OPD 参考到 centroid。`Use Exit Pupil Shape` 会按指定 field 的像点视角近似显示 exit pupil 形状。
-- 对标边界：Workbench 的 `Centroid Sphere Wavefront` 与 `Best Fit Sphere Wavefront` 分别使用 Optiland 的质心拟合球和最佳拟合球；它们都不等价于 Zemax `Wavefront Map` 的逐波长参考球。Zemax 的 `Remove Tilt` 只移除线性 X/Y 倾斜（质心参考 OPD），不会改用质心拟合球；Zemax 文档中的 `Best Fit Sphere` 用于表面矢高/制造分析，也不是 Wavefront Map 的参考方式。因此在没有同物理定义的 Zemax 捕获结果前，这两页只做功能回归和截图审查，不进入 `123456.ZMX` 的数值精度统计；报告不得把它们映射到 `WavefrontMap`。
+- 对标边界：Workbench 的 `Centroid Sphere Wavefront` 与 `Best Fit Sphere Wavefront` 分别使用各自定义的质心拟合球和最佳拟合球；它们都不等价于 Zemax `Wavefront Map` 的逐波长参考球。Zemax 的 `Remove Tilt` 只移除线性 X/Y 倾斜（质心参考 OPD），不会改用质心拟合球；Zemax 文档中的 `Best Fit Sphere` 用于表面矢高/制造分析，也不是 Wavefront Map 的参考方式。因此在没有同物理定义的 Zemax 捕获结果前，这两页只做功能回归和截图审查，不进入 `123456.ZMX` 的数值精度统计；报告不得把它们映射到 `WavefrontMap`。
 
 ### 干涉图 / Interferogram
 
@@ -268,7 +272,8 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Sampling`、`Frequency`、`Normalize`、`Wavelength`、`Field`、`Show OPD`。
 - 结果展现：Sagittal 与 Tangential 两张 pupil map；圆大小表示局部 contrast loss，启用 `Show OPD` 后以小指示器角度显示两条光线的平均 OPD 相位。
 - 实现方式：Moore–Elliott 方法在每个 pupil 点追迹主光线及两对分离光线。Sagittal 使用 `(px±δ/2, py)`，Tangential 使用 `(px, py±δ/2)`；归一化瞳孔直径为 2，因此 `δ=2f/f_cutoff`。损失为 `0.5×(1−cos(2π(OPD1−OPD2)))`；任一分离光线超出单位圆时该点无数据。
-- `123456.ZMX` 默认对标设置由 ZOS-API 原生 `settings.cfg` 读回：`13×13`、`100 cycles/mm`、波长 2（`0.44 µm` 主波长）、视场 1、不归一化、不显示 OPD。Workbench 两张损失网格相对 Zemax 的 NRMSE 均为 `0.775%`，没有经验缩放。
+- `123456.ZMX` 既有捕获设置由 ZOS-API 原生 `settings.cfg` 读回：`13×13`、`100 cycles/mm`、波长 2（`0.44 µm` 主波长）、视场 1、不归一化、不显示 OPD。该次版本两张损失网格相对 Zemax 的 NRMSE 均为 `0.775%`，只作历史记录。
+- 2026-09-06 独立捕获为 13×13、第一波长、第一视场、Frequency 0、ShowOPD true。MS-L7 和主基准的原生相位数组对应未偏移光瞳相位，而非上述 GUI 平均 OPD 指示器。工具用独立类型化序列比较，保留产品指示器公式，明确 PartiallyComparable；详细设置及误差见当前修复记录。
 
 ### Zernike Fringe 系数 / Zernike Fringe Coefficients
 
@@ -487,17 +492,23 @@ Workbench 一侧引用 `images/gui-current`。
 
 ### Geometric Encircled Energy
 
+- 2026-09-06 捕获输出预设：N 个均匀光瞳间隔对应 N+1 个轴向结点并包含圆边界；100 个累计结点经过自然三次插值及单调约束，输出 396 点。该预设在 MS-L7 全部视场和主基准全部五视场独立验证；Core 通用构造默认仍直接计算调用者请求的点数。
+
 - 设置内容：pupil sampling、wavelength、field、type、reference point（chief ray、centroid、vertex、middle of spot）、是否乘 diffraction limit。
 - 结果展现：几何 encircled/ensquared/X/Y energy 曲线，或指定 fraction 的距离。
 - 实现方式：追迹几何光线，按波长权重统计落点相对参考点在半径、狭缝或方框范围内的归一化累计能量。径向模式启用 diffraction-limit scaling 时，按 Zemax 定义将几何累计曲线逐点乘以圆孔 Airy 包围能量 `1-J0(u)^2-J1(u)^2`，其中 `u=πr/(λF/#)`；复色光对各波长的 Airy 曲线按波长权重合成，不使用经验拟合系数。
 
 ### Geometric Line/Edge Spread
 
+- 2026-09-06 离散积分修正：N 点直方图的区间宽度为 2R/N，显示坐标步长为 2R/(N−1)，不能混用；边缘响应在区间中心取半区间累计能量。末区间仍有能量时末点不强制等于 1。
+
 - 设置内容：sampling、wavelength、field、orientation、line/edge、maximum radius、reference。
 - 结果展现：line spread function、edge response function，或二者曲线。
 - 实现方式：将几何 spot 光线落点投影到 X 或 Y 方向，形成一维能量分布；edge response 是 line spread 的积分。
 
 ### Extended Source Encircled Energy
+
+- 2026-09-06 捕获兼容输出经过 5/10/20 µm 独立范围验证：显示结点 R·i/99 对应 CDF(R·(i−1)/99)，之后输出 396 个单调三次插值点。原追迹坐标和权重不变，通用 Core 默认保留直接半径 CDF。MS-L7 的统一方形 IMA 契约 NRMSE 为 0.094%，这不是旧 LETTERF 复色设置的替代结果。
 
 - 设置内容：`Field Size`、`Rays x 1000`、`Type`（encircled、X-only、Y-only、ensquared，也可 X/Y distribution）、`Refer To`、`Surface`、`Use Polarization`、`Multiply by Diffraction Limit`、`Wavelength`、`Field`、`File`、`Max Distance`、`Use Dashes`、`Remove Vignetting Factors`。
 - 结果展现：扩展源 encircled/ensquared/enslitted energy 曲线，或 X/Y distribution；distribution 模式报告 geometric full width at half max。

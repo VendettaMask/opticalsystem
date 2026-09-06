@@ -37,13 +37,15 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
             maximumWavelength = primary.Micrometers * 1.1;
         }
 
+        // Chromatic focus is referenced to the primary paraxial focus, including for a real-ray pupil zone.
+        var primaryFocus = ParaxialFocusMicrometers(primary.Micrometers);
         var points = Enumerable.Range(0, _sampleCount)
             .Select(index =>
             {
                 var fraction = index / (double)(_sampleCount - 1);
                 var wavelength = minimumWavelength
                     + (fraction * (maximumWavelength - minimumWavelength));
-                return new AnalysisPoint(FocusShiftMicrometers(wavelength), wavelength);
+                return new AnalysisPoint(FocusShiftMicrometers(wavelength) - primaryFocus, wavelength);
             })
             .Where(point => double.IsFinite(point.X) && double.IsFinite(point.Y))
             .ToArray();
@@ -55,9 +57,9 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
         var axisLimit = _maximumShiftMicrometers > 0
             ? _maximumShiftMicrometers
             : automaticLimit;
-        var diffractionLimit = 2
+        var diffractionLimit = 4
             * primary.Micrometers
-            * Math.Pow(Math.Max(0, Optic.Paraxial.EstimateFNumber()), 2);
+            * Math.Pow(DiffractionEngine.WorkingFNumber(Optic, (0, 0), primary, aimAtStop: Optic.RayAimingEnabled), 2);
         var series = new AnalysisSeries(
             "焦移：µm",
             "波长：µm",
@@ -76,6 +78,8 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
                 ["MaximumFocalShiftChangeMicrometers"] = maximumChange,
                 ["DiffractionLimitChangeMicrometers"] = diffractionLimit,
                 ["PupilZone"] = _pupilZone,
+                ["Reference"] = "PrimaryParaxialFocus",
+                ["PrimaryParaxialFocusMicrometers"] = primaryFocus,
                 ["MaximumShiftMicrometers"] = _maximumShiftMicrometers,
                 ["MinimumWavelengthMicrometers"] = minimumWavelength,
                 ["MaximumWavelengthMicrometers"] = maximumWavelength,
@@ -98,28 +102,33 @@ public sealed class ColorFocusShiftAnalysis : BaseAnalysis
     {
         if (_pupilZone <= 1e-12)
         {
-            var trace = Optic.Paraxial.MarginalRay(wavelengthMicrometers);
-            if (trace.Heights.Count == 0 || trace.Slopes.Count == 0)
-            {
-                return 0;
-            }
-
-            var height = trace.Heights[^1][0];
-            var slope = trace.Slopes[^1][0];
-            return Math.Abs(slope) <= 1e-15 ? 0 : (-height / slope) * 1000;
+            return ParaxialFocusMicrometers(wavelengthMicrometers);
         }
 
         var positive = TraceZonalRay(_pupilZone, wavelengthMicrometers);
         var negative = TraceZonalRay(-_pupilZone, wavelengthMicrometers);
         var valid = new[] { positive, negative }.Where(double.IsFinite).ToArray();
-        return valid.Length == 0 ? 0 : valid.Average();
+        return valid.Length == 0 ? double.NaN : valid.Average();
+    }
+
+    private double ParaxialFocusMicrometers(double wavelengthMicrometers)
+    {
+        var trace = Optic.Paraxial.MarginalRay(wavelengthMicrometers);
+        if (trace.Heights.Count == 0 || trace.Slopes.Count == 0)
+        {
+            return 0;
+        }
+
+        var height = trace.Heights[^1][0];
+        var slope = trace.Slopes[^1][0];
+        return Math.Abs(slope) <= 1e-15 ? 0 : (-height / slope) * 1000;
     }
 
     private double TraceZonalRay(double pupilY, double wavelengthMicrometers)
     {
         try
         {
-            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupilY, wavelengthMicrometers);
+            var sample = Optic.TraceGenericFinalSample(0, 0, 0, pupilY, wavelengthMicrometers, aimAtStop: Optic.RayAimingEnabled);
             if (sample is null || sample.Intensity <= 0 || Math.Abs(sample.Direction.Y) <= 1e-15)
             {
                 return double.NaN;

@@ -68,10 +68,10 @@ public sealed class GlassCatalogTests
     }
 
     [Fact]
-    public void CatalogIndicesAndExtinctionMatchPythonOptiland058()
+    public void CatalogIndicesAndExtinctionMatchFrozenReference()
     {
         using var expected = JsonDocument.Parse(File.ReadAllText(
-            FixturePath("optiland-0.5.8-glass-reference.json")));
+            FrozenHistoryFixture.PathFor("optiland-0.5.8-glass-reference.json")));
         var registry = new MaterialRegistry();
         var root = expected.RootElement;
 

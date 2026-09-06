@@ -26,16 +26,9 @@ public sealed partial class MainWindow : Window
         MimeTypes = new[] { "application/vnd.starlabs.staropt" }
     };
 
-    private static readonly FilePickerFileType LegacyOpticJsonFileType = new("旧版 Optiland JSON（兼容导入）")
+    private static readonly FilePickerFileType LegacyOpticJsonFileType = new("旧版 Workbench 光学快照（兼容导入）")
     {
         Patterns = new[] { "*.optiland.json", "*.optic.json", "*.json", "*.optiland" },
-        AppleUniformTypeIdentifiers = new[] { "public.json" },
-        MimeTypes = new[] { "application/json" }
-    };
-
-    private static readonly FilePickerFileType PythonOptilandJsonFileType = new("Python Optiland 0.5.8 JSON")
-    {
-        Patterns = new[] { "*.optiland-python.json", "*.python-optiland.json" },
         AppleUniformTypeIdentifiers = new[] { "public.json" },
         MimeTypes = new[] { "application/json" }
     };

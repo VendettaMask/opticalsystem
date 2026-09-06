@@ -4,6 +4,7 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.Application.Contracts;
 using Layout2DPoint = OptilandWorkbench.Application.Contracts.ScenePoint2Dto;
@@ -70,18 +71,9 @@ public sealed record OpticSceneAnnotation2D(
 
 public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSource
 {
-    private static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(250, 252, 254));
-    private static readonly IBrush ThreeDBackgroundBrush = new LinearGradientBrush
-    {
-        StartPoint = RelativePoint.TopLeft,
-        EndPoint = RelativePoint.BottomRight,
-        GradientStops =
-        {
-            new GradientStop(Color.FromRgb(248, 250, 253), 0),
-            new GradientStop(Color.FromRgb(229, 235, 243), 1)
-        }
-    };
-    private static readonly IBrush SolidModelBackgroundBrush = new LinearGradientBrush
+    // Static drawing resources are shared by controls on different UI dispatchers.
+    // Keep them immutable so a later window/session cannot inherit thread-owned media.
+    private static readonly IImmutableBrush SolidModelBackgroundBrush = new LinearGradientBrush
     {
         StartPoint = RelativePoint.TopLeft,
         EndPoint = RelativePoint.BottomRight,
@@ -91,34 +83,34 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             new GradientStop(Color.FromRgb(38, 46, 55), 0.58),
             new GradientStop(Color.FromRgb(16, 20, 25), 1)
         }
-    };
-    private static readonly IBrush LensFillBrush = new SolidColorBrush(Color.FromArgb(104, 105, 151, 185));
-    private static readonly Pen ReferencePlanePen = new(new SolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
-    private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromArgb(115, 134, 146, 166)), 0.8, DashStyle.Dash);
-    private static readonly Pen StopPen = new(new SolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
-    private static readonly Pen ApertureStopPen = new(new SolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
-    private static readonly Pen SurfacePen = new(new SolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
-    private static readonly Pen SelectedSurfaceHaloPen = new(new SolidColorBrush(Color.FromArgb(105, 255, 193, 62)), 7);
-    private static readonly Pen SelectedSurfacePen = new(new SolidColorBrush(Color.FromRgb(232, 126, 25)), 3.2);
-    private static readonly Pen LensEdgePen = new(new SolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
-    private static readonly Pen VignettedRayPen = new(new SolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
-    private static readonly Pen ThreeDWirePen = new(new SolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
-    private static readonly Pen ThreeDLensEdgePen = new(new SolidColorBrush(Color.FromRgb(24, 58, 142)), 1.7);
-    private static readonly Pen ThreeDLensHighlightPen = new(new SolidColorBrush(Color.FromArgb(155, 128, 174, 245)), 0.9);
-    private static readonly Pen SolidLensEdgePen = new(new SolidColorBrush(Color.FromArgb(150, 170, 207, 218)), 1.05);
-    private static readonly Pen SolidLensHighlightPen = new(new SolidColorBrush(Color.FromArgb(205, 235, 250, 252)), 1.15);
-    private static readonly Pen SolidLensMeridianPen = new(new SolidColorBrush(Color.FromArgb(72, 177, 222, 235)), 0.75);
-    private static readonly Pen SolidAxisPen = new(new SolidColorBrush(Color.FromArgb(75, 154, 174, 190)), 0.8, DashStyle.Dash);
-    private static readonly Pen SolidReferencePlanePen = new(new SolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
-    private static readonly Pen TargetPen = new(new SolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
-    private static readonly Pen DetectorObjectPen = new(new SolidColorBrush(Color.FromRgb(25, 117, 166)), 1.5);
-    private static readonly Pen NonSequentialGeometryPen = new(new SolidColorBrush(Color.FromArgb(62, 75, 89, 102)), 0.4);
-    private static readonly IBrush DetectorObjectBrush = new SolidColorBrush(Color.FromArgb(58, 60, 169, 211));
-    private static readonly IBrush NonSequentialGlassBrush = new SolidColorBrush(Color.FromArgb(58, 85, 169, 202));
-    private static readonly IBrush NonSequentialMechanicalBrush = new SolidColorBrush(Color.FromArgb(82, 116, 126, 136));
-    private static readonly IBrush SelectedSurfaceFaceBrush = new SolidColorBrush(Color.FromArgb(205, 255, 176, 46));
-    private static readonly IBrush SolidLensCutBrush = new SolidColorBrush(Color.FromArgb(156, 83, 155, 174));
-    private static readonly IBrush ThreeDLensCutBrush = new SolidColorBrush(Color.FromArgb(170, 225, 139, 48));
+    }.ToImmutable();
+    private static readonly IImmutableBrush LensFillBrush = new ImmutableSolidColorBrush(Color.FromArgb(104, 105, 151, 185));
+    private static readonly ImmutablePen ReferencePlanePen = new(new ImmutableSolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
+    private static readonly ImmutablePen AxisPen = new(new ImmutableSolidColorBrush(Color.FromArgb(115, 134, 146, 166)), 0.8, new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
+    private static readonly ImmutablePen StopPen = new(new ImmutableSolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
+    private static readonly ImmutablePen ApertureStopPen = new(new ImmutableSolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
+    private static readonly ImmutablePen SurfacePen = new(new ImmutableSolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
+    private static readonly ImmutablePen SelectedSurfaceHaloPen = new(new ImmutableSolidColorBrush(Color.FromArgb(105, 255, 193, 62)), 7);
+    private static readonly ImmutablePen SelectedSurfacePen = new(new ImmutableSolidColorBrush(Color.FromRgb(232, 126, 25)), 3.2);
+    private static readonly ImmutablePen LensEdgePen = new(new ImmutableSolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
+    private static readonly ImmutablePen VignettedRayPen = new(new ImmutableSolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
+    private static readonly ImmutablePen ThreeDWirePen = new(new ImmutableSolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
+    private static readonly ImmutablePen ThreeDLensEdgePen = new(new ImmutableSolidColorBrush(Color.FromRgb(24, 58, 142)), 1.7);
+    private static readonly ImmutablePen ThreeDLensHighlightPen = new(new ImmutableSolidColorBrush(Color.FromArgb(155, 128, 174, 245)), 0.9);
+    private static readonly ImmutablePen SolidLensEdgePen = new(new ImmutableSolidColorBrush(Color.FromArgb(150, 170, 207, 218)), 1.05);
+    private static readonly ImmutablePen SolidLensHighlightPen = new(new ImmutableSolidColorBrush(Color.FromArgb(205, 235, 250, 252)), 1.15);
+    private static readonly ImmutablePen SolidLensMeridianPen = new(new ImmutableSolidColorBrush(Color.FromArgb(72, 177, 222, 235)), 0.75);
+    private static readonly ImmutablePen SolidAxisPen = new(new ImmutableSolidColorBrush(Color.FromArgb(75, 154, 174, 190)), 0.8, new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
+    private static readonly ImmutablePen SolidReferencePlanePen = new(new ImmutableSolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
+    private static readonly ImmutablePen TargetPen = new(new ImmutableSolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
+    private static readonly ImmutablePen DetectorObjectPen = new(new ImmutableSolidColorBrush(Color.FromRgb(25, 117, 166)), 1.5);
+    private static readonly ImmutablePen NonSequentialGeometryPen = new(new ImmutableSolidColorBrush(Color.FromArgb(62, 75, 89, 102)), 0.4);
+    private static readonly IImmutableBrush DetectorObjectBrush = new ImmutableSolidColorBrush(Color.FromArgb(58, 60, 169, 211));
+    private static readonly IImmutableBrush NonSequentialGlassBrush = new ImmutableSolidColorBrush(Color.FromArgb(58, 85, 169, 202));
+    private static readonly IImmutableBrush NonSequentialMechanicalBrush = new ImmutableSolidColorBrush(Color.FromArgb(82, 116, 126, 136));
+    private static readonly IImmutableBrush SelectedSurfaceFaceBrush = new ImmutableSolidColorBrush(Color.FromArgb(205, 255, 176, 46));
+    private static readonly IImmutableBrush SolidLensCutBrush = new ImmutableSolidColorBrush(Color.FromArgb(156, 83, 155, 174));
+    private static readonly IImmutableBrush ThreeDLensCutBrush = new ImmutableSolidColorBrush(Color.FromArgb(170, 225, 139, 48));
     private static readonly Color[] RayColors =
     {
         Color.FromRgb(220, 55, 48),
@@ -173,7 +165,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 : fallback;
     }
 
-    private Pen ThemePen(string key, Pen fallback) => new(
+    private Pen ThemePen(string key, IPen fallback) => new(
         ThemeBrush(key, fallback.Brush ?? Brushes.Black),
         fallback.Thickness,
         fallback.DashStyle,
@@ -946,7 +938,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         _ => NonSequentialGlassBrush
     };
 
-    private static Pen NonSequentialOutlinePen(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
+    private static IPen NonSequentialOutlinePen(Layout3DSurfacePrimitive surface) => surface.RenderRole switch
     {
         SceneSurfaceRenderRole.Source when surface.Faces.Count > 8 =>
             new Pen(new SolidColorBrush(WithAlpha(NonSequentialSourceColor(surface.DisplayWavelengthNanometers), 68)), 0.4),
@@ -1007,7 +999,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Layout2DSurfaceCurve surface,
         Func<double, double> mapZ,
         Func<double, double> mapY,
-        Pen pen)
+        IPen pen)
     {
         if (surface.Points.Count == 0)
         {
@@ -1169,7 +1161,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         IReadOnlyList<Layout3DPoint> rim,
         int surfaceNumber,
         int? highlightedSurfaceNumber,
-        Pen edgePen,
+        IPen edgePen,
         Func<Layout3DPoint, Point> project,
         bool cutawayEnabled)
     {
@@ -1493,7 +1485,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         bool showMeridians,
         bool cutawayEnabled,
         bool solidModelStyle,
-        Pen? overridePen)
+        IPen? overridePen)
     {
         var pen = overridePen ?? (surface.IsStandaloneStop
             ? StopPen
@@ -1648,7 +1640,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         var y = Math.Max(24, Bounds.Height - 24);
         var left = new Point(centerX - (width / 2.0), y);
         var right = new Point(centerX + (width / 2.0), y);
-        var pen = darkBackground ? SolidAxisPen : ThemePen(ThemeResourceBindings.SceneAxis, AxisPen);
+        IPen pen = darkBackground ? SolidAxisPen : ThemePen(ThemeResourceBindings.SceneAxis, AxisPen);
         context.DrawLine(pen, left, right);
         context.DrawLine(pen, left + new Vector(0, -5), left + new Vector(0, 5));
         context.DrawLine(pen, right + new Vector(0, -5), right + new Vector(0, 5));
@@ -1676,7 +1668,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         return factor * exponent;
     }
 
-    private static void DrawArrow(DrawingContext context, Pen pen, IReadOnlyList<Point> points)
+    private static void DrawArrow(DrawingContext context, IPen pen, IReadOnlyList<Point> points)
     {
         if (points.Count < 2)
         {
@@ -1704,7 +1696,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private static void DrawFilledPolygon(
         DrawingContext context,
         IBrush fill,
-        Pen outline,
+        IPen outline,
         IReadOnlyList<Layout2DPoint> points,
         Func<double, double> mapZ,
         Func<double, double> mapY)
@@ -1731,7 +1723,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private static void DrawPolyline(
         DrawingContext context,
-        Pen pen,
+        IPen pen,
         IReadOnlyList<Layout2DPoint> points,
         Func<double, double> mapZ,
         Func<double, double> mapY)
@@ -1749,7 +1741,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private static void DrawPolyline3D(
         DrawingContext context,
-        Pen pen,
+        IPen pen,
         IReadOnlyList<Layout3DPoint> points,
         Func<Layout3DPoint, Point> project,
         bool clipToCutaway = false)
@@ -1768,7 +1760,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private static void DrawSegment3D(
         DrawingContext context,
-        Pen pen,
+        IPen pen,
         Layout3DPoint start,
         Layout3DPoint end,
         Func<Layout3DPoint, Point> project,
@@ -1918,7 +1910,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         IBrush fill,
         IReadOnlyList<Layout3DPoint> points,
         Func<Layout3DPoint, Point> project,
-        Pen? outline = null)
+        IPen? outline = null)
     {
         if (points.Count < 3)
         {

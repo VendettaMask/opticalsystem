@@ -71,7 +71,40 @@ public sealed class EncircledEnergyVariantTests
         });
         var edge = data.PlotSeries.Single(series => series.Name == "Edge Spread");
         AssertMonotonic(edge.Points);
-        Assert.Equal(1, edge.Points[^1].Y, 10);
+        var line = data.PlotSeries.Single(series => series.Name == "Line Spread");
+        // The last displayed coordinate is the last bin's center, not its right boundary.
+        Assert.Equal(1 - (0.5 * line.Points[^1].Y / line.Points.Sum(p => p.Y)), edge.Points[^1].Y, 10);
+    }
+
+    [Fact]
+    public void SymmetricLineSpreadPlacesHalfTheEnergyAtTheCentralBin()
+    {
+        var data = new GeometricLineEdgeSpreadAnalysis(
+            Optic.CreateCookeTriplet(), pupilSampling: 32, numPoints: 101,
+            wavelengthNumber: 1, fieldNumber: 1).GenerateData();
+        var line = data.PlotSeries.Single(series => series.Name == "Line Spread");
+        var edge = data.PlotSeries.Single(series => series.Name == "Edge Spread");
+        Assert.True(line.Points[50].Y > 0);
+        Assert.Equal(0.5, edge.Points[50].Y, 10);
+        var binWidth = Convert.ToDouble(data.Values["HistogramBinWidthMicrometers"]);
+        var coordinateStep = Convert.ToDouble(data.Values["DisplayCoordinateStepMicrometers"]);
+        Assert.Equal(100.0 / 101, binWidth / coordinateStep, 12);
+    }
+
+    [Fact]
+    public void CapturedEnergyPlotConventionIsExplicitAndRetainsGeneralPointCount()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var general = new EncircledEnergyAnalysis(optic, numRays: 8, distribution: "uniform", numPoints: 17);
+        Assert.False(general.ZemaxCompatibleOutput);
+        Assert.All(general.GenerateData().PlotSeries, s => Assert.Equal(17, s.Points.Count));
+        var captured = new EncircledEnergyAnalysis(optic, numRays: 8, distribution: "uniform", numPoints: 17)
+        { ZemaxCompatibleOutput = true }.GenerateData();
+        Assert.All(captured.PlotSeries, s =>
+        {
+            AssertNormalizedCumulativeCurve(s, 396, requireUnityAtEnd: false);
+            Assert.Equal(0, s.Points[0].X);
+        });
     }
 
     [Fact]

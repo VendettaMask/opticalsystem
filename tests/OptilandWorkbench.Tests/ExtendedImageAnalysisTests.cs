@@ -1,5 +1,5 @@
+using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.App.Panels;
-using OptilandWorkbench.Application.Legacy;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 
@@ -57,7 +57,7 @@ public sealed class ExtendedImageAnalysisTests
     [Fact]
     public void ConnectorProvidesSettingsForWiredExtendedSceneAnalyses()
     {
-        var connector = new OptilandConnector(Optic.CreateCookeTriplet());
+        var connector = new WorkbenchRuntime(Optic.CreateCookeTriplet());
 
         Assert.Contains(
             connector.GetAnalysisParameters("Geometric Image Analysis"),

@@ -7,6 +7,8 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class RmsVsFieldAnalysis : BaseAnalysis
 {
+    public int GaussianAzimuthalSamples { get; init; } = 6;
+
     private readonly int _fieldDensity;
     private readonly int _numRings;
     private readonly string _distribution;
@@ -63,7 +65,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 wavelengthNumber: _wavelengthNumber,
                 scanType: _scanDirection,
                 removeVignettingFactors: _removeVignetting,
-                zemaxCompatibleOutput: true).GenerateData();
+                zemaxCompatibleOutput: true)
+            { GaussianAzimuthalSamples = GaussianAzimuthalSamples }.GenerateData();
             var wavefrontSeries = wavefront.PlotSeries.ToList();
             IReadOnlyList<Wavelength> wavelengthSelection = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
             var wavefrontDiffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengthSelection, _data);
@@ -128,7 +131,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                     _data,
                     _reference,
                     usePolarization: _usePolarization,
-                    removeVignetting: _removeVignetting),
+                    removeVignetting: _removeVignetting, gaussianAzimuthalSamples: GaussianAzimuthalSamples),
                 Label: field.Label)).ToArray(),
             Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
             ColorIndex: wavelengthIndex,
@@ -165,7 +168,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 _data,
                 _reference,
                 usePolarization: _usePolarization,
-                removeVignetting: _removeVignetting))).ToArray();
+                removeVignetting: _removeVignetting, gaussianAzimuthalSamples: GaussianAzimuthalSamples))).ToArray();
         var values = new Dictionary<string, object>
         {
             ["FieldCount"] = fields.Count,
@@ -206,6 +209,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
 
 public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 {
+    public int GaussianAzimuthalSamples { get; init; } = 6;
+
     private readonly int _rayDensity;
     private readonly int _fieldDensity;
     private readonly string _method;
@@ -251,7 +256,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             : AnalysisTrace.DefinedFieldSamples(workingOptic);
         var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
         var pupilSamples = _method == "GQ"
-            ? ApertureSampler.GenerateGaussianQuadrature(_rayDensity, 6)
+            ? ApertureSampler.GenerateGaussianQuadrature(_rayDensity, GaussianAzimuthalSamples)
             : ApertureSampler.Generate(_rayDensity * _rayDensity, PupilSampling.UniformGrid);
         var pupilCoordinates = pupilSamples.Select(sample => (sample.X, sample.Y)).ToArray();
         var referenceWavelength = _wavelengthNumber == 0
@@ -342,6 +347,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             ["FieldCount"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
             ["RayDensity"] = _rayDensity,
+            ["GaussianAzimuthalSamples"] = Math.Clamp(GaussianAzimuthalSamples, 1, 72),
             ["FieldDensity"] = _fieldDensity,
             ["Method"] = _method,
             ["Reference"] = _reference,
@@ -718,14 +724,17 @@ public sealed class IncidentAngleVsHeightAnalysis : BaseAnalysis
             var hy = coordinate.Hy;
             var px = _mode == AngleScanMode.ThroughPupil && _axis == 0 ? coordinate.Value : _fixedCoordinate.X;
             var py = _mode == AngleScanMode.ThroughPupil && _axis == 1 ? coordinate.Value : _fixedCoordinate.Y;
-            var sample = Optic.TraceGenericSurfaceSample(hx, hy, px, py, wavelength.Micrometers, surfaceIndex);
+            var sample = Optic.TraceGenericSurfaceSample(hx, hy, px, py, wavelength.Micrometers, surfaceIndex, aimAtStop: Optic.RayAimingEnabled);
             if (sample is null)
             {
                 points.Add(new AnalysisPoint(double.NaN, double.NaN, coordinate.Label, coordinate.Value));
                 continue;
             }
-            var height = _axis == 1 ? sample.Position.Y : sample.Position.X;
-            var directionCosine = _axis == 1 ? sample.Direction.Y : sample.Direction.X;
+            var surface = Optic.SurfaceGroup.Items[surfaceIndex];
+            var localPosition = surface.CoordinateSystem.ToLocalPoint(sample.Position);
+            var localDirection = surface.CoordinateSystem.ToLocalDirection(sample.Direction);
+            var height = _axis == 1 ? localPosition.Y : localPosition.X;
+            var directionCosine = _axis == 1 ? localDirection.Y : localDirection.X;
             var angle = Math.Asin(Math.Clamp(directionCosine, -1, 1)) * 180 / Math.PI;
             points.Add(new AnalysisPoint(height, angle, coordinate.Label, coordinate.Value));
         }

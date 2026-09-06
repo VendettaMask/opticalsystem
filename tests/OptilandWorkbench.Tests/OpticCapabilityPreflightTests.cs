@@ -49,7 +49,6 @@ public sealed class OpticCapabilityPreflightTests
             (OpticCapabilityOperation.Optimization, () => CreateOpaqueOptic().CreateOptimizationProblem()),
             (OpticCapabilityOperation.Tolerancing, () => new SensitivityAnalysis(CreateOpaqueOptic(), new Tolerancing())),
             (OpticCapabilityOperation.Export, () => StepCadExporter.Serialize(CreateOpaqueOptic())),
-            (OpticCapabilityOperation.Export, () => PythonOptilandJsonStore.Serialize(CreateOpaqueOptic())),
             (OpticCapabilityOperation.Export, () => OpticalFormatCatalog.Export(CreateOpaqueOptic(), ".zmx")),
             (OpticCapabilityOperation.Visualization, () => new Layout2DBuilder(CreateOpaqueOptic()).Build())
         };

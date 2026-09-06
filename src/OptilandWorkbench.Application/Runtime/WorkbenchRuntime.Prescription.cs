@@ -29,12 +29,12 @@ public partial class WorkbenchRuntime
 
     public void NewDemo()
     {
-        ReplaceOptic(Optic.CreateCookeTriplet(), "已创建与 Optiland 官方样例一致的 Cooke 三片式镜头。");
+        ReplaceOptic(Optic.CreateCookeTriplet(), "已创建 Cooke 三片式镜头示例。");
     }
 
     public void NewTessar()
     {
-        ReplaceOptic(Optic.CreateTessarLens(), "已创建 Optiland 官方 Tessar F/4.5 四片式镜头。");
+        ReplaceOptic(Optic.CreateTessarLens(), "已创建 Tessar F/4.5 四片式镜头示例。");
     }
 
     private void ReplaceOptic(Optic optic, string status)

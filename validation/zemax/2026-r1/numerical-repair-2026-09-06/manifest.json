@@ -1,0 +1,62 @@
+{
+  "capturedLocalDate": "2026-09-06",
+  "timeZone": "Asia/Shanghai",
+  "software": "Zemax OpticStudio 2026 R1",
+  "apiVersion": "260127",
+  "servicePack": 0,
+  "purpose": "Additional fixed native regression captures; existing primary baseline is unchanged.",
+  "sourceLenses": [
+    {
+      "file": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+    },
+    {
+      "file": "local-data/lens-library/originals/user-zmx/project/root/[MS-L7](10X大NA大视场).ZMX",
+      "sha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8"
+    }
+  ],
+  "capturedSettings": "Per-analysis *-captured-settings.json; these are not general Zemax defaults.",
+  "units": {
+    "lens": "mm",
+    "spotRadius": "micrometer",
+    "psfXY": "micrometer",
+    "psfValue": "dimensionless relative ideal peak"
+  },
+  "tolerances": {
+    "spotRegressionAbsoluteMicrometers": 2E-08,
+    "fftGridNrmse": 0.01,
+    "gridCoordinates": "Exact for this 0.25 micrometer sampling",
+    "productionComparisonConfiguration": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+    "configurationSha256": "5e648bf1f14ff2daeea7834089469648cd89b6d52bfca8fc54bc4e861bd315af"
+  },
+  "artifacts": [
+    {
+      "file": "123456-spot-captured-settings.json",
+      "sha256": "cc859ec0163a26170077d193e931d4a30dfce32d7a062b98a08847bcfef8edb1"
+    },
+    {
+      "file": "123456-spot-data.json",
+      "sha256": "bc18104320ca0b455f86d954abeaf5b1b2441e0a6a58facc499c35dd45c66159"
+    },
+    {
+      "file": "ms-l7-fft-psf-captured-settings.json",
+      "sha256": "dbc6c8723ad8f330176c7072cc69effe66db264a7026577a0b75eedc3bceb89b"
+    },
+    {
+      "file": "ms-l7-fft-psf-data.json",
+      "sha256": "8e24585f14fd9ad44b1a1aeacb62b59d1fe8a3a9f2a01c182955b36df6172043"
+    },
+    {
+      "file": "ms-l7-fft-psf-environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "file": "ms-l7-spot-captured-settings.json",
+      "sha256": "3be8d321142d04c071607cc07dfc51d03e9c35961634d2145898a14be438840e"
+    },
+    {
+      "file": "ms-l7-spot-data.json",
+      "sha256": "9110d0168022fcc5efa5551944566cc9580054c4ee1b616231300c6eabeeca23"
+    }
+  ]
+}

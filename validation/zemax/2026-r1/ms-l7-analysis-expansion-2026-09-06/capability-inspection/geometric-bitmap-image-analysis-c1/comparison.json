@@ -1,0 +1,79 @@
+{
+  "key": "Geometric Bitmap Image Analysis",
+  "directory": "geometric-bitmap-image-analysis-c1",
+  "support": "AdapterNotImplemented",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Incomparable",
+  "reason": "Native image output capability is inspected, but a common source, spectral, detector and radiometric contract is not yet implemented. Reset settings and native raw results are inspection evidence only; no numerical equivalence claim.",
+  "request": {
+    "canonicalAnalysisKey": "Geometric Bitmap Image Analysis",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": true,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "NativeCapabilityInspectionNotAligned",
+    "workbenchSettings": {
+      "ImageSize": "64",
+      "RaysPerPixel": "8",
+      "FieldHeight": "0",
+      "Oversampling": "1",
+      "GuardBand": "4",
+      "RelativeIllumination": "true",
+      "AberrationMode": "Geometric",
+      "FieldNumber": "1",
+      "WavelengthNumber": "1",
+      "SurfaceNumber": "-1",
+      "UsePolarization": "False",
+      "UseRayAiming": "True"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 3,
+    "fieldDefinition": "ObjectHeight",
+    "maximumFieldRadius": 15,
+    "surfaceCount": 17,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        -10.6
+      ],
+      [
+        0,
+        -15
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5875618,
+    "zemaxSettingsMode": "CapabilityInspection",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {},
+  "metrics": [],
+  "normalizations": [],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 25245
+}

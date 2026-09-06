@@ -74,7 +74,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
             _resolutionY,
             fields.Count,
             wavelengths.Length,
-            EffectivePythonCompatiblePupilSampleCount(
+            RadiometricPupilSampleCount(
                 _numRays,
                 RayGenerator.ParseSampling(_distribution)),
             "Incoherent irradiance");
@@ -82,7 +82,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         var xStep = (extent.XMaximum - extent.XMinimum) / _resolutionX;
         var yStep = (extent.YMaximum - extent.YMinimum) / _resolutionY;
         var pixelArea = xStep * yStep;
-        var pupilSamples = GeneratePythonCompatiblePupilSamples(
+        var pupilSamples = GenerateRadiometricPupilSamples(
             _numRays,
             RayGenerator.ParseSampling(_distribution));
         var panes = new List<AnalysisPlotPane>(fields.Count * wavelengths.Length);
@@ -192,7 +192,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Status"] = message,
-            ["PythonRequirement"] = "Set a physical aperture on the detector surface"
+            ["DetectorApertureRequirement"] = "Set a physical aperture on the detector surface"
         }, Outcome: AnalysisOutcome.Unavailable, OutcomeReason: message);
     }
 
@@ -233,14 +233,14 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
         }
     }
 
-    private static IReadOnlyList<PupilSample> GeneratePythonCompatiblePupilSamples(
+    private static IReadOnlyList<PupilSample> GenerateRadiometricPupilSamples(
         int numRays,
         PupilSampling sampling) =>
         sampling == PupilSampling.Hexapolar
             ? ApertureSampler.GenerateHexapolarRings(numRays)
             : ApertureSampler.Generate(numRays, sampling);
 
-    private static int EffectivePythonCompatiblePupilSampleCount(
+    private static int RadiometricPupilSampleCount(
         int numRays,
         PupilSampling sampling) =>
         sampling == PupilSampling.Hexapolar

@@ -7,6 +7,7 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class EncircledEnergyAnalysis : BaseAnalysis
 {
+    public bool ZemaxCompatibleOutput { get; init; }
     private readonly int _numRays;
     private readonly string _distribution;
     private readonly int _numPoints;
@@ -14,7 +15,6 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
     private readonly string _reference;
     private readonly double _maximumDistanceMicrometers;
     private readonly bool _multiplyByDiffractionLimit;
-    private readonly bool _optilandCompatibility;
 
     public EncircledEnergyAnalysis(
         Optic optic,
@@ -24,8 +24,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         string reference = "centroid",
         double maximumDistanceMicrometers = 0,
-        bool multiplyByDiffractionLimit = true,
-        bool optilandCompatibility = false) : base(optic)
+        bool multiplyByDiffractionLimit = true) : base(optic)
     {
         _numRays = Math.Max(1, numRays);
         _distribution = distribution;
@@ -34,18 +33,12 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         _reference = reference;
         _maximumDistanceMicrometers = Math.Max(0, maximumDistanceMicrometers);
         _multiplyByDiffractionLimit = multiplyByDiffractionLimit;
-        _optilandCompatibility = optilandCompatibility;
     }
 
     public override string Name => "Encircled Energy";
 
     public override AnalysisData GenerateData()
     {
-        if (_optilandCompatibility)
-        {
-            return GenerateOptilandCompatibilityData();
-        }
-
         var fields = SpotAnalysisEngine.DefinedFields(Optic);
         IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0)
@@ -58,9 +51,9 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             fields,
             wavelengths,
             _numRays,
-            _distribution,
+            ZemaxCompatibleOutput && _distribution.Equals("uniform", StringComparison.OrdinalIgnoreCase) ? "uniform-intervals" : _distribution,
             reference: "absolute",
-            aimAtStop: Optic.RayAimingEnabled);
+            aimAtStop: Optic.RayAimingEnabled, includeSurfaceTransmission: false);
         var curves = result.Fields.Select((field, fieldIndex) =>
         {
             var samples = field.Wavelengths
@@ -103,7 +96,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ? wavelengths.Select(wavelength => (
                     Wavelength: wavelength.Micrometers,
                     Weight: EnergyCurveSupport.WavelengthWeight(wavelength),
-                    FNumber: DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength)))
+                    FNumber: DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength, aimAtStop: Optic.RayAimingEnabled)))
                 .Where(component => component.Wavelength > 0
                     && component.Weight > 0
                     && double.IsFinite(component.FNumber)
@@ -118,7 +111,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                 curve.Center,
                 "encircled",
                 radiusMaximumMicrometers,
-                _numPoints,
+                ZemaxCompatibleOutput ? 100 : _numPoints,
                 new Dictionary<string, object>());
             var points = data.Series?.Points ?? Array.Empty<AnalysisPoint>();
             if (_multiplyByDiffractionLimit)
@@ -127,6 +120,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                     point.X,
                     point.Y * PolychromaticAiryEnergy(point.X, airyComponents))).ToArray();
             }
+            if (ZemaxCompatibleOutput) points = EnergyPlotSampling.Geometric(points);
             return new AnalysisSeries(
                 "Radius (µm)",
                 "Fraction of Energy",
@@ -157,7 +151,9 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ["Distribution"] = _distribution,
             ["Reference"] = _reference,
             ["MultiplyByDiffractionLimit"] = _multiplyByDiffractionLimit,
-            ["PlotPointCount"] = _numPoints,
+            ["PlotPointCount"] = series[0].Points.Count,
+            ["ZemaxCompatibleOutput"] = ZemaxCompatibleOutput,
+            ["PupilGridConvention"] = ZemaxCompatibleOutput && _distribution.Equals("uniform", StringComparison.OrdinalIgnoreCase) ? "N intervals, N+1 axis nodes, inclusive disk boundary" : _distribution,
             ["MaximumDistanceMicrometers"] = radiusMaximumMicrometers,
             ["MaximumGeometricSpotRadius"] = geometricMaximumMicrometers / 1000,
             ["TotalWeight"] = totalWeight,
@@ -175,93 +171,6 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ShowLegend: true));
     }
 
-    private AnalysisData GenerateOptilandCompatibilityData()
-    {
-        var fields = SpotAnalysisEngine.DefinedFields(Optic);
-        var primary = Optic.Wavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
-            ?? Optic.Wavelengths.FirstOrDefault();
-        if (primary is null)
-        {
-            return AnalysisData.Unavailable(Name, "No wavelengths");
-        }
-
-        var absolute = SpotAnalysisEngine.Generate(Optic, fields, new[] { primary }, _numRays, _distribution, reference: "absolute");
-        // This explicitly requested auxiliary compatibility mode retains 0.5.8's
-        // unweighted monochromatic origin; production energy uses physical weights.
-        var result = absolute with
-        {
-            Fields = absolute.Fields.Select(field =>
-        {
-            var rays = field.Wavelengths[0].Rays;
-            var x = rays.Select(ray => ray.X).DefaultIfEmpty(0).Average();
-            var y = rays.Select(ray => ray.Y).DefaultIfEmpty(0).Average();
-            return field with
-            {
-                Wavelengths = new[] { new SpotWavelengthData(primary,
-                rays.Select(ray => ray with { X = ray.X - x, Y = ray.Y - y }).ToArray()) }
-            };
-        }).ToArray()
-        };
-        var fieldRadii = result.Fields.Select(field => field.Wavelengths[0].Rays
-            .Select(ray => (
-                Radius: Math.Sqrt((ray.X * ray.X) + (ray.Y * ray.Y)),
-                Weight: ray.Intensity))
-            .OrderBy(item => item.Radius)
-            .ToArray()).ToArray();
-        var geometricRadius = fieldRadii
-            .SelectMany(radii => radii)
-            .Select(item => item.Radius)
-            .DefaultIfEmpty(0)
-            .Max();
-        var radiusMaximum = geometricRadius * 1.2;
-        var series = result.Fields.Select((field, fieldIndex) =>
-        {
-            var radii = fieldRadii[fieldIndex];
-            var cumulativeWeights = CumulativeWeights(radii);
-            var points = Enumerable.Range(0, _numPoints).Select(index =>
-            {
-                var radius = radiusMaximum * index / (_numPoints - 1.0);
-                var energy = EnergyWithinRadius(radii, cumulativeWeights, radius);
-                return new AnalysisPoint(radius, energy);
-            }).ToArray();
-            return new AnalysisSeries(
-                "Radius (mm)",
-                "Encircled Energy (-)",
-                points,
-                Name: MtfPresentation.FieldName(Optic, (field.Hx, field.Hy)),
-                ColorIndex: fieldIndex,
-                XQuantity: AnalysisAxisQuantity.Radius,
-                XUnit: AnalysisAxisUnit.Millimeter,
-                YQuantity: AnalysisAxisQuantity.EnergyFraction,
-                YUnit: AnalysisAxisUnit.Dimensionless);
-        }).ToArray();
-        var weightedRadii = fieldRadii
-            .SelectMany(radii => radii)
-            .OrderBy(item => item.Radius)
-            .ToArray();
-        var totalWeight = weightedRadii.Sum(item => item.Weight);
-        return new AnalysisData(Name, new Dictionary<string, object>
-        {
-            ["RayCount"] = result.RayCount,
-            ["VignettedRayCount"] = result.VignettedRayCount,
-            ["FieldCount"] = result.Fields.Count,
-            ["WavelengthMicrometers"] = primary.Micrometers,
-            ["NumRays"] = _numRays,
-            ["Distribution"] = _distribution,
-            ["PlotPointCount"] = _numPoints,
-            ["MaximumGeometricSpotRadius"] = geometricRadius,
-            ["TotalWeight"] = totalWeight,
-            ["Radius50"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.50),
-            ["Radius80"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.80),
-            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95),
-            ["CompatibilityReference"] = "Optiland 0.5.8"
-        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
-            Title: $"Wavelength: {primary.Micrometers:0.0000} \u00B5m",
-            XMinimum: 0,
-            YMinimum: 0,
-            ShowLegend: true));
-    }
-
     private static double PolychromaticAiryEnergy(
         double radiusMicrometers,
         IReadOnlyList<(double Wavelength, double Weight, double FNumber)> components)
@@ -274,42 +183,6 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
                     radiusMicrometers,
                     component.Wavelength,
                     component.FNumber)) / totalWeight;
-    }
-
-    private static double[] CumulativeWeights(IReadOnlyList<(double Radius, double Weight)> radii)
-    {
-        var cumulative = new double[radii.Count];
-        var total = 0.0;
-        for (var index = 0; index < radii.Count; index++)
-        {
-            total += radii[index].Weight;
-            cumulative[index] = total;
-        }
-
-        return cumulative;
-    }
-
-    private static double EnergyWithinRadius(
-        IReadOnlyList<(double Radius, double Weight)> radii,
-        IReadOnlyList<double> cumulativeWeights,
-        double radius)
-    {
-        var lower = 0;
-        var upper = radii.Count;
-        while (lower < upper)
-        {
-            var middle = lower + ((upper - lower) / 2);
-            if (radii[middle].Radius <= radius)
-            {
-                lower = middle + 1;
-            }
-            else
-            {
-                upper = middle;
-            }
-        }
-
-        return lower == 0 ? 0 : cumulativeWeights[lower - 1];
     }
 
     private static double RadiusAtEnergy(

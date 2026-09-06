@@ -44,7 +44,13 @@ public sealed class CardinalPointsDataAnalysis : BaseAnalysis
             ["EntrancePupilLocation"] = Optic.Paraxial.EstimateEntrancePupilLocation(),
             ["ExitPupilDiameter"] = Optic.Paraxial.EstimateExitPupilDiameter(),
             ["ExitPupilLocation"] = Optic.Paraxial.EstimateExitPupilLocation(),
-            ["TotalTrack"] = Optic.SurfaceGroup.TotalTrack
+            ["TotalTrack"] = Optic.SurfaceGroup.TotalTrack,
+            ["CardinalPositionsMillimeters"] = new[]
+            {
+                new[] { -focalLength, focalLength }, new[] { objectFocalPlane, imageFocalPlane },
+                new[] { objectPrincipalPlane, imagePrincipalPlane }, new[] { objectAntiPrincipalPlane, imageAntiPrincipalPlane },
+                new[] { objectNodalPlane, imageNodalPlane }, new[] { objectAntiPrincipalPlane, imageAntiPrincipalPlane }
+            }
         };
         var tableRows = new[]
         {

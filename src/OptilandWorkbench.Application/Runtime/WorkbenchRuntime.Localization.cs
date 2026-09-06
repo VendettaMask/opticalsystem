@@ -433,7 +433,7 @@ public partial class WorkbenchRuntime
         ["Resolution"] = "探测器分辨率",
         ["Normalized"] = "归一化显示",
         ["PeakIrradiance"] = "峰值照度 (W/mm²)",
-        ["PythonRequirement"] = "Python Optiland 要求",
+        ["DetectorApertureRequirement"] = "探测器孔径要求",
         ["ReferenceSurfaceIndex"] = "参考表面序号",
         ["ReferenceSurfaceNumber"] = "参考面",
         ["ReferenceSurfaceLabel"] = "参考面名称",

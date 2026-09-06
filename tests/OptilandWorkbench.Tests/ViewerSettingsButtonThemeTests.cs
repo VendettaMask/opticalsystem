@@ -17,6 +17,30 @@ namespace OptilandWorkbench.Tests;
 public sealed class ViewerSettingsButtonThemeTests
 {
     [Fact]
+    public async Task SharedSceneDrawingResourcesDoNotBelongToAnEarlierUiThread()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OptilandWorkbench.App.App));
+        await session.Dispatch(() => _ = new OpticSceneControl(), CancellationToken.None);
+        var resources = typeof(OpticSceneControl).GetFields(
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)
+            .Select(field => field.GetValue(null)).Where(value => value is IPen or IBrush).ToArray();
+        Assert.True(resources.Length > 20);
+        await Task.Run(() =>
+        {
+            foreach (var resource in resources)
+            {
+                if (resource is IPen pen)
+                {
+                    Assert.True(double.IsFinite(pen.Thickness));
+                    Assert.NotNull(pen.Brush);
+                    Assert.InRange(pen.Brush!.Opacity, 0, 1);
+                }
+                if (resource is IBrush brush) Assert.InRange(brush.Opacity, 0, 1);
+            }
+        });
+    }
+
+    [Fact]
     public async Task RefreshButtonMatchesAdjacentSettingsButtonAndKeepsHoverFeedback()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OptilandWorkbench.App.App));

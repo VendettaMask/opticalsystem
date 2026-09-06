@@ -463,7 +463,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             ? fields.ElementAtOrDefault(_fieldNumber - 1)
             : fields.LastOrDefault();
         var wavefront = _useUniformGrid
-            ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings)
+            ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings, aimAtStop: Optic.RayAimingEnabled, zemaxCentered: true)
             : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
         var isStandard = _kind == ZernikeAnalysisKind.Standard;
         var isAnnular = _kind == ZernikeAnalysisKind.Annular;
@@ -489,6 +489,8 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             _ => "fringe"
         };
         values["ZernikeTerms"] = coefficients.Count;
+        values["CoefficientNumbers"] = coefficients.Select(coefficient => coefficient.Number).ToArray();
+        values["CoefficientsWaves"] = coefficients.Select(coefficient => coefficient.Value).ToArray();
         values["RequestedZernikeTerms"] = _requestedNumTerms;
         values["ActualZernikeTerms"] = coefficients.Count;
         values["WavelengthMicrometers"] = wavelength.Micrometers;

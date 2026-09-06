@@ -139,7 +139,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ? wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Length - 1)]
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var field = fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
-        var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, wavelength);
+        var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, wavelength, aimAtStop: Optic.RayAimingEnabled);
         var cutoff = fNumber <= 1e-30
             ? 0
             : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
@@ -191,6 +191,8 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
             ["ShowOPD"] = _showOpd,
+            ["UnshiftedPupilPhaseSeries"] = new[] { sagittal.UnshiftedPhaseSeries, tangential.UnshiftedPhaseSeries },
+            ["PhaseIndicatorDefinition"] = "Mean OPD of the two shifted pupil rays, modulo one wave",
             ["MaximumContrastLoss"] = maximumRawLoss,
             ["ValidSampleCount"] = sagittal.ValidCount + tangential.ValidCount
         }, sagittal.LossSeries, new[] { sagittal.LossSeries, tangential.LossSeries }, PlotPanes: panes, PlotPaneColumns: 2);
@@ -204,6 +206,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
     {
         var lossPoints = new List<AnalysisPoint>(_sampling * _sampling);
         var opdPoints = new List<AnalysisPoint>(_sampling * _sampling);
+        var unshiftedPoints = new List<AnalysisPoint>(_sampling * _sampling);
         var losses = new List<double>(_sampling * _sampling);
         var validCount = 0;
         for (var row = 0; row < _sampling; row++)
@@ -221,6 +224,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
 
                 lossPoints.Add(new AnalysisPoint(px, py, Value: result.Loss));
                 opdPoints.Add(new AnalysisPoint(px, py, Value: result.OpdPhase));
+                unshiftedPoints.Add(new AnalysisPoint(px, py, Value: result.UnshiftedPhase));
             }
         }
 
@@ -255,10 +259,16 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             YUnit: AnalysisAxisUnit.Dimensionless,
             ValueQuantity: AnalysisAxisQuantity.WavefrontError,
             ValueUnit: AnalysisAxisUnit.Wave);
-        return new ContrastLossMap(lossSeries, opdSeries, finiteLosses, validCount);
+        var unshiftedSeries = opdSeries with
+        {
+            Points = unshiftedPoints,
+            Name = "Original pupil phase",
+            ValueLabel = "Original pupil OPD (waves modulo 1)"
+        };
+        return new ContrastLossMap(lossSeries, opdSeries, unshiftedSeries, finiteLosses, validCount);
     }
 
-    private (double Loss, double OpdPhase) ContrastLossAt(
+    private (double Loss, double OpdPhase, double UnshiftedPhase) ContrastLossAt(
         (double Hx, double Hy) field,
         Wavelength wavelength,
         double px,
@@ -268,7 +278,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
     {
         if ((px * px) + (py * py) > 1)
         {
-            return (double.NaN, double.NaN);
+            return (double.NaN, double.NaN, double.NaN);
         }
 
         var half = pupilSeparation / 2.0;
@@ -277,7 +287,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         if (((first.X * first.X) + (first.Y * first.Y) > 1)
             || ((second.X * second.X) + (second.Y * second.Y) > 1))
         {
-            return (double.NaN, double.NaN);
+            return (double.NaN, double.NaN, double.NaN);
         }
 
         try
@@ -286,22 +296,26 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
                 Optic,
                 field,
                 wavelength,
-                new[] { first, second });
+                _showOpd ? new[] { first, second, (X: px, Y: py) } : new[] { first, second });
             if (wavefront.Samples.Count < 2
                 || wavefront.Samples[0].Intensity <= 0
                 || wavefront.Samples[1].Intensity <= 0)
             {
-                return (double.NaN, double.NaN);
+                return (double.NaN, double.NaN, double.NaN);
             }
 
             var phaseDifference = 2 * Math.PI * (wavefront.Samples[0].OpdWaves - wavefront.Samples[1].OpdWaves);
             var loss = Math.Clamp(0.5 * (1 - Math.Cos(phaseDifference)), 0, 1);
             var opdPhase = PositiveModulo(0.5 * (wavefront.Samples[0].OpdWaves + wavefront.Samples[1].OpdWaves), 1);
-            return (loss, opdPhase);
+            // Preserve the documented mean-ray indicator. The original pupil phase
+            // is a separate observable; it must not silently replace that indicator.
+            var unshiftedPhase = _showOpd && wavefront.Samples.Count >= 3 && wavefront.Samples[2].Intensity > 0
+                ? PositiveModulo(wavefront.Samples[2].OpdWaves, 1) : double.NaN;
+            return (loss, opdPhase, unshiftedPhase);
         }
         catch (InvalidOperationException)
         {
-            return (double.NaN, double.NaN);
+            return (double.NaN, double.NaN, double.NaN);
         }
     }
 
@@ -345,6 +359,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
     private sealed record ContrastLossMap(
         AnalysisSeries LossSeries,
         AnalysisSeries OpdSeries,
+        AnalysisSeries UnshiftedPhaseSeries,
         IReadOnlyList<double> Losses,
         int ValidCount);
 }

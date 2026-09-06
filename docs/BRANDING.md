@@ -16,6 +16,8 @@ ICO 通过项目的 `ApplicationIcon` 使用，PNG 作为 Avalonia 资源用于�
 
 ## 重新生成
 
+下述 Python 脚本仅供维护者离线处理已批准的素材，不参与 .NET 构建、产品启动或发布包运行，也不使用 Optiland。
+
 从已批准主图重新处理圆角和平台资源：
 
 ```bash
