@@ -22,6 +22,7 @@ public sealed partial class OpticalSurface : NotifyObject
     private double? _mechanicalSemiDiameter;
     private int _mechanicalSemiDiameterSolveCode;
     private bool _semiDiameterFixed;
+    private bool _semiDiameterDefinesPhysicalAperture;
     private double _conic;
     private bool _isStop;
     private bool _radiusVariable;
@@ -95,15 +96,25 @@ public sealed partial class OpticalSurface : NotifyObject
     public double SemiDiameter
     {
         get => _semiDiameter;
-        set => SetProperty(
-            ref _semiDiameter,
-            NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter)));
+        set
+        {
+            var normalized = NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter));
+            if (SetProperty(ref _semiDiameter, normalized)
+                && SemiDiameterDefinesPhysicalAperture)
+                PhysicalAperture = new CircularAperture(normalized);
+        }
     }
 
     public bool SemiDiameterFixed
     {
         get => _semiDiameterFixed;
         set => SetProperty(ref _semiDiameterFixed, value);
+    }
+
+    public bool SemiDiameterDefinesPhysicalAperture
+    {
+        get => _semiDiameterDefinesPhysicalAperture;
+        set => SetProperty(ref _semiDiameterDefinesPhysicalAperture, value);
     }
 
     /// <summary>Zemax mechanical semi-diameter. Falls back to the clear semi-diameter when unspecified.</summary>
@@ -473,6 +484,7 @@ public sealed partial class OpticalSurface : NotifyObject
             SemiDiameter = SemiDiameter,
             MechanicalSemiDiameterSolveCode = MechanicalSemiDiameterSolveCode,
             SemiDiameterFixed = SemiDiameterFixed,
+            SemiDiameterDefinesPhysicalAperture = SemiDiameterDefinesPhysicalAperture,
             Conic = Conic,
             IsStop = IsStop,
             IsReflective = IsReflective,

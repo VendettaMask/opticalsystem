@@ -9,7 +9,7 @@ namespace OptilandWorkbench.Core.Serialization;
 public static class OpticSnapshotValidator
 {
     public const int MinimumSupportedSchemaVersion = 1;
-    public const int CurrentSchemaVersion = 4;
+    public const int CurrentSchemaVersion = 5;
 
     private const int MaximumTopLevelItemCount = 100_000;
     private const int MaximumComponentNumberCount = 1_000_000;
@@ -192,7 +192,9 @@ public static class OpticSnapshotValidator
             }
         }
 
-        ValidatePickups(snapshot.RadiusPickups, surfaceNumbers);
+        ValidatePickups(snapshot.RadiusPickups, surfaceNumbers, "$.radiusPickups");
+        ValidatePickups(snapshot.ThicknessPickups, surfaceNumbers, "$.thicknessPickups", allowOffset: true);
+        ValidatePickups(snapshot.SemiDiameterPickups, surfaceNumbers, "$.semiDiameterPickups", allowOffset: false);
         ValidateSolveSettings(snapshot.SolveSettings);
         ValidateMeritOperands(
             snapshot.MeritOperands,
@@ -457,7 +459,8 @@ public static class OpticSnapshotValidator
 
     private static void ValidatePickups(
         IReadOnlyList<RadiusPickupSnapshot>? pickups,
-        IReadOnlySet<int> surfaceNumbers)
+        IReadOnlySet<int> surfaceNumbers,
+        string collectionPath)
     {
         if (pickups is null)
         {
@@ -466,13 +469,13 @@ public static class OpticSnapshotValidator
 
         if (pickups.Count > MaximumTopLevelItemCount)
         {
-            Invalid("$.radiusPickups", "the pickup table is too large");
+            Invalid(collectionPath, "the pickup table is too large");
         }
 
         for (var index = 0; index < pickups.Count; index++)
         {
             var pickup = pickups[index];
-            var path = $"$.radiusPickups[{index}]";
+            var path = $"{collectionPath}[{index}]";
             if (pickup is null)
             {
                 Invalid(path, "pickup entries cannot be null");
@@ -488,6 +491,32 @@ public static class OpticSnapshotValidator
                 $"{path}.targetSurface");
             RequireFinite(pickup.Scale, $"{path}.scale");
             RequireFinite(pickup.Offset, $"{path}.offset");
+        }
+    }
+
+    private static void ValidatePickups(
+        IReadOnlyList<SurfaceValuePickupSnapshot>? pickups,
+        IReadOnlySet<int> surfaceNumbers,
+        string collectionPath,
+        bool allowOffset)
+    {
+        if (pickups is null) return;
+        if (pickups.Count > MaximumTopLevelItemCount)
+            Invalid(collectionPath, "the pickup table is too large");
+
+        for (var index = 0; index < pickups.Count; index++)
+        {
+            var pickup = pickups[index];
+            var path = $"{collectionPath}[{index}]";
+            if (pickup is null) Invalid(path, "pickup entries cannot be null");
+            RequireSurfaceReference(pickup.SourceSurface, surfaceNumbers, $"{path}.sourceSurface");
+            RequireSurfaceReference(pickup.TargetSurface, surfaceNumbers, $"{path}.targetSurface");
+            if (pickup.SourceSurface >= pickup.TargetSurface)
+                Invalid($"{path}.sourceSurface", "pickup sources must precede their targets");
+            RequireFinite(pickup.Scale, $"{path}.scale");
+            RequireFinite(pickup.Offset, $"{path}.offset");
+            if (!allowOffset && pickup.Offset != 0)
+                Invalid($"{path}.offset", "semi-diameter pickups do not support offsets");
         }
     }
 

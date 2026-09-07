@@ -18,7 +18,9 @@ public sealed record OpticSnapshot(
     EnvironmentSnapshot? Environment = null,
     List<string>? GlassCatalogs = null,
     bool RayAimingEnabled = false,
-    bool ImageSpaceAfocal = false);
+    bool ImageSpaceAfocal = false,
+    List<SurfaceValuePickupSnapshot>? ThicknessPickups = null,
+    List<SurfaceValuePickupSnapshot>? SemiDiameterPickups = null);
 
 public sealed record EnvironmentSnapshot(
     bool MatchRefractiveIndexData = true,
@@ -74,6 +76,12 @@ public sealed record RadiusPickupSnapshot(
     double Scale,
     double Offset);
 
+public sealed record SurfaceValuePickupSnapshot(
+    int SourceSurface,
+    int TargetSurface,
+    double Scale,
+    double Offset = 0);
+
 public sealed record SolveSettingsSnapshot(
     double DesiredBackFocus,
     bool KeepImageAtBackFocus);
@@ -95,7 +103,8 @@ public sealed record SurfaceSnapshot(
     bool SemiDiameterFixed = false,
     CoordinateSystemSnapshot? CoordinateSystem = null,
     double? MechanicalSemiDiameter = null,
-    int MechanicalSemiDiameterSolveCode = 0);
+    int MechanicalSemiDiameterSolveCode = 0,
+    bool SemiDiameterDefinesPhysicalAperture = false);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

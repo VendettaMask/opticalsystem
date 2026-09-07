@@ -131,7 +131,8 @@ public partial class WorkbenchRuntime
                     variableBindings.Add((surface.Number, true));
                 }
 
-                if (surface.ThicknessVariable)
+                if (surface.ThicknessVariable
+                    && !CurrentOptic.Pickups.ThicknessPickups.Any(pickup => pickup.TargetSurface == surface.Number))
                 {
                     var initial = surface.Thickness;
                     var lower = 0.001;
@@ -142,6 +143,7 @@ public partial class WorkbenchRuntime
                         value =>
                         {
                             surface.Thickness = value;
+                            CurrentOptic.Pickups.ApplyAll();
                             CurrentOptic.SurfaceGroup.Renumber();
                         },
                         lower,

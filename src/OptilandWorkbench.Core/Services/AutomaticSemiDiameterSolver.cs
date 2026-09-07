@@ -67,6 +67,7 @@ public static class AutomaticSemiDiameterSolver
                 surfaces[index].SemiDiameter = maxima[index];
             }
         }
+        optic.Pickups.ApplyAll();
     }
 
     private static IReadOnlyList<(double X, double Y)> NormalizedFields(Optic optic)

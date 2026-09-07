@@ -42,6 +42,7 @@ internal static class ZemaxZmxReader
         var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         InstallConvertedSurfaces(optic, converted);
+        InstallSemiDiameterPickups(optic, configuredSurfaces);
 
         ConfigureAperture(optic, document, configurationIndex);
         optic.Apodization = document.Apodization?.Clone();
@@ -71,6 +72,25 @@ internal static class ZemaxZmxReader
             surface.InteractionModel = new RefractiveReflectiveInteractionModel(item.IsReflective);
             surface.CoordinateSystem = item.CoordinateSystem;
         }
+    }
+
+    private static void InstallSemiDiameterPickups(
+        Optic optic,
+        IReadOnlyList<ZemaxSurface> sourceSurfaces)
+    {
+        var sourceToImported = sourceSurfaces
+            .Where(surface => !surface.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
+            .Select((surface, index) => (surface.Number, index))
+            .ToDictionary(item => item.Number, item => item.index);
+        foreach (var surface in sourceSurfaces.Where(surface => surface.SemiDiameterSolveCode == 2))
+        {
+            if (!sourceToImported.TryGetValue(surface.Number, out var target)
+                || !sourceToImported.TryGetValue(surface.SemiDiameterPickupSource, out var source)
+                || source >= target)
+                continue;
+            optic.Pickups.SetSemiDiameterPickup(source, target, surface.SemiDiameterPickupScale);
+        }
+        optic.Pickups.ApplyAll();
     }
 
     public static string Decode(ReadOnlySpan<byte> bytes)
@@ -552,6 +572,9 @@ internal static class ZemaxZmxReader
                     configurationIndex),
                     source.MinimumAperture),
                 SemiDiameterFixed = source.SemiDiameterFixed,
+                SemiDiameterSolveCode = source.SemiDiameterSolveCode,
+                SemiDiameterPickupSource = source.SemiDiameterPickupSource,
+                SemiDiameterPickupScale = source.SemiDiameterPickupScale,
                 MechanicalSemiDiameter = source.MechanicalSemiDiameter,
                 MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 IsStop = configuredStop.HasValue
@@ -652,6 +675,13 @@ internal static class ZemaxZmxReader
                 MaterialAfter = materialAfter.Clone(),
                 InteractionModel = new RefractiveReflectiveInteractionModel(isReflective),
                 PhysicalAperture = physicalAperture,
+                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture
+                    && !source.IsStop
+                    && (source.MinimumAperture is null
+                        || !double.IsFinite(source.MinimumAperture.Value)
+                        || Math.Abs(source.MinimumAperture.Value) <= 1e-12)
+                    && source.SemiDiameterFixed
+                    && HasSurfacePower(source),
                 CoordinateSystem = coordinate
             };
             if (source.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
@@ -1353,10 +1383,14 @@ internal static class ZemaxZmxReader
             ? RequiredInt(tokens, 2, "DIAM")
             : 0;
 
-        // OpticStudio solve codes: 0 = automatic, 1 = user defined,
-        // 2 = pickup. Preserve every explicit solve because the local
-        // model currently exposes only automatic vs fixed.
+        // OpticStudio solve codes: 0 = automatic, 1 = user defined, 2 = pickup.
+        surface.SemiDiameterSolveCode = solveCode;
         surface.SemiDiameterFixed = solveCode != 0;
+        if (solveCode == 2)
+        {
+            surface.SemiDiameterPickupSource = tokens.Count > 3 ? RequiredInt(tokens, 3, "DIAM") : 0;
+            surface.SemiDiameterPickupScale = tokens.Count > 5 ? RequiredDouble(tokens, 5, "DIAM") : 1;
+        }
     }
 
     private static void ReadMechanicalSemiDiameter(
@@ -1696,6 +1730,9 @@ internal static class ZemaxZmxReader
         public int MechanicalSemiDiameterSolveCode { get; set; }
         public double? MinimumAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
+        public int SemiDiameterSolveCode { get; set; }
+        public int SemiDiameterPickupSource { get; set; }
+        public double SemiDiameterPickupScale { get; set; } = 1;
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }

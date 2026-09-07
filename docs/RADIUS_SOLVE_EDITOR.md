@@ -1,30 +1,32 @@
-# 曲率半径求解入口
+# 镜头数据求解入口
 
-更新日期：2026-09-05。
+更新日期：2026-09-07。
 
 ## 已实现的交互
 
-镜头数据表不再提供独立的“R 变量”复选框列。点击曲率半径单元格右侧的窄标记区，打开该面的曲率求解弹窗；固定状态为空白，变量显示 `V`，拾取显示 `P`。当前仅修改半径入口，“T 变量”仍保留原有操作。
+镜头数据表的曲率半径、厚度和净口径使用同一种单元格求解入口。数值右侧保留 24 DIP 标记区；点击标记区或右键数值单元格打开当前列的求解设置。独立的“R 变量”“T 变量”和净口径“固定”复选框列均不再显示，表面属性页也不再提供另一套净口径固定开关。
 
-- 求解类型只有“固定、变量、拾取”。固定单元格首次打开时默认选择“变量”，但必须点击“确定”才修改工程；取消或点击外部关闭不会修改求解。
-- 拾取可选择当前面之前的源表面和比例因子，源表面默认是前一面，比例默认 1。当前拾取列仅支持“曲率半径”，不支持其他列或其他 Zemax 求解类型。
-- 拾取半径只读，并随源面编辑及优化更新。改为固定时保留当前求得的数值并解除关系；改为变量时解除关系，再作为独立半径变量参与优化。
-- 物面、像面以及不能计算的导入面型不开放此求解入口。比例因子使用普通文本输入框，不带增减箭头；选择框沿用设置区域样式。
+标记遵循 Zemax Lens Data Editor 规则：
 
-## 计算与兼容边界
+| 列 | 默认/固定 | 变量或用户固定 | 拾取 |
+|---|---|---|---|
+| 曲率半径 | 固定为空白 | 变量显示 `V` | `P` |
+| 厚度 | 固定为空白 | 变量显示 `V` | `P` |
+| 净口径 | 自动为空白 | 用户固定显示 `U` | `P` |
 
-遵循 Ansys 官方 [Curvature Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Curvature_Solves.html) 中的曲率比例定义：`C_target = factor × C_source`，因此非零比例时 `R_target = R_source / factor`，不是将半径直接乘以比例。例如源半径 2、比例 0.5，结果半径为 4。比例 0 得到平面，负比例允许反转曲率。
+- 曲率和厚度处于固定状态时，首次打开默认选择变量；净口径处于自动状态时，首次打开默认选择固定。所有变化只有点击“确定”才写入工程。
+- 曲率、厚度和净口径拾取均只允许前序面。曲率与净口径提供比例因子；厚度提供比例因子和偏移量。拾取目标数值只读，并随源面变化更新。
+- 新插入表面的厚度默认为固定，净口径默认为自动；自动净口径不显示字符。取消拾取后保留当前结果值，并切换到所选的固定、变量或自动状态。
+- 表面行的插入、删除菜单仍在非求解单元格上使用右键打开；在三类求解数值单元格上右键只打开相应求解设置。
 
-源面限制遵循官方 [Restrictions](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Restrictions.html) 的同列求解顺序约束：只能拾取前面的面，不允许自身或后面的面。资料版本为公开的 2025 R1 手册，本轮未进行 OpticStudio 2026 R1 实机数值对标，不宣称所有求解功能等价。
+## 计算与保存
 
-原生工程继续存储原有 `RadiusPickup` 半径比例/偏移结构，新曲率拾取转换为倒数半径比例和零偏移，无格式迁移。旧版带偏移、向后引用或重复目标的拾取保持原数据并显示 `P`，弹窗明确提示不能直接编辑其拾取参数；只有用户改为固定或变量后才解除旧关系。本轮没有增加 ZMX 求解导入或导出。
+曲率拾取遵循 Ansys [Curvature Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Curvature_Solves.html) 的曲率比例：`C_target = factor × C_source`，因此非零比例时 `R_target = R_source / factor`。厚度拾取遵循 [Thickness Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Thickness_Solves.html)：`T_target = offset + factor × T_source`。净口径的自动、用户固定、拾取及字符含义参考 [Clear Semi-Diameter Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Clear_Semi_Diameter_or_Semi_Diameter_Solves.html) 与 [Summary of Solves](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Summary_of_Solves.html)。
 
-拾取链按依赖顺序求值，不依赖录入顺序；循环和不可表示的结果被拒绝。先计算完整依赖图，再写入目标半径，避免局部更新。工作区事务负责失败回滚，求解编辑支持撤销、重做及 `.staropt` 保存重载。
+三类拾取均保存到 `.staropt`，支持撤销、重做、表面插入/删除重编号和多配置快照。拾取链先完整求值再写入目标，循环、无效引用和不可表示的结果会使当前工作区事务整体回滚。优化器不会把拾取目标作为独立变量，源变量变化后会先更新全部拾取结果再计算评价函数。
 
-优化时拾取目标不作为独立半径变量，源半径变化后先重新求值拾取，再计算评价函数；独立快照优化路径亦如此。批量设置变量不会覆盖拾取关系。求解规则属于各配置自身；从当前配置新建时复制规则，已有其他配置不会因基础配置新建拾取而改变求解类型。基础配置的派生半径值仍传播至没有半径覆盖的其他配置，之后由各配置自己的拾取规则求值。
+ZMX 的净口径 `DIAM` 代码 `0/1/2` 分别导入为自动、用户固定和拾取；净口径拾取的源面与比例可再次导出。当前 ZMX 导出器没有足够的原始求解字段来无损写回厚度拾取，因此厚度拾取的完整持久化以 `.staropt` 为准。
 
 ## 验证记录
 
-默认 App Debug 输出构建成功，0 警告、0 错误。半径求解、快照、插入/删除、右键编辑、行 DTO 及相邻优化入口组合定向测试 **43/43** 通过，0 跳过；其中新增计算/服务用例 18 项、界面用例 3 项。覆盖倒数比例、零/负比例、链式依赖、非法参数、一次撤销/重做、原生保存重载、旧拾取保留、多配置、优化时联动、待提交数值编辑以及修订变化后旧弹窗不得写入。
-
-独立 Skia 进程再次运行界面用例 **3/3** 通过，复核 `artifacts/validation/radius-solve/radius-solve-variable.png` 和 `radius-solve-pickup.png`。这是重复的渲染验证，不累加为 46 项，也不替代历史全量基线。未运行全量测试、发布或安装包打包。
+2026-09-07：默认解决方案 Debug 构建为 `0` 警告、`0` 错误；求解界面、计算、撤销保存、快照迁移、ZMX 导入、表面插入删除、多配置、优化及相邻回归组合测试 `207/207` 通过。Release 解决方案也完成过 `0` 警告、`0` 错误构建；本次没有运行全量测试、安装包或 OpticStudio 实机对标。

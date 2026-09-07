@@ -1,6 +1,7 @@
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
+using OptilandWorkbench.Core.Apertures;
 
 namespace OptilandWorkbench.Application.Runtime;
 
@@ -43,5 +44,103 @@ public partial class WorkbenchRuntime
             CurrentOptic.Pickups.RemoveRadius(surfaceNumber);
         surface.RadiusVariable = update.Kind == RadiusSolveKind.Variable;
         CommitSurfaceEdit(surface, nameof(OpticalSurface.Radius));
+    }
+
+    public ThicknessSolveDto GetThicknessSolve(int surfaceNumber)
+    {
+        var surface = GetSurfaceByNumber(surfaceNumber);
+        var pickup = CurrentOptic.Pickups.ThicknessPickups
+            .LastOrDefault(item => item.TargetSurface == surfaceNumber);
+        return pickup is null
+            ? new ThicknessSolveDto(surface.ThicknessVariable ? ThicknessSolveKind.Variable : ThicknessSolveKind.Fixed)
+            : new ThicknessSolveDto(
+                ThicknessSolveKind.Pickup,
+                pickup.SourceSurface,
+                pickup.Scale,
+                pickup.Offset);
+    }
+
+    public void SetThicknessSolve(int surfaceNumber, ThicknessSolveUpdateDto update)
+    {
+        ArgumentNullException.ThrowIfNull(update);
+        if (surfaceNumber <= 0 || surfaceNumber >= Surfaces.Count - 1)
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "当前仅支持物理表面的厚度求解。");
+        if (!Enum.IsDefined(update.Kind)) throw new ArgumentOutOfRangeException(nameof(update));
+        if (update.Kind == ThicknessSolveKind.Pickup)
+        {
+            if (update.SourceSurface < 0 || update.SourceSurface >= surfaceNumber)
+                throw new ArgumentOutOfRangeException(nameof(update), "拾取表面必须在当前表面之前。");
+            if (!double.IsFinite(update.ScaleFactor) || !double.IsFinite(update.Offset))
+                throw new ArgumentOutOfRangeException(nameof(update), "比例因子和偏移量必须是有限数值。");
+        }
+
+        CaptureCurrentState();
+        if (update.Kind == ThicknessSolveKind.Pickup)
+            CurrentOptic.Pickups.SetThicknessPickup(
+                update.SourceSurface,
+                surfaceNumber,
+                update.ScaleFactor,
+                update.Offset);
+        else
+            CurrentOptic.Pickups.RemoveThickness(surfaceNumber);
+        var surface = GetSurfaceByNumber(surfaceNumber);
+        surface.ThicknessVariable = update.Kind == ThicknessSolveKind.Variable;
+        CommitSurfaceEdit(surface, nameof(OpticalSurface.Thickness));
+    }
+
+    public SemiDiameterSolveDto GetSemiDiameterSolve(int surfaceNumber)
+    {
+        var surface = GetSurfaceByNumber(surfaceNumber);
+        var pickup = CurrentOptic.Pickups.SemiDiameterPickups
+            .LastOrDefault(item => item.TargetSurface == surfaceNumber);
+        return pickup is null
+            ? new SemiDiameterSolveDto(surface.SemiDiameterFixed
+                ? SemiDiameterSolveKind.Fixed
+                : SemiDiameterSolveKind.Automatic)
+            : new SemiDiameterSolveDto(
+                SemiDiameterSolveKind.Pickup,
+                pickup.SourceSurface,
+                pickup.Scale);
+    }
+
+    public void SetSemiDiameterSolve(int surfaceNumber, SemiDiameterSolveUpdateDto update)
+    {
+        ArgumentNullException.ThrowIfNull(update);
+        if (surfaceNumber < 0 || surfaceNumber >= Surfaces.Count)
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
+        if (!Enum.IsDefined(update.Kind)) throw new ArgumentOutOfRangeException(nameof(update));
+        if (update.Kind == SemiDiameterSolveKind.Pickup)
+        {
+            if (update.SourceSurface < 0 || update.SourceSurface >= surfaceNumber)
+                throw new ArgumentOutOfRangeException(nameof(update), "拾取表面必须在当前表面之前。");
+            if (!double.IsFinite(update.ScaleFactor))
+                throw new ArgumentOutOfRangeException(nameof(update), "比例因子必须是有限数值。");
+        }
+
+        CaptureCurrentState();
+        if (update.Kind == SemiDiameterSolveKind.Pickup)
+            CurrentOptic.Pickups.SetSemiDiameterPickup(
+                update.SourceSurface,
+                surfaceNumber,
+                update.ScaleFactor);
+        else
+            CurrentOptic.Pickups.RemoveSemiDiameter(surfaceNumber);
+        var surface = GetSurfaceByNumber(surfaceNumber);
+        surface.SemiDiameterFixed = update.Kind != SemiDiameterSolveKind.Automatic;
+        if (update.Kind == SemiDiameterSolveKind.Automatic && surface.SemiDiameterDefinesPhysicalAperture)
+        {
+            surface.SemiDiameterDefinesPhysicalAperture = false;
+            surface.PhysicalAperture = null;
+        }
+        else if (update.Kind != SemiDiameterSolveKind.Automatic
+            && !surface.IsStop
+            && double.IsFinite(surface.Radius)
+            && Math.Abs(surface.Radius) > 1e-12
+            && surface.PhysicalAperture is null)
+        {
+            surface.PhysicalAperture = new CircularAperture(surface.SemiDiameter);
+            surface.SemiDiameterDefinesPhysicalAperture = true;
+        }
+        CommitSurfaceEdit(surface, nameof(OpticalSurface.SemiDiameter));
     }
 }

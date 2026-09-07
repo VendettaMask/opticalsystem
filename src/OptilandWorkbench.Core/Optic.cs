@@ -533,7 +533,8 @@ public sealed class Optic
                         surface.CoordinateSystem.RotationYDegrees,
                         surface.CoordinateSystem.RotationZDegrees),
                     surface.MechanicalSemiDiameterOverride,
-                    surface.MechanicalSemiDiameterSolveCode))).ToList(),
+                    surface.MechanicalSemiDiameterSolveCode,
+                    surface.SemiDiameterDefinesPhysicalAperture))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -541,6 +542,16 @@ public sealed class Optic
             RayAimingEnabled: RayAimingEnabled,
             ImageSpaceAfocal: ImageSpaceAfocal,
             RadiusPickups: Pickups.RadiusPickups.Select(pickup => new RadiusPickupSnapshot(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale,
+                pickup.Offset)).ToList(),
+            ThicknessPickups: Pickups.ThicknessPickups.Select(pickup => new SurfaceValuePickupSnapshot(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale,
+                pickup.Offset)).ToList(),
+            SemiDiameterPickups: Pickups.SemiDiameterPickups.Select(pickup => new SurfaceValuePickupSnapshot(
                 pickup.SourceSurface,
                 pickup.TargetSurface,
                 pickup.Scale,
@@ -678,7 +689,8 @@ public sealed class Optic
                 IsReflective = surface.IsReflective,
                 RadiusVariable = surface.RadiusVariable,
                 ThicknessVariable = surface.ThicknessVariable,
-                SemiDiameterFixed = surface.SemiDiameterFixed
+                SemiDiameterFixed = surface.SemiDiameterFixed,
+                SemiDiameterDefinesPhysicalAperture = surface.SemiDiameterDefinesPhysicalAperture
             };
 
             if (surface.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
@@ -730,6 +742,22 @@ public sealed class Optic
                 pickup.Scale,
                 pickup.Offset);
         }
+        foreach (var pickup in snapshot.ThicknessPickups ?? new List<SurfaceValuePickupSnapshot>())
+        {
+            Pickups.SetThicknessPickup(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale,
+                pickup.Offset);
+        }
+        foreach (var pickup in snapshot.SemiDiameterPickups ?? new List<SurfaceValuePickupSnapshot>())
+        {
+            Pickups.SetSemiDiameterPickup(
+                pickup.SourceSurface,
+                pickup.TargetSurface,
+                pickup.Scale);
+        }
+        Pickups.ApplyAll();
 
         Solves.DesiredBackFocus = snapshot.SolveSettings?.DesiredBackFocus ?? 30;
         Solves.KeepImageAtBackFocus = snapshot.SolveSettings?.KeepImageAtBackFocus ?? true;

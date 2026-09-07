@@ -249,11 +249,15 @@ public sealed class CoreArchitectureTests
     {
         var optic = Optic.CreateDemo();
         optic.Pickups.LinkRadius(1, 2, -0.5, 3);
+        optic.Pickups.SetThicknessPickup(1, 2, 2, 0.5);
+        optic.Pickups.SetSemiDiameterPickup(1, 2, 0.75);
         optic.Solves.DesiredBackFocus = 42;
         optic.Solves.KeepImageAtBackFocus = false;
         var restored = Optic.FromSnapshot(optic.ToSnapshot());
 
         Assert.Equal(optic.Pickups.RadiusPickups, restored.Pickups.RadiusPickups);
+        Assert.Equal(optic.Pickups.ThicknessPickups, restored.Pickups.ThicknessPickups);
+        Assert.Equal(optic.Pickups.SemiDiameterPickups, restored.Pickups.SemiDiameterPickups);
         Assert.Equal(42, restored.Solves.DesiredBackFocus, precision: 12);
         Assert.False(restored.Solves.KeepImageAtBackFocus);
 
@@ -263,6 +267,8 @@ public sealed class CoreArchitectureTests
         optic.Solves.DesiredBackFocus = 12;
         Assert.True(undoRedo.TryUndo(optic));
         Assert.Single(optic.Pickups.RadiusPickups);
+        Assert.Single(optic.Pickups.ThicknessPickups);
+        Assert.Single(optic.Pickups.SemiDiameterPickups);
         Assert.Equal(42, optic.Solves.DesiredBackFocus, precision: 12);
     }
 

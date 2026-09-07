@@ -54,7 +54,9 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         {
             return Runtime.Surfaces.Select(surface => ToSurfaceDto(surface) with
             {
-                RadiusSolve = Runtime.GetRadiusSolve(surface.Number)
+                RadiusSolve = Runtime.GetRadiusSolve(surface.Number),
+                ThicknessSolve = Runtime.GetThicknessSolve(surface.Number),
+                SemiDiameterSolve = Runtime.GetSemiDiameterSolve(surface.Number)
             }).ToArray();
         }
     }
@@ -150,6 +152,22 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             Runtime.SetRadiusSolve(surfaceNumber, update);
         });
 
+    public void SetThicknessSolve(int surfaceNumber, ThicknessSolveUpdateDto update, long? expectedRevision = null) =>
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
+        {
+            if (expectedRevision.HasValue && expectedRevision != Workspace.Revision)
+                throw new InvalidOperationException("工程已变化，请重新打开求解设置。");
+            Runtime.SetThicknessSolve(surfaceNumber, update);
+        });
+
+    public void SetSemiDiameterSolve(int surfaceNumber, SemiDiameterSolveUpdateDto update, long? expectedRevision = null) =>
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
+        {
+            if (expectedRevision.HasValue && expectedRevision != Workspace.Revision)
+                throw new InvalidOperationException("工程已变化，请重新打开求解设置。");
+            Runtime.SetSemiDiameterSolve(surfaceNumber, update);
+        });
+
     public int InsertSurface(int surfaceNumber, bool after) => MutateTransactional(
         WorkspaceChangeCategory.Surface,
         () => Runtime.InsertSurface(surfaceNumber, after));
@@ -172,23 +190,27 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             var isImageSurface = ReferenceEquals(target, Runtime.Surfaces[^1]);
             var hasRadiusPickup = Runtime.CurrentOptic.Pickups.RadiusPickups
                 .Any(pickup => pickup.TargetSurface == surface.Number);
+            var hasThicknessPickup = Runtime.CurrentOptic.Pickups.ThicknessPickups
+                .Any(pickup => pickup.TargetSurface == surface.Number);
+            var hasSemiDiameterPickup = Runtime.CurrentOptic.Pickups.SemiDiameterPickups
+                .Any(pickup => pickup.TargetSurface == surface.Number);
             target.Label = surface.Label;
             if (!hasRadiusPickup) target.Radius = surface.Radius;
-            if (!isImageSurface)
+            if (!isImageSurface && !hasThicknessPickup)
             {
                 target.Thickness = surface.Thickness;
             }
             target.Material = surface.Material;
             target.Coating = surface.Coating;
             target.SemiDiameterFixed = surface.SemiDiameterFixed;
-            if (target.SemiDiameterFixed)
+            if (target.SemiDiameterFixed && !hasSemiDiameterPickup)
             {
                 target.SemiDiameter = surface.SemiDiameter;
             }
             target.Conic = surface.Conic;
             target.IsStop = surface.IsStop;
             target.RadiusVariable = surface.RadiusVariable && !hasRadiusPickup;
-            target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable;
+            target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable && !hasThicknessPickup;
             Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
             Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Conic));
             if (!isImageSurface)

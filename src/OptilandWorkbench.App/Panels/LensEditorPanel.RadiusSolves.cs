@@ -54,7 +54,7 @@ public sealed partial class LensEditorPanel
         ToolTip.SetTip(marker, $"表面 {row.Number} 的曲率求解：{SolveLabel(row.RadiusSolve.Kind)}");
         Avalonia.Automation.AutomationProperties.SetName(marker, $"表面 {row.Number} 曲率求解类型");
         marker.Click += (_, _) => BeginRadiusSolve(row.Number);
-        var cell = new Grid { ColumnDefinitions = new ColumnDefinitions("*,24") };
+        var cell = new Grid { Name = "RadiusSolveCell", ColumnDefinitions = new ColumnDefinitions("*,24") };
         Grid.SetColumn(marker, 1);
         cell.Children.Add(editor);
         cell.Children.Add(marker);

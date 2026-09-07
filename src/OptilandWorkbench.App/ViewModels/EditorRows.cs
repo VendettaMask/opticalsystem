@@ -30,6 +30,10 @@ public sealed class SurfaceEditorRow
         RadiusSolve = source.RadiusSolve ?? new RadiusSolveDto(
             source.RadiusVariable ? RadiusSolveKind.Variable : RadiusSolveKind.Fixed);
         ThicknessVariable = source.ThicknessVariable;
+        ThicknessSolve = source.ThicknessSolve ?? new ThicknessSolveDto(
+            source.ThicknessVariable ? ThicknessSolveKind.Variable : ThicknessSolveKind.Fixed);
+        SemiDiameterSolve = source.SemiDiameterSolve ?? new SemiDiameterSolveDto(
+            source.SemiDiameterFixed ? SemiDiameterSolveKind.Fixed : SemiDiameterSolveKind.Automatic);
         SurfaceRole = Number == 0
             ? "物面"
             : isLastSurface
@@ -135,6 +139,8 @@ public sealed class SurfaceEditorRow
     public bool RadiusVariable { get; set; }
     public RadiusSolveDto RadiusSolve { get; }
     public bool ThicknessVariable { get; set; }
+    public ThicknessSolveDto ThicknessSolve { get; }
+    public SemiDiameterSolveDto SemiDiameterSolve { get; }
     public bool CanOptimize { get; }
     public bool GeometryComputable { get; }
     public SurfaceInspectionDto? Inspection { get; }

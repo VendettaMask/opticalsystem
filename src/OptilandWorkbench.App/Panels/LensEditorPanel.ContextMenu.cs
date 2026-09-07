@@ -38,6 +38,28 @@ public sealed partial class LensEditorPanel
         }
         if (row is null || _disposed) return;
 
+        var solveCell = source is null
+            ? null
+            : source.GetVisualAncestors().OfType<Control>().Prepend(source)
+                .FirstOrDefault(control => control.Name is
+                    "RadiusSolveCell" or "ThicknessSolveCell" or "SemiDiameterSolveCell");
+        if (solveCell is not null)
+        {
+            switch (solveCell.Name)
+            {
+                case "RadiusSolveCell":
+                    BeginRadiusSolve(row.Number);
+                    break;
+                case "ThicknessSolveCell":
+                    BeginThicknessSolve(row.Number);
+                    break;
+                case "SemiDiameterSolveCell":
+                    BeginSemiDiameterSolve(row.Number);
+                    break;
+            }
+            return;
+        }
+
         // Finish pending edits before capturing the row/revision, so a delayed LostFocus
         // cannot write an old row back after insertion or deletion has renumbered it.
         if (!_grid.CommitEdit(DataGridEditingUnit.Cell, true)

@@ -231,6 +231,12 @@ public sealed class MultiConfiguration
                     target.Thickness = source.Thickness;
                 }
 
+                if (!_brokenLinks.Contains((config, surfaceNumber, "semiDiameter")))
+                {
+                    target.SemiDiameter = source.SemiDiameter;
+                    target.SemiDiameterFixed = source.SemiDiameterFixed;
+                }
+
                 if (!_brokenLinks.Contains((config, surfaceNumber, "material")))
                 {
                     CopyMaterial(source, target);
@@ -290,6 +296,10 @@ public sealed class MultiConfiguration
             case "conic":
                 target.Conic = source.Conic;
                 break;
+            case "semiDiameter":
+                target.SemiDiameter = source.SemiDiameter;
+                target.SemiDiameterFixed = source.SemiDiameterFixed;
+                break;
             case "material":
                 CopyMaterial(source, target);
                 break;
@@ -310,6 +320,8 @@ public sealed class MultiConfiguration
         "radius" => source.Radius.Equals(target.Radius),
         "thickness" => source.Thickness.Equals(target.Thickness),
         "conic" => source.Conic.Equals(target.Conic),
+        "semiDiameter" => source.SemiDiameter.Equals(target.SemiDiameter)
+            && source.SemiDiameterFixed == target.SemiDiameterFixed,
         "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
             && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
             && source.IsReflective == target.IsReflective,
@@ -319,8 +331,8 @@ public sealed class MultiConfiguration
     private static string NormalizeProperty(string property)
     {
         var normalized = property?.Trim().ToLowerInvariant();
-        return normalized is "radius" or "thickness" or "conic" or "material"
-            ? normalized
+        return normalized is "radius" or "thickness" or "semidiameter" or "conic" or "material"
+            ? normalized == "semidiameter" ? "semiDiameter" : normalized
             : throw new ArgumentOutOfRangeException(nameof(property));
     }
 
@@ -350,7 +362,7 @@ public sealed class MultiConfiguration
                     continue;
                 }
 
-                foreach (var property in new[] { "radius", "thickness", "conic", "material" })
+                foreach (var property in new[] { "radius", "thickness", "semiDiameter", "conic", "material" })
                 {
                     if (!PropertyEquals(source, target, property))
                     {

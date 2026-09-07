@@ -44,13 +44,17 @@ public partial class WorkbenchRuntime
         if (_activeConfigurationIndex == 0)
         {
             _multiConfiguration.PropagateBaseProperty(surface.Number, property);
-            if (property == "radius")
+            var pickupTargets = property switch
             {
-                foreach (var target in CurrentOptic.Pickups.RadiusPickups.Select(pickup => pickup.TargetSurface).Distinct())
-                    _multiConfiguration.PropagateBaseProperty(target, "radius");
-                foreach (var configuration in _multiConfiguration.Configurations)
-                    configuration.Pickups.ApplyAll();
-            }
+                "radius" => CurrentOptic.Pickups.RadiusPickups.Select(pickup => pickup.TargetSurface),
+                "thickness" => CurrentOptic.Pickups.ThicknessPickups.Select(pickup => pickup.TargetSurface),
+                "semiDiameter" => CurrentOptic.Pickups.SemiDiameterPickups.Select(pickup => pickup.TargetSurface),
+                _ => Enumerable.Empty<int>()
+            };
+            foreach (var target in pickupTargets.Distinct())
+                _multiConfiguration.PropagateBaseProperty(target, property);
+            foreach (var configuration in _multiConfiguration.Configurations)
+                configuration.Pickups.ApplyAll();
             return;
         }
 
@@ -433,6 +437,7 @@ public partial class WorkbenchRuntime
             "None" => null,
             _ => new CircularAperture(surface.SemiDiameter)
         };
+        surface.SemiDiameterDefinesPhysicalAperture = false;
     }
 
     private static string PhysicalApertureKind(IPhysicalAperture? aperture) => aperture switch

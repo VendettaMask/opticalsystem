@@ -22,7 +22,7 @@ public sealed class OpticSnapshotValidationTests
         var valid = Optic.CreateDemo().ToSnapshot();
         var cases = new (string ExpectedPath, OpticSnapshot Snapshot)[]
         {
-            ("$.schemaVersion", valid with { SchemaVersion = 5 }),
+            ("$.schemaVersion", valid with { SchemaVersion = OpticSnapshotValidator.CurrentSchemaVersion + 1 }),
             ("$.aperture.value", valid with
             {
                 Aperture = valid.Aperture! with { Value = double.PositiveInfinity }
@@ -164,6 +164,20 @@ public sealed class OpticSnapshotValidationTests
                 RadiusPickups = new List<RadiusPickupSnapshot>
                 {
                     new(10_000, 1, 1, 0)
+                }
+            }),
+            ("$.thicknessPickups[0].sourceSurface", valid with
+            {
+                ThicknessPickups = new List<SurfaceValuePickupSnapshot>
+                {
+                    new(10_000, 1, 1)
+                }
+            }),
+            ("$.semiDiameterPickups[0].scale", valid with
+            {
+                SemiDiameterPickups = new List<SurfaceValuePickupSnapshot>
+                {
+                    new(0, 1, double.NaN)
                 }
             }),
             ("$.solveSettings.desiredBackFocus", valid with

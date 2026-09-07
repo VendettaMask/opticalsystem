@@ -54,9 +54,8 @@ public sealed class LensSurfaceContextMenuTests
                 var before = app.Prescription.GetSurfaces();
                 grid.SelectedIndex = 1;
                 var revision = app.Events.Revision;
-                // Right-click directly in a numeric TextBox, not only the row background.
-                var cell = Row(grid, 2).GetVisualDescendants().OfType<TextBox>().First();
-                RightClick(window, cell);
+                // The first columns retain row actions; solve-value cells use their own menus.
+                RightClick(window, Row(grid, 2));
                 var menu = Menu(panel);
                 Assert.True(menu.IsOpen);
                 Assert.Equal(2, Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).Number);

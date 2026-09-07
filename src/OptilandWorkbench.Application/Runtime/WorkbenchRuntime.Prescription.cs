@@ -88,6 +88,9 @@ public partial class WorkbenchRuntime
             case nameof(OpticalSurface.Thickness):
                 SynchronizeMultiConfigurationProperty(surface, "thickness");
                 break;
+            case nameof(OpticalSurface.SemiDiameter):
+                SynchronizeMultiConfigurationProperty(surface, "semiDiameter");
+                break;
             case nameof(OpticalSurface.Conic):
                 SynchronizeMultiConfigurationProperty(surface, "conic");
                 break;

@@ -129,6 +129,10 @@ public interface IPrescriptionService
 
     void SetRadiusSolve(int surfaceNumber, RadiusSolveUpdateDto update, long? expectedRevision = null);
 
+    void SetThicknessSolve(int surfaceNumber, ThicknessSolveUpdateDto update, long? expectedRevision = null);
+
+    void SetSemiDiameterSolve(int surfaceNumber, SemiDiameterSolveUpdateDto update, long? expectedRevision = null);
+
     SystemSettingsDto GetSystemSettings();
 
     EnvironmentSettingsDto GetEnvironmentSettings();

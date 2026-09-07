@@ -391,7 +391,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         if (SelectedVariables().Count == 0)
         {
             _operationStatus.MarkFailed("缺少可优化变量");
-            _result.Text = "请先在镜头数据中勾选至少一个 R 变量或 T 变量。";
+            _result.Text = "请先在镜头数据中将至少一个曲率半径或厚度设置为变量。";
             return;
         }
 

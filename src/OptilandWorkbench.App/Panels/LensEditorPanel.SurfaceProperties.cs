@@ -17,8 +17,6 @@ public sealed partial class LensEditorPanel
     private readonly Grid _propertyBody = new() { Name = "SurfacePropertiesBody", Height = 300 };
     private readonly ContentControl _propertyPageHost = new() { HorizontalContentAlignment = HorizontalAlignment.Stretch };
     private readonly CheckBox _stopSurface = new() { Name = "SurfaceIsStop", Content = "使此表面为光阑" };
-    private readonly CheckBox _fixedSemiDiameter = new() { Name = "SurfaceFixedSemiDiameter", Content = "固定净半径" };
-    private readonly NumericUpDown _surfaceSemiDiameter = Number(168, 0.1m, 1_000_000, 0.1m, 10);
     private readonly TextBox _surfaceCoating = new() { Name = "SurfaceCoating", PlaceholderText = "None" };
     private readonly TextBlock _drawingSummary = PropertyNote("");
     private readonly TextBlock _coordinatesSummary = PropertyNote("");
@@ -136,12 +134,9 @@ public sealed partial class LensEditorPanel
     {
         _geometryPicker.Name = "SurfaceGeometry";
         _aperturePicker.Name = "SurfaceAperture";
-        _surfaceSemiDiameter.Name = "SurfaceSemiDiameter";
         _applyComponentsButton.Name = "ApplySurfaceProperties";
         _applyComponentsButton.HorizontalContentAlignment = HorizontalAlignment.Center;
         _geometryPicker.SelectionChanged += (_, _) => UpdateGeometryPropertyVisibility();
-        _fixedSemiDiameter.IsCheckedChanged += (_, _) =>
-            _surfaceSemiDiameter.IsEnabled = _fixedSemiDiameter.IsEnabled && _fixedSemiDiameter.IsChecked == true;
 
         _gratingProperties.Children.Add(PropertyRow("衍射级次：", _gratingOrder));
         _gratingProperties.Children.Add(PropertyRow("周期 (μm)：", WithInfinity(_gratingPeriod, _infiniteGratingPeriod)));
@@ -181,10 +176,8 @@ public sealed partial class LensEditorPanel
                 PropertyNote("绘图沿用当前主题与布局设置。独立表面颜色、透明度、隐藏表面及行颜色尚未实现。")),
             [SurfacePropertyPage.Aperture] = PropertyStack(
                 PropertyRow("孔径类型：", _aperturePicker),
-                PropertyRow("净半径 (mm)：", _surfaceSemiDiameter),
-                _fixedSemiDiameter,
                 _apertureSummary,
-                PropertyNote("净半径与物理孔径是不同设置。取消固定后自动求净半径；原孔径类型未变时保留其导入参数。具体孔径尺寸仍不支持在此编辑。")),
+                PropertyNote("净口径求解请在镜头数据表的净口径单元格中右键设置自动、固定或拾取。净口径与物理孔径是不同设置；原孔径类型未变时保留其导入参数。")),
             [SurfacePropertyPage.Scattering] = PropertyStack(
                 _scatterSummary,
                 PropertyNote("本页只读。当前散射模型仅支持主光线损耗近似，不等同于完整 BSDF / 杂散光追迹；尚未接入散射参数编辑。")),
@@ -277,10 +270,6 @@ public sealed partial class LensEditorPanel
         ToolTip.SetTip(_stopSurface, row.IsStop ? "要移动光阑，请选择另一个表面并将其设为光阑。" : "应用后将此表面设为唯一光阑。");
         _surfaceCoating.Text = row.Coating;
         _surfaceCoating.IsEnabled = row.GeometryComputable;
-        _fixedSemiDiameter.IsChecked = row.SemiDiameterFixed;
-        _fixedSemiDiameter.IsEnabled = row.GeometryComputable;
-        _surfaceSemiDiameter.Value = (decimal)Math.Clamp(row.SemiDiameter, 0.1, 1_000_000);
-        _surfaceSemiDiameter.IsEnabled = row.GeometryComputable && row.SemiDiameterFixed;
         _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameter:0.######} mm\n机械半直径：{row.MechanicalSemiDiameter:0.######} mm";
         _apertureSummary.Text = $"当前物理孔径：{row.ApertureKind}";
         _coatingModelSummary.Text = $"当前膜层模型：{row.CoatingKind}";

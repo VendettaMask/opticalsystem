@@ -296,9 +296,13 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             lines.Add($"  CURV {FormatDouble(RadiusToCurvature(surface.Radius))}");
             lines.Add($"  DISZ {FormatDistance(surface.Thickness)}");
             lines.Add(GlassLine(opticSurface));
-            lines.Add(
-                $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} " +
-                $"{(opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\"");
+            var semiDiameterPickup = optic.Pickups.SemiDiameterPickups
+                .LastOrDefault(pickup => pickup.TargetSurface == opticSurface.Number);
+            lines.Add(semiDiameterPickup is null
+                ? $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} " +
+                  $"{(opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\""
+                : $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} 2 " +
+                  $"{semiDiameterPickup.SourceSurface} 0 {FormatDouble(semiDiameterPickup.Scale)} \"\"");
             lines.Add(
                 $"  MEMA {FormatDouble(opticSurface.MechanicalSemiDiameter)} " +
                 $"{opticSurface.MechanicalSemiDiameterSolveCode} 0 0 1 \"\"");

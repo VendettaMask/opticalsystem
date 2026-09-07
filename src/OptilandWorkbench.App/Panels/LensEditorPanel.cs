@@ -82,6 +82,8 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         _disposed = true;
         ClearSurfaceContext();
         CloseRadiusSolve();
+        CloseThicknessSolve();
+        CloseSemiDiameterSolve();
         _events.Changed -= OnWorkspaceChanged;
     }
 
@@ -129,11 +131,9 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(RadiusColumn());
         grid.Columns.Add(ThicknessColumn());
-        grid.Columns.Add(ThicknessVariableColumn());
         grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
-        grid.Columns.Add(SemiDiameterFixedColumn());
         grid.Columns.Add(NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
         grid.Columns.Add(NumericColumn("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
         grid.Columns.Add(NumericColumn("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
@@ -176,6 +176,8 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             ClearSurfaceContext();
         }
         if (_radiusSolveRevision != _events.Revision) CloseRadiusSolve();
+        if (_thicknessSolveRevision != _events.Revision) CloseThicknessSolve();
+        if (_semiDiameterSolveRevision != _events.Revision) CloseSemiDiameterSolve();
 
         var selectedNumber = preserveSelection
             ? (_grid.SelectedItem as SurfaceEditorRow)?.Number
@@ -271,9 +273,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                 ? Math.CopySign(double.PositiveInfinity, (double)(_thinLensFocalLength.Value ?? 1))
                 : (double)(_thinLensFocalLength.Value ?? 50),
             _stopSurface.IsChecked == true,
-            _surfaceCoating.Text,
-            _fixedSemiDiameter.IsChecked == true,
-            (double)(_surfaceSemiDiameter.Value ?? (decimal)row.SemiDiameter)));
+            _surfaceCoating.Text));
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
         {
@@ -324,26 +324,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         Header = NumericHeader("厚度"),
         Tag = NumericColumnTag,
         Width = new DataGridLength(96),
-        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
-        {
-            if (row?.IsLastSurface != false)
-            {
-                return new TextBlock
-                {
-                    Text = "-",
-                    Margin = new Avalonia.Thickness(8, 0),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    TextAlignment = TextAlignment.Right
-                };
-            }
-
-            return CreateNumericEditor(row.ThicknessDisplay, text =>
-            {
-                row.ThicknessDisplay = text;
-                _prescription.UpdateSurface(row.ToDto());
-            });
-        })
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateThicknessCell(row))
     };
 
     private DataGridTemplateColumn SemiDiameterColumn() => new()
@@ -351,58 +332,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         Header = NumericHeader("净口径"),
         Tag = NumericColumnTag,
         Width = new DataGridLength(106),
-        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
-        {
-            if (row is null)
-            {
-                return new TextBlock();
-            }
-
-            if (!row.SemiDiameterFixed)
-            {
-                return new TextBlock
-                {
-                    Text = row.SemiDiameterDisplay,
-                    Margin = new Avalonia.Thickness(8, 0),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    TextAlignment = TextAlignment.Right
-                };
-            }
-
-            return CreateNumericEditor(row.SemiDiameterDisplay, text =>
-            {
-                row.SemiDiameterDisplay = text;
-                _prescription.UpdateSurface(row.ToDto());
-            });
-        })
-    };
-
-    private DataGridTemplateColumn SemiDiameterFixedColumn() => new()
-    {
-        Header = "固定",
-        IsReadOnly = true,
-        Width = new DataGridLength(64),
-        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
-        {
-            var checkBox = new CheckBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                IsChecked = row?.SemiDiameterFixed
-            };
-            checkBox.IsCheckedChanged += (_, _) =>
-            {
-                if (row is null)
-                {
-                    return;
-                }
-
-                row.SemiDiameterFixed = checkBox.IsChecked == true;
-                _prescription.UpdateSurface(row.ToDto());
-            };
-            return checkBox;
-        })
+        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) => CreateSemiDiameterCell(row))
     };
 
     private static TextBox CreateNumericEditor(string value, Action<string> commit)
@@ -464,34 +394,6 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             content.Children.Add(type);
             return content;
         }, supportsRecycling: true)
-    };
-
-    private DataGridTemplateColumn ThicknessVariableColumn() => new()
-    {
-        Header = "T 变量",
-        IsReadOnly = true,
-        Width = new DataGridLength(68),
-        CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
-        {
-            var checkBox = new CheckBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                IsEnabled = row?.CanOptimize == true,
-                IsChecked = row?.ThicknessVariable
-            };
-            checkBox.IsCheckedChanged += (_, _) =>
-            {
-                if (row is null || !row.CanOptimize)
-                {
-                    return;
-                }
-
-                row.ThicknessVariable = checkBox.IsChecked == true;
-                _prescription.UpdateSurface(row.ToDto());
-            };
-            return checkBox;
-        })
     };
 
     private static bool HasOpticalMaterial(SurfaceEditorRow row) =>

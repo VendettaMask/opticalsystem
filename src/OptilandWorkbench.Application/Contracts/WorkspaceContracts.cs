@@ -734,7 +734,9 @@ public sealed record SurfaceRowDto(
     bool GeometryComputable = true,
     SurfaceInspectionDto? Inspection = null,
     RadiusSolveDto? RadiusSolve = null,
-    double? MechanicalSemiDiameter = null);
+    double? MechanicalSemiDiameter = null,
+    ThicknessSolveDto? ThicknessSolve = null,
+    SemiDiameterSolveDto? SemiDiameterSolve = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 
@@ -746,6 +748,32 @@ public sealed record RadiusSolveDto(
 
 public sealed record RadiusSolveUpdateDto(
     RadiusSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1);
+
+public enum ThicknessSolveKind { Fixed, Variable, Pickup }
+
+public sealed record ThicknessSolveDto(
+    ThicknessSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1,
+    double Offset = 0);
+
+public sealed record ThicknessSolveUpdateDto(
+    ThicknessSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1,
+    double Offset = 0);
+
+public enum SemiDiameterSolveKind { Automatic, Fixed, Pickup }
+
+public sealed record SemiDiameterSolveDto(
+    SemiDiameterSolveKind Kind,
+    int SourceSurface = 0,
+    double ScaleFactor = 1);
+
+public sealed record SemiDiameterSolveUpdateDto(
+    SemiDiameterSolveKind Kind,
     int SourceSurface = 0,
     double ScaleFactor = 1);
 

@@ -55,6 +55,8 @@ internal static class OpticSnapshotMigration
                     && surfaceNumbers.Contains(pickup.TargetSurface))
                 .ToList()
             : snapshot.RadiusPickups;
+        var thicknessPickups = FilterPickups(snapshot.ThicknessPickups, surfaceNumbers, migrateLegacySchema);
+        var semiDiameterPickups = FilterPickups(snapshot.SemiDiameterPickups, surfaceNumbers, migrateLegacySchema);
         var meritOperands = NormalizeMeritOperands(
             snapshot.MeritOperands,
             surfaceNumbers,
@@ -67,9 +69,24 @@ internal static class OpticSnapshotMigration
             SchemaVersion = OpticSnapshotValidator.CurrentSchemaVersion,
             Surfaces = surfaces!,
             RadiusPickups = radiusPickups,
+            ThicknessPickups = thicknessPickups,
+            SemiDiameterPickups = semiDiameterPickups,
             MeritOperands = meritOperands
         };
     }
+
+    private static List<SurfaceValuePickupSnapshot>? FilterPickups(
+        List<SurfaceValuePickupSnapshot>? pickups,
+        IReadOnlySet<int> surfaceNumbers,
+        bool migrateLegacySchema) =>
+        !migrateLegacySchema
+            ? pickups
+            : pickups?
+                .Where(pickup =>
+                    pickup is not null
+                    && surfaceNumbers.Contains(pickup.SourceSurface)
+                    && surfaceNumbers.Contains(pickup.TargetSurface))
+                .ToList();
 
     private static List<MeritOperandSnapshot>? NormalizeMeritOperands(
         List<MeritOperandSnapshot>? operands,

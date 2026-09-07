@@ -7,6 +7,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Panels;
@@ -229,8 +230,8 @@ public sealed class SurfacePropertiesPanelTests
                 Find<TextBox>(editor, "SurfaceCoating").Text = "MgF2";
                 nav.SelectedIndex = 2;
                 window.UpdateLayout();
-                Find<CheckBox>(editor, "SurfaceFixedSemiDiameter").IsChecked = true;
-                Find<NumericUpDown>(editor, "SurfaceSemiDiameter").Value = 8.25m;
+                Assert.DoesNotContain(editor.GetVisualDescendants().OfType<Control>(), control =>
+                    control.Name is "SurfaceFixedSemiDiameter" or "SurfaceSemiDiameter");
                 Assert.Equal("None", application.Prescription.GetSurfaces()[row.Number].Coating);
                 Click(Find<Button>(editor, "ApplySurfaceProperties"));
                 Dispatcher.UIThread.RunJobs();
@@ -238,7 +239,8 @@ public sealed class SurfacePropertiesPanelTests
                 var applied = application.Prescription.GetSurfaces()[row.Number];
                 Assert.True(applied.IsStop);
                 Assert.Equal("MgF2", applied.Coating);
-                Assert.Equal(8.25, applied.SemiDiameter);
+                Assert.False(applied.SemiDiameterFixed);
+                Assert.Equal(SemiDiameterSolveKind.Automatic, applied.SemiDiameterSolve!.Kind);
                 Assert.Equal(row.Number, Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).Number);
 
                 nav.SelectedIndex = 6;
