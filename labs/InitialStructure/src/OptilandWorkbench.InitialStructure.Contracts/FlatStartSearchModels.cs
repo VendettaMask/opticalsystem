@@ -52,7 +52,7 @@ public sealed record FamilyTrial
 public sealed record FlatStartSearchCheckpoint
 {
     public int SchemaVersion { get; init; } = 1;
-    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-family-search", "1", "Managed CPU", true);
+    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-family-search", "4", "Managed CPU", true);
     public string RunId { get; init; } = string.Empty;
     public InitialStructureSpecification Specification { get; init; } = new();
     public FlatStartSearchOptions Options { get; init; } = new();

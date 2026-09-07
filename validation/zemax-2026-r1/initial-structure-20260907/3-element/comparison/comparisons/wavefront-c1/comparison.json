@@ -1,0 +1,125 @@
+{
+  "key": "Wavefront",
+  "directory": "wavefront-c1",
+  "support": "Comparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "",
+  "request": {
+    "canonicalAnalysisKey": "Wavefront",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "Sampling": "64",
+      "Rotation": "0",
+      "DisplayScale": "1",
+      "Apodization": "\u65E0",
+      "ReferenceChiefRay": "False",
+      "UseExitPupilShape": "True",
+      "WavelengthNumber": "1",
+      "FieldNumber": "1",
+      "SurfaceNumber": "-1",
+      "DisplayAs": "\u8868\u9762",
+      "RemoveTilt": "False",
+      "PupilSx": "0",
+      "PupilSy": "0",
+      "PupilSr": "1",
+      "UsePolarization": "False",
+      "UseRayAiming": "False"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 1,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 5,
+    "surfaceCount": 8,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        2.5
+      ],
+      [
+        0,
+        5
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "WavefrontError": {
+      "absolute": 1E-05,
+      "relative": 0.001,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "grid",
+      "unit": "Wave",
+      "count": 3001,
+      "maxAbsolute": 1.217732165104124E-10,
+      "meanAbsolute": 3.049181511721122E-11,
+      "rmse": 3.81848812382738E-11,
+      "nrmse": 7.407412262101358E-10,
+      "maxRelative": "Infinity",
+      "p50": 2.4845993318312054E-11,
+      "p90": 6.542128297426508E-11,
+      "p95": 7.023930048699611E-11,
+      "pearson": 1.0000000000000093,
+      "worstX": 0,
+      "worstY": -1,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "grid.workbench.peak": 0.03532984620537473,
+        "grid.workbench.pv": 0.08687940212192308,
+        "grid.workbench.rmsAboutZero": 0.03584178058269602,
+        "grid.workbench.rmsAfterPiston": 0.022271104719352494,
+        "grid.zemax.peak": 0.03532984608360151,
+        "grid.zemax.pv": 0.08687940197053333,
+        "grid.zemax.rmsAboutZero": 0.035841780586580226,
+        "grid.zemax.rmsAfterPiston": 0.0222711047202951
+      }
+    }
+  ],
+  "normalizations": [
+    "Wavefront even-grid physical pupil convention: (index-N/2)/(N/2-1), shared with committed golden test. Missing/vignetted samples remain null.",
+    "Undo Workbench display-only minimum offset: add -0.05154955591654835 waves, derived solely from native MeanOpticalPathDifference / wavelength minus displayed mean; retain signed chief-reference OPD, no fit to Zemax.",
+    "ZOS WavefrontMap even N grid uses chief-ray index N/2 and pupil denominator N/2-1; decode sample coordinates using existing Zemax golden contract, not display-grid MinX/Dx. No fitted shift.",
+    "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (3001/3001); no orientation search"
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 8730
+}

@@ -1,0 +1,3882 @@
+{
+  "SchemaVersion": 1,
+  "Algorithm": "strict-flat-family-search/v1",
+  "SourceRevision": "912434630c44c3c08d357e7c9e8ef02e4c744db4",
+  "Scope": "60 pre-change family-search runs, frozen specifications and same machine; not the old flat-to-usable-hybrid prototype",
+  "TimingCaveat": "Diagnostic probes/builds overlapped some runs. Times describe observed cost, not controlled speed ratios. First-acceptance timing and export/reload were not instrumented for this v1 probe.",
+  "BinarySha256": {
+    "OptilandWorkbench.Core": "7685eab12ee4f8dea77031cb674568c594901695faa257323cea13aadd9b0706",
+    "OptilandWorkbench.InitialStructure.Engine": "a9810b556db46c339110854e45dc230c2015d29fa41f40cdfb29729d55635bb1",
+    "OptilandWorkbench.InitialStructure.Contracts": "a3395952c34dd88f19361ebb28b20643f37504de4158554eb140ece6440bf95a"
+  },
+  "Results": [
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "Seed": 101,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 732138,
+      "SearchSeconds": 4.8593818,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 48,
+      "AcceptedFamilies": 20,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.042433714965004,
+        "FNumber": 5.609901200158501,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.010567634566826571,
+        "MaximumSpotRadiusMillimeters": 0.03506255167483063,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "Seed": 102,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 738297,
+      "SearchSeconds": 4.5501049,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 56,
+      "AcceptedFamilies": 25,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.252658053704383,
+        "FNumber": 5.658953545864357,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.01340251864623373,
+        "MaximumSpotRadiusMillimeters": 0.02588416782530345,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "Seed": 103,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 736776,
+      "SearchSeconds": 4.6012721,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 55,
+      "AcceptedFamilies": 23,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.44172662564563,
+        "FNumber": 5.70306954598398,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.009184260121594604,
+        "MaximumSpotRadiusMillimeters": 0.02621780062620571,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "Seed": 104,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 741627,
+      "SearchSeconds": 4.425868,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 59,
+      "AcceptedFamilies": 25,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.15043646686699,
+        "FNumber": 5.6351018422689645,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.007847273113736413,
+        "MaximumSpotRadiusMillimeters": 0.02374092293626706,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "Seed": 105,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 738222,
+      "SearchSeconds": 4.7624768,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 62,
+      "AcceptedFamilies": 22,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.205257731687958,
+        "FNumber": 5.64789347072719,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.008951651112161948,
+        "MaximumSpotRadiusMillimeters": 0.03237215395898074,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "Seed": 101,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 725455,
+      "SearchSeconds": 5.1138309,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 67,
+      "AcceptedFamilies": 32,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.17956385592117,
+        "FNumber": 5.628730216947386,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.023967139214715306,
+        "MaximumSpotRadiusMillimeters": 0.06320192761662735,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "Seed": 102,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 716589,
+      "SearchSeconds": 4.4871529,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 47,
+      "AcceptedFamilies": 22,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 34.42136021652783,
+        "FNumber": 5.507417634644453,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.023933213682870894,
+        "MaximumSpotRadiusMillimeters": 0.0695559113292803,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "Seed": 103,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 730057,
+      "SearchSeconds": 4.724078,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 79,
+      "AcceptedFamilies": 35,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 34.71514511172837,
+        "FNumber": 5.554423217876539,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.018002262368093307,
+        "MaximumSpotRadiusMillimeters": 0.06644078652385499,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "Seed": 104,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 750285,
+      "SearchSeconds": 4.7082082,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 106,
+      "AcceptedFamilies": 46,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.2206294228111,
+        "FNumber": 5.635300707649776,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.01833654979139404,
+        "MaximumSpotRadiusMillimeters": 0.06686803134500563,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "Seed": 105,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 770305,
+      "SearchSeconds": 5.0042817,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 146,
+      "AcceptedFamilies": 60,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.40556051470372,
+        "FNumber": 5.664889682352595,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.015511200873730828,
+        "MaximumSpotRadiusMillimeters": 0.05614534920981873,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "Seed": 101,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 794442,
+      "SearchSeconds": 4.9791465,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 131,
+      "AcceptedFamilies": 49,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.0180041924091,
+        "FNumber": 8.002880670785457,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.010954131303456157,
+        "MaximumSpotRadiusMillimeters": 0.039096555879429395,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "Seed": 102,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 781767,
+      "SearchSeconds": 4.9023987,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 115,
+      "AcceptedFamilies": 43,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.023195661034066,
+        "FNumber": 8.003711305765451,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.012702184573892418,
+        "MaximumSpotRadiusMillimeters": 0.03544512510371778,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "Seed": 103,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 769092,
+      "SearchSeconds": 4.809524,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 96,
+      "AcceptedFamilies": 38,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.01886727105757,
+        "FNumber": 8.003018763369212,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.010949129208981718,
+        "MaximumSpotRadiusMillimeters": 0.039092030453630855,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "Seed": 104,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 804582,
+      "SearchSeconds": 4.8311284,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 153,
+      "AcceptedFamilies": 51,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.01778584915502,
+        "FNumber": 8.002845735864803,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.011030987487638255,
+        "MaximumSpotRadiusMillimeters": 0.03938036590309402,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "Seed": 105,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 781767,
+      "SearchSeconds": 4.7876886,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 118,
+      "AcceptedFamilies": 44,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.01882917034091,
+        "FNumber": 8.003012667254545,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.011543413348157068,
+        "MaximumSpotRadiusMillimeters": 0.038392135460131094,
+        "EvaluatedRayCount": 582,
+        "ValidRayCount": 582
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "Seed": 101,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 1262391,
+      "SearchSeconds": 6.0068973,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 120,
+      "AcceptedFamilies": 47,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 76.43034182261275,
+        "FNumber": 8.152569794412026,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.026162991617015692,
+        "MaximumSpotRadiusMillimeters": 0.07318646049680178,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "Seed": 102,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 1406301,
+      "SearchSeconds": 6.0706968,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 78,
+      "AcceptedFamilies": 30,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 75.7723070830972,
+        "FNumber": 8.082379422197034,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.021753643599613088,
+        "MaximumSpotRadiusMillimeters": 0.0687363414545974,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "Seed": 103,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 1398672,
+      "SearchSeconds": 6.6135997,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 115,
+      "AcceptedFamilies": 50,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 76.00362991896804,
+        "FNumber": 8.107053858023258,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.027889658635531975,
+        "MaximumSpotRadiusMillimeters": 0.08243270341854103,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "Seed": 104,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 1398981,
+      "SearchSeconds": 6.1753841,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 105,
+      "AcceptedFamilies": 44,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 75.39623135305732,
+        "FNumber": 8.042264677659448,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.024823710989769165,
+        "MaximumSpotRadiusMillimeters": 0.08847775291194493,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "Seed": 105,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 1386087,
+      "SearchSeconds": 6.3363962,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 115,
+      "AcceptedFamilies": 47,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 75.66014590755516,
+        "FNumber": 8.070415563472551,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.021731832890282934,
+        "MaximumSpotRadiusMillimeters": 0.07389710954988127,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 582784,
+      "SearchSeconds": 4.626279,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 99.82846861681018,
+        "FNumber": 7.986277489344815,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.1504833225055247,
+        "MaximumSpotRadiusMillimeters": 0.2807021878984779,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1504833225055247,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2523266960183196,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.14993771190895105,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26100759151541797,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.14837919115169704,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26773607684991774,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1465616024143943,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2696369714645366,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.14499899296562288,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2690410133353067,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1434008881960337,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2807021878984779,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "Seed": 102,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 838402,
+      "SearchSeconds": 4.9471825,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 3,
+      "AcceptedFamilies": 2,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 99.75720342777734,
+        "FNumber": 7.980576274222187,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.035929977140093355,
+        "MaximumSpotRadiusMillimeters": 0.14727032160937092,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "Seed": 103,
+      "Success": true,
+      "Evaluations": 10000,
+      "SearchRays": 945610,
+      "SearchSeconds": 5.6339645,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 1,
+      "AcceptedFamilies": 1,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 99.89321928403615,
+        "FNumber": 7.991457542722892,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.03238615815924153,
+        "MaximumSpotRadiusMillimeters": 0.1400074369879265,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 730282,
+      "SearchSeconds": 4.8017427,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 100.18678343851636,
+        "FNumber": 8.014942675081308,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04879118756610991,
+        "MaximumSpotRadiusMillimeters": 0.1866173247956997,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16716072614606325,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1866173247956997,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 867251,
+      "SearchSeconds": 5.0891627,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 99.98374166660221,
+        "FNumber": 7.998699333328177,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.03597850696975495,
+        "MaximumSpotRadiusMillimeters": 0.17118699145844563,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17118699145844563,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1421100,
+      "SearchSeconds": 6.6900055,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 152.49964341479443,
+        "FNumber": 8.133314315455703,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04731622512335484,
+        "MaximumSpotRadiusMillimeters": 0.18939541393357118,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15378950012975512,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1705502570525752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18939541393357118,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1429437,
+      "SearchSeconds": 6.6776741,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 152.49964341479443,
+        "FNumber": 8.133314315455703,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04731622512335484,
+        "MaximumSpotRadiusMillimeters": 0.18939541393357118,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15378950012975512,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1705502570525752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18939541393357118,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1412058,
+      "SearchSeconds": 6.3361693,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 152.49964341479443,
+        "FNumber": 8.133314315455703,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04731622512335484,
+        "MaximumSpotRadiusMillimeters": 0.18939541393357118,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15378950012975512,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1705502570525752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18939541393357118,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1435308,
+      "SearchSeconds": 6.6418079,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 152.49964341479443,
+        "FNumber": 8.133314315455703,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04731622512335484,
+        "MaximumSpotRadiusMillimeters": 0.18939541393357118,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15378950012975512,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1705502570525752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18939541393357118,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1455816,
+      "SearchSeconds": 6.9201519,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 152.49964341479443,
+        "FNumber": 8.133314315455703,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.04731622512335484,
+        "MaximumSpotRadiusMillimeters": 0.18939541393357118,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15378950012975512,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1705502570525752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18939541393357118,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 792150,
+      "SearchSeconds": 5.0849426,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.45060979570683,
+        "FNumber": 4.0751016326178044,
+        "ValidRayFraction": 0.9862542955326461,
+        "RmsSpotRadiusMillimeters": 0.033437426394202656,
+        "MaximumSpotRadiusMillimeters": 0.11709161905501553,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1722
+      },
+      "BestViolations": [
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 788808,
+      "SearchSeconds": 5.1630407,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.369220918107278,
+        "FNumber": 4.061536819684546,
+        "ValidRayFraction": 0.9862542955326461,
+        "RmsSpotRadiusMillimeters": 0.03683669094101944,
+        "MaximumSpotRadiusMillimeters": 0.13879497301516341,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1722
+      },
+      "BestViolations": [
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 783795,
+      "SearchSeconds": 5.387428,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.010003676378755,
+        "FNumber": 4.001667279396459,
+        "ValidRayFraction": 0.9862542955326461,
+        "RmsSpotRadiusMillimeters": 0.05987653024820774,
+        "MaximumSpotRadiusMillimeters": 0.18691398574577356,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1722
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17328585061432378,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.050478531049183734,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1777412661735904,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05987653024820774,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18691398574577356,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 813873,
+      "SearchSeconds": 5.3734021,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.069799759984146,
+        "FNumber": 4.011633293330691,
+        "ValidRayFraction": 0.9862542955326461,
+        "RmsSpotRadiusMillimeters": 0.038203504403664094,
+        "MaximumSpotRadiusMillimeters": 0.1434180950931907,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1722
+      },
+      "BestViolations": [
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 797732,
+      "SearchSeconds": 5.8022528,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 24.316641470248847,
+        "FNumber": 4.052773578374808,
+        "ValidRayFraction": 0.9862542955326461,
+        "RmsSpotRadiusMillimeters": 0.04221585547544812,
+        "MaximumSpotRadiusMillimeters": 0.13231973256631324,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1722
+      },
+      "BestViolations": [
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1128605,
+      "SearchSeconds": 5.8903675,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.079068367925785,
+        "FNumber": 4.009036384905804,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.09847458905000085,
+        "MaximumSpotRadiusMillimeters": 0.34177199223502086,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16026360452934751,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.056060499629126175,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.22130909849551728,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0750075800474634,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.277072970246639,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09847458905000085,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.34177199223502086,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1215071,
+      "SearchSeconds": 6.0907354,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.47256468949593,
+        "FNumber": 4.054007393085249,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.0814486351600832,
+        "MaximumSpotRadiusMillimeters": 0.3312036147043358,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18938577642497645,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05904843372987593,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.25490922459177767,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0814486351600832,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3312036147043358,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 990522,
+      "SearchSeconds": 5.7128887,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.57613800947065,
+        "FNumber": 4.065844343939503,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.0847958615413948,
+        "MaximumSpotRadiusMillimeters": 0.3289077631963373,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.19732163977314343,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.061801490177652074,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2581881061423523,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0847958615413948,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3289077631963373,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 979520,
+      "SearchSeconds": 5.3400245,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.17192964611852,
+        "FNumber": 4.0196491024135454,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.08623404668168637,
+        "MaximumSpotRadiusMillimeters": 0.34163619496833686,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.19072229524630036,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06132957316237651,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26042622811652283,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08623404668168637,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.34163619496833686,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 968089,
+      "SearchSeconds": 5.4212663,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 35.30337268239937,
+        "FNumber": 4.034671163702785,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.08789283912990953,
+        "MaximumSpotRadiusMillimeters": 0.35149823718931206,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.20383162414647238,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06341065038716809,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2720251751861982,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08789283912990953,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.35149823718931206,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 849507,
+      "SearchSeconds": 4.8386918,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.20627854344745,
+        "FNumber": 4.016502283475797,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.2013621297378409,
+        "MaximumSpotRadiusMillimeters": 0.6602018879581131,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16235275230592258,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05873544382117942,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.225032769812199,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08647482678142558,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3270293465026084,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.12265669627104925,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.4386139744735065,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1582509583262896,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5409224002231579,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2013621297378409,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6602018879581131,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 938715,
+      "SearchSeconds": 5.0650243,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 51.78178166075763,
+        "FNumber": 4.1425425328606105,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.15366859823181517,
+        "MaximumSpotRadiusMillimeters": 0.5232177867394014,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.03563563321515262,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17428660001366225,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06265043552717335,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.25611844031513264,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09047911875196664,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3458088424960515,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11885941149334699,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.4278780100142443,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15366859823181517,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5232177867394014,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 988194,
+      "SearchSeconds": 5.4263445,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 51.60052839375931,
+        "FNumber": 4.128042271500745,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.11694856598246602,
+        "MaximumSpotRadiusMillimeters": 0.42517700261407043,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0320105678751863,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17526521481844703,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0616121959553107,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.259250348453989,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08558214082609335,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3360487497183815,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11694856598246602,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.42517700261407043,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 844344,
+      "SearchSeconds": 4.7173794,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.31423426023464,
+        "FNumber": 4.025138740818772,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.1650566482468889,
+        "MaximumSpotRadiusMillimeters": 0.5840237352682696,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16475962448648485,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0602285022720176,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26278142888823464,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09141269008290867,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.370323510322752,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.12426910644729355,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.46899557664040525,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1650566482468889,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5840237352682696,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1101168,
+      "SearchSeconds": 5.8292778,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 51.318948487042505,
+        "FNumber": 4.1055158789634,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.09936744968687868,
+        "MaximumSpotRadiusMillimeters": 0.3955655160686131,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.026378969740850078,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07631424766345334,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07071609563228998,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15198416395705516,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05802374097342908,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05603392984601474,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.20514430453083676,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07049570879768101,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2931730960152885,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09936744968687868,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3955655160686131,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 973134,
+      "SearchSeconds": 6.0517051,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 87.36635374202847,
+        "FNumber": 5.755900952415993,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.08832744740253458,
+        "MaximumSpotRadiusMillimeters": 0.3408148233660455,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.027839455788570167,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05466190363437956,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05211930644462984,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.053698902918943935,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2110671517542304,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06693348459883147,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2711073921276732,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08832744740253458,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3408148233660455,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 956913,
+      "SearchSeconds": 5.996921,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 87.26193579736928,
+        "FNumber": 5.749021652532564,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.08974851279830429,
+        "MaximumSpotRadiusMillimeters": 0.34084282117047593,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.026611009380814954,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05179262748348978,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.21184098765191095,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06707100197041256,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2715878033886714,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08974851279830429,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.34084282117047593,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 898971,
+      "SearchSeconds": 6.2392097,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 86.92107988590578,
+        "FNumber": 5.72656526307144,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.1283490853227995,
+        "MaximumSpotRadiusMillimeters": 0.414600983304938,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.022600939834185763,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16588271725138615,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.059957320739827104,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.22386172441402064,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0809398729823288,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.28795970523539616,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10225168607946795,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3466279127567802,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1283490853227995,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.414600983304938,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 970713,
+      "SearchSeconds": 6.6013302,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 87.47554586740901,
+        "FNumber": 5.763094786558711,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.09004725627779796,
+        "MaximumSpotRadiusMillimeters": 0.33922075474270663,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.029124069028341193,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.051966465397574296,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.21214732533038116,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06743322504008771,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.27099993650781684,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09004725627779796,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.33922075474270663,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 976113,
+      "SearchSeconds": 6.6073555,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 87.43404482041993,
+        "FNumber": 5.760360599933548,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.08856490576973836,
+        "MaximumSpotRadiusMillimeters": 0.3361590679842177,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.028635821416705065,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05127706132245245,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.20869400164982643,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06622317120271481,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26772817738700816,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08856490576973836,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3361590679842177,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1132037,
+      "SearchSeconds": 7.071808,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 104.07741173787763,
+        "FNumber": 5.828335057321147,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.13236862704740315,
+        "MaximumSpotRadiusMillimeters": 0.2825563430397544,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.04077411737877634,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.13236862704740315,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2518446820889667,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.12650347230340833,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2722118518930188,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11001605832346012,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2638393237174137,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09253846121492647,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.23775412400310506,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08192840292133523,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.21273718529881366,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08107141109690733,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2825563430397544,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1119887,
+      "SearchSeconds": 6.6833014,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 103.3928062722771,
+        "FNumber": 5.789997151247517,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.10621403833708483,
+        "MaximumSpotRadiusMillimeters": 0.3949361979044461,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.033928062722770935,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05262565796254072,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05046881236039355,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1724090440772592,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.060798157390058116,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.247055988507773,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07940476970260402,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3155136800783698,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10621403833708483,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3949361979044461,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1109516,
+      "SearchSeconds": 6.6587414,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 102.86890258447778,
+        "FNumber": 5.760658544730756,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.10150265151547683,
+        "MaximumSpotRadiusMillimeters": 0.3854493955296654,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.028689025844777838,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.062211488031858574,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05936649962364351,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05546417499170566,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16575818075488513,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06168976603797234,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2392733358231478,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07697661374984997,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.30687863608737587,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10150265151547683,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3854493955296654,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1113608,
+      "SearchSeconds": 6.7126181,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 102.94531274235872,
+        "FNumber": 5.764937513572089,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.10093905503527041,
+        "MaximumSpotRadiusMillimeters": 0.39849388407422914,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.02945312742358719,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06658545610012581,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06296426523730769,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15508344974173705,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.056649396122750335,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16085345088201475,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06070545149366769,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.24064197169500723,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07559064097590067,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.31372869503654677,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10093905503527041,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.39849388407422914,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 1079408,
+      "SearchSeconds": 6.5194164,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 102.96485591576408,
+        "FNumber": 5.766031931282788,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.10069001331409057,
+        "MaximumSpotRadiusMillimeters": 0.3943152564847896,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.029648559157640753,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06910282327605134,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06559048095556906,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16183819489562667,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05932195573258005,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16208319100728108,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06264371867996472,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.23991599753536264,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07645335985608545,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3113588818869175,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10069001331409057,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3943152564847896,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "Seed": 101,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 749682,
+      "SearchSeconds": 6.1879902,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 51.80006322764241,
+        "FNumber": 4.144005058211393,
+        "ValidRayFraction": 0.993127147766323,
+        "RmsSpotRadiusMillimeters": 0.1389065961730168,
+        "MaximumSpotRadiusMillimeters": 0.32955138280628815,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1734
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.036001264552848244,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1389065961730168,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2376081305427904,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1298568841644429,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26386627847363586,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10560293633284394,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2456536540935339,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08609129099904372,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2056835880602022,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08451573954387757,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.29545123287759334,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09670992214208249,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.32955138280628815,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "Seed": 102,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 748011,
+      "SearchSeconds": 6.1867233,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.79321744757126,
+        "FNumber": 4.063457395805701,
+        "ValidRayFraction": 0.9587628865979382,
+        "RmsSpotRadiusMillimeters": 0.11248429979895495,
+        "MaximumSpotRadiusMillimeters": 0.3279983748677771,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1674
+      },
+      "BestViolations": [
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05310067537429044,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.21828403113830408,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06851311812952224,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2653562119189582,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08247422680412375,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0900337881226941,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3059642757506591,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08247422680412375,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08247422680412375,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08247422680412375,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.134020618556701,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11248429979895495,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3279983748677771,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.134020618556701,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.134020618556701,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.134020618556701,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "Seed": 103,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 746340,
+      "SearchSeconds": 5.9352813,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 52.58898223368113,
+        "FNumber": 4.20711857869449,
+        "ValidRayFraction": 0.9673539518900344,
+        "RmsSpotRadiusMillimeters": 0.1420539347086626,
+        "MaximumSpotRadiusMillimeters": 0.26310071831218496,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1689
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.051779644673622505,
+          "Limit": 0.02
+        },
+        {
+          "Code": "target.f-number",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.051779644673622505,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1420539347086626,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.23719005308854602,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.13341294325946665,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.26310071831218496,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10962216521702513,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.24802568185170948,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0872292523012366,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2115686044766663,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07410116728094805,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17932574460162218,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0690895052145423,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1829363876979213,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "Seed": 104,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 792648,
+      "SearchSeconds": 6.4632771,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 46.97225861004585,
+        "FNumber": 3.757780688803668,
+        "ValidRayFraction": 1,
+        "RmsSpotRadiusMillimeters": 0.5448561627010801,
+        "MaximumSpotRadiusMillimeters": 1.3150107916304847,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1746
+      },
+      "BestViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.060554827799083055,
+          "Limit": 0.02
+        },
+        {
+          "Code": "target.f-number",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.060554827799083055,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.34034566889553425,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6606715668986199,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3527759367730741,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.7402426267487692,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3903547704353465,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8730116452273382,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.4390732152803043,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.0200610825234318,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.4869192695935115,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1558534804265044,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5448561627010801,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.3150107916304847,
+          "Limit": 0.15
+        }
+      ],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "Seed": 105,
+      "Success": false,
+      "Evaluations": 10000,
+      "SearchRays": 746340,
+      "SearchSeconds": 5.9294182,
+      "FirstAcceptedSeconds": null,
+      "FirstAcceptedTiming": "Not instrumented in this pre-change probe",
+      "AcceptedTrials": 0,
+      "AcceptedFamilies": 0,
+      "BestEvaluation": {
+        "EffectiveFocalLengthMillimeters": 50.039780180027236,
+        "FNumber": 4.003182414402179,
+        "ValidRayFraction": 0.9673539518900344,
+        "RmsSpotRadiusMillimeters": 0.17861780634815164,
+        "MaximumSpotRadiusMillimeters": 0.46953416181906643,
+        "EvaluatedRayCount": 1746,
+        "ValidRayCount": 1689
+      },
+      "BestViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05292073001707779,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17072895702635463,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0638282103405307,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2366772411228899,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09705140387481888,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3490464173176999,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.12441183205059873,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.40248389241634513,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.030927835051546393,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15221013256257848,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.44058816863090655,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05154639175257736,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17861780634815164,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.46953416181906643,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.1.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.wave.2.lost-fraction",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11340206185567014,
+          "Limit": 0.020000000000000018
+        }
+      ],
+      "FailedTrials": 0
+    }
+  ]
+}

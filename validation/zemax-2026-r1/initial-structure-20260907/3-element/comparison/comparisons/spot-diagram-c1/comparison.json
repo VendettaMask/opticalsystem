@@ -1,0 +1,146 @@
+{
+  "key": "Spot Diagram",
+  "directory": "spot-diagram-c1",
+  "support": "PartiallyComparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+  "request": {
+    "canonicalAnalysisKey": "Spot Diagram",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "RayDensity": "20",
+      "Pattern": "hexapolar",
+      "ColorRaysBy": "\u6CE2\u957F",
+      "Reference": "chief",
+      "UsePolarization": "False",
+      "DirectionCosines": "False",
+      "ShowAiryDisk": "false",
+      "WavelengthNumber": "1",
+      "FieldNumber": "1",
+      "SurfaceNumber": "-1",
+      "DisplayScale": "\u6BD4\u4F8B\u5C3A",
+      "PlotScaleMicrometers": "0",
+      "ScatterRays": "false",
+      "UseSymbols": "True",
+      "UseRayAiming": "False",
+      "DeltaFocus": "0"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 1,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 5,
+    "surfaceCount": 8,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        2.5
+      ],
+      [
+        0,
+        5
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "RmsSpotRadius": {
+      "absolute": 0.001,
+      "relative": 0.01,
+      "nrmse": 0.01,
+      "closeNrmse": 0.03,
+      "minimumCoverage": 0.95
+    },
+    "GeoSpotRadius": {
+      "absolute": 0.001,
+      "relative": 0.01,
+      "nrmse": 0.01,
+      "closeNrmse": 0.03,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "RmsSpotRadius",
+      "unit": "Micrometer",
+      "count": 1,
+      "maxAbsolute": 1.362021606610142E-12,
+      "meanAbsolute": 1.362021606610142E-12,
+      "rmse": 1.362021606610142E-12,
+      "nrmse": 5.064082010271818E-13,
+      "maxRelative": 5.064082010271818E-13,
+      "p50": 1.362021606610142E-12,
+      "p90": 1.362021606610142E-12,
+      "p95": 1.362021606610142E-12,
+      "pearson": null,
+      "worstX": 0,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench": 2.6895725698098336,
+        "zemax": 2.6895725698111956
+      }
+    },
+    {
+      "id": "GeoSpotRadius",
+      "unit": "Micrometer",
+      "count": 1,
+      "maxAbsolute": 4.4861891979053325E-12,
+      "meanAbsolute": 4.4861891979053325E-12,
+      "rmse": 4.4861891979053325E-12,
+      "nrmse": 7.71884308325611E-13,
+      "maxRelative": 7.71884308325611E-13,
+      "p50": 4.4861891979053325E-12,
+      "p90": 4.4861891979053325E-12,
+      "p95": 4.4861891979053325E-12,
+      "pearson": null,
+      "worstX": 0,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench": 5.811996888022524,
+        "zemax": 5.81199688802701
+      }
+    }
+  ],
+  "normalizations": [
+    "SpotDiagramAnalysis native metric positions 0=RMS, 1=GEO; labels are display-only; one monochromatic field.",
+    "IAR_SpotDataResultMatrix focal RMS/GEO metrics are reported in micrometers for MM lens units (verified against native text export); no extra x1000 conversion or point-cloud registration."
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 8611
+}

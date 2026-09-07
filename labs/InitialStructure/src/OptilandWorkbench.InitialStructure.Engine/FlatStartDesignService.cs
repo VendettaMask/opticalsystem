@@ -51,7 +51,25 @@ public sealed class FlatStartDesignService
             ? FlatStartDesignState.TargetsNotMet : FlatStartDesignState.StartupFailed;
         DesignStage currentStage = new(.3, 0, false);
         DesignStage[] targets = [new(.6, .25, false), new(1, .5, false), new(1, 1, false), new(1, 1, true)];
-        if (canContinue)
+        if (specification.Wavelengths.Any(wave => !wave.IsPrimary && wave.Weight > 0))
+            targets = [new(1, .25, true), new(1, .5, true), new(1, 1, true)];
+        var refinedAtFullTarget = false;
+        double[]? incumbent = null;
+        DesignEvaluation? incumbentEvaluation = null;
+        if (restart is not null && CanEvaluate(true))
+        {
+            // A full-field candidate must not be degraded by replaying reduced monochromatic stages.
+            var evaluation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
+            RetainFullTarget(evaluation);
+            if (evaluation.HasContinuousSearchResiduals)
+            {
+                steps.Add(new(count, "full-target-refinement-entry", FlatStartDesignProblem.FullStage,
+                    problem.CreateOptic(vector, FlatStartDesignProblem.FullStage).ToSnapshot(), evaluation));
+                Optimize(FlatStartDesignProblem.FullStage, evaluation, budget - 1, dense: true);
+                refinedAtFullTarget = true;
+            }
+        }
+        if (canContinue && !refinedAtFullTarget)
         {
             for (var targetIndex = 0; targetIndex < targets.Length && CanEvaluate(reserveFinal: true); targetIndex++)
             {
@@ -64,7 +82,7 @@ public sealed class FlatStartDesignService
                 for (var subdivisions = 0; subdivisions < 6 && count < stageEnd && CanEvaluate(true); subdivisions++)
                 {
                     var evaluation = Evaluate(vector, nextStage);
-                    if (!evaluation.IsFeasible)
+                    if (!evaluation.HasContinuousSearchResiduals)
                     {
                         if (nextStage.AllWavelengths != currentStage.AllWavelengths) break;
                         nextStage = new((currentStage.PupilFraction + nextStage.PupilFraction) / 2,
@@ -88,6 +106,19 @@ public sealed class FlatStartDesignService
 
         DesignEvaluation? validation = null;
         CandidateSnapshot? candidate = null;
+        if (!refinedAtFullTarget && canContinue && count + 2 * problem.Dimension + 3 < budget && CanEvaluate(true))
+        {
+            // Coarse sampling can pass while the independent denser field/pupil grid still fails.
+            var evaluation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
+            RetainFullTarget(evaluation);
+            if (evaluation.HasContinuousSearchResiduals)
+            {
+                steps.Add(new(count, "dense-target-repair-entry", FlatStartDesignProblem.FullStage,
+                    problem.CreateOptic(vector, FlatStartDesignProblem.FullStage).ToSnapshot(), evaluation));
+                Optimize(FlatStartDesignProblem.FullStage, evaluation, budget - 1, dense: true);
+            }
+        }
+        if (incumbent is not null) vector = incumbent;
         if (CanEvaluate(reserveFinal: false))
         {
             // A new Optic is constructed; full target and frozen denser samples never inherit a reduced stage.
@@ -106,7 +137,7 @@ public sealed class FlatStartDesignService
                 Lineage = new()
                 {
                     RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                    Operation = family is null ? "strict-flat-design-v1" : "strict-flat-family-design-v1",
+                    Operation = family is null ? "strict-flat-design-v4" : "strict-flat-family-design-v4",
                     ParentCandidateId = parentCandidateId,
                     Generation = bootstrap.Steps.Count + steps.Count - 1,
                     ElementCount = elementCount,
@@ -135,8 +166,8 @@ public sealed class FlatStartDesignService
         if (validation is null) diagnostics.Add(new("design.validation-not-run", "Budget or time ended before full-target validation; no accepted candidate is published."));
         return new()
         {
-            Algorithm = family is null ? new("strict-flat-design", "1", "Managed CPU", true)
-                : new("strict-flat-family-design", "1", "Managed CPU", true),
+            Algorithm = family is null ? new("strict-flat-design", "4", "Managed CPU", true)
+                : new("strict-flat-family-design", "4", "Managed CPU", true),
             Specification = specification,
             SpecificationFingerprint = ContentFingerprint.Compute(specification),
             State = state,
@@ -163,7 +194,19 @@ public sealed class FlatStartDesignService
             return problem.Evaluate(problem.CreateOptic(values, stage), stage, dense, cancellationToken);
         }
 
-        void Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd)
+        void RetainFullTarget(DesignEvaluation evaluation)
+        {
+            if (incumbentEvaluation is not null)
+            {
+                var rank = evaluation.MeetsTargets ? 0 : evaluation.IsFeasible ? 1 : 2;
+                var previousRank = incumbentEvaluation.MeetsTargets ? 0 : incumbentEvaluation.IsFeasible ? 1 : 2;
+                if (rank > previousRank || rank == previousRank && evaluation.Merit >= incumbentEvaluation.Merit) return;
+            }
+            incumbent = vector.ToArray();
+            incumbentEvaluation = evaluation;
+        }
+
+        void Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false)
         {
             var damping = 1e-3;
             var stalled = 0;
@@ -180,28 +223,31 @@ public sealed class FlatStartDesignService
                     minus[column] -= delta;
                     plus = problem.Project(plus);
                     minus = problem.Project(minus);
-                    var upper = Evaluate(plus, stage);
+                    var upper = Evaluate(plus, stage, dense);
                     if (!CanEvaluate(true)) return;
-                    var lower = Evaluate(minus, stage);
+                    var lower = Evaluate(minus, stage, dense);
                     // One-sided derivatives at active geometry bounds; never differentiate synthetic penalties.
-                    if (!upper.IsFeasible) { upper = evaluation; plus = vector; }
-                    if (!lower.IsFeasible) { lower = evaluation; minus = vector; }
+                    if (!upper.HasContinuousSearchResiduals) { upper = evaluation; plus = vector; }
+                    if (!lower.HasContinuousSearchResiduals) { lower = evaluation; minus = vector; }
                     var span = plus[column] - minus[column];
                     if (Math.Abs(span) < 1e-15) continue;
                     for (var row = 0; row < evaluation.Residuals.Count; row++)
                         jacobian[row, column] = (upper.Residuals[row] - lower.Residuals[row]) / span;
                 }
-                var direction = FlatStartBootstrap.DampedStep(jacobian, evaluation.Residuals, damping);
+                // Remove outward variables at active bounds and resolve the coupled least-squares system.
+                // Merely clipping a finished step lets an impossible thickness change suppress useful curvature updates.
+                var direction = ProjectedDampedStep.Solve(jacobian, evaluation.Residuals, damping, vector, problem.Project);
                 var largest = direction.Select(Math.Abs).Max();
                 var scale = largest > .2 ? .2 / largest : 1;
                 var accepted = false;
                 for (var attempt = 0; attempt < 8 && count < stageEnd && CanEvaluate(true); attempt++, scale /= 2)
                 {
                     var trial = problem.Project(vector.Select((value, index) => value + scale * direction[index]).ToArray());
-                    var proposed = Evaluate(trial, stage);
-                    if (!proposed.IsFeasible || proposed.Merit >= evaluation.Merit - 1e-12) continue;
+                    var proposed = Evaluate(trial, stage, dense);
+                    if (!proposed.HasContinuousSearchResiduals || proposed.Merit >= evaluation.Merit - 1e-12) continue;
                     vector = trial;
                     evaluation = proposed;
+                    if (dense) RetainFullTarget(evaluation);
                     steps.Add(new(count, "curvature-thickness-step", stage, problem.CreateOptic(vector, stage).ToSnapshot(), evaluation));
                     accepted = true;
                     break;

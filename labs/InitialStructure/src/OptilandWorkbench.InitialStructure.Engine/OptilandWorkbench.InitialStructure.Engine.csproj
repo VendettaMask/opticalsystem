@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <InternalsVisibleTo Include="OptilandWorkbench.InitialStructure.Tests" />
+    <InternalsVisibleTo Include="OptilandWorkbench.InitialStructure.Benchmarks" />
     <ProjectReference Include="../OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj" />
     <ProjectReference Include="../../../../src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj" />
   </ItemGroup>

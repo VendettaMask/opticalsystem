@@ -42,7 +42,7 @@ public sealed class FlatStartSearchService
         FlatStartSearchPlanning.Validate(specification, source.Options);
         return new()
         {
-            Algorithm = new("strict-flat-selected-refinement", "1", "Managed CPU", true),
+            Algorithm = new("strict-flat-selected-refinement", "4", "Managed CPU", true),
             RunId = "flat-refine-" + Guid.NewGuid().ToString("N"),
             Specification = specification,
             Options = source.Options,
@@ -86,6 +86,8 @@ public sealed class FlatStartSearchService
         if (checkpoint is not null)
         {
             ValidateResume(current, specification, options, materials, roots, quota);
+            if (checkpoint.Algorithm.Version != "4")
+                throw new InvalidDataException("This checkpoint uses a historical search version. View/export it or create a separate refinement run; continuing it with version 4 would change its algorithm.");
             if (current.Trials.Any(trial => trial.State == FamilyTrialState.Reserved))
                 current = current with
                 {

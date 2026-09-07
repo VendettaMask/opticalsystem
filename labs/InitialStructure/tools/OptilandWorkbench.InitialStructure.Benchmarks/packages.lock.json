@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "optilandworkbench.core": {
+        "type": "Project"
+      },
+      "optilandworkbench.initialstructure.contracts": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.persistence": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      }
+    }
+  }
+}

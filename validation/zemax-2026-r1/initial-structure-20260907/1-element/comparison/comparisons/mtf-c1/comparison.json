@@ -1,0 +1,161 @@
+{
+  "key": "MTF",
+  "directory": "mtf-c1",
+  "support": "Comparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "",
+  "request": {
+    "canonicalAnalysisKey": "MTF",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "Sampling": "64",
+      "MaximumFrequency": "50",
+      "WavelengthNumber": "1",
+      "FieldNumber": "1",
+      "SurfaceNumber": "-1",
+      "Type": "\u8C03\u5236",
+      "ShowDiffractionLimit": "false",
+      "UsePolarization": "False",
+      "UseDashes": "false",
+      "UseRayAiming": "False"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 1,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 5,
+    "surfaceCount": 4,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        2.5
+      ],
+      [
+        0,
+        5
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "Modulation": {
+      "absolute": 0.001,
+      "relative": 0.001,
+      "nrmse": 0.01,
+      "closeNrmse": 0.03,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "tangential",
+      "unit": "Dimensionless",
+      "count": 336,
+      "maxAbsolute": 0.018229239099035593,
+      "meanAbsolute": 0.0071410644364442565,
+      "rmse": 0.008544124739882928,
+      "nrmse": 0.008544124739882928,
+      "maxRelative": 1.5066312008679428,
+      "p50": 0.00670061291910401,
+      "p90": 0.01433790561966062,
+      "p95": 0.01624616171361622,
+      "pearson": 0.9996129101835334,
+      "worstX": 15.050167224080267,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench.dc": 1,
+        "workbench.frequency10": 0.5186108695956249,
+        "workbench.frequency20": 0.07479703704334016,
+        "workbench.frequency30": 0.14174674092633255,
+        "workbench.frequency50": 0.07563221236545331,
+        "workbench.firstCrossing50": 10.2606021845212,
+        "workbench.firstCrossing10": 16.22450468431133,
+        "zemax.dc": 1,
+        "zemax.frequency10": 0.5085117203502877,
+        "zemax.frequency20": 0.08365174984080911,
+        "zemax.frequency30": 0.13615027772796937,
+        "zemax.frequency50": 0.07395307313571516,
+        "zemax.firstCrossing50": 10.116040887331263,
+        "zemax.firstCrossing10": 15.96921890850864
+      }
+    },
+    {
+      "id": "sagittal",
+      "unit": "Dimensionless",
+      "count": 336,
+      "maxAbsolute": 0.01822923909903565,
+      "meanAbsolute": 0.007141064436444251,
+      "rmse": 0.008544124739882931,
+      "nrmse": 0.008544124739882931,
+      "maxRelative": 1.5066312008679446,
+      "p50": 0.006700612919103899,
+      "p90": 0.014337905619660626,
+      "p95": 0.01624616171361629,
+      "pearson": 0.9996129101835336,
+      "worstX": 15.050167224080267,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench.dc": 1,
+        "workbench.frequency10": 0.5186108695956247,
+        "workbench.frequency20": 0.07479703704334016,
+        "workbench.frequency30": 0.1417467409263326,
+        "workbench.frequency50": 0.07563221236545331,
+        "workbench.firstCrossing50": 10.2606021845212,
+        "workbench.firstCrossing10": 16.22450468431133,
+        "zemax.dc": 1,
+        "zemax.frequency10": 0.5085117203502877,
+        "zemax.frequency20": 0.08365174984080911,
+        "zemax.frequency30": 0.13615027772796937,
+        "zemax.frequency50": 0.07395307313571516,
+        "zemax.firstCrossing50": 10.116040887331263,
+        "zemax.firstCrossing10": 15.96921890850864
+      }
+    }
+  ],
+  "normalizations": [
+    "Canonical one-field/one-wavelength output contract: native series/pane 0=tangential, 1=sagittal. No label parsing.",
+    "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+    "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+    "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+    "tangential: sorted coordinates; linear interpolation on union of 336 physical knots in [0, 50]; no extrapolation",
+    "sagittal: sorted coordinates; linear interpolation on union of 336 physical knots in [0, 50]; no extrapolation"
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 8696
+}

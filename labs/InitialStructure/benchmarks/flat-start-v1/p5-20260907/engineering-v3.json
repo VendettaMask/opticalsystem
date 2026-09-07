@@ -1,0 +1,69 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-09-07",
+  "SourceRevision": "912434630c44c3c08d357e7c9e8ef02e4c744db4",
+  "AlgorithmVersion": "3",
+  "LabTests": {
+    "Total": 114,
+    "Passed": 114,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/v3-full-lab.trx",
+    "Skipped": 0,
+    "Failed": 0
+  },
+  "FormalMainTests": {
+    "Total": 1294,
+    "Passed": 1289,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-tests-v3/v3-formal-final_net10.0_20260907223114.trx",
+    "Skipped": 0,
+    "Failed": 5
+  },
+  "ComparisonToolTests": {
+    "Total": 104,
+    "Passed": 104,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-tests-v3/v3-formal-final_net10.0_20260907223142.trx",
+    "Skipped": 0,
+    "Failed": 0
+  },
+  "FormalBuilds": {
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0
+    },
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0
+    }
+  },
+  "LaboratoryBuilds": {
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0
+    },
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0
+    }
+  },
+  "LockedRestore": "Formal and laboratory solutions, local package cache, online NuGetAudit disabled",
+  "FormatVerification": "Both complete solutions passed",
+  "HistoricalV2CheckpointLoad": "Original serialized checksum verified",
+  "ExistingZemaxManifest": {
+    "Files": 326,
+    "Changed": 0
+  },
+  "FormalFailureAttribution": {
+    "TolerancesOrAssertionsChanged": false,
+    "PreChangeCoreSha256": "7685eab12ee4f8dea77031cb674568c594901695faa257323cea13aadd9b0706",
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-old-core-reproduction.log",
+    "ReproducedWithPreChangeCore": 5,
+    "CurrentCoreSha256": "34bd189f3b446a9d1004f62f05fbf54f329b6111616d0758a932dbbc1bf6542b",
+    "FailureGroups": [
+      "Frozen FFT MTF cutoff/frequency grid: Cooke and Tessar, two tests per lens",
+      "Zemax123456 relative illumination: RMSE=0.0033418652, maximum=0.015195217"
+    ]
+  },
+  "AllEngineeringTestsPassed": false,
+  "P5ReleaseAccepted": false,
+  "WorkingTreeHasUncommittedChanges": true,
+  "HistoricalV1CheckpointLoad": "Original serialized checksum verified"
+}

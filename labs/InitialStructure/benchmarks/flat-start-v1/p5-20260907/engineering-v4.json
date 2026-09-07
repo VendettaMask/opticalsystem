@@ -1,0 +1,92 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-09-08",
+  "SourceRevision": "912434630c44c3c08d357e7c9e8ef02e4c744db4",
+  "AlgorithmVersion": "4",
+  "LabTests": {
+    "Total": 115,
+    "Passed": 115,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/v4-full-lab.trx",
+    "Skipped": 0,
+    "Failed": 0,
+    "FinishedLocal": "2026-09-07T23:59:21.1646264+08:00"
+  },
+  "FormalMainTests": {
+    "Total": 1294,
+    "Passed": 1289,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-tests-v3/v3-formal-final_net10.0_20260907223114.trx",
+    "Skipped": 0,
+    "Failed": 5
+  },
+  "ComparisonToolTests": {
+    "Total": 104,
+    "Passed": 104,
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-tests-v3/v3-formal-final_net10.0_20260907223142.trx",
+    "Skipped": 0,
+    "Failed": 0
+  },
+  "FormalBuilds": {
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0
+    },
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0
+    }
+  },
+  "LaboratoryBuilds": {
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0
+    },
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0
+    }
+  },
+  "LockedRestore": "Formal and laboratory solutions, local package cache, online NuGetAudit disabled",
+  "FormatVerification": "Both complete solutions passed",
+  "HistoricalV2CheckpointLoad": "Original serialized checksum verified",
+  "ExistingZemaxManifest": {
+    "Files": 326,
+    "Changed": 0
+  },
+  "FormalFailureAttribution": {
+    "TolerancesOrAssertionsChanged": false,
+    "PreChangeCoreSha256": "7685eab12ee4f8dea77031cb674568c594901695faa257323cea13aadd9b0706",
+    "Evidence": "artifacts/validation/initial-structure-p5-20260907/formal-old-core-reproduction.log",
+    "ReproducedWithPreChangeCore": 5,
+    "CurrentCoreSha256": "34bd189f3b446a9d1004f62f05fbf54f329b6111616d0758a932dbbc1bf6542b",
+    "FailureGroups": [
+      "Frozen FFT MTF cutoff/frequency grid: Cooke and Tessar, two tests per lens",
+      "Zemax123456 relative illumination: RMSE=0.0033418652, maximum=0.015195217"
+    ]
+  },
+  "AllEngineeringTestsPassed": false,
+  "P5ReleaseAccepted": false,
+  "WorkingTreeHasUncommittedChanges": true,
+  "HistoricalV1CheckpointLoad": "Original serialized checksum verified",
+  "HistoricalV3CheckpointLoad": "Original serialized checksum verified",
+  "FormalTestApplicability": "The formal Core Release binary is identical to the one used by both full formal test projects. Subsequent v4 changes affect only laboratory continuation, algorithm identity and laboratory tests; the five existing formal failures remain unresolved.",
+  "LaboratoryBuildEvidence": [
+    "artifacts/validation/initial-structure-p5-20260907/v4-lab-Debug-build.log",
+    "artifacts/validation/initial-structure-p5-20260907/v4-lab-Release-build.log"
+  ],
+  "LaboratoryFormatEvidence": "artifacts/validation/initial-structure-p5-20260907/v4-lab-format.log",
+  "RemainingP5Evidence": [
+    "Frozen v4 search gate: 9/12 specifications, below the unchanged 10/12 requirement",
+    "Old mixed-prototype comparison under the same full target, seeds and machine budget",
+    "Five existing formal test failures",
+    "Native human UI acceptance on Windows/macOS/Linux"
+  ],
+  "SearchAcceptance": {
+    "CompletedRuns": 60,
+    "Passed": false,
+    "RequiredSuccessfulSpecifications": 10,
+    "SuccessfulSpecifications": 9,
+    "ExpectedRuns": 60,
+    "SuccessfulRuns": 52,
+    "Evidence": "labs/InitialStructure/benchmarks/flat-start-v1/p5-20260907/search-v4-results.json"
+  }
+}

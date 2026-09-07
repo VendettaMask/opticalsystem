@@ -18,7 +18,11 @@ public sealed record DesignEvaluation
     public IReadOnlyList<double> Residuals { get; init; } = [];
     public IReadOnlyList<DesignFieldEvaluation> Fields { get; init; } = [];
     public IReadOnlyList<ConstraintViolation> Violations { get; init; } = [];
+    /// <summary>Geometry and the specified per-field/per-wave physical throughput gate are satisfied.</summary>
     public bool IsFeasible { get; init; }
+    /// <summary>Search derivatives exist, possibly from unclipped Core diagnostics; never an acceptance gate.</summary>
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool HasContinuousSearchResiduals { get; init; }
     public bool MeetsTargets => Violations.Count == 0;
 }
 
@@ -37,7 +41,7 @@ public enum FlatStartDesignState
 /// <summary>One fixed material/element family; not the multi-family P3 search.</summary>
 public sealed record FlatStartDesignResult
 {
-    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-design", "1", "Managed CPU", true);
+    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-design", "4", "Managed CPU", true);
     public InitialStructureSpecification Specification { get; init; } = new();
     public string SpecificationFingerprint { get; init; } = string.Empty;
     public FlatStartDesignState State { get; init; }

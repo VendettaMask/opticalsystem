@@ -111,7 +111,8 @@ internal sealed class FlatStartDesignProblem
         var fieldResults = new List<DesignFieldEvaluation>();
         var wavelengthNumber = stage.AllWavelengths ? 0 : optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
         var waves = optic.Wavelengths.Where(wave => wave.Weight > 0 && (stage.AllWavelengths || wave.IsPrimary)).ToArray();
-        var allRaysValid = geometryValid;
+        var throughputValid = geometryValid;
+        var continuousResiduals = geometryValid;
         foreach (var field in fields)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -125,6 +126,17 @@ internal sealed class FlatStartDesignProblem
             }
             var attempted = pupils.Length * waves.Length;
             var valid = result is null ? 0 : result.RayCount - result.VignettedRayCount;
+            // Physical metrics above remain the sole acceptance authority. If clipping occurs,
+            // formal Core can supply continuous image coordinates and aperture margins for recovery.
+            SampledApertureDiagnosticResult? diagnostic = null;
+            if (geometryValid && valid != attempted)
+            {
+                diagnostic = SampledApertureDiagnostics.Evaluate(optic, 0, normalized, pupils, wavelengthNumber, cancellationToken);
+                TracedRayCount += diagnostic.UnclippedSpot.RayCount;
+            }
+            var searchSpot = diagnostic?.UnclippedSpot ?? result;
+            var hasCoordinates = searchSpot?.Metrics is not null && searchSpot.VignettedRayCount == 0;
+            continuousResiduals &= hasCoordinates;
             var fieldIndex = fieldResults.Count;
             var waveResults = waves.Select((wave, index) => new DesignWavelengthEvaluation(wave.Nanometers, pupils.Length,
                 result?.Wavelengths[index].Rays.Count ?? 0)).ToArray();
@@ -134,18 +146,26 @@ internal sealed class FlatStartDesignProblem
             Upper($"field.{fieldIndex}.rms", result?.Metrics?.RmsSpotRadius, _specification.MaximumRmsSpotRadiusMillimeters);
             Upper($"field.{fieldIndex}.maximum-radius", result?.Metrics?.MaximumSpotRadius, _specification.MaximumSpotRadiusMillimeters);
             // The formal maximum-radius metric is also an active search target, not merely an exit gate.
-            residuals.Add(result?.Metrics is { } metrics
+            residuals.Add(searchSpot?.Metrics is { } metrics
                 ? Math.Max(0, metrics.MaximumSpotRadius / _specification.MaximumSpotRadiusMillimeters - 1) : 10);
+            // Fixed ray-indexed residual slots; clipping must not remove or reorder Jacobian rows.
+            for (var index = 0; index < attempted; index++)
+                residuals.Add(diagnostic?.Rays[index].MinimumClearanceMillimeters is { } clearance
+                    ? Math.Max(0, -clearance) * 10 / (_specification.MaximumRmsSpotRadiusMillimeters * Math.Sqrt(attempted)) : 0);
             foreach (var (wave, index) in waveResults.Select((wave, index) => (wave, index)))
                 Upper($"field.{fieldIndex}.wave.{index}.lost-fraction", 1 - (double)wave.ValidRays / wave.AttemptedRays,
                     1 - _specification.FlatStart.MinimumValidRayFraction);
-            allRaysValid &= valid == attempted;
-            if (valid != attempted || result?.Metrics is null)
+            // Incumbent ranking must use the frozen per-field/per-wave throughput gate too.
+            // A hidden 100% rule discarded improvements that already met the specified 98% gate.
+            throughputValid &= (double)valid / attempted + 1e-12 >= _specification.FlatStart.MinimumValidRayFraction
+                && waveResults.All(wave => (double)wave.ValidRays / wave.AttemptedRays + 1e-12
+                    >= _specification.FlatStart.MinimumValidRayFraction);
+            if (!hasCoordinates)
                 residuals.AddRange(Enumerable.Repeat(10.0, 2 * attempted));
             else
             {
-                var totalWeight = result.Wavelengths.Sum(wave => wave.SpectralWeight * wave.Rays.Sum(ray => ray.Weight));
-                foreach (var wave in result.Wavelengths)
+                var totalWeight = searchSpot!.Wavelengths.Sum(wave => wave.SpectralWeight * wave.Rays.Sum(ray => ray.Weight));
+                foreach (var wave in searchSpot.Wavelengths)
                     foreach (var ray in wave.Rays)
                     {
                         var scale = Math.Sqrt(wave.SpectralWeight * ray.Weight / (totalWeight * fields.Length))
@@ -163,7 +183,8 @@ internal sealed class FlatStartDesignProblem
             Residuals = residuals,
             Fields = fieldResults,
             Violations = violations,
-            IsFeasible = allRaysValid
+            IsFeasible = throughputValid,
+            HasContinuousSearchResiduals = continuousResiduals
         };
 
         void Upper(string code, double? actual, double limit)

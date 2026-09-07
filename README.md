@@ -2,6 +2,10 @@
 
 **Optical System Design** 是 S.T.A.R. Labs 开发的纯 C#/.NET 计算系统，不包含 Python Optiland 运行后端。桌面端采用 Avalonia；Windows 与 macOS 是主要目标平台，Linux 原则上可由 Avalonia 支持。
 
+独立初始结构实验室按[平板生成计划](docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)推进 P5，光学计算共用正式 Core。v4 完整 60 次验收为 52 次成功、9/12 个规格达到各至少 4/5 次成功，尚未达到 10/12 搜索门槛，见 [P5 记录](docs/INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)。2026-09-08 已停止人工逐轮调权重，按[自动搜索策略整改](docs/INITIAL_STRUCTURE_SEARCH_STRATEGY_2026-09-08.md)完成 [S1 通用信赖域求解器](docs/INITIAL_STRUCTURE_S1_SOLVER_2026-09-08.md)；光学约束适配和搜索调度尚待 S2/S3，当前镜头搜索仍为 v4。S1 机制测试不并入正式产品精度或镜头搜索成功率声明。
+
+2026-09-07 当前工程验证：正式完整主测试 1289 通过、5 失败（共 1294），工具测试 104/104 通过，均无跳过。5 项失败已在本轮修改前的 Core 二进制上复现相同数值，当前不能宣称完整测试全通过；详细证据及 P5 状态见 [孔径诊断修复记录](docs/INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)。下文 2026-09-06 的测试数和精度结论是该阶段历史记录。
+
 ## 当前能力
 
 2026-09-06 已修复高 NA 分析瞄准、点列图权重、FFT PSF 采样/坐标和目录玻璃快照问题；两支镜头的实际对比与兼容性边界见 [数值修复记录](docs/NUMERICAL_REPAIR_2026-09-06.md)。
@@ -78,7 +82,7 @@ dotnet build OptilandWorkbench.slnx --no-restore /m:1 /nr:false
 dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj --no-build /m:1 /nr:false
 ```
 
-正式产品保持严格的 `0` 警告、`0` 错误构建和全量回归测试。非序列基线覆盖10类原生光源、Zemax风格面/体源方向分布、逃逸光线3D尾线、独立分析/布局会话、自动和手动布局准备、场景哈希过期保护、清空/累积语义、临时数据库回收、Simple Stochastic确定性、STARRDB分页、探测器重建、工作区停靠、3D对象角色、STAROPT迁移、STL、路径语法、取消原子性、数据库筛选联动及教学样例。全量基线同时覆盖 opaque 几何在旁轴、追迹、分析、优化、公差、可视化和导出入口的统一阻断。2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。当前证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。见[移除审计与验证](docs/PYTHON_OPTILAND_REMOVAL.md)。
+正式产品保持严格的 `0` 警告、`0` 错误构建和全量回归测试。非序列基线覆盖10类原生光源、Zemax风格面/体源方向分布、逃逸光线3D尾线、独立分析/布局会话、自动和手动布局准备、场景哈希过期保护、清空/累积语义、临时数据库回收、Simple Stochastic确定性、STARRDB分页、探测器重建、工作区停靠、3D对象角色、STAROPT迁移、STL、路径语法、取消原子性、数据库筛选联动及教学样例。全量基线同时覆盖 opaque 几何在旁轴、追迹、分析、优化、公差、可视化和导出入口的统一阻断。2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。该阶段证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。见[移除审计与验证](docs/PYTHON_OPTILAND_REMOVAL.md)。
 
 受限沙箱中，VSTest 可能需要本地套接字权限，Avalonia 构建任务也可能需要写入用户目录中的构建日志。
 

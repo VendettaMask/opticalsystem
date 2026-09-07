@@ -9,7 +9,9 @@ public static class FlatStartCheckpointValidation
     {
         ArgumentNullException.ThrowIfNull(checkpoint);
         var algorithm = checkpoint.Origin is null ? "strict-flat-family-search" : "strict-flat-selected-refinement";
-        if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, "1", "Managed CPU", true)
+        if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm is null
+            || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4")
+            || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, checkpoint.Algorithm.Version, "Managed CPU", true)
             || checkpoint.Specification?.FlatStart is null || checkpoint.Specification.Budget is null || checkpoint.Options is null
             || checkpoint.RootPlan is not { Count: <= 128 } || checkpoint.Trials is not { Count: <= 256 }
             || checkpoint.UsableGlassNames is not { Count: <= 64 } || checkpoint.Diagnostics is null

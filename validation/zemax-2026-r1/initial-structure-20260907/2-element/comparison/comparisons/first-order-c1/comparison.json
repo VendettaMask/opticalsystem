@@ -1,0 +1,132 @@
+{
+  "key": "First Order",
+  "directory": "first-order-c1",
+  "support": "PartiallyComparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+  "request": {
+    "canonicalAnalysisKey": "First Order",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "FieldNumber": "1",
+      "WavelengthNumber": "1",
+      "SurfaceNumber": "-1",
+      "UsePolarization": "False",
+      "UseRayAiming": "False"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 1,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 5,
+    "surfaceCount": 6,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        2.5
+      ],
+      [
+        0,
+        5
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "EffectiveFocalLength": {
+      "absolute": 1E-08,
+      "relative": 1E-06,
+      "nrmse": 1E-06,
+      "closeNrmse": 1E-05,
+      "minimumCoverage": 0.95
+    },
+    "FNumber": {
+      "absolute": 1E-08,
+      "relative": 1E-06,
+      "nrmse": 1E-06,
+      "closeNrmse": 1E-05,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "EffectiveFocalLength",
+      "unit": "Millimeter",
+      "count": 1,
+      "maxAbsolute": 7.105427357601002E-15,
+      "meanAbsolute": 7.105427357601002E-15,
+      "rmse": 7.105427357601002E-15,
+      "nrmse": 1.4209199458802158E-16,
+      "maxRelative": 1.4209199458802158E-16,
+      "p50": 7.105427357601002E-15,
+      "p90": 7.105427357601002E-15,
+      "p95": 7.105427357601002E-15,
+      "pearson": null,
+      "worstX": 0,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench": 50.00582459414636,
+        "zemax": 50.00582459414637
+      }
+    },
+    {
+      "id": "FNumber",
+      "unit": "Dimensionless",
+      "count": 1,
+      "maxAbsolute": 0,
+      "meanAbsolute": 0,
+      "rmse": 0,
+      "nrmse": 0,
+      "maxRelative": 0,
+      "p50": 0,
+      "p90": 0,
+      "p95": 0,
+      "pearson": null,
+      "worstX": 0,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {
+        "workbench": 8.000931935063418,
+        "zemax": 8.000931935063418
+      }
+    }
+  ],
+  "normalizations": [],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 8559
+}
