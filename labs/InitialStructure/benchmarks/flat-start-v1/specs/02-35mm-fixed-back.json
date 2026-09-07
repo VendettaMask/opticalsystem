@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Name": "02-35mm-fixed-back",
+  "EffectiveFocalLengthMillimeters": 35,
+  "FNumber": 5.6,
+  "MaximumFieldAngleDegrees": 5,
+  "MinimumElementCount": 3,
+  "MaximumElementCount": 3,
+  "MaximumTrackLengthMillimeters": 70,
+  "MinimumCenterThicknessMillimeters": 2,
+  "MinimumAirGapMillimeters": 1,
+  "MinimumBackFocusMillimeters": 5,
+  "MaximumRmsSpotRadiusMillimeters": 0.05,
+  "MaximumSpotRadiusMillimeters": 0.15,
+  "InitialGlass": "N-BK7",
+  "Wavelengths": [
+    {
+      "Label": "d",
+      "Nanometers": 587.6,
+      "Weight": 1,
+      "IsPrimary": true
+    }
+  ],
+  "Budget": {
+    "InitialSeedCount": 24,
+    "MaximumEvaluations": 10000,
+    "MaximumParallelism": 1,
+    "TimeLimit": "00:10:00",
+    "RandomSeed": 101
+  },
+  "FlatStart": {
+    "FixedBackFocusMillimeters": 25,
+    "MinimumEdgeThicknessMillimeters": 0.5,
+    "EffectiveFocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.05,
+    "MinimumValidRayFraction": 0.98
+  }
+}

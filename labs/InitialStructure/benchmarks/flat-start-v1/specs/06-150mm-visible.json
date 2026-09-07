@@ -1,0 +1,50 @@
+{
+  "SchemaVersion": 1,
+  "Name": "06-150mm-visible",
+  "EffectiveFocalLengthMillimeters": 150,
+  "FNumber": 8,
+  "MaximumFieldAngleDegrees": 3,
+  "MinimumElementCount": 4,
+  "MaximumElementCount": 4,
+  "MaximumTrackLengthMillimeters": 300,
+  "MinimumCenterThicknessMillimeters": 2,
+  "MinimumAirGapMillimeters": 1,
+  "MinimumBackFocusMillimeters": 5,
+  "MaximumRmsSpotRadiusMillimeters": 0.05,
+  "MaximumSpotRadiusMillimeters": 0.15,
+  "InitialGlass": "N-BK7",
+  "Wavelengths": [
+    {
+      "Label": "F",
+      "Nanometers": 486.1,
+      "Weight": 0.5,
+      "IsPrimary": false
+    },
+    {
+      "Label": "d",
+      "Nanometers": 587.6,
+      "Weight": 1,
+      "IsPrimary": true
+    },
+    {
+      "Label": "C",
+      "Nanometers": 656.3,
+      "Weight": 0.5,
+      "IsPrimary": false
+    }
+  ],
+  "Budget": {
+    "InitialSeedCount": 24,
+    "MaximumEvaluations": 10000,
+    "MaximumParallelism": 1,
+    "TimeLimit": "00:10:00",
+    "RandomSeed": 101
+  },
+  "FlatStart": {
+    "FixedBackFocusMillimeters": null,
+    "MinimumEdgeThicknessMillimeters": 0.5,
+    "EffectiveFocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.05,
+    "MinimumValidRayFraction": 0.98
+  }
+}

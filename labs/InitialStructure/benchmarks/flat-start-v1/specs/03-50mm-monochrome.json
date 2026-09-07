@@ -1,0 +1,38 @@
+{
+  "SchemaVersion": 1,
+  "Name": "03-50mm-monochrome",
+  "EffectiveFocalLengthMillimeters": 50,
+  "FNumber": 8,
+  "MaximumFieldAngleDegrees": 5,
+  "MinimumElementCount": 3,
+  "MaximumElementCount": 3,
+  "MaximumTrackLengthMillimeters": 100,
+  "MinimumCenterThicknessMillimeters": 2,
+  "MinimumAirGapMillimeters": 1,
+  "MinimumBackFocusMillimeters": 5,
+  "MaximumRmsSpotRadiusMillimeters": 0.05,
+  "MaximumSpotRadiusMillimeters": 0.15,
+  "InitialGlass": "N-BK7",
+  "Wavelengths": [
+    {
+      "Label": "d",
+      "Nanometers": 587.6,
+      "Weight": 1,
+      "IsPrimary": true
+    }
+  ],
+  "Budget": {
+    "InitialSeedCount": 24,
+    "MaximumEvaluations": 10000,
+    "MaximumParallelism": 1,
+    "TimeLimit": "00:10:00",
+    "RandomSeed": 101
+  },
+  "FlatStart": {
+    "FixedBackFocusMillimeters": null,
+    "MinimumEdgeThicknessMillimeters": 0.5,
+    "EffectiveFocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.05,
+    "MinimumValidRayFraction": 0.98
+  }
+}

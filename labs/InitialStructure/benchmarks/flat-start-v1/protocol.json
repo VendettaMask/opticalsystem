@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "Scope": "Future P2-P5 full-target acceptance; not a bootstrap success claim",
+  "SpecificationCount": 12,
+  "RandomSeeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "RequiredSuccessfulSeedsPerSpecification": 4,
+  "RequiredSuccessfulSpecifications": 10,
+  "MaximumEvaluationsPerRun": 10000,
+  "TimeLimitSeconds": 600,
+  "CompareUsing": "same machine; report actual ray count and time as well as evaluations",
+  "FinalValidation": {
+    "NormalizedFields": [
+      0,
+      0.25,
+      0.5,
+      0.7,
+      0.85,
+      1
+    ],
+    "PupilRings": 6,
+    "PupilAngles": 16,
+    "IncludePupilBoundary": true,
+    "AllPositiveWeightWavelengths": true,
+    "PerFieldGates": true
+  },
+  "AllowedMaterialChoices": [
+    "N-BK7",
+    "N-F2",
+    "N-SF6"
+  ],
+  "BootstrapProof": {
+    "ElementCounts": [
+      1,
+      2,
+      3
+    ],
+    "EntrancePupilFraction": 0.3,
+    "MaximumRelativePowerError": 0.02,
+    "MaximumRmsInterceptToPupilRadius": 0.02,
+    "RequiredValidRayFraction": 1,
+    "MaximumEvaluations": 800
+  },
+  "Notes": [
+    "InitialGlass is a root material; later search must stay in the named palette.",
+    "Full-target results are not yet measured. Never lower these gates to admit bootstrap output.",
+    "Original ten legacy specs and accepted-baselines remain unchanged."
+  ]
+}
