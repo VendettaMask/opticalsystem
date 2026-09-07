@@ -170,6 +170,11 @@ public sealed partial class MainWindow
             "玻璃替换模板",
             "优化",
             OpenGlassReplacementTemplate);
+        _actions.Register("launch-initial-structure-lab", "AI 初始结构（实验室）", "实验室", () =>
+        {
+            InitialStructureLabLauncher.Start();
+            _statusText.Text = "已启动独立的初始结构实验室";
+        });
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
         _actions.Register("run-tolerancing", "运行公差分析", "公差", () => _panels.RunTolerancingAsync(this));
         _actions.Register("show-tolerance-data-viewer", "显示公差数据查看器", "公差", _panels.ShowTolerancingDataViewer);

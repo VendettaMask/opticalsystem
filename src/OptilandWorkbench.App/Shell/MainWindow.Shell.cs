@@ -143,6 +143,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-lens-library", "telescope", "镜头库"),
                         RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
                         RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")))),
+                BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),
@@ -203,6 +204,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-viewer-3d", "box", "3D视图"),
                         RibbonButton("show-solid-model", "cylinder", "实体模型")))),
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
+                BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),
@@ -233,6 +235,10 @@ public sealed partial class MainWindow
         ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
         return ribbon;
     }
+
+    private TabItem BuildLaboratoryRibbonTab() => RibbonTab("实验室", BuildRibbonPage(
+        RibbonGroup("结构生成",
+            RibbonButton("launch-initial-structure-lab", "wand-sparkles", "AI 初始结构"))));
 
     private static TabItem RibbonTab(string title, Control content)
     {
