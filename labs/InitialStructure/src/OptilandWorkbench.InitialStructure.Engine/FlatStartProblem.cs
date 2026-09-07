@@ -1,5 +1,7 @@
 using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.InitialStructure.Contracts;
@@ -10,7 +12,6 @@ internal sealed class FlatStartProblem
 {
     private readonly InitialStructureSpecification _specification;
     private readonly int _elementCount;
-    private readonly double _wavelengthMicrometers;
     private readonly double _maximumBackFocus;
     private readonly double _maximumScaledCurvature;
 
@@ -22,7 +23,6 @@ internal sealed class FlatStartProblem
             throw new ArgumentOutOfRangeException(nameof(pupilFraction));
         _specification = specification;
         _elementCount = elementCount;
-        _wavelengthMicrometers = specification.Wavelengths.Single(item => item.IsPrimary).Nanometers / 1000;
         var optic = Optic.FromSnapshot(new FlatRootFactory().Create(specification, elementCount, stopVariant: 0));
         // The target, not an undefined flat-system focal length, establishes a nonzero pupil.
         optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
@@ -94,38 +94,26 @@ internal sealed class FlatStartProblem
         cancellationToken.ThrowIfCancellationRequested();
         var violations = GeometryViolations(optic);
         var residuals = new List<double>();
-        // A unit-height, zero-slope paraxial ray gives matrix C directly, including at C = 0.
-        TracedRayCount++;
-        var paraxial = optic.Paraxial.TraceGeneric([1], [0], -1, _wavelengthMicrometers);
-        var power = -paraxial.Slopes[^1][0];
+        var power = optic.Paraxial.EstimateOpticalPower();
         residuals.Add(5 * (power * _specification.EffectiveFocalLengthMillimeters - 1));
         var pupils = Pupils(dense).ToArray();
         var residualScale = 1 / (PupilRadius * Math.Sqrt(pupils.Length));
-        var valid = 0;
-        var sumSquares = 0.0;
-        foreach (var (x, y) in pupils)
+        SampledSpotResult? spot = null;
+        if (violations.Count == 0)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            OptilandWorkbench.Core.Rays.RayTraceSample? ray = null;
-            if (violations.Count == 0)
-            {
-                TracedRayCount++;
-                ray = optic.TraceGenericFinalSample(0, 0, x, y, _wavelengthMicrometers);
-            }
-            if (ray is { Vignetted: false, Intensity: > 0 } && double.IsFinite(ray.Position.X)
-                && double.IsFinite(ray.Position.Y) && double.IsFinite(ray.Position.Z))
-            {
-                valid++;
-                sumSquares += ray.Position.X * ray.Position.X + ray.Position.Y * ray.Position.Y;
-                residuals.Add(ray.Position.X * residualScale);
-                residuals.Add(ray.Position.Y * residualScale);
-            }
-            else
-            {
-                // Keep a fixed residual dimension; invalid trials are rejected by the solver.
-                residuals.Add(10);
-                residuals.Add(10);
-            }
+            var primary = optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
+            spot = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, 0,
+                pupils.Select(pupil => new PupilSample(pupil.X, pupil.Y, 1)).ToArray(), primary,
+                reference: "absolute", includeSurfaceTransmission: false, cancellationToken: cancellationToken);
+            TracedRayCount += spot.RayCount;
+        }
+        var valid = spot is null ? 0 : spot.RayCount - spot.VignettedRayCount;
+        var rays = spot?.Wavelengths.SelectMany(wave => wave.Rays).ToArray() ?? [];
+        // Incomplete bundles are rejected; a fixed-size penalty is a search residual, not an optical metric.
+        for (var index = 0; index < pupils.Length; index++)
+        {
+            residuals.Add(valid == pupils.Length ? rays[index].X * residualScale : 10);
+            residuals.Add(valid == pupils.Length ? rays[index].Y * residualScale : 10);
         }
         if (!double.IsFinite(power) || residuals.Any(value => !double.IsFinite(value)))
             throw new ArithmeticException("The startup residual is not finite.");
@@ -133,7 +121,7 @@ internal sealed class FlatStartProblem
         {
             OpticalPowerPerMillimeter = power,
             Merit = residuals.Sum(value => value * value),
-            RmsInterceptMillimeters = valid == 0 ? PupilRadius * 10 : Math.Sqrt(sumSquares / valid),
+            RmsInterceptMillimeters = spot?.Metrics?.RmsSpotRadius,
             ValidRayFraction = (double)valid / pupils.Length,
             Residuals = residuals.ToArray(),
             Violations = violations

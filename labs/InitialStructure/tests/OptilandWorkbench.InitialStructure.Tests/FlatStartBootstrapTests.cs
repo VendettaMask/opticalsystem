@@ -55,7 +55,7 @@ public sealed class FlatStartBootstrapTests(ITestOutputHelper output)
         Assert.Equal(0, evaluation.OpticalPowerPerMillimeter);
         Assert.All(evaluation.Residuals, value => Assert.True(double.IsFinite(value)));
         Assert.Equal(1, evaluation.ValidRayFraction);
-        Assert.Equal(problem.PupilRadius * Math.Sqrt(10.0 / 17), evaluation.RmsInterceptMillimeters, 10);
+        Assert.Equal(problem.PupilRadius * Math.Sqrt(10.0 / 17), evaluation.RmsInterceptMillimeters!.Value, 10);
         Assert.Empty(evaluation.Violations);
     }
 

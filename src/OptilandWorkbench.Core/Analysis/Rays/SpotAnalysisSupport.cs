@@ -108,11 +108,13 @@ internal static class SpotAnalysisEngine
         bool ignoreLateralColor = false,
         bool aimAtStop = false,
         bool includeSurfaceTransmission = true,
-        int gaussianAzimuthalSamples = 6)
+        int gaussianAzimuthalSamples = 6,
+        IReadOnlyList<PupilSample>? explicitPupilSamples = null,
+        CancellationToken cancellationToken = default)
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
-        var pupilSamples = CreatePupilSamples(sampleParameter, distribution, gaussianAzimuthalSamples);
+        var pupilSamples = explicitPupilSamples ?? CreatePupilSamples(sampleParameter, distribution, gaussianAzimuthalSamples);
         var rawFields = new List<SpotFieldData>(fieldArray.Length);
         var rayCount = 0;
         var vignettedRayCount = 0;
@@ -122,6 +124,7 @@ internal static class SpotAnalysisEngine
             var waveData = new List<SpotWavelengthData>(wavelengthArray.Length);
             foreach (var wavelength in wavelengthArray)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
                     field.Hx,
                     field.Hy,
@@ -157,6 +160,8 @@ internal static class SpotAnalysisEngine
                         // but do not weight the geometric statistic by surface/bulk transmission.
                         return includeSurfaceTransmission ? ray : ray with { Intensity = item.IncidentIntensity };
                     })
+                    .Where(ray => double.IsFinite(ray.X) && double.IsFinite(ray.Y)
+                        && double.IsFinite(ray.Intensity) && ray.Intensity > 0)
                     .ToArray();
                 rayCount += bundle.Rays.Count;
                 vignettedRayCount += bundle.Rays.Count - valid.Length;

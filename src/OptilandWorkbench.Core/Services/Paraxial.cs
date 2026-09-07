@@ -36,6 +36,13 @@ public sealed class Paraxial
         return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
     }
 
+    /// <summary>Reciprocal effective focal length from matrix C, finite at an exact plane system.</summary>
+    public double EstimateOpticalPower()
+    {
+        EnsureComputable();
+        return -TraceSystemMatrix(PrimaryWavelengthNanometers()).C;
+    }
+
     public double EstimateEffectiveFocalLengthBetweenSurfaces(int startSurface, int endSurface)
     {
         EnsureComputable();

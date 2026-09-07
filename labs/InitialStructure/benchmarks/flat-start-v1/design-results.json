@@ -1,0 +1,1928 @@
+{
+  "Date": "2026-09-07",
+  "Algorithm": "strict-flat-design/v1",
+  "BootstrapAlgorithm": "strict-flat-bootstrap/v2",
+  "Scope": "One fixed element/material/stop family per frozen specification; not the 60-run multi-seed release protocol.",
+  "ProtocolSha256": "1cff2080d801f5f34fdb72d0929ad2bda3f4564ca4e1b14cd653cd98030b4bd5",
+  "PassedSpecifications": 4,
+  "TotalSpecifications": 12,
+  "LaboratoryTests": {
+    "Total": 63,
+    "Passed": 63,
+    "Failed": 0,
+    "Skipped": 0,
+    "Source": "artifacts/validation/initial-structure-p2-20260907/lab-full.trx"
+  },
+  "FormalTargetedTests": {
+    "Total": 46,
+    "Passed": 46,
+    "Failed": 0,
+    "Skipped": 0,
+    "Source": "artifacts/validation/initial-structure-p2-20260907/formal-shared-core.trx"
+  },
+  "Results": [
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "SpecificationFingerprint": "f89c2a7fb06a9726954eeef5bf76c7c2b4de4c9d8f42c27f8884ce0149d69d6c",
+      "State": "Accepted",
+      "EvaluationCount": 51,
+      "TracedRealRayCount": 1638,
+      "TestDuration": "00:00:00.0899593",
+      "EffectiveFocalLengthMillimeters": 24.000020362535974,
+      "FNumber": 5.600004751258394,
+      "WorstFieldRmsMillimeters": 0.017603367196559336,
+      "MaximumSpotRadiusMillimeters": 0.05140792486133394,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.0069193267579842005,
+          "MaximumRadiusMillimeters": 0.014409068906109051
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 1.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.007661715675122544,
+          "MaximumRadiusMillimeters": 0.020074014827213604
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.009777455520846906,
+          "MaximumRadiusMillimeters": 0.028108702536029817
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 3.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.0123503719875042,
+          "MaximumRadiusMillimeters": 0.0362617571591628
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 4.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.014768685640843712,
+          "MaximumRadiusMillimeters": 0.043394181942111976
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.017603367196559336,
+          "MaximumRadiusMillimeters": 0.05140792486133394
+        }
+      ],
+      "FailureCodes": [
+        null
+      ],
+      "FinalOpticFingerprint": "bd10e2df2b77d9f11ef73f17c7af3a534b10f5fe091518d6ca6d5059e4784fa9",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 280.5285724857601,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -123.4137028364322,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 86.29617793077482,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -61.52779531275214,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 50.35028618169965,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -40.451055407883544,
+          "Thickness": 21.976725412354764,
+          "Material": "Air",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 2.6785714285714284,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/01-24mm-monochrome.json",
+      "EvidenceSha256": "6b007bd2440c5ac9159fe0bf3890312ff4d5c3242aa5658cca2ac23e29c89e5f"
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "SpecificationFingerprint": "a66a4f156775a26274503c4f90f402d1019ec759d663fd360cff3a0b7837d093",
+      "State": "Accepted",
+      "EvaluationCount": 58,
+      "TracedRealRayCount": 1757,
+      "TestDuration": "00:00:00.0907604",
+      "EffectiveFocalLengthMillimeters": 34.96752168102445,
+      "FNumber": 5.594803468963912,
+      "WorstFieldRmsMillimeters": 0.02411865400942795,
+      "MaximumSpotRadiusMillimeters": 0.08522941195767686,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.02005581301908272,
+          "MaximumRadiusMillimeters": 0.02786656081949349
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 1.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.019415554656771958,
+          "MaximumRadiusMillimeters": 0.027293875825003158
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.018162255224239032,
+          "MaximumRadiusMillimeters": 0.03238834945745572
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 3.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.01825141292255284,
+          "MaximumRadiusMillimeters": 0.05021958649110836
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 4.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.020131034616883283,
+          "MaximumRadiusMillimeters": 0.06646236957922502
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.02411865400942795,
+          "MaximumRadiusMillimeters": 0.08522941195767686
+        }
+      ],
+      "FailureCodes": [
+        null
+      ],
+      "FinalOpticFingerprint": "f10010d488b1bb86eae9c5dd209877954dfe3a5afc43cda15f6c5a08645f36cc",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 19.123649650736247,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -29.5232996260485,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 53.28115552650555,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": 953.8648271396147,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": -55.946931738084885,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": 23.29208726778931,
+          "Thickness": 25,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 7,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/02-35mm-fixed-back.json",
+      "EvidenceSha256": "2820bcce90a751e4c2dad1fbd93a4f13c595c95b13dd2c130767af8106cc8366"
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "SpecificationFingerprint": "10a08993eee2fd6ffd569fb707fd67cf2326bdbaacd1eb250e1e1e378c302839",
+      "State": "Accepted",
+      "EvaluationCount": 36,
+      "TracedRealRayCount": 1383,
+      "TestDuration": "00:00:00.1398365",
+      "EffectiveFocalLengthMillimeters": 50.00073707095614,
+      "FNumber": 8.000117931352982,
+      "WorstFieldRmsMillimeters": 0.02186652137645772,
+      "MaximumSpotRadiusMillimeters": 0.0643340115878992,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.002610745172912309,
+          "MaximumRadiusMillimeters": 0.005811996888019257
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 1.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.004081880350742741,
+          "MaximumRadiusMillimeters": 0.013570431727926824
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.0078591312876169,
+          "MaximumRadiusMillimeters": 0.02586344006102559
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 3.5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.012399493870734017,
+          "MaximumRadiusMillimeters": 0.03900572632993482
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 4.25,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.016726583677606308,
+          "MaximumRadiusMillimeters": 0.05081944855845455
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 97,
+          "ValidRays": 97,
+          "RmsRadiusMillimeters": 0.02186652137645772,
+          "MaximumRadiusMillimeters": 0.0643340115878992
+        }
+      ],
+      "FailureCodes": [
+        null
+      ],
+      "FinalOpticFingerprint": "f4a9f5879c5155c13a9fc91c38c1fb1ad861ce6579619930b329aa8f44138eab",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 245.65959596901317,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -192.8875658144069,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 165.79117506162416,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -139.81183700602602,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 124.9152219328776,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -109.48204440772233,
+          "Thickness": 47.43534223477626,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 3.90625,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/03-50mm-monochrome.json",
+      "EvidenceSha256": "8d148585637fe9547905e93c1de2a7cae56225dc667d51dca8003a60c0c18709"
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "SpecificationFingerprint": "fff07350a61c28a1b1578f6041682c3e5435b3e0a82c5acfb471f839d5167096",
+      "State": "Accepted",
+      "EvaluationCount": 250,
+      "TracedRealRayCount": 19617,
+      "TestDuration": "00:00:00.9772928",
+      "EffectiveFocalLengthMillimeters": 75.93648743243037,
+      "FNumber": 8.099891992792573,
+      "WorstFieldRmsMillimeters": 0.04486021490352283,
+      "MaximumSpotRadiusMillimeters": 0.13542051568233404,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03492492455319452,
+          "MaximumRadiusMillimeters": 0.09474187921237166
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 0.75,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03553187602136645,
+          "MaximumRadiusMillimeters": 0.1008649819869567
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 1.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03736591348908523,
+          "MaximumRadiusMillimeters": 0.1096716913245257
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 2.0999999999999996,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.039739164480017714,
+          "MaximumRadiusMillimeters": 0.11866245719268109
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 2.55,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.042061914318770065,
+          "MaximumRadiusMillimeters": 0.12654837408136066
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 3,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.04486021490352283,
+          "MaximumRadiusMillimeters": 0.13542051568233404
+        }
+      ],
+      "FailureCodes": [
+        null
+      ],
+      "FinalOpticFingerprint": "12fadc9f0a85044e5003f20fca8b4dc34b0ae08aa126efaa01ab79adfc37f894",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 287.83347355185657,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -260.99717635656907,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 241.21642242382518,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -223.3520345897444,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 207.5603132290459,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -195.17924485890276,
+          "Thickness": 73.67720136620537,
+          "Material": "Air",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 5.859375,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/04-75mm-visible.json",
+      "EvidenceSha256": "0725a82a54743097e04005de30f7b00994a39cb025f71adcd172f1989f2f5e57"
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "SpecificationFingerprint": "3291814fe50e174e5307435c5d5e782539e402d7e7e0abe15a30c2cf9fdff9d5",
+      "State": "StartupFailed",
+      "EvaluationCount": 583,
+      "TracedRealRayCount": 11417,
+      "TestDuration": "00:00:00.7709986",
+      "EffectiveFocalLengthMillimeters": 99.74347822312593,
+      "FNumber": 7.979478257850075,
+      "WorstFieldRmsMillimeters": 0.5840704886249979,
+      "MaximumSpotRadiusMillimeters": 0.881916360178344,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.5840704886249979,
+          "MaximumRadiusMillimeters": 0.8631663710056929
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 0.75,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.5830902168721493,
+          "MaximumRadiusMillimeters": 0.8740821217506969
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 1.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.5801496906052701,
+          "MaximumRadiusMillimeters": 0.8802994740593739
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 2.0999999999999996,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.5763865775127149,
+          "MaximumRadiusMillimeters": 0.881916360178344
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 2.55,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.572742065222497,
+          "MaximumRadiusMillimeters": 0.8811786268206325
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 3,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.5683937422787423,
+          "MaximumRadiusMillimeters": 0.8787715694829012
+        }
+      ],
+      "FailureCodes": [
+        "field.0.rms",
+        "field.0.maximum-radius",
+        "field.1.rms",
+        "field.1.maximum-radius",
+        "field.2.rms",
+        "field.2.maximum-radius",
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.5.rms",
+        "field.5.maximum-radius"
+      ],
+      "FinalOpticFingerprint": "c4e97b3bc0ef23b6626b28ee811789acf17cd10f4842570c4c96d02e067a1910",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 35.92661509546724,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -47.98422653140758,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 73.34631059227968,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -159.70188883953767,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": -1223.5752625051668,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": 91.4490727041186,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": -55.9569750535636,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": 33.134013316805934,
+          "Thickness": 60,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 9,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/05-100mm-fixed-back.json",
+      "EvidenceSha256": "8e1b40d13721f5d88ad0ce82ad22885d9cc3fe7d1a730871a26cd888d8ee7eee"
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "SpecificationFingerprint": "a0013bd594efab3aab18a7d39a0578a449cd71ba00b1faca7b43597e95a3627b",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 9973,
+      "TracedRealRayCount": 2088860,
+      "TestDuration": "00:01:54.5386362",
+      "EffectiveFocalLengthMillimeters": 150.9667005965851,
+      "FNumber": 8.051557365151206,
+      "WorstFieldRmsMillimeters": 0.04231611299119322,
+      "MaximumSpotRadiusMillimeters": 0.17192910424206698,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03490111751487144,
+          "MaximumRadiusMillimeters": 0.08710885425654802
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 0.75,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03500680005201636,
+          "MaximumRadiusMillimeters": 0.09995953995181095
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 1.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03564096095022445,
+          "MaximumRadiusMillimeters": 0.11834895277876267
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 2.0999999999999996,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03711184035096337,
+          "MaximumRadiusMillimeters": 0.1370772388965662
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 2.55,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.039170097561369875,
+          "MaximumRadiusMillimeters": 0.15348415156719586
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 3,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.04231611299119322,
+          "MaximumRadiusMillimeters": 0.17192910424206698
+        }
+      ],
+      "FailureCodes": [
+        "field.4.maximum-radius",
+        "field.5.maximum-radius"
+      ],
+      "FinalOpticFingerprint": "d034bc4aaafd68a337d06a034ce08c9d2389b1cb1e871c4d227f11930e880466",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 712.6543194609665,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -680.2874622626773,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 655.618195947756,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -628.8808734936727,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 606.8983147654582,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -584.6123226723795,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 564.694237576879,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -546.0505984331081,
+          "Thickness": 146.3802669218523,
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 11.71875,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/06-150mm-visible.json",
+      "EvidenceSha256": "d3899fcfe579ee61d75ab534d874da0a2029d25d61d457c99e8b77474d5c3df2"
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "SpecificationFingerprint": "4c7bd4848e0427cd2ce4ec8b5311ebac3f11ffdc758d0b9b3f925ac85564231e",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 68,
+      "TracedRealRayCount": 3381,
+      "TestDuration": "00:00:00.1966536",
+      "EffectiveFocalLengthMillimeters": 24.00003297833451,
+      "FNumber": 4.000005496389085,
+      "WorstFieldRmsMillimeters": 0.06895601508721594,
+      "MaximumSpotRadiusMillimeters": 0.20363159278324172,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.023514734824094004,
+          "MaximumRadiusMillimeters": 0.06997971611867974
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.026487794910201715,
+          "MaximumRadiusMillimeters": 0.08790333518798787
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.035202652826909264,
+          "MaximumRadiusMillimeters": 0.11655296940850501
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 7,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.046135130018962536,
+          "MaximumRadiusMillimeters": 0.14734406857749516
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 8.5,
+          "AttemptedRays": 291,
+          "ValidRays": 282,
+          "RmsRadiusMillimeters": 0.0566087406560956,
+          "MaximumRadiusMillimeters": 0.17349030041936286
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 10,
+          "AttemptedRays": 291,
+          "ValidRays": 276,
+          "RmsRadiusMillimeters": 0.06895601508721594,
+          "MaximumRadiusMillimeters": 0.20363159278324172
+        }
+      ],
+      "FailureCodes": [
+        "field.4.lost-fraction",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.4.wave.0.lost-fraction",
+        "field.4.wave.1.lost-fraction",
+        "field.4.wave.2.lost-fraction",
+        "field.5.lost-fraction",
+        "field.5.rms",
+        "field.5.maximum-radius",
+        "field.5.wave.0.lost-fraction",
+        "field.5.wave.1.lost-fraction",
+        "field.5.wave.2.lost-fraction"
+      ],
+      "FinalOpticFingerprint": "8931b71d506c2712c5fda7442574b2d1a388f8bdd514ddac498a610878d74338",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": -499.78395685080227,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -524.9135564580785,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 204.46586871658914,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -112.77454512358322,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 83.87335101242851,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -62.48297931166879,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 52.199680699785326,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -42.77782720554308,
+          "Thickness": 21.868128208914644,
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 3.75,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/07-24mm-visible.json",
+      "EvidenceSha256": "029ac3516ef438f5edde1ff4635242be2b8e0e9c257a4f0beef0e31ecc88ab2f"
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "SpecificationFingerprint": "20aa153d65ae71686bed37199cc1a753d0c2d92e9e0907d8a765cbc00a3e457e",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 1901,
+      "TracedRealRayCount": 141958,
+      "TestDuration": "00:00:07.9936655",
+      "EffectiveFocalLengthMillimeters": 35.08086808738664,
+      "FNumber": 4.009242067129902,
+      "WorstFieldRmsMillimeters": 0.08434864246898789,
+      "MaximumSpotRadiusMillimeters": 0.2722129040135144,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.019946164883732215,
+          "MaximumRadiusMillimeters": 0.06646359404672565
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.023435880208116683,
+          "MaximumRadiusMillimeters": 0.09381588300130184
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.034813808861426064,
+          "MaximumRadiusMillimeters": 0.13748975045856193
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 7,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.05018674620084295,
+          "MaximumRadiusMillimeters": 0.18445190860133565
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 8.5,
+          "AttemptedRays": 291,
+          "ValidRays": 282,
+          "RmsRadiusMillimeters": 0.06577686405338791,
+          "MaximumRadiusMillimeters": 0.22552331864866648
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 10,
+          "AttemptedRays": 291,
+          "ValidRays": 276,
+          "RmsRadiusMillimeters": 0.08434864246898789,
+          "MaximumRadiusMillimeters": 0.2722129040135144
+        }
+      ],
+      "FailureCodes": [
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.4.lost-fraction",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.4.wave.0.lost-fraction",
+        "field.4.wave.1.lost-fraction",
+        "field.4.wave.2.lost-fraction",
+        "field.5.lost-fraction",
+        "field.5.rms",
+        "field.5.maximum-radius",
+        "field.5.wave.0.lost-fraction",
+        "field.5.wave.1.lost-fraction",
+        "field.5.wave.2.lost-fraction"
+      ],
+      "FinalOpticFingerprint": "f9919d9a3f98a8bc26a624ffb255a24eb1ee1b793b6bcb4993b49ffb08a85018",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": -1939.2679669455385,
+          "Thickness": 5.35814707500424,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -519.879663291637,
+          "Thickness": 1.0038632870433064,
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 261.67204931344764,
+          "Thickness": 2.212307486059437,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -162.07656389599822,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 121.07100120680136,
+          "Thickness": 2.732535278958747,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -96.92321945335307,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 77.51123389959116,
+          "Thickness": 2.369105957975676,
+          "Material": "N-BK7",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -69.80322472771675,
+          "Thickness": 32.09016630064178,
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 5.46875,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/08-35mm-visible.json",
+      "EvidenceSha256": "1ee46a95e3afb414260394ca900892d01866f25964aa27db4daa603999b9945e"
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "SpecificationFingerprint": "8c16afdb9cfa19f6692c1dc7239b3ec945daa5f7bbce2def98a54e6536c38d9a",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 2015,
+      "TracedRealRayCount": 150508,
+      "TestDuration": "00:00:08.4727708",
+      "EffectiveFocalLengthMillimeters": 50.20194712201436,
+      "FNumber": 4.0161557697611485,
+      "WorstFieldRmsMillimeters": 0.10538001228212375,
+      "MaximumSpotRadiusMillimeters": 0.3171702346317087,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03183227624196088,
+          "MaximumRadiusMillimeters": 0.10713780670363654
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 2.5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.0363817834593702,
+          "MaximumRadiusMillimeters": 0.13583548859985584
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 5,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.05005698803720723,
+          "MaximumRadiusMillimeters": 0.18164416507996517
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 7,
+          "AttemptedRays": 291,
+          "ValidRays": 282,
+          "RmsRadiusMillimeters": 0.06770803857803342,
+          "MaximumRadiusMillimeters": 0.229365802946627
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 8.5,
+          "AttemptedRays": 291,
+          "ValidRays": 273,
+          "RmsRadiusMillimeters": 0.08499877875863843,
+          "MaximumRadiusMillimeters": 0.27113616058645373
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 10,
+          "AttemptedRays": 291,
+          "ValidRays": 261,
+          "RmsRadiusMillimeters": 0.10538001228212375,
+          "MaximumRadiusMillimeters": 0.3171702346317087
+        }
+      ],
+      "FailureCodes": [
+        "field.2.rms",
+        "field.2.maximum-radius",
+        "field.3.lost-fraction",
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.3.wave.0.lost-fraction",
+        "field.3.wave.1.lost-fraction",
+        "field.3.wave.2.lost-fraction",
+        "field.4.lost-fraction",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.4.wave.0.lost-fraction",
+        "field.4.wave.1.lost-fraction",
+        "field.4.wave.2.lost-fraction",
+        "field.5.lost-fraction",
+        "field.5.rms",
+        "field.5.maximum-radius",
+        "field.5.wave.0.lost-fraction",
+        "field.5.wave.1.lost-fraction",
+        "field.5.wave.2.lost-fraction"
+      ],
+      "FinalOpticFingerprint": "d8c78c2c273d77aa6c9374dd74b917453fc7e70c5840b729e2fe9171311cdb94",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 843.9989222029711,
+          "Thickness": 17.429907739580628,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -420.4226414215614,
+          "Thickness": 2.784350370240665,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 294.2178042886397,
+          "Thickness": 2.504026478390497,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -223.7568302790021,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 176.00024900653864,
+          "Thickness": 2.51785548121614,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -154.35110003847444,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 123.64070948890935,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -119.18607059877908,
+          "Thickness": 46.348818229761235,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/09-50mm-visible.json",
+      "EvidenceSha256": "0aeb60bd8363d31b9b77fd7b081c5d4ed95d455657664fe9714c755f4661269c"
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "SpecificationFingerprint": "05f7e155f735ed0548d9a500114e45f08389dab2b1c03557f1bd4dc90d9e2e94",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 653,
+      "TracedRealRayCount": 47894,
+      "TestDuration": "00:00:03.2070470",
+      "EffectiveFocalLengthMillimeters": 85.68233102510791,
+      "FNumber": 5.644953573418874,
+      "WorstFieldRmsMillimeters": 0.09616750227041529,
+      "MaximumSpotRadiusMillimeters": 0.2975485944500491,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03068260471311968,
+          "MaximumRadiusMillimeters": 0.10012658100456193
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 2,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03407145315722176,
+          "MaximumRadiusMillimeters": 0.12463331972865932
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 4,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.04536556140985603,
+          "MaximumRadiusMillimeters": 0.16633257286519143
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 5.6,
+          "AttemptedRays": 291,
+          "ValidRays": 282,
+          "RmsRadiusMillimeters": 0.06097475236944061,
+          "MaximumRadiusMillimeters": 0.21115031500935189
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 6.8,
+          "AttemptedRays": 291,
+          "ValidRays": 276,
+          "RmsRadiusMillimeters": 0.07685683186569602,
+          "MaximumRadiusMillimeters": 0.2513282334847382
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 8,
+          "AttemptedRays": 291,
+          "ValidRays": 273,
+          "RmsRadiusMillimeters": 0.09616750227041529,
+          "MaximumRadiusMillimeters": 0.2975485944500491
+        }
+      ],
+      "FailureCodes": [
+        "field.2.maximum-radius",
+        "field.3.lost-fraction",
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.3.wave.0.lost-fraction",
+        "field.3.wave.1.lost-fraction",
+        "field.3.wave.2.lost-fraction",
+        "field.4.lost-fraction",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.4.wave.0.lost-fraction",
+        "field.4.wave.1.lost-fraction",
+        "field.4.wave.2.lost-fraction",
+        "field.5.lost-fraction",
+        "field.5.rms",
+        "field.5.maximum-radius",
+        "field.5.wave.0.lost-fraction",
+        "field.5.wave.1.lost-fraction",
+        "field.5.wave.2.lost-fraction"
+      ],
+      "FinalOpticFingerprint": "206b1ffed3bd86e215363287725e65bcb0c6f593b16123123a2a409138a346e1",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 1172.6096540993804,
+          "Thickness": 26.148342812746904,
+          "Material": "N-BK7",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -820.8006376801584,
+          "Thickness": 1.2748899503643445,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 668.8321674250687,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -537.6929511786042,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 467.8150225790052,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -399.48897307336546,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 359.4233053803547,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -317.58413424991585,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 291.6108216498122,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 10,
+          "Radius": -263.38600406904925,
+          "Thickness": 80.76267091617675,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 11,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 9.486607142857142,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/10-85mm-visible.json",
+      "EvidenceSha256": "2083e15c8cefe050eaa830c4513d4b0d7d86f4fb107fdeef2849ea25a88935f2"
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "SpecificationFingerprint": "743e160c00ea24795cf8b04bfd4a231442f65624f9aa41ddcd8c85d2e62769f2",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 5974,
+      "TracedRealRayCount": 448453,
+      "TestDuration": "00:00:29.8145446",
+      "EffectiveFocalLengthMillimeters": 102.26192093827464,
+      "FNumber": 5.72666757254338,
+      "WorstFieldRmsMillimeters": 0.16015970803621218,
+      "MaximumSpotRadiusMillimeters": 0.49228632179049825,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.0473290437330043,
+          "MaximumRadiusMillimeters": 0.14899956146131468
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 2,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.053998446351594266,
+          "MaximumRadiusMillimeters": 0.19107665943020935
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 4,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.07458507393556738,
+          "MaximumRadiusMillimeters": 0.2618276402284536
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 5.6,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.10158274776442273,
+          "MaximumRadiusMillimeters": 0.33956069774892583
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 6.8,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.12809200459158057,
+          "MaximumRadiusMillimeters": 0.410495612892408
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 8,
+          "AttemptedRays": 291,
+          "ValidRays": 290,
+          "RmsRadiusMillimeters": 0.16015970803621218,
+          "MaximumRadiusMillimeters": 0.49228632179049825
+        }
+      ],
+      "FailureCodes": [
+        "target.focal-length",
+        "field.1.rms",
+        "field.1.maximum-radius",
+        "field.2.rms",
+        "field.2.maximum-radius",
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.5.rms",
+        "field.5.maximum-radius"
+      ],
+      "FinalOpticFingerprint": "97690311bbf8e8a056d916f45957b6b85ba31fcf627063e3554747c2c59f88a0",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": 1074.815012208883,
+          "Thickness": 10.320351920003205,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": -838.2636403190395,
+          "Thickness": 4.275615363956464,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": 724.4953924608708,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -614.6627427292661,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 550.9731350183471,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -485.087056485614,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 444.2255264859682,
+          "Thickness": 2,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -400.4808020364276,
+          "Thickness": 1.0008522572684515,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 371.8709260779867,
+          "Thickness": 2.0169288717678984,
+          "Material": "N-BK7",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 10,
+          "Radius": -340.86439959156786,
+          "Thickness": 97.38735263594866,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 11,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 11.160714285714286,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/11-100mm-visible.json",
+      "EvidenceSha256": "0934f1a554bfd5f59af4054741434234a90c1102e10cffb7f20667175e6f3479"
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "SpecificationFingerprint": "b832f0b665f3707f7edb31cd17ca52fa24d57d41baef04c78cbadf6684bae3dd",
+      "State": "TargetsNotMet",
+      "EvaluationCount": 2109,
+      "TracedRealRayCount": 156630,
+      "TestDuration": "00:00:12.0484846",
+      "EffectiveFocalLengthMillimeters": 50.10285818431177,
+      "FNumber": 4.008228654744942,
+      "WorstFieldRmsMillimeters": 0.15483362032249315,
+      "MaximumSpotRadiusMillimeters": 0.43807577625125127,
+      "FinalFields": [
+        {
+          "NormalizedFieldY": 0,
+          "HalfFieldAngleDegrees": 0,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.03642042253075227,
+          "MaximumRadiusMillimeters": 0.1192492604499089
+        },
+        {
+          "NormalizedFieldY": 0.25,
+          "HalfFieldAngleDegrees": 3,
+          "AttemptedRays": 291,
+          "ValidRays": 291,
+          "RmsRadiusMillimeters": 0.044073454409310736,
+          "MaximumRadiusMillimeters": 0.16091483666449546
+        },
+        {
+          "NormalizedFieldY": 0.5,
+          "HalfFieldAngleDegrees": 6,
+          "AttemptedRays": 291,
+          "ValidRays": 290,
+          "RmsRadiusMillimeters": 0.06661527640918345,
+          "MaximumRadiusMillimeters": 0.2304712005626186
+        },
+        {
+          "NormalizedFieldY": 0.7,
+          "HalfFieldAngleDegrees": 8.399999999999999,
+          "AttemptedRays": 291,
+          "ValidRays": 276,
+          "RmsRadiusMillimeters": 0.09513574189499509,
+          "MaximumRadiusMillimeters": 0.30275194422535456
+        },
+        {
+          "NormalizedFieldY": 0.85,
+          "HalfFieldAngleDegrees": 10.2,
+          "AttemptedRays": 291,
+          "ValidRays": 267,
+          "RmsRadiusMillimeters": 0.12287356131660337,
+          "MaximumRadiusMillimeters": 0.3670118673359113
+        },
+        {
+          "NormalizedFieldY": 1,
+          "HalfFieldAngleDegrees": 12,
+          "AttemptedRays": 291,
+          "ValidRays": 255,
+          "RmsRadiusMillimeters": 0.15483362032249315,
+          "MaximumRadiusMillimeters": 0.43807577625125127
+        }
+      ],
+      "FailureCodes": [
+        "field.1.maximum-radius",
+        "field.2.rms",
+        "field.2.maximum-radius",
+        "field.3.lost-fraction",
+        "field.3.rms",
+        "field.3.maximum-radius",
+        "field.3.wave.0.lost-fraction",
+        "field.3.wave.1.lost-fraction",
+        "field.3.wave.2.lost-fraction",
+        "field.4.lost-fraction",
+        "field.4.rms",
+        "field.4.maximum-radius",
+        "field.4.wave.0.lost-fraction",
+        "field.4.wave.1.lost-fraction",
+        "field.4.wave.2.lost-fraction",
+        "field.5.lost-fraction",
+        "field.5.rms",
+        "field.5.maximum-radius",
+        "field.5.wave.0.lost-fraction",
+        "field.5.wave.1.lost-fraction",
+        "field.5.wave.2.lost-fraction"
+      ],
+      "FinalOpticFingerprint": "eb6d07903fb329e7b76c7bedecec6f606f46910a52f8c8832b668d524a64e78f",
+      "FinalPrescription": [
+        {
+          "Number": 0,
+          "Radius": 0,
+          "Thickness": "Infinity",
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        },
+        {
+          "Number": 1,
+          "Radius": -517.3668280548503,
+          "Thickness": 2.976463396772251,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 2,
+          "Radius": 1180.570846568154,
+          "Thickness": 2.033015498849223,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 3,
+          "Radius": -23835.36743691441,
+          "Thickness": 3.5039679604996916,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 4,
+          "Radius": -980.0747157997573,
+          "Thickness": 1.854652400164523,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 5,
+          "Radius": 540.1104881664297,
+          "Thickness": 2.004218491622073,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 6,
+          "Radius": -348.19205945957606,
+          "Thickness": 1.7093243663159994,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 7,
+          "Radius": 264.92639023633683,
+          "Thickness": 3.207908713330558,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 8,
+          "Radius": -213.41300605911843,
+          "Thickness": 1.4888361187974004,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 9,
+          "Radius": 173.849137893408,
+          "Thickness": 2.9697467690090127,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 10,
+          "Radius": -155.08356102992292,
+          "Thickness": 1,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 11,
+          "Radius": 127.99804913365418,
+          "Thickness": 2.0582485305218423,
+          "Material": "N-BK7",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 12,
+          "Radius": -122.60733303792219,
+          "Thickness": 46.88905124832195,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": true
+        },
+        {
+          "Number": 13,
+          "Radius": 0,
+          "Thickness": 0,
+          "Material": "Air",
+          "SemiDiameter": 7.8125,
+          "ThicknessVariable": false
+        }
+      ],
+      "EvidencePath": "artifacts/validation/initial-structure-p2-20260907/12-50mm-six-elements.json",
+      "EvidenceSha256": "a94083124d424dc23e10e08635ed369d94f881602f737f0d91a2ef291e0d287a"
+    }
+  ]
+}

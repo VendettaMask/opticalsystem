@@ -23,7 +23,7 @@ public sealed record FlatStartEvaluation
 {
     public double OpticalPowerPerMillimeter { get; init; }
     public double Merit { get; init; }
-    public double RmsInterceptMillimeters { get; init; }
+    public double? RmsInterceptMillimeters { get; init; }
     public double ValidRayFraction { get; init; }
     public IReadOnlyList<double> Residuals { get; init; } = [];
     public IReadOnlyList<ConstraintViolation> Violations { get; init; } = [];
@@ -38,7 +38,7 @@ public sealed record FlatStartStep(
 /// <summary>Primary-wavelength, axial startup proof, not full-field design acceptance.</summary>
 public sealed record FlatStartBootstrapResult
 {
-    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-bootstrap", "1", "Managed CPU", true);
+    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-bootstrap", "2", "Managed CPU", true);
     public InitialStructureSpecification Specification { get; init; } = new();
     public string SpecificationFingerprint { get; init; } = string.Empty;
     public FlatStartBootstrapState State { get; init; }
