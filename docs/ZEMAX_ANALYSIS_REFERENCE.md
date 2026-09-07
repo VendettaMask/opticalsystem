@@ -45,6 +45,7 @@ Workbench 一侧引用 `images/gui-current`。
 - [Image Quality Group 目录](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/)：给出 Rays and Spots、Aberrations、Wavefront、PSF、MTF、RMS、Enclosed Energy、Extended Scene Analysis 的官方菜单范围。
 - [Single Ray Trace](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Single_Ray_Trace.html)
 - [Standard Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Standard_Spot_Diagram.html)
+- [Working F/#](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Working_F.html)
 - [Full Field Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Full_Field_Spot_Diagram.html)
 - [Matrix Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/zh-Hans/OpticStudio_User_Guide/OpticStudio_Help/topics/Matrix_Spot_Diagram.html)
 - [Configuration Matrix Spot Diagram](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Configuration_Matrix_Spot_Diagram.html)
@@ -105,6 +106,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Pattern`（hexapolar、square、dithered）、`Refer To`（chief ray、centroid、middle、vertex）、`Show Scale`、`Wavelength`、`Field`、`Surface`、`Plot Scale`、`Delta Focus`、`Ray Density`、`Use Symbols`、`Use Polarization`、`Scatter Rays`、`Airy Disk`、`Direction Cosines`、`Configuration`、`Color Rays By`。
 - 结果展现：点列散点图；图下方显示参考点坐标、RMS spot radius、GEO spot radius 等。可按波长、视场或结构着色，可叠加 Airy disk。
 - 实现方式：按 pupil 图样追迹光线束到指定表面。RMS/GEO 半径按所选参考点计算；波长权重和 pupil apodization 会影响 ray grid 和 RMS 估计。OpticStudio 不把 vignetted rays 画入 spot，也不用于 RMS/GEO 计算。
+- 艾里斑尺度单独遵循 Zemax Working F/#：使用主波长和当前视场，保留视场渐晕因子，但计算 F/# 的五条探针忽略表面孔径；满孔径边缘探针仍发生光线错误时，逐步缩小临时 pupil zone，并按该 zone 将像方数值孔径外推回全孔径。几何点列仍检查所有 `DIAM`/表面孔径并排除渐晕光线。这样固定 `DIAM` 会正确裁剪点列光线，同时不会仅因艾里斑 F/# 探针被同一口径裁剪而让整个标准点列图失败。
 - Workbench 颜色契约：选择“按波长”时由真实纳米值映射稳定的工程约定色，Fraunhofer F/d/C 线 `486.1 nm`、`587.6 nm`、`656.3 nm` 分别为蓝、绿、红，紫外/红外使用中性灰。d 线绿色用于曲线辨识，并非声称 `587.6 nm` 的肉眼单色光外观为绿色；选择“按视场”时使用离散分类调色板。全视场点列图会按所选依据实际拆分系列，不再出现参数可选但显示仍始终按波长的情况。
 
 ### 光迹图 / Footprint Diagram

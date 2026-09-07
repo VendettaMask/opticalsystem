@@ -1275,6 +1275,54 @@ public static class DiffractionEngine
             : throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
     }
 
+    internal static double SpotDiagramAiryWorkingFNumber(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength)
+    {
+        return TryWorkingFNumbersIgnoringSurfaceApertures(
+            optic,
+            field,
+            wavelength,
+            optic.RayAimingEnabled,
+            zemaxDirectionalAverage: false,
+            out var axes)
+            ? CombineWorkingFNumbers(axes)
+            : throw new InvalidOperationException("Spot-diagram Airy-disk ray did not reach the image surface.");
+    }
+
+    private static bool TryWorkingFNumbersIgnoringSurfaceApertures(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        bool aimAtStop,
+        bool zemaxDirectionalAverage,
+        out (double Tangential, double Sagittal) axes)
+    {
+        // OpticStudio's Working F/# ignores surface apertures. If a full-pupil
+        // marginal ray still has a ray error, it retries at a smaller pupil zone
+        // and scales the measured numerical aperture back to the full pupil.
+        ReadOnlySpan<double> pupilZones = [1.0, 0.99, 0.95, 0.9, 0.8, 0.7, 0.5, 0.25];
+        foreach (var pupilZone in pupilZones)
+        {
+            if (TryWorkingFNumbersAtPupilZone(
+                optic,
+                field,
+                wavelength,
+                aimAtStop,
+                zemaxDirectionalAverage,
+                pupilZone,
+                ignoreSurfaceApertures: true,
+                out axes))
+            {
+                return true;
+            }
+        }
+
+        axes = default;
+        return false;
+    }
+
     private static bool TryWorkingFNumbers(
         Optic optic,
         (double Hx, double Hy) field,
@@ -1283,8 +1331,36 @@ public static class DiffractionEngine
         bool zemaxDirectionalAverage,
         out (double Tangential, double Sagittal) axes)
     {
+        return TryWorkingFNumbersAtPupilZone(
+            optic,
+            field,
+            wavelength,
+            aimAtStop,
+            zemaxDirectionalAverage,
+            pupilZone: 1,
+            ignoreSurfaceApertures: false,
+            out axes);
+    }
+
+    private static bool TryWorkingFNumbersAtPupilZone(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        bool aimAtStop,
+        bool zemaxDirectionalAverage,
+        double pupilZone,
+        bool ignoreSurfaceApertures,
+        out (double Tangential, double Sagittal) axes)
+    {
         axes = default;
-        var pupil = new[] { (0.0, 0.0), (0.0, 1.0), (0.0, -1.0), (1.0, 0.0), (-1.0, 0.0) };
+        var pupil = new[]
+        {
+            (0.0, 0.0),
+            (0.0, pupilZone),
+            (0.0, -pupilZone),
+            (pupilZone, 0.0),
+            (-pupilZone, 0.0)
+        };
         var directions = new Vector3D[pupil.Length];
         for (var index = 0; index < pupil.Length; index++)
         {
@@ -1296,7 +1372,11 @@ public static class DiffractionEngine
                 item.Item2,
                 wavelength.Micrometers,
                 aimAtStop);
-            var sample = optic.SequentialRayTracer.TraceFinalSamples(bundle).Single();
+            var sample = ignoreSurfaceApertures
+                ? optic.SequentialRayTracer.TraceToSurface(
+                    bundle.Rays.Single(),
+                    optic.SurfaceGroup.Items.Count - 1)
+                : optic.SequentialRayTracer.TraceFinalSamples(bundle).Single();
             if (sample is null || sample.Vignetted || sample.Intensity <= 0)
             {
                 return false;
@@ -1315,7 +1395,7 @@ public static class DiffractionEngine
                     -1,
                     1);
                 var angle = Math.Acos(dot);
-                return imageIndex * Math.Sin(angle);
+                return imageIndex * Math.Sin(angle) / pupilZone;
             }).ToArray();
             var equivalentNumericalAperture = zemaxDirectionalAverage
                 ? numericalApertures.Average()

@@ -22,7 +22,7 @@ internal static class AiryDiskSupport
             return ImageSpaceAnalysisSupport.AfocalAiryRadiusMilliradians(optic, wavelength);
         }
 
-        var workingFNumber = DiffractionEngine.WorkingFNumber(optic, fields[0], wavelength, aimAtStop: optic.RayAimingEnabled);
+        var workingFNumber = DiffractionEngine.SpotDiagramAiryWorkingFNumber(optic, fields[0], wavelength);
         return 1.22 * wavelength.Micrometers * workingFNumber / 1000.0;
     }
 

@@ -108,11 +108,32 @@ public sealed class PsfWorkingFNumberRegressionTests
     {
         var optic = Import("zemax-123456.ZMX");
         var wave = optic.Wavelengths.First(item => item.IsPrimary);
-        var expectedFNumber = DiffractionEngine.WorkingFNumber(optic, (0, 0), wave);
+        var expectedFNumber = DiffractionEngine.WorkingFNumber(
+            optic,
+            (0, 0),
+            wave,
+            aimAtStop: optic.RayAimingEnabled);
         var result = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32);
         Assert.Equal(expectedFNumber, result.WorkingFNumber, 12);
         Assert.All(result.Values.Cast<double>(), value => Assert.True(double.IsFinite(value)));
         Assert.True(result.PeakStrehlRatio > 0);
+    }
+
+    [Fact]
+    public void Primary123456FixtureProducesSpotDiagramWithAiryDiskAfterDiamImport()
+    {
+        var optic = Import("zemax-123456.ZMX");
+
+        var data = new SpotDiagramAnalysis(
+            optic,
+            new SpotDiagramSettings(
+                RayDensity: 3,
+                FieldNumber: 1,
+                ShowAiryDisk: true)).GenerateData();
+
+        Assert.True((double)data.Values["AiryRadius"] > 0);
+        var pane = Assert.Single(data.PlotPanes!);
+        Assert.Contains(pane.Series, series => series.Name == "艾里斑");
     }
 
     private static Optic Import(string name) => OpticalFormatCatalog.Import(

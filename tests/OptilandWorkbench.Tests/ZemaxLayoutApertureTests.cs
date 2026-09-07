@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Visualization;
 
@@ -105,5 +106,23 @@ public sealed class ZemaxLayoutApertureTests
 
         var aperture = Assert.IsType<CircularAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
         Assert.Equal(4, aperture.Radius, precision: 12);
+    }
+
+    [Fact]
+    public void SpotDiagramAiryDiskUsesWorkingFNumberWithoutApplyingSurfaceApertures()
+    {
+        var optic = OpticalFormatCatalog.Import(Source, ".zmx");
+
+        var data = new SpotDiagramAnalysis(
+            optic,
+            new SpotDiagramSettings(
+                RayDensity: 3,
+                FieldNumber: 1,
+                ShowAiryDisk: true)).GenerateData();
+
+        Assert.True((int)data.Values["VignettedRayCount"] > 0);
+        Assert.True((double)data.Values["AiryRadius"] > 0);
+        var pane = Assert.Single(data.PlotPanes!);
+        Assert.Contains(pane.Series, series => series.Name == "艾里斑");
     }
 }
