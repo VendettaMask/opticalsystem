@@ -11,9 +11,16 @@ public sealed class FlatRootFactory
     public OpticSnapshot Create(
         InitialStructureSpecification specification,
         int elementCount,
-        int stopVariant = 1)
+        int stopVariant = 1,
+        FlatStartFamily? family = null)
     {
         SpecificationValidator.Validate(specification);
+        if (family is not null)
+        {
+            FlatStartFamilySupport.Validate(specification, family);
+            if (family.ElementCount != elementCount || specification.FlatStart is null)
+                throw new ArgumentException("The family requires matching flat-start element count.", nameof(family));
+        }
         if (elementCount < specification.MinimumElementCount
             || elementCount > specification.MaximumElementCount)
         {
@@ -32,11 +39,22 @@ public sealed class FlatRootFactory
         optic.Aperture.Value = specification.FlatStart is null ? specification.FNumber
             : specification.EffectiveFocalLengthMillimeters / specification.FNumber;
         optic.Materials.SetPreferredGlassCatalogs(specification.GlassCatalogs);
-        optic.Materials.Resolve(specification.InitialGlass);
+        foreach (var name in family?.GlassNames ?? [specification.InitialGlass]) optic.Materials.Resolve(name);
 
         AddFields(optic, specification.MaximumFieldAngleDegrees);
         AddWavelengths(optic, specification.Wavelengths);
-        optic.SurfaceGroup.ImportLegacySurfaces(BuildSurfaces(specification, elementCount, stopVariant));
+        var surfaces = BuildSurfaces(specification, elementCount, stopVariant);
+        if (family is not null)
+        {
+            for (var index = 0; index < elementCount; index++)
+            {
+                surfaces[2 * index + 1].Material = family.GlassNames[index];
+                surfaces[2 * index + 1].Thickness = family.CenterThicknesses[index];
+                if (index + 1 < elementCount) surfaces[2 * index + 2].Thickness = family.AirGaps[index];
+            }
+            for (var index = 0; index < surfaces.Count; index++) surfaces[index].IsStop = index == family.StopSurfaceIndex;
+        }
+        optic.SurfaceGroup.ImportLegacySurfaces(surfaces);
 
         var snapshot = optic.ToSnapshot();
         OpticSnapshotValidator.Validate(snapshot);

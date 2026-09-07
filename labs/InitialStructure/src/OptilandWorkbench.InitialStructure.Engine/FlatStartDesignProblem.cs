@@ -20,11 +20,12 @@ internal sealed class FlatStartDesignProblem
     public long TracedRayCount { get; private set; }
     public static DesignStage FullStage { get; } = new(1, 1, true);
 
-    public FlatStartDesignProblem(InitialStructureSpecification specification, int elementCount, OpticSnapshot template)
+    public FlatStartDesignProblem(InitialStructureSpecification specification, int elementCount, OpticSnapshot template,
+        FlatStartFamily? family = null)
     {
         _specification = specification;
         _elementCount = elementCount;
-        _geometry = new(specification, elementCount, .3);
+        _geometry = new(specification, elementCount, .3, family);
         _template = template;
         _focalLength = specification.EffectiveFocalLengthMillimeters;
         _maximumCurvature = .9 * _focalLength / template.Surfaces.Skip(1).Take(SurfaceCount).Max(surface => surface.SemiDiameter);

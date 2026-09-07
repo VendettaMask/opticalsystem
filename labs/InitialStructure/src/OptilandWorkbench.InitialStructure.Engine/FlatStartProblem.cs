@@ -2,7 +2,6 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Raytrace;
-using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.InitialStructure.Contracts;
 
@@ -15,7 +14,8 @@ internal sealed class FlatStartProblem
     private readonly double _maximumBackFocus;
     private readonly double _maximumScaledCurvature;
 
-    public FlatStartProblem(InitialStructureSpecification specification, int elementCount, double pupilFraction)
+    public FlatStartProblem(InitialStructureSpecification specification, int elementCount, double pupilFraction,
+        FlatStartFamily? family = null)
     {
         SpecificationValidator.Validate(specification);
         if (specification.FlatStart is null) throw new ArgumentException("Flat-start settings are required.");
@@ -23,24 +23,13 @@ internal sealed class FlatStartProblem
             throw new ArgumentOutOfRangeException(nameof(pupilFraction));
         _specification = specification;
         _elementCount = elementCount;
-        var optic = Optic.FromSnapshot(new FlatRootFactory().Create(specification, elementCount, stopVariant: 0));
+        var optic = Optic.FromSnapshot(new FlatRootFactory().Create(specification, elementCount, stopVariant: 0, family: family));
         // The target, not an undefined flat-system focal length, establishes a nonzero pupil.
         optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
         optic.Aperture.Value = specification.EffectiveFocalLengthMillimeters / specification.FNumber * pupilFraction;
         PupilRadius = optic.Aperture.Value / 2;
-        var material = optic.Materials.Resolve(specification.InitialGlass);
-        if (material is not CatalogGlassMaterial catalog
-            || !double.IsFinite(catalog.MinimumWavelengthNanometers) || !double.IsFinite(catalog.MaximumWavelengthNanometers)
-            || catalog.MinimumWavelengthNanometers <= 0 || catalog.MaximumWavelengthNanometers < catalog.MinimumWavelengthNanometers)
-            throw new InvalidOperationException($"Glass '{specification.InitialGlass}' has no declared catalog wavelength range for flat-start validation.");
-        foreach (var wavelength in specification.Wavelengths)
-        {
-            if (wavelength.Nanometers < catalog.MinimumWavelengthNanometers || wavelength.Nanometers > catalog.MaximumWavelengthNanometers)
-                throw new InvalidOperationException($"Glass '{specification.InitialGlass}' does not cover {wavelength.Nanometers} nm; catalog range is {catalog.MinimumWavelengthNanometers}–{catalog.MaximumWavelengthNanometers} nm.");
-            var index = material.RefractiveIndex(wavelength.Nanometers);
-            if (!double.IsFinite(index) || index <= 1)
-                throw new InvalidOperationException($"Glass '{specification.InitialGlass}' has no usable index at {wavelength.Nanometers} nm.");
-        }
+        foreach (var name in (family?.GlassNames ?? [specification.InitialGlass]).Distinct(StringComparer.OrdinalIgnoreCase))
+            FlatStartFamilySupport.ValidateGlass(optic, name, specification);
         var last = optic.SurfaceGroup.Items[2 * elementCount];
         _maximumBackFocus = specification.MaximumTrackLengthMillimeters - last.CoordinateSystem.Origin.Z;
         last.Thickness = specification.FlatStart.FixedBackFocusMillimeters

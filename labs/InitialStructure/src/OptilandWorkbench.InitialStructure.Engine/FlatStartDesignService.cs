@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.InitialStructure.Contracts;
 
 namespace OptilandWorkbench.InitialStructure.Engine;
@@ -7,7 +8,7 @@ namespace OptilandWorkbench.InitialStructure.Engine;
 public sealed class FlatStartDesignService
 {
     public FlatStartDesignResult Solve(InitialStructureSpecification specification, int elementCount,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default, FlatStartFamily? family = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
         SpecificationValidator.Validate(specification);
@@ -16,21 +17,41 @@ public sealed class FlatStartDesignService
         var bootstrap = new FlatStartBootstrap().Solve(specification with
         {
             Budget = specification.Budget with { MaximumEvaluations = Math.Max(1, Math.Min(800, budget - 1)) }
-        }, elementCount, cancellationToken);
-        var count = bootstrap.EvaluationCount;
-        var problem = new FlatStartDesignProblem(specification, elementCount, bootstrap.Steps[^1].Optic);
-        var vector = problem.Vector(bootstrap.Steps[^1].Optic);
+        }, elementCount, cancellationToken, family);
+        return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken);
+    }
+
+    internal FlatStartDesignResult Continue(InitialStructureSpecification specification, FlatStartFamily family,
+        FlatStartBootstrapResult rootProof, OpticSnapshot start, string parentCandidateId,
+        CancellationToken cancellationToken = default)
+    {
+        SpecificationValidator.Validate(specification);
+        return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken);
+    }
+
+    private static FlatStartDesignResult Run(InitialStructureSpecification specification, int elementCount,
+        FlatStartBootstrapResult bootstrap, Stopwatch stopwatch, FlatStartFamily? family,
+        OpticSnapshot? restart, string? parentCandidateId, CancellationToken cancellationToken)
+    {
+        var budget = specification.Budget.MaximumEvaluations;
+        var count = restart is null ? bootstrap.EvaluationCount : 0;
+        var startingOptic = restart ?? bootstrap.Steps[^1].Optic;
+        var problem = new FlatStartDesignProblem(specification, elementCount, startingOptic, family);
+        var vector = problem.Vector(startingOptic);
         var steps = new List<DesignStep>();
         var diagnostics = new List<SearchDiagnostic>
         {
-            new("design.scope", "Fixed element count, initial catalog glass, front stop and frozen clear apertures; no material or topology search."),
+            new("design.scope", family is null
+                ? "Fixed element count, initial catalog glass, front stop and frozen clear apertures; no material or topology search."
+                : "Explicit catalog material allocation and stop surface; all geometry and optical results use formal Core."),
             new("design.engine", "Formal Core sampled spot analysis, common polychromatic centroid, geometric pupil weights and real aperture clipping.")
         };
-        var state = bootstrap.State == FlatStartBootstrapState.Focused
+        var canContinue = restart is not null || bootstrap.State == FlatStartBootstrapState.Focused;
+        var state = canContinue
             ? FlatStartDesignState.TargetsNotMet : FlatStartDesignState.StartupFailed;
         DesignStage currentStage = new(.3, 0, false);
         DesignStage[] targets = [new(.6, .25, false), new(1, .5, false), new(1, 1, false), new(1, 1, true)];
-        if (bootstrap.State == FlatStartBootstrapState.Focused)
+        if (canContinue)
         {
             for (var targetIndex = 0; targetIndex < targets.Length && CanEvaluate(reserveFinal: true); targetIndex++)
             {
@@ -85,11 +106,12 @@ public sealed class FlatStartDesignService
                 Lineage = new()
                 {
                     RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                    Operation = "strict-flat-design-v1",
+                    Operation = family is null ? "strict-flat-design-v1" : "strict-flat-family-design-v1",
+                    ParentCandidateId = parentCandidateId,
                     Generation = bootstrap.Steps.Count + steps.Count - 1,
                     ElementCount = elementCount,
-                    StopVariant = 0,
-                    SeedIndex = 0
+                    StopVariant = family?.StopSurfaceIndex ?? 0,
+                    SeedIndex = family?.SeedIndex ?? 0
                 },
                 Evaluation = new()
                 {
@@ -113,12 +135,14 @@ public sealed class FlatStartDesignService
         if (validation is null) diagnostics.Add(new("design.validation-not-run", "Budget or time ended before full-target validation; no accepted candidate is published."));
         return new()
         {
+            Algorithm = family is null ? new("strict-flat-design", "1", "Managed CPU", true)
+                : new("strict-flat-family-design", "1", "Managed CPU", true),
             Specification = specification,
             SpecificationFingerprint = ContentFingerprint.Compute(specification),
             State = state,
             Bootstrap = bootstrap,
             EvaluationCount = count,
-            TracedRayCount = bootstrap.TracedRayCount + problem.TracedRayCount,
+            TracedRayCount = (restart is null ? bootstrap.TracedRayCount : 0) + problem.TracedRayCount,
             Steps = steps,
             FinalValidation = validation,
             Candidate = candidate,

@@ -9,10 +9,10 @@ public sealed class FlatStartBootstrap
     public const double EntrancePupilFraction = 0.3;
 
     public FlatStartBootstrapResult Solve(InitialStructureSpecification specification, int elementCount,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default, FlatStartFamily? family = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var problem = new FlatStartProblem(specification, elementCount, EntrancePupilFraction);
+        var problem = new FlatStartProblem(specification, elementCount, EntrancePupilFraction, family);
         var stopwatch = Stopwatch.StartNew();
         var budget = specification.Budget.MaximumEvaluations;
         var count = 0;
@@ -96,6 +96,8 @@ public sealed class FlatStartBootstrap
         diagnostics.Add(new("bootstrap.scope", "Axial primary-wavelength startup at 30% target pupil; full-field and full-aperture acceptance have not been performed."));
         return new FlatStartBootstrapResult
         {
+            Algorithm = family is null ? new("strict-flat-bootstrap", "2", "Managed CPU", true)
+                : new("strict-flat-family-bootstrap", "1", "Managed CPU", true),
             Specification = specification,
             SpecificationFingerprint = ContentFingerprint.Compute(specification),
             State = state,
