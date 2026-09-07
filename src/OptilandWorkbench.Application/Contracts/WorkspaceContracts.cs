@@ -733,7 +733,8 @@ public sealed record SurfaceRowDto(
     bool SemiDiameterFixed = false,
     bool GeometryComputable = true,
     SurfaceInspectionDto? Inspection = null,
-    RadiusSolveDto? RadiusSolve = null);
+    RadiusSolveDto? RadiusSolve = null,
+    double? MechanicalSemiDiameter = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 

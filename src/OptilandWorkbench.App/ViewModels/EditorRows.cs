@@ -40,7 +40,7 @@ public sealed class SurfaceEditorRow
         SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
         GeometryComputable = source.GeometryComputable;
         Inspection = source.Inspection;
-        MechanicalSemiDiameter = SemiDiameter;
+        MechanicalSemiDiameter = source.MechanicalSemiDiameter ?? SemiDiameter;
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
     }

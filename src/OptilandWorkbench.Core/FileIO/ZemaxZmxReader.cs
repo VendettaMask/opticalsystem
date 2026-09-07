@@ -465,6 +465,9 @@ internal static class ZemaxZmxReader
                 case "DIAM":
                     ReadSemiDiameter(document, RequireSurface(current, command), tokens);
                     break;
+                case "MEMA":
+                    ReadMechanicalSemiDiameter(document, RequireSurface(current, command), tokens);
+                    break;
                 case "COMM":
                     RequireSurface(current, command).Comment = tokens.Length > 1
                         ? string.Join(" ", tokens.Skip(1)).Trim('"')
@@ -549,6 +552,8 @@ internal static class ZemaxZmxReader
                     configurationIndex),
                     source.MinimumAperture),
                 SemiDiameterFixed = source.SemiDiameterFixed,
+                MechanicalSemiDiameter = source.MechanicalSemiDiameter,
+                MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 IsStop = configuredStop.HasValue
                     ? source.Number == (int)Math.Round(configuredStop.Value)
                     : source.IsStop,
@@ -637,6 +642,7 @@ internal static class ZemaxZmxReader
                 Thickness = thickness,
                 Material = isReflective ? "MIRROR" : materialAfter.Name,
                 SemiDiameter = semiDiameter,
+                MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 SemiDiameterFixed = source.SemiDiameterFixed,
                 Conic = source.Conic,
                 IsStop = source.IsStop,
@@ -648,6 +654,8 @@ internal static class ZemaxZmxReader
                 PhysicalAperture = physicalAperture,
                 CoordinateSystem = coordinate
             };
+            if (source.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
+                surface.MechanicalSemiDiameter = mechanicalSemiDiameter;
             result.Add(new ConvertedSurface(
                 index,
                 surface,
@@ -1337,6 +1345,18 @@ internal static class ZemaxZmxReader
         surface.SemiDiameterFixed = solveCode != 0;
     }
 
+    private static void ReadMechanicalSemiDiameter(
+        ZemaxDocument document,
+        ZemaxSurface surface,
+        IReadOnlyList<string> tokens)
+    {
+        surface.MechanicalSemiDiameter = Math.Abs(
+            ScaleLength(document, RequiredDouble(tokens, 1, "MEMA")));
+        surface.MechanicalSemiDiameterSolveCode = tokens.Count > 2
+            ? RequiredInt(tokens, 2, "MEMA")
+            : 0;
+    }
+
     private static IMaterial ResolveGlass(
         Optic optic,
         ZemaxSurface surface,
@@ -1658,6 +1678,8 @@ internal static class ZemaxZmxReader
         public double? RefractiveIndex { get; set; }
         public double? AbbeNumber { get; set; }
         public double? SemiDiameter { get; set; }
+        public double? MechanicalSemiDiameter { get; set; }
+        public int MechanicalSemiDiameterSolveCode { get; set; }
         public double? MinimumAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
         public bool IsStop { get; set; }

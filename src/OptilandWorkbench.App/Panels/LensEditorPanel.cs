@@ -185,7 +185,6 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         var rows = surfaces
             .Select(surface => new SurfaceEditorRow(surface, surface.Number == lastSurfaceNumber))
             .ToArray();
-        ApplyMechanicalSemiDiameters(rows);
         _grid.ItemsSource = rows;
         _grid.SelectedItem = rows.FirstOrDefault(row => row.Number == selectedNumber)
             ?? rows.ElementAtOrDefault(Math.Min(1, Math.Max(0, rows.Length - 1)));
@@ -494,34 +493,6 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             return checkBox;
         })
     };
-
-    private static void ApplyMechanicalSemiDiameters(IReadOnlyList<SurfaceEditorRow> rows)
-    {
-        for (var index = 1; index < rows.Count - 1; index++)
-        {
-            if (!HasOpticalMaterial(rows[index]))
-            {
-                continue;
-            }
-
-            var end = index;
-            while (end < rows.Count - 1 && HasOpticalMaterial(rows[end]))
-            {
-                end++;
-            }
-
-            var mechanicalSemiDiameter = rows
-                .Skip(index)
-                .Take((end - index) + 1)
-                .Max(row => row.SemiDiameter);
-            for (var surfaceIndex = index; surfaceIndex <= end; surfaceIndex++)
-            {
-                rows[surfaceIndex].MechanicalSemiDiameter = mechanicalSemiDiameter;
-            }
-
-            index = end;
-        }
-    }
 
     private static bool HasOpticalMaterial(SurfaceEditorRow row) =>
         row.HasOpticalMaterial;

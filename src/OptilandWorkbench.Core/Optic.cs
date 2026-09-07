@@ -531,7 +531,9 @@ public sealed class Optic
                         surface.CoordinateSystem.Origin.Z,
                         surface.CoordinateSystem.RotationXDegrees,
                         surface.CoordinateSystem.RotationYDegrees,
-                        surface.CoordinateSystem.RotationZDegrees)))).ToList(),
+                        surface.CoordinateSystem.RotationZDegrees),
+                    surface.MechanicalSemiDiameterOverride,
+                    surface.MechanicalSemiDiameterSolveCode))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
@@ -670,6 +672,7 @@ public sealed class Optic
                 Material = surface.Material,
                 Coating = surface.Coating,
                 SemiDiameter = surface.SemiDiameter,
+                MechanicalSemiDiameterSolveCode = surface.MechanicalSemiDiameterSolveCode,
                 Conic = surface.Conic,
                 IsStop = surface.IsStop,
                 IsReflective = surface.IsReflective,
@@ -677,6 +680,9 @@ public sealed class Optic
                 ThicknessVariable = surface.ThicknessVariable,
                 SemiDiameterFixed = surface.SemiDiameterFixed
             };
+
+            if (surface.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
+                opticalSurface.MechanicalSemiDiameter = mechanicalSemiDiameter;
 
             if (surface.Components is not null)
             {

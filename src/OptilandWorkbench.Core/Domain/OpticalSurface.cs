@@ -19,6 +19,8 @@ public sealed partial class OpticalSurface : NotifyObject
     private string _material = "Air";
     private string _coating = "None";
     private double _semiDiameter = 10.0;
+    private double? _mechanicalSemiDiameter;
+    private int _mechanicalSemiDiameterSolveCode;
     private bool _semiDiameterFixed;
     private double _conic;
     private bool _isStop;
@@ -102,6 +104,29 @@ public sealed partial class OpticalSurface : NotifyObject
     {
         get => _semiDiameterFixed;
         set => SetProperty(ref _semiDiameterFixed, value);
+    }
+
+    /// <summary>Zemax mechanical semi-diameter. Falls back to the clear semi-diameter when unspecified.</summary>
+    public double MechanicalSemiDiameter
+    {
+        get => _mechanicalSemiDiameter ?? SemiDiameter;
+        set => SetProperty(
+            ref _mechanicalSemiDiameter,
+            NumericParameterGuard.ClampNonNegativeFinite(value, nameof(MechanicalSemiDiameter)),
+            nameof(MechanicalSemiDiameter));
+    }
+
+    internal double? MechanicalSemiDiameterOverride => _mechanicalSemiDiameter;
+
+    public int MechanicalSemiDiameterSolveCode
+    {
+        get => _mechanicalSemiDiameterSolveCode;
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(MechanicalSemiDiameterSolveCode));
+            SetProperty(ref _mechanicalSemiDiameterSolveCode, value);
+        }
     }
 
     public double Conic
@@ -437,7 +462,7 @@ public sealed partial class OpticalSurface : NotifyObject
 
     public OpticalSurface Clone()
     {
-        return new OpticalSurface
+        var clone = new OpticalSurface
         {
             Number = Number,
             Label = Label,
@@ -446,6 +471,7 @@ public sealed partial class OpticalSurface : NotifyObject
             Material = Material,
             Coating = Coating,
             SemiDiameter = SemiDiameter,
+            MechanicalSemiDiameterSolveCode = MechanicalSemiDiameterSolveCode,
             SemiDiameterFixed = SemiDiameterFixed,
             Conic = Conic,
             IsStop = IsStop,
@@ -461,6 +487,9 @@ public sealed partial class OpticalSurface : NotifyObject
             ScatteringModel = ScatteringModel?.Clone(),
             CoordinateSystem = CoordinateSystem
         };
+        if (_mechanicalSemiDiameter is { } mechanicalSemiDiameter)
+            clone.MechanicalSemiDiameter = mechanicalSemiDiameter;
+        return clone;
     }
 
     public override string ToString()

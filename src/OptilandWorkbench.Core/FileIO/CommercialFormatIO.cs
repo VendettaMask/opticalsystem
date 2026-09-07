@@ -299,6 +299,9 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             lines.Add(
                 $"  DIAM {FormatDouble(ZemaxSemiDiameter(opticSurface))} " +
                 $"{(opticSurface.SemiDiameterFixed ? 1 : 0)} 0 0 1 \"\"");
+            lines.Add(
+                $"  MEMA {FormatDouble(opticSurface.MechanicalSemiDiameter)} " +
+                $"{opticSurface.MechanicalSemiDiameterSolveCode} 0 0 1 \"\"");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
             WriteSurfaceAperture(lines, opticSurface);
             WriteSurfaceParameters(lines, opticSurface.Geometry);

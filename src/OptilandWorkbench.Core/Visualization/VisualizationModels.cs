@@ -981,7 +981,9 @@ public sealed class Layout2DBuilder
 
     private static double ElementExtent(OpticalSurface front, OpticalSurface back)
     {
-        var target = Math.Max(SurfaceExtent(front), SurfaceExtent(back));
+        var target = Math.Max(
+            Math.Max(SurfaceExtent(front), front.MechanicalSemiDiameter),
+            Math.Max(SurfaceExtent(back), back.MechanicalSemiDiameter));
         var previous = 0.0;
         const int searchSteps = 256;
         const double minimumGap = 1e-6;

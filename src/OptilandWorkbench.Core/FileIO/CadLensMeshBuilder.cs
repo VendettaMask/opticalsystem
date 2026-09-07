@@ -128,7 +128,7 @@ internal static class CadLensMeshBuilder
         {
             cancellationToken.ThrowIfCancellationRequested();
             var extendedSurfaceCount = 0;
-            var mechanicalSemiDiameter = Math.Max(front.SemiDiameter, back.SemiDiameter);
+            var mechanicalSemiDiameter = Math.Max(front.MechanicalSemiDiameter, back.MechanicalSemiDiameter);
             if (front.SemiDiameter < mechanicalSemiDiameter - VertexResolutionMillimeters)
             {
                 extendedSurfaceCount++;
@@ -188,7 +188,7 @@ internal static class CadLensMeshBuilder
 
         AddSurfaceTriangles(assembler, frontGrid, outwardPositiveNormal: false);
         AddSurfaceTriangles(assembler, backGrid, outwardPositiveNormal: true);
-        var mechanicalSemiDiameter = Math.Max(front.SemiDiameter, back.SemiDiameter);
+        var mechanicalSemiDiameter = Math.Max(front.MechanicalSemiDiameter, back.MechanicalSemiDiameter);
         var frontMechanicalRim = AddMechanicalExtension(
             assembler,
             front,

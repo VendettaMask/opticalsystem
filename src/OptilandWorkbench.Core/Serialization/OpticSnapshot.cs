@@ -93,7 +93,9 @@ public sealed record SurfaceSnapshot(
     bool RadiusVariable = false,
     bool ThicknessVariable = false,
     bool SemiDiameterFixed = false,
-    CoordinateSystemSnapshot? CoordinateSystem = null);
+    CoordinateSystemSnapshot? CoordinateSystem = null,
+    double? MechanicalSemiDiameter = null,
+    int MechanicalSemiDiameterSolveCode = 0);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

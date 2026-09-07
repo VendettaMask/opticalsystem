@@ -22,8 +22,8 @@ public sealed record OpticalElementDefinition(
     public double Diameter => MechanicalDiameter;
 
     public double MechanicalDiameter => Math.Max(
-        FrontSurface.SemiDiameter,
-        BackSurface.SemiDiameter) * 2;
+        FrontSurface.MechanicalSemiDiameter ?? FrontSurface.SemiDiameter,
+        BackSurface.MechanicalSemiDiameter ?? BackSurface.SemiDiameter) * 2;
 
     public double CenterThickness => FrontSurface.Thickness;
 

@@ -304,6 +304,10 @@ public static class OpticSnapshotValidator
         RequireText(surface.Material, $"{path}.material");
         RequireText(surface.Coating, $"{path}.coating");
         RequireFiniteNonNegative(surface.SemiDiameter, $"{path}.semiDiameter");
+        if (surface.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
+            RequireFiniteNonNegative(mechanicalSemiDiameter, $"{path}.mechanicalSemiDiameter");
+        if (surface.MechanicalSemiDiameterSolveCode < 0)
+            Invalid($"{path}.mechanicalSemiDiameterSolveCode", "solve code cannot be negative");
         RequireFinite(surface.Conic, $"{path}.conic");
 
         if (surface.CoordinateSystem is { } coordinate)
