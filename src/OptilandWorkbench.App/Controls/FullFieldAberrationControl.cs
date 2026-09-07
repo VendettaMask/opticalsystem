@@ -39,6 +39,10 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
 
     public double YFieldWidth { get; init; } = 1;
 
+    public double FieldCenterX { get; init; }
+
+    public double FieldCenterY { get; init; }
+
     public string DisplayAs { get; init; } = "图标";
 
     public string DisplayMode { get; init; } = "绝对值";
@@ -65,8 +69,8 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
         var axisPen = new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, new SolidColorBrush(Color.FromRgb(35, 35, 35))), 1);
         const int tickCount = 6;
 
-        double MapX(double x) => plot.Left + ((x + xHalf) / (2 * xHalf) * plot.Width);
-        double MapY(double y) => plot.Bottom - ((y + yHalf) / (2 * yHalf) * plot.Height);
+        double MapX(double x) => plot.Left + ((x - FieldCenterX + xHalf) / (2 * xHalf) * plot.Width);
+        double MapY(double y) => plot.Bottom - ((y - FieldCenterY + yHalf) / (2 * yHalf) * plot.Height);
 
         for (var index = 0; index <= tickCount; index++)
         {
@@ -76,10 +80,10 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
             context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
 
-            var xValue = -xHalf + (2 * xHalf * fraction);
+            var xValue = FieldCenterX - xHalf + (2 * xHalf * fraction);
             var xText = CreateText(FormatTick(xValue), 9.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
-            var yValue = -yHalf + (2 * yHalf * fraction);
+            var yValue = FieldCenterY - yHalf + (2 * yHalf * fraction);
             var yText = CreateText(FormatTick(yValue), 9.5, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
         }

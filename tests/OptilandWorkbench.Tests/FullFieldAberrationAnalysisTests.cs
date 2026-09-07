@@ -1,11 +1,81 @@
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Application.Runtime;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class FullFieldAberrationAnalysisTests
 {
+    [Fact]
+    public void OnAxisOnlyFieldUsesOneFiniteCenterSample()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+
+        var data = new FullFieldAberrationAnalysis(
+            optic,
+            xFieldSamples: 5,
+            yFieldSamples: 5,
+            pupilSampling: 8).GenerateData();
+
+        var point = Assert.Single(data.PlotSeries[0].Points);
+        Assert.Equal(0, point.X);
+        Assert.Equal(0, point.Y);
+        Assert.True(double.IsFinite(point.Value!.Value));
+        Assert.Equal(1, data.Values["ValidFieldSamples"]);
+        Assert.Equal(0, data.Values["SkippedOutsideFieldNormalization"]);
+    }
+
+    [Fact]
+    public void ApplicationDefaultCompletesForOnAxisOnlyField()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Label = "On axis" });
+        var runtime = new WorkbenchRuntime(optic);
+
+        var parameters = runtime.GetAnalysisParameters("Full Field Aberration");
+        Assert.Equal(0, parameters.Single(parameter => parameter.Key == "XFieldWidth").Minimum);
+        Assert.Equal(0, parameters.Single(parameter => parameter.Key == "YFieldWidth").Minimum);
+
+        var view = runtime.BuildAnalysisView(
+            "Full Field Aberration",
+            new Dictionary<string, string>
+            {
+                ["XFieldSamples"] = "5",
+                ["YFieldSamples"] = "5",
+                ["PupilSampling"] = "8 x 8",
+                ["MaximumTerm"] = "9"
+            });
+
+        Assert.Single(Assert.Single(view.SeriesList).Points);
+        Assert.Contains(view.Rows, row => row.Metric == "归一化边界外采样数" && row.Value == "0");
+    }
+
+    [Fact]
+    public void SamplesOutsideRadialFieldNormalizationAreOmitted()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+
+        var data = new FullFieldAberrationAnalysis(
+            optic,
+            fieldShape: "矩形",
+            xFieldWidth: 1,
+            yFieldWidth: 1,
+            fieldNumber: optic.Fields.Count,
+            xFieldSamples: 3,
+            yFieldSamples: 3,
+            pupilSampling: 8).GenerateData();
+
+        Assert.All(data.PlotSeries[0].Points, point =>
+            Assert.True((point.X * point.X) + (point.Y * point.Y)
+                <= (maximumField * maximumField) + 1e-12));
+        Assert.Equal(5, data.Values["SkippedOutsideFieldNormalization"]);
+    }
+
     [Fact]
     public void GeneratesEllipseOfValueScaledFieldIcons()
     {

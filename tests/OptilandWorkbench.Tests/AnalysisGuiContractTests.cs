@@ -25,6 +25,36 @@ namespace OptilandWorkbench.Tests;
 public sealed class AnalysisGuiContractTests
 {
     [Fact]
+    public void FullFieldAberrationPlotUsesTheSelectedFieldAsItsCenter()
+    {
+        var view = new AnalysisContracts.AnalysisViewDto(
+            "全视场像差",
+            new[]
+            {
+                new AnalysisContracts.AnalysisRowDto("X 视场宽度", "0.5"),
+                new AnalysisContracts.AnalysisRowDto("Y 视场宽度", "0.75"),
+                new AnalysisContracts.AnalysisRowDto("视场中心 X", "2.25"),
+                new AnalysisContracts.AnalysisRowDto("视场中心 Y", "-3.5")
+            },
+            string.Empty,
+            Array.Empty<AnalysisContracts.AnalysisSeriesDto>(),
+            new AnalysisContracts.AnalysisPlotOptionsDto(),
+            Array.Empty<AnalysisContracts.AnalysisPlotPaneDto>(),
+            1,
+            PresentationKind: AnalysisContracts.AnalysisPresentationKind.FullFieldAberration);
+        var method = typeof(AnalysisPanel).GetMethod(
+            "BuildFullFieldAberrationPlot",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var control = Assert.IsType<FullFieldAberrationControl>(method.Invoke(null, new object[] { view }));
+
+        Assert.Equal(0.5, control.XFieldWidth);
+        Assert.Equal(0.75, control.YFieldWidth);
+        Assert.Equal(2.25, control.FieldCenterX);
+        Assert.Equal(-3.5, control.FieldCenterY);
+    }
+
+    [Fact]
     public async Task AnalysisServiceRejectsValuesOutsidePublishedParameterContracts()
     {
         using var application = WorkbenchApplication.Create("cooke");

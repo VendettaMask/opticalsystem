@@ -241,6 +241,7 @@ Workbench 一侧引用 `images/gui-current`。
 - 设置内容：`Field`、`Field Shape`、`Wavelength`、`X/Y Field Width`、`X/Y Field Sampling`、`Pupil Sampling`、`Show As`、像差项选择。
 - 结果展现：Icons、Grey Scale、Inverse Grey Scale、False Color、Inverse False Color。Icons 可表达像差大小和方向；灰阶/伪色可显示正负幅值但不显示方向。
 - 实现方式：在指定 field sampling grid 上计算 Zernike coefficients。OpticStudio 为使图标看起来像 spot diagram 所显示的 transverse aberration，使用波前导数定义 `Ex = -(R/n)(dW/dx)`、`Ey = -(R/n)(dW/dy)`。适合检查自由曲面系统的全视场像差校正。
+- 当前实现按径向最大视场归一化采样坐标，位于单位圆边界外的采样点不追迹、不绘制；采样网格以所选视场为中心。只有轴上零视场时，零宽度网格退化为一个有限的中心采样点，避免构造无效归一化坐标。
 
 ## 波前
 

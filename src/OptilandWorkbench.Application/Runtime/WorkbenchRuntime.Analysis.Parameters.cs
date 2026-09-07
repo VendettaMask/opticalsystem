@@ -359,8 +359,8 @@ public partial class WorkbenchRuntime
             "Full Field Aberration" => new[]
             {
                 ChoiceParameter("FieldShape", "视场形状", "椭圆", new[] { "椭圆", "矩形" }),
-                DoubleParameter("XFieldWidth", "X 视场宽度", defaultFieldWidth, 0.000001, 1_000_000, 0.1),
-                DoubleParameter("YFieldWidth", "Y 视场宽度", defaultFieldWidth, 0.000001, 1_000_000, 0.1),
+                DoubleParameter("XFieldWidth", "X 视场宽度", defaultFieldWidth, 0, 1_000_000, 0.1),
+                DoubleParameter("YFieldWidth", "Y 视场宽度", defaultFieldWidth, 0, 1_000_000, 0.1),
                 IntParameter("MaximumTerm", "最大项", "37", 4, ZernikeFitEngine.MaximumStandardTerm),
                 ChoiceParameter(
                     "Aberration",

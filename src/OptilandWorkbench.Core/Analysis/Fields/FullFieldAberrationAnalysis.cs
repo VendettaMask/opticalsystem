@@ -4,6 +4,7 @@ namespace OptilandWorkbench.Core.Analysis;
 
 public sealed class FullFieldAberrationAnalysis : BaseAnalysis
 {
+    private const double FieldTolerance = 1e-12;
     private readonly string _fieldShape;
     private readonly double _xFieldWidth;
     private readonly double _yFieldWidth;
@@ -20,8 +21,8 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
     public FullFieldAberrationAnalysis(
         Optic optic,
         string fieldShape = "椭圆",
-        double xFieldWidth = 0,
-        double yFieldWidth = 0,
+        double xFieldWidth = double.NaN,
+        double yFieldWidth = double.NaN,
         int maximumTerm = 37,
         string aberration = "离焦",
         int fieldNumber = 1,
@@ -33,9 +34,9 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         string displayMode = "绝对值") : base(optic)
     {
         _fieldShape = fieldShape;
-        var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic));
-        _xFieldWidth = xFieldWidth > 0 ? xFieldWidth : defaultWidth;
-        _yFieldWidth = yFieldWidth > 0 ? yFieldWidth : defaultWidth;
+        var defaultWidth = Math.Max(0, AnalysisTrace.MaxFieldValue(optic));
+        _xFieldWidth = double.IsFinite(xFieldWidth) && xFieldWidth >= 0 ? xFieldWidth : defaultWidth;
+        _yFieldWidth = double.IsFinite(yFieldWidth) && yFieldWidth >= 0 ? yFieldWidth : defaultWidth;
         _maximumTerm = Math.Clamp(maximumTerm, 4, ZernikeFitEngine.MaximumStandardTerm);
         _aberration = aberration;
         _fieldNumber = Math.Max(1, fieldNumber);
@@ -62,25 +63,32 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             ? Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Length - 1)
             : Math.Max(0, primaryIndex);
         var wavelength = wavelengths[selectedIndex];
-        var systemMaximumField = Math.Max(1e-12, AnalysisTrace.MaxFieldValue(Optic));
+        var systemMaximumField = AnalysisTrace.MaxFieldValue(Optic);
         var definedFields = AnalysisTrace.DefinedFieldSamples(Optic);
         var center = definedFields.Count == 0
             ? (X: 0.0, Y: 0.0)
             : (definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].X,
                 definedFields[Math.Clamp(_fieldNumber - 1, 0, definedFields.Count - 1)].Y);
-        var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
+        var xOffsets = FieldOffsets(_xFieldWidth, _xFieldSamples);
+        var yOffsets = FieldOffsets(_yFieldWidth, _yFieldSamples);
+        var points = new List<AnalysisPoint>(xOffsets.Count * yOffsets.Count);
         var components = new List<double[]>();
         var failedFieldSamples = 0;
-        for (var row = 0; row < _yFieldSamples; row++)
+        var skippedOutsideNormalization = 0;
+        foreach (var yOffset in yOffsets)
         {
-            var yOffset = -_yFieldWidth + (2 * _yFieldWidth * row / (_yFieldSamples - 1.0));
             var y = center.Y + yOffset;
-            for (var column = 0; column < _xFieldSamples; column++)
+            foreach (var xOffset in xOffsets)
             {
-                var xOffset = -_xFieldWidth + (2 * _xFieldWidth * column / (_xFieldSamples - 1.0));
                 var x = center.X + xOffset;
                 if (IsOutsideShape(xOffset, yOffset))
                 {
+                    continue;
+                }
+
+                if (!TryNormalizeRadialField(x, y, systemMaximumField, out var normalizedField))
+                {
+                    skippedOutsideNormalization++;
                     continue;
                 }
 
@@ -88,7 +96,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 {
                     var wavefront = WavefrontEngine.GenerateChiefRayUniform(
                         Optic,
-                        (x / systemMaximumField, y / systemMaximumField),
+                        normalizedField,
                         wavelength,
                         _pupilSampling,
                         cellCentered: false,
@@ -115,7 +123,7 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
         {
             throw new AnalysisDataUnavailableException(
                 Name,
-                $"all {failedFieldSamples} attempted field samples failed ray tracing or wavefront fitting");
+                $"no valid samples remained: {skippedOutsideNormalization} fell outside the radial field normalization boundary and {failedFieldSamples} failed ray tracing or wavefront fitting");
         }
 
         // Absolute means the signed coefficient itself, not Math.Abs. For vector aberrations,
@@ -168,11 +176,13 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
                 ["PupilSampling"] = _pupilSampling,
                 ["DisplayAs"] = _displayAs,
                 ["DisplayMode"] = _displayMode,
+                ["FieldNormalization"] = "Radial",
                 ["MeanAberrationWaves"] = mean,
                 ["PlotMinimumWaves"] = minimum,
                 ["PlotMaximumWaves"] = maximum,
                 ["ValidFieldSamples"] = points.Count,
-                ["FailedFieldSamples"] = failedFieldSamples
+                ["FailedFieldSamples"] = failedFieldSamples,
+                ["SkippedOutsideFieldNormalization"] = skippedOutsideNormalization
             },
             series,
             new[] { series },
@@ -192,9 +202,39 @@ public sealed class FullFieldAberrationAnalysis : BaseAnalysis
             return false;
         }
 
-        var normalizedX = x / _xFieldWidth;
-        var normalizedY = y / _yFieldWidth;
+        var normalizedX = _xFieldWidth <= FieldTolerance ? 0 : x / _xFieldWidth;
+        var normalizedY = _yFieldWidth <= FieldTolerance ? 0 : y / _yFieldWidth;
         return (normalizedX * normalizedX) + (normalizedY * normalizedY) > 1 + 1e-12;
+    }
+
+    private static IReadOnlyList<double> FieldOffsets(double halfWidth, int sampleCount)
+    {
+        if (halfWidth <= FieldTolerance)
+        {
+            return new[] { 0.0 };
+        }
+
+        return Enumerable.Range(0, sampleCount)
+            .Select(index => -halfWidth + (2 * halfWidth * index / (sampleCount - 1.0)))
+            .ToArray();
+    }
+
+    private static bool TryNormalizeRadialField(
+        double fieldX,
+        double fieldY,
+        double maximumField,
+        out (double X, double Y) normalized)
+    {
+        if (maximumField <= FieldTolerance)
+        {
+            normalized = (0, 0);
+            return Math.Abs(fieldX) <= FieldTolerance && Math.Abs(fieldY) <= FieldTolerance;
+        }
+
+        normalized = (fieldX / maximumField, fieldY / maximumField);
+        return double.IsFinite(normalized.X)
+            && double.IsFinite(normalized.Y)
+            && ((normalized.X * normalized.X) + (normalized.Y * normalized.Y) <= 1 + FieldTolerance);
     }
 
     private double[] SelectComponents(

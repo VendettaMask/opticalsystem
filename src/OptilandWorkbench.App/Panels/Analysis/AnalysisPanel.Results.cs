@@ -242,6 +242,8 @@ public sealed partial class AnalysisPanel
             Series = view.Series.FirstOrDefault(),
             XFieldWidth = FindRowNumber(view, "X 视场宽度", 1),
             YFieldWidth = FindRowNumber(view, "Y 视场宽度", 1),
+            FieldCenterX = FindRowNumber(view, "视场中心 X", 0),
+            FieldCenterY = FindRowNumber(view, "视场中心 Y", 0),
             DisplayAs = FindRowText(view, "显示为", "图标"),
             DisplayMode = FindRowText(view, "显示", "绝对值"),
             MinHeight = AnalysisPlotMinimumHeight
