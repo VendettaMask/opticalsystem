@@ -131,16 +131,18 @@ public static class DiffractionEngine
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
+        if (optic.RayAimingEnabled && !aimAtStop && !cellCenteredPupil
+            && (preparedWavefront is not null || preparedPolarization is not null))
+        {
+            throw new InvalidOperationException(
+                "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
+        }
+        aimAtStop |= optic.RayAimingEnabled;
         var pupilAimAtStop = cellCenteredPupil || aimAtStop;
-        if (!TryWorkingFNumbers(optic, field, wavelength, aimAtStop, false, out var workingAxes))
+        if (!TryWorkingFNumbersAtPupilZone(optic, field, wavelength, aimAtStop, false, 1, out var workingAxes))
         {
             // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
             // Retry the entire pupil convention, not just the F-number used to scale its FFT.
-            if (aimAtStop)
-            {
-                throw new InvalidOperationException("Working-F-number ray did not reach the image surface after stop aiming.");
-            }
-
             if (!pupilAimAtStop && (preparedWavefront is not null || preparedPolarization is not null))
             {
                 throw new InvalidOperationException(
@@ -216,7 +218,11 @@ public static class DiffractionEngine
             zemaxCentered: zemaxFftSampling);
 
         var nonzeroCount = pupil.Cast<Complex>().Count(value => value.Magnitude > 0);
-        var normalization = Math.Max(1, nonzeroCount * nonzeroCount);
+        if (nonzeroCount == 0)
+        {
+            throw new AnalysisDataUnavailableException("FFT PSF", "no illuminated pupil samples reached the image surface");
+        }
+        var normalization = (double)nonzeroCount * nonzeroCount;
         var padded = new Complex[gridSize, gridSize];
         var offset = (gridSize - pupilSampling) / 2;
         for (var row = 0; row < pupilSampling; row++)
@@ -862,9 +868,9 @@ public static class DiffractionEngine
         var sampleCount = psf.FrequencySampleCount > 0
             ? psf.FrequencySampleCount
             : psf.PupilSampling - 1;
-        var legacyFNumber = psf.TangentialWorkingFNumber > 0 && psf.SagittalWorkingFNumber > 0
-            ? 0
-            : WorkingFNumber(optic, (0, 0), wavelength, aimAtStop: optic.RayAimingEnabled);
+        // Retain the PSF's field and launch convention when scaling its OTF.
+        // Re-tracing an on-axis probe here can change an off-axis PSF's scale.
+        var legacyFNumber = psf.WorkingFNumber;
         var tangentialFNumber = psf.TangentialWorkingFNumber > 0
             ? psf.TangentialWorkingFNumber
             : legacyFNumber;
@@ -1275,23 +1281,7 @@ public static class DiffractionEngine
             : throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
     }
 
-    internal static double SpotDiagramAiryWorkingFNumber(
-        Optic optic,
-        (double Hx, double Hy) field,
-        Wavelength wavelength)
-    {
-        return TryWorkingFNumbersIgnoringSurfaceApertures(
-            optic,
-            field,
-            wavelength,
-            optic.RayAimingEnabled,
-            zemaxDirectionalAverage: false,
-            out var axes)
-            ? CombineWorkingFNumbers(axes)
-            : throw new InvalidOperationException("Spot-diagram Airy-disk ray did not reach the image surface.");
-    }
-
-    private static bool TryWorkingFNumbersIgnoringSurfaceApertures(
+    private static bool TryWorkingFNumbers(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
@@ -1312,7 +1302,6 @@ public static class DiffractionEngine
                 aimAtStop,
                 zemaxDirectionalAverage,
                 pupilZone,
-                ignoreSurfaceApertures: true,
                 out axes))
             {
                 return true;
@@ -1323,25 +1312,6 @@ public static class DiffractionEngine
         return false;
     }
 
-    private static bool TryWorkingFNumbers(
-        Optic optic,
-        (double Hx, double Hy) field,
-        Wavelength wavelength,
-        bool aimAtStop,
-        bool zemaxDirectionalAverage,
-        out (double Tangential, double Sagittal) axes)
-    {
-        return TryWorkingFNumbersAtPupilZone(
-            optic,
-            field,
-            wavelength,
-            aimAtStop,
-            zemaxDirectionalAverage,
-            pupilZone: 1,
-            ignoreSurfaceApertures: false,
-            out axes);
-    }
-
     private static bool TryWorkingFNumbersAtPupilZone(
         Optic optic,
         (double Hx, double Hy) field,
@@ -1349,7 +1319,6 @@ public static class DiffractionEngine
         bool aimAtStop,
         bool zemaxDirectionalAverage,
         double pupilZone,
-        bool ignoreSurfaceApertures,
         out (double Tangential, double Sagittal) axes)
     {
         axes = default;
@@ -1372,11 +1341,11 @@ public static class DiffractionEngine
                 item.Item2,
                 wavelength.Micrometers,
                 aimAtStop);
-            var sample = ignoreSurfaceApertures
-                ? optic.SequentialRayTracer.TraceToSurface(
-                    bundle.Rays.Single(),
-                    optic.SurfaceGroup.Items.Count - 1)
-                : optic.SequentialRayTracer.TraceFinalSamples(bundle).Single();
+            // These probes define the diffraction coordinate scale, not pupil
+            // transmission. Wavefront/Jones sampling still applies every aperture.
+            var sample = optic.SequentialRayTracer.TraceToSurface(
+                bundle.Rays.Single(),
+                optic.SurfaceGroup.Items.Count - 1);
             if (sample is null || sample.Vignetted || sample.Intensity <= 0)
             {
                 return false;

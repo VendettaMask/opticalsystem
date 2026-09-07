@@ -35,7 +35,9 @@ public sealed class PsfWorkingFNumberRegressionTests
         var optic = Import("zemax-ms-l7-high-na.ZMX");
         foreach (var wave in optic.Wavelengths)
         {
-            Assert.Throws<InvalidOperationException>(() => DiffractionEngine.WorkingFNumber(optic, (0, hy), wave));
+            // The public scale estimate can use a smaller pupil when marginal
+            // geometry fails; FFT still regenerates the whole aimed pupil.
+            Assert.InRange(DiffractionEngine.WorkingFNumber(optic, (0, hy), wave), 0.5, 2);
             var expectedFNumber = DiffractionEngine.WorkingFNumber(optic, (0, hy), wave, aimAtStop: true);
             var actual = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32, usePolarization: polarized);
             var expected = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32,
@@ -91,7 +93,9 @@ public sealed class PsfWorkingFNumberRegressionTests
         var optic = Import("zemax-ms-l7-high-na.ZMX");
         optic.SurfaceGroup.Items[10].PhysicalAperture = new CircularAperture(0.01);
         var wave = optic.Wavelengths.First(item => item.IsPrimary);
-        Assert.Throws<InvalidOperationException>(() => DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32));
+        var error = Assert.Throws<AnalysisDataUnavailableException>(() =>
+            DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32));
+        Assert.Contains("no illuminated pupil samples", error.Message);
     }
 
     [Fact]
@@ -117,6 +121,22 @@ public sealed class PsfWorkingFNumberRegressionTests
         Assert.Equal(expectedFNumber, result.WorkingFNumber, 12);
         Assert.All(result.Values.Cast<double>(), value => Assert.True(double.IsFinite(value)));
         Assert.True(result.PeakStrehlRatio > 0);
+    }
+
+    [Fact]
+    public void LegacyPsfMtfKeepsItsOffAxisFrequencyScale()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wave, 16, 32);
+        Assert.True(Math.Abs(psf.WorkingFNumber - DiffractionEngine.WorkingFNumber(optic, (0, 0), wave)) > 1e-3);
+        var legacyPsf = new PsfResult(psf.Values, psf.PupilSampling, psf.GridSize,
+            psf.WorkingFNumber, psf.SampleSpacingMicrometers);
+
+        var mtf = DiffractionEngine.ComputeFftMtf(legacyPsf, optic, wave);
+
+        Assert.Equal(1 / (wave.Micrometers * 1e-3 * psf.WorkingFNumber), mtf.CutoffFrequency, 10);
+        Assert.Equal(1 / (psf.GridSize * psf.SampleSpacingMicrometers * 1e-3), mtf.Frequency[1], 10);
     }
 
     [Fact]
