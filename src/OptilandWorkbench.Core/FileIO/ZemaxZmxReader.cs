@@ -682,15 +682,29 @@ internal static class ZemaxZmxReader
 
     private static IPhysicalAperture? CreatePhysicalAperture(ZemaxSurface source, double semiDiameter)
     {
-        if (source.MinimumAperture is not { } minimumAperture
-            || !double.IsFinite(minimumAperture)
-            || Math.Abs(minimumAperture) <= 1e-12)
+        if (source.MinimumAperture is { } minimumAperture
+            && double.IsFinite(minimumAperture)
+            && Math.Abs(minimumAperture) > 1e-12)
         {
-            return null;
+            return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
         }
 
-        return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
+        // OpticStudio treats the stop as an aperture and automatically places a
+        // floating circular aperture on a powered surface whose DIAM is user
+        // defined. MEMA is deliberately excluded: it describes only the part edge.
+        if (source.IsStop || (source.SemiDiameterFixed && HasSurfacePower(source)))
+        {
+            return new CircularAperture(semiDiameter);
+        }
+
+        return null;
     }
+
+    private static bool HasSurfacePower(ZemaxSurface surface) =>
+        (double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
+        || (surface.Type.Equals("TOROIDAL", StringComparison.OrdinalIgnoreCase)
+            && double.IsFinite(surface.Parameter(1))
+            && Math.Abs(surface.Parameter(1)) > 1e-12);
 
     private static void ApplyCoordinateBreak(
         ZemaxSurface source,

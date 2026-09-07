@@ -11,6 +11,7 @@
 - ZMX 导出写回 GFAC；原生 σ 高斯按 `G=1/(4σ²)` 换算，其他不可表示的本地切趾模型明确拒绝有损 ZMX 导出。Python 兼容导出支持等效均匀/高斯转换，不承诺保留 Zemax 元数据或支持余弦立方。
 - 二维、三维布局共用的发射器现在把系统 `RayAimingEnabled` 传入追迹。此前遗漏该参数，布局可能使用未瞄准的光线，随后被“删除渐晕光线”过滤。
 - 无限远物面现在只记录发射状态，不将光线移到有限的占位物面。原行为会越过第一凹面的负矢高区域，造成边缘光线全部渐晕，仅剩轴上光线；标量和批量追迹均已修复，零物距仍按有限物面处理。该发射段在场景中明确标为 Incident/None，不假造折射事件。
+- 顺序布局遵循 Zemax 的三层尺寸定义：光线按系统孔径确定的入瞳进行归一化采样；`DIAM` 是有效/净半口径；`MEMA` 只决定镜片实体外缘。固定 `DIAM` 的有光焦度表面会自动建立同半径的浮动圆形口径，平面光阑也按自身 `DIAM` 截光；超出有效口径的光线在该面标为渐晕并停止，是否从布局隐藏由“删除渐晕光线”决定。自动 `DIAM` 只显示 Zemax 保存的真实光线包络估算，不重复增加截光约束。机械半直径不会参与发射高度、入瞳大小或渐晕判断。
 - 布局保留高斯切趾强度并乘视场权重；二维、三维正常光线的透明度按相对强度显示。高斯切趾表示入瞳振幅分布，不等于实现了高斯光束 q 参数传播或物理光学传播。
 - 未匹配玻璃继续导入为 `UnresolvedMaterial`，保留名称及目录信息，不再根据 GLAS 的 nd/Vd 创建 `AbbeMaterial`，也不替换为空气。STAROPT 保存、重开和其他处方编辑保留占位材料。底部提示缺失名称和表面号，悬停可查看完整状态；提示随文档刷新持续存在，补选材料后清除。
 - 缺失玻璃时二维、三维保留几何结构，不绘制依赖缺失色散的光线，光学指标不可用。追迹、分析等能力检查明确报错；原有厚度保留，MAZH 求解暂不执行。补选材料同时更新相邻表面的入射介质，包括中间反射面。
@@ -25,6 +26,8 @@
 ## 依据与验证边界
 
 - [Ansys Apodization Type](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Apodization_Type.html) 定义振幅因子、高斯零因子行为及余弦立方的入瞳关系。
+- [Ansys Semi-Diameters](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Semi_Diameters.html) 定义自动净半口径为通过真实光线所需的径向尺寸，并规定固定净半口径的有光焦度表面在没有显式表面孔径时使用同半径的浮动圆形口径。
+- [Ansys Ray Aiming](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Ray_Aiming.html) 定义关闭瞄准时使用系统孔径得到的近轴入瞳，开启后求解填满真实光阑的物方光线；两种路径都不使用机械直径作为光瞳。
 - [Ansys 高斯到平顶光束示例](https://optics.ansys.com/hc/en-us/articles/42661743954835-How-to-design-a-Gaussian-to-Top-Hat-beam-shaper) 的官方归档 `Beam Homogenizer-Updated.zmx` 实际包含 `GFAC 9.0 1`，用于核对字段顺序。示例仅在本地临时目录解包，没有新增运行时依赖。
 - `ZemaxApodizationImportTests` 验证类型/因子往返、光线强度、物距改变后的余弦立方、应用层编辑/保存/重开以及布局对瞄准开关的响应；原生 σ 高斯另做数值兼容验证。
 - 本次是针对导入和布局链路的回归验证，不是重新运行 `123456.ZMX` 的 Zemax 数值精度基线，也没有改变全量测试通过数基线。
