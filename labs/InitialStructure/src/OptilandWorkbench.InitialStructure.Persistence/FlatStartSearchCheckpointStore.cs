@@ -41,6 +41,11 @@ public sealed class FlatStartSearchCheckpointStore
     {
         FlatStartCheckpointValidation.Validate(checkpoint);
         RunDirectoryStore.EnsureSafeIdentifier(checkpoint.RunId, nameof(checkpoint));
+        if (checkpoint.Origin is { } origin)
+        {
+            RunDirectoryStore.EnsureSafeIdentifier(origin.RunId, nameof(checkpoint));
+            RunDirectoryStore.ValidateCandidateSet([origin.Source.Candidate!], nameof(checkpoint));
+        }
         RunDirectoryStore.ValidateCandidateSet(checkpoint.Trials.Where(trial => trial.Candidate is not null)
             .Select(trial => trial.Candidate!).ToArray(), nameof(checkpoint));
     }

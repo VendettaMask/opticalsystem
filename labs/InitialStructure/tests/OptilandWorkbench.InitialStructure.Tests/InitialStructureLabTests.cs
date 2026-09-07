@@ -597,16 +597,15 @@ public sealed class InitialStructureLabTests
     }
 
     [Fact]
-    public void LabAppSourceKeepsTheL4ResponsiveAccessibleWorkflow()
+    public void LabAppSourceKeepsTheIndependentFormalCoreWorkflow()
     {
         var repositoryRoot = FindRepositoryRoot();
-        var mainWindow = File.ReadAllText(Path.Combine(
+        var mainWindow = string.Join("\n", Directory.GetFiles(Path.Combine(
             repositoryRoot,
             "labs",
             "InitialStructure",
             "src",
-            "OptilandWorkbench.InitialStructure.App",
-            "MainWindow.cs"));
+            "OptilandWorkbench.InitialStructure.App"), "MainWindow*.cs").Select(File.ReadAllText));
         var preview = File.ReadAllText(Path.Combine(
             repositoryRoot,
             "labs",
@@ -624,7 +623,9 @@ public sealed class InitialStructureLabTests
         Assert.Contains("SetComparison", mainWindow, StringComparison.Ordinal);
         Assert.Contains("CandidateExportService", mainWindow, StringComparison.Ordinal);
         Assert.Contains("TryGetLocalPath", mainWindow, StringComparison.Ordinal);
-        Assert.Contains("surface.Radius", preview, StringComparison.Ordinal);
+        Assert.Contains("Layout2DBuilder", preview, StringComparison.Ordinal);
+        Assert.Contains("segment.Direction", preview, StringComparison.Ordinal);
+        Assert.DoesNotContain("surface.Radius", preview, StringComparison.Ordinal);
         Assert.Contains("OnCreateAutomationPeer", preview, StringComparison.Ordinal);
         Assert.DoesNotContain("TraceGeneric", preview, StringComparison.Ordinal);
     }

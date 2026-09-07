@@ -8,6 +8,58 @@ namespace OptilandWorkbench.InitialStructure.Engine;
 /// <summary>Family proposals, accounting and provenance only; optical evaluation belongs to formal Core.</summary>
 public sealed class FlatStartSearchService
 {
+    public static FlatStartPreflight Preflight(InitialStructureSpecification specification, FlatStartSearchOptions options)
+    {
+        FlatStartSearchPlanning.Validate(specification, options);
+        var materials = FlatStartSearchPlanning.Materials(specification, options);
+        return new(materials.Names, materials.Diagnostics);
+    }
+
+    public static IReadOnlyList<CandidateSnapshot> SelectCandidates(FlatStartSearchCheckpoint checkpoint) =>
+        FlatStartCandidateArchive.Select(checkpoint.Specification, checkpoint.Options,
+            checkpoint.Origin is { } origin ? checkpoint.Trials.Prepend(origin.Source) : checkpoint.Trials);
+
+    public static FlatStartSearchCheckpoint CreateRefinementCheckpoint(FlatStartSearchCheckpoint source,
+        string candidateId, int additionalEvaluations, TimeSpan additionalTime)
+    {
+        var materials = FlatStartSearchPlanning.Materials(source.Specification, source.Options);
+        var roots = source.Origin is null ? FlatStartSearchPlanning.Roots(source.Specification, materials.Names) : [];
+        ValidateResume(source, source.Specification, source.Options, materials, roots, RootQuota(source.Specification, source.Options, roots.Count));
+        if (source.Trials.Any(trial => trial.State == FamilyTrialState.Reserved))
+            throw new InvalidOperationException("Finish or restore the active batch before creating a refinement run.");
+        var selected = source.Trials.FirstOrDefault(trial => trial.Candidate?.CandidateId == candidateId)
+            ?? (source.Origin?.Source.Candidate?.CandidateId == candidateId ? source.Origin.Source : null)
+            ?? throw new ArgumentException("The selected candidate does not belong to this run.", nameof(candidateId));
+        var ancestor = selected;
+        // A selected origin may itself come from a previous run; its supplied proof is already complete.
+        if (ReferenceEquals(selected, source.Origin?.Source)) ancestor = source.Origin!.AsParent();
+        else while (ancestor.ParentTrialId is { } parentId) ancestor = Parent(source, parentId);
+        var specification = source.Specification with
+        {
+            Budget = source.Specification.Budget with
+            { MaximumEvaluations = additionalEvaluations, TimeLimit = additionalTime }
+        };
+        FlatStartSearchPlanning.Validate(specification, source.Options);
+        return new()
+        {
+            Algorithm = new("strict-flat-selected-refinement", "1", "Managed CPU", true),
+            RunId = "flat-refine-" + Guid.NewGuid().ToString("N"),
+            Specification = specification,
+            Options = source.Options,
+            SpecificationFingerprint = ContentFingerprint.Compute(specification),
+            OptionsFingerprint = source.OptionsFingerprint,
+            MaterialFingerprint = materials.Fingerprint,
+            UsableGlassNames = materials.Names,
+            Origin = new(source.RunId, source.Specification, materials.Fingerprint, source.ChargedEvaluations, selected, ancestor.BootstrapProof!),
+            Diagnostics = [new("refinement.origin", "A separate budget refines the selected candidate; source targets and history are preserved.")]
+        };
+    }
+
+    private static int RootQuota(InitialStructureSpecification specification, FlatStartSearchOptions options, int rootCount) =>
+        rootCount == 0 ? 0 : Math.Min(options.MaximumEvaluationsPerTrial,
+            Math.Min(specification.Budget.MaximumEvaluations / rootCount,
+                Math.Max(2, (int)(.55 * specification.Budget.MaximumEvaluations / rootCount))));
+
     public async Task<FlatStartSearchResult> RunAsync(InitialStructureSpecification specification,
         FlatStartSearchOptions? options = null, CancellationToken cancellationToken = default,
         FlatStartSearchCheckpoint? checkpoint = null,
@@ -16,10 +68,8 @@ public sealed class FlatStartSearchService
         options ??= new();
         FlatStartSearchPlanning.Validate(specification, options);
         var materials = FlatStartSearchPlanning.Materials(specification, options);
-        var roots = FlatStartSearchPlanning.Roots(specification, materials.Names);
-        var quota = roots.Count == 0 ? 0 : Math.Min(options.MaximumEvaluationsPerTrial,
-            Math.Min(specification.Budget.MaximumEvaluations / roots.Count,
-                Math.Max(2, (int)(.55 * specification.Budget.MaximumEvaluations / roots.Count))));
+        var roots = checkpoint?.Origin is null ? FlatStartSearchPlanning.Roots(specification, materials.Names) : [];
+        var quota = RootQuota(specification, options, roots.Count);
         var current = checkpoint ?? new FlatStartSearchCheckpoint
         {
             RunId = "flat-search-" + Guid.NewGuid().ToString("N"),
@@ -115,8 +165,8 @@ public sealed class FlatStartSearchService
                 : RemainingTime() <= TimeSpan.Zero ? FlatStartSearchState.TimeLimit
                 : RemainingEvaluations() == 0 ? FlatStartSearchState.BudgetExhausted : FlatStartSearchState.Completed
         };
-        if (current.NextRootIndex < roots.Count || roots.Select(root => root.ElementCount).Distinct().Count()
-            < specification.MaximumElementCount - specification.MinimumElementCount + 1)
+        if (current.Origin is null && (current.NextRootIndex < roots.Count || roots.Select(root => root.ElementCount).Distinct().Count()
+            < specification.MaximumElementCount - specification.MinimumElementCount + 1))
             current = current with
             {
                 Diagnostics = current.Diagnostics.Append(new("search.incomplete-coverage",
@@ -125,7 +175,7 @@ public sealed class FlatStartSearchService
         if (current.Trials.Count == FlatStartSearchPlanning.MaximumTrials)
             current = current with { Diagnostics = current.Diagnostics.Append(new("search.trial-limit", "The bounded trial archive is full; remaining evaluation budget is unused.")).ToArray() };
         await Save();
-        return new(current, FlatStartCandidateArchive.Select(specification, options, current.Trials));
+        return new(current, SelectCandidates(current));
 
         int RemainingEvaluations() => specification.Budget.MaximumEvaluations - current.ChargedEvaluations;
         TimeSpan RemainingTime() => specification.Budget.TimeLimit - TimeSpan.FromTicks(previousTicks + clock.Elapsed.Ticks);
@@ -147,10 +197,12 @@ public sealed class FlatStartSearchService
             };
             var service = new FlatStartDesignService();
             var result = work.Start is null ? service.Solve(request, work.Family.ElementCount, family: work.Family)
-                : service.Continue(request, work.Family, work.RootProof!, work.Start, work.Parent!.Candidate!.CandidateId);
+                : service.Continue(request, work.Family, work.RootProof!, work.Start, work.Parent!.Candidate!.CandidateId,
+                    improveBeyondTargets: work.Operation == "refine-selected");
             var candidate = result.Candidate is { } value ? value with
             {
-                CandidateId = trial.TrialId + "-" + value.OpticFingerprint[..16],
+                CandidateId = (work.Operation == "refine-selected" ? "selected-" + ContentFingerprint.Compute(work.Parent!.Candidate!.CandidateId)[..8] + "-" : "")
+                    + trial.TrialId + "-" + value.OpticFingerprint[..16],
                 Lineage = value.Lineage with
                 {
                     Operation = trial.Operation,
@@ -190,6 +242,13 @@ public sealed class FlatStartSearchService
     private static TrialWork Propose(InitialStructureSpecification specification, IReadOnlyList<string> glasses, FlatStartSearchCheckpoint checkpoint)
     {
         var ordinal = checkpoint.NextRefinementIndex;
+        if (checkpoint.Origin is { } origin)
+        {
+            var chosen = checkpoint.Trials.Prepend(origin.AsParent()).Where(trial => trial.Candidate is not null)
+                .OrderBy(trial => FlatStartCandidateArchive.Rank(trial.Candidate!.Status))
+                .ThenBy(trial => FlatStartCandidateArchive.Score(specification, trial.Candidate!)).First();
+            return new(chosen.Family, "refine-selected", chosen, origin.RootProof, chosen.Candidate!.Optic);
+        }
         var parents = checkpoint.Trials.Where(trial => trial.Candidate?.Evaluation.EffectiveFocalLengthMillimeters > 0)
             .OrderBy(trial => FlatStartCandidateArchive.Rank(trial.Candidate!.Status))
             .ThenBy(trial => FlatStartCandidateArchive.Score(specification, trial.Candidate!)).ThenBy(trial => trial.Index)
@@ -198,7 +257,7 @@ public sealed class FlatStartSearchService
             return new(FlatStartSearchPlanning.Family(specification, glasses, checkpoint.RootPlan.Count + ordinal), "flat-root-retry", null, null, null);
         var parent = parents[ordinal / 5 % parents.Length];
         var ancestor = parent;
-        while (ancestor.ParentTrialId is { } parentId) ancestor = checkpoint.Trials.First(trial => trial.TrialId == parentId);
+        while (ancestor.ParentTrialId is { } parentId) ancestor = Parent(checkpoint, parentId);
         var optic = Optic.FromSnapshot(parent.Candidate!.Optic);
         var n = parent.Family.ElementCount;
         var selectedGlass = parent.Family.GlassNames.ToArray();
@@ -245,6 +304,16 @@ public sealed class FlatStartSearchService
         FlatStartSearchOptions options, SearchMaterialSet materials, IReadOnlyList<FlatStartFamily> roots, int quota)
     {
         FlatStartCheckpointValidation.Validate(checkpoint);
+        if (checkpoint.Origin is { } origin)
+        {
+            var source = origin.Source.Candidate!;
+            var rootHash = ContentFingerprint.Compute(origin.RootProof.Steps[0].Optic);
+            if (ContentFingerprint.Compute(specification with { Budget = origin.Specification.Budget }) != ContentFingerprint.Compute(origin.Specification)
+                || origin.MaterialFingerprint != materials.Fingerprint || source.OpticFingerprint != ContentFingerprint.Compute(source.Optic)
+                || source.Lineage.RootFingerprint != rootHash || ContentFingerprint.Compute(source.FlatRootOptic) != rootHash)
+                throw new InvalidDataException("Refinement must retain source targets, catalog materials and original flat-root provenance.");
+            FlatStartFamilySupport.Validate(specification, origin.Source.Family);
+        }
         if (checkpoint.SpecificationFingerprint != ContentFingerprint.Compute(specification)
             || checkpoint.SpecificationFingerprint != ContentFingerprint.Compute(checkpoint.Specification)
             || checkpoint.OptionsFingerprint != ContentFingerprint.Compute(options)
@@ -268,14 +337,17 @@ public sealed class FlatStartSearchService
                     || candidate.Lineage.RootFingerprint != rootHash || ContentFingerprint.Compute(candidate.FlatRootOptic) != rootHash
                     || candidate.Lineage.ElementCount != trial.Family.ElementCount || candidate.Lineage.StopVariant != trial.Family.StopSurfaceIndex)
                     throw new InvalidDataException("Candidate optical content or flat-root provenance was changed.");
-                if (trial.ParentTrialId is { } parentId && checkpoint.Trials.First(item => item.TrialId == parentId)
-                    .Candidate!.Lineage.RootFingerprint != rootHash)
+                if (trial.ParentTrialId is { } parentId && Parent(checkpoint, parentId).Candidate!.Lineage.RootFingerprint != rootHash)
                     throw new InvalidDataException("A refinement lost its original flat-root provenance.");
             }
             if (trial.BootstrapProof is { } proof && ContentFingerprint.Compute(proof.Steps[0].Optic) != ContentFingerprint.Compute(trial.FlatRoot!))
                 throw new InvalidDataException("The bootstrap and recorded root disagree.");
         }
     }
+
+    private static FamilyTrial Parent(FlatStartSearchCheckpoint checkpoint, string id) =>
+        id == FlatStartRefinementOrigin.ParentReference && checkpoint.Origin is { } origin ? origin.AsParent()
+            : checkpoint.Trials.First(trial => trial.TrialId == id);
 
     private sealed record TrialWork(FlatStartFamily Family, string Operation, FamilyTrial? Parent,
         FlatStartBootstrapResult? RootProof, OpticSnapshot? Start)

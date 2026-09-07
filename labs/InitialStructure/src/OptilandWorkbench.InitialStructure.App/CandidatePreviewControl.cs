@@ -3,212 +3,138 @@ using Avalonia.Automation.Peers;
 using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Media;
-using OptilandWorkbench.Core.Serialization;
+using Avalonia.Media.Immutable;
+using OptilandWorkbench.Core;
+using OptilandWorkbench.Core.Visualization;
 using OptilandWorkbench.InitialStructure.Contracts;
 
 namespace OptilandWorkbench.InitialStructure.App;
 
+/// <summary>Maps formal scene DTOs to pixels. No local surface, pupil or optical calculation.</summary>
 public sealed class CandidatePreviewControl : Control
 {
-    private static readonly IBrush AxisBrush = new SolidColorBrush(Color.Parse("#7A818A"));
-    private static readonly IBrush PrimaryBrush = new SolidColorBrush(Color.Parse("#168A72"));
-    private static readonly IBrush SecondaryBrush = new SolidColorBrush(Color.Parse("#D05A47"));
-    private static readonly IBrush StopBrush = new SolidColorBrush(Color.Parse("#D69A26"));
-    private CandidateSnapshot? _primary;
-    private CandidateSnapshot? _secondary;
+    private static readonly IBrush PrimaryBrush = new ImmutableSolidColorBrush(Color.Parse("#1574C4"));
+    private static readonly IBrush SecondaryBrush = new ImmutableSolidColorBrush(Color.Parse("#CB681C"));
+    private static readonly IBrush StopBrush = new ImmutableSolidColorBrush(Color.Parse("#CE9408"));
+    private int _generation;
+    public Layout2DScene? PrimaryScene { get; private set; }
+    public Layout2DScene? SecondaryScene { get; private set; }
+    public string? PrimaryFingerprint { get; private set; }
+    public string? Error { get; private set; }
+    public bool IsLoading { get; private set; }
+    public event Action? Changed;
+    public Task PendingLoad { get; private set; } = Task.CompletedTask;
+    public static LayoutBuildOptions Options { get; } = new(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false);
 
-    protected override AutomationPeer OnCreateAutomationPeer() =>
-        new CandidatePreviewAutomationPeer(this);
-
-    public CandidateSnapshot? Primary
+    public void Clear()
     {
-        get => _primary;
-        set
+        _generation++;
+        PrimaryScene = SecondaryScene = null;
+        PrimaryFingerprint = Error = null;
+        IsLoading = false;
+        InvalidateVisual();
+        Changed?.Invoke();
+    }
+
+    public Task LoadAsync(CandidateSnapshot? primary, CandidateSnapshot? secondary = null)
+    {
+        Clear();
+        var generation = _generation;
+        if (primary is null && secondary is null) return PendingLoad = Task.CompletedTask;
+        IsLoading = true;
+        Changed?.Invoke();
+        return PendingLoad = LoadCoreAsync();
+        async Task LoadCoreAsync()
         {
-            _primary = value;
-            InvalidateVisual();
+            try
+            {
+                var scenes = await Task.Run(() => (Build(primary), Build(secondary)));
+                if (generation != _generation) return;
+                (PrimaryScene, SecondaryScene) = scenes;
+                PrimaryFingerprint = primary?.OpticFingerprint;
+            }
+            catch (Exception exception) when (exception is InvalidOperationException or ArgumentException or ArithmeticException or KeyNotFoundException)
+            {
+                if (generation != _generation) return;
+                Error = exception.Message;
+            }
+            finally
+            {
+                if (generation == _generation)
+                {
+                    IsLoading = false;
+                    InvalidateVisual();
+                    Changed?.Invoke();
+                }
+            }
         }
     }
 
-    public CandidateSnapshot? Secondary
-    {
-        get => _secondary;
-        set
-        {
-            _secondary = value;
-            InvalidateVisual();
-        }
-    }
+    private static Layout2DScene? Build(CandidateSnapshot? candidate) => candidate is null ? null
+        : new Layout2DBuilder(Optic.FromSnapshot(candidate.Optic)).Build(options: Options);
 
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        var bounds = Bounds.Deflate(new Thickness(18));
-        if (bounds.Width <= 1 || bounds.Height <= 1)
-        {
-            return;
-        }
+        context.FillRectangle(new SolidColorBrush(Color.Parse("#F7FAFD")), new Rect(Bounds.Size));
+        var bounds = new Rect(Bounds.Size).Deflate(18);
+        var scenes = new[] { PrimaryScene, SecondaryScene }.OfType<Layout2DScene>().ToArray();
+        if (bounds.Width <= 1 || bounds.Height <= 1 || scenes.Length == 0) return;
+        var zMin = scenes.Min(scene => scene.ZMin);
+        var zMax = scenes.Max(scene => scene.ZMax);
+        var yExtent = Math.Max(.1, scenes.Max(scene => scene.YExtent));
+        var scale = Math.Min(bounds.Width / Math.Max(.1, zMax - zMin), bounds.Height / (2 * yExtent));
+        Point Map(Layout2DPoint point) => new(bounds.Center.X + (point.Z - (zMin + zMax) / 2) * scale, bounds.Center.Y - point.Y * scale);
+        context.DrawLine(new Pen(Brushes.LightSlateGray, 1, DashStyle.Dash), new(bounds.Left, bounds.Center.Y), new(bounds.Right, bounds.Center.Y));
+        if (SecondaryScene is { } secondary) DrawScene(secondary, SecondaryBrush, .55);
+        if (PrimaryScene is { } primary) DrawScene(primary, PrimaryBrush, 1);
 
-        var centerY = bounds.Center.Y;
-        context.DrawLine(new Pen(AxisBrush, 1),
-            new Point(bounds.Left, centerY),
-            new Point(bounds.Right, centerY));
-        if (_secondary is not null)
+        void DrawScene(Layout2DScene scene, IBrush color, double opacity)
         {
-            DrawCandidate(context, bounds, _secondary.Optic, SecondaryBrush, 1.5);
-        }
-        if (_primary is not null)
-        {
-            DrawCandidate(context, bounds, _primary.Optic, PrimaryBrush, 2.2);
-        }
-    }
-
-    private static void DrawCandidate(
-        DrawingContext context,
-        Rect bounds,
-        OpticSnapshot optic,
-        IBrush brush,
-        double thickness)
-    {
-        if (optic.Surfaces.Count < 3)
-        {
-            return;
-        }
-
-        var positions = SurfacePositions(optic.Surfaces);
-        const int firstPhysical = 1;
-        var imageIndex = optic.Surfaces.Count - 1;
-        var minimumZ = positions[firstPhysical];
-        var maximumZ = positions[imageIndex];
-        if (!(maximumZ > minimumZ))
-        {
-            maximumZ = minimumZ + 1;
-        }
-
-        var maximumSemiDiameter = optic.Surfaces
-            .Skip(firstPhysical)
-            .Take(imageIndex - firstPhysical)
-            .Max(surface => Math.Max(0.1, surface.SemiDiameter));
-        var xScale = bounds.Width / (maximumZ - minimumZ);
-        var yScale = (bounds.Height * 0.42) / maximumSemiDiameter;
-        double X(double z) => bounds.Left + ((z - minimumZ) * xScale);
-        double Y(double height) => bounds.Center.Y - (height * yScale);
-
-        for (var surfaceIndex = firstPhysical; surfaceIndex < imageIndex; surfaceIndex++)
-        {
-            var surface = optic.Surfaces[surfaceIndex];
-            DrawSurface(
-                context,
-                X(positions[surfaceIndex]),
-                Y,
-                surface,
-                xScale,
-                surface.IsStop ? StopBrush : brush,
-                surface.IsStop ? thickness + 1 : thickness);
-        }
-
-        for (var frontIndex = firstPhysical; frontIndex + 1 < imageIndex; frontIndex += 2)
-        {
-            var front = optic.Surfaces[frontIndex];
-            var back = optic.Surfaces[frontIndex + 1];
-            var semiDiameter = Math.Min(front.SemiDiameter, back.SemiDiameter);
-            var frontX = X(positions[frontIndex]);
-            var backX = X(positions[frontIndex + 1]);
-            context.DrawLine(
-                new Pen(brush, Math.Max(1, thickness - 0.5)),
-                new Point(frontX, Y(semiDiameter)),
-                new Point(backX, Y(semiDiameter)));
-            context.DrawLine(
-                new Pen(brush, Math.Max(1, thickness - 0.5)),
-                new Point(frontX, Y(-semiDiameter)),
-                new Point(backX, Y(-semiDiameter)));
-        }
-
-        var imageX = X(positions[imageIndex]);
-        context.DrawLine(
-            new Pen(brush, thickness),
-            new Point(imageX, Y(maximumSemiDiameter)),
-            new Point(imageX, Y(-maximumSemiDiameter)));
-    }
-
-    private static void DrawSurface(
-        DrawingContext context,
-        double vertexX,
-        Func<double, double> yMap,
-        SurfaceSnapshot surface,
-        double xScale,
-        IBrush brush,
-        double thickness)
-    {
-        const int segmentCount = 32;
-        var semiDiameter = Math.Max(0.1, surface.SemiDiameter);
-        var curvature = Math.Abs(surface.Radius) < 1e-12 ? 0 : 1 / surface.Radius;
-        Point? previous = null;
-        for (var index = 0; index <= segmentCount; index++)
-        {
-            var height = -semiDiameter + ((2 * semiDiameter * index) / segmentCount);
-            var root = Math.Sqrt(Math.Max(0, 1 - (curvature * curvature * height * height)));
-            var sag = Math.Abs(curvature) < 1e-12
-                ? 0
-                : (curvature * height * height) / (1 + root);
-            var point = new Point(vertexX + (sag * xScale), yMap(height));
-            if (previous is { } start)
+            using var layer = context.PushOpacity(opacity);
+            foreach (var element in scene.LensElements)
             {
-                context.DrawLine(new Pen(brush, thickness), start, point);
+                if (element.Boundary.Count < 3) continue;
+                var geometry = new StreamGeometry();
+                using (var path = geometry.Open())
+                {
+                    path.BeginFigure(Map(element.Boundary[0]), true);
+                    foreach (var point in element.Boundary.Skip(1)) path.LineTo(Map(point));
+                    path.EndFigure(true);
+                }
+                using (context.PushOpacity(.10)) context.DrawGeometry(color, null, geometry);
             }
-            previous = point;
+            foreach (var surface in scene.Surfaces)
+                for (var index = 1; index < surface.Points.Count; index++)
+                    context.DrawLine(new Pen(surface.IsStop ? StopBrush : color, surface.IsStop ? 2.4 : 1.5), Map(surface.Points[index - 1]), Map(surface.Points[index]));
+            foreach (var edge in scene.LensEdges) context.DrawLine(new Pen(color, 1.2), Map(edge.Start), Map(edge.End));
+            foreach (var ray in scene.Rays)
+                foreach (var segment in ray.Segments)
+                {
+                    var start = Map(segment.Start);
+                    var end = Map(segment.End);
+                    var pen = new Pen(color, .8);
+                    context.DrawLine(pen, start, end);
+                    var displacement = new Vector(end.X - start.X, end.Y - start.Y);
+                    if (displacement.Length < 35) continue;
+                    var vector = new Vector(segment.Direction.Z, -segment.Direction.Y);
+                    if (!double.IsFinite(vector.Length) || vector.Length < 1e-12) continue;
+                    vector /= vector.Length;
+                    var center = start + .55 * displacement;
+                    var normal = new Vector(-vector.Y, vector.X);
+                    context.DrawLine(pen, center, center - 4 * vector + 2 * normal);
+                    context.DrawLine(pen, center, center - 4 * vector - 2 * normal);
+                }
         }
     }
 
-    private static double[] SurfacePositions(IReadOnlyList<SurfaceSnapshot> surfaces)
+    protected override AutomationPeer OnCreateAutomationPeer() => new PreviewPeer(this);
+    private sealed class PreviewPeer(CandidatePreviewControl owner) : ControlAutomationPeer(owner), IValueProvider
     {
-        var positions = new double[surfaces.Count];
-        var fallback = 0.0;
-        for (var index = 0; index < surfaces.Count; index++)
-        {
-            positions[index] = surfaces[index].CoordinateSystem is { } coordinate
-                && double.IsFinite(coordinate.OriginZ)
-                ? coordinate.OriginZ
-                : fallback;
-            if (double.IsFinite(surfaces[index].Thickness))
-            {
-                fallback = positions[index] + surfaces[index].Thickness;
-            }
-        }
-        return positions;
-    }
-
-    private string AutomationValue
-    {
-        get
-        {
-            var primary = _primary is null
-                ? "未选择候选 A"
-                : $"候选 A {_primary.CandidateId}，{_primary.Lineage.ElementCount} 片";
-            var secondary = _secondary is null
-                ? "未选择候选 B"
-                : $"候选 B {_secondary.CandidateId}，{_secondary.Lineage.ElementCount} 片";
-            return $"候选镜头剖面比较图；{primary}；{secondary}。";
-        }
-    }
-
-    private sealed class CandidatePreviewAutomationPeer : ControlAutomationPeer, IValueProvider
-    {
-        private readonly CandidatePreviewControl _owner;
-
-        public CandidatePreviewAutomationPeer(CandidatePreviewControl owner) : base(owner)
-        {
-            _owner = owner;
-        }
-
-        protected override AutomationControlType GetAutomationControlTypeCore() =>
-            AutomationControlType.Custom;
-
+        protected override AutomationControlType GetAutomationControlTypeCore() => AutomationControlType.Custom;
         bool IValueProvider.IsReadOnly => true;
-
-        string IValueProvider.Value => _owner.AutomationValue;
-
-        void IValueProvider.SetValue(string? value) =>
-            throw new InvalidOperationException("Candidate preview automation values are read-only.");
+        string IValueProvider.Value => owner.Error is { } error ? $"布局未完成：{error}"
+            : $"实际二维布局，A {owner.PrimaryScene?.Rays.Count ?? 0} 条光线，B {owner.SecondaryScene?.Rays.Count ?? 0} 条光线，共用毫米比例";
+        void IValueProvider.SetValue(string? value) => throw new InvalidOperationException("The optical preview is read-only.");
     }
 }

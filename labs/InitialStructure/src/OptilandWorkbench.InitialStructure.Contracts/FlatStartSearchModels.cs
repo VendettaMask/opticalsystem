@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Serialization;
+using System.Text.Json.Serialization;
 
 namespace OptilandWorkbench.InitialStructure.Contracts;
 
@@ -70,7 +71,18 @@ public sealed record FlatStartSearchCheckpoint
     public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
     public int ChargedEvaluations => Trials.Sum(trial => trial.ChargedEvaluations);
     public long TracedRealRayCount => Trials.Sum(trial => trial.TracedRealRayCount);
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FlatStartRefinementOrigin? Origin { get; init; }
 }
+
+public sealed record FlatStartRefinementOrigin(string RunId, InitialStructureSpecification Specification,
+    string MaterialFingerprint, int ChargedEvaluations, FamilyTrial Source, FlatStartBootstrapResult RootProof)
+{
+    public const string ParentReference = "source-parent";
+    public FamilyTrial AsParent() => Source with { TrialId = ParentReference, ParentTrialId = null, BootstrapProof = RootProof };
+}
+
+public sealed record FlatStartPreflight(IReadOnlyList<string> UsableGlassNames, IReadOnlyList<SearchDiagnostic> Diagnostics);
 
 public sealed record FlatStartSearchResult(FlatStartSearchCheckpoint Checkpoint,
     IReadOnlyList<CandidateSnapshot> Candidates);

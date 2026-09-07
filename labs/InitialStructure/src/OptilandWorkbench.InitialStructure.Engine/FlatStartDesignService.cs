@@ -18,20 +18,20 @@ public sealed class FlatStartDesignService
         {
             Budget = specification.Budget with { MaximumEvaluations = Math.Max(1, Math.Min(800, budget - 1)) }
         }, elementCount, cancellationToken, family);
-        return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken);
+        return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken, false);
     }
 
     internal FlatStartDesignResult Continue(InitialStructureSpecification specification, FlatStartFamily family,
         FlatStartBootstrapResult rootProof, OpticSnapshot start, string parentCandidateId,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default, bool improveBeyondTargets = false)
     {
         SpecificationValidator.Validate(specification);
-        return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken);
+        return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken, improveBeyondTargets);
     }
 
     private static FlatStartDesignResult Run(InitialStructureSpecification specification, int elementCount,
         FlatStartBootstrapResult bootstrap, Stopwatch stopwatch, FlatStartFamily? family,
-        OpticSnapshot? restart, string? parentCandidateId, CancellationToken cancellationToken)
+        OpticSnapshot? restart, string? parentCandidateId, CancellationToken cancellationToken, bool improveBeyondTargets)
     {
         var budget = specification.Budget.MaximumEvaluations;
         var count = restart is null ? bootstrap.EvaluationCount : 0;
@@ -167,7 +167,7 @@ public sealed class FlatStartDesignService
         {
             var damping = 1e-3;
             var stalled = 0;
-            while (count + 2 * problem.Dimension + 1 <= stageEnd && CanEvaluate(true) && !evaluation.MeetsTargets)
+            while (count + 2 * problem.Dimension + 1 <= stageEnd && CanEvaluate(true) && (!evaluation.MeetsTargets || improveBeyondTargets))
             {
                 var jacobian = new double[evaluation.Residuals.Count, problem.Dimension];
                 for (var column = 0; column < problem.Dimension; column++)

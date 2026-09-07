@@ -8,7 +8,8 @@ public static class FlatStartCheckpointValidation
     public static void Validate(FlatStartSearchCheckpoint checkpoint)
     {
         ArgumentNullException.ThrowIfNull(checkpoint);
-        if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm != new AlgorithmIdentity("strict-flat-family-search", "1", "Managed CPU", true)
+        var algorithm = checkpoint.Origin is null ? "strict-flat-family-search" : "strict-flat-selected-refinement";
+        if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, "1", "Managed CPU", true)
             || checkpoint.Specification?.FlatStart is null || checkpoint.Specification.Budget is null || checkpoint.Options is null
             || checkpoint.RootPlan is not { Count: <= 128 } || checkpoint.Trials is not { Count: <= 256 }
             || checkpoint.UsableGlassNames is not { Count: <= 64 } || checkpoint.Diagnostics is null
@@ -25,6 +26,20 @@ public static class FlatStartCheckpointValidation
             throw new InvalidDataException("Invalid flat-family checkpoint header or counters.");
         long charged = 0;
         var parents = new Dictionary<string, FamilyTrial>(StringComparer.Ordinal);
+        if (checkpoint.Origin is { } origin)
+        {
+            if (string.IsNullOrWhiteSpace(origin.RunId) || origin.RunId == checkpoint.RunId || origin.Specification?.FlatStart is null
+                || origin.Specification.Budget is null || !Hash(origin.MaterialFingerprint) || origin.ChargedEvaluations < 0
+                || origin.ChargedEvaluations > origin.Specification.Budget.MaximumEvaluations
+                || origin.Source?.Candidate is null || origin.Source.State != FamilyTrialState.Completed
+                || origin.RootProof?.Steps is not { Count: > 0 } || checkpoint.RootPlan.Count != 0 || checkpoint.RootEvaluationQuota != 0)
+                throw new InvalidDataException("Invalid selected-candidate refinement origin.");
+            OpticSnapshotValidator.Validate(origin.Source.Candidate.Optic);
+            OpticSnapshotValidator.Validate(origin.RootProof.Steps[0].Optic);
+            if (origin.RootProof.Steps[0].Optic.Surfaces.Any(surface => surface.Radius != 0))
+                throw new InvalidDataException("Selected refinement must preserve a strict-flat ancestor.");
+            parents.Add(FlatStartRefinementOrigin.ParentReference, origin.AsParent());
+        }
         for (var index = 0; index < checkpoint.Trials.Count; index++)
         {
             var trial = checkpoint.Trials[index];
