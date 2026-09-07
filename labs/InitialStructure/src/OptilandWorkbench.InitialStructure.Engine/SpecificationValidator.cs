@@ -56,14 +56,15 @@ public static class SpecificationValidator
             errors.Add("maximum spot radius cannot be smaller than maximum RMS spot radius");
         }
 
-        if (specification.MinimumElementCount is < 3 or > 8)
+        var minimumElements = specification.FlatStart is null ? 3 : 1;
+        if (specification.MinimumElementCount < minimumElements || specification.MinimumElementCount > 8)
         {
-            errors.Add("minimum element count must be between 3 and 8");
+            errors.Add($"minimum element count must be between {minimumElements} and 8");
         }
 
-        if (specification.MaximumElementCount is < 3 or > 8)
+        if (specification.MaximumElementCount < minimumElements || specification.MaximumElementCount > 8)
         {
-            errors.Add("maximum element count must be between 3 and 8");
+            errors.Add($"maximum element count must be between {minimumElements} and 8");
         }
 
         if (specification.MaximumElementCount < specification.MinimumElementCount)
@@ -178,6 +179,33 @@ public static class SpecificationValidator
             || budget.TimeLimit > InitialStructureLimits.MaximumTimeLimit)
         {
             errors.Add($"time limit must be positive and no longer than {InitialStructureLimits.MaximumTimeLimit}");
+        }
+
+        if (specification.FlatStart is { } flat)
+        {
+            Positive(flat.EffectiveFocalLengthRelativeTolerance, "focal length tolerance", errors);
+            Positive(flat.FNumberRelativeTolerance, "F-number tolerance", errors);
+            if (flat.EffectiveFocalLengthRelativeTolerance >= 1 || flat.FNumberRelativeTolerance >= 1)
+                errors.Add("relative tolerances must be below 1");
+            FiniteNonNegative(flat.MinimumEdgeThicknessMillimeters, "minimum edge thickness", errors);
+            if (flat.MinimumEdgeThicknessMillimeters > specification.MinimumCenterThicknessMillimeters)
+                errors.Add("flat-start edge thickness cannot exceed the chosen initial plate thickness");
+            if (specification.EffectiveFocalLengthMillimeters / specification.FNumber * 0.3 < 0.001)
+                errors.Add("flat-start pupil is below the Core minimum supported diameter (0.001 mm)");
+            if (!double.IsFinite(flat.MinimumValidRayFraction) || flat.MinimumValidRayFraction is <= 0 or > 1)
+                errors.Add("minimum valid ray fraction must be in (0, 1]");
+            if (flat.FixedBackFocusMillimeters is { } back)
+            {
+                Positive(back, "fixed back focus", errors);
+                if (back < specification.MinimumBackFocusMillimeters
+                    || minimumTrack - specification.MinimumBackFocusMillimeters + back > specification.MaximumTrackLengthMillimeters)
+                    errors.Add("fixed back focus conflicts with minimum back focus or maximum track");
+            }
+            if (specification.Wavelengths is { Count: > 0 }
+                && !specification.Wavelengths.Any(item => item is not null && item.IsPrimary && item.Weight > 0))
+                errors.Add("flat-start bootstrap requires a positive-weight primary wavelength");
+            if (specification.SemiDiameterMarginFactor < 1)
+                errors.Add("flat-start semi-diameter margin must cover the target entrance pupil");
         }
 
         if (errors.Count > 0)

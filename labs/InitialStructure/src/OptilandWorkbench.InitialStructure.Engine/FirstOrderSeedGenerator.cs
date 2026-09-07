@@ -20,6 +20,8 @@ public sealed class FirstOrderSeedGenerator
         int seedIndex)
     {
         SpecificationValidator.Validate(specification);
+        if (specification.FlatStart is not null)
+            throw new InvalidOperationException("Flat-start settings cannot be used by the legacy pre-bent seed generator.");
         if (seedIndex < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seedIndex));

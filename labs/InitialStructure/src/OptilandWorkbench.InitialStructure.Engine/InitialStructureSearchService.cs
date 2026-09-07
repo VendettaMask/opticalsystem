@@ -34,6 +34,8 @@ public sealed class InitialStructureSearchService
         Func<SearchCheckpoint, CancellationToken, ValueTask>? checkpointSink = null)
     {
         SpecificationValidator.Validate(specification);
+        if (specification.FlatStart is not null)
+            throw new InvalidOperationException("Flat-start specifications require the independent FlatStartBootstrap path; full-target search is not implemented yet.");
         var specificationFingerprint = ContentFingerprint.Compute(specification);
         ValidateCheckpoint(checkpoint, specificationFingerprint, specification);
         var createdUtc = checkpoint?.CreatedUtc ?? _timeProvider.GetUtcNow();

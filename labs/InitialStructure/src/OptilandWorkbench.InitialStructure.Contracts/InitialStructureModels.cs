@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Serialization;
+using System.Text.Json.Serialization;
 
 namespace OptilandWorkbench.InitialStructure.Contracts;
 
@@ -121,6 +122,9 @@ public sealed record InitialStructureSpecification
     public IReadOnlyList<string> GlassCatalogs { get; init; } = [];
 
     public SearchBudget Budget { get; init; } = new();
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FlatStartSettings? FlatStart { get; init; }
 }
 
 public sealed record AlgorithmIdentity(

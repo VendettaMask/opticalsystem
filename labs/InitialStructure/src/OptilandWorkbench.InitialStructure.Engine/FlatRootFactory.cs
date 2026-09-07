@@ -28,8 +28,9 @@ public sealed class FlatRootFactory
         }
 
         var optic = new Optic($"{specification.Name} - {elementCount} element flat root");
-        optic.Aperture.Kind = ApertureKind.FNumber;
-        optic.Aperture.Value = specification.FNumber;
+        optic.Aperture.Kind = specification.FlatStart is null ? ApertureKind.FNumber : ApertureKind.EntrancePupilDiameter;
+        optic.Aperture.Value = specification.FlatStart is null ? specification.FNumber
+            : specification.EffectiveFocalLengthMillimeters / specification.FNumber;
         optic.Materials.SetPreferredGlassCatalogs(specification.GlassCatalogs);
         optic.Materials.Resolve(specification.InitialGlass);
 
@@ -113,6 +114,7 @@ public sealed class FlatRootFactory
                 Thickness = specification.MinimumCenterThicknessMillimeters,
                 Material = specification.InitialGlass,
                 SemiDiameter = semiDiameter,
+                SemiDiameterFixed = specification.FlatStart is not null,
                 RadiusVariable = true,
                 ThicknessVariable = true,
                 IsStop = elementIndex == stopElement
@@ -122,10 +124,11 @@ public sealed class FlatRootFactory
                 Label = $"Element {elementIndex + 1} back",
                 Radius = 0,
                 Thickness = elementIndex == elementCount - 1
-                    ? specification.MinimumBackFocusMillimeters
+                    ? specification.FlatStart?.FixedBackFocusMillimeters ?? specification.MinimumBackFocusMillimeters
                     : specification.MinimumAirGapMillimeters,
                 Material = "Air",
                 SemiDiameter = semiDiameter,
+                SemiDiameterFixed = specification.FlatStart is not null,
                 RadiusVariable = true,
                 ThicknessVariable = true
             });
