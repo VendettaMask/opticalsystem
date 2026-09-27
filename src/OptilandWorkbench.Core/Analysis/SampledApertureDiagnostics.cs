@@ -16,7 +16,8 @@ public static class SampledApertureDiagnostics
 {
     /// <summary>
     /// Reports circular aperture margins and geometric, common-centroid image coordinates.
-    /// Uses formal ray generation, surface interactions, centering and spot statistics.
+    /// Uses formal ray generation, surface interactions, centering and spot statistics,
+    /// with the same ray-aiming setting as the source optic.
     /// Missing intersections and other propagation failures remain failures, not surrogate rays.
     /// </summary>
     public static SampledApertureDiagnosticResult Evaluate(Optic optic, double normalizedFieldX,
@@ -41,7 +42,7 @@ public static class SampledApertureDiagnostics
         foreach (var wave in waves)
         {
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-                normalizedFieldX, normalizedFieldY, wave.Micrometers, pupilSamples);
+                normalizedFieldX, normalizedFieldY, wave.Micrometers, pupilSamples, aimAtStop: optic.RayAimingEnabled);
             var rays = new List<SpotRayData>();
             for (var index = 0; index < bundle.Rays.Count; index++)
             {

@@ -94,7 +94,8 @@ public static class SpotMetricEvaluator
     /// <summary>
     /// Uses the same tracing, reference centering and statistics as formal spot analysis,
     /// with caller-selected pupil coordinates. Spectral weight is applied once by Metrics;
-    /// each returned ray retains its monochromatic weight. No valid rays yields null Metrics.
+    /// each returned ray retains its monochromatic weight. Honors the optic's ray-aiming
+    /// setting, as does the formal spot diagram. No valid rays yields null Metrics.
     /// </summary>
     public static SampledSpotResult EvaluatePupilSamples(
         Optic optic, double normalizedFieldX, double normalizedFieldY,
@@ -118,7 +119,7 @@ public static class SpotMetricEvaluator
             throw new AnalysisDataUnavailableException("Sampled spot", "no positive-weight wavelengths");
         var result = SpotAnalysisEngine.Generate(optic, [(normalizedFieldX, normalizedFieldY)], waves,
             1, "hexapolar", reference: reference, includeSurfaceTransmission: includeSurfaceTransmission,
-            explicitPupilSamples: pupilSamples, cancellationToken: cancellationToken);
+            aimAtStop: optic.RayAimingEnabled, explicitPupilSamples: pupilSamples, cancellationToken: cancellationToken);
         var field = result.Fields.Single();
         var metrics = field.WeightedRays.Any() ? Summarize(result, "Sampled spot") : null;
         var coordinates = ImageSpaceAnalysisSupport.CoordinateDescriptor(optic);
@@ -161,7 +162,8 @@ public static class SpotMetricEvaluator
             pattern,
             surfaceNumber: surfaceNumber,
             reference: reference,
-            usePolarization: usePolarization);
+            usePolarization: usePolarization,
+            aimAtStop: optic.RayAimingEnabled);
         return Summarize(result, "Spot metric");
     }
 

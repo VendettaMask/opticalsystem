@@ -17,7 +17,8 @@ public static partial class AutomaticSemiDiameterSolver
     /// clear/mechanical radius (e.g. the two faces of a lens). Their old circular aperture
     /// constraints are removed on a private tracing snapshot; all other apertures remain.
     /// Apply atomically only when every requested ray reaches the image. Invalid propagation
-    /// is never replaced by an estimated radius. The caller must validate the resulting geometry.
+    /// is never replaced by an estimated radius. Honors the optic's ray-aiming setting.
+    /// The caller must validate the resulting geometry.
     /// </summary>
     public static RayEnvelopeSizingResult UpdateFromRayEnvelope(Optic optic,
         IReadOnlyList<IReadOnlyList<int>> surfaceGroups,
@@ -71,7 +72,8 @@ public static partial class AutomaticSemiDiameterSolver
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var bundle = working.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-                    field.X, field.Y, wave.Micrometers, pupilSamples, applyVignettingFactors: false);
+                    field.X, field.Y, wave.Micrometers, pupilSamples,
+                    aimAtStop: working.RayAimingEnabled, applyVignettingFactors: false);
                 using var trace = working.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(retained));
                 for (var ray = 0; ray < trace.RayCount; ray++)
                 {

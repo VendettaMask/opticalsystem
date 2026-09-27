@@ -1,5 +1,7 @@
 # 全仓库代码阅读地图
 
+2026-09-27 当前验证：正式 Core 已修复采样点斑、汇总点斑、自动口径及口径诊断遗漏光线瞄准设置的问题，并统一瞄准目标与发射坐标的渐晕比例。正式相关定向 **90/90**（71+19，无重叠）、实验室完整 Release **247/247** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。实验室搜索策略仍为 v16，生成时仍关闭瞄准，独立物理光阑尚未闭环；30 个原候选的追加复核发现畸变、物理光阑及分支覆盖仍有缺口。正式全量 **1311/1311**、比较工具 **104/104** 仍为历史记录，本轮未重跑；没有新的 Zemax 外部对照或并行主界面功能验收。见 [文献、实测与剩余问题](INITIAL_STRUCTURE_LITERATURE_AUDIT_2026-09-27.md)。下文更早验证保留历史范围。
+
 初始结构实验室当前入口为 `FlatStartSearchService`（v16），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartDesignService.Continue` 在完整光线域内保持完整目标，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。见 [当前实现记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
 
 阅读日期：2026-09-04。对象为当前工作区，包含已有未提交修改。

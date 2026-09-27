@@ -212,9 +212,8 @@ public sealed class RayGenerator
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
         var resolvedStopTargets = aimAtStop
             ? stopTargets ?? ParaxialStopTargets(
-                normalizedFieldX,
-                normalizedFieldY,
-                samples)
+                samples,
+                vignetteScale)
             : null;
         if (resolvedStopTargets is not null && resolvedStopTargets.Count != samples.Length)
         {
@@ -721,9 +720,8 @@ public sealed class RayGenerator
     }
 
     private (double X, double Y)[]? ParaxialStopTargets(
-        double normalizedFieldX,
-        double normalizedFieldY,
-        IReadOnlyList<PupilSample> samples)
+        IReadOnlyList<PupilSample> samples,
+        (double X, double Y) vignetteScale)
     {
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex <= 0 || samples.Count == 0)
@@ -731,7 +729,8 @@ public sealed class RayGenerator
             return null;
         }
 
-        var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
+        // Use the same resolved scale as the launch. In particular, a full-pupil
+        // envelope must not silently reapply field vignetting while aiming.
         var pupilX = samples.Select(sample => sample.X * vignetteScale.X).ToArray();
         var pupilY = samples.Select(sample => sample.Y * vignetteScale.Y).ToArray();
         var wavelengthMicrometers = PrimaryWavelengthMicrometers();
