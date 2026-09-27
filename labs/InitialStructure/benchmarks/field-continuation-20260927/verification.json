@@ -1,0 +1,393 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 16,
+  "scope": "Full-target continuation gate only; no formal Core source or optical-policy change.",
+  "finalFullLaboratory": {
+    "path": "artifacts/validation/field-continuation-20260927/final-lab-full.trx",
+    "sha256": "a3c893909a959d1be68c3941944440f8c8b96cae353aac2c863c8dcabb533147",
+    "outcome": "Completed",
+    "times": {
+      "creation": "2026-09-27T14:40:17.3799890+08:00",
+      "queuing": "2026-09-27T14:40:17.3799890+08:00",
+      "start": "2026-09-27T14:40:16.3573590+08:00",
+      "finish": "2026-09-27T14:49:24.1295250+08:00"
+    },
+    "counters": {
+      "total": "247",
+      "executed": "247",
+      "passed": "247",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "focusedSubsetNotAdditive": {
+    "path": "artifacts/validation/field-continuation-20260927/restart-focus-retry.trx",
+    "sha256": "fa08886387b9fa43fad9846fd972bd844acf38d202bba8783e0f2ec116000fd5",
+    "outcome": "Completed",
+    "times": {
+      "creation": "2026-09-27T14:39:00.4315600+08:00",
+      "queuing": "2026-09-27T14:39:00.4315600+08:00",
+      "start": "2026-09-27T14:38:58.3828970+08:00",
+      "finish": "2026-09-27T14:39:08.4269520+08:00"
+    },
+    "counters": {
+      "total": "18",
+      "executed": "18",
+      "passed": "18",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "abortedEnvironmentAttempt": {
+    "path": "artifacts/validation/field-continuation-20260927/restart-focus.trx",
+    "sha256": "e7a168b474a00f633bb9b92e81bbaeee364a3c5b51c3763f99a039906c6de7dc",
+    "outcome": "Failed",
+    "times": {
+      "creation": "2026-09-27T14:38:09.5322260+08:00",
+      "queuing": "2026-09-27T14:38:09.5322260+08:00",
+      "start": "2026-09-27T14:38:09.3063900+08:00",
+      "finish": "2026-09-27T14:38:09.5324810+08:00"
+    },
+    "counters": {
+      "total": "0",
+      "executed": "0",
+      "passed": "0",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "c9d2c63caeb14f41a5bd1b17dc5593f525638585e9102a25475080ca52f88652",
+      "matchesV15Binary": false,
+      "scope": "Unchanged Core source; rebuilt Git informational-version metadata. Release method definitions/resources audited separately."
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "6002e446155296aec740a8b26b7cbee9f434c559f38702756ac58472eae79d14"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "c2aca6b3f69e84978df5f270f1e4c5ea0d41358eebf72cc8d747a0daed4732a0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "7ff2fa40f323177e4ee55241bfb1d1d72fc5efa23c9286ead45aa8b7137ba280",
+      "matchesV15Binary": false,
+      "scope": "Unchanged Core source; rebuilt Git informational-version metadata. Release method definitions/resources audited separately."
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "dabbaca03e0a0aa9f157195b6bb66a241fb12729b3cd9159db8cfde891a23abe"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "e6a61258ab61e5a02acc725b8be81ece6b7ee27346d37267a87d053a65e3334c"
+    }
+  ],
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/field-continuation-20260927/final-debug-build.log",
+      "sha256": "17a6779621153d9d715eda18ef573e79e4d55ac9d648daf94f4dca6bbb143bfa"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/final-release-build.log",
+      "sha256": "8de0067f16acbd5a0ad735fbaab5f1b34e6f0d99bc91e53f08b74fde1cae895c"
+    }
+  ],
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/field-continuation-20260927/final-lab-format-retry.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/search-runner-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/restart-runner-format-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/core-audit-format-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "priorFormalRecordsNotRerun": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-full-recheck.trx",
+      "sha256": "3b3bd30e980d6e2fd75df4b4e2c8e40f1e4496e24c83ba9583bfbcdfc172d60b",
+      "outcome": "Completed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1311",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T23:39:25.9349390+08:00",
+        "queuing": "2026-09-26T23:39:25.9349390+08:00",
+        "start": "2026-09-26T23:39:25.2724880+08:00",
+        "finish": "2026-09-27T00:41:35.7008590+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/comparison-full.trx",
+      "sha256": "3f1df35cd646a59eaf8d59dd4b34761b14b13e893e9f48eee8890bf01c08307f",
+      "outcome": "Completed",
+      "counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:42.3915040+08:00",
+        "queuing": "2026-09-26T21:43:42.3915040+08:00",
+        "start": "2026-09-26T21:43:41.5443340+08:00",
+        "finish": "2026-09-26T21:44:25.2840800+08:00"
+      }
+    }
+  ],
+  "finalSearches": {
+    "runs": 3,
+    "retainedRecordsRecalculatedAndExported": 30,
+    "acceptedRecordsRemainWithinDenseChecks": 10,
+    "matchesRestartPrototypeCandidateValuesAndRayCounts": true
+  },
+  "allExperiments": {
+    "runs": 9,
+    "retainedRecordsRecalculatedAndExported": 90,
+    "note": "Three early-field, three restart-only prototype and three final-v16 searches; not 90 distinct successful designs."
+  },
+  "benchmarkSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/runner/FieldContinuation.csproj",
+      "sha256": "b43f9536419385d90de86e9e20745547a8f9219cfd06acd103672bdd1834c75e"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/runner/Program.cs",
+      "sha256": "5dfee6403b0f43421a1dac33c06dc73d0e2b322d0a6ca27a88cc3a377724cf2f"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/runner/packages.lock.json",
+      "sha256": "a29c6aa8cfb81874ff8bb78dc369d7416f28c9b8cc47e99592bfc019b20c41eb"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-runner/Program.cs",
+      "sha256": "3d3b633771bab1a9242c222deafbe8c4e4971a605fcaf94c708abb15bf3f001b"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-runner/RestartAudit.csproj",
+      "sha256": "b6cf3c38167722061f55d9506de3d467325d38572c896f1c1f0334e68227ba6d"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-runner/packages.lock.json",
+      "sha256": "a29c6aa8cfb81874ff8bb78dc369d7416f28c9b8cc47e99592bfc019b20c41eb"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/core-audit/CoreAudit.csproj",
+      "sha256": "cdd6f0b4e4b9c72196431282fc7f42508e52e0f6a10b88a948a157bbdabd220b"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/core-audit/Program.cs",
+      "sha256": "ff9934262d3bbe9f0cafcaec11ddb2da107fd7097ce2f399390f816a0565d065"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/core-audit/packages.lock.json",
+      "sha256": "a29c6aa8cfb81874ff8bb78dc369d7416f28c9b8cc47e99592bfc019b20c41eb"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SearchVerification.cs",
+      "sha256": "c5109a203b21d90702ba977e86e77e22622ff1d6d499c0e400da0b59c63f010a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/convergence-summary.json",
+      "sha256": "c2e714beb601402de21dd969a064e5b91121f3982a583763e24762ac9958a620"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/core-binary-audit.json",
+      "sha256": "881a79d362031e75a4803d6364cd6138b513e7b88a2758e8b5134af37415e0af"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/early-field-10000-recalculation.json",
+      "sha256": "d72e3c2e15ab3c6665a9b0ce6346a7fbb33b7c4591a2c1f9b01a11dc513b81d8"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/early-field-10000-summary.json",
+      "sha256": "6c0ebba2a3b8eeb5da7c9a7affcd0e6b5679ac40591b7c49f872a99c14b7c97d"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/early-field-50000-recalculation.json",
+      "sha256": "96ccc47e584173fd6466fd09d9e23b9878f5c33c7764dc4dc70df9632de3ddbf"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/early-field-50000-summary.json",
+      "sha256": "9d089f9d836790f0abca186e827bb9da711139ef347fdfc19f434795200ac5cd"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/early-field-experiment.patch",
+      "sha256": "f33042232a6bbe0477151f533fd0418a74bf047638e9c7b94edc208691bb01a9"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/raw-evidence.json",
+      "sha256": "5c2d1e3a2f72f7b2428efa40d2990fa0d2e2a5a94b1ff1172e15045feb800f75"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-10000-recalculation.json",
+      "sha256": "950af76d88e2daea194dbfe8de16db297204b1d52bb728e235119817c463ea24"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-10000-summary.json",
+      "sha256": "297308d43d1d9c6a49f4f9c69d04eddde15b6ee1d866b851501f2e0e848b1e2a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-50000-recalculation.json",
+      "sha256": "c47ccacc246616f142e232e1b0a842082815aad837ec50b6fc4df1a6d7b1a62e"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-50000-summary.json",
+      "sha256": "32f557851058797f5539540fe8e822922e30b1bd767c0362eff5ca86b334e7a3"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-comparison.json",
+      "sha256": "2b15a49fafde12dc38cbd91ad46be76dcb97b24cff614e634d8ec5f87708f72a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/restart-inputs.json",
+      "sha256": "081da28dfa46adf1b26abe7508849e317eff2e6bcbeab2e5fe148a655240a6a1"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/root-comparison.json",
+      "sha256": "42042912cacb21229f7ba6ec7215393ecef5deefa43ff1fd5ef05cf208675bdd"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/source-freeze.json",
+      "sha256": "a6eca96ebef44b73be1605c714c43babfe67e443f52b6325813c2ec95ea0398b"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/v16-10000-recalculation.json",
+      "sha256": "0e5c8aa3701ef2422be8f9c23f2939f5c00b25daffed4d6ca56b4204c789bab6"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/v16-10000-summary.json",
+      "sha256": "c45815495b8129b25fe82c92b029808d61b8d61148b022090920b8601e9f9e65"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/v16-50000-recalculation.json",
+      "sha256": "606a58a42183ebc79b4e6ab79cbf48fc2253a3a60af5b011b968cdf9f80c9e4f"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/field-continuation-20260927/v16-50000-summary.json",
+      "sha256": "c1bdb5509537740561c87d9a567d56e9ad8ec7089780df26656c9f5598855410"
+    }
+  ],
+  "rawSearches": [
+    {
+      "path": "artifacts/validation/field-continuation-20260927/early-field-10000/f2.8.family.json",
+      "sha256": "5537bcc03e4438d40e9500714f4acff50ec5ee011e4d525b22a1b3cbebd1919a"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/early-field-10000/f8.family.json",
+      "sha256": "0bb1ff3d45d4eb9ac95ba727003651de5bac36b144fdd290df235b04b7f3405a"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/early-field-50000/f2.8.family.json",
+      "sha256": "d2892d40070f38b0a4c4d3c9bb17aa1e390cb31536165e61057e92e1490e1f4d"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/restart-10000/f2.8.family.json",
+      "sha256": "34ede5ff2cd35378deb41d489d47baf89323053e2d96eeea6b99508962a08278"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/restart-10000/f8.family.json",
+      "sha256": "cacabf099a0d37b68dffee85636bacc0d64460d42c158f8eaa6247fa94e3c539"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/restart-50000/f2.8.family.json",
+      "sha256": "194f820cd7b354c6431e279bb8be90748283b0f48c461dc32e47a07258e9be6c"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/v16-10000/f2.8.family.json",
+      "sha256": "63c2429ac709e36cd43c2ea88e6bd2a533257144292d1707bdff52d418ffae13"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/v16-10000/f8.family.json",
+      "sha256": "436422022081e4b3ec42da07c3105bdd6e85f55aaf55662df2a5dbedc7e3e8a2"
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927/v16-50000/f2.8.family.json",
+      "sha256": "47f00e0c1a6cf898a244bd7d093440a200552721da27b0062641b11f616479b9"
+    }
+  ],
+  "notes": [
+    "The 16 baseline continuation replays exactly match saved v15 final evaluations and evaluation counts. Exploratory improveBeyondTargets=true runs are excluded.",
+    "The first experimental root probe loaded a stale DLL before a build completed; it was stopped and excluded. Verified experimental DLL identity is distinct from v15.",
+    "The first focused test was aborted by sandbox localhost socket restrictions; retry passed 18/18. The first format attempt could not connect to MSBuild in the sandbox; retry passed. A runner whitespace issue was repaired and rechecked.",
+    "Default stages remain (0.3,0), (0.65,0.5), (1,1). Early-field changes were not enabled because F/8 retained passing coverage fell despite better single-seed best RMS.",
+    "Final v16 best wide-field RMS is 0.13203918747588814 mm at 50000 evaluations, versus v15 0.13444361170735697 mm. All retained wide-field records still fail.",
+    "Core sources match v15. Default binary hashes changed after rebuilding with informational version 1.0.0+7d68ed4 instead of 1.0.0+280bb7b. All 11216 Release method definitions, signatures, method bodies and embedded resources match. Debug binary IL was not separately compared.",
+    "Concurrent formal App/Application and UI-test edits remain outside this verification. Prior formal 1311/1311 and comparison 104/104 records were not rerun.",
+    "No new Zemax baseline-integrity audit, external numerical comparison, capture or screenshot acceptance was performed. No v16 60+15 multiseed protocol was completed."
+  ]
+}

@@ -1,0 +1,14 @@
+diff --git a/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartContinuation.cs b/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartContinuation.cs
+index f884900b..0aa33338 100644
+--- a/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartContinuation.cs
++++ b/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartContinuation.cs
+@@ -8,7 +8,7 @@ internal sealed class FlatStartContinuation
+     // New area-integrated searches reserve a local-model window at reduced difficulty
+     // before spending the remaining budget at the full target. Legacy replay stays explicit.
+     public static IReadOnlyList<DesignStage> ProgressiveStages { get; } =
+-        [new(.3, 0, false), new(.65, .5, true), FlatStartDesignProblem.FullStage];
++        [new(.3, .5, false), new(.65, .75, true), FlatStartDesignProblem.FullStage];
+-
++
+     public static int ProgressiveWindow(int remaining, int dimension, int stageIndex)
+     {

@@ -1,6 +1,6 @@
 # 初始结构实验室 v11：随真实光束调整镜片直径
 
-本文保留 v11 阶段的历史测量与结论。其后落实的 v12 面积评价见 [质量修复](INITIAL_STRUCTURE_QUALITY_FIX_2026-09-26.md)，v13 调度见 [邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前 v15 求解与验证见 [改进记录](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)，不覆盖本文原始实验。
+本文保留 v11 阶段的历史测量与结论。其后落实的 v12 面积评价见 [质量修复](INITIAL_STRUCTURE_QUALITY_FIX_2026-09-26.md)，v13 调度见 [邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前 v16 求解与验证见 [改进记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)，不覆盖本文原始实验。
 
 后续 [光学质量复核](INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)发现光瞳积分、自动口径下的耦合边厚约束及阶段预算仍有明显不足。本文的默认小视场烟测与工程测试保留原范围，不能扩展为困难设计或成像质量已经合格的结论。
 

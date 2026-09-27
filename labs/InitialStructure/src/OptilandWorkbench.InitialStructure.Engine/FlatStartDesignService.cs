@@ -59,7 +59,10 @@ public sealed class FlatStartDesignService
             // A full-field candidate must not be degraded by replaying reduced monochromatic stages.
             var evaluation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
             RetainFullTarget(evaluation);
-            if (evaluation.HasContinuousSearchResiduals && (!progressive || evaluation.IsFeasible))
+            // A finite geometry violation belongs in the joint constrained objective.
+            // Only missing optical data requires restarting the reduced-field path;
+            // final manufacturing and optical acceptance remain separate hard gates.
+            if (evaluation.HasContinuousSearchResiduals)
             {
                 steps.Add(new(count, "full-target-refinement-entry", FlatStartDesignProblem.FullStage,
                     evaluation.EvaluatedOptic!, evaluation));

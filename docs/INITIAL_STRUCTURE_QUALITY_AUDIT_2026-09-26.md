@@ -1,6 +1,6 @@
 # 初始结构实验室：光学质量与结构合理性复核
 
-本文保留 v11 阶段的历史测量与结论。其后落实的 v12 面积评价见 [质量修复](INITIAL_STRUCTURE_QUALITY_FIX_2026-09-26.md)，v13 调度见 [邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前 v15 求解与验证见 [改进记录](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)，不覆盖本文原始实验。
+本文保留 v11 阶段的历史测量与结论。其后落实的 v12 面积评价见 [质量修复](INITIAL_STRUCTURE_QUALITY_FIX_2026-09-26.md)，v13 调度见 [邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前 v16 求解与验证见 [改进记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)，不覆盖本文原始实验。
 
 结论：v11 自动直径解决了固定口径截光的一项限制，但当前“实验室达标”不足以代表稳定像质。最先需要修的是**像质积分与验收定义、自动口径下的耦合几何约束、真正执行的渐进优化路径**，而不是继续增加形式枚举数量或只调整阻尼参数。
 

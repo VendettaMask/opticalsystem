@@ -49,10 +49,10 @@ public enum FlatStartSearchState { Running, Completed, Cancelled, BudgetExhauste
 public static class FlatStartAlgorithm
 {
     // Version 5 was an abandoned weighting experiment, never a frozen release.
-    public const string Version = "15";
+    public const string Version = "16";
 
     public static int SchedulingPolicy(string version, InitialStructureSpecification specification) =>
-        version is "13" or "14" or "15" && specification.FlatStart?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1 ? 2 : 1;
+        version is "13" or "14" or "15" or "16" && specification.FlatStart?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1 ? 2 : 1;
 }
 
 public sealed record FlatStartScheduleState(int PolicyVersion, int NextDecisionIndex, long NextRandomSeed, string LastDecision);

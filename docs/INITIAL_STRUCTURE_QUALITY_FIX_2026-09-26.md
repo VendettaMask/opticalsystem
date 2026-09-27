@@ -1,6 +1,6 @@
 # 初始结构实验室 v12：面积积分、耦合几何约束和实际渐进阶段
 
-本文保留 v12 的实现、测量及工程测试记录。后续调度见 [v13 邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前版本与验证见 [v15 阶段审查](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)，不改写这里的历史实验。
+本文保留 v12 的实现、测量及工程测试记录。后续调度见 [v13 邻域记录](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)，当前版本与验证见 [v16 细化入口复核](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)，不改写这里的历史实验。
 
 本次落实 [v11 光学质量复核](INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md) 的前三项机制修复。新建桌面实验采用面积积分；自动口径后的边厚约束进入连续优化；减少孔径和视场的阶段获得实际预算。原始记录、旧验收数字和 Zemax 捕获不改写。这里的内部求解改善不代表已经获得适合实际成像用途的镜头。
 

@@ -1,6 +1,6 @@
 # 系统架构
 
-2026-09-27 当前实验室为 v15：正式共享 Core 仍负责全部光学量；面积积分、独立验收、自动口径、残差定义和验收门槛不变。`FlatStartLocalSolver` 在 V2 且完整光线可用时继续联合优化几何与像质，几何恢复及历史目标保留原有边界。v14 的受保护 Broyden 和 v13 调度保留。`CandidateRow` 用连续光线状态区分完整像质与诊断值。曲率退回实验已撤回；检查点版本 15 明确隔离旧算法续跑。见 [阶段审查记录](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)。
+2026-09-27 当前实验室为 v16：正式共享 Core 负责全部光学量。`FlatStartDesignService.Continue` 在完整光线数据可用时保留完整目标，允许有限几何越界进入 V2 联合求解；缺失光线仍进入既有恢复路径。采样、自动口径、硬验收、根生成、渐进阶段、受保护 Broyden 和面积调度策略 2 不变。检查点版本 16 隔离旧算法续跑，v15 历史记录可用于独立追加细化。见 [细化入口复核](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
 
 2026-09-26 后续：v8 新增 `DesignFormSearch` 与 `DesignFormScheduler`，分别管理正负初始化形式和原始分支的持续调度历史；界面增加系统/目标/搜索页签与覆盖率。只改变实验室编排与参数初始化，光学引擎和正式 Core 未变化。详见 [形式搜索改造](INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)。
 

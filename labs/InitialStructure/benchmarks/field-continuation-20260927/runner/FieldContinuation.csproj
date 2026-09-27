@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>OptilandWorkbench.InitialStructure.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AuditBinaries Condition="'$(AuditBinaries)' == ''">../../../tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0</AuditBinaries>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.Core.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Contracts.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Engine.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Persistence.dll" />
+    <Compile Include="../../secant-solver-20260927/runner/SearchVerification.cs" Link="SearchVerification.cs" />
+  </ItemGroup>
+</Project>
