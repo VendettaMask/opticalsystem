@@ -1,0 +1,200 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 17,
+  "scope": "Shared Core physical-stop APIs and aiming/boundary fixes; search integration is planned, not implemented.",
+  "formalFocused": {
+    "path": "artifacts/validation/physical-stop-20260927/core-final.trx",
+    "sha256": "ecca5c807b18ea6058a3cfa4a2a6ecf3974d3be9ac473a3877c956c0e2573f46",
+    "outcome": "Completed",
+    "counters": {
+      "total": "315",
+      "executed": "315",
+      "passed": "315",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T16:39:39.3735520+08:00",
+      "queuing": "2026-09-27T16:39:39.3735520+08:00",
+      "start": "2026-09-27T16:39:38.6710110+08:00",
+      "finish": "2026-09-27T16:41:40.5320770+08:00"
+    }
+  },
+  "newFormalCases": 14,
+  "fullLaboratory": {
+    "path": "artifacts/validation/physical-stop-20260927/lab-full.trx",
+    "sha256": "045d163f098591478fbfad0113c6c9cb83157d6bd70678f5d8991b8ae7190f40",
+    "outcome": "Completed",
+    "counters": {
+      "total": "248",
+      "executed": "248",
+      "passed": "248",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T16:42:26.4152230+08:00",
+      "queuing": "2026-09-27T16:42:26.4152230+08:00",
+      "start": "2026-09-27T16:42:25.7573040+08:00",
+      "finish": "2026-09-27T16:50:09.6696060+08:00"
+    }
+  },
+  "newLaboratoryCases": 1,
+  "preFixReproduction": {
+    "path": "artifacts/validation/physical-stop-20260927/aiming-before.trx",
+    "sha256": "2724007e08f443d286c8e10ccbcd4944230c963a8c328785d6691df2c4126390",
+    "outcome": "Failed",
+    "counters": {
+      "total": "3",
+      "executed": "3",
+      "passed": "0",
+      "failed": "3",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T16:35:14.3931620+08:00",
+      "queuing": "2026-09-27T16:35:14.3931620+08:00",
+      "start": "2026-09-27T16:35:13.2932560+08:00",
+      "finish": "2026-09-27T16:35:14.3959750+08:00"
+    }
+  },
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/physical-stop-20260927/app-debug-build.log",
+      "sha256": "b58976d23eaf799f40eea58107a7bd0a9672425209460eec0721f8b57834dc8a"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/lab-debug-build.log",
+      "sha256": "d0df6ad134e04e2eb3f8ae7c085d75f8a3eb8083ae576edbd66501c9994b9827"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/runner-build.log",
+      "sha256": "ff701ad95e62826af42a8738a2225b4b66f1daa6afa0e576e0de0c9e2af5921b"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/core-final.log",
+      "sha256": "baee3fbaec6889f5f9a0c1d85ed14ed4c1f745ec6e73cf575daefda586ca1b18"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/lab-full.log",
+      "sha256": "47817ead96e4c9a62b85c23e7bd2a507e27305b3e12ea5d619f940b1f1778422"
+    }
+  ],
+  "releaseBuilds": "Default formal App and laboratory App built by the successful test commands; zero warnings/errors.",
+  "format": "Scoped Core/lab whitespace verify-no-changes and final runner verify-no-changes succeeded.",
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/physical-stop-20260927/core-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/lab-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-20260927/runner-format-verify.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "defaultCoreBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b4fdec902c423370b328a1b21c64c073e3c9687780a854d1869cd2d9aa516401"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b4fdec902c423370b328a1b21c64c073e3c9687780a854d1869cd2d9aa516401"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b4fdec902c423370b328a1b21c64c073e3c9687780a854d1869cd2d9aa516401"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "ed0eb46ca3032b9ea16254e691056530609c43b1035a81087ee3e10a208945a5"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "ed0eb46ca3032b9ea16254e691056530609c43b1035a81087ee3e10a208945a5"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "ed0eb46ca3032b9ea16254e691056530609c43b1035a81087ee3e10a208945a5"
+    }
+  ],
+  "audit": {
+    "inputRecords": 30,
+    "convertedCompleteBefore": 0,
+    "convertedCompleteAfter": 22,
+    "requestedEnvelopeRays": 55770,
+    "incompleteEnvelopeRaysAfter": 45,
+    "incompleteWithAllCircularAperturesRemoved": 45,
+    "generatedZeroIntensityRays": 0,
+    "originalRmsExactMatches": 30,
+    "maximumFloatedPupilErrorMillimeters": 3.552713678800501e-15,
+    "results": {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-20260927/results.json",
+      "sha256": "9175f0cd654731dc3de22ee416941dd3043d17fbaa0b5d3a00b2bda569f18e63"
+    },
+    "replay": {
+      "path": "artifacts/validation/physical-stop-20260927/replay.json",
+      "sha256": "9175f0cd654731dc3de22ee416941dd3043d17fbaa0b5d3a00b2bda569f18e63"
+    },
+    "replayByteIdentical": true,
+    "preFix": {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-20260927/before-aiming-fix.json",
+      "sha256": "6c9a8473c3ae976a6156267c8da2b9c344b32e422260033a90cf03089632b3c2"
+    },
+    "preFixSourcePatch": {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-20260927/pre-fix-core.patch",
+      "sha256": "c2526044593ada6fdb86145a6bb58def9238855fc306e898aaf05612ee0fe775"
+    }
+  },
+  "sourceFreeze": {
+    "path": "labs/InitialStructure/benchmarks/physical-stop-20260927/source-freeze.json",
+    "sha256": "fa11c33654bb6c2622367fa65ace9ad57388a8d4769de85bbddefa46b8ea7728"
+  },
+  "notPerformed": [
+    "Full formal suite (1311/1311 historical)",
+    "Comparison-tool suite (104/104 historical)",
+    "New optimization search or multiseed comparison",
+    "Laboratory physical-stop search integration",
+    "Zemax baseline integrity audit",
+    "New Zemax capture or complete external numerical comparison",
+    "Screenshot/UI functional certification",
+    "Continuous-pupil throughput/manufacturing certification"
+  ]
+}

@@ -24,8 +24,13 @@ public sealed class CircularAperture : IPhysicalAperture
 
     public bool Contains(Vector3D localPoint)
     {
-        return ((localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y)) <= Radius * Radius;
+        // Numerical boundary tolerance in lens units; no manufacturing allowance.
+        // The aiming solver converges within one quarter of this tolerance.
+        var boundary = Radius + BoundaryTolerance(Radius);
+        return ((localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y)) <= boundary * boundary;
     }
+
+    internal static double BoundaryTolerance(double radius) => 1e-12 * Math.Max(1, Math.Abs(radius));
 
     public IPhysicalAperture Clone()
     {

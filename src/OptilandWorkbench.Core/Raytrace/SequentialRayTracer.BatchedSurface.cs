@@ -141,7 +141,7 @@ public sealed partial class SequentialRayTracer
                 backend.ApplyCircularAperture(
                     workspace.HitX,
                     workspace.HitY,
-                    circular.Radius,
+                    circular.Radius + CircularAperture.BoundaryTolerance(circular.Radius),
                     workspace.Accepted);
             }
             else

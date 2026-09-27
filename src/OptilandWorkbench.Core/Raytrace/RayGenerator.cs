@@ -15,7 +15,7 @@ public sealed class RayGenerationSettings
     public PupilSampling Sampling { get; set; } = PupilSampling.Hexapolar;
 }
 
-public sealed class RayGenerator
+public sealed partial class RayGenerator
 {
     private readonly Optic _optic;
     private const double NormalizedCoordinateTolerance = 1e-12;
@@ -483,42 +483,25 @@ public sealed class RayGenerator
         }
 
         var stop = _optic.SurfaceGroup.Items[stopIndex];
-        const int maximumIterations = 16;
-        var (targetX, targetY) = paraxialStopTarget ?? ParaxialStopTarget(
-            normalizedPupilX,
-            normalizedPupilY,
-            stopIndex);
-        var aimedOrigin = origin;
-        var lastErrorSquared = double.PositiveInfinity;
-        for (var iteration = 0; iteration < maximumIterations; iteration++)
-        {
-            var stopSample = _optic.SequentialRayTracer.TraceToSurface(
-                new RealRay(aimedOrigin, direction, wavelengthNanometers),
-                stopIndex);
-            if (stopSample is null)
-            {
-                throw new RayAimingException(stop.Number, iteration + 1, double.PositiveInfinity);
-            }
-
-            var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
-            var errorX = targetX - stopPoint.X;
-            var errorY = targetY - stopPoint.Y;
-            lastErrorSquared = (errorX * errorX) + (errorY * errorY);
-            if (lastErrorSquared <= 1e-16)
-            {
-                return (aimedOrigin, direction);
-            }
-
-            var correction = stop.CoordinateSystem.ToGlobalDirection(new Vector3D(errorX, errorY, 0));
-            aimedOrigin += new Vector3D(correction.X, correction.Y, 0);
-        }
-
-        if (lastErrorSquared <= 1e-8)
-        {
+        var target = paraxialStopTarget ?? ParaxialStopTarget(normalizedPupilX, normalizedPupilY, stopIndex);
+        if (TryAimStopTarget(origin, direction, wavelengthNanometers, stopIndex, target.X, target.Y,
+                origin.X, origin.Y, infinite: true, out var aimedOrigin, out _, out var residual))
             return (aimedOrigin, direction);
-        }
 
-        throw new RayAimingException(stop.Number, maximumIterations, Math.Sqrt(lastErrorSquared));
+        // Continue on a traceable chief-to-marginal branch if the direct launch misses.
+        var chiefOrigin = origin - new Vector3D(normalizedPupilX * EntrancePupilRadius(),
+            normalizedPupilY * EntrancePupilRadius(), 0);
+        if (!TryAimStopTarget(chiefOrigin, direction, wavelengthNanometers, stopIndex, 0, 0,
+                chiefOrigin.X, chiefOrigin.Y, infinite: true, out aimedOrigin, out _, out residual))
+            throw new RayAimingException(stop.Number, 1, residual);
+        for (var step = 1; step <= 16; step++)
+        {
+            if (!TryAimStopTarget(origin, direction, wavelengthNanometers, stopIndex,
+                    target.X * step / 16, target.Y * step / 16,
+                    aimedOrigin.X, aimedOrigin.Y, infinite: true, out aimedOrigin, out _, out residual))
+                throw new RayAimingException(stop.Number, step, residual);
+        }
+        return (aimedOrigin, direction);
     }
 
     private (Vector3D Origin, Vector3D Direction) AimFiniteRayAtStop(
@@ -613,83 +596,8 @@ public sealed class RayGenerator
         out Vector3D aimedDirection,
         out double residual)
     {
-        var stop = _optic.SurfaceGroup.Items[stopIndex];
-        var distance = Math.Max(
-            1e-9,
-            Math.Abs(stop.CoordinateSystem.Origin.Z - origin.Z));
-        double? previousSlopeX = null;
-        double? previousSlopeY = null;
-        double? previousStopX = null;
-        double? previousStopY = null;
-        var lastErrorSquared = double.PositiveInfinity;
-        for (var iteration = 0; iteration < 12; iteration++)
-        {
-            var trialDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
-            var stopSample = _optic.SequentialRayTracer.TraceToSurface(
-                new RealRay(origin, trialDirection, wavelengthNanometers),
-                stopIndex);
-            if (stopSample is null)
-            {
-                aimedDirection = default;
-                residual = double.PositiveInfinity;
-                return false;
-            }
-
-            var stopPoint = stop.CoordinateSystem.ToLocalPoint(stopSample.Position);
-            var errorX = targetX - stopPoint.X;
-            var errorY = targetY - stopPoint.Y;
-            lastErrorSquared = (errorX * errorX) + (errorY * errorY);
-            if (lastErrorSquared <= 1e-16)
-            {
-                aimedDirection = trialDirection;
-                residual = Math.Sqrt(lastErrorSquared);
-                return true;
-            }
-
-            var correctionX = errorX / distance;
-            var correctionY = errorY / distance;
-            if (previousSlopeX.HasValue
-                && previousStopX.HasValue
-                && Math.Abs(slopeX - previousSlopeX.Value) > 1e-18)
-            {
-                var derivativeX = (stopPoint.X - previousStopX.Value)
-                    / (slopeX - previousSlopeX.Value);
-                if (double.IsFinite(derivativeX) && Math.Abs(derivativeX) > 1e-12)
-                {
-                    correctionX = errorX / derivativeX;
-                }
-            }
-
-            if (previousSlopeY.HasValue
-                && previousStopY.HasValue
-                && Math.Abs(slopeY - previousSlopeY.Value) > 1e-18)
-            {
-                var derivativeY = (stopPoint.Y - previousStopY.Value)
-                    / (slopeY - previousSlopeY.Value);
-                if (double.IsFinite(derivativeY) && Math.Abs(derivativeY) > 1e-12)
-                {
-                    correctionY = errorY / derivativeY;
-                }
-            }
-
-            previousSlopeX = slopeX;
-            previousSlopeY = slopeY;
-            previousStopX = stopPoint.X;
-            previousStopY = stopPoint.Y;
-            slopeX += Math.Clamp(correctionX, -0.1, 0.1);
-            slopeY += Math.Clamp(correctionY, -0.1, 0.1);
-        }
-
-        if (lastErrorSquared <= 1e-8)
-        {
-            aimedDirection = Normalize(new Vector3D(slopeX, slopeY, 1));
-            residual = Math.Sqrt(lastErrorSquared);
-            return true;
-        }
-
-        aimedDirection = default;
-        residual = Math.Sqrt(lastErrorSquared);
-        return false;
+        return TryAimStopTarget(origin, default, wavelengthNanometers, stopIndex, targetX, targetY,
+            slopeX, slopeY, infinite: false, out _, out aimedDirection, out residual);
     }
 
     private (double X, double Y) ParaxialStopTarget(
@@ -1190,7 +1098,10 @@ public sealed class RayGenerator
     {
         var physicalSurfaces = _optic.SurfaceGroup.Items.Skip(1).SkipLast(1).ToArray();
         var firstSurfaceZ = physicalSurfaces.FirstOrDefault()?.CoordinateSystem.Origin.Z ?? 0;
-        return (firstSurfaceZ, Math.Max(apertureRadius * 2.0, 1e-6));
+        var clearance = Math.Max(apertureRadius * 2.0, 1e-6);
+        // The launch point must precede a virtual entrance pupil as well as the
+        // first surface, otherwise pupil-minus-origin reverses propagation.
+        return (firstSurfaceZ, Math.Max(clearance, firstSurfaceZ - EntrancePupilGlobalZ() + clearance));
     }
 
     private double EntrancePupilGlobalZ()

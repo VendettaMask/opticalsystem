@@ -4,7 +4,10 @@ using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Services;
 
-public sealed record RayEnvelopeSurfaceSize(int SurfaceIndex, double SampledRadiusMillimeters, double SemiDiameterMillimeters);
+public sealed record RayEnvelopeSurfaceSize(int SurfaceIndex, double SampledRadiusMillimeters, double SemiDiameterMillimeters)
+{
+    public double MechanicalSemiDiameterMillimeters { get; init; } = SemiDiameterMillimeters;
+}
 
 /// <summary>A sampled envelope, not a guarantee between samples or a throughput result.</summary>
 public sealed record RayEnvelopeSizingResult(int AttemptedRays, int CompletedRays,
@@ -18,13 +21,15 @@ public static partial class AutomaticSemiDiameterSolver
     /// constraints are removed on a private tracing snapshot; all other apertures remain.
     /// Apply atomically only when every requested ray reaches the image. Invalid propagation
     /// is never replaced by an estimated radius. Honors the optic's ray-aiming setting.
+    /// With preserveStopAperture, the existing stop remains a clipping aperture and its
+    /// clear radius stays fixed; only its mechanical lens-body radius follows the group.
     /// The caller must validate the resulting geometry.
     /// </summary>
     public static RayEnvelopeSizingResult UpdateFromRayEnvelope(Optic optic,
         IReadOnlyList<IReadOnlyList<int>> surfaceGroups,
         IReadOnlyList<(double X, double Y)> normalizedFields,
         IReadOnlyList<PupilSample> pupilSamples, double marginFactor = 1,
-        int wavelengthNumber = 0, CancellationToken cancellationToken = default)
+        int wavelengthNumber = 0, CancellationToken cancellationToken = default, bool preserveStopAperture = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(surfaceGroups);
@@ -56,11 +61,18 @@ public static partial class AutomaticSemiDiameterSolver
         foreach (var index in indices)
             if (optic.SurfaceGroup.Items[index].PhysicalAperture is { } aperture && aperture is not CircularAperture)
                 throw new ArgumentException("Only explicitly selected circular clear apertures can be resized.", nameof(surfaceGroups));
+        var fixedStops = preserveStopAperture
+            ? indices.Where(index => optic.SurfaceGroup.Items[index].IsStop).ToHashSet() : [];
+        foreach (var index in fixedStops)
+            if (optic.SurfaceGroup.Items[index].PhysicalAperture is not CircularAperture aperture
+                || aperture.Radius != optic.SurfaceGroup.Items[index].SemiDiameter)
+                throw new ArgumentException("A preserved stop needs a circular aperture matching its clear semi-diameter.", nameof(preserveStopAperture));
 
         // FromSnapshot creates an independent optic without the source's shared trace cache.
         var working = Optic.FromSnapshot(optic.ToSnapshot());
         foreach (var index in indices)
         {
+            if (fixedStops.Contains(index)) continue;
             working.SurfaceGroup.Items[index].SemiDiameterDefinesPhysicalAperture = false;
             working.SurfaceGroup.Items[index].PhysicalAperture = null;
         }
@@ -96,7 +108,11 @@ public static partial class AutomaticSemiDiameterSolver
         {
             // OpticalSurface's minimum supported clear semi-diameter is 0.1 mm.
             var radius = Math.Max(.1, group.Max(index => maxima[index]) * marginFactor);
-            return group.Select(index => new RayEnvelopeSurfaceSize(index, maxima[index], radius));
+            radius = Math.Max(radius, group.Where(fixedStops.Contains)
+                .Select(index => optic.SurfaceGroup.Items[index].SemiDiameter).DefaultIfEmpty(0).Max());
+            return group.Select(index => new RayEnvelopeSurfaceSize(index, maxima[index],
+                fixedStops.Contains(index) ? optic.SurfaceGroup.Items[index].SemiDiameter : radius)
+            { MechanicalSemiDiameterMillimeters = radius });
         }).ToArray();
         var complete = completed == requested && sizes.All(size => double.IsFinite(size.SemiDiameterMillimeters));
         cancellationToken.ThrowIfCancellationRequested();
@@ -106,10 +122,13 @@ public static partial class AutomaticSemiDiameterSolver
             foreach (var size in sizes)
             {
                 var surface = optic.SurfaceGroup.Items[size.SurfaceIndex];
-                surface.SemiDiameter = size.SemiDiameterMillimeters;
-                surface.MechanicalSemiDiameter = size.SemiDiameterMillimeters;
-                surface.SemiDiameterDefinesPhysicalAperture = true;
-                surface.PhysicalAperture = new CircularAperture(size.SemiDiameterMillimeters);
+                surface.MechanicalSemiDiameter = size.MechanicalSemiDiameterMillimeters;
+                if (!fixedStops.Contains(size.SurfaceIndex))
+                {
+                    surface.SemiDiameter = size.SemiDiameterMillimeters;
+                    surface.SemiDiameterDefinesPhysicalAperture = true;
+                    surface.PhysicalAperture = new CircularAperture(size.SemiDiameterMillimeters);
+                }
             }
         }
         return new((int)requested, completed, complete, sizes);
