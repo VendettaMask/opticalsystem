@@ -144,9 +144,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var settingsPane = new Border
         {
             BorderThickness = new Thickness(0, 0, 1, 0),
+            ClipToBounds = true,
             Child = new ScrollViewer
             {
                 Content = settings,
+                // Reserve the scrollbar's measured width instead of overlaying editors.
+                AllowAutoHide = false,
+                HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
                 VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
             }
         };
@@ -155,7 +159,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var previewFrame = new Border
         {
             BorderThickness = new Thickness(1),
-            MinHeight = 200,
+            ClipToBounds = true,
             Child = _preview
         };
         previewFrame.Bind(Border.BorderBrushProperty, new DynamicResourceExtension("OptilandBorderBrush"));
@@ -172,11 +176,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             "2*,12,3*",
             breakpoint: 900);
 
-        var root = new DockPanel();
-        DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
-        root.Children.Add(toolbar);
-        root.Children.Add(workspace);
-        Content = root;
+        Content = new ScrollableHeaderGrid(toolbar, workspace);
 
         _events.Changed += OnWorkspaceChanged;
         RefreshElements(preserveSelection: false);
@@ -219,32 +219,33 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Spacing = 4,
             Children =
             {
-                new StackPanel
+                new WrapPanel
                 {
                     Orientation = Orientation.Horizontal,
-                    Spacing = 6,
+                    ItemSpacing = 6,
+                    LineSpacing = 4,
                     Children = { importLogo, resetLogo }
                 },
                 _logoStatus
             }
         }, ref row);
         AddSection("尺寸公差", ref row);
-        AddRow("直径上偏差 (mm)", _diameterUpperDeviation, ref row);
-        AddRow("直径下偏差 (mm)", _diameterLowerDeviation, ref row);
-        AddRow("中心厚度上偏差 (mm)", _thicknessUpperDeviation, ref row);
-        AddRow("中心厚度下偏差 (mm)", _thicknessLowerDeviation, ref row);
-        AddRow("S1 曲率半径公差 (mm)", _frontRadiusTolerance, ref row);
-        AddRow("S2 曲率半径公差 (mm)", _backRadiusTolerance, ref row);
+        AddRow("直径上偏差", _diameterUpperDeviation, ref row, unit: "mm");
+        AddRow("直径下偏差", _diameterLowerDeviation, ref row, unit: "mm");
+        AddRow("厚度上偏差", _thicknessUpperDeviation, ref row, "中心厚度上偏差 (mm)", "mm");
+        AddRow("厚度下偏差", _thicknessLowerDeviation, ref row, "中心厚度下偏差 (mm)", "mm");
+        AddRow("S1 半径公差", _frontRadiusTolerance, ref row, "S1 曲率半径公差 (mm)", "mm");
+        AddRow("S2 半径公差", _backRadiusTolerance, ref row, "S2 曲率半径公差 (mm)", "mm");
         AddSection("材料公差", ref row);
         AddRow("n[d] 公差", _refractiveIndexTolerance, ref row);
         AddRow("V[d] 公差", _abbeNumberTolerance, ref row);
         AddSection("光学技术要求", ref row);
-        AddRow("S1 面形偏差 (nm)", _frontForm, ref row);
-        AddRow("S2 面形偏差 (nm)", _backForm, ref row);
-        AddRow("偏心/倾斜 (′)", _centering, ref row);
+        AddRow("S1 面形偏差", _frontForm, ref row, unit: "nm");
+        AddRow("S2 面形偏差", _backForm, ref row, unit: "nm");
+        AddRow("偏心/倾斜", _centering, ref row, unit: "′");
         if (_drawingStandard != OpticalDrawingStandard.Iso10110)
         {
-            AddRow("表面纹理 Rq (nm)", _texture, ref row);
+            AddRow("纹理 Rq", _texture, ref row, "表面纹理 Rq (nm)", "nm");
         }
 
         AddRow("表面缺陷", _imperfection, ref row);
@@ -281,14 +282,11 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             AddControl(heading, currentRow++, 0, 2);
         }
 
-        void AddRow(string label, Control control, ref int currentRow)
+        void AddRow(string label, Control control, ref int currentRow, string? fullText = null, string? unit = null)
         {
-            AddControl(new TextBlock
-            {
-                Text = label,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 4, 8, 4)
-            }, currentRow, 0);
+            fullText ??= unit is null ? label : $"{label} ({unit})";
+            AddControl(CompactLabel.Parameter(label, fullText, unit), currentRow, 0);
+            ToolTip.SetTip(control, fullText);
             control.Margin = new Thickness(0, 3);
             AddControl(control, currentRow++, 1);
         }

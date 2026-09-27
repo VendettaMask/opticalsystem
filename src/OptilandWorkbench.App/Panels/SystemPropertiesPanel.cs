@@ -23,9 +23,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     private readonly StackPanel _wavelengthsHost = new() { Spacing = 5 };
     private readonly HashSet<int> _expandedFields = new();
     private readonly HashSet<int> _expandedWavelengths = new();
-    private readonly ComboBox _backendPicker = new() { MinWidth = 150 };
-    private readonly ComboBox _apertureKindPicker = new() { MinWidth = 190 };
-    private readonly ComboBox _fieldDefinitionPicker = new() { MinWidth = 116 };
+    private readonly ComboBox _backendPicker = new();
+    private readonly ComboBox _apertureKindPicker = new();
+    private readonly ComboBox _fieldDefinitionPicker = new();
     private readonly CheckBox _objectSpaceTelecentric = new()
     {
         Content = "物方远心",
@@ -36,7 +36,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         Content = "像方无焦",
         VerticalAlignment = VerticalAlignment.Center
     };
-    private readonly ComboBox _apodizationPicker = new() { MinWidth = 128 };
+    private readonly ComboBox _apodizationPicker = new();
     private readonly TextBlock _firstApodizationLabel = ParameterLabel("σ");
     private readonly TextBlock _secondApodizationLabel = ParameterLabel("p");
     private readonly NumericUpDown _firstApodizationParameter = ParameterInput(1m);
@@ -64,7 +64,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     private readonly Button _removeGlassCatalog = CommandButton("arrow-down", "移出当前", 108);
     private readonly Button _moveGlassCatalogUp = CommandButton("chevron-up", "优先级上移", 118);
     private readonly Button _moveGlassCatalogDown = CommandButton("chevron-down", "优先级下移", 118);
-    private StackPanel? _apodizationParameterRow;
+    private Grid? _apodizationParameterRow;
     private bool _refreshing;
     private bool _applyingLocalChange;
     private readonly NumericUpDown _apertureValue = new()
@@ -113,12 +113,15 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Section("高级", BuildAdvancedSection())
             }
         };
+        sections.Classes.Add("system-property-sections");
         var scrollViewer = new ScrollViewer
         {
             HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            AllowAutoHide = false,
             Content = sections
         };
-        scrollViewer.BindThemeResource(ScrollViewer.BackgroundProperty, ThemeResourceBindings.Workspace);
+        scrollViewer.BindThemeResource(ScrollViewer.BackgroundProperty, ThemeResourceBindings.Sidebar);
         Content = scrollViewer;
 
         _events.Changed += OnWorkspaceChanged;
@@ -317,6 +320,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
 
     private static void ConfigureGlassCatalogList(ListBox listBox)
     {
+        ScrollViewer.SetHorizontalScrollBarVisibility(listBox, Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled);
         listBox.ItemTemplate = new FuncDataTemplate<string>((catalog, _) => new TextBlock
         {
             Text = catalog ?? string.Empty,
@@ -492,24 +496,27 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         return panel;
     }
 
-    private static StackPanel LabeledRow(string label, Control input)
+    private static Grid LabeledRow(string label, Control input)
     {
         input.HorizontalAlignment = HorizontalAlignment.Stretch;
-        return new StackPanel
+        var text = new TextBlock
         {
-            Spacing = 4,
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            Children =
-            {
-                new TextBlock
-                {
-                    Text = label,
-                    FontSize = DisplayTypography.BodySmall,
-                    FontWeight = FontWeight.SemiBold
-                },
-                input
-            }
+            Text = label,
+            FontSize = DisplayTypography.BodySmall,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center
         };
+        ToolTip.SetTip(text, label);
+        var row = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("70,*"),
+            ColumnSpacing = 6,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Children = { text, input }
+        };
+        Grid.SetColumn(input, 1);
+        return row;
     }
 
     private static TextBlock MaterialLibraryHeader(string title) => new()
@@ -544,7 +551,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var contentHost = new Border
         {
             BorderThickness = new Avalonia.Thickness(0),
-            Padding = new Avalonia.Thickness(28, 11, 12, 14),
+            Padding = new Avalonia.Thickness(8, 8, 8, 12),
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Child = content
         };
@@ -562,6 +569,17 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         header.Bind(Button.CornerRadiusProperty, new DynamicResourceExtension(
             ThemeChromeResources.CornerRadius(ThemeChromeRole.SurfaceCard)));
         header.Classes.Add("system-property-card-header");
+        header.Classes.Add("system-section-header");
+        titleText.Classes.Add("emphasis-label");
+        arrow.Classes.Add("emphasis-arrow");
+        var divider = new Border
+        {
+            Height = 1,
+            Margin = new Avalonia.Thickness(8, 0, 8, 0),
+            IsHitTestVisible = false
+        };
+        divider.Classes.Add("system-section-divider");
+        divider.SetValue(IsVisibleProperty, false, Avalonia.Data.BindingPriority.Style);
         var section = new Border
         {
             ClipToBounds = true,
@@ -569,11 +587,12 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Child = new StackPanel
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Children = { header, contentHost }
+                Children = { header, contentHost, divider }
             }
         };
         section.Classes.Add("system-property-card");
-        ThemeChrome.Apply(section, ThemeChromeRole.SurfaceCard, shadow: false, borderBrush: false);
+        section.Classes.Add("system-property-section");
+        // Theme styles supply section chrome; nested field cards keep their own outline.
         section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
 
         var isExpanded = expanded;
@@ -615,12 +634,13 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         return section;
     }
 
-    private static StackPanel BuildHeader(string title, params Button[] buttons)
+    private static WrapPanel BuildHeader(string title, params Button[] buttons)
     {
-        var header = new StackPanel
+        var header = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
-            Spacing = 8,
+            ItemSpacing = 8,
+            LineSpacing = 4,
             Margin = new Avalonia.Thickness(0, 0, 0, 6)
         };
         header.Children.Add(new TextBlock
@@ -705,7 +725,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             $"X {NumericDisplayFormatter.Format(field.X)} · Y {NumericDisplayFormatter.Format(field.Y)} · " +
                 $"权重 {NumericDisplayFormatter.Format(field.Weight)}",
             content,
-            _expandedFields);
+            _expandedFields,
+            isField: true);
         summaryDisplay = card.Summary;
         return card.Card;
     }
@@ -812,7 +833,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         string title,
         string summary,
         Control content,
-        HashSet<int> expandedItems)
+        HashSet<int> expandedItems,
+        bool isField = false)
     {
         var arrow = new LocalIcon { IconName = "chevron-right", Width = 16, Height = 16 };
         var titleText = new TextBlock
@@ -840,7 +862,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         };
         var contentHost = new Border
         {
-            Padding = new Thickness(24, 10, 10, 12),
+            Padding = new Thickness(8, 8, 8, 12),
             Child = content
         };
         contentHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
@@ -860,6 +882,12 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             Child = new StackPanel { Children = { header, contentHost } }
         };
         header.Classes.Add("system-property-card-header");
+        if (isField)
+        {
+            header.Classes.Add("field-editor-header");
+            titleText.Classes.Add("emphasis-label");
+            arrow.Classes.Add("emphasis-arrow");
+        }
         card.Classes.Add("system-property-card");
         ThemeChrome.Apply(card, ThemeChromeRole.SurfaceCard, borderBrush: false);
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
@@ -877,6 +905,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         void SetExpanded(bool expanded)
         {
             contentHost.IsVisible = expanded;
+            if (isField) header.Classes.Set("field-editor-expanded", expanded);
             arrow.IconName = expanded ? "chevron-down" : "chevron-right";
             if (expanded)
             {

@@ -135,6 +135,7 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         firstRow.Children.Add(Labeled("搜索", _search));
 
         var searchButton = CommandButton("search", "搜索");
+        searchButton.Classes.Add("accent");
         searchButton.Click += (_, _) => ApplyFilterImmediately();
         ToolTip.SetTip(searchButton, "立即应用当前筛选；筛选控件本身也会自动更新结果。");
         var resetButton = CommandButton("rotate-ccw", "重置");
@@ -230,10 +231,10 @@ internal sealed class CommercialLensCatalogPanel : UserControl
 
     private void UpdateRangeInputState()
     {
-        _eflMinimum.IsEnabled = _useEfl.IsChecked == true;
-        _eflMaximum.IsEnabled = _useEfl.IsChecked == true;
-        _diameterMinimum.IsEnabled = _useDiameter.IsChecked == true;
-        _diameterMaximum.IsEnabled = _useDiameter.IsChecked == true;
+        ControlAvailability.Set(_eflMinimum, _useEfl.IsChecked == true, "勾选EFL范围筛选后可输入上下限。");
+        ControlAvailability.Set(_eflMaximum, _useEfl.IsChecked == true, "勾选EFL范围筛选后可输入上下限。");
+        ControlAvailability.Set(_diameterMinimum, _useDiameter.IsChecked == true, "勾选直径范围筛选后可输入上下限。");
+        ControlAvailability.Set(_diameterMaximum, _useDiameter.IsChecked == true, "勾选直径范围筛选后可输入上下限。");
     }
 
     private void ScheduleRangeFilter(CheckBox rangeToggle)
@@ -271,8 +272,14 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _results.Columns.Add(Column("厂商", nameof(CommercialLensRow.Manufacturer), 135));
         _results.Columns.Add(Column("料号", nameof(CommercialLensRow.PartNumber), 130));
         _results.Columns.Add(Column("名称", nameof(CommercialLensRow.Name), 260));
-        _results.Columns.Add(Column("EFL (mm)", nameof(CommercialLensRow.EffectiveFocalLength), 95));
-        _results.Columns.Add(Column("EPD (mm)", nameof(CommercialLensRow.EntrancePupilDiameter), 95));
+        var efl = Column("EFL (mm)", nameof(CommercialLensRow.EffectiveFocalLength), 95);
+        CompactLabel.SetColumnLabel(efl, "EFL", "有效焦距 (mm)", "mm");
+        efl.MinWidth = 80;
+        _results.Columns.Add(efl);
+        var epd = Column("EPD (mm)", nameof(CommercialLensRow.EntrancePupilDiameter), 95);
+        CompactLabel.SetColumnLabel(epd, "EPD", "入瞳直径 (mm)", "mm");
+        epd.MinWidth = 80;
+        _results.Columns.Add(epd);
         _results.Columns.Add(Column("分类", nameof(CommercialLensRow.Classification), 135));
         _results.Columns.Add(Column("元件", nameof(CommercialLensRow.ElementCount), 65));
         _results.Columns.Add(Column("模型", nameof(CommercialLensRow.ModelAvailability), 110));
@@ -288,9 +295,9 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _visible = Array.Empty<CommercialLensRow>();
         _results.ItemsSource = _visible;
         _count.Text = "正在后台加载库存镜头目录…";
-        _productPage.IsEnabled = false;
-        _dataSheet.IsEnabled = false;
-        _openModel.IsEnabled = false;
+        ControlAvailability.Set(_productPage, false, "目录正在加载，请在加载完成后选择条目。");
+        ControlAvailability.Set(_dataSheet, false, "目录正在加载，请在加载完成后选择条目。");
+        ControlAvailability.Set(_openModel, false, "目录正在加载，请在加载完成后选择条目。");
         _ = ReloadAsync(generation, completion);
     }
 
@@ -453,17 +460,17 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _dataSheet.IsEnabled = Uri.IsWellFormedUriString(entry.DataSheetUrl, UriKind.Absolute);
         _openModel.IsEnabled = _openLensProject is not null
             && !string.IsNullOrWhiteSpace(entry.NativePath);
-        ToolTip.SetTip(
+        ControlAvailability.Explain(
             _openModel,
             _openModel.IsEnabled
                 ? "将随目录提供的 STAROPT 模型载入为独立设计。"
                 : "此目录条目没有获得许可并经过校验的本地光学处方。官方产品页仍可查看。");
-        ToolTip.SetTip(
+        ControlAvailability.Explain(
             _productPage,
             _productPage.IsEnabled
                 ? "在系统浏览器中打开厂商产品页面。"
                 : "此目录条目没有可验证的厂商产品页面地址。");
-        ToolTip.SetTip(
+        ControlAvailability.Explain(
             _dataSheet,
             _dataSheet.IsEnabled
                 ? "在系统浏览器中打开厂商数据表。"
@@ -532,9 +539,9 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _productPage.IsEnabled = false;
         _dataSheet.IsEnabled = false;
         _openModel.IsEnabled = false;
-        ToolTip.SetTip(_productPage, "请先选择目录条目。");
-        ToolTip.SetTip(_dataSheet, "请先选择目录条目。");
-        ToolTip.SetTip(_openModel, "请先选择目录条目。");
+        ControlAvailability.Explain(_productPage, "请先选择目录条目。");
+        ControlAvailability.Explain(_dataSheet, "请先选择目录条目。");
+        ControlAvailability.Explain(_openModel, "请先选择目录条目。");
     }
 
     private static Border DetailSection(string title, Control value)

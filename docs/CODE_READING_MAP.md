@@ -1,19 +1,21 @@
 # 全仓库代码阅读地图
 
-2026-09-27 当前实验室验证：v19 修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
+2026-09-27 初始结构实验室 v19 阶段验证：修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
 
-2026-09-27 v18 阶段验证：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
+2026-09-27 商业代码审计记录（初始结构实验室为 v18 阶段）：默认正式及实验室 Release 构建均为 0 警告、0 错误；正式全量 **1346 通过 / 5 失败 / 共 1351 项**，实验室 **258/258** 通过，Zemax 比较工具 **103 通过 / 1 失败 / 共 104 项**。当前不满足发布门禁；此前全通过记录保留各自历史范围。本轮只审计并同步文档，未修复产品代码，未新建 Zemax 捕获或执行完整外部比较矩阵。问题、性能观测和复现证据见 [商业审计报告](COMMERCIAL_CODE_AUDIT_2026-09-27.md)。
 
-初始结构实验室当前入口为 `FlatStartSearchService`（v16），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartDesignService.Continue` 在完整光线域内保持完整目标，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。见 [当前实现记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
+2026-09-27 v18 阶段验证（本轮商业审计前）：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
 
-阅读日期：2026-09-04。对象为当前工作区，包含已有未提交修改。
+初始结构实验室当前入口为 `FlatStartSearchService`（v19），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartDesignService.Continue` 在完整光线域内保持完整目标，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。v16 入口变更见[阶段记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)，当前 v19 恢复路径见[最新实现记录](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。
+
+原完整索引阅读日期：2026-09-04；2026-09-27 追加镀膜模块入口。下方旧文件行数为历史索引，不表示本轮重建了整个源码统计。
 
 本文记录全仓库源文件索引、主要实现链路和容易混淆的边界，供后续开发定位使用。阅读方式为全部源文件枚举、类型和方法文本索引，以及关键实现与相关测试的交叉阅读。文件进入索引不等于该文件的每一行已经完成审计；本文也不构成全部数值算法正确性证明或新的测试通过基线。本轮没有运行构建、测试、外部基准捕获或 GUI 验证。
 
 ## 1. 工程边界
 
 - 正式产品：`OptilandWorkbench.slnx`，由 Core、Application、App、正式测试和离线工具组成（2026-09-25 校正：Compatibility 项目已移除）。
-- 独立实验室：`labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx`，独立构建和验收，不在正式产品运行时中。
+- 独立初始结构实验室：`labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx`，独立构建和验收，不在正式产品运行时中。
 - 桌面启动：`Program.Main → App → MainWindow → WorkbenchApplication.Create`。`MainWindow` 创建工作区、命令和服务，具体功能分布在 `Shell` 与 `Panels`。
 - 实际依赖方向：`App → Application → Core`；旧 Compatibility 项目已移除，实验室通过单向引用复用 Core。契约不向 App 暴露 Core 类型。
 - Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
@@ -59,7 +61,7 @@
 | Apodization | 光瞳强度加权，包括 Gaussian、Hann、Tukey 等 |
 | Interactions | 折射/反射、薄透镜、衍射及相位交互；返回传播方向和交互类型 |
 | Phase | 常相位、线性光栅、径向、多项式和网格相位；网格支持插值 |
-| Coatings | 无镀膜、简单透反系数及经验透射起伏；旧薄膜/针式综合类为兼容别名 |
+| Coatings | 原光线追迹保留无镀膜、简单透反系数及经验起伏兼容模型；新增 `CoherentThinFilmSolver` / `ThinFilmSpectrum` 为独立镀膜实验室计算真实相干 R/T/A，尚未接入追迹钩子 |
 | Scattering | 现有近似主要扣除主光线强度，不生成完整 BSDF 方向分布 |
 | Propagation | 均匀传播和入口方向近似；后者没有连续 GRIN 积分 |
 | Plugins | 通过程序集加载与注册工厂扩展几何、材料、分析；注册机制本身不能证明桌面已接入全部扩展入口 |
@@ -193,6 +195,18 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | 图纸 | Manufacturing、DrawingTemplates XML | 字段绑定、规格表、预览/PDF 共用路径、制造测试 |
 | 布局/主题 | PanelManager、WorkspaceDockFactory、Theming | 会话恢复、浮动宿主、事件释放、可访问性 |
 | 文件保存/导入 | Runtime.Documents、Serialization、FileIO | 资源预算、原子替换、旧版本、失败恢复 |
+
+## 桌面变更定位补充（2026-09-27）
+
+| 修改目标 | 实现入口 | 回归入口 |
+| --- | --- | --- |
+| 主按钮/禁用提示 | 各页面 `accent`，`Controls/ControlAvailability.cs`，`Theming/BlueThemeTokens.cs` | `PrimaryActionPresentationTests`、`BlueThemeInteractionTests` |
+| 侧栏宽度与参数同行 | `Controls/UiDensity.cs`，`Services/AppSettings.cs`、`WorkspaceDockFactory.cs`、`PanelManager.cs`，`Panels/SystemPropertiesPanel.cs` | `CompactSidebarTests`、`SystemPropertiesPanelSectionThemeTests` |
+| 结果区重叠/表头截断/单位 | `Controls/ScrollableHeaderGrid.cs`、`DataGridHeaderLayout.cs`、`CompactLabel.cs`，库存/制图面板 | `PanelContentLayoutTests` |
+| 双页启动/MDI 点击空白 | `WorkspaceDockFactory.cs`、`PanelManager.cs`、`WorkspaceViewLocator.cs` | `WorkspaceDockModelTests`、`WorkspaceMdiInteractionTests` |
+| 材料蓝行/机械半径精度 | `ViewModels/EditorRows.cs`，`LensEditorPanel`，`NumericDisplayFormatter` | `LensMaterialRowThemeTests`、`SurfacePropertiesPanelTests` |
+
+表内 App 源文件均相对 `src/OptilandWorkbench.App`，测试位于 `tests/OptilandWorkbench.Tests`。此表是当前补充；下方完整文件索引保留其整理阶段，新增文件以 `rg --files` 为准。验证数字按 [当前状态](CURRENT_STATUS.md) 的范围分别解释。
 
 ## 12. 文件索引
 
@@ -731,3 +745,22 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tools/OptilandWorkbench.ZemaxLibraryImporter/OptilandWorkbench.ZemaxLibraryImporter.csproj](../tools/OptilandWorkbench.ZemaxLibraryImporter/OptilandWorkbench.ZemaxLibraryImporter.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
 | [global.json](../global.json) | SDK 10.0.300，latestPatch，禁止预览 SDK |
 | [packaging/macos/Info.plist](../packaging/macos/Info.plist) | macOS 应用包身份及 STAROPT 文档关联 |
+
+## 镀膜实验室代码入口（2026-09-27）
+
+独立解决方案为 [CoatingDesign.slnx](../labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx)，显式包含共享 Core/Application 以保持 Debug/Release 配置一致。正式 App 不引用实验室程序集；上游归档不参与产品运行。
+
+| 职责 | 入口 |
+| --- | --- |
+| 真实 n/k、S/P、稳定散射递推与对数透射 | [CoherentThinFilmSolver.cs](../src/OptilandWorkbench.Core/Coatings/CoherentThinFilmSolver.cs) |
+| 采样、峰值/FWHM 与类型化光谱 | [ThinFilmSpectrum.cs](../src/OptilandWorkbench.Core/Coatings/ThinFilmSpectrum.cs) |
+| 目标、膜层、完整材料快照、输入哈希 | [Experiment.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Experiment.cs) |
+| 材料搜索与共享模型接入 | [MaterialLibrary.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialLibrary.cs) |
+| 模板、目标残差、共享优化器、公差和密集验收 | [DesignService.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.cs) |
+| 取消与过期结果隔离 | [ExperimentSession.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentSession.cs) |
+| 原子保存、重开复算、精确 CSV 导出 | [ExperimentStore.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs) |
+| 中文界面与光谱 | [MainWindow.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MainWindow.cs)、[SpectrumPlot.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/SpectrumPlot.cs) |
+| 主程序独立进程启动 | [CoatingDesignLabLauncher.cs](../src/OptilandWorkbench.App/Services/CoatingDesignLabLauncher.cs) |
+| 数值/工作流/控件测试 | [测试目录](../labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests) |
+
+源归档、上游对照脚本和物理验收相互独立；完整依据见[实施文档](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。

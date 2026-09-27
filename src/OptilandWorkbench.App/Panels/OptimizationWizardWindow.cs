@@ -55,6 +55,7 @@ public sealed class OptimizationWizardWindow : Window
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
         _preview.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
 
+        _generate.Classes.Add("accent");
         _generate.Click += (_, _) => Generate();
         var cancel = new Button { Content = "取消", MinWidth = 90 };
         cancel.Click += (_, _) => Close(false);
@@ -159,7 +160,7 @@ public sealed class OptimizationWizardWindow : Window
         _reference.SelectionChanged += (_, _) => UpdatePreview();
         _sampling.SelectionChanged += (_, _) =>
         {
-            _arms.IsEnabled = _sampling.SelectedIndex == 0;
+            ControlAvailability.Set(_arms, _sampling.SelectedIndex == 0, "臂数仅用于高斯求积采样；矩形阵列不使用臂数。");
             UpdatePreview();
         };
         _rings.ValueChanged += (_, _) => UpdatePreview();
@@ -216,19 +217,21 @@ public sealed class OptimizationWizardWindow : Window
         var isContrast = _quality.SelectedIndex == 1;
         var isSpot = _quality.SelectedIndex == 2;
         var isAngular = _quality.SelectedIndex == 3;
-        _spatialFrequency.IsEnabled = isContrast;
-        _xWeight.IsEnabled = isContrast || isSpot || isAngular;
-        _yWeight.IsEnabled = isContrast || isSpot || isAngular;
-        _reference.IsEnabled = isWavefront || isSpot || isAngular;
+        ControlAvailability.Set(_spatialFrequency, isContrast, "空间频率仅用于对比度评价。");
+        ControlAvailability.Set(_xWeight, isContrast || isSpot || isAngular, "波前评价不使用 X/Y 方向权重。");
+        ControlAvailability.Set(_yWeight, isContrast || isSpot || isAngular, "波前评价不使用 X/Y 方向权重。");
+        ControlAvailability.Set(_reference, isWavefront || isSpot || isAngular, "对比度评价不使用此参考选项。");
         if (!isWavefront && _reference.SelectedIndex == 2)
         {
             _reference.SelectedIndex = 0;
         }
 
-        _ignoreLateralColor.IsEnabled = !isContrast && _allWavelengths.IsChecked == true;
+        ControlAvailability.Set(_ignoreLateralColor, !isContrast && _allWavelengths.IsChecked == true,
+            "忽略横向色差需选择全部波长，且评价类型不能为对比度。");
         var contrastSettingsAreValid = DoubleValue(_spatialFrequency, 0) > 0
             && (DoubleValue(_xWeight, 0) > 0 || DoubleValue(_yWeight, 0) > 0);
-        _generate.IsEnabled = !isContrast || contrastSettingsAreValid;
+        ControlAvailability.Set(_generate, !isContrast || contrastSettingsAreValid,
+            "生成条件：空间频率必须大于 0，且 X/Y 权重至少一项大于 0。");
         UpdatePreview();
     }
 
@@ -282,6 +285,10 @@ public sealed class OptimizationWizardWindow : Window
                         $"当前组合：{QualityName()} · RMS · {ReferenceName()}。\n" +
                         $"操作数：{operandNames}。\n" +
                         $"每个视场/波长使用{estimate}{samplesByField.Min()}–{samplesByField.Max()} 个光瞳采样点。";
+        if (!_generate.IsEnabled)
+        {
+            _preview.Text += $"\n{ToolTip.GetTip(_generate)}";
+        }
     }
 
     private void Reset()

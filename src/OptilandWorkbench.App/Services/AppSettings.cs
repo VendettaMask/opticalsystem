@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Theming;
 
@@ -11,7 +13,7 @@ public sealed class AppSettings
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public const string DefaultTheme = "Light";
-    public const int DefaultDecimalPlaces = 6;
+    public const int DefaultDecimalPlaces = NumericDisplayOptions.DefaultDecimalPlaces;
     public const int DefaultUpperScientificExponent = 6;
     public const int DefaultLowerScientificExponent = -4;
     public const double DefaultFontSize = 13;
@@ -34,7 +36,7 @@ public sealed class AppSettings
 
     public double WindowHeight { get; set; } = 820;
 
-    public double LeftPaneWidth { get; set; } = 286;
+    public double LeftPaneWidth { get; set; } = UiDensity.SystemOptionsPreferredWidth;
 
     public string WorkbenchMode { get; set; } = nameof(OpticalWorkbenchMode.Sequential);
 
@@ -224,6 +226,6 @@ public sealed class AppSettings
 }
 
 public sealed record WorkspaceLayoutState(
-    double LeftPaneWidth = 286,
+    double LeftPaneWidth = UiDensity.SystemOptionsPreferredWidth,
     int LeftTabIndex = 0,
     int RightTabIndex = 0);

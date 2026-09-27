@@ -22,6 +22,9 @@ namespace OptilandWorkbench.App;
 
 public sealed partial class MainWindow
 {
+    private Button? _undoButton;
+    private Button? _redoButton;
+
     private Control BuildShell()
     {
         var root = new DockPanel();
@@ -56,19 +59,10 @@ public sealed partial class MainWindow
             .ToArray();
         var tabs = new TabControl
         {
-            SelectedIndex = 1,
+            SelectedIndex = 0,
             ItemsSource = new object[]
             {
-                RibbonTab("文件", BuildRibbonPage(
-                    RibbonGroup("文件",
-                        RibbonButton("new", "file-plus", "新建"),
-                        RibbonButton("open", "folder-open", "打开"),
-                        RibbonButton("import-zemax", "file-input", "Zemax 导入"),
-                        RibbonButton("save-as", "save", "保存"),
-                        RibbonButton("export-cad", "box", "导出 CAD")),
-                    RibbonGroup("示例",
-                        RibbonButton("new-demo", "aperture", "Cooke 示例"),
-                        RibbonButton("new-tessar", "disc-2", "Tessar 示例")))),
+                RibbonTab("文件", BuildFileRibbonPage(includeSequentialCommands: true)),
                 RibbonTab("设置", BuildRibbonPage(
                     RibbonGroup("工作模式",
                         RibbonButton("enter-non-sequential-mode", "route", "非序列模式")),
@@ -165,6 +159,8 @@ public sealed partial class MainWindow
             }
         };
         tabs.Background = Brushes.Transparent;
+        tabs.Padding = new Thickness(0);
+        tabs.Classes.Add("ribbon-tabs");
         var ribbonLayer = new Grid();
         ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon });
         ribbonLayer.Children.Add(tabs);
@@ -174,7 +170,7 @@ public sealed partial class MainWindow
         };
         ribbon.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonMinHeight));
         ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
-        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.HeaderBackground));
         return ribbon;
     }
 
@@ -186,14 +182,10 @@ public sealed partial class MainWindow
             .ToArray();
         var tabs = new TabControl
         {
-            SelectedIndex = 1,
+            SelectedIndex = 0,
             ItemsSource = new object[]
             {
-                RibbonTab("文件", BuildRibbonPage(
-                    RibbonGroup("文件",
-                        RibbonButton("new", "file-plus", "新建"),
-                        RibbonButton("open", "folder-open", "打开"),
-                        RibbonButton("save-as", "save", "保存")))),
+                RibbonTab("文件", BuildFileRibbonPage(includeSequentialCommands: false)),
                 RibbonTab("非序列", BuildRibbonPage(
                     RibbonGroup("工作模式",
                         RibbonButton("enter-sequential-mode", "rows-3", "顺序模式")),
@@ -223,6 +215,8 @@ public sealed partial class MainWindow
             }
         };
         tabs.Background = Brushes.Transparent;
+        tabs.Padding = new Thickness(0);
+        tabs.Classes.Add("ribbon-tabs");
         var ribbonLayer = new Grid();
         ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon });
         ribbonLayer.Children.Add(tabs);
@@ -232,13 +226,45 @@ public sealed partial class MainWindow
         };
         ribbon.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonMinHeight));
         ThemeChrome.Apply(ribbon, ThemeChromeRole.Ribbon);
-        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension("OptilandSurfaceBrush"));
+        ribbon.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.HeaderBackground));
         return ribbon;
+    }
+
+    private Control BuildFileRibbonPage(bool includeSequentialCommands)
+    {
+        var groups = new List<Control>
+        {
+            RibbonGroup("文件",
+                RibbonButton("new", "file-plus", "新建"),
+                RibbonButton("open", "folder-open", "打开"),
+                RibbonButton("save-as", "save", "保存"))
+        };
+        if (includeSequentialCommands)
+        {
+            groups.Add(RibbonGroup("交换与示例",
+                RibbonMenuButton("import", "download", "导入",
+                    ("import-zemax", "file-input", "Zemax ZMX")),
+                RibbonMenuButton("export", "upload", "导出",
+                    ("export-cad", "box", "CAD（STEP）")),
+                RibbonMenuButton("examples", "aperture", "示例",
+                    ("new-demo", "aperture", "Cooke 示例"),
+                    ("new-tessar", "disc-2", "Tessar 示例"))));
+        }
+
+        _undoButton = RibbonButton("undo", "undo", "撤销");
+        _redoButton = RibbonButton("redo", "redo", "重做");
+        var snapshot = _application.Documents.GetSnapshot();
+        _undoButton.IsEnabled = snapshot.CanUndo;
+        _redoButton.IsEnabled = snapshot.CanRedo;
+        groups.Add(RibbonGroup("编辑", false, _undoButton, _redoButton));
+        return BuildRibbonPage(groups.ToArray());
     }
 
     private TabItem BuildLaboratoryRibbonTab() => RibbonTab("实验室", BuildRibbonPage(
         RibbonGroup("结构生成",
-            RibbonButton("launch-initial-structure-lab", "wand-sparkles", "AI 初始结构"))));
+            RibbonButton("launch-initial-structure-lab", "wand-sparkles", "AI 初始结构")),
+        RibbonGroup("镀膜设计",
+            RibbonButton("launch-coating-design-lab", "layers", "光学镀膜设计"))));
 
     private static TabItem RibbonTab(string title, Control content)
     {
@@ -246,10 +272,12 @@ public sealed partial class MainWindow
         {
             Header = title,
             Content = content,
-            FontSize = DisplayTypography.Body
+            FontSize = DisplayTypography.Body,
+            MinHeight = 30
         };
         tab.Bind(TabItem.PaddingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonTabPadding));
         tab.Bind(TabItem.HeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonTabHeight));
+        AutomationProperties.SetName(tab, title);
         tab.Classes.Add("ribbon-tab");
         return tab;
     }
@@ -267,12 +295,14 @@ public sealed partial class MainWindow
             panel.Children.Add(group);
         }
 
-        return new ScrollViewer
+        var page = new ScrollViewer
         {
             HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
             Content = panel
         };
+        page.BindThemeResource(ScrollViewer.BackgroundProperty, ThemeResourceBindings.Surface);
+        return page;
     }
 
     private static Control RibbonGroup(string title, params Control[] commands) =>
@@ -291,35 +321,14 @@ public sealed partial class MainWindow
             commandPanel.Children.Add(command);
         }
 
-        var grid = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto") };
-        var caption = new TextBlock
-        {
-            Text = title,
-            FontSize = DisplayTypography.RibbonText,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        caption.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupCaptionForeground));
-        var captionBar = new Border
-        {
-            Child = caption
-        };
-        captionBar.Bind(Border.MinHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionHeight));
-        captionBar.Bind(Border.MaxHeightProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionMaxHeight));
-        captionBar.Bind(Border.PaddingProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupCaptionPadding));
-        captionBar.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupCaptionBackground));
-        Grid.SetRow(commandPanel, 0);
-        Grid.SetRow(captionBar, 1);
-        grid.Children.Add(commandPanel);
-        grid.Children.Add(captionBar);
-
         var group = new Border
         {
             BorderThickness = showDivider
                 ? new Thickness(0, 0, 1, 0)
                 : new Thickness(0),
-            Child = grid
+            Child = commandPanel
         };
+        AutomationProperties.SetName(group, title);
         group.Bind(Border.MarginProperty, new DynamicResourceExtension(ThemeLayoutResources.RibbonGroupMargin));
         group.Bind(Border.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupBackground));
         group.Bind(Border.BorderBrushProperty, new DynamicResourceExtension(ThemeResourceBindings.RibbonGroupBorder));
@@ -394,16 +403,17 @@ public sealed partial class MainWindow
         return button;
     }
 
-    private DropDownButton RibbonMaterialAnalysisMenuButton()
+    private DropDownButton RibbonMaterialAnalysisMenuButton() => RibbonMenuButton(
+        "material-analysis", "chart-scatter", "材料分析",
+        ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
+        ("show-material-glass-map", "gem", "玻璃图"),
+        ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
+        ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
+        ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长"));
+
+    private DropDownButton RibbonMenuButton(string menuId, string menuIcon, string menuLabel,
+        params (string ActionId, string IconName, string Label)[] commands)
     {
-        var commands = new[]
-        {
-            ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
-            ("show-material-glass-map", "gem", "玻璃图"),
-            ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
-            ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
-            ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长")
-        };
         var flyout = new MenuFlyout();
         foreach (var (actionId, iconName, label) in commands)
         {
@@ -423,7 +433,7 @@ public sealed partial class MainWindow
             flyout.Items.Add(item);
         }
 
-        var content = RibbonDropDownCommandContent("chart-scatter", "材料分析");
+        var content = RibbonDropDownCommandContent(menuIcon, menuLabel);
         var button = new DropDownButton
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -433,12 +443,12 @@ public sealed partial class MainWindow
         };
         BindRibbonCommandLayout(button);
         BindRibbonCommandChrome(button);
-        AutomationProperties.SetName(button, "材料分析");
-        AutomationProperties.SetAutomationId(button, "ribbon-menu-material-analysis");
+        AutomationProperties.SetName(button, menuLabel);
+        AutomationProperties.SetAutomationId(button, $"ribbon-menu-{menuId}");
         button.Classes.Add("ribbon-command");
         button.Classes.Add("ribbon-dropdown");
         AttachRibbonCommandHover(button, content);
-        ToolTip.SetTip(button, "选择材料分析类型");
+        ToolTip.SetTip(button, menuLabel);
         return button;
     }
 
@@ -446,30 +456,26 @@ public sealed partial class MainWindow
     {
         var grid = new Grid
         {
-            RowDefinitions = new RowDefinitions("29,Auto"),
+            ColumnDefinitions = new ColumnDefinitions("Auto,Auto"),
+            ColumnSpacing = 7,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
         var icon = new LocalIcon
         {
             IconName = iconName,
-            HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center
         };
         BindRibbonCommandIconLayout(icon);
-        icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var text = new TextBlock
         {
             Text = label,
-            FontSize = DisplayTypography.RibbonText,
-            TextWrapping = TextWrapping.Wrap,
-            TextAlignment = TextAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Top
+            FontSize = DisplayTypography.BodySmall,
+            TextWrapping = TextWrapping.NoWrap,
+            VerticalAlignment = VerticalAlignment.Center
         };
         BindRibbonCommandContentLayout(grid, text);
-        Grid.SetRow(icon, 0);
-        Grid.SetRow(text, 1);
+        Grid.SetColumn(text, 1);
         grid.Children.Add(icon);
         grid.Children.Add(text);
         return grid;
@@ -477,30 +483,8 @@ public sealed partial class MainWindow
 
     private static Control RibbonDropDownCommandContent(string iconName, string label)
     {
-        var grid = new Grid
-        {
-            RowDefinitions = new RowDefinitions("27,Auto,7"),
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        var icon = new LocalIcon
-        {
-            IconName = iconName,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
-        };
-        BindRibbonCommandIconLayout(icon);
-        icon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
-        var text = new TextBlock
-        {
-            Text = label,
-            FontSize = DisplayTypography.RibbonText,
-            TextWrapping = TextWrapping.Wrap,
-            TextAlignment = TextAlignment.Center,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Top
-        };
-        BindRibbonCommandContentLayout(grid, text);
+        var grid = (Grid)RibbonCommandContent(iconName, label);
+        grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
         var arrow = new Polygon
         {
             Width = 6,
@@ -514,15 +498,11 @@ public sealed partial class MainWindow
             },
             Stretch = Stretch.Fill,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Top
+            VerticalAlignment = VerticalAlignment.Center
         };
         arrow.Bind(Shape.FillProperty, new DynamicResourceExtension("OptilandMutedTextBrush"));
 
-        Grid.SetRow(icon, 0);
-        Grid.SetRow(text, 1);
-        Grid.SetRow(arrow, 2);
-        grid.Children.Add(icon);
-        grid.Children.Add(text);
+        Grid.SetColumn(arrow, 2);
         grid.Children.Add(arrow);
         return grid;
     }
@@ -567,32 +547,9 @@ public sealed partial class MainWindow
             return;
         }
 
-        button.PointerEntered += (_, _) =>
-        {
-            var accent = ThemeBrush(button, "AccentFillColorDefaultBrush");
-            button.Background = ThemeBrush(button, ThemeResourceBindings.RibbonHover);
-            button.BorderBrush = ThemeBrush(button, ThemeResourceBindings.RibbonHoverBorder);
-            icon.StrokeWidth = 2.05;
-            text.Foreground = accent;
-            if (arrow is not null)
-            {
-                arrow.Fill = accent;
-                arrow.Opacity = 1;
-            }
-        };
-        button.PointerExited += (_, _) =>
-        {
-            BindRibbonCommandChrome(button);
-            icon.Bind(
-                LocalIcon.StrokeWidthProperty,
-                new DynamicResourceExtension(ThemeLayoutResources.RibbonCommandStrokeWidth));
-            text.ClearValue(TextBlock.ForegroundProperty);
-            if (arrow is not null)
-            {
-                arrow.Fill = ThemeBrush(button, "OptilandMutedTextBrush");
-                arrow.Opacity = 0.72;
-            }
-        };
+        // Template state selectors own hover/pressed/open; never replace resource bindings in pointer events.
+        text.Classes.Add("ribbon-command-label");
+        icon.Classes.Add("ribbon-command-icon");
     }
 
     private static void BindRibbonCommandChrome(Button button)
@@ -614,19 +571,8 @@ public sealed partial class MainWindow
             return;
         }
 
-        item.PointerEntered += (_, _) =>
-        {
-            var accent = ThemeBrush(item, "AccentFillColorDefaultBrush");
-            icon.Stroke = accent;
-            icon.StrokeWidth = 2.05;
-            text.Foreground = accent;
-        };
-        item.PointerExited += (_, _) =>
-        {
-            icon.Stroke = ThemeBrush(item, ThemeResourceBindings.MutedText);
-            icon.StrokeWidth = 2;
-            text.ClearValue(TextBlock.ForegroundProperty);
-        };
+        text.Classes.Add("ribbon-menu-label");
+        icon.Classes.Add("ribbon-menu-icon");
     }
 
     private Control BuildStatusBar()

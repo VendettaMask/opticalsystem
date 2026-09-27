@@ -9,9 +9,9 @@ namespace OptilandWorkbench.App.Theming;
 /// <summary>Filled action buttons in the ordinary light theme only.</summary>
 internal sealed class StandardActionButtonStyles : Styles
 {
-    internal static readonly Color Normal = Color.Parse("#D9ECFF");
-    internal static readonly Color Hover = Color.Parse("#B9D9FF");
-    internal static readonly Color Pressed = Color.Parse("#91C3FF");
+    internal static readonly Color Normal = BlueThemeTokens.Surface;
+    internal static readonly Color Hover = BlueThemeTokens.HoverBackground;
+    internal static readonly Color Pressed = BlueThemeTokens.PressedBackground;
 
     public StandardActionButtonStyles()
     {

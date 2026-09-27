@@ -1474,7 +1474,7 @@ public sealed class OptilandParityTests
         var result = new MomentumGradientDescentOptimizer().Optimize(problem, maxIterations: 3);
 
         Assert.Equal("Momentum Gradient Descent", result.Algorithm);
-        Assert.Equal("momentum-gradient-descent/1", result.AlgorithmVersion);
+        Assert.Equal("momentum-gradient-descent/2", result.AlgorithmVersion);
         Assert.False(string.IsNullOrWhiteSpace(result.StopReason));
         Assert.True(result.FunctionEvaluations > 0);
         Assert.NotNull(result.GradientNorm);

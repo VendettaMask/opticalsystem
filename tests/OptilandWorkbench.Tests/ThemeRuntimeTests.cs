@@ -245,6 +245,14 @@ public sealed class ThemeRuntimeTests
                 Assert.Equal(ThemeVariant.Dark, content.ActualThemeVariant);
                 Assert.Equal(StandardThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
                 Assert.Equal(lightBounds, content.Bounds.Size);
+
+                // Theme-only Fluent overrides must not leak into the next theme.
+                Assert.False(application.Resources.ContainsKey("TextControlBackground"));
+                ThemeApplicationService.Apply(application, "Light");
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                Assert.Equal(Colors.White,
+                    Assert.IsAssignableFrom<ISolidColorBrush>(application.Resources["TextControlBackground"]).Color);
+                Assert.Equal(lightBounds, content.Bounds.Size);
             }
             finally
             {

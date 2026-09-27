@@ -117,7 +117,7 @@ System Data Report 的出口瞳直径。全部逐项指标见下方持久化 JSO
 - MS-L7 运行期间 70 次 Workbench 执行的计算程序集指纹一致。随后只清除了 `DiffractionEngine.cs` 末尾空行并重新构建、完整测试；Core 的 10753 个方法体、栈/局部签名元数据和异常区域完全相同，IL 审计写入验证 JSON。
 - 未执行 GUI 截图、安装包安装/卸载、独立实验室、旧外部报告工具或在线漏洞审计。
 
-[MS-L7 全分析报告](../artifacts/zemax-comparisons/ms-l7-huygens-sampling-repair-2026-09-06-final/COMPARISON_REPORT.md)、
-[主基准三项独立复验](../artifacts/zemax-comparisons/primary-huygens-sampling-repair-2026-09-06-final/COMPARISON_REPORT.md)、
+MS-L7 全分析报告（历史产物路径：`../artifacts/zemax-comparisons/ms-l7-huygens-sampling-repair-2026-09-06-final/COMPARISON_REPORT.md`；当前检出未包含）、
+主基准三项独立复验（历史产物路径：`../artifacts/zemax-comparisons/primary-huygens-sampling-repair-2026-09-06-final/COMPARISON_REPORT.md`；当前检出未包含）、
 [持久化验证与全部逐项数值](validation/ZEMAX_HUYGENS_REPAIR_2026-09-06.json)。
 构建、最终测试、格式、失败历史和 IL 审计保留于 `artifacts/numerical-followup-2026-09-06`。

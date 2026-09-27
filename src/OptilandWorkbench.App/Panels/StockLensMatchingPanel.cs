@@ -34,7 +34,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         CanUserResizeColumns = true,
         GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
         SelectionMode = DataGridSelectionMode.Single,
-        MinHeight = 360
+        ClipToBounds = true
     };
     private readonly Button _productPage = CommandButton("external-link", "厂商页面");
     private CancellationTokenSource? _matchCancellation;
@@ -55,9 +55,9 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         _surfaceScope.SelectedIndex = 0;
         _maximumResults.ItemsSource = new[] { "5", "10", "20", "50" };
         _maximumResults.SelectedIndex = 0;
-        ToolTip.SetTip(_matchShape, "当前目标是完整光学系统，没有唯一的单镜片形状；因此不伪造形状约束。");
+        ControlAvailability.Explain(_matchShape, "当前目标是完整光学系统，没有唯一的单镜片形状；因此不伪造形状约束。");
         ConfigureGrid();
-        _productPage.IsEnabled = false;
+        ControlAvailability.Set(_productPage, false, "请先完成匹配并选择带有有效厂商页面地址的候选。");
         _productPage.Click += async (_, _) => await OpenSelectedProductPageAsync();
         _results.SelectionChanged += (_, _) => UpdateSelectionActions();
         _events.Changed += OnWorkspaceChanged;
@@ -81,9 +81,6 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
 
     private Control BuildPage()
     {
-        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
-        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
-
         var settingsCard = new Border
         {
             Margin = new Thickness(16, 14, 16, 10),
@@ -91,29 +88,32 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             Child = BuildSettings()
         };
         SettingsPanelChrome.ApplySurfaceCardStyle(settingsCard);
-        root.Children.Add(settingsCard);
 
         var resultArea = new Grid
         {
             RowDefinitions = new RowDefinitions("Auto,*"),
-            Margin = new Thickness(16, 0, 16, 14)
+            Margin = new Thickness(16, 0, 16, 14),
+            ClipToBounds = true
         };
         var resultHeader = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto"),
-            Margin = new Thickness(2, 0, 2, 8)
+            Margin = new Thickness(2, 0, 2, 8),
+            VerticalAlignment = VerticalAlignment.Top
         };
+        _status.Margin = new Thickness(0, 0, 12, 0);
+        _productPage.VerticalAlignment = VerticalAlignment.Top;
         resultHeader.Children.Add(_status);
         Grid.SetColumn(_productPage, 1);
         resultHeader.Children.Add(_productPage);
         resultArea.Children.Add(resultHeader);
 
-        var frame = new Border { Child = _results };
+        var frame = new Border { Child = _results, ClipToBounds = true };
         SettingsPanelChrome.ApplyControlFrameStyle(frame);
         Grid.SetRow(frame, 1);
         resultArea.Children.Add(frame);
-        Grid.SetRow(resultArea, 1);
-        root.Children.Add(resultArea);
+        var root = new ScrollableHeaderGrid(settingsCard, resultArea);
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         return root;
     }
 
@@ -162,6 +162,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
 
         var run = CommandButton("search", "开始匹配");
         run.MinWidth = 120;
+        run.Classes.Add("accent");
         run.Click += (_, _) => BeginMatch();
         var actions = new WrapPanel
         {
@@ -195,10 +196,10 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         _results.Columns.Add(Column("排名", nameof(MatchRow.Rank), 65));
         _results.Columns.Add(Column("厂商", nameof(MatchRow.Manufacturer), 145));
         _results.Columns.Add(Column("料号", nameof(MatchRow.PartNumber), 190));
-        _results.Columns.Add(Column("EFL (mm)", nameof(MatchRow.EffectiveFocalLength), 105));
-        _results.Columns.Add(Column("EFL 偏差", nameof(MatchRow.EffectiveFocalLengthDeviation), 105));
-        _results.Columns.Add(Column("EPD (mm)", nameof(MatchRow.EntrancePupilDiameter), 105));
-        _results.Columns.Add(Column("EPD 偏差", nameof(MatchRow.EntrancePupilDiameterDeviation), 105));
+        _results.Columns.Add(Column("EFL (mm)", nameof(MatchRow.EffectiveFocalLength), 105, "EFL", "有效焦距 (mm)", "mm"));
+        _results.Columns.Add(Column("EFL 偏差", nameof(MatchRow.EffectiveFocalLengthDeviation), 105, "ΔEFL", "有效焦距相对偏差 (%)", "%"));
+        _results.Columns.Add(Column("EPD (mm)", nameof(MatchRow.EntrancePupilDiameter), 105, "EPD", "入瞳直径 (mm)", "mm"));
+        _results.Columns.Add(Column("EPD 偏差", nameof(MatchRow.EntrancePupilDiameterDeviation), 105, "ΔEPD", "入瞳直径相对偏差 (%)", "%"));
         _results.Columns.Add(Column("形状/曲面", nameof(MatchRow.Classification), 120));
         _results.Columns.Add(Column("综合分数", nameof(MatchRow.Score), 105));
     }
@@ -223,7 +224,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         {
             MatchTask = Task.CompletedTask;
             _results.ItemsSource = Array.Empty<MatchRow>();
-            _productPage.IsEnabled = false;
+            ControlAvailability.Set(_productPage, false, "请先完成匹配并选择带有有效厂商页面地址的候选。");
             _status.Text = "当前系统无法得到有效的一阶 EFL 或入瞳直径，不能进行库存镜头匹配。";
             return;
         }
@@ -239,7 +240,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             TargetShapeCode: "?",
             MatchPowerDirection: _matchDirection.IsChecked == true);
         _results.ItemsSource = Array.Empty<MatchRow>();
-        _productPage.IsEnabled = false;
+        ControlAvailability.Set(_productPage, false, "请先完成匹配并选择带有有效厂商页面地址的候选。");
         _status.Text = "正在后台扫描库存镜头目录…";
         var cancellationToken = _matchCancellation.Token;
         var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -282,7 +283,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
                 try
                 {
                     _results.ItemsSource = Array.Empty<MatchRow>();
-                    _productPage.IsEnabled = false;
+                    ControlAvailability.Set(_productPage, false, "请先完成匹配并选择带有有效厂商页面地址的候选。");
                     _status.Text = $"库存镜头匹配失败：{exception.Message}";
                 }
                 finally
@@ -334,7 +335,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             _matchCancellation?.Cancel();
             Interlocked.Increment(ref _matchGeneration);
             _results.ItemsSource = Array.Empty<MatchRow>();
-            _productPage.IsEnabled = false;
+            ControlAvailability.Set(_productPage, false, "请先完成匹配并选择带有有效厂商页面地址的候选。");
             RefreshTargetSummary();
             _status.Text = "当前系统已改变，请重新执行匹配。";
         });
@@ -350,8 +351,9 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
     private void UpdateSelectionActions()
     {
         var entry = (_results.SelectedItem as MatchRow)?.Match.Entry;
-        _productPage.IsEnabled = entry is not null
-            && Uri.IsWellFormedUriString(entry.ProductUrl, UriKind.Absolute);
+        ControlAvailability.Set(_productPage, entry is not null
+            && Uri.IsWellFormedUriString(entry.ProductUrl, UriKind.Absolute),
+            entry is null ? "请先完成匹配并选择候选。" : "当前候选未提供有效的厂商页面地址。");
     }
 
     private async Task OpenSelectedProductPageAsync()
@@ -380,13 +382,16 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
     private int ParseMaximumResults() =>
         int.TryParse(_maximumResults.SelectedItem as string, out var value) ? value : 5;
 
-    private static Control Labeled(string label, Control control) => new StackPanel
+    private static Control Labeled(string label, Control control)
     {
-        Orientation = Orientation.Horizontal,
-        Spacing = 12,
-        VerticalAlignment = VerticalAlignment.Center,
-        Children = { Text($"{label}：", 14, FontWeight.SemiBold), control }
-    };
+        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*") };
+        var caption = Text($"{label}：", 14, FontWeight.SemiBold);
+        caption.Margin = new Thickness(0, 0, 12, 0);
+        grid.Children.Add(caption);
+        Grid.SetColumn(control, 1);
+        grid.Children.Add(control);
+        return grid;
+    }
 
     private static Control FieldBlock(string label, Control control) => new StackPanel
     {
@@ -437,13 +442,20 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             VerticalAlignment = VerticalAlignment.Center
         };
 
-    private static DataGridTextColumn Column(string header, string property, double width) => new()
+    private static DataGridTextColumn Column(string header, string property, double width,
+        string? text = null, string? fullText = null, string? unit = null)
     {
-        Header = header,
-        Binding = new Binding(property),
-        Width = new DataGridLength(width, DataGridLengthUnitType.Pixel),
-        IsReadOnly = true
-    };
+        var column = new DataGridTextColumn
+        {
+            Header = header,
+            Binding = new Binding(property),
+            Width = new DataGridLength(width, DataGridLengthUnitType.Pixel),
+            MinWidth = unit is null ? 48 : 80,
+            IsReadOnly = true
+        };
+        CompactLabel.SetColumnLabel(column, text ?? header, fullText ?? header, unit);
+        return column;
+    }
 
     private static string Number(double value) =>
         double.IsFinite(value)

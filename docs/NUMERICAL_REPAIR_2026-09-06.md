@@ -45,8 +45,8 @@ MS-L7 未瞄准时实际有 1141 条有效光线、120 条失败/渐晕；修复
 
 最终新报告：
 
-- [MS-L7 全分析报告](../artifacts/zemax-comparisons/ms-l7-final-2026-09-06/COMPARISON_REPORT.md)：177 个矩阵项，Workbench 有效捕获 69，Zemax 捕获 10；10 Pass、0 Close、0 Difference、59 Incomparable、108 Skipped、0 Error，退出码 0。原先 8 项异常全部消除。另有 1 项不可用输出保留原始结构。9 项原生 JPEG；First Order 文本窗口截图单独记录不可用。
-- [123456 十适配器报告](../artifacts/zemax-comparisons/123456-fixed-2026-09-06/COMPARISON_REPORT.md)：10/10 Pass、0 Difference、0 Error，退出码 0。此轮明确只选择十项，其他 167 项跳过，不称作该镜头的全分析运行。原生 JPEG 为 9 项。
+- MS-L7 全分析报告（历史产物路径：`../artifacts/zemax-comparisons/ms-l7-final-2026-09-06/COMPARISON_REPORT.md`；当前检出未包含）：177 个矩阵项，Workbench 有效捕获 69，Zemax 捕获 10；10 Pass、0 Close、0 Difference、59 Incomparable、108 Skipped、0 Error，退出码 0。原先 8 项异常全部消除。另有 1 项不可用输出保留原始结构。9 项原生 JPEG；First Order 文本窗口截图单独记录不可用。
+- 123456 十适配器报告（历史产物路径：`../artifacts/zemax-comparisons/123456-fixed-2026-09-06/COMPARISON_REPORT.md`；当前检出未包含）：10/10 Pass、0 Difference、0 Error，退出码 0。此轮明确只选择十项，其他 167 项跳过，不称作该镜头的全分析运行。原生 JPEG 为 9 项。
 
 | 分析 | MS-L7 最大 NRMSE | 123456 最大 NRMSE |
 | --- | ---: | ---: |

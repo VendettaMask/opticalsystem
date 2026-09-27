@@ -268,7 +268,7 @@ public sealed class WorkspaceDockModelTests
     }
 
     [Fact]
-    public void DefaultLayoutContainsToolDockAndOnlyLensDocument()
+    public void DefaultLayoutContainsToolDockAndOnlyLensAndTwoDimensionalDocuments()
     {
         using var application = WorkbenchApplication.Create("cooke");
         var factory = new WorkspaceDockFactory(application, new AppSettings());
@@ -277,8 +277,12 @@ public sealed class WorkspaceDockModelTests
 
         var documents = factory.OpenDocuments();
 
-        var document = Assert.Single(documents);
+        Assert.Equal(new[] { WorkspaceDockFactory.LensDocumentId, WorkspaceDockFactory.Viewer2DDocumentId },
+            documents.Select(document => document.Id));
+        var document = documents[0];
         Assert.Equal(WorkspaceDockFactory.LensDocumentId, document.Id);
+        Assert.Same(document, factory.PrimaryDocumentDock!.ActiveDockable);
+        Assert.IsType<ViewerPanel>(documents[1].Context);
         var viewLocator = new WorkspaceViewLocator();
         var firstTemplateRoot = viewLocator.Build(document);
         var secondTemplateRoot = viewLocator.Build(document);
@@ -288,6 +292,73 @@ public sealed class WorkspaceDockModelTests
             WorkspaceDockFactory.EnumerateDockables(layout),
             dockable => dockable.Id == WorkspaceDockFactory.ToolDockId && dockable is IToolDock);
         factory.DisposeContent();
+    }
+
+    [Fact]
+    public async Task SequentialStartupAndFileOpeningUseTwoPagesButExplicitLayoutsStillRestore()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(OptilandWorkbench.App.App));
+        await session.Dispatch(async () =>
+        {
+            var directory = Path.Combine(Path.GetTempPath(), $"optical-startup-{Guid.NewGuid():N}");
+            Directory.CreateDirectory(directory);
+            try
+            {
+                using var application = WorkbenchApplication.Create("cooke");
+                var store = new WorkspaceSessionStore(directory);
+                using (var previous = new PanelManager(application, new AppSettings(), store))
+                {
+                    previous.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+                    previous.ShowAnalysis("Spot Diagram");
+                    await previous.SaveDefaultLayoutAsync();
+                    await previous.SaveLayoutSlotAsync(1);
+                }
+                var savedDefault = await File.ReadAllTextAsync(store.DefaultLayoutPath);
+                var path = Path.Combine(directory, "lens.staropt");
+                await application.Documents.SaveAsync(path);
+                // A per-file session containing extra pages must also stay dormant.
+                await store.SaveAsync(path, (await store.LoadAsync(null))!);
+                using var manager = new PanelManager(application, new AppSettings(), store);
+                await manager.InitializeAsync();
+                AssertInitialDocuments(manager);
+                Assert.Equal(savedDefault, await File.ReadAllTextAsync(store.DefaultLayoutPath));
+                await manager.RestoreCurrentSessionAsync();
+                AssertInitialDocuments(manager);
+
+                await manager.LoadLayoutSlotAsync(1);
+                Assert.Equal(4, manager.Factory.OpenDocuments().Count);
+                Assert.Contains(manager.Factory.OpenDocuments(), document => document.Id == "document:viewer-3d");
+                Assert.Contains(manager.Factory.Descriptors, descriptor => descriptor.TypeId == WorkspaceDocumentTypes.Analysis);
+                manager.ResetLayout();
+                AssertInitialDocuments(manager);
+                await manager.RestoreDefaultLayoutAsync();
+                Assert.Equal(4, manager.Factory.OpenDocuments().Count);
+
+                application.Documents.NewBlank();
+                Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+                AssertInitialDocuments(manager);
+                manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+                await application.Documents.OpenAsync(path);
+                Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+                AssertInitialDocuments(manager);
+
+                manager.ShowViewer(OpticSceneViewMode.TwoDimensional);
+                Assert.Equal(2, manager.Factory.OpenDocuments().Count);
+                Assert.Equal(WorkspaceDockFactory.Viewer2DDocumentId, manager.Factory.PrimaryDocumentDock!.ActiveDockable!.Id);
+                return true;
+            }
+            finally { Directory.Delete(directory, recursive: true); }
+        }, CancellationToken.None);
+    }
+
+    private static void AssertInitialDocuments(PanelManager manager)
+    {
+        Assert.Equal(new[] { WorkspaceDockFactory.LensDocumentId, WorkspaceDockFactory.Viewer2DDocumentId },
+            manager.Factory.OpenDocuments().Select(document => document.Id));
+        Assert.Equal(WorkspaceDockFactory.LensDocumentId, manager.Factory.PrimaryDocumentDock!.ActiveDockable!.Id);
+        Assert.Equal(2, manager.Factory.Descriptors.Count);
+        Assert.Single(WorkspaceDockFactory.EnumerateDockables(manager.Layout),
+            dockable => dockable.Id == WorkspaceDockFactory.SystemToolId);
     }
 
     [Fact]
@@ -316,7 +387,7 @@ public sealed class WorkspaceDockModelTests
 
         Assert.Same(first, reopened);
         Assert.NotSame(first, clone);
-        Assert.Equal(3, factory.OpenDocuments().Count);
+        Assert.Equal(4, factory.OpenDocuments().Count);
         factory.DisposeContent();
     }
 
@@ -639,7 +710,7 @@ public sealed class WorkspaceDockModelTests
         var toolDock = Assert.IsType<ToolDock>(
             WorkspaceDockFactory.EnumerateDockables(layout)
                 .Single(dockable => dockable.Id == WorkspaceDockFactory.ToolDockId));
-        var lens = factory.OpenDocuments().Single();
+        var lens = factory.OpenDocuments().Single(document => document.Id == WorkspaceDockFactory.LensDocumentId);
         var documentDock = Assert.IsAssignableFrom<IDock>(lens.Owner);
         toolDock.VisibleDockables!.Add(toolDock);
         documentDock.VisibleDockables!.Add(lens);

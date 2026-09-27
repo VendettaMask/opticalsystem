@@ -46,8 +46,8 @@ MS-L7 的 72 项：40 Pass、7 Close、5 Difference、17 Incomparable、3 Skippe
 另枚举 105 项 Zemax-only，未执行，不能混入 72 项通过率。
 原先 54 项待适配现为 **30 Pass、7 Close、5 Difference、4 API 限制、3 物理定义不一致、5 适配未完成**。
 
-完整当前运行：[MS-L7 报告](../artifacts/zemax-comparisons/ms-l7-analysis-expansion-2026-09-06-x/COMPARISON_REPORT.md)。
-原有十项契约在主基准 `123456.ZMX` 上重新实时执行，**10/10 Pass**；[主基准复验](../artifacts/zemax-comparisons/123456-analysis-expansion-2026-09-06-y/COMPARISON_REPORT.md)。
+完整当前运行：MS-L7 报告（历史产物路径：`../artifacts/zemax-comparisons/ms-l7-analysis-expansion-2026-09-06-x/COMPARISON_REPORT.md`；当前检出未包含）。
+原有十项契约在主基准 `123456.ZMX` 上重新实时执行，**10/10 Pass**；主基准复验（历史产物路径：`../artifacts/zemax-comparisons/123456-analysis-expansion-2026-09-06-y/COMPARISON_REPORT.md`；当前检出未包含）。
 这不代表主基准全部 72 项都已重新实时采集。主基准目录与两支原镜头未修改。
 两个运行各自保留其程序集哈希，MS-L7 全部 70 次 Workbench 执行的计算程序集指纹一致。
 最终代码还通过 42 项扩展捕获的离线重算；后续物理轴拒绝校验不改变此 ObjectHeight 镜头数值。

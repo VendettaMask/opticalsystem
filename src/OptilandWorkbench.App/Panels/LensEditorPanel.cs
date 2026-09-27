@@ -61,7 +61,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         var componentSection = BuildSurfacePropertiesSection();
         var root = new DockPanel();
-        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Surface);
         DockPanel.SetDock(componentSection, Avalonia.Controls.Dock.Top);
         root.Children.Add(componentSection);
         root.Children.Add(_grid);
@@ -126,7 +126,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                 ApplyMaterialRowClass(eventArgs.Row, row);
             }
         };
-        grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true));
+        grid.Columns.Add(Column("#", nameof(SurfaceEditorRow.Number), 44, true, HorizontalAlignment.Center));
         grid.Columns.Add(SurfaceTypeColumn());
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(RadiusColumn());
@@ -135,7 +135,10 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
         grid.Columns.Add(NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
-        grid.Columns.Add(NumericColumn("机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameter), 132, true));
+        var mechanicalSemiDiameterColumn = NumericColumn(
+            "机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameterDisplay), 132, true);
+        mechanicalSemiDiameterColumn.SortMemberPath = nameof(SurfaceEditorRow.MechanicalSemiDiameter);
+        grid.Columns.Add(mechanicalSemiDiameterColumn);
         grid.Columns.Add(NumericColumn("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
         grid.Columns.Add(NumericColumn("TCE x 1E-6", nameof(SurfaceEditorRow.ThermalExpansionDisplay), 112, true));
         grid.PreparingCellForEdit += (_, eventArgs) =>
@@ -281,13 +284,15 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         }
     }
 
-    private static DataGridTextColumn Column(string header, string property, double width, bool readOnly = false) => new()
-    {
-        Header = header,
-        Binding = new Binding(property),
-        IsReadOnly = readOnly,
-        Width = new DataGridLength(width)
-    };
+    private static DataGridTextColumn Column(string header, string property, double width, bool readOnly = false,
+        HorizontalAlignment alignment = HorizontalAlignment.Left) => new()
+        {
+            Header = header,
+            Binding = new Binding(property),
+            IsReadOnly = readOnly,
+            Width = new DataGridLength(width),
+            CellTheme = alignment == HorizontalAlignment.Left ? null : CellAlignmentTheme(alignment)
+        };
 
     private static DataGridTextColumn NumericColumn(
         string header,
@@ -300,16 +305,15 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             IsReadOnly = readOnly,
             Width = new DataGridLength(width),
             Tag = NumericColumnTag,
-            CellTheme = new ControlTheme(typeof(DataGridCell))
-            {
-                Setters =
-            {
-                new Setter(
-                    DataGridCell.HorizontalContentAlignmentProperty,
-                    HorizontalAlignment.Right)
-            }
-            }
+            CellTheme = CellAlignmentTheme(HorizontalAlignment.Right)
         };
+
+    private static ControlTheme CellAlignmentTheme(HorizontalAlignment alignment) => new(typeof(DataGridCell))
+    {
+        // Preserve Fluent's current-cell, focus and validation layers when aligning content.
+        BasedOn = global::Avalonia.Application.Current?.FindResource(typeof(DataGridCell)) as ControlTheme,
+        Setters = { new Setter(DataGridCell.HorizontalContentAlignmentProperty, alignment) }
+    };
 
     private DataGridTemplateColumn RadiusColumn() => new()
     {

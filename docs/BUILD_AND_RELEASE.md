@@ -1,8 +1,18 @@
 # 构建与发布
 
-2026-09-27 当前实验室验证：v19 修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
+2026-09-27 Git 同步前复验：正式解决方案与镀膜实验室默认 Release 构建各零警告、零错误；既有 UI 回归 70/70、镀膜实验室回归 29/29 通过。此次未重跑正式全量、初始结构实验室全量或外部数值比较；历史失败范围保持原说明。详见 [当前状态](CURRENT_STATUS.md)。
 
-2026-09-27 v18 阶段验证：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
+
+最近桌面 UI 构建与回归：默认 Debug/Release 解决方案构建各 **0 警告、0 错误**，相关回归各 **70/70**，独立 Skia 截图回归 **15/15**；不是全量测试通过声明。统一验证账目见 [当前状态](CURRENT_STATUS.md)，全部指南见 [文档索引](README.md)。
+
+
+2026-09-27 正式优化入口修复：共享 Core 曲率变量、逐光线默认目标与显式无效评价已接入正式优化；DLS 版本为 `/2`，动量梯度下降为 `/2`。默认 Debug 优化子集 **112/112** 通过；含公差的扩展检查 **144 通过 / 2 个既有显示精度失败 / 共 146 项**，零跳过。最终正式解决方案默认 Release 构建 **0 警告、0 错误**，本次源文件格式及差异检查通过。正式全量、实验室全量及宽角搜索未重跑。该结果不替代下面注明阶段的全量基线。详细命令见 [优化修复记录](OPTIMIZATION_ENTRY_FIX_2026-09-27.md)。
+
+2026-09-27 初始结构实验室 v19 阶段验证：修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
+
+2026-09-27 商业代码审计记录（初始结构实验室为 v18 阶段）：默认正式及实验室 Release 构建均为 0 警告、0 错误；正式全量 **1346 通过 / 5 失败 / 共 1351 项**，实验室 **258/258** 通过，Zemax 比较工具 **103 通过 / 1 失败 / 共 104 项**。当前不满足发布门禁；此前全通过记录保留各自历史范围。本轮只审计并同步文档，未修复产品代码，未新建 Zemax 捕获或执行完整外部比较矩阵。问题、性能观测和复现证据见 [商业审计报告](COMMERCIAL_CODE_AUDIT_2026-09-27.md)。
+
+2026-09-27 v18 阶段验证（本轮商业审计前）：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
 
 2026-09-08 独立实验室 S1 历史验证：锁定还原、默认 Debug/Release 构建、完整格式及差异检查通过，完整 Release 测试 **150/150** 通过。Debug 定向测试 **35/35** 通过，Debug 全量曾主动中断，未完成；正式完整测试该阶段未重跑，当时的 5 项既有失败尚未解决。配置、命令与证据见 [S1 实施记录](INITIAL_STRUCTURE_S1_SOLVER_2026-09-08.md)。该通用求解器当时尚未接入光学搜索或正式产品。
 
@@ -39,6 +49,17 @@ VSTest 会打开本地套接字；受限沙箱可能需要额外权限。普通�
 
 CI 中正式产品与 Initial Structure Lab 测试均启用 hang 诊断：测试进程长时间无响应时会产生日志/转储线索，而不是无限等待或让后续结果失真。主测试 hang 阈值为 `12m`，Initial Structure Lab 为 `8m`；这个阈值覆盖已知 4 分钟级长测试在较慢 CI 机器上的波动，不把接近完成的慢测试误判成挂死。
 
+## 桌面 UI 定向复验（2026-09-27）
+
+对应 [主要动作与紧凑侧栏](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)，产物目录为仓库默认输出。以下 70 项覆盖按钮、侧栏、主题交互、容器测量、库存匹配与 Dock；不含全量光学数值验证、独立实验室或安装包验收。
+
+```sh
+dotnet build OptilandWorkbench.slnx -c Debug --no-restore /m:1 /nr:false -p:UseSharedCompilation=false
+dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj -c Debug --no-build --no-restore --filter 'FullyQualifiedName~PrimaryActionPresentationTests|FullyQualifiedName~CompactSidebarTests|FullyQualifiedName~SystemPropertiesPanelSectionThemeTests|FullyQualifiedName~BlueThemeInteractionTests|FullyQualifiedName~PanelContentLayoutTests|FullyQualifiedName~CommercialLensCatalogPanelTests|FullyQualifiedName~StockLensMatcher|FullyQualifiedName~WorkspaceDockModelTests'
+```
+
+将两条命令的配置一起改成 `Release` 复验 Release。上述两个配置已分别通过 70/70。设置 `OPTILAND_ACTION_CAPTURE_DIR` 后，在独立测试进程中仅运行 `PrimaryActionPresentationTests|CompactSidebarTests` 可重现 15/15 Skia 截图验证；不要混用假绘制和 Skia 字体缓存。历史 171、14、18、87 项及其他模块的验证记录按原范围保留，不与本集合相加。
+
 ## 换行符
 
 仓库文本默认使用 LF；Windows 批处理脚本保留 CRLF。`.editorconfig` 和 `.gitattributes` 必须保持一致。Windows 开发者建议使用仓库属性控制换行，而不是依赖全局 `core.autocrlf=true`。
@@ -50,7 +71,7 @@ dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkb
 dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj -- --non-sequential 1000000
 ```
 
-第一条基准覆盖 10,000 和 100,000 条顺序光线、20 个表面、不同历史保留模式、PSF/MTF 采样和 Monte Carlo。第二条是独立非序列百万光线 STARRDB 流式写入基准，记录吞吐、托管堆、峰值工作集和数据库大小。输出均为 CSV；性能结果用于同机同运行时比较，不是普通 CI 硬阈值。
+第一条基准覆盖 10,000 和 100,000 条顺序光线、20 个表面、不同历史保留模式、几何 MTF 和 Monte Carlo。其 `PsfMtfSampling` 输出名称实际对应 `GeometricMtfAnalysis`，未覆盖 FFT/Huygens PSF。第二条是独立非序列百万光线 STARRDB 流式写入基准，记录吞吐、托管堆、峰值工作集和数据库大小。输出均为 CSV；性能结果用于同机同运行时比较，不是普通 CI 硬阈值。平台返回 0 的峰值工作集应视为不可用，不能解释为零占用。
 
 ## 非序列教学样例
 
@@ -59,6 +80,17 @@ dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbe
 ```
 
 生成器使用固定对象GUID和随机种子，逐个追迹验证场景、能量平衡及建议路径筛选，再分别原子写入12个STAROPT工程、6张光源效果SVG和`index.json`。样例清单、课堂步骤与预期结果见[`samples/non-sequential/README.md`](../samples/non-sequential/README.md)。
+
+## 镀膜实验室独立构建与验收
+
+镀膜实验室位于 `labs/CoatingDesign`，不纳入正式解决方案或现有安装包。独立脚本 `Run-CoatingDesign.command` / `.cmd` 构建并运行 Release；主程序入口要求实验室与主程序 Debug/Release 配置一致，或通过 `OPTILAND_COATING_DESIGN_LAB_PATH` 指定已部署绝对路径。
+
+```sh
+dotnet build labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
+dotnet test labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release --no-build
+```
+
+2026-09-27 镀膜实验室完整 Debug/Release 各 **29/29**，正式相关 Release **198/198** 通过（涵盖入口、材料、共享数值、优化与界面契约；不是正式全量）。上游 120 个固定案例属于其中一项测试，不另加到通过总数。三个示例均完成真实计算、优化、导出、保存重开一致性；高反和窄带仍有未达标项。[完整证据、命令和边界](../validation/coating/README.md)。这不覆盖或更新上面的初始结构实验室 260 项以及历史全量发布门禁。
 
 ## 启动桌面应用
 
@@ -223,3 +255,9 @@ Optiland 0.5.8 历史资料只保留在 validation/history，禁止重新生成�
 - 2026-09-07 独立实验室 P2：先将 P1 截距指标迁移到正式 Core 点列接口（启动算法 v2），再实现完整口径／视场／光谱的单家族引擎。实验室全量 `63/63`、正式相关定向 `46/46`，均无失败／跳过；正式和实验室默认 Debug/Release 构建均为 `0` 警告、`0` 错误。12 个冻结规格各测一个固定家族，4 个达标、8 个明确报告差距，规格和容差未改。新引擎尚未接入新桌面工作流，多种子发布协议及新候选外部对照仍未完成；不改写正式全量数值基线。见 [P2 实施记录](INITIAL_STRUCTURE_P2_2026-09-07.md)。
 - 2026-09-07 独立实验室 P3：新增真实目录玻璃、离散表面光阑、片数家族和有父来源的细化分支，全部光学评价仍调用正式 Core。原子检查点预扣预算，正常完成后结算，未知中断工作保守计费；串行／并行及完成批次恢复一致性通过。实验室全量 `91/91`，最终去重调整后的相关子集 `16/16`（包含于 91 项），均无失败／跳过；独立实验室最终默认 Debug/Release 构建均为 `0` 警告、`0` 错误，格式及差异检查通过。12 个冻结规格按原种子 101 和各 10,000 次预算运行，4 个找到多个达标家族，8 个仍有差距；不表示发布协议通过，也未全面改善 P2 的像质结果。本次未修改正式 Core、未重跑正式测试，旧桌面 v3 尚未接入新搜索。见 [P3 实施记录](INITIAL_STRUCTURE_P3_2026-09-07.md)。
 - 2026-09-07 独立实验室 P4：新界面接入严格平板多家族搜索；二维面形与光线全部来自正式 Core，新增目标／处方／视场表、A/B 同尺度比较、保留预算恢复、独立追加细化和停止后导出。参数修改清空旧图，损坏记录显示错误，无效数值不再失焦回退后误用旧参数。实验室全量 `104/104`，约 11 分 19 秒；最后输入修正后的相关 `14/14` 在最终 Release 重放（属于 104 项），均无失败／跳过。默认 Debug/Release 构建 `0` 警告、`0` 错误，格式与差异检查通过；1240/600/480 px 实际 Avalonia 交互渲染及独立 Windows 程序启动／关闭检查通过。原生人工跨平台 UI 验收、60 次发布协议和新候选外部数值对照未完成；正式源码、冻结规格和安装包未改，未重跑正式数值测试。见 [P4 实施记录](INITIAL_STRUCTURE_P4_2026-09-07.md)。
+
+## 镀膜构建的运行依赖与发布边界
+
+镀膜独立解决方案显式列出共享 Core/Application，构建配置与实验室一致；正式主解决方案仍不包含实验室项目。TFStudio/tmmcore 源归档不进入编译依赖，Node 仅供维护参考数据；应用输出复制 MIT 原始许可证和材料 CC0 来源说明。缓存锁定还原及本机验证命令见[镀膜验收](../validation/coating/README.md)。
+
+Windows/Linux 原生交互和标准安装包未验收，macOS 原生自动化服务超时未完成；不得从通过构建或 Headless 控件测试推断这些平台已验收。当前构建及测试证据不替代正式全量发布门禁。

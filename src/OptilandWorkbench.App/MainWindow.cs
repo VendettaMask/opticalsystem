@@ -14,6 +14,7 @@ using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App;
 
@@ -158,7 +159,7 @@ public sealed partial class MainWindow : Window
         MinWidth = 640;
         MinHeight = 480;
         ApplyTheme(save: false);
-        Content = BuildShell();
+        Content = MainWindowTitleBar.Wrap(this, BuildShell());
         DisplayTypography.Apply(this);
 
         _application.Events.Changed += OnWorkspaceChanged;

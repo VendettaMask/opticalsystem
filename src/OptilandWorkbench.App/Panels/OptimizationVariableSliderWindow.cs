@@ -4,6 +4,7 @@ using Avalonia.Layout;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
@@ -62,6 +63,7 @@ public sealed class OptimizationVariableSliderWindow : Window
             Content = "应用",
             MinWidth = 88
         };
+        applyButton.Classes.Add("accent");
         applyButton.Click += (_, _) => ApplyValue(_slider.Value);
         var resetButton = new Button
         {
@@ -106,11 +108,12 @@ public sealed class OptimizationVariableSliderWindow : Window
 
         if (_choices.Count == 0)
         {
-            _variablePicker.IsEnabled = false;
-            _slider.IsEnabled = false;
-            applyButton.IsEnabled = false;
-            resetButton.IsEnabled = false;
-            _statusText.Text = "当前系统没有可手动调整的内部表面。";
+            const string reason = "当前系统没有可手动调整的内部表面；添加具有有限半径或厚度的内部表面后可用。";
+            ControlAvailability.Set(_variablePicker, false, reason);
+            ControlAvailability.Set(_slider, false, reason);
+            ControlAvailability.Set(applyButton, false, reason);
+            ControlAvailability.Set(resetButton, false, reason);
+            _statusText.Text = reason;
         }
         else
         {

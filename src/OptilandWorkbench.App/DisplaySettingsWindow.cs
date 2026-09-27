@@ -96,6 +96,7 @@ public sealed class DisplaySettingsWindow : Window
 
         var cancel = new Button { Content = "取消", MinWidth = 82 };
         var reset = new Button { Content = "恢复默认", MinWidth = 92 };
+        _save.Classes.Add("accent");
         cancel.Click += (_, _) => Close(false);
         reset.Click += (_, _) => ResetControls();
         _save.Click += (_, _) => Save(settings);

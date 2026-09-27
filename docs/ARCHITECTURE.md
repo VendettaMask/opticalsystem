@@ -1,10 +1,12 @@
 # 系统架构
 
-2026-09-27 当前实验室验证：v19 修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
+2026-09-27 初始结构实验室 v19 阶段验证：修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
 
-2026-09-27 v18 阶段验证：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
+2026-09-27 商业代码审计记录（初始结构实验室为 v18 阶段）：默认正式及实验室 Release 构建均为 0 警告、0 错误；正式全量 **1346 通过 / 5 失败 / 共 1351 项**，实验室 **258/258** 通过，Zemax 比较工具 **103 通过 / 1 失败 / 共 104 项**。当前不满足发布门禁；此前全通过记录保留各自历史范围。本轮只审计并同步文档，未修复产品代码，未新建 Zemax 捕获或执行完整外部比较矩阵。问题、性能观测和复现证据见 [商业审计报告](COMMERCIAL_CODE_AUDIT_2026-09-27.md)。
 
-2026-09-27 当前实验室为 v16：正式共享 Core 负责全部光学量。`FlatStartDesignService.Continue` 在完整光线数据可用时保留完整目标，允许有限几何越界进入 V2 联合求解；缺失光线仍进入既有恢复路径。采样、自动口径、硬验收、根生成、渐进阶段、受保护 Broyden 和面积调度策略 2 不变。检查点版本 16 隔离旧算法续跑，v15 历史记录可用于独立追加细化。见 [细化入口复核](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
+2026-09-27 v18 阶段验证（本轮商业审计前）：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
+
+2026-09-27 初始结构实验室 v16 阶段记录（当前版本为 v19）：正式共享 Core 负责全部光学量。`FlatStartDesignService.Continue` 在完整光线数据可用时保留完整目标，允许有限几何越界进入 V2 联合求解；缺失光线仍进入既有恢复路径。采样、自动口径、硬验收、根生成、渐进阶段、受保护 Broyden 和面积调度策略 2 不变。检查点版本 16 隔离旧算法续跑，v15 历史记录可用于独立追加细化。见 [细化入口复核](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
 
 2026-09-26 后续：v8 新增 `DesignFormSearch` 与 `DesignFormScheduler`，分别管理正负初始化形式和原始分支的持续调度历史；界面增加系统/目标/搜索页签与覆盖率。只改变实验室编排与参数初始化，光学引擎和正式 Core 未变化。详见 [形式搜索改造](INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)。
 
@@ -61,7 +63,7 @@ OpticalSurface
 
 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等模型。非物理平方根域返回 `NaN` 并拒绝交点，不延伸不存在的曲面分支。
 
-现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。稳定 S-matrix、复折射率/角度/偏振膜层响应，以及 BSDF `Evaluate + Sample + Pdf` 尚未实现。
+现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。2026-09-27 新增共享 `CoherentThinFilmSolver` 和 `ThinFilmSpectrum`，采用稳定散射递推计算真实 n/k、角度、S/P 与 R/T/A，供独立镀膜实验室使用；未接入原顺序/非序列光线追迹的镀膜钩子。BSDF `Evaluate + Sample + Pdf` 仍未实现。
 
 ## 数值后端与光线追迹
 
@@ -76,6 +78,8 @@ OpticalSurface
 缓存键由光学系统修订号、后端、输入光线状态、保留表面和影响结果的选项组成；分析名称和本地化标题不能参与缓存身份。光段方向和 `RayInteractionKind` 是传播语义的唯一依据，不能从点序、Z 坐标或颜色反推。
 
 ## 分析、优化与公差
+
+2026-09-27 正式优化入口采用 Core `SurfaceCurvatureParameter` 保留平面并允许曲率经过零；默认评价复用 Core 逐光线 RMS 向导。Core 操作数适配和应用独立评价统一以 `OptimizationEvaluationException` 表达无效结果，DLS 处理无效试探步，应用事务继续负责异常回滚。实验室仍使用独立搜索编排与数值求解器，并共用正式光学 Core。实现边界见 [优化算法](OPTIMIZATION_ALGORITHMS.md)和[本次验证](OPTIMIZATION_ENTRY_FIX_2026-09-27.md)。
 
 Core 通过 `AnalysisCatalog` 注册当前 `72` 个规范分析，其中包含非序列光线追迹和探测器查看器。应用层 `IWorkbenchModeService` 只负责顺序/非序列模式边界，`INonSequentialDocumentService` 负责独立非序列文档的对象、波长和显式转换事务。`AnalysisService` 按模式分别暴露顺序 70 项或非序列 2 项并拒绝跨模式执行；桌面端根据同一状态重建 Ribbon、主编辑文档和左侧工具页。Workbench 的规范键、中文显示名、兼容别名、展示类型和两套 Ribbon 目录由 `WorkbenchAnalysisCatalog` 统一描述。独立 `Distortion` 已退出公开目录，旧名称兼容映射到 `Field Curvature and Distortion`。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放、缓存身份或导出逻辑。
 
@@ -136,10 +140,30 @@ MainWindow
 - 平铺、层叠和合并不会在软件外保留内容窗口，只有独立浮动命令会创建原生宿主；
 - 空宿主在操作后、保存前和旧会话恢复时过滤。
 
+`WorkspaceContentHost` 只允许位于可见 `DeferredContentPresenter` 内的宿主承载缓存页面。Dock 12 同时保留标签和 MDI 两套视觉容器，隐藏的标签容器仍响应 `ActiveDockable`，不能在 MDI 激活时转移页面。宿主在附加时监听祖先链的 `IsVisible`，隐藏/分离时释放内容与订阅，重新显示时接回原控件；不重建业务面板或选择模型。MDI 标题按钮单独覆盖普通按钮的尺寸，内容边界局部裁剪。实现和验证见 [平铺交互修复](MDI_INTERACTION_FIX_2026-09-27.md)。
+
 主题由 `ThemeRegistry` 注册完整主题包，每个具体 `ThemeDefinition` 同时拥有色板、强调色应用器、实际图标包、Chrome 配置、装饰渲染器和明暗特征。`ThemeApplicationService` 是运行时切换的唯一入口；`ThemeResourceBindings` 保持颜色语义，`ThemeIconResolver` 按实际主题解析稳定图标名，`ThemeChromeRole` 为 Ribbon、工作区、卡片、控件框、状态栏、对话框和视口提供语义边框。明亮、暗夜、异世界和像素风格主题提供相同颜色和 Chrome 资源键；`System` 仅作为跟随操作系统的选择代理。结构边框厚度、布局、文案、命令 ID 和分析语义色独立于主题。扩展规则见 [主题包开发规范](THEME_PACKAGES.md)。
 
+## 桌面局部布局与动作语义（已实现）
+
+- `UiDensity` 统一侧栏宽度 240/256/280 DIP（最小/默认/最大）；`WorkspaceDockFactory` 约束新建/恢复 ToolDock，`PanelManager` 约束布局应用和保存，`AppSettings` 使用同一默认值。`SystemPropertiesPanel` 使用有限宽度 Grid 参数行，禁止侧栏横向滚动，保留原分组与业务事件。
+- 主要按钮声明 `accent`，`BlueThemeTokens`、`LightTheme`、`BlueThemeStyles` 提供各状态，`ControlAvailability` 只连接既有可用条件与提示/无障碍说明。
+- `ScrollableHeaderGrid` 在有限高度内测量顶部区域和正文，防止库存匹配重新打开后说明/按钮与表头重叠；短视口只滚动受限区域。
+- `DataGridHeaderLayout` 只调整 Fluent 排序图标槽位的测量，`CompactLabel` 保留短标签完整提示并独立布局单位；不修改表格模型、排序与输入校验。三套制图继续使用原分栏和断点。
+- 机械半直径显示接入 `NumericDisplayFormatter`，材料行背景使用 `MaterialDisplay`/`HasOpticalMaterial` 业务语义，不能把显示字符串用于数值排序。
+
+实现与证据见 [容器测量修复](PANEL_CONTENT_LAYOUT_2026-09-27.md)、[主要动作与紧凑侧栏](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)。
+
 ## 会话与持久化
+
+顺序模式的系统初始布局由 `WorkspaceDockFactory` 创建“镜头数据”和“二维视图”两个文档，镜头数据为活动页，左侧系统选项保留。`PanelManager` 的顺序启动及自动文件切换不再加载保存会话中的额外页面；显式载入默认布局/槽位仍使用完整反序列化路径，非序列模式的恢复流程保持原样。
 
 光学工程和 Dock 会话分开保存。全局默认布局位于 `%APPDATA%\OptilandWorkbench\workspace-default.json`；按文件会话使用规范化绝对路径的 SHA-256 哈希作为文件名。
 
 会话保存 Dock 图、文档描述符、分析设置、实例 ID、活动文档、锁定状态和浮动边界，不保存大型计算结果。布局修改经 500 ms 防抖保存并在退出时刷新。损坏会话会备份并回退；未知分析会跳过；空浮动窗口会过滤。
+
+## 光学镀膜设计实验室
+
+`labs/CoatingDesign` 独立维护 Engine、Avalonia App、测试和 `.coating.json` schema 1。正式 App 仅增加 `CoatingDesignLabLauncher` 进程入口；不引用实验室项目，不传入当前 Optic。Engine 引用正式 Core，复用材料模型/快照、现有优化器、取消、公差采样及原子文件；App 额外复用 Application 数值格式和共享 Light/字号资源源文件。真实薄膜求解只在 Core 实现一份。模板生成、残差、候选、采样收敛和目标判定属于实验室流程层。
+
+后台深拷贝输入，按实验 ID 与代次提交；同步输入失效、取消、切换实验使旧回调无效。保存结果核对输入哈希，打开用冻结材料复算。此实验室和初始结构实验室是两个独立功能及验证集。已完成能力、真实未达标示例和限制见[镀膜实施记录](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。

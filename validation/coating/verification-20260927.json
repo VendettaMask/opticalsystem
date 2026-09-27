@@ -1,0 +1,1574 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-27T21:32:54.754059+08:00",
+  "scope": "CoatingDesign first implementation; does not replace formal full-suite or other laboratories baselines",
+  "tests": [
+    {
+      "scope": "lab-release",
+      "trx": "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/TestResults/coating-final-release.trx",
+      "sha256": "78d8e4dfab76be3a701c225a691616129a1e66f516110e6b283bdfb42f8c90f1",
+      "counts": {
+        "total": 29,
+        "executed": 29,
+        "passed": 29,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "times": {
+        "creation": "2026-09-27T21:30:51.9130450+08:00",
+        "queuing": "2026-09-27T21:30:51.9130450+08:00",
+        "start": "2026-09-27T21:30:51.3207660+08:00",
+        "finish": "2026-09-27T21:30:56.5767960+08:00"
+      },
+      "cases": [
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.OldTaskCannotOverwriteEditedOrSwitchedExperimentEvenIfItIgnoresCancellation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0169202"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases",
+          "outcome": "Passed",
+          "duration": "00:00:00.0069415"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: HighReflector)",
+          "outcome": "Passed",
+          "duration": "00:00:00.8595872"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001869"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.ToleranceUsesSameSolverAndDeterministicSharedSampler",
+          "outcome": "Passed",
+          "duration": "00:00:00.0737571"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.OdUsesRawLogTransmissionAndDisplayDoesNotAffectAcceptance",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001669"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820)",
+          "outcome": "Passed",
+          "duration": "00:00:00.7330530"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.AbsorbingSubstrateFresnelAndThickFilmLimitAreIndependentAnalyticChecks",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001142"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200)",
+          "outcome": "Passed",
+          "duration": "00:00:00.8144800"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.FixedLayersAndThicknessBoundsArePreserved",
+          "outcome": "Passed",
+          "duration": "00:00:00.0145999"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.PreCancelledGenerationOptimizationAndToleranceStop",
+          "outcome": "Passed",
+          "duration": "00:00:00.3579178"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.NarrowBandDenseSamplingConvergesAgainstIndependentDenserGrid",
+          "outcome": "Passed",
+          "duration": "00:00:00.4833911"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.ImpossibleGoalReportsSpecificFailureInsteadOfOptimizerSuccess",
+          "outcome": "Passed",
+          "duration": "00:00:00.0143564"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks",
+          "outcome": "Passed",
+          "duration": "00:00:00.0096713"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: NarrowBand)",
+          "outcome": "Passed",
+          "duration": "00:00:00.3188943"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001034"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002278"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001278"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.InvalidInputsAndOutOfRangeMaterialsAreNotSilentlyCoerced",
+          "outcome": "Passed",
+          "duration": "00:00:00.0078103"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.CancelAndParameterEditInvalidatePendingTask",
+          "outcome": "Passed",
+          "duration": "00:00:00.0105985"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.CancellationDuringOptimizationStopsAtEvaluationBoundary",
+          "outcome": "Passed",
+          "duration": "00:00:00.0552128"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent",
+          "outcome": "Passed",
+          "duration": "00:00:00.9729387"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.InputMaterialSnapshotsAreDetachedFromCallerArrays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0065874"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001631"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007002"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: Antireflection)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0181348"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0015612"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0015299"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.SaveOpenRecalculatesIdenticallyAndExportPreservesPrecision",
+          "outcome": "Passed",
+          "duration": "00:00:00.0644055"
+        }
+      ]
+    },
+    {
+      "scope": "lab-debug",
+      "trx": "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/TestResults/coating-final-debug.trx",
+      "sha256": "9c4124d9172ed5eafd3a92438cd430aa5dd4fb80adf17958103edbf5bc0e3a39",
+      "counts": {
+        "total": 29,
+        "executed": 29,
+        "passed": 29,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "times": {
+        "creation": "2026-09-27T21:31:26.1302600+08:00",
+        "queuing": "2026-09-27T21:31:26.1302600+08:00",
+        "start": "2026-09-27T21:31:25.5180080+08:00",
+        "finish": "2026-09-27T21:31:34.5719090+08:00"
+      },
+      "cases": [
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001777"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.ToleranceUsesSameSolverAndDeterministicSharedSampler",
+          "outcome": "Passed",
+          "duration": "00:00:00.1092956"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.CancellationDuringOptimizationStopsAtEvaluationBoundary",
+          "outcome": "Passed",
+          "duration": "00:00:00.1811073"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017246"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.OdUsesRawLogTransmissionAndDisplayDoesNotAffectAcceptance",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002129"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: NarrowBand)",
+          "outcome": "Passed",
+          "duration": "00:00:00.9606050"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002066"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.FixedLayersAndThicknessBoundsArePreserved",
+          "outcome": "Passed",
+          "duration": "00:00:00.0306595"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.ImpossibleGoalReportsSpecificFailureInsteadOfOptimizerSuccess",
+          "outcome": "Passed",
+          "duration": "00:00:00.0244674"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.InvalidInputsAndOutOfRangeMaterialsAreNotSilentlyCoerced",
+          "outcome": "Passed",
+          "duration": "00:00:00.0100378"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks",
+          "outcome": "Passed",
+          "duration": "00:00:00.0102877"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.AbsorbingSubstrateFresnelAndThickFilmLimitAreIndependentAnalyticChecks",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001465"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200)",
+          "outcome": "Passed",
+          "duration": "00:00:01.0537870"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.SaveOpenRecalculatesIdenticallyAndExportPreservesPrecision",
+          "outcome": "Passed",
+          "duration": "00:00:00.0758796"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.CancelAndParameterEditInvalidatePendingTask",
+          "outcome": "Passed",
+          "duration": "00:00:00.0145454"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: HighReflector)",
+          "outcome": "Passed",
+          "duration": "00:00:02.7394958"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002094"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.OldTaskCannotOverwriteEditedOrSwitchedExperimentEvenIfItIgnoresCancellation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0170362"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0016213"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001070"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001627"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases",
+          "outcome": "Passed",
+          "duration": "00:00:00.0080541"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.NarrowBandDenseSamplingConvergesAgainstIndependentDenserGrid",
+          "outcome": "Passed",
+          "duration": "00:00:01.0051950"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.InputMaterialSnapshotsAreDetachedFromCallerArrays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0062918"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(kind: Antireflection)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0387196"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent",
+          "outcome": "Passed",
+          "duration": "00:00:01.0204624"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.WorkflowTests.PreCancelledGenerationOptimizationAndToleranceStop",
+          "outcome": "Passed",
+          "duration": "00:00:00.3273016"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820)",
+          "outcome": "Passed",
+          "duration": "00:00:00.9906185"
+        },
+        {
+          "name": "OptilandWorkbench.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007654"
+        }
+      ]
+    },
+    {
+      "scope": "formal-related-release",
+      "trx": "tests/OptilandWorkbench.Tests/TestResults/coating-formal-regression.trx",
+      "sha256": "c328a8011eb2f3d261b4b4ad30ab2313fc0ad408bdc4da425a0d192d2c2e7437",
+      "counts": {
+        "total": 198,
+        "executed": 198,
+        "passed": 198,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "times": {
+        "creation": "2026-09-27T21:29:12.1649100+08:00",
+        "queuing": "2026-09-27T21:29:12.1649100+08:00",
+        "start": "2026-09-27T21:29:11.5077140+08:00",
+        "finish": "2026-09-27T21:29:45.8554170+08:00"
+      },
+      "cases": [
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Ray Fan\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0438352"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.MatrixSpotWavelengthLegendUsesSelectableUnifiedLabels",
+          "outcome": "Passed",
+          "duration": "00:00:00.0115360"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AddingSurfacePreservesRichComponentsAndInsertsBeforeImage",
+          "outcome": "Passed",
+          "duration": "00:00:00.0038130"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SystemApertureOptionsExposeFourNativeModes",
+          "outcome": "Passed",
+          "duration": "00:00:00.0020222"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 9999, expected: \"9999\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000020"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.NonFiniteNumericsCannotProduceSuccessfulGradientTermination(optimizer: \"Damped Least Squares\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007091"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.OptionalInstalledLabStartsAsASeparateExecutable",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009828"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SpotDiagramAppliesSelectionScaleDirectionAndAirySettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0079246"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationProblemEvaluatesEachOperandOncePerMeritCalculation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001927"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizerCatalogOnlyListsDistinctImplementedAlgorithms",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001681"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.ExplicitAssemblyPathIsOneArgumentWithoutShellParsing",
+          "outcome": "Passed",
+          "duration": "00:00:00.0018231"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.UntraceableRayNeverBecomesAFinitePenalty",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012090"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ImageSimulationOffersMultipleSelectableSourceImages",
+          "outcome": "Passed",
+          "duration": "00:00:00.2962808"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.FootprintDiagramPlotsTheSelectedSurfaceAndFiltersVignettedRays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0025450"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.InvalidInitialMeritReportsCauseAndRestoresDocument(optimizer: \"Nelder-Mead\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0015592"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.DlsRejectsInvalidTrialAndContinuesFromValidState",
+          "outcome": "Passed",
+          "duration": "00:00:00.0014241"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.BadExplicitPathDoesNotSilentlyLaunchAnotherInstalledLab",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006176"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisRibbonCategoriesAreDropdownsWithoutPrimaryActions",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001282"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AngleVsImageHeightFooterOmitsDataWithoutChangingOtherAnalysisSummaries",
+          "outcome": "Passed",
+          "duration": "00:00:00.0096776"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.TolerancingPerturbationRevertsAfterSensitivity",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011584"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.01, expected: \"0.01\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000010"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationProblemUsesZemaxAbsoluteWeightNormalization",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001111"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.MarkedOptimizationPreservesPlaneAndCanCrossCurvatureSign(radius: 0, target: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0035831"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.SequentialTracerKeepsIncidentMaterialAfterReflection",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002445"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LeastSquaresOptimizerUsesIndependentResidualVectorsForCoupledSystem",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003147"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.SampledMtfZeroFrequencyIsNormalizedAndIndependentOfZernikeResiduals",
+          "outcome": "Passed",
+          "duration": "00:00:00.0163659"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorExposesAndAppliesAnalysisParameters",
+          "outcome": "Passed",
+          "duration": "00:00:01.6216791"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.ExplicitAssemblyPathIsOneArgumentWithoutShellParsing",
+          "outcome": "Passed",
+          "duration": "00:00:00.0028606"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizerCatalogRejectsUnknownOptimizerNames",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001321"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.EntryDoesNotAddLaboratoryAssemblyDependenciesToTheProduct",
+          "outcome": "Passed",
+          "duration": "00:00:00.0031724"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.DielectricGlassMaterialTests.DielectricSampleUsesIorFresnelAndThicknessAttenuation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0029670"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizerCatalogRejectsUnimplementedGlassExpert",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000450"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.DispersionVsWavelengthPlotsIndexDerivative",
+          "outcome": "Passed",
+          "duration": "00:00:00.4080747"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EveryCanonicalOptimizerRejectsIterationCountsOutsideTheSupportedBoundary",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011838"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.CommercialFormatCatalogRoundTripsCommonSequentialSubset",
+          "outcome": "Passed",
+          "duration": "00:00:00.0140616"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.WavelengthEditingMaintainsExactlyOnePrimary",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009478"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.TraceRecordsSurfaceMajorArrays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008772"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LayoutTreatsRefractingStopAsLensSurface",
+          "outcome": "Passed",
+          "duration": "00:00:00.0035543"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.DefaultObjectiveMatchesCoreSignedRayMeritAndDoesNotPopulateEditor(singleSurface: False)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1940998"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorKeepsAtLeastOneFieldAndWavelength",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003706"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.AnalysisCatalogRejectsUnknownAnalysisInsteadOfReturningUnrelatedData",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001406"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.PlotScalingAndCsvExportUseTypedUnitsInsteadOfAxisTitles",
+          "outcome": "Passed",
+          "duration": "00:00:00.0029481"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.DevelopmentEntryUsesTheMatchingSeparateBuild",
+          "outcome": "Passed",
+          "duration": "00:00:00.0022902"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.RibbonMenuItemsHaveTemplateLevelPointerOverFeedback",
+          "outcome": "Passed",
+          "duration": "00:00:00.0053770"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ContrastLossMapKeepsExistingZemaxPupilSpaceDirectionLabels",
+          "outcome": "Passed",
+          "duration": "00:00:00.0441506"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.SampledMtfLabelsUseZemaxPupilSpaceTangentialSagittalDirections",
+          "outcome": "Passed",
+          "duration": "00:00:00.0192554"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.BiconicGeometryUsesSharedRootZemaxSagEquation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003334"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LeastSquaresOptimizesInsideExactConstraintNullSpace",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010611"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.InvalidInitialMeritReportsCauseAndRestoresDocument(optimizer: \"Damped Least Squares\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.2747376"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisControlDispatchIgnoresLocalizedOrRenamedTitle",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001625"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.CompactPlotsPreserveMarginsWheneverAxisLabelsArePresent",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000459"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Encircled Energy\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:01.1066075"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SystemPropertiesOffersCurrentAndAvailableGlassCatalogTransfers",
+          "outcome": "Passed",
+          "duration": "00:00:00.0752217"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationVariableVectorCommitRollsBackEarlierAndFailingSetters",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002470"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.FootprintLegendAndDefaultFollowTheSelectedColorBasis",
+          "outcome": "Passed",
+          "duration": "00:00:00.0033757"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Huygens PSF\", kind: Heatmap)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0041254"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConfigurationMatrixSpotGroupsAllWavelengthsInsideEachFieldByConfigurationCell",
+          "outcome": "Passed",
+          "duration": "00:00:00.0083198"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.Layout2DBuilderExtendsUnequalLensAperturesBeforeClosingBody",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017272"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.TraceGenericUsesMicrometerWavelengthAndValidatesNormalizedCoordinates",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006436"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.TessarViewerBuildsFourBoundedLensElementsAndEntrancePupilRays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0039455"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.ExistingZeroOrSignedSpacingIsNotClampedAtOptimizationEntry(thickness: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0051266"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ConicSagReturnsNaNOutsideExplicitSquareRootDomain",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002893"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EntranceDirectionApproximationRejectsInvalidInputs",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002944"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LeastSquaresBuildsEveryIndependentJacobianColumn",
+          "outcome": "Passed",
+          "duration": "00:00:00.0016881"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorCreatesDiffractiveInteractionWithGratingGeometry",
+          "outcome": "Passed",
+          "duration": "00:00:00.0014045"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.NonFiniteNumericsCannotProduceSuccessfulGradientTermination(optimizer: \"Momentum Gradient Descent\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002112"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ManagedBackendProvidesVectorOperations",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009774"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizerResultsReportAlgorithmDiagnostics",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001987"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LayoutHidesVignettedRaysByDefaultAndCanShowThemForDiagnostics",
+          "outcome": "Passed",
+          "duration": "00:00:00.0091537"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.DiffractionPsfUsesSquareRootOfRayPowerAsFieldAmplitude",
+          "outcome": "Passed",
+          "duration": "00:00:00.0016961"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SystemSettingsApplyAsOneUndoableChange",
+          "outcome": "Passed",
+          "duration": "00:00:00.0028912"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: AthermalGlassMap)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1342824"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EncircledEnergyUsesWeightedSequentialImageSamples",
+          "outcome": "Passed",
+          "duration": "00:00:00.5575742"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.DispersionCurveUsesSelectedGlassAndValidCatalogRange",
+          "outcome": "Passed",
+          "duration": "00:00:00.2439459"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LayoutDistinguishesPlaneAirStopFromPlaneRefractingStop",
+          "outcome": "Passed",
+          "duration": "00:00:00.0276280"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.InvalidInitialMeritReportsCauseAndRestoresDocument(optimizer: \"Momentum Gradient Descent\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012660"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.FullFieldSpotDiagramUsesAbsoluteImagePositionsAndWavelengthLegend",
+          "outcome": "Passed",
+          "duration": "00:00:00.4145284"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.StandardGeometryPlanarRadiusReturnsStableLocalZNormal(radius: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000075"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OpticalSurfaceTraceRayOwnsSingleSurfaceKernel",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002463"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.StandardSpotDiagramUsesCompactRowAndThreeByThreeSymmetricGrid",
+          "outcome": "Passed",
+          "duration": "00:00:00.0112379"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.DesktopNativeProjectPickerOnlyOffersStarOpt",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002964"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EveryMtfMethodSupportsThroughFocusAndFieldScans(method: Fourier)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0458718"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ExternalLegendUsesThePlotPaletteForEveryColorIndex",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002583"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationProblemRejectsInvalidVariablesOperandsAndVectorDimensions",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005630"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.IncidentAngleVsImageHeightMatchesReferenceEntrySettingsAndCurves",
+          "outcome": "Passed",
+          "duration": "00:00:00.0344354"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EveryMtfMethodSupportsThroughFocusAndFieldScans(method: Huygens)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0695827"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.Layout3DBuilderRevolvesTheExtended2DMeridianWithoutSlopedExtrapolation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0026742"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MomentumGradientDescentReportsFinalGradientNorm",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003316"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.RayFanExposesZemaxSettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005717"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.FullFieldAberrationPlotUsesTheSelectedFieldAsItsCenter",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005449"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.SequentialTracerRecordsSurfaceHistory",
+          "outcome": "Passed",
+          "duration": "00:00:00.0033918"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LeastSquaresOptimizerReducesMeritAndHonorsBounds",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002280"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.MarkedOptimizationPreservesPlaneAndCanCrossCurvatureSign(radius: -80, target: 0.012500000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0022099"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Huygens MTF\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0127124"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.MissingMatchingBuildDoesNotFallBackToStaleOtherConfiguration",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011143"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OpticExposesDocumentedCoreEntryPoints",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001753"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.StandardGeometryPlanarRadiusReturnsStableLocalZNormal(radius: ∞)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0023062"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.PairedFanAnalysesGroupXYWithinEachFieldAndCenterIncompleteRows(analysisName: \"Pupil Aberration\", expectedPresentationKind: PupilAberration)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0124740"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.InternalTransmissionNormalizesCatalogDataToRequestedThickness",
+          "outcome": "Passed",
+          "duration": "00:00:00.6075371"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ThroughFocusReportsBestSequentialFocusSample",
+          "outcome": "Passed",
+          "duration": "00:00:00.0615285"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.InvalidInitialMeritReportsCauseAndRestoresDocument(optimizer: \"Greedy Random Perturbation\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017675"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.JsonSnapshotCarriesSchemaAndComponentMetadata",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001705"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.CombinedFieldCurvatureAndDistortionExposesConvertedAngularModel",
+          "outcome": "Passed",
+          "duration": "00:00:00.8237940"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisSettingsUseCompactOverlayLayoutInsteadOfHorizontalWrapPanel",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000771"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorProtectsObjectAndImageSurfacesFromDeletion",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009271"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.LensMaterialRowThemeTests.EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches",
+          "outcome": "Passed",
+          "duration": "00:00:04.6006667"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.LocalIconLibraryLoadsPinnedOfflineCatalog",
+          "outcome": "Passed",
+          "duration": "00:00:00.0141577"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.MissingLabReportsTheSeparateBuildRequirement",
+          "outcome": "Passed",
+          "duration": "00:00:00.0049481"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MultiConfigurationBreaksLinksForZoomParameters",
+          "outcome": "Passed",
+          "duration": "00:00:00.0019742"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.001, expected: \"1E-3\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000797"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisFooterUsesOneSharedHeightAcrossRegularAndPupilLayouts",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005624"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EvaluateAtScaledRestoresVariablesWhenAnOperandFails",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002274"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 12.345000000000001, expected: \"12.35\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000009"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.CurvatureCanPassThroughPlaneWithoutAnArtificialSmallRadius",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000697"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SurfaceTableEditsSynchronizeCompositionWithoutFlatteningAsphere",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009612"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.DlsUsesValidSideOfDerivativeAtOpticalDomainBoundary",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001323"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MonteCarloUsesSeedAndRestoresPerturbedVariables",
+          "outcome": "Passed",
+          "duration": "00:00:00.0032141"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.InvalidInitialMeritReportsCauseAndRestoresDocument(optimizer: \"Coordinate Pattern Search\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011629"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Zernike\", kind: Bar)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0539230"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationProblemRejectsNonFiniteOperandEvaluations",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001080"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.Layout2DBuilderCreates3DViewerPrimitives",
+          "outcome": "Passed",
+          "duration": "00:00:00.0031035"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 10000, expected: \"1E+4\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004823"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.WavefrontAnalysisUsesSequentialOpticalPathDifference",
+          "outcome": "Passed",
+          "duration": "00:00:00.0083343"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.RibbonHoverOverridesTheFluentTemplatePresenter",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002135"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"MTF\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1815281"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.MissingLabReportsTheSeparateBuildRequirement",
+          "outcome": "Passed",
+          "duration": "00:00:00.0032841"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.MarkedOptimizationPreservesPlaneAndCanCrossCurvatureSign(radius: 80, target: -0.012500000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012599"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GeometryModelsReturnFiniteSagAndIntersections",
+          "outcome": "Passed",
+          "duration": "00:00:00.0030732"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.NormalizedAngleFieldsUseRadialMaximum",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001756"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorCreatesPhaseInteractionWithSerializableProfile",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017490"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.StandardGeometryPlanarRadiusReturnsStableLocalZNormal(radius: -∞)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001495"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorOffersOnlyZemaxApodizationsButRetainsLegacyModelCompatibility",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017170"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.PluginLoaderRegistersGoodPluginsAndWarnsForFailingPlugins",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009205"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MeritFunctionEvaluatesCommonZemaxStyleOperands",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006986"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Y-Ybar\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012095"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.MissingMatchingBuildDoesNotFallBackToStaleOtherConfiguration",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011420"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.RmsVsFieldSpotUsesUniformDirectionalScanIndependentOfEditorWeights",
+          "outcome": "Passed",
+          "duration": "00:00:00.0481599"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.MatrixSpotDiagramUsesFieldRowsAndWavelengthColumns",
+          "outcome": "Passed",
+          "duration": "00:00:00.0168660"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LeastSquaresTreatsNegativeWeightAsExactConstraint",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001592"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.MultiPanePlotsKeepConfiguredShapeWithoutExposingAUiToggle",
+          "outcome": "Passed",
+          "duration": "00:00:00.0081282"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Footprint Diagram\", kind: Scatter)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0280459"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.Layout2DBuilderSamplesSaggedSurfacesAndSequentialRays",
+          "outcome": "Passed",
+          "duration": "00:00:00.0030152"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.RemovingSurfacePreservesRemainingSurfaceInstances",
+          "outcome": "Passed",
+          "duration": "00:00:00.0033927"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Through Focus\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.3623885"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ThroughFocusSpotBuildsVisibleFiveColumnMatrix",
+          "outcome": "Passed",
+          "duration": "00:00:00.0334245"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SelectionStatesUseSharedResourcesAndBrandAccent",
+          "outcome": "Passed",
+          "duration": "00:00:00.0019480"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.CreatingCurvatureVariablePreservesPrescriptionAndIncludesBothSigns(radius: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000027"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.GlassMapUsesConventionalReversedAbbeAxisAndLabels",
+          "outcome": "Passed",
+          "duration": "00:00:00.1471957"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ViewerGeometryRemainsValidAcrossFactoriesAndImportedFiles",
+          "outcome": "Passed",
+          "duration": "00:00:00.0367600"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.WavelengthSeriesUseStableOpticalEngineeringColorsInsteadOfCategoryOrder",
+          "outcome": "Passed",
+          "duration": "00:00:00.0047083"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.DefaultObjectiveMatchesCoreSignedRayMeritAndDoesNotPopulateEditor(singleSurface: True)",
+          "outcome": "Passed",
+          "duration": "00:00:01.6976937"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"Spot Diagram\", kind: Scatter)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0142360"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: GlassMap)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1199392"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.PanePlotsKeepXAxisLabelsVisibleWhenTickLabelsAreHidden",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000455"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.GridDistortionExposesZemaxGridSettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006979"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.DlsDoesNotInventZeroDerivativeWhenEveryProbeFails",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002565"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.RibbonTabsHaveTemplateLevelPointerOverFeedback",
+          "outcome": "Passed",
+          "duration": "00:00:00.0052169"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.PupilAberrationSummaryMatchesTheCompactSharedScaleLayout",
+          "outcome": "Passed",
+          "duration": "00:00:00.0130910"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MonteCarloCompensatorsReducePerturbedMerit",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003657"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.MaterialAnalysisTests.MaterialAnalysisPanelTitlesCoverAllSupportedCommands",
+          "outcome": "Passed",
+          "duration": "00:00:00.0014580"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ThroughFocusSpotExposesReferenceSettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005438"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.MirrorMaterialControlsStandardSurfaceReflection",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012611"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizationProblemComputesResiduals",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001436"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorCreatesReflectiveThinLensWithEditableFocalLength",
+          "outcome": "Passed",
+          "duration": "00:00:00.0048439"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.MaterialAndLensLibrariesAreSeparateDocuments",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006934"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.JsonStoreRoundTripsHighOrderFreeformGeometries",
+          "outcome": "Passed",
+          "duration": "00:00:00.0039271"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.CreatingCurvatureVariablePreservesPrescriptionAndIncludesBothSigns(radius: -83.123456789000002)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0019931"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.GraphicalAnalysesExposeStructuredFiniteSeries(analysisName: \"RMS vs Field\", kind: Line)",
+          "outcome": "Passed",
+          "duration": "00:00:00.3954719"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.JsonStoreRoundTripsRichSurfaceComponents",
+          "outcome": "Passed",
+          "duration": "00:00:00.0149320"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.OptionalInstalledLabStartsAsASeparateExecutable",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004892"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.CreatingCurvatureVariablePreservesPrescriptionAndIncludesBothSigns(radius: ∞)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000906"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.DevelopmentEntryUsesTheMatchingSeparateBuild",
+          "outcome": "Passed",
+          "duration": "00:00:00.0052932"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AppSettingsRoundTripsAnalysisSettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005282"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.CreatingCurvatureVariablePreservesPrescriptionAndIncludesBothSigns(radius: 83.123456789000002)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000019"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.PairedFanAnalysesGroupXYWithinEachFieldAndCenterIncompleteRows(analysisName: \"Ray Fan\", expectedPresentationKind: RayFan)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0138568"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptimizationRouteTests.ExistingZeroOrSignedSpacingIsNotClampedAtOptimizationEntry(thickness: -2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007950"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ActionManagerReportsCommandFailuresWithoutRethrowing",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005616"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.WavelengthExposesMicrometerUnit",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000421"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.EveryMtfMethodSupportsThroughFocusAndFieldScans(method: Geometric)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0235547"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.OptimizerHonorsAmbientCancellation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002196"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.AnalysisCatalogGeneratesDataForEveryRegisteredName",
+          "outcome": "Passed",
+          "duration": "00:00:25.9607880"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisRibbonDropdownIndicatorIsBesideTheSingleLineLabel",
+          "outcome": "Passed",
+          "duration": "00:00:00.0029570"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.StructuralSurfaceEditsKeepRadiusPickupsOnTheirOriginalSurfaces",
+          "outcome": "Passed",
+          "duration": "00:00:00.0042998"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AppSettingsRoundTripsDisplaySettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0031487"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.AnalysisCatalogCreatesDocumentedAnalysisNames",
+          "outcome": "Passed",
+          "duration": "00:00:00.0073583"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.CoatingDesignLabLauncherTests.BadExplicitPathDoesNotSilentlyLaunchAnotherInstalledLab",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004676"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.TotalInternalReflectionKeepsIncidentMaterialAndUsesReflectiveCoatingBranch",
+          "outcome": "Passed",
+          "duration": "00:00:00.0013694"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InitialStructureLabLauncherTests.EntryDoesNotAddLaboratoryAssemblyDependenciesToTheProduct",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006483"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.BlankOpticStartsWithEditableReferenceSurfaces",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001084"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.SpotDiagramExposesReferenceSettings",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005561"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MaterialRegistryResolvesCommonGlassTypes",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001278"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisResultTabsUseCompactSharedTypography",
+          "outcome": "Passed",
+          "duration": "00:00:00.0013551"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.LayoutViewerOptionsFilterSurfacesFieldsWavelengthsAndPupilSamples",
+          "outcome": "Passed",
+          "duration": "00:00:00.0037087"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.NonSequentialSourcesUseTheirWavelengthColorAndOrangeOnlyAsFallback",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002099"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.ConicIntersectionsRejectUndefinedSagAndImplicitBackBranch",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004705"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MaterialsExposeEntranceDirectionApproximationHonestly",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002057"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.MeritFunctionNeverConvertsUnknownOrCompatibilityOperandsToSuccessfulZero",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002791"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.AnalysisServiceRejectsValuesOutsidePublishedParameterContracts",
+          "outcome": "Passed",
+          "duration": "00:00:00.0079158"
+        }
+      ]
+    }
+  ],
+  "referenceCases": 120,
+  "referenceAbsoluteTolerance": 2e-11,
+  "sourceSha256": {
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialLibrary.cs": "445b5908df89dc52e19b11410a3a30612ade384792092a9ba131483d663f28ea",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs": "ad4994f533e0dd987b19fdca7bef905e9068001105d2ae71168d97e35af5e603",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.cs": "823d17eceb58da975b5b677b1d604bf68db51c3a0cbf048fd7c282e040380af2",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Experiment.cs": "3e75ff2500f44fe42b6261ba3ee8e039ddd06e03637aea3471b0a72b2151dce8",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Examples.cs": "fa82593542dfc0d4d4ad396afe92013e4b249dac9ae3ef132063e55b7d558ae7",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentSession.cs": "d8ef9154a11e18e34af166c8eb948b5eb2c7697f06c7355c21a0adfde601ccd1",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MainWindow.cs": "2b16dfaae52d9d17822352e7ebc3e73b09357827b30bcbee553435f56f3fb759",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/SpectrumPlot.cs": "15b67cbb1f8a29e90305f95d4a57d2e455fb70c6a76dd100ed4709d9a6d43635",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/App.cs": "62a8aae0c988bf98884a4ca8d8e08f54321bd48da632ba237117d0dd04d96566",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/Program.cs": "a947a1eda85d62a89648571d0c671dc6e845a8fd5bf767291ba2ef7ce1b12b6b",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/DesktopTests.cs": "61420c689051c2ce28240cfec4bb8b9e2357ebee398069b37b06a4c505707901",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/ThinFilmPhysicsTests.cs": "194f7e10daf3f67e474324dcc5815ad8d071a4c60c848a81d41211760bff8268",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/WorkflowTests.cs": "7be74c6a849e2c9898a019073281d0af8cb2b267d1bbdfaab6cd2524310bdad3",
+    "src/OptilandWorkbench.Core/Coatings/CoherentThinFilmSolver.cs": "31967f56a6d0c7e3ed43b1c5f54601cbd32ca39d451469bfcc06b3e6d242acd0",
+    "src/OptilandWorkbench.Core/Coatings/ThinFilmSpectrum.cs": "b5939b61e8e70672c53febcb81c636a5614303cce72d3af6186660e6b2ddcc08",
+    "src/OptilandWorkbench.App/Services/CoatingDesignLabLauncher.cs": "2864637458250c34ffd5b3f94a5187c88bce134419d2b398ada2beb041764254",
+    "src/OptilandWorkbench.Core/Optimization/NumericalOptimizers.cs": "9382bd2e6ec3a76ec746414f58a6b54d3519b7c2c78a6ca5e2d25eaed5490bca",
+    "src/OptilandWorkbench.Core/Optimization/OptimizationFramework.cs": "fe1ebb87c9a8c75a341eaf15fe3781faf1e20bac221a0e345d72a4d5e614a97e"
+  },
+  "examples": [
+    {
+      "kind": "Antireflection",
+      "Name": "示例一 · 可见光减反膜",
+      "Passed": true,
+      "Metrics": {
+        "PeakWavelengthNanometers": 573.625,
+        "PeakTransmittance": 0.9733127868976856,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00014418973922462192,
+        "MaximumReflectance": 0.010981319411745214
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 2,
+          "Requirement": "≤ 8",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 1.0981319411745214,
+          "Requirement": "≤ 2",
+          "Passed": true
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 801,
+      "Run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "GradientTolerance",
+        "Evaluations": 26,
+        "Iterations": 6,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    },
+    {
+      "kind": "HighReflector",
+      "Name": "示例二 · 550 nm 高反膜",
+      "Passed": false,
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.00011095674439498023,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 526.9077432316244,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9568324212783205,
+        "MaximumReflectance": 0.9677556641014246
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 32,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 95.68324212783205,
+          "Requirement": "≥ 98",
+          "Passed": false
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 801,
+      "Run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "MaximumIterations",
+        "Evaluations": 2683,
+        "Iterations": 80,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    },
+    {
+      "kind": "NarrowBand",
+      "Name": "示例三 · 550 nm 窄带滤光片",
+      "Passed": false,
+      "Metrics": {
+        "PeakWavelengthNanometers": 549.9707357859531,
+        "PeakTransmittance": 0.7269474535823706,
+        "LeftHalfMaximumNanometers": 536.7508324444564,
+        "RightHalfMaximumNanometers": 563.9710402163165,
+        "FwhmNanometers": 27.220207771860146,
+        "MinimumReflectance": 0.08389780304072926,
+        "MaximumReflectance": 0.8043197927487429
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 11,
+          "Requirement": "≤ 39",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "峰值位置 (nm)",
+          "Actual": 549.9707357859531,
+          "Requirement": "550 ± 0.5",
+          "Passed": true
+        },
+        {
+          "Name": "FWHM (nm)",
+          "Actual": 27.220207771860146,
+          "Requirement": "15 ± 1",
+          "Passed": false
+        },
+        {
+          "Name": "峰值 T (%)",
+          "Actual": 72.69474535823706,
+          "Requirement": "≥ 75",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：490–510 nm",
+          "Actual": 1.0286354126794717,
+          "Requirement": "≥ 1",
+          "Passed": true
+        },
+        {
+          "Name": "截止 OD：590–610 nm",
+          "Actual": 0.949845746461818,
+          "Requirement": "≥ 1",
+          "Passed": false
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 1297,
+      "Run": {
+        "Algorithm": "Damped Least Squares",
+        "AlgorithmVersion": "damped-least-squares/2",
+        "StopReason": "MaximumIterations",
+        "Evaluations": 1001,
+        "Iterations": 80,
+        "RandomSeed": null,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    }
+  ],
+  "nativeDesktopVerification": "CUA inspection timed out; not passed",
+  "headlessDesktopWidths": [
+    1200,
+    820
+  ],
+  "onlineVulnerabilityAudit": false,
+  "externalZemaxCapture": false,
+  "newOptilandComparison": false
+}

@@ -502,9 +502,7 @@ public static class MeritFunctionCatalog
             () =>
             {
                 var value = Evaluate(optic, definition);
-                return string.IsNullOrEmpty(value.Error) && double.IsFinite(value.Value)
-                    ? value.Value
-                    : 1_000_000;
+                return RequireOptimizationValue(value, CanonicalType(definition.Type));
             });
     }
 
@@ -527,11 +525,30 @@ public static class MeritFunctionCatalog
                 {
                     var evaluations = EvaluateAll(optic, definitions);
                     var evaluation = evaluations[item.Index];
-                    return string.IsNullOrEmpty(evaluation.Error) && double.IsFinite(evaluation.Value)
-                        ? evaluation.Value
-                        : 1_000_000;
+                    return RequireOptimizationValue(evaluation,
+                        $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}");
                 }))
             .ToArray();
+    }
+
+    /// <summary>Ordered values with the same active rows as CreateOperands; failures retain their cause.</summary>
+    public static double[] EvaluateOptimizationValues(Optic optic, IReadOnlyList<MeritOperandDefinition> definitions)
+    {
+        var evaluations = EvaluateAll(optic, definitions);
+        return definitions.Select((definition, index) => (Definition: definition, Index: index))
+            .Where(item => item.Definition.Enabled
+                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS"))
+            .Select(item => RequireOptimizationValue(evaluations[item.Index],
+                $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}"))
+            .ToArray();
+    }
+
+    private static double RequireOptimizationValue(MeritOperandEvaluation evaluation, string name)
+    {
+        if (!string.IsNullOrEmpty(evaluation.Error) || !double.IsFinite(evaluation.Value))
+            throw new OptimizationEvaluationException(name,
+                string.IsNullOrEmpty(evaluation.Error) ? "The value is not finite." : evaluation.Error);
+        return evaluation.Value;
     }
 
     private static MeritOperandEvaluation EvaluateCore(

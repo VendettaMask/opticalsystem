@@ -3,10 +3,12 @@ using System.Globalization;
 namespace OptilandWorkbench.Application.Formatting;
 
 public sealed record NumericDisplayOptions(
-    int DecimalPlaces = 6,
+    int DecimalPlaces = NumericDisplayOptions.DefaultDecimalPlaces,
     int UpperScientificExponent = 6,
     int LowerScientificExponent = -4)
 {
+    public const int DefaultDecimalPlaces = 3;
+
     public NumericDisplayOptions Normalize()
     {
         var decimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);

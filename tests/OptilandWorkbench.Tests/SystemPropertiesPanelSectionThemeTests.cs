@@ -1,9 +1,12 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Panels;
 using OptilandWorkbench.App.Services;
@@ -49,6 +52,19 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                 Assert.True(Body(cards[0]).IsVisible);
                 Assert.True(Body(cards[1]).IsVisible);
                 Assert.All(cards.Skip(2), card => Assert.False(Body(card).IsVisible));
+                RenderFrame(window);
+                CaptureOptional(window, "light-connected-sections");
+                var expandedHeaderPoint = Header(cards[1]).TranslatePoint(new Point(50, 17), window)!.Value;
+                window.MouseMove(expandedHeaderPoint);
+                RenderFrame(window);
+                CaptureOptional(window, "light-connected-sections-hover");
+                window.Width = 256;
+                RenderFrame(window);
+                Assert.InRange(Header(cards[1]).Bounds.Width, 200, 240);
+                CaptureOptional(window, "light-connected-sections-narrow-hover");
+                window.Width = 380;
+                RenderFrame(window);
+                window.MouseMove(new Point(375, 690));
                 foreach (var card in cards.Where(card => Body(card).IsVisible))
                 {
                     Click(Header(card));
@@ -62,18 +78,36 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                     window.MouseMove(new Point(375, 690));
                     RenderFrame(window);
                     var expected = ThemeRegistry.FromSettings(theme).Chrome[ThemeChromeRole.SurfaceCard];
+                    if (theme == "Light")
+                    {
+                        Assert.Equal(BlueThemeTokens.Surface, Assert.IsAssignableFrom<ISolidColorBrush>(sections.Background).Color);
+                    }
+                    else
+                    {
+                        Assert.Null(sections.Background);
+                    }
                     foreach (var card in cards)
                     {
                         Assert.Contains("system-property-card", card.Classes);
                         Assert.True(card.ClipToBounds);
-                        Assert.Equal(expected.CornerRadius, card.CornerRadius);
-                        Assert.Equal(new Thickness(1), card.BorderThickness);
+                        Assert.Equal(theme == "Light" ? new CornerRadius(0) : expected.CornerRadius, card.CornerRadius);
+                        Assert.Equal(theme == "Light" ? new Thickness(0) : new Thickness(1), card.BorderThickness);
                         Assert.Equal(default, card.BoxShadow);
                         Assert.Equal(expected.CornerRadius, Header(card).CornerRadius);
                         Assert.Equal(new Thickness(0), Header(card).Margin);
                         Assert.Equal(new Thickness(0), Header(card).BorderThickness);
                         Assert.DoesNotContain("theme-emphasized", card.Classes);
                         Assert.True(card.Bounds.Width <= 364);
+                        var divider = Assert.IsType<Border>(Assert.IsType<StackPanel>(card.Child).Children[2]);
+                        Assert.Equal(theme == "Light", divider.IsVisible);
+                        Assert.False(divider.IsHitTestVisible);
+                        Assert.Equal(Body(card).Padding.Left, divider.Margin.Left);
+                        Assert.Equal(Body(card).Padding.Right, divider.Margin.Right);
+                        var presenter = Header(card).GetVisualDescendants().OfType<ContentPresenter>().First();
+                        Assert.Equal(theme == "Light" ? new Thickness(4, 0, 12, 0) : new Thickness(0), presenter.Margin);
+                        Assert.Equal(expected.CornerRadius, presenter.CornerRadius);
+                        // The inset highlight must not shift the existing title or shrink the hit area.
+                        Assert.Equal(10, presenter.Margin.Left + presenter.Padding.Left);
                     }
 
                     var target = cards[1];
@@ -88,7 +122,7 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                     Assert.True(header.IsPointerOver);
                     Assert.Contains("theme-emphasized", target.Classes);
                     Assert.Equal(collapsedBounds, target.Bounds);
-                    Assert.Equal(expected.CornerRadius, target.CornerRadius);
+                    Assert.Equal(theme == "Light" ? new CornerRadius(0) : expected.CornerRadius, target.CornerRadius);
                     CaptureOptional(window, $"{capturePrefix}-hover");
 
                     window.MouseMove(new Point(375, 690));
@@ -100,7 +134,7 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                     Assert.Contains("theme-emphasized", target.Classes);
                     Assert.Equal(collapsedBounds.Width, target.Bounds.Width);
                     Assert.True(target.Bounds.Height > collapsedBounds.Height);
-                    Assert.Equal(expected.CornerRadius, target.CornerRadius);
+                    Assert.Equal(theme == "Light" ? new CornerRadius(0) : expected.CornerRadius, target.CornerRadius);
                     CaptureOptional(window, $"{capturePrefix}-expanded");
                     Click(header);
                     Assert.False(Body(target).IsVisible);
@@ -129,6 +163,8 @@ public sealed class SystemPropertiesPanelSectionThemeTests
 
     private static void RenderFrame(Control control)
     {
+        // Apply queued platform resize notifications before observing layout or pixels.
+        Dispatcher.UIThread.RunJobs();
         control.UpdateLayout();
         AvaloniaHeadlessPlatform.ForceRenderTimerTick();
     }
@@ -142,7 +178,8 @@ public sealed class SystemPropertiesPanelSectionThemeTests
         }
 
         Directory.CreateDirectory(directory);
-        using var bitmap = new RenderTargetBitmap(new PixelSize((int)window.Bounds.Width, (int)window.Bounds.Height));
+        using var bitmap = new RenderTargetBitmap(
+            new PixelSize((int)window.Bounds.Width * 2, (int)window.Bounds.Height * 2), new Vector(192, 192));
         bitmap.Render(window);
         bitmap.Save(Path.Combine(directory, $"{name}.png"), PngBitmapEncoderOptions.Default);
         Assert.True(new FileInfo(Path.Combine(directory, $"{name}.png")).Length > 0);

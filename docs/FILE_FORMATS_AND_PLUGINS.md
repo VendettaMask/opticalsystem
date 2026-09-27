@@ -28,6 +28,12 @@ Huygens MTF 后处理修复只改变相关分析数值，并增加变换大小�
 
 旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可继续读取用于迁移，但桌面“保存”不再生成这些格式。二进制结构见 [STAROPT 工程格式](STAROPT_FILE_FORMAT.md)。
 
+## 镀膜实验文件
+
+独立镀膜实验室使用 `.coating.json` schema 1，与主程序 `.staropt` 分开。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。
+
+导出目录含 `layers.csv`、`spectrum.csv`、`metrics.csv`、`run.json`、`experiment.coating.json`。CSV 使用 nm、原始 R/T/A 比例以及 ln(T)/OD，保留 G17 数值，不使用界面舍入值或 OD 显示饱和值；每个文件原子写入，整个导出目录不是多文件事务。参见[镀膜实验室说明](../labs/CoatingDesign/README.md)。
+
 ## 公差文件
 
 公差定义使用 `*.startol.json`，保存版本、操作数顺序和启用状态、类型、表面、上下偏差、分布、注释、评价准则、Monte Carlo 数量/种子、补偿迭代和良率阈值。公差编辑器独立跟踪未保存状态；新建、打开、镜头库载入和退出都会与原生工程一起进入统一保存确认。写入使用同目录临时文件和原子替换。
@@ -124,3 +130,7 @@ public sealed class ExamplePlugin : IOptilandPlugin
 Python Optiland 字典格式不再导入或导出；`.optiland-python.json`、`.python-optiland.json`（大小写不敏感）会在读取和保存前拒绝，也不再提供专用文件筛选器。扩展名拒绝检查只防止它们落入通用 `.json` 分派，不是兼容开关。把旧字典改名为 `.json` 也不能绕过原生快照的模式校验。旧 Workbench `.optiland`/`.optiland.json` 名称属于本项目原生格式，继续保留。
 
 `zemax-zmx` 是 ZMX 的格式标识；不再附带历史参考软件版本。通用 JSON、原生快照、STAROPT、ZMX、SEQ、LEN、通用顺序文本和 .NET 插件基础设施保留。
+
+## 镀膜快照读取的严格性
+
+镀膜 schema 1 只接受可完整重建的材料模型；共享组件读取器用于旧工程的默认值补齐不能进入实验室快照路径。重建后核对规范字段和系数，缺失系数明确报错。文档读写受 64 MiB 共享上限约束；该实验格式未改变 STAROPT 版本或现有兼容 kind。数据字段和资源约束见[计算契约](COATING_DESIGN_LAB.md#资源和材料限制)。

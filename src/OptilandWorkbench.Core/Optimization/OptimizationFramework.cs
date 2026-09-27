@@ -206,6 +206,7 @@ public sealed record OptimizationEvaluation(
         {
             OptimizationGuards.RequireFiniteState(value, "Optimization residual");
             total += value * value;
+            OptimizationGuards.RequireFiniteState(total, "Optimization residual sum of squares");
         }
 
         return total;

@@ -1470,7 +1470,7 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void AnalysisRibbonDropdownIndicatorIsSmallSolidTriangleBelowLabel()
+    public void AnalysisRibbonDropdownIndicatorIsBesideTheSingleLineLabel()
     {
         var factory = typeof(MainWindow).GetMethod(
             "RibbonDropDownCommandContent",
@@ -1479,12 +1479,12 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(factory);
         var content = Assert.IsType<Avalonia.Controls.Grid>(
             factory.Invoke(null, new object[] { "image", "扩展图像分析" }));
-        Assert.Equal(3, content.RowDefinitions.Count);
+        Assert.Equal(3, content.ColumnDefinitions.Count);
         Assert.True(double.IsNaN(content.Width));
         Assert.True(double.IsNaN(content.Height));
 
         var arrow = Assert.Single(content.Children.OfType<Avalonia.Controls.Shapes.Polygon>());
-        Assert.Equal(2, Avalonia.Controls.Grid.GetRow(arrow));
+        Assert.Equal(2, Avalonia.Controls.Grid.GetColumn(arrow));
         Assert.Equal(6, arrow.Width);
         Assert.Equal(4, arrow.Height);
         Assert.Equal(0.72, arrow.Opacity);
@@ -1553,7 +1553,7 @@ public sealed class AnalysisGuiContractTests
     }
 
     [Fact]
-    public void SolidBlueSelectionStatesShareTheBrandAccent()
+    public void SelectionStatesUseSharedResourcesAndBrandAccent()
     {
         Assert.Equal(
             Avalonia.Media.Color.FromRgb(0, 122, 255),

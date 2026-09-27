@@ -1,0 +1,2082 @@
+[
+  {
+    "source": "validation/zemax/2026-r1/huygens-mtf-sampling-2026-09-06/README.md",
+    "target": "10X大NA大视场"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/single-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-detector-viewer-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-coefficients-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/configuration-matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/ray-fan-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/footprint-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-and-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/grid-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/color-focus-shift-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/lateral-color-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/axial-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/diffraction-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-source-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/pupil-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-wavelength-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-field-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-wavefront-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/cardinal-points-data-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/vignetting-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/relative-illumination-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/incoherent-irradiance-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/radiant-intensity-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/y-ybar-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/sampled-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/contrast-loss-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/optical-path-difference-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/foucault-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/centroid-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/best-fit-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zernike-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/image-simulation-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-bitmap-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/light-source-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/partially-coherent-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-diffraction-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/jones-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/prescription-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/system-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/classified-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikeannularcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikecoefficientsvsfield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikestandardcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-geometricmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftsurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-huygenssurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvaturecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephasecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesagcross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvature/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephase/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-interferogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw3d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-imabimfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bitmapfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-biocularfieldofviewanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bioculardipvergenceconvergence/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerfieldmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerpupilmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fibercouplingsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-ynicontributions/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sagtable/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersiondiagram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-glassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-athermalglassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-internaltransmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-grinprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-gradiumprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot1d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-polarizationraytrace/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmission/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phaseaberration/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionfan/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-paraxialgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-skewgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-physicalopticspropagation/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-beamfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-directivityplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcepolarviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-photoluminscenceviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcespectrumviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-radiantsourcemodelviewersettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacedatasettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-filecomparatorsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-partviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reverseradianceanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-pathanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fluxvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-roadwaylighting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourceilluminationmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterfunctionviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterpolarplotsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zemaxelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-shadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscshadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nsc3dlayout/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscobjectviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-raydatabaseviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-isoelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-testplatelist/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1931/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1976/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-prescriptiongraphic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-criticalraytracer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-coatinglisting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-quickyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-systemcheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-toleranceyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-tolerancehistogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiency2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencyangular/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencychromatic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscsurfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscgeometricmtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-staraligncheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starsysviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-star2ddefplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starperfchange/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starindexvstemp/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starinspectfea/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-userdefinedcom/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nest/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscspotstandardnative/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/3-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-xxxtemplatexxx/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/single-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-detector-viewer-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-coefficients-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/configuration-matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/ray-fan-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/footprint-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-and-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/grid-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/color-focus-shift-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/lateral-color-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/axial-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/diffraction-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-source-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/pupil-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-wavelength-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-field-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-wavefront-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/cardinal-points-data-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/vignetting-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/relative-illumination-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/incoherent-irradiance-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/radiant-intensity-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/y-ybar-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/sampled-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/contrast-loss-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/optical-path-difference-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/foucault-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/centroid-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/best-fit-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zernike-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/image-simulation-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-bitmap-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/light-source-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/partially-coherent-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-diffraction-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/jones-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/prescription-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/system-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/classified-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikeannularcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikecoefficientsvsfield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikestandardcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-geometricmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftsurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-huygenssurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvaturecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephasecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesagcross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvature/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephase/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-interferogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw3d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-imabimfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bitmapfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-biocularfieldofviewanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bioculardipvergenceconvergence/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerfieldmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerpupilmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fibercouplingsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-ynicontributions/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sagtable/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersiondiagram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-glassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-athermalglassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-internaltransmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-grinprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-gradiumprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot1d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-polarizationraytrace/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmission/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phaseaberration/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionfan/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-paraxialgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-skewgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-physicalopticspropagation/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-beamfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-directivityplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcepolarviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-photoluminscenceviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcespectrumviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-radiantsourcemodelviewersettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacedatasettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-filecomparatorsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-partviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reverseradianceanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-pathanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fluxvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-roadwaylighting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourceilluminationmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterfunctionviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterpolarplotsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zemaxelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-shadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscshadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nsc3dlayout/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscobjectviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-raydatabaseviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-isoelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-testplatelist/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1931/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1976/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-prescriptiongraphic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-criticalraytracer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-coatinglisting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-quickyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-systemcheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-toleranceyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-tolerancehistogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiency2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencyangular/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencychromatic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscsurfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscgeometricmtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-staraligncheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starsysviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-star2ddefplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starperfchange/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starindexvstemp/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starinspectfea/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-userdefinedcom/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nest/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscspotstandardnative/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/2-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-xxxtemplatexxx/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/single-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-ray-trace-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/non-sequential-detector-viewer-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-coefficients-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/seidel-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/configuration-matrix-spot-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/ray-fan-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/footprint-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-and-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/grid-distortion-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/field-curvature-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/color-focus-shift-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/lateral-color-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/axial-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/full-field-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/diffraction-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-source-encircled-energy-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/pupil-aberration-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-wavelength-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-vs-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-field-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/rms-wavefront-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-through-focus-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fourier-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-vs-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/angle-vs-image-height---through-field-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/cardinal-points-data-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/vignetting-diagram-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/relative-illumination-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/incoherent-irradiance-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/radiant-intensity-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/y-ybar-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/fft-line-edge-spread-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-psf-cross-section-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/huygens-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/sampled-mtf-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/contrast-loss-map-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/optical-path-difference-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/foucault-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/centroid-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/best-fit-sphere-wavefront-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zernike-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/image-simulation-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/geometric-bitmap-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/light-source-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/partially-coherent-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/extended-diffraction-image-analysis-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/jones-pupil-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/prescription-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/system-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/classified-data-report-c1/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikeannularcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikecoefficientsvsfield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zernikestandardcoefficients/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-geometricmtfmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fftsurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-huygenssurfacemtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvaturecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephasecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesagcross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacecurvature/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephase/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-interferogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-draw3d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-imabimfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bitmapfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-biocularfieldofviewanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-bioculardipvergenceconvergence/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerfieldmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-powerpupilmapsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fibercouplingsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-ynicontributions/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sagtable/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersiondiagram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-glassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-athermalglassmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-internaltransmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-dispersionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-grinprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-gradiumprofile/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot1d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-universalplot2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-polarizationraytrace/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmission/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phaseaberration/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionfan/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-paraxialgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-skewgaussianbeam/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-physicalopticspropagation/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-beamfileviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevsangle/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reflectionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-transmissionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-absorptionvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diattenuationvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-phasevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-retardancevswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-directivityplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcepolarviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-photoluminscenceviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcespectrumviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-radiantsourcemodelviewersettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacedatasettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-filecomparatorsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-partviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-reverseradianceanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-pathanalysis/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-fluxvswavelength/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-roadwaylighting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourceilluminationmap/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterfunctionviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-scatterpolarplotsettings/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-zemaxelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-shadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscshadedmodel/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nsc3dlayout/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscobjectviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-raydatabaseviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-isoelementdrawing/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-testplatelist/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1931/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-sourcecolorchart1976/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-prescriptiongraphic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-criticalraytracer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-coatinglisting/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfaceslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-quickyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-systemcheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-toleranceyield/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-tolerancehistogram/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiency2d/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencyangular/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-diffefficiencychromatic/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscsurfacesag/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscgeometricmtf/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslope/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-surfacephaseslopecross/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-staraligncheck/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starsysviewer/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-star2ddefplot/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starperfchange/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starindexvstemp/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-starinspectfea/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-userdefinedcom/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nest/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-nscspotstandardnative/comparison.json"
+  },
+  {
+    "source": "validation/zemax-2026-r1/initial-structure-20260907/1-element/comparison/COMPARISON_REPORT.md",
+    "target": "comparisons/zemax-xxxtemplatexxx/comparison.json"
+  }
+]

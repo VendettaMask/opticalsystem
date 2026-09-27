@@ -1,5 +1,14 @@
 # Project collaboration instructions
 
+## Persistent UI preferences
+
+- Sequential-mode automatic startup, new documents, file opening and system layout reset must load only the lens data editor and the 2D viewer as document tabs, with the lens editor initially active. Keep the system-options sidebar. Do not automatically restore analysis, 3D or other document tabs from a saved session; explicitly loading a saved default/slot remains supported. Preserve the separate non-sequential workspace behavior.
+- The ordinary Light theme's top menu must not show a selected-item underline. Indicate the current category using its existing selected background, retain keyboard focus feedback, and do not remove selection indicators from document or analysis tabs.
+- In the lens data editor (镜头数据), every row with a non-empty displayed material must retain a blue background across the entire row, even when it is not selected or hovered. In the ordinary Light theme, use the shared semantic material-row blue tokens; do not let a template's default white fill hide this data cue. Preserve distinct selection, hover, current-cell focus, disabled and validation states. Use the existing `SurfaceEditorRow.HasOpticalMaterial` / `MaterialDisplay` semantics: Air is displayed as empty and must not be treated as a filled material. Re-evaluate the cue after edits, refreshes, file changes and recycled-row loading. This is a standing user requirement, not a screenshot-specific example.
+
+- Keep the system-options sidebar compact: preferred width 256 DIP, minimum 240 DIP, maximum 280 DIP, including previously saved wider layouts. Use finite-width label/editor rows with unchanged font sizes and control heights; disable horizontal scrolling in the sidebar and its material lists, retaining vertical scrolling. The lens table and top toolbar may still scroll horizontally when required.
+- Declare primary execution actions with the existing theme `accent` role. Cancellation, reset, export and other secondary actions remain neutral. Explain existing disabled conditions through visible tooltips and accessibility help, clearing obsolete reasons when enabled; never dim ordinary surrounding labels or explanations by disabling an entire container.
+
 ## Documentation synchronization
 
 - Every completed code change must update the relevant repository documentation in the same task.

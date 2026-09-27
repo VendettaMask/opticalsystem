@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.0" />
+    <Using Include="Xunit" />
+    <ProjectReference Include="../../src/OptilandWorkbench.CoatingDesign.Engine/OptilandWorkbench.CoatingDesign.Engine.csproj" />
+    <ProjectReference Include="../../src/OptilandWorkbench.CoatingDesign.App/OptilandWorkbench.CoatingDesign.App.csproj" />
+    <None Include="../../../../validation/coating/tmmcore-0.4.2.json" Link="tmmcore-0.4.2.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

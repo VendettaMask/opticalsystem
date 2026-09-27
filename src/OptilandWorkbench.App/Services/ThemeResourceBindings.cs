@@ -10,6 +10,9 @@ public static class ThemeResourceBindings
     public const string SettingsSurface = "OptilandSettingsSurfaceBrush";
     public const string SettingsOverlaySurface = "OptilandSettingsOverlaySurfaceBrush";
     public const string Workspace = "OptilandWorkspaceBrush";
+    public const string Sidebar = "OptilandSidebarBrush";
+    public const string HeaderBackground = "OptilandHeaderBackgroundBrush";
+    public const string TableHeader = "OptilandTableHeaderBrush";
     public const string Border = "OptilandBorderBrush";
     public const string TextPrimary = "OptilandTextPrimaryBrush";
     public const string TextSecondary = "OptilandTextSecondaryBrush";

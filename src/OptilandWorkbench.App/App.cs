@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using Avalonia.Controls.Presenters;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
@@ -145,6 +146,8 @@ public sealed class App : Avalonia.Application
         {
             Setters =
             {
+                new Setter(Border.BorderThicknessProperty, new DynamicResourceExtension(ThemeChromeResources.BorderThickness(ThemeChromeRole.SurfaceCard))),
+                new Setter(Border.CornerRadiusProperty, new DynamicResourceExtension(ThemeChromeResources.CornerRadius(ThemeChromeRole.SurfaceCard))),
                 new Setter(
                     Border.BorderBrushProperty,
                     new DynamicResourceExtension(ThemeResourceBindings.Border))
@@ -206,6 +209,21 @@ public sealed class App : Avalonia.Application
                     ContentPresenter.BorderBrushProperty,
                     new DynamicResourceExtension(ThemeResourceBindings.RibbonHoverBorder)),
                 new Setter(ContentPresenter.BorderThicknessProperty, new Thickness(1))
+            }
+        });
+        Styles.Add(new Style(selector => selector
+            .Is<Button>()
+            .Class("ribbon-command")
+            .Class(":disabled")
+            .Template()
+            .OfType<ContentPresenter>()
+            .Name("PART_ContentPresenter"))
+        {
+            Setters =
+            {
+                new Setter(ContentPresenter.BackgroundProperty, Brushes.Transparent),
+                new Setter(ContentPresenter.BorderBrushProperty, Brushes.Transparent),
+                new Setter(ContentPresenter.OpacityProperty, 0.4)
             }
         });
         Styles.Add(new Style(RibbonTabPointerOverSelector)
@@ -312,7 +330,30 @@ public sealed class App : Avalonia.Application
                     DataGridColumnHeader.BorderBrushProperty,
                     new DynamicResourceExtension(ThemeResourceBindings.Border)),
                 new Setter(DataGridColumnHeader.BorderThicknessProperty, new Thickness(0, 0, 1, 1)),
-                new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3))
+                new Setter(DataGridColumnHeader.PaddingProperty, new Thickness(8, 3)),
+                new Setter(DataGridHeaderLayout.CompactProperty, true)
+            }
+        });
+        Styles.Add(new Style(selector => selector.OfType<DataGridColumnHeader>().Descendant().OfType<TextBlock>())
+        {
+            Setters =
+            {
+                new Setter(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis),
+                new Setter(ToolTip.TipProperty, new Binding(nameof(TextBlock.Text))
+                {
+                    RelativeSource = new RelativeSource(RelativeSourceMode.Self)
+                })
+            }
+        });
+        Styles.Add(new Style(selector => selector.OfType<DataGridCell>().Descendant().OfType<TextBlock>().Name("CellTextBlock"))
+        {
+            Setters =
+            {
+                new Setter(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis),
+                new Setter(ToolTip.TipProperty, new Binding(nameof(TextBlock.Text))
+                {
+                    RelativeSource = new RelativeSource(RelativeSourceMode.Self)
+                })
             }
         });
         Styles.Add(new Style(selector => selector.OfType<ListBox>())
@@ -388,6 +429,7 @@ public sealed class App : Avalonia.Application
         });
         AddDataGridSelectionVisualStyles();
         AddDockIconStyles();
+        Styles.Add(new BlueThemeStyles());
     }
 
     internal static Selector RibbonCommandPointerOverSelector(Selector? selector) => selector
@@ -494,6 +536,26 @@ public sealed class App : Avalonia.Application
         AddDockChromeButtonStyle("PART_PinButton");
         AddDockChromeButtonStyle("PART_MaximizeRestoreButton");
         AddDockChromeButtonStyle("PART_CloseButton");
+
+        // MDI chrome has its own template, separate from tool chrome and tabs.
+        // Keep ordinary 32-DIP form-button defaults out of these title controls.
+        Resources["DockMdiTitleIconSize"] = 12d;
+        foreach (var partName in new[]
+        {
+            "PART_MinimizeButton", "PART_MaximizeRestoreButton", "PART_CloseButton",
+            "PART_ToolMenuButton", "PART_ToolPinButton", "PART_ToolCloseButton"
+        })
+        {
+            var style = new Style(selector => selector.OfType<MdiDocumentWindow>()
+                .Template().OfType<Button>().Name(partName));
+            AddDockButtonSetters(style, 20, 4, new Thickness(1, 2));
+            Styles.Add(style);
+        }
+        Styles.Add(new Style(selector => selector.OfType<MdiDocumentWindow>()
+            .Template().OfType<Border>().Name("PART_ContentBorder"))
+        {
+            Setters = { new Setter(Visual.ClipToBoundsProperty, true) }
+        });
     }
 
     private void AddDockChromeButtonStyle(string partName)

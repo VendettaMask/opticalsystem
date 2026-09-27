@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-27",
+  "scope": "documentation-only; existing test records read, no product build or tests rerun",
+  "documents_scanned": 126,
+  "index_entries": 125,
+  "local_link_targets_checked": 1824,
+  "local_image_targets_checked": 27,
+  "missing_non_frozen_targets": [],
+  "frozen_generated_report_missing_targets": 520,
+  "frozen_report_policy": "Preserve original generated report references and data; missing historical detail files are not a verification pass.",
+  "existing_trx_read": [
+    {
+      "path": "artifacts/validation/primary-actions-20260927/primary-actions-debug.trx",
+      "total": 65,
+      "passed": 64,
+      "failed": 1,
+      "notExecuted": 0,
+      "phase": "initial intermediate run, later superseded; retained as failure evidence"
+    },
+    {
+      "path": "artifacts/validation/primary-actions-20260927/sidebar-actions-captures.trx",
+      "total": 15,
+      "passed": 15,
+      "failed": 0,
+      "notExecuted": 0,
+      "phase": "final recorded UI regression for its stated configuration/scope"
+    },
+    {
+      "path": "artifacts/validation/primary-actions-20260927/sidebar-actions-debug.trx",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "notExecuted": 0,
+      "phase": "final recorded UI regression for its stated configuration/scope"
+    },
+    {
+      "path": "artifacts/validation/primary-actions-20260927/sidebar-actions-release.trx",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "notExecuted": 0,
+      "phase": "final recorded UI regression for its stated configuration/scope"
+    }
+  ],
+  "new_status_page_fragments": "verified",
+  "third_party_and_frozen_history_rewrite": false,
+  "whitespace_diff_check": "git diff --check passed"
+}

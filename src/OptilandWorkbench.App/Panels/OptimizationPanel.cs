@@ -83,6 +83,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         var refreshButton = CommandButton("refresh-cw", "重新计算");
         refreshButton.Click += (_, _) => Refresh();
         var runButton = CommandButton("play", "执行优化");
+        runButton.Classes.Add("accent");
         runButton.Click += async (_, _) => await RunAsync();
 
         var editToolbar = new WrapPanel

@@ -7,7 +7,9 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using System.Globalization;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Panels;
@@ -28,6 +30,100 @@ public sealed class SurfacePropertiesPanelTests
         var builder = AppBuilder.Configure<global::OptilandWorkbench.App.App>();
         if (capture) builder.UseSkia();
         return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !capture });
+    }
+
+    [Fact]
+    public async Task MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
+        await session.Dispatch(() =>
+        {
+            var previousOptions = NumericDisplayFormatter.Current;
+            var previousCulture = CultureInfo.CurrentCulture;
+            using var application = WorkbenchApplication.Create("tessar");
+            using var editor = new LensEditorPanel(application.Prescription, application.Events, new SurfaceSelectionService());
+            var window = new Window { Width = 1700, Height = 850, Content = editor };
+            try
+            {
+                CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+                var source = application.Prescription.GetSurfaces()[1];
+                foreach (var (value, places, expected) in new[]
+                {
+                    (12.3456789, 3, "12.346"), (12.3456789, 6, "12.345679"),
+                    (12.3456789, 0, "12"), (12.5, 3, "12.5"),
+                    (0.00001234567, 3, "1.235E-5")
+                })
+                {
+                    NumericDisplayFormatter.Configure(new NumericDisplayOptions(places));
+                    var row = new SurfaceEditorRow(source with { MechanicalSemiDiameter = value });
+                    Assert.Equal(expected, row.MechanicalSemiDiameterDisplay);
+                    Assert.Equal(value, row.MechanicalSemiDiameter);
+                }
+                NumericDisplayFormatter.Configure(new NumericDisplayOptions());
+                var fallback = new SurfaceEditorRow(source with { MechanicalSemiDiameter = null, SemiDiameter = 5.123456789 });
+                Assert.Equal("5.123", fallback.MechanicalSemiDiameterDisplay);
+                Assert.Equal(5.123456789, fallback.MechanicalSemiDiameter);
+
+                window.Show();
+                Render(window);
+                Click(Find<Button>(editor, "SurfacePropertiesToggle"));
+                Find<ListBox>(editor, "SurfacePropertyNavigation").SelectedIndex = 1; // Drawing.
+                var grid = Find<DataGrid>(editor, "LensSurfaceGrid");
+                var column = Assert.IsType<DataGridTextColumn>(grid.Columns.Single(c =>
+                    c.Header is TextBlock { Text: "机械半直径" }));
+                Assert.True(column.IsReadOnly);
+                Assert.Equal(nameof(SurfaceEditorRow.MechanicalSemiDiameter), column.SortMemberPath);
+                var revision = application.Events.Revision;
+                var originalValues = application.Prescription.GetSurfaces().Select(s => s.MechanicalSemiDiameter).ToArray();
+                foreach (var places in new[] { 3, 6, 0, 3 })
+                {
+                    NumericDisplayFormatter.Configure(new NumericDisplayOptions(places));
+                    editor.RefreshDisplaySettings();
+                    grid.ScrollIntoView(grid.SelectedItem, column);
+                    Render(window);
+                    foreach (var row in grid.ItemsSource.Cast<SurfaceEditorRow>())
+                    {
+                        if (column.GetCellContent(row) is TextBlock text)
+                        {
+                            var originalValue = originalValues[row.Number] ?? application.Prescription.GetSurfaces()[row.Number].SemiDiameter;
+                            Assert.Equal(NumericDisplayFormatter.Format(originalValue), text.Text);
+                            Assert.Equal(originalValue, row.MechanicalSemiDiameter);
+                        }
+                    }
+                    var selected = Assert.IsType<SurfaceEditorRow>(grid.SelectedItem);
+                    Assert.IsType<TextBlock>(column.GetCellContent(selected));
+                    var summary = editor.GetVisualDescendants().OfType<TextBlock>().Single(t =>
+                        t.Text?.Contains("机械半直径：", StringComparison.Ordinal) == true);
+                    Assert.Contains($"机械半直径：{NumericDisplayFormatter.Format(selected.MechanicalSemiDiameter)} mm", summary.Text);
+                    Assert.Contains($"当前净半径：{NumericDisplayFormatter.Format(selected.SemiDiameter)} mm", summary.Text);
+                    Assert.Equal(revision, application.Events.Revision);
+                    Assert.Equal(originalValues, application.Prescription.GetSurfaces().Select(s => s.MechanicalSemiDiameter));
+                    if (places is 3 or 6) Capture(window, $"mechanical-precision-{places}.png");
+                }
+                // The sample may contain only two decimal places. A long-valued
+                // test row also catches accidental rebinding to the raw double.
+                foreach (var (places, expected) in new[] { (3, "12.346"), (6, "12.345679") })
+                {
+                    NumericDisplayFormatter.Configure(new NumericDisplayOptions(places));
+                    var row = new SurfaceEditorRow(source with { MechanicalSemiDiameter = 12.3456789 });
+                    grid.ItemsSource = new[] { row };
+                    grid.SelectedItem = row;
+                    grid.ScrollIntoView(row, column);
+                    Render(window);
+                    Assert.Equal(expected, Assert.IsType<TextBlock>(column.GetCellContent(row)).Text);
+                    Assert.Contains(editor.GetVisualDescendants().OfType<TextBlock>(), text =>
+                        text.Text?.Contains($"机械半直径：{expected} mm", StringComparison.Ordinal) == true);
+                    Assert.Equal(12.3456789, row.MechanicalSemiDiameter);
+                    Assert.Equal(revision, application.Events.Revision);
+                }
+            }
+            finally
+            {
+                window.Close();
+                NumericDisplayFormatter.Configure(previousOptions);
+                CultureInfo.CurrentCulture = previousCulture;
+            }
+        }, CancellationToken.None);
     }
 
     [Theory]

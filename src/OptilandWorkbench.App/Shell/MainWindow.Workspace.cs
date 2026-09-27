@@ -59,6 +59,14 @@ public sealed partial class MainWindow
     private void RefreshStatus()
     {
         var snapshot = _application.Documents.GetSnapshot();
+        if (_undoButton is not null)
+        {
+            _undoButton.IsEnabled = snapshot.CanUndo;
+        }
+        if (_redoButton is not null)
+        {
+            _redoButton.IsEnabled = snapshot.CanRedo;
+        }
         var dirtyMarker = snapshot.IsDirty ? " *" : string.Empty;
         var modeName = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
             ? "非序列模式"

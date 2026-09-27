@@ -43,6 +43,7 @@ internal static class DampedLeastSquaresSearch
         var stagnantIterations = 0;
         var stopReason = "MaximumIterations";
         double? finalGradientNorm = null;
+        var invalidTrials = 0;
 
         for (; iterations < maxIterations; iterations++)
         {
@@ -50,8 +51,8 @@ internal static class DampedLeastSquaresSearch
             var jacobian = EstimateJacobian(problem, current, evaluation);
             var gradientNorm = GradientNorm(jacobian.Objective, evaluation.ObjectiveResiduals);
             finalGradientNorm = gradientNorm;
-            if ((!double.IsFinite(gradientNorm) || gradientNorm <= 1e-10)
-                && evaluation.ConstraintError <= 1e-16)
+            OptimizationGuards.RequireFiniteState(gradientNorm, "Optimization gradient norm");
+            if (gradientNorm <= 1e-10 && evaluation.ConstraintError <= 1e-16)
             {
                 stopReason = "GradientTolerance";
                 break;
@@ -74,7 +75,17 @@ internal static class DampedLeastSquaresSearch
                     .Select((value, index) => value + step[index])
                     .ToArray();
                 var actualCandidate = ToActualScaledVector(problem, candidate);
-                var candidateEvaluation = problem.EvaluateAtScaled(actualCandidate);
+                OptimizationEvaluation candidateEvaluation;
+                try
+                {
+                    candidateEvaluation = problem.EvaluateAtScaled(actualCandidate);
+                }
+                catch (OptimizationEvaluationException)
+                {
+                    invalidTrials++;
+                    lambda = Math.Min(1e12, lambda * 10);
+                    continue;
+                }
                 var candidateMerit = ReportedMerit(candidateEvaluation);
                 if (double.IsFinite(candidateMerit)
                     && Accept(evaluation, candidateEvaluation))
@@ -105,7 +116,7 @@ internal static class DampedLeastSquaresSearch
         problem.SetScaledVariableVector(bestScaled);
         return OptimizationResults.Create(
             name,
-            "damped-least-squares/1",
+            "damped-least-squares/2",
             stopReason,
             initial,
             best,
@@ -113,7 +124,8 @@ internal static class DampedLeastSquaresSearch
             problem.VariableVector(),
             history,
             problem.FunctionEvaluationCount - evaluationStart,
-            finalGradientNorm);
+            finalGradientNorm,
+            warnings: invalidTrials == 0 ? null : new[] { $"Rejected {invalidTrials} invalid trial evaluation(s)." });
     }
 
     private static Jacobian EstimateJacobian(
@@ -127,15 +139,18 @@ internal static class DampedLeastSquaresSearch
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var scaledStep = AdaptiveScaledStep(problem, origin, column);
+            var variable = problem.Variables[column];
+            if (variable.LowerBound == variable.UpperBound)
+            {
+                objectiveColumns[column] = new double[baseline.ObjectiveResiduals.Length];
+                constraintColumns[column] = new double[baseline.ConstraintResiduals.Length];
+                return;
+            }
             OptimizationEvaluation? perturbedEvaluation = null;
             var actualStep = 0.0;
             for (var attempt = 0; attempt < 3; attempt++)
             {
-                var perturbed = origin.ToArray();
-                perturbed[column] += scaledStep;
-                var actualScaled = ToActualScaledVector(problem, perturbed);
-                actualStep = actualScaled[column] - origin[column];
-                perturbedEvaluation = problem.EvaluateAtScaled(actualScaled);
+                (perturbedEvaluation, actualStep) = FindValidProbe(problem, origin, column, scaledStep);
                 ValidateLengths(baseline, perturbedEvaluation);
                 if (HasDerivativeSignal(baseline, perturbedEvaluation) || attempt == 2)
                 {
@@ -191,6 +206,34 @@ internal static class DampedLeastSquaresSearch
         }
 
         return new Jacobian(objective, constraints);
+    }
+
+    private static (OptimizationEvaluation Evaluation, double Step) FindValidProbe(
+        OptimizationProblem problem, IReadOnlyList<double> origin, int column, double step)
+    {
+        string reason = "No representable perturbation within the variable bounds.";
+        for (var attempt = 0; attempt < 6; attempt++, step *= 0.25)
+        {
+            foreach (var direction in new[] { 1, -1 })
+            {
+                var perturbed = origin.ToArray();
+                perturbed[column] += direction * step;
+                var actual = ToActualScaledVector(problem, perturbed);
+                var displacement = actual[column] - origin[column];
+                if (displacement == 0) continue;
+                try
+                {
+                    return (problem.EvaluateAtScaled(actual), displacement);
+                }
+                catch (OptimizationEvaluationException exception)
+                {
+                    reason = exception.Message;
+                }
+            }
+        }
+
+        throw new OptimizationEvaluationException(problem.Variables[column].Name,
+            $"No valid finite-difference probe. {reason}");
     }
 
     private static double[] ToActualScaledVector(OptimizationProblem problem, IReadOnlyList<double> scaled)
@@ -938,7 +981,8 @@ internal static class GradientSearch
             var gradient = EstimateGradient(problem, current, best);
             var gradientNorm = Math.Sqrt(gradient.Sum(component => component * component));
             finalGradientNorm = gradientNorm;
-            if (!double.IsFinite(gradientNorm) || gradientNorm <= 1e-10)
+            OptimizationGuards.RequireFiniteState(gradientNorm, "Optimization gradient norm");
+            if (gradientNorm <= 1e-10)
             {
                 stopReason = "GradientTolerance";
                 break;
@@ -999,7 +1043,7 @@ internal static class GradientSearch
         problem.SetScaledVariableVector(bestVector);
         return OptimizationResults.Create(
             name,
-            useMomentum ? "momentum-gradient-descent/1" : "gradient-descent/1",
+            useMomentum ? "momentum-gradient-descent/2" : "gradient-descent/2",
             stopReason,
             initial,
             best,

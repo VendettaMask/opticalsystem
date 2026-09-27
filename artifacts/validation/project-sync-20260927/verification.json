@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-27",
+  "scope": "Pre-sync Release verification; not a full product release gate",
+  "builds": [
+    {
+      "solution": "OptilandWorkbench.slnx",
+      "configuration": "Release",
+      "default_output": true,
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "solution": "labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx",
+      "configuration": "Release",
+      "default_output": true,
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "test_runs": [
+    {
+      "file": "sync-ui-release-completed.trx",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    {
+      "file": "sync-coating-release.trx",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  ],
+  "initial_environment_failure": "sync-ui-release.trx records a sandbox loopback SocketException before tests could execute; completed run used permitted local test communication.",
+  "not_rerun": [
+    "full product tests",
+    "full initial-structure lab tests",
+    "Zemax baseline or numerical comparisons",
+    "native GUI walkthrough"
+  ],
+  "previous_failures": "Existing full-audit failures remain documented; these targeted passes do not close them."
+}

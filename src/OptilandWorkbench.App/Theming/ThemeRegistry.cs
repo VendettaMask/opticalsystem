@@ -51,9 +51,9 @@ internal static class ThemeRegistry
         StandardThemeIconPack.Instance,
         FontFamily.Default,
         TextRenderingMode.Unspecified,
-        ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border),
+        ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border, shadows: false, cardRadius: 6),
         NoThemeDecorationRenderer.Instance,
-        StandardTheme.ApplyAccentResources,
+        LightTheme.ApplyResources,
         IsDarkLike: false);
 
     private static readonly ThemeDefinition Dark = new(
@@ -103,7 +103,7 @@ internal static class ThemeRegistry
         StandardThemeIconPack.Instance,
         FontFamily.Default,
         TextRenderingMode.Unspecified,
-        ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border),
+        ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border, shadows: false, cardRadius: 6),
         NoThemeDecorationRenderer.Instance,
         StandardTheme.ApplyAccentResources,
         IsDarkLike: false,

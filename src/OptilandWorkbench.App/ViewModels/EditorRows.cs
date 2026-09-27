@@ -148,6 +148,7 @@ public sealed class SurfaceEditorRow
     public string SurfaceType { get; }
     public double ExtensionZone { get; } = 0;
     public double MechanicalSemiDiameter { get; set; }
+    public string MechanicalSemiDiameterDisplay => NumericDisplayFormatter.Format(MechanicalSemiDiameter);
     public string ThermalExpansionDisplay => string.Equals(Material, "Air", StringComparison.OrdinalIgnoreCase)
         || string.IsNullOrWhiteSpace(Material)
             ? "0.000"

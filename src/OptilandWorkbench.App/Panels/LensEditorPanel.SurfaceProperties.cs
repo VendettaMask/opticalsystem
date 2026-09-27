@@ -270,7 +270,7 @@ public sealed partial class LensEditorPanel
         ToolTip.SetTip(_stopSurface, row.IsStop ? "要移动光阑，请选择另一个表面并将其设为光阑。" : "应用后将此表面设为唯一光阑。");
         _surfaceCoating.Text = row.Coating;
         _surfaceCoating.IsEnabled = row.GeometryComputable;
-        _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameter:0.######} mm\n机械半直径：{row.MechanicalSemiDiameter:0.######} mm";
+        _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameterDisplay} mm\n机械半直径：{row.MechanicalSemiDiameterDisplay} mm";
         _apertureSummary.Text = $"当前物理孔径：{row.ApertureKind}";
         _coatingModelSummary.Text = $"当前膜层模型：{row.CoatingKind}";
         _interactionSummary.Text = $"当前交互模型：{row.InteractionKind}";

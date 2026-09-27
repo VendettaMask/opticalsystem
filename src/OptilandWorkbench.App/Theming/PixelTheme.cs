@@ -113,28 +113,6 @@ internal static class PixelTheme
         resources[ThemeResourceBindings.RibbonGroupBorder] = Brushes.Transparent;
         resources[ThemeResourceBindings.RibbonGroupCaptionBackground] = paleBlue;
         resources[ThemeResourceBindings.RibbonGroupCaptionForeground] = navy;
-        resources[ThemeLayoutResources.RibbonMinHeight] = 96d;
-        resources[ThemeLayoutResources.RibbonTabPadding] = new Thickness(8, 3);
-        resources[ThemeLayoutResources.RibbonTabHeight] = 32d;
-        resources[ThemeLayoutResources.RibbonPageSpacing] = 1d;
-        resources[ThemeLayoutResources.RibbonPageMargin] = new Thickness(3, 1, 3, 0);
-        resources[ThemeLayoutResources.RibbonGroupSpacing] = 1d;
-        resources[ThemeLayoutResources.RibbonGroupCommandMargin] = new Thickness(3, 1, 3, 0);
-        resources[ThemeLayoutResources.RibbonGroupCaptionHeight] = 0d;
-        resources[ThemeLayoutResources.RibbonGroupCaptionPadding] = new Thickness(4, 0);
-        resources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight] = 0d;
-        resources[ThemeLayoutResources.RibbonGroupMargin] = new Thickness(0, 0, 1, 0);
-        resources[ThemeLayoutResources.RibbonCommandMinWidth] = 48d;
-        resources[ThemeLayoutResources.RibbonCommandWidth] = 48d;
-        resources[ThemeLayoutResources.RibbonCommandMinHeight] = 50d;
-        resources[ThemeLayoutResources.RibbonCommandMargin] = new Thickness(1, 0, 1, 1);
-        resources[ThemeLayoutResources.RibbonCommandPadding] = new Thickness(2);
-        resources[ThemeLayoutResources.RibbonCommandBorderThickness] = new Thickness(0);
-        resources[ThemeLayoutResources.RibbonCommandContentMinWidth] = 44d;
-        resources[ThemeLayoutResources.RibbonCommandContentMinHeight] = 42d;
-        resources[ThemeLayoutResources.RibbonCommandIconSize] = 22d;
-        resources[ThemeLayoutResources.RibbonCommandStrokeWidth] = 1.6d;
-        resources[ThemeLayoutResources.RibbonCommandTextMaxWidth] = 92d;
         resources["TabItemMinHeight"] = 32d;
     }
 

@@ -87,3 +87,7 @@ Current desktop data is written below the user's local application-data director
 Shared legacy specification limits include 10,000 initial seeds, 100,000 evaluations, 256 workers, 64 wavelengths, 128 glass catalogs, a 24-hour run, an 89-degree maximum field angle, a 64 MiB manifest, and a 4 MiB candidate snapshot. The current P3/P4 path additionally restricts initial families to 128 and workers to four. Validation rejects non-finite or overflowing track and aperture calculations before allocation. These are executable bounds, not guarantees that arbitrary requested optics can be generated.
 
 See [the development plan](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md) for scope, isolation rules, acceptance gates, and later phases.
+
+## 另一个独立实验室
+
+光学镀膜设计位于 [labs/CoatingDesign](../CoatingDesign/README.md)，提供减反、高反和单腔窄带设计。本目录的版本、预算、候选及验收数据只属于初始结构实验室；两者各自构建和保存实验，共享正式 Core，均不隐式修改主程序当前镜头。

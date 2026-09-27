@@ -89,10 +89,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private static readonly ImmutablePen AxisPen = new(new ImmutableSolidColorBrush(Color.FromArgb(115, 134, 146, 166)), 0.8, new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
     private static readonly ImmutablePen StopPen = new(new ImmutableSolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
     private static readonly ImmutablePen ApertureStopPen = new(new ImmutableSolidColorBrush(Color.FromRgb(31, 31, 33)), 2);
-    private static readonly ImmutablePen SurfacePen = new(new ImmutableSolidColorBrush(Color.FromRgb(38, 50, 56)), 2);
+    private static readonly ImmutablePen TwoDLensOutlinePen = new(new ImmutableSolidColorBrush(Colors.Black), 2);
     private static readonly ImmutablePen SelectedSurfaceHaloPen = new(new ImmutableSolidColorBrush(Color.FromArgb(105, 255, 193, 62)), 7);
     private static readonly ImmutablePen SelectedSurfacePen = new(new ImmutableSolidColorBrush(Color.FromRgb(232, 126, 25)), 3.2);
-    private static readonly ImmutablePen LensEdgePen = new(new ImmutableSolidColorBrush(Color.FromRgb(87, 112, 132)), 1.4);
     private static readonly ImmutablePen VignettedRayPen = new(new ImmutableSolidColorBrush(Color.FromRgb(188, 74, 60)), 1.2);
     private static readonly ImmutablePen ThreeDWirePen = new(new ImmutableSolidColorBrush(Color.FromRgb(71, 93, 128)), 1.15);
     private static readonly ImmutablePen ThreeDLensEdgePen = new(new ImmutableSolidColorBrush(Color.FromRgb(24, 58, 142)), 1.7);
@@ -1042,11 +1041,11 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     {
         foreach (var element in elements)
         {
-            DrawFilledPolygon(context, ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush), ThemePen(ThemeResourceBindings.SceneLensEdge, LensEdgePen), element.Boundary, mapZ, mapY);
+            DrawFilledPolygon(context, ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush), TwoDLensOutlinePen, element.Boundary, mapZ, mapY);
         }
     }
 
-    private void DrawLensEdges(
+    private static void DrawLensEdges(
         DrawingContext context,
         IReadOnlyList<Layout2DLensEdge> edges,
         Func<double, double> mapZ,
@@ -1055,7 +1054,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         foreach (var edge in edges)
         {
             context.DrawLine(
-                ThemePen(ThemeResourceBindings.SceneLensEdge, LensEdgePen),
+                TwoDLensOutlinePen,
                 new Point(mapZ(edge.Start.Z), mapY(edge.Start.Y)),
                 new Point(mapZ(edge.End.Z), mapY(edge.End.Y)));
         }
@@ -1597,11 +1596,11 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         context.DrawLine(blue, cubeCenter, cubeCenter + new Vector(-12, 9));
     }
 
-    private Pen SurfacePenFor(Layout2DSurfaceCurve surface)
+    private IPen SurfacePenFor(Layout2DSurfaceCurve surface)
     {
         return surface.IsReferencePlane
             ? ThemePen(ThemeResourceBindings.SceneReference, ReferencePlanePen)
-            : ThemePen(ThemeResourceBindings.SceneSurface, SurfacePen);
+            : TwoDLensOutlinePen;
     }
 
     private Pen RayPenFor(

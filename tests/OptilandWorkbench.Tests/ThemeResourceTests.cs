@@ -92,7 +92,7 @@ public sealed class ThemeResourceTests
             Color.FromRgb(255, 255, 255),
             ColorOf(lightResources, ThemeResourceBindings.SettingsSurface));
         Assert.Equal((byte)255, ColorOf(lightResources, ThemeResourceBindings.SettingsSurface).A);
-        Assert.True(ColorOf(lightResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
+        Assert.Equal((byte)255, ColorOf(lightResources, ThemeResourceBindings.SettingsOverlaySurface).A);
         Assert.True(ColorOf(resources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
         Assert.True(ColorOf(isekaiResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
         Assert.True(ColorOf(pixelResources, ThemeResourceBindings.SettingsOverlaySurface).A < 255);
@@ -165,7 +165,7 @@ public sealed class ThemeResourceTests
         {
             var profile = ThemeRegistry.FromSettings(settingsValue).Chrome;
             Assert.Equal(new Thickness(1), profile[ThemeChromeRole.SettingsCard].BorderThickness);
-            Assert.Equal(new CornerRadius(8), profile[ThemeChromeRole.SettingsCard].CornerRadius);
+            Assert.Equal(new CornerRadius(settingsValue == "Light" ? 6 : 8), profile[ThemeChromeRole.SettingsCard].CornerRadius);
             Assert.Equal(new Thickness(1), profile[ThemeChromeRole.ControlFrame].BorderThickness);
             Assert.Equal(new CornerRadius(5), profile[ThemeChromeRole.ControlFrame].CornerRadius);
             Assert.Equal(new Thickness(0, 0, 0, 1), profile[ThemeChromeRole.Ribbon].BorderThickness);
@@ -277,26 +277,26 @@ public sealed class ThemeResourceTests
         Assert.Equal(Color.FromRgb(59, 131, 189), ColorOf(resources, ThemeResourceBindings.SectionHeaderBackground));
         Assert.Equal(Colors.Transparent, ColorOf(resources, ThemeResourceBindings.RibbonCommandBackground));
         Assert.Equal(Color.FromRgb(221, 239, 242), ColorOf(resources, ThemeResourceBindings.RibbonGroupBackground));
-        Assert.Equal(96d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonMinHeight]));
-        Assert.Equal(48d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinWidth]));
-        Assert.Equal(48d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandWidth]));
-        Assert.Equal(50d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinHeight]));
-        Assert.Equal(22d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandIconSize]));
-        Assert.Equal(32d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonTabHeight]));
+        Assert.Equal(72d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonMinHeight]));
+        Assert.Equal(56d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinWidth]));
+        Assert.True(double.IsNaN(Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandWidth])));
+        Assert.Equal(36d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandMinHeight]));
+        Assert.Equal(20d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonCommandIconSize]));
+        Assert.True(double.IsNaN(Assert.IsType<double>(resources[ThemeLayoutResources.RibbonTabHeight])));
         Assert.Equal(0d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonGroupCaptionHeight]));
         Assert.Equal(0d, Assert.IsType<double>(resources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight]));
         Assert.Equal(new Thickness(0), Assert.IsType<Thickness>(resources[ThemeLayoutResources.RibbonCommandBorderThickness]));
         Assert.Equal(32d, Assert.IsType<double>(resources["TabItemMinHeight"]));
 
         var lightResources = ThemeRegistry.FromSettings("Light").BuildResources();
-        Assert.Equal(126d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonMinHeight]));
-        Assert.Equal(78d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinWidth]));
+        Assert.Equal(72d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonMinHeight]));
+        Assert.Equal(56d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinWidth]));
         Assert.True(double.IsNaN(Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandWidth])));
-        Assert.Equal(66d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinHeight]));
-        Assert.Equal(26d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandIconSize]));
-        Assert.Equal(new Thickness(1), Assert.IsType<Thickness>(lightResources[ThemeLayoutResources.RibbonCommandBorderThickness]));
+        Assert.Equal(36d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandMinHeight]));
+        Assert.Equal(20d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonCommandIconSize]));
+        Assert.Equal(new Thickness(0), Assert.IsType<Thickness>(lightResources[ThemeLayoutResources.RibbonCommandBorderThickness]));
         Assert.True(double.IsNaN(Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonTabHeight])));
-        Assert.Equal(double.PositiveInfinity, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight]));
+        Assert.Equal(0d, Assert.IsType<double>(lightResources[ThemeLayoutResources.RibbonGroupCaptionMaxHeight]));
         Assert.Equal(new CornerRadius(0), Assert.IsType<CornerRadius>(resources["ControlCornerRadius"]));
         var definition = ThemeRegistry.FromSettings(PixelTheme.SettingsValue);
         Assert.Contains("Fusion Pixel 10px Mono zh_hans", definition.UiFontFamily.Name, StringComparison.Ordinal);

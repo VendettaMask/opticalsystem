@@ -59,19 +59,19 @@ internal sealed class ThemeChromeProfile
         IReadOnlyDictionary<ThemeChromeRole, ThemeChromeStyle> styles) =>
         new(styles);
 
-    public static ThemeChromeProfile CreateStandard(Color border)
+    public static ThemeChromeProfile CreateStandard(Color border, bool shadows = true, double cardRadius = 8)
     {
         var none = default(BoxShadows);
-        var cardShadow = BoxShadows.Parse("0 5 16 0 #20000000");
+        var cardShadow = shadows ? BoxShadows.Parse("0 5 16 0 #20000000") : none;
         return new ThemeChromeProfile(new Dictionary<ThemeChromeRole, ThemeChromeStyle>
         {
-            [ThemeChromeRole.Ribbon] = new(border, new Thickness(0, 0, 0, 1), new CornerRadius(0), BoxShadows.Parse("0 3 8 0 #14000000")),
+            [ThemeChromeRole.Ribbon] = new(border, new Thickness(0, 0, 0, 1), new CornerRadius(0), shadows ? BoxShadows.Parse("0 3 8 0 #14000000") : none),
             [ThemeChromeRole.Workspace] = new(border, new Thickness(0), new CornerRadius(0), none),
-            [ThemeChromeRole.SettingsCard] = new(border, new Thickness(1), new CornerRadius(8), cardShadow),
-            [ThemeChromeRole.SurfaceCard] = new(border, new Thickness(1), new CornerRadius(8), cardShadow),
+            [ThemeChromeRole.SettingsCard] = new(border, new Thickness(1), new CornerRadius(cardRadius), cardShadow),
+            [ThemeChromeRole.SurfaceCard] = new(border, new Thickness(1), new CornerRadius(cardRadius), cardShadow),
             [ThemeChromeRole.ControlFrame] = new(border, new Thickness(1), new CornerRadius(5), none),
             [ThemeChromeRole.StatusBar] = new(border, new Thickness(0, 1, 0, 0), new CornerRadius(0), none),
-            [ThemeChromeRole.Dialog] = new(border, new Thickness(1), new CornerRadius(8), cardShadow),
+            [ThemeChromeRole.Dialog] = new(border, new Thickness(1), new CornerRadius(cardRadius), cardShadow),
             [ThemeChromeRole.Viewport] = new(border, new Thickness(1), new CornerRadius(0), none)
         });
     }

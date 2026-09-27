@@ -1,0 +1,164 @@
+[
+  {
+    "kind": "Antireflection",
+    "Name": "\u793A\u4F8B\u4E00 \u00B7 \u53EF\u89C1\u5149\u51CF\u53CD\u819C",
+    "Passed": true,
+    "Metrics": {
+      "PeakWavelengthNanometers": 573.625,
+      "PeakTransmittance": 0.9733127868976856,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.00014418973922462192,
+      "MaximumReflectance": 0.010981319411745214
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 2,
+        "Requirement": "\u2264 8",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u5927 R (%)",
+        "Actual": 1.0981319411745214,
+        "Requirement": "\u2264 2",
+        "Passed": true
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 801,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "damped-least-squares/2",
+      "StopReason": "GradientTolerance",
+      "Evaluations": 26,
+      "Iterations": 6,
+      "RandomSeed": null,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  },
+  {
+    "kind": "HighReflector",
+    "Name": "\u793A\u4F8B\u4E8C \u00B7 550 nm \u9AD8\u53CD\u819C",
+    "Passed": false,
+    "Metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.00011095674439498023,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 526.9077432316244,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9568324212783205,
+      "MaximumReflectance": 0.9677556641014246
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 32,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 95.68324212783205,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 801,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "damped-least-squares/2",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 2683,
+      "Iterations": 80,
+      "RandomSeed": null,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  },
+  {
+    "kind": "NarrowBand",
+    "Name": "\u793A\u4F8B\u4E09 \u00B7 550 nm \u7A84\u5E26\u6EE4\u5149\u7247",
+    "Passed": false,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.9707357859531,
+      "PeakTransmittance": 0.7269474535823706,
+      "LeftHalfMaximumNanometers": 536.7508324444564,
+      "RightHalfMaximumNanometers": 563.9710402163165,
+      "FwhmNanometers": 27.220207771860146,
+      "MinimumReflectance": 0.08389780304072926,
+      "MaximumReflectance": 0.8043197927487429
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 11,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9707357859531,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 27.220207771860146,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 72.69474535823706,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 1.0286354126794717,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 0.949845746461818,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 1297,
+    "Run": {
+      "Algorithm": "Damped Least Squares",
+      "AlgorithmVersion": "damped-least-squares/2",
+      "StopReason": "MaximumIterations",
+      "Evaluations": 1001,
+      "Iterations": 80,
+      "RandomSeed": null,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  }
+]

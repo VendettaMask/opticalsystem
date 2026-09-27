@@ -70,7 +70,8 @@ public sealed class ViewerSettingsInputThemeTests
                     var editors = numbers.Cast<Control>().Concat(pickers).ToArray();
                     var form = Assert.IsAssignableFrom<Grid>(editors[0].Parent);
                     Assert.Equal(22, form.Children.Count);
-                    Assert.True(form.Bounds.Height <= 210);
+                    // Six compact rows now use 32 DIP controls rather than the former 30 DIP height.
+                    Assert.True(form.Bounds.Height <= 224);
                     Assert.All(editors, editor =>
                     {
                         var label = form.Children.OfType<TextBlock>().Single(candidate =>

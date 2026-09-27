@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.VisualTree;
+using Dock.Controls.DeferredContentControl;
 using Dock.Model.Core;
 
 namespace OptilandWorkbench.App.Services;
@@ -24,10 +25,9 @@ public sealed class WorkspaceViewLocator : IDataTemplate
 
 internal sealed class WorkspaceContentHost : ContentControl
 {
-    private const string DeferredContentPresenterTypeName =
-        "Dock.Controls.DeferredContentControl.DeferredContentPresenter";
-
     private readonly Control _workspaceContent;
+    private bool _attachedToPresenter;
+    private Visual[] _visibilityChain = [];
 
     public WorkspaceContentHost(Control workspaceContent)
     {
@@ -40,8 +40,25 @@ internal sealed class WorkspaceContentHost : ContentControl
 
     private void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs args)
     {
-        if (!this.GetVisualAncestors().Any(IsDeferredContentPresenter))
+        _visibilityChain = this.GetVisualAncestors().Prepend(this).ToArray();
+        _attachedToPresenter = _visibilityChain.OfType<DeferredContentPresenter>().Any();
+        foreach (var visual in _visibilityChain) visual.PropertyChanged += OnAncestorPropertyChanged;
+        UpdatePresentation();
+    }
+
+    private void OnAncestorPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs args)
+    {
+        if (args.Property == IsVisibleProperty) UpdatePresentation();
+    }
+
+    private void UpdatePresentation()
+    {
+        // Dock keeps the tabbed and MDI presenters attached simultaneously. The
+        // hidden tabbed presenter also changes on every MDI activation; it must
+        // never take the cached panel away from the visible child window.
+        if (!_attachedToPresenter || _visibilityChain.Any(visual => !visual.IsVisible))
         {
+            ReleaseContent();
             return;
         }
 
@@ -56,15 +73,17 @@ internal sealed class WorkspaceContentHost : ContentControl
 
     private void OnDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs args)
     {
+        _attachedToPresenter = false;
+        foreach (var visual in _visibilityChain) visual.PropertyChanged -= OnAncestorPropertyChanged;
+        _visibilityChain = [];
+        ReleaseContent();
+    }
+
+    private void ReleaseContent()
+    {
         if (ReferenceEquals(Content, _workspaceContent))
         {
             Content = null;
         }
     }
-
-    private static bool IsDeferredContentPresenter(Visual visual) =>
-        string.Equals(
-            visual.GetType().FullName,
-            DeferredContentPresenterTypeName,
-            StringComparison.Ordinal);
 }

@@ -59,10 +59,11 @@ public sealed class TolerancingRunWindow : Window
         Apply(defaults);
         _mode.SelectionChanged += (_, _) => UpdateModeControls();
         _compensation.SelectionChanged += (_, _) =>
-            _cycles.IsEnabled = _compensation.SelectedIndex == 1;
+            UpdateCompensationControls();
         UpdateModeControls();
 
         var run = Button("运行");
+        run.Classes.Add("accent");
         run.Click += (_, _) => Close(BuildOptions());
         var cancel = Button("取消");
         cancel.Click += (_, _) => Close(null);
@@ -179,7 +180,7 @@ public sealed class TolerancingRunWindow : Window
         _criterion.SelectedIndex = options.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
         _compensation.SelectedIndex = options.CompensationIterations > 0 ? 1 : 0;
         _cycles.Value = options.CompensationIterations;
-        _cycles.IsEnabled = options.CompensationIterations > 0;
+        UpdateCompensationControls();
         _runs.Value = options.MonteCarloRuns;
         _seed.Value = options.Seed;
         _cpuCount.Value = Math.Clamp(options.MaxDegreeOfParallelism, 1, Math.Max(1, Environment.ProcessorCount));
@@ -198,8 +199,13 @@ public sealed class TolerancingRunWindow : Window
 
     private void UpdateModeControls()
     {
-        _inverseValue.IsEnabled = _mode.SelectedIndex is 1 or 2;
+        ControlAvailability.Set(_inverseValue, _mode.SelectedIndex is 1 or 2,
+            "此值仅用于反向极限或反向增量模式。");
     }
+
+    private void UpdateCompensationControls() =>
+        ControlAvailability.Set(_cycles, _compensation.SelectedIndex == 1,
+            "选择“优化全部（DLS）”补偿后可设置补偿循环。");
 
     private static Control Page(params Control[] children)
     {

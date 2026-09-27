@@ -85,7 +85,13 @@ public sealed class PanelManager : IDisposable
 
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
-        await RestoreCurrentSessionAsync(cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        // The sequential constructor already created the two initial documents.
+        // Do not instantiate analysis/3D pages from the previous session at startup.
+        if (_application.Modes.CurrentMode != OpticalWorkbenchMode.Sequential)
+        {
+            await RestoreCurrentSessionAsync(cancellationToken);
+        }
         _initialized = true;
     }
 
@@ -133,7 +139,7 @@ public sealed class PanelManager : IDisposable
     {
         if (mode == OpticSceneViewMode.TwoDimensional)
         {
-            OpenStable("document:viewer-2d", WorkspaceDocumentTypes.Viewer2D, "二维视图");
+            OpenStable(WorkspaceDockFactory.Viewer2DDocumentId, WorkspaceDocumentTypes.Viewer2D, "二维视图");
         }
         else
         {
@@ -408,8 +414,8 @@ public sealed class PanelManager : IDisposable
             .OfType<ToolDock>()
             .FirstOrDefault(tool => tool.Id == WorkspaceDockFactory.ToolDockId);
         var width = toolDock is null || double.IsNaN(toolDock.Proportion)
-            ? 286
-            : Math.Clamp(toolDock.Proportion * 1440, 230, 420);
+            ? UiDensity.SystemOptionsPreferredWidth
+            : Math.Clamp(toolDock.Proportion * 1440, UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         return new WorkspaceLayoutState(width, 0, 0);
     }
 
@@ -420,7 +426,8 @@ public sealed class PanelManager : IDisposable
             .FirstOrDefault(tool => tool.Id == WorkspaceDockFactory.ToolDockId);
         if (toolDock is not null)
         {
-            toolDock.Proportion = Math.Clamp(layout.LeftPaneWidth / 1440.0, 0.16, 0.34);
+            toolDock.Proportion = Math.Clamp(layout.LeftPaneWidth,
+                UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth) / 1440.0;
         }
     }
 
@@ -487,6 +494,15 @@ public sealed class PanelManager : IDisposable
         _restoring = true;
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (_disposed) return;
+            if (_application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
+            {
+                // Automatic file opening starts with the initial workspace. Saved
+                // defaults and slots remain available through explicit load commands.
+                ResetLayout();
+                return;
+            }
             var path = _application.Documents.CurrentPath;
             var session = await _sessionStore.LoadAsync(path, cancellationToken);
             if (_disposed || generation != Interlocked.Read(ref _restoreGeneration))

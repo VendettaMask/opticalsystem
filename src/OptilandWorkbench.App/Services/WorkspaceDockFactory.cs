@@ -9,6 +9,7 @@ using Dock.Model.Core;
 using Dock.Model.Mvvm;
 using Dock.Model.Mvvm.Controls;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Panels;
 using Orientation = Dock.Model.Core.Orientation;
@@ -23,6 +24,7 @@ public sealed class WorkspaceDockFactory : Factory
     public const string SystemToolId = "tool:system-options";
     public const string DocumentDockId = "workspace:documents";
     public const string LensDocumentId = "document:lens-editor";
+    public const string Viewer2DDocumentId = "document:viewer-2d";
     public const string NonSequentialObjectDocumentId = "document:non-sequential-object-editor";
     public const string NonSequentialDetectorViewerDocumentId = "document:non-sequential-detector-viewer";
 
@@ -116,6 +118,15 @@ public sealed class WorkspaceDockFactory : Factory
         documentDock.Id = DocumentDockId;
         documentDock.Title = "文档";
         documentDock.VisibleDockables = CreateList<IDockable>(primaryDocument);
+        if (_application.Modes.CurrentMode == OpticalWorkbenchMode.Sequential)
+        {
+            var viewerDescriptor = new WorkspaceDocumentDescriptor(
+                Viewer2DDocumentId,
+                WorkspaceDocumentTypes.Viewer2D,
+                "二维视图");
+            _descriptors[viewerDescriptor.Id] = viewerDescriptor;
+            documentDock.VisibleDockables.Add(CreateDocument(viewerDescriptor));
+        }
         documentDock.ActiveDockable = primaryDocument;
 
         var systemContent = CreateSystemToolContent();
@@ -132,14 +143,14 @@ public sealed class WorkspaceDockFactory : Factory
             Context = systemContent
         };
         var initialWidth = _settings.LeftPaneWidth > 0
-            ? Math.Clamp(_settings.LeftPaneWidth, 230, 420)
-            : 286;
+            ? Math.Clamp(_settings.LeftPaneWidth, UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth)
+            : UiDensity.SystemOptionsPreferredWidth;
         var toolDock = new ToolDock
         {
             Id = ToolDockId,
             Title = "系统选项",
             Alignment = Alignment.Left,
-            Proportion = Math.Clamp(initialWidth / 1440.0, 0.16, 0.34),
+            Proportion = initialWidth / 1440.0,
             GripMode = GripMode.Visible,
             AutoHide = false,
             IsCollapsable = true,
@@ -197,6 +208,12 @@ public sealed class WorkspaceDockFactory : Factory
             ?? mainDockables.OfType<IDocumentDock>().FirstOrDefault();
         foreach (var dockable in EnumerateDockables(layout))
         {
+            // Apply to restored layouts as well as newly created ones. The table can
+            // scroll horizontally; the system editors need a usable sidebar width.
+            if (dockable.Id is SystemToolId or ToolDockId)
+                dockable.MinWidth = UiDensity.SystemOptionsMinimumWidth;
+            if (dockable.Id == ToolDockId)
+                dockable.MaxWidth = UiDensity.SystemOptionsMaximumWidth;
             if (dockable.Id == SystemToolId || _descriptors.ContainsKey(dockable.Id))
             {
                 dockable.Context = ResolveContent(dockable.Id);

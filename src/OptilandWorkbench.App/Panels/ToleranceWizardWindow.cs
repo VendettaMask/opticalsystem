@@ -59,6 +59,7 @@ public sealed class ToleranceWizardWindow : Window
         _endSurface.Value = Math.Max(0, surfaces.Count - 2);
 
         var ok = EditorButton("确定");
+        ok.Classes.Add("accent");
         ok.Click += (_, _) => Generate();
         var apply = EditorButton("应用");
         apply.Click += (_, _) => Generate();
@@ -73,10 +74,10 @@ public sealed class ToleranceWizardWindow : Window
 
         var save = EditorButton("保存");
         save.IsEnabled = false;
-        ToolTip.SetTip(save, "预设保存由公差数据编辑器统一处理。");
+        ControlAvailability.Explain(save, "预设保存由公差数据编辑器统一处理。");
         var load = EditorButton("载入");
         load.IsEnabled = false;
-        ToolTip.SetTip(load, "预设载入由公差数据编辑器统一处理。");
+        ControlAvailability.Explain(load, "预设载入由公差数据编辑器统一处理。");
 
         var vendorLabel = Label("供应商");
         var precisionLabel = Label("精度等级");
@@ -382,13 +383,22 @@ public sealed class ToleranceWizardWindow : Window
         return toolbar;
     }
 
-    private static Button ToolButton(string icon, string text, bool enabled = true) => new()
+    private static Button ToolButton(string icon, string text, bool enabled = true)
     {
-        Content = new LocalIconLabel(icon, text),
-        IsEnabled = enabled,
-        MinHeight = 30,
-        Padding = new Thickness(8, 4)
-    };
+        var button = new Button
+        {
+            Content = new LocalIconLabel(icon, text),
+            MinHeight = 30,
+            Padding = new Thickness(8, 4)
+        };
+        ControlAvailability.Set(button, enabled, text switch
+        {
+            "保存" or "载入" or "验证" => "请在公差数据编辑器中执行此操作。",
+            "重置" => "请使用向导底部的“重置”按钮。",
+            _ => "此向导暂不提供独立帮助窗口。"
+        });
+        return button;
+    }
 
     private static Border EditorHeader()
     {
@@ -402,7 +412,7 @@ public sealed class ToleranceWizardWindow : Window
                 Spacing = 8,
                 Children =
                 {
-                    new Button { Content = "⌃", Width = 34, Height = 30, IsEnabled = false },
+                    DisabledHeaderButton("⌃"),
                     new TextBlock
                     {
                         Text = "操作数: 1  属性",
@@ -410,14 +420,21 @@ public sealed class ToleranceWizardWindow : Window
                         FontWeight = FontWeight.SemiBold,
                         VerticalAlignment = VerticalAlignment.Center
                     },
-                    new Button { Content = "‹", Width = 34, Height = 30, IsEnabled = false },
-                    new Button { Content = "›", Width = 34, Height = 30, IsEnabled = false }
+                    DisabledHeaderButton("‹"),
+                    DisabledHeaderButton("›")
                 }
             }
         };
         header.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
         header.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return header;
+    }
+
+    private static Button DisabledHeaderButton(string text)
+    {
+        var button = new Button { Content = text, Width = 34, Height = 30 };
+        ControlAvailability.Set(button, false, "向导中不切换单条公差操作数；请返回公差数据编辑器操作。");
+        return button;
     }
 
     private static Border Navigation()
@@ -513,9 +530,10 @@ public sealed class ToleranceWizardWindow : Window
     private static Grid DisabledToleranceRow(string label, string unit)
     {
         var enabled = Check(label, false);
-        enabled.IsEnabled = false;
+        var reason = $"当前公差向导尚不支持生成{label}操作数。";
+        ControlAvailability.Set(enabled, false, reason);
         var value = Number(0.2m, 0, 1_000_000, 0.01m);
-        value.IsEnabled = false;
+        ControlAvailability.Set(value, false, reason);
         return ToleranceRow(enabled, UnitLabel(unit), value);
     }
 
@@ -551,13 +569,12 @@ public sealed class ToleranceWizardWindow : Window
         Padding = new Thickness(10, 3)
     };
 
-    private static Button HelpButton() => new()
+    private static Button HelpButton()
     {
-        Content = "?",
-        Width = 30,
-        Height = 28,
-        IsEnabled = false
-    };
+        var button = new Button { Content = "?", Width = 30, Height = 28 };
+        ControlAvailability.Set(button, false, "此向导暂不提供独立帮助窗口。");
+        return button;
+    }
 
     private static Border GridCell(string text, bool isHeader)
     {

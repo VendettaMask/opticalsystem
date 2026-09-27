@@ -55,7 +55,7 @@
 
 ## 2026-09-05 候选 MS-L7 结果（历史）
 
-完整报告：[COMPARISON_REPORT.md](../artifacts/zemax-comparisons/ms-l7-candidate-final-2026-09-05/COMPARISON_REPORT.md)。报告目录为 `artifacts/zemax-comparisons/ms-l7-candidate-final-2026-09-05`，生成物不提交。可提交的 [验证清单](validation/ZEMAX_COMPARISON_RUN_2026-09-05.json) 包含完整 72 项映射、新增文件清单、构建/测试证据、源/配置/工具/报告哈希和保留限制。
+完整报告：COMPARISON_REPORT.md（历史产物路径：`../artifacts/zemax-comparisons/ms-l7-candidate-final-2026-09-05/COMPARISON_REPORT.md`；当前检出未包含）。报告目录为 `artifacts/zemax-comparisons/ms-l7-candidate-final-2026-09-05`，生成物不提交。可提交的 [验证清单](validation/ZEMAX_COMPARISON_RUN_2026-09-05.json) 包含完整 72 项映射、新增文件清单、构建/测试证据、源/配置/工具/报告哈希和保留限制。
 
 实际软件为 OpticStudio 2026 R1，API 版本 `260127`、SP0、有效 EnterpriseEdition 许可证。输入为 17 面、1 个配置的顺序镜头。最终工具 Release 程序集哈希为 `a7d43198ee670515092ff48a4bf21abd31ab12977225aa7a53a889773027b4dd`；配置哈希为 `5e648bf1f14ff2daeea7834089469648cd89b6d52bfca8fc54bc4e861bd315af`。源文件及副本完整性均通过。
 
