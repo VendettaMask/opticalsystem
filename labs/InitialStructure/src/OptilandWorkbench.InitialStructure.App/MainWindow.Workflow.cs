@@ -65,6 +65,7 @@ public sealed partial class MainWindow
         _apertureMode.SelectionChanged += (_, _) => ParametersChanged();
         _fixedBack.IsCheckedChanged += (_, _) => ParametersChanged();
         _automaticDiameters.IsCheckedChanged += (_, _) => ParametersChanged();
+        _physicalStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _freeStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _searchMode.SelectionChanged += (_, _) => ParametersChanged();
         Closing += (_, args) =>

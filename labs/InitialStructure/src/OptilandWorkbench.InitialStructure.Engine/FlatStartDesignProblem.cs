@@ -30,7 +30,8 @@ internal sealed class FlatStartDesignProblem
         _geometry = new(specification, elementCount, .3, family);
         _template = template;
         _focalLength = specification.EffectiveFocalLengthMillimeters;
-        _maximumCurvature = .9 * _focalLength / template.Surfaces.Skip(1).Take(SurfaceCount).Max(surface => surface.SemiDiameter);
+        _maximumCurvature = .9 * _focalLength / template.Surfaces.Skip(1).Take(SurfaceCount).Max(surface =>
+            specification.FlatStart!.UsePhysicalStop ? Math.Max(surface.SemiDiameter, surface.MechanicalSemiDiameter ?? surface.SemiDiameter) : surface.SemiDiameter);
     }
 
     public double[] Vector(OpticSnapshot snapshot)
@@ -96,6 +97,14 @@ internal sealed class FlatStartDesignProblem
     public DesignEvaluation Evaluate(Optic optic, DesignStage stage, bool dense, CancellationToken cancellationToken,
         bool independentValidation = false)
     {
+        using var measurement = SequentialTraceMeasurement.Begin();
+        try { return EvaluateCore(optic, stage, dense, cancellationToken, independentValidation); }
+        finally { TracedRayCount += measurement.RayCount; }
+    }
+
+    private DesignEvaluation EvaluateCore(Optic optic, DesignStage stage, bool dense, CancellationToken cancellationToken,
+        bool independentValidation)
+    {
         cancellationToken.ThrowIfCancellationRequested();
         var area = _specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         double[] fields = _specification.MaximumFieldAngleDegrees == 0 || stage.FieldFraction == 0 ? [0]
@@ -104,13 +113,16 @@ internal sealed class FlatStartDesignProblem
         var pupils = IntegrationPupils(_specification.FlatStart.SamplingPolicy, dense, independentValidation);
         var checks = area ? CheckPupils(dense, independentValidation) : [];
         var wavelengthNumber = stage.AllWavelengths ? 0 : optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
-        var sizing = _specification.FlatStart!.AutomaticLensDiameters
+        var stopFailure = FlatStartProblem.PreparePhysicalStop(optic, _specification.FlatStart!);
+        var sizing = stopFailure is null && _specification.FlatStart!.AutomaticLensDiameters
             ? AutomaticSemiDiameterSolver.UpdateFromRayEnvelope(optic, FlatStartProblem.LensGroups(_elementCount),
                 fields.Select(field => (0.0, field * stage.FieldFraction)).ToArray(), pupils.Concat(checks).ToArray(),
-                _specification.SemiDiameterMarginFactor, wavelengthNumber, cancellationToken) : null;
-        TracedRayCount += sizing?.AttemptedRays ?? 0;
+                _specification.SemiDiameterMarginFactor, wavelengthNumber, cancellationToken,
+                preserveStopAperture: _specification.FlatStart.UsePhysicalStop) : null;
         var geometryResiduals = new List<double>();
         var violations = _geometry.GeometryViolations(optic, geometryResiduals, area ? .01 : 0).ToList();
+        if (_specification.FlatStart!.UsePhysicalStop) geometryResiduals.Add(stopFailure is null ? 0 : 1);
+        if (stopFailure is not null) violations.Add(stopFailure);
         var geometryValid = violations.Count == 0;
         // Manufacturing bounds remain hard gates. Finite Core geometry/coordinates
         // may still supply derivatives across a bound during constrained search.
@@ -167,7 +179,6 @@ internal sealed class FlatStartDesignProblem
                         reference: "centroid", includeSurfaceTransmission: false, cancellationToken: cancellationToken);
                     maximumRadius = result.Metrics?.MaximumSpotRadius;
                 }
-                TracedRayCount += result.RayCount + (checkResult?.RayCount ?? 0);
             }
             var attempted = pupils.Length * waves.Length;
             var valid = result is null ? 0 : result.RayCount - result.VignettedRayCount;
@@ -177,7 +188,6 @@ internal sealed class FlatStartDesignProblem
             if (traceGeometry && valid != attempted)
             {
                 diagnostic = SampledApertureDiagnostics.Evaluate(optic, 0, normalized, pupils, wavelengthNumber, cancellationToken);
-                TracedRayCount += diagnostic.UnclippedSpot.RayCount;
             }
             var searchSpot = diagnostic?.UnclippedSpot ?? result;
             var hasCoordinates = searchSpot?.Metrics is not null && searchSpot.VignettedRayCount == 0;
@@ -249,7 +259,7 @@ internal sealed class FlatStartDesignProblem
             }
         }
         var merit = residuals.Sum(value => value * value);
-        return new()
+        var evaluation = new DesignEvaluation
         {
             EvaluatedOptic = optic.ToSnapshot(),
             EffectiveFocalLengthMillimeters = efl > 0 && double.IsFinite(efl) ? efl : null,
@@ -259,6 +269,7 @@ internal sealed class FlatStartDesignProblem
                 stage, dense, continuousResiduals, merit)
             {
                 SamplingPolicy = _specification.FlatStart.SamplingPolicy,
+                UsePhysicalStop = _specification.FlatStart.UsePhysicalStop,
                 IndependentValidation = area && independentValidation
             },
             Residuals = residuals,
@@ -272,6 +283,7 @@ internal sealed class FlatStartDesignProblem
             ImageResiduals = imageResiduals,
             GeometryFeasible = geometryValid
         };
+        return evaluation;
 
         void Upper(string code, double? actual, double limit)
         {

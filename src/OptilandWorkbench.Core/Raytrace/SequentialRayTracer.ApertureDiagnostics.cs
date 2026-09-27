@@ -31,6 +31,7 @@ public sealed partial class SequentialRayTracer
         if (surfaces.Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
             .Any(surface => surface.PhysicalAperture is not (null or CircularAperture)))
             throw new NotSupportedException("Aperture clearance diagnostics support circular physical apertures only.");
+        SequentialTraceMeasurement.Record(1);
         var ray = RayState.FromRealRay(sourceRay.Normalize());
         var material = ResolveMaterial("Air");
         var path = 0.0;

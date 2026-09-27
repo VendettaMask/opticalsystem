@@ -1,0 +1,88 @@
+[
+  {
+    "SchemaVersion": 1,
+    "Name": "定焦实验",
+    "Conjugate": 0,
+    "EffectiveFocalLengthMillimeters": 50,
+    "FNumber": 8,
+    "MaximumFieldAngleDegrees": 20,
+    "Wavelengths": [
+      {
+        "Label": "d",
+        "Nanometers": 587.6,
+        "Weight": 1,
+        "IsPrimary": true
+      }
+    ],
+    "MinimumElementCount": 3,
+    "MaximumElementCount": 8,
+    "MaximumTrackLengthMillimeters": 100,
+    "MinimumCenterThicknessMillimeters": 2,
+    "MinimumAirGapMillimeters": 1,
+    "MinimumBackFocusMillimeters": 5,
+    "SemiDiameterMarginFactor": 1.25,
+    "MaximumRmsSpotRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "InitialGlass": "N-BK7",
+    "GlassCatalogs": [],
+    "Budget": {
+      "InitialSeedCount": 24,
+      "MaximumEvaluations": 10000,
+      "MaximumParallelism": 1,
+      "TimeLimit": "00:30:00",
+      "RandomSeed": 101
+    },
+    "FlatStart": {
+      "AutomaticLensDiameters": true,
+      "FixedBackFocusMillimeters": null,
+      "MinimumEdgeThicknessMillimeters": 0.5,
+      "EffectiveFocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.05,
+      "MinimumValidRayFraction": 0.98,
+      "SamplingPolicy": 1
+    }
+  },
+  {
+    "SchemaVersion": 1,
+    "Name": "定焦实验",
+    "Conjugate": 0,
+    "EffectiveFocalLengthMillimeters": 50,
+    "FNumber": 2.8,
+    "MaximumFieldAngleDegrees": 40,
+    "Wavelengths": [
+      {
+        "Label": "d",
+        "Nanometers": 587.6,
+        "Weight": 1,
+        "IsPrimary": true
+      }
+    ],
+    "MinimumElementCount": 3,
+    "MaximumElementCount": 8,
+    "MaximumTrackLengthMillimeters": 100,
+    "MinimumCenterThicknessMillimeters": 2,
+    "MinimumAirGapMillimeters": 1,
+    "MinimumBackFocusMillimeters": 5,
+    "SemiDiameterMarginFactor": 1.25,
+    "MaximumRmsSpotRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "InitialGlass": "N-BK7",
+    "GlassCatalogs": [],
+    "Budget": {
+      "InitialSeedCount": 24,
+      "MaximumEvaluations": 10000,
+      "MaximumParallelism": 1,
+      "TimeLimit": "00:30:00",
+      "RandomSeed": 101
+    },
+    "FlatStart": {
+      "AutomaticLensDiameters": true,
+      "FixedBackFocusMillimeters": null,
+      "MinimumEdgeThicknessMillimeters": 0.5,
+      "EffectiveFocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.05,
+      "MinimumValidRayFraction": 0.98,
+      "SamplingPolicy": 1
+    }
+  }
+]

@@ -34,10 +34,13 @@ internal static class FlatStartCandidateArchive
         var evaluation = candidate.Evaluation;
         if (evaluation.FlatStartObjective is { } objective)
             return objective.SamplingPolicy == specification.FlatStart?.SamplingPolicy
+                && objective.UsePhysicalStop == specification.FlatStart.UsePhysicalStop
+                && (!objective.UsePhysicalStop || candidate.Optic.RayAimingEnabled)
                 && (objective.SamplingPolicy == FlatStartSamplingPolicy.LegacyEqualRings || objective.IndependentValidation)
                 ? Score(objective) : double.PositiveInfinity;
         // Read-only compatibility for historical results. New searches publish
         // the full dense objective and never compare it with this legacy score.
+        if (specification.FlatStart?.UsePhysicalStop == true) return double.PositiveInfinity;
         return (evaluation.RmsSpotRadiusMillimeters ?? 1e6) / specification.MaximumRmsSpotRadiusMillimeters
             + (evaluation.MaximumSpotRadiusMillimeters ?? 1e6) / specification.MaximumSpotRadiusMillimeters
             + 100 * (1 - evaluation.ValidRayFraction)

@@ -43,7 +43,9 @@ internal sealed class FlatStartProblem
         }
         optic.SurfaceGroup.Renumber();
         Root = optic.ToSnapshot();
-        _maximumScaledCurvature = 0.9 * specification.EffectiveFocalLengthMillimeters / optic.SurfaceGroup.Items[1].SemiDiameter;
+        var first = optic.SurfaceGroup.Items[1];
+        _maximumScaledCurvature = 0.9 * specification.EffectiveFocalLengthMillimeters /
+            (specification.FlatStart.UsePhysicalStop ? Math.Max(first.SemiDiameter, first.MechanicalSemiDiameter) : first.SemiDiameter);
     }
 
     public OpticSnapshot Root { get; }
@@ -81,19 +83,29 @@ internal sealed class FlatStartProblem
 
     public FlatStartEvaluation Evaluate(Optic optic, bool dense, CancellationToken cancellationToken)
     {
+        using var measurement = SequentialTraceMeasurement.Begin();
+        try { return EvaluateCore(optic, dense, cancellationToken); }
+        finally { TracedRayCount += measurement.RayCount; }
+    }
+
+    private FlatStartEvaluation EvaluateCore(Optic optic, bool dense, CancellationToken cancellationToken)
+    {
         cancellationToken.ThrowIfCancellationRequested();
         var pupils = Pupils(dense).ToArray();
         var primary = optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
-        var sizing = _specification.FlatStart!.AutomaticLensDiameters
+        var stopFailure = PreparePhysicalStop(optic, _specification.FlatStart!);
+        var sizing = stopFailure is null && _specification.FlatStart!.AutomaticLensDiameters
             ? AutomaticSemiDiameterSolver.UpdateFromRayEnvelope(optic, LensGroups(_elementCount), [(0, 0)],
                 pupils.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(),
-                _specification.SemiDiameterMarginFactor, primary, cancellationToken) : null;
-        TracedRayCount += sizing?.AttemptedRays ?? 0;
+                _specification.SemiDiameterMarginFactor, primary, cancellationToken,
+                preserveStopAperture: _specification.FlatStart.UsePhysicalStop) : null;
         var violations = GeometryViolations(optic).ToList();
+        if (stopFailure is not null) violations.Add(stopFailure);
         if (sizing is { Applied: false }) violations.Add(ApertureSizingFailure(sizing));
         var residuals = new List<double>();
         var power = optic.Paraxial.EstimateOpticalPower();
         residuals.Add(5 * (power * _specification.EffectiveFocalLengthMillimeters - 1));
+        if (_specification.FlatStart!.UsePhysicalStop) residuals.Add(stopFailure is null ? 0 : 10);
         var residualScale = 1 / (PupilRadius * Math.Sqrt(pupils.Length));
         SampledSpotResult? spot = null;
         if (violations.Count == 0)
@@ -101,7 +113,6 @@ internal sealed class FlatStartProblem
             spot = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, 0,
                 pupils.Select(pupil => new PupilSample(pupil.X, pupil.Y, 1)).ToArray(), primary,
                 reference: "absolute", includeSurfaceTransmission: false, cancellationToken: cancellationToken);
-            TracedRayCount += spot.RayCount;
         }
         var valid = spot is null ? 0 : spot.RayCount - spot.VignettedRayCount;
         var rays = spot?.Wavelengths.SelectMany(wave => wave.Rays).ToArray() ?? [];
@@ -113,7 +124,7 @@ internal sealed class FlatStartProblem
         }
         if (!double.IsFinite(power) || residuals.Any(value => !double.IsFinite(value)))
             throw new ArithmeticException("The startup residual is not finite.");
-        return new FlatStartEvaluation
+        var evaluation = new FlatStartEvaluation
         {
             EvaluatedOptic = optic.ToSnapshot(),
             OpticalPowerPerMillimeter = power,
@@ -123,6 +134,7 @@ internal sealed class FlatStartProblem
             Residuals = residuals.ToArray(),
             Violations = violations
         };
+        return evaluation;
     }
 
     public bool IsFocused(FlatStartEvaluation evaluation) => evaluation.Violations.Count == 0
@@ -138,15 +150,15 @@ internal sealed class FlatStartProblem
         {
             var front = optic.SurfaceGroup.Items[2 * element + 1];
             var back = optic.SurfaceGroup.Items[2 * element + 2];
-            var radius = Math.Max(front.SemiDiameter, back.SemiDiameter);
+            var radius = Math.Max(BodyRadius(front), BodyRadius(back));
             var edge = AxialSurfaceSeparation.Evaluate(optic, 2 * element + 1, 0, radius);
             Minimum(front.Thickness, _specification.MinimumCenterThicknessMillimeters, "geometry.center-thickness");
             Minimum(Math.Min(front.Thickness, edge), _specification.FlatStart!.MinimumEdgeThicknessMillimeters, "geometry.edge-thickness");
             if (element < _elementCount - 1)
             {
                 Minimum(back.Thickness, _specification.MinimumAirGapMillimeters, "geometry.air-gap");
-                var nextRadius = Math.Max(optic.SurfaceGroup.Items[2 * element + 3].SemiDiameter,
-                    optic.SurfaceGroup.Items[2 * element + 4].SemiDiameter);
+                var nextRadius = Math.Max(BodyRadius(optic.SurfaceGroup.Items[2 * element + 3]),
+                    BodyRadius(optic.SurfaceGroup.Items[2 * element + 4]));
                 Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance");
             }
             else
@@ -159,6 +171,9 @@ internal sealed class FlatStartProblem
         Minimum(_specification.MaximumTrackLengthMillimeters - optic.SurfaceGroup.TotalTrack, 0, "geometry.maximum-track");
         return violations;
 
+        double BodyRadius(OptilandWorkbench.Core.Domain.OpticalSurface surface) => _specification.FlatStart!.UsePhysicalStop
+            ? Math.Max(surface.SemiDiameter, surface.MechanicalSemiDiameter) : surface.SemiDiameter;
+
         void Minimum(double actual, double minimum, string code)
         {
             var interior = code is "geometry.edge-thickness" or "geometry.edge-clearance" ? searchInteriorMillimeters : 0;
@@ -166,6 +181,33 @@ internal sealed class FlatStartProblem
                 ? Math.Max(0, minimum + interior - actual) / _specification.EffectiveFocalLengthMillimeters : 1);
             if (!double.IsFinite(actual) || actual < minimum - 1e-9)
                 violations.Add(new(code, ConstraintSeverity.Hard, "Geometry is outside the configured bound.", double.IsFinite(actual) ? actual : null, minimum));
+        }
+    }
+
+    internal static ConstraintViolation? PreparePhysicalStop(Optic optic, FlatStartSettings settings)
+    {
+        if (!settings.UsePhysicalStop) return null;
+        optic.InvalidateRayTraceCache();
+        optic.RayAimingEnabled = true;
+        var stop = optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.IsStop);
+        var bodyRadius = stop?.MechanicalSemiDiameter;
+        try
+        {
+            var result = PhysicalStopCalibration.Apply(optic);
+            if (!settings.AutomaticLensDiameters && bodyRadius is { } body)
+            {
+                // A fixed lens body cannot silently expand to accommodate the new pupil.
+                stop!.MechanicalSemiDiameter = body;
+                if (result.ClearSemiDiameterMillimeters > body)
+                    return new("geometry.stop-outside-body", ConstraintSeverity.Hard,
+                        "The calibrated physical stop exceeds the fixed lens body.", null, body);
+            }
+            return null;
+        }
+        catch (Exception error) when (error is InvalidOperationException or ArithmeticException or NotSupportedException)
+        {
+            // Unavailable stop geometry is a hard optical-domain failure, not a fallback radius.
+            return new("geometry.stop-calibration", ConstraintSeverity.Hard, error.Message, null, null);
         }
     }
 

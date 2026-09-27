@@ -58,6 +58,7 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
 
     public string Details(FlatStartSearchCheckpoint checkpoint)
     {
+        var measuredTraces = int.TryParse(checkpoint.Algorithm.Version, NumberStyles.None, CultureInfo.InvariantCulture, out var version) && version >= 18;
         var lines = new List<string>
         {
             $"{Name} · {Status} · {Elements} 片",
@@ -66,7 +67,10 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
             $"起始形式：{InitialForm}；这是初始曲率方向，最终光学性能以正式 Core 验证结果为准。",
             "玻璃：" + string.Join(" / ", Trial.Family.GlassNames),
             $"光阑：面 {Trial.Family.StopSurfaceIndex}；从零曲率平板起步，当前为第 {Candidate.Lineage.Generation} 代。",
-            $"本次已计入 {checkpoint.ChargedEvaluations}/{checkpoint.Specification.Budget.MaximumEvaluations} 次评价；已记录 {checkpoint.TracedRealRayCount:N0} 个分析光线采样（不含全部瞄准开销）。"
+            Candidate.Evaluation.FlatStartObjective?.UsePhysicalStop == true
+                ? "实体光阑：净口径按系统入瞳标定并瞄准；镜片机械半径单独计算。" : "历史口径模式：按近轴入瞳发射，光阑面随镜片口径更新。",
+            $"本次已计入 {checkpoint.ChargedEvaluations}/{checkpoint.Specification.Budget.MaximumEvaluations} 次评价；已记录 {checkpoint.TracedRealRayCount:N0} "
+                + (measuredTraces ? "次真实光线追迹计算（含瞄准与诊断）。" : "个分析光线采样（历史计数，不含全部瞄准开销）。")
         };
         if (IncompleteAreaEvaluation) lines.Add("完整口径追迹失败；逐视场光斑值仅供诊断，不代表完整口径像质。RMS 与最大半径目标无法判定。");
         if (checkpoint.Origin is { } origin) lines.Add($"本次是追加细化；来源运行已用 {origin.ChargedEvaluations} 次评价，未计入本次新预算。来源记录：{origin.RunId}");

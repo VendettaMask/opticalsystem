@@ -24,8 +24,10 @@ public sealed class FlatStartDesktopTests
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.InitialStructure.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
-    [Fact]
-    public async Task NewDesktopExperimentDefaultsToAutomaticDiametersAndPolicyChangesClearResults()
+    [Theory]
+    [InlineData("AutomaticDiameters")]
+    [InlineData("PhysicalStop")]
+    public async Task NewDesktopExperimentDefaultsToPhysicalStopAndAutomaticDiametersAndPolicyChangesClearResults(string changedControl)
     {
         using var host = new DesktopHost();
         await host.Run(async () =>
@@ -34,13 +36,19 @@ public sealed class FlatStartDesktopTests
             window.Show(); await window.Ready;
             var automatic = Find<CheckBox>(window, "AutomaticDiameters");
             Assert.True(automatic.IsChecked);
+            Assert.True(Find<CheckBox>(window, "PhysicalStop").IsChecked);
             Find<NumericUpDown>(window, "EvaluationBudget").Value = 120;
             Find<NumericUpDown>(window, "RootCount").Value = 1;
             Click(window, "Generate"); await window.PendingOperation;
             var checkpoint = window.CurrentCheckpoint!;
             Assert.True(checkpoint.Specification.FlatStart!.AutomaticLensDiameters);
+            Assert.True(checkpoint.Specification.FlatStart.UsePhysicalStop);
             Assert.Equal(FlatStartSamplingPolicy.UniformAreaGaussianV1, checkpoint.Specification.FlatStart.SamplingPolicy);
             var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
+            Assert.True(row.Candidate.Optic.RayAimingEnabled);
+            Assert.Contains("实体光阑：", row.Details(checkpoint));
+            Assert.Contains("含瞄准与诊断", row.Details(checkpoint));
+            Assert.Contains("历史计数", row.Details(checkpoint with { Algorithm = checkpoint.Algorithm with { Version = "17" } }));
             var preview = Find<CandidatePreviewControl>(window, "Preview");
             await preview.PendingLoad;
             var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: CandidatePreviewControl.Options);
@@ -48,7 +56,7 @@ public sealed class FlatStartDesktopTests
             Click(window, "Export"); await window.PendingOperation;
             var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
             Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
-            automatic.IsChecked = false;
+            Find<CheckBox>(window, changedControl).IsChecked = false;
             Assert.Null(window.CurrentCheckpoint);
             Assert.Null(preview.PrimaryScene);
             Assert.False(Find<Button>(window, "Export").IsEnabled);
@@ -68,6 +76,7 @@ public sealed class FlatStartDesktopTests
         {
             var window = host.Window(width: width);
             window.Show(); await window.Ready;
+            Assert.False(Find<CheckBox>(window, "PhysicalStop").IsChecked);
             Click(window, "Generate");
             Assert.False(Find<NumericUpDown>(window, "FocalLength").IsEffectivelyEnabled);
             await window.PendingOperation;

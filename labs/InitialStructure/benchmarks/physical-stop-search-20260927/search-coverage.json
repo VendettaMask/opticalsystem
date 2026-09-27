@@ -1,0 +1,76 @@
+[
+  {
+    "Run": "f8-legacy",
+    "Trials": 57,
+    "RootTrials": 24,
+    "RootsWithFeasibleFinalEvaluation": 21,
+    "DesignStates": {
+      "accepted": 26,
+      "budgetExhausted": 27,
+      "targetsNotMet": 4
+    },
+    "Operations": {
+      "flat-root": 24,
+      "refine": 7,
+      "glass-swap": 7,
+      "stop-surface-change": 7,
+      "parameter-perturbation": 6,
+      "glass-pair-swap": 6
+    }
+  },
+  {
+    "Run": "f8-physical",
+    "Trials": 52,
+    "RootTrials": 24,
+    "RootsWithFeasibleFinalEvaluation": 19,
+    "DesignStates": {
+      "accepted": 19,
+      "budgetExhausted": 28,
+      "targetsNotMet": 5
+    },
+    "Operations": {
+      "flat-root": 24,
+      "refine": 6,
+      "glass-swap": 6,
+      "stop-surface-change": 6,
+      "parameter-perturbation": 5,
+      "glass-pair-swap": 5
+    }
+  },
+  {
+    "Run": "f2.8-legacy",
+    "Trials": 45,
+    "RootTrials": 24,
+    "RootsWithFeasibleFinalEvaluation": 12,
+    "DesignStates": {
+      "budgetExhausted": 20,
+      "targetsNotMet": 25
+    },
+    "Operations": {
+      "flat-root": 24,
+      "refine": 5,
+      "glass-swap": 4,
+      "stop-surface-change": 4,
+      "parameter-perturbation": 4,
+      "glass-pair-swap": 4
+    }
+  },
+  {
+    "Run": "f2.8-physical",
+    "Trials": 44,
+    "RootTrials": 24,
+    "RootsWithFeasibleFinalEvaluation": 9,
+    "DesignStates": {
+      "budgetExhausted": 21,
+      "targetsNotMet": 23
+    },
+    "Operations": {
+      "flat-root": 24,
+      "refine": 4,
+      "glass-swap": 4,
+      "stop-surface-change": 4,
+      "parameter-perturbation": 4,
+      "glass-pair-swap": 4
+    }
+  }
+]

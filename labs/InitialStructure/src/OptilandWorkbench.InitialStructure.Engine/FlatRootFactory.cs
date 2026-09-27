@@ -2,6 +2,7 @@ using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.InitialStructure.Contracts;
 
 namespace OptilandWorkbench.InitialStructure.Engine;
@@ -55,6 +56,11 @@ public sealed class FlatRootFactory
             for (var index = 0; index < surfaces.Count; index++) surfaces[index].IsStop = index == family.StopSurfaceIndex;
         }
         optic.SurfaceGroup.ImportLegacySurfaces(surfaces);
+        if (specification.FlatStart?.UsePhysicalStop == true)
+        {
+            optic.RayAimingEnabled = true;
+            PhysicalStopCalibration.Apply(optic);
+        }
 
         var snapshot = optic.ToSnapshot();
         OpticSnapshotValidator.Validate(snapshot);

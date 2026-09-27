@@ -30,6 +30,7 @@ public sealed partial class MainWindow
     private readonly NumericUpDown _fNumberTolerance = Number("FNumberTolerance", "F/# 容差 %", 5, .0001m, 99, .1m);
     private readonly NumericUpDown _transmission = Number("TransmissionLimit", "最低通光 %", 98, .01m, 100, .1m);
     private readonly CheckBox _automaticDiameters = Named(new CheckBox { Content = "镜片直径随光线自动调整", IsChecked = true }, "AutomaticDiameters", "镜片直径随光线自动调整");
+    private readonly CheckBox _physicalStop = Named(new CheckBox { Content = "实体光阑（自动标定并瞄准）", IsChecked = true }, "PhysicalStop", "实体光阑与光线瞄准");
     private readonly NumericUpDown _apertureMargin = Number("ApertureMargin", "半口径裕量", 1.25m, 1, 100, .05m);
     private readonly NumericUpDown _seedCount = Number("RootCount", "起始试验上限", 24, 1, 128, 1);
     private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 10000, 1, 100000, 100);
@@ -122,7 +123,8 @@ public sealed partial class MainWindow
         advanced.Children.Add(Text("新实验按均匀照明圆瞳的面积 RMS 评价像质，独立加密验收；边缘光线必须全部通过。"));
         advanced.Children.Add(Pairs(Field("焦距容差 %", _focalTolerance), Field("F/# 容差 %", _fNumberTolerance)));
         advanced.Children.Add(_automaticDiameters);
-        advanced.Children.Add(Text("自动口径按当前视场、光瞳和波长的真实光束包络计算，可增大也可缩小；同片前后面使用共同直径。"));
+        advanced.Children.Add(_physicalStop);
+        advanced.Children.Add(Text("镜片外径按真实光束包络增减；实体光阑的通光口径由系统入瞳标定，不随镜片裕量放大。关闭实体光阑保留旧版近轴入瞳采样方式。"));
         advanced.Children.Add(Pairs(Field("最低通光 %", _transmission), Field("半口径裕量", _apertureMargin)));
         panel.Children.Add(Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed)));
         panel.Children.Add(Field("追加细化次数", _refineBudget, 276));
@@ -172,6 +174,7 @@ public sealed partial class MainWindow
             {
                 SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
                 AutomaticLensDiameters = _automaticDiameters.IsChecked == true,
+                UsePhysicalStop = _physicalStop.IsChecked == true,
                 FixedBackFocusMillimeters = _fixedBack.IsChecked == true ? Value(_fixedBackValue) : null,
                 MinimumEdgeThicknessMillimeters = Value(_minimumEdge),
                 EffectiveFocalLengthRelativeTolerance = Value(_focalTolerance) / 100,
@@ -226,6 +229,7 @@ public sealed partial class MainWindow
         Set(_minimumAir, spec.MinimumAirGapMillimeters); Set(_minimumBack, spec.MinimumBackFocusMillimeters);
         Set(_minimumEdge, spec.FlatStart.MinimumEdgeThicknessMillimeters);
         _automaticDiameters.IsChecked = spec.FlatStart.AutomaticLensDiameters;
+        _physicalStop.IsChecked = spec.FlatStart.UsePhysicalStop;
         _fixedBack.IsChecked = spec.FlatStart.FixedBackFocusMillimeters.HasValue;
         Set(_fixedBackValue, spec.FlatStart.FixedBackFocusMillimeters ?? spec.MinimumBackFocusMillimeters);
         Set(_rmsLimit, spec.MaximumRmsSpotRadiusMillimeters); Set(_maximumSpotLimit, spec.MaximumSpotRadiusMillimeters);

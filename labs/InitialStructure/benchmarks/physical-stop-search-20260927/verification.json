@@ -1,0 +1,211 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 18,
+  "formalFocused": {
+    "path": "artifacts/validation/physical-stop-search-20260927/core-focused.trx",
+    "sha256": "d214919753255f55df465c8304f3173c337a932b7ac8343804dfd1892a1cc173",
+    "outcome": "Completed",
+    "counters": {
+      "total": "39",
+      "executed": "39",
+      "passed": "39",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T17:20:21.2566730+08:00",
+      "queuing": "2026-09-27T17:20:21.2566730+08:00",
+      "start": "2026-09-27T17:20:19.9485020+08:00",
+      "finish": "2026-09-27T17:20:21.4700160+08:00"
+    }
+  },
+  "fullLaboratory": {
+    "path": "artifacts/validation/physical-stop-search-20260927/lab-full-final.trx",
+    "sha256": "3ab5b25f82c7a34a78ee3f7133473e012ef262a99a5c712c358775bbdb40352c",
+    "outcome": "Completed",
+    "counters": {
+      "total": "258",
+      "executed": "258",
+      "passed": "258",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T17:19:43.3250550+08:00",
+      "queuing": "2026-09-27T17:19:43.3250550+08:00",
+      "start": "2026-09-27T17:19:42.6862910+08:00",
+      "finish": "2026-09-27T17:30:44.4176970+08:00"
+    }
+  },
+  "finalDesktopAndIntegrationSubset": {
+    "path": "artifacts/validation/physical-stop-search-20260927/lab-ui-final.trx",
+    "sha256": "e368b6352c5c3890107960869d054002ed9c47902a4be78f2d18d40e1178bf60",
+    "outcome": "Completed",
+    "counters": {
+      "total": "24",
+      "executed": "24",
+      "passed": "24",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T17:31:44.8492020+08:00",
+      "queuing": "2026-09-27T17:31:44.8492020+08:00",
+      "start": "2026-09-27T17:31:42.3943250+08:00",
+      "finish": "2026-09-27T17:32:19.8167080+08:00"
+    }
+  },
+  "newFormalCases": 1,
+  "newLaboratoryCases": 10,
+  "verificationSequence": "Full laboratory suite followed by a final focused rerun after details-text updates and whitespace-only test formatting; no optical/search changes after the full suite.",
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/core-focused.log",
+      "sha256": "670e115556d7904ddad6135406ae3d56f37ce3844942ead14cc1822aa53de1d3"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/lab-full-final.log",
+      "sha256": "0b22e8078efde898d5ea3fb7e1275a72369dce8c2a6d7af627f1c75732699325"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/lab-ui-final.log",
+      "sha256": "e3df54835f03f44080e9d5af9ab1078c10c119b9e990bdcdb8182165ad248b6e"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/app-debug-build.log",
+      "sha256": "e58b85be728f681c0f927048ca2f2ed2c080661e6b747d26455fe617b4c3f354"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/lab-debug-final.log",
+      "sha256": "5e9649c4755ce56902b55c1f4960d2adbc71fb9365ed722f0d1c8be6788fc652"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/runner-final-build.log",
+      "sha256": "9eed73d7bd67c9fa9dc1bd4dcabb9ae9a641f8bb2668be0747123ab85c829da7"
+    }
+  ],
+  "releaseBuilds": "Default formal App built by Core test command; default lab App built by full and final focused tests. Zero warnings/errors.",
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/core-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/lab-format-complete.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/runner-format-verify.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "defaultCoreBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0c5dc3eda458eb58a6061955d3fd5eae7abae563ca62289835c5d153ad64bf27"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0c5dc3eda458eb58a6061955d3fd5eae7abae563ca62289835c5d153ad64bf27"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0c5dc3eda458eb58a6061955d3fd5eae7abae563ca62289835c5d153ad64bf27"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "bf1e05a1c177f9f109616c035dd1a974d58725a92bfa338a7a27ab870d3524ed"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "bf1e05a1c177f9f109616c035dd1a974d58725a92bfa338a7a27ab870d3524ed"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "bf1e05a1c177f9f109616c035dd1a974d58725a92bfa338a7a27ab870d3524ed"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/source-freeze.json",
+    "sha256": "45fa10503488b6e6da4b560ca2c62ec69286ba034c805665c9edb0f35ebbc066"
+  },
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/specifications.json",
+      "sha256": "a2146c1253a9da006a7b78531345a4ba7a2e12f3d156d23aecc38329a7a8e7a8"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/summary.json",
+      "sha256": "a35240441040d290e07924408479529054ab646bfa973843ccd6ca0b5da25fb1"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/retained-inputs.json",
+      "sha256": "634b9f84dbff91f4413bd1a0d2d33b517ff8065cca35e0c4c79a0642955a8836"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/replay.json",
+      "sha256": "14cd6aec5d46413babb48e4753a1d9512e8fd1afe0b8f529b2923012d0f8b828"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/physical-stop-search-20260927/search-coverage.json",
+      "sha256": "5bf88aa87a8680fb5f7910713a6fa173b867d6838c25b984af08d072312dacc6"
+    }
+  ],
+  "initialRegressionFailure": {
+    "path": "artifacts/validation/physical-stop-search-20260927/lab-full.log",
+    "sha256": "b93b2ccf7b213465b4a44c6784c503e665803483b1fa1db89642720fad173fcb"
+  },
+  "notPerformed": [
+    "Full formal suite (1311/1311 historical)",
+    "Prior 315/315 optical subset not rerun as a whole",
+    "Comparison-tool suite (104/104 historical)",
+    "Multiseed release acceptance protocol",
+    "Zemax baseline integrity audit or new capture",
+    "New complete external numerical comparison",
+    "Native manual desktop or concurrent main-UI certification",
+    "Continuous-pupil throughput or manufacturing certification"
+  ],
+  "denseReplay": {
+    "candidates": 40,
+    "fieldPositions": 41,
+    "gaussianRadialNodes": 16,
+    "azimuthSamples": 48,
+    "boundaryRays": 72,
+    "chiefRay": true,
+    "missingRays": 0,
+    "fixedSavedPrescriptions": true
+  }
+}

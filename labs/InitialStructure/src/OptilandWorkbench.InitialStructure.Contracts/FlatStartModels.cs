@@ -14,6 +14,10 @@ public sealed record FlatStartSettings
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool AutomaticLensDiameters { get; init; }
 
+    // Historical omission means the original paraxial-pupil launch and envelope-sized stop.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool UsePhysicalStop { get; init; }
+
     public double? FixedBackFocusMillimeters { get; init; }
     public double MinimumEdgeThicknessMillimeters { get; init; } = 0.5;
     public double EffectiveFocalLengthRelativeTolerance { get; init; } = 0.02;

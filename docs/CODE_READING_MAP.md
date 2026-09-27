@@ -1,6 +1,6 @@
 # 全仓库代码阅读地图
 
-2026-09-27 当前验证：v17 隔离共享 Core 的实体光阑标定、保留光阑变径、二维瞄准、虚入瞳发射方向与圆孔边界修复。正式光学定向 **315/315**、实验室完整 Release **248/248** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。30 个原处方的 RMS 重算与冻结值一致，实体光阑诊断转换的完整包络由 0/30 变为 22/30；这不是新搜索或设计达标率。实验室尚未接入独立实体光阑搜索，生成时仍关闭瞄准。正式全量 **1311/1311**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获、完整外部数值对照或并行主界面功能验收。见 [实体光阑修复与验证](INITIAL_STRUCTURE_PHYSICAL_STOP_2026-09-27.md)。下文更早验证保留历史范围。
+2026-09-27 当前验证：v18 已把实体光阑标定、瞄准及保留净口径的自动镜片变径接入实验室搜索，新建实验默认启用，旧实验保留原模式。共享 Core 定向 **39/39**、实验室完整 Release **258/258** 通过；默认主程序及实验室 Debug/Release 构建零警告、零错误。完成两规格、新旧模式各 10,000 次评估的四次对照及全部 40 个保留候选的同设置重算/导出验证；不等于多种子发布验收。正式全量 **1311/1311**、此前光学定向 **315/315**、比较工具 **104/104** 保留历史范围；没有新建 Zemax 捕获或完整外部数值对照。见 [实体光阑搜索接入与实测](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。下文更早验证保留历史范围。
 
 初始结构实验室当前入口为 `FlatStartSearchService`（v16），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartDesignService.Continue` 在完整光线域内保持完整目标，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。见 [当前实现记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)。
 

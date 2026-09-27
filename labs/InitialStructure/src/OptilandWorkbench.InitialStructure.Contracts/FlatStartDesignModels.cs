@@ -14,6 +14,8 @@ public sealed record FlatStartObjectiveValue(FlatStartObjectiveKind Kind, Design
     public FlatStartSamplingPolicy SamplingPolicy { get; init; }
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public bool IndependentValidation { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool UsePhysicalStop { get; init; }
 }
 
 public sealed record DesignWavelengthEvaluation(double Nanometers, int AttemptedRays, int ValidRays);

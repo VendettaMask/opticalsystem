@@ -7,6 +7,19 @@ namespace OptilandWorkbench.Tests;
 public sealed class SequentialTraceMeasurementTests
 {
     [Fact]
+    public void ApertureDiagnosticsCountEveryUncachedPropagation()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 0, .5, .5876).Rays[0];
+        using var measurement = SequentialTraceMeasurement.Begin();
+        var first = optic.SequentialRayTracer.DiagnoseCircularApertures(ray);
+        Assert.NotNull(first.UnclippedImage);
+        Assert.Equal(1, measurement.RayCount);
+        Assert.Equal(first, optic.SequentialRayTracer.DiagnoseCircularApertures(ray));
+        Assert.Equal(2, measurement.RayCount);
+    }
+
+    [Fact]
     public async Task NestedAndParallelScopesCountActualRequestsAndKeepSeparateRunsIsolated()
     {
         using var outer = SequentialTraceMeasurement.Begin();
