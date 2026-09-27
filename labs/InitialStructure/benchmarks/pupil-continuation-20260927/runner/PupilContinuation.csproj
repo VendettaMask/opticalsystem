@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>OptilandWorkbench.InitialStructure.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../physical-stop-search-20260927/runner/FrozenReplay.cs" Link="FrozenReplay.cs" />
+    <ProjectReference Include="../../../src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj" />
+    <ProjectReference Include="../../../src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj" />
+  </ItemGroup>
+</Project>

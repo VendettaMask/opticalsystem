@@ -66,11 +66,11 @@ public sealed class FlatStartSearchService
     }
 
     private static IReadOnlyList<FlatStartFamily> Roots(InitialStructureSpecification specification, FlatStartSearchOptions options,
-        IReadOnlyList<string> glasses, string version) => version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or FlatStartAlgorithm.Version
+        IReadOnlyList<string> glasses, string version) => version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or FlatStartAlgorithm.Version
             ? DesignFormSearch.Roots(specification, options, glasses, version) : FlatStartSearchPlanning.Roots(specification, glasses);
 
     private static int RootQuota(InitialStructureSpecification specification, FlatStartSearchOptions options, int rootCount, string version = FlatStartAlgorithm.Version) =>
-        version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or FlatStartAlgorithm.Version ? DesignFormSearch.RootQuota(specification, options, rootCount, version)
+        version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or FlatStartAlgorithm.Version ? DesignFormSearch.RootQuota(specification, options, rootCount, version)
         : rootCount == 0 ? 0 : Math.Min(options.MaximumEvaluationsPerTrial,
             Math.Min(specification.Budget.MaximumEvaluations / rootCount,
                 version is "6" or "7"

@@ -72,6 +72,8 @@ public sealed class FlatStartDesignService
         }
         if (canContinue && !refinedAtFullTarget && progressive)
         {
+            DesignStage? established = null;
+            double[]? establishedVector = null;
             for (var index = 0; index < FlatStartContinuation.ProgressiveStages.Count && CanEvaluate(true); index++)
             {
                 var stage = FlatStartContinuation.ProgressiveStages[index];
@@ -82,7 +84,46 @@ public sealed class FlatStartDesignService
                 var evaluation = Evaluate(vector, stage, dense);
                 if (dense) RetainFullTarget(evaluation);
                 steps.Add(new(count, "progressive-stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
-                Optimize(stage, evaluation, stageEnd, dense);
+                var local = Optimize(stage, evaluation, stageEnd, dense);
+                evaluation = local?.Evaluation ?? evaluation;
+                var failedStage = stage;
+                // A missing real-ray bundle has no optical Jacobian. Approach the failed
+                // milestone from the last traceable stage instead of advancing through it.
+                for (var backoff = 0; !evaluation.HasContinuousSearchResiduals
+                    && established is not null && backoff < 8 && count + 2 < stageEnd && CanEvaluate(true); backoff++)
+                {
+                    vector = establishedVector!.ToArray();
+                    var bridge = new DesignStage((established.PupilFraction + failedStage.PupilFraction) / 2,
+                        (established.FieldFraction + failedStage.FieldFraction) / 2, failedStage.AllWavelengths);
+                    var bridged = Evaluate(vector, bridge);
+                    steps.Add(new(count, "progressive-bridge-entry", bridge, bridged.EvaluatedOptic!, bridged));
+                    diagnostics.Add(new("design.progressive-backoff", $"Missing optical data at {failedStage}; trying {bridge}."));
+                    if (!bridged.HasContinuousSearchResiduals)
+                    {
+                        failedStage = bridge;
+                        continue;
+                    }
+                    // Keep a window for retrying the original milestone. Intermediate
+                    // targets are only a path to that milestone, not stopping criteria.
+                    var bridgeEnd = count + Math.Max(0, (stageEnd - count - 1) / 2);
+                    Optimize(bridge, bridged, bridgeEnd, refinePastTargets: true);
+                    established = bridge;
+                    establishedVector = vector.ToArray();
+                    if (!CanEvaluate(true)) break;
+                    evaluation = Evaluate(vector, stage, dense);
+                    if (dense) RetainFullTarget(evaluation);
+                    steps.Add(new(count, "progressive-stage-retry", stage, evaluation.EvaluatedOptic!, evaluation));
+                    local = Optimize(stage, evaluation, stageEnd, dense);
+                    evaluation = local?.Evaluation ?? evaluation;
+                    failedStage = stage;
+                }
+                if (!evaluation.HasContinuousSearchResiduals)
+                {
+                    diagnostics.Add(new("design.progressive-blocked", $"No complete optical bundle at {stage}; full-target validation remains mandatory."));
+                    break;
+                }
+                established = stage;
+                establishedVector = vector.ToArray();
             }
         }
         if (canContinue && !refinedAtFullTarget && !progressive)
@@ -213,6 +254,8 @@ public sealed class FlatStartDesignService
 
         void RetainFullTarget(DesignEvaluation evaluation)
         {
+            // Never restore a failed full-field probe over a later traceable bridge.
+            if (!evaluation.HasContinuousSearchResiduals) return;
             if (incumbentEvaluation is not null)
             {
                 var rank = evaluation.MeetsTargets ? 0 : evaluation.IsFeasible ? 1 : 2;
@@ -224,11 +267,12 @@ public sealed class FlatStartDesignService
             incumbentEvaluation = evaluation;
         }
 
-        OpticalLocalResult? Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false)
+        OpticalLocalResult? Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false,
+            bool refinePastTargets = false)
         {
             if (stageEnd <= count || !CanEvaluate(true)) return null;
             var result = FlatStartLocalSolver.Solve(problem.SolverCoordinates, vector, evaluation, stageEnd - count,
-                values => Evaluate(values, stage, dense), improveBeyondTargets,
+                values => Evaluate(values, stage, dense), improveBeyondTargets || refinePastTargets,
                 () => !CanEvaluate(true), cancellationToken,
                 (values, accepted, phase) =>
                 {

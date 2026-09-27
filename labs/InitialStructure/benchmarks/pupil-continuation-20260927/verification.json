@@ -1,0 +1,112 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 19,
+  "fullLaboratory": {
+    "path": "artifacts/validation/pupil-continuation-20260927/tests/lab-full.trx",
+    "sha256": "3b8607dcb22024ac669944b3394918fafaf360b620d9acdc9a1ccb18690d7f70",
+    "counters": {
+      "total": "260",
+      "executed": "260",
+      "passed": "260",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-09-27T18:58:37.7414790+08:00",
+      "queuing": "2026-09-27T18:58:37.7414800+08:00",
+      "start": "2026-09-27T18:58:36.6831060+08:00",
+      "finish": "2026-09-27T19:07:09.0511570+08:00"
+    }
+  },
+  "newLaboratoryCases": 2,
+  "builds": [
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/lab-debug-final.log",
+      "sha256": "2065b77c2b81447da13d582a31b3f820d0790ae2746aded289606c5a529a21e9"
+    },
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/lab-release-final.log",
+      "sha256": "54b2a68d7a06685d74a55b8fe72b0061acbb6bacc334cda459a658d4796d0d72"
+    },
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/runner-final-build.log",
+      "sha256": "0b61e85727e65afdda04de301efd356ae22ddc69d63d125aecce729c60a3f7ef"
+    }
+  ],
+  "formatChecks": [
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/runner-format-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "unchangedCoreSourceFiles": 164,
+  "defaultCoreBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d4a4048484a0a7d55f82ee168bd30a0a2815494d7c77d71a06b6bf2a290867d7"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d4a4048484a0a7d55f82ee168bd30a0a2815494d7c77d71a06b6bf2a290867d7"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d4a4048484a0a7d55f82ee168bd30a0a2815494d7c77d71a06b6bf2a290867d7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "9a40e784e567244c1839b73a625dc771882b3b72cba82ac80ba0e163fd57a3fc"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "9a40e784e567244c1839b73a625dc771882b3b72cba82ac80ba0e163fd57a3fc"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "9a40e784e567244c1839b73a625dc771882b3b72cba82ac80ba0e163fd57a3fc"
+    }
+  ],
+  "sourceFreeze": {
+    "path": "labs/InitialStructure/benchmarks/pupil-continuation-20260927/source-freeze.json",
+    "sha256": "cbed16f8c1bb4babb8128074d74f3798a798feaefd49f1e205f779bc795e4e54"
+  },
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/pupil-continuation-20260927/summary.json",
+      "sha256": "073c6fec53e2c91a3c817add0cbc9aa17ce1c7bcfddab3bcd83c3c7444699e70"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/pupil-continuation-20260927/retained-inputs.json",
+      "sha256": "d7629a421c54a239618716caa4fd1f7ebe7c7543e3c5ef9b7b67629abcb5bb1a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/pupil-continuation-20260927/replay.json",
+      "sha256": "49afd942cca35c96f8e6e7508e64feb1fd14141af1b67cc9854cd10ed5277fb4"
+    }
+  ],
+  "scope": "Laboratory continuation and version compatibility only; concurrent formal desktop, Application formatting, theme tests and commercial audit edits excluded.",
+  "notPerformed": [
+    "Full formal application suite",
+    "Zemax comparison-tool suite",
+    "Zemax baseline integrity or new capture",
+    "New complete external numerical comparison",
+    "Multiseed release protocol",
+    "Native GUI certification"
+  ],
+  "verificationSequence": "Full Release suite after correcting the new test fixture root-plan budget. No production changes thereafter. Final default Debug/Release builds and scoped formatting checks. Benchmark entry received whitespace-only formatting after numerical runs."
+}

@@ -69,6 +69,7 @@ public sealed class FlatStartFullTargetRefinementTests
     [InlineData("15")]
     [InlineData("16")]
     [InlineData("17")]
+    [InlineData("18")]
     public async Task HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(string version)
     {
         var spec = FlatStartRefinementTests.Spec();
@@ -78,9 +79,9 @@ public sealed class FlatStartFullTargetRefinementTests
         var current = (await new FlatStartSearchService().RunAsync(spec, options, cancelled.Token)).Checkpoint;
         // Synthetic schema compatibility fixture using the historical root planner.
         // Merely relabeling a v8 binary plan as v7 would be a corrupt checkpoint.
-        var roots = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" ? DesignFormSearch.Roots(spec, options, current.UsableGlassNames)
+        var roots = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" ? DesignFormSearch.Roots(spec, options, current.UsableGlassNames)
             : FlatStartSearchPlanning.Roots(spec, current.UsableGlassNames);
-        var quota = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" ? DesignFormSearch.RootQuota(spec, options, roots.Count)
+        var quota = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" ? DesignFormSearch.RootQuota(spec, options, roots.Count)
             : version is "6" or "7" ? FlatStartScheduler.Allocation(spec, options, "flat-root", spec.MaximumElementCount)
             : Math.Min(options.MaximumEvaluationsPerTrial, Math.Max(2, (int)(.55 * spec.Budget.MaximumEvaluations)));
         var design = new FlatStartDesignService().Solve(spec with { Budget = spec.Budget with { MaximumEvaluations = quota } }, 3, family: roots[0]);
@@ -95,13 +96,13 @@ public sealed class FlatStartFullTargetRefinementTests
             DesignState = design.State,
             BootstrapProof = design.Bootstrap,
             FlatRoot = design.Bootstrap.Steps[0].Optic,
-            Candidate = version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" ? design.Candidate : design.Candidate! with { Evaluation = design.Candidate.Evaluation with { FlatStartObjective = null } },
-            FinalValidation = version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" ? design.FinalValidation : design.FinalValidation! with { Objective = null }
+            Candidate = version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" ? design.Candidate : design.Candidate! with { Evaluation = design.Candidate.Evaluation with { FlatStartObjective = null } },
+            FinalValidation = version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" ? design.FinalValidation : design.FinalValidation! with { Objective = null }
         };
         var history = current with
         {
             Algorithm = current.Algorithm with { Version = version },
-            Schedule = version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" ? current.Schedule : null,
+            Schedule = version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" ? current.Schedule : null,
             RootPlan = roots,
             RootEvaluationQuota = quota,
             NextRootIndex = 1,

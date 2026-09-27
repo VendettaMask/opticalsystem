@@ -1,6 +1,6 @@
 # 初始结构实验室：全视场细化入口与渐进路径复核
 
-本文保留前一阶段的版本与验证结论。当前 v18 已接入实体光阑搜索；相同预算对照和 39/39、258/258 验证见 [最新接入记录](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。
+本文保留前一阶段的版本与验证结论。v18 实体光阑搜索及 39/39、258/258 是 [历史接入验证](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)。当前 v19 实验室完整 260/260、失追迹恢复与未解决的宽角质量问题见 [最新记录](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。
 
 本篇为先前阶段的冻结记录。后续 v17 共享 Core 实体光阑/瞄准修复及 315/315、248/248 验证见 [最新修复记录](INITIAL_STRUCTURE_PHYSICAL_STOP_2026-09-27.md)；下文版本、计数与二进制哈希保留原阶段含义。
 
