@@ -1,0 +1,901 @@
+{
+  "Source": "artifacts/validation/secant-solver-20260927/wide-50000/f2.8.family.json",
+  "Sha256": "6daac346666ee80e39ef2418973fc837750edcdba8e3ef5f49ccfdd22683631c",
+  "Specification": {
+    "schemaVersion": 1,
+    "name": "定焦实验",
+    "conjugate": "infinite",
+    "effectiveFocalLengthMillimeters": 50,
+    "fNumber": 2.8,
+    "maximumFieldAngleDegrees": 40,
+    "wavelengths": [
+      {
+        "label": "d",
+        "nanometers": 587.6,
+        "weight": 1,
+        "isPrimary": true
+      }
+    ],
+    "minimumElementCount": 3,
+    "maximumElementCount": 8,
+    "maximumTrackLengthMillimeters": 100,
+    "minimumCenterThicknessMillimeters": 2,
+    "minimumAirGapMillimeters": 1,
+    "minimumBackFocusMillimeters": 5,
+    "semiDiameterMarginFactor": 1.25,
+    "maximumRmsSpotRadiusMillimeters": 0.05,
+    "maximumSpotRadiusMillimeters": 0.15,
+    "initialGlass": "N-BK7",
+    "glassCatalogs": [],
+    "budget": {
+      "initialSeedCount": 24,
+      "maximumEvaluations": 50000,
+      "maximumParallelism": 1,
+      "timeLimit": "00:20:00",
+      "randomSeed": 101
+    },
+    "flatStart": {
+      "samplingPolicy": "uniformAreaGaussianV1",
+      "automaticLensDiameters": true,
+      "fixedBackFocusMillimeters": null,
+      "minimumEdgeThicknessMillimeters": 0.5,
+      "effectiveFocalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.05,
+      "minimumValidRayFraction": 0.98
+    }
+  },
+  "Roots": [
+    {
+      "Index": 0,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 3,
+        "seedIndex": 0,
+        "elementCount": 3,
+        "binaryStart": {
+          "signs": "+++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "a3219b1f17fecfb0f0b7b395a333fcc0a125b9142e1d56a96134d2fa06f7ad03"
+    },
+    {
+      "Index": 1,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 1,
+        "elementCount": 4,
+        "binaryStart": {
+          "signs": "++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "92a30ec87bed1a07688218714d57e652f599f079010fca3f29d551d438a32193"
+    },
+    {
+      "Index": 2,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 2,
+        "elementCount": 5,
+        "binaryStart": {
+          "signs": "+++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "37f0d49432c5d6938e6e238b1ea160429085184f7ebba8f94665feb8832223fc"
+    },
+    {
+      "Index": 3,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 3,
+        "elementCount": 6,
+        "binaryStart": {
+          "signs": "++++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "d8309c79748a74a93884d9adc218b2a056bcd369a554a20d67ff56189d0ecef8"
+    },
+    {
+      "Index": 4,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 4,
+        "elementCount": 7,
+        "binaryStart": {
+          "signs": "+++++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "02ce8c54a8649b7278163688ab82204752649ba84b4b03b25660ff2afcdb9842"
+    },
+    {
+      "Index": 5,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 9,
+        "seedIndex": 5,
+        "elementCount": 8,
+        "binaryStart": {
+          "signs": "++++++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "c0ee2377b03d5a7dcd1f5d4c2b963d69e7bf100598218fb242d4b015036fa3a3"
+    },
+    {
+      "Index": 6,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 3,
+        "seedIndex": 6,
+        "elementCount": 3,
+        "binaryStart": {
+          "signs": "+--",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "d0acc00a5289a7a4bb017b3e6704f0526ba6afb64116eeea372eb8002c07a642"
+    },
+    {
+      "Index": 7,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 7,
+        "elementCount": 4,
+        "binaryStart": {
+          "signs": "---+",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "30ec1940ef8dd537ce25d79e4028f9473f440a6b10cc834d97503fe67ceaf0c7"
+    },
+    {
+      "Index": 8,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 8,
+        "elementCount": 5,
+        "binaryStart": {
+          "signs": "+++-+",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "da6aee2758e2fa2188087f8b75b5a0c32f63f3b1107bdb46814a84bf362ee4db"
+    },
+    {
+      "Index": 9,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 9,
+        "elementCount": 6,
+        "binaryStart": {
+          "signs": "-+++--",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "33cbd7a41e5e104a75a3d040d9ad3f8f1c65a51a63f1c509d13c26ae17f57c5a"
+    },
+    {
+      "Index": 10,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 10,
+        "elementCount": 7,
+        "binaryStart": {
+          "signs": "--++--+",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "fba66c1c892df7e136f4507237e6e0b7e3cfad4ebf2f8f3b0a211db9bbef57d9"
+    },
+    {
+      "Index": 11,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 9,
+        "seedIndex": 11,
+        "elementCount": 8,
+        "binaryStart": {
+          "signs": "+++--+--",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "a9b1f074ad397fd530e8d14899ed108078435c217db5ac39aeea82938e6b33b1"
+    },
+    {
+      "Index": 12,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 3,
+        "seedIndex": 12,
+        "elementCount": 3,
+        "binaryStart": {
+          "signs": "++-",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "1e095c7faba845e764e884bed58b26b7cfcad7122dd6c534413d3a3d9168cdb8"
+    },
+    {
+      "Index": 13,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 13,
+        "elementCount": 4,
+        "binaryStart": {
+          "signs": "-++-",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "a69e7a0dbe3cad37d65274d3d67ca8f62e7507426998bb1b5523d7d72bf21314"
+    },
+    {
+      "Index": 14,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 14,
+        "elementCount": 5,
+        "binaryStart": {
+          "signs": "+++--",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "f5ffe07c99309e6ee0592ad1cd316da9081b7b8161e2a25db542b1551efe53be"
+    },
+    {
+      "Index": 15,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 15,
+        "elementCount": 6,
+        "binaryStart": {
+          "signs": "++--++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "cc837a69c7042cbcf501328455fdc235f5dfbc380bd740922233de757b2edc26"
+    },
+    {
+      "Index": 16,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 16,
+        "elementCount": 7,
+        "binaryStart": {
+          "signs": "--+----",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "b2520ad58f2f17aaeef4f4fe2d7a4a0372be38799aa342593a2ea2fbc1748999"
+    },
+    {
+      "Index": 17,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 9,
+        "seedIndex": 17,
+        "elementCount": 8,
+        "binaryStart": {
+          "signs": "+-++--+-",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "49d18db4daaaf1e8c13a32fafda4a95948136ad5fb58fa9563b273ba9c701afc"
+    },
+    {
+      "Index": 18,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 3,
+        "seedIndex": 18,
+        "elementCount": 3,
+        "binaryStart": {
+          "signs": "-++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "f1eb2fcb839967950cd7ea1e578b9f38c1f23a43d0cd59653eafc9df0f501f49"
+    },
+    {
+      "Index": 19,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 19,
+        "elementCount": 4,
+        "binaryStart": {
+          "signs": "-+++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "af913298df49449eb847c92e115b56af991184cf60efe5ab5705a99c25031504"
+    },
+    {
+      "Index": 20,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 5,
+        "seedIndex": 20,
+        "elementCount": 5,
+        "binaryStart": {
+          "signs": "+-+++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "42750385bc06d2c3dbe8dc8e4be835f1cd7e8f4707e5ba0c72f598fd108fd2fc"
+    },
+    {
+      "Index": 21,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 21,
+        "elementCount": 6,
+        "binaryStart": {
+          "signs": "-+++++",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": true,
+      "OriginalFingerprint": "fb4f20a8d54dce725820f24f2bcbb0534bbe6a4f588b89d67b2ce6be9e3a0153"
+    },
+    {
+      "Index": 22,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 7,
+        "seedIndex": 22,
+        "elementCount": 7,
+        "binaryStart": {
+          "signs": "--+--+-",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "37ba33673d7554f38e850e49c9b3805aa034ba098601839dee9e0a3e13d13fbc"
+    },
+    {
+      "Index": 23,
+      "Family": {
+        "glassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "centerThicknesses": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "airGaps": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "stopSurfaceIndex": 9,
+        "seedIndex": 23,
+        "elementCount": 8,
+        "binaryStart": {
+          "signs": "+---++-+",
+          "radiusMillimeters": 500
+        }
+      },
+      "OriginalContinuous": false,
+      "OriginalFingerprint": "a8f400bf04a640dd304c4a2a70ace77762226ae9535e53950c3a236deeb6d0cc"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ public static class FlatStartCheckpointValidation
         ArgumentNullException.ThrowIfNull(checkpoint);
         var algorithm = checkpoint.Origin is null ? "strict-flat-family-search" : "strict-flat-selected-refinement";
         if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm is null
-            || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4")
+            || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4" or "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or FlatStartAlgorithm.Version)
             || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, checkpoint.Algorithm.Version, "Managed CPU", true)
             || checkpoint.Specification?.FlatStart is null || checkpoint.Specification.Budget is null || checkpoint.Options is null
             || checkpoint.RootPlan is not { Count: <= 128 } || checkpoint.Trials is not { Count: <= 256 }
@@ -26,6 +26,13 @@ public static class FlatStartCheckpointValidation
             || string.IsNullOrWhiteSpace(checkpoint.RunId) || checkpoint.RunId.Length > 128
             || !Hash(checkpoint.SpecificationFingerprint) || !Hash(checkpoint.OptionsFingerprint) || !Hash(checkpoint.MaterialFingerprint))
             throw new InvalidDataException("Invalid flat-family checkpoint header or counters.");
+        if (checkpoint.Algorithm.Version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or FlatStartAlgorithm.Version
+            && (checkpoint.Schedule is not { } schedule
+                || schedule.PolicyVersion != FlatStartAlgorithm.SchedulingPolicy(checkpoint.Algorithm.Version, checkpoint.Specification)
+                || schedule.NextDecisionIndex != checkpoint.NextRefinementIndex
+                || schedule.NextRandomSeed != unchecked(checkpoint.Specification.Budget.RandomSeed + 15485863L * (schedule.NextDecisionIndex + 1))
+                || string.IsNullOrWhiteSpace(schedule.LastDecision) || schedule.LastDecision.Length > 1024))
+            throw new InvalidDataException("Invalid deterministic search scheduler state.");
         long charged = 0;
         var parents = new Dictionary<string, FamilyTrial>(StringComparer.Ordinal);
         if (checkpoint.Origin is { } origin)
@@ -55,6 +62,9 @@ public static class FlatStartCheckpointValidation
                 || trial.Family.AirGaps?.Count != trial.Family.ElementCount - 1
                 || trial.Family.StopSurfaceIndex < 1 || trial.Family.StopSurfaceIndex > 2 * trial.Family.ElementCount)
                 throw new InvalidDataException("Invalid flat-family trial or material allocation.");
+            if (trial.Family.BinaryStart is { } start && (start.Signs?.Length != trial.Family.ElementCount
+                || start.Signs.Any(sign => sign is not ('+' or '-')) || !double.IsFinite(start.RadiusMillimeters) || start.RadiusMillimeters <= 0))
+                throw new InvalidDataException("Invalid binary starting form.");
             charged += trial.ChargedEvaluations;
             if (trial.State == FamilyTrialState.Completed)
             {
@@ -75,9 +85,21 @@ public static class FlatStartCheckpointValidation
                 && (trial.BootstrapProof?.Steps is not { Count: > 0 } || trial.BootstrapProof.Steps[0].Optic.Surfaces.Any(surface => surface.Radius != 0)))
                 throw new InvalidDataException("A root trial needs a recorded strict-flat bootstrap.");
             if (trial.Candidate is { } candidate && (candidate.Lineage is null
+                || candidate.Lineage.InitialForm != trial.Family.BinaryStart?.Signs
                 || candidate.Lineage.ParentCandidateId != parent?.Candidate?.CandidateId
                 || trial.FinalValidation is null || candidate.Status == CandidateStatus.LabAccepted && !trial.FinalValidation.MeetsTargets))
                 throw new InvalidDataException("A candidate has inconsistent lineage or no full-target validation.");
+            if (checkpoint.Algorithm.Version is "9" or "10" or "11" or "12" or "13" or "14" or FlatStartAlgorithm.Version && trial.Candidate is { } scored
+                && (scored.Evaluation.FlatStartObjective is not { DenseSampling: true } objective
+                    || !Enum.IsDefined(objective.Kind)
+                    || objective.SamplingPolicy != checkpoint.Specification.FlatStart.SamplingPolicy
+                    || objective.Kind != (objective.SamplingPolicy == FlatStartSamplingPolicy.LegacyEqualRings
+                        ? FlatStartObjectiveKind.RealRaySumSquaresV1 : FlatStartObjectiveKind.ConstrainedRealRaySumSquaresV2)
+                    || objective.IndependentValidation != (objective.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1)
+                    || objective.Stage != new DesignStage(1, 1, true) || !double.IsFinite(objective.SumSquares) || objective.SumSquares < 0
+                    || objective != trial.FinalValidation!.Objective || objective.SumSquares != trial.FinalValidation.Merit
+                    || objective.HasContinuousResiduals != trial.FinalValidation.HasContinuousSearchResiduals))
+                throw new InvalidDataException("A current candidate needs its matching full-target dense objective.");
             parents.Add(trial.TrialId, trial);
         }
         if (charged > checkpoint.Specification.Budget.MaximumEvaluations

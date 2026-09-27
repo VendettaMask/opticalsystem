@@ -1,0 +1,27 @@
+{
+  "Date": "2026-09-26",
+  "Platform": "macOS ARM64",
+  "Method": "Native desktop accessibility actions and screenshots via cua_repl; not headless Avalonia rendering.",
+  "Bundle": "artifacts/validation/implementation-20260923/Initial Structure Lab Verification.app",
+  "BinarySource": "Contents/MacOS symlink to the verified default labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0 output",
+  "Checkpoint": "artifacts/validation/initial-structure-s4-v7-20260926/original/03-50mm-monochrome/101/checkpoint.json",
+  "Verified": [
+    "Visible native window: 智能初始结构实验室",
+    "Preflight completes and restores enabled inputs",
+    "Native file picker loads a completed v7 checkpoint",
+    "Original targets restored; eight retained candidates shown as accepted",
+    "Candidate selection changes displayed details",
+    "A/B comparison shows 21 real layout rays per candidate at a common millimeter scale",
+    "Target table displays focal length, F-number, RMS, maximum spot radius, per-field/per-wavelength transmission, track, back focus and full-target status"
+  ],
+  "ScreenshotEvidence": "Images in this task's cua_repl tool transcript; no separate local screenshot file was saved by that tool.",
+  "NotVerifiedInThisNativeSession": [
+    "Input invalidation (attempt interrupted by reported user window interaction)",
+    "Search generation, cancellation, selected refinement, export and resume",
+    "Windows/Linux native UI",
+    "New-candidate OpticStudio numerical capture"
+  ],
+  "EndState": "Desktop tool reported user interaction; further automatic actions stopped, window left available.",
+  "P5ReleaseAccepted": false,
+  "CheckpointSha256": "3dacac882dbd50d3eca4bfdaf443bdfd86027b11c4a8c4c7ab5a3033cd065e3e"
+}

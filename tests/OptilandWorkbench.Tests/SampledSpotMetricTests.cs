@@ -8,6 +8,49 @@ namespace OptilandWorkbench.Tests;
 public sealed class SampledSpotMetricTests
 {
     [Fact]
+    public void IndependentChecksUseAreaCentroidWithoutChangingItsIntegral()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.Wavelengths[1].Weight = 3;
+        var integration = ApertureSampler.GenerateGaussianQuadrature(6, 24);
+        PupilSample[] checks = [new(0, 0, 1), new(.9, 0, 1), new(0, .9, 1)];
+        var direct = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, .5, integration, includeSurfaceTransmission: false);
+        var result = SpotMetricEvaluator.EvaluatePupilSamplesWithChecks(optic, 0, .5, integration, checks,
+            includeSurfaceTransmission: false);
+        Assert.Equal(direct.Metrics!.RmsSpotRadius, result.Integration.Metrics!.RmsSpotRadius, 12);
+        var absolute = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, .5, integration,
+            reference: "absolute", includeSurfaceTransmission: false);
+        var rawChecks = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, .5, checks,
+            reference: "absolute", includeSurfaceTransmission: false);
+        var total = absolute.Wavelengths.Sum(w => w.SpectralWeight * w.Rays.Sum(r => r.Weight));
+        var x = absolute.Wavelengths.Sum(w => w.SpectralWeight * w.Rays.Sum(r => r.X * r.Weight)) / total;
+        var y = absolute.Wavelengths.Sum(w => w.SpectralWeight * w.Rays.Sum(r => r.Y * r.Weight)) / total;
+        for (var wave = 0; wave < rawChecks.Wavelengths.Count; wave++)
+            for (var index = 0; index < rawChecks.Wavelengths[wave].Rays.Count; index++)
+            {
+                Assert.InRange(Math.Abs(rawChecks.Wavelengths[wave].Rays[index].X - x - result.Checks.Wavelengths[wave].Rays[index].X), 0, 1e-12);
+                Assert.InRange(Math.Abs(rawChecks.Wavelengths[wave].Rays[index].Y - y - result.Checks.Wavelengths[wave].Rays[index].Y), 0, 1e-12);
+            }
+        Assert.Equal(Math.Max(result.Integration.Metrics.MaximumSpotRadius, result.Checks.Metrics!.MaximumSpotRadius), result.MaximumRadius);
+        var repeated = SpotMetricEvaluator.EvaluatePupilSamplesWithChecks(optic, 0, .5, integration,
+            checks.Concat(checks).ToArray(), includeSurfaceTransmission: false);
+        Assert.Equal(result.Integration, repeated.Integration with { Wavelengths = result.Integration.Wavelengths });
+        Assert.Equal(result.MaximumRadius, repeated.MaximumRadius);
+    }
+
+    [Fact]
+    public void BoundaryLossRemainsVisibleEvenWhenIntegrationRaysPass()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        optic.SurfaceGroup.Items[1].PhysicalAperture = new CircularAperture(.1);
+        var result = SpotMetricEvaluator.EvaluatePupilSamplesWithChecks(optic, 0, 0,
+            [new(0, 0, 1)], [new(.9, 0, 1), new(-.9, 0, 1)]);
+        Assert.Equal(0, result.Integration.VignettedRayCount);
+        Assert.Equal(result.Checks.RayCount, result.Checks.VignettedRayCount);
+        Assert.Null(result.MaximumRadius);
+    }
+
+    [Fact]
     public void ExplicitSamplesMatchFormalSpotMetricsWithIdenticalSettings()
     {
         var optic = Optic.CreateCookeTriplet();

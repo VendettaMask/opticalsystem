@@ -7,9 +7,13 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.InitialStructure.Contracts;
 using OptilandWorkbench.InitialStructure.Engine;
 using OptilandWorkbench.InitialStructure.Persistence;
+
+if (args.FirstOrDefault() == "--legacy") return await SupplementalBenchmarks.RunLegacy(args[1..]);
+if (args.FirstOrDefault() == "--holdout") return await SupplementalBenchmarks.RunHoldout(args[1..]);
 
 if (args.Length is not (2 or 4))
 {
@@ -79,6 +83,7 @@ foreach (var path in selectedSpecifications)
         var directory = Path.Combine(output, Path.GetFileNameWithoutExtension(path), seed.ToString(System.Globalization.CultureInfo.InvariantCulture));
         Directory.CreateDirectory(directory);
         var clock = Stopwatch.StartNew();
+        using var measured = SequentialTraceMeasurement.Begin();
         double? firstAccepted = null;
         var result = await new FlatStartSearchService().RunAsync(spec, cancellationToken: cancellation.Token, checkpointSink: (checkpoint, _) =>
         {
@@ -87,6 +92,7 @@ foreach (var path in selectedSpecifications)
             return ValueTask.CompletedTask;
         });
         var searchSeconds = clock.Elapsed.TotalSeconds;
+        var actualSearchRays = measured.RayCount;
         FlatStartCheckpointValidation.Validate(result.Checkpoint);
         await new FlatStartSearchCheckpointStore().SaveAsync(result.Checkpoint, Path.Combine(directory, "checkpoint.json"));
         var candidates = result.Checkpoint.Trials.Where(trial => trial.Candidate is not null)
@@ -129,7 +135,7 @@ foreach (var path in selectedSpecifications)
             result.Checkpoint.State.ToString(), result.Checkpoint.ChargedEvaluations, result.Checkpoint.TracedRealRayCount,
             searchSeconds, firstAccepted, accepted.Count, accepted.Select(trial => FlatStartCandidateArchive.FamilyKey(trial.Candidate!)).Distinct().Count(),
             selected?.Candidate?.CandidateId, selected?.FinalValidation, verificationRays, clock.Elapsed.TotalSeconds - searchSeconds,
-            reloadIdentical, reloadError, failedTrials, verificationErrors));
+            reloadIdentical, reloadError, failedTrials, verificationErrors, actualSearchRays));
         await SaveSummary();
         Console.WriteLine($"{Path.GetFileName(path)} / {seed}: {(runs[^1].Success ? "PASS" : "FAIL")} {result.Checkpoint.ChargedEvaluations} evaluations, {result.Checkpoint.TracedRealRayCount} rays, {searchSeconds:F2}s");
     }
@@ -143,7 +149,7 @@ async Task SaveSummary()
     var summary = new
     {
         SchemaVersion = 1,
-        Algorithm = new AlgorithmIdentity("strict-flat-family-search", "4", "Managed CPU", true),
+        Algorithm = new AlgorithmIdentity("strict-flat-family-search", FlatStartAlgorithm.Version, "Managed CPU", true),
         CreatedUtc = created,
         UpdatedUtc = DateTimeOffset.UtcNow,
         Machine = new { OS = RuntimeInformation.OSDescription, Runtime = RuntimeInformation.FrameworkDescription, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), Environment.ProcessorCount },
@@ -158,6 +164,7 @@ async Task SaveSummary()
         P5ReleaseAccepted = false,
         RemainingReleaseEvidence = "This runner establishes the search gate only. Old-prototype comparison, new-prescription external numerical validation and engineering checks remain separate requirements.",
         FirstAcceptedTimeMeaning = "First completed search batch reporting a dense-validated accepted candidate; null means none. Independent verification follows outside the search budget.",
+        MeasuredSearchRaysMeaning = "Rays submitted to real sequential computation, including aiming and diagnostic passes and failed rays; cache hits excluded. SearchRays retains the historical requested-analysis-ray count.",
         Results = runs
     };
     var temporary = Path.Combine(output, "summary.json.tmp");
@@ -171,4 +178,5 @@ static double Error(double? left, double? right) => left == right ? 0
 internal sealed record RunResult(string Specification, long Seed, bool Success, string State, int Evaluations, long SearchRays,
     double SearchSeconds, double? FirstAcceptedSeconds, int AcceptedDistinctCandidates, int AcceptedFamilies,
     string? SelectedCandidateId, DesignEvaluation? SelectedValidation, long VerificationRays, double VerificationSeconds,
-    bool? ReloadSnapshotIdentical, double? ReloadMaximumSpotErrorMillimeters, int FailedTrials, IReadOnlyList<string> VerificationErrors);
+    bool? ReloadSnapshotIdentical, double? ReloadMaximumSpotErrorMillimeters, int FailedTrials, IReadOnlyList<string> VerificationErrors,
+    long MeasuredSearchRays);

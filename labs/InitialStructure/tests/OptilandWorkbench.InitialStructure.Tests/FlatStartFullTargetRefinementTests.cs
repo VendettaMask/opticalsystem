@@ -29,12 +29,8 @@ public sealed class FlatStartFullTargetRefinementTests
         Assert.True(source.FinalValidation!.IsFeasible);
         var stages = source.Steps.Where(step => step.Operation == "stage-entry").Select(step => step.Stage).ToArray();
         Assert.NotEmpty(stages);
-        if (spec.Wavelengths.Any(wave => !wave.IsPrimary && wave.Weight > 0))
-        {
-            Assert.All(stages, stage => { Assert.Equal(1, stage.PupilFraction); Assert.True(stage.AllWavelengths); });
-            Assert.Equal(new[] { .25, .5, 1 }, stages.Select(stage => stage.FieldFraction));
-        }
-        else Assert.Equal(new DesignStage(.6, .25, false), stages[0]);
+        Assert.Equal(FlatStartDesignProblem.FullStage, stages[0]);
+        Assert.All(stages, stage => Assert.True(stage.AllWavelengths));
         var n = spec.MinimumElementCount;
         var family = new FlatStartFamily
         {
@@ -60,15 +56,69 @@ public sealed class FlatStartFullTargetRefinementTests
     [InlineData("1")]
     [InlineData("2")]
     [InlineData("3")]
+    [InlineData("4")]
+    [InlineData("6")]
+    [InlineData("7")]
+    [InlineData("8")]
+    [InlineData("9")]
+    [InlineData("10")]
+    [InlineData("11")]
+    [InlineData("12")]
+    [InlineData("13")]
+    [InlineData("14")]
     public async Task HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(string version)
     {
-        var result = await new FlatStartSearchService().RunAsync(FlatStartRefinementTests.Spec(), FlatStartRefinementTests.Options);
-        var history = result.Checkpoint with { Algorithm = result.Checkpoint.Algorithm with { Version = version } };
+        var spec = FlatStartRefinementTests.Spec();
+        var options = FlatStartRefinementTests.Options;
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+        var current = (await new FlatStartSearchService().RunAsync(spec, options, cancelled.Token)).Checkpoint;
+        // Synthetic schema compatibility fixture using the historical root planner.
+        // Merely relabeling a v8 binary plan as v7 would be a corrupt checkpoint.
+        var roots = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" ? DesignFormSearch.Roots(spec, options, current.UsableGlassNames)
+            : FlatStartSearchPlanning.Roots(spec, current.UsableGlassNames);
+        var quota = version is "8" or "9" or "10" or "11" or "12" or "13" or "14" ? DesignFormSearch.RootQuota(spec, options, roots.Count)
+            : version is "6" or "7" ? FlatStartScheduler.Allocation(spec, options, "flat-root", spec.MaximumElementCount)
+            : Math.Min(options.MaximumEvaluationsPerTrial, Math.Max(2, (int)(.55 * spec.Budget.MaximumEvaluations)));
+        var design = new FlatStartDesignService().Solve(spec with { Budget = spec.Budget with { MaximumEvaluations = quota } }, 3, family: roots[0]);
+        var trial = new FamilyTrial
+        {
+            TrialId = "trial-0000",
+            Family = roots[0],
+            State = FamilyTrialState.Completed,
+            AllocatedEvaluations = quota,
+            ChargedEvaluations = design.EvaluationCount,
+            CompletedEvaluations = design.EvaluationCount,
+            DesignState = design.State,
+            BootstrapProof = design.Bootstrap,
+            FlatRoot = design.Bootstrap.Steps[0].Optic,
+            Candidate = version is "9" or "10" or "11" or "12" or "13" or "14" ? design.Candidate : design.Candidate! with { Evaluation = design.Candidate.Evaluation with { FlatStartObjective = null } },
+            FinalValidation = version is "9" or "10" or "11" or "12" or "13" or "14" ? design.FinalValidation : design.FinalValidation! with { Objective = null }
+        };
+        var history = current with
+        {
+            Algorithm = current.Algorithm with { Version = version },
+            Schedule = version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" ? current.Schedule : null,
+            RootPlan = roots,
+            RootEvaluationQuota = quota,
+            NextRootIndex = 1,
+            Trials = [trial]
+        };
         FlatStartCheckpointValidation.Validate(history);
         await Assert.ThrowsAsync<InvalidDataException>(() => new FlatStartSearchService().RunAsync(history.Specification,
             history.Options, checkpoint: history));
-        var child = FlatStartSearchService.CreateRefinementCheckpoint(history, result.Candidates[0].CandidateId, 120, TimeSpan.FromMinutes(1));
-        Assert.Equal("4", child.Algorithm.Version);
+        var child = FlatStartSearchService.CreateRefinementCheckpoint(history, design.Candidate!.CandidateId, 120, TimeSpan.FromMinutes(1));
+        Assert.Equal(FlatStartAlgorithm.Version, child.Algorithm.Version);
         Assert.Equal(history.RunId, child.Origin!.RunId);
+        if (version == "8")
+        {
+            var hash = ContentFingerprint.Compute(history);
+            var result = await new FlatStartSearchService().RunAsync(child.Specification, child.Options, checkpoint: child);
+            FlatStartCheckpointValidation.Validate(result.Checkpoint);
+            Assert.NotEmpty(result.Candidates);
+            Assert.All(result.Candidates, candidate => Assert.NotNull(candidate.Evaluation.FlatStartObjective));
+            Assert.Null(result.Checkpoint.Origin!.Source.Candidate!.Evaluation.FlatStartObjective);
+            Assert.Equal(hash, ContentFingerprint.Compute(history));
+        }
     }
 }

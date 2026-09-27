@@ -3,6 +3,7 @@ using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Serialization;
+using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.InitialStructure.Contracts;
 
 namespace OptilandWorkbench.InitialStructure.Engine;
@@ -81,16 +82,22 @@ internal sealed class FlatStartProblem
     public FlatStartEvaluation Evaluate(Optic optic, bool dense, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var violations = GeometryViolations(optic);
+        var pupils = Pupils(dense).ToArray();
+        var primary = optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
+        var sizing = _specification.FlatStart!.AutomaticLensDiameters
+            ? AutomaticSemiDiameterSolver.UpdateFromRayEnvelope(optic, LensGroups(_elementCount), [(0, 0)],
+                pupils.Select(p => new PupilSample(p.X, p.Y, 1)).ToArray(),
+                _specification.SemiDiameterMarginFactor, primary, cancellationToken) : null;
+        TracedRayCount += sizing?.AttemptedRays ?? 0;
+        var violations = GeometryViolations(optic).ToList();
+        if (sizing is { Applied: false }) violations.Add(ApertureSizingFailure(sizing));
         var residuals = new List<double>();
         var power = optic.Paraxial.EstimateOpticalPower();
         residuals.Add(5 * (power * _specification.EffectiveFocalLengthMillimeters - 1));
-        var pupils = Pupils(dense).ToArray();
         var residualScale = 1 / (PupilRadius * Math.Sqrt(pupils.Length));
         SampledSpotResult? spot = null;
         if (violations.Count == 0)
         {
-            var primary = optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
             spot = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, 0,
                 pupils.Select(pupil => new PupilSample(pupil.X, pupil.Y, 1)).ToArray(), primary,
                 reference: "absolute", includeSurfaceTransmission: false, cancellationToken: cancellationToken);
@@ -108,6 +115,7 @@ internal sealed class FlatStartProblem
             throw new ArithmeticException("The startup residual is not finite.");
         return new FlatStartEvaluation
         {
+            EvaluatedOptic = optic.ToSnapshot(),
             OpticalPowerPerMillimeter = power,
             Merit = residuals.Sum(value => value * value),
             RmsInterceptMillimeters = spot?.Metrics?.RmsSpotRadius,
@@ -122,7 +130,8 @@ internal sealed class FlatStartProblem
         && Math.Abs(evaluation.OpticalPowerPerMillimeter * _specification.EffectiveFocalLengthMillimeters - 1) <= 0.02
         && evaluation.RmsInterceptMillimeters / PupilRadius <= 0.02;
 
-    internal IReadOnlyList<ConstraintViolation> GeometryViolations(Optic optic)
+    internal IReadOnlyList<ConstraintViolation> GeometryViolations(Optic optic, List<double>? residuals = null,
+        double searchInteriorMillimeters = 0)
     {
         var violations = new List<ConstraintViolation>();
         for (var element = 0; element < _elementCount; element++)
@@ -130,14 +139,15 @@ internal sealed class FlatStartProblem
             var front = optic.SurfaceGroup.Items[2 * element + 1];
             var back = optic.SurfaceGroup.Items[2 * element + 2];
             var radius = Math.Max(front.SemiDiameter, back.SemiDiameter);
-            var edge = front.Thickness + back.Geometry.Sag(0, radius) - front.Geometry.Sag(0, radius);
+            var edge = AxialSurfaceSeparation.Evaluate(optic, 2 * element + 1, 0, radius);
             Minimum(front.Thickness, _specification.MinimumCenterThicknessMillimeters, "geometry.center-thickness");
             Minimum(Math.Min(front.Thickness, edge), _specification.FlatStart!.MinimumEdgeThicknessMillimeters, "geometry.edge-thickness");
             if (element < _elementCount - 1)
             {
-                var next = optic.SurfaceGroup.Items[2 * element + 3];
                 Minimum(back.Thickness, _specification.MinimumAirGapMillimeters, "geometry.air-gap");
-                Minimum(back.Thickness + next.Geometry.Sag(0, radius) - back.Geometry.Sag(0, radius), 0, "geometry.edge-clearance");
+                var nextRadius = Math.Max(optic.SurfaceGroup.Items[2 * element + 3].SemiDiameter,
+                    optic.SurfaceGroup.Items[2 * element + 4].SemiDiameter);
+                Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance");
             }
             else
             {
@@ -151,10 +161,21 @@ internal sealed class FlatStartProblem
 
         void Minimum(double actual, double minimum, string code)
         {
+            var interior = code is "geometry.edge-thickness" or "geometry.edge-clearance" ? searchInteriorMillimeters : 0;
+            residuals?.Add(double.IsFinite(actual)
+                ? Math.Max(0, minimum + interior - actual) / _specification.EffectiveFocalLengthMillimeters : 1);
             if (!double.IsFinite(actual) || actual < minimum - 1e-9)
                 violations.Add(new(code, ConstraintSeverity.Hard, "Geometry is outside the configured bound.", double.IsFinite(actual) ? actual : null, minimum));
         }
     }
+
+    internal static IReadOnlyList<IReadOnlyList<int>> LensGroups(int elements) =>
+        Enumerable.Range(0, elements).Select(element => (IReadOnlyList<int>)new[] { 2 * element + 1, 2 * element + 2 }).ToArray();
+
+    internal static ConstraintViolation ApertureSizingFailure(RayEnvelopeSizingResult sizing) =>
+        new("geometry.aperture-envelope-incomplete", ConstraintSeverity.Hard,
+            "Automatic lens diameter needs complete real-ray propagation; no estimated size was applied.",
+            sizing.CompletedRays, sizing.AttemptedRays);
 
     private static IEnumerable<(double X, double Y)> Pupils(bool dense)
     {

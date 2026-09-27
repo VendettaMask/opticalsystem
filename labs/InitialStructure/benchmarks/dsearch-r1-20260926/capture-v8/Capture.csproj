@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>OptilandWorkbench.InitialStructure.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NuGetAudit>false</NuGetAudit>
+    <AuditBinaries Condition="'$(AuditBinaries)' == ''">../../../../../artifacts/validation/initial-structure-s4-v8-20260926/frozen-v8-bin</AuditBinaries>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.Core.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Contracts.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Engine.dll" />
+    <Reference Include="$(AuditBinaries)/OptilandWorkbench.InitialStructure.Persistence.dll" />
+  </ItemGroup>
+</Project>

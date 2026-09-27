@@ -1,0 +1,303 @@
+[
+  {
+    "file": "f2.8.family.json",
+    "v12File": "artifacts/validation/quality-fix-20260926/searches-final/f2.8.family.json",
+    "v12Sha256": "53e99929ed7444fb35582e654c27ce19686dadf68be6afced70099921646dcce",
+    "v13File": "artifacts/validation/neighborhood-budget-20260926/searches/f2.8.family.json",
+    "v13Sha256": "25b37fcaa277fb342d6b542d18b07a127b7b8a576f5c0eac464308cd18dd33b9",
+    "equalRootSnapshotsAndValidation": 24,
+    "rootCount": 24,
+    "accepted": [],
+    "neighborhoods": [
+      {
+        "trial": "trial-0024",
+        "parent": "trial-0020",
+        "operation": "refine",
+        "allocated": 1200,
+        "charged": 1200,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0025",
+        "parent": "trial-0024",
+        "operation": "glass-swap",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "progressive-stage-entry",
+          "progressive-stage-entry",
+          "progressive-stage-entry"
+        ]
+      },
+      {
+        "trial": "trial-0026",
+        "parent": "trial-0024",
+        "operation": "stop-surface-change",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "progressive-stage-entry",
+          "progressive-stage-entry",
+          "progressive-stage-entry"
+        ]
+      },
+      {
+        "trial": "trial-0027",
+        "parent": "trial-0024",
+        "operation": "parameter-perturbation",
+        "allocated": 246,
+        "charged": 185,
+        "state": "completed",
+        "entryStages": [
+          "progressive-stage-entry",
+          "progressive-stage-entry",
+          "progressive-stage-entry"
+        ]
+      },
+      {
+        "trial": "trial-0028",
+        "parent": "trial-0024",
+        "operation": "glass-pair-swap",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0029",
+        "parent": "trial-0002",
+        "operation": "refine",
+        "allocated": 1200,
+        "charged": 1200,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0030",
+        "parent": "trial-0029",
+        "operation": "glass-swap",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0031",
+        "parent": "trial-0029",
+        "operation": "stop-surface-change",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0032",
+        "parent": "trial-0029",
+        "operation": "parameter-perturbation",
+        "allocated": 246,
+        "charged": 246,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0033",
+        "parent": "trial-0032",
+        "operation": "glass-pair-swap",
+        "allocated": 203,
+        "charged": 203,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "f8.family.json",
+    "v12File": "artifacts/validation/quality-fix-20260926/searches-final/f8.family.json",
+    "v12Sha256": "eda58e62f8456828e760071376e0b26adb8ddf172584145fac0179aa36b65786",
+    "v13File": "artifacts/validation/neighborhood-budget-20260926/searches/f8.family.json",
+    "v13Sha256": "8e0e6203fa8185e0bdf2f1b29cefd73f8a923dd7bd0854e7a262a7587778c384",
+    "equalRootSnapshotsAndValidation": 24,
+    "rootCount": 24,
+    "accepted": [
+      {
+        "trial": "trial-0024",
+        "operation": "refine",
+        "root": "trial-0001",
+        "signs": "++++",
+        "glasses": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "rmsMicrometers": 48.11332723535679
+      },
+      {
+        "trial": "trial-0027",
+        "operation": "parameter-perturbation",
+        "root": "trial-0001",
+        "signs": "++++",
+        "glasses": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "rmsMicrometers": 44.42158390901977
+      },
+      {
+        "trial": "trial-0028",
+        "operation": "glass-pair-swap",
+        "root": "trial-0001",
+        "signs": "++++",
+        "glasses": [
+          "N-SF6",
+          "N-BK7",
+          "N-BK7",
+          "N-F2"
+        ],
+        "rmsMicrometers": 47.64932958527886
+      }
+    ],
+    "neighborhoods": [
+      {
+        "trial": "trial-0024",
+        "parent": "trial-0001",
+        "operation": "refine",
+        "allocated": 1200,
+        "charged": 356,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0025",
+        "parent": "trial-0024",
+        "operation": "glass-swap",
+        "allocated": 198,
+        "charged": 198,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0026",
+        "parent": "trial-0024",
+        "operation": "stop-surface-change",
+        "allocated": 198,
+        "charged": 198,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0027",
+        "parent": "trial-0024",
+        "operation": "parameter-perturbation",
+        "allocated": 198,
+        "charged": 148,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0028",
+        "parent": "trial-0027",
+        "operation": "glass-pair-swap",
+        "allocated": 198,
+        "charged": 65,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0029",
+        "parent": "trial-0018",
+        "operation": "refine",
+        "allocated": 1200,
+        "charged": 1200,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0030",
+        "parent": "trial-0029",
+        "operation": "glass-swap",
+        "allocated": 150,
+        "charged": 150,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0031",
+        "parent": "trial-0030",
+        "operation": "stop-surface-change",
+        "allocated": 150,
+        "charged": 150,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0032",
+        "parent": "trial-0030",
+        "operation": "parameter-perturbation",
+        "allocated": 150,
+        "charged": 150,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0033",
+        "parent": "trial-0030",
+        "operation": "glass-pair-swap",
+        "allocated": 150,
+        "charged": 150,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      },
+      {
+        "trial": "trial-0034",
+        "parent": "trial-0015",
+        "operation": "refine",
+        "allocated": 995,
+        "charged": 995,
+        "state": "completed",
+        "entryStages": [
+          "full-target-refinement-entry"
+        ]
+      }
+    ]
+  }
+]

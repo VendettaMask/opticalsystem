@@ -183,6 +183,7 @@ public static class SpecificationValidator
 
         if (specification.FlatStart is { } flat)
         {
+            if (!Enum.IsDefined(flat.SamplingPolicy)) errors.Add("flat-start sampling policy is invalid");
             Positive(flat.EffectiveFocalLengthRelativeTolerance, "focal length tolerance", errors);
             Positive(flat.FNumberRelativeTolerance, "F-number tolerance", errors);
             if (flat.EffectiveFocalLengthRelativeTolerance >= 1 || flat.FNumberRelativeTolerance >= 1)

@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "Scope": "Separate holdout report; excluded from original 12x5 acceptance gate",
+  "SpecificationCount": 3,
+  "RandomSeeds": [
+    201,
+    202,
+    203,
+    204,
+    205
+  ],
+  "MaximumEvaluationsPerRun": 10000,
+  "TimeLimitSeconds": 600,
+  "CompareUsing": "same machine; report actual ray count and time as well as evaluations",
+  "FinalValidation": {
+    "NormalizedFields": [
+      0,
+      0.25,
+      0.5,
+      0.7,
+      0.85,
+      1
+    ],
+    "PupilRings": 6,
+    "PupilAngles": 16,
+    "IncludePupilBoundary": true,
+    "AllPositiveWeightWavelengths": true,
+    "PerFieldGates": true
+  },
+  "AllowedMaterialChoices": [
+    "N-BK7",
+    "N-F2",
+    "N-SF6"
+  ],
+  "BootstrapProof": {
+    "ElementCounts": [
+      1,
+      2,
+      3
+    ],
+    "EntrancePupilFraction": 0.3,
+    "MaximumRelativePowerError": 0.02,
+    "MaximumRmsInterceptToPupilRadius": 0.02,
+    "RequiredValidRayFraction": 1,
+    "MaximumEvaluations": 800
+  },
+  "Notes": [
+    "Frozen before v6 acceptance runs on 2026-09-23.",
+    "Report every seed; do not tune on this set or combine with the original acceptance denominator."
+  ],
+  "Profile": "independent-holdout-v1"
+}

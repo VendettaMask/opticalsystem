@@ -1,11 +1,38 @@
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class RelativeIlluminationTests
 {
+    [Theory]
+    [InlineData(0.5)]
+    [InlineData(0.9)]
+    public void ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(double radius)
+    {
+        var optic = new Optic();
+        optic.Aperture.Value = 2;
+        optic.Fields.Add(new FieldPoint { Y = 0 });
+        optic.Wavelengths.Add(new Wavelength());
+        var aperture = new CircularAperture(radius);
+        optic.SurfaceGroup.Replace([
+            new OpticalSurface { Label = "Object", Thickness = 10 },
+            new OpticalSurface { Label = "Stop", IsStop = true, Thickness = 10, SemiDiameter = 1, PhysicalAperture = aperture },
+            new OpticalSurface { Label = "Image", Thickness = 0 }
+        ]);
+        var data = new RelativeIlluminationAnalysis(optic, fieldDensity: 2).GenerateData();
+        var actual = Assert.IsType<double[]>(data.Values["RawProjectedCosineArea"])[0];
+        // Rays from the axial object through a radius-r stop at distance d form
+        // a cone whose direction-cosine disk has area pi * r^2 / (d^2 + r^2).
+        var expected = Math.PI * radius * radius / (100 + radius * radius);
+        Assert.InRange(Math.Abs(actual / expected - 1), 0, 0.0002);
+        Assert.Same(aperture, optic.SurfaceGroup.Items[1].PhysicalAperture);
+        Assert.Equal(radius, aperture.Radius);
+    }
+
     public static TheoryData<string, Func<Optic>> SampleOptics => new()
     {
         { "cooke", Optic.CreateCookeTriplet },

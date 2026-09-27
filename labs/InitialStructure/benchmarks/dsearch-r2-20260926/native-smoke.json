@@ -1,0 +1,84 @@
+{
+  "ObservedUtc": "2026-09-26T11:02:28.499631+00:00",
+  "Platform": "macOS ARM64",
+  "Application": "Initial Structure Lab",
+  "Executable": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App",
+  "Algorithm": {
+    "name": "strict-flat-family-search",
+    "version": "10",
+    "numericBackend": "Managed CPU",
+    "deterministic": true
+  },
+  "BinarySha256": {
+    "OptilandWorkbench.Core.dll": "e08f48f3f12c7534820b9482b1db61f0f8c72596c38094b292d1ac6ee151a5b0",
+    "OptilandWorkbench.InitialStructure.App.dll": "41b8f71db7bfbd05884b1bea0334e9ce5c161a5fe8a20a8c4da7c251019fa322",
+    "OptilandWorkbench.InitialStructure.Persistence.dll": "61d547474f6f900f57750b3b6c976ff7fdf7d91008539396a1e89bea135d713d",
+    "OptilandWorkbench.InitialStructure.Contracts.dll": "3f6570d1e22529545908c44a77c602bcd9747c99cc17be9ca6055339c20298f8",
+    "OptilandWorkbench.InitialStructure.Engine.dll": "c4da192e830262b8b3f936847a6bd4f73a79d7a31cf062b16df54843667477ba"
+  },
+  "Specification": {
+    "schemaVersion": 1,
+    "name": "定焦实验",
+    "conjugate": "infinite",
+    "effectiveFocalLengthMillimeters": 50,
+    "fNumber": 8,
+    "maximumFieldAngleDegrees": 5,
+    "wavelengths": [
+      {
+        "label": "d",
+        "nanometers": 587.6,
+        "weight": 1,
+        "isPrimary": true
+      }
+    ],
+    "minimumElementCount": 3,
+    "maximumElementCount": 3,
+    "maximumTrackLengthMillimeters": 100,
+    "minimumCenterThicknessMillimeters": 2,
+    "minimumAirGapMillimeters": 1,
+    "minimumBackFocusMillimeters": 5,
+    "semiDiameterMarginFactor": 1.25,
+    "maximumRmsSpotRadiusMillimeters": 0.05,
+    "maximumSpotRadiusMillimeters": 0.15,
+    "initialGlass": "N-BK7",
+    "glassCatalogs": [],
+    "budget": {
+      "initialSeedCount": 24,
+      "maximumEvaluations": 10000,
+      "maximumParallelism": 2,
+      "timeLimit": "00:10:00",
+      "randomSeed": 101
+    },
+    "flatStart": {
+      "fixedBackFocusMillimeters": null,
+      "minimumEdgeThicknessMillimeters": 0.5,
+      "effectiveFocalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.05,
+      "minimumValidRayFraction": 0.98
+    }
+  },
+  "RunId": "flat-search-8fdfd37b08214085a77c2a315fc9b414",
+  "CheckpointSha256": "a5574d5e26638228798832f295cb47b679245f291983e799e4ca2da06b0f88c8",
+  "ChargedEvaluations": 10000,
+  "UIObservations": {
+    "CompletedStatus": "本次搜索已结束，方案和过程已保存。",
+    "Retained": 10,
+    "AcceptedRetained": 10,
+    "AllowedForms": 8,
+    "PlannedForms": 8,
+    "CompletedForms": 8,
+    "Roots": 24,
+    "RootEvaluationQuota": 100,
+    "SelectedDisplayed": {
+      "Signs": "++-",
+      "EffectiveFocalLengthMillimetersRounded": 49.989704,
+      "WorstRmsMillimetersRounded": 0.008581,
+      "MinimumThroughputPercentRounded": 98.97
+    },
+    "PreviewRayTrajectories": 21,
+    "ExportStatus": "方案 1 已导出并回读验证。"
+  },
+  "ExportPath": "artifacts/validation/dsearch-r2-20260926/native-v10-selected.staropt",
+  "ExportSha256": "ed0ccd0cfee9eeb65a2170a2dda0ca7879607d0801431622ab65a318a7ac2fcd",
+  "Scope": "Observed native macOS search, completed form history, shared-Core layout display and export/reload; screenshot inspected in-session. Does not certify other platforms, external optical precision or the full search gate."
+}

@@ -1,0 +1,17 @@
+--- a/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs
++++ b/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs
+@@ -25,7 +25,13 @@
+         var termination = LeastSquaresTermination.EvaluationLimit;
+         while (count < maximumEvaluations && !stopRequested())
+         {
+-            var phase = !current.GeometryFeasible ? OpticalSolvePhase.Geometry : OpticalSolvePhase.RealRay;
++            // The area objective already includes finite Core geometry constraints.
++            // Keep optical correction active across manufacturing bounds whenever
++            // every required ray propagates; geometry-only restoration is for an
++            // unavailable optical domain (and the historical separate objective).
++            var joint = current.HasContinuousSearchResiduals
++                && current.Objective?.Kind == FlatStartObjectiveKind.ConstrainedRealRaySumSquaresV2;
++            var phase = !current.GeometryFeasible && !joint ? OpticalSolvePhase.Geometry : OpticalSolvePhase.RealRay;
+             if (current.MeetsTargets && !improveBeyondTargets) break;
+             var latest = current;
+             var result = BoundedTrustRegionLeastSquares.Solve(coordinates.Encode(vector), coordinates.Lower, coordinates.Upper,

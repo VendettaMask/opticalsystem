@@ -1,6 +1,8 @@
 namespace OptilandWorkbench.InitialStructure.Engine.Optimization;
 
-/// <summary>Variables and residuals must already use the caller's chosen dimensionless scales.</summary>
+internal enum LeastSquaresStepMethod { Dogleg, Regularized }
+
+/// <summary>Caller supplies residual scales. Optional column scaling adapts the variable metric, not the objective.</summary>
 internal sealed record LeastSquaresOptions
 {
     public int MaximumEvaluations { get; init; } = 1000;
@@ -9,6 +11,10 @@ internal sealed record LeastSquaresOptions
     public double GradientTolerance { get; init; } = 1e-10;
     public double StepTolerance { get; init; } = 1e-12;
     public double RelativeDifferenceStep { get; init; } = 6.055454452393343e-6;
+    public LeastSquaresStepMethod StepMethod { get; init; } = LeastSquaresStepMethod.Dogleg;
+    public bool ScaleByJacobian { get; init; }
+    // Zero preserves full finite differences after every accepted step.
+    public int MaximumSecantUpdates { get; init; }
 }
 
 /// <summary>Invalid evaluations provide no derivative or acceptance information, but still incur cost.</summary>
@@ -53,4 +59,7 @@ internal sealed record LeastSquaresResult(
     int JacobianBuildCount,
     int FactorizationCount,
     long WorkUnits,
-    IReadOnlyList<LeastSquaresTrial> Trials);
+    IReadOnlyList<LeastSquaresTrial> Trials)
+{
+    public int SecantUpdateCount { get; init; }
+}

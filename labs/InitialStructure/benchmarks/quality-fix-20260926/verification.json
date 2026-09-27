@@ -1,0 +1,317 @@
+{
+  "date": "2026-09-26",
+  "algorithmVersion": 12,
+  "scope": "Internal Core evaluation, regression and export verification; no new external Zemax capture or certification.",
+  "fullRegression": {
+    "formal": {
+      "passed": 1311,
+      "failed": 0,
+      "skipped": 0,
+      "report": "formal-full.trx"
+    },
+    "comparisonTool": {
+      "passed": 104,
+      "failed": 0,
+      "skipped": 0,
+      "report": "comparison-full.trx"
+    },
+    "laboratory": {
+      "passed": 212,
+      "failed": 0,
+      "skipped": 0,
+      "report": "lab-full-final.trx"
+    }
+  },
+  "testReports": [
+    {
+      "path": "artifacts/validation/quality-fix-20260926/comparison-full.trx",
+      "sha256": "5c3891d09e1a6dada0415b944504fff9c209b2941679d7b87aeca01a5889f8fb",
+      "outcome": "Completed",
+      "counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/core-sampled-checks-final.trx",
+      "sha256": "31cda9620c656cb5af0298557b26d7bb41b69a8f8d33ba3882b9f109aaf74178",
+      "outcome": "Completed",
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/core-sampled-checks.trx",
+      "sha256": "997981d4b7f02233a1569d488771e3baab34c18e3ebf19b58e363e1cbb02b072",
+      "outcome": "Failed",
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "9",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/formal-full.trx",
+      "sha256": "22661ba2b637c266da405dadf9744a3b1503c96f9a7b66f484e3943bfc6082c6",
+      "outcome": "Completed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1311",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-full-final.trx",
+      "sha256": "1d0db94955b30e90038d71f541e6d7a9da5f4924f198906d5c90b21bc3120966",
+      "outcome": "Completed",
+      "counters": {
+        "total": "212",
+        "executed": "212",
+        "passed": "212",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-full.trx",
+      "sha256": "a312735c7f64d309aef265fbe39dec6120acf4057cb4ac64f12434e0f9a8fde7",
+      "outcome": "Completed",
+      "counters": {
+        "total": "211",
+        "executed": "211",
+        "passed": "211",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-quality-ui-final.trx",
+      "sha256": "0f5f8399287540ebde502daa2bdecc3adf02c25e6ae0c51648aa67cfd2d5a9a9",
+      "outcome": "Completed",
+      "counters": {
+        "total": "31",
+        "executed": "31",
+        "passed": "31",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-quality.trx",
+      "sha256": "ff2b4ebea464733de174a3560e014d2fcb2cb52728f02f7d044f1142eccbeabb",
+      "outcome": "Completed",
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "cd53db623fb117589eb922d0d7b2a7ccd88bbacfd6ff294107fbfb3e36c97745"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "5e83fc6aa4b76c649bd4d62f84389e7adb1533536ef640afb663d1d18be253cb"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "a73c6a6b1842c4f7da9bccf7918775ff04ef593badab88980c9e9207adbbc927"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "b9e425a60ab58aac001dd141bd72fccc037bdef3fb8b0e094d6cbaaafd1b1761"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "e97bbb997b5dc239158353111f9b380c1ce89614a7d2109aa31d43885dd5b258"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "6b808b7c4420295de9c2fc7e16bbe311fb0098a6f71b4940d258dca9506a89e0"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "9d5307d5ddd08da28181d124cc5fb9fd65a028e17dbb4e0a3e42d6452b961b5e"
+    }
+  ],
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/quality-fix-20260926/formal-debug-build.log",
+      "sha256": "ee588127d766e310f220ba4d1540610276ebe3f5294a086d140f8aca64bc2b14"
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/formal-release-build.log",
+      "sha256": "ec0cb042bd0d2e929424ff15f55f22045f347d2a41b1a06b74a385746940bafd"
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-debug-build.log",
+      "sha256": "022ff5c26d8be69f2feb132585924dbcedf53ec28eb6cf3e3c4243ae822491aa"
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/lab-release-build.log",
+      "sha256": "4bf3993cf8d246c560f25e397b0015a0a18b1428b22161c8fdb08f4911ce0359"
+    }
+  ],
+  "input": {
+    "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json",
+    "sha256": "e19c857f7f069ebccdbf548906cadc3a7bd45cd0a92b72cc264774edf1da7467"
+  },
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/local-results-final.json",
+      "sha256": "3f337360ef2c09b6e29f872ea8ca232508de42aa682aac07d98286654a80a1c5"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/local-results-without-field-rms-penalty.json",
+      "sha256": "99d98daabe46b9bdc75c547d06a15f230edcbad3ac06e128b219746d35891ff3"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/local-results.json",
+      "sha256": "83c9054ecaa92e587e771d7c7ddfeb6cc644dd61fb9b5a248177e151a36603bd"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/search-recalculation.json",
+      "sha256": "0d543c30ee664b39e13c623d699b384efc5b58694ee2433cdde7e7110d33ed45"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/search-summary.json",
+      "sha256": "cfa60ed412bb716b116511393e70ae86f2f71146f8a02541c3b3b3276fd7eac0"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/source-freeze.json",
+      "sha256": "37b3c93014ce45e8b7ca14c584bc2fd96c22a01d0d4bc2b4945bb177bdf536c8"
+    }
+  ],
+  "benchmarkSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/runner/Program.cs",
+      "sha256": "5f185205d7096a2105f70b24e0caad3b4d19480c80831b0a9ebdb2b65264b8a0"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-fix-20260926/runner/QualityFix.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    }
+  ],
+  "fullSearchFiles": [
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches-final/f2.8.family.json",
+      "sha256": "53e99929ed7444fb35582e654c27ce19686dadf68be6afced70099921646dcce"
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches-final/f8.family.json",
+      "sha256": "eda58e62f8456828e760071376e0b26adb8ddf172584145fac0179aa36b65786"
+    }
+  ],
+  "diagnosticNotes": [
+    "The initial Core check failed only a decimal-rounding assertion; the final 1e-12 absolute-tolerance check and full regression pass.",
+    "The initial saved-result verifier compared intentionally omitted temporary residual vectors; after applying the existing checkpoint compaction contract and checking regenerated sum squares, all 20 records and exports match."
+  ]
+}

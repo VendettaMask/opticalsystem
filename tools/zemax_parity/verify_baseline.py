@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 from PIL import Image
@@ -32,7 +32,8 @@ def main() -> int:
     assert len({entry["index"] for entry in analyses}) == len(analyses)
     assert len({entry["analysisId"] for entry in analyses}) == len(analyses)
 
-    source = root / "source" / Path(manifest["systemFile"]).name
+    # Captures contain Windows paths even when verified on macOS/Linux.
+    source = root / "source" / PureWindowsPath(manifest["systemFile"]).name
     source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
     assert source_hash == manifest["sourceSha256"]
 

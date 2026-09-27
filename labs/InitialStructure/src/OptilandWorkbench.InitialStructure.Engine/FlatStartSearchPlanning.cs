@@ -16,6 +16,7 @@ internal static class FlatStartSearchPlanning
     {
         SpecificationValidator.Validate(specification);
         if (specification.FlatStart is null) throw new ArgumentException("Flat-start settings are required.");
+        DesignFormSearch.Validate(specification, options.DesignSearch ?? new());
         if (specification.Budget.InitialSeedCount > MaximumRoots)
             throw new ArgumentException($"Family search supports at most {MaximumRoots} initial families.");
         if (options.AllowedGlassNames is not { Count: > 0 and <= 64 }

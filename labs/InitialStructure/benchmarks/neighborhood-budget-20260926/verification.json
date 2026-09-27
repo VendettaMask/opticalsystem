@@ -1,0 +1,293 @@
+{
+  "date": "2026-09-27",
+  "experimentStarted": "2026-09-26",
+  "algorithmVersion": 13,
+  "scope": "Internal optical-search and engineering verification; no new Zemax capture or external numerical certification.",
+  "tests": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/comparison-full.trx",
+      "sha256": "3f1df35cd646a59eaf8d59dd4b34761b14b13e893e9f48eee8890bf01c08307f",
+      "outcome": "Completed",
+      "counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:42.3915040+08:00",
+        "queuing": "2026-09-26T21:43:42.3915040+08:00",
+        "start": "2026-09-26T21:43:41.5443340+08:00",
+        "finish": "2026-09-26T21:44:25.2840800+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-full-recheck.trx",
+      "sha256": "3b3bd30e980d6e2fd75df4b4e2c8e40f1e4496e24c83ba9583bfbcdfc172d60b",
+      "outcome": "Completed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1311",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T23:39:25.9349390+08:00",
+        "queuing": "2026-09-26T23:39:25.9349390+08:00",
+        "start": "2026-09-26T23:39:25.2724880+08:00",
+        "finish": "2026-09-27T00:41:35.7008590+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-full.trx",
+      "sha256": "5420fb6823d3f6c1ae9fab652b94c75bc3a8fcc8bb2b964ee71a82fb9b39cf7e",
+      "outcome": "Failed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1310",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:54.4908760+08:00",
+        "queuing": "2026-09-26T21:43:54.4908760+08:00",
+        "start": "2026-09-26T21:43:53.3792490+08:00",
+        "finish": "2026-09-26T21:46:27.7166600+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/lab-full.trx",
+      "sha256": "82162b7a61a40e16defb08d10ff2d942773e433e044bb83fe4311ba9c1f100e1",
+      "outcome": "Completed",
+      "counters": {
+        "total": "224",
+        "executed": "224",
+        "passed": "224",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:19.8151080+08:00",
+        "queuing": "2026-09-26T21:43:19.8151080+08:00",
+        "start": "2026-09-26T21:43:19.1258270+08:00",
+        "finish": "2026-09-26T23:35:32.0669910+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/neighborhood-tests.trx",
+      "sha256": "5f75943e277ddb48fd8c50f319a6a7eee0bb2a1a6f484555cf1520c3488c73a6",
+      "outcome": "Completed",
+      "counters": {
+        "total": "22",
+        "executed": "22",
+        "passed": "22",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:38:41.9090490+08:00",
+        "queuing": "2026-09-26T21:38:41.9090490+08:00",
+        "start": "2026-09-26T21:38:40.1126700+08:00",
+        "finish": "2026-09-26T21:38:53.1040250+08:00"
+      }
+    }
+  ],
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "cd53db623fb117589eb922d0d7b2a7ccd88bbacfd6ff294107fbfb3e36c97745"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "5e83fc6aa4b76c649bd4d62f84389e7adb1533536ef640afb663d1d18be253cb"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "f34475f538ec1bc5bf2211c932a6a2c2459482f41ce652bb84166d4cd75267ec"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "35949d925c39dc6a64fe89adbb006224736464b65723ac97258451fa2ee2f9ca"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "e97bbb997b5dc239158353111f9b380c1ce89614a7d2109aa31d43885dd5b258"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "b8b676c3072d5042e797d4417803ae7d938afbf5069d0c7af93ccf3fc0c260cc"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "f9d1e72adeccf0c17cf810064d7bf581e51b33062e4db4189248b415367a142e"
+    }
+  ],
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-debug-build.log",
+      "sha256": "1765405a5747d7bc949f96f5bc3f5c634807ce448a00cd2c7a122ff8ea212cfa"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-release-build.log",
+      "sha256": "92cc569ce19dfdf2d9cbde25ac087df74a21585a47d4a3e066f19ffcb1c02123"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/lab-debug-build.log",
+      "sha256": "c777c21f86537a9449621dd2e647bb04e10d5aeaecb770650f8959c278cd6919"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/lab-release-build.log",
+      "sha256": "3a5d17f8ff0b4fd921c370418498ae1b9f7a71c15a299e9883511e5af83ca36e"
+    }
+  ],
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/lab-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/runner-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "input": {
+    "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json",
+    "sha256": "e19c857f7f069ebccdbf548906cadc3a7bd45cd0a92b72cc264774edf1da7467"
+  },
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/comparison.json",
+      "sha256": "edd9131bed11952c555f6e33122afc37d3438ced1b56045ac94920826a1aa65c"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/search-recalculation.json",
+      "sha256": "de0ea3dcaf082a765ffa582cabcb36d92625dfddaf53ed30057f031aed9b783f"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/search-summary.json",
+      "sha256": "40c0f3e496f9e900cd0a66f195189befcf782e1ef0f2e5f08bd86b4334e8a7ca"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/source-freeze.json",
+      "sha256": "f0234ada1c8b6ae65ac52c5d6875c0c39cc1bd0684ec96ec410adfb0fe5a24c4"
+    }
+  ],
+  "benchmarkSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/runner/NeighborhoodBudget.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/neighborhood-budget-20260926/runner/Program.cs",
+      "sha256": "abd3786514e8e14445c9dca24cddb735dd9c42844a07cb097750994d324a1a2d"
+    }
+  ],
+  "fullSearchFiles": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/searches/f2.8.family.json",
+      "sha256": "25b37fcaa277fb342d6b542d18b07a127b7b8a576f5c0eac464308cd18dd33b9"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/searches/f8.family.json",
+      "sha256": "8e0e6203fa8185e0bdf2f1b29cefd73f8a923dd7bd0854e7a262a7587778c384"
+    }
+  ],
+  "frozenV12Binaries": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/frozen-v12/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/frozen-v12/OptilandWorkbench.InitialStructure.Contracts.dll",
+      "sha256": "20d41f701650539552d41266fc63b75b836536911ab940fd19eb1b50e4884445"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/frozen-v12/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "6b808b7c4420295de9c2fc7e16bbe311fb0098a6f71b4940d258dca9506a89e0"
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/frozen-v12/OptilandWorkbench.InitialStructure.Persistence.dll",
+      "sha256": "bd790c6d910016b53484c947bb947dc059db81553105f3a98e7b53431eab7b3e"
+    }
+  ],
+  "changedV12Sources": [
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.Workflow.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartCheckpointValidation.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartSearchModels.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/DesignFormScheduler.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/DesignFormSearch.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartSearchService.cs",
+    "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartFullTargetRefinementTests.cs"
+  ],
+  "diagnosticNotes": [
+    "The first formal full run passed 1310 and failed one Avalonia HeadlessUnitTestSession.Dispose queue-completion teardown. No code or assertion was changed; the same binaries passed the final complete 1311-test recheck. Both TRX records are preserved.",
+    "All 48 root snapshots and final evaluations exactly match v12. New accepted prescriptions share one four-element root; counts are not independent search success rates.",
+    "Checksums bind local raw files; fresh run IDs and timestamps differ on reproduction. Frozen Optiland history and Zemax captures are unchanged."
+  ]
+}

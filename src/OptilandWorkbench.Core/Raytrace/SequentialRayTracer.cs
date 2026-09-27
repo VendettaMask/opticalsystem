@@ -150,6 +150,7 @@ public sealed partial class SequentialRayTracer
             return null;
         }
 
+        SequentialTraceMeasurement.Record(1);
         var ray = sourceRay.Normalize();
         var currentMaterial = ResolveMaterial("Air");
         var cumulativePathLength = 0.0;
@@ -298,6 +299,7 @@ public sealed partial class SequentialRayTracer
             }
         }
 
+        SequentialTraceMeasurement.Record(rayCount);
         var surfaceSlots = new int[surfaces.Length];
         Array.Fill(surfaceSlots, -1);
         for (var slot = 0; slot < retainedCount; slot++)

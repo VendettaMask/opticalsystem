@@ -24,6 +24,39 @@ public sealed class FlatStartDesktopTests
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.InitialStructure.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
+    [Fact]
+    public async Task NewDesktopExperimentDefaultsToAutomaticDiametersAndPolicyChangesClearResults()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window(defaultInputs: true);
+            window.Show(); await window.Ready;
+            var automatic = Find<CheckBox>(window, "AutomaticDiameters");
+            Assert.True(automatic.IsChecked);
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 120;
+            Find<NumericUpDown>(window, "RootCount").Value = 1;
+            Click(window, "Generate"); await window.PendingOperation;
+            var checkpoint = window.CurrentCheckpoint!;
+            Assert.True(checkpoint.Specification.FlatStart!.AutomaticLensDiameters);
+            Assert.Equal(FlatStartSamplingPolicy.UniformAreaGaussianV1, checkpoint.Specification.FlatStart.SamplingPolicy);
+            var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
+            var preview = Find<CandidatePreviewControl>(window, "Preview");
+            await preview.PendingLoad;
+            var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: CandidatePreviewControl.Options);
+            Assert.Equal(ContentFingerprint.Compute(expected), ContentFingerprint.Compute(preview.PrimaryScene));
+            Click(window, "Export"); await window.PendingOperation;
+            var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
+            Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
+            automatic.IsChecked = false;
+            Assert.Null(window.CurrentCheckpoint);
+            Assert.Null(preview.PrimaryScene);
+            Assert.False(Find<Button>(window, "Export").IsEnabled);
+            Assert.True(checkpoint.Specification.FlatStart.AutomaticLensDiameters);
+            window.Close();
+        });
+    }
+
     [Theory]
     [InlineData(1240)]
     [InlineData(600)]
@@ -62,6 +95,42 @@ public sealed class FlatStartDesktopTests
             var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
             Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
             Assert.Contains("回读验证", Find<TextBlock>(window, "Status").Text);
+            window.Close();
+        });
+    }
+
+    [Fact]
+    public async Task FormSearchControlsPlanHistoryAndInvalidationUseActualWidgets()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window(budget: 240); window.Show(); await window.Ready;
+            Find<ComboBox>(window, "SearchMode").SelectedIndex = 1;
+            Find<TextBox>(window, "SignFilter").Text = "+*-";
+            Find<NumericUpDown>(window, "StartingRadius").Value = 400;
+            Find<NumericUpDown>(window, "StartingCenter").Value = 3;
+            Find<NumericUpDown>(window, "StartingAir").Value = 2;
+            Find<NumericUpDown>(window, "SearchStop").Value = 2;
+            Find<CheckBox>(window, "FreeStop").IsChecked = false;
+            Click(window, "Validate"); await window.PendingOperation;
+            Assert.Contains("允许 2 种", Find<TextBlock>(window, "SearchPlan").Text);
+            Assert.Contains("FULL", Find<TextBlock>(window, "SearchPlan").Text);
+            Click(window, "Generate"); await window.PendingOperation;
+            var checkpoint = window.CurrentCheckpoint!;
+            Assert.Equal(400, checkpoint.Options.DesignSearch!.StartingRadiusMillimeters);
+            Assert.Equal(DesignSearchMode.Full, checkpoint.Options.DesignSearch.Mode);
+            Assert.Equal("++-", checkpoint.RootPlan[0].BinaryStart!.Signs);
+            Assert.All(checkpoint.Trials, trial => Assert.Equal(2, trial.Family.StopSurfaceIndex));
+            Assert.Equal(checkpoint.Trials.Count, Find<DataGrid>(window, "SearchHistory").ItemsSource.Cast<SearchHistoryRow>().Count());
+            Find<TabControl>(window, "DetailsTabs").SelectedIndex = 5;
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
+            Capture(window, "form-search-plan");
+            Assert.Same(checkpoint, window.CurrentCheckpoint);
+            Assert.NotEmpty(Find<DataGrid>(window, "Candidates").ItemsSource.Cast<CandidateRow>());
+            Find<TextBox>(window, "SignFilter").Text = "***";
+            Assert.Null(window.CurrentCheckpoint);
+            Assert.Null(Find<DataGrid>(window, "SearchHistory").ItemsSource);
             window.Close();
         });
     }
@@ -278,12 +347,12 @@ public sealed class FlatStartDesktopTests
         public string ExportPath => Path.Combine(Directory, "chosen.staropt");
         public string OpenPath => Path.Combine(Directory, "open.family.json");
         public DesktopHost() => System.IO.Directory.CreateDirectory(Directory);
-        public MainWindow Window(int width = 1240, int budget = 120)
+        public MainWindow Window(int width = 1240, int budget = 120, bool defaultInputs = false)
         {
             var window = new MainWindow(new LabDesktopSettings
             {
                 RunDirectory = Directory,
-                InitialSpecification = FlatStartRefinementTests.Spec(budget),
+                InitialSpecification = defaultInputs ? null : FlatStartRefinementTests.Spec(budget),
                 InitialOptions = FlatStartRefinementTests.Options,
                 SavePicker = (_, _) => Task.FromResult<string?>(ExportPath),
                 OpenPicker = _ => Task.FromResult<string?>(OpenPath)

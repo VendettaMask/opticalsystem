@@ -12,6 +12,8 @@ internal static class FlatStartFamilySupport
             || family.ElementCount < specification.MinimumElementCount || family.ElementCount > specification.MaximumElementCount
             || family.CenterThicknesses.Count != family.ElementCount || family.AirGaps.Count != family.ElementCount - 1
             || family.StopSurfaceIndex < 1 || family.StopSurfaceIndex > 2 * family.ElementCount || family.SeedIndex < 0
+            || family.BinaryStart is { } start && (start.Signs?.Length != family.ElementCount
+                || start.Signs.Any(sign => sign is not ('+' or '-')) || !double.IsFinite(start.RadiusMillimeters) || start.RadiusMillimeters <= 0)
             || family.GlassNames.Any(name => string.IsNullOrWhiteSpace(name) || name.Length > 256)
             || family.CenterThicknesses.Any(value => !double.IsFinite(value) || value < specification.MinimumCenterThicknessMillimeters)
             || family.AirGaps.Any(value => !double.IsFinite(value) || value < specification.MinimumAirGapMillimeters))

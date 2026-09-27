@@ -8,32 +8,34 @@ namespace OptilandWorkbench.InitialStructure.Engine;
 public sealed class FlatStartDesignService
 {
     public FlatStartDesignResult Solve(InitialStructureSpecification specification, int elementCount,
-        CancellationToken cancellationToken = default, FlatStartFamily? family = null)
+        CancellationToken cancellationToken = default, FlatStartFamily? family = null, bool screenOnly = false)
     {
         cancellationToken.ThrowIfCancellationRequested();
         SpecificationValidator.Validate(specification);
         var stopwatch = Stopwatch.StartNew();
         var budget = specification.Budget.MaximumEvaluations;
+        var progressive = specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         var bootstrap = new FlatStartBootstrap().Solve(specification with
         {
-            Budget = specification.Budget with { MaximumEvaluations = Math.Max(1, Math.Min(800, budget - 1)) }
+            Budget = specification.Budget with { MaximumEvaluations = Math.Max(1, Math.Min(800, progressive ? budget / 3 : budget - 1)) }
         }, elementCount, cancellationToken, family);
-        return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken, false);
+        return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken, false, screenOnly);
     }
 
     internal FlatStartDesignResult Continue(InitialStructureSpecification specification, FlatStartFamily family,
         FlatStartBootstrapResult rootProof, OpticSnapshot start, string parentCandidateId,
-        CancellationToken cancellationToken = default, bool improveBeyondTargets = false)
+        CancellationToken cancellationToken = default, bool improveBeyondTargets = false, bool screenOnly = false)
     {
         SpecificationValidator.Validate(specification);
-        return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken, improveBeyondTargets);
+        return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken, improveBeyondTargets, screenOnly);
     }
 
     private static FlatStartDesignResult Run(InitialStructureSpecification specification, int elementCount,
         FlatStartBootstrapResult bootstrap, Stopwatch stopwatch, FlatStartFamily? family,
-        OpticSnapshot? restart, string? parentCandidateId, CancellationToken cancellationToken, bool improveBeyondTargets)
+        OpticSnapshot? restart, string? parentCandidateId, CancellationToken cancellationToken, bool improveBeyondTargets, bool screenOnly = false)
     {
         var budget = specification.Budget.MaximumEvaluations;
+        var progressive = specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         var count = restart is null ? bootstrap.EvaluationCount : 0;
         var startingOptic = restart ?? bootstrap.Steps[^1].Optic;
         var problem = new FlatStartDesignProblem(specification, elementCount, startingOptic, family);
@@ -42,71 +44,80 @@ public sealed class FlatStartDesignService
         var diagnostics = new List<SearchDiagnostic>
         {
             new("design.scope", family is null
-                ? "Fixed element count, initial catalog glass, front stop and frozen clear apertures; no material or topology search."
+                ? "Fixed element count, initial catalog glass and front stop; clear apertures follow the specified diameter policy; no material or topology search."
                 : "Explicit catalog material allocation and stop surface; all geometry and optical results use formal Core."),
             new("design.engine", "Formal Core sampled spot analysis, common polychromatic centroid, geometric pupil weights and real aperture clipping.")
         };
-        var canContinue = restart is not null || bootstrap.State == FlatStartBootstrapState.Focused;
+        var canContinue = restart is not null || bootstrap.State is FlatStartBootstrapState.Focused or FlatStartBootstrapState.Initialized;
         var state = canContinue
             ? FlatStartDesignState.TargetsNotMet : FlatStartDesignState.StartupFailed;
-        DesignStage currentStage = new(.3, 0, false);
-        DesignStage[] targets = [new(.6, .25, false), new(1, .5, false), new(1, 1, false), new(1, 1, true)];
-        if (specification.Wavelengths.Any(wave => !wave.IsPrimary && wave.Weight > 0))
-            targets = [new(1, .25, true), new(1, .5, true), new(1, 1, true)];
         var refinedAtFullTarget = false;
         double[]? incumbent = null;
         DesignEvaluation? incumbentEvaluation = null;
-        if (restart is not null && CanEvaluate(true))
+        if (restart is not null && !screenOnly && CanEvaluate(true))
         {
             // A full-field candidate must not be degraded by replaying reduced monochromatic stages.
             var evaluation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
             RetainFullTarget(evaluation);
-            if (evaluation.HasContinuousSearchResiduals)
+            if (evaluation.HasContinuousSearchResiduals && (!progressive || evaluation.IsFeasible))
             {
                 steps.Add(new(count, "full-target-refinement-entry", FlatStartDesignProblem.FullStage,
-                    problem.CreateOptic(vector, FlatStartDesignProblem.FullStage).ToSnapshot(), evaluation));
+                    evaluation.EvaluatedOptic!, evaluation));
                 Optimize(FlatStartDesignProblem.FullStage, evaluation, budget - 1, dense: true);
                 refinedAtFullTarget = true;
             }
         }
-        if (canContinue && !refinedAtFullTarget)
+        if (canContinue && !refinedAtFullTarget && progressive)
         {
-            for (var targetIndex = 0; targetIndex < targets.Length && CanEvaluate(reserveFinal: true); targetIndex++)
+            for (var index = 0; index < FlatStartContinuation.ProgressiveStages.Count && CanEvaluate(true); index++)
             {
-                var target = targets[targetIndex];
-                if (!specification.Wavelengths.Any(wave => !wave.IsPrimary && wave.Weight > 0) && targetIndex == 3) break;
-                var stageEnd = Math.Min(budget - 1, count + Math.Max(2 * problem.Dimension + 2,
-                    (budget - count - 1) / (targets.Length - targetIndex)));
-                var nextStage = target;
-                var reached = false;
-                for (var subdivisions = 0; subdivisions < 6 && count < stageEnd && CanEvaluate(true); subdivisions++)
+                var stage = FlatStartContinuation.ProgressiveStages[index];
+                var window = FlatStartContinuation.ProgressiveWindow(budget - count - 1, problem.Dimension, index);
+                if (window <= 1) continue;
+                var stageEnd = Math.Min(budget - 1, count + window);
+                var dense = stage == FlatStartDesignProblem.FullStage;
+                var evaluation = Evaluate(vector, stage, dense);
+                if (dense) RetainFullTarget(evaluation);
+                steps.Add(new(count, "progressive-stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
+                Optimize(stage, evaluation, stageEnd, dense);
+            }
+        }
+        if (canContinue && !refinedAtFullTarget && !progressive)
+        {
+            var continuation = new FlatStartContinuation();
+            while (CanEvaluate(true) && !continuation.Exhausted)
+            {
+                var stage = continuation.Proposed;
+                var before = vector.ToArray();
+                var evaluation = Evaluate(vector, stage);
+                var initialViolation = FlatStartContinuation.Violation(evaluation);
+                var initialRank = FlatStartContinuation.FeasibilityRank(evaluation);
+                steps.Add(new(count, "stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
+                // A bounded local window supplies measured progress before allocating
+                // another window. There is no equal split across predetermined fields.
+                var window = 8 * (2 * problem.Dimension + 1);
+                var local = Optimize(stage, evaluation, Math.Min(budget - 1, count + window));
+                evaluation = local?.Evaluation ?? evaluation;
+                if (evaluation.MeetsTargets)
                 {
-                    var evaluation = Evaluate(vector, nextStage);
-                    if (!evaluation.HasContinuousSearchResiduals)
-                    {
-                        if (nextStage.AllWavelengths != currentStage.AllWavelengths) break;
-                        nextStage = new((currentStage.PupilFraction + nextStage.PupilFraction) / 2,
-                            (currentStage.FieldFraction + nextStage.FieldFraction) / 2, nextStage.AllWavelengths);
-                        continue;
-                    }
-                    steps.Add(new(count, "stage-entry", nextStage, problem.CreateOptic(vector, nextStage).ToSnapshot(), evaluation));
-                    Optimize(nextStage, evaluation, stageEnd);
-                    currentStage = nextStage;
-                    if (nextStage == target) { reached = true; break; }
-                    nextStage = target;
+                    continuation.Accept();
+                    if (stage == FlatStartDesignProblem.FullStage) break;
+                    continue;
                 }
-                if (!reached)
-                {
-                    diagnostics.Add(new("design.continuation-incomplete",
-                        $"Could not complete pupil {target.PupilFraction:P0}, field {target.FieldFraction:P0}, all wavelengths {target.AllWavelengths}; final validation still uses the full request."));
-                    break;
-                }
+                var rank = FlatStartContinuation.FeasibilityRank(evaluation);
+                var progressed = rank > initialRank || rank == initialRank
+                    && FlatStartContinuation.Violation(evaluation) < initialViolation * (1 - 1e-6);
+                if (progressed && local?.Termination == Optimization.LeastSquaresTermination.EvaluationLimit)
+                    continue;
+                if (!progressed) vector = before;
+                continuation.Backoff();
+                diagnostics.Add(new("design.stage-backoff", $"Reduced pupil/field after {local?.Termination}; next {continuation.Proposed}."));
             }
         }
 
         DesignEvaluation? validation = null;
         CandidateSnapshot? candidate = null;
-        if (!refinedAtFullTarget && canContinue && count + 2 * problem.Dimension + 3 < budget && CanEvaluate(true))
+        if (!screenOnly && !refinedAtFullTarget && canContinue && count + 2 * problem.Dimension + 3 < budget && CanEvaluate(true))
         {
             // Coarse sampling can pass while the independent denser field/pupil grid still fails.
             var evaluation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
@@ -114,7 +125,7 @@ public sealed class FlatStartDesignService
             if (evaluation.HasContinuousSearchResiduals)
             {
                 steps.Add(new(count, "dense-target-repair-entry", FlatStartDesignProblem.FullStage,
-                    problem.CreateOptic(vector, FlatStartDesignProblem.FullStage).ToSnapshot(), evaluation));
+                    evaluation.EvaluatedOptic!, evaluation));
                 Optimize(FlatStartDesignProblem.FullStage, evaluation, budget - 1, dense: true);
             }
         }
@@ -122,8 +133,8 @@ public sealed class FlatStartDesignService
         if (CanEvaluate(reserveFinal: false))
         {
             // A new Optic is constructed; full target and frozen denser samples never inherit a reduced stage.
-            validation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
-            var optic = problem.CreateOptic(vector, FlatStartDesignProblem.FullStage).ToSnapshot();
+            validation = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true, independentValidation: progressive);
+            var optic = validation.EvaluatedOptic!;
             steps.Add(new(count, "full-target-dense-validation", FlatStartDesignProblem.FullStage, optic, validation));
             var fingerprint = ContentFingerprint.Compute(optic);
             candidate = new()
@@ -137,22 +148,25 @@ public sealed class FlatStartDesignService
                 Lineage = new()
                 {
                     RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                    Operation = family is null ? "strict-flat-design-v4" : "strict-flat-family-design-v4",
+                    Operation = family is null ? $"strict-flat-design-v{FlatStartAlgorithm.Version}" : $"strict-flat-family-design-v{FlatStartAlgorithm.Version}",
                     ParentCandidateId = parentCandidateId,
                     Generation = bootstrap.Steps.Count + steps.Count - 1,
                     ElementCount = elementCount,
                     StopVariant = family?.StopSurfaceIndex ?? 0,
-                    SeedIndex = family?.SeedIndex ?? 0
+                    SeedIndex = family?.SeedIndex ?? 0,
+                    InitialForm = family?.BinaryStart?.Signs
                 },
                 Evaluation = new()
                 {
+                    FlatStartObjective = validation.Objective,
                     EffectiveFocalLengthMillimeters = validation.EffectiveFocalLengthMillimeters,
                     FNumber = validation.FNumber,
                     RmsSpotRadiusMillimeters = validation.Fields.Max(field => field.RmsRadiusMillimeters),
                     MaximumSpotRadiusMillimeters = validation.Fields.Max(field => field.MaximumRadiusMillimeters),
-                    EvaluatedRayCount = validation.Fields.Sum(field => field.AttemptedRays),
-                    ValidRayCount = validation.Fields.Sum(field => field.ValidRays),
-                    ValidRayFraction = (double)validation.Fields.Sum(field => field.ValidRays) / validation.Fields.Sum(field => field.AttemptedRays)
+                    EvaluatedRayCount = validation.Fields.Sum(field => field.AttemptedRays + field.CheckAttemptedRays),
+                    ValidRayCount = validation.Fields.Sum(field => field.ValidRays + field.CheckValidRays),
+                    ValidRayFraction = (double)validation.Fields.Sum(field => field.ValidRays + field.CheckValidRays)
+                        / validation.Fields.Sum(field => field.AttemptedRays + field.CheckAttemptedRays)
                 },
                 Violations = validation.Violations
             };
@@ -166,8 +180,8 @@ public sealed class FlatStartDesignService
         if (validation is null) diagnostics.Add(new("design.validation-not-run", "Budget or time ended before full-target validation; no accepted candidate is published."));
         return new()
         {
-            Algorithm = family is null ? new("strict-flat-design", "4", "Managed CPU", true)
-                : new("strict-flat-family-design", "4", "Managed CPU", true),
+            Algorithm = family is null ? new("strict-flat-design", FlatStartAlgorithm.Version, "Managed CPU", true)
+                : new("strict-flat-family-design", FlatStartAlgorithm.Version, "Managed CPU", true),
             Specification = specification,
             SpecificationFingerprint = ContentFingerprint.Compute(specification),
             State = state,
@@ -186,12 +200,12 @@ public sealed class FlatStartDesignService
             return count < budget - (reserveFinal ? 1 : 0) && stopwatch.Elapsed < specification.Budget.TimeLimit;
         }
 
-        DesignEvaluation Evaluate(double[] values, DesignStage stage, bool dense = false)
+        DesignEvaluation Evaluate(double[] values, DesignStage stage, bool dense = false, bool independentValidation = false)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (count >= budget) throw new InvalidOperationException("Design evaluation budget exceeded.");
             count++;
-            return problem.Evaluate(problem.CreateOptic(values, stage), stage, dense, cancellationToken);
+            return problem.Evaluate(problem.CreateOptic(values, stage), stage, dense, cancellationToken, independentValidation);
         }
 
         void RetainFullTarget(DesignEvaluation evaluation)
@@ -200,61 +214,30 @@ public sealed class FlatStartDesignService
             {
                 var rank = evaluation.MeetsTargets ? 0 : evaluation.IsFeasible ? 1 : 2;
                 var previousRank = incumbentEvaluation.MeetsTargets ? 0 : incumbentEvaluation.IsFeasible ? 1 : 2;
-                if (rank > previousRank || rank == previousRank && evaluation.Merit >= incumbentEvaluation.Merit) return;
+                if (rank > previousRank || rank == previousRank
+                    && FlatStartCandidateArchive.Score(evaluation.Objective) >= FlatStartCandidateArchive.Score(incumbentEvaluation.Objective)) return;
             }
             incumbent = vector.ToArray();
             incumbentEvaluation = evaluation;
         }
 
-        void Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false)
+        OpticalLocalResult? Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false)
         {
-            var damping = 1e-3;
-            var stalled = 0;
-            while (count + 2 * problem.Dimension + 1 <= stageEnd && CanEvaluate(true) && (!evaluation.MeetsTargets || improveBeyondTargets))
-            {
-                var jacobian = new double[evaluation.Residuals.Count, problem.Dimension];
-                for (var column = 0; column < problem.Dimension; column++)
+            if (stageEnd <= count || !CanEvaluate(true)) return null;
+            var result = FlatStartLocalSolver.Solve(problem.SolverCoordinates, vector, evaluation, stageEnd - count,
+                values => Evaluate(values, stage, dense), improveBeyondTargets,
+                () => !CanEvaluate(true), cancellationToken,
+                (values, accepted, phase) =>
                 {
-                    if (!CanEvaluate(true)) return;
-                    var delta = 1e-5 * Math.Max(1, Math.Abs(vector[column]));
-                    var plus = vector.ToArray();
-                    var minus = vector.ToArray();
-                    plus[column] += delta;
-                    minus[column] -= delta;
-                    plus = problem.Project(plus);
-                    minus = problem.Project(minus);
-                    var upper = Evaluate(plus, stage, dense);
-                    if (!CanEvaluate(true)) return;
-                    var lower = Evaluate(minus, stage, dense);
-                    // One-sided derivatives at active geometry bounds; never differentiate synthetic penalties.
-                    if (!upper.HasContinuousSearchResiduals) { upper = evaluation; plus = vector; }
-                    if (!lower.HasContinuousSearchResiduals) { lower = evaluation; minus = vector; }
-                    var span = plus[column] - minus[column];
-                    if (Math.Abs(span) < 1e-15) continue;
-                    for (var row = 0; row < evaluation.Residuals.Count; row++)
-                        jacobian[row, column] = (upper.Residuals[row] - lower.Residuals[row]) / span;
-                }
-                // Remove outward variables at active bounds and resolve the coupled least-squares system.
-                // Merely clipping a finished step lets an impossible thickness change suppress useful curvature updates.
-                var direction = ProjectedDampedStep.Solve(jacobian, evaluation.Residuals, damping, vector, problem.Project);
-                var largest = direction.Select(Math.Abs).Max();
-                var scale = largest > .2 ? .2 / largest : 1;
-                var accepted = false;
-                for (var attempt = 0; attempt < 8 && count < stageEnd && CanEvaluate(true); attempt++, scale /= 2)
-                {
-                    var trial = problem.Project(vector.Select((value, index) => value + scale * direction[index]).ToArray());
-                    var proposed = Evaluate(trial, stage, dense);
-                    if (!proposed.HasContinuousSearchResiduals || proposed.Merit >= evaluation.Merit - 1e-12) continue;
-                    vector = trial;
-                    evaluation = proposed;
-                    if (dense) RetainFullTarget(evaluation);
-                    steps.Add(new(count, "curvature-thickness-step", stage, problem.CreateOptic(vector, stage).ToSnapshot(), evaluation));
-                    accepted = true;
-                    break;
-                }
-                if (accepted) { damping = Math.Max(1e-9, damping / 3); stalled = 0; }
-                else { damping = Math.Min(1e9, damping * 10); if (++stalled >= 8) break; }
-            }
+                    vector = values;
+                    if (dense) RetainFullTarget(accepted);
+                    steps.Add(new(count, "curvature-thickness-step", stage, accepted.EvaluatedOptic!, accepted));
+                },
+                (phase, statistics) => diagnostics.Add(new("design.local-solver",
+                    $"{phase}: {statistics.Termination}; {statistics.EvaluationCount} evaluations, {statistics.WorkUnits} rays, {statistics.JacobianBuildCount} Jacobians, {statistics.SecantUpdateCount} secant updates, {statistics.FactorizationCount} QR factorizations.")),
+                () => problem.TracedRayCount);
+            vector = result.Variables;
+            return result;
         }
     }
 }

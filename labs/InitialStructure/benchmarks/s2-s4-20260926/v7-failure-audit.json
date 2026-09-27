@@ -1,0 +1,870 @@
+{
+  "Algorithm": {
+    "Name": "strict-flat-family-search",
+    "Version": "7",
+    "NumericBackend": "Managed CPU",
+    "Deterministic": true
+  },
+  "RawSummarySha256": "c613baf63cbcf76f6cb19f11dbe5be744e46cc378462ffcd08ec023540863598",
+  "Scope": "Read-only audit. Every seed contributes to success/violation counts. Seed 101 is the consistently chosen representative for operation budgets; it is not an additional acceptance run. No causal claim is inferred from this audit alone.",
+  "Results": [
+    {
+      "Specification": "01-24mm-monochrome.json",
+      "SuccessfulSeeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {},
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "54fcd958b59ed02cce392bd5a88fe8f77e69527ca61ef48fce33e071acc1facc",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 83,
+        "parameter-perturbation": 55,
+        "glass-swap": 35,
+        "stop-surface-change": 18
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 1540,
+        "refine": 2780,
+        "parameter-perturbation": 3070,
+        "glass-swap": 2476,
+        "stop-surface-change": 134
+      },
+      "RepresentativeLocalStops": {
+        "Transmission: StopRequested": 13,
+        "Targets: StopRequested": 82,
+        "Targets: StepTooSmall": 3,
+        "Transmission: Stationary": 4
+      },
+      "RepresentativeSelectedViolations": []
+    },
+    {
+      "Specification": "02-35mm-fixed-back.json",
+      "SuccessfulSeeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {},
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "0f9038d07abb2caaaf0e2c9febac76dd15831be7600410b7ef81d11e86f28681",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 46,
+        "parameter-perturbation": 31,
+        "glass-swap": 14,
+        "stop-surface-change": 5
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 2015,
+        "refine": 4240,
+        "parameter-perturbation": 2548,
+        "glass-swap": 1187,
+        "stop-surface-change": 10
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 62,
+        "Transmission: StopRequested": 10,
+        "Transmission: Stationary": 4,
+        "Targets: StepTooSmall": 4
+      },
+      "RepresentativeSelectedViolations": []
+    },
+    {
+      "Specification": "03-50mm-monochrome.json",
+      "SuccessfulSeeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {},
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "3dacac882dbd50d3eca4bfdaf443bdfd86027b11c4a8c4c7ab5a3033cd065e3e",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 61,
+        "parameter-perturbation": 34,
+        "glass-swap": 24,
+        "stop-surface-change": 10
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 905,
+        "refine": 4901,
+        "parameter-perturbation": 2007,
+        "glass-swap": 2141,
+        "stop-surface-change": 46
+      },
+      "RepresentativeLocalStops": {
+        "Transmission: StopRequested": 3,
+        "Targets: StopRequested": 56,
+        "Targets: DerivativeUnavailable": 1,
+        "Transmission: Stationary": 4,
+        "Targets: StepTooSmall": 10
+      },
+      "RepresentativeSelectedViolations": []
+    },
+    {
+      "Specification": "04-75mm-visible.json",
+      "SuccessfulSeeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {},
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "dbe6df3c7a102e647f2d93bf4ea6db6281b70952d9f308f6ac8086d71c363b76",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 58,
+        "parameter-perturbation": 41,
+        "glass-swap": 16,
+        "stop-surface-change": 8
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 1542,
+        "refine": 3449,
+        "parameter-perturbation": 3345,
+        "glass-swap": 1550,
+        "stop-surface-change": 114
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 82,
+        "Transmission: Stationary": 1,
+        "Transmission: StopRequested": 2
+      },
+      "RepresentativeSelectedViolations": []
+    },
+    {
+      "Specification": "05-100mm-fixed-back.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "rms": 30,
+        "maximum-radius": 28,
+        "target.focal-length": 2
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "e22cf648557c3002f683d13efc8283bb18b9365171890c422693f941400a6d97",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 7
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 2928,
+        "refine": 7072
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 6,
+        "Targets: StepTooSmall": 1
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09865173736571146,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1522435641872051,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09856930023268141,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16889210245698072,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0984892980095329,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.20856172474170842,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09875565121423373,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.24582914350454388,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.09940878855050167,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.27709212498849656,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10069139420646267,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3112640275975691,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "06-150mm-visible.json",
+      "SuccessfulSeeds": [
+        101,
+        102,
+        103,
+        104,
+        105
+      ],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {},
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "b660e2d2074ec8e797dab14343f55620e44c5722749090b4de25093d1a5ba7d0",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 11
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3168,
+        "refine": 6832
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 30,
+        "Targets: StepTooSmall": 4
+      },
+      "RepresentativeSelectedViolations": []
+    },
+    {
+      "Specification": "07-24mm-visible.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "rms": 8,
+        "maximum-radius": 13,
+        "target.focal-length": 4,
+        "target.f-number": 4
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "9183c8885ee07fc002fb7134133fef85e95fd8b943df45a10b868abd7c407ed5",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 15
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3168,
+        "refine": 6832
+      },
+      "RepresentativeLocalStops": {
+        "Transmission: StopRequested": 31,
+        "Targets: StepTooSmall": 9,
+        "Targets: DerivativeUnavailable": 4
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06699506614888605,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15487490966327047,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07138755384216475,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18370393511237415,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08458331730489456,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.23057989604939122,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10155544752498932,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.28177889662555655,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11811982925442474,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3286363562694872,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1343018620904598,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.36957735316589907,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "08-35mm-visible.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "rms": 26,
+        "maximum-radius": 10
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "092b39372a97890f492cc81b631f4b09c7e1c482d9aedc4e4fc5bad5622f3d78",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 6
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3168,
+        "refine": 6832
+      },
+      "RepresentativeLocalStops": {
+        "Transmission: StopRequested": 19,
+        "Targets: StopRequested": 14
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06903916599125275,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06519955447906546,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05530884126489155,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18837549012747612,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06159966285574767,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.25495186260643354,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "09-50mm-visible.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "rms": 30,
+        "maximum-radius": 25,
+        "target.focal-length": 1
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "8dd595bb8e8c5305a85743859c5412a23a2c5958ca6dede933563d095493dbbe",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 9
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3168,
+        "refine": 6832
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 19,
+        "Transmission: StopRequested": 10,
+        "Targets: StepTooSmall": 4
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0815408543141171,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07701749664097124,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16477995634730114,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.0660528740151234,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16373159712596497,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.060369341996722566,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1840448339291969,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06594216623546542,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2575097871943868,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08400243270663292,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3424750311767948,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "10-85mm-visible.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "rms": 30,
+        "maximum-radius": 27
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "9657a9342b14017476b2058b9a3ee265b856efdf7abce6f00eb6aa0ec13cd992",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 6
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3936,
+        "refine": 6064
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 26,
+        "Transmission: StopRequested": 6,
+        "Transmission: Stationary": 1,
+        "Targets: StepTooSmall": 1
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07642001210052189,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07251214646088547,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16790603902653034,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06262289305864722,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16407746902874187,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.055813451112484196,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15501937901096596,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.057555857424875276,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.21295254433591104,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06946396688855964,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.27996564315045624,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "11-100mm-visible.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "target.focal-length": 5,
+        "rms": 30,
+        "maximum-radius": 30
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "87a37f9f70dfa27ba60858880306c8584b2128119d88011239a3f7fb69f006dc",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 12
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 3936,
+        "refine": 6064
+      },
+      "RepresentativeLocalStops": {
+        "Targets: StopRequested": 27,
+        "Targets: StepTooSmall": 9
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "target.focal-length",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.021223299845713584,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08872590962322395,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1660517399269615,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08331567836277329,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1860695033477815,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06939009076607,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17724098391106047,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.059712395231494735,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16688031572480888,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.06287945116189728,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.24133222486680772,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08067867937630285,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3275434014179659,
+          "Limit": 0.15
+        }
+      ]
+    },
+    {
+      "Specification": "12-50mm-six-elements.json",
+      "SuccessfulSeeds": [],
+      "ViolationCategoryOccurrencesAllFiveSelectedCandidates": {
+        "maximum-radius": 25,
+        "rms": 23
+      },
+      "RepresentativeSeed": 101,
+      "RepresentativeCheckpointSha256": "41411dc7ebb956874448dfd3b47d482699eb0878d08d133633d8a9dc0e5a2d95",
+      "RepresentativeOperations": {
+        "flat-root": 24,
+        "refine": 9
+      },
+      "RepresentativeChargedEvaluations": {
+        "flat-root": 4704,
+        "refine": 5296
+      },
+      "RepresentativeLocalStops": {
+        "Transmission: StopRequested": 24,
+        "Targets: StopRequested": 3,
+        "Targets: StepTooSmall": 8
+      },
+      "RepresentativeSelectedViolations": [
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17753628759112772,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.07135596158041986,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.3030477656171371,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11565451979305505,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.44374584973615416,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.16156404603497984,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5745490384186649,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.20914459337381452,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": 2,
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6896021112489038,
+          "Limit": 0.15
+        }
+      ]
+    }
+  ]
+}

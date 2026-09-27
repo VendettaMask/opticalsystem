@@ -1,0 +1,177 @@
+{
+  "RecordedUtc": "2026-09-26T02:34:37.077943+00:00",
+  "Scope": "Final v7 laboratory tests; formal Core and tool tests retained because source and Core binary are unchanged since their full verified runs. Native UI evidence is separate.",
+  "Tests": {
+    "formal-complete": {
+      "Counters": {
+        "total": "1304",
+        "executed": "1304",
+        "passed": "1304",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Times": {
+        "creation": "2026-09-23T21:42:16.0580730+08:00",
+        "queuing": "2026-09-23T21:42:16.0580730+08:00",
+        "start": "2026-09-23T21:42:14.0851480+08:00",
+        "finish": "2026-09-23T21:47:13.8282890+08:00"
+      },
+      "Sha256": "69b2925a91145db7a80f2f9e89aa4ace2294567c105b2a20bf761238d95cde16"
+    },
+    "tools-full": {
+      "Counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Times": {
+        "creation": "2026-09-23T21:42:17.7479920+08:00",
+        "queuing": "2026-09-23T21:42:17.7479920+08:00",
+        "start": "2026-09-23T21:42:15.3786300+08:00",
+        "finish": "2026-09-23T21:43:41.4180440+08:00"
+      },
+      "Sha256": "61f313519baeae54a9e8ad19d1c5a8f054ca5d85a0904a137b83f854847107ff"
+    },
+    "lab-ui": {
+      "Counters": {
+        "total": "9",
+        "executed": "9",
+        "passed": "9",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Times": {
+        "creation": "2026-09-25T17:06:00.3007580+08:00",
+        "queuing": "2026-09-25T17:06:00.3007580+08:00",
+        "start": "2026-09-25T17:05:56.8138790+08:00",
+        "finish": "2026-09-25T17:06:04.1456930+08:00"
+      },
+      "Sha256": "7e0feb266fe7b2debbbf78275e7c5fd6df57b5099ba282329c9bbefd5f7f381f"
+    },
+    "lab-v7-full": {
+      "Counters": {
+        "total": "168",
+        "executed": "168",
+        "passed": "168",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Times": {
+        "creation": "2026-09-26T10:17:07.9982570+08:00",
+        "queuing": "2026-09-26T10:17:07.9982570+08:00",
+        "start": "2026-09-26T10:17:07.3970630+08:00",
+        "finish": "2026-09-26T10:22:35.9077430+08:00"
+      },
+      "Sha256": "595ecb44db61440cc1acc68335707a3bc60553ae258dd6d2b89c2bc30b7e359b"
+    },
+    "v7-mechanisms": {
+      "Counters": {
+        "total": "55",
+        "executed": "55",
+        "passed": "55",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Times": {
+        "creation": "2026-09-25T17:57:25.3106000+08:00",
+        "queuing": "2026-09-25T17:57:25.3106000+08:00",
+        "start": "2026-09-25T17:57:24.6994690+08:00",
+        "finish": "2026-09-25T17:57:29.0053820+08:00"
+      },
+      "Sha256": "8eb1aabb11d23827cf0f01de0b18ea74fb087a9d7708d05c2295b78e05aae7df"
+    }
+  },
+  "Builds": {
+    "formal-release-build": [
+      "已成功生成。",
+      "    0 个警告",
+      "    0 个错误",
+      "",
+      "已用时间 00:00:02.99"
+    ],
+    "formal-debug-build": [
+      "已成功生成。",
+      "    0 个警告",
+      "    0 个错误",
+      "",
+      "已用时间 00:00:50.21"
+    ],
+    "lab-v7-release-build-retry": [
+      "",
+      "已成功生成。",
+      "    0 个警告",
+      "    0 个错误",
+      "",
+      "已用时间 00:00:01.67"
+    ],
+    "lab-v7-debug-build": [
+      "",
+      "已成功生成。",
+      "    0 个警告",
+      "    0 个错误",
+      "",
+      "已用时间 00:00:02.12"
+    ]
+  },
+  "Formatting": {
+    "Formal": "formal-format.log, passed before unchanged formal sources",
+    "Laboratory": "lab-v7-format.log, exit 0, empty successful output"
+  }
+}

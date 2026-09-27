@@ -1,0 +1,551 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 15,
+  "scope": "Final laboratory joint objective phase selection and incomplete-spot display. Shared Core computations unchanged; no new Zemax external numerical comparison.",
+  "finalTests": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-lab-full.trx",
+      "sha256": "9f7ec7c23f55daaf101edf3ed6e6a7de784f884785d1f71e213e7b2ba9e2a2cb",
+      "times": {
+        "creation": "2026-09-27T11:27:28.7826540+08:00",
+        "queuing": "2026-09-27T11:27:28.7826540+08:00",
+        "start": "2026-09-27T11:27:27.5469510+08:00",
+        "finish": "2026-09-27T11:35:25.0870070+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "242",
+        "executed": "242",
+        "passed": "242",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "supersededExperimentChecks": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/recovery-focus.trx",
+      "sha256": "fb1f1303465fd2996e59527a751c1d648abe83d1eeb00b4363c2f9ac787ce592",
+      "times": {
+        "creation": "2026-09-27T11:05:16.8757050+08:00",
+        "queuing": "2026-09-27T11:05:16.8757050+08:00",
+        "start": "2026-09-27T11:05:15.4245220+08:00",
+        "finish": "2026-09-27T11:05:27.6043810+08:00"
+      },
+      "outcome": "Failed",
+      "counters": {
+        "total": "33",
+        "executed": "33",
+        "passed": "27",
+        "failed": "6",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/recovery-focus-recheck.trx",
+      "sha256": "976d7c92a2c2278e1972f9199d4f8c48512d82b818f24cf65d5b8a6ecc605ec8",
+      "times": {
+        "creation": "2026-09-27T11:05:56.1596480+08:00",
+        "queuing": "2026-09-27T11:05:56.1596480+08:00",
+        "start": "2026-09-27T11:05:54.4861490+08:00",
+        "finish": "2026-09-27T11:06:04.7095210+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "33",
+        "executed": "33",
+        "passed": "33",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/ui-recovery-focus.trx",
+      "sha256": "b3b64017258c5730e939774845cf8abbcb9762ce04c66c7f064d7f03d8feb13b",
+      "times": {
+        "creation": "2026-09-27T11:10:40.3810890+08:00",
+        "queuing": "2026-09-27T11:10:40.3810890+08:00",
+        "start": "2026-09-27T11:10:34.4699600+08:00",
+        "finish": "2026-09-27T11:11:04.0772440+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "18",
+        "executed": "18",
+        "passed": "18",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/lab-full.trx",
+      "sha256": "19189022410d42a4119fdb14314cce4cecb0a2531f389983ff28790992cdd2c2",
+      "times": {
+        "creation": "2026-09-27T11:06:22.2192410+08:00",
+        "queuing": "2026-09-27T11:06:22.2192410+08:00",
+        "start": "2026-09-27T11:06:21.5930120+08:00",
+        "finish": "2026-09-27T11:14:43.9816790+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "241",
+        "executed": "241",
+        "passed": "241",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/joint-focus.trx",
+      "sha256": "223c22bde672323a53141e597c4a03daeb7c036a78eef5902f1d65b45495bb9c",
+      "times": {
+        "creation": "2026-09-27T11:16:58.2793320+08:00",
+        "queuing": "2026-09-27T11:16:58.2793320+08:00",
+        "start": "2026-09-27T11:16:56.2080820+08:00",
+        "finish": "2026-09-27T11:17:10.3387850+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "34",
+        "executed": "34",
+        "passed": "34",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/joint-lab-full.trx",
+      "sha256": "67ad4831da249ea985038ae9cd94bdd0ca9c7079df6ec49b49e954ed1f8f8fad",
+      "times": {
+        "creation": "2026-09-27T11:17:47.4786930+08:00",
+        "queuing": "2026-09-27T11:17:47.4786930+08:00",
+        "start": "2026-09-27T11:17:46.8276490+08:00",
+        "finish": "2026-09-27T11:28:40.3063450+08:00"
+      },
+      "outcome": "Completed",
+      "counters": {
+        "total": "242",
+        "executed": "242",
+        "passed": "242",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "historicalFormalRecordsNotRerun": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-full-recheck.trx",
+      "sha256": "3b3bd30e980d6e2fd75df4b4e2c8e40f1e4496e24c83ba9583bfbcdfc172d60b",
+      "outcome": "Completed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1311",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T23:39:25.9349390+08:00",
+        "queuing": "2026-09-26T23:39:25.9349390+08:00",
+        "start": "2026-09-26T23:39:25.2724880+08:00",
+        "finish": "2026-09-27T00:41:35.7008590+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/comparison-full.trx",
+      "sha256": "3f1df35cd646a59eaf8d59dd4b34761b14b13e893e9f48eee8890bf01c08307f",
+      "outcome": "Completed",
+      "counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:42.3915040+08:00",
+        "queuing": "2026-09-26T21:43:42.3915040+08:00",
+        "start": "2026-09-26T21:43:41.5443340+08:00",
+        "finish": "2026-09-26T21:44:25.2840800+08:00"
+      }
+    }
+  ],
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "cd53db623fb117589eb922d0d7b2a7ccd88bbacfd6ff294107fbfb3e36c97745",
+      "matchesV14": true,
+      "scope": "unchanged formal Core"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "24f83c893b977167d1e7c51d79fa3706b0bba37be009380b3847e7214167cbbf",
+      "matchesV14": false,
+      "scope": "concurrent main-app edits outside this task"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "c3185b75be566b231c7ca75afef97e8134958b90a03e288386e60972a558bbd1",
+      "matchesV14": false,
+      "scope": "final laboratory output"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "6c4ebe810b68b90e5bf9e2d95d6aecb59b6acb9eccaf3304a63da9ce0358de71",
+      "matchesV14": false,
+      "scope": "final laboratory output"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89",
+      "matchesV14": true,
+      "scope": "unchanged formal Core"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "ec83e9d29fd1f633a266cd59b5b0b154f11a6d232168af45b511d4a346f7b0e2",
+      "matchesV14": false,
+      "scope": "concurrent main-app edits outside this task"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "048470fdddba6bb7566b717a5af694804bd9251f08e239f36ff18c5192262df9",
+      "matchesV14": false,
+      "scope": "final laboratory output"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "c8418e25f8c6372b0c313837a69ff6bad8369fce1df2c1a504092ebf7c877bf9",
+      "matchesV14": false,
+      "scope": "final laboratory output"
+    }
+  ],
+  "buildLogs": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-debug-build.log",
+      "sha256": "df4535d81d449af7d5ca9928ecfd7f634e5ea1172d17485af9945e34ab22551a"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-release-build.log",
+      "sha256": "110d212b1fea3d90cfb873d002c2be0ea09c4c984fe1ca0bce4460a6f2b048c5"
+    }
+  ],
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-lab-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-probe-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/final-full-runner-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/roots.json",
+      "sha256": "3eaff5ec089758d36f742c11cc18ed03a60723c0df510c17ba8d2df907f53444"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/probe-inputs.json",
+      "sha256": "5109c104eb5f3d28f9533d9aa65980ea7171694a4d0f7f974ed68726118767cf"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/joint-inputs.json",
+      "sha256": "2b24c95697d164cc1e1a409cd5111fd3698559ce647845b3583a866749be99cc"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/bridge-probe.json",
+      "sha256": "aecab6e3dc163974b88933d177c2850f82bd5d418d1b55ccd1d912281934b2aa"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/comparison.json",
+      "sha256": "daffe97b04fe6dbfd8d0b1d57fa7ed2612f8b3f28a51b338c37231774c8071a1"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/curvature-probe.json",
+      "sha256": "235bbc65e188454359fd769079a54773b8aca3e4764f7c73d60b94913bfe857f"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/joint-local-proposed.json",
+      "sha256": "cf438a0213d00e60f30451124fc3885d47aed33bcf324a10c883e281440f74e2"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/joint-local-v14.json",
+      "sha256": "8c2474b4fd7171ae78d20b42e34ddec3dc88f9e1ac80ba7cefb145b6a879b3dc"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/rejected-curvature-10000-recalculation.json",
+      "sha256": "d56df846e820c6319a26e72f397632a8a5d02a36e3b42d81f170b5e8cfc84b02"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/rejected-curvature-10000-summary.json",
+      "sha256": "339bba82b33db96a377999b41801acb18f0232c189ff77209beff4ad1906542a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/rejected-curvature-50000-recalculation.json",
+      "sha256": "901a3a075b2b1e713af0080d912f86c50e5e0475e5b8eaf1953bba9f111c2bfe"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/rejected-curvature-50000-summary.json",
+      "sha256": "4621133b21dcabfed02542e3774424e08b0591898531f793033784e9d3e22d8d"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/source-freeze.json",
+      "sha256": "1848884d6faa7578d0160ea34dbd5883eb2bec265874159ee032560189d90e2a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v14-full-50000-recalculation.json",
+      "sha256": "362ea3f31682d87ca8b301a6f2b247fdce5ca8b3e7b8f0d12df78c52aac38a4c"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v14-full-50000-summary.json",
+      "sha256": "eb05c1cd94677f4d9933525e93f0fd088699413e8687fb58598ef15b9263458c"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v15-10000-recalculation.json",
+      "sha256": "47315b3198e819f6be47c1679b472b41d268c2c76ea2c55bd5daf104e6a130a1"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v15-10000-summary.json",
+      "sha256": "3fd019a355c7d87066cdbc77f7ffe21ebff600d9b4ca16ecd0259e443f79d7ca"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v15-50000-recalculation.json",
+      "sha256": "2e302a482dc9f09b797fa972d4833ac309f4fca15c7daa4b27c3065fa5c1037f"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/v15-50000-summary.json",
+      "sha256": "362cde4b0eaca9579be1ca801816ed2c47748901876c7cff88d413eb10f9f8d1"
+    }
+  ],
+  "benchmarkSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/runner/JointProbe.cs",
+      "sha256": "dc0ef35211868bf437e85613f09b4a62c79e660eaf4c4de9f717bf6c6ae753e4"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/runner/Program.cs",
+      "sha256": "c2ba6f8ebe29eba723996fd3c2dfabb7483456116b6e64954d96e0398c306e5e"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/runner/StageRecovery.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/full-runner/FullSearch.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/full-runner/Program.cs",
+      "sha256": "be513ff1c46771074cd42a43c32a13923beeab9390fe000965dfb6a95f84fa59"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/full-runner/SearchVerification.cs",
+      "sha256": "9799cb8782f8a8c1ca4e52cb3e674928918493086050d06f7a81b0b932e6e8e7"
+    }
+  ],
+  "referenceRunnerSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/Program.cs",
+      "sha256": "149232f2da76139538e51b135488a9dca972699b920cbd7de1fa91ab9fe9db1a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SearchVerification.cs",
+      "sha256": "c5109a203b21d90702ba977e86e77e22622ff1d6d499c0e400da0b59c63f010a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SecantSolver.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    }
+  ],
+  "frozenV14Binaries": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/frozen-v14/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/frozen-v14/OptilandWorkbench.InitialStructure.Contracts.dll",
+      "sha256": "5e93554468cd37f65f3c69f139fc3268e9516f38b4d67d104bdacbb3242bf909"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/frozen-v14/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "93c3f81c4f4fb9f0a77c6197455423c93ecd4f9e619ceaf0efb3c25b29f10bf6"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/frozen-v14/OptilandWorkbench.InitialStructure.Persistence.dll",
+      "sha256": "71c6fe6d935012a912078d654d0bd256721d35357bd90a024d1cab7468fa5079"
+    }
+  ],
+  "rejectedRecoveryBinaries": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/rejected-recovery-binaries/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/rejected-recovery-binaries/OptilandWorkbench.InitialStructure.Contracts.dll",
+      "sha256": "cfce0acc3677d0977ef7ac96776d38bb0cc9e26ebad9fba0f13fcef60e518853"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/rejected-recovery-binaries/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "cce9b49fc30063730566d7193a6525c36bc2669ba62ad4eddc5679333c19904e"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/rejected-recovery-binaries/OptilandWorkbench.InitialStructure.Persistence.dll",
+      "sha256": "c55787abda4e0b112b93c952a7b26b807be9642811bddced08b965fbeafdc44a"
+    }
+  ],
+  "searchFiles": [
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/searches/f2.8.family.json",
+      "sha256": "72541f945d1bd078862f582c47c04a2b842c6fda7ab92dc493cc31f319f82e72"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/searches/f8.family.json",
+      "sha256": "698435a84ea32c86d93f1c5608976855ba8192d1b4b228e43cc37b4b36864215"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/wide-50000/f2.8.family.json",
+      "sha256": "d4f067a30105e7d8d81ba49d1ff1f8846133958bd431e7298779cbdafbcca1e9"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/joint-searches/f2.8.family.json",
+      "sha256": "debe001721a0a880c17d37a25227626063b01728870209d7c1f234b4fe1827bf"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/joint-searches/f8.family.json",
+      "sha256": "2df4e7bf59416c999fe9737eb5e8af29ae6a68500da4f7833bc92d91f0a42e9e"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/joint-wide-50000/f2.8.family.json",
+      "sha256": "9d2f5e153e3dbd034decf6db0f89492c826551a0b8aed926e47d0fd8e92709b2"
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927/baseline-full-wide-50000/f2.8.family.json",
+      "sha256": "f879535b3f8801be411efdfddc14a210fe4f3b80ad486defad67f9624e501f6f"
+    }
+  ],
+  "notes": [
+    "Final complete laboratory baseline is 242/242. Earlier checks overlap, cover superseded experiments, or use an earlier presentation fixture; do not add their counts.",
+    "The first recovery focus run failed six fixture deserializations because enum strings were not configured. The fixture parser was corrected; the rejected recovery implementation was later removed for optical regression, not for test failures.",
+    "Seven new complete searches: three rejected-recovery, three final-v15 joint-phase, one unchanged-v14 FULL. Seventy retained records were recalculated and exported exactly; these are not seventy distinct accepted designs.",
+    "The final v15 best worst-field RMS at 50000 evaluations is 0.13444361170735697 mm; all wide-field retained records still fail. The two 10000-evaluation best RMS values are unchanged from v14.",
+    "F/2.8 continuous root count remains 13/24 and physical root count decreases 13/24 to 12/24. One of five frozen local joint comparisons worsens. This is not a claim of universal improvement.",
+    "Formal Core source and both default Core binaries match v14. Concurrent formal main-app Ribbon/theme source, tests and binaries changed outside this task. Previous 1311/104 records do not validate those edits.",
+    "No v15 60+15 multiseed protocol was completed. Formal numerical authority remains the committed captured-file OpticStudio 2026 R1 baseline."
+  ],
+  "experimentPatches": [
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/joint-phase.patch",
+      "sha256": "4d0b938da4e6faf684a56116bd987a5d26fd24d0110580fc81554725523d2899"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/stage-recovery-20260927/rejected-recovery.patch",
+      "sha256": "2461d0042da2cfcf4a29ff6e28d45ae4a9d248eb7b82cf6390705e334eb60eab"
+    }
+  ]
+}

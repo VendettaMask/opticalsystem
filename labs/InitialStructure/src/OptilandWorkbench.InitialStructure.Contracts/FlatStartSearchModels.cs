@@ -11,6 +11,25 @@ public sealed record FlatStartFamily
     public int StopSurfaceIndex { get; init; } = 1;
     public int SeedIndex { get; init; }
     public int ElementCount => GlassNames.Count;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public BinaryFormStart? BinaryStart { get; init; }
+}
+
+/// <summary>Initial curvature directions, not a constraint on the optimized element powers.</summary>
+public sealed record BinaryFormStart(string Signs, double RadiusMillimeters);
+
+public enum DesignSearchMode { Quick, Full }
+
+/// <summary>Native search controls inspired by DSEARCH; not a SYNOPSYS macro or PSD implementation.</summary>
+public sealed record DesignSearchSettings
+{
+    public DesignSearchMode Mode { get; init; } = DesignSearchMode.Quick;
+    public double? StartingRadiusMillimeters { get; init; }
+    public double? StartingCenterThicknessMillimeters { get; init; }
+    public double? StartingAirGapMillimeters { get; init; }
+    public string SignFilter { get; init; } = "";
+    public int? StopSurfaceIndex { get; init; }
+    public bool ExploreStopPositions { get; init; } = true;
 }
 
 public sealed record FlatStartSearchOptions
@@ -19,10 +38,24 @@ public sealed record FlatStartSearchOptions
     public int MaximumEvaluationsPerTrial { get; init; } = 1_200;
     public int MaximumDisplayedCandidates { get; init; } = 8;
     public double MinimumStructuralDistance { get; init; } = .01;
+    // Absent in historical checkpoints; v8 resolves null to the native defaults.
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DesignSearchSettings? DesignSearch { get; init; }
 }
 
 public enum FamilyTrialState { Reserved, Completed, Failed, Interrupted }
 public enum FlatStartSearchState { Running, Completed, Cancelled, BudgetExhausted, TimeLimit, NoUsableGlass }
+
+public static class FlatStartAlgorithm
+{
+    // Version 5 was an abandoned weighting experiment, never a frozen release.
+    public const string Version = "15";
+
+    public static int SchedulingPolicy(string version, InitialStructureSpecification specification) =>
+        version is "13" or "14" or "15" && specification.FlatStart?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1 ? 2 : 1;
+}
+
+public sealed record FlatStartScheduleState(int PolicyVersion, int NextDecisionIndex, long NextRandomSeed, string LastDecision);
 
 public sealed record FamilyTrial
 {
@@ -52,7 +85,7 @@ public sealed record FamilyTrial
 public sealed record FlatStartSearchCheckpoint
 {
     public int SchemaVersion { get; init; } = 1;
-    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-family-search", "4", "Managed CPU", true);
+    public AlgorithmIdentity Algorithm { get; init; } = new("strict-flat-family-search", FlatStartAlgorithm.Version, "Managed CPU", true);
     public string RunId { get; init; } = string.Empty;
     public InitialStructureSpecification Specification { get; init; } = new();
     public FlatStartSearchOptions Options { get; init; } = new();
@@ -73,6 +106,8 @@ public sealed record FlatStartSearchCheckpoint
     public long TracedRealRayCount => Trials.Sum(trial => trial.TracedRealRayCount);
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public FlatStartRefinementOrigin? Origin { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FlatStartScheduleState? Schedule { get; init; }
 }
 
 public sealed record FlatStartRefinementOrigin(string RunId, InitialStructureSpecification Specification,

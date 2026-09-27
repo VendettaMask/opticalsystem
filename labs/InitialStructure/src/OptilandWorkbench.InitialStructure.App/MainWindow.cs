@@ -29,7 +29,7 @@ public sealed partial class MainWindow : Window
     private readonly TextBlock _comparisonDetails = Text("A 为蓝色，B 为橙色；共用毫米比例。");
     private readonly ProgressBar _progress = new() { Minimum = 0, Maximum = 1, Height = 4 };
     private readonly Button _validateButton = Command("预检查", "Validate");
-    private readonly Button _runButton = Command("从平板生成", "Generate");
+    private readonly Button _runButton = Command("开始形式搜索", "Generate");
     private readonly Button _resumeButton = Command("恢复上次", "Resume");
     private readonly Button _openButton = Command("打开记录", "OpenRun");
     private readonly Button _cancelButton = Command("停止并保存", "Cancel");
@@ -39,6 +39,8 @@ public sealed partial class MainWindow : Window
     private readonly Button _compareBButton = Command("设为 B", "CompareB");
     private readonly Button _clearComparisonButton = Command("清除比较", "ClearComparison");
     private readonly DataGrid _candidateGrid;
+    private readonly TextBlock _searchPlan = Named(Text("预检查可查看正负形式覆盖范围和每个起始试验的预算。"), "SearchPlan", "形式搜索计划");
+    private readonly DataGrid _searchHistory = GridTable("SearchHistory", ("试验", "Trial", 92), ("起始形式", "Form", 95), ("步骤", "Operation", 180), ("状态", "State", 90), ("评价次数", "Evaluations", 85));
     private readonly DataGrid _targetGrid = GridTable("TargetTable", ("指标", "Name", 175), ("目标", "Target", 125), ("实际", "Actual", 115), ("结果", "State", 90));
     private readonly DataGrid _prescriptionGrid = GridTable("PrescriptionTable", ("面", "Surface", 45), ("曲率半径 mm", "Radius", 120),
         ("厚度 mm", "Thickness", 120), ("玻璃", "Material", 100), ("净半口径 mm", "SemiDiameter", 120), ("机械半径 mm", "Mechanical", 120));
@@ -52,7 +54,7 @@ public sealed partial class MainWindow : Window
         _library = new(settings.RunDirectory);
         Title = "智能初始结构实验室";
         Width = 1240; Height = 850; MinWidth = 480; MinHeight = 620;
-        _candidateGrid = GridTable("Candidates", ("方案", "Name", 82), ("状态", "Status", 88), ("片数", "Elements", 64),
+        _candidateGrid = GridTable("Candidates", ("方案", "Name", 82), ("起始形式", "InitialForm", 104), ("状态", "Status", 88), ("片数", "Elements", 64),
             ("焦距 mm", "FocalLength", 100), ("最差 RMS mm", "Rms", 120), ("最低通光", "Transmission", 96));
         _candidateGrid.ItemsSource = _rows;
         Content = BuildContent();
@@ -71,14 +73,14 @@ public sealed partial class MainWindow : Window
     {
         var root = new Grid { RowDefinitions = new("Auto,*,Auto"), Margin = new Thickness(16, 12), RowSpacing = 12 };
         var header = new StackPanel { Spacing = 9 };
-        header.Children.Add(new TextBlock { Text = "从平板生成定焦镜头", FontSize = 23, FontWeight = FontWeight.SemiBold });
-        header.Children.Add(Text("设置设计目标，生成并验证可继续设计的球面结构。"));
+        header.Children.Add(new TextBlock { Text = "自动镜头设计 · 形式搜索", FontSize = 23, FontWeight = FontWeight.SemiBold });
+        header.Children.Add(Text("定义系统与目标 → 正负形式搜索 → 比较候选 → 继续优化"));
         header.Children.Add(Buttons(_validateButton, _runButton, _resumeButton, _openButton, _cancelButton, _refineButton, _exportButton));
         root.Children.Add(header);
 
         _form.Content = BuildInputs();
         _form.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-        _form.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+        _form.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
         _main.Children.Add(_form);
         _workspace.Children.Add(_summary);
         Grid.SetRow(_candidateGrid, 1);
@@ -94,6 +96,10 @@ public sealed partial class MainWindow : Window
         tabs.Items.Add(new TabItem { Header = "处方", Content = _prescriptionGrid });
         tabs.Items.Add(new TabItem { Header = "视场明细", Content = _fieldGrid });
         tabs.Items.Add(new TabItem { Header = "来源与差距", Content = new ScrollViewer { Content = _selectionDetails } });
+        var search = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 8 };
+        search.Children.Add(_searchPlan);
+        Grid.SetRow(_searchHistory, 1); search.Children.Add(_searchHistory);
+        tabs.Items.Add(new TabItem { Header = "搜索计划与过程", Content = search });
         Grid.SetRow(tabs, 2); _workspace.Children.Add(tabs);
         _main.Children.Add(_workspace);
         _mainScroll.Content = _main;
@@ -110,7 +116,7 @@ public sealed partial class MainWindow : Window
     private void ApplyResponsiveLayout(double width)
     {
         var narrow = width < 820;
-        _main.ColumnDefinitions = new(narrow ? "*" : "300,*");
+        _main.ColumnDefinitions = new(narrow ? "*" : "340,*");
         _main.RowDefinitions = new(narrow ? "Auto,Auto" : "*");
         Grid.SetColumn(_workspace, narrow ? 0 : 1);
         Grid.SetRow(_workspace, narrow ? 1 : 0);

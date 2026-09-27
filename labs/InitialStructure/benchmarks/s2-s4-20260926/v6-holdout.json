@@ -1,0 +1,2859 @@
+{
+  "SchemaVersion": 1,
+  "Profile": "independent-holdout-v1",
+  "Algorithm": {
+    "Name": "strict-flat-family-search",
+    "Version": "6",
+    "NumericBackend": "Managed CPU",
+    "Deterministic": true
+  },
+  "CreatedUtc": "2026-09-25T09:33:57.42713+00:00",
+  "UpdatedUtc": "2026-09-25T09:40:10.619178+00:00",
+  "Machine": {
+    "OS": "macOS 26.6.2",
+    "Runtime": ".NET 10.0.8",
+    "Architecture": "Arm64",
+    "ProcessorCount": 10
+  },
+  "InputSha256": {
+    "protocol.json": "2669d4ae63ea58db2822c509833736fee66f9b135d703c758adbbb0eaf4cd280",
+    "specs/H01-42mm-monochrome.json": "ca21a17112998b0357796a8589a162907c6db4ab7d3128eaeb209de67e65efac",
+    "specs/H02-65mm-visible.json": "29ba252fef4c70dde44e786826f47a041c99e31770f68323bd9bae0d83cfb84a",
+    "specs/H03-120mm-fixed-back.json": "aba918082aa61372960451bc1344886beb519512fc931d87a0f3f0d63c469b24"
+  },
+  "BinarySha256": {
+    "OptilandWorkbench.Core": "e08f48f3f12c7534820b9482b1db61f0f8c72596c38094b292d1ac6ee151a5b0",
+    "OptilandWorkbench.InitialStructure.Engine": "aafa5587979e40e32b163a6cce102e03862a3dab6624a53fd14bb75bf6cce4b7",
+    "OptilandWorkbench.InitialStructure.Contracts": "931c17ec74f74b3dfd32dde6e3088165c90fffcbfecb095d00a30b2e8f5ea60a",
+    "OptilandWorkbench.InitialStructure.Benchmarks": "891741fed5f45139f93a423e2acdd86a1b9cd704c89d00c073205bada0fa1b70"
+  },
+  "ExpectedRuns": 15,
+  "CompletedRuns": 15,
+  "SuccessfulRuns": 10,
+  "FullProtocolExecuted": true,
+  "SearchAcceptanceGatePassed": null,
+  "P5ReleaseAccepted": false,
+  "Scope": "Separate holdout evidence; never included in the original 12x5 gate and no success threshold is inferred.",
+  "RayCountMeaning": "Rays submitted to real sequential computation, including aiming and diagnostics, excluding cache hits. Independent validation/export costs are separate.",
+  "Results": [
+    {
+      "Specification": "H01-42mm-monochrome.json",
+      "Seed": 201,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 14.399305,
+      "MeasuredSearchRays": 3186468,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 59946,
+      "VerificationSeconds": 0.20965679999999942,
+      "AcceptedCandidates": 74,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0003-724e79feebc06ddc",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 42.01293822883364,
+        "FNumber": 6.301940734325045,
+        "Merit": 0.0286321400309272,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.008090840765217202,
+            "MaximumRadiusMillimeters": 0.01055389523385177,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007827644970451344,
+            "MaximumRadiusMillimeters": 0.011527936229464575,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 2,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007373237441867207,
+            "MaximumRadiusMillimeters": 0.01154407353876774,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.8,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007612333380156028,
+            "MaximumRadiusMillimeters": 0.0201640649472008,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 3.4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.008646871846305795,
+            "MaximumRadiusMillimeters": 0.028569417933939967,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.010588262053596835,
+            "MaximumRadiusMillimeters": 0.0379850673184432,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H01-42mm-monochrome.json",
+      "Seed": 202,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 9.1277101,
+      "MeasuredSearchRays": 3148950,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 59946,
+      "VerificationSeconds": 0.17721440000000044,
+      "AcceptedCandidates": 78,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0007-ce1d1b54ad9feebb",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 42.00631417205467,
+        "FNumber": 6.3009471258082,
+        "Merit": 0.034186183374190084,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.004136779840268144,
+            "MaximumRadiusMillimeters": 0.005780425333738074,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.004490189913057722,
+            "MaximumRadiusMillimeters": 0.00948139605205689,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 2,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.006107216173232005,
+            "MaximumRadiusMillimeters": 0.02050749601804136,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.8,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.008762903174478275,
+            "MaximumRadiusMillimeters": 0.03171338204646901,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 3.4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.011573282314957068,
+            "MaximumRadiusMillimeters": 0.041526437706123076,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.015054676255600979,
+            "MaximumRadiusMillimeters": 0.052561394181296794,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H01-42mm-monochrome.json",
+      "Seed": 203,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 9.75074,
+      "MeasuredSearchRays": 3029298,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 68676,
+      "VerificationSeconds": 0.23456290000000024,
+      "AcceptedCandidates": 85,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0019-9f3d2edcfea462d0",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 42.01693429855053,
+        "FNumber": 6.302540144782579,
+        "Merit": 0.03798485013599226,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.00987075514856246,
+            "MaximumRadiusMillimeters": 0.01253525668377119,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.009485124953213112,
+            "MaximumRadiusMillimeters": 0.014135729378754958,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 2,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.008684046261617865,
+            "MaximumRadiusMillimeters": 0.01468293616023364,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.8,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.008602555152430151,
+            "MaximumRadiusMillimeters": 0.020802240867323185,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 3.4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.009548563168148201,
+            "MaximumRadiusMillimeters": 0.03053372564745871,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.011648617015157167,
+            "MaximumRadiusMillimeters": 0.041476827301492936,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H01-42mm-monochrome.json",
+      "Seed": 204,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 6.416468,
+      "MeasuredSearchRays": 2313414,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 77988,
+      "VerificationSeconds": 0.24370709999999995,
+      "AcceptedCandidates": 96,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0003-677724d1c5bd4eb6",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 42.01792379771317,
+        "FNumber": 6.302688569656976,
+        "Merit": 0.03877530075710672,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.010758337861873812,
+            "MaximumRadiusMillimeters": 0.013511568521733535,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.010383262160710909,
+            "MaximumRadiusMillimeters": 0.015206265472546665,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 2,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.00946769223289066,
+            "MaximumRadiusMillimeters": 0.015921386636580603,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.8,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.00887091991850465,
+            "MaximumRadiusMillimeters": 0.01557527092469524,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 3.4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.00901821632052976,
+            "MaximumRadiusMillimeters": 0.023936659851052422,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.010079343610351885,
+            "MaximumRadiusMillimeters": 0.03330413972569257,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H01-42mm-monochrome.json",
+      "Seed": 205,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 7.9978134,
+      "MeasuredSearchRays": 2718507,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 71004,
+      "VerificationSeconds": 0.19597729999999913,
+      "AcceptedCandidates": 81,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0007-fba581d35326994d",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 42.0137112331506,
+        "FNumber": 6.30205668497259,
+        "Merit": 0.032004799823775965,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007518727994551911,
+            "MaximumRadiusMillimeters": 0.009892846392953751,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007276122847670973,
+            "MaximumRadiusMillimeters": 0.010838364510275422,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 2,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.0070743705711982996,
+            "MaximumRadiusMillimeters": 0.013673365397564696,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.8,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.007977426998862497,
+            "MaximumRadiusMillimeters": 0.02480329218715882,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 3.4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.009768616731209002,
+            "MaximumRadiusMillimeters": 0.03455000305339384,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 4,
+            "AttemptedRays": 97,
+            "ValidRays": 97,
+            "RmsRadiusMillimeters": 0.012549616866482958,
+            "MaximumRadiusMillimeters": 0.04551039326571926,
+            "Wavelengths": [
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H02-65mm-visible.json",
+      "Seed": 201,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 34.2246719,
+      "MeasuredSearchRays": 11328135,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 99522,
+      "VerificationSeconds": 0.30690590000000384,
+      "AcceptedCandidates": 13,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0034-9e20d491ae588b26",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 65.30791492775532,
+        "FNumber": 8.037897221877579,
+        "Merit": 0.3605546555551646,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02248756390181923,
+            "MaximumRadiusMillimeters": 0.046893868177797775,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02152019475801299,
+            "MaximumRadiusMillimeters": 0.05241906811106345,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 3.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.020637293177653167,
+            "MaximumRadiusMillimeters": 0.06740305822003423,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 4.8999999999999995,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02404424643367414,
+            "MaximumRadiusMillimeters": 0.09487831716775474,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 5.95,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.030695446898321585,
+            "MaximumRadiusMillimeters": 0.12032120946367186,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 7,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.040739045799757706,
+            "MaximumRadiusMillimeters": 0.14999874995001772,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H02-65mm-visible.json",
+      "Seed": 202,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 34.4956573,
+      "MeasuredSearchRays": 12505389,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 80316,
+      "VerificationSeconds": 0.1871788000000052,
+      "AcceptedCandidates": 9,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0034-7a58682c9bc3b5e8",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 65.28662952344276,
+        "FNumber": 8.03527747980834,
+        "Merit": 0.35406241215639506,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02275797766960426,
+            "MaximumRadiusMillimeters": 0.04759915081246248,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.021756836106230113,
+            "MaximumRadiusMillimeters": 0.0531738287229786,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 3.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.020753614082754918,
+            "MaximumRadiusMillimeters": 0.06706065847652809,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 4.8999999999999995,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.024025997975781033,
+            "MaximumRadiusMillimeters": 0.09464757524158784,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 5.95,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.030614041394077633,
+            "MaximumRadiusMillimeters": 0.1201956883679447,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 7,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.04064061197854471,
+            "MaximumRadiusMillimeters": 0.1499987416494255,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H02-65mm-visible.json",
+      "Seed": 203,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 29.0971273,
+      "MeasuredSearchRays": 11732721,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 97776,
+      "VerificationSeconds": 0.20498909999999881,
+      "AcceptedCandidates": 12,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0034-11af623c662a9b06",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 65.27648041347518,
+        "FNumber": 8.034028358581562,
+        "Merit": 0.3505968874882629,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02304774050535179,
+            "MaximumRadiusMillimeters": 0.04837901860061579,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02199232221185694,
+            "MaximumRadiusMillimeters": 0.05384245565262913,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 3.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.0208128192541427,
+            "MaximumRadiusMillimeters": 0.06656808259371294,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 4.8999999999999995,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.023917177613495336,
+            "MaximumRadiusMillimeters": 0.09432059643345969,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 5.95,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.030448536218066966,
+            "MaximumRadiusMillimeters": 0.1200208413442887,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 7,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.04048500505040841,
+            "MaximumRadiusMillimeters": 0.14999985000049776,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H02-65mm-visible.json",
+      "Seed": 204,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 28.9580676,
+      "MeasuredSearchRays": 11741847,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 94284,
+      "VerificationSeconds": 0.193212299999999,
+      "AcceptedCandidates": 11,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0034-dcac7841bc4c1c75",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 65.30637208987575,
+        "FNumber": 8.037707334138554,
+        "Merit": 0.3596551846153751,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02281522518282273,
+            "MaximumRadiusMillimeters": 0.04779270065329237,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02178449311726295,
+            "MaximumRadiusMillimeters": 0.053254404354501794,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 3.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02069615662607842,
+            "MaximumRadiusMillimeters": 0.06675859553118402,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 4.8999999999999995,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.023909357455174106,
+            "MaximumRadiusMillimeters": 0.09445021236423123,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 5.95,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.030495957326535705,
+            "MaximumRadiusMillimeters": 0.12009150370697608,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 7,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.04055150678830066,
+            "MaximumRadiusMillimeters": 0.14999984999986005,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H02-65mm-visible.json",
+      "Seed": 205,
+      "Success": true,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 27.0502746,
+      "MeasuredSearchRays": 11746488,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 96030,
+      "VerificationSeconds": 0.28436049999999824,
+      "AcceptedCandidates": 14,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0034-0115e2211d5041b5",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 65.2485845765641,
+        "FNumber": 8.030595024807889,
+        "Merit": 0.3413443741604994,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.0224296066961024,
+            "MaximumRadiusMillimeters": 0.04673112987482401,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 1.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02147248763116487,
+            "MaximumRadiusMillimeters": 0.05224289928090631,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 3.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02062421016911797,
+            "MaximumRadiusMillimeters": 0.06752736997325082,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 4.8999999999999995,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.02406624536874968,
+            "MaximumRadiusMillimeters": 0.09496121932916513,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 5.95,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.030731590822727434,
+            "MaximumRadiusMillimeters": 0.12036646423609376,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 7,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.04077669518931485,
+            "MaximumRadiusMillimeters": 0.14999984999988314,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": true
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H03-120mm-fixed-back.json",
+      "Seed": 201,
+      "Success": false,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 34.9496142,
+      "MeasuredSearchRays": 12439752,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 50634,
+      "VerificationSeconds": 0.14379929999999774,
+      "AcceptedCandidates": 0,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0025-4d577ca76c26d2d7",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 115.4522168043237,
+        "FNumber": 9.621018067026975,
+        "Merit": 7.905977998340918,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10214227246188036,
+            "MaximumRadiusMillimeters": 0.15074866969004314,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 0.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10152676084793,
+            "MaximumRadiusMillimeters": 0.15216819054278208,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 1.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09980809674039418,
+            "MaximumRadiusMillimeters": 0.15205317998602919,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.0999999999999996,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09790270614939307,
+            "MaximumRadiusMillimeters": 0.15050289772164596,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 2.55,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09639230930305052,
+            "MaximumRadiusMillimeters": 0.16824167648523858,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 3,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09504836511526887,
+            "MaximumRadiusMillimeters": 0.19839397780380175,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "target.focal-length",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.037898193297302485,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field.0.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10214227246188036,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.0.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.15074866969004314,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.1.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10152676084793,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.1.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.15216819054278208,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.2.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09980809674039418,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.2.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.15205317998602919,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.3.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09790270614939307,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.15050289772164596,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.4.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09639230930305052,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.4.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16824167648523858,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.5.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09504836511526887,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.5.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.19839397780380175,
+            "Limit": 0.15
+          }
+        ],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": false
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H03-120mm-fixed-back.json",
+      "Seed": 202,
+      "Success": false,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 33.4719399,
+      "MeasuredSearchRays": 12439752,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 55872,
+      "VerificationSeconds": 0.15911979999999915,
+      "AcceptedCandidates": 0,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0030-8be47defe5823f6c",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 114.09086134479925,
+        "FNumber": 9.50757177873327,
+        "Merit": 10.558114502556132,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09778578731802713,
+            "MaximumRadiusMillimeters": 0.14232077404888618,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 0.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09730501532496193,
+            "MaximumRadiusMillimeters": 0.14504834039995607,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 1.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09600447999942073,
+            "MaximumRadiusMillimeters": 0.14478711783646986,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.0999999999999996,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09466297147643589,
+            "MaximumRadiusMillimeters": 0.153146829787846,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 2.55,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09372599989379476,
+            "MaximumRadiusMillimeters": 0.18071796687229202,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 3,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.0930944224909951,
+            "MaximumRadiusMillimeters": 0.2110078259564725,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "target.focal-length",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.04924282212667286,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field.0.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09778578731802713,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.1.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09730501532496193,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.2.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09600447999942073,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09466297147643589,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.153146829787846,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.4.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09372599989379476,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.4.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.18071796687229202,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.5.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.0930944224909951,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.5.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.2110078259564725,
+            "Limit": 0.15
+          }
+        ],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": false
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H03-120mm-fixed-back.json",
+      "Seed": 203,
+      "Success": false,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 33.6856657,
+      "MeasuredSearchRays": 12439752,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 54126,
+      "VerificationSeconds": 0.162805800000001,
+      "AcceptedCandidates": 0,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0027-6ce4cea485461490",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 116.37812522907173,
+        "FNumber": 9.698177102422644,
+        "Merit": 9.100043113969855,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.11317946296986997,
+            "MaximumRadiusMillimeters": 0.1641739548594536,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 0.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.11283360305136687,
+            "MaximumRadiusMillimeters": 0.16567804309607204,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 1.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.11209679060158013,
+            "MaximumRadiusMillimeters": 0.16503408340363554,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.0999999999999996,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.11182850292704719,
+            "MaximumRadiusMillimeters": 0.20250260078179982,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 2.55,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.1123051787263127,
+            "MaximumRadiusMillimeters": 0.24937702117166527,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 3,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.11382393428178304,
+            "MaximumRadiusMillimeters": 0.30064441585925117,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "target.focal-length",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.030182289757735625,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field.0.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.11317946296986997,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.0.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.1641739548594536,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.1.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.11283360305136687,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.1.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16567804309607204,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.2.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.11209679060158013,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.2.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16503408340363554,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.3.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.11182850292704719,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.20250260078179982,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.4.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.1123051787263127,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.4.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.24937702117166527,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.5.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.11382393428178304,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.5.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.30064441585925117,
+            "Limit": 0.15
+          }
+        ],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": false
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H03-120mm-fixed-back.json",
+      "Seed": 204,
+      "Success": false,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 33.6137671,
+      "MeasuredSearchRays": 12439752,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 52380,
+      "VerificationSeconds": 0.13699160000000177,
+      "AcceptedCandidates": 0,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0024-2239f8819f4f1947",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 115.6554647864929,
+        "FNumber": 9.637955398874409,
+        "Merit": 7.5060846987075385,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09695552291239004,
+            "MaximumRadiusMillimeters": 0.14185976824993282,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 0.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09636137336085178,
+            "MaximumRadiusMillimeters": 0.14166586227110228,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 1.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09483568472625843,
+            "MaximumRadiusMillimeters": 0.1407178582734807,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.0999999999999996,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.093473137719449,
+            "MaximumRadiusMillimeters": 0.154046968618327,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 2.55,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09281869873135754,
+            "MaximumRadiusMillimeters": 0.19252006053061343,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 3,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.09292627602737835,
+            "MaximumRadiusMillimeters": 0.23477937069390364,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "target.focal-length",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.03620446011255918,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field.0.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09695552291239004,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.1.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09636137336085178,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.2.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09483568472625843,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.093473137719449,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.154046968618327,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.4.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09281869873135754,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.4.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.19252006053061343,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.5.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.09292627602737835,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.5.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.23477937069390364,
+            "Limit": 0.15
+          }
+        ],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": false
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    },
+    {
+      "Specification": "H03-120mm-fixed-back.json",
+      "Seed": 205,
+      "Success": false,
+      "State": "BudgetExhausted",
+      "SearchSeconds": 32.87441,
+      "MeasuredSearchRays": 12439752,
+      "ReportedEvaluationAccounting": "Consumed 10000 of 10000 evaluations.",
+      "VerificationRays": 52380,
+      "VerificationSeconds": 0.1587324000000052,
+      "AcceptedCandidates": 0,
+      "ReloadIdentical": true,
+      "SelectedCandidateId": "trial-0024-5e5c7b9764953abf",
+      "SelectedValidation": {
+        "EffectiveFocalLengthMillimeters": 114.890720277769,
+        "FNumber": 9.574226689814084,
+        "Merit": 9.982224508161831,
+        "Fields": [
+          {
+            "NormalizedFieldY": 0,
+            "HalfFieldAngleDegrees": 0,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10800186730160206,
+            "MaximumRadiusMillimeters": 0.16069319741619867,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.25,
+            "HalfFieldAngleDegrees": 0.75,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10735653370362588,
+            "MaximumRadiusMillimeters": 0.16087595470422125,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.5,
+            "HalfFieldAngleDegrees": 1.5,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10567548416334623,
+            "MaximumRadiusMillimeters": 0.15897550959080997,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.7,
+            "HalfFieldAngleDegrees": 2.0999999999999996,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10410999320613372,
+            "MaximumRadiusMillimeters": 0.16294912963914676,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 0.85,
+            "HalfFieldAngleDegrees": 2.55,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10325551671825878,
+            "MaximumRadiusMillimeters": 0.2047969504420033,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          },
+          {
+            "NormalizedFieldY": 1,
+            "HalfFieldAngleDegrees": 3,
+            "AttemptedRays": 291,
+            "ValidRays": 291,
+            "RmsRadiusMillimeters": 0.10312367244832722,
+            "MaximumRadiusMillimeters": 0.250674354204909,
+            "Wavelengths": [
+              {
+                "Nanometers": 486.1,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 587.6,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              },
+              {
+                "Nanometers": 656.3,
+                "AttemptedRays": 97,
+                "ValidRays": 97
+              }
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "target.focal-length",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.042577331018591624,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field.0.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10800186730160206,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.0.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16069319741619867,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.1.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10735653370362588,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.1.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16087595470422125,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.2.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10567548416334623,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.2.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.15897550959080997,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.3.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10410999320613372,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.3.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.16294912963914676,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.4.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10325551671825878,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.4.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.2047969504420033,
+            "Limit": 0.15
+          },
+          {
+            "Code": "field.5.rms",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.10312367244832722,
+            "Limit": 0.05
+          },
+          {
+            "Code": "field.5.maximum-radius",
+            "Severity": 2,
+            "Message": "The requested design bound was not met.",
+            "Actual": 0.250674354204909,
+            "Limit": 0.15
+          }
+        ],
+        "IsFeasible": true,
+        "HasContinuousSearchResiduals": true,
+        "MeetsTargets": false
+      },
+      "VerificationErrors": [],
+      "FailedTrials": 0
+    }
+  ],
+  "ArchiveProvenance": {
+    "RawSummaryPath": "artifacts/validation/initial-structure-s4-20260925/holdout/summary.json",
+    "RawSummarySha256": "0bdd39ec81ce067ca0c6c29071c4b3f6ee1de62d6dac448988a79d499a21985b",
+    "RemovedField": "Results[].SelectedValidation.Residuals",
+    "RemovedDiagnosticResidualValues": 61215,
+    "Preserved": "Every run, input/binary hash, field/wavelength metric, violation, cost, and validation/reload status. Raw checkpoints and exports remain at the original local output path."
+  },
+  "Aggregate": {
+    "SuccessfulRuns": 10,
+    "SpecificationsMeetingFourOfFive": 2,
+    "SearchSecondsTotal": 370.1132321,
+    "SearchSecondsMedian": 29.0971273,
+    "MeasuredSearchRaysTotal": 135649977,
+    "PerSpecification": {
+      "H01-42mm-monochrome.json": {
+        "SuccessfulSeeds": [
+          201,
+          202,
+          203,
+          204,
+          205
+        ],
+        "FailedSeeds": []
+      },
+      "H02-65mm-visible.json": {
+        "SuccessfulSeeds": [
+          201,
+          202,
+          203,
+          204,
+          205
+        ],
+        "FailedSeeds": []
+      },
+      "H03-120mm-fixed-back.json": {
+        "SuccessfulSeeds": [],
+        "FailedSeeds": [
+          201,
+          202,
+          203,
+          204,
+          205
+        ]
+      }
+    }
+  }
+}

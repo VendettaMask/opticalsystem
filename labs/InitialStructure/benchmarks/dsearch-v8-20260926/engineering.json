@@ -1,0 +1,140 @@
+{
+  "Date": "2026-09-26",
+  "Algorithm": "strict-flat-family-search/v8",
+  "FullLaboratoryReleaseTests": {
+    "total": "178",
+    "executed": "178",
+    "passed": "178",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "TrxPath": "artifacts/validation/dsearch-20260926/lab-v8-final.trx",
+  "TrxSha256": "eb90898a1a8665a6db9e5e774880f10e258a4aa5b3b0716309fc7f3855f3417e",
+  "UnchangedFormalCoreBaseline": {
+    "MainTestsPassed": 1304,
+    "ToolTestsPassed": 104,
+    "RerunThisChange": false,
+    "CoreBinaryIdenticalToV7": true
+  },
+  "DefaultDebugReleaseBuilds": "passed; zero warnings/errors",
+  "Format": "passed",
+  "UiTestsIncluded": 10,
+  "NewTestsSinceV7": 10,
+  "NativeMacOS": {
+    "Preflight": true,
+    "DefaultSearch": true,
+    "CompletedForms": 8,
+    "AvailableForms": 8,
+    "RetainedCandidates": 10,
+    "AcceptedRetainedCandidates": 10,
+    "PrimaryLayoutRays": 21,
+    "NativeSaveAndReloadConfirmed": true,
+    "ExportPath": "artifacts/validation/dsearch-20260926/native-v8-selected.staropt",
+    "ExportSha256": "9ed5477982e2dcb714db328f3e7220ea2e29236c201016ef38c0648265746e5b",
+    "Screenshots": "Native screenshots are in the tool transcript; automated UI screenshots are separate.",
+    "NotVerified": [
+      "Windows native UI",
+      "Linux native UI",
+      "New prescriptions in OpticStudio"
+    ],
+    "OldUiIssueReproduced": true,
+    "CorrectedAppReloadedSavedRun": true,
+    "FirstGoalsAndSearchTabSwitchPreservedTenCandidates": true
+  },
+  "HistoricalCheckpointProbes": [
+    {
+      "SourcePath": "artifacts/validation/initial-structure-s4-20260925/original/03-50mm-monochrome/101/checkpoint.json",
+      "SourceVersion": "6",
+      "SourceSha256": "488f9c20582b899050da793d0da80739c48e7fbe50111b3714058bf817078a12",
+      "ChildVersion": "8",
+      "ChargedEvaluations": 10,
+      "SourceUnchanged": true,
+      "TargetsUnchanged": true,
+      "SourceCandidateInVisibleArchive": false,
+      "SourceOpticRetained": true,
+      "SourceCandidateRecordedInOrigin": true
+    },
+    {
+      "SourcePath": "artifacts/validation/initial-structure-s4-v7-20260926/original/03-50mm-monochrome/101/checkpoint.json",
+      "SourceVersion": "7",
+      "SourceSha256": "3dacac882dbd50d3eca4bfdaf443bdfd86027b11c4a8c4c7ab5a3033cd065e3e",
+      "ChildVersion": "8",
+      "ChargedEvaluations": 10,
+      "SourceUnchanged": true,
+      "TargetsUnchanged": true,
+      "SourceCandidateInVisibleArchive": false,
+      "SourceOpticRetained": true,
+      "SourceCandidateRecordedInOrigin": true
+    }
+  ],
+  "SearchGate": {
+    "ExpectedRuns": 60,
+    "CompletedRuns": 60,
+    "SuccessfulRuns": 30,
+    "SpecificationsMeetingFourOfFive": 6,
+    "RequiredSuccessfulSpecifications": 10,
+    "Passed": false,
+    "FailedTrials": 0,
+    "VerificationErrors": 0,
+    "IdenticalReloads": 60,
+    "MaximumReloadSpotErrorMillimeters": 0
+  },
+  "UiCorrectionAfterFullSuite": {
+    "Problem": "First rendering of a hidden input tab initialized numeric Text and incorrectly cleared existing results.",
+    "Correction": "Ignore display text equivalent to the existing numeric value; retain invalid/different edits as real input changes.",
+    "RetestedUiCases": {
+      "total": "10",
+      "executed": "10",
+      "passed": "10",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "TrxPath": "artifacts/validation/dsearch-20260926/ui-final-corrected.trx",
+    "TrxSha256": "046ad24c95957e65252c48b69b91c98466fb02eca237f0f8a5c1dcedc6e324bd",
+    "NoAdditionalTestCount": true,
+    "FinalAppAssemblySha256": "d591a341393fe40cabc19fc9e70685b317362e2001be96c5bf2e8b17544f7213",
+    "FinalUiSources": {
+      "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.Inputs.cs": "147c529ea09a4c7eb913464486d049066b9487427f3fe7fe694f21a48ad2d7e8",
+      "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.Workflow.cs": "03e829bbf01588753f678be97bcadbce5bf0e41e88023ab9983f93bd2dad004f"
+    },
+    "NumericalEngineChanged": false,
+    "DefaultDebugReleaseBuilds": "passed, zero warnings/errors",
+    "Format": "passed",
+    "FinalChangedTestSourceSha256": {
+      "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartDesktopTests.cs": "2621d1ae9862ea18c2964016ee910bd85c839afb6594de31a5ae6bcd5b6b362b"
+    },
+    "FinalTestAssemblySha256": "067c268e868cbd8b3c7a15d98b417f80df8cc3cdcdb5402b0a7a1bc26126371a"
+  },
+  "IndependentHoldout": {
+    "ExpectedRuns": 15,
+    "CompletedRuns": 15,
+    "SuccessfulRuns": 15,
+    "SearchAcceptanceGatePassed": null,
+    "FailedTrials": 0,
+    "VerificationErrors": 0,
+    "IdenticalReloads": 15
+  },
+  "P5ReleaseAccepted": false
+}

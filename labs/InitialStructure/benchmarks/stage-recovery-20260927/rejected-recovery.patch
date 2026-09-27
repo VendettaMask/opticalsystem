@@ -1,0 +1,43 @@
+--- a/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignService.cs
++++ b/labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignService.cs
+@@ -79,6 +79,8 @@
+                 var evaluation = Evaluate(vector, stage, dense);
+                 if (dense) RetainFullTarget(evaluation);
+                 steps.Add(new(count, "progressive-stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
++                if (dense && !evaluation.HasContinuousSearchResiduals)
++                    evaluation = RecoverFullTarget(evaluation, stageEnd);
+                 Optimize(stage, evaluation, stageEnd, dense);
+             }
+         }
+@@ -221,6 +223,30 @@
+             incumbentEvaluation = evaluation;
+         }
+-
++
++        DesignEvaluation RecoverFullTarget(DesignEvaluation failed, int stageEnd)
++        {
++            var original = vector.ToArray();
++            // Contract design variables, not pupil/field or acceptance limits. Each
++            // proposal gets its own complete Core envelope and real-ray evaluation.
++            // Finite-difference optimization cannot start from missing propagation.
++            for (var attempt = 1; attempt <= 8 && count < stageEnd && CanEvaluate(true); attempt++)
++            {
++                for (var index = 0; index < 2 * elementCount; index++) vector[index] *= .5;
++                var recovered = Evaluate(vector, FlatStartDesignProblem.FullStage, dense: true);
++                steps.Add(new(count, "full-target-curvature-recovery-probe", FlatStartDesignProblem.FullStage,
++                    recovered.EvaluatedOptic!, recovered));
++                if (!recovered.HasContinuousSearchResiduals) continue;
++                RetainFullTarget(recovered);
++                diagnostics.Add(new("design.full-target-recovery",
++                    $"Restored complete Core propagation after {attempt} curvature contractions at unchanged full pupil and field; optical and geometry targets still require validation."));
++                return recovered;
++            }
++            vector = original;
++            diagnostics.Add(new("design.full-target-recovery-failed",
++                "Curvature contraction did not restore complete full-target propagation within the local budget; retained the original prescription."));
++            return failed;
++        }
++
+         OpticalLocalResult? Optimize(DesignStage stage, DesignEvaluation evaluation, int stageEnd, bool dense = false)
+         {
+             if (stageEnd <= count || !CanEvaluate(true)) return null;

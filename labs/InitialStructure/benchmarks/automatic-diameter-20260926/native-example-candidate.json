@@ -1,0 +1,1699 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "trial-0215-4b971ca40994ee5a",
+  "opticFingerprint": "4b971ca40994ee5aa17efdcfa823d50c9ad21ccef8b859bd137710afff6a0d5e",
+  "status": "labAccepted",
+  "flatRootOptic": {
+    "schemaVersion": 5,
+    "name": "定焦实验 - 3 element flat root",
+    "aperture": {
+      "kind": "EntrancePupilDiameter",
+      "value": 1.875,
+      "objectSpaceTelecentric": false
+    },
+    "backendName": "managed-cpu",
+    "fields": [
+      {
+        "label": "On axis",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 0,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      },
+      {
+        "label": "Mid field",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 2.5,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      },
+      {
+        "label": "Full field",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 5,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      }
+    ],
+    "wavelengths": [
+      {
+        "label": "d",
+        "nanometers": 587.6,
+        "weight": 1,
+        "isPrimary": true
+      }
+    ],
+    "surfaces": [
+      {
+        "number": 0,
+        "label": "Object",
+        "radius": 0,
+        "thickness": "Infinity",
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 3.90625,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": null,
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": null,
+          "scattering": null
+        },
+        "radiusVariable": false,
+        "thicknessVariable": false,
+        "semiDiameterFixed": false,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 0,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": null,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": false
+      },
+      {
+        "number": 1,
+        "label": "Element 1 front",
+        "radius": 0,
+        "thickness": 2,
+        "material": "N-F2",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "N-F2",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 365,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.39757037,
+              "c2": 0.00995906143,
+              "c3": 0.159201403,
+              "c4": 0.0546931752,
+              "c5": 1.2686543,
+              "c6": 119.248346,
+              "kw0": 365,
+              "kw1": 370,
+              "kw2": 380,
+              "kw3": 390,
+              "kw4": 400,
+              "kw5": 405,
+              "kw6": 420,
+              "kw7": 436,
+              "kw8": 460,
+              "kw9": 500,
+              "kw10": 546,
+              "kw11": 580,
+              "kw12": 620,
+              "kw13": 660,
+              "kw14": 700,
+              "kw15": 1060,
+              "kw16": 1530,
+              "kw17": 1970,
+              "kw18": 2325,
+              "kw19": 2500,
+              "k0": 3.7398e-06,
+              "k1": 2.1583e-06,
+              "k2": 8.1446e-07,
+              "k3": 3.5713e-07,
+              "k4": 1.7731e-07,
+              "k5": 1.3583e-07,
+              "k6": 6.8574e-08,
+              "k7": 5.2324e-08,
+              "k8": 4.0078e-08,
+              "k9": 2.5671e-08,
+              "k10": 1.396e-08,
+              "k11": 1.2969e-08,
+              "k12": 1.7842e-08,
+              "k13": 2.1114e-08,
+              "k14": 1.7897e-08,
+              "k15": 1.3523e-08,
+              "k16": 1.1332e-07,
+              "k17": 8.0161e-07,
+              "k18": 3.3028e-06,
+              "k19": 5.8407e-06
+            },
+            "text": {
+              "name": "N-F2",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 0,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 2,
+        "label": "Element 1 back",
+        "radius": 0,
+        "thickness": 1,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 2,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 3,
+        "label": "Element 2 front",
+        "radius": 0,
+        "thickness": 2,
+        "material": "N-BK7",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "N-BK7",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 300,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.03961212,
+              "c2": 0.00600069867,
+              "c3": 0.231792344,
+              "c4": 0.0200179144,
+              "c5": 1.01046945,
+              "c6": 103.560653,
+              "kw0": 300,
+              "kw1": 310,
+              "kw2": 320,
+              "kw3": 334,
+              "kw4": 350,
+              "kw5": 365,
+              "kw6": 370,
+              "kw7": 380,
+              "kw8": 390,
+              "kw9": 400,
+              "kw10": 405,
+              "kw11": 420,
+              "kw12": 436,
+              "kw13": 460,
+              "kw14": 500,
+              "kw15": 546,
+              "kw16": 580,
+              "kw17": 620,
+              "kw18": 660,
+              "kw19": 700,
+              "kw20": 1060,
+              "kw21": 1530,
+              "kw22": 1970,
+              "kw23": 2325,
+              "kw24": 2500,
+              "k0": 2.8607e-06,
+              "k1": 1.3679e-06,
+              "k2": 6.6608e-07,
+              "k3": 2.6415e-07,
+              "k4": 9.2894e-08,
+              "k5": 3.4191e-08,
+              "k6": 2.7405e-08,
+              "k7": 2.074e-08,
+              "k8": 1.3731e-08,
+              "k9": 1.0227e-08,
+              "k10": 9.0558e-09,
+              "k11": 9.3912e-09,
+              "k12": 1.1147e-08,
+              "k13": 1.0286e-08,
+              "k14": 9.5781e-09,
+              "k15": 6.9658e-09,
+              "k16": 9.2541e-09,
+              "k17": 1.1877e-08,
+              "k18": 1.2643e-08,
+              "k19": 8.9305e-09,
+              "k20": 1.0137e-08,
+              "k21": 9.839e-08,
+              "k22": 1.0933e-06,
+              "k23": 4.2911e-06,
+              "k24": 8.13e-06
+            },
+            "text": {
+              "name": "N-BK7",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 3,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 4,
+        "label": "Element 2 back",
+        "radius": 0,
+        "thickness": 1,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 5,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 5,
+        "label": "Element 3 front",
+        "radius": 0,
+        "thickness": 2,
+        "material": "N-F2",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "N-F2",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 365,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.39757037,
+              "c2": 0.00995906143,
+              "c3": 0.159201403,
+              "c4": 0.0546931752,
+              "c5": 1.2686543,
+              "c6": 119.248346,
+              "kw0": 365,
+              "kw1": 370,
+              "kw2": 380,
+              "kw3": 390,
+              "kw4": 400,
+              "kw5": 405,
+              "kw6": 420,
+              "kw7": 436,
+              "kw8": 460,
+              "kw9": 500,
+              "kw10": 546,
+              "kw11": 580,
+              "kw12": 620,
+              "kw13": 660,
+              "kw14": 700,
+              "kw15": 1060,
+              "kw16": 1530,
+              "kw17": 1970,
+              "kw18": 2325,
+              "kw19": 2500,
+              "k0": 3.7398e-06,
+              "k1": 2.1583e-06,
+              "k2": 8.1446e-07,
+              "k3": 3.5713e-07,
+              "k4": 1.7731e-07,
+              "k5": 1.3583e-07,
+              "k6": 6.8574e-08,
+              "k7": 5.2324e-08,
+              "k8": 4.0078e-08,
+              "k9": 2.5671e-08,
+              "k10": 1.396e-08,
+              "k11": 1.2969e-08,
+              "k12": 1.7842e-08,
+              "k13": 2.1114e-08,
+              "k14": 1.7897e-08,
+              "k15": 1.3523e-08,
+              "k16": 1.1332e-07,
+              "k17": 8.0161e-07,
+              "k18": 3.3028e-06,
+              "k19": 5.8407e-06
+            },
+            "text": {
+              "name": "N-F2",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 6,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 6,
+        "label": "Element 3 back",
+        "radius": 0,
+        "thickness": 50,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 1.1718750000000002,
+        "conic": 0,
+        "isStop": true,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 1.1718750000000002
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 8,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 1.1718750000000002,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 7,
+        "label": "Image",
+        "radius": 0,
+        "thickness": 0,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 3.90625,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": null,
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": null,
+          "scattering": null
+        },
+        "radiusVariable": false,
+        "thicknessVariable": false,
+        "semiDiameterFixed": false,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 58,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": null,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": false
+      }
+    ],
+    "apodization": null,
+    "fieldDefinition": "Angle",
+    "objectSpaceTelecentric": false,
+    "fieldGroupTelecentric": false,
+    "radiusPickups": [],
+    "solveSettings": {
+      "desiredBackFocus": 30,
+      "keepImageAtBackFocus": true
+    },
+    "meritOperands": [],
+    "environment": {
+      "matchRefractiveIndexData": true,
+      "temperatureCelsius": 20,
+      "pressureAtmospheres": 1
+    },
+    "glassCatalogs": [
+      "SCHOTT",
+      "OHARA",
+      "HOYA",
+      "HIKARI",
+      "NIKON-HIKARI",
+      "SUMITA",
+      "CDGM-ZEMAX202309",
+      "CDGM",
+      "CHENGDU",
+      "GBJ",
+      "NHG",
+      "555CHINESES"
+    ],
+    "rayAimingEnabled": false,
+    "imageSpaceAfocal": false,
+    "thicknessPickups": [],
+    "semiDiameterPickups": []
+  },
+  "optic": {
+    "schemaVersion": 5,
+    "name": "定焦实验 - 3 element flat root",
+    "aperture": {
+      "kind": "EntrancePupilDiameter",
+      "value": 6.25,
+      "objectSpaceTelecentric": false
+    },
+    "backendName": "managed-cpu",
+    "fields": [
+      {
+        "label": "On axis",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 0,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      },
+      {
+        "label": "Mid field",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 2.5,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      },
+      {
+        "label": "Full field",
+        "xAngleDegrees": 0,
+        "yAngleDegrees": 5,
+        "weight": 1,
+        "vignetteFactorX": 0,
+        "vignetteFactorY": 0
+      }
+    ],
+    "wavelengths": [
+      {
+        "label": "d",
+        "nanometers": 587.6,
+        "weight": 1,
+        "isPrimary": true
+      }
+    ],
+    "surfaces": [
+      {
+        "number": 0,
+        "label": "Object",
+        "radius": 0,
+        "thickness": "Infinity",
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 3.90625,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": null,
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": null,
+          "scattering": null
+        },
+        "radiusVariable": false,
+        "thicknessVariable": false,
+        "semiDiameterFixed": false,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 0,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": null,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": false
+      },
+      {
+        "number": 1,
+        "label": "Element 1 front",
+        "radius": 163.19806440624444,
+        "thickness": 7.8202016856452765,
+        "material": "N-F2",
+        "coating": "None",
+        "semiDiameter": 4.439784861854141,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "N-F2",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": 163.19806440624444,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 365,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.39757037,
+              "c2": 0.00995906143,
+              "c3": 0.159201403,
+              "c4": 0.0546931752,
+              "c5": 1.2686543,
+              "c6": 119.248346,
+              "kw0": 365,
+              "kw1": 370,
+              "kw2": 380,
+              "kw3": 390,
+              "kw4": 400,
+              "kw5": 405,
+              "kw6": 420,
+              "kw7": 436,
+              "kw8": 460,
+              "kw9": 500,
+              "kw10": 546,
+              "kw11": 580,
+              "kw12": 620,
+              "kw13": 660,
+              "kw14": 700,
+              "kw15": 1060,
+              "kw16": 1530,
+              "kw17": 1970,
+              "kw18": 2325,
+              "kw19": 2500,
+              "k0": 3.7398e-06,
+              "k1": 2.1583e-06,
+              "k2": 8.1446e-07,
+              "k3": 3.5713e-07,
+              "k4": 1.7731e-07,
+              "k5": 1.3583e-07,
+              "k6": 6.8574e-08,
+              "k7": 5.2324e-08,
+              "k8": 4.0078e-08,
+              "k9": 2.5671e-08,
+              "k10": 1.396e-08,
+              "k11": 1.2969e-08,
+              "k12": 1.7842e-08,
+              "k13": 2.1114e-08,
+              "k14": 1.7897e-08,
+              "k15": 1.3523e-08,
+              "k16": 1.1332e-07,
+              "k17": 8.0161e-07,
+              "k18": 3.3028e-06,
+              "k19": 5.8407e-06
+            },
+            "text": {
+              "name": "N-F2",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 4.439784861854141
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 0,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 4.439784861854141,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 2,
+        "label": "Element 1 back",
+        "radius": 421.98909559867883,
+        "thickness": 1.714678832265949,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 4.439784861854141,
+        "conic": 0,
+        "isStop": true,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": 421.98909559867883,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 4.439784861854141
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 7.8202016856452765,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 4.439784861854141,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 3,
+        "label": "Element 2 front",
+        "radius": 55.586476632451,
+        "thickness": 38.80926370318887,
+        "material": "N-SF6",
+        "coating": "None",
+        "semiDiameter": 4.948950529300223,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "N-SF6",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": 55.586476632451,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 370,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.77931763,
+              "c2": 0.0133714182,
+              "c3": 0.338149866,
+              "c4": 0.0617533621,
+              "c5": 2.08734474,
+              "c6": 174.01759,
+              "kw0": 370,
+              "kw1": 380,
+              "kw2": 390,
+              "kw3": 400,
+              "kw4": 405,
+              "kw5": 420,
+              "kw6": 436,
+              "kw7": 460,
+              "kw8": 500,
+              "kw9": 546,
+              "kw10": 580,
+              "kw11": 620,
+              "kw12": 660,
+              "kw13": 700,
+              "kw14": 1060,
+              "kw15": 1530,
+              "kw16": 1970,
+              "kw17": 2325,
+              "kw18": 2500,
+              "k0": 5.4237e-06,
+              "k1": 2.2166e-06,
+              "k2": 1.1068e-06,
+              "k3": 6.2936e-07,
+              "k4": 4.9718e-07,
+              "k5": 2.8171e-07,
+              "k6": 1.9327e-07,
+              "k7": 1.4616e-07,
+              "k8": 9.3406e-08,
+              "k9": 4.9357e-08,
+              "k10": 3.7298e-08,
+              "k11": 4.3902e-08,
+              "k12": 5.1035e-08,
+              "k13": 3.8205e-08,
+              "k14": 1.3523e-08,
+              "k15": 1.0834e-07,
+              "k16": 9.4577e-07,
+              "k17": 3.9049e-06,
+              "k18": 5.0522e-06
+            },
+            "text": {
+              "name": "N-SF6",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 4.948950529300223
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 9.534880517911226,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 4.948950529300223,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 4,
+        "label": "Element 2 back",
+        "radius": 51.86215575936012,
+        "thickness": 4.950962826579993,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 4.948950529300223,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": 51.86215575936012,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 4.948950529300223
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 48.344144221100095,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 4.948950529300223,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 5,
+        "label": "Element 3 front",
+        "radius": 71.12706207939125,
+        "thickness": 27.829266427878995,
+        "material": "N-SF6",
+        "coating": "None",
+        "semiDiameter": 6.420539275452296,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "N-SF6",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": 71.12706207939125,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "catalog_glass",
+            "numbers": {
+              "minimumWavelengthNanometers": 370,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.77931763,
+              "c2": 0.0133714182,
+              "c3": 0.338149866,
+              "c4": 0.0617533621,
+              "c5": 2.08734474,
+              "c6": 174.01759,
+              "kw0": 370,
+              "kw1": 380,
+              "kw2": 390,
+              "kw3": 400,
+              "kw4": 405,
+              "kw5": 420,
+              "kw6": 436,
+              "kw7": 460,
+              "kw8": 500,
+              "kw9": 546,
+              "kw10": 580,
+              "kw11": 620,
+              "kw12": 660,
+              "kw13": 700,
+              "kw14": 1060,
+              "kw15": 1530,
+              "kw16": 1970,
+              "kw17": 2325,
+              "kw18": 2500,
+              "k0": 5.4237e-06,
+              "k1": 2.2166e-06,
+              "k2": 1.1068e-06,
+              "k3": 6.2936e-07,
+              "k4": 4.9718e-07,
+              "k5": 2.8171e-07,
+              "k6": 1.9327e-07,
+              "k7": 1.4616e-07,
+              "k8": 9.3406e-08,
+              "k9": 4.9357e-08,
+              "k10": 3.7298e-08,
+              "k11": 4.3902e-08,
+              "k12": 5.1035e-08,
+              "k13": 3.8205e-08,
+              "k14": 1.3523e-08,
+              "k15": 1.0834e-07,
+              "k16": 9.4577e-07,
+              "k17": 3.9049e-06,
+              "k18": 5.0522e-06
+            },
+            "text": {
+              "name": "N-SF6",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 6.420539275452296
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 53.29510704768009,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 6.420539275452296,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 6,
+        "label": "Element 3 back",
+        "radius": -47.24405343303045,
+        "thickness": 18.875626524440918,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 6.420539275452296,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "standard",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": "circular",
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "standard",
+            "numbers": {
+              "radius": -47.24405343303045,
+              "conic": 0
+            },
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 6.420539275452296
+            },
+            "text": {},
+            "children": null
+          },
+          "scattering": null
+        },
+        "radiusVariable": true,
+        "thicknessVariable": true,
+        "semiDiameterFixed": true,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 81.12437347555908,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": 6.420539275452296,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": true
+      },
+      {
+        "number": 7,
+        "label": "Image",
+        "radius": 0,
+        "thickness": 0,
+        "material": "Air",
+        "coating": "None",
+        "semiDiameter": 3.90625,
+        "conic": 0,
+        "isStop": false,
+        "isReflective": false,
+        "components": {
+          "geometryKind": "plane",
+          "materialBefore": "Air",
+          "materialAfter": "Air",
+          "coatingKind": "none",
+          "interactionKind": "refractive",
+          "physicalApertureKind": null,
+          "scatteringKind": null,
+          "geometry": {
+            "kind": "plane",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialBeforeComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "materialAfterComponent": {
+            "kind": "air",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "coating": {
+            "kind": "none",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "interaction": {
+            "kind": "refractive",
+            "numbers": {},
+            "text": {},
+            "children": null
+          },
+          "physicalAperture": null,
+          "scattering": null
+        },
+        "radiusVariable": false,
+        "thicknessVariable": false,
+        "semiDiameterFixed": false,
+        "coordinateSystem": {
+          "originX": 0,
+          "originY": 0,
+          "originZ": 100,
+          "rotationXDegrees": 0,
+          "rotationYDegrees": 0,
+          "rotationZDegrees": 0
+        },
+        "mechanicalSemiDiameter": null,
+        "mechanicalSemiDiameterSolveCode": 0,
+        "semiDiameterDefinesPhysicalAperture": false
+      }
+    ],
+    "apodization": null,
+    "fieldDefinition": "Angle",
+    "objectSpaceTelecentric": false,
+    "fieldGroupTelecentric": false,
+    "radiusPickups": [],
+    "solveSettings": {
+      "desiredBackFocus": 30,
+      "keepImageAtBackFocus": true
+    },
+    "meritOperands": [],
+    "environment": {
+      "matchRefractiveIndexData": true,
+      "temperatureCelsius": 20,
+      "pressureAtmospheres": 1
+    },
+    "glassCatalogs": [
+      "SCHOTT",
+      "OHARA",
+      "HOYA",
+      "HIKARI",
+      "NIKON-HIKARI",
+      "SUMITA",
+      "CDGM-ZEMAX202309",
+      "CDGM",
+      "CHENGDU",
+      "GBJ",
+      "NHG",
+      "555CHINESES"
+    ],
+    "rayAimingEnabled": false,
+    "imageSpaceAfocal": false,
+    "thicknessPickups": [],
+    "semiDiameterPickups": []
+  },
+  "lineage": {
+    "initialForm": "---",
+    "rootFingerprint": "749c54d9265298c596254061cec005222fd370196cfcbcc1e31e46e64056e71e",
+    "parentCandidateId": "trial-0192-bdf8888bf5a56b14",
+    "operation": "stop-surface-change",
+    "generation": 7,
+    "elementCount": 3,
+    "stopVariant": 2,
+    "seedIndex": 215
+  },
+  "evaluation": {
+    "flatStartObjective": {
+      "kind": "realRaySumSquaresV1",
+      "stage": {
+        "pupilFraction": 1,
+        "fieldFraction": 1,
+        "allWavelengths": true
+      },
+      "denseSampling": true,
+      "hasContinuousResiduals": true,
+      "sumSquares": 0.01069603163642779
+    },
+    "effectiveFocalLengthMillimeters": 50.01040659550212,
+    "fNumber": 8.00166505528034,
+    "validRayFraction": 1,
+    "rmsSpotRadiusMillimeters": 0.009097064658070381,
+    "maximumSpotRadiusMillimeters": 0.026143490947509562,
+    "evaluatedRayCount": 582,
+    "validRayCount": 582
+  },
+  "violations": []
+}

@@ -1,0 +1,17 @@
+# S2–S4 evidence, 2026-09-23–26
+
+The [implementation report](../../../../docs/INITIAL_STRUCTURE_S2_S4_2026-09-23.md) states the final engineering and search conclusions separately. No frozen protocol, specification, physical gate or historical v4 result was changed.
+
+`v6-original.json`, `v6-holdout.json` and `v6-legacy.json` retain every completed run from the first S2/S3 acceptance attempt: 25/60 original successes, 10/15 holdout successes, and 30/60 legacy same-target successes. Only 5/12 original specifications achieve at least four successful seeds; v6 fails the required 10/12 gate. Legacy also has five specifications with at least four successes, despite its larger total. Its hybrid objective is unchanged; fixed-back and edge constraints are independently checked after generation, not added to its optimizer.
+
+Archived summaries omit only `Results[].SelectedValidation.Residuals`, the large mixed diagnostic residual arrays. Each archive states the SHA-256 and local path of its complete raw summary. All original run metrics, typed violations, field/wavelength data, failures, input/binary hashes and reload results are retained. Aggregates are calculated from every run, without selecting seeds. Large raw checkpoints, selected prescriptions, STAROPT exports and frozen runnable binary directories remain under the recorded local `artifacts/validation/` paths, which are ignored by Git.
+
+`v6-source-freeze.json` identifies source contents before the failed run. v7 changes the generic solver's handling of a numerically active bound and bumps checkpoint compatibility; it does not change optical weights or physical gates. Both failed and repaired versions must remain visible. The old hybrid/Core code is unchanged between these versions, so its completed comparison is reused explicitly, without describing it as a new v7 legacy execution.
+
+`v7-original.json` records all 60 repaired-version runs: again 25/60 successes and 5/12 specifications meeting four of five, with zero failed trials, zero independent verification errors and 60/60 identical export/reload snapshots. All runs exhaust the original 10000 evaluations. The confirmed generic bound repair does not improve the original success count. `v7-failure-audit.json` retains an independent read-only breakdown of remaining target violations and representative operation budgets. `engineering-v7.json` records 168/168 full lab tests; `native-macos-v7.json` limits native UI claims to the actions actually observed.
+
+`v7-holdout.json` records all 15 runs: H01 and H02 each succeed five times, while H03 fails five times, totaling 10/15. `integrity-v7.json` confirms frozen source and default binary identities, unchanged original/holdout input hashes and unchanged tracked frozen assets. All archived summaries match their raw source hashes. These checks are separate from external numerical precision validation.
+
+`SearchSeconds` measures search wall time, excluding the separately recorded independent verification and export/reload overhead. `MeasuredSearchRays` observes actual sequential ray requests, including aiming and diagnostic rays, excluding cache hits. Historical `SearchRays` is a different requested-sampling metric. Cross-date wall times include host load and do not establish a speed improvement.
+
+`SearchAcceptanceGatePassed` applies only to the original 12×5 protocol. Holdout and legacy summaries deliberately leave it null. `P5ReleaseAccepted` stays false until all search, external numerical and platform UI conditions are satisfied.

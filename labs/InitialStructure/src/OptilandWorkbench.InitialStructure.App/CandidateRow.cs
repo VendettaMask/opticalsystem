@@ -9,27 +9,33 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
     public FamilyTrial Trial { get; } = trial;
     public CandidateSnapshot Candidate => Trial.Candidate!;
     public string Name => inherited ? "来源方案" : $"方案 {number}";
-    public string Status => Candidate.Status == CandidateStatus.LabAccepted ? "已达标" : "有差距";
+    public string Status => IncompleteAreaEvaluation ? "光线不完整" : Candidate.Status == CandidateStatus.LabAccepted ? "已达标" : "有差距";
     public int Elements => Candidate.Lineage.ElementCount;
+    public string InitialForm => Trial.Family.BinaryStart?.Signs ?? "历史方案";
     public string FocalLength => Format(Candidate.Evaluation.EffectiveFocalLengthMillimeters);
-    public string Rms => Format(Candidate.Evaluation.RmsSpotRadiusMillimeters);
+    public string Rms => IncompleteAreaEvaluation ? "光线不完整" : Format(Candidate.Evaluation.RmsSpotRadiusMillimeters);
+    private bool AreaSampling => Candidate.Evaluation.FlatStartObjective?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
+    private bool IncompleteAreaEvaluation => AreaSampling && Trial.FinalValidation?.HasContinuousSearchResiduals != true;
     public string Transmission => Trial.FinalValidation is { Fields.Count: > 0 } result
         ? result.Fields.SelectMany(sample => sample.Wavelengths.Select(wave => wave.AttemptedRays > 0 ? (double)wave.ValidRays / wave.AttemptedRays : 0)
-            .Append(sample.AttemptedRays > 0 ? (double)sample.ValidRays / sample.AttemptedRays : 0)).Min().ToString("P2", CultureInfo.CurrentCulture) : "—";
+            .Append(sample.AttemptedRays > 0 ? (double)sample.ValidRays / sample.AttemptedRays : 0)
+            .Append(sample.CheckAttemptedRays > 0 ? (double)sample.CheckValidRays / sample.CheckAttemptedRays : 1)).Min().ToString("P2", CultureInfo.CurrentCulture) : "—";
 
     public IReadOnlyList<TargetRow> Targets(InitialStructureSpecification specification)
     {
         var violations = Candidate.Violations;
         string State(Func<ConstraintViolation, bool> predicate) => violations.Any(predicate) ? "未满足" : "满足";
+        string ImageQualityState(Func<ConstraintViolation, bool> predicate) => IncompleteAreaEvaluation ? "无法判定" : State(predicate);
         var optics = Optic.FromSnapshot(Candidate.Optic);
         return
         [
             new("焦距 mm", $"{Format(specification.EffectiveFocalLengthMillimeters)} ± {specification.FlatStart!.EffectiveFocalLengthRelativeTolerance:P1}", FocalLength, State(item => item.Code == "target.focal-length")),
             new("F/#", $"{Format(specification.FNumber)} ± {specification.FlatStart.FNumberRelativeTolerance:P1}", Format(Candidate.Evaluation.FNumber), State(item => item.Code == "target.f-number")),
-            new("最差 RMS mm", "≤ " + Format(specification.MaximumRmsSpotRadiusMillimeters), Rms, State(item => item.Code.EndsWith(".rms", StringComparison.Ordinal))),
-            new("最大光斑半径 mm", "≤ " + Format(specification.MaximumSpotRadiusMillimeters), Format(Candidate.Evaluation.MaximumSpotRadiusMillimeters), State(item => item.Code.EndsWith(".maximum-radius", StringComparison.Ordinal))),
-            new("逐视场／波长通光", "≥ " + specification.FlatStart.MinimumValidRayFraction.ToString("P1", CultureInfo.CurrentCulture), Transmission,
-                State(item => item.Code.EndsWith(".lost-fraction", StringComparison.Ordinal))),
+            new(AreaSampling ? "最差面积 RMS mm" : "历史离散 RMS mm", "≤ " + Format(specification.MaximumRmsSpotRadiusMillimeters), Rms, ImageQualityState(item => item.Code.EndsWith(".rms", StringComparison.Ordinal))),
+            new("最大光斑半径 mm", "≤ " + Format(specification.MaximumSpotRadiusMillimeters), IncompleteAreaEvaluation ? "光线不完整" : Format(Candidate.Evaluation.MaximumSpotRadiusMillimeters), ImageQualityState(item => item.Code.EndsWith(".maximum-radius", StringComparison.Ordinal))),
+            new("逐视场／波长通光", "≥ " + specification.FlatStart.MinimumValidRayFraction.ToString("P1", CultureInfo.CurrentCulture)
+                + (AreaSampling ? "；边缘检查 100%" : ""), Transmission,
+                State(item => item.Code.EndsWith(".lost-fraction", StringComparison.Ordinal) || item.Code.EndsWith(".check-lost-rays", StringComparison.Ordinal))),
             new("总长 mm", "≤ " + Format(specification.MaximumTrackLengthMillimeters), Format(optics.SurfaceGroup.TotalTrack),
                 optics.SurfaceGroup.TotalTrack <= specification.MaximumTrackLengthMillimeters + 1e-9 ? "满足" : "未满足"),
             new("后焦 mm", specification.FlatStart.FixedBackFocusMillimeters is { } back ? Format(back) + "（固定）" : "≥ " + Format(specification.MinimumBackFocusMillimeters),
@@ -45,19 +51,24 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
         Format(surface.SemiDiameter), Format(surface.MechanicalSemiDiameter)));
 
     public IEnumerable<FieldRow> Fields() => (Trial.FinalValidation?.Fields ?? []).Select(field => new FieldRow(
-        Format(field.HalfFieldAngleDegrees), Format(field.RmsRadiusMillimeters), Format(field.MaximumRadiusMillimeters),
+        Format(field.HalfFieldAngleDegrees), DiagnosticSpot(field.RmsRadiusMillimeters), DiagnosticSpot(field.MaximumRadiusMillimeters),
         field.AttemptedRays > 0 ? ((double)field.ValidRays / field.AttemptedRays).ToString("P2", CultureInfo.CurrentCulture) : "—",
-        string.Join("；", field.Wavelengths.Select(wave => $"{wave.Nanometers:0.###} nm：{wave.ValidRays}/{wave.AttemptedRays}"))));
+        string.Join("；", field.Wavelengths.Select(wave => $"{wave.Nanometers:0.###} nm：{wave.ValidRays}/{wave.AttemptedRays}"))
+            + (field.CheckAttemptedRays > 0 ? $"；边缘检查 {field.CheckValidRays}/{field.CheckAttemptedRays}" : "")));
 
     public string Details(FlatStartSearchCheckpoint checkpoint)
     {
         var lines = new List<string>
         {
             $"{Name} · {Status} · {Elements} 片",
+            AreaSampling ? "像质：均匀照明圆瞳面积 RMS；独立加密验收，边缘光线另行检查。"
+                : "像质：历史等圈离散 RMS；保留原采样含义，与面积积分结果不能直接比较。",
+            $"起始形式：{InitialForm}；这是初始曲率方向，最终光学性能以正式 Core 验证结果为准。",
             "玻璃：" + string.Join(" / ", Trial.Family.GlassNames),
             $"光阑：面 {Trial.Family.StopSurfaceIndex}；从零曲率平板起步，当前为第 {Candidate.Lineage.Generation} 代。",
-            $"本次已计入 {checkpoint.ChargedEvaluations}/{checkpoint.Specification.Budget.MaximumEvaluations} 次评价；已确认追迹 {checkpoint.TracedRealRayCount:N0} 条真实光线。"
+            $"本次已计入 {checkpoint.ChargedEvaluations}/{checkpoint.Specification.Budget.MaximumEvaluations} 次评价；已记录 {checkpoint.TracedRealRayCount:N0} 个分析光线采样（不含全部瞄准开销）。"
         };
+        if (IncompleteAreaEvaluation) lines.Add("完整口径追迹失败；逐视场光斑值仅供诊断，不代表完整口径像质。RMS 与最大半径目标无法判定。");
         if (checkpoint.Origin is { } origin) lines.Add($"本次是追加细化；来源运行已用 {origin.ChargedEvaluations} 次评价，未计入本次新预算。来源记录：{origin.RunId}");
         lines.Add("差距与约束：");
         lines.AddRange(Candidate.Violations.Count == 0 ? ["完整规格的最终验收通过。"] : Candidate.Violations.Select(violation =>
@@ -65,6 +76,8 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
         lines.Add("记录编号：" + Candidate.CandidateId);
         return string.Join(Environment.NewLine, lines);
     }
+
+    private string DiagnosticSpot(double? value) => Format(value) + (IncompleteAreaEvaluation && value.HasValue ? "（诊断）" : "");
 
     private static string Format(double? value) => value switch
     {

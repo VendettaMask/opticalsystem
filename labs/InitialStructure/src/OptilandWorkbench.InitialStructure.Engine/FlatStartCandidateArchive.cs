@@ -32,15 +32,30 @@ internal static class FlatStartCandidateArchive
     public static double Score(InitialStructureSpecification specification, CandidateSnapshot candidate)
     {
         var evaluation = candidate.Evaluation;
+        if (evaluation.FlatStartObjective is { } objective)
+            return objective.SamplingPolicy == specification.FlatStart?.SamplingPolicy
+                && (objective.SamplingPolicy == FlatStartSamplingPolicy.LegacyEqualRings || objective.IndependentValidation)
+                ? Score(objective) : double.PositiveInfinity;
+        // Read-only compatibility for historical results. New searches publish
+        // the full dense objective and never compare it with this legacy score.
         return (evaluation.RmsSpotRadiusMillimeters ?? 1e6) / specification.MaximumRmsSpotRadiusMillimeters
             + (evaluation.MaximumSpotRadiusMillimeters ?? 1e6) / specification.MaximumSpotRadiusMillimeters
             + 100 * (1 - evaluation.ValidRayFraction)
             + (evaluation.EffectiveFocalLengthMillimeters is { } focal ? Math.Abs(focal / specification.EffectiveFocalLengthMillimeters - 1) : 1e6);
     }
 
+    public static double Score(FlatStartObjectiveValue? objective) =>
+        objective is { DenseSampling: true, HasContinuousResiduals: true }
+        && Enum.IsDefined(objective.SamplingPolicy)
+        && objective.Kind == (objective.SamplingPolicy == FlatStartSamplingPolicy.LegacyEqualRings
+            ? FlatStartObjectiveKind.RealRaySumSquaresV1 : FlatStartObjectiveKind.ConstrainedRealRaySumSquaresV2)
+        && objective.Stage == FlatStartDesignProblem.FullStage && double.IsFinite(objective.SumSquares) && objective.SumSquares >= 0
+            ? objective.SumSquares : double.PositiveInfinity;
+
     internal static string FamilyKey(CandidateSnapshot candidate) => string.Join("|",
         candidate.Optic.Surfaces.Count,
         candidate.Optic.Surfaces.FindIndex(surface => surface.IsStop),
+        candidate.Lineage.InitialForm ?? "",
         string.Join(",", candidate.Optic.Surfaces.Skip(1).Where((_, index) => index % 2 == 0)
             .Take(candidate.Lineage.ElementCount).Select(surface => surface.Material.ToUpperInvariant())));
 

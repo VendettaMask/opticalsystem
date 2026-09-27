@@ -60,5 +60,16 @@ public sealed class FlatStartApertureRecoveryTests
         Assert.Equal(evaluation.Residuals.Count, next.Residuals.Count);
         Assert.Contains(evaluation.Residuals.Zip(next.Residuals), pair => Math.Abs(pair.First - pair.Second) > 1e-10);
         Assert.False(next.MeetsTargets);
+
+        var jacobians = 0;
+        var local = FlatStartLocalSolver.Solve(problem.SolverCoordinates, vector, next, 2 * problem.Dimension + 3,
+            values =>
+            {
+                var trial = problem.CreateOptic(values, FlatStartDesignProblem.FullStage);
+                trial.SurfaceGroup.Items[1].PhysicalAperture = new CircularAperture(.1);
+                return problem.Evaluate(trial, FlatStartDesignProblem.FullStage, true, default);
+            }, false, () => false, default, (_, _, _) => { }, (_, stats) => jacobians += stats.JacobianBuildCount);
+        Assert.True(jacobians > 0);
+        Assert.False(local.Evaluation.MeetsTargets);
     }
 }

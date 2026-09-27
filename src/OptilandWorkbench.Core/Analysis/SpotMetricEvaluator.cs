@@ -20,6 +20,13 @@ public sealed record SampledSpotResult(int RayCount, int VignettedRayCount,
     SpotMetricSummary? Metrics, IReadOnlyList<SampledSpotWavelength> Wavelengths,
     AnalysisAxisQuantity Quantity, AnalysisAxisUnit Unit);
 
+/// <summary>Checks share the integration centroid but never contribute to its area integral.</summary>
+public sealed record SampledSpotAssessment(SampledSpotResult Integration, SampledSpotResult Checks)
+{
+    public double? MaximumRadius => Integration.Metrics is { } integral && Checks.Metrics is { } checks
+        ? Math.Max(integral.MaximumSpotRadius, checks.MaximumSpotRadius) : null;
+}
+
 public sealed record FocusMetricPoint(
     double FocusShift,
     double RmsSpotRadius,
@@ -47,6 +54,43 @@ public sealed class AnalysisDataUnavailableException : InvalidOperationException
 
 public static class SpotMetricEvaluator
 {
+    /// <summary>
+    /// Evaluates an integration rule and independent boundary/check samples about the same
+    /// polychromatic centroid. Check-ray weights do not alter the integration RMS or centroid.
+    /// Both bundles retain their own physical loss counts; no missing rays are synthesized.
+    /// </summary>
+    public static SampledSpotAssessment EvaluatePupilSamplesWithChecks(Optic optic,
+        double normalizedFieldX, double normalizedFieldY, IReadOnlyList<PupilSample> integrationSamples,
+        IReadOnlyList<PupilSample> checkSamples, int wavelengthNumber = 0,
+        bool includeSurfaceTransmission = true, CancellationToken cancellationToken = default)
+    {
+        var integration = EvaluatePupilSamples(optic, normalizedFieldX, normalizedFieldY, integrationSamples,
+            wavelengthNumber, "absolute", includeSurfaceTransmission, cancellationToken);
+        var checks = EvaluatePupilSamples(optic, normalizedFieldX, normalizedFieldY, checkSamples,
+            wavelengthNumber, "absolute", includeSurfaceTransmission, cancellationToken);
+        var weighted = integration.Wavelengths.SelectMany(wave => wave.Rays.Select(ray =>
+            new SpotRayData(ray.X, ray.Y, ray.Weight * wave.SpectralWeight))).ToArray();
+        if (weighted.Length == 0) return new(integration, checks with { Metrics = null });
+        var centroid = SpotAnalysisEngine.Centroid(weighted);
+        return new(Center(integration), Center(checks));
+
+        SampledSpotResult Center(SampledSpotResult result)
+        {
+            var wavelengths = result.Wavelengths.Select(wave => wave with
+            {
+                Rays = wave.Rays.Select(ray => ray with { X = ray.X - centroid.X, Y = ray.Y - centroid.Y }).ToArray()
+            }).ToArray();
+            var rays = wavelengths.SelectMany(wave => wave.Rays.Select(ray =>
+                new SpotRayData(ray.X, ray.Y, ray.Weight * wave.SpectralWeight))).ToArray();
+            var total = rays.Sum(ray => ray.Intensity);
+            var radii = rays.Select(ray => new WeightedRadius(double.Hypot(ray.X, ray.Y), ray.Intensity))
+                .OrderBy(ray => ray.Radius).ToArray();
+            var metrics = rays.Length == 0 ? null : new SpotMetricSummary(result.RayCount, result.VignettedRayCount,
+                SpotAnalysisEngine.RmsRadius(rays), radii[^1].Radius, RadiusAtEnergy(radii, total, .8));
+            return result with { Wavelengths = wavelengths, Metrics = metrics };
+        }
+    }
+
     /// <summary>
     /// Uses the same tracing, reference centering and statistics as formal spot analysis,
     /// with caller-selected pupil coordinates. Spectral weight is applied once by Metrics;

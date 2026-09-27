@@ -2,8 +2,18 @@ using OptilandWorkbench.Core.Serialization;
 
 namespace OptilandWorkbench.InitialStructure.Contracts;
 
+public enum FlatStartSamplingPolicy { LegacyEqualRings, UniformAreaGaussianV1 }
+
 public sealed record FlatStartSettings
 {
+    // Zero/omitted retains the exact historical ring metric and serialized fingerprint.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public FlatStartSamplingPolicy SamplingPolicy { get; init; }
+
+    // Absent in historical files: preserve their fixed-aperture meaning and fingerprints.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool AutomaticLensDiameters { get; init; }
+
     public double? FixedBackFocusMillimeters { get; init; }
     public double MinimumEdgeThicknessMillimeters { get; init; } = 0.5;
     public double EffectiveFocalLengthRelativeTolerance { get; init; } = 0.02;
@@ -16,11 +26,15 @@ public enum FlatStartBootstrapState
     Focused,
     BudgetExhausted,
     Stalled,
-    TimeLimit
+    TimeLimit,
+    Initialized
 }
 
 public sealed record FlatStartEvaluation
 {
+    [System.Text.Json.Serialization.JsonIgnore]
+    public OpticSnapshot? EvaluatedOptic { get; init; }
+
     public double OpticalPowerPerMillimeter { get; init; }
     public double Merit { get; init; }
     public double? RmsInterceptMillimeters { get; init; }

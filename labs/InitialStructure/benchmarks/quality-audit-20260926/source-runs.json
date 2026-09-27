@@ -1,0 +1,514 @@
+{
+  "StatusEnum": {
+    "1": "TraceValid",
+    "3": "LabAccepted"
+  },
+  "Runs": [
+    {
+      "RunId": "flat-search-23a2e6e738c848c19378bd449d27d16d",
+      "Checkpoint": {
+        "path": "artifacts/validation/quality-audit-20260926/flat-search-23a2e6e738c848c19378bd449d27d16d.family.json",
+        "sha256": "9f9614e6ff87068b83e02cceb173b311806a2ba452d30d0f2a62d5c2ed7a674c"
+      },
+      "Algorithm": {
+        "Name": "strict-flat-family-search",
+        "Version": "11",
+        "NumericBackend": "Managed CPU",
+        "Deterministic": true
+      },
+      "Specification": {
+        "SchemaVersion": 1,
+        "Name": "定焦实验",
+        "Conjugate": 0,
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 2.8,
+        "MaximumFieldAngleDegrees": 40,
+        "Wavelengths": [
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          }
+        ],
+        "MinimumElementCount": 3,
+        "MaximumElementCount": 8,
+        "MaximumTrackLengthMillimeters": 100,
+        "MinimumCenterThicknessMillimeters": 2,
+        "MinimumAirGapMillimeters": 1,
+        "MinimumBackFocusMillimeters": 5,
+        "SemiDiameterMarginFactor": 1.25,
+        "MaximumRmsSpotRadiusMillimeters": 0.05,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "InitialGlass": "N-BK7",
+        "GlassCatalogs": [],
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 10000,
+          "MaximumParallelism": 2,
+          "TimeLimit": "00:10:00",
+          "RandomSeed": 101
+        },
+        "FlatStart": {
+          "AutomaticLensDiameters": true,
+          "FixedBackFocusMillimeters": null,
+          "MinimumEdgeThicknessMillimeters": 0.5,
+          "EffectiveFocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.05,
+          "MinimumValidRayFraction": 0.98
+        }
+      },
+      "State": 3,
+      "ChargedEvaluations": 10000,
+      "Forms": {
+        "DistinctSignForms": 504,
+        "PlannedRoots": 24,
+        "PlannedSignForms": 24,
+        "ScreeningEvaluationsPerRoot": 260,
+        "Mode": 0
+      },
+      "TrialCount": 31,
+      "TrialStatusCounts": {
+        "1": 31
+      },
+      "RetainedCandidateCount": 10,
+      "RetainedStatusCounts": {
+        "1": 10
+      },
+      "Operations": {
+        "flat-root": 24,
+        "refine": 7
+      },
+      "RootEvaluations": 6240,
+      "ReducedStageTrialCount": 0,
+      "RootLocalDiagnostics": [
+        {
+          "trial": 0,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 29850 rays, 8 Jacobians, 51 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8100 rays, 2 Jacobians, 18 QR factorizations."
+          ]
+        },
+        {
+          "trial": 1,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38175 rays, 8 Jacobians, 54 QR factorizations."
+          ]
+        },
+        {
+          "trial": 2,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 7 Jacobians, 43 QR factorizations."
+          ]
+        },
+        {
+          "trial": 3,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 6 Jacobians, 44 QR factorizations."
+          ]
+        },
+        {
+          "trial": 4,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38175 rays, 5 Jacobians, 42 QR factorizations."
+          ]
+        },
+        {
+          "trial": 5,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 4 Jacobians, 35 QR factorizations."
+          ]
+        },
+        {
+          "trial": 6,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 29550 rays, 8 Jacobians, 44 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 7800 rays, 2 Jacobians, 12 QR factorizations."
+          ]
+        },
+        {
+          "trial": 7,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 9 Jacobians, 56 QR factorizations."
+          ]
+        },
+        {
+          "trial": 8,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38025 rays, 7 Jacobians, 40 QR factorizations."
+          ]
+        },
+        {
+          "trial": 9,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 25 QR factorizations."
+          ]
+        },
+        {
+          "trial": 10,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38025 rays, 5 Jacobians, 25 QR factorizations."
+          ]
+        },
+        {
+          "trial": 11,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 4 Jacobians, 28 QR factorizations."
+          ]
+        },
+        {
+          "trial": 12,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 29925 rays, 8 Jacobians, 48 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8250 rays, 2 Jacobians, 11 QR factorizations."
+          ]
+        },
+        {
+          "trial": 13,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38475 rays, 8 Jacobians, 30 QR factorizations."
+          ]
+        },
+        {
+          "trial": 14,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 6 Jacobians, 35 QR factorizations."
+          ]
+        },
+        {
+          "trial": 15,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 34 QR factorizations."
+          ]
+        },
+        {
+          "trial": 16,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38475 rays, 5 Jacobians, 34 QR factorizations."
+          ]
+        },
+        {
+          "trial": 17,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 4 Jacobians, 27 QR factorizations."
+          ]
+        },
+        {
+          "trial": 18,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 29850 rays, 9 Jacobians, 49 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8175 rays, 2 Jacobians, 19 QR factorizations."
+          ]
+        },
+        {
+          "trial": 19,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38100 rays, 9 Jacobians, 59 QR factorizations."
+          ]
+        },
+        {
+          "trial": 20,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 7 Jacobians, 44 QR factorizations."
+          ]
+        },
+        {
+          "trial": 21,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 6 Jacobians, 45 QR factorizations."
+          ]
+        },
+        {
+          "trial": 22,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 4 Jacobians, 28 QR factorizations."
+          ]
+        },
+        {
+          "trial": 23,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 4 Jacobians, 20 QR factorizations."
+          ]
+        }
+      ]
+    },
+    {
+      "RunId": "flat-search-6d9a59a97d3446bca9744f0185b42249",
+      "Checkpoint": {
+        "path": "artifacts/validation/quality-audit-20260926/flat-search-6d9a59a97d3446bca9744f0185b42249.family.json",
+        "sha256": "60b004828c6b22ff3fa9542c16adba63587661dc07f1a89d101606600b5a5e84"
+      },
+      "Algorithm": {
+        "Name": "strict-flat-family-search",
+        "Version": "11",
+        "NumericBackend": "Managed CPU",
+        "Deterministic": true
+      },
+      "Specification": {
+        "SchemaVersion": 1,
+        "Name": "定焦实验",
+        "Conjugate": 0,
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 8,
+        "MaximumFieldAngleDegrees": 20,
+        "Wavelengths": [
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          }
+        ],
+        "MinimumElementCount": 3,
+        "MaximumElementCount": 8,
+        "MaximumTrackLengthMillimeters": 100,
+        "MinimumCenterThicknessMillimeters": 2,
+        "MinimumAirGapMillimeters": 1,
+        "MinimumBackFocusMillimeters": 5,
+        "SemiDiameterMarginFactor": 1.25,
+        "MaximumRmsSpotRadiusMillimeters": 0.05,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "InitialGlass": "N-BK7",
+        "GlassCatalogs": [],
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 10000,
+          "MaximumParallelism": 2,
+          "TimeLimit": "00:10:00",
+          "RandomSeed": 101
+        },
+        "FlatStart": {
+          "AutomaticLensDiameters": true,
+          "FixedBackFocusMillimeters": null,
+          "MinimumEdgeThicknessMillimeters": 0.5,
+          "EffectiveFocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.05,
+          "MinimumValidRayFraction": 0.98
+        }
+      },
+      "State": 3,
+      "ChargedEvaluations": 10000,
+      "Forms": {
+        "DistinctSignForms": 504,
+        "PlannedRoots": 24,
+        "PlannedSignForms": 24,
+        "ScreeningEvaluationsPerRoot": 260,
+        "Mode": 0
+      },
+      "TrialCount": 30,
+      "TrialStatusCounts": {
+        "1": 27,
+        "3": 3
+      },
+      "RetainedCandidateCount": 10,
+      "RetainedStatusCounts": {
+        "3": 3,
+        "1": 7
+      },
+      "Operations": {
+        "flat-root": 24,
+        "refine": 6
+      },
+      "RootEvaluations": 6240,
+      "ReducedStageTrialCount": 0,
+      "RootLocalDiagnostics": [
+        {
+          "trial": 0,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 30000 rays, 9 Jacobians, 97 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8250 rays, 2 Jacobians, 19 QR factorizations."
+          ]
+        },
+        {
+          "trial": 1,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 9 Jacobians, 62 QR factorizations."
+          ]
+        },
+        {
+          "trial": 2,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 7 Jacobians, 76 QR factorizations."
+          ]
+        },
+        {
+          "trial": 3,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 45 QR factorizations."
+          ]
+        },
+        {
+          "trial": 4,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 5 Jacobians, 42 QR factorizations."
+          ]
+        },
+        {
+          "trial": 5,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 4 Jacobians, 44 QR factorizations."
+          ]
+        },
+        {
+          "trial": 6,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 30000 rays, 8 Jacobians, 35 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8175 rays, 2 Jacobians, 16 QR factorizations."
+          ]
+        },
+        {
+          "trial": 7,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 9 Jacobians, 79 QR factorizations."
+          ]
+        },
+        {
+          "trial": 8,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 7 Jacobians, 47 QR factorizations."
+          ]
+        },
+        {
+          "trial": 9,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 30 QR factorizations."
+          ]
+        },
+        {
+          "trial": 10,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 5 Jacobians, 23 QR factorizations."
+          ]
+        },
+        {
+          "trial": 11,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 4 Jacobians, 21 QR factorizations."
+          ]
+        },
+        {
+          "trial": 12,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 30000 rays, 8 Jacobians, 45 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8250 rays, 2 Jacobians, 17 QR factorizations."
+          ]
+        },
+        {
+          "trial": 13,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 9 Jacobians, 49 QR factorizations."
+          ]
+        },
+        {
+          "trial": 14,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 32 QR factorizations."
+          ]
+        },
+        {
+          "trial": 15,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 6 Jacobians, 49 QR factorizations."
+          ]
+        },
+        {
+          "trial": 16,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 4 Jacobians, 23 QR factorizations."
+          ]
+        },
+        {
+          "trial": 17,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38325 rays, 4 Jacobians, 14 QR factorizations."
+          ]
+        },
+        {
+          "trial": 18,
+          "elements": 3,
+          "messages": [
+            "RealRay: EvaluationLimit; 200 evaluations, 30075 rays, 9 Jacobians, 78 QR factorizations.",
+            "RealRay: StopRequested; 55 evaluations, 8175 rays, 2 Jacobians, 20 QR factorizations."
+          ]
+        },
+        {
+          "trial": 19,
+          "elements": 4,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 9 Jacobians, 92 QR factorizations."
+          ]
+        },
+        {
+          "trial": 20,
+          "elements": 5,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 7 Jacobians, 72 QR factorizations."
+          ]
+        },
+        {
+          "trial": 21,
+          "elements": 6,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 6 Jacobians, 38 QR factorizations."
+          ]
+        },
+        {
+          "trial": 22,
+          "elements": 7,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38400 rays, 5 Jacobians, 25 QR factorizations."
+          ]
+        },
+        {
+          "trial": 23,
+          "elements": 8,
+          "messages": [
+            "RealRay: StopRequested; 256 evaluations, 38250 rays, 4 Jacobians, 16 QR factorizations."
+          ]
+        }
+      ]
+    }
+  ]
+}

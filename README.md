@@ -2,9 +2,15 @@
 
 **Optical System Design** 是 S.T.A.R. Labs 开发的纯 C#/.NET 计算系统，不包含 Python Optiland 运行后端。桌面端采用 Avalonia；Windows 与 macOS 是主要目标平台，Linux 原则上可由 Avalonia 支持。
 
-独立初始结构实验室按[平板生成计划](docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)推进 P5，光学计算共用正式 Core。v4 完整 60 次验收为 52 次成功、9/12 个规格达到各至少 4/5 次成功，尚未达到 10/12 搜索门槛，见 [P5 记录](docs/INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)。2026-09-08 已停止人工逐轮调权重，按[自动搜索策略整改](docs/INITIAL_STRUCTURE_SEARCH_STRATEGY_2026-09-08.md)完成 [S1 通用信赖域求解器](docs/INITIAL_STRUCTURE_S1_SOLVER_2026-09-08.md)；光学约束适配和搜索调度尚待 S2/S3，当前镜头搜索仍为 v4。S1 机制测试不并入正式产品精度或镜头搜索成功率声明。
+独立初始结构实验室当前为 **v15**：完整光线数据可用时继续联合优化几何约束与像质，追迹不完整的光斑明确标为诊断值。同样 50000 次评价，F/2.8、40° 的最佳最差视场 RMS 从 161.15 降至 **134.44 μm**，仍未达到 50 μm 门槛。10000 次预算的 F/8 仍保留 10 个达标处方，最佳 39.21 μm。导致退步的曲率退回已撤回，默认搜索模式保持不变。见 [文献、实测与边界](docs/INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)。
 
-2026-09-07 当前工程验证：正式完整主测试 1289 通过、5 失败（共 1294），工具测试 104/104 通过，均无跳过。5 项失败已在本轮修改前的 Core 二进制上复现相同数值，当前不能宣称完整测试全通过；详细证据及 P5 状态见 [孔径诊断修复记录](docs/INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)。下文 2026-09-06 的测试数和精度结论是该阶段历史记录。
+此前 [光学质量复核](docs/INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)发现三个旧规则达标处方中有两个低估 RMS；新版正确识别该差距。十二个固定处方的局部实验消除了所测求导中断，但新策略的两个完整搜索仍只有 F/8、20° 得到达标方案，F/2.8、40° 仍失败。工程测试通过不等于成像用途已满足；官方三/五阶 QUICK、PSD、MTF/畸变及制造用途约束仍未实现。
+
+八个相同独立起点、相同预算的对照中，保留候选通过全部物理门槛从原方法 **0/8** 增至 **5/8**，并全部完成独立重算。v10 完整原协议在 43/60 次时中断（30 次成功），留出协议尚未运行；v11 自动口径不能冒充相同固定口径问题的成功率提升。八例对照不计入搜索验收分母。[R1 记录](docs/INITIAL_STRUCTURE_DSEARCH_R1_2026-09-26.md)、[v8 记录](docs/INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)与[更早历史](docs/INITIAL_STRUCTURE_S2_S4_2026-09-23.md)均保留。
+
+2026-09-27 实验室 v15 验证：完整 Release 回归 **242/242**，默认 Debug/Release 构建零警告、零错误；30 个当前候选记录完成 Core 重算与导出回读一致性核对。正式 Core 与 v14 阶段一致；本次实验室验证不覆盖并行的正式主程序界面改动，不与正式测试计数合并。见 [阶段审查与验证范围](docs/INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)。
+
+2026-09-27 v14 求解器阶段验证：v14 在面积策略的实光线求解中加入受保护的 Broyden 更新。实验室完整 Release 回归 **234/234**，默认 Debug/Release 构建零警告、零错误，格式及差异检查通过。正式 Core/主程序未改，默认二进制哈希与上一轮一致；正式 **1311/1311**、比较工具 **104/104** 沿用当天既有完整验证，本轮未重跑。方法、对照与剩余问题见 [求解改进记录](docs/INITIAL_STRUCTURE_SECANT_SOLVER_2026-09-27.md)。下文更早测试数和精度结论保留历史范围。
 
 ## 当前能力
 
@@ -113,6 +119,8 @@ docs                               架构、格式、兼容、验证和发布文
 
 ## 文档索引
 
+- 本轮实施：[正式回归修复与初始结构 S2–S4（2026-09-23～25）](docs/INITIAL_STRUCTURE_S2_S4_2026-09-23.md)。
+- 实施前审阅：[项目理解与下一步建议（2026-09-23）](docs/PROJECT_REVIEW_2026-09-23.md)。
 - 架构与工程：[系统架构](docs/ARCHITECTURE.md)、[系统未完成能力收口计划](docs/SYSTEM_COMPLETION_PLAN_2026-09-02.md)、[架构收敛计划](docs/ARCHITECTURE_CONVERGENCE_PLAN.md)、[智能初始结构实验室计划](docs/INITIAL_STRUCTURE_LAB_PLAN.md)、[大文件拆分记录](docs/LARGE_FILE_SPLIT_PLAN.md)、[构建与发布](docs/BUILD_AND_RELEASE.md)。
 - 桌面产品：[GUI 工作流](docs/GUI_QUICKSTART_REFACTOR.md)、[UI 设计规范](docs/UI_DESIGN_SPEC.md)、[UI 符合性审计](docs/UI_CONFORMANCE_AUDIT_2026-08-04.md)、[UI 设计走查](docs/UI_DESIGN_REVIEW.md)、[品牌资源](docs/BRANDING.md)、[本地图标](docs/LOCAL_ICONS.md)。
 - 数据与互操作：[文件格式与插件](docs/FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 工程格式](docs/STAROPT_FILE_FORMAT.md)、[镜头库](docs/LENS_LIBRARY.md)。

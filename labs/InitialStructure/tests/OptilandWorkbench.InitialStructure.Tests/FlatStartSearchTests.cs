@@ -95,8 +95,8 @@ public sealed class FlatStartSearchTests(ITestOutputHelper output)
         var spec = Specification(1_400, 1);
         var result = await new FlatStartSearchService().RunAsync(spec, Options());
         FlatStartCheckpointValidation.Validate(result.Checkpoint);
-        foreach (var operation in new[] { "refine", "glass-swap", "glass-pair-swap", "stop-surface-change", "parameter-perturbation" })
-            Assert.Contains(result.Checkpoint.Trials, trial => trial.Operation == operation && trial.State == FamilyTrialState.Completed);
+        Assert.Contains(result.Checkpoint.Trials, trial => trial.Operation == "refine" && trial.State == FamilyTrialState.Completed);
+        Assert.All(result.Checkpoint.Trials, trial => Assert.Contains(trial.Diagnostics, diagnostic => diagnostic.Code == "search.schedule"));
         foreach (var trial in result.Checkpoint.Trials.Where(trial => trial.Candidate is not null))
         {
             var candidate = trial.Candidate!;
@@ -162,7 +162,7 @@ public sealed class FlatStartSearchTests(ITestOutputHelper output)
     [Fact]
     public async Task ReservedUnknownWorkIsChargedOnResumeAndCannotBeSpentAgain()
     {
-        var spec = Specification(100, 2);
+        var spec = Specification(100, 3);
         FlatStartSearchCheckpoint? reserved = null;
         await Assert.ThrowsAsync<IOException>(() => new FlatStartSearchService().RunAsync(spec, Options(), checkpointSink: (saved, _) =>
         {
@@ -279,6 +279,7 @@ public sealed class FlatStartSearchTests(ITestOutputHelper output)
     {
         Assert.Equal(first.Checkpoint.ChargedEvaluations, second.Checkpoint.ChargedEvaluations);
         Assert.Equal(first.Checkpoint.TracedRealRayCount, second.Checkpoint.TracedRealRayCount);
+        Assert.Equal(first.Checkpoint.Schedule, second.Checkpoint.Schedule);
         Assert.Equal(first.Checkpoint.Trials.Select(trial => (trial.Operation, trial.CompletedEvaluations, trial.Candidate?.OpticFingerprint)),
             second.Checkpoint.Trials.Select(trial => (trial.Operation, trial.CompletedEvaluations, trial.Candidate?.OpticFingerprint)));
         Assert.Equal(first.Candidates.Select(candidate => candidate.OpticFingerprint), second.Candidates.Select(candidate => candidate.OpticFingerprint));

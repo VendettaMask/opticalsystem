@@ -29,9 +29,18 @@ public sealed partial class MainWindow
     private readonly NumericUpDown _focalTolerance = Number("FocalTolerance", "焦距容差 %", 2, .0001m, 99, .1m);
     private readonly NumericUpDown _fNumberTolerance = Number("FNumberTolerance", "F/# 容差 %", 5, .0001m, 99, .1m);
     private readonly NumericUpDown _transmission = Number("TransmissionLimit", "最低通光 %", 98, .01m, 100, .1m);
+    private readonly CheckBox _automaticDiameters = Named(new CheckBox { Content = "镜片直径随光线自动调整", IsChecked = true }, "AutomaticDiameters", "镜片直径随光线自动调整");
     private readonly NumericUpDown _apertureMargin = Number("ApertureMargin", "半口径裕量", 1.25m, 1, 100, .05m);
-    private readonly NumericUpDown _seedCount = Number("RootCount", "初始结构数量", 8, 1, 128, 1);
-    private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 2000, 1, 100000, 100);
+    private readonly NumericUpDown _seedCount = Number("RootCount", "起始试验上限", 24, 1, 128, 1);
+    private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 10000, 1, 100000, 100);
+    private readonly ComboBox _searchMode = Named(new ComboBox { ItemsSource = new[] { "QUICK · 筛选后择优优化", "FULL · 逐形式完整优化" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch }, "SearchMode", "形式搜索方式");
+    private readonly NumericUpDown _startingRadius = Number("StartingRadius", "起始半径 mm（0 自动）", 0, 0, 10000000, 10);
+    private readonly NumericUpDown _startingCenter = Number("StartingCenter", "起始厚度 mm（0 最小值）", 0, 0, 100000, 1);
+    private readonly NumericUpDown _startingAir = Number("StartingAir", "起始空气隙 mm（0 最小值）", 0, 0, 100000, 1);
+    private readonly TextBox _signFilter = Named(new TextBox { Text = "", PlaceholderText = "如 +*-；空白搜索全部组合" }, "SignFilter", "起始形式筛选");
+    private readonly NumericUpDown _stopSurface = Number("SearchStop", "起始光阑面（0 中间）", 0, 0, 16, 1);
+    private readonly CheckBox _freeStop = Named(new CheckBox { Content = "继续探索其他光阑位置", IsChecked = true }, "FreeStop", "探索其他光阑位置");
+    private readonly NumericUpDown _retainedForms = Number("RetainedForms", "保留方案数", 10, 1, 64, 1);
     private readonly NumericUpDown _parallelism = Number("Workers", "并行任务数", 2, 1, 4, 1);
     private readonly NumericUpDown _randomSeed = Number("RandomSeed", "随机种子", 101, 0, 1000000000, 1);
     private readonly NumericUpDown _minutes = Number("TimeLimit", "时间上限 min", 10, .01m, 1440, 1);
@@ -55,7 +64,10 @@ public sealed partial class MainWindow
     private Control BuildInputs()
     {
         var panel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
-        panel.Children.Add(new TextBlock { Text = "设计目标", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        var systemPanel = panel;
+        var goalsPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
+        var searchPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
+        panel.Children.Add(new TextBlock { Text = "SYSTEM · 系统定义", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
         panel.Children.Add(Field("实验名称", _name, 276));
         panel.Children.Add(Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)));
         panel.Children.Add(Field("孔径定义", _apertureMode, 276));
@@ -64,8 +76,6 @@ public sealed partial class MainWindow
         epdInput.IsVisible = false;
         _apertureMode.SelectionChanged += (_, _) => { fInput.IsVisible = _apertureMode.SelectedIndex == 0; epdInput.IsVisible = !fInput.IsVisible; };
         panel.Children.Add(fInput); panel.Children.Add(epdInput);
-        panel.Children.Add(Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)));
-        panel.Children.Add(Field("最大总长 mm", _maximumTrack, 276));
         panel.Children.Add(Text("无限远物方 · 球面定焦系统；半视场为光轴到边缘的角度。"));
 
         _wavelengthGrid.ItemsSource = _wavelengths;
@@ -82,6 +92,22 @@ public sealed partial class MainWindow
         panel.Children.Add(Buttons(add, remove, visible));
         SetWaves([new() { Label = "d", Nanometers = 587.6, Weight = 1, IsPrimary = true }]);
 
+        panel = goalsPanel;
+        panel.Children.Add(new TextBlock { Text = "GOALS · 设计约束", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        panel.Children.Add(Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)));
+        panel.Children.Add(Field("最大总长 mm", _maximumTrack, 276));
+        panel = searchPanel;
+        panel.Children.Add(new TextBlock { Text = "SEARCH · 形式搜索", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        panel.Children.Add(Field("搜索方式", _searchMode, 276));
+        panel.Children.Add(Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius, 276));
+        panel.Children.Add(Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)));
+        panel.Children.Add(Field("起始形式 + / - / *（固定片数时）", _signFilter, 276));
+        panel.Children.Add(Field("起始光阑面（0 = 中间面）", _stopSurface, 276));
+        panel.Children.Add(_freeStop);
+        panel.Children.Add(Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)));
+        panel.Children.Add(Pairs(Field("评价次数上限", _maximumEvaluations), Field("时间上限 min", _minutes)));
+        panel.Children.Add(Text("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。"));
+
         var advanced = new StackPanel { Spacing = 10 };
         advanced.Children.Add(Pairs(Field("最小中心厚度 mm", _minimumCenter), Field("最小空气隙 mm", _minimumAir)));
         advanced.Children.Add(Pairs(Field("最小后焦 mm", _minimumBack), Field("最小边厚 mm", _minimumEdge)));
@@ -93,14 +119,22 @@ public sealed partial class MainWindow
         advanced.Children.Add(Field("起始玻璃", _initialGlass, 276));
         advanced.Children.Add(Field("优先玻璃目录（逗号分隔）", _catalogs, 276));
         advanced.Children.Add(Pairs(Field("最差 RMS 上限 mm", _rmsLimit), Field("最大光斑半径 mm", _maximumSpotLimit)));
+        advanced.Children.Add(Text("新实验按均匀照明圆瞳的面积 RMS 评价像质，独立加密验收；边缘光线必须全部通过。"));
         advanced.Children.Add(Pairs(Field("焦距容差 %", _focalTolerance), Field("F/# 容差 %", _fNumberTolerance)));
+        advanced.Children.Add(_automaticDiameters);
+        advanced.Children.Add(Text("自动口径按当前视场、光瞳和波长的真实光束包络计算，可增大也可缩小；同片前后面使用共同直径。"));
         advanced.Children.Add(Pairs(Field("最低通光 %", _transmission), Field("半口径裕量", _apertureMargin)));
-        advanced.Children.Add(Pairs(Field("初始结构数量", _seedCount), Field("评价次数上限", _maximumEvaluations)));
-        advanced.Children.Add(Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed)));
-        advanced.Children.Add(Pairs(Field("时间上限 min", _minutes), Field("追加细化次数", _refineBudget)));
-        advanced.Children.Add(Text("追加细化使用选中方案的原目标和新预算；不改变原实验。"));
-        panel.Children.Add(Named(new Expander { Header = "高级设置", Content = advanced, HorizontalAlignment = HorizontalAlignment.Stretch }, "Advanced", "高级设置"));
-        return panel;
+        panel.Children.Add(Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed)));
+        panel.Children.Add(Field("追加细化次数", _refineBudget, 276));
+        panel.Children.Add(Text("追加细化使用选中方案的原目标和新预算；不改变原实验。"));
+        goalsPanel.Children.Add(Named(new Expander { Header = "几何、材料与验收", IsExpanded = true, Content = advanced, HorizontalAlignment = HorizontalAlignment.Stretch }, "Advanced", "几何、材料与验收"));
+        var tabs = Named(new TabControl(), "InputTabs", "系统、目标与搜索设置");
+        tabs.Items.Add(new TabItem { Header = "系统", Content = Scroll(systemPanel) });
+        tabs.Items.Add(new TabItem { Header = "目标", Content = Scroll(goalsPanel) });
+        tabs.Items.Add(new TabItem { Header = "搜索", Content = Scroll(searchPanel) });
+        return tabs;
+
+        static ScrollViewer Scroll(Control content) => new() { Content = content, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto };
     }
 
     private InitialStructureSpecification BuildSpecification()
@@ -136,6 +170,8 @@ public sealed partial class MainWindow
             }).ToArray(),
             FlatStart = new()
             {
+                SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
+                AutomaticLensDiameters = _automaticDiameters.IsChecked == true,
                 FixedBackFocusMillimeters = _fixedBack.IsChecked == true ? Value(_fixedBackValue) : null,
                 MinimumEdgeThicknessMillimeters = Value(_minimumEdge),
                 EffectiveFocalLengthRelativeTolerance = Value(_focalTolerance) / 100,
@@ -152,12 +188,36 @@ public sealed partial class MainWindow
             }
         };
     }
-    private FlatStartSearchOptions BuildOptions() => _inputOptions with { AllowedGlassNames = Names(_glasses.Text) };
+    private FlatStartSearchOptions BuildOptions() => _inputOptions with
+    {
+        AllowedGlassNames = Names(_glasses.Text),
+        MaximumDisplayedCandidates = Integer(_retainedForms),
+        DesignSearch = new()
+        {
+            Mode = _searchMode.SelectedIndex == 1 ? DesignSearchMode.Full : DesignSearchMode.Quick,
+            StartingRadiusMillimeters = Optional(_startingRadius),
+            StartingCenterThicknessMillimeters = Optional(_startingCenter),
+            StartingAirGapMillimeters = Optional(_startingAir),
+            SignFilter = _signFilter.Text?.Trim() ?? "",
+            StopSurfaceIndex = Integer(_stopSurface) is var stop && stop > 0 ? stop : null,
+            ExploreStopPositions = _freeStop.IsChecked == true
+        }
+    };
+    private static double? Optional(NumericUpDown control) => Value(control) is var value && value > 0 ? value : null;
 
     private void ApplySpecification(InitialStructureSpecification spec, FlatStartSearchOptions options)
     {
         if (spec.FlatStart is null) throw new ArgumentException("这份记录不是严格平板生成实验，请选择新的实验记录。");
         _inputTemplate = spec; _inputOptions = options;
+        var search = options.DesignSearch ?? new();
+        _searchMode.SelectedIndex = search.Mode == DesignSearchMode.Full ? 1 : 0;
+        Set(_startingRadius, search.StartingRadiusMillimeters ?? 0);
+        Set(_startingCenter, search.StartingCenterThicknessMillimeters ?? 0);
+        Set(_startingAir, search.StartingAirGapMillimeters ?? 0);
+        Set(_stopSurface, search.StopSurfaceIndex ?? 0);
+        _freeStop.IsChecked = search.ExploreStopPositions;
+        _signFilter.Text = search.SignFilter;
+        Set(_retainedForms, options.MaximumDisplayedCandidates);
         _name.Text = spec.Name;
         Set(_effectiveFocalLength, spec.EffectiveFocalLengthMillimeters); Set(_fNumber, spec.FNumber);
         Set(_epd, spec.EffectiveFocalLengthMillimeters / spec.FNumber); _apertureMode.SelectedIndex = 0;
@@ -165,6 +225,7 @@ public sealed partial class MainWindow
         Set(_maximumTrack, spec.MaximumTrackLengthMillimeters); Set(_minimumCenter, spec.MinimumCenterThicknessMillimeters);
         Set(_minimumAir, spec.MinimumAirGapMillimeters); Set(_minimumBack, spec.MinimumBackFocusMillimeters);
         Set(_minimumEdge, spec.FlatStart.MinimumEdgeThicknessMillimeters);
+        _automaticDiameters.IsChecked = spec.FlatStart.AutomaticLensDiameters;
         _fixedBack.IsChecked = spec.FlatStart.FixedBackFocusMillimeters.HasValue;
         Set(_fixedBackValue, spec.FlatStart.FixedBackFocusMillimeters ?? spec.MinimumBackFocusMillimeters);
         Set(_rmsLimit, spec.MaximumRmsSpotRadiusMillimeters); Set(_maximumSpotLimit, spec.MaximumSpotRadiusMillimeters);
@@ -201,6 +262,9 @@ public sealed partial class MainWindow
             throw new ArgumentException($"请填写有效的{Avalonia.Automation.AutomationProperties.GetName(input)}数值。");
         return (double)value;
     }
+    private static bool TextRepresentsCurrentValue(NumericUpDown input) => input.Text is null
+        || input.Value is { } value && (input.Text == value.ToString(input.FormatString, input.NumberFormat)
+            || decimal.TryParse(input.Text, input.ParsingNumberStyle, input.NumberFormat, out var parsed) && parsed == value);
     private static int Integer(NumericUpDown input)
     {
         var value = Value(input);

@@ -2,7 +2,7 @@ using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Services;
 
-public static class AutomaticSemiDiameterSolver
+public static partial class AutomaticSemiDiameterSolver
 {
     private static readonly (double X, double Y)[] PupilSamples = BuildPupilSamples();
 

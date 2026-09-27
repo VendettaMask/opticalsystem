@@ -1,0 +1,141 @@
+{
+  "date": "2026-09-26",
+  "scope": "Research and read-only diagnostic executables only. No runtime, frozen specification, acceptance gate, or test baseline changed.",
+  "runtimeAlgorithm": 11,
+  "runtimeSourceFreezeVerified": {
+    "path": "labs/InitialStructure/benchmarks/automatic-diameter-20260926/source-freeze.json",
+    "sha256": "32bf07f1d1747c83011c74014d416220763e4a070ac7f199c856362be1e03b8a",
+    "matchedFiles": 380
+  },
+  "frozenBinaries": [
+    {
+      "path": "artifacts/validation/quality-audit-20260926/frozen-v11/OptilandWorkbench.Core.dll",
+      "sha256": "bac6ba37162e104350367aa622f5277da48287d4091828c4cc5226105e8a4ebd"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/frozen-v11/OptilandWorkbench.InitialStructure.Contracts.dll",
+      "sha256": "77984705373faf852eb7945ccc03dba6517217bd13b799e1786d08d86d4aa09f"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/frozen-v11/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "98802e72f799b95cfe11db98debff8343417a69d7493ce620fc996402c776f51"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/frozen-v11/OptilandWorkbench.InitialStructure.Persistence.dll",
+      "sha256": "d81ed7453c2ea004a2960cb3cf73d9960dea8376004d15593e5c35134297a897"
+    }
+  ],
+  "existingFullRegressionNotRerun": {
+    "formalPassed": 1309,
+    "comparisonPassed": 104,
+    "laboratoryPassed": 200
+  },
+  "diagnosticResults": {
+    "pairedInputs": 12,
+    "solverRuns": 24,
+    "solverBudgetPerRun": 600,
+    "freshBestRecalculationsIdentical": true,
+    "sourceCheckpointsUnchanged": true,
+    "sampleInspections": 12,
+    "acceptedCandidateQualityScans": 3
+  },
+  "rawEvidence": [
+    {
+      "path": "artifacts/validation/quality-audit-20260926/algebra.json",
+      "sha256": "7fe52ddc29bdf1b665bc19a20aeeee243629331de99a79183e00756ea36222f3"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/flat-search-23a2e6e738c848c19378bd449d27d16d.family.json",
+      "sha256": "9f9614e6ff87068b83e02cceb173b311806a2ba452d30d0f2a62d5c2ed7a674c"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/flat-search-6d9a59a97d3446bca9744f0185b42249.family.json",
+      "sha256": "60b004828c6b22ff3fa9542c16adba63587661dc07f1a89d101606600b5a5e84"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/inputs.json",
+      "sha256": "e19c857f7f069ebccdbf548906cadc3a7bd45cd0a92b72cc264774edf1da7467"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/inspection.json",
+      "sha256": "44bd518a9e9617d3c344865908afec819e2eafa97ef608015aafccb65f561d5c"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/quality.json",
+      "sha256": "120be573cd9812dd28453e8f9cea4b6d40786be3acea7954b339658954dd827b"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/results.json",
+      "sha256": "52f009334626043e3a4fb548b918439f543b044ec3412cd5da52bac121cec163"
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/sources.json",
+      "sha256": "73cb2bfcb5bb25a4675c9ddf6d866d529ee646de3edb6fd53762310780f58ea0"
+    }
+  ],
+  "archivedEvidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/algebra.json",
+      "sha256": "aaa94c545c3356de1f4f74c2135e22014862eeb154deaddae0078ee85b99c469"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json",
+      "sha256": "e19c857f7f069ebccdbf548906cadc3a7bd45cd0a92b72cc264774edf1da7467"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inspection.json",
+      "sha256": "44bd518a9e9617d3c344865908afec819e2eafa97ef608015aafccb65f561d5c"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/quality.json",
+      "sha256": "120be573cd9812dd28453e8f9cea4b6d40786be3acea7954b339658954dd827b"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/solver-ablation.json",
+      "sha256": "68be03c9eb5d213d8d9c0cd637bb1cfc2c7f060651746043d96f45cfa01605b6"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/source-runs.json",
+      "sha256": "6849d14df4773fd638be39eeda2acaaac81f2758ab5b82dd9bc4b52fa3362bad"
+    }
+  ],
+  "limitations": [
+    "Exploratory local diagnostics, not a new full-search success rate or external Zemax numerical certification.",
+    "The legacy 97-ray weighted statistic remains the frozen contract; Gaussian/hexapolar results use explicitly different pupil measures.",
+    "Geometric MTF is not diffraction MTF; two pupil grids are observations, not an established MTF convergence certificate.",
+    "Snapshot reconstruction differences in these inputs are floating-point roundoff (max radius delta zero, thickness delta below 8e-15 mm), not observed lens changes."
+  ],
+  "diagnosticSourceFiles": [
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inspection/Inspection.csproj",
+      "sha256": "de39110aafe3dc725eaed53f459c51ba2b1de957a494f13113b9b71c14a73b27"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inspection/Program.cs",
+      "sha256": "2cadc26e7239f36eaf0c82b613f296b2983dbccfb9d851243d82d29dd5a7e808"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/probe/AuditTrustRegion.cs",
+      "sha256": "09641fe3a0a2f14ed475004bc0842662a0faebbfc7e762685cbcc8ccfe396b96"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/probe/Probe.csproj",
+      "sha256": "de39110aafe3dc725eaed53f459c51ba2b1de957a494f13113b9b71c14a73b27"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/probe/Program.cs",
+      "sha256": "30fceffe8a514174f20218506d379f1c47466304ec602a2d950f134ee7718c2a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/quality/Program.cs",
+      "sha256": "4b68ecc5739e890e67df0325765571df7a4578fca48742e805a077c4445d0eff"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/quality/Quality.csproj",
+      "sha256": "de39110aafe3dc725eaed53f459c51ba2b1de957a494f13113b9b71c14a73b27"
+    }
+  ],
+  "auditSolverCopyMatchesDeclaredSinglePolicyChange": true,
+  "diagnosticWhitespaceFormattingCompleted": true,
+  "gitDiffCheckPassed": true
+}

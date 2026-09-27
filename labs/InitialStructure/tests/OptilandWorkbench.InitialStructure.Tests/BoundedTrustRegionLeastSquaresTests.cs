@@ -4,6 +4,24 @@ namespace OptilandWorkbench.InitialStructure.Tests;
 
 public sealed class BoundedTrustRegionLeastSquaresTests
 {
+    [Theory]
+    [InlineData(1e-15, false)]
+    [InlineData(1e-14, false)]
+    [InlineData(1e-10, false)]
+    [InlineData(1e-15, true)]
+    [InlineData(1e-14, true)]
+    [InlineData(1e-10, true)]
+    public void NearlyActiveBoundDoesNotFreezeAnIndependentDescentDirection(double distance, bool upper)
+    {
+        var sign = upper ? -1.0 : 1.0;
+        var result = BoundedTrustRegionLeastSquares.Solve([sign * distance, 0],
+            upper ? [-2, -2] : [0, -2], upper ? [0, 2] : [2, 2],
+            (point, _) => new([point[0] + sign, point[1] - 1]));
+        Assert.Equal(LeastSquaresTermination.Stationary, result.Termination);
+        Assert.InRange(Math.Abs(result.Variables[0]), 0, 1e-12);
+        Assert.Equal(1, result.Variables[1], 8);
+    }
+
     [Fact]
     public void LinearModelPredictsActualReductionAndExpandsTheTrustRegion()
     {

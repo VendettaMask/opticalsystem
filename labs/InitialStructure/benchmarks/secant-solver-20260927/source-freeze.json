@@ -1,0 +1,1543 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 14,
+  "scope": "Laboratory solver and tests; formal Core source unchanged, no external precision certification.",
+  "files": [
+    {
+      "path": "Directory.Build.props",
+      "sha256": "9913db400332806d9feabc80db58738971aecdd436855abf1634b6604cd94f98"
+    },
+    {
+      "path": "OptilandWorkbench.slnx",
+      "sha256": "fc8d2b8d6f3a7f6ad4eeaa1bc939724052f2314ed71a00ed5a696c4aa0880f8c"
+    },
+    {
+      "path": "labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx",
+      "sha256": "2f6e170ebc24af4fabb6f453b52501af4ffa6cd8d4c902238a7794316b01ff95"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/App.cs",
+      "sha256": "41d742b7dab36f5453aa27e38d94b844633a6a41cc976ed1e3ba74cec043612d"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/CandidatePreviewControl.cs",
+      "sha256": "dbb811110851f7360a8de455a3fdda4513142d7b29172eaa20baa250e77fec35"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/CandidateRow.cs",
+      "sha256": "0950460382dc1c7f1746a54c2e1d877c78246ac3ea0567f1902a59c094d9abaf"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.Inputs.cs",
+      "sha256": "a031104f69841cc68970df488ad83b3532ab782cb4d6653313b1f9491f750eea"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.Workflow.cs",
+      "sha256": "4e73fae030821bc3adf06ae6abd986ae91f5fa50de4afda3641b1e18718d86d5"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.cs",
+      "sha256": "234f99c7f8ea9c16d3ca6151a280ca3780b7dd9e70b21bc5bc298fcc0d66c084"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/OptilandWorkbench.InitialStructure.App.csproj",
+      "sha256": "8542f3926e7bf5f9f6487c31b27f139aa808f41fcab95a454bd2f699619e993e"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/Program.cs",
+      "sha256": "ff3c39ee513a127c9c4a960b78669fec6b3e1855813dae4709649553feab1126"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/Properties/AssemblyInfo.cs",
+      "sha256": "fefec0a001a1bc120d9a75d3fe5384c60352cd0870deccafcf55ffb5933a337d"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/SpecificationNumberInput.cs",
+      "sha256": "8c8d8f1466facadb98a1b4bb135bb201bfd23d590a9fa33c6e930331c5b64398"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartCheckpointValidation.cs",
+      "sha256": "df2556b3088ef0a83891df14cec919efd0d2a57626e25a0baa5814b0787d85fe"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartDesignModels.cs",
+      "sha256": "ec6bb7f35da742594d4dc3f18c31101ca026e2fc4753dfc7e2781288e0d0dab0"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartModels.cs",
+      "sha256": "cdc34eef0c5ac45af0cf34a7d39e922afa06877d82cbb85dfbf86d9db51fefd9"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartSearchModels.cs",
+      "sha256": "b06edc758585c952923cb51294b4d231866f076f409bc7bbb926e1c85985ff06"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/InitialStructureModels.cs",
+      "sha256": "918cc85da36cf1140f8e4315b221ec7929faa68c5f1097000fb53c98abd5db6a"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj",
+      "sha256": "f8de570ed2bd7ddc9f77e5cd95db70601707ca99f0e37a2fca82be430cafea8f"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateDiversityOrdering.cs",
+      "sha256": "239c0556816bbdd0004d3cad8f1d9f96ccdc903393ff58ec0713ee89e4ec7798"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateObjective.cs",
+      "sha256": "a6b78f0e61eaf2a6a27d8b92fbbd0f617a0fdd31a713a87ebf532dfbbaeee52e"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateParameterization.cs",
+      "sha256": "ef909475ac1d9e7ae6a4025cf84c35887441452ccab9adf27d5ec04fefd0f6f8"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/ContentFingerprint.cs",
+      "sha256": "7eb79c852d08fb92b3b7b9eb9e5e584e05768ae1ae504779f72be0fe256167f2"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/DesignFormScheduler.cs",
+      "sha256": "6be859c5210010c428822cd37b4ecdea4b6076cf5de770e44f426d773475f677"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/DesignFormSearch.cs",
+      "sha256": "e2cf795e96805d8086d77557013ba7d75b24fdf2c8e10d48299c12b8fa1907ea"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/DeterministicRandom.cs",
+      "sha256": "031e09948d3a3b39570cdf9001b37dfe35b86b3917b0bebc75ddc6039b6ce759"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FirstOrderSeedGenerator.cs",
+      "sha256": "ebf028c4350a22f6a263a09ae7b57c6416cd8fbc44877b866ca0ab730b441200"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatRootFactory.cs",
+      "sha256": "cdf828e562621343e33ac5310a51ff133327b5611768ef08871ba290192b7696"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartBootstrap.cs",
+      "sha256": "a416773e5db618e2517a6859966be9aa27d321ef06362620e84ebba01b6fe246"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartCandidateArchive.cs",
+      "sha256": "36a153acd9e4325c6a8c1570745e5c669eb39df7ac5bce461af457ca4ccc0cf8"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartContinuation.cs",
+      "sha256": "a4622b8071a246fb0ee441e0f53017d36b99aa564dcd03617f09ed4902c5da0a"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignProblem.cs",
+      "sha256": "e86025d4a5522bb97a9b60bea5de7e0b3a1669e13169f3123aad4504db15a9e9"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignService.cs",
+      "sha256": "1bb919ccca69a8a53b71b62e1f1e1c8976de0abe5292f1e483373a8bbf7b69e6"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartFamilySupport.cs",
+      "sha256": "2e3febb61b065c41e968bd6e6a2fa45150bdc862b24ddd29d57ba9beaf42025d"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs",
+      "sha256": "68bcda85a2e05531b0ed33e9cee24c846be8d629448810a76774bcbae02f11a1"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartProblem.cs",
+      "sha256": "0a3958e890d8e1335693c033a9fa1f02f9d79414927b5fdb1e55aab0b7a85760"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartScheduler.cs",
+      "sha256": "a0955fcda95ca2933ff9775a3a090c5ae15f431e0bdd324b51c43c435b7036ac"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartSearchPlanning.cs",
+      "sha256": "64e29130c54c9fdfc6a551384114d30065efdeeea9c9820d6f4c6e802d9bb256"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartSearchService.cs",
+      "sha256": "5f2fb9b9ef00250a35bfd4c1e49323f8aadabff2371250adcbb8993bec7d6912"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartSolverCoordinates.cs",
+      "sha256": "74cf7fcf7198f7d35f76aad7c45f3b4a28c75a9858edb5f1ced01e93676d8e18"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/HybridCandidateRefiner.cs",
+      "sha256": "3f7110d5319082b3de34bb75a5e855e92caef82f6ec760fc18be3f07474e227b"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/InitialStructureSearchService.cs",
+      "sha256": "845dfada9b2302a513ffe2fb62656ad2c861ea2e19ad758e702bb2415036b16c"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/NeighborhoodBudget.cs",
+      "sha256": "0d66f6b1bfd38d95fbf4aa37152c504deb8ab49cfd38b9e9b154ea429c927091"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj",
+      "sha256": "9e7f1d64220b5507c03448f26ce8a00e55136425bc03d27bec1139325c462590"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs",
+      "sha256": "e5857fb7a27c2087679ab217cd24709ea1423011dcee4fd7c3d25a3f976666e2"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/LeastSquaresModels.cs",
+      "sha256": "93b1923daa47e66bb553302f033e4e06832b2692a516a56ea8ad00201b3448d6"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/PivotedLeastSquares.cs",
+      "sha256": "2a64a023238a39bba011fece54a0bb7563293319e359c131a93bc2a4c428bdf5"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/RegularizedLeastSquaresModel.cs",
+      "sha256": "1cd98d5c15ea839d2b2b52150adf48bfa040e57f0cafd977af631102befa9dc8"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/ProjectedDampedStep.cs",
+      "sha256": "5cd8bee55472e5d270d6c263049db26c41a2b6ba29cfe09abb7b91c98a6a4c01"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Properties/AssemblyInfo.cs",
+      "sha256": "733f8f1b208f935a19f3ba6b6a1d8d4d621a0d0e453a0cff6b52ecec0a902032"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/SpecificationValidator.cs",
+      "sha256": "0dd0f179b98dd4b3b25369a85de412fc394097ecdd40e77bd38349bc8b47f643"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/CandidateExportService.cs",
+      "sha256": "5b2a76010c0e57c3efdc543c3f37e1dbc94e080b473da0c660e60dfe109250d3"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/FlatStartRunLibrary.cs",
+      "sha256": "d3d77833448d9a2809122a186578f4795c037835b605e475f98eb88e2c416428"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/FlatStartSearchCheckpointStore.cs",
+      "sha256": "80cccfce501a3df96980b75589732903e5eeed2c3883bc41b33fe3dc74a477a7"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj",
+      "sha256": "4b5f811f5845ccd7ec3364dc865604ad85bde19df0e331db4321151ffeaa318e"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/RunDirectoryStore.cs",
+      "sha256": "06b364e8a0e550c128ea6d67a89a9687f8185fc523abb5b3e8b9a8a3e72b553c"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/SearchCheckpointStore.cs",
+      "sha256": "769350a93e8c5556555dac2212a333a07bcd4a04bae0445208d1f0123d7f3c6c"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/AutomaticLensDiameterTests.cs",
+      "sha256": "0ac63e8a06ab2d3b136a7e46266a5b2d00904a4266fee88ad0565658751699bc"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/BoundedTrustRegionLeastSquaresTests.cs",
+      "sha256": "f0fc80ec5512d88edbabea5c797975de781d4269c627e43524e27c26d3a000b7"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/DesignFormSearchTests.cs",
+      "sha256": "0cb812e5dd57fda269f76a421405c37f48af7f7acdbc90883ae2a30461f4ff0b"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartApertureRecoveryTests.cs",
+      "sha256": "aa5426fcf50521567a815b493f0f1a86815f9ce152e108c50af7899575f9baac"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartBootstrapTests.cs",
+      "sha256": "78988304c1a3ccd425964e4eb57f5c64a394c0672ce67b1f290b45edf9a76833"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartDesignTests.cs",
+      "sha256": "4cc69702332910d5efaccb4f10a38669db170f6d6cc3d68bdf6d495a30b6c5a4"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "sha256": "d4f8411e98eb581f572925154b0b77b21698bb1c9334658721bcf01b7b7b0297"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartFullTargetRefinementTests.cs",
+      "sha256": "d0becbcd12a07cc302b54697e27120c05a0724bf5cd17245b67cc69e09c7a8ee"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartObjectiveTests.cs",
+      "sha256": "c54a9f1b60adb36a33354a8ee07415daaa5a18912c9e18a2b20794117ca2b1f6"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartPolicyTests.cs",
+      "sha256": "d7f98481b46a594407fd9b502631957298e9e0cb6db8744b967b67ee5ec1de1e"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartQualityRegressionTests.cs",
+      "sha256": "81bd34de49eb5601e2806f8db473c2ecb92973e1ac342938ad0e32a0cb432261"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartRefinementTests.cs",
+      "sha256": "d2b5c83d4df12fdc8374b7295add5ee487dc38da726554e4a327aa0cfdbd994f"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartSearchTests.cs",
+      "sha256": "06ab83b5a1a9bb029112be91b10c0ed37bcaa02ac3b39d630d946eb5669eebce"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartSolverCoordinatesTests.cs",
+      "sha256": "91919feb49b5a5716b910dc5a07be39064c33e749c46c5bc0b12d9f9da4e22c5"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartZemaxReferenceTests.cs",
+      "sha256": "6fbd247d18d3b0af48f933604a44bb86ff86bf6cb6a48ae7dc51d8a111f28c8c"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/InitialStructureLabTests.cs",
+      "sha256": "47cea99919b8e6977ba822c484052d1cd133ab58f36325f361ae89c5a92ad91a"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/NeighborhoodBudgetTests.cs",
+      "sha256": "a4d2a5ac335a998c8ae104f55140fc3dabae4e1f516f6a958b9e52b961fadf9c"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj",
+      "sha256": "d1d9ff8db28c15b419f507161a1dbb16805f4b41b2bd10a52e1dc9a3521774e2"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/PivotedLeastSquaresTests.cs",
+      "sha256": "88e89b5516db0fa4cf029a5d4c94798315af122e880cba24c6f3dbf09a39de31"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/RegularizedLeastSquaresTests.cs",
+      "sha256": "ff75ab3fecc4f775dbc34f882bc9fb811f05be1ade5c20f6fdfed521f236e788"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/SecantLeastSquaresTests.cs",
+      "sha256": "6111e67f3022ebc457d3bdfe6a8e67a175caf93669d413a1cd4bbbac2b356a2a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisCatalog.cs",
+      "sha256": "f941544a80617c01d94fb7d3847cf1009c466d8b9841b925f04ee3933dbb1159"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs",
+      "sha256": "70817bd9a8fafafb45e820540aa951a68a30fa8e428e724e53a7a85cb648be58"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisResourceLimits.cs",
+      "sha256": "dbc8009a0317e1424c776a0aff950dbb8bff2834a0daa2de32ad494f872f889d"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AxialSurfaceSeparation.cs",
+      "sha256": "42a2e523d69e34128a617793dc90fd769913cd2a4b54eb20240516dc2eafac53"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/BaseAnalysis.cs",
+      "sha256": "1f5dfde1741e9c2b5442ac9129cdb25ae587c2a600304b924b98f154bdfb4224"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/BestFitSphereEngine.cs",
+      "sha256": "ac049f7c69196f37270d970ae776dc0c505004768b95ff2dee2d464ed9713889"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "1b33dcdfcc2c5a226898269656689a9097ec89e3cd624d141c353c1f46fb8604"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "sha256": "0b78dde03be679fbe99ef7722db74943149ec03f9846b220d29af238113dab56"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "b29e07081398f076cb98b3b159eb09104e892da4bff6571ea20153068eedfb13"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "1d1b25872e6f2ee45df6f7a2ff4b4872af13be299c2c8187839bfe8fb1ed104c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs",
+      "sha256": "275b6cb3af4449e4eca0600e68be69bbab268ca66c19ea335d2b0df8a83cfed5"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "0c06ba65c6c12188ec1065f9c35b3f1a249865c7553e2e6b8748cff4fd8822d3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/AxialAberrationAnalysis.cs",
+      "sha256": "c85a499f5028119a3cb26fd6c17e68d287be23d6a950b4341778f5f7b76d6032"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/ColorFocusShiftAnalysis.cs",
+      "sha256": "6958e65cf533786a8d69406a29756e1947aa2e0b12632a167577bb432d025085"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/DistortionAnalyses.cs",
+      "sha256": "1f86c251268ed9006bfc1ce5a700a20b449f26032c4cd15f3604044f126e76d5"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs",
+      "sha256": "cf497e52b1667c9ffcb8ad113b38b030d2e6e9edd3ca0b4fc90d0afdbdf4657a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/FullFieldAberrationAnalysis.cs",
+      "sha256": "0469bb0028cfa6de176a97b7a155a0742c82570eba3da794f7f20de0e51102b0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/GridDistortionAnalysis.cs",
+      "sha256": "233337fde4371ce6fe4ca675a12651c643ec42741a08fa3f674f913d4b54721c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/LateralColorAnalysis.cs",
+      "sha256": "7c091a306c3dc935d41eb4c0bc82985255edf8e7352f440bacb315b97315947e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Fields/YYbarAnalysis.cs",
+      "sha256": "0438eee3a25cbb3a693088e8e0496ea0bb507ddfc9ecf758e1980b65a77c99cc"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs",
+      "sha256": "d7195e7f64ee2a9763f88363ba81e3141f5e4e9ecba51b942ca54c9b120a8fc5"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/FootprintDiagramAnalysis.cs",
+      "sha256": "61d0abb024b96b9c5ce30774f21057ca32f08639af3695ee613f6db956de7def"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs",
+      "sha256": "6d0e8813c3a61f7c0debea6134b7a3a1b7f75dd4dab4289df64f8209e1bf30f3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "4af5ce9d759f6b98a9eadd1cdf0de07425addae4706fa2598722224dd5281fd1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs",
+      "sha256": "f9eb53a414661a5293c4794946bed31160b2f153749b01efb3ca39455a107bb3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs",
+      "sha256": "eb6ebb0f40350421c329fdc19fdb5bf9f56f3fce18ff7176c1aa7d93c11bbfe4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs",
+      "sha256": "e07107efb698c945e8952f408a93103acbfa813d3b678186f172300fa4cab3a0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs",
+      "sha256": "1a75af99fc758471d958ec749cfa66655dd829dfc7d9ea9904b9944da7f4e690"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RadiantIntensityAnalysis.cs",
+      "sha256": "22be488d61c235495b3930d2c15c919cdb6b7bebcb0342940be466b2a25a0231"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "sha256": "1186ab2679f4b8132a0d3e2e259a5f8438bfc78cb64aa84fafe76038aa29b5be"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Radiometry/EnergyPlotSampling.cs",
+      "sha256": "fb15c2b052adc6b0cf7c0f62bd14d762952a8bb69ba32e847fc973af1f394535"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Radiometry/ExtendedSourceImage.cs",
+      "sha256": "35a1c28e007cc36eaf189d2621fbc2d1375855806dc2f6eb0e15f00b7699cf83"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Radiometry/IncoherentIrradianceAnalysis.cs",
+      "sha256": "f2493d222489403fb4c4ad91013a10226a228180138ad7ef3c0e00981a77b550"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Radiometry/PupilAndEnergyAnalyses.cs",
+      "sha256": "ec94f235167d6b6297784ac955bafd672fcf6a687cf54d04c34c582f7f79da39"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs",
+      "sha256": "a27f95cd27f9b211b6e28e30b7520db663b19ef85a9e1338fffd762b8971901a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Rays/SpotAndRayAnalyses.cs",
+      "sha256": "db7c0c6e9795c578dff5eb497db38bc76189533deb3c451a66278ea379902ee4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs",
+      "sha256": "85c1309d69ec0f5c7d90da024396554292f07a418085497395ac311198c4c092"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RealImageFieldConversion.cs",
+      "sha256": "78ade3bd41de4fb8cc14b19573c44766c7706c5ffdadab81a0308805ccac8e99"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs",
+      "sha256": "83c12ff541fe3c90f57a652cb2f14feb9880f60f76f8ab4b79477b22592ac995"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs",
+      "sha256": "76ee81cd72f831c7469c94f6b2a27d5ceed5bac8a1a14d191b76cb8cd34e441e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "9a9bb31f58b9d8044b963e374d4036bb54fbc78585ff0e45ae33dfb170e911ac"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Reports/CardinalAndVignettingAnalyses.cs",
+      "sha256": "48dfada6590ffc361e9c6c89d11849459841228470a01bb8b4e28cba71dba91b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Reports/FirstOrderAnalysis.cs",
+      "sha256": "ff6043c71ec071d5a4c8a15babeeb45b6826b744d0b719596ebf6670c62bc2ef"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs",
+      "sha256": "0685275e342b969d444ad576736918d1b231b4770cbae0cf0dcb17c8afff1916"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Reports/SystemReportAnalyses.cs",
+      "sha256": "0ee60b7738661afdb512d6d89278db8e96edeecf55a813f41c0df53ca086f997"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs",
+      "sha256": "22211ee3e0effd78f398c2f0b0118d65fed8d2a77bf413719f276fab18391d8e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/SampledApertureDiagnostics.cs",
+      "sha256": "5b9ab1afc104a02dbdc2a8fd487be45db429ba5435185bdf9616cd54cd0402eb"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/SampledMtfAnalysis.cs",
+      "sha256": "fbf523d478c44cbb2c54df3267fc5efb57d0693a3b730245a84a186e2568dcba"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/SampledMtfEngine.cs",
+      "sha256": "575a870b049acf9b9720f124679d25e7be0e22ed7485a01bbe91f01ec0e06023"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Shared/AiryDiskSupport.cs",
+      "sha256": "cfa843b0392c2c4023f504ea373c0f94aeb815ffc356d96dabbc84382dcb6c7a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Shared/AnalysisTrace.cs",
+      "sha256": "5e58fbd6573eb9cf8bddc0ed20c4e9faaed07ffe1c9bfe1d3923be301eedddc8"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs",
+      "sha256": "d5df4b9c36bd0d6102b4ca1b0a43cc73b43b40979107c0c3412d2b726ea7acbb"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Shared/MtfDataTypeSupport.cs",
+      "sha256": "3d88ec320830243a6c0931fa404a715cac00829f6d57912d367f659fe98828da"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Shared/QrLeastSquares.cs",
+      "sha256": "bb02d3781ab94572b126d17649024ed313fc3e0e485e03f6efc355f6a391da5a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/SingleRayTraceAnalysis.cs",
+      "sha256": "ab19e24afcbf17310c86d466d2a817cc835cfd58fcb0180655ee4dac29c2a7c6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/SpotMetricEvaluator.cs",
+      "sha256": "76eb41b81973f616caac97b6fd671e148150b950d3c90a62a14348e2f1e3b3af"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs",
+      "sha256": "85d945f29f8fa73b03b581e73d5fa935d9c58b754d3d10c4e190e74f8a4ec870"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/OpticalPathDifferenceAnalysis.cs",
+      "sha256": "937944d3b5a045dcef32bed778d786a64f186ea56854684205fd2ea5158d7ccb"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
+      "sha256": "d23bba6ebf019fdb8e26d73d311cb8cde14f518ebfba358eed9c568feb946f18"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "09cdc19d7997c7ebbd64b00f1d124ad1aa7f552e50334259583b2810ed06de28"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ZernikeFitEngine.cs",
+      "sha256": "1f218f7e2289820d6f130b742677cf5e2638a547b1def2397bcc53b5e946f825"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Apertures/IPhysicalAperture.cs",
+      "sha256": "09ad081c5c58a563a204e3e75177a3fb5fd499d10c42399aef238a5d476fd5b3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Apertures/SystemAperture.cs",
+      "sha256": "7156395c307a6723f174073a72ffa2e6ce447439e27b2aef867b3a04bbc88867"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Apodization/ApodizationModels.cs",
+      "sha256": "1b15b2c0dd38078f705bd10cd8984d6730af704a1226ce6a015f8c0a3c31322c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Apodization/ZemaxApodization.cs",
+      "sha256": "d328c760fd00a28e67503c6e7844806aabe94c010f4504bf2c297a507039980a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/IBatchedNumericBackend.cs",
+      "sha256": "870e8fe9202f9ea069e602d679d0e683dd28b3fda3f4314f5c1f8766c13c4ece"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/INumericBackend.cs",
+      "sha256": "4197ac066ebb6b4a306fd1a15357d3787196b61aa384ac7cd1fd7716cd959c9c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/ManagedCpuBackend.Batched.cs",
+      "sha256": "57a7b0dbb737a6c046f85bbc3e10c2729b3c64992f6586c116c71eb76e8197d9"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/ManagedCpuBackend.BatchedInteractions.cs",
+      "sha256": "64229e02b21bcb1819a299911d8044465f15d08cf80fa74b520b9d8b647bb3c8"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/ManagedCpuBackend.BatchedIntersections.cs",
+      "sha256": "85175a7f5243668d063f8b2de506b1b55077bb53eb30502b00bb2355c476d262"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/ManagedCpuBackend.cs",
+      "sha256": "1a74f7ed13c5f243f8a1bfe55c3efea4fe535586fad88c73f79b6d951ee17687"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/Matrix3x3.cs",
+      "sha256": "91451f492cf37285f4b6919c9ea63cb70730ae4c348a4b6cacc6ea5bbaf60da6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/NumericBackendProvider.cs",
+      "sha256": "3b50e48c20c3d287f476e30d635374f4415e9d3892d9d1f913850814ea9a32ee"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/Vector3D.cs",
+      "sha256": "6f1fe69711d7492457c1eb0c5320de52d41a4b3916e2f5f77419778395b36eda"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Capabilities/OpticCapabilityPreflight.cs",
+      "sha256": "105ae9bd37d9df9c3321ba439881a94ecd4ef52b9a5981732a5cc7c8fc078ef6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/CoatingModels.cs",
+      "sha256": "77332cf1e4a07b29e57b809b585f60ffd625252c1d916aa399bc6f313cdfcdec"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coordinates/CoordinateSystem.cs",
+      "sha256": "ccb8d87e6b87b3d4cccc55b09f9290a7d66fc2816d7c2eaaa029061d31c71c71"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/FieldCoordinates.cs",
+      "sha256": "5f6ad1cdea10344e33197f6668f9e5a2bbc64c6d9c135b189119cfa3cf09b3e3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/FieldDefinitionKind.cs",
+      "sha256": "be91ec3c6b05b567812d3ebe328006042f6ac2f70a03ec54fad1a2938d0a6b23"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/FieldPoint.cs",
+      "sha256": "a41d334688db64292617a76ae8048b31b943f23a9a3dbd7d914c3bf6206095c6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/NotifyObject.cs",
+      "sha256": "19d581868a41ec33ba1c98bef2928a757754306a90efc8356cf7e9b76cb1ec29"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/NumericParameterGuard.cs",
+      "sha256": "0ed2c2ea7602654543dca40cc2f8a0b45b435c7792e199840d55eb98197765b2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/ObjectConjugate.cs",
+      "sha256": "28a51fb8db0d880813d6461d7b1eda7c1e1e13d526dc02d2f69016ec63f31679"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalEnvironment.cs",
+      "sha256": "bae923108a5fb9edb13cc28a8333ba94ac3fd29b652a248f6957582b1f5c59dd"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalSurface.StateTracing.cs",
+      "sha256": "b55b403ec6b9542c2526fe5339613df33ac61920ebe50e86e2ecd1ee08bb65c2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalSurface.cs",
+      "sha256": "a3ccc94e987b71e4616fbb499e91116ee87977feaa3e539e61248eb4dbafc1eb"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/RayPath.cs",
+      "sha256": "b1ea2b3be4c6c83ef905a7986c69abdda02492f3ab95cbb6c905e312f929fc26"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs",
+      "sha256": "bf0a078c43f87c4ee6dc76d4914e8420f77a21af11b937751219dc94ef72a4cd"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/Wavelength.cs",
+      "sha256": "074f32f811a2de9ea60700ce485d518e2d84448e2fd257e8fe2bf8beb7e64eb4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/BoundedFile.cs",
+      "sha256": "a3eabe4193776030721ed2929bfb14154e90585d18f6714c4ad367ca90120fd3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/CadLensMeshBuilder.cs",
+      "sha256": "e0cff5e6283eb5c49440f9a32691f9f6319cb35bd1bccc40da0ae49e3a4d7805"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs",
+      "sha256": "d7eb0266f249174bdd59e6297608cab033aa382f8fed7b4326a6e09f8fb008a1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/StepCadAssemblyWriter.cs",
+      "sha256": "de262ed7dc4c5cf1bd604374f4edd50f52ea310485f698d1a45333eea59f6af3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/StepCadExporter.cs",
+      "sha256": "ce0399039df4258af080cb385e18c3145f59dd58646a0e43f494b7f81062c6f0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "729e15c5a3558ab2305650afc497ad4128f24cc51a954721da0ec6023ef7f21e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Geometries/GeometryIntersectionSolver.cs",
+      "sha256": "68ca6cdc6f971fb9e03642bd8f51156ba0dd4305377bf68fe97a43b964cec520"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Geometries/GeometryModels.cs",
+      "sha256": "91012797b549cf69f6bb596b97c06f6c4f046b8c4d100afc6f0072fffd777106"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Geometries/IGeometry.cs",
+      "sha256": "748f9069f81d42db15534f5469b501298db763f6be9f8b8c7251b4460f602021"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Interactions/IInteractionModel.cs",
+      "sha256": "c05b4a6b20f1f93869cd17ecb89f94e5560f1237046729340efa5232c33289fa"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Interactions/InteractionModels.cs",
+      "sha256": "bb2718b3054c82f39123b3461034471e8fcaced47327fc63f0eb9510ceea292f"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/BundledZemaxGlassCatalogDatabase.cs",
+      "sha256": "0669fe94e00fdb9618e8116fa80175087b1c403284dafedd0710922af7686253"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/CatalogGlassMaterial.cs",
+      "sha256": "6672a23ed47669f68ca0d739a21a2493eb2b9fb5164dadef6a370737adf7a368"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/GlassCatalogDatabase.cs",
+      "sha256": "bdc4e4ed0d4468056ac29b8929dd87139efa0311cbb8840a0d13233c31a7796b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/IMaterial.cs",
+      "sha256": "47130b4d618ac84c33e067faebe2d010699cca238f1ae003c244b57ca724c049"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/MaterialRegistry.cs",
+      "sha256": "b01620df0870faebd5d1e96d702a98ffbfff08b35e4101a2d7afdc9443006f33"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/UnresolvedMaterial.cs",
+      "sha256": "062a0ce914e3ea80144285328179778092ccafa9fb8027ec7b637aaab9b64097"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/ZemaxGlassCatalog.cs",
+      "sha256": "885f8e83b681d1d989b30ba50b61efbff7ca0765efadd3c6fe05fd2c504c4b0e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs",
+      "sha256": "5925b6a22873ba1b3fcc11a191531c3c99f9d31030b39b62be7f8a9e666ec402"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialDetectorReconstruction.cs",
+      "sha256": "0f171dfba36e495d5a08a0d5724da127932cd7631bedd779c960b8f694c36ee1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialDocument.cs",
+      "sha256": "57f0fa772d4c41db815590f2fc7c4e0534cafa1343207266f659ff440fceb9e4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialMesh.cs",
+      "sha256": "183427e75eac330122046f2efbb3f6d0ef4fc4b1907db7863ec979ba95cd6fa1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialPathFilter.cs",
+      "sha256": "ac3d4f3dea51d10600f9b3f8f78051d0b3db72227f9f568bc5f314c101b708d6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "sha256": "3f2e4cf8e13dd05beae2ba721ae5c52a65272f9c8f49c0a9753e5a7bf847cbb8"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "sha256": "21a099101b2ed57e68e647c3410da2991dfa2e1270d54ff310090e5330b5ad9b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optic.cs",
+      "sha256": "bd64e51b2597744700a7e3db19d88602d80812e2cd9b62a17f2835bd85d057d9"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj",
+      "sha256": "1250ea85e5f35c96415313d95aff700edfc74da82030b3a6e49834878cca3aac"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs",
+      "sha256": "fee81f00637e4170c83d4ed075077b29d3fe8778c4b3bb6af0f9561cf16b05c7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/NumericalOptimizers.cs",
+      "sha256": "e5c3c7a0c3d5f1abdbbbf6f60a8639fdcdbe510c50c0d12450612951fb4967fe"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/OptimizationFramework.cs",
+      "sha256": "325296a9d9e8dcae34958045717cd7e49d9abb73ab7ad8b0d6ef63ce6c717c4c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs",
+      "sha256": "0009268592afb8fb08c3554397fb73dfa99b04c7523748a7e5095e7582e782e3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Phase/PhaseProfiles.cs",
+      "sha256": "40e405e3822d173c80134ada2e72aeffc85d08f7b52cc274baa48bcf419712ae"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Plugins/PluginSystem.cs",
+      "sha256": "9392d42788a629fdbb7b0a44cd4add8e1808c381b6032242b311035d1aeb34f6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Propagation/IPropagationModel.cs",
+      "sha256": "2058b86bd37b4a2c95125d3f9c6d7cb69871df9c2ebdbb699872d70879484226"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Properties/AssemblyInfo.cs",
+      "sha256": "97af6da0730790e08823093c44ff377357de929fdfcc33cdf3ca3ff9f52147dc"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Rays/RayModels.cs",
+      "sha256": "f91ffcfead17fb2c7171cb4e569aedcd0dcda711a588c48636bb930aaf1057f2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Rays/RayState.cs",
+      "sha256": "a553d1dd705573709b75720fd43867fc69254681e2bdf3df221b47a4f4c43680"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Rays/RayTraceSampleValue.cs",
+      "sha256": "aee11433e16383d43a7ff5d5380f6e41c3f17cae8da89088b70ac2f9e532d90c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/ApertureSampler.cs",
+      "sha256": "b8735a9115bb082ae8bcfe8f5155bf2d91da965a14a5a64cc9153fd6f4cacecd"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/NonSequentialRayTracer.cs",
+      "sha256": "a9e6cbb3ba5cd6d930aae0aff9ed71d27bff4d43d7d6d2372cd5f7b1bdde26a3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/PooledDirectionBatch.cs",
+      "sha256": "7f0d5c3811e1b7092031b934b686193ce1ae1f661b8192ab853715d55b31dfe7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/PooledRayStateBuffer.cs",
+      "sha256": "297b2df9fb86152370a11e79be33d9126afef3ace2eeed25e99dea09e7bc8bb1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs",
+      "sha256": "a0d89c02f1324e748c710293170462ba0f58ca53fac50523fa35ea5e2f60fd2b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayTraceCache.cs",
+      "sha256": "265e3f5bbf460c17512d85f83bfe1ac6db248618e63d6800e2f56eb90969c311"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayTraceCacheBinding.cs",
+      "sha256": "4dfc555b90aa3ccc26dc92b29123396196e0fa1c280ae8b77a481c21b7a81534"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "sha256": "8cc8b19506589d822ba8c3b6a7cbfcab1883abc27a243f7674dd16190d9063c2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Batched.cs",
+      "sha256": "cb64e37b4424dca5535ba9804d1206ec23df49703732bdfa590987514c12f23c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.BatchedSurface.cs",
+      "sha256": "0954d3a22f6defddbfa364790215b84dd1d06e75be64c7e66456cd468e149a54"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs",
+      "sha256": "af2eb4250a12c94759f5c61c9d88d50af6760c5af198f02958139b8c1423d1df"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialTraceMeasurement.cs",
+      "sha256": "0e5388313718d684ee75da769c3c3bb1c7c7c0b11b817bec890aea7dadc87002"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SurfaceTraceData.cs",
+      "sha256": "d7a431addbc5bb8a368a9ffcee41fff48669e36750d4780cf3a1a64ac6d61121"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/TraceRequest.cs",
+      "sha256": "fd329f2872cac3266b265fe3f91270251d9b46a5a8db08f86461b7c138ce0abc"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Scattering/ScatteringModels.cs",
+      "sha256": "9a59bee8d57a356b912c205851dd74e88801f93bc277264be62fb663b3a61ee5"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.CatalogGlass.cs",
+      "sha256": "7e52bf0167c8383059c7d7fe04f6bc2c70ceb86cfd8db973b2abdddc3108e637"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs",
+      "sha256": "dda1df58bc0dc00ba2103e12937a6bb735a4ec52e8d14e95953d82a2e74225f4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticJsonStore.cs",
+      "sha256": "146d51c7dc150ce05ef95d5d699096fba68f52e25d7f175500bdf6451f58d028"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs",
+      "sha256": "9416ab9f55937b000668f6a75b0c386e521e926a9e3a100da2f4962142fddf08"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotMigration.cs",
+      "sha256": "24f0b4148874574e3073f50dad6c907c6275c730acd373729df9e6055b83e23b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "0c25823b45b54d249a3794db92009806175349924604dddcd3965c8fd13b9269"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/StarOptProjectStore.cs",
+      "sha256": "ff6ec50eb664edf5c498f9606ef2ebaf8b7a1ef87c9ba79bfca0f05b77b74d5e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/SurfaceSnapshotCompatibility.cs",
+      "sha256": "250367c77f2a7eb4de9d8499ab3af7574075a77e951435eec170db0bdadb1ab7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/AutomaticSemiDiameterSolver.cs",
+      "sha256": "a268140b657ebf878f0fa41615793bf828f741919998c9470871a47de427087e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/ComputationCancellation.cs",
+      "sha256": "20c03133869a7596887ffafb4b5a0bf6edeb85df73d24055cddb758ac8d6e531"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/ComputationParallelism.cs",
+      "sha256": "cf08ca35ead01a3d234e182e5129b0ea669e2acf8a5ee3c5e7af1d8dcbe61f63"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/Paraxial.cs",
+      "sha256": "23b347d5664b349bd3c156c5ff0dab290fc61904b1f5b63d5e8fec86bdc994ac"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/PickupManager.cs",
+      "sha256": "01c016531af3d6edaa983e66b42399af111535e93be747ee9db2234472732ab1"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/RayEnvelopeApertureSizing.cs",
+      "sha256": "d99ad9c5d10056d85a3ebfe02b3d13880cab5713f8a2dbdc27da381b0c132353"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/RealRayTracer.cs",
+      "sha256": "b53b64961f0cc0dae6e0d01c5fa9e1fa282f0b08f96b3c740e0515f90b55a6d7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/SolveManager.cs",
+      "sha256": "ab00df98586f10cec80a92bc8b027281870f702e9e654599b71f9fbe5e6d46a9"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/UndoRedoManager.cs",
+      "sha256": "dc853a49366f94a1759554d231d32b271d2cccce17c12384981891513ab8c827"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Sources/SourceModels.cs",
+      "sha256": "0f80a9826146af0c100ae46a61e3897a13cafee4fd68d1386b3a7079e06d24a3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Tolerancing/TolerancingFramework.cs",
+      "sha256": "ebb726418ced45deee069a395cf65cf1a3f05e241efa798f88676587cdc237ed"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs",
+      "sha256": "27948664e1275eef69730bb68ac8dca1e41149c64c9964a0b33c830258085772"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AccessibilityAndResponsiveLayoutTests.cs",
+      "sha256": "987cb8af778efe2dbc906860ea8dcfec65af911dcc859aa9cc30ba752c69717a"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ActualFieldSamplingTests.cs",
+      "sha256": "968a17647a5ea8622576e8117f2007376b2172750c67ad651a258f1f951b2a2a"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AfocalImageSpaceAnalysisTests.cs",
+      "sha256": "b056a37906ccf428c0e9feb4ee5c936b3f67651224483df855d064bb4dce35f3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisExpansionPhysicsTests.cs",
+      "sha256": "0c3c4aa08abc2c1b94947a365a1fa3bdefdda9c0d514f940b0d03b07c146a4ee"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs",
+      "sha256": "142ad577714b5e0cae3414a388d2dc3ffd0df991134af417f09e17dc4e0bd997"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisNumericalRepairTests.cs",
+      "sha256": "9b45d7d6a2e76746c1649140a08c24c057af1f214a2b8e5929b969dbbec8b2fd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisPresetBoundaryTests.cs",
+      "sha256": "115ff96a4133a04cfcccc81dfcb7658b788ad9c5302dc20d102b31cdeda57f8d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisSettingsFooterLayoutTests.cs",
+      "sha256": "d9199229783b3a9ab2f828c62f37f1ca7864ed80e968d91e8217e41fc81bc33b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ApodizationPickerTests.cs",
+      "sha256": "d24d9cd1d52438d894c696997844c632dc89f9cd023e35f5008ed932c947f9f0"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AppStartupTests.cs",
+      "sha256": "bba80a2b75f524e10aea2a83ace79f68584affca8f85b271ce54598be0ead9f9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ArchitectureConvergenceTests.cs",
+      "sha256": "81086d5da29bff09448fa50c87d34591ab9b74d7cd35823ee0b8a80b79e007b2"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AxialAberrationAnalysisTests.cs",
+      "sha256": "b30c20063cee31580bdb707fd7cf10c3f75204b04e1637085361ee5171b280a9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AxialSurfaceSeparationTests.cs",
+      "sha256": "9a44fbb897c87fa054cb43e76ed9262798b6a4f2a638f0a9f9ea09a7eddc5c17"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/BatchedBackendKernelTests.cs",
+      "sha256": "9842283a1bfa6f5f8e1bd19ab85b468e348d6ff06756b4a9465a4679d7e09649"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/BatchedTirMediumTests.cs",
+      "sha256": "5bf47fae0aa7a5bd760e5cbf3331c0d570219dd2a3136ab6bcc745cdfdb034aa"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/BatchedTraceParityTests.cs",
+      "sha256": "e16115b3921a1aa0df5cd07d3945d18ffd137b340fc598e1da2f01f5143b36ba"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/BeamExpanderLayoutTests.cs",
+      "sha256": "621060cd00c089182ba74ee5a25c61e30cdbe054bd1c5c5b91fe80d839913840"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/BrandAssetTests.cs",
+      "sha256": "d8d0a4b03c9037ed81c097b3eaa594ff91737b98f732279cae9c1858603ece0f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CadExportFreeCadFixtureTests.cs",
+      "sha256": "8148d5dc6b69edd4514e16feeb41723c3cf4d9f3856bba04b8c1552e0586058b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CadExportGeometryCoverageTests.cs",
+      "sha256": "7f8c57f376389970154d37b3ffe9421475e25cf8a63d4b7884dd7e1dc241e164"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CadExportReliabilityTests.cs",
+      "sha256": "90de66fd1765127d462efe60d36da054662e97a6d97c26c24b8fec9eeecf6471"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CadExportTests.cs",
+      "sha256": "c0292b49c38d8fd70c9da4cf668efe8859f2511d702d669dbfb5a59a1db4610f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ColorFocusShiftAnalysisTests.cs",
+      "sha256": "19a60689a8ab1f0335b7a82e8d5213b8d75070e6faa080ebfe7aa8e72ac3f40b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CommercialLensCatalogPanelTests.cs",
+      "sha256": "417d956d8ac432bbf56578cae15dd183dd73f985f19eefacff69b36aa02f2d17"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CoreArchitectureTests.cs",
+      "sha256": "bccca271c5942ca41d967a962d26cd0734b270dec392facaf7f6b2f45361e980"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/DielectricGlassMaterialTests.cs",
+      "sha256": "753e8b5766e2a17ca9e2641208a220490f9de8c8b3c5f61e345eb74f7a8ca6c9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/DocumentFormatBoundaryTests.cs",
+      "sha256": "e314b2014aca00b21de654a8b4c48f667a337e57b5ab18179e05f42cd1059ece"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/DocumentRevisionAndSaveTests.cs",
+      "sha256": "c10f9964cf344e030eb98121aa5ebdee212f3cfa545051fd509d2106a0494bfc"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/DocumentTabCornerTests.cs",
+      "sha256": "5cf2835f60bc20cc91f25786e2069378a200df27b50b6283cfeb5f01f418e314"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/EncircledEnergyVariantTests.cs",
+      "sha256": "2540d9e0c31d1f43cf145c4d2055878d83cc767a2a6f5191b82529e086802bf9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ExtendedImageAnalysisTests.cs",
+      "sha256": "d5fb09879a2b553b051f3fdaf215302596a1e02489a4e2262d44121525a3f3d7"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FieldCurvatureFooterTests.cs",
+      "sha256": "71e384ce683e7bf2697d8eb8ad7a60297ea6a19883d61c735dc26dc1f059ee50"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FootprintDiagramLegendTests.cs",
+      "sha256": "cc20a52cb792e698c66f61a4804ff5ccffdbc213a8d186fe958be6e92dd6f7a6"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FormatFuzzTests.cs",
+      "sha256": "7164e5ff0fed42c699d131076cddd61daa77d81ac40b45f9b007fff1dfce1580"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FoucaultAnalysisTests.cs",
+      "sha256": "9fdb8356b118f7fab1996c58ff51442c26ebb251a57ede38519362501993733f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FullFieldAberrationAnalysisTests.cs",
+      "sha256": "5cbd460f8426303c9a13c28d25dd4c603d26fdfd00b50c48e83b26fac281adc8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/GeometryIntersectionResultTests.cs",
+      "sha256": "8b7085b3f0f752d97b8084d83ab469ee1af2c9b830a7d74427b85bf215987edb"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/GlassCatalogTests.cs",
+      "sha256": "cd449ebff26a6e15ab596993a6e5ae93b5f7c291bc724580fd97c525b6e78b23"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/GuiAnalysisCaptureRequestTests.cs",
+      "sha256": "4104c2ae2e8277cc243702e02c27ee6ac22cc9d90a57c7857fa0250159f171df"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HighPerformanceTracingTests.cs",
+      "sha256": "36aeba0159d7ba6d3f14ea36c04488ff18ab8015aab64849567f3c347e158fc1"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HighPriorityReliabilityTests.cs",
+      "sha256": "e5000e96c3294a585aa34d09ed5167314261e967e6a2dd7b6ed0b45d95b6056d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HuygensMtfSamplingTests.cs",
+      "sha256": "cb903af217140ecb99037f63ed344e7bcfe688491df1cef0a6c8dba043a6fa75"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Imported38668AnalysisTests.cs",
+      "sha256": "670682dc82327b60450459c4daeddb8045f61f8ee4a1f734eb125f0be72de284"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/IncidentAngleVsImageHeightParityTests.cs",
+      "sha256": "97952420137bdd817ca4885640795d85a113c78596efc06f45a8bfbb54c114f0"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/InitialStructureLabLauncherTests.cs",
+      "sha256": "44e3798d408e1a9762575e3bad990aeb235ae9c49b4a06a4b9722fb2ba8a7ddd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/InterferogramFooterTests.cs",
+      "sha256": "fba157c48a393b5303e1559c912c241b593376a476349b2ee72364d1e0e47240"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LateralColorAnalysisTests.cs",
+      "sha256": "b10320edb37620afc8820af8b7260707b609cf6988e25ac7231b043f8aaab9c7"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LayeringArchitectureTests.cs",
+      "sha256": "60b474ae5500ad90afa91d0f1af966c61a184c1cd0fc351d84dbcf469fee47d6"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LensEditorLayoutTests.cs",
+      "sha256": "8894e2c85286d59d113e54e08bba9830135f54a96e8ef362c5fa01dd44227608"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LensLibraryPublisherTests.cs",
+      "sha256": "d75ec2230e0a4207fdc62831602122d1e94e0dd5e1ba735bf5a9bd734b47a0ce"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LensLibraryTests.cs",
+      "sha256": "5c358b1bb1ad5a15c7d099eb9c72269d810ba4d564b8ef9908bd07c083d24bd3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/LensSurfaceContextMenuTests.cs",
+      "sha256": "1cf200f516af5c43e726a6f64f4c00c0440b61922fc28d8f807390891c8aa126"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ManufacturingDrawingTests.cs",
+      "sha256": "f179c6bce6ad60aeaf077e8db4f3ef791036295120fe5637d4cac1d3e9abee7e"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/MaterialAnalysisTests.cs",
+      "sha256": "0ce4ca1d82db5b1bce1f7f696849fcf01fa8edfc0d36179f1f0684c0c76503ce"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/MeritFunctionRmsSpotTests.cs",
+      "sha256": "1d150b4e6fd331c75d960433ab5fb8ac1895918ade8ac72129250a9c9f1821ad"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/MeritOperandRowPaletteTests.cs",
+      "sha256": "a604de3fd31cc5f4c9c0c1836231b51da978e88872f3da62dcd24bcccb0c3ae3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/MtfMaximumFrequencyTests.cs",
+      "sha256": "4f1c1c40b4dac1c871bc03181ba5649457cb94e40644e2597ef7526cf0d74d08"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/NonSequentialDocumentTests.cs",
+      "sha256": "8765d7505d409a5ac511f8cf315ef93971eba653f20ca4d2220efa0d6344a700"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/NonSequentialRayTracerTests.cs",
+      "sha256": "f8dd2bc6b82f9edbbe8e03d854149ead059f316a20f419cb9853dc0e54f18300"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/NonSequentialStrayLightTests.cs",
+      "sha256": "56a5b7fe9b6cd5a6f5f1b384cd07f5f6ee008c501e428084856ae2a5cc2f5d12"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/NonSequentialTeachingSampleTests.cs",
+      "sha256": "69b4af4da1b4dcacf1c325f50a50638cc0a7b082c2f12c9657a8d2b18fea4578"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/NumericInputChromeTests.cs",
+      "sha256": "5a7b2723d7a72e8b8229b99016dd658584fc4ccfb0c6bbee0eed0f13dd923f47"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OperandHelpTests.cs",
+      "sha256": "7eaf14ebb8ee7b7d55833b8559f11b498a0e98a6ad8f3440858f92fffb4e9e44"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs",
+      "sha256": "20ef2b0cd5556903e0dd49d642e6db421f5c0e49076c0eca623b9816ee1a1b61"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OpticSnapshotValidationTests.cs",
+      "sha256": "caa944cd72f10a6b96289b4735dceb9d91568d3f0a69e26249f0025e28f9dcf0"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OpticalNumericalConsistencyTests.cs",
+      "sha256": "0271620cd0d39bb8966dda63e7b6d41c9d716077e3f378d4ec4a98cf1c3c21e8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OpticalPathDifferenceAnalysisTests.cs",
+      "sha256": "1ab6c5901537dfc7d837e681fd1ea1bdae2afc9819ffe8c4cbd9d95a07bebf4f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OptilandParityTests.cs",
+      "sha256": "bbb352ba28bcefc1fce0acaa70eab010ea8a9f1f4a0c067f65bf0fdba6c5b2e5"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+      "sha256": "ffa2a2b8e1944e976a4640f04f7fbe8641e94ff9cd3331ea40915e5480a866e0"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ParallelMonteCarloConfigurationTests.cs",
+      "sha256": "4fef5b99cdde773d9e5bfb03716cd183c857791b29b63a0fb2cbd771cfa96e70"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs",
+      "sha256": "895bf5fa5ded367b7c583a0ca10afed6aeb8874ee689e28382c7403703cc81b3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ProductDependencyArchitectureTests.cs",
+      "sha256": "699d7191e79a1e292bd40fc73cb2a30057d26934967b4262b611f29f4f746b7b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PsfWorkingFNumberRegressionTests.cs",
+      "sha256": "71292a6eebbb768c3112b2cfc9b9a26480ca442be8b2c56a426abd82aa2c0592"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RadiusSolveTests.cs",
+      "sha256": "05420d20ccd7b74a664461cdf565d2ce49ae76d8b3800098379d3b8e7bdf05fd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RadiusSolveUiTests.cs",
+      "sha256": "199fa500d1aa838eef835160160d506eaedb49ae894ed70e6fd3974929afb428"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RayEnvelopeApertureSizingTests.cs",
+      "sha256": "6dd33c4368e930fe526378e1475792f3dea455eeedb0d37bf2b3618bf210259d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RayFanFooterTests.cs",
+      "sha256": "ac29714951edae5f10425f321cc1ac27db0249bbb52d9dbd3c64d4d06158a7f4"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RelativeIlluminationTests.cs",
+      "sha256": "b757aef343c5a80fe67436b163a480dc6f60f4e6f0ce6ae80f9ee5bcf4afb6a8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ReliabilityHardeningTests.cs",
+      "sha256": "b449c1e241042c7ad669e1acd580ab222e4021b4c2c6a1f30f81cce0555cc865"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RmsAnalysisTests.cs",
+      "sha256": "ee267b9c6cd8fc0ce54ccb8d40c578b7765ccd0681c28ffe8cd88a6e82f259d3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SampledApertureDiagnosticTests.cs",
+      "sha256": "bcd6cb65182e54df31f31554e5d67df46952462ff4e3a0c8ee68e183c81f9279"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SampledSpotMetricTests.cs",
+      "sha256": "e121135191441deea8fd97aae4e59d1f612dd7c1f539373779c35054e9cc680e"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ScalarBackendAdapterTests.cs",
+      "sha256": "9714eb9e3b4a4ab5caed6aaeac1a9a64416d6d1c3b4a6a2a3383a13f354990a3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SeidelCoefficientsAnalysisTests.cs",
+      "sha256": "24b3bbb80a76cdd9602a40a3e1909e7d41699837c4def9f61f0050dfd20fc34f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SeidelReportPresentationTests.cs",
+      "sha256": "489f55c05502f86ebb06d2b946b278469a839bdb4f54f66bb9dd5af9cfd8853d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SequentialTraceMeasurementTests.cs",
+      "sha256": "e0a2dbfadb51128d0cca8a0944908957d510e4d6f6ca18fe22d0962b3615b41d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SettingsComboBoxThemeTests.cs",
+      "sha256": "e3f6fb95debe6d5d1a4c65674e799798c14c372bf8652f8c8a37d65451a1773c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SingleRayTraceAnalysisTests.cs",
+      "sha256": "d3c985f001940b4d23536aae27562d1ebba57f7879d948f79062899962fcc1c8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SourceModelTests.cs",
+      "sha256": "305dd0eb134ca8b02941434415d074b3ec2aa5d9f9002f19c0ca8a4d1b23da09"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SpotDiagramFieldTests.cs",
+      "sha256": "4caf1d5cee62176b72b763b0f0769d2a3e85cf99abeb542e341a47f12b0c5279"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/StandardActionButtonThemeTests.cs",
+      "sha256": "d2f476f8cc8b79eef6c230a5cda1117c4fef8ff08d6777070c2dbed50439d126"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/StockLensMatcherTests.cs",
+      "sha256": "802c9cae2d334dc7517bd57645bd33db819bbf6cf2daae72a93b7b99689f452e"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceComponentMappingTests.cs",
+      "sha256": "bef1b39fd34b642bbbfad320322bb31596e333215c4e94faa3c920988890f96f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceEditorRowTests.cs",
+      "sha256": "92ccff0e2371cb56558fafeee34c6b48f41e9f4612f7652420f56020efa8b5ab"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceInsertionTests.cs",
+      "sha256": "8f6f8e5688949f77972e8a108192d9432183fb23cbb5a9e22df763c27a188005"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfacePropertiesPanelTests.cs",
+      "sha256": "5d7c147b9eb7eda2d7f6837cfea2bc377ddb5f3da414898d79d9217da608186b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfacePropertiesServiceTests.cs",
+      "sha256": "356b731aef07bc8c44405ffd6e877941f01e78c4a564338a06053c36edca3fe8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceSelectionServiceTests.cs",
+      "sha256": "fde62d81b1e9094dd446af40541fdec35a20911a76e8c06d0773a4bd0bd3204a"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceSolveTests.cs",
+      "sha256": "fc35da7573476c8dd1170a9db3ab977aac0a5472b5d52055067f9e47e1313081"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfaceSolveUiTests.cs",
+      "sha256": "e89ae2ca60ea5fb799d34550a4e34f4bb96dc769497fcdcf8ad9f1afaa754508"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SystemPropertiesPanelSectionThemeTests.cs",
+      "sha256": "03047a66d492d75ff2020cba1020bd29b8e0df13f2a5ad3b7449d2f955035812"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ThemeResourceTests.cs",
+      "sha256": "2119b68212bd30253dc0b432ce42ebf221330d0deb578264dae4748f96292a8d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ThemeRuntimeTests.cs",
+      "sha256": "92f2628a58fe52a84a1fe93a69c447402e384d7bba5b4c788f6ca1365ce2f3c7"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/TolerancingPanelRevisionTests.cs",
+      "sha256": "e9fbf7cb5e257b4da3e9e34329cd86891ab13d3be480d25523df4223e1af7628"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs",
+      "sha256": "55961d61ac7ecaf7fcb22eec23e762e078f474284ae37c0a8d4069804e608368"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/TracingEdgeCaseTests.cs",
+      "sha256": "b1571fa9f50117718bc877cba5c09fac4b9bb8fe6e6f2575afd19336bd2639a8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/UnresolvedZemaxGlassTests.cs",
+      "sha256": "1183f9aa43e52156e497fae62904246b45edfbc5f6c97db96d3bbc16fdd85674"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/UnsavedChangesGuardTests.cs",
+      "sha256": "1f6b71daf4b300dff608836dd63a9d35b2cc6d949da9e9bbda5d3e8c218e7d40"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Validation/History/CookeTripletGoldenTests.cs",
+      "sha256": "ea8940785ebaaa596e0054c22da4f76f3c9d74fecb2d4a0777e56ba31ac4730f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Validation/History/FieldDefinitionParityTests.cs",
+      "sha256": "62b081fa4770174457eee560a3b3cc45a14ff775b853d446a5943bd851998b7d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Validation/History/FrozenAnalysisRegressionTests.cs",
+      "sha256": "168e1b6f605dbf0972040afab1af2107f12aa375b989116df3f2d5aa35a6750b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Validation/History/FrozenHistoryFixture.cs",
+      "sha256": "504665f77b0b88d7f7575cff832e5063db26a7af0d42cd84996bb457f1653937"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/Validation/History/FrozenHistoryIntegrityTests.cs",
+      "sha256": "1d57b901dfff1cc353c64ae4027ae4050506a4faf34e593af8eda95ebcfd0143"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ViewerInteractionTests.cs",
+      "sha256": "2bd4dc25cf7ef3b54114ae706882f0223c16f56fa17ff16cab9d5d79e9fbe772"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ViewerSettingsButtonThemeTests.cs",
+      "sha256": "252aad67d6607ba12731755542f253838f803124c06a4347d492cea6e64ab755"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ViewerSettingsInputThemeTests.cs",
+      "sha256": "bb2d4238f82c045c7aed93fa1a6ef11853e70a0fb8e6954fcdfd1390626009da"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WavefrontMapAnalysisTests.cs",
+      "sha256": "071dd19e0bf5ab6138e648553c447179aac76d3ebc0b8dc4abc7ab9623b3920f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WavefrontSurfaceRenderTests.cs",
+      "sha256": "91093683a3ae412c8995fbea8c301234bb4dfb67faaee0b482c2975ccb1c04c9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WindowsFileAssociationTests.cs",
+      "sha256": "08adb62f7a1036d151ecaef04ff99db6a7d997f5b82b87d411b4664ad00406bd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WindowsPackagingTests.cs",
+      "sha256": "947a5dcb13d41cbd4a8b998bb044a682c52902cd69dafee861a8f86d71646dd8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WorkbenchApplicationTests.cs",
+      "sha256": "fb8ef8ef8ad8374c99a1a38b20f04f9dc67b5376ebce1213f5f1cf6821764e55"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WorkspaceDockModelTests.cs",
+      "sha256": "ae72fa67a08d76f081a2894c5ff777617e20082ed7c672c0215c062b1830b8c8"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WorkspaceSessionTests.cs",
+      "sha256": "fd4bcd81c1fdaa88657f8ff698307cd133a45aacd00e9a4d2762c383c84213f4"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxApodizationImportTests.cs",
+      "sha256": "8bb9a3a7eb71010ce358a8261d3e6e16247fd776d89c494428244c48235e4b88"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxContrastLossParityTests.cs",
+      "sha256": "427acc25e7ef6e603070caaf20bd489695ff2182d7c0d5f1ce5ea6a1f8c2f101"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxEncircledEnergyParityTests.cs",
+      "sha256": "1cde28c194a8aade463cc3f652a13818acd7a40c8b328c8b896a37f919a40d61"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxHuygensMtfParityTests.cs",
+      "sha256": "ecc8daa7e4aa549a76da125feb2825e50883f2b2ea8498044457c94643d2219c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxHuygensMtfVsFieldParityTests.cs",
+      "sha256": "78b36d6fd6c0a88839da45adf9313f5cd05c1e8e5d4562bd318c1dfb5d7eee95"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxHuygensPsfCrossSectionParityTests.cs",
+      "sha256": "77fa4e677a5aca8a632e58f2d8dddba39cf625123ff497305c906fc95c3fb6a2"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxHuygensPsfParityTests.cs",
+      "sha256": "15a809f8e9b8e9123abb7daf3b5708112c88c9944d8c7ede7ec5916baf532ca0"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxHuygensThroughFocusMtfParityTests.cs",
+      "sha256": "321a8333f659186927e786fa9c48afaa49b3b55fdf21bb47ac6b201dc9406f66"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs",
+      "sha256": "930fcdcf1333c1526d433d60c7312ee5ecf44f7765395f850e44e3642af2486d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxLateralColorParityTests.cs",
+      "sha256": "ec7305ec7c53566337aa9a36782d0cbf5f7f644383693a8594223990040bb535"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxLayoutApertureTests.cs",
+      "sha256": "9083401ac8cda18dedceec78e9824201ee321df68cb9c81db12715c18a6b0bc1"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxLibraryImporterTests.cs",
+      "sha256": "2346397f58baab295f920aa28954c7a58169db057ae2536cf5cb1f18fcd8479f"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxMechanicalSemiDiameterTests.cs",
+      "sha256": "c74d3f007680f661697bcabb281edd2d6ab2132f21d654ad989749692e7ce085"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxOpticalPathDifferenceParityTests.cs",
+      "sha256": "e5f3f3fbb8183187da95c08bb6930f1191be7c09718f1575a409b2d363f08d5c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxPupilAberrationParityTests.cs",
+      "sha256": "79ff6f975caf286c62873ff4621abc2ceaa6ff1ddfbc0a968ddd24cc949785ee"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs",
+      "sha256": "b766bb0fa4d9dec023e2064ce1f377b93d182635c34b159950f9944961142c3e"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFieldParityTests.cs",
+      "sha256": "484b9672c3ccf6b65e208a3e10d09e0d7143fb296bfb33a468a9cf48eed67a58"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFocusParityTests.cs",
+      "sha256": "7c4414da624433a92ddef20515a27b7a875fb708fc06ea15c958cabda88acd9b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxWavefrontMapParityTests.cs",
+      "sha256": "9e804e1778ef91bc18196757d9a1506f72b35549ff123e8002c86fd7cb60702c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxYYbarParityTests.cs",
+      "sha256": "7e5e6635076656514ea7612320285c46a104dbb5469510751368e52ba010f54e"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxZernikeFringeTests.cs",
+      "sha256": "cb9425abd8cf61b3ea94d2e1d22aaa36b8b330e8a45af1d646d00efc46db574b"
+    }
+  ]
+}

@@ -53,12 +53,20 @@ public sealed partial class MainWindow
         foreach (var number in _form.GetLogicalDescendants().OfType<NumericUpDown>().Where(number => number != _refineBudget))
         {
             number.ValueChanged += (_, _) => ParametersChanged();
-            number.PropertyChanged += (_, args) => { if (args.Property == NumericUpDown.TextProperty) ParametersChanged(); };
+            number.PropertyChanged += (_, args) =>
+            {
+                // A tab's first layout initializes Text from the existing Value.
+                // Only a different edit (including invalid text) invalidates results.
+                if (args.Property == NumericUpDown.TextProperty && !TextRepresentsCurrentValue(number)) ParametersChanged();
+            };
         }
-        foreach (var input in new[] { _name, _glasses, _catalogs, _initialGlass })
+        foreach (var input in new[] { _name, _glasses, _catalogs, _initialGlass, _signFilter })
             input.PropertyChanged += (_, args) => { if (args.Property == TextBox.TextProperty) ParametersChanged(); };
         _apertureMode.SelectionChanged += (_, _) => ParametersChanged();
         _fixedBack.IsCheckedChanged += (_, _) => ParametersChanged();
+        _automaticDiameters.IsCheckedChanged += (_, _) => ParametersChanged();
+        _freeStop.IsCheckedChanged += (_, _) => ParametersChanged();
+        _searchMode.SelectionChanged += (_, _) => ParametersChanged();
         Closing += (_, args) =>
         {
             if (_allowClose || !_busy) return;
@@ -117,7 +125,7 @@ public sealed partial class MainWindow
         _refineButton.IsEnabled = _exportButton.IsEnabled = _compareAButton.IsEnabled = _compareBButton.IsEnabled = !_busy && selected;
         _clearComparisonButton.IsEnabled = !_busy && (_comparisonA is not null || _comparisonB is not null);
     }
-    private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => checkpoint.UsableGlassNames.Count > 0
+    private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
         && checkpoint.ChargedEvaluations < checkpoint.Specification.Budget.MaximumEvaluations
         && checkpoint.ElapsedComputeTicks < checkpoint.Specification.Budget.TimeLimit.Ticks && checkpoint.Trials.Count < 256;
 
@@ -127,8 +135,9 @@ public sealed partial class MainWindow
         SpecificationValidator.Validate(spec);
         _status.Text = "正在检查设计目标和目录玻璃…";
         var result = await Task.Run(() => FlatStartSearchService.Preflight(spec, options));
+        ShowSearchPlan(spec, options);
         MaterialMessages(options, result.UsableGlassNames, result.Diagnostics);
-        _status.Text = result.UsableGlassNames.Count == 0 ? "没有可用的目录玻璃，请调整材料或波长。" : "预检查通过，可以从平板开始生成。";
+        _status.Text = result.UsableGlassNames.Count == 0 ? "没有可用的目录玻璃，请调整材料或波长。" : "预检查通过；搜索计划与过程页可查看形式覆盖范围。";
     }
     private async Task StartNewAsync()
     {
@@ -205,6 +214,28 @@ public sealed partial class MainWindow
     {
         if (_closed || generation != _runGeneration) return;
         _current = checkpoint; _hasLastRun = true;
+        if (checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.Origin is null)
+            ShowSearchPlan(checkpoint.Specification, checkpoint.Options, checkpoint);
+        else _searchPlan.Text = checkpoint.Origin is null ? $"历史 v{checkpoint.Algorithm.Version} 记录；可查看、导出或另建细化任务。" : "选中方案使用独立追加预算继续优化，继承原始搜索形式。";
+        _searchHistory.ItemsSource = checkpoint.Trials.Select(trial => new SearchHistoryRow(trial.TrialId,
+            trial.Family.BinaryStart?.Signs ?? "—", trial.Operation switch
+            {
+                "flat-root" => "起始形式搜索",
+                "flat-root-retry" => "重新起步",
+                "refine" => "候选优化",
+                "refine-selected" => "追加优化",
+                "glass-swap" => "更换单片玻璃",
+                "glass-pair-swap" => "更换双片玻璃",
+                "stop-surface-change" => "调整光阑",
+                "parameter-perturbation" => "扰动后优化",
+                _ => trial.Operation
+            }, trial.State switch
+            {
+                FamilyTrialState.Completed => "完成",
+                FamilyTrialState.Failed => "失败",
+                FamilyTrialState.Interrupted => "中断",
+                _ => "进行中"
+            }, trial.ChargedEvaluations));
         var selectedId = (_candidateGrid.SelectedItem as CandidateRow)?.Candidate.CandidateId;
         var candidates = FlatStartSearchService.SelectCandidates(checkpoint);
         if (!_rows.Select(row => row.Candidate.CandidateId).SequenceEqual(candidates.Select(candidate => candidate.CandidateId)))
@@ -226,7 +257,7 @@ public sealed partial class MainWindow
         if (_running)
         {
             _status.Text = _runCancellation?.IsCancellationRequested == true ? "正在结束当前批次并保存…"
-                : checkpoint.NextRootIndex < checkpoint.RootPlan.Count ? $"正在探索平板结构 {checkpoint.NextRootIndex}/{checkpoint.RootPlan.Count}，已找到 {accepted} 个达标方案。"
+                : checkpoint.NextRootIndex < checkpoint.RootPlan.Count ? $"正在搜索初始形式 {checkpoint.NextRootIndex}/{checkpoint.RootPlan.Count}，已找到 {accepted} 个达标方案。"
                 : $"正在细化方案，已完成 {checkpoint.Trials.Count(trial => trial.State == FamilyTrialState.Completed)} 轮；已找到 {accepted} 个达标方案。";
         }
         MaterialMessages(checkpoint.Options, checkpoint.UsableGlassNames, checkpoint.Diagnostics);
@@ -239,6 +270,19 @@ public sealed partial class MainWindow
         var excluded = options.AllowedGlassNames.Except(usable, StringComparer.OrdinalIgnoreCase).ToArray();
         _messages.Text = excluded.Length == 0 ? "" : $"未采用的玻璃：{string.Join("、", excluded)}。可能缺少材料、超出波长范围或与已选目录项重复；其余可用材料继续搜索。";
         if (diagnostics.Any(diagnostic => diagnostic.Code == "search.incomplete-coverage")) _messages.Text += "\n当前预算或结构数量不足以覆盖全部初始家族。";
+        if (diagnostics.Any(diagnostic => diagnostic.Code == "search.binary-coverage")) _messages.Text += "\n正负形式尚未覆盖完整；可增加起始试验上限与评价预算后创建新搜索。";
+    }
+
+    private void ShowSearchPlan(InitialStructureSpecification spec, FlatStartSearchOptions options, FlatStartSearchCheckpoint? checkpoint = null)
+    {
+        var plan = DesignFormSearch.Preview(spec, options, checkpoint?.Algorithm.Version ?? FlatStartAlgorithm.Version);
+        var completed = checkpoint is null ? 0 : DesignFormSearch.CompletedSignForms(checkpoint);
+        _searchPlan.Text = $"{plan.Mode.ToString().ToUpperInvariant()} · 允许 {plan.DistinctSignForms} 种正负起始形式，计划覆盖 {plan.PlannedSignForms} 种，已完成 {completed} 种。\n"
+            + $"{plan.PlannedRoots} 个起始试验，每个至多 {plan.ScreeningEvaluationsPerRoot} 次评价。\n"
+            + (plan.NeighborhoodEvaluationsReserved > 0
+                ? $"至少 {plan.NeighborhoodEvaluationsReserved} 次评价留给后续优化；细化、换玻璃、移动光阑与扰动按可用类型轮转。\n"
+                : "候选按分支轮流继续优化。\n")
+            + "全部候选均按原始视场、孔径和波长独立密采样验收；快速筛选不改变验收标准。";
     }
 
     private void ClearResults()
@@ -249,6 +293,8 @@ public sealed partial class MainWindow
         _preview.Clear();
         _targetGrid.ItemsSource = _prescriptionGrid.ItemsSource = _fieldGrid.ItemsSource = null;
         _selectionDetails.Text = _messages.Text = "";
+        _searchHistory.ItemsSource = null;
+        _searchPlan.Text = "预检查可查看正负形式覆盖范围和每个起始试验的预算。";
         _summary.Text = "尚未生成方案。"; _progress.Value = 0;
         _comparisonDetails.Text = "A 为蓝色，B 为橙色；共用毫米比例。";
         UpdateCommands();
@@ -330,3 +376,5 @@ public sealed partial class MainWindow
             : $"{primary?.Name ?? "未选择方案"} · 蓝色为当前或 A；可设置 B 比较。";
     }
 }
+
+internal sealed record SearchHistoryRow(string Trial, string Form, string Operation, string State, int Evaluations);

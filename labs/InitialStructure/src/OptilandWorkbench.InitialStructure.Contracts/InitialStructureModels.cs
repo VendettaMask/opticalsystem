@@ -142,6 +142,10 @@ public sealed record ConstraintViolation(
 
 public sealed record EvaluationVector
 {
+    // Omitted for historical checkpoints to preserve their canonical checksums.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public FlatStartObjectiveValue? FlatStartObjective { get; init; }
+
     public double? EffectiveFocalLengthMillimeters { get; init; }
 
     public double? FNumber { get; init; }
@@ -159,6 +163,9 @@ public sealed record EvaluationVector
 
 public sealed record CandidateLineage
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string? InitialForm { get; init; }
+
     public string RootFingerprint { get; init; } = string.Empty;
 
     public string? ParentCandidateId { get; init; }

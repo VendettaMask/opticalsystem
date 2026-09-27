@@ -18,8 +18,35 @@ public sealed class FlatStartBootstrap
         var count = 0;
         var vector = problem.InitialVector();
         var evaluation = Evaluate(vector);
-        var steps = new List<FlatStartStep> { new(count, "exact-flat-root", problem.Root, evaluation) };
+        var steps = new List<FlatStartStep> { new(count, "exact-flat-root", evaluation.EvaluatedOptic!, evaluation) };
         var diagnostics = new List<SearchDiagnostic>();
+        if (family?.BinaryStart is { } start && count < budget)
+        {
+            // Prescribed starting radii explore a binary direction from the recorded flat root.
+            // They are initial parameters, never an approximation of element power or performance.
+            for (var element = 0; element < elementCount; element++)
+            {
+                var curvature = (start.Signs[element] == '+' ? 1 : -1)
+                    * specification.EffectiveFocalLengthMillimeters / start.RadiusMillimeters;
+                vector[2 * element] = problem.Bound(2 * element, curvature);
+                vector[2 * element + 1] = problem.Bound(2 * element + 1, -curvature);
+            }
+            evaluation = Evaluate(vector);
+            steps.Add(new(count, "binary-form-initialization", evaluation.EvaluatedOptic!, evaluation));
+            diagnostics.Add(new("bootstrap.binary-form", $"Initial curvature directions {start.Signs}; requested radius {start.RadiusMillimeters:R} mm. The bounded applied radii are recorded in this step. Signs are released during optimization."));
+            return new()
+            {
+                Algorithm = new("binary-form-initialization", "1", "Managed CPU", true),
+                Specification = specification,
+                SpecificationFingerprint = ContentFingerprint.Compute(specification),
+                State = FlatStartBootstrapState.Initialized,
+                EntrancePupilFraction = EntrancePupilFraction,
+                EvaluationCount = count,
+                TracedRayCount = problem.TracedRayCount,
+                Steps = steps,
+                Diagnostics = diagnostics
+            };
+        }
         var damping = 1e-3;
         var stalled = 0;
         var state = FlatStartBootstrapState.BudgetExhausted;
@@ -74,7 +101,7 @@ public sealed class FlatStartBootstrap
                 damping = Math.Max(1e-9, damping / 3);
                 stalled = 0;
                 steps.Add(new(count, steps.Count == 1 ? "first-curvature-update" : "residual-vector-step",
-                    problem.CreateOptic(vector).ToSnapshot(), evaluation));
+                    evaluation.EvaluatedOptic!, evaluation));
             }
             else
             {
@@ -90,7 +117,7 @@ public sealed class FlatStartBootstrap
         if (count < budget)
         {
             var dense = Evaluate(vector, dense: true);
-            steps.Add(new(count, "independent-dense-startup-validation", problem.CreateOptic(vector).ToSnapshot(), dense));
+            steps.Add(new(count, "independent-dense-startup-validation", dense.EvaluatedOptic!, dense));
             if (problem.IsFocused(dense)) state = FlatStartBootstrapState.Focused;
         }
         diagnostics.Add(new("bootstrap.scope", "Axial primary-wavelength startup at 30% target pupil; full-field and full-aperture acceptance have not been performed."));

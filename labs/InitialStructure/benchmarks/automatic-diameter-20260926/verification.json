@@ -1,0 +1,284 @@
+{
+  "date": "2026-09-26",
+  "algorithmVersion": 11,
+  "fullRegression": {
+    "formal": {
+      "passed": 1309,
+      "failed": 0,
+      "skipped": 0
+    },
+    "comparisonTool": {
+      "passed": 104,
+      "failed": 0,
+      "skipped": 0
+    },
+    "laboratory": {
+      "passed": 200,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "testReports": [
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/comparison-full.trx",
+      "sha256": "19a3f8750741ff648ed17e043acf484881ca3b72ad9f8c57ef157bc57841d93c",
+      "outcome": "Completed",
+      "counters": {
+        "total": 104,
+        "executed": 104,
+        "passed": 104,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "full regression"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/core-envelope-final.trx",
+      "sha256": "7b925ce85aeb6745c06355ebd803c8321d05d9eef67a53cb50db05042bec32c2",
+      "outcome": "Completed",
+      "counters": {
+        "total": 5,
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "overlapping focused subset"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/core-envelope.trx",
+      "sha256": "bcb00a1a3da4ef6dcb3958b699a0fbe8cc500d61281603cf4515420e779655f7",
+      "outcome": "Failed",
+      "counters": {
+        "total": 5,
+        "executed": 5,
+        "passed": 4,
+        "failed": 1,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "superseded fixture setup failure, retained for audit"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/formal-full.trx",
+      "sha256": "e9ff2db4762afe7c9c3090e19d9fa44ab966023b7e662877fb3ddb2ae24659a4",
+      "outcome": "Completed",
+      "counters": {
+        "total": 1309,
+        "executed": 1309,
+        "passed": 1309,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "full regression"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/lab-envelope-ui.trx",
+      "sha256": "a4a4228fffd943460f9041a579ef9e42ecfba8190221f7b614e1e992e0cb3ace",
+      "outcome": "Completed",
+      "counters": {
+        "total": 5,
+        "executed": 5,
+        "passed": 5,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "overlapping focused subset"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/lab-envelope.trx",
+      "sha256": "3444ce0d580213482cd9dd359e17c03af23fbea5400c84e5560c6cb96aaef2ab",
+      "outcome": "Completed",
+      "counters": {
+        "total": 16,
+        "executed": 16,
+        "passed": 16,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "overlapping focused subset"
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/lab-full.trx",
+      "sha256": "413a4699023794a88f4275f7d04a010d0493bb7631e67486dcaf3cdaa00cd9e0",
+      "outcome": "Completed",
+      "counters": {
+        "total": 200,
+        "executed": 200,
+        "passed": 200,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "role": "full regression"
+    }
+  ],
+  "builds": [
+    {
+      "solution": "OptilandWorkbench.slnx",
+      "configuration": "Debug",
+      "defaultOutput": true,
+      "warnings": 0,
+      "errors": 0,
+      "evidence": "Observed successful dotnet build tool result; logs were not saved separately."
+    },
+    {
+      "solution": "OptilandWorkbench.slnx",
+      "configuration": "Release",
+      "defaultOutput": true,
+      "warnings": 0,
+      "errors": 0,
+      "evidence": "Observed successful dotnet build tool result; logs were not saved separately."
+    },
+    {
+      "solution": "labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx",
+      "configuration": "Debug",
+      "defaultOutput": true,
+      "warnings": 0,
+      "errors": 0,
+      "evidence": "Observed successful dotnet build tool result; logs were not saved separately."
+    },
+    {
+      "solution": "labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx",
+      "configuration": "Release",
+      "defaultOutput": true,
+      "warnings": 0,
+      "errors": 0,
+      "evidence": "Observed successful dotnet build tool result; logs were not saved separately."
+    }
+  ],
+  "formatVerification": {
+    "command": "dotnet format <solution> whitespace --no-restore --verify-no-changes --verbosity minimal",
+    "solutions": [
+      "OptilandWorkbench.slnx",
+      "labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx"
+    ],
+    "exitCodes": [
+      0,
+      0
+    ]
+  },
+  "sourceFreeze": {
+    "path": "labs/InitialStructure/benchmarks/automatic-diameter-20260926/source-freeze.json",
+    "sha256": "32bf07f1d1747c83011c74014d416220763e4a070ac7f199c856362be1e03b8a"
+  },
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "3eb6d1af3b54502a2ee13ef60d03a5344ed6b94d535c5f49376353dcb9647b15"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "6f326d44482128b0f11c34fed475dd3c688776c46cab4853e95c9276353b5912"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "9a70fcad8b9019030d30e891d7205c8486300adae9d5ece04ea6aed8f4db0380"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "bac6ba37162e104350367aa622f5277da48287d4091828c4cc5226105e8a4ebd"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "c6165b5e2d3eb2bcc0cd064cf53f9012fb049b47ab6ce7230ce2acdf277d6b6d"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "9b409084ff72bceed80d441f2aa863f254c242c29f3915dfd39a357898d5647e"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "62bef90229ed5db9934b0421da4ec8f8f9a8c1f5278e78ae43dd7efe724d4f7e"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "98802e72f799b95cfe11db98debff8343417a69d7493ce620fc996402c776f51"
+    }
+  ],
+  "nativeSmoke": {
+    "path": "labs/InitialStructure/benchmarks/automatic-diameter-20260926/native-smoke.json",
+    "sha256": "a02b6457da8e8ba83d6df643bbbb9b3fdd7a90b1a20e16273ea8c580896d1032"
+  },
+  "limitations": [
+    "No new Zemax/OpticStudio numerical comparison or screenshot certification.",
+    "Sampled envelope plus explicit margin; no guarantee between samples.",
+    "No complete v11 60+15 search acceptance; frozen protocols remain fixed-diameter specifications.",
+    "Initial core-envelope.trx had one fixture error (multiple primary wavelengths); fixture corrected, all final focused and full runs passed."
+  ]
+}

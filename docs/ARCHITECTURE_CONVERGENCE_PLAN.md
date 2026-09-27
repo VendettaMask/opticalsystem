@@ -1,6 +1,6 @@
 # 旧、新架构收敛与单一结果链路修正计划
 
-2026-09-07 当前工程验证：正式完整主测试 1289 通过、5 失败（共 1294），工具测试 104/104 通过，均无跳过。5 项失败已在本轮修改前的 Core 二进制上复现相同数值，当前不能宣称完整测试全通过；详细证据及 P5 状态见 [孔径诊断修复记录](INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)。下文 2026-09-06 的测试数和精度结论是该阶段历史记录。
+2026-09-27 当前工程验证：v15 在完整光线数据可用时联合优化几何约束与像质，并修正不完整追迹的像质显示。实验室完整 Release 回归 **242/242**，默认 Debug/Release 构建零警告、零错误，格式及差异检查通过。本轮正式 Core 源码及默认 Debug/Release 二进制未变；工作区正式主程序另有并行界面改动，不在本轮验证范围。正式 **1311/1311**、比较工具 **104/104** 仅引用已有完整记录，本轮未重跑。方法、对照、被撤回方案与剩余问题见 [阶段审查记录](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)。下文更早测试数和精度结论保留历史范围。
 
 ## 文档状态
 
@@ -23,7 +23,7 @@
 | `OpticalSurface` 单一状态 | 部分完成 | Geometry、Coating、Interaction 的兼容属性与规范组件即时同步；表面替换/重编号不再重建组件；`RealRay` 与 `RayState` 共用唯一表面追迹流程；材料名称到目录对象的解析仍需由领域服务完成 |
 | Legacy 生产依赖退场 | 已完成 | Application Services 对 `Application.Legacy` 的引用已清零；架构测试禁止恢复 Legacy 命名空间、`Connector` 访问器或 `OpticalWorkspaceModel` 词汇 |
 | 分析结果来源诊断 | 已完成 | Application 先合并和规范化设置，再执行并生成指纹；来源对象为必填项 |
-| 当前验证记录 | 持续维护 | 2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。该阶段证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。详见 [移除审计与验证](PYTHON_OPTILAND_REMOVAL.md)。 |
+| 2026-09-06 历史验证 | 当前基线见页首 | 2026-09-06 Huygens MTF 后处理修复后的正式解决方案 Release 默认输出构建 `0` 警告、`0` 错误，完整主测试 `1233/1233`、工具测试 `104/104`，合计 `1337` 项通过，零失败、零跳过；锁定依赖从本地缓存还原，格式检查和 git diff --check 通过。MS-L7 重新执行全部 72 项，结果为 44 Pass、6 Close、2 Difference、17 Incomparable、3 Skipped，0 执行错误；主基准独立复验三项 Huygens MTF 均 Pass。新增 14 项回归包含原生 PSF 后处理重建，不能代替全链条精度结论。视场 MTF 的一处分量由 Pass 变为 Close，局部退步及未解决误差监控预算已明确记录，正式数值容差不变。未执行在线漏洞审计、独立实验室、旧外部报告工具、GUI 截图或安装包实测。该阶段证据见 `ZEMAX_HUYGENS_REPAIR_2026-09-06.md`，以下更早的移除审计仅作历史记录。详见 [移除审计与验证](PYTHON_OPTILAND_REMOVAL.md)。 |
 | 单一分析描述符与执行器 | 已完成主链收敛 | `WorkbenchAnalysisCatalog` 统一规范键、显示名、别名、展示类型和 Ribbon 元数据；`AnalysisService` 与快照 worker 均执行同一 `WorkbenchRuntime` |
 | 工作区状态与领域服务迁移 | 已完成运行时收敛 | `OpticContext`、`WorkspaceCoordinator` 和各领域服务统一持有 `WorkbenchRuntime`；原 `OpticalWorkspaceModel` 类型及分部文件名已退出 |
 | 兼容层隔离与旧链路删除 | 已完成删除 | 空壳连接器、Compatibility 项目和引用均已删除；生产行为测试直接使用 WorkbenchRuntime |

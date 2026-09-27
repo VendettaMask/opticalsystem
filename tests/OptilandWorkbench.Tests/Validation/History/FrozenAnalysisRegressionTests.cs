@@ -621,7 +621,7 @@ public sealed class FrozenAnalysisRegressionTests
         }
 
         AssertClose(expected.GetProperty("max_frequency").GetDouble(), data.PlotOptions!.XMaximum!.Value);
-        Assert.Equal(0, data.PlotOptions.YMinimum);
+        Assert.Equal(0, data.PlotOptions!.YMinimum);
         Assert.Equal(1, data.PlotOptions.YMaximum);
         Assert.True(data.PlotOptions.ShowLegend);
         Assert.Equal("Geometric", data.Values["Method"]);
@@ -1090,7 +1090,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void FftMtfRetainsFrozenReferenceFrequencyGridWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
+    public void FftMtfRetainsFrozenReferenceModulationSamplesWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_mtf");
@@ -1098,10 +1098,12 @@ public sealed class FrozenAnalysisRegressionTests
         var wavelength = optic.Wavelengths.First(item => item.IsPrimary);
         var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wavelength, 16, 32);
         var actual = DiffractionEngine.ComputeFftMtf(psf, optic, wavelength);
-        AssertClose(expected.GetProperty("cutoff").GetDouble(), actual.CutoffFrequency);
+        // The frozen axes used an on-axis F/# for this off-axis PSF. They are
+        // historical evidence, not a physical frequency contract. Retain the
+        // unchanged modulation samples; physical axes are tested independently.
+        Assert.Equal(expected.GetProperty("tangential").GetArrayLength(), actual.Tangential.Count);
         for (var index = 0; index < actual.Frequency.Count; index++)
         {
-            AssertClose(expected.GetProperty("frequency")[index].GetDouble(), actual.Frequency[index]);
             AssertMtfClose(expected.GetProperty("tangential")[index].GetDouble(), actual.Tangential[index]);
             AssertMtfClose(expected.GetProperty("sagittal")[index].GetDouble(), actual.Sagittal[index]);
         }
@@ -1315,7 +1317,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void MtfAnalysisUsesFftSeriesContractWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
+    public void MtfAnalysisRetainsFrozenReferenceModulationWithPowerAmplitude(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("fft_mtf");
@@ -1328,13 +1330,13 @@ public sealed class FrozenAnalysisRegressionTests
         Assert.Equal(tangential.ColorIndex, sagittal.ColorIndex);
         for (var index = 0; index < tangential.Points.Count; index++)
         {
-            AssertClose(expected.GetProperty("frequency")[index].GetDouble(), tangential.Points[index].X);
             AssertMtfClose(expected.GetProperty("tangential")[index].GetDouble(), tangential.Points[index].Y);
             AssertMtfClose(expected.GetProperty("sagittal")[index].GetDouble(), sagittal.Points[index].Y);
         }
 
-        AssertClose(expected.GetProperty("cutoff").GetDouble(), data.PlotOptions!.XMaximum!.Value);
-        Assert.Equal(0, data.PlotOptions.YMinimum);
+        // The current physical frequency axis is covered by the independent
+        // PSF sampling tests, rather than the frozen on-axis scale above.
+        Assert.Equal(0, data.PlotOptions!.YMinimum);
         Assert.Equal(1, data.PlotOptions.YMaximum);
     }
 

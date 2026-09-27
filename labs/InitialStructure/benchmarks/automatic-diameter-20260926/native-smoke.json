@@ -1,0 +1,115 @@
+{
+  "date": "2026-09-26",
+  "platform": "macOS ARM64",
+  "mode": "Native Avalonia accessibility observation plus saved checkpoint inspection",
+  "runId": "flat-search-36776859f712487ab1aec134ce3593fe",
+  "algorithm": {
+    "name": "strict-flat-family-search",
+    "version": "11",
+    "numericBackend": "Managed CPU",
+    "deterministic": true
+  },
+  "state": "budgetExhausted",
+  "chargedEvaluations": 10000,
+  "tracedRealRayCount": 3673468,
+  "specification": {
+    "schemaVersion": 1,
+    "name": "定焦实验",
+    "conjugate": "infinite",
+    "effectiveFocalLengthMillimeters": 50,
+    "fNumber": 8,
+    "maximumFieldAngleDegrees": 5,
+    "wavelengths": [
+      {
+        "label": "d",
+        "nanometers": 587.6,
+        "weight": 1,
+        "isPrimary": true
+      }
+    ],
+    "minimumElementCount": 3,
+    "maximumElementCount": 3,
+    "maximumTrackLengthMillimeters": 100,
+    "minimumCenterThicknessMillimeters": 2,
+    "minimumAirGapMillimeters": 1,
+    "minimumBackFocusMillimeters": 5,
+    "semiDiameterMarginFactor": 1.25,
+    "maximumRmsSpotRadiusMillimeters": 0.05,
+    "maximumSpotRadiusMillimeters": 0.15,
+    "initialGlass": "N-BK7",
+    "glassCatalogs": [],
+    "budget": {
+      "initialSeedCount": 24,
+      "maximumEvaluations": 10000,
+      "maximumParallelism": 2,
+      "timeLimit": "00:10:00",
+      "randomSeed": 101
+    },
+    "flatStart": {
+      "automaticLensDiameters": true,
+      "fixedBackFocusMillimeters": null,
+      "minimumEdgeThicknessMillimeters": 0.5,
+      "effectiveFocalLengthRelativeTolerance": 0.02,
+      "fNumberRelativeTolerance": 0.05,
+      "minimumValidRayFraction": 0.98
+    }
+  },
+  "observedUI": {
+    "automaticDiametersInitiallyChecked": true,
+    "retainedCandidates": 10,
+    "retainedLabAcceptedCandidates": 10,
+    "layoutRayPaths": 21
+  },
+  "savedTrialCandidateStatuses": {
+    "traceValid": 30,
+    "labAccepted": 216
+  },
+  "trialCountsAreNotDistinctRetainedCandidates": true,
+  "checkpoint": {
+    "path": "artifacts/validation/auto-diameter-20260926/native-default.family.json",
+    "sha256": "746f21e4c54cd3f37655ea65a6c92b6c6d23be761b87b7cd10163e8be2e7bd5f",
+    "envelopeSha256": "b167e2e9645bcbc2ce919722e313ce86f81fef954d9fa13882e865449a075d17"
+  },
+  "example": {
+    "path": "labs/InitialStructure/benchmarks/automatic-diameter-20260926/native-example-candidate.json",
+    "sha256": "bdbba4220f9b70325b65fcb83765d6a1837f52453c370976b8f2dc1cb440c69f",
+    "selection": "Lowest dense objective among saved LabAccepted trial candidates; this is an evidence sample, not a reconstructed UI ranking.",
+    "candidateId": "trial-0215-4b971ca40994ee5a",
+    "opticFingerprint": "4b971ca40994ee5aa17efdcfa823d50c9ad21ccef8b859bd137710afff6a0d5e",
+    "physicalSurfaces": [
+      {
+        "surfaceIndex": 1,
+        "semiDiameterMillimeters": 4.439784861854141,
+        "mechanicalSemiDiameterMillimeters": 4.439784861854141
+      },
+      {
+        "surfaceIndex": 2,
+        "semiDiameterMillimeters": 4.439784861854141,
+        "mechanicalSemiDiameterMillimeters": 4.439784861854141
+      },
+      {
+        "surfaceIndex": 3,
+        "semiDiameterMillimeters": 4.948950529300223,
+        "mechanicalSemiDiameterMillimeters": 4.948950529300223
+      },
+      {
+        "surfaceIndex": 4,
+        "semiDiameterMillimeters": 4.948950529300223,
+        "mechanicalSemiDiameterMillimeters": 4.948950529300223
+      },
+      {
+        "surfaceIndex": 5,
+        "semiDiameterMillimeters": 6.420539275452296,
+        "mechanicalSemiDiameterMillimeters": 6.420539275452296
+      },
+      {
+        "surfaceIndex": 6,
+        "semiDiameterMillimeters": 6.420539275452296,
+        "mechanicalSemiDiameterMillimeters": 6.420539275452296
+      }
+    ]
+  },
+  "exportCheck": "Verified by automated desktop and engine tests, not by a native export click in this v11 smoke.",
+  "externalNumericalCertification": false,
+  "fullSearchAcceptanceProtocol": false
+}

@@ -1,15 +1,17 @@
 # 全仓库代码阅读地图
 
+初始结构实验室当前入口为 `FlatStartSearchService`（v15），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。见 [当前实现记录](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)。
+
 阅读日期：2026-09-04。对象为当前工作区，包含已有未提交修改。
 
 本文记录全仓库源文件索引、主要实现链路和容易混淆的边界，供后续开发定位使用。阅读方式为全部源文件枚举、类型和方法文本索引，以及关键实现与相关测试的交叉阅读。文件进入索引不等于该文件的每一行已经完成审计；本文也不构成全部数值算法正确性证明或新的测试通过基线。本轮没有运行构建、测试、外部基准捕获或 GUI 验证。
 
 ## 1. 工程边界
 
-- 正式产品：`OptilandWorkbench.slnx`，由 Core、Application、App、Compatibility、正式测试和离线工具组成。
+- 正式产品：`OptilandWorkbench.slnx`，由 Core、Application、App、正式测试和离线工具组成（2026-09-25 校正：Compatibility 项目已移除）。
 - 独立实验室：`labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx`，独立构建和验收，不在正式产品运行时中。
 - 桌面启动：`Program.Main → App → MainWindow → WorkbenchApplication.Create`。`MainWindow` 创建工作区、命令和服务，具体功能分布在 `Shell` 与 `Panels`。
-- 实际依赖方向：`App → Application → Core`；Compatibility 项目同时引用 Application 与 Core。生产 App/Application 不引用 Compatibility。契约不向 App 暴露 Core 类型。
+- 实际依赖方向：`App → Application → Core`；旧 Compatibility 项目已移除，实验室通过单向引用复用 Core。契约不向 App 暴露 Core 类型。
 - Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
 - 桌面 UI 大量使用 C# 构造控件和事件订阅。`ViewModels/EditorRows.cs` 主要是编辑行模型，不能把整个 App 理解成纯 XAML/MVVM 绑定架构。
 - Python 仅用于产品之外的 Zemax 捕获/报告、FreeCAD 验证和图标维护；Optiland 参考生成器已删除。正式产品无 Python 依赖。

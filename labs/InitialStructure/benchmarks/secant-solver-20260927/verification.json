@@ -1,0 +1,315 @@
+{
+  "date": "2026-09-27",
+  "algorithmVersion": 14,
+  "scope": "Internal formal-Core optical checks and laboratory engineering verification; no new external numerical certification.",
+  "testsRunThisTurn": [
+    {
+      "path": "artifacts/validation/secant-solver-20260927/final-focus.trx",
+      "sha256": "18bd26f6343796ebb49f6d0df8cbb3fa79348e870ba2f8fe664745051117b5a6",
+      "outcome": "Completed",
+      "counters": {
+        "total": "43",
+        "executed": "43",
+        "passed": "43",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/lab-full.trx",
+      "sha256": "8cb61e571cdf0bcc8fa378cdbb90466d77cbf733e56d01738751f0c320540011",
+      "outcome": "Completed",
+      "counters": {
+        "total": "234",
+        "executed": "234",
+        "passed": "234",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/optical-initial.trx",
+      "sha256": "2cd302a4dacad92dd93df485ced2b84bd506107aec6a99a1b0325080df5d1526",
+      "outcome": "Completed",
+      "counters": {
+        "total": "34",
+        "executed": "34",
+        "passed": "34",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/solver-initial.trx",
+      "sha256": "74db39f3472d559469787eb62004c0dd517984b83ac890c509bc6905da9efa6a",
+      "outcome": "Completed",
+      "counters": {
+        "total": "53",
+        "executed": "53",
+        "passed": "53",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "unchangedFormalTestsReused": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/formal-full-recheck.trx",
+      "sha256": "3b3bd30e980d6e2fd75df4b4e2c8e40f1e4496e24c83ba9583bfbcdfc172d60b",
+      "outcome": "Completed",
+      "counters": {
+        "total": "1311",
+        "executed": "1311",
+        "passed": "1311",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T23:39:25.9349390+08:00",
+        "queuing": "2026-09-26T23:39:25.9349390+08:00",
+        "start": "2026-09-26T23:39:25.2724880+08:00",
+        "finish": "2026-09-27T00:41:35.7008590+08:00"
+      }
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/comparison-full.trx",
+      "sha256": "3f1df35cd646a59eaf8d59dd4b34761b14b13e893e9f48eee8890bf01c08307f",
+      "outcome": "Completed",
+      "counters": {
+        "total": "104",
+        "executed": "104",
+        "passed": "104",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-09-26T21:43:42.3915040+08:00",
+        "queuing": "2026-09-26T21:43:42.3915040+08:00",
+        "start": "2026-09-26T21:43:41.5443340+08:00",
+        "finish": "2026-09-26T21:44:25.2840800+08:00"
+      }
+    }
+  ],
+  "defaultBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "cd53db623fb117589eb922d0d7b2a7ccd88bbacfd6ff294107fbfb3e36c97745"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "5e83fc6aa4b76c649bd4d62f84389e7adb1533536ef640afb663d1d18be253cb"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "e9ad205e599eaad5872e0fa1c2cc7749e9d45e93034083e80ae3b138857094ad"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Debug/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "e7f53ddf183375e36dafd8bc9f44d1dcb27d6169ab1374c24adf8b2ce73b065a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "e97bbb997b5dc239158353111f9b380c1ce89614a7d2109aa31d43885dd5b258"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/bin/Release/net10.0/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "93c3f81c4f4fb9f0a77c6197455423c93ecd4f9e619ceaf0efb3c25b29f10bf6"
+    },
+    {
+      "path": "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/bin/Release/net10.0/OptilandWorkbench.InitialStructure.App.dll",
+      "sha256": "1fed55b04fa82c92bb1e6b7bd3ac1bb98596f3e701f0fbb0515682c760b98837"
+    }
+  ],
+  "buildLogsThisTurn": [
+    {
+      "path": "artifacts/validation/secant-solver-20260927/lab-debug-build.log",
+      "sha256": "43e7d61e2184700ebce3eab0cc06f9754f55be19d441fdb10c0c874157fb413c"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/lab-release-build.log",
+      "sha256": "0b0aa00dbca62defbc123d88daafd6de52be543f33f4082fe63988c602395480"
+    }
+  ],
+  "formatLogs": [
+    {
+      "path": "artifacts/validation/secant-solver-20260927/lab-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/runner-format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "input": {
+    "path": "labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json",
+    "sha256": "e19c857f7f069ebccdbf548906cadc3a7bd45cd0a92b72cc264774edf1da7467"
+  },
+  "evidence": [
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/comparison.json",
+      "sha256": "c21700d7ae8fb396e3fa8f032e35f35961b8999afa36bd2f525b5059689a76cc"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/local-ablation.json",
+      "sha256": "04213f33446acb39bef2098d2e61a4ad2b2bdc4aeb1cc11bc379604057ffd26e"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/search-recalculation.json",
+      "sha256": "504a760b85fb9c091658aab8c8403b4787ad5a8da3001304be99ebc3d16071d6"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/search-summary.json",
+      "sha256": "edc3950ebc5e20b8ad4e4afc4ec2dd6698623652dabc6928dfdab6c53d9c5174"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/source-freeze.json",
+      "sha256": "03b02035ecb9b38b7fe2d788df48d9586117de92c9863f9a58865520d0a9023b"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/wide-50000-recalculation.json",
+      "sha256": "89f0768bc13eb3d4b965fff2752620cd9395c1ffdb27f27a66e3ced7361c74af"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/wide-50000-summary.json",
+      "sha256": "cdb1f072eb44e398550747a3920dd7662bbf5c191ab4a7e085db0e84b2020c7c"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/wide-diagnostics.json",
+      "sha256": "db516a317a1d49c3907ccdc59147c18fc22946b7f933e9de0c07296b400e446f"
+    }
+  ],
+  "benchmarkSources": [
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/Program.cs",
+      "sha256": "149232f2da76139538e51b135488a9dca972699b920cbd7de1fa91ab9fe9db1a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SearchVerification.cs",
+      "sha256": "c5109a203b21d90702ba977e86e77e22622ff1d6d499c0e400da0b59c63f010a"
+    },
+    {
+      "path": "labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SecantSolver.csproj",
+      "sha256": "c832a7043018c52f3850ae66c5f49b080ddbd860f9d66b7bc0dfad93e42dfe35"
+    }
+  ],
+  "fullSearchFiles": [
+    {
+      "path": "artifacts/validation/secant-solver-20260927/searches/f2.8.family.json",
+      "sha256": "1c3906b12677f22fd263610aeb0fb263a0853c91e08ffbb9852b058a83e8f22f"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/searches/f8.family.json",
+      "sha256": "d1b3fd575c2d67fcc3759faa3ef7db8d3c1c341279494c1a677d6da607ea0322"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/wide-50000/f2.8.family.json",
+      "sha256": "6daac346666ee80e39ef2418973fc837750edcdba8e3ef5f49ccfdd22683631c"
+    }
+  ],
+  "frozenV13Binaries": [
+    {
+      "path": "artifacts/validation/secant-solver-20260927/frozen-v13/OptilandWorkbench.Core.dll",
+      "sha256": "55d555f0a2c36111ef2cd0632e207bceae286ee41bf2e74e562f34ee69573b89"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/frozen-v13/OptilandWorkbench.InitialStructure.Contracts.dll",
+      "sha256": "4fa75ee15af954e4cff139995109f2aa51fb99833fb88674e44758eac3042d8f"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/frozen-v13/OptilandWorkbench.InitialStructure.Engine.dll",
+      "sha256": "b8b676c3072d5042e797d4417803ae7d938afbf5069d0c7af93ccf3fc0c260cc"
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/frozen-v13/OptilandWorkbench.InitialStructure.Persistence.dll",
+      "sha256": "9f2939005eeeff879ac2c31aa005d39ce23dfbfc1bab451047fe2958afb1f99a"
+    }
+  ],
+  "changedV13Sources": [
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartCheckpointValidation.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/FlatStartSearchModels.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignService.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartSearchService.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs",
+    "labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/LeastSquaresModels.cs",
+    "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/FlatStartFullTargetRefinementTests.cs",
+    "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/NeighborhoodBudgetTests.cs"
+  ],
+  "notes": [
+    "The zero-update local ablation reproduces all 12 prior optical snapshots exactly. The generic method was tested before area-policy integration; the final runtime optical regression and full searches use the same guarded update method.",
+    "Full laboratory tests: 234. Focused filters overlap; do not add them to the total.",
+    "Formal 1311 and comparison 104 are reused, not rerun. Core/App default binary hashes and formal source hashes are unchanged.",
+    "Three searches: two equal-budget 10000 cases, one separate 50000 wide-field diagnostic. No v14 60+15 protocol has been completed.",
+    "All 30 retained records freshly recalculate and export identically. The independent denser grid preserves accepted decisions, but one failing wide-field record has a 1.077 micrometer RMS increase."
+  ]
+}

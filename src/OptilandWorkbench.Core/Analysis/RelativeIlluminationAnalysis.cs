@@ -152,6 +152,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             aimAtStop: true);
         var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single()
             ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
+        if (chief.Vignetted || chief.Intensity <= 0 || chief.SurfaceNumber != imageSurface.Number)
+            throw new AnalysisDataUnavailableException(NameForError, "the chief ray does not reach the image surface");
         var chiefDirection = Normalize(imageSurface.CoordinateSystem.ToLocalDirection(chief.Direction));
         var tangentX = TangentX(chiefDirection);
         var tangentY = Normalize(Cross(chiefDirection, tangentX));
@@ -185,6 +187,32 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         for (var index = 0; index < traced.Count; index++)
         {
             var sample = traced[index];
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0 || sample.SurfaceNumber != imageSurface.Number)
+            {
+                // A clipped rim ray does not remove the entire angular sector. Locate
+                // the transmitted boundary from the chief ray, retaining real apertures
+                // in every trace. This also resolves finite stop-aiming residuals at a
+                // grazing boundary without enlarging the stop or accepting a lost ray.
+                var inside = 0.0;
+                var outside = 1.0;
+                sample = chief;
+                for (var iteration = 0; iteration < 32; iteration++)
+                {
+                    ComputationCancellation.ThrowIfCancellationRequested();
+                    var radius = (inside + outside) / 2;
+                    var probeBundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                        normalizedField.Hx, normalizedField.Hy, wavelengthMicrometers,
+                        [new PupilSample(samples[index].X * radius, samples[index].Y * radius, 1)],
+                        aimAtStop: true);
+                    var probe = optic.SequentialRayTracer.TraceFinalSamples(probeBundle).Single();
+                    if (probe is { Vignetted: false, Intensity: > 0 } && probe.SurfaceNumber == imageSurface.Number)
+                    {
+                        inside = radius;
+                        sample = probe;
+                    }
+                    else outside = radius;
+                }
+            }
             if (sample is null
                 || sample.SurfaceNumber != imageSurface.Number
                 || sample.Vignetted
@@ -292,6 +320,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
     }
 
     private readonly record struct PupilNode(double L, double M, double Intensity);
+
+    private const string NameForError = "Relative Illumination";
 
     private readonly record struct IlluminationResult(
         double ProjectedCosineArea,

@@ -1,0 +1,2543 @@
+[
+  {
+    "Index": 1,
+    "Stage": {
+      "PupilFraction": 1,
+      "FieldFraction": 1,
+      "AllWavelengths": true
+    },
+    "EntryMerit": 22600.55569695813,
+    "FinalStageMerit": 13742.97841097102,
+    "Statistics": [
+      {
+        "Phase": "Geometry",
+        "EvaluationCount": 33,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 0,
+        "Termination": "StopRequested"
+      },
+      {
+        "Phase": "RealRay",
+        "EvaluationCount": 57,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 1,
+        "Termination": "EvaluationLimit"
+      }
+    ],
+    "FullTarget": {
+      "MeetsTargets": false,
+      "HasContinuousSearchResiduals": true,
+      "IsFeasible": false,
+      "Merit": 25889.39670425407,
+      "Rms": 3.437769715490518,
+      "Violations": [
+        {
+          "Code": "geometry.edge-thickness",
+          "Severity": "Hard",
+          "Message": "Geometry is outside the configured bound.",
+          "Actual": 0.21050309695108815,
+          "Limit": 0.5
+        },
+        {
+          "Code": "target.focal-length",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2507977083269952,
+          "Limit": 0.02
+        },
+        {
+          "Code": "target.f-number",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2507977083269952,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1992022753146596,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6743634859316903,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1931828951411263,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.690326056117248,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1750809825007043,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6843856415005876,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1447683535754751,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6566682400123331,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1020435612825779,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6131236482725402,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.0466574221102336,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.5565848698033156,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.6.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9783682402047432,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.4868152157244292,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.7.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8970629302047008,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.7.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.402984423632239,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.8.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8030344452358862,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.8.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.3057568374304553,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.9.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6976601394642703,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.9.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1934745369053914,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.10.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5851985242450635,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.10.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.066454995876277,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.11.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.47782838350326506,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.11.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9265515466888978,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.12.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.40782520014065216,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.12.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.7792230967821265,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.13.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.43198183795515005,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.13.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1504922168306493,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.14.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5755571997069726,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.14.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.7044285261998127,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.15.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.812790203359654,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.15.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.3557701267300253,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.16.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1245158709972145,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.16.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.1330481701070028,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.17.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.5114207926911805,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.17.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 4.083274486752821,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.18.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.9904559134432835,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.18.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 5.2935427430257675,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.19.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.6011963094220416,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.19.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 6.954028746879878,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.20.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.437769715490518,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.20.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 9.60431572692218,
+          "Limit": 0.15
+        }
+      ]
+    }
+  },
+  {
+    "Index": 9,
+    "Stage": {
+      "PupilFraction": 0.65,
+      "FieldFraction": 0.5,
+      "AllWavelengths": true
+    },
+    "EntryMerit": 20171.9122545667,
+    "FinalStageMerit": 12218.8195507952,
+    "Statistics": [
+      {
+        "Phase": "Geometry",
+        "EvaluationCount": 46,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 0,
+        "Termination": "StopRequested"
+      },
+      {
+        "Phase": "RealRay",
+        "EvaluationCount": 44,
+        "JacobianBuildCount": 0,
+        "SecantUpdateCount": 0,
+        "Termination": "EvaluationLimit"
+      }
+    ],
+    "FullTarget": {
+      "MeetsTargets": false,
+      "HasContinuousSearchResiduals": false,
+      "IsFeasible": false,
+      "Merit": 359278108.4177446,
+      "Rms": 1.379473874620971,
+      "Violations": [
+        {
+          "Code": "geometry.aperture-envelope-incomplete",
+          "Severity": "Hard",
+          "Message": "Automatic lens diameter needs complete real-ray propagation; no estimated size was applied.",
+          "Actual": 6669,
+          "Limit": 8085
+        },
+        {
+          "Code": "target.focal-length",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.116920472108822,
+          "Limit": 0.02
+        },
+        {
+          "Code": "target.f-number",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.1169204721088217,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 64,
+          "Limit": 0
+        },
+        {
+          "Code": "field.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.2710289059502426,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.4665075710457094,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.0.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.1.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 64,
+          "Limit": 0
+        },
+        {
+          "Code": "field.1.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.815625,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.379473874620971,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.095192659192861,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.815625,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.2.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.2.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.928125,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9359195765010734,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.928125,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.3.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.6.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.6.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.6.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.6.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.7.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.7.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.7.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.7.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.7.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.8.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.8.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.8.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.8.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.8.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.9.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.9.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.9.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.9.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.9.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.10.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.10.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.10.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.10.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.10.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.11.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.11.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.11.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.11.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.11.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.12.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.12.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.12.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.12.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.12.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.13.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.13.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.13.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.13.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.13.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.14.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.14.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.14.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.14.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.14.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.15.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.15.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.15.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.15.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.15.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.16.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.16.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.16.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.16.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.16.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.17.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.17.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.17.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.17.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.17.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.18.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.18.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.18.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.18.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.18.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.19.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.19.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.19.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.19.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.19.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.20.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.20.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.20.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.20.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.20.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        }
+      ]
+    }
+  },
+  {
+    "Index": 10,
+    "Stage": {
+      "PupilFraction": 1,
+      "FieldFraction": 1,
+      "AllWavelengths": true
+    },
+    "EntryMerit": 30794.92812663015,
+    "FinalStageMerit": 12882.11642190341,
+    "Statistics": [
+      {
+        "Phase": "Geometry",
+        "EvaluationCount": 44,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 0,
+        "Termination": "StopRequested"
+      },
+      {
+        "Phase": "RealRay",
+        "EvaluationCount": 46,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 2,
+        "Termination": "EvaluationLimit"
+      }
+    ],
+    "FullTarget": {
+      "MeetsTargets": false,
+      "HasContinuousSearchResiduals": true,
+      "IsFeasible": false,
+      "Merit": 34907.42876455217,
+      "Rms": 2.2933943900976845,
+      "Violations": [
+        {
+          "Code": "geometry.edge-thickness",
+          "Severity": "Hard",
+          "Message": "Geometry is outside the configured bound.",
+          "Actual": 0.07247431270511862,
+          "Limit": 0.5
+        },
+        {
+          "Code": "target.focal-length",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.46701113780964054,
+          "Limit": 0.02
+        },
+        {
+          "Code": "target.f-number",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.46701113780964054,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.2933943900976845,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.1294726773808224,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.2874130073399908,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.1833773210564753,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.2694140897297217,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.2132221505614122,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.23923611089998,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.219420391616823,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.196620135725394,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.2020335941543165,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.1412290212781153,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.1607808914294617,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.6.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.0726829432201983,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.098105626244991,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.7.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.9906226789810928,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.7.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.0221863704553344,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.8.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.8948201047003208,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.8.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.9326946215535585,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.9.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.7853683203226918,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.9.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.8296987332344266,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.10.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6630038622113676,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.10.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.7122236924182155,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.11.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.5296408368935748,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.11.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.579169691068536,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.12.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.3892202919812449,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.12.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.4308965793339556,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.13.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.248940791165733,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.13.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.2691286066782554,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.14.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1206372842315764,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.14.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.0931888401286627,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.15.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.0210458110659626,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.15.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.906112043477164,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.16.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9678740331130118,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.16.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.183049519339683,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.17.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9696664895172843,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.17.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.608566443843886,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.18.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.0167104266681335,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.18.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.9131789840872315,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.19.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.0842382466099438,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.19.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.057669468408717,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.20.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1456876624516723,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.20.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.03065000971098,
+          "Limit": 0.15
+        }
+      ]
+    }
+  },
+  {
+    "Index": 15,
+    "Stage": {
+      "PupilFraction": 0.65,
+      "FieldFraction": 0.5,
+      "AllWavelengths": true
+    },
+    "EntryMerit": 316.52630272936807,
+    "FinalStageMerit": 255.20359652331928,
+    "Statistics": [
+      {
+        "Phase": "Geometry",
+        "EvaluationCount": 45,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 0,
+        "Termination": "StopRequested"
+      },
+      {
+        "Phase": "RealRay",
+        "EvaluationCount": 45,
+        "JacobianBuildCount": 1,
+        "SecantUpdateCount": 0,
+        "Termination": "EvaluationLimit"
+      }
+    ],
+    "FullTarget": {
+      "MeetsTargets": false,
+      "HasContinuousSearchResiduals": false,
+      "IsFeasible": false,
+      "Merit": 227799295.61600873,
+      "Rms": 0.005737059270821996,
+      "Violations": [
+        {
+          "Code": "geometry.aperture-envelope-incomplete",
+          "Severity": "Hard",
+          "Message": "Automatic lens diameter needs complete real-ray propagation; no estimated size was applied.",
+          "Actual": 7248,
+          "Limit": 8085
+        },
+        {
+          "Code": "field.0.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 64,
+          "Limit": 0
+        },
+        {
+          "Code": "field.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.0.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.1.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 64,
+          "Limit": 0
+        },
+        {
+          "Code": "field.1.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.765625,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.1.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.765625,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.2.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 64,
+          "Limit": 0
+        },
+        {
+          "Code": "field.2.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.821875,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.2.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.821875,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.3.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.4.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.4.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.5.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.5.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.6.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.6.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.6.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.6.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.7.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.7.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.7.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.7.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.7.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.8.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.8.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.8.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.8.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.8.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.9.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.9.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.9.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.9.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.9.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.10.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.10.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.10.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.10.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.10.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.11.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.11.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.11.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.11.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.11.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.12.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.12.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.12.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.12.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.12.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.13.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.13.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.13.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.13.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.13.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.14.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.14.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.14.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.14.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.14.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.15.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.15.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.15.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.15.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.15.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.16.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.16.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.16.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.16.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.16.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.17.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.17.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.17.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.17.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.17.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.18.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.18.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.18.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.18.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.18.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.19.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.19.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.19.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.19.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.19.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.20.check-lost-rays",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 65,
+          "Limit": 0
+        },
+        {
+          "Code": "field.20.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field.20.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.20.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": null,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.20.wave.0.lost-fraction",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1,
+          "Limit": 0.020000000000000018
+        }
+      ]
+    }
+  },
+  {
+    "Index": 20,
+    "Stage": {
+      "PupilFraction": 1,
+      "FieldFraction": 1,
+      "AllWavelengths": true
+    },
+    "EntryMerit": 71121.4116010981,
+    "FinalStageMerit": 3359.713597378625,
+    "Statistics": [
+      {
+        "Phase": "Geometry",
+        "EvaluationCount": 75,
+        "JacobianBuildCount": 2,
+        "SecantUpdateCount": 0,
+        "Termination": "StopRequested"
+      },
+      {
+        "Phase": "RealRay",
+        "EvaluationCount": 15,
+        "JacobianBuildCount": 0,
+        "SecantUpdateCount": 0,
+        "Termination": "EvaluationLimit"
+      }
+    ],
+    "FullTarget": {
+      "MeetsTargets": false,
+      "HasContinuousSearchResiduals": true,
+      "IsFeasible": true,
+      "Merit": 7277.004696263574,
+      "Rms": 1.8481391726743446,
+      "Violations": [
+        {
+          "Code": "field.0.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15076580332227837,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.0.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17482375298336128,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.1.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1463259375231827,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.1.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.18241404915558057,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.2.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.13311293817860909,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.2.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.17767373784060814,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.3.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.11158077675162943,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.3.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.15855489639396048,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.4.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.08329953522344456,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.5.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05536227842656008,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.05716718081698316,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.6.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.2094124961316215,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.7.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.10277376366509754,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.7.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.32714719978608997,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.8.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.1689881568505396,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.8.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.46078656345951785,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.9.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.24794998328733003,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.9.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6104919815661418,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.10.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.33794197253008906,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.10.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.776434199828465,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.11.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.438516040764914,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.11.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9588052670901384,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.12.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.5495957767109859,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.12.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1578403121125618,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.13.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.6712651993985191,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.13.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.3738530555148003,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.14.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.8037129432985599,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.14.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6072890813472434,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.15.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 0.9472245284636596,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.15.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.8587990656622182,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.16.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.1021929153570955,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.16.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.1293269262020864,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.17.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.2691324687107584,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.17.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.420186240155541,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.18.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.4486763292180602,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.18.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 2.7330381539397095,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.19.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.6415119209780882,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.19.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.0695166705991,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field.20.rms",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 1.8481391726743446,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field.20.maximum-radius",
+          "Severity": "Hard",
+          "Message": "The requested design bound was not met.",
+          "Actual": 3.4297601401200453,
+          "Limit": 0.15
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "Date": "2026-09-26",
+  "Scope": "Diagnostic-only; no product behavior or acceptance changes. Not a new passing-test baseline.",
+  "AllRuntimeSourcesMatchFinalV8": true,
+  "RuntimeSourceCount": 210,
+  "DefaultCalculationBinariesMatchV8": true,
+  "Prior24AblationsExactlyReproducedAfterAddingDomainAblation": true,
+  "DiagnosticRows": 32,
+  "InitialOpticIdenticalWithinEachFourModeGroup": true,
+  "ResultsSha256": "86291f09e4297a8c060d92774a7bd07e17499389cadce26ea98d29b4f6b983ba",
+  "ProbeSourceSha256": {
+    "labs/InitialStructure/benchmarks/dsearch-route-audit-20260926/probe/Program.cs": "8b3e4cf7c37a6886344d9f7f39cc3c73d2612dc2d6ca76cb80104f5a02407883",
+    "labs/InitialStructure/benchmarks/dsearch-route-audit-20260926/probe/RouteAudit.csproj": "966e6948fd2688e0c889f034ee1c7d688ca0f006085f615c978b80fa4cc47c8d"
+  },
+  "Aggregate": {
+    "current-target-hinges": {
+      "Runs": 8,
+      "FullTargetSuccesses": 0,
+      "DerivativeUnavailable": 4,
+      "Evaluations": 4317,
+      "InvalidEvaluationsByCause": {
+        "throughput": 319
+      }
+    },
+    "joint-ray-norm": {
+      "Runs": 8,
+      "FullTargetSuccesses": 0,
+      "DerivativeUnavailable": 2,
+      "Evaluations": 4460,
+      "InvalidEvaluationsByCause": {
+        "throughput": 160,
+        "missing-continuous-ray-data": 1
+      }
+    },
+    "joint-ray-vector": {
+      "Runs": 8,
+      "FullTargetSuccesses": 0,
+      "DerivativeUnavailable": 2,
+      "Evaluations": 4464,
+      "InvalidEvaluationsByCause": {
+        "throughput": 179,
+        "missing-continuous-ray-data": 106
+      }
+    },
+    "joint-ray-vector-continuous": {
+      "Runs": 8,
+      "FullTargetSuccesses": 0,
+      "DerivativeUnavailable": 0,
+      "Evaluations": 4772,
+      "InvalidEvaluationsByCause": {}
+    }
+  },
+  "EngineeringBaselineUnchanged": {
+    "LabTests": 178,
+    "FormalTests": 1304,
+    "ToolTests": 104,
+    "FullSuitesRerun": false
+  },
+  "Interpretation": "Exploratory evidence of residual/domain sensitivity only. All four variants have zero full-target successes among these eight starts; no production fix is claimed.",
+  "DiagnosticProgramBuildAndExecution": "passed",
+  "DiagnosticWhitespaceFormat": "passed",
+  "GitDiffWhitespaceCheck": "passed",
+  "ExternalOpticStudioComparisonPerformed": false
+}

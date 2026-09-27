@@ -156,6 +156,25 @@ public sealed class PsfWorkingFNumberRegressionTests
         Assert.Contains(pane.Series, series => series.Name == "艾里斑");
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void OffAxisFftFrequencyGridIsReciprocalToThePhysicalImageSampling(bool tessar)
+    {
+        var optic = tessar ? Optic.CreateTessarLens() : Optic.CreateCookeTriplet();
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wave, 16, 32);
+        var mtf = DiffractionEngine.ComputeFftMtf(psf, optic, wave);
+        // Independent DFT dual-grid identity: frequency bin = k / (N * image pitch).
+        var period = psf.GridSize * psf.SampleSpacingMicrometers * 1e-3;
+        for (var index = 0; index < mtf.Frequency.Count; index++)
+            Assert.Equal(index / period, mtf.Frequency[index], 10);
+        Assert.Equal((psf.PupilSampling - 1) / period, mtf.CutoffFrequency, 10);
+        var data = new MtfAnalysis(optic, numRays: 16, gridSize: 32).GenerateData();
+        Assert.Equal(mtf.Frequency, data.PlotSeries[^2].Points.Select(point => point.X));
+        Assert.Equal(mtf.CutoffFrequency, data.PlotOptions!.XMaximum);
+    }
+
     private static Optic Import(string name) => OpticalFormatCatalog.Import(
         File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
 }
